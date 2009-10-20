@@ -21,7 +21,7 @@ int keyoffset=0;
 GameConfiguration config;
 bool timeToReloadSegment;
 
-bool IDisWall(int in){
+inline bool IDisWall(int in){
   switch( in ){
     case ID_METALWALL:
     case ID_WOODWALL:
@@ -29,10 +29,10 @@ bool IDisWall(int in){
       break;
   }
   //if not a custom type, do a lookup in dfHack's interface
-  return isWallTerrain( in );;
+  return isWallTerrain( in );
 }
 
-bool IDisFloor(int in){
+inline bool IDisFloor(int in){
   switch( in ){
     case ID_METALFLOOR:
     case ID_WOODFLOOR:
@@ -160,7 +160,7 @@ void ReadCellToSegment(DFHackAPI& DF, DisplaySegment& segment, int CellX, int Ce
        b->y == segment.y + segment.sizey - 1))
     {
       b->wallType = 0;
-      b->building.type = BUILDINGTYPE_BED;
+      b->building.type = BUILDINGTYPE_TABLE;
       b->overridingBuildingType = SPRITEOBJECT_BLACK;
       shouldBeIncluded= true;
     }
@@ -273,6 +273,8 @@ DisplaySegment* ReadMapSegment(int x, int y, int z, int sizex, int sizey, int si
 
       //add edges to blocks and floors
       if( b->floorType > 0 ){
+        Block* westBlock = segment->getBlock(b->x - 1, b->y, b->z);
+        Block* northBlock = segment->getBlock(b->x, b->y - 1, b->z);
         if(!segment->getBlock(b->x - 1, b->y, b->z)) 
           b->depthBorderWest = true;
         if(!segment->getBlock(b->x, b->y - 1, b->z)) 
@@ -313,8 +315,41 @@ void reloadDisplayedSegment(){
 		config.segmentSize.x,config.segmentSize.y,segmentHeight);
 }
 
+
+void xmltest();
 int main(void)
 {	
+  //xmltest();
+
+  BuildingConfiguration s("Still", 34);
+  ConditionalSprite stillCorner;
+  stillCorner.spriteIndex = SPRITEOBJECT_COLUMN;
+  stillCorner.cPositionIndex = 0;
+  s.sprites.push_back(stillCorner);
+  
+  ConditionalSprite stillNormal;
+  stillNormal.spriteIndex = SPRITEOBJECT_PAVEDFLOOR;
+  s.sprites.push_back(stillNormal);
+  buildingTypes.push_back(s);
+
+
+  BuildingConfiguration b("Bed", 5);
+  ConditionalSprite bedNormal;
+  bedNormal.spriteIndex = SPRITEOBJECT_BED_WOOD;
+  b.sprites.push_back(bedNormal);
+  buildingTypes.push_back(b);
+
+  
+  BuildingConfiguration d("Door", 8);
+  ConditionalSprite doorMirrored;
+  doorMirrored.cNeighbourHasWall = eSimpleN;
+  doorMirrored.spriteIndex = SPRITEOBJECT_DOORROCK_MIR;
+  d.sprites.push_back(doorMirrored);
+  ConditionalSprite doorNormal;
+  doorNormal.spriteIndex = SPRITEOBJECT_DOORROCK;
+  d.sprites.push_back( doorNormal );
+  buildingTypes.push_back(d);
+  //return 0;
 
 	allegro_init();
   install_keyboard();
@@ -384,7 +419,7 @@ int main(void)
 
   //DisplayedSegmentX = 227; DisplayedSegmentY = 158;DisplayedSegmentZ = 19;
 
-  DisplayedSegmentX = 91; DisplayedSegmentY = 106;DisplayedSegmentZ = 18;
+  DisplayedSegmentX = 91; DisplayedSegmentY = 56;DisplayedSegmentZ = 18;
 
   #ifdef RELEASE
   DisplayedSegmentX = 0; DisplayedSegmentY = 0;DisplayedSegmentZ = 15;
@@ -396,7 +431,6 @@ int main(void)
 	paintboard();
 	while(!key[KEY_ESC]){
 		rest(30);
-		//readkey();
     if( timeToReloadSegment ){
       reloadDisplayedSegment();
       paintboard();

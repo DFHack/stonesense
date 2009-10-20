@@ -1,7 +1,7 @@
 #pragma once
 
 #include "common.h"
-
+#include "BuildingConfiguration.h"
 
 
 enum BuildingTypes{
@@ -31,27 +31,6 @@ enum BuildingTypes{
 
 
 
-enum dirTypes{
-  eSimpleSingle,
-  eSimpleN,
-  eSimpleW,
-  eSimpleS,
-  eSimpleE,
-  eSimpleNnS,
-  eSimpleWnE,
-
-  eSimpleNnW,
-  eSimpleSnW,
-  eSimpleSnE,
-  eSimpleNnE,
-
-  eSimpleNnEnS,
-  eSimpleNnEnW,
-  eSimpleNnWnS,
-  eSimpleWnSnE,
-
-  eSimpleNnWnSnE
-};
 
 
 
@@ -66,3 +45,6 @@ void ReadBuildings(DFHackAPI& DF, vector<t_building>* buildingHolder);
 bool BlockHasSuspendedBuilding(vector<t_building>* buildingList, Block* b);
 
 dirTypes findWallCloseTo(DisplaySegment* segment, Block* b);
+
+
+extern vector<BuildingConfiguration> buildingTypes;

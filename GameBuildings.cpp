@@ -2,7 +2,9 @@
 #include "GUI.h"
 #include "SpriteMaps.h"
 #include "GameBuildings.h"
+#include "BuildingConfiguration.h"
 
+vector<BuildingConfiguration> buildingTypes;
 
 void loadSpecialBuildingTypes (DisplaySegment* segment, Block* b, uint32_t relativex, uint32_t relativey, uint32_t height);
 
@@ -125,6 +127,25 @@ int layoutCarpenter[] = {
 };
 
 
+void loadSpecialBuildingTypes1 (DisplaySegment* segment, Block* b, uint32_t relativex, uint32_t relativey, uint32_t height){
+  uint32_t i,j;
+
+  for(i = 0; i < buildingTypes.size(); i++){
+    BuildingConfiguration& conf = buildingTypes[i];
+    if(b->building.type != conf.gameID) continue;
+
+    //check all sprites for one that matches all conditions
+    
+    for(j = 0; j < conf.sprites.size(); j++){
+      if(conf.sprites[j].BlockMatches(b)){
+        b->overridingBuildingType = conf.sprites[j].spriteIndex;
+        return;
+      }
+    }
+
+    
+  }
+}
 
 
 void loadSpecialBuildingTypes (DisplaySegment* segment, Block* b, uint32_t relativex, uint32_t relativey, uint32_t height){
@@ -192,7 +213,9 @@ void loadSpecialBuildingTypes (DisplaySegment* segment, Block* b, uint32_t relat
 
 
 int getBuildingSprite(t_building &building, bool mirrored){
-  
+  //return SPRITEOBJECT_NA;
+
+
   switch(building.type){
   case BUILDINGTYPE_DOOR:
     if(building.material.type == Mat_Wood) {
@@ -257,14 +280,17 @@ int getBuildingSprite(t_building &building, bool mirrored){
   return SPRITEOBJECT_NA;
 }
 
-
+/*TODO: this function takes a massive amount of work, looping all buildings for every block*/
 bool BlockHasSuspendedBuilding(vector<t_building>* buildingList, Block* b){
   for(uint32_t i=0; i < buildingList->size(); i++){
     t_building* building = &(*buildingList)[i];
+
+    //boundry check
+    if(b->z != building->z) continue;
+    if(b->x < building->x1  ||   b->x > building->x2) continue;
+    if(b->y < building->y1  ||   b->y > building->y2) continue;
+
     if(building->type == BUILDINGTYPE_BRIDGE){
-      if(b->z == building->z)
-      if(b->x >= building->x1  &&   b->x <= building->x2)
-      if(b->y >= building->y1  &&   b->y <= building->y2)
         return true;
     }
     if(building->type == BUILDINGTYPE_ZONE)

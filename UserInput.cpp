@@ -22,37 +22,30 @@ void doKeys(){
   char stepsize = (key[KEY_LSHIFT] || key[KEY_RSHIFT] ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
   if(key[KEY_UP]){
 		DisplayedSegmentY-=stepsize;
-		reloadDisplayedSegment();
-		paintboard();
+		timeToReloadSegment = true;
 	}
 	if(key[KEY_DOWN]){
 		DisplayedSegmentY+=stepsize;
-		reloadDisplayedSegment();
-		paintboard();
+		timeToReloadSegment = true;
 	}
 	if(key[KEY_LEFT]){
 		DisplayedSegmentX-=stepsize;
-		reloadDisplayedSegment();
-		paintboard();
+		timeToReloadSegment = true;
 	}
 	if(key[KEY_RIGHT]){
 		DisplayedSegmentX+=stepsize;
-		reloadDisplayedSegment();
-		paintboard();
+		timeToReloadSegment = true;
 	}
 	if(key[KEY_PGDN] || key[KEY_9]){
 		DisplayedSegmentZ--;
-		reloadDisplayedSegment();
-		paintboard();
+		timeToReloadSegment = true;
 	}
 	if(key[KEY_PGUP] || key[KEY_0]){
 		DisplayedSegmentZ++;
-		reloadDisplayedSegment();
-		paintboard();
+		timeToReloadSegment = true;
 	}
 	if(key[KEY_R]){
-		reloadDisplayedSegment();
-		paintboard();
+		timeToReloadSegment = true;
 	}
 	if(key[KEY_D]){
 		paintboard();
@@ -65,26 +58,22 @@ void doKeys(){
 	}
   if(key[KEY_U]){
 		config.show_stockpiles = !config.show_stockpiles;
-    reloadDisplayedSegment();
-		paintboard();
+    timeToReloadSegment = true;
 		while(key[KEY_U]);
 	}
   if(key[KEY_I]){
 		config.show_zones = !config.show_zones;
-    reloadDisplayedSegment();
-		paintboard();
+    timeToReloadSegment = true;
 		while(key[KEY_I]);
 	}
   if(key[KEY_S]){
 		config.single_layer_view = !config.single_layer_view;
-    reloadDisplayedSegment();
-		paintboard();
+    timeToReloadSegment = true;
 		while(key[KEY_S]);
 	}
   if(key[KEY_B]){
     config.shade_hidden_blocks = !config.shade_hidden_blocks;
-    reloadDisplayedSegment();
-		paintboard();
+    timeToReloadSegment = true;
 	}
   if(key[KEY_F5]){
     while(key[KEY_F5]);

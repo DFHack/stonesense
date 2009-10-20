@@ -15,6 +15,10 @@ using namespace std;
 //#define RELEASE
 #define DEBUG
 
+#define null 0
+
+#define INVALID_INDEX -1
+
 
 #define GFXMODE GFX_AUTODETECT_WINDOWED
 #define FULLSCREEN false
@@ -70,6 +74,29 @@ enum material{
 	MAT_FLINT = 136,
   MAT_TALC = 171,
 
+};
+
+enum dirTypes{
+  eSimpleInvalid = -1,
+  eSimpleSingle,
+  eSimpleN,
+  eSimpleW,
+  eSimpleS,
+  eSimpleE,
+  eSimpleNnS,
+  eSimpleWnE,
+
+  eSimpleNnW,
+  eSimpleSnW,
+  eSimpleSnE,
+  eSimpleNnE,
+
+  eSimpleNnEnS,
+  eSimpleNnEnW,
+  eSimpleNnWnS,
+  eSimpleWnSnE,
+
+  eSimpleNnWnSnE
 };
 
 //class DisplaySegment;

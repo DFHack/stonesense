@@ -201,6 +201,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\BuildingConfiguration.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\ConditionalSprite.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Config.cpp"
 				>
 			</File>
@@ -287,7 +295,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\BuildingConfiguration.h"
+				>
+			</File>
+			<File
 				RelativePath=".\common.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ConditionalSprite.h"
 				>
 			</File>
 			<File
