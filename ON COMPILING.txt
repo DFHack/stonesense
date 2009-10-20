@@ -1,0 +1,10 @@
+There are ten thousand things to say here, and I'll get into more details later,
+but for now; This project aint all that compiler friendly yet.
+I'm just getting the project out there, so the public light will force me to tidy up stuff.
+
+
+1 - You will need Allegro, the graphics library we use. Get it at http://alleg.sourceforge.net/
+
+2 - I've only tested it with MSVS 2005
+
+3 - It includes a partially mangled version of dfHack. It should work, but a more elegant solution is in the works. 
