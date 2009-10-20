@@ -266,8 +266,9 @@ bool BlockHasSuspendedBuilding(vector<t_building>* buildingList, Block* b){
       if(b->x >= building->x1  &&   b->x <= building->x2)
       if(b->y >= building->y1  &&   b->y <= building->y2)
         return true;
-
     }
+    if(building->type == BUILDINGTYPE_ZONE)
+      return true;
   }
   return false;
 }
