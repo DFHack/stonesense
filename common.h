@@ -17,7 +17,7 @@ using namespace std;
 
 
 #define GFXMODE GFX_AUTODETECT_WINDOWED
-#define FULLSCREEN true
+#define FULLSCREEN false
 #define RESOLUTION_WIDTH 800
 #define RESOLUTION_HEIGHT 600
 #define TILEWIDTH 32
