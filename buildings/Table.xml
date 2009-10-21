@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+
+
+
+<Building name="Table" gameID=45> 
+	
+
+	
+	<Sprite sheetIndex = 82>
+		<Condition type="MaterialType" value="Wood" />
+	</Sprite>	
+	
+	<Sprite sheetIndex = 83>
+			
+	</Sprite>
+	
+</Building> 

@@ -127,7 +127,7 @@ int layoutCarpenter[] = {
 };
 
 
-void loadSpecialBuildingTypes1 (DisplaySegment* segment, Block* b, uint32_t relativex, uint32_t relativey, uint32_t height){
+void loadSpecialBuildingTypes (DisplaySegment* segment, Block* b, uint32_t relativex, uint32_t relativey, uint32_t height){
   uint32_t i,j;
 
   for(i = 0; i < buildingTypes.size(); i++){
@@ -148,7 +148,7 @@ void loadSpecialBuildingTypes1 (DisplaySegment* segment, Block* b, uint32_t rela
 }
 
 
-void loadSpecialBuildingTypes (DisplaySegment* segment, Block* b, uint32_t relativex, uint32_t relativey, uint32_t height){
+void loadSpecialBuildingTypes2 (DisplaySegment* segment, Block* b, uint32_t relativex, uint32_t relativey, uint32_t height){
 
   int* buildingInfoArray = 0;
   int arrayIndex;
@@ -213,7 +213,7 @@ void loadSpecialBuildingTypes (DisplaySegment* segment, Block* b, uint32_t relat
 
 
 int getBuildingSprite(t_building &building, bool mirrored){
-  //return SPRITEOBJECT_NA;
+  return SPRITEOBJECT_NA;
 
 
   switch(building.type){

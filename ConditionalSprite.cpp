@@ -8,7 +8,8 @@ ConditionalSprite::ConditionalSprite(void)
 {
   memset(this, 0, sizeof(ConditionalSprite));
   //
-  cMaterial = INVALID_INDEX;
+  cMaterialType = INVALID_INDEX;
+  cMaterialIndex = INVALID_INDEX;
   cPositionIndex = INVALID_INDEX;
   cNeighbourHasWall = eSimpleInvalid;
 }
@@ -22,10 +23,8 @@ bool ConditionalSprite::matchPosition(Block *b){
   return pos == cPositionIndex;
 }
 
-bool ConditionalSprite::matchMaterial(Block *b){
-  bool material = false;
-  material = b->building.material.index == cMaterial;
-  return true;
+bool ConditionalSprite::matchMaterialType(Block *b){
+  return b->building.material.type == cMaterialType;
 }
 
 
@@ -36,8 +35,8 @@ bool ConditionalSprite::matchNeighbourHasWall(Block *b){
 }
 bool ConditionalSprite::BlockMatches(Block* b){
   bool okSoFar = true;
-  if(cMaterial != INVALID_INDEX){
-    if( !this->matchMaterial(b) ) okSoFar = false;
+  if(cMaterialType != INVALID_INDEX){
+    if( !this->matchMaterialType(b) ) okSoFar = false;
   }
   if(cPositionIndex != INVALID_INDEX){
     if( !this->matchPosition(b) ) okSoFar = false;

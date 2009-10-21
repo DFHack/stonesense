@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+
+
+
+<Building name="Still" gameID=34> 
+	<Sprite sheetIndex = 141>
+		<Condition type="PositionIndex" value=0 />
+	</Sprite>
+
+	<Sprite sheetIndex = 140 />
+	
+</Building> 

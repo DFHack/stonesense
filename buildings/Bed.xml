@@ -1,0 +1,8 @@
+<?xml version="1.0" ?>
+
+
+
+<Building name="Bed" gameID=5> 
+	<Sprite sheetIndex = 81 />
+	
+</Building> 

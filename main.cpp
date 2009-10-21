@@ -319,7 +319,7 @@ void reloadDisplayedSegment(){
 void xmltest();
 int main(void)
 {	
-  //xmltest();
+  /*xmltest();
 
   BuildingConfiguration s("Still", 34);
   ConditionalSprite stillCorner;
@@ -350,7 +350,7 @@ int main(void)
   d.sprites.push_back( doorNormal );
   buildingTypes.push_back(d);
   //return 0;
-
+*/
 	allegro_init();
   install_keyboard();
   //install_mouse();
@@ -367,6 +367,8 @@ int main(void)
   config.segmentSize.z = DEFAULT_SEGMENTSIZE_Z;
   loadConfigFile();
   
+  //load building configuration information from xml files
+  LoadBuildingConfiguration( &buildingTypes );
 
 	set_color_depth(16);
   int gfxMode = config.Fullscreen ? GFX_AUTODETECT : GFX_AUTODETECT_WINDOWED;
@@ -419,7 +421,7 @@ int main(void)
 
   //DisplayedSegmentX = 227; DisplayedSegmentY = 158;DisplayedSegmentZ = 19;
 
-  DisplayedSegmentX = 91; DisplayedSegmentY = 56;DisplayedSegmentZ = 18;
+  DisplayedSegmentX = 80; DisplayedSegmentY = 56;DisplayedSegmentZ = 18;
 
   #ifdef RELEASE
   DisplayedSegmentX = 0; DisplayedSegmentY = 0;DisplayedSegmentZ = 15;

@@ -236,6 +236,10 @@
 				RelativePath=".\UserInput.cpp"
 				>
 			</File>
+			<File
+				RelativePath=".\xmlBuildingReader.cpp"
+				>
+			</File>
 			<Filter
 				Name="dfHack"
 				>

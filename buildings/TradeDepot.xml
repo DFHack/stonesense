@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+
+
+
+<Building name="Trade Depot" gameID=62> 
+	<Sprite sheetIndex = 141>
+		<Condition type="PositionIndex" value=0 />
+	</Sprite>
+	<Sprite sheetIndex = 141>
+		<Condition type="PositionIndex" value=4 />
+	</Sprite>
+	<Sprite sheetIndex = 141>
+		<Condition type="PositionIndex" value=12 />
+	</Sprite>
+	<Sprite sheetIndex = 141>
+		<Condition type="PositionIndex" value=24 />
+	</Sprite>
+	<Sprite sheetIndex = 141>
+		<Condition type="PositionIndex" value=20 />
+	</Sprite>
+
+	<Sprite sheetIndex = 140 />
+	
+</Building> 
