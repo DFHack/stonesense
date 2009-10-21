@@ -31,6 +31,8 @@ void parseConditionToSprite(ConditionalSprite& sprite, const char* strType, cons
       cond.value = Mat_Wood;
     if( strcmp(strValue, "Stone") == 0)
       cond.value = Mat_Stone;
+    if( strcmp(strValue, "Metal") == 0)
+      cond.value = Mat_Metal;
 
     sprite.conditions.push_back( cond );
   }

@@ -5,6 +5,7 @@ Bed.xml
 
 Door.xml
 
+Road.xml
 Statue.xml
 Still.xml
 
@@ -12,3 +13,5 @@ Table.xml
 TradeDepot.xml
 
 Pump.xml
+
+VerticalBars.xml

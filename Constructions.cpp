@@ -37,7 +37,7 @@ void changeConstructionMaterials(DisplaySegment* segment, Block* b, vector<t_con
 			//case Trey_Parker:
 				break;
 
-      case 2:
+      case Mat_Metal:
         b->floorType = ID_METALFLOOR;
 		}
 

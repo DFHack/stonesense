@@ -136,16 +136,17 @@ void Block::Draw(BITMAP* target){
     int spriteNum =  GetWallSpriteMap(wallType);
 		int sheetx = spriteNum % SHEET_OBJECTSWIDE;
 		int sheety = spriteNum / SHEET_OBJECTSWIDE;
+    //draw wall
 	  masked_blit(IMGStairSheet, target,
       sheetx * SPRITEWIDTH, sheety * SPRITEHEIGHT,
       drawx,drawy - (WALLHEIGHT), SPRITEWIDTH, SPRITEHEIGHT);
 
     drawy -= (WALLHEIGHT);
-    //Northern frame
+    //Northern border
     if(this->depthBorderNorth)
       line(target, drawx + (TILEWIDTH>>1), drawy, drawx+TILEWIDTH-1, drawy+(TILEHEIGHT>>1)-1, tileBorderColor);
 
-    //Western frame
+    //Western border
     if(this->depthBorderWest)
       line(target, drawx, drawy+(TILEHEIGHT>>1)-1, drawx+(TILEWIDTH>>1)-1, drawy, tileBorderColor);
 	}

@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+
+
+
+<Building name="Vertical Bars" gameID=13> 
+	
+	
+	
+	<Sprite sheetIndex=101>
+		<Condition type="NeighbourWall" value="North" />
+	</Sprite>
+	<Sprite sheetIndex=101>
+		<Condition type="NeighbourWall" value="South" />
+	</Sprite>
+	
+	<Sprite sheetIndex = 100>
+			
+	</Sprite>
+	
+</Building> 

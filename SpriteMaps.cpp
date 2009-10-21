@@ -520,7 +520,8 @@ int GetRampMaterialTypeMap(int in){
 
 int GetWallSpriteVegitation( int type, int index , int x, int y){
   switch(type){
-  case 0:
+  case 0: //healthy trees
+  case 1: //trees by water??
     switch(index){
       case 1://SAGUARO
         return SPRITEOBJECT_CACTUS;
@@ -559,8 +560,6 @@ int GetWallSpriteVegitation( int type, int index , int x, int y){
         return SPRITEOBJECT_TREE_BROADLEAF;
     }
     break;
-  case 1:
-    
   case 2:
     return SPRITEOBJECT_SHRUB;
     break;

@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+
+
+
+<Building name="Paved Road" gameID=46> 
+	<Sprite sheetIndex = 140>
+		<Condition type="MaterialType" value="Metal" />
+	</Sprite>
+
+	<Sprite sheetIndex = 140 />
+	
+</Building> 
