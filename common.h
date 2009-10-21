@@ -68,6 +68,9 @@ typedef struct {
 
 } GameConfiguration;
 
+// normal tree = 0
+// tree by water or something = 1
+// Shrub = 2
 enum material{
   MAT_WILLOW = 9, 
   MAT_DOLOMITE = 135,

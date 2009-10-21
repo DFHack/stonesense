@@ -249,6 +249,7 @@ DisplaySegment* ReadMapSegment(int x, int y, int z, int sizex, int sizey, int si
 	while(index < numtrees )
 	{
 		DF.ReadVegetation(index, temptree);
+
     GetWallSpriteVegitation(temptree.material.type, temptree.material.index, -1,-1);
 		//want hashtable :(
 		Block* b;
@@ -319,38 +320,6 @@ void reloadDisplayedSegment(){
 void xmltest();
 int main(void)
 {	
-  /*xmltest();
-
-  BuildingConfiguration s("Still", 34);
-  ConditionalSprite stillCorner;
-  stillCorner.spriteIndex = SPRITEOBJECT_COLUMN;
-  stillCorner.cPositionIndex = 0;
-  s.sprites.push_back(stillCorner);
-  
-  ConditionalSprite stillNormal;
-  stillNormal.spriteIndex = SPRITEOBJECT_PAVEDFLOOR;
-  s.sprites.push_back(stillNormal);
-  buildingTypes.push_back(s);
-
-
-  BuildingConfiguration b("Bed", 5);
-  ConditionalSprite bedNormal;
-  bedNormal.spriteIndex = SPRITEOBJECT_BED_WOOD;
-  b.sprites.push_back(bedNormal);
-  buildingTypes.push_back(b);
-
-  
-  BuildingConfiguration d("Door", 8);
-  ConditionalSprite doorMirrored;
-  doorMirrored.cNeighbourHasWall = eSimpleN;
-  doorMirrored.spriteIndex = SPRITEOBJECT_DOORROCK_MIR;
-  d.sprites.push_back(doorMirrored);
-  ConditionalSprite doorNormal;
-  doorNormal.spriteIndex = SPRITEOBJECT_DOORROCK;
-  d.sprites.push_back( doorNormal );
-  buildingTypes.push_back(d);
-  //return 0;
-*/
 	allegro_init();
   install_keyboard();
   //install_mouse();
@@ -421,7 +390,8 @@ int main(void)
 
   //DisplayedSegmentX = 227; DisplayedSegmentY = 158;DisplayedSegmentZ = 19;
 
-  DisplayedSegmentX = 80; DisplayedSegmentY = 56;DisplayedSegmentZ = 18;
+  //DisplayedSegmentX = 80; DisplayedSegmentY = 56;DisplayedSegmentZ = 18;
+  
 
   #ifdef RELEASE
   DisplayedSegmentX = 0; DisplayedSegmentY = 0;DisplayedSegmentZ = 15;

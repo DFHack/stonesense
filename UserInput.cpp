@@ -66,6 +66,16 @@ void doKeys(){
     timeToReloadSegment = true;
 		while(key[KEY_I]);
 	}
+  if(key[KEY_1]){
+    config.segmentSize.z--;
+    if(config.segmentSize.z <= 0) config.segmentSize.z = 1;
+    timeToReloadSegment = true;
+	}
+  if(key[KEY_2]){
+    config.segmentSize.z++;
+    //add a limit?
+    timeToReloadSegment = true;
+	}
   if(key[KEY_S]){
 		config.single_layer_view = !config.single_layer_view;
     timeToReloadSegment = true;
