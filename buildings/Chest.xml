@@ -1,0 +1,8 @@
+<?xml version="1.0" ?>
+
+
+
+<Building name="Chest" gameID=16> 
+	<Sprite sheetIndex =89 />
+	
+</Building> 

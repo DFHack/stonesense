@@ -1,0 +1,8 @@
+<?xml version="1.0" ?>
+
+
+
+<Building name="Statue" gameID=44> 
+	<Sprite sheetIndex = 86 />
+	
+</Building> 

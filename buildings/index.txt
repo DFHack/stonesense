@@ -1,10 +1,13 @@
+Cabinet.xml
 Chair.xml
+Chest.xml
 Bed.xml
 
 Door.xml
 
-
+Statue.xml
 Still.xml
+
 Table.xml
 TradeDepot.xml
 

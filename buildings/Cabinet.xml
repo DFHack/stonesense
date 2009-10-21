@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+
+
+
+<Building name="Cabinet" gameID=15> 
+
+	<Sprite sheetIndex = 88>
+		<Condition type="MaterialType" value="Wood" />
+	</Sprite>	
+	
+	<Sprite sheetIndex = 87>
+			
+	</Sprite>
+	
+</Building> 
