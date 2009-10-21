@@ -201,6 +201,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\BlockCondition.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\BuildingConfiguration.cpp"
 				>
 			</File>
@@ -296,6 +300,10 @@
 			>
 			<File
 				RelativePath=".\Block.h"
+				>
+			</File>
+			<File
+				RelativePath=".\BlockCondition.h"
 				>
 			</File>
 			<File

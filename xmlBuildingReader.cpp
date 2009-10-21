@@ -4,30 +4,42 @@
 
 #include "common.h"
 #include "BuildingConfiguration.h"
+#include "BlockCondition.h"
 #include "dfhack/library/tinyxml/tinyxml.h"
 
 
 void parseConditionToSprite(ConditionalSprite& sprite, const char* strType, const char* strValue){
   if( strcmp(strType, "NeighbourWall") == 0){
+    BlockCondition cond( Cond_NeighbourWall );
+    if( strcmp(strValue, "None") == 0)
+      cond.value = eSimpleSingle;
     if( strcmp(strValue, "North") == 0)
-      sprite.cNeighbourHasWall = eSimpleN;
+      cond.value = eSimpleN;
     if( strcmp(strValue, "South") == 0)
-      sprite.cNeighbourHasWall = eSimpleS;
+      cond.value = eSimpleS;
     if( strcmp(strValue, "West") == 0)
-      sprite.cNeighbourHasWall = eSimpleW;
+      cond.value = eSimpleW;
     if( strcmp(strValue, "East") == 0)
-      sprite.cNeighbourHasWall = eSimpleE;
+      cond.value = eSimpleE;
+
+    sprite.conditions.push_back( cond );
   }
 
   if( strcmp(strType, "MaterialType") == 0){
+    BlockCondition cond( Cond_MaterialType );
     if( strcmp(strValue, "Wood") == 0)
-      sprite.cMaterialType = Mat_Wood;
+      cond.value = Mat_Wood;
     if( strcmp(strValue, "Stone") == 0)
-      sprite.cMaterialType = Mat_Stone;
+      cond.value = Mat_Stone;
+
+    sprite.conditions.push_back( cond );
   }
 
   if( strcmp(strType, "PositionIndex") == 0){
-     sprite.cPositionIndex = atoi( strValue );
+    BlockCondition cond( Cond_PositionIndex );
+     cond.value = atoi( strValue );
+
+     sprite.conditions.push_back( cond );
   }
 }
 
