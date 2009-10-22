@@ -2,7 +2,7 @@
 
 
 
-<Building name="Trade Depot" gameID=62> 
+<Building name="Trade Depot" gameID=63> 
 	<Sprite sheetIndex = 141>
 		<Condition type="PositionIndex" value=0 />
 	</Sprite>

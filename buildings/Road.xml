@@ -2,7 +2,7 @@
 
 
 
-<Building name="Paved Road" gameID=46> 
+<Building name="Paved Road" gameID=47> 
 	<Sprite sheetIndex = 140>
 		<Condition type="MaterialType" value="Metal" />
 	</Sprite>
