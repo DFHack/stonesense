@@ -34,17 +34,17 @@ enum BuildingTypes{
 
 
 
-int BlockNeighbourhoodType_simple(DisplaySegment* segment, Block* b, bool validationFuctionProc(Block*) );
+int BlockNeighbourhoodType_simple(WorldSegment* segment, Block* b, bool validationFuctionProc(Block*) );
 
 
 
 int getBuildingSprite(t_building &building, bool mirrored);
-void ReadBuildingsToSegment(DFHackAPI& DF, DisplaySegment* segment);
-void MergeBuildingsToSegment(vector<t_building>* buildings, DisplaySegment* segment);
+void ReadBuildingsToSegment(DFHackAPI& DF, WorldSegment* segment);
+void MergeBuildingsToSegment(vector<t_building>* buildings, WorldSegment* segment);
 void ReadBuildings(DFHackAPI& DF, vector<t_building>* buildingHolder);
 bool BlockHasSuspendedBuilding(vector<t_building>* buildingList, Block* b);
 
-dirTypes findWallCloseTo(DisplaySegment* segment, Block* b);
+dirTypes findWallCloseTo(WorldSegment* segment, Block* b);
 
 
 extern vector<BuildingConfiguration> buildingTypes;

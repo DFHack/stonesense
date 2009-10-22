@@ -1,14 +1,14 @@
 #include "common.h"
-#include "GUI.h"
+#include "WorldSegment.h"
 #include "SpriteMaps.h"
 #include "GameBuildings.h"
 #include "BuildingConfiguration.h"
 
 vector<BuildingConfiguration> buildingTypes;
 
-void loadSpecialBuildingTypes (DisplaySegment* segment, Block* b, uint32_t relativex, uint32_t relativey, uint32_t height);
+void loadSpecialBuildingTypes (WorldSegment* segment, Block* b, uint32_t relativex, uint32_t relativey, uint32_t height);
 
-int BlockNeighbourhoodType_simple(DisplaySegment* segment, Block* b, bool validationFuctionProc(Block*) ){
+int BlockNeighbourhoodType_simple(WorldSegment* segment, Block* b, bool validationFuctionProc(Block*) ){
   uint32_t x,y,z;
   x = b->x; y = b->y; z = b->z;
 
@@ -50,7 +50,7 @@ bool blockHasBridge(Block* b){
   return b->building.type == BUILDINGTYPE_BRIDGE;
 }
 
-dirTypes findWallCloseTo(DisplaySegment* segment, Block* b){
+dirTypes findWallCloseTo(WorldSegment* segment, Block* b){
   uint32_t x,y,z;
   x = b->x; y = b->y; z = b->z;
   bool n = hasWall( segment->getBlock( x, y-1, z) );
@@ -82,7 +82,7 @@ void ReadBuildings(DFHackAPI& DF, vector<t_building>* buildingHolder){
 }
 
 
-void MergeBuildingsToSegment(vector<t_building>* buildings, DisplaySegment* segment){
+void MergeBuildingsToSegment(vector<t_building>* buildings, WorldSegment* segment){
 	t_building tempbuilding;
 
 	uint32_t index = 0;
@@ -107,27 +107,8 @@ void MergeBuildingsToSegment(vector<t_building>* buildings, DisplaySegment* segm
 	
 }
 
-int layoutTradeDepot[] = {
-	SPRITEOBJECT_COLUMN,SPRITEOBJECT_PAVEDFLOOR,SPRITEOBJECT_PAVEDFLOOR,SPRITEOBJECT_PAVEDFLOOR,SPRITEOBJECT_COLUMN,
-	SPRITEOBJECT_PAVEDFLOOR,SPRITEOBJECT_PAVEDFLOOR,SPRITEOBJECT_PAVEDFLOOR,SPRITEOBJECT_PAVEDFLOOR,SPRITEOBJECT_PAVEDFLOOR,
-	SPRITEOBJECT_PAVEDFLOOR,SPRITEOBJECT_PAVEDFLOOR,SPRITEOBJECT_COLUMN,SPRITEOBJECT_PAVEDFLOOR,SPRITEOBJECT_PAVEDFLOOR,
-	SPRITEOBJECT_PAVEDFLOOR,SPRITEOBJECT_PAVEDFLOOR,SPRITEOBJECT_PAVEDFLOOR,SPRITEOBJECT_PAVEDFLOOR,SPRITEOBJECT_PAVEDFLOOR,
-	SPRITEOBJECT_COLUMN,SPRITEOBJECT_PAVEDFLOOR,SPRITEOBJECT_PAVEDFLOOR,SPRITEOBJECT_PAVEDFLOOR,SPRITEOBJECT_COLUMN
-};
-int layoutStill[] = {
-	SPRITEOBJECT_COLUMN,SPRITEOBJECT_STATUE,SPRITEOBJECT_STATUE,
-	SPRITEOBJECT_PAVEDFLOOR,SPRITEOBJECT_PAVEDFLOOR,SPRITEOBJECT_PAVEDFLOOR,
-  SPRITEOBJECT_PAVEDFLOOR,SPRITEOBJECT_PAVEDFLOOR,SPRITEOBJECT_PAVEDFLOOR,
-};
 
-int layoutCarpenter[] = {
-	SPRITEOBJECT_PAVEDFLOOR,SPRITEOBJECT_PAVEDFLOOR,SPRITEOBJECT_PAVEDFLOOR,
-	SPRITEOBJECT_TABLE_WOOD,SPRITEOBJECT_PAVEDFLOOR,SPRITEOBJECT_PAVEDFLOOR,
-  SPRITEOBJECT_TABLE_WOOD,SPRITEOBJECT_PAVEDFLOOR,SPRITEOBJECT_TABLE_WOOD,
-};
-
-
-void loadSpecialBuildingTypes (DisplaySegment* segment, Block* b, uint32_t relativex, uint32_t relativey, uint32_t height){
+void loadSpecialBuildingTypes (WorldSegment* segment, Block* b, uint32_t relativex, uint32_t relativey, uint32_t height){
   uint32_t i,j;
 
   for(i = 0; i < buildingTypes.size(); i++){
@@ -135,7 +116,6 @@ void loadSpecialBuildingTypes (DisplaySegment* segment, Block* b, uint32_t relat
     if(b->building.type != conf.gameID) continue;
 
     //check all sprites for one that matches all conditions
-    
     for(j = 0; j < conf.sprites.size(); j++){
       if(conf.sprites[j].BlockMatches(b)){
         b->overridingBuildingType = conf.sprites[j].spriteIndex;
@@ -147,8 +127,8 @@ void loadSpecialBuildingTypes (DisplaySegment* segment, Block* b, uint32_t relat
   }
 }
 
-
-void loadSpecialBuildingTypes2 (DisplaySegment* segment, Block* b, uint32_t relativex, uint32_t relativey, uint32_t height){
+/*
+void loadSpecialBuildingTypes2 (WorldSegment* segment, Block* b, uint32_t relativex, uint32_t relativey, uint32_t height){
 
   int* buildingInfoArray = 0;
   int arrayIndex;
@@ -164,11 +144,6 @@ void loadSpecialBuildingTypes2 (DisplaySegment* segment, Block* b, uint32_t rela
 
   case BUILDINGTYPE_TRADEDEPOT:
     buildingInfoArray = layoutTradeDepot;
-    //v = BlockNeighbourhoodType_simple(segment, b, &blockHasTradeDepot );
-    /*if(v)
-      b->overridingBuildingType = SPRITEOBJECT_COLUMN;
-    else
-      b->overridingBuildingType = SPRITEOBJECT_PAVEDFLOOR;*/
     break;
   case BUILDINGTYPE_W_STILL:
     //buildingInfoArray = layoutStill;
@@ -210,7 +185,7 @@ void loadSpecialBuildingTypes2 (DisplaySegment* segment, Block* b, uint32_t rela
   }
 }
 
-
+*/
 
 int getBuildingSprite(t_building &building, bool mirrored){
   return SPRITEOBJECT_NA;

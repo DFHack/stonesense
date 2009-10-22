@@ -1,6 +1,6 @@
 #include "BlockCondition.h"
 #include "GameBuildings.h"
-#include "GUI.h"
+#include "WorldSegment.h"
 
 BlockCondition::BlockCondition(BlockConditionTypes type)
 {

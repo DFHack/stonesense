@@ -38,6 +38,7 @@ void doKeys(){
 	}
 	if(key[KEY_PGDN] || key[KEY_9]){
 		DisplayedSegmentZ--;
+    if(DisplayedSegmentZ<0) DisplayedSegmentZ = 0;
 		timeToReloadSegment = true;
 	}
 	if(key[KEY_PGUP] || key[KEY_0]){

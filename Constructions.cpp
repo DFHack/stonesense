@@ -1,10 +1,10 @@
 #include "common.h"
 #include "SpriteMaps.h"
 #include "Constructions.h"
-#include "GUI.h"
+#include "WorldSegment.h"
 
 
-void changeConstructionMaterials(DisplaySegment* segment, Block* b, vector<t_construction>* allConstructions){
+void changeConstructionMaterials(WorldSegment* segment, Block* b, vector<t_construction>* allConstructions){
 	//find construction
 	uint32_t i;
 	t_construction* c;
@@ -78,7 +78,7 @@ void changeConstructionMaterials(DisplaySegment* segment, Block* b, vector<t_con
 
 
 
-bool IsConstruction(int in){
+bool IDisConstruction(int in){
   switch(in){
 		case 495: //constructed pillar    
 		case 496: //constructed wall rd2

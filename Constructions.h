@@ -2,6 +2,6 @@
 
 
 
-bool IsConstruction(int in);
+bool IDisConstruction(int in);
 
-void changeConstructionMaterials(DisplaySegment* segment, Block* b, vector<t_construction>* allConstructions);
+void changeConstructionMaterials(WorldSegment* segment, Block* b, vector<t_construction>* allConstructions);

@@ -2,15 +2,15 @@
 
 #include "common.h"
 
-class DisplaySegment;
+class WorldSegment;
 
 class Block
 {
 public:
-	Block(DisplaySegment* ownerSegment);
+	Block(WorldSegment* ownerSegment);
 	~Block(void);
 
-  DisplaySegment* ownerSegment;
+  WorldSegment* ownerSegment;
   
 	uint32_t x, y, z;
 	int floorType;

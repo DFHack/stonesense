@@ -233,11 +233,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\MapLoading.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\SpriteMaps.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\UserInput.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\WorldSegment.cpp"
 				>
 			</File>
 			<File
@@ -331,7 +339,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\MapLoading.h"
+				>
+			</File>
+			<File
 				RelativePath=".\SpriteMaps.h"
+				>
+			</File>
+			<File
+				RelativePath=".\WorldSegment.h"
 				>
 			</File>
 			<Filter

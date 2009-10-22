@@ -13,7 +13,7 @@ BITMAP* temptile=0;
 
 
 
-Block::Block(DisplaySegment* ownerSegment)
+Block::Block(WorldSegment* ownerSegment)
 {
   //clear out own memory
   memset(this, 0, sizeof(Block));

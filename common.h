@@ -1,4 +1,6 @@
 #pragma once
+#pragma warning( disable : 4312 )
+
 #include <assert.h>
 #include <vector>
 #include <allegro.h>
@@ -102,12 +104,10 @@ enum dirTypes{
   eSimpleNnWnSnE
 };
 
-//class DisplaySegment;
+//class WorldSegment;
 
 
 //main.cpp
-void reloadDisplayedSegment();
-void pointToScreen(int *inx, int *iny, int inz);
 void correctBlockForSegmetOffset(uint32_t& x, uint32_t& y, uint32_t& z);
 
 
