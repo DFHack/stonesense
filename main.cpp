@@ -250,7 +250,6 @@ DisplaySegment* ReadMapSegment(int x, int y, int z, int sizex, int sizey, int si
 	{
 		DF.ReadVegetation(index, temptree);
 
-    GetWallSpriteVegitation(temptree.material.type, temptree.material.index, -1,-1);
 		//want hashtable :(
 		Block* b;
 		if( b = segment->getBlock( temptree.x, temptree.y, temptree.z) )

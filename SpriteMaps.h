@@ -1,5 +1,7 @@
 #pragma once
 
+#include "common.h"
+
 
 enum enumFloorSprites{
 	SPRITEFLOOR_NA = 0,
@@ -29,6 +31,8 @@ enum enumFloorSprites{
   SPRITEOBJECT_TREE_CONIFER = 5,
   SPRITEOBJECT_CACTUS = 6,
 	SPRITEOBJECT_SHRUB = 7,
+  SPRITEOBJECT_SAPLING = 8,
+  SPRITEOBJECT_DEAD_TREE = 9,
 
 	SPRITEOBJECT_WATERLEVEL1 = 20,
 	SPRITEOBJECT_WATERLEVEL2 = 21,
@@ -171,5 +175,5 @@ int GetFloorSpriteMap(int in);
 int GetUpStairTypeMap(int in, bool mirrored);
 int GetDownStairTypeMap(int in);
 int GetRampMaterialTypeMap(int in);
-int GetWallSpriteVegitation( int type, int index , int x, int y);
+int GetWallSpriteVegitation( VegetationType type, int index);
 

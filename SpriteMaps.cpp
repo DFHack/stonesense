@@ -1,3 +1,4 @@
+#include "common.h"
 #include "SpriteMaps.h"
 
 
@@ -518,10 +519,9 @@ int GetRampMaterialTypeMap(int in){
 }
 
 
-int GetWallSpriteVegitation( int type, int index , int x, int y){
+int GetWallSpriteVegitation( VegetationType type, int index){
   switch(type){
-  case 0: //healthy trees
-  case 1: //trees by water??
+  case TREE_OK:
     switch(index){
       case 1://SAGUARO
         return SPRITEOBJECT_CACTUS;
@@ -560,9 +560,18 @@ int GetWallSpriteVegitation( int type, int index , int x, int y){
         return SPRITEOBJECT_TREE_BROADLEAF;
     }
     break;
-  case 2:
+  case TREE_DEAD:
+    return SPRITEOBJECT_DEAD_TREE;
+    break;
+  case SHRUB_DEAD:
+  case SHRUB_OK:
     return SPRITEOBJECT_SHRUB;
     break;
+  case SAPLING_DEAD:
+  case SAPLING_OK:
+    return SPRITEOBJECT_SAPLING;
+    break;
+
   }
 
 
