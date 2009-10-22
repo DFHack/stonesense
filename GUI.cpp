@@ -1,8 +1,6 @@
 #include <assert.h>
 #include <vector>
 
-#include <allegro.h>
-
 using namespace std;
 
 

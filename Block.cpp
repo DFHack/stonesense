@@ -1,5 +1,3 @@
-#include <allegro.h>
-
 #include "common.h"
 #include "GUI.h"
 #include "Block.h"

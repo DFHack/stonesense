@@ -1,7 +1,6 @@
 #include <assert.h>
 #include <vector>
 
-#include <allegro.h>
 
 using namespace std;
 
@@ -106,7 +105,7 @@ int main(void)
 
   //DisplayedSegmentX = 227; DisplayedSegmentY = 158;DisplayedSegmentZ = 19;
 
-  //DisplayedSegmentX = 80; DisplayedSegmentY = 56;DisplayedSegmentZ = 18;
+  DisplayedSegmentX = 189; DisplayedSegmentY = 326;DisplayedSegmentZ = 14;
   
 
   #ifdef RELEASE

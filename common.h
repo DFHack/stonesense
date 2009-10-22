@@ -3,7 +3,7 @@
 
 #include <assert.h>
 #include <vector>
-#include <allegro.h>
+#include "allegro/allegro.h"
 
 using namespace std;
 
