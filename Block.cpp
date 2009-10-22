@@ -23,9 +23,7 @@ Block::Block(WorldSegment* ownerSegment)
   building.type = BUILDINGTYPE_NA;
 }
 
-Block::~Block(void)
-{
-}
+Block::~Block(void){}
 
 
 void Block::Draw(BITMAP* target){
@@ -153,10 +151,14 @@ void Block::Draw(BITMAP* target){
 	//water
 	if(water.index > 0){
 		int spriteNum = 0;
+    int waterlevel = water.index;
+
+    if(waterlevel == 7) waterlevel--;
+
 		if(water.type == 0)
-			spriteNum = SPRITEOBJECT_WATERLEVEL1 + water.index - 1;
+			spriteNum = SPRITEOBJECT_WATERLEVEL1 + waterlevel - 1;
 		if(water.type == 1)
-			spriteNum = SPRITEOBJECT_WATERLEVEL1_LAVA + water.index - 1;
+			spriteNum = SPRITEOBJECT_WATERLEVEL1_LAVA + waterlevel - 1;
 		int sheetx = spriteNum % SHEET_OBJECTSWIDE;
 		int sheety = spriteNum / SHEET_OBJECTSWIDE;
 
