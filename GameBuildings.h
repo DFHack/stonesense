@@ -48,3 +48,4 @@ dirTypes findWallCloseTo(WorldSegment* segment, Block* b);
 
 
 extern vector<BuildingConfiguration> buildingTypes;
+extern vector <string> v_buildingtypes;

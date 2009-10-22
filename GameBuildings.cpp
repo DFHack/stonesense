@@ -5,6 +5,8 @@
 #include "BuildingConfiguration.h"
 
 vector<BuildingConfiguration> buildingTypes;
+vector <string> v_buildingtypes;//should be empty for all buildings
+
 
 void loadSpecialBuildingTypes (WorldSegment* segment, Block* b, uint32_t relativex, uint32_t relativey, uint32_t height);
 
@@ -39,11 +41,6 @@ int BlockNeighbourhoodType_simple(WorldSegment* segment, Block* b, bool validati
 
   return eSimpleSingle;
 }
-//
-//bool hasWall(Block* b){
-//  if(!b) return false;
-//  return b->wallType > 0;
-//}
 
 bool blockHasBridge(Block* b){
   if(!b) return 0;
@@ -69,7 +66,7 @@ dirTypes findWallCloseTo(WorldSegment* segment, Block* b){
 void ReadBuildings(DFHackAPI& DF, vector<t_building>* buildingHolder){
   if(!buildingHolder) return;
 
-  vector <string> v_buildingtypes;//should be empty for all buildings
+  v_buildingtypes.clear();
 	uint32_t numbuildings = DF.InitReadBuildings(v_buildingtypes);
 	t_building tempbuilding;
 

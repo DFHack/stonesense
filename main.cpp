@@ -26,7 +26,7 @@ bool timeToReloadSegment;
 
 
 
-void correctBlockForSegmetOffset(uint32_t& x, uint32_t& y, uint32_t& z){
+void correctBlockForSegmetOffset(int32_t& x, int32_t& y, int32_t& z){
 	x -= viewedSegment->x;
 	y -= viewedSegment->y; //DisplayedSegmentY;
   z -= viewedSegment->z + viewedSegment->sizez - 1;
@@ -51,6 +51,10 @@ int main(void)
   config.segmentSize.z = DEFAULT_SEGMENTSIZE_Z;
   loadConfigFile();
   
+  //set debug cursor
+  debugCursor.x = config.segmentSize.x / 2;
+  debugCursor.y = config.segmentSize.y / 2;
+
   //load building configuration information from xml files
   LoadBuildingConfiguration( &buildingTypes );
 
@@ -66,6 +70,8 @@ int main(void)
 		if( res != 0 )
 			allegro_message("could not set run in background mode");
 	}
+
+
   
 #ifdef RELEASE
   textprintf_centre(screen, font, config.screenWidth/2, 50, 0xffffff, "Welcome to alpha of Stonesense!");
@@ -105,7 +111,7 @@ int main(void)
 
   //DisplayedSegmentX = 227; DisplayedSegmentY = 158;DisplayedSegmentZ = 19;
 
-  DisplayedSegmentX = 189; DisplayedSegmentY = 326;DisplayedSegmentZ = 14;
+  //DisplayedSegmentX = 189; DisplayedSegmentY = 326;DisplayedSegmentZ = 14;
   
 
   #ifdef RELEASE

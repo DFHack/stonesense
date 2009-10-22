@@ -5,7 +5,8 @@
 
 
 void pointToScreen(int *inx, int *iny, int inz);
-Crd2D WorldBlockToScreen(uint32_t x, uint32_t y, uint32_t z);
+Crd2D WorldBlockToScreen(int32_t x, int32_t y, int32_t z);
+Crd2D LocalBlockToScreen(int32_t x, int32_t y, int32_t z);
 void DrawMinimap(BITMAP* target);
 void paintboard();
 
@@ -22,7 +23,7 @@ extern int DisplayedSegmentZ;
 
 
 extern BITMAP* IMGFloorSheet; 
-extern BITMAP* IMGStairSheet; 
+extern BITMAP* IMGObjectSheet; 
 extern BITMAP* IMGRampSheet; 
 
 extern Crd2D debugCursor;

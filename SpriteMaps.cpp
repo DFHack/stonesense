@@ -192,10 +192,13 @@ int GetWallSpriteMap(int in)
 
         case 65: //stone fortification
         case 436: //minstone fortification
-        case 494: //constructed fortification
         case 326: //lavastone fortification
         case 327: //featstone fortification
           return SPRITEOBJECT_WALL_FORTIFICATION;
+          break;
+
+        case 494: //constructed fortification
+          return SPRITEOBJECT_WALL_CONSTR_FORTIFICATION;
           break;
 
 				case ID_WOODWALL:

@@ -38,4 +38,6 @@ private:
 };
 
 
+//find a better place for these
 bool hasWall(Block* b);
+bool wallShouldNotHaveBorders( int in );

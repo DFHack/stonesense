@@ -49,10 +49,10 @@ using namespace std;
 
 
 typedef struct Crd2D {
-	uint32_t x,y;
+	int32_t x,y;
 }Crd2D;
 typedef struct Crd3D {
-	uint32_t x,y,z;
+	int32_t x,y,z;
 }Crd3D;
 
 typedef struct {
@@ -108,7 +108,7 @@ enum dirTypes{
 
 
 //main.cpp
-void correctBlockForSegmetOffset(uint32_t& x, uint32_t& y, uint32_t& z);
+void correctBlockForSegmetOffset(int32_t& x, int32_t& y, int32_t& z);
 
 
 extern GameConfiguration config;

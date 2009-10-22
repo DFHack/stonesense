@@ -40,6 +40,7 @@ public:
   }
 
   Block* getBlock(uint32_t x, uint32_t y, uint32_t z);
+  Block* getBlockLocal(uint32_t x, uint32_t y, uint32_t z);
   Block* getBlock(uint32_t index);
   void addBlock(Block* b);
   void drawAllBlocks(BITMAP* target);

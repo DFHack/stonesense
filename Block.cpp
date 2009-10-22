@@ -26,9 +26,9 @@ Block::~Block(void){}
 
 void Block::Draw(BITMAP* target){
 	int sheetOffsetX, sheetOffsetY;
-	uint32_t drawx = x;
-	uint32_t drawy = y;
-  uint32_t drawz = z; //- ownerSegment->sizez + 1;
+	int32_t drawx = x;
+	int32_t drawy = y;
+  int32_t drawz = z; //- ownerSegment->sizez + 1;
 
 	correctBlockForSegmetOffset( drawx, drawy, drawz);
 	drawx *= TILEWIDTH;
@@ -68,7 +68,7 @@ void Block::Draw(BITMAP* target){
     int sheetx = spriteNum % SHEET_OBJECTSWIDE;
 		int sheety = spriteNum / SHEET_OBJECTSWIDE;
     if(spriteNum)
-	    masked_blit(IMGStairSheet, target,
+	    masked_blit(IMGObjectSheet, target,
         sheetx * SPRITEWIDTH, sheety * SPRITEHEIGHT,
         drawx,drawy - (WALLHEIGHT), SPRITEWIDTH, SPRITEHEIGHT);
 
@@ -80,7 +80,7 @@ void Block::Draw(BITMAP* target){
     sheetx = spriteNum % SHEET_OBJECTSWIDE;
 		sheety = spriteNum / SHEET_OBJECTSWIDE;
     if(spriteNum)
-	    masked_blit(IMGStairSheet, target,
+	    masked_blit(IMGObjectSheet, target,
         sheetx * SPRITEWIDTH, sheety * SPRITEHEIGHT,
         drawx,drawy - (WALLHEIGHT), SPRITEWIDTH, SPRITEHEIGHT);
 	}
@@ -91,7 +91,7 @@ void Block::Draw(BITMAP* target){
 
 		int sheetx = spriteNum % SHEET_OBJECTSWIDE;
 		int sheety = spriteNum / SHEET_OBJECTSWIDE;
-	  masked_blit(IMGStairSheet, target,
+	  masked_blit(IMGObjectSheet, target,
       sheetx * SPRITEWIDTH, sheety * SPRITEHEIGHT,
       drawx,drawy - (WALLHEIGHT), SPRITEWIDTH, SPRITEHEIGHT);
 
@@ -111,13 +111,13 @@ void Block::Draw(BITMAP* target){
 
 
     //if( mirroredBuilding == false){
-      masked_blit(IMGStairSheet, target,
+      masked_blit(IMGObjectSheet, target,
 			  sheetx * SPRITEWIDTH, sheety * SPRITEHEIGHT,
 			  drawx, drawy - (WALLHEIGHT), TILEWIDTH,SPRITEHEIGHT);
     //}else{
 
     //  if(!temptile) temptile = create_bitmap(32,32);
-		  //blit(IMGStairSheet, temptile,
+		  //blit(IMGObjectSheet, temptile,
 			 // sheetx * SPRITEWIDTH, sheety * SPRITEHEIGHT,
 			 // 0, 0, TILEWIDTH,SPRITEHEIGHT);
     //  draw_sprite_h_flip(target, temptile, drawx,drawy - WALLHEIGHT);
@@ -132,7 +132,7 @@ void Block::Draw(BITMAP* target){
 		int sheetx = spriteNum % SHEET_OBJECTSWIDE;
 		int sheety = spriteNum / SHEET_OBJECTSWIDE;
     //draw wall
-	  masked_blit(IMGStairSheet, target,
+	  masked_blit(IMGObjectSheet, target,
       sheetx * SPRITEWIDTH, sheety * SPRITEHEIGHT,
       drawx,drawy - (WALLHEIGHT), SPRITEWIDTH, SPRITEHEIGHT);
 
@@ -160,7 +160,7 @@ void Block::Draw(BITMAP* target){
 		int sheetx = spriteNum % SHEET_OBJECTSWIDE;
 		int sheety = spriteNum / SHEET_OBJECTSWIDE;
 
-		masked_blit(IMGStairSheet, target,
+		masked_blit(IMGObjectSheet, target,
 			sheetx * SPRITEWIDTH, sheety * SPRITEHEIGHT,
 			drawx, drawy - (WALLHEIGHT), TILEWIDTH,SPRITEHEIGHT);
 	}
@@ -171,4 +171,18 @@ void Block::Draw(BITMAP* target){
 bool hasWall(Block* b){
   if(!b) return false;
   return b->wallType > 0;
+}
+
+bool wallShouldNotHaveBorders( int in ){
+  switch( in ){
+    case 65: //stone fortification
+    case 436: //minstone fortification
+    case 326: //lavastone fortification
+    case 327: //featstone fortification
+    case 494: //constructed fortification
+    case ID_WOODFORTIFICATION:
+      return true;
+      break;
+  };
+  return false;
 }

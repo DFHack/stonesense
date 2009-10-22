@@ -108,4 +108,26 @@ void doKeys(){
     while(key[KEY_MINUS_PAD]);
   }
 
+#ifdef DEBUG
+  if(key[KEY_8_PAD]){
+    debugCursor.y--;
+    rest(60);
+		paintboard();
+	}
+	if(key[KEY_2_PAD]){
+		debugCursor.y++;
+    rest(60);
+		paintboard();
+	}
+	if(key[KEY_4_PAD]){
+		debugCursor.x--;
+    rest(60);
+		paintboard();
+	}
+	if(key[KEY_6_PAD]){
+		debugCursor.x++;
+    rest(60);
+		paintboard();
+	}
+#endif
 }

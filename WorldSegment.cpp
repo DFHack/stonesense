@@ -24,8 +24,16 @@ Block* WorldSegment::getBlock(uint32_t x, uint32_t y, uint32_t z){
 
   uint32_t index = lx + (ly * this->sizex) + ((lz) * this->sizex * this->sizey);
 	return blocksAsPointerVolume[index];
-
 }
+Block* WorldSegment::getBlockLocal(uint32_t x, uint32_t y, uint32_t z){
+	if((int)x < 0 || x >= (uint32_t)this->sizex) return 0;
+	if((int)y < 0 || y >= (uint32_t)this->sizey) return 0;
+	if((int)z < 0 || z >= (uint32_t)this->sizez) return 0;
+
+  uint32_t index = x + (y * this->sizex) + ((z) * this->sizex * this->sizey);
+	return blocksAsPointerVolume[index];
+}
+
 Block* WorldSegment::getBlock(uint32_t index){
   if(index<0 || index >= blocks.size() ) 
     return 0;
