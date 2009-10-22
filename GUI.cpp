@@ -17,12 +17,11 @@ int DisplayedSegmentY;
 int DisplayedSegmentZ;
 
 BITMAP* IMGFloorSheet; 
-BITMAP* IMGWallSheet; 
 BITMAP* IMGStairSheet;
 BITMAP* IMGRampSheet; 
 BITMAP* buffer = 0;
 
-
+Crd2D debugCursor;
 
 
 void pointToScreen(int *inx, int *iny, int inz){
@@ -168,14 +167,11 @@ void loadGraphicsFromDisk(){
   IMGStairSheet = load_bitmap_withWarning("objects.pcx");
 
 	IMGFloorSheet = load_bitmap_withWarning("floors.bmp");
-	IMGWallSheet = load_bitmap_withWarning("walls.bmp");
 	
 	IMGRampSheet = load_bitmap_withWarning("ramps.bmp");
 }
 void destroyGraphics(){
-
   destroy_bitmap(IMGFloorSheet);
-  destroy_bitmap(IMGWallSheet);
   destroy_bitmap(IMGStairSheet);
   destroy_bitmap(IMGRampSheet);
 }

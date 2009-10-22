@@ -22,6 +22,7 @@ extern int DisplayedSegmentZ;
 
 
 extern BITMAP* IMGFloorSheet; 
-extern BITMAP* IMGWallSheet; 
 extern BITMAP* IMGStairSheet; 
 extern BITMAP* IMGRampSheet; 
+
+extern Crd2D debugCursor;
