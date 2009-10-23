@@ -122,8 +122,8 @@ void ReadCellToSegment(DFHackAPI& DF, WorldSegment& segment, int CellX, int Cell
 			b->ramp.type = t;
 
 		//142,136,15
-    if(b->x == 142 && b->y == 136 && b->z == 15)
-      int j = 10;
+    //if(b->x == 142 && b->y == 136 && b->z == 15)
+    //  int j = 10;
 
 		if(IDisConstruction(t)) 
       changeConstructionMaterials(&segment, b, allConstructions);

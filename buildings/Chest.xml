@@ -3,6 +3,25 @@
 
 
 <Building name="Chest" gameID=16> 
-	<Sprite sheetIndex =89 />
+	
+	<Sprite sheetIndex = 92>
+		<Condition type="MaterialType" value="GreenGlass" />
+	</Sprite>
+	
+	<Sprite sheetIndex = 91>
+		<Condition type="MaterialType" value="Leather" />
+	</Sprite>
+	<Sprite sheetIndex = 91>
+		<Condition type="MaterialType" value="Slik" />
+	</Sprite>
+	<Sprite sheetIndex = 91>
+		<Condition type="MaterialType" value="PlantCloth" />
+	</Sprite>
+	
+	<Sprite sheetIndex = 89>
+		<Condition type="MaterialType" value="Wood" />
+	</Sprite>
+	
+	<Sprite sheetIndex = 90 />
 	
 </Building> 

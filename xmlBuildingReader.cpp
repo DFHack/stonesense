@@ -33,6 +33,19 @@ void parseConditionToSprite(ConditionalSprite& sprite, const char* strType, cons
       cond.value = Mat_Stone;
     if( strcmp(strValue, "Metal") == 0)
       cond.value = Mat_Metal;
+    if( strcmp(strValue, "Leather") == 0)
+      cond.value = Mat_Leather;
+    if( strcmp(strValue, "Slik") == 0)
+      cond.value = Mat_SilkCloth;
+    if( strcmp(strValue, "PlantCloth") == 0)
+      cond.value = Mat_PlantCloth;
+    if( strcmp(strValue, "GreenGlass") == 0)
+      cond.value = Mat_GreenGlass;
+    if( strcmp(strValue, "ClearGlass") == 0)
+      cond.value = Mat_ClearGlass;
+    if( strcmp(strValue, "CrystalGlass") == 0)
+      cond.value = Mat_CrystalGlass;
+      
 
     sprite.conditions.push_back( cond );
   }
