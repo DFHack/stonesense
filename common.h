@@ -1,6 +1,7 @@
 #pragma once
 #pragma warning( disable : 4312 )
 
+
 #include <assert.h>
 #include <vector>
 #include "allegro/allegro.h"
@@ -33,9 +34,9 @@ using namespace std;
 #define SPRITEHEIGHT (TILEHEIGHT + WALLHEIGHT)
 #define MAPSIZE 25
 
-#define DEFAULT_SEGMENTSIZE_X 40
-#define DEFAULT_SEGMENTSIZE_Y 40
-#define DEFAULT_SEGMENTSIZE_Z  10
+#define DEFAULT_SEGMENTSIZE_X 20
+#define DEFAULT_SEGMENTSIZE_Y 20
+#define DEFAULT_SEGMENTSIZE_Z  6
 #define MAPNAVIGATIONSTEP 1
 #define MAPNAVIGATIONSTEPBIG 10
 

@@ -60,7 +60,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="allegro/lib_msvs8/alld.lib PSAPI.lib"
+				AdditionalDependencies="allegro/lib_msvs8/alld.lib PSAPI.lib dfhack/build/dfhackd.lib"
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -134,7 +134,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="allegro/lib_msvs8/alleg.lib  PSAPI.lib"
+				AdditionalDependencies="allegro/lib_msvs8/alleg.lib  PSAPI.lib dfhack/build/dfhack.lib"
 				LinkIncremental="1"
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -255,30 +255,6 @@
 			<Filter
 				Name="dfHack"
 				>
-				<File
-					RelativePath=".\dfhack\library\DFDataModel.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\dfhack\library\DFHackAPI.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\dfhack\library\DFMemInfo.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\dfhack\library\DFProcess.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\dfhack\library\DFProcessManager.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\dfhack\library\DFTileTypes.cpp"
-					>
-				</File>
 				<Filter
 					Name="tinyxml"
 					>

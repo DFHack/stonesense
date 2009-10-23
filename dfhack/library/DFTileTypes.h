@@ -22,20 +22,40 @@ must not be misrepresented as being the original software.
 distribution.
 */
 
-#ifndef DF_MAP_HEADER_H
-#define DF_MAP_HEADER_H
+#ifndef TILETYPES_H_INCLUDED
+#define TILETYPES_H_INCLUDED
 
-static const char dmh_id[] = "!!URIST!!";
-static const uint8_t dmh_ver = 1U;
+#ifdef LINUX_BUILD
+#	ifndef DFHACKAPI
+#		define DFHACKAPI
+#	endif
+#else
+#	ifdef BUILD_DFHACK_LIB
+#		ifndef DFHACKAPI
+#			define DFHACKAPI extern "C" __declspec(dllexport)
+#		endif
+#	else
+#		ifndef DFHACKAPI
+#			define DFHACKAPI extern "C" __declspec(dllimport)
+#		endif
+#	endif
+#endif
 
-// a header for save files
-struct DfMapHeader
-{
-    char identifier[10]; // !!URIST!!
-    uint8_t version; // DfMap/Header version; current: 1
-    uint32_t reserved; // reserved 4 bytes
+enum VegetationType{
+    TREE_DEAD,
+    TREE_OK,
+    SAPLING_DEAD,
+    SAPLING_OK,
+    SHRUB_DEAD,
+    SHRUB_OK
 };
 
+DFHACKAPI bool isWallTerrain(int in);
+DFHACKAPI bool isFloorTerrain(int in);
+DFHACKAPI bool isRampTerrain(int in);
+DFHACKAPI bool isStairTerrain(int in);
+DFHACKAPI bool isOpenTerrain(int in);
+DFHACKAPI int getVegetationType(int in);
+DFHACKAPI int picktexture(int in);
 
-#endif // DF_MAP_HEADER_H
-
+#endif // TILETYPES_H_INCLUDED

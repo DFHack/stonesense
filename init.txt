@@ -16,6 +16,6 @@ These three options set how large the cube loaded from Dwarf Fortress is.
 One entry for each axis, and each expects the number of tiles to load.
 [SEGMENTX:25]
 [SEGMENTY:25]
-[SEGMENTZ:10]
+[SEGMENTZ:5]
 
 

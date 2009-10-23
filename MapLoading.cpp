@@ -165,7 +165,10 @@ WorldSegment* ReadMapSegment(int x, int y, int z, int sizex, int sizey, int size
 
 	uint32_t starttime = clock();
 
-	DFHackAPI DF("Memory.xml");
+	//DFHackAPI DF("Memory.xml");
+  DFHackAPI* pDF = CreateDFHackAPI("Memory.xml");
+  DFHackAPI &DF = *pDF;
+
 	if(!DF.Attach() || !DF.InitMap())
 	{
 		return segment;
@@ -240,7 +243,20 @@ WorldSegment* ReadMapSegment(int x, int y, int z, int sizex, int sizey, int size
 	}
 	DF.FinishReadVegetation();
 
-  
+  //Read Creatures
+  uint32_t numcreatures = DF.InitReadCreatures();
+  t_creature tempcreature;
+  index = 0;
+	while(index < numcreatures )
+  {
+    DF.ReadCreature( index, tempcreature );
+    assert(tempcreature.type != 0);
+    Block* b;
+    if( b = segment->getBlock (tempcreature.x, tempcreature.y, tempcreature.z ) )
+      b->creature = tempcreature;
+    index++;
+  }
+  DF.FinishReadCreatures();
 
 	//merge buildings with segment
   MergeBuildingsToSegment(&allBuildings, segment);
@@ -273,6 +289,7 @@ WorldSegment* ReadMapSegment(int x, int y, int z, int sizex, int sizey, int size
 
   //cleanup
   DF.Detach();
+  delete pDF;
 
 	ClockedTime = clock() - starttime;
 

@@ -164,6 +164,18 @@ void Block::Draw(BITMAP* target){
 			sheetx * SPRITEWIDTH, sheety * SPRITEHEIGHT,
 			drawx, drawy - (WALLHEIGHT), TILEWIDTH,SPRITEHEIGHT);
 	}
+
+  //creature
+  t_creature t;
+  if(creature.type > 0){
+    int spriteNum = 0;
+		int sheetx = spriteNum % SHEET_OBJECTSWIDE;
+		int sheety = spriteNum / SHEET_OBJECTSWIDE;
+
+    masked_blit(IMGCreatureSheet, target,
+		  sheetx * SPRITEWIDTH, sheety * SPRITEHEIGHT,
+		  drawx, drawy - (WALLHEIGHT), TILEWIDTH,SPRITEHEIGHT);
+  }
 }
 
 

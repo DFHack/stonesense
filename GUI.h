@@ -24,6 +24,7 @@ extern int DisplayedSegmentZ;
 
 extern BITMAP* IMGFloorSheet; 
 extern BITMAP* IMGObjectSheet; 
+extern BITMAP* IMGCreatureSheet; 
 extern BITMAP* IMGRampSheet; 
 
 extern Crd2D debugCursor;

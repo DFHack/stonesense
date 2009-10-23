@@ -22,30 +22,42 @@ must not be misrepresented as being the original software.
 distribution.
 */
 
-/* Memory research
-    http://dwarffortresswiki.net/index.php/User:Rick/memory.ini#A_table_of_available_settings
-    http://dwarffortresswiki.net/index.php/User:Rick/Memory_research#Tile_Block
-    http://dwarffortresswiki.net/index.php/User:AzureLightning/Memory_research
-    http://dwarffortresswiki.net/index.php/User:Iluxan/Memory_research
- */
-#ifndef EXTRACT_HEADER
-#define EXTRACT_HEADER
+#ifndef DFCOMMON_H_INCLUDED
+#define DFCOMMON_H_INCLUDED
 
-class DfMap;
+///TODO: separate into extrenal and internal
 
-class Extractor
-{
-protected:
-    DfMap *df_map;   // DF extracted map structure
-    
-public:
-    bool Init();
-    Extractor();
-    ~Extractor();
-    bool loadMap(string FileName);
-    bool writeMap(string FileName);
-    bool isMapLoaded();
-    DfMap *getMap() {return df_map;};
-    bool dumpMemory( string path_to_xml);
-};
-#endif // EXTRACT_HEADER
+#include <string>
+#include <vector>
+#include <map>
+//#include <boost/bimap/bimap.hpp>
+//using namespace boost::bimaps;
+
+#include <fstream>
+using namespace std;
+#include <integers.h>
+#include <assert.h>
+#include <string.h>
+
+#ifdef LINUX_BUILD
+#include <sys/types.h>
+#include <sys/ptrace.h>
+#include <dirent.h>
+#else
+#define WINVER 0x0500					// OpenThread(), PSAPI, Toolhelp32
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+#include <winbase.h>
+#include <winnt.h>
+#include <psapi.h>
+#endif
+
+#include "DFTypes.h"
+#include "DFDataModel.h"
+#include "DFProcessManager.h"
+#include "DFMemAccess.h"
+#include "DFVector.h"
+//#include "DfMap.h"
+
+
+#endif // DFCOMMON_H_INCLUDED

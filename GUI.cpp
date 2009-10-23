@@ -20,6 +20,7 @@ int DisplayedSegmentZ;
 
 BITMAP* IMGFloorSheet; 
 BITMAP* IMGObjectSheet;
+BITMAP* IMGCreatureSheet; 
 BITMAP* IMGRampSheet; 
 BITMAP* buffer = 0;
 
@@ -205,11 +206,14 @@ void loadGraphicsFromDisk(){
 
 	IMGFloorSheet = load_bitmap_withWarning("floors.bmp");
 	
+  IMGCreatureSheet = load_bitmap_withWarning("creatures.pcx");
+
 	IMGRampSheet = load_bitmap_withWarning("ramps.bmp");
 }
 void destroyGraphics(){
   destroy_bitmap(IMGFloorSheet);
   destroy_bitmap(IMGObjectSheet);
+  destroy_bitmap(IMGCreatureSheet);
   destroy_bitmap(IMGRampSheet);
 }
 

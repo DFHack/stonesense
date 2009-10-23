@@ -24,6 +24,7 @@ public:
 	t_matglossPair water;
 
 	t_building building;
+  t_creature creature;
 	int overridingBuildingType;
   bool mirroredBuilding;
 	t_matglossPair tree;
