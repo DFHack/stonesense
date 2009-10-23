@@ -4,6 +4,8 @@ Chest.xml
 Bed.xml
 
 Door.xml
+Kitchen.xml
+Pump.xml
 Restraint.xml
 Road.xml
 Statue.xml
@@ -11,7 +13,5 @@ Still.xml
 
 Table.xml
 TradeDepot.xml
-
-Pump.xml
 
 VerticalBars.xml

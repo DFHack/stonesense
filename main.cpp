@@ -111,7 +111,7 @@ int main(void)
 
   //DisplayedSegmentX = 227; DisplayedSegmentY = 158;DisplayedSegmentZ = 19;
 
-  DisplayedSegmentX = 176; DisplayedSegmentY = 311;DisplayedSegmentZ = 17;
+  DisplayedSegmentX = 155; DisplayedSegmentY = 86;DisplayedSegmentZ = 17;
   
 
   #ifdef RELEASE

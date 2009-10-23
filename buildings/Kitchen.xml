@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+
+
+
+<Building name="Kitchen" gameID=39> 
+	<Sprite sheetIndex = 142>
+		<Condition type="PositionIndex" value=1 />
+	</Sprite>
+	<Sprite sheetIndex = 143>
+		<Condition type="PositionIndex" value=2 />
+	</Sprite>
+	<Sprite sheetIndex = 144>
+		<Condition type="PositionIndex" value=5 />
+	</Sprite>
+
+	<Sprite sheetIndex = 140 />
+	
+</Building> 
