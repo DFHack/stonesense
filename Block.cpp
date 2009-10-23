@@ -103,7 +103,7 @@ void Block::Draw(BITMAP* target){
   
   if(building.type != BUILDINGTYPE_NA && !skipBuilding){
 
-    int spriteNum = getBuildingSprite(this->building, mirroredBuilding);
+    int spriteNum =  SPRITEOBJECT_NA; //getBuildingSprite(this->building, mirroredBuilding);
 		if(overridingBuildingType)
 			spriteNum = overridingBuildingType;
 		int sheetx = spriteNum % SHEET_OBJECTSWIDE;

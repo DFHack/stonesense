@@ -92,6 +92,10 @@ void MergeBuildingsToSegment(vector<t_building>* buildings, WorldSegment* segmen
 			Block* b;
       //want hashtable :(
 			if( b = segment->getBlock( xx, yy, tempbuilding.z) ){
+        //handle special case where zones overlap buildings, and try to replace them
+        if(b->building.type != BUILDINGTYPE_NA && tempbuilding.type == BUILDINGTYPE_ZONE )
+          continue;
+        
 				b->building = tempbuilding;
 				//b->building.x1 = b->building.x2 = xx;
 				//b->building.y1 = b->building.y2 = yy;
@@ -183,7 +187,7 @@ void loadSpecialBuildingTypes2 (WorldSegment* segment, Block* b, uint32_t relati
 }
 
 */
-
+/*
 int getBuildingSprite(t_building &building, bool mirrored){
   return SPRITEOBJECT_NA;
 
@@ -251,7 +255,7 @@ int getBuildingSprite(t_building &building, bool mirrored){
 
   return SPRITEOBJECT_NA;
 }
-
+*/
 /*TODO: this function takes a massive amount of work, looping all buildings for every block*/
 bool BlockHasSuspendedBuilding(vector<t_building>* buildingList, Block* b){
   for(uint32_t i=0; i < buildingList->size(); i++){

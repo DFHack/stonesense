@@ -86,6 +86,10 @@ void doKeys(){
     config.shade_hidden_blocks = !config.shade_hidden_blocks;
     timeToReloadSegment = true;
 	}
+  if(key[KEY_H]){
+    config.show_hidden_blocks = !config.show_hidden_blocks;
+    timeToReloadSegment = true;
+	}
   if(key[KEY_F5]){
     while(key[KEY_F5]);
     saveScreenshot();

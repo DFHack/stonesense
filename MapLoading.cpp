@@ -132,6 +132,8 @@ void ReadCellToSegment(DFHackAPI& DF, WorldSegment& segment, int CellX, int Cell
 
 		//save in segment
 		bool isHidden = designations[lx][ly].bits.hidden;
+    //option for including hidden blocks
+    isHidden &= !config.show_hidden_blocks;
     bool shouldBeIncluded = (!isOpenTerrain(t) && !isHidden) || b->water.index ;
     //include black 
     if(config.shade_hidden_blocks && isHidden && (
