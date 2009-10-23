@@ -5,3 +5,4 @@ IDreamOfGiniCoeff:
 
 kaypy:
 - Restraints: metal chains
+- Kitchen: stove, sink and workbench
