@@ -1,3 +1,7 @@
 
 IDreamOfGiniCoeff:
 - Containers: glass box, bag and rock coffer
+
+
+kaypy:
+- Restraints: metal chains

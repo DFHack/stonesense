@@ -4,7 +4,7 @@ Chest.xml
 Bed.xml
 
 Door.xml
-
+Restraint.xml
 Road.xml
 Statue.xml
 Still.xml
