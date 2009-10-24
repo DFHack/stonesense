@@ -3,6 +3,7 @@
 #include "Block.h"
 #include "SpriteMaps.h"
 #include "GameBuildings.h"
+#include "Creatures.h"
 
 #include "dfhack/library/DFTypes.h"
 
@@ -166,9 +167,8 @@ void Block::Draw(BITMAP* target){
 	}
 
   //creature
-  t_creature t;
   if(creature.type > 0){
-    int spriteNum = 0;
+    int spriteNum = GetCreatureSpriteMap( &creature );
 		int sheetx = spriteNum % SHEET_OBJECTSWIDE;
 		int sheety = spriteNum / SHEET_OBJECTSWIDE;
 

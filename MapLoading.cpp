@@ -5,7 +5,7 @@
 #include "SpriteMaps.h"
 #include "Constructions.h"
 #include "GameBuildings.h"
-
+#include "Creatures.h"
 
 inline bool IDisWall(int in){
   switch( in ){
@@ -244,23 +244,10 @@ WorldSegment* ReadMapSegment(int x, int y, int z, int sizex, int sizey, int size
 	DF.FinishReadVegetation();
 
   //Read Creatures
-  uint32_t numcreatures = DF.InitReadCreatures();
-  t_creature tempcreature;
-  index = 0;
-	while(index < numcreatures )
-  {
-    DF.ReadCreature( index, tempcreature );
-    assert(tempcreature.type != 0);
-    Block* b;
-    if( b = segment->getBlock (tempcreature.x, tempcreature.y, tempcreature.z ) )
-      b->creature = tempcreature;
-    index++;
-  }
-  DF.FinishReadCreatures();
+  ReadCreaturesToSegment( DF, segment );
 
 	//merge buildings with segment
   MergeBuildingsToSegment(&allBuildings, segment);
-  
 
 	//do misc beautification
   for(uint32_t i=0; i<segment->getNumBlocks(); i++){

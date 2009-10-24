@@ -104,14 +104,14 @@ int main(void)
 	//DisplayedSegmentX = 238; DisplayedSegmentY = 220;DisplayedSegmentZ = 23;
 
 	//ford. Main hall
-	DisplayedSegmentX = 182; DisplayedSegmentY = 195;DisplayedSegmentZ = 15;
+	DisplayedSegmentX = 172; DisplayedSegmentY = 195;DisplayedSegmentZ = 15;
 
   //ford. desert map
   //sDisplayedSegmentX = 78; DisplayedSegmentY = 123;DisplayedSegmentZ = 15;
 
   //DisplayedSegmentX = 227; DisplayedSegmentY = 158;DisplayedSegmentZ = 19;
 
-  DisplayedSegmentX = 155; DisplayedSegmentY = 86;DisplayedSegmentZ = 17;
+  //DisplayedSegmentX = 155; DisplayedSegmentY = 86;DisplayedSegmentZ = 17;
   
 
   #ifdef RELEASE

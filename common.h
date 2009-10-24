@@ -1,6 +1,7 @@
 #pragma once
-#pragma warning( disable : 4312 )
-
+#pragma warning( disable : 4312 ) //64-bit portability issue
+#pragma warning( disable : 4996 ) //'deprecated' function warning
+#define SKIP_DFHACK_STDINT
 
 #include <assert.h>
 #include <vector>

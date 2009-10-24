@@ -10,6 +10,7 @@ using namespace std;
 #include "WorldSegment.h"
 #include "SpriteMaps.h"
 #include "GameBuildings.h"
+#include "Creatures.h"
 
 
 
@@ -106,6 +107,13 @@ void drawDebugCursorAndInfo(BITMAP* target){
       v_buildingtypes.at(b->building.type).c_str(),
       b->building.type, b->building.material.type, b->building.material.index);
   }
+  //if creature
+  if(b->creature.type){
+    textprintf(target, font, 2, config.screenHeight-20-(i--*10), 0xFFFFFF, 
+      "Creature: %s(%i) ", 
+      v_creatureNames.at(b->creature.type).id, b->creature.type);
+  }
+
 }
 
 void DrawMinimap(BITMAP* target){

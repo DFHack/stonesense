@@ -60,7 +60,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="allegro/lib_msvs8/alld.lib PSAPI.lib dfhack/build/dfhackd.lib"
+				AdditionalDependencies="allegro/lib_msvs8/alld.lib PSAPI.lib dfhack/build/dfhack-debug.lib"
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -221,6 +221,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Creatures.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\GameBuildings.cpp"
 				>
 			</File>
@@ -307,6 +311,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Creatures.h"
+				>
+			</File>
+			<File
 				RelativePath=".\GameBuildings.h"
 				>
 			</File>
@@ -329,6 +337,10 @@
 			<Filter
 				Name="dfHack"
 				>
+				<File
+					RelativePath=".\dfhack\library\DFHackAPI.h"
+					>
+				</File>
 				<File
 					RelativePath=".\dfhack\library\dftiletypes.h"
 					>
