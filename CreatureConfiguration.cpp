@@ -30,7 +30,6 @@ void DumpCreatureNamesToDisk(){
 }
 
 void TranslateCreatureNames(){
-  DumpCreatureNamesToDisk();
   //for each config, find it's integer ID
   for(uint32_t i=0; i < creatureTypes.size(); i++){
     char* ptr = creatureTypes[i].gameIDstr;
