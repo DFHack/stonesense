@@ -12,6 +12,7 @@ using namespace std;
 #include "Constructions.h"
 #include "MapLoading.h"
 #include "WorldSegment.h"
+#include "Creatures.h"
 
 uint32_t ClockedTime = 0;
 uint32_t ClockedTime2 = 0;
@@ -35,6 +36,7 @@ void WriteErr(char* msg, ...){
   if(fp)
     vfprintf( fp, msg, arglist );
   va_end(arglist);
+  fclose(fp);
 }
 
 
@@ -52,6 +54,8 @@ int main(void)
   //install_mouse();
   WriteErr("\nStonesense launched\n");
 
+  
+
   config.shade_hidden_blocks = true;
   config.automatic_reload_time = 0;
   config.Fullscreen = FULLSCREEN;
@@ -68,6 +72,7 @@ int main(void)
 
   //load building configuration information from xml files
   LoadBuildingConfiguration( &buildingTypes );
+  LoadCreatureConfiguration( &creatureTypes );
 
 	set_color_depth(16);
   int gfxMode = config.Fullscreen ? GFX_AUTODETECT : GFX_AUTODETECT_WINDOWED;

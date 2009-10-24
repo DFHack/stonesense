@@ -1,5 +1,6 @@
 #pragma once
 #include "common.h"
+#include "CreatureConfiguration.h"
 
 enum enumCreatureSprites{
 	SPRITECRE_NA = 0,
@@ -20,4 +21,8 @@ void ReadCreaturesToSegment(DFHackAPI& DF, WorldSegment* segment);
 
 int GetCreatureSpriteMap( t_creature* c );
 
+void LoadCreatureConfiguration( vector<CreatureConfiguration>* knownCreatures );
+
+
 extern vector<t_matgloss> v_creatureNames;
+extern vector<CreatureConfiguration> creatureTypes;

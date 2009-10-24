@@ -221,6 +221,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\CreatureConfiguration.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Creatures.cpp"
 				>
 			</File>
@@ -308,6 +312,10 @@
 			</File>
 			<File
 				RelativePath=".\Constructions.h"
+				>
+			</File>
+			<File
+				RelativePath=".\CreatureConfiguration.h"
 				>
 			</File>
 			<File

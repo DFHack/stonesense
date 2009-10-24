@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+
+<Creature gameID="dwarf" 		sheetIndex = 1  /> 
+<Creature gameID="cat" 			sheetIndex = 20 /> 
+<Creature gameID="dog" 			sheetIndex = 21 /> 
+<Creature gameID="camel_1_hump" sheetIndex = 22 /> 
+<Creature gameID="camel_2_hump" sheetIndex = 23 /> 
+<Creature gameID="mule" 		sheetIndex = 24 /> 
+<Creature gameID="muskox" 		sheetIndex = 25 /> 
+<Creature gameID="horse" 		sheetIndex = 26 /> 

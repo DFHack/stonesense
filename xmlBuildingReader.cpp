@@ -111,6 +111,8 @@ bool LoadBuildingConfiguration( vector<BuildingConfiguration>* knownBuildings ){
     return false;
   }
 
+  knownBuildings->clear();
+
   while ( !myfile.eof() )
   {
     char filepath[50] = {0};
@@ -125,3 +127,4 @@ bool LoadBuildingConfiguration( vector<BuildingConfiguration>* knownBuildings ){
   myfile.close();
   return true;
 }
+

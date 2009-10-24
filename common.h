@@ -138,6 +138,3 @@ bool loadConfigFile();
 class BuildingConfiguration;
 bool LoadBuildingConfiguration( vector<BuildingConfiguration>* knownBuildings );
 
-
-
-
