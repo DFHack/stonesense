@@ -69,13 +69,14 @@ bool addSingleConfig( const char* filename,  vector<BuildingConfiguration>* know
   TiXmlElement* elemBuilding;
 
   elemBuilding = hDoc.FirstChildElement("Building").Element();
-  if( elemBuilding == 0) 
+  if( elemBuilding == 0)
     return false;
+
   
   const char* strName = elemBuilding->Attribute("name");
   const char* strGameID = elemBuilding->Attribute("gameID");
   
-  BuildingConfiguration building(strName, atoi( strGameID ) );
+  BuildingConfiguration building(strName, (char*) strGameID );
 
   //for every Sprite
   TiXmlElement* elemSprite =  elemBuilding->FirstChildElement("Sprite");
@@ -105,15 +106,21 @@ bool addSingleConfig( const char* filename,  vector<BuildingConfiguration>* know
 bool LoadBuildingConfiguration( vector<BuildingConfiguration>* knownBuildings ){
   string line;
   ifstream myfile ("buildings/index.txt");
-  if (myfile.is_open() == false)
+  if (myfile.is_open() == false){
+    WriteErr("Unable to load building config index file!\n");
     return false;
+  }
 
   while ( !myfile.eof() )
   {
     char filepath[50] = {0};
     getline (myfile,line);
-    sprintf_s(filepath, "buildings/%s", line.c_str() );
-    addSingleConfig( filepath, knownBuildings );
+    if(line.size() > 0){
+      sprintf_s(filepath, "buildings/%s", line.c_str() );
+      bool result = addSingleConfig( filepath, knownBuildings );
+      if( !result )
+        WriteErr("Unable to load building config %s\n", filepath);
+    }
   }
   myfile.close();
   return true;

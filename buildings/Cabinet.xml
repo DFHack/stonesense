@@ -2,7 +2,7 @@
 
 
 
-<Building name="Cabinet" gameID=15> 
+<Building name="Cabinet" gameID="cabinet"> 
 
 	<Sprite sheetIndex = 88>
 		<Condition type="MaterialType" value="Wood" />

@@ -25,6 +25,18 @@ bool timeToReloadSegment;
 
 
 
+void WriteErr(char* msg, ...){
+  int j = 10;  
+  va_list arglist;
+  va_start(arglist, msg);
+//  char buf[200] = {0};
+//  vsprintf(buf, msg, arglist);
+  FILE* fp = fopen( "Stonesense.log", "a");
+  if(fp)
+    vfprintf( fp, msg, arglist );
+  va_end(arglist);
+}
+
 
 void correctBlockForSegmetOffset(int32_t& x, int32_t& y, int32_t& z){
 	x -= viewedSegment->x;
@@ -38,8 +50,7 @@ int main(void)
 	allegro_init();
   install_keyboard();
   //install_mouse();
-
-	
+  WriteErr("\nStonesense launched\n");
 
   config.shade_hidden_blocks = true;
   config.automatic_reload_time = 0;
@@ -104,7 +115,7 @@ int main(void)
 	//DisplayedSegmentX = 238; DisplayedSegmentY = 220;DisplayedSegmentZ = 23;
 
 	//ford. Main hall
-	//DisplayedSegmentX = 172; DisplayedSegmentY = 195;DisplayedSegmentZ = 15;
+	DisplayedSegmentX = 172; DisplayedSegmentY = 195;DisplayedSegmentZ = 15;
 
   //ford. desert map
   //sDisplayedSegmentX = 78; DisplayedSegmentY = 123;DisplayedSegmentZ = 15;

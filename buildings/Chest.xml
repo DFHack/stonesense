@@ -2,7 +2,7 @@
 
 
 
-<Building name="Chest" gameID=16> 
+<Building name="Chest" gameID="container"> 
 	
 	<Sprite sheetIndex = 92>
 		<Condition type="MaterialType" value="GreenGlass" />

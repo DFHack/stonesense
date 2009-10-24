@@ -2,7 +2,7 @@
 
 
 
-<Building name="Still" gameID=35> 
+<Building name="Still" gameID="still"> 
 	<Sprite sheetIndex = 141>
 		<Condition type="PositionIndex" value=0 />
 	</Sprite>

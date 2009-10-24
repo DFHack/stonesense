@@ -70,6 +70,9 @@ void ReadBuildings(DFHackAPI& DF, vector<t_building>* buildingHolder){
 	uint32_t numbuildings = DF.InitReadBuildings(v_buildingtypes);
 	t_building tempbuilding;
 
+  if( !BuildingNamesTranslatedFromGame )
+    TranslateBuildingNames();
+
 	uint32_t index = 0;
 	while(index < numbuildings){
 		DF.ReadBuilding(index, tempbuilding);

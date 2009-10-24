@@ -2,7 +2,7 @@
 
 
 
-<Building name="Bed" gameID=5> 
+<Building name="Bed" gameID="bed"> 
 	<Sprite sheetIndex = 81 />
 	
 </Building> 

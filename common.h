@@ -113,6 +113,7 @@ enum dirTypes{
 //main.cpp
 void correctBlockForSegmetOffset(int32_t& x, int32_t& y, int32_t& z);
 
+void WriteErr(char* msg, ...);
 
 extern GameConfiguration config;
 
@@ -136,7 +137,6 @@ bool loadConfigFile();
 //xmlBuildingReader.cpp
 class BuildingConfiguration;
 bool LoadBuildingConfiguration( vector<BuildingConfiguration>* knownBuildings );
-
 
 
 
