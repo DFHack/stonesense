@@ -77,8 +77,8 @@ for(uint32_t i=0; i < this->blocks.size(); i++){
 
 
 bool WorldSegment::CoordinateInsideRegion(uint32_t x, uint32_t y, uint32_t z){
-	if( x < 0 || x >= this->regionSize.x) return false;
-	if( y < 0 || y >= this->regionSize.y) return false;
-	if( z < 0 || z >= this->regionSize.z) return false;
+	if( x < 0 || (int32_t)x >= this->regionSize.x) return false;
+	if( y < 0 || (int32_t)y >= this->regionSize.y) return false;
+	if( z < 0 || (int32_t)z >= this->regionSize.z) return false;
 	return true;
 }

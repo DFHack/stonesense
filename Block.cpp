@@ -22,6 +22,8 @@ Block::Block(WorldSegment* ownerSegment)
   building.type = BUILDINGTYPE_NA;
 }
 
+
+
 Block::~Block(void){}
 
 
@@ -53,7 +55,6 @@ void Block::Draw(BITMAP* target){
       line(target, drawx, drawy+(TILEHEIGHT>>1)-1, drawx+(TILEWIDTH>>1)-1, drawy, tileBorderColor);
 	}
 
-
 	//Draw Ramp
   if(ramp.type > 0){
     sheetOffsetX = SPRITEWIDTH * ramp.index;
@@ -66,37 +67,23 @@ void Block::Draw(BITMAP* target){
 	if(stairType > 0){
 		//down part
 		int spriteNum = GetDownStairTypeMap(stairType);
-    int sheetx = spriteNum % SHEET_OBJECTSWIDE;
-		int sheety = spriteNum / SHEET_OBJECTSWIDE;
-    if(spriteNum)
-	    masked_blit(IMGObjectSheet, target,
-        sheetx * SPRITEWIDTH, sheety * SPRITEHEIGHT,
-        drawx,drawy - (WALLHEIGHT), SPRITEWIDTH, SPRITEHEIGHT);
+    //DrawSpriteFromSheet( spriteNum, target, IMGObjectSheet, drawx, drawy );
 
 		//up part
     bool mirrored = false;
     if(findWallCloseTo(ownerSegment, this) == eSimpleW)
       mirrored = true;
 		spriteNum = GetUpStairTypeMap(stairType, mirrored);
-    sheetx = spriteNum % SHEET_OBJECTSWIDE;
-		sheety = spriteNum / SHEET_OBJECTSWIDE;
     if(spriteNum)
-	    masked_blit(IMGObjectSheet, target,
-        sheetx * SPRITEWIDTH, sheety * SPRITEHEIGHT,
-        drawx,drawy - (WALLHEIGHT), SPRITEWIDTH, SPRITEHEIGHT);
+      DrawSpriteFromSheet( spriteNum, target, IMGObjectSheet, drawx, drawy );
 	}
 
 	//vegitation
 	if(tree.index > 0 || tree.type > 0){
     int spriteNum =  GetWallSpriteVegitation( (VegetationType) getVegetationType( this->floorType ), tree.index );
-
-		int sheetx = spriteNum % SHEET_OBJECTSWIDE;
-		int sheety = spriteNum / SHEET_OBJECTSWIDE;
-	  masked_blit(IMGObjectSheet, target,
-      sheetx * SPRITEWIDTH, sheety * SPRITEHEIGHT,
-      drawx,drawy - (WALLHEIGHT), SPRITEWIDTH, SPRITEHEIGHT);
-
+    DrawSpriteFromSheet( spriteNum, target, IMGObjectSheet, drawx, drawy );
 	}
+
 	//Building
   bool skipBuilding = 
     (building.type == BUILDINGTYPE_STOCKPILE && !config.show_stockpiles) ||
@@ -107,35 +94,15 @@ void Block::Draw(BITMAP* target){
     int spriteNum =  SPRITEOBJECT_NA; //getBuildingSprite(this->building, mirroredBuilding);
 		if(overridingBuildingType)
 			spriteNum = overridingBuildingType;
-		int sheetx = spriteNum % SHEET_OBJECTSWIDE;
-		int sheety = spriteNum / SHEET_OBJECTSWIDE;
 
-
-    //if( mirroredBuilding == false){
-      masked_blit(IMGObjectSheet, target,
-			  sheetx * SPRITEWIDTH, sheety * SPRITEHEIGHT,
-			  drawx, drawy - (WALLHEIGHT), TILEWIDTH,SPRITEHEIGHT);
-    //}else{
-
-    //  if(!temptile) temptile = create_bitmap(32,32);
-		  //blit(IMGObjectSheet, temptile,
-			 // sheetx * SPRITEWIDTH, sheety * SPRITEHEIGHT,
-			 // 0, 0, TILEWIDTH,SPRITEHEIGHT);
-    //  draw_sprite_h_flip(target, temptile, drawx,drawy - WALLHEIGHT);
-    //}
-    
-    
+    DrawSpriteFromSheet( spriteNum, target, IMGObjectSheet, drawx, drawy );
 	}
 
   	//Draw Walls
 	if(wallType > 0){
-    int spriteNum =  GetWallSpriteMap(wallType);
-		int sheetx = spriteNum % SHEET_OBJECTSWIDE;
-		int sheety = spriteNum / SHEET_OBJECTSWIDE;
     //draw wall
-	  masked_blit(IMGObjectSheet, target,
-      sheetx * SPRITEWIDTH, sheety * SPRITEHEIGHT,
-      drawx,drawy - (WALLHEIGHT), SPRITEWIDTH, SPRITEHEIGHT);
+    int spriteNum =  GetWallSpriteMap(wallType);
+    DrawSpriteFromSheet( spriteNum, target, IMGObjectSheet, drawx, drawy );
 
     drawy -= (WALLHEIGHT);
     //Northern border
@@ -158,23 +125,13 @@ void Block::Draw(BITMAP* target){
 			spriteNum = SPRITEOBJECT_WATERLEVEL1 + waterlevel - 1;
 		if(water.type == 1)
 			spriteNum = SPRITEOBJECT_WATERLEVEL1_LAVA + waterlevel - 1;
-		int sheetx = spriteNum % SHEET_OBJECTSWIDE;
-		int sheety = spriteNum / SHEET_OBJECTSWIDE;
-
-		masked_blit(IMGObjectSheet, target,
-			sheetx * SPRITEWIDTH, sheety * SPRITEHEIGHT,
-			drawx, drawy - (WALLHEIGHT), TILEWIDTH,SPRITEHEIGHT);
+		DrawSpriteFromSheet( spriteNum, target, IMGObjectSheet, drawx, drawy );
 	}
 
   //creature
   if(creature.type > 0){
     int spriteNum = GetCreatureSpriteMap( &creature );
-		int sheetx = spriteNum % SHEET_OBJECTSWIDE;
-		int sheety = spriteNum / SHEET_OBJECTSWIDE;
-
-    masked_blit(IMGCreatureSheet, target,
-		  sheetx * SPRITEWIDTH, sheety * SPRITEHEIGHT,
-		  drawx, drawy - (WALLHEIGHT), TILEWIDTH,SPRITEHEIGHT);
+    DrawSpriteFromSheet( spriteNum, target, IMGCreatureSheet, drawx, drawy );
   }
 }
 

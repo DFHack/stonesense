@@ -94,7 +94,7 @@ int main(void)
 #endif
 
 	//upper left corners
-	DisplayedSegmentX = DisplayedSegmentY = 0;DisplayedSegmentZ = 15;
+	DisplayedSegmentX = DisplayedSegmentY = 0;DisplayedSegmentZ = 17;
 	//Middle of fort
 	//DisplayedSegmentX = 131; DisplayedSegmentY = 100;DisplayedSegmentZ = 17;
 	//Two trees and a shrub
@@ -104,7 +104,7 @@ int main(void)
 	//DisplayedSegmentX = 238; DisplayedSegmentY = 220;DisplayedSegmentZ = 23;
 
 	//ford. Main hall
-	DisplayedSegmentX = 172; DisplayedSegmentY = 195;DisplayedSegmentZ = 15;
+	//DisplayedSegmentX = 172; DisplayedSegmentY = 195;DisplayedSegmentZ = 15;
 
   //ford. desert map
   //sDisplayedSegmentX = 78; DisplayedSegmentY = 123;DisplayedSegmentZ = 15;

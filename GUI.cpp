@@ -139,6 +139,14 @@ void DrawMinimap(BITMAP* target){
   rect(target, posx+x, posy+y, posx+x+segmentWidth, posy+y+segmentHeight,0);
 }
 
+void DrawSpriteFromSheet( int spriteNum, BITMAP* target, BITMAP* spriteSheet, int x, int y){
+    int sheetx = spriteNum % SHEET_OBJECTSWIDE;
+		int sheety = spriteNum / SHEET_OBJECTSWIDE;
+    masked_blit(spriteSheet, target,
+      sheetx * SPRITEWIDTH, sheety * SPRITEHEIGHT,
+      x, y - (WALLHEIGHT), SPRITEWIDTH, SPRITEHEIGHT);
+}
+
 void paintboard(){
 	uint32_t starttime = clock();
 	if(!buffer)
