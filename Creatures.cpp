@@ -21,11 +21,18 @@ int GetCreatureSpriteMap( t_creature* c ){
   if(strcmpi(strid, "muskox") == 0)        return SPRITECRE_MUSKOX;
   if(strcmpi(strid, "horse") == 0)         return SPRITECRE_HORSE;
     */
+  
+
   for(uint32_t i=0; i < creatureTypes.size(); i++)
     if( c->type == creatureTypes[i].gameID )
       return creatureTypes[i].sheetIndex;
 
   return SPRITECRE_NA;
+}
+bool IsCreatureVisible( t_creature* c){
+  if( c->flags1.bits.dead )
+    return false;
+  return true;
 }
 
 
@@ -41,10 +48,11 @@ void ReadCreaturesToSegment(DFHackAPI& DF, WorldSegment* segment){
 	while(index < numcreatures )
   {
     DF.ReadCreature( index, tempcreature );
-    assert(tempcreature.type != 0);
-    Block* b;
-    if( b = segment->getBlock (tempcreature.x, tempcreature.y, tempcreature.z ) )
-      b->creature = tempcreature;
+    if( IsCreatureVisible( &tempcreature ) ){
+      Block* b;
+      if( b = segment->getBlock (tempcreature.x, tempcreature.y, tempcreature.z ) )
+        b->creature = tempcreature;
+    }
     index++;
   }
   DF.FinishReadCreatures();
