@@ -12,6 +12,7 @@ using namespace std;
 #include "GameBuildings.h"
 #include "Creatures.h"
 
+#include "loadpng/loadpng.h"
 
 
 WorldSegment* viewedSegment;
@@ -147,6 +148,20 @@ void DrawMinimap(BITMAP* target){
 void DrawSpriteFromSheet( int spriteNum, BITMAP* target, BITMAP* spriteSheet, int x, int y){
     int sheetx = spriteNum % SHEET_OBJECTSWIDE;
 		int sheety = spriteNum / SHEET_OBJECTSWIDE;
+    //
+    /*
+    static BITMAP* tiny = null;
+    if(!tiny)
+      tiny = create_bitmap_ex(32, 32, 32);
+   
+    blit(spriteSheet, tiny, sheetx * SPRITEWIDTH, sheety * SPRITEHEIGHT, 0, 0, SPRITEWIDTH, SPRITEHEIGHT);
+
+    blit(tiny, target,
+      0,0,
+      10, 60 , SPRITEWIDTH, SPRITEHEIGHT);
+*/
+    //draw_trans_sprite(target, tiny, x, y);
+    
     masked_blit(spriteSheet, target,
       sheetx * SPRITEWIDTH, sheety * SPRITEHEIGHT,
       x, y - (WALLHEIGHT), SPRITEWIDTH, SPRITEHEIGHT);
@@ -158,6 +173,7 @@ void paintboard(){
 		buffer = create_bitmap(config.screenWidth, config.screenHeight);
 
 	clear_to_color(buffer,makecol(95,95,160));
+  //clear_to_color(buffer,makecol(12,7,49)); //this one is calm and nice
 	
   /*PALETTE pal;
   get_palette(pal);
@@ -223,13 +239,17 @@ void loadGraphicsFromDisk(){
   //  pal[i].g+=1;
   //set_palette(pal);
   //select_palette(pal);
-  IMGObjectSheet = load_bitmap_withWarning("objects.pcx");
 
-	IMGFloorSheet = load_bitmap_withWarning("floors.bmp");
+  register_png_file_type();
+ 
+
+  IMGObjectSheet = load_bitmap_withWarning("objects.png");
+
+	IMGFloorSheet = load_bitmap_withWarning("floors.png");
 	
-  IMGCreatureSheet = load_bitmap_withWarning("creatures.pcx");
+  IMGCreatureSheet = load_bitmap_withWarning("creatures.png");
 
-	IMGRampSheet = load_bitmap_withWarning("ramps.bmp");
+	IMGRampSheet = load_bitmap_withWarning("ramps.png");
 }
 void destroyGraphics(){
   destroy_bitmap(IMGFloorSheet);
@@ -246,7 +266,7 @@ void saveScreenshot(){
   int index = 1;
   //search for the first screenshot# that does not exist already
   while(true){
-    sprintf_s(filename, "screenshot%i.bmp", index);
+    sprintf_s(filename, "screenshot%i.png", index);
     
     fopen_s(&fp, filename, "r");
     if( fp != 0)
@@ -256,5 +276,6 @@ void saveScreenshot(){
       break;
     index++;
   };
-  save_bitmap(filename, buffer, 0);
+  //save_bitmap(filename, buffer, 0);
+  save_png(filename, buffer, 0);
 }

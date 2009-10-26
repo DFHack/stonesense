@@ -86,7 +86,7 @@ int main(void)
 		if( res != 0 )
 			allegro_message("could not set run in background mode");
 	}
-
+  set_alpha_blender();
 
   
 #ifdef RELEASE
@@ -125,7 +125,7 @@ int main(void)
   //ford. desert map
   //sDisplayedSegmentX = 78; DisplayedSegmentY = 123;DisplayedSegmentZ = 15;
 
-  DisplayedSegmentX = 138; DisplayedSegmentY = 325;DisplayedSegmentZ = 16;
+  //DisplayedSegmentX = 138; DisplayedSegmentY = 325;DisplayedSegmentZ = 16;
 
   //DisplayedSegmentX = 242; DisplayedSegmentY = 345;DisplayedSegmentZ = 15;
   

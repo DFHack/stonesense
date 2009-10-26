@@ -60,7 +60,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="allegro/lib_msvs8/alld.lib PSAPI.lib dfhack/build/dfhack-debug.lib"
+				AdditionalDependencies="allegro/lib_msvs8/alld.lib PSAPI.lib dfhack/build/dfhack-debug.lib loadpng/libpng/lib/libpng.lib"
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -134,7 +134,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="allegro/lib_msvs8/alleg.lib  PSAPI.lib dfhack/build/dfhack.lib"
+				AdditionalDependencies="allegro/lib_msvs8/alleg.lib  PSAPI.lib dfhack/build/dfhack.lib loadpng/libpng/lib/libpng.lib"
 				LinkIncremental="1"
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -284,6 +284,22 @@
 					</File>
 				</Filter>
 			</Filter>
+			<Filter
+				Name="loadpng"
+				>
+				<File
+					RelativePath=".\loadpng\loadpng.c"
+					>
+				</File>
+				<File
+					RelativePath=".\loadpng\regpng.c"
+					>
+				</File>
+				<File
+					RelativePath=".\loadpng\savepng.c"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -359,6 +375,14 @@
 				</File>
 				<File
 					RelativePath=".\dfhack\library\dftypes.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="loadpng"
+				>
+				<File
+					RelativePath=".\loadpng\loadpng.h"
 					>
 				</File>
 			</Filter>
