@@ -249,7 +249,7 @@ void loadGraphicsFromDisk(){
 	
   IMGCreatureSheet = load_bitmap_withWarning("creatures.png");
 
-	IMGRampSheet = load_bitmap_withWarning("ramps.png");
+	IMGRampSheet = load_bitmap_withWarning("Ramps.png");
 }
 void destroyGraphics(){
   destroy_bitmap(IMGFloorSheet);
@@ -266,9 +266,9 @@ void saveScreenshot(){
   int index = 1;
   //search for the first screenshot# that does not exist already
   while(true){
-    sprintf_s(filename, "screenshot%i.png", index);
+    sprintf(filename, "screenshot%i.png", index);
     
-    fopen_s(&fp, filename, "r");
+    fp = fopen(filename, "r");
     if( fp != 0)
       fclose(fp);
     else

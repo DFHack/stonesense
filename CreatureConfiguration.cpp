@@ -35,7 +35,7 @@ void TranslateCreatureNames(){
     char* ptr = creatureTypes[i].gameIDstr;
     uint32_t j;
     for(j=0; j < v_creatureNames.size(); j++){
-      if( strcmpi( ptr, v_creatureNames[j].id) == 0){
+      if( strcmp( ptr, v_creatureNames[j].id) == 0){
         //assign ID
         creatureTypes[i].gameID = j; 
         //jump to next creatureType

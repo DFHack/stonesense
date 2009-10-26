@@ -15,6 +15,7 @@ using namespace std;
 
 #include "commonTypes.h"
 #include "Block.h"
+#include <stdio.h>
 
 
 //#define RELEASE

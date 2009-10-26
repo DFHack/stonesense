@@ -2,7 +2,7 @@
 
 
 
-<Building name="Statue" gameID="Statue"> 
+<Building name="Statue" gameID="statue"> 
 	<Tile>
 		<Sprite sheetIndex = 86 />
 	</Tile>

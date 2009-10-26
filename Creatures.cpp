@@ -134,8 +134,8 @@ void generateCreatureDebugString( t_creature* c, char* strbuffer){
     strcat(strbuffer, "u19notlisted ");
   if(c->flags1.bits.unk21)
     strcat(strbuffer, "u21 ");
-  if(c->flags1.bits.unk22)
-    strcat(strbuffer, "u22 ");
+  if(c->flags1.bits.hidden_ambusher)
+    strcat(strbuffer, "hidden_ambusher ");
   if(c->flags1.bits.unk23)
     strcat(strbuffer, "u23 ");
   if(c->flags1.bits.unk24)

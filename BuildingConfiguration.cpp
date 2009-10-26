@@ -5,9 +5,7 @@
 bool BuildingNamesTranslatedFromGame = false;
 
 BuildingConfiguration::BuildingConfiguration(string name, char* IDstring)
-{
-  memset(this, 0, sizeof(BuildingConfiguration));
-  
+{  
   this->name = name;
   this->gameID = -1;
   this->width = this->height = 1;
@@ -17,6 +15,7 @@ BuildingConfiguration::BuildingConfiguration(string name, char* IDstring)
   int len = (int) strlen(IDstring);
   if(len > 100) len = 100;
   memcpy(this->gameIDstr, IDstring, len);
+  this->gameIDstr[len] = 0;
 }
 
 BuildingConfiguration::~BuildingConfiguration(void)
@@ -31,7 +30,7 @@ void TranslateBuildingNames(){
     char* ptr = buildingTypes[i].gameIDstr;
     uint32_t j;
     for(j=0; j < v_buildingtypes.size(); j++){
-      if( strcmpi( ptr, v_buildingtypes[j].c_str()) == 0){
+      if( strcmp( ptr, v_buildingtypes[j].c_str()) == 0){
         //assign ID
         buildingTypes[i].gameID = j; 
         //jump to next buildingType

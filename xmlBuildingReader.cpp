@@ -146,7 +146,7 @@ bool LoadBuildingConfiguration( vector<BuildingConfiguration>* knownBuildings ){
     char filepath[50] = {0};
     getline (myfile,line);
     if(line.size() > 0){
-      sprintf_s(filepath, "buildings/%s", line.c_str() );
+      sprintf(filepath, "buildings/%s", line.c_str() );
       bool result = addSingleConfig( filepath, knownBuildings );
       if( !result )
         WriteErr("Unable to load building config %s\n", filepath);
