@@ -112,6 +112,11 @@ void drawDebugCursorAndInfo(BITMAP* target){
     textprintf(target, font, 2, config.screenHeight-20-(i--*10), 0xFFFFFF, 
       "Creature: %s(%i) ", 
       v_creatureNames.at(b->creature.type).id, b->creature.type);
+    
+    char strCreature[100] = {0};
+    generateCreatureDebugString( &b->creature, strCreature );
+    textprintf(target, font, 2, config.screenHeight-20-(i--*10), 0xFFFFFF, 
+      "flag1: %s ", strCreature );
   }
 
 }

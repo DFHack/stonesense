@@ -19,3 +19,6 @@ One entry for each axis, and each expects the number of tiles to load.
 [SEGMENTZ:5]
 
 
+Shows all creatures, for debuging. Living, dead, kidnapped, caged, EVERY single one.
+[ALLCREATURES:NO]
+

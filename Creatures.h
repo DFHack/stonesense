@@ -23,6 +23,7 @@ int GetCreatureSpriteMap( t_creature* c );
 
 void LoadCreatureConfiguration( vector<CreatureConfiguration>* knownCreatures );
 
+void generateCreatureDebugString( t_creature* c, char* strbuffer);
 
 extern vector<t_matgloss> v_creatureNames;
 extern vector<CreatureConfiguration> creatureTypes;

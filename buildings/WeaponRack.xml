@@ -4,6 +4,6 @@
 
 <Building name="Weapon Rack" gameID="weapon_rack"> 
 	<Tile>
-		<Sprite sheetIndex = 316 />
+		<Sprite sheetIndex = 93 />
 	</Tile>
 </Building> 

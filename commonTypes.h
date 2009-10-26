@@ -25,6 +25,7 @@ typedef struct {
   bool single_layer_view;
   bool shade_hidden_blocks;
   bool show_hidden_blocks;
+  bool show_all_creatures;
   int automatic_reload_time;
 
   int screenWidth;

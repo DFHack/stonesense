@@ -78,6 +78,11 @@ void parseConfigLine( string line ){
     if(value > 30) value = 30;
     config.segmentSize.z = value;
   }
+
+  if( line.find("ALLCREATURES") != -1){
+    string result = parseStrFromLine( "ALLCREATURES", line );
+    config.show_all_creatures = (result == "YES");
+  }
 }
 
 
