@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+
+
+
+<Building name="Glass Window" gameID="glass_window">
+	<Tile>
+		<Condition type="NeighbourWall" value="South" />
+		<Sprite sheetIndex = 61 />
+	</Tile>
+	<Tile>
+		<Condition type="NeighbourWall" value="North" />
+		<Sprite sheetIndex = 61 />
+	</Tile>
+	
+	<Tile>
+		<Sprite sheetIndex = 60 />
+	</Tile>
+	
+</Building> 

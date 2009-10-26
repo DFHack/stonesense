@@ -122,22 +122,17 @@ void loadSpecialBuildingTypes (WorldSegment* segment, Block* b, uint32_t relativ
     //check all sprites for one that matches all conditions
     for(j = 0; j < conf.sprites.size(); j++){
       if(conf.sprites[j].BlockMatches(b)){
-//        t_SpriteWithOffset Sprite;
         b->building.sprites = conf.sprites[j].sprites;
-        
         foundBlockBuildingInfo = true;
-        //b->overridingBuildingType = conf.sprites[j].spriteIndex;
-        
         break;
       }
     }
-
-    //add yellow box, if needed. But only if the building was not found (this way we can have blank slots in buildings)
-    if(b->building.sprites.size() == 0 && foundBlockBuildingInfo == false){
-      t_SpriteWithOffset unknownBuildingSprite = {SPRITEOBJECT_NA, 0, 0};
-      b->building.sprites.push_back( unknownBuildingSprite );
-    }
     break;
+  }
+  //add yellow box, if needed. But only if the building was not found (this way we can have blank slots in buildings)
+  if(b->building.sprites.size() == 0 && foundBlockBuildingInfo == false){
+    t_SpriteWithOffset unknownBuildingSprite = {SPRITEOBJECT_NA, 0, 0};
+    b->building.sprites.push_back( unknownBuildingSprite );
   }
 }
 
