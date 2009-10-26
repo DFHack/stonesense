@@ -5,7 +5,7 @@
  */
 
 
-#include <allegro.h>
+#include "../allegro/allegro.h"
 #include "loadpng.h"
 
 

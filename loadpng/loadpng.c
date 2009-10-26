@@ -7,8 +7,8 @@
 
 //#include <png.h>
 #include "libpng/include/png.h"
-#include <allegro.h>
-#include <allegro/internal/aintern.h>
+#include "../allegro/allegro.h"
+#include "../allegro/allegro/internal/aintern.h"
 #include "loadpng.h"
 
 /* We need internals _color_load_depth and _fixup_loaded_bitmap.  The
