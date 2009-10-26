@@ -47,4 +47,5 @@ private:
 
 //find a better place for these
 bool hasWall(Block* b);
+bool hasBuildingOfID(Block* b, int ID);
 bool wallShouldNotHaveBorders( int in );

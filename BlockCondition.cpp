@@ -25,7 +25,7 @@ bool BlockCondition::Matches(Block* b){
   }
   
   if(type == Cond_NeighbourWall){
-    dirTypes closebyWalls = findWallCloseTo(b->ownerSegment,b);    
+    //dirTypes closebyWalls = findWallCloseTo(b->ownerSegment,b);    
 
     bool n = hasWall( b->ownerSegment->getBlock( b->x, b->y - 1, b->z ) );
     bool s = hasWall( b->ownerSegment->getBlock( b->x, b->y + 1, b->z ) );
@@ -39,6 +39,24 @@ bool BlockCondition::Matches(Block* b){
     
     if( value == eSimpleSingle && !n && !s && !w && !e) return true;
 
+    return false;
+  }
+
+  if(type == Cond_NeighbourSameBuilding){
+    int blocksBuildingID = b->building.info.type;
+
+    bool n = hasBuildingOfID( b->ownerSegment->getBlock( b->x, b->y - 1, b->z ), blocksBuildingID );
+    bool s = hasBuildingOfID( b->ownerSegment->getBlock( b->x, b->y + 1, b->z ), blocksBuildingID );
+    bool w = hasBuildingOfID( b->ownerSegment->getBlock( b->x - 1, b->y, b->z ), blocksBuildingID);
+    bool e = hasBuildingOfID( b->ownerSegment->getBlock( b->x + 1, b->y, b->z ), blocksBuildingID );
+    
+    if( value == eSimpleN && n) return true;
+    if( value == eSimpleS && s) return true;
+    if( value == eSimpleW && w) return true;
+    if( value == eSimpleE && e) return true;
+    
+    if( value == eSimpleSingle && !n && !s && !w && !e) return true;
+    
     return false;
   }
 

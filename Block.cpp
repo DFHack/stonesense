@@ -145,6 +145,11 @@ bool hasWall(Block* b){
   return b->wallType > 0;
 }
 
+bool hasBuildingOfID(Block* b, int ID){
+  if(!b) return false;
+  return b->building.info.type == ID;
+}
+
 bool wallShouldNotHaveBorders( int in ){
   switch( in ){
     case 65: //stone fortification

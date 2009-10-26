@@ -46,7 +46,6 @@ void parseConditionToSprite(ConditionalSprite& sprite, const char* strType, cons
     if( strcmp(strValue, "CrystalGlass") == 0)
       cond.value = Mat_CrystalGlass;
       
-
     sprite.conditions.push_back( cond );
   }
 
@@ -55,6 +54,22 @@ void parseConditionToSprite(ConditionalSprite& sprite, const char* strType, cons
      cond.value = atoi( strValue );
 
      sprite.conditions.push_back( cond );
+  }
+
+    if( strcmp(strType, "NeighbourSameBuilding") == 0){
+    BlockCondition cond( Cond_NeighbourSameBuilding );
+    if( strcmp(strValue, "None") == 0)
+      cond.value = eSimpleSingle;
+    if( strcmp(strValue, "North") == 0)
+      cond.value = eSimpleN;
+    if( strcmp(strValue, "South") == 0)
+      cond.value = eSimpleS;
+    if( strcmp(strValue, "West") == 0)
+      cond.value = eSimpleW;
+    if( strcmp(strValue, "East") == 0)
+      cond.value = eSimpleE;
+
+    sprite.conditions.push_back( cond );
   }
 }
 

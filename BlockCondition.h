@@ -6,6 +6,7 @@ enum BlockConditionTypes{
   Cond_MaterialType,
   Cond_MaterialIndex,
   Cond_NeighbourWall,
+  Cond_NeighbourSameBuilding,
   Cond_PositionIndex,
   
 };

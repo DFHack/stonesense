@@ -8,7 +8,7 @@ vector<BuildingConfiguration> buildingTypes;
 vector <string> v_buildingtypes;//should be empty for all buildings
 
 
-void loadSpecialBuildingTypes (WorldSegment* segment, Block* b, uint32_t relativex, uint32_t relativey, uint32_t height);
+void loadBuildingSprites( Block* b );
 
 int BlockNeighbourhoodType_simple(WorldSegment* segment, Block* b, bool validationFuctionProc(Block*) ){
   uint32_t x,y,z;
@@ -89,7 +89,7 @@ void MergeBuildingsToSegment(vector<t_building>* buildings, WorldSegment* segmen
 	for(uint32_t i=0; i < buildings->size(); i++){
     tempbuilding = (*buildings)[i];
 		
-		int bheight = tempbuilding.y2 - tempbuilding.y1;
+		//int bheight = tempbuilding.y2 - tempbuilding.y1;
 		for(uint32_t yy = tempbuilding.y1; yy <= tempbuilding.y2; yy++)
 		for(uint32_t xx = tempbuilding.x1; xx <= tempbuilding.x2; xx++){
 			Block* b;
@@ -98,21 +98,26 @@ void MergeBuildingsToSegment(vector<t_building>* buildings, WorldSegment* segmen
         //handle special case where zones overlap buildings, and try to replace them
         if(b->building.info.type != BUILDINGTYPE_NA && tempbuilding.type == BUILDINGTYPE_ZONE )
           continue;
-        
+
 				b->building.info = tempbuilding;
-				//b->building.x1 = b->building.x2 = xx;
-				//b->building.y1 = b->building.y2 = yy;
-        loadSpecialBuildingTypes(segment, b, xx-tempbuilding.x1, yy-tempbuilding.y1, bheight);
       }
     }
-		
 		index++;
 	}
+
+  //all blocks in the segment now have their building info loaded.
+  //now set their sprites
+  for(uint32_t i=0; i < segment->getNumBlocks(); i++){
+    Block* b = segment->getBlock( i );
+    if( b->building.info.type != BUILDINGTYPE_NA && b->building.info.type != BUILDINGTYPE_BLACKBOX )
+      loadBuildingSprites( b );
+  }
+
 	
 }
 
 
-void loadSpecialBuildingTypes (WorldSegment* segment, Block* b, uint32_t relativex, uint32_t relativey, uint32_t height){
+void loadBuildingSprites ( Block* b){
   uint32_t i,j;
   bool foundBlockBuildingInfo = false;
   for(i = 0; i < buildingTypes.size(); i++){

@@ -149,10 +149,9 @@ void ReadCellToSegment(DFHackAPI& DF, WorldSegment& segment, int CellX, int Cell
        b->y == segment.y + segment.sizey - 1))
     {
       b->wallType = 0;
-      b->building.info.type = BUILDINGTYPE_TABLE; //dosnt matter what kind of building we set it to
+      b->building.info.type = BUILDINGTYPE_BLACKBOX;
       t_SpriteWithOffset sprite = {SPRITEOBJECT_BLACK, 0, 0};
       b->building.sprites.push_back( sprite );
-      //b->overridingBuildingType = SPRITEOBJECT_BLACK;
       shouldBeIncluded= true;
     }
     if(!shouldBeIncluded){
