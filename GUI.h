@@ -3,7 +3,6 @@
 #include "common.h"
 
 
-
 void pointToScreen(int *inx, int *iny, int inz);
 Crd2D WorldBlockToScreen(int32_t x, int32_t y, int32_t z);
 Crd2D LocalBlockToScreen(int32_t x, int32_t y, int32_t z);

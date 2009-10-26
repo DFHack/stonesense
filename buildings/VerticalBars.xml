@@ -5,16 +5,17 @@
 <Building name="Vertical Bars" gameID="vertical_bars"> 
 	
 	
-	
-	<Sprite sheetIndex=101>
+	<Tile>
+		<Sprite sheetIndex=101/>
 		<Condition type="NeighbourWall" value="North" />
-	</Sprite>
-	<Sprite sheetIndex=101>
+	</Tile>
+	<Tile>
+		<Sprite sheetIndex=101 />
 		<Condition type="NeighbourWall" value="South" />
-	</Sprite>
+	</Tile>
 	
-	<Sprite sheetIndex = 100>
-			
-	</Sprite>
+	<Tile>
+		<Sprite sheetIndex = 100>
+	</Tile>
 	
 </Building> 

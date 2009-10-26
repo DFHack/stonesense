@@ -3,22 +3,33 @@
 
 
 <Building name="Trade Depot" gameID="trade_depot"> 
-	<Sprite sheetIndex = 141>
+	
+	<Tile>
+		<Sprite sheetIndex = 141 />
 		<Condition type="PositionIndex" value=0 />
-	</Sprite>
-	<Sprite sheetIndex = 141>
+	</Tile>
+	<Tile>
+		<Sprite sheetIndex = 141 />
 		<Condition type="PositionIndex" value=4 />
-	</Sprite>
-	<Sprite sheetIndex = 141>
+	</Tile>
+	
+	<Tile>
+		<Sprite sheetIndex = 141 />
 		<Condition type="PositionIndex" value=12 />
-	</Sprite>
-	<Sprite sheetIndex = 141>
+	</Tile>
+	
+	<Tile>
+		<Sprite sheetIndex = 141 />
 		<Condition type="PositionIndex" value=24 />
-	</Sprite>
-	<Sprite sheetIndex = 141>
+	</Tile>
+	
+	<Tile>
+		<Sprite sheetIndex = 141 />
 		<Condition type="PositionIndex" value=20 />
-	</Sprite>
-
-	<Sprite sheetIndex = 140 />
+	</Tile>
+	
+	<Tile>
+		<Sprite sheetIndex = 140 />
+	</Tile>
 	
 </Building> 

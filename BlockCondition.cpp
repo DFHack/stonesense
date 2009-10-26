@@ -12,16 +12,16 @@ BlockCondition::BlockCondition(BlockConditionTypes type)
 
 bool BlockCondition::Matches(Block* b){
   if(type == Cond_PositionIndex){
-    int x = b->x - b->building.x1;
-    int y = b->y - b->building.y1;
-    int w = b->building.x2 - b->building.x1 + 1 ;
+    int x = b->x - b->building.info.x1;
+    int y = b->y - b->building.info.y1;
+    int w = b->building.info.x2 - b->building.info.x1 + 1 ;
     int pos = y * w + x;
 
     return pos == this->value;
   }
 
   if(type == Cond_MaterialType){
-    return b->building.material.type == this->value;
+    return b->building.info.material.type == this->value;
   }
   
   if(type == Cond_NeighbourWall){

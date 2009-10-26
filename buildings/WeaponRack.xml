@@ -1,0 +1,9 @@
+<?xml version="1.0" ?>
+
+
+
+<Building name="Weapon Rack" gameID="weapon_rack"> 
+	<Tile>
+		<Sprite sheetIndex = 316 />
+	</Tile>
+</Building> 

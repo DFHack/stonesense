@@ -74,6 +74,13 @@ void ReadCellToSegment(DFHackAPI& DF, WorldSegment& segment, int CellX, int Cell
 					   uint32_t BoundryEX, uint32_t BoundryEY, 
 						 uint16_t Flags/*not in use*/, vector<t_building>* allBuildings, vector<t_construction>* allConstructions)
 {
+  //boundry check
+  int celldimX, celldimY, celldimZ;
+	DF.getSize((unsigned int &)celldimX, (unsigned int &)celldimY, (unsigned int &)celldimZ);
+  if( CellX < 0 || CellX >= celldimX ||
+      CellY < 0 || CellY >= celldimY ||
+      CellZ < 0 || CellZ >= celldimZ
+    ) return;
 
 	if(!DF.isValidBlock(CellX, CellY, CellZ))
 		return;
@@ -142,8 +149,10 @@ void ReadCellToSegment(DFHackAPI& DF, WorldSegment& segment, int CellX, int Cell
        b->y == segment.y + segment.sizey - 1))
     {
       b->wallType = 0;
-      b->building.type = BUILDINGTYPE_TABLE; //dosnt matter what kind of building we set it to
-      b->overridingBuildingType = SPRITEOBJECT_BLACK;
+      b->building.info.type = BUILDINGTYPE_TABLE; //dosnt matter what kind of building we set it to
+      t_SpriteWithOffset sprite = {SPRITEOBJECT_BLACK, 0, 0};
+      b->building.sprites.push_back( sprite );
+      //b->overridingBuildingType = SPRITEOBJECT_BLACK;
       shouldBeIncluded= true;
     }
     if(!shouldBeIncluded){

@@ -4,6 +4,7 @@
 
 class WorldSegment;
 
+
 class Block
 {
 public:
@@ -23,11 +24,16 @@ public:
 	t_matglossPair ramp;
 	t_matglossPair water;
 
-	t_building building;
+	
   t_creature creature;
-	int overridingBuildingType;
+	//int overridingBuildingType;
   bool mirroredBuilding;
 	t_matglossPair tree;
+
+  struct {
+    t_building info;
+    vector<t_SpriteWithOffset> sprites;
+  } building;
 
 	bool IsVisible(){
 		return (floorType || wallType) != 0;

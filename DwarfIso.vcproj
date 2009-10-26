@@ -307,6 +307,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\commonTypes.h"
+				>
+			</File>
+			<File
 				RelativePath=".\ConditionalSprite.h"
 				>
 			</File>

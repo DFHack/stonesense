@@ -7,7 +7,7 @@ class ConditionalSprite
 private:
 
 public:
-  int  spriteIndex;
+  vector<t_SpriteWithOffset> sprites;
   vector<BlockCondition> conditions;
   
 

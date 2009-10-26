@@ -3,13 +3,13 @@
 
 
 <Building name="Cabinet" gameID="cabinet"> 
-
-	<Sprite sheetIndex = 88>
+	<Tile>
+		<Sprite sheetIndex = 88 />
 		<Condition type="MaterialType" value="Wood" />
-	</Sprite>	
+	</Tile>
 	
-	<Sprite sheetIndex = 87>
-			
-	</Sprite>
+	<Tile>
+		<Sprite sheetIndex = 87 />
+	</Tile>
 	
 </Building> 

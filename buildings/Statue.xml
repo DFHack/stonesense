@@ -3,6 +3,8 @@
 
 
 <Building name="Statue" gameID="Statue"> 
-	<Sprite sheetIndex = 86 />
+	<Tile>
+		<Sprite sheetIndex = 86 />
+	</Tile>
 	
 </Building> 

@@ -3,10 +3,14 @@
 
 
 <Building name="Paved Road" gameID="paved_road"> 
-	<Sprite sheetIndex = 140>
+	
+	<Tile>
+		<Sprite sheetIndex = 140 />
 		<Condition type="MaterialType" value="Metal" />
-	</Sprite>
+	</Tile>
 
-	<Sprite sheetIndex = 140 />
+	<Tile>
+		<Sprite sheetIndex = 140 />
+	</Tile>
 	
 </Building> 

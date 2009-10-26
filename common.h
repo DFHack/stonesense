@@ -13,8 +13,9 @@ using namespace std;
 #include "dfhack/library/DFTileTypes.h"
 #include "dfhack/library/DFHackAPI.h"
 
-
+#include "commonTypes.h"
 #include "Block.h"
+
 
 //#define RELEASE
 #define DEBUG
@@ -49,30 +50,6 @@ using namespace std;
 #define COLOR_SEGMENTOUTLINE 0x112211
 
 
-
-typedef struct Crd2D {
-	int32_t x,y;
-}Crd2D;
-typedef struct Crd3D {
-	int32_t x,y,z;
-}Crd3D;
-
-typedef struct {
-  bool show_zones;
-  bool show_stockpiles;
-  bool single_layer_view;
-  bool shade_hidden_blocks;
-  bool show_hidden_blocks;
-  int automatic_reload_time;
-
-  int screenWidth;
-  int screenHeight;
-  bool Fullscreen;
-
-  Crd3D segmentSize;
-
-} GameConfiguration;
-
 // normal tree = 0
 // tree by water or something = 1
 // Shrub = 2
@@ -87,17 +64,20 @@ enum material{
 enum dirTypes{
   eSimpleInvalid = -1,
   eSimpleSingle,
+  //-----START: Do NOT rearrange these, they're used to autoinsert building borders
   eSimpleN,
   eSimpleW,
   eSimpleS,
   eSimpleE,
-  eSimpleNnS,
-  eSimpleWnE,
 
   eSimpleNnW,
   eSimpleSnW,
   eSimpleSnE,
   eSimpleNnE,
+  //-----END
+
+  eSimpleNnS,
+  eSimpleWnE,
 
   eSimpleNnEnS,
   eSimpleNnEnW,

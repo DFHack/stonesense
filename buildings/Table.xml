@@ -5,13 +5,13 @@
 <Building name="Table" gameID="table"> 
 	
 
-	
-	<Sprite sheetIndex = 82>
+	<Tile>
+		<Sprite sheetIndex = 82 />
 		<Condition type="MaterialType" value="Wood" />
-	</Sprite>	
+	</Tile>
 	
-	<Sprite sheetIndex = 83>
-			
-	</Sprite>
+	<Tile>
+		<Sprite sheetIndex = 83 />
+	</Tile>
 	
 </Building> 

@@ -1,6 +1,8 @@
 #include "common.h"
 #include "GUI.h"
-
+#include "BuildingConfiguration.h"
+#include "GameBuildings.h"
+#include "Creatures.h"
 
 void mouseProc(int flags){
   int j = 10;
@@ -52,9 +54,12 @@ void doKeys(){
 		paintboard();
 	}
   if(key[KEY_G]){
+    LoadCreatureConfiguration( &creatureTypes );
+    LoadBuildingConfiguration( &buildingTypes );
 		destroyGraphics();
     loadGraphicsFromDisk();
-		paintboard();
+
+		timeToReloadSegment = true;
 		while(key[KEY_G]);
 	}
   if(key[KEY_U]){

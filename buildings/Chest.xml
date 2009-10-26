@@ -4,24 +4,30 @@
 
 <Building name="Chest" gameID="container"> 
 	
-	<Sprite sheetIndex = 92>
+	<Tile>
+		<Sprite sheetIndex = 92 />
 		<Condition type="MaterialType" value="GreenGlass" />
-	</Sprite>
+	</Tile>
 	
-	<Sprite sheetIndex = 91>
+	<Tile>
+		<Sprite sheetIndex = 91 />
 		<Condition type="MaterialType" value="Leather" />
-	</Sprite>
-	<Sprite sheetIndex = 91>
+	</Tile>
+	<Tile>
+		<Sprite sheetIndex = 91 />
 		<Condition type="MaterialType" value="Slik" />
-	</Sprite>
-	<Sprite sheetIndex = 91>
+	</Tile>
+	<Tile>
+		<Sprite sheetIndex = 91 />
 		<Condition type="MaterialType" value="PlantCloth" />
-	</Sprite>
+	</Tile>
 	
-	<Sprite sheetIndex = 89>
+	<Tile>
+		<Sprite sheetIndex = 89 />
 		<Condition type="MaterialType" value="Wood" />
-	</Sprite>
+	</Tile>
 	
-	<Sprite sheetIndex = 90 />
-	
+	<Tile>
+		<Sprite sheetIndex = 90 />
+	</Tile>
 </Building> 

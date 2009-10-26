@@ -101,11 +101,11 @@ void drawDebugCursorAndInfo(BITMAP* target){
     textprintf(target, font, 2, config.screenHeight-20-(i--*10), 0xFFFFFF, 
       "tree:%i water:%i", b->tree.index, b->water.index);
   //building
-  if(b->building.type != BUILDINGTYPE_NA){
+  if(b->building.info.type != BUILDINGTYPE_NA){
     textprintf(target, font, 2, config.screenHeight-20-(i--*10), 0xFFFFFF, 
       "Building: %s(%i) MatType:%i MatIndex:%i", 
-      v_buildingtypes.at(b->building.type).c_str(),
-      b->building.type, b->building.material.type, b->building.material.index);
+      v_buildingtypes.at(b->building.info.type).c_str(),
+      b->building.info.type, b->building.info.material.type, b->building.info.material.index);
   }
   //if creature
   if(b->creature.type){

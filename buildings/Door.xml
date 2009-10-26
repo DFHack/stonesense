@@ -4,33 +4,35 @@
 
 <Building name="Door" gameID="door"> 
 	
-		
-	<Sprite sheetIndex=44>
+	<Tile>
+		<Sprite sheetIndex=44 />
 		<Condition type="NeighbourWall" value="South" />
 		<Condition type="MaterialType" value="Wood" />
-	</Sprite>
-	<Sprite sheetIndex=44>
-			<Condition type="NeighbourWall" value="North" />
-			<Condition type="MaterialType" value="Wood" />
-	</Sprite>	
-	
-	<Sprite sheetIndex = 41>
+	</Tile>
+	<Tile>
+		<Sprite sheetIndex=44 />
+		<Condition type="NeighbourWall" value="North" />
 		<Condition type="MaterialType" value="Wood" />
-	</Sprite>	
+	</Tile>
+	<Tile>
+		<Sprite sheetIndex = 41 />
+		<Condition type="MaterialType" value="Wood" />
+	</Tile>
 	
 	
-	
-	<Sprite sheetIndex=43>
+	<Tile>
+		<Sprite sheetIndex=43 />
 		<Condition type="NeighbourWall" value="North" />
 		<Condition type="MaterialType" value="Stone" />
-	</Sprite>
-	<Sprite sheetIndex=43>
+	</Tile>
+	<Tile>
+		<Sprite sheetIndex=43 />
 		<Condition type="NeighbourWall" value="South" />
 		<Condition type="MaterialType" value="Stone" />
-	</Sprite>
+	</Tile>
 	
-	<Sprite sheetIndex = 40>
-			
-	</Sprite>
+	<Tile>
+		<Sprite sheetIndex = 40 />
+	</Tile>
 	
 </Building> 

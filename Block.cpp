@@ -1,6 +1,6 @@
+#include "Block.h"
 #include "common.h"
 #include "GUI.h"
-#include "Block.h"
 #include "SpriteMaps.h"
 #include "GameBuildings.h"
 #include "Creatures.h"
@@ -19,7 +19,7 @@ Block::Block(WorldSegment* ownerSegment)
 
   this->ownerSegment = ownerSegment;
 
-  building.type = BUILDINGTYPE_NA;
+  building.info.type = BUILDINGTYPE_NA;
 }
 
 
@@ -86,16 +86,19 @@ void Block::Draw(BITMAP* target){
 
 	//Building
   bool skipBuilding = 
-    (building.type == BUILDINGTYPE_STOCKPILE && !config.show_stockpiles) ||
-    (building.type == BUILDINGTYPE_ZONE && !config.show_zones);
+    (building.info.type == BUILDINGTYPE_STOCKPILE && !config.show_stockpiles) ||
+    (building.info.type == BUILDINGTYPE_ZONE && !config.show_zones);
   
-  if(building.type != BUILDINGTYPE_NA && !skipBuilding){
+  if(building.info.type != BUILDINGTYPE_NA && !skipBuilding){
 
     int spriteNum =  SPRITEOBJECT_NA; //getBuildingSprite(this->building, mirroredBuilding);
-		if(overridingBuildingType)
-			spriteNum = overridingBuildingType;
 
-    DrawSpriteFromSheet( spriteNum, target, IMGObjectSheet, drawx, drawy );
+    for(uint32_t i=0; i < building.sprites.size(); i++){
+      spriteNum = building.sprites[i].sheetIndex;
+      DrawSpriteFromSheet(spriteNum , target, IMGObjectSheet, 
+        drawx + building.sprites[i].x,
+        drawy + building.sprites[i].y);
+    }
 	}
 
   	//Draw Walls

@@ -125,9 +125,9 @@ int main(void)
   //ford. desert map
   //sDisplayedSegmentX = 78; DisplayedSegmentY = 123;DisplayedSegmentZ = 15;
 
-  //DisplayedSegmentX = 227; DisplayedSegmentY = 158;DisplayedSegmentZ = 19;
+  DisplayedSegmentX = 172; DisplayedSegmentY = 325;DisplayedSegmentZ = 19;
 
-  //DisplayedSegmentX = 155; DisplayedSegmentY = 86;DisplayedSegmentZ = 17;
+  //DisplayedSegmentX = 242; DisplayedSegmentY = 345;DisplayedSegmentZ = 15;
   
 
   #ifdef RELEASE

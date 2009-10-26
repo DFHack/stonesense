@@ -81,4 +81,6 @@ void LoadCreatureConfiguration( vector<CreatureConfiguration>* knownCreatures ){
     
     elemCreature = elemCreature->NextSiblingElement("Creature");
   }
+
+  CreatureNamesTranslatedFromGame = false;
 }

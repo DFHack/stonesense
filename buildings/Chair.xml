@@ -4,12 +4,13 @@
 
 <Building name="Chair" gameID="seat"> 
 
-	<Sprite sheetIndex = 84>
+	<Tile>
 		<Condition type="MaterialType" value="Wood" />
-	</Sprite>	
+		<Sprite sheetIndex = 84 />
+	</Tile>	
 	
-	<Sprite sheetIndex = 85>
-			
-	</Sprite>
+	<Tile>
+		<Sprite sheetIndex = 85 />
+	</Tile>
 	
 </Building> 

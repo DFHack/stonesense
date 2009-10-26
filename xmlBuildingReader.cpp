@@ -78,23 +78,36 @@ bool addSingleConfig( const char* filename,  vector<BuildingConfiguration>* know
   
   BuildingConfiguration building(strName, (char*) strGameID );
 
-  //for every Sprite
-  TiXmlElement* elemSprite =  elemBuilding->FirstChildElement("Sprite");
-  while ( elemSprite ){
-    const char* strSheetIndex = elemSprite->Attribute("sheetIndex");  
-    ConditionalSprite sprite;
-    sprite.spriteIndex = atoi( strSheetIndex );
+  //for every Tile this building has
+  TiXmlElement* elemTile =  elemBuilding->FirstChildElement("Tile");
+  while ( elemTile ){
+    
+    ConditionalSprite tile;
+    //Add all the sprites that compose this tile
+    TiXmlElement* elemSprite =  elemTile->FirstChildElement("Sprite");
+    while( elemSprite ){
+      const char* strSheetIndex = elemSprite->Attribute("sheetIndex");
+      const char* strOffsetX = elemSprite->Attribute("offsetx");
+      const char* strOffsetY = elemSprite->Attribute("offsety");
+      int sheetIndex = (strSheetIndex != 0 ? atoi(strSheetIndex) : 0);
+      int offsetX    = (strOffsetX    != 0 ? atoi(strOffsetX)    : 0);
+      int offsetY    = (strOffsetY    != 0 ? atoi(strOffsetY)    : 0);
+
+      t_SpriteWithOffset sprite = { sheetIndex, offsetX, offsetY };
+      tile.sprites.push_back( sprite );
+      elemSprite = elemSprite->NextSiblingElement("Sprite");
+    }
 
     //load conditions
-    TiXmlElement* elemCondition = elemSprite->FirstChildElement("Condition");
+    TiXmlElement* elemCondition = elemTile->FirstChildElement("Condition");
     while( elemCondition ){
-      parseConditionToSprite( sprite, elemCondition->Attribute("type"), elemCondition->Attribute("value") );
+      parseConditionToSprite( tile, elemCondition->Attribute("type"), elemCondition->Attribute("value") );
       elemCondition = elemCondition->NextSiblingElement("Condition");
     }
     //add copy of sprite to building
-    building.sprites.push_back( sprite );
+    building.sprites.push_back( tile );
 
-    elemSprite = elemSprite->NextSiblingElement("Sprite");
+    elemTile = elemTile->NextSiblingElement("Tile");
   }
 
   //add a copy of 'building' to known buildings
@@ -125,6 +138,9 @@ bool LoadBuildingConfiguration( vector<BuildingConfiguration>* knownBuildings ){
     }
   }
   myfile.close();
+
+  BuildingNamesTranslatedFromGame = false;
+
   return true;
 }
 

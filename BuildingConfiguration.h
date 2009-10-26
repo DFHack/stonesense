@@ -9,7 +9,6 @@ public:
   char gameIDstr[100];
   uint32_t gameID;
   uint32_t width, height;
-  //uint32_t spriteIndex;
   string name;
   bool canBeFloating;
   bool canBeAnySize;

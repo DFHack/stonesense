@@ -44,7 +44,7 @@ int BlockNeighbourhoodType_simple(WorldSegment* segment, Block* b, bool validati
 
 bool blockHasBridge(Block* b){
   if(!b) return 0;
-  return b->building.type == BUILDINGTYPE_BRIDGE;
+  return b->building.info.type == BUILDINGTYPE_BRIDGE;
 }
 
 dirTypes findWallCloseTo(WorldSegment* segment, Block* b){
@@ -96,10 +96,10 @@ void MergeBuildingsToSegment(vector<t_building>* buildings, WorldSegment* segmen
       //want hashtable :(
 			if( b = segment->getBlock( xx, yy, tempbuilding.z) ){
         //handle special case where zones overlap buildings, and try to replace them
-        if(b->building.type != BUILDINGTYPE_NA && tempbuilding.type == BUILDINGTYPE_ZONE )
+        if(b->building.info.type != BUILDINGTYPE_NA && tempbuilding.type == BUILDINGTYPE_ZONE )
           continue;
         
-				b->building = tempbuilding;
+				b->building.info = tempbuilding;
 				//b->building.x1 = b->building.x2 = xx;
 				//b->building.y1 = b->building.y2 = yy;
         loadSpecialBuildingTypes(segment, b, xx-tempbuilding.x1, yy-tempbuilding.y1, bheight);
@@ -114,20 +114,30 @@ void MergeBuildingsToSegment(vector<t_building>* buildings, WorldSegment* segmen
 
 void loadSpecialBuildingTypes (WorldSegment* segment, Block* b, uint32_t relativex, uint32_t relativey, uint32_t height){
   uint32_t i,j;
-
+  bool foundBlockBuildingInfo = false;
   for(i = 0; i < buildingTypes.size(); i++){
     BuildingConfiguration& conf = buildingTypes[i];
-    if(b->building.type != conf.gameID) continue;
+    if(b->building.info.type != conf.gameID) continue;
 
     //check all sprites for one that matches all conditions
     for(j = 0; j < conf.sprites.size(); j++){
       if(conf.sprites[j].BlockMatches(b)){
-        b->overridingBuildingType = conf.sprites[j].spriteIndex;
-        return;
+//        t_SpriteWithOffset Sprite;
+        b->building.sprites = conf.sprites[j].sprites;
+        
+        foundBlockBuildingInfo = true;
+        //b->overridingBuildingType = conf.sprites[j].spriteIndex;
+        
+        break;
       }
     }
 
-    
+    //add yellow box, if needed. But only if the building was not found (this way we can have blank slots in buildings)
+    if(b->building.sprites.size() == 0 && foundBlockBuildingInfo == false){
+      t_SpriteWithOffset unknownBuildingSprite = {SPRITEOBJECT_NA, 0, 0};
+      b->building.sprites.push_back( unknownBuildingSprite );
+    }
+    break;
   }
 }
 

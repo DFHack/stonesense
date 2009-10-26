@@ -1,20 +1,36 @@
-Door.xml
 
+Road.xml
 
+Restraint.xml
+Statue.xml
+Table.xml
 Cabinet.xml
 Chair.xml
 Chest.xml
 Bed.xml
+Weaponrack.xml
+ArmorStand.xml
 
 Door.xml
-Kitchen.xml
-Pump.xml
-Restraint.xml
-Road.xml
-Statue.xml
-Still.xml
+VerticalBars.xml
 
-Table.xml
+Kitchen.xml
+Carpenters.xml
+Smelter.xml
+MagmaSmelter.xml
+WoodFurnace.xml
+Forge.xml
+MagmaForge.xml
+Masons.xml
+CraftDwarfs.xml
+Mechanics.xml
+Butchers.xml
+Loom.xml
+Clothiers.xml
+Tannery.xml
+Still.xml
+Leatherworks.xml
+
 TradeDepot.xml
 
-VerticalBars.xml
+Pump.xml
