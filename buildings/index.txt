@@ -15,7 +15,7 @@ Door.xml
 VerticalBars.xml
 
 Kitchen.xml
-Carpenters.xml
+Carpenter.xml
 Smelter.xml
 MagmaSmelter.xml
 WoodFurnace.xml
