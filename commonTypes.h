@@ -29,6 +29,7 @@ typedef struct {
   bool hide_outer_blocks;
   bool debug_mode;
   int automatic_reload_time;
+  int automatic_reload_step;
 
   int screenWidth;
   int screenHeight;

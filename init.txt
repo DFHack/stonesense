@@ -22,6 +22,9 @@ One entry for each axis, and each expects the number of tiles to load.
 Shows all creatures, for debuging. Living, dead, kidnapped, caged, EVERY single one.
 [ALLCREATURES:NO]
 
+Set the time in ms to increase the automatic reload time by, a lower step reloads more frequently
+[AUTO_RELOAD_STEP:500]
+
 Sets Stonesense in debug mode. Used for developing
 [DEBUGMODE:YES]
 

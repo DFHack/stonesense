@@ -83,6 +83,11 @@ void parseConfigLine( string line ){
     string result = parseStrFromLine( "ALLCREATURES", line );
     config.show_all_creatures = (result == "YES");
   }
+  if( line.find("AUTO_RELOAD_STEP") != -1){
+    int value = parseIntFromLine( "AUTO_RELOAD_STEP", line);
+    if(value < 50) value = 50;
+    config.automatic_reload_step = value;
+  }
   if( line.find("DEBUGMODE") != -1){
     string result = parseStrFromLine( "DEBUGMODE", line );
     config.debug_mode = (result == "YES");

@@ -100,13 +100,13 @@ void doKeys(){
     saveScreenshot();
   } 
   if(key[KEY_PLUS_PAD]){
-    config.automatic_reload_time += 500;
+    config.automatic_reload_time += config.automatic_reload_step;
     paintboard();
     install_int( automaticReloadProc, config.automatic_reload_time );
     while(key[KEY_PLUS_PAD]);
   }
   if(key[KEY_MINUS_PAD]){
-    config.automatic_reload_time -= 500;
+    config.automatic_reload_time -= config.automatic_reload_step;
     paintboard();
     if( config.automatic_reload_time <= 0 ){
       config.automatic_reload_time = 0;

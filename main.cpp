@@ -58,6 +58,7 @@ int main(void)
   config.hide_outer_blocks = false;
   config.shade_hidden_blocks = true;
   config.automatic_reload_time = 0;
+  config.automatic_reload_step = 500;
   config.Fullscreen = FULLSCREEN;
   config.screenHeight = RESOLUTION_HEIGHT;
   config.screenWidth = RESOLUTION_WIDTH;
@@ -134,6 +135,7 @@ int main(void)
   DisplayedSegmentX = 0; DisplayedSegmentY = 0;DisplayedSegmentZ = 15;
   #endif
 
+  //while(1)
 	reloadDisplayedSegment();
 	if(!viewedSegment) return 1;
 
