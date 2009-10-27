@@ -22,8 +22,8 @@ int GetCreatureSpriteMap( t_creature* c ){
   if(strcmpi(strid, "horse") == 0)         return SPRITECRE_HORSE;
     */
   
-
-  for(uint32_t i=0; i < creatureTypes.size(); i++)
+  uint32_t num = (uint32_t)creatureTypes.size();
+  for(uint32_t i=0; i < num; i++)
     if( c->type == creatureTypes[i].gameID )
       return creatureTypes[i].sheetIndex;
 

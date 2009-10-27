@@ -156,7 +156,7 @@ void ReadCellToSegment(DFHackAPI& DF, WorldSegment& segment, int CellX, int Cell
     }
     if(!shouldBeIncluded){
       //check if it is part of a bridge (or possibly other suspended buildings), in which case, include it
-      shouldBeIncluded = BlockHasSuspendedBuilding(allBuildings, b);
+      //shouldBeIncluded = BlockHasSuspendedBuilding(allBuildings, b);
     }
     
 		if( shouldBeIncluded ){
@@ -258,7 +258,8 @@ WorldSegment* ReadMapSegment(int x, int y, int z, int sizex, int sizey, int size
   MergeBuildingsToSegment(&allBuildings, segment);
 
 	//do misc beautification
-  for(uint32_t i=0; i<segment->getNumBlocks(); i++){
+  uint32_t numblocks = segment->getNumBlocks();
+  for(uint32_t i=0; i < numblocks; i++){
 			Block* b = segment->getBlock(i);
       //setup ramps
       if(b->ramp.type > 0) 

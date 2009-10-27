@@ -37,3 +37,4 @@ Pump.xml
 
 WindowGlass.xml
 Support.xml
+Blueprint.xml

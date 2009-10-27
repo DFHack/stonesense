@@ -70,8 +70,9 @@ void WorldSegment::addBlock(Block* b){
 }
 
 void WorldSegment::drawAllBlocks(BITMAP* target){
-for(uint32_t i=0; i < this->blocks.size(); i++){
-		viewedSegment->blocks[i]->Draw(target);
+  uint32_t numblocks = (uint32_t)this->blocks.size();
+  for(uint32_t i=0; i < numblocks; i++){
+	  viewedSegment->blocks[i]->Draw(target);
 	}
 }
 

@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+
+
+
+<Building name="Construction Blueprint" gameID="construction_blueprint">
+	<Tile>
+		<Sprite sheetIndex = 321 />
+	</Tile>
+	
+</Building> 

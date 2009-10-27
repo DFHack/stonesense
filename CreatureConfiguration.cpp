@@ -30,11 +30,12 @@ void DumpCreatureNamesToDisk(){
 }
 
 void TranslateCreatureNames(){
+  uint32_t numCreatures = (uint32_t)v_creatureNames.size();
   //for each config, find it's integer ID
   for(uint32_t i=0; i < creatureTypes.size(); i++){
     char* ptr = creatureTypes[i].gameIDstr;
     uint32_t j;
-    for(j=0; j < v_creatureNames.size(); j++){
+    for(j=0; j < numCreatures; j++){
       if( strcmp( ptr, v_creatureNames[j].id) == 0){
         //assign ID
         creatureTypes[i].gameID = j; 

@@ -29,7 +29,8 @@ void TranslateBuildingNames(){
   for(uint32_t i=0; i < buildingTypes.size(); i++){
     char* ptr = buildingTypes[i].gameIDstr;
     uint32_t j;
-    for(j=0; j < v_buildingtypes.size(); j++){
+    uint32_t num =  (uint32_t)v_buildingtypes.size();
+    for(j=0; j < num; j++){
       if( strcmp( ptr, v_buildingtypes[j].c_str()) == 0){
         //assign ID
         buildingTypes[i].gameID = j; 

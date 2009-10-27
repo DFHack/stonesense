@@ -26,7 +26,8 @@ public:
 	}
 
   ~WorldSegment(){
-    for(uint32_t i = 0; i < blocks.size(); i++){
+    uint32_t num = (uint32_t)blocks.size();
+    for(uint32_t i = 0; i < num; i++){
       free(blocks[i]);
     }
   }

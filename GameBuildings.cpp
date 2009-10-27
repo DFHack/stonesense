@@ -86,7 +86,8 @@ void MergeBuildingsToSegment(vector<t_building>* buildings, WorldSegment* segmen
 	t_building tempbuilding;
 
 	uint32_t index = 0;
-	for(uint32_t i=0; i < buildings->size(); i++){
+  uint32_t numBuildings = (uint32_t)buildings->size();
+	for(uint32_t i=0; i < numBuildings; i++){
     tempbuilding = (*buildings)[i];
 		
 		//int bheight = tempbuilding.y2 - tempbuilding.y1;
@@ -120,12 +121,14 @@ void MergeBuildingsToSegment(vector<t_building>* buildings, WorldSegment* segmen
 void loadBuildingSprites ( Block* b){
   uint32_t i,j;
   bool foundBlockBuildingInfo = false;
-  for(i = 0; i < buildingTypes.size(); i++){
+  uint32_t numBuildings = (uint32_t)buildingTypes.size();
+  for(i = 0; i < numBuildings; i++){
     BuildingConfiguration& conf = buildingTypes[i];
     if(b->building.info.type != conf.gameID) continue;
 
     //check all sprites for one that matches all conditions
-    for(j = 0; j < conf.sprites.size(); j++){
+    uint32_t numSprites = (uint32_t)conf.sprites.size();
+    for(j = 0; j < numSprites; j++){
       if(conf.sprites[j].BlockMatches(b)){
         b->building.sprites = conf.sprites[j].sprites;
         foundBlockBuildingInfo = true;
@@ -271,7 +274,8 @@ int getBuildingSprite(t_building &building, bool mirrored){
 */
 /*TODO: this function takes a massive amount of work, looping all buildings for every block*/
 bool BlockHasSuspendedBuilding(vector<t_building>* buildingList, Block* b){
-  for(uint32_t i=0; i < buildingList->size(); i++){
+  uint32_t num = (uint32_t)buildingList->size();
+  for(uint32_t i=0; i < num; i++){
     t_building* building = &(*buildingList)[i];
 
     //boundry check

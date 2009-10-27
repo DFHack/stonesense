@@ -17,4 +17,7 @@ Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		AMDCaProjectFile = D:\projects\C\stonesense\CodeAnalyst\StonesenseSolution.caw
+	EndGlobalSection
 EndGlobal
