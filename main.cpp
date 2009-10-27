@@ -47,6 +47,21 @@ void correctBlockForSegmetOffset(int32_t& x, int32_t& y, int32_t& z){
 }
 
 
+void benchmark(){
+  DisplayedSegmentX = DisplayedSegmentY = 0;
+  TMR2_START;
+  int i = 50;
+  while(i--)
+	  reloadDisplayedSegment();
+  TMR2_STOP;
+
+  FILE* fp = fopen("benchmark.txt", "w" );
+  if(!fp) return;
+  fprintf( fp, "%ims", ClockedTime2);
+  fclose(fp);
+}
+
+
 int main(void)
 {	
 	allegro_init();
@@ -138,6 +153,8 @@ int main(void)
   //while(1)
 	reloadDisplayedSegment();
 	if(!viewedSegment) return 1;
+
+  benchmark();
 
 	paintboard();
 	while(!key[KEY_ESC]){

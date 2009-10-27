@@ -85,6 +85,17 @@ void ReadCellToSegment(DFHackAPI& DF, WorldSegment& segment, int CellX, int Cell
 	if(!DF.isValidBlock(CellX, CellY, CellZ))
 		return;
 
+  //MOVE MOVE MOVE MOVE MVOE DEBUG!
+  /*vector<t_matgloss> stonetypes;
+  if(!DF.ReadStoneMatgloss(stonetypes)){
+    return ; 
+  }
+  vector< vector <uint16_t> > layerassign;
+  if(!DF.ReadGeology( layerassign ))
+  {
+    return ; 
+  }*/
+  
 	//make boundries local
 	BoundrySX -= CellX * CELLEDGESIZE;
 	BoundryEX -= CellX * CELLEDGESIZE;
@@ -96,11 +107,11 @@ void ReadCellToSegment(DFHackAPI& DF, WorldSegment& segment, int CellX, int Cell
 	uint16_t tiletypes[16][16];
 	t_designation designations[16][16];
 	t_occupancy occupancies[16][16];
-	//uint8_t regionoffsets[16];
+	uint8_t regionoffsets[16];
 	DF.ReadTileTypes(CellX, CellY, CellZ, (uint16_t *) tiletypes);
 	DF.ReadDesignations(CellX, CellY, CellZ, (uint32_t *) designations);
 	DF.ReadOccupancy(CellX, CellY, CellZ, (uint32_t *) occupancies);
-	//DF.ReadRegionOffsets(CellX,CellY,CellZ, regionoffsets);
+	DF.ReadRegionOffsets(CellX,CellY,CellZ, regionoffsets);
 
 	
 	//parse cell
@@ -111,7 +122,11 @@ void ReadCellToSegment(DFHackAPI& DF, WorldSegment& segment, int CellX, int Cell
 		b->y = ly + (CellY * CELLEDGESIZE);
 		b->z = CellZ;
 		if( !segment.CoordinateInsideRegion( b->x, b->y, b->z) ) 	continue;
-
+    
+    //hrumpf!
+    //int j = layerassign [regionoffsets[designations[lx][ly].bits.biome]] [designations[lx][ly].bits.geolayer_index];
+    //string name = stonetypes[j].id;
+    //liquids
 		if(designations[lx][ly].bits.flow_size > 0){
 			b->water.type  = designations[lx][ly].bits.liquid_type;
 			b->water.index = designations[lx][ly].bits.flow_size;
@@ -193,7 +208,7 @@ WorldSegment* ReadMapSegment(int x, int y, int z, int sizex, int sizey, int size
 	//read world wide buildings
   vector<t_building> allBuildings;
   ReadBuildings(DF, &allBuildings);
-  
+
   
   // read constructions
   vector<t_construction> allConstructions;
