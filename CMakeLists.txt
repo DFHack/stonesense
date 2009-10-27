@@ -18,6 +18,7 @@ ENDIF(NOT DEFINED CMAKE_BUILD_TYPE)
 SET( EXECUTABLE_OUTPUT_PATH ${stonesense_SOURCE_DIR} CACHE PATH "Output directory for stonesense, default is root" )
 
 include_directories (
+    ${include_directories}
     ${CMAKE_SOURCE_DIR}/dfhack/library/
     ${CMAKE_SOURCE_DIR}/dfhack/library/md5/
     ${CMAKE_SOURCE_DIR}/dfhack/library/tinyxml
@@ -64,9 +65,10 @@ SET(PROJECT_SRCS
 )
 #linux
 IF(UNIX)
+    LINK_DIRECTORIES(${LINK_DIRECTORIES})
     add_definitions(-DLINUX_BUILD)
     add_definitions(-DBUILD_DFHACK_LIB)
-    SET(PROJECT_LIBS alleg-4.2.2 png)
+    SET(PROJECT_LIBS alleg-4.2.2 png ${PROJECT_LIBS})
     ADD_EXECUTABLE(stonesense ${PROJECT_SRCS})
     TARGET_LINK_LIBRARIES(stonesense ${PROJECT_LIBS})
 # windows
