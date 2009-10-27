@@ -83,6 +83,10 @@ void parseConfigLine( string line ){
     string result = parseStrFromLine( "ALLCREATURES", line );
     config.show_all_creatures = (result == "YES");
   }
+  if( line.find("DEBUGMODE") != -1){
+    string result = parseStrFromLine( "DEBUGMODE", line );
+    config.debug_mode = (result == "YES");
+  }
 }
 
 

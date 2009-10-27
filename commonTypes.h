@@ -27,6 +27,7 @@ typedef struct {
   bool show_hidden_blocks;
   bool show_all_creatures;
   bool hide_outer_blocks;
+  bool debug_mode;
   int automatic_reload_time;
 
   int screenWidth;

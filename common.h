@@ -17,9 +17,7 @@ using namespace std;
 #include "Block.h"
 #include <stdio.h>
 
-
 //#define RELEASE
-#define DEBUG
 
 #define null 0
 

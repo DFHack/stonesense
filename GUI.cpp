@@ -180,9 +180,10 @@ void DrawSpriteIndexOverlay(){
       textprintf(screen, font,  x*SPRITEWIDTH+5, y* SPRITEHEIGHT+5, 0xFFffFF, "%i", index);
     }
   }
-  textprintf_right(screen, font, config.screenWidth-10, config.screenHeight -10, 0xFFffFF, "Press any key to continiue");
-  readkey();
-  //while(!key[KEY_SPACE]);
+  textprintf_right(screen, font, config.screenWidth-10, config.screenHeight -10, 0xFFffFF, "Press SPACE to return");
+  while(!key[KEY_SPACE]) rest(50);
+  //redraw screen again
+  paintboard();
 }
 
 void paintboard(){
@@ -219,15 +220,15 @@ void paintboard(){
     masked_blit(IMGObjectSheet, buffer, 0,0, 0,0, TILEWIDTH,24);
   ClockedTime -= clock();*/
   
-#ifdef DEBUG
-  //masked_blit(IMGFloorSheet, buffer, 0,0, 10,60, TILEWIDTH,24);
+  if(config.debug_mode){
+    //masked_blit(IMGFloorSheet, buffer, 0,0, 10,60, TILEWIDTH,24);
 
-	textprintf_ex(buffer, font, 10,20, 0xFFFFFF,0, "Timer1: %ims", ClockedTime);
-  textprintf_ex(buffer, font, 10,30, 0xFFFFFF,0, "Timer2: %ims", ClockedTime2);
-	textprintf_ex(buffer, font, 10,40, 0xFFFFFF,0, "D1: %i", DebugInt1);
+	  textprintf_ex(buffer, font, 10,20, 0xFFFFFF,0, "Timer1: %ims", ClockedTime);
+    textprintf_ex(buffer, font, 10,30, 0xFFFFFF,0, "Timer2: %ims", ClockedTime2);
+	  textprintf_ex(buffer, font, 10,40, 0xFFFFFF,0, "D1: %i", DebugInt1);
 
-  drawDebugCursorAndInfo(buffer);
-#endif
+    drawDebugCursorAndInfo(buffer);
+  }
 
   if(config.single_layer_view)
     textprintf_centre_ex(buffer, font, config.screenWidth/2,20, 0xFFFFFF,0, "Single layer view");

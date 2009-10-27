@@ -54,7 +54,7 @@ int main(void)
   //install_mouse();
   WriteErr("\nStonesense launched\n");
 
-  
+  config.debug_mode = false;
   config.hide_outer_blocks = false;
   config.shade_hidden_blocks = true;
   config.automatic_reload_time = 0;
