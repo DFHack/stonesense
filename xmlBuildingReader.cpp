@@ -82,6 +82,9 @@ bool addSingleConfig( const char* filename,  vector<BuildingConfiguration>* know
   bool loadOkay = doc.LoadFile();
   TiXmlHandle hDoc(&doc);
   TiXmlElement* elemBuilding;
+  if(!loadOkay)
+    return false;
+  
 
   elemBuilding = hDoc.FirstChildElement("Building").Element();
   if( elemBuilding == 0)

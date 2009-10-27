@@ -25,7 +25,7 @@
 
 	
 	<Tile>
-		<Sprite sheetIndex = 100>
+		<Sprite sheetIndex = 100 />
 	</Tile>
 	
 </Building> 
