@@ -23,7 +23,7 @@ int keyoffset=0;
 GameConfiguration config;
 bool timeToReloadSegment;
 
-
+vector<t_matgloss> v_stonetypes;
 
 
 void WriteErr(char* msg, ...){
@@ -72,6 +72,7 @@ int main(void)
   config.debug_mode = false;
   config.hide_outer_blocks = false;
   config.shade_hidden_blocks = true;
+  config.load_ground_materials = true;
   config.automatic_reload_time = 0;
   config.automatic_reload_step = 500;
   config.Fullscreen = FULLSCREEN;

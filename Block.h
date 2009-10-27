@@ -17,6 +17,7 @@ public:
 	int floorType;
 	int wallType;
 	int stairType;
+  int materialIndex;
 
   bool depthBorderNorth;
   bool depthBorderWest;

@@ -102,6 +102,8 @@ extern uint32_t ClockedTime2;
 
 extern bool timeToReloadSegment;
 
+extern vector<t_matgloss> v_stonetypes;
+
 #define TMR2_START (ClockedTime2 = clock())
 #define TMR2_STOP (ClockedTime2 = clock() - ClockedTime2)
 

@@ -72,7 +72,10 @@ int CalculateRampType(uint32_t x, uint32_t y, uint32_t z, WorldSegment* segment)
 void ReadCellToSegment(DFHackAPI& DF, WorldSegment& segment, int CellX, int CellY, int CellZ,
 					   uint32_t BoundrySX, uint32_t BoundrySY,
 					   uint32_t BoundryEX, uint32_t BoundryEY, 
-						 uint16_t Flags/*not in use*/, vector<t_building>* allBuildings, vector<t_construction>* allConstructions)
+						 uint16_t Flags/*not in use*/, 
+             vector<t_building>* allBuildings, 
+             vector<t_construction>* allConstructions,
+             vector< vector <uint16_t> >* allLayers)
 {
   //boundry check
   int celldimX, celldimY, celldimZ;
@@ -85,16 +88,7 @@ void ReadCellToSegment(DFHackAPI& DF, WorldSegment& segment, int CellX, int Cell
 	if(!DF.isValidBlock(CellX, CellY, CellZ))
 		return;
 
-  //MOVE MOVE MOVE MOVE MVOE DEBUG!
-  /*vector<t_matgloss> stonetypes;
-  if(!DF.ReadStoneMatgloss(stonetypes)){
-    return ; 
-  }
-  vector< vector <uint16_t> > layerassign;
-  if(!DF.ReadGeology( layerassign ))
-  {
-    return ; 
-  }*/
+
   
 	//make boundries local
 	BoundrySX -= CellX * CELLEDGESIZE;
@@ -112,7 +106,11 @@ void ReadCellToSegment(DFHackAPI& DF, WorldSegment& segment, int CellX, int Cell
 	DF.ReadDesignations(CellX, CellY, CellZ, (uint32_t *) designations);
 	DF.ReadOccupancy(CellX, CellY, CellZ, (uint32_t *) occupancies);
 	DF.ReadRegionOffsets(CellX,CellY,CellZ, regionoffsets);
-
+  
+  //read local vein data
+  vector <t_vein> veins;
+  DF.ReadVeins(CellX,CellY,CellZ,veins);
+  uint32_t numVeins = veins.size();
 	
 	//parse cell
 	for(uint32_t ly = BoundrySY; ly <= BoundryEY; ly++){
@@ -123,9 +121,6 @@ void ReadCellToSegment(DFHackAPI& DF, WorldSegment& segment, int CellX, int Cell
 		b->z = CellZ;
 		if( !segment.CoordinateInsideRegion( b->x, b->y, b->z) ) 	continue;
     
-    //hrumpf!
-    //int j = layerassign [regionoffsets[designations[lx][ly].bits.biome]] [designations[lx][ly].bits.geolayer_index];
-    //string name = stonetypes[j].id;
     //liquids
 		if(designations[lx][ly].bits.flow_size > 0){
 			b->water.type  = designations[lx][ly].bits.liquid_type;
@@ -149,8 +144,7 @@ void ReadCellToSegment(DFHackAPI& DF, WorldSegment& segment, int CellX, int Cell
 
 		if(IDisConstruction(t)) 
       changeConstructionMaterials(&segment, b, allConstructions);
-
-		 
+    
 
 		//save in segment
 		bool isHidden = designations[lx][ly].bits.hidden;
@@ -175,6 +169,20 @@ void ReadCellToSegment(DFHackAPI& DF, WorldSegment& segment, int CellX, int Cell
     }
     
 		if( shouldBeIncluded ){
+      //this only needs to be done for included blocks
+      //determine rock/soil type
+      int rockIndex = (*allLayers) [regionoffsets[designations[lx][ly].bits.biome]] [designations[lx][ly].bits.geolayer_index];
+      //check veins
+      for(uint32_t i=0; i<numVeins; i++){
+        uint16_t row = veins[i].assignment[ly];
+        bool set = (row & (1 << lx));
+        if(set)
+          rockIndex = veins[i].type;
+      }
+
+      b->materialIndex = rockIndex;
+      //string name = v_stonetypes[j].id;
+
       segment.addBlock(b);
 		}
 	}
@@ -209,6 +217,17 @@ WorldSegment* ReadMapSegment(int x, int y, int z, int sizex, int sizey, int size
   vector<t_building> allBuildings;
   ReadBuildings(DF, &allBuildings);
 
+  //read stone material types
+  if(!DF.ReadStoneMatgloss(v_stonetypes)){
+    return segment; 
+  }
+  //read layers
+  vector< vector <uint16_t> > layers;
+  if(!DF.ReadGeology( layers ))
+  {
+    return segment; 
+  }
+
   
   // read constructions
   vector<t_construction> allConstructions;
@@ -242,7 +261,7 @@ WorldSegment* ReadMapSegment(int x, int y, int z, int sizex, int sizey, int size
 				//load the blcoks from this cell to the map segment
 				ReadCellToSegment(DF, *segment, cellx, celly, lz, 
 													firstTileToReadX, firstTileToReadY, lastTileToReadX, lastTileToReadY,
-                          0, &allBuildings, &allConstructions );
+                          0, &allBuildings, &allConstructions, &layers );
 			}
 			firstTileToReadY = lastTileToReadY + 1;
 		}

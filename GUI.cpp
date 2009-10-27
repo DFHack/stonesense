@@ -97,7 +97,11 @@ void drawDebugCursorAndInfo(BITMAP* target){
   if(!b) return;
 
   textprintf(target, font, 2, config.screenHeight-20-(i--*10), 0xFFFFFF, 
-    "wall:%i floor:%i  Coord:(%i,%i,%i)", b->wallType, b->floorType, b->x,b->y,b->z);
+    "Coord:(%i,%i,%i)", b->x,b->y,b->z);
+
+  textprintf(target, font, 2, config.screenHeight-20-(i--*10), 0xFFFFFF, 
+    "wall:%i floor:%i  Material:%s(%i)", b->wallType, b->floorType, v_stonetypes[b->materialIndex].id, b->materialIndex);
+
   if(b->water.index > 0 || b->tree.index != 0)
     textprintf(target, font, 2, config.screenHeight-20-(i--*10), 0xFFFFFF, 
       "tree:%i water:%i", b->tree.index, b->water.index);

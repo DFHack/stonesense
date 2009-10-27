@@ -21,6 +21,8 @@ Block::Block(WorldSegment* ownerSegment)
   this->ownerSegment = ownerSegment;
 
   building.info.type = BUILDINGTYPE_NA;
+
+  this->materialIndex = INVALID_INDEX;
 }
 
 
