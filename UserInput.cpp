@@ -98,6 +98,10 @@ void doKeys(){
   if(key[KEY_F5]){
     while(key[KEY_F5]);
     saveScreenshot();
+  } 
+  if(key[KEY_F10]){
+    while(key[KEY_F10]);
+    DrawSpriteIndexOverlay();
   }
   if(key[KEY_PLUS_PAD]){
     config.automatic_reload_time += 500;

@@ -12,6 +12,7 @@ void paintboard();
 
 void DrawSpriteFromSheet( int spriteNum, BITMAP* target, BITMAP* spriteSheet, int x, int y);
 BITMAP* load_bitmap_withWarning(char* path);
+void DrawSpriteIndexOverlay();
 void loadGraphicsFromDisk();
 void destroyGraphics();
 void saveScreenshot();

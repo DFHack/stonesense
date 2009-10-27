@@ -119,7 +119,6 @@ void drawDebugCursorAndInfo(BITMAP* target){
     textprintf(target, font, 2, config.screenHeight-20-(i--*10), 0xFFFFFF, 
       "flag1: %s ", strCreature );
   }
-
 }
 
 void DrawMinimap(BITMAP* target){
@@ -167,6 +166,25 @@ void DrawSpriteFromSheet( int spriteNum, BITMAP* target, BITMAP* spriteSheet, in
       x, y - (WALLHEIGHT), SPRITEWIDTH, SPRITEHEIGHT);
 }
 
+void DrawSpriteIndexOverlay(){
+  clear_to_color(screen, makecol(255,0,255));
+  draw_sprite(screen,IMGObjectSheet,0,0);
+  for(int i =0; i<= 20*SPRITEWIDTH; i+=SPRITEWIDTH)
+    line(screen, i,0,i, config.screenHeight, 0);
+  for(int i =0; i< config.screenHeight; i+=SPRITEHEIGHT)
+    line(screen, 0,i, 20*SPRITEWIDTH,i, 0);
+
+  for(int y = 0; y<20; y++){
+    for(int x = 0; x<20; x+=5){
+      int index = y * 20 + x;
+      textprintf(screen, font,  x*SPRITEWIDTH+5, y* SPRITEHEIGHT+5, 0xFFffFF, "%i", index);
+    }
+  }
+  textprintf_right(screen, font, config.screenWidth-10, config.screenHeight -10, 0xFFffFF, "Press any key to continiue");
+  readkey();
+  //while(!key[KEY_SPACE]);
+}
+
 void paintboard(){
 	uint32_t starttime = clock();
 	if(!buffer)
@@ -183,6 +201,9 @@ void paintboard(){
   select_palette(pal);
 */
 	DrawMinimap(buffer);
+
+  //drawdebugblah();
+
 
 	DrawCurrentLevelOutline(buffer, true);
   viewedSegment->drawAllBlocks(buffer);
