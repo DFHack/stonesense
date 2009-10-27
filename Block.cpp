@@ -4,6 +4,7 @@
 #include "SpriteMaps.h"
 #include "GameBuildings.h"
 #include "Creatures.h"
+#include "WorldSegment.h"
 
 #include "dfhack/library/DFTypes.h"
 
@@ -29,6 +30,11 @@ Block::~Block(void){}
 
 void Block::Draw(BITMAP* target){
 	int sheetOffsetX, sheetOffsetY;
+  if(config.hide_outer_blocks){
+    if(x == ownerSegment->x || x == ownerSegment->x + ownerSegment->sizex - 1) return;
+    if(y == ownerSegment->y || y == ownerSegment->y + ownerSegment->sizey - 1) return;
+  }
+
 	int32_t drawx = x;
 	int32_t drawy = y;
   int32_t drawz = z; //- ownerSegment->sizez + 1;
@@ -63,20 +69,6 @@ void Block::Draw(BITMAP* target){
 		masked_blit(IMGRampSheet, target, sheetOffsetX,sheetOffsetY, drawx,drawy - (WALLHEIGHT), SPRITEWIDTH, SPRITEHEIGHT);
 	}
 
-	//Draw Stairs
-	if(stairType > 0){
-		//down part
-		int spriteNum = GetDownStairTypeMap(stairType);
-    //DrawSpriteFromSheet( spriteNum, target, IMGObjectSheet, drawx, drawy );
-
-		//up part
-    bool mirrored = false;
-    if(findWallCloseTo(ownerSegment, this) == eSimpleW)
-      mirrored = true;
-		spriteNum = GetUpStairTypeMap(stairType, mirrored);
-    if(spriteNum)
-      DrawSpriteFromSheet( spriteNum, target, IMGObjectSheet, drawx, drawy );
-	}
 
 	//vegitation
 	if(tree.index > 0 || tree.type > 0){
@@ -101,7 +93,24 @@ void Block::Draw(BITMAP* target){
     }
 	}
 
-  	//Draw Walls
+
+
+	//Draw Stairs
+	if(stairType > 0){
+		//down part
+		int spriteNum = GetDownStairTypeMap(stairType);
+    //DrawSpriteFromSheet( spriteNum, target, IMGObjectSheet, drawx, drawy );
+
+		//up part
+    bool mirrored = false;
+    if(findWallCloseTo(ownerSegment, this) == eSimpleW)
+      mirrored = true;
+		spriteNum = GetUpStairTypeMap(stairType, mirrored);
+    if(spriteNum)
+      DrawSpriteFromSheet( spriteNum, target, IMGObjectSheet, drawx, drawy );
+	}
+
+  //Draw Walls
 	if(wallType > 0){
     //draw wall
     int spriteNum =  GetWallSpriteMap(wallType);

@@ -55,7 +55,7 @@ int main(void)
   WriteErr("\nStonesense launched\n");
 
   
-
+  config.hide_outer_blocks = false;
   config.shade_hidden_blocks = true;
   config.automatic_reload_time = 0;
   config.Fullscreen = FULLSCREEN;
@@ -125,7 +125,7 @@ int main(void)
   //ford. desert map
   //sDisplayedSegmentX = 78; DisplayedSegmentY = 123;DisplayedSegmentZ = 15;
 
-  DisplayedSegmentX = 152; DisplayedSegmentY = 325;DisplayedSegmentZ = 16;
+  DisplayedSegmentX = 172; DisplayedSegmentY = 325;DisplayedSegmentZ = 16;
 
   //DisplayedSegmentX = 242; DisplayedSegmentY = 345;DisplayedSegmentZ = 15;
   
