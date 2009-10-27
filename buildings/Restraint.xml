@@ -3,6 +3,7 @@
 
 
 <Building name="Restraint" gameID="restraint"> 
-	<Sprite sheetIndex = 102 />
-	
+	<Tile>
+		<Sprite sheetIndex = 107 />
+	</Tile>
 </Building> 
