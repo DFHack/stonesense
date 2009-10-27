@@ -8,7 +8,7 @@ Cabinet.xml
 Chair.xml
 Chest.xml
 Bed.xml
-Weaponrack.xml
+WeaponRack.xml
 ArmorStand.xml
 
 Door.xml

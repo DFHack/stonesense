@@ -145,11 +145,12 @@ bool LoadBuildingConfiguration( vector<BuildingConfiguration>* knownBuildings ){
   {
     char filepath[50] = {0};
     getline (myfile,line);
-    if(line.size() > 0){
-      //some systems don't remove the \r char as a part of the line change:
-      if( line[line.size() -1 ] == '\r' )
-        line.resize(line.size() -1);
+    
+    //some systems don't remove the \r char as a part of the line change:
+    if(line.size() > 0 &&  line[line.size() -1 ] == '\r' )
+      line.resize(line.size() -1);
 
+    if(line.size() > 0){
       sprintf(filepath, "buildings/%s", line.c_str() );
       bool result = addSingleConfig( filepath, knownBuildings );
       if( !result )

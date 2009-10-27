@@ -3,13 +3,24 @@
 
 
 <Building name="Glass Window" gameID="glass_window">
+
+
 	<Tile>
-		<Condition type="NeighbourWall" value="South" />
-		<Sprite sheetIndex = 61 />
+		<Sprite sheetIndex=61/>
+		<Condition type="NeighbourSameBuilding" value="North" />
 	</Tile>
 	<Tile>
+		<Sprite sheetIndex=61 />
+		<Condition type="NeighbourSameBuilding" value="South" />
+	</Tile>
+	
+	<Tile>
+		<Sprite sheetIndex=61/>
 		<Condition type="NeighbourWall" value="North" />
-		<Sprite sheetIndex = 61 />
+	</Tile>
+	<Tile>
+		<Sprite sheetIndex=61 />
+		<Condition type="NeighbourWall" value="South" />
 	</Tile>
 	
 	<Tile>
