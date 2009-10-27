@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+
+
+
+<Building name="Support" gameID="support">
+	<Tile>
+		<Condition type="MaterialType" value="Wood" />
+		<Sprite sheetIndex = 52 />
+	</Tile>
+
+	<Tile>
+		<Sprite sheetIndex = 51 />
+	</Tile>
+	
+</Building> 
