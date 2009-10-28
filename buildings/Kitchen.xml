@@ -5,32 +5,64 @@
 <Building name="Kitchen" gameID="kitchen"> 
 
 	<Tile>
+		<Condition type="PositionIndex" value=6 />
+		<Sprite sheetIndex = 241 />
+		<Sprite sheetIndex = 245 />	
+		<Sprite sheetIndex = 311 offsetx=2 offsety=-1/>
+	</Tile>
+
+	<Tile>
 		<Condition type="PositionIndex" value=1 />
-		<Sprite sheetIndex = 142 />
+		<Condition type="MaterialType" value=2 note="metal"/>
+		<Sprite sheetIndex = 257 />
+		<Sprite sheetIndex = 256 />
+	</Tile>
+	<Tile>
+		<Condition type="PositionIndex" value=1 />
+		<Sprite sheetIndex = 272 />
+		<Sprite sheetIndex = 256 />
 	</Tile>
 
 	<Tile>
 		<Condition type="PositionIndex" value=2 />
 		<Condition type="MaterialType" value="Wood" />
-		<Sprite sheetIndex = 144 />
-		<Sprite sheetIndex = 148 />
+		<Sprite sheetIndex = 274 />
+		<Sprite sheetIndex = 276 />
+		<Sprite sheetIndex = 278 />
 	</Tile>
 	<Tile>
 		<Condition type="PositionIndex" value=2 />
-		<Sprite sheetIndex = 143 />
-		<Sprite sheetIndex = 148 />
+		<Condition type="MaterialType" value=2 note="metal"/>
+		<Sprite sheetIndex = 254 />
+		<Sprite sheetIndex = 276 />
+		<Sprite sheetIndex = 278 />
+	</Tile>
+	<Tile>
+		<Condition type="PositionIndex" value=2 />
+		<Sprite sheetIndex = 273 />
+		<Sprite sheetIndex = 276 />
+		<Sprite sheetIndex = 278 />
 	</Tile>
 
 	<Tile>
 		<Condition type="PositionIndex" value=5 />
 		<Condition type="MaterialType" value="Wood" />
-		<Sprite sheetIndex = 144 />
-		<Sprite sheetIndex = 147 />
+		<Sprite sheetIndex = 274 />
+		<Sprite sheetIndex = 275 />
+		<Sprite sheetIndex = 277 />
 	</Tile>
 	<Tile>
 		<Condition type="PositionIndex" value=5 />
-		<Sprite sheetIndex = 143 />
-		<Sprite sheetIndex = 147 />
+		<Condition type="MaterialType" value=2 note="metal"/>
+		<Sprite sheetIndex = 254 />
+		<Sprite sheetIndex = 275 />
+		<Sprite sheetIndex = 277 />
+	</Tile>
+	<Tile>
+		<Condition type="PositionIndex" value=5 />
+		<Sprite sheetIndex = 273 />
+		<Sprite sheetIndex = 275 />
+		<Sprite sheetIndex = 277 />
 	</Tile>
 
 	<!-- generic border -->

@@ -1,0 +1,85 @@
+<?xml version="1.0" ?>
+
+
+
+<Building name="Magma Forge" gameID="magma_forge"> 
+
+	<Tile>
+		<Condition type="PositionIndex" value=0 />
+		<Sprite sheetIndex = 244 />
+		<Sprite sheetIndex = 267 />
+	</Tile>
+
+	<Tile>
+		<Condition type="PositionIndex" value=3 />
+		<Sprite sheetIndex = 273 />
+		<Sprite sheetIndex = 275 />
+		<Sprite sheetIndex = 276 />		
+		<Sprite sheetIndex = 264 />
+	</Tile>
+
+	<Tile>
+		<Condition type="PositionIndex" value=5 />
+		<Sprite sheetIndex = 273 />
+		<Sprite sheetIndex = 275 />
+		<Sprite sheetIndex = 276 />
+		<Sprite sheetIndex = 264 />
+	</Tile>	
+	
+	<Tile>
+		<Condition type="PositionIndex" value=7 />
+		<Sprite sheetIndex = 253 />
+		<Sprite sheetIndex = 242 />	
+	</Tile>
+	
+	<Tile>
+		<Condition type="PositionIndex" value=8 />
+		<Sprite sheetIndex = 259 offsetx=1 offsety=-2/>
+		<Sprite sheetIndex = 246 />
+	</Tile>
+
+	<!-- generic border -->
+
+	<Tile>
+		<Condition type="PositionIndex" value=0 />
+		<Sprite sheetIndex = 244 />
+	</Tile>
+	<Tile>
+		<Condition type="PositionIndex" value=1 />
+		<Sprite sheetIndex = 240 />
+	</Tile>
+	<Tile>
+		<Condition type="PositionIndex" value=2 />
+		<Sprite sheetIndex = 240 />
+		<Sprite sheetIndex = 247 />
+	</Tile>
+
+	<Tile>
+		<Condition type="PositionIndex" value=3 />
+		<Sprite sheetIndex = 241 />
+	</Tile>
+	<Tile>
+		<Condition type="PositionIndex" value=5 />
+		<Sprite sheetIndex = 243 />
+	</Tile>
+	
+	<Tile>
+		<Condition type="PositionIndex" value=6 />
+		<Sprite sheetIndex = 241 />
+		<Sprite sheetIndex = 245 />
+	</Tile>
+	<Tile>
+		<Condition type="PositionIndex" value=7 />
+		<Sprite sheetIndex = 242 />
+	</Tile>
+	<Tile>
+		<Condition type="PositionIndex" value=8 />
+		<Sprite sheetIndex = 246 />
+	</Tile>	
+	
+	<Tile>
+	</Tile>	
+	
+	<!-- end generic block -->
+	
+</Building> 
