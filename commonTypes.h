@@ -29,6 +29,7 @@ typedef struct {
   bool load_ground_materials;
   bool hide_outer_blocks;
   bool debug_mode;
+  bool lift_segment_offscreen;
   int automatic_reload_time;
   int automatic_reload_step;
 

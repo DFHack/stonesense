@@ -32,6 +32,7 @@ Crd2D debugCursor;
 void pointToScreen(int *inx, int *iny, int inz){
   static int offx = config.screenWidth / 2;
   static int offy = 50;
+  if( config.lift_segment_offscreen ) offy = -200;
 	int x=*inx, y=*iny, z=inz;
 	x = (int) (x-0.5*(x+y));
 	y = (int) (0.5*(x+y));

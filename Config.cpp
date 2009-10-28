@@ -92,6 +92,10 @@ void parseConfigLine( string line ){
     string result = parseStrFromLine( "DEBUGMODE", line );
     config.debug_mode = (result == "YES");
   }
+  if( line.find("LIFTSEGMENT") != -1){
+    string result = parseStrFromLine( "LIFTSEGMENT", line );
+    config.lift_segment_offscreen = (result == "YES");
+  }
 }
 
 

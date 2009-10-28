@@ -145,7 +145,6 @@ int main(void)
   //sDisplayedSegmentX = 78; DisplayedSegmentY = 123;DisplayedSegmentZ = 15;
 
   DisplayedSegmentX = 172; DisplayedSegmentY = 325;DisplayedSegmentZ = 16;
-  DisplayedSegmentX = 282; DisplayedSegmentY = 363;DisplayedSegmentZ = 17;
 
   //DisplayedSegmentX = 242; DisplayedSegmentY = 345;DisplayedSegmentZ = 15;
   

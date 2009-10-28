@@ -28,3 +28,7 @@ Set the time in ms to increase the automatic reload time by, a lower step reload
 Sets Stonesense in debug mode. Used for developing
 [DEBUGMODE:YES]
 
+
+Lifts the segment up to the top off the screen. 
+Use this with a large segment size to get blocks covering the entire screen.
+[LIFTSEGMENT:NO]
