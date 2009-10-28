@@ -30,6 +30,7 @@ public:
     for(uint32_t i = 0; i < num; i++){
       free(blocks[i]);
     }
+    blocks.clear();
   }
 
   void Dispose(void){

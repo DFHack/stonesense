@@ -6,7 +6,7 @@
 
 void changeConstructionMaterials(WorldSegment* segment, Block* b, vector<t_construction>* allConstructions){
 	//find construction
-	uint32_t i;
+	int32_t i;
 	t_construction* c;
 	t_construction* construct = 0;
 	i = (uint32_t) allConstructions->size();

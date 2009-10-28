@@ -120,7 +120,10 @@ void ReadCellToSegment(DFHackAPI& DF, WorldSegment& segment, int CellX, int Cell
 		b->x = lx + (CellX * CELLEDGESIZE);
 		b->y = ly + (CellY * CELLEDGESIZE);
 		b->z = CellZ;
-		if( !segment.CoordinateInsideRegion( b->x, b->y, b->z) ) 	continue;
+    if( !segment.CoordinateInsideRegion( b->x, b->y, b->z) ) 	{
+      free(b); 
+      continue;
+    }
     
     //liquids
 		if(designations[lx][ly].bits.flow_size > 0){
@@ -185,7 +188,10 @@ void ReadCellToSegment(DFHackAPI& DF, WorldSegment& segment, int CellX, int Cell
       //string name = v_stonetypes[j].id;
 
       segment.addBlock(b);
-		}
+    }else{
+      free(b);
+    }
+
 	}
 	}
 }
@@ -197,7 +203,6 @@ WorldSegment* ReadMapSegment(int x, int y, int z, int sizex, int sizey, int size
 
 	uint32_t starttime = clock();
 
-	//DFHackAPI DF("Memory.xml");
   DFHackAPI* pDF = CreateDFHackAPI("Memory.xml");
   DFHackAPI &DF = *pDF;
 
@@ -219,18 +224,15 @@ WorldSegment* ReadMapSegment(int x, int y, int z, int sizex, int sizey, int size
   ReadBuildings(DF, &allBuildings);
 
   //read stone material types
-  if(!DF.ReadStoneMatgloss(v_stonetypes)){
-    return segment; 
-  }
+  DF.ReadStoneMatgloss(v_stonetypes);
+
   if(GroundMaterialNamesTranslatedFromGame == false)
     TranslateGroundMaterialNames();
-
+  
   //read layers
   vector< vector <uint16_t> > layers;
-  if(!DF.ReadGeology( layers ))
-  {
-    return segment; 
-  }
+  DF.ReadGeology( layers );
+  
 
   
   // read constructions
@@ -266,12 +268,13 @@ WorldSegment* ReadMapSegment(int x, int y, int z, int sizex, int sizey, int size
 				ReadCellToSegment(DF, *segment, cellx, celly, lz, 
 													firstTileToReadX, firstTileToReadY, lastTileToReadX, lastTileToReadY,
                           0, &allBuildings, &allConstructions, &layers );
+                          
 			}
 			firstTileToReadY = lastTileToReadY + 1;
 		}
 		firstTileToReadX = lastTileToReadX + 1;
 	}
-  
+ 
   
 	//Read Vegetation
 	uint32_t numtrees = DF.InitReadVegetation();
@@ -322,6 +325,7 @@ WorldSegment* ReadMapSegment(int x, int y, int z, int sizex, int sizey, int size
 	}
 
   //cleanup
+  DF.DestroyMap();
   DF.Detach();
   delete pDF;
 
@@ -339,7 +343,7 @@ void reloadDisplayedSegment(){
   //dispose old segment
   if(viewedSegment)
     viewedSegment->Dispose();
-	free(viewedSegment);
+	delete(viewedSegment);
   
   int segmentHeight = config.single_layer_view ? 1 : config.segmentSize.z;
   //load segment
