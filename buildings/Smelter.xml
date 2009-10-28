@@ -6,7 +6,7 @@
 
 	<Tile>
 		<Condition type="PositionIndex" value=1 />
-		<Condition type="MaterialType" value=2 note="metal"/>
+		<Condition type="MaterialType" value="Metal"/>
 		<Sprite sheetIndex = 257 />
 	</Tile>
 	<Tile>

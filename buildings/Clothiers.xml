@@ -14,7 +14,7 @@
 	</Tile>
 	<Tile>
 		<Condition type="PositionIndex" value=0 />
-		<Condition type="MaterialType" value=2 note="metal"/>
+		<Condition type="MaterialType" value="Metal"/>
 		<Sprite sheetIndex = 254 />
 		<Sprite sheetIndex = 275 />
 		<Sprite sheetIndex = 276 />
@@ -38,7 +38,7 @@
 	</Tile>
 	<Tile>
 		<Condition type="PositionIndex" value=7 />
-		<Condition type="MaterialType" value=2 note="metal"/>
+		<Condition type="MaterialType" value="Metal"/>
 		<Sprite sheetIndex = 254 />
 		<Sprite sheetIndex = 275 />
 		<Sprite sheetIndex = 276 />

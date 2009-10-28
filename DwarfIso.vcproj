@@ -359,6 +359,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\buildings\index.txt"
+				>
+			</File>
+			<File
 				RelativePath=".\MapLoading.h"
 				>
 			</File>
