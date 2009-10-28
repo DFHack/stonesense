@@ -56,6 +56,7 @@ SET(PROJECT_SRCS
     Creatures.cpp
     GUI.cpp
     GameBuildings.cpp
+    GroundMaterialConfiguration.cpp
     MapLoading.cpp
     SpriteMaps.cpp
     UserInput.cpp
