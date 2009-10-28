@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+
+
+
+<Building name="Lever" gameID="lever">
+	<Tile>
+		<Sprite sheetIndex = 108 />
+	</Tile>
+	
+</Building> 

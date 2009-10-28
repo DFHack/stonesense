@@ -1,6 +1,7 @@
 <?xml version="1.0" ?>
 
 <Creature gameID="DWARF" 		sheetIndex = 1  /> 
+
 <Creature gameID="CAT" 			sheetIndex = 20 /> 
 <Creature gameID="DOG" 			sheetIndex = 21 /> 
 <Creature gameID="CAMEL_1_HUMP" sheetIndex = 22 /> 
@@ -8,3 +9,12 @@
 <Creature gameID="MULE" 		sheetIndex = 24 /> 
 <Creature gameID="MUSKOX" 		sheetIndex = 25 /> 
 <Creature gameID="HORSE" 		sheetIndex = 26 /> 
+
+<Creature gameID="DEER" 		sheetIndex = 27 /> 
+<Creature gameID="BEAR_BLACK" 	sheetIndex = 28 /> 
+<Creature gameID="BEAR_GRIZZLY" sheetIndex = 28 /> 
+<Creature gameID="FISH_CARP" 	sheetIndex = 29 /> 
+<Creature gameID="OLM_GIANT" 	sheetIndex = 30 /> 
+
+<Creature gameID="SPIRIT_OF_FIRE" sheetIndex = 38 /> 
+<Creature gameID="IMP_FIRE" 	sheetIndex = 39 /> 

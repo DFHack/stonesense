@@ -288,10 +288,6 @@ int GetFloorSpriteMap(int in, int matIndex){
 			//        case 262: //Ice floor
 			case 264: //Lava bottom of map
 
-			case 340: //lavastone floor 1 (raw stone)
-			case 341: //lavastone floor 2 (raw stone)
-			case 342: //lavastone floor 3 (raw stone)
-			case 343: //lavastone floor 4 (raw stone)
 			case 344: //featstone floor 1 (raw stone)
 			case 345: //featstone floor 2 (raw stone)
 			case 346: //featstone floor 3 (raw stone)
@@ -366,6 +362,12 @@ int GetFloorSpriteMap(int in, int matIndex){
 			case 400: //grass floor3b
 			case 401: //grass floor4b
 				return SPRITEFLOOR_GRASS; 
+
+      case 340: //lavastone floor 1 (raw stone)
+			case 341: //lavastone floor 2 (raw stone)
+			case 342: //lavastone floor 3 (raw stone)
+			case 343: //lavastone floor 4 (raw stone)
+        return SPRITEFLOOR_LAVASTONE;
 
 
 			case 336: //stone floor 1 (raw stone)

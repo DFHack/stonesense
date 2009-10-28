@@ -174,8 +174,8 @@ enum MatglossType
 {
     Mat_Wood,
     Mat_Stone,
-    Mat_Plant,
     Mat_Metal,
+    Mat_Plant,
     Mat_Leather = 10,
     Mat_SilkCloth = 11,
     Mat_PlantCloth = 12,

@@ -14,13 +14,13 @@ with your drivers, or the program will still load in window mode.
 
 These three options set how large the cube loaded from Dwarf Fortress is.
 One entry for each axis, and each expects the number of tiles to load.
-[SEGMENTX:25]
-[SEGMENTY:25]
+[SEGMENTX:65]
+[SEGMENTY:65]
 [SEGMENTZ:5]
 
 
 Shows all creatures, for debuging. Living, dead, kidnapped, caged, EVERY single one.
-[ALLCREATURES:NO]
+[ALLCREATURES:YES]
 
 Set the time in ms to increase the automatic reload time by, a lower step reloads more frequently
 [AUTO_RELOAD_STEP:100]
@@ -31,4 +31,4 @@ Sets Stonesense in debug mode. Used for developing
 
 Lifts the segment up to the top off the screen. 
 Use this with a large segment size to get blocks covering the entire screen.
-[LIFTSEGMENT:NO]
+[LIFTSEGMENT:YES]
