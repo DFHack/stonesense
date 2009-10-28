@@ -1,6 +1,7 @@
 #include "common.h"
 #include "GUI.h"
 #include "BuildingConfiguration.h"
+#include "GroundMaterialConfiguration.h"
 #include "GameBuildings.h"
 #include "Creatures.h"
 
@@ -56,6 +57,7 @@ void doKeys(){
   if(key[KEY_G]){
     LoadCreatureConfiguration( &creatureTypes );
     LoadBuildingConfiguration( &buildingTypes );
+    LoadGroundMaterialConfiguration();
 		destroyGraphics();
     loadGraphicsFromDisk();
 

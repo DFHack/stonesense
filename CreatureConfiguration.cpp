@@ -24,7 +24,7 @@ void DumpCreatureNamesToDisk(){
   FILE* fp = fopen("dump.txt", "w");
   if(!fp) return;
   for(uint32_t j=0; j < v_creatureNames.size(); j++){
-    fprintf(fp, "%s\n", v_creatureNames[j].id);
+    fprintf(fp, "%i:%s\n",j, v_creatureNames[j].id);
   }
   fclose(fp);
 }

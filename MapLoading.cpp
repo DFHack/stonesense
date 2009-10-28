@@ -6,6 +6,7 @@
 #include "Constructions.h"
 #include "GameBuildings.h"
 #include "Creatures.h"
+#include "GroundMaterialConfiguration.h"
 
 inline bool IDisWall(int in){
   switch( in ){
@@ -110,7 +111,7 @@ void ReadCellToSegment(DFHackAPI& DF, WorldSegment& segment, int CellX, int Cell
   //read local vein data
   vector <t_vein> veins;
   DF.ReadVeins(CellX,CellY,CellZ,veins);
-  uint32_t numVeins = veins.size();
+  uint32_t numVeins = (uint32_t)veins.size();
 	
 	//parse cell
 	for(uint32_t ly = BoundrySY; ly <= BoundryEY; ly++){
@@ -175,7 +176,7 @@ void ReadCellToSegment(DFHackAPI& DF, WorldSegment& segment, int CellX, int Cell
       //check veins
       for(uint32_t i=0; i<numVeins; i++){
         uint16_t row = veins[i].assignment[ly];
-        bool set = (row & (1 << lx));
+        bool set = (row & (1 << lx)) != 0;
         if(set)
           rockIndex = veins[i].type;
       }
@@ -221,6 +222,9 @@ WorldSegment* ReadMapSegment(int x, int y, int z, int sizex, int sizey, int size
   if(!DF.ReadStoneMatgloss(v_stonetypes)){
     return segment; 
   }
+  if(GroundMaterialNamesTranslatedFromGame == false)
+    TranslateGroundMaterialNames();
+
   //read layers
   vector< vector <uint16_t> > layers;
   if(!DF.ReadGeology( layers ))

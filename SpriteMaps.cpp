@@ -1,10 +1,30 @@
 #include "common.h"
 #include "SpriteMaps.h"
+#include "GroundMaterialConfiguration.h"
 
 
 
-int GetWallSpriteMap(int in)
+
+int getFloorSpriteWithDefault( int defaultSprite, int materialIndex ){
+  //do a LOOKUP. not a search! 
+  uint32_t spriteIndex = groundTypes[materialIndex].floorSheetIndex;
+  if(spriteIndex != INVALID_INDEX) 
+    return spriteIndex;
+  return defaultSprite;
+}
+
+
+int getWallSpriteWithDefault( int defaultSprite, int materialIndex ){
+  //do a LOOKUP. not a search! 
+  uint32_t spriteIndex = groundTypes[materialIndex].wallSheetIndex;
+  if(spriteIndex != INVALID_INDEX) 
+    return spriteIndex;
+  return defaultSprite;
+}
+
+int GetWallSpriteMap(int in, int matIndex)
 {
+  int matIndexResult = -1;
     switch (in)
     {
         case 83: //frozen liquid pillar
@@ -60,11 +80,11 @@ int GetWallSpriteMap(int in)
           break;
 
         case 219: //stone wall (not worn)
-          return SPRITEOBJECT_WALL_STONE_ROUGH;
+          return getWallSpriteWithDefault( SPRITEOBJECT_WALL_STONE_ROUGH, matIndex );
           break;
 
         case 440: //minstone wall worn4
-          return SPRITEOBJECT_WALL_MINSTONE_ROUGH;
+          return getWallSpriteWithDefault( SPRITEOBJECT_WALL_MINSTONE_ROUGH, matIndex );
           break;
 
         case 331: //lavastone wall
@@ -156,7 +176,7 @@ int GetWallSpriteMap(int in)
 
 
         case 265: //soil wall
-          return SPRITEOBJECT_WALL_SOIL;
+          return getWallSpriteWithDefault( SPRITEOBJECT_WALL_SOIL, matIndex );
           break;
 
 
@@ -215,7 +235,7 @@ int GetWallSpriteMap(int in)
 
     return SPRITEOBJECT_WALL_NA;
 }
-int GetFloorSpriteMap(int in){
+int GetFloorSpriteMap(int in, int matIndex){
    switch (in)
     {
 			case 2:   //murky pool
@@ -345,7 +365,7 @@ int GetFloorSpriteMap(int in){
 			case 399: //grass floor2b
 			case 400: //grass floor3b
 			case 401: //grass floor4b
-				return SPRITEFLOOR_GRASS;
+				return SPRITEFLOOR_GRASS; 
 
 
 			case 336: //stone floor 1 (raw stone)
@@ -356,14 +376,14 @@ int GetFloorSpriteMap(int in){
 			case 442: //minstone floor 2 (cavern raw)
 			case 443: //minstone floor 3 (cavern raw)
 			case 444: //minstone floor 4 (cavern raw)
-				return SPRITEFLOOR_STONE;
+				return getFloorSpriteWithDefault( SPRITEFLOOR_STONE, matIndex );
 
 
 			case 352: //soil floor 1 (raw)
 			case 353: //soil floor 2 (raw)
 			case 354: //soil floor 3 (raw)
 			case 355: //soil floor 4 (raw)
-				return SPRITEFLOOR_DIRT;
+				return getFloorSpriteWithDefault( SPRITEFLOOR_DIRT, matIndex );
 
 
 			case 405: //stone pebbles 1

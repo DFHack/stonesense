@@ -1,0 +1,7 @@
+<?xml version="1.0" ?>
+
+<Material gameID="SAND_TAN"		wallSheetIndex = 210  floorSheetIndex = 13 /> 
+<Material gameID="SAND_YELLOW" 	wallSheetIndex = 210  floorSheetIndex = 13 /> 
+<Material gameID="SAND_RED" 	wallSheetIndex = 211  floorSheetIndex = 14 /> 
+<Material gameID="SAND_BLACK" 	wallSheetIndex = 212  floorSheetIndex = 15 /> 
+<Material gameID="SAND_WHITE" 	wallSheetIndex = 213  floorSheetIndex = 16 /> 

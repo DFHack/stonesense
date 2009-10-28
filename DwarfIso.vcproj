@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8.00"
+	Version="8,00"
 	Name="Stonesense"
 	ProjectGUID="{37B19492-24AE-43C0-B67E-B252915A1C98}"
 	RootNamespace="Stonesense"
@@ -233,6 +233,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\GroundMaterialConfiguration.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\GUI.cpp"
 				>
 			</File>
@@ -344,6 +348,10 @@
 			</File>
 			<File
 				RelativePath=".\GameBuildings.h"
+				>
+			</File>
+			<File
+				RelativePath=".\GroundMaterialConfiguration.h"
 				>
 			</File>
 			<File

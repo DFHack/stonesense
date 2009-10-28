@@ -92,6 +92,10 @@ enum enumFloorSprites{
   SPRITEOBJECT_WALL_METAL = 207,
 	SPRITEOBJECT_WALL_WOOD = 208,
   SPRITEOBJECT_WALL_WOOD_FORTIFICATION = 209,
+  SPRITEOBJECT_WALL_SAND_YELLOW = 210,
+  SPRITEOBJECT_WALL_SAND_RED = 211,
+  SPRITEOBJECT_WALL_SAND_BLACK = 212,
+  SPRITEOBJECT_WALL_SAND_WHITE = 213,
 
 	SPRITEOBJECT_WALL_STONE_SMOOTH = 220,
   //SPRITEOBJECT_WALL_CONSTR_SMOOTH = 73,
@@ -174,8 +178,8 @@ enum BlockIDs{
 };
 
 
-int GetWallSpriteMap(int in);
-int GetFloorSpriteMap(int in);
+int GetWallSpriteMap(int in, int matIndex);
+int GetFloorSpriteMap(int in, int matIndex);
 int GetUpStairTypeMap(int in, bool mirrored);
 int GetDownStairTypeMap(int in);
 int GetRampMaterialTypeMap(int in);

@@ -51,7 +51,7 @@ void Block::Draw(BITMAP* target){
 
 	//Draw Floor
 	if(floorType > 0){
-		sheetOffsetX = TILEWIDTH * GetFloorSpriteMap(floorType);
+    sheetOffsetX = TILEWIDTH * GetFloorSpriteMap(floorType, materialIndex);
 		masked_blit(IMGFloorSheet, target, sheetOffsetX,0, drawx,drawy, TILEWIDTH,TILEHEIGHT);
 
     //Northern frame
@@ -115,7 +115,7 @@ void Block::Draw(BITMAP* target){
   //Draw Walls
 	if(wallType > 0){
     //draw wall
-    int spriteNum =  GetWallSpriteMap(wallType);
+    int spriteNum =  GetWallSpriteMap(wallType, materialIndex);
     DrawSpriteFromSheet( spriteNum, target, IMGObjectSheet, drawx, drawy );
 
     drawy -= (WALLHEIGHT);

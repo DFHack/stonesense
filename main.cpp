@@ -13,6 +13,7 @@ using namespace std;
 #include "MapLoading.h"
 #include "WorldSegment.h"
 #include "Creatures.h"
+#include "GroundMaterialConfiguration.h"
 
 uint32_t ClockedTime = 0;
 uint32_t ClockedTime2 = 0;
@@ -90,6 +91,7 @@ int main(void)
   //load building configuration information from xml files
   LoadBuildingConfiguration( &buildingTypes );
   LoadCreatureConfiguration( &creatureTypes );
+  LoadGroundMaterialConfiguration( );
 
 	set_color_depth(16);
   int gfxMode = config.Fullscreen ? GFX_AUTODETECT : GFX_AUTODETECT_WINDOWED;
@@ -143,6 +145,7 @@ int main(void)
   //sDisplayedSegmentX = 78; DisplayedSegmentY = 123;DisplayedSegmentZ = 15;
 
   DisplayedSegmentX = 172; DisplayedSegmentY = 325;DisplayedSegmentZ = 16;
+  DisplayedSegmentX = 282; DisplayedSegmentY = 363;DisplayedSegmentZ = 17;
 
   //DisplayedSegmentX = 242; DisplayedSegmentY = 345;DisplayedSegmentZ = 15;
   
@@ -155,7 +158,7 @@ int main(void)
 	reloadDisplayedSegment();
 	if(!viewedSegment) return 1;
 
-  benchmark();
+//  benchmark();
 
 	paintboard();
 	while(!key[KEY_ESC]){
