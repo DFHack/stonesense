@@ -121,6 +121,7 @@ void drawDebugCursorAndInfo(BITMAP* target){
     
     char strCreature[100] = {0};
     generateCreatureDebugString( &b->creature, strCreature );
+    //memset(strCreature, -1, 50);
     textprintf(target, font, 2, config.screenHeight-20-(i--*10), 0xFFFFFF, 
       "flag1: %s ", strCreature );
   }

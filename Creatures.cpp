@@ -10,20 +10,9 @@ vector<CreatureConfiguration> creatureTypes;
 
 
 int GetCreatureSpriteMap( t_creature* c ){
-  //TODO: optimize by putting into a clever little table
-  /*char* strid = v_creatureNames[c->type].id;
-  if(strcmpi(strid, "dwarf") == 0)         return SPRITECRE_DWARF_PEASANT;
-  if(strcmpi(strid, "cat") == 0)           return SPRITECRE_CAT;
-  if(strcmpi(strid, "dog") == 0)           return SPRITECRE_DOG;
-  if(strcmpi(strid, "camel_1_hump") == 0)  return SPRITECRE_CAMEL1;
-  if(strcmpi(strid, "camel_2_humps") == 0) return SPRITECRE_CAMEL2;
-  if(strcmpi(strid, "mule") == 0)          return SPRITECRE_MULE;
-  if(strcmpi(strid, "muskox") == 0)        return SPRITECRE_MUSKOX;
-  if(strcmpi(strid, "horse") == 0)         return SPRITECRE_HORSE;
-    */
-  
   uint32_t num = (uint32_t)creatureTypes.size();
   for(uint32_t i=0; i < num; i++)
+    //TODO: Optimize. make a table lookup instead of a search
     if( c->type == creatureTypes[i].gameID )
       return creatureTypes[i].sheetIndex;
 
@@ -103,7 +92,7 @@ void generateCreatureDebugString( t_creature* c, char* strbuffer){
   if(c->flags1.bits.hostile)
     strcat(strbuffer, "hostile ");
   if(c->flags1.bits.fortress_guard)
-    strcat(strbuffer, "F_guard ");
+    strcat(strbuffer, "Fort_guard ");
   if(c->flags1.bits.invader1)
     strcat(strbuffer, "invader1 ");
   if(c->flags1.bits.invader2)
@@ -111,7 +100,7 @@ void generateCreatureDebugString( t_creature* c, char* strbuffer){
   if(c->flags1.bits.mood_survivor)
     strcat(strbuffer, "mood_surv ");
   if(c->flags1.bits.royal_guard)
-    strcat(strbuffer, "R_guard ");
+    strcat(strbuffer, "Royal_guard ");
   if(c->flags1.bits.skeletal)
     strcat(strbuffer, "skeletal ");
   if(c->flags1.bits.tame)
@@ -119,21 +108,21 @@ void generateCreatureDebugString( t_creature* c, char* strbuffer){
   if(c->flags1.bits.unconscious)
     strcat(strbuffer, "unconscious ");
   if(c->flags1.bits.unk1)
-    strcat(strbuffer, "u1 ");
+    strcat(strbuffer, "WaitMoveTimer ");
   if(c->flags1.bits.unk10)
-    strcat(strbuffer, "u10 ");
+    strcat(strbuffer, "Rider ");
   if(c->flags1.bits.unk11_not_on_unit_screen2)
-    strcat(strbuffer, "u11_not_on_unit_screen ");
+    strcat(strbuffer, "Incoming ");
   if(c->flags1.bits.unk12_friendly)
-    strcat(strbuffer, "u12friendly ");
+    strcat(strbuffer, "Diplomat ");
   if(c->flags1.bits.unk15_not_part_of_fortress)
-    strcat(strbuffer, "u15_notpart_of_fort ");
+    strcat(strbuffer, "CanSwapTiles ");
   if(c->flags1.bits.unk17_not_visible)
-    strcat(strbuffer, "u17notvis ");
+    strcat(strbuffer, "Projectile ");
   if(c->flags1.bits.unk19_not_listed_among_dwarves)
-    strcat(strbuffer, "u19notlisted ");
+    strcat(strbuffer, "HiddenAmbush ");
   if(c->flags1.bits.unk21)
-    strcat(strbuffer, "u21 ");
+    strcat(strbuffer, "WillFlee ");
   if(c->flags1.bits.hidden_ambusher)
     strcat(strbuffer, "hidden_ambusher ");
   if(c->flags1.bits.unk23)

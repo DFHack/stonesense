@@ -15,6 +15,7 @@
 <Creature gameID="BEAR_GRIZZLY" sheetIndex = 28 /> 
 <Creature gameID="FISH_CARP" 	sheetIndex = 29 /> 
 <Creature gameID="OLM_GIANT" 	sheetIndex = 30 /> 
+<Creature gameID="RATMAN" 		sheetIndex = 31 /> 
 
 <Creature gameID="SPIRIT_OF_FIRE" sheetIndex = 38 /> 
 <Creature gameID="IMP_FIRE" 	sheetIndex = 39 /> 
