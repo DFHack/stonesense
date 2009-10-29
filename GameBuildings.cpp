@@ -96,9 +96,11 @@ void MergeBuildingsToSegment(vector<t_building>* buildings, WorldSegment* segmen
 			Block* b;
       //want hashtable :(
 			if( b = segment->getBlock( xx, yy, tempbuilding.z) ){
-        //handle special case where zones overlap buildings, and try to replace them
+        //handle special case where zones and stockpiles overlap buildings, and try to replace them
         if(b->building.info.type != BUILDINGTYPE_NA && tempbuilding.type == BUILDINGTYPE_ZONE )
           continue;
+        if(b->building.info.type != BUILDINGTYPE_NA && tempbuilding.type == BUILDINGTYPE_STOCKPILE )
+          continue; 
 
 				b->building.info = tempbuilding;
       }

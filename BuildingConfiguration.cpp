@@ -23,6 +23,14 @@ BuildingConfiguration::~BuildingConfiguration(void)
 }
 
 
+void DumpBuildingNamesToDisk(){
+  FILE* fp = fopen("buildingdump.txt", "w");
+  if(!fp) return;
+  for(uint32_t j=0; j < v_buildingtypes.size(); j++){
+    fprintf(fp, "%i:%s\n",j, v_buildingtypes[j].c_str());
+  }
+  fclose(fp);
+}
 
 void TranslateBuildingNames(){
   //for each config, find it's integer ID
