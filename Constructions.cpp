@@ -53,8 +53,9 @@ void changeConstructionMaterials(WorldSegment* segment, Block* b, vector<t_const
       case Mat_Stone:
         //stones are the default constructed object, so dont change them
         break;
-      case 2://something wrong with the definition here, Mat_Metal = 3, not 2
+      case Mat_Metal:
         b->wallType = ID_METALWALL;
+        break;
 		}
 	}
   if(b->stairType > 0){

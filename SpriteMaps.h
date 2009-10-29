@@ -19,6 +19,7 @@ enum enumFloorSprites{
   SPRITEFLOOR_METAL = 12,
 
   SPRITEFLOOR_LAVASTONE = 17,
+  SPRITEFLOOR_WATERFLOOR = 18,
 };
 
 /*

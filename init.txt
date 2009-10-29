@@ -14,8 +14,8 @@ with your drivers, or the program will still load in window mode.
 
 These three options set how large the cube loaded from Dwarf Fortress is.
 One entry for each axis, and each expects the number of tiles to load.
-[SEGMENTX:65]
-[SEGMENTY:65]
+[SEGMENTX:25]
+[SEGMENTY:25]
 [SEGMENTZ:5]
 
 
@@ -31,4 +31,4 @@ Sets Stonesense in debug mode. Used for developing
 
 Lifts the segment up to the top off the screen. 
 Use this with a large segment size to get blocks covering the entire screen.
-[LIFTSEGMENT:YES]
+[LIFTSEGMENT:NO]

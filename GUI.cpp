@@ -58,10 +58,10 @@ Crd2D LocalBlockToScreen(int32_t x, int32_t y, int32_t z){
 }
 void DrawCurrentLevelOutline(BITMAP* target, bool backPart){
 	
-	Crd2D p1 = WorldBlockToScreen(DisplayedSegmentX, DisplayedSegmentY, DisplayedSegmentZ);
-	Crd2D p2 = WorldBlockToScreen(DisplayedSegmentX, DisplayedSegmentY + config.segmentSize.y , DisplayedSegmentZ);
-	Crd2D p3 = WorldBlockToScreen(DisplayedSegmentX + config.segmentSize.x , DisplayedSegmentY, DisplayedSegmentZ);
-	Crd2D p4 = WorldBlockToScreen(DisplayedSegmentX + config.segmentSize.x , DisplayedSegmentY + config.segmentSize.y , DisplayedSegmentZ);
+	Crd2D p1 = WorldBlockToScreen(viewedSegment->x, viewedSegment->y, DisplayedSegmentZ);
+	Crd2D p2 = WorldBlockToScreen(viewedSegment->x, viewedSegment->y + config.segmentSize.y , DisplayedSegmentZ);
+	Crd2D p3 = WorldBlockToScreen(viewedSegment->x + config.segmentSize.x , viewedSegment->y, DisplayedSegmentZ);
+	Crd2D p4 = WorldBlockToScreen(viewedSegment->x + config.segmentSize.x , viewedSegment->y + config.segmentSize.y , DisplayedSegmentZ);
 	if(backPart){
 		line(target, p1.x, p1.y, p1.x, p1.y-WALLHEIGHT, COLOR_SEGMENTOUTLINE);
 		line(target, p1.x, p1.y, p2.x, p2.y, COLOR_SEGMENTOUTLINE);
@@ -199,17 +199,6 @@ void paintboard(){
 	clear_to_color(buffer,makecol(95,95,160));
   //clear_to_color(buffer,makecol(12,7,49)); //this one is calm and nice
 	
-  /*PALETTE pal;
-  get_palette(pal);
-  for(int i =0; i<255; i++)
-    pal[i].g+=1;
-  //set_palette(pal);
-  select_palette(pal);
-*/
-	DrawMinimap(buffer);
-
-  //drawdebugblah();
-
 
 	DrawCurrentLevelOutline(buffer, true);
   viewedSegment->drawAllBlocks(buffer);
@@ -239,6 +228,8 @@ void paintboard(){
     textprintf_centre_ex(buffer, font, config.screenWidth/2,20, 0xFFFFFF,0, "Single layer view");
   if(config.automatic_reload_time)
     textprintf_centre_ex(buffer, font, config.screenWidth/2,30, 0xFFFFFF,0, "Reloading every %0.1fs", (float)config.automatic_reload_time/1000);
+
+  DrawMinimap(buffer);
 
 	acquire_screen();
 	draw_sprite(screen,buffer,0,0);

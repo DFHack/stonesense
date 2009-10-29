@@ -146,16 +146,12 @@ void ReadCellToSegment(DFHackAPI& DF, WorldSegment& segment, int CellX, int Cell
     //if(b->x == 142 && b->y == 136 && b->z == 15)
     //  int j = 10;
 
-		if(IDisConstruction(t)) 
-      changeConstructionMaterials(&segment, b, allConstructions);
-    
-
 		//save in segment
 		bool isHidden = designations[lx][ly].bits.hidden;
     //option for including hidden blocks
     isHidden &= !config.show_hidden_blocks;
     bool shouldBeIncluded = (!isOpenTerrain(t) && !isHidden) || b->water.index ;
-    //include black 
+    //include hidden blocks as shaded black 
     if(config.shade_hidden_blocks && isHidden && (
        b->z == segment.z + segment.sizez - 1 ||
        b->x == segment.x + segment.sizex - 1 || 
@@ -174,6 +170,11 @@ void ReadCellToSegment(DFHackAPI& DF, WorldSegment& segment, int CellX, int Cell
     
 		if( shouldBeIncluded ){
       //this only needs to be done for included blocks
+
+      //Translate construction materials
+		  if(IDisConstruction(t)) 
+        changeConstructionMaterials(&segment, b, allConstructions);
+
       //determine rock/soil type
       int rockIndex = (*allLayers) [regionoffsets[designations[lx][ly].bits.biome]] [designations[lx][ly].bits.geolayer_index];
       //check veins
@@ -198,9 +199,6 @@ void ReadCellToSegment(DFHackAPI& DF, WorldSegment& segment, int CellX, int Cell
 
 WorldSegment* ReadMapSegment(int x, int y, int z, int sizex, int sizey, int sizez){
   uint32_t index;
-
-  WorldSegment* segment = new WorldSegment(x,y,z,sizex,sizey,sizez);
-
 	uint32_t starttime = clock();
 
   DFHackAPI* pDF = CreateDFHackAPI("Memory.xml");
@@ -208,16 +206,22 @@ WorldSegment* ReadMapSegment(int x, int y, int z, int sizex, int sizey, int size
 
 	if(!DF.Attach() || !DF.InitMap())
 	{
-		return segment;
+    //return new blank segment
+		return new WorldSegment(x,y,z,sizex,sizey,sizez);
 	}
 
 	//Read Number of cells
 	int celldimX, celldimY, celldimZ;
 	DF.getSize((unsigned int &)celldimX, (unsigned int &)celldimY, (unsigned int &)celldimZ);
-	
+  //bound view to world
+  if(x > celldimX * CELLEDGESIZE -10) DisplayedSegmentX = x = celldimX * CELLEDGESIZE -10;
+  if(y > celldimY * CELLEDGESIZE -10) DisplayedSegmentY = y = celldimY * CELLEDGESIZE -10;
+  //setup new world segment
+  WorldSegment* segment = new WorldSegment(x,y,z,sizex,sizey,sizez);
   segment->regionSize.x = celldimX * CELLEDGESIZE;
   segment->regionSize.y = celldimY * CELLEDGESIZE;
 	segment->regionSize.z = celldimZ;
+  
 	
 	//read world wide buildings
   vector<t_building> allBuildings;
@@ -306,7 +310,7 @@ WorldSegment* ReadMapSegment(int x, int y, int z, int sizex, int sizey, int size
       if(b->ramp.type > 0) 
         b->ramp.index = CalculateRampType(b->x, b->y, b->z, segment);
 
-      //add edges to blocks and floors
+      //add edges to blocks and floors  
       if( b->floorType > 0 ){
         Block* westBlock = segment->getBlock(b->x - 1, b->y, b->z);
         Block* northBlock = segment->getBlock(b->x, b->y - 1, b->z);
@@ -334,8 +338,6 @@ WorldSegment* ReadMapSegment(int x, int y, int z, int sizex, int sizey, int size
 	return segment;
 }
 
-
-
 void reloadDisplayedSegment(){
   if(DisplayedSegmentX<0)DisplayedSegmentX=0;
   if(DisplayedSegmentY<0)DisplayedSegmentY=0;
@@ -348,5 +350,5 @@ void reloadDisplayedSegment(){
   int segmentHeight = config.single_layer_view ? 1 : config.segmentSize.z;
   //load segment
 	viewedSegment = ReadMapSegment(DisplayedSegmentX, DisplayedSegmentY, DisplayedSegmentZ,
-		config.segmentSize.x,config.segmentSize.y,segmentHeight);
+		                config.segmentSize.x, config.segmentSize.y, segmentHeight);
 }

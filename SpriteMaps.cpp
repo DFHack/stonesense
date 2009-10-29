@@ -238,7 +238,7 @@ int GetWallSpriteMap(int in, int matIndex)
 int GetFloorSpriteMap(int in, int matIndex){
    switch (in)
     {
-			case 2:   //murky pool
+			
 
 			case 19: //driftwood stack
 			// case 27: //up stair frozen liquid
@@ -299,23 +299,7 @@ int GetFloorSpriteMap(int in, int matIndex){
 			case 358: //soil floor 3 wet (raw) [red sand?]
 			case 359: //soil floor 4 wet (raw) [red sand?]
 
-			case 365: //river n
-			case 366: //river s
-			case 367: //river e
-			case 368: //river w
-			case 369: //river nw
-			case 370: //river ne
-			case 371: //river sw
-			case 372: //river se
 
-			case 373: //stream wall n (below)
-			case 374: //stream wall s (below)
-			case 375: //stream wall e (below)
-			case 376: //stream wall w (below)
-			case 377: //stream wall nw (below)
-			case 378: //stream wall ne (below)
-			case 379: //stream wall sw (below)
-			case 380: //stream wall se (below)
 
 			case 409: //lavastone pebbles 1
 			case 410: //lavastone pebbles 2
@@ -346,7 +330,27 @@ int GetFloorSpriteMap(int in, int matIndex){
 			case 46: //minstone? floor detailed [calcite]
 			case 493: //constructed floor detailed
 				return SPRITEFLOOR_DETAILED;
-		  
+
+      case 2:   //murky pool
+			case 365: //river n
+			case 366: //river s
+			case 367: //river e
+			case 368: //river w
+			case 369: //river nw
+			case 370: //river ne
+			case 371: //river sw
+			case 372: //river se
+
+			case 373: //stream wall n (below)
+			case 374: //stream wall s (below)
+			case 375: //stream wall e (below)
+			case 376: //stream wall w (below)
+			case 377: //stream wall nw (below)
+			case 378: //stream wall ne (below)
+			case 379: //stream wall sw (below)
+			case 380: //stream wall se (below)
+        return SPRITEFLOOR_WATERFLOOR;
+
       case 258: //frozen liquid 1
 			case 259: //frozen liquid 2
 			case 260: //frozen liquid 3
