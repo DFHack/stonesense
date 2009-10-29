@@ -23,8 +23,8 @@ bool IsCreatureVisible( t_creature* c){
 
   if( c->flags1.bits.dead )
     return false;
-  if( c->flags1.bits.unk26_invisible_hidden )
-    return false;
+  /*if( c->flags1.bits. )
+    return false;*/
   return true;
 }
 
@@ -87,70 +87,62 @@ void LoadCreatureConfiguration( vector<CreatureConfiguration>* knownCreatures ){
 
 
 void generateCreatureDebugString( t_creature* c, char* strbuffer){
-  if(c->flags1.bits.dead)
+  if(c->flags1.bits.active_invader)
+    strcat(strbuffer, "activeInvader ");
+  if(c->flags1.bits.caged)
+    strcat(strbuffer, "Caged ");
+  if(c->flags1.bits.chained)
+    strcat(strbuffer, "chained ");
+  if(c->flags1.bits.coward)
+    strcat(strbuffer, "coward ");
+   if(c->flags1.bits.dead)
     strcat(strbuffer, "Dead ");
-  if(c->flags1.bits.hostile)
-    strcat(strbuffer, "hostile ");
-  if(c->flags1.bits.fortress_guard)
-    strcat(strbuffer, "Fort_guard ");
-  if(c->flags1.bits.invader1)
-    strcat(strbuffer, "invader1 ");
-  if(c->flags1.bits.invader2)
-    strcat(strbuffer, "invader2 ");
-  if(c->flags1.bits.mood_survivor)
-    strcat(strbuffer, "mood_surv ");
-  if(c->flags1.bits.royal_guard)
-    strcat(strbuffer, "Royal_guard ");
-  if(c->flags1.bits.skeletal)
-    strcat(strbuffer, "skeletal ");
-  if(c->flags1.bits.tame)
-    strcat(strbuffer, "tame ");
-  if(c->flags1.bits.unconscious)
-    strcat(strbuffer, "unconscious ");
-  if(c->flags1.bits.unk1)
-    strcat(strbuffer, "WaitMoveTimer ");
-  if(c->flags1.bits.unk10)
-    strcat(strbuffer, "Rider ");
-  if(c->flags1.bits.unk11_not_on_unit_screen2)
-    strcat(strbuffer, "Incoming ");
-  if(c->flags1.bits.unk12_friendly)
+  if(c->flags1.bits.diplomat)
     strcat(strbuffer, "Diplomat ");
-  if(c->flags1.bits.unk15_not_part_of_fortress)
-    strcat(strbuffer, "CanSwapTiles ");
-  if(c->flags1.bits.unk17_not_visible)
-    strcat(strbuffer, "Projectile ");
-  if(c->flags1.bits.unk19_not_listed_among_dwarves)
-    strcat(strbuffer, "HiddenAmbush ");
-  if(c->flags1.bits.unk21)
-    strcat(strbuffer, "WillFlee ");
+  if(c->flags1.bits.drowning)
+    strcat(strbuffer, "drowning ");
+  if(c->flags1.bits.forest)
+    strcat(strbuffer, "lostLeaving ");
+  if(c->flags1.bits.fortress_guard)
+    strcat(strbuffer, "FortGuard ");
+  if(c->flags1.bits.had_mood)
+    strcat(strbuffer, "HadMood ");
+  if(c->flags1.bits.has_mood)
+    strcat(strbuffer, "Mood ");
   if(c->flags1.bits.hidden_ambusher)
-    strcat(strbuffer, "hidden_ambusher ");
-  if(c->flags1.bits.unk23)
-    strcat(strbuffer, "u23 ");
-  if(c->flags1.bits.unk24)
-    strcat(strbuffer, "u24 ");
-  if(c->flags1.bits.unk25)
-    strcat(strbuffer, "u25 ");
-  if(c->flags1.bits.unk26_invisible_hidden)
-    strcat(strbuffer, "u26invHidden ");
-  if(c->flags1.bits.unk28)
-    strcat(strbuffer, "u28 ");
-  if(c->flags1.bits.unk3)
-    strcat(strbuffer, "u3 ");
-  if(c->flags1.bits.unk31)
-    strcat(strbuffer, "u31 ");
-  if(c->flags1.bits.unk32)
-    strcat(strbuffer, "u32 ");
-  if(c->flags1.bits.unk6)
-    strcat(strbuffer, "u6 ");
-  if(c->flags1.bits.unk7_friendly)
-    strcat(strbuffer, "u7Friendly ");
-  if(c->flags1.bits.unk8_friendly)
-    strcat(strbuffer, "u8Friendly ");
-  if(c->flags1.bits.unk9_not_on_unit_screen1)
-    strcat(strbuffer, "u9NotListed ");
+    strcat(strbuffer, "hiddenAmbush ");
+  if(c->flags1.bits.hidden_in_ambush)
+    strcat(strbuffer, "hiddenInAmbush ");
+  if(c->flags1.bits.important_historical_figure)
+    strcat(strbuffer, "Historical ");
+  if(c->flags1.bits.incoming)
+    strcat(strbuffer, "Incoming ");
+  if(c->flags1.bits.invades)
+    strcat(strbuffer, "invading ");
+  if(c->flags1.bits.marauder)
+    strcat(strbuffer, "marauder ");
+  if(c->flags1.bits.merchant)
+    strcat(strbuffer, "merchant ");
+  if(c->flags1.bits.on_ground)
+    strcat(strbuffer, "onGround ");
+  if(c->flags1.bits.projectile)
+    strcat(strbuffer, "projectile ");
+  if(c->flags1.bits.ridden)
+    strcat(strbuffer, "ridden ");
+  if(c->flags1.bits.royal_guard)
+    strcat(strbuffer, "RoyGuard ");
+  if(c->flags1.bits.skeleton)
+    strcat(strbuffer, "Skeleton ");
+  if(c->flags1.bits.tame)
+    strcat(strbuffer, "Tame ");
   if(c->flags1.bits.zombie)
-    strcat(strbuffer, "ZOMBIE! ");
-
-
+    strcat(strbuffer, "Zombie ");
+  
+  //if(c->flags1.bits.can_swap)
+  //  strcat(strbuffer, "canSwap ");
+  //if(c->flags1.bits.check_flows)
+  //  strcat(strbuffer, "checFlows ");
+  //if(c->flags1.bits.invader_origin)
+  //  strcat(strbuffer, "invader_origin ");
+  
 }
