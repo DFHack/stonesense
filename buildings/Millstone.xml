@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+
+
+
+<Building name="Millstone" gameID="millstone"> 
+	<Tile>
+		<Sprite sheetIndex = 306 />
+	</Tile>
+	
+</Building> 

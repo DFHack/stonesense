@@ -10,6 +10,9 @@ Chest.xml
 Bed.xml
 WeaponRack.xml
 ArmorStand.xml
+Quern.xml
+Millstone.xml
+Cage.xml
 
 Door.xml
 VerticalBars.xml
@@ -30,6 +33,13 @@ Clothiers.xml
 Tannery.xml
 Still.xml
 Leatherworks.xml
+MagmaGlassFurnace.xml
+GlassFurnace.xml
+Kiln.xml
+MagmaKiln.xml
+Ashery.xml
+FarmersWorkshop.xml
+Jewelers.xml
 
 TradeDepot.xml
 

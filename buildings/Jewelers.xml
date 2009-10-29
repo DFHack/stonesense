@@ -1,110 +1,76 @@
 <?xml version="1.0" ?>
 
 
-
-<Building name="Kitchen" gameID="kitchen"> 
-
-	<Tile>
-		<Condition type="PositionIndex" value=6 />
-		<Sprite sheetIndex = 241 />
-		<Sprite sheetIndex = 245 />	
-		<Sprite sheetIndex = 311 offsetx=2 offsety=-1/>
-	</Tile>
-
-	<Tile>
-		<Condition type="PositionIndex" value=1 />
-		<Condition type="MaterialType" value="Metal"/>
-		<Sprite sheetIndex = 257 />
-		<Sprite sheetIndex = 256 />
-	</Tile>
-	<Tile>
-		<Condition type="PositionIndex" value=1 />
-		<Sprite sheetIndex = 272 />
-		<Sprite sheetIndex = 256 />
-	</Tile>
+<Building name="Jewelers Workshop" gameID="jewelers_workshop"> 
 
 	<Tile>
 		<Condition type="PositionIndex" value=2 />
 		<Condition type="MaterialType" value="Wood" />
 		<Sprite sheetIndex = 274 />
+		<Sprite sheetIndex = 275 />
 		<Sprite sheetIndex = 276 />
-		<Sprite sheetIndex = 278 />
+		<Sprite sheetIndex = 279 offsetx=2 offsety=-2 />
+		<Sprite sheetIndex = 291 offsetx=-3 offsety=-2 />
 	</Tile>
 	<Tile>
 		<Condition type="PositionIndex" value=2 />
 		<Condition type="MaterialType" value="Metal"/>
 		<Sprite sheetIndex = 254 />
+		<Sprite sheetIndex = 275 />
 		<Sprite sheetIndex = 276 />
-		<Sprite sheetIndex = 278 />
-	</Tile>
-	<Tile>
-		<Condition type="PositionIndex" value=2 />
-		<Condition type="MaterialType" value="GreenGlass"/>
-		<Sprite sheetIndex = 285 />
-		<Sprite sheetIndex = 276 />
-		<Sprite sheetIndex = 278 />
-	</Tile>
-	<Tile>
-		<Condition type="PositionIndex" value=2 />
-		<Condition type="MaterialType" value="ClearGlass"/>
-		<Sprite sheetIndex = 283 />
-		<Sprite sheetIndex = 276 />
-		<Sprite sheetIndex = 278 />
-	</Tile>
-	<Tile>
-		<Condition type="PositionIndex" value=2 />
-		<Condition type="MaterialType" value="CrystalGlass"/>
-		<Sprite sheetIndex = 283 />
-		<Sprite sheetIndex = 276 />
-		<Sprite sheetIndex = 278 />
+		<Sprite sheetIndex = 295 />
 	</Tile>
 	<Tile>
 		<Condition type="PositionIndex" value=2 />
 		<Sprite sheetIndex = 273 />
+		<Sprite sheetIndex = 275 />
 		<Sprite sheetIndex = 276 />
-		<Sprite sheetIndex = 278 />
+		<Sprite sheetIndex = 295 />
 	</Tile>
-
+	
 	<Tile>
 		<Condition type="PositionIndex" value=5 />
 		<Condition type="MaterialType" value="Wood" />
 		<Sprite sheetIndex = 274 />
 		<Sprite sheetIndex = 275 />
-		<Sprite sheetIndex = 277 />
+		<Sprite sheetIndex = 295 />
 	</Tile>
 	<Tile>
 		<Condition type="PositionIndex" value=5 />
 		<Condition type="MaterialType" value="Metal"/>
 		<Sprite sheetIndex = 254 />
 		<Sprite sheetIndex = 275 />
-		<Sprite sheetIndex = 277 />
+		<Sprite sheetIndex = 279 />
 	</Tile>
-	<Tile>
-		<Condition type="PositionIndex" value=5 />
-		<Condition type="MaterialType" value="GreenGlass"/>
-		<Sprite sheetIndex = 285 />
-		<Sprite sheetIndex = 275 />
-		<Sprite sheetIndex = 277 />
-	</Tile>
-	<Tile>
-		<Condition type="PositionIndex" value=5 />
-		<Condition type="MaterialType" value="ClearGlass"/>
-		<Sprite sheetIndex = 283 />
-		<Sprite sheetIndex = 275 />
-		<Sprite sheetIndex = 277 />
-	</Tile>
-	<Tile>
-		<Condition type="PositionIndex" value=5 />
-		<Condition type="MaterialType" value="CrystalGlass"/>
-		<Sprite sheetIndex = 283 />
-		<Sprite sheetIndex = 275 />
-		<Sprite sheetIndex = 277 />
-	</Tile>	
 	<Tile>
 		<Condition type="PositionIndex" value=5 />
 		<Sprite sheetIndex = 273 />
 		<Sprite sheetIndex = 275 />
-		<Sprite sheetIndex = 277 />
+		<Sprite sheetIndex = 279 />
+	</Tile>
+	
+	<Tile>
+		<Condition type="PositionIndex" value=8 />
+		<Condition type="MaterialType" value="Wood" />
+		<Sprite sheetIndex = 274 />
+		<Sprite sheetIndex = 275 />
+		<Sprite sheetIndex = 279 offsetx=2 offsety=-2 />
+		<Sprite sheetIndex = 291 offsetx=-3 offsety=-2 />
+	</Tile>
+	<Tile>
+		<Condition type="PositionIndex" value=8 />
+		<Condition type="MaterialType" value="Metal"/>
+		<Sprite sheetIndex = 254 />
+		<Sprite sheetIndex = 275 />
+		<Sprite sheetIndex = 279 offsetx=2 offsety=-2 />
+		<Sprite sheetIndex = 291 offsetx=-3 offsety=-2 />
+	</Tile>
+	<Tile>
+		<Condition type="PositionIndex" value=8 />
+		<Sprite sheetIndex = 273 />
+		<Sprite sheetIndex = 275 />
+		<Sprite sheetIndex = 279 offsetx=2 offsety=-2 />
+		<Sprite sheetIndex = 291 offsetx=-3 offsety=-2 />
 	</Tile>
 
 	<!-- generic border -->
