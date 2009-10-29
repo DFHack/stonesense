@@ -40,6 +40,7 @@ MagmaKiln.xml
 Ashery.xml
 FarmersWorkshop.xml
 Jewelers.xml
+Fishery.xml
 
 TradeDepot.xml
 

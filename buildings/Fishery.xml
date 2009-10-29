@@ -1,68 +1,85 @@
 <?xml version="1.0" ?>
 
 
-<Building name="Farmers Workshop" gameID="farmers_workshop"> 
+
+<Building name="Fishery" gameID="fishery"> 
 
 	<Tile>
-		<Condition type="PositionIndex" value=8 />
-		<Sprite sheetIndex = 311 offsety=-2/>
-		<Sprite sheetIndex = 246 />
+		<Condition type="PositionIndex" value=2 />
+		<Sprite sheetIndex = 240 />
+		<Sprite sheetIndex = 311 offsetx=-2 offsety=-1/>
+		<Sprite sheetIndex = 247 />
+	</Tile>
+	
+	<Tile>
+		<Condition type="PositionIndex" value=0 />
+		<Condition type="MaterialType" value="Wood" />
+		<Sprite sheetIndex = 274 />
+		<Sprite sheetIndex = 275 />
+		<Sprite sheetIndex = 276 />
+		<Sprite sheetIndex = 289 />
+	</Tile>
+	<Tile>
+		<Condition type="PositionIndex" value=0 />
+		<Condition type="MaterialType" value="Metal"/>
+		<Sprite sheetIndex = 254 />
+		<Sprite sheetIndex = 275 />
+		<Sprite sheetIndex = 276 />
+		<Sprite sheetIndex = 289 />
+	</Tile>
+	<Tile>
+		<Condition type="PositionIndex" value=0 />
+		<Sprite sheetIndex = 273 />
+		<Sprite sheetIndex = 275 />
+		<Sprite sheetIndex = 276 />
+		<Sprite sheetIndex = 289 />
 	</Tile>
 
 	<Tile>
 		<Condition type="PositionIndex" value=1 />
 		<Condition type="MaterialType" value="Wood" />
 		<Sprite sheetIndex = 274 />
-		<Sprite sheetIndex = 275 />
 		<Sprite sheetIndex = 276 />
-		<Sprite sheetIndex = 295 />
+		<Sprite sheetIndex = 137 />
 	</Tile>
 	<Tile>
 		<Condition type="PositionIndex" value=1 />
 		<Condition type="MaterialType" value="Metal"/>
 		<Sprite sheetIndex = 254 />
-		<Sprite sheetIndex = 275 />
 		<Sprite sheetIndex = 276 />
-		<Sprite sheetIndex = 295 />
+		<Sprite sheetIndex = 317 />
 	</Tile>
 	<Tile>
 		<Condition type="PositionIndex" value=1 />
 		<Sprite sheetIndex = 273 />
-		<Sprite sheetIndex = 275 />
 		<Sprite sheetIndex = 276 />
-		<Sprite sheetIndex = 295 />
+		<Sprite sheetIndex = 317 />
 	</Tile>
-	
-	<Tile>
-		<Condition type="PositionIndex" value=6 />
-		<Condition type="MaterialType" value="Wood" />
-		<Sprite sheetIndex = 274 />
-		<Sprite sheetIndex = 275 />
-		<Sprite sheetIndex = 276 />
-		<Sprite sheetIndex = 316 />
-	</Tile>
-	<Tile>
-		<Condition type="PositionIndex" value=6 />
-		<Condition type="MaterialType" value="Metal"/>
-		<Sprite sheetIndex = 254 />
-		<Sprite sheetIndex = 275 />
-		<Sprite sheetIndex = 276 />
-		<Sprite sheetIndex = 316 />
-	</Tile>
-	<Tile>
-		<Condition type="PositionIndex" value=6 />
-		<Sprite sheetIndex = 273 />
-		<Sprite sheetIndex = 275 />
-		<Sprite sheetIndex = 276 />
-		<Sprite sheetIndex = 316 />
-	</Tile>
-	
+
 	<Tile>
 		<Condition type="PositionIndex" value=7 />
-		<Sprite sheetIndex = 91 offsetx=2 offsety=-2 />
-		<Sprite sheetIndex = 242 />
+		<Condition type="MaterialType" value="Wood" />
+		<Sprite sheetIndex = 274 />
+		<Sprite sheetIndex = 275 />
+		<Sprite sheetIndex = 276 />
+		<Sprite sheetIndex = 318 />
 	</Tile>
-
+	<Tile>
+		<Condition type="PositionIndex" value=7 />
+		<Condition type="MaterialType" value="Metal"/>
+		<Sprite sheetIndex = 254 />
+		<Sprite sheetIndex = 275 />
+		<Sprite sheetIndex = 276 />
+		<Sprite sheetIndex = 318 />
+	</Tile>
+	<Tile>
+		<Condition type="PositionIndex" value=7 />
+		<Sprite sheetIndex = 273 />
+		<Sprite sheetIndex = 275 />
+		<Sprite sheetIndex = 276 />
+		<Sprite sheetIndex = 318 />
+	</Tile>
+	
 	<!-- generic border -->
 
 	<Tile>
