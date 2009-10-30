@@ -50,3 +50,24 @@ cmake .. -G"MinGW Makefiles" -DCMAKE_BUILD_TYPE:string=Release
 8) run
 mingw32-make
 
+
+
+*** Linux ***
+
+1) Get the source
+
+svn checkout http://stonesense.googlecode.com/svn/trunk stonesense
+
+2) Get the libraries
+
+Your distro should have dev packages for allegro, libpng, and zlib
+You will also need make, cmake and a g++
+
+3) Run the built in make
+
+cd stonesense/build
+cmake .. -DCMAKE_BUILD_TYPE:string=Release
+make
+
+
+
