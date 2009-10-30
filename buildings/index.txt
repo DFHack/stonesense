@@ -15,6 +15,7 @@ Quern.xml
 Millstone.xml
 Cage.xml
 Coffin.xml
+Hatch.xml
 
 Door.xml
 VerticalBars.xml
