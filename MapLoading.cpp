@@ -199,7 +199,6 @@ void ReadCellToSegment(DFHackAPI& DF, WorldSegment& segment, int CellX, int Cell
 
 WorldSegment* ReadMapSegment(int x, int y, int z, int sizex, int sizey, int sizez){
   uint32_t index;
-	uint32_t starttime = clock();
 
   DFHackAPI* pDF = CreateDFHackAPI("Memory.xml");
   DFHackAPI &DF = *pDF;
@@ -247,11 +246,12 @@ WorldSegment* ReadMapSegment(int x, int y, int z, int sizex, int sizey, int size
   while(index < numconstructions)
   {
       DF.ReadConstruction(index, tempcon);
-      allConstructions.push_back(tempcon);
+      if(segment->CoordinateInsideRegion(tempcon.x, tempcon.y, tempcon.z))
+        allConstructions.push_back(tempcon);
       index++;
   }
   DF.FinishReadConstructions();
-
+  
 
 	//figure out what cells to read
 	uint32_t firstTileToReadX = x;
@@ -332,9 +332,7 @@ WorldSegment* ReadMapSegment(int x, int y, int z, int sizex, int sizey, int size
   DF.DestroyMap();
   DF.Detach();
   delete pDF;
-
-	ClockedTime = clock() - starttime;
-
+ 
 	return segment;
 }
 
@@ -342,6 +340,7 @@ void reloadDisplayedSegment(){
   if(DisplayedSegmentX<0)DisplayedSegmentX=0;
   if(DisplayedSegmentY<0)DisplayedSegmentY=0;
 
+  TMR1_START;
   //dispose old segment
   if(viewedSegment)
     viewedSegment->Dispose();
@@ -351,4 +350,5 @@ void reloadDisplayedSegment(){
   //load segment
 	viewedSegment = ReadMapSegment(DisplayedSegmentX, DisplayedSegmentY, DisplayedSegmentZ,
 		                config.segmentSize.x, config.segmentSize.y, segmentHeight);
+  TMR1_STOP;
 }

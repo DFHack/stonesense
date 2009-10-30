@@ -104,8 +104,10 @@ extern bool timeToReloadSegment;
 
 extern vector<t_matgloss> v_stonetypes;
 
+#define TMR1_START (ClockedTime = clock())
+#define TMR1_STOP  (ClockedTime = clock() - ClockedTime)
 #define TMR2_START (ClockedTime2 = clock())
-#define TMR2_STOP (ClockedTime2 = clock() - ClockedTime2)
+#define TMR2_STOP  (ClockedTime2 = clock() - ClockedTime2)
 
 
 //from UserInput.cpp

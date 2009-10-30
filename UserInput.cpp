@@ -109,13 +109,13 @@ void doKeys(){
   }
   if(key[KEY_MINUS_PAD]){
     config.automatic_reload_time -= config.automatic_reload_step;
-    paintboard();
     if( config.automatic_reload_time <= 0 ){
       config.automatic_reload_time = 0;
       remove_int( automaticReloadProc );
     }
     else
       install_int( automaticReloadProc, config.automatic_reload_time );
+    paintboard();
     while(key[KEY_MINUS_PAD]);
   }
 

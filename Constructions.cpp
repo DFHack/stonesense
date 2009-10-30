@@ -10,10 +10,10 @@ void changeConstructionMaterials(WorldSegment* segment, Block* b, vector<t_const
 	t_construction* c;
 	t_construction* construct = 0;
 	i = (uint32_t) allConstructions->size();
-  if(!i) return;
-	while(--i >=0 ){
+  if(i <= 0) return;
+  while(--i){
 		c = &(*allConstructions)[i];
-		if(c->z == b->z && c->x == b->x && c->y == b->y){
+		if(c->x == b->x && c->y == b->y && c->z == b->z ){
 			construct = c;
 			break;
 		}

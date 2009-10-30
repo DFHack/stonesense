@@ -57,11 +57,23 @@ Crd2D LocalBlockToScreen(int32_t x, int32_t y, int32_t z){
 	return result;
 }
 void DrawCurrentLevelOutline(BITMAP* target, bool backPart){
+  int x = viewedSegment->x;
+  int y = viewedSegment->y;
+  int z = DisplayedSegmentZ;
+  int sizex = config.segmentSize.x;
+  int sizey = config.segmentSize.y;
 	
-	Crd2D p1 = WorldBlockToScreen(viewedSegment->x, viewedSegment->y, DisplayedSegmentZ);
-	Crd2D p2 = WorldBlockToScreen(viewedSegment->x, viewedSegment->y + config.segmentSize.y , DisplayedSegmentZ);
-	Crd2D p3 = WorldBlockToScreen(viewedSegment->x + config.segmentSize.x , viewedSegment->y, DisplayedSegmentZ);
-	Crd2D p4 = WorldBlockToScreen(viewedSegment->x + config.segmentSize.x , viewedSegment->y + config.segmentSize.y , DisplayedSegmentZ);
+  if(config.hide_outer_blocks){
+    x++;y++;
+    sizex -= 2;
+    sizey -= 2;
+  }
+
+	Crd2D p1 = WorldBlockToScreen(x, y, z);
+	Crd2D p2 = WorldBlockToScreen(x, y + sizey , z);
+	Crd2D p3 = WorldBlockToScreen(x + sizex , y, z);
+	Crd2D p4 = WorldBlockToScreen(x + sizex , y + sizey , z);
+
 	if(backPart){
 		line(target, p1.x, p1.y, p1.x, p1.y-WALLHEIGHT, COLOR_SEGMENTOUTLINE);
 		line(target, p1.x, p1.y, p2.x, p2.y, COLOR_SEGMENTOUTLINE);
@@ -119,7 +131,7 @@ void drawDebugCursorAndInfo(BITMAP* target){
       "Creature: %s(%i) ", 
       v_creatureNames.at(b->creature.type).id, b->creature.type);
     
-    char strCreature[100] = {0};
+    char strCreature[150] = {0};
     generateCreatureDebugString( &b->creature, strCreature );
     //memset(strCreature, -1, 50);
     textprintf(target, font, 2, config.screenHeight-20-(i--*10), 0xFFFFFF, 
@@ -209,15 +221,8 @@ void paintboard(){
 	
   
 	textprintf_ex(buffer, font, 10,10, 0xFFFFFF,0, "%i,%i,%i", DisplayedSegmentX,DisplayedSegmentY,DisplayedSegmentZ);
-	
-  /*ClockedTime = clock();
-  for(int i = 0; i<300000; i++)
-    masked_blit(IMGObjectSheet, buffer, 0,0, 0,0, TILEWIDTH,24);
-  ClockedTime -= clock();*/
   
   if(config.debug_mode){
-    //masked_blit(IMGFloorSheet, buffer, 0,0, 10,60, TILEWIDTH,24);
-
 	  textprintf_ex(buffer, font, 10,20, 0xFFFFFF,0, "Timer1: %ims", ClockedTime);
     textprintf_ex(buffer, font, 10,30, 0xFFFFFF,0, "Timer2: %ims", ClockedTime2);
 	  textprintf_ex(buffer, font, 10,40, 0xFFFFFF,0, "D1: %i", DebugInt1);

@@ -23,8 +23,8 @@ bool IsCreatureVisible( t_creature* c){
 
   if( c->flags1.bits.dead )
     return false;
-  /*if( c->flags1.bits. )
-    return false;*/
+  if( c->flags1.bits.caged )
+    return false;
   return true;
 }
 
@@ -137,7 +137,18 @@ void generateCreatureDebugString( t_creature* c, char* strbuffer){
     strcat(strbuffer, "Tame ");
   if(c->flags1.bits.zombie)
     strcat(strbuffer, "Zombie ");
-  
+
+  if(c->flags2.bits.slaughter)
+    strcat(strbuffer, "ReadyToSlaughter ");
+  if(c->flags2.bits.resident)
+    strcat(strbuffer, "Resident ");
+  if(c->flags2.bits.sparring)
+    strcat(strbuffer, "Sparring ");
+  if(c->flags2.bits.swimming)
+    strcat(strbuffer, "Swimming ");
+  if(c->flags2.bits.underworld)
+    strcat(strbuffer, "Underworld ");
+
   //if(c->flags1.bits.can_swap)
   //  strcat(strbuffer, "canSwap ");
   //if(c->flags1.bits.check_flows)
