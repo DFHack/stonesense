@@ -76,23 +76,33 @@ IF(UNIX)
 ELSE(UNIX)
     add_definitions(-DBUILD_DFHACK_LIB)
     # use local allegro
-    include_directories (
-    ${include_directories}
-    ${CMAKE_SOURCE_DIR}/allegro
-    )
-    LINK_DIRECTORIES(
-    ${LINK_DIRECTORIES}
-    ${CMAKE_SOURCE_DIR}/allegro/lib_msvs8
-    ${CMAKE_SOURCE_DIR}/loadpng/libpng/lib/
-    )
     # MinGW is broken. doesn't link properly for some reason.
     IF(MINGW)
         add_definitions(-DALLEGRO_MINGW32)
-        SET(PROJECT_LIBS alleg psapi mingw32 libpng)
+        SET(PROJECT_LIBS alleg42 psapi mingw32 libpng)
+        include_directories (
+		    ${include_directories}
+		    ${CMAKE_SOURCE_DIR}/allegro-mingw-4.2.2/include
+	    )
+	    LINK_DIRECTORIES(
+		    ${LINK_DIRECTORIES}
+		    ${CMAKE_SOURCE_DIR}/allegro-mingw-4.2.2/lib
+		    ${CMAKE_SOURCE_DIR}/allegro-mingw-4.2.2/bin
+		    ${CMAKE_SOURCE_DIR}/loadpng/libpng/lib/
+	    )
     # MSVC
     ELSE(MINGW)
         add_definitions(-DALLEGRO_MSVC)
         SET(PROJECT_LIBS alleg psapi libpng)
+        include_directories (
+		    ${include_directories}
+		    ${CMAKE_SOURCE_DIR}/allegro
+	    )
+	    LINK_DIRECTORIES(
+		    ${LINK_DIRECTORIES}
+		    ${CMAKE_SOURCE_DIR}/allegro/lib_msvs8
+		    ${CMAKE_SOURCE_DIR}/loadpng/libpng/lib/
+	    )
     ENDIF(MINGW)
     ADD_EXECUTABLE(stonesense WIN32 ${PROJECT_SRCS})
     TARGET_LINK_LIBRARIES(stonesense ${PROJECT_LIBS})
