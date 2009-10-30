@@ -120,7 +120,7 @@ void ReadCellToSegment(DFHackAPI& DF, WorldSegment& segment, int CellX, int Cell
 		b->x = lx + (CellX * CELLEDGESIZE);
 		b->y = ly + (CellY * CELLEDGESIZE);
 		b->z = CellZ;
-    if( !segment.CoordinateInsideRegion( b->x, b->y, b->z) ) 	{
+    if( !segment.CoordinateInsideSegment( b->x, b->y, b->z) ) 	{
       free(b); 
       continue;
     }
@@ -246,7 +246,7 @@ WorldSegment* ReadMapSegment(int x, int y, int z, int sizex, int sizey, int size
   while(index < numconstructions)
   {
       DF.ReadConstruction(index, tempcon);
-      if(segment->CoordinateInsideRegion(tempcon.x, tempcon.y, tempcon.z))
+      if(segment->CoordinateInsideSegment(tempcon.x, tempcon.y, tempcon.z))
         allConstructions.push_back(tempcon);
       index++;
   }

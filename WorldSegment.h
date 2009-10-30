@@ -46,5 +46,5 @@ public:
   Block* getBlock(uint32_t index);
   void addBlock(Block* b);
   void drawAllBlocks(BITMAP* target);
-  bool CoordinateInsideRegion(uint32_t x, uint32_t y, uint32_t z);
+  bool CoordinateInsideSegment(uint32_t x, uint32_t y, uint32_t z);
 };

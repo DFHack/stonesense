@@ -77,9 +77,12 @@ void WorldSegment::drawAllBlocks(BITMAP* target){
 }
 
 
-bool WorldSegment::CoordinateInsideRegion(uint32_t x, uint32_t y, uint32_t z){
-	if( x < 0 || (int32_t)x >= this->regionSize.x) return false;
+bool WorldSegment::CoordinateInsideSegment(uint32_t x, uint32_t y, uint32_t z){
+	/*if( x < 0 || (int32_t)x >= this->regionSize.x) return false;
 	if( y < 0 || (int32_t)y >= this->regionSize.y) return false;
-	if( z < 0 || (int32_t)z >= this->regionSize.z) return false;
+	if( z < 0 || (int32_t)z >= this->regionSize.z) return false;*/
+  if( x < this->x || (int32_t)x >= this->x + this->sizex) return false;
+	if( y < this->y || (int32_t)y >= this->y + this->sizey) return false;
+	if( z < this->z || (int32_t)z >= this->z + this->sizez) return false;
 	return true;
 }
