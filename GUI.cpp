@@ -217,7 +217,7 @@ void paintboard(){
   viewedSegment->drawAllBlocks(buffer);
 	DrawCurrentLevelOutline(buffer, false);
 
-	DebugInt1 = clock() - starttime;
+  DebugInt1 = viewedSegment->getNumBlocks();
 	
   
 	textprintf_ex(buffer, font, 10,10, 0xFFFFFF,0, "%i,%i,%i", DisplayedSegmentX,DisplayedSegmentY,DisplayedSegmentZ);

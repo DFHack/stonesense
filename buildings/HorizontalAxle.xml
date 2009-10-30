@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+
+
+
+<Building name="Horizontal Axle" gameID="horizontal_axle">
+
+
+	<Tile>
+		<Condition type="NeighbourSameBuilding" value="West"/>
+		<Sprite sheetIndex = 110 />
+	</Tile>
+	<Tile>
+		<Condition type="NeighbourSameBuilding" value="East"/>
+		<Sprite sheetIndex = 110 />
+	</Tile>
+	
+	
+	<Tile>
+		<Sprite sheetIndex = 109 />
+	</Tile>
+	
+</Building> 

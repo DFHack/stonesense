@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+
+
+
+<Building name="Vertical Axle" gameID="vertical_axle">
+
+	
+	<Tile>
+		<Sprite sheetIndex = 111 />
+	</Tile>
+	
+</Building> 

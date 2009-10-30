@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+
+
+
+<Building name="Gear Assembly" gameID="gear_assembly">
+	<Tile>
+		<Sprite sheetIndex = 112 />
+	</Tile>
+	
+</Building> 

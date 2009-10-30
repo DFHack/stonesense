@@ -59,3 +59,6 @@ Blueprint.xml
 Lever.xml
 
 Farm.xml
+HorizontalAxle.xml
+Gear.xml
+VerticalAxle.xml
