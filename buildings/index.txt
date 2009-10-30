@@ -13,6 +13,7 @@ ArmorStand.xml
 Quern.xml
 Millstone.xml
 Cage.xml
+Coffin.xml
 
 Door.xml
 VerticalBars.xml
