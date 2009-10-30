@@ -17,6 +17,7 @@ Cage.xml
 Coffin.xml
 Hatch.xml
 Target.xml
+Wagon.xml
 
 Door.xml
 VerticalBars.xml
