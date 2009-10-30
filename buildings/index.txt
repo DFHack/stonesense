@@ -16,6 +16,7 @@ Millstone.xml
 Cage.xml
 Coffin.xml
 Hatch.xml
+Target.xml
 
 Door.xml
 VerticalBars.xml
