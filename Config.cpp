@@ -45,6 +45,11 @@ int parseIntFromLine( string keyword, string line ){
 void parseConfigLine( string line ){
   char c = line[0];
   if( c != '[') return;
+  
+  //some systems don't remove the \r char as a part of the line change:
+  if(line.size() > 0 &&  line[line.size() -1 ] == '\r' )
+    line.resize(line.size() -1);  
+  
   c = line[ line.length() -1 ];
   if( c != ']' ) return;
 
@@ -103,7 +108,10 @@ bool loadConfigFile(){
   string line;
   ifstream myfile ("init.txt");
   if (myfile.is_open() == false)
+  {
+    cout << "Cannot find init file" << endl;
     return false;
+  }
 
   while ( !myfile.eof() )
   {
