@@ -113,7 +113,9 @@ void drawDebugCursorAndInfo(BITMAP* target){
     "Coord:(%i,%i,%i)", b->x,b->y,b->z);
 
   textprintf(target, font, 2, config.screenHeight-20-(i--*10), 0xFFFFFF, 
-    "wall:%i floor:%i  Material:%s(%i)", b->wallType, b->floorType, v_stonetypes[b->materialIndex].id, b->materialIndex);
+    "wall:%i floor:%i  Material:%s(%i)", b->wallType, b->floorType, 
+    (b->materialIndex != INVALID_INDEX ? v_stonetypes[b->materialIndex].id: ""),
+    b->materialIndex);
 
   if(b->water.index > 0 || b->tree.index != 0)
     textprintf(target, font, 2, config.screenHeight-20-(i--*10), 0xFFFFFF, 
@@ -219,6 +221,7 @@ void paintboard(){
 
   DebugInt1 = viewedSegment->getNumBlocks();
 	
+  ClockedTime2 = clock() - starttime;
   
 	textprintf_ex(buffer, font, 10,10, 0xFFFFFF,0, "%i,%i,%i", DisplayedSegmentX,DisplayedSegmentY,DisplayedSegmentZ);
   

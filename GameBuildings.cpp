@@ -94,15 +94,29 @@ void MergeBuildingsToSegment(vector<t_building>* buildings, WorldSegment* segmen
 		for(uint32_t yy = tempbuilding.y1; yy <= tempbuilding.y2; yy++)
 		for(uint32_t xx = tempbuilding.x1; xx <= tempbuilding.x2; xx++){
 			Block* b;
-      //want hashtable :(
-			if( b = segment->getBlock( xx, yy, tempbuilding.z) ){
-        //handle special case where zones and stockpiles overlap buildings, and try to replace them
-        if(b->building.info.type != BUILDINGTYPE_NA && tempbuilding.type == BUILDINGTYPE_ZONE )
-          continue;
-        if(b->building.info.type != BUILDINGTYPE_NA && tempbuilding.type == BUILDINGTYPE_STOCKPILE )
-          continue; 
+      bool inside = segment->CoordinateInsideSegment(xx,yy, tempbuilding.z);
+      if(inside){
+        //want hashtable :(
+        b = segment->getBlock( xx, yy, tempbuilding.z);
+        
+        if(!b){
+          //inside segment, but no block to represent it
+          b = new Block(segment);
+          b->x = xx;
+          b->y = yy;
+          b->z = tempbuilding.z;
+          segment->addBlock( b );
+        }
 
-				b->building.info = tempbuilding;
+			  if( b ){
+          //handle special case where zones and stockpiles overlap buildings, and try to replace them
+          if(b->building.info.type != BUILDINGTYPE_NA && tempbuilding.type == BUILDINGTYPE_ZONE )
+            continue;
+          if(b->building.info.type != BUILDINGTYPE_NA && tempbuilding.type == BUILDINGTYPE_STOCKPILE )
+            continue; 
+
+				  b->building.info = tempbuilding;
+        }
       }
     }
 		index++;
