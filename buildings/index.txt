@@ -43,6 +43,8 @@ Jewelers.xml
 Fishery.xml
 
 TradeDepot.xml
+SiegeWorkshop.xml
+Kennels.xml
 
 Pump.xml
 

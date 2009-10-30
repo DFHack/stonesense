@@ -1,0 +1,106 @@
+<?xml version="1.0" ?>
+
+
+
+<Building name="Kennels" gameID="kennels"> 
+
+	<Tile>
+		<Condition type="PositionIndex" value=6 />
+		<Sprite sheetIndex = 107 />
+	</Tile>
+	
+	<Tile>
+		<Condition type="PositionIndex" value=8 />
+		<Sprite sheetIndex = 107 />
+	</Tile>
+	
+	<Tile>
+		<Condition type="PositionIndex" value=16 />
+		<Sprite sheetIndex = 312 />
+	</Tile>
+	
+	<Tile>
+		<Condition type="PositionIndex" value=18 />
+		<Sprite sheetIndex = 107 />
+	</Tile>
+
+
+	<!-- generic border 5x5 -->
+
+	<Tile>
+		<Condition type="PositionIndex" value=0 />
+		<Sprite sheetIndex = 244 />
+	</Tile>
+	<Tile>
+		<Condition type="PositionIndex" value=1 />
+		<Sprite sheetIndex = 240 />
+	</Tile>
+	<Tile>
+		<Condition type="PositionIndex" value=2 />
+		<Sprite sheetIndex = 240 />
+	</Tile>
+	<Tile>
+		<Condition type="PositionIndex" value=3 />
+		<Sprite sheetIndex = 240 />
+	</Tile>
+	<Tile>
+		<Condition type="PositionIndex" value=4 />
+		<Sprite sheetIndex = 240 />
+		<Sprite sheetIndex = 247 />
+	</Tile>
+
+	<Tile>
+		<Condition type="PositionIndex" value=5 />
+		<Sprite sheetIndex = 241 />
+	</Tile>
+	<Tile>
+		<Condition type="PositionIndex" value=9 />
+		<Sprite sheetIndex = 243 />
+	</Tile>
+
+	<Tile>
+		<Condition type="PositionIndex" value=10 />
+		<Sprite sheetIndex = 241 />
+	</Tile>
+	<Tile>
+		<Condition type="PositionIndex" value=14 />
+		<Sprite sheetIndex = 243 />
+	</Tile>
+
+	<Tile>
+		<Condition type="PositionIndex" value=15 />
+		<Sprite sheetIndex = 241 />
+	</Tile>
+	<Tile>
+		<Condition type="PositionIndex" value=19 />
+		<Sprite sheetIndex = 243 />
+	</Tile>
+		
+	<Tile>
+		<Condition type="PositionIndex" value=20 />
+		<Sprite sheetIndex = 241 />
+		<Sprite sheetIndex = 245 />
+	</Tile>
+	<Tile>
+		<Condition type="PositionIndex" value=21 />
+		<Sprite sheetIndex = 242 />
+	</Tile>
+	<Tile>
+		<Condition type="PositionIndex" value=22 />
+		<Sprite sheetIndex = 242 />
+	</Tile>
+	<Tile>
+		<Condition type="PositionIndex" value=23 />
+		<Sprite sheetIndex = 242 />
+	</Tile>
+	<Tile>
+		<Condition type="PositionIndex" value=24 />
+		<Sprite sheetIndex = 246 />
+	</Tile>	
+	
+	<Tile>
+	</Tile>	
+	
+	<!-- end generic block -->
+	
+</Building> 

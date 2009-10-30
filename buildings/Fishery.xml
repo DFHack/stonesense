@@ -40,7 +40,7 @@
 		<Condition type="MaterialType" value="Wood" />
 		<Sprite sheetIndex = 274 />
 		<Sprite sheetIndex = 276 />
-		<Sprite sheetIndex = 137 />
+		<Sprite sheetIndex = 317 />
 	</Tile>
 	<Tile>
 		<Condition type="PositionIndex" value=1 />
