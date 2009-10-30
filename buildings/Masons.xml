@@ -14,44 +14,38 @@
 		<Condition type="PositionIndex" value=3 />
 		<Condition type="MaterialType" value="Wood" />
 		<Sprite sheetIndex = 274 />
-		<Sprite sheetIndex = 275 />
-		<Sprite sheetIndex = 276 />
+		<Sprite sheetIndex = 281 />
 	</Tile>
 	<Tile>
 		<Condition type="PositionIndex" value=3 />
 		<Condition type="MaterialType" value="Metal"/>
 		<Sprite sheetIndex = 254 />
-		<Sprite sheetIndex = 275 />
-		<Sprite sheetIndex = 276 />
+		<Sprite sheetIndex = 281 />
 	</Tile>
 	<Tile>
 		<Condition type="PositionIndex" value=3 />
 		<Sprite sheetIndex = 273 />
-		<Sprite sheetIndex = 275 />
-		<Sprite sheetIndex = 276 />
+		<Sprite sheetIndex = 281 />
 	</Tile>
 	
 	<Tile>
 		<Condition type="PositionIndex" value=2 />
 		<Condition type="MaterialType" value="Wood" />
 		<Sprite sheetIndex = 274 />
-		<Sprite sheetIndex = 275 />
-		<Sprite sheetIndex = 276 />
+		<Sprite sheetIndex = 281 />
 		<Sprite sheetIndex = 262 offsetx=-3 offsety=-8/>
 	</Tile>
 	<Tile>
 		<Condition type="PositionIndex" value=2 />
 		<Condition type="MaterialType" value="Metal"/>
 		<Sprite sheetIndex = 254 />
-		<Sprite sheetIndex = 275 />
-		<Sprite sheetIndex = 276 />
+		<Sprite sheetIndex = 281 />
 		<Sprite sheetIndex = 262 offsetx=-3 offsety=-8/>
 	</Tile>
 	<Tile>
 		<Condition type="PositionIndex" value=2 />
 		<Sprite sheetIndex = 273 />
-		<Sprite sheetIndex = 275 />
-		<Sprite sheetIndex = 276 />
+		<Sprite sheetIndex = 281 />
 		<Sprite sheetIndex = 262 offsetx=-3 offsety=-8/>
 	</Tile>
 
@@ -59,7 +53,7 @@
 		<Condition type="PositionIndex" value=5 />
 		<Condition type="MaterialType" value="Wood" />
 		<Sprite sheetIndex = 274 />
-		<Sprite sheetIndex = 275 />
+		<Sprite sheetIndex = 280 />
 		<Sprite sheetIndex = 279 offsetx=2 offsety=-2 />
 		<Sprite sheetIndex = 291 offsetx=-3 offsety=-2 />
 	</Tile>
@@ -67,14 +61,14 @@
 		<Condition type="PositionIndex" value=5 />
 		<Condition type="MaterialType" value="Metal"/>
 		<Sprite sheetIndex = 254 />
-		<Sprite sheetIndex = 275 />
+		<Sprite sheetIndex = 280 />
 		<Sprite sheetIndex = 279 offsetx=2 offsety=-2 />
 		<Sprite sheetIndex = 291 offsetx=-3 offsety=-2 />
 	</Tile>
 	<Tile>
 		<Condition type="PositionIndex" value=5 />
 		<Sprite sheetIndex = 273 />
-		<Sprite sheetIndex = 275 />
+		<Sprite sheetIndex = 280 />
 		<Sprite sheetIndex = 279 offsetx=2 offsety=-2 />
 		<Sprite sheetIndex = 291 offsetx=-3 offsety=-2 />
 	</Tile>

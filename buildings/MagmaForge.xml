@@ -13,16 +13,14 @@
 	<Tile>
 		<Condition type="PositionIndex" value=3 />
 		<Sprite sheetIndex = 273 />
-		<Sprite sheetIndex = 275 />
-		<Sprite sheetIndex = 276 />		
+		<Sprite sheetIndex = 281 />		
 		<Sprite sheetIndex = 264 />
 	</Tile>
 
 	<Tile>
 		<Condition type="PositionIndex" value=5 />
 		<Sprite sheetIndex = 273 />
-		<Sprite sheetIndex = 275 />
-		<Sprite sheetIndex = 276 />
+		<Sprite sheetIndex = 281 />
 		<Sprite sheetIndex = 264 />
 	</Tile>	
 	

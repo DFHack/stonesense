@@ -27,41 +27,41 @@
 		<Condition type="PositionIndex" value=2 />
 		<Condition type="MaterialType" value="Wood" />
 		<Sprite sheetIndex = 274 />
-		<Sprite sheetIndex = 276 />
+		<Sprite sheetIndex = 282 />
 		<Sprite sheetIndex = 278 />
 	</Tile>
 	<Tile>
 		<Condition type="PositionIndex" value=2 />
 		<Condition type="MaterialType" value="Metal"/>
 		<Sprite sheetIndex = 254 />
-		<Sprite sheetIndex = 276 />
+		<Sprite sheetIndex = 282 />
 		<Sprite sheetIndex = 278 />
 	</Tile>
 	<Tile>
 		<Condition type="PositionIndex" value=2 />
 		<Condition type="MaterialType" value="GreenGlass"/>
 		<Sprite sheetIndex = 285 />
-		<Sprite sheetIndex = 276 />
+		<Sprite sheetIndex = 282 />
 		<Sprite sheetIndex = 278 />
 	</Tile>
 	<Tile>
 		<Condition type="PositionIndex" value=2 />
 		<Condition type="MaterialType" value="ClearGlass"/>
 		<Sprite sheetIndex = 283 />
-		<Sprite sheetIndex = 276 />
+		<Sprite sheetIndex = 282 />
 		<Sprite sheetIndex = 278 />
 	</Tile>
 	<Tile>
 		<Condition type="PositionIndex" value=2 />
 		<Condition type="MaterialType" value="CrystalGlass"/>
 		<Sprite sheetIndex = 283 />
-		<Sprite sheetIndex = 276 />
+		<Sprite sheetIndex = 282 />
 		<Sprite sheetIndex = 278 />
 	</Tile>
 	<Tile>
 		<Condition type="PositionIndex" value=2 />
 		<Sprite sheetIndex = 273 />
-		<Sprite sheetIndex = 276 />
+		<Sprite sheetIndex = 282 />
 		<Sprite sheetIndex = 278 />
 	</Tile>
 
@@ -69,41 +69,41 @@
 		<Condition type="PositionIndex" value=5 />
 		<Condition type="MaterialType" value="Wood" />
 		<Sprite sheetIndex = 274 />
-		<Sprite sheetIndex = 275 />
+		<Sprite sheetIndex = 280 />
 		<Sprite sheetIndex = 277 />
 	</Tile>
 	<Tile>
 		<Condition type="PositionIndex" value=5 />
 		<Condition type="MaterialType" value="Metal"/>
 		<Sprite sheetIndex = 254 />
-		<Sprite sheetIndex = 275 />
+		<Sprite sheetIndex = 280 />
 		<Sprite sheetIndex = 277 />
 	</Tile>
 	<Tile>
 		<Condition type="PositionIndex" value=5 />
 		<Condition type="MaterialType" value="GreenGlass"/>
 		<Sprite sheetIndex = 285 />
-		<Sprite sheetIndex = 275 />
+		<Sprite sheetIndex = 280 />
 		<Sprite sheetIndex = 277 />
 	</Tile>
 	<Tile>
 		<Condition type="PositionIndex" value=5 />
 		<Condition type="MaterialType" value="ClearGlass"/>
 		<Sprite sheetIndex = 283 />
-		<Sprite sheetIndex = 275 />
+		<Sprite sheetIndex = 280 />
 		<Sprite sheetIndex = 277 />
 	</Tile>
 	<Tile>
 		<Condition type="PositionIndex" value=5 />
 		<Condition type="MaterialType" value="CrystalGlass"/>
 		<Sprite sheetIndex = 283 />
-		<Sprite sheetIndex = 275 />
+		<Sprite sheetIndex = 280 />
 		<Sprite sheetIndex = 277 />
 	</Tile>	
 	<Tile>
 		<Condition type="PositionIndex" value=5 />
 		<Sprite sheetIndex = 273 />
-		<Sprite sheetIndex = 275 />
+		<Sprite sheetIndex = 280 />
 		<Sprite sheetIndex = 277 />
 	</Tile>
 

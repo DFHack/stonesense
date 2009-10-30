@@ -8,23 +8,20 @@
 		<Condition type="PositionIndex" value=0 />
 		<Condition type="MaterialType" value="Wood" />
 		<Sprite sheetIndex = 274 />
-		<Sprite sheetIndex = 275 />
-		<Sprite sheetIndex = 276 />
+		<Sprite sheetIndex = 281 />
 		<Sprite sheetIndex = 271 />
 	</Tile>
 	<Tile>
 		<Condition type="PositionIndex" value=0 />
 		<Condition type="MaterialType" value="Metal"/>
 		<Sprite sheetIndex = 254 />
-		<Sprite sheetIndex = 275 />
-		<Sprite sheetIndex = 276 />
+		<Sprite sheetIndex = 281 />
 		<Sprite sheetIndex = 271 />
 	</Tile>
 	<Tile>
 		<Condition type="PositionIndex" value=0 />
 		<Sprite sheetIndex = 273 />
-		<Sprite sheetIndex = 275 />
-		<Sprite sheetIndex = 276 />
+		<Sprite sheetIndex = 281 />
 		<Sprite sheetIndex = 271 />
 	</Tile>
 	
@@ -32,23 +29,20 @@
 		<Condition type="PositionIndex" value=7 />
 		<Condition type="MaterialType" value="Wood" />
 		<Sprite sheetIndex = 274 />
-		<Sprite sheetIndex = 275 />
-		<Sprite sheetIndex = 276 />
+		<Sprite sheetIndex = 281 />
 		<Sprite sheetIndex = 270 />
 	</Tile>
 	<Tile>
 		<Condition type="PositionIndex" value=7 />
 		<Condition type="MaterialType" value="Metal"/>
 		<Sprite sheetIndex = 254 />
-		<Sprite sheetIndex = 275 />
-		<Sprite sheetIndex = 276 />
+		<Sprite sheetIndex = 281 />
 		<Sprite sheetIndex = 270 />
 	</Tile>
 	<Tile>
 		<Condition type="PositionIndex" value=7 />
 		<Sprite sheetIndex = 273 />
-		<Sprite sheetIndex = 275 />
-		<Sprite sheetIndex = 276 />
+		<Sprite sheetIndex = 281 />
 		<Sprite sheetIndex = 270 />
 	</Tile>
 
