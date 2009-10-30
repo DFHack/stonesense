@@ -41,9 +41,19 @@ void ReadCreaturesToSegment(DFHackAPI& DF, WorldSegment* segment){
 	while(index < numcreatures )
   {
     DF.ReadCreature( index, tempcreature );
-    if( IsCreatureVisible( &tempcreature ) ){
-      Block* b;
-      if( b = segment->getBlock (tempcreature.x, tempcreature.y, tempcreature.z ) )
+    if( IsCreatureVisible( &tempcreature )
+        && segment->CoordinateInsideSegment(tempcreature.x, tempcreature.y, tempcreature.z) )
+      {
+      Block* b = segment->getBlock (tempcreature.x, tempcreature.y, tempcreature.z );
+      if(!b){
+        //inside segment, but no block to represent it
+        b = new Block(segment);
+        b->x = tempcreature.x;
+        b->y = tempcreature.y;
+        b->z = tempcreature.z;
+        segment->addBlock( b );
+      }
+      if( b )
         b->creature = tempcreature;
 
       if(tempcreature.x == 143 && tempcreature.y == 332)
