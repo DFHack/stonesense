@@ -35,7 +35,7 @@ void parseConditionToSprite(ConditionalSprite& sprite, const char* strType, cons
       cond.value = Mat_Metal;
     if( strcmp(strValue, "Leather") == 0)
       cond.value = Mat_Leather;
-    if( strcmp(strValue, "Slik") == 0)
+    if( strcmp(strValue, "Silk") == 0)
       cond.value = Mat_SilkCloth;
     if( strcmp(strValue, "PlantCloth") == 0)
       cond.value = Mat_PlantCloth;
