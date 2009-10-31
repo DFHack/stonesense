@@ -79,7 +79,7 @@ void WorldSegment::drawAllBlocks(BITMAP* target){
     // x,y,z print pricess
     int32_t vsxmax = viewedSegment->x + viewedSegment->sizex;
     int32_t vsymax = viewedSegment->y + viewedSegment->sizey;
-    int32_t vszmax = viewedSegment->y + viewedSegment->sizez;
+    int32_t vszmax = viewedSegment->z + viewedSegment->sizez;
     for(int32_t vsx=viewedSegment->x; vsx < vsxmax; vsx++){
         for(int32_t vsy=viewedSegment->y; vsy < vsymax; vsy++){
             for(int32_t vsz=viewedSegment->z; vsz < vszmax; vsz++){

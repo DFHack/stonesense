@@ -25,7 +25,7 @@ Use this with a large segment size to get blocks covering the entire screen.
 
 
 Set the time in ms to increase the automatic reload time by, a lower step reloads more frequently
-[AUTO_RELOAD_STEP:100]
+[AUTO_RELOAD_STEP:200]
 
 Sets Stonesense in debug mode. Used for developing
 [DEBUGMODE:YES]
