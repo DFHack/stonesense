@@ -9,7 +9,9 @@ enum BlockConditionTypes{
   Cond_NeighbourSameBuilding,
   Cond_PositionIndex,
   Cond_NeighbourIdentical,
-  
+  Cond_BuildingOcc,
+  Cond_NeighbourSameIndex,
+    
 };
 
 class BlockCondition

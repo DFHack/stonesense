@@ -80,5 +80,28 @@ bool BlockCondition::Matches(Block* b){
     return false;
   }
 
+    if(type == Cond_NeighbourSameIndex){
+	   
+    int blocksBuildingIndex = b->building.index;
+
+    bool n = hasBuildingOfIndex( b->ownerSegment->getBlock( b->x, b->y - 1, b->z ), blocksBuildingIndex );
+    bool s = hasBuildingOfIndex( b->ownerSegment->getBlock( b->x, b->y + 1, b->z ), blocksBuildingIndex );
+    bool w = hasBuildingOfIndex( b->ownerSegment->getBlock( b->x - 1, b->y, b->z ), blocksBuildingIndex );
+    bool e = hasBuildingOfIndex( b->ownerSegment->getBlock( b->x + 1, b->y, b->z ), blocksBuildingIndex );
+
+    if( value == eSimpleN && n) return true;
+    if( value == eSimpleS && s) return true;
+    if( value == eSimpleW && w) return true;
+    if( value == eSimpleE && e) return true;
+    
+    if( value == eSimpleSingle && !n && !s && !w && !e) return true;
+    
+    return false;
+  }
+  
+    if(type == Cond_BuildingOcc){
+	   return b->occ.bits.building == this->value;
+    }
+    
   return false;
 }

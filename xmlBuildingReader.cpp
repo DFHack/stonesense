@@ -56,6 +56,13 @@ void parseConditionToSprite(ConditionalSprite& sprite, const char* strType, cons
      sprite.conditions.push_back( cond );
   }
 
+    if( strcmp(strType, "BuildingOccupancy") == 0){
+    BlockCondition cond( Cond_BuildingOcc );
+     cond.value = atoi( strValue );
+
+     sprite.conditions.push_back( cond );
+  }
+  
     if( strcmp(strType, "NeighbourSameBuilding") == 0){
     BlockCondition cond( Cond_NeighbourSameBuilding );
     if( strcmp(strValue, "None") == 0)
@@ -74,6 +81,22 @@ void parseConditionToSprite(ConditionalSprite& sprite, const char* strType, cons
   
     if( strcmp(strType, "NeighbourIdentical") == 0){
     BlockCondition cond( Cond_NeighbourIdentical );
+    if( strcmp(strValue, "None") == 0)
+      cond.value = eSimpleSingle;
+    if( strcmp(strValue, "North") == 0)
+      cond.value = eSimpleN;
+    if( strcmp(strValue, "South") == 0)
+      cond.value = eSimpleS;
+    if( strcmp(strValue, "West") == 0)
+      cond.value = eSimpleW;
+    if( strcmp(strValue, "East") == 0)
+      cond.value = eSimpleE;
+     
+    sprite.conditions.push_back( cond );
+  }
+  
+    if( strcmp(strType, "NeighbourSameIndex") == 0){
+    BlockCondition cond( Cond_NeighbourSameIndex );
     if( strcmp(strValue, "None") == 0)
       cond.value = eSimpleSingle;
     if( strcmp(strValue, "North") == 0)

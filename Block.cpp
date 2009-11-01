@@ -168,6 +168,11 @@ bool hasBuildingIdentity(Block* b, uint32_t index, int buildingOcc){
   return b->occ.bits.building == buildingOcc;
 }
 
+bool hasBuildingOfIndex(Block* b, uint32_t index){
+  if(!b) return false;
+  return b->building.index == index;
+}
+
 bool wallShouldNotHaveBorders( int in ){
   switch( in ){
     case 65: //stone fortification

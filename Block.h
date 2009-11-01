@@ -51,4 +51,5 @@ private:
 bool hasWall(Block* b);
 bool hasBuildingOfID(Block* b, int ID);
 bool hasBuildingIdentity(Block* b, uint32_t index, int buildingOcc);
+bool hasBuildingOfIndex(Block* b, uint32_t index);
 bool wallShouldNotHaveBorders( int in );
