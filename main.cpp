@@ -113,7 +113,7 @@ int main(void)
 	textprintf_centre(screen, font, config.screenWidth/2, 60, 0xffffff, "Stonesense is an isometric viewer for Dwarf Fortress.");
   
 	
-	textprintf_centre(screen, font, config.screenWidth/2, 80, 0xffffff, "Programing, Jonas Ask and Kris Parker");
+	textprintf_centre(screen, font, config.screenWidth/2, 80, 0xffffff, "Programming, Jonas Ask and Kris Parker");
 	textprintf_centre(screen, font, config.screenWidth/2, 90, 0xffffff, "Lead graphics designer, Dale Holdampf");
 
 	textprintf_centre(screen, font, config.screenWidth/2, config.screenHeight-80, 0xffffff, "Contributors: 7¢ Nickel, Belal, frumpton, IDreamOfGiniCoeff,");

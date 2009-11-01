@@ -1,0 +1,58 @@
+<?xml version="1.0" ?>
+
+
+
+<Building name="Floodgate" gameID="floodgate"> 
+	
+	<Tile>
+		<Sprite sheetIndex=44 />
+		<Condition type="NeighbourWall" value="South" />
+		<Condition type="MaterialType" value="Wood" />
+	</Tile>
+	<Tile>
+		<Sprite sheetIndex=44 />
+		<Condition type="NeighbourWall" value="North" />
+		<Condition type="MaterialType" value="Wood" />
+	</Tile>
+	<Tile>
+		<Sprite sheetIndex=44 />
+		<Condition type="NeighbourSameBuilding" value="South" />
+		<Condition type="MaterialType" value="Wood" />
+	</Tile>
+	<Tile>
+		<Sprite sheetIndex=44 />
+		<Condition type="NeighbourSameBuilding" value="North" />
+		<Condition type="MaterialType" value="Wood" />
+	</Tile>
+	<Tile>
+		<Sprite sheetIndex = 41 />
+		<Condition type="MaterialType" value="Wood" />
+	</Tile>
+	
+	
+	<Tile>
+		<Sprite sheetIndex=43 />
+		<Condition type="NeighbourWall" value="North" />
+		<Condition type="MaterialType" value="Stone" />
+	</Tile>
+	<Tile>
+		<Sprite sheetIndex=43 />
+		<Condition type="NeighbourWall" value="South" />
+		<Condition type="MaterialType" value="Stone" />
+	</Tile>
+	<Tile>
+		<Sprite sheetIndex=43 />
+		<Condition type="NeighbourSameBuilding" value="North" />
+		<Condition type="MaterialType" value="Stone" />
+	</Tile>
+	<Tile>
+		<Sprite sheetIndex=43 />
+		<Condition type="NeighbourSameBuilding" value="South" />
+		<Condition type="MaterialType" value="Stone" />
+	</Tile>
+		
+	<Tile>
+		<Sprite sheetIndex = 40 />
+	</Tile>
+	
+</Building> 

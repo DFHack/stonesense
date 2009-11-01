@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+
+
+
+<Building name="Grate" gameID="wall_grate"> 
+	<Tile>
+		<Sprite sheetIndex=352 />
+		<Condition type="NeighbourWall" value="North" />
+	</Tile>
+	<Tile>
+		<Sprite sheetIndex=352 />
+		<Condition type="NeighbourWall" value="South" />
+	</Tile>
+	<Tile>
+		<Sprite sheetIndex=352 />
+		<Condition type="NeighbourSameBuilding" value="North" />
+	</Tile>
+	<Tile>
+		<Sprite sheetIndex=352 />
+		<Condition type="NeighbourSameBuilding" value="South" />
+	</Tile>
+	<Tile>
+		<Sprite sheetIndex = 351 />
+	</Tile>
+	
+</Building> 

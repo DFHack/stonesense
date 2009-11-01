@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+
+
+
+<Building name="Trap" gameID="pressure_plate">
+
+	<Tile>
+		<Sprite sheetIndex = 355 />
+	</Tile>
+	
+</Building> 

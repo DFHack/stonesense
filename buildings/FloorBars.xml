@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+
+
+
+<Building name="Grate" gameID="floor_bars"> 
+
+	<Tile>
+		<Sprite sheetIndex = 307 />
+	</Tile>	
+	
+</Building> 

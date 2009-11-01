@@ -1,0 +1,121 @@
+<?xml version="1.0" ?>
+
+
+
+<Building name="Dyers" gameID="dyers_shop"> 
+
+	<Tile>
+		<Condition type="PositionIndex" value=2 />
+		<Sprite sheetIndex = 240 />
+		<Sprite sheetIndex = 311 />
+		<Sprite sheetIndex = 247 />
+	</Tile>
+
+	<Tile>
+		<Condition type="PositionIndex" value=1 />
+		<Condition type="MaterialType" value="Wood" />
+		<Sprite sheetIndex = 274 />
+		<Sprite sheetIndex = 281 />
+		<Sprite sheetIndex = 265 />
+	</Tile>
+	<Tile>
+		<Condition type="PositionIndex" value=1 />
+		<Condition type="MaterialType" value="Metal"/>
+		<Sprite sheetIndex = 254 />
+		<Sprite sheetIndex = 281 />
+		<Sprite sheetIndex = 265 />
+	</Tile>
+	<Tile>
+		<Condition type="PositionIndex" value=1 />
+		<Sprite sheetIndex = 273 />
+		<Sprite sheetIndex = 281 />
+		<Sprite sheetIndex = 265 />
+	</Tile>
+	
+	<Tile>
+		<Condition type="PositionIndex" value=6 />
+		<Condition type="MaterialType" value="Wood" />
+		<Sprite sheetIndex = 274 />
+		<Sprite sheetIndex = 281 />
+		<Sprite sheetIndex = 358 />
+	</Tile>
+	<Tile>
+		<Condition type="PositionIndex" value=6 />
+		<Condition type="MaterialType" value="Metal"/>
+		<Sprite sheetIndex = 254 />
+		<Sprite sheetIndex = 281 />
+		<Sprite sheetIndex = 358 />
+	</Tile>
+	<Tile>
+		<Condition type="PositionIndex" value=6 />
+		<Sprite sheetIndex = 273 />
+		<Sprite sheetIndex = 281 />
+		<Sprite sheetIndex = 358 />
+	</Tile>
+
+	<Tile>
+		<Condition type="PositionIndex" value=8 />
+		<Condition type="MaterialType" value="Wood" />
+		<Sprite sheetIndex = 274 />
+		<Sprite sheetIndex = 281 />
+		<Sprite sheetIndex = 357 />
+	</Tile>
+	<Tile>
+		<Condition type="PositionIndex" value=8 />
+		<Condition type="MaterialType" value="Metal"/>
+		<Sprite sheetIndex = 254 />
+		<Sprite sheetIndex = 281 />
+		<Sprite sheetIndex = 357 />
+	</Tile>
+	<Tile>
+		<Condition type="PositionIndex" value=8 />
+		<Sprite sheetIndex = 273 />
+		<Sprite sheetIndex = 281 />
+		<Sprite sheetIndex = 357 />
+	</Tile>
+
+	<!-- generic border -->
+
+	<Tile>
+		<Condition type="PositionIndex" value=0 />
+		<Sprite sheetIndex = 244 />
+	</Tile>
+	<Tile>
+		<Condition type="PositionIndex" value=1 />
+		<Sprite sheetIndex = 240 />
+	</Tile>
+	<Tile>
+		<Condition type="PositionIndex" value=2 />
+		<Sprite sheetIndex = 240 />
+		<Sprite sheetIndex = 247 />
+	</Tile>
+
+	<Tile>
+		<Condition type="PositionIndex" value=3 />
+		<Sprite sheetIndex = 241 />
+	</Tile>
+	<Tile>
+		<Condition type="PositionIndex" value=5 />
+		<Sprite sheetIndex = 243 />
+	</Tile>
+	
+	<Tile>
+		<Condition type="PositionIndex" value=6 />
+		<Sprite sheetIndex = 241 />
+		<Sprite sheetIndex = 245 />
+	</Tile>
+	<Tile>
+		<Condition type="PositionIndex" value=7 />
+		<Sprite sheetIndex = 242 />
+	</Tile>
+	<Tile>
+		<Condition type="PositionIndex" value=8 />
+		<Sprite sheetIndex = 246 />
+	</Tile>	
+	
+	<Tile>
+	</Tile>	
+	
+	<!-- end generic block -->
+	
+</Building> 

@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+
+
+
+<Building name="Trap" gameID="spike">
+
+	<Tile>
+		<Sprite sheetIndex = 356 />
+	</Tile>
+	
+</Building> 
