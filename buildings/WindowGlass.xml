@@ -4,6 +4,59 @@
 
 <Building name="Glass Window" gameID="glass_window">
 
+	<Tile>
+		<Condition type="MaterialType" value="GreenGlass"/>
+		<Sprite sheetIndex=63/>
+		<Condition type="NeighbourSameBuilding" value="North" />
+	</Tile>
+	<Tile>
+		<Condition type="MaterialType" value="GreenGlass"/>
+		<Sprite sheetIndex=63 />
+		<Condition type="NeighbourSameBuilding" value="South" />
+	</Tile>
+	
+	<Tile>
+		<Condition type="MaterialType" value="GreenGlass"/>
+		<Sprite sheetIndex=63/>
+		<Condition type="NeighbourWall" value="North" />
+	</Tile>
+	<Tile>
+		<Condition type="MaterialType" value="GreenGlass"/>
+		<Sprite sheetIndex=63 />
+		<Condition type="NeighbourWall" value="South" />
+	</Tile>
+	
+	<Tile>
+		<Condition type="MaterialType" value="GreenGlass"/>
+		<Sprite sheetIndex = 62 />
+	</Tile>
+
+	<Tile>
+		<Condition type="MaterialType" value="CrystalGlass"/>
+		<Sprite sheetIndex=65/>
+		<Condition type="NeighbourSameBuilding" value="North" />
+	</Tile>
+	<Tile>
+		<Condition type="MaterialType" value="CrystalGlass"/>
+		<Sprite sheetIndex=65 />
+		<Condition type="NeighbourSameBuilding" value="South" />
+	</Tile>
+	
+	<Tile>
+		<Condition type="MaterialType" value="CrystalGlass"/>
+		<Sprite sheetIndex=65/>
+		<Condition type="NeighbourWall" value="North" />
+	</Tile>
+	<Tile>
+		<Condition type="MaterialType" value="CrystalGlass"/>
+		<Sprite sheetIndex=65 />
+		<Condition type="NeighbourWall" value="South" />
+	</Tile>
+	
+	<Tile>
+		<Condition type="MaterialType" value="CrystalGlass"/>
+		<Sprite sheetIndex = 64 />
+	</Tile>
 
 	<Tile>
 		<Sprite sheetIndex=61/>

@@ -34,6 +34,8 @@ Door.xml
 VerticalBars.xml
 WallGrate.xml
 Floodgate.xml
+WindowGlass.xml
+WindowGem.xml
 
 Kitchen.xml
 Carpenter.xml
@@ -68,7 +70,6 @@ Kennels.xml
 
 Pump.xml
 
-WindowGlass.xml
 Support.xml
 Blueprint.xml
 Lever.xml

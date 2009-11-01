@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+
+
+
+<Building name="Gem Window" gameID="gem_window">
+
+
+	<Tile>
+		<Sprite sheetIndex=67/>
+		<Condition type="NeighbourSameBuilding" value="North" />
+	</Tile>
+	<Tile>
+		<Sprite sheetIndex=67 />
+		<Condition type="NeighbourSameBuilding" value="South" />
+	</Tile>
+	
+	<Tile>
+		<Sprite sheetIndex=67/>
+		<Condition type="NeighbourWall" value="North" />
+	</Tile>
+	<Tile>
+		<Sprite sheetIndex=67 />
+		<Condition type="NeighbourWall" value="South" />
+	</Tile>
+	
+	<Tile>
+		<Sprite sheetIndex = 66 />
+	</Tile>
+	
+</Building> 
