@@ -203,7 +203,7 @@ void ReadCellToSegment(DFHackAPI& DF, WorldSegment& segment, int CellX, int Cell
       	segment.addBlock(b);
   	  }
     }else if (createdBlock){
-      free(b);
+      delete(b);
     }
 
 	}

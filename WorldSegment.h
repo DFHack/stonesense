@@ -28,7 +28,7 @@ public:
   ~WorldSegment(){
     uint32_t num = (uint32_t)blocks.size();
     for(uint32_t i = 0; i < num; i++){
-      free(blocks[i]);
+      delete(blocks[i]);
     }
     blocks.clear();
   }
