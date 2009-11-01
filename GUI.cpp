@@ -118,7 +118,7 @@ void drawDebugCursorAndInfo(BITMAP* target){
     b->materialIndex);
     
     textprintf(target, font, 2, config.screenHeight-20-(i--*10), 0xFFFFFF, 
-    "Bocc: %i", b->occ.bits.building);
+    "Building Occ: %i Index: %i", b->occ.bits.building, b->building.index);
 
   if(b->water.index > 0 || b->tree.index != 0)
     textprintf(target, font, 2, config.screenHeight-20-(i--*10), 0xFFFFFF, 

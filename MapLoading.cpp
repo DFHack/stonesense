@@ -135,7 +135,7 @@ void ReadCellToSegment(DFHackAPI& DF, WorldSegment& segment, int CellX, int Cell
 	    }
     
         b->occ = occupancies[lx][ly];
-    
+
         //liquids
 		if(designations[lx][ly].bits.flow_size > 0){
 			b->water.type  = designations[lx][ly].bits.liquid_type;
@@ -318,6 +318,10 @@ WorldSegment* ReadMapSegment(int x, int y, int z, int sizex, int sizey, int size
   uint32_t numblocks = segment->getNumBlocks();
   for(uint32_t i=0; i < numblocks; i++){
 			Block* b = segment->getBlock(i);
+	  //setup building sprites
+      if( b->building.info.type != BUILDINGTYPE_NA && b->building.info.type != BUILDINGTYPE_BLACKBOX )
+      		loadBuildingSprites( b );
+			
       //setup ramps
       if(b->ramp.type > 0) 
         b->ramp.index = CalculateRampType(b->x, b->y, b->z, segment);

@@ -21,6 +21,7 @@ Block::Block(WorldSegment* ownerSegment)
   this->ownerSegment = ownerSegment;
 
   building.info.type = BUILDINGTYPE_NA;
+  building.index = -1;
 
   this->materialIndex = INVALID_INDEX;
 }
@@ -159,6 +160,12 @@ bool hasWall(Block* b){
 bool hasBuildingOfID(Block* b, int ID){
   if(!b) return false;
   return b->building.info.type == ID;
+}
+
+bool hasBuildingIdentity(Block* b, uint32_t index, int buildingOcc){
+  if(!b) return false;
+  if (!(b->building.index == index)) return false;
+  return b->occ.bits.building == buildingOcc;
 }
 
 bool wallShouldNotHaveBorders( int in ){

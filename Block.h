@@ -34,6 +34,7 @@ public:
   struct {
     t_building info;
     vector<t_SpriteWithOffset> sprites;
+	uint32_t index;
   } building;
 
 	bool IsVisible(){
@@ -49,4 +50,5 @@ private:
 //find a better place for these
 bool hasWall(Block* b);
 bool hasBuildingOfID(Block* b, int ID);
+bool hasBuildingIdentity(Block* b, uint32_t index, int buildingOcc);
 bool wallShouldNotHaveBorders( int in );

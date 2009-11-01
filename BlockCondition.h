@@ -8,6 +8,7 @@ enum BlockConditionTypes{
   Cond_NeighbourWall,
   Cond_NeighbourSameBuilding,
   Cond_PositionIndex,
+  Cond_NeighbourIdentical,
   
 };
 

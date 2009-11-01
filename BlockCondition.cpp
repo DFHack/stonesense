@@ -59,6 +59,26 @@ bool BlockCondition::Matches(Block* b){
     
     return false;
   }
+  
+   if(type == Cond_NeighbourIdentical){
+	   
+    int blocksBuildingIndex = b->building.index;
+    int blocksBuildingOcc = b->occ.bits.building;
+
+    bool n = hasBuildingIdentity( b->ownerSegment->getBlock( b->x, b->y - 1, b->z ), blocksBuildingIndex, blocksBuildingOcc );
+    bool s = hasBuildingIdentity( b->ownerSegment->getBlock( b->x, b->y + 1, b->z ), blocksBuildingIndex, blocksBuildingOcc );
+    bool w = hasBuildingIdentity( b->ownerSegment->getBlock( b->x - 1, b->y, b->z ), blocksBuildingIndex, blocksBuildingOcc );
+    bool e = hasBuildingIdentity( b->ownerSegment->getBlock( b->x + 1, b->y, b->z ), blocksBuildingIndex, blocksBuildingOcc );
+
+    if( value == eSimpleN && n) return true;
+    if( value == eSimpleS && s) return true;
+    if( value == eSimpleW && w) return true;
+    if( value == eSimpleE && e) return true;
+    
+    if( value == eSimpleSingle && !n && !s && !w && !e) return true;
+    
+    return false;
+  }
 
   return false;
 }

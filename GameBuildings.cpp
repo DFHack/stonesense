@@ -7,9 +7,6 @@
 vector<BuildingConfiguration> buildingTypes;
 vector <string> v_buildingtypes;//should be empty for all buildings
 
-
-void loadBuildingSprites( Block* b );
-
 int BlockNeighbourhoodType_simple(WorldSegment* segment, Block* b, bool validationFuctionProc(Block*) ){
   uint32_t x,y,z;
   x = b->x; y = b->y; z = b->z;
@@ -84,8 +81,6 @@ void ReadBuildings(DFHackAPI& DF, vector<t_building>* buildingHolder){
 
 void MergeBuildingsToSegment(vector<t_building>* buildings, WorldSegment* segment){
 	t_building tempbuilding;
-
-	uint32_t index = 0;
   uint32_t numBuildings = (uint32_t)buildings->size();
 	for(uint32_t i=0; i < numBuildings; i++){
     tempbuilding = (*buildings)[i];
@@ -115,22 +110,22 @@ void MergeBuildingsToSegment(vector<t_building>* buildings, WorldSegment* segmen
             continue;
           if(b->building.info.type != BUILDINGTYPE_NA && tempbuilding.type == BUILDINGTYPE_STOCKPILE )
             continue; 
-
+			b->building.index = i;
 				  b->building.info = tempbuilding;
         }
       }
     }
-		index++;
 	}
 
   //all blocks in the segment now have their building info loaded.
   //now set their sprites
+  /*
   for(uint32_t i=0; i < segment->getNumBlocks(); i++){
     Block* b = segment->getBlock( i );
     if( b->building.info.type != BUILDINGTYPE_NA && b->building.info.type != BUILDINGTYPE_BLACKBOX )
       loadBuildingSprites( b );
   }
-
+*/
 	
 }
 

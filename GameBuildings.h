@@ -42,6 +42,7 @@ int BlockNeighbourhoodType_simple(WorldSegment* segment, Block* b, bool validati
 int getBuildingSprite(t_building &building, bool mirrored);
 void ReadBuildingsToSegment(DFHackAPI& DF, WorldSegment* segment);
 void MergeBuildingsToSegment(vector<t_building>* buildings, WorldSegment* segment);
+void loadBuildingSprites( Block* b );
 void ReadBuildings(DFHackAPI& DF, vector<t_building>* buildingHolder);
 bool BlockHasSuspendedBuilding(vector<t_building>* buildingList, Block* b);
 
