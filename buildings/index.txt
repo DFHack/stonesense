@@ -18,9 +18,22 @@ Coffin.xml
 Hatch.xml
 Target.xml
 Wagon.xml
+FloorGrate.xml
+FloorBars.xml
+Well.xml
+Stockpile.xml
+Zone.xml
+
+WeaponTrap.xml
+StonefallTrap.xml
+CageTrap.xml
+PressurePlate.xml
+Spikes.xml
 
 Door.xml
 VerticalBars.xml
+WallGrate.xml
+Floodgate.xml
 
 Kitchen.xml
 Carpenter.xml
@@ -46,6 +59,8 @@ Ashery.xml
 FarmersWorkshop.xml
 Jewelers.xml
 Fishery.xml
+Bowyers.xml
+Dyers.xml
 
 TradeDepot.xml
 SiegeWorkshop.xml

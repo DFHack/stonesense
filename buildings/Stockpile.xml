@@ -1,0 +1,7 @@
+<?xml version="1.0" ?>
+
+<Building name="Stockpile" gameID="stockpile">
+	<Tile>
+		<Sprite sheetIndex = 322 />
+	</Tile>
+</Building> 
