@@ -116,6 +116,9 @@ void drawDebugCursorAndInfo(BITMAP* target){
     "wall:%i floor:%i  Material:%s(%i)", b->wallType, b->floorType, 
     (b->materialIndex != INVALID_INDEX ? v_stonetypes[b->materialIndex].id: ""),
     b->materialIndex);
+    
+    textprintf(target, font, 2, config.screenHeight-20-(i--*10), 0xFFFFFF, 
+    "Bocc: %i", b->occ.bits.building);
 
   if(b->water.index > 0 || b->tree.index != 0)
     textprintf(target, font, 2, config.screenHeight-20-(i--*10), 0xFFFFFF, 

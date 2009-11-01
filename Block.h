@@ -24,7 +24,7 @@ public:
 
 	t_matglossPair ramp;
 	t_matglossPair water;
-
+    t_occupancy occ;
 	
   t_creature creature;
 	//int overridingBuildingType;

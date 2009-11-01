@@ -116,16 +116,27 @@ void ReadCellToSegment(DFHackAPI& DF, WorldSegment& segment, int CellX, int Cell
 	//parse cell
 	for(uint32_t ly = BoundrySY; ly <= BoundryEY; ly++){
 	for(uint32_t lx = BoundrySX; lx <= BoundryEX; lx++){
-		Block* b = new Block ( &segment );
-		b->x = lx + (CellX * CELLEDGESIZE);
-		b->y = ly + (CellY * CELLEDGESIZE);
-		b->z = CellZ;
-    if( !segment.CoordinateInsideSegment( b->x, b->y, b->z) ) 	{
-      free(b); 
-      continue;
-    }
+		uint32_t gx = lx + (CellX * CELLEDGESIZE);
+		uint32_t gy = ly + (CellY * CELLEDGESIZE);
+		if( !segment.CoordinateInsideSegment( gx, gy, CellZ) )
+		{ 
+			continue;
+		}
+		bool createdBlock = false;
+		Block* b = segment.getBlock( gx, gy, CellZ);
+		
+		if (!b)
+		{
+		  createdBlock = true;
+		  b = new Block ( &segment );
+		  b->x = gx;
+		  b->y = gy;
+		  b->z = CellZ;
+	    }
     
-    //liquids
+        b->occ = occupancies[lx][ly];
+    
+        //liquids
 		if(designations[lx][ly].bits.flow_size > 0){
 			b->water.type  = designations[lx][ly].bits.liquid_type;
 			b->water.index = designations[lx][ly].bits.flow_size;
@@ -187,9 +198,11 @@ void ReadCellToSegment(DFHackAPI& DF, WorldSegment& segment, int CellX, int Cell
 
       b->materialIndex = rockIndex;
       //string name = v_stonetypes[j].id;
-
-      segment.addBlock(b);
-    }else{
+      if (createdBlock)
+      {
+      	segment.addBlock(b);
+  	  }
+    }else if (createdBlock){
       free(b);
     }
 
@@ -252,7 +265,9 @@ WorldSegment* ReadMapSegment(int x, int y, int z, int sizex, int sizey, int size
   }
   DF.FinishReadConstructions();
   
-
+	//merge buildings with segment
+  MergeBuildingsToSegment(&allBuildings, segment);
+  
 	//figure out what cells to read
 	uint32_t firstTileToReadX = x;
 	
@@ -298,9 +313,6 @@ WorldSegment* ReadMapSegment(int x, int y, int z, int sizex, int sizey, int size
 
   //Read Creatures
   ReadCreaturesToSegment( DF, segment );
-
-	//merge buildings with segment
-  MergeBuildingsToSegment(&allBuildings, segment);
 
 	//do misc beautification
   uint32_t numblocks = segment->getNumBlocks();
