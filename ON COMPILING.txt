@@ -17,17 +17,22 @@ Specific Build Notes
 (I am including specific version numbers here so I can give precise file info, as things
 update, you may have better luck with newer versions)
 
-1) Get cmake-2.6.4-win32-x86.exe and install
+1) Get cmake-2.6.4-win32-x86.exe from
+http://www.cmake.org/files/v2.6/cmake-2.6.4-win32-x86.exe
+and install
 
-2) Get MinGW-5.1.6.exe installer
+2) Get MinGW-5.1.6.exe installer from
+http://sourceforge.net/projects/mingw/files/Automated%20MinGW%20Installer/
 
 Install with:
 g++ compiler
 MinGW make (this didnt want to automatically grab today, you may need to manually install it)
 
 3) Get subversion checkout of stonesense (PySVN Workbench works nicely)
+see http://code.google.com/p/stonesense/source/checkout
 
-4) Get allegro-mingw-4.2.2.zip
+4) Get allegro-mingw-4.2.2.zip from
+http://sourceforge.net/projects/alleg/files/allegro-bin/
 
 Unpack allegro into the stonesense directory
 (so you have a stonesense/allegro-mingw-4.2.2 directory)
