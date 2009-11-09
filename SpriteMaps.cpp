@@ -7,18 +7,22 @@
 
 int getFloorSpriteWithDefault( int defaultSprite, int materialIndex ){
   //do a LOOKUP. not a search! 
-  uint32_t spriteIndex = groundTypes[materialIndex].floorSheetIndex;
-  if(spriteIndex != INVALID_INDEX) 
-    return spriteIndex;
+  if( materialIndex != INVALID_INDEX ){
+    uint32_t spriteIndex = groundTypes[materialIndex].floorSheetIndex;
+    if(spriteIndex != INVALID_INDEX) 
+      return spriteIndex;
+  }
   return defaultSprite;
 }
 
 
 int getWallSpriteWithDefault( int defaultSprite, int materialIndex ){
   //do a LOOKUP. not a search! 
-  uint32_t spriteIndex = groundTypes[materialIndex].wallSheetIndex;
-  if(spriteIndex != INVALID_INDEX) 
-    return spriteIndex;
+  if( materialIndex != INVALID_INDEX ){
+    uint32_t spriteIndex = groundTypes[materialIndex].wallSheetIndex;
+    if(spriteIndex != INVALID_INDEX) 
+      return spriteIndex; 
+  }
   return defaultSprite;
 }
 
