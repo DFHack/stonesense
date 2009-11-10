@@ -39,6 +39,11 @@ void doKeys(){
 		DisplayedSegmentX+=stepsize;
 		timeToReloadSegment = true;
 	}
+  if(key[KEY_ENTER]){
+		DisplayedRotation++;
+    DisplayedRotation %= 4;
+		timeToReloadSegment = true;
+	}
 	if(key[KEY_PGDN] || key[KEY_9]){
 		DisplayedSegmentZ--;
     if(DisplayedSegmentZ<0) DisplayedSegmentZ = 0;

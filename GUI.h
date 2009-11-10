@@ -21,6 +21,7 @@ extern WorldSegment* viewedSegment;//current, loaded
 extern int DisplayedSegmentX;
 extern int DisplayedSegmentY;
 extern int DisplayedSegmentZ;
+extern int DisplayedRotation;
 
 
 extern BITMAP* IMGFloorSheet; 

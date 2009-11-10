@@ -81,6 +81,60 @@ void WorldSegment::drawAllBlocks(BITMAP* target){
     int32_t vsymax = viewedSegment->y + viewedSegment->sizey;
     int32_t vszmax = viewedSegment->z + viewedSegment->sizez;
     for(int32_t vsz=viewedSegment->z; vsz < vszmax; vsz++){
+      switch (DisplayedRotation){
+        case 0:
+          for(int32_t vsx=viewedSegment->x; vsx < vsxmax; vsx++){
+              for(int32_t vsy=viewedSegment->y; vsy < vsymax; vsy++){
+                    Block *b = getBlock(vsx,vsy,vsz);
+                    if (b)
+                    {
+                        b->Draw(target);
+                    }
+                }
+            }
+          break;
+        case 1:
+          for(int32_t vsx=viewedSegment->x; vsx < vsxmax; vsx++){
+              for(int32_t vsy=vsymax-1; vsy >= viewedSegment->y; vsy--){
+                    Block *b = getBlock(vsx,vsy,vsz);
+                    if (b)
+                    {
+                        b->Draw(target);
+                    }
+                }
+            }
+          break;          
+        case 2:
+          for(int32_t vsx=vsymax-1; vsx >= viewedSegment->x; vsx--){
+              for(int32_t vsy=vsymax-1; vsy >= viewedSegment->y; vsy--){
+                    Block *b = getBlock(vsx,vsy,vsz);
+                    if (b)
+                    {
+                        b->Draw(target);
+                    }
+                }
+            }
+          break;
+        case 3:
+          for(int32_t vsx=vsymax-1; vsx >= viewedSegment->x; vsx--){
+              for(int32_t vsy=viewedSegment->y; vsy < vsymax; vsy++){
+                    Block *b = getBlock(vsx,vsy,vsz);
+                    if (b)
+                    {
+                        b->Draw(target);
+                    }
+                }
+            }
+          break;
+      }
+    }
+} 
+/*void WorldSegment::drawAllBlocks(BITMAP* target){
+    // x,y,z print pricess
+    int32_t vsxmax = viewedSegment->x + viewedSegment->sizex;
+    int32_t vsymax = viewedSegment->y + viewedSegment->sizey;
+    int32_t vszmax = viewedSegment->z + viewedSegment->sizez;
+    for(int32_t vsz=viewedSegment->z; vsz < vszmax; vsz++){
       for(int32_t vsx=viewedSegment->x; vsx < vsxmax; vsx++){
           for(int32_t vsy=viewedSegment->y; vsy < vsymax; vsy++){
                 Block *b = getBlock(vsx,vsy,vsz);
@@ -91,7 +145,7 @@ void WorldSegment::drawAllBlocks(BITMAP* target){
             }
         }
     }
-} 
+} */
 
 
 bool WorldSegment::CoordinateInsideSegment(uint32_t x, uint32_t y, uint32_t z){
