@@ -105,7 +105,7 @@ void WorldSegment::drawAllBlocks(BITMAP* target){
             }
           break;          
         case 2:
-          for(int32_t vsx=vsymax-1; vsx >= viewedSegment->x; vsx--){
+          for(int32_t vsx=vsxmax-1; vsx >= viewedSegment->x; vsx--){
               for(int32_t vsy=vsymax-1; vsy >= viewedSegment->y; vsy--){
                     Block *b = getBlock(vsx,vsy,vsz);
                     if (b)
@@ -116,7 +116,7 @@ void WorldSegment::drawAllBlocks(BITMAP* target){
             }
           break;
         case 3:
-          for(int32_t vsx=vsymax-1; vsx >= viewedSegment->x; vsx--){
+          for(int32_t vsx=vsxmax-1; vsx >= viewedSegment->x; vsx--){
               for(int32_t vsy=viewedSegment->y; vsy < vsymax; vsy++){
                     Block *b = getBlock(vsx,vsy,vsz);
                     if (b)
