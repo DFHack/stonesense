@@ -190,10 +190,14 @@ void ReadCellToSegment(DFHackAPI& DF, WorldSegment& segment, int CellX, int Cell
       int rockIndex = (*allLayers) [regionoffsets[designations[lx][ly].bits.biome]] [designations[lx][ly].bits.geolayer_index];
       //check veins
       for(uint32_t i=0; i<numVeins; i++){
+				//TODO: This will be fixed in dfHack at some point, but right now objects that arnt veins pass through as. So we filter on vtable
+				if(veins[i].vtable != 9302320) 
+					continue;
         uint16_t row = veins[i].assignment[ly];
         bool set = (row & (1 << lx)) != 0;
-        if(set)
-          rockIndex = veins[i].type;
+				if(set){
+					rockIndex = veins[i].type;
+				}
       }
 
       b->materialIndex = rockIndex;
