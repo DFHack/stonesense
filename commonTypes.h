@@ -30,6 +30,7 @@ typedef struct {
   bool hide_outer_blocks;
   bool debug_mode;
   bool lift_segment_offscreen;
+  bool truncate_walls;
   int automatic_reload_time;
   int automatic_reload_step;
 

@@ -138,16 +138,31 @@ void Block::Draw(BITMAP* target){
 	if(wallType > 0){
     //draw wall
     int spriteNum =  GetWallSpriteMap(wallType, materialIndex);
-    DrawSpriteFromSheet( spriteNum, target, IMGObjectSheet, drawx, drawy );
 
-    drawy -= (WALLHEIGHT);
-    //Northern border
-    if(this->depthBorderNorth)
-      line(target, drawx + (TILEWIDTH>>1), drawy, drawx+TILEWIDTH-1, drawy+(TILEHEIGHT>>1)-1, tileBorderColor);
+    if( config.truncate_walls && this->z == ownerSegment->z + ownerSegment->sizez - 1){
+      int sheetx = spriteNum % SHEET_OBJECTSWIDE;
+      int sheety = spriteNum / SHEET_OBJECTSWIDE;
+      //draw a tiny bit of wall
+      masked_blit(IMGObjectSheet, target,
+        sheetx * SPRITEWIDTH, sheety * SPRITEHEIGHT+WALL_CUTOFF_HEIGHT,
+        drawx, drawy - (WALLHEIGHT)+WALL_CUTOFF_HEIGHT, SPRITEWIDTH, SPRITEHEIGHT-WALL_CUTOFF_HEIGHT);
+      //draw cut-off floor thing
+      masked_blit(IMGFloorSheet, target,
+        TILEWIDTH * SPRITEFLOOR_CUTOFF, 0,
+        drawx, drawy-(SPRITEHEIGHT-WALL_CUTOFF_HEIGHT)/2+2, SPRITEWIDTH, SPRITEWIDTH);
+    }
+    else {
+      DrawSpriteFromSheet( spriteNum, target, IMGObjectSheet, drawx, drawy );
 
-    //Western border
-    if(this->depthBorderWest)
-      line(target, drawx, drawy+(TILEHEIGHT>>1)-1, drawx+(TILEWIDTH>>1)-1, drawy, tileBorderColor);
+      drawy -= (WALLHEIGHT);
+      //Northern border
+      if(this->depthBorderNorth)
+        line(target, drawx + (TILEWIDTH>>1), drawy, drawx+TILEWIDTH-1, drawy+(TILEHEIGHT>>1)-1, tileBorderColor);
+
+      //Western border
+      if(this->depthBorderWest)
+        line(target, drawx, drawy+(TILEHEIGHT>>1)-1, drawx+(TILEWIDTH>>1)-1, drawy, tileBorderColor);
+    }
 	}
 
 	//water
