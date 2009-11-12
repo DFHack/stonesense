@@ -9,9 +9,12 @@
 
 using namespace std;
 
+
 #include "dfhack/library/DFTypes.h"
 #include "dfhack/library/DFTileTypes.h"
 #include "dfhack/library/DFHackAPI.h"
+
+using namespace DFHack;
 
 #include "commonTypes.h"
 #include "Block.h"
@@ -31,6 +34,8 @@ using namespace std;
 #define TILEWIDTH 32
 #define TILEHEIGHT 16
 #define WALLHEIGHT 16
+#define FLOORHEIGHT 4
+#define BLOCKHEIGHT (TILEHEIGHT + FLOORHEIGHT)
 #define SPRITEWIDTH TILEWIDTH
 #define SPRITEHEIGHT (TILEHEIGHT + WALLHEIGHT)
 #define WALL_CUTOFF_HEIGHT 15

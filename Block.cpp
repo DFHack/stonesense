@@ -28,7 +28,10 @@ Block::Block(WorldSegment* ownerSegment)
 
 
 
-Block::~Block(void){}
+Block::~Block(void){
+  if( creature )
+    delete(creature);
+}
 
 
 void Block::Draw(BITMAP* target){
@@ -129,7 +132,7 @@ void Block::Draw(BITMAP* target){
       //draw cut-off floor thing
       masked_blit(IMGFloorSheet, target,
         TILEWIDTH * SPRITEFLOOR_CUTOFF, 0,
-        drawx, drawy-(SPRITEHEIGHT-WALL_CUTOFF_HEIGHT)/2+2, SPRITEWIDTH, SPRITEWIDTH);
+        drawx, drawy-(SPRITEHEIGHT-WALL_CUTOFF_HEIGHT)/2, SPRITEWIDTH, SPRITEWIDTH);
     }
     else {
       DrawSpriteFromSheet( spriteNum, target, IMGObjectSheet, drawx, drawy );
@@ -160,9 +163,8 @@ void Block::Draw(BITMAP* target){
 	}
 
   //creature
-  if(creature.type > 0){
-    int spriteNum = GetCreatureSpriteMap( &creature );
-    DrawSpriteFromSheet( spriteNum, target, IMGCreatureSheet, drawx, drawy );
+  if(creature != null){
+    DrawCreature( target, drawx, drawy, creature);
   }
 }
 

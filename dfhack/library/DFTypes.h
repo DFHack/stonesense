@@ -27,10 +27,10 @@ distribution.
 
 struct t_matgloss
 {
-       char id[128];
-       uint8_t fore; // Annoyingly the offset for this differs between types
-       uint8_t back;
-       uint8_t bright;
+    char id[128];
+    uint8_t fore; // Annoyingly the offset for this differs between types
+    uint8_t back;
+    uint8_t bright;
 };
 struct t_vein
 {
@@ -72,18 +72,18 @@ struct t_construction
 };
 
 /*
-		dword vtable;
-		int minx;
-		int miny;
-		int centerx;
-		int maxx;
-		int maxy;
-		int centery;
-		int z;
-		dword height_not_used;
-		word  mattype;
-		word  matgloss;
-		word  type; // NOTE: the actual field is in a different place
+        dword vtable;
+        int minx;
+        int miny;
+        int centerx;
+        int maxx;
+        int maxy;
+        int centery;
+        int z;
+        dword height_not_used;
+        word  mattype;
+        word  matgloss;
+        word  type; // NOTE: the actual field is in a different place
 */
 
 //raw
@@ -105,6 +105,7 @@ struct t_building_df40d
 //cooked
 struct t_building
 {
+    uint32_t origin;
     uint32_t vtable;
 
     uint32_t x1;
@@ -379,6 +380,74 @@ union t_creaturflags2
     } bits;
 };
 
+struct t_labor
+{
+    string name;
+    uint8_t value;
+    t_labor() { 
+        value =0;
+    }
+    t_labor(const t_labor & b){
+        name=b.name;
+        value=b.value;
+    }
+    t_labor & operator=(const t_labor &b){
+        name=b.name;
+        value=b.value;
+        return *this;
+    }
+
+};
+struct t_skill
+{
+    string name;
+    uint16_t id;
+    uint32_t experience;
+    uint16_t rating;
+    t_skill(){
+        id=rating=0;
+        experience=0;
+    }
+    t_skill(const t_skill & b)
+    {
+        name=b.name;
+        id=b.id;
+        experience=b.experience;
+        rating=b.rating;
+    }
+    t_skill & operator=(const t_skill &b)
+    {
+        name=b.name;
+        id=b.id;
+        experience=b.experience;
+        rating=b.rating;
+        return *this;
+    }
+};
+
+struct t_trait
+{
+	uint16_t value;
+	string displayTxt;
+	string name;
+    t_trait(){
+        value=0;
+    }
+    t_trait(const t_trait &b)
+    {
+        name=b.name;
+        displayTxt=b.displayTxt;
+        value=b.value;
+    }
+    t_trait & operator=(const t_trait &b)
+    {
+        name=b.name;
+        displayTxt=b.displayTxt;
+        value=b.value;
+        return *this;
+    }
+};
+
 struct t_creature
 {
     uint16_t x;
@@ -387,6 +456,93 @@ struct t_creature
     uint32_t type;
     t_creaturflags1 flags1;
     t_creaturflags2 flags2;
+    string first_name;
+    string nick_name;
+    //string last_name;
+    string trans_name;
+    string generic_name;
+    string generic_squad_name;
+    string trans_squad_name;
+    string profession;
+    string custom_profession;
+    string current_job;
+    uint32_t happiness;
+    uint32_t id;
+    uint32_t agility;
+    uint32_t strength;
+    uint32_t toughness;
+    uint32_t money;
+    int32_t squad_leader_id;
+    uint8_t sex;
+    vector <t_skill> skills;
+    vector <t_trait> traits;
+    vector <t_labor> labors;
+    t_creature() { 
+        x=y=z=0;
+        type=happiness=id=agility=strength=toughness=money=0;
+        squad_leader_id = -1;
+        sex=0;
+        }
+    t_creature(const t_creature & b)
+    {
+        x = b.x;
+        y = b.y;
+        z = b.z;
+        type = b.type;
+        flags1 = b.flags1;
+        flags2 = b.flags2;
+        first_name = b.first_name;
+        nick_name = b.nick_name;
+        //string last_name;
+        trans_name = b.trans_name;
+        generic_name = b.generic_name;
+        generic_squad_name = b.generic_squad_name;
+        trans_squad_name = b.trans_squad_name;
+        profession = b.profession;
+        custom_profession = b.custom_profession;
+        current_job = b.current_job;
+        happiness = b.happiness;
+        id = b.id;
+        agility = b.agility;
+        strength = b.strength;
+        toughness = b.toughness;
+        money = b.money;
+        squad_leader_id = b.squad_leader_id;
+        sex = b.sex;
+        skills = b.skills;
+        traits = b.traits;
+        labors = b.labors;
+    }
+    t_creature & operator=(const t_creature &b)
+    {
+        x = b.x;
+        y = b.y;
+        z = b.z;
+        type = b.type;
+        flags1 = b.flags1;
+        flags2 = b.flags2;
+        first_name = b.first_name;
+        nick_name = b.nick_name;
+        //string last_name;
+        trans_name = b.trans_name;
+        generic_name = b.generic_name;
+        generic_squad_name = b.generic_squad_name;
+        trans_squad_name = b.trans_squad_name;
+        profession = b.profession;
+        custom_profession = b.custom_profession;
+        current_job = b.current_job;
+        happiness = b.happiness;
+        id = b.id;
+        agility = b.agility;
+        strength = b.strength;
+        toughness = b.toughness;
+        money = b.money;
+        squad_leader_id = b.squad_leader_id;
+        sex = b.sex;
+        skills = b.skills;
+        traits = b.traits;
+        return *this;
+    }
 };
 
 // TODO: research this further? consult DF hacker wizards?

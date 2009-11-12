@@ -22,17 +22,7 @@ must not be misrepresented as being the original software.
 distribution.
 */
 
-#ifndef BUILD_DFHACK_LIB
-#   define BUILD_DFHACK_LIB
-#endif
-
-#include "DFCommon.h"
-
-#include "DFDataModel.h"
-#include "DFMemInfo.h"
-
-#include "tinyxml/tinyxml.h"
-#include <iostream>
+#include "DFCommonInternal.h"
 
 /// HACK: global variables (only one process can be attached at the same time.)
 Process * g_pProcess; ///< current process. non-NULL when picked
@@ -44,8 +34,6 @@ int g_ProcessMemFile; ///< opened /proc/PID/mem, valid when attached
 /*
  *  LINUX version of the process finder.
  */
-
-#include "md5/md5wrapper.h"
 
 Process* ProcessManager::addProcess(const string & exe,ProcessHandle PH, const string & memFile)
 {
@@ -157,7 +145,7 @@ bool ProcessManager::findProcessess()
             cmdline_path = dir_name + "cmdline";
             ifstream ifs ( cmdline_path.c_str() , ifstream::in );
             getline(ifs,cmdline);
-            if (cmdline.find("dwarfort.exe") != string::npos || cmdline.find("Dwarf Fortress.exe") != string::npos)
+            if (cmdline.find("dwarfort-w.exe") != string::npos || cmdline.find("dwarfort.exe") != string::npos || cmdline.find("Dwarf Fortress.exe") != string::npos)
             {
                 // put executable name and path together
                 exe_link = target_name;
@@ -391,6 +379,10 @@ void ProcessManager::ParseEntry (TiXmlElement* entry, memory_info& mem, map <str
         // users are free to use a sane kernel that doesn't do this kind of **** by default
         mem.setBase(0x0);
     }
+    else if ( os == "all")
+    {
+        // yay
+    }
     else
     {
         cerr << "unknown operating system " << os << endl;
@@ -437,6 +429,26 @@ void ProcessManager::ParseEntry (TiXmlElement* entry, memory_info& mem, map <str
         {
             mem.setString(name, value);
         }
+		else if (type == "Profession")
+		{
+			mem.setProfession(value,name);
+		}
+		else if (type == "Job")
+		{
+			mem.setJob(value,name);
+		}
+        else if (type == "Skill")
+		{
+			mem.setSkill(value,name);
+		}
+		else if (type == "Trait")
+		{
+			mem.setTrait(value, name,pMemEntry->Attribute("level_0"),pMemEntry->Attribute("level_1"),pMemEntry->Attribute("level_2"),pMemEntry->Attribute("level_3"),pMemEntry->Attribute("level_4"),pMemEntry->Attribute("level_5"));
+		}
+        else if (type == "Labor")
+        {
+            mem.setLabor(value,name);
+        }
         else
         {
             cerr << "Unknown MemInfo type: " << type << endl;
@@ -450,7 +462,7 @@ bool ProcessManager::loadDescriptors(string path_to_xml)
 {
     TiXmlDocument doc( path_to_xml.c_str() );
     bool loadOkay = doc.LoadFile();
-    TiXmlHandle hDoc(&doc);
+	TiXmlHandle hDoc(&doc);
     TiXmlElement* pElem;
     TiXmlHandle hRoot(0);
     memory_info mem;

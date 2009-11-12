@@ -8,7 +8,7 @@
 #include "Creatures.h"
 #include "GroundMaterialConfiguration.h"
 
-static DFHackAPI* pDFApiHandle = 0;
+static API* pDFApiHandle = 0;
 
 inline bool IDisWall(int in){
   switch( in ){
@@ -72,7 +72,7 @@ int CalculateRampType(uint32_t x, uint32_t y, uint32_t z, WorldSegment* segment)
 
 
 
-void ReadCellToSegment(DFHackAPI& DF, WorldSegment& segment, int CellX, int CellY, int CellZ,
+void ReadCellToSegment(API& DF, WorldSegment& segment, int CellX, int CellY, int CellZ,
 					   uint32_t BoundrySX, uint32_t BoundrySY,
 					   uint32_t BoundryEX, uint32_t BoundryEY, 
 						 uint16_t Flags/*not in use*/, 
@@ -218,7 +218,7 @@ void ReadCellToSegment(DFHackAPI& DF, WorldSegment& segment, int CellX, int Cell
 
 
 
-WorldSegment* ReadMapSegment(DFHackAPI &DF, int x, int y, int z, int sizex, int sizey, int sizez){
+WorldSegment* ReadMapSegment(API &DF, int x, int y, int z, int sizex, int sizey, int sizez){
   uint32_t index;
 
   if( IsConnectedToDF() == false){
@@ -357,7 +357,7 @@ TMR2_STOP;
 	return segment;
 }
 //TODO: dont need double ref anymore
-bool ConnectDFAPI(DFHackAPI** pDF){
+bool ConnectDFAPI(API** pDF){
 	if(!(*pDF)->Attach() || !(*pDF)->InitMap())
     return false;
 
@@ -383,23 +383,22 @@ void reloadDisplayedSegment(){
   if(DisplayedSegmentY<0)DisplayedSegmentY=0;
   //create handle to dfHack API
   if(pDFApiHandle == 0){
-    pDFApiHandle = CreateDFHackAPI("Memory.xml");
+    pDFApiHandle = new API("Memory.xml");
     if( ConnectDFAPI( &pDFApiHandle ) == false ){
       delete( pDFApiHandle );
       pDFApiHandle = 0;
     }
   }
   
-
+  TMR1_START;
   //dispose old segment
   if(viewedSegment)
     viewedSegment->Dispose();
 	delete(viewedSegment);
-
-  TMR1_START;
+  
   int segmentHeight = config.single_layer_view ? 1 : config.segmentSize.z;
   //load segment
-  DFHackAPI& DF = *pDFApiHandle;
+  API& DF = *pDFApiHandle;
 	viewedSegment = ReadMapSegment(DF, DisplayedSegmentX, DisplayedSegmentY, DisplayedSegmentZ,
 		                config.segmentSize.x, config.segmentSize.y, segmentHeight);
   TMR1_STOP;

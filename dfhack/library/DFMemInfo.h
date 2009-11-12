@@ -63,6 +63,12 @@ public:
     uint32_t getAddress (string);
     uint32_t getHexValue (string);
     string getString (string);
+	string getProfession(uint32_t);
+	string getJob(uint32_t);
+    string getSkill (uint32_t);
+	string getTrait (uint32_t, uint32_t);
+	string getTraitName(uint32_t);
+    string getLabor (uint32_t);
 
     void setVersion(const char *);
     void setVersion(string);
@@ -86,6 +92,12 @@ public:
     void setAddress (string, string);
     void setHexValue (string, string);
     void setString (string, string);
+	
+	void setProfession(string, string);
+	void setJob(string, string);
+    void setSkill(string, string);
+	void setTrait(string,string,string,string,string,string,string,string);
+    void setLabor(string, string);
 
     void RebaseVTable(int32_t offset);
     void setClass (const char * name, const char * vtable);
@@ -103,6 +115,13 @@ private:
     map <string, uint32_t> offsets;
     map <string, uint32_t> hexvals;
     map <string, string> strings;
+
+	vector<string> professions;
+	vector<string> jobs;
+    vector<string> skills;
+	vector< vector<string> > traits;
+    map <uint32_t, string> labors;
+
     vector<t_class> classes;
     vector<vector<t_type> > classsubtypes;
     int32_t base;

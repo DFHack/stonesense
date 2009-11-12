@@ -132,13 +132,13 @@ void drawDebugCursorAndInfo(BITMAP* target){
       b->building.info.type, b->building.info.material.type, b->building.info.material.index);
   }
   //if creature
-  if(b->creature.type){
+  if(b->creature != null){
     textprintf(target, font, 2, config.screenHeight-20-(i--*10), 0xFFFFFF, 
       "Creature: %s(%i) ", 
-      v_creatureNames.at(b->creature.type).id, b->creature.type);
+      v_creatureNames.at(b->creature->type).id, b->creature->type);
     
     char strCreature[150] = {0};
-    generateCreatureDebugString( &b->creature, strCreature );
+    generateCreatureDebugString( b->creature, strCreature );
     //memset(strCreature, -1, 50);
     textprintf(target, font, 2, config.screenHeight-20-(i--*10), 0xFFFFFF, 
       "flag1: %s ", strCreature );

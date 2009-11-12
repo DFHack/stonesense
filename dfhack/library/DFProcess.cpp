@@ -22,14 +22,7 @@ must not be misrepresented as being the original software.
 distribution.
 */
 
-#ifndef BUILD_DFHACK_LIB
-#   define BUILD_DFHACK_LIB
-#endif
-
-#include "DFCommon.h"
-#ifdef LINUX_BUILD
-#include <sys/wait.h>
-#endif
+#include "DFCommonInternal.h"
 
 
 Process::Process(DataModel * dm, memory_info* mi, ProcessHandle ph, uint32_t pid)
@@ -72,31 +65,82 @@ void Process::setMemFile(const string & memf)
     memFile = memf;
 }
 
-
 #ifdef LINUX_BUILD
 /*
  *     LINUX PART
  */
 
-// shamelessly stolen from dwarf therapist code. credit should go to the author there :)
+
+/*
+//TODO: rewrite this. really. It's ugly as hell.
+bool isStopped(pid_t pid)
+{
+    char filename[256];
+    sprintf(filename, "/proc/%d/status", pid);
+    
+    // evil mess, that's a fitting name for this thing
+    FILE* evil = fopen(filename,"rb");
+    if(evil)
+    {
+        // zlo means evil in czech.
+        char zlo[64];
+        char test;
+        // read first line, ignore
+        fgets(zlo,64,evil);
+        // read second line
+        fgets(zlo,64,evil);
+        sscanf(zlo,"State: %c",&test);
+        fclose(evil);
+        if(test == 'T')
+        {
+            return true;
+        }
+        return false;
+    }
+    cerr << "couldn't open file " << filename << "assuming process stopped" << endl;
+    return true;
+}
+*/
 bool Process::attach()
 {
+    int status;
+    //cout << "Attach: start" << endl;
     // check if another process is attached
     if(g_pProcess != NULL)
     {
         return false;
     }
-    cout << "Attach_start" << endl;
+    /*
+    if(!isStopped(my_handle))
+    {
+        // kill (SIGSTOP)
+        status = kill(my_handle,SIGSTOP);
+        //cout << "sent SIGSTOP" << endl;
+        if(status == -1)
+        {
+            perror("kill(SIGSTOP)");
+            return false;
+        }
+        // wait for the process to stop
+        while (!isStopped(my_handle))
+        {
+            usleep(5000);
+            //cout << "wait step" << endl;
+        }
+    }
+    */
+    //usleep(10000);
+    //cout << "Attach: after conditional stop" << endl;
     // can we attach?
     if (ptrace(PTRACE_ATTACH , my_handle, NULL, NULL) == -1)
     {
         // no, we got an error
         perror("ptrace attach error");
-        cerr << "attach failed on pid" << my_handle << endl;
+        cerr << "attach failed on pid " << my_handle << endl;
         return false;
     }
-    cout << "Attach_after_ptrace" << endl;
-    int status;
+    //usleep(10000);
+    //cout << "Attach: after ptrace" << endl;
     while(true)
     {
         // we wait on the pid
@@ -115,7 +159,7 @@ bool Process::attach()
             break;
         }
     }
-    cout << "Managed to attach to pid " << my_handle << endl;
+    //  cout << "Managed to attach to pid " << my_handle << endl;
     
     int proc_pid_mem = open(memFile.c_str(),O_RDONLY);
     if(proc_pid_mem == -1)
@@ -132,15 +176,16 @@ bool Process::attach()
         g_ProcessHandle = my_handle;
         
         g_ProcessMemFile = proc_pid_mem;
-        cout << "Attach_after_opening /proc/PID/mem" << endl;
+        //cout << "Attach: after opening /proc/"<< my_handle <<"/mem" << endl;
         return true; // we are attached
     }
 }
 
 bool Process::detach()
 {
+    if(!attached) return false;
     int result = 0;
-    cout << "detach: start" << endl;
+    //cout << "detach: start" << endl;
     result = close(g_ProcessMemFile);// close /proc/PID/mem
     if(result == -1)
     {
@@ -150,7 +195,7 @@ bool Process::detach()
     }
     else
     {
-        cout << "detach: after closing /proc/"<< my_handle <<"/mem" << endl;
+        //cout << "detach: after closing /proc/"<< my_handle <<"/mem" << endl;
         g_ProcessMemFile = -1;
         result = ptrace(PTRACE_DETACH, my_handle, NULL, NULL);
         if(result == -1)
@@ -161,10 +206,15 @@ bool Process::detach()
         }
         else
         {
-            cout << "detach: after detaching from "<< my_handle << endl;
+         //   cout << "detach: after detaching from "<< my_handle << endl;
             attached = false;
             g_pProcess = NULL;
             g_ProcessHandle = 0;
+            // continue, wait for it to recover
+    //        kill(my_handle,SIGCONT);
+      //      while (isStopped(my_handle));
+            //usleep(10000);
+            // we finish
             return true;
         }
     }

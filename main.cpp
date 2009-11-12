@@ -61,10 +61,9 @@ void benchmark(){
   fprintf( fp, "%ims", clock() - startTime);
   fclose(fp);
 }
-
-
 int main(void)
 {	
+
 	allegro_init();
   install_keyboard();
   //install_mouse();
@@ -153,12 +152,13 @@ int main(void)
   #ifdef RELEASE
   DisplayedSegmentX = 0; DisplayedSegmentY = 0;DisplayedSegmentZ = 17;
   #endif
-
   //while(1)
 	reloadDisplayedSegment();
 	if(!viewedSegment) return 1;
 
-//  benchmark();
+#ifdef BENCHMARK
+  benchmark();
+#endif
 
 	paintboard();
 	while(!key[KEY_ESC]){

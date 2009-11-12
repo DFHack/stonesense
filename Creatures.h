@@ -17,8 +17,9 @@ enum enumCreatureSprites{
 
 
 
-void ReadCreaturesToSegment(DFHackAPI& DF, WorldSegment* segment);
+void ReadCreaturesToSegment(API& DF, WorldSegment* segment);
 
+void DrawCreature( BITMAP* target, int drawx, int drawy, t_creature* c );
 int GetCreatureSpriteMap( t_creature* c );
 
 void LoadCreatureConfiguration( vector<CreatureConfiguration>* knownCreatures );

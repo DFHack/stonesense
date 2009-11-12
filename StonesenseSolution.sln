@@ -5,10 +5,13 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Stonesense", "DwarfIso.vcpr
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Benchmark|Win32 = Benchmark|Win32
 		Debug|Win32 = Debug|Win32
 		Release|Win32 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{37B19492-24AE-43C0-B67E-B252915A1C98}.Benchmark|Win32.ActiveCfg = Benchmark|Win32
+		{37B19492-24AE-43C0-B67E-B252915A1C98}.Benchmark|Win32.Build.0 = Benchmark|Win32
 		{37B19492-24AE-43C0-B67E-B252915A1C98}.Debug|Win32.ActiveCfg = Debug|Win32
 		{37B19492-24AE-43C0-B67E-B252915A1C98}.Debug|Win32.Build.0 = Debug|Win32
 		{37B19492-24AE-43C0-B67E-B252915A1C98}.Release|Win32.ActiveCfg = Release|Win32

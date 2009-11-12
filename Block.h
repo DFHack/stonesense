@@ -26,7 +26,7 @@ public:
 	t_matglossPair water;
     t_occupancy occ;
 	
-  t_creature creature;
+  t_creature* creature;
 	//int overridingBuildingType;
   bool mirroredBuilding;
 	t_matglossPair tree;

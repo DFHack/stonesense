@@ -2,6 +2,7 @@
 #include "Creatures.h"
 #include "WorldSegment.h"
 #include "CreatureConfiguration.h"
+#include "GUI.h"
 
 #include "dfhack/library/tinyxml/tinyxml.h"
 
@@ -9,16 +10,8 @@ vector<t_matgloss> v_creatureNames;
 vector<CreatureConfiguration> creatureTypes;
 
 
-int GetCreatureSpriteMap( t_creature* c ){
-  uint32_t num = (uint32_t)creatureTypes.size();
-  for(uint32_t i=0; i < num; i++)
-    //TODO: Optimize. make a table lookup instead of a search
-    if( c->type == creatureTypes[i].gameID )
-      return creatureTypes[i].sheetIndex;
 
-  return SPRITECRE_NA;
-}
-bool IsCreatureVisible( t_creature* c){
+bool IsCreatureVisible( t_creature* c ){
   if( config.show_all_creatures ) return true;
 
   if( c->flags1.bits.dead )
@@ -28,8 +21,16 @@ bool IsCreatureVisible( t_creature* c){
   return true;
 }
 
+void DrawCreature( BITMAP* target, int drawx, int drawy, t_creature* creature ){
+  int spriteNum = GetCreatureSpriteMap( creature );
+  //if(creature->x == 151 && creature->y == 145)
+  //  int j = 10;
+  DrawSpriteFromSheet( spriteNum, target, IMGCreatureSheet, drawx, drawy );
+  textprintf(target, font, drawx, drawy-10, 0xFFffFF, "%s", creature->first_name.c_str() );
+}
+//t_creature* global = 0;
 
-void ReadCreaturesToSegment(DFHackAPI& DF, WorldSegment* segment){
+void ReadCreaturesToSegment(API& DF, WorldSegment* segment){
   uint32_t numcreatures = DF.InitReadCreatures();
 
   DF.ReadCreatureMatgloss(v_creatureNames);
@@ -53,14 +54,14 @@ void ReadCreaturesToSegment(DFHackAPI& DF, WorldSegment* segment){
         b->z = tempcreature.z;
         segment->addBlock( b );
       }
-      if( b )
-        b->creature = tempcreature;
 
-      if(tempcreature.x == 143 && tempcreature.y == 332)
-        int j = 10;
-      if(tempcreature.x == 146 && tempcreature.y == 334)
-        int j = 10;
-      
+      //add copy of creature
+      t_creature* storage = new t_creature();//(t_creature *)malloc( sizeof(t_creature) );
+      //memcpy( storage, &tempcreature, sizeof(t_creature) );
+      *storage = tempcreature;
+//        if(storage->x == 151 && storage->y == 145)
+//          global = storage;
+      b->creature = storage;
     }
     index++;
   }
@@ -68,7 +69,15 @@ void ReadCreaturesToSegment(DFHackAPI& DF, WorldSegment* segment){
 }
 
 
+int GetCreatureSpriteMap( t_creature* c ){
+  uint32_t num = (uint32_t)creatureTypes.size();
+  for(uint32_t i=0; i < num; i++)
+    //TODO: Optimize. make a table lookup instead of a search
+    if( c->type == creatureTypes[i].gameID )
+      return creatureTypes[i].sheetIndex;
 
+  return SPRITECRE_NA;
+}
 
 void LoadCreatureConfiguration( vector<CreatureConfiguration>* knownCreatures ){
   char* filename = "Creatures.xml";
