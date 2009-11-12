@@ -19,24 +19,49 @@ void automaticReloadProc(){
 }
 
 
+void moveViewRelativeToRotation( int stepx, int stepy ){
+  switch(DisplayedRotation){
+  case 0:
+    DisplayedSegmentX += stepx;
+    DisplayedSegmentY += stepy;
+    break;
+  case 1:
+    DisplayedSegmentX += stepy;
+    DisplayedSegmentY -= stepx;
+    break;
+  case 2:
+    DisplayedSegmentX -= stepx;
+    DisplayedSegmentY -= stepy;
+    break;
+  case 3:
+    DisplayedSegmentX -= stepy;
+    DisplayedSegmentY += stepx;
+    break;
+  };
+}
+
 void doKeys(){
   //mouse_callback = mouseProc;
 
   char stepsize = (key[KEY_LSHIFT] || key[KEY_RSHIFT] ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
   if(key[KEY_UP]){
-		DisplayedSegmentY-=stepsize;
+		//DisplayedSegmentY-=stepsize;
+    moveViewRelativeToRotation( 0, -stepsize );
 		timeToReloadSegment = true;
 	}
 	if(key[KEY_DOWN]){
-		DisplayedSegmentY+=stepsize;
+		//DisplayedSegmentY+=stepsize;
+    moveViewRelativeToRotation( 0, stepsize );
 		timeToReloadSegment = true;
 	}
 	if(key[KEY_LEFT]){
-		DisplayedSegmentX-=stepsize;
+		//DisplayedSegmentX-=stepsize;
+    moveViewRelativeToRotation( -stepsize, 0 );
 		timeToReloadSegment = true;
 	}
 	if(key[KEY_RIGHT]){
-		DisplayedSegmentX+=stepsize;
+		//DisplayedSegmentX+=stepsize;
+    moveViewRelativeToRotation( stepsize, 0 );
 		timeToReloadSegment = true;
 	}
   if(key[KEY_ENTER]){
@@ -45,12 +70,12 @@ void doKeys(){
 		timeToReloadSegment = true;
 	}
 	if(key[KEY_PGDN] || key[KEY_9]){
-		DisplayedSegmentZ--;
+		DisplayedSegmentZ -= stepsize;
     if(DisplayedSegmentZ<0) DisplayedSegmentZ = 0;
 		timeToReloadSegment = true;
 	}
 	if(key[KEY_PGUP] || key[KEY_0]){
-		DisplayedSegmentZ++;
+		DisplayedSegmentZ += stepsize;
 		timeToReloadSegment = true;
 	}
 	if(key[KEY_R]){

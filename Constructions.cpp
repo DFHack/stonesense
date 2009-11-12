@@ -28,7 +28,7 @@ void changeConstructionMaterials(WorldSegment* segment, Block* b, vector<t_const
           //set to wooden floor
           b->floorType = ID_WOODFLOOR;
           //if tile beneth has a wooden wall, dont display a floor. hackish. buggish. whatever
-          Block* under = segment->getBlock( b->x, b->y, b->z - 1 );
+          Block* under = segment->getBlockRelativeTo( b->x, b->y, b->z, eBelow );
           if(under && under->wallType == ID_WOODWALL)
             b->floorType = 0;
         }

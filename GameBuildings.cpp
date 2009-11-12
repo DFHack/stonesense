@@ -6,19 +6,19 @@
 
 vector<BuildingConfiguration> buildingTypes;
 vector <string> v_buildingtypes;//should be empty for all buildings
-
+/*
 int BlockNeighbourhoodType_simple(WorldSegment* segment, Block* b, bool validationFuctionProc(Block*) ){
   uint32_t x,y,z;
   x = b->x; y = b->y; z = b->z;
 
-	bool n = validationFuctionProc( segment->getBlock( x, y-1, z) );
-	bool s = validationFuctionProc( segment->getBlock( x, y+1, z) );
-	bool e = validationFuctionProc( segment->getBlock( x+1, y, z) );
-	bool w = validationFuctionProc( segment->getBlock( x-1, y, z) );
-	/*bool nw = validationFuctionProc( segment->getBlock(, x-1, y-1, z) );
-	bool ne = validationFuctionProc( segment->getBlock(, x+1, y-1, z) );
-	bool SW = validationFuctionProc( segment->getBlock(, x-1, y+1, z) );
-	bool se = validationFuctionProc( segment->getBlock(, x+1, y+1, z) );*/
+	bool n = validationFuctionProc( segment->getBlock( x, y-1, z, true) );
+	bool s = validationFuctionProc( segment->getBlock( x, y+1, z, true) );
+	bool e = validationFuctionProc( segment->getBlock( x+1, y, z, true) );
+	bool w = validationFuctionProc( segment->getBlock( x-1, y, z, true) );
+	//bool nw = validationFuctionProc( segment->getBlock(, x-1, y-1, z) );
+	//bool ne = validationFuctionProc( segment->getBlock(, x+1, y-1, z) );
+	//bool SW = validationFuctionProc( segment->getBlock(, x-1, y+1, z) );
+	//bool se = validationFuctionProc( segment->getBlock(, x+1, y+1, z) );
   
   if(!n && !s && !w && !e) return eSimpleSingle;
   if( n && !s && !w && !e) return eSimpleN;
@@ -37,7 +37,7 @@ int BlockNeighbourhoodType_simple(WorldSegment* segment, Block* b, bool validati
   //....
 
   return eSimpleSingle;
-}
+}*/
 
 bool blockHasBridge(Block* b){
   if(!b) return 0;
@@ -47,10 +47,10 @@ bool blockHasBridge(Block* b){
 dirTypes findWallCloseTo(WorldSegment* segment, Block* b){
   uint32_t x,y,z;
   x = b->x; y = b->y; z = b->z;
-  bool n = hasWall( segment->getBlock( x, y-1, z) );
-	bool s = hasWall( segment->getBlock( x, y+1, z) );
-	bool e = hasWall( segment->getBlock( x+1, y, z) );
-	bool w = hasWall( segment->getBlock( x-1, y, z) );
+  bool n = hasWall( segment->getBlockRelativeTo( x, y, z, eUp) );
+	bool s = hasWall( segment->getBlockRelativeTo( x, y, z, eDown) );
+	bool w = hasWall( segment->getBlockRelativeTo( x, y, z, eLeft) );
+  bool e = hasWall( segment->getBlockRelativeTo( x, y, z, eRight) );
   
   if(w) return eSimpleW;
   if(n) return eSimpleN;

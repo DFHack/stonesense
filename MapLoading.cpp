@@ -42,14 +42,14 @@ bool isBlockHighRampEnd(Block* block){
 	return IDisWall( block->wallType );
 }
 int CalculateRampType(uint32_t x, uint32_t y, uint32_t z, WorldSegment* segment){
-	bool n = isBlockHighRampEnd( segment->getBlock( x, y-1, z) );
-	bool s = isBlockHighRampEnd( segment->getBlock( x, y+1, z) );
-	bool e = isBlockHighRampEnd( segment->getBlock( x+1, y, z) );
-	bool w = isBlockHighRampEnd( segment->getBlock( x-1, y, z) );
-	bool nw = isBlockHighRampEnd( segment->getBlock( x-1, y-1, z) );
-	bool ne = isBlockHighRampEnd( segment->getBlock( x+1, y-1, z) );
-	bool SW = isBlockHighRampEnd( segment->getBlock( x-1, y+1, z) );
-	bool se = isBlockHighRampEnd( segment->getBlock( x+1, y+1, z) );
+	bool n = isBlockHighRampEnd( segment->getBlockRelativeTo( x, y, z, eUp) );
+  bool s = isBlockHighRampEnd( segment->getBlockRelativeTo( x, y, z, eDown) );
+	bool e = isBlockHighRampEnd( segment->getBlockRelativeTo( x, y, z, eRight) );
+	bool w = isBlockHighRampEnd( segment->getBlockRelativeTo( x, y, z, eLeft) );
+	bool nw = isBlockHighRampEnd( segment->getBlockRelativeTo( x, y, z, eUpLeft) );
+	bool ne = isBlockHighRampEnd( segment->getBlockRelativeTo( x, y, z, eUpRight) );
+  bool SW = isBlockHighRampEnd( segment->getBlockRelativeTo( x, y, z, eDownLeft) );
+  bool se = isBlockHighRampEnd( segment->getBlockRelativeTo( x, y, z, eDownRight) );
 	
 	
 	if(n && w)  return 10;
@@ -132,9 +132,9 @@ void ReadCellToSegment(DFHackAPI& DF, WorldSegment& segment, int CellX, int Cell
 		  b->x = gx;
 		  b->y = gy;
 		  b->z = CellZ;
-	    }
+	  }
     
-        b->occ = occupancies[lx][ly];
+    b->occ = occupancies[lx][ly];
 
         //liquids
 		if(designations[lx][ly].bits.flow_size > 0){
@@ -332,18 +332,16 @@ WorldSegment* ReadMapSegment(int x, int y, int z, int sizex, int sizey, int size
 
       //add edges to blocks and floors  
       if( b->floorType > 0 ){
-        Block* westBlock = segment->getBlock(b->x - 1, b->y, b->z);
-        Block* northBlock = segment->getBlock(b->x, b->y - 1, b->z);
-        if(!segment->getBlock(b->x - 1, b->y, b->z)) 
+        if(!segment->getBlockRelativeTo(b->x, b->y, b->z, eLeft)) 
           b->depthBorderWest = true;
-        if(!segment->getBlock(b->x, b->y - 1, b->z)) 
+        if(!segment->getBlockRelativeTo(b->x, b->y, b->z, eUp)) 
           b->depthBorderNorth = true;
       }else if( b->wallType > 0 && wallShouldNotHaveBorders( b->wallType ) == false ){
-        Block* westBlock = segment->getBlock(b->x - 1, b->y, b->z);
-        Block* northBlock = segment->getBlock(b->x, b->y - 1, b->z);
-        if(westBlock && !westBlock->wallType && !westBlock->ramp.type) 
+        Block* leftBlock = segment->getBlockRelativeTo(b->x, b->y, b->z, eLeft);
+        Block* upBlock = segment->getBlockRelativeTo(b->x, b->y, b->z, eUp);
+        if(!leftBlock || (!leftBlock->wallType && !leftBlock->ramp.type)) 
           b->depthBorderWest = true;
-        if(northBlock && !northBlock->wallType && !northBlock->ramp.type) 
+        if(!upBlock || (!upBlock->wallType && !upBlock->ramp.type))
           b->depthBorderNorth = true;
       }
 	}

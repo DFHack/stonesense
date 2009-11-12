@@ -35,7 +35,7 @@ enum BuildingTypes{
 
 
 
-int BlockNeighbourhoodType_simple(WorldSegment* segment, Block* b, bool validationFuctionProc(Block*) );
+//int BlockNeighbourhoodType_simple(WorldSegment* segment, Block* b, bool validationFuctionProc(Block*) );
 
 
 

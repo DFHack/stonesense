@@ -567,7 +567,6 @@ int GetWallSpriteVegitation( VegetationType type, int index){
       //case 7://??
       
       case 9://WILLOW
-      //case 10://??
       //case 11://??
       case 12://FEATHERTREE
       case 13://HIGHWOOD
@@ -582,6 +581,10 @@ int GetWallSpriteVegitation( VegetationType type, int index){
       
       case 8://MAPLE
         return SPRITEOBJECT_TREE_MAPLE;
+        break;
+      
+      case 10://Tower-Cap
+        return SPRITEOBJECT_TREE_TOWERCAP;
         break;
 
       case 2://PINE

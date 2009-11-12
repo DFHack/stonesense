@@ -25,7 +25,7 @@ using namespace std;
 
 
 #define GFXMODE GFX_AUTODETECT_WINDOWED
-#define FULLSCREEN false
+#define FULLSCREEN false 
 #define RESOLUTION_WIDTH 800
 #define RESOLUTION_HEIGHT 600
 #define TILEWIDTH 32
@@ -49,9 +49,6 @@ using namespace std;
 #define COLOR_SEGMENTOUTLINE 0x112211
 
 
-// normal tree = 0
-// tree by water or something = 1
-// Shrub = 2
 enum material{
   MAT_WILLOW = 9, 
   MAT_DOLOMITE = 135,
@@ -86,6 +83,19 @@ enum dirTypes{
   eSimpleNnWnSnE
 };
 
+enum dirRelative{
+  eLeft,
+  eDown,
+  eRight,
+  eUp,
+  eAbove,
+  eBelow,
+
+  eUpLeft,
+  eUpRight,
+  eDownLeft,
+  eDownRight,
+};
 //class WorldSegment;
 
 
@@ -109,6 +119,8 @@ extern vector<t_matgloss> v_stonetypes;
 #define TMR2_START (ClockedTime2 = clock())
 #define TMR2_STOP  (ClockedTime2 = clock() - ClockedTime2)
 
+
+void correctBlockForRotation(int32_t& x, int32_t& y, int32_t& z);
 
 //from UserInput.cpp
 void doKeys();

@@ -31,26 +31,6 @@ Block::Block(WorldSegment* ownerSegment)
 Block::~Block(void){}
 
 
-void correctBlockForRotation(int32_t& x, int32_t& y, int32_t& z){
-  int32_t oldx = x;
-  int32_t oldy = y;
-  int w = config.segmentSize.x;
-  int h = config.segmentSize.y;
-
-  if(DisplayedRotation == 1){
-    x = h - oldy;
-    y = oldx;
-  }
-  if(DisplayedRotation == 2){
-    x = w - oldx;
-    y = h - oldy;
-  }
-  if(DisplayedRotation == 3){
-    x = oldy;
-    y = w - oldx;
-  }
-}
-
 void Block::Draw(BITMAP* target){
 	int sheetOffsetX, sheetOffsetY;
   if(config.hide_outer_blocks){
