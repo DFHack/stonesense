@@ -50,15 +50,15 @@ void correctBlockForSegmetOffset(int32_t& x, int32_t& y, int32_t& z){
 
 void benchmark(){
   DisplayedSegmentX = DisplayedSegmentY = 0;
-  TMR2_START;
+  DisplayedSegmentX = 110; DisplayedSegmentY = 110;DisplayedSegmentZ = 18;
+  uint32_t startTime = clock();
   int i = 50;
   while(i--)
 	  reloadDisplayedSegment();
-  TMR2_STOP;
 
   FILE* fp = fopen("benchmark.txt", "w" );
   if(!fp) return;
-  fprintf( fp, "%ims", ClockedTime2);
+  fprintf( fp, "%ims", clock() - startTime);
   fclose(fp);
 }
 
@@ -145,7 +145,7 @@ int main(void)
   //ford. desert map
   //sDisplayedSegmentX = 78; DisplayedSegmentY = 123;DisplayedSegmentZ = 15;
 
-  DisplayedSegmentX = 172; DisplayedSegmentY = 325;DisplayedSegmentZ = 16;
+  DisplayedSegmentX = 111; DisplayedSegmentY = 116;DisplayedSegmentZ = 18;
 
   //DisplayedSegmentX = 242; DisplayedSegmentY = 345;DisplayedSegmentZ = 15;
   
@@ -171,6 +171,7 @@ int main(void)
 		doKeys();
 	}
   destroyGraphics();
+  DisconnectFromDF();
 	return 0;
 }
 END_OF_MAIN()

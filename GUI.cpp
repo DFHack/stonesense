@@ -225,14 +225,15 @@ void paintboard(){
 
   DebugInt1 = viewedSegment->getNumBlocks();
 	
-  ClockedTime2 = clock() - starttime;
+  int DrawTime = clock() - starttime;
   
   textprintf_ex(buffer, font, 10,10, 0xFFFFFF,0, "%i,%i,%i, r%i", DisplayedSegmentX,DisplayedSegmentY,DisplayedSegmentZ, DisplayedRotation);
   
   if(config.debug_mode){
 	  textprintf_ex(buffer, font, 10,20, 0xFFFFFF,0, "Timer1: %ims", ClockedTime);
     textprintf_ex(buffer, font, 10,30, 0xFFFFFF,0, "Timer2: %ims", ClockedTime2);
-	  textprintf_ex(buffer, font, 10,40, 0xFFFFFF,0, "D1: %i", DebugInt1);
+    textprintf_ex(buffer, font, 10,40, 0xFFFFFF,0, "Draw: %ims", DrawTime);
+	  textprintf_ex(buffer, font, 10,50, 0xFFFFFF,0, "D1: %i", DebugInt1);
 
     drawDebugCursorAndInfo(buffer);
   }

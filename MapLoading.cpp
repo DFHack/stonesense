@@ -8,6 +8,8 @@
 #include "Creatures.h"
 #include "GroundMaterialConfiguration.h"
 
+static DFHackAPI* pDFApiHandle = 0;
+
 inline bool IDisWall(int in){
   switch( in ){
     case ID_METALWALL:
@@ -214,17 +216,17 @@ void ReadCellToSegment(DFHackAPI& DF, WorldSegment& segment, int CellX, int Cell
 	}
 }
 
-WorldSegment* ReadMapSegment(int x, int y, int z, int sizex, int sizey, int sizez){
+
+
+WorldSegment* ReadMapSegment(DFHackAPI &DF, int x, int y, int z, int sizex, int sizey, int sizez){
   uint32_t index;
 
-  DFHackAPI* pDF = CreateDFHackAPI("Memory.xml");
-  DFHackAPI &DF = *pDF;
-
-	if(!DF.Attach() || !DF.InitMap())
-	{
+  if( IsConnectedToDF() == false){
     //return new blank segment
 		return new WorldSegment(x,y,z,sizex,sizey,sizez);
-	}
+  }
+
+  TMR2_START;
 
 	//Read Number of cells
 	int celldimX, celldimY, celldimZ;
@@ -274,7 +276,7 @@ WorldSegment* ReadMapSegment(int x, int y, int z, int sizex, int sizey, int size
   
 	//figure out what cells to read
 	uint32_t firstTileToReadX = x;
-	
+
 	while(firstTileToReadX < (uint32_t) x + sizex){
 		int cellx = firstTileToReadX / CELLEDGESIZE;
 		uint32_t lastTileInCellX = (cellx+1) * CELLEDGESIZE - 1;
@@ -297,7 +299,7 @@ WorldSegment* ReadMapSegment(int x, int y, int z, int sizex, int sizey, int size
 		}
 		firstTileToReadX = lastTileToReadX + 1;
 	}
- 
+  
   
 	//Read Vegetation
 	uint32_t numtrees = DF.InitReadVegetation();
@@ -315,8 +317,12 @@ WorldSegment* ReadMapSegment(int x, int y, int z, int sizex, int sizey, int size
 	}
 	DF.FinishReadVegetation();
 
+  
+
   //Read Creatures
   ReadCreaturesToSegment( DF, segment );
+
+  
 
 	//do misc beautification
   uint32_t numblocks = segment->getNumBlocks();
@@ -346,27 +352,55 @@ WorldSegment* ReadMapSegment(int x, int y, int z, int sizex, int sizey, int size
       }
 	}
 
-  //cleanup
-  DF.DestroyMap();
-  DF.Detach();
-  delete pDF;
- 
+TMR2_STOP;
+
 	return segment;
 }
+//TODO: dont need double ref anymore
+bool ConnectDFAPI(DFHackAPI** pDF){
+	if(!(*pDF)->Attach() || !(*pDF)->InitMap())
+    return false;
+
+  return (*pDF)->isAttached();
+}
+
+void DisconnectFromDF(){
+  if(pDFApiHandle){
+    pDFApiHandle->DestroyMap();
+    pDFApiHandle->Detach();
+    delete pDFApiHandle;
+  }
+}
+
+bool IsConnectedToDF(){
+  if(!pDFApiHandle) return false;
+  return pDFApiHandle->isAttached();
+}
+
 
 void reloadDisplayedSegment(){
   if(DisplayedSegmentX<0)DisplayedSegmentX=0;
   if(DisplayedSegmentY<0)DisplayedSegmentY=0;
+  //create handle to dfHack API
+  if(pDFApiHandle == 0){
+    pDFApiHandle = CreateDFHackAPI("Memory.xml");
+    if( ConnectDFAPI( &pDFApiHandle ) == false ){
+      delete( pDFApiHandle );
+      pDFApiHandle = 0;
+    }
+  }
+  
 
-  TMR1_START;
   //dispose old segment
   if(viewedSegment)
     viewedSegment->Dispose();
 	delete(viewedSegment);
-  
+
+  TMR1_START;
   int segmentHeight = config.single_layer_view ? 1 : config.segmentSize.z;
   //load segment
-	viewedSegment = ReadMapSegment(DisplayedSegmentX, DisplayedSegmentY, DisplayedSegmentZ,
+  DFHackAPI& DF = *pDFApiHandle;
+	viewedSegment = ReadMapSegment(DF, DisplayedSegmentX, DisplayedSegmentY, DisplayedSegmentZ,
 		                config.segmentSize.x, config.segmentSize.y, segmentHeight);
   TMR1_STOP;
 }
