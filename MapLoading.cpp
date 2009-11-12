@@ -356,12 +356,15 @@ TMR2_STOP;
 
 	return segment;
 }
+
+
+
 //TODO: dont need double ref anymore
-bool ConnectDFAPI(API** pDF){
-	if(!(*pDF)->Attach() || !(*pDF)->InitMap())
+bool ConnectDFAPI(API* pDF){
+	if(!pDF->Attach() || !pDF->InitMap())
     return false;
 
-  return (*pDF)->isAttached();
+  return pDF->isAttached();
 }
 
 void DisconnectFromDF(){
@@ -384,7 +387,7 @@ void reloadDisplayedSegment(){
   //create handle to dfHack API
   if(pDFApiHandle == 0){
     pDFApiHandle = new API("Memory.xml");
-    if( ConnectDFAPI( &pDFApiHandle ) == false ){
+    if( ConnectDFAPI( pDFApiHandle ) == false ){
       delete( pDFApiHandle );
       pDFApiHandle = 0;
     }
@@ -401,5 +404,10 @@ void reloadDisplayedSegment(){
   API& DF = *pDFApiHandle;
 	viewedSegment = ReadMapSegment(DF, DisplayedSegmentX, DisplayedSegmentY, DisplayedSegmentZ,
 		                config.segmentSize.x, config.segmentSize.y, segmentHeight);
+  bool res = DF.InitViewAndCursor();
+  if(res){
+    int x,y,z;
+    res = DF.getViewCoords( x, y, z );
+  }
   TMR1_STOP;
 }

@@ -74,23 +74,26 @@ void DrawCurrentLevelOutline(BITMAP* target, bool backPart){
 	Crd2D p2 = WorldBlockToScreen(x, y + sizey , z);
 	Crd2D p3 = WorldBlockToScreen(x + sizex , y, z);
 	Crd2D p4 = WorldBlockToScreen(x + sizex , y + sizey , z);
-
+  p1.y += FLOORHEIGHT;
+  p2.y += FLOORHEIGHT;
+  p3.y += FLOORHEIGHT;
+  p4.y += FLOORHEIGHT;
 	if(backPart){
-		line(target, p1.x, p1.y, p1.x, p1.y-WALLHEIGHT, COLOR_SEGMENTOUTLINE);
+		line(target, p1.x, p1.y, p1.x, p1.y-BLOCKHEIGHT, COLOR_SEGMENTOUTLINE);
 		line(target, p1.x, p1.y, p2.x, p2.y, COLOR_SEGMENTOUTLINE);
-		line(target, p1.x, p1.y-WALLHEIGHT, p2.x, p2.y-WALLHEIGHT, COLOR_SEGMENTOUTLINE);
-		line(target, p2.x, p2.y, p2.x, p2.y-WALLHEIGHT, COLOR_SEGMENTOUTLINE);
+		line(target, p1.x, p1.y-BLOCKHEIGHT, p2.x, p2.y-BLOCKHEIGHT, COLOR_SEGMENTOUTLINE);
+		line(target, p2.x, p2.y, p2.x, p2.y-BLOCKHEIGHT, COLOR_SEGMENTOUTLINE);
 
 		line(target, p1.x, p1.y, p3.x, p3.y, COLOR_SEGMENTOUTLINE);
-		line(target, p1.x, p1.y-WALLHEIGHT, p3.x, p3.y-WALLHEIGHT, COLOR_SEGMENTOUTLINE);
-		line(target, p3.x, p3.y, p3.x, p3.y-WALLHEIGHT, COLOR_SEGMENTOUTLINE);
+		line(target, p1.x, p1.y-BLOCKHEIGHT, p3.x, p3.y-BLOCKHEIGHT, COLOR_SEGMENTOUTLINE);
+		line(target, p3.x, p3.y, p3.x, p3.y-BLOCKHEIGHT, COLOR_SEGMENTOUTLINE);
 	}else{
-		line(target, p4.x, p4.y, p4.x, p4.y-WALLHEIGHT, COLOR_SEGMENTOUTLINE);
+		line(target, p4.x, p4.y, p4.x, p4.y-BLOCKHEIGHT, COLOR_SEGMENTOUTLINE);
 		line(target, p4.x, p4.y, p2.x, p2.y, COLOR_SEGMENTOUTLINE);
-		line(target, p4.x, p4.y-WALLHEIGHT, p2.x, p2.y-WALLHEIGHT, COLOR_SEGMENTOUTLINE);
+		line(target, p4.x, p4.y-BLOCKHEIGHT, p2.x, p2.y-BLOCKHEIGHT, COLOR_SEGMENTOUTLINE);
 
 		line(target, p4.x, p4.y, p3.x, p3.y, COLOR_SEGMENTOUTLINE);
-		line(target, p4.x, p4.y-WALLHEIGHT, p3.x, p3.y-WALLHEIGHT, COLOR_SEGMENTOUTLINE);
+		line(target, p4.x, p4.y-BLOCKHEIGHT, p3.x, p3.y-BLOCKHEIGHT, COLOR_SEGMENTOUTLINE);
 	}
 }
 

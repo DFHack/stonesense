@@ -49,15 +49,15 @@ void Block::Draw(BITMAP* target){
   correctBlockForRotation( drawx, drawy, drawz);
 	drawx *= TILEWIDTH;
 	drawy *= TILEWIDTH;
-	pointToScreen((int*)&drawx, (int*)&drawy, drawz * WALLHEIGHT);
+	pointToScreen((int*)&drawx, (int*)&drawy, drawz * BLOCKHEIGHT);
 	drawx -= TILEWIDTH>>1;
 
   int tileBorderColor = makecol(85,85,85);
 
 	//Draw Floor
-	if(floorType > 0){
+	if(floorType > 0 || wallType > 0){
     sheetOffsetX = TILEWIDTH * GetFloorSpriteMap(floorType, materialIndex);
-		masked_blit(IMGFloorSheet, target, sheetOffsetX,0, drawx,drawy, TILEWIDTH,TILEHEIGHT);
+		masked_blit(IMGFloorSheet, target, sheetOffsetX,0, drawx,drawy, TILEWIDTH,TILEHEIGHT + FLOORHEIGHT);
 
     //Northern frame
     if(this->depthBorderNorth)
