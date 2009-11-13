@@ -284,7 +284,7 @@ void loadGraphicsFromDisk(){
 	
   IMGCreatureSheet = load_bitmap_withWarning("creatures.png");
 
-	IMGRampSheet = load_bitmap_withWarning("Ramps.png");
+	IMGRampSheet = load_bitmap_withWarning("ramps.png");
 }
 void destroyGraphics(){
   destroy_bitmap(IMGFloorSheet);
