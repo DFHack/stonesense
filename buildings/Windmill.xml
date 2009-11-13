@@ -1,0 +1,61 @@
+<?xml version="1.0" ?>
+
+
+
+<building name="Windmill" gameID="windmill"> 
+
+	<if>
+		<or>
+			<AnimationFrame value=0 />
+			<AnimationFrame value=2 />
+			<AnimationFrame value=4 />
+		</or>
+		<if>
+			<PositionIndex value=0 />
+			<sprite index = 382 />
+		</if>
+		<else>
+			<PositionIndex value=2 />
+			<sprite index = 379 />
+		</else>
+		<else>
+			<PositionIndex value=6 />
+			<sprite index = 380 />
+		</else>
+		<else>
+			<PositionIndex value=8 />
+			<sprite index = 381 />
+		</else>	
+		<else>
+			<PositionIndex value=4 />
+			<sprite index = 372 />
+			<sprite index = 378 />
+		</else>	
+	</if>
+	<else>
+		
+		<if>
+			<PositionIndex value=1 />
+			<sprite index = 376 />
+		</if>
+		<else>
+			<PositionIndex value=3 />
+			<sprite index = 377 />
+		</else>
+		<else>
+			<PositionIndex value=5 />
+			<sprite index = 374 />
+		</else>
+		<else>
+			<PositionIndex value=7 />
+			<sprite index = 375 />
+		</else>
+		<else>
+			<PositionIndex value=4 />
+			<sprite index = 372 />
+			<sprite index = 373 />
+		</else>	
+	</else>
+	<empty/>
+	
+</building> 
