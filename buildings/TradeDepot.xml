@@ -5,6 +5,29 @@
 <building name="Trade Depot" gameID="trade_depot"> 
 	
 	<sprite index = 140 />
+	
+	<!-- generic top border -->
+	<if>
+		<not><or>
+			<NeighbourSameBuilding dir="TopRight"/>
+			<NeighbourSameBuilding dir="TopLeft"/>
+		</or></not>
+		<sprite index = 244 />
+	</if>
+	<else>
+		<not>
+			<NeighbourSameBuilding dir="TopRight"/>
+		</not>
+		<sprite index = 240 />
+	</else>
+	<else>
+		<not>
+			<NeighbourSameBuilding dir="TopLeft"/>
+		</not>
+		<sprite index = 241 />
+	</else>
+	<!-- end generic border -->
+
 	<if>
 		<and>
 			<not><BuildingOccupancy value="1" /></not>
@@ -55,30 +78,31 @@
 		<sprite index = 241 />
 	</else>
 	<else>
-		<or>
-			<PositionIndex value=9 />
-			<PositionIndex value=14 />
-			<PositionIndex value=19 />
-		</or>
-		<sprite index = 243 />
-	</else>
+		<and>
+			<BuildingOccupancy value="1" />
+			<PositionIndex value=4 />
+		</and>
+		<sprite index = 321 />
+	</else>	
 	
 	<else>
-		<PositionIndex value=20 />
-		<sprite index = 241 />
-		<sprite index = 245 />
+		<not><or>
+			<NeighbourSameBuilding dir="BottomRight"/>
+			<NeighbourSameBuilding dir="BottomLeft"/>
+		</or></not>
+		<sprite index = 246 />
 	</else>
 	<else>
-		<or>
-			<PositionIndex value=21 />
-			<PositionIndex value=22 />
-			<PositionIndex value=23 />
-		</or>
+		<not><or>
+			<NeighbourSameBuilding dir="BottomLeft"/>
+		</or></not>
 		<sprite index = 242 />
 	</else>
 	<else>
-		<PositionIndex value=24 />
-		<sprite index = 246 />
+		<not><or>
+			<NeighbourSameBuilding dir="BottomRight"/>
+		</or></not>
+		<sprite index = 243 />
 	</else>	
 	
 	<else>

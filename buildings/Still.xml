@@ -54,9 +54,38 @@
 		<sprite index = 308/>
 		
 	</if>
+	<else>
+		<not><or>
+			<NeighbourSameBuilding dir="TopRight"/>
+			<NeighbourSameBuilding dir="TopLeft"/>
+		</or></not>
+		<sprite index = 244 />
+	</else>
+	<else>
+		<not>
+			<NeighbourSameBuilding dir="TopRight"/>
+		</not>
+		<sprite index = 240 />
+	</else>
+	<else>
+		<not>
+			<NeighbourSameBuilding dir="TopLeft"/>
+		</not>
+		<sprite index = 241 />
+	</else>
 	<!-- end benches block -->
  
 	<!-- contents -->
+	
+	<if>
+		<PositionIndex value=3 />
+		<sprite index = 311 />
+	</if>
+	
+	<else>
+		<PositionIndex value=8 />
+		<sprite index = 311 offsety = -5 />
+	</else>	
 	
 	<else>
 		<and>
@@ -75,17 +104,6 @@
 		<sprite index = 310 />
 		<sprite index = 247 />
 	</else>		
-
-	<else>
-		<PositionIndex value=3 />
-		<sprite index = 241 />
-		<sprite index = 311 />
-	</else>
-	<else>
-		<PositionIndex value=8 />
-		<sprite index = 311 offsety = -5 />
-		<sprite index = 246 />
-	</else>	
 			
 	<!-- generic border -->
 

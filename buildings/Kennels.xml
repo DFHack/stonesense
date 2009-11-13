@@ -4,6 +4,28 @@
 
 <building name="Kennels" gameID="kennels"> 
 
+	<!-- generic top border -->
+	<if>
+		<not><or>
+			<NeighbourSameBuilding dir="TopRight"/>
+			<NeighbourSameBuilding dir="TopLeft"/>
+		</or></not>
+		<sprite index = 244 />
+	</if>
+	<else>
+		<not>
+			<NeighbourSameBuilding dir="TopRight"/>
+		</not>
+		<sprite index = 240 />
+	</else>
+	<else>
+		<not>
+			<NeighbourSameBuilding dir="TopLeft"/>
+		</not>
+		<sprite index = 241 />
+	</else>
+	<!-- end generic border -->
+
 	<if>
 		<PositionIndex value=6 />
 		<sprite index = 107 />
@@ -41,62 +63,28 @@
 	</else>	
 	
 	<else>
-		<PositionIndex value=0 />
-		<sprite index = 244 />
+		<not><or>
+			<NeighbourSameBuilding dir="BottomRight"/>
+			<NeighbourSameBuilding dir="BottomLeft"/>
+		</or></not>
+		<sprite index = 246 />
 	</else>
 	<else>
-		<or>
-			<PositionIndex value=1 />
-			<PositionIndex value=2 />
-			<PositionIndex value=3 />
-		</or>
-		<sprite index = 240 />
-	</else>
-	<else>
-		<PositionIndex value=4 />
-		<sprite index = 240 />
-		<sprite index = 247 />
-	</else>
-
-	<else>
-		<or>
-			<PositionIndex value=5 />
-			<PositionIndex value=10 />
-			<PositionIndex value=15 />
-		</or>
-		<sprite index = 241 />
-	</else>
-	<else>
-		<or>
-			<PositionIndex value=9 />
-			<PositionIndex value=14 />
-			<PositionIndex value=19 />
-		</or>
-		<sprite index = 243 />
-	</else>
-	
-	<else>
-		<PositionIndex value=20 />
-		<sprite index = 241 />
-		<sprite index = 245 />
-	</else>
-	<else>
-		<or>
-			<PositionIndex value=21 />
-			<PositionIndex value=22 />
-			<PositionIndex value=23 />
-		</or>
+		<not><or>
+			<NeighbourSameBuilding dir="BottomLeft"/>
+		</or></not>
 		<sprite index = 242 />
 	</else>
 	<else>
-		<PositionIndex value=24 />
-		<sprite index = 246 />
+		<not><or>
+			<NeighbourSameBuilding dir="BottomRight"/>
+		</or></not>
+		<sprite index = 243 />
 	</else>	
 	
 	<else>
 		<empty/>
 	</else>	
 	<!-- end generic block -->
-
 	
 </building> 

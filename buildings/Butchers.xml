@@ -59,9 +59,33 @@
 			<sprite index = 280 />
 		</if>	
 	</if>
+	<else>
+		<not><or>
+			<NeighbourSameBuilding dir="TopRight"/>
+			<NeighbourSameBuilding dir="TopLeft"/>
+		</or></not>
+		<sprite index = 244 />
+	</else>
+	<else>
+		<not>
+			<NeighbourSameBuilding dir="TopRight"/>
+		</not>
+		<sprite index = 240 />
+	</else>
+	<else>
+		<not>
+			<NeighbourSameBuilding dir="TopLeft"/>
+		</not>
+		<sprite index = 241 />
+	</else>
 	<!-- end benches block -->
  
 	<!-- contents -->
+	
+	<if>
+		<PositionIndex value=6 />
+		<sprite index = 300 offsetx=7 offsety=-4/>
+	</if>	
 	
 	<if>
 		<BuildingOccupancy value="3" />
@@ -74,12 +98,7 @@
 			<sprite index = 260 />
 		</else>
 	</if>
-	<else>
-		<PositionIndex value=6 />
-		<sprite index = 241 />
-		<sprite index = 245 />
-		<sprite index = 300 offsetx=7 offsety=-4/>
-	</else>	
+
 		
 	<!-- generic border -->
 
@@ -90,28 +109,6 @@
 		</and>
 		<sprite index = 321 />
 	</else>	
-	<else>
-		<PositionIndex value=0 />
-		<sprite index = 244 />
-	</else>
-	<else>
-		<PositionIndex value=1 />
-		<sprite index = 240 />
-	</else>
-	<else>
-		<PositionIndex value=2 />
-		<sprite index = 240 />
-		<sprite index = 247 />
-	</else>
-
-	<else>
-		<PositionIndex value=3 />
-		<sprite index = 241 />
-	</else>
-	<else>
-		<PositionIndex value=5 />
-		<sprite index = 243 />
-	</else>
 	
 	<else>
 		<PositionIndex value=6 />
@@ -119,12 +116,16 @@
 		<sprite index = 245 />
 	</else>
 	<else>
-		<PositionIndex value=7 />
+		<not><or>
+			<NeighbourSameBuilding dir="BottomLeft"/>
+		</or></not>
 		<sprite index = 242 />
 	</else>
 	<else>
-		<PositionIndex value=8 />
-		<sprite index = 246 />
+		<not><or>
+			<NeighbourSameBuilding dir="BottomRight"/>
+		</or></not>
+		<sprite index = 243 />
 	</else>	
 	
 	<else>
