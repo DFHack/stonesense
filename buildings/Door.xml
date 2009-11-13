@@ -23,12 +23,10 @@
 	<Tile>
 		<Sprite sheetIndex=43 />
 		<Condition type="NeighbourWall" value="North" />
-		<Condition type="MaterialType" value="Stone" />
 	</Tile>
 	<Tile>
 		<Sprite sheetIndex=43 />
 		<Condition type="NeighbourWall" value="South" />
-		<Condition type="MaterialType" value="Stone" />
 	</Tile>
 	
 	<Tile>
