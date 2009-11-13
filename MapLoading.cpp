@@ -217,6 +217,21 @@ void ReadCellToSegment(API& DF, WorldSegment& segment, int CellX, int CellY, int
 }
 
 
+bool checkFloorBorderRequirement(WorldSegment* segment, int x, int y, int z, dirRelative offset)
+{
+	Block* bHigh = segment->getBlockRelativeTo(x, y, z, offset);
+	if (bHigh && (bHigh->floorType > 0 || bHigh->ramp.type > 0 || bHigh->wallType > 0))
+	{
+		return false;
+	}
+	Block* bLow = segment->getBlockRelativeTo(x, y, z-1, offset);
+	if (bLow == NULL || bLow->ramp.type == 0)
+	{
+		return true;
+	}
+	return false;
+}
+
 
 WorldSegment* ReadMapSegment(API &DF, int x, int y, int z, int sizex, int sizey, int sizez){
   uint32_t index;
@@ -338,10 +353,8 @@ WorldSegment* ReadMapSegment(API &DF, int x, int y, int z, int sizex, int sizey,
 
       //add edges to blocks and floors  
       if( b->floorType > 0 ){
-        if(!segment->getBlockRelativeTo(b->x, b->y, b->z, eLeft)) 
-          b->depthBorderWest = true;
-        if(!segment->getBlockRelativeTo(b->x, b->y, b->z, eUp)) 
-          b->depthBorderNorth = true;
+	     b->depthBorderWest = checkFloorBorderRequirement(segment, b->x, b->y, b->z, eLeft);
+	     b->depthBorderNorth = checkFloorBorderRequirement(segment, b->x, b->y, b->z, eUp);
       }else if( b->wallType > 0 && wallShouldNotHaveBorders( b->wallType ) == false ){
         Block* leftBlock = segment->getBlockRelativeTo(b->x, b->y, b->z, eLeft);
         Block* upBlock = segment->getBlockRelativeTo(b->x, b->y, b->z, eUp);
