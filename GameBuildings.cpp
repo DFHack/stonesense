@@ -92,17 +92,17 @@ void MergeBuildingsToSegment(vector<t_building>* buildings, WorldSegment* segmen
       bool inside = segment->CoordinateInsideSegment(xx,yy, tempbuilding.z);
       if(inside){
         //want hashtable :(
-        // will need all new bs now
-        //b = segment->getBlock( xx, yy, tempbuilding.z);
+        // still need to test for b, because of ramp/building overlap
+        b = segment->getBlock( xx, yy, tempbuilding.z);
         
-        //if(!b){
+        if(!b){
           //inside segment, but no block to represent it
           b = new Block(segment);
           b->x = xx;
           b->y = yy;
           b->z = tempbuilding.z;
           segment->addBlock( b );
-        //}
+        }
 
 			  if( b ){
           //handle special case where zones and stockpiles overlap buildings, and try to replace them
