@@ -41,7 +41,8 @@ public:
 		return (floorType || wallType) != 0;
 	}
 	void Draw(BITMAP* target);
-
+	void DrawRamptops(BITMAP* target);
+	
 private:
 
 };

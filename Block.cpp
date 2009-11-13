@@ -170,7 +170,34 @@ void Block::Draw(BITMAP* target){
   }
 }
 
+void Block::DrawRamptops(BITMAP* target){
+	if (ramp.type > 0)
+	{
+	
+	int sheetOffsetX, sheetOffsetY;
+  if(config.hide_outer_blocks){
+    if(x == ownerSegment->x || x == ownerSegment->x + ownerSegment->sizex - 1) return;
+    if(y == ownerSegment->y || y == ownerSegment->y + ownerSegment->sizey - 1) return;
+  }
 
+	int32_t drawx = x;
+	int32_t drawy = y;
+  	int32_t drawz = z+1; //- ownerSegment->sizez + 1;
+
+	correctBlockForSegmetOffset( drawx, drawy, drawz);
+  	correctBlockForRotation( drawx, drawy, drawz);
+	drawx *= TILEWIDTH;
+	drawy *= TILEWIDTH;
+	pointToScreen((int*)&drawx, (int*)&drawy, drawz * BLOCKHEIGHT);
+	drawx -= TILEWIDTH>>1;
+
+    sheetOffsetX = SPRITEWIDTH * ramp.index;
+    sheetOffsetY = (TILEHEIGHT + FLOORHEIGHT) * GetRampMaterialTypeMap(ramp.type);
+
+		masked_blit(IMGRamptopSheet, target, sheetOffsetX,sheetOffsetY, drawx,drawy, SPRITEWIDTH, TILEHEIGHT + FLOORHEIGHT);	
+		
+	}
+}
 
 bool hasWall(Block* b){
   if(!b) return false;
