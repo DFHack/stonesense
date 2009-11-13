@@ -25,6 +25,8 @@ distribution.
 #ifndef TYPES_H_INCLUDED
 #define TYPES_H_INCLUDED
 
+#include <string>
+
 struct t_matgloss
 {
     char id[128];
@@ -397,6 +399,7 @@ struct t_labor
         return *this;
     }
 };
+
 struct t_skill
 {
     string name;
