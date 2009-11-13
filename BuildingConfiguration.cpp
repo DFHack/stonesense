@@ -11,7 +11,8 @@ BuildingConfiguration::BuildingConfiguration(string name, char* IDstring)
   this->width = this->height = 1;
   this->canBeFloating = false;
   this->canBeAnySize = false;
-
+  this->sprites = NULL;
+  
   int len = (int) strlen(IDstring);
   if(len > 100) len = 100;
   memcpy(this->gameIDstr, IDstring, len);
@@ -20,6 +21,7 @@ BuildingConfiguration::BuildingConfiguration(string name, char* IDstring)
 
 BuildingConfiguration::~BuildingConfiguration(void)
 {
+	//cant delete bc.sprites here- screws up BCs copy semantics
 }
 
 

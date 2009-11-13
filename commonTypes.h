@@ -6,6 +6,7 @@ struct t_SpriteWithOffset{
   int32_t sheetIndex;
   int16_t x;
   int16_t y;
+  int32_t fileIndex;
 } ;
 
 

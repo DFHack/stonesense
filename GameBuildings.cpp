@@ -131,27 +131,27 @@ void MergeBuildingsToSegment(vector<t_building>* buildings, WorldSegment* segmen
 
 
 void loadBuildingSprites ( Block* b){
-  uint32_t i,j;
   bool foundBlockBuildingInfo = false;
+	if (b == NULL)
+	{
+		WriteErr("Null Block skipped in loadBuildingSprites\n");
+		return;
+	}
   uint32_t numBuildings = (uint32_t)buildingTypes.size();
-  for(i = 0; i < numBuildings; i++){
+  for(uint32_t i = 0; i < numBuildings; i++){
     BuildingConfiguration& conf = buildingTypes[i];
     if(b->building.info.type != conf.gameID) continue;
 
     //check all sprites for one that matches all conditions
-    uint32_t numSprites = (uint32_t)conf.sprites.size();
-    for(j = 0; j < numSprites; j++){
-      if(conf.sprites[j].BlockMatches(b)){
-        b->building.sprites = conf.sprites[j].sprites;
-        foundBlockBuildingInfo = true;
-        break;
-      }
+    if (conf.sprites != NULL && conf.sprites->BlockMatches(b))
+    {
+	    foundBlockBuildingInfo = true;
     }
     break;
   }
   //add yellow box, if needed. But only if the building was not found (this way we can have blank slots in buildings)
   if(b->building.sprites.size() == 0 && foundBlockBuildingInfo == false){
-    t_SpriteWithOffset unknownBuildingSprite = {SPRITEOBJECT_NA, 0, 0};
+    t_SpriteWithOffset unknownBuildingSprite = {SPRITEOBJECT_NA, 0, 0,-1};
     b->building.sprites.push_back( unknownBuildingSprite );
   }
 }

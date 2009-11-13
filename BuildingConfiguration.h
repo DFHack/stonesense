@@ -12,7 +12,7 @@ public:
   string name;
   bool canBeFloating;
   bool canBeAnySize;
-  vector<ConditionalSprite> sprites;
+  SpriteNode* sprites;
 
   BuildingConfiguration(string name, char* IDstring);
   ~BuildingConfiguration(void);

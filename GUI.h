@@ -9,7 +9,10 @@ Crd2D LocalBlockToScreen(int32_t x, int32_t y, int32_t z);
 void DrawMinimap(BITMAP* target);
 void paintboard();
 
-
+BITMAP* getImgFile(int index);
+void flushImgFiles();
+//returns index into getImgFile. Will only create new bitmaps when needed
+int loadImgFile(char* filename);
 void DrawSpriteFromSheet( int spriteNum, BITMAP* target, BITMAP* spriteSheet, int x, int y);
 BITMAP* load_bitmap_withWarning(char* path);
 void DrawSpriteIndexOverlay();

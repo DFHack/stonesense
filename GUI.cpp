@@ -27,6 +27,8 @@ BITMAP* IMGCreatureSheet;
 BITMAP* IMGRampSheet; 
 BITMAP* IMGRamptopSheet; 
 BITMAP* buffer = 0;
+vector<BITMAP*> IMGFilelist;
+vector<string*> IMGFilenames;
 
 Crd2D debugCursor;
 
@@ -313,3 +315,36 @@ void saveScreenshot(){
   //save_bitmap(filename, buffer, 0);
   save_png(filename, buffer, 0);
 }
+
+//delete and clean out the image files
+void flushImgFiles()
+{
+	//should be OK because we keep others from directly acccessing this stuff
+	uint32_t numFiles = (uint32_t)IMGFilelist.size();
+	for(uint32_t i = 0; i < numFiles; i++)
+	{
+		destroy_bitmap(IMGFilelist[i]);
+		//should be same length, I hope
+		delete(IMGFilenames[i]);
+	}
+	IMGFilelist.clear();
+	IMGFilenames.clear();
+}
+
+BITMAP* getImgFile(int index)
+{
+	return IMGFilelist[index];	
+}
+
+int loadImgFile(char* filename)
+{
+	uint32_t numFiles = (uint32_t)IMGFilelist.size();
+	for(uint32_t i = 0; i < numFiles; i++)
+	{
+		if (strcmp(filename, IMGFilenames[i]->c_str()) == 0)
+			return i;
+	}
+	IMGFilelist.push_back(load_bitmap_withWarning(filename));
+	IMGFilenames.push_back(new string(filename));
+}
+

@@ -92,13 +92,23 @@ void Block::Draw(BITMAP* target){
 
     int spriteNum =  SPRITEOBJECT_NA; //getBuildingSprite(this->building, mirroredBuilding);
 
-    for(uint32_t i=0; i < building.sprites.size(); i++){
+   for(uint32_t i=0; i < building.sprites.size(); i++){
       spriteNum = building.sprites[i].sheetIndex;
-      DrawSpriteFromSheet(spriteNum , target, IMGObjectSheet, 
+      BITMAP* objectSheet;
+	    if (building.sprites[i].fileIndex == -1)
+	    {
+	    	objectSheet = IMGObjectSheet;
+    	}
+	    else
+	    {
+	    	objectSheet = getImgFile(building.sprites[i].fileIndex);
+    	}
+      DrawSpriteFromSheet(spriteNum , target, objectSheet, 
         drawx + building.sprites[i].x,
         drawy + building.sprites[i].y);
     }
 	}
+
 
 
 
