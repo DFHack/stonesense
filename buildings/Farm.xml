@@ -2,9 +2,9 @@
 
 
 
-<Building name="Farm plot" gameID="farm_plot">
-	<Tile>
-		<Sprite sheetIndex = 27 />
-	</Tile>
+<building name="Farm plot" gameID="farm_plot">
+
+		<sprite index = 27 />
+
 	
-</Building> 
+</building> 

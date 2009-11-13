@@ -2,10 +2,6 @@
 
 
 
-<Building name="Trap" gameID="pressure_plate">
-
-	<Tile>
-		<Sprite sheetIndex = 355 />
-	</Tile>
-	
-</Building> 
+<building name="Trap" gameID="pressure_plate">
+		<sprite index = 355 />
+</building> 

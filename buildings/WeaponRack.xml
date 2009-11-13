@@ -2,8 +2,6 @@
 
 
 
-<Building name="Weapon Rack" gameID="weapon_rack"> 
-	<Tile>
-		<Sprite sheetIndex = 93 />
-	</Tile>
-</Building> 
+<building name="Weapon Rack" gameID="weapon_rack"> 
+		<sprite index = 93 />
+</building> 

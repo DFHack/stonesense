@@ -2,82 +2,37 @@
 
 
 
-<Building name="Glass Window" gameID="glass_window">
+<building name="Glass Window" gameID="glass_window">
 
-	<Tile>
-		<Condition type="MaterialType" value="GreenGlass"/>
-		<Sprite sheetIndex=63/>
-		<Condition type="NeighbourSameBuilding" value="North" />
-	</Tile>
-	<Tile>
-		<Condition type="MaterialType" value="GreenGlass"/>
-		<Sprite sheetIndex=63 />
-		<Condition type="NeighbourSameBuilding" value="South" />
-	</Tile>
-	
-	<Tile>
-		<Condition type="MaterialType" value="GreenGlass"/>
-		<Sprite sheetIndex=63/>
-		<Condition type="NeighbourWall" value="North" />
-	</Tile>
-	<Tile>
-		<Condition type="MaterialType" value="GreenGlass"/>
-		<Sprite sheetIndex=63 />
-		<Condition type="NeighbourWall" value="South" />
-	</Tile>
-	
-	<Tile>
-		<Condition type="MaterialType" value="GreenGlass"/>
-		<Sprite sheetIndex = 62 />
-	</Tile>
+	<if>
+		<or>
+			<NeighbourSameType dir="North" />
+			<NeighbourSameType dir="South" />
+			<NeighbourWall dir="North" />
+			<NeighbourWall dir="South" />
+		</or>
+		<if>
+			<MaterialType value="GreenGlass"/>
+			<sprite index=63/>
+		</if>
+		<else>
+			<MaterialType value="CrystalGlass"/>
+			<sprite index=65/>
+		</else>
+		<else>
+			<sprite index=61/>
+		</else>
+	</if>
+	<else>
+		<MaterialType value="GreenGlass"/>
+		<sprite index=62/>
+	</else>
+	<else>
+		<MaterialType value="CrystalGlass"/>
+		<sprite index=64/>
+	</else>
+	<else>
+		<sprite index=60/>
+	</else>
 
-	<Tile>
-		<Condition type="MaterialType" value="CrystalGlass"/>
-		<Sprite sheetIndex=65/>
-		<Condition type="NeighbourSameBuilding" value="North" />
-	</Tile>
-	<Tile>
-		<Condition type="MaterialType" value="CrystalGlass"/>
-		<Sprite sheetIndex=65 />
-		<Condition type="NeighbourSameBuilding" value="South" />
-	</Tile>
-	
-	<Tile>
-		<Condition type="MaterialType" value="CrystalGlass"/>
-		<Sprite sheetIndex=65/>
-		<Condition type="NeighbourWall" value="North" />
-	</Tile>
-	<Tile>
-		<Condition type="MaterialType" value="CrystalGlass"/>
-		<Sprite sheetIndex=65 />
-		<Condition type="NeighbourWall" value="South" />
-	</Tile>
-	
-	<Tile>
-		<Condition type="MaterialType" value="CrystalGlass"/>
-		<Sprite sheetIndex = 64 />
-	</Tile>
-
-	<Tile>
-		<Sprite sheetIndex=61/>
-		<Condition type="NeighbourSameBuilding" value="North" />
-	</Tile>
-	<Tile>
-		<Sprite sheetIndex=61 />
-		<Condition type="NeighbourSameBuilding" value="South" />
-	</Tile>
-	
-	<Tile>
-		<Sprite sheetIndex=61/>
-		<Condition type="NeighbourWall" value="North" />
-	</Tile>
-	<Tile>
-		<Sprite sheetIndex=61 />
-		<Condition type="NeighbourWall" value="South" />
-	</Tile>
-	
-	<Tile>
-		<Sprite sheetIndex = 60 />
-	</Tile>
-	
-</Building> 
+</building> 

@@ -2,14 +2,12 @@
 
 
 
-<Building name="Cabinet" gameID="cabinet"> 
-	<Tile>
-		<Sprite sheetIndex = 88 />
-		<Condition type="MaterialType" value="Wood" />
-	</Tile>
-	
-	<Tile>
-		<Sprite sheetIndex = 87 />
-	</Tile>
-	
-</Building> 
+<building name="Cabinet" gameID="cabinet"> 
+	<if>
+		<MaterialType value="Wood" />
+		<sprite index = 88 />
+	</if>
+	<else>
+		<sprite index = 87 />
+	</else>
+</building> 

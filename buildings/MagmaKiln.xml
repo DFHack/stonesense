@@ -2,80 +2,103 @@
 
 
 
-<Building name="Magma Kiln" gameID="magma_kiln"> 
+<building name="Magma Kiln" gameID="magma_kiln"> 
 
-	<Tile>
-		<Condition type="PositionIndex" value=1 />
-		<Condition type="MaterialType" value="Metal"/>
-		<Sprite sheetIndex = 257 />
-	</Tile>
-	<Tile>
-		<Condition type="PositionIndex" value=1 />
-		<Sprite sheetIndex = 272 />
-	</Tile>
-
-	<Tile>
-		<Condition type="PositionIndex" value=2 />
-		<Sprite sheetIndex = 240 />
-		<Sprite sheetIndex = 258 />
-		<Sprite sheetIndex = 247 />
-	</Tile>
+	<!-- benches block -->
+	<if> 
+		<!-- replace this with position index if required -->
+		<BuildingOccupancy value="3" />	
+		<!-- stoves -->
+		<if>
+			<MaterialType value="Metal"/>
+			<sprite index = 257 />
+		</if>
+		<else>
+			<sprite index = 272 />
+		</else>
+	</if>
+	<!-- end benches block -->
+ 
+	<!-- contents -->
 	
-	<Tile>
-		<Condition type="PositionIndex" value=6 />
-		<Sprite sheetIndex = 241 />
-		<Sprite sheetIndex = 252 offsetx=4/>
-		<Sprite sheetIndex = 245 />	
-	</Tile>
+	<if>
+		<BuildingOccupancy value="3" />
+	</if>	
+		
+	<else>
+		<not><HaveFloor/></not>
+		<empty/>
+	</else>
 	
-	<Tile>
-		<Condition type="PositionIndex" value=8 />
-		<Sprite sheetIndex = 262 offsety=-1/>
-		<Sprite sheetIndex = 246 />
-	</Tile>
-
+	<else>
+		<PositionIndex value=2 />
+		<sprite index = 240 />
+		<sprite index = 258 />
+		<sprite index = 247 />
+	</else>	
+	
+	<else>
+		<PositionIndex value=6 />
+		<sprite index = 241 />
+		<sprite index = 252 offsetx=4/>
+		<sprite index = 245 />	
+	</else>
+	
+	<else>
+		<PositionIndex value=8 />
+		<sprite index = 262 offsety=-1/>
+		<sprite index = 246 />
+	</else>	
+	
 	<!-- generic border -->
 
-	<Tile>
-		<Condition type="PositionIndex" value=0 />
-		<Sprite sheetIndex = 244 />
-	</Tile>
-	<Tile>
-		<Condition type="PositionIndex" value=1 />
-		<Sprite sheetIndex = 240 />
-	</Tile>
-	<Tile>
-		<Condition type="PositionIndex" value=2 />
-		<Sprite sheetIndex = 240 />
-		<Sprite sheetIndex = 247 />
-	</Tile>
+	<else>
+		<and>
+			<BuildingOccupancy value="1" />
+			<PositionIndex value=4 />
+		</and>
+		<sprite index = 321 />
+	</else>	
+	<else>
+		<PositionIndex value=0 />
+		<sprite index = 244 />
+	</else>
+	<else>
+		<PositionIndex value=1 />
+		<sprite index = 240 />
+	</else>
+	<else>
+		<PositionIndex value=2 />
+		<sprite index = 240 />
+		<sprite index = 247 />
+	</else>
 
-	<Tile>
-		<Condition type="PositionIndex" value=3 />
-		<Sprite sheetIndex = 241 />
-	</Tile>
-	<Tile>
-		<Condition type="PositionIndex" value=5 />
-		<Sprite sheetIndex = 243 />
-	</Tile>
+	<else>
+		<PositionIndex value=3 />
+		<sprite index = 241 />
+	</else>
+	<else>
+		<PositionIndex value=5 />
+		<sprite index = 243 />
+	</else>
 	
-	<Tile>
-		<Condition type="PositionIndex" value=6 />
-		<Sprite sheetIndex = 241 />
-		<Sprite sheetIndex = 245 />
-	</Tile>
-	<Tile>
-		<Condition type="PositionIndex" value=7 />
-		<Sprite sheetIndex = 242 />
-	</Tile>
-	<Tile>
-		<Condition type="PositionIndex" value=8 />
-		<Sprite sheetIndex = 246 />
-	</Tile>	
+	<else>
+		<PositionIndex value=6 />
+		<sprite index = 241 />
+		<sprite index = 245 />
+	</else>
+	<else>
+		<PositionIndex value=7 />
+		<sprite index = 242 />
+	</else>
+	<else>
+		<PositionIndex value=8 />
+		<sprite index = 246 />
+	</else>	
 	
-	<Tile>
-	</Tile>	
-	
+	<else>
+		<empty/>
+	</else>	
 	<!-- end generic block -->
 	
-</Building> 
+</building> 

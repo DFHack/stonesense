@@ -2,15 +2,12 @@
 
 
 
-<Building name="Chair" gameID="seat"> 
-
-	<Tile>
-		<Condition type="MaterialType" value="Wood" />
-		<Sprite sheetIndex = 84 />
-	</Tile>	
-	
-	<Tile>
-		<Sprite sheetIndex = 85 />
-	</Tile>
-	
-</Building> 
+<building name="Chair" gameID="seat"> 
+	<if>
+		<MaterialType value="Wood" />
+		<sprite index = 84 />
+	</if>	
+	<else>
+		<sprite index = 85 />
+	</else>
+</building> 

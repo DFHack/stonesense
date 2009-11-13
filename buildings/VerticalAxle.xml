@@ -2,11 +2,6 @@
 
 
 
-<Building name="Vertical Axle" gameID="vertical_axle">
-
-	
-	<Tile>
-		<Sprite sheetIndex = 111 />
-	</Tile>
-	
-</Building> 
+<building name="Vertical Axle" gameID="vertical_axle">
+		<sprite index = 111 />
+</building> 

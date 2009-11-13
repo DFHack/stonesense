@@ -2,9 +2,8 @@
 
 
 
-<Building name="Lever" gameID="lever">
-	<Tile>
-		<Sprite sheetIndex = 108 />
-	</Tile>
-	
-</Building> 
+<building name="Lever" gameID="lever">
+
+		<sprite index = 108 />
+
+</building> 

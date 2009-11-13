@@ -1,129 +1,138 @@
 <?xml version="1.0" ?>
 
 
-<Building name="Jewelers Workshop" gameID="jewelers_workshop"> 
+<building name="Jewelers Workshop" gameID="jewelers_workshop"> 
 
-	<Tile>
-		<Condition type="PositionIndex" value=2 />
-		<Condition type="MaterialType" value="Wood" />
-		<Sprite sheetIndex = 274 />
-		<Sprite sheetIndex = 281 />
-		<Sprite sheetIndex = 279 offsetx=2 offsety=-2 />
-		<Sprite sheetIndex = 291 offsetx=-3 offsety=-2 />
-	</Tile>
-	<Tile>
-		<Condition type="PositionIndex" value=2 />
-		<Condition type="MaterialType" value="Metal"/>
-		<Sprite sheetIndex = 254 />
-		<Sprite sheetIndex = 281 />
-		<Sprite sheetIndex = 279 offsetx=2 offsety=-2 />
-		<Sprite sheetIndex = 291 offsetx=-3 offsety=-2 />
-	</Tile>
-	<Tile>
-		<Condition type="PositionIndex" value=2 />
-		<Sprite sheetIndex = 273 />
-		<Sprite sheetIndex = 281 />
-		<Sprite sheetIndex = 279 offsetx=2 offsety=-2 />
-		<Sprite sheetIndex = 291 offsetx=-3 offsety=-2 />
-	</Tile>
+	<!-- benches block -->
+	<if> 
+		<!-- replace this with position index if required -->
+		<BuildingOccupancy value="3" />	
+		<!-- benches -->
+		<if>
+			<MaterialType value="Wood" />
+			<sprite index = 274 />
+		</if>
+		<else>
+			<MaterialType value="Metal"/>
+			<sprite index = 254 />
+		</else>
+		<else>
+			<MaterialType value="GreenGlass"/>
+			<sprite index = 285 />
+		</else>
+		<else>
+			<or>
+				<MaterialType value="ClearGlass"/>
+				<MaterialType value="CrystalGlass"/>
+			</or>
+			<sprite index = 283 />
+		</else>
+		<else>
+			<sprite index = 273 />
+		</else>
+		<!-- borders -->
+		<if>
+			<not>
+				<or>
+					<NeighbourIdentical dir="TopRight"/>
+					<NeighbourWall dir="TopRight"/>
+				</or>
+			</not>
+			<sprite index = 282 />
+		</if>
+		<if>
+			<not>
+				<or>
+					<NeighbourIdentical dir="TopLeft"/>
+					<NeighbourWall dir="TopLeft"/>
+				</or>
+			</not>
+			<sprite index = 280 />
+		</if>	
+	</if>
+	<!-- end benches block -->
+ 
+	<!-- contents -->
 	
-	<Tile>
-		<Condition type="PositionIndex" value=5 />
-		<Condition type="MaterialType" value="Wood" />
-		<Sprite sheetIndex = 274 />
-		<Sprite sheetIndex = 280 />
-		<Sprite sheetIndex = 296 />
-	</Tile>
-	<Tile>
-		<Condition type="PositionIndex" value=5 />
-		<Condition type="MaterialType" value="Metal"/>
-		<Sprite sheetIndex = 254 />
-		<Sprite sheetIndex = 280 />
-		<Sprite sheetIndex = 296 />
-	</Tile>
-	<Tile>
-		<Condition type="PositionIndex" value=5 />
-		<Sprite sheetIndex = 273 />
-		<Sprite sheetIndex = 280 />
-		<Sprite sheetIndex = 296 />
-	</Tile>
-	
-	<Tile>
-		<Condition type="PositionIndex" value=8 />
-		<Condition type="MaterialType" value="Wood" />
-		<Sprite sheetIndex = 274 />
-		<Sprite sheetIndex = 280 />
-		<Sprite sheetIndex = 292 />
-	</Tile>
-	<Tile>
-		<Condition type="PositionIndex" value=8 />
-		<Condition type="MaterialType" value="Metal"/>
-		<Sprite sheetIndex = 254 />
-		<Sprite sheetIndex = 280 />
-		<Sprite sheetIndex = 292 />
-	</Tile>
-	<Tile>
-		<Condition type="PositionIndex" value=8 />
-		<Sprite sheetIndex = 273 />
-		<Sprite sheetIndex = 280 />
-		<Sprite sheetIndex = 292  />
-	</Tile>
-	
-	<Tile>
-		<Condition type="PositionIndex" value=0 />
-		<Sprite sheetIndex = 244 />
-		<Sprite sheetIndex = 299 />
-	</Tile>	
+	<if>
+		<BuildingOccupancy value="3" />
+		<if>
+			<PositionIndex value=2 />
+			<sprite index = 279 offsetx=2 offsety=-2 />
+			<sprite index = 291 offsetx=-3 offsety=-2 />
+		</if>
+		<else>
+			<PositionIndex value=5 />
+			<sprite index = 296 />
+		</else>
+		<else>
+			<PositionIndex value=8 />
+			<sprite index = 292  />
+		</else>				
+	</if>		
 
-	<Tile>
-		<Condition type="PositionIndex" value=6 />
-		<Sprite sheetIndex = 241 />
-		<Sprite sheetIndex = 298 />
-		<Sprite sheetIndex = 245 />
-	</Tile>	
-	
+	<else>
+		<PositionIndex value=0 />
+		<sprite index = 244 />
+		<sprite index = 299 />
+	</else>	
+
+	<else>
+		<PositionIndex value=6 />
+		<sprite index = 241 />
+		<sprite index = 298 />
+		<sprite index = 245 />
+	</else>		
+			
 	<!-- generic border -->
 
-	<Tile>
-		<Condition type="PositionIndex" value=0 />
-		<Sprite sheetIndex = 244 />
-	</Tile>
-	<Tile>
-		<Condition type="PositionIndex" value=1 />
-		<Sprite sheetIndex = 240 />
-	</Tile>
-	<Tile>
-		<Condition type="PositionIndex" value=2 />
-		<Sprite sheetIndex = 240 />
-		<Sprite sheetIndex = 247 />
-	</Tile>
+	<else>
+		<and>
+			<BuildingOccupancy value="1" />
+			<PositionIndex value=4 />
+		</and>
+		<sprite index = 321 />
+	</else>	
+	<else>
+		<PositionIndex value=0 />
+		<sprite index = 244 />
+	</else>
+	<else>
+		<PositionIndex value=1 />
+		<sprite index = 240 />
+	</else>
+	<else>
+		<PositionIndex value=2 />
+		<sprite index = 240 />
+		<sprite index = 247 />
+	</else>
 
-	<Tile>
-		<Condition type="PositionIndex" value=3 />
-		<Sprite sheetIndex = 241 />
-	</Tile>
-	<Tile>
-		<Condition type="PositionIndex" value=5 />
-		<Sprite sheetIndex = 243 />
-	</Tile>
+	<else>
+		<PositionIndex value=3 />
+		<sprite index = 241 />
+	</else>
+	<else>
+		<PositionIndex value=5 />
+		<sprite index = 243 />
+	</else>
 	
-	<Tile>
-		<Condition type="PositionIndex" value=6 />
-		<Sprite sheetIndex = 241 />
-		<Sprite sheetIndex = 245 />
-	</Tile>
-	<Tile>
-		<Condition type="PositionIndex" value=7 />
-		<Sprite sheetIndex = 242 />
-	</Tile>
-	<Tile>
-		<Condition type="PositionIndex" value=8 />
-		<Sprite sheetIndex = 246 />
-	</Tile>	
+	<else>
+		<PositionIndex value=6 />
+		<sprite index = 241 />
+		<sprite index = 245 />
+	</else>
+	<else>
+		<PositionIndex value=7 />
+		<sprite index = 242 />
+	</else>
+	<else>
+		<PositionIndex value=8 />
+		<sprite index = 246 />
+	</else>	
 	
-	<Tile>
-	</Tile>	
-	
+	<else>
+		<empty/>
+	</else>	
 	<!-- end generic block -->
 	
-</Building> 
+</building> 

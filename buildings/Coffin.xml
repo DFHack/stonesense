@@ -2,10 +2,6 @@
 
 
 
-<Building name="Coffin" gameID="burial_receptacle">
-
-	<Tile>
-		<Sprite sheetIndex = 275 />
-	</Tile>
-	
-</Building> 
+<building name="Coffin" gameID="burial_receptacle">
+	<sprite index = 275 />
+</building> 

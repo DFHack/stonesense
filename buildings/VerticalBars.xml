@@ -2,51 +2,78 @@
 
 
 
-<Building name="Vertical Bars" gameID="vertical_bars"> 
+<building name="Vertical Bars" gameID="vertical_bars"> 
 
-	<Tile>
-		<Sprite sheetIndex=105 />
-		<Condition type="NeighbourSameBuilding" value="South" />
-		<Condition type="NeighbourSameBuilding" value="West" />
-	</Tile>		
-	<Tile>
-		<Sprite sheetIndex=104 />
-		<Condition type="NeighbourSameBuilding" value="North" />
-		<Condition type="NeighbourSameBuilding" value="East" />
-	</Tile>		
-	<Tile>
-		<Sprite sheetIndex=103 />
-		<Condition type="NeighbourSameBuilding" value="North" />
-		<Condition type="NeighbourSameBuilding" value="West" />
-	</Tile>
-	<Tile>
-		<Sprite sheetIndex=102 />
-		<Condition type="NeighbourSameBuilding" value="South" />
-		<Condition type="NeighbourSameBuilding" value="East" />
-	</Tile>
-		
-	<Tile>
-		<Sprite sheetIndex=101/>
-		<Condition type="NeighbourSameBuilding" value="North" />
-	</Tile>
-	<Tile>
-		<Sprite sheetIndex=101 />
-		<Condition type="NeighbourSameBuilding" value="South" />
-	</Tile>
+	<!-- straight or end pieces -->
+	<if>
+		<and>
+			<or>
+				<NeighbourSameType dir="North" />
+				<NeighbourSameType dir="South" />
+				<NeighbourWall dir="North" />
+				<NeighbourWall dir="South" />
+			</or>
+			<not>
+				<or>
+					<NeighbourSameType dir="East" />
+					<NeighbourSameType dir="West" />
+					<NeighbourWall dir="East" />
+					<NeighbourWall dir="West" />
+				</or>
+			</not>
+		</and>
+		<sprite index=101 />
+	</if>	
+	<else>
+		<and>
+			<or>
+				<NeighbourSameType dir="East" />
+				<NeighbourSameType dir="West" />
+				<NeighbourWall dir="East" />
+				<NeighbourWall dir="West" />
+			</or>
+			<not>
+				<or>
+					<NeighbourSameType dir="North" />
+					<NeighbourSameType dir="South" />
+					<NeighbourWall dir="North" />
+					<NeighbourWall dir="South" />
+				</or>
+			</not>
+		</and>
+		<sprite index=100 />
+	</else>
 	
-	<Tile>
-		<Sprite sheetIndex=101/>
-		<Condition type="NeighbourWall" value="North" />
-	</Tile>
-	<Tile>
-		<Sprite sheetIndex=101 />
-		<Condition type="NeighbourWall" value="South" />
-	</Tile>
-	
-
-	
-	<Tile>
-		<Sprite sheetIndex = 100 />
-	</Tile>
-	
-</Building> 
+	<!-- wiggly chunks -->
+	<else>
+		<sprite index=106 />
+		<if>
+			<or>
+				<NeighbourSameType dir="West" />
+				<NeighbourWall dir="West" />	
+			</or>
+			<sprite index=102 />
+		</if>
+		<if>
+			<or>
+				<NeighbourSameType dir="North" />
+				<NeighbourWall dir="North" />	
+			</or>
+			<sprite index=103 />
+		</if>
+		<if>
+			<or>
+				<NeighbourSameType dir="South" />
+				<NeighbourWall dir="South" />	
+			</or>
+			<sprite index=105 />
+		</if>
+		<if>
+			<or>
+				<NeighbourSameType dir="East" />
+				<NeighbourWall dir="East" />	
+			</or>
+			<sprite index=104 />
+		</if>
+	</else>
+</building> 

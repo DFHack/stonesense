@@ -2,25 +2,25 @@
 
 
 
-<Building name="Cage" gameID="cage"> 
-	<Tile>
-		<Condition type="MaterialType" value="Wood" />
-		<Sprite sheetIndex = 313 />
-	</Tile>
-	<Tile>
-		<Condition type="MaterialType" value="GreenGlass"/>
-		<Sprite sheetIndex = 314 />
-	</Tile>
-	<Tile>
-		<Condition type="MaterialType" value="ClearGlass"/>
-		<Sprite sheetIndex = 294 />
-	</Tile>
-	<Tile>
-		<Condition type="MaterialType" value="CrystalGlass"/>
-		<Sprite sheetIndex = 294 />
-	</Tile>
-	<Tile>
-		<Sprite sheetIndex = 312 />
-	</Tile>
+<building name="Cage" gameID="cage"> 
+	<if>
+		<MaterialType value="Wood" />
+		<sprite index = 313 />
+	</if>
+	<else>
+		<MaterialType value="GreenGlass"/>
+		<sprite index = 314 />
+	</else>
+	<else>
+		<MaterialType value="ClearGlass"/>
+		<sprite index = 294 />
+	</else>
+	<else>
+		<MaterialType value="CrystalGlass"/>
+		<sprite index = 294 />
+	</else>
+	<else>
+		<sprite index = 312 />
+	</else>
 	
-</Building> 
+</building> 

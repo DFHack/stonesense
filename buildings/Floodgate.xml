@@ -2,57 +2,30 @@
 
 
 
-<Building name="Floodgate" gameID="floodgate"> 
-	
-	<Tile>
-		<Sprite sheetIndex=44 />
-		<Condition type="NeighbourWall" value="South" />
-		<Condition type="MaterialType" value="Wood" />
-	</Tile>
-	<Tile>
-		<Sprite sheetIndex=44 />
-		<Condition type="NeighbourWall" value="North" />
-		<Condition type="MaterialType" value="Wood" />
-	</Tile>
-	<Tile>
-		<Sprite sheetIndex=44 />
-		<Condition type="NeighbourSameBuilding" value="South" />
-		<Condition type="MaterialType" value="Wood" />
-	</Tile>
-	<Tile>
-		<Sprite sheetIndex=44 />
-		<Condition type="NeighbourSameBuilding" value="North" />
-		<Condition type="MaterialType" value="Wood" />
-	</Tile>
-	<Tile>
-		<Sprite sheetIndex = 41 />
-		<Condition type="MaterialType" value="Wood" />
-	</Tile>
-	
-	
-	<Tile>
-		<Sprite sheetIndex=43 />
-		<Condition type="NeighbourWall" value="North" />
-		<Condition type="MaterialType" value="Stone" />
-	</Tile>
-	<Tile>
-		<Sprite sheetIndex=43 />
-		<Condition type="NeighbourWall" value="South" />
-		<Condition type="MaterialType" value="Stone" />
-	</Tile>
-	<Tile>
-		<Sprite sheetIndex=43 />
-		<Condition type="NeighbourSameBuilding" value="North" />
-		<Condition type="MaterialType" value="Stone" />
-	</Tile>
-	<Tile>
-		<Sprite sheetIndex=43 />
-		<Condition type="NeighbourSameBuilding" value="South" />
-		<Condition type="MaterialType" value="Stone" />
-	</Tile>
-		
-	<Tile>
-		<Sprite sheetIndex = 40 />
-	</Tile>
-	
-</Building> 
+<building name="Floodgate" gameID="floodgate"> 
+
+	<if>
+		<BuildingOccupancy value="2" />
+		<empty/>
+	</if>
+	<else>
+		<or>
+			<NeighbourWall dir="North" />
+			<NeighbourWall dir="South" />
+		</or>
+		<if>
+			<MaterialType value="Wood" />
+			<sprite index=44/>
+		</if>
+		<else>
+			<sprite index=43 />
+		</else>
+	</else>
+	<else>
+		<MaterialType value="Wood" />
+		<sprite index = 41 />
+	</else>
+	<else>
+		<sprite index = 40 />
+	</else>
+</building> 

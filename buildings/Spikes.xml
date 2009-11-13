@@ -2,10 +2,6 @@
 
 
 
-<Building name="Trap" gameID="spike">
-
-	<Tile>
-		<Sprite sheetIndex = 356 />
-	</Tile>
-	
-</Building> 
+<building name="Trap" gameID="spike">
+		<sprite index = 356 />
+</building> 

@@ -2,15 +2,10 @@
 
 
 
-<Building name="Paved Road" gameID="paved_road"> 
+<building name="Paved Road" gameID="paved_road"> 
 	
-	<Tile>
-		<Sprite sheetIndex = 140 />
-		<Condition type="MaterialType" value="Metal" />
-	</Tile>
 
-	<Tile>
-		<Sprite sheetIndex = 140 />
-	</Tile>
+		<sprite index = 140 />
+
 	
-</Building> 
+</building> 

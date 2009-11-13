@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 
-<Building name="Zone" gameID="zone">
-	<Tile>
-		<Sprite sheetIndex = 320 />
-	</Tile>
-</Building> 
+<building name="Zone" gameID="zone">
+
+		<sprite index = 320 />
+
+</building> 

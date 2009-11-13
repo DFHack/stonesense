@@ -2,21 +2,114 @@
 
 
 
-<Building name="Horizontal Axle" gameID="horizontal_axle">
+<building name="Horizontal Axle" gameID="horizontal_axle">
 
-
-	<Tile>
-		<Condition type="NeighbourSameBuilding" value="West"/>
-		<Sprite sheetIndex = 110 />
-	</Tile>
-	<Tile>
-		<Condition type="NeighbourSameBuilding" value="East"/>
-		<Sprite sheetIndex = 110 />
-	</Tile>
-	
-	
-	<Tile>
-		<Sprite sheetIndex = 109 />
-	</Tile>
-	
-</Building> 
+	<!-- can be sure we have it right if the building is long -->
+	<if>
+		<or>
+			<NeighbourSameBuilding dir="West"/>
+			<NeighbourSameBuilding dir="East"/>
+		</or>
+		<if>
+			<or>
+				<AnimationFrame value=0 />
+				<AnimationFrame value=2 />
+				<AnimationFrame value=4 />
+			</or>
+			<sprite index = 110 />
+		</if>
+		<else>
+			<sprite index = 130 />
+		</else>
+	</if>
+	<else>
+		<or>
+			<NeighbourSameBuilding dir="North"/>
+			<NeighbourSameBuilding dir="South"/>
+		</or>
+		<if>
+			<or>
+				<AnimationFrame value=0 />
+				<AnimationFrame value=2 />
+				<AnimationFrame value=4 />
+			</or>
+			<sprite index = 109 />
+		</if>
+		<else>
+			<sprite index = 129 />
+		</else>
+	</else>
+	<!-- look for gears preferentially -->
+	<else>
+		<or>
+			<NeighbourOfType dir="East" value="gear_assembly"/>
+			<NeighbourOfType dir="West" value="gear_assembly"/>
+		</or>
+		<if>
+			<or>
+				<AnimationFrame value=0 />
+				<AnimationFrame value=2 />
+				<AnimationFrame value=4 />
+			</or>
+			<sprite index = 110 />
+		</if>
+		<else>
+			<sprite index = 130 />
+		</else>
+	</else>
+	<else>
+		<or>
+			<NeighbourOfType dir="North" value="gear_assembly"/>
+			<NeighbourOfType dir="South" value="gear_assembly"/>
+		</or>
+		<if>
+			<or>
+				<AnimationFrame value=0 />
+				<AnimationFrame value=2 />
+				<AnimationFrame value=4 />
+			</or>
+			<sprite index = 109 />
+		</if>
+		<else>
+			<sprite index = 129 />
+		</else>
+	</else>
+	<!-- any other hints -->
+	<else>
+		<or>
+			<NeighbourOfType dir="East" value="water_wheel"/>
+			<NeighbourOfType dir="West" value="water_wheel"/>
+			<NeighbourOfType dir="East" value="screw_pump"/>
+			<NeighbourOfType dir="West" value="screw_pump"/>
+			<NeighbourOfType dir="East" value="millstone"/>
+			<NeighbourOfType dir="West" value="millstone"/>
+			<NeighbourOfType dir="East" value="horizontal_axle"/>
+			<NeighbourOfType dir="West" value="horizontal_axle"/>
+		</or>
+		<if>
+			<or>
+				<AnimationFrame value=0 />
+				<AnimationFrame value=2 />
+				<AnimationFrame value=4 />
+			</or>
+			<sprite index = 109 />
+		</if>
+		<else>
+			<sprite index = 129 />
+		</else>
+	</else>	
+	<else>
+		<if>
+			<or>
+				<AnimationFrame value=0 />
+				<AnimationFrame value=2 />
+				<AnimationFrame value=4 />
+			</or>
+			<sprite index = 110 />
+		</if>
+		<else>
+			<sprite index = 130 />
+		</else>
+	</else>
+		
+</building> 

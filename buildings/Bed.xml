@@ -2,9 +2,6 @@
 
 
 
-<Building name="Bed" gameID="bed">
-	<Tile>
-		<Sprite sheetIndex = 81 />
-	</Tile>
-	
-</Building> 
+<building name="Bed" gameID="bed">
+	<sprite index = 81 />
+</building> 

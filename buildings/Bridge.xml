@@ -2,395 +2,150 @@
 
 
 
-<Building name="Bridge" gameID="bridge"> 
+<building name="Bridge" gameID="bridge" > 
 
-	<Tile>
-		<Condition type="BuildingOccupancy" value="2" />
-	</Tile>	
+	<if>
+		<BuildingOccupancy value="2" />
+		<empty/>
+	</if>	
 	
-	<!-- Wooden -->
+	<!-- wood -->
+	<else>
+		<MaterialType value="Wood" />
+		<if>
+			<!-- raised -->
+			<BuildingOccupancy value="6" />
+			<if>
+				<or>
+					<NeighbourIdentical dir="West" />
+					<NeighbourIdentical dir="East" />		
+				</or>
+				<sprite index=366 />
+				<if>
+					<not><NeighbourIdentical dir="West" /></not>
+					<sprite index=367 />
+				</if>
+				<if>
+					<not><NeighbourIdentical dir="East" /></not>
+					<sprite index=368 />
+				</if>
+			</if>
+			<else>
+				<sprite index=369 />
+				<if>
+					<not><NeighbourIdentical dir="North" /></not>
+					<sprite index=371 />
+				</if>
+				<if>
+					<not><NeighbourIdentical dir="South" /></not>
+					<sprite index=370 />
+				</if>				
+			</else>
+		</if>
+		<else>
+			<!-- flat -->
+			<sprite index=360 />
+			<if>
+				<not><or>
+					<NeighbourSameBuilding dir="North" />
+					<NeighbourSameBuilding dir="West" />
+				</or></not>
+				<sprite index = 365 />
+			</if>
+			<else>
+				<not><NeighbourSameBuilding dir="North" /></not>
+				<sprite index = 362 />
+			</else>
+			<else>
+				<not><NeighbourSameBuilding dir="West" /></not>
+				<sprite index = 361 />
+			</else>
+			<if>
+				<not><NeighbourSameBuilding dir="South" /></not>
+				<sprite index = 363 />
+			</if>
+			<if>
+				<not><NeighbourSameBuilding dir="East" /></not>
+				<sprite index = 364 />
+			</if>	
+		</else>	
+	</else>
 	
-	<Tile>
-		<Condition type="MaterialType" value="Wood" />
-		<Sprite sheetIndex=366 />
-		<Condition type="BuildingOccupancy" value="6" />
-		<Condition type="NeighbourIdentical" value="West" />
-		<Condition type="NeighbourIdentical" value="East" />
-	</Tile>	
-	<Tile>
-		<Condition type="MaterialType" value="Wood" />
-		<Sprite sheetIndex=366 />
-		<Sprite sheetIndex=367 />
-		<Condition type="BuildingOccupancy" value="6" />
-		<Condition type="NeighbourIdentical" value="East" />
-	</Tile>	
-	<Tile>
-		<Condition type="MaterialType" value="Wood" />
-		<Sprite sheetIndex=366 />
-		<Sprite sheetIndex=368 />
-		<Condition type="BuildingOccupancy" value="6" />
-		<Condition type="NeighbourIdentical" value="West" />
-	</Tile>	
-	<Tile>
-		<Condition type="MaterialType" value="Wood" />
-		<Sprite sheetIndex=369 />
-		<Condition type="BuildingOccupancy" value="6" />
-		<Condition type="NeighbourIdentical" value="North" />
-		<Condition type="NeighbourIdentical" value="South" />
-	</Tile>	
-	<Tile>
-		<Condition type="MaterialType" value="Wood" />
-		<Sprite sheetIndex=369 />
-		<Sprite sheetIndex=371 />
-		<Condition type="BuildingOccupancy" value="6" />
-		<Condition type="NeighbourIdentical" value="South" />
-	</Tile>	
-	<Tile>
-		<Condition type="MaterialType" value="Wood" />
-		<Sprite sheetIndex=369 />
-		<Sprite sheetIndex=370 />
-		<Condition type="BuildingOccupancy" value="6" />
-		<Condition type="NeighbourIdentical" value="North" />
-	</Tile>		
-	<Tile>
-		<Condition type="MaterialType" value="Wood" />
-		<Sprite sheetIndex=366 />
-		<Sprite sheetIndex=367 />
-		<Sprite sheetIndex=368 />
-		<Condition type="BuildingOccupancy" value="6" />
-		<Condition type="NeighbourSameIndex" value="North" />
-	</Tile>	
-	<Tile>
-		<Condition type="MaterialType" value="Wood" />
-		<Sprite sheetIndex=366 />
-		<Sprite sheetIndex=367 />
-		<Sprite sheetIndex=368 />
-		<Condition type="BuildingOccupancy" value="6" />
-		<Condition type="NeighbourSameIndex" value="South" />
-	</Tile>		
-	<Tile>
-		<Condition type="MaterialType" value="Wood" />
-		<Sprite sheetIndex=369 />
-		<Sprite sheetIndex=370 />
-		<Sprite sheetIndex=371 />
-		<Condition type="BuildingOccupancy" value="6" />
-	</Tile>	
-
-	<!-- flat -->
 	
-	<Tile>
-		<Condition type="MaterialType" value="Wood" />
-		<Sprite sheetIndex=360 />
-		<Condition type="NeighbourSameIndex" value="North" />
-		<Condition type="NeighbourSameIndex" value="South" />
-		<Condition type="NeighbourSameIndex" value="East" />
-		<Condition type="NeighbourSameIndex" value="West" />
-	</Tile>	
-	
-	<!-- edges -->
-	<Tile>
-		<Condition type="MaterialType" value="Wood" />
-		<Condition type="NeighbourSameIndex" value="South" />
-		<Condition type="NeighbourSameIndex" value="East" />
-		<Condition type="NeighbourSameIndex" value="West" />
-		<Sprite sheetIndex = 360 />
-		<Sprite sheetIndex = 362 />
-	</Tile>
-	<Tile>
-		<Condition type="MaterialType" value="Wood" />
-		<Condition type="NeighbourSameIndex" value="North" />
-		<Condition type="NeighbourSameIndex" value="East" />
-		<Condition type="NeighbourSameIndex" value="West" />
-		<Sprite sheetIndex = 360 />
-		<Sprite sheetIndex = 363 />
-	</Tile>
-	<Tile>
-		<Condition type="MaterialType" value="Wood" />
-		<Condition type="NeighbourSameIndex" value="North" />
-		<Condition type="NeighbourSameIndex" value="South" />
-		<Condition type="NeighbourSameIndex" value="West" />
-		<Sprite sheetIndex = 360 />
-		<Sprite sheetIndex = 364 />
-	</Tile>
-	<Tile>
-		<Condition type="MaterialType" value="Wood" />
-		<Condition type="NeighbourSameIndex" value="North" />
-		<Condition type="NeighbourSameIndex" value="South" />
-		<Condition type="NeighbourSameIndex" value="East" />
-		<Sprite sheetIndex = 360 />
-		<Sprite sheetIndex = 361 />
-	</Tile>	
-	
-	<!-- Corners -->
-	<Tile>
-		<Condition type="MaterialType" value="Wood" />
-		<Condition type="NeighbourSameIndex" value="South" />
-		<Condition type="NeighbourSameIndex" value="East" />
-		<Sprite sheetIndex = 360 />
-		<Sprite sheetIndex = 365 />
-	</Tile>
-	<Tile>
-		<Condition type="MaterialType" value="Wood" />
-		<Condition type="NeighbourSameIndex" value="North" />
-		<Condition type="NeighbourSameIndex" value="East" />
-		<Sprite sheetIndex = 360 />
-		<Sprite sheetIndex = 361 />
-		<Sprite sheetIndex = 363 />
-	</Tile>
-	<Tile>
-		<Condition type="MaterialType" value="Wood" />
-		<Condition type="NeighbourSameIndex" value="North" />
-		<Condition type="NeighbourSameIndex" value="West" />
-		<Sprite sheetIndex = 360 />
-		<Sprite sheetIndex = 363 />
-		<Sprite sheetIndex = 364 />
-	</Tile>
-	<Tile>
-		<Condition type="MaterialType" value="Wood" />
-		<Condition type="NeighbourSameIndex" value="South" />
-		<Condition type="NeighbourSameIndex" value="West" />
-		<Sprite sheetIndex = 360 />
-		<Sprite sheetIndex = 362 />
-		<Sprite sheetIndex = 364 />
-	</Tile>	
-		
-	<!-- Narrows -->
-	
-	<Tile>
-		<Condition type="MaterialType" value="Wood" />
-		<Condition type="NeighbourSameIndex" value="North" />
-		<Condition type="NeighbourSameIndex" value="South" />
-		<Sprite sheetIndex = 360 />
-		<Sprite sheetIndex = 361 />
-		<Sprite sheetIndex = 364 />
-	</Tile>
-	<Tile>
-		<Condition type="MaterialType" value="Wood" />
-		<Condition type="NeighbourSameIndex" value="East" />
-		<Condition type="NeighbourSameIndex" value="West" />
-		<Sprite sheetIndex = 360 />
-		<Sprite sheetIndex = 362 />
-		<Sprite sheetIndex = 363 />
-	</Tile>	
-	
-	<!-- Ends -->
-	<Tile>
-		<Condition type="MaterialType" value="Wood" />
-		<Condition type="NeighbourSameIndex" value="North" />
-		<Sprite sheetIndex = 360 />
-		<Sprite sheetIndex = 361 />
-		<Sprite sheetIndex = 363 />
-		<Sprite sheetIndex = 364 />
-	</Tile>
-	<Tile>
-		<Condition type="MaterialType" value="Wood" />
-		<Condition type="NeighbourSameIndex" value="South" />
-		<Sprite sheetIndex = 360 />
-		<Sprite sheetIndex = 365 />
-		<Sprite sheetIndex = 364 />
-	</Tile>
-	<Tile>
-		<Condition type="MaterialType" value="Wood" />
-		<Condition type="NeighbourSameIndex" value="West" />
-		<Sprite sheetIndex = 360 />
-		<Sprite sheetIndex = 362 />
-		<Sprite sheetIndex = 363 />
-		<Sprite sheetIndex = 364 />
-	</Tile>
-	<Tile>
-		<Condition type="MaterialType" value="Wood" />
-		<Condition type="NeighbourSameIndex" value="East" />
-		<Sprite sheetIndex = 360 />
-		<Sprite sheetIndex = 365 />
-		<Sprite sheetIndex = 363 />
-	</Tile>	
-		
-	<Tile>
-		<Condition type="MaterialType" value="Wood" />
-		<Sprite sheetIndex = 360 />
-		<Sprite sheetIndex = 365 />
-		<Sprite sheetIndex = 363 />
-		<Sprite sheetIndex = 364 />
-	</Tile>
 	
 	<!-- default (stone) -->
-	
-	<Tile>
-		<Sprite sheetIndex=330 />
-		<Condition type="BuildingOccupancy" value="6" />
-		<Condition type="NeighbourIdentical" value="West" />
-		<Condition type="NeighbourIdentical" value="East" />
-	</Tile>	
-	<Tile>
-		<Sprite sheetIndex=330 />
-		<Sprite sheetIndex=331 />
-		<Condition type="BuildingOccupancy" value="6" />
-		<Condition type="NeighbourIdentical" value="East" />
-	</Tile>	
-	<Tile>
-		<Sprite sheetIndex=330 />
-		<Sprite sheetIndex=332 />
-		<Condition type="BuildingOccupancy" value="6" />
-		<Condition type="NeighbourIdentical" value="West" />
-	</Tile>	
-	<Tile>
-		<Sprite sheetIndex=333 />
-		<Condition type="BuildingOccupancy" value="6" />
-		<Condition type="NeighbourIdentical" value="North" />
-		<Condition type="NeighbourIdentical" value="South" />
-	</Tile>	
-	<Tile>
-		<Sprite sheetIndex=333 />
-		<Sprite sheetIndex=335 />
-		<Condition type="BuildingOccupancy" value="6" />
-		<Condition type="NeighbourIdentical" value="South" />
-	</Tile>	
-	<Tile>
-		<Sprite sheetIndex=333 />
-		<Sprite sheetIndex=334 />
-		<Condition type="BuildingOccupancy" value="6" />
-		<Condition type="NeighbourIdentical" value="North" />
-	</Tile>		
-	<Tile>
-		<Sprite sheetIndex=330 />
-		<Sprite sheetIndex=331 />
-		<Sprite sheetIndex=332 />
-		<Condition type="BuildingOccupancy" value="6" />
-		<Condition type="NeighbourSameIndex" value="North" />
-	</Tile>	
-	<Tile>
-		<Sprite sheetIndex=330 />
-		<Sprite sheetIndex=331 />
-		<Sprite sheetIndex=332 />
-		<Condition type="BuildingOccupancy" value="6" />
-		<Condition type="NeighbourSameIndex" value="South" />
-	</Tile>		
-	<Tile>
-		<Sprite sheetIndex=333 />
-		<Sprite sheetIndex=334 />
-		<Sprite sheetIndex=335 />
-		<Condition type="BuildingOccupancy" value="6" />
-	</Tile>	
+	<else>
+		<!-- raised -->
+		<BuildingOccupancy value="6" />
+		<if>
+			<or>
+				<NeighbourIdentical dir="West" />
+				<NeighbourIdentical dir="East" />		
+			</or>
+			<sprite index=330 />
+			<if>
+				<not><NeighbourIdentical dir="West" /></not>
+				<sprite index=331 />
+			</if>
+			<if>
+				<not><NeighbourIdentical dir="East" /></not>
+				<sprite index=332 />
+			</if>
+		</if>
+		<else>
+			<sprite index=333 />
+			<if>
+				<not><NeighbourIdentical dir="North" /></not>
+				<sprite index=335 />
+			</if>
+			<if>
+				<not><NeighbourIdentical dir="South" /></not>
+				<sprite index=334 />
+			</if>				
+		</else>
+	</else>
+	<else>
+		<!-- flat -->
+		<sprite index=324 />
+		<if>
+			<not><or>
+				<NeighbourSameBuilding dir="North" />
+				<NeighbourSameBuilding dir="West" />
+			</or></not>
+			<sprite index = 329 />
+		</if>
+		<else>
+			<not><NeighbourSameBuilding dir="North" /></not>
+			<sprite index = 326 />
+		</else>
+		<else>
+			<not><NeighbourSameBuilding dir="West" /></not>
+			<sprite index = 325 />
+		</else>
+		<if>
+			<not><NeighbourSameBuilding dir="South" /></not>
+			<sprite index = 327 />
+		</if>
+		<if>
+			<not><NeighbourSameBuilding dir="East" /></not>
+			<sprite index = 328 />
+		</if>		
+	</else>	
 
-	<!-- flat -->
-	
-	<Tile>
-		<Sprite sheetIndex=324 />
-		<Condition type="NeighbourSameIndex" value="North" />
-		<Condition type="NeighbourSameIndex" value="South" />
-		<Condition type="NeighbourSameIndex" value="East" />
-		<Condition type="NeighbourSameIndex" value="West" />
-	</Tile>	
-	
-	<!-- edges -->
-	<Tile>
-		<Condition type="NeighbourSameIndex" value="South" />
-		<Condition type="NeighbourSameIndex" value="East" />
-		<Condition type="NeighbourSameIndex" value="West" />
-		<Sprite sheetIndex = 324 />
-		<Sprite sheetIndex = 326 />
-	</Tile>
-	<Tile>
-		<Condition type="NeighbourSameIndex" value="North" />
-		<Condition type="NeighbourSameIndex" value="East" />
-		<Condition type="NeighbourSameIndex" value="West" />
-		<Sprite sheetIndex = 324 />
-		<Sprite sheetIndex = 327 />
-	</Tile>
-	<Tile>
-		<Condition type="NeighbourSameIndex" value="North" />
-		<Condition type="NeighbourSameIndex" value="South" />
-		<Condition type="NeighbourSameIndex" value="West" />
-		<Sprite sheetIndex = 324 />
-		<Sprite sheetIndex = 328 />
-	</Tile>
-	<Tile>
-		<Condition type="NeighbourSameIndex" value="North" />
-		<Condition type="NeighbourSameIndex" value="South" />
-		<Condition type="NeighbourSameIndex" value="East" />
-		<Sprite sheetIndex = 324 />
-		<Sprite sheetIndex = 325 />
-	</Tile>	
-	
-	<!-- Corners -->
-	<Tile>
-		<Condition type="NeighbourSameIndex" value="South" />
-		<Condition type="NeighbourSameIndex" value="East" />
-		<Sprite sheetIndex = 324 />
-		<Sprite sheetIndex = 329 />
-	</Tile>
-	<Tile>
-		<Condition type="NeighbourSameIndex" value="North" />
-		<Condition type="NeighbourSameIndex" value="East" />
-		<Sprite sheetIndex = 324 />
-		<Sprite sheetIndex = 325 />
-		<Sprite sheetIndex = 327 />
-	</Tile>
-	<Tile>
-		<Condition type="NeighbourSameIndex" value="North" />
-		<Condition type="NeighbourSameIndex" value="West" />
-		<Sprite sheetIndex = 324 />
-		<Sprite sheetIndex = 327 />
-		<Sprite sheetIndex = 328 />
-	</Tile>
-	<Tile>
-		<Condition type="NeighbourSameIndex" value="South" />
-		<Condition type="NeighbourSameIndex" value="West" />
-		<Sprite sheetIndex = 324 />
-		<Sprite sheetIndex = 326 />
-		<Sprite sheetIndex = 328 />
-	</Tile>	
-		
-	<!-- Narrows -->
-	
-	<Tile>
-		<Condition type="NeighbourSameIndex" value="North" />
-		<Condition type="NeighbourSameIndex" value="South" />
-		<Sprite sheetIndex = 324 />
-		<Sprite sheetIndex = 325 />
-		<Sprite sheetIndex = 328 />
-	</Tile>
-	<Tile>
-		<Condition type="NeighbourSameIndex" value="East" />
-		<Condition type="NeighbourSameIndex" value="West" />
-		<Sprite sheetIndex = 324 />
-		<Sprite sheetIndex = 326 />
-		<Sprite sheetIndex = 327 />
-	</Tile>	
-	
-	<!-- Ends -->
-	<Tile>
-		<Condition type="NeighbourSameIndex" value="North" />
-		<Sprite sheetIndex = 324 />
-		<Sprite sheetIndex = 325 />
-		<Sprite sheetIndex = 327 />
-		<Sprite sheetIndex = 328 />
-	</Tile>
-	<Tile>
-		<Condition type="NeighbourSameIndex" value="South" />
-		<Sprite sheetIndex = 324 />
-		<Sprite sheetIndex = 329 />
-		<Sprite sheetIndex = 328 />
-	</Tile>
-	<Tile>
-		<Condition type="NeighbourSameIndex" value="West" />
-		<Sprite sheetIndex = 324 />
-		<Sprite sheetIndex = 326 />
-		<Sprite sheetIndex = 327 />
-		<Sprite sheetIndex = 328 />
-	</Tile>
-	<Tile>
-		<Condition type="NeighbourSameIndex" value="East" />
-		<Sprite sheetIndex = 324 />
-		<Sprite sheetIndex = 329 />
-		<Sprite sheetIndex = 327 />
-	</Tile>	
-		
-	<Tile>
-		<Sprite sheetIndex = 324 />
-		<Sprite sheetIndex = 329 />
-		<Sprite sheetIndex = 327 />
-		<Sprite sheetIndex = 328 />
-	</Tile>
-	
-</Building> 
+	<!-- edging on flat bridges -->
+	<if>
+		<not><or>
+			<BuildingOccupancy value="6" />
+			<BuildingOccupancy value="2" />
+		</or></not>
+		<if>
+			<not><NeighbourSameBuilding dir="North" /></not>
+			<sprite index = 282 offsety=8/>
+		</if>
+		<if>
+			<not><NeighbourSameBuilding dir="West" /></not>
+			<sprite index = 280 offsety=8/>
+		</if>		
+	</if>
+
+</building> 

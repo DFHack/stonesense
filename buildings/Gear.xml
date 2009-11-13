@@ -2,9 +2,16 @@
 
 
 
-<Building name="Gear Assembly" gameID="gear_assembly">
-	<Tile>
-		<Sprite sheetIndex = 112 />
-	</Tile>
-	
-</Building> 
+<building name="Gear Assembly" gameID="gear_assembly">
+	<if>
+		<or>
+			<AnimationFrame value=0 />
+			<AnimationFrame value=2 />
+			<AnimationFrame value=4 />
+		</or>
+		<sprite index = 112 />
+	</if>
+	<else>
+		<sprite index = 132 />
+	</else>
+</building> 

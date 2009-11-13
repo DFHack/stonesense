@@ -2,9 +2,6 @@
 
 
 
-<Building name="Millstone" gameID="millstone"> 
-	<Tile>
-		<Sprite sheetIndex = 306 />
-	</Tile>
-	
-</Building> 
+<building name="Millstone" gameID="millstone"> 
+	<sprite index = 306 />
+</building> 

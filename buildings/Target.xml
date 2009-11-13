@@ -2,10 +2,6 @@
 
 
 
-<Building name="Target" gameID="archery_target">
-
-	<Tile>
-		<Sprite sheetIndex = 288 />
-	</Tile>
-	
-</Building> 
+<building name="Target" gameID="archery_target">
+		<sprite index = 288 />	
+</building> 

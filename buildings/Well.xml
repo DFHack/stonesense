@@ -2,43 +2,33 @@
 
 
 
-<Building name="Well" gameID="well"> 
+<building name="Well" gameID="well"> 
 
 	<!-- it hasnt really show up before, but I really need
 		'inside of hollow' to be material based, too -->
-	<Tile>
-		<Condition type="MaterialType" value="GreenGlass" />
-		<Sprite sheetIndex = 285 />
-		<Sprite sheetIndex = 281 />
-		<Sprite sheetIndex = 353 />
-		<Sprite sheetIndex = 354 />
-	</Tile>
-	<Tile>
-		<Condition type="MaterialType" value="ClearGlass" />
-		<Sprite sheetIndex = 283 />
-		<Sprite sheetIndex = 281 />
-		<Sprite sheetIndex = 353 />
-		<Sprite sheetIndex = 354 />
-	</Tile>
-	<Tile>
-		<Condition type="MaterialType" value="Wood" />
-		<Sprite sheetIndex = 274 />
-		<Sprite sheetIndex = 281 />
-		<Sprite sheetIndex = 353 />
-		<Sprite sheetIndex = 354 />
-	</Tile>
-	<Tile>
-		<Condition type="MaterialType" value="Metal"/>
-		<Sprite sheetIndex = 254 />
-		<Sprite sheetIndex = 281 />
-		<Sprite sheetIndex = 353 />
-		<Sprite sheetIndex = 354 />
-	</Tile>
-	<Tile>
-		<Sprite sheetIndex = 273 />
-		<Sprite sheetIndex = 281 />
-		<Sprite sheetIndex = 353 />
-		<Sprite sheetIndex = 354 />
-	</Tile>
-	
-</Building> 
+	<if>
+		<MaterialType value="GreenGlass" />
+		<sprite index = 285 />
+	</if>
+	<else>
+		<or>
+			<MaterialType value="ClearGlass" />
+			<MaterialType value="CrystalGlass" />
+		</or>
+		<sprite index = 283 />
+	</else>
+	<else>
+		<MaterialType value="Wood" />
+		<sprite index = 274 />
+	</else>
+	<else>
+		<MaterialType value="Metal"/>
+		<sprite index = 254 />
+	</else>
+	<else>
+		<sprite index = 273 />
+	</else>
+	<sprite index = 281 />
+	<sprite index = 353 />
+	<sprite index = 354 />
+</building> 

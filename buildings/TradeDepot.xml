@@ -2,34 +2,88 @@
 
 
 
-<Building name="Trade Depot" gameID="trade_depot"> 
+<building name="Trade Depot" gameID="trade_depot"> 
 	
-	<Tile>
-		<Sprite sheetIndex = 141 />
-		<Condition type="PositionIndex" value=0 />
-	</Tile>
-	<Tile>
-		<Sprite sheetIndex = 141 />
-		<Condition type="PositionIndex" value=4 />
-	</Tile>
+	<sprite index = 140 />
+	<if>
+		<and>
+			<not><BuildingOccupancy value="1" /></not>
+			<or>
+				<PositionIndex value=0 />
+				<PositionIndex value=4 />
+				<PositionIndex value=12 />
+				<PositionIndex value=20 />
+				<PositionIndex value=24 />
+			</or>
+		</and>
+		<sprite index = 141 />
+	</if>		
+		
+	<!-- generic large border -->
+	<else>
+		<and>
+			<BuildingOccupancy value="1" />
+			<PositionIndex value=12 />
+		</and>
+		<sprite index = 321 />
+	</else>	
 	
-	<Tile>
-		<Sprite sheetIndex = 141 />
-		<Condition type="PositionIndex" value=12 />
-	</Tile>
+	<else>
+		<PositionIndex value=0 />
+		<sprite index = 244 />
+	</else>
+	<else>
+		<or>
+			<PositionIndex value=1 />
+			<PositionIndex value=2 />
+			<PositionIndex value=3 />
+		</or>
+		<sprite index = 240 />
+	</else>
+	<else>
+		<PositionIndex value=4 />
+		<sprite index = 240 />
+		<sprite index = 247 />
+	</else>
+
+	<else>
+		<or>
+			<PositionIndex value=5 />
+			<PositionIndex value=10 />
+			<PositionIndex value=15 />
+		</or>
+		<sprite index = 241 />
+	</else>
+	<else>
+		<or>
+			<PositionIndex value=9 />
+			<PositionIndex value=14 />
+			<PositionIndex value=19 />
+		</or>
+		<sprite index = 243 />
+	</else>
 	
-	<Tile>
-		<Sprite sheetIndex = 141 />
-		<Condition type="PositionIndex" value=24 />
-	</Tile>
+	<else>
+		<PositionIndex value=20 />
+		<sprite index = 241 />
+		<sprite index = 245 />
+	</else>
+	<else>
+		<or>
+			<PositionIndex value=21 />
+			<PositionIndex value=22 />
+			<PositionIndex value=23 />
+		</or>
+		<sprite index = 242 />
+	</else>
+	<else>
+		<PositionIndex value=24 />
+		<sprite index = 246 />
+	</else>	
 	
-	<Tile>
-		<Sprite sheetIndex = 141 />
-		<Condition type="PositionIndex" value=20 />
-	</Tile>
+	<else>
+		<empty/>
+	</else>	
+	<!-- end generic block -->
 	
-	<Tile>
-		<Sprite sheetIndex = 140 />
-	</Tile>
-	
-</Building> 
+</building> 

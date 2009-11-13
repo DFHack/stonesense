@@ -2,10 +2,6 @@
 
 
 
-<Building name="Floor Hatch" gameID="floor_hatch">
-
-	<Tile>
-		<Sprite sheetIndex = 276 />
-	</Tile>
-	
-</Building> 
+<building name="Floor Hatch" gameID="floor_hatch">
+	<sprite index = 276 />
+</building> 

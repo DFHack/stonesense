@@ -2,54 +2,50 @@
 
 
 
-<Building name="Wagon" gameID="wagon">
+<building name="Wagon" gameID="wagon">
 
 
-	<Tile>
-		<Condition type="PositionIndex" value=0 />
-		<Sprite sheetIndex = 340 />
-	</Tile>
-	<Tile>
-		<Condition type="PositionIndex" value=1 />
-		<Sprite sheetIndex = 342 />
-	</Tile>
-	<Tile>
-		<Condition type="PositionIndex" value=2 />
-		<Sprite sheetIndex = 345 />
-		<Sprite sheetIndex = 350 offsetx=-2 offsety=0/>
-	</Tile>
+	<if>
+		<PositionIndex value=0 />
+		<sprite index = 340 />
+	</if>
+	<else>
+		<PositionIndex value=1 />
+		<sprite index = 342 />
+	</else>
+	<else>
+		<PositionIndex value=2 />
+		<sprite index = 345 />
+		<sprite index = 350 offsetx=-2 offsety=0/>
+	</else>
 
-	<Tile>
-		<Condition type="PositionIndex" value=3 />
-		<Sprite sheetIndex = 341 />
-	</Tile>
-	<Tile>
-		<Condition type="PositionIndex" value=4 />
-		<Sprite sheetIndex = 344 />
-	</Tile>
-	<Tile>
-		<Condition type="PositionIndex" value=5 />
-		<Sprite sheetIndex = 347 />
-	</Tile>
+	<else>
+		<PositionIndex value=3 />
+		<sprite index = 341 />
+	</else>
+	<else>
+		<PositionIndex value=4 />
+		<sprite index = 344 />
+	</else>
+	<else>
+		<PositionIndex value=5 />
+		<sprite index = 347 />
+	</else>
 	
-	<Tile>
-		<Condition type="PositionIndex" value=6 />
-		<Sprite sheetIndex = 343 />
-	</Tile>
-	<Tile>
-		<Condition type="PositionIndex" value=7 />
-		<Sprite sheetIndex = 346 />
-		<Sprite sheetIndex = 349 offsetx=-9 offsety=-6/>
-	</Tile>
-	<Tile>
-		<Condition type="PositionIndex" value=8 />
-		<Sprite sheetIndex = 348 />
-		<Sprite sheetIndex = 349 offsetx=-9 offsety=-6/>
-		<Sprite sheetIndex = 350 offsetx=8 offsety=-6/>
-	</Tile>	
+	<else>
+		<PositionIndex value=6 />
+		<sprite index = 343 />
+	</else>
+	<else>
+		<PositionIndex value=7 />
+		<sprite index = 346 />
+		<sprite index = 349 offsetx=-9 offsety=-6/>
+	</else>
+	<else>
+		<PositionIndex value=8 />
+		<sprite index = 348 />
+		<sprite index = 349 offsetx=-9 offsety=-6/>
+		<sprite index = 350 offsetx=8 offsety=-6/>
+	</else>	
 	
-	<Tile>
-	</Tile>	
-	
-	
-</Building> 
+</building> 

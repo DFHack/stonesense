@@ -2,10 +2,6 @@
 
 
 
-<Building name="Trap" gameID="stonefall_trap">
-
-	<Tile>
-		<Sprite sheetIndex = 355 />
-	</Tile>
-	
-</Building> 
+<building name="Trap" gameID="stonefall_trap">
+		<sprite index = 355 />
+</building> 

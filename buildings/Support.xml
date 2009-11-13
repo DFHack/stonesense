@@ -2,14 +2,12 @@
 
 
 
-<Building name="Support" gameID="support">
-	<Tile>
-		<Condition type="MaterialType" value="Wood" />
-		<Sprite sheetIndex = 52 />
-	</Tile>
-
-	<Tile>
-		<Sprite sheetIndex = 51 />
-	</Tile>
-	
-</Building> 
+<building name="Support" gameID="support">
+	<if>
+		<MaterialType value="Wood" />
+		<sprite index = 52 />
+	</if>
+	<else>
+		<sprite index = 51 />
+	</else>
+</building> 

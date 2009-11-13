@@ -2,25 +2,17 @@
 
 
 
-<Building name="Grate" gameID="wall_grate"> 
-	<Tile>
-		<Sprite sheetIndex=352 />
-		<Condition type="NeighbourWall" value="North" />
-	</Tile>
-	<Tile>
-		<Sprite sheetIndex=352 />
-		<Condition type="NeighbourWall" value="South" />
-	</Tile>
-	<Tile>
-		<Sprite sheetIndex=352 />
-		<Condition type="NeighbourSameBuilding" value="North" />
-	</Tile>
-	<Tile>
-		<Sprite sheetIndex=352 />
-		<Condition type="NeighbourSameBuilding" value="South" />
-	</Tile>
-	<Tile>
-		<Sprite sheetIndex = 351 />
-	</Tile>
-	
-</Building> 
+<building name="Grate" gameID="wall_grate"> 
+	<if>
+		<or>
+			<NeighbourWall value="North" />
+			<NeighbourWall value="South" />
+			<NeighbourSameType value="North" />
+			<NeighbourSameType value="South" />
+		</or>
+		<sprite index=352 />	
+	</if>
+	<else>
+		<sprite index = 351 />
+	</else>
+</building> 

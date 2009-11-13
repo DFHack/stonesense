@@ -2,8 +2,6 @@
 
 
 
-<Building name="Armorstand" gameID="armor_stand">
-	<Tile>
-		<Sprite sheetIndex = 80 />
-	</Tile>
-</Building> 
+<building name="Armorstand" gameID="armor_stand">
+	<sprite index = 80 />
+</building> 

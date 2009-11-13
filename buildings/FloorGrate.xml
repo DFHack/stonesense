@@ -2,10 +2,8 @@
 
 
 
-<Building name="Grate" gameID="floor_grate"> 
+<building name="Grate" gameID="floor_grate"> 
 
-	<Tile>
-		<Sprite sheetIndex = 307 />
-	</Tile>	
-	
-</Building> 
+		<sprite index = 307 />
+
+</building> 
