@@ -145,6 +145,8 @@ void Block::Draw(BITMAP* target){
       //Western border
       if(this->depthBorderWest)
         line(target, drawx, drawy+(TILEHEIGHT>>1)-1, drawx+(TILEWIDTH>>1)-1, drawy, tileBorderColor);
+      
+      drawy += (WALLHEIGHT);
     }
 	}
 
