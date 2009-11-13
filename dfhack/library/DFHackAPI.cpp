@@ -1146,3 +1146,17 @@ bool API::setCursorCoords (const int32_t &x, const int32_t &y, const int32_t &z)
     Mwrite(d->cursor_xyz_offset,3*sizeof(int32_t),(uint8_t *)coords);
     return true;
 }
+
+bool API::getCreatureCoords(const uint32_t &index, int32_t &x, int32_t &y, int32_t &z)
+{
+    assert(d->creaturesInited);
+    uint32_t temp;
+    // read pointer from vector at position
+    d->p_cre->read(index,(uint8_t *)&temp);
+    int16_t location[3];
+    Mread(temp + d->creature_pos_offset, 3 * sizeof(uint16_t), (uint8_t *) location);
+    x=location[0];
+    y=location[1];
+    z=location[2];
+    return true;
+}

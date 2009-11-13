@@ -186,6 +186,7 @@ public:
     string getSquadName(const uint32_t &index, bool);
     string getProfession(const uint32_t &index);
     string getCurrentJob(const uint32_t &index);
+    bool getCreatureCoords(const uint32_t &index, int32_t &x, int32_t &y, int32_t &z);
     vector<t_skill> getSkills(const uint32_t &index);
     vector<t_trait> getTraits(const uint32_t &index);
     vector<t_labor> getLabors(const uint32_t &index);

@@ -19,7 +19,6 @@ bool BlockCondition::Matches(Block* b){
 
     return pos == this->value;
   }
-
   if(type == Cond_MaterialType){
     return b->building.info.material.type == this->value;
   }
