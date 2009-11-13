@@ -55,7 +55,7 @@ void Block::Draw(BITMAP* target){
   int tileBorderColor = makecol(85,85,85);
 
 	//Draw Floor
-	if(floorType > 0 || wallType > 0){
+	if(floorType > 0 || wallType > 0 || ramp.type > 0){
     sheetOffsetX = TILEWIDTH * GetFloorSpriteMap(floorType, materialIndex);
 		masked_blit(IMGFloorSheet, target, sheetOffsetX,0, drawx,drawy, TILEWIDTH,TILEHEIGHT + FLOORHEIGHT);
 
