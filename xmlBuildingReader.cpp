@@ -216,27 +216,29 @@ inline bool readNode(SpriteNode* node, TiXmlElement* elemNode, TiXmlElement* ele
 		
 bool includeFile(SpriteNode* node, TiXmlElement* includeNode, SpriteBlock* &oldSibling)
 {
-  const char* filename = includeNode->Attribute("file");
-  TiXmlDocument doc( filename );
+  string filenameStr("buildings/include/");
+  filenameStr.append(includeNode->Attribute("file"));
+  
+  TiXmlDocument doc( filenameStr.c_str() );
   bool loadOkay = doc.LoadFile();
   TiXmlHandle hDoc(&doc);
   TiXmlElement* elemParent;
   if(!loadOkay)
   {
-	WriteErr("File load failed: %s\n",filename);
+	WriteErr("File load failed: %s\n",filenameStr.c_str());
 	WriteErr("Line %d: %s\n",doc.ErrorRow(),doc.ErrorDesc());
 	return false;
   }
   elemParent = hDoc.FirstChildElement("include").Element();
   if( elemParent == NULL)
   {
-	  WriteErr("Main <include> node not present\n");
+	  WriteErr("Main <include> node not present: %s\n",includeNode->Attribute("file"));
     return false;
   }
   TiXmlElement* elemNode =  elemParent->FirstChildElement();
   if (elemNode == NULL)
   {
-	WriteErr("Empty include: %s\n",filename);
+	WriteErr("Empty include: %s\n",includeNode->Attribute("file"));
 	return false;
   }
 	while (elemNode)
