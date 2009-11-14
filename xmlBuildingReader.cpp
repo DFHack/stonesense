@@ -291,7 +291,9 @@ bool LoadBuildingConfiguration( vector<BuildingConfiguration>* knownBuildings ){
 		//should set to null, but we will nuke the lot in a second
 	}
   knownBuildings->clear();
-
+  //img files are now unused
+  flushImgFiles();
+  
   while ( !myfile.eof() )
   {
     char filepath[50] = {0};
