@@ -10,6 +10,7 @@
 
 int parseConditionNode(ConditionalNode* node, TiXmlElement* elemCondition, bool silent);
 bool parseSpriteNode(SpriteNode* node, TiXmlElement* elemParent);
+bool includeFile(SpriteNode* node, TiXmlElement* includeNode, SpriteBlock* &oldSibling);
 
 bool parseRecursiveNodes (ConditionalNode* pnode, TiXmlElement* pelem)
 {
@@ -124,6 +125,95 @@ int parseConditionNode(ConditionalNode* node, TiXmlElement* elemCondition, bool 
   	return -1;
 }
 
+inline bool readNode(SpriteNode* node, TiXmlElement* elemNode, TiXmlElement* elemParent, SpriteBlock* &oldSibling)
+{
+	const char* strType = elemNode->Value();
+	if (strcmp(strType, "if") == 0 || strcmp(strType, "else") == 0)
+	{
+		SpriteBlock* block = new SpriteBlock();
+		if (!elemNode->Attribute("file") && elemParent->Attribute("file"))
+		{
+			elemNode->SetAttribute("file", elemParent->Attribute("file"));
+		}
+		if (!parseSpriteNode(block,elemNode))
+		{
+			delete(block);
+			return false;
+		}
+		if (elemNode->Attribute("else") || strcmp(strType, "else") == 0)
+		{
+			if (!oldSibling)
+			{
+				WriteErr("Misplaced or invalid element in SpriteNode: %s (Line %d)\n",strType,elemNode->Row());
+				return false;						
+			}
+			oldSibling->addElse(block);	
+		}
+		else
+		{
+			node->addChild(block);
+		}
+		oldSibling = block;
+	}
+	else if (strcmp(strType, "rotate") == 0)
+	{
+		RotationBlock* block = new RotationBlock();
+		if (!elemNode->Attribute("file") && elemParent->Attribute("file"))
+		{
+			elemNode->SetAttribute("file",elemParent->Attribute("file"));
+		}
+		if (!parseSpriteNode(block,elemNode))
+		{
+			delete(block);
+			return false;
+		}
+		else
+		{
+			node->addChild(block);
+		}
+		oldSibling = NULL;
+	}
+	else if ((strcmp(strType, "sprite") == 0) || (strcmp(strType, "empty") == 0))
+	{
+		SpriteElement* sprite = new SpriteElement();
+		const char* strSheetIndex = elemNode->Attribute("index");
+		const char* strOffsetX = elemNode->Attribute("offsetx");
+		const char* strOffsetY = elemNode->Attribute("offsety");
+		const char* filename = elemNode->Attribute("file");
+		sprite->sprite.sheetIndex = (strSheetIndex != 0 ? atoi(strSheetIndex) : -1);
+		sprite->sprite.x    = (strOffsetX    != 0 ? atoi(strOffsetX)    : 0);
+		sprite->sprite.y   = (strOffsetY    != 0 ? atoi(strOffsetY)    : 0);
+		sprite->sprite.fileIndex = -1;
+		if (filename != NULL)
+		{
+		  if (strcmp(filename, "") != 0)
+		  	sprite->sprite.fileIndex = loadImgFile((char*)filename);
+		}
+		else
+		{
+		  const char* pfilename = elemParent->Attribute("file");
+		  if (pfilename)
+		  {
+			sprite->sprite.fileIndex = loadImgFile((char*)pfilename);
+		  }
+		}
+		node->addChild(sprite);
+	}
+	else if (strcmp(strType, "include") == 0)
+	{
+		if (!includeFile(node,elemNode,oldSibling))
+		{
+			return false;
+		}
+	}
+	else
+	{
+		WriteErr("Misplaced or invalid element in SpriteNode: %s (Line %d)\n",strType,elemNode->Row());
+		return false;
+	}		
+	return true;
+}
+		
 bool includeFile(SpriteNode* node, TiXmlElement* includeNode, SpriteBlock* &oldSibling)
 {
   const char* filename = includeNode->Attribute("file");
@@ -151,93 +241,11 @@ bool includeFile(SpriteNode* node, TiXmlElement* includeNode, SpriteBlock* &oldS
   }
 	while (elemNode)
 	{ 
-		const char* strType = elemNode->Value();
-		if (strcmp(strType, "if") == 0 || strcmp(strType, "else") == 0)
-		{
-			SpriteBlock* block = new SpriteBlock();
-			if (!elemNode->Attribute("file") && elemParent->Attribute("file"))
-			{
-				elemNode->SetAttribute("file",elemParent->Attribute("file"));
-			}
-			if (!parseSpriteNode(block,elemNode))
-			{
-				delete(block);
-				return false;
-			}
-			if (elemNode->Attribute("else") || strcmp(strType, "else") == 0)
-			{
-				if (!oldSibling)
-				{
-					WriteErr("Misplaced or invalid element in SpriteNode: %s (Line %d)\n",strType,elemNode->Row());
-					return false;						
-				}
-				oldSibling->addElse(block);	
-			}
-			else
-			{
-				node->addChild(block);
-			}
-			oldSibling = block;
-		}
-		else if (strcmp(strType, "rotate") == 0)
-		{
-			RotationBlock* block = new RotationBlock();
-			if (!elemNode->Attribute("file") && elemParent->Attribute("file"))
-			{
-				elemNode->SetAttribute("file",elemParent->Attribute("file"));
-			}
-			if (!parseSpriteNode(block,elemNode))
-			{
-				delete(block);
-				return false;
-			}
-			else
-			{
-				node->addChild(block);
-			}
-			oldSibling = NULL;
-		}
-		else if ((strcmp(strType, "sprite") == 0) || (strcmp(strType, "empty") == 0))
-		{
-			SpriteElement* sprite = new SpriteElement();
-			const char* strSheetIndex = elemNode->Attribute("index");
-			const char* strOffsetX = elemNode->Attribute("offsetx");
-			const char* strOffsetY = elemNode->Attribute("offsety");
-			const char* filename = elemNode->Attribute("file");
-			sprite->sprite.sheetIndex = (strSheetIndex != 0 ? atoi(strSheetIndex) : -1);
-			sprite->sprite.x    = (strOffsetX    != 0 ? atoi(strOffsetX)    : 0);
-			sprite->sprite.y   = (strOffsetY    != 0 ? atoi(strOffsetY)    : 0);
-			sprite->sprite.fileIndex = -1;
-			if (filename != NULL)
-			{
-			  if (strcmp(filename, "") != 0)
-			  	sprite->sprite.fileIndex = loadImgFile((char*)filename);
-			}
-			else
-			{
-			  const char* pfilename = elemParent->Attribute("file");
-			  if (pfilename)
-			  {
-				sprite->sprite.fileIndex = loadImgFile((char*)pfilename);
-			  }
-			}
-			node->addChild(sprite);
-		}
-		else if (strcmp(strType, "include") == 0)
-		{
-			if (!includeFile(node,elemNode,oldSibling))
-			{
-				return false;
-			}
-		}
-		else
-		{
-			WriteErr("Misplaced or invalid element in SpriteNode: %s (Line %d)\n",strType,elemNode->Row());
+		if (!readNode(node, elemNode, elemParent, oldSibling))
 			return false;
-		}		
 		elemNode = elemNode->NextSiblingElement();
 	}
-
+	return true;
 }
 
 bool parseSpriteNode(SpriteNode* node, TiXmlElement* elemParent)
@@ -263,91 +271,9 @@ bool parseSpriteNode(SpriteNode* node, TiXmlElement* elemParent)
 			elemNode = elemNode->NextSiblingElement();
 	}
 	while (elemNode)
-	{
-		const char* strType = elemNode->Value();
-		if (strcmp(strType, "if") == 0 || strcmp(strType, "else") == 0)
-		{
-			SpriteBlock* block = new SpriteBlock();
-			if (!elemNode->Attribute("file") && elemParent->Attribute("file"))
-			{
-				elemNode->SetAttribute("file",elemParent->Attribute("file"));
-			}
-			if (!parseSpriteNode(block,elemNode))
-			{
-				delete(block);
-				return false;
-			}
-			if (elemNode->Attribute("else") || strcmp(strType, "else") == 0)
-			{
-				if (!oldSibling)
-				{
-					WriteErr("Misplaced or invalid element in SpriteNode: %s (Line %d)\n",strType,elemNode->Row());
-					return false;						
-				}
-				oldSibling->addElse(block);	
-			}
-			else
-			{
-				node->addChild(block);
-			}
-			oldSibling = block;
-		}
-		else if (strcmp(strType, "rotate") == 0)
-		{
-			RotationBlock* block = new RotationBlock();
-			if (!elemNode->Attribute("file") && elemParent->Attribute("file"))
-			{
-				elemNode->SetAttribute("file",elemParent->Attribute("file"));
-			}
-			if (!parseSpriteNode(block,elemNode))
-			{
-				delete(block);
-				return false;
-			}
-			else
-			{
-				node->addChild(block);
-			}
-			oldSibling = NULL;
-		}
-		else if ((strcmp(strType, "sprite") == 0) || (strcmp(strType, "empty") == 0))
-		{
-			SpriteElement* sprite = new SpriteElement();
-			const char* strSheetIndex = elemNode->Attribute("index");
-			const char* strOffsetX = elemNode->Attribute("offsetx");
-			const char* strOffsetY = elemNode->Attribute("offsety");
-			const char* filename = elemNode->Attribute("file");
-			sprite->sprite.sheetIndex = (strSheetIndex != 0 ? atoi(strSheetIndex) : -1);
-			sprite->sprite.x    = (strOffsetX    != 0 ? atoi(strOffsetX)    : 0);
-			sprite->sprite.y   = (strOffsetY    != 0 ? atoi(strOffsetY)    : 0);
-			sprite->sprite.fileIndex = -1;
-			if (filename != NULL)
-			{
-			  if (strcmp(filename, "") != 0)
-			  	sprite->sprite.fileIndex = loadImgFile((char*)filename);
-			}
-			else
-			{
-			  const char* pfilename = elemParent->Attribute("file");
-			  if (pfilename)
-			  {
-				sprite->sprite.fileIndex = loadImgFile((char*)pfilename);
-			  }
-			}
-			node->addChild(sprite);
-		}
-		else if (strcmp(strType, "include") == 0)
-		{
-			if (!includeFile(node,elemNode,oldSibling))
-			{
-				return false;
-			}
-		}
-		else
-		{
-			WriteErr("Misplaced or invalid element in SpriteNode: %s (Line %d)\n",strType,elemNode->Row());
+	{ 
+		if (!readNode(node, elemNode, elemParent, oldSibling))
 			return false;
-		}		
 		elemNode = elemNode->NextSiblingElement();
 	}
 	return true;
