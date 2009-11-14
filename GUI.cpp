@@ -196,9 +196,18 @@ void DrawSpriteFromSheet( int spriteNum, BITMAP* target, BITMAP* spriteSheet, in
       x, y - (WALLHEIGHT), SPRITEWIDTH, SPRITEHEIGHT);
 }
 
-void DrawSpriteIndexOverlay(){
+void DrawSpriteIndexOverlay(int i){
+  BITMAP* currentImage;
+  if (i==-1)
+  {
+	  currentImage=IMGObjectSheet;
+  }
+  else
+  {
+	currentImage=IMGFilelist[i];
+  }
   clear_to_color(screen, makecol(255,0,255));
-  draw_sprite(screen,IMGObjectSheet,0,0);
+  draw_sprite(screen,currentImage,0,0);
   for(int i =0; i<= 20*SPRITEWIDTH; i+=SPRITEWIDTH)
     line(screen, i,0,i, config.screenHeight, 0);
   for(int i =0; i< config.screenHeight; i+=SPRITEHEIGHT)
@@ -209,9 +218,27 @@ void DrawSpriteIndexOverlay(){
       int index = y * 20 + x;
       textprintf(screen, font,  x*SPRITEWIDTH+5, y* SPRITEHEIGHT+5, 0xFFffFF, "%i", index);
     }
+  }	
+  textprintf_right(screen, font, config.screenWidth-10, config.screenHeight -10, 0xFFffFF, "%s (Press SPACE to return)",(i==-1?"objects.png":IMGFilenames[i]->c_str()));  
+}
+
+
+void DoSpriteIndexOverlay(){
+  DrawSpriteIndexOverlay(-1);
+  int index = 0;
+  int max = IMGFilenames.size();
+  while(true)
+  {
+  	while(!key[KEY_SPACE] && !key[KEY_F10]) rest(50);
+  	if (key[KEY_SPACE])
+  	{
+	  	break;
+  	}
+	DrawSpriteIndexOverlay(index);
+	index++;
+	if (index >= max)
+		index = -1;
   }
-  textprintf_right(screen, font, config.screenWidth-10, config.screenHeight -10, 0xFFffFF, "Press SPACE to return");
-  while(!key[KEY_SPACE]) rest(50);
   //redraw screen again
   paintboard();
 }

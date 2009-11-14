@@ -177,7 +177,7 @@ void doKeys(){
 
     if(key[KEY_F10]){
       while(key[KEY_F10]);
-      DrawSpriteIndexOverlay();
+      DoSpriteIndexOverlay();
     }
   }
 }
