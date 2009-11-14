@@ -207,7 +207,8 @@ bool parseSpriteNode(SpriteNode* node, TiXmlElement* elemParent)
 			sprite->sprite.fileIndex = -1;
 			if (filename != NULL)
 			{
-			  sprite->sprite.fileIndex = loadImgFile((char*)filename);
+			  if (strcmp(filename, "") != 0)
+			  	sprite->sprite.fileIndex = loadImgFile((char*)filename);
 			}
 			else
 			{
