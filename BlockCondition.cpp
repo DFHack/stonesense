@@ -248,7 +248,7 @@ bool NeighbourSameTypeCondition::Matches(Block* b)
 
 AndConditionalNode::~AndConditionalNode(void)
 {
-	int max = children.size();
+	uint32_t max = (int)children.size();
 	for(uint32_t i=0; i<max; i++)
 	{
 		delete(children[i]);
@@ -257,7 +257,7 @@ AndConditionalNode::~AndConditionalNode(void)
 
 bool AndConditionalNode::Matches(Block* b)
 {	
-	int max = children.size();
+  uint32_t max = (int)children.size();
 	for(uint32_t i=0; i<max; i++)
 	{
 		if (!children[i]->Matches( b ))
@@ -273,7 +273,7 @@ bool AndConditionalNode::addCondition(BlockCondition* cond)
 
 OrConditionalNode::~OrConditionalNode(void)
 {
-	int max = children.size();
+	uint32_t max = (int)children.size();
 	for(uint32_t i=0; i<max; i++)
 	{
 		delete(children[i]);
@@ -282,7 +282,7 @@ OrConditionalNode::~OrConditionalNode(void)
 
 bool OrConditionalNode::Matches(Block* b)
 {	
-	int max = children.size();
+	uint32_t max = (int)children.size();
 	for(uint32_t i=0; i<max; i++)
 	{
 		if (children[i]->Matches( b ))

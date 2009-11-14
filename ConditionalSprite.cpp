@@ -15,7 +15,7 @@ RootBlock::RootBlock()
 RootBlock::~RootBlock(void)
 {
 	//cout << "RootBlock -" << endl;
-	uint32_t max = children.size();
+	uint32_t max = (uint32_t)children.size();
 	for(uint32_t i=0; i<max; i++)
 	{
 		delete(children[i]);
@@ -25,7 +25,7 @@ RootBlock::~RootBlock(void)
 bool RootBlock::BlockMatches(Block* b)
 {
 	bool haveMatch = false;
-	uint32_t max = children.size();
+	uint32_t max = (uint32_t)children.size();
 	
 	for(uint32_t i=0; i<max; i++)
 	{
@@ -56,7 +56,7 @@ SpriteBlock::~SpriteBlock(void)
 	//cout << "SpriteBlock -" << endl;
 	delete(elsenode);
 	delete(conditions);
-	uint32_t max = children.size();
+	uint32_t max = (uint32_t)children.size();
 	for(uint32_t i=0; i<max; i++)
 	{
 		delete(children[i]);
@@ -78,7 +78,7 @@ bool SpriteBlock::BlockMatches(Block* b)
 	bool haveMatch=false;
 	if (condMatch)
 	{
-		uint32_t max = children.size();
+		uint32_t max = (uint32_t)children.size();
 		for(uint32_t i=0; i<max; i++)
 		{
 			if (children[i]->BlockMatches(b))
@@ -124,7 +124,7 @@ RotationBlock::RotationBlock()
 RotationBlock::~RotationBlock(void)
 {
 	//cout << "SpriteBlock -" << endl;
-	uint32_t max = children.size();
+	uint32_t max = (uint32_t)children.size();
 	for(uint32_t i=0; i<max; i++)
 	{
 		delete(children[i]);
@@ -134,7 +134,7 @@ RotationBlock::~RotationBlock(void)
 bool RotationBlock::BlockMatches(Block* b)
 {
 	int index = DisplayedRotation;
-	uint32_t max = children.size();
+	int max = (int)children.size();
 	if (max == 0)
 		return false;
 	while (index >= max)

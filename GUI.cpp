@@ -196,15 +196,15 @@ void DrawSpriteFromSheet( int spriteNum, BITMAP* target, BITMAP* spriteSheet, in
       x, y - (WALLHEIGHT), SPRITEWIDTH, SPRITEHEIGHT);
 }
 
-void DrawSpriteIndexOverlay(int i){
+void DrawSpriteIndexOverlay(int imageIndex){
   BITMAP* currentImage;
-  if (i==-1)
+  if (imageIndex == -1)
   {
 	  currentImage=IMGObjectSheet;
   }
   else
   {
-	currentImage=IMGFilelist[i];
+	  currentImage=IMGFilelist[imageIndex];
   }
   clear_to_color(screen, makecol(255,0,255));
   draw_sprite(screen,currentImage,0,0);
@@ -219,14 +219,16 @@ void DrawSpriteIndexOverlay(int i){
       textprintf(screen, font,  x*SPRITEWIDTH+5, y* SPRITEHEIGHT+5, 0xFFffFF, "%i", index);
     }
   }	
-  textprintf_right(screen, font, config.screenWidth-10, config.screenHeight -10, 0xFFffFF, "%s (Press SPACE to return)",(i==-1?"objects.png":IMGFilenames[i]->c_str()));  
+  textprintf_right(screen, font, config.screenWidth-10, config.screenHeight -10, 0xFFffFF, 
+    "%s (Press SPACE to return)",
+    (imageIndex==-1?"objects.png":IMGFilenames[imageIndex]->c_str()));  
 }
 
 
 void DoSpriteIndexOverlay(){
   DrawSpriteIndexOverlay(-1);
   int index = 0;
-  int max = IMGFilenames.size();
+  int max = (int)IMGFilenames.size();
   while(true)
   {
   	while(!key[KEY_SPACE] && !key[KEY_F10]) rest(50);
@@ -348,6 +350,7 @@ void flushImgFiles()
 {
 	//should be OK because we keep others from directly acccessing this stuff
 	uint32_t numFiles = (uint32_t)IMGFilelist.size();
+  assert( numFiles == IMGFilenames.size());
 	for(uint32_t i = 0; i < numFiles; i++)
 	{
 		destroy_bitmap(IMGFilelist[i]);
@@ -373,5 +376,6 @@ int loadImgFile(char* filename)
 	}
 	IMGFilelist.push_back(load_bitmap_withWarning(filename));
 	IMGFilenames.push_back(new string(filename));
+  return (int)IMGFilelist.size() - 1;
 }
 
