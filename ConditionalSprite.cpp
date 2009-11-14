@@ -137,9 +137,9 @@ bool RotationBlock::BlockMatches(Block* b)
 	uint32_t max = children.size();
 	if (max == 0)
 		return false;
-	while (index > max)
+	while (index >= max)
 	{
-		index = index - max;	
+		index = index - max;
 	}
 	return children[index]->BlockMatches(b);
 }
