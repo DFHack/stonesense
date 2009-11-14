@@ -2,7 +2,7 @@
 #include "ConditionalSprite.h"
 #include "Block.h"
 #include "GameBuildings.h"
-
+#include "GUI.h"
 
 /* RootBlock */
 
@@ -110,6 +110,47 @@ void SpriteBlock::addChild(SpriteNode* child){
 
 void SpriteBlock::addElse(SpriteNode* child){
 	elsenode = child;
+}
+
+
+/* RotationBlock */
+
+RotationBlock::RotationBlock()
+	: ConditionalNode(), SpriteNode()
+{
+	//cout << "SpriteBlock +" << endl;
+}
+
+RotationBlock::~RotationBlock(void)
+{
+	//cout << "SpriteBlock -" << endl;
+	uint32_t max = children.size();
+	for(uint32_t i=0; i<max; i++)
+	{
+		delete(children[i]);
+	}
+};
+
+bool RotationBlock::BlockMatches(Block* b)
+{
+	int index = DisplayedRotation;
+	uint32_t max = children.size();
+	if (max == 0)
+		return false;
+	while (index > max)
+	{
+		index = index - max;	
+	}
+	return children[index]->BlockMatches(b);
+}
+
+bool RotationBlock::addCondition(BlockCondition* cond){
+	WriteErr("Condition elements not permitted for RotationBlock\n");
+	return false;
+}
+
+void RotationBlock::addChild(SpriteNode* child){
+	children.push_back(child);
 }
 
 /* SpriteElement */

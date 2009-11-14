@@ -46,6 +46,20 @@ class SpriteBlock : public ConditionalNode, public SpriteNode
 	void addElse(SpriteNode* child);
 };
 
+// rotational conditional structure
+class RotationBlock : public ConditionalNode, public SpriteNode
+{
+	vector<SpriteNode*> children;
+	  
+	public:
+		RotationBlock(void);
+		~RotationBlock(void);
+	
+    bool BlockMatches(Block* b);	
+    bool addCondition(BlockCondition* cond);
+    void addChild(SpriteNode* child);
+};
+
 // display element
 class SpriteElement : public SpriteNode
 {

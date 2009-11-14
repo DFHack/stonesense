@@ -133,7 +133,7 @@ bool parseSpriteNode(SpriteNode* node, TiXmlElement* elemParent)
 		WriteErr("Empty SpriteNode Element: %s (Line %d)\n",strParent,elemParent->Row());
 		return false;		
 	}
-	if ( strcmp(strParent,"building") != 0)
+	if ( strcmp(strParent,"building") != 0 && strcmp(strParent,"rotate") != 0)
 	{
 		//flag to allow else statements to be empty, rather than needing an "always" tag
 		bool allowBlank = (strcmp(strParent,"else") == 0 || elemParent->Attribute("else"));
@@ -175,6 +175,24 @@ bool parseSpriteNode(SpriteNode* node, TiXmlElement* elemParent)
 				node->addChild(block);
 			}
 			oldSibling = block;
+		}
+		else if (strcmp(strType, "rotate") == 0)
+		{
+			RotationBlock* block = new RotationBlock();
+			if (!elemNode->Attribute("file") && elemParent->Attribute("file"))
+			{
+				elemNode->SetAttribute("file",elemParent->Attribute("file"));
+			}
+			if (!parseSpriteNode(block,elemNode))
+			{
+				delete(block);
+				return false;
+			}
+			else
+			{
+				node->addChild(block);
+			}
+			oldSibling = NULL;
 		}
 		else if ((strcmp(strType, "sprite") == 0) || (strcmp(strType, "empty") == 0))
 		{
