@@ -167,8 +167,8 @@ void ReadCellToSegment(API& DF, WorldSegment& segment, int CellX, int CellY, int
     //include hidden blocks as shaded black 
     if(config.shade_hidden_blocks && isHidden && (
        b->z == segment.z + segment.sizez - 1 ||
-       b->x == segment.x + segment.sizex - 1 || 
-       b->y == segment.y + segment.sizey - 1))
+       b->x == segment.x + segment.sizex - 1 || b->x == segment.x ||
+       b->y == segment.y + segment.sizey - 1 || b->y == segment.y))
     {
       b->wallType = 0;
       b->building.info.type = BUILDINGTYPE_BLACKBOX;
