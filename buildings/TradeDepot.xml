@@ -52,32 +52,6 @@
 	</else>	
 	
 	<else>
-		<PositionIndex value=0 />
-		<sprite index = 244 />
-	</else>
-	<else>
-		<or>
-			<PositionIndex value=1 />
-			<PositionIndex value=2 />
-			<PositionIndex value=3 />
-		</or>
-		<sprite index = 240 />
-	</else>
-	<else>
-		<PositionIndex value=4 />
-		<sprite index = 240 />
-		<sprite index = 247 />
-	</else>
-
-	<else>
-		<or>
-			<PositionIndex value=5 />
-			<PositionIndex value=10 />
-			<PositionIndex value=15 />
-		</or>
-		<sprite index = 241 />
-	</else>
-	<else>
 		<and>
 			<BuildingOccupancy value="1" />
 			<PositionIndex value=4 />
