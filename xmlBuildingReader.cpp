@@ -9,6 +9,7 @@
 #include "GUI.h"
 
 int parseConditionNode(ConditionalNode* node, TiXmlElement* elemCondition, bool silent);
+bool parseSpriteNode(SpriteNode* node, TiXmlElement* elemParent);
 
 bool parseRecursiveNodes (ConditionalNode* pnode, TiXmlElement* pelem)
 {
@@ -123,31 +124,33 @@ int parseConditionNode(ConditionalNode* node, TiXmlElement* elemCondition, bool 
   	return -1;
 }
 
-bool parseSpriteNode(SpriteNode* node, TiXmlElement* elemParent)
+bool includeFile(SpriteNode* node, TiXmlElement* includeNode, SpriteBlock* &oldSibling)
 {
-	SpriteBlock* oldSibling = NULL;
-	TiXmlElement* elemNode =  elemParent->FirstChildElement();
-	const char* strParent = elemParent->Value();
-	if (elemNode == NULL)
-	{
-		WriteErr("Empty SpriteNode Element: %s (Line %d)\n",strParent,elemParent->Row());
-		return false;		
-	}
-	if ( strcmp(strParent,"building") != 0 && strcmp(strParent,"rotate") != 0)
-	{
-		//flag to allow else statements to be empty, rather than needing an "always" tag
-		bool allowBlank = (strcmp(strParent,"else") == 0 || elemParent->Attribute("else"));
-		// cast should be safe, because only spriteblocks
-		// should get here
-		int retvalue =parseConditionNode((SpriteBlock *)node,elemNode,allowBlank);
-		if (retvalue == 0)
-			return false;
-		if (retvalue > 0)
-			elemNode = elemNode->NextSiblingElement();
-	}
+  const char* filename = includeNode->Attribute("file");
+  TiXmlDocument doc( filename );
+  bool loadOkay = doc.LoadFile();
+  TiXmlHandle hDoc(&doc);
+  TiXmlElement* elemParent;
+  if(!loadOkay)
+  {
+	WriteErr("File load failed: %s\n",filename);
+	WriteErr("Line %d: %s\n",doc.ErrorRow(),doc.ErrorDesc());
+	return false;
+  }
+  elemParent = hDoc.FirstChildElement("include").Element();
+  if( elemParent == NULL)
+  {
+	  WriteErr("Main <include> node not present\n");
+    return false;
+  }
+  TiXmlElement* elemNode =  elemParent->FirstChildElement();
+  if (elemNode == NULL)
+  {
+	WriteErr("Empty include: %s\n",filename);
+	return false;
+  }
 	while (elemNode)
-	{
-		bool match = false;
+	{ 
 		const char* strType = elemNode->Value();
 		if (strcmp(strType, "if") == 0 || strcmp(strType, "else") == 0)
 		{
@@ -219,6 +222,126 @@ bool parseSpriteNode(SpriteNode* node, TiXmlElement* elemParent)
 			  }
 			}
 			node->addChild(sprite);
+		}
+		else if (strcmp(strType, "include") == 0)
+		{
+			if (!includeFile(node,elemNode,oldSibling))
+			{
+				return false;
+			}
+		}
+		else
+		{
+			WriteErr("Misplaced or invalid element in SpriteNode: %s (Line %d)\n",strType,elemNode->Row());
+			return false;
+		}		
+		elemNode = elemNode->NextSiblingElement();
+	}
+
+}
+
+bool parseSpriteNode(SpriteNode* node, TiXmlElement* elemParent)
+{
+	SpriteBlock* oldSibling = NULL;
+	TiXmlElement* elemNode =  elemParent->FirstChildElement();
+	const char* strParent = elemParent->Value();
+	if (elemNode == NULL)
+	{
+		WriteErr("Empty SpriteNode Element: %s (Line %d)\n",strParent,elemParent->Row());
+		return false;		
+	}
+	if ( strcmp(strParent,"building") != 0 && strcmp(strParent,"rotate") != 0)
+	{
+		//flag to allow else statements to be empty, rather than needing an "always" tag
+		bool allowBlank = (strcmp(strParent,"else") == 0 || elemParent->Attribute("else"));
+		// cast should be safe, because only spriteblocks
+		// should get here
+		int retvalue =parseConditionNode((SpriteBlock *)node,elemNode,allowBlank);
+		if (retvalue == 0)
+			return false;
+		if (retvalue > 0)
+			elemNode = elemNode->NextSiblingElement();
+	}
+	while (elemNode)
+	{
+		const char* strType = elemNode->Value();
+		if (strcmp(strType, "if") == 0 || strcmp(strType, "else") == 0)
+		{
+			SpriteBlock* block = new SpriteBlock();
+			if (!elemNode->Attribute("file") && elemParent->Attribute("file"))
+			{
+				elemNode->SetAttribute("file",elemParent->Attribute("file"));
+			}
+			if (!parseSpriteNode(block,elemNode))
+			{
+				delete(block);
+				return false;
+			}
+			if (elemNode->Attribute("else") || strcmp(strType, "else") == 0)
+			{
+				if (!oldSibling)
+				{
+					WriteErr("Misplaced or invalid element in SpriteNode: %s (Line %d)\n",strType,elemNode->Row());
+					return false;						
+				}
+				oldSibling->addElse(block);	
+			}
+			else
+			{
+				node->addChild(block);
+			}
+			oldSibling = block;
+		}
+		else if (strcmp(strType, "rotate") == 0)
+		{
+			RotationBlock* block = new RotationBlock();
+			if (!elemNode->Attribute("file") && elemParent->Attribute("file"))
+			{
+				elemNode->SetAttribute("file",elemParent->Attribute("file"));
+			}
+			if (!parseSpriteNode(block,elemNode))
+			{
+				delete(block);
+				return false;
+			}
+			else
+			{
+				node->addChild(block);
+			}
+			oldSibling = NULL;
+		}
+		else if ((strcmp(strType, "sprite") == 0) || (strcmp(strType, "empty") == 0))
+		{
+			SpriteElement* sprite = new SpriteElement();
+			const char* strSheetIndex = elemNode->Attribute("index");
+			const char* strOffsetX = elemNode->Attribute("offsetx");
+			const char* strOffsetY = elemNode->Attribute("offsety");
+			const char* filename = elemNode->Attribute("file");
+			sprite->sprite.sheetIndex = (strSheetIndex != 0 ? atoi(strSheetIndex) : -1);
+			sprite->sprite.x    = (strOffsetX    != 0 ? atoi(strOffsetX)    : 0);
+			sprite->sprite.y   = (strOffsetY    != 0 ? atoi(strOffsetY)    : 0);
+			sprite->sprite.fileIndex = -1;
+			if (filename != NULL)
+			{
+			  if (strcmp(filename, "") != 0)
+			  	sprite->sprite.fileIndex = loadImgFile((char*)filename);
+			}
+			else
+			{
+			  const char* pfilename = elemParent->Attribute("file");
+			  if (pfilename)
+			  {
+				sprite->sprite.fileIndex = loadImgFile((char*)pfilename);
+			  }
+			}
+			node->addChild(sprite);
+		}
+		else if (strcmp(strType, "include") == 0)
+		{
+			if (!includeFile(node,elemNode,oldSibling))
+			{
+				return false;
+			}
 		}
 		else
 		{
