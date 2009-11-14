@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+
+<include file="workshop.png">
+	<if>
+		<not><or>
+			<NeighbourSameBuilding dir="TopRight"/>
+			<NeighbourSameBuilding dir="TopLeft"/>
+		</or></not>
+		<sprite index = 244 />
+	</if>
+	<else>
+		<not>
+			<NeighbourSameBuilding dir="TopRight"/>
+		</not>
+		<sprite index = 240 />
+	</else>
+	<else>
+		<not>
+			<NeighbourSameBuilding dir="TopLeft"/>
+		</not>
+		<sprite index = 241 />
+	</else>
+</include>

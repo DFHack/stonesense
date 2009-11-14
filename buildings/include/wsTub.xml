@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+
+<include file="workshop.png">
+	<if>
+		<MaterialType value="Wood" />
+		<sprite index = 141 />
+	</if>
+	<else>
+		<MaterialType value="Metal"/>
+		<sprite index = 142 />
+	</else>
+	<else>
+		<MaterialType value="GreenGlass"/>
+		<sprite index = 144 />
+	</else>
+	<else>
+		<or>
+			<MaterialType value="ClearGlass"/>
+			<MaterialType value="CrystalGlass"/>
+		</or>
+		<sprite index = 143 />
+	</else>
+	<else>
+		<sprite index = 140 />
+	</else>
+</include>

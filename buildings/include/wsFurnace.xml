@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+
+<include file="workshop.png">
+	<if>
+		<MaterialType value="Metal"/>
+		<rotate>
+			<sprite index = 44 />
+			<sprite index = 45 />
+			<sprite index = 46 />
+			<sprite index = 47 />
+		</rotate>
+	</if>
+	<else>
+		<rotate>
+			<sprite index = 40 />
+			<sprite index = 41 />
+			<sprite index = 42 />
+			<sprite index = 43 />
+		</rotate>
+	</else>
+</include>

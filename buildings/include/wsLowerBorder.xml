@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+
+<include file="workshop.png">
+	<!-- generic border -->
+	<if>
+		<not><or>
+			<NeighbourSameBuilding dir="BottomRight"/>
+			<NeighbourSameBuilding dir="BottomLeft"/>
+		</or></not>
+		<sprite index = 6 />
+	</if>
+	<else>
+		<not><or>
+			<NeighbourSameBuilding dir="TopLeft"/>
+			<NeighbourSameBuilding dir="BottomLeft"/>
+		</or></not>
+		<sprite index = 5 />
+	</else>
+	<else>
+		<not><or>
+			<NeighbourSameBuilding dir="BottomRight"/>
+			<NeighbourSameBuilding dir="TopRight"/>
+		</or></not>
+		<sprite index = 7 />
+	</else>
+	<else>
+		<not><or>
+			<NeighbourSameBuilding dir="BottomLeft"/>
+		</or></not>
+		<sprite index = 2 />
+	</else>
+	<else>
+		<not><or>
+			<NeighbourSameBuilding dir="BottomRight"/>
+		</or></not>
+		<sprite index = 3 />
+	</else>	
+	
+	<else>
+		<empty/>
+	</else>	
+	<!-- end generic block -->
+</include>

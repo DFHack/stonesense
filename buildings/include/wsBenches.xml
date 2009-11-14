@@ -1,0 +1,46 @@
+<?xml version="1.0" ?>
+
+<include file="workshop.png">
+		<!-- benches -->
+		<if>
+			<MaterialType value="Wood" />
+			<sprite index = 22 />
+		</if>
+		<else>
+			<MaterialType value="Metal"/>
+			<sprite index = 23 />
+		</else>
+		<else>
+			<MaterialType value="GreenGlass"/>
+			<sprite index = 25 />
+		</else>
+		<else>
+			<or>
+				<MaterialType value="ClearGlass"/>
+				<MaterialType value="CrystalGlass"/>
+			</or>
+			<sprite index = 24 />
+		</else>
+		<else>
+			<sprite index = 20 />
+		</else>
+		<!-- borders -->
+		<if>
+			<not>
+				<or>
+					<NeighbourIdentical dir="TopRight"/>
+					<NeighbourWall dir="TopRight"/>
+				</or>
+			</not>
+			<sprite index = 10 />
+		</if>
+		<if>
+			<not>
+				<or>
+					<NeighbourIdentical dir="TopLeft"/>
+					<NeighbourWall dir="TopLeft"/>
+				</or>
+			</not>
+			<sprite index = 8 />
+		</if>	
+</include>
