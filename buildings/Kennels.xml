@@ -2,29 +2,9 @@
 
 
 
-<building name="Kennels" gameID="kennels"> 
+<building name="Kennels" gameID="kennels" file="workshop.png">
 
-	<!-- generic top border -->
-	<if>
-		<not><or>
-			<NeighbourSameBuilding dir="TopRight"/>
-			<NeighbourSameBuilding dir="TopLeft"/>
-		</or></not>
-		<sprite index = 244 />
-	</if>
-	<else>
-		<not>
-			<NeighbourSameBuilding dir="TopRight"/>
-		</not>
-		<sprite index = 240 />
-	</else>
-	<else>
-		<not>
-			<NeighbourSameBuilding dir="TopLeft"/>
-		</not>
-		<sprite index = 241 />
-	</else>
-	<!-- end generic border -->
+	<include file="wsUpperBorder.xml"/>
 
 	<if>
 		<PositionIndex value=6 />
@@ -53,38 +33,7 @@
 	</else>
 
 
-	<!-- generic large border -->
-	<else>
-		<and>
-			<BuildingOccupancy value="1" />
-			<PositionIndex value=12 />
-		</and>
-		<sprite index = 321 />
-	</else>	
-	
-	<else>
-		<not><or>
-			<NeighbourSameBuilding dir="BottomRight"/>
-			<NeighbourSameBuilding dir="BottomLeft"/>
-		</or></not>
-		<sprite index = 246 />
-	</else>
-	<else>
-		<not><or>
-			<NeighbourSameBuilding dir="BottomLeft"/>
-		</or></not>
-		<sprite index = 242 />
-	</else>
-	<else>
-		<not><or>
-			<NeighbourSameBuilding dir="BottomRight"/>
-		</or></not>
-		<sprite index = 243 />
-	</else>	
-	
-	<else>
-		<empty/>
-	</else>	
-	<!-- end generic block -->
+	<include file="ws5x5Blueprint.xml"/>
+	<include file="wsLowerBorder.xml"/>
 	
 </building> 

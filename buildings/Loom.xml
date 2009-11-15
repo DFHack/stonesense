@@ -2,74 +2,56 @@
 
 
 
-<building name="Loom" gameID="loom"> 
+<building name="Loom" gameID="loom"  file="workshop.png"> 
+
+	<include file="wsUpperBorder.xml"/>
 
 	<!-- contents -->
 	
 	<if>
 		<BuildingOccupancy value="3" />
-		<sprite index = 240 />
-		<sprite index = 301 />
+		<rotate>
+			<sprite index = 193 />
+			<sprite index = 194 />
+			<sprite index = 193 />
+			<sprite index = 194 />
+		</rotate>
 	</if>		
 		
 	<else>
 		<PositionIndex value=0 />
-		<sprite index = 244 />
-		<sprite index = 300 offsety=2 offsetx=5/>
+		<rotate>
+			<sprite index = 136 offsety=2 offsetx=5/>
+			<sprite index = 136 offsety=2 offsetx=-5/>
+			<sprite index = 136 offsety=-4 offsetx=-7/>
+			<sprite index = 136 offsety=-4 offsetx=7/>
+		</rotate>
 	</else>
 	
 	<else>
 		<PositionIndex value=2 />
-		<sprite index = 240 />
-		<sprite index = 300 offsety=-4 offsetx=-7/>
-		<sprite index = 247 />
+		<rotate>
+			<sprite index = 136 offsety=-4 offsetx=-7/>
+			<sprite index = 136 offsety=-4 offsetx=7/>
+			<sprite index = 136 offsety=2 offsetx=5/>
+			<sprite index = 136 offsety=2 offsetx=-5/>
+		</rotate>
 	</else>	
 	
 	<else>
 		<PositionIndex value=3 />
-		<sprite index = 241 />
-		<sprite index = 304 />
+		<sprite index = 162 />
 	</else>
 
 	<else>
 		<PositionIndex value=8 />
-		<sprite index = 303 />
-		<sprite index = 246 />
+		<sprite index = 190 />
 	</else>	
 	
-	<!-- generic border -->
-
-	<else>
-		<and>
-			<BuildingOccupancy value="1" />
-			<PositionIndex value=4 />
-		</and>
-		<sprite index = 321 />
-	</else>	
-	
-	<else>
-		<not><or>
-			<NeighbourSameBuilding dir="BottomRight"/>
-			<NeighbourSameBuilding dir="BottomLeft"/>
-		</or></not>
-		<sprite index = 246 />
-	</else>
-	<else>
-		<not><or>
-			<NeighbourSameBuilding dir="BottomLeft"/>
-		</or></not>
-		<sprite index = 242 />
-	</else>
-	<else>
-		<not><or>
-			<NeighbourSameBuilding dir="BottomRight"/>
-		</or></not>
-		<sprite index = 243 />
-	</else>	
-	
-	<else>
-		<empty/>
-	</else>	
-	<!-- end generic block -->
+	<!-- to always draw the below -->
+	<if><never/>
+	</if>
+	<include file="ws3x3Blueprint.xml"/>
+	<include file="wsLowerBorder.xml"/>
 	
 </building> 

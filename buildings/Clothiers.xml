@@ -2,7 +2,7 @@
 
 
 
-<building name="Clothiers Shop" gameID="clothiers_shop"> 
+<building name="Clothiers Shop" gameID="clothiers_shop" file="workshop.png"> 
 	<!-- benches block -->
 	<if> 
 		<!-- replace this with position index if required -->
@@ -19,23 +19,23 @@
 	
 	<if>
 		<PositionIndex value=2 />
-		<sprite index = 304 />
+		<sprite index = 162 />
 	</if>	
 
 	<else>
 		<PositionIndex value=8 />
-		<sprite index = 303 />
+		<sprite index = 190 />
 	</else>		
 		
 	<if>
 		<BuildingOccupancy value="3" />
 		<if>
 			<PositionIndex value=0 />
-			<sprite index = 271 />
+			<sprite index = 188 />
 		</if>
 		<else>
 			<PositionIndex value=7 />
-			<sprite index = 270 />
+			<sprite index = 189 />
 		</else>
 	</if>
 		

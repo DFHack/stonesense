@@ -2,106 +2,58 @@
 
 
 
-<building name="Magma Kiln" gameID="magma_kiln"> 
+<building name="Magma Kiln" gameID="magma_kiln" file="workshop.png"> 
 
 	<!-- benches block -->
-	<if> 
-		<!-- replace this with position index if required -->
-		<BuildingOccupancy value="3" />	
-		<!-- stoves -->
-		<if>
-			<MaterialType value="Metal"/>
-			<sprite index = 257 />
-		</if>
-		<else>
-			<sprite index = 272 />
-		</else>
+	<if>
+		<BuildingOccupancy value="3" />
+		<include file="wsFurnace.xml" />
 	</if>
 	<else>
-		<not><or>
-			<NeighbourSameBuilding dir="TopRight"/>
-			<NeighbourSameBuilding dir="TopLeft"/>
-		</or></not>
-		<sprite index = 244 />
-	</else>
-	<else>
-		<not>
-			<NeighbourSameBuilding dir="TopRight"/>
-		</not>
-		<sprite index = 240 />
-	</else>
-	<else>
-		<not>
-			<NeighbourSameBuilding dir="TopLeft"/>
-		</not>
-		<sprite index = 241 />
+		<HaveFloor/>
+		<include file="wsUpperBorder.xml"/>
 	</else>
 	<!-- end benches block -->
  
 	<!-- contents -->
+
+	<if>
+		<HaveFloor/>
+		<if>
+			<PositionIndex value=2 />
+			<rotate>
+				<sprite index = 127 />
+				<sprite index = 128 />
+				<sprite index = 129 />
+				<sprite index = 126 />
+			</rotate>
+		</if>	
+		
+		<else>
+			<PositionIndex value=6 />
+			<rotate>
+				<sprite index = 164 offsetx=5/>	
+				<sprite index = 165 />
+				<sprite index = 164 />	
+				<sprite index = 165 />	
+			</rotate>
+		</else>
+		
+		<else>
+			<PositionIndex value=8 />
+			<sprite index = 170 />	
+		</else>	
+	</if>	
 	
 	<if>
-		<BuildingOccupancy value="3" />
-	</if>	
+		<or>
+			<BuildingOccupancy value="3" />
+			<not><HaveFloor/></not>
+		</or>
+		<empty/>
+	</if>
 		
-	<else>
-		<not><HaveFloor/></not>
-		<empty/>
-	</else>
-	
-	<else>
-		<PositionIndex value=2 />
-		<sprite index = 240 />
-		<sprite index = 258 />
-		<sprite index = 247 />
-	</else>	
-	
-	<else>
-		<PositionIndex value=6 />
-		<sprite index = 241 />
-		<sprite index = 252 offsetx=4/>
-		<sprite index = 245 />	
-	</else>
-	
-	<else>
-		<PositionIndex value=8 />
-		<sprite index = 262 offsety=-1/>
-		<sprite index = 246 />
-	</else>	
-	
-	<!-- generic border -->
-
-	<else>
-		<and>
-			<BuildingOccupancy value="1" />
-			<PositionIndex value=4 />
-		</and>
-		<sprite index = 321 />
-	</else>	
-	
-	<else>
-		<not><or>
-			<NeighbourSameBuilding dir="BottomRight"/>
-			<NeighbourSameBuilding dir="BottomLeft"/>
-		</or></not>
-		<sprite index = 246 />
-	</else>
-	<else>
-		<not><or>
-			<NeighbourSameBuilding dir="BottomLeft"/>
-		</or></not>
-		<sprite index = 242 />
-	</else>
-	<else>
-		<not><or>
-			<NeighbourSameBuilding dir="BottomRight"/>
-		</or></not>
-		<sprite index = 243 />
-	</else>	
-	
-	<else>
-		<empty/>
-	</else>	
-	<!-- end generic block -->
+	<include file="ws3x3Blueprint.xml"/>
+	<include file="wsLowerBorder.xml"/>
 	
 </building> 
