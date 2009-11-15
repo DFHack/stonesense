@@ -19,7 +19,7 @@
 	
 	<if>
 		<PositionIndex value=5 />
-		<sprite index = 311 offsetx=-2 offsety=-1/>
+		<sprite index = 171 offsetx=-2 offsety=-1/>
 	</if>
 	
 	<if>

@@ -2,7 +2,7 @@
 
 
 
-<building name="Still" gameID="still"> 
+<building name="Still" gameID="still" file="workshop.png">
 
 	<!-- benches block -->
 	<if> 
@@ -51,10 +51,7 @@
 				</or>
 			</not>
 			<sprite index = 8 offsety="5"/>
-		</if>	
-		
-		<sprite index = 308/>
-		
+		</if>		
 	</if>
 	<else>
 		<include file="wsUpperBorder.xml"/>
@@ -62,15 +59,26 @@
 	<!-- end benches block -->
  
 	<!-- contents -->
-	
+
 	<if>
-		<PositionIndex value=3 />
-		<sprite index = 311 />
+		<!-- replace this with position index if required -->
+		<BuildingOccupancy value="3" />	
+		<rotate>
+			<sprite index = 308/>		
+			<sprite index = 313/>		
+			<sprite index = 307/>		
+			<sprite index = 314/>		
+		</rotate>
 	</if>
+			
+	<else>
+		<PositionIndex value=3 />
+		<sprite index = 171 />
+	</else>
 	
 	<else>
 		<PositionIndex value=8 />
-		<sprite index = 311 offsety = -5 />
+		<sprite index = 171 offsety = -5 />
 	</else>	
 	
 	<if>
@@ -78,14 +86,22 @@
 			<not><BuildingOccupancy value="1" /></not>
 			<PositionIndex value=1 />
 		</and>
-		<sprite index = 309 />
+		<rotate>
+			<sprite index = 309 />
+			<sprite index = 312 />
+		</rotate>
 	</if>		
 	<else>
 		<and>
 			<not><BuildingOccupancy value="1" /></not>
 			<PositionIndex value=2 />
 		</and>
-		<sprite index = 310 />
+		<rotate>
+			<sprite index = 310 />
+			<sprite index = 311 />
+			<sprite index = 315 />
+			<sprite index = 306 />
+		</rotate>
 	</else>		
 			
 	<if>
