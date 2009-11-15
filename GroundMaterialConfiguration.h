@@ -11,6 +11,18 @@ public:
   ~GroundMaterialConfiguration(){}
 };
 
+typedef struct OverridingMaterial{
+	int id;
+	int spriteIndex;
+}OverridingMaterial;
+
+class FloorConfiguration
+{
+public:
+	int defaultSprite;
+	vector<OverridingMaterial> overridingMaterials;
+};
+
 
 void LoadGroundMaterialConfiguration( );
 void TranslateGroundMaterialNames();

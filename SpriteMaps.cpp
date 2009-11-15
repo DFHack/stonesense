@@ -240,6 +240,34 @@ int GetWallSpriteMap(int in, int matIndex)
     return SPRITEOBJECT_WALL_NA;
 }
 int GetFloorSpriteMap(int in, int matIndex){
+	in = 0;
+	vector<FloorConfiguration*> allthings;
+
+	FloorConfiguration test;
+	test.defaultSprite = 10;
+	OverridingMaterial ovr = {152,2};
+	test.overridingMaterials.push_back( ovr );
+	allthings.push_back( &test );
+
+	if(in < 0 || in >= allthings.size()) 
+		return SPRITEFLOOR_NA;
+	
+	FloorConfiguration* floor = allthings[ in ];
+	
+	if(floor == NULL) 
+		return SPRITEFLOOR_NA;
+
+	for(int i=0; i<floor->overridingMaterials.size(); i++){
+		if(floor->overridingMaterials[i].id == matIndex){
+			return floor->overridingMaterials[i].spriteIndex;
+		}
+	}
+
+	int spriteindex = floor->defaultSprite;
+
+	return spriteindex;
+
+
    switch (in)
     {
 			

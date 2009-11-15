@@ -63,11 +63,11 @@ void LoadGroundMaterialConfiguration(  ){
   TiXmlDocument doc( filename );
   bool loadOkay = doc.LoadFile();
   TiXmlHandle hDoc(&doc);
-  TiXmlElement* elemMaterial;
+  TiXmlElement* elemFloor;
 
   xmlDefinedGroundTypes.clear();
 
-  elemMaterial = hDoc.FirstChildElement("Material").Element();
+  /*elemMaterial = hDoc.FirstChildElement("Material").Element();
   while( elemMaterial ){
     const char* name = elemMaterial->Attribute("gameID");
     const char* wallSheetIndexStr = elemMaterial->Attribute("wallSheetIndex");
@@ -78,6 +78,28 @@ void LoadGroundMaterialConfiguration(  ){
     xmlDefinedGroundTypes.push_back( mat );
     
     elemMaterial = elemMaterial->NextSiblingElement("Material");
+  }*/
+	elemFloor = hDoc.FirstChildElement("Floor").Element();
+  while( elemFloor ){
+    const char* spriteIndexstr = elemFloor->Attribute("spriteIndex");
+		TiXmlElement* elemGameID;
+		TiXmlElement* elemMaterial;
+
+		elemGameID = elemFloor->FirstChildElement("GameID");
+		while( elemGameID ){
+			const char* gameIDstr = elemGameID->Attribute("value");
+
+			elemGameID = elemGameID->NextSiblingElement("GameID");
+		}
+
+		elemMaterial = elemFloor->FirstChildElement("Material");
+		while( elemMaterial ){
+			const char* gameIDstr = elemMaterial->Attribute("name");
+
+			elemMaterial = elemMaterial->NextSiblingElement("Material");
+		}
+		
+    elemFloor = elemFloor->NextSiblingElement("Floor");
   }
 
   GroundMaterialNamesTranslatedFromGame = false;

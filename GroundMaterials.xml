@@ -5,3 +5,14 @@
 <Material gameID="SAND_RED" 	wallSheetIndex = 211  floorSheetIndex = 14 /> 
 <Material gameID="SAND_BLACK" 	wallSheetIndex = 212  floorSheetIndex = 15 /> 
 <Material gameID="SAND_WHITE" 	wallSheetIndex = 213  floorSheetIndex = 16 /> 
+
+<Floor spriteIndex =3>
+	<GameID value = 337/>
+	
+</Floor>
+
+<Floor spriteIndex=4>
+	<GameID value = 337 />
+	<Material name="MARBLE" />
+	<Material name="GABBRO" />
+</Floor>
