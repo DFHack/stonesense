@@ -25,8 +25,8 @@ void DrawCreature( BITMAP* target, int drawx, int drawy, t_creature* creature ){
   int spriteNum = GetCreatureSpriteMap( creature );
   //if(creature->x == 151 && creature->y == 145)
   //  int j = 10;
+  textprintf(target, font, drawx, drawy-20, 0xFFffFF, "%s", creature->first_name );
   DrawSpriteFromSheet( spriteNum, target, IMGCreatureSheet, drawx, drawy );
-  textprintf(target, font, drawx, drawy-10, 0xFFffFF, "%s", creature->first_name );
 }
 //t_creature* global = 0;
 
