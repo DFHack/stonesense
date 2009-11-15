@@ -10,27 +10,28 @@
 		<BuildingOccupancy value="3" />	
 		<!-- benches -->
 		<!-- could cause problems with transparent floors -->
+		<!-- benches -->
 		<if>
-			<MaterialType value="Wood" />
-			<sprite index = 274 offsety=5/>
+			<MaterialType value="Wood"/>
+			<sprite index = 21 offsety="5"/>
 		</if>
 		<else>
 			<MaterialType value="Metal"/>
-			<sprite index = 254 offsety=5/>
+			<sprite index = 22 offsety="5"/>
 		</else>
 		<else>
 			<MaterialType value="GreenGlass"/>
-			<sprite index = 285 offsety=5/>
+			<sprite index = 23 offsety="5"/>
 		</else>
 		<else>
 			<or>
 				<MaterialType value="ClearGlass"/>
 				<MaterialType value="CrystalGlass"/>
 			</or>
-			<sprite index = 283 offsety=5/>
+			<sprite index = 23 offsety="5"/>
 		</else>
 		<else>
-			<sprite index = 273 offsety=5/>
+			<sprite index = 20 offsety="5"/>
 		</else>
 		<!-- borders -->
 		<if>
@@ -40,7 +41,7 @@
 					<NeighbourWall dir="TopRight"/>
 				</or>
 			</not>
-			<sprite index = 282 offsety=5/>
+			<sprite index = 10 offsety="5"/>
 		</if>
 		<if>
 			<not>
@@ -49,29 +50,14 @@
 					<NeighbourWall dir="TopLeft"/>
 				</or>
 			</not>
-			<sprite index = 280 offsety=5/>
+			<sprite index = 8 offsety="5"/>
 		</if>	
+		
 		<sprite index = 308/>
 		
 	</if>
 	<else>
-		<not><or>
-			<NeighbourSameBuilding dir="TopRight"/>
-			<NeighbourSameBuilding dir="TopLeft"/>
-		</or></not>
-		<sprite index = 244 />
-	</else>
-	<else>
-		<not>
-			<NeighbourSameBuilding dir="TopRight"/>
-		</not>
-		<sprite index = 240 />
-	</else>
-	<else>
-		<not>
-			<NeighbourSameBuilding dir="TopLeft"/>
-		</not>
-		<sprite index = 241 />
+		<include file="wsUpperBorder.xml"/>
 	</else>
 	<!-- end benches block -->
  
@@ -87,73 +73,26 @@
 		<sprite index = 311 offsety = -5 />
 	</else>	
 	
-	<else>
+	<if>
 		<and>
 			<not><BuildingOccupancy value="1" /></not>
 			<PositionIndex value=1 />
 		</and>
-		<sprite index = 240 />
 		<sprite index = 309 />
-	</else>		
+	</if>		
 	<else>
 		<and>
 			<not><BuildingOccupancy value="1" /></not>
 			<PositionIndex value=2 />
 		</and>
-		<sprite index = 240 />
 		<sprite index = 310 />
-		<sprite index = 247 />
 	</else>		
 			
-	<!-- generic border -->
-
-	<else>
-		<and>
-			<BuildingOccupancy value="1" />
-			<PositionIndex value=4 />
-		</and>
-		<sprite index = 321 />
-	</else>	
-	<else>
-		<PositionIndex value=0 />
-		<sprite index = 244 />
-	</else>
-	<else>
-		<PositionIndex value=1 />
-		<sprite index = 240 />
-	</else>
-	<else>
-		<PositionIndex value=2 />
-		<sprite index = 240 />
-		<sprite index = 247 />
-	</else>
-
-	<else>
-		<PositionIndex value=3 />
-		<sprite index = 241 />
-	</else>
-	<else>
-		<PositionIndex value=5 />
-		<sprite index = 243 />
-	</else>
-	
-	<else>
-		<PositionIndex value=6 />
-		<sprite index = 241 />
-		<sprite index = 245 />
-	</else>
-	<else>
-		<PositionIndex value=7 />
-		<sprite index = 242 />
-	</else>
-	<else>
-		<PositionIndex value=8 />
-		<sprite index = 246 />
-	</else>	
-	
-	<else>
+	<if>
+		<BuildingOccupancy value="3" />
 		<empty/>
-	</else>	
-	<!-- end generic block -->
+	</if>
+	<include file="ws3x3Blueprint.xml"/>
+	<include file="wsLowerBorder.xml"/>
 	
 </building> 

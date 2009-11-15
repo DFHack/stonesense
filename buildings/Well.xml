@@ -2,33 +2,10 @@
 
 
 
-<building name="Well" gameID="well"> 
+<building name="Well" gameID="well" file="workshop.png">
 
-	<!-- it hasnt really show up before, but I really need
-		'inside of hollow' to be material based, too -->
-	<if>
-		<MaterialType value="GreenGlass" />
-		<sprite index = 285 />
-	</if>
-	<else>
-		<or>
-			<MaterialType value="ClearGlass" />
-			<MaterialType value="CrystalGlass" />
-		</or>
-		<sprite index = 283 />
-	</else>
-	<else>
-		<MaterialType value="Wood" />
-		<sprite index = 274 />
-	</else>
-	<else>
-		<MaterialType value="Metal"/>
-		<sprite index = 254 />
-	</else>
-	<else>
-		<sprite index = 273 />
-	</else>
-	<sprite index = 281 />
-	<sprite index = 353 />
-	<sprite index = 354 />
+	<include file="wsBenches.xml"/>
+	<include file="wsTub.xml" />
+	<sprite index = 179 />
+	
 </building> 
