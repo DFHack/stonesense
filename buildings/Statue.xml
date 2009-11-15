@@ -4,4 +4,14 @@
 
 <building name="Statue" gameID="statue"> 
 		<sprite index = 86 />
+		
+		<if>
+			<MaterialType value="Stone" />
+			<MaterialIndex value="170" /> <!-- This is Gypsum stone -->
+			<sprite index=44/> 
+		</if>
+		<else>
+			<sprite index=86 /> <!-- Default statue -->
+		</else>
+	</if>
 </building> 

@@ -38,6 +38,9 @@ int parseConditionNode(ConditionalNode* node, TiXmlElement* elemCondition, bool 
   else if( strcmp(strType, "MaterialType") == 0){
      cond = new MaterialTypeCondition( elemCondition->Attribute("value") );
   }   
+	else if( strcmp(strType, "MaterialIndex") == 0){
+     cond = new MaterialIndexCondition( elemCondition->Attribute("value") );
+  }   
   else if( strcmp(strType, "always") == 0){
      cond = new AlwaysCondition();
   } 

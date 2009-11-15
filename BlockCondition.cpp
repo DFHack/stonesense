@@ -115,6 +115,17 @@ bool MaterialTypeCondition::Matches(Block* b)
     return b->building.info.material.type == this->value;
 }
 
+MaterialIndexCondition::MaterialIndexCondition(const char* strValue)
+	: BlockCondition()
+{
+	this->value = atoi( strValue );
+}
+
+bool MaterialIndexCondition::Matches(Block* b)
+{
+    return b->building.info.material.index == this->value;
+}
+
 
 AnimationFrameCondition::AnimationFrameCondition(const char* strValue)
 	: BlockCondition()
