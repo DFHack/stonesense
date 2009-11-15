@@ -2,182 +2,167 @@
 
 
 
-<building name="Carpentry" gameID="carpenters_workshop"> 
+<building name="Carpentry" gameID="carpenters_workshop" file="workshop.png">
 
 	<!-- benches block -->
 	<if> 
 		<!-- replace this with position index if required -->
-		<BuildingOccupancy value="3" />
-		
-		<!-- gyah! offset semi-benches make for hideous config -->
-		<if>
-			<PositionIndex value=3 />
-			<if>
-				<MaterialType value="Wood" />
-				<sprite index = 251 offsetx=2 offsety=-1/>
-			</if>
-			<else>
-				<MaterialType value="Metal"/>
-				<sprite index = 255 offsetx=2 offsety=-1/>
-			</else>
-			<else>
-				<MaterialType value="GreenGlass"/>
-				<sprite index = 286 offsetx=2 offsety=-1/>
-			</else>
-			<else>
-				<or>
-					<MaterialType value="ClearGlass"/>
-					<MaterialType value="CrystalGlass"/>
-				</or>
-				<sprite index = 284 offsetx=2 offsety=-1/>
-			</else>
-			<else>
-				<sprite index = 249 offsetx=2 offsety=-1/>
-			</else>	
-			<sprite index = 250 offsetx=3 offsety=-3/>	
-		</if>
-		
-		<else>
-			<PositionIndex value=6 />
-			<if>
-				<MaterialType value="Wood" />
-				<sprite index = 251 />
-			</if>
-			<else>
-				<MaterialType value="Metal"/>
-				<sprite index = 255 />
-			</else>
-			<else>
-				<MaterialType value="GreenGlass"/>
-				<sprite index = 286 />
-			</else>
-			<else>
-				<or>
-					<MaterialType value="ClearGlass"/>
-					<MaterialType value="CrystalGlass"/>
-				</or>
-				<sprite index = 284 />
-			</else>
-			<else>
-				<sprite index = 249 />
-			</else>	
-			<sprite index = 290 offsetx=6 offsety=-5/>
-		</else>				
-			
-		<else>
-			<!-- benches -->
-			<if>
-				<MaterialType value="Wood" />
-				<sprite index = 274 />
-			</if>
-			<else>
-				<MaterialType value="Metal"/>
-				<sprite index = 254 />
-			</else>
-			<else>
-				<MaterialType value="GreenGlass"/>
-				<sprite index = 285 />
-			</else>
-			<else>
-				<or>
-					<MaterialType value="ClearGlass"/>
-					<MaterialType value="CrystalGlass"/>
-				</or>
-				<sprite index = 283 />
-			</else>
-			<else>
-				<sprite index = 273 />
-			</else>
-			<!-- borders -->
-			<if>
-				<not>
-					<or>
-						<NeighbourIdentical dir="TopRight"/>
-						<NeighbourWall dir="TopRight"/>
-					</or>
-				</not>
-				<sprite index = 282 />
-			</if>
-			<if>
-				<not>
-					<or>
-						<NeighbourIdentical dir="TopLeft"/>
-						<NeighbourWall dir="TopLeft"/>
-					</or>
-				</not>
-				<sprite index = 280 />
-			</if>	
-		</else>
+		<and>
+			<BuildingOccupancy value="3" />
+			<not><PositionIndex value=3 /></not>
+			<not><PositionIndex value=6 /></not>
+		</and>
+		<include file="wsBenches.xml"/>
 	</if>
 	<else>
-		<not><or>
-			<NeighbourSameBuilding dir="TopRight"/>
-			<NeighbourSameBuilding dir="TopLeft"/>
-		</or></not>
-		<sprite index = 244 />
+		<include file="wsUpperBorder.xml"/>
 	</else>
-	<else>
-		<not>
-			<NeighbourSameBuilding dir="TopRight"/>
-		</not>
-		<sprite index = 240 />
-	</else>
-	<else>
-		<not>
-			<NeighbourSameBuilding dir="TopLeft"/>
-		</not>
-		<sprite index = 241 />
-	</else>
-	<!-- end benches block -->
- 
+	<!-- end benches block -->	
+
 	<!-- contents -->
 	
 	<if>
 		<PositionIndex value=2 />
-		<sprite index = 252 offsetx=-2 offsety=-1/>
+		<sprite index = 164 offsetx=-2 offsety=-1/>
 	</if>
 	
 	<if>
 		<BuildingOccupancy value="3" />
 		<if>
-			<PositionIndex value=8 />
-			<sprite index = 279 />
+			<not><NeighbourSameBuilding dir="BottomLeft"/></not>
+			<sprite index = 2 />
 		</if>
+		<else>
+			<not><NeighbourSameBuilding dir="BottomRight"/></not>
+			<sprite index = 3 />
+		</else>	
+		<if>
+			<PositionIndex value=3 />
+			<if>
+				<MaterialType value="Wood" />
+				<rotate>
+					<sprite index = 82 offsetx=2 offsety=-1/>
+					<sprite index = 83 />
+					<sprite index = 82 />
+					<sprite index = 83 offsetx=-2 offsety=-1/>
+				</rotate>
+			</if>
+			<else>
+				<MaterialType value="Metal" />
+				<rotate>
+					<sprite index = 84 offsetx=2 offsety=-1/>
+					<sprite index = 85 />
+					<sprite index = 84 />
+					<sprite index = 85 offsetx=-2 offsety=-1/>
+				</rotate>
+			</else>
+			<else>
+				<MaterialType value="GreenGlass" />
+				<rotate>
+					<sprite index = 88 offsetx=2 offsety=-1/>
+					<sprite index = 89 />
+					<sprite index = 88 />
+					<sprite index = 89 offsetx=-2 offsety=-1/>
+				</rotate>
+			</else>
+			<else>
+				<or>
+					<MaterialType value="ClearGlass"/>
+					<MaterialType value="CrystalGlass"/>
+				</or>
+				<rotate>
+					<sprite index = 86 offsetx=2 offsety=-1/>
+					<sprite index = 87 />
+					<sprite index = 86 />
+					<sprite index = 87 offsetx=-2 offsety=-1/>
+				</rotate>
+			</else>
+			<else>
+				<rotate>
+					<sprite index = 80 offsetx=2 offsety=-1/>
+					<sprite index = 81 />
+					<sprite index = 80 />
+					<sprite index = 81 offsetx=-2 offsety=-1/>
+				</rotate>
+			</else>
+			
+			<rotate>
+				<sprite index = 166 offsetx=2 offsety=-2 />
+				<sprite index = 167 />
+				<sprite index = 166 offsetx=-2 />
+				<sprite index = 167 offsetx=-2 offsety=-1 />
+			</rotate>
+			<rotate>
+				<empty/>
+				<sprite index = 181 offsetx=-10 offsety=-7/>
+				<sprite index = 180 offsetx=12 offsety=-5/>
+				<empty/>
+			</rotate>
+		</if>
+		<else>
+			<PositionIndex value=6 />
+			<if>
+				<MaterialType value="Wood" />
+				<rotate>
+					<sprite index = 82 />
+					<sprite index = 83 offsetx=-2 offsety=-1/>
+					<sprite index = 82 offsetx=2 offsety=-1/>
+					<sprite index = 83 />
+				</rotate>
+			</if>
+			<else>
+				<MaterialType value="Metal" />
+				<rotate>
+					<sprite index = 84 />
+					<sprite index = 85 offsetx=-2 offsety=-1/>
+					<sprite index = 84 offsetx=2 offsety=-1/>
+					<sprite index = 85 />
+				</rotate>
+			</else>
+			<else>
+				<MaterialType value="GreenGlass" />
+				<rotate>
+					<sprite index = 88 />
+					<sprite index = 89 offsetx=-2 offsety=-1/>
+					<sprite index = 88 offsetx=2 offsety=-1/>
+					<sprite index = 89 />
+				</rotate>
+			</else>
+			<else>
+				<or>
+					<MaterialType value="ClearGlass"/>
+					<MaterialType value="CrystalGlass"/>
+				</or>
+				<rotate>
+					<sprite index = 86 />
+					<sprite index = 87 offsetx=-2 offsety=-1/>
+					<sprite index = 86 offsetx=2 offsety=-1/>
+					<sprite index = 87 />
+				</rotate>
+			</else>
+			<else>
+				<rotate>
+					<sprite index = 80 />
+					<sprite index = 81 offsetx=-2 offsety=-1/>
+					<sprite index = 80 offsetx=2 offsety=-1/>
+					<sprite index = 81 />
+				</rotate>
+			</else>
+			<rotate>
+				<sprite index = 160 offsetx=6 offsety=-5/>
+				<sprite index = 161 offsetx=6 offsety=1/>
+				<sprite index = 160 offsetx=-4 offsety=3/>
+				<sprite index = 161 offsetx=-6 offsety=-3/>
+			</rotate>
+		</else>
+		
+		<else>
+			<PositionIndex value=8 />
+			<sprite index = 168 />
+		</else>
 	</if>		
 			
-	<!-- generic border -->
-
-	<else>
-		<and>
-			<BuildingOccupancy value="1" />
-			<PositionIndex value=4 />
-		</and>
-		<sprite index = 321 />
-	</else>	
-	
-	<else>
-		<not><or>
-			<NeighbourSameBuilding dir="BottomRight"/>
-			<NeighbourSameBuilding dir="BottomLeft"/>
-		</or></not>
-		<sprite index = 246 />
-	</else>
-	<else>
-		<not><or>
-			<NeighbourSameBuilding dir="BottomLeft"/>
-		</or></not>
-		<sprite index = 242 />
-	</else>
-	<else>
-		<not><or>
-			<NeighbourSameBuilding dir="BottomRight"/>
-		</or></not>
-		<sprite index = 243 />
-	</else>	
-	
-	<else>
-		<empty/>
-	</else>	
-	<!-- end generic block -->
+	<include file="ws3x3Blueprint.xml"/>
+	<include file="wsLowerBorder.xml"/>
 	
 </building> 

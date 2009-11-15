@@ -2,16 +2,16 @@
 
 
 
-<building name="Ashery" gameID="ashery"> 
+<building name="Ashery" gameID="ashery" file="workshop.png"> 
 	<!-- benches block -->
 	<if> 
 		<!-- replace this with position index if required -->
 		<BuildingOccupancy value="3" />	
 		<!-- benches -->
-		<include file="buildings/include/wsBenches.xml"/>
+		<include file="wsBenches.xml"/>
 	</if>
 	<else>
-		<include file="buildings/include/wsUpperBorder.xml"/>
+		<include file="wsUpperBorder.xml"/>
 	</else>
 	<!-- end benches block -->
  
@@ -34,7 +34,7 @@
 		</else>
 	</if>		
 	
-	<include file="buildings/include/ws3x3Blueprint.xml"/>
-	<include file="buildings/include/wsLowerBorder.xml"/>	
+	<include file="ws3x3Blueprint.xml"/>
+	<include file="wsLowerBorder.xml"/>	
 	
 </building> 

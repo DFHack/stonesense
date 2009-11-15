@@ -1,10 +1,8 @@
 <?xml version="1.0" ?>
 
 <include file="workshop.png">
-		<if>
-			<sprite index = 20 />
-			<sprite index = 140 />
-		</if>
+		<sprite index = 20 />
+		<sprite index = 140 />
 		<!-- borders -->
 		<if>
 			<not>

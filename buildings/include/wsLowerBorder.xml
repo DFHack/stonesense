@@ -2,13 +2,13 @@
 
 <include file="workshop.png">
 	<!-- generic border -->
-	<if>
+	<else>
 		<not><or>
 			<NeighbourSameBuilding dir="BottomRight"/>
 			<NeighbourSameBuilding dir="BottomLeft"/>
 		</or></not>
 		<sprite index = 6 />
-	</if>
+	</else>
 	<else>
 		<not><or>
 			<NeighbourSameBuilding dir="TopLeft"/>

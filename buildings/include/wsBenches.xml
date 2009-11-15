@@ -4,22 +4,22 @@
 		<!-- benches -->
 		<if>
 			<MaterialType value="Wood" />
-			<sprite index = 22 />
+			<sprite index = 21 />
 		</if>
 		<else>
 			<MaterialType value="Metal"/>
-			<sprite index = 23 />
+			<sprite index = 22 />
 		</else>
 		<else>
 			<MaterialType value="GreenGlass"/>
-			<sprite index = 25 />
+			<sprite index = 23 />
 		</else>
 		<else>
 			<or>
 				<MaterialType value="ClearGlass"/>
 				<MaterialType value="CrystalGlass"/>
 			</or>
-			<sprite index = 24 />
+			<sprite index = 23 />
 		</else>
 		<else>
 			<sprite index = 20 />
