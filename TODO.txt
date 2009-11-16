@@ -4,7 +4,6 @@ Add configurable key bindings
 Interrupt driven input
 Rotate the black edges
 Link with DF window
-Screenshot is broken after 32bit update
 Properly handle bad DF connections
 Add more dwarfs
 Add humans

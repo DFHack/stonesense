@@ -1,7 +1,6 @@
 #pragma once
 
 
-enum enumCreatureSex;
 #define CREATURESTRLENGTH 50
 class CreatureConfiguration
 {

@@ -329,28 +329,6 @@ void destroyGraphics(){
   destroy_bitmap(IMGRampSheet);
 }
 
-void saveScreenshot(){
-  paintboard();
-  //get filename
-  char filename[20] ={0};
-  FILE* fp;
-  int index = 1;
-  //search for the first screenshot# that does not exist already
-  while(true){
-    sprintf(filename, "screenshot%i.png", index);
-    
-    fp = fopen(filename, "r");
-    if( fp != 0)
-      fclose(fp);
-    else
-      //file does not exist, so exit loop
-      break;
-    index++;
-  };
-  //save_bitmap(filename, buffer, 0);
-  save_png(filename, buffer, 0);
-}
-
 //delete and clean out the image files
 void flushImgFiles()
 {
@@ -385,3 +363,28 @@ int loadImgFile(char* filename)
   return (int)IMGFilelist.size() - 1;
 }
 
+
+void saveScreenshot(){
+  paintboard();
+  //get filename
+  char filename[20] ={0};
+  FILE* fp;
+  int index = 1;
+  //search for the first screenshot# that does not exist already
+  while(true){
+    sprintf(filename, "screenshot%i.png", index);
+    
+    fp = fopen(filename, "r");
+    if( fp != 0)
+      fclose(fp);
+    else
+      //file does not exist, so exit loop
+      break;
+    index++;
+  };
+  //move image to 16 bits
+  BITMAP* temp = create_bitmap_ex(16, buffer->w, buffer->h);
+  blit(buffer, temp, 0, 0, 0,0, buffer->w,buffer->h);
+  save_png(filename, temp, 0);
+  destroy_bitmap(temp);
+}

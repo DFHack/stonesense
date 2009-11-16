@@ -44,3 +44,10 @@ typedef struct {
   Crd3D segmentSize;
 
 } GameConfiguration;
+
+
+enum enumCreatureSex{
+  eCreatureSex_NA,
+  eCreatureSex_Male,
+  eCreatureSex_Female
+};

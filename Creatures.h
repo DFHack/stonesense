@@ -5,12 +5,6 @@
 #define	SPRITECRE_NA 0;
 
 
-enum enumCreatureSex{
-  eCreatureSex_NA,
-  eCreatureSex_Male,
-  eCreatureSex_Female
-};
-
 
 void ReadCreaturesToSegment(API& DF, WorldSegment* segment);
 
