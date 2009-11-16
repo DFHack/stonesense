@@ -1,8 +1,6 @@
 Finish floor and wall config
-Improve creature config to include professions and sexes
 Add configurable key bindings
 Interrupt driven input
-Rotate the black edges
 Link with DF window
 Properly handle bad DF connections
 Add more dwarfs

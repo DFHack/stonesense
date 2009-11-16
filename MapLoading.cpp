@@ -73,6 +73,34 @@ int CalculateRampType(uint32_t x, uint32_t y, uint32_t z, WorldSegment* segment)
 	return 1;
 }
 
+bool isBlockOnVisisbleEdgeOfSegment(WorldSegment* segment, Block* b){
+  if(b->z == segment->z + segment->sizez - 1) 
+    return true;
+
+  if(DisplayedRotation == 0 && (
+    b->x == segment->x + segment->sizex - 1 || b->y == segment->y + segment->sizey - 1 ))
+  {
+      return true;
+  }else 
+  if(DisplayedRotation == 1 && (
+    b->x == segment->x + segment->sizex - 1 || b->y == segment->y ))
+  {
+      return true;
+  }else 
+  if(DisplayedRotation == 2 && (
+    b->x == segment->x || b->y == segment->y ))
+  {
+      return true;
+  }
+  else 
+  if(DisplayedRotation == 3 && (
+    b->x == segment->x || b->y == segment->y + segment->sizey - 1  ))
+  {
+      return true;
+  }
+
+  return false;
+}
 
 
 void ReadCellToSegment(API& DF, WorldSegment& segment, int CellX, int CellY, int CellZ,
@@ -140,7 +168,7 @@ void ReadCellToSegment(API& DF, WorldSegment& segment, int CellX, int CellY, int
     
     b->occ = occupancies[lx][ly];
 
-        //liquids
+    //liquids
 		if(designations[lx][ly].bits.flow_size > 0){
 			b->water.type  = designations[lx][ly].bits.liquid_type;
 			b->water.index = designations[lx][ly].bits.flow_size;
@@ -167,10 +195,7 @@ void ReadCellToSegment(API& DF, WorldSegment& segment, int CellX, int CellY, int
     isHidden &= !config.show_hidden_blocks;
     bool shouldBeIncluded = (!isOpenTerrain(t) && !isHidden) || b->water.index ;
     //include hidden blocks as shaded black 
-    if(config.shade_hidden_blocks && isHidden && (
-       b->z == segment.z + segment.sizez - 1 ||
-       b->x == segment.x + segment.sizex - 1 || b->x == segment.x ||
-       b->y == segment.y + segment.sizey - 1 || b->y == segment.y))
+    if(config.shade_hidden_blocks && isHidden && isBlockOnVisisbleEdgeOfSegment(&segment, b))
     {
       b->wallType = 0;
       b->building.info.type = BUILDINGTYPE_BLACKBOX;
