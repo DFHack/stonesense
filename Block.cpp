@@ -62,11 +62,11 @@ void Block::Draw(BITMAP* target){
       floorSpriteIndex = GetWallSpriteMap(this->wallType, this->materialIndex, true);
     //TODO: need configurable Filler Floors for ramps as well
 	if(floorSpriteIndex == SPRITEFLOOR_NA && (ramp.type > 0))
-		floorSpriteIndex = 2;
+		floorSpriteIndex = 3;
 
     sheetOffsetX = TILEWIDTH * (floorSpriteIndex % SHEET_OBJECTSWIDE);
     sheetOffsetY = (TILEHEIGHT + FLOORHEIGHT) * (floorSpriteIndex / SHEET_OBJECTSWIDE);
-		masked_blit(IMGFloorSheet, target, sheetOffsetX,0, drawx,drawy, TILEWIDTH,TILEHEIGHT + FLOORHEIGHT);
+		masked_blit(IMGFloorSheet, target, sheetOffsetX,sheetOffsetY, drawx,drawy, TILEWIDTH,TILEHEIGHT + FLOORHEIGHT);
 
     //Northern frame
     if(this->depthBorderNorth)
