@@ -131,7 +131,7 @@ void doKeys(){
     config.show_hidden_blocks = !config.show_hidden_blocks;
     timeToReloadSegment = true;
 	}
-  if(key[KEY_D]){
+  if(key[KEY_F2]){
 	config.show_osd = !config.show_osd;
 	timeToReloadSegment = true;
 	}
