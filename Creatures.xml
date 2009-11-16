@@ -1,6 +1,10 @@
 <?xml version="1.0" ?>
 
-<Creature gameID="DWARF" 		sheetIndex = 1  /> 
+<Creature gameID="DWARF" 		sheetIndex = 1 >
+	<Profession name="CARPENTER" sheetIndex = 2/>
+	<Profession name="PEASANT" sex="M" sheetIndex = 3/>
+	<Profession name="PEASANT" sex="F" sheetIndex = 4/>
+</Creature>
 
 <Creature gameID="CAT" 			sheetIndex = 20 /> 
 <Creature gameID="DOG" 			sheetIndex = 21 /> 

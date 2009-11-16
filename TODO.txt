@@ -1,7 +1,8 @@
 Finish floor and wall config
-Improve create config to include professions and sexes
+Improve creature config to include professions and sexes
 Add configurable key bindings
 Interrupt driven input
+Link with DF window
 Properly handle bad DF connections
 Add more dwarfs
 Add humans

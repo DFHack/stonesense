@@ -4,7 +4,7 @@
 #include "CreatureConfiguration.h"
 #include "GUI.h"
 
-#include "dfhack/library/tinyxml/tinyxml.h"
+
 
 vector<t_matgloss> v_creatureNames;
 vector<CreatureConfiguration> creatureTypes;
@@ -85,29 +85,6 @@ int GetCreatureSpriteMap( t_creature* c ){
   return SPRITECRE_NA;
 }
 
-void LoadCreatureConfiguration( vector<CreatureConfiguration>* knownCreatures ){
-  char* filename = "Creatures.xml";
-  TiXmlDocument doc( filename );
-  bool loadOkay = doc.LoadFile();
-  TiXmlHandle hDoc(&doc);
-  TiXmlElement* elemCreature;
-
-  knownCreatures->clear();
-
-  elemCreature = hDoc.FirstChildElement("Creature").Element();
-  while( elemCreature ){
-    const char* name = elemCreature->Attribute("gameID");
-    const char* sheetIndexStr = elemCreature->Attribute("sheetIndex");
-
-    CreatureConfiguration cre( (char*)name, atoi(sheetIndexStr) );
-    //add a copy to known creatures
-    knownCreatures->push_back( cre );
-    
-    elemCreature = elemCreature->NextSiblingElement("Creature");
-  }
-
-  CreatureNamesTranslatedFromGame = false;
-}
 
 
 

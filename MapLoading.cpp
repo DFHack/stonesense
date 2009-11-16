@@ -91,7 +91,6 @@ void ReadCellToSegment(API& DF, WorldSegment& segment, int CellX, int CellY, int
 	if(!DF.isValidBlock(CellX, CellY, CellZ))
 		return;
 
-
   
 	//make boundries local
 	BoundrySX -= CellX * CELLEDGESIZE;
@@ -235,15 +234,14 @@ bool checkFloorBorderRequirement(WorldSegment* segment, int x, int y, int z, dir
 
 WorldSegment* ReadMapSegment(API &DF, int x, int y, int z, int sizex, int sizey, int sizez){
   uint32_t index;
-
-  if( IsConnectedToDF() == false){
+  TMR2_START;
+  if( IsConnectedToDF() == false || DF.InitMap() == false ){
+    //DF.Detach();
     //return new blank segment
 		return new WorldSegment(x,y,z,sizex,sizey,sizez);
   }
-
-  TMR2_START;
-
-  DF.InitMap();
+  
+  
 
 	//Read Number of cells
 	int celldimX, celldimY, celldimZ;
@@ -257,13 +255,13 @@ WorldSegment* ReadMapSegment(API &DF, int x, int y, int z, int sizex, int sizey,
   segment->regionSize.y = celldimY * CELLEDGESIZE;
 	segment->regionSize.z = celldimZ;
   
-	
 	//read world wide buildings
   vector<t_building> allBuildings;
   ReadBuildings(DF, &allBuildings);
 
   //read stone material types
   DF.ReadStoneMatgloss(v_stonetypes);
+  
 
   if(GroundMaterialNamesTranslatedFromGame == false)
     TranslateGroundMaterialNames();
@@ -339,7 +337,6 @@ WorldSegment* ReadMapSegment(API &DF, int x, int y, int z, int sizex, int sizey,
   //Read Creatures
   ReadCreaturesToSegment( DF, segment );
 
-  
 
 	//do misc beautification
   uint32_t numblocks = segment->getNumBlocks();
@@ -366,7 +363,8 @@ WorldSegment* ReadMapSegment(API &DF, int x, int y, int z, int sizex, int sizey,
           b->depthBorderNorth = true;
       }
 	}
-
+  
+  DF.DestroyMap();
 TMR2_STOP;
 
 	return segment;
@@ -411,19 +409,20 @@ void reloadDisplayedSegment(){
 
   TMR1_START;
   //dispose old segment
-  if(viewedSegment)
+  if(viewedSegment){
     viewedSegment->Dispose();
-	delete(viewedSegment);
+	  delete(viewedSegment);
+  }
   
   int segmentHeight = config.single_layer_view ? 1 : config.segmentSize.z;
   //load segment
   API& DF = *pDFApiHandle;
 	viewedSegment = ReadMapSegment(DF, DisplayedSegmentX, DisplayedSegmentY, DisplayedSegmentZ,
 		                config.segmentSize.x, config.segmentSize.y, segmentHeight);
-  bool res = DF.InitViewAndCursor();
+  /*bool res = DF.InitViewAndCursor();
   if(res){
     int x,y,z;
     res = DF.getViewCoords( x, y, z );
-  }
+  }*/
   TMR1_STOP;
 }

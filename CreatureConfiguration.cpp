@@ -2,18 +2,27 @@
 #include "CreatureConfiguration.h"
 #include "Creatures.h"
 
+#include "dfhack/library/tinyxml/tinyxml.h"
+
 bool CreatureNamesTranslatedFromGame = false;
 
 
-CreatureConfiguration::CreatureConfiguration(char* gameIDstr, int sheetIndex)
+CreatureConfiguration::CreatureConfiguration(char* gameIDstr, char* professionStr, enumCreatureSex sex, int sheetIndex)
 {
   memset(this, 0, sizeof(CreatureConfiguration) );
   this->sheetIndex = sheetIndex;
   this->gameID = INVALID_INDEX;
+  this->professionID = 0;
+  this->sex = sex;
 
   int len = (int) strlen(gameIDstr);
-  if(len > 100) len = 100;
+  if(len > CREATURESTRLENGTH) len = CREATURESTRLENGTH;
   memcpy(this->gameIDstr, gameIDstr, len);
+  if(professionStr){
+    len = (int) strlen(professionStr);
+    if(len > CREATURESTRLENGTH) len = CREATURESTRLENGTH;
+    memcpy(this->professionstr, professionStr, len);
+  }
 }
 
 CreatureConfiguration::~CreatureConfiguration(void)
@@ -48,4 +57,47 @@ void TranslateCreatureNames(){
   }
 
   CreatureNamesTranslatedFromGame = true;
+}
+
+
+void LoadCreatureConfiguration( vector<CreatureConfiguration>* knownCreatures ){
+  char* filename = "Creatures.xml";
+  TiXmlDocument doc( filename );
+  bool loadOkay = doc.LoadFile();
+  TiXmlHandle hDoc(&doc);
+  TiXmlElement* elemCreature;
+  TiXmlElement* elemProfession;
+
+  knownCreatures->clear();
+
+  elemCreature = hDoc.FirstChildElement("Creature").Element();
+  while( elemCreature ){
+    const char* name = elemCreature->Attribute("gameID");
+    const char* sheetIndexStr = elemCreature->Attribute("sheetIndex");
+    
+    elemProfession = elemCreature->FirstChildElement("Profession");
+    while( elemProfession ){
+      const char* professionstr = elemProfession->Attribute("name");
+      const char* sexstr = elemProfession->Attribute("sex");
+      enumCreatureSex cresex = eCreatureSex_NA;
+      if(sexstr){
+        if(strcmp( sexstr, "M" ) == 0) cresex = eCreatureSex_Male;
+        if(strcmp( sexstr, "F" ) == 0) cresex = eCreatureSex_Female;
+      }
+      //create profession config
+      CreatureConfiguration cre( (char*)name, (char*)professionstr, cresex, atoi(sheetIndexStr) );
+      //add a copy to known creatures
+      knownCreatures->push_back( cre );
+
+      elemProfession = elemProfession->NextSiblingElement("Profession");
+    }
+    //create default config
+    CreatureConfiguration cre( (char*)name, "", eCreatureSex_NA, atoi(sheetIndexStr) );
+    //add a copy to known creatures
+    knownCreatures->push_back( cre );
+    
+    elemCreature = elemCreature->NextSiblingElement("Creature");
+  }
+
+  CreatureNamesTranslatedFromGame = false;
 }
