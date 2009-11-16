@@ -243,6 +243,8 @@ WorldSegment* ReadMapSegment(API &DF, int x, int y, int z, int sizex, int sizey,
 
   TMR2_START;
 
+  DF.InitMap();
+
 	//Read Number of cells
 	int celldimX, celldimY, celldimZ;
 	DF.getSize((unsigned int &)celldimX, (unsigned int &)celldimY, (unsigned int &)celldimZ);
