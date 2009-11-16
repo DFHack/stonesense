@@ -60,9 +60,12 @@ void Block::Draw(BITMAP* target){
     //If tile has no floor, look for a Filler Floor from it's wall
     if(floorSpriteIndex == SPRITEFLOOR_NA)
       floorSpriteIndex = GetWallSpriteMap(this->wallType, this->materialIndex, true);
-  
+    //TODO: need configurable Filler Floors for ramps as well
+	if(floorSpriteIndex == SPRITEFLOOR_NA && (ramp.type > 0))
+		floorSpriteIndex = 2;
 
-    sheetOffsetX = TILEWIDTH * floorSpriteIndex;
+    sheetOffsetX = TILEWIDTH * (floorSpriteIndex % SHEET_OBJECTSWIDE);
+    sheetOffsetY = (TILEHEIGHT + FLOORHEIGHT) * (floorSpriteIndex / SHEET_OBJECTSWIDE);
 		masked_blit(IMGFloorSheet, target, sheetOffsetX,0, drawx,drawy, TILEWIDTH,TILEHEIGHT + FLOORHEIGHT);
 
     //Northern frame
