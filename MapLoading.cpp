@@ -395,7 +395,6 @@ bool IsConnectedToDF(){
   return pDFApiHandle->isAttached();
 }
 
-
 void reloadDisplayedSegment(){
   if(DisplayedSegmentX<0)DisplayedSegmentX=0;
   if(DisplayedSegmentY<0)DisplayedSegmentY=0;
@@ -405,9 +404,11 @@ void reloadDisplayedSegment(){
     if( ConnectDFAPI( pDFApiHandle ) == false ){
       delete( pDFApiHandle );
       pDFApiHandle = 0;
+      WriteErr("No Dwarf Fortress executable found\n");
+      return;
     }
   }
-  
+
   TMR1_START;
   //dispose old segment
   if(viewedSegment)

@@ -122,11 +122,6 @@ int main(void)
 #ifdef RELEASE
 	while(!key[KEY_F9]) readkey();
 #endif
-
-	  //load building configuration information from xml files
-	  LoadBuildingConfiguration( &buildingTypes );
-	  LoadCreatureConfiguration( &creatureTypes );
-	  LoadGroundMaterialConfiguration( );
   
 	//upper left corners
 	DisplayedSegmentX = DisplayedSegmentY = 0;DisplayedSegmentZ = 17;
@@ -155,6 +150,14 @@ int main(void)
   //while(1)
 	reloadDisplayedSegment();
 	if(!viewedSegment) return 1;
+	
+	// we should have a dfhack attached now, load the config
+	LoadBuildingConfiguration( &buildingTypes );
+	LoadCreatureConfiguration( &creatureTypes );
+	LoadGroundMaterialConfiguration( );
+	
+	// reload now we have config
+	reloadDisplayedSegment();
 
 #ifdef BENCHMARK
   benchmark();
