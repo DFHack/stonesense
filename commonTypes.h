@@ -35,7 +35,8 @@ typedef struct {
   bool truncate_walls;
   int automatic_reload_time;
   int automatic_reload_step;
-
+  int animation_step;
+  
   int screenWidth;
   int screenHeight;
   bool Fullscreen;

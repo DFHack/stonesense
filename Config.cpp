@@ -101,6 +101,11 @@ void parseConfigLine( string line ){
     string result = parseStrFromLine( "LIFTSEGMENT", line );
     config.lift_segment_offscreen = (result == "YES");
   }
+   if( line.find("ANIMATION_RATE") != -1){
+    int value = parseIntFromLine( "ANIMATION_RATE", line );
+    if(value < 50) value = 50;
+    config.animation_step = value;
+  }
 }
 
 

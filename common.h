@@ -116,6 +116,8 @@ extern uint32_t ClockedTime;
 extern uint32_t ClockedTime2;
 
 extern bool timeToReloadSegment;
+extern char currentAnimationFrame;
+extern bool animationFrameShown;
 
 extern vector<t_matgloss> v_stonetypes;
 

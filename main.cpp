@@ -23,6 +23,8 @@ int keyoffset=0;
 
 GameConfiguration config;
 bool timeToReloadSegment;
+char currentAnimationFrame;
+bool animationFrameShown;
 
 vector<t_matgloss> v_stonetypes;
 
@@ -61,6 +63,20 @@ void benchmark(){
   fprintf( fp, "%ims", clock() - startTime);
   fclose(fp);
 }
+
+void animUpdateProc()
+{
+	if (animationFrameShown)
+	{
+		// check before setting, or threadsafety will be borked
+		if (currentAnimationFrame > 4) // ie ends up 0-5
+			currentAnimationFrame = 0;
+		else
+			currentAnimationFrame = currentAnimationFrame + 1;
+		animationFrameShown = false;
+	}	
+}
+
 int main(void)
 {	
 
@@ -82,6 +98,7 @@ int main(void)
   config.segmentSize.y = DEFAULT_SEGMENTSIZE_Y;
   config.segmentSize.z = DEFAULT_SEGMENTSIZE_Z;
   config.show_osd = true;
+  config.animation_step = 300;
   loadConfigFile();
   
   //set debug cursor
@@ -163,6 +180,7 @@ int main(void)
 #ifdef BENCHMARK
   benchmark();
 #endif
+	install_int( animUpdateProc, config.animation_step );
 
 	paintboard();
 	while(!key[KEY_ESC]){
@@ -171,6 +189,12 @@ int main(void)
       reloadDisplayedSegment();
       paintboard();
       timeToReloadSegment = false;
+      animationFrameShown = true;
+    }
+    else if (animationFrameShown == false)
+    {
+	 	paintboard();
+	 	animationFrameShown = true;
     }
 		doKeys();
 	}

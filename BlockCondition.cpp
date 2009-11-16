@@ -136,8 +136,8 @@ AnimationFrameCondition::AnimationFrameCondition(const char* strValue)
 bool AnimationFrameCondition::Matches(Block* b)
 {
 	//not doing animation yet: always frame 0
-	return this->value==0;
-    //return this->value == currentAnimationFrame;
+	//return this->value==0;
+    return this->value == currentAnimationFrame;
 }
 
 
