@@ -56,7 +56,13 @@ void Block::Draw(BITMAP* target){
 
 	//Draw Floor
 	if(floorType > 0 || wallType > 0 || ramp.type > 0){
-    sheetOffsetX = TILEWIDTH * GetFloorSpriteMap(floorType, materialIndex);
+    int floorSpriteIndex = GetFloorSpriteMap(this->floorType, materialIndex);;
+    //If tile has no floor, look for a Filler Floor from it's wall
+    if(floorSpriteIndex == SPRITEFLOOR_NA)
+      floorSpriteIndex = GetWallSpriteMap(this->wallType, this->materialIndex, true);
+  
+
+    sheetOffsetX = TILEWIDTH * floorSpriteIndex;
 		masked_blit(IMGFloorSheet, target, sheetOffsetX,0, drawx,drawy, TILEWIDTH,TILEHEIGHT + FLOORHEIGHT);
 
     //Northern frame
@@ -130,7 +136,7 @@ void Block::Draw(BITMAP* target){
   //Draw Walls
 	if(wallType > 0){
     //draw wall
-    int spriteNum =  GetWallSpriteMap(wallType, materialIndex);
+    int spriteNum =  GetWallSpriteMap(wallType, materialIndex, false);
 
     if( config.truncate_walls && this->z == ownerSegment->z + ownerSegment->sizez - 1){
       int sheetx = spriteNum % SHEET_OBJECTSWIDE;

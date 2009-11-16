@@ -1,18 +1,195 @@
 <?xml version="1.0" ?>
 
-<Material gameID="SAND_TAN"		wallSheetIndex = 210  floorSheetIndex = 13 /> 
-<Material gameID="SAND_YELLOW" 	wallSheetIndex = 210  floorSheetIndex = 13 /> 
-<Material gameID="SAND_RED" 	wallSheetIndex = 211  floorSheetIndex = 14 /> 
-<Material gameID="SAND_BLACK" 	wallSheetIndex = 212  floorSheetIndex = 15 /> 
-<Material gameID="SAND_WHITE" 	wallSheetIndex = 213  floorSheetIndex = 16 /> 
 
-<Floor spriteIndex =3>
-	<GameID value = 337/>
+
+<Floors>
+
+<Floor spriteIndex = 1>
+	<!-- stone floor detailed -->
+	<GameID value = 43/>
 	
+	<!-- lavastone floor detailed -->
+	<GameID value = 44/>
+	
+	<!-- minstone floor detailed -->
+	<GameID value = 46/>
+	
+	<!-- constructed floor detailed -->
+	<GameID value = 493/>	
 </Floor>
 
-<Floor spriteIndex=4>
-	<GameID value = 337 />
-	<Material name="MARBLE" />
-	<Material name="GABBRO" />
+<Floor spriteIndex = 2>
+	<!-- grass floors -->
+	<GameID value = 348/>
+	<GameID value = 349/>
+	<GameID value = 350/>
+	<GameID value = 351/>
+	<GameID value = 398/>
+	<GameID value = 399/>
+	<GameID value = 400/>
+	<GameID value = 401/>
 </Floor>
+
+<Floor spriteIndex = 3>
+	<!-- stone floors -->
+	<GameID value = 336/>
+	<GameID value = 337/>
+	<GameID value = 338/>
+	<GameID value = 339/>
+	
+	<!-- minstone floors -->
+	<GameID value = 441/>
+	<GameID value = 442/>
+	<GameID value = 443/>
+	<GameID value = 444/>
+</Floor>
+
+<Floor spriteIndex = 4>
+	<!-- Soil floors -->
+	<GameID value = 352/>
+	<GameID value = 353/>
+	<GameID value = 354/>
+	<GameID value = 355/>
+</Floor>
+
+<Floor spriteIndex = 5>
+	<!-- stone pebbles -->
+	<GameID value = 405/>
+	<GameID value = 406/>
+	<GameID value = 407/>
+	<GameID value = 408/>
+</Floor>
+
+<Floor spriteIndex = 6>
+	<!-- Boulder -->
+	<GameID value = 402/>
+</Floor>
+
+
+
+
+<Floor spriteIndex = 9>
+	<!-- Dry grass -->
+	<GameID value = 387/>
+	<GameID value = 388/>
+	<GameID value = 389/>
+	<GameID value = 390/>
+	<GameID value = 394/>
+	<GameID value = 395/>
+	<GameID value = 396/>
+	<GameID value = 397/>	
+	<!-- Dead Tree -->
+	<GameID value = 391/>
+	<!-- Dead sapling -->
+	<GameID value = 392/>
+	<!-- Dead shrub -->
+	<GameID value = 393/>
+</Floor>
+
+
+<Floor spriteIndex = 13>
+	<!-- Soil floors -->
+	<GameID value = 352/>
+	<GameID value = 353/>
+	<GameID value = 354/>
+	<GameID value = 355/>
+	<Material name="SAND_TAN" />
+</Floor>
+
+<Floor spriteIndex = 17>
+	<!-- lavastone floors -->
+	<GameID value = 340/>
+	<GameID value = 341/>
+	<GameID value = 342/>
+	<GameID value = 343/>
+</Floor>
+
+<Floor spriteIndex = 18>
+	<!-- Murky Pool -->
+	<GameID value = 2/>
+	<!-- River -->
+	<GameID value = 365/>
+	<GameID value = 366/>
+	<GameID value = 367/>
+	<GameID value = 368/>
+	<GameID value = 369/>
+	<GameID value = 370/>
+	<GameID value = 371/>
+	<GameID value = 372/>
+	
+	<!-- Stream -->
+	<GameID value = 373/>
+	<GameID value = 374/>
+	<GameID value = 375/>
+	<GameID value = 376/>
+	<GameID value = 377/>
+	<GameID value = 378/>
+	<GameID value = 379/>
+	<GameID value = 380/>
+</Floor>
+</Floors>
+
+
+
+<!-- All wall sprites go here -->
+<Walls> 
+<Wall spriteIndex = 201 fillerFloorSpriteIndex = 3>
+	<!-- Raw Stone wall -->
+	<GameID value = 219/>
+</Wall>
+<Wall spriteIndex = 205 fillerFloorSpriteIndex = 4>
+	<!-- Soil wall -->
+	<GameID value = 265/>
+</Wall>
+
+<Wall spriteIndex = 210 fillerFloorSpriteIndex = 13>
+	<!-- Soil wall -->
+	<GameID value = 265/>
+	<Material name="SAND_TAN" />
+	<Material name="SAND_YELLOW" />
+</Wall>
+<Wall spriteIndex = 211 fillerFloorSpriteIndex = 14>
+	<!-- Soil wall -->
+	<GameID value = 265/>
+	<Material name="SAND_RED" />
+</Wall>
+<Wall spriteIndex = 212 fillerFloorSpriteIndex = 15>
+	<!-- Soil wall -->
+	<GameID value = 265/>
+	<Material name="SAND_BLACK" />
+</Wall>
+<Wall spriteIndex = 213 fillerFloorSpriteIndex = 16>
+	<!-- Soil wall -->
+	<GameID value = 265/>
+	<Material name="SAND_WHITE" />
+</Wall>
+
+<Wall spriteIndex = 222 fillerFloorSpriteIndex = 1>
+	<!-- Constructed Walls -->
+	<GameID value = 496/>
+	<GameID value = 497/>
+	<GameID value = 498/>
+	<GameID value = 499/>
+	<GameID value = 500/>
+	<GameID value = 501/>
+	<GameID value = 502/>
+	<GameID value = 503/>
+	<GameID value = 504/>
+	<GameID value = 505/>
+	<GameID value = 506/>
+	<GameID value = 507/>
+	<GameID value = 508/>
+	<GameID value = 509/>
+	<GameID value = 510/>
+	<GameID value = 511/>
+	<GameID value = 512/>
+	<GameID value = 513/>
+	<GameID value = 514/>
+</Wall>
+<Wall spriteIndex = 225 fillerFloorSpriteIndex = 1>
+	<!-- Constructed Forticication -->
+	<GameID value = 494/>
+</Wall>
+</Walls>
+
+

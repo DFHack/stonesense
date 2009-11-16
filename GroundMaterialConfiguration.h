@@ -1,26 +1,33 @@
 #pragma once
 
+
+typedef struct OverridingMaterial{
+	int gameID;
+	int spriteIndex;
+  int fillerFloorSpriteIndex;
+}OverridingMaterial;
+
 class GroundMaterialConfiguration
 {
 public:
-  char gameIDstr[100];
-  int wallSheetIndex;
-  int floorSheetIndex;
+  int defaultSprite;
+  int fillerFloorSpriteIndex;
+	vector<OverridingMaterial> overridingMaterials;
 
-  GroundMaterialConfiguration(char* gameIDstr, int wallSheetIndex,int floorSheetIndex);
+  GroundMaterialConfiguration( );
+  //GroundMaterialConfiguration(char* gameIDstr, int wallSheetIndex,int floorSheetIndex);
   ~GroundMaterialConfiguration(){}
 };
 
-typedef struct OverridingMaterial{
-	int id;
-	int spriteIndex;
-}OverridingMaterial;
 
-class FloorConfiguration
+
+class preparseGroundMaterialConfiguration
 {
 public:
-	int defaultSprite;
-	vector<OverridingMaterial> overridingMaterials;
+	int spriteIndex;
+  int fillerFloorSpriteIndex;
+  vector<int> wallFloorIDs;
+	vector<string> overridingMaterials;
 };
 
 
@@ -28,4 +35,4 @@ void LoadGroundMaterialConfiguration( );
 void TranslateGroundMaterialNames();
 
 extern bool GroundMaterialNamesTranslatedFromGame;
-extern vector<GroundMaterialConfiguration> groundTypes;
+extern vector<GroundMaterialConfiguration*> groundTypes;

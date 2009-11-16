@@ -7,27 +7,46 @@
 
 int getFloorSpriteWithDefault( int defaultSprite, int materialIndex ){
   //do a LOOKUP. not a search! 
-  if( materialIndex != INVALID_INDEX ){
+  /*if( materialIndex != INVALID_INDEX ){
     uint32_t spriteIndex = groundTypes[materialIndex].floorSheetIndex;
     if(spriteIndex != INVALID_INDEX) 
       return spriteIndex;
-  }
+  }*/
   return defaultSprite;
 }
 
 
 int getWallSpriteWithDefault( int defaultSprite, int materialIndex ){
   //do a LOOKUP. not a search! 
-  if( materialIndex != INVALID_INDEX ){
+  /*if( materialIndex != INVALID_INDEX ){
     uint32_t spriteIndex = groundTypes[materialIndex].wallSheetIndex;
     if(spriteIndex != INVALID_INDEX) 
       return spriteIndex; 
-  }
+  }*/
   return defaultSprite;
 }
 
-int GetWallSpriteMap(int in, int matIndex)
+int GetWallSpriteMap(int in, int matIndex, bool getFillerFloor)
 {
+  if( in >= groundTypes.size() ) 
+    return (!getFillerFloor ? SPRITEOBJECT_WALL_NA : SPRITEFLOOR_NA);
+  GroundMaterialConfiguration* wall = groundTypes[ in ];
+	if(wall == NULL) 
+    return (!getFillerFloor ? SPRITEOBJECT_WALL_NA : SPRITEFLOOR_NA);
+
+	for(int i=0; i<wall->overridingMaterials.size(); i++){
+    if(wall->overridingMaterials[i].gameID == matIndex){
+      if(getFillerFloor == false)
+			  return wall->overridingMaterials[i].spriteIndex;
+      else
+        return wall->overridingMaterials[i].fillerFloorSpriteIndex;
+		}
+	}
+  if(getFillerFloor == false)
+	  return wall->defaultSprite;
+  else
+    return wall->fillerFloorSpriteIndex;
+
   int matIndexResult = -1;
     switch (in)
     {
@@ -240,25 +259,15 @@ int GetWallSpriteMap(int in, int matIndex)
     return SPRITEOBJECT_WALL_NA;
 }
 int GetFloorSpriteMap(int in, int matIndex){
-	in = 0;
-	vector<FloorConfiguration*> allthings;
-
-	FloorConfiguration test;
-	test.defaultSprite = 10;
-	OverridingMaterial ovr = {152,2};
-	test.overridingMaterials.push_back( ovr );
-	allthings.push_back( &test );
-
-	if(in < 0 || in >= allthings.size()) 
-		return SPRITEFLOOR_NA;
-	
-	FloorConfiguration* floor = allthings[ in ];
-	
+  //TODO: groundTypes.size can be cahced
+  if( in >= groundTypes.size() ) 
+    return SPRITEFLOOR_NA;
+  GroundMaterialConfiguration* floor = groundTypes[ in ];
 	if(floor == NULL) 
 		return SPRITEFLOOR_NA;
 
 	for(int i=0; i<floor->overridingMaterials.size(); i++){
-		if(floor->overridingMaterials[i].id == matIndex){
+    if(floor->overridingMaterials[i].gameID == matIndex){
 			return floor->overridingMaterials[i].spriteIndex;
 		}
 	}

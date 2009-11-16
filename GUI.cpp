@@ -204,6 +204,8 @@ void DrawSpriteIndexOverlay(int imageIndex){
   }
   else
   {
+    if( imageIndex >= IMGFilelist.size()) 
+      return;
 	  currentImage=IMGFilelist[imageIndex];
   }
   clear_to_color(screen, makecol(255,0,255));

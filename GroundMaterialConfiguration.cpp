@@ -1,13 +1,15 @@
 #include "common.h"
+#include "SpriteMaps.h"
 #include "GroundMaterialConfiguration.h"
 
 #include "dfhack/library/tinyxml/tinyxml.h"
 
 bool GroundMaterialNamesTranslatedFromGame = false;
 
-vector<GroundMaterialConfiguration> groundTypes;
-vector<GroundMaterialConfiguration> xmlDefinedGroundTypes;
+vector<GroundMaterialConfiguration*> groundTypes;
+vector<preparseGroundMaterialConfiguration> xmlDefinedGroundTypes;
 
+/*
 GroundMaterialConfiguration::GroundMaterialConfiguration(char* gameIDstr, int wallSheetIndex,int floorSheetIndex)
 {
   this->wallSheetIndex = wallSheetIndex;
@@ -17,6 +19,9 @@ GroundMaterialConfiguration::GroundMaterialConfiguration(char* gameIDstr, int wa
   if(len > 100) len = 100;
   memcpy(this->gameIDstr, gameIDstr, len);
   this->gameIDstr[len] = 0;
+}*/
+GroundMaterialConfiguration::GroundMaterialConfiguration(){
+  defaultSprite = SPRITEFLOOR_NA;
 }
 
 void DumpGroundMaterialNamesToDisk(){
@@ -28,33 +33,99 @@ void DumpGroundMaterialNamesToDisk(){
   fclose(fp);
 }
 
+void addConfToIDdsaj (int index, preparseGroundMaterialConfiguration& conf){
+  if(groundTypes[index] == NULL){
+    //TODO: possible memleak.
+    groundTypes[index] = new GroundMaterialConfiguration();
+  }
+  
+  if( conf.overridingMaterials.empty() ){
+    groundTypes[index]->defaultSprite = conf.spriteIndex;
+    groundTypes[index]->fillerFloorSpriteIndex = conf.fillerFloorSpriteIndex;
+  }else{
+    int num = (int)conf.overridingMaterials.size();
+    for(int i=0; i < num; i++){
+      OverridingMaterial ovr = {0};
+      ovr.spriteIndex = conf.spriteIndex;
+      ovr.fillerFloorSpriteIndex = conf.fillerFloorSpriteIndex;
+      //find material type
+      int matGameId = INVALID_INDEX;
+      for(uint32_t j=0; j< v_stonetypes.size(); j++)
+        if(conf.overridingMaterials[i].compare(v_stonetypes[j].id) == 0)
+          matGameId = j;
+      ovr.gameID = matGameId;
+      groundTypes[index]->overridingMaterials.push_back( ovr );
+    }
+  }
+  
+}
 
 void TranslateGroundMaterialNames(){
   //create and entry for every known ground material type
-  uint32_t num = (uint32_t) v_stonetypes.size();
+  uint32_t num;
   uint32_t index = 0;
+
+  groundTypes.clear();
+
+  //figure out how many entries to make.
+  int highestID = 0;
+  num = (uint32_t) xmlDefinedGroundTypes.size();
   while( index < num ){
-    GroundMaterialConfiguration newConfig( v_stonetypes[index].id, INVALID_INDEX, INVALID_INDEX );
-    //add a copy to groundTypes
-    groundTypes.push_back( newConfig );
-    index++;
-  }
-  
-  //now translate configuration data loaded from the XML files
-  uint32_t numConfs = (uint32_t) xmlDefinedGroundTypes.size();
-  index = 0;
-  while( index < numConfs ){
-    char* str = xmlDefinedGroundTypes[index].gameIDstr;
-    //find this string id in the material list, and update the entry
-    for(uint32_t i=0; i<num; i++){
-      if( strcmp( str, groundTypes[i].gameIDstr) != 0) continue;
-      groundTypes[i].floorSheetIndex = xmlDefinedGroundTypes[index].floorSheetIndex;
-      groundTypes[i].wallSheetIndex = xmlDefinedGroundTypes[index].wallSheetIndex;
-      
+    for(uint32_t i = 0; i < xmlDefinedGroundTypes[index].wallFloorIDs.size(); i++){
+      highestID = max(highestID, xmlDefinedGroundTypes[index].wallFloorIDs[i]);
     }
     index++;
   }
+
+  //create table
+  groundTypes.resize( highestID + 1 );
+
+  index = 0;
+  num = (int)xmlDefinedGroundTypes.size();
+  while( index < num ){
+    preparseGroundMaterialConfiguration& conf  = xmlDefinedGroundTypes[index];
+    for(uint32_t i=0; i<conf.wallFloorIDs.size(); i++)
+      addConfToIDdsaj( conf.wallFloorIDs[i], conf );
+    
+
+    index++;
+  }
+
   GroundMaterialNamesTranslatedFromGame = true;
+}
+
+void parseWallFloorSpriteElement( TiXmlElement* elemWallFloorSprite ){
+  TiXmlElement* elemGameID;
+	TiXmlElement* elemMaterial;
+
+  const char* spriteIndexstr = elemWallFloorSprite->Attribute("spriteIndex");
+  const char* fillerFloorSpriteIndexstr = elemWallFloorSprite->Attribute("fillerFloorSpriteIndex");
+	
+  preparseGroundMaterialConfiguration newConfig;
+  newConfig.spriteIndex = atoi( spriteIndexstr );
+  if(fillerFloorSpriteIndexstr)
+    newConfig.fillerFloorSpriteIndex = atoi( fillerFloorSpriteIndexstr );
+  else 
+    newConfig.fillerFloorSpriteIndex = 0;
+
+	elemGameID = elemWallFloorSprite->FirstChildElement("GameID");
+	while( elemGameID ){
+		const char* gameIDstr = elemGameID->Attribute("value");
+    newConfig.wallFloorIDs.push_back( atoi(gameIDstr) );
+    
+    elemGameID = elemGameID->NextSiblingElement("GameID");
+	}
+
+  elemMaterial = elemWallFloorSprite->FirstChildElement("Material");
+  while( elemMaterial ){
+	  const char* gameIDstr = elemMaterial->Attribute("name");
+    newConfig.overridingMaterials.push_back( *(new string(gameIDstr)) );
+    
+	  elemMaterial = elemMaterial->NextSiblingElement("Material");
+  }
+
+	xmlDefinedGroundTypes.push_back( newConfig );
+
 }
 
 void LoadGroundMaterialConfiguration(  ){
@@ -64,45 +135,35 @@ void LoadGroundMaterialConfiguration(  ){
   bool loadOkay = doc.LoadFile();
   TiXmlHandle hDoc(&doc);
   TiXmlElement* elemFloor;
-
+  TiXmlElement* elemWall;
+  
+  //clear out old config data. TODO: check for memleaks
   xmlDefinedGroundTypes.clear();
 
-  /*elemMaterial = hDoc.FirstChildElement("Material").Element();
-  while( elemMaterial ){
-    const char* name = elemMaterial->Attribute("gameID");
-    const char* wallSheetIndexStr = elemMaterial->Attribute("wallSheetIndex");
-    const char* floorSheetIndexStr = elemMaterial->Attribute("floorSheetIndex");
-
-    GroundMaterialConfiguration mat( (char*)name, atoi(wallSheetIndexStr), atoi(floorSheetIndexStr) );
-    //add a copy to known materials list
-    xmlDefinedGroundTypes.push_back( mat );
-    
-    elemMaterial = elemMaterial->NextSiblingElement("Material");
-  }*/
-	elemFloor = hDoc.FirstChildElement("Floor").Element();
-  while( elemFloor ){
-    const char* spriteIndexstr = elemFloor->Attribute("spriteIndex");
-		TiXmlElement* elemGameID;
-		TiXmlElement* elemMaterial;
-
-		elemGameID = elemFloor->FirstChildElement("GameID");
-		while( elemGameID ){
-			const char* gameIDstr = elemGameID->Attribute("value");
-
-			elemGameID = elemGameID->NextSiblingElement("GameID");
-		}
-
-		elemMaterial = elemFloor->FirstChildElement("Material");
-		while( elemMaterial ){
-			const char* gameIDstr = elemMaterial->Attribute("name");
-
-			elemMaterial = elemMaterial->NextSiblingElement("Material");
-		}
-		
-    elemFloor = elemFloor->NextSiblingElement("Floor");
+  TiXmlElement* elemFloorRoot = hDoc.FirstChildElement("Floors").Element();
+  TiXmlElement* elemWallRoot = hDoc.FirstChildElement("Walls").Element();
+  if(elemFloorRoot == null){
+    WriteErr("Could not find 'Floors' node in xml file\n");
+    return;
+  }
+  if(elemWallRoot == null){
+    WriteErr("Could not find 'Walls' node in xml file\n");
+    return;
   }
 
-  GroundMaterialNamesTranslatedFromGame = false;
+  //parse floors
+  elemFloor = elemFloorRoot->FirstChildElement("Floor");
+  while( elemFloor ){
+    parseWallFloorSpriteElement( elemFloor );
+    elemFloor = elemFloor->NextSiblingElement("Floor");
+  }
   
+  //parse walls
+  elemWall = elemWallRoot->FirstChildElement("Wall");
+  while( elemWall ){
+    parseWallFloorSpriteElement( elemWall );
+    elemWall = elemWall->NextSiblingElement("Wall");
+  }
+  GroundMaterialNamesTranslatedFromGame = false;
 }
 

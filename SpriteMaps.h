@@ -183,7 +183,7 @@ enum BlockIDs{
 };
 
 
-int GetWallSpriteMap(int in, int matIndex);
+int GetWallSpriteMap(int in, int matIndex, bool getFillerFloor);
 int GetFloorSpriteMap(int in, int matIndex);
 int GetUpStairTypeMap(int in, bool mirrored);
 int GetDownStairTypeMap(int in);
