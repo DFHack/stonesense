@@ -81,6 +81,7 @@ int main(void)
   config.segmentSize.x = DEFAULT_SEGMENTSIZE_X;
   config.segmentSize.y = DEFAULT_SEGMENTSIZE_Y;
   config.segmentSize.z = DEFAULT_SEGMENTSIZE_Z;
+  config.show_osd = true;
   loadConfigFile();
   
   //set debug cursor
