@@ -2,10 +2,12 @@
 
 
 
-<building name="Horizontal Axle" gameID="horizontal_axle">
+<building name="Horizontal Axle" gameID="horizontal_axle" file="mechanics.png">
+
+	<include file="sBlueprint.xml" />
 
 	<!-- can be sure we have it right if the building is long -->
-	<if>
+	<else>
 		<or>
 			<NeighbourSameBuilding dir="West"/>
 			<NeighbourSameBuilding dir="East"/>
@@ -16,12 +18,12 @@
 				<AnimationFrame value=2 />
 				<AnimationFrame value=4 />
 			</or>
-			<sprite index = 110 />
+			<sprite index = 6 />
 		</if>
 		<else>
-			<sprite index = 130 />
+			<sprite index = 7 />
 		</else>
-	</if>
+	</else>
 	<else>
 		<or>
 			<NeighbourSameBuilding dir="North"/>
@@ -33,10 +35,10 @@
 				<AnimationFrame value=2 />
 				<AnimationFrame value=4 />
 			</or>
-			<sprite index = 109 />
+			<sprite index = 4 />
 		</if>
 		<else>
-			<sprite index = 129 />
+			<sprite index = 5 />
 		</else>
 	</else>
 	<!-- look for gears preferentially -->
@@ -51,10 +53,10 @@
 				<AnimationFrame value=2 />
 				<AnimationFrame value=4 />
 			</or>
-			<sprite index = 110 />
+			<sprite index = 6 />
 		</if>
 		<else>
-			<sprite index = 130 />
+			<sprite index = 7 />
 		</else>
 	</else>
 	<else>
@@ -68,10 +70,10 @@
 				<AnimationFrame value=2 />
 				<AnimationFrame value=4 />
 			</or>
-			<sprite index = 109 />
+			<sprite index = 4 />
 		</if>
 		<else>
-			<sprite index = 129 />
+			<sprite index = 5 />
 		</else>
 	</else>
 	<!-- any other hints -->
@@ -92,10 +94,10 @@
 				<AnimationFrame value=2 />
 				<AnimationFrame value=4 />
 			</or>
-			<sprite index = 109 />
+			<sprite index = 4 />
 		</if>
 		<else>
-			<sprite index = 129 />
+			<sprite index = 5 />
 		</else>
 	</else>	
 	<else>
@@ -105,10 +107,10 @@
 				<AnimationFrame value=2 />
 				<AnimationFrame value=4 />
 			</or>
-			<sprite index = 110 />
+			<sprite index = 6 />
 		</if>
 		<else>
-			<sprite index = 130 />
+			<sprite index = 7 />
 		</else>
 	</else>
 		

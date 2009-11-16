@@ -2,9 +2,11 @@
 
 
 
-<building name="Windmill" gameID="windmill"> 
+<building name="Windmill" gameID="windmill" file="mechanics.png">
 
-	<if>
+	<include file="sBlueprint.xml" />
+	
+	<else>
 		<or>
 			<AnimationFrame value=0 />
 			<AnimationFrame value=2 />
@@ -12,48 +14,87 @@
 		</or>
 		<if>
 			<PositionIndex value=0 />
-			<sprite index = 382 />
+			<rotate>
+				<sprite index = 30 />
+				<sprite index = 28 />				
+				<sprite index = 29 />
+				<sprite index = 26 />
+			</rotate>
 		</if>
 		<else>
 			<PositionIndex value=2 />
-			<sprite index = 379 />
+			<rotate>
+				<sprite index = 28 />				
+				<sprite index = 29 />
+				<sprite index = 26 />
+				<sprite index = 30 />
+			</rotate>
 		</else>
 		<else>
 			<PositionIndex value=6 />
-			<sprite index = 380 />
+			<rotate>
+				<sprite index = 26 />
+				<sprite index = 30 />
+				<sprite index = 28 />				
+				<sprite index = 29 />
+			</rotate>
 		</else>
 		<else>
 			<PositionIndex value=8 />
-			<sprite index = 381 />
+			<rotate>
+				<sprite index = 29 />
+				<sprite index = 26 />
+				<sprite index = 30 />
+				<sprite index = 28 />				
+			</rotate>
 		</else>	
 		<else>
 			<PositionIndex value=4 />
-			<sprite index = 372 />
-			<sprite index = 378 />
+			<sprite index = 20 />
+			<sprite index = 27 />
 		</else>	
-	</if>
+	</else>
 	<else>
-		
 		<if>
 			<PositionIndex value=1 />
-			<sprite index = 376 />
+			<rotate>
+				<sprite index = 24 />
+				<sprite index = 22 />
+				<sprite index = 23 />
+				<sprite index = 25 />
+			</rotate>
 		</if>
 		<else>
 			<PositionIndex value=3 />
-			<sprite index = 377 />
+			<rotate>
+				<sprite index = 25 />
+				<sprite index = 24 />
+				<sprite index = 22 />
+				<sprite index = 23 />
+			</rotate>
 		</else>
 		<else>
 			<PositionIndex value=5 />
-			<sprite index = 374 />
+			<rotate>
+				<sprite index = 22 />
+				<sprite index = 23 />
+				<sprite index = 25 />
+				<sprite index = 24 />
+			</rotate>
 		</else>
 		<else>
 			<PositionIndex value=7 />
-			<sprite index = 375 />
+			<rotate>
+				<sprite index = 23 />
+				<sprite index = 25 />
+				<sprite index = 24 />
+				<sprite index = 22 />
+			</rotate>
 		</else>
 		<else>
 			<PositionIndex value=4 />
-			<sprite index = 372 />
-			<sprite index = 373 />
+			<sprite index = 20 />
+			<sprite index = 21 />
 		</else>	
 	</else>
 	<empty/>
