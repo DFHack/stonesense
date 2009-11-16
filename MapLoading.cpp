@@ -81,19 +81,16 @@ bool isBlockOnVisisbleEdgeOfSegment(WorldSegment* segment, Block* b){
     b->x == segment->x + segment->sizex - 1 || b->y == segment->y + segment->sizey - 1 ))
   {
       return true;
-  }else 
-  if(DisplayedRotation == 1 && (
+  }else if(DisplayedRotation == 1 && (
     b->x == segment->x + segment->sizex - 1 || b->y == segment->y ))
   {
       return true;
-  }else 
-  if(DisplayedRotation == 2 && (
+  }else if(DisplayedRotation == 2 && (
     b->x == segment->x || b->y == segment->y ))
   {
       return true;
   }
-  else 
-  if(DisplayedRotation == 3 && (
+  else if(DisplayedRotation == 3 && (
     b->x == segment->x || b->y == segment->y + segment->sizey - 1  ))
   {
       return true;

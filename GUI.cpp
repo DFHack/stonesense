@@ -206,7 +206,7 @@ void DrawSpriteIndexOverlay(int imageIndex){
   }
   else
   {
-    if( imageIndex >= IMGFilelist.size()) 
+    if( imageIndex >= (int)IMGFilelist.size()) 
       return;
 	  currentImage=IMGFilelist[imageIndex];
   }

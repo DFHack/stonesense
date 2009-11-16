@@ -38,6 +38,15 @@ void DumpCreatureNamesToDisk(){
   }
   fclose(fp);
 }
+void DumpProfessionsToDisk(){
+  FILE* fp = fopen("dump.txt", "w");
+  if(!fp) return;
+  string proffStr;
+  for(int j=0; (proffStr = dfMemoryInfo.getProfession(j)) != "" ; j++){
+    fprintf(fp, "%i:%s\n",j, proffStr.c_str());
+  }
+  fclose(fp);
+}
 
 void TranslateCreatureNames(){
   uint32_t numCreatures = (uint32_t)v_creatureNames.size();

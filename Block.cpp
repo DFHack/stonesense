@@ -174,7 +174,7 @@ void Block::Draw(BITMAP* target){
 		int spriteNum = 0;
     int waterlevel = water.index;
 
-    if(waterlevel == 7) waterlevel--;
+    //if(waterlevel == 7) waterlevel--;
 
 		if(water.type == 0)
 			spriteNum = SPRITEOBJECT_WATERLEVEL1 + waterlevel - 1;

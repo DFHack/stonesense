@@ -3,6 +3,8 @@ Add configurable key bindings
 Interrupt driven input
 Link with DF window
 Properly handle bad DF connections
+Fix windows
+Shop Buildings
 Add more dwarfs
 Add humans
 Add more trees and shurbs
