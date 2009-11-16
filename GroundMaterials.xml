@@ -94,6 +94,10 @@
 	<GameID value = 393/>
 </Floor>
 
+<Floor spriteIndex = 10>
+	<!-- Constructed Wooden floor -->
+	<GameID value = 900/>
+</Floor>
 
 <Floor spriteIndex = 13>
 	<!-- Soil floors -->
@@ -152,6 +156,11 @@
 <Wall spriteIndex = 205 fillerFloorSpriteIndex = 4>
 	<!-- Soil wall -->
 	<GameID value = 265/>
+</Wall>
+
+<Wall spriteIndex = 208 fillerFloorSpriteIndex = 10>
+	<!-- Constructed Wooden wall -->
+	<GameID value = 911/>
 </Wall>
 
 <Wall spriteIndex = 210 fillerFloorSpriteIndex = 13>

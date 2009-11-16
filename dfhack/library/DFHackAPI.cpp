@@ -98,7 +98,7 @@ class API::Private
         DfVector *p_trans;
         DfVector *p_generic;
         DfVector *p_dwarf_names;
-        
+        /*
         string getLastNameByAddress(const uint32_t &address, bool use_generic=false);
         string getSquadNameByAddress(const uint32_t &address, bool use_generic=false);
         string getProfessionByAddress(const uint32_t &address);
@@ -106,6 +106,7 @@ class API::Private
         void getSkillsByAddress(const uint32_t &address, vector<t_skill> &);
         void getTraitsByAddress(const uint32_t &address, vector<t_trait> &);
         void getLaborsByAddress(const uint32_t &address, vector<t_labor> &);
+        */
 };
 
 API::API(const string path_to_xml)
@@ -952,7 +953,7 @@ void API::Private::getLaborsByAddress(const uint32_t &address, vector<t_labor> &
         tempLabor.name = offset_descriptor->getLabor(i);
         tempLabor.value = laborArray[i];
         labors.push_back(tempLabor);
-    }
+        }
 }*/
 bool API::ReadCreature(const uint32_t &index, t_creature & furball)
 {
@@ -972,18 +973,33 @@ bool API::ReadCreature(const uint32_t &index, t_creature & furball)
     Mread(temp + d->creature_last_name_offset,sizeof(t_lastname), (uint8_t *) &furball.last_name );
     Mread(temp + d->creature_squad_name_offset,sizeof(t_squadname), (uint8_t *) &furball.squad_name );
     // custom profession
-    fill_char_buf(furball.custom_profession, d->dm->readSTLString(temp+d->creature_first_name_offset));
+    fill_char_buf(furball.custom_profession, d->dm->readSTLString(temp+d->creature_custom_profession_offset));
     
-    /*
-    
-    furball.profession = d->getProfessionByAddress(temp+d->creature_profession_offset);
-    furball.current_job = d->getCurrentJobByAddress(temp+d->creature_current_job_offset);
-    
-    d->getSkillsByAddress(temp+d->creature_skills_offset,furball.skills);
-    d->getTraitsByAddress(temp+d->creature_traits_offset,furball.traits);
-    d->getLaborsByAddress(temp+d->creature_labors_offset,furball.labors);
-    */
-    
+    // labors
+    Mread(temp+d->creature_labors_offset, NUM_CREATURE_LABORS, furball.labors);
+    // traits
+    Mread(temp+d->creature_traits_offset, sizeof(uint16_t) * NUM_CREATURE_TRAITS, (uint8_t *) &furball.traits);
+    // learned skills
+    DfVector skills(d->dm->readVector(temp+d->creature_skills_offset,4));
+    furball.numSkills = skills.getSize();
+    for(uint32_t i = 0; i<furball.numSkills;i++)
+    {
+        uint32_t temp2;
+        skills.read(i, (uint8_t *) &temp2);
+        // a byte: this gives us 256 skills maximum.
+        furball.skills[i].id= MreadByte(temp2);
+        furball.skills[i].rating = MreadByte(temp2+4);
+        furball.skills[i].experience = MreadWord(temp2+8);
+    }
+    // profession
+    furball.profession = MreadByte(temp+d->creature_profession_offset);
+    // current job HACK: the job object isn't cleanly represented here
+    uint32_t jobIdAddr = MreadDWord(temp+d->creature_current_job_offset);
+    if(furball.current_job.active = jobIdAddr != 0)
+    {
+        furball.current_job.jobId = MreadByte(jobIdAddr+d->creature_current_job_id_offset);
+    }
+   
     MreadDWord(temp + d->creature_happiness_offset, furball.happiness);
     MreadDWord(temp + d->creature_id_offset, furball.id);
     MreadDWord(temp + d->creature_agility_offset, furball.agility);
@@ -994,7 +1010,7 @@ bool API::ReadCreature(const uint32_t &index, t_creature & furball)
     MreadByte(temp + d->creature_sex_offset, furball.sex);
     return true;
 }
-
+//FIXME: this just isn't enough
 void API::InitReadNameTables()
 {
     int genericAddress = d->offset_descriptor->getAddress("language_vector");
@@ -1151,16 +1167,11 @@ bool API::setCursorCoords (const int32_t &x, const int32_t &y, const int32_t &z)
     return true;
 }
 
-bool API::getCreatureCoords(const uint32_t &index, int32_t &x, int32_t &y, int32_t &z)
+memory_info API::getMemoryInfo()
 {
-    assert(d->creaturesInited);
-    uint32_t temp;
-    // read pointer from vector at position
-    d->p_cre->read(index,(uint8_t *)&temp);
-    int16_t location[3];
-    Mread(temp + d->creature_pos_offset, 3 * sizeof(uint16_t), (uint8_t *) location);
-    x=location[0];
-    y=location[1];
-    z=location[2];
-    return true;
+    return *d->offset_descriptor;
+}
+Process * API::getProcess()
+{
+    return d->p;
 }

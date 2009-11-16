@@ -1,6 +1,7 @@
 #include "common.h"
 #include "CreatureConfiguration.h"
 #include "Creatures.h"
+#include "MapLoading.h"
 
 #include "dfhack/library/tinyxml/tinyxml.h"
 
@@ -12,7 +13,7 @@ CreatureConfiguration::CreatureConfiguration(char* gameIDstr, char* professionSt
   memset(this, 0, sizeof(CreatureConfiguration) );
   this->sheetIndex = sheetIndex;
   this->gameID = INVALID_INDEX;
-  this->professionID = 0;
+  this->professionID = INVALID_INDEX;
   this->sex = sex;
 
   int len = (int) strlen(gameIDstr);
@@ -40,6 +41,7 @@ void DumpCreatureNamesToDisk(){
 
 void TranslateCreatureNames(){
   uint32_t numCreatures = (uint32_t)v_creatureNames.size();
+  //uint32_t numProfessions = dfMemoryInfo.P
   //for each config, find it's integer ID
   for(uint32_t i=0; i < creatureTypes.size(); i++){
     char* ptr = creatureTypes[i].gameIDstr;
@@ -48,12 +50,30 @@ void TranslateCreatureNames(){
       if( strcmp( ptr, v_creatureNames[j].id) == 0){
         //assign ID
         creatureTypes[i].gameID = j; 
-        //jump to next creatureType
+
+        //jump out of ID lookup loop
         break;
       }
     }
     if(j >= v_creatureNames.size())
       WriteErr("Unable to match creature '%s' to anything in-game\n", ptr);
+    ptr = creatureTypes[i].professionstr;
+    if(strcmp(ptr, "") != 0 ){
+      string proffStr;
+      for(j=0; (proffStr = dfMemoryInfo.getProfession(j)) != "" ; j++){
+        if( proffStr.compare( ptr ) == 0){
+          //assign ID
+          creatureTypes[i].professionID = j; 
+
+          //jump out of proffessionID lookup loop
+          break;
+        }
+      }
+      if(proffStr == ""){
+        WriteErr("Unable to match Profession '%s' to anything in-game\n", ptr);
+        creatureTypes[i].professionID = INT_MAX; //if it is left at INVALID_INDEX, the condition is ignored entierly.
+      }
+    }
   }
 
   CreatureNamesTranslatedFromGame = true;
@@ -73,12 +93,13 @@ void LoadCreatureConfiguration( vector<CreatureConfiguration>* knownCreatures ){
   elemCreature = hDoc.FirstChildElement("Creature").Element();
   while( elemCreature ){
     const char* name = elemCreature->Attribute("gameID");
-    const char* sheetIndexStr = elemCreature->Attribute("sheetIndex");
+    const char* sheetIndexStr;
     
     elemProfession = elemCreature->FirstChildElement("Profession");
     while( elemProfession ){
       const char* professionstr = elemProfession->Attribute("name");
       const char* sexstr = elemProfession->Attribute("sex");
+      sheetIndexStr = elemProfession->Attribute("sheetIndex");
       enumCreatureSex cresex = eCreatureSex_NA;
       if(sexstr){
         if(strcmp( sexstr, "M" ) == 0) cresex = eCreatureSex_Male;
@@ -91,7 +112,9 @@ void LoadCreatureConfiguration( vector<CreatureConfiguration>* knownCreatures ){
 
       elemProfession = elemProfession->NextSiblingElement("Profession");
     }
+
     //create default config
+    sheetIndexStr = elemCreature->Attribute("sheetIndex");
     CreatureConfiguration cre( (char*)name, "", eCreatureSex_NA, atoi(sheetIndexStr) );
     //add a copy to known creatures
     knownCreatures->push_back( cre );

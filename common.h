@@ -1,6 +1,7 @@
 #pragma once
 #pragma warning( disable : 4312 ) //64-bit portability issue
 #pragma warning( disable : 4996 ) //'deprecated' function warning
+#pragma warning( disable : 4251 ) //'identifier' : class 'type' needs to have dll-interface to be used by clients of class 'type2'
 #define SKIP_DFHACK_STDINT
 
 #include <assert.h>
@@ -13,7 +14,7 @@ using namespace std;
 #include "dfhack/library/DFTypes.h"
 #include "dfhack/library/DFTileTypes.h"
 #include "dfhack/library/DFHackAPI.h"
-
+#include "dfhack/library/DFMemInfo.h"
 using namespace DFHack;
 
 #include "commonTypes.h"

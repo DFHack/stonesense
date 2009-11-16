@@ -12,3 +12,4 @@ bool IsConnectedToDF();
 
 WorldSegment* ReadMapSegment(int x, int y, int z, int sizex, int sizey, int sizez);
 
+extern memory_info dfMemoryInfo;

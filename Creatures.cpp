@@ -42,11 +42,11 @@ void ReadCreaturesToSegment(API& DF, WorldSegment* segment){
   uint32_t index = 0;
 	while(index < numcreatures )
   {
-    //DF.ReadCreature( index, tempcreature );
-    //if( IsCreatureVisible( &tempcreature )
-    //    && segment->CoordinateInsideSegment(tempcreature.x, tempcreature.y, tempcreature.z) )
-    DF.getCreatureCoords( index, x, y, z );
-    if( segment->CoordinateInsideSegment(x, y, z) ){
+    DF.ReadCreature( index, tempcreature );
+    if( IsCreatureVisible( &tempcreature )
+      && segment->CoordinateInsideSegment(tempcreature.x, tempcreature.y, tempcreature.z) ){
+    //DF.getCreatureCoords( index, x, y, z );
+    //if( segment->CoordinateInsideSegment(x, y, z) ){
       //creature is in the segment, load entire thing
       DF.ReadCreature( index, tempcreature );
       if( IsCreatureVisible( &tempcreature ) ){
@@ -77,11 +77,24 @@ void ReadCreaturesToSegment(API& DF, WorldSegment* segment){
 
 int GetCreatureSpriteMap( t_creature* c ){
   uint32_t num = (uint32_t)creatureTypes.size();
-  for(uint32_t i=0; i < num; i++)
+  for(uint32_t i=0; i < num; i++){
     //TODO: Optimize. make a table lookup instead of a search
-    if( c->type == creatureTypes[i].gameID )
+    if( c->type != creatureTypes[i].gameID )
+      continue;
+    
+    bool creatureMatchesJob = true;
+    if( creatureTypes[i].professionID != INVALID_INDEX ){
+      creatureMatchesJob = creatureTypes[i].professionID == c->profession;
+    }
+    bool creatureMatchesSex = true;
+    if( creatureTypes[i].sex != eCreatureSex_NA ){
+      creatureMatchesSex = 
+        (c->sex == 0 &&  creatureTypes[i].sex == eCreatureSex_Female) ||
+        (c->sex == 1 &&  creatureTypes[i].sex == eCreatureSex_Male);
+    }
+    if( creatureMatchesJob && creatureMatchesSex)
       return creatureTypes[i].sheetIndex;
-
+  }
   return SPRITECRE_NA;
 }
 

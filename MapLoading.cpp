@@ -10,6 +10,9 @@
 
 static API* pDFApiHandle = 0;
 
+memory_info dfMemoryInfo;
+bool memInfoHasBeenRead;
+
 inline bool IDisWall(int in){
   switch( in ){
     case ID_METALWALL:
@@ -241,6 +244,11 @@ WorldSegment* ReadMapSegment(API &DF, int x, int y, int z, int sizex, int sizey,
 		return new WorldSegment(x,y,z,sizex,sizey,sizez);
   }
   
+  //read memory info
+  if( memInfoHasBeenRead == false){
+    dfMemoryInfo = DF.getMemoryInfo();
+    memInfoHasBeenRead = true;
+  }
   
 
 	//Read Number of cells
@@ -398,6 +406,7 @@ void reloadDisplayedSegment(){
   if(DisplayedSegmentY<0)DisplayedSegmentY=0;
   //create handle to dfHack API
   if(pDFApiHandle == 0){
+    memInfoHasBeenRead = false;
     pDFApiHandle = new API("Memory.xml");
     if( ConnectDFAPI( pDFApiHandle ) == false ){
       delete( pDFApiHandle );

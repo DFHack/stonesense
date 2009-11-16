@@ -1,9 +1,13 @@
 <?xml version="1.0" ?>
 
-<Creature gameID="DWARF" 		sheetIndex = 1 >
-	<Profession name="CARPENTER" sheetIndex = 2/>
-	<Profession name="PEASANT" sex="M" sheetIndex = 3/>
-	<Profession name="PEASANT" sex="F" sheetIndex = 4/>
+<Creature gameID="DWARF" 		sheetIndex = 32 >
+</Creature>
+
+
+<Creature gameID="HUMAN" 		sheetIndex = 80>
+	<Profession name="Pikedwarf" sheetIndex = 89/>
+	<Profession name="Swordsdwarf" sheetIndex = 84/>
+	<Profession name="Axedwarf" sheetIndex = 82/>
 </Creature>
 
 <Creature gameID="CAT" 			sheetIndex = 20 /> 
@@ -20,6 +24,7 @@
 <Creature gameID="FISH_CARP" 	sheetIndex = 29 /> 
 <Creature gameID="OLM_GIANT" 	sheetIndex = 30 /> 
 <Creature gameID="RATMAN" 		sheetIndex = 31 /> 
+<Creature gameID="BEAK_DOG" 	sheetIndex = 32 /> 
 
-<Creature gameID="SPIRIT_OF_FIRE" sheetIndex = 38 /> 
-<Creature gameID="IMP_FIRE" 	sheetIndex = 39 /> 
+<Creature gameID="SPIRIT_OF_FIRE"sheetIndex = 38 /> 
+<Creature gameID="IMP_FIRE" 	 sheetIndex = 39 /> 
