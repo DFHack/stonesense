@@ -105,7 +105,8 @@ int main(void)
   debugCursor.x = config.segmentSize.x / 2;
   debugCursor.y = config.segmentSize.y / 2;
 
-	set_color_depth(16);
+	set_color_depth(32);
+
   int gfxMode = config.Fullscreen ? GFX_AUTODETECT : GFX_AUTODETECT_WINDOWED;
   if( set_gfx_mode(gfxMode, config.screenWidth, config.screenHeight, 0,0) != 0 ){
     allegro_message("unable to set graphics mode.");
@@ -157,7 +158,7 @@ int main(void)
   //ford. desert map
   //sDisplayedSegmentX = 78; DisplayedSegmentY = 123;DisplayedSegmentZ = 15;
 
-  DisplayedSegmentX = 111; DisplayedSegmentY = 116;DisplayedSegmentZ = 18;
+  DisplayedSegmentX = 171; DisplayedSegmentY = 304;DisplayedSegmentZ = 18;
 
   //DisplayedSegmentX = 242; DisplayedSegmentY = 345;DisplayedSegmentZ = 15;
   
