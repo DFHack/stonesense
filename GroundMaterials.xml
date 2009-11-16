@@ -5,6 +5,11 @@
 <Floors>
 
 <Floor spriteIndex = 1>
+	<!-- constructed floor detailed -->
+	<GameID value = 493/>	
+</Floor>
+
+<Floor spriteIndex = 20>
 	<!-- stone floor detailed -->
 	<GameID value = 43/>
 	
@@ -13,9 +18,7 @@
 	
 	<!-- minstone floor detailed -->
 	<GameID value = 46/>
-	
-	<!-- constructed floor detailed -->
-	<GameID value = 493/>	
+
 </Floor>
 
 <Floor spriteIndex = 2>
@@ -65,7 +68,12 @@
 	<GameID value = 402/>
 </Floor>
 
-
+<Floor spriteIndex = 7>
+	<!-- plants -->
+	<GameID value = 231/>
+	<GameID value = 34/>
+	<GameID value = 24/>
+</Floor>
 
 
 <Floor spriteIndex = 9>
@@ -127,6 +135,9 @@
 	<GameID value = 379/>
 	<GameID value = 380/>
 </Floor>
+
+
+
 </Floors>
 
 
@@ -136,6 +147,7 @@
 <Wall spriteIndex = 201 fillerFloorSpriteIndex = 3>
 	<!-- Raw Stone wall -->
 	<GameID value = 219/>
+	<GameID value = 440/>
 </Wall>
 <Wall spriteIndex = 205 fillerFloorSpriteIndex = 4>
 	<!-- Soil wall -->
@@ -165,6 +177,8 @@
 </Wall>
 
 <Wall spriteIndex = 222 fillerFloorSpriteIndex = 1>
+	<!-- Pillar (separate out?) -->
+	<GameID value = 495/>
 	<!-- Constructed Walls -->
 	<GameID value = 496/>
 	<GameID value = 497/>
@@ -186,10 +200,49 @@
 	<GameID value = 513/>
 	<GameID value = 514/>
 </Wall>
+<Wall spriteIndex = 220 fillerFloorSpriteIndex = 21>
+	<!-- Smooth Walls -->
+	<GameID value = 318/>
+	<GameID value = 315/>
+	<GameID value = 425/>
+	<GameID value = 429/>
+	<GameID value = 319/>
+	<GameID value = 324/>
+	<GameID value = 316/>
+	<GameID value = 79/>
+	<GameID value = 320/>
+	<GameID value = 325/>
+	<GameID value = 435/>
+	<GameID value = 82/>
+	<GameID value = 317/>
+	<GameID value = 434/>
+	<GameID value = 427/>
+	<GameID value = 323/>
+	<GameID value = 432/>
+	<GameID value = 428/>
+	<GameID value = 431/>
+	<GameID value = 322/>
+	<GameID value = 321/>
+	<GameID value = 430/>
+	<GameID value = 311/>
+	<GameID value = 313/>
+	<GameID value = 426/>
+	<GameID value = 419/>
+	<GameID value = 433/>
+	<GameID value = 311/>
+	<GameID value = 311/>
+	<GameID value = 311/>
+	<GameID value = 311/>
+</Wall>
 <Wall spriteIndex = 225 fillerFloorSpriteIndex = 1>
 	<!-- Constructed Forticication -->
 	<GameID value = 494/>
 </Wall>
+<Wall spriteIndex = 225 fillerFloorSpriteIndex = 1>
+	<!-- Carved Forticication -->
+	<GameID value = 65/>	
+</Wall>
+
 </Walls>
 
 
