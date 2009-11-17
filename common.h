@@ -120,6 +120,11 @@ extern bool timeToReloadSegment;
 extern char currentAnimationFrame;
 extern bool animationFrameShown;
 
+extern int32_t viewx;
+extern int32_t viewy;
+extern int32_t viewz;
+extern bool followmode;
+
 extern vector<t_matgloss> v_stonetypes;
 
 #define TMR1_START (ClockedTime = clock())

@@ -28,6 +28,10 @@ bool animationFrameShown;
 
 vector<t_matgloss> v_stonetypes;
 
+int32_t viewx = 0;
+int32_t viewy = 0;
+int32_t viewz = 0;
+bool followmode = true;
 
 void WriteErr(char* msg, ...){
   int j = 10;  
@@ -99,6 +103,7 @@ int main(void)
   config.segmentSize.z = DEFAULT_SEGMENTSIZE_Z;
   config.show_osd = true;
   config.animation_step = 300;
+  
   loadConfigFile();
   
   //set debug cursor
@@ -143,7 +148,7 @@ int main(void)
 #endif
   
 	//upper left corners
-	DisplayedSegmentX = DisplayedSegmentY = 0;DisplayedSegmentZ = 17;
+	DisplayedSegmentX = DisplayedSegmentY = DisplayedSegmentZ = 0;
 	//Middle of fort
 	//DisplayedSegmentX = 131; DisplayedSegmentY = 100;DisplayedSegmentZ = 17;
 	//Two trees and a shrub
@@ -153,18 +158,18 @@ int main(void)
 	//DisplayedSegmentX = 238; DisplayedSegmentY = 220;DisplayedSegmentZ = 23;
 
 	//ford. Main hall
-	DisplayedSegmentX = 172; DisplayedSegmentY = 195;DisplayedSegmentZ = 15;
+	//DisplayedSegmentX = 172; DisplayedSegmentY = 195;DisplayedSegmentZ = 15;
 
   //ford. desert map
   //sDisplayedSegmentX = 78; DisplayedSegmentY = 123;DisplayedSegmentZ = 15;
 
-  DisplayedSegmentX = 171; DisplayedSegmentY = 304;DisplayedSegmentZ = 18;
+  //DisplayedSegmentX = 171; DisplayedSegmentY = 304;DisplayedSegmentZ = 18;
 
   //DisplayedSegmentX = 242; DisplayedSegmentY = 345;DisplayedSegmentZ = 15;
   
 
   #ifdef RELEASE
-  DisplayedSegmentX = 0; DisplayedSegmentY = 0;DisplayedSegmentZ = 17;
+  DisplayedSegmentX = 0; DisplayedSegmentY = 0;DisplayedSegmentZ = 0;
   #endif
   //while(1)
 	reloadDisplayedSegment();
