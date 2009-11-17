@@ -271,7 +271,6 @@ WorldSegment* ReadMapSegment(API &DF, int x, int y, int z, int sizex, int sizey,
     dfMemoryInfo = DF.getMemoryInfo();
     memInfoHasBeenRead = true;
   }
-  
 
 	//Read Number of cells
 	int celldimX, celldimY, celldimZ;
@@ -453,7 +452,7 @@ void reloadDisplayedSegment(){
 		int32_t newviewy;
 		int32_t newviewz;	  
 		pDFApiHandle->getViewCoords(newviewx,newviewy,newviewz);
-        DisplayedSegmentX = newviewx + config.viewXoffset;
+    DisplayedSegmentX = newviewx + config.viewXoffset;
 		DisplayedSegmentY = newviewy + config.viewYoffset;
 		DisplayedSegmentZ = newviewz + config.viewZoffset;
 	  }else
@@ -466,10 +465,5 @@ void reloadDisplayedSegment(){
   API& DF = *pDFApiHandle;
 	viewedSegment = ReadMapSegment(DF, DisplayedSegmentX, DisplayedSegmentY, DisplayedSegmentZ,
 		                config.segmentSize.x, config.segmentSize.y, segmentHeight);
-  /*bool res = DF.InitViewAndCursor();
-  if(res){
-    int x,y,z;
-    res = DF.getViewCoords( x, y, z );
-  }*/
   TMR1_STOP;
 }

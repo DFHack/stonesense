@@ -4,4 +4,5 @@ Interrupt driven input
 Properly handle bad DF connections
 Shop Buildings
 Check that ice-fort for bugs...
+Fix animtion when not auto-reloading
 Add more trees and shurbs
