@@ -18,6 +18,10 @@ bool IsCreatureVisible( t_creature* c ){
     return false;
   if( c->flags1.bits.caged )
     return false;
+  if( c->flags1.bits.hidden_in_ambush )
+    return false;
+  if( c->flags1.bits.hidden_ambusher )
+    return false;
   return true;
 }
 
