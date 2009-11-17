@@ -105,8 +105,14 @@
 	<Profession name="Speardwarf" sheetIndex = 85/>
 	<Profession name="Macedwarf" sheetIndex = 86/>
 	<Profession name="Marksdwarf" sheetIndex = 87/>
-	<Profession name="Bowdwarf" sheetIndex = 88/>/>
+	<Profession name="Bowdwarf" sheetIndex = 88/>
 	<Profession name="Pikedwarf" sheetIndex = 89/>
+	
+	<Profession name="Trader" sheetIndex = 101/>
+	<Profession name="Merchant" sheetIndex = 101/>
+	<Profession name="Guild Representative" sheetIndex = 102/>
+	<Profession name="Outpost Liaison" sheetIndex = 102/>
+	<Profession name="Diplomat" sheetIndex = 103/>
 </Creature>
 
 <Creature gameID="CAT" 	sheetIndex = 20 > 

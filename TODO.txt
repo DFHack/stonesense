@@ -5,5 +5,4 @@ Link with DF window
 Properly handle bad DF connections
 Fix windows
 Shop Buildings
-Add humans
 Add more trees and shurbs
