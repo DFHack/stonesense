@@ -79,6 +79,6 @@ Farm.xml
 HorizontalAxle.xml
 Gear.xml
 VerticalAxle.xml
-
+Waterwheel.xml
 Windmill.xml
 Bridge.xml
