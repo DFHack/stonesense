@@ -1,8 +1,7 @@
 Finish floor and wall config
 Add configurable key bindings
 Interrupt driven input
-Link with DF window
 Properly handle bad DF connections
-Fix windows
 Shop Buildings
+Check that ice-fort for bugs...
 Add more trees and shurbs

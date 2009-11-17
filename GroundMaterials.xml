@@ -9,17 +9,7 @@
 	<GameID value = 493/>	
 </Floor>
 
-<Floor spriteIndex = 20>
-	<!-- stone floor detailed -->
-	<GameID value = 43/>
-	
-	<!-- lavastone floor detailed -->
-	<GameID value = 44/>
-	
-	<!-- minstone floor detailed -->
-	<GameID value = 46/>
 
-</Floor>
 
 <Floor spriteIndex = 2>
 	<!-- grass floors -->
@@ -99,6 +89,20 @@
 	<GameID value = 900/>
 </Floor>
 
+<Floor spriteIndex = 11>
+	<!-- Frozen liquid floor -->
+	<GameID value = 258/>
+	<GameID value = 259/>
+	<GameID value = 260/>
+	<GameID value = 262/>
+	
+</Floor>
+
+<Floor spriteIndex = 12>
+	<!-- Metal floor -->
+	<GameID value = 1000/>
+</Floor>
+
 <Floor spriteIndex = 13>
 	<!-- Soil floors -->
 	<GameID value = 352/>
@@ -106,6 +110,31 @@
 	<GameID value = 354/>
 	<GameID value = 355/>
 	<Material name="SAND_TAN" />
+	<Material name="SAND_YELLOW" />
+</Floor>
+<Floor spriteIndex = 14>
+	<!-- Soil floors -->
+	<GameID value = 352/>
+	<GameID value = 353/>
+	<GameID value = 354/>
+	<GameID value = 355/>
+	<Material name="SAND_RED" />
+</Floor>
+<Floor spriteIndex = 15>
+	<!-- Soil floors -->
+	<GameID value = 352/>
+	<GameID value = 353/>
+	<GameID value = 354/>
+	<GameID value = 355/>
+	<Material name="SAND_BLACK" />
+</Floor>
+<Floor spriteIndex = 16>
+	<!-- Soil floors -->
+	<GameID value = 352/>
+	<GameID value = 353/>
+	<GameID value = 354/>
+	<GameID value = 355/>
+	<Material name="SAND_WHITE" />
 </Floor>
 
 <Floor spriteIndex = 17>
@@ -140,7 +169,17 @@
 	<GameID value = 380/>
 </Floor>
 
+<Floor spriteIndex = 20>
+	<!-- stone floor detailed -->
+	<GameID value = 43/>
+	
+	<!-- lavastone floor detailed -->
+	<GameID value = 44/>
+	
+	<!-- minstone floor detailed -->
+	<GameID value = 46/>
 
+</Floor>
 
 </Floors>
 
