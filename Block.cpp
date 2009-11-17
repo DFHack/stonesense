@@ -88,7 +88,7 @@ void Block::Draw(BITMAP* target){
 
 	//vegitation
 	if(tree.index > 0 || tree.type > 0){
-    int spriteNum =  GetWallSpriteVegitation( (VegetationType) getVegetationType( this->floorType ), tree.index );
+    int spriteNum =  GetSpriteVegitation( (VegetationType) getVegetationType( this->floorType ), tree.index );
     DrawSpriteFromSheet( spriteNum, target, IMGObjectSheet, drawx, drawy );
 	}
 

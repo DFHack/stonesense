@@ -13,26 +13,26 @@
 		</or>
 		<if>
 			<MaterialType value="GreenGlass"/>
-			<sprite index=63/>
+			<sprite index=63 file = "doorsAndWindows.png"/>
 		</if>
 		<else>
 			<MaterialType value="CrystalGlass"/>
-			<sprite index=65/>
+			<sprite index=65 file = "doorsAndWindows.png"/>
 		</else>
 		<else>
-			<sprite index=61/>
+			<sprite index=61 file = "doorsAndWindows.png"/>
 		</else>
 	</if>
 	<else>
 		<MaterialType value="GreenGlass"/>
-		<sprite index=62/>
+		<sprite index=62 file = "doorsAndWindows.png"/>
 	</else>
 	<else>
 		<MaterialType value="CrystalGlass"/>
-		<sprite index=64/>
+		<sprite index=64 file = "doorsAndWindows.png"/>
 	</else>
 	<else>
-		<sprite index=60/>
+		<sprite index=60 file = "doorsAndWindows.png"/>
 	</else>
 
 </building> 

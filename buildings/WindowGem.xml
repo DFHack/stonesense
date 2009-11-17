@@ -7,15 +7,15 @@
 
 	<if>
 		<or>
-			<NeighbourSameBuilding value="North" />
-			<NeighbourSameBuilding value="South" />
-			<NeighbourWall value="North" />
-			<NeighbourWall value="South" />
+			<NeighbourSameBuilding dir="North" />
+			<NeighbourSameBuilding dir="South" />
+			<NeighbourWall dir="North" />
+			<NeighbourWall dir="South" />
 		</or>
-		<sprite index=67/>
+		<sprite index=67 file = "doorsAndWindows.png"/>
 	</if>
 	<else>
-		<sprite index = 66 />
+		<sprite index = 66 file = "doorsAndWindows.png"/>
 	</else>
 	
 </building> 

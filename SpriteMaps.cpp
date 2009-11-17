@@ -590,7 +590,7 @@ int GetRampMaterialTypeMap(int in){
 }
 
 
-int GetWallSpriteVegitation( VegetationType type, int index){
+int GetSpriteVegitation( VegetationType type, int index){
   switch(type){
   case TREE_OK:
     switch(index){
