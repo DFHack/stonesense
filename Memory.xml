@@ -1,7 +1,9 @@
 <?xml version="1.0" ?>
 <DFExtractor>
 <!-- USE A FIXED WIDTH FONT! -->
-  <MemoryDescriptors>
+-
+<MemoryDescriptors>
+
        _____________________________________________
        |\'-._(   /                                 |
        | \  .'-._\                            ,   ,|
@@ -14,7 +16,10 @@
        |         Old unsupported versions          |
        |------------------------------------------->
 
-    <!--<Entry version="v0.27.176.38a" os="windows">
+    
+-
+<!--
+<Entry version="v0.27.176.38a" os="windows">
         <HexValue name="pe_timestamp">0x47B6FAC2</HexValue>
         <Address name="map_data">0x014A4EAC</Address>
         <Address name="x_count">0x014A4EC4</Address>
@@ -33,509 +38,506 @@
         <Offset name="type">0x0062</Offset>
         <Offset name="designation">0x0264</Offset>
         <Offset name="occupancy">0x0664</Offset>
-    </Entry>-->
-
-    <Entry version="meta-40d" os="all" id="meta-40d">
-        <Profession can_assign_labors="true" is_military="false" name="Miner">0</Profession>
-        <Profession can_assign_labors="true" is_military="false" name="Woodworker">1</Profession>
-        <Profession can_assign_labors="true" is_military="false" name="Carpenter">2</Profession>
-        <Profession can_assign_labors="true" is_military="false" name="Bowyer">3</Profession>
-        <Profession can_assign_labors="true" is_military="false" name="Woodcutter">4</Profession>
-        <Profession can_assign_labors="true" is_military="false" name="Stoneworker">5</Profession>
-        <Profession can_assign_labors="true" is_military="false" name="Engraver">6</Profession>
-        <Profession can_assign_labors="true" is_military="false" name="Mason">7</Profession>
-        <Profession can_assign_labors="true" is_military="false" name="Ranger">8</Profession>
-        <Profession can_assign_labors="true" is_military="false" name="Animal Caretaker">9</Profession>
-        <Profession can_assign_labors="true" is_military="false" name="Animal Trainer">10</Profession>
-        <Profession can_assign_labors="true" is_military="false" name="Hunter">11</Profession>
-        <Profession can_assign_labors="true" is_military="false" name="Trapper">12</Profession>
-        <Profession can_assign_labors="true" is_military="false" name="Animal Dissector">13</Profession>
-        <Profession can_assign_labors="true" is_military="false" name="Metalsmith">14</Profession>
-        <Profession can_assign_labors="true" is_military="false" name="Furnace Operator">15</Profession>
-        <Profession can_assign_labors="true" is_military="false" name="Weaponsmith">16</Profession>
-        <Profession can_assign_labors="true" is_military="false" name="Armorer">17</Profession>
-        <Profession can_assign_labors="true" is_military="false" name="Blacksmith">18</Profession>
-        <Profession can_assign_labors="true" is_military="false" name="Metalcrafter">19</Profession>
-        <Profession can_assign_labors="true" is_military="false" name="Jeweler">20</Profession>
-        <Profession can_assign_labors="true" is_military="false" name="Gem Cutter">21</Profession>
-        <Profession can_assign_labors="true" is_military="false" name="Gem Setter">22</Profession>
-        <Profession can_assign_labors="true" is_military="false" name="Craftsdwarf">23</Profession>
-        <Profession can_assign_labors="true" is_military="false" name="Woodcrafter">24</Profession>
-        <Profession can_assign_labors="true" is_military="false" name="Stonecrafter">25</Profession>
-        <Profession can_assign_labors="true" is_military="false" name="Leatherworker">26</Profession>
-        <Profession can_assign_labors="true" is_military="false" name="Bone Carver">27</Profession>
-        <Profession can_assign_labors="true" is_military="false" name="Weaver">28</Profession>
-        <Profession can_assign_labors="true" is_military="false" name="Clothier">29</Profession>
-        <Profession can_assign_labors="true" is_military="false" name="Glassmaker">30</Profession>
-        <Profession can_assign_labors="true" is_military="false" name="Strand Extractor">31</Profession>
-        <Profession can_assign_labors="false" female_name="Queen" is_military="false" name="King">32</Profession>
-        <Profession can_assign_labors="false" female_name="Queen Consort" is_military="false" name="King Consort">33</Profession>
-        <Profession can_assign_labors="true" is_military="false" name="Fishery Worker">34</Profession>
-        <Profession can_assign_labors="true" is_military="false" name="Fisherdwarf">35</Profession>
-        <Profession can_assign_labors="true" is_military="false" name="Fish Dissector">36</Profession>
-        <Profession can_assign_labors="true" is_military="false" name="Fish Cleaner">37</Profession>
-        <Profession can_assign_labors="true" is_military="false" name="Farmer">38</Profession>
-        <Profession can_assign_labors="true" is_military="false" name="Cheese Maker">39</Profession>
-        <Profession can_assign_labors="true" is_military="false" name="Milker">40</Profession>
-        <Profession can_assign_labors="true" is_military="false" name="Cook">41</Profession>
-        <Profession can_assign_labors="true" is_military="false" name="Thresher">42</Profession>
-        <Profession can_assign_labors="true" is_military="false" name="Miller">43</Profession>
-        <Profession can_assign_labors="true" is_military="false" name="Butcher">44</Profession>
-        <Profession can_assign_labors="true" is_military="false" name="Tanner">45</Profession>
-        <Profession can_assign_labors="true" is_military="false" name="Dyer">46</Profession>
-        <Profession can_assign_labors="true" is_military="false" name="Planter">47</Profession>
-        <Profession can_assign_labors="true" is_military="false" name="Herbalist">48</Profession>
-        <Profession can_assign_labors="true" is_military="false" name="Brewer">49</Profession>
-        <Profession can_assign_labors="true" is_military="false" name="Soap Maker">50</Profession>
-        <Profession can_assign_labors="true" is_military="false" name="Potash Maker">51</Profession>
-        <Profession can_assign_labors="true" is_military="false" name="Lye Maker">52</Profession>
-        <Profession can_assign_labors="true" is_military="false" name="Wood Burner">53</Profession>
-        <Profession can_assign_labors="true" is_military="false" name="Engineer">54</Profession>
-        <Profession can_assign_labors="true" is_military="false" name="Mechanic">55</Profession>
-        <Profession can_assign_labors="true" is_military="false" name="Siege Engineer">56</Profession>
-        <Profession can_assign_labors="true" is_military="false" name="Siege Operator">57</Profession>
-        <Profession can_assign_labors="true" is_military="false" name="Pump Operator">58</Profession>
-        <Profession can_assign_labors="true" is_military="false" name="Clerk">59</Profession>
-        <Profession can_assign_labors="true" is_military="false" name="Administrator">60</Profession>
-        <Profession can_assign_labors="true" is_military="false" name="Trader">61</Profession>
-        <Profession can_assign_labors="true" is_military="false" name="Architect">62</Profession>
-        <Profession can_assign_labors="true" is_military="false" name="Alchemist">63</Profession>
-        <Profession can_assign_labors="false" is_military="false" name="Tax Collector">64</Profession>
-        <Profession can_assign_labors="false" is_military="false" name="Hammerer">65</Profession>
-        <Profession can_assign_labors="false" female_name="Baroness" is_military="false" name="Baron">66</Profession>
-        <Profession can_assign_labors="false" female_name="Countess" is_military="false" name="Count">67</Profession>
-        <Profession can_assign_labors="false" female_name="Duchess" is_military="false" name="Duke">68</Profession>
-        <Profession can_assign_labors="false" female_name="Baroness Consort" is_military="false" name="Baron Consort">69</Profession>
-        <Profession can_assign_labors="false" female_name="Countess Consort" is_military="false" name="Count Consort">70</Profession>
-        <Profession can_assign_labors="false" female_name="Duchess Consort" is_military="false" name="Duke Consort">71</Profession>
-        <Profession can_assign_labors="false" is_military="false" name="Philosopher">72</Profession>
-        <Profession can_assign_labors="false" is_military="false" name="Advisor">73</Profession>
-        <Profession can_assign_labors="false" is_military="false" name="Dungeon Master">74</Profession>
-        <Profession can_assign_labors="false" is_military="false" name="Merchant">75</Profession>
-        <Profession can_assign_labors="false" is_military="false" name="Diplomat">76</Profession>
-        <Profession can_assign_labors="false" is_military="false" name="Guild Representative">77</Profession>
-        <Profession can_assign_labors="false" is_military="false" name="Merchant Baroness">78</Profession>
-        <Profession can_assign_labors="false" is_military="false" name="Merchant Princess">79</Profession>
-        <Profession can_assign_labors="false" is_military="false" name="Outpost Liaison">80</Profession>
-        <Profession can_assign_labors="false" is_military="false" name="Druid">81</Profession>
-        <Profession can_assign_labors="false" is_military="true" name="Champion">82</Profession>
-        <Profession can_assign_labors="true" is_military="true" name="Hammerdwarf">83</Profession>
-        <Profession can_assign_labors="false" is_military="true" name="Hammer Lord">84</Profession>
-        <Profession can_assign_labors="true" is_military="true" name="Speardwarf">85</Profession>
-        <Profession can_assign_labors="false" is_military="true" name="Spearmaster">86</Profession>
-        <Profession can_assign_labors="true" is_military="true" name="Marksdwarf">87</Profession>
-        <Profession can_assign_labors="false" is_military="true" name="Elite Crossbowdwarf">88</Profession>
-        <Profession can_assign_labors="true" is_military="true" name="Wrestler">89</Profession>
-        <Profession can_assign_labors="false" is_military="true" name="Elite Wrestler">90</Profession>
-        <Profession can_assign_labors="true" is_military="true" name="Axedwarf">91</Profession>
-        <Profession can_assign_labors="false" is_military="true" name="Axe Lord">92</Profession>
-        <Profession can_assign_labors="true" is_military="true" name="Swordsdwarf">93</Profession>
-        <Profession can_assign_labors="false" is_military="true" name="Swordmaster">94</Profession>
-        <Profession can_assign_labors="true" is_military="true" name="Macedwarf">95</Profession>
-        <Profession can_assign_labors="false" is_military="true" name="Mace Lord">96</Profession>
-        <Profession can_assign_labors="true" is_military="true" name="Pikedwarf">97</Profession>
-        <Profession can_assign_labors="false" is_military="true" name="Pikemaster">98</Profession>
-        <Profession can_assign_labors="false" is_military="true" name="Bowdwarf">99</Profession>
-        <Profession can_assign_labors="false" is_military="true" name="Elite Bowdwarf">100</Profession>
-        <Profession can_assign_labors="false" is_military="true" name="Blowgunner">101</Profession>
-        <Profession can_assign_labors="false" is_military="true" name="Elite Bowgunner">102</Profession>
-        <Profession can_assign_labors="true" is_military="true" name="Recruit">103</Profession>
-        <Profession can_assign_labors="false" is_military="false" name="?Hunting creature?">104</Profession>
-        <Profession name= "?War creature?" can_assign_labors="false" is_military="false">105</Profession>
-        <Profession name="?Master thief?" can_assign_labors="false" is_military="false">106</Profession>
-        <Profession name="?Thief?" can_assign_labors="false" is_military="false">107</Profession>
-        <Profession can_assign_labors="true" is_military="false" name="Peasant">108</Profession>
-        <Profession can_assign_labors="false" is_military="false" name="Child">109</Profession>
-        <Profession can_assign_labors="false" is_military="false" name="Baby">110</Profession>
-        <Profession can_assign_labors="false" is_military="false" name="Drunk">111</Profession>
-        <Profession can_assign_labors="false" is_military="false" name="Lasher">112</Profession>
-        <Profession can_assign_labors="false" is_military="false" name="Master Lasher">113</Profession>
-        
-        <Job name="Carve Fortification">0</Job>
-        <Job name="Detail Wall">1</Job>
-        <Job name="Detail Floor">2</Job>
-        <Job name="Dig">3</Job>
-        <Job name="Carve Upward Staircase">4</Job>
-        <Job name="Carve Downward Staircase">5</Job>
-        <Job name="Carve Up/Down Staircase">6</Job>
-        <Job name="Carve Ramp">7</Job>
-        <Job name="Dig Channel">8</Job>
-        <Job name="Fell Tree">9</Job>
-        <Job name="Gather Plants">10</Job>
-        <Job name="Remove Construction">11</Job>
-        <Job name="Collect Webs">12</Job>
-        <Job name="Bring Item to Depot">13</Job>
-        <Job name="Bring Item to Shop">14</Job>
-        <Job name="Eat">15</Job>
-        <Job name="Get Provisions">16</Job>
-        <Job name="Drink">17</Job>
-        <Job name="Drink">18</Job>
-        <Job name="Fill Waterskin">19</Job>
-        <Job name="Sleep">20</Job>
-        <Job name="Collect Sand">21</Job>
-        <Job name="Fish">22</Job>
-        <Job name="Hunt">23</Job>
-        <Job name="Hunt for Small Creature">24</Job>
-        <Job name="Kidnap">25</Job>
-        <Job name="Beat Criminal">26</Job>
-        <Job name="Starting Fist Fight">27</Job>
-        <Job name="Collect Taxes">28</Job>
-        <Job name="Guard Tax Collector">29</Job>
-        <Job name="Catch Live Land Animal">30</Job>
-        <Job name="Catch Live Fish">31</Job>
-        <Job name="Return Kill">32</Job>
-        <Job name="Check Chest">33</Job>
-        <Job name="Store Owned Item">34</Job>
-        <Job name="Place Item in Tomb">35</Job>
-        <Job name="Store Item in Stockpile">36</Job>
-        <Job name="Store Item in Bag">37</Job>
-        <Job name="Store Item in Chest">38</Job>
-        <Job name="Store Item in Cabinet">39</Job>
-        <Job name="Store Weapon">40</Job>
-        <Job name="Store Armor">41</Job>
-        <Job name="Store Item in Barrel">42</Job>
-        <Job name="Store Item in Bin">43</Job>
-        <Job name="Seek Artifact">44</Job>
-        <Job name="Seek Infant">45</Job>
-        <Job name="Attend Party">46</Job>
-        <Job name="Shooting at Archery Range">47</Job>
-        <Job name="Sparring in Barracks">48</Job>
-        <Job name="Go Shopping A">49</Job>
-        <Job name="Go Shopping B">50</Job>
-        <Job name="Clean">51</Job>
-        <Job name="Rest">52</Job>
-        <Job name="Pickup Equipment">53</Job>
-        <Job name="Dump Item">54</Job>
-        <Job name="Strange Mood Crafter">55</Job>
-        <Job name="Strange Mood Jeweller">56</Job>
-        <Job name="Strange Mood C">57</Job>
-        <Job name="Strange Mood Metal">58</Job>
-        <Job name="Strange Mood E">59</Job>
-        <Job name="Strange Mood F">60</Job>
-        <Job name="Strange Mood Carpenter">61</Job>
-        <Job name="Strange Mood Mason">62</Job>
-        <Job name="Strange Mood Bowyer">63</Job>
-        <Job name="Strange Mood Tanner">64</Job>
-        <Job name="Strange Mood Weaver">65</Job>
-        <Job name="Strange Mood Glassmaker">66</Job>
-        <Job name="Strange Mood Mechanics">67</Job>
-        <Job name="Construct Building">68</Job>
-        <Job name="Construct Door">69</Job>
-        <Job name="Construct Floodgate">70</Job>
-        <Job name="Construct Bed">71</Job>
-        <Job name="Construct  Chair">72</Job>
-        <Job name="Construct  Coffin">73</Job>
-        <Job name="Construct Table">74</Job>
-        <Job name="Construct  Chest">75</Job>
-        <Job name="Construct Bin">76</Job>
-        <Job name="Construct Armor Stand">77</Job>
-        <Job name="Construct Weapon Rack">78</Job>
-        <Job name="Construct Cabinet">79</Job>
-        <Job name="Construct  Statue">80</Job>
-        <Job name="Construct XXX">81</Job>
-        <Job name="Make Raw XXX">82</Job>
-        <Job name="Make crafts">83</Job>
-        <Job name="Mint stuff">84</Job>
-        <Job name="Cut XX A">85</Job>
-        <Job name="Cut XX B">86</Job>
-        <Job name="Encrust">87</Job>
-        <Job name="?">88</Job>
-        <Job name="Destroy Building">89</Job>
-        <Job name="Smelt  Ore">90</Job>
-        <Job name="Smelt">91</Job>
-        <Job name="Melt a Metal Object">92</Job>
-        <Job name="Extract Metal Strands">93</Job>
-        <Job name="Tan a Hide">94</Job>
-        <Job name="Plant Seeds">95</Job>
-        <Job name="Harvest Plants">96</Job>
-        <Job name="Train Hunting Animal">97</Job>
-        <Job name="Train War Animal">98</Job>
-        <Job name="Forge/Make DDD ">99</Job>
-        <Job name="Forge  Anvil">100</Job>
-        <Job name="Construct Catapult Parts">101</Job>
-        <Job name="Construct Ballista Parts">102</Job>
-        <Job name="Forge/Make A">103</Job>
-        <Job name="Forge/Make B">104</Job>
-        <Job name="Forge/Make C">105</Job>
-        <Job name="Stud With XX">106</Job>
-        <Job name="Butcher an Animal">107</Job>
-        <Job name="Prepare a Raw Fish">108</Job>
-        <Job name="Mill Plants">109</Job>
-        <Job name="Bait Trap">110</Job>
-        <Job name="Milk Creature">111</Job>
-        <Job name="Make Cheese">112</Job>
-        <Job name="Process Plants">113</Job>
-        <Job name="Process Plants (Bag)">114</Job>
-        <Job name="Process Plants (Vial)">115</Job>
-        <Job name="Process Plants (Barrel)">116</Job>
-        <Job name="Prepare Meal">117</Job>
-        <Job name="Weave Thread">118</Job>
-        <Job name="Forge/Make D">119</Job>
-        <Job name="Forge/Make E">120</Job>
-        <Job name="Forge/Make F">121</Job>
-        <Job name="Forge Cage">122</Job>
-        <Job name="Forge Rope">123</Job>
-        <Job name="Forge  Flask">124</Job>
-        <Job name="Forge  Goblet">125</Job>
-        <Job name="Forge  Instrument">126</Job>
-        <Job name="Forge  Toy">127</Job>
-        <Job name="Forge  Animal Trap">128</Job>
-        <Job name="Forge  Barrel">129</Job>
-        <Job name="Forge  Bucket">130</Job>
-        <Job name="Forge  Window">131</Job>
-        <Job name="Make Totem">132</Job>
-        <Job name="Forge/Make G">133</Job>
-        <Job name="Decorate With Bone">134</Job>
-        <Job name="Make Backpack">135</Job>
-        <Job name="Make Quiver">136</Job>
-        <Job name="Forge Ballista Arrow Head">137</Job>
-        <Job name="Assemble">138</Job>
-        <Job name="Load Catapult">139</Job>
-        <Job name="Load Ballista">140</Job>
-        <Job name="Fire Catapult">141</Job>
-        <Job name="Fire Ballista">142</Job>
-        <Job name="Construct Mechanisms">143</Job>
-        <Job name="Forge/Make H">144</Job>
-        <Job name="Load Cage Trap">145</Job>
-        <Job name="Load Stone Trap">146</Job>
-        <Job name="Load Weapon Trap">147</Job>
-        <Job name="Clean Trap">148</Job>
-        <Job name="Cast Spell">149</Job>
-        <Job name="Link a Building to Trigger">150</Job>
-        <Job name="Pull the Lever">151</Job>
-        <Job name="Brew Drink">152</Job>
-        <Job name="?">153</Job>
-        <Job name="Extract from Plants">154</Job>
-        <Job name="Extract from Raw Fish">155</Job>
-        <Job name="Extract from Land Animal">156</Job>
-        <Job name="Tame a Small Animal">157</Job>
-        <Job name="Tame Large Animal">158</Job>
-        <Job name="Chain Animal">159</Job>
-        <Job name="Unchain Animal">160</Job>
-        <Job name="Unchain Pet">161</Job>
-        <Job name="Releasing Large Creature">162</Job>
-        <Job name="Releasing Pet">163</Job>
-        <Job name="Releasing Small Creature">164</Job>
-        <Job name="Handling Small Creature">165</Job>
-        <Job name="Handling Large Creature">166</Job>
-        <Job name="Large Creature Caging">167</Job>
-        <Job name="Small Creature Caging">168</Job>
-        <Job name="Recover Wounded">169</Job>
-        <Job name="Drain Aquarium">170</Job>
-        <Job name="Fill Aquarium">171</Job>
-        <Job name="Fill Pond">172</Job>
-        <Job name="Give Water A">173</Job>
-        <Job name="Give Food A">174</Job>
-        <Job name="Give Water B">175</Job>
-        <Job name="Give Food B">176</Job>
-        <Job name="Recover Pet">177</Job>
-        <Job name="Pit/Pond Large Animal">178</Job>
-        <Job name="Pit/Pond Small Animal">179</Job>
-        <Job name="Slaughter Animal">180</Job>
-        <Job name="Make Charcoal">181</Job>
-        <Job name="Make Ash">182</Job>
-        <Job name="Make Lye">183</Job>
-        <Job name="Make Potash From Lye">184</Job>
-        <Job name="Make Pearlash">185</Job>
-        <Job name="Render Fat">186</Job>
-        <Job name="Make Soap">187</Job>
-        <Job name="Fertilize Field">188</Job>
-        <Job name="Make Potash From Ash">189</Job>
-        <Job name="Dye Thread">190</Job>
-        <Job name="Dye Cloth">191</Job>
-        <Job name="Sew  Image">192</Job>
-        <Job name="Forge  Tube">193</Job>
-        <Job name="Operate Pump">194</Job>
-        <Job name="Manage Work Orders">195</Job>
-        <Job name="Update Stockpile Records">196</Job>
-        <Job name="Trade at Depot">197</Job>
-        <Job name="Construct Hatch Cover">198</Job>
-        <Job name="Construct Grate">199</Job>
-        <Job name="Remove Stairs/Ramps">200</Job>
-        <Job name="Construct  Quern">201</Job>
-        <Job name="Construct  Millstone">202</Job>
-    
-        <Skill name="Miner">0</Skill>
-        <Skill name="Wood Cutter">1</Skill>
-        <Skill name="Carpenter">2</Skill>
-        <Skill name="Engraver">3</Skill>
-        <Skill name="Mason">4</Skill>
-        <Skill name="Animal Trainer">5</Skill>
-        <Skill name="Animal Caretaker">6</Skill>
-        <Skill name="Fish Dissector">7</Skill>
-        <Skill name="Animal Dissector">8</Skill>
-        <Skill name="Fish Cleaner">9</Skill>
-        <Skill name="Butcher">10</Skill>
-        <Skill name="Trapper">11</Skill>
-        <Skill name="Tanner">12</Skill>
-        <Skill name="Weaver">13</Skill>
-        <Skill name="Brewer">14</Skill>
-        <Skill name="Alchemist">15</Skill>
-        <Skill name="Clothier">16</Skill>
-        <Skill name="Miller">17</Skill>
-        <Skill name="Thresher">18</Skill>
-        <Skill name="Cheese Maker">19</Skill>
-        <Skill name="Milker">20</Skill>
-        <Skill name="Cook">21</Skill>
-        <Skill name="Grower">22</Skill>
-        <Skill name="Herbalist">23</Skill>
-        <Skill name="Fisherman">24</Skill>
-        <Skill name="Furnace Operator">25</Skill>
-        <Skill name="Strand Extractor">26</Skill>
-        <Skill name="Weaponsmith">27</Skill>
-        <Skill name="Armorer">28</Skill>
-        <Skill name="Metalsmith">29</Skill>
-        <Skill name="Gem Cutter">30</Skill>
-        <Skill name="Gem Setter">31</Skill>
-        <Skill name="Woodcrafter">32</Skill>
-        <Skill name="Stone Crafter">33</Skill>
-        <Skill name="Metal Crafter">34</Skill>
-        <Skill name="Glassmaker">35</Skill>
-        <Skill name="Leatherworker">36</Skill>
-        <Skill name="Bone Carver">37</Skill>
-        <Skill name="Wrestler">38</Skill>
-        <Skill name="Axeman">39</Skill>
-        <Skill name="Swordsman">40</Skill>
-        <Skill name="Knife User">41</Skill>
-        <Skill name="Maceman">42</Skill>
-        <Skill name="Hammerman">43</Skill>
-        <Skill name="Spearman">44</Skill>
-        <Skill name="Marksman">45</Skill>
-        <Skill name="Shield User">46</Skill>
-        <Skill name="Armor User">47</Skill>
-        <Skill name="Siege Engineer">48</Skill>
-        <Skill name="Siege Operator">49</Skill>
-        <Skill name="Bowyer">50</Skill>
-        <Skill name="Pikeman">51</Skill>
-        <Skill name="Lasher">52</Skill>
-        <Skill name="Bowman">53</Skill>
-        <Skill name="Blowgunner">54</Skill>
-        <Skill name="Thrower">55</Skill>
-        <Skill name="Mechanic">56</Skill>
-        <Skill name="Druid">57</Skill>
-        <Skill name="Ambusher">58</Skill>
-        <Skill name="Building Designer">59</Skill>
-        <Skill name="Woodburner">60</Skill>
-        <Skill name="Lye Maker">61</Skill>
-        <Skill name="Soaper">62</Skill>
-        <Skill name="Potash Maker">63</Skill>
-        <Skill name="Dyer">64</Skill>
-        <Skill name="Pump Operator">65</Skill>
-        <Skill name="Swimmer">66</Skill>
-        <Skill name="Persuader">67</Skill>
-        <Skill name="Negotiator">68</Skill>
-        <Skill name="Judge of Intent">69</Skill>
-        <Skill name="Appraiser">70</Skill>
-        <Skill name="Organizer">71</Skill>
-        <Skill name="Record Keeper">72</Skill>
-        <Skill name="Liar">73</Skill>
-        <Skill name="Intimitador">74</Skill>
-        <Skill name="Conversationalist">75</Skill>
-        <Skill name="Comedian">76</Skill>
-        <Skill name="Flatterer">77</Skill>
-        <Skill name="Consoler">78</Skill>
-        <Skill name="Pacifier">79</Skill>
-        
-        <Trait name="Nervousness" level_5="Is a nervous wreck" level_4="Is always tense and jittery" level_3="Is often nervous" level_2="Has a calm demeanor" level_1="Has a very calm demeanor" level_0="Has an incredibly calm demeanor">0</Trait>
-        <Trait name="Rage" level_5="In a constant state of internal rage" level_4="Very quick to anger" level_3="Quick to anger" level_2="Slow to anger" level_1="Very slow to anger" level_0="Never becomes angry">1</Trait>
-        <Trait name="Depression" level_5="Frequently depressed" level_4="Often sad and dejected" level_3="Often feels discouraged" level_2="Rarely feels discouraged" level_1="Almost never feels discouraged" level_0="Never feels discouraged">2</Trait>
-        <Trait name="Neurosis" level_5="Socially crippled by thoughts that everyone is watching and judging" level_4="Concerned about rejection and ridicule" level_3="Self-conscious" level_2="Comfortable in social situations" level_1="Very comfortable in social situations" level_0="Absolutely unfazed by the opinions of others">3</Trait>
-        <Trait name="Urge" level_5="Is ruled by irresistible cravings and urges" level_4="Feels strong urges and seeks short-term rewards" level_3="Occassionally overindulges" level_2="Doesn't often experience strong cravings or urges" level_1="Only rarely feels strong cravings or urges" level_0="Never feels tempted to overindulge in anything">4</Trait>
-        <Trait name="Stress" level_5="Becomes completely helpless in stressful situations" level_4="Cracks easily under pressure" level_3="Doesn't handle stress well" level_2="Can handle stress" level_1="Confident under pressure" level_0="Impervious to the effects of stress">5</Trait>
-        <Trait name="Friendly" level_5="Genuinely likes others, openly expresses positive feelings" level_4="Makes friends quickly" level_3="Very friendly" level_2="Somewhat reserved" level_1="Very distant and reserved" level_0="Does not actively seek friendships, incredibly distant and reserved">6</Trait>
-        <Trait name="Company" level_5="Truly treasures the company of others" level_4="Enjoys being in crowds" level_3="Enjoys the company of others" level_2="Tends to avoid crowds" level_1="Prefers to be alone" level_0="Considers time alone much more important than associating with others">7</Trait>
-        <Trait name="Leadership" level_5="Loves to take charge and direct activities" level_4="Very assertive" level_3="Assertive" level_2="Unassertive" level_1="Prefers that others handle the leadership roles" level_0="Never speaks out or attempts to direct activities">8</Trait>
-        <Trait name="Activeness" level_5="Constantly active and energetic" level_4="Very energetic and active" level_3="Very active" level_2="Relaxed" level_1="Lives life at a leisurely pace" level_0="Can't be bothered with frantic, fast-paced living">9</Trait>
-        <Trait name="Thrillseeking" level_5="Lives for risk and excitement" level_4="A risk-taker and a thrill-seeker" level_3="Loves a good thrill" level_2="Is not a risk-taker" level_1="Doesn't need thrills or risks in life" level_0="Entirely adverse to risk and excitement">10</Trait>
-        <Trait name="Optimism" level_5="Often feels filled with joy" level_4="Can be very happy and optimistic" level_3="Often cheerful" level_2="Rarely happy or enthusiastic" level_1="A pessimist" level_0="Never optimistic or enthusiastic about anything">11</Trait>
-        <Trait name="Imagination" level_5="Bored by reality and has a wonderful imagination" level_4="Incredibly creative" level_3="Has a fertile imagination" level_2="Isn't given to flights of fancy" level_1="Grounded in reality" level_0="Interested only in facts and the real world">12</Trait>
-        <Trait name="Artistic" level_5="Can easily become absorbed in art and the beauty of the natural world" level_4="Greatly appreciates art and natural beauty" level_3="Appreciates art and natural beauty" level_2="Does not have a great aesthetic sensitivity" level_1="Not interested in art" level_0="Completely uninterested in art">13</Trait>
-        <Trait name="Emotion" level_5="Has a profound understanding of own emotions" level_4="Has a great awareness of own emotions" level_3="Has a good awareness of own emotions" level_2="Tends not to openly express emotions" level_1="Mostly unaware of own emotions and rarely expresses them" level_0="Does not display own emotions and has no awareness of them">14</Trait>
-        <Trait name="Adventure" level_5="Highly adventurous and loves fresh experiences" level_4="Eager for new experiences" level_3="Likes to try new things" level_2="Prefers familiar routines" level_1="Uncomfortable with change" level_0="Resistant to change">15</Trait>
-        <Trait name="Thinking" level_5="Entranced by riddles and puzzles; loves to debate issues and ideas" level_4="Loves new and fresh ideas" level_3="Open-minded to new ideas" level_2="Dislikes intellectual discussions" level_1="Regards intellectual exercises as a waste of energy" level_0="Completely uninterested in ideas and debates over intellectual issues">16</Trait>
-        <Trait name="Rebelliousness" level_5="Revels in chaos and disorder" level_4="Loves to defy convention" level_3="Put off by authority and tradition" level_2="Admires tradition" level_1="Prefers stability and security to ambiguity and disorder" level_0="An ardent believer in convention and traditional society">17</Trait>
-        <Trait name="Trusting" level_5="Naturally trustful of everybody" level_4="Very trusting" level_3="Trusting" level_2="Slow to trust others" level_1="Does not trust others" level_0="Sees others as selfish and conniving">18</Trait>
-        <Trait name="Honesty" level_5="Incredibly frank and candid in dealings with others" level_4="Very straightforward with others" level_3="Candid and sincere in dealings with others" level_2="Guarded in relationships with others" level_1="Not straightforward when dealing with others" level_0="Believes that some deception is necessary in relationships with others">19</Trait>
-        <Trait name="Helpfulness" level_5="Truly fulfilled by assisting those in need" level_4="Finds helping others very rewarding" level_3="Finds helping others rewarding" level_2="Does not go out of own way to help others" level_1="Dislikes helping others" level_0="Views helping others as an imposition on own needs">20</Trait>
-        <Trait name="Compromising" level_5="Sacrifices own needs to get along with others" level_4="Dislikes confrontations" level_3="Willing to compromise with others" level_2="Doesn't like to compromise with others" level_1="Would rather intimidate others than compromise with them" level_0="Would never deny own needs just to compromise with somebody else">21</Trait>
-        <Trait name="Modesty" level_5="Would never claim to be better than somebody else" level_4="Finds immodesty distasteful" level_3="Modest" level_2="Immodest" level_1="Very willing to compare self favorably with others" level_0="Would never shy away from an opportunity to say they are better than somebody else">22</Trait>
-        <Trait name="Compassion" level_5="Incredibly compassionate and feels the pain of others" level_4="Easily moved to pity" level_3="Compassionate" level_2="Not easily moved to pity" level_1="Not affected by the suffering of others" level_0="Would never let an objective judgement be tempered by mercy or pity">23</Trait>
-        <Trait name="Confidence" level_5="Incredibly confident" level_4="Very confident" level_3="Confident" level_2="Lacks confidence" level_1="Does not feel effective in life" level_0="Always feels as if they are not in control of own life">24</Trait>
-        <Trait name="Organization" level_5="Loves to make lists and keep schedules" level_4="Tries to live a well-organized life" level_3="Organized" level_2="Disorganized" level_1="Very disorganized" level_0="Completely disorganized">25</Trait>
-        <Trait name="Lawfulness" level_5="Has a profound sense of duty and obligation" level_4="Has a strong sense of duty" level_3="Has a sense of duty" level_2="Finds rules confining" level_1="Dislikes contracts and regulations" level_0="Hates rules, contracts and other confining elements in own life">26</Trait>
-        <Trait name="Excellence" level_5="Constantly strives for perfection" level_4="Thinks it is incredibly important to strive for excellence" level_3="Strives for excellence" level_2="Doesn't go out of own way to do more work than necessary" level_1="Very rarely does more work than necessary" level_0="Does the bare minimum necessary to accomplish the task at hand">27</Trait>
-        <Trait name="Perseverance" level_5="Will persist in the face of any difficulty until the task is complete" level_4="Possesses great willpower" level_3="Is self-disciplined" level_2="Is occasionally given to procrastination" level_1="Has very little self-discipline" level_0="Rarely completes tasks and is often overcome by distractions">28</Trait>
-        <Trait name="Cautiousness" level_5="Thinks through every alternative and their consequences before acting" level_4="Extremely cautious" level_3="Takes time when making decisions" level_2="Often does the first thing that comes to mind" level_1="Acts impulsively" level_0="Always acts without considering alternatives or thinking through possibilities">29</Trait>
-
-        <Labor name="Mining">0</Labor>
-        <Labor name="Bowyer">66</Labor>
-        <Labor name="Carpentry">11</Labor>
-        <Labor name="Wood Cutting">10</Labor>
-        <Labor name="Masonry">13</Labor>
-        <Labor name="Stone Detailing">12</Labor>
-        <Labor name="Architecture">14</Labor>
-        <Labor name="Animal Training">15</Labor>
-        <Labor name="Animal Care">16</Labor>
-        <Labor name="Animal Dissection">20</Labor>
-        <Labor name="Hunting">38</Labor>
-        <Labor name="Trapping">19</Labor>
-        <Labor name="Armor Smithing">41</Labor>
-        <Labor name="Furnace Operating">39</Labor>
-        <Labor name="MetalCrafting">43</Labor>
-        <Labor name="Blacksmithing">42</Labor>
-        <Labor name="Weaponsmithing">40</Labor>
-        <Labor name="Gemcutting">44</Labor>
-        <Labor name="Gemsetting">45 </Labor>
-        <Labor name="BoneCarving">48</Labor>
-        <Labor name="Clothesmaking">27</Labor>
-        <Labor name="GlassMaking">49</Labor>
-        <Labor name="LeatherWorking">21</Labor>
-        <Labor name="Stonecrafting">47</Labor>
-        <Labor name="Weaving">26</Labor>
-        <Labor name="Woodcrafting">46</Labor>
-        <Labor name="Strand Extracting">50</Labor>
-        <Labor name="Brewing">23</Labor>
-        <Labor name="Butchery">18</Labor>
-        <Labor name="Cheesemaking">30</Labor>
-        <Labor name="Cooking">32</Labor>
-        <Labor name="Dyeing">71</Labor>
-        <Labor name="Farming">33</Labor>
-        <Labor name="Plant Gathering">34</Labor>
-        <Labor name="Lye Making">70</Labor>
-        <Labor name="Milking">31</Labor>
-        <Labor name="Milling">28</Labor>
-        <Labor name="Potash Making">69</Labor>
-        <Labor name="Soapmaking">25</Labor>
-        <Labor name="Tanning">22</Labor>
-        <Labor name="Plant Processing ">29</Labor>
-        <Labor name="Wood Burning">72</Labor>
-        <Labor name="Fishing">35</Labor>
-        <Labor name="Fish Cleaning">36</Labor>
-        <Labor name="Fish Dissection">37</Labor>
-        <Labor name="Mechanics">67</Labor>
-        <Labor name="Pump Operating">73</Labor>
-        <Labor name="Siege Engineering">64</Labor>
-        <Labor name="Siege Operating">65</Labor>
-        <Labor name="Health Care">17</Labor>
-        <Labor name="Animal Hauling">8</Labor>
-        <Labor name="Wood Hauling">2</Labor>
-        <Labor name="Item Hauling">6</Labor>
-        <Labor name="Food Hauling">4</Labor>
-        <Labor name="Stone Hauling">1</Labor>
-        <Labor name="Refuse Hauling">5</Labor>
-        <Labor name="Furniture Hauling">7</Labor>
-        <Labor name="Cleaning">9</Labor>
-        <Labor name="Burial">3</Labor>
-        <Labor name="Alchemy">24</Labor>
-        <Labor name="[Axe]">51</Labor>
-        <Labor name="[Sword]">52</Labor>
-        <Labor name="[Mace]">53</Labor>
-        <Labor name="[Hammer]">54</Labor>
-        <Labor name="[Spear]">55</Labor>
-        <Labor name="[Crossbow]">57</Labor>
-        <Labor name="[Unarmed]">-1</Labor>
-
     </Entry>
+-->
+-
+<Entry version="meta-40d" os="all" id="meta-40d">
+<Profession can_assign_labors="true" is_military="false" name="Miner">0</Profession>
+<Profession can_assign_labors="true" is_military="false" name="Woodworker">1</Profession>
+<Profession can_assign_labors="true" is_military="false" name="Carpenter">2</Profession>
+<Profession can_assign_labors="true" is_military="false" name="Bowyer">3</Profession>
+<Profession can_assign_labors="true" is_military="false" name="Woodcutter">4</Profession>
+<Profession can_assign_labors="true" is_military="false" name="Stoneworker">5</Profession>
+<Profession can_assign_labors="true" is_military="false" name="Engraver">6</Profession>
+<Profession can_assign_labors="true" is_military="false" name="Mason">7</Profession>
+<Profession can_assign_labors="true" is_military="false" name="Ranger">8</Profession>
+<Profession can_assign_labors="true" is_military="false" name="Animal Caretaker">9</Profession>
+<Profession can_assign_labors="true" is_military="false" name="Animal Trainer">10</Profession>
+<Profession can_assign_labors="true" is_military="false" name="Hunter">11</Profession>
+<Profession can_assign_labors="true" is_military="false" name="Trapper">12</Profession>
+<Profession can_assign_labors="true" is_military="false" name="Animal Dissector">13</Profession>
+<Profession can_assign_labors="true" is_military="false" name="Metalsmith">14</Profession>
+<Profession can_assign_labors="true" is_military="false" name="Furnace Operator">15</Profession>
+<Profession can_assign_labors="true" is_military="false" name="Weaponsmith">16</Profession>
+<Profession can_assign_labors="true" is_military="false" name="Armorer">17</Profession>
+<Profession can_assign_labors="true" is_military="false" name="Blacksmith">18</Profession>
+<Profession can_assign_labors="true" is_military="false" name="Metalcrafter">19</Profession>
+<Profession can_assign_labors="true" is_military="false" name="Jeweler">20</Profession>
+<Profession can_assign_labors="true" is_military="false" name="Gem Cutter">21</Profession>
+<Profession can_assign_labors="true" is_military="false" name="Gem Setter">22</Profession>
+<Profession can_assign_labors="true" is_military="false" name="Craftsdwarf">23</Profession>
+<Profession can_assign_labors="true" is_military="false" name="Woodcrafter">24</Profession>
+<Profession can_assign_labors="true" is_military="false" name="Stonecrafter">25</Profession>
+<Profession can_assign_labors="true" is_military="false" name="Leatherworker">26</Profession>
+<Profession can_assign_labors="true" is_military="false" name="Bone Carver">27</Profession>
+<Profession can_assign_labors="true" is_military="false" name="Weaver">28</Profession>
+<Profession can_assign_labors="true" is_military="false" name="Clothier">29</Profession>
+<Profession can_assign_labors="true" is_military="false" name="Glassmaker">30</Profession>
+<Profession can_assign_labors="true" is_military="false" name="Strand Extractor">31</Profession>
+<Profession can_assign_labors="false" female_name="Queen" is_military="false" name="King">32</Profession>
+<Profession can_assign_labors="false" female_name="Queen Consort" is_military="false" name="King Consort">33</Profession>
+<Profession can_assign_labors="true" is_military="false" name="Fishery Worker">34</Profession>
+<Profession can_assign_labors="true" is_military="false" name="Fisherdwarf">35</Profession>
+<Profession can_assign_labors="true" is_military="false" name="Fish Dissector">36</Profession>
+<Profession can_assign_labors="true" is_military="false" name="Fish Cleaner">37</Profession>
+<Profession can_assign_labors="true" is_military="false" name="Farmer">38</Profession>
+<Profession can_assign_labors="true" is_military="false" name="Cheese Maker">39</Profession>
+<Profession can_assign_labors="true" is_military="false" name="Milker">40</Profession>
+<Profession can_assign_labors="true" is_military="false" name="Cook">41</Profession>
+<Profession can_assign_labors="true" is_military="false" name="Thresher">42</Profession>
+<Profession can_assign_labors="true" is_military="false" name="Miller">43</Profession>
+<Profession can_assign_labors="true" is_military="false" name="Butcher">44</Profession>
+<Profession can_assign_labors="true" is_military="false" name="Tanner">45</Profession>
+<Profession can_assign_labors="true" is_military="false" name="Dyer">46</Profession>
+<Profession can_assign_labors="true" is_military="false" name="Planter">47</Profession>
+<Profession can_assign_labors="true" is_military="false" name="Herbalist">48</Profession>
+<Profession can_assign_labors="true" is_military="false" name="Brewer">49</Profession>
+<Profession can_assign_labors="true" is_military="false" name="Soap Maker">50</Profession>
+<Profession can_assign_labors="true" is_military="false" name="Potash Maker">51</Profession>
+<Profession can_assign_labors="true" is_military="false" name="Lye Maker">52</Profession>
+<Profession can_assign_labors="true" is_military="false" name="Wood Burner">53</Profession>
+<Profession can_assign_labors="true" is_military="false" name="Engineer">54</Profession>
+<Profession can_assign_labors="true" is_military="false" name="Mechanic">55</Profession>
+<Profession can_assign_labors="true" is_military="false" name="Siege Engineer">56</Profession>
+<Profession can_assign_labors="true" is_military="false" name="Siege Operator">57</Profession>
+<Profession can_assign_labors="true" is_military="false" name="Pump Operator">58</Profession>
+<Profession can_assign_labors="true" is_military="false" name="Clerk">59</Profession>
+<Profession can_assign_labors="true" is_military="false" name="Administrator">60</Profession>
+<Profession can_assign_labors="true" is_military="false" name="Trader">61</Profession>
+<Profession can_assign_labors="true" is_military="false" name="Architect">62</Profession>
+<Profession can_assign_labors="true" is_military="false" name="Alchemist">63</Profession>
+<Profession can_assign_labors="false" is_military="false" name="Tax Collector">64</Profession>
+<Profession can_assign_labors="false" is_military="false" name="Hammerer">65</Profession>
+<Profession can_assign_labors="false" female_name="Baroness" is_military="false" name="Baron">66</Profession>
+<Profession can_assign_labors="false" female_name="Countess" is_military="false" name="Count">67</Profession>
+<Profession can_assign_labors="false" female_name="Duchess" is_military="false" name="Duke">68</Profession>
+<Profession can_assign_labors="false" female_name="Baroness Consort" is_military="false" name="Baron Consort">69</Profession>
+<Profession can_assign_labors="false" female_name="Countess Consort" is_military="false" name="Count Consort">70</Profession>
+<Profession can_assign_labors="false" female_name="Duchess Consort" is_military="false" name="Duke Consort">71</Profession>
+<Profession can_assign_labors="false" is_military="false" name="Philosopher">72</Profession>
+<Profession can_assign_labors="false" is_military="false" name="Advisor">73</Profession>
+<Profession can_assign_labors="false" is_military="false" name="Dungeon Master">74</Profession>
+<Profession can_assign_labors="false" is_military="false" name="Merchant">75</Profession>
+<Profession can_assign_labors="false" is_military="false" name="Diplomat">76</Profession>
+<Profession can_assign_labors="false" is_military="false" name="Guild Representative">77</Profession>
+<Profession can_assign_labors="false" is_military="false" name="Merchant Baroness">78</Profession>
+<Profession can_assign_labors="false" is_military="false" name="Merchant Princess">79</Profession>
+<Profession can_assign_labors="false" is_military="false" name="Outpost Liaison">80</Profession>
+<Profession can_assign_labors="false" is_military="false" name="Druid">81</Profession>
+<Profession can_assign_labors="false" is_military="true" name="Champion">82</Profession>
+<Profession can_assign_labors="true" is_military="true" name="Hammerdwarf">83</Profession>
+<Profession can_assign_labors="false" is_military="true" name="Hammer Lord">84</Profession>
+<Profession can_assign_labors="true" is_military="true" name="Speardwarf">85</Profession>
+<Profession can_assign_labors="false" is_military="true" name="Spearmaster">86</Profession>
+<Profession can_assign_labors="true" is_military="true" name="Marksdwarf">87</Profession>
+<Profession can_assign_labors="false" is_military="true" name="Elite Crossbowdwarf">88</Profession>
+<Profession can_assign_labors="true" is_military="true" name="Wrestler">89</Profession>
+<Profession can_assign_labors="false" is_military="true" name="Elite Wrestler">90</Profession>
+<Profession can_assign_labors="true" is_military="true" name="Axedwarf">91</Profession>
+<Profession can_assign_labors="false" is_military="true" name="Axe Lord">92</Profession>
+<Profession can_assign_labors="true" is_military="true" name="Swordsdwarf">93</Profession>
+<Profession can_assign_labors="false" is_military="true" name="Swordmaster">94</Profession>
+<Profession can_assign_labors="true" is_military="true" name="Macedwarf">95</Profession>
+<Profession can_assign_labors="false" is_military="true" name="Mace Lord">96</Profession>
+<Profession can_assign_labors="true" is_military="true" name="Pikedwarf">97</Profession>
+<Profession can_assign_labors="false" is_military="true" name="Pikemaster">98</Profession>
+<Profession can_assign_labors="false" is_military="true" name="Bowdwarf">99</Profession>
+<Profession can_assign_labors="false" is_military="true" name="Elite Bowdwarf">100</Profession>
+<Profession can_assign_labors="false" is_military="true" name="Blowgunner">101</Profession>
+<Profession can_assign_labors="false" is_military="true" name="Elite Bowgunner">102</Profession>
+<Profession can_assign_labors="true" is_military="true" name="Recruit">103</Profession>
+<Profession can_assign_labors="false" is_military="false" name="?Hunting creature?">104</Profession>
+<Profession name="?War creature?" can_assign_labors="false" is_military="false">105</Profession>
+<Profession name="?Master thief?" can_assign_labors="false" is_military="false">106</Profession>
+<Profession name="?Thief?" can_assign_labors="false" is_military="false">107</Profession>
+<Profession can_assign_labors="true" is_military="false" name="Peasant">108</Profession>
+<Profession can_assign_labors="false" is_military="false" name="Child">109</Profession>
+<Profession can_assign_labors="false" is_military="false" name="Baby">110</Profession>
+<Profession can_assign_labors="false" is_military="false" name="Drunk">111</Profession>
+<Profession can_assign_labors="false" is_military="false" name="Lasher">112</Profession>
+<Profession can_assign_labors="false" is_military="false" name="Master Lasher">113</Profession>
+<Job name="Carve Fortification">0</Job>
+<Job name="Detail Wall">1</Job>
+<Job name="Detail Floor">2</Job>
+<Job name="Dig">3</Job>
+<Job name="Carve Upward Staircase">4</Job>
+<Job name="Carve Downward Staircase">5</Job>
+<Job name="Carve Up/Down Staircase">6</Job>
+<Job name="Carve Ramp">7</Job>
+<Job name="Dig Channel">8</Job>
+<Job name="Fell Tree">9</Job>
+<Job name="Gather Plants">10</Job>
+<Job name="Remove Construction">11</Job>
+<Job name="Collect Webs">12</Job>
+<Job name="Bring Item to Depot">13</Job>
+<Job name="Bring Item to Shop">14</Job>
+<Job name="Eat">15</Job>
+<Job name="Get Provisions">16</Job>
+<Job name="Drink">17</Job>
+<Job name="Drink">18</Job>
+<Job name="Fill Waterskin">19</Job>
+<Job name="Sleep">20</Job>
+<Job name="Collect Sand">21</Job>
+<Job name="Fish">22</Job>
+<Job name="Hunt">23</Job>
+<Job name="Hunt for Small Creature">24</Job>
+<Job name="Kidnap">25</Job>
+<Job name="Beat Criminal">26</Job>
+<Job name="Starting Fist Fight">27</Job>
+<Job name="Collect Taxes">28</Job>
+<Job name="Guard Tax Collector">29</Job>
+<Job name="Catch Live Land Animal">30</Job>
+<Job name="Catch Live Fish">31</Job>
+<Job name="Return Kill">32</Job>
+<Job name="Check Chest">33</Job>
+<Job name="Store Owned Item">34</Job>
+<Job name="Place Item in Tomb">35</Job>
+<Job name="Store Item in Stockpile">36</Job>
+<Job name="Store Item in Bag">37</Job>
+<Job name="Store Item in Chest">38</Job>
+<Job name="Store Item in Cabinet">39</Job>
+<Job name="Store Weapon">40</Job>
+<Job name="Store Armor">41</Job>
+<Job name="Store Item in Barrel">42</Job>
+<Job name="Store Item in Bin">43</Job>
+<Job name="Seek Artifact">44</Job>
+<Job name="Seek Infant">45</Job>
+<Job name="Attend Party">46</Job>
+<Job name="Shooting at Archery Range">47</Job>
+<Job name="Sparring in Barracks">48</Job>
+<Job name="Go Shopping A">49</Job>
+<Job name="Go Shopping B">50</Job>
+<Job name="Clean">51</Job>
+<Job name="Rest">52</Job>
+<Job name="Pickup Equipment">53</Job>
+<Job name="Dump Item">54</Job>
+<Job name="Strange Mood Crafter">55</Job>
+<Job name="Strange Mood Jeweller">56</Job>
+<Job name="Strange Mood C">57</Job>
+<Job name="Strange Mood Metal">58</Job>
+<Job name="Strange Mood E">59</Job>
+<Job name="Strange Mood F">60</Job>
+<Job name="Strange Mood Carpenter">61</Job>
+<Job name="Strange Mood Mason">62</Job>
+<Job name="Strange Mood Bowyer">63</Job>
+<Job name="Strange Mood Tanner">64</Job>
+<Job name="Strange Mood Weaver">65</Job>
+<Job name="Strange Mood Glassmaker">66</Job>
+<Job name="Strange Mood Mechanics">67</Job>
+<Job name="Construct Building">68</Job>
+<Job name="Construct Door">69</Job>
+<Job name="Construct Floodgate">70</Job>
+<Job name="Construct Bed">71</Job>
+<Job name="Construct  Chair">72</Job>
+<Job name="Construct  Coffin">73</Job>
+<Job name="Construct Table">74</Job>
+<Job name="Construct  Chest">75</Job>
+<Job name="Construct Bin">76</Job>
+<Job name="Construct Armor Stand">77</Job>
+<Job name="Construct Weapon Rack">78</Job>
+<Job name="Construct Cabinet">79</Job>
+<Job name="Construct  Statue">80</Job>
+<Job name="Construct XXX">81</Job>
+<Job name="Make Raw XXX">82</Job>
+<Job name="Make crafts">83</Job>
+<Job name="Mint stuff">84</Job>
+<Job name="Cut XX A">85</Job>
+<Job name="Cut XX B">86</Job>
+<Job name="Encrust">87</Job>
+<Job name="?">88</Job>
+<Job name="Destroy Building">89</Job>
+<Job name="Smelt  Ore">90</Job>
+<Job name="Smelt">91</Job>
+<Job name="Melt a Metal Object">92</Job>
+<Job name="Extract Metal Strands">93</Job>
+<Job name="Tan a Hide">94</Job>
+<Job name="Plant Seeds">95</Job>
+<Job name="Harvest Plants">96</Job>
+<Job name="Train Hunting Animal">97</Job>
+<Job name="Train War Animal">98</Job>
+<Job name="Forge/Make DDD ">99</Job>
+<Job name="Forge  Anvil">100</Job>
+<Job name="Construct Catapult Parts">101</Job>
+<Job name="Construct Ballista Parts">102</Job>
+<Job name="Forge/Make A">103</Job>
+<Job name="Forge/Make B">104</Job>
+<Job name="Forge/Make C">105</Job>
+<Job name="Stud With XX">106</Job>
+<Job name="Butcher an Animal">107</Job>
+<Job name="Prepare a Raw Fish">108</Job>
+<Job name="Mill Plants">109</Job>
+<Job name="Bait Trap">110</Job>
+<Job name="Milk Creature">111</Job>
+<Job name="Make Cheese">112</Job>
+<Job name="Process Plants">113</Job>
+<Job name="Process Plants (Bag)">114</Job>
+<Job name="Process Plants (Vial)">115</Job>
+<Job name="Process Plants (Barrel)">116</Job>
+<Job name="Prepare Meal">117</Job>
+<Job name="Weave Thread">118</Job>
+<Job name="Forge/Make D">119</Job>
+<Job name="Forge/Make E">120</Job>
+<Job name="Forge/Make F">121</Job>
+<Job name="Forge Cage">122</Job>
+<Job name="Forge Rope">123</Job>
+<Job name="Forge  Flask">124</Job>
+<Job name="Forge  Goblet">125</Job>
+<Job name="Forge  Instrument">126</Job>
+<Job name="Forge  Toy">127</Job>
+<Job name="Forge  Animal Trap">128</Job>
+<Job name="Forge  Barrel">129</Job>
+<Job name="Forge  Bucket">130</Job>
+<Job name="Forge  Window">131</Job>
+<Job name="Make Totem">132</Job>
+<Job name="Forge/Make G">133</Job>
+<Job name="Decorate With Bone">134</Job>
+<Job name="Make Backpack">135</Job>
+<Job name="Make Quiver">136</Job>
+<Job name="Forge Ballista Arrow Head">137</Job>
+<Job name="Assemble">138</Job>
+<Job name="Load Catapult">139</Job>
+<Job name="Load Ballista">140</Job>
+<Job name="Fire Catapult">141</Job>
+<Job name="Fire Ballista">142</Job>
+<Job name="Construct Mechanisms">143</Job>
+<Job name="Forge/Make H">144</Job>
+<Job name="Load Cage Trap">145</Job>
+<Job name="Load Stone Trap">146</Job>
+<Job name="Load Weapon Trap">147</Job>
+<Job name="Clean Trap">148</Job>
+<Job name="Cast Spell">149</Job>
+<Job name="Link a Building to Trigger">150</Job>
+<Job name="Pull the Lever">151</Job>
+<Job name="Brew Drink">152</Job>
+<Job name="?">153</Job>
+<Job name="Extract from Plants">154</Job>
+<Job name="Extract from Raw Fish">155</Job>
+<Job name="Extract from Land Animal">156</Job>
+<Job name="Tame a Small Animal">157</Job>
+<Job name="Tame Large Animal">158</Job>
+<Job name="Chain Animal">159</Job>
+<Job name="Unchain Animal">160</Job>
+<Job name="Unchain Pet">161</Job>
+<Job name="Releasing Large Creature">162</Job>
+<Job name="Releasing Pet">163</Job>
+<Job name="Releasing Small Creature">164</Job>
+<Job name="Handling Small Creature">165</Job>
+<Job name="Handling Large Creature">166</Job>
+<Job name="Large Creature Caging">167</Job>
+<Job name="Small Creature Caging">168</Job>
+<Job name="Recover Wounded">169</Job>
+<Job name="Drain Aquarium">170</Job>
+<Job name="Fill Aquarium">171</Job>
+<Job name="Fill Pond">172</Job>
+<Job name="Give Water A">173</Job>
+<Job name="Give Food A">174</Job>
+<Job name="Give Water B">175</Job>
+<Job name="Give Food B">176</Job>
+<Job name="Recover Pet">177</Job>
+<Job name="Pit/Pond Large Animal">178</Job>
+<Job name="Pit/Pond Small Animal">179</Job>
+<Job name="Slaughter Animal">180</Job>
+<Job name="Make Charcoal">181</Job>
+<Job name="Make Ash">182</Job>
+<Job name="Make Lye">183</Job>
+<Job name="Make Potash From Lye">184</Job>
+<Job name="Make Pearlash">185</Job>
+<Job name="Render Fat">186</Job>
+<Job name="Make Soap">187</Job>
+<Job name="Fertilize Field">188</Job>
+<Job name="Make Potash From Ash">189</Job>
+<Job name="Dye Thread">190</Job>
+<Job name="Dye Cloth">191</Job>
+<Job name="Sew  Image">192</Job>
+<Job name="Forge  Tube">193</Job>
+<Job name="Operate Pump">194</Job>
+<Job name="Manage Work Orders">195</Job>
+<Job name="Update Stockpile Records">196</Job>
+<Job name="Trade at Depot">197</Job>
+<Job name="Construct Hatch Cover">198</Job>
+<Job name="Construct Grate">199</Job>
+<Job name="Remove Stairs/Ramps">200</Job>
+<Job name="Construct  Quern">201</Job>
+<Job name="Construct  Millstone">202</Job>
+<Skill name="Miner">0</Skill>
+<Skill name="Wood Cutter">1</Skill>
+<Skill name="Carpenter">2</Skill>
+<Skill name="Engraver">3</Skill>
+<Skill name="Mason">4</Skill>
+<Skill name="Animal Trainer">5</Skill>
+<Skill name="Animal Caretaker">6</Skill>
+<Skill name="Fish Dissector">7</Skill>
+<Skill name="Animal Dissector">8</Skill>
+<Skill name="Fish Cleaner">9</Skill>
+<Skill name="Butcher">10</Skill>
+<Skill name="Trapper">11</Skill>
+<Skill name="Tanner">12</Skill>
+<Skill name="Weaver">13</Skill>
+<Skill name="Brewer">14</Skill>
+<Skill name="Alchemist">15</Skill>
+<Skill name="Clothier">16</Skill>
+<Skill name="Miller">17</Skill>
+<Skill name="Thresher">18</Skill>
+<Skill name="Cheese Maker">19</Skill>
+<Skill name="Milker">20</Skill>
+<Skill name="Cook">21</Skill>
+<Skill name="Grower">22</Skill>
+<Skill name="Herbalist">23</Skill>
+<Skill name="Fisherman">24</Skill>
+<Skill name="Furnace Operator">25</Skill>
+<Skill name="Strand Extractor">26</Skill>
+<Skill name="Weaponsmith">27</Skill>
+<Skill name="Armorer">28</Skill>
+<Skill name="Metalsmith">29</Skill>
+<Skill name="Gem Cutter">30</Skill>
+<Skill name="Gem Setter">31</Skill>
+<Skill name="Woodcrafter">32</Skill>
+<Skill name="Stone Crafter">33</Skill>
+<Skill name="Metal Crafter">34</Skill>
+<Skill name="Glassmaker">35</Skill>
+<Skill name="Leatherworker">36</Skill>
+<Skill name="Bone Carver">37</Skill>
+<Skill name="Wrestler">38</Skill>
+<Skill name="Axeman">39</Skill>
+<Skill name="Swordsman">40</Skill>
+<Skill name="Knife User">41</Skill>
+<Skill name="Maceman">42</Skill>
+<Skill name="Hammerman">43</Skill>
+<Skill name="Spearman">44</Skill>
+<Skill name="Marksman">45</Skill>
+<Skill name="Shield User">46</Skill>
+<Skill name="Armor User">47</Skill>
+<Skill name="Siege Engineer">48</Skill>
+<Skill name="Siege Operator">49</Skill>
+<Skill name="Bowyer">50</Skill>
+<Skill name="Pikeman">51</Skill>
+<Skill name="Lasher">52</Skill>
+<Skill name="Bowman">53</Skill>
+<Skill name="Blowgunner">54</Skill>
+<Skill name="Thrower">55</Skill>
+<Skill name="Mechanic">56</Skill>
+<Skill name="Druid">57</Skill>
+<Skill name="Ambusher">58</Skill>
+<Skill name="Building Designer">59</Skill>
+<Skill name="Woodburner">60</Skill>
+<Skill name="Lye Maker">61</Skill>
+<Skill name="Soaper">62</Skill>
+<Skill name="Potash Maker">63</Skill>
+<Skill name="Dyer">64</Skill>
+<Skill name="Pump Operator">65</Skill>
+<Skill name="Swimmer">66</Skill>
+<Skill name="Persuader">67</Skill>
+<Skill name="Negotiator">68</Skill>
+<Skill name="Judge of Intent">69</Skill>
+<Skill name="Appraiser">70</Skill>
+<Skill name="Organizer">71</Skill>
+<Skill name="Record Keeper">72</Skill>
+<Skill name="Liar">73</Skill>
+<Skill name="Intimitador">74</Skill>
+<Skill name="Conversationalist">75</Skill>
+<Skill name="Comedian">76</Skill>
+<Skill name="Flatterer">77</Skill>
+<Skill name="Consoler">78</Skill>
+<Skill name="Pacifier">79</Skill>
+<Trait name="Nervousness" level_5="Is a nervous wreck" level_4="Is always tense and jittery" level_3="Is often nervous" level_2="Has a calm demeanor" level_1="Has a very calm demeanor" level_0="Has an incredibly calm demeanor">0</Trait>
+<Trait name="Rage" level_5="In a constant state of internal rage" level_4="Very quick to anger" level_3="Quick to anger" level_2="Slow to anger" level_1="Very slow to anger" level_0="Never becomes angry">1</Trait>
+<Trait name="Depression" level_5="Frequently depressed" level_4="Often sad and dejected" level_3="Often feels discouraged" level_2="Rarely feels discouraged" level_1="Almost never feels discouraged" level_0="Never feels discouraged">2</Trait>
+<Trait name="Neurosis" level_5="Socially crippled by thoughts that everyone is watching and judging" level_4="Concerned about rejection and ridicule" level_3="Self-conscious" level_2="Comfortable in social situations" level_1="Very comfortable in social situations" level_0="Absolutely unfazed by the opinions of others">3</Trait>
+<Trait name="Urge" level_5="Is ruled by irresistible cravings and urges" level_4="Feels strong urges and seeks short-term rewards" level_3="Occassionally overindulges" level_2="Doesn't often experience strong cravings or urges" level_1="Only rarely feels strong cravings or urges" level_0="Never feels tempted to overindulge in anything">4</Trait>
+<Trait name="Stress" level_5="Becomes completely helpless in stressful situations" level_4="Cracks easily under pressure" level_3="Doesn't handle stress well" level_2="Can handle stress" level_1="Confident under pressure" level_0="Impervious to the effects of stress">5</Trait>
+<Trait name="Friendly" level_5="Genuinely likes others, openly expresses positive feelings" level_4="Makes friends quickly" level_3="Very friendly" level_2="Somewhat reserved" level_1="Very distant and reserved" level_0="Does not actively seek friendships, incredibly distant and reserved">6</Trait>
+<Trait name="Company" level_5="Truly treasures the company of others" level_4="Enjoys being in crowds" level_3="Enjoys the company of others" level_2="Tends to avoid crowds" level_1="Prefers to be alone" level_0="Considers time alone much more important than associating with others">7</Trait>
+<Trait name="Leadership" level_5="Loves to take charge and direct activities" level_4="Very assertive" level_3="Assertive" level_2="Unassertive" level_1="Prefers that others handle the leadership roles" level_0="Never speaks out or attempts to direct activities">8</Trait>
+<Trait name="Activeness" level_5="Constantly active and energetic" level_4="Very energetic and active" level_3="Very active" level_2="Relaxed" level_1="Lives life at a leisurely pace" level_0="Can't be bothered with frantic, fast-paced living">9</Trait>
+<Trait name="Thrillseeking" level_5="Lives for risk and excitement" level_4="A risk-taker and a thrill-seeker" level_3="Loves a good thrill" level_2="Is not a risk-taker" level_1="Doesn't need thrills or risks in life" level_0="Entirely adverse to risk and excitement">10</Trait>
+<Trait name="Optimism" level_5="Often feels filled with joy" level_4="Can be very happy and optimistic" level_3="Often cheerful" level_2="Rarely happy or enthusiastic" level_1="A pessimist" level_0="Never optimistic or enthusiastic about anything">11</Trait>
+<Trait name="Imagination" level_5="Bored by reality and has a wonderful imagination" level_4="Incredibly creative" level_3="Has a fertile imagination" level_2="Isn't given to flights of fancy" level_1="Grounded in reality" level_0="Interested only in facts and the real world">12</Trait>
+<Trait name="Artistic" level_5="Can easily become absorbed in art and the beauty of the natural world" level_4="Greatly appreciates art and natural beauty" level_3="Appreciates art and natural beauty" level_2="Does not have a great aesthetic sensitivity" level_1="Not interested in art" level_0="Completely uninterested in art">13</Trait>
+<Trait name="Emotion" level_5="Has a profound understanding of own emotions" level_4="Has a great awareness of own emotions" level_3="Has a good awareness of own emotions" level_2="Tends not to openly express emotions" level_1="Mostly unaware of own emotions and rarely expresses them" level_0="Does not display own emotions and has no awareness of them">14</Trait>
+<Trait name="Adventure" level_5="Highly adventurous and loves fresh experiences" level_4="Eager for new experiences" level_3="Likes to try new things" level_2="Prefers familiar routines" level_1="Uncomfortable with change" level_0="Resistant to change">15</Trait>
+<Trait name="Thinking" level_5="Entranced by riddles and puzzles; loves to debate issues and ideas" level_4="Loves new and fresh ideas" level_3="Open-minded to new ideas" level_2="Dislikes intellectual discussions" level_1="Regards intellectual exercises as a waste of energy" level_0="Completely uninterested in ideas and debates over intellectual issues">16</Trait>
+<Trait name="Rebelliousness" level_5="Revels in chaos and disorder" level_4="Loves to defy convention" level_3="Put off by authority and tradition" level_2="Admires tradition" level_1="Prefers stability and security to ambiguity and disorder" level_0="An ardent believer in convention and traditional society">17</Trait>
+<Trait name="Trusting" level_5="Naturally trustful of everybody" level_4="Very trusting" level_3="Trusting" level_2="Slow to trust others" level_1="Does not trust others" level_0="Sees others as selfish and conniving">18</Trait>
+<Trait name="Honesty" level_5="Incredibly frank and candid in dealings with others" level_4="Very straightforward with others" level_3="Candid and sincere in dealings with others" level_2="Guarded in relationships with others" level_1="Not straightforward when dealing with others" level_0="Believes that some deception is necessary in relationships with others">19</Trait>
+<Trait name="Helpfulness" level_5="Truly fulfilled by assisting those in need" level_4="Finds helping others very rewarding" level_3="Finds helping others rewarding" level_2="Does not go out of own way to help others" level_1="Dislikes helping others" level_0="Views helping others as an imposition on own needs">20</Trait>
+<Trait name="Compromising" level_5="Sacrifices own needs to get along with others" level_4="Dislikes confrontations" level_3="Willing to compromise with others" level_2="Doesn't like to compromise with others" level_1="Would rather intimidate others than compromise with them" level_0="Would never deny own needs just to compromise with somebody else">21</Trait>
+<Trait name="Modesty" level_5="Would never claim to be better than somebody else" level_4="Finds immodesty distasteful" level_3="Modest" level_2="Immodest" level_1="Very willing to compare self favorably with others" level_0="Would never shy away from an opportunity to say they are better than somebody else">22</Trait>
+<Trait name="Compassion" level_5="Incredibly compassionate and feels the pain of others" level_4="Easily moved to pity" level_3="Compassionate" level_2="Not easily moved to pity" level_1="Not affected by the suffering of others" level_0="Would never let an objective judgement be tempered by mercy or pity">23</Trait>
+<Trait name="Confidence" level_5="Incredibly confident" level_4="Very confident" level_3="Confident" level_2="Lacks confidence" level_1="Does not feel effective in life" level_0="Always feels as if they are not in control of own life">24</Trait>
+<Trait name="Organization" level_5="Loves to make lists and keep schedules" level_4="Tries to live a well-organized life" level_3="Organized" level_2="Disorganized" level_1="Very disorganized" level_0="Completely disorganized">25</Trait>
+<Trait name="Lawfulness" level_5="Has a profound sense of duty and obligation" level_4="Has a strong sense of duty" level_3="Has a sense of duty" level_2="Finds rules confining" level_1="Dislikes contracts and regulations" level_0="Hates rules, contracts and other confining elements in own life">26</Trait>
+<Trait name="Excellence" level_5="Constantly strives for perfection" level_4="Thinks it is incredibly important to strive for excellence" level_3="Strives for excellence" level_2="Doesn't go out of own way to do more work than necessary" level_1="Very rarely does more work than necessary" level_0="Does the bare minimum necessary to accomplish the task at hand">27</Trait>
+<Trait name="Perseverance" level_5="Will persist in the face of any difficulty until the task is complete" level_4="Possesses great willpower" level_3="Is self-disciplined" level_2="Is occasionally given to procrastination" level_1="Has very little self-discipline" level_0="Rarely completes tasks and is often overcome by distractions">28</Trait>
+<Trait name="Cautiousness" level_5="Thinks through every alternative and their consequences before acting" level_4="Extremely cautious" level_3="Takes time when making decisions" level_2="Often does the first thing that comes to mind" level_1="Acts impulsively" level_0="Always acts without considering alternatives or thinking through possibilities">29</Trait>
+<Labor name="Mining">0</Labor>
+<Labor name="Bowyer">66</Labor>
+<Labor name="Carpentry">11</Labor>
+<Labor name="Wood Cutting">10</Labor>
+<Labor name="Masonry">13</Labor>
+<Labor name="Stone Detailing">12</Labor>
+<Labor name="Architecture">14</Labor>
+<Labor name="Animal Training">15</Labor>
+<Labor name="Animal Care">16</Labor>
+<Labor name="Animal Dissection">20</Labor>
+<Labor name="Hunting">38</Labor>
+<Labor name="Trapping">19</Labor>
+<Labor name="Armor Smithing">41</Labor>
+<Labor name="Furnace Operating">39</Labor>
+<Labor name="MetalCrafting">43</Labor>
+<Labor name="Blacksmithing">42</Labor>
+<Labor name="Weaponsmithing">40</Labor>
+<Labor name="Gemcutting">44</Labor>
+<Labor name="Gemsetting">45 </Labor>
+<Labor name="BoneCarving">48</Labor>
+<Labor name="Clothesmaking">27</Labor>
+<Labor name="GlassMaking">49</Labor>
+<Labor name="LeatherWorking">21</Labor>
+<Labor name="Stonecrafting">47</Labor>
+<Labor name="Weaving">26</Labor>
+<Labor name="Woodcrafting">46</Labor>
+<Labor name="Strand Extracting">50</Labor>
+<Labor name="Brewing">23</Labor>
+<Labor name="Butchery">18</Labor>
+<Labor name="Cheesemaking">30</Labor>
+<Labor name="Cooking">32</Labor>
+<Labor name="Dyeing">71</Labor>
+<Labor name="Farming">33</Labor>
+<Labor name="Plant Gathering">34</Labor>
+<Labor name="Lye Making">70</Labor>
+<Labor name="Milking">31</Labor>
+<Labor name="Milling">28</Labor>
+<Labor name="Potash Making">69</Labor>
+<Labor name="Soapmaking">25</Labor>
+<Labor name="Tanning">22</Labor>
+<Labor name="Plant Processing ">29</Labor>
+<Labor name="Wood Burning">72</Labor>
+<Labor name="Fishing">35</Labor>
+<Labor name="Fish Cleaning">36</Labor>
+<Labor name="Fish Dissection">37</Labor>
+<Labor name="Mechanics">67</Labor>
+<Labor name="Pump Operating">73</Labor>
+<Labor name="Siege Engineering">64</Labor>
+<Labor name="Siege Operating">65</Labor>
+<Labor name="Health Care">17</Labor>
+<Labor name="Animal Hauling">8</Labor>
+<Labor name="Wood Hauling">2</Labor>
+<Labor name="Item Hauling">6</Labor>
+<Labor name="Food Hauling">4</Labor>
+<Labor name="Stone Hauling">1</Labor>
+<Labor name="Refuse Hauling">5</Labor>
+<Labor name="Furniture Hauling">7</Labor>
+<Labor name="Cleaning">9</Labor>
+<Labor name="Burial">3</Labor>
+<Labor name="Alchemy">24</Labor>
+<Labor name="[Axe]">51</Labor>
+<Labor name="[Sword]">52</Labor>
+<Labor name="[Mace]">53</Labor>
+<Labor name="[Hammer]">54</Labor>
+<Labor name="[Spear]">55</Labor>
+<Labor name="[Crossbow]">57</Labor>
+<Labor name="[Unarmed]">-1</Labor>
+</Entry>
+
 
 
                     .,:rsr,
@@ -558,353 +560,359 @@
                        and
                      W I N E
 
-    <Entry version="v0.28.181.40d" os="windows" id="40dwin" base="meta-40d">
-        <!-- identification -->
-        <HexValue name="pe_timestamp">0x48C330DF</HexValue>
-        <String name="md5">2c686c26307dcccd7c36cc79737ebe4f</String>
+    
+-
+<Entry version="v0.28.181.40d" os="windows" id="40dwin" base="meta-40d">
+<!-- identification -->
+<HexValue name="pe_timestamp">0x48C330DF</HexValue>
+<String name="md5">2c686c26307dcccd7c36cc79737ebe4f</String>
+<!-- map data -->
+<Address name="map_data">0x015C4D58</Address>
+<Address name="constructions">0x0156F8B0</Address>
+<Address name="buildings">0x015838a0</Address>
+<Address name="vegetation">0x01587A24</Address>
+<Address name="creatures">0x01583224</Address>
+<!-- translation tables -->
+<Address name="translation_vector">0x015c6ef0</Address>
+<Address name="language_vector">0x015c6ed0</Address>
+<Offset name="word_table">0x3C</Offset>
+<!-- job object offsets -->
+<Offset name="current_job_id">0x08</Offset>
+<!-- size of the map -->
+<Address name="x_count">0x015C4D70</Address>
+<Address name="y_count">0x015C4D74</Address>
+<Address name="z_count">0x015C4D78</Address>
+<!-- position of the map in world coords -->
+<Address name="region_x">0x015C4D88</Address>
+<Address name="region_y">0x015C4D8C</Address>
+<Address name="region_z">0x015C4D90</Address>
+<!-- map block offsets -->
+<Offset name="v_vein">0x08</Offset>
+<HexValue name="v_vein_size">0x2C</HexValue>
+<Offset name="type">0x0062</Offset>
+<Offset name="designation">0x0264</Offset>
+<Offset name="occupancy">0x0664</Offset>
+<Offset name="biome_stuffs">0x1D64</Offset>
+<!-- creature offsets -->
+<Offset name="creature_first_name">0x00</Offset>
+<Offset name="creature_nick_name">0x1C</Offset>
+<Offset name="creature_last_name">0x38</Offset>
+<Offset name="creature_custom_profession">0x6c</Offset>
+<Offset name="creature_profession">0x88</Offset>
+<Offset name="creature_race">0x8C</Offset>
+<Offset name="creature_position">0x94</Offset>
+<Offset name="creature_flags1">0xE4</Offset>
+<Offset name="creature_flags2">0xE8</Offset>
+<Offset name="creature_sex">0xF2</Offset>
+<Offset name="creature_id">0xF4</Offset>
+<Offset name="creature_squad_name">0x1A4</Offset>
+<Offset name="creature_squad_leader_id">0x228</Offset>
+<Offset name="creature_money">0x2F8</Offset>
+<!-- this is wrong -->
+<Offset name="creature_current_job">0x2AC</Offset>
+<Offset name="creature_strength">0x438</Offset>
+<Offset name="creature_agility">0x43C</Offset>
+<Offset name="creature_toughness">0x440</Offset>
+<Offset name="creature_skills">0x444</Offset>
+<Offset name="creature_labors">0x474</Offset>
+<Offset name="creature_happiness">0x520</Offset>
+<Offset name="creature_traits">0x5D0</Offset>
+<!-- tree and shrub offsets -->
+<Offset name="tree_desc_offset">0x70</Offset>
+<!-- the world and its offsets -->
+<Address name="world">0x015C6388</Address>
+<Offset name="world_size_x">0x84</Offset>
+<Offset name="world_size_y">0x86</Offset>
+<Offset name="w_geoblocks">0x684</Offset>
+<Offset name="w_regions_arr">0x6B4</Offset>
+<!-- values for the region structure -->
+<HexValue name="region_size">0x5C</HexValue>
+<Offset name="region_geo_index_off">0x58</Offset>
+<!-- geoblock offset(s?) -->
+<Offset name="geolayer_geoblock_offset">0x4</Offset>
+<!-- matgloss vectors -->
+<Address name="matgloss">0x015C6D70</Address>
+<HexValue name="matgloss_skip">0x10</HexValue>
+<!-- only stone and metal have color loaded... -->
+<Offset name="matgloss_stone_color">0x84</Offset>
+<Offset name="matgloss_metal_color">0x60</Offset>
+-
+<VTable>
+<class vtable="0x00979fe4" name="stockpile"/>
+<class vtable="0x00979d34" name="zone"/>
+<class vtable="0x0097e7ec" name="construction_blueprint"/>
+<!-- BUILDINGS -->
+<class vtable="0x0097e3cc" name="wagon"/>
+<class vtable="0x0097b3ac" name="armor_stand"/>
+<class vtable="0x0097d1ec" name="bed"/>
+<class vtable="0x0097d4ac" name="seat"/>
+<class vtable="0x0097d76c" name="burial_receptacle"/>
+<class vtable="0x0097b50c" name="door"/>
+<class vtable="0x0097b92c" name="floodgate"/>
+<class vtable="0x0097b66c" name="floor_hatch"/>
+<class vtable="0x0097ba8c" name="wall_grate"/>
+<class vtable="0x0097bbec" name="floor_grate"/>
+<class vtable="0x0097bd4c" name="vertical_bars"/>
+<class vtable="0x0097beac" name="floor_bars"/>
+<class vtable="0x0097b0ec" name="cabinet"/>
+<class vtable="0x0097af8c" name="container"/>
+<class vtable="0x0097d60c" name="shop"/>
+-
+<multiclass vtable="0x0097e10c" name="workshop" typeoffset="0xC8">
+<class name="alchemists_laboratory" type="0x0"/>
+<class name="carpenters_workshop" type="0x1"/>
+<class name="farmers_workshop" type="0x2"/>
+<class name="masons_workshop" type="0x3"/>
+<class name="craftdwarfs_workshop" type="0x4"/>
+<class name="jewelers_workshop" type="0x5"/>
+<class name="metalsmiths_workshop" type="0x6"/>
+<class name="magma_forge" type="0x7"/>
+<class name="bowyers_workshop" type="0x8"/>
+<class name="mechanics_workshop" type="0x9"/>
+<class name="siege_workshop" type="0xA"/>
+<class name="butchers_shop" type="0xB"/>
+<class name="leather_works" type="0xC"/>
+<class name="tanners_shop" type="0xD"/>
+<class name="clothiers_shop" type="0xE"/>
+<class name="fishery" type="0xF"/>
+<class name="still" type="0x10"/>
+<class name="loom" type="0x11"/>
+<class name="quern" type="0x12"/>
+<class name="kennels" type="0x13"/>
+<class name="kitchen" type="0x14"/>
+<class name="ashery" type="0x15"/>
+<class name="dyers_shop" type="0x16"/>
+<class name="millstone" type="0x17"/>
+</multiclass>
+<class vtable="0x0097dcec" name="farm_plot"/>
+<class vtable="0x0097b24c" name="weapon_rack"/>
+<class vtable="0x0097d8cc" name="statue"/>
+<class vtable="0x0097d34c" name="table"/>
+<class vtable="0x0097e68c" name="paved_road"/>
+<class vtable="0x0097b7cc" name="bridge"/>
+<class vtable="0x00979e84" name="well"/>
+-
+<multiclass vtable="0x0097d08c" name="siege engine" typeoffset="0xC8">
+<class name="catapult" type="0x0"/>
+<class name="ballista" type="0x1"/>
+</multiclass>
+-
+<multiclass vtable="0x0097dfac" name="furnace" typeoffset="0xDA">
+<class name="wood_furnace" type="0x0"/>
+<class name="smelter" type="0x1"/>
+<class name="glass_furnace" type="0x2"/>
+<class name="kiln" type="0x3"/>
+<class name="magma_smelter" type="0x4"/>
+<class name="magma_glass_furnace" type="0x5"/>
+<class name="magma_kiln" type="0x6"/>
+</multiclass>
+<class vtable="0x0097db8c" name="glass_window"/>
+<class vtable="0x0097da2c" name="gem_window"/>
+<class vtable="0x0097e26c" name="trade_depot"/>
+-
+<multiclass vtable="0x0097c00c" name="mechanism" typeoffset="0xC8">
+<class name="lever" type="0x0"/>
+<class name="pressure_plate" type="0x1"/>
+<class name="cage_trap" type="0x2"/>
+<class name="stonefall_trap" type="0x3"/>
+<class name="weapon_trap" type="0x4"/>
+</multiclass>
+<class vtable="0x0097c6ec" name="spike"/>
+<class vtable="0x0097de4c" name="animal_trap"/>
+<class vtable="0x0097c9ac" name="screw_pump"/>
+<class vtable="0x0097cb0c" name="water_wheel"/>
+<class vtable="0x0097cc6c" name="windmill"/>
+<class vtable="0x0097c16c" name="gear_assembly"/>
+<class vtable="0x0097c2cc" name="horizontal_axle"/>
+<class vtable="0x0097c42c" name="vertical_axle"/>
+<class vtable="0x0097c58c" name="support"/>
+<class vtable="0x0097cf2c" name="cage"/>
+<class vtable="0x0097c84c" name="archery_target"/>
+<class vtable="0x0097cdcc" name="restraint"/>
+</VTable>
+<Address name="cursor_xyz">0x9fc294</Address>
+<Address name="window_x">0xd457f4</Address>
+<Address name="window_y">0xd73868</Address>
+<Address name="window_z">0xd73844</Address>
+</Entry>
+-
+<!--
+ Windows 40d## sub-versions, should inherit only vtable from 40d 
+-->
+-
+<Entry version="v0.28.181.40d9" os="windows" id="40d9win" base="40dwin">
+<!-- identification -->
+<HexValue name="pe_timestamp">0x4967C2E0</HexValue>
+<String name="md5">aea5a207b8b1cda942502f97a429f6c3</String>
+<!-- map data -->
+<Address name="map_data">0x01531EC0</Address>
+<Address name="constructions">0x014da5e0</Address>
+<Address name="buildings">0x014ee978</Address>
+<Address name="vegetation">0x014F4B4C</Address>
+<Address name="creatures">0x014edfcc</Address>
+<!-- translation tables -->
+<Address name="translation_vector">0x01534270</Address>
+<Address name="language_vector">0x01534240</Address>
+<Offset name="word_table">0x54</Offset>
+<!-- creature offsets -->
+<Offset name="creature_flags1">0xFC</Offset>
+<Offset name="creature_flags2">0x100</Offset>
+<Offset name="creature_sex">0x10A</Offset>
+<Offset name="creature_id">0x10C</Offset>
+<Offset name="creature_squad_name">0x1D8</Offset>
+<Offset name="creature_squad_leader_id">0x268</Offset>
+<Offset name="creature_money">0x2F8</Offset>
+<Offset name="creature_current_job">0x314</Offset>
+<Offset name="creature_strength">0x4F0</Offset>
+<Offset name="creature_agility">0x4F4</Offset>
+<Offset name="creature_toughness">0x4F8</Offset>
+<Offset name="creature_skills">0x504</Offset>
+<Offset name="creature_likes">0x51C</Offset>
+<Offset name="creature_labors">0x544</Offset>
+<Offset name="creature_happiness">0x610</Offset>
+<Offset name="creature_traits">0x700</Offset>
+<!-- tree and shrub offsets -->
+<Offset name="tree_desc_offset">0x70</Offset>
+<!-- size of the map -->
+<Address name="x_count">0x01531EE0</Address>
+<Address name="y_count">0x01531EE4</Address>
+<Address name="z_count">0x01531EE8</Address>
+<!-- position of the map in world coords -->
+<Address name="region_x">0x01531EF8</Address>
+<Address name="region_y">0x01531EFC</Address>
+<Address name="region_z">0x01531F00</Address>
+<!-- map block offsets -->
+<Offset name="v_vein">0x10</Offset>
+<HexValue name="v_vein_size">0x2C</HexValue>
+<Offset name="type">0x0082</Offset>
+<Offset name="designation">0x0284</Offset>
+<Offset name="occupancy">0x0684</Offset>
+<Offset name="biome_stuffs">0x1D84</Offset>
+<!-- the world and its offsets -->
+<Address name="world">0x015334F8</Address>
+<Offset name="world_size_x">0x84</Offset>
+<Offset name="world_size_y">0x86</Offset>
+<Offset name="w_geoblocks">0x75C</Offset>
+<Offset name="w_regions_arr">0x79C</Offset>
+<!-- values for the region structure -->
+<HexValue name="region_size">0x64</HexValue>
+<Offset name="region_geo_index_off">0x60</Offset>
+<!-- geoblock offset(s?) -->
+<Offset name="geolayer_geoblock_offset">0xC</Offset>
+<!-- matgloss vectors -->
+<Address name="matgloss">0x01534030</Address>
+<HexValue name="matgloss_skip">0x18</HexValue>
+<!-- door: 0x8ea1e4 -->
+-
+<VTable rebase="-0x91328">
+-
+<!--
+ Isn't it just /lovely/ how simple things become?
+                When you specify only typeoffset, nothing else is touched. Same for vtable. 
+-->
+<multiclass name="workshop" typeoffset="0x100"/>
+<multiclass name="siege engine" typeoffset="0x100"/>
+<multiclass name="furnace" typeoffset="0x11A"/>
+<multiclass name="mechanism" typeoffset="0x100"/>
+</VTable>
+<Address name="cursor_xyz">0x9662a4</Address>
+<Address name="window_x">0xcae368</Address>
+<Address name="window_y">0xcdc3dc</Address>
+<Address name="window_z">0xcdc3b8</Address>
+</Entry>
+-
+<Entry version="v0.28.181.40d11" os="windows" rebase="0x2d388" id="40d11win" base="40d9win">
+<!-- identification -->
+<HexValue name="pe_timestamp">0x49C82D3F</HexValue>
+<String name="md5">6f81231b845e9c9dc29aaf57705ccc7c</String>
+<!-- door: 0x8e91e4 -->
+<VTable rebase="-0x1000"/>
+<Address name="cursor_xyz">0x9652a4</Address>
+<Address name="window_x">0xcdf5a0</Address>
+<Address name="window_y">0xd0d64c</Address>
+<Address name="window_z">0xd0d628</Address>
+</Entry>
+-
+<Entry version="v0.28.181.40d12" os="windows" id="40d12win" base="40d11win">
+<!-- identification -->
+<HexValue name="pe_timestamp">0x4A3CCB7F</HexValue>
+<String name="md5">6ea1de36af8e1666bd6478736e298c4c</String>
+<!-- map data -->
+<Address name="map_data">0x015FACCC</Address>
+<Address name="constructions">0x015A33B8</Address>
+<Address name="buildings">0x015B7750</Address>
+<Address name="vegetation">0x015BD924</Address>
+<Address name="creatures">0x015B6DA4</Address>
+<!-- translation tables -->
+<Address name="translation_vector">0x015FD07C</Address>
+<Address name="language_vector">0x015FD04C</Address>
+<!-- size of the map -->
+<Address name="x_count">0x015FACEC</Address>
+<Address name="y_count">0x015FACF0</Address>
+<Address name="z_count">0x015FACF4</Address>
+<!-- position of the map in world coords -->
+<Address name="region_x">0x015FAD04</Address>
+<Address name="region_y">0x015FAD08</Address>
+<Address name="region_z">0x015FAD0C</Address>
+<!-- the world and its offsets -->
+<Address name="world">0x015FC304</Address>
+<!-- matgloss vectors -->
+<Address name="matgloss">0x015FCE3C</Address>
+<!-- door: 0x8db5e4 -->
+<VTable rebase="-0xDC00"/>
+<Address name="cursor_xyz">0x95f2b4</Address>
+<Address name="window_x">0xd995a0</Address>
+<Address name="window_y">0xdc764c</Address>
+<Address name="window_z">0xdc7628</Address>
+</Entry>
+-
+<Entry version="v0.28.181.40d13" os="windows" id="40d13win" base="40d12win" rebase="0x5090">
+<!-- identification -->
+<HexValue name="pe_timestamp">0x4A51C26E</HexValue>
+<String name="md5">04a8d8ce311d8ac75e4241bef68d3147</String>
+<!-- map_data = 0x015FFD5C -->
+<!-- door: 0x8df5ec -->
+<VTable rebase="0x4008"/>
+<Address name="cursor_xyz">0x009642b4</Address>
+<Address name="window_x">0x00d9e600</Address>
+<Address name="window_y">0x00dcc6ac</Address>
+<Address name="window_z">0x00dcc688</Address>
+</Entry>
+-
+<Entry version="v0.28.181.40d14" os="windows" id="40d14win" base="40d13win" rebase="0x2010">
+<!-- identification -->
+<HexValue name="pe_timestamp">0x4A8623D2</HexValue>
+<String name="md5">781a2e51be4056a7320108f8f0df8a13</String>
+<!-- map_data = 0x01601D6C -->
+<!-- door: 0x8e15dc -->
+<VTable rebase="0x1FF0"/>
+<Address name="cursor_xyz">0x009662B4</Address>
+<Address name="window_x">0x00DA060C</Address>
+<Address name="window_y">0x00DCE6B8</Address>
+<Address name="window_z">0x00DCE694</Address>
+</Entry>
+-
+<Entry version="v0.28.181.40d15" os="windows" id="40d15win" base="40d14win" rebase="0x18">
+<!-- identification -->
+<HexValue name="pe_timestamp">0x4A9A6090</HexValue>
+<String name="md5">12cc4a3dbb6e6dfd7bc7aee458b9471a</String>
+<!-- map_data = 0x01601D84 -->
+<!-- door: 0x8e15d4 -->
+<VTable rebase="-0x8"/>
+<Address name="cursor_xyz">0x009662B4</Address>
+<Address name="window_x">0x00DA061C</Address>
+<Address name="window_y">0x00DCE6C8</Address>
+<Address name="window_z">0x00DCE6A4</Address>
+</Entry>
+-
+<Entry version="v0.28.181.40d16" os="windows" base="40d15win">
+<!-- identification -->
+<HexValue name="pe_timestamp">0x4A9B1A72</HexValue>
+<String name="md5">59ab29021aca9f3c66b1ab102fb3ceea</String>
+<!-- map_data = 0x01601D84 -->
+<!-- door: 0x8e15d4, no VTable rebase needed -->
+</Entry>
 
-        <!-- map data -->
-        <Address name="map_data">0x015C4D58</Address>
-        <Address name="constructions">0x0156F8B0</Address>
-        <Address name="buildings">0x015838a0</Address>
-        <Address name="vegetation">0x01587A24</Address>
-        <Address name="creatures">0x01583224</Address>
-
-        <!-- translation tables -->
-        <Address name="translation_vector">0x015c6ef0</Address>
-        <Address name="language_vector">0x015c6ed0</Address>
-        <Offset name="word_table">0x3C</Offset>
-        
-        <!-- job object offsets -->
-        <Offset name="current_job_id">0x08</Offset>
-
-        <!-- size of the map -->
-        <Address name="x_count">0x015C4D70</Address>
-        <Address name="y_count">0x015C4D74</Address>
-        <Address name="z_count">0x015C4D78</Address>
-
-        <!-- position of the map in world coords -->
-        <Address name="region_x">0x015C4D88</Address>
-        <Address name="region_y">0x015C4D8C</Address>
-        <Address name="region_z">0x015C4D90</Address>
-
-        <!-- map block offsets -->
-        <Offset name="v_vein">0x08</Offset>
-        <HexValue name="v_vein_size">0x2C</HexValue>
-        <Offset name="type">0x0062</Offset>
-        <Offset name="designation">0x0264</Offset>
-        <Offset name="occupancy">0x0664</Offset>
-        <Offset name="biome_stuffs">0x1D64</Offset>
-
-        <!-- creature offsets -->
-        <Offset name="creature_first_name">0x00</Offset>
-        <Offset name="creature_nick_name">0x1C</Offset>
-        <Offset name="creature_last_name">0x38</Offset>
-        <Offset name="creature_custom_profession">0x6c</Offset>
-        <Offset name="creature_profession">0x88</Offset>
-        <Offset name="creature_race">0x8C</Offset>
-        <Offset name="creature_position">0x94</Offset>
-        <Offset name="creature_flags1">0xE4</Offset>
-        <Offset name="creature_flags2">0xE8</Offset>
-        <Offset name="creature_sex">0xF2</Offset>
-        <Offset name="creature_id">0xF4</Offset>
-        <Offset name="creature_squad_name">0x1A4</Offset>
-        <Offset name="creature_squad_leader_id">0x228</Offset>
-        <Offset name="creature_money">0x2F8</Offset><!-- this is wrong -->
-        <Offset name="creature_current_job">0x2AC</Offset>
-        <Offset name="creature_strength">0x438</Offset>
-        <Offset name="creature_agility">0x43C</Offset>
-        <Offset name="creature_toughness">0x440</Offset>
-        <Offset name="creature_skills">0x444</Offset>
-        <Offset name="creature_labors">0x474</Offset>
-        <Offset name="creature_happiness">0x520</Offset>
-        <Offset name="creature_traits">0x5D0</Offset>
-
-        <!-- tree and shrub offsets -->
-        <Offset name="tree_desc_offset">0x70</Offset>
-
-        <!-- the world and its offsets -->
-        <Address name="world">0x015C6388</Address>
-        <Offset name="world_size_x">0x84</Offset>
-        <Offset name="world_size_y">0x86</Offset>
-        <Offset name="w_geoblocks">0x684</Offset>
-        <Offset name="w_regions_arr">0x6B4</Offset>
-
-        <!-- values for the region structure -->
-        <HexValue name="region_size">0x5C</HexValue>
-        <Offset name="region_geo_index_off">0x58</Offset>
-
-        <!-- geoblock offset(s?) -->
-        <Offset name="geolayer_geoblock_offset">0x4</Offset>
-
-        <!-- matgloss vectors -->
-        <Address name="matgloss">0x015C6D70</Address>
-        <HexValue name="matgloss_skip">0x10</HexValue>
-
-        <!-- only stone and metal have color loaded... -->
-        <Offset name="matgloss_stone_color">0x84</Offset>
-        <Offset name="matgloss_metal_color">0x60</Offset>
-
-        <VTable>
-            <class vtable="0x00979fe4" name="stockpile" />
-            <class vtable="0x00979d34" name="zone" />
-            <class vtable="0x0097e7ec" name="construction_blueprint" />
-            <!-- BUILDINGS -->
-            <class vtable="0x0097e3cc" name="wagon"/>
-            <class vtable="0x0097b3ac" name="armor_stand"/>
-            <class vtable="0x0097d1ec" name="bed"/>
-            <class vtable="0x0097d4ac" name="seat"/>
-            <class vtable="0x0097d76c" name="burial_receptacle"/>
-            <class vtable="0x0097b50c" name="door"/>
-            <class vtable="0x0097b92c" name="floodgate"/>
-            <class vtable="0x0097b66c" name="floor_hatch"/>
-            <class vtable="0x0097ba8c" name="wall_grate"/>
-            <class vtable="0x0097bbec" name="floor_grate"/>
-            <class vtable="0x0097bd4c" name="vertical_bars"/>
-            <class vtable="0x0097beac" name="floor_bars"/>
-            <class vtable="0x0097b0ec" name="cabinet"/>
-            <class vtable="0x0097af8c" name="container"/>
-            <class vtable="0x0097d60c" name="shop"/>
-            <multiclass vtable="0x0097e10c" name="workshop" typeoffset="0xC8">
-                <class name="alchemists_laboratory" type="0x0"/>
-                <class name="carpenters_workshop"   type="0x1"/>
-                <class name="farmers_workshop"      type="0x2"/>
-                <class name="masons_workshop"       type="0x3"/>
-                <class name="craftdwarfs_workshop"  type="0x4"/>
-                <class name="jewelers_workshop"     type="0x5"/>
-                <class name="metalsmiths_workshop"  type="0x6"/>
-                <class name="magma_forge"           type="0x7"/>
-                <class name="bowyers_workshop"      type="0x8"/>
-                <class name="mechanics_workshop"    type="0x9"/>
-                <class name="siege_workshop"        type="0xA"/>
-                <class name="butchers_shop"         type="0xB"/>
-                <class name="leather_works"         type="0xC"/>
-                <class name="tanners_shop"          type="0xD"/>
-                <class name="clothiers_shop"        type="0xE"/>
-                <class name="fishery"               type="0xF"/>
-                <class name="still"                 type="0x10"/>
-                <class name="loom"                  type="0x11"/>
-                <class name="quern"                 type="0x12"/>
-                <class name="kennels"               type="0x13"/>
-                <class name="kitchen"               type="0x14"/>
-                <class name="ashery"                type="0x15"/>
-                <class name="dyers_shop"            type="0x16"/>
-                <class name="millstone"             type="0x17"/>
-            </multiclass>
-            <class vtable="0x0097dcec" name="farm_plot"/>
-            <class vtable="0x0097b24c" name="weapon_rack"/>
-            <class vtable="0x0097d8cc" name="statue"/>
-            <class vtable="0x0097d34c" name="table"/>
-            <class vtable="0x0097e68c" name="paved_road"/>
-            <class vtable="0x0097b7cc" name="bridge"/>
-            <class vtable="0x00979e84" name="well"/>
-            <multiclass vtable="0x0097d08c" name="siege engine" typeoffset="0xC8">
-                <class name="catapult"              type="0x0"/>
-                <class name="ballista"              type="0x1"/>
-            </multiclass>
-            <multiclass vtable="0x0097dfac" name="furnace" typeoffset="0xDA">
-                <class name="wood_furnace"          type="0x0"/>
-                <class name="smelter"               type="0x1"/>
-                <class name="glass_furnace"         type="0x2"/>
-                <class name="kiln"                  type="0x3"/>
-                <class name="magma_smelter"         type="0x4"/>
-                <class name="magma_glass_furnace"   type="0x5"/>
-                <class name="magma_kiln"            type="0x6"/>
-            </multiclass>
-            <class vtable="0x0097db8c" name="glass_window"/>
-            <class vtable="0x0097da2c" name="gem_window"/>
-            <class vtable="0x0097e26c" name="trade_depot"/>
-            <multiclass vtable="0x0097c00c" name="mechanism" typeoffset="0xC8">
-                <class name="lever"                 type="0x0"/>
-                <class name="pressure_plate"        type="0x1"/>
-                <class name="cage_trap"             type="0x2"/>
-                <class name="stonefall_trap"        type="0x3"/>
-                <class name="weapon_trap"           type="0x4"/>
-            </multiclass>
-            <class vtable="0x0097c6ec" name="spike" />
-            <class vtable="0x0097de4c" name="animal_trap" />
-            <class vtable="0x0097c9ac" name="screw_pump"/>
-            <class vtable="0x0097cb0c" name="water_wheel"/>
-            <class vtable="0x0097cc6c" name="windmill"/>
-            <class vtable="0x0097c16c" name="gear_assembly"/>
-            <class vtable="0x0097c2cc" name="horizontal_axle"/>
-            <class vtable="0x0097c42c" name="vertical_axle"/>
-            <class vtable="0x0097c58c" name="support"/>
-            <class vtable="0x0097cf2c" name="cage"/>
-            <class vtable="0x0097c84c" name="archery_target"/>
-            <class vtable="0x0097cdcc" name="restraint"/>
-        </VTable>
-    </Entry>
-    <!-- Windows 40d## sub-versions, should inherit only vtable from 40d -->
-    <Entry version="v0.28.181.40d9" os="windows" id="40d9win" base="40dwin">
-        <!-- identification -->
-        <HexValue name="pe_timestamp">0x4967C2E0</HexValue>
-        <String name="md5">aea5a207b8b1cda942502f97a429f6c3</String>
-
-        <!-- map data -->
-        <Address name="map_data">0x01531EC0</Address>
-        <Address name="constructions">0x014da5e0</Address>
-        <Address name="buildings">0x014ee978</Address>
-        <Address name="vegetation">0x014F4B4C</Address>
-        <Address name="creatures">0x014edfcc</Address>
-
-        <!-- translation tables -->
-        <Address name="translation_vector">0x01534270</Address>
-        <Address name="language_vector">0x01534240</Address>
-        <Offset name="word_table">0x54</Offset>
-        
-        <!-- creature offsets -->
-        <Offset name="creature_flags1">0xFC</Offset>
-        <Offset name="creature_flags2">0x100</Offset>
-        <Offset name="creature_sex">0x10A</Offset>
-        <Offset name="creature_id">0x10C</Offset>
-        <Offset name="creature_squad_name">0x1D8</Offset>
-        <Offset name="creature_squad_leader_id">0x268</Offset>
-        <Offset name="creature_money">0x2F8</Offset>
-        <Offset name="creature_current_job">0x314</Offset>
-        <Offset name="creature_strength">0x4F0</Offset>
-        <Offset name="creature_agility">0x4F4</Offset>
-        <Offset name="creature_toughness">0x4F8</Offset>
-        <Offset name="creature_skills">0x504</Offset>
-        <Offset name="creature_likes">0x51C</Offset>
-        <Offset name="creature_labors">0x544</Offset>
-        <Offset name="creature_happiness">0x610</Offset>
-        <Offset name="creature_traits">0x700</Offset>
-
-        <!-- tree and shrub offsets -->
-        <Offset name="tree_desc_offset">0x70</Offset>
-
-        <!-- size of the map -->
-        <Address name="x_count">0x01531EE0</Address>
-        <Address name="y_count">0x01531EE4</Address>
-        <Address name="z_count">0x01531EE8</Address>
-
-        <!-- position of the map in world coords -->
-        <Address name="region_x">0x01531EF8</Address>
-        <Address name="region_y">0x01531EFC</Address>
-        <Address name="region_z">0x01531F00</Address>
-
-        <!-- map block offsets -->
-        <Offset name="v_vein">0x10</Offset>
-        <HexValue name="v_vein_size">0x2C</HexValue>
-        <Offset name="type">0x0082</Offset>
-        <Offset name="designation">0x0284</Offset>
-        <Offset name="occupancy">0x0684</Offset>
-        <Offset name="biome_stuffs">0x1D84</Offset>
-
-        <!-- the world and its offsets -->
-        <Address name="world">0x015334F8</Address>
-        <Offset name="world_size_x">0x84</Offset>
-        <Offset name="world_size_y">0x86</Offset>
-        <Offset name="w_geoblocks">0x75C</Offset>
-        <Offset name="w_regions_arr">0x79C</Offset>
-
-        <!-- values for the region structure -->
-        <HexValue name="region_size">0x64</HexValue>
-        <Offset name="region_geo_index_off">0x60</Offset>
-
-        <!-- geoblock offset(s?) -->
-        <Offset name="geolayer_geoblock_offset">0xC</Offset>
-
-        <!-- matgloss vectors -->
-        <Address name="matgloss">0x01534030</Address>
-        <HexValue name="matgloss_skip">0x18</HexValue>
-
-        <!-- door: 0x8ea1e4 -->
-        <VTable rebase="-0x91328">
-            <!-- Isn't it just /lovely/ how simple things become?
-                When you specify only typeoffset, nothing else is touched. Same for vtable. -->
-            <multiclass name="workshop" typeoffset="0x100" />
-            <multiclass name="siege engine" typeoffset="0x100" />
-            <multiclass name="furnace" typeoffset="0x11A" />
-            <multiclass name="mechanism" typeoffset="0x100" />
-        </VTable>
-    </Entry>
-    <Entry version="v0.28.181.40d11" os="windows" rebase="0x2d388" id="40d11win" base="40d9win">
-        <!-- identification -->
-        <HexValue name="pe_timestamp">0x49C82D3F</HexValue>
-        <String name="md5">6f81231b845e9c9dc29aaf57705ccc7c</String>
-        <!-- door: 0x8e91e4 -->
-        <VTable rebase="-0x1000" />
-    </Entry>
-    <Entry version="v0.28.181.40d12" os="windows" id="40d12win" base="40d11win">
-        <!-- identification -->
-        <HexValue name="pe_timestamp">0x4A3CCB7F</HexValue>
-        <String name="md5">6ea1de36af8e1666bd6478736e298c4c</String>
-
-        <!-- map data -->
-        <Address name="map_data">0x015FACCC</Address>
-        <Address name="constructions">0x015A33B8</Address>
-        <Address name="buildings">0x015B7750</Address>
-        <Address name="vegetation">0x015BD924</Address>
-        <Address name="creatures">0x015B6DA4</Address>
-
-        <!-- translation tables -->
-        <Address name="translation_vector">0x015FD07C</Address>
-        <Address name="language_vector">0x015FD04C</Address>
-
-        <!-- size of the map -->
-        <Address name="x_count">0x015FACEC</Address>
-        <Address name="y_count">0x015FACF0</Address>
-        <Address name="z_count">0x015FACF4</Address>
-
-        <!-- position of the map in world coords -->
-        <Address name="region_x">0x015FAD04</Address>
-        <Address name="region_y">0x015FAD08</Address>
-        <Address name="region_z">0x015FAD0C</Address>
-
-        <!-- the world and its offsets -->
-        <Address name="world">0x015FC304</Address>
-        <!-- matgloss vectors -->
-        <Address name="matgloss">0x015FCE3C</Address>
-        <!-- door: 0x8db5e4 -->
-        <VTable rebase="-0xDC00" />
-                
-    </Entry>
-    <Entry version="v0.28.181.40d13" os="windows" id="40d13win" base="40d12win" rebase="0x5090">
-        <!-- identification -->
-        <HexValue name="pe_timestamp">0x4A51C26E</HexValue>
-        <String name="md5">04a8d8ce311d8ac75e4241bef68d3147</String>
-        <!-- map_data = 0x015FFD5C -->
-        <!-- door: 0x8df5ec -->
-        <VTable rebase="0x4008" />
-    </Entry>
-    <Entry version="v0.28.181.40d14" os="windows" id="40d14win" base="40d13win" rebase="0x2010">
-        <!-- identification -->
-        <HexValue name="pe_timestamp">0x4A8623D2</HexValue>
-        <String name="md5">781a2e51be4056a7320108f8f0df8a13</String>
-        <!-- map_data = 0x01601D6C -->
-        <!-- door: 0x8e15dc -->
-        <VTable rebase="0x1FF0" />
-    </Entry>
-    <Entry version="v0.28.181.40d15" os="windows" id="40d15win" base="40d14win" rebase="0x18">
-        <!-- identification -->
-        <HexValue name="pe_timestamp">0x4A9A6090</HexValue>
-        <String name="md5">12cc4a3dbb6e6dfd7bc7aee458b9471a</String>
-        <!-- map_data = 0x01601D84 -->
-        <!-- door: 0x8e15d4 -->
-        <VTable rebase="-0x8" />
-    </Entry>
-    <Entry version="v0.28.181.40d16" os="windows" base="40d15win">
-        <!-- identification -->
-        <HexValue name="pe_timestamp">0x4A9B1A72</HexValue>
-        <String name="md5">59ab29021aca9f3c66b1ab102fb3ceea</String>
-        <!-- map_data = 0x01601D84 -->
-        <!-- door: 0x8e15d4, no VTable rebase needed -->
-        <Address name="cursor_xyz">0x009662B4</Address>
-        <Address name="window_x">0x00DA061C</Address>
-        <Address name="window_y">0x00DCE6C8</Address>
-        <Address name="window_z">0x00DCE6A4</Address>
-        <!--
-        <belal> for windows d16
-<belal> designation x   0x009662B4
-<belal> designation y   0x009662B8
-<belal> designation z   0x009662BC
-<belal> window x    0x00DA061C
-<belal> window y    0x00DCE6C8
-<belal> window z    0x00DCE6A4
-        -->
-        </Entry>
 
                             .-"""-.
                            '       \
@@ -926,251 +934,263 @@
                    `"--...,+""""   `._,.-' 
 
 
-    <Entry version="v0.28.181.40d9" os="linux" id="40d9lin" base="meta-40d">
-        <!-- identification -->
-        <String name="md5">992afd73855e787860277f53d18afcbb</String>
-
-        <!-- map data -->
-        <Address name="map_data">0x09372FC0</Address>
-        <Address name="constructions">0x0931ED38</Address>
-        <!-- srsly, WTF? -->
-        <!--<Address name="buildings">0x09332B54</Address>-->
-        <Address name="buildings">0x09332B60</Address>
-        <!--<Address name="buildings">0x09332B90</Address>-->
-        <!--<Address name="buildings">0x09332C80</Address>-->
-        <!--<Address name="buildings">0x09332EF0</Address>-->
-        <Address name="vegetation">0x09335CB0</Address>
-        <Address name="creatures">0x093326AC</Address>
-        
-        <!-- translation tables -->
-        <Address name="translation_vector">0x09374FA8</Address>
-        <Address name="language_vector">0x09374F90</Address>
-        <Offset name="word_table">0x1C</Offset>
-        
-        <!-- job object offsets -->
-        <Offset name="current_job_id">0x08</Offset>
-        
-        <!-- creature offsets -->
-        <Offset name="creature_first_name">0x00</Offset>
-        <Offset name="creature_nick_name">0x04</Offset>
-        <Offset name="creature_last_name">0x08</Offset>
-        <Offset name="creature_position">0x4C</Offset>
-        <Offset name="creature_race">0x44</Offset>
-        <Offset name="creature_flags1">0x90</Offset>
-        <Offset name="creature_flags2">0x94</Offset>
-        <Offset name="creature_custom_profession">0x003c</Offset>
-        <Offset name="creature_profession">0x0040</Offset>
-        <Offset name="creature_sex">0x009E</Offset>
-        <Offset name="creature_id">0x00A0</Offset>
-        <Offset name="creature_squad_name">0x0100</Offset>
-        <Offset name="creature_squad_leader_id">0x0100</Offset> <!-- completely bogus, needs cross-referencing with windows version -->
-        <Offset name="creature_money">0x02F8</Offset> <!-- most probably wrong -->
-        <Offset name="creature_current_job">0x0200</Offset>
-        <Offset name="creature_strength">0x0334</Offset>
-        <Offset name="creature_agility">0x0338</Offset>
-        <Offset name="creature_toughness">0x033C</Offset>
-        <Offset name="creature_skills">0x0340</Offset>
-        <Offset name="creature_labors">0x0364</Offset>
-        <Offset name="creature_happiness">0x0400</Offset>
-        <Offset name="creature_traits">0x0490</Offset>
-        
-        <!-- tree and shrub offsets -->
-        <Offset name="tree_desc_offset">0x40</Offset>
-        
-        <!-- size of the map -->
-        <Address name="x_count">0x09372FD4</Address>
-        <Address name="y_count">0x09372FD8</Address>
-        <Address name="z_count">0x09372FDC</Address>
-        
-        <!-- position of the map in world coords -->
-        <Address name="region_x">0x09372FEC</Address>
-        <Address name="region_y">0x09372FF0</Address>
-        <Address name="region_z">0x09372FF4</Address>
-        
-        <!-- map block offsets -->
-        <Offset name="v_vein">0x08</Offset>
-        <HexValue name="v_vein_size">0x2C</HexValue>
-        <Offset name="type">0x0052</Offset>
-        <Offset name="designation">0x0254</Offset>
-        <Offset name="occupancy">0x0654</Offset>
-        <Offset name="biome_stuffs">0x1D54</Offset>
-        
-        <!-- the world and its offsets -->
-        <Address name="world">0x093745EC</Address>
-        <Offset name="world_size_x">0x54</Offset>
-        <Offset name="world_size_y">0x56</Offset>
-        <Offset name="w_geoblocks">0x5A4</Offset>
-        <Offset name="w_regions_arr">0x5C8</Offset>
-        
-        <!-- values for the region structure -->
-        <HexValue name="region_size">0x58</HexValue>
-        <Offset name="region_geo_index_off">0x54</Offset>
-        
-        <!-- geoblock offset(s?) -->
-        <Offset name="geolayer_geoblock_offset">0x4</Offset>
-        
-        <!-- matgloss vectors -->
-        <Address name="matgloss">0x9374E88</Address>
-        <HexValue name="matgloss_skip">0xC</HexValue>
-        <VTable>
-            <class vtable="0x087981a8" name="stockpile" />
-            <class vtable="0x08799e08" name="zone" />
-            <class vtable="0x08797448" name="construction_blueprint" />
-            <!-- BUILDINGS -->
-            <class vtable="0x0879a0e8" name="wagon"/>
-            <class vtable="0x08798a88" name="armor_stand"/>
-            <class vtable="0x08798908" name="bed"/>
-            <class vtable="0x08799088" name="seat"/>
-            <class vtable="0x08798028" name="burial_receptacle"/>
-            <class vtable="0x0879a868" name="door"/>
-            <class vtable="0x0879b168" name="floodgate"/>
-            <class vtable="0x0879a6e8" name="floor_hatch"/>
-            <class vtable="0x0879ae68" name="wall_grate"/>
-            <class vtable="0x0879afe8" name="floor_grate"/>
-            <class vtable="0x0879ace8" name="vertical_bars"/>
-            <class vtable="0x0879ab68" name="floor_bars"/>
-            <class vtable="0x0879a568" name="cabinet"/>
-            <class vtable="0x0879a3e8" name="container"/>
-            <class vtable="0x0879a268" name="shop"/>
-            <multiclass vtable="0x08799688" name="workshop" typeoffset="0xAC">
-                <class name="alchemists_laboratory" type="0x0"/>
-                <class name="carpenters_workshop"   type="0x1"/>
-                <class name="farmers_workshop"      type="0x2"/>
-                <class name="masons_workshop"       type="0x3"/>
-                <class name="craftdwarfs_workshop"  type="0x4"/>
-                <class name="jewelers_workshop"     type="0x5"/>
-                <class name="metalsmiths_workshop"  type="0x6"/>
-                <class name="magma_forge"           type="0x7"/>
-                <class name="bowyers_workshop"      type="0x8"/>
-                <class name="mechanics_workshop"    type="0x9"/>
-                <class name="siege_workshop"        type="0xA"/>
-                <class name="butchers_shop"         type="0xB"/>
-                <class name="leather_works"         type="0xC"/>
-                <class name="tanners_shop"          type="0xD"/>
-                <class name="clothiers_shop"        type="0xE"/>
-                <class name="fishery"               type="0xF"/>
-                <class name="still"                 type="0x10"/>
-                <class name="loom"                  type="0x11"/>
-                <class name="quern"                 type="0x12"/>
-                <class name="kennels"               type="0x13"/>
-                <class name="kitchen"               type="0x14"/>
-                <class name="ashery"                type="0x15"/>
-                <class name="dyers_shop"            type="0x16"/>
-                <class name="millstone"             type="0x17"/>
-            </multiclass>
-            <class vtable="0x08799c88" name="farm_plot"/>
-            <class vtable="0x08798c08" name="weapon_rack"/>
-            <class vtable="0x08798488" name="statue"/>
-            <class vtable="0x08798d88" name="table"/>
-            <class vtable="0x08797ea8" name="paved_road"/>
-            <class vtable="0x0879a9e8" name="bridge"/>
-            <class vtable="0x08798608" name="well"/>
-            <multiclass vtable="0x8799808" name="siege engine" typeoffset="0xAC">
-                <class name="catapult"              type="0x0"/>
-                <class name="ballista"              type="0x1"/>
-            </multiclass>
-            <multiclass vtable="0x08799b08" name="furnace" typeoffset="0xBA">
-                <class name="wood_furnace"          type="0x0"/>
-                <class name="smelter"               type="0x1"/>
-                <class name="glass_furnace"         type="0x2"/>
-                <class name="kiln"                  type="0x3"/>
-                <class name="magma_smelter"         type="0x4"/>
-                <class name="magma_glass_furnace"   type="0x5"/>
-                <class name="magma_kiln"            type="0x6"/>
-            </multiclass>
-            <class vtable="0x0879bae8" name="glass_window"/>
-            <class vtable="0x0879b948" name="gem_window"/>
-            <class vtable="0x08799f68" name="trade_depot"/>
-            <multiclass vtable="0x08799988" name="mechanism" typeoffset="0xAC">
-                <class name="lever"                 type="0x0"/>
-                <class name="pressure_plate"        type="0x1"/>
-                <class name="cage_trap"             type="0x2"/>
-                <class name="stonefall_trap"        type="0x3"/>
-                <class name="weapon_trap"           type="0x4"/>
-            </multiclass>
-            <class vtable="0x08799208" name="spike" />
-            <class vtable="0x08798f08" name="animal_trap" />
-            <class vtable="0x08796cc8" name="screw_pump"/>
-            <class vtable="0x08796fc8" name="water_wheel"/>
-            <class vtable="0x08796e48" name="windmill"/>
-            <class vtable="0x087978a8" name="gear_assembly"/>
-            <class vtable="0x08797148" name="horizontal_axle"/>
-            <class vtable="0x087972c8" name="vertical_axle"/>
-            <class vtable="0x08799388" name="support"/>
-            <class vtable="0x08797a28" name="cage"/>
-            <class vtable="0x08799508" name="archery_target"/>
-            <class vtable="0x08797ba8" name="restraint"/>
-        </VTable>
-    </Entry>
-    <Entry version="v0.28.181.40d11" os="linux" base="40d9lin" rebase="-0x73820">
-        <!-- identification -->
-        <String name="md5">fb8ecac8a12af5d0d7b1707078985d0d</String>
-        <!--TODO: <Address name="notes">0x092ab244</Address>-->
-        <VTable rebase="-0x5e360" />
-    </Entry>
-    <!-- re-specified addresses here, offsets and hexvals remain same -->
-    <Entry version="v0.28.181.40d12" os="linux" base="40d9lin" id="40d12lin">
-        <!-- identification -->
-        <String name="md5">4367c59934cbcf14f43fd3af6444c455</String>
-        
-        <!-- map data -->
-        <Address name="map_data">0x08F95BBC</Address>
-        <Address name="constructions">0x08F41918</Address>
-        <Address name="buildings">0x08F55740</Address>
-        <Address name="vegetation">0x08F58890</Address>
-        <Address name="creatures">0x08F55250</Address>
-        
-        <!-- translation tables -->
-        <!-- these should be right -->
-        <Address name="translation_vector">0x08F97BA4</Address>
-        <Address name="language_vector">0x08F97B8C</Address>
-        
-        <!-- size of the map -->
-        <Address name="x_count">0x08F95BD0</Address>
-        <Address name="y_count">0x08F95BD4</Address>
-        <Address name="z_count">0x08F95BD8</Address>
-        
-        <!-- position of the map in world coords -->
-        <Address name="region_x">0x08F95BE8</Address>
-        <Address name="region_y">0x08F95BEC</Address>
-        <Address name="region_z">0x08F95BF0</Address>
-        
-        <!-- the world and its offsets -->
-        <Address name="world">0x08F971E8</Address>
-        
-        <!-- matgloss vectors -->
-        <Address name="matgloss">0x08F97A84</Address>
-        <VTable rebase="-0xd6f00" />
-        <!--<class vtable="0x086C3968" name="door"/>-->
-    </Entry>
-    <Entry version="v0.28.181.40d13" os="linux" id="40d13lin" base="40d12lin" rebase="0x5020">
-        <!-- identification -->
-        <String name="md5">2f3cb9d720e9fe8844c02c72a2b20bbd</String>
-        <!-- map_data = 0x8F9ABDC -->
-        <VTable rebase="0x3A00" />
-        <!--<class vtable="0x086C7368" name="door"/>-->
-    </Entry>
-    <Entry version="v0.28.181.40d14" os="linux" id="40d14lin" base="40d13lin">
-        <!-- identification -->
-        <String name="md5">dab3ce6bc074529706a1e5fe1273108c</String>
-        <!-- map_data = 0x8F9ABDC -->
-        <VTable rebase="0x300" />
-        <!--<class vtable="0x086C7668" name="door"/>-->
-    </Entry>
-    <Entry version="v0.28.181.40d15" os="linux" id="40d15lin" base="40d14lin">
-        <!-- identification -->
-        <String name="md5">4f55a1dcc326786271f221de23c425b5</String>
-        <!-- map_data = 0x8F9ABDC -->
-        <VTable rebase="0x260" />
-        <!--<class vtable="0x086c78c8" name="door"/>-->
-    </Entry>
-    <Entry version="v0.28.181.40d16" os="linux" base="40d15lin">
-        <!-- identification -->
-        <String name="md5">022b933926e08da49c6df8649295f2b7</String>
-        <!-- map_data = 0x8F9ABDC -->
-        <!--<class vtable="0x086c78c8" name="door"/>-->
-    </Entry>
-
+    
+-
+<Entry version="v0.28.181.40d9" os="linux" id="40d9lin" base="meta-40d">
+<!-- identification -->
+<String name="md5">992afd73855e787860277f53d18afcbb</String>
+<!-- map data -->
+<Address name="map_data">0x09372FC0</Address>
+<Address name="constructions">0x0931ED38</Address>
+<!-- srsly, WTF? -->
+<!--<Address name="buildings">0x09332B54</Address>-->
+<Address name="buildings">0x09332B60</Address>
+<!--<Address name="buildings">0x09332B90</Address>-->
+<!--<Address name="buildings">0x09332C80</Address>-->
+<!--<Address name="buildings">0x09332EF0</Address>-->
+<Address name="vegetation">0x09335CB0</Address>
+<Address name="creatures">0x093326AC</Address>
+<Address name="cursor_xyz">0x8877634</Address>
+<Address name="window_x">0x8d17ff4</Address>
+<Address name="window_y">0x8d17ff8</Address>
+<Address name="window_z">0x8d17ffC</Address>
+<!-- translation tables -->
+<Address name="translation_vector">0x09374FA8</Address>
+<Address name="language_vector">0x09374F90</Address>
+<Offset name="word_table">0x1C</Offset>
+<!-- job object offsets -->
+<Offset name="current_job_id">0x08</Offset>
+<!-- creature offsets -->
+<Offset name="creature_first_name">0x00</Offset>
+<Offset name="creature_nick_name">0x04</Offset>
+<Offset name="creature_last_name">0x08</Offset>
+<Offset name="creature_position">0x4C</Offset>
+<Offset name="creature_race">0x44</Offset>
+<Offset name="creature_flags1">0x90</Offset>
+<Offset name="creature_flags2">0x94</Offset>
+<Offset name="creature_custom_profession">0x003c</Offset>
+<Offset name="creature_profession">0x0040</Offset>
+<Offset name="creature_sex">0x009E</Offset>
+<Offset name="creature_id">0x00A0</Offset>
+<Offset name="creature_squad_name">0x0100</Offset>
+<Offset name="creature_squad_leader_id">0x0100</Offset>
+-
+<!--
+ completely bogus, needs cross-referencing with windows version 
+-->
+<Offset name="creature_money">0x02F8</Offset>
+<!-- most probably wrong -->
+<Offset name="creature_current_job">0x0200</Offset>
+<Offset name="creature_strength">0x0334</Offset>
+<Offset name="creature_agility">0x0338</Offset>
+<Offset name="creature_toughness">0x033C</Offset>
+<Offset name="creature_skills">0x0340</Offset>
+<Offset name="creature_labors">0x0364</Offset>
+<Offset name="creature_happiness">0x0400</Offset>
+<Offset name="creature_traits">0x0490</Offset>
+<!-- tree and shrub offsets -->
+<Offset name="tree_desc_offset">0x40</Offset>
+<!-- size of the map -->
+<Address name="x_count">0x09372FD4</Address>
+<Address name="y_count">0x09372FD8</Address>
+<Address name="z_count">0x09372FDC</Address>
+<!-- position of the map in world coords -->
+<Address name="region_x">0x09372FEC</Address>
+<Address name="region_y">0x09372FF0</Address>
+<Address name="region_z">0x09372FF4</Address>
+<!-- map block offsets -->
+<Offset name="v_vein">0x08</Offset>
+<HexValue name="v_vein_size">0x2C</HexValue>
+<Offset name="type">0x0052</Offset>
+<Offset name="designation">0x0254</Offset>
+<Offset name="occupancy">0x0654</Offset>
+<Offset name="biome_stuffs">0x1D54</Offset>
+<!-- the world and its offsets -->
+<Address name="world">0x093745EC</Address>
+<Offset name="world_size_x">0x54</Offset>
+<Offset name="world_size_y">0x56</Offset>
+<Offset name="w_geoblocks">0x5A4</Offset>
+<Offset name="w_regions_arr">0x5C8</Offset>
+<!-- values for the region structure -->
+<HexValue name="region_size">0x58</HexValue>
+<Offset name="region_geo_index_off">0x54</Offset>
+<!-- geoblock offset(s?) -->
+<Offset name="geolayer_geoblock_offset">0x4</Offset>
+<!-- matgloss vectors -->
+<Address name="matgloss">0x9374E88</Address>
+<HexValue name="matgloss_skip">0xC</HexValue>
+-
+<VTable>
+<class vtable="0x087981a8" name="stockpile"/>
+<class vtable="0x08799e08" name="zone"/>
+<class vtable="0x08797448" name="construction_blueprint"/>
+<!-- BUILDINGS -->
+<class vtable="0x0879a0e8" name="wagon"/>
+<class vtable="0x08798a88" name="armor_stand"/>
+<class vtable="0x08798908" name="bed"/>
+<class vtable="0x08799088" name="seat"/>
+<class vtable="0x08798028" name="burial_receptacle"/>
+<class vtable="0x0879a868" name="door"/>
+<class vtable="0x0879b168" name="floodgate"/>
+<class vtable="0x0879a6e8" name="floor_hatch"/>
+<class vtable="0x0879ae68" name="wall_grate"/>
+<class vtable="0x0879afe8" name="floor_grate"/>
+<class vtable="0x0879ace8" name="vertical_bars"/>
+<class vtable="0x0879ab68" name="floor_bars"/>
+<class vtable="0x0879a568" name="cabinet"/>
+<class vtable="0x0879a3e8" name="container"/>
+<class vtable="0x0879a268" name="shop"/>
+-
+<multiclass vtable="0x08799688" name="workshop" typeoffset="0xAC">
+<class name="alchemists_laboratory" type="0x0"/>
+<class name="carpenters_workshop" type="0x1"/>
+<class name="farmers_workshop" type="0x2"/>
+<class name="masons_workshop" type="0x3"/>
+<class name="craftdwarfs_workshop" type="0x4"/>
+<class name="jewelers_workshop" type="0x5"/>
+<class name="metalsmiths_workshop" type="0x6"/>
+<class name="magma_forge" type="0x7"/>
+<class name="bowyers_workshop" type="0x8"/>
+<class name="mechanics_workshop" type="0x9"/>
+<class name="siege_workshop" type="0xA"/>
+<class name="butchers_shop" type="0xB"/>
+<class name="leather_works" type="0xC"/>
+<class name="tanners_shop" type="0xD"/>
+<class name="clothiers_shop" type="0xE"/>
+<class name="fishery" type="0xF"/>
+<class name="still" type="0x10"/>
+<class name="loom" type="0x11"/>
+<class name="quern" type="0x12"/>
+<class name="kennels" type="0x13"/>
+<class name="kitchen" type="0x14"/>
+<class name="ashery" type="0x15"/>
+<class name="dyers_shop" type="0x16"/>
+<class name="millstone" type="0x17"/>
+</multiclass>
+<class vtable="0x08799c88" name="farm_plot"/>
+<class vtable="0x08798c08" name="weapon_rack"/>
+<class vtable="0x08798488" name="statue"/>
+<class vtable="0x08798d88" name="table"/>
+<class vtable="0x08797ea8" name="paved_road"/>
+<class vtable="0x0879a9e8" name="bridge"/>
+<class vtable="0x08798608" name="well"/>
+-
+<multiclass vtable="0x8799808" name="siege engine" typeoffset="0xAC">
+<class name="catapult" type="0x0"/>
+<class name="ballista" type="0x1"/>
+</multiclass>
+-
+<multiclass vtable="0x08799b08" name="furnace" typeoffset="0xBA">
+<class name="wood_furnace" type="0x0"/>
+<class name="smelter" type="0x1"/>
+<class name="glass_furnace" type="0x2"/>
+<class name="kiln" type="0x3"/>
+<class name="magma_smelter" type="0x4"/>
+<class name="magma_glass_furnace" type="0x5"/>
+<class name="magma_kiln" type="0x6"/>
+</multiclass>
+<class vtable="0x0879bae8" name="glass_window"/>
+<class vtable="0x0879b948" name="gem_window"/>
+<class vtable="0x08799f68" name="trade_depot"/>
+-
+<multiclass vtable="0x08799988" name="mechanism" typeoffset="0xAC">
+<class name="lever" type="0x0"/>
+<class name="pressure_plate" type="0x1"/>
+<class name="cage_trap" type="0x2"/>
+<class name="stonefall_trap" type="0x3"/>
+<class name="weapon_trap" type="0x4"/>
+</multiclass>
+<class vtable="0x08799208" name="spike"/>
+<class vtable="0x08798f08" name="animal_trap"/>
+<class vtable="0x08796cc8" name="screw_pump"/>
+<class vtable="0x08796fc8" name="water_wheel"/>
+<class vtable="0x08796e48" name="windmill"/>
+<class vtable="0x087978a8" name="gear_assembly"/>
+<class vtable="0x08797148" name="horizontal_axle"/>
+<class vtable="0x087972c8" name="vertical_axle"/>
+<class vtable="0x08799388" name="support"/>
+<class vtable="0x08797a28" name="cage"/>
+<class vtable="0x08799508" name="archery_target"/>
+<class vtable="0x08797ba8" name="restraint"/>
+</VTable>
+</Entry>
+-
+<Entry version="v0.28.181.40d11" os="linux" base="40d9lin" rebase="-0x73820">
+<!-- identification -->
+<String name="md5">fb8ecac8a12af5d0d7b1707078985d0d</String>
+<!--TODO: <Address name="notes">0x092ab244</Address>-->
+<VTable rebase="-0x5e360"/>
+<Address name="cursor_xyz">0x88073d4</Address>
+</Entry>
+-
+<!--
+ re-specified addresses here, offsets and hexvals remain same 
+-->
+-
+<Entry version="v0.28.181.40d12" os="linux" base="40d9lin" id="40d12lin">
+<!-- identification -->
+<String name="md5">4367c59934cbcf14f43fd3af6444c455</String>
+<!-- map data -->
+<Address name="map_data">0x08F95BBC</Address>
+<Address name="constructions">0x08F41918</Address>
+<Address name="buildings">0x08F55740</Address>
+<Address name="vegetation">0x08F58890</Address>
+<Address name="creatures">0x08F55250</Address>
+<Address name="cursor_xyz">0x0877B33C</Address>
+<Address name="window_x">0x893ABD4</Address>
+<Address name="window_y">0x893ABD8</Address>
+<Address name="window_z">0x893ABDC</Address>
+<!-- translation tables -->
+<!-- these should be right -->
+<Address name="translation_vector">0x08F97BA4</Address>
+<Address name="language_vector">0x08F97B8C</Address>
+<!-- size of the map -->
+<Address name="x_count">0x08F95BD0</Address>
+<Address name="y_count">0x08F95BD4</Address>
+<Address name="z_count">0x08F95BD8</Address>
+<!-- position of the map in world coords -->
+<Address name="region_x">0x08F95BE8</Address>
+<Address name="region_y">0x08F95BEC</Address>
+<Address name="region_z">0x08F95BF0</Address>
+<!-- the world and its offsets -->
+<Address name="world">0x08F971E8</Address>
+<!-- matgloss vectors -->
+<Address name="matgloss">0x08F97A84</Address>
+<VTable rebase="-0xd6f00"/>
+<!--<class vtable="0x086C3968" name="door"/>-->
+</Entry>
+-
+<Entry version="v0.28.181.40d13" os="linux" id="40d13lin" base="40d12lin" rebase="0x5020">
+<!-- identification -->
+<String name="md5">2f3cb9d720e9fe8844c02c72a2b20bbd</String>
+<!-- map_data = 0x8F9ABDC -->
+<VTable rebase="0x3A00"/>
+<Address name="cursor_xyz">0x8780354</Address>
+<!--<class vtable="0x086C7368" name="door"/>-->
+</Entry>
+-
+<Entry version="v0.28.181.40d14" os="linux" id="40d14lin" base="40d13lin">
+<!-- identification -->
+<String name="md5">dab3ce6bc074529706a1e5fe1273108c</String>
+<!-- map_data = 0x8F9ABDC -->
+<VTable rebase="0x300"/>
+<!--<class vtable="0x086C7668" name="door"/>-->
+</Entry>
+-
+<Entry version="v0.28.181.40d15" os="linux" id="40d15lin" base="40d14lin">
+<!-- identification -->
+<String name="md5">4f55a1dcc326786271f221de23c425b5</String>
+<!-- map_data = 0x8F9ABDC -->
+<VTable rebase="0x260"/>
+<!--<class vtable="0x086c78c8" name="door"/>-->
+</Entry>
+-
+<Entry version="v0.28.181.40d16" os="linux" base="40d15lin">
+<!-- identification -->
+<String name="md5">022b933926e08da49c6df8649295f2b7</String>
+<!-- map_data = 0x8F9ABDC -->
+<!--<class vtable="0x086c78c8" name="door"/>-->
+</Entry>
 </MemoryDescriptors>
 <!-- Windows logo by M$, spiderweb by jgs -->
 </DFExtractor>
