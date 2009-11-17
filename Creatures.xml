@@ -46,6 +46,8 @@
 	<Profession name="Spearmaster" sex="M" sheetIndex = 218/>
 	<Profession name="Swordmaster" sex="M" sheetIndex = 219/>
 	
+	<Profession name="Child" sheetIndex = 220/>
+	<Profession name="Baby" sheetIndex = 221/>
 	
 
 	<Profession name="Miner" sex="F" sheetIndex = 141/>
