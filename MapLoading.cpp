@@ -445,24 +445,30 @@ void reloadDisplayedSegment(){
 	  delete(viewedSegment);
   }
   
-  if (followmode)
+  if (config.follow_DFscreen)
   {
-	  WriteErr("checkfollow\n");
+	  //WriteErr("checkfollow\n");
 	  if (pDFApiHandle->InitViewAndCursor())
 	  {
-	  	WriteErr("tryfollow\n");
+	  	//WriteErr("tryfollow\n");
 		int32_t newviewx;
 		int32_t newviewy;
 		int32_t newviewz;	  
 		pDFApiHandle->getViewCoords(newviewx,newviewy,newviewz);
-		DisplayedSegmentX = DisplayedSegmentX + newviewx - viewx;
+    DisplayedSegmentX = newviewx;
+		DisplayedSegmentY = newviewy;
+		DisplayedSegmentZ = newviewz;
+		/*
+    DisplayedSegmentX = DisplayedSegmentX + newviewx - viewx;
 		DisplayedSegmentY = DisplayedSegmentY + newviewy - viewy;
 		DisplayedSegmentZ = DisplayedSegmentZ + newviewz - viewz;
-	  	WriteErr("%d %d %d -> %d %d %d\n",viewx,viewy,viewz,newviewx,newviewy,newviewz);
+	  WriteErr("%d %d %d -> %d %d %d\n",viewx,viewy,viewz,newviewx,newviewy,newviewz);
 		viewx = newviewx;
 		viewy = newviewy;
-		viewz = newviewz;
-	  }
+		viewz = newviewz;*/
+	  }else
+      //fail
+      config.follow_DFscreen = false;
   }
   
   int segmentHeight = config.single_layer_view ? 1 : config.segmentSize.z;

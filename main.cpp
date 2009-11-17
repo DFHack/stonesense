@@ -28,10 +28,10 @@ bool animationFrameShown;
 
 vector<t_matgloss> v_stonetypes;
 
-int32_t viewx = 0;
+/*int32_t viewx = 0;
 int32_t viewy = 0;
 int32_t viewz = 0;
-bool followmode = true;
+bool followmode = true;*/
 
 void WriteErr(char* msg, ...){
   int j = 10;  
@@ -163,7 +163,7 @@ int main(void)
   //ford. desert map
   //sDisplayedSegmentX = 78; DisplayedSegmentY = 123;DisplayedSegmentZ = 15;
 
-  //DisplayedSegmentX = 171; DisplayedSegmentY = 304;DisplayedSegmentZ = 18;
+  DisplayedSegmentX = 171; DisplayedSegmentY = 304;DisplayedSegmentZ = 18;
 
   //DisplayedSegmentX = 242; DisplayedSegmentY = 345;DisplayedSegmentZ = 15;
   

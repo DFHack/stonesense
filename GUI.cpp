@@ -268,23 +268,25 @@ void paintboard(){
   
   if (config.show_osd)
   {
-  textprintf_ex(buffer, font, 10,10, 0xFFFFFF,0, "%i,%i,%i, r%i", DisplayedSegmentX,DisplayedSegmentY,DisplayedSegmentZ, DisplayedRotation);
-  
-  if(config.debug_mode){
-	  textprintf_ex(buffer, font, 10,20, 0xFFFFFF,0, "Timer1: %ims", ClockedTime);
-    textprintf_ex(buffer, font, 10,30, 0xFFFFFF,0, "Timer2: %ims", ClockedTime2);
-    textprintf_ex(buffer, font, 10,40, 0xFFFFFF,0, "Draw: %ims", DrawTime);
-	  textprintf_ex(buffer, font, 10,50, 0xFFFFFF,0, "D1: %i", DebugInt1);
+    textprintf_ex(buffer, font, 10,10, 0xFFFFFF,0, "%i,%i,%i, r%i", DisplayedSegmentX,DisplayedSegmentY,DisplayedSegmentZ, DisplayedRotation);
+    
+    if(config.debug_mode){
+	    textprintf_ex(buffer, font, 10,20, 0xFFFFFF,0, "Timer1: %ims", ClockedTime);
+      textprintf_ex(buffer, font, 10,30, 0xFFFFFF,0, "Timer2: %ims", ClockedTime2);
+      textprintf_ex(buffer, font, 10,40, 0xFFFFFF,0, "Draw: %ims", DrawTime);
+	    textprintf_ex(buffer, font, 10,50, 0xFFFFFF,0, "D1: %i", DebugInt1);
 
-    drawDebugCursorAndInfo(buffer);
-  }
+      drawDebugCursorAndInfo(buffer);
+    }
 
-  if(config.single_layer_view)
-    textprintf_centre_ex(buffer, font, config.screenWidth/2,20, 0xFFFFFF,0, "Single layer view");
-  if(config.automatic_reload_time)
-    textprintf_centre_ex(buffer, font, config.screenWidth/2,30, 0xFFFFFF,0, "Reloading every %0.1fs", (float)config.automatic_reload_time/1000);
+    if(config.follow_DFscreen)
+      textprintf_centre_ex(buffer, font, config.screenWidth/2,10, 0xFFFFFF,0, "Locked on DF screen");
+    if(config.single_layer_view)
+      textprintf_centre_ex(buffer, font, config.screenWidth/2,20, 0xFFFFFF,0, "Single layer view");
+    if(config.automatic_reload_time)
+      textprintf_centre_ex(buffer, font, config.screenWidth/2,30, 0xFFFFFF,0, "Reloading every %0.1fs", (float)config.automatic_reload_time/1000);
 
-  DrawMinimap(buffer);
+    DrawMinimap(buffer);
   }
 	acquire_screen();
 	draw_sprite(screen,buffer,0,0);
@@ -305,17 +307,7 @@ BITMAP* load_bitmap_withWarning(char* path){
 }
 
 void loadGraphicsFromDisk(){
-
-  //PALETTE pal;
-  //get_palette(pal);
-  //for(int i =0; i<255; i++)
-  //  pal[i].g+=1;
-  //set_palette(pal);
-  //select_palette(pal);
-
   register_png_file_type();
- 
-
 	IMGObjectSheet = load_bitmap_withWarning("objects.png");
 	IMGFloorSheet = load_bitmap_withWarning("floors.png");
 	IMGCreatureSheet = load_bitmap_withWarning("creatures.png");

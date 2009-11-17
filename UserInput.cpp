@@ -45,22 +45,22 @@ void doKeys(){
 
   char stepsize = (key[KEY_LSHIFT] || key[KEY_RSHIFT] ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
   if(key[KEY_UP]){
-		//DisplayedSegmentY-=stepsize;
+		config.follow_DFscreen = false;
     moveViewRelativeToRotation( 0, -stepsize );
 		timeToReloadSegment = true;
 	}
 	if(key[KEY_DOWN]){
-		//DisplayedSegmentY+=stepsize;
+		config.follow_DFscreen = false;
     moveViewRelativeToRotation( 0, stepsize );
 		timeToReloadSegment = true;
 	}
 	if(key[KEY_LEFT]){
-		//DisplayedSegmentX-=stepsize;
+		config.follow_DFscreen = false;
     moveViewRelativeToRotation( -stepsize, 0 );
 		timeToReloadSegment = true;
 	}
 	if(key[KEY_RIGHT]){
-		//DisplayedSegmentX+=stepsize;
+		config.follow_DFscreen = false;
     moveViewRelativeToRotation( stepsize, 0 );
 		timeToReloadSegment = true;
 	}
@@ -70,11 +70,13 @@ void doKeys(){
 		timeToReloadSegment = true;
 	}
 	if(key[KEY_PGDN] || key[KEY_9]){
+    config.follow_DFscreen = false;
 		DisplayedSegmentZ -= stepsize;
     if(DisplayedSegmentZ<0) DisplayedSegmentZ = 0;
 		timeToReloadSegment = true;
 	}
 	if(key[KEY_PGUP] || key[KEY_0]){
+    config.follow_DFscreen = false;
 		DisplayedSegmentZ += stepsize;
 		timeToReloadSegment = true;
 	}
@@ -107,6 +109,10 @@ void doKeys(){
   if(key[KEY_C]){
 		config.truncate_walls = !config.truncate_walls;
     timeToReloadSegment = true;
+	}
+	if(key[KEY_F]){
+    config.follow_DFscreen = !config.follow_DFscreen;
+		timeToReloadSegment = true;
 	}
   if(key[KEY_1]){
     config.segmentSize.z--;
