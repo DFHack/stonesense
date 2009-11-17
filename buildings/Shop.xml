@@ -22,7 +22,7 @@
 				<PositionIndex value=24 />
 			</or>
 		</and>
-		<sprite file="" index = 51 />
+		<sprite file="" index = 94/>
 	</if>		
 		
 	<if><never/>

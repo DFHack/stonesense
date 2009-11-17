@@ -639,7 +639,14 @@ int GetSpriteVegitation( VegetationType type, int index){
     break;
   case SHRUB_DEAD:
   case SHRUB_OK:
-    return SPRITEOBJECT_SHRUB;
+    /*switch( index ){
+    case 0:
+      return SPRITEOBJECT_SHRUB_PLUMP;
+      break;
+      
+    };
+    return SPRITEOBJECT_SHRUB_DEFAULT;*/
+    return SPRITEOBJECT_SHRUB_PLUMP + index;
     break;
   case SAPLING_DEAD:
   case SAPLING_OK:
@@ -647,9 +654,6 @@ int GetSpriteVegitation( VegetationType type, int index){
     break;
 
   }
-
-
-
   return SPRITEOBJECT_BLUEPRINT;
 }
 
