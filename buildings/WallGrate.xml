@@ -5,10 +5,10 @@
 <building name="Grate" gameID="wall_grate"> 
 	<if>
 		<or>
-			<NeighbourWall value="North" />
-			<NeighbourWall value="South" />
-			<NeighbourSameType value="North" />
-			<NeighbourSameType value="South" />
+			<NeighbourWall dir="North" />
+			<NeighbourWall dir="South" />
+			<NeighbourSameType dir="North" />
+			<NeighbourSameType dir="South" />
 		</or>
 		<sprite index=352 />	
 	</if>
