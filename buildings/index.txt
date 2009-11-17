@@ -67,6 +67,7 @@ Dyers.xml
 TradeDepot.xml
 SiegeWorkshop.xml
 Kennels.xml
+Shop.xml
 
 Pump.xml
 

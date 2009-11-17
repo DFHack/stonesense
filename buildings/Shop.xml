@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+
+
+
+<building name="Shop" gameID="shop" file="workshop.png">
+	
+	<if>
+		<not><BuildingOccupancy value="1" /></not>
+		<sprite file="" index = 140 />
+	</if>
+	
+	<include file="wsUpperBorder.xml"/>
+
+	<if>
+		<and>
+			<not><BuildingOccupancy value="1" /></not>
+			<or>
+				<PositionIndex value=0 />
+				<PositionIndex value=4 />
+				<PositionIndex value=12 />
+				<PositionIndex value=20 />
+				<PositionIndex value=24 />
+			</or>
+		</and>
+		<sprite file="" index = 51 />
+	</if>		
+		
+	<if><never/>
+	</if>
+	<include file="ws5x5Blueprint.xml"/>
+	<include file="wsLowerBorder.xml"/>
+	
+</building> 
