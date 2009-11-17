@@ -94,10 +94,10 @@
 				<AnimationFrame value=2 />
 				<AnimationFrame value=4 />
 			</or>
-			<sprite index = 4 />
+			<sprite index = 6 />
 		</if>
 		<else>
-			<sprite index = 5 />
+			<sprite index = 7 />
 		</else>
 	</else>	
 	<else>
@@ -107,10 +107,10 @@
 				<AnimationFrame value=2 />
 				<AnimationFrame value=4 />
 			</or>
-			<sprite index = 6 />
+			<sprite index = 5 />
 		</if>
 		<else>
-			<sprite index = 7 />
+			<sprite index = 4 />
 		</else>
 	</else>
 		
