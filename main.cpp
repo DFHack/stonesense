@@ -103,7 +103,7 @@ int main(void)
   config.segmentSize.z = DEFAULT_SEGMENTSIZE_Z;
   config.show_osd = true;
   config.animation_step = 300;
-  
+  config.follow_DFscreen = true;
   loadConfigFile();
   
   //set debug cursor

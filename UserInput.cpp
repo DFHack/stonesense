@@ -18,26 +18,33 @@ void automaticReloadProc(){
 		timeToReloadSegment = true;
 }
 
-
-void moveViewRelativeToRotation( int stepx, int stepy ){
+void changeRelativeToRotation( int &inputx, int &inputy, int stepx, int stepy ){
   switch(DisplayedRotation){
   case 0:
-    DisplayedSegmentX += stepx;
-    DisplayedSegmentY += stepy;
+    inputx += stepx;
+    inputy += stepy;
     break;
   case 1:
-    DisplayedSegmentX += stepy;
-    DisplayedSegmentY -= stepx;
+    inputx += stepy;
+    inputy -= stepx;
     break;
   case 2:
-    DisplayedSegmentX -= stepx;
-    DisplayedSegmentY -= stepy;
+    inputx -= stepx;
+    inputy -= stepy;
     break;
   case 3:
-    DisplayedSegmentX -= stepy;
-    DisplayedSegmentY += stepx;
+    inputx -= stepy;
+    inputy += stepx;
     break;
   };
+}
+
+void moveViewRelativeToRotation( int stepx, int stepy )
+{
+  if (config.follow_DFscreen)
+  	changeRelativeToRotation(config.viewXoffset, config.viewYoffset, stepx, stepy );
+  else
+  	changeRelativeToRotation(DisplayedSegmentX, DisplayedSegmentY, stepx, stepy );
 }
 
 void doKeys(){
@@ -45,23 +52,19 @@ void doKeys(){
 
   char stepsize = (key[KEY_LSHIFT] || key[KEY_RSHIFT] ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
   if(key[KEY_UP]){
-		config.follow_DFscreen = false;
-    moveViewRelativeToRotation( 0, -stepsize );
+    	moveViewRelativeToRotation( 0, -stepsize );
 		timeToReloadSegment = true;
 	}
 	if(key[KEY_DOWN]){
-		config.follow_DFscreen = false;
-    moveViewRelativeToRotation( 0, stepsize );
+    	moveViewRelativeToRotation( 0, stepsize );
 		timeToReloadSegment = true;
 	}
 	if(key[KEY_LEFT]){
-		config.follow_DFscreen = false;
-    moveViewRelativeToRotation( -stepsize, 0 );
+    	moveViewRelativeToRotation( -stepsize, 0 );
 		timeToReloadSegment = true;
 	}
 	if(key[KEY_RIGHT]){
-		config.follow_DFscreen = false;
-    moveViewRelativeToRotation( stepsize, 0 );
+    	moveViewRelativeToRotation( stepsize, 0 );
 		timeToReloadSegment = true;
 	}
   if(key[KEY_ENTER]){
@@ -70,14 +73,18 @@ void doKeys(){
 		timeToReloadSegment = true;
 	}
 	if(key[KEY_PGDN] || key[KEY_9]){
-    config.follow_DFscreen = false;
-		DisplayedSegmentZ -= stepsize;
-    if(DisplayedSegmentZ<0) DisplayedSegmentZ = 0;
+		if (config.follow_DFscreen)
+			config.viewZoffset -= stepsize;
+		else
+			DisplayedSegmentZ -= stepsize;
+   		 if(DisplayedSegmentZ<0) DisplayedSegmentZ = 0;
 		timeToReloadSegment = true;
 	}
 	if(key[KEY_PGUP] || key[KEY_0]){
-    config.follow_DFscreen = false;
-		DisplayedSegmentZ += stepsize;
+		if (config.follow_DFscreen)
+			config.viewZoffset += stepsize;
+		else
+			DisplayedSegmentZ += stepsize;
 		timeToReloadSegment = true;
 	}
 	if(key[KEY_R]){
@@ -111,7 +118,7 @@ void doKeys(){
     timeToReloadSegment = true;
 	}
 	if(key[KEY_F]){
-    config.follow_DFscreen = !config.follow_DFscreen;
+		config.follow_DFscreen = !config.follow_DFscreen;
 		timeToReloadSegment = true;
 	}
   if(key[KEY_1]){

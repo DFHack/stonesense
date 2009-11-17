@@ -280,7 +280,7 @@ void paintboard(){
     }
 
     if(config.follow_DFscreen)
-      textprintf_centre_ex(buffer, font, config.screenWidth/2,10, 0xFFFFFF,0, "Locked on DF screen");
+      textprintf_centre_ex(buffer, font, config.screenWidth/2,10, 0xFFFFFF,0, "Locked on DF screen + (%d,%d,%d)",config.viewXoffset,config.viewYoffset,config.viewZoffset);
     if(config.single_layer_view)
       textprintf_centre_ex(buffer, font, config.screenWidth/2,20, 0xFFFFFF,0, "Single layer view");
     if(config.automatic_reload_time)

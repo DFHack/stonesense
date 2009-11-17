@@ -34,6 +34,9 @@ typedef struct {
   bool lift_segment_offscreen;
   bool truncate_walls;
   bool follow_DFscreen;
+  int viewXoffset;
+  int viewYoffset;
+  int viewZoffset;
   int automatic_reload_time;
   int automatic_reload_step;
   int animation_step;
