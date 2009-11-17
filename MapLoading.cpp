@@ -276,8 +276,8 @@ WorldSegment* ReadMapSegment(API &DF, int x, int y, int z, int sizex, int sizey,
 	int celldimX, celldimY, celldimZ;
 	DF.getSize((unsigned int &)celldimX, (unsigned int &)celldimY, (unsigned int &)celldimZ);
   //bound view to world
-  if(x > celldimX * CELLEDGESIZE -10) DisplayedSegmentX = x = celldimX * CELLEDGESIZE -10;
-  if(y > celldimY * CELLEDGESIZE -10) DisplayedSegmentY = y = celldimY * CELLEDGESIZE -10;
+  if(x > celldimX * CELLEDGESIZE -sizex) DisplayedSegmentX = x = celldimX * CELLEDGESIZE -sizex;
+  if(y > celldimY * CELLEDGESIZE -sizey) DisplayedSegmentY = y = celldimY * CELLEDGESIZE -sizey;
   //setup new world segment
   WorldSegment* segment = new WorldSegment(x,y,z,sizex,sizey,sizez);
   segment->regionSize.x = celldimX * CELLEDGESIZE;
@@ -460,6 +460,10 @@ void reloadDisplayedSegment(){
       config.follow_DFscreen = false;
   }
   
+  if(DisplayedSegmentX<0)DisplayedSegmentX=0;
+  if(DisplayedSegmentY<0)DisplayedSegmentY=0;
+  if(DisplayedSegmentZ<0)DisplayedSegmentZ=0;
+    
   int segmentHeight = config.single_layer_view ? 1 : config.segmentSize.z;
   //load segment
   API& DF = *pDFApiHandle;
