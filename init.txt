@@ -14,8 +14,8 @@ with your drivers, or the program will still load in window mode.
 
 These two options set how large the cube loaded from Dwarf Fortress is.
 Each entry expects the number of tiles to load.
-[SEGMENT:30]
-[SEGMENTZ:3]
+[SEGMENTSIZE_XY:30]
+[SEGMENTSIZE_Z:3]
 
 
 Lifts the segment up to the top off the screen. 

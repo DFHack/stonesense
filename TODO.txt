@@ -5,4 +5,3 @@ Check that ice-fort for bugs...
 Maybe not show names at all times
 (Add configurable key bindings)
 (Interrupt driven input)
-fix minimap dimensions

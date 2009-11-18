@@ -144,6 +144,10 @@ void doKeys(){
     config.show_hidden_blocks = !config.show_hidden_blocks;
     timeToReloadSegment = true;
 	}
+  if(key[KEY_N]){
+    config.show_creature_names = !config.show_creature_names;
+    timeToReloadSegment = true;
+	}
   if(key[KEY_F2]){
 	config.show_osd = !config.show_osd;
 	timeToReloadSegment = true;
