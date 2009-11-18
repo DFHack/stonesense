@@ -9,7 +9,10 @@
 			<NeighbourSameBuilding dir="North" />
 			<NeighbourSameBuilding dir="South" />
 		</and>
-		<sprite index= 47 offsety=15 offsetx=7/>
+		<if>
+			<not><FluidBelow value=4 /></not>
+			<sprite index= 47 offsety=15 offsetx=7 />
+		</if>
 		<if>
 			<or>
 				<AnimationFrame value=0 />
@@ -24,7 +27,16 @@
 	</else>
 	<else>	
 		<NeighbourSameBuilding dir="North" />
-		<sprite index= 46 offsety=7 offsetx=2/>
+		<if>
+			<not><FluidBelow value=7 /></not>
+			<if>
+				<FluidBelow value=4 />
+				<sprite index= 49 offsety=7 offsetx=2 />
+			</if>
+			<else>
+				<sprite index= 46 offsety=7 offsetx=2 />
+			</else>
+		</if>
 		<if>
 			<or>
 				<AnimationFrame value=0 />
@@ -39,7 +51,16 @@
 	</else>
 	<else>	
 		<NeighbourSameBuilding dir="South" />
-		<sprite index= 48 offsety=16/>
+		<if>
+			<not><FluidBelow value=7 /></not>
+			<if>
+				<FluidBelow value=4/>
+				<sprite index= 50 offsety=16/>
+			</if>
+			<else>
+				<sprite index= 48 offsety=16/>
+			</else>
+		</if>
 		<if>
 			<or>
 				<AnimationFrame value=0 />
@@ -58,7 +79,10 @@
 			<NeighbourSameBuilding dir="East" />
 			<NeighbourSameBuilding dir="West" />
 		</and>
-		<sprite index= 67 offsety=15 offsetx=-7/>
+		<if>
+			<not><FluidBelow value=4 /></not>
+			<sprite index= 67 offsety=15 offsetx=-7/>
+		</if>
 		<if>
 			<or>
 				<AnimationFrame value=0 />
@@ -73,7 +97,16 @@
 	</else>
 	<else>	
 		<NeighbourSameBuilding dir="West" />
-		<sprite index= 66 offsety=7 offsetx=-2/>
+		<if>
+			<not><FluidBelow value=7 /></not>
+			<if>
+				<FluidBelow value=4/>
+				<sprite index= 69 offsety=7 offsetx=-2/>
+			</if>
+			<else>
+				<sprite index= 66 offsety=7 offsetx=-2/>
+			</else>
+		</if>
 		<if>
 			<or>
 				<AnimationFrame value=0 />
@@ -88,7 +121,16 @@
 	</else>
 	<else>	
 		<NeighbourSameBuilding dir="East" />
-		<sprite index= 68 offsety=16/>
+		<if>
+			<not><FluidBelow value=7 /></not>
+			<if>
+				<FluidBelow value=4/>
+				<sprite index= 70 offsety=16/>
+			</if>
+			<else>
+				<sprite index= 68 offsety=16/>
+			</else>
+		</if>	
 		<if>
 			<or>
 				<AnimationFrame value=0 />
