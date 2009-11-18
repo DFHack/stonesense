@@ -77,6 +77,10 @@ int parseConditionNode(ConditionalNode* node, TiXmlElement* elemCondition, bool 
     cond = new AnimationFrameCondition( elemCondition->Attribute("value") );
   }  
   
+    else if( strcmp(strType, "FluidBelow") == 0){
+    cond = new FluidBelowCondition( elemCondition->Attribute("value") );
+  }  
+  
   else if( strcmp(strType, "HaveFloor") == 0){
      cond = new HaveFloorCondition();
   }

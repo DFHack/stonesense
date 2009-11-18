@@ -345,3 +345,17 @@ bool HaveFloorCondition::Matches(Block* b)
 {	
 	return (b->floorType > 0);
 }
+
+FluidBelowCondition::FluidBelowCondition(const char* strValue)
+	: BlockCondition()
+{
+    this->value = atoi( strValue );
+}
+
+bool FluidBelowCondition::Matches(Block* b)
+{	
+	Block* bLow = b->ownerSegment->getBlockRelativeTo( b->x, b->y, b->z, eBelow );
+	if (!bLow)
+		return false;
+	return (bLow->water.index >= this->value);
+}

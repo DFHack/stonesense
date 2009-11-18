@@ -205,3 +205,13 @@ class HaveFloorCondition : public BlockCondition
   bool Matches(Block* b);
 };
 
+class FluidBelowCondition : public BlockCondition
+{
+  public:
+  FluidBelowCondition(const char* strValue);
+  ~FluidBelowCondition(void){};
+
+  int value;
+  bool Matches(Block* b);
+};
+
