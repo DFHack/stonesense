@@ -65,16 +65,11 @@ void parseConfigLine( string line ){
     string result = parseStrFromLine( "WINDOWED", line );
     config.Fullscreen = (result == "NO");
   }
-  if( line.find("SEGMENTX") != -1){
-    int value = parseIntFromLine( "SEGMENTX", line );
-    if(value < 5) value = DEFAULT_SEGMENTSIZE_X;
+  if( line.find("SEGMENT") != -1){
+    int value = parseIntFromLine( "SEGMENT", line );
+    if(value < 5) value = DEFAULT_SEGMENTSIZE;
     if(value > 100) value = 100;
     config.segmentSize.x = value;
-  }
-  if( line.find("SEGMENTY") != -1){
-    int value = parseIntFromLine( "SEGMENTY", line );
-    if(value < 5) value = DEFAULT_SEGMENTSIZE_Y;
-    if(value > 100) value = 100;
     config.segmentSize.y = value;
   }
   if( line.find("SEGMENTZ") != -1){

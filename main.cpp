@@ -98,8 +98,8 @@ int main(void)
   config.Fullscreen = FULLSCREEN;
   config.screenHeight = RESOLUTION_HEIGHT;
   config.screenWidth = RESOLUTION_WIDTH;
-  config.segmentSize.x = DEFAULT_SEGMENTSIZE_X;
-  config.segmentSize.y = DEFAULT_SEGMENTSIZE_Y;
+  config.segmentSize.x = DEFAULT_SEGMENTSIZE;
+  config.segmentSize.y = DEFAULT_SEGMENTSIZE;
   config.segmentSize.z = DEFAULT_SEGMENTSIZE_Z;
   config.show_osd = true;
   config.animation_step = 300;
