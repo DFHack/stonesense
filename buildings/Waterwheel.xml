@@ -6,8 +6,11 @@
 
 	<else>
 		<and>
-			<NeighbourSameBuilding dir="North" />
-			<NeighbourSameBuilding dir="South" />
+			<or>
+				<NeighbourSameBuilding dir="North" />
+				<NeighbourSameBuilding dir="South" />
+			</or>
+			<PositionIndex value=1 />
 		</and>
 		<if>
 			<not><FluidBelow value=4 /></not>
@@ -76,8 +79,11 @@
 	
 	<else>
 		<and>
-			<NeighbourSameBuilding dir="East" />
-			<NeighbourSameBuilding dir="West" />
+			<PositionIndex value=1 />
+			<or>
+				<NeighbourSameBuilding dir="West" />
+				<NeighbourSameBuilding dir="East" />
+			</or>
 		</and>
 		<if>
 			<not><FluidBelow value=4 /></not>
@@ -143,5 +149,5 @@
 			<sprite index= 65 offsety=3/>
 		</else>
 	</else>
-		
+	<empty />
 </building> 
