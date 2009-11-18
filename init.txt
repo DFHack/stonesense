@@ -14,8 +14,8 @@ with your drivers, or the program will still load in window mode.
 
 These three options set how large the cube loaded from Dwarf Fortress is.
 One entry for each axis, and each expects the number of tiles to load.
-[SEGMENTX:35]
-[SEGMENTY:35]
+[SEGMENTX:30]
+[SEGMENTY:100]
 [SEGMENTZ:3]
 
 

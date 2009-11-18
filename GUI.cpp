@@ -170,7 +170,7 @@ void DrawMinimap(BITMAP* target){
   rect(target, posx, posy, posx+size, posy+mapheight, 0);
   //current segment outline
   int x = (size * viewedSegment->x) / viewedSegment->regionSize.x;
-  int y = (size * viewedSegment->y) / viewedSegment->regionSize.y;
+  int y = mapheight * ((double)viewedSegment->y / viewedSegment->regionSize.y);
   int segmentWidth = viewedSegment->sizex * oneBlockInPixels;
   int segmentHeight = viewedSegment->sizey * oneBlockInPixels;
   rect(target, posx+x, posy+y, posx+x+segmentWidth, posy+y+segmentHeight,0);

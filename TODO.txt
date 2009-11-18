@@ -1,8 +1,8 @@
 Finish floor and wall config
-Add configurable key bindings
-Interrupt driven input
 Properly handle bad DF connections
 Check that ice-fort for bugs...
-Fix animtion when not auto-reloading
-Add more trees and shurbs
+(animtion when not auto-reloading)
 Maybe not show names at all times
+(Add configurable key bindings)
+(Interrupt driven input)
+fix minimap dimensions
