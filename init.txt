@@ -12,10 +12,9 @@ using WIDTH and HEIGHT for resolution. Try and use resolutions compatible
 with your drivers, or the program will still load in window mode.
 [WINDOWED:YES]
 
-These three options set how large the cube loaded from Dwarf Fortress is.
-One entry for each axis, and each expects the number of tiles to load.
-[SEGMENTX:30]
-[SEGMENTY:100]
+These two options set how large the cube loaded from Dwarf Fortress is.
+Each entry expects the number of tiles to load.
+[SEGMENT:30]
 [SEGMENTZ:3]
 
 
