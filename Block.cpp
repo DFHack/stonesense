@@ -55,14 +55,19 @@ void Block::Draw(BITMAP* target){
   int tileBorderColor = makecol(85,85,85);
 
 	//Draw Floor
-	if(floorType > 0 || wallType > 0 || ramp.type > 0){
-    int floorSpriteIndex = GetFloorSpriteMap(this->floorType, materialIndex);;
+  if(floorType > 0 || wallType > 0 || ramp.type > 0){
+    int floorSpriteIndex = GetFloorSpriteMap(this->floorType, materialIndex);
+    //if floor is muddy, override regular floor
+    if( occ.bits.mud )
+      floorSpriteIndex = SPRITEFLOOR_WATERFLOOR;
+
     //If tile has no floor, look for a Filler Floor from it's wall
     if(floorSpriteIndex == SPRITEFLOOR_NA)
       floorSpriteIndex = GetWallSpriteMap(this->wallType, this->materialIndex, true);
+    
     //TODO: need configurable Filler Floors for ramps as well
-	if(floorSpriteIndex == SPRITEFLOOR_NA && (ramp.type > 0))
-		floorSpriteIndex = 3;
+	  if(floorSpriteIndex == SPRITEFLOOR_NA && (ramp.type > 0))
+		  floorSpriteIndex = 3;
 
     sheetOffsetX = TILEWIDTH * (floorSpriteIndex % SHEET_OBJECTSWIDE);
     sheetOffsetY = (TILEHEIGHT + FLOORHEIGHT) * (floorSpriteIndex / SHEET_OBJECTSWIDE);
