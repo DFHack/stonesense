@@ -124,6 +124,10 @@
 	<Profession name="Child" sheetIndex = 23 />
 </Creature>
 
+<Creature gameID="MACAQUE_RHESUS" 	sheetIndex = 2 /> 
+<Creature gameID="CAMEL_1_HUMP" 	sheetIndex = 4 />
+<Creature gameID="CAMEL_2_HUMP" 	sheetIndex = 4 />
+
 <Creature gameID="MULE" 		sheetIndex = 24 /> 
 <Creature gameID="MUSKOX" 		sheetIndex = 25 /> 
 <Creature gameID="HORSE" 		sheetIndex = 26 /> 
@@ -137,6 +141,7 @@
 <Creature gameID="BEAK_DOG" 	sheetIndex = 32 /> 
 <Creature gameID="KOBOLD"	 	sheetIndex = 33 /> 
 <Creature gameID="GOBLIN" 		sheetIndex = 34 /> 
-
+<Creature gameID="ALLIGATOR" 	sheetIndex = 35 /> 
+<Creature gameID="SPIDER_CAVE_GIANT" sheetIndex = 36 /> 
 <Creature gameID="SPIRIT_OF_FIRE"sheetIndex = 38 /> 
 <Creature gameID="IMP_FIRE" 	 sheetIndex = 39 /> 

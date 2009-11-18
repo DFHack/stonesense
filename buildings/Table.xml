@@ -8,6 +8,10 @@
 		<sprite index = 82 />
 	</if>
 	<else>
+		<MaterialType value="Metal" />
+		<sprite index = 63 />
+	</else>
+	<else>
 		<sprite index = 83 />
 	</else>
 </building> 

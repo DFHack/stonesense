@@ -1,6 +1,7 @@
 Finish floor and wall config
 Properly handle bad DF connections
 Check that ice-fort for bugs...
+Fix vertical bars
 (animtion when not auto-reloading - wont work without complete rewrite)
 (Add configurable key bindings)
 (Interrupt driven input)

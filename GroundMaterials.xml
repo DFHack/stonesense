@@ -256,7 +256,7 @@
 	<!-- Metal Wall -->
 	<GameID value = 1011/>
 </Wall>
-<Wall spriteIndex = 208 fillerFloorSpriteIndex = 10>
+<Wall spriteIndex = 208 fillerFloorSpriteIndex = 22>
 	<!-- Constructed Wooden wall -->
 	<GameID value = 911/>
 </Wall>
