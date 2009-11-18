@@ -15,17 +15,17 @@
 		</or>
 		<if>
 			<MaterialType value="Wood" />
-			<sprite index=44/>
+			<sprite index=3 file="doorsAndWindows.png" />
 		</if>
 		<else>
-			<sprite index=43 />
+			<sprite index=1 file="doorsAndWindows.png" />
 		</else>
 	</else>
 	<else>
 		<MaterialType value="Wood" />
-		<sprite index = 41 />
+		<sprite index = 2 file="doorsAndWindows.png" />
 	</else>
 	<else>
-		<sprite index = 40 />
+		<sprite index = 0 file="doorsAndWindows.png" />
 	</else>
 </building> 
