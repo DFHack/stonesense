@@ -319,6 +319,7 @@ void destroyGraphics(){
   destroy_bitmap(IMGObjectSheet);
   destroy_bitmap(IMGCreatureSheet);
   destroy_bitmap(IMGRampSheet);
+  destroy_bitmap(IMGRamptopSheet);
 }
 
 //delete and clean out the image files
