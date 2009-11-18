@@ -198,11 +198,14 @@ int main(void)
       timeToReloadSegment = false;
       animationFrameShown = true;
     }
+    /*
+    // this was a complete waste of time- sprites to be drawn are only
+    // recalculated when the map is reloaded
     else if (animationFrameShown == false)
     {
 	 	paintboard();
 	 	animationFrameShown = true;
-    }
+    }*/
 		doKeys();
 	}
   destroyGraphics();
