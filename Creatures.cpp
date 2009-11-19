@@ -37,7 +37,12 @@ void DrawCreature( BITMAP* target, int drawx, int drawy, t_creature* creature ){
 
 void ReadCreaturesToSegment(API& DF, WorldSegment* segment)
 {
-	int x, y , z;
+  int x1 = segment->x;
+  int x2 = segment->x + segment->sizex;
+  int y1 = segment->y;
+  int y2 = segment->y + segment->sizey;
+  int z1 = segment->z;
+  int z2 = segment->z + segment->sizez;
 	uint32_t numcreatures = DF.InitReadCreatures();
 	
 	DF.ReadCreatureMatgloss(v_creatureNames);
@@ -45,9 +50,12 @@ void ReadCreaturesToSegment(API& DF, WorldSegment* segment)
 		TranslateCreatureNames();
 		
 	t_creature *tempcreature = new t_creature();
-	for (uint32_t index = 0; index < numcreatures ; index++)
+	/*for (uint32_t index = 0; index < numcreatures ; index++)
 	{
-		DF.ReadCreature( index, *tempcreature );
+		DF.ReadCreature( index, *tempcreature );*/
+  uint32_t index = 0;
+	while( (DF.ReadCreatureInBox( index, *tempcreature, x1,y1,z1,x2,y2,z2)) != -1 )
+  {
 		if( IsCreatureVisible( tempcreature )
 			&& segment->CoordinateInsideSegment(tempcreature->x, tempcreature->y, tempcreature->z))
 		{
@@ -69,6 +77,7 @@ void ReadCreaturesToSegment(API& DF, WorldSegment* segment)
 				// old tempcreature should be deleted when b is
 			}
 		}
+    index++;
 	}
 	delete(tempcreature); // there will be one left over
 	DF.FinishReadCreatures();
