@@ -37,14 +37,13 @@ void DrawCreature( BITMAP* target, int drawx, int drawy, t_creature* creature ){
 
 void ReadCreaturesToSegment(API& DF, WorldSegment* segment)
 {
-	return;
 	int x, y , z;
 	uint32_t numcreatures = DF.InitReadCreatures();
 	
 	DF.ReadCreatureMatgloss(v_creatureNames);
 	if( !CreatureNamesTranslatedFromGame )
 		TranslateCreatureNames();
-	
+		
 	t_creature *tempcreature = new t_creature();
 	for (uint32_t index = 0; index < numcreatures ; index++)
 	{
@@ -62,8 +61,11 @@ void ReadCreaturesToSegment(API& DF, WorldSegment* segment)
 				b->z = tempcreature->z;
 				segment->addBlock( b );
 			}
-			b->creature = tempcreature;
-			tempcreature = new t_creature(); 
+			if (!b->creature)
+			{
+				b->creature = tempcreature;
+				tempcreature = new t_creature();
+			}
 			// need a new one now
 			// old one should be deleted when b is
 		}
