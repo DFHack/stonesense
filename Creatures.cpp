@@ -64,10 +64,10 @@ void ReadCreaturesToSegment(API& DF, WorldSegment* segment)
 			if (!b->creature)
 			{
 				b->creature = tempcreature;
+				// need a new tempcreature now
 				tempcreature = new t_creature();
+				// old tempcreature should be deleted when b is
 			}
-			// need a new one now
-			// old one should be deleted when b is
 		}
 	}
 	delete(tempcreature); // there will be one left over
