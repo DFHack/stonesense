@@ -6,15 +6,13 @@ DFDataModel.h
 DFHackAPI.h
 DFMemAccess.h
 DFMemInfo.h
-DFProcessManager.h
+DFMemInfoManager.h
+DFProcessEnumerator.h
+DFProcess.h
 DFTileTypes.h
 DFTypes.h
 DFVector.h
 integers.h
-stdint_win.h
-LinuxMemAccess-memfiles.h
-LinuxMemAccess-ptrace.h
-WindowsMemAccess.h
 
 md5/md5.h
 md5/md5wrapper.h
@@ -26,8 +24,7 @@ tinyxml/tinyxml.h
 SET(PROJECT_SRCS
 DFDataModel.cpp
 DFMemInfo.cpp
-DFProcess.cpp
-DFProcessManager.cpp
+DFMemInfoManager.cpp
 DFHackAPI.cpp
 DFTileTypes.cpp
 md5/md5.cpp
@@ -37,6 +34,33 @@ tinyxml/tinyxml.cpp
 tinyxml/tinyxmlerror.cpp
 tinyxml/tinyxmlparser.cpp
 )
+
+SET(PROJECT_HDRS_LINUX
+MemAccess-linux.h
+)
+
+SET(PROJECT_HDRS_WINDOWS
+MemAccess-windows.h
+stdint_win.h
+)
+
+SET(PROJECT_SRCS_LINUX
+DFProcess-linux.cpp
+DFProcessEnumerator-linux.cpp
+)
+
+SET(PROJECT_SRCS_WINDOWS
+DFProcess-windows.cpp
+DFProcessEnumerator-windows.cpp
+)
+
+IF(UNIX)
+    LIST(APPEND PROJECT_HDRS ${PROJECT_HDRS_LINUX})
+    LIST(APPEND PROJECT_SRCS ${PROJECT_SRCS_LINUX})
+ELSE(UNIX)
+    LIST(APPEND PROJECT_HDRS ${PROJECT_HDRS_WINDOWS})
+    LIST(APPEND PROJECT_SRCS ${PROJECT_SRCS_WINDOWS})
+ENDIF(UNIX)
 
 SET_SOURCE_FILES_PROPERTIES( ${PROJECT_HDRS} PROPERTIES HEADER_FILE_ONLY TRUE )
 

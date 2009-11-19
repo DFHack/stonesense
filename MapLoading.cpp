@@ -8,6 +8,14 @@
 #include "Creatures.h"
 #include "GroundMaterialConfiguration.h"
 
+#ifdef LINUX_BUILD
+  #define SUSPEND_DF DF.Suspend()
+  #define  RESUME_DF DF.Resume()
+#else
+  #define SUSPEND_DF ;
+  #define  RESUME_DF ;
+#endif
+
 static API* pDFApiHandle = 0;
 
 memory_info dfMemoryInfo;
@@ -119,6 +127,7 @@ void ReadCellToSegment(API& DF, WorldSegment& segment, int CellX, int CellY, int
 	if(!DF.isValidBlock(CellX, CellY, CellZ))
 		return;
 
+  RESUME_DF;
   
 	//make boundries local
 	BoundrySX -= CellX * CELLEDGESIZE;
@@ -132,6 +141,7 @@ void ReadCellToSegment(API& DF, WorldSegment& segment, int CellX, int CellY, int
 	t_designation designations[16][16];
 	t_occupancy occupancies[16][16];
 	uint8_t regionoffsets[16];
+  SUSPEND_DF;
 	DF.ReadTileTypes(CellX, CellY, CellZ, (uint16_t *) tiletypes);
 	DF.ReadDesignations(CellX, CellY, CellZ, (uint32_t *) designations);
 	DF.ReadOccupancy(CellX, CellY, CellZ, (uint32_t *) occupancies);
@@ -141,7 +151,8 @@ void ReadCellToSegment(API& DF, WorldSegment& segment, int CellX, int CellY, int
   vector <t_vein> veins;
   DF.ReadVeins(CellX,CellY,CellZ,veins);
   uint32_t numVeins = (uint32_t)veins.size();
-	
+	RESUME_DF;
+
 	//parse cell
 	for(uint32_t ly = BoundrySY; ly <= BoundryEY; ly++){
 	for(uint32_t lx = BoundrySX; lx <= BoundryEX; lx++){
@@ -316,8 +327,10 @@ WorldSegment* ReadMapSegment(API &DF, int x, int y, int z, int sizex, int sizey,
   DF.FinishReadConstructions();
   
 	//merge buildings with segment
+  RESUME_DF;
   MergeBuildingsToSegment(&allBuildings, segment);
-  
+  SUSPEND_DF;
+
 	//figure out what cells to read
 	uint32_t firstTileToReadX = x;
 
@@ -346,13 +359,13 @@ WorldSegment* ReadMapSegment(API &DF, int x, int y, int z, int sizex, int sizey,
   
   
 	//Read Vegetation
+  SUSPEND_DF;
 	uint32_t numtrees = DF.InitReadVegetation();
 	t_tree_desc temptree;
 	index = 0;
 	while(index < numtrees )
 	{
 		DF.ReadVegetation(index, temptree);
-
 		//want hashtable :(
 		Block* b;
 		if( b = segment->getBlock( temptree.x, temptree.y, temptree.z) )
@@ -361,12 +374,9 @@ WorldSegment* ReadMapSegment(API &DF, int x, int y, int z, int sizex, int sizey,
 	}
 	DF.FinishReadVegetation();
 
-  
-
   //Read Creatures
   ReadCreaturesToSegment( DF, segment );
-
-
+  RESUME_DF;
 	//do misc beautification
   uint32_t numblocks = segment->getNumBlocks();
   for(uint32_t i=0; i < numblocks; i++){
@@ -400,18 +410,19 @@ TMR2_STOP;
 }
 
 
-
-//TODO: dont need double ref anymore
 bool ConnectDFAPI(API* pDF){
-	if(!pDF->Attach() || !pDF->InitMap())
+	if(!pDF->Attach())
     return false;
-
+  //in case DF has locked up, force it's thread to resume
+  pDF->ForceResume();
   return pDF->isAttached();
 }
 
 void DisconnectFromDF(){
   if(pDFApiHandle){
     pDFApiHandle->DestroyMap();
+    //in case DF has locked up, force it's thread to resume
+    pDFApiHandle->ForceResume();
     pDFApiHandle->Detach();
     delete pDFApiHandle;
   }
@@ -436,6 +447,8 @@ void reloadDisplayedSegment(){
       return;
     }
   }
+  API& DF = *pDFApiHandle;
+
 
   TMR1_START;
   //dispose old segment
@@ -444,6 +457,7 @@ void reloadDisplayedSegment(){
 	  delete(viewedSegment);
   }
   
+  SUSPEND_DF;
   if (config.follow_DFscreen)
   {
 	  if (pDFApiHandle->InitViewAndCursor())
@@ -466,8 +480,9 @@ void reloadDisplayedSegment(){
     
   int segmentHeight = config.single_layer_view ? 1 : config.segmentSize.z;
   //load segment
-  API& DF = *pDFApiHandle;
+  
 	viewedSegment = ReadMapSegment(DF, DisplayedSegmentX, DisplayedSegmentY, DisplayedSegmentZ,
 		                config.segmentSize.x, config.segmentSize.y, segmentHeight);
+  RESUME_DF;
   TMR1_STOP;
 }

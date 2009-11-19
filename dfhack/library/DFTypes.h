@@ -509,76 +509,42 @@ struct t_creature
     uint32_t money;
     int32_t squad_leader_id;
     uint8_t sex;
+};
+
+//raw
+struct t_item_df40d
+{
+    uint32_t vtable;
+    uint16_t x;
+    uint16_t y;
+    uint16_t z;
+    uint32_t unk1;
+    uint32_t flags;
+    uint32_t unk2;
+    uint32_t ID;
+    // not complete
+};
+
+//cooked
+struct t_item
+{
+    uint32_t origin;
+    uint32_t vtable;
+
+    uint32_t x;
+    uint32_t y;
+    uint32_t z;
+    
+    uint32_t flags;
+    uint32_t ID;
+    uint32_t type;
+    t_matglossPair material;
     /*
-    vector <t_skill> skills;
-    vector <t_trait> traits;
-    vector <t_labor> labors;
-    t_creature() { 
-        x=y=z=0;
-        type=happiness=id=agility=strength=toughness=money=0;
-        squad_leader_id = -1;
-        sex=0;
-        }
-    t_creature(const t_creature & b)
-    {
-        x = b.x;
-        y = b.y;
-        z = b.z;
-        type = b.type;
-        flags1 = b.flags1;
-        flags2 = b.flags2;
-        first_name = b.first_name;
-        nick_name = b.nick_name;
-        //string last_name;
-        trans_name = b.trans_name;
-        generic_name = b.generic_name;
-        generic_squad_name = b.generic_squad_name;
-        trans_squad_name = b.trans_squad_name;
-        profession = b.profession;
-        custom_profession = b.custom_profession;
-        current_job = b.current_job;
-        happiness = b.happiness;
-        id = b.id;
-        agility = b.agility;
-        strength = b.strength;
-        toughness = b.toughness;
-        money = b.money;
-        squad_leader_id = b.squad_leader_id;
-        sex = b.sex;
-        skills = b.skills;
-        traits = b.traits;
-        labors = b.labors;
-    }
-    t_creature & operator=(const t_creature &b)
-    {
-        x = b.x;
-        y = b.y;
-        z = b.z;
-        type = b.type;
-        flags1 = b.flags1;
-        flags2 = b.flags2;
-        first_name = b.first_name;
-        nick_name = b.nick_name;
-        //string last_name;
-        trans_name = b.trans_name;
-        generic_name = b.generic_name;
-        generic_squad_name = b.generic_squad_name;
-        trans_squad_name = b.trans_squad_name;
-        profession = b.profession;
-        custom_profession = b.custom_profession;
-        current_job = b.current_job;
-        happiness = b.happiness;
-        id = b.id;
-        agility = b.agility;
-        strength = b.strength;
-        toughness = b.toughness;
-        money = b.money;
-        squad_leader_id = b.squad_leader_id;
-        sex = b.sex;
-        skills = b.skills;
-        traits = b.traits;
-        return *this;
-    }*/
+    uint8_t matType;
+    uint8_t material;
+    */
+ //   vector<uint8_t> bytes; used for item research
+    // FIXME: not complete, we need building presence bitmaps for stuff like farm plots and stockpiles, orientation (N,E,S,W) and state (open/closed)
 };
 
 // TODO: research this further? consult DF hacker wizards?

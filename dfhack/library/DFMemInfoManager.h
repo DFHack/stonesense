@@ -22,13 +22,25 @@ must not be misrepresented as being the original software.
 distribution.
 */
 
-#ifndef PROCESSUTIL_H_INCLUDED
-#define PROCESSUTIL_H_INCLUDED
+#ifndef MEMINFO_MANAGER_H_INCLUDED
+#define MEMINFO_MANAGER_H_INCLUDED
 
-#ifdef LINUX_BUILD
-    #include "MemAccess-linux.h"
-#else
-    #include "MemAccess-windows.h"
+namespace DFHack
+{
+    class MemInfoManager
+    {
+        friend class ProcessEnumerator;
+        public:
+            MemInfoManager(string path_to_xml);
+            // memory info entries loaded from a file
+            bool loadFile( string path_to_xml);
+            bool isInErrorState() const {return error;};
+        private:
+            std::vector<memory_info> meminfo;
+            void ParseVTable(TiXmlElement* vtable, memory_info& mem);
+            void ParseEntry (TiXmlElement* entry, memory_info& mem, map <string ,TiXmlElement *>& knownEntries);
+            bool error;
+    };
+}
+
 #endif
-
-#endif // PROCESSUTIL_H_INCLUDED

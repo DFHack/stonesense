@@ -62,6 +62,16 @@ namespace DFHack
         bool Attach();
         bool Detach();
         bool isAttached();
+        
+        // stop DF from executing
+        bool Suspend();
+        // resume DF
+        bool Resume();
+        /**
+         * be careful with this one
+         */
+        bool ForceResume();
+        bool isSuspended();
         /**
          * Matgloss. next four methods look very similar. I could use two and move the processing one level up...
          * I'll keep it like this, even with the code duplication as it will hopefully get more features and separate data types later.
@@ -140,19 +150,23 @@ namespace DFHack
          * Buildings, constructions, plants, all pretty straighforward. InitReadBuildings returns all the building types as a mapping between a numeric values and strings
          */
         uint32_t InitReadConstructions();
-        bool ReadConstruction(const uint32_t &index, t_construction & construction);
+        bool ReadConstruction(const int32_t &index, t_construction & construction);
         void FinishReadConstructions();
 
         uint32_t InitReadBuildings(vector <string> &v_buildingtypes);
-        bool ReadBuilding(const uint32_t &index, t_building & building);
+        bool ReadBuilding(const int32_t &index, t_building & building);
         void FinishReadBuildings();
 
         uint32_t InitReadVegetation();
-        bool ReadVegetation(const uint32_t &index, t_tree_desc & shrubbery);
+        bool ReadVegetation(const int32_t &index, t_tree_desc & shrubbery);
         void FinishReadVegetation();
         
         uint32_t InitReadCreatures();
-        bool ReadCreature(const uint32_t &index, t_creature & furball);
+        // returns index of creature actually read or -1 if no creature can be found
+        int32_t ReadCreatureInBox(int32_t index, t_creature & furball,
+                                  const uint16_t &x1, const uint16_t &y1,const uint16_t &z1,
+                                  const uint16_t &x2, const uint16_t &y2,const uint16_t &z2);
+        bool ReadCreature(const int32_t &index, t_creature & furball);
         void FinishReadCreatures();
         
         void ReadRaw (const uint32_t &offset, const uint32_t &size, uint8_t *target);
@@ -165,6 +179,11 @@ namespace DFHack
         
         bool getCursorCoords (int32_t &x, int32_t &y, int32_t &z);
         bool setCursorCoords (const int32_t &x, const int32_t &y, const int32_t &z);
+
+        bool InitViewSize();
+        bool getWindowSize(int32_t & width, int32_t & height);
+        bool setWindowSize(const int32_t & width, const int32_t & height);
+        
         /*
         // FIXME: add a real creature class, move these
         string getLastName(const uint32_t &index, bool);
@@ -175,8 +194,13 @@ namespace DFHack
         vector<t_trait> getTraits(const uint32_t &index);
         vector<t_labor> getLabors(const uint32_t &index);
         */
+        
         void InitReadNameTables();
         void FinishReadNameTables();
+
+        uint32_t InitReadItems();
+        bool ReadItem(const uint32_t &index, t_item & item);
+        void FinishReadItems();
         
         memory_info getMemoryInfo();
         Process * getProcess();
