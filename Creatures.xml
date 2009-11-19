@@ -98,7 +98,7 @@
 </Creature>
 
 
-<Creature gameID="HUMAN" 		sheetIndex = 80>
+<Creature gameID="HUMAN" 		sheetIndex = 100>
 	<Profession name="Wrestler" sheetIndex = 80/>
 	<Profession name="Lasher" sheetIndex = 81/>
 	<Profession name="Axedwarf" sheetIndex = 82/>
@@ -110,11 +110,19 @@
 	<Profession name="Bowdwarf" sheetIndex = 88/>
 	<Profession name="Pikedwarf" sheetIndex = 89/>
 	
-	<Profession name="Trader" sheetIndex = 101/>
-	<Profession name="Merchant" sheetIndex = 101/>
-	<Profession name="Guild Representative" sheetIndex = 102/>
-	<Profession name="Outpost Liaison" sheetIndex = 102/>
-	<Profession name="Diplomat" sheetIndex = 103/>
+	<Profession name="Trader" sex="M" sheetIndex = 102/>
+	<Profession name="Merchant" sex="M" sheetIndex = 102/>
+	<Profession name="Trader" sex="F" sheetIndex = 103/>
+	<Profession name="Merchant" sex="F" sheetIndex = 103/>
+	<Profession name="Guild Representative"  sex="M" sheetIndex = 104/>
+	<Profession name="Outpost Liaison"  sex="M" sheetIndex = 104/>
+	<Profession name="Guild Representative" sex="F" sheetIndex = 105/>
+	<Profession name="Outpost Liaison" sex="F" sheetIndex = 105/>
+	
+	<Profession name="Diplomat" sex="M" sheetIndex = 106/>
+	<Profession name="Diplomat" sex="F" sheetIndex = 107/>
+	
+	<Profession sex="F" sheetIndex = 101/>
 </Creature>
 
 <Creature gameID="CAT" 	sheetIndex = 20 > 
