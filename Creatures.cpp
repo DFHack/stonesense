@@ -35,48 +35,41 @@ void DrawCreature( BITMAP* target, int drawx, int drawy, t_creature* creature ){
 }
 //t_creature* global = 0;
 
-void ReadCreaturesToSegment(API& DF, WorldSegment* segment){
-  int x, y , z;
-  uint32_t numcreatures = DF.InitReadCreatures();
-
-  DF.ReadCreatureMatgloss(v_creatureNames);
-  if( !CreatureNamesTranslatedFromGame )
-    TranslateCreatureNames();
-
-  t_creature tempcreature;
-  uint32_t index = 0;
-	while(index < numcreatures )
-  {
-    DF.ReadCreature( index, tempcreature );
-    if( IsCreatureVisible( &tempcreature )
-      && segment->CoordinateInsideSegment(tempcreature.x, tempcreature.y, tempcreature.z) ){
-    //DF.getCreatureCoords( index, x, y, z );
-    //if( segment->CoordinateInsideSegment(x, y, z) ){
-      //creature is in the segment, load entire thing
-      DF.ReadCreature( index, tempcreature );
-      if( IsCreatureVisible( &tempcreature ) ){
-        Block* b = segment->getBlock (tempcreature.x, tempcreature.y, tempcreature.z );
-        if(!b){
-          //inside segment, but no block to represent it
-          b = new Block(segment);
-          b->x = tempcreature.x;
-          b->y = tempcreature.y;
-          b->z = tempcreature.z;
-          segment->addBlock( b );
-        }
-
-        //add copy of creature
-        t_creature* storage = new t_creature();//(t_creature *)malloc( sizeof(t_creature) );
-        //memcpy( storage, &tempcreature, sizeof(t_creature) );
-        *storage = tempcreature;
-  //        if(storage->x == 151 && storage->y == 145)
-  //          global = storage;
-        b->creature = storage;
-      }
-    }
-    index++;
-  }
-  DF.FinishReadCreatures();
+void ReadCreaturesToSegment(API& DF, WorldSegment* segment)
+{
+	return;
+	int x, y , z;
+	uint32_t numcreatures = DF.InitReadCreatures();
+	
+	DF.ReadCreatureMatgloss(v_creatureNames);
+	if( !CreatureNamesTranslatedFromGame )
+		TranslateCreatureNames();
+	
+	t_creature *tempcreature = new t_creature();
+	for (uint32_t index = 0; index < numcreatures ; index++)
+	{
+		DF.ReadCreature( index, *tempcreature );
+		if( IsCreatureVisible( tempcreature )
+			&& segment->CoordinateInsideSegment(tempcreature->x, tempcreature->y, tempcreature->z))
+		{
+			Block* b = segment->getBlock (tempcreature->x, tempcreature->y, tempcreature->z );
+			if(!b)
+			{
+				//inside segment, but no block to represent it
+				b = new Block(segment);
+				b->x = tempcreature->x;
+				b->y = tempcreature->y;
+				b->z = tempcreature->z;
+				segment->addBlock( b );
+			}
+			b->creature = tempcreature;
+			tempcreature = new t_creature(); 
+			// need a new one now
+			// old one should be deleted when b is
+		}
+	}
+	delete(tempcreature); // there will be one left over
+	DF.FinishReadCreatures();
 }
 
 
