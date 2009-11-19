@@ -2,7 +2,7 @@
 
 
 
-<building name="Vertical Bars" gameID="vertical_bars"> 
+<building name="Vertical Bars" gameID="vertical_bars" file="buildings/VerticalBars.png"> 
 
 	<!-- straight or end pieces -->
 	<if>
@@ -22,7 +22,7 @@
 				</or>
 			</not>
 		</and>
-		<sprite index=0 file="buildings/VerticalBars.png"/>
+		<sprite index=0 />
 	</if>	
 	<else>
 		<and>
@@ -41,7 +41,7 @@
 				</or>
 			</not>
 		</and>
-		<sprite index=1 file="buildings/VerticalBars.png" />
+		<sprite index=1  />
 	</else>
 	
 	<!-- Center piece -->
@@ -64,7 +64,7 @@
 				<NeighbourWall dir="South" />
 			</or>
 		</and>
-		<sprite index=2 file="buildings/VerticalBars.png" />
+		<sprite index=2  />
 	</else>
 	
 	<!-- Corners piece -->
@@ -85,7 +85,7 @@
 				</or>
 			</not>
 		</and>
-		<sprite index=3 file="buildings/VerticalBars.png" />
+		<sprite index=3  />
 	</else>	
 		<else>
 		<and>
@@ -104,7 +104,7 @@
 				</or>
 			</not>
 		</and>
-		<sprite index=4 file="buildings/VerticalBars.png" />
+		<sprite index=4  />
 	</else>	
 	<else>
 		<and>
@@ -123,7 +123,7 @@
 				</or>
 			</not>
 		</and>
-		<sprite index=5 file="buildings/VerticalBars.png" />
+		<sprite index=5  />
 	</else>
 	<else>
 		<and>
@@ -142,7 +142,7 @@
 				</or>
 			</not>
 		</and>
-		<sprite index=6 file="buildings/VerticalBars.png" />
+		<sprite index=6  />
 	</else>
 	//T-Sections
 	<else>
@@ -162,7 +162,7 @@
 				</or>
 			</not>
 		</and>
-		<sprite index=7 file="buildings/VerticalBars.png" />
+		<sprite index=7  />
 	</else>	
 	<else>
 		<and>
@@ -181,7 +181,7 @@
 				</or>
 			</not>
 		</and>
-		<sprite index=8 file="buildings/VerticalBars.png" />
+		<sprite index=8  />
 	</else>
 	<else>
 		<and>
@@ -200,7 +200,7 @@
 				</or>
 			</not>
 		</and>
-		<sprite index=9 file="buildings/VerticalBars.png" />
+		<sprite index=9  />
 	</else>
 	<else>
 		<and>
@@ -219,10 +219,10 @@
 				</or>
 			</not>
 		</and>
-		<sprite index=10 file="buildings/VerticalBars.png" />
+		<sprite index=10  />
 	</else>
 	<!-- default -->
 	<else>
-		<sprite index=0 file="buildings/VerticalBars.png" />
+		<sprite index=0  />
 	</else>
 </building> 
