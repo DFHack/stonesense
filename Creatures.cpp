@@ -30,7 +30,13 @@ void DrawCreature( BITMAP* target, int drawx, int drawy, t_creature* creature ){
   //if(creature->x == 151 && creature->y == 145)
   //  int j = 10;
   if( config.show_creature_names )
-    textprintf(target, font, drawx, drawy-20, 0xFFffFF, "%i", creature->happiness );
+  	/*if (creature->nick_name[0])
+  		textprintf(target, font, drawx, drawy-20, 0xFFffFF, "%s", creature->nick_name );
+  	else */
+  	if (creature->first_name[0])
+    	textprintf(target, font, drawx, drawy-20, 0xFFffFF, "%s", creature->first_name );
+    else
+    	textprintf(target, font, drawx, drawy-20, 0xFFffFF, "[%s]", v_creatureNames.at(creature->type).id);
   DrawSpriteFromSheet( spriteNum, target, IMGCreatureSheet, drawx, drawy );
 }
 //t_creature* global = 0;
