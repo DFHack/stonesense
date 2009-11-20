@@ -1075,6 +1075,7 @@ void API::FinishReadNameTables()
 {
     delete d->p_trans;
     delete d->p_generic;
+    delete d->p_dwarf_names;
     d->p_trans=d->p_generic=NULL;
     d->nameTablesInited=false;
 }
