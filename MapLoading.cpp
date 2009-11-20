@@ -81,30 +81,53 @@ int CalculateRampType(uint32_t x, uint32_t y, uint32_t z, WorldSegment* segment)
 	return 1;
 }
 
-bool isBlockOnVisisbleEdgeOfSegment(WorldSegment* segment, Block* b){
-  if(b->z == segment->z + segment->sizez - 1) 
-    return true;
-
-  if(DisplayedRotation == 0 && (
-    b->x == segment->x + segment->sizex - 1 || b->y == segment->y + segment->sizey - 1 ))
-  {
-      return true;
-  }else if(DisplayedRotation == 1 && (
-    b->x == segment->x + segment->sizex - 1 || b->y == segment->y ))
-  {
-      return true;
-  }else if(DisplayedRotation == 2 && (
-    b->x == segment->x || b->y == segment->y ))
-  {
-      return true;
-  }
-  else if(DisplayedRotation == 3 && (
-    b->x == segment->x || b->y == segment->y + segment->sizey - 1  ))
-  {
-      return true;
-  }
-
-  return false;
+bool isBlockOnVisisbleEdgeOfSegment(WorldSegment* segment, Block* b)
+{
+	if(b->z == segment->z + segment->sizez - 1) 
+		return true;
+	
+	if (DisplayedRotation == 0 && 
+		(
+			b->x == segment->x + segment->sizex - 1
+			|| b->y == segment->y + segment->sizey - 1
+			|| b->x == segment->regionSize.x - 1
+			|| b->y == segment->regionSize.y - 1
+		))
+	{
+		return true;
+	}
+	else if (DisplayedRotation == 1 &&
+		(
+			b->x == segment->x + segment->sizex - 1
+			|| b->y == segment->y
+			|| b->x == segment->regionSize.x - 1
+			|| b->y == 0
+		))
+	{
+		return true;
+	}
+	else if (DisplayedRotation == 2 &&
+		(
+			b->x == segment->x
+			|| b->y == segment->y
+			|| b->x == 0
+			|| b->y == 0
+		))
+	{
+		return true;
+	}
+	else if (DisplayedRotation == 3 && 
+		(
+			b->x == segment->x
+			|| b->y == segment->y + segment->sizey - 1
+			|| b->x == 0
+			|| b->y == segment->regionSize.y - 1
+		))
+	{
+		return true;
+	}
+	
+	return false;
 }
 
 
