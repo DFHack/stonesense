@@ -47,6 +47,7 @@ int GetWallSpriteMap(int in, int matIndex, bool getFillerFloor)
   else
     return wall->fillerFloorSpriteIndex;
 
+  //OLD CODE for referance:
   int matIndexResult = -1;
     switch (in)
     {
@@ -277,7 +278,7 @@ int GetFloorSpriteMap(int in, int matIndex){
 
 	return spriteindex;
 
-
+  //OLD CODE for referance:
    switch (in)
     {
 			

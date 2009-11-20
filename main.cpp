@@ -64,7 +64,7 @@ void benchmark(){
 
   FILE* fp = fopen("benchmark.txt", "w" );
   if(!fp) return;
-  fprintf( fp, "%ims", clock() - startTime);
+  fprintf( fp, "%lims", clock() - startTime);
   fclose(fp);
 }
 
