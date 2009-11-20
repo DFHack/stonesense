@@ -279,8 +279,11 @@ WorldSegment* ReadMapSegment(API &DF, int x, int y, int z, int sizex, int sizey,
 	int celldimX, celldimY, celldimZ;
 	DF.getSize((unsigned int &)celldimX, (unsigned int &)celldimY, (unsigned int &)celldimZ);
   //bound view to world
-  if(x > celldimX * CELLEDGESIZE -sizex) DisplayedSegmentX = x = celldimX * CELLEDGESIZE -sizex;
-  if(y > celldimY * CELLEDGESIZE -sizey) DisplayedSegmentY = y = celldimY * CELLEDGESIZE -sizey;
+  if(x > celldimX * CELLEDGESIZE -sizex/2) DisplayedSegmentX = x = celldimX * CELLEDGESIZE -sizex/2;
+  if(y > celldimY * CELLEDGESIZE -sizey/2) DisplayedSegmentY = y = celldimY * CELLEDGESIZE -sizey/2;
+  if(x < -sizex/2) DisplayedSegmentX = x = -sizex/2;
+  if(y < -sizey/2) DisplayedSegmentY = y = -sizey/2;
+
   //setup new world segment
   WorldSegment* segment = new WorldSegment(x,y,z,sizex,sizey,sizez);
   segment->regionSize.x = celldimX * CELLEDGESIZE;
@@ -324,18 +327,21 @@ WorldSegment* ReadMapSegment(API &DF, int x, int y, int z, int sizex, int sizey,
   SUSPEND_DF;
 
 	//figure out what cells to read
-	uint32_t firstTileToReadX = x;
+	int32_t firstTileToReadX = x;
+  if( firstTileToReadX < 0 ) firstTileToReadX = 0;
 
-	while(firstTileToReadX < (uint32_t) x + sizex){
+	while(firstTileToReadX < x + sizex){
 		int cellx = firstTileToReadX / CELLEDGESIZE;
-		uint32_t lastTileInCellX = (cellx+1) * CELLEDGESIZE - 1;
-		uint32_t lastTileToReadX = min<uint32_t>(lastTileInCellX, x+sizex-1);
+		int32_t lastTileInCellX = (cellx+1) * CELLEDGESIZE - 1;
+		int32_t lastTileToReadX = min<int32_t>(lastTileInCellX, x+sizex-1);
 		
-		uint32_t firstTileToReadY = y;
-		while(firstTileToReadY < (uint32_t) y + sizey){
+	  int32_t firstTileToReadY = y;
+    if( firstTileToReadY < 0 ) firstTileToReadY = 0;
+
+		while(firstTileToReadY < y + sizey){
 			int celly = firstTileToReadY / CELLEDGESIZE;
-			uint32_t lastTileInCellY = (celly+1) * CELLEDGESIZE - 1;
-			uint32_t lastTileToReadY = min<uint32_t>(lastTileInCellY, y+sizey-1);
+			int32_t lastTileInCellY = (celly+1) * CELLEDGESIZE - 1;
+			int32_t lastTileToReadY = min<uint32_t>(lastTileInCellY, y+sizey-1);
 			
 			for(int lz=z-sizez+1; lz <= z; lz++){
 				//load the blcoks from this cell to the map segment
@@ -431,8 +437,6 @@ bool IsConnectedToDF(){
 }
 
 void reloadDisplayedSegment(){
-  if(DisplayedSegmentX<0)DisplayedSegmentX=0;
-  if(DisplayedSegmentY<0)DisplayedSegmentY=0;
   //create handle to dfHack API
   if(pDFApiHandle == 0){
     memInfoHasBeenRead = false;
@@ -470,11 +474,7 @@ void reloadDisplayedSegment(){
       //fail
       config.follow_DFscreen = false;
   }
-  
-  if(DisplayedSegmentX<0)DisplayedSegmentX=0;
-  if(DisplayedSegmentY<0)DisplayedSegmentY=0;
-  if(DisplayedSegmentZ<0)DisplayedSegmentZ=0;
-    
+
   int segmentHeight = config.single_layer_view ? 1 : config.segmentSize.z;
   //load segment
   

@@ -54,6 +54,9 @@ void ReadCreaturesToSegment(API& DF, WorldSegment* segment)
   if(x1<0) x1=0;
   if(y1<0) y1=0;
   if(z1<0) z1=0;
+  if(x2<0) x2=0;
+  if(y2<0) y2=0;
+  if(z2<0) z2=0;
 
 	DF.ReadCreatureMatgloss(v_creatureNames);
 	if( !CreatureNamesTranslatedFromGame )

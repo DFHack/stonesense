@@ -41,7 +41,7 @@ public:
     return (uint32_t)blocks.size();
   }
 
-  Block* getBlock(uint32_t x, uint32_t y, uint32_t z);
+  Block* getBlock(int32_t x, int32_t y, int32_t z);
   Block* getBlockLocal(uint32_t x, uint32_t y, uint32_t z);
   Block* getBlockRelativeTo(uint32_t x, uint32_t y, uint32_t z,  dirRelative direction);
   Block* getBlock(uint32_t index);

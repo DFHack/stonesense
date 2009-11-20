@@ -3,10 +3,10 @@
 #include "GUI.h"
 
 
-Block* WorldSegment::getBlock(uint32_t x, uint32_t y, uint32_t z){
-	if((int)x < this->x || x >= (uint32_t)this->x + this->sizex) return 0;
-	if((int)y < this->y || y >= (uint32_t)this->y + this->sizey) return 0;
-	if((int)z < this->z || z >= (uint32_t)this->z + this->sizez) return 0;
+Block* WorldSegment::getBlock(int32_t x, int32_t y, int32_t z){
+	if(x < this->x || x >= this->x + this->sizex) return 0;
+	if(y < this->y || y >= this->y + this->sizey) return 0;
+	if(z < this->z || z >= this->z + this->sizez) return 0;
 	/*for(uint32_t i=0; i<this->blocks.size(); i++){
 		Block* b = this->blocks[i];
 		if(x == b->x && y == b->y && z == b->z) 
