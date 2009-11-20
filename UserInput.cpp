@@ -101,7 +101,6 @@ void doKeys(){
     loadGraphicsFromDisk();
 
 		timeToReloadSegment = true;
-		while(key[KEY_G]);
 	}
   if(key[KEY_U]){
 		config.show_stockpiles = !config.show_stockpiles;
@@ -160,7 +159,6 @@ void doKeys(){
     config.automatic_reload_time += config.automatic_reload_step;
     paintboard();
     install_int( automaticReloadProc, config.automatic_reload_time );
-    while(key[KEY_PLUS_PAD]);
   }
   if(key[KEY_MINUS_PAD]){
     config.automatic_reload_time -= config.automatic_reload_step;
@@ -171,7 +169,6 @@ void doKeys(){
     else
       install_int( automaticReloadProc, config.automatic_reload_time );
     paintboard();
-    while(key[KEY_MINUS_PAD]);
   }
 
   if(config.debug_mode){

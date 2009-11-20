@@ -215,10 +215,6 @@ void ReadCellToSegment(API& DF, WorldSegment& segment, int CellX, int CellY, int
 		if( shouldBeIncluded ){
       //this only needs to be done for included blocks
 
-      //Translate construction materials
-		  if(IDisConstruction(t)) 
-        changeConstructionMaterials(&segment, b, allConstructions);
-
       //determine rock/soil type
       int rockIndex = (*allLayers) [regionoffsets[designations[lx][ly].bits.biome]] [designations[lx][ly].bits.geolayer_index];
       //check veins
@@ -353,6 +349,9 @@ WorldSegment* ReadMapSegment(API &DF, int x, int y, int z, int sizex, int sizey,
 		firstTileToReadX = lastTileToReadX + 1;
 	}
   
+  //translate constructions
+  changeConstructionMaterials(segment, &allConstructions);
+
   
 	//Read Vegetation
   SUSPEND_DF;
