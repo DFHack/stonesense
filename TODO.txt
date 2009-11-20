@@ -6,6 +6,7 @@ For later versions:
 Animation when not auto-reloading - wont work without complete rewrite
 Add configurable key bindings
 Interrupt driven input
+Better creature name handling- special characters? Capitals? nicknames?
 Alpha transparency?
 Better ramp handling- Big lookup table?
 Status indicators?
