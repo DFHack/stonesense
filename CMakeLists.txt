@@ -36,8 +36,6 @@ SET(PROJECT_SRCS
     dfhack/library/DFHackAPI.cpp
     dfhack/library/DFMemInfo.cpp
     dfhack/library/DFMemInfoManager.cpp
-	dfhack/library/DFProcess-windows.cpp
-	dfhack/library/DFProcessEnumerator-windows.cpp
     dfhack/library/DFTileTypes.cpp
     dfhack/library/md5/md5.cpp
     dfhack/library/md5/md5wrapper.cpp
@@ -69,12 +67,20 @@ IF(UNIX)
     LINK_DIRECTORIES(${LINK_DIRECTORIES})
     add_definitions(-DLINUX_BUILD)
     add_definitions(-DBUILD_DFHACK_LIB)
-    SET(PROJECT_LIBS alleg-4.2.2 png ${PROJECT_LIBS})
+    SET (PLATFORM_SRC
+	dfhack/library/DFProcess-linux.cpp
+	dfhack/library/DFProcessEnumerator-linux.cpp
+	)
+    SET(PROJECT_LIBS alleg-4.2.2 png ${PROJECT_LIBS} ${PLATFORM_SRC})
     ADD_EXECUTABLE(stonesense ${PROJECT_SRCS})
     TARGET_LINK_LIBRARIES(stonesense ${PROJECT_LIBS})
 # windows
 ELSE(UNIX)
     add_definitions(-DBUILD_DFHACK_LIB)
+    SET (PLATFORM_SRC
+	dfhack/library/DFProcess-windows.cpp
+	dfhack/library/DFProcessEnumerator-windows.cpp
+	)
     # use local allegro
     # MinGW is broken. doesn't link properly for some reason.
     IF(MINGW)
@@ -104,7 +110,7 @@ ELSE(UNIX)
 		    ${CMAKE_SOURCE_DIR}/loadpng/libpng/lib/
 	    )
     ENDIF(MINGW)
-    ADD_EXECUTABLE(stonesense WIN32 ${PROJECT_SRCS})
+    ADD_EXECUTABLE(stonesense WIN32 ${PROJECT_SRCS} ${PLATFORM_SRC})
     TARGET_LINK_LIBRARIES(stonesense ${PROJECT_LIBS})
     
 ENDIF(UNIX)
