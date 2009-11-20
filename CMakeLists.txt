@@ -35,12 +35,12 @@ SET(PROJECT_SRCS
     dfhack/library/DFDataModel.cpp
     dfhack/library/DFHackAPI.cpp
     dfhack/library/DFMemInfo.cpp
-    dfhack/library/DFProcess.cpp
-    dfhack/library/DFProcessManager.cpp
+    dfhack/library/DFMemInfoManager.cpp
+	dfhack/library/DFProcess-windows.cpp
+	dfhack/library/DFProcessEnumerator-windows.cpp
     dfhack/library/DFTileTypes.cpp
     dfhack/library/md5/md5.cpp
     dfhack/library/md5/md5wrapper.cpp
-
     loadpng/loadpng.c
     loadpng/regpng.c
     loadpng/savepng.c
