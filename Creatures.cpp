@@ -54,10 +54,10 @@ void ReadCreaturesToSegment(API& DF, WorldSegment* segment)
 	{
 		DF.ReadCreature( index, *tempcreature );*/
   uint32_t index = 0;
-	while( (DF.ReadCreatureInBox( index, *tempcreature, x1,y1,z1,x2,y2,z2)) != -1 )
+	while((index = DF.ReadCreatureInBox( index, *tempcreature, x1,y1,z1,x2,y2,z2)) != -1 )
   {
-		if( IsCreatureVisible( tempcreature )
-			&& segment->CoordinateInsideSegment(tempcreature->x, tempcreature->y, tempcreature->z))
+    index++;
+		if( IsCreatureVisible( tempcreature ) )
 		{
 			Block* b = segment->getBlock (tempcreature->x, tempcreature->y, tempcreature->z );
 			if(!b)
@@ -77,7 +77,6 @@ void ReadCreaturesToSegment(API& DF, WorldSegment* segment)
 				// old tempcreature should be deleted when b is
 			}
 		}
-    index++;
 	}
 	delete(tempcreature); // there will be one left over
 	DF.FinishReadCreatures();

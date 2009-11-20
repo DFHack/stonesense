@@ -211,10 +211,6 @@ void ReadCellToSegment(API& DF, WorldSegment& segment, int CellX, int CellY, int
       b->building.sprites.push_back( sprite );
       shouldBeIncluded= true;
     }
-    if(!shouldBeIncluded){
-      //check if it is part of a bridge (or possibly other suspended buildings), in which case, include it
-      //shouldBeIncluded = BlockHasSuspendedBuilding(allBuildings, b);
-    }
     
 		if( shouldBeIncluded ){
       //this only needs to be done for included blocks
@@ -377,6 +373,7 @@ WorldSegment* ReadMapSegment(API &DF, int x, int y, int z, int sizex, int sizey,
   //Read Creatures
   ReadCreaturesToSegment( DF, segment );
   RESUME_DF;
+
 	//do misc beautification
   uint32_t numblocks = segment->getNumBlocks();
   for(uint32_t i=0; i < numblocks; i++){
