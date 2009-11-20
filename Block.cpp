@@ -192,13 +192,6 @@ void Block::Draw(BITMAP* target){
   if(creature != null){
     DrawCreature( target, drawx, drawy, creature);
   }
-
-  //debug cursor
-  if(x == debugCursor.x + ownerSegment->x && y == debugCursor.y + ownerSegment->y 
-    && z == ownerSegment->z + ownerSegment->sizez -1){
-    int spriteNum =  SPRITEOBJECT_CURSOR;
-    DrawSpriteFromSheet( spriteNum, target, IMGObjectSheet, drawx, drawy-2 );
-  }
 }
 
 void Block::DrawRamptops(BITMAP* target){
