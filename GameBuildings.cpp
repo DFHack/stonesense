@@ -76,6 +76,7 @@ void ReadBuildings(API& DF, vector<t_building>* buildingHolder){
     buildingHolder->push_back(tempbuilding);
     index++;
   }
+  DF.FinishReadBuildings();
 }
 
 
