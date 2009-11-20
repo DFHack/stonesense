@@ -1,9 +1,8 @@
-For A4
+For A4:
 Finish floor and wall config
-Properly handle bad DF connections
-Check that ice-fort for bugs...
+Properly handle bad DF connections- seems ok?
 ---
-For later versions
+For later versions:
 Animation when not auto-reloading - wont work without complete rewrite
 Add configurable key bindings
 Interrupt driven input
