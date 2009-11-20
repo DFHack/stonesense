@@ -71,8 +71,8 @@ IF(UNIX)
 	dfhack/library/DFProcess-linux.cpp
 	dfhack/library/DFProcessEnumerator-linux.cpp
 	)
-    SET(PROJECT_LIBS alleg-4.2.2 png ${PROJECT_LIBS} ${PLATFORM_SRC})
-    ADD_EXECUTABLE(stonesense ${PROJECT_SRCS})
+    SET(PROJECT_LIBS alleg-4.2.2 png ${PROJECT_LIBS})
+    ADD_EXECUTABLE(stonesense ${PROJECT_SRCS} ${PLATFORM_SRC})
     TARGET_LINK_LIBRARIES(stonesense ${PROJECT_LIBS})
 # windows
 ELSE(UNIX)
