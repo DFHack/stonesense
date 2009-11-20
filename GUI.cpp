@@ -103,16 +103,19 @@ void DrawCurrentLevelOutline(BITMAP* target, bool backPart){
 
 void drawDebugCursorAndInfo(BITMAP* target){
   Crd2D point = LocalBlockToScreen(debugCursor.x, debugCursor.y, 0);
-
-  int spriteNum =  SPRITEOBJECT_CURSOR;
-	int sheetx = spriteNum % SHEET_OBJECTSWIDE;
-	int sheety = spriteNum / SHEET_OBJECTSWIDE;
-  masked_blit(IMGObjectSheet, target,
-    sheetx * SPRITEWIDTH, sheety * SPRITEHEIGHT,
-    point.x - SPRITEWIDTH/2, point.y - (WALLHEIGHT), SPRITEWIDTH, SPRITEHEIGHT);
-
   //get block info
   Block* b = viewedSegment->getBlockLocal( debugCursor.x, debugCursor.y, viewedSegment->sizez - 1);
+  if( !b ) {
+    //we only draw the cursor when there is NO block found. 
+    //When the block IS found, the cursor was drawin in b's Draw call
+    int spriteNum =  SPRITEOBJECT_CURSOR;
+	  int sheetx = spriteNum % SHEET_OBJECTSWIDE;
+	  int sheety = spriteNum / SHEET_OBJECTSWIDE;
+    masked_blit(IMGObjectSheet, target,
+      sheetx * SPRITEWIDTH, sheety * SPRITEHEIGHT,
+      point.x - SPRITEWIDTH/2, point.y - (WALLHEIGHT), SPRITEWIDTH, SPRITEHEIGHT);
+  }
+  
   int i = 10;
   textprintf(target, font, 2, config.screenHeight-20-(i--*10), 0xFFFFFF, "Block 0x%x", b);
   if(!b) return;
