@@ -30,7 +30,7 @@ void DrawCreature( BITMAP* target, int drawx, int drawy, t_creature* creature ){
   //if(creature->x == 151 && creature->y == 145)
   //  int j = 10;
   if( config.show_creature_names )
-    textprintf(target, font, drawx, drawy-20, 0xFFffFF, "%s", creature->first_name );
+    textprintf(target, font, drawx, drawy-20, 0xFFffFF, "%i", creature->happiness );
   DrawSpriteFromSheet( spriteNum, target, IMGCreatureSheet, drawx, drawy );
 }
 //t_creature* global = 0;
@@ -45,6 +45,10 @@ void ReadCreaturesToSegment(API& DF, WorldSegment* segment)
   int z2 = segment->z + segment->sizez;
 	uint32_t numcreatures = DF.InitReadCreatures();
 	
+  if(x1<0) x1=0;
+  if(y1<0) y1=0;
+  if(z1<0) z1=0;
+
 	DF.ReadCreatureMatgloss(v_creatureNames);
 	if( !CreatureNamesTranslatedFromGame )
 		TranslateCreatureNames();

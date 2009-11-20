@@ -253,9 +253,16 @@ void paintboard(){
 	uint32_t starttime = clock();
 	if(!buffer)
 		buffer = create_bitmap(config.screenWidth, config.screenHeight);
-
-	clear_to_color(buffer,makecol(95,95,160));
+  
+  clear_to_color(buffer,makecol(95,95,160));
   //clear_to_color(buffer,makecol(12,7,49)); //this one is calm and nice
+  
+  if( viewedSegment == NULL ){
+    textprintf_centre(screen, font, config.screenWidth/2, config.screenHeight/2, 0xFFffFF, "Could not find DF process");
+    return;
+  }
+
+	
 	
 
 	if (config.show_osd) DrawCurrentLevelOutline(buffer, true);

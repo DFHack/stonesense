@@ -58,7 +58,7 @@ void benchmark(){
   DisplayedSegmentX = DisplayedSegmentY = 0;
   DisplayedSegmentX = 110; DisplayedSegmentY = 110;DisplayedSegmentZ = 18;
   uint32_t startTime = clock();
-  int i = 50;
+  int i = 20;
   while(i--)
 	  reloadDisplayedSegment();
 
@@ -164,7 +164,7 @@ int main(void)
   //ford. desert map
   //sDisplayedSegmentX = 78; DisplayedSegmentY = 123;DisplayedSegmentZ = 15;
 
-  DisplayedSegmentX = 171; DisplayedSegmentY = 304;DisplayedSegmentZ = 18;
+  DisplayedSegmentX = 114; DisplayedSegmentY = 53;DisplayedSegmentZ = 18;
 
   //DisplayedSegmentX = 242; DisplayedSegmentY = 345;DisplayedSegmentZ = 15;
   
@@ -174,7 +174,7 @@ int main(void)
   #endif
   //while(1)
 	reloadDisplayedSegment();
-	if(!viewedSegment) return 1;
+	//if(!viewedSegment) return 1;
 	
 	// we should have a dfhack attached now, load the config
 	LoadBuildingConfiguration( &buildingTypes );

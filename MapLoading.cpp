@@ -264,7 +264,7 @@ WorldSegment* ReadMapSegment(API &DF, int x, int y, int z, int sizex, int sizey,
   uint32_t index;
   TMR2_START;
   if( IsConnectedToDF() == false || DF.InitMap() == false ){
-    //DF.Detach();
+    DisconnectFromDF();
     //return new blank segment
 		return new WorldSegment(x,y,z,sizex,sizey,sizez);
   }
@@ -421,6 +421,7 @@ void DisconnectFromDF(){
     pDFApiHandle->ForceResume();
     pDFApiHandle->Detach();
     delete pDFApiHandle;
+    pDFApiHandle = 0;
   }
 }
 
