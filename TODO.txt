@@ -3,9 +3,11 @@ Finish floor and wall config
 Properly handle bad DF connections- seems ok?
 Add libpng3 to main directory?
 Grab that still from the forum? Is there a finished version yet?
+Transparent water?
 ---
 For later versions:
 Animation when not auto-reloading - wont work without complete rewrite
+Non-uniform walls, fluids, etc
 Add configurable key bindings
 Interrupt driven input- debounce keys?
 Better creature name handling- special characters? Capitals? nicknames?
