@@ -188,7 +188,8 @@ int main(void)
   benchmark();
 #endif
 	install_int( animUpdateProc, config.animation_step );
-
+	initAutoReload();
+	
 	paintboard();
 	while(!key[KEY_ESC]){
 		rest(30);

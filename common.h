@@ -131,6 +131,7 @@ void correctBlockForRotation(int32_t& x, int32_t& y, int32_t& z);
 
 //from UserInput.cpp
 void doKeys();
+void initAutoReload();
 
 //Config.cpp
 bool loadConfigFile();

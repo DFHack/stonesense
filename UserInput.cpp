@@ -18,6 +18,12 @@ void automaticReloadProc(){
 		timeToReloadSegment = true;
 }
 
+void initAutoReload()
+{
+    if( config.automatic_reload_time > 0 )
+      install_int( automaticReloadProc, config.automatic_reload_time );
+}
+
 void changeRelativeToRotation( int &inputx, int &inputy, int stepx, int stepy ){
   switch(DisplayedRotation){
   case 0:

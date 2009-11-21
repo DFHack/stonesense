@@ -89,6 +89,11 @@ void parseConfigLine( string line ){
     if(value < 50) value = 50;
     config.automatic_reload_step = value;
   }
+   if( line.find("AUTO_RELOAD_TIME") != -1){
+    int value = parseIntFromLine( "AUTO_RELOAD_TIME", line);
+    if(value < 0) value = 0;
+    config.automatic_reload_time = value;
+  }
   if( line.find("DEBUGMODE") != -1){
     string result = parseStrFromLine( "DEBUGMODE", line );
     config.debug_mode = (result == "YES");
