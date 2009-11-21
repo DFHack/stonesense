@@ -37,6 +37,8 @@ http://sourceforge.net/projects/alleg/files/allegro-bin/
 Unpack allegro into the stonesense directory
 (so you have a stonesense/allegro-mingw-4.2.2 directory)
 
+* Yes you need the whole lot not just the libs *
+
 (If you have a newer allegro, change its directory name, or tweak the directories in CMakeList.txt)
 
 5) add any missing .cpp files to the CMakeList.txt list under
@@ -47,13 +49,15 @@ SET(PROJECT_SRCS
 
 6) Grab a dosprompt and head to stonesense/build
 
---you will probably need absolute paths to the apps in the following--
+*** you will probably need absolute paths to the exe's in the following ***
+
+* and remember to quote your paths if they have spaces *
 
 7) run 
-cmake .. -G"MinGW Makefiles" -DCMAKE_BUILD_TYPE:string=Release
+cmake.exe .. -G"MinGW Makefiles" -DCMAKE_BUILD_TYPE:string=Release
 
 8) run
-mingw32-make
+mingw32-make.exe
 
 
 

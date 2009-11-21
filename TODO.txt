@@ -1,11 +1,12 @@
 For A4:
 Finish floor and wall config
 Properly handle bad DF connections- seems ok?
+Add libpng3 to main directory?
 ---
 For later versions:
 Animation when not auto-reloading - wont work without complete rewrite
 Add configurable key bindings
-Interrupt driven input
+Interrupt driven input- debounce keys?
 Better creature name handling- special characters? Capitals? nicknames?
 Alpha transparency?
 Better ramp handling- Big lookup table?
