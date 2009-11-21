@@ -145,12 +145,12 @@ void WorldSegment::drawAllBlocks(BITMAP* target){
 
 void WorldSegment::drawAllBlocks(BITMAP* target){
   // x,y,z print pricess
-  int32_t vsxmax = viewedSegment->sizex;
-  int32_t vsymax = viewedSegment->sizey;
+  int32_t vsxmax = viewedSegment->sizex-1;
+  int32_t vsymax = viewedSegment->sizey-1;
   int32_t vszmax = viewedSegment->sizez;
   for(int32_t vsz=0; vsz < vszmax; vsz++){
-    for(int32_t vsx=0; vsx < vsxmax; vsx++){
-        for(int32_t vsy=0; vsy < vsymax; vsy++){
+    for(int32_t vsx=1; vsx < vsxmax; vsx++){
+        for(int32_t vsy=1; vsy < vsymax; vsy++){
               Block *b = getBlockLocal(vsx,vsy,vsz);
 				if (b==NULL || (b->floorType == 0 && b->ramp.type == 0 && b->wallType == 0))
 				{

@@ -69,8 +69,9 @@ void parseConfigLine( string line ){
     int value = parseIntFromLine( "SEGMENTSIZE_XY", line );
     if(value < 5) value = DEFAULT_SEGMENTSIZE;
     if(value > 100) value = 100;
-    config.segmentSize.x = value;
-    config.segmentSize.y = value;
+    //plus 2 to allow edge readings
+    config.segmentSize.x = value+2;
+    config.segmentSize.y = value+2;
   }
   if( line.find("SEGMENTSIZE_Z") != -1){
     int value = parseIntFromLine( "SEGMENTSIZE_Z", line );

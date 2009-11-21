@@ -88,8 +88,8 @@ bool isBlockOnVisisbleEdgeOfSegment(WorldSegment* segment, Block* b)
 	
 	if (DisplayedRotation == 0 && 
 		(
-			b->x == segment->x + segment->sizex - 1
-			|| b->y == segment->y + segment->sizey - 1
+			b->x == segment->x + segment->sizex - 2
+			|| b->y == segment->y + segment->sizey - 2
 			|| b->x == segment->regionSize.x - 1
 			|| b->y == segment->regionSize.y - 1
 		))
@@ -98,8 +98,8 @@ bool isBlockOnVisisbleEdgeOfSegment(WorldSegment* segment, Block* b)
 	}
 	else if (DisplayedRotation == 1 &&
 		(
-			b->x == segment->x + segment->sizex - 1
-			|| b->y == segment->y
+			b->x == segment->x + segment->sizex - 2
+			|| b->y == segment->y + 1
 			|| b->x == segment->regionSize.x - 1
 			|| b->y == 0
 		))
@@ -108,8 +108,8 @@ bool isBlockOnVisisbleEdgeOfSegment(WorldSegment* segment, Block* b)
 	}
 	else if (DisplayedRotation == 2 &&
 		(
-			b->x == segment->x
-			|| b->y == segment->y
+			b->x == segment->x + 1
+			|| b->y == segment->y + 1
 			|| b->x == 0
 			|| b->y == 0
 		))
@@ -118,8 +118,8 @@ bool isBlockOnVisisbleEdgeOfSegment(WorldSegment* segment, Block* b)
 	}
 	else if (DisplayedRotation == 3 && 
 		(
-			b->x == segment->x
-			|| b->y == segment->y + segment->sizey - 1
+			b->x == segment->x + 1
+			|| b->y == segment->y + segment->sizey - 2
 			|| b->x == 0
 			|| b->y == segment->regionSize.y - 1
 		))

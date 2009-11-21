@@ -36,10 +36,10 @@ Block::~Block(void){
 
 void Block::Draw(BITMAP* target){
 	int sheetOffsetX, sheetOffsetY;
-  if(config.hide_outer_blocks){
+  /*if(config.hide_outer_blocks){
     if(x == ownerSegment->x || x == ownerSegment->x + ownerSegment->sizex - 1) return;
     if(y == ownerSegment->y || y == ownerSegment->y + ownerSegment->sizey - 1) return;
-  }
+  }*/
 
 	int32_t drawx = x;
 	int32_t drawy = y;
@@ -199,10 +199,10 @@ void Block::DrawRamptops(BITMAP* target){
 	{
 	
 	int sheetOffsetX, sheetOffsetY;
-  if(config.hide_outer_blocks){
+  /*if(config.hide_outer_blocks){
     if(x == ownerSegment->x || x == ownerSegment->x + ownerSegment->sizex - 1) return;
     if(y == ownerSegment->y || y == ownerSegment->y + ownerSegment->sizey - 1) return;
-  }
+  }*/
 
 	int32_t drawx = x;
 	int32_t drawy = y;

@@ -62,11 +62,11 @@ Crd2D LocalBlockToScreen(int32_t x, int32_t y, int32_t z){
 	return result;
 }
 void DrawCurrentLevelOutline(BITMAP* target, bool backPart){
-  int x = viewedSegment->x;
-  int y = viewedSegment->y;
+  int x = viewedSegment->x+1;
+  int y = viewedSegment->y+1;
   int z = DisplayedSegmentZ;
-  int sizex = config.segmentSize.x;
-  int sizey = config.segmentSize.y;
+  int sizex = config.segmentSize.x-2;
+  int sizey = config.segmentSize.y-2;
 	
   if(config.hide_outer_blocks){
     x++;y++;
@@ -169,10 +169,10 @@ void DrawMinimap(BITMAP* target){
   int mapheight = (int)(viewedSegment->regionSize.y * oneBlockInPixels);
   rect(target, posx, posy, posx+size, posy+mapheight, 0);
   //current segment outline
-  int x = (size * viewedSegment->x) / viewedSegment->regionSize.x;
-  int y = mapheight * ((double)viewedSegment->y / viewedSegment->regionSize.y);
-  int segmentWidth = viewedSegment->sizex * oneBlockInPixels;
-  int segmentHeight = viewedSegment->sizey * oneBlockInPixels;
+  int x = (size * (viewedSegment->x+1)) / viewedSegment->regionSize.x;
+  int y = (mapheight * (viewedSegment->y+1)) / viewedSegment->regionSize.y;
+  int segmentWidth = (viewedSegment->sizex-2) * oneBlockInPixels;
+  int segmentHeight = (viewedSegment->sizey-2) * oneBlockInPixels;
   rect(target, posx+x, posy+y, posx+x+segmentWidth, posy+y+segmentHeight,0);
 }
 
