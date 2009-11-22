@@ -204,6 +204,85 @@
 
 </Floor>
 
+<!-- -------------------------------------------------------------- -->
+
+<Floor spriteIndex = 23>
+        <!-- Soil floors -->
+        <GameID value = 353/>
+        <!-- Wet Soil floors -->
+        <GameID value = 357/>   
+        <Material name="CLAY" />
+        <Material name="SILTY_CLAY" />
+        <Material name="CLAY_LOAM" />
+</Floor>
+<Floor spriteIndex = 24>
+        <!-- Soil floors -->
+        <GameID value = 355/>
+        <!-- Wet Soil floors -->
+        <GameID value = 359/>   
+        <Material name="CLAY" />
+        <Material name="SILTY_CLAY" />
+        <Material name="CLAY_LOAM" />
+</Floor>
+<Floor spriteIndex = 25>
+        <!-- Soil floors -->
+        <GameID value = 354/>
+        <!-- Wet Soil floors -->
+        <GameID value = 358/>   
+        <Material name="CLAY" />
+        <Material name="SILTY_CLAY" />
+        <Material name="CLAY_LOAM" />
+</Floor>
+<Floor spriteIndex = 26>
+        <!-- Soil floors -->
+        <GameID value = 352/>
+        <!-- Wet Soil floors -->
+        <GameID value = 356/>
+        <Material name="CLAY" />
+        <Material name="SILTY_CLAY" />
+        <Material name="CLAY_LOAM" />
+</Floor>
+<Floor spriteIndex = 28>
+        <!-- Grass on clay -->
+        <GameID value = 348/>
+        <GameID value = 349/>
+        <GameID value = 350/>
+        <GameID value = 351/>
+        <!-- Darker Grass on clay -->
+        <GameID value = 398/>
+        <GameID value = 399/>
+        <GameID value = 400/>
+        <GameID value = 401/>
+                <!-- plants -->
+        <GameID value = 231/>
+        <GameID value = 34/>
+        <GameID value = 24/>
+        <Material name="CLAY" />
+        <Material name="SILTY_CLAY" />
+        <Material name="CLAY_LOAM" />
+</Floor>
+<Floor spriteIndex = 29>
+        <!-- Dry Grass on clay -->
+        <GameID value = 387/>
+        <GameID value = 388/>
+        <GameID value = 389/>
+        <GameID value = 390/>
+		<!-- Darker dry grass on clay -->
+        <GameID value = 394/>
+        <GameID value = 395/>
+        <GameID value = 396/>
+        <GameID value = 397/>   
+        <!-- Dead Tree -->
+        <GameID value = 391/>
+        <!-- Dead sapling -->
+        <GameID value = 392/>
+        <!-- Dead shrub -->
+        <GameID value = 393/>
+        <Material name="CLAY" />
+        <Material name="SILTY_CLAY" />
+        <Material name="CLAY_LOAM" />
+</Floor>
+
 </Floors>
 
 
@@ -289,6 +368,15 @@
 	<GameID value = 265/>
 	<Material name="SAND_WHITE" />
 </Wall>
+<Wall spriteIndex = 214 fillerFloorSpriteIndex = 27>
+	<!-- Soil wall -->
+	<GameID value = 265/>
+	<Material name="CLAY" />
+	<Material name="SILTY_CLAY" />
+	<Material name="CLAY_LOAM" />
+</Wall>
+
+
 <Wall spriteIndex = 220 fillerFloorSpriteIndex = 21>
 	<!-- Smooth stone Walls -->
 	<GameID value = 307/>
