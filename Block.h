@@ -10,6 +10,8 @@ class Block
 public:
 	Block(WorldSegment* ownerSegment);
 	~Block(void);
+  static void* operator new (size_t size); 
+  static void operator delete (void *p);
 
   WorldSegment* ownerSegment;
   
@@ -27,8 +29,7 @@ public:
     t_occupancy occ;
 	
   t_creature* creature;
-	//int overridingBuildingType;
-  bool mirroredBuilding;
+  //bool mirroredBuilding;
 	t_matglossPair tree;
 
   struct {

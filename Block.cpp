@@ -5,6 +5,7 @@
 #include "GameBuildings.h"
 #include "Creatures.h"
 #include "WorldSegment.h"
+#include "BlockFactory.h"
 
 #include "dfhack/library/DFTypes.h"
 
@@ -31,6 +32,13 @@ Block::Block(WorldSegment* ownerSegment)
 Block::~Block(void){
   if( creature )
     delete(creature);
+}
+
+void* Block::operator new (size_t size){
+  return blockFactory.allocateBlock( );
+}
+void Block::operator delete (void *p){
+  blockFactory.deleteBlock( (Block*)p );
 }
 
 
