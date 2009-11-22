@@ -503,6 +503,12 @@ void reloadDisplayedSegment(){
   
 	viewedSegment = ReadMapSegment(DF, DisplayedSegmentX, DisplayedSegmentY, DisplayedSegmentZ,
 		                config.segmentSize.x, config.segmentSize.y, segmentHeight);
+		                
+	if(!viewedSegment || viewedSegment->regionSize.x == 0 || viewedSegment->regionSize.y == 0)
+	{
+		abortAutoReload();
+	}
+		                
   RESUME_DF;
   TMR1_STOP;
 }

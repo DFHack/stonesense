@@ -24,6 +24,12 @@ void initAutoReload()
       install_int( automaticReloadProc, config.automatic_reload_time );
 }
 
+void abortAutoReload()
+{
+	config.automatic_reload_time = 0;
+	remove_int( automaticReloadProc );	
+}
+
 void changeRelativeToRotation( int &inputx, int &inputy, int stepx, int stepy ){
   switch(DisplayedRotation){
   case 0:
