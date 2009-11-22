@@ -189,6 +189,8 @@
 	<GameID value = 380/>
 </Floor>
 
+<!-- line 2 -------------------------------------------------------------- -->
+
 <Floor spriteIndex = 20>
 	<!-- stone floor detailed -->
 	<GameID value = 43/>
@@ -203,8 +205,6 @@
 	<GameID value = 47/>
 
 </Floor>
-
-<!-- -------------------------------------------------------------- -->
 
 <Floor spriteIndex = 23>
         <!-- Soil floors -->
@@ -283,6 +283,26 @@
         <Material name="CLAY_LOAM" />
 </Floor>
 
+<Floor spriteIndex = 30>
+	<!-- driftwood -->
+	<GameID value = 19/>
+</Floor>
+
+<Floor spriteIndex = 31>
+	<!-- magma flow -->
+	<GameID value = 264/>
+</Floor>
+
+<Floor spriteIndex = 32>
+	<!-- chasm -->
+	<GameID value = 35/>
+</Floor>
+
+<Floor spriteIndex = 33>
+	<!-- eerie pit -->
+	<GameID value = 42/>
+</Floor>
+
 </Floors>
 
 
@@ -308,7 +328,7 @@
 	<!-- Soil wall -->
 	<GameID value = 265/>
 </Wall>
-<Wall spriteIndex = 206 fillerFloorSpriteIndex = 0>
+<Wall spriteIndex = 206 fillerFloorSpriteIndex = 34>
 	<!-- Frozen liquid Pillar (separate out?) -->
 	<GameID value = 83/>
 	<!-- Raw frozen Walls -->
