@@ -508,7 +508,8 @@ void reloadDisplayedSegment(){
 	{
 		abortAutoReload();
 	}
-		                
-  RESUME_DF;
+  if( pDFApiHandle ){
+    RESUME_DF;
+  }
   TMR1_STOP;
 }
