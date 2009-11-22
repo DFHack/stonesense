@@ -1,9 +1,6 @@
 For A4:
 Finish floor and wall config
 Properly handle bad DF connections- seems ok?
-Add libpng3 to main directory?
-Grab that still from the forum? Is there a finished version yet?
-Transparent water?
 ---
 For later versions:
 Animation when not auto-reloading - wont work without complete rewrite
@@ -15,3 +12,9 @@ Alpha transparency?
 Better ramp handling- Big lookup table?
 Status indicators?
 Objects?
+XML for trees, etc
+Dealing with unloaded underground chunks
+Look into reducing block new/delete for performance
+Multiple XML files for other types of sprites
+Multiple image files for other types of sprites
+Floor sprites with different material types? Layered floor sprites ala buildings?
