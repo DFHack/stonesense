@@ -1,6 +1,5 @@
 For A4:
 Finish floor and wall config
-Properly handle bad DF connections- seems ok?
 ---
 For later versions:
 Animation when not auto-reloading - wont work without complete rewrite
@@ -18,3 +17,7 @@ Look into reducing block new/delete for performance
 Multiple XML files for other types of sprites
 Multiple image files for other types of sprites
 Floor sprites with different material types? Layered floor sprites ala buildings?
+---
+Things to keep an eye on:
+Crashers with odd materials etc
+Crashers with saving/loading
