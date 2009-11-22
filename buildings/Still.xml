@@ -4,110 +4,49 @@
 
 <building name="Still" gameID="still" file="workshop.png">
 
-	<!-- benches block -->
-	<if> 
-		<!-- replace this with position index if required -->
-		<BuildingOccupancy value="3" />	
-		<!-- benches -->
-		<!-- could cause problems with transparent floors -->
-		<!-- benches -->
-		<if>
-			<MaterialType value="Wood"/>
-			<sprite index = 21 offsety="5"/>
-		</if>
-		<else>
-			<MaterialType value="Metal"/>
-			<sprite index = 22 offsety="5"/>
-		</else>
-		<else>
-			<MaterialType value="GreenGlass"/>
-			<sprite index = 23 offsety="5"/>
-		</else>
-		<else>
-			<or>
-				<MaterialType value="ClearGlass"/>
-				<MaterialType value="CrystalGlass"/>
-			</or>
-			<sprite index = 23 offsety="5"/>
-		</else>
-		<else>
-			<sprite index = 20 offsety="5"/>
-		</else>
-		<!-- borders -->
-		<if>
-			<not>
-				<or>
-					<NeighbourIdentical dir="TopRight"/>
-					<NeighbourWall dir="TopRight"/>
-				</or>
-			</not>
-			<sprite index = 10 offsety="5"/>
-		</if>
-		<if>
-			<not>
-				<or>
-					<NeighbourIdentical dir="TopLeft"/>
-					<NeighbourWall dir="TopLeft"/>
-				</or>
-			</not>
-			<sprite index = 8 offsety="5"/>
-		</if>		
-	</if>
-	<else>
-		<include file="wsUpperBorder.xml"/>
-	</else>
-	<!-- end benches block -->
- 
-	<!-- contents -->
+	<include file="wsUpperBorder.xml"/>
 
 	<if>
-		<!-- replace this with position index if required -->
-		<BuildingOccupancy value="3" />	
+		<PositionIndex value=0 />
 		<rotate>
-			<sprite index = 308/>		
-			<sprite index = 313/>		
-			<sprite index = 307/>		
-			<sprite index = 314/>		
+			<sprite index = 207 />
+			<sprite index = 206 />
+			<sprite index = 205 />
+			<sprite index = 204 />
+		</rotate>
+		<sprite index = 200 />
+	</if>
+	
+	<if>
+		<PositionIndex value=1 />
+		<sprite index = 201 />
+		<rotate>
+			<sprite index = 209 />
+			<sprite index = 208 />
+			<sprite index = 211 />
+			<sprite index = 210 />
 		</rotate>
 	</if>
-			
-	<else>
-		<PositionIndex value=3 />
-		<sprite index = 171 />
-	</else>
 	
-	<else>
+	<if>
 		<PositionIndex value=8 />
-		<sprite index = 171 offsety = -5 />
-	</else>	
+		<sprite index = 202 />
+	</if>	
 	
 	<if>
-		<and>
-			<not><BuildingOccupancy value="1" /></not>
-			<PositionIndex value=1 />
-		</and>
-		<rotate>
-			<sprite index = 309 />
-			<sprite index = 312 />
-		</rotate>
+		<PositionIndex value=6 />
+		<sprite index = 203 />
 	</if>		
-	<else>
-		<and>
-			<not><BuildingOccupancy value="1" /></not>
-			<PositionIndex value=2 />
-		</and>
-		<rotate>
-			<sprite index = 310 />
-			<sprite index = 311 />
-			<sprite index = 315 />
-			<sprite index = 306 />
-		</rotate>
-	</else>		
-			
+	
 	<if>
-		<BuildingOccupancy value="3" />
-		<empty/>
-	</if>
+		<or>
+			<PositionIndex value=5 />
+			<PositionIndex value=2 />
+		</or>
+		<sprite index = 171 />
+	</if>		
+	
+	<if><never/></if>
 	<include file="ws3x3Blueprint.xml"/>
 	<include file="wsLowerBorder.xml"/>
 	
