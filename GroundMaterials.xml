@@ -198,6 +198,9 @@
 	
 	<!-- minstone floor detailed -->
 	<GameID value = 46/>
+	
+	<!-- ice floor detailed -->
+	<GameID value = 47/>
 
 </Floor>
 
