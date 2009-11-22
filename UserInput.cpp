@@ -60,9 +60,78 @@ void moveViewRelativeToRotation( int stepx, int stepy )
 }
 
 void doKeys(){
-  //mouse_callback = mouseProc;
-
   char stepsize = (key[KEY_LSHIFT] || key[KEY_RSHIFT] ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
+  //mouse_callback = mouseProc;
+    static int last_mouse_z;
+    if(mouse_z < last_mouse_z)
+    {
+        if(key[KEY_LCONTROL] || key[KEY_RCONTROL])
+        {
+            config.segmentSize.z++;
+        }
+        else
+        {
+            if (config.follow_DFscreen)
+			    config.viewZoffset -= stepsize;
+            else
+			    DisplayedSegmentZ -= stepsize;
+   		    if(DisplayedSegmentZ<0) DisplayedSegmentZ = 0;
+        }
+        timeToReloadSegment = true;
+        last_mouse_z = mouse_z;
+    }
+    if(mouse_z > last_mouse_z){
+        if(key[KEY_LCONTROL] || key[KEY_RCONTROL])
+        {
+            config.segmentSize.z--;
+            if(config.segmentSize.z <= 0) config.segmentSize.z = 1;
+        }
+        else
+        {
+            if (config.follow_DFscreen)
+			    config.viewZoffset += stepsize;
+            else
+			    DisplayedSegmentZ += stepsize;
+   		    if(DisplayedSegmentZ<0) DisplayedSegmentZ = 0;
+        }
+        timeToReloadSegment = true;
+        last_mouse_z = mouse_z;
+    }
+    if(mouse_b & 2){
+      int pos, x, y;
+      pos = mouse_pos;
+      x = pos >> 16;
+      y = pos & 0x0000ffff;
+      int blockx,blocky,blockz;
+      ScreenToPoint(x,y,blockx,blocky,blockz);
+      int diffx = blockx - config.segmentSize.x/2;
+      int diffy = blocky - config.segmentSize.y/2;
+      /*we use changeRelativeToRotation directly, and not through moveViewRelativeToRotation 
+      because we don't want to move the offset with the mouse. It just feels weird. */
+      changeRelativeToRotation(DisplayedSegmentX, DisplayedSegmentY, diffx+5, diffy+5 );
+      //moveViewRelativeToRotation(diffx+5, diffy+5); // for whatever reason, the +5 makes it be centered, someone should check this works correctly in other resolutions than 800x600
+      timeToReloadSegment = true;
+      //rest(50);
+    }
+    if(mouse_b & 1){
+        int pos, x, y;
+        pos = mouse_pos;
+        x = mouse_x;//pos >> 16;
+        y = mouse_y; //pos & 0x0000ffff;
+        if(x >= MiniMapTopLeftX && x <= MiniMapBottomRightX && y >= MiniMapTopLeftY && y <= MiniMapBottomRightY){ // in minimap
+            DisplayedSegmentX = (x-MiniMapTopLeftX-MiniMapSegmentWidth/2)/oneBlockInPixels;
+            DisplayedSegmentY = (y-MiniMapTopLeftY-MiniMapSegmentHeight/2)/oneBlockInPixels;
+        }
+        else{
+            int blockx,blocky,blockz;
+            ScreenToPoint(x,y,blockx,blocky,blockz);
+            int diffx = blockx - config.segmentSize.x/2;
+            int diffy = blocky - config.segmentSize.y/2;
+            debugCursor.x = blockx;
+            debugCursor.y = blocky;
+        }
+        timeToReloadSegment = true;
+    }
   if(key[KEY_UP]){
     	moveViewRelativeToRotation( 0, -stepsize );
 		timeToReloadSegment = true;

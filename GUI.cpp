@@ -21,6 +21,13 @@ int DisplayedSegmentX;
 int DisplayedSegmentY;
 int DisplayedSegmentZ;
 int DisplayedRotation = 0;
+int MiniMapTopLeftX = 0;
+int MiniMapTopLeftY = 0;
+int MiniMapBottomRightX = 0;
+int MiniMapBottomRightY = 0;
+int MiniMapSegmentWidth =0;
+int MiniMapSegmentHeight =0;
+double oneBlockInPixels = 0;
 
 BITMAP* IMGFloorSheet; 
 BITMAP* IMGObjectSheet;
@@ -33,6 +40,25 @@ vector<string*> IMGFilenames;
 
 Crd2D debugCursor;
 
+void ScreenToPoint(int x,int y,int &x1, int &y1, int &z1)
+{ //assume z of 0
+    x-=TILEWIDTH/2;
+    y+=TILEWIDTH/2;
+    z1 = -1;
+    y+= z1*BLOCKHEIGHT/2;
+    //y-=BLOCKHEIGHT;
+    x+=TILEWIDTH>>1;
+    static int offx = config.screenWidth /2;
+    static int offy = 50;
+    if( config.lift_segment_offscreen ) offy = -200;
+    y-=offy;
+    x-=offx;
+    y1=y*2-x;
+    x1=x*2+y1;
+    x1/=TILEWIDTH;
+    y1/=TILEWIDTH;
+ 
+}
 
 void pointToScreen(int *inx, int *iny, int inz){
   static int offx = config.screenWidth / 2;
@@ -155,7 +181,7 @@ void drawDebugCursorAndInfo(BITMAP* target){
 
 void DrawMinimap(BITMAP* target){
 	int size = 100;
-  double oneBlockInPixels;
+  //double oneBlockInPixels;
   int posx = config.screenWidth-size-10;
 	int posy = 10;
 
@@ -171,9 +197,13 @@ void DrawMinimap(BITMAP* target){
   //current segment outline
   int x = (size * (viewedSegment->x+1)) / viewedSegment->regionSize.x;
   int y = (mapheight * (viewedSegment->y+1)) / viewedSegment->regionSize.y;
-  int segmentWidth = (viewedSegment->sizex-2) * oneBlockInPixels;
-  int segmentHeight = (viewedSegment->sizey-2) * oneBlockInPixels;
-  rect(target, posx+x, posy+y, posx+x+segmentWidth, posy+y+segmentHeight,0);
+  MiniMapSegmentWidth = (viewedSegment->sizex-2) * oneBlockInPixels;
+  MiniMapSegmentHeight = (viewedSegment->sizey-2) * oneBlockInPixels;
+  rect(target, posx+x, posy+y, posx+x+MiniMapSegmentWidth, posy+y+MiniMapSegmentHeight,0);
+  MiniMapTopLeftX = posx;
+  MiniMapTopLeftY = posy;
+  MiniMapBottomRightX = posx+size;
+  MiniMapBottomRightY = posy+mapheight;
 }
 
 void DrawSpriteFromSheet( int spriteNum, BITMAP* target, BITMAP* spriteSheet, int x, int y){
@@ -250,6 +280,7 @@ void DoSpriteIndexOverlay(){
 }
 
 void paintboard(){
+  show_mouse(NULL);
 	uint32_t starttime = clock();
 	if(!buffer)
 		buffer = create_bitmap(config.screenWidth, config.screenHeight);
@@ -296,7 +327,9 @@ void paintboard(){
     DrawMinimap(buffer);
   }
 	acquire_screen();
+  
 	draw_sprite(screen,buffer,0,0);
+  show_mouse(screen);
 	release_screen();
 }
 

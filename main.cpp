@@ -86,7 +86,9 @@ int main(void)
 
 	allegro_init();
   install_keyboard();
-  //install_mouse();
+  install_mouse();
+  enable_hardware_cursor();
+  select_mouse_cursor(MOUSE_CURSOR_ARROW);
   WriteErr("\nStonesense launched\n");
 
   config.debug_mode = false;
