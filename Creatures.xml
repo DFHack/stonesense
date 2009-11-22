@@ -3,9 +3,13 @@
 <Creature gameID="DWARF" 		sheetIndex = 180 >
 	<Profession name="Miner" sex="M" sheetIndex = 181/>
 	<Profession name="Woodworker" sex="M" sheetIndex = 182/>
+	<Profession name="Carpenter" sex="M" sheetIndex = 182/>
 	<Profession name="Stoneworker" sex="M" sheetIndex = 183/>
+	<Profession name="Mason" sex="M" sheetIndex = 183/>
+	<Profession name="Engraver" sex="M" sheetIndex = 183/>
 	<Profession name="Ranger" sex="M" sheetIndex = 184/>
 	<Profession name="Metalsmith" sex="M" sheetIndex = 185/>
+	<Profession name="Weaponsmith" sex="M" sheetIndex = 185/>
 	<Profession name="Jeweler" sex="M" sheetIndex = 186/>
 	<Profession name="Craftsdwarf" sex="M" sheetIndex = 187/>
 	<Profession name="Fisherdwarf" sex="M" sheetIndex = 188/>
@@ -26,6 +30,7 @@
 	<Profession name="Count Consort" sex="M" sheetIndex = 200/>
 	<Profession name="Duke Consort" sex="M" sheetIndex = 200/>
 	<Profession name="King" sex="M" sheetIndex = 201/>
+	<Profession name="King Consort" sex="M" sheetIndex = 201/>
 	<Profession name="Duke" sex="M" sheetIndex = 202/>
 	<Profession name="Count" sex="M" sheetIndex = 203/>
 	<Profession name="Baron" sex="M" sheetIndex = 204/>
@@ -52,9 +57,13 @@
 
 	<Profession name="Miner" sex="F" sheetIndex = 141/>
 	<Profession name="Woodworker" sex="F" sheetIndex = 142/>
+	<Profession name="Carpenter" sex="F" sheetIndex = 142/>
 	<Profession name="Stoneworker" sex="F" sheetIndex = 143/>
+	<Profession name="Mason" sex="F" sheetIndex = 143/>
+	<Profession name="Engraver" sex="F" sheetIndex = 143/>
 	<Profession name="Ranger" sex="F" sheetIndex = 144/>
 	<Profession name="Metalsmith" sex="F" sheetIndex = 145/>
+	<Profession name="Weaponsmith" sex="F" sheetIndex = 145/>
 	<Profession name="Jeweler" sex="F" sheetIndex = 146/>
 	<Profession name="Craftsdwarf" sex="F" sheetIndex = 147/>
 	<Profession name="Fisherdwarf" sex="F" sheetIndex = 148/>
@@ -75,6 +84,7 @@
 	<Profession name="Count Consort" sex="F" sheetIndex = 160/>
 	<Profession name="Duke Consort" sex="F" sheetIndex = 160/>
 	<Profession name="King" sex="F" sheetIndex = 161/>
+	<Profession name="King Consort" sex="F" sheetIndex = 161/>
 	<Profession name="Duke" sex="F" sheetIndex = 162/>
 	<Profession name="Count" sex="F" sheetIndex = 163/>
 	<Profession name="Baron" sex="F" sheetIndex = 164/>
