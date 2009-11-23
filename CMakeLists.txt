@@ -1,6 +1,7 @@
 # main project file. use it from a build sub-folder
 PROJECT (stonesense) 
 cmake_minimum_required(VERSION 2.6)
+SET(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/CMake/Modules)
 
 # disable warning, autosearch
 if(COMMAND cmake_policy)
@@ -65,14 +66,22 @@ SET(PROJECT_SRCS
 )
 #linux
 IF(UNIX)
-    LINK_DIRECTORIES(${LINK_DIRECTORIES})
+    
     add_definitions(-DLINUX_BUILD)
     add_definitions(-DBUILD_DFHACK_LIB)
     SET (PLATFORM_SRC
-	dfhack/library/DFProcess-linux.cpp
-	dfhack/library/DFProcessEnumerator-linux.cpp
-	)
-    SET(PROJECT_LIBS alleg-4.2.2 png ${PROJECT_LIBS})
+    dfhack/library/DFProcess-linux.cpp
+    dfhack/library/DFProcessEnumerator-linux.cpp
+    )
+    
+    FIND_PACKAGE(PNG REQUIRED)
+    FIND_PACKAGE(Allegro REQUIRED)
+    LINK_DIRECTORIES(${LINK_DIRECTORIES})
+    
+    
+    INCLUDE_DIRECTORIES(${PNG_INCLUDE_DIR} ${ALLEGRO_INCLUDE_DIRS} ${ALLEGRO_INCLUDE_DIR})
+ 
+    SET(PROJECT_LIBS {ALLEGRO_LIBRARIES} ${PNG_LIBRARIES} ${PROJECT_LIBS})
     ADD_EXECUTABLE(stonesense ${PROJECT_SRCS} ${PLATFORM_SRC})
     TARGET_LINK_LIBRARIES(stonesense ${PROJECT_LIBS})
 # windows
