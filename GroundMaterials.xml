@@ -129,6 +129,7 @@
 	<GameID value = 358/>
 	<GameID value = 359/>	
 	<Material name="SAND_RED" />
+    <Material name="SILT" />
 </Floor>
 <Floor spriteIndex = 15>
 	<!-- Soil floors -->
