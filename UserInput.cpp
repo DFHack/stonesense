@@ -65,6 +65,7 @@ void doKeys(){
     static int last_mouse_z;
     if(mouse_z < last_mouse_z)
     {
+		config.follow_DFscreen = false;
         if(key[KEY_LCONTROL] || key[KEY_RCONTROL])
         {
             config.segmentSize.z++;
@@ -81,6 +82,7 @@ void doKeys(){
         last_mouse_z = mouse_z;
     }
     if(mouse_z > last_mouse_z){
+		config.follow_DFscreen = false;
         if(key[KEY_LCONTROL] || key[KEY_RCONTROL])
         {
             config.segmentSize.z--;
@@ -98,6 +100,7 @@ void doKeys(){
         last_mouse_z = mouse_z;
     }
     if((mouse_b & 2) || ((mouse_b & 1) && !config.debug_mode )){
+	  config.follow_DFscreen = false;
       int pos, x, y;
       pos = mouse_pos;
       x = pos >> 16;
@@ -133,18 +136,26 @@ void doKeys(){
         timeToReloadSegment = true;
     }
   if(key[KEY_UP]){
+		if (!(key[KEY_LCONTROL] || key[KEY_RCONTROL]))
+			config.follow_DFscreen = false;
     	moveViewRelativeToRotation( 0, -stepsize );
 		timeToReloadSegment = true;
 	}
 	if(key[KEY_DOWN]){
+		if (!(key[KEY_LCONTROL] || key[KEY_RCONTROL]))
+			config.follow_DFscreen = false;
     	moveViewRelativeToRotation( 0, stepsize );
 		timeToReloadSegment = true;
 	}
 	if(key[KEY_LEFT]){
+		if (!(key[KEY_LCONTROL] || key[KEY_RCONTROL]))
+			config.follow_DFscreen = false;
     	moveViewRelativeToRotation( -stepsize, 0 );
 		timeToReloadSegment = true;
 	}
 	if(key[KEY_RIGHT]){
+		if (!(key[KEY_LCONTROL] || key[KEY_RCONTROL]))
+			config.follow_DFscreen = false;
     	moveViewRelativeToRotation( stepsize, 0 );
 		timeToReloadSegment = true;
 	}
@@ -154,6 +165,8 @@ void doKeys(){
 		timeToReloadSegment = true;
 	}
 	if(key[KEY_PGDN] || key[KEY_9]){
+		if (!(key[KEY_LCONTROL] || key[KEY_RCONTROL]))
+			config.follow_DFscreen = false;
 		if (config.follow_DFscreen)
 			config.viewZoffset -= stepsize;
 		else
@@ -162,6 +175,8 @@ void doKeys(){
 		timeToReloadSegment = true;
 	}
 	if(key[KEY_PGUP] || key[KEY_0]){
+		if (!(key[KEY_LCONTROL] || key[KEY_RCONTROL]))
+			config.follow_DFscreen = false;
 		if (config.follow_DFscreen)
 			config.viewZoffset += stepsize;
 		else
