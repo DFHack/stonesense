@@ -17,6 +17,8 @@ Look into reducing block new/delete for performance
 Multiple XML files for other types of sprites
 Multiple image files for other types of sprites
 Floor sprites with different material types? Layered floor sprites ala buildings?
+Height indicators for floating/flying stuff
+Debug cursor should interact with map more
 ---
 Things to keep an eye on:
 Crashers with odd materials etc
