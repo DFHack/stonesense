@@ -145,11 +145,15 @@
 <Creature gameID="MACAQUE_RHESUS" 	sheetIndex = 2 /> 
 <Creature gameID="CAMEL_1_HUMP" 	sheetIndex = 4 />
 <Creature gameID="CAMEL_2_HUMP" 	sheetIndex = 4 />
+<Creature gameID="COW" 				sheetIndex = 5 />
+<Creature gameID="HIPPO" 			sheetIndex = 6 />
+<Creature gameID="GROUNDHOG" 		sheetIndex = 7 />
 
 <Creature gameID="TROLL" 			sheetIndex = 16 />
 <Creature gameID="NIGHTWING" 		sheetIndex = 17 />
 
 <Creature gameID="MULE" 		sheetIndex = 24 /> 
+<Creature gameID="DONKEY" 		sheetIndex = 24 /> 
 <Creature gameID="MUSKOX" 		sheetIndex = 25 /> 
 <Creature gameID="HORSE" 		sheetIndex = 26 /> 
 
