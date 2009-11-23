@@ -1,7 +1,7 @@
-Welcome to this alpha screening of Stonesense!
+Welcome to Stonesense!
 
 Thank you for testing out our little visualizer,
-we appreciate any feedback.
+as always, we appreciate any feedback.
 Please remember this is just an alpha, 
 so there are (still) tons of features to be added, 
 and I'm sure, quite a few bugs too.
@@ -62,7 +62,7 @@ When you first load Stonesense, hitting F is a good way to get your bearings!
 Stonesense mailing list:
 http://groups.google.com/group/stonesense
 
-Stonesense of Bay12 Games forums:
+Stonesense on Bay12Games forums:
 http://www.bay12games.com/forum/index.php?topic=43260.0
 
 --== Known Issues ==--
@@ -72,4 +72,4 @@ occasionally get the timing and die
 Some slight memory leaks- dont leave it running 8 hours
 
 Good Luck!
-- Jonas
+- The Stonesense Crew

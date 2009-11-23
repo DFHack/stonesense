@@ -136,10 +136,14 @@ int main(void)
 	
 	textprintf_centre(screen, font, config.screenWidth/2, 80, 0xffffff, "Programming, Jonas Ask and Kris Parker");
 	textprintf_centre(screen, font, config.screenWidth/2, 90, 0xffffff, "Lead graphics designer, Dale Holdampf");
+	
+  textprintf_centre(screen, font, config.screenWidth/2, config.screenHeight-130, 0xffffff, "Contributors:");
+	textprintf_centre(screen, font, config.screenWidth/2, config.screenHeight-120, 0xffffff, "7¢ Nickel, Belal, DeKaFu, Dante, Deon, dyze, Errol, fifth angel,");
+  textprintf_centre(screen, font, config.screenWidth/2, config.screenHeight-110, 0xffffff, "frumpton, IDreamOfGiniCoeff, Impaler, Japa, jarathor, ");
+  textprintf_centre(screen, font, config.screenWidth/2, config.screenHeight-100, 0xffffff, "Jiri Petru, Lord Nightmare, McMe, Mike Mayday, Nexii ");
+  textprintf_centre(screen, font, config.screenWidth/2, config.screenHeight-90, 0xffffff, "Malthus, peterix, Seuss, Talvara, winner, and Xandrin.");
 
-	textprintf_centre(screen, font, config.screenWidth/2, config.screenHeight-80, 0xffffff, "Contributors: 7¢ Nickel, Belal, frumpton, IDreamOfGiniCoeff,");
-  textprintf_centre(screen, font, config.screenWidth/2, config.screenHeight-70, 0xffffff, "Lord Nightmare, Mike Mayday, Nexii Malthus, peterix, Talvara.");
-	textprintf_centre(screen, font, config.screenWidth/2, config.screenHeight-60, 0xffffff, "Special thanks to peterix for making dfHack");
+	textprintf_centre(screen, font, config.screenWidth/2, config.screenHeight-70, 0xffffff, "With special thanks to peterix for making dfHack");
 
 	//"The program is in a very early alpha, we're only showcasing it to get ideas and feedback, so use it at your own risk."
   textprintf_centre(screen, font, config.screenWidth/2, config.screenHeight-40, 0xffffff, "Press F9 to continue");
@@ -172,7 +176,7 @@ int main(void)
   
 
   #ifdef RELEASE
-  DisplayedSegmentX = 0; DisplayedSegmentY = 0;DisplayedSegmentZ = 0;
+  DisplayedSegmentX = 0; DisplayedSegmentY = 0;DisplayedSegmentZ = 18;
   #endif
   //while(1)
 	reloadDisplayedSegment();
