@@ -53,8 +53,9 @@ Numpad numbers: Move debug cursor (if available)
 -- Follow mode --
 
 When you turn on follow mode, the screen will jump to the location of the DF window.
-You can adjust the position of the follow mode relative to the DF window by holding Ctrl
-while using the keyboard window movement keys.
+You can adjust the position of the follow mode relative to the DF window by
+holding Ctrl while using the keyboard window movement keys.
+When you first load Stonesense, hitting F is a good way to get your bearings!
 
 --== Contacts ==--
 
@@ -66,6 +67,12 @@ http://www.bay12games.com/forum/index.php?topic=43260.0
 
 Stonesense on IRC
 #dfhack at FreeNode.net
+
+--== Known Issues ==--
+
+The system tries to avoid reading when theres no valid map, but it will still
+occasionally get the timing and die
+
 
 Good Luck!
 - Jonas
