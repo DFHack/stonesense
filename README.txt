@@ -65,9 +65,6 @@ http://groups.google.com/group/stonesense
 Stonesense of Bay12 Games forums:
 http://www.bay12games.com/forum/index.php?topic=43260.0
 
-Stonesense on IRC
-#dfhack at FreeNode.net
-
 --== Known Issues ==--
 
 The system tries to avoid reading when theres no valid map, but it will still
