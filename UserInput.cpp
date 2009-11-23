@@ -97,7 +97,7 @@ void doKeys(){
         timeToReloadSegment = true;
         last_mouse_z = mouse_z;
     }
-    if(mouse_b & 2){
+    if((mouse_b & 2) || ((mouse_b & 1) && !config.debug_mode )){
       int pos, x, y;
       pos = mouse_pos;
       x = pos >> 16;
@@ -113,7 +113,7 @@ void doKeys(){
       timeToReloadSegment = true;
       //rest(50);
     }
-    if(mouse_b & 1){
+    else if (mouse_b & 1){
         int pos, x, y;
         pos = mouse_pos;
         x = mouse_x;//pos >> 16;
