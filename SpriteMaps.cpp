@@ -637,6 +637,10 @@ int GetSpriteVegitation( VegetationType type, int index){
       case 17://BIRTCH
         return SPRITEOBJECT_TREE_BIRCH;
         break;
+
+      case 23:
+        return SPRITEOBJECT_TREE_PALM;
+        break;
       default:
         return SPRITEOBJECT_TREE_BROADLEAF;
     }
