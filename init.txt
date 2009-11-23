@@ -12,22 +12,36 @@ using WIDTH and HEIGHT for resolution. Try and use resolutions compatible
 with your drivers, or the program will still load in window mode.
 [WINDOWED:YES]
 
+
 These two options set how large the cube loaded from Dwarf Fortress is.
 Each entry expects the number of tiles to load.
-[SEGMENTSIZE_XY:70]
+[SEGMENTSIZE_XY:40]
 [SEGMENTSIZE_Z:3]
 
 
 Lifts the segment up to the top off the screen. 
 Use this with a large segment size to get blocks covering the entire screen.
-[LIFTSEGMENT:YES]
+[LIFTSEGMENT:NO]
 
 
-Set the time in ms to increase the automatic reload time by, a lower step reloads more frequently
+This value, in milliseconds, is how long Stonesense waits between
+reloading the map. If zero, the autoreload will be disabled until
+set with Numpad+. Note that this will only work if a DF map is
+ready when Stonesense loads.
+[AUTO_RELOAD_TIME:200]
+
+
+Amount to change the auto reload time with each press of Numpad+/-
 [AUTO_RELOAD_STEP:50]
 
-Sets Stonesense in debug mode. Used for developing
+
+Sets Stonesense in debug mode. Adds additional information to displays.
 [DEBUGMODE:YES]
+
+
+Amount of time, in milliseconds, before the animation swaps to the next frame.
+This currently *also* requires a map reload to display the frame.
+[ANIMATION_RATE:50]
 
 
 Shows all creatures, for debuging. Living, dead, kidnapped, caged, EVERY single one.
