@@ -1,0 +1,44 @@
+<?xml version="1.0" ?>
+
+
+
+<building name="Pump" gameID="screw_pump" file="mechanics.png">
+	<include file="sBlueprint.xml" />
+	<else>
+		<BuildingOccupancy value="6" />
+		<if>
+			<NeighbourSameBuilding dir="South"/>
+			<sprite index = 147 />
+		</if>
+		<else>
+			<NeighbourSameBuilding dir="East"/>
+			<sprite index = 148 />
+		</else>
+		<else>
+			<NeighbourSameBuilding dir="North"/>
+			<sprite index = 140 />
+			<sprite index = 142 offsety=-18 />
+		</else>
+		<else>
+			<NeighbourSameBuilding dir="West"/>
+			<sprite index = 145 />
+			<sprite index = 143 offsety=-18 />
+		</else>
+	</else>
+	<else>
+		<NeighbourSameBuilding dir="South"/>
+		<sprite index = 141 />
+	</else>
+	<else>
+		<NeighbourSameBuilding dir="East"/>
+		<sprite index = 144 />
+	</else>
+	<else>
+		<NeighbourSameBuilding dir="North"/>
+		<sprite index = 146 />
+	</else>
+	<else>
+		<NeighbourSameBuilding dir="West"/>
+		<sprite index = 149 />
+	</else>
+</building> 
