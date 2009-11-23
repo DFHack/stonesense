@@ -72,7 +72,7 @@ Stonesense on IRC
 
 The system tries to avoid reading when theres no valid map, but it will still
 occasionally get the timing and die
-
+Some slight memory leaks- dont leave it running 8 hours
 
 Good Luck!
 - Jonas
