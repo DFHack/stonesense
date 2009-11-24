@@ -99,7 +99,7 @@ void doKeys(){
         timeToReloadSegment = true;
         last_mouse_z = mouse_z;
     }
-    if((mouse_b & 2) || ((mouse_b & 1) && !config.debug_mode )){
+    if( mouse_b & 2 ){
 	  config.follow_DFscreen = false;
       int pos, x, y;
       pos = mouse_pos;
@@ -116,7 +116,7 @@ void doKeys(){
       timeToReloadSegment = true;
       //rest(50);
     }
-    else if (mouse_b & 1){
+    if( mouse_b & 1 ){
         int pos, x, y;
         pos = mouse_pos;
         x = mouse_x;//pos >> 16;
