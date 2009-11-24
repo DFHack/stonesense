@@ -41,6 +41,9 @@ class API::Private
         uint32_t tile_type_offset;
         uint32_t designation_offset;
         uint32_t occupancy_offset;
+        uint32_t biome_stuffs;
+        uint32_t veinvector;
+        uint32_t veinsize;
         
         uint32_t window_x_offset;
         uint32_t window_y_offset;
@@ -142,11 +145,6 @@ API::~API()
  *-----------------------------------*/
 bool API::InitMap()
 {
-    uint32_t    x_array_loc,   // location of the X array
-                temp_loc,  // block location
-                temp_locx, // iterator for the X array
-                temp_locy, // iterator for the Y array
-                temp_locz; // iterator for the Z array
     uint32_t map_offset = d->offset_descriptor->getAddress("map_data");
     uint32_t x_count_offset = d->offset_descriptor->getAddress("x_count");
     uint32_t y_count_offset = d->offset_descriptor->getAddress("y_count");
@@ -156,9 +154,13 @@ bool API::InitMap()
     d->tile_type_offset = d->offset_descriptor->getOffset("type");
     d->designation_offset = d->offset_descriptor->getOffset("designation");
     d->occupancy_offset = d->offset_descriptor->getOffset("occupancy");
+    d->biome_stuffs = d->offset_descriptor->getOffset("biome_stuffs");
+    
+    d->veinvector = d->offset_descriptor->getOffset("v_vein");
+    d->veinsize = d->offset_descriptor->getHexValue("v_vein_size");
 
     // get the map pointer
-    x_array_loc = MreadDWord(map_offset);
+    uint32_t    x_array_loc = MreadDWord(map_offset);
     //FIXME: very inadequate
     if (!x_array_loc)
     {
@@ -183,7 +185,7 @@ bool API::InitMap()
     uint32_t *temp_x = new uint32_t[mx];
     uint32_t *temp_y = new uint32_t[my];
     uint32_t *temp_z = new uint32_t[mz];
-    
+
     Mread(x_array_loc,mx * sizeof(uint32_t),(uint8_t *)temp_x);
     for(uint32_t x = 0; x < mx; x++)
     {
@@ -215,14 +217,14 @@ bool API::DestroyMap()
 
 bool API::isValidBlock(uint32_t x, uint32_t y, uint32_t z)
 {
-    return d->block[x*d->y_block_count*d->z_block_count + y*d->z_block_count + z] != NULL;
+    return d->block[x*d->y_block_count*d->z_block_count + y*d->z_block_count + z] != 0;
 }
 
 // 256 * sizeof(uint16_t)
 bool API::ReadTileTypes(uint32_t x, uint32_t y, uint32_t z, uint16_t *buffer)
 {
     uint32_t addr = d->block[x*d->y_block_count*d->z_block_count + y*d->z_block_count + z];
-    if (addr!=NULL)
+    if (addr)
     {
         Mread(addr+d->tile_type_offset, 256 * sizeof(uint16_t), (uint8_t *)buffer);
         return true;
@@ -235,7 +237,7 @@ bool API::ReadTileTypes(uint32_t x, uint32_t y, uint32_t z, uint16_t *buffer)
 bool API::ReadDesignations(uint32_t x, uint32_t y, uint32_t z, uint32_t *buffer)
 {
     uint32_t addr = d->block[x*d->y_block_count*d->z_block_count + y*d->z_block_count + z];
-    if (addr!=NULL)
+    if (addr)
     {
         Mread(addr+d->designation_offset, 256 * sizeof(uint32_t), (uint8_t *)buffer);
         return true;
@@ -248,7 +250,7 @@ bool API::ReadDesignations(uint32_t x, uint32_t y, uint32_t z, uint32_t *buffer)
 bool API::ReadOccupancy(uint32_t x, uint32_t y, uint32_t z, uint32_t *buffer)
 {
     uint32_t addr = d->block[x*d->y_block_count*d->z_block_count + y*d->z_block_count + z];
-    if (addr!=NULL)
+    if (addr)
     {
         Mread(addr+d->occupancy_offset, 256 * sizeof(uint32_t), (uint8_t *)buffer);
         return true;
@@ -261,7 +263,7 @@ bool API::ReadOccupancy(uint32_t x, uint32_t y, uint32_t z, uint32_t *buffer)
 bool API::WriteTileTypes(uint32_t x, uint32_t y, uint32_t z, uint16_t *buffer)
 {
     uint32_t addr = d->block[x*d->y_block_count*d->z_block_count + y*d->z_block_count + z];
-    if (addr!=NULL)
+    if (addr)
     {
         Mwrite(addr+d->tile_type_offset, 256 * sizeof(uint16_t), (uint8_t *)buffer);
         return true;
@@ -274,7 +276,7 @@ bool API::WriteTileTypes(uint32_t x, uint32_t y, uint32_t z, uint16_t *buffer)
 bool API::WriteDesignations(uint32_t x, uint32_t y, uint32_t z, uint32_t *buffer)
 {
     uint32_t addr = d->block[x*d->y_block_count*d->z_block_count + y*d->z_block_count + z];
-    if (addr!=NULL)
+    if (addr)
     {
         Mwrite(addr+d->designation_offset, 256 * sizeof(uint32_t), (uint8_t *)buffer);
         return true;
@@ -287,7 +289,7 @@ bool API::WriteDesignations(uint32_t x, uint32_t y, uint32_t z, uint32_t *buffer
 bool API::WriteOccupancy(uint32_t x, uint32_t y, uint32_t z, uint32_t *buffer)
 {
     uint32_t addr = d->block[x*d->y_block_count*d->z_block_count + y*d->z_block_count + z];
-    if (addr!=NULL)
+    if (addr)
     {
         Mwrite(addr+d->occupancy_offset, 256 * sizeof(uint32_t), (uint8_t *)buffer);
         return true;
@@ -300,11 +302,10 @@ bool API::WriteOccupancy(uint32_t x, uint32_t y, uint32_t z, uint32_t *buffer)
 // 16 * sizeof(uint8_t)
 bool API::ReadRegionOffsets(uint32_t x, uint32_t y, uint32_t z, uint8_t *buffer)
 {
-    uint32_t biome_stuffs = d->offset_descriptor->getOffset("biome_stuffs");
     uint32_t addr = d->block[x*d->y_block_count*d->z_block_count + y*d->z_block_count + z];
-    if (addr!=NULL)
+    if (addr)
     {
-        Mread(addr+biome_stuffs, 16 * sizeof(uint8_t), buffer);
+        Mread(addr+d->biome_stuffs, 16 * sizeof(uint8_t), buffer);
         return true;
     }
     return false;
@@ -315,25 +316,25 @@ bool API::ReadRegionOffsets(uint32_t x, uint32_t y, uint32_t z, uint8_t *buffer)
 bool API::ReadVeins(uint32_t x, uint32_t y, uint32_t z, vector <t_vein> & veins)
 {
     uint32_t addr = d->block[x*d->y_block_count*d->z_block_count + y*d->z_block_count + z];
-    int veinvector = d->offset_descriptor->getOffset("v_vein");
-    int veinsize = d->offset_descriptor->getHexValue("v_vein_size");
+    assert(sizeof(t_vein) == d->veinsize);
     veins.clear();
-    if(addr!=NULL && veinvector && veinsize)
+    if(addr && d->veinvector && d->veinsize)
     {
-        assert(sizeof(t_vein) == veinsize);
         // veins are stored as a vector of pointers to veins
         /*pointer is 4 bytes! we work with a 32bit program here, no matter what architecture we compile khazad for*/
-        DfVector p_veins = d->dm->readVector(addr + veinvector, 4);
-
+        DfVector p_veins = d->dm->readVector(addr + d->veinvector, 4);
+        uint32_t size = p_veins.getSize();
+        veins.reserve(size);
+        
         // read all veins
-        for (uint32_t i = 0; i< p_veins.getSize();i++)
+        for (uint32_t i = 0; i< size;i++)
         {
             t_vein v;
             
             // read the vein pointer from the vector
             uint32_t temp = *(uint32_t *) p_veins[i];
             // read the vein data (dereference pointer)
-            Mread(temp, veinsize, (uint8_t *)&v);
+            Mread(temp, d->veinsize, (uint8_t *)&v);
             // store it in the vector
             veins.push_back(v);
         }
@@ -370,7 +371,10 @@ bool API::ReadWoodMatgloss(vector<t_matgloss> & woods)
         // read the matgloss pointer from the vector into temp
         uint32_t temp = *(uint32_t *) p_matgloss[i];
         // read the string pointed at by
+        /*
         fill_char_buf(mat.id, d->dm->readSTLString(temp)); // reads a C string given an address
+        */
+        d->dm->readSTLString(temp,mat.id,128);
         woods.push_back(mat);
     }
     return true;
@@ -393,7 +397,8 @@ bool API::ReadStoneMatgloss(vector<t_matgloss> & stones)
         uint32_t temp = *(uint32_t *) p_matgloss[i];
         // read the string pointed at by
         t_matgloss mat;
-        fill_char_buf(mat.id, d->dm->readSTLString(temp)); // reads a C string given an address
+        //fill_char_buf(mat.id, d->dm->readSTLString(temp)); // reads a C string given an address
+        d->dm->readSTLString(temp,mat.id,128);
         mat.fore = (uint8_t)MreadWord(temp + matgloss_colors);
         mat.back = (uint8_t)MreadWord(temp + matgloss_colors + 2);
         mat.bright = (uint8_t)MreadWord(temp + matgloss_colors + 4);
@@ -419,7 +424,8 @@ bool API::ReadMetalMatgloss(vector<t_matgloss> & metals)
         uint32_t temp = *(uint32_t *) p_matgloss[i];
         // read the string pointed at by
         t_matgloss mat;
-        fill_char_buf(mat.id, d->dm->readSTLString(temp)); // reads a C string given an address
+        //fill_char_buf(mat.id, d->dm->readSTLString(temp)); // reads a C string given an address
+        d->dm->readSTLString(temp,mat.id,128);
         mat.fore = (uint8_t)MreadWord(temp + matgloss_colors);
         mat.back = (uint8_t)MreadWord(temp + matgloss_colors + 2);
         mat.bright = (uint8_t)MreadWord(temp + matgloss_colors + 4);
@@ -447,7 +453,8 @@ bool API::ReadPlantMatgloss(vector<t_matgloss> & plants)
         // read the matgloss pointer from the vector into temp
         uint32_t temp = *(uint32_t *) p_matgloss[i];
         // read the string pointed at by
-        fill_char_buf(mat.id, d->dm->readSTLString(temp)); // reads a C string given an address
+        //fill_char_buf(mat.id, d->dm->readSTLString(temp)); // reads a C string given an address
+        d->dm->readSTLString(temp,mat.id,128);
         plants.push_back(mat);
     }
     return true;
@@ -472,7 +479,8 @@ bool API::ReadCreatureMatgloss(vector<t_matgloss> & creatures)
         // read the matgloss pointer from the vector into temp
         uint32_t temp = *(uint32_t *) p_matgloss[i];
         // read the string pointed at by
-        fill_char_buf(mat.id, d->dm->readSTLString(temp)); // reads a C string given an address
+        //fill_char_buf(mat.id, d->dm->readSTLString(temp)); // reads a C string given an address
+        d->dm->readSTLString(temp,mat.id,128);
         creatures.push_back(mat);
     }
     return true;
@@ -555,6 +563,7 @@ bool API::ReadGeology( vector < vector <uint16_t> >& assign )
         // make sure we don't load crap
         assert(geolayers.getSize() > 0 && geolayers.getSize() <= 16);
 
+        d->v_geology[i].reserve(geolayers.getSize());
         // finally, read the layer matgloss
         for(uint32_t j = 0;j< geolayers.getSize();j++)
         {
@@ -565,6 +574,7 @@ bool API::ReadGeology( vector < vector <uint16_t> >& assign )
         }
     }
     assign.clear();
+    assign.reserve(eBiomeCount);
     // TODO: clean this up
     for(int i = 0; i< eBiomeCount;i++)
     {
@@ -751,7 +761,7 @@ uint32_t API::InitReadCreatures()
     )
     {
         d->p_cre = new DfVector(d->dm->readVector(creatures, 4));
-        InitReadNameTables();
+        //InitReadNameTables();
         //if(d->InitReadNameTables())
         //{
             d->creaturesInited = true;
@@ -963,7 +973,6 @@ int32_t API::ReadCreatureInBox(int32_t index, t_creature & furball,
 {
     uint16_t coords[3];
     assert(d->creaturesInited);
-    uint32_t temp;
     uint32_t size = d->p_cre->getSize();
     while (index < size)
     {
@@ -997,13 +1006,16 @@ bool API::ReadCreature(const int32_t &index, t_creature & furball)
     MreadDWord(temp + d->creature_flags1_offset, furball.flags1.whole);
     MreadDWord(temp + d->creature_flags2_offset, furball.flags2.whole);
     // normal names
-    fill_char_buf(furball.first_name, d->dm->readSTLString(temp+d->creature_first_name_offset));
-    fill_char_buf(furball.nick_name, d->dm->readSTLString(temp+d->creature_nick_name_offset));
+    d->dm->readSTLString(temp+d->creature_first_name_offset,furball.first_name,128);
+    d->dm->readSTLString(temp+d->creature_nick_name_offset,furball.nick_name,128);
+    // custom profession
+    d->dm->readSTLString(temp+d->creature_nick_name_offset,furball.nick_name,128);
+    fill_char_buf(furball.custom_profession, d->dm->readSTLString(temp+d->creature_custom_profession_offset));
     // crazy composited names
     Mread(temp + d->creature_last_name_offset,sizeof(t_lastname), (uint8_t *) &furball.last_name );
     Mread(temp + d->creature_squad_name_offset,sizeof(t_squadname), (uint8_t *) &furball.squad_name );
-    // custom profession
-    fill_char_buf(furball.custom_profession, d->dm->readSTLString(temp+d->creature_custom_profession_offset));
+    
+    
     
     // labors
     Mread(temp+d->creature_labors_offset, NUM_CREATURE_LABORS, furball.labors);
@@ -1076,7 +1088,7 @@ void API::FinishReadNameTables()
     delete d->p_trans;
     delete d->p_generic;
     delete d->p_dwarf_names;
-    d->p_trans=d->p_generic=NULL;
+    d->p_trans=d->p_generic=d->p_dwarf_names=NULL;
     d->nameTablesInited=false;
 }
 
@@ -1085,7 +1097,7 @@ void API::FinishReadCreatures()
     delete d->p_cre;
     d->p_cre = NULL;
     d->creaturesInited = false;
-    FinishReadNameTables();
+    //FinishReadNameTables();
 }
 
 bool API::Attach()
