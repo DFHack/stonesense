@@ -55,9 +55,7 @@ void Block::Draw(BITMAP* target){
 
 	correctBlockForSegmetOffset( drawx, drawy, drawz);
   correctBlockForRotation( drawx, drawy, drawz);
-	drawx *= TILEWIDTH;
-	drawy *= TILEWIDTH;
-	pointToScreen((int*)&drawx, (int*)&drawy, drawz * BLOCKHEIGHT);
+	pointToScreen((int*)&drawx, (int*)&drawy, drawz);
 	drawx -= TILEWIDTH>>1;
 
   int tileBorderColor = makecol(85,85,85);
@@ -218,8 +216,6 @@ void Block::DrawRamptops(BITMAP* target){
 
 	correctBlockForSegmetOffset( drawx, drawy, drawz);
   	correctBlockForRotation( drawx, drawy, drawz);
-	drawx *= TILEWIDTH;
-	drawy *= TILEWIDTH;
 	pointToScreen((int*)&drawx, (int*)&drawy, drawz * BLOCKHEIGHT);
 	drawx -= TILEWIDTH>>1;
 

@@ -27,17 +27,47 @@ using namespace DFHack;
 
 #define INVALID_INDEX -1
 
+#define ISOMETRIC
+
+// TILEWIDTH: total size of sprite left to right
+// TILEHEIGHT: floor part of sprite top to bottom
+// WALLHEIGHT: height of a one pixel wide stripe of wall top to bottom
+//		== amount top of wall is raised from where the floor would be
+// FLOORHEIGHT: height of a one pixel stripe of the 'wall' of a floor tile
+
+#ifdef CAVALIER
+#define TILEWIDTH 46
+#define TILEHEIGHT 46
+#define WALLHEIGHT 24
+#define FLOORHEIGHT 6
+#endif
+
+#ifdef ISOMETRIC
+#define TILEWIDTH 32
+#define TILEHEIGHT 16
+#define WALLHEIGHT 16
+#define FLOORHEIGHT 4
+#endif
+
+#ifdef DOUBLESIZE
+#define TILEWIDTH 64
+#define TILEHEIGHT 32
+#define WALLHEIGHT 32
+#define FLOORHEIGHT 8
+#endif
 
 #define GFXMODE GFX_AUTODETECT_WINDOWED
 #define FULLSCREEN false 
 #define RESOLUTION_WIDTH 800
 #define RESOLUTION_HEIGHT 600
-#define TILEWIDTH 32
-#define TILEHEIGHT 16
-#define WALLHEIGHT 16
-#define FLOORHEIGHT 4
-#define BLOCKHEIGHT (TILEHEIGHT + FLOORHEIGHT)
+// Height of a one pixel stripe of the wall of an entire block,
+//		including wall and floor tile
+#define BLOCKHEIGHT (WALLHEIGHT + FLOORHEIGHT)
+// Width of area copied from an image file
+// may be different to tile dimensions to allow overlap later
 #define SPRITEWIDTH TILEWIDTH
+// Height of area copied from an image file
+// may be different to tile dimensions to allow overlap later
 #define SPRITEHEIGHT (TILEHEIGHT + WALLHEIGHT)
 #define WALL_CUTOFF_HEIGHT 15
 

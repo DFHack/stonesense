@@ -66,29 +66,30 @@ void pointToScreen(int *inx, int *iny, int inz){
   static int offx = config.screenWidth / 2;
   static int offy = 50;
   if( config.lift_segment_offscreen ) offy = -200;
-	int x=*inx, y=*iny, z=inz;
-	x = (int) (x-0.5*(x+y));
-	y = (int) (0.5*(x+y));
+	int z=inz;
+	int x = *inx-*iny;
+	int y = *inx+*iny;
+	x = x * TILEWIDTH / 2;
+	y = y * TILEHEIGHT / 2;
 	x+=offx;
 	y+=offy;
-	y-=z;
-
+	y-=z * BLOCKHEIGHT;
 	*inx=x;*iny=y;
 }
+
 Crd2D WorldBlockToScreen(int32_t x, int32_t y, int32_t z){
 	correctBlockForSegmetOffset( x, y, z);
 	return LocalBlockToScreen(x, y, z);
 }
+
 Crd2D LocalBlockToScreen(int32_t x, int32_t y, int32_t z){
-	x *= TILEWIDTH;
-	y *= TILEWIDTH;
-	z *= TILEHEIGHT;
 	pointToScreen((int*)&x, (int*)&y, z);
 	Crd2D result;
 	result.x = x;
 	result.y = y;
 	return result;
 }
+
 void DrawCurrentLevelOutline(BITMAP* target, bool backPart){
   int x = viewedSegment->x+1;
   int y = viewedSegment->y+1;
