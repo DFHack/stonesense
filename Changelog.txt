@@ -1,18 +1,50 @@
-In A4 since A3
+----==== Alpha release 4, Nov 23rd 2009 ====----
+* Display can be rotated in 90 degree increments
+* Many code optimizations: at least two occasions of ~50% improvements...
+* Animated buildings available
+* Follow mode to make Stonesense display track DF window location
+* Truncated wall mode to better display fortress interiors
+* Mouse controls added
+* Many many more sprites: buildings, plants, creatures & terrain
+* Fixes for odd effects at map edges
+* Creature sprites can and do take professions and gender into account
+* Some onscreen creature information (names only for now)
+* Better sanitization of input data should reduce problems with strange maps
+* Inevitable bugfixes
+* Some UI and Configurisation additions
+* Floors have thickness to make free standing structures more sensible looking and reduce escher problem
+* Many many more sprites: buildings, plants, creatures & terrain
+* Improved building configuration: more options, nested conditions, boolean logic, multiple image files, include files
 
-Mouse controls added
-Many many more sprites: buildings, plants, creatures & terrain
-Fixes for odd effects at map edges
-Follow mode to make Stonesense display track DF window location
-Truncated wall mode to better display fortress interiors
-Creature sprites can and do take professions and gender into account
-Some onscreen creature information (names only for now)
-Better sanitization of input data should reduce problems with strange maps
-Inevitable bugfixes
-Display can be rotated in 90 degree increments
-Some UI and Configurisation additions
-Many code optimizations: at least two occasions of ~50% improvements...
-Animated buildings available
-Floors have thickness to make free standing structures more sensible looking and reduce escher problem
-Many many more sprites: buildings, plants, creatures & terrain
-Improved building configuration: more options, nested conditions, boolean logic, multiple image files, include files
+
+
+----==== Alpha release 3, Oct 31th 2009 ====----
+* Creatures added
+* Changed all sprites to png
+* Screenshots are saved as png
+* 56 buildings supported
+* All stone and soil types supported
+* Added sand
+* Option to fill screen with blocks
+* Option to show hidden blocks
+* Adventure mode support
+* Added debug mode for modding
+* Customize buildings with config files
+* Customize creatures with config file
+* Customize stone and soil types with config file
+
+
+----==== Alpha release 2, Oct 14th 2009 ====----
+* Added screenshot button
+* Added config file for changing various options
+* Added custom segment size
+* Added custom resolution and fullscreen mode
+* Added drawn borders to wall and floor edges
+* Added single layer view
+* Added black blocks to indicate hidden areas
+* Added auto-reload ability
+* Added alternative z-level navigation
+* Improved minimap
+
+----==== Alpha release 1, Oct 12th 2009 ====----
+First release
