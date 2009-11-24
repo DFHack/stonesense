@@ -216,7 +216,7 @@ void Block::DrawRamptops(BITMAP* target){
 
 	correctBlockForSegmetOffset( drawx, drawy, drawz);
   	correctBlockForRotation( drawx, drawy, drawz);
-	pointToScreen((int*)&drawx, (int*)&drawy, drawz * BLOCKHEIGHT);
+	pointToScreen((int*)&drawx, (int*)&drawy, drawz);
 	drawx -= TILEWIDTH>>1;
 
     sheetOffsetX = SPRITEWIDTH * ramp.index;
