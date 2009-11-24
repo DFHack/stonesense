@@ -331,7 +331,8 @@ void paintboard(){
 	acquire_screen();
   
 	draw_sprite(screen,buffer,0,0);
-  show_mouse(screen);
+  if( !config.Fullscreen )
+    show_mouse(screen);
 	release_screen();
 }
 
