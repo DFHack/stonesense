@@ -10,6 +10,7 @@ Better creature name handling- special characters? Capitals? nicknames?
 Alpha transparency?
 Better ramp handling- Big lookup table?
 Status indicators?
+only loading matgloss tables once per valid map
 Objects?
 XML for trees, etc
 Dealing with unloaded underground chunks
