@@ -11,15 +11,27 @@ vector<CreatureConfiguration> creatureTypes;
 
 
 
-bool IsCreatureVisible( t_creature* c ){
+bool IsCreatureVisible(WorldSegment* segment,  t_creature* c ){
   if( config.show_all_creatures ) return true;
 
-  if( c->flags1.bits.dead )
+  if(
+  	c->flags1.bits.dead
+  	|| c->flags1.bits.caged
+  	|| c->flags1.bits.left
+  	|| c->flags1.bits.hidden_in_ambush
+  	|| c->flags2.bits.killed
+  	|| c->flags2.bits.cleanup_1
+  	|| c->flags2.bits.cleanup_2
+  	|| c->flags2.bits.cleanup_3
+  	|| c->flags2.bits.cleanup_4
+  )
     return false;
-  if( c->flags1.bits.caged )
-    return false;
-  if( c->flags1.bits.hidden_in_ambush )
-    return false;
+  if (c->flags1.bits.forest && (
+  	c->x == 0 || c->y == 0
+  	|| c->x == segment->regionSize.x - 1
+  	|| c->y == segment->regionSize.y - 1
+  ))
+  	return false;
   return true;
 }
 
@@ -68,7 +80,7 @@ void ReadCreaturesToSegment(API& DF, WorldSegment* segment)
 	while((index = DF.ReadCreatureInBox( index, *tempcreature, x1,y1,z1,x2,y2,z2)) != -1 )
   {
     index++;
-		if( IsCreatureVisible( tempcreature ) )
+		if( IsCreatureVisible( segment,  tempcreature ) )
 		{
 			Block* b = segment->getBlock (tempcreature->x, tempcreature->y, tempcreature->z );
 			if(!b)
