@@ -13,6 +13,7 @@ void changeConstructionMaterials(WorldSegment* segment, vector<t_construction>* 
   while(--i >= 0){
     construct = &(*allConstructions)[i];	
     b = segment->getBlock(construct->x, construct->y, construct->z);
+    if( !b ) continue;
 	  //replace floor, wall and ramp types
 	  if(b->floorType > 0){
 		  switch(construct->material.type){
