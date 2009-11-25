@@ -657,7 +657,7 @@ int GetSpriteVegitation( VegetationType type, int index){
       
     };
     return SPRITEOBJECT_SHRUB_DEFAULT;*/
-    return SPRITEOBJECT_SHRUB_PLUMP + index;
+    return SPRITEOBJECT_SHRUB_PLUMP + ((index<80)?index:79);
     break;
   case SAPLING_DEAD:
   case SAPLING_OK:
