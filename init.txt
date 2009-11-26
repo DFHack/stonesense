@@ -36,7 +36,7 @@ Amount to change the auto reload time with each press of Numpad+/-
 
 
 Sets Stonesense in debug mode. Adds additional information to displays.
-[DEBUGMODE:YES]
+[DEBUGMODE:NO]
 
 
 Amount of time, in milliseconds, before the animation swaps to the next frame.
