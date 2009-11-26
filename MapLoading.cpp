@@ -484,18 +484,64 @@ void reloadDisplayedSegment(){
   SUSPEND_DF;
   if (config.follow_DFscreen)
   {
-	  if (pDFApiHandle->InitViewAndCursor())
-	  {
-		int32_t newviewx;
-		int32_t newviewy;
-		int32_t newviewz;	  
-		pDFApiHandle->getViewCoords(newviewx,newviewy,newviewz);
-    DisplayedSegmentX = newviewx + config.viewXoffset;
-		DisplayedSegmentY = newviewy + config.viewYoffset;
-		DisplayedSegmentZ = newviewz + config.viewZoffset;
-	  }else
+    int32_t newviewx;
+    int32_t newviewy;
+    int32_t viewsizex;
+    int32_t viewsizey;
+    int32_t newviewz;
+    int32_t mapx, mapy, mapz;
+    if (pDFApiHandle->InitViewAndCursor())
+    {
+      if(pDFApiHandle->InitViewSize())
+      {
+          // we take the rectangle you'd get if you scrolled the DF view closely around
+          // map edges with a pen pierced through the center,
+          // compute the scaling factor between this rectangle and the map bounds and then scale
+          // the coords with this scaling factor
+          /**
+          
+        +---+
+        |W+-++----------+
+        +-+-+---------+ |
+          | |         | |
+          | | inner   | |
+          | |   rect. | |
+          | |         | |
+          | |         | |--- map boundary
+          | +---------+ |
+          +-------------+  W - corrected view
+          
+          */
+          pDFApiHandle->getSize((uint32_t &)mapx, (uint32_t &)mapy, (uint32_t &)mapz);
+          mapx *= 16;
+          mapy *= 16;
+          
+          pDFApiHandle->getWindowSize(viewsizex,viewsizey);
+          float scalex = float (mapx) / float (mapx - viewsizex);
+          float scaley = float (mapy) / float (mapy - viewsizey);
+          
+          pDFApiHandle->getViewCoords(newviewx,newviewy,newviewz);
+          newviewx = newviewx + (viewsizex / 2) - mapx / 2;
+          newviewy = newviewy + (viewsizey / 2) - mapy / 2;
+          
+          DisplayedSegmentX = float (newviewx) * scalex - (viewedSegment->sizex / 2) + config.viewXoffset + mapx / 2;
+          DisplayedSegmentY = float (newviewy) * scalex - (viewedSegment->sizey / 2) + config.viewYoffset + mapy / 2;
+          DisplayedSegmentZ = newviewz + config.viewZoffset;
+          
+      }
+      else
+      {
+          pDFApiHandle->getViewCoords(newviewx,newviewy,newviewz);
+          DisplayedSegmentX = newviewx + config.viewXoffset;
+          DisplayedSegmentY = newviewy + config.viewYoffset;
+          DisplayedSegmentZ = newviewz + config.viewZoffset;
+      }
+    }
+    else
+    {
       //fail
       config.follow_DFscreen = false;
+    }
   }
 
   int segmentHeight = config.single_layer_view ? 1 : config.segmentSize.z;
