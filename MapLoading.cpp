@@ -501,7 +501,7 @@ void FollowCurrentDFWindow( ){
         newviewy = newviewy + (viewsizey / 2) - mapy / 2;
         
         DisplayedSegmentX = float (newviewx) * scalex - (config.segmentSize.x / 2) + config.viewXoffset + mapx / 2;
-        DisplayedSegmentY = float (newviewy) * scalex - (config.segmentSize.y / 2) + config.viewYoffset + mapy / 2;
+        DisplayedSegmentY = float (newviewy) * scaley - (config.segmentSize.y / 2) + config.viewYoffset + mapy / 2;
         DisplayedSegmentZ = newviewz + config.viewZoffset;
         
     }
