@@ -35,7 +35,8 @@ U: Toggle Stockpiles
 I: Toggle Zones
 C: Toggle Truncated Walls
 F: Toggle Follow Mode
-B: Toggle Hidden Blocks
+H: Toggle Show Hidden Blocks
+B: Toggle Shade Hidden Blocks
 S: Toggle Single Layer View
 N: Toggle Creature Names
 F2: Hide Display Overlays
