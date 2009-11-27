@@ -51,6 +51,8 @@ SET(PROJECT_SRCS
     ConditionalSprite.cpp
     Config.cpp
     Constructions.cpp
+    ContentBuildingReader
+    ContentLoader.cpp
     Contributions.txt
     CreatureConfiguration.cpp
     Creatures.cpp
@@ -62,7 +64,7 @@ SET(PROJECT_SRCS
     UserInput.cpp
     WorldSegment.cpp
     main.cpp
-    xmlBuildingReader.cpp
+
 )
 #linux
 IF(UNIX)
