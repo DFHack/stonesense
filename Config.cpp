@@ -107,6 +107,10 @@ void parseConfigLine( string line ){
     if(value < 50) value = 50;
     config.animation_step = value;
   }
+  if( line.find("VERBOSE_LOGGING") != -1){
+    string result = parseStrFromLine( "VERBOSE_LOGGING", line );
+    config.verbose_logging = (result == "YES");
+  }
 }
 
 

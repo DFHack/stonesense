@@ -46,6 +46,20 @@ void WriteErr(char* msg, ...){
   fclose(fp);
 }
 
+void LogVerbose(char* msg, ...){
+	if (!config.verbose_logging)
+		return;
+  int j = 10;  
+  va_list arglist;
+  va_start(arglist, msg);
+//  char buf[200] = {0};
+//  vsprintf(buf, msg, arglist);
+  FILE* fp = fopen( "Stonesense.log", "a");
+  if(fp)
+    vfprintf( fp, msg, arglist );
+  va_end(arglist);
+  fclose(fp);
+}
 
 void correctBlockForSegmetOffset(int32_t& x, int32_t& y, int32_t& z){
 	x -= viewedSegment->x;

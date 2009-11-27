@@ -139,6 +139,7 @@ enum dirRelative{
 void correctBlockForSegmetOffset(int32_t& x, int32_t& y, int32_t& z);
 
 void WriteErr(char* msg, ...);
+void LogVerbose(char* msg, ...);
 
 extern GameConfiguration config;
 

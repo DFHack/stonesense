@@ -35,6 +35,7 @@ typedef struct {
   bool lift_segment_offscreen;
   bool truncate_walls;
   bool follow_DFscreen;
+  bool verbose_logging;
   int viewXoffset;
   int viewYoffset;
   int viewZoffset;
