@@ -9,6 +9,10 @@
 	<GameID value = 493/>	
 </Floor>
 
+<Floor spriteIndex = 38>
+	<!-- brook -->
+	<GameID value = 381/>	
+</Floor>
 
 
 <Floor spriteIndex = 2>

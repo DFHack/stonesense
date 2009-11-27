@@ -135,6 +135,89 @@
 	<Profession sex="F" sheetIndex = 101/>
 </Creature>
 
+<Creature gameID="ELF" 		sheetIndex = 240 >
+	<Profession name="Trader" sex="M" sheetIndex = 242/>
+	<Profession name="Merchant" sex="M" sheetIndex = 242/>
+	<Profession name="Herbalist" sex="M" sheetIndex = 244/>
+	<Profession name="Clothier" sex="M" sheetIndex = 246/>
+	<Profession name="Weaver" sex="M" sheetIndex = 248/>
+	<Profession name="Woodworker" sex="M" sheetIndex = 250/>
+	<Profession name="Woodcrafter" sex="M" sheetIndex = 250/>
+	<Profession name="Bowyer" sex="M" sheetIndex = 250/>
+	<Profession name="Animal caretaker" sex="M" sheetIndex = 252/>
+	<Profession name="Ranger" sex="M" sheetIndex = 252/>
+	<Profession name="Trapper" sex="M" sheetIndex = 252/>
+	<Profession name="Hunter" sex="M" sheetIndex = 252/>
+	<Profession name="Druid" sex="M" sheetIndex = 254/>
+
+	<Profession name="Recruit" sex="M" sheetIndex = 260/>
+	<Profession name="Wrestler" sex="M" sheetIndex = 260/>
+	<Profession name="Axedwarf" sex="M" sheetIndex = 268/>
+	<Profession name="Hammerdwarf" sex="M" sheetIndex = 268/>
+	<Profession name="Macedwarf" sex="M" sheetIndex = 266/>
+	<Profession name="Bowdwarf" sex="M" sheetIndex = 272/>
+	<Profession name="Marksdwarf" sex="M" sheetIndex = 274/>
+	<Profession name="Speardwarf" sex="M" sheetIndex = 264/>
+	<Profession name="Swordsdwarf" sex="M" sheetIndex = 262/>
+	<Profession name="Blowgunner" sex="M" sheetIndex = 276/>
+	
+	<Profession name="Druid" sex="M" sheetIndex = 254/>
+
+	<Profession name="Champion" sex="M" sheetIndex = 260/>
+	<Profession name="Elite Wrestler" sex="M" sheetIndex = 260/>
+	<Profession name="Axe Lord" sex="M" sheetIndex = 268/>
+	<Profession name="Hammer Lord" sex="M" sheetIndex = 268/>
+	<Profession name="Mace Lord" sex="M" sheetIndex = 264/>
+	<Profession name="Elite Bowdwarf" sex="M" sheetIndex = 272/>	
+	<Profession name="Elite Crossbowdwarf" sex="M" sheetIndex = 274/>
+	<Profession name="Spearmaster" sex="M" sheetIndex = 264/>
+	<Profession name="Swordmaster" sex="M" sheetIndex = 262/>
+	<Profession name="Elite Blowgunner" sex="M" sheetIndex = 276/>
+	
+	<Profession name="Child" sheetIndex = 220/>
+	<Profession name="Baby" sheetIndex = 221/>
+
+	<Profession name="Trader" sex="F" sheetIndex = 243/>
+	<Profession name="Merchant" sex="F" sheetIndex = 243/>
+	<Profession name="Herbalist" sex="F" sheetIndex = 245/>
+	<Profession name="Clothier" sex="F" sheetIndex = 247/>
+	<Profession name="Weaver" sex="F" sheetIndex = 249/>
+	<Profession name="Woodworker" sex="F" sheetIndex = 251/>
+	<Profession name="Woodcrafter" sex="F" sheetIndex = 251/>
+	<Profession name="Bowyer" sex="F" sheetIndex = 251/>
+	<Profession name="Animal caretaker" sex="F" sheetIndex = 253/>
+	<Profession name="Ranger" sex="F" sheetIndex = 253/>
+	<Profession name="Trapper" sex="F" sheetIndex = 253/>
+	<Profession name="Hunter" sex="F" sheetIndex = 253/>
+	<Profession name="Druid" sex="F" sheetIndex = 255/>
+
+	<Profession name="Recruit" sex="F" sheetIndex = 261/>
+	<Profession name="Wrestler" sex="F" sheetIndex = 261/>
+	<Profession name="Axedwarf" sex="F" sheetIndex = 269/>
+	<Profession name="Hammerdwarf" sex="F" sheetIndex = 269/>
+	<Profession name="Macedwarf" sex="F" sheetIndex = 267/>
+	<Profession name="Bowdwarf" sex="F" sheetIndex = 273/>
+	<Profession name="Marksdwarf" sex="F" sheetIndex = 275/>
+	<Profession name="Speardwarf" sex="F" sheetIndex = 265/>
+	<Profession name="Swordsdwarf" sex="F" sheetIndex = 263/>
+	<Profession name="Blowgunner" sex="F" sheetIndex = 277/>
+	
+	<Profession name="Druid" sex="F" sheetIndex = 255/>
+
+	<Profession name="Champion" sex="F" sheetIndex = 261/>
+	<Profession name="Elite Wrestler" sex="F" sheetIndex = 261/>
+	<Profession name="Axe Lord" sex="F" sheetIndex = 269/>
+	<Profession name="Hammer Lord" sex="F" sheetIndex = 269/>
+	<Profession name="Mace Lord" sex="F" sheetIndex = 265/>
+	<Profession name="Elite Bowdwarf" sex="F" sheetIndex = 273/>	
+	<Profession name="Elite Crossbowdwarf" sex="F" sheetIndex = 275/>
+	<Profession name="Spearmaster" sex="F" sheetIndex = 265/>
+	<Profession name="Swordmaster" sex="F" sheetIndex = 263/>
+	<Profession name="Elite Blowgunner" sex="F" sheetIndex = 277/>	
+
+	<Profession sex="F" sheetIndex = 241/>
+</Creature>
+
 <Creature gameID="CAT" 	sheetIndex = 20 > 
 	<Profession name="Child" sheetIndex = 21 />
 </Creature>

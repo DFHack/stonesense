@@ -28,6 +28,7 @@ using namespace DFHack;
 #define INVALID_INDEX -1
 
 #define ISOMETRIC
+//#define CAVALIER
 
 // TILEWIDTH: total size of sprite left to right
 // TILEHEIGHT: floor part of sprite top to bottom
