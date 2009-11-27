@@ -259,6 +259,7 @@ bool includeFile(SpriteNode* node, TiXmlElement* includeNode, SpriteBlock* &oldS
 
 bool parseSpriteNode(SpriteNode* node, TiXmlElement* elemParent)
 {
+  //TODO: there is a leak here somewhere.
 	SpriteBlock* oldSibling = NULL;
 	TiXmlElement* elemNode =  elemParent->FirstChildElement();
 	const char* strParent = elemParent->Value();
@@ -303,8 +304,8 @@ bool addSingleBuildingConfig( TiXmlElement* elemRoot,  vector<BuildingConfigurat
   building.sprites = spriteroot;
   if (!parseSpriteNode(spriteroot,elemRoot))
   {
-	delete(spriteroot);
-	return false;
+	  delete(spriteroot);
+	  return false;
   }
   
   //add a copy of 'building' to known buildings

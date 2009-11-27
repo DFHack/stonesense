@@ -16,6 +16,12 @@ ContentLoader::~ContentLoader(void) { }
 bool ContentLoader::Load(){
   //flush old config?
   buildingConfigs.clear();
+  creatureConfigs.clear();
+  groundConfigs.clear();
+  creatureNameStrings.clear();
+  buildingNameStrings.clear();
+  unparsedGroundConfigs.clear();
+
   
   bool buildingResult = parseContentIndexFile( "buildings/index.txt", "buildings" );
   bool creatureResult = parseContentIndexFile( "creatures/index.txt", "creatures" );
@@ -102,6 +108,7 @@ bool ContentLoader::parseTerrainContent(TiXmlElement* elemRoot, char *homefolder
 
 
 void ContentLoader::TranslateConfigsFromDFAPI( API& DF ){
+  
   //read data from DF
   DF.ReadCreatureMatgloss( creatureNameStrings );
   DF.InitReadBuildings( buildingNameStrings );

@@ -2,8 +2,8 @@ Please note, these keywords are case sensitive for now.
 
 
 Sets the width and height of the application in pixels.
-[WIDTH:800]
-[HEIGHT:600]
+[WIDTH:1100]
+[HEIGHT:900]
 
 
 To launch the application in windowed mode, set this to YES. 
@@ -13,9 +13,9 @@ with your drivers, or the program will still load in window mode.
 [WINDOWED:YES]
 
 
-These two options set how large the cube loaded from Dwarf Fortress is.
+These two options set how large the cube laoaded from Dwarf Fortress is.
 Each entry expects the number of tiles to load.
-[SEGMENTSIZE_XY:70]
+[SEGMENTSIZE_XY:80]
 [SEGMENTSIZE_Z:8]
 
 

@@ -1,7 +1,7 @@
 #include "common.h"
 #include "GUI.h"
 #include "BuildingConfiguration.h"
-#include "GroundMaterialConfiguration.h"
+#include "ContentLoader.h"
 #include "GameBuildings.h"
 #include "Creatures.h"
 
@@ -189,15 +189,14 @@ void doKeys(){
 	if(key[KEY_D]){
 		paintboard();
 	}
-  /*if(key[KEY_G]){
-    LoadCreatureConfiguration( &creatureTypes );
-    LoadBuildingConfiguration( &buildingTypes );
-    LoadGroundMaterialConfiguration();
+  if(key[KEY_G]){
+    contentLoader.Load();
+
 		destroyGraphics();
     loadGraphicsFromDisk();
 
 		timeToReloadSegment = true;
-	}*/
+	}
   if(key[KEY_U]){
 		config.show_stockpiles = !config.show_stockpiles;
     timeToReloadSegment = true;
