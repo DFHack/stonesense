@@ -1,0 +1,108 @@
+<?xml version="1.0" ?>
+
+<creature gameID="DWARF" 		sheetIndex = 180 >
+	<Profession name="Miner" sex="M" sheetIndex = 181/>
+	<Profession name="Woodworker" sex="M" sheetIndex = 182/>
+	<Profession name="Carpenter" sex="M" sheetIndex = 182/>
+	<Profession name="Stoneworker" sex="M" sheetIndex = 183/>
+	<Profession name="Mason" sex="M" sheetIndex = 183/>
+	<Profession name="Engraver" sex="M" sheetIndex = 183/>
+	<Profession name="Ranger" sex="M" sheetIndex = 184/>
+	<Profession name="Metalsmith" sex="M" sheetIndex = 185/>
+	<Profession name="Weaponsmith" sex="M" sheetIndex = 185/>
+	<Profession name="Jeweler" sex="M" sheetIndex = 186/>
+	<Profession name="Craftsdwarf" sex="M" sheetIndex = 187/>
+	<Profession name="Fisherdwarf" sex="M" sheetIndex = 188/>
+	<Profession name="Farmer" sex="M" sheetIndex = 189/>
+	<Profession name="Planter" sex="M" sheetIndex = 189/>
+	<Profession name="Mechanic" sex="M" sheetIndex = 190/>
+	<!-- Free slot -->
+	<Profession name="Recruit" sex="M" sheetIndex = 192/>
+	<Profession name="Wrestler" sex="M" sheetIndex = 193/>
+	<Profession name="Axedwarf" sex="M" sheetIndex = 194/>
+	<Profession name="Hammerdwarf" sex="M" sheetIndex = 195/>
+	<Profession name="Macedwarf" sex="M" sheetIndex = 196/>
+	<Profession name="Marksdwarf" sex="M" sheetIndex = 197/>
+	<Profession name="Speardwarf" sex="M" sheetIndex = 198/>
+	<Profession name="Swordsdwarf" sex="M" sheetIndex = 199/>
+	
+	<Profession name="Baron Consort" sex="M" sheetIndex = 200/>
+	<Profession name="Count Consort" sex="M" sheetIndex = 200/>
+	<Profession name="Duke Consort" sex="M" sheetIndex = 200/>
+	<Profession name="King" sex="M" sheetIndex = 201/>
+	<Profession name="King Consort" sex="M" sheetIndex = 201/>
+	<Profession name="Duke" sex="M" sheetIndex = 202/>
+	<Profession name="Count" sex="M" sheetIndex = 203/>
+	<Profession name="Baron" sex="M" sheetIndex = 204/>
+	<!-- Free slot -->
+	<Profession name="Advisor" sex="M" sheetIndex = 206/>
+	<Profession name="Clerk" sex="M" sheetIndex = 207/>
+	<Profession name="Diplomat" sex="M" sheetIndex = 208/>
+	<Profession name="Outpost Liaison" sex="M" sheetIndex = 208/>
+	<Profession name="Hammerer" sex="M" sheetIndex = 209/>
+	<Profession name="Philosopher" sex="M" sheetIndex = 210/>
+	<Profession name="Tax Collector" sex="M" sheetIndex = 211/>
+	<Profession name="Champion" sex="M" sheetIndex = 212/>
+	<Profession name="Elite Wrestler" sex="M" sheetIndex = 213/>
+	<Profession name="Axe Lord" sex="M" sheetIndex = 214/>
+	<Profession name="Hammer Lord" sex="M" sheetIndex = 215/>
+	<Profession name="Mace Lord" sex="M" sheetIndex = 216/>
+	<Profession name="Elite Crossbowdwarf" sex="M" sheetIndex = 217/>
+	<Profession name="Spearmaster" sex="M" sheetIndex = 218/>
+	<Profession name="Swordmaster" sex="M" sheetIndex = 219/>
+	
+	<Profession name="Child" sheetIndex = 220/>
+	<Profession name="Baby" sheetIndex = 221/>
+	
+
+	<Profession name="Miner" sex="F" sheetIndex = 141/>
+	<Profession name="Woodworker" sex="F" sheetIndex = 142/>
+	<Profession name="Carpenter" sex="F" sheetIndex = 142/>
+	<Profession name="Stoneworker" sex="F" sheetIndex = 143/>
+	<Profession name="Mason" sex="F" sheetIndex = 143/>
+	<Profession name="Engraver" sex="F" sheetIndex = 143/>
+	<Profession name="Ranger" sex="F" sheetIndex = 144/>
+	<Profession name="Metalsmith" sex="F" sheetIndex = 145/>
+	<Profession name="Weaponsmith" sex="F" sheetIndex = 145/>
+	<Profession name="Jeweler" sex="F" sheetIndex = 146/>
+	<Profession name="Craftsdwarf" sex="F" sheetIndex = 147/>
+	<Profession name="Fisherdwarf" sex="F" sheetIndex = 148/>
+	<Profession name="Farmer" sex="F" sheetIndex = 149/>
+	<Profession name="Planter" sex="F" sheetIndex = 149/>
+	<Profession name="Mechanic" sex="F" sheetIndex = 150/>
+	<!-- Free slot -->
+	<Profession name="Recruit" sex="F" sheetIndex = 152/>
+	<Profession name="Wrestler" sex="F" sheetIndex = 153/>
+	<Profession name="Axedwarf" sex="F" sheetIndex = 154/>
+	<Profession name="Hammerdwarf" sex="F" sheetIndex = 155/>
+	<Profession name="Macedwarf" sex="F" sheetIndex = 156/>
+	<Profession name="Marksdwarf" sex="F" sheetIndex = 157/>
+	<Profession name="Speardwarf" sex="F" sheetIndex = 158/>
+	<Profession name="Swordsdwarf" sex="F" sheetIndex = 159/>
+	
+	<Profession name="Baron Consort" sex="F" sheetIndex = 160/>
+	<Profession name="Count Consort" sex="F" sheetIndex = 160/>
+	<Profession name="Duke Consort" sex="F" sheetIndex = 160/>
+	<Profession name="King" sex="F" sheetIndex = 161/>
+	<Profession name="King Consort" sex="F" sheetIndex = 161/>
+	<Profession name="Duke" sex="F" sheetIndex = 162/>
+	<Profession name="Count" sex="F" sheetIndex = 163/>
+	<Profession name="Baron" sex="F" sheetIndex = 164/>
+	<!-- Free slot -->
+	<Profession name="Advisor" sex="F" sheetIndex = 166/>
+	<Profession name="Clerk" sex="F" sheetIndex = 167/>
+	<Profession name="Diplomat" sex="F" sheetIndex = 168/>
+	<Profession name="Outpost Liaison" sex="F" sheetIndex = 168/>
+	<Profession name="Hammerer" sex="F" sheetIndex = 169/>
+	<Profession name="Philosopher" sex="F" sheetIndex = 170/>
+	<Profession name="Tax Collector" sex="F" sheetIndex = 171/>
+	<Profession name="Champion" sex="F" sheetIndex = 172/>
+	<Profession name="Elite Wrestler" sex="F" sheetIndex = 173/>
+	<Profession name="Axe Lord" sex="F" sheetIndex = 174/>
+	<Profession name="Hammer Lord" sex="F" sheetIndex = 175/>
+	<Profession name="Mace Lord" sex="F" sheetIndex = 176/>
+	<Profession name="Elite Crossbowdwarf" sex="F" sheetIndex = 177/>
+	<Profession name="Spearmaster" sex="F" sheetIndex = 178/>
+	<Profession name="Swordmaster" sex="F" sheetIndex = 179/>
+	<Profession sex="F" sheetIndex = 140/>
+</creature>

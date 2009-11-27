@@ -1,5 +1,6 @@
 #pragma once
 
+#include "dfhack/library/tinyxml/tinyxml.h"
 
 typedef struct OverridingMaterial{
 	int gameID;
@@ -30,9 +31,10 @@ public:
 	vector<string> overridingMaterials;
 };
 
-
+bool addSingleTerrainConfig( TiXmlElement* elemRoot,  vector<preparseGroundMaterialConfiguration>* rawGroundTypes );
+void TranslateGroundMaterialNames(vector<GroundMaterialConfiguration*>& configs, vector<preparseGroundMaterialConfiguration>& rawGroundConfigs);
 //void LoadGroundMaterialConfiguration( );
 //void TranslateGroundMaterialNames();
 
-extern bool GroundMaterialNamesTranslatedFromGame;
-extern vector<GroundMaterialConfiguration*> groundTypes;
+//extern bool GroundMaterialNamesTranslatedFromGame;
+//extern vector<GroundMaterialConfiguration*> groundTypes;

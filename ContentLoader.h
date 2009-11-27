@@ -2,6 +2,7 @@
 #include "dfhack/library/tinyxml/tinyxml.h"
 #include "BuildingConfiguration.h"
 #include "CreatureConfiguration.h"
+#include "GroundMaterialConfiguration.h"
 
 class ContentLoader{
 private:
@@ -9,6 +10,7 @@ private:
   bool parseContentXMLFile( char* filepath, char* homefolder  );
   bool parseBuildingContent( TiXmlElement* elemRoot, char* homefolder  );
   bool parseCreatureContent( TiXmlElement* elemRoot, char* homefolder  );
+  bool parseTerrainContent ( TiXmlElement* elemRoot, char* homefolder  );
 
   bool translationComplete;
 public:
@@ -21,10 +23,11 @@ public:
   
   vector<BuildingConfiguration> buildingConfigs;
   vector<CreatureConfiguration> creatureConfigs;
-
+  vector<GroundMaterialConfiguration*> groundConfigs;
 
   vector<t_matgloss> creatureNameStrings;
   vector<string> buildingNameStrings;
+  vector<preparseGroundMaterialConfiguration> unparsedGroundConfigs;
 };
 
 //singleton instance

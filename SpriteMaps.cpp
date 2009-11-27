@@ -1,6 +1,7 @@
 #include "common.h"
 #include "SpriteMaps.h"
 #include "GroundMaterialConfiguration.h"
+#include "ContentLoader.h"
 
 
 
@@ -28,9 +29,9 @@ int getWallSpriteWithDefault( int defaultSprite, int materialIndex ){
 
 int GetWallSpriteMap(int in, int matIndex, bool getFillerFloor)
 {
-  if( in >= (int)groundTypes.size() ) 
+  if( in >= (int)contentLoader.groundConfigs.size() ) 
     return (!getFillerFloor ? SPRITEOBJECT_WALL_NA : SPRITEFLOOR_NA);
-  GroundMaterialConfiguration* wall = groundTypes[ in ];
+  GroundMaterialConfiguration* wall = contentLoader.groundConfigs[ in ];
 	if(wall == NULL) 
     return (!getFillerFloor ? SPRITEOBJECT_WALL_NA : SPRITEFLOOR_NA);
   int numMat = (int)wall->overridingMaterials.size();
@@ -261,9 +262,9 @@ int GetWallSpriteMap(int in, int matIndex, bool getFillerFloor)
 }
 int GetFloorSpriteMap(int in, int matIndex){
   //TODO: groundTypes.size can be cahced
-  if( in >= (int)groundTypes.size() ) 
+  if( in >= (int)contentLoader.groundConfigs.size() ) 
     return SPRITEFLOOR_NA;
-  GroundMaterialConfiguration* floor = groundTypes[ in ];
+  GroundMaterialConfiguration* floor = contentLoader.groundConfigs[ in ];
 	if(floor == NULL) 
 		return SPRITEFLOOR_NA;
 

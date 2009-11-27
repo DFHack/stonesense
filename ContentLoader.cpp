@@ -19,6 +19,7 @@ bool ContentLoader::Load(){
   
   bool buildingResult = parseContentIndexFile( "buildings/index.txt", "buildings" );
   bool creatureResult = parseContentIndexFile( "creatures/index.txt", "creatures" );
+  bool terrainResult = parseContentIndexFile( "terrain/index.txt", "terrain" );
   translationComplete = false;
   return true;
 }
@@ -74,6 +75,12 @@ bool ContentLoader::parseContentXMLFile( char* filepath, char* homefolder ){
     if( elementType.compare( "creature" ) == 0 )
         runningResult &= parseCreatureContent( elemRoot, homefolder );
     
+    if( elementType.compare( "floors" ) == 0 )
+        runningResult &= parseTerrainContent( elemRoot, homefolder );
+
+    if( elementType.compare( "walls" ) == 0 )
+        runningResult &= parseTerrainContent( elemRoot, homefolder );
+
     elemRoot = elemRoot->NextSiblingElement();
   }
 
@@ -89,6 +96,9 @@ bool ContentLoader::parseCreatureContent(TiXmlElement* elemRoot, char *homefolde
   return addSingleCreatureConfig( elemRoot, &creatureConfigs );
 }
 
+bool ContentLoader::parseTerrainContent(TiXmlElement* elemRoot, char *homefolder){
+  return addSingleTerrainConfig( elemRoot, &unparsedGroundConfigs );
+}
 
 
 void ContentLoader::TranslateConfigsFromDFAPI( API& DF ){
@@ -100,6 +110,8 @@ void ContentLoader::TranslateConfigsFromDFAPI( API& DF ){
   //do translations
   TranslateBuildingNames( buildingConfigs, buildingNameStrings );
   TranslateCreatureNames( creatureConfigs, creatureNameStrings );
+
+  TranslateGroundMaterialNames( groundConfigs, unparsedGroundConfigs );
 
   translationComplete = true;
 }
