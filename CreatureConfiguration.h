@@ -1,4 +1,5 @@
 #pragma once
+#include "dfhack/library/tinyxml/tinyxml.h"
 
 
 #define CREATURESTRLENGTH 50
@@ -22,16 +23,12 @@ public:
   enumCreatureSpecialCases special;
   enumCreatureSex sex;
 
+  CreatureConfiguration(){}
   CreatureConfiguration(char* gameIDstr, char* professionStr, bool custom, enumCreatureSex sex, enumCreatureSpecialCases, int sheetIndex);
   ~CreatureConfiguration(void);
 };
 
 
+bool addSingleCreatureConfig( TiXmlElement* elemRoot, vector<CreatureConfiguration>* knownCreatures );
 
-
-
-void TranslateCreatureNames();
-
-void LoadCreatureConfiguration( vector<CreatureConfiguration>* knownCreatures );
-
-extern bool CreatureNamesTranslatedFromGame;
+void TranslateCreatureNames(vector<CreatureConfiguration>& configs, vector<t_matgloss>& creatureNames );

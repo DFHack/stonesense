@@ -19,6 +19,6 @@ public:
 };
 
 
-extern bool BuildingNamesTranslatedFromGame;
+//extern bool BuildingNamesTranslatedFromGame;
 
-void TranslateBuildingNames();
+void TranslateBuildingNames(vector<BuildingConfiguration>& configs, vector<string>& buildingNames );

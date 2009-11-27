@@ -277,19 +277,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\BlockCondition.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\BlockFactory.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\BuildingConfiguration.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\ConditionalSprite.cpp"
 				>
 			</File>
 			<File
@@ -301,19 +289,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\CreatureConfiguration.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\Creatures.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\GameBuildings.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\GroundMaterialConfiguration.cpp"
 				>
 			</File>
 			<File
@@ -338,10 +318,6 @@
 			</File>
 			<File
 				RelativePath=".\WorldSegment.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\xmlBuildingReader.cpp"
 				>
 			</File>
 			<Filter
@@ -384,6 +360,38 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="Configuration"
+				>
+				<File
+					RelativePath=".\BlockCondition.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\BuildingConfiguration.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\ConditionalSprite.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\ContentBuildingReader.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\ContentLoader.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\CreatureConfiguration.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\GroundMaterialConfiguration.cpp"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -403,10 +411,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\BuildingConfiguration.h"
-				>
-			</File>
-			<File
 				RelativePath=".\common.h"
 				>
 			</File>
@@ -415,15 +419,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\ConditionalSprite.h"
-				>
-			</File>
-			<File
 				RelativePath=".\Constructions.h"
-				>
-			</File>
-			<File
-				RelativePath=".\CreatureConfiguration.h"
 				>
 			</File>
 			<File
@@ -432,10 +428,6 @@
 			</File>
 			<File
 				RelativePath=".\GameBuildings.h"
-				>
-			</File>
-			<File
-				RelativePath=".\GroundMaterialConfiguration.h"
 				>
 			</File>
 			<File
@@ -479,6 +471,34 @@
 				>
 				<File
 					RelativePath=".\loadpng\loadpng.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Configuration"
+				>
+				<File
+					RelativePath=".\BuildingConfiguration.h"
+					>
+				</File>
+				<File
+					RelativePath=".\ConditionalSprite.h"
+					>
+				</File>
+				<File
+					RelativePath=".\ContentBuildingReader.h"
+					>
+				</File>
+				<File
+					RelativePath=".\ContentLoader.h"
+					>
+				</File>
+				<File
+					RelativePath=".\CreatureConfiguration.h"
+					>
+				</File>
+				<File
+					RelativePath=".\GroundMaterialConfiguration.h"
 					>
 				</File>
 			</Filter>

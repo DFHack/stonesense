@@ -189,7 +189,7 @@ void doKeys(){
 	if(key[KEY_D]){
 		paintboard();
 	}
-  if(key[KEY_G]){
+  /*if(key[KEY_G]){
     LoadCreatureConfiguration( &creatureTypes );
     LoadBuildingConfiguration( &buildingTypes );
     LoadGroundMaterialConfiguration();
@@ -197,7 +197,7 @@ void doKeys(){
     loadGraphicsFromDisk();
 
 		timeToReloadSegment = true;
-	}
+	}*/
   if(key[KEY_U]){
 		config.show_stockpiles = !config.show_stockpiles;
     timeToReloadSegment = true;

@@ -1,6 +1,7 @@
 #include "BlockCondition.h"
 #include "GameBuildings.h"
 #include "WorldSegment.h"
+#include "ContentLoader.h"
 #include <iostream>
 
 int getDirectionFromString(const char* strDir)
@@ -31,8 +32,8 @@ int getDirectionFromString(const char* strDir)
 
 int getBuildingFromString(const char* strType)
 {
-	for (uint32_t i=0; i<v_buildingtypes.size(); i++){
-		if (v_buildingtypes[i].compare(strType) == 0)
+  for (uint32_t i=0; i<contentLoader.buildingNameStrings.size(); i++){
+		if (contentLoader.buildingNameStrings[i].compare(strType) == 0)
 		{
 			return i;
 		}

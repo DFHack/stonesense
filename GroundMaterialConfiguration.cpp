@@ -60,7 +60,7 @@ void addConfToIDdsaj (int index, preparseGroundMaterialConfiguration& conf){
   
 }
 
-void TranslateGroundMaterialNames(){
+/*void TranslateGroundMaterialNames(){
   //create and entry for every known ground material type
   uint32_t num;
   uint32_t index = 0;
@@ -92,7 +92,7 @@ void TranslateGroundMaterialNames(){
   }
 
   GroundMaterialNamesTranslatedFromGame = true;
-}
+}*/
 
 void parseWallFloorSpriteElement( TiXmlElement* elemWallFloorSprite ){
   TiXmlElement* elemGameID;

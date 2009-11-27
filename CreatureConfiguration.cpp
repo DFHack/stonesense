@@ -5,8 +5,6 @@
 
 #include "dfhack/library/tinyxml/tinyxml.h"
 
-bool CreatureNamesTranslatedFromGame = false;
-
 
 CreatureConfiguration::CreatureConfiguration(char* gameIDstr, char* professionStr, bool customProf, enumCreatureSex sex, enumCreatureSpecialCases special, int sheetIndex)
 {
@@ -32,12 +30,12 @@ CreatureConfiguration::~CreatureConfiguration(void)
 }
 
 void DumpCreatureNamesToDisk(){
-  FILE* fp = fopen("dump.txt", "w");
+  /*FILE* fp = fopen("dump.txt", "w");
   if(!fp) return;
   for(uint32_t j=0; j < v_creatureNames.size(); j++){
     fprintf(fp, "%i:%s\n",j, v_creatureNames[j].id);
   }
-  fclose(fp);
+  fclose(fp);*/
 }
 void DumpProfessionsToDisk(){
   FILE* fp = fopen("dump.txt", "w");
@@ -49,31 +47,31 @@ void DumpProfessionsToDisk(){
   fclose(fp);
 }
 
-void TranslateCreatureNames(){
-  uint32_t numCreatures = (uint32_t)v_creatureNames.size();
+void TranslateCreatureNames(vector<CreatureConfiguration>& configs, vector<t_matgloss>& creatureNames ){
+  uint32_t numCreatures = (uint32_t)creatureNames.size();
   //uint32_t numProfessions = dfMemoryInfo.P
   //for each config, find it's integer ID
-  for(uint32_t i=0; i < creatureTypes.size(); i++){
-    char* ptr = creatureTypes[i].gameIDstr;
+  for(uint32_t i=0; i < configs.size(); i++){
+    char* ptr = configs[i].gameIDstr;
     uint32_t j;
     for(j=0; j < numCreatures; j++){
-      if( strcmp( ptr, v_creatureNames[j].id) == 0){
+      if( strcmp( ptr, creatureNames[j].id) == 0){
         //assign ID
-        creatureTypes[i].gameID = j; 
+        configs[i].gameID = j; 
 
         //jump out of ID lookup loop
         break;
       }
     }
-    if(j >= v_creatureNames.size())
+    if(j >= creatureNames.size())
       WriteErr("Unable to match creature '%s' to anything in-game\n", ptr);
-    ptr = creatureTypes[i].professionstr;
-    if(!creatureTypes[i].customProf && strcmp(ptr, "") != 0 ){
+    ptr = configs[i].professionstr;
+    if(!configs[i].customProf && strcmp(ptr, "") != 0 ){
       string proffStr;
       for(j=0; (proffStr = dfMemoryInfo.getProfession(j)) != "" ; j++){
         if( proffStr.compare( ptr ) == 0){
           //assign ID
-          creatureTypes[i].professionID = j; 
+          configs[i].professionID = j; 
 
           //jump out of proffessionID lookup loop
           break;
@@ -81,67 +79,52 @@ void TranslateCreatureNames(){
       }
       if(proffStr == ""){
         WriteErr("Unable to match Profession '%s' to anything in-game\n", ptr);
-        creatureTypes[i].professionID = INT_MAX; //if it is left at INVALID_INDEX, the condition is ignored entierly.
+        configs[i].professionID = INT_MAX; //if it is left at INVALID_INDEX, the condition is ignored entierly.
       }
     }
   }
-
-  CreatureNamesTranslatedFromGame = true;
 }
 
 
-void LoadCreatureConfiguration( vector<CreatureConfiguration>* knownCreatures ){
-  char* filename = "Creatures.xml";
-  TiXmlDocument doc( filename );
-  bool loadOkay = doc.LoadFile();
-  TiXmlHandle hDoc(&doc);
-  TiXmlElement* elemCreature;
-  TiXmlElement* elemProfession;
+bool addSingleCreatureConfig( TiXmlElement* elemCreature, vector<CreatureConfiguration>* knownCreatures ){
 
-  knownCreatures->clear();
-
-  elemCreature = hDoc.FirstChildElement("Creature").Element();
-  while( elemCreature ){
-    const char* name = elemCreature->Attribute("gameID");
-    const char* sheetIndexStr;
-    
-    elemProfession = elemCreature->FirstChildElement("Profession");
-    while( elemProfession ){
-      const char* professionstr = elemProfession->Attribute("name");
-      const char* customstr = elemProfession->Attribute("custom");
-      const char* sexstr = elemProfession->Attribute("sex");
-      sheetIndexStr = elemProfession->Attribute("sheetIndex");
-      enumCreatureSex cresex = eCreatureSex_NA;
-      if(sexstr){
-        if(strcmp( sexstr, "M" ) == 0) cresex = eCreatureSex_Male;
-        if(strcmp( sexstr, "F" ) == 0) cresex = eCreatureSex_Female;
-      }
-      const char* specstr = elemProfession->Attribute("special");
-      enumCreatureSpecialCases crespec = eCSC_Any;
-      if (specstr)
-      {
-        if(strcmp( specstr, "Normal" ) == 0) crespec = eCSC_Normal;
-        if(strcmp( specstr, "Zombie" ) == 0) crespec = eCSC_Zombie;	      
-        if(strcmp( specstr, "Skeleton" ) == 0) crespec = eCSC_Skeleton;	      
-      }
-      //create profession config
-      CreatureConfiguration cre( (char*)name, ((customstr == 0)?(char*)professionstr:(char*)customstr), (customstr != 0), cresex, crespec, atoi(sheetIndexStr) );
-      //add a copy to known creatures
-      knownCreatures->push_back( cre );
-
-      elemProfession = elemProfession->NextSiblingElement("Profession");
+  const char* name = elemCreature->Attribute("gameID");
+  const char* sheetIndexStr;
+  
+  TiXmlElement* elemProfession = elemCreature->FirstChildElement("Profession");
+  while( elemProfession ){
+    const char* professionstr = elemProfession->Attribute("name");
+    const char* customstr = elemProfession->Attribute("custom");
+    const char* sexstr = elemProfession->Attribute("sex");
+    sheetIndexStr = elemProfession->Attribute("sheetIndex");
+    enumCreatureSex cresex = eCreatureSex_NA;
+    if(sexstr){
+      if(strcmp( sexstr, "M" ) == 0) cresex = eCreatureSex_Male;
+      if(strcmp( sexstr, "F" ) == 0) cresex = eCreatureSex_Female;
     }
-
-    //create default config
-    sheetIndexStr = elemCreature->Attribute("sheetIndex");
-    if (sheetIndexStr)
+    const char* specstr = elemProfession->Attribute("special");
+    enumCreatureSpecialCases crespec = eCSC_Any;
+    if (specstr)
     {
-	    CreatureConfiguration cre( (char*)name, "", false, eCreatureSex_NA, eCSC_Any, atoi(sheetIndexStr) );
-    	//add a copy to known creatures
-	    knownCreatures->push_back( cre );
- 	}
-    elemCreature = elemCreature->NextSiblingElement("Creature");
+      if(strcmp( specstr, "Normal" ) == 0) crespec = eCSC_Normal;
+      if(strcmp( specstr, "Zombie" ) == 0) crespec = eCSC_Zombie;	      
+      if(strcmp( specstr, "Skeleton" ) == 0) crespec = eCSC_Skeleton;	      
+    }
+    //create profession config
+    CreatureConfiguration cre( (char*)name, ((customstr == 0)?(char*)professionstr:(char*)customstr), (customstr != 0), cresex, crespec, atoi(sheetIndexStr) );
+    //add a copy to known creatures
+    knownCreatures->push_back( cre );
+
+    elemProfession = elemProfession->NextSiblingElement("Profession");
   }
 
-  CreatureNamesTranslatedFromGame = false;
+  //create default config
+  sheetIndexStr = elemCreature->Attribute("sheetIndex");
+  if (sheetIndexStr)
+  {
+    CreatureConfiguration cre( (char*)name, "", false, eCreatureSex_NA, eCSC_Any, atoi(sheetIndexStr) );
+  	//add a copy to known creatures
+    knownCreatures->push_back( cre );
+  }
+  return true;
 }

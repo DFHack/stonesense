@@ -6,7 +6,7 @@
 #include "Constructions.h"
 #include "GameBuildings.h"
 #include "Creatures.h"
-#include "GroundMaterialConfiguration.h"
+#include "ContentLoader.h"
 
 #ifdef LINUX_BUILD
   #define SUSPEND_DF DF.Suspend()
@@ -243,14 +243,15 @@ void ReadCellToSegment(API& DF, WorldSegment& segment, int CellX, int CellY, int
       //check veins
       for(uint32_t i=0; i<numVeins; i++){
 				//TODO: This will be fixed in dfHack at some point, but right now objects that arnt veins pass through as. So we filter on vtable
-				//if(veins[i].vtable != 9302320) only suitable for some versions
-        if((uint32_t)veins[i].type >= groundTypes.size())
+
+/*        if((uint32_t)veins[i].type >= groundTypes.size())
 					continue;
         uint16_t row = veins[i].assignment[ly];
         bool set = (row & (1 << lx)) != 0;
 				if(set){
 					rockIndex = veins[i].type;
 				}
+        */
       }
       b->materialIndex = rockIndex;
       //string name = v_stonetypes[j].id;
@@ -321,8 +322,13 @@ WorldSegment* ReadMapSegment(API &DF, int x, int y, int z, int sizex, int sizey,
   DF.ReadStoneMatgloss(v_stonetypes);
   
 
-  if(GroundMaterialNamesTranslatedFromGame == false)
-    TranslateGroundMaterialNames();
+  /*if(GroundMaterialNamesTranslatedFromGame == false)
+    TranslateGroundMaterialNames();*/
+
+  if(contentLoader.Translated() == false){
+
+    contentLoader.TranslateConfigsFromDFAPI( DF );
+  }
   
   //read layers
   vector< vector <uint16_t> > layers;

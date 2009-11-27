@@ -3,9 +3,10 @@
 #include "SpriteMaps.h"
 #include "GameBuildings.h"
 #include "BuildingConfiguration.h"
+#include "ContentLoader.h"
 
-vector<BuildingConfiguration> buildingTypes;
-vector <string> v_buildingtypes;//should be empty for all buildings
+//vector<BuildingConfiguration> buildingTypes;
+//vector <string> v_buildingtypes;//should be empty for all buildings
 /*
 int BlockNeighbourhoodType_simple(WorldSegment* segment, Block* b, bool validationFuctionProc(Block*) ){
   uint32_t x,y,z;
@@ -63,12 +64,9 @@ dirTypes findWallCloseTo(WorldSegment* segment, Block* b){
 void ReadBuildings(API& DF, vector<t_building>* buildingHolder){
   if(!buildingHolder) return;
 
-  v_buildingtypes.clear();
-	uint32_t numbuildings = DF.InitReadBuildings(v_buildingtypes);
+  vector<string> dummy;
+	uint32_t numbuildings = DF.InitReadBuildings(dummy);
 	t_building tempbuilding;
-
-  if( !BuildingNamesTranslatedFromGame )
-    TranslateBuildingNames();
 
 	uint32_t index = 0;
 	while(index < numbuildings){
@@ -138,9 +136,9 @@ void loadBuildingSprites ( Block* b){
 		WriteErr("Null Block skipped in loadBuildingSprites\n");
 		return;
 	}
-  uint32_t numBuildings = (uint32_t)buildingTypes.size();
+  uint32_t numBuildings = (uint32_t)contentLoader.buildingConfigs.size();
   for(uint32_t i = 0; i < numBuildings; i++){
-    BuildingConfiguration& conf = buildingTypes[i];
+    BuildingConfiguration& conf = contentLoader.buildingConfigs[i];
     if(b->building.info.type != conf.gameID) continue;
 
     //check all sprites for one that matches all conditions

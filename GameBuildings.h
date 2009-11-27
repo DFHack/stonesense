@@ -49,5 +49,5 @@ bool BlockHasSuspendedBuilding(vector<t_building>* buildingList, Block* b);
 dirTypes findWallCloseTo(WorldSegment* segment, Block* b);
 
 
-extern vector<BuildingConfiguration> buildingTypes;
-extern vector <string> v_buildingtypes;
+//extern vector<BuildingConfiguration> buildingTypes;
+//extern vector <string> v_buildingtypes;

@@ -12,7 +12,7 @@ using namespace std;
 #include "MapLoading.h"
 #include "GameBuildings.h"
 #include "Creatures.h"
-
+#include "ContentLoader.h"
 #include "BlockFactory.h"
 
 #include "loadpng/loadpng.h"
@@ -164,14 +164,14 @@ void drawDebugCursorAndInfo(BITMAP* target){
   if(b->building.info.type != BUILDINGTYPE_NA && b->building.info.type != BUILDINGTYPE_BLACKBOX){
     textprintf(target, font, 2, config.screenHeight-20-(i--*10), 0xFFFFFF, 
       "Building: %s(%i) MatType:%i MatIndex:%i", 
-      v_buildingtypes.at(b->building.info.type).c_str(),
+      contentLoader.buildingNameStrings.at(b->building.info.type).c_str(),
       b->building.info.type, b->building.info.material.type, b->building.info.material.index);
   }
   //creatures
   if(b->creature != null){
     textprintf(target, font, 2, config.screenHeight-20-(i--*10), 0xFFFFFF, 
       "Creature:%s(%i) Job:%s", 
-      v_creatureNames.at(b->creature->type).id, b->creature->type, 
+      contentLoader.creatureNameStrings.at(b->creature->type).id, b->creature->type, 
       dfMemoryInfo.getProfession( b->creature->profession ).c_str());
     
     char strCreature[150] = {0};

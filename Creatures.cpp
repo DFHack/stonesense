@@ -2,12 +2,13 @@
 #include "Creatures.h"
 #include "WorldSegment.h"
 #include "CreatureConfiguration.h"
+#include "ContentLoader.h"
 #include "GUI.h"
 
 
 
-vector<t_matgloss> v_creatureNames;
-vector<CreatureConfiguration> creatureTypes;
+//vector<t_matgloss> v_creatureNames;
+//vector<CreatureConfiguration> creatureTypes;
 
 
 
@@ -34,7 +35,7 @@ void DrawCreature( BITMAP* target, int drawx, int drawy, t_creature* creature ){
   	if (creature->first_name[0])
     	textprintf(target, font, drawx, drawy-20, 0xFFffFF, "%s", creature->first_name );
     else
-    	textprintf(target, font, drawx, drawy-20, 0xFFffFF, "[%s]", v_creatureNames.at(creature->type).id);
+    	textprintf(target, font, drawx, drawy-20, 0xFFffFF, "[%s]", contentLoader.creatureNameStrings.at(creature->type).id);
   DrawSpriteFromSheet( spriteNum, target, IMGCreatureSheet, drawx, drawy );
 }
 //t_creature* global = 0;
@@ -56,10 +57,6 @@ void ReadCreaturesToSegment(API& DF, WorldSegment* segment)
   if(y2<0) y2=0;
   if(z2<0) z2=0;
 
-	DF.ReadCreatureMatgloss(v_creatureNames);
-	if( !CreatureNamesTranslatedFromGame )
-		TranslateCreatureNames();
-		
 	t_creature *tempcreature = new t_creature();
 	/*for (uint32_t index = 0; index < numcreatures ; index++)
 	{
@@ -95,40 +92,40 @@ void ReadCreaturesToSegment(API& DF, WorldSegment* segment)
 
 
 int GetCreatureSpriteMap( t_creature* c ){
-  uint32_t num = (uint32_t)creatureTypes.size();
+  uint32_t num = (uint32_t)contentLoader.creatureConfigs.size();
   for(uint32_t i=0; i < num; i++){
     //TODO: Optimize. make a table lookup instead of a search
-    if( c->type != creatureTypes[i].gameID )
+    if( c->type != contentLoader.creatureConfigs[i].gameID )
       continue;
     
     bool creatureMatchesJob = true;
-    if( creatureTypes[i].professionID != INVALID_INDEX ){
-      creatureMatchesJob = creatureTypes[i].professionID == c->profession;
+    if( contentLoader.creatureConfigs[i].professionID != INVALID_INDEX ){
+      creatureMatchesJob = contentLoader.creatureConfigs[i].professionID == c->profession;
     }
     if(!creatureMatchesJob) continue;
     
     bool creatureMatchesSex = true;
-    if( creatureTypes[i].sex != eCreatureSex_NA ){
+    if( contentLoader.creatureConfigs[i].sex != eCreatureSex_NA ){
       creatureMatchesSex = 
-        (c->sex == 0 &&  creatureTypes[i].sex == eCreatureSex_Female) ||
-        (c->sex == 1 &&  creatureTypes[i].sex == eCreatureSex_Male);
+        (c->sex == 0 &&  contentLoader.creatureConfigs[i].sex == eCreatureSex_Female) ||
+        (c->sex == 1 &&  contentLoader.creatureConfigs[i].sex == eCreatureSex_Male);
     }
     if(!creatureMatchesSex) continue;
 
     bool creatureMatchesSpecial = true;
-    if (creatureTypes[i].special != eCSC_Any)
+    if (contentLoader.creatureConfigs[i].special != eCSC_Any)
     {
-	 	if (c->flags1.bits.zombie && (creatureTypes[i].special != eCSC_Zombie)) creatureMatchesSpecial = false;
-	 	if (c->flags1.bits.skeleton && (creatureTypes[i].special != eCSC_Skeleton)) creatureMatchesSpecial = false;
+	 	if (c->flags1.bits.zombie && (contentLoader.creatureConfigs[i].special != eCSC_Zombie)) creatureMatchesSpecial = false;
+	 	if (c->flags1.bits.skeleton && (contentLoader.creatureConfigs[i].special != eCSC_Skeleton)) creatureMatchesSpecial = false;
     }
 	if(!creatureMatchesSpecial) continue;
     
-    if( creatureTypes[i].customProf){
-      creatureMatchesJob = (strcmp(creatureTypes[i].professionstr,c->custom_profession)==0);
+    if( contentLoader.creatureConfigs[i].customProf){
+      creatureMatchesJob = (strcmp(contentLoader.creatureConfigs[i].professionstr,c->custom_profession)==0);
     }
 	if(!creatureMatchesJob) continue;
 	
-    return creatureTypes[i].sheetIndex;
+    return contentLoader.creatureConfigs[i].sheetIndex;
   }
   return SPRITECRE_NA;
 }

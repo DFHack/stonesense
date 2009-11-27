@@ -172,5 +172,5 @@ bool loadConfigFile();
 
 //xmlBuildingReader.cpp
 class BuildingConfiguration;
-bool LoadBuildingConfiguration( vector<BuildingConfiguration>* knownBuildings );
+
 

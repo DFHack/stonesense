@@ -14,6 +14,7 @@ using namespace std;
 #include "WorldSegment.h"
 #include "Creatures.h"
 #include "GroundMaterialConfiguration.h"
+#include "ContentLoader.h"
 
 uint32_t ClockedTime = 0;
 uint32_t ClockedTime2 = 0;
@@ -179,12 +180,12 @@ int main(void)
 	//DisplayedSegmentX = 238; DisplayedSegmentY = 220;DisplayedSegmentZ = 23;
 
 	//ford. Main hall
-	//DisplayedSegmentX = 172; DisplayedSegmentY = 195;DisplayedSegmentZ = 15;
+	DisplayedSegmentX = 172; DisplayedSegmentY = 195;DisplayedSegmentZ = 15;
 
   //ford. desert map
   //sDisplayedSegmentX = 78; DisplayedSegmentY = 123;DisplayedSegmentZ = 15;
 
-  DisplayedSegmentX = 114; DisplayedSegmentY = 53;DisplayedSegmentZ = 18;
+  DisplayedSegmentX = 155; DisplayedSegmentY = 177;DisplayedSegmentZ = 18;
 
   //DisplayedSegmentX = 242; DisplayedSegmentY = 345;DisplayedSegmentZ = 15;
   
@@ -192,14 +193,19 @@ int main(void)
   #ifdef RELEASE
   DisplayedSegmentX = 0; DisplayedSegmentY = 0;DisplayedSegmentZ = 18;
   #endif
+
+  contentLoader.Load();
+
   //while(1)
 	reloadDisplayedSegment();
 	//if(!viewedSegment) return 1;
 	
 	// we should have a dfhack attached now, load the config
-	LoadBuildingConfiguration( &buildingTypes );
+	/*LoadBuildingConfiguration( &buildingTypes );
 	LoadCreatureConfiguration( &creatureTypes );
 	LoadGroundMaterialConfiguration( );
+  */
+  
 	
 	// reload now we have config
 	reloadDisplayedSegment();

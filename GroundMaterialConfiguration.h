@@ -31,8 +31,8 @@ public:
 };
 
 
-void LoadGroundMaterialConfiguration( );
-void TranslateGroundMaterialNames();
+//void LoadGroundMaterialConfiguration( );
+//void TranslateGroundMaterialNames();
 
 extern bool GroundMaterialNamesTranslatedFromGame;
 extern vector<GroundMaterialConfiguration*> groundTypes;

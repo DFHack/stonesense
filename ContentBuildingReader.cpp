@@ -288,27 +288,9 @@ bool parseSpriteNode(SpriteNode* node, TiXmlElement* elemParent)
 	return true;
 }
 
-bool addSingleConfig( const char* filename,  vector<BuildingConfiguration>* knownBuildings ){
-  TiXmlDocument doc( filename );
-  bool loadOkay = doc.LoadFile();
-  TiXmlHandle hDoc(&doc);
-  TiXmlElement* elemBuilding;
-  if(!loadOkay)
-  {
-	WriteErr("File load failed\n");
-	WriteErr("Line %d: %s\n",doc.ErrorRow(),doc.ErrorDesc());
-	return false;
-  }
-
-  elemBuilding = hDoc.FirstChildElement("building").Element();
-  if( elemBuilding == 0)
-  {
-	  WriteErr("Main <building> node not present\n");
-    return false;
-  }
-
-  const char* strName = elemBuilding->Attribute("name");
-  const char* strGameID = elemBuilding->Attribute("gameID");
+bool addSingleBuildingConfig( TiXmlElement* elemRoot,  vector<BuildingConfiguration>* knownBuildings ){
+  const char* strName = elemRoot->Attribute("name");
+  const char* strGameID = elemRoot->Attribute("gameID");
   
   if (strName[0] == 0 || strGameID[0] == 0)
   {
@@ -319,7 +301,7 @@ bool addSingleConfig( const char* filename,  vector<BuildingConfiguration>* know
   BuildingConfiguration building(strName, (char*) strGameID );
   RootBlock* spriteroot = new RootBlock(); //leaky?
   building.sprites = spriteroot;
-  if (!parseSpriteNode(spriteroot,elemBuilding))
+  if (!parseSpriteNode(spriteroot,elemRoot))
   {
 	delete(spriteroot);
 	return false;
@@ -330,7 +312,7 @@ bool addSingleConfig( const char* filename,  vector<BuildingConfiguration>* know
   return true;
 }
 
-
+/*
 bool LoadBuildingConfiguration( vector<BuildingConfiguration>* knownBuildings ){
   string line;
   ifstream myfile ("buildings/index.txt");
@@ -379,3 +361,4 @@ bool LoadBuildingConfiguration( vector<BuildingConfiguration>* knownBuildings ){
   return true;
 }
 
+*/
