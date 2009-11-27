@@ -105,21 +105,30 @@ int GetCreatureSpriteMap( t_creature* c ){
     if( creatureTypes[i].professionID != INVALID_INDEX ){
       creatureMatchesJob = creatureTypes[i].professionID == c->profession;
     }
+    if(!creatureMatchesJob) continue;
+    
     bool creatureMatchesSex = true;
     if( creatureTypes[i].sex != eCreatureSex_NA ){
       creatureMatchesSex = 
         (c->sex == 0 &&  creatureTypes[i].sex == eCreatureSex_Female) ||
         (c->sex == 1 &&  creatureTypes[i].sex == eCreatureSex_Male);
     }
+    if(!creatureMatchesSex) continue;
+
     bool creatureMatchesSpecial = true;
     if (creatureTypes[i].special != eCSC_Any)
     {
 	 	if (c->flags1.bits.zombie && (creatureTypes[i].special != eCSC_Zombie)) creatureMatchesSpecial = false;
 	 	if (c->flags1.bits.skeleton && (creatureTypes[i].special != eCSC_Skeleton)) creatureMatchesSpecial = false;
     }
+	if(!creatureMatchesSpecial) continue;
     
-    if( creatureMatchesJob && creatureMatchesSex && creatureMatchesSpecial)
-      return creatureTypes[i].sheetIndex;
+    if( creatureTypes[i].customProf){
+      creatureMatchesJob = (strcmp(creatureTypes[i].professionstr,c->custom_profession)==0);
+    }
+	if(!creatureMatchesJob) continue;
+	
+    return creatureTypes[i].sheetIndex;
   }
   return SPRITECRE_NA;
 }

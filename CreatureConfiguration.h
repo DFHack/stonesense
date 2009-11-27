@@ -16,12 +16,13 @@ public:
   char gameIDstr[CREATURESTRLENGTH];
   int gameID;
   char professionstr[CREATURESTRLENGTH];
+  bool customProf;
   int professionID;
   int sheetIndex;
   enumCreatureSpecialCases special;
   enumCreatureSex sex;
 
-  CreatureConfiguration(char* gameIDstr, char* professionStr, enumCreatureSex sex, enumCreatureSpecialCases, int sheetIndex);
+  CreatureConfiguration(char* gameIDstr, char* professionStr, bool custom, enumCreatureSex sex, enumCreatureSpecialCases, int sheetIndex);
   ~CreatureConfiguration(void);
 };
 

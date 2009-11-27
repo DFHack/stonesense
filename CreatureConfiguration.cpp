@@ -8,14 +8,15 @@
 bool CreatureNamesTranslatedFromGame = false;
 
 
-CreatureConfiguration::CreatureConfiguration(char* gameIDstr, char* professionStr, enumCreatureSex sex, enumCreatureSpecialCases special, int sheetIndex)
+CreatureConfiguration::CreatureConfiguration(char* gameIDstr, char* professionStr, bool customProf, enumCreatureSex sex, enumCreatureSpecialCases special, int sheetIndex)
 {
   memset(this, 0, sizeof(CreatureConfiguration) );
   this->sheetIndex = sheetIndex;
   this->gameID = INVALID_INDEX;
   this->professionID = INVALID_INDEX;
   this->sex = sex;
-
+  this->customProf = customProf;
+  
   int len = (int) strlen(gameIDstr);
   if(len > CREATURESTRLENGTH) len = CREATURESTRLENGTH;
   memcpy(this->gameIDstr, gameIDstr, len);
@@ -67,7 +68,7 @@ void TranslateCreatureNames(){
     if(j >= v_creatureNames.size())
       WriteErr("Unable to match creature '%s' to anything in-game\n", ptr);
     ptr = creatureTypes[i].professionstr;
-    if(strcmp(ptr, "") != 0 ){
+    if(!creatureTypes[i].customProf && strcmp(ptr, "") != 0 ){
       string proffStr;
       for(j=0; (proffStr = dfMemoryInfo.getProfession(j)) != "" ; j++){
         if( proffStr.compare( ptr ) == 0){
@@ -107,6 +108,7 @@ void LoadCreatureConfiguration( vector<CreatureConfiguration>* knownCreatures ){
     elemProfession = elemCreature->FirstChildElement("Profession");
     while( elemProfession ){
       const char* professionstr = elemProfession->Attribute("name");
+      const char* customstr = elemProfession->Attribute("custom");
       const char* sexstr = elemProfession->Attribute("sex");
       sheetIndexStr = elemProfession->Attribute("sheetIndex");
       enumCreatureSex cresex = eCreatureSex_NA;
@@ -123,7 +125,7 @@ void LoadCreatureConfiguration( vector<CreatureConfiguration>* knownCreatures ){
         if(strcmp( specstr, "Skeleton" ) == 0) crespec = eCSC_Skeleton;	      
       }
       //create profession config
-      CreatureConfiguration cre( (char*)name, (char*)professionstr, cresex, crespec, atoi(sheetIndexStr) );
+      CreatureConfiguration cre( (char*)name, ((customstr == 0)?(char*)professionstr:(char*)customstr), (customstr != 0), cresex, crespec, atoi(sheetIndexStr) );
       //add a copy to known creatures
       knownCreatures->push_back( cre );
 
@@ -132,10 +134,12 @@ void LoadCreatureConfiguration( vector<CreatureConfiguration>* knownCreatures ){
 
     //create default config
     sheetIndexStr = elemCreature->Attribute("sheetIndex");
-    CreatureConfiguration cre( (char*)name, "", eCreatureSex_NA, eCSC_Any, atoi(sheetIndexStr) );
-    //add a copy to known creatures
-    knownCreatures->push_back( cre );
-    
+    if (sheetIndexStr)
+    {
+	    CreatureConfiguration cre( (char*)name, "", false, eCreatureSex_NA, eCSC_Any, atoi(sheetIndexStr) );
+    	//add a copy to known creatures
+	    knownCreatures->push_back( cre );
+ 	}
     elemCreature = elemCreature->NextSiblingElement("Creature");
   }
 
