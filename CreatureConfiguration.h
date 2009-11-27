@@ -2,6 +2,14 @@
 
 
 #define CREATURESTRLENGTH 50
+
+enum enumCreatureSpecialCases{
+  eCSC_Any,
+  eCSC_Normal,
+  eCSC_Zombie,
+  eCSC_Skeleton,
+};
+
 class CreatureConfiguration
 {
 public:
@@ -10,9 +18,10 @@ public:
   char professionstr[CREATURESTRLENGTH];
   int professionID;
   int sheetIndex;
+  enumCreatureSpecialCases special;
   enumCreatureSex sex;
 
-  CreatureConfiguration(char* gameIDstr, char* professionStr, enumCreatureSex sex, int sheetIndex);
+  CreatureConfiguration(char* gameIDstr, char* professionStr, enumCreatureSex sex, enumCreatureSpecialCases, int sheetIndex);
   ~CreatureConfiguration(void);
 };
 

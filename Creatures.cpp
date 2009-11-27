@@ -111,7 +111,14 @@ int GetCreatureSpriteMap( t_creature* c ){
         (c->sex == 0 &&  creatureTypes[i].sex == eCreatureSex_Female) ||
         (c->sex == 1 &&  creatureTypes[i].sex == eCreatureSex_Male);
     }
-    if( creatureMatchesJob && creatureMatchesSex)
+    bool creatureMatchesSpecial = true;
+    if (creatureTypes[i].special != eCSC_Any)
+    {
+	 	if (c->flags1.bits.zombie && (creatureTypes[i].special != eCSC_Zombie)) creatureMatchesSpecial = false;
+	 	if (c->flags1.bits.skeleton && (creatureTypes[i].special != eCSC_Skeleton)) creatureMatchesSpecial = false;
+    }
+    
+    if( creatureMatchesJob && creatureMatchesSex && creatureMatchesSpecial)
       return creatureTypes[i].sheetIndex;
   }
   return SPRITECRE_NA;

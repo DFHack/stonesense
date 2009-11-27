@@ -8,7 +8,7 @@
 bool CreatureNamesTranslatedFromGame = false;
 
 
-CreatureConfiguration::CreatureConfiguration(char* gameIDstr, char* professionStr, enumCreatureSex sex, int sheetIndex)
+CreatureConfiguration::CreatureConfiguration(char* gameIDstr, char* professionStr, enumCreatureSex sex, enumCreatureSpecialCases special, int sheetIndex)
 {
   memset(this, 0, sizeof(CreatureConfiguration) );
   this->sheetIndex = sheetIndex;
@@ -114,8 +114,16 @@ void LoadCreatureConfiguration( vector<CreatureConfiguration>* knownCreatures ){
         if(strcmp( sexstr, "M" ) == 0) cresex = eCreatureSex_Male;
         if(strcmp( sexstr, "F" ) == 0) cresex = eCreatureSex_Female;
       }
+      const char* specstr = elemProfession->Attribute("special");
+      enumCreatureSpecialCases crespec = eCSC_Any;
+      if (specstr)
+      {
+        if(strcmp( specstr, "Normal" ) == 0) crespec = eCSC_Normal;
+        if(strcmp( specstr, "Zombie" ) == 0) crespec = eCSC_Zombie;	      
+        if(strcmp( specstr, "Skeleton" ) == 0) crespec = eCSC_Skeleton;	      
+      }
       //create profession config
-      CreatureConfiguration cre( (char*)name, (char*)professionstr, cresex, atoi(sheetIndexStr) );
+      CreatureConfiguration cre( (char*)name, (char*)professionstr, cresex, crespec, atoi(sheetIndexStr) );
       //add a copy to known creatures
       knownCreatures->push_back( cre );
 
@@ -124,7 +132,7 @@ void LoadCreatureConfiguration( vector<CreatureConfiguration>* knownCreatures ){
 
     //create default config
     sheetIndexStr = elemCreature->Attribute("sheetIndex");
-    CreatureConfiguration cre( (char*)name, "", eCreatureSex_NA, atoi(sheetIndexStr) );
+    CreatureConfiguration cre( (char*)name, "", eCreatureSex_NA, eCSC_Any, atoi(sheetIndexStr) );
     //add a copy to known creatures
     knownCreatures->push_back( cre );
     
