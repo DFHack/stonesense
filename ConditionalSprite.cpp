@@ -162,6 +162,7 @@ SpriteElement::SpriteElement()
 	sprite.sheetIndex = -1;
 	sprite.x = 0;
 	sprite.y = 0;
+	sprite.animFrames = 0;
 }
 
 bool SpriteElement::BlockMatches(Block* b)

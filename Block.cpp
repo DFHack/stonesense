@@ -113,6 +113,8 @@ void Block::Draw(BITMAP* target){
     int spriteNum =  SPRITEOBJECT_NA; //getBuildingSprite(this->building, mirroredBuilding);
 
    for(uint32_t i=0; i < building.sprites.size(); i++){
+	   if (!(building.sprites[i].animFrames & (1 << currentAnimationFrame)))
+	   		continue;
       spriteNum = building.sprites[i].sheetIndex;
       BITMAP* objectSheet;
 	    if (building.sprites[i].fileIndex == -1)

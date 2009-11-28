@@ -7,6 +7,7 @@ struct t_SpriteWithOffset{
   int16_t x;
   int16_t y;
   int32_t fileIndex;
+  char animFrames;
 } ;
 
 

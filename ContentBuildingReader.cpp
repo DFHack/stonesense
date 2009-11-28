@@ -134,6 +134,25 @@ int parseConditionNode(ConditionalNode* node, TiXmlElement* elemCondition, bool 
   	return -1;
 }
 
+// converts list of characters 0-5 into bits, ignoring garbage
+// eg  "035" or "0  3 5" or "0xx3x5" are all good
+inline char getAnimFrames(const char* framestring)
+{
+	if (framestring == NULL)
+		return 1+2+4+8+16+32;
+	char aframes=0;
+	for (int i=0;i<6;i++)
+	{
+		if (framestring[i]==0)
+			return aframes;
+		char temp = framestring[i]-'0';
+		if (temp < 0 || temp > 5)
+			continue;
+		aframes = aframes | (1 << temp);
+	}
+	return aframes;
+}
+
 inline bool readNode(SpriteNode* node, TiXmlElement* elemNode, TiXmlElement* elemParent, SpriteBlock* &oldSibling)
 {
 	const char* strType = elemNode->Value();
@@ -189,6 +208,11 @@ inline bool readNode(SpriteNode* node, TiXmlElement* elemNode, TiXmlElement* ele
 		const char* strOffsetX = elemNode->Attribute("offsetx");
 		const char* strOffsetY = elemNode->Attribute("offsety");
 		const char* filename = elemNode->Attribute("file");
+		getAnimFrames(elemNode->Attribute("frames"));
+		sprite->sprite.animFrames = getAnimFrames(elemNode->Attribute("frames"));
+		if (sprite->sprite.animFrames == 0)
+			sprite->sprite.animFrames = 1+2+4+8+16+32;
+
 		sprite->sprite.sheetIndex = (strSheetIndex != 0 ? atoi(strSheetIndex) : -1);
 		sprite->sprite.x    = (strOffsetX    != 0 ? atoi(strOffsetX)    : 0);
 		sprite->sprite.y   = (strOffsetY    != 0 ? atoi(strOffsetY)    : 0);
