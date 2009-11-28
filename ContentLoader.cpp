@@ -146,3 +146,22 @@ void contentError(const char* message, TiXmlNode* element)
 {
 	WriteErr("%s: %s: %s (Line %d)\n",getDocument(element),message,element->Value(),element->Row());
 }
+
+// converts list of characters 0-5 into bits, ignoring garbage
+// eg  "035" or "0  3 5" or "0xx3x5" are all good
+char getAnimFrames(const char* framestring)
+{
+	if (framestring == NULL)
+		return ALL_FRAMES;
+	char aframes=0;
+	for (int i=0;i<6;i++)
+	{
+		if (framestring[i]==0)
+			return aframes;
+		char temp = framestring[i]-'0';
+		if (temp < 0 || temp > 5)
+			continue;
+		aframes = aframes | (1 << temp);
+	}
+	return aframes;
+}
