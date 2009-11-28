@@ -12,34 +12,16 @@
 			<NeighbourSameBuilding dir="West"/>
 			<NeighbourSameBuilding dir="East"/>
 		</or>
-		<if>
-			<or>
-				<AnimationFrame value=0 />
-				<AnimationFrame value=2 />
-				<AnimationFrame value=4 />
-			</or>
-			<sprite index = 6 />
-		</if>
-		<else>
-			<sprite index = 7 />
-		</else>
+		<sprite index = 6 frame="024" />
+		<sprite index = 7 frame="135" />
 	</else>
 	<else>
 		<or>
 			<NeighbourSameBuilding dir="North"/>
 			<NeighbourSameBuilding dir="South"/>
 		</or>
-		<if>
-			<or>
-				<AnimationFrame value=0 />
-				<AnimationFrame value=2 />
-				<AnimationFrame value=4 />
-			</or>
-			<sprite index = 4 />
-		</if>
-		<else>
-			<sprite index = 5 />
-		</else>
+		<sprite index = 4 frame="024" />
+		<sprite index = 5 frame="135" />
 	</else>
 	<!-- look for gears preferentially -->
 	<else>
@@ -47,34 +29,16 @@
 			<NeighbourOfType dir="East" value="gear_assembly"/>
 			<NeighbourOfType dir="West" value="gear_assembly"/>
 		</or>
-		<if>
-			<or>
-				<AnimationFrame value=0 />
-				<AnimationFrame value=2 />
-				<AnimationFrame value=4 />
-			</or>
-			<sprite index = 6 />
-		</if>
-		<else>
-			<sprite index = 7 />
-		</else>
+		<sprite index = 6 frame="024" />
+		<sprite index = 7 frame="135" />
 	</else>
 	<else>
 		<or>
 			<NeighbourOfType dir="North" value="gear_assembly"/>
 			<NeighbourOfType dir="South" value="gear_assembly"/>
 		</or>
-		<if>
-			<or>
-				<AnimationFrame value=0 />
-				<AnimationFrame value=2 />
-				<AnimationFrame value=4 />
-			</or>
-			<sprite index = 4 />
-		</if>
-		<else>
-			<sprite index = 5 />
-		</else>
+		<sprite index = 4 frame="024" />
+		<sprite index = 5 frame="135" />
 	</else>
 	<!-- any other hints -->
 	<else>
@@ -88,30 +52,12 @@
 			<NeighbourOfType dir="East" value="horizontal_axle"/>
 			<NeighbourOfType dir="West" value="horizontal_axle"/>
 		</or>
-		<if>
-			<or>
-				<AnimationFrame value=0 />
-				<AnimationFrame value=2 />
-				<AnimationFrame value=4 />
-			</or>
-			<sprite index = 6 />
-		</if>
-		<else>
-			<sprite index = 7 />
-		</else>
+		<sprite index = 6 frame="024" />
+		<sprite index = 7 frame="135" />
 	</else>	
 	<else>
-		<if>
-			<or>
-				<AnimationFrame value=0 />
-				<AnimationFrame value=2 />
-				<AnimationFrame value=4 />
-			</or>
-			<sprite index = 5 />
-		</if>
-		<else>
-			<sprite index = 4 />
-		</else>
+		<sprite index = 4 frame="024" />
+		<sprite index = 5 frame="135" />
 	</else>
 		
 </building> 

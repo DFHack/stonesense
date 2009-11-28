@@ -17,17 +17,8 @@
 			<not><FluidBelow value=4 /></not>
 			<sprite index= 47 offsety=15 offsetx=7 />
 		</if>
-		<if>
-			<or>
-				<AnimationFrame value=0 />
-				<AnimationFrame value=2 />
-				<AnimationFrame value=4 />
-			</or>
-			<sprite index= 41 offsety=3/>
-		</if>
-		<else>
-			<sprite index= 44 offsety=3/>
-		</else>
+		<sprite index= 41 offsety=3 frame="024" />
+		<sprite index= 44 offsety=3 frame="135" />
 	</else>
 	<else>	
 		<NeighbourSameBuilding dir="North" />
@@ -42,17 +33,8 @@
 				<sprite index= 46 offsety=7 offsetx=2 />
 			</else>
 		</if>
-		<if>
-			<or>
-				<AnimationFrame value=0 />
-				<AnimationFrame value=2 />
-				<AnimationFrame value=4 />
-			</or>
-			<sprite index= 40 offsety=3/>
-		</if>
-		<else>
-			<sprite index= 43 offsety=3/>
-		</else>
+		<sprite index= 40 offsety=3 />
+		<sprite index= 43 offsety=3/>
 	</else>
 	<else>	
 		<NeighbourSameBuilding dir="South" />
@@ -67,17 +49,8 @@
 				<sprite index= 48 offsety=16/>
 			</else>
 		</if>
-		<if>
-			<or>
-				<AnimationFrame value=0 />
-				<AnimationFrame value=2 />
-				<AnimationFrame value=4 />
-			</or>
-			<sprite index= 42 offsety=3/>
-		</if>
-		<else>
-			<sprite index= 45 offsety=3/>
-		</else>
+		<sprite index= 42 offsety=3 frame="024" />
+		<sprite index= 45 offsety=3 frame="135" />
 	</else>
 	
 	<else>
@@ -93,17 +66,8 @@
 			<not><FluidBelow value=4 /></not>
 			<sprite index= 67 offsety=15 offsetx=-7/>
 		</if>
-		<if>
-			<or>
-				<AnimationFrame value=0 />
-				<AnimationFrame value=2 />
-				<AnimationFrame value=4 />
-			</or>
-			<sprite index= 61 offsety=3/>
-		</if>
-		<else>
-			<sprite index= 64 offsety=3/>
-		</else>
+		<sprite index= 61 offsety=3 frame="024" />
+		<sprite index= 64 offsety=3 frame="135" />
 	</else>
 	<else>	
 		<NeighbourSameBuilding dir="West" />
@@ -118,17 +82,8 @@
 				<sprite index= 66 offsety=7 offsetx=-2/>
 			</else>
 		</if>
-		<if>
-			<or>
-				<AnimationFrame value=0 />
-				<AnimationFrame value=2 />
-				<AnimationFrame value=4 />
-			</or>
-			<sprite index= 60 offsety=3/>
-		</if>
-		<else>
-			<sprite index= 63 offsety=3/>
-		</else>
+		<sprite index= 60 offsety=3 frame="024" />
+		<sprite index= 63 offsety=3 frame="135" />
 	</else>
 	<else>	
 		<NeighbourSameBuilding dir="East" />
@@ -143,17 +98,8 @@
 				<sprite index= 68 offsety=16/>
 			</else>
 		</if>	
-		<if>
-			<or>
-				<AnimationFrame value=0 />
-				<AnimationFrame value=2 />
-				<AnimationFrame value=4 />
-			</or>
-			<sprite index= 62 offsety=3/>
-		</if>
-		<else>
-			<sprite index= 65 offsety=3/>
-		</else>
+		<sprite index= 62 offsety=3 frame="024" />
+		<sprite index= 65 offsety=3 frame="135" />
 	</else>
 	<empty />
 </building> 

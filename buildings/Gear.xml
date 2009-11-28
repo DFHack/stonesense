@@ -7,7 +7,7 @@
 	<include file="sBlueprint.xml" />
 
 	<else>
-		<sprite index = 0 frames="012"/>
-		<sprite index = 1 frames="345"/>
+		<sprite index = 0 frames="024"/>
+		<sprite index = 1 frames="135"/>
 	</else>
 </building> 

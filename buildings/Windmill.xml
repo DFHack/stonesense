@@ -7,94 +7,87 @@
 	<include file="sBlueprint.xml" />
 	
 	<else>
-		<or>
-			<AnimationFrame value=0 />
-			<AnimationFrame value=2 />
-			<AnimationFrame value=4 />
-		</or>
 		<if>
 			<PositionIndex value=0 />
 			<rotate>
-				<sprite index = 30 />
-				<sprite index = 28 />				
-				<sprite index = 29 />
-				<sprite index = 26 />
+				<sprite index = 30 frames="024" />
+				<sprite index = 28 frames="024" />				
+				<sprite index = 29 frames="024" />
+				<sprite index = 26 frames="024" />
 			</rotate>
 		</if>
 		<else>
 			<PositionIndex value=2 />
 			<rotate>
-				<sprite index = 28 />				
-				<sprite index = 29 />
-				<sprite index = 26 />
-				<sprite index = 30 />
+				<sprite index = 28 frames="024" />				
+				<sprite index = 29 frames="024" />
+				<sprite index = 26 frames="024" />
+				<sprite index = 30 frames="024" />
 			</rotate>
 		</else>
 		<else>
 			<PositionIndex value=6 />
 			<rotate>
-				<sprite index = 26 />
-				<sprite index = 30 />
-				<sprite index = 28 />				
-				<sprite index = 29 />
+				<sprite index = 26 frames="024" />
+				<sprite index = 30 frames="024" />
+				<sprite index = 28 frames="024" />				
+				<sprite index = 29 frames="024" />
 			</rotate>
 		</else>
 		<else>
 			<PositionIndex value=8 />
 			<rotate>
-				<sprite index = 29 />
-				<sprite index = 26 />
-				<sprite index = 30 />
-				<sprite index = 28 />				
+				<sprite index = 29 frames="024" />
+				<sprite index = 26 frames="024" />
+				<sprite index = 30 frames="024" />
+				<sprite index = 28 frames="024" />				
 			</rotate>
 		</else>	
 		<else>
 			<PositionIndex value=4 />
-			<sprite index = 20 />
-			<sprite index = 27 />
+			<sprite index = 20 frames="024" />
+			<sprite index = 27 frames="024" />
 		</else>	
-	</else>
-	<else>
 		<if>
 			<PositionIndex value=1 />
 			<rotate>
-				<sprite index = 24 />
-				<sprite index = 22 />
-				<sprite index = 23 />
-				<sprite index = 25 />
+				<sprite index = 24 frames="135" />
+				<sprite index = 22 frames="135" />
+				<sprite index = 23 frames="135" />
+				<sprite index = 25 frames="135" />
 			</rotate>
 		</if>
 		<else>
 			<PositionIndex value=3 />
 			<rotate>
-				<sprite index = 25 />
-				<sprite index = 24 />
-				<sprite index = 22 />
-				<sprite index = 23 />
+				<sprite index = 25 frames="135" />
+				<sprite index = 24 frames="135" />
+				<sprite index = 22 frames="135" />
+				<sprite index = 23 frames="135" />
 			</rotate>
 		</else>
 		<else>
 			<PositionIndex value=5 />
 			<rotate>
-				<sprite index = 22 />
-				<sprite index = 23 />
-				<sprite index = 25 />
-				<sprite index = 24 />
+				<sprite index = 22 frames="135" />
+				<sprite index = 23 frames="135" />
+				<sprite index = 25 frames="135" />
+				<sprite index = 24 frames="135" />
 			</rotate>
 		</else>
 		<else>
 			<PositionIndex value=7 />
 			<rotate>
-				<sprite index = 23 />
-				<sprite index = 25 />
-				<sprite index = 24 />
-				<sprite index = 22 />
+				<sprite index = 23 frames="135" />
+				<sprite index = 25 frames="135" />
+				<sprite index = 24 frames="135" />
+				<sprite index = 22 frames="135" />
 			</rotate>
 		</else>
 		<else>
 			<PositionIndex value=4 />
-			<sprite index = 20 />
-			<sprite index = 21 />
+			<sprite index = 20 frames="135" />
+			<sprite index = 21 frames="135" />
 		</else>	
 	</else>
 	<empty/>
