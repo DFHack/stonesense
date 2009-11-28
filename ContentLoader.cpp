@@ -49,7 +49,7 @@ bool ContentLoader::parseContentIndexFile( char* filepath, char* homefolder ){
 
     if(line.size() > 0){
       sprintf(configfilepath, "%s/%s", homefolder, line.c_str() );
-      WriteErr("Reading %s...\t\t", configfilepath);
+      LogVerbose("Reading %s...\n", configfilepath);
       parseContentXMLFile(configfilepath, homefolder);
     }
   }
@@ -121,4 +121,25 @@ void ContentLoader::TranslateConfigsFromDFAPI( API& DF ){
   TranslateGroundMaterialNames( groundConfigs, unparsedGroundConfigs );
 
   translationComplete = true;
+}
+
+const char* getDocument(TiXmlNode* element)
+{
+	//walk up the tree to the root
+	TiXmlNode* parent = element->Parent();
+	while (parent != null)
+	{
+		element = parent;
+		parent = element->Parent();	
+	}
+	// topmost node *should* be a document, but lets be sure
+	parent = dynamic_cast<TiXmlDocument*>(element);
+	if (parent == NULL)
+		return NULL;
+	return parent->Value();
+}
+
+void contentError(const char* message, TiXmlNode* element)
+{
+	WriteErr("%s: %s: %s (Line %d)\n",getDocument(element),message,element->Value(),element->Row());
 }

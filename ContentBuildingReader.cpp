@@ -7,6 +7,7 @@
 #include "BlockCondition.h"
 #include "dfhack/library/tinyxml/tinyxml.h"
 #include "GUI.h"
+#include "ContentLoader.h"
 
 int parseConditionNode(ConditionalNode* node, TiXmlElement* elemCondition, bool silent);
 bool parseSpriteNode(SpriteNode* node, TiXmlElement* elemParent);
@@ -126,7 +127,7 @@ int parseConditionNode(ConditionalNode* node, TiXmlElement* elemCondition, bool 
 	}
 	else if (!silent)
 	{
-		WriteErr("Misplaced or invalid element in Condition: %s (Line %d)\n",strType,elemCondition->Row());
+		contentError("Misplaced or invalid element in Condition",elemCondition);
 		return 0;		  
   	}
   	return -1;
@@ -151,7 +152,7 @@ inline bool readNode(SpriteNode* node, TiXmlElement* elemNode, TiXmlElement* ele
 		{
 			if (!oldSibling)
 			{
-				WriteErr("Misplaced or invalid element in SpriteNode: %s (Line %d)\n",strType,elemNode->Row());
+				contentError("Misplaced or invalid element in SpriteNode",elemNode);
 				return false;						
 			}
 			oldSibling->addElse(block);	
@@ -215,7 +216,7 @@ inline bool readNode(SpriteNode* node, TiXmlElement* elemNode, TiXmlElement* ele
 	}
 	else
 	{
-		WriteErr("Misplaced or invalid element in SpriteNode: %s (Line %d)\n",strType,elemNode->Row());
+		contentError("Misplaced or invalid element in SpriteNode",elemNode);
 		return false;
 	}		
 	return true;
@@ -232,6 +233,7 @@ bool includeFile(SpriteNode* node, TiXmlElement* includeNode, SpriteBlock* &oldS
   TiXmlElement* elemParent;
   if(!loadOkay)
   {
+	contentError("Include failed",includeNode);
 	WriteErr("File load failed: %s\n",filenameStr.c_str());
 	WriteErr("Line %d: %s\n",doc.ErrorRow(),doc.ErrorDesc());
 	return false;
@@ -239,13 +241,13 @@ bool includeFile(SpriteNode* node, TiXmlElement* includeNode, SpriteBlock* &oldS
   elemParent = hDoc.FirstChildElement("include").Element();
   if( elemParent == NULL)
   {
-	  WriteErr("Main <include> node not present: %s\n",includeNode->Attribute("file"));
+	  contentError("Main <include> node not present",&doc);
     return false;
   }
   TiXmlElement* elemNode =  elemParent->FirstChildElement();
   if (elemNode == NULL)
   {
-	WriteErr("Empty include: %s\n",includeNode->Attribute("file"));
+	contentError("Empty include",elemParent);
 	return false;
   }
 	while (elemNode)
@@ -265,7 +267,7 @@ bool parseSpriteNode(SpriteNode* node, TiXmlElement* elemParent)
 	const char* strParent = elemParent->Value();
 	if (elemNode == NULL)
 	{
-		WriteErr("Empty SpriteNode Element: %s (Line %d)\n",strParent,elemParent->Row());
+		contentError("Empty SpriteNode Element",elemParent);
 		return false;		
 	}
 	if ( strcmp(strParent,"building") != 0 && strcmp(strParent,"rotate") != 0)
@@ -295,7 +297,7 @@ bool addSingleBuildingConfig( TiXmlElement* elemRoot,  vector<BuildingConfigurat
   
   if (strName[0] == 0 || strGameID[0] == 0)
   {
-	  WriteErr("<building> node must have name and gameID attributes\n");
+	  contentError("<building> node must have name and gameID attributes",elemRoot);
 	  return false;
   }
   
