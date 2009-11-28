@@ -6,10 +6,10 @@
 #include "dfhack/library/tinyxml/tinyxml.h"
 
 
-CreatureConfiguration::CreatureConfiguration(char* gameIDstr, char* professionStr, bool customProf, enumCreatureSex sex, enumCreatureSpecialCases special, int sheetIndex)
+CreatureConfiguration::CreatureConfiguration(char* gameIDstr, char* professionStr, bool customProf, enumCreatureSex sex, enumCreatureSpecialCases special, t_SpriteWithOffset &sprite)
 {
   memset(this, 0, sizeof(CreatureConfiguration) );
-  this->sheetIndex = sheetIndex;
+  this->sprite = sprite;
   this->gameID = INVALID_INDEX;
   this->professionID = INVALID_INDEX;
   this->sex = sex;
@@ -90,6 +90,11 @@ bool addSingleCreatureConfig( TiXmlElement* elemCreature, vector<CreatureConfigu
 
   const char* name = elemCreature->Attribute("gameID");
   const char* sheetIndexStr;
+  t_SpriteWithOffset sprite;
+  sprite.fileIndex=-1;
+  sprite.x=0;
+  sprite.y=0;
+  char animFrames=ALL_FRAMES;
   
   TiXmlElement* elemProfession = elemCreature->FirstChildElement("Profession");
   while( elemProfession ){
@@ -111,7 +116,8 @@ bool addSingleCreatureConfig( TiXmlElement* elemCreature, vector<CreatureConfigu
       if(strcmp( specstr, "Skeleton" ) == 0) crespec = eCSC_Skeleton;	      
     }
     //create profession config
-    CreatureConfiguration cre( (char*)name, ((customstr == 0)?(char*)professionstr:(char*)customstr), (customstr != 0), cresex, crespec, atoi(sheetIndexStr) );
+    sprite.sheetIndex=atoi(sheetIndexStr);
+    CreatureConfiguration cre( (char*)name, ((customstr == 0)?(char*)professionstr:(char*)customstr), (customstr != 0), cresex, crespec, sprite );
     //add a copy to known creatures
     knownCreatures->push_back( cre );
 
@@ -122,7 +128,7 @@ bool addSingleCreatureConfig( TiXmlElement* elemCreature, vector<CreatureConfigu
   sheetIndexStr = elemCreature->Attribute("sheetIndex");
   if (sheetIndexStr)
   {
-    CreatureConfiguration cre( (char*)name, "", false, eCreatureSex_NA, eCSC_Any, atoi(sheetIndexStr) );
+    CreatureConfiguration cre( (char*)name, "", false, eCreatureSex_NA, eCSC_Any, sprite );
   	//add a copy to known creatures
     knownCreatures->push_back( cre );
   }

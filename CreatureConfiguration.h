@@ -19,12 +19,12 @@ public:
   char professionstr[CREATURESTRLENGTH];
   bool customProf;
   int professionID;
-  int sheetIndex;
+  t_SpriteWithOffset sprite;
   enumCreatureSpecialCases special;
   enumCreatureSex sex;
 
   CreatureConfiguration(){}
-  CreatureConfiguration(char* gameIDstr, char* professionStr, bool custom, enumCreatureSex sex, enumCreatureSpecialCases, int sheetIndex);
+  CreatureConfiguration(char* gameIDstr, char* professionStr, bool custom, enumCreatureSex sex, enumCreatureSpecialCases, t_SpriteWithOffset &sprite);
   ~CreatureConfiguration(void);
 };
 

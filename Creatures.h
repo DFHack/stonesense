@@ -1,15 +1,16 @@
 #pragma once
 #include "common.h"
+#include "commonTypes.h"
 #include "CreatureConfiguration.h"
 
 #define	SPRITECRE_NA 0;
 
-
+static t_SpriteWithOffset spriteCre_NA = {0, 0, 0,-1,1+2+4+8+16+32};
 
 void ReadCreaturesToSegment(API& DF, WorldSegment* segment);
 
 void DrawCreature( BITMAP* target, int drawx, int drawy, t_creature* c );
-int GetCreatureSpriteMap( t_creature* c );
+t_SpriteWithOffset GetCreatureSpriteMap( t_creature* c );
 
 
 

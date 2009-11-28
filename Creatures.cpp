@@ -25,7 +25,7 @@ bool IsCreatureVisible( t_creature* c ){
 }
 
 void DrawCreature( BITMAP* target, int drawx, int drawy, t_creature* creature ){
-  int spriteNum = GetCreatureSpriteMap( creature );
+  t_SpriteWithOffset sprite = GetCreatureSpriteMap( creature );
   //if(creature->x == 151 && creature->y == 145)
   //  int j = 10;
   if( config.show_creature_names )
@@ -36,7 +36,7 @@ void DrawCreature( BITMAP* target, int drawx, int drawy, t_creature* creature ){
     	textprintf(target, font, drawx, drawy-20, 0xFFffFF, "%s", creature->first_name );
     else
     	textprintf(target, font, drawx, drawy-20, 0xFFffFF, "[%s]", contentLoader.creatureNameStrings.at(creature->type).id);
-  DrawSpriteFromSheet( spriteNum, target, IMGCreatureSheet, drawx, drawy );
+  DrawSpriteFromSheet( sprite.sheetIndex, target, IMGCreatureSheet, drawx, drawy );
 }
 //t_creature* global = 0;
 
@@ -91,7 +91,7 @@ void ReadCreaturesToSegment(API& DF, WorldSegment* segment)
 }
 
 
-int GetCreatureSpriteMap( t_creature* c ){
+t_SpriteWithOffset GetCreatureSpriteMap( t_creature* c ){
   uint32_t num = (uint32_t)contentLoader.creatureConfigs.size();
   for(uint32_t i=0; i < num; i++){
     //TODO: Optimize. make a table lookup instead of a search
@@ -125,9 +125,9 @@ int GetCreatureSpriteMap( t_creature* c ){
     }
 	if(!creatureMatchesJob) continue;
 	
-    return contentLoader.creatureConfigs[i].sheetIndex;
+    return contentLoader.creatureConfigs[i].sprite;
   }
-  return SPRITECRE_NA;
+  return spriteCre_NA;
 }
 
 
