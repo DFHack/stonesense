@@ -4,6 +4,7 @@
 #include "ContentBuildingReader.h"
 
 #include "dfhack/library/tinyxml/tinyxml.h"
+#include "GUI.h"
 
 ContentLoader contentLoader;
 
@@ -15,9 +16,11 @@ ContentLoader::~ContentLoader(void) { }
 
 bool ContentLoader::Load(){
   //flush old config?
-  buildingConfigs.clear();
+  
+  flushBuildingConfig(&buildingConfigs);
   creatureConfigs.clear();
   groundConfigs.clear();
+  flushImgFiles();
   creatureNameStrings.clear();
   buildingNameStrings.clear();
   unparsedGroundConfigs.clear();

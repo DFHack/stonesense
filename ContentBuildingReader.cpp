@@ -316,15 +316,8 @@ bool addSingleBuildingConfig( TiXmlElement* elemRoot,  vector<BuildingConfigurat
   return true;
 }
 
-/*
-bool LoadBuildingConfiguration( vector<BuildingConfiguration>* knownBuildings ){
-  string line;
-  ifstream myfile ("buildings/index.txt");
-  if (myfile.is_open() == false){
-    WriteErr("Unable to load building config index file!\n");
-    return false;
-  }
-
+void flushBuildingConfig( vector<BuildingConfiguration>* knownBuildings )
+{
   // clean up building data trees before deleting them
   // a nasty cludge that only works cause knownbuildings
   // isnt modified anywhere else
@@ -336,6 +329,20 @@ bool LoadBuildingConfiguration( vector<BuildingConfiguration>* knownBuildings ){
 		//should set to null, but we will nuke the lot in a second
 	}
   knownBuildings->clear();
+}
+
+
+
+/*
+bool LoadBuildingConfiguration( vector<BuildingConfiguration>* knownBuildings ){
+  string line;
+  ifstream myfile ("buildings/index.txt");
+  if (myfile.is_open() == false){
+    WriteErr("Unable to load building config index file!\n");
+    return false;
+  }
+
+
   //img files are now unused
   flushImgFiles();
   
