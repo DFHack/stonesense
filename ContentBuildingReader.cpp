@@ -134,25 +134,6 @@ int parseConditionNode(ConditionalNode* node, TiXmlElement* elemCondition, bool 
   	return -1;
 }
 
-// converts list of characters 0-5 into bits, ignoring garbage
-// eg  "035" or "0  3 5" or "0xx3x5" are all good
-inline char getAnimFrames(const char* framestring)
-{
-	if (framestring == NULL)
-		return ALL_FRAMES;
-	char aframes=0;
-	for (int i=0;i<6;i++)
-	{
-		if (framestring[i]==0)
-			return aframes;
-		char temp = framestring[i]-'0';
-		if (temp < 0 || temp > 5)
-			continue;
-		aframes = aframes | (1 << temp);
-	}
-	return aframes;
-}
-
 inline bool readNode(SpriteNode* node, TiXmlElement* elemNode, TiXmlElement* elemParent, SpriteBlock* &oldSibling)
 {
 	const char* strType = elemNode->Value();
