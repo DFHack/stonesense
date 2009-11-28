@@ -3,6 +3,7 @@
 #include "Creatures.h"
 #include "MapLoading.h"
 #include "GUI.h"
+#include "ContentLoader.h"
 
 #include "dfhack/library/tinyxml/tinyxml.h"
 
@@ -95,7 +96,7 @@ bool addSingleCreatureConfig( TiXmlElement* elemCreature, vector<CreatureConfigu
   sprite.fileIndex=-1;
   sprite.x=0;
   sprite.y=0;
-  char animFrames=ALL_FRAMES;
+  sprite.animFrames=ALL_FRAMES;
   const char* filename = elemCreature->Attribute("file");
 	if (filename != NULL && filename[0] != 0)
 	{
@@ -121,6 +122,10 @@ bool addSingleCreatureConfig( TiXmlElement* elemCreature, vector<CreatureConfigu
       if(strcmp( specstr, "Zombie" ) == 0) crespec = eCSC_Zombie;	      
       if(strcmp( specstr, "Skeleton" ) == 0) crespec = eCSC_Skeleton;	      
     }
+    sprite.animFrames = getAnimFrames(elemProfession->Attribute("frames"));
+	if (sprite.animFrames == 0)
+		sprite.animFrames = ALL_FRAMES;
+    
     //create profession config
     sprite.sheetIndex=atoi(sheetIndexStr);
     CreatureConfiguration cre( (char*)name, ((customstr == 0)?(char*)professionstr:(char*)customstr), (customstr != 0), cresex, crespec, sprite );
@@ -132,6 +137,7 @@ bool addSingleCreatureConfig( TiXmlElement* elemCreature, vector<CreatureConfigu
 
   //create default config
   sheetIndexStr = elemCreature->Attribute("sheetIndex");
+  sprite.animFrames = ALL_FRAMES;
   if (sheetIndexStr)
   {
     CreatureConfiguration cre( (char*)name, "", false, eCreatureSex_NA, eCSC_Any, sprite );
