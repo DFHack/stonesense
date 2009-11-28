@@ -2,6 +2,7 @@
 #include "CreatureConfiguration.h"
 #include "Creatures.h"
 #include "MapLoading.h"
+#include "GUI.h"
 
 #include "dfhack/library/tinyxml/tinyxml.h"
 
@@ -95,6 +96,11 @@ bool addSingleCreatureConfig( TiXmlElement* elemCreature, vector<CreatureConfigu
   sprite.x=0;
   sprite.y=0;
   char animFrames=ALL_FRAMES;
+  const char* filename = elemCreature->Attribute("file");
+	if (filename != NULL && filename[0] != 0)
+	{
+	  	sprite.fileIndex = loadImgFile((char*)filename);
+	}
   
   TiXmlElement* elemProfession = elemCreature->FirstChildElement("Profession");
   while( elemProfession ){

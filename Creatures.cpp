@@ -36,7 +36,17 @@ void DrawCreature( BITMAP* target, int drawx, int drawy, t_creature* creature ){
     	textprintf(target, font, drawx, drawy-20, 0xFFffFF, "%s", creature->first_name );
     else
     	textprintf(target, font, drawx, drawy-20, 0xFFffFF, "[%s]", contentLoader.creatureNameStrings.at(creature->type).id);
-  DrawSpriteFromSheet( sprite.sheetIndex, target, IMGCreatureSheet, drawx, drawy );
+    	
+  	BITMAP* creatureSheet;
+    if (sprite.fileIndex == -1)
+    {
+    	creatureSheet = IMGCreatureSheet;
+	}
+    else
+    {
+    	creatureSheet = getImgFile(sprite.fileIndex);
+	}    	
+  DrawSpriteFromSheet( sprite.sheetIndex, target, creatureSheet, drawx, drawy );
 }
 //t_creature* global = 0;
 
