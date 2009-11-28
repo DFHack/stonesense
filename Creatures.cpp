@@ -103,6 +103,7 @@ void ReadCreaturesToSegment(API& DF, WorldSegment* segment)
 
 t_SpriteWithOffset GetCreatureSpriteMap( t_creature* c ){
   uint32_t num = (uint32_t)contentLoader.creatureConfigs.size();
+  int offsetAnimFrame = (currentAnimationFrame + c->id) % MAX_ANIMFRAME;
   for(uint32_t i=0; i < num; i++){
     //TODO: Optimize. make a table lookup instead of a search
     if( c->type != contentLoader.creatureConfigs[i].gameID )
@@ -134,6 +135,9 @@ t_SpriteWithOffset GetCreatureSpriteMap( t_creature* c ){
       creatureMatchesJob = (strcmp(contentLoader.creatureConfigs[i].professionstr,c->custom_profession)==0);
     }
 	if(!creatureMatchesJob) continue;
+	
+	if (!(contentLoader.creatureConfigs[i].sprite.animFrames & (1 << offsetAnimFrame)))
+		continue;
 	
     return contentLoader.creatureConfigs[i].sprite;
   }
