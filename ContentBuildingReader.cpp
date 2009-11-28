@@ -120,6 +120,7 @@ int parseConditionNode(ConditionalNode* node, TiXmlElement* elemCondition, bool 
 	{ 
 		if (!node->addCondition( cond ))
 		{
+			contentError("Unable to add subcondition",elemCondition);
 			delete(cond);
 			return 0;	
 		}
