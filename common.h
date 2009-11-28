@@ -151,6 +151,9 @@ extern bool timeToReloadSegment;
 extern char currentAnimationFrame;
 extern bool animationFrameShown;
 
+// binary 00111111
+#define ALL_FRAMES 63
+
 extern vector<t_matgloss> v_stonetypes;
 
 #define TMR1_START (ClockedTime = clock())

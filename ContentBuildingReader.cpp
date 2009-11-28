@@ -139,7 +139,7 @@ int parseConditionNode(ConditionalNode* node, TiXmlElement* elemCondition, bool 
 inline char getAnimFrames(const char* framestring)
 {
 	if (framestring == NULL)
-		return 1+2+4+8+16+32;
+		return ALL_FRAMES;
 	char aframes=0;
 	for (int i=0;i<6;i++)
 	{
@@ -211,7 +211,7 @@ inline bool readNode(SpriteNode* node, TiXmlElement* elemNode, TiXmlElement* ele
 		getAnimFrames(elemNode->Attribute("frames"));
 		sprite->sprite.animFrames = getAnimFrames(elemNode->Attribute("frames"));
 		if (sprite->sprite.animFrames == 0)
-			sprite->sprite.animFrames = 1+2+4+8+16+32;
+			sprite->sprite.animFrames = ALL_FRAMES;
 
 		sprite->sprite.sheetIndex = (strSheetIndex != 0 ? atoi(strSheetIndex) : -1);
 		sprite->sprite.x    = (strOffsetX    != 0 ? atoi(strOffsetX)    : 0);
