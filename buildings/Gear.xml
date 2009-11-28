@@ -7,14 +7,7 @@
 	<include file="sBlueprint.xml" />
 
 	<else>
-		<or>
-			<AnimationFrame value=0 />
-			<AnimationFrame value=2 />
-			<AnimationFrame value=4 />
-		</or>
-		<sprite index = 0 />
-	</else>
-	<else>
-		<sprite index = 1 />
+		<sprite index = 0 frames="012"/>
+		<sprite index = 1 frames="345"/>
 	</else>
 </building> 
