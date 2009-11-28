@@ -35,3 +35,4 @@ extern ContentLoader contentLoader;
 
 extern const char* getDocument(TiXmlNode* element);
 extern void contentError(const char* message, TiXmlNode* element);
+extern char getAnimFrames(const char* framestring);
