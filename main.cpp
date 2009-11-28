@@ -88,7 +88,7 @@ void animUpdateProc()
 	if (animationFrameShown)
 	{
 		// check before setting, or threadsafety will be borked
-		if (currentAnimationFrame > 4) // ie ends up 0-5
+		if (currentAnimationFrame >= (MAX_ANIMFRAME-1)) // ie ends up [0 .. MAX_ANIMFRAME)
 			currentAnimationFrame = 0;
 		else
 			currentAnimationFrame = currentAnimationFrame + 1;
