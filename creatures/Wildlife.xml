@@ -1,5 +1,6 @@
 <?xml version="1.0" ?>
 
+<creatures>
 <creature gameID="HUMAN" 		sheetIndex = 100>
 	<Profession name="Wrestler" sheetIndex = 80/>
 	<Profession name="Lasher" sheetIndex = 81/>
@@ -145,3 +146,4 @@
 <creature gameID="SPIDER_CAVE_GIANT" sheetIndex = 36 /> 
 <creature gameID="SPIRIT_OF_FIRE"sheetIndex = 38 /> 
 <creature gameID="IMP_FIRE" 	 sheetIndex = 39 /> 
+</creatures>
