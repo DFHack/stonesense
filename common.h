@@ -6,7 +6,7 @@
 
 #include <assert.h>
 #include <vector>
-#include "allegro/allegro.h"
+#include <allegro.h>
 
 using namespace std;
 

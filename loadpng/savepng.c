@@ -6,7 +6,7 @@
 
 
 #include "libpng/include/png.h"
-#include "../allegro/allegro.h"
+#include <allegro.h>
 #include "loadpng.h"
 
 
