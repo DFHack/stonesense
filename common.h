@@ -84,6 +84,7 @@ using namespace DFHack;
 
 #define COLOR_SEGMENTOUTLINE 0x112211
 
+#define BASE_SHADOW_TILE 160
 
 enum material{
   MAT_WILLOW = 9, 

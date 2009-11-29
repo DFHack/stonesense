@@ -90,9 +90,21 @@ void ReadCreaturesToSegment(API& DF, WorldSegment* segment)
 			if (!b->creature)
 			{
 				b->creature = tempcreature;
+				// add shadow to nearest floor block
+				for (int bz = tempcreature->z;bz>=z1;bz--)
+				{
+					b = segment->getBlock (tempcreature->x, tempcreature->y, bz );
+					if (!b) continue;
+					if (b->floorType > 0 || b->wallType > 0 || b->ramp.type > 0)
+					{
+						// todo figure out appropriate shadow size
+						b->shadow=4;
+						break;	
+					}
+				}
 				// need a new tempcreature now
-				tempcreature = new t_creature();
 				// old tempcreature should be deleted when b is
+				tempcreature = new t_creature();
 			}
 		}
 	}

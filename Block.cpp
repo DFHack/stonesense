@@ -103,6 +103,12 @@ void Block::Draw(BITMAP* target){
     DrawSpriteFromSheet( spriteNum, target, IMGObjectSheet, drawx, drawy );
 	}
 
+	//shadow
+	if (shadow > 0)
+	{
+		DrawSpriteFromSheet( BASE_SHADOW_TILE + shadow - 1, target, IMGObjectSheet, drawx, drawy );
+	}
+	
 	//Building
   bool skipBuilding = 
     (building.info.type == BUILDINGTYPE_STOCKPILE && !config.show_stockpiles) ||

@@ -23,6 +23,7 @@ public:
 
   bool depthBorderNorth;
   bool depthBorderWest;
+  int shadow;
 
 	t_matglossPair ramp;
 	t_matglossPair water;
