@@ -95,9 +95,17 @@ ELSE(UNIX)
     # use local allegro
     # MinGW is broken. doesn't link properly for some reason.
     IF(MINGW)
+	   	# resource compilation for mingw
+
         add_definitions(-DALLEGRO_MINGW32)
-        SET(PROJECT_LIBS alleg42 psapi mingw32 libpng)
-        include_directories (
+        SET(PROJECT_LIBS alleg42 psapi mingw32 libpng ${CMAKE_CURRENT_BINARY_DIR}/res_rc.obj)
+        SET(PROJECT_SRCS ${PROJECT_SRCS} ${CMAKE_SOURCE_DIR}/res.rc)
+        #ADD_CUSTOM_COMMAND actually seems to mean DO_ABSOLUTELY_NOTHING
+		 ADD_CUSTOM_COMMAND(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/res_rc.obj
+			COMMAND c:/MinGW/bin/windres.exe
+			-i${CMAKE_SOURCE_DIR}/res.rc
+			-o ${CMAKE_CURRENT_BINARY_DIR}/res_rc.obj)
+       include_directories (
 		    ${include_directories}
 		    ${CMAKE_SOURCE_DIR}/allegro-mingw-4.2.2/include
 	    )
@@ -107,6 +115,7 @@ ELSE(UNIX)
 		    ${CMAKE_SOURCE_DIR}/allegro-mingw-4.2.2/bin
 		    ${CMAKE_SOURCE_DIR}/loadpng/libpng/lib/
 	    )
+	     
     # MSVC
     ELSE(MINGW)
         add_definitions(-DALLEGRO_MSVC)
