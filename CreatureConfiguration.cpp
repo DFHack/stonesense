@@ -88,12 +88,11 @@ void TranslateCreatureNames(vector<CreatureConfiguration>& configs, vector<t_mat
 }
 
 
-bool addSingleCreatureConfig( TiXmlElement* elemCreature, vector<CreatureConfiguration>* knownCreatures ){
-
+bool addSingleCreatureConfig( TiXmlElement* elemCreature, vector<CreatureConfiguration>* knownCreatures, int basefile ){
   const char* name = elemCreature->Attribute("gameID");
   const char* sheetIndexStr;
   t_SpriteWithOffset sprite;
-  sprite.fileIndex=-1;
+  sprite.fileIndex=basefile;
   sprite.x=0;
   sprite.y=0;
   sprite.animFrames=ALL_FRAMES;
@@ -102,7 +101,6 @@ bool addSingleCreatureConfig( TiXmlElement* elemCreature, vector<CreatureConfigu
 	{
 	  	sprite.fileIndex = loadImgFile((char*)filename);
 	}
-  
   TiXmlElement* elemProfession = elemCreature->FirstChildElement("Profession");
   while( elemProfession ){
     const char* professionstr = elemProfession->Attribute("name");
@@ -146,3 +144,24 @@ bool addSingleCreatureConfig( TiXmlElement* elemCreature, vector<CreatureConfigu
   }
   return true;
 }
+
+bool addCreaturesConfig( TiXmlElement* elemRoot, vector<CreatureConfiguration>* knownCreatures ){
+  int basefile = -1;
+  const char* filename = elemRoot->Attribute("file");
+  if (filename != NULL && filename[0] != 0)
+  {
+	basefile = loadImgFile((char*)filename);
+  } 
+  TiXmlElement* elemCreature = elemRoot->FirstChildElement("creature");
+  if (elemCreature == NULL)
+  {
+     contentError("No creatures found",elemRoot);
+     return false;
+  }
+  while( elemCreature ){
+	addSingleCreatureConfig(elemCreature,knownCreatures,basefile );
+	elemCreature = elemCreature->NextSiblingElement("creature");
+  }
+  return true;
+}
+	

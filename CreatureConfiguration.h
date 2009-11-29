@@ -29,6 +29,6 @@ public:
 };
 
 
-bool addSingleCreatureConfig( TiXmlElement* elemRoot, vector<CreatureConfiguration>* knownCreatures );
+bool addCreaturesConfig( TiXmlElement* elemRoot, vector<CreatureConfiguration>* knownCreatures );
 
 void TranslateCreatureNames(vector<CreatureConfiguration>& configs, vector<t_matgloss>& creatureNames );

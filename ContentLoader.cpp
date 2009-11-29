@@ -41,6 +41,8 @@ bool ContentLoader::parseContentIndexFile( char* filepath, char* homefolder ){
     return false;
   }
   
+  LogVerbose("Reading index at %s...\n", filepath);
+  
   while ( !myfile.eof() )
   {
     char configfilepath[50] = {0};
@@ -53,7 +55,8 @@ bool ContentLoader::parseContentIndexFile( char* filepath, char* homefolder ){
     if(line.size() > 0){
       sprintf(configfilepath, "%s/%s", homefolder, line.c_str() );
       LogVerbose("Reading %s...\n", configfilepath);
-      parseContentXMLFile(configfilepath, homefolder);
+      if (!parseContentXMLFile(configfilepath, homefolder))
+      	WriteErr("Failure in reading %s\n",configfilepath);
     }
   }
   myfile.close();
@@ -81,7 +84,7 @@ bool ContentLoader::parseContentXMLFile( char* filepath, char* homefolder ){
     if( elementType.compare( "building" ) == 0 )
         runningResult &= parseBuildingContent( elemRoot, homefolder );
     
-    if( elementType.compare( "creature" ) == 0 )
+    if( elementType.compare( "creatures" ) == 0 )
         runningResult &= parseCreatureContent( elemRoot, homefolder );
     
     if( elementType.compare( "floors" ) == 0 )
@@ -102,7 +105,7 @@ bool ContentLoader::parseBuildingContent(TiXmlElement* elemRoot, char *homefolde
 }
 
 bool ContentLoader::parseCreatureContent(TiXmlElement* elemRoot, char *homefolder){
-  return addSingleCreatureConfig( elemRoot, &creatureConfigs );
+  return addCreaturesConfig( elemRoot, &creatureConfigs );
 }
 
 bool ContentLoader::parseTerrainContent(TiXmlElement* elemRoot, char *homefolder){
