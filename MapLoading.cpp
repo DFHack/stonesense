@@ -8,14 +8,6 @@
 #include "Creatures.h"
 #include "ContentLoader.h"
 
-#ifdef LINUX_BUILD
-  #define SUSPEND_DF DF.Suspend()
-  #define  RESUME_DF DF.Resume()
-#else
-  #define SUSPEND_DF ;
-  #define  RESUME_DF ;
-#endif
-
 static API* pDFApiHandle = 0;
 
 memory_info dfMemoryInfo;
@@ -298,7 +290,15 @@ WorldSegment* ReadMapSegment(API &DF, int x, int y, int z, int sizex, int sizey,
     dfMemoryInfo = DF.getMemoryInfo();
     memInfoHasBeenRead = true;
   }
-
+  
+  if (timeToReloadConfig)
+  {
+  	contentLoader.Load(DF);
+  	// until we do stuff on the fly
+    contentLoader.TranslateConfigsFromDFAPI( DF );
+  	timeToReloadConfig = false;
+  }
+  
 	//Read Number of cells
 	int celldimX, celldimY, celldimZ;
 	DF.getSize((unsigned int &)celldimX, (unsigned int &)celldimY, (unsigned int &)celldimZ);
@@ -318,17 +318,8 @@ WorldSegment* ReadMapSegment(API &DF, int x, int y, int z, int sizex, int sizey,
   vector<t_building> allBuildings;
   ReadBuildings(DF, &allBuildings);
 
-  //read stone material types
-  DF.ReadStoneMatgloss(v_stonetypes);
-  
-
   /*if(GroundMaterialNamesTranslatedFromGame == false)
     TranslateGroundMaterialNames();*/
-
-  if(contentLoader.Translated() == false){
-
-    contentLoader.TranslateConfigsFromDFAPI( DF );
-  }
   
   //read layers
   vector< vector <uint16_t> > layers;
@@ -540,7 +531,6 @@ void reloadDisplayedSegment(){
   }
   API& DF = *pDFApiHandle;
 
-
   TMR1_START;
 
   //dispose old segment
@@ -550,6 +540,7 @@ void reloadDisplayedSegment(){
   }
   
   SUSPEND_DF;
+  
   if (config.follow_DFscreen)
     FollowCurrentDFWindow();
 
@@ -562,6 +553,7 @@ void reloadDisplayedSegment(){
 	if(!viewedSegment || viewedSegment->regionSize.x == 0 || viewedSegment->regionSize.y == 0)
 	{
 		abortAutoReload();
+		timeToReloadConfig = true;
 	}
   if( pDFApiHandle ){
     RESUME_DF;

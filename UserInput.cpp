@@ -190,11 +190,9 @@ void doKeys(){
 		paintboard();
 	}
   if(key[KEY_G]){
-    contentLoader.Load();
-
 		destroyGraphics();
-    loadGraphicsFromDisk();
-
+    	loadGraphicsFromDisk();
+		timeToReloadConfig = true;
 		timeToReloadSegment = true;
 	}
   if(key[KEY_U]){

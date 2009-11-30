@@ -2,6 +2,7 @@
 #include "common.h"
 #include "ContentLoader.h"
 #include "ContentBuildingReader.h"
+#include "MapLoading.h"
 
 #include "dfhack/library/tinyxml/tinyxml.h"
 #include "GUI.h"
@@ -14,9 +15,9 @@ ContentLoader::ContentLoader(void) { }
 ContentLoader::~ContentLoader(void) { }
 
 
-bool ContentLoader::Load(){
-  //flush old config?
-  
+bool ContentLoader::Load(API& DF){
+	
+  //flush old config
   flushBuildingConfig(&buildingConfigs);
   creatureConfigs.clear();
   groundConfigs.clear();
@@ -24,7 +25,17 @@ bool ContentLoader::Load(){
   creatureNameStrings.clear();
   buildingNameStrings.clear();
   unparsedGroundConfigs.clear();
-
+  
+  SUSPEND_DF;
+  
+  //read data from DF
+  DF.ReadCreatureMatgloss( creatureNameStrings );
+  DF.InitReadBuildings( buildingNameStrings );
+  DF.FinishReadBuildings();
+  //read stone material types
+  DF.ReadStoneMatgloss(v_stonetypes); 
+    
+  RESUME_DF;
   
   bool buildingResult = parseContentIndexFile( "buildings/index.txt", "buildings" );
   bool creatureResult = parseContentIndexFile( "creatures/index.txt", "creatures" );
@@ -112,14 +123,7 @@ bool ContentLoader::parseTerrainContent(TiXmlElement* elemRoot, char *homefolder
   return addSingleTerrainConfig( elemRoot, &unparsedGroundConfigs );
 }
 
-
 void ContentLoader::TranslateConfigsFromDFAPI( API& DF ){
-  
-  //read data from DF
-  DF.ReadCreatureMatgloss( creatureNameStrings );
-  DF.InitReadBuildings( buildingNameStrings );
-  DF.FinishReadBuildings();
-
   //do translations
   TranslateBuildingNames( buildingConfigs, buildingNameStrings );
   TranslateCreatureNames( creatureConfigs, creatureNameStrings );

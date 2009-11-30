@@ -17,7 +17,7 @@ public:
   ContentLoader(void);
   ~ContentLoader(void);
 
-  bool Load();
+  bool Load(API& DF);
   void TranslateConfigsFromDFAPI( API& DF );
   bool Translated(){ return translationComplete; }
   

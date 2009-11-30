@@ -30,6 +30,7 @@ int keyoffset=0;
 
 GameConfiguration config;
 bool timeToReloadSegment;
+bool timeToReloadConfig;
 char currentAnimationFrame;
 bool animationFrameShown;
 
@@ -131,6 +132,7 @@ int main(void)
   config.show_osd = true;
   config.animation_step = 300;
   config.follow_DFscreen = false;
+  timeToReloadConfig = true;
   loadConfigFile();
   
   //set debug cursor
@@ -202,8 +204,6 @@ int main(void)
   #ifdef RELEASE
   DisplayedSegmentX = 0; DisplayedSegmentY = 0;DisplayedSegmentZ = 18;
   #endif
-
-  contentLoader.Load();
 
   //while(1)
 	reloadDisplayedSegment();

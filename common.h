@@ -149,6 +149,7 @@ extern uint32_t ClockedTime;
 extern uint32_t ClockedTime2;
 
 extern bool timeToReloadSegment;
+extern bool timeToReloadConfig;
 extern char currentAnimationFrame;
 extern bool animationFrameShown;
 
