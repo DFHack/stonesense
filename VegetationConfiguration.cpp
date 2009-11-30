@@ -8,8 +8,9 @@
 #include "dfhack/library/tinyxml/tinyxml.h"
 
 
-VegetationConfiguration::VegetationConfiguration(char* gameID, t_SpriteWithOffset &sprite, bool live)
-  memset(this, 0, sizeof(CreatureConfiguration) );
+VegetationConfiguration::VegetationConfiguration(int gameID, t_SpriteWithOffset &sprite, bool live)
+{
+  memset(this, 0, sizeof(VegetationConfiguration) );
   this->sprite = sprite;
   this->gameID = gameID;
   this->live = live;
@@ -32,25 +33,28 @@ int TranslatePlantName(const char* plantName, vector<t_matgloss>& plantNames ){
  WriteErr("Unable to match plant '%s' to anything in-game\n", plantName);
 }
 
-bool addSingleVegetationConfig( TiXmlElement* elemRoot,  vector<VegetationConfiguration>* vegetationConfigs, vector<t_matgloss>& plantNames );
+bool addSingleVegetationConfig( TiXmlElement* elemRoot,  vector<VegetationConfiguration>* vegetationConfigs, vector<t_matgloss>& plantNames )
 {
   const char* sheetIndexStr;
   t_SpriteWithOffset sprite;
+  int basefile = -1;
   sprite.fileIndex=basefile;
   sprite.x=0;
   sprite.y=0;
   sprite.animFrames=ALL_FRAMES;
  
-  int basefile = -1;
   const char* filename = elemRoot->Attribute("file");
 	if (filename != NULL && filename[0] != 0)
 	{
 	  	basefile = loadImgFile((char*)filename);
 	}
 	
-  TiXmlElement* elemTree = elemCreature->FirstChildElement("tree");
+	//kinda round about- looking to needing to shift the lot into the plant elem
+	sprite.fileIndex=basefile;
+	
+  TiXmlElement* elemTree = elemRoot->FirstChildElement("plant");
   while( elemTree ){
-  	int gameID = TranslatePlantName(elemRoot->Attribute("gameID"),vegetationConfigs);
+  	int gameID = TranslatePlantName(elemTree->Attribute("gameID"),plantNames);
     const char* deadstr = elemTree->Attribute("dead");
     bool dead = (deadstr && deadstr[0]);   
     /* No animated trees.
@@ -61,10 +65,10 @@ bool addSingleVegetationConfig( TiXmlElement* elemRoot,  vector<VegetationConfig
     
     //create profession config
     sprite.sheetIndex=atoi(sheetIndexStr);
-    VegetationConfiguration vegCreatureConfiguration(char* gameID, t_SpriteWithOffset &sprite, bool live);
+    VegetationConfiguration vegetationConfiguration(gameID, sprite, !dead);
     //add a copy to known creatures
-    vegetationConfigs->push_back( cre );
-    elemTree = elemTree->NextSiblingElement("tree");
+    vegetationConfigs->push_back( vegetationConfiguration );
+    elemTree = elemTree->NextSiblingElement("plant");
   }
 
   return true;

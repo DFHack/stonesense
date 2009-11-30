@@ -10,7 +10,7 @@ public:
   t_SpriteWithOffset sprite;
 
   VegetationConfiguration(){}
-  VegetationConfiguration(char* gameID, t_SpriteWithOffset &sprite, bool live);
+  VegetationConfiguration(int gameID, t_SpriteWithOffset &sprite, bool live);
   ~VegetationConfiguration(void);
 };
 

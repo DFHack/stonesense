@@ -62,6 +62,7 @@ SET(PROJECT_SRCS
     SpriteMaps.cpp
     UserInput.cpp
     WorldSegment.cpp
+    VegetationConfiguration.cpp
     main.cpp
 
 )

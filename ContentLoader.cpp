@@ -20,9 +20,13 @@ bool ContentLoader::Load(API& DF){
   //flush old config
   flushBuildingConfig(&buildingConfigs);
   creatureConfigs.clear();
+  treeConfigs.clear();
+  shrubConfigs.clear();
   groundConfigs.clear();
   flushImgFiles();
   creatureNameStrings.clear();
+  woodNameStrings.clear();
+  plantNameStrings.clear();
   buildingNameStrings.clear();
   unparsedGroundConfigs.clear();
   
@@ -34,6 +38,8 @@ bool ContentLoader::Load(API& DF){
   DF.FinishReadBuildings();
   //read stone material types
   DF.ReadStoneMatgloss(v_stonetypes); 
+  DF.ReadWoodMatgloss( woodNameStrings );
+  DF.ReadPlantMatgloss( plantNameStrings );
     
   RESUME_DF;
   
@@ -104,6 +110,12 @@ bool ContentLoader::parseContentXMLFile( char* filepath, char* homefolder ){
     if( elementType.compare( "walls" ) == 0 )
         runningResult &= parseTerrainContent( elemRoot, homefolder );
 
+    if( elementType.compare( "shrubs" ) == 0 )
+        runningResult &= parseShrubContent( elemRoot, homefolder );
+
+    if( elementType.compare( "trees" ) == 0 )
+        runningResult &= parseTreeContent( elemRoot, homefolder );
+
     elemRoot = elemRoot->NextSiblingElement();
   }
 
@@ -117,6 +129,14 @@ bool ContentLoader::parseBuildingContent(TiXmlElement* elemRoot, char *homefolde
 
 bool ContentLoader::parseCreatureContent(TiXmlElement* elemRoot, char *homefolder){
   return addCreaturesConfig( elemRoot, &creatureConfigs );
+}
+
+bool ContentLoader::parseShrubContent(TiXmlElement* elemRoot, char *homefolder){
+  return addSingleVegetationConfig( elemRoot, &shrubConfigs, plantNameStrings );
+}
+
+bool ContentLoader::parseTreeContent(TiXmlElement* elemRoot, char *homefolder){
+  return addSingleVegetationConfig( elemRoot, &treeConfigs, woodNameStrings );
 }
 
 bool ContentLoader::parseTerrainContent(TiXmlElement* elemRoot, char *homefolder){
