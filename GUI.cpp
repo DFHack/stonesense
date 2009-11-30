@@ -51,8 +51,7 @@ void ScreenToPoint(int x,int y,int &x1, int &y1, int &z1)
     //y-=BLOCKHEIGHT;
     x+=TILEWIDTH>>1;
     static int offx = config.screenWidth /2;
-    static int offy = 50;
-    if( config.lift_segment_offscreen ) offy = -200;
+    static int offy = 50-(BLOCKHEIGHT * config.lift_segment_offscreen);
     y-=offy;
     x-=offx;
     y1=y*2-x;
@@ -64,8 +63,7 @@ void ScreenToPoint(int x,int y,int &x1, int &y1, int &z1)
 
 void pointToScreen(int *inx, int *iny, int inz){
   static int offx = config.screenWidth / 2;
-  static int offy = 50;
-  if( config.lift_segment_offscreen ) offy = -200;
+  static int offy = 50-(BLOCKHEIGHT * config.lift_segment_offscreen);
 	int z=inz;
 	int x = *inx-*iny;
 	int y = *inx+*iny;

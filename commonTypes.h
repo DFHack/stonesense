@@ -33,7 +33,7 @@ typedef struct {
   bool load_ground_materials;
   bool hide_outer_blocks;
   bool debug_mode;
-  bool lift_segment_offscreen;
+  int lift_segment_offscreen;
   bool truncate_walls;
   bool follow_DFscreen;
   bool verbose_logging;

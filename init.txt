@@ -19,9 +19,10 @@ Each entry expects the number of tiles to load.
 [SEGMENTSIZE_Z:8]
 
 
-Lifts the segment up to the top off the screen. 
+Lifts the segment up to the top off the screen, equivalent to a given
+number of z levels.
 Use this with a large segment size to get blocks covering the entire screen.
-[LIFTSEGMENT:YES]
+[LIFTSEGMENT:0]
 
 
 This value, in milliseconds, is how long Stonesense waits between
