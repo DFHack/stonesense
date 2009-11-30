@@ -120,6 +120,7 @@ int main(void)
   config.load_ground_materials = true;
   config.automatic_reload_time = 0;
   config.automatic_reload_step = 500;
+  config.lift_segment_offscreen = 0;
   config.Fullscreen = FULLSCREEN;
   config.screenHeight = RESOLUTION_HEIGHT;
   config.screenWidth = RESOLUTION_WIDTH;
