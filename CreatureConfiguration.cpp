@@ -138,6 +138,7 @@ bool addSingleCreatureConfig( TiXmlElement* elemCreature, vector<CreatureConfigu
   sprite.animFrames = ALL_FRAMES;
   if (sheetIndexStr)
   {
+		sprite.sheetIndex = atoi( sheetIndexStr );
     CreatureConfiguration cre( (char*)name, "", false, eCreatureSex_NA, eCSC_Any, sprite );
   	//add a copy to known creatures
     knownCreatures->push_back( cre );
