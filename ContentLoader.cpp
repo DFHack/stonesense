@@ -46,6 +46,7 @@ bool ContentLoader::Load(API& DF){
   bool buildingResult = parseContentIndexFile( "buildings/index.txt", "buildings" );
   bool creatureResult = parseContentIndexFile( "creatures/index.txt", "creatures" );
   bool terrainResult = parseContentIndexFile( "terrain/index.txt", "terrain" );
+  bool plantResult = parseContentIndexFile( "vegetation/index.txt", "vegetation" );
   translationComplete = false;
   return true;
 }
