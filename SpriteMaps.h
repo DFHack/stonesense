@@ -204,5 +204,5 @@ int GetFloorSpriteMap(int in, int matIndex);
 int GetUpStairTypeMap(int in, bool mirrored);
 int GetDownStairTypeMap(int in);
 int GetRampMaterialTypeMap(int in);
-int GetSpriteVegitation( TileClass type, int index);
+int GetSpriteVegetation( TileClass type, int index);
 

@@ -97,16 +97,16 @@ void Block::Draw(BITMAP* target){
 	}
 
 
-	//vegitation
+	//vegetation
 	if(tree.index > 0 || tree.type > 0){
-    int spriteNum =  GetSpriteVegitation( (TileClass) getVegetationType( this->floorType ), tree.index );
+    int spriteNum =  GetSpriteVegetation( (TileClass) getVegetationType( this->floorType ), tree.index );
     DrawSpriteFromSheet( spriteNum, target, IMGObjectSheet, drawx, drawy );
 	}
 
 	//shadow
 	if (shadow > 0)
 	{
-		DrawSpriteFromSheet( BASE_SHADOW_TILE + shadow - 1, target, IMGObjectSheet, drawx, drawy );
+		DrawSpriteFromSheet( BASE_SHADOW_TILE + shadow - 1, target, IMGObjectSheet, drawx, (ramp.type > 0)?(drawy - (WALLHEIGHT/2)):drawy );
 	}
 	
 	//Building
