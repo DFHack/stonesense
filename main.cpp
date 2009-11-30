@@ -16,6 +16,12 @@ using namespace std;
 #include "GroundMaterialConfiguration.h"
 #include "ContentLoader.h"
 
+#ifdef LINUX_BUILD
+#include "stonesense.xpm"
+extern void *allegro_icon;
+#endif
+
+
 uint32_t ClockedTime = 0;
 uint32_t ClockedTime2 = 0;
 uint32_t DebugInt1;
@@ -98,7 +104,9 @@ void animUpdateProc()
 
 int main(void)
 {	
-
+    #ifdef LINUX_BUILD
+    allegro_icon = stonesense_xpm;
+    #endif
 	allegro_init();
   install_keyboard();
   install_mouse();
