@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 
 <creatures>
-<creature gameID="DWARF" 		sheetIndex = 180 file="creatures/creatures.png">
+<creature gameID="DWARF" sheetIndex = 180 >
 	<Profession name="Miner" sex="M" sheetIndex = 181/>
 	<Profession name="Woodworker" sex="M" sheetIndex = 182/>
 	<Profession name="Carpenter" sex="M" sheetIndex = 182/>
