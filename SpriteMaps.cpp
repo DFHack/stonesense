@@ -592,80 +592,52 @@ int GetRampMaterialTypeMap(int in){
 }
 
 
-int GetSpriteVegetation( TileClass type, int index){
-  switch(type){
-  case TREE_OK:
-    switch(index){
-      case 1://SAGUARO
-        return SPRITEOBJECT_CACTUS;
-        break;
-
-      //case 3://??
-      case 4://OAK
-      //case 5://??
-      //case 6://??
-      //case 7://??
-      
-      
-      //case 11://??
-      case 12://FEATHERTREE
-      case 13://HIGHWOOD
-      case 15://CHESTNUT
-      case 16://ALDER
-      
-      case 18://ASH
-      //case 19://??
-      //case 20://??
-        return SPRITEOBJECT_TREE_BROADLEAF;
-        break;
-
-      case 9://WILLOW
-        return SPRITEOBJECT_TREE_WILLOW;
-        break;
-      case 8://MAPLE
-        return SPRITEOBJECT_TREE_MAPLE;
-        break;
-      
-      case 10://Tower-Cap
-        return SPRITEOBJECT_TREE_TOWERCAP;
-        break;
-
-      case 2://PINE
-      case 14://LARCH
-        return SPRITEOBJECT_TREE_CONIFER;
-        break;
-
-      case 17://BIRTCH
-        return SPRITEOBJECT_TREE_BIRCH;
-        break;
-
-      case 23:
-        return SPRITEOBJECT_TREE_PALM;
-        break;
-      default:
-        return SPRITEOBJECT_TREE_BROADLEAF;
-    }
-    break;
-  case TREE_DEAD:
-    return SPRITEOBJECT_DEAD_TREE;
-    break;
-  case SHRUB_DEAD:
-  case SHRUB_OK:
-    /*switch( index ){
-    case 0:
-      return SPRITEOBJECT_SHRUB_PLUMP;
-      break;
-      
-    };
-    return SPRITEOBJECT_SHRUB_DEFAULT;*/
-    return SPRITEOBJECT_SHRUB_PLUMP + index;
-    break;
-  case SAPLING_DEAD:
-  case SAPLING_OK:
-    return SPRITEOBJECT_SAPLING;
-    break;
-
-  }
-  return SPRITEOBJECT_BLUEPRINT;
+t_SpriteWithOffset GetSpriteVegetation( TileClass type, int index)
+{
+	int base_sprite = SPRITEOBJECT_BLUEPRINT;
+	vector<VegetationConfiguration>* graphicSet;
+	bool live=true;
+	bool grown=true;
+	
+	switch(type)
+	{
+	case TREE_DEAD:
+		base_sprite = SPRITEOBJECT_TREE_DEAD;
+		graphicSet = &(contentLoader.treeConfigs);
+		live = false;
+		break;
+	case TREE_OK:
+		base_sprite = SPRITEOBJECT_TREE_OK;
+		graphicSet = &(contentLoader.treeConfigs);
+		break;
+	case SAPLING_DEAD:
+		base_sprite = SPRITEOBJECT_SAPLING_DEAD;
+		live = false;
+		grown = false;
+		graphicSet = &(contentLoader.treeConfigs);
+		break;
+	case SAPLING_OK: 
+		base_sprite = SPRITEOBJECT_SAPLING_OK;
+		grown = false;
+		graphicSet = &(contentLoader.treeConfigs);
+		break;
+	case SHRUB_DEAD:
+		base_sprite = SPRITEOBJECT_SHRUB_DEAD;
+		live = false;
+		graphicSet = &(contentLoader.shrubConfigs);
+		break;
+	case SHRUB_OK: 
+		base_sprite = SPRITEOBJECT_SHRUB_OK;
+		graphicSet = &(contentLoader.shrubConfigs);
+		break;
+	}  	
+  	
+	t_SpriteWithOffset configuredSprite = getVegetationSprite(*graphicSet,index,live,grown);
+	if (configuredSprite.sheetIndex == -1)
+	{
+		configuredSprite.fileIndex = -1; // should be set already, but...
+		configuredSprite.sheetIndex = base_sprite;
+	}
+	return configuredSprite;
 }
 

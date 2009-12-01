@@ -222,7 +222,7 @@ void ReadCellToSegment(API& DF, WorldSegment& segment, int CellX, int CellY, int
     {
       b->wallType = 0;
       b->building.info.type = BUILDINGTYPE_BLACKBOX;
-      t_SpriteWithOffset sprite = {SPRITEOBJECT_BLACK, 0, 0,-1,1+2+4+8+16+32};
+      t_SpriteWithOffset sprite = {SPRITEOBJECT_BLACK, 0, 0,-1,ALL_FRAMES};
       b->building.sprites.push_back( sprite );
       shouldBeIncluded= true;
     }

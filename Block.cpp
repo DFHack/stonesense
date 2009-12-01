@@ -99,8 +99,17 @@ void Block::Draw(BITMAP* target){
 
 	//vegetation
 	if(tree.index > 0 || tree.type > 0){
-    int spriteNum =  GetSpriteVegetation( (TileClass) getVegetationType( this->floorType ), tree.index );
-    DrawSpriteFromSheet( spriteNum, target, IMGObjectSheet, drawx, drawy );
+    t_SpriteWithOffset sprite =  GetSpriteVegetation( (TileClass) getVegetationType( this->floorType ), tree.index );
+      BITMAP* objectSheet;
+	    if (sprite.fileIndex == -1)
+	    {
+	    	objectSheet = IMGObjectSheet;
+    	}
+	    else
+	    {
+	    	objectSheet = getImgFile(sprite.fileIndex);
+    	}
+        DrawSpriteFromSheet( sprite.sheetIndex, target, objectSheet, drawx, drawy );
 	}
 
 	//shadow

@@ -8,12 +8,13 @@
 #include "dfhack/library/tinyxml/tinyxml.h"
 
 
-VegetationConfiguration::VegetationConfiguration(int gameID, t_SpriteWithOffset &sprite, bool live)
+VegetationConfiguration::VegetationConfiguration(int gameID, t_SpriteWithOffset &sprite, bool live, bool grown)
 {
   memset(this, 0, sizeof(VegetationConfiguration) );
   this->sprite = sprite;
   this->gameID = gameID;
   this->live = live;
+  this->grown = grown;
 }
 
 VegetationConfiguration::~VegetationConfiguration(void)
@@ -57,6 +58,8 @@ bool addSingleVegetationConfig( TiXmlElement* elemRoot,  vector<VegetationConfig
   	int gameID = TranslatePlantName(elemTree->Attribute("gameID"),plantNames);
     const char* deadstr = elemTree->Attribute("dead");
     bool dead = (deadstr && deadstr[0]);   
+    const char* saplingstr = elemTree->Attribute("sapling");
+    bool sapling = (saplingstr && saplingstr[0]);   
     /* No animated trees.
     	But we may repurpose it later to make a xyz variance?
     sprite.animFrames = getAnimFrames(elemProfession->Attribute("frames"));
@@ -65,7 +68,7 @@ bool addSingleVegetationConfig( TiXmlElement* elemRoot,  vector<VegetationConfig
     
     //create profession config
     sprite.sheetIndex=atoi(sheetIndexStr);
-    VegetationConfiguration vegetationConfiguration(gameID, sprite, !dead);
+    VegetationConfiguration vegetationConfiguration(gameID, sprite, !dead, !sapling);
     //add a copy to known creatures
     vegetationConfigs->push_back( vegetationConfiguration );
     elemTree = elemTree->NextSiblingElement("plant");
@@ -94,4 +97,18 @@ bool addSingleVegetationConfig( TiXmlElement* elemRoot,  vector<VegetationConfig
   return true;
 }*/
 	
+t_SpriteWithOffset getVegetationSprite(vector<VegetationConfiguration>& vegetationConfigs,int index,bool live,bool grown)
+{
+	int vcmax = vegetationConfigs.size();
+	for (int i=0;i<vcmax;i++)
+	{
+		VegetationConfiguration* current = &(vegetationConfigs[i]);
+		if (current->gameID != index) continue;
+		if (current->live != live) continue;
+		if (current->grown != grown) continue;
+		return current->sprite;
+	}
+	t_SpriteWithOffset sprite = {-1,0,0,-1,ALL_FRAMES};
+	return sprite;
+}
 
