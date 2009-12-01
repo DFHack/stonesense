@@ -2,7 +2,7 @@
 
 
 
-<building name="Trade Depot" gameID="trade_depot" file="workshop.png">
+<building name="Trade Depot" gameID="trade_depot">
 	
 	<if>
 		<not><BuildingOccupancy value="1" /></not>
