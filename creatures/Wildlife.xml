@@ -24,6 +24,10 @@
 	
 	<Profession name="Diplomat" sex="M" sheetIndex = 106/>
 	<Profession name="Diplomat" sex="F" sheetIndex = 107/>
+
+	<Profession name="Child" sex="M" sheetIndex = 120/>
+	<Profession name="Child" sex="F" sheetIndex = 121/>
+	<Profession name="Baby" sheetIndex = 122/>
 	
 	<Profession sex="F" sheetIndex = 101/>
 </creature>
@@ -63,4 +67,8 @@
 <creature gameID="SPIDER_CAVE_GIANT" sheetIndex = 36 /> 
 <creature gameID="SPIRIT_OF_FIRE"sheetIndex = 38 /> 
 <creature gameID="IMP_FIRE" 	 sheetIndex = 39 /> 
+<creature gameID="IMP_FIRE" 	 sheetIndex = 39 /> 
+
+<creature gameID="FOX" 	 sheetIndex = 70 /> 
+<creature gameID="TROGLODYTE" 	 sheetIndex = 72 /> 
 </creatures>
