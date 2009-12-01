@@ -1,4 +1,28 @@
 <?xml version="1.0" ?>
 
-<trees> 
+<trees file="vegetation/trees.png">
+	<plant gameID = "ACACIA" sheetIndex = 0 />
+	<plant gameID = "ALDER" sheetIndex = 1 />
+	<plant gameID = "ASH" sheetIndex = 2 />
+	<plant gameID = "BIRCH" sheetIndex = 31 />
+	<plant gameID = "CACAO" sheetIndex = 4 />
+	<plant gameID = "CANDLENUT" sheetIndex = 5 />
+	<plant gameID = "CEDAR" sheetIndex = 6 />
+	<plant gameID = "CHESTNUT" sheetIndex = 7 />
+	<plant gameID = "FEATHER" sheetIndex = 8 />
+	<plant gameID = "GLUMPRONG" sheetIndex = 9 />
+	<plant gameID = "HIGHWOOD" sheetIndex = 10 />
+	<plant gameID = "LARCH" sheetIndex = 11 />
+	<plant gameID = "MANGO" sheetIndex = 12 />
+	<plant gameID = "KAPOK" sheetIndex = 13 />
+	<plant gameID = "MAHOGANY" sheetIndex = 14 />
+	<plant gameID = "MAPLE" sheetIndex = 15 />
+	<plant gameID = "OAK" sheetIndex = 16 />
+	<plant gameID = "PALM" sheetIndex = 17 />
+	<plant gameID = "PINE" sheetIndex = 18 />
+	<plant gameID = "RUBBER" sheetIndex = 19 />
+	<plant gameID = "SAGUARO" sheetIndex = 29 />
+	<plant gameID = "MANGROVE" sheetIndex = 21 />
+	<plant gameID = "GIANT_SHROOM" sheetIndex = 30 />
+	<plant gameID = "WILLOW" sheetIndex = 28 />
 </trees> 
