@@ -60,6 +60,7 @@ bool addSingleVegetationConfig( TiXmlElement* elemRoot,  vector<VegetationConfig
     bool dead = (deadstr && deadstr[0]);   
     const char* saplingstr = elemTree->Attribute("sapling");
     bool sapling = (saplingstr && saplingstr[0]);   
+    sheetIndexStr = elemTree->Attribute("sheetIndex");
     /* No animated trees.
     	But we may repurpose it later to make a xyz variance?
     sprite.animFrames = getAnimFrames(elemProfession->Attribute("frames"));
