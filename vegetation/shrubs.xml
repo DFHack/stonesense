@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+
+<shrubs file="vegetation/shrubs.png"> 
+	<plant gameID = "MUSHROOM_HELMET_PLUMP" sheetIndex = 0 />
+	<plant gameID = "GRASS_TAIL_PIG" sheetIndex = 1 />
+	<plant gameID = "GRASS_WHEAT_CAVE" sheetIndex = 2 />
+	<plant gameID = "POD_SWEET" sheetIndex = 3 />
+	<plant gameID = "BUSH_QUARRY" sheetIndex = 4 />
+	<plant gameID = "ROOT_MUCK" sheetIndex = 5 />
+	<plant gameID = "TUBER_BLOATED" sheetIndex = 6 />
+	<plant gameID = "BULB_KOBOLD" sheetIndex = 7 />
+	<plant gameID = "BERRIES_PRICKLE" sheetIndex = 8 />
+	<plant gameID = "BERRIES_STRAW_WILD" sheetIndex = 9 />
+	<plant gameID = "GRASS_LONGLAND" sheetIndex = 10 />
+	<plant gameID = "HERB_VALLEY" sheetIndex = 11 />
+	<plant gameID = "WEED_RAT" sheetIndex = 12 />
+	<plant gameID = "BERRIES_FISHER" sheetIndex = 13 />
+	<plant gameID = "REED_ROPE" sheetIndex = 14 />
+	<plant gameID = "MUSHROOM_CUP_DIMPLE" sheetIndex = 15 />
+	<plant gameID = "WEED_BLADE" sheetIndex = 16 />
+	<plant gameID = "ROOT_HIDE" sheetIndex = 17 />
+	<plant gameID = "SLIVER_BARB" sheetIndex = 18 />
+	<plant gameID = "BERRY_SUN" sheetIndex = 19 />
+	<plant gameID = "VINE_WHIP" sheetIndex = 20 />
+
+</shrubs> 

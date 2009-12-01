@@ -1,1 +1,2 @@
 trees.xml
+shrubs.xml
