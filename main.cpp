@@ -130,6 +130,7 @@ int main(void)
   config.segmentSize.z = DEFAULT_SEGMENTSIZE_Z;
   config.show_creature_names = true;
   config.show_osd = true;
+  config.track_center = false;
   config.animation_step = 300;
   config.follow_DFscreen = false;
   timeToReloadConfig = true;

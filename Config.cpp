@@ -111,6 +111,10 @@ void parseConfigLine( string line ){
     string result = parseStrFromLine( "VERBOSE_LOGGING", line );
     config.verbose_logging = (result == "YES");
   }
+  if( line.find("TRACK_CENTER") != -1){
+    string result = parseStrFromLine( "TRACK_CENTER", line );
+    config.track_center = (result == "YES");
+  }
 }
 
 

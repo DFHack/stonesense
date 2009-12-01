@@ -517,6 +517,39 @@ void FollowCurrentDFWindow( ){
   }
 }
 
+void FollowCurrentDFCenter( ){
+  int32_t newviewx;
+  int32_t newviewy;
+  int32_t viewsizex;
+  int32_t viewsizey;
+  int32_t newviewz;
+  if (pDFApiHandle->InitViewAndCursor())
+  {
+	  WriteErr("?");
+    if(pDFApiHandle->InitViewSize())
+    {
+        pDFApiHandle->getWindowSize(viewsizex,viewsizey); 
+        pDFApiHandle->getViewCoords(newviewx,newviewy,newviewz);
+        
+        DisplayedSegmentX = newviewx + (viewsizex/2) - (config.segmentSize.x / 2) + config.viewXoffset;
+        DisplayedSegmentY = newviewy + (viewsizey/2) - (config.segmentSize.y / 2) + config.viewYoffset;
+        DisplayedSegmentZ = newviewz + config.viewZoffset;       
+    }
+    else
+    {
+        pDFApiHandle->getViewCoords(newviewx,newviewy,newviewz);
+        DisplayedSegmentX = newviewx + config.viewXoffset;
+        DisplayedSegmentY = newviewy + config.viewYoffset;
+        DisplayedSegmentZ = newviewz + config.viewZoffset;
+    }
+  }
+  else
+  {
+    //fail
+    config.follow_DFscreen = false;
+  }
+}
+
 void reloadDisplayedSegment(){
   //create handle to dfHack API
   if(pDFApiHandle == 0){
@@ -540,9 +573,18 @@ void reloadDisplayedSegment(){
   }
   
   SUSPEND_DF;
-  
+  WriteErr("tc %d\n",config.track_center);
   if (config.follow_DFscreen)
-    FollowCurrentDFWindow();
+  {
+  	if (config.track_center)
+  	{
+	  	FollowCurrentDFCenter();
+  	}
+  	else
+  	{
+    	FollowCurrentDFWindow();
+	}
+  }
 
   int segmentHeight = config.single_layer_view ? 1 : config.segmentSize.z;
   //load segment
