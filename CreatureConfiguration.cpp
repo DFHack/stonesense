@@ -8,23 +8,21 @@
 #include "dfhack/library/tinyxml/tinyxml.h"
 
 
-CreatureConfiguration::CreatureConfiguration(char* gameIDstr, char* professionStr, bool customProf, enumCreatureSex sex, enumCreatureSpecialCases special, t_SpriteWithOffset &sprite)
+CreatureConfiguration::CreatureConfiguration(int gameID, int professionID, const char* professionStr, enumCreatureSex sex, enumCreatureSpecialCases special, t_SpriteWithOffset &sprite)
 {
   memset(this, 0, sizeof(CreatureConfiguration) );
   this->sprite = sprite;
-  this->gameID = INVALID_INDEX;
-  this->professionID = INVALID_INDEX;
+  this->gameID = gameID;
+  this->professionID = professionID;
   this->sex = sex;
-  this->customProf = customProf;
   
-  int len = (int) strlen(gameIDstr);
-  if(len > CREATURESTRLENGTH) len = CREATURESTRLENGTH;
-  memcpy(this->gameIDstr, gameIDstr, len);
   if(professionStr){
-    len = (int) strlen(professionStr);
+    int len = (int) strlen(professionStr);
     if(len > CREATURESTRLENGTH) len = CREATURESTRLENGTH;
     memcpy(this->professionstr, professionStr, len);
+    this->professionstr[CREATURESTRLENGTH-1]=0;
   }
+  //WriteErr("CC %d %d %d %d\n",this->gameID,this->professionID,this->sprite.fileIndex,this->sprite.sheetIndex);
 }
 
 CreatureConfiguration::~CreatureConfiguration(void)
@@ -49,6 +47,7 @@ void DumpProfessionsToDisk(){
   fclose(fp);
 }
 
+/*
 void TranslateCreatureNames(vector<CreatureConfiguration>& configs, vector<t_matgloss>& creatureNames ){
   uint32_t numCreatures = (uint32_t)creatureNames.size();
   //uint32_t numProfessions = dfMemoryInfo.P
@@ -85,11 +84,49 @@ void TranslateCreatureNames(vector<CreatureConfiguration>& configs, vector<t_mat
       }
     }
   }
+}*/
+
+int translateCreature(const char* currentName, vector<t_matgloss>& creatureNames )
+{
+	if (currentName == NULL || currentName[0]==0)
+		return INVALID_INDEX;
+	uint32_t numCreatures = (uint32_t)creatureNames.size();
+    uint32_t j;
+    for(j=0; j < numCreatures; j++){
+      if( strcmp( currentName, creatureNames[j].id) == 0){
+        //assign ID
+        return j;
+
+        //jump out of ID lookup loop
+        break;
+      }
+    }
+	WriteErr("Unable to match creature '%s' to anything in-game\n", currentName);
+	return INVALID_INDEX;
 }
 
+int translateProfession(const char* currentProf)
+{
+	if (currentProf == NULL || currentProf[0]==0)
+		return INVALID_INDEX;
+    uint32_t j;
+    string proffStr;
+    for(j=0; (proffStr = dfMemoryInfo.getProfession(j)) != "" ; j++)
+    {   
+      if( proffStr.compare( currentProf ) == 0)
+      {
+        //assign ID
+        return j;
+      }
+    }
+	WriteErr("Unable to match profession '%s' to anything in-game\n", currentProf);
+	return INT_MAX; //if it is left at INVALID_INDEX, the condition is ignored entierly.
+}
 
 bool addSingleCreatureConfig( TiXmlElement* elemCreature, vector<CreatureConfiguration>* knownCreatures, int basefile ){
-  const char* name = elemCreature->Attribute("gameID");
+  int gameID = translateCreature(elemCreature->Attribute("gameID"),contentLoader.creatureNameStrings);
+  if (gameID == INVALID_INDEX)
+  	return false;
   const char* sheetIndexStr;
   t_SpriteWithOffset sprite;
   sprite.fileIndex=basefile;
@@ -103,8 +140,14 @@ bool addSingleCreatureConfig( TiXmlElement* elemCreature, vector<CreatureConfigu
 	}
   TiXmlElement* elemProfession = elemCreature->FirstChildElement("Profession");
   while( elemProfession ){
-    const char* professionstr = elemProfession->Attribute("name");
+	int professionID = INVALID_INDEX;
     const char* customstr = elemProfession->Attribute("custom");
+    const char* profStr = elemProfession->Attribute("name");
+    if (customstr == NULL || customstr[0] == 0)
+    {
+    	professionID = translateProfession(profStr);
+    	profStr = NULL;
+	}
     const char* sexstr = elemProfession->Attribute("sex");
     sheetIndexStr = elemProfession->Attribute("sheetIndex");
     enumCreatureSex cresex = eCreatureSex_NA;
@@ -126,7 +169,7 @@ bool addSingleCreatureConfig( TiXmlElement* elemCreature, vector<CreatureConfigu
     
     //create profession config
     sprite.sheetIndex=atoi(sheetIndexStr);
-    CreatureConfiguration cre( (char*)name, ((customstr == 0)?(char*)professionstr:(char*)customstr), (customstr != 0), cresex, crespec, sprite );
+    CreatureConfiguration cre( gameID, professionID, profStr , cresex, crespec, sprite );
     //add a copy to known creatures
     knownCreatures->push_back( cre );
 
@@ -138,8 +181,8 @@ bool addSingleCreatureConfig( TiXmlElement* elemCreature, vector<CreatureConfigu
   sprite.animFrames = ALL_FRAMES;
   if (sheetIndexStr)
   {
-		sprite.sheetIndex = atoi( sheetIndexStr );
-    CreatureConfiguration cre( (char*)name, "", false, eCreatureSex_NA, eCSC_Any, sprite );
+	sprite.sheetIndex = atoi( sheetIndexStr );
+    CreatureConfiguration cre( gameID, INVALID_INDEX, NULL, eCreatureSex_NA, eCSC_Any, sprite );
   	//add a copy to known creatures
     knownCreatures->push_back( cre );
   }

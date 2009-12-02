@@ -44,10 +44,11 @@ bool ContentLoader::Load(API& DF){
   RESUME_DF;
   
   bool buildingResult = parseContentIndexFile( "buildings/index.txt", "buildings" );
-  bool creatureResult = parseContentIndexFile( "creatures/index.txt", "creatures" );
+  bool creatureResult = parseContentIndexFile( "creatures/index.txt", "creatures" ); 
   bool terrainResult = parseContentIndexFile( "terrain/index.txt", "terrain" );
   bool plantResult = parseContentIndexFile( "vegetation/index.txt", "vegetation" );
   translationComplete = false;
+
   return true;
 }
 
@@ -147,7 +148,6 @@ bool ContentLoader::parseTerrainContent(TiXmlElement* elemRoot, char *homefolder
 void ContentLoader::TranslateConfigsFromDFAPI( API& DF ){
   //do translations
   TranslateBuildingNames( buildingConfigs, buildingNameStrings );
-  TranslateCreatureNames( creatureConfigs, creatureNameStrings );
 
   TranslateGroundMaterialNames( groundConfigs, unparsedGroundConfigs );
 

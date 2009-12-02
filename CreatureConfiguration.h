@@ -14,21 +14,17 @@ enum enumCreatureSpecialCases{
 class CreatureConfiguration
 {
 public:
-  char gameIDstr[CREATURESTRLENGTH];
   int gameID;
   char professionstr[CREATURESTRLENGTH];
-  bool customProf;
   int professionID;
   t_SpriteWithOffset sprite;
   enumCreatureSpecialCases special;
   enumCreatureSex sex;
 
   CreatureConfiguration(){}
-  CreatureConfiguration(char* gameIDstr, char* professionStr, bool custom, enumCreatureSex sex, enumCreatureSpecialCases, t_SpriteWithOffset &sprite);
+  CreatureConfiguration::CreatureConfiguration(int gameID, int professionID, const char* professionStr, enumCreatureSex sex, enumCreatureSpecialCases special, t_SpriteWithOffset &sprite);
   ~CreatureConfiguration(void);
 };
 
 
 bool addCreaturesConfig( TiXmlElement* elemRoot, vector<CreatureConfiguration>* knownCreatures );
-
-void TranslateCreatureNames(vector<CreatureConfiguration>& configs, vector<t_matgloss>& creatureNames );

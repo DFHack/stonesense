@@ -24,7 +24,7 @@ VegetationConfiguration::~VegetationConfiguration(void)
 int TranslatePlantName(const char* plantName, vector<t_matgloss>& plantNames ){
 	if (plantName == NULL)
 	{
-		return -1;	
+		return INVALID_INDEX;	
 	}
   uint32_t numPlants = (uint32_t)plantNames.size();
   for(uint32_t i=0; i < numPlants; i++){
@@ -32,6 +32,7 @@ int TranslatePlantName(const char* plantName, vector<t_matgloss>& plantNames ){
     	return i;
  }
  WriteErr("Unable to match plant '%s' to anything in-game\n", plantName);
+ return INVALID_INDEX;
 }
 
 bool addSingleVegetationConfig( TiXmlElement* elemRoot,  vector<VegetationConfiguration>* vegetationConfigs, vector<t_matgloss>& plantNames )
@@ -53,9 +54,12 @@ bool addSingleVegetationConfig( TiXmlElement* elemRoot,  vector<VegetationConfig
 	//kinda round about- looking to needing to shift the lot into the plant elem
 	sprite.fileIndex=basefile;
 	
-  TiXmlElement* elemTree = elemRoot->FirstChildElement("plant");
-  while( elemTree ){
+  TiXmlElement* elemTree;
+  for (elemTree = elemRoot->FirstChildElement("plant");
+  	elemTree; elemTree = elemTree->NextSiblingElement("plant") ){
   	int gameID = TranslatePlantName(elemTree->Attribute("gameID"),plantNames);
+  	if (gameID == INVALID_INDEX)
+	  	continue;
     const char* deadstr = elemTree->Attribute("dead");
     bool dead = (deadstr && deadstr[0]);   
     const char* saplingstr = elemTree->Attribute("sapling");
@@ -72,7 +76,6 @@ bool addSingleVegetationConfig( TiXmlElement* elemRoot,  vector<VegetationConfig
     VegetationConfiguration vegetationConfiguration(gameID, sprite, !dead, !sapling);
     //add a copy to known creatures
     vegetationConfigs->push_back( vegetationConfiguration );
-    elemTree = elemTree->NextSiblingElement("plant");
   }
 
   return true;

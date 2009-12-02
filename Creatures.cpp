@@ -120,7 +120,7 @@ t_SpriteWithOffset GetCreatureSpriteMap( t_creature* c ){
     //TODO: Optimize. make a table lookup instead of a search
     if( c->type != contentLoader.creatureConfigs[i].gameID )
       continue;
-    
+            
     bool creatureMatchesJob = true;
     if( contentLoader.creatureConfigs[i].professionID != INVALID_INDEX ){
       creatureMatchesJob = contentLoader.creatureConfigs[i].professionID == c->profession;
@@ -143,14 +143,14 @@ t_SpriteWithOffset GetCreatureSpriteMap( t_creature* c ){
     }
 	if(!creatureMatchesSpecial) continue;
     
-    if( contentLoader.creatureConfigs[i].customProf){
+    if( contentLoader.creatureConfigs[i].professionstr){
       creatureMatchesJob = (strcmp(contentLoader.creatureConfigs[i].professionstr,c->custom_profession)==0);
     }
 	if(!creatureMatchesJob) continue;
 	
 	if (!(contentLoader.creatureConfigs[i].sprite.animFrames & (1 << offsetAnimFrame)))
 		continue;
-	
+		
     return contentLoader.creatureConfigs[i].sprite;
   }
   return spriteCre_NA;
