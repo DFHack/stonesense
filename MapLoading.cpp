@@ -525,7 +525,6 @@ void FollowCurrentDFCenter( ){
   int32_t newviewz;
   if (pDFApiHandle->InitViewAndCursor())
   {
-	  WriteErr("?");
     if(pDFApiHandle->InitViewSize())
     {
         pDFApiHandle->getWindowSize(viewsizex,viewsizey); 
@@ -573,7 +572,7 @@ void reloadDisplayedSegment(){
   }
   
   SUSPEND_DF;
-  WriteErr("tc %d\n",config.track_center);
+
   if (config.follow_DFscreen)
   {
   	if (config.track_center)
