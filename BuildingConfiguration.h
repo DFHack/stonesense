@@ -6,7 +6,7 @@
 class BuildingConfiguration
 {
 public:
-  char gameIDstr[100];
+  //char gameIDstr[100];
   uint32_t gameID;
   uint32_t width, height;
   string name;
@@ -14,11 +14,12 @@ public:
   bool canBeAnySize;
   SpriteNode* sprites;
 
-  BuildingConfiguration(string name, char* IDstring);
+  BuildingConfiguration(string name, int gameID);
   ~BuildingConfiguration(void);
 };
 
 
 //extern bool BuildingNamesTranslatedFromGame;
 
-void TranslateBuildingNames(vector<BuildingConfiguration>& configs, vector<string>& buildingNames );
+//void TranslateBuildingNames(vector<BuildingConfiguration>& configs, vector<string>& buildingNames );
+int TranslateBuildingName( const char* currentName, vector<string>& buildingNames );

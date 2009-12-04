@@ -296,14 +296,21 @@ bool addSingleBuildingConfig( TiXmlElement* elemRoot,  vector<BuildingConfigurat
   const char* strName = elemRoot->Attribute("name");
   const char* strGameID = elemRoot->Attribute("gameID");
   
-  if (strName[0] == 0 || strGameID[0] == 0)
+  if (strName == NULL || strGameID == NULL || strName[0] == 0 || strGameID[0] == 0)
   {
 	  contentError("<building> node must have name and gameID attributes",elemRoot);
 	  return false;
   }
   
-  BuildingConfiguration building(strName, (char*) strGameID );
-  RootBlock* spriteroot = new RootBlock(); //leaky?
+  int gameID = TranslateBuildingName(strGameID, contentLoader.buildingNameStrings );
+  
+  if (gameID == INVALID_INDEX) {
+  	//warning was already given
+  	return false;
+	}
+  
+  BuildingConfiguration building(strName, gameID );
+  RootBlock* spriteroot = new RootBlock();
   building.sprites = spriteroot;
   if (!parseSpriteNode(spriteroot,elemRoot))
   {

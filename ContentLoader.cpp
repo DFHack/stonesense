@@ -147,10 +147,7 @@ bool ContentLoader::parseTerrainContent(TiXmlElement* elemRoot, char *homefolder
 
 void ContentLoader::TranslateConfigsFromDFAPI( API& DF ){
   //do translations
-  TranslateBuildingNames( buildingConfigs, buildingNameStrings );
-
   TranslateGroundMaterialNames( groundConfigs, unparsedGroundConfigs );
-
   translationComplete = true;
 }
 
