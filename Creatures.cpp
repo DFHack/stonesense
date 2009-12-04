@@ -120,7 +120,7 @@ t_SpriteWithOffset GetCreatureSpriteMap( t_creature* c ){
     //TODO: Optimize. make a table lookup instead of a search
     if( c->type != contentLoader.creatureConfigs[i].gameID )
       continue;
-            
+         
     bool creatureMatchesJob = true;
     if( contentLoader.creatureConfigs[i].professionID != INVALID_INDEX ){
       creatureMatchesJob = contentLoader.creatureConfigs[i].professionID == c->profession;
@@ -142,14 +142,17 @@ t_SpriteWithOffset GetCreatureSpriteMap( t_creature* c ){
 	 	if (c->flags1.bits.skeleton && (contentLoader.creatureConfigs[i].special != eCSC_Skeleton)) creatureMatchesSpecial = false;
     }
 	if(!creatureMatchesSpecial) continue;
-    
-    if( contentLoader.creatureConfigs[i].professionstr){
+    	
+	if (!(contentLoader.creatureConfigs[i].sprite.animFrames & (1 << offsetAnimFrame)))
+		continue;
+
+		
+
+	// dont try to match strings until other tests pass
+    if( contentLoader.creatureConfigs[i].professionstr[0]){ //cant be NULL, so check has length
       creatureMatchesJob = (strcmp(contentLoader.creatureConfigs[i].professionstr,c->custom_profession)==0);
     }
 	if(!creatureMatchesJob) continue;
-	
-	if (!(contentLoader.creatureConfigs[i].sprite.animFrames & (1 << offsetAnimFrame)))
-		continue;
 		
     return contentLoader.creatureConfigs[i].sprite;
   }

@@ -22,7 +22,7 @@ CreatureConfiguration::CreatureConfiguration(int gameID, int professionID, const
     memcpy(this->professionstr, professionStr, len);
     this->professionstr[CREATURESTRLENGTH-1]=0;
   }
-  //WriteErr("CC %d %d %d %d\n",this->gameID,this->professionID,this->sprite.fileIndex,this->sprite.sheetIndex);
+  //WriteErr("CC %d %d %d %d %s\n",this->gameID,this->professionID,this->sprite.fileIndex,this->sprite.sheetIndex,(this->professionstr[0]?this->professionstr:"-"));
 }
 
 CreatureConfiguration::~CreatureConfiguration(void)
@@ -138,24 +138,35 @@ bool addSingleCreatureConfig( TiXmlElement* elemCreature, vector<CreatureConfigu
 	{
 	  	sprite.fileIndex = loadImgFile((char*)filename);
 	}
-  TiXmlElement* elemProfession = elemCreature->FirstChildElement("Profession");
-  while( elemProfession ){
+  TiXmlElement* elemVariant = elemCreature->FirstChildElement("variant");
+  while( elemVariant ){
 	int professionID = INVALID_INDEX;
-    const char* customstr = elemProfession->Attribute("custom");
-    const char* profStr = elemProfession->Attribute("name");
-    if (customstr == NULL || customstr[0] == 0)
+    const char* profStr = elemVariant->Attribute("prof");
+    if (profStr == NULL || profStr[0] == 0)
     {
-    	professionID = translateProfession(profStr);
-    	profStr = NULL;
+	    profStr = elemVariant->Attribute("profession");
+    }
+   	professionID = translateProfession(profStr);
+
+    const char* customStr = elemVariant->Attribute("custom");
+    if (customStr != NULL && customStr[0] == 0)
+    {
+	    customStr = NULL;
+    } 
+      
+	if (customStr != NULL)
+	{
+		WriteErr("custom: %s\n",customStr);	
 	}
-    const char* sexstr = elemProfession->Attribute("sex");
-    sheetIndexStr = elemProfession->Attribute("sheetIndex");
+    
+    const char* sexstr = elemVariant->Attribute("sex");
+    sheetIndexStr = elemVariant->Attribute("sheetIndex");
     enumCreatureSex cresex = eCreatureSex_NA;
     if(sexstr){
       if(strcmp( sexstr, "M" ) == 0) cresex = eCreatureSex_Male;
       if(strcmp( sexstr, "F" ) == 0) cresex = eCreatureSex_Female;
     }
-    const char* specstr = elemProfession->Attribute("special");
+    const char* specstr = elemVariant->Attribute("special");
     enumCreatureSpecialCases crespec = eCSC_Any;
     if (specstr)
     {
@@ -163,17 +174,17 @@ bool addSingleCreatureConfig( TiXmlElement* elemCreature, vector<CreatureConfigu
       if(strcmp( specstr, "Zombie" ) == 0) crespec = eCSC_Zombie;	      
       if(strcmp( specstr, "Skeleton" ) == 0) crespec = eCSC_Skeleton;	      
     }
-    sprite.animFrames = getAnimFrames(elemProfession->Attribute("frames"));
+    sprite.animFrames = getAnimFrames(elemVariant->Attribute("frames"));
 	if (sprite.animFrames == 0)
 		sprite.animFrames = ALL_FRAMES;
     
     //create profession config
     sprite.sheetIndex=atoi(sheetIndexStr);
-    CreatureConfiguration cre( gameID, professionID, profStr , cresex, crespec, sprite );
+    CreatureConfiguration cre( gameID, professionID, customStr , cresex, crespec, sprite );
     //add a copy to known creatures
     knownCreatures->push_back( cre );
 
-    elemProfession = elemProfession->NextSiblingElement("Profession");
+    elemVariant = elemVariant->NextSiblingElement("variant");
   }
 
   //create default config
