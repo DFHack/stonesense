@@ -39,7 +39,7 @@ int parseConditionNode(ConditionalNode* node, TiXmlElement* elemCondition, bool 
   else if( strcmp(strType, "MaterialType") == 0){
      cond = new MaterialTypeCondition( elemCondition->Attribute("value") );
   }   
-	else if( strcmp(strType, "MaterialIndex") == 0){
+  else if( strcmp(strType, "MaterialIndex") == 0){
      cond = new MaterialIndexCondition( elemCondition->Attribute("value") );
   }   
   else if( strcmp(strType, "always") == 0){
@@ -68,17 +68,13 @@ int parseConditionNode(ConditionalNode* node, TiXmlElement* elemCondition, bool 
   
   else if( strcmp(strType, "NeighbourIdentical") == 0){
     cond = new NeighbourIdenticalCondition( elemCondition->Attribute("dir") );
-  }   
-  
-  else if( strcmp(strType, "NeighbourIdentical") == 0){
-    cond = new NeighbourIdenticalCondition( elemCondition->Attribute("dir") );
-  }    
+  }     
   
   else if( strcmp(strType, "AnimationFrame") == 0){
     cond = new AnimationFrameCondition( elemCondition->Attribute("value") );
   }  
   
-    else if( strcmp(strType, "FluidBelow") == 0){
+  else if( strcmp(strType, "FluidBelow") == 0){
     cond = new FluidBelowCondition( elemCondition->Attribute("value") );
   }  
   
