@@ -2,41 +2,41 @@
 
 <creatures>
 <creature gameID="HUMAN" 		sheetIndex = 100>
-	<Profession name="Wrestler" sheetIndex = 80/>
-	<Profession name="Lasher" sheetIndex = 81/>
-	<Profession name="Axedwarf" sheetIndex = 82/>
-	<Profession name="Hammerdwarf" sheetIndex = 83/>
-	<Profession name="Swordsdwarf" sheetIndex = 84/>
-	<Profession name="Speardwarf" sheetIndex = 85/>
-	<Profession name="Macedwarf" sheetIndex = 86/>
-	<Profession name="Marksdwarf" sheetIndex = 87/>
-	<Profession name="Bowdwarf" sheetIndex = 88/>
-	<Profession name="Pikedwarf" sheetIndex = 89/>
+	<variant prof="Wrestler" sheetIndex = 80/>
+	<variant prof="Lasher" sheetIndex = 81/>
+	<variant prof="Axedwarf" sheetIndex = 82/>
+	<variant prof="Hammerdwarf" sheetIndex = 83/>
+	<variant prof="Swordsdwarf" sheetIndex = 84/>
+	<variant prof="Speardwarf" sheetIndex = 85/>
+	<variant prof="Macedwarf" sheetIndex = 86/>
+	<variant prof="Marksdwarf" sheetIndex = 87/>
+	<variant prof="Bowdwarf" sheetIndex = 88/>
+	<variant prof="Pikedwarf" sheetIndex = 89/>
 	
-	<Profession name="Trader" sex="M" sheetIndex = 102/>
-	<Profession name="Merchant" sex="M" sheetIndex = 102/>
-	<Profession name="Trader" sex="F" sheetIndex = 103/>
-	<Profession name="Merchant" sex="F" sheetIndex = 103/>
-	<Profession name="Guild Representative"  sex="M" sheetIndex = 104/>
-	<Profession name="Outpost Liaison"  sex="M" sheetIndex = 104/>
-	<Profession name="Guild Representative" sex="F" sheetIndex = 105/>
-	<Profession name="Outpost Liaison" sex="F" sheetIndex = 105/>
+	<variant prof="Trader" sex="M" sheetIndex = 102/>
+	<variant prof="Merchant" sex="M" sheetIndex = 102/>
+	<variant prof="Trader" sex="F" sheetIndex = 103/>
+	<variant prof="Merchant" sex="F" sheetIndex = 103/>
+	<variant prof="Guild Representative"  sex="M" sheetIndex = 104/>
+	<variant prof="Outpost Liaison"  sex="M" sheetIndex = 104/>
+	<variant prof="Guild Representative" sex="F" sheetIndex = 105/>
+	<variant prof="Outpost Liaison" sex="F" sheetIndex = 105/>
 	
-	<Profession name="Diplomat" sex="M" sheetIndex = 106/>
-	<Profession name="Diplomat" sex="F" sheetIndex = 107/>
+	<variant prof="Diplomat" sex="M" sheetIndex = 106/>
+	<variant prof="Diplomat" sex="F" sheetIndex = 107/>
 
 	<Profession name="Child" sex="M" sheetIndex = 120/>
 	<Profession name="Child" sex="F" sheetIndex = 121/>
 	<Profession name="Baby" sheetIndex = 122/>
 	
-	<Profession sex="F" sheetIndex = 101/>
+	<variant sex="F" sheetIndex = 101/>
 </creature>
 
 <creature gameID="CAT" 	sheetIndex = 20 > 
-	<Profession name="Child" sheetIndex = 21 />
+	<variant prof="Child" sheetIndex = 21 />
 </creature>
 <creature gameID="DOG" 	sheetIndex = 22 > 
-	<Profession name="Child" sheetIndex = 23 />
+	<variant prof="Child" sheetIndex = 23 />
 </creature>
 
 <creature gameID="MACAQUE_RHESUS" 	sheetIndex = 2 /> 
@@ -72,3 +72,4 @@
 <creature gameID="FOX" 	 sheetIndex = 70 /> 
 <creature gameID="TROGLODYTE" 	 sheetIndex = 72 /> 
 </creatures>
+
