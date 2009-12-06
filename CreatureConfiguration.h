@@ -22,7 +22,7 @@ public:
   enumCreatureSex sex;
 
   CreatureConfiguration(){}
-  CreatureConfiguration::CreatureConfiguration(int gameID, int professionID, const char* professionStr, enumCreatureSex sex, enumCreatureSpecialCases special, t_SpriteWithOffset &sprite);
+  CreatureConfiguration(int gameID, int professionID, const char* professionStr, enumCreatureSex sex, enumCreatureSpecialCases special, t_SpriteWithOffset &sprite);
   ~CreatureConfiguration(void);
 };
 
