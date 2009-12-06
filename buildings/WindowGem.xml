@@ -7,8 +7,8 @@
 
 	<if>
 		<or>
-			<NeighbourSameBuilding dir="North" />
-			<NeighbourSameBuilding dir="South" />
+			<NeighbourSameType dir="North" />
+			<NeighbourSameType dir="South" />
 			<NeighbourWall dir="North" />
 			<NeighbourWall dir="South" />
 		</or>
