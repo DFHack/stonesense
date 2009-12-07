@@ -275,6 +275,8 @@ void DoSpriteIndexOverlay(){
 	index++;
 	if (index >= max)
 		index = -1;
+	//debounce f10
+	while(key[KEY_F10]) rest(50);
   }
   //redraw screen again
   paintboard();
@@ -357,6 +359,7 @@ void loadGraphicsFromDisk(){
 	IMGRamptopSheet = load_bitmap_withWarning("ramptops.png");	
 }
 void destroyGraphics(){
+	/* TODO these should really be merged in with the main imagefile reading routine */
   destroy_bitmap(IMGFloorSheet);
   destroy_bitmap(IMGObjectSheet);
   destroy_bitmap(IMGCreatureSheet);
