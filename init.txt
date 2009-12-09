@@ -3,7 +3,7 @@ Please note, these keywords are case sensitive for now.
 
 Sets the width and height of the application in pixels.
 [WIDTH:1100]
-[HEIGHT:900]
+[HEIGHT:800]
 
 
 To launch the application in windowed mode, set this to YES. 
@@ -47,3 +47,7 @@ This currently *also* requires a map reload to display the frame.
 
 Shows all creatures, for debuging. Living, dead, kidnapped, caged, EVERY single one.
 [ALLCREATURES:NO]
+
+
+Follow the center of the DF window, rather than scale to the edges.
+[TRACK_CENTER:YES]
