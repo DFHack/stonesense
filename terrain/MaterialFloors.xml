@@ -1,0 +1,474 @@
+<?xml version= 1.0  ?>
+
+
+<floors file="terrain/floors.png" >
+
+<!-- construct (wood planks) -->
+<floor sprite= 10 >
+	<!-- floor -->
+	<terrain value= 493 />
+	<!-- stair -->
+	<terrain value= 517 />
+	<!-- ramp -->
+	<terrain value= 518 />
+	<material value="Wood"/>
+</floor>
+
+<!-- construct (wood logs) -->
+<floor sprite= 22 >
+	<!-- fort -->
+	<terrain value= 494 />
+	<!-- pillar -->
+	<terrain value= 495 />
+	<!-- wall -->
+	<terrain value= 496 />
+	<terrain value= 497 />
+	<terrain value= 498 />
+	<terrain value= 499 />
+	<terrain value= 500 />
+	<terrain value= 501 />
+	<terrain value= 502 />
+	<terrain value= 503 />
+	<terrain value= 504 />
+	<terrain value= 505 />
+	<terrain value= 506 />
+	<terrain value= 507 />
+	<terrain value= 508 />
+	<terrain value= 509 />
+	<terrain value= 510 />
+	<terrain value= 511 />
+	<terrain value= 512 />
+	<terrain value= 513 />
+	<terrain value= 514 />
+	<material value="Wood"/>
+</floor>
+
+<!-- construct -->
+<floor sprite= 36 >
+	<!-- floor -->
+	<terrain value= 493 />
+	<!-- stair -->
+	<terrain value= 517 />
+	<!-- ramp -->
+	<terrain value= 518 />
+	<!-- fort -->
+	<terrain value= 494 />
+	<!-- pillar -->
+	<terrain value= 495 />
+	<!-- wall -->
+	<terrain value= 496 />
+	<terrain value= 497 />
+	<terrain value= 498 />
+	<terrain value= 499 />
+	<terrain value= 500 />
+	<terrain value= 501 />
+	<terrain value= 502 />
+	<terrain value= 503 />
+	<terrain value= 504 />
+	<terrain value= 505 />
+	<terrain value= 506 />
+	<terrain value= 507 />
+	<terrain value= 508 />
+	<terrain value= 509 />
+	<terrain value= 510 />
+	<terrain value= 511 />
+	<terrain value= 512 />
+	<terrain value= 513 />
+	<terrain value= 514 />
+	<material value="GreenGlass"/>
+</floor>
+
+<!-- construct -->
+<floor sprite= 35 >
+	<!-- floor -->
+	<terrain value= 493 />
+	<!-- stair -->
+	<terrain value= 517 />
+	<!-- ramp -->
+	<terrain value= 518 />
+	<!-- fort -->
+	<terrain value= 494 />
+	<!-- pillar -->
+	<terrain value= 495 />
+	<!-- wall -->
+	<terrain value= 496 />
+	<terrain value= 497 />
+	<terrain value= 498 />
+	<terrain value= 499 />
+	<terrain value= 500 />
+	<terrain value= 501 />
+	<terrain value= 502 />
+	<terrain value= 503 />
+	<terrain value= 504 />
+	<terrain value= 505 />
+	<terrain value= 506 />
+	<terrain value= 507 />
+	<terrain value= 508 />
+	<terrain value= 509 />
+	<terrain value= 510 />
+	<terrain value= 511 />
+	<terrain value= 512 />
+	<terrain value= 513 />
+	<terrain value= 514 />
+	<material value="ClearGlass"/>
+	<material value="CrystalGlass"/>
+</floor>
+
+<!-- construct -->
+<floor sprite= 12 >
+	<!-- floor -->
+	<terrain value= 493 />
+	<!-- stair -->
+	<terrain value= 517 />
+	<!-- ramp -->
+	<terrain value= 518 />
+	<!-- fort -->
+	<terrain value= 494 />
+	<!-- pillar -->
+	<terrain value= 495 />
+	<!-- wall -->
+	<terrain value= 496 />
+	<terrain value= 497 />
+	<terrain value= 498 />
+	<terrain value= 499 />
+	<terrain value= 500 />
+	<terrain value= 501 />
+	<terrain value= 502 />
+	<terrain value= 503 />
+	<terrain value= 504 />
+	<terrain value= 505 />
+	<terrain value= 506 />
+	<terrain value= 507 />
+	<terrain value= 508 />
+	<terrain value= 509 />
+	<terrain value= 510 />
+	<terrain value= 511 />
+	<terrain value= 512 />
+	<terrain value= 513 />
+	<terrain value= 514 />
+	<material value="Metal"/>
+</floor>
+
+<!-- construct -->
+<floor sprite= 37 >
+	<!-- floor -->
+	<terrain value= 493 />
+	<!-- stair -->
+	<terrain value= 517 />
+	<!-- ramp -->
+	<terrain value= 518 />
+	<!-- fort -->
+	<terrain value= 494 />
+	<!-- pillar -->
+	<terrain value= 495 />
+	<!-- wall -->
+	<terrain value= 496 />
+	<terrain value= 497 />
+	<terrain value= 498 />
+	<terrain value= 499 />
+	<terrain value= 500 />
+	<terrain value= 501 />
+	<terrain value= 502 />
+	<terrain value= 503 />
+	<terrain value= 504 />
+	<terrain value= 505 />
+	<terrain value= 506 />
+	<terrain value= 507 />
+	<terrain value= 508 />
+	<terrain value= 509 />
+	<terrain value= 510 />
+	<terrain value= 511 />
+	<terrain value= 512 />
+	<terrain value= 513 />
+	<terrain value= 514 />
+	<material value="Metal">
+		<subtype value="GOLD"/>
+		<subtype value="BRONZE"/>
+		<subtype value="COPPER"/>
+		<subtype value="BISMUTH_BRONZE"/>
+		<subtype value="ROSE_GOLD"/>
+		<subtype value="BRASS"/>
+	</material>
+</floor>
+
+<!-- construct -->
+<floor sprite= 38 >
+	<!-- floor -->
+	<terrain value= 493 />
+	<!-- stair -->
+	<terrain value= 517 />
+	<!-- ramp -->
+	<terrain value= 518 />
+	<!-- fort -->
+	<terrain value= 494 />
+	<!-- pillar -->
+	<terrain value= 495 />
+	<!-- wall -->
+	<terrain value= 496 />
+	<terrain value= 497 />
+	<terrain value= 498 />
+	<terrain value= 499 />
+	<terrain value= 500 />
+	<terrain value= 501 />
+	<terrain value= 502 />
+	<terrain value= 503 />
+	<terrain value= 504 />
+	<terrain value= 505 />
+	<terrain value= 506 />
+	<terrain value= 507 />
+	<terrain value= 508 />
+	<terrain value= 509 />
+	<terrain value= 510 />
+	<terrain value= 511 />
+	<terrain value= 512 />
+	<terrain value= 513 />
+	<terrain value= 514 />
+	<material value="Metal">
+		<subtype value="SILVER"/>
+		<subtype value="PLATINUM"/>
+		<subtype value="ELECTRUM"/>
+		<subtype value="PEWTER_FINE"/>
+		<subtype value="PEWTER_TRIFLE"/>
+		<subtype value="PEWTER_LAY"/>
+		<subtype value="ALUMINUM"/>
+		<subtype value="NICKEL_SILVER"/>
+		<subtype value="STERLING_SILVER"/>
+	</material>
+</floor>
+
+<!-- construct -->
+<floor sprite= 34 >
+	<!-- floor -->
+	<terrain value= 493 />
+	<!-- stair -->
+	<terrain value= 517 />
+	<!-- ramp -->
+	<terrain value= 518 />
+	<!-- fort -->
+	<terrain value= 494 />
+	<!-- pillar -->
+	<terrain value= 495 />
+	<!-- wall -->
+	<terrain value= 496 />
+	<terrain value= 497 />
+	<terrain value= 498 />
+	<terrain value= 499 />
+	<terrain value= 500 />
+	<terrain value= 501 />
+	<terrain value= 502 />
+	<terrain value= 503 />
+	<terrain value= 504 />
+	<terrain value= 505 />
+	<terrain value= 506 />
+	<terrain value= 507 />
+	<terrain value= 508 />
+	<terrain value= 509 />
+	<terrain value= 510 />
+	<terrain value= 511 />
+	<terrain value= 512 />
+	<terrain value= 513 />
+	<terrain value= 514 />
+	<material value="Ice"/>
+	<material value="Metal">
+		<subtype value="ADAMANTINE"/>
+	</material>
+</floor>
+
+
+<floor sprite = 23>
+    <!-- Soil floors -->
+    <terrain value = 353/>
+    <!-- Wet Soil floors -->
+    <terrain value = 357/>   
+    <material value="Stone">
+        <subtype value="CLAY" />
+	    <subtype value="SILTY_CLAY" />
+    	<subtype value="CLAY_LOAM" />
+    </material>
+</floor>
+<floor sprite = 24>
+    <!-- Soil floors -->
+    <terrain value = 355/>
+    <!-- Wet Soil floors -->
+    <terrain value = 359/>   
+    <material value="Stone">
+        <subtype value="CLAY" />
+        <subtype value="SILTY_CLAY" />
+        <subtype value="CLAY_LOAM" />
+    </material>
+</floor>
+<floor sprite = 25>
+    <!-- Soil floors -->
+    <terrain value = 354/>
+    <!-- Wet Soil floors -->
+    <terrain value = 358/>   
+    <material value="Stone">
+        <subtype value="CLAY" />
+        <subtype value="SILTY_CLAY" />
+        <subtype value="CLAY_LOAM" />
+    </material>
+</floor>
+
+<floor sprite = 26>
+    <!-- Soil floors -->
+    <terrain value = 352/>
+    <!-- Wet Soil floors -->
+    <terrain value = 356/>
+    <material value="Stone">
+        <subtype value="CLAY" />
+        <subtype value="SILTY_CLAY" />
+        <subtype value="CLAY_LOAM" />
+    </material>
+</floor>
+
+<floor sprite = 9>
+	<!-- Dry grass -->
+	<terrain value = 387/>
+	<terrain value = 388/>
+	<terrain value = 389/>
+	<terrain value = 390/>
+	<terrain value = 394/>
+	<terrain value = 395/>
+	<terrain value = 396/>
+	<terrain value = 397/>	
+	<!-- Dead Tree -->
+	<terrain value = 391/>
+	<!-- Dead sapling -->
+	<terrain value = 392/>
+	<!-- Dead shrub -->
+	<terrain value = 393/>
+</floor>
+
+<floor sprite = 13>
+	<!-- Soil floors -->
+	<terrain value = 352/>
+	<terrain value = 353/>
+	<terrain value = 354/>
+	<terrain value = 355/>
+	<!-- Wet Soil floors -->
+	<terrain value = 356/>
+	<terrain value = 357/>
+	<terrain value = 358/>
+	<terrain value = 359/>	
+	<material value="Stone">
+	    <subtype value="SAND_TAN" />
+	    <subtype value="SAND_YELLOW" />
+    </material>
+</floor>
+
+<floor sprite = 14>
+	<!-- Soil floors -->
+	<terrain value = 352/>
+	<terrain value = 353/>
+	<terrain value = 354/>
+	<terrain value = 355/>
+	<!-- Wet Soil floors -->
+	<terrain value = 356/>
+	<terrain value = 357/>
+	<terrain value = 358/>
+	<terrain value = 359/>	
+	<material value="Stone">
+	    <subtype value="SAND_RED" />
+	    <subtype value="SILT" />
+    </material>
+</floor>
+<floor sprite = 15>
+	<!-- Soil floors -->
+	<terrain value = 352/>
+	<terrain value = 353/>
+	<terrain value = 354/>
+	<terrain value = 355/>
+	<!-- Wet Soil floors -->
+	<terrain value = 356/>
+	<terrain value = 357/>
+	<terrain value = 358/>
+	<terrain value = 359/>
+	<material value="Stone">
+	    <subtype value="SAND_BLACK" />
+    </material>
+</floor>
+
+<floor sprite = 16>
+	<!-- Soil floors -->
+	<terrain value = 352/>
+	<terrain value = 353/>
+	<terrain value = 354/>
+	<terrain value = 355/>
+	<!-- Wet Soil floors -->
+	<terrain value = 356/>
+	<terrain value = 357/>
+	<terrain value = 358/>
+	<terrain value = 359/>	
+    <material value="Stone">
+        <subtype value="SAND_WHITE" />
+    </material>
+</floor>
+
+<floor sprite = 9>
+        <!-- Dry Grass -->
+        <terrain value = 387/>
+        <terrain value = 388/>
+        <terrain value = 389/>
+        <terrain value = 390/>
+		<!-- Darker dry grass -->
+        <terrain value = 394/>
+        <terrain value = 395/>
+        <terrain value = 396/>
+        <terrain value = 397/>   
+        <!-- Dead Tree -->
+        <terrain value = 391/>
+        <!-- Dead sapling -->
+        <terrain value = 392/>
+        <!-- Dead shrub -->
+        <terrain value = 393/>
+</floor>
+
+<floor sprite = 28>
+        <!-- Grass on clay -->
+        <terrain value = 348/>
+        <terrain value = 349/>
+        <terrain value = 350/>
+        <terrain value = 351/>
+        <!-- Darker Grass on clay -->
+        <terrain value = 398/>
+        <terrain value = 399/>
+        <terrain value = 400/>
+        <terrain value = 401/>
+        <!-- plants -->
+        <terrain value = 231/>
+        <terrain value = 34/>
+        <terrain value = 24/>
+        <material value="Stone">
+	        <subtype value="CLAY" />
+    	    <subtype value="SILTY_CLAY" />
+        	<subtype value="CLAY_LOAM" />
+        </material>
+</floor>
+
+<floor sprite = 29>
+        <!-- Dry Grass on clay -->
+        <terrain value = 387/>
+        <terrain value = 388/>
+        <terrain value = 389/>
+        <terrain value = 390/>
+		<!-- Darker dry grass on clay -->
+        <terrain value = 394/>
+        <terrain value = 395/>
+        <terrain value = 396/>
+        <terrain value = 397/>   
+        <!-- Dead Tree -->
+        <terrain value = 391/>
+        <!-- Dead sapling -->
+        <terrain value = 392/>
+        <!-- Dead shrub -->
+        <terrain value = 393/>
+        <material value="Stone">
+	        <subtype value="CLAY" />
+    	    <subtype value="SILTY_CLAY" />
+        	<subtype value="CLAY_LOAM" />
+        </material>
+</floor>
+
+</floors>
+
+

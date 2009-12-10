@@ -1,0 +1,326 @@
+<?xml version="1.0" ?>
+
+<!-- this is a fallback catch-all for any floors not defined elsewhere -->
+
+<floors>
+
+<!-- default floor -->
+<floor sprite = 0>
+	<terrain value="2"/>
+	
+	<terrain value="19"/>
+	
+	<terrain value="24"/>
+	<terrain value="27"/>
+	
+	<terrain value="34"/>
+	<terrain value="35"/>
+	<terrain value="38"/>
+	
+	<terrain value="41"/>
+	<terrain value="42"/>
+	<terrain value="43"/>
+	<terrain value="44"/>
+	<terrain value="45"/>
+	<terrain value="46"/>
+	<terrain value="47"/>
+	
+	<terrain value="51"/>
+	<terrain value="54"/>
+	<terrain value="57"/>
+	
+	<terrain value="60"/>
+	<terrain value="63"/>
+	<terrain value="65"/>
+	<terrain value="67"/>
+	
+	<terrain value="70"/>
+	<terrain value="79"/>
+	
+	<terrain value="80"/>
+	<terrain value="81"/>
+	<terrain value="82"/>
+	<terrain value="83"/>
+	<terrain value="89"/>
+	
+	<terrain value="90"/>
+	
+	<terrain value="176"/>
+	<terrain value="177"/>
+	<terrain value="178"/>
+	
+	<terrain value="219"/>
+	
+	<terrain value="231"/>
+	<terrain value="233"/>
+	<terrain value="234"/>
+	<terrain value="235"/>
+	<terrain value="236"/>
+	<terrain value="237"/>
+	<terrain value="238"/>
+	<terrain value="239"/>
+	
+	<terrain value="240"/>
+	<terrain value="241"/>
+	<terrain value="242"/>
+	<terrain value="243"/>
+	<terrain value="244"/>
+	<terrain value="245"/>
+	
+	<terrain value="258"/>
+	<terrain value="259"/>
+	
+	<terrain value="260"/>
+	<terrain value="261"/>
+	<terrain value="262"/>
+	<terrain value="264"/>
+	<terrain value="265"/>
+	<terrain value="269"/>
+	
+	<terrain value="270"/>
+	<terrain value="271"/>
+	<terrain value="272"/>
+	<terrain value="273"/>
+	<terrain value="274"/>
+	<terrain value="275"/>
+	<terrain value="276"/>
+	<terrain value="277"/>
+	<terrain value="278"/>
+	<terrain value="279"/>
+
+	<terrain value="280"/>
+	<terrain value="281"/>
+	<terrain value="282"/>
+	<terrain value="283"/>
+	<terrain value="284"/>
+	<terrain value="285"/>
+	<terrain value="286"/>
+	<terrain value="287"/>
+	<terrain value="288"/>
+	<terrain value="289"/>
+
+	<terrain value="290"/>
+	<terrain value="291"/>
+	<terrain value="292"/>
+	<terrain value="293"/>
+	<terrain value="294"/>
+	<terrain value="295"/>
+	<terrain value="296"/>
+	<terrain value="297"/>
+	<terrain value="298"/>
+	<terrain value="299"/>
+	
+	<terrain value="300"/>
+	<terrain value="301"/>
+	<terrain value="302"/>
+	<terrain value="303"/>
+	<terrain value="304"/>
+	<terrain value="305"/>
+	<terrain value="306"/>
+	<terrain value="307"/>
+	<terrain value="308"/>
+	<terrain value="309"/>
+
+	<terrain value="310"/>
+	<terrain value="311"/>
+	<terrain value="312"/>
+	<terrain value="313"/>
+	<terrain value="314"/>
+	<terrain value="315"/>
+	<terrain value="316"/>
+	<terrain value="317"/>
+	<terrain value="318"/>
+	<terrain value="319"/>
+
+	<terrain value="320"/>
+	<terrain value="321"/>
+	<terrain value="322"/>
+	<terrain value="323"/>
+	<terrain value="324"/>
+	<terrain value="325"/>
+	<terrain value="326"/>
+	<terrain value="327"/>
+	<terrain value="328"/>
+	<terrain value="329"/>
+
+	<terrain value="330"/>
+	<terrain value="331"/>
+	<terrain value="332"/>
+	<terrain value="333"/>
+	<terrain value="334"/>
+	<terrain value="335"/>
+	<terrain value="336"/>
+	<terrain value="337"/>
+	<terrain value="338"/>
+	<terrain value="339"/>
+
+	<terrain value="340"/>
+	<terrain value="341"/>
+	<terrain value="342"/>
+	<terrain value="343"/>
+	<terrain value="344"/>
+	<terrain value="345"/>
+	<terrain value="346"/>
+	<terrain value="347"/>
+	<terrain value="348"/>
+	<terrain value="349"/>
+
+	<terrain value="350"/>
+	<terrain value="351"/>
+	<terrain value="352"/>
+	<terrain value="353"/>
+	<terrain value="354"/>
+	<terrain value="355"/>
+	<terrain value="356"/>
+	<terrain value="357"/>
+	<terrain value="358"/>
+	<terrain value="359"/>
+
+	<terrain value="360"/>
+	<terrain value="361"/>
+	<terrain value="362"/>
+	<terrain value="363"/>
+	<terrain value="364"/>
+	<terrain value="365"/>
+	<terrain value="366"/>
+	<terrain value="367"/>
+	<terrain value="368"/>
+	<terrain value="369"/>
+
+	<terrain value="370"/>
+	<terrain value="371"/>
+	<terrain value="372"/>
+	<terrain value="373"/>
+	<terrain value="374"/>
+	<terrain value="375"/>
+	<terrain value="376"/>
+	<terrain value="377"/>
+	<terrain value="378"/>
+	<terrain value="379"/>
+
+	<terrain value="380"/>
+	<!--<terrain value="381"/>-->
+	<terrain value="387"/>
+	<terrain value="388"/>
+	<terrain value="389"/>
+
+	<terrain value="390"/>
+	<terrain value="391"/>
+	<terrain value="392"/>
+	<terrain value="393"/>
+	<terrain value="394"/>
+	<terrain value="395"/>
+	<terrain value="396"/>
+	<terrain value="397"/>
+	<terrain value="398"/>
+	<terrain value="399"/>
+
+	<terrain value="400"/>
+	<terrain value="401"/>
+	<terrain value="402"/>
+	<terrain value="403"/>
+	<terrain value="404"/>
+	<terrain value="405"/>
+	<terrain value="406"/>
+	<terrain value="407"/>
+	<terrain value="408"/>
+	<terrain value="409"/>
+
+	<terrain value="410"/>
+	<terrain value="411"/>
+	<terrain value="412"/>
+	<terrain value="413"/>
+	<terrain value="414"/>
+	<terrain value="415"/>
+	<terrain value="416"/>
+	<terrain value="417"/>
+	<terrain value="418"/>
+	<terrain value="419"/>
+
+	<terrain value="420"/>
+	<terrain value="421"/>
+	<terrain value="422"/>
+	<terrain value="423"/>
+	<terrain value="424"/>
+	<terrain value="425"/>
+	<terrain value="426"/>
+	<terrain value="427"/>
+	<terrain value="428"/>
+	<terrain value="429"/>
+
+	<terrain value="430"/>
+	<terrain value="431"/>
+	<terrain value="432"/>
+	<terrain value="433"/>
+	<terrain value="434"/>
+	<terrain value="435"/>
+	<terrain value="436"/>
+	<terrain value="437"/>
+	<terrain value="438"/>
+	<terrain value="439"/>
+
+	<terrain value="440"/>
+	<terrain value="441"/>
+	<terrain value="442"/>
+	<terrain value="443"/>
+	<terrain value="444"/>
+	<terrain value="445"/>
+	<terrain value="446"/>
+	<terrain value="447"/>
+	<terrain value="448"/>
+	<terrain value="449"/>
+
+	<terrain value="450"/>
+	<terrain value="451"/>
+	<terrain value="452"/>
+	<terrain value="453"/>
+	<terrain value="454"/>
+	<terrain value="455"/>
+	<terrain value="456"/>
+	<terrain value="457"/>
+	<terrain value="458"/>
+	<terrain value="459"/>
+
+	<terrain value="460"/>
+	<terrain value="461"/>
+	<terrain value="462"/>
+	<terrain value="463"/>
+	<terrain value="464"/>
+	<terrain value="465"/>
+	<terrain value="466"/>
+	<terrain value="467"/>
+	<terrain value="468"/>
+
+	<terrain value="493"/>
+	<terrain value="494"/>
+	<terrain value="495"/>
+	<terrain value="496"/>
+	<terrain value="497"/>
+	<terrain value="498"/>
+	<terrain value="499"/>
+
+	<terrain value="500"/>
+	<terrain value="501"/>
+	<terrain value="502"/>
+	<terrain value="503"/>
+	<terrain value="504"/>
+	<terrain value="505"/>
+	<terrain value="506"/>
+	<terrain value="507"/>
+	<terrain value="508"/>
+	<terrain value="509"/>
+
+	<terrain value="510"/>
+	<terrain value="511"/>
+	<terrain value="512"/>
+	<terrain value="513"/>
+	<terrain value="514"/>
+
+	<terrain value="517"/>
+	<terrain value="518"/>
+
+</floor>
+
+</floors>
+
+

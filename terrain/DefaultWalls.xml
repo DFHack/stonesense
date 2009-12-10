@@ -1,0 +1,254 @@
+<?xml version="1.0" ?>
+
+<!-- fallbacks for blocks not defined elsewhere -->
+
+<blocks> 
+
+<!-- fortifications -->
+
+<block sprite=201>
+	<terrain value="65"/>
+	
+	<terrain value="326"/>
+	<terrain value="327"/>
+	<terrain value="360"/>
+	
+	<terrain value="436"/>	
+	<terrain value="494"/>
+	
+</block>
+
+<!-- ramps -->
+
+<block sprite=0>
+	<terrain value="233"/>
+	<terrain value="234"/>
+	<terrain value="235"/>
+	<terrain value="236"/>
+	<terrain value="237"/>
+	<terrain value="238"/>
+	<terrain value="239"/>
+	
+	<terrain value="240"/>
+	<terrain value="241"/>		
+	<terrain value="245"/>
+	
+	<terrain value="518"/>
+</block>
+
+<!-- stairs -->
+
+<block sprite=202>
+		<!-- ice -->
+	<terrain value="25"/>
+	<terrain value="27"/>
+		<!-- obs -->
+	<terrain value="36"/>
+	<terrain value="38"/>
+		<!-- soil -->
+	<terrain value="38"/>
+	<terrain value="41"/>
+		<!-- grass -->
+	<terrain value="49"/>
+	<terrain value="51"/>	
+	<terrain value="52"/>	
+	<terrain value="54"/>	
+		<!-- stone -->
+	<terrain value="55"/>
+	<terrain value="57"/>
+		<!-- ore -->
+	<terrain value="58"/>
+	<terrain value="60"/>
+		<!-- feat -->
+	<terrain value="61"/>
+	<terrain value="63"/>
+		<!-- cons -->
+	<terrain value="515"/>		
+	<terrain value="517"/>
+</block>
+
+<!-- walls -->
+<block sprite=200 >
+		<!-- pillars -->
+	<terrain value="79"/>
+	<terrain value="80"/>
+	<terrain value="81"/>
+	<terrain value="82"/>
+	<terrain value="83"/>
+		<!-- damaged stone -->
+	<terrain value="176"/>
+	<terrain value="177"/>
+	<terrain value="178"/>
+		<!-- stone -->
+	<terrain value="219"/>
+		<!-- soil -->
+	<terrain value="265"/>
+		<!-- sm obs -->
+	<terrain value="269"/>
+	
+	<terrain value="270"/>
+	<terrain value="271"/>
+	<terrain value="272"/>
+	<terrain value="273"/>
+	<terrain value="274"/>
+	<terrain value="275"/>
+	<terrain value="276"/>
+	<terrain value="277"/>
+	<terrain value="278"/>
+	<terrain value="279"/>
+
+	<terrain value="280"/>
+	<terrain value="281"/>
+	<terrain value="282"/>
+	<terrain value="283"/>
+	<terrain value="284"/>
+	<terrain value="285"/>
+	<terrain value="286"/>
+	<terrain value="287"/>
+		<!--sm feat -->
+	<terrain value="288"/>
+	<terrain value="289"/>
+
+	<terrain value="290"/>
+	<terrain value="291"/>
+	<terrain value="292"/>
+	<terrain value="293"/>
+	<terrain value="294"/>
+	<terrain value="295"/>
+	<terrain value="296"/>
+	<terrain value="297"/>
+	<terrain value="298"/>
+	<terrain value="299"/>
+	
+	<terrain value="300"/>
+	<terrain value="301"/>
+	<terrain value="302"/>
+	<terrain value="303"/>
+	<terrain value="304"/>
+	<terrain value="305"/>
+	<terrain value="306"/>
+		<!-- sm stone -->
+	<terrain value="307"/>
+	<terrain value="308"/>
+	<terrain value="309"/>
+
+	<terrain value="310"/>
+	<terrain value="311"/>
+	<terrain value="312"/>
+	<terrain value="313"/>
+	<terrain value="314"/>
+	<terrain value="315"/>
+	<terrain value="316"/>
+	<terrain value="317"/>
+	<terrain value="318"/>
+	<terrain value="319"/>
+
+	<terrain value="320"/>
+	<terrain value="321"/>
+	<terrain value="322"/>
+	<terrain value="323"/>
+	<terrain value="324"/>
+	<terrain value="325"/>
+		<!-- dam obs -->
+	<terrain value="328"/>
+	<terrain value="329"/>
+
+	<terrain value="330"/>
+		<!-- obs -->
+	<terrain value="331"/>
+		<!-- dam stone -->
+	<terrain value="332"/>
+	<terrain value="333"/>
+	<terrain value="334"/>
+		<!-- stone -->
+	<terrain value="335"/>
+		
+		<!-- dam ice -->
+	<terrain value="361"/>
+	<terrain value="362"/>
+	<terrain value="363"/>
+		<!-- ice -->
+	<terrain value="364"/>
+	
+		<!-- sm vein -->
+	<terrain value="417"/>
+	<terrain value="418"/>
+	<terrain value="419"/>
+
+	<terrain value="420"/>
+	<terrain value="421"/>
+	<terrain value="422"/>
+	<terrain value="423"/>
+	<terrain value="424"/>
+	<terrain value="425"/>
+	<terrain value="426"/>
+	<terrain value="427"/>
+	<terrain value="428"/>
+	<terrain value="429"/>
+
+	<terrain value="430"/>
+	<terrain value="431"/>
+	<terrain value="432"/>
+	<terrain value="433"/>
+	<terrain value="434"/>
+	<terrain value="435"/>
+		<!-- dam vein -->
+	<terrain value="437"/>
+	<terrain value="438"/>
+	<terrain value="439"/>
+
+		<!-- vein -->
+	<terrain value="440"/>
+
+		<!-- sm ice -->
+	<terrain value="450"/>
+	<terrain value="451"/>
+	<terrain value="452"/>
+	<terrain value="453"/>
+	<terrain value="454"/>
+	<terrain value="455"/>
+	<terrain value="456"/>
+	<terrain value="457"/>
+	<terrain value="458"/>
+	<terrain value="459"/>
+
+	<terrain value="460"/>
+	<terrain value="461"/>
+	<terrain value="462"/>
+	<terrain value="463"/>
+	<terrain value="464"/>
+	<terrain value="465"/>
+	<terrain value="466"/>
+	<terrain value="467"/>
+	<terrain value="468"/>
+
+		<!-- cons pillar -->
+	<terrain value="495"/>
+		<!-- cons wall -->
+	<terrain value="496"/>
+	<terrain value="497"/>
+	<terrain value="498"/>
+	<terrain value="499"/>
+
+	<terrain value="500"/>
+	<terrain value="501"/>
+	<terrain value="502"/>
+	<terrain value="503"/>
+	<terrain value="504"/>
+	<terrain value="505"/>
+	<terrain value="506"/>
+	<terrain value="507"/>
+	<terrain value="508"/>
+	<terrain value="509"/>
+
+	<terrain value="510"/>
+	<terrain value="511"/>
+	<terrain value="512"/>
+	<terrain value="513"/>
+	<terrain value="514"/>
+
+</block>
+
+</blocks>
+
+
