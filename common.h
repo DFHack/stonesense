@@ -6,10 +6,10 @@
 
 #include <assert.h>
 #include <vector>
+#include <map>
 #include <allegro.h>
 
 using namespace std;
-
 
 #include "dfhack/library/DFTypes.h"
 #include "dfhack/library/DFTileTypes.h"
@@ -86,13 +86,14 @@ using namespace DFHack;
 
 #define BASE_SHADOW_TILE 160
 
-enum material{
-  MAT_WILLOW = 9, 
-  MAT_DOLOMITE = 135,
-	MAT_FLINT = 136,
-  MAT_TALC = 171,
-
-};
+// this shouldn't change with mods, so should
+// be know ahead of time (especially since we
+// use it for fake terrains already)
+#define MAX_BASE_TERRAIN 525
+#define FAKE_TERRAIN_COUNT 0
+// we only need as many as our translation system
+// in ContentLoader/lookupMaterialType deals with
+#define MAX_MATGLOSS 24
 
 enum dirTypes{
   eSimpleInvalid = -1,
@@ -158,8 +159,6 @@ extern bool animationFrameShown;
 // binary 00111111
 #define ALL_FRAMES 63
 
-extern vector<t_matgloss> v_stonetypes;
-
 #define TMR1_START (ClockedTime = clock())
 #define TMR1_STOP  (ClockedTime = clock() - ClockedTime)
 #define TMR2_START (ClockedTime2 = clock())
@@ -179,5 +178,4 @@ bool loadConfigFile();
 
 //xmlBuildingReader.cpp
 class BuildingConfiguration;
-
 

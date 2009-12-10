@@ -39,7 +39,6 @@ extern double oneBlockInPixels;
 extern BITMAP* IMGFloorSheet; 
 extern BITMAP* IMGObjectSheet; 
 extern BITMAP* IMGCreatureSheet; 
-extern BITMAP* IMGRampSheet; 
-extern BITMAP* IMGRamptopSheet; 
+extern BITMAP* IMGRampSheet;  
 
 extern Crd2D debugCursor;

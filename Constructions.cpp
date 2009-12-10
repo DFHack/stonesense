@@ -14,59 +14,7 @@ void changeConstructionMaterials(WorldSegment* segment, vector<t_construction>* 
     construct = &(*allConstructions)[i];	
     b = segment->getBlock(construct->x, construct->y, construct->z);
     if( !b ) continue;
-	  //replace floor, wall and ramp types
-	  if(b->floorType > 0){
-		  switch(construct->material.type){
-			  case Mat_Wood:
-          if(b->floorType == ID_CNSTFLOOR){
-            //set to wooden floor
-            b->floorType = ID_WOODFLOOR;
-            //if tile beneth has a wooden wall, dont display a floor. hackish. buggish. whatever
-            Block* under = segment->getBlockRelativeTo( b->x, b->y, b->z, eBelow );
-            if(under && under->wallType == ID_WOODWALL)
-              b->floorType = 0;
-          }
-				  break;
-			  case Mat_Stone: 
-			  //case Trey_Parker:
-				  break;
-
-        case Mat_Metal:
-          b->floorType = ID_METALFLOOR;
-		  }
-
-	  }
-    if(b->wallType > 0){
-		  switch(construct->material.type){
-			  case Mat_Wood:
-				  if(b->wallType == ID_CNSTFORTIFICATION)
-					  b->wallType = ID_WOODFORTIFICATION;
-				  else
-					  b->wallType = ID_WOODWALL;
-				  break;
-        case Mat_Stone:
-          //stones are the default constructed object, so dont change them
-          break;
-        case Mat_Metal:
-          b->wallType = ID_METALWALL;
-          break;
-		  }
-	  }
-    if(b->stairType > 0){
-      switch(construct->material.type){
-		  case Mat_Wood:
-        if(b->stairType == ID_CNSTR_STAIR_UP)
-				  b->stairType = ID_WOODFLOOR_STAIR_UP;
-        if(b->stairType == ID_CNSTR_STAIR_UPDOWN)
-				  b->stairType = ID_WOODFLOOR_STAIR_UPDOWN;
-        if(b->stairType == ID_CNSTR_STAIR_DOWN)
-          b->stairType = ID_WOODFLOOR_STAIR_DOWN;
-			  break;
-		  case Mat_Stone: 
-		  //case Trey_Parker:
-			  break;
-	    }
-    }
+      b->material=construct->material;
   }
 }
 

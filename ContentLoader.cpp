@@ -19,16 +19,16 @@ bool ContentLoader::Load(API& DF){
 	
   //flush old config
   flushBuildingConfig(&buildingConfigs);
+  flushTerrainConfig(terrainFloorConfigs);
+  flushTerrainConfig(terrainBlockConfigs);
   creatureConfigs.clear();
   treeConfigs.clear();
   shrubConfigs.clear();
-  groundConfigs.clear();
   flushImgFiles();
   creatureNameStrings.clear();
   woodNameStrings.clear();
   plantNameStrings.clear();
   buildingNameStrings.clear();
-  unparsedGroundConfigs.clear();
   
   SUSPEND_DF;
   
@@ -37,10 +37,11 @@ bool ContentLoader::Load(API& DF){
   DF.InitReadBuildings( buildingNameStrings );
   DF.FinishReadBuildings();
   //read stone material types
-  DF.ReadStoneMatgloss(v_stonetypes); 
+  DF.ReadStoneMatgloss( stoneNameStrings ); 
+  DF.ReadMetalMatgloss( metalNameStrings );
   DF.ReadWoodMatgloss( woodNameStrings );
   DF.ReadPlantMatgloss( plantNameStrings );
-    
+  
   RESUME_DF;
   
   bool buildingResult = parseContentIndexFile( "buildings/index.txt", "buildings" );
@@ -109,7 +110,7 @@ bool ContentLoader::parseContentXMLFile( char* filepath, char* homefolder ){
     if( elementType.compare( "floors" ) == 0 )
         runningResult &= parseTerrainContent( elemRoot, homefolder );
 
-    if( elementType.compare( "walls" ) == 0 )
+    if( elementType.compare( "blocks" ) == 0 )
         runningResult &= parseTerrainContent( elemRoot, homefolder );
 
     if( elementType.compare( "shrubs" ) == 0 )
@@ -142,13 +143,7 @@ bool ContentLoader::parseTreeContent(TiXmlElement* elemRoot, char *homefolder){
 }
 
 bool ContentLoader::parseTerrainContent(TiXmlElement* elemRoot, char *homefolder){
-  return addSingleTerrainConfig( elemRoot, &unparsedGroundConfigs );
-}
-
-void ContentLoader::TranslateConfigsFromDFAPI( API& DF ){
-  //do translations
-  TranslateGroundMaterialNames( groundConfigs, unparsedGroundConfigs );
-  translationComplete = true;
+  return addSingleTerrainConfig( elemRoot );
 }
 
 const char* getDocument(TiXmlNode* element)
@@ -189,4 +184,76 @@ char getAnimFrames(const char* framestring)
 		aframes = aframes | (1 << temp);
 	}
 	return aframes;
+}
+
+int lookupMaterialType(const char* strValue)
+{
+	if (strValue == NULL || strValue[0] == 0)
+		return INVALID_INDEX;
+	if( strcmp(strValue, "Wood") == 0)
+      return Mat_Wood;
+    else if( strcmp(strValue, "Stone") == 0)
+      return Mat_Stone;
+    else if( strcmp(strValue, "Metal") == 0)
+      return Mat_Metal;
+     //TODO this needs fixing on dfhack side
+    else if( strcmp(strValue, "Bone") == 0)
+      return Mat_Plant;
+    else if( strcmp(strValue, "Leather") == 0)
+      return Mat_Leather;
+    else if( strcmp(strValue, "Silk") == 0)
+      return Mat_SilkCloth;
+    else if( strcmp(strValue, "PlantCloth") == 0)
+      return Mat_PlantCloth;
+    else if( strcmp(strValue, "GreenGlass") == 0)
+      return Mat_GreenGlass;
+    else if( strcmp(strValue, "ClearGlass") == 0)
+      return Mat_ClearGlass;
+    else if( strcmp(strValue, "CrystalGlass") == 0)
+      return Mat_CrystalGlass;
+    else if( strcmp(strValue, "Ice") == 0)
+      return Mat_Ice;
+    else if( strcmp(strValue, "Charcoal") == 0)
+      return Mat_Charcoal;
+    else if( strcmp(strValue, "Soap") == 0) //you know you want it
+      return Mat_Soap;
+     return INVALID_INDEX;
+}
+
+int lookupIndexedType(const char* indexName, vector<t_matgloss>& typeVector)
+{
+	if (indexName == NULL || indexName[0] == 0)
+	{
+		return INVALID_INDEX;	
+	}
+	uint32_t vsize = (uint32_t)typeVector.size();
+	for(uint32_t i=0; i < vsize; i++){
+	if (strcmp(indexName,typeVector[i].id) == 0)
+		return i;
+	}
+	return INVALID_INDEX;
+}
+
+int lookupMaterialIndex(int matType, const char* strValue)
+{
+	vector<t_matgloss>* typeVector;
+	// for appropriate elements, look up subtype
+	if (matType == Mat_Wood)
+	{
+		typeVector=&(contentLoader.woodNameStrings);
+	}
+	else if (matType == Mat_Stone)
+	{
+		typeVector=&(contentLoader.stoneNameStrings);
+	}
+	else if (matType == Mat_Metal)
+	{
+		typeVector=&(contentLoader.metalNameStrings);
+	}
+	else
+	{
+		//maybe allow some more in later
+		return INVALID_INDEX;
+	}
+	return lookupIndexedType(strValue,*typeVector);
 }

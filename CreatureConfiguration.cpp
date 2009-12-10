@@ -47,64 +47,6 @@ void DumpProfessionsToDisk(){
   fclose(fp);
 }
 
-/*
-void TranslateCreatureNames(vector<CreatureConfiguration>& configs, vector<t_matgloss>& creatureNames ){
-  uint32_t numCreatures = (uint32_t)creatureNames.size();
-  //uint32_t numProfessions = dfMemoryInfo.P
-  //for each config, find it's integer ID
-  for(uint32_t i=0; i < configs.size(); i++){
-    char* ptr = configs[i].gameIDstr;
-    uint32_t j;
-    for(j=0; j < numCreatures; j++){
-      if( strcmp( ptr, creatureNames[j].id) == 0){
-        //assign ID
-        configs[i].gameID = j; 
-
-        //jump out of ID lookup loop
-        break;
-      }
-    }
-    if(j >= creatureNames.size())
-      WriteErr("Unable to match creature '%s' to anything in-game\n", ptr);
-    ptr = configs[i].professionstr;
-    if(!configs[i].customProf && strcmp(ptr, "") != 0 ){
-      string proffStr;
-      for(j=0; (proffStr = dfMemoryInfo.getProfession(j)) != "" ; j++){
-        if( proffStr.compare( ptr ) == 0){
-          //assign ID
-          configs[i].professionID = j; 
-
-          //jump out of proffessionID lookup loop
-          break;
-        }
-      }
-      if(proffStr == ""){
-        WriteErr("Unable to match Profession '%s' to anything in-game\n", ptr);
-        configs[i].professionID = INT_MAX; //if it is left at INVALID_INDEX, the condition is ignored entierly.
-      }
-    }
-  }
-}*/
-
-int translateCreature(const char* currentName, vector<t_matgloss>& creatureNames )
-{
-	if (currentName == NULL || currentName[0]==0)
-		return INVALID_INDEX;
-	uint32_t numCreatures = (uint32_t)creatureNames.size();
-    uint32_t j;
-    for(j=0; j < numCreatures; j++){
-      if( strcmp( currentName, creatureNames[j].id) == 0){
-        //assign ID
-        return j;
-
-        //jump out of ID lookup loop
-        break;
-      }
-    }
-	WriteErr("Unable to match creature '%s' to anything in-game\n", currentName);
-	return INVALID_INDEX;
-}
-
 int translateProfession(const char* currentProf)
 {
 	if (currentProf == NULL || currentProf[0]==0)
@@ -124,7 +66,7 @@ int translateProfession(const char* currentProf)
 }
 
 bool addSingleCreatureConfig( TiXmlElement* elemCreature, vector<CreatureConfiguration>* knownCreatures, int basefile ){
-  int gameID = translateCreature(elemCreature->Attribute("gameID"),contentLoader.creatureNameStrings);
+  int gameID = lookupIndexedType(elemCreature->Attribute("gameID"),contentLoader.creatureNameStrings);
   if (gameID == INVALID_INDEX)
   	return false;
   const char* sheetIndexStr;

@@ -24,7 +24,8 @@ Block::Block(WorldSegment* ownerSegment)
   building.info.type = BUILDINGTYPE_NA;
   building.index = -1;
 
-  this->materialIndex = INVALID_INDEX;
+  this->material.type = INVALID_INDEX;
+  this->material.index = INVALID_INDEX;
 }
 
 
@@ -41,9 +42,21 @@ void Block::operator delete (void *p){
   blockFactory.deleteBlock( (Block*)p );
 }
 
+inline BITMAP* imageSheet(t_SpriteWithOffset sprite, BITMAP* defaultBmp)
+{
+    if (sprite.fileIndex == -1)
+    {
+    	return defaultBmp;
+	}
+    else
+    {
+    	return getImgFile(sprite.fileIndex);
+	}
+}
 
 void Block::Draw(BITMAP* target){
 	int sheetOffsetX, sheetOffsetY;
+	t_SpriteWithOffset sprite;
   /*if(config.hide_outer_blocks){
     if(x == ownerSegment->x || x == ownerSegment->x + ownerSegment->sizex - 1) return;
     if(y == ownerSegment->y || y == ownerSegment->y + ownerSegment->sizey - 1) return;
@@ -62,22 +75,33 @@ void Block::Draw(BITMAP* target){
 
 	//Draw Floor
   if(floorType > 0 || wallType > 0 || ramp.type > 0){
-    int floorSpriteIndex = GetFloorSpriteMap(this->floorType, materialIndex);
+    sprite = GetFloorSpriteMap(this->floorType, this->material);
     //if floor is muddy, override regular floor
-    if( occ.bits.mud )
-      floorSpriteIndex = SPRITEFLOOR_WATERFLOOR;
+    if( occ.bits.mud && water.index == 0)
+    {
+      sprite.sheetIndex = SPRITEFLOOR_WATERFLOOR;
+      sprite.fileIndex = INVALID_INDEX;
+	}
 
     //If tile has no floor, look for a Filler Floor from it's wall
-    if(floorSpriteIndex == SPRITEFLOOR_NA)
-      floorSpriteIndex = GetWallSpriteMap(this->wallType, this->materialIndex, true);
-    
-    //TODO: need configurable Filler Floors for ramps as well
-	  if(floorSpriteIndex == SPRITEFLOOR_NA && (ramp.type > 0))
-		  floorSpriteIndex = 3;
+    if(sprite.sheetIndex == INVALID_INDEX)
+    {
+    	if (wallType > 0)
+    	{
+	    	sprite = GetFloorSpriteMap(wallType, this->material);
+    	}
+    	else if (ramp.type > 0)
+    	{
+	    	sprite = GetFloorSpriteMap(ramp.type, this->material);
+    	}
+	}
 
-    sheetOffsetX = TILEWIDTH * (floorSpriteIndex % SHEET_OBJECTSWIDE);
-    sheetOffsetY = (TILEHEIGHT + FLOORHEIGHT) * (floorSpriteIndex / SHEET_OBJECTSWIDE);
-		masked_blit(IMGFloorSheet, target, sheetOffsetX,sheetOffsetY, drawx,drawy, TILEWIDTH,TILEHEIGHT + FLOORHEIGHT);
+    if(sprite.sheetIndex != INVALID_INDEX)
+    {
+    	sheetOffsetX = TILEWIDTH * (sprite.sheetIndex % SHEET_OBJECTSWIDE);
+    	sheetOffsetY = (TILEHEIGHT + FLOORHEIGHT) * (sprite.sheetIndex / SHEET_OBJECTSWIDE);
+		masked_blit(imageSheet(sprite,IMGFloorSheet), target, sheetOffsetX,sheetOffsetY, drawx,drawy, TILEWIDTH,TILEHEIGHT + FLOORHEIGHT);
+	}
 
     //Northern frame
     if(this->depthBorderNorth)
@@ -90,26 +114,23 @@ void Block::Draw(BITMAP* target){
 
 	//Draw Ramp
   if(ramp.type > 0){
+	  sprite = GetBlockSpriteMap(ramp.type, material);
+	  if (sprite.sheetIndex == -1)
+	  {
+		sprite.sheetIndex = 0;
+		sprite.fileIndex = INVALID_INDEX;
+	  }
     sheetOffsetX = SPRITEWIDTH * ramp.index;
-    sheetOffsetY = SPRITEHEIGHT * GetRampMaterialTypeMap(ramp.type);
-
-		masked_blit(IMGRampSheet, target, sheetOffsetX,sheetOffsetY, drawx,drawy - (WALLHEIGHT), SPRITEWIDTH, SPRITEHEIGHT);
+    sheetOffsetY = ((TILEHEIGHT + FLOORHEIGHT + SPRITEHEIGHT) * sprite.sheetIndex)+(TILEHEIGHT + FLOORHEIGHT);
+	
+		masked_blit(imageSheet(sprite,IMGRampSheet), target, sheetOffsetX,sheetOffsetY, drawx,drawy - (WALLHEIGHT), SPRITEWIDTH, SPRITEHEIGHT);
 	}
 
 
 	//vegetation
 	if(tree.index > 0 || tree.type > 0){
-    t_SpriteWithOffset sprite =  GetSpriteVegetation( (TileClass) getVegetationType( this->floorType ), tree.index );
-      BITMAP* objectSheet;
-	    if (sprite.fileIndex == -1)
-	    {
-	    	objectSheet = IMGObjectSheet;
-    	}
-	    else
-	    {
-	    	objectSheet = getImgFile(sprite.fileIndex);
-    	}
-        DrawSpriteFromSheet( sprite.sheetIndex, target, objectSheet, drawx, drawy );
+     sprite =  GetSpriteVegetation( (TileClass) getVegetationType( this->floorType ), tree.index );
+        DrawSpriteFromSheet( sprite.sheetIndex, target, imageSheet(sprite,IMGObjectSheet), drawx, drawy );
 	}
 
 	//shadow
@@ -128,19 +149,10 @@ void Block::Draw(BITMAP* target){
     int spriteNum =  SPRITEOBJECT_NA; //getBuildingSprite(this->building, mirroredBuilding);
 
    for(uint32_t i=0; i < building.sprites.size(); i++){
-	   if (!(building.sprites[i].animFrames & (1 << currentAnimationFrame)))
+	   sprite = building.sprites[i];
+	   if (!(sprite.animFrames & (1 << currentAnimationFrame)))
 	   		continue;
-      spriteNum = building.sprites[i].sheetIndex;
-      BITMAP* objectSheet;
-	    if (building.sprites[i].fileIndex == -1)
-	    {
-	    	objectSheet = IMGObjectSheet;
-    	}
-	    else
-	    {
-	    	objectSheet = getImgFile(building.sprites[i].fileIndex);
-    	}
-      DrawSpriteFromSheet(spriteNum , target, objectSheet, 
+      DrawSpriteFromSheet(sprite.sheetIndex , target, imageSheet(sprite,IMGObjectSheet), 
         drawx + building.sprites[i].x,
         drawy + building.sprites[i].y);
     }
@@ -152,28 +164,37 @@ void Block::Draw(BITMAP* target){
 	//Draw Stairs
 	if(stairType > 0){
 		//down part
-		int spriteNum = GetDownStairTypeMap(stairType);
+		//skipping at the moment?
+		//int spriteNum = GetFloorSpriteMap(stairType,material);
     //DrawSpriteFromSheet( spriteNum, target, IMGObjectSheet, drawx, drawy );
 
 		//up part
     bool mirrored = false;
     if(findWallCloseTo(ownerSegment, this) == eSimpleW)
       mirrored = true;
-		spriteNum = GetUpStairTypeMap(stairType, mirrored);
-    if(spriteNum)
-      DrawSpriteFromSheet( spriteNum, target, IMGObjectSheet, drawx, drawy );
+    sprite = GetBlockSpriteMap(stairType, material);
+    if(sprite.sheetIndex != INVALID_INDEX)
+    {
+       if (mirrored)
+      		sprite.sheetIndex += 1;
+      DrawSpriteFromSheet( sprite.sheetIndex, target, imageSheet(sprite,IMGObjectSheet), drawx, drawy );
+  }
 	}
 
   //Draw Walls
 	if(wallType > 0){
     //draw wall
-    int spriteNum =  GetWallSpriteMap(wallType, materialIndex, false);
+    sprite =  GetBlockSpriteMap(wallType, material);
 
+    if (sprite.sheetIndex == INVALID_INDEX)
+    {
+	 	//skip   
+    }
     if( config.truncate_walls && this->z == ownerSegment->z + ownerSegment->sizez - 1){
-      int sheetx = spriteNum % SHEET_OBJECTSWIDE;
-      int sheety = spriteNum / SHEET_OBJECTSWIDE;
+      int sheetx = sprite.sheetIndex % SHEET_OBJECTSWIDE;
+      int sheety = sprite.sheetIndex / SHEET_OBJECTSWIDE;
       //draw a tiny bit of wall
-      masked_blit(IMGObjectSheet, target,
+      masked_blit(imageSheet(sprite,IMGObjectSheet), target,
         sheetx * SPRITEWIDTH, sheety * SPRITEHEIGHT+WALL_CUTOFF_HEIGHT,
         drawx, drawy - (WALLHEIGHT)+WALL_CUTOFF_HEIGHT, SPRITEWIDTH, SPRITEHEIGHT-WALL_CUTOFF_HEIGHT);
       //draw cut-off floor thing
@@ -182,7 +203,7 @@ void Block::Draw(BITMAP* target){
         drawx, drawy-(SPRITEHEIGHT-WALL_CUTOFF_HEIGHT)/2, SPRITEWIDTH, SPRITEWIDTH);
     }
     else {
-      DrawSpriteFromSheet( spriteNum, target, IMGObjectSheet, drawx, drawy );
+      DrawSpriteFromSheet(sprite.sheetIndex, target, imageSheet(sprite,IMGObjectSheet), drawx, drawy );
 
       drawy -= (WALLHEIGHT);
       //Northern border
@@ -226,7 +247,6 @@ void Block::DrawRamptops(BITMAP* target){
     if(x == ownerSegment->x || x == ownerSegment->x + ownerSegment->sizex - 1) return;
     if(y == ownerSegment->y || y == ownerSegment->y + ownerSegment->sizey - 1) return;
   }*/
-
 	int32_t drawx = x;
 	int32_t drawy = y;
   	int32_t drawz = z+1; //- ownerSegment->sizez + 1;
@@ -236,12 +256,20 @@ void Block::DrawRamptops(BITMAP* target){
 	pointToScreen((int*)&drawx, (int*)&drawy, drawz);
 	drawx -= TILEWIDTH>>1;
 
+	t_SpriteWithOffset sprite = GetBlockSpriteMap(ramp.type,material);
+	if (sprite.sheetIndex == -1)
+	{
+		sprite.sheetIndex = 0;
+		sprite.fileIndex = INVALID_INDEX;
+	}
+	
     sheetOffsetX = SPRITEWIDTH * ramp.index;
-    sheetOffsetY = (TILEHEIGHT + FLOORHEIGHT) * GetRampMaterialTypeMap(ramp.type);
+    sheetOffsetY = (TILEHEIGHT + FLOORHEIGHT + SPRITEHEIGHT) * sprite.sheetIndex;
 
-		masked_blit(IMGRamptopSheet, target, sheetOffsetX,sheetOffsetY, drawx,drawy, SPRITEWIDTH, TILEHEIGHT + FLOORHEIGHT);	
+		masked_blit( imageSheet(sprite,IMGRampSheet), target, sheetOffsetX,sheetOffsetY, drawx,drawy, SPRITEWIDTH, TILEHEIGHT + FLOORHEIGHT);	
 		
 	}
+	
 }
 
 bool hasWall(Block* b){
@@ -272,7 +300,6 @@ bool wallShouldNotHaveBorders( int in ){
     case 326: //lavastone fortification
     case 327: //featstone fortification
     case 494: //constructed fortification
-    case ID_WOODFORTIFICATION:
       return true;
       break;
   };

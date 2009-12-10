@@ -21,20 +21,6 @@ VegetationConfiguration::~VegetationConfiguration(void)
 {
 }
 
-int TranslatePlantName(const char* plantName, vector<t_matgloss>& plantNames ){
-	if (plantName == NULL)
-	{
-		return INVALID_INDEX;	
-	}
-  uint32_t numPlants = (uint32_t)plantNames.size();
-  for(uint32_t i=0; i < numPlants; i++){
-    if (strcmp(plantName,plantNames[i].id) == 0)
-    	return i;
- }
- WriteErr("Unable to match plant '%s' to anything in-game\n", plantName);
- return INVALID_INDEX;
-}
-
 bool addSingleVegetationConfig( TiXmlElement* elemRoot,  vector<VegetationConfiguration>* vegetationConfigs, vector<t_matgloss>& plantNames )
 {
   const char* sheetIndexStr;
@@ -57,7 +43,7 @@ bool addSingleVegetationConfig( TiXmlElement* elemRoot,  vector<VegetationConfig
   TiXmlElement* elemTree;
   for (elemTree = elemRoot->FirstChildElement("plant");
   	elemTree; elemTree = elemTree->NextSiblingElement("plant") ){
-  	int gameID = TranslatePlantName(elemTree->Attribute("gameID"),plantNames);
+  	int gameID = lookupIndexedType(elemTree->Attribute("gameID"),plantNames);
   	if (gameID == INVALID_INDEX)
 	  	continue;
     const char* deadstr = elemTree->Attribute("dead");

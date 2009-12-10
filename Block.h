@@ -19,7 +19,7 @@ public:
 	int floorType;
 	int wallType;
 	int stairType;
-  int materialIndex;
+  t_matglossPair material;
 
   bool depthBorderNorth;
   bool depthBorderWest;
@@ -38,7 +38,7 @@ public:
     vector<t_SpriteWithOffset> sprites;
 	uint32_t index;
   } building;
-
+  
 	bool IsVisible(){
 		return (floorType || wallType) != 0;
 	}

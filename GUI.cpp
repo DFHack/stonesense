@@ -35,7 +35,6 @@ BITMAP* IMGFloorSheet;
 BITMAP* IMGObjectSheet;
 BITMAP* IMGCreatureSheet; 
 BITMAP* IMGRampSheet; 
-BITMAP* IMGRamptopSheet; 
 BITMAP* buffer = 0;
 vector<BITMAP*> IMGFilelist;
 vector<string*> IMGFilenames;
@@ -148,9 +147,7 @@ void drawDebugCursorAndInfo(BITMAP* target){
     "Coord:(%i,%i,%i)", b->x,b->y,b->z);
 
   textprintf(target, font, 2, config.screenHeight-20-(i--*10), 0xFFFFFF, 
-    "wall:%i floor:%i  Material:%s(%i)", b->wallType, b->floorType, 
-    (b->materialIndex != INVALID_INDEX ? v_stonetypes[b->materialIndex].id: ""),
-    b->materialIndex);
+    "wall:%i floor:%i  Material:%i/%i", b->wallType, b->floorType, b->material.type, b->material.index);
     
     textprintf(target, font, 2, config.screenHeight-20-(i--*10), 0xFFFFFF, 
     "Building Occ: %i Index: %i", b->occ.bits.building, b->building.index);
@@ -178,6 +175,9 @@ void drawDebugCursorAndInfo(BITMAP* target){
     textprintf(target, font, 2, config.screenHeight-20-(i--*10), 0xFFFFFF, 
       "flag1: %s ", strCreature );
   }
+  //basecon
+  //textprintf(target, font, 2, config.screenHeight-20-(i--*10), 0xFFFFFF, 
+   //   "base: %d %d %d ", b->basetile, b->basecon.type, b->basecon.index );
 }
 
 void DrawMinimap(BITMAP* target){
@@ -355,8 +355,7 @@ void loadGraphicsFromDisk(){
 	IMGObjectSheet = load_bitmap_withWarning("objects.png");
 	IMGFloorSheet = load_bitmap_withWarning("floors.png");
 	IMGCreatureSheet = load_bitmap_withWarning("creatures.png");
-	IMGRampSheet = load_bitmap_withWarning("ramps.png");
-	IMGRamptopSheet = load_bitmap_withWarning("ramptops.png");	
+	IMGRampSheet = load_bitmap_withWarning("ramps.png");	
 }
 void destroyGraphics(){
 	/* TODO these should really be merged in with the main imagefile reading routine */
@@ -364,7 +363,6 @@ void destroyGraphics(){
   destroy_bitmap(IMGObjectSheet);
   destroy_bitmap(IMGCreatureSheet);
   destroy_bitmap(IMGRampSheet);
-  destroy_bitmap(IMGRamptopSheet);
 }
 
 //delete and clean out the image files

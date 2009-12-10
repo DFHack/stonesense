@@ -1,149 +1,238 @@
 #include "common.h"
 #include "SpriteMaps.h"
 #include "GroundMaterialConfiguration.h"
-
+#include <set>
 #include "dfhack/library/tinyxml/tinyxml.h"
+#include "GUI.h"
+#include "ContentLoader.h"
 
-//bool GroundMaterialNamesTranslatedFromGame = false;
-
-//vector<GroundMaterialConfiguration*> groundTypes;
-//vector<preparseGroundMaterialConfiguration> xmlDefinedGroundTypes;
-
-/*
-GroundMaterialConfiguration::GroundMaterialConfiguration(char* gameIDstr, int wallSheetIndex,int floorSheetIndex)
+TerrainMaterialConfiguration::TerrainMaterialConfiguration()
 {
-  this->wallSheetIndex = wallSheetIndex;
-  this->floorSheetIndex = floorSheetIndex;
+	defaultSprite.fileIndex=INVALID_INDEX;
+	defaultSprite.sheetIndex=INVALID_INDEX;
+	//dont really care about the rest of the sprite right now.
+	
+}
 
-  int len = (int) strlen(gameIDstr);
-  if(len > 100) len = 100;
-  memcpy(this->gameIDstr, gameIDstr, len);
-  this->gameIDstr[len] = 0;
-}*/
-GroundMaterialConfiguration::GroundMaterialConfiguration(){
-  defaultSprite = SPRITEFLOOR_NA;
+TerrainConfiguration::TerrainConfiguration()
+{
+	defaultSprite.fileIndex=INVALID_INDEX;
+	defaultSprite.sheetIndex=INVALID_INDEX;
+	//dont really care about the rest of the sprite right now.
+}
+
+TerrainConfiguration::~TerrainConfiguration()
+{
+	uint32_t currentsize=terrainMaterials.size();
+	for (uint32_t i=0;i<currentsize;i++)
+	{
+		if (terrainMaterials[i] != NULL)
+		{
+			delete(terrainMaterials[i]);
+		}
+	}
 }
 
 void DumpGroundMaterialNamesToDisk(){
   FILE* fp = fopen("dump.txt", "w");
   if(!fp) return;
-  for(uint32_t j=0; j < v_stonetypes.size(); j++){
-    fprintf(fp, "%i:%s\n",j, v_stonetypes[j].id);
+  for(uint32_t j=0; j < contentLoader.stoneNameStrings.size(); j++){
+    fprintf(fp, "%i:%s\n",j, contentLoader.stoneNameStrings[j].id);
   }
   fclose(fp);
 }
 
-void addConfToGroundConfigList (vector<GroundMaterialConfiguration*>& configs, int index, preparseGroundMaterialConfiguration& conf){
-  if(configs[index] == NULL){
-    //TODO: possible memleak.
-    configs[index] = new GroundMaterialConfiguration();
-  }
-  
-  if( conf.overridingMaterials.empty() ){
-    configs[index]->defaultSprite = conf.spriteIndex;
-    configs[index]->fillerFloorSpriteIndex = conf.fillerFloorSpriteIndex;
-  }else{
-    int num = (int)conf.overridingMaterials.size();
-    for(int i=0; i < num; i++){
-      OverridingMaterial ovr = {0};
-      ovr.spriteIndex = conf.spriteIndex;
-      ovr.fillerFloorSpriteIndex = conf.fillerFloorSpriteIndex;
-      //find material type
-      int matGameId = INVALID_INDEX;
-      for(uint32_t j=0; j< v_stonetypes.size(); j++)
-        if(conf.overridingMaterials[i].compare(v_stonetypes[j].id) == 0)
-          matGameId = j;
-      ovr.gameID = matGameId;
-      configs[index]->overridingMaterials.push_back( ovr );
-    }
-  }
-  
-}
-
-void TranslateGroundMaterialNames(vector<GroundMaterialConfiguration*>& configs, vector<preparseGroundMaterialConfiguration>& rawGroundConfigs){
-  //create and entry for every known ground material type
-  uint32_t num;
-  uint32_t index = 0;
-
-  configs.clear();
-
-  //figure out how many entries to make.
-  int highestID = 0;
-  num = (uint32_t) rawGroundConfigs.size();
-  while( index < num ){
-    for(uint32_t i = 0; i < rawGroundConfigs[index].wallFloorIDs.size(); i++){
-      highestID = max(highestID, rawGroundConfigs[index].wallFloorIDs[i]);
-    }
-    index++;
-  }
-
-  //create table
-  configs.resize( highestID + 1 );
-
-  index = 0;
-  num = (int)rawGroundConfigs.size();
-  while( index < num ){
-    preparseGroundMaterialConfiguration& conf  = rawGroundConfigs[index];
-    for(uint32_t i=0; i<conf.wallFloorIDs.size(); i++)
-      addConfToGroundConfigList(configs, conf.wallFloorIDs[i], conf );
-    index++;
-  }
-
-}
-
-void parseWallFloorSpriteElement( TiXmlElement* elemWallFloorSprite, vector<preparseGroundMaterialConfiguration>* rawGroundTypes  ){
-  TiXmlElement* elemGameID;
-	TiXmlElement* elemMaterial;
-
-  const char* spriteIndexstr = elemWallFloorSprite->Attribute("spriteIndex");
-  const char* fillerFloorSpriteIndexstr = elemWallFloorSprite->Attribute("fillerFloorSpriteIndex");
-	
-  preparseGroundMaterialConfiguration newConfig;
-  newConfig.spriteIndex = atoi( spriteIndexstr );
-  if(fillerFloorSpriteIndexstr)
-    newConfig.fillerFloorSpriteIndex = atoi( fillerFloorSpriteIndexstr );
-  else 
-    newConfig.fillerFloorSpriteIndex = 0;
-
-	elemGameID = elemWallFloorSprite->FirstChildElement("GameID");
-	while( elemGameID ){
-		const char* gameIDstr = elemGameID->Attribute("value");
-    newConfig.wallFloorIDs.push_back( atoi(gameIDstr) );
-    
-    elemGameID = elemGameID->NextSiblingElement("GameID");
+void parseWallFloorSpriteElement( TiXmlElement* elemWallFloorSprite, vector<TerrainConfiguration*>& configTable ,int basefile)
+{
+	const char* spriteIndexStr = elemWallFloorSprite->Attribute("sprite");
+	if (spriteIndexStr == NULL || spriteIndexStr[0] == 0)
+	{
+		contentError("Invalid or missing sprite attribute",elemWallFloorSprite);
+		return; //nothing to work with
 	}
-
-  elemMaterial = elemWallFloorSprite->FirstChildElement("Material");
-  while( elemMaterial ){
-	  const char* gameIDstr = elemMaterial->Attribute("name");
-    newConfig.overridingMaterials.push_back( *(new string(gameIDstr)) );
-    
-	  elemMaterial = elemMaterial->NextSiblingElement("Material");
-  }
-
-	rawGroundTypes->push_back( newConfig );
-
+	// make a base sprite
+	t_SpriteWithOffset sprite;
+	sprite.sheetIndex=atoi(spriteIndexStr);
+	sprite.fileIndex=basefile;
+	sprite.x=0;
+	sprite.y=0;
+	sprite.animFrames=ALL_FRAMES; //augh! no animated terrains! please!
+	// check for local file definitions
+	const char* filename = elemWallFloorSprite->Attribute("file");
+	if (filename != NULL && filename[0] != 0)
+	{
+		sprite.fileIndex = loadImgFile((char*)filename);
+	}
+	
+	vector<int> lookupKeys;
+	
+	// look through terrain elements
+	TiXmlElement* elemTerrain = elemWallFloorSprite->FirstChildElement("terrain");
+	for(TiXmlElement* elemTerrain = elemWallFloorSprite->FirstChildElement("terrain");
+		 elemTerrain;
+		 elemTerrain = elemTerrain->NextSiblingElement("terrain"))
+	{
+		//get a terrain type 
+		int targetElem=INVALID_INDEX;
+		const char* gameIDstr = elemTerrain->Attribute("value");
+		if (gameIDstr == NULL || gameIDstr[0] == 0)
+		{
+			contentError("Invalid or missing value attribute",elemTerrain);
+			continue;
+		}
+		targetElem = atoi (gameIDstr);
+		//add it to the lookup vector
+		lookupKeys.push_back(targetElem);
+		if (configTable.size() <= targetElem)
+		{
+			//increase size if needed
+			configTable.resize(targetElem+1,NULL);
+		}
+		if (configTable[targetElem]==NULL)
+		{
+			// cleaned up in flushTerrainConfig
+			configTable[targetElem] = new TerrainConfiguration();
+		}
+	}
+	
+	// check we have some terrain types set
+	int elems = lookupKeys.size();
+	if (elems == 0)
+		return; //nothing to link to
+	
+	// parse material elements
+	TiXmlElement* elemMaterial = elemWallFloorSprite->FirstChildElement("material");
+	if (elemMaterial == NULL)
+	{
+		// if none, set default terrain sprites for each terrain type
+		for (int i=0 ; i < elems; i++ )
+		{
+			TerrainConfiguration *tConfig = configTable[lookupKeys[i]];
+			// if that was null we have *really* screwed up earlier
+			// only update if not by previous configs
+			if (tConfig->defaultSprite.sheetIndex == INVALID_INDEX)
+			{
+				tConfig->defaultSprite = sprite;
+			}
+		}
+	}
+	for( ;elemMaterial;elemMaterial = elemMaterial->NextSiblingElement("material"))
+	{
+		// get material type
+		int elemIndex = lookupMaterialType(elemMaterial->Attribute("value"));
+		if (elemIndex == INVALID_INDEX)
+		{
+			contentError("Invalid or missing value attribute",elemMaterial);
+			continue;				
+		}
+		
+		// parse subtype elements
+		TiXmlElement* elemSubtype = elemMaterial->FirstChildElement("subtype");
+		if (elemSubtype == NULL)
+		{
+			// if none, set material default for each terrain type
+			for (int i=0 ; i < elems; i++ )
+			{
+				TerrainConfiguration *tConfig = configTable[lookupKeys[i]];
+				// if that was null we have *really* screwed up earlier
+				// create a new TerrainMaterialConfiguration if required
+					// make sure we have room for it first
+				if (tConfig->terrainMaterials.size() <= elemIndex)
+				{
+					// dont make a full size vector in advance- most of the time
+					// we will only need the first few
+					tConfig->terrainMaterials.resize(elemIndex+1,NULL);
+				}
+				if (tConfig->terrainMaterials[elemIndex] == NULL)
+				{
+					tConfig->terrainMaterials[elemIndex] = new TerrainMaterialConfiguration();
+				}
+				// only update if not set by earlier configs
+				if (tConfig->terrainMaterials[elemIndex]->defaultSprite.sheetIndex == INVALID_INDEX)
+				{
+					tConfig->terrainMaterials[elemIndex]->defaultSprite = sprite;
+				}
+			} 	
+		}
+		for (;elemSubtype; elemSubtype = elemSubtype ->NextSiblingElement("subtype"))
+		{
+			// get subtype
+			int subtypeId = lookupMaterialIndex(elemIndex,elemSubtype->Attribute("value"));
+			if (subtypeId == INVALID_INDEX)
+			{
+				contentError("Invalid or missing value attribute",elemSubtype);
+				continue;				
+			}
+			
+			// set subtype sprite for each terrain type
+			for (int i=0 ; i < elems; i++ )
+			{
+				TerrainConfiguration *tConfig = configTable[lookupKeys[i]];
+				//if that was null we have *really* screwed up earlier
+				//create a new TerrainMaterialConfiguration if required
+					//make sure we have room for it first
+				if (tConfig->terrainMaterials.size() <= elemIndex)
+				{
+					//dont make a full size vector in advance- we wont need it except
+					//for those who insist on Soap Fortresses
+					tConfig->terrainMaterials.resize(elemIndex+1,NULL);
+				}
+				if (tConfig->terrainMaterials[elemIndex] == NULL)
+				{
+					tConfig->terrainMaterials[elemIndex] = new TerrainMaterialConfiguration();
+				}
+				// add to map (if not already present)
+				map<int,t_SpriteWithOffset>::iterator it = tConfig->terrainMaterials[elemIndex]->overridingMaterials.find(subtypeId);
+				if (it == tConfig->terrainMaterials[elemIndex]->overridingMaterials.end())
+				{
+					tConfig->terrainMaterials[elemIndex]->overridingMaterials[subtypeId]=sprite;
+				}			
+			} 			
+		}
+	}
 }
 
-bool addSingleTerrainConfig( TiXmlElement* elemRoot,  vector<preparseGroundMaterialConfiguration>* rawGroundTypes ){
+bool addSingleTerrainConfig( TiXmlElement* elemRoot){
+	int basefile = INVALID_INDEX;
+  const char* filename = elemRoot->Attribute("file");
+	if (filename != NULL && filename[0] != 0)
+	{
+	  	basefile = loadImgFile((char*)filename);
+	}
+	
   string elementType = elemRoot->Value();
-
   if(elementType.compare( "floors" ) == 0){
     //parse floors
-    TiXmlElement* elemFloor = elemRoot->FirstChildElement("Floor");
+    TiXmlElement* elemFloor = elemRoot->FirstChildElement("floor");
     while( elemFloor ){
-      parseWallFloorSpriteElement( elemFloor, rawGroundTypes );
-      elemFloor = elemFloor->NextSiblingElement("Floor");
+      parseWallFloorSpriteElement( elemFloor, contentLoader.terrainFloorConfigs, basefile );
+      elemFloor = elemFloor->NextSiblingElement("floor");
     }
   }
-  if(elementType.compare( "walls" ) == 0){
+  if(elementType.compare( "blocks" ) == 0){
     //parse walls
-    TiXmlElement* elemWall = elemRoot->FirstChildElement("Wall");
+    TiXmlElement* elemWall = elemRoot->FirstChildElement("block");
     while( elemWall ){
-      parseWallFloorSpriteElement( elemWall, rawGroundTypes );
-      elemWall = elemWall->NextSiblingElement("Wall");
+      parseWallFloorSpriteElement( elemWall, contentLoader.terrainBlockConfigs, basefile );
+      elemWall = elemWall->NextSiblingElement("block");
     }
   }
   return true;
 }
 
+void flushTerrainConfig(vector<TerrainConfiguration*>& config)
+{
+	uint32_t currentsize=config.size();
+	for (uint32_t i=0;i<currentsize;i++)
+	{
+		if (config[i] != NULL)
+		{
+			delete(config[i]);
+		}
+	}
+	
+	config.clear();
+	if (currentsize < MAX_BASE_TERRAIN + FAKE_TERRAIN_COUNT)
+		currentsize = MAX_BASE_TERRAIN + FAKE_TERRAIN_COUNT;
+	config.resize(currentsize,NULL);
+}
