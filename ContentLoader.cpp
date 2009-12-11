@@ -30,7 +30,8 @@ bool ContentLoader::Load(API& DF){
   plantNameStrings.clear();
   buildingNameStrings.clear();
   
-  SUSPEND_DF;
+  /// BAD
+//  SUSPEND_DF;
   
   //read data from DF
   DF.ReadCreatureMatgloss( creatureNameStrings );
@@ -42,7 +43,7 @@ bool ContentLoader::Load(API& DF){
   DF.ReadWoodMatgloss( woodNameStrings );
   DF.ReadPlantMatgloss( plantNameStrings );
   
-  RESUME_DF;
+//  RESUME_DF;
   
   bool buildingResult = parseContentIndexFile( "buildings/index.txt", "buildings" );
   bool creatureResult = parseContentIndexFile( "creatures/index.txt", "creatures" ); 
