@@ -119,6 +119,14 @@ void parseConfigLine( string line ){
     string result = parseStrFromLine( "FOLLOW_DF_SCREEN", line );
     config.follow_DFscreen = (result == "YES");
   }
+  if( line.find("SHOW_CREATURE_NAMES") != -1){
+    string result = parseStrFromLine( "SHOW_CREATURE_NAMES", line );
+    config.show_creature_names = (result == "YES");
+  }
+  if( line.find("SHOW_OSD") != -1){
+    string result = parseStrFromLine( "SHOW_OSD", line );
+    config.show_osd = (result == "YES");
+  }
 }
 
 
