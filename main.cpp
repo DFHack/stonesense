@@ -200,11 +200,6 @@ int main(void)
   DisplayedSegmentX = 155; DisplayedSegmentY = 177;DisplayedSegmentZ = 18;
 
   //DisplayedSegmentX = 242; DisplayedSegmentY = 345;DisplayedSegmentZ = 15;
-  
-
-  #ifdef RELEASE
-  DisplayedSegmentX = 0; DisplayedSegmentY = 0;DisplayedSegmentZ = 18;
-  #endif
 
   //while(1)
 	reloadDisplayedSegment();

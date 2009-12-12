@@ -560,6 +560,10 @@ void reloadDisplayedSegment(){
 	  delete(viewedSegment);
   }
   
+  #ifndef RELEASE
+  	firstLoad=false;
+  #endif
+  
   SUSPEND_DF;
 
   if (firstLoad || config.follow_DFscreen)
