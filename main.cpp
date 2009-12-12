@@ -72,7 +72,7 @@ void LogVerbose(char* msg, ...){
 void correctBlockForSegmetOffset(int32_t& x, int32_t& y, int32_t& z){
 	x -= viewedSegment->x;
 	y -= viewedSegment->y; //DisplayedSegmentY;
-  z -= viewedSegment->z + viewedSegment->sizez - 1;
+  z -= viewedSegment->z + viewedSegment->sizez - 2; // loading one above the top of the displayed segment for block rules
 }
 
 

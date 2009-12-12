@@ -147,7 +147,7 @@ void WorldSegment::drawAllBlocks(BITMAP* target){
   // x,y,z print pricess
   int32_t vsxmax = viewedSegment->sizex-1;
   int32_t vsymax = viewedSegment->sizey-1;
-  int32_t vszmax = viewedSegment->sizez;
+  int32_t vszmax = viewedSegment->sizez-1; // grabbing one tile +z more than we should for tile rules
   for(int32_t vsz=0; vsz < vszmax; vsz++){
     for(int32_t vsx=1; vsx < vsxmax; vsx++){
         for(int32_t vsy=1; vsy < vsymax; vsy++){
