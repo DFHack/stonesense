@@ -115,6 +115,10 @@ void parseConfigLine( string line ){
     string result = parseStrFromLine( "TRACK_CENTER", line );
     config.track_center = (result == "YES");
   }
+  if( line.find("FOLLOW_DF_SCREEN") != -1){
+    string result = parseStrFromLine( "FOLLOW_DF_SCREEN", line );
+    config.follow_DFscreen = (result == "YES");
+  }
 }
 
 
