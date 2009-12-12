@@ -134,6 +134,7 @@ int main(void)
   config.animation_step = 300;
   config.follow_DFscreen = false;
   timeToReloadConfig = true;
+  config.viewZoffset = 1;
   loadConfigFile();
   
   //set debug cursor
