@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 
-<include file="workshop.png">
+<include file="../workshop.png">
 		<sprite index = 20 />
 		<sprite index = 140 />
 		<!-- borders -->

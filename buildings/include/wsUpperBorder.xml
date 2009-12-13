@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 
-<include file="workshop.png">
+<include file="../workshop.png">
 	<if>
 		<not><or>
 			<NeighbourSameBuilding dir="TopRight"/>

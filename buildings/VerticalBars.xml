@@ -2,7 +2,7 @@
 
 
 
-<building name="Vertical Bars" gameID="vertical_bars" file="buildings/VerticalBars.png"> 
+<building name="Vertical Bars" gameID="vertical_bars" file="VerticalBars.png"> 
 
 	<!-- straight or end pieces -->
 	<if>

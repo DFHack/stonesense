@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 
-<include file="workshop.png">
+<include file="../workshop.png">
 		<!-- benches -->
 		<if>
 			<MaterialType value="Wood" />
