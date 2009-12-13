@@ -23,7 +23,7 @@ TerrainConfiguration::TerrainConfiguration()
 
 TerrainConfiguration::~TerrainConfiguration()
 {
-	uint32_t currentsize=terrainMaterials.size();
+	uint32_t currentsize = (uint32_t)terrainMaterials.size();
 	for (uint32_t i=0;i<currentsize;i++)
 	{
 		if (terrainMaterials[i] != NULL)
@@ -83,7 +83,7 @@ void parseWallFloorSpriteElement( TiXmlElement* elemWallFloorSprite, vector<Terr
 		targetElem = atoi (gameIDstr);
 		//add it to the lookup vector
 		lookupKeys.push_back(targetElem);
-		if (configTable.size() <= targetElem)
+		if (configTable.size() <= (uint32_t)targetElem)
 		{
 			//increase size if needed
 			configTable.resize(targetElem+1,NULL);
@@ -96,7 +96,7 @@ void parseWallFloorSpriteElement( TiXmlElement* elemWallFloorSprite, vector<Terr
 	}
 	
 	// check we have some terrain types set
-	int elems = lookupKeys.size();
+	int elems = (int)lookupKeys.size();
 	if (elems == 0)
 		return; //nothing to link to
 	
@@ -137,7 +137,7 @@ void parseWallFloorSpriteElement( TiXmlElement* elemWallFloorSprite, vector<Terr
 				// if that was null we have *really* screwed up earlier
 				// create a new TerrainMaterialConfiguration if required
 					// make sure we have room for it first
-				if (tConfig->terrainMaterials.size() <= elemIndex)
+				if (tConfig->terrainMaterials.size() <= (uint32_t)elemIndex)
 				{
 					// dont make a full size vector in advance- most of the time
 					// we will only need the first few
@@ -171,7 +171,7 @@ void parseWallFloorSpriteElement( TiXmlElement* elemWallFloorSprite, vector<Terr
 				//if that was null we have *really* screwed up earlier
 				//create a new TerrainMaterialConfiguration if required
 					//make sure we have room for it first
-				if (tConfig->terrainMaterials.size() <= elemIndex)
+				if (tConfig->terrainMaterials.size() <= (uint32_t)elemIndex)
 				{
 					//dont make a full size vector in advance- we wont need it except
 					//for those who insist on Soap Fortresses
@@ -222,7 +222,7 @@ bool addSingleTerrainConfig( TiXmlElement* elemRoot){
 
 void flushTerrainConfig(vector<TerrainConfiguration*>& config)
 {
-	uint32_t currentsize=config.size();
+	uint32_t currentsize = (uint32_t)config.size();
 	for (uint32_t i=0;i<currentsize;i++)
 	{
 		if (config[i] != NULL)

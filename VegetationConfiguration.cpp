@@ -69,7 +69,7 @@ bool addSingleVegetationConfig( TiXmlElement* elemRoot,  vector<VegetationConfig
 	
 t_SpriteWithOffset getVegetationSprite(vector<VegetationConfiguration>& vegetationConfigs,int index,bool live,bool grown)
 {
-	int vcmax = vegetationConfigs.size();
+	int vcmax = (int)vegetationConfigs.size();
 	for (int i=0;i<vcmax;i++)
 	{
 		VegetationConfiguration* current = &(vegetationConfigs[i]);

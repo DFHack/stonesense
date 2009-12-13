@@ -20,7 +20,7 @@ t_SpriteWithOffset GetTerrainSpriteMap(int in, t_matglossPair material, vector<T
 		return defaultSprite;
 	}
 	// check material sanity
-	if (material.type<0 || material.type >= terrain->terrainMaterials.size())
+	if (material.type<0 || material.type >= (int16_t)terrain->terrainMaterials.size())
 	{
 		return terrain->defaultSprite;
 	}

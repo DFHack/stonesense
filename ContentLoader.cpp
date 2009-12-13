@@ -109,7 +109,7 @@ bool ContentLoader::parseContentIndexFile( char* filepath )
      
     // some systems don't remove the \r char as a part of the line change:
     // also trim trailing space
-    int resize = line.size()-1;
+    int resize = (int)line.size()-1;
     for (;resize>0;resize--)
     {
 	    char test = line[resize];
