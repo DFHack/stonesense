@@ -190,7 +190,7 @@ void Block::Draw(BITMAP* target){
     {
 	 	//skip   
     }
-    if( config.truncate_walls && this->z == ownerSegment->z + ownerSegment->sizez - 1){
+    if( config.truncate_walls && this->z == ownerSegment->z + ownerSegment->sizez -2){
       int sheetx = sprite.sheetIndex % SHEET_OBJECTSWIDE;
       int sheety = sprite.sheetIndex / SHEET_OBJECTSWIDE;
       //draw a tiny bit of wall

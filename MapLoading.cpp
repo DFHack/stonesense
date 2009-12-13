@@ -630,7 +630,7 @@ void reloadDisplayedSegment(){
 	}
   }
 
-  int segmentHeight = config.single_layer_view ? 1 : config.segmentSize.z;
+  int segmentHeight = config.single_layer_view ? 2 : config.segmentSize.z;
   //load segment
   
 	viewedSegment = ReadMapSegment(DF, DisplayedSegmentX, DisplayedSegmentY, DisplayedSegmentZ,
