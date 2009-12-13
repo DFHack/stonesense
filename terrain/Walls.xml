@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 
-<blocks file="terrain/blocks.png"> 
+<blocks file="blocks.png"> 
 
 <!-- fortifications -->
 
@@ -22,7 +22,7 @@
 <!-- ramps -->
 
 <!-- grass -->
-<block sprite=0 file="terrain/ramps.png">
+<block sprite=0 file="ramps.png">
 	<!-- dry -->
 	<terrain value="233"/>
 	<!-- dead -->

@@ -2,7 +2,7 @@
 
 
 
-<floors file="terrain/floors.png" >
+<floors file="floors.png" >
 
 <!-- watery -->
 <floor sprite = 18>

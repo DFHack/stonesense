@@ -1,7 +1,7 @@
 <?xml version= 1.0  ?>
 
 
-<floors file="terrain/floors.png" >
+<floors file="floors.png" >
 
 <!-- construct (wood planks) -->
 <floor sprite= 10 >
