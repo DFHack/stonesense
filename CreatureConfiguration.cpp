@@ -8,13 +8,14 @@
 #include "dfhack/library/tinyxml/tinyxml.h"
 
 
-CreatureConfiguration::CreatureConfiguration(int gameID, int professionID, const char* professionStr, enumCreatureSex sex, enumCreatureSpecialCases special, t_SpriteWithOffset &sprite)
+CreatureConfiguration::CreatureConfiguration(int gameID, int professionID, const char* professionStr, enumCreatureSex sex, enumCreatureSpecialCases special, t_SpriteWithOffset &sprite, int shadow)
 {
   memset(this, 0, sizeof(CreatureConfiguration) );
   this->sprite = sprite;
   this->gameID = gameID;
   this->professionID = professionID;
   this->sex = sex;
+  this->shadow = shadow;
   
   if(professionStr){
     int len = (int) strlen(professionStr);
@@ -75,6 +76,14 @@ bool addSingleCreatureConfig( TiXmlElement* elemCreature, vector<CreatureConfigu
   sprite.x=0;
   sprite.y=0;
   sprite.animFrames=ALL_FRAMES;
+  int baseShadow = DEFAULT_SHADOW;
+  const char* shadowStr = elemCreature->Attribute("shadow");
+  if (shadowStr != NULL && shadowStr[0] != 0)
+  {
+	baseShadow = atoi( shadowStr );	  
+  }
+  if (baseShadow < 0 || baseShadow > MAX_SHADOW)
+  	baseShadow = DEFAULT_SHADOW;
   const char* filename = elemCreature->Attribute("file");
 	if (filename != NULL && filename[0] != 0)
 	{
@@ -119,10 +128,19 @@ bool addSingleCreatureConfig( TiXmlElement* elemCreature, vector<CreatureConfigu
     sprite.animFrames = getAnimFrames(elemVariant->Attribute("frames"));
 	if (sprite.animFrames == 0)
 		sprite.animFrames = ALL_FRAMES;
-    
+
+	int shadow = baseShadow;
+	const char* shadowStr = elemVariant->Attribute("shadow");
+	if (shadowStr != NULL && shadowStr[0] != 0)
+	{
+		shadow = atoi( shadowStr );	  
+	}
+	if (shadow < 0 || shadow > MAX_SHADOW)
+		shadow = baseShadow;
+		    
     //create profession config
     sprite.sheetIndex=atoi(sheetIndexStr);
-    CreatureConfiguration cre( gameID, professionID, customStr , cresex, crespec, sprite );
+    CreatureConfiguration cre( gameID, professionID, customStr , cresex, crespec, sprite, shadow);
     //add a copy to known creatures
     knownCreatures->push_back( cre );
 
@@ -130,12 +148,13 @@ bool addSingleCreatureConfig( TiXmlElement* elemCreature, vector<CreatureConfigu
   }
 
   //create default config
+  baseShadow;
   sheetIndexStr = elemCreature->Attribute("sheetIndex");
   sprite.animFrames = ALL_FRAMES;
   if (sheetIndexStr)
   {
 	sprite.sheetIndex = atoi( sheetIndexStr );
-    CreatureConfiguration cre( gameID, INVALID_INDEX, NULL, eCreatureSex_NA, eCSC_Any, sprite );
+    CreatureConfiguration cre( gameID, INVALID_INDEX, NULL, eCreatureSex_NA, eCSC_Any, sprite, baseShadow);
   	//add a copy to known creatures
     knownCreatures->push_back( cre );
   }

@@ -11,7 +11,7 @@ void ReadCreaturesToSegment(API& DF, WorldSegment* segment);
 
 void DrawCreature( BITMAP* target, int drawx, int drawy, t_creature* c );
 t_SpriteWithOffset GetCreatureSpriteMap( t_creature* c );
-
+int GetCreatureShadowMap( t_creature* c );
 
 
 void generateCreatureDebugString( t_creature* c, char* strbuffer);

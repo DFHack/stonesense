@@ -85,6 +85,8 @@ using namespace DFHack;
 #define COLOR_SEGMENTOUTLINE 0x112211
 
 #define BASE_SHADOW_TILE 160
+#define DEFAULT_SHADOW 4
+#define MAX_SHADOW 7
 
 // this shouldn't change with mods, so should
 // be know ahead of time (especially since we

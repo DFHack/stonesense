@@ -98,7 +98,9 @@ void ReadCreaturesToSegment(API& DF, WorldSegment* segment)
 					if (b->floorType > 0 || b->wallType > 0 || b->ramp.type > 0)
 					{
 						// todo figure out appropriate shadow size
-						b->shadow=4;
+						int tempShadow = GetCreatureShadowMap( tempcreature );
+						if (b->shadow < tempShadow)
+							b->shadow=tempShadow;
 						break;	
 					}
 				}
@@ -113,54 +115,69 @@ void ReadCreaturesToSegment(API& DF, WorldSegment* segment)
 }
 
 
-t_SpriteWithOffset GetCreatureSpriteMap( t_creature* c ){
+CreatureConfiguration *GetCreatureConfig( t_creature* c ){
   uint32_t num = (uint32_t)contentLoader.creatureConfigs.size();
   int offsetAnimFrame = (currentAnimationFrame + c->id) % MAX_ANIMFRAME;
   for(uint32_t i=0; i < num; i++){
+	CreatureConfiguration *testConfig = &(contentLoader.creatureConfigs[i]);
     //TODO: Optimize. make a table lookup instead of a search
-    if( c->type != contentLoader.creatureConfigs[i].gameID )
+    if( c->type != testConfig->gameID )
       continue;
          
     bool creatureMatchesJob = true;
-    if( contentLoader.creatureConfigs[i].professionID != INVALID_INDEX ){
-      creatureMatchesJob = contentLoader.creatureConfigs[i].professionID == c->profession;
+    if( testConfig->professionID != INVALID_INDEX ){
+      creatureMatchesJob = testConfig->professionID == c->profession;
     }
     if(!creatureMatchesJob) continue;
     
     bool creatureMatchesSex = true;
-    if( contentLoader.creatureConfigs[i].sex != eCreatureSex_NA ){
+    if( testConfig->sex != eCreatureSex_NA ){
       creatureMatchesSex = 
-        (c->sex == 0 &&  contentLoader.creatureConfigs[i].sex == eCreatureSex_Female) ||
-        (c->sex == 1 &&  contentLoader.creatureConfigs[i].sex == eCreatureSex_Male);
+        (c->sex == 0 &&  testConfig->sex == eCreatureSex_Female) ||
+        (c->sex == 1 &&  testConfig->sex == eCreatureSex_Male);
     }
     if(!creatureMatchesSex) continue;
 
     bool creatureMatchesSpecial = true;
-    if (contentLoader.creatureConfigs[i].special != eCSC_Any)
+    if (testConfig->special != eCSC_Any)
     {
-	 	if (c->flags1.bits.zombie && (contentLoader.creatureConfigs[i].special != eCSC_Zombie)) creatureMatchesSpecial = false;
-	 	if (c->flags1.bits.skeleton && (contentLoader.creatureConfigs[i].special != eCSC_Skeleton)) creatureMatchesSpecial = false;
+	 	if (c->flags1.bits.zombie && (testConfig->special != eCSC_Zombie)) creatureMatchesSpecial = false;
+	 	if (c->flags1.bits.skeleton && (testConfig->special != eCSC_Skeleton)) creatureMatchesSpecial = false;
     }
 	if(!creatureMatchesSpecial) continue;
     	
-	if (!(contentLoader.creatureConfigs[i].sprite.animFrames & (1 << offsetAnimFrame)))
+	if (!(testConfig->sprite.animFrames & (1 << offsetAnimFrame)))
 		continue;
 
 		
 
 	// dont try to match strings until other tests pass
-    if( contentLoader.creatureConfigs[i].professionstr[0]){ //cant be NULL, so check has length
-      creatureMatchesJob = (strcmp(contentLoader.creatureConfigs[i].professionstr,c->custom_profession)==0);
+    if( testConfig->professionstr[0]){ //cant be NULL, so check has length
+      creatureMatchesJob = (strcmp(testConfig->professionstr,c->custom_profession)==0);
     }
 	if(!creatureMatchesJob) continue;
 		
-    return contentLoader.creatureConfigs[i].sprite;
+    return testConfig;
   }
-  return spriteCre_NA;
+  return NULL;
 }
 
 
+t_SpriteWithOffset GetCreatureSpriteMap( t_creature* c )
+{
+	CreatureConfiguration *testConfig = GetCreatureConfig( c );
+	if (testConfig == NULL)
+		return spriteCre_NA;
+	return testConfig->sprite;
+}
 
+int GetCreatureShadowMap( t_creature* c )
+{
+	CreatureConfiguration *testConfig = GetCreatureConfig( c );
+	if (testConfig == NULL)
+		return 4;
+	return testConfig->shadow;
+}
 
 void generateCreatureDebugString( t_creature* c, char* strbuffer){
   if(c->flags1.bits.active_invader)
