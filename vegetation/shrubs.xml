@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 
-<shrubs file="vegetation/shrubs.png"> 
+<shrubs file="shrubs.png"> 
 	<plant gameID = "MUSHROOM_HELMET_PLUMP" sheetIndex = 0 />
 	<plant gameID = "GRASS_TAIL_PIG" sheetIndex = 1 />
 	<plant gameID = "GRASS_WHEAT_CAVE" sheetIndex = 2 />
@@ -22,5 +22,4 @@
 	<plant gameID = "SLIVER_BARB" sheetIndex = 18 />
 	<plant gameID = "BERRY_SUN" sheetIndex = 19 />
 	<plant gameID = "VINE_WHIP" sheetIndex = 20 />
-
 </shrubs> 

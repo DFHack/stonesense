@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 
-<trees file="vegetation/trees.png">
+<trees file="trees.png">
 	<plant gameID = "ACACIA" sheetIndex = 0 />
 	<plant gameID = "ALDER" sheetIndex = 1 />
 	<plant gameID = "ASH" sheetIndex = 2 />
