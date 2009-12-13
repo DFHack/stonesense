@@ -1,0 +1,7 @@
+# Remember: configs at the top of the list
+# get precedence over those below
+
+terrain/index.txt
+creatures/index.txt
+buildings/index.txt
+vegetation/index.txt

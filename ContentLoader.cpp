@@ -44,49 +44,120 @@ bool ContentLoader::Load(API& DF){
   DF.ReadPlantMatgloss( plantNameStrings );
   
 //  RESUME_DF;
-  
-  bool buildingResult = parseContentIndexFile( "buildings/index.txt", "buildings" );
-  bool creatureResult = parseContentIndexFile( "creatures/index.txt", "creatures" ); 
-  bool terrainResult = parseContentIndexFile( "terrain/index.txt", "terrain" );
-  bool plantResult = parseContentIndexFile( "vegetation/index.txt", "vegetation" );
+  bool overallResult = parseContentIndexFile( "index.txt" );
   translationComplete = false;
 
   return true;
 }
 
-bool ContentLoader::parseContentIndexFile( char* filepath, char* homefolder ){
+// takes a filename and the file referring to it, and makes a combined filename in
+// HTML style: (ie "/something" is relative to the stonesense root, everything
+// else is relative to the referrer)
+// buffer must be FILENAME_BUFFERSIZE chars
+// returns true if it all works
+bool getLocalFilename(char* buffer, const char* filename, const char* relativeto)
+{
+	char filetemp[FILENAME_BUFFERSIZE_LOCAL] = {0};
+	char hometemp[FILENAME_BUFFERSIZE_LOCAL] = {0};	
+	// allegro will avoid writing off the end of the buffer, but wont *tell* me
+	// that the resulting filename is worthless
+	// these give me a check of my own
+	filetemp[FILENAME_BUFFERSIZE_LOCAL-1] = 1;
+	hometemp[FILENAME_BUFFERSIZE_LOCAL-1] = 1;	
+	buffer[FILENAME_BUFFERSIZE-1] = 1;
+		
+	char* buffertest;
+	if (filename[0] == '/' || filename[0] == '\\')
+	{
+		buffertest = canonicalize_filename (filetemp, (filename+1), FILENAME_BUFFERSIZE_LOCAL);
+		if (!buffertest || filetemp[FILENAME_BUFFERSIZE_LOCAL-1] != 1)
+			return false;
+	}
+	else
+	{
+		buffertest = replace_filename (filetemp, relativeto, filename, FILENAME_BUFFERSIZE_LOCAL);
+		if (!buffertest || filetemp[FILENAME_BUFFERSIZE_LOCAL-1] != 1)
+			return false;			
+		buffertest = canonicalize_filename (filetemp, filetemp, FILENAME_BUFFERSIZE_LOCAL);
+		if (!buffertest || filetemp[FILENAME_BUFFERSIZE_LOCAL-1] != 1)
+			return false;	
+	}
+	buffertest = canonicalize_filename (hometemp,"", FILENAME_BUFFERSIZE_LOCAL);
+	if (!buffertest || hometemp[FILENAME_BUFFERSIZE_LOCAL-1] != 1)
+		return false;
+	buffertest = make_relative_filename (buffer,hometemp,filetemp, FILENAME_BUFFERSIZE);
+	if (!buffertest || buffer[FILENAME_BUFFERSIZE-1] != 1)
+		return false;
+	return true;
+}
+
+bool ContentLoader::parseContentIndexFile( char* filepath )
+{
   string line;
   ifstream myfile( filepath );
   if (myfile.is_open() == false){
     WriteErr( "Unable to load config index file at: %s!\n", filepath );
     return false;
   }
-  
   LogVerbose("Reading index at %s...\n", filepath);
   
   while ( !myfile.eof() )
   {
-    char configfilepath[50] = {0};
-    getline (myfile,line);
-    
-    //some systems don't remove the \r char as a part of the line change:
-    if(line.size() > 0 &&  line[line.size() -1 ] == '\r' )
-      line.resize(line.size() -1);
+    char configfilepath[FILENAME_BUFFERSIZE] = {0};
 
-    if(line.size() > 0){
-      sprintf(configfilepath, "%s/%s", homefolder, line.c_str() );
-      LogVerbose("Reading %s...\n", configfilepath);
-      if (!parseContentXMLFile(configfilepath, homefolder))
-      	WriteErr("Failure in reading %s\n",configfilepath);
+    getline (myfile,line);
+     
+    // some systems don't remove the \r char as a part of the line change:
+    // also trim trailing space
+    int resize = line.size()-1;
+    for (;resize>0;resize--)
+    {
+	    char test = line[resize];
+	    if (test == '\r')
+	    	continue;
+	    if (test == '\t')
+	    	continue;
+	    if (test == ' ')
+	    	continue;
+	    break;
     }
+ 	if (resize <= 0)
+ 		continue;
+    line.resize(resize+1);
+	
+    // allow comments
+    if (line[0] == '#')
+    	continue;
+    
+	if (!getLocalFilename(configfilepath,line.c_str(),filepath))
+	{
+		WriteErr("File name parsing failed on %s\n",line.c_str());
+		continue;
+	}
+	char* extension = get_extension(configfilepath);
+	if (strcmp(extension,"xml") == 0)
+	{
+	  LogVerbose("Reading xml %s...\n", configfilepath);
+	  if (!parseContentXMLFile(configfilepath))
+	  	WriteErr("Failure in reading %s\n",configfilepath);		  
+	}
+	else if (strcmp(extension,"txt") == 0)
+	{
+	  LogVerbose("Reading index %s...\n", configfilepath);
+	  if (!parseContentIndexFile(configfilepath))
+	  	WriteErr("Failure in reading %s\n",configfilepath);			  
+	}
+	else
+	{
+		WriteErr("Invalid filename: %s\n",configfilepath);
+	}
   }
   myfile.close();
-
 
   return true;
 }
 
-bool ContentLoader::parseContentXMLFile( char* filepath, char* homefolder ){
+bool ContentLoader::parseContentXMLFile( char* filepath ){
   TiXmlDocument doc( filepath );
   bool loadOkay = doc.LoadFile();
   TiXmlHandle hDoc(&doc);
@@ -103,22 +174,22 @@ bool ContentLoader::parseContentXMLFile( char* filepath, char* homefolder ){
   while( elemRoot ){
     string elementType = elemRoot->Value();
     if( elementType.compare( "building" ) == 0 )
-        runningResult &= parseBuildingContent( elemRoot, homefolder );
+        runningResult &= parseBuildingContent( elemRoot );
     
     if( elementType.compare( "creatures" ) == 0 )
-        runningResult &= parseCreatureContent( elemRoot, homefolder );
+        runningResult &= parseCreatureContent( elemRoot );
     
     if( elementType.compare( "floors" ) == 0 )
-        runningResult &= parseTerrainContent( elemRoot, homefolder );
+        runningResult &= parseTerrainContent( elemRoot );
 
     if( elementType.compare( "blocks" ) == 0 )
-        runningResult &= parseTerrainContent( elemRoot, homefolder );
+        runningResult &= parseTerrainContent( elemRoot );
 
     if( elementType.compare( "shrubs" ) == 0 )
-        runningResult &= parseShrubContent( elemRoot, homefolder );
+        runningResult &= parseShrubContent( elemRoot );
 
     if( elementType.compare( "trees" ) == 0 )
-        runningResult &= parseTreeContent( elemRoot, homefolder );
+        runningResult &= parseTreeContent( elemRoot );
 
     elemRoot = elemRoot->NextSiblingElement();
   }
@@ -127,23 +198,23 @@ bool ContentLoader::parseContentXMLFile( char* filepath, char* homefolder ){
 }
 
 
-bool ContentLoader::parseBuildingContent(TiXmlElement* elemRoot, char *homefolder){
+bool ContentLoader::parseBuildingContent(TiXmlElement* elemRoot ){
   return addSingleBuildingConfig( elemRoot, &buildingConfigs );
 }
 
-bool ContentLoader::parseCreatureContent(TiXmlElement* elemRoot, char *homefolder){
+bool ContentLoader::parseCreatureContent(TiXmlElement* elemRoot ){
   return addCreaturesConfig( elemRoot, &creatureConfigs );
 }
 
-bool ContentLoader::parseShrubContent(TiXmlElement* elemRoot, char *homefolder){
+bool ContentLoader::parseShrubContent(TiXmlElement* elemRoot ){
   return addSingleVegetationConfig( elemRoot, &shrubConfigs, plantNameStrings );
 }
 
-bool ContentLoader::parseTreeContent(TiXmlElement* elemRoot, char *homefolder){
+bool ContentLoader::parseTreeContent(TiXmlElement* elemRoot ){
   return addSingleVegetationConfig( elemRoot, &treeConfigs, woodNameStrings );
 }
 
-bool ContentLoader::parseTerrainContent(TiXmlElement* elemRoot, char *homefolder){
+bool ContentLoader::parseTerrainContent(TiXmlElement* elemRoot ){
   return addSingleTerrainConfig( elemRoot );
 }
 
@@ -257,4 +328,16 @@ int lookupMaterialIndex(int matType, const char* strValue)
 		return INVALID_INDEX;
 	}
 	return lookupIndexedType(strValue,*typeVector);
+}
+
+int loadConfigImgFile(const char* filename, TiXmlElement* referrer)
+{
+	const char* documentRef = getDocument(referrer);
+	char configfilepath[FILENAME_BUFFERSIZE] = {0};
+	if (!getLocalFilename(configfilepath,filename,documentRef))
+	{
+		contentError("Failed to parse sprites filename",referrer);
+		return -1;
+	}
+	return loadImgFile(configfilepath);
 }

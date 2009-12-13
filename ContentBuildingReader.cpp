@@ -196,14 +196,14 @@ inline bool readNode(SpriteNode* node, TiXmlElement* elemNode, TiXmlElement* ele
 		sprite->sprite.fileIndex = -1;
 		if (filename != NULL && filename[0] != 0)
 		{
-		  	sprite->sprite.fileIndex = loadImgFile((char*)filename);
+		  	sprite->sprite.fileIndex = loadConfigImgFile((char*)filename,elemNode);
 		}
 		else
 		{
 		  const char* pfilename = elemParent->Attribute("file");
 	      if (pfilename != NULL && pfilename[0] != 0)
 	      {
-		      sprite->sprite.fileIndex = loadImgFile((char*)pfilename);
+		      sprite->sprite.fileIndex = loadConfigImgFile((char*)pfilename,elemNode);
 	      }
 		}
 		node->addChild(sprite);

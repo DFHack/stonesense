@@ -34,7 +34,7 @@ bool addSingleVegetationConfig( TiXmlElement* elemRoot,  vector<VegetationConfig
   const char* filename = elemRoot->Attribute("file");
 	if (filename != NULL && filename[0] != 0)
 	{
-	  	basefile = loadImgFile((char*)filename);
+	  	basefile = loadConfigImgFile((char*)filename, elemRoot);
 	}
 	
 	//kinda round about- looking to needing to shift the lot into the plant elem
@@ -66,26 +66,6 @@ bool addSingleVegetationConfig( TiXmlElement* elemRoot,  vector<VegetationConfig
 
   return true;
 }
-
-/*bool addCreaturesConfig( TiXmlElement* elemRoot, vector<CreatureConfiguration>* knownCreatures ){
-  int basefile = -1;
-  const char* filename = elemRoot->Attribute("file");
-  if (filename != NULL && filename[0] != 0)
-  {
-	basefile = loadImgFile((char*)filename);
-  } 
-  TiXmlElement* elemCreature = elemRoot->FirstChildElement("creature");
-  if (elemCreature == NULL)
-  {
-     contentError("No creatures found",elemRoot);
-     return false;
-  }
-  while( elemCreature ){
-	addSingleCreatureConfig(elemCreature,knownCreatures,basefile );
-	elemCreature = elemCreature->NextSiblingElement("creature");
-  }
-  return true;
-}*/
 	
 t_SpriteWithOffset getVegetationSprite(vector<VegetationConfiguration>& vegetationConfigs,int index,bool live,bool grown)
 {

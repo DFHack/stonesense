@@ -61,7 +61,7 @@ void parseWallFloorSpriteElement( TiXmlElement* elemWallFloorSprite, vector<Terr
 	const char* filename = elemWallFloorSprite->Attribute("file");
 	if (filename != NULL && filename[0] != 0)
 	{
-		sprite.fileIndex = loadImgFile((char*)filename);
+		sprite.fileIndex = loadConfigImgFile((char*)filename,elemWallFloorSprite);
 	}
 	
 	vector<int> lookupKeys;
@@ -197,7 +197,7 @@ bool addSingleTerrainConfig( TiXmlElement* elemRoot){
   const char* filename = elemRoot->Attribute("file");
 	if (filename != NULL && filename[0] != 0)
 	{
-	  	basefile = loadImgFile((char*)filename);
+	  	basefile = loadConfigImgFile((char*)filename,elemRoot);
 	}
 	
   string elementType = elemRoot->Value();

@@ -78,7 +78,7 @@ bool addSingleCreatureConfig( TiXmlElement* elemCreature, vector<CreatureConfigu
   const char* filename = elemCreature->Attribute("file");
 	if (filename != NULL && filename[0] != 0)
 	{
-	  	sprite.fileIndex = loadImgFile((char*)filename);
+	  	sprite.fileIndex = loadConfigImgFile((char*)filename,elemCreature);
 	}
   TiXmlElement* elemVariant = elemCreature->FirstChildElement("variant");
   while( elemVariant ){
@@ -147,7 +147,7 @@ bool addCreaturesConfig( TiXmlElement* elemRoot, vector<CreatureConfiguration>* 
   const char* filename = elemRoot->Attribute("file");
   if (filename != NULL && filename[0] != 0)
   {
-	basefile = loadImgFile((char*)filename);
+	basefile = loadConfigImgFile((char*)filename,elemRoot);
   } 
   TiXmlElement* elemCreature = elemRoot->FirstChildElement("creature");
   if (elemCreature == NULL)
