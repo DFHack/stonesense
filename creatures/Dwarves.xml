@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 
 <creatures>
-<creature gameID="DWARF" sheetIndex = 180 file="creatures/dwarves.png" >
+<creature gameID="DWARF" sheetIndex = 180 file="dwarves.png" >
 	<variant custom="SwordChamp" sheetIndex = 179/>
 
 	<variant prof="Miner" sex="M" sheetIndex = 181/>

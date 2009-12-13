@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 
 <creatures>
-<creature gameID="ELF" 		sheetIndex = 240 file="creatures/elves.png">
+<creature gameID="ELF" 		sheetIndex = 240 file="elves.png">
 	<variant prof="Trader" sex="M" sheetIndex = 242/>
 	<variant prof="Merchant" sex="M" sheetIndex = 242/>
 	<variant prof="Herbalist" sex="M" sheetIndex = 244/>
