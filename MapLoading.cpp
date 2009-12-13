@@ -539,7 +539,7 @@ void FollowCurrentDFWindow( ){
         
         DisplayedSegmentX = float (newviewx) * scalex - (config.segmentSize.x / 2) + config.viewXoffset + mapx / 2;
         DisplayedSegmentY = float (newviewy) * scaley - (config.segmentSize.y / 2) + config.viewYoffset + mapy / 2;
-        DisplayedSegmentZ = newviewz + config.viewZoffset;
+        DisplayedSegmentZ = newviewz + config.viewZoffset + 1;
         
     }
     else
@@ -547,7 +547,7 @@ void FollowCurrentDFWindow( ){
         pDFApiHandle->getViewCoords(newviewx,newviewy,newviewz);
         DisplayedSegmentX = newviewx + config.viewXoffset;
         DisplayedSegmentY = newviewy + config.viewYoffset;
-        DisplayedSegmentZ = newviewz + config.viewZoffset;
+        DisplayedSegmentZ = newviewz + config.viewZoffset + 1;
     }
   }
   else
@@ -572,14 +572,14 @@ void FollowCurrentDFCenter( ){
         
         DisplayedSegmentX = newviewx + (viewsizex/2) - (config.segmentSize.x / 2) + config.viewXoffset;
         DisplayedSegmentY = newviewy + (viewsizey/2) - (config.segmentSize.y / 2) + config.viewYoffset;
-        DisplayedSegmentZ = newviewz + config.viewZoffset;       
+        DisplayedSegmentZ = newviewz + config.viewZoffset + 1;       
     }
     else
     {
         pDFApiHandle->getViewCoords(newviewx,newviewy,newviewz);
         DisplayedSegmentX = newviewx + config.viewXoffset;
         DisplayedSegmentY = newviewy + config.viewYoffset;
-        DisplayedSegmentZ = newviewz + config.viewZoffset;
+        DisplayedSegmentZ = newviewz + config.viewZoffset + 1;
     }
   }
   else
