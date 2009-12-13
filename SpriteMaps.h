@@ -11,6 +11,7 @@ enum enumFloorSprites{
 enum enumObjectSprites{
 	SPRITEOBJECT_NA = 0,
   SPRITEOBJECT_BLACK = 1,
+  SPRITEOBJECT_BLANK = 1,
 
   SPRITEOBJECT_TREE_OK = 40,  
   SPRITEOBJECT_TREE_DEAD = 43,  

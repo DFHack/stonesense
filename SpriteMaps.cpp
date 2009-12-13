@@ -90,6 +90,9 @@ t_SpriteWithOffset GetSpriteVegetation( TileClass type, int index)
 		base_sprite = SPRITEOBJECT_SHRUB_OK;
 		graphicSet = &(contentLoader.shrubConfigs);
 		break;
+	default:
+		t_SpriteWithOffset defaultSprite = {SPRITEOBJECT_BLANK,0,0,-1,ALL_FRAMES};
+		return defaultSprite;
 	}  	
   	
 	t_SpriteWithOffset configuredSprite = getVegetationSprite(*graphicSet,index,live,grown);
