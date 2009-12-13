@@ -396,6 +396,7 @@ int loadImgFile(char* filename)
 	}
 	IMGFilelist.push_back(load_bitmap_withWarning(filename));
 	IMGFilenames.push_back(new string(filename));
+	LogVerbose("New image: %s\n",filename);
   return (int)IMGFilelist.size() - 1;
 }
 
