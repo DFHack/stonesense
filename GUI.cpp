@@ -138,7 +138,7 @@ void drawDebugCursorAndInfo(BITMAP* target){
     point.x - SPRITEWIDTH/2, point.y - (WALLHEIGHT), SPRITEWIDTH, SPRITEHEIGHT);
 
   //get block info
-  Block* b = viewedSegment->getBlockLocal( debugCursor.x, debugCursor.y, viewedSegment->sizez - 1);
+  Block* b = viewedSegment->getBlockLocal( debugCursor.x, debugCursor.y, viewedSegment->sizez-2);
   int i = 10;
   textprintf(target, font, 2, config.screenHeight-20-(i--*10), 0xFFFFFF, "Block 0x%x", b);
   if(!b) return;
@@ -146,10 +146,35 @@ void drawDebugCursorAndInfo(BITMAP* target){
   textprintf(target, font, 2, config.screenHeight-20-(i--*10), 0xFFFFFF, 
     "Coord:(%i,%i,%i)", b->x,b->y,b->z);
 
-  textprintf(target, font, 2, config.screenHeight-20-(i--*10), 0xFFFFFF, 
-    "wall:%i floor:%i  Material:%i/%i", b->wallType, b->floorType, b->material.type, b->material.index);
+  int ttype;
+  char* tform = NULL;
+  if (b->floorType>0)
+  {
+	ttype=b->floorType;	  
+	tform="floor";
+  }
+  else if (b->wallType > 0)
+  {
+	ttype=b->wallType;	  
+	tform="wall";	 
+  }
+  else if (b->ramp.type > 0)
+  {
+	ttype=b->ramp.type;	  
+	tform="ramp";	 
+  }
+  else if (b->stairType > 0)
+  {
+	ttype=b->stairType;	  
+	tform="stair";	 
+  }
     
-    textprintf(target, font, 2, config.screenHeight-20-(i--*10), 0xFFFFFF, 
+  if (tform != NULL)
+  {
+  	textprintf(target, font, 2, config.screenHeight-20-(i--*10), 0xFFFFFF, 
+    	"%s:%i Material:%i/%i", tform, ttype, b->material.type, b->material.index);
+  } 
+  textprintf(target, font, 2, config.screenHeight-20-(i--*10), 0xFFFFFF, 
     "Building Occ: %i Index: %i", b->occ.bits.building, b->building.index);
 
   if(b->water.index > 0 || b->tree.index != 0)

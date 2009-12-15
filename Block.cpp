@@ -74,14 +74,8 @@ void Block::Draw(BITMAP* target){
   int tileBorderColor = makecol(85,85,85);
 
 	//Draw Floor
-  if(floorType > 0 || wallType > 0 || ramp.type > 0){
+  if(floorType > 0 || wallType > 0 || ramp.type > 0 || stairType > 0){
     sprite = GetFloorSpriteMap(this->floorType, this->material);
-    //if floor is muddy, override regular floor
-    if( occ.bits.mud && water.index == 0)
-    {
-      sprite.sheetIndex = SPRITEFLOOR_WATERFLOOR;
-      sprite.fileIndex = INVALID_INDEX;
-	}
 
     //If tile has no floor, look for a Filler Floor from it's wall
     if(sprite.sheetIndex == INVALID_INDEX)
@@ -94,10 +88,22 @@ void Block::Draw(BITMAP* target){
     	{
 	    	sprite = GetFloorSpriteMap(ramp.type, this->material);
     	}
+    	else if (stairType > 0)
+    	{
+	    	sprite = GetFloorSpriteMap(stairType, this->material);
+    	}
 	}
 
     if(sprite.sheetIndex != INVALID_INDEX)
     {
+	    
+	    //if floor is muddy, override regular floor
+	    if( occ.bits.mud && water.index == 0)
+	    {
+	      sprite.sheetIndex = SPRITEFLOOR_WATERFLOOR;
+	      sprite.fileIndex = INVALID_INDEX;
+		}
+	
     	sheetOffsetX = TILEWIDTH * (sprite.sheetIndex % SHEET_OBJECTSWIDE);
     	sheetOffsetY = (TILEHEIGHT + FLOORHEIGHT) * (sprite.sheetIndex / SHEET_OBJECTSWIDE);
 		masked_blit(imageSheet(sprite,IMGFloorSheet), target, sheetOffsetX,sheetOffsetY, drawx,drawy, TILEWIDTH,TILEHEIGHT + FLOORHEIGHT);
