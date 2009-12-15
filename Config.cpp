@@ -127,6 +127,10 @@ void parseConfigLine( string line ){
     string result = parseStrFromLine( "SHOW_OSD", line );
     config.show_osd = (result == "YES");
   }
+	if( line.find("INTRO") != -1){
+    string result = parseStrFromLine( "INTRO", line );
+    config.show_intro = !(result == "OFF");
+  }
 }
 
 

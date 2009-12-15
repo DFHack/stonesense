@@ -21,7 +21,7 @@ using namespace DFHack;
 #include "Block.h"
 #include <stdio.h>
 
-//#define RELEASE
+#define RELEASE
 
 #define null 0
 
@@ -137,6 +137,7 @@ enum dirRelative{
   eDownRight,
 };
 //class WorldSegment;
+
 
 
 //main.cpp
