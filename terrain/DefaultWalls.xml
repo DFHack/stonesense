@@ -46,7 +46,7 @@
 	<terrain value="36"/>
 	<terrain value="38"/>
 		<!-- soil -->
-	<terrain value="38"/>
+	<terrain value="39"/>
 	<terrain value="41"/>
 		<!-- grass -->
 	<terrain value="49"/>
