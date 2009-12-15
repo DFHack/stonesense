@@ -155,11 +155,20 @@ int main(void)
 	}
   set_alpha_blender();
 
-  
+  loadGraphicsFromDisk();
 #ifdef RELEASE
-  textprintf_centre(screen, font, config.screenWidth/2, 50, makecol(255,255,0), "Welcome to Stonesense!");
-	textprintf_centre(screen, font, config.screenWidth/2, 60, 0xffffff, "Stonesense is an isometric viewer for Dwarf Fortress.");
+	//centred splash image
+  {
+	  BITMAP* SplashImage = load_bitmap_withWarning("splash.png");
+	  masked_blit(SplashImage, screen, 0, 0,
+	  		(screen->w - SplashImage->w)/2,
+	  		(screen->h - SplashImage->h)/2,
+	  		SplashImage->w, SplashImage->h);
+	  destroy_bitmap(SplashImage);
+  }
   
+    textprintf_centre(screen, font, config.screenWidth/2, 50, makecol(255,255,0), "Welcome to Stonesense!");
+	textprintf_centre(screen, font, config.screenWidth/2, 60, 0xffffff, "Stonesense is an isometric viewer for Dwarf Fortress.");
 	
 	textprintf_centre(screen, font, config.screenWidth/2, 80, 0xffffff, "Programming, Jonas Ask and Kris Parker");
 	textprintf_centre(screen, font, config.screenWidth/2, 90, 0xffffff, "Lead graphics designer, Dale Holdampf");
@@ -176,7 +185,7 @@ int main(void)
   textprintf_centre(screen, font, config.screenWidth/2, config.screenHeight-40, 0xffffff, "Press F9 to continue");
 	
 #endif
-  loadGraphicsFromDisk();
+
 #ifdef RELEASE
 	while(!key[KEY_F9]) readkey();
 #endif
