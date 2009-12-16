@@ -2,8 +2,6 @@
 
 <creatures>
 <creature gameID="DWARF" sheetIndex = 180 file="dwarves.png" >
-	<variant custom="SwordChamp" sheetIndex = 179/>
-
 	<variant prof="Miner" sex="M" sheetIndex = 181/>
 	<variant prof="Woodworker" sex="M" sheetIndex = 182/>
 	<variant prof="Carpenter" sex="M" sheetIndex = 182/>
