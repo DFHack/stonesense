@@ -3,17 +3,19 @@
 #include "GUI.h"
 
 
+BITMAP* level = 0;
+
 Block* WorldSegment::getBlock(int32_t x, int32_t y, int32_t z){
 	if(x < this->x || x >= this->x + this->sizex) return 0;
 	if(y < this->y || y >= this->y + this->sizey) return 0;
 	if(z < this->z || z >= this->z + this->sizez) return 0;
 	/*for(uint32_t i=0; i<this->blocks.size(); i++){
 		Block* b = this->blocks[i];
-		if(x == b->x && y == b->y && z == b->z) 
+		if(x == b->x && y == b->y && z == b->z)
 			return b;
 	}
   return 0;*/
-  
+
   uint32_t lx = x;
   uint32_t ly = y;
   uint32_t lz = z;
@@ -21,7 +23,7 @@ Block* WorldSegment::getBlock(int32_t x, int32_t y, int32_t z){
   lx -= this->x;
   ly -= this->y;
   lz -= this->z;
-  
+
   correctBlockForRotation( (int32_t&)lx,(int32_t&)ly,(int32_t&)lz );
 
   uint32_t index = lx + (ly * this->sizex) + ((lz) * this->sizex * this->sizey);
@@ -39,7 +41,7 @@ Block* WorldSegment::getBlockRelativeTo(uint32_t x, uint32_t y, uint32_t z,  dir
 
   correctBlockForRotation( (int32_t&)lx,(int32_t&)ly,(int32_t&)lz );
   switch (direction){
-    case eUp: 
+    case eUp:
       ly--; break;
     case eDown:
       ly++; break;
@@ -79,7 +81,7 @@ Block* WorldSegment::getBlockLocal(uint32_t x, uint32_t y, uint32_t z){
 }
 
 Block* WorldSegment::getBlock(uint32_t index){
-  if(index<0 || index >= blocks.size() ) 
+  if(index<0 || index >= blocks.size() )
     return 0;
   return blocks[index];
 }
@@ -127,7 +129,7 @@ void WorldSegment::addBlock(Block* b){
   //if(blocksAsPointerVolume[index] != 0)
   //  assert(blocksAsPointerVolume[index] == 0);
 
-  blocksAsPointerVolume[index] = b;  
+  blocksAsPointerVolume[index] = b;
   /*Block* test = getBlock(b->x, b->y, b->z);
   if(test->x != b->x || test->y != b->y || test->z != b->z){
     test = getBlock(b->x, b->y, b->z);
@@ -148,28 +150,69 @@ void WorldSegment::drawAllBlocks(BITMAP* target){
   int32_t vsxmax = viewedSegment->sizex-1;
   int32_t vsymax = viewedSegment->sizey-1;
   int32_t vszmax = viewedSegment->sizez-1; // grabbing one tile +z more than we should for tile rules
-  for(int32_t vsz=0; vsz < vszmax; vsz++){
-    for(int32_t vsx=1; vsx < vsxmax; vsx++){
-        for(int32_t vsy=1; vsy < vsymax; vsy++){
-              Block *b = getBlockLocal(vsx,vsy,vsz);
-				if (b==NULL || (b->floorType == 0 && b->ramp.type == 0 && b->wallType == 0))
+	if (!(config.foga == 0))
+	{
+		if (!level)
+		{
+			level = create_bitmap(target->w, target->h);
+		}
+		for(int32_t vsz=0; vsz < vszmax; vsz++)
+		{
+			clear_to_color(level, makeacol(255, 0, 255, 0));
+			for(int32_t vsx=1; vsx < vsxmax; vsx++)
+			{
+				for(int32_t vsy=1; vsy < vsymax; vsy++)
 				{
-				    Block* bLow = getBlockLocal(vsx,vsy,vsz-1);
-				    if (bLow != NULL)
-				    {
-						bLow->DrawRamptops(target);
+					Block *b = getBlockLocal(vsx,vsy,vsz);
+					if (b==NULL || (b->floorType == 0 && b->ramp.type == 0 && b->wallType == 0))
+					{
+						Block* bLow = getBlockLocal(vsx,vsy,vsz-1);
+						if (bLow != NULL)
+						{
+							bLow->DrawRamptops(level);
+						}
+					}
+					if (b)
+					{
+						b->Draw(level);
+						//while(!key[KEY_SPACE]) ;
+						//rest(100);
 					}
 				}
-              if (b)
-              {
-                  b->Draw(target);
-                  //while(!key[KEY_SPACE]) ;
-                  //rest(100);
-              }
-          }
-      }
-  }
+			}
+			set_trans_blender(config.fogr, config.fogg, config.fogb, 255);
+			draw_lit_sprite(target, level, 0, 0, (((vszmax-1) - vsz) *config.foga / (vszmax-1)));
+		}
+	}
+	else
+	{
+		for(int32_t vsz=0; vsz < vszmax; vsz++)
+		{
+			for(int32_t vsx=1; vsx < vsxmax; vsx++)
+			{
+				for(int32_t vsy=1; vsy < vsymax; vsy++)
+				{
+					Block *b = getBlockLocal(vsx,vsy,vsz);
+					if (b==NULL || (b->floorType == 0 && b->ramp.type == 0 && b->wallType == 0))
+					{
+						Block* bLow = getBlockLocal(vsx,vsy,vsz-1);
+						if (bLow != NULL)
+						{
+							bLow->DrawRamptops(target);
+						}
+					}
+					if (b)
+					{
+						b->Draw(target);
+						//while(!key[KEY_SPACE]) ;
+						//rest(100);
+					}
+				}
+			}
+		}
+	}
 }
+
 /*
 void WorldSegment::drawAllBlocks(BITMAP* target){
     // x,y,z print pricess
@@ -198,11 +241,11 @@ void WorldSegment::drawAllBlocks(BITMAP* target){
                     if (b)
                     {
                         b->Draw(target);
-                        
+
                     }
                 }
             }
-          break;          
+          break;
         case 2:
           for(int32_t vsx=vsxmax-1; vsx >= viewedSegment->x; vsx--){
               for(int32_t vsy=vsymax-1; vsy >= viewedSegment->y; vsy--){
@@ -227,7 +270,7 @@ void WorldSegment::drawAllBlocks(BITMAP* target){
           break;
       }
     }
-} 
+}
 */
 /*void WorldSegment::drawAllBlocks(BITMAP* target){
     // x,y,z print pricess

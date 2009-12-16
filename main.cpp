@@ -40,9 +40,16 @@ vector<t_matgloss> v_stonetypes;
 int32_t viewy = 0;
 int32_t viewz = 0;
 bool followmode = true;*/
+volatile int close_button_pressed = FALSE;
+
+void close_button_handler(void)
+{
+    close_button_pressed = TRUE;
+}
+END_OF_FUNCTION(close_button_handler)
 
 void WriteErr(char* msg, ...){
-  int j = 10;  
+  int j = 10;
   va_list arglist;
   va_start(arglist, msg);
 //  char buf[200] = {0};
@@ -57,7 +64,7 @@ void WriteErr(char* msg, ...){
 void LogVerbose(char* msg, ...){
 	if (!config.verbose_logging)
 		return;
-  int j = 10;  
+  int j = 10;
   va_list arglist;
   va_start(arglist, msg);
 //  char buf[200] = {0};
@@ -100,15 +107,17 @@ void animUpdateProc()
 		else
 			currentAnimationFrame = currentAnimationFrame + 1;
 		animationFrameShown = false;
-	}	
+	}
 }
 
 int main(void)
-{	
+{
     #ifdef LINUX_BUILD
     allegro_icon = stonesense_xpm;
     #endif
 	allegro_init();
+	LOCK_FUNCTION(close_button_handler);
+    set_close_button_callback(close_button_handler);
   install_keyboard();
   install_mouse();
   enable_hardware_cursor();
@@ -135,8 +144,17 @@ int main(void)
   config.animation_step = 300;
   config.follow_DFscreen = false;
   timeToReloadConfig = true;
+  config.fogr = 255;
+  config.fogg = 255;
+  config.fogb = 255;
+  config.foga = 255;
+  config.backr = 95;
+  config.backg = 95;
+  config.backb = 160;
   loadConfigFile();
-  
+  set_uformat(U_ASCII);
+  if(load_bitmap_font("font.bmp", NULL, NULL))
+  font = load_bitmap_font("font.bmp", NULL, NULL);
   //set debug cursor
   debugCursor.x = config.segmentSize.x / 2;
   debugCursor.y = config.segmentSize.y / 2;
@@ -189,7 +207,7 @@ int main(void)
 		while(!key[KEY_F9]) readkey();
 		clear( screen );
 	}
-  
+
 	//upper left corners
 	DisplayedSegmentX = DisplayedSegmentY = DisplayedSegmentZ = 0;
 
@@ -206,17 +224,18 @@ int main(void)
 
   //DisplayedSegmentX = 242; DisplayedSegmentY = 345;DisplayedSegmentZ = 15;
 
+
   //while(1)
 	reloadDisplayedSegment();
 	//if(!viewedSegment) return 1;
-	
+
 	// we should have a dfhack attached now, load the config
 	/*LoadBuildingConfiguration( &buildingTypes );
 	LoadCreatureConfiguration( &creatureTypes );
 	LoadGroundMaterialConfiguration( );
   */
-  
-	
+
+
 	// reload now we have config
 	reloadDisplayedSegment();
 
@@ -225,9 +244,9 @@ int main(void)
 #endif
 	install_int( animUpdateProc, config.animation_step );
 	initAutoReload();
-	
+
 	paintboard();
-	while(!key[KEY_ESC]){
+	while(!key[KEY_ESC] && !close_button_pressed){
 		rest(30);
     if( timeToReloadSegment ){
       reloadDisplayedSegment();

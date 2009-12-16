@@ -1,8 +1,10 @@
 Please note, these keywords are case sensitive for now.
 
+
 Sets the width and height of the application in pixels.
-[WIDTH:800]
-[HEIGHT:600]
+[WIDTH:1000]
+[HEIGHT:800]
+
 
 To launch the application in windowed mode, set this to YES. 
 Setting it to NO makes the program attempt to launch fullscreen mode,
@@ -10,10 +12,11 @@ using WIDTH and HEIGHT for resolution. Try and use resolutions compatible
 with your drivers, or the program will still load in window mode.
 [WINDOWED:YES]
 
-These two options set how large the cube loaded from Dwarf Fortress is.
+
+These two options set how large the cube laoaded from Dwarf Fortress is.
 Each entry expects the number of tiles to load.
-[SEGMENTSIZE_XY:50]
-[SEGMENTSIZE_Z:5]
+[SEGMENTSIZE_XY:90]
+[SEGMENTSIZE_Z:8]
 
 Change this off to skip the intro.
 [INTRO:ON]
@@ -21,7 +24,8 @@ Change this off to skip the intro.
 Lifts the segment up to the top off the screen, equivalent to a given
 number of z levels.
 Use this with a large segment size to get blocks covering the entire screen.
-[LIFTSEGMENT:7]
+[LIFTSEGMENT:18]
+
 
 This value, in milliseconds, is how long Stonesense waits between
 reloading the map. If zero, the autoreload will be disabled until
@@ -29,32 +33,39 @@ set with Numpad+. Note that this will only work if a DF map is
 ready when Stonesense loads.
 [AUTO_RELOAD_TIME:200]
 
+
 Amount to change the auto reload time with each press of Numpad+/-
 [AUTO_RELOAD_STEP:50]
 
+
 Sets Stonesense in debug mode. Adds additional information to displays.
-[DEBUGMODE:NO]
+[DEBUGMODE:YES]
+
 
 Amount of time, in milliseconds, before the animation swaps to the next frame.
-Now independant of map refresh.
+This currently *also* requires a map reload to display the frame.
 [ANIMATION_RATE:150]
+
+
+Shows all creatures, for debuging. Living, dead, kidnapped, caged, EVERY single one.
+[ALLCREATURES:NO]
+
 
 Follow the center of the DF window, rather than scale to the edges.
 [TRACK_CENTER:YES]
 
-Follow DF window is on when Stonesense launches. (Toggle with 'f')
+Follow DF window is on when Stonesense launches.
 [FOLLOW_DF_SCREEN:YES]
 
-Shows creatures names floating above their sprites. (Toggle with 'n')
-[SHOW_CREATURE_NAMES:YES]
+Fog color, and alpha at the bottom z-level. setting the alpha to 0 disables fog, for a slight performance increase.
+[FOG_RED:95]
+[FOG_GREEN:95]
+[FOG_BLUE:160]
+[FOG_ALPHA:255]
 
-Enables or disables the entire on-screen-display overlay (Toggle with F2)
-[SHOW_OSD:YES]
 
-Shows all creatures, for debugging. Living, dead, kidnapped, caged, EVERY single one.
-[ALLCREATURES:NO]
-
-Adds more logging information to what is written to stonesense.log. May be useful
-if trying having issues with sprite configuration tweaking.
-[VERBOSE_LOGGING:NO]
+Background color. setting this the same as teh fog color produces a nice effect.
+[BACK_RED:95]
+[BACK_GREEN:95]
+[BACK_BLUE:160]
 

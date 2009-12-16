@@ -10,7 +10,7 @@
 #include "dfhack/library/DFTypes.h"
 
 
-BITMAP* temptile=0;
+
 
 
 
@@ -144,12 +144,12 @@ void Block::Draw(BITMAP* target){
 	{
 		DrawSpriteFromSheet( BASE_SHADOW_TILE + shadow - 1, target, IMGObjectSheet, drawx, (ramp.type > 0)?(drawy - (WALLHEIGHT/2)):drawy );
 	}
-	
+
 	//Building
-  bool skipBuilding = 
+  bool skipBuilding =
     (building.info.type == BUILDINGTYPE_STOCKPILE && !config.show_stockpiles) ||
     (building.info.type == BUILDINGTYPE_ZONE && !config.show_zones);
-  
+
   if(building.info.type != BUILDINGTYPE_NA && !skipBuilding){
 
     int spriteNum =  SPRITEOBJECT_NA; //getBuildingSprite(this->building, mirroredBuilding);
@@ -159,6 +159,7 @@ void Block::Draw(BITMAP* target){
 	   if (!(sprite.animFrames & (1 << currentAnimationFrame)))
 	   		continue;
       DrawSpriteFromSheet(sprite.sheetIndex , target, imageSheet(sprite,IMGObjectSheet), 
+
         drawx + building.sprites[i].x,
         drawy + building.sprites[i].y);
     }
@@ -219,7 +220,7 @@ void Block::Draw(BITMAP* target){
       //Western border
       if(this->depthBorderWest)
         line(target, drawx, drawy+(TILEHEIGHT>>1)-1, drawx+(TILEWIDTH>>1)-1, drawy, tileBorderColor);
-      
+
       drawy += (WALLHEIGHT);
     }
 	}
@@ -247,7 +248,7 @@ void Block::Draw(BITMAP* target){
 void Block::DrawRamptops(BITMAP* target){
 	if (ramp.type > 0)
 	{
-	
+
 	int sheetOffsetX, sheetOffsetY;
   /*if(config.hide_outer_blocks){
     if(x == ownerSegment->x || x == ownerSegment->x + ownerSegment->sizex - 1) return;

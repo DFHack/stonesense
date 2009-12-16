@@ -44,11 +44,18 @@ typedef struct {
   int automatic_reload_time;
   int automatic_reload_step;
   int animation_step;
-  
+
   int screenWidth;
   int screenHeight;
   bool Fullscreen;
 	bool show_intro;
+  int fogr;
+  int fogg;
+  int fogb;
+  int foga;
+  int backr;
+  int backg;
+  int backb;
 
   Crd3D segmentSize;
 
