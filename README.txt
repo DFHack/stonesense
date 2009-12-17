@@ -1,6 +1,4 @@
-Welcome to Stonesense!
-
-Welcome to Stonesense 1.0!
+Welcome to Stonesense 1.0
 
 Thank you for trying out our little visualizer,
 as always, we appreciate any feedback.
