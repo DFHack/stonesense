@@ -26,6 +26,7 @@ using namespace DFHack;
 #define null 0
 
 #define INVALID_INDEX -1
+#define UNCONFIGURED_INDEX -2
 
 #define ISOMETRIC
 //#define CAVALIER

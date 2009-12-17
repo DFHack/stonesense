@@ -9,7 +9,7 @@
 TerrainMaterialConfiguration::TerrainMaterialConfiguration()
 {
 	defaultSprite.fileIndex=INVALID_INDEX;
-	defaultSprite.sheetIndex=INVALID_INDEX;
+	defaultSprite.sheetIndex=UNCONFIGURED_INDEX;
 	//dont really care about the rest of the sprite right now.
 	
 }
@@ -17,7 +17,7 @@ TerrainMaterialConfiguration::TerrainMaterialConfiguration()
 TerrainConfiguration::TerrainConfiguration()
 {
 	defaultSprite.fileIndex=INVALID_INDEX;
-	defaultSprite.sheetIndex=INVALID_INDEX;
+	defaultSprite.sheetIndex=UNCONFIGURED_INDEX;
 	//dont really care about the rest of the sprite right now.
 }
 
@@ -110,7 +110,7 @@ void parseWallFloorSpriteElement( TiXmlElement* elemWallFloorSprite, vector<Terr
 			TerrainConfiguration *tConfig = configTable[lookupKeys[i]];
 			// if that was null we have *really* screwed up earlier
 			// only update if not by previous configs
-			if (tConfig->defaultSprite.sheetIndex == INVALID_INDEX)
+			if (tConfig->defaultSprite.sheetIndex == UNCONFIGURED_INDEX)
 			{
 				tConfig->defaultSprite = sprite;
 			}
@@ -148,7 +148,7 @@ void parseWallFloorSpriteElement( TiXmlElement* elemWallFloorSprite, vector<Terr
 					tConfig->terrainMaterials[elemIndex] = new TerrainMaterialConfiguration();
 				}
 				// only update if not set by earlier configs
-				if (tConfig->terrainMaterials[elemIndex]->defaultSprite.sheetIndex == INVALID_INDEX)
+				if (tConfig->terrainMaterials[elemIndex]->defaultSprite.sheetIndex == UNCONFIGURED_INDEX)
 				{
 					tConfig->terrainMaterials[elemIndex]->defaultSprite = sprite;
 				}

@@ -1,3 +1,6 @@
+----==== 'Granite' Dec 17th 2009 ====----
+
+
 ----==== Alpha release 4, Nov 23rd 2009 ====----
 * Display can be rotated in 90 degree increments
 * Many code optimizations: at least two occasions of ~50% improvements...
@@ -16,8 +19,6 @@
 * Many many more sprites: buildings, plants, creatures & terrain
 * Improved building configuration: more options, nested conditions, boolean logic, multiple image files, include files
 
-
-
 ----==== Alpha release 3, Oct 31th 2009 ====----
 * Creatures added
 * Changed all sprites to png
@@ -32,7 +33,6 @@
 * Customize buildings with config files
 * Customize creatures with config file
 * Customize stone and soil types with config file
-
 
 ----==== Alpha release 2, Oct 14th 2009 ====----
 * Added screenshot button

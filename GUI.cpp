@@ -31,7 +31,6 @@ int MiniMapSegmentWidth =0;
 int MiniMapSegmentHeight =0;
 double oneBlockInPixels = 0;
 
-BITMAP* IMGFloorSheet; 
 BITMAP* IMGObjectSheet;
 BITMAP* IMGCreatureSheet; 
 BITMAP* IMGRampSheet; 
@@ -378,13 +377,11 @@ BITMAP* load_bitmap_withWarning(char* path){
 void loadGraphicsFromDisk(){
   register_png_file_type();
 	IMGObjectSheet = load_bitmap_withWarning("objects.png");
-	IMGFloorSheet = load_bitmap_withWarning("floors.png");
 	IMGCreatureSheet = load_bitmap_withWarning("creatures.png");
 	IMGRampSheet = load_bitmap_withWarning("ramps.png");	
 }
 void destroyGraphics(){
 	/* TODO these should really be merged in with the main imagefile reading routine */
-  destroy_bitmap(IMGFloorSheet);
   destroy_bitmap(IMGObjectSheet);
   destroy_bitmap(IMGCreatureSheet);
   destroy_bitmap(IMGRampSheet);
