@@ -93,12 +93,6 @@ void Block::Draw(BITMAP* target){
 	{
     	sprite = GetFloorSpriteMap(stairType, this->material);
 	}
-
-	if(sprite.sheetIndex == INVALID_INDEX)
-	{
-	      sprite.sheetIndex = SPRITEFLOOR_WATERFLOOR;
-	      sprite.fileIndex = INVALID_INDEX;		
-	}
 	
     if(sprite.sheetIndex != INVALID_INDEX)
     {
