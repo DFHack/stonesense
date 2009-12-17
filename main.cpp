@@ -262,7 +262,15 @@ int main(void)
 		doKeys();
 	}
   destroyGraphics();
+  flushImgFiles();
   DisconnectFromDF();
+  
+  //dispose old segment
+  if(viewedSegment){
+    viewedSegment->Dispose();
+	  delete(viewedSegment);
+  }
+  
 	return 0;
 }
 END_OF_MAIN()

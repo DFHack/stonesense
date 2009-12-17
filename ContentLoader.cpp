@@ -12,7 +12,13 @@ ContentLoader contentLoader;
 
 
 ContentLoader::ContentLoader(void) { }
-ContentLoader::~ContentLoader(void) { }
+ContentLoader::~ContentLoader(void)
+{ 
+  //flush content on exit
+  flushBuildingConfig(&buildingConfigs);
+  flushTerrainConfig(terrainFloorConfigs);
+  flushTerrainConfig(terrainBlockConfigs);	
+}
 
 
 bool ContentLoader::Load(API& DF){
