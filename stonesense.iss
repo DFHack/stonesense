@@ -8,7 +8,7 @@ DefaultDirName={pf}\stonesense
 
 [Files]
 Source: "stonesense.exe"; DestDir: "{app}"
-Source: "*.dll"; DestDir: "{app}"; Excludes: "dfhack-debug.dll"
+Source: "*.dll"; DestDir: "{app}"; Excludes: "dfhack-debug.dll,libpng3.dll,alld42.dll"
 Source: "*.png"; DestDir: "{app}"; Flags: recursesubdirs
 Source: "changelog.txt"; DestDir: "{app}"
 Source: "init.txt"; DestDir: "{app}"

@@ -1,10 +1,9 @@
 Welcome to Stonesense!
 
-Thank you for testing out our little visualizer,
+Welcome to Stonesense 1.0!
+
+Thank you for trying out our little visualizer,
 as always, we appreciate any feedback.
-Please remember this is just an alpha, 
-so there are (still) tons of features to be added, 
-and I'm sure, quite a few bugs too.
 
 Make sure you have DF running, with your game loaded. 
 
