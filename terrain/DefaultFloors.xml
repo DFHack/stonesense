@@ -199,7 +199,6 @@
 	<terrain value="379"/>
 
 	<terrain value="380"/>
-	<!--<terrain value="381"/>-->
 	<terrain value="387"/>
 	<terrain value="388"/>
 	<terrain value="389"/>
@@ -319,6 +318,11 @@
 	<terrain value="517"/>
 	<terrain value="518"/>
 
+</floor>
+
+<!-- explicitly blank brook top -->
+<floor sprite = -1>
+	<terrain value="381"/>
 </floor>
 
 </floors>
