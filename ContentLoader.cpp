@@ -77,23 +77,38 @@ bool getLocalFilename(char* buffer, const char* filename, const char* relativeto
 	{
 		buffertest = canonicalize_filename (filetemp, (filename+1), FILENAME_BUFFERSIZE_LOCAL);
 		if (!buffertest || filetemp[FILENAME_BUFFERSIZE_LOCAL-1] != 1)
+		{
+			WriteErr("Failed to build path for: %s\n",filename);
 			return false;
+		}
 	}
 	else
 	{
 		buffertest = replace_filename (filetemp, relativeto, filename, FILENAME_BUFFERSIZE_LOCAL);
 		if (!buffertest || filetemp[FILENAME_BUFFERSIZE_LOCAL-1] != 1)
-			return false;			
+		{
+			WriteErr("Failed to build path for: %s\n",filename);
+			return false;
+		}
 		buffertest = canonicalize_filename (filetemp, filetemp, FILENAME_BUFFERSIZE_LOCAL);
 		if (!buffertest || filetemp[FILENAME_BUFFERSIZE_LOCAL-1] != 1)
-			return false;	
+		{
+			WriteErr("Failed to build path for: %s\n",filename);
+			return false;
+		}
 	}
 	buffertest = canonicalize_filename (hometemp,"", FILENAME_BUFFERSIZE_LOCAL);
 	if (!buffertest || hometemp[FILENAME_BUFFERSIZE_LOCAL-1] != 1)
+	{
+		WriteErr("Failed to build path for: %s\n",filename);
 		return false;
+	}
 	buffertest = make_relative_filename (buffer,hometemp,filetemp, FILENAME_BUFFERSIZE);
 	if (!buffertest || buffer[FILENAME_BUFFERSIZE-1] != 1)
+	{
+		WriteErr("Failed to build path for: %s\n",filename);
 		return false;
+	}
 	return true;
 }
 
