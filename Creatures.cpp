@@ -85,6 +85,8 @@ void ReadCreaturesToSegment(API& DF, WorldSegment* segment)
 				b->x = tempcreature->x;
 				b->y = tempcreature->y;
 				b->z = tempcreature->z;
+				// fake block occupancy where needed. This is starting to get hacky...
+				b->occ.bits.unit=1;
 				segment->addBlock( b );
 			}
 			if (!b->creature)
