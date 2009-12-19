@@ -43,13 +43,21 @@ bool addSingleVegetationConfig( TiXmlElement* elemRoot,  vector<VegetationConfig
   TiXmlElement* elemTree;
   for (elemTree = elemRoot->FirstChildElement("plant");
   	elemTree; elemTree = elemTree->NextSiblingElement("plant") ){
-  	int gameID = lookupIndexedType(elemTree->Attribute("gameID"),plantNames);
-  	if (gameID == INVALID_INDEX)
-	  	continue;
+	const char* idstr = elemTree->Attribute("gameID");
+  	int gameID = INVALID_INDEX;
+  	if (idstr && idstr[0])
+  	{
+	  	lookupIndexedType(idstr,plantNames);
+  		if (gameID == INVALID_INDEX)
+  		{
+	  		contentError("No matching plant type",elemTree);
+	  		continue;
+  		}
+	}
     const char* deadstr = elemTree->Attribute("dead");
-    bool dead = (deadstr && deadstr[0]);   
+    bool dead = (deadstr && deadstr[0]);
     const char* saplingstr = elemTree->Attribute("sapling");
-    bool sapling = (saplingstr && saplingstr[0]);   
+    bool sapling = (saplingstr && saplingstr[0]);
     sheetIndexStr = elemTree->Attribute("sheetIndex");
     /* No animated trees.
     	But we may repurpose it later to make a xyz variance?
@@ -73,7 +81,7 @@ t_SpriteWithOffset getVegetationSprite(vector<VegetationConfiguration>& vegetati
 	for (int i=0;i<vcmax;i++)
 	{
 		VegetationConfiguration* current = &(vegetationConfigs[i]);
-		if (current->gameID != index) continue;
+		if (current->gameID != INVALID_INDEX && current->gameID != index) continue;
 		if (current->live != live) continue;
 		if (current->grown != grown) continue;
 		return current->sprite;
