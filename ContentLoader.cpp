@@ -196,21 +196,18 @@ bool ContentLoader::parseContentXMLFile( char* filepath ){
     string elementType = elemRoot->Value();
     if( elementType.compare( "building" ) == 0 )
         runningResult &= parseBuildingContent( elemRoot );
-    
-    if( elementType.compare( "creatures" ) == 0 )
+    else if( elementType.compare( "creatures" ) == 0 )
         runningResult &= parseCreatureContent( elemRoot );
-    
-    if( elementType.compare( "floors" ) == 0 )
+    else if( elementType.compare( "floors" ) == 0 )
         runningResult &= parseTerrainContent( elemRoot );
-
-    if( elementType.compare( "blocks" ) == 0 )
+	else if( elementType.compare( "blocks" ) == 0 )
         runningResult &= parseTerrainContent( elemRoot );
-
-    if( elementType.compare( "shrubs" ) == 0 )
+	else if( elementType.compare( "shrubs" ) == 0 )
         runningResult &= parseShrubContent( elemRoot );
-
-    if( elementType.compare( "trees" ) == 0 )
+	else if( elementType.compare( "trees" ) == 0 )
         runningResult &= parseTreeContent( elemRoot );
+    else
+    	contentError("Unrecognised root element",elemRoot);
 
     elemRoot = elemRoot->NextSiblingElement();
   }
