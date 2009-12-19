@@ -44,7 +44,7 @@ void ScreenToPoint(int x,int y,int &x1, int &y1, int &z1)
 { //assume z of 0
     x-=TILEWIDTH/2;
     y+=TILEWIDTH/2;
-    z1 = -1;
+    z1 = -3;
     y+= z1*BLOCKHEIGHT/2;
     //y-=BLOCKHEIGHT;
     x+=TILEWIDTH>>1;
@@ -62,7 +62,7 @@ void ScreenToPoint(int x,int y,int &x1, int &y1, int &z1)
 void pointToScreen(int *inx, int *iny, int inz){
   static int offx = config.screenWidth / 2;
   static int offy = 50-(BLOCKHEIGHT * config.lift_segment_offscreen);
-	int z=inz;
+	int z=inz-1;
 	int x = *inx-*iny;
 	int y = *inx+*iny;
 	x = x * TILEWIDTH / 2;
@@ -75,7 +75,7 @@ void pointToScreen(int *inx, int *iny, int inz){
 
 Crd2D WorldBlockToScreen(int32_t x, int32_t y, int32_t z){
 	correctBlockForSegmetOffset( x, y, z);
-	return LocalBlockToScreen(x, y, z);
+	return LocalBlockToScreen(x, y, z-1);
 }
 
 Crd2D LocalBlockToScreen(int32_t x, int32_t y, int32_t z){
