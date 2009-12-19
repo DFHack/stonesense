@@ -185,4 +185,4 @@ class BuildingConfiguration;
 
 #define FILENAME_BUFFERSIZE 50
 // temp buffers are bigger because they deal with absolute paths
-#define FILENAME_BUFFERSIZE_LOCAL 100
+#define FILENAME_BUFFERSIZE_LOCAL 200
