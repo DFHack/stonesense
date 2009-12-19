@@ -252,8 +252,10 @@ void Block::Draw(BITMAP* target){
 		DrawSpriteFromSheet( spriteNum, target, IMGObjectSheet, drawx, drawy );
 	}
 
-  //creature
-  if(creature != null){
+  // creature
+  // ensure there is *some* creature according to the map data
+  // (no guarantee it is the right one)
+  if(creature != null && (occ.bits.unit || occ.bits.unit_grounded)){
     DrawCreature( target, drawx, drawy, creature);
   }
 }
