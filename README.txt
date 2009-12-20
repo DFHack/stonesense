@@ -1,16 +1,13 @@
-Welcome to Stonesense!
+Welcome to Stonesense 1.0
 
-Thank you for testing out our little visualizer,
+Thank you for trying out our little visualizer,
 as always, we appreciate any feedback.
-Please remember this is just an alpha, 
-so there are (still) tons of features to be added, 
-and I'm sure, quite a few bugs too.
 
 Make sure you have DF running, with your game loaded. 
 
 If all you see is a blank screen, DON'T PANIC.
 This just means you're viewing a hidden area.
-Use the coordiantes in the upper left to move up or down till you hit the surface.
+Use the coordinates in the upper left to move up or down till you hit the surface.
 
 --== Configuration ==--
 
@@ -35,7 +32,8 @@ U: Toggle Stockpiles
 I: Toggle Zones
 C: Toggle Truncated Walls
 F: Toggle Follow Mode
-B: Toggle Hidden Blocks
+H: Toggle Hidden Blocks
+B: Toggle Blacked Out Areas
 S: Toggle Single Layer View
 N: Toggle Creature Names
 F2: Hide Display Overlays
@@ -55,7 +53,6 @@ Numpad numbers: Move debug cursor (if available)
 When you turn on follow mode, the screen will jump to the location of the DF window.
 You can adjust the position of the follow mode relative to the DF window by
 holding Ctrl while using the keyboard window movement keys.
-When you first load Stonesense, hitting F is a good way to get your bearings!
 
 --== Contacts ==--
 
