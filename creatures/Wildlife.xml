@@ -69,7 +69,7 @@
 <creature gameID="IMP_FIRE" 	 sheetIndex = 39 /> 
 <creature gameID="IMP_FIRE" 	 sheetIndex = 39 /> 
 
-<creature gameID="FOX" 	 sheetIndex = 70 /> 
-<creature gameID="TROGLODYTE" 	 sheetIndex = 72 /> 
+<creature gameID="FOX" 	 sheetIndex = 50 /> 
+<creature gameID="TROGLODYTE" 	 sheetIndex = 52 /> 
 </creatures>
 
