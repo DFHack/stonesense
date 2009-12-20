@@ -487,6 +487,57 @@
 	</material>
 </block>
 
+<!-- soil -->
+<block sprite= 10 >	
+	<!-- wall -->
+	<terrain value= 265 />
+	<material value="Stone">
+		<subtype value="SAND_TAN"/>
+		<subtype value="SAND_YELLOW"/>
+	</material>
+</block>
+		<subtype value=""/>
+
+<!-- soil -->
+<block sprite= 11 >	
+	<!-- wall -->
+	<terrain value= 265 />
+	<material value="Stone">
+		<subtype value="LOAMY_SAND"/>
+		<subtype value="SAND_RED"/>
+	</material>
+</block>
+
+<!-- soil -->
+<block sprite= 12 >	
+	<!-- wall -->
+	<terrain value= 265 />
+	<material value="Stone">
+		<subtype value="SAND_BLACK"/>
+	</material>
+</block>
+
+<!-- soil -->
+<block sprite= 13 >	
+	<!-- wall -->
+	<terrain value= 265 />
+	<material value="Stone">
+		<subtype value="SAND_WHITE"/>
+	</material>
+</block>
+
+<!-- soil -->
+<block sprite= 14 >	
+	<!-- wall -->
+	<terrain value= 265 />
+	<material value="Stone">
+		<subtype value="PELAGIC_CLAY"/>
+		<subtype value="SILTY_CLAY"/>
+		<subtype value="SANDY_CLAY"/>
+		<subtype value="CLAY"/>
+	</material>
+</block>
+
 </blocks>
 
 
