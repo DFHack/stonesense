@@ -49,7 +49,6 @@ void close_button_handler(void)
 END_OF_FUNCTION(close_button_handler)
 
 void WriteErr(char* msg, ...){
-  int j = 10;
   va_list arglist;
   va_start(arglist, msg);
 //  char buf[200] = {0};
@@ -64,7 +63,6 @@ void WriteErr(char* msg, ...){
 void LogVerbose(char* msg, ...){
 	if (!config.verbose_logging)
 		return;
-  int j = 10;
   va_list arglist;
   va_start(arglist, msg);
 //  char buf[200] = {0};
@@ -154,7 +152,7 @@ int main(void)
   loadConfigFile();
   set_uformat(U_ASCII);
   if(load_bitmap_font("font.bmp", NULL, NULL))
-  font = load_bitmap_font("font.bmp", NULL, NULL);
+  	font = load_bitmap_font("font.bmp", NULL, NULL);
   //set debug cursor
   debugCursor.x = config.segmentSize.x / 2;
   debugCursor.y = config.segmentSize.y / 2;
