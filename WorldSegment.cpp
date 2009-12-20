@@ -3,8 +3,6 @@
 #include "GUI.h"
 
 
-BITMAP* level = 0;
-
 Block* WorldSegment::getBlock(int32_t x, int32_t y, int32_t z){
 	if(x < this->x || x >= this->x + this->sizex) return 0;
 	if(y < this->y || y >= this->y + this->sizey) return 0;

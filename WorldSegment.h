@@ -10,13 +10,14 @@ public:
 	int sizex, sizey, sizez;
   Crd3D regionSize;
   Block** blocksAsPointerVolume;
-  
+  BITMAP* level;
 
 	WorldSegment(int x, int y, int z, int sizex, int sizey, int sizez){
 		this->x = x; 
     this->y = y; 
     this->z = z - sizez + 1;
 		this->sizex = sizex; this->sizey = sizey; this->sizez = sizez;
+		level = NULL;
 		
     regionSize.x = regionSize.y = regionSize.z = 0;
     
@@ -31,6 +32,8 @@ public:
       delete(blocks[i]);
     }
     blocks.clear();
+    if (level)
+    	destroy_bitmap(level);
   }
 
   void Dispose(void){
