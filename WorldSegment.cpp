@@ -148,7 +148,7 @@ void WorldSegment::drawAllBlocks(BITMAP* target){
   int32_t vsxmax = viewedSegment->sizex-1;
   int32_t vsymax = viewedSegment->sizey-1;
   int32_t vszmax = viewedSegment->sizez-1; // grabbing one tile +z more than we should for tile rules
-	if (!(config.foga == 0))
+	if ((config.foga != 0) && (vszmax > 1))
 	{
 		if (!level)
 		{
