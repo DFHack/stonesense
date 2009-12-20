@@ -170,8 +170,11 @@ void drawDebugCursorAndInfo(BITMAP* target){
     
   if (tform != NULL)
   {
+	  const char* matName = lookupMaterialTypeName(b->material.type);
+	  const char* subMatName = lookupMaterialName(b->material.type,b->material.index);
   	textprintf(target, font, 2, config.screenHeight-20-(i--*10), 0xFFFFFF, 
-    	"%s:%i Material:%i/%i", tform, ttype, b->material.type, b->material.index);
+    	"%s:%i Material:%s%s%s", tform, ttype, 
+    	matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
   } 
   textprintf(target, font, 2, config.screenHeight-20-(i--*10), 0xFFFFFF, 
     "Building Occ: %i Index: %i", b->occ.bits.building, b->building.index);
@@ -181,10 +184,12 @@ void drawDebugCursorAndInfo(BITMAP* target){
       "tree:%i water:%i", b->tree.index, b->water.index);
   //building
   if(b->building.info.type != BUILDINGTYPE_NA && b->building.info.type != BUILDINGTYPE_BLACKBOX){
+	  const char* matName = lookupMaterialTypeName(b->building.info.material.type);
+	  const char* subMatName = lookupMaterialName(b->building.info.material.type,b->building.info.material.index);
     textprintf(target, font, 2, config.screenHeight-20-(i--*10), 0xFFFFFF, 
-      "Building: %s(%i) MatType:%i MatIndex:%i", 
+      "Building: %s(%i) Material: %s%s%s", 
       contentLoader.buildingNameStrings.at(b->building.info.type).c_str(),
-      b->building.info.type, b->building.info.material.type, b->building.info.material.index);
+      b->building.info.type, matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
   }
   //creatures
   if(b->creature != null){

@@ -348,6 +348,69 @@ int lookupMaterialIndex(int matType, const char* strValue)
 	return lookupIndexedType(strValue,*typeVector);
 }
 
+const char *lookupMaterialTypeName(int matType)
+{
+	switch (matType)
+	{
+		case Mat_Wood:
+			return "Wood";
+		case Mat_Stone:
+			return "Mineral";
+		case Mat_Metal:
+			return "Metal";
+		case Mat_Plant:
+			return "Bone";
+		case Mat_Leather:
+			return "Leather";
+		case Mat_SilkCloth:
+			return "Silk";
+		case Mat_PlantCloth:
+			return "Plant Cloth";
+		case Mat_GreenGlass:
+			return "Green Glass";
+		case Mat_ClearGlass:
+			return "Clear Glass";
+		case Mat_CrystalGlass:
+			return "Crystal Glass";
+		case Mat_Ice:
+			return "Ice";
+		case Mat_Charcoal:
+			return "Charcoal";
+		case Mat_Soap:
+			return "Soap";
+		default:
+			return NULL;
+	}
+}
+
+const char *lookupMaterialName(int matType,int matIndex)
+{
+	if (matIndex < 0)
+		return NULL;
+	vector<t_matgloss>* typeVector;
+	// for appropriate elements, look up subtype
+	if (matType == Mat_Wood)
+	{
+		typeVector=&(contentLoader.woodNameStrings);
+	}
+	else if (matType == Mat_Stone)
+	{
+		typeVector=&(contentLoader.stoneNameStrings);
+	}
+	else if (matType == Mat_Metal)
+	{
+		typeVector=&(contentLoader.metalNameStrings);
+	}
+	else
+	{
+		//maybe allow some more in later
+		return NULL;
+	}
+	if (matIndex >= typeVector->size())
+		return NULL;
+	return (*typeVector)[matIndex].id;
+}
+
 int loadConfigImgFile(const char* filename, TiXmlElement* referrer)
 {
 	const char* documentRef = getDocument(referrer);
