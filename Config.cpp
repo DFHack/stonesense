@@ -127,6 +127,14 @@ void parseConfigLine( string line ){
     string result = parseStrFromLine( "SHOW_OSD", line );
     config.show_osd = (result == "YES");
   }
+  if( line.find("SHOW_STOCKPILES") != -1){
+    string result = parseStrFromLine( "SHOW_STOCKPILES", line );
+    config.show_stockpiles = (result == "YES");
+  }
+  if( line.find("SHOW_ZONES") != -1){
+  string result = parseStrFromLine( "SHOW_ZONES", line );
+    config.show_zones = (result == "YES");
+  }
 	if( line.find("INTRO") != -1){
     string result = parseStrFromLine( "INTRO", line );
     config.show_intro = !(result == "OFF");
@@ -173,6 +181,24 @@ void parseConfigLine( string line ){
     if(value < 0) value = 0;
     config.backb = value;
   }
+  if( line.find("FOLLOW_OFFSET_X") != -1){
+    int value = parseIntFromLine( "FOLLOW_OFFSET_X", line);
+    if(value > 30) value = 30;
+    if(value < -30) value = -30;
+    config.viewXoffset = value;
+  }
+  if( line.find("FOLLOW_OFFSET_Y") != -1){
+    int value = parseIntFromLine( "FOLLOW_OFFSET_Y", line);
+    if(value > 30) value = 30;
+    if(value < -30) value = -30;
+    config.viewYoffset = value;
+  }
+  if( line.find("FOLLOW_OFFSET_Z") != -1){
+    int value = parseIntFromLine( "FOLLOW_OFFSET_Z", line);
+    if(value > 30) value = 30;
+    if(value < -30) value = -30;
+    config.viewZoffset = value;
+  }
 }
 
 
@@ -192,7 +218,5 @@ bool loadConfigFile(){
     parseConfigLine( line );
   }
   myfile.close();
-
-
   return true;
 }
