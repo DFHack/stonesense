@@ -21,7 +21,7 @@ Change this to off to skip the intro.
 Lifts the segment up to the top off the screen, equivalent to a given
 number of z levels.
 Use this with a large segment size to get blocks covering the entire screen.
-[LIFTSEGMENT:7]
+[LIFTSEGMENT:0]
 
 This value, in milliseconds, is how long Stonesense waits between
 reloading the map. If zero, the autoreload will be disabled until
@@ -48,6 +48,17 @@ Follow DF window is on when Stonesense launches. (Toggle with 'f')
 Shows creatures names floating above their sprites. (Toggle with 'n')
 [SHOW_CREATURE_NAMES:YES]
 
+Fog color, and alpha at the bottom z-level. setting the alpha to 0 disables fog, for a slight performance increase.
+[FOG_RED:95]
+[FOG_GREEN:95]
+[FOG_BLUE:160]
+[FOG_ALPHA:128]
+
+Background color. setting this the same as teh fog color produces a nice effect.
+[BACK_RED:95]
+[BACK_GREEN:95]
+[BACK_BLUE:160]
+
 Enables or disables the entire on-screen-display overlay (Toggle with F2)
 [SHOW_OSD:YES]
 
@@ -58,3 +69,8 @@ Adds more logging information to what is written to stonesense.log. May be usefu
 if trying having issues with sprite configuration tweaking.
 [VERBOSE_LOGGING:NO]
 
+[SHOW_ZONES:YES]
+[SHOW_STOCKPILES:YES]
+[FOLLOW_OFFSET_X:1]
+[FOLLOW_OFFSET_Y:2]
+[FOLLOW_OFFSET_Z:-1]

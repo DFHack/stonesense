@@ -16,6 +16,7 @@ CreatureConfiguration::CreatureConfiguration(int gameID, int professionID, const
   this->professionID = professionID;
   this->sex = sex;
   this->shadow = shadow;
+  this->special = special;
   
   if(professionStr){
     int len = (int) strlen(professionStr);

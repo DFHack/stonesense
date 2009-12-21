@@ -2,7 +2,7 @@
 
 
 
-<building name="Shop" gameID="shop" file="workshop.png">
+<building name="Shop" gameID="shop">
 	
 	<if>
 		<not><BuildingOccupancy value="1" /></not>

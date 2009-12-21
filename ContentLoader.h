@@ -47,4 +47,5 @@ extern int loadConfigImgFile(const char* filename, TiXmlElement* referrer);
 int lookupMaterialType(const char* strValue);
 int lookupMaterialIndex(int matType, const char* strValue);
 int lookupIndexedType(const char* indexName, vector<t_matgloss>& typeVector);
-
+const char *lookupMaterialTypeName(int matType);
+const char *lookupMaterialName(int matType,int matIndex);

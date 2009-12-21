@@ -3,8 +3,16 @@
 
 
 <building name="Farm plot" gameID="farm_plot">
-
+	<if>
+		<BuildingOccupancy value="2" />
 		<sprite index = 106 />
-
+	</if>
+	<else>
+		<BuildingOccupancy value="1" />
+		<sprite index = 321 />
+	</else>
+	<else>
+		<empty/>
+	</else>
 	
 </building> 

@@ -31,7 +31,6 @@ int MiniMapSegmentWidth =0;
 int MiniMapSegmentHeight =0;
 double oneBlockInPixels = 0;
 
-BITMAP* IMGFloorSheet; 
 BITMAP* IMGObjectSheet;
 BITMAP* IMGCreatureSheet; 
 BITMAP* IMGRampSheet; 
@@ -45,7 +44,7 @@ void ScreenToPoint(int x,int y,int &x1, int &y1, int &z1)
 { //assume z of 0
     x-=TILEWIDTH/2;
     y+=TILEWIDTH/2;
-    z1 = -1;
+    z1 = -3;
     y+= z1*BLOCKHEIGHT/2;
     //y-=BLOCKHEIGHT;
     x+=TILEWIDTH>>1;
@@ -63,7 +62,7 @@ void ScreenToPoint(int x,int y,int &x1, int &y1, int &z1)
 void pointToScreen(int *inx, int *iny, int inz){
   static int offx = config.screenWidth / 2;
   static int offy = 50-(BLOCKHEIGHT * config.lift_segment_offscreen);
-	int z=inz;
+	int z=inz-1;
 	int x = *inx-*iny;
 	int y = *inx+*iny;
 	x = x * TILEWIDTH / 2;
@@ -76,7 +75,7 @@ void pointToScreen(int *inx, int *iny, int inz){
 
 Crd2D WorldBlockToScreen(int32_t x, int32_t y, int32_t z){
 	correctBlockForSegmetOffset( x, y, z);
-	return LocalBlockToScreen(x, y, z);
+	return LocalBlockToScreen(x, y, z-1);
 }
 
 Crd2D LocalBlockToScreen(int32_t x, int32_t y, int32_t z){
@@ -171,8 +170,11 @@ void drawDebugCursorAndInfo(BITMAP* target){
     
   if (tform != NULL)
   {
+	  const char* matName = lookupMaterialTypeName(b->material.type);
+	  const char* subMatName = lookupMaterialName(b->material.type,b->material.index);
   	textprintf(target, font, 2, config.screenHeight-20-(i--*10), 0xFFFFFF, 
-    	"%s:%i Material:%i/%i", tform, ttype, b->material.type, b->material.index);
+    	"%s:%i Material:%s%s%s", tform, ttype, 
+    	matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
   } 
   textprintf(target, font, 2, config.screenHeight-20-(i--*10), 0xFFFFFF, 
     "Building Occ: %i Index: %i", b->occ.bits.building, b->building.index);
@@ -182,10 +184,12 @@ void drawDebugCursorAndInfo(BITMAP* target){
       "tree:%i water:%i", b->tree.index, b->water.index);
   //building
   if(b->building.info.type != BUILDINGTYPE_NA && b->building.info.type != BUILDINGTYPE_BLACKBOX){
+	  const char* matName = lookupMaterialTypeName(b->building.info.material.type);
+	  const char* subMatName = lookupMaterialName(b->building.info.material.type,b->building.info.material.index);
     textprintf(target, font, 2, config.screenHeight-20-(i--*10), 0xFFFFFF, 
-      "Building: %s(%i) MatType:%i MatIndex:%i", 
+      "Building: %s(%i) Material: %s%s%s", 
       contentLoader.buildingNameStrings.at(b->building.info.type).c_str(),
-      b->building.info.type, b->building.info.material.type, b->building.info.material.index);
+      b->building.info.type, matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
   }
   //creatures
   if(b->creature != null){
@@ -313,7 +317,7 @@ void paintboard(){
 	if(!buffer)
 		buffer = create_bitmap(config.screenWidth, config.screenHeight);
   
-  clear_to_color(buffer,makecol(95,95,160));
+  clear_to_color(buffer,makecol(config.backr,config.backg,config.backb));
   //clear_to_color(buffer,makecol(12,7,49)); //this one is calm and nice
   
   if( viewedSegment == NULL ){
@@ -378,13 +382,11 @@ BITMAP* load_bitmap_withWarning(char* path){
 void loadGraphicsFromDisk(){
   register_png_file_type();
 	IMGObjectSheet = load_bitmap_withWarning("objects.png");
-	IMGFloorSheet = load_bitmap_withWarning("floors.png");
 	IMGCreatureSheet = load_bitmap_withWarning("creatures.png");
 	IMGRampSheet = load_bitmap_withWarning("ramps.png");	
 }
 void destroyGraphics(){
 	/* TODO these should really be merged in with the main imagefile reading routine */
-  destroy_bitmap(IMGFloorSheet);
   destroy_bitmap(IMGObjectSheet);
   destroy_bitmap(IMGCreatureSheet);
   destroy_bitmap(IMGRampSheet);

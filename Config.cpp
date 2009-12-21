@@ -12,7 +12,7 @@ string parseStrFromLine( string keyword, string line ){
   trimString += keyword;
   trimString += ":";
   int length = (int)trimString.length();
-  
+
 
   if( line.compare(0,length, trimString) == 0){
     line.replace(0,length,"");
@@ -30,7 +30,7 @@ int parseIntFromLine( string keyword, string line ){
   trimString += keyword;
   trimString += ":";
   int length = (int)trimString.length();
-  
+
 
   if( line.compare(0,length, trimString) == 0){
     line.replace(0,length,"");
@@ -45,11 +45,11 @@ int parseIntFromLine( string keyword, string line ){
 void parseConfigLine( string line ){
   char c = line[0];
   if( c != '[') return;
-  
+
   //some systems don't remove the \r char as a part of the line change:
   if(line.size() > 0 &&  line[line.size() -1 ] == '\r' )
-    line.resize(line.size() -1);  
-  
+    line.resize(line.size() -1);
+
   c = line[ line.length() -1 ];
   if( c != ']' ) return;
 
@@ -127,9 +127,77 @@ void parseConfigLine( string line ){
     string result = parseStrFromLine( "SHOW_OSD", line );
     config.show_osd = (result == "YES");
   }
+  if( line.find("SHOW_STOCKPILES") != -1){
+    string result = parseStrFromLine( "SHOW_STOCKPILES", line );
+    config.show_stockpiles = (result == "YES");
+  }
+  if( line.find("SHOW_ZONES") != -1){
+  string result = parseStrFromLine( "SHOW_ZONES", line );
+    config.show_zones = (result == "YES");
+  }
 	if( line.find("INTRO") != -1){
     string result = parseStrFromLine( "INTRO", line );
     config.show_intro = !(result == "OFF");
+  }
+  if( line.find("FOG_RED") != -1){
+    int value = parseIntFromLine( "FOG_RED", line);
+    if(value > 255) value = 255;
+    if(value < 0) value = 0;
+    config.fogr = value;
+  }
+  if( line.find("FOG_GREEN") != -1){
+    int value = parseIntFromLine( "FOG_GREEN", line);
+    if(value > 255) value = 255;
+    if(value < 0) value = 0;
+    config.fogg = value;
+  }
+  if( line.find("FOG_BLUE") != -1){
+    int value = parseIntFromLine( "FOG_BLUE", line);
+    if(value > 255) value = 255;
+    if(value < 0) value = 0;
+    config.fogb = value;
+  }
+  if( line.find("FOG_ALPHA") != -1){
+    int value = parseIntFromLine( "FOG_ALPHA", line);
+    if(value > 255) value = 255;
+    if(value < 0) value = 0;
+    config.foga = value;
+  }
+  if( line.find("BACK_RED") != -1){
+    int value = parseIntFromLine( "BACK_RED", line);
+    if(value > 255) value = 255;
+    if(value < 0) value = 0;
+    config.backr = value;
+  }
+  if( line.find("BACK_GREEN") != -1){
+    int value = parseIntFromLine( "BACK_GREEN", line);
+    if(value > 255) value = 255;
+    if(value < 0) value = 0;
+    config.backg = value;
+  }
+  if( line.find("BACK_BLUE") != -1){
+    int value = parseIntFromLine( "BACK_BLUE", line);
+    if(value > 255) value = 255;
+    if(value < 0) value = 0;
+    config.backb = value;
+  }
+  if( line.find("FOLLOW_OFFSET_X") != -1){
+    int value = parseIntFromLine( "FOLLOW_OFFSET_X", line);
+    if(value > 30) value = 30;
+    if(value < -30) value = -30;
+    config.viewXoffset = value;
+  }
+  if( line.find("FOLLOW_OFFSET_Y") != -1){
+    int value = parseIntFromLine( "FOLLOW_OFFSET_Y", line);
+    if(value > 30) value = 30;
+    if(value < -30) value = -30;
+    config.viewYoffset = value;
+  }
+  if( line.find("FOLLOW_OFFSET_Z") != -1){
+    int value = parseIntFromLine( "FOLLOW_OFFSET_Z", line);
+    if(value > 30) value = 30;
+    if(value < -30) value = -30;
+    config.viewZoffset = value;
   }
 }
 
@@ -150,7 +218,5 @@ bool loadConfigFile(){
     parseConfigLine( line );
   }
   myfile.close();
-  
-  
   return true;
 }

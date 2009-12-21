@@ -10,7 +10,7 @@
 	<variant prof="Woodworker" sex="M" sheetIndex = 250/>
 	<variant prof="Woodcrafter" sex="M" sheetIndex = 250/>
 	<variant prof="Bowyer" sex="M" sheetIndex = 250/>
-	<variant prof="Animal caretaker" sex="M" sheetIndex = 252/>
+	<variant prof="Animal Caretaker" sex="M" sheetIndex = 252/>
 	<variant prof="Ranger" sex="M" sheetIndex = 252/>
 	<variant prof="Trapper" sex="M" sheetIndex = 252/>
 	<variant prof="Hunter" sex="M" sheetIndex = 252/>
@@ -51,7 +51,7 @@
 	<variant prof="Woodworker" sex="F" sheetIndex = 251/>
 	<variant prof="Woodcrafter" sex="F" sheetIndex = 251/>
 	<variant prof="Bowyer" sex="F" sheetIndex = 251/>
-	<variant prof="Animal caretaker" sex="F" sheetIndex = 253/>
+	<variant prof="Animal Caretaker" sex="F" sheetIndex = 253/>
 	<variant prof="Ranger" sex="F" sheetIndex = 253/>
 	<variant prof="Trapper" sex="F" sheetIndex = 253/>
 	<variant prof="Hunter" sex="F" sheetIndex = 253/>

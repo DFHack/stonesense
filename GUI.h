@@ -36,7 +36,6 @@ extern int MiniMapSegmentHeight;
 extern double oneBlockInPixels;
 
 
-extern BITMAP* IMGFloorSheet; 
 extern BITMAP* IMGObjectSheet; 
 extern BITMAP* IMGCreatureSheet; 
 extern BITMAP* IMGRampSheet;  

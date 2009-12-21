@@ -26,6 +26,7 @@ using namespace DFHack;
 #define null 0
 
 #define INVALID_INDEX -1
+#define UNCONFIGURED_INDEX -2
 
 #define ISOMETRIC
 //#define CAVALIER
@@ -184,4 +185,4 @@ class BuildingConfiguration;
 
 #define FILENAME_BUFFERSIZE 50
 // temp buffers are bigger because they deal with absolute paths
-#define FILENAME_BUFFERSIZE_LOCAL 100
+#define FILENAME_BUFFERSIZE_LOCAL 200

@@ -12,7 +12,13 @@ ContentLoader contentLoader;
 
 
 ContentLoader::ContentLoader(void) { }
-ContentLoader::~ContentLoader(void) { }
+ContentLoader::~ContentLoader(void)
+{ 
+  //flush content on exit
+  flushBuildingConfig(&buildingConfigs);
+  flushTerrainConfig(terrainFloorConfigs);
+  flushTerrainConfig(terrainBlockConfigs);	
+}
 
 
 bool ContentLoader::Load(API& DF){
@@ -71,23 +77,38 @@ bool getLocalFilename(char* buffer, const char* filename, const char* relativeto
 	{
 		buffertest = canonicalize_filename (filetemp, (filename+1), FILENAME_BUFFERSIZE_LOCAL);
 		if (!buffertest || filetemp[FILENAME_BUFFERSIZE_LOCAL-1] != 1)
+		{
+			WriteErr("Failed to build path for: %s\n",filename);
 			return false;
+		}
 	}
 	else
 	{
 		buffertest = replace_filename (filetemp, relativeto, filename, FILENAME_BUFFERSIZE_LOCAL);
 		if (!buffertest || filetemp[FILENAME_BUFFERSIZE_LOCAL-1] != 1)
-			return false;			
+		{
+			WriteErr("Failed to build path for: %s\n",filename);
+			return false;
+		}
 		buffertest = canonicalize_filename (filetemp, filetemp, FILENAME_BUFFERSIZE_LOCAL);
 		if (!buffertest || filetemp[FILENAME_BUFFERSIZE_LOCAL-1] != 1)
-			return false;	
+		{
+			WriteErr("Failed to build path for: %s\n",filename);
+			return false;
+		}
 	}
 	buffertest = canonicalize_filename (hometemp,"", FILENAME_BUFFERSIZE_LOCAL);
 	if (!buffertest || hometemp[FILENAME_BUFFERSIZE_LOCAL-1] != 1)
+	{
+		WriteErr("Failed to build path for: %s\n",filename);
 		return false;
+	}
 	buffertest = make_relative_filename (buffer,hometemp,filetemp, FILENAME_BUFFERSIZE);
 	if (!buffertest || buffer[FILENAME_BUFFERSIZE-1] != 1)
+	{
+		WriteErr("Failed to build path for: %s\n",filename);
 		return false;
+	}
 	return true;
 }
 
@@ -175,21 +196,18 @@ bool ContentLoader::parseContentXMLFile( char* filepath ){
     string elementType = elemRoot->Value();
     if( elementType.compare( "building" ) == 0 )
         runningResult &= parseBuildingContent( elemRoot );
-    
-    if( elementType.compare( "creatures" ) == 0 )
+    else if( elementType.compare( "creatures" ) == 0 )
         runningResult &= parseCreatureContent( elemRoot );
-    
-    if( elementType.compare( "floors" ) == 0 )
+    else if( elementType.compare( "floors" ) == 0 )
         runningResult &= parseTerrainContent( elemRoot );
-
-    if( elementType.compare( "blocks" ) == 0 )
+	else if( elementType.compare( "blocks" ) == 0 )
         runningResult &= parseTerrainContent( elemRoot );
-
-    if( elementType.compare( "shrubs" ) == 0 )
+	else if( elementType.compare( "shrubs" ) == 0 )
         runningResult &= parseShrubContent( elemRoot );
-
-    if( elementType.compare( "trees" ) == 0 )
+	else if( elementType.compare( "trees" ) == 0 )
         runningResult &= parseTreeContent( elemRoot );
+    else
+    	contentError("Unrecognised root element",elemRoot);
 
     elemRoot = elemRoot->NextSiblingElement();
   }
@@ -328,6 +346,69 @@ int lookupMaterialIndex(int matType, const char* strValue)
 		return INVALID_INDEX;
 	}
 	return lookupIndexedType(strValue,*typeVector);
+}
+
+const char *lookupMaterialTypeName(int matType)
+{
+	switch (matType)
+	{
+		case Mat_Wood:
+			return "Wood";
+		case Mat_Stone:
+			return "Mineral";
+		case Mat_Metal:
+			return "Metal";
+		case Mat_Plant:
+			return "Bone";
+		case Mat_Leather:
+			return "Leather";
+		case Mat_SilkCloth:
+			return "Silk";
+		case Mat_PlantCloth:
+			return "Plant Cloth";
+		case Mat_GreenGlass:
+			return "Green Glass";
+		case Mat_ClearGlass:
+			return "Clear Glass";
+		case Mat_CrystalGlass:
+			return "Crystal Glass";
+		case Mat_Ice:
+			return "Ice";
+		case Mat_Charcoal:
+			return "Charcoal";
+		case Mat_Soap:
+			return "Soap";
+		default:
+			return NULL;
+	}
+}
+
+const char *lookupMaterialName(int matType,int matIndex)
+{
+	if (matIndex < 0)
+		return NULL;
+	vector<t_matgloss>* typeVector;
+	// for appropriate elements, look up subtype
+	if (matType == Mat_Wood)
+	{
+		typeVector=&(contentLoader.woodNameStrings);
+	}
+	else if (matType == Mat_Stone)
+	{
+		typeVector=&(contentLoader.stoneNameStrings);
+	}
+	else if (matType == Mat_Metal)
+	{
+		typeVector=&(contentLoader.metalNameStrings);
+	}
+	else
+	{
+		//maybe allow some more in later
+		return NULL;
+	}
+	if (matIndex >= typeVector->size())
+		return NULL;
+	return (*typeVector)[matIndex].id;
 }
 
 int loadConfigImgFile(const char* filename, TiXmlElement* referrer)

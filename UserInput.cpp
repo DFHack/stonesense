@@ -111,8 +111,9 @@ void doKeys(){
       int diffy = blocky - config.segmentSize.y/2;
       /*we use changeRelativeToRotation directly, and not through moveViewRelativeToRotation 
       because we don't want to move the offset with the mouse. It just feels weird. */
-      changeRelativeToRotation(DisplayedSegmentX, DisplayedSegmentY, diffx+5, diffy+5 );
-      //moveViewRelativeToRotation(diffx+5, diffy+5); // for whatever reason, the +5 makes it be centered, someone should check this works correctly in other resolutions than 800x600
+      // changing to +1,+1 which moves the clicked point to one of the 4 surrounding the center of rotation
+      changeRelativeToRotation(DisplayedSegmentX, DisplayedSegmentY, diffx+1, diffy+1 );
+      //moveViewRelativeToRotation(diffx+1, diffy+1);
       timeToReloadSegment = true;
       //rest(50);
     }

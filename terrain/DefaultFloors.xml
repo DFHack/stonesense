@@ -199,7 +199,6 @@
 	<terrain value="379"/>
 
 	<terrain value="380"/>
-	<!--<terrain value="381"/>-->
 	<terrain value="387"/>
 	<terrain value="388"/>
 	<terrain value="389"/>
@@ -319,6 +318,29 @@
 	<terrain value="517"/>
 	<terrain value="518"/>
 
+</floor>
+
+<!-- explicitly blank brook top, downward stairs -->
+<floor sprite = -1>
+	<terrain value="381"/>
+	<terrain value="25"/>
+	<terrain value="26"/>
+	<terrain value="36"/>
+	<terrain value="37"/>
+	<terrain value="39"/>
+	<terrain value="40"/>	
+	<terrain value="49"/>	
+	<terrain value="50"/>	
+	<terrain value="52"/>	
+	<terrain value="53"/>	
+	<terrain value="55"/>	
+	<terrain value="56"/>	
+	<terrain value="58"/>	
+	<terrain value="59"/>	
+	<terrain value="61"/>	
+	<terrain value="62"/>	
+	<terrain value="515"/>	
+	<terrain value="516"/>	
 </floor>
 
 </floors>

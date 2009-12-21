@@ -85,6 +85,8 @@ void ReadCreaturesToSegment(API& DF, WorldSegment* segment)
 				b->x = tempcreature->x;
 				b->y = tempcreature->y;
 				b->z = tempcreature->z;
+				// fake block occupancy where needed. This is starting to get hacky...
+				b->occ.bits.unit=1;
 				segment->addBlock( b );
 			}
 			if (!b->creature)
@@ -141,8 +143,9 @@ CreatureConfiguration *GetCreatureConfig( t_creature* c ){
     bool creatureMatchesSpecial = true;
     if (testConfig->special != eCSC_Any)
     {
-	 	if (c->flags1.bits.zombie && (testConfig->special != eCSC_Zombie)) creatureMatchesSpecial = false;
-	 	if (c->flags1.bits.skeleton && (testConfig->special != eCSC_Skeleton)) creatureMatchesSpecial = false;
+	 	if (testConfig->special == eCSC_Zombie && !c->flags1.bits.zombie) creatureMatchesSpecial = false;
+	 	if (testConfig->special == eCSC_Skeleton && !c->flags1.bits.skeleton) creatureMatchesSpecial = false;
+	 	if (testConfig->special == eCSC_Normal && (c->flags1.bits.zombie || c->flags1.bits.skeleton)) creatureMatchesSpecial = false;
     }
 	if(!creatureMatchesSpecial) continue;
     	
