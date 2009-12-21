@@ -48,11 +48,17 @@ Follow DF window is on when Stonesense launches. (Toggle with 'f')
 Shows creatures names floating above their sprites. (Toggle with 'n')
 [SHOW_CREATURE_NAMES:YES]
 
+Shows building graphics for zones. (Toggle with 'i')
+[SHOW_ZONES:NO]
+
+Shows building graphics for stockpiles. (Toggle with 'u')
+[SHOW_STOCKPILES:NO]
+
 Fog color, and alpha at the bottom z-level. setting the alpha to 0 disables fog, for a slight performance increase.
 [FOG_RED:95]
 [FOG_GREEN:95]
 [FOG_BLUE:160]
-[FOG_ALPHA:128]
+[FOG_ALPHA:0]
 
 Background color. setting this the same as teh fog color produces a nice effect.
 [BACK_RED:95]
@@ -62,15 +68,14 @@ Background color. setting this the same as teh fog color produces a nice effect.
 Enables or disables the entire on-screen-display overlay (Toggle with F2)
 [SHOW_OSD:YES]
 
+Sets an initial x/y/z offset for follow mode
+[FOLLOW_OFFSET_X:0]
+[FOLLOW_OFFSET_Y:0]
+[FOLLOW_OFFSET_Z:0]
+
 Shows all creatures, for debugging. Living, dead, kidnapped, caged, EVERY single one.
 [ALLCREATURES:NO]
 
 Adds more logging information to what is written to stonesense.log. May be useful
 if trying having issues with sprite configuration tweaking.
 [VERBOSE_LOGGING:NO]
-
-[SHOW_ZONES:YES]
-[SHOW_STOCKPILES:YES]
-[FOLLOW_OFFSET_X:1]
-[FOLLOW_OFFSET_Y:2]
-[FOLLOW_OFFSET_Z:-1]
