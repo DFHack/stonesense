@@ -138,7 +138,7 @@
         <Profession can_assign_labors="false" is_military="true" name="Bowdwarf">99</Profession>
         <Profession can_assign_labors="false" is_military="true" name="Elite Bowdwarf">100</Profession>
         <Profession can_assign_labors="false" is_military="true" name="Blowgunner">101</Profession>
-        <Profession can_assign_labors="false" is_military="true" name="Elite Bowgunner">102</Profession>
+        <Profession can_assign_labors="false" is_military="true" name="Elite Blowgunner">102</Profession>
         <Profession can_assign_labors="true" is_military="true" name="Recruit">103</Profession>
         <Profession can_assign_labors="false" is_military="false" name="?Hunting creature?">104</Profession>
         <Profession name= "?War creature?" can_assign_labors="false" is_military="false">105</Profession>
