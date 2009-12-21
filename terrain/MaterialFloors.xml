@@ -281,9 +281,11 @@
     <!-- Wet Soil floors -->
     <terrain value = 357/>   
     <material value="Stone">
-        <subtype value="CLAY" />
+      <subtype value="CLAY" />
 	    <subtype value="SILTY_CLAY" />
     	<subtype value="CLAY_LOAM" />
+			<subtype value="PELAGIC_CLAY"/>
+			<subtype value="SANDY_CLAY"/>
     </material>
 </floor>
 <floor sprite = 24>
@@ -292,9 +294,11 @@
     <!-- Wet Soil floors -->
     <terrain value = 359/>   
     <material value="Stone">
-        <subtype value="CLAY" />
-        <subtype value="SILTY_CLAY" />
-        <subtype value="CLAY_LOAM" />
+      <subtype value="CLAY" />
+	    <subtype value="SILTY_CLAY" />
+    	<subtype value="CLAY_LOAM" />
+			<subtype value="PELAGIC_CLAY"/>
+			<subtype value="SANDY_CLAY"/>
     </material>
 </floor>
 <floor sprite = 25>
@@ -303,9 +307,11 @@
     <!-- Wet Soil floors -->
     <terrain value = 358/>   
     <material value="Stone">
-        <subtype value="CLAY" />
-        <subtype value="SILTY_CLAY" />
-        <subtype value="CLAY_LOAM" />
+      <subtype value="CLAY" />
+	    <subtype value="SILTY_CLAY" />
+    	<subtype value="CLAY_LOAM" />
+			<subtype value="PELAGIC_CLAY"/>
+			<subtype value="SANDY_CLAY"/>
     </material>
 </floor>
 
@@ -315,9 +321,11 @@
     <!-- Wet Soil floors -->
     <terrain value = 356/>
     <material value="Stone">
-        <subtype value="CLAY" />
-        <subtype value="SILTY_CLAY" />
-        <subtype value="CLAY_LOAM" />
+      <subtype value="CLAY" />
+	    <subtype value="SILTY_CLAY" />
+    	<subtype value="CLAY_LOAM" />
+			<subtype value="PELAGIC_CLAY"/>
+			<subtype value="SANDY_CLAY"/>
     </material>
 </floor>
 
