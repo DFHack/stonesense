@@ -1,5 +1,17 @@
-----==== 'Granite' Dec 17th 2009 ====----
-
+----==== 'Granite', Dec 17th 2009 ====----
+* Unified content configuration system
+* All terrain sprites configurable by type and material
+* Vegetation fully configurable
+* All sprite configs can load alternative image files
+* All sprite configs can be loaded from multiple xml files
+* More options for creature configuration, including animations
+* Tweaks to allow directory based drop-in spritepacks
+* Drop down shadows for creatures
+* More bugfixes
+* Better handling for tiles at top of map.
+* Logo added
+* Ramp selection algorithm improved
+* Config for initial state of some on-the-fly toggleable settings
 
 ----==== Alpha release 4, Nov 23rd 2009 ====----
 * Display can be rotated in 90 degree increments
