@@ -21,7 +21,7 @@ Change this to off to skip the intro.
 Lifts the segment up to the top off the screen, equivalent to a given
 number of z levels.
 Use this with a large segment size to get blocks covering the entire screen.
-[LIFTSEGMENT:0]
+[LIFTSEGMENT:7]
 
 This value, in milliseconds, is how long Stonesense waits between
 reloading the map. If zero, the autoreload will be disabled until

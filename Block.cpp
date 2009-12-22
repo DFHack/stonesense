@@ -99,20 +99,26 @@ void Block::Draw(BITMAP* target){
 	    
 	    //if floor is muddy, override regular floor
 	    if( occ.bits.mud && water.index == 0)
-	    {
+			{
 	      sprite.sheetIndex = SPRITEFLOOR_WATERFLOOR;
 	      sprite.fileIndex = INVALID_INDEX;
-		}
-		
-		if (sprite.sheetIndex == UNCONFIGURED_INDEX)
-		{
-	      sprite.sheetIndex = SPRITEOBJECT_FLOOR_NA;
+			}
+			//if floor is snowed down, override  regular floor
+			if( occ.bits.snow )
+			{
+				sprite.sheetIndex = SPRITEFLOOR_SNOW;
 	      sprite.fileIndex = INVALID_INDEX;
-		}
+			}
+		
+			if (sprite.sheetIndex == UNCONFIGURED_INDEX)
+			{
+					sprite.sheetIndex = SPRITEOBJECT_FLOOR_NA;
+					sprite.fileIndex = INVALID_INDEX;
+			}
 	
-    	sheetOffsetX = TILEWIDTH * (sprite.sheetIndex % SHEET_OBJECTSWIDE);
-    	sheetOffsetY = (TILEHEIGHT + FLOORHEIGHT) * (sprite.sheetIndex / SHEET_OBJECTSWIDE);
-		masked_blit(imageSheet(sprite,IMGObjectSheet), target, sheetOffsetX,sheetOffsetY, drawx,drawy, TILEWIDTH,TILEHEIGHT + FLOORHEIGHT);
+   		sheetOffsetX = TILEWIDTH * (sprite.sheetIndex % SHEET_OBJECTSWIDE);
+   		sheetOffsetY = (TILEHEIGHT + FLOORHEIGHT) * (sprite.sheetIndex / SHEET_OBJECTSWIDE);
+			masked_blit(imageSheet(sprite,IMGObjectSheet), target, sheetOffsetX,sheetOffsetY, drawx,drawy, TILEWIDTH,TILEHEIGHT + FLOORHEIGHT);
 	}
 
     //Northern frame

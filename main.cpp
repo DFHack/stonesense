@@ -190,12 +190,12 @@ int main(void)
 		textprintf_centre(screen, font, config.screenWidth/2, 80, 0xffffff, "Programming, Jonas Ask and Kris Parker");
 		textprintf_centre(screen, font, config.screenWidth/2, 90, 0xffffff, "Lead graphics designer, Dale Holdampf");
 		
-		textprintf_centre(screen, font, config.screenWidth/2, config.screenHeight-130, 0xffffff, "Contributors:");
-		textprintf_centre(screen, font, config.screenWidth/2, config.screenHeight-120, 0xffffff, "7¢ Nickel, Belal, DeKaFu, Dante, Deon, dyze, Errol, fifth angel,");
-		textprintf_centre(screen, font, config.screenWidth/2, config.screenHeight-110, 0xffffff, "frumpton, IDreamOfGiniCoeff, Impaler, Japa, jarathor, ");
-		textprintf_centre(screen, font, config.screenWidth/2, config.screenHeight-100, 0xffffff, "Jiri Petru, Lord Nightmare, McMe, Mike Mayday, Nexii ");
-		textprintf_centre(screen, font, config.screenWidth/2, config.screenHeight-90, 0xffffff, "Malthus, peterix, Seuss, Talvara, winner, and Xandrin.");
-
+		textprintf_centre(screen, font, config.screenWidth/2, config.screenHeight-140, 0xffffff, "Contributors:");
+		textprintf_centre(screen, font, config.screenWidth/2, config.screenHeight-130, 0xffffff, "7¢ Nickel, BatCountry, Beefmo, Belal, DeKaFu, Dante, Deon,");
+		textprintf_centre(screen, font, config.screenWidth/2, config.screenHeight-120, 0xffffff, "dyze, Errol, fifth angel, frumpton, IDreamOfGiniCoeff,");
+		textprintf_centre(screen, font, config.screenWidth/2, config.screenHeight-110, 0xffffff, "Impaler, Japa, jarathor, Jiri Petru, Lord Nightmare,");
+		textprintf_centre(screen, font, config.screenWidth/2, config.screenHeight-100, 0xffffff, "McMe, Mike Mayday, Nexii, Malthus, peterix, Seuss,");
+		textprintf_centre(screen, font, config.screenWidth/2, config.screenHeight-90, 0xffffff, "Talvara, winner, and Xandrin.");
 		textprintf_centre(screen, font, config.screenWidth/2, config.screenHeight-70, 0xffffff, "With special thanks to peterix for making dfHack");
 
 		//"The program is in a very early alpha, we're only showcasing it to get ideas and feedback, so use it at your own risk."

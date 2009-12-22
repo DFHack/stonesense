@@ -12,6 +12,21 @@
 * Logo added
 * Ramp selection algorithm improved
 * Config for initial state of some on-the-fly toggleable settings
+* Added fogging to lower z-levels
+* Some checks towards preventing nonexistant creatures (eg kidnapees) showing up
+	RC2 Fixes
+* Some sprite glitches fixed
+* Config failure no longer leaves terrain invisible
+* Better config path handling
+* Default vegetaion sprites settable
+* Some GUI glitches due to the extra z-level loading were fixed
+* Stockpiles and Farms are more like their actual shape
+* Undead creatures were not working
+* Added more terrain configs
+* Fixed some glitchy building configs
+* Fixed some glitchy creature configs
+* Added more config options: zones, stockpiles, follow offsets
+* Restored feedback on material types 
 
 ----==== Alpha release 4, Nov 23rd 2009 ====----
 * Display can be rotated in 90 degree increments
