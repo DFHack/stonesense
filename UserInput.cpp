@@ -76,7 +76,7 @@ void doKeys(){
 			    config.viewZoffset -= stepsize;
             else
 			    DisplayedSegmentZ -= stepsize;
-   		    if(DisplayedSegmentZ<0) DisplayedSegmentZ = 0;
+   		    if(DisplayedSegmentZ<1) DisplayedSegmentZ = 1;
         }
         timeToReloadSegment = true;
         last_mouse_z = mouse_z;
