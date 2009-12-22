@@ -14,6 +14,7 @@
 * Config for initial state of some on-the-fly toggleable settings
 * Added fogging to lower z-levels
 * Some checks towards preventing nonexistant creatures (eg kidnapees) showing up
+* Added more sprites
 	RC2 Fixes
 * Some sprite glitches fixed
 * Config failure no longer leaves terrain invisible
