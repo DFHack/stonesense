@@ -7,6 +7,7 @@ enum enumFloorSprites{
   SPRITEOBJECT_FLOOR_NA = 3,
   SPRITEFLOOR_CUTOFF = 4,
   SPRITEFLOOR_WATERFLOOR = 5,
+	SPRITEFLOOR_SNOW = 6,
 };
 
 enum enumObjectSprites{
