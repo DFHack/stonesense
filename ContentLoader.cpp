@@ -18,6 +18,7 @@ ContentLoader::~ContentLoader(void)
   flushBuildingConfig(&buildingConfigs);
   flushTerrainConfig(terrainFloorConfigs);
   flushTerrainConfig(terrainBlockConfigs);	
+  flushCreatureConfig();
 }
 
 
@@ -221,7 +222,7 @@ bool ContentLoader::parseBuildingContent(TiXmlElement* elemRoot ){
 }
 
 bool ContentLoader::parseCreatureContent(TiXmlElement* elemRoot ){
-  return addCreaturesConfig( elemRoot, &creatureConfigs );
+  return addCreaturesConfig( elemRoot, creatureConfigs );
 }
 
 bool ContentLoader::parseShrubContent(TiXmlElement* elemRoot ){
@@ -421,4 +422,20 @@ int loadConfigImgFile(const char* filename, TiXmlElement* referrer)
 		return -1;
 	}
 	return loadImgFile(configfilepath);
+}
+
+void ContentLoader::flushCreatureConfig()
+{
+	uint32_t num = (uint32_t)creatureConfigs.size();
+	for ( int i = 0 ; i < num; i++ )
+	{
+		if (creatureConfigs[i])
+			delete creatureConfigs[i];
+	}
+	// make big enough to hold all creatures
+	creatureConfigs.clear();
+	if (num <= creatureNameStrings.size())
+	{
+		creatureConfigs.resize(creatureNameStrings.size()+1,NULL);
+	}
 }

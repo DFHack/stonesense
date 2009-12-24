@@ -118,51 +118,64 @@ void ReadCreaturesToSegment(API& DF, WorldSegment* segment)
 
 
 CreatureConfiguration *GetCreatureConfig( t_creature* c ){
-  uint32_t num = (uint32_t)contentLoader.creatureConfigs.size();
-  int offsetAnimFrame = (currentAnimationFrame + c->id) % MAX_ANIMFRAME;
-  for(uint32_t i=0; i < num; i++){
-	CreatureConfiguration *testConfig = &(contentLoader.creatureConfigs[i]);
-    //TODO: Optimize. make a table lookup instead of a search
-    if( c->type != testConfig->gameID )
-      continue;
-         
-    bool creatureMatchesJob = true;
-    if( testConfig->professionID != INVALID_INDEX ){
-      creatureMatchesJob = testConfig->professionID == c->profession;
-    }
-    if(!creatureMatchesJob) continue;
-    
-    bool creatureMatchesSex = true;
-    if( testConfig->sex != eCreatureSex_NA ){
-      creatureMatchesSex = 
-        (c->sex == 0 &&  testConfig->sex == eCreatureSex_Female) ||
-        (c->sex == 1 &&  testConfig->sex == eCreatureSex_Male);
-    }
-    if(!creatureMatchesSex) continue;
-
-    bool creatureMatchesSpecial = true;
-    if (testConfig->special != eCSC_Any)
-    {
-	 	if (testConfig->special == eCSC_Zombie && !c->flags1.bits.zombie) creatureMatchesSpecial = false;
-	 	if (testConfig->special == eCSC_Skeleton && !c->flags1.bits.skeleton) creatureMatchesSpecial = false;
-	 	if (testConfig->special == eCSC_Normal && (c->flags1.bits.zombie || c->flags1.bits.skeleton)) creatureMatchesSpecial = false;
-    }
-	if(!creatureMatchesSpecial) continue;
-    	
-	if (!(testConfig->sprite.animFrames & (1 << offsetAnimFrame)))
-		continue;
-
+	//find list for creature type
+	vector<CreatureConfiguration>* creatureData;
+	uint32_t num = (uint32_t)contentLoader.creatureConfigs.size();
+	if (c->type >= num)
+	{
+		return NULL;	
+	}
+	creatureData = contentLoader.creatureConfigs[c->type];
+	if (creatureData == NULL)
+	{
+		return NULL;
+	}
+	
+	//search list for given creature variant
+	int offsetAnimFrame = (currentAnimationFrame + c->id) % MAX_ANIMFRAME;
+	num = (uint32_t)creatureData->size();
+	for(uint32_t i=0; i < num; i++)
+	{
+		CreatureConfiguration *testConfig = &((*creatureData)[i]);
+		     
+		bool creatureMatchesJob = true;
+		if( testConfig->professionID != INVALID_INDEX )
+		{
+			creatureMatchesJob = testConfig->professionID == c->profession;
+		}
+		if(!creatureMatchesJob) continue;
 		
-
-	// dont try to match strings until other tests pass
-    if( testConfig->professionstr[0]){ //cant be NULL, so check has length
-      creatureMatchesJob = (strcmp(testConfig->professionstr,c->custom_profession)==0);
-    }
-	if(!creatureMatchesJob) continue;
+		bool creatureMatchesSex = true;
+		if( testConfig->sex != eCreatureSex_NA )
+		{
+			creatureMatchesSex = 
+				(c->sex == 0 &&  testConfig->sex == eCreatureSex_Female) ||
+				(c->sex == 1 &&  testConfig->sex == eCreatureSex_Male);
+		}
+		if(!creatureMatchesSex) continue;
 		
-    return testConfig;
-  }
-  return NULL;
+		bool creatureMatchesSpecial = true;
+		if (testConfig->special != eCSC_Any)
+		{
+		 	if (testConfig->special == eCSC_Zombie && !c->flags1.bits.zombie) creatureMatchesSpecial = false;
+		 	if (testConfig->special == eCSC_Skeleton && !c->flags1.bits.skeleton) creatureMatchesSpecial = false;
+		 	if (testConfig->special == eCSC_Normal && (c->flags1.bits.zombie || c->flags1.bits.skeleton)) creatureMatchesSpecial = false;
+		}
+		if(!creatureMatchesSpecial) continue;
+			
+		if (!(testConfig->sprite.animFrames & (1 << offsetAnimFrame)))
+			continue;
+		
+		// dont try to match strings until other tests pass
+		if( testConfig->professionstr[0])
+		{ //cant be NULL, so check has length
+			creatureMatchesJob = (strcmp(testConfig->professionstr,c->custom_profession)==0);
+		}
+		if(!creatureMatchesJob) continue;
+			
+		return testConfig;
+	}
+	return NULL;
 }
 
 

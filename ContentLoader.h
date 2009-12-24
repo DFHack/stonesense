@@ -14,6 +14,7 @@ private:
   bool parseTerrainContent ( TiXmlElement* elemRoot );
   bool parseTreeContent( TiXmlElement* elemRoot );
   bool parseShrubContent( TiXmlElement* elemRoot );
+  void flushCreatureConfig();
 
   bool translationComplete;
 public:
@@ -23,7 +24,7 @@ public:
   bool Load(API& DF);
   
   vector<BuildingConfiguration> buildingConfigs;
-  vector<CreatureConfiguration> creatureConfigs;
+  vector<vector<CreatureConfiguration>*> creatureConfigs;
   vector<VegetationConfiguration> treeConfigs;
   vector<VegetationConfiguration> shrubConfigs;
   vector<TerrainConfiguration*> terrainFloorConfigs;
@@ -49,3 +50,4 @@ int lookupMaterialIndex(int matType, const char* strValue);
 int lookupIndexedType(const char* indexName, vector<t_matgloss>& typeVector);
 const char *lookupMaterialTypeName(int matType);
 const char *lookupMaterialName(int matType,int matIndex);
+

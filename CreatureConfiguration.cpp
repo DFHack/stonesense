@@ -8,11 +8,10 @@
 #include "dfhack/library/tinyxml/tinyxml.h"
 
 
-CreatureConfiguration::CreatureConfiguration(int gameID, int professionID, const char* professionStr, enumCreatureSex sex, enumCreatureSpecialCases special, t_SpriteWithOffset &sprite, int shadow)
+CreatureConfiguration::CreatureConfiguration(int professionID, const char* professionStr, enumCreatureSex sex, enumCreatureSpecialCases special, t_SpriteWithOffset &sprite, int shadow)
 {
   memset(this, 0, sizeof(CreatureConfiguration) );
   this->sprite = sprite;
-  this->gameID = gameID;
   this->professionID = professionID;
   this->sex = sex;
   this->shadow = shadow;
@@ -67,7 +66,29 @@ int translateProfession(const char* currentProf)
 	return INT_MAX; //if it is left at INVALID_INDEX, the condition is ignored entierly.
 }
 
-bool addSingleCreatureConfig( TiXmlElement* elemCreature, vector<CreatureConfiguration>* knownCreatures, int basefile ){
+void pushCreatureConfig( vector<vector<CreatureConfiguration>*>& knownCreatures, int gameID, CreatureConfiguration& cre)
+{
+	vector<CreatureConfiguration>* creatureList;
+	if (knownCreatures.size() <= gameID)
+	{
+		//resize using hint from creature name list
+		int newsize = gameID +1;
+		if (newsize <= contentLoader.creatureNameStrings.size())
+		{
+			newsize = contentLoader.creatureNameStrings.size() + 1;
+		}
+		knownCreatures.resize(newsize);
+	}
+	creatureList = knownCreatures[gameID];
+	if (creatureList == NULL)
+	{
+		creatureList = new vector<CreatureConfiguration>();
+		knownCreatures[gameID]=creatureList;
+	}
+	creatureList->push_back(cre);
+}
+
+bool addSingleCreatureConfig( TiXmlElement* elemCreature, vector<vector<CreatureConfiguration>*>& knownCreatures, int basefile ){
   int gameID = lookupIndexedType(elemCreature->Attribute("gameID"),contentLoader.creatureNameStrings);
   if (gameID == INVALID_INDEX)
   	return false;
@@ -141,9 +162,9 @@ bool addSingleCreatureConfig( TiXmlElement* elemCreature, vector<CreatureConfigu
 		    
     //create profession config
     sprite.sheetIndex=atoi(sheetIndexStr);
-    CreatureConfiguration cre( gameID, professionID, customStr , cresex, crespec, sprite, shadow);
+    CreatureConfiguration cre( professionID, customStr , cresex, crespec, sprite, shadow);
     //add a copy to known creatures
-    knownCreatures->push_back( cre );
+    pushCreatureConfig(knownCreatures, gameID, cre);
 
     elemVariant = elemVariant->NextSiblingElement("variant");
   }
@@ -155,14 +176,14 @@ bool addSingleCreatureConfig( TiXmlElement* elemCreature, vector<CreatureConfigu
   if (sheetIndexStr)
   {
 	sprite.sheetIndex = atoi( sheetIndexStr );
-    CreatureConfiguration cre( gameID, INVALID_INDEX, NULL, eCreatureSex_NA, eCSC_Any, sprite, baseShadow);
+    CreatureConfiguration cre( INVALID_INDEX, NULL, eCreatureSex_NA, eCSC_Any, sprite, baseShadow);
   	//add a copy to known creatures
-    knownCreatures->push_back( cre );
+    pushCreatureConfig(knownCreatures, gameID, cre);
   }
   return true;
 }
 
-bool addCreaturesConfig( TiXmlElement* elemRoot, vector<CreatureConfiguration>* knownCreatures ){
+bool addCreaturesConfig( TiXmlElement* elemRoot, vector<vector<CreatureConfiguration>*>& knownCreatures ){
   int basefile = -1;
   const char* filename = elemRoot->Attribute("file");
   if (filename != NULL && filename[0] != 0)

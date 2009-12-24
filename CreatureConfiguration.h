@@ -14,7 +14,6 @@ enum enumCreatureSpecialCases{
 class CreatureConfiguration
 {
 public:
-  int gameID;
   char professionstr[CREATURESTRLENGTH];
   int professionID;
   t_SpriteWithOffset sprite;
@@ -23,9 +22,9 @@ public:
   enumCreatureSex sex;
 
   CreatureConfiguration(){}
-  CreatureConfiguration(int gameID, int professionID, const char* professionStr, enumCreatureSex sex, enumCreatureSpecialCases special, t_SpriteWithOffset &sprite, int shadow);
+  CreatureConfiguration(int professionID, const char* professionStr, enumCreatureSex sex, enumCreatureSpecialCases special, t_SpriteWithOffset &sprite, int shadow);
   ~CreatureConfiguration(void);
 };
 
 
-bool addCreaturesConfig( TiXmlElement* elemRoot, vector<CreatureConfiguration>* knownCreatures );
+bool addCreaturesConfig( TiXmlElement* elemRoot, vector<vector<CreatureConfiguration>*>& knownCreatures );
