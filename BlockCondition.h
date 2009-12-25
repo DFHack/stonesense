@@ -61,20 +61,11 @@ class PositionIndexCondition : public BlockCondition
 class MaterialTypeCondition : public BlockCondition
 {
   public:
-  MaterialTypeCondition(const char* strValue);
+  MaterialTypeCondition(const char* strValue, const char* strSubtype);
   ~MaterialTypeCondition(void){};
 
   int value;
-  bool Matches(Block* b);
-};
-
-class MaterialIndexCondition : public BlockCondition
-{
-  public:
-  MaterialIndexCondition(const char* strValue);
-  ~MaterialIndexCondition(void){};
-
-  int value;
+  int subtype;
   bool Matches(Block* b);
 };
 

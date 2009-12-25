@@ -85,46 +85,33 @@ bool PositionIndexCondition::Matches(Block* b)
 
 
 
-MaterialTypeCondition::MaterialTypeCondition(const char* strValue)
+MaterialTypeCondition::MaterialTypeCondition(const char* strValue, const char* strSubtype)
 	: BlockCondition()
 {
 	// is there a better way to handle this?
 	// seems non-extensible
-	value = -1;
-	if( strcmp(strValue, "Wood") == 0)
-      value = Mat_Wood;
-    else if( strcmp(strValue, "Stone") == 0)
-      value = Mat_Stone;
-    else if( strcmp(strValue, "Metal") == 0)
-      value = Mat_Metal;
-    else if( strcmp(strValue, "Leather") == 0)
-      value = Mat_Leather;
-    else if( strcmp(strValue, "Silk") == 0)
-      value = Mat_SilkCloth;
-    else if( strcmp(strValue, "PlantCloth") == 0)
-      value = Mat_PlantCloth;
-    else if( strcmp(strValue, "GreenGlass") == 0)
-      value = Mat_GreenGlass;
-    else if( strcmp(strValue, "ClearGlass") == 0)
-      value = Mat_ClearGlass;
-    else if( strcmp(strValue, "CrystalGlass") == 0)
-      value = Mat_CrystalGlass;
+	subtype = INVALID_INDEX;
+	value = lookupMaterialType(strValue);
+	if (value == INVALID_INDEX)
+		return;
+	if (strSubtype == NULL || strSubtype[0] == 0)
+		return;
+	subtype = lookupMaterialIndex(value, strSubtype);
+	if (subtype == INVALID_INDEX)
+	{
+		WriteErr("Material subtype not found in MaterialTypeCondition: %s\n", strSubtype);
+		//make material never match;
+		value = INVALID_INDEX;
+	}
 }
 
 bool MaterialTypeCondition::Matches(Block* b)
 {
-    return b->building.info.material.type == this->value;
-}
-
-MaterialIndexCondition::MaterialIndexCondition(const char* strValue)
-	: BlockCondition()
-{
-	this->value = atoi( strValue );
-}
-
-bool MaterialIndexCondition::Matches(Block* b)
-{
-    return b->building.info.material.index == this->value;
+    if (b->building.info.material.type != this->value)
+    	return false;
+    if (this->subtype == INVALID_INDEX)
+    	return true;
+    return b->building.info.material.index == this->subtype;
 }
 
 
