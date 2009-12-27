@@ -58,6 +58,12 @@
 	<material value="CrystalGlass"/>
 </block>
 
+<block sprite=6 file="ramps.png">
+	<!-- cons -->
+	<terrain value="518"/>
+	<material value="Wood"/>
+</block>
+
 <!-- stairs -->
 
 <block sprite=162>
