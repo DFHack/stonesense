@@ -17,7 +17,46 @@
 
 <!-- ramps -->
 
-<!-- need moar sprites -->
+<!-- stone -->
+<block sprite=1 file="ramps.png">
+	<!-- stone -->
+	<terrain value="237"/>
+	<!-- obs -->
+	<terrain value="238"/>
+	<!-- feat -->
+	<terrain value="239"/>
+	<!-- vein -->
+	<terrain value="240"/>	
+</block>
+
+<!-- brick -->
+<block sprite=2 file="ramps.png">
+	<!-- cons -->
+	<terrain value="518"/>
+</block>
+
+<block sprite=5 file="ramps.png">
+	<!-- ice -->
+	<terrain value="245"/>
+</block>
+<block sprite=5 file="ramps.png">
+	<!-- ice -->
+	<terrain value="518"/>
+	<material value="Ice"/>
+</block>
+
+<block sprite=4 file="ramps.png">
+	<!-- cons -->
+	<terrain value="518"/>
+	<material value="GreenGlass"/>
+</block>
+
+<block sprite=3 file="ramps.png">
+	<!-- cons -->
+	<terrain value="518"/>
+	<material value="ClearGlass"/>
+	<material value="CrystalGlass"/>
+</block>
 
 <!-- stairs -->
 
