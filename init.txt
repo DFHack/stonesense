@@ -48,6 +48,10 @@ Follow DF window is on when Stonesense launches. (Toggle with 'f')
 Shows creatures names floating above their sprites. (Toggle with 'n')
 [SHOW_CREATURE_NAMES:YES]
 
+Options to control how names are displayed (if SHOW_CREATURE_NAMES is set)
+[NAMES_USE_NICKNAME:YES]
+[NAMES_USE_SPECIES:YES]
+
 Shows building graphics for zones. (Toggle with 'i')
 [SHOW_ZONES:NO]
 

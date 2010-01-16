@@ -29,13 +29,23 @@ void DrawCreature( BITMAP* target, int drawx, int drawy, t_creature* creature ){
   //if(creature->x == 151 && creature->y == 145)
   //  int j = 10;
   if( config.show_creature_names )
-  	/*if (creature->nick_name[0])
+  	if (creature->nick_name[0] && config.names_use_nick)
+  	{
   		textprintf(target, font, drawx, drawy-20, 0xFFffFF, "%s", creature->nick_name );
-  	else */
-  	if (creature->first_name[0])
-    	textprintf(target, font, drawx, drawy-20, 0xFFffFF, "%s", creature->first_name );
-    else
+	}
+  	else if (creature->first_name[0])
+  	{
+	  	char buffer[128];
+	  	strncpy(buffer,creature->first_name,127);
+	  	buffer[127]=0;
+	  	if (buffer[0]>90)
+	  		buffer[0] -= 32;
+    	textprintf(target, font, drawx, drawy-20, 0xFFffFF, "%s", buffer );
+	}
+    else if (config.names_use_species)
+    {
     	textprintf(target, font, drawx, drawy-20, 0xFFffFF, "[%s]", contentLoader.creatureNameStrings.at(creature->type).id);
+	}
     	
   	BITMAP* creatureSheet;
     if (sprite.fileIndex == -1)

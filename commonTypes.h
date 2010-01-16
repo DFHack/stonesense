@@ -29,6 +29,8 @@ typedef struct {
   bool shade_hidden_blocks;
   bool show_hidden_blocks;
   bool show_creature_names;
+  bool names_use_nick;
+  bool names_use_species;
   bool show_all_creatures;
   bool load_ground_materials;
   bool hide_outer_blocks;

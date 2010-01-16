@@ -123,6 +123,14 @@ void parseConfigLine( string line ){
     string result = parseStrFromLine( "SHOW_CREATURE_NAMES", line );
     config.show_creature_names = (result == "YES");
   }
+  if( line.find("NAMES_USE_NICKNAME") != -1){
+    string result = parseStrFromLine( "NAMES_USE_NICKNAME", line );
+    config.names_use_nick = (result == "YES");
+  }
+  if( line.find("NAMES_USE_SPECIES") != -1){
+    string result = parseStrFromLine( "NAMES_USE_SPECIES", line );
+    config.names_use_species = (result == "YES");
+  }
   if( line.find("SHOW_OSD") != -1){
     string result = parseStrFromLine( "SHOW_OSD", line );
     config.show_osd = (result == "YES");
