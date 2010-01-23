@@ -47,17 +47,16 @@ SET(PROJECT_SRCS
 
 (or wait till the compiler process winges about them to help figure out what is missing)
 
-6) Grab a dosprompt and head to stonesense/build
+6) *** You will need to either set up paths to MinGW and CMake in your environment or
+a dos shell for the following steps ***
 
-*** you will probably need absolute paths to the exe's in the following ***
+something like
 
-* and remember to quote your paths if they have spaces *
+set path=c:\Program Files\CMake 2.6\bin;c:\MinGW\bin;%path%
 
-7) run 
-cmake.exe .. -G"MinGW Makefiles" -DCMAKE_BUILD_TYPE:string=Release
+7) Run the build-MinGW32-release.bat batch file
 
-8) run
-mingw32-make.exe
+* If you are running in a dos prompt, you will need to be in the build directory *
 
 
 
@@ -77,6 +76,4 @@ You will also need make, cmake and a g++
 cd stonesense/build
 cmake .. -DCMAKE_BUILD_TYPE:string=Release
 make
-
-
 
