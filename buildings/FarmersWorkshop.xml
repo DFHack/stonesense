@@ -2,7 +2,7 @@
 
 
 
-<building name="Farmers Workshop" gameID="farmers_workshop" file="workshop.png">
+<building name="Farmers Workshop" gameID="building_farmers_workshop" file="workshop.png">
 	<!-- benches block -->
 	<if> 
 		<!-- replace this with position index if required -->

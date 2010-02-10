@@ -2,13 +2,13 @@
 
 
 
-<building name="Wagon" gameID="wagon">
+<building name="Wagon" gameID="building_wagon">
 
 
 	<if>
-		<PositionIndex value=0 />
+		<PositionIndex value="0" />
 		<rotate>
-			<sprite index = 340 />
+			<sprite index="340" />
 			<if><always/><sprite index = 345 /><sprite index = 350 offsetx=-2 offsety=0/></if>
 			<if><always/><sprite index = 348 /><sprite index = 349 offsetx=-9 offsety=-6/><sprite index = 350 offsetx=8 offsety=-6/></if>
 			<sprite index = 343 />

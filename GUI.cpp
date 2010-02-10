@@ -187,9 +187,10 @@ void drawDebugCursorAndInfo(BITMAP* target){
 	  const char* matName = lookupMaterialTypeName(b->building.info.material.type);
 	  const char* subMatName = lookupMaterialName(b->building.info.material.type,b->building.info.material.index);
     textprintf(target, font, 2, config.screenHeight-20-(i--*10), 0xFFFFFF, 
-      "Building: %s(%i) Material: %s%s%s", 
+      "Building: %s(%i,0x%x) Material: %s%s%s", 
       contentLoader.buildingNameStrings.at(b->building.info.type).c_str(),
-      b->building.info.type, matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
+      b->building.info.type, b->building.info.vtable,
+      matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
   }
   //creatures
   if(b->creature != null){

@@ -2,7 +2,7 @@
 
 
 
-<building name="Magma Glass Furnace" gameID="magma_glass_furnace" file="workshop.png">
+<building name="Magma Glass Furnace" gameID="building_magma_glass_furnace" file="workshop.png">
 
 	<!-- benches block -->
 	<if>

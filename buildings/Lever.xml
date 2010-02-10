@@ -2,7 +2,7 @@
 
 
 
-<building name="Lever" gameID="lever">
+<building name="Lever" gameID="building_lever">
 
 		<sprite index = 108 />
 

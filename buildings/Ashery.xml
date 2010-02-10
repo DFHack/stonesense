@@ -2,11 +2,11 @@
 
 
 
-<building name="Ashery" gameID="ashery" file="workshop.png"> 
+<building name="Ashery" gameID="building_ashery" file="workshop.png"> 
 	<!-- benches block -->
 	<if> 
 		<!-- replace this with position index if required -->
-		<BuildingOccupancy value="3" />	
+		<BuildingOccupancy value="3" />
 		<!-- benches -->
 		<include file="wsBenches.xml"/>
 	</if>
@@ -18,21 +18,21 @@
 	<!-- contents -->
 	
 	<if>
-		<PositionIndex value=5 />
-		<sprite index = 171 offsetx=-2 offsety=-1/>
+		<PositionIndex value="5" />
+		<sprite index = "171" offsetx="-2" offsety="-1"/>
 	</if>
 	
 	<if>
 		<BuildingOccupancy value="3" />
 		<if>
-			<PositionIndex value=1 />
-			<sprite index = 266 />
+			<PositionIndex value="1" />
+			<sprite index = "266" />
 		</if>
 		<else>
-			<PositionIndex value=6 />
-			<sprite index = 278 />
+			<PositionIndex value="6" />
+			<sprite index = "278" />
 		</else>
-	</if>		
+	</if>
 	
 	<include file="ws3x3Blueprint.xml"/>
 	<include file="wsLowerBorder.xml"/>	

@@ -2,6 +2,6 @@
 
 
 
-<building name="Armorstand" gameID="armor_stand">
+<building name="Armorstand" gameID="building_armorstand">
 	<sprite index = 80 />
 </building> 

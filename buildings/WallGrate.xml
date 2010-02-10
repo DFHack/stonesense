@@ -2,7 +2,7 @@
 
 
 
-<building name="Grate" gameID="wall_grate"> 
+<building name="Grate" gameID="building_grate_wall"> 
 	<if>
 		<or>
 			<NeighbourWall dir="North" />

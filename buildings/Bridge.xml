@@ -2,7 +2,7 @@
 
 
 
-<building name="Bridge" gameID="bridge" > 
+<building name="Bridge" gameID="building_bridge" > 
 
 	<if>
 		<BuildingOccupancy value="2" />
@@ -20,53 +20,53 @@
 					<NeighbourIdentical dir="West" />
 					<NeighbourIdentical dir="East" />		
 				</or>
-				<sprite index=366 />
+				<sprite index="366" />
 				<if>
 					<not><NeighbourIdentical dir="West" /></not>
-					<sprite index=367 />
+					<sprite index="367" />
 				</if>
 				<if>
 					<not><NeighbourIdentical dir="East" /></not>
-					<sprite index=368 />
+					<sprite index="368" />
 				</if>
 			</if>
 			<else>
-				<sprite index=369 />
+				<sprite index="369" />
 				<if>
 					<not><NeighbourIdentical dir="North" /></not>
-					<sprite index=371 />
+					<sprite index="371" />
 				</if>
 				<if>
 					<not><NeighbourIdentical dir="South" /></not>
-					<sprite index=370 />
+					<sprite index="370" />
 				</if>				
 			</else>
 		</if>
 		<else>
 			<!-- flat -->
-			<sprite index=360 />
+			<sprite index="360" />
 			<if>
 				<not><or>
 					<NeighbourSameBuilding dir="North" />
 					<NeighbourSameBuilding dir="West" />
 				</or></not>
-				<sprite index = 365 />
+				<sprite index = "365" />
 			</if>
 			<else>
 				<not><NeighbourSameBuilding dir="North" /></not>
-				<sprite index = 362 />
+				<sprite index = "362" />
 			</else>
 			<else>
 				<not><NeighbourSameBuilding dir="West" /></not>
-				<sprite index = 361 />
+				<sprite index = "361" />
 			</else>
 			<if>
 				<not><NeighbourSameBuilding dir="South" /></not>
-				<sprite index = 363 />
+				<sprite index = "363" />
 			</if>
 			<if>
 				<not><NeighbourSameBuilding dir="East" /></not>
-				<sprite index = 364 />
+				<sprite index = "364" />
 			</if>	
 		</else>	
 	</else>

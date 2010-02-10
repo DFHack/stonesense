@@ -2,7 +2,7 @@
 
 
 
-<building name="Siege Workshop" gameID="siege_workshop" file="workshop.png">
+<building name="Siege Workshop" gameID="building_siege_workshop" file="workshop.png">
 
 	<!-- benches block -->
 	<if> 

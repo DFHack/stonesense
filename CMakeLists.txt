@@ -126,6 +126,7 @@ ELSE(UNIX)
         include_directories (
 		    ${include_directories}
 		    ${CMAKE_SOURCE_DIR}/allegro-mingw-4.2.2/include
+            ${CMAKE_SOURCE_DIR}/loadpng/libpng/include/
 	    )
 	    LINK_DIRECTORIES(
 		    ${LINK_DIRECTORIES}
@@ -141,11 +142,12 @@ ELSE(UNIX)
         include_directories (
 		    ${include_directories}
 		    ${CMAKE_SOURCE_DIR}/allegro
+            ${CMAKE_SOURCE_DIR}/loadpng/libpng/include
 	    )
 	    LINK_DIRECTORIES(
 		    ${LINK_DIRECTORIES}
 		    ${CMAKE_SOURCE_DIR}/allegro/lib_msvs8
-		    ${CMAKE_SOURCE_DIR}/loadpng/libpng/lib/
+		    ${CMAKE_SOURCE_DIR}/loadpng/libpng/lib
 	    )
     ENDIF(MINGW)
     ADD_EXECUTABLE(stonesense WIN32 ${PROJECT_SRCS} ${PLATFORM_SRC})

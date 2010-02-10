@@ -2,7 +2,7 @@
 
 
 
-<building name="Leatherworks" gameID="leather_works" file="workshop.png">
+<building name="Leatherworks" gameID="building_leather_works" file="workshop.png">
 
 	<!-- benches block -->
 	<if> 

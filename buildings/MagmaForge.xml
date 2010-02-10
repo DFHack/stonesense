@@ -2,7 +2,7 @@
 
 
 
-<building name="Magma Forge" gameID="magma_forge" file="workshop.png">
+<building name="Magma Forge" gameID="building_magma_forge" file="workshop.png">
 
 	<!-- benches block -->
 	<if> 

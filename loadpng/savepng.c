@@ -4,8 +4,8 @@
  * This file is hereby placed in the public domain.
  */
 
-
-#include "libpng/include/png.h"
+#include <png.h>
+//#include "libpng/include/png.h"
 #include <allegro.h>
 #include "loadpng.h"
 

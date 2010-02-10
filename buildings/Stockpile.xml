@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 
-<building name="Stockpile" gameID="stockpile">
+<building name="Stockpile" gameID="building_stockpile">
 	<if>
 		<BuildingOccupancy value="2" />
 		<sprite index = 322 />

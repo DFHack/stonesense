@@ -45,7 +45,7 @@ WoodFurnace.xml
 Forge.xml
 MagmaForge.xml
 Masons.xml
-CraftDwarfs.xml
+Craftdwarfs.xml
 Mechanics.xml
 Butchers.xml
 Loom.xml

@@ -2,6 +2,6 @@
 
 
 
-<building name="Floor Hatch" gameID="floor_hatch">
+<building name="Floor Hatch" gameID="building_hatch">
 	<sprite index = 276 />
 </building> 

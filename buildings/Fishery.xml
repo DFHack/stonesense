@@ -2,7 +2,7 @@
 
 
 
-<building name="Fishery" gameID="fishery" file="workshop.png"> 
+<building name="Fishery" gameID="building_fishery" file="workshop.png"> 
 	<!-- benches block -->
 	<if> 
 		<!-- replace this with position index if required -->
@@ -18,34 +18,34 @@
 	<!-- contents -->
 	
 	<if>
-		<PositionIndex value=2 />
-		<sprite index = 171 offsetx=-2 offsety=-1/>
+		<PositionIndex value="2" />
+		<sprite index = "171" offsetx="-2" offsety="-1"/>
 	</if>
 	
 	<if>
 		<BuildingOccupancy value="3" />
 		<if>
-			<PositionIndex value=0 />
+			<PositionIndex value="0" />
 			<rotate>
-				<sprite index = 173 />
-				<sprite index = 174 />
-				<sprite index = 173 />
-				<sprite index = 174 />
+				<sprite index = "173" />
+				<sprite index = "174" />
+				<sprite index = "173" />
+				<sprite index = "174" />
 			</rotate>
 		</if>		
 		<else>
-			<PositionIndex value=1 />
+			<PositionIndex value="1" />
 			<rotate>
-				<sprite index = 138 />
-				<sprite index = 137 />
-				<sprite index = 138 />
-				<sprite index = 137 />
+				<sprite index = "138" />
+				<sprite index = "137" />
+				<sprite index = "138" />
+				<sprite index = "137" />
 			</rotate>
 		</else>
 		<else>
-			<PositionIndex value=7 />
+			<PositionIndex value="7" />
 			<include file="wsTub.xml" />
-			<sprite index = 154 />
+			<sprite index = "154" />
 		</else>
 	</if>		
 

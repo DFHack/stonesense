@@ -2,7 +2,7 @@
 
 
 
-<building name="Grate" gameID="floor_bars"> 
+<building name="Grate" gameID="building_bars_floor"> 
 
 		<sprite index = 307 />
 

@@ -2,7 +2,7 @@
 
 
 
-<building name="Gear Assembly" gameID="gear_assembly" file="mechanics.png">
+<building name="Gear Assembly" gameID="building_gear_assembly" file="mechanics.png">
 
 	<include file="sBlueprint.xml" />
 

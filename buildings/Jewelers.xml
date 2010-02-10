@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 
 
-<building name="Jewelers Workshop" gameID="jewelers_workshop" file="workshop.png">
+<building name="Jewelers Workshop" gameID="building_jewelers_workshop" file="workshop.png">
 
 	<!-- benches block -->
 	<if> 

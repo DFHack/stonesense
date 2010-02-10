@@ -2,7 +2,7 @@
 
 
 
-<building name="Horizontal Axle" gameID="horizontal_axle" file="mechanics.png">
+<building name="Horizontal Axle" gameID="building_axle_horizontal" file="mechanics.png">
 
 	<include file="sBlueprint.xml" />
 
@@ -26,16 +26,16 @@
 	<!-- look for gears preferentially -->
 	<else>
 		<or>
-			<NeighbourOfType dir="East" value="gear_assembly"/>
-			<NeighbourOfType dir="West" value="gear_assembly"/>
+			<NeighbourOfType dir="East" value="building_gear_assembly"/>
+			<NeighbourOfType dir="West" value="building_gear_assembly"/>
 		</or>
 		<sprite index = 6 frame="024" />
 		<sprite index = 7 frame="135" />
 	</else>
 	<else>
 		<or>
-			<NeighbourOfType dir="North" value="gear_assembly"/>
-			<NeighbourOfType dir="South" value="gear_assembly"/>
+			<NeighbourOfType dir="North" value="building_gear_assembly"/>
+			<NeighbourOfType dir="South" value="building_gear_assembly"/>
 		</or>
 		<sprite index = 4 frame="024" />
 		<sprite index = 5 frame="135" />
@@ -43,14 +43,14 @@
 	<!-- any other hints -->
 	<else>
 		<or>
-			<NeighbourOfType dir="East" value="water_wheel"/>
-			<NeighbourOfType dir="West" value="water_wheel"/>
-			<NeighbourOfType dir="East" value="screw_pump"/>
-			<NeighbourOfType dir="West" value="screw_pump"/>
-			<NeighbourOfType dir="East" value="millstone"/>
-			<NeighbourOfType dir="West" value="millstone"/>
-			<NeighbourOfType dir="East" value="horizontal_axle"/>
-			<NeighbourOfType dir="West" value="horizontal_axle"/>
+			<NeighbourOfType dir="East" value="building_water_wheel"/>
+			<NeighbourOfType dir="West" value="building_water_wheel"/>
+			<NeighbourOfType dir="East" value="building_screw_pump"/>
+			<NeighbourOfType dir="West" value="building_screw_pump"/>
+			<NeighbourOfType dir="East" value="building_millstone"/>
+			<NeighbourOfType dir="West" value="building_millstone"/>
+			<NeighbourOfType dir="East" value="building_axle_horizontal"/>
+			<NeighbourOfType dir="West" value="building_axle_horizontal"/>
 		</or>
 		<sprite index = 6 frame="024" />
 		<sprite index = 7 frame="135" />

@@ -2,7 +2,7 @@
 
 
 
-<building name="Tannery" gameID="tanners_shop" file="workshop.png">
+<building name="Tannery" gameID="building_tanners_shop" file="workshop.png">
 
 	<!-- benches block -->
 	<if> 

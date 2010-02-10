@@ -2,6 +2,6 @@
 
 
 
-<building name="Restraint" gameID="restraint"> 
+<building name="Restraint" gameID="building_chain"> 
 		<sprite index = 107 />
 </building> 

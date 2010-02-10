@@ -2,6 +2,6 @@
 
 
 
-<building name="Statue" gameID="statue"> 
+<building name="Statue" gameID="building_statue"> 
 		<sprite index = 86 />
 </building> 

@@ -2,7 +2,7 @@
 
 
 
-<building name="Floodgate" gameID="floodgate" file="doorsAndWindows.png"> 
+<building name="Floodgate" gameID="building_floodgate" file="doorsAndWindows.png"> 
 
 	<if>
 		<BuildingOccupancy value="2" />

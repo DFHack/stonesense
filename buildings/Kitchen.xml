@@ -2,7 +2,7 @@
 
 
 
-<building name="Kitchen" gameID="kitchen" file="workshop.png"> 
+<building name="Kitchen" gameID="building_kitchen" file="workshop.png"> 
 
 	<if>
 		<and>

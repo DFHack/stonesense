@@ -2,7 +2,7 @@
 
 
 
-<building name="Forge" gameID="metalsmiths_workshop" file="workshop.png"> 
+<building name="Forge" gameID="building_metalsmiths_workshop" file="workshop.png"> 
 
 	<!-- benches block -->
 	<if> 

@@ -2,7 +2,7 @@
 
 
 
-<building name="Pump" gameID="screw_pump" file="mechanics.png">
+<building name="Pump" gameID="building_screw_pump" file="mechanics.png">
 	<include file="sBlueprint.xml" />
 	<else>
 		<BuildingOccupancy value="6" />

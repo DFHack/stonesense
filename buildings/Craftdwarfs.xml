@@ -1,14 +1,11 @@
 <?xml version="1.0" ?>
-
-
-
-<building name="Craftdwarfs Workshop" gameID="craftdwarfs_workshop" file="workshop.png"> 
+<building name="Craftdwarfs Workshop" gameID="building_craftdwarfs_workshop" file="workshop.png"> 
 	<!-- benches block -->
 	<if> 
 		<!-- replace this with position index if required -->
-		<BuildingOccupancy value="3" />	
+		<BuildingOccupancy value="3" />
 		<!-- benches -->
-		<include file="wsBenches.xml"/>	
+		<include file="wsBenches.xml"/>
 	</if>
 	<else>
 		<include file="wsUpperBorder.xml"/>
@@ -18,34 +15,34 @@
 	<!-- contents -->
 	
 	<if>
-		<PositionIndex value=0 />
+		<PositionIndex value="0" />
 		<rotate>
-			<sprite index = 164 offsetx=2 offsety=1/>
-			<sprite index = 165/>
-			<sprite index = 164/>
-			<sprite index = 165/>
+			<sprite index = "164" offsetx="2" offsety="1"/>
+			<sprite index = "165"/>
+			<sprite index = "164"/>
+			<sprite index = "165"/>
 		</rotate>
 	</if>	
 		
 	<else>
-		<PositionIndex value=8 />
-		<sprite index = 170 />
+		<PositionIndex value="8" />
+		<sprite index = "170" />
 	</else>
 	
 	<if>
 		<BuildingOccupancy value="3" />
 		<if>
-			<PositionIndex value=2 />
-			<sprite index = 168 offsetx=2 offsety=-2 />
-			<sprite index = 169 offsetx=-3 offsety=-2 />
+			<PositionIndex value="2" />
+			<sprite index = "168" offsetx="2" offsety="-2" />
+			<sprite index = "169" offsetx="-3" offsety="-2" />
 		</if>
 		<if>
-			<PositionIndex value=3 />
-			<sprite index = 166 offsetx=2 offsety=-2/>
+			<PositionIndex value="3" />
+			<sprite index = "166" offsetx="2" offsety="-2"/>
 		</if>
 		<if>
-			<PositionIndex value=7 />
-			<sprite index = 163 />
+			<PositionIndex value="7" />
+			<sprite index = "163" />
 		</if>
 	</if>	
 	

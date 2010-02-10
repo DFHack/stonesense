@@ -2,16 +2,16 @@
 
 
 
-<building name="Butchers shop" gameID="butchers_shop" file="workshop.png"> 
+<building name="Butchers shop" gameID="building_butchers_shop" file="workshop.png"> 
 	
 	<!-- benches block -->
 	<if> 
 		<!-- replace this with position index if required -->
 		<and>
-			<not><PositionIndex value=3 /></not>
-			<BuildingOccupancy value="3" />	
+			<not><PositionIndex value="3" /></not>
+			<BuildingOccupancy value="3" />
 		</and>
-		<include file="wsBenches.xml"/>	
+		<include file="wsBenches.xml"/>
 	</if>
 	<else>
 		<include file="wsUpperBorder.xml"/>
@@ -21,11 +21,11 @@
 	<!-- contents -->
 	
 	<if>
-		<PositionIndex value=0 />
+		<PositionIndex value="0" />
 		<rotate>
 			<empty/>
-			<sprite index = 136 offsetx=-7 offsety=-4/>
-			<sprite index = 136 offsetx=7 offsety=-4/>
+			<sprite index="136" offsetx="-7" offsety="-4"/>
+			<sprite index="136" offsetx="7" offsety="-4"/>
 			<empty/>
 		</rotate>
 	</if>

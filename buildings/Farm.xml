@@ -2,7 +2,7 @@
 
 
 
-<building name="Farm plot" gameID="farm_plot">
+<building name="Farm plot" gameID="building_farmplot">
 	<if>
 		<BuildingOccupancy value="2" />
 		<sprite index = 106 />

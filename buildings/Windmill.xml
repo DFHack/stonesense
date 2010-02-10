@@ -2,7 +2,7 @@
 
 
 
-<building name="Windmill" gameID="windmill" file="mechanics.png">
+<building name="Windmill" gameID="building_windmill" file="mechanics.png">
 
 	<include file="sBlueprint.xml" />
 	

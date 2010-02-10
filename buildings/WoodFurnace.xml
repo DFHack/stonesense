@@ -2,7 +2,7 @@
 
 
 
-<building name="Wood Furname" gameID="wood_furnace" file="workshop.png"> 
+<building name="Wood Furname" gameID="building_wood_furnace" file="workshop.png"> 
 
 	<!-- benches block -->
 	<if>

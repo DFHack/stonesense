@@ -2,7 +2,7 @@
 
 
 
-<building name="Gem Window" gameID="gem_window">
+<building name="Gem Window" gameID="building_window_gem">
 
 
 	<if>

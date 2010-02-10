@@ -2,6 +2,6 @@
 
 
 
-<building name="Trap" gameID="pressure_plate">
+<building name="Trap" gameID="building_pressure_plate">
 		<sprite index = 355 />
 </building> 

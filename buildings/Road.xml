@@ -2,10 +2,10 @@
 
 
 
-<building name="Paved Road" gameID="paved_road"> 
+<building name="Paved Road" gameID="building_road_paved"> 
 	
 
-		<sprite index = 140 />
+		<sprite index = "140" />
 
 	
 </building> 

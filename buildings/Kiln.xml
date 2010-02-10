@@ -2,7 +2,7 @@
 
 
 
-<building name="Kiln" gameID="kiln" file="workshop.png"> 
+<building name="Kiln" gameID="building_kiln" file="workshop.png"> 
 
 	<!-- benches block -->
 	<if>

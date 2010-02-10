@@ -5,8 +5,8 @@
  */
 
 
-//#include <png.h>
-#include "libpng/include/png.h"
+#include <png.h>
+//#include "libpng/include/png.h"
 #include <allegro.h>
 #include <allegro/internal/aintern.h>
 #include "loadpng.h"

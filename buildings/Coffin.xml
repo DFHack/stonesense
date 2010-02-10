@@ -2,6 +2,6 @@
 
 
 
-<building name="Coffin" gameID="burial_receptacle">
+<building name="Coffin" gameID="building_coffin">
 	<sprite index = 275 />
 </building> 

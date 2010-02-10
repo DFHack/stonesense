@@ -2,34 +2,34 @@
 
 
 
-<building name="Kennels" gameID="kennels" >
+<building name="Kennels" gameID="building_kennels" >
 
 	<include file="wsUpperBorder.xml"/>
 
 	<if>
-		<PositionIndex value=6 />
-		<sprite index = 107 />
+		<PositionIndex value="6" />
+		<sprite index="107" />
 	</if>
 	
 	<else>
 		<and>
-			<PositionIndex value=8 />
+			<PositionIndex value= "8" />
 			<BuildingOccupancy value="2" />
 		</and>
-		<sprite index = 107 />
+		<sprite index = "107" />
 	</else>
 	
 	<else>
 		<and>
-			<PositionIndex value=16 />
+			<PositionIndex value= "16" />
 			<BuildingOccupancy value="2" />
 		</and>
-		<sprite index = 312 />
+		<sprite index = "312" />
 	</else>
 	
 	<else>
-		<PositionIndex value=18 />
-		<sprite index = 107 />
+		<PositionIndex value="18" />
+		<sprite index = "107" />
 	</else>
 
 

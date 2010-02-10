@@ -2,7 +2,7 @@
 
 
 
-<building name="Magma Kiln" gameID="magma_kiln" file="workshop.png"> 
+<building name="Magma Kiln" gameID="building_magma_kiln" file="workshop.png"> 
 
 	<!-- benches block -->
 	<if>

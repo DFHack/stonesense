@@ -2,7 +2,7 @@
 
 
 
-<building name="Table" gameID="table"> 
+<building name="Table" gameID="building_table"> 
 	<if>
 		<MaterialType value="Wood" />
 		<sprite index = 82 />

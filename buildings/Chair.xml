@@ -2,12 +2,12 @@
 
 
 
-<building name="Chair" gameID="seat"> 
+<building name="Chair" gameID="building_chair"> 
 	<if>
 		<MaterialType value="Wood" />
-		<sprite index = 84 />
-	</if>	
+		<sprite index = "84" />
+	</if>
 	<else>
-		<sprite index = 85 />
+		<sprite index = "85" />
 	</else>
 </building> 
