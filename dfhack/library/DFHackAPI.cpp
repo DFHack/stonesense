@@ -1149,11 +1149,23 @@ bool API::isAttached()
 
 bool API::Suspend()
 {
-    return d->p->suspend();
+    if(d->p->suspend())
+    {
+        cerr << "suspended" << endl;
+        return true;
+    }
+    cerr << "suspend failed" << endl;
+    return false;
 }
 bool API::Resume()
 {
-    return d->p->resume();
+    if(d->p->resume())
+    {
+        cerr << "resumed" << endl;
+        return true;
+    }
+        cerr << "resume failed" << endl;
+    return false;
 }
 bool API::ForceResume()
 {

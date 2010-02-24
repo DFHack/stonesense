@@ -205,6 +205,24 @@ void drawDebugCursorAndInfo(BITMAP* target){
     textprintf(target, font, 2, config.screenHeight-20-(i--*10), 0xFFFFFF, 
       "flag1: %s ", strCreature );
   }
+  if(b->designation.bits.dig || b->designation.bits.detail || b->designation.bits.detail_event)
+  {
+    textprintf(target, font, 2, config.screenHeight-20-(i--*10), 0xFFFFFF, 
+               "Designation: %d,%d,%d", b->designation.bits.dig, b->designation.bits.detail, b->designation.bits.detail_event);
+  }
+    if(b->designation.bits.traffic)
+  {
+    textprintf(target, font, 2, config.screenHeight-20-(i--*10), 0xFFFFFF, 
+               "Traffic: %d", b->designation.bits.traffic);
+  }
+    if(b->designation.bits.water_table)
+    {
+        textprintf(target, font, 2, config.screenHeight-20-(i--*10), 0xFFFFFF,"Water table");
+    }
+    if(b->designation.bits.rained)
+    {
+        textprintf(target, font, 2, config.screenHeight-20-(i--*10), 0xFFFFFF,"Rained");
+    }
   //basecon
   //textprintf(target, font, 2, config.screenHeight-20-(i--*10), 0xFFFFFF, 
    //   "base: %d %d %d ", b->basetile, b->basecon.type, b->basecon.index );

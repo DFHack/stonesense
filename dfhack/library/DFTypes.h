@@ -171,7 +171,7 @@ case 24:
     break;
 
 */
-
+/// FIXME: this is BAD!
 enum MatglossType
 {
     Mat_Wood,

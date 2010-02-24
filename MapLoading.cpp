@@ -225,6 +225,7 @@ void ReadCellToSegment(API& DF, WorldSegment& segment, int CellX, int CellY, int
 	  }
     
     b->occ = occupancies[lx][ly];
+    b->designation = designations[lx][ly];
 
     //liquids
 		if(designations[lx][ly].bits.flow_size > 0){

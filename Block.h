@@ -27,6 +27,7 @@ public:
 
 	t_matglossPair ramp;
 	t_matglossPair water;
+    t_designation designation;
     t_occupancy occ;
 	
   t_creature* creature;
