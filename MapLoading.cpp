@@ -252,11 +252,15 @@ void ReadCellToSegment(API& DF, WorldSegment& segment, int CellX, int CellY, int
 		bool isHidden = designations[lx][ly].bits.hidden;
     //option for including hidden blocks
     isHidden &= !config.show_hidden_blocks;
-    bool shouldBeIncluded = (!isOpenTerrain(t) && !isHidden) || b->water.index ;
+    bool shouldBeIncluded = (!isOpenTerrain(t) || b->water.index) && !isHidden;
     //include hidden blocks as shaded black 
     if(config.shade_hidden_blocks && isHidden && isBlockOnVisibleEdgeOfSegment(&segment, b))
     {
       b->wallType = 0;
+      b->floorType = 0;
+      b->stairType = 0;
+      b->ramp.type = 0;
+      b->water.index = 0;
       b->building.info.type = BUILDINGTYPE_BLACKBOX;
       t_SpriteWithOffset sprite = {SPRITEOBJECT_BLACK, 0, 0,-1,ALL_FRAMES};
       sprite.y=4;
