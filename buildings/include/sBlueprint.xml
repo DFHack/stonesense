@@ -1,8 +1,0 @@
-<?xml version="1.0" ?>
-
-<include>
-	<if>
-		<BuildingOccupancy value="1" />
-		<sprite file="" index = 321 />
-	</if>	
-</include>

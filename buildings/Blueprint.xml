@@ -1,7 +1,0 @@
-<?xml version="1.0" ?>
-
-
-
-<building name="Construction Blueprint" gameID="building_construction">
-	<sprite index = 321 />
-</building> 

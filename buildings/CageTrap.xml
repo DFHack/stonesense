@@ -1,7 +1,0 @@
-<?xml version="1.0" ?>
-
-
-
-<building name="Trap" gameID="building_cage_trap">
-		<sprite index = 355 />
-</building> 

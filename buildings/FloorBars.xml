@@ -1,9 +1,0 @@
-<?xml version="1.0" ?>
-
-
-
-<building name="Grate" gameID="building_bars_floor"> 
-
-		<sprite index = 307 />
-
-</building> 

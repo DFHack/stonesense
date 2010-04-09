@@ -1,7 +1,0 @@
-<?xml version="1.0" ?>
-
-
-
-<building name="Armorstand" gameID="building_armorstand">
-	<sprite index = 80 />
-</building> 
