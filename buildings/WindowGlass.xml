@@ -1,0 +1,38 @@
+<?xml version="1.0" ?>
+
+
+
+<building name="Glass Window" gameID="building_window_glass">
+
+	<if>
+		<or>
+			<NeighbourSameType dir="North" />
+			<NeighbourSameType dir="South" />
+			<NeighbourWall dir="North" />
+			<NeighbourWall dir="South" />
+		</or>
+		<if>
+			<MaterialType value="GreenGlass"/>
+			<sprite index=63 file = "doorsAndWindows.png"/>
+		</if>
+		<else>
+			<MaterialType value="CrystalGlass"/>
+			<sprite index=65 file = "doorsAndWindows.png"/>
+		</else>
+		<else>
+			<sprite index=61 file = "doorsAndWindows.png"/>
+		</else>
+	</if>
+	<else>
+		<MaterialType value="GreenGlass"/>
+		<sprite index=62 file = "doorsAndWindows.png"/>
+	</else>
+	<else>
+		<MaterialType value="CrystalGlass"/>
+		<sprite index=64 file = "doorsAndWindows.png"/>
+	</else>
+	<else>
+		<sprite index=60 file = "doorsAndWindows.png"/>
+	</else>
+
+</building> 

@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+
+
+
+<building name="Well" gameID="building_well" file="workshop.png">
+
+	<include file="wsBenches.xml"/>
+	<include file="wsTub.xml" />
+	<sprite index = "179" />
+	
+</building> 

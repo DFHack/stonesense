@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+
+
+
+<building name="Support" gameID="building_support">
+	<if>
+		<MaterialType value="Wood" />
+		<sprite index = 95 />
+	</if>
+	<else>
+		<sprite index = 94 />
+	</else>
+</building> 

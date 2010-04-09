@@ -1,0 +1,9 @@
+<?xml version="1.0" ?>
+
+
+
+<building name="Lever" gameID="building_lever">
+
+		<sprite index = 108 />
+
+</building> 

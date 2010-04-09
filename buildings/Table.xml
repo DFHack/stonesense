@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+
+
+
+<building name="Table" gameID="building_table"> 
+	<if>
+		<MaterialType value="Wood" />
+		<sprite index = 82 />
+	</if>
+	<else>
+		<MaterialType value="Metal" />
+		<sprite index = 63 color = material />
+	</else>
+	<else>
+		<sprite index = 83 color = material />
+	</else>
+</building> 

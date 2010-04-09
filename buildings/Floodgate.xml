@@ -1,0 +1,44 @@
+<?xml version="1.0" ?>
+
+
+
+<building name="Floodgate" gameID="building_floodgate" file="doorsAndWindows.png"> 
+
+	<if>
+		<BuildingOccupancy value="2" />
+		<empty/>
+	</if>
+	<else>
+		<or>
+			<NeighbourSameType dir="North" />
+			<NeighbourSameType dir="South" />
+		</or>
+		<if>
+			<MaterialType value="Wood" />
+			<sprite index=3 />
+		</if>
+		<else>
+			<sprite index=1 />
+		</else>
+	</else>
+	<else>
+		<or>
+			<NeighbourWall dir="North" />
+			<NeighbourWall dir="South" />
+		</or>
+		<if>
+			<MaterialType value="Wood" />
+			<sprite index=3 />
+		</if>
+		<else>
+			<sprite index=1 />
+		</else>
+	</else>
+	<else>
+		<MaterialType value="Wood" />
+		<sprite index = 2 />
+	</else>
+	<else>
+		<sprite index = 0 />
+	</else>
+</building> 

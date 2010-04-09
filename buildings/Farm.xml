@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+
+
+
+<building name="Farm plot" gameID="building_farmplot">
+	<if>
+		<BuildingOccupancy value="2" />
+		<sprite index = 106 />
+	</if>
+	<else>
+		<BuildingOccupancy value="1" />
+		<sprite index = 321 />
+	</else>
+	<else>
+		<empty/>
+	</else>
+	
+</building> 

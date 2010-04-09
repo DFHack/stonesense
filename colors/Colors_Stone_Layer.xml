@@ -1,0 +1,161 @@
+<?xml version="1.0" ?>
+
+<colors> 
+	<color red = 172 green = 129 blue = 112 >
+		<material value="Stone">
+			<subtype value="SANDSTONE" />
+		</material>
+	</color>
+	
+	<color red = 183 green = 181 blue = 158 >
+		<material value="Stone">
+			<subtype value="SILTSTONE" />
+		</material>
+	</color>
+	
+	<color red = 159 green = 161 blue = 148 >
+		<material value="Stone">
+			<subtype value="MUDSTONE" />
+		</material>
+	</color>
+	
+	<color red = 171 green = 175 blue = 178 >
+		<material value="Stone">
+			<subtype value="SHALE" />
+		</material>
+	</color>
+	
+	<color red = 217 green = 203 blue = 180 >
+		<material value="Stone">
+			<subtype value="CLAYSTONE" />
+		</material>
+	</color>
+	
+	<color red = 145 green = 105 blue = 102 >
+		<material value="Stone">
+			<subtype value="ROCK_SALT" />
+		</material>
+	</color>
+	
+	<color red = 217 green = 201 blue = 185 >
+		<material value="Stone">
+			<subtype value="LIMESTONE" />
+		</material>
+	</color>
+	
+	<color red = 211 green = 201 blue = 166 >
+		<material value="Stone">
+			<subtype value="CONGLOMERATE" />
+		</material>
+	</color>
+	
+	<color red = 238 green = 237 blue = 234 >
+		<material value="Stone">
+			<subtype value="DOLOMITE" />
+		</material>
+	</color>
+	
+	<color red = 154 green = 171 blue = 195 >
+		<material value="Stone">
+			<subtype value="FLINT" />
+		</material>
+	</color>
+	
+	<color red = 138 green = 139 blue = 133 >
+		<material value="Stone">
+			<subtype value="CHERT" />
+		</material>
+	</color>
+	
+	<color red = 255 green = 255 blue = 255 >
+		<material value="Stone">
+			<subtype value="CHALK" />
+		</material>
+	</color>
+	
+	<color red = 161 green =156 blue = 143>
+		<material value="Stone">
+			<subtype value="GRANITE" />
+		</material>
+	</color>
+	
+	<color red = 140 green = 141 blue = 130 >
+		<material value="Stone">
+			<subtype value="DIORITE" />
+		</material>
+	</color>
+	
+	<color red = 108 green = 105 blue = 103 >
+		<material value="Stone">
+			<subtype value="GABBRO" />
+		</material>
+	</color>
+	
+	<color red = 148 green = 135 blue = 134 >
+		<material value="Stone">
+			<subtype value="RHYOLITE" />
+		</material>
+	</color>
+	
+	<color red = 75 green = 64 blue = 68 >
+		<material value="Stone">
+			<subtype value="BASALT" />
+		</material>
+	</color>
+	
+	<color red = 156 green = 147 blue = 137 >
+		<material value="Stone">
+			<subtype value="ANDESITE" />
+		</material>
+	</color>
+	
+	<color red = 198 green = 196 blue = 176>
+		<material value="Stone">
+			<subtype value="FELSITE" />
+		</material>
+	</color>
+	
+	<color red = 32 green = 32 blue = 32>
+		<material value="Stone">
+			<subtype value="OBSIDIAN" />
+		</material>
+	</color>
+	
+	<color red = 125 green = 118 blue = 117 >
+		<material value="Stone">
+			<subtype value="QUARTZITE" />
+		</material>
+	</color>
+	
+	<color red = 149 green = 179 blue = 198 >
+		<material value="Stone">
+			<subtype value="SLATE" />
+		</material>
+	</color>
+	
+	<color red = 165 green = 171 blue = 159 >
+		<material value="Stone">
+			<subtype value="PHYLLITE" />
+		</material>
+	</color>
+	
+	<color red = 171 green = 119 blue = 77 >
+		<material value="Stone">
+			<subtype value="SCHIST" />
+		</material>
+	</color>
+	
+	<color red = 184 green = 188 blue = 185 >
+		<material value="Stone">
+			<subtype value="GNEISS" />
+		</material>
+	</color>
+	
+	<color red = 255 green = 255 blue = 255 >
+		<material value="Stone">
+			<subtype value="MARBLE" />
+		</material>
+	</color>
+</colors>
+
+

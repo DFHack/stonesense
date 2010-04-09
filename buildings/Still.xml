@@ -1,0 +1,53 @@
+<?xml version="1.0" ?>
+
+
+
+<building name="Still" gameID="building_still" file="workshop.png">
+
+	<include file="wsUpperBorder.xml"/>
+
+	<if>
+		<PositionIndex value=0 />
+		<rotate>
+			<sprite index = 207 />
+			<sprite index = 206 />
+			<sprite index = 205 />
+			<sprite index = 204 />
+		</rotate>
+		<sprite index = 200 />
+	</if>
+	
+	<if>
+		<PositionIndex value=1 />
+		<sprite index = 201 />
+		<rotate>
+			<sprite index = 209 />
+			<sprite index = 208 />
+			<sprite index = 211 />
+			<sprite index = 210 />
+		</rotate>
+	</if>
+	
+	<if>
+		<PositionIndex value=8 />
+		<sprite index = 202 />
+	</if>	
+	
+	<if>
+		<PositionIndex value=6 />
+		<sprite index = 203 />
+	</if>		
+	
+	<if>
+		<or>
+			<PositionIndex value=5 />
+			<PositionIndex value=2 />
+		</or>
+		<sprite index = 171 />
+	</if>		
+	
+	<if><never/></if>
+	<include file="ws3x3Blueprint.xml"/>
+	<include file="wsLowerBorder.xml"/>
+	
+</building> 

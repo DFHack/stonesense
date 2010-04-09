@@ -1,0 +1,48 @@
+<?xml version="1.0" ?>
+
+
+
+<building name="Mechanics Workshop" gameID="building_mechanics_workshop" file="workshop.png">
+
+	<!-- benches block -->
+	<if> 
+		<!-- replace this with position index if required -->
+		<BuildingOccupancy value="3" />	
+		<!-- benches -->
+		<include file="wsBenches.xml"/>	
+	</if>
+	<else>
+		<include file="wsUpperBorder.xml"/>
+	</else>
+	<!-- end benches block -->
+	
+	<!-- contents -->
+		
+	<if>
+		<PositionIndex value=8 />
+		<sprite index = 170 offsetx=2 offsety=-1/>
+	</if>	
+	
+	<else>
+		<PositionIndex value=0 />
+		<sprite index = 195 />
+	</else>
+	
+	<else>
+		<PositionIndex value=7 />
+		<sprite index = 196 />
+	</else>	
+		
+	<if>
+		<BuildingOccupancy value="3" />
+		<if>
+			<PositionIndex value=5 />
+			<sprite index = 168 offsetx=2 offsety=-2 />
+			<sprite index = 169 offsetx=-3 offsety=-2 />
+		</if>
+	</if>		
+	
+	<include file="ws3x3Blueprint.xml"/>
+	<include file="wsLowerBorder.xml"/>
+	
+</building> 

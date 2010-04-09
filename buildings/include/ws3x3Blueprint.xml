@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+
+<include>
+	<else>
+		<and>
+			<BuildingOccupancy value="1" />
+			<PositionIndex value=4 />
+		</and>
+		<sprite file="" index = 321 />
+	</else>	
+</include>

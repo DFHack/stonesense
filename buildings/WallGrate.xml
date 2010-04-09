@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+
+
+
+<building name="Grate" gameID="building_grate_wall"> 
+	<if>
+		<or>
+			<NeighbourWall dir="North" />
+			<NeighbourWall dir="South" />
+			<NeighbourSameType dir="North" />
+			<NeighbourSameType dir="South" />
+		</or>
+		<sprite index=352 />	
+	</if>
+	<else>
+		<sprite index = 351 />
+	</else>
+</building> 

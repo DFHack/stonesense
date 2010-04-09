@@ -1,0 +1,87 @@
+<?xml version="1.0" ?>
+
+
+
+<building name="Wagon" gameID="building_wagon">
+
+
+	<if>
+		<PositionIndex value="0" />
+		<rotate>
+			<sprite index="340" />
+			<if><always/><sprite index = 345 /><sprite index = 350 offsetx=-2 offsety=0/></if>
+			<if><always/><sprite index = 348 /><sprite index = 349 offsetx=-9 offsety=-6/><sprite index = 350 offsetx=8 offsety=-6/></if>
+			<sprite index = 343 />
+		</rotate>
+	</if>
+	<else>
+		<PositionIndex value=1 />
+		<rotate>
+			<sprite index = 342 />
+			<sprite index = 347 />
+			<if><always/><sprite index = 346 /><sprite index = 349 offsetx=-9 offsety=-6/></if>
+			<sprite index = 341 />
+		</rotate>
+	</else>
+	<else>
+		<PositionIndex value=2 />
+		<rotate>
+			<if><always/><sprite index = 345 /><sprite index = 350 offsetx=-2 offsety=0/></if>
+			<if><always/><sprite index = 348 /><sprite index = 349 offsetx=-9 offsety=-6/><sprite index = 350 offsetx=8 offsety=-6/></if>
+			<sprite index = 343 />
+			<sprite index = 340 />
+		</rotate>
+	</else>
+
+	<else>
+		<PositionIndex value=3 />
+		<rotate>
+			<sprite index = 341 />
+			<sprite index = 342 />
+			<sprite index = 347 />
+			<if><always/><sprite index = 346 /><sprite index = 349 offsetx=-9 offsety=-6/></if>
+		</rotate>
+	</else>
+	<else>
+		<PositionIndex value=4 />
+		<sprite index = 344 />
+	</else>
+	<else>
+		<PositionIndex value=5 />
+		<rotate>
+			<sprite index = 347 />
+			<if><always/><sprite index = 346 /><sprite index = 349 offsetx=-9 offsety=-6/></if>
+			<sprite index = 341 />
+			<sprite index = 342 />
+		</rotate>
+	</else>
+	
+	<else>
+		<PositionIndex value=6 />
+		<rotate>
+			<sprite index = 343 />
+			<sprite index = 340 />
+			<if><always/><sprite index = 345 /><sprite index = 350 offsetx=-2 offsety=0/></if>
+			<if><always/><sprite index = 348 /><sprite index = 349 offsetx=-9 offsety=-6/><sprite index = 350 offsetx=8 offsety=-6/></if>
+		</rotate>
+	</else>
+	<else>
+		<PositionIndex value=7 />
+		<rotate>
+			<if><always/><sprite index = 346 /><sprite index = 349 offsetx=-9 offsety=-6/></if>
+			<sprite index = 341 />
+			<sprite index = 342 />
+			<sprite index = 347 />
+		</rotate>
+	</else>
+	<else>
+		<PositionIndex value=8 />
+		<rotate>
+			<if><always/><sprite index = 348 /><sprite index = 349 offsetx=-9 offsety=-6/><sprite index = 350 offsetx=8 offsety=-6/></if>
+			<sprite index = 343 />
+			<sprite index = 340 />
+			<if><always/><sprite index = 345 /><sprite index = 350 offsetx=-2 offsety=0/></if>
+		</rotate>
+	</else>	
+	
+</building> 

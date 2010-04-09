@@ -1,0 +1,7 @@
+<?xml version="1.0" ?>
+
+
+
+<building name="Millstone" gameID="building_millstone"> 
+	<sprite index = "306" />
+</building> 

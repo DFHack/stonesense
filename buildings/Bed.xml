@@ -1,0 +1,7 @@
+<?xml version="1.0" ?>
+
+
+
+<building name="Bed" gameID="building_bed">
+	<sprite index = 81 />
+</building> 

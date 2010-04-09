@@ -1,0 +1,46 @@
+<?xml version="1.0" ?>
+
+
+
+<building name="Farmers Workshop" gameID="building_farmers_workshop" file="workshop.png">
+	<!-- benches block -->
+	<if> 
+		<!-- replace this with position index if required -->
+		<BuildingOccupancy value="3" />	
+		<!-- benches -->
+		<include file="wsBenches.xml"/>	
+	</if>
+	<else>
+		<include file="wsUpperBorder.xml"/>
+	</else>
+	<!-- end benches block -->
+ 
+	<!-- contents -->
+		
+	<if>
+		<PositionIndex value=8 />
+		<sprite index = 171 offsety=-2/>
+	</if>
+	
+	<else>
+		<PositionIndex value=7 />
+		<sprite file="" index = 91 offsetx=2 offsety=-2 />
+	</else>	
+		
+	<if>
+		<BuildingOccupancy value="3" />
+		<if>
+			<PositionIndex value=1 />
+			<sprite index = 140 />
+			<sprite index = 155 />
+		</if>
+		<else>
+			<PositionIndex value=6 />
+			<sprite index = 172 />
+		</else>			
+	</if>		
+
+	<include file="ws3x3Blueprint.xml"/>
+	<include file="wsLowerBorder.xml"/>
+	
+</building> 

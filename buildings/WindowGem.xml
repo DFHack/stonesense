@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+
+
+
+<building name="Gem Window" gameID="building_window_gem">
+
+
+	<if>
+		<or>
+			<NeighbourSameType dir="North" />
+			<NeighbourSameType dir="South" />
+			<NeighbourWall dir="North" />
+			<NeighbourWall dir="South" />
+		</or>
+		<sprite index=67 file = "doorsAndWindows.png"/>
+	</if>
+	<else>
+		<sprite index = 66 file = "doorsAndWindows.png"/>
+	</else>
+	
+</building> 

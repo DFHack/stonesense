@@ -1,0 +1,26 @@
+For A4:
+Finish floor and wall config
+---
+For later versions:
+Animation when not auto-reloading - wont work without complete rewrite
+Non-uniform walls, fluids, etc
+Add configurable key bindings
+Interrupt driven input- debounce keys?
+Better creature name handling- special characters? Capitals? nicknames?
+Alpha transparency?
+Better ramp handling- Big lookup table?
+Status indicators?
+only loading matgloss tables once per valid map
+Objects?
+XML for trees, etc
+Dealing with unloaded underground chunks
+Look into reducing block new/delete for performance
+Multiple XML files for other types of sprites
+Multiple image files for other types of sprites
+Floor sprites with different material types? Layered floor sprites ala buildings?
+Height indicators for floating/flying stuff
+Debug cursor should interact with map more
+---
+Things to keep an eye on:
+Crashers with odd materials etc
+Crashers with saving/loading

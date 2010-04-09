@@ -1,0 +1,7 @@
+<?xml version="1.0" ?>
+
+
+
+<building name="Trap" gameID="building_weapon">
+		<sprite index = 356 />
+</building> 
