@@ -23,7 +23,14 @@ ContentLoader::~ContentLoader(void)
 	flushColorConfig(colorConfigs);
 }
 
-
+void DumpMaterialNamesToDisk(vector<t_matgloss> material, const char* filename){
+	FILE* fp = fopen(filename, "w");
+	if(!fp) return;
+	for(uint32_t j=0; j < material.size(); j++){
+		fprintf(fp, "%i:%s\n",j, material[j].id);
+	}
+	fclose(fp);
+}
 bool ContentLoader::Load(API& DF){
 	draw_textf_border(font, al_get_bitmap_width(al_get_target_bitmap())/2, al_get_bitmap_height(al_get_target_bitmap())/2, ALLEGRO_ALIGN_CENTRE, "Loading...");
 	al_flip_display();
@@ -57,7 +64,12 @@ bool ContentLoader::Load(API& DF){
 	Mats->ReadWoodMaterials (woodMaterials);
 	Mats->ReadPlantMaterials (plantMaterials);
 	Mats->ReadCreatureTypes (creatureMaterials);
-	//DumpInorganicMaterialNamesToDisk();
+
+	//DumpMaterialNamesToDisk(inorganicMaterials, "inorganicdump.txt");
+	//DumpMaterialNamesToDisk(organicMaterials, "organicdump.txt");
+	//DumpMaterialNamesToDisk(woodMaterials, "wooddump.txt");
+	//DumpMaterialNamesToDisk(plantMaterials, "plantdump.txt");
+	//DumpMaterialNamesToDisk(creatureMaterials, "creaturedump.txt");
 
 	//DF.Resume();
 
@@ -231,11 +243,11 @@ bool ContentLoader::parseCreatureContent(TiXmlElement* elemRoot ){
 }
 
 bool ContentLoader::parseShrubContent(TiXmlElement* elemRoot ){
-	return addSingleVegetationConfig( elemRoot, &shrubConfigs, plantMaterials );
+	return addSingleVegetationConfig( elemRoot, &shrubConfigs, organicMaterials );
 }
 
 bool ContentLoader::parseTreeContent(TiXmlElement* elemRoot ){
-	return addSingleVegetationConfig( elemRoot, &treeConfigs, plantMaterials );
+	return addSingleVegetationConfig( elemRoot, &treeConfigs, organicMaterials );
 }
 
 bool ContentLoader::parseTerrainContent(TiXmlElement* elemRoot ){
@@ -416,6 +428,18 @@ const char *lookupMaterialName(int matType,int matIndex)
 		//maybe allow some more in later
 		return NULL;
 	}
+	if (matIndex >= typeVector->size())
+		return NULL;
+	return (*typeVector)[matIndex].id;
+}
+
+const char *lookupTreeName(int matIndex)
+{
+	if (matIndex < 0)
+		return NULL;
+	vector<t_matgloss>* typeVector;
+	// for appropriate elements, look up subtype
+	typeVector=&(contentLoader.organicMaterials);
 	if (matIndex >= typeVector->size())
 		return NULL;
 	return (*typeVector)[matIndex].id;

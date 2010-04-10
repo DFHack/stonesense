@@ -209,7 +209,7 @@ void ReadCellToSegment(API& DF, WorldSegment& segment, int CellX, int CellY, int
 	//read local vein data
 	vector <t_vein> veins;
 	vector <t_frozenliquidvein> ices;
-    vector<t_spattervein> splatter;
+    vector <t_spattervein> splatter;
 
 	Maps->ReadVeins(CellX,CellY,CellZ,veins,ices,splatter);
 	uint32_t numVeins = (uint32_t)veins.size();
@@ -238,6 +238,7 @@ void ReadCellToSegment(API& DF, WorldSegment& segment, int CellX, int CellY, int
 
 			b->occ = occupancies[lx][ly];
 			b->designation = designations[lx][ly];
+			b->splatter = splatter;
 
 			//liquids
 			if(designations[lx][ly].bits.flow_size > 0){
@@ -358,6 +359,7 @@ WorldSegment* ReadMapSegment(API &DF, int x, int y, int z, int sizex, int sizey,
 	DFHack::Maps * Maps = DF.getMaps();
 	DFHack::Materials * Mats = DF.getMaterials();
 	DFHack::Position *Pos =DF.getPosition();
+	DFHack::Vegetation *Veg =DF.getVegetation();
 
 	if(!Maps->Start())
 	{
@@ -474,30 +476,33 @@ WorldSegment* ReadMapSegment(API &DF, int x, int y, int z, int sizex, int sizey,
 	//changeConstructionMaterials(segment, &allConstructions);
 
 
-	////Read Vegetation
-	//uint32_t numtrees;
-	//try
-	//{
-	//	if (DF.InitReadVegetation(numtrees))
-	//	{
-	//		t_tree_desc temptree;
-	//		index = 0;
-	//		while(index < numtrees )
-	//		{
-	//			DF.ReadVegetation(index, temptree);
-	//			//want hashtable :(
-	//			Block* b;
-	//			if( b = segment->getBlock( temptree.x, temptree.y, temptree.z) )
-	//				b->tree = temptree.material;
-	//			index ++;
-	//		}
-	//		DF.FinishReadVegetation();
-	//	}
-	//}
-	//catch(exception &err)
-	//{
-	//	WriteErr("Exeption: %s \n", err.what());
-	//}
+	//Read Vegetation
+	uint32_t numtrees;
+	try
+	{
+		if (Veg->Start(numtrees))
+		{
+			t_tree temptree;
+			index = 0;
+			while(index < numtrees )
+			{
+				Veg->Read(index, temptree);
+				//want hashtable :(
+				Block* b;
+				if( b = segment->getBlock( temptree.x, temptree.y, temptree.z) )
+				{
+					b->tree.type = temptree.type;
+					b->tree.index = temptree.material;
+				}
+				index ++;
+			}
+			Veg->Finish();
+		}
+	}
+	catch(exception &err)
+	{
+		WriteErr("Exeption: %s \n", err.what());
+	}
 
 	////Read Effects
 	//uint32_t numeffects;
@@ -549,8 +554,8 @@ WorldSegment* ReadMapSegment(API &DF, int x, int y, int z, int sizex, int sizey,
 	//	}
 	//	DF.FinishReadEffects();
 	//}
-	////Read Creatures
-	//ReadCreaturesToSegment( DF, segment );
+	//Read Creatures
+	ReadCreaturesToSegment( DF, segment );
 
 	//do misc beautification
 	uint32_t numblocks = segment->getNumBlocks();

@@ -23,7 +23,6 @@ using namespace std;
 #include <DFProcess.h>
 #include <DFMemInfo.h>
 #include <DFVector.h>
-#include <DFTypes.h>
 #include <modules/Vegetation.h>
 #include <modules/Materials.h>
 #include <modules/Position.h>

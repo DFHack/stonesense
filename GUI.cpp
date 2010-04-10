@@ -306,6 +306,9 @@ void drawDebugCursorAndInfo(){
 	if(b->water.index > 0 || b->tree.index != 0)
 		draw_textf_border(font, 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
 		"tree:%i water:%i,%i", b->tree.index, b->water.type, b->water.index);
+	if(b->tree.index != 0)
+		draw_textf_border(font, 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
+		"tree name:%s type:%i", lookupTreeName(b->tree.index), b->tree.type);
 	//building
 	if(b->building.info.type != BUILDINGTYPE_NA && b->building.info.type != BUILDINGTYPE_BLACKBOX){
 		const char* matName = lookupMaterialTypeName(b->building.info.material.type);

@@ -23,6 +23,6 @@
 	<plant gameID = "RUBBER" sheetIndex = 19 />
 	<plant gameID = "SAGUARO" sheetIndex = 29 />
 	<plant gameID = "MANGROVE" sheetIndex = 21 />
-	<plant gameID = "GIANT_SHROOM" sheetIndex = 30 />
+	<plant gameID = "TOWER_CAP" sheetIndex = 30 />
 	<plant gameID = "WILLOW" sheetIndex = 28 />
 </trees> 

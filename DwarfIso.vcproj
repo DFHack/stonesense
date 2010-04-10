@@ -120,7 +120,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories=".\allegro;D:\stonesense\branches\df_31_01\dfhack\include;D:\stonesense\branches\df_31_01\dfhack\depends\md5;D:\stonesense\branches\df_31_01\dfhack\depends\argstream;D:\stonesense\branches\df_31_01\dfhack\depends\tinyxml"
+				AdditionalIncludeDirectories=".\allegro;.\dfhack\include;.\depends\md5;.\depends\argstream;.\tinyxml"
 				PreprocessorDefinitions="WIN32;_WINDOWS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;NDEBUG"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
@@ -593,43 +593,31 @@
 					Name="Modules"
 					>
 					<File
-						RelativePath=".\dfhack\modules\Creatures-data.h"
+						RelativePath=".\dfhack\include\modules\Creatures.h"
 						>
 					</File>
 					<File
-						RelativePath=".\dfhack\modules\Creatures-proc.h"
+						RelativePath=".\dfhack\include\modules\Gui.h"
 						>
 					</File>
 					<File
-						RelativePath=".\dfhack\modules\Gui-data.h"
+						RelativePath=".\dfhack\include\modules\Maps.h"
 						>
 					</File>
 					<File
-						RelativePath=".\dfhack\modules\Gui-proc.h"
+						RelativePath=".\dfhack\include\modules\Materials.h"
 						>
 					</File>
 					<File
-						RelativePath=".\dfhack\modules\Maps-data.h"
+						RelativePath=".\dfhack\include\modules\Position.h"
 						>
 					</File>
 					<File
-						RelativePath=".\dfhack\modules\Maps-proc.h"
+						RelativePath=".\dfhack\include\modules\Translation.h"
 						>
 					</File>
 					<File
-						RelativePath=".\dfhack\modules\Materials-data.h"
-						>
-					</File>
-					<File
-						RelativePath=".\dfhack\modules\Materials-proc.h"
-						>
-					</File>
-					<File
-						RelativePath=".\dfhack\modules\Position-data.h"
-						>
-					</File>
-					<File
-						RelativePath=".\dfhack\modules\Position-proc.h"
+						RelativePath=".\dfhack\include\modules\Vegetation.h"
 						>
 					</File>
 				</Filter>

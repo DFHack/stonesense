@@ -36,6 +36,7 @@ public:
 	vector<t_matgloss> inorganicMaterials;
 	vector<t_matgloss> organicMaterials;
 	vector<t_matgloss> woodMaterials;
+	vector<t_matglossPlant> treeMaterials;
 	vector<t_matgloss> plantMaterials;
 	vector<t_matgloss> creatureMaterials;
 
@@ -58,5 +59,5 @@ const char *lookupMaterialName(int matType,int matIndex);
 uint8_t lookupMaterialFore(int matType,int matIndex);
 uint8_t lookupMaterialBack(int matType,int matIndex);
 uint8_t lookupMaterialBright(int matType,int matIndex);
-
+const char *lookupTreeName(int matIndex);
 ALLEGRO_COLOR lookupMaterialColor(int matType,int matIndex);

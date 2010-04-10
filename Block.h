@@ -32,7 +32,7 @@ public:
 	t_matglossPair water;
 	t_designation designation;
 	t_occupancy occ;
-
+	vector<t_spattervein> splatter;
 	t_creature* creature;
 	//bool mirroredBuilding;
 	t_matglossPair tree;

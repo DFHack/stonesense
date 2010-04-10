@@ -76,12 +76,6 @@
 		</material>
 	</color>
 	
-	<color red = 206 green = 140 blue = 62 >
-		<material value="Wood">
-			<subtype value="CHESTNUT" />
-		</material>
-	</color>
-	
 	<color red = 79 green = 205 blue = 88 >
 		<material value="GreenGlass"/>
 	</color>

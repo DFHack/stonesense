@@ -95,7 +95,15 @@ t_SpriteWithOffset getVegetationSprite(vector<VegetationConfiguration>& vegetati
 		if (current->grown != grown) continue;
 		return current->sprite;
 	}
-	t_SpriteWithOffset sprite = {-1,0,0,-1,ALL_FRAMES};
+	t_SpriteWithOffset sprite = 
+	{
+		-1,
+		0,
+		0,
+		-1,
+		0,
+		ALL_FRAMES
+	};
 	return sprite;
 }
 
