@@ -2,7 +2,7 @@
 # get precedence over those below
 
 terrain/index.txt
-# creatures/index.txt
+creatures/index.txt
 # buildings/index.txt
 vegetation/index.txt
 colors/index.txt

@@ -41,6 +41,7 @@ public:
 	vector<t_matgloss> creatureMaterials;
 
 	vector<string> classIdStrings;
+	vector<string> professionStrings;
 	memory_info *memoryInfo;
 };
 

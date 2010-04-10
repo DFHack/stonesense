@@ -2,76 +2,74 @@
 
 <colors> 
 	<color red = 43 green =11 blue = 11>
-		<material value="Stone">
+		<material value="Inorganic">
 			<subtype value="ONYX" />
 		</material>
 	</color>
 
 	<color red = 43 green =40 blue = 35>
-		<material value="Stone">
+		<material value="Inorganic">
 			<subtype value="MORION" />
 		</material>
 	</color>
 
 	<color red = 140 green =154 blue = 165>
-		<material value="Stone">
+		<material value="Inorganic">
 			<subtype value="SCHORL" />
 		</material>
 	</color>
 
 	<color red = 147 green =181 blue = 223>
-		<material value="Stone">
+		<material value="Inorganic">
 			<subtype value="LACE AGATE" />
 		</material>
 	</color>
 
 	<color red = 248 green =487 blue = 133>
-		<material value="Stone">
+		<material value="Inorganic">
 			<subtype value="ORTHOCLASE" />
 		</material>
 	</color>
 	
 	<color red = 90 green =191 blue = 218>
-		<material value="Stone">
+		<material value="Inorganic">
 			<subtype value="MICROCLINE" />
 		</material>
 	</color>
 	
 	<color red = 183 green =225 blue = 34>
-		<material value="Stone">
+		<material value="Inorganic">
 			<subtype value="OLIVINE" />
 		</material>
 	</color>
 	
 	<color red = 253 green =219 blue = 139>
-		<material value="Stone">
+		<material value="Inorganic">
 			<subtype value="ALUNITE" />
 		</material>
 	</color>
 	
 	<color red = 101 green =235 blue = 236>
-		<material value="Stone">
+		<material value="Inorganic">
 			<subtype value="RAW_ADAMANTINE" />
-		</material>
-		<material value="Metal">
 			<subtype value="ADAMANTINE" />
 		</material>
 	</color>
 	
 	<color red = 255 green = 177 blue = 80 >
-		<material value="Metal">
+		<material value="Inorganic">
 			<subtype value="COPPER" />
 		</material>
 	</color>
 	
 	<color red = 250 green = 242 blue = 148 >
-		<material value="Metal">
+		<material value="Inorganic">
 			<subtype value="GOLD" />
 		</material>
 	</color>
 	
 	<color red = 198 green = 199 blue = 197 >
-		<material value="Metal">
+		<material value="Inorganic">
 			<subtype value="PEWTER_LAY" />
 		</material>
 	</color>

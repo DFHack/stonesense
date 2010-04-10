@@ -28,6 +28,8 @@ using namespace std;
 #include <modules/Position.h>
 #include <modules/Maps.h>
 #include <modules/Creatures.h>
+#include <modules/Buildings.h>
+#include <modules/Constructions.h>
 using namespace DFHack;
 
 #include "commonTypes.h"
@@ -211,3 +213,24 @@ extern ALLEGRO_KEYBOARD_STATE keyboard;
 extern ALLEGRO_TIMER *reloadtimer;
 extern ALLEGRO_TIMER * animationtimer;
 extern ALLEGRO_MOUSE_STATE mouse;
+
+#define INORGANIC 0
+#define AMBER 1
+#define CORAL 2
+#define GREEN_GLASS 3
+#define CLEAR_GLASS 4
+#define CRYSTAL_GLASS 5
+#define ICE 6
+#define COAL 7
+#define POTASH 8
+#define ASH 9
+#define PEARLASH 10
+#define LYE 11
+#define MUD 12
+#define VOMIT 13
+#define SALT 14
+#define FILTH 15
+#define FILTH_FROZEN 16
+#define UNKOWN_FROZEN 17
+#define GRIME 18
+#define WOOD 420

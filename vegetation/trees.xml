@@ -23,6 +23,13 @@
 	<plant gameID = "RUBBER" sheetIndex = 19 />
 	<plant gameID = "SAGUARO" sheetIndex = 29 />
 	<plant gameID = "MANGROVE" sheetIndex = 21 />
-	<plant gameID = "TOWER_CAP" sheetIndex = 30 />
 	<plant gameID = "WILLOW" sheetIndex = 28 />
+	<plant gameID = "BLACK_CAP" sheetIndex = 40 />
+	<plant gameID = "NETHER_CAP" sheetIndex = 41 />
+	<plant gameID = "GOBLIN_CAP" sheetIndex = 42 />
+	<plant gameID = "TUNNEL_TUBE" sheetIndex = 43 />
+	<plant gameID = "SPORE_TREE" sheetIndex = 44 />
+	<plant gameID = "BLOOD_THORN" sheetIndex = 45 />
+	<plant gameID = "FUNGIWOOD" sheetIndex = 46 />
+	<plant gameID = "TOWER_CAP" sheetIndex = 22 />
 </trees> 

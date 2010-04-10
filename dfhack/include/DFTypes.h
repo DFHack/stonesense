@@ -34,7 +34,7 @@ namespace DFHack
 struct t_matglossPair
 {
     int16_t type;
-    int16_t index;
+    int32_t index;
 };
 
 // DF effects, by darius from the bay12 forum
@@ -76,32 +76,6 @@ struct t_effect_df40d //size 40
     uint8_t isHidden;
 };
 
-// raw
-struct t_construction_df40d
-{
-    int16_t x;
-    int16_t y;
-    // 4
-    int16_t z;
-    int16_t unk1;
-    // 8
-    int16_t unk2;
-    t_matglossPair material; // C points to the index part
-//    int16_t mat_type;
-//    int16_t mat_idx;
-};
-
-// cooked
-struct t_construction
-{
-    uint16_t x;
-    uint16_t y;
-    uint16_t z;
-    t_matglossPair material;
-//    int16_t mat_type;
-//    int16_t mat_idx;
-};
-
 /*
         dword vtable;
         int minx;
@@ -116,117 +90,6 @@ struct t_construction
         word  matgloss;
         word  type; // NOTE: the actual field is in a different place
 */
-
-//raw
-struct t_building_df40d
-{
-    uint32_t vtable;
-    uint32_t x1;
-    uint32_t y1;
-    uint32_t centerx;
-    uint32_t x2;
-    uint32_t y2;
-    uint32_t centery;
-    uint32_t z;
-    uint32_t height;
-    t_matglossPair material;
-    // not complete
-};
-
-//cooked
-struct t_building
-{
-    uint32_t origin;
-    uint32_t vtable;
-
-    uint32_t x1;
-    uint32_t y1;
-
-    uint32_t x2;
-    uint32_t y2;
-
-    uint32_t z;
-
-    t_matglossPair material;
-
-    uint32_t type;
-    // FIXME: not complete, we need building presence bitmaps for stuff like farm plots and stockpiles, orientation (N,E,S,W) and state (open/closed)
-};
-
-/*
-case 10:
-    ret += "leather";
-    break;
-case 11:
-    ret += "silk cloth";
-    break;
-case 12:
-    ret += "plant thread cloth";
-    break;
-case 13: // green glass
-    ret += "green glass";
-    break;
-case 14: // clear glass
-    ret += "clear glass";
-    break;
-case 15: // crystal glass
-    ret += "crystal glass";
-    break;
-case 17:
-    ret += "ice";
-    break;
-case 18:
-    ret += "charcoal";
-    break;
-case 19:
-    ret += "potash";
-    break;
-case 20:
-    ret += "ashes";
-    break;
-case 21:
-    ret += "pearlash";
-    break;
-case 24:
-    ret += "soap";
-    break;
-
-*/
-
-enum MatglossType
-{
-    Mat_Wood,
-    Mat_Stone,
-    Mat_Metal,
-    Mat_Plant,
-    Mat_Leather = 10,
-    Mat_SilkCloth = 11,
-    Mat_PlantCloth = 12,
-    Mat_GreenGlass = 13,
-    Mat_ClearGlass = 14,
-    Mat_CrystalGlass = 15,
-    Mat_Ice = 17,
-    Mat_Charcoal =18,
-    Mat_Potash = 20,
-    Mat_Ashes = 20,
-    Mat_PearlAsh = 21,
-    Mat_Soap = 24
-    //NUM_MATGLOSS_TYPES
-};
-
-enum BiomeOffset
-{
-    eNorthWest,
-    eNorth,
-    eNorthEast,
-    eWest,
-    eHere,
-    eEast,
-    eSouthWest,
-    eSouth,
-    eSouthEast,
-    eBiomeCount
-};
 
 //#pragma pack(push,4)
 struct t_name

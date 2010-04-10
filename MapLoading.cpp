@@ -291,11 +291,11 @@ void ReadCellToSegment(API& DF, WorldSegment& segment, int CellX, int CellY, int
 
 				//determine rock/soil type
 				int rockIndex = (*allLayers) [regionoffsets[designations[lx][ly].bits.biome]] [designations[lx][ly].bits.geolayer_index];
-				b->layerMaterial.type = Mat_Stone;
+				b->layerMaterial.type = INORGANIC;
 				b->layerMaterial.index = rockIndex;
 				//check veins
 				//if there's no veins, the vein material should just be the layer material.
-				b->veinMaterial.type = Mat_Stone;
+				b->veinMaterial.type = INORGANIC;
 				b->veinMaterial.index = rockIndex;
 				for(uint32_t i=0; i<numVeins; i++){
 					//TODO: This will be fixed in dfHack at some point, but right now objects that arnt veins pass through as. So we filter on vtable
@@ -310,17 +310,17 @@ void ReadCellToSegment(API& DF, WorldSegment& segment, int CellX, int CellY, int
 					bool set = (row & (1 << lx)) != 0;
 					if(set){
 						rockIndex = veins[i].type;
-						b->veinMaterial.type = Mat_Stone;
+						b->veinMaterial.type = INORGANIC;
 						b->veinMaterial.index = veins[i].type;
 						b->hasVein = 1;
 					}
 					else
 					{
-						b->veinMaterial.type = Mat_Stone;
+						b->veinMaterial.type = INORGANIC;
 						b->veinMaterial.index = rockIndex;
 					}
 				}
-				b->material.type = Mat_Stone;
+				b->material.type = INORGANIC;
 				b->material.index = b->veinMaterial.index;
 
 				//string name = v_stonetypes[j].id;
@@ -360,6 +360,7 @@ WorldSegment* ReadMapSegment(API &DF, int x, int y, int z, int sizex, int sizey,
 	DFHack::Materials * Mats = DF.getMaterials();
 	DFHack::Position *Pos =DF.getPosition();
 	DFHack::Vegetation *Veg =DF.getVegetation();
+	DFHack::Constructions *Cons = DF.getConstructions();
 
 	if(!Maps->Start())
 	{
@@ -426,22 +427,22 @@ WorldSegment* ReadMapSegment(API &DF, int x, int y, int z, int sizex, int sizey,
 	vector<t_construction> allConstructions;
 	uint32_t numconstructions = 0;
 
-	//if (DF.InitReadConstructions(numconstructions))
-	//{
-	//	t_construction tempcon;
-	//	index = 0;
-	//	while(index < numconstructions)
-	//	{
-	//		DF.ReadConstruction(index, tempcon);
-	//		if(segment->CoordinateInsideSegment(tempcon.x, tempcon.y, tempcon.z))
-	//			allConstructions.push_back(tempcon);
-	//		index++;
-	//	}
-	//	DF.FinishReadConstructions();
-	//}
+	if (Cons->Start(numconstructions))
+	{
+		t_construction tempcon;
+		index = 0;
+		while(index < numconstructions)
+		{
+			Cons->Read(index, tempcon);
+			if(segment->CoordinateInsideSegment(tempcon.x, tempcon.y, tempcon.z))
+				allConstructions.push_back(tempcon);
+			index++;
+		}
+		Cons->Finish();
+	}
 
-	////merge buildings with segment
-	//MergeBuildingsToSegment(&allBuildings, segment);
+	//merge buildings with segment
+	MergeBuildingsToSegment(&allBuildings, segment);
 
 	//figure out what cells to read
 	int32_t firstTileToReadX = x;
@@ -472,8 +473,8 @@ WorldSegment* ReadMapSegment(API &DF, int x, int y, int z, int sizex, int sizey,
 		firstTileToReadX = lastTileToReadX + 1;
 	}
 
-	////translate constructions
-	//changeConstructionMaterials(segment, &allConstructions);
+	//translate constructions
+	changeConstructionMaterials(segment, &allConstructions);
 
 
 	//Read Vegetation

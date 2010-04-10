@@ -593,6 +593,14 @@
 					Name="Modules"
 					>
 					<File
+						RelativePath=".\dfhack\include\modules\Buildings.h"
+						>
+					</File>
+					<File
+						RelativePath=".\dfhack\include\modules\Constructions.h"
+						>
+					</File>
+					<File
 						RelativePath=".\dfhack\include\modules\Creatures.h"
 						>
 					</File>

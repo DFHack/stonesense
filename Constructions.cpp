@@ -6,16 +6,17 @@
 void changeConstructionMaterials(WorldSegment* segment, vector<t_construction>* allConstructions){
 	//find construction
 	int32_t i;
-  Block* b;
+	Block* b;
 	t_construction* construct = 0;
 	i = (uint32_t) allConstructions->size();
-  if(i <= 0) return;
-  while(--i >= 0){
-    construct = &(*allConstructions)[i];	
-    b = segment->getBlock(construct->x, construct->y, construct->z);
-    if( !b ) continue;
-      b->material=construct->material;
-  }
+	if(i <= 0) return;
+	while(--i >= 0){
+		construct = &(*allConstructions)[i];	
+		b = segment->getBlock(construct->x, construct->y, construct->z);
+		if( !b ) continue;
+		b->material.type=construct->mat_type;
+		b->material.index=construct->mat_idx;
+	}
 }
 
 

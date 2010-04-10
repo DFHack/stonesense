@@ -31,6 +31,15 @@ void DumpMaterialNamesToDisk(vector<t_matgloss> material, const char* filename){
 	}
 	fclose(fp);
 }
+
+void DumpPrefessionNamesToDisk(vector<string> material, const char* filename){
+	FILE* fp = fopen(filename, "w");
+	if(!fp) return;
+	for(uint32_t j=0; j < material.size(); j++){
+		fprintf(fp, "%i:%s\n",j, material[j]);
+	}
+	fclose(fp);
+}
 bool ContentLoader::Load(API& DF){
 	draw_textf_border(font, al_get_bitmap_width(al_get_target_bitmap())/2, al_get_bitmap_height(al_get_target_bitmap())/2, ALLEGRO_ALIGN_CENTRE, "Loading...");
 	al_flip_display();
@@ -48,6 +57,7 @@ bool ContentLoader::Load(API& DF){
 	plantMaterials.clear();
 	creatureMaterials.clear();
 	classIdStrings.clear();
+	professionStrings.clear();
 
 	// This is an extra suspend/resume, but it only happens when reloading the config
 	// ie not enough to worry about
@@ -65,7 +75,24 @@ bool ContentLoader::Load(API& DF){
 	Mats->ReadPlantMaterials (plantMaterials);
 	Mats->ReadCreatureTypes (creatureMaterials);
 
-	//DumpMaterialNamesToDisk(inorganicMaterials, "inorganicdump.txt");
+	DFHack::memory_info *mem = DF.getMemoryInfo();
+	for(int i=0;; i++)
+	{
+		string temp;
+		try
+		{
+			temp =  mem->getProfession(i);
+		}
+		catch(exception &)
+		{
+			break;
+		}
+		if(temp[0])
+		{
+			professionStrings.push_back(temp);
+		}
+	}
+	//DumpPrefessionNamesToDisk(professionStrings, "priofessiondump.txt");
 	//DumpMaterialNamesToDisk(organicMaterials, "organicdump.txt");
 	//DumpMaterialNamesToDisk(woodMaterials, "wooddump.txt");
 	//DumpMaterialNamesToDisk(plantMaterials, "plantdump.txt");
@@ -302,33 +329,23 @@ int lookupMaterialType(const char* strValue)
 {
 	if (strValue == NULL || strValue[0] == 0)
 		return INVALID_INDEX;
-	if( strcmp(strValue, "Wood") == 0)
-		return Mat_Wood;
 	else if( strcmp(strValue, "Stone") == 0)
-		return Mat_Stone;
+		return INORGANIC;
 	else if( strcmp(strValue, "Metal") == 0)
-		return Mat_Metal;
-	//TODO this needs fixing on dfhack side
-	else if( strcmp(strValue, "Bone") == 0)
-		return Mat_Plant;
-	else if( strcmp(strValue, "Leather") == 0)
-		return Mat_Leather;
-	else if( strcmp(strValue, "Silk") == 0)
-		return Mat_SilkCloth;
-	else if( strcmp(strValue, "PlantCloth") == 0)
-		return Mat_PlantCloth;
+		return INORGANIC;
+	else if( strcmp(strValue, "Inorganic") == 0)
+		return INORGANIC;
 	else if( strcmp(strValue, "GreenGlass") == 0)
-		return Mat_GreenGlass;
-	else if( strcmp(strValue, "ClearGlass") == 0)
-		return Mat_ClearGlass;
-	else if( strcmp(strValue, "CrystalGlass") == 0)
-		return Mat_CrystalGlass;
+		return GREEN_GLASS;
+	else if( strcmp(strValue, "Wood") == 0)
+		return WOOD;
 	else if( strcmp(strValue, "Ice") == 0)
-		return Mat_Ice;
-	else if( strcmp(strValue, "Charcoal") == 0)
-		return Mat_Charcoal;
-	else if( strcmp(strValue, "Soap") == 0) //you know you want it
-		return Mat_Soap;
+		return ICE;
+	else if( strcmp(strValue, "ClearGlass") == 0)
+		return CLEAR_GLASS;
+	else if( strcmp(strValue, "CrystalGlass") == 0)
+		return CRYSTAL_GLASS;
+	//TODO this needs fixing on dfhack side
 	return INVALID_INDEX;
 }
 
@@ -350,15 +367,7 @@ int lookupMaterialIndex(int matType, const char* strValue)
 {
 	vector<t_matgloss>* typeVector;
 	// for appropriate elements, look up subtype
-	if (matType == Mat_Wood)
-	{
-		typeVector=&(contentLoader.plantMaterials);
-	}
-	else if (matType == Mat_Stone)
-	{
-		typeVector=&(contentLoader.inorganicMaterials);
-	}
-	else if (matType == Mat_Metal)
+	if (matType == INORGANIC)
 	{
 		typeVector=&(contentLoader.inorganicMaterials);
 	}
@@ -374,32 +383,10 @@ const char *lookupMaterialTypeName(int matType)
 {
 	switch (matType)
 	{
-	case Mat_Wood:
-		return "Wood";
-	case Mat_Stone:
-		return "Mineral";
-	case Mat_Metal:
-		return "Metal";
-	case Mat_Plant:
-		return "Bone";
-	case Mat_Leather:
-		return "Leather";
-	case Mat_SilkCloth:
-		return "Silk";
-	case Mat_PlantCloth:
-		return "Plant Cloth";
-	case Mat_GreenGlass:
+	case INORGANIC:
+		return "Inorganic";
+	case GREEN_GLASS:
 		return "Green Glass";
-	case Mat_ClearGlass:
-		return "Clear Glass";
-	case Mat_CrystalGlass:
-		return "Crystal Glass";
-	case Mat_Ice:
-		return "Ice";
-	case Mat_Charcoal:
-		return "Charcoal";
-	case Mat_Soap:
-		return "Soap";
 	default:
 		return NULL;
 	}
@@ -411,15 +398,7 @@ const char *lookupMaterialName(int matType,int matIndex)
 		return NULL;
 	vector<t_matgloss>* typeVector;
 	// for appropriate elements, look up subtype
-	if (matType == Mat_Wood)
-	{
-		typeVector=&(contentLoader.plantMaterials);
-	}
-	else if (matType == Mat_Stone)
-	{
-		typeVector=&(contentLoader.inorganicMaterials);
-	}
-	else if (matType == Mat_Metal)
+	if (matType == INORGANIC)
 	{
 		typeVector=&(contentLoader.inorganicMaterials);
 	}
@@ -455,7 +434,7 @@ uint8_t lookupMaterialFore(int matType,int matIndex)
 	//{
 	//	typeVector=&(contentLoader.woodNameStrings);
 	//}
-	//else if (matType == Mat_Stone)
+	//else if (matType == 0)
 	//{
 	//	typeVector=&(contentLoader.stoneNameStrings);
 	//}
@@ -483,7 +462,7 @@ uint8_t lookupMaterialBack(int matType,int matIndex)
 	//{
 	//	typeVector=&(contentLoader.woodNameStrings);
 	//}
-	//else if (matType == Mat_Stone)
+	//else if (matType == 0)
 	//{
 	//	typeVector=&(contentLoader.stoneNameStrings);
 	//}
@@ -511,7 +490,7 @@ uint8_t lookupMaterialBright(int matType,int matIndex)
 	//{
 	//	typeVector=&(contentLoader.woodNameStrings);
 	//}
-	//else if (matType == Mat_Stone)
+	//else if (matType == 0)
 	//{
 	//	typeVector=&(contentLoader.stoneNameStrings);
 	//}
