@@ -48,10 +48,6 @@ struct ALLEGRO_DISPLAY_WIN
    ALLEGRO_DISPLAY display;
 
    HWND window;
-   int mouse_range_x1;
-   int mouse_range_y1;
-   int mouse_range_x2;
-   int mouse_range_y2;
    HCURSOR mouse_selected_hcursor;
    bool mouse_cursor_shown;
 
@@ -68,6 +64,11 @@ struct ALLEGRO_DISPLAY_WIN
     * after al_resize_display called you can call acknowledge_resize
     */
    bool can_acknowledge;
+   /* Size to reset to when al_set_display_flag(FULLSCREEN_WINDOW, false)
+    * is called.
+    */
+   int toggle_w;
+   int toggle_h;
 };
 
 
@@ -143,6 +144,7 @@ HICON _al_win_create_icon(HWND wnd, ALLEGRO_BITMAP *sprite, int xfocus, int yfoc
 void _al_win_set_window_position(HWND window, int x, int y);
 void _al_win_get_window_position(HWND window, int *x, int *y);
 void _al_win_toggle_window_frame(ALLEGRO_DISPLAY *display, HWND window, int w, int h, bool onoff);
+bool _al_win_toggle_display_flag(ALLEGRO_DISPLAY *display, int flag, bool onoff);
 void _al_win_set_window_title(ALLEGRO_DISPLAY *display, const char *title);
 
 /* cursor routines */
