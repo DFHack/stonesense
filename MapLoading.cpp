@@ -162,7 +162,7 @@ bool isBlockOnVisibleEdgeOfSegment(WorldSegment* segment, Block* b)
 		return true;
 	}
 
-	return true;
+	return false;
 }
 
 
@@ -258,8 +258,6 @@ void ReadCellToSegment(API& DF, WorldSegment& segment, int CellX, int CellY, int
 				b->ramp.type = t;
 
 
-			//debug stuff
-			b->designations = designations[lx][ly];
 			//142,136,15
 			//if(b->x == 142 && b->y == 136 && b->z == 15)
 			//  int j = 10;

@@ -2,7 +2,7 @@
 
 
 
-<building name="Chest" gameID="building_box"> 
+<building name="Chest" gameID="building_boxst"> 
 	<if>
 		<MaterialType value="GreenGlass" />
 		<sprite index = "92" />

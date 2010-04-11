@@ -2,7 +2,7 @@
 
 
 
-<building name="Glass Window" gameID="building_window_glass">
+<building name="Glass Window" gameID="building_window_glassst">
 
 	<if>
 		<or>

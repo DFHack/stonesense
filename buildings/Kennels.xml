@@ -2,7 +2,7 @@
 
 
 
-<building name="Kennels" gameID="building_kennels" >
+<building name="Kennelsst" gameID="building_kennels" >
 
 	<include file="wsUpperBorder.xml"/>
 

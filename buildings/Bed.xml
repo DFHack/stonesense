@@ -2,6 +2,6 @@
 
 
 
-<building name="Bed" gameID="building_bed">
+<building name="Bed" gameID="building_bedst">
 	<sprite index = 81 />
 </building> 

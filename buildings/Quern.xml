@@ -2,6 +2,6 @@
 
 
 
-<building name="Quern" gameID="building_quern"> 
+<building name="Quern" gameID="building_quernst"> 
 		<sprite index = "306" />
 </building> 

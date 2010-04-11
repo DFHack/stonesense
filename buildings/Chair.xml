@@ -2,7 +2,7 @@
 
 
 
-<building name="Chair" gameID="building_chair"> 
+<building name="Chair" gameID="building_chairst"> 
 	<if>
 		<MaterialType value="Wood" />
 		<sprite index = "84" />

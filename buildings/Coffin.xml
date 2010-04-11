@@ -2,7 +2,7 @@
 
 
 
-<building name="Coffin" gameID="building_coffin">
+<building name="Coffin" gameID="building_coffinst">
 	<sprite index = 275 color = material />
 	<sprite index = 274 color = none />
 </building> 

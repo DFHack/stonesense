@@ -36,7 +36,7 @@ void DumpPrefessionNamesToDisk(vector<string> material, const char* filename){
 	FILE* fp = fopen(filename, "w");
 	if(!fp) return;
 	for(uint32_t j=0; j < material.size(); j++){
-		fprintf(fp, "%i:%s\n",j, material[j]);
+		fprintf(fp, "%i:%s\n",j, material[j].c_str());
 	}
 	fclose(fp);
 }
@@ -107,11 +107,9 @@ bool ContentLoader::Load(API& DF){
 		}
 		classIdStrings.push_back(temp);
 	}
-	for(int i = 0; i<classIdStrings.size();i++)
-	{
-		WriteErr("%s\n", classIdStrings[i]);
-	}
-	//DumpPrefessionNamesToDisk(professionStrings, "priofessiondump.txt");
+
+	DumpPrefessionNamesToDisk(professionStrings, "priofessiondump.txt");
+	DumpPrefessionNamesToDisk(classIdStrings, "buildingdump.txt");
 	//DumpMaterialNamesToDisk(organicMaterials, "organicdump.txt");
 	//DumpMaterialNamesToDisk(woodMaterials, "wooddump.txt");
 	//DumpMaterialNamesToDisk(plantMaterials, "plantdump.txt");

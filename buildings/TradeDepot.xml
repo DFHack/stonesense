@@ -2,7 +2,7 @@
 
 
 
-<building name="Trade Depot" gameID="building_tradedepot">
+<building name="Trade Depot" gameID="building_tradedepotst">
 	
 	<if>
 		<not><BuildingOccupancy value="1" /></not>

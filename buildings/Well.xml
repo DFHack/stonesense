@@ -2,7 +2,7 @@
 
 
 
-<building name="Well" gameID="building_well" file="workshop.png">
+<building name="Well" gameID="building_wellst" file="workshop.png">
 
 	<include file="wsBenches.xml"/>
 	<include file="wsTub.xml" />

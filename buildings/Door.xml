@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 
-<building name="Door" gameID="building_door"> 	
+<building name="Door" gameID="building_doorst"> 	
 	<if>
 		<or>
 			<NeighbourWall dir="North" />

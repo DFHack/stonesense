@@ -2,7 +2,7 @@
 
 
 
-<building name="Bridge" gameID="building_bridge" > 
+<building name="Bridge" gameID="building_bridgest" > 
 
 	<if>
 		<BuildingOccupancy value="2" />

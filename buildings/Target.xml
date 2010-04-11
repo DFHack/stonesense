@@ -2,6 +2,6 @@
 
 
 
-<building name="Target" gameID="building_archerytarget">
+<building name="Target" gameID="building_archerytargetst">
 		<sprite index = 288 />	
 </building> 
