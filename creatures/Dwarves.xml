@@ -2,6 +2,76 @@
 
 <creatures>
 	<creature gameID="DWARF" sheetIndex = 40 file="dwarves.png" >
+		<variant prof="MINER" sex="M" sheetIndex = 41/>
+		<variant prof="WOODWORKER" sex="M" sheetIndex = 42/>
+		<variant prof="CARPENTER" sex="M" sheetIndex = 42/>
+		<variant prof="STONEWORKER" sex="M" sheetIndex = 43/>
+		<variant prof="MASON" sex="M" sheetIndex = 43/>
+		<variant prof="ENGRAVER" sex="M" sheetIndex = 43/>
+		<variant prof="RANGER" sex="M" sheetIndex = 44/>
+		<variant prof="METALSMITH" sex="M" sheetIndex = 45/>
+		<variant prof="WEAPONSMITH" sex="M" sheetIndex = 45/>
+		<variant prof="JEWELER" sex="M" sheetIndex = 46/>
+		<variant prof="CRAFTSMAN" sex="M" sheetIndex = 47/>
+		<variant prof="FISHERMAN" sex="M" sheetIndex = 48/>
+		<variant prof="FARMER" sex="M" sheetIndex = 49/>
+		<variant prof="PLANTER" sex="M" sheetIndex = 49/>
+		<variant prof="MECHANIC" sex="M" sheetIndex = 50/>
+		<!-- Free slot -->
+		<variant prof="WRESTLER" sex="M" sheetIndex = 53/>
+		<variant prof="AXEMAN" sex="M" sheetIndex = 54/>
+		<variant prof="HAMMERMAN" sex="M" sheetIndex = 55/>
+		<variant prof="MACEMAN" sex="M" sheetIndex = 56/>
+		<variant prof="CROSSBOWMAN" sex="M" sheetIndex = 57/>
+		<variant prof="SPEARMAN" sex="M" sheetIndex = 58/>
+		<variant prof="SWORDSMAN" sex="M" sheetIndex = 59/>
+		
+		<!-- Free slot -->
+		<variant prof="CLERK" sex="M" sheetIndex = 67/>
+		<variant prof="MASTER_WRESTLER" sex="M" sheetIndex = 73/>
+		<variant prof="MASTER_AXEMAN" sex="M" sheetIndex = 74/>
+		<variant prof="MASTER_HAMMERMAN" sex="M" sheetIndex = 75/>
+		<variant prof="MASTER_MACEMAN" sex="M" sheetIndex = 76/>
+		<variant prof="MASTER_CROSSBOWMAN" sex="M" sheetIndex = 77/>
+		<variant prof="MASTER_SPEARMAN" sex="M" sheetIndex = 78/>
+		<variant prof="MASTER_SWORDSMAN" sex="M" sheetIndex = 79/>
+		
+		<variant prof="CHILD" sheetIndex = 80/>
+		<variant prof="BABY" sheetIndex = 81/>
+		
+		<variant prof="MINER" sex="F" sheetIndex = 1/>
+		<variant prof="WOODWORKER" sex="F" sheetIndex = 2/>
+		<variant prof="CARPENTER" sex="F" sheetIndex = 2/>
+		<variant prof="STONEWORKER" sex="F" sheetIndex = 3/>
+		<variant prof="MASON" sex="F" sheetIndex = 3/>
+		<variant prof="ENGRAVER" sex="F" sheetIndex = 3/>
+		<variant prof="RANGER" sex="F" sheetIndex = 4/>
+		<variant prof="METALSMITH" sex="F" sheetIndex = 5/>
+		<variant prof="WEAPONSMITH" sex="F" sheetIndex = 5/>
+		<variant prof="JEWELER" sex="F" sheetIndex = 6/>
+		<variant prof="CRAFTSMAN" sex="F" sheetIndex = 7/>
+		<variant prof="FISHERMAN" sex="F" sheetIndex = 8/>
+		<variant prof="FARMER" sex="F" sheetIndex = 9/>
+		<variant prof="PLANTER" sex="F" sheetIndex = 9/>
+		<variant prof="MECHANIC" sex="F" sheetIndex =10/>
+		<!-- Free slot -->
+		<variant prof="WRESTLER" sex="F" sheetIndex = 13/>
+		<variant prof="AXEMAN" sex="F" sheetIndex = 14/>
+		<variant prof="HAMMERMAN" sex="F" sheetIndex = 15/>
+		<variant prof="MACEMAN" sex="F" sheetIndex = 16/>
+		<variant prof="CROSSBOWMAN" sex="F" sheetIndex = 17/>
+		<variant prof="SPEARMAN" sex="F" sheetIndex = 18/>
+		<variant prof="SWORDSMAN" sex="F" sheetIndex = 19/>
+		
+		<!-- Free slot -->
+		<variant prof="CLERK" sex="F" sheetIndex = 27/>
+		<variant prof="MASTER_WRESTLER" sex="F" sheetIndex = 33/>
+		<variant prof="MASTER_AXEMAN" sex="F" sheetIndex = 34/>
+		<variant prof="MASTER_HAMMERMAN" sex="F" sheetIndex = 35/>
+		<variant prof="MASTER_MACEMAN" sex="F" sheetIndex = 36/>
+		<variant prof="MASTER_CROSSBOWMAN" sex="F" sheetIndex = 37/>
+		<variant prof="MASTER_SPEARMAN" sex="F" sheetIndex = 38/>
+		<variant prof="MASTER_SWORDSMAN" sex="F" sheetIndex = 39/>
 		<variant sex="F" sheetIndex = 0/>
 	</creature>
 </creatures>
