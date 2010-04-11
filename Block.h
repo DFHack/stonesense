@@ -28,6 +28,8 @@ public:
 	bool depthBorderWest;
 	int shadow;
 
+	bool creaturePresent;
+	bool buildingPresent;
 	t_matglossPair ramp;
 	t_matglossPair water;
 	t_designation designation;

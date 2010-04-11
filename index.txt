@@ -3,7 +3,7 @@
 
 terrain/index.txt
 creatures/index.txt
-# buildings/index.txt
+buildings/index.txt
 vegetation/index.txt
 colors/index.txt
 Colors.xml

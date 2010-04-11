@@ -861,56 +861,57 @@ void Block::Draw(){
 	// creature
 	// ensure there is *some* creature according to the map data
 	// (no guarantee it is the right one)
-	if(creature != null && (occ.bits.unit || occ.bits.unit_grounded)){
+	if(creaturePresent)
+	{
 		DrawCreature(drawx, drawy, creature);
 	}
 
-	if(eff_miasma > 0)
-	{
-		draw_particle_cloud(eff_miasma, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_miasma);
-	}
-	if(eff_water > 0)
-	{
-		draw_particle_cloud(eff_water, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_water);
-	}
-	if(eff_water2 > 0)
-	{
-		draw_particle_cloud(eff_water2, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_water2);
-	}
-	if(eff_blood > 0)
-	{
-		draw_particle_cloud(eff_blood, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_blood);
-	}
+	//if(eff_miasma > 0)
+	//{
+	//	draw_particle_cloud(eff_miasma, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_miasma);
+	//}
+	//if(eff_water > 0)
+	//{
+	//	draw_particle_cloud(eff_water, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_water);
+	//}
+	//if(eff_water2 > 0)
+	//{
+	//	draw_particle_cloud(eff_water2, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_water2);
+	//}
+	//if(eff_blood > 0)
+	//{
+	//	draw_particle_cloud(eff_blood, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_blood);
+	//}
+	////if(eff_magma > 0)
+	////{
+	////	al_set_separate_blender(op, ALLEGRO_ONE, ALLEGRO_ONE, alpha_op, ALLEGRO_ONE, ALLEGRO_ONE, al_map_rgba(255, 255, 255, (255*eff_magma/100)));
+	////	DrawSpriteFromSheet( 185, IMGObjectSheet, drawx, drawy );
+	////	al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
+	////}
 	//if(eff_magma > 0)
 	//{
-	//	al_set_separate_blender(op, ALLEGRO_ONE, ALLEGRO_ONE, alpha_op, ALLEGRO_ONE, ALLEGRO_ONE, al_map_rgba(255, 255, 255, (255*eff_magma/100)));
-	//	DrawSpriteFromSheet( 185, IMGObjectSheet, drawx, drawy );
-	//	al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
+	//	draw_particle_cloud(eff_magma, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_magma);
 	//}
-	if(eff_magma > 0)
-	{
-		draw_particle_cloud(eff_magma, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_magma);
-	}
-	if(eff_dust > 0)
-	{
-		draw_particle_cloud(eff_dust, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_dust);
-	}
-	if(eff_smoke > 0)
-	{
-		draw_particle_cloud(eff_smoke, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_smoke);
-	}
-	if(eff_dragonfire > 0)
-	{
-		draw_particle_cloud(eff_smoke, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_smoke);
-	}
-	if(eff_fire > 0)
-	{
-		draw_particle_cloud(eff_smoke, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_smoke);
-	}
-	if(eff_boiling > 0)
-	{
-		draw_particle_cloud(eff_smoke, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_smoke);
-	}
+	//if(eff_dust > 0)
+	//{
+	//	draw_particle_cloud(eff_dust, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_dust);
+	//}
+	//if(eff_smoke > 0)
+	//{
+	//	draw_particle_cloud(eff_smoke, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_smoke);
+	//}
+	//if(eff_dragonfire > 0)
+	//{
+	//	draw_particle_cloud(eff_smoke, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_smoke);
+	//}
+	//if(eff_fire > 0)
+	//{
+	//	draw_particle_cloud(eff_smoke, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_smoke);
+	//}
+	//if(eff_boiling > 0)
+	//{
+	//	draw_particle_cloud(eff_smoke, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_smoke);
+	//}
 	al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
 }
 
@@ -934,7 +935,8 @@ void Block::Drawcreaturetext(){
 	// creature
 	// ensure there is *some* creature according to the map data
 	// (no guarantee it is the right one)
-	if(creature != null && (occ.bits.unit || occ.bits.unit_grounded)){
+	if(creaturePresent)
+	{
 		DrawCreatureText(drawx, drawy, creature);
 	}
 

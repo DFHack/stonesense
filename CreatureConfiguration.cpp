@@ -54,23 +54,23 @@ int translateProfession(const char* currentProf)
 	if (currentProf == NULL || currentProf[0]==0)
 		return INVALID_INDEX;
     uint32_t j;
-    string proffStr;
-    try
-    {
-	    for(j=0; true; j++)
-    {   
-		  proffStr = dfMemoryInfo->getProfession(j);
-      if( proffStr.compare( currentProf ) == 0)
-      {
-        //assign ID
-        return j;
-      }
-    }
+	string proffStr;
+	try
+	{
+		for(j=0; true; j++)
+		{   
+			proffStr = dfMemoryInfo->getProfession(j);
+			if( proffStr.compare( currentProf ) == 0)
+			{
+				//assign ID
+				return j;
+			}
+		}
 	}
 	catch (Error::MissingMemoryDefinition)
 	{
-	WriteErr("Unable to match profession '%s' to anything in-game\n", currentProf);
-	return INT_MAX; //if it is left at INVALID_INDEX, the condition is ignored entierly.
+		WriteErr("Unable to match profession '%s' to anything in-game\n", currentProf);
+		return INT_MAX; //if it is left at INVALID_INDEX, the condition is ignored entierly.
 	}
 }
 

@@ -388,33 +388,6 @@
 
 
 <!-- construct -->
-<block sprite= 7 >
-	<!-- pillar -->
-	<terrain value= 495 />
-	<!-- wall -->
-	<terrain value= 496 />
-	<terrain value= 497 />
-	<terrain value= 498 />
-	<terrain value= 499 />
-	<terrain value= 500 />
-	<terrain value= 501 />
-	<terrain value= 502 />
-	<terrain value= 503 />
-	<terrain value= 504 />
-	<terrain value= 505 />
-	<terrain value= 506 />
-	<terrain value= 507 />
-	<terrain value= 508 />
-	<terrain value= 509 />
-	<terrain value= 510 />
-	<terrain value= 511 />
-	<terrain value= 512 />
-	<terrain value= 513 />
-	<terrain value= 514 />
-	<material value="Metal"/>
-</block>
-
-<!-- construct -->
 <block sprite= 27 >
 	<!-- pillar -->
 	<terrain value= 495 />
@@ -675,33 +648,6 @@
 	<terrain value= 335 />	
 	<!-- vein wall -->
 	<terrain value= 440 />
-</block>
-
-<!-- ore stone -->
-<block sprite= 30 >
-	<!-- wall feat? -->
-	<terrain value= 219 />
-	<!-- wall feat? -->
-	<terrain value= 335 />	
-	<!-- vein wall -->
-	<terrain value= 440 />
-	<material value="Stone">
-		<subtype value="HEMATITE"/>
-		<subtype value="LIMONITE"/>
-		<subtype value="GARNIERITE"/>
-		<subtype value="GOLD"/>
-		<subtype value="SILVER"/>
-		<subtype value="COPPER"/>
-		<subtype value="MALACHITE"/>
-		<subtype value="GALENA"/>
-		<subtype value="SPHALERITE"/>
-		<subtype value="CASSITERITE"/>
-		<subtype value="PLATINUM"/>
-		<subtype value="HORN_SILVER"/>
-		<subtype value="TETRAHEDRITE"/>
-		<subtype value="MAGNETITE"/>
-		<subtype value="BISMUTHINITE"/>
-	</material>
 </block>
 
 <!-- soil -->

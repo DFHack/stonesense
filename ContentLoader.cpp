@@ -63,10 +63,15 @@ bool ContentLoader::Load(API& DF){
 	// ie not enough to worry about
 	//DF.Suspend();
 
-	//read data from DF
-	const vector<string> *tempClasses = DF.getMemoryInfo()->getClassIDMapping();
-	// make a copy for our use
-	classIdStrings = *tempClasses;
+	if(!DF.isAttached())
+	{
+		WriteErr("FAIL");
+		return false;
+	}
+	////read data from DF
+	//const vector<string> *tempClasses = DF.getMemoryInfo()->getClassIDMapping();
+	//// make a copy for our use
+	//classIdStrings = *tempClasses;
 
 	DFHack::Materials * Mats = DF.getMaterials();
 	Mats->ReadInorganicMaterials (inorganicMaterials);
@@ -91,6 +96,20 @@ bool ContentLoader::Load(API& DF){
 		{
 			professionStrings.push_back(temp);
 		}
+	}
+
+	for(int i = 0; ; i++)
+	{
+		string temp;
+		if(!mem->resolveClassIDToClassname(i, temp))
+		{
+			break;
+		}
+		classIdStrings.push_back(temp);
+	}
+	for(int i = 0; i<classIdStrings.size();i++)
+	{
+		WriteErr("%s\n", classIdStrings[i]);
 	}
 	//DumpPrefessionNamesToDisk(professionStrings, "priofessiondump.txt");
 	//DumpMaterialNamesToDisk(organicMaterials, "organicdump.txt");

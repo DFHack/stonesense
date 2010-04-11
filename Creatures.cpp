@@ -127,11 +127,12 @@ void ReadCreaturesToSegment(API& DF, WorldSegment* segment)
 				b->y = tempcreature->y;
 				b->z = tempcreature->z;
 				// fake block occupancy where needed. This is starting to get hacky...
-				b->occ.bits.unit=1;
+				b->creaturePresent=true;
 				segment->addBlock( b );
 			}
 			if (!b->creature)
 			{
+				b->creaturePresent=true;
 				b->creature = tempcreature;
 				// add shadow to nearest floor block
 				for (int bz = tempcreature->z;bz>=z1;bz--)

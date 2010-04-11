@@ -61,8 +61,8 @@ dirTypes findWallCloseTo(WorldSegment* segment, Block* b){
 	return eSimpleSingle;
 }
 
-void ReadBuildings(API& DF, vector<t_building>* buildingHolder){
-	return;
+void ReadBuildings(API& DF, vector<t_building>* buildingHolder)
+{
 	if(!buildingHolder) return;
 
 	DFHack::Buildings * Bld = DF.getBuildings();
@@ -154,7 +154,15 @@ void loadBuildingSprites ( Block* b){
 	}
 	//add yellow box, if needed. But only if the building was not found (this way we can have blank slots in buildings)
 	if(b->building.sprites.size() == 0 && foundBlockBuildingInfo == false){
-		t_SpriteWithOffset unknownBuildingSprite = {SPRITEOBJECT_NA, 0, 0,-1,1+2+4+8+16+32};
+		t_SpriteWithOffset unknownBuildingSprite = 
+		{
+			SPRITEOBJECT_NA, 
+			0, 
+			0,
+			-1,
+			0,
+			1+2+4+8+16+32
+		};
 		b->building.sprites.push_back( unknownBuildingSprite );
 	}
 }
