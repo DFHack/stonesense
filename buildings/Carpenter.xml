@@ -48,15 +48,6 @@
 				</rotate>
 			</if>
 			<else>
-				<MaterialType value="Metal" />
-				<rotate>
-					<sprite index = 84 offsetx=2 offsety=-1/>
-					<sprite index = 85 />
-					<sprite index = 84 />
-					<sprite index = 85 offsetx=-2 offsety=-1/>
-				</rotate>
-			</else>
-			<else>
 				<MaterialType value="GreenGlass" />
 				<rotate>
 					<sprite index = 88 offsetx=2 offsety=-1/>
@@ -110,15 +101,6 @@
 					<sprite index = 83 />
 				</rotate>
 			</if>
-			<else>
-				<MaterialType value="Metal" />
-				<rotate>
-					<sprite index = 84 />
-					<sprite index = 85 offsetx=-2 offsety=-1/>
-					<sprite index = 84 offsetx=2 offsety=-1/>
-					<sprite index = 85 />
-				</rotate>
-			</else>
 			<else>
 				<MaterialType value="GreenGlass" />
 				<rotate>

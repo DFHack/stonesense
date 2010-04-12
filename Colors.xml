@@ -1,82 +1,77 @@
-<?xml version="1.0" ?>
-
-<colors> 
-	<color red = 43 green =11 blue = 11>
-		<material value="Inorganic">
-			<subtype value="ONYX" />
-		</material>
-	</color>
-
-	<color red = 43 green =40 blue = 35>
-		<material value="Inorganic">
-			<subtype value="MORION" />
-		</material>
-	</color>
-
-	<color red = 140 green =154 blue = 165>
-		<material value="Inorganic">
-			<subtype value="SCHORL" />
-		</material>
-	</color>
-
-	<color red = 147 green =181 blue = 223>
-		<material value="Inorganic">
-			<subtype value="LACE AGATE" />
-		</material>
-	</color>
-
-	<color red = 248 green =487 blue = 133>
-		<material value="Inorganic">
-			<subtype value="ORTHOCLASE" />
-		</material>
-	</color>
-	
-	<color red = 90 green =191 blue = 218>
-		<material value="Inorganic">
-			<subtype value="MICROCLINE" />
-		</material>
-	</color>
-	
-	<color red = 183 green =225 blue = 34>
-		<material value="Inorganic">
-			<subtype value="OLIVINE" />
-		</material>
-	</color>
-	
-	<color red = 253 green =219 blue = 139>
-		<material value="Inorganic">
-			<subtype value="ALUNITE" />
-		</material>
-	</color>
-	
-	<color red = 101 green =235 blue = 236>
-		<material value="Inorganic">
-			<subtype value="RAW_ADAMANTINE" />
-			<subtype value="ADAMANTINE" />
-		</material>
-	</color>
-	
-	<color red = 255 green = 177 blue = 80 >
-		<material value="Inorganic">
-			<subtype value="COPPER" />
-		</material>
-	</color>
-	
-	<color red = 250 green = 242 blue = 148 >
-		<material value="Inorganic">
-			<subtype value="GOLD" />
-		</material>
-	</color>
-	
-	<color red = 198 green = 199 blue = 197 >
-		<material value="Inorganic">
-			<subtype value="PEWTER_LAY" />
-		</material>
-	</color>
-	
-	<color red = 79 green = 205 blue = 88 >
-		<material value="GreenGlass"/>
-	</color>
+<?xml version="1.0"?>
+<colors>
+  <color red="43" green="11" blue="11">
+    <material value="Inorganic">
+      <subtype value="ONYX" />
+    </material>
+  </color>
+  <color red="43" green="40" blue="35">
+    <material value="Inorganic">
+      <subtype value="MORION" />
+    </material>
+  </color>
+  <color red="140" green="154" blue="165">
+    <material value="Inorganic">
+      <subtype value="SCHORL" />
+    </material>
+  </color>
+  <color red="147" green="181" blue="223">
+    <material value="Inorganic">
+      <subtype value="LACE AGATE" />
+    </material>
+  </color>
+  <color red="248" green="487" blue="133">
+    <material value="Inorganic">
+      <subtype value="ORTHOCLASE" />
+    </material>
+  </color>
+  <color red="90" green="191" blue="218">
+    <material value="Inorganic">
+      <subtype value="MICROCLINE" />
+    </material>
+  </color>
+  <color red="183" green="225" blue="34">
+    <material value="Inorganic">
+      <subtype value="OLIVINE" />
+    </material>
+  </color>
+  <color red="253" green="219" blue="139">
+    <material value="Inorganic">
+      <subtype value="ALUNITE" />
+    </material>
+  </color>
+  <color red="197" green="111" blue="86">
+    <material value="Inorganic">
+      <subtype value="BAUXITE" />
+    </material>
+  </color>
+  <color red="213" green="201" blue="188">
+    <material value="Inorganic">
+      <subtype value="MICA" />
+    </material>
+  </color>
+  <color red="101" green="235" blue="236">
+    <material value="Inorganic">
+      <subtype value="RAW_ADAMANTINE" />
+      <subtype value="ADAMANTINE" />
+    </material>
+  </color>
+  <color red="255" green="177" blue="80">
+    <material value="Inorganic">
+      <subtype value="COPPER" />
+    </material>
+  </color>
+  <color red="250" green="242" blue="148">
+    <material value="Inorganic">
+      <subtype value="GOLD" />
+    </material>
+  </color>
+  <color red="198" green="199" blue="197">
+    <material value="Inorganic">
+      <subtype value="PEWTER_LAY" />
+    </material>
+  </color>
+  <color red="79" green="205" blue="88">
+    <material value="GreenGlass" />
+  </color>
 </colors>
-
-

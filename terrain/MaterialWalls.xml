@@ -642,14 +642,6 @@
 	</material>
 </block>
 
-<!-- non-layer stone -->
-<block sprite= 33 >
-	<!-- wall feat -->
-	<terrain value= 335 />	
-	<!-- vein wall -->
-	<terrain value= 440 />
-</block>
-
 <!-- soil -->
 <block sprite= 10 >	
 	<!-- wall -->

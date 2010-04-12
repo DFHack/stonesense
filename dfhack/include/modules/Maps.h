@@ -197,14 +197,14 @@ namespace DFHack
 
     typedef int16_t tiletypes40d [16][16];
     typedef DFHack::t_designation designations40d [16][16];
-//    typedef DFHack::t_occupancy occupancies40d [16][16];
+    typedef DFHack::t_occupancy occupancies40d [16][16];
     typedef uint8_t biome_indices40d [16];
 
     typedef struct
     {
         tiletypes40d tiletypes;
         designations40d designation;
-//        occupancies40d occupancy;
+        occupancies40d occupancy;
         biome_indices40d biome_indices;
         uint32_t origin; // the address where it came from
         t_blockflags blockflags;
@@ -290,25 +290,30 @@ namespace DFHack
         bool ReadDesignations(uint32_t blockx, uint32_t blocky, uint32_t blockz, designations40d *buffer);
         bool WriteDesignations (uint32_t blockx, uint32_t blocky, uint32_t blockz, designations40d *buffer);
 
-        /*
         /// read/write block occupancies
         bool ReadOccupancy(uint32_t blockx, uint32_t blocky, uint32_t blockz, occupancies40d *buffer);
         bool WriteOccupancy(uint32_t blockx, uint32_t blocky, uint32_t blockz, occupancies40d *buffer);
-*/
+
         /// read/write the block dirty bit - this is used to mark a map block so that DF scans it for designated jobs like digging
         bool ReadDirtyBit(uint32_t blockx, uint32_t blocky, uint32_t blockz, bool &dirtybit);
         bool WriteDirtyBit(uint32_t blockx, uint32_t blocky, uint32_t blockz, bool dirtybit);
 
         /// read/write the block flags
-        bool ReadBlockFlags(uint32_t blockx, uint32_t blocky, uint32_t blockz, t_blockflags &blockflags);
-        bool WriteBlockFlags(uint32_t blockx, uint32_t blocky, uint32_t blockz, t_blockflags blockflags);
+        bool ReadBlockFlags(uint32_t blockx, uint32_t blocky, uint32_t blockz,
+                            t_blockflags &blockflags);
+        bool WriteBlockFlags(uint32_t blockx, uint32_t blocky, uint32_t blockz,
+                             t_blockflags blockflags);
 
         /// read region offsets of a block - used for determining layer stone matgloss
-        bool ReadRegionOffsets(uint32_t blockx, uint32_t blocky, uint32_t blockz, biome_indices40d *buffer);
+        bool ReadRegionOffsets(uint32_t blockx, uint32_t blocky, uint32_t blockz,
+                               biome_indices40d *buffer);
 
-        /// read aggregated veins of a block
-        bool ReadVeins(uint32_t blockx, uint32_t blocky, uint32_t blockz, std::vector <t_vein> & veins, std::vector <t_frozenliquidvein>& ices, std::vector <t_spattervein>& splatter);
-        
+        /// block event reading - mineral veins, what's under ice, blood smears and mud
+        bool ReadVeins(uint32_t x, uint32_t y, uint32_t z,
+                       std::vector<t_vein>* veins,
+                       std::vector<t_frozenliquidvein>* ices = 0,
+                       std::vector<t_spattervein>* splatter = 0);
+       
         private:
         struct Private;
         Private *d;

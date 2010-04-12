@@ -7,10 +7,6 @@
 			<sprite index = 21 />
 		</if>
 		<else>
-			<MaterialType value="Metal"/>
-			<sprite index = 22 />
-		</else>
-		<else>
 			<MaterialType value="GreenGlass"/>
 			<sprite index = 23 />
 		</else>

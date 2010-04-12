@@ -586,27 +586,28 @@ void Block::Draw(){
 			al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, getSpriteColor(sprite, this->material, this->layerMaterial, this->veinMaterial));
 
 
-			//if floor is muddy, override regular floor
-			for( int i = 0; i < splatter.size(); i++)
-			{
-				occ.bits.mud = (occ.bits.mud || (splatter[i].mat1 == 12));
-			}
-			if( occ.bits.mud && water.index == 0)
-			{
-				sprite.sheetIndex = SPRITEFLOOR_WATERFLOOR;
-				sprite.fileIndex = INVALID_INDEX;
-				spriteOffset = 0;
-				al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, al_map_rgb(255, 255, 255));
+			////Occupancies don't work right yet
+			////if floor is muddy, override regular floor
+			//for( int i = 0; i < splatter.size(); i++)
+			//{
+			//	occ.bits.mud = (occ.bits.mud || (splatter[i].mat1 == 12));
+			//}
+			//if( occ.bits.mud && water.index == 0)
+			//{
+			//	sprite.sheetIndex = SPRITEFLOOR_WATERFLOOR;
+			//	sprite.fileIndex = INVALID_INDEX;
+			//	spriteOffset = 0;
+			//	al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, al_map_rgb(255, 255, 255));
 
-			}
-			//if floor is snowed down, override  regular floor
-			if( occ.bits.snow )
-			{
-				sprite.sheetIndex = SPRITEFLOOR_SNOW;
-				sprite.fileIndex = INVALID_INDEX;
-				spriteOffset = 0;
-				al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, al_map_rgb(255, 255, 255));
-			}
+			//}
+			////if floor is snowed down, override  regular floor
+			//if( occ.bits.snow )
+			//{
+			//	sprite.sheetIndex = SPRITEFLOOR_SNOW;
+			//	sprite.fileIndex = INVALID_INDEX;
+			//	spriteOffset = 0;
+			//	al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, al_map_rgb(255, 255, 255));
+			//}
 
 			if (sprite.sheetIndex == UNCONFIGURED_INDEX)
 			{

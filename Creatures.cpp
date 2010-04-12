@@ -150,7 +150,7 @@ void ReadCreaturesToSegment(API& DF, WorldSegment* segment)
 				}
 				// need a new tempcreature now
 				// old tempcreature should be deleted when b is
-				tempcreature = new t_creature();
+				tempcreature = new t_creature;
 			}
 		}
 	}

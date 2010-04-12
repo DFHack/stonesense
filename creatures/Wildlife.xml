@@ -1,46 +1,59 @@
-<?xml version="1.0" ?>
-
+<?xml version="1.0"?>
 <creatures>
-<creature gameID="HUMAN" 		sheetIndex = 100>
-	<variant sex="F" sheetIndex = 101/>
-</creature>
-
-<creature gameID="CAT" 	sheetIndex = 20 > 
-</creature>
-<creature gameID="DOG" 	sheetIndex = 22 > 
-</creature>
-
-<creature gameID="MACAQUE_RHESUS" 	sheetIndex = 2 /> 
-<creature gameID="CAMEL_1_HUMP" 	sheetIndex = 4 />
-<creature gameID="CAMEL_2_HUMP" 	sheetIndex = 4 />
-<creature gameID="COW" 				sheetIndex = 5 />
-<creature gameID="HIPPO" 			sheetIndex = 6 />
-<creature gameID="GROUNDHOG" 		sheetIndex = 7 />
-
-<creature gameID="TROLL" 			sheetIndex = 16 />
-<creature gameID="NIGHTWING" 		sheetIndex = 17 />
-
-<creature gameID="MULE" 		sheetIndex = 24 /> 
-<creature gameID="DONKEY" 		sheetIndex = 24 /> 
-<creature gameID="MUSKOX" 		sheetIndex = 25 /> 
-<creature gameID="HORSE" 		sheetIndex = 26 /> 
-
-<creature gameID="DEER" 		sheetIndex = 27 /> 
-<creature gameID="BEAR_BLACK" 	sheetIndex = 28 /> 
-<creature gameID="BEAR_GRIZZLY" sheetIndex = 28 /> 
-<creature gameID="FISH_CARP" 	sheetIndex = 29 /> 
-<creature gameID="OLM_GIANT" 	sheetIndex = 30 /> 
-<creature gameID="RATMAN" 		sheetIndex = 31 /> 
-<creature gameID="BEAK_DOG" 	sheetIndex = 32 /> 
-<creature gameID="KOBOLD"	 	sheetIndex = 33 /> 
-<creature gameID="GOBLIN" 		sheetIndex = 34 /> 
-<creature gameID="ALLIGATOR" 	sheetIndex = 35 /> 
-<creature gameID="SPIDER_CAVE_GIANT" sheetIndex = 36 /> 
-<creature gameID="SPIRIT_OF_FIRE"sheetIndex = 38 /> 
-<creature gameID="IMP_FIRE" 	 sheetIndex = 39 /> 
-<creature gameID="IMP_FIRE" 	 sheetIndex = 39 /> 
-
-<creature gameID="FOX" 	 sheetIndex = 50 /> 
-<creature gameID="TROGLODYTE" 	 sheetIndex = 52 /> 
+  <creature gameID="HUMAN" sheetIndex="100">
+    <variant prof="WRESTLER" sheetIndex="80" />
+    <variant prof="LASHER" sheetIndex="81" />
+    <variant prof="AXEMAN" sheetIndex="82" />
+    <variant prof="HAMMERMAN" sheetIndex="83" />
+    <variant prof="SWORDSMAN" sheetIndex="84" />
+    <variant prof="SPEARMAN" sheetIndex="85" />
+    <variant prof="MACEMAN" sheetIndex="86" />
+    <variant prof="CROSSBOWMAN" sheetIndex="87" />
+    <variant prof="BOWMAN" sheetIndex="88" />
+    <variant prof="PIKEMAN" sheetIndex="89" />
+    <variant prof="TRADER" sex="M" sheetIndex="102" />
+    <variant prof="MERCHANT" sex="M" sheetIndex="102" />
+    <variant prof="TRADER" sex="F" sheetIndex="103" />
+    <variant prof="MERCHANT" sex="F" sheetIndex="103" />
+    <variant prof="DIPLOMAT" sex="M" sheetIndex="106" />
+    <variant prof="DIPLOMAT" sex="F" sheetIndex="107" />
+    <Profession name="CHILD" sex="M" sheetIndex="120" />
+    <Profession name="CHILD" sex="F" sheetIndex="121" />
+    <Profession name="BABY" sheetIndex="122" />
+    <variant sex="F" sheetIndex="101" />
+  </creature>
+  <creature gameID="CAT" sheetIndex="20">
+    <variant prof="CHILD" sheetIndex="21" />
+  </creature>
+  <creature gameID="DOG" sheetIndex="22">
+    <variant prof="CHILD" sheetIndex="23" />
+  </creature>
+  <creature gameID="MACAQUE_RHESUS" sheetIndex="2" />
+  <creature gameID="CAMEL_1_HUMP" sheetIndex="4" />
+  <creature gameID="CAMEL_2_HUMP" sheetIndex="4" />
+  <creature gameID="COW" sheetIndex="5" />
+  <creature gameID="HIPPO" sheetIndex="6" />
+  <creature gameID="GROUNDHOG" sheetIndex="7" />
+  <creature gameID="TROLL" sheetIndex="16" />
+  <creature gameID="NIGHTWING" sheetIndex="17" />
+  <creature gameID="MULE" sheetIndex="24" />
+  <creature gameID="DONKEY" sheetIndex="24" />
+  <creature gameID="MUSKOX" sheetIndex="25" />
+  <creature gameID="HORSE" sheetIndex="26" />
+  <creature gameID="DEER" sheetIndex="27" />
+  <creature gameID="BEAR_BLACK" sheetIndex="28" />
+  <creature gameID="BEAR_GRIZZLY" sheetIndex="28" />
+  <creature gameID="FISH_CARP" sheetIndex="29" />
+  <creature gameID="OLM_GIANT" sheetIndex="30" />
+  <creature gameID="RATMAN" sheetIndex="31" />
+  <creature gameID="BEAK_DOG" sheetIndex="32" />
+  <creature gameID="KOBOLD" sheetIndex="33" />
+  <creature gameID="GOBLIN" sheetIndex="34" />
+  <creature gameID="ALLIGATOR" sheetIndex="35" />
+  <creature gameID="SPIDER_CAVE_GIANT" sheetIndex="36" />
+  <creature gameID="SPIRIT_OF_FIRE" sheetIndex="38" />
+  <creature gameID="IMP_FIRE" sheetIndex="39" />
+  <creature gameID="IMP_FIRE" sheetIndex="39" />
+  <creature gameID="FOX" sheetIndex="50" />
+  <creature gameID="TROGLODYTE" sheetIndex="52" />
 </creatures>
-

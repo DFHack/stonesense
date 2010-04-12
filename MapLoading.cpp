@@ -165,6 +165,26 @@ bool isBlockOnVisibleEdgeOfSegment(WorldSegment* segment, Block* b)
 	return false;
 }
 
+bool areNeighborsVisible(t_designation designations[16][16],int  x,int y)
+{
+	if(designations[x-1][y-1].bits.hidden == false)
+		return true;
+	if(designations[x-1][y].bits.hidden == false)
+		return true;
+	if(designations[x-1][y+1].bits.hidden == false)
+		return true;
+	if(designations[x][y-1].bits.hidden == false)
+		return true;
+	if(designations[x][y+1].bits.hidden == false)
+		return true;
+	if(designations[x+1][y-1].bits.hidden == false)
+		return true;
+	if(designations[x+1][y].bits.hidden == false)
+		return true;
+	if(designations[x+1][y+1].bits.hidden == false)
+		return true;
+	return false;
+}
 
 void ReadCellToSegment(API& DF, WorldSegment& segment, int CellX, int CellY, int CellZ,
 					   uint32_t BoundrySX, uint32_t BoundrySY,
@@ -203,7 +223,7 @@ void ReadCellToSegment(API& DF, WorldSegment& segment, int CellX, int CellY, int
 	uint8_t regionoffsets[16];
 	Maps->ReadTileTypes(CellX, CellY, CellZ, (tiletypes40d *) tiletypes);
 	Maps->ReadDesignations(CellX, CellY, CellZ, (designations40d *) designations);
-	//Maps->ReadOccupancy(CellX, CellY, CellZ, (occupancies40d *) occupancies);
+	Maps->ReadOccupancy(CellX, CellY, CellZ, (occupancies40d *) occupancies);
 	Maps->ReadRegionOffsets(CellX,CellY,CellZ, (biome_indices40d *)regionoffsets);
 
 	//read local vein data
@@ -211,7 +231,7 @@ void ReadCellToSegment(API& DF, WorldSegment& segment, int CellX, int CellY, int
 	vector <t_frozenliquidvein> ices;
     vector <t_spattervein> splatter;
 
-	Maps->ReadVeins(CellX,CellY,CellZ,veins,ices,splatter);
+	Maps->ReadVeins(CellX,CellY,CellZ,&veins,&ices,&splatter);
 	uint32_t numVeins = (uint32_t)veins.size();
 
 
@@ -268,7 +288,7 @@ void ReadCellToSegment(API& DF, WorldSegment& segment, int CellX, int CellY, int
 			isHidden &= !config.show_hidden_blocks;
 			bool shouldBeIncluded = (!isOpenTerrain(t) || b->water.index) && !isHidden;
 			//include hidden blocks as shaded black 
-			if(config.shade_hidden_blocks && isHidden && isBlockOnVisibleEdgeOfSegment(&segment, b))
+			if(config.shade_hidden_blocks && isHidden && (isBlockOnVisibleEdgeOfSegment(&segment, b) || areNeighborsVisible(designations, lx, ly)))
 			{
 				b->wallType = 0;
 				b->floorType = 0;

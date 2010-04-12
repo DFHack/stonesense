@@ -45,6 +45,7 @@ GLhandleARB tinter;
 GLhandleARB tinter_shader;
 Crd3D debugCursor;
 
+
 void ScreenToPoint(int x,int y,int &x1, int &y1, int &z1)
 { //assume z of 0
 	x-=TILEWIDTH/2;
@@ -300,8 +301,10 @@ void drawDebugCursorAndInfo(){
 			"Vein Material:%s%s%s", 
 			matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
 	} 
+	char occs[33];
+	itoa(b->occ.whole, occs, 2);
 	draw_textf_border(font, 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0,
-		"Building Occ: %i Index: %i", b->occ.bits.building, b->building.index);
+		"Occupancy flags: %s", occs );
 
 	if(b->water.index > 0 || b->tree.index != 0)
 		draw_textf_border(font, 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
@@ -346,46 +349,46 @@ void drawDebugCursorAndInfo(){
 	{
 		draw_textf_border(font, 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0,"Rained");
 	}
-	//effects
-	if(b->blockeffects.lifetime > 0)
-		draw_textf_border(font, 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
-		"Effect Count:%i, Type:%i, Lifetime: %i, Direction:%i,%i", b->blockeffects.count, b->blockeffects.type, b->blockeffects.lifetime, b->blockeffects.x_direction, b->blockeffects.y_direction);
-	if(b->eff_miasma > 0)
-		draw_textf_border(font, 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
-		"Miasma: %d", b->eff_miasma);
-	if(b->eff_water > 0)
-		draw_textf_border(font, 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
-		"Water Mist: %d", b->eff_water);
-	if(b->eff_water2 > 0)
-		draw_textf_border(font, 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
-		"Water Mist 2: %d", b->eff_water2);
-	if(b->eff_blood > 0)
-		draw_textf_border(font, 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
-		"Blood Mist: %d", b->eff_blood);
-	if(b->eff_dust > 0)
-		draw_textf_border(font, 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
-		"Dust: %d", b->eff_dust);
-	if(b->eff_magma > 0)
-		draw_textf_border(font, 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
-		"Magma Mist: %d", b->eff_magma);
-	if(b->eff_smoke > 0)
-		draw_textf_border(font, 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
-		"Smoke: %d", b->eff_smoke);
-	if(b->eff_dragonfire > 0)
-		draw_textf_border(font, 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
-		"Dragonfire: %d", b->eff_dragonfire);
-	if(b->eff_fire > 0)
-		draw_textf_border(font, 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
-		"Fire: %d", b->eff_fire);
-	if(b->eff_webing > 0)
-		draw_textf_border(font, 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
-		"Webbing: %d", b->eff_webing);
-	if(b->eff_boiling > 0)
-		draw_textf_border(font, 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
-		"Boiling Substances: %d", b->eff_boiling);
-	if(b->eff_oceanwave > 0)
-		draw_textf_border(font, 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
-		"Ocean Wave: %d", b->eff_oceanwave);
+	////effects
+	//if(b->blockeffects.lifetime > 0)
+	//	draw_textf_border(font, 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
+	//	"Effect Count:%i, Type:%i, Lifetime: %i, Direction:%i,%i", b->blockeffects.count, b->blockeffects.type, b->blockeffects.lifetime, b->blockeffects.x_direction, b->blockeffects.y_direction);
+	//if(b->eff_miasma > 0)
+	//	draw_textf_border(font, 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
+	//	"Miasma: %d", b->eff_miasma);
+	//if(b->eff_water > 0)
+	//	draw_textf_border(font, 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
+	//	"Water Mist: %d", b->eff_water);
+	//if(b->eff_water2 > 0)
+	//	draw_textf_border(font, 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
+	//	"Water Mist 2: %d", b->eff_water2);
+	//if(b->eff_blood > 0)
+	//	draw_textf_border(font, 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
+	//	"Blood Mist: %d", b->eff_blood);
+	//if(b->eff_dust > 0)
+	//	draw_textf_border(font, 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
+	//	"Dust: %d", b->eff_dust);
+	//if(b->eff_magma > 0)
+	//	draw_textf_border(font, 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
+	//	"Magma Mist: %d", b->eff_magma);
+	//if(b->eff_smoke > 0)
+	//	draw_textf_border(font, 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
+	//	"Smoke: %d", b->eff_smoke);
+	//if(b->eff_dragonfire > 0)
+	//	draw_textf_border(font, 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
+	//	"Dragonfire: %d", b->eff_dragonfire);
+	//if(b->eff_fire > 0)
+	//	draw_textf_border(font, 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
+	//	"Fire: %d", b->eff_fire);
+	//if(b->eff_webing > 0)
+	//	draw_textf_border(font, 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
+	//	"Webbing: %d", b->eff_webing);
+	//if(b->eff_boiling > 0)
+	//	draw_textf_border(font, 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
+	//	"Boiling Substances: %d", b->eff_boiling);
+	//if(b->eff_oceanwave > 0)
+	//	draw_textf_border(font, 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
+	//	"Ocean Wave: %d", b->eff_oceanwave);
 
 	//basecon
 	//textprintf(target, font, 2, config.screenHeight-20-(i--*10), 0xFFFFFF, 

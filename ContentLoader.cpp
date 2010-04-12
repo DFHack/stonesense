@@ -108,8 +108,8 @@ bool ContentLoader::Load(API& DF){
 		classIdStrings.push_back(temp);
 	}
 
-	DumpPrefessionNamesToDisk(professionStrings, "priofessiondump.txt");
-	DumpPrefessionNamesToDisk(classIdStrings, "buildingdump.txt");
+	//DumpPrefessionNamesToDisk(professionStrings, "priofessiondump.txt");
+	//DumpPrefessionNamesToDisk(classIdStrings, "buildingdump.txt");
 	//DumpMaterialNamesToDisk(organicMaterials, "organicdump.txt");
 	//DumpMaterialNamesToDisk(woodMaterials, "wooddump.txt");
 	//DumpMaterialNamesToDisk(plantMaterials, "plantdump.txt");
