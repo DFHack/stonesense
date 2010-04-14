@@ -279,6 +279,11 @@ void drawDebugCursorAndInfo(){
 	}
 	if (tform != NULL)
 	{
+		draw_textf_border(font, 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0,
+			"MaterialType: %d, MaterialIndex: %d", b->material.type, b->material.index);
+	}
+	if (tform != NULL)
+	{
 		const char fore = lookupMaterialFore(b->material.type, b->material.index);
 		const char back = lookupMaterialBack(b->material.type, b->material.index);
 		const char bright = lookupMaterialBright(b->material.type, b->material.index);

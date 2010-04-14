@@ -53,8 +53,6 @@ bool ContentLoader::Load(API& DF){
 	flushImgFiles();
 	inorganicMaterials.clear();
 	organicMaterials.clear();
-	woodMaterials.clear();
-	plantMaterials.clear();
 	creatureMaterials.clear();
 	classIdStrings.clear();
 	professionStrings.clear();
@@ -76,8 +74,6 @@ bool ContentLoader::Load(API& DF){
 	DFHack::Materials * Mats = DF.getMaterials();
 	Mats->ReadInorganicMaterials (inorganicMaterials);
 	Mats->ReadOrganicMaterials (organicMaterials);
-	Mats->ReadWoodMaterials (woodMaterials);
-	Mats->ReadPlantMaterials (plantMaterials);
 	Mats->ReadCreatureTypes (creatureMaterials);
 
 	DFHack::memory_info *mem = DF.getMemoryInfo();
@@ -110,9 +106,7 @@ bool ContentLoader::Load(API& DF){
 
 	//DumpPrefessionNamesToDisk(professionStrings, "priofessiondump.txt");
 	//DumpPrefessionNamesToDisk(classIdStrings, "buildingdump.txt");
-	//DumpMaterialNamesToDisk(organicMaterials, "organicdump.txt");
-	//DumpMaterialNamesToDisk(woodMaterials, "wooddump.txt");
-	//DumpMaterialNamesToDisk(plantMaterials, "plantdump.txt");
+	//DumpMaterialNamesToDisk(inorganicMaterials, "DUMPSES.txt");
 	//DumpMaterialNamesToDisk(creatureMaterials, "creaturedump.txt");
 
 	//DF.Resume();
@@ -388,6 +382,10 @@ int lookupMaterialIndex(int matType, const char* strValue)
 	{
 		typeVector=&(contentLoader.inorganicMaterials);
 	}
+	else if (matType == WOOD)
+	{
+		typeVector=&(contentLoader.organicMaterials);
+	}
 	else
 	{
 		//maybe allow some more in later
@@ -404,6 +402,8 @@ const char *lookupMaterialTypeName(int matType)
 		return "Inorganic";
 	case GREEN_GLASS:
 		return "Green Glass";
+	case WOOD:
+		return "Wood";
 	default:
 		return NULL;
 	}
@@ -418,6 +418,10 @@ const char *lookupMaterialName(int matType,int matIndex)
 	if (matType == INORGANIC)
 	{
 		typeVector=&(contentLoader.inorganicMaterials);
+	}
+	else if (matType == WOOD)
+	{
+		typeVector=&(contentLoader.organicMaterials);
 	}
 	else
 	{

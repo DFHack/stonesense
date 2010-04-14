@@ -35,9 +35,6 @@ public:
 
 	vector<t_matgloss> inorganicMaterials;
 	vector<t_matgloss> organicMaterials;
-	vector<t_matgloss> woodMaterials;
-	vector<t_matglossPlant> treeMaterials;
-	vector<t_matgloss> plantMaterials;
 	vector<t_matgloss> creatureMaterials;
 
 	vector<string> classIdStrings;
