@@ -1,13 +1,10 @@
-<?xml version="1.0" ?>
-
-
-
-<building name="Chair" gameID="building_chairst"> 
-	<if>
-		<MaterialType value="Wood" />
-		<sprite index = "84" />
-	</if>
-	<else>
-		<sprite index = "85" color = material />
-	</else>
-</building> 
+<?xml version="1.0"?>
+<building name="Chair" gameID="building_chairst">
+  <if>
+    <MaterialType value="Wood" />
+    <sprite index="84" color="material" />
+  </if>
+  <else>
+    <sprite index="85" color="material" />
+  </else>
+</building>

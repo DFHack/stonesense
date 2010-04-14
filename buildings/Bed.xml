@@ -1,7 +1,5 @@
-<?xml version="1.0" ?>
-
-
-
+<?xml version="1.0"?>
 <building name="Bed" gameID="building_bedst">
-	<sprite index = 81 />
-</building> 
+  <sprite index="81" color="material" />
+  <sprite index="101" />
+</building>
