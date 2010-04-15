@@ -75,6 +75,9 @@ bool ContentLoader::Load(API& DF){
 	Mats->ReadInorganicMaterials (inorganicMaterials);
 	Mats->ReadOrganicMaterials (organicMaterials);
 	Mats->ReadCreatureTypes (creatureMaterials);
+	DFHack::Buildings * Bld = DF.getBuildings();
+
+	Bld->ReadCustomWorkshopTypes(custom_workshop_types);
 
 	DFHack::memory_info *mem = DF.getMemoryInfo();
 	for(int i=0;; i++)

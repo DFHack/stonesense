@@ -26,90 +26,90 @@ bool parseRecursiveNodes (ConditionalNode* pnode, TiXmlElement* pelem)
 }
 
 int parseConditionNode(ConditionalNode* node, TiXmlElement* elemCondition, bool silent){
-   const char* strType = elemCondition->Value();
-   BlockCondition* cond = NULL;	
-  if( strcmp(strType, "NeighbourWall") == 0){
-     cond = new NeighbourWallCondition( elemCondition->Attribute("dir") );
-  }
-  
-  else if( strcmp(strType, "PositionIndex") == 0){
-     cond = new PositionIndexCondition( elemCondition->Attribute("value") );
-  } 
-  
-  else if( strcmp(strType, "MaterialType") == 0){
-     cond = new MaterialTypeCondition( elemCondition->Attribute("value") , elemCondition->Attribute("subtype"));
-  }   
- 
-  else if( strcmp(strType, "always") == 0){
-     cond = new AlwaysCondition();
-  } 
-  
-  else if( strcmp(strType, "never") == 0){
-    cond = new NeverCondition();
-  }     
- 
-  else if( strcmp(strType, "BuildingOccupancy") == 0){
-     cond = new BuildingOccupancyCondition( elemCondition->Attribute("value") );
-  } 
-  
-  else if( strcmp(strType, "NeighbourSameBuilding") == 0){
-    cond = new NeighbourSameBuildingCondition( elemCondition->Attribute("dir") );
-  }     
-  
-  else if( strcmp(strType, "NeighbourSameType") == 0){
-    cond = new NeighbourSameTypeCondition( elemCondition->Attribute("dir") );
-  }
-  
-  else if( strcmp(strType, "NeighbourOfType") == 0){
-    cond = new NeighbourOfTypeCondition( elemCondition->Attribute("dir") , elemCondition->Attribute("value") );
-  }
-  
-  else if( strcmp(strType, "NeighbourIdentical") == 0){
-    cond = new NeighbourIdenticalCondition( elemCondition->Attribute("dir") );
-  }     
-  
-  else if( strcmp(strType, "AnimationFrame") == 0){
-    cond = new AnimationFrameCondition( elemCondition->Attribute("value") );
-  }  
-  
-  else if( strcmp(strType, "FluidBelow") == 0){
-    cond = new FluidBelowCondition( elemCondition->Attribute("value") );
-  }  
-  
-  else if( strcmp(strType, "HaveFloor") == 0){
-     cond = new HaveFloorCondition();
-  }
+	const char* strType = elemCondition->Value();
+	BlockCondition* cond = NULL;	
+	if( strcmp(strType, "NeighbourWall") == 0){
+		cond = new NeighbourWallCondition( elemCondition->Attribute("dir") );
+	}
 
-  else if( strcmp(strType, "and") == 0){
-	AndConditionalNode* andNode = new AndConditionalNode();
-	cond = andNode;
-	if (!parseRecursiveNodes(andNode, elemCondition))
-	{
-		delete(andNode);
-		return 0;
-	}
-  }
-  
-   else if( strcmp(strType, "or") == 0){
-	OrConditionalNode* orNode = new OrConditionalNode();
-	cond = orNode;
-	if (!parseRecursiveNodes(orNode, elemCondition))
-	{
-		delete(orNode);
-		return 0;
-	}
-  }
+	else if( strcmp(strType, "PositionIndex") == 0){
+		cond = new PositionIndexCondition( elemCondition->Attribute("value") );
+	} 
 
-  else if( strcmp(strType, "not") == 0){
-	NotConditionalNode* notNode = new NotConditionalNode();
-	cond = notNode;
-	if (!parseRecursiveNodes(notNode, elemCondition))
-	{
-		delete(notNode);
-		return 0;
+	else if( strcmp(strType, "MaterialType") == 0){
+		cond = new MaterialTypeCondition( elemCondition->Attribute("value") , elemCondition->Attribute("subtype"));
+	}   
+
+	else if( strcmp(strType, "always") == 0){
+		cond = new AlwaysCondition();
+	} 
+
+	else if( strcmp(strType, "never") == 0){
+		cond = new NeverCondition();
+	}     
+
+	else if( strcmp(strType, "BuildingOccupancy") == 0){
+		cond = new BuildingOccupancyCondition( elemCondition->Attribute("value") );
+	} 
+
+	else if( strcmp(strType, "NeighbourSameBuilding") == 0){
+		cond = new NeighbourSameBuildingCondition( elemCondition->Attribute("dir") );
+	}     
+
+	else if( strcmp(strType, "NeighbourSameType") == 0){
+		cond = new NeighbourSameTypeCondition( elemCondition->Attribute("dir") );
 	}
-  }
-  
+
+	else if( strcmp(strType, "NeighbourOfType") == 0){
+		cond = new NeighbourOfTypeCondition( elemCondition->Attribute("dir") , elemCondition->Attribute("value") );
+	}
+
+	else if( strcmp(strType, "NeighbourIdentical") == 0){
+		cond = new NeighbourIdenticalCondition( elemCondition->Attribute("dir") );
+	}     
+
+	else if( strcmp(strType, "AnimationFrame") == 0){
+		cond = new AnimationFrameCondition( elemCondition->Attribute("value") );
+	}  
+
+	else if( strcmp(strType, "FluidBelow") == 0){
+		cond = new FluidBelowCondition( elemCondition->Attribute("value") );
+	}  
+
+	else if( strcmp(strType, "HaveFloor") == 0){
+		cond = new HaveFloorCondition();
+	}
+
+	else if( strcmp(strType, "and") == 0){
+		AndConditionalNode* andNode = new AndConditionalNode();
+		cond = andNode;
+		if (!parseRecursiveNodes(andNode, elemCondition))
+		{
+			delete(andNode);
+			return 0;
+		}
+	}
+
+	else if( strcmp(strType, "or") == 0){
+		OrConditionalNode* orNode = new OrConditionalNode();
+		cond = orNode;
+		if (!parseRecursiveNodes(orNode, elemCondition))
+		{
+			delete(orNode);
+			return 0;
+		}
+	}
+
+	else if( strcmp(strType, "not") == 0){
+		NotConditionalNode* notNode = new NotConditionalNode();
+		cond = notNode;
+		if (!parseRecursiveNodes(notNode, elemCondition))
+		{
+			delete(notNode);
+			return 0;
+		}
+	}
+
 	if (cond != NULL)
 	{ 
 		if (!node->addCondition( cond ))
@@ -124,8 +124,8 @@ int parseConditionNode(ConditionalNode* node, TiXmlElement* elemCondition, bool 
 	{
 		contentError("Misplaced or invalid element in Condition",elemCondition);
 		return 0;		  
-  	}
-  	return -1;
+	}
+	return -1;
 }
 
 inline bool readNode(SpriteNode* node, TiXmlElement* elemNode, TiXmlElement* elemParent, SpriteBlock* &oldSibling)
@@ -238,15 +238,15 @@ inline bool readNode(SpriteNode* node, TiXmlElement* elemNode, TiXmlElement* ele
 		sprite->sprite.numVariations = (spriteVariationsStr !=0 ? atoi(spriteVariationsStr) : 0);
 		if (filename != NULL && filename[0] != 0)
 		{
-		  	sprite->sprite.fileIndex = loadConfigImgFile((char*)filename,elemNode);
+			sprite->sprite.fileIndex = loadConfigImgFile((char*)filename,elemNode);
 		}
 		else
 		{
-		  const char* pfilename = elemParent->Attribute("file");
-	      if (pfilename != NULL && pfilename[0] != 0)
-	      {
-		      sprite->sprite.fileIndex = loadConfigImgFile((char*)pfilename,elemNode);
-	      }
+			const char* pfilename = elemParent->Attribute("file");
+			if (pfilename != NULL && pfilename[0] != 0)
+			{
+				sprite->sprite.fileIndex = loadConfigImgFile((char*)pfilename,elemNode);
+			}
 		}
 		node->addChild(sprite);
 	}
@@ -264,35 +264,35 @@ inline bool readNode(SpriteNode* node, TiXmlElement* elemNode, TiXmlElement* ele
 	}		
 	return true;
 }
-		
+
 bool includeFile(SpriteNode* node, TiXmlElement* includeNode, SpriteBlock* &oldSibling)
 {
-  string filenameStr("buildings/include/");
-  filenameStr.append(includeNode->Attribute("file"));
-  
-  TiXmlDocument doc( filenameStr.c_str() );
-  bool loadOkay = doc.LoadFile();
-  TiXmlHandle hDoc(&doc);
-  TiXmlElement* elemParent;
-  if(!loadOkay)
-  {
-	contentError("Include failed",includeNode);
-	WriteErr("File load failed: %s\n",filenameStr.c_str());
-	WriteErr("Line %d: %s\n",doc.ErrorRow(),doc.ErrorDesc());
-	return false;
-  }
-  elemParent = hDoc.FirstChildElement("include").Element();
-  if( elemParent == NULL)
-  {
-	  contentError("Main <include> node not present",&doc);
-    return false;
-  }
-  TiXmlElement* elemNode =  elemParent->FirstChildElement();
-  if (elemNode == NULL)
-  {
-	contentError("Empty include",elemParent);
-	return false;
-  }
+	string filenameStr("buildings/include/");
+	filenameStr.append(includeNode->Attribute("file"));
+
+	TiXmlDocument doc( filenameStr.c_str() );
+	bool loadOkay = doc.LoadFile();
+	TiXmlHandle hDoc(&doc);
+	TiXmlElement* elemParent;
+	if(!loadOkay)
+	{
+		contentError("Include failed",includeNode);
+		WriteErr("File load failed: %s\n",filenameStr.c_str());
+		WriteErr("Line %d: %s\n",doc.ErrorRow(),doc.ErrorDesc());
+		return false;
+	}
+	elemParent = hDoc.FirstChildElement("include").Element();
+	if( elemParent == NULL)
+	{
+		contentError("Main <include> node not present",&doc);
+		return false;
+	}
+	TiXmlElement* elemNode =  elemParent->FirstChildElement();
+	if (elemNode == NULL)
+	{
+		contentError("Empty include",elemParent);
+		return false;
+	}
 	while (elemNode)
 	{ 
 		if (!readNode(node, elemNode, elemParent, oldSibling))
@@ -304,7 +304,7 @@ bool includeFile(SpriteNode* node, TiXmlElement* includeNode, SpriteBlock* &oldS
 
 bool parseSpriteNode(SpriteNode* node, TiXmlElement* elemParent)
 {
-  //TODO: there is a leak here somewhere.
+	//TODO: there is a leak here somewhere.
 	SpriteBlock* oldSibling = NULL;
 	TiXmlElement* elemNode =  elemParent->FirstChildElement();
 	const char* strParent = elemParent->Value();
@@ -335,49 +335,65 @@ bool parseSpriteNode(SpriteNode* node, TiXmlElement* elemParent)
 }
 
 bool addSingleBuildingConfig( TiXmlElement* elemRoot,  vector<BuildingConfiguration>* knownBuildings ){
-  const char* strName = elemRoot->Attribute("name");
-  const char* strGameID = elemRoot->Attribute("gameID");
-  
-  if (strName == NULL || strGameID == NULL || strName[0] == 0 || strGameID[0] == 0)
-  {
-	  contentError("<building> node must have name and gameID attributes",elemRoot);
-	  return false;
-  }
-  
-  int gameID = TranslateBuildingName(strGameID, contentLoader.classIdStrings );
-  
-  if (gameID == INVALID_INDEX) {
-  	//warning was already given
-  	return false;
+	const char* strName = elemRoot->Attribute("name");
+	const char* strGameID = elemRoot->Attribute("gameID");
+
+	if (strName == NULL || strGameID == NULL || strName[0] == 0 || strGameID[0] == 0)
+	{
+		contentError("<building> node must have name and gameID attributes",elemRoot);
+		return false;
 	}
-  
-  BuildingConfiguration building(strName, gameID );
-  RootBlock* spriteroot = new RootBlock();
-  building.sprites = spriteroot;
-  if (!parseSpriteNode(spriteroot,elemRoot))
-  {
-	  delete(spriteroot);
-	  return false;
-  }
-  
-  //add a copy of 'building' to known buildings
-  knownBuildings->push_back( building );
-  return true;
+
+	int gameID = TranslateBuildingName(strGameID, contentLoader.classIdStrings );
+
+	if (gameID == INVALID_INDEX) {
+		//warning was already given
+		int custID = TranslateCustomBuildingName(strGameID);
+		if (custID == INVALID_INDEX)
+		{
+			return false;
+		}
+		BuildingConfiguration building(strName, custID );
+		RootBlock* spriteroot = new RootBlock();
+		building.sprites = spriteroot;
+		if (!parseSpriteNode(spriteroot,elemRoot))
+		{
+			delete(spriteroot);
+			return false;
+		}
+
+		//add a copy of 'building' to known buildings
+		contentLoader.customBuildingConfigs[custID] = building;
+		return true;
+	}
+
+	BuildingConfiguration building(strName, gameID );
+	RootBlock* spriteroot = new RootBlock();
+	building.sprites = spriteroot;
+	if (!parseSpriteNode(spriteroot,elemRoot))
+	{
+		delete(spriteroot);
+		return false;
+	}
+
+	//add a copy of 'building' to known buildings
+	knownBuildings->push_back( building );
+	return true;
 }
 
 void flushBuildingConfig( vector<BuildingConfiguration>* knownBuildings )
 {
-  // clean up building data trees before deleting them
-  // a nasty cludge that only works cause knownbuildings
-  // isnt modified anywhere else
-  // TODO: look into smart pointers or something
+	// clean up building data trees before deleting them
+	// a nasty cludge that only works cause knownbuildings
+	// isnt modified anywhere else
+	// TODO: look into smart pointers or something
 	uint32_t numBuildings = (uint32_t)knownBuildings->size();
 	for(uint32_t i = 0; i < numBuildings; i++)
 	{
 		delete(knownBuildings->at(i).sprites);
 		//should set to null, but we will nuke the lot in a second
 	}
-  knownBuildings->clear();
+	knownBuildings->clear();
 }
 
 

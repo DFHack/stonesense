@@ -37,6 +37,9 @@ public:
 	vector<t_matgloss> organicMaterials;
 	vector<t_matgloss> creatureMaterials;
 
+	map <uint32_t, BuildingConfiguration> customBuildingConfigs;
+	map <uint32_t, string> custom_workshop_types;
+
 	vector<string> classIdStrings;
 	vector<string> professionStrings;
 	memory_info *memoryInfo;

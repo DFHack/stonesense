@@ -77,7 +77,7 @@ Color and alpha ranges are 0 (min) to 255 (max)
 [FOG_RED:95]
 [FOG_GREEN:95]
 [FOG_BLUE:160]
-[FOG_ALPHA:32]
+[FOG_ALPHA:5]
 
 Background color. setting this the same as the fog color produces a nice effect.
 [BACK_RED:95]
