@@ -708,11 +708,11 @@ void Block::Draw(){
 
 	//Building
 	bool skipBuilding =
-		(building.info.type == BUILDINGTYPE_STOCKPILE && !config.show_stockpiles) ||
-		(building.info.type == BUILDINGTYPE_ZONE && !config.show_zones);
+		(building.info.type == TranslateBuildingName("building_civzonest", contentLoader.classIdStrings ) && !config.show_stockpiles) ||
+		(building.info.type == TranslateBuildingName("building_stockpilest", contentLoader.classIdStrings ) && !config.show_zones);
 
-	if(building.info.type != BUILDINGTYPE_NA && !skipBuilding){
-
+	if(building.info.type != BUILDINGTYPE_NA && !skipBuilding)
+	{
 		int spriteNum =  SPRITEOBJECT_NA; //getBuildingSprite(this->building, mirroredBuilding);
 
 		for(uint32_t i=0; i < building.sprites.size(); i++){

@@ -1,0 +1,293 @@
+<?xml version="1.0"?>
+<colors>
+  <color red="255" green="0" blue="255">
+    <material value="Inorganic">
+      <subtype value="HEMATITE" />
+    </material>
+  </color>
+  <color red="255" green="0" blue="255">
+    <material value="Inorganic">
+      <subtype value="LIMONITE" />
+    </material>
+  </color>
+  <color red="255" green="0" blue="255">
+    <material value="Inorganic">
+      <subtype value="GARNIERITE" />
+    </material>
+  </color>
+  <color red="255" green="0" blue="255">
+    <material value="Inorganic">
+      <subtype value="NATIVE_GOLD" />
+    </material>
+  </color>
+  <color red="255" green="0" blue="255">
+    <material value="Inorganic">
+      <subtype value="NATIVE_SILVER" />
+    </material>
+  </color>
+  <color red="255" green="0" blue="255">
+    <material value="Inorganic">
+      <subtype value="NATIVE_COPPER" />
+    </material>
+  </color>
+  <color red="255" green="0" blue="255">
+    <material value="Inorganic">
+      <subtype value="MALACHITE" />
+    </material>
+  </color>
+  <color red="255" green="0" blue="255">
+    <material value="Inorganic">
+      <subtype value="GALENA" />
+    </material>
+  </color>
+  <color red="255" green="0" blue="255">
+    <material value="Inorganic">
+      <subtype value="SPHALERITE" />
+    </material>
+  </color>
+  <color red="255" green="0" blue="255">
+    <material value="Inorganic">
+      <subtype value="CASSITERITE" />
+    </material>
+  </color>
+  <color red="255" green="0" blue="255">
+    <material value="Inorganic">
+      <subtype value="COAL_BITUMINOUS" />
+    </material>
+  </color>
+  <color red="255" green="0" blue="255">
+    <material value="Inorganic">
+      <subtype value="LIGNITE" />
+    </material>
+  </color>
+  <color red="255" green="0" blue="255">
+    <material value="Inorganic">
+      <subtype value="NATIVE_PLATINUM" />
+    </material>
+  </color>
+  <color red="255" green="0" blue="255">
+    <material value="Inorganic">
+      <subtype value="CINNABAR" />
+    </material>
+  </color>
+  <color red="255" green="0" blue="255">
+    <material value="Inorganic">
+      <subtype value="COBALTITE" />
+    </material>
+  </color>
+  <color red="255" green="0" blue="255">
+    <material value="Inorganic">
+      <subtype value="TETRAHEDRITE" />
+    </material>
+  </color>
+  <color red="255" green="0" blue="255">
+    <material value="Inorganic">
+      <subtype value="HORN_SILVER" />
+    </material>
+  </color>
+  <color red="255" green="0" blue="255">
+    <material value="Inorganic">
+      <subtype value="GYPSUM" />
+    </material>
+  </color>
+  <color red="255" green="0" blue="255">
+    <material value="Inorganic">
+      <subtype value="TALC" />
+    </material>
+  </color>
+  <color red="255" green="0" blue="255">
+    <material value="Inorganic">
+      <subtype value="JET" />
+    </material>
+  </color>
+  <color red="255" green="0" blue="255">
+    <material value="Inorganic">
+      <subtype value="PUDDINGInorganic" />
+    </material>
+  </color>
+  <color red="255" green="0" blue="255">
+    <material value="Inorganic">
+      <subtype value="PETRIFIED_WOOD" />
+    </material>
+  </color>
+  <color red="255" green="0" blue="255">
+    <material value="Inorganic">
+      <subtype value="GRAPHITE" />
+    </material>
+  </color>
+  <color red="255" green="0" blue="255">
+    <material value="Inorganic">
+      <subtype value="BRIMInorganic" />
+    </material>
+  </color>
+  <color red="255" green="0" blue="255">
+    <material value="Inorganic">
+      <subtype value="KIMBERLITE" />
+    </material>
+  </color>
+  <color red="255" green="0" blue="255">
+    <material value="Inorganic">
+      <subtype value="BISMUTHINITE" />
+    </material>
+  </color>
+  <color red="255" green="0" blue="255">
+    <material value="Inorganic">
+      <subtype value="REALGAR" />
+    </material>
+  </color>
+  <color red="255" green="0" blue="255">
+    <material value="Inorganic">
+      <subtype value="ORPIMENT" />
+    </material>
+  </color>
+  <color red="255" green="0" blue="255">
+    <material value="Inorganic">
+      <subtype value="STIBNITE" />
+    </material>
+  </color>
+  <color red="255" green="0" blue="255">
+    <material value="Inorganic">
+      <subtype value="MARCASITE" />
+    </material>
+  </color>
+  <color red="255" green="0" blue="255">
+    <material value="Inorganic">
+      <subtype value="SYLVITE" />
+    </material>
+  </color>
+  <color red="255" green="0" blue="255">
+    <material value="Inorganic">
+      <subtype value="CRYOLITE" />
+    </material>
+  </color>
+  <color red="255" green="0" blue="255">
+    <material value="Inorganic">
+      <subtype value="PERICLASE" />
+    </material>
+  </color>
+  <color red="255" green="0" blue="255">
+    <material value="Inorganic">
+      <subtype value="ILMENITE" />
+    </material>
+  </color>
+  <color red="255" green="0" blue="255">
+    <material value="Inorganic">
+      <subtype value="RUTILE" />
+    </material>
+  </color>
+  <color red="255" green="0" blue="255">
+    <material value="Inorganic">
+      <subtype value="MAGNETITE" />
+    </material>
+  </color>
+  <color red="255" green="0" blue="255">
+    <material value="Inorganic">
+      <subtype value="CHROMITE" />
+    </material>
+  </color>
+  <color red="255" green="0" blue="255">
+    <material value="Inorganic">
+      <subtype value="PYROLUSITE" />
+    </material>
+  </color>
+  <color red="255" green="0" blue="255">
+    <material value="Inorganic">
+      <subtype value="PITCHBLENDE" />
+    </material>
+  </color>
+  <color red="197" green="111" blue="86">
+    <material value="Inorganic">
+      <subtype value="BAUXITE" />
+    </material>
+  </color>
+  <color red="255" green="0" blue="255">
+    <material value="Inorganic">
+      <subtype value="NATIVE_ALUMINUM" />
+    </material>
+  </color>
+  <color red="255" green="0" blue="255">
+    <material value="Inorganic">
+      <subtype value="BORAX" />
+    </material>
+  </color>
+  <color red="183" green="225" blue="34">
+    <material value="Inorganic">
+      <subtype value="OLIVINE" />
+    </material>
+  </color>
+  <color red="255" green="0" blue="255">
+    <material value="Inorganic">
+      <subtype value="HORNBLENDE" />
+    </material>
+  </color>
+  <color red="255" green="0" blue="255">
+    <material value="Inorganic">
+      <subtype value="KAOLINITE" />
+    </material>
+  </color>
+  <color red="255" green="0" blue="255">
+    <material value="Inorganic">
+      <subtype value="SERPENTINE" />
+    </material>
+  </color>
+  <color red="248" green="487" blue="133">
+    <material value="Inorganic">
+      <subtype value="ORTHOCLASE" />
+    </material>
+  </color>
+  <color red="255" green="0" blue="255">
+    <material value="Inorganic">
+      <subtype value="MICROCLINE" />
+    </material>
+  </color>
+  <color red="213" green="201" blue="188">
+    <material value="Inorganic">
+      <subtype value="MICA" />
+    </material>
+  </color>
+  <color red="255" green="0" blue="255">
+    <material value="Inorganic">
+      <subtype value="CALCITE" />
+    </material>
+  </color>
+  <color red="255" green="0" blue="255">
+    <material value="Inorganic">
+      <subtype value="SALTPETER" />
+    </material>
+  </color>
+  <color red="255" green="0" blue="255">
+    <material value="Inorganic">
+      <subtype value="ALABASTER" />
+    </material>
+  </color>
+  <color red="255" green="0" blue="255">
+    <material value="Inorganic">
+      <subtype value="SELENITE" />
+    </material>
+  </color>
+  <color red="255" green="0" blue="255">
+    <material value="Inorganic">
+      <subtype value="SATINSPAR" />
+    </material>
+  </color>
+  <color red="255" green="0" blue="255">
+    <material value="Inorganic">
+      <subtype value="ANHYDRITE" />
+    </material>
+  </color>
+  <color red="253" green="219" blue="139">
+    <material value="Inorganic">
+      <subtype value="ALUNITE" />
+    </material>
+  </color>
+  <color red="101" green="235" blue="236">
+    <material value="Inorganic">
+      <subtype value="RAW_ADAMANTINE" />
+    </material>
+  </color>
+  <color red="255" green="0" blue="255">
+    <material value="Inorganic">
+      <subtype value="SLADE" />
+    </material>
+  </color>
+</colors>

@@ -109,9 +109,9 @@ void MergeBuildingsToSegment(vector<t_building>* buildings, WorldSegment* segmen
 
 					if( b ){
 						//handle special case where zones and stockpiles overlap buildings, and try to replace them
-						if(b->building.info.type != BUILDINGTYPE_NA && tempbuilding.type == BUILDINGTYPE_ZONE )
+						if(b->building.info.type != BUILDINGTYPE_NA && tempbuilding.type == TranslateBuildingName("building_civzonest", contentLoader.classIdStrings ) )
 							continue;
-						if(b->building.info.type != BUILDINGTYPE_NA && tempbuilding.type == BUILDINGTYPE_STOCKPILE )
+						if(b->building.info.type != BUILDINGTYPE_NA && tempbuilding.type == TranslateBuildingName("building_stockpilest", contentLoader.classIdStrings ) )
 							continue; 
 						b->building.index = i;
 						b->building.info = tempbuilding;
@@ -178,10 +178,10 @@ bool BlockHasSuspendedBuilding(vector<t_building>* buildingList, Block* b){
 		if(b->x < building->x1  ||   b->x > building->x2) continue;
 		if(b->y < building->y1  ||   b->y > building->y2) continue;
 
-		if(building->type == BUILDINGTYPE_BRIDGE){
+		if(building->type == TranslateBuildingName("building_bridgest", contentLoader.classIdStrings )){
 			return true;
 		}
-		if(building->type == BUILDINGTYPE_ZONE)
+		if(building->type == TranslateBuildingName("building_civzonest", contentLoader.classIdStrings ))
 			return true;
 	}
 	return false;

@@ -1,0 +1,133 @@
+<?xml version="1.0"?>
+<colors>
+  <color red="255" green="128" blue="255">
+    <material value="Inorganic">
+      <subtype value="IRON" />
+    </material>
+  </color>
+  <color red="250" green="242" blue="148">
+    <material value="Inorganic">
+      <subtype value="GOLD" />
+    </material>
+  </color>
+  <color red="255" green="128" blue="255">
+    <material value="Inorganic">
+      <subtype value="SILVER" />
+    </material>
+  </color>
+  <color red="255" green="177" blue="80">
+    <material value="Inorganic">
+      <subtype value="COPPER" />
+    </material>
+  </color>
+  <color red="255" green="128" blue="255">
+    <material value="Inorganic">
+      <subtype value="NICKEL" />
+    </material>
+  </color>
+  <color red="255" green="128" blue="255">
+    <material value="Inorganic">
+      <subtype value="ZINC" />
+    </material>
+  </color>
+  <color red="255" green="128" blue="255">
+    <material value="Inorganic">
+      <subtype value="BRONZE" />
+    </material>
+  </color>
+  <color red="255" green="128" blue="255">
+    <material value="Inorganic">
+      <subtype value="BRASS" />
+    </material>
+  </color>
+  <color red="255" green="128" blue="255">
+    <material value="Inorganic">
+      <subtype value="STEEL" />
+    </material>
+  </color>
+  <color red="255" green="128" blue="255">
+    <material value="Inorganic">
+      <subtype value="PIG_IRON" />
+    </material>
+  </color>
+  <color red="255" green="128" blue="255">
+    <material value="Inorganic">
+      <subtype value="PLATINUM" />
+    </material>
+  </color>
+  <color red="255" green="128" blue="255">
+    <material value="Inorganic">
+      <subtype value="ELECTRUM" />
+    </material>
+  </color>
+  <color red="255" green="128" blue="255">
+    <material value="Inorganic">
+      <subtype value="TIN" />
+    </material>
+  </color>
+  <color red="255" green="128" blue="255">
+    <material value="Inorganic">
+      <subtype value="PEWTER_FINE" />
+    </material>
+  </color>
+  <color red="255" green="128" blue="255">
+    <material value="Inorganic">
+      <subtype value="PEWTER_TRIFLE" />
+    </material>
+  </color>
+  <color red="198" green="199" blue="197">
+    <material value="Inorganic">
+      <subtype value="PEWTER_LAY" />
+    </material>
+  </color>
+  <color red="255" green="128" blue="255">
+    <material value="Inorganic">
+      <subtype value="LEAD" />
+    </material>
+  </color>
+  <color red="255" green="128" blue="255">
+    <material value="Inorganic">
+      <subtype value="ALUMINUM" />
+    </material>
+  </color>
+  <color red="255" green="128" blue="255">
+    <material value="Inorganic">
+      <subtype value="NICKEL_SILVER" />
+    </material>
+  </color>
+  <color red="255" green="128" blue="255">
+    <material value="Inorganic">
+      <subtype value="BILLON" />
+    </material>
+  </color>
+  <color red="255" green="128" blue="255">
+    <material value="Inorganic">
+      <subtype value="STERLING_SILVER" />
+    </material>
+  </color>
+  <color red="255" green="128" blue="255">
+    <material value="Inorganic">
+      <subtype value="BLACK_BRONZE" />
+    </material>
+  </color>
+  <color red="255" green="128" blue="255">
+    <material value="Inorganic">
+      <subtype value="ROSE_GOLD" />
+    </material>
+  </color>
+  <color red="255" green="128" blue="255">
+    <material value="Inorganic">
+      <subtype value="BISMUTH" />
+    </material>
+  </color>
+  <color red="255" green="128" blue="255">
+    <material value="Inorganic">
+      <subtype value="BISMUTH_BRONZE" />
+    </material>
+  </color>
+  <color red="101" green="235" blue="236">
+    <material value="Inorganic">
+      <subtype value="ADAMANTINE" />
+    </material>
+  </color>
+</colors>

@@ -120,7 +120,7 @@
       <subtype value="ALDER" />
     </material>
   </color>
-  <color red="244" green="21-01" blue="156">
+  <color red="244" green="201" blue="156">
     <material value="Wood">
       <subtype value="BIRCH" />
     </material>

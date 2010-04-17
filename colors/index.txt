@@ -1,2 +1,5 @@
 Colors_Wood.xml
 Colors_Stone_Layer.xml
+Colors_Stone_Mineral.xml
+Colors_Stone_Gem.xml
+Colors_Metal.xml

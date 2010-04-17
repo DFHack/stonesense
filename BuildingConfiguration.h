@@ -15,6 +15,7 @@ public:
   SpriteNode* sprites;
 
   BuildingConfiguration(string name, int gameID);
+  BuildingConfiguration();
   ~BuildingConfiguration(void);
 };
 
