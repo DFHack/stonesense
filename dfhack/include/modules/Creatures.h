@@ -344,7 +344,7 @@ namespace DFHack
         t_attrib recuperation;
         t_attrib disease_resistance;
         int32_t squad_leader_id;
-        uint8_t sex;
+        uint8_t sex; // really a caste
         uint32_t pregnancy_timer; //Countdown timer to giving birth
         bool has_default_soul;
         t_soul defaultSoul;
@@ -368,7 +368,7 @@ namespace DFHack
         bool ReadCreature(const int32_t index, t_creature & furball);
         /// write labors of a creature (for Dwarf Therapist)
         bool WriteLabors(const uint32_t index, uint8_t labors[NUM_CREATURE_LABORS]);
-        
+        uint32_t GetDwarfRaceIndex ( void );
         private:
         struct Private;
         Private *d;
