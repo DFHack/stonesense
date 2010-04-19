@@ -6,6 +6,37 @@
     <sprite index="21" color="material" />
   </if>
   <else>
+    <MaterialType value="Inorganic">
+      <subtype value="IRON" />
+      <subtype value="GOLD" />
+      <subtype value="SILVER" />
+      <subtype value="COPPER" />
+      <subtype value="NICKEL" />
+      <subtype value="ZINC" />
+      <subtype value="BRONZE" />
+      <subtype value="BRASS" />
+      <subtype value="STEEL" />
+      <subtype value="PIG_IRON" />
+      <subtype value="PLATINUM" />
+      <subtype value="ELECTRUM" />
+      <subtype value="TIN" />
+      <subtype value="PEWTER_FINE" />
+      <subtype value="PEWTER_TRIFLE" />
+      <subtype value="PEWTER_LAY" />
+      <subtype value="LEAD" />
+      <subtype value="ALUMINUM" />
+      <subtype value="NICKEL_SILVER" />
+      <subtype value="BILLON" />
+      <subtype value="STERLING_SILVER" />
+      <subtype value="BLACK_BRONZE" />
+      <subtype value="ROSE_GOLD" />
+      <subtype value="BISMUTH" />
+      <subtype value="BISMUTH_BRONZE" />
+      <subtype value="ADAMANTINE" />
+    </MaterialType>
+    <sprite index="22" color="material" />
+  </else>
+  <else>
     <MaterialType value="GreenGlass" />
     <sprite index="23" />
   </else>

@@ -102,7 +102,7 @@
   </color>
   <color red="255" green="0" blue="255">
     <material value="Inorganic">
-      <subtype value="PUDDINGInorganic" />
+      <subtype value="PUDDINGSTONE" />
     </material>
   </color>
   <color red="255" green="0" blue="255">
@@ -117,7 +117,7 @@
   </color>
   <color red="255" green="0" blue="255">
     <material value="Inorganic">
-      <subtype value="BRIMInorganic" />
+      <subtype value="BRIMSTONE" />
     </material>
   </color>
   <color red="255" green="0" blue="255">

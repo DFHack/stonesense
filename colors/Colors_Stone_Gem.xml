@@ -42,7 +42,7 @@
   </color>
   <color red="172" green="129" blue="112">
     <material value="Inorganic">
-      <subtype value="BLOODInorganic" />
+      <subtype value="BLOODSTONE" />
     </material>
   </color>
   <color red="172" green="129" blue="112">
@@ -52,7 +52,7 @@
   </color>
   <color red="172" green="129" blue="112">
     <material value="Inorganic">
-      <subtype value="MOSS OPAL]" />
+      <subtype value="MOSS OPAL" />
     </material>
   </color>
   <color red="172" green="129" blue="112">
@@ -177,7 +177,7 @@
   </color>
   <color red="172" green="129" blue="112">
     <material value="Inorganic">
-      <subtype value="SUNInorganic" />
+      <subtype value="SUNSTONE" />
     </material>
   </color>
   <color red="172" green="129" blue="112">
@@ -232,7 +232,7 @@
   </color>
   <color red="172" green="129" blue="112">
     <material value="Inorganic">
-      <subtype value="MOONInorganic" />
+      <subtype value="MOONSTONE" />
     </material>
   </color>
   <color red="172" green="129" blue="112">
