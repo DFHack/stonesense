@@ -195,35 +195,6 @@
     </material>
   </block>
   <!-- construct -->
-  <block sprite="6">
-    <!-- pillar -->
-    <terrain value="495" />
-    <!-- wall -->
-    <terrain value="496" />
-    <terrain value="497" />
-    <terrain value="498" />
-    <terrain value="499" />
-    <terrain value="500" />
-    <terrain value="501" />
-    <terrain value="502" />
-    <terrain value="503" />
-    <terrain value="504" />
-    <terrain value="505" />
-    <terrain value="506" />
-    <terrain value="507" />
-    <terrain value="508" />
-    <terrain value="509" />
-    <terrain value="510" />
-    <terrain value="511" />
-    <terrain value="512" />
-    <terrain value="513" />
-    <terrain value="514" />
-    <material value="Ice" />
-    <material value="Metal">
-      <subtype value="ADAMANTINE" />
-    </material>
-  </block>
-  <!-- construct -->
   <block sprite="42">
     <!-- pillar -->
     <terrain value="495" />
@@ -364,7 +335,7 @@
     </material>
   </block>
   <!-- construct -->
-  <block sprite="27">
+  <block sprite="7" color="material">
     <!-- pillar -->
     <terrain value="495" />
     <!-- wall -->
@@ -388,48 +359,32 @@
     <terrain value="513" />
     <terrain value="514" />
     <material value="Metal">
+      <subtype value="IRON" />
       <subtype value="GOLD" />
-      <subtype value="BRONZE" />
-      <subtype value="COPPER" />
-      <subtype value="BISMUTH_BRONZE" />
-      <subtype value="ROSE_GOLD" />
-      <subtype value="BRASS" />
-    </material>
-  </block>
-  <!-- construct -->
-  <block sprite="28">
-    <!-- pillar -->
-    <terrain value="495" />
-    <!-- wall -->
-    <terrain value="496" />
-    <terrain value="497" />
-    <terrain value="498" />
-    <terrain value="499" />
-    <terrain value="500" />
-    <terrain value="501" />
-    <terrain value="502" />
-    <terrain value="503" />
-    <terrain value="504" />
-    <terrain value="505" />
-    <terrain value="506" />
-    <terrain value="507" />
-    <terrain value="508" />
-    <terrain value="509" />
-    <terrain value="510" />
-    <terrain value="511" />
-    <terrain value="512" />
-    <terrain value="513" />
-    <terrain value="514" />
-    <material value="Metal">
       <subtype value="SILVER" />
+      <subtype value="COPPER" />
+      <subtype value="NICKEL" />
+      <subtype value="ZINC" />
+      <subtype value="BRONZE" />
+      <subtype value="BRASS" />
+      <subtype value="STEEL" />
+      <subtype value="PIG_IRON" />
       <subtype value="PLATINUM" />
       <subtype value="ELECTRUM" />
+      <subtype value="TIN" />
       <subtype value="PEWTER_FINE" />
       <subtype value="PEWTER_TRIFLE" />
       <subtype value="PEWTER_LAY" />
+      <subtype value="LEAD" />
       <subtype value="ALUMINUM" />
       <subtype value="NICKEL_SILVER" />
+      <subtype value="BILLON" />
       <subtype value="STERLING_SILVER" />
+      <subtype value="BLACK_BRONZE" />
+      <subtype value="ROSE_GOLD" />
+      <subtype value="BISMUTH" />
+      <subtype value="BISMUTH_BRONZE" />
+      <subtype value="ADAMANTINE" />
     </material>
   </block>
   <!-- damaged walls -->
@@ -448,7 +403,7 @@
     <terrain value="439" />
   </block>
   <!-- gems -->
-  <block sprite="31">
+  <block sprite="31" color="material">
     <!-- wall feat? -->
     <terrain value="219" />
     <!-- wall feat? -->
@@ -583,33 +538,6 @@
       <subtype value="SAPPHIRE_STAR" />
       <subtype value="RUBY_STAR" />
       <subtype value="RAW_ADAMANTINE" />
-    </material>
-  </block>
-  <!-- white stone -->
-  <block sprite="32">
-    <!-- wall feat? -->
-    <terrain value="219" />
-    <!-- wall feat? -->
-    <terrain value="335" />
-    <!-- vein wall -->
-    <terrain value="440" />
-    <material value="Stone">
-      <subtype value="CHALK" />
-      <subtype value="LIMESTONE" />
-      <subtype value="ROCK_SALT" />
-      <subtype value="MARBLE" />
-      <subtype value="QUARTZITE" />
-      <subtype value="ALABASTER" />
-      <subtype value="ALUNITE" />
-      <subtype value="BORAX" />
-      <subtype value="CALCITE" />
-      <subtype value="CRYOLITE" />
-      <subtype value="MARCASITE" />
-      <subtype value="PERICLASE" />
-      <subtype value="STIBNITE" />
-      <subtype value="TALC" />
-      <subtype value="SELENITE" />
-      <subtype value="SATINSPAR" />
     </material>
   </block>
   <!-- soil -->

@@ -237,15 +237,13 @@ bool ContentLoader::parseContentXMLFile( char* filepath ){
 	draw_textf_border(font, al_get_bitmap_width(al_get_target_bitmap())/2, al_get_bitmap_height(al_get_target_bitmap())/2, ALLEGRO_ALIGN_CENTRE, "Loading %s...", filepath);
 	al_flip_display();
 	TiXmlDocument doc( filepath );
-	bool loadOkay = doc.LoadFile();
-	TiXmlHandle hDoc(&doc);
-	TiXmlElement* elemRoot;
-	if(!loadOkay)
+	if(!doc.LoadFile())
 	{
-		WriteErr("File load failed\n");
-		WriteErr("Line %d: %s\n",doc.ErrorRow(),doc.ErrorDesc());
+		WriteErr("File load failed: %s\n", filepath);
 		return false;
 	}
+	TiXmlHandle hDoc(&doc);
+	TiXmlElement* elemRoot;
 
 	bool runningResult = true;
 	elemRoot = hDoc.FirstChildElement().Element();

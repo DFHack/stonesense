@@ -5,8 +5,7 @@
 <floors>
 
 <!-- default floor -->
-<floor sprite = 3 color = material_back >
-	<subsprite sprite = 7 color = material_fore />
+<floor sprite = 3 color = material >
 	<terrain value="2"/>
 	
 	<terrain value="19"/>
