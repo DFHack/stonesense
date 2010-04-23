@@ -594,14 +594,14 @@ void Block::Draw(){
 				spriteOffset = 0;
 				al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, al_map_rgb(255, 255, 255));
 			}
-			//if floor is snowed down, override  regular floor
-			if( snowlevel )
-			{
-				sprite.sheetIndex = SPRITEFLOOR_SNOW;
-				sprite.fileIndex = INVALID_INDEX;
-				spriteOffset = 0;
-				al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, al_map_rgb(255, 255, 255));
-			}
+			////if floor is snowed down, override  regular floor
+			//if( snowlevel )
+			//{
+			//	sprite.sheetIndex = SPRITEFLOOR_SNOW;
+			//	sprite.fileIndex = INVALID_INDEX;
+			//	spriteOffset = 0;
+			//	al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, al_map_rgb(255, 255, 255));
+			//}
 
 			if (sprite.sheetIndex == UNCONFIGURED_INDEX)
 			{
@@ -684,6 +684,28 @@ void Block::Draw(){
 					al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
 				}
 			}
+		}
+	}
+
+
+	//first part of snow
+	if(ramp.type == 0)
+	{
+		if(snowlevel > 75)
+		{
+			DrawSpriteFromSheet( 20, IMGObjectSheet, drawx, drawy );
+		}
+		else if(snowlevel > 50)
+		{
+			DrawSpriteFromSheet( 21, IMGObjectSheet, drawx, drawy );
+		}
+		else if(snowlevel > 25)
+		{
+			DrawSpriteFromSheet( 22, IMGObjectSheet, drawx, drawy );
+		}
+		else if(snowlevel > 0)
+		{
+			DrawSpriteFromSheet( 23, IMGObjectSheet, drawx, drawy );
 		}
 	}
 
@@ -859,6 +881,20 @@ void Block::Draw(){
 	if(creaturePresent)
 	{
 		DrawCreature(drawx, drawy, creature);
+	}
+
+	//second part of snow
+	if(snowlevel > 75)
+	{
+		DrawSpriteFromSheet( 24, IMGObjectSheet, drawx, drawy );
+	}
+	else if(snowlevel > 50)
+	{
+		DrawSpriteFromSheet( 25, IMGObjectSheet, drawx, drawy );
+	}
+	else if(snowlevel > 25)
+	{
+		DrawSpriteFromSheet( 26, IMGObjectSheet, drawx, drawy );
 	}
 
 	//if(eff_miasma > 0)

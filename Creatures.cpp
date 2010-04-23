@@ -59,7 +59,7 @@ void DrawCreatureText(int drawx, int drawy, t_creature* creature ){
 	if( config.show_creature_names )
 		if (creature->name.nickname[0] && config.names_use_nick)
 		{
-			draw_textf_border(font, drawx, drawy-20, 0, 
+			draw_textf_border(font, drawx, drawy-(20+al_get_font_line_height(font)), 0, 
 				"%s", creature->name.nickname );
 		}
 		else if (creature->name.first_name[0])
@@ -69,12 +69,12 @@ void DrawCreatureText(int drawx, int drawy, t_creature* creature ){
 			buffer[127]=0;
 			if (buffer[0]>90)
 				buffer[0] -= 32;
-			draw_textf_border(font, drawx, drawy-20, 0,
+			draw_textf_border(font, drawx, drawy-(20+al_get_font_line_height(font)), 0,
 				"%s", buffer );
 		}
 		else if (config.names_use_species)
 		{
-			draw_textf_border(font, drawx, drawy-20, 0, 
+			draw_textf_border(font, drawx, drawy-(20+al_get_font_line_height(font)), 0, 
 				"[%s]", contentLoader.creatureMaterials.at(creature->race).id);
 		}
 }
