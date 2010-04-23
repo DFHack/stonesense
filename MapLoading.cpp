@@ -221,11 +221,12 @@ void ReadCellToSegment(API& DF, WorldSegment& segment, int CellX, int CellY, int
 	t_designation designations[16][16];
 	t_occupancy occupancies[16][16];
 	uint8_t regionoffsets[16];
+	t_temperatures temp1, temp2;
 	Maps->ReadTileTypes(CellX, CellY, CellZ, (tiletypes40d *) tiletypes);
 	Maps->ReadDesignations(CellX, CellY, CellZ, (designations40d *) designations);
 	Maps->ReadOccupancy(CellX, CellY, CellZ, (occupancies40d *) occupancies);
 	Maps->ReadRegionOffsets(CellX,CellY,CellZ, (biome_indices40d *)regionoffsets);
-
+	Maps->ReadTemperatures(CellX, CellY, CellZ, &temp1, &temp2);
 	//read local vein data
 	vector <t_vein> veins;
 	vector <t_frozenliquidvein> ices;
@@ -233,7 +234,6 @@ void ReadCellToSegment(API& DF, WorldSegment& segment, int CellX, int CellY, int
 
 	Maps->ReadVeins(CellX,CellY,CellZ,&veins,&ices,&splatter);
 	uint32_t numVeins = (uint32_t)veins.size();
-
 
 	//parse cell
 	for(uint32_t ly = BoundrySY; ly <= BoundryEY; ly++){
@@ -258,8 +258,24 @@ void ReadCellToSegment(API& DF, WorldSegment& segment, int CellX, int CellY, int
 
 			b->occ = occupancies[lx][ly];
 			b->designation = designations[lx][ly];
-			b->splatter = splatter;
+			b->mudlevel = 0;
+			b->snowlevel = 0;
+			for(int i = 0; i < splatter.size(); i++)
+			{
+				if(splatter[i].mat1 == MUD)
+				{
+					b->mudlevel = splatter[i].intensity[lx][ly];
+				}
+				else if(splatter[i].mat1 == ICE)
+				{
+					b->snowlevel = splatter[i].intensity[lx][ly];
+				}
+			}
 
+			//temperatures
+
+			b->temp1 = temp1[lx][ly];
+			b->temp2 = temp2[lx][ly];
 			//liquids
 			if(designations[lx][ly].bits.flow_size > 0){
 				b->water.type  = designations[lx][ly].bits.liquid_type;
@@ -582,7 +598,7 @@ WorldSegment* ReadMapSegment(API &DF, int x, int y, int z, int sizex, int sizey,
 		Block* b = segment->getBlock(i);
 		//setup building sprites
 		if( b->building.info.type != BUILDINGTYPE_NA && b->building.info.type != BUILDINGTYPE_BLACKBOX )
-			loadBuildingSprites( b );
+			loadBuildingSprites( b, DF );
 
 		//setup deep water
 		if( b->water.index == 7 && b->water.type == 0)

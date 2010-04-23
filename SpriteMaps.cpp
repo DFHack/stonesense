@@ -7,7 +7,13 @@
 t_SpriteWithOffset GetTerrainSpriteMap(int in, t_matglossPair material, vector<TerrainConfiguration*>& configTable)
 {
 	// in case we need to return nothing
-	t_SpriteWithOffset defaultSprite = {UNCONFIGURED_INDEX,0,0,INVALID_INDEX,ALL_FRAMES};
+	t_SpriteWithOffset defaultSprite = {
+		UNCONFIGURED_INDEX,
+		0,
+		0,
+		INVALID_INDEX,
+		0,
+		ALL_FRAMES};
 	// first check the input is sane
 	if( in < 0 || in >= (int)configTable.size() )
 	{

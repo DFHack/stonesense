@@ -42,7 +42,7 @@ enum BuildingTypes{
 int getBuildingSprite(t_building &building, bool mirrored);
 void ReadBuildingsToSegment(API& DF, WorldSegment* segment);
 void MergeBuildingsToSegment(vector<t_building>* buildings, WorldSegment* segment);
-void loadBuildingSprites( Block* b );
+void loadBuildingSprites( Block* b, API & DF);
 void ReadBuildings(API& DF, vector<t_building>* buildingHolder);
 bool BlockHasSuspendedBuilding(vector<t_building>* buildingList, Block* b);
 

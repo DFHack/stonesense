@@ -75,10 +75,7 @@ bool ContentLoader::Load(API& DF){
 	Mats->ReadInorganicMaterials (inorganicMaterials);
 	Mats->ReadOrganicMaterials (organicMaterials);
 	Mats->ReadCreatureTypes (creatureMaterials);
-	DFHack::Buildings * Bld = DF.getBuildings();
-
-	Bld->ReadCustomWorkshopTypes(custom_workshop_types);
-
+	Bld = DF.getBuildings();
 	DFHack::memory_info *mem = DF.getMemoryInfo();
 	for(int i=0;; i++)
 	{
@@ -357,6 +354,10 @@ int lookupMaterialType(const char* strValue)
 		return CLEAR_GLASS;
 	else if( strcmp(strValue, "CrystalGlass") == 0)
 		return CRYSTAL_GLASS;
+	else if( strcmp(strValue, "PlantCloth") == 0)
+		return PLANTCLOTH;
+	else if( strcmp(strValue, "Leather") == 0)
+		return LEATHER;
 	//TODO this needs fixing on dfhack side
 	return INVALID_INDEX;
 }
@@ -387,6 +388,14 @@ int lookupMaterialIndex(int matType, const char* strValue)
 	{
 		typeVector=&(contentLoader.organicMaterials);
 	}
+	else if (matType == PLANTCLOTH)
+	{
+		typeVector=&(contentLoader.organicMaterials);
+	}
+	else if (matType == LEATHER)
+	{
+		typeVector=&(contentLoader.creatureMaterials);
+	}
 	else
 	{
 		//maybe allow some more in later
@@ -405,6 +414,10 @@ const char *lookupMaterialTypeName(int matType)
 		return "Green Glass";
 	case WOOD:
 		return "Wood";
+	case PLANTCLOTH:
+		return "PlantCloth";
+	case LEATHER:
+		return "Leather";
 	default:
 		return NULL;
 	}
@@ -423,6 +436,14 @@ const char *lookupMaterialName(int matType,int matIndex)
 	else if (matType == WOOD)
 	{
 		typeVector=&(contentLoader.organicMaterials);
+	}
+	else if (matType == PLANTCLOTH)
+	{
+		typeVector=&(contentLoader.organicMaterials);
+	}
+	else if (matType == LEATHER)
+	{
+		typeVector=&(contentLoader.creatureMaterials);
 	}
 	else
 	{

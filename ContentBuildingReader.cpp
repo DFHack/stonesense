@@ -347,24 +347,7 @@ bool addSingleBuildingConfig( TiXmlElement* elemRoot,  vector<BuildingConfigurat
 	int gameID = TranslateBuildingName(strGameID, contentLoader.classIdStrings );
 
 	if (gameID == INVALID_INDEX) {
-		//warning was already given
-		int custID = TranslateCustomBuildingName(strGameID);
-		if (custID == INVALID_INDEX)
-		{
-			return false;
-		}
-		BuildingConfiguration building(strName, custID );
-		RootBlock* spriteroot = new RootBlock();
-		building.sprites = spriteroot;
-		if (!parseSpriteNode(spriteroot,elemRoot))
-		{
-			delete(spriteroot);
-			return false;
-		}
-
-		//add a copy of 'building' to known buildings
-		contentLoader.customBuildingConfigs[custID] = building;
-		return true;
+		return false;
 	}
 
 	BuildingConfiguration building(strName, gameID );

@@ -193,6 +193,7 @@ void correctBlockForRotation(int32_t& x, int32_t& y, int32_t& z);
 
 //from UserInput.cpp
 void doKeys();
+void doKeys(int key);
 void initAutoReload();
 void abortAutoReload();
 
@@ -233,4 +234,6 @@ extern ALLEGRO_MOUSE_STATE mouse;
 #define FILTH_FROZEN 16
 #define UNKOWN_FROZEN 17
 #define GRIME 18
+#define LEATHER 37
 #define WOOD 420
+#define PLANTCLOTH 421

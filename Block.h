@@ -34,11 +34,12 @@ public:
 	t_matglossPair water;
 	t_designation designation;
 	t_occupancy occ;
-	vector<t_spattervein> splatter;
 	t_creature* creature;
 	//bool mirroredBuilding;
 	t_matglossPair tree;
 
+	int mudlevel;
+	int snowlevel;
 	struct BlockEffects //size 40
 	{
 		uint16_t count;
@@ -75,6 +76,9 @@ public:
 	void Draw();
 	void Drawcreaturetext();
 	void DrawRamptops();
+
+	uint16_t temp1;
+	uint16_t temp2;
 
 private:
 

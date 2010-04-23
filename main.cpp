@@ -300,6 +300,10 @@ int main(void)
 			if (event.type == ALLEGRO_EVENT_KEY_DOWN) {
 				if(event.keyboard.keycode == ALLEGRO_KEY_F9)
 					break;
+				else
+				{
+					doKeys(event.keyboard.keycode);
+				}
 			}
 			if (event.type == ALLEGRO_EVENT_KEY_DOWN) {
 				if(event.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
@@ -391,7 +395,7 @@ int main(void)
 			if(event.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
 				break;
 			else
-				doKeys();
+				doKeys(event.keyboard.keycode);
 		}
 		if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
 			break;

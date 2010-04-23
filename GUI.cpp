@@ -19,7 +19,7 @@ using namespace std;
 #define color_segmentoutline al_map_rgb(0,0,0)
 
 extern ALLEGRO_FONT *font;
-
+ 
 WorldSegment* viewedSegment;
 int DisplayedSegmentX;
 int DisplayedSegmentY;
@@ -322,10 +322,11 @@ void drawDebugCursorAndInfo(){
 		const char* matName = lookupMaterialTypeName(b->building.info.material.type);
 		const char* subMatName = lookupMaterialName(b->building.info.material.type,b->building.info.material.index);
 		draw_textf_border(font, 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
-			"Building: %s(%i,0x%x) Material: %s%s%s", 
+			"Building: %s(%i,0x%x) Material: %s%s%s (%d,%d)", 
 			contentLoader.classIdStrings.at(b->building.info.type).c_str(),
 			b->building.info.type, b->building.info.vtable,
-			matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
+			matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"",
+			b->building.info.material.type,b->building.info.material.index);
 	}
 
 	//creatures
@@ -354,6 +355,17 @@ void drawDebugCursorAndInfo(){
 	{
 		draw_textf_border(font, 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0,"Rained");
 	}
+	if(b->building.info.type != BUILDINGTYPE_BLACKBOX)
+	{
+		draw_textf_border(font, 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0,
+			"Temp1: %dU, %.2f'C, %d'F, Temp2: %dU, %.2f'C, %d'F", b->temp1, (float)(b->temp1-10000)*5/9, b->temp1-9968, b->temp2, (float)(b->temp2-10000)*5/9, b->temp2-9968);
+	}
+	if(b->snowlevel || b->mudlevel)
+	{
+		draw_textf_border(font, 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0,
+			"Snow: %d, Mud: %d", b->snowlevel, b->mudlevel);
+	}
+
 	////effects
 	//if(b->blockeffects.lifetime > 0)
 	//	draw_textf_border(font, 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 

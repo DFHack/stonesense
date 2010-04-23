@@ -133,13 +133,14 @@ void MergeBuildingsToSegment(vector<t_building>* buildings, WorldSegment* segmen
 }
 
 
-void loadBuildingSprites ( Block* b){
+void loadBuildingSprites ( Block* b, API& DF){
 	bool foundBlockBuildingInfo = false;
 	if (b == NULL)
 	{
 		WriteErr("Null Block skipped in loadBuildingSprites\n");
 		return;
 	}
+
 	uint32_t numBuildings = (uint32_t)contentLoader.buildingConfigs.size();
 	for(uint32_t i = 0; i < numBuildings; i++){
 		BuildingConfiguration& conf = contentLoader.buildingConfigs[i];
