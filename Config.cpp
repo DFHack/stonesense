@@ -544,6 +544,10 @@ void parseConfigLine( string line ){
 		if(value < 0) value = 0;
 		config.colors.white_b = value;
 	}
+		if( line.find("[USE_OPENGL") != -1){
+		string result = parseStrFromLine( "USE_OPENGL", line );
+		config.opengl = (result == "YES");
+	}
 }
 
 

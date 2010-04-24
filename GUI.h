@@ -41,7 +41,6 @@ extern int MiniMapSegmentWidth;
 extern int MiniMapSegmentHeight;
 extern double oneBlockInPixels;
 
-extern ALLEGRO_BITMAP* IMGIcon;
 extern ALLEGRO_BITMAP* IMGObjectSheet; 
 extern ALLEGRO_BITMAP* IMGCreatureSheet; 
 extern ALLEGRO_BITMAP* IMGRampSheet;  

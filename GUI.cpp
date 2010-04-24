@@ -33,7 +33,6 @@ int MiniMapSegmentWidth =0;
 int MiniMapSegmentHeight =0;
 double oneBlockInPixels = 0;
 
-ALLEGRO_BITMAP* IMGIcon;
 ALLEGRO_BITMAP* IMGObjectSheet;
 ALLEGRO_BITMAP* IMGCreatureSheet; 
 ALLEGRO_BITMAP* IMGRampSheet; 
@@ -630,8 +629,6 @@ void loadGraphicsFromDisk(){
 	draw_textf_border(font, al_get_bitmap_width(al_get_target_bitmap())/2, al_get_bitmap_height(al_get_target_bitmap())/2, ALLEGRO_ALIGN_CENTRE, "Loading...");
 	al_flip_display();
 	int index;
-	index = loadImgFile("stonesense.png");
-	IMGIcon = al_create_sub_bitmap(IMGFilelist[index], 0, 0, al_get_bitmap_width(IMGFilelist[index]), al_get_bitmap_height(IMGFilelist[index]));
 	index = loadImgFile("objects.png");
 	IMGObjectSheet = al_create_sub_bitmap(IMGFilelist[index], 0, 0, al_get_bitmap_width(IMGFilelist[index]), al_get_bitmap_height(IMGFilelist[index]));
 	index = loadImgFile("creatures.png");

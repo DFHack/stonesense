@@ -212,6 +212,7 @@ void doKeys(int Key)
 		paintboard();
 	}
 	if(Key == ALLEGRO_KEY_G){
+		flushImgFiles();
 		loadGraphicsFromDisk();
 		timeToReloadConfig = true;
 		timeToReloadSegment = true;

@@ -150,6 +150,7 @@ typedef struct {
 	bool cache_images;
 	int imageCacheSize;
 	dfColors colors;
+	bool opengl;
 } GameConfiguration;
 
 

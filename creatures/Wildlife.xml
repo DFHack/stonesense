@@ -15,8 +15,6 @@
     <variant prof="MERCHANT" sex="M" sheetIndex="102" />
     <variant prof="TRADER" sex="F" sheetIndex="103" />
     <variant prof="MERCHANT" sex="F" sheetIndex="103" />
-    <variant prof="DIPLOMAT" sex="M" sheetIndex="106" />
-    <variant prof="DIPLOMAT" sex="F" sheetIndex="107" />
     <Profession name="CHILD" sex="M" sheetIndex="120" />
     <Profession name="CHILD" sex="F" sheetIndex="121" />
     <Profession name="BABY" sheetIndex="122" />

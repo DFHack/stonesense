@@ -73,11 +73,11 @@ Shows building graphics for stockpiles. (Toggle with 'u')
 Fog color, and alpha at the bottom z-level.
 Setting the alpha to 0 disables fog, for a slight performance increase.
 Color and alpha ranges are 0 (min) to 255 (max)
-[SHOW_FOG:YES]
+[SHOW_FOG:NO]
 [FOG_RED:95]
 [FOG_GREEN:95]
 [FOG_BLUE:160]
-[FOG_ALPHA:5]
+[FOG_ALPHA:32]
 
 Background color. setting this the same as the fog color produces a nice effect.
 [BACK_RED:95]
@@ -107,8 +107,10 @@ This set's the preferred size of the internal image cache. If your videocard doe
 a smaller size is used.
 [IMAGE_CACHE_SIZE:4096]
 
-These are the colors used by DF. they can be used by tilesets, if desired.
+Force OpenGL if YES, otherwise defaults to Directx
+[USE_OPENGL:YES]
 
+These are the colors used by DF. they can be used by tilesets, if desired.
 [BLACK_R:0]
 [BLACK_G:0]
 [BLACK_B:0]

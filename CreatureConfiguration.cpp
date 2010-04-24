@@ -43,7 +43,7 @@ void DumpProfessionsToDisk(){
   FILE* fp = fopen("dump.txt", "w");
   if(!fp) return;
   string proffStr;
-  for(int j=0; (proffStr = dfMemoryInfo->getProfession(j)) != "" ; j++){
+  for(int j=0; (proffStr = contentLoader.professionStrings[j]) != "" ; j++){
     fprintf(fp, "%i:%s\n",j, proffStr.c_str());
   }
   fclose(fp);
@@ -59,7 +59,7 @@ int translateProfession(const char* currentProf)
 	{
 		for(j=0; true; j++)
 		{   
-			proffStr = dfMemoryInfo->getProfession(j);
+			proffStr = contentLoader.professionStrings[j];
 			if( proffStr.compare( currentProf ) == 0)
 			{
 				//assign ID

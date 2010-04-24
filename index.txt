@@ -1,7 +1,6 @@
 # Remember: configs at the top of the list
 # get precedence over those below
 
-spam/spam.xml
 terrain/index.txt
 creatures/index.txt
 buildings/index.txt

@@ -51,11 +51,6 @@ bool ContentLoader::Load(API& DF){
 	treeConfigs.clear();
 	shrubConfigs.clear();
 	flushImgFiles();
-	inorganicMaterials.clear();
-	organicMaterials.clear();
-	creatureMaterials.clear();
-	classIdStrings.clear();
-	professionStrings.clear();
 
 	// This is an extra suspend/resume, but it only happens when reloading the config
 	// ie not enough to worry about
@@ -72,36 +67,45 @@ bool ContentLoader::Load(API& DF){
 	//classIdStrings = *tempClasses;
 
 	DFHack::Materials * Mats = DF.getMaterials();
+	if(inorganicMaterials.empty())
 	Mats->ReadInorganicMaterials (inorganicMaterials);
+	if(organicMaterials.empty())
 	Mats->ReadOrganicMaterials (organicMaterials);
+	if(creatureMaterials.empty())
 	Mats->ReadCreatureTypes (creatureMaterials);
 	Bld = DF.getBuildings();
 	DFHack::memory_info *mem = DF.getMemoryInfo();
-	for(int i=0;; i++)
+	if(professionStrings.empty())
 	{
-		string temp;
-		try
+		for(int i=0;; i++)
 		{
-			temp =  mem->getProfession(i);
-		}
-		catch(exception &)
-		{
-			break;
-		}
-		if(temp[0])
-		{
-			professionStrings.push_back(temp);
+			string temp;
+			try
+			{
+				temp =  mem->getProfession(i);
+			}
+			catch(exception &)
+			{
+				break;
+			}
+			if(temp[0])
+			{
+				professionStrings.push_back(temp);
+			}
 		}
 	}
 
-	for(int i = 0; ; i++)
+	if(classIdStrings.empty())
 	{
-		string temp;
-		if(!mem->resolveClassIDToClassname(i, temp))
+		for(int i = 0; ; i++)
 		{
-			break;
+			string temp;
+			if(!mem->resolveClassIDToClassname(i, temp))
+			{
+				break;
+			}
+			classIdStrings.push_back(temp);
 		}
-		classIdStrings.push_back(temp);
 	}
 
 	//DumpPrefessionNamesToDisk(professionStrings, "priofessiondump.txt");

@@ -49,6 +49,8 @@ ALLEGRO_EVENT_QUEUE *queue;
 
 ALLEGRO_EVENT event;
 
+ALLEGRO_BITMAP* IMGIcon;
+
 int mouse_x, mouse_y, mouse_z;
 unsigned int mouse_b;
 bool key[ALLEGRO_KEY_MAX];
@@ -207,7 +209,7 @@ int main(void)
 
 
 	int gfxMode = config.Fullscreen ? ALLEGRO_FULLSCREEN : ALLEGRO_WINDOWED;
-	al_set_new_display_flags(gfxMode|ALLEGRO_RESIZABLE|ALLEGRO_OPENGL);
+	al_set_new_display_flags(gfxMode|ALLEGRO_RESIZABLE|(config.opengl ? ALLEGRO_OPENGL : 0));
 	display = al_create_display(config.screenWidth, config.screenHeight);
 	if(!display)
 	{
@@ -221,11 +223,12 @@ int main(void)
 		return 1;
 	}
 
+	IMGIcon = load_bitmap_withWarning("stonesense.png");
+	al_set_display_icon(IMGIcon);
 
 	//al_set_blender(ALLEGRO_ALPHA, ALLEGRO_INVERSE_ALPHA, al_map_rgba_f(1.0, 1.0, 1.0, 1.0));
 	al_set_separate_blender(ALLEGRO_ADD, ALLEGRO_ALPHA, ALLEGRO_INVERSE_ALPHA, ALLEGRO_ADD, ALLEGRO_ALPHA, ALLEGRO_ONE, al_map_rgba(255, 255, 255, 255));
 	loadGraphicsFromDisk();
-	al_set_display_icon(IMGIcon);
 	al_clear_to_color(al_map_rgb(0,0,0));
 	draw_textf_border(font, al_get_bitmap_width(al_get_target_bitmap())/2, al_get_bitmap_height(al_get_target_bitmap())/2, ALLEGRO_ALIGN_CENTRE, "Starting up...");
 	al_flip_display();
