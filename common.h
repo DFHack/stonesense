@@ -30,6 +30,7 @@ using namespace std;
 #include <modules/Creatures.h>
 #include <modules/Buildings.h>
 #include <modules/Constructions.h>
+#include <modules/Gui.h>
 using namespace DFHack;
 
 #include "commonTypes.h"

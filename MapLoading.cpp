@@ -192,7 +192,9 @@ void ReadCellToSegment(API& DF, WorldSegment& segment, int CellX, int CellY, int
 					   uint16_t Flags/*not in use*/, 
 					   vector<t_building>* allBuildings, 
 					   vector<t_construction>* allConstructions,
-					   vector< vector <uint16_t> >* allLayers)
+					   vector< vector <uint16_t> >* allLayers,
+					   vector<DFHack::t_feature> * global_features,
+					   std::map <DFHack::planecoord, std::vector<DFHack::t_feature *> > *local_features)
 {
 	//boundry check
 	DFHack::Maps *Maps =DF.getMaps();
@@ -222,15 +224,17 @@ void ReadCellToSegment(API& DF, WorldSegment& segment, int CellX, int CellY, int
 	t_occupancy occupancies[16][16];
 	uint8_t regionoffsets[16];
 	t_temperatures temp1, temp2;
+	DFHack::mapblock40d mapBlock;
 	Maps->ReadTileTypes(CellX, CellY, CellZ, (tiletypes40d *) tiletypes);
 	Maps->ReadDesignations(CellX, CellY, CellZ, (designations40d *) designations);
 	Maps->ReadOccupancy(CellX, CellY, CellZ, (occupancies40d *) occupancies);
 	Maps->ReadRegionOffsets(CellX,CellY,CellZ, (biome_indices40d *)regionoffsets);
 	Maps->ReadTemperatures(CellX, CellY, CellZ, &temp1, &temp2);
+	Maps->ReadBlock40d(CellX, CellY, CellZ, &mapBlock);
 	//read local vein data
 	vector <t_vein> veins;
 	vector <t_frozenliquidvein> ices;
-    vector <t_spattervein> splatter;
+	vector <t_spattervein> splatter;
 
 	Maps->ReadVeins(CellX,CellY,CellZ,&veins,&ices,&splatter);
 	uint32_t numVeins = (uint32_t)veins.size();
@@ -320,7 +324,8 @@ void ReadCellToSegment(API& DF, WorldSegment& segment, int CellX, int CellY, int
 				shouldBeIncluded= true;
 			}
 
-			if( shouldBeIncluded ){
+			if( shouldBeIncluded )
+			{
 				//this only needs to be done for included blocks
 
 				//determine rock/soil type
@@ -331,7 +336,8 @@ void ReadCellToSegment(API& DF, WorldSegment& segment, int CellX, int CellY, int
 				//if there's no veins, the vein material should just be the layer material.
 				b->veinMaterial.type = INORGANIC;
 				b->veinMaterial.index = rockIndex;
-				for(uint32_t i=0; i<numVeins; i++){
+				for(uint32_t i=0; i<numVeins; i++)
+				{
 					//TODO: This will be fixed in dfHack at some point, but right now objects that arnt veins pass through as. So we filter on vtable
 
 					//if((uint32_t)veins[i].type >= groundTypes.size())
@@ -356,6 +362,53 @@ void ReadCellToSegment(API& DF, WorldSegment& segment, int CellX, int CellY, int
 				}
 				b->material.type = INORGANIC;
 				b->material.index = b->veinMaterial.index;
+
+				//read global features
+				int16_t idx = mapBlock.global_feature;
+				if( idx != -1 && uint16_t(idx) < global_features->size() && global_features->at(idx).type == DFHack::feature_Underworld)
+				{
+					if(designations[lx][ly].bits.feature_global)
+					{
+						if(global_features->at(idx).main_material == INORGANIC) // stone
+						{
+							b->layerMaterial.type = INORGANIC;
+							b->layerMaterial.index = global_features->at(idx).sub_material;
+							b->material.type = INORGANIC;
+							b->material.index = global_features->at(idx).sub_material;
+							b->hasVein = 0;
+						}
+					}
+				}
+
+				//read local features
+				idx = mapBlock.local_feature;
+				if( idx != -1 )
+				{
+					DFHack::planecoord pc;
+					pc.dim.x = CellX;
+					pc.dim.y = CellY;
+					std::map <DFHack::planecoord, std::vector<DFHack::t_feature *> >::iterator it;
+					it = local_features->find(pc);
+					if(it != local_features->end())
+					{
+						std::vector<DFHack::t_feature *>& vectr = (*it).second;
+						if(uint16_t(idx) < vectr.size() && vectr[idx]->type == DFHack::feature_Adamantine_Tube)
+						{
+							if(mapBlock.designation[lx][ly].bits.feature_global)
+							{
+								if(vectr[idx]->main_material == INORGANIC) // stone
+								{
+									b->veinMaterial.type = INORGANIC;
+									b->veinMaterial.index = vectr[idx]->sub_material;
+									b->material.type = INORGANIC;
+									b->material.index = global_features->at(idx).sub_material;
+									b->hasVein = 1;
+								}
+							}
+						}
+					}
+				}
+
 
 				//string name = v_stonetypes[j].id;
 				if (createdBlock)
@@ -447,12 +500,12 @@ WorldSegment* ReadMapSegment(API &DF, int x, int y, int z, int sizex, int sizey,
 	/*if(GroundMaterialNamesTranslatedFromGame == false)
 	TranslateGroundMaterialNames();*/
 
-    // get region geology
+	// get region geology
 	vector< vector <uint16_t> > layers;
-    if(!Maps->ReadGeology( layers ))
-    {
-        WriteErr("Can't get region geology.\n");
-    }
+	if(!Maps->ReadGeology( layers ))
+	{
+		WriteErr("Can't get region geology.\n");
+	}
 
 	//read cursor
 	Pos->getCursorCoords(config.dfCursorX, config.dfCursorY, config.dfCursorZ);
@@ -482,6 +535,13 @@ WorldSegment* ReadMapSegment(API &DF, int x, int y, int z, int sizex, int sizey,
 	int32_t firstTileToReadX = x;
 	if( firstTileToReadX < 0 ) firstTileToReadX = 0;
 
+	//read global features
+	vector<DFHack::t_feature> global_features;
+	Maps->ReadGlobalFeatures(global_features);
+
+	//read local features
+	std::map <DFHack::planecoord, std::vector<DFHack::t_feature *> > local_features;
+	Maps->ReadLocalFeatures(local_features);
 	while(firstTileToReadX < x + sizex){
 		int cellx = firstTileToReadX / CELLEDGESIZE;
 		int32_t lastTileInCellX = (cellx+1) * CELLEDGESIZE - 1;
@@ -499,7 +559,7 @@ WorldSegment* ReadMapSegment(API &DF, int x, int y, int z, int sizex, int sizey,
 				//load the blcoks from this cell to the map segment
 				ReadCellToSegment(DF, *segment, cellx, celly, lz, 
 					firstTileToReadX, firstTileToReadY, lastTileToReadX, lastTileToReadY,
-					0, &allBuildings, &allConstructions, &layers );
+					0, &allBuildings, &allConstructions, &layers, &global_features, &local_features);
 
 			}
 			firstTileToReadY = lastTileToReadY + 1;
@@ -808,6 +868,12 @@ void reloadDisplayedSegment(){
 		return ;
 	}
 
+	DFHack::Gui * G = DF.getGui();
+
+	//G->Start();
+	//G->ReadViewScreen(config.viewscreen);
+	//config.menustate = G->ReadMenuState();
+	//G->Finish();
 	if (firstLoad || config.follow_DFscreen)
 	{
 		if (config.track_center)
