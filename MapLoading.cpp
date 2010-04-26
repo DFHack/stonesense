@@ -826,7 +826,10 @@ void reloadDisplayedSegment(){
 	bool firstLoad = (pDFApiHandle == 0);
 	if(pDFApiHandle == 0){
 		al_clear_to_color(al_map_rgb(0,0,0));
-		draw_textf_border(font, al_get_bitmap_width(al_get_target_bitmap())/2, al_get_bitmap_height(al_get_target_bitmap())/2, ALLEGRO_ALIGN_CENTRE, "Connecting to DF...");
+		draw_textf_border(font, 
+			al_get_bitmap_width(al_get_target_bitmap())/2,
+			al_get_bitmap_height(al_get_target_bitmap())/2,
+			ALLEGRO_ALIGN_CENTRE, "Connecting to DF...");
 		al_flip_display();
 		memInfoHasBeenRead = false;
 		pDFApiHandle = new API("Memory.xml");

@@ -57,7 +57,7 @@ int translateProfession(const char* currentProf)
 	if (currentProf == NULL || currentProf[0]==0)
 		return INVALID_INDEX;
 	
-	dfNumJobs = sizeof(contentLoader.professionStrings) / sizeof(contentLoader.professionStrings[0]);
+	dfNumJobs = contentLoader.professionStrings.size();
 	for(j=0; j < dfNumJobs; j++)
 	{   
 		proffStr = contentLoader.professionStrings[j];
