@@ -261,11 +261,11 @@ int main(void)
 				ALLEGRO_COLOR color;
 				al_get_separate_blender(&op, &src, &dst, &alpha_op, &alpha_src, &alpha_dst, &color);
 				al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, al_map_rgb(255, 255, 0));
-				al_draw_text(font, al_get_bitmap_width(al_get_backbuffer())/2, 5*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "Welcome to Stonesense!");
+				al_draw_text(font, al_get_bitmap_width(al_get_backbuffer())/2, 5*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "Welcome to Stonesense Slate!");
 				al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
 				al_draw_text(font, al_get_bitmap_width(al_get_backbuffer())/2, 6*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "Stonesense is an isometric viewer for Dwarf Fortress.");
 
-				al_draw_text(font, al_get_bitmap_width(al_get_backbuffer())/2, 8*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "Programming, Jonas Ask and Kris Parker");
+				al_draw_text(font, al_get_bitmap_width(al_get_backbuffer())/2, 8*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "Programming, Jonas Ask, Kris Parker and Japa Illo");
 				al_draw_text(font, al_get_bitmap_width(al_get_backbuffer())/2, 9*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "Lead graphics designer, Dale Holdampf");
 
 				al_draw_text(font, al_get_bitmap_width(al_get_backbuffer())/2, al_get_bitmap_height(al_get_backbuffer())-13*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "Contributors:");

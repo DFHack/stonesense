@@ -627,8 +627,12 @@ ALLEGRO_BITMAP* load_bitmap_withWarning(char* path){
 }
 
 void loadGraphicsFromDisk(){
-	draw_textf_border(font, al_get_bitmap_width(al_get_target_bitmap())/2, al_get_bitmap_height(al_get_target_bitmap())/2, ALLEGRO_ALIGN_CENTRE, "Loading...");
-	al_flip_display();
+	/*al_clear_to_color(al_map_rgb(0,0,0));
+	draw_textf_border(font,
+		al_get_bitmap_width(al_get_target_bitmap())/2,
+		al_get_bitmap_height(al_get_target_bitmap())/2,
+		ALLEGRO_ALIGN_CENTRE, "Loading...");
+	al_flip_display();*/
 	int index;
 	index = loadImgFile("objects.png");
 	IMGObjectSheet = al_create_sub_bitmap(IMGFilelist[index], 0, 0, al_get_bitmap_width(IMGFilelist[index]), al_get_bitmap_height(IMGFilelist[index]));
@@ -721,11 +725,13 @@ int loadImgFile(char* filename)
 			if (strcmp(filename, IMGFilenames[i]->c_str()) == 0)
 				return i;
 		}
+		/*
 		al_clear_to_color(al_map_rgb(0,0,0));
 		draw_textf_border(font, al_get_bitmap_width(al_get_target_bitmap())/2,
 			al_get_bitmap_height(al_get_target_bitmap())/2,
 			ALLEGRO_ALIGN_CENTRE, "Loading %s...", filename);
 		al_flip_display();
+		*/
 		static int xOffset = 0;
 		static int yOffset = 0;
 		int currentCache = IMGCache.size() -1;

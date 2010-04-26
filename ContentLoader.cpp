@@ -41,8 +41,11 @@ void DumpPrefessionNamesToDisk(vector<string> material, const char* filename){
 	fclose(fp);
 }
 bool ContentLoader::Load(API& DF){
-	draw_textf_border(font, al_get_bitmap_width(al_get_target_bitmap())/2, al_get_bitmap_height(al_get_target_bitmap())/2, ALLEGRO_ALIGN_CENTRE, "Loading...");
-	al_flip_display();
+	/*draw_textf_border(font, 
+		al_get_bitmap_width(al_get_target_bitmap())/2,
+		al_get_bitmap_height(al_get_target_bitmap())/2,
+		ALLEGRO_ALIGN_CENTRE, "Loading...");
+	al_flip_display();*/
 	//flush old config
 	flushBuildingConfig(&buildingConfigs);
 	flushTerrainConfig(terrainFloorConfigs);
@@ -129,15 +132,6 @@ bool ContentLoader::Load(API& DF){
 // returns true if it all works
 bool getLocalFilename(char * buffer, const char* filename, const char* relativeto)
 {
-	//char filetemp[FILENAME_BUFFERSIZE_LOCAL] = {0};
-	//char hometemp[FILENAME_BUFFERSIZE_LOCAL] = {0};	
-	// allegro will avoid writing off the end of the buffer, but wont *tell* me
-	// that the resulting filename is worthless
-	// these give me a check of my own
-	//filetemp[FILENAME_BUFFERSIZE_LOCAL-1] = 1;
-	//hometemp[FILENAME_BUFFERSIZE_LOCAL-1] = 1;	
-	//buffer[FILENAME_BUFFERSIZE-1] = 1;
-
 	ALLEGRO_PATH * temppath;
 	if (filename[0] == '/' || filename[0] == '\\')
 	{
@@ -151,23 +145,18 @@ bool getLocalFilename(char * buffer, const char* filename, const char* relativet
 		al_make_path_canonical(temppath);
 	}
 	buffer = strcpy(buffer, al_path_cstr(temppath, ALLEGRO_NATIVE_PATH_SEP));
-	//WriteErr( "seems fine here: %s!\n", buffer );
-	//if (buffer[FILENAME_BUFFERSIZE-1] != 1)
-	//{
-	//	WriteErr("Failed to build path for: %s\n",filename);
-	//	return false;
-	//}
 	return true;
 }
 
 bool ContentLoader::parseContentIndexFile( char* filepath )
 {
+	/*
 	al_clear_to_color(al_map_rgb(0,0,0));
 	draw_textf_border(font, al_get_bitmap_width(al_get_target_bitmap())/2, 
 		al_get_bitmap_height(al_get_target_bitmap())/2,
 		ALLEGRO_ALIGN_CENTRE, "Loading %s...", filepath);
-
 	al_flip_display();
+	*/
 	string line;
 	ifstream myfile( filepath );
 	if (myfile.is_open() == false){
@@ -237,11 +226,12 @@ bool ContentLoader::parseContentIndexFile( char* filepath )
 }
 
 bool ContentLoader::parseContentXMLFile( char* filepath ){
+	/*
 	al_clear_to_color(al_map_rgb(0,0,0));
 	draw_textf_border(font, al_get_bitmap_width(al_get_target_bitmap())/2,
 		al_get_bitmap_height(al_get_target_bitmap())/2,
 		ALLEGRO_ALIGN_CENTRE, "Loading %s...", filepath);
-	al_flip_display();
+	al_flip_display();*/
 	TiXmlDocument doc( filepath );
 	if(!doc.LoadFile())
 	{
