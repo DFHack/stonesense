@@ -394,14 +394,14 @@ void ReadCellToSegment(API& DF, WorldSegment& segment, int CellX, int CellY, int
 						std::vector<DFHack::t_feature *>& vectr = (*it).second;
 						if(uint16_t(idx) < vectr.size() && vectr[idx]->type == DFHack::feature_Adamantine_Tube)
 						{
-							if(mapBlock.designation[lx][ly].bits.feature_global)
+							if(mapBlock.designation[lx][ly].bits.feature_local && DFHack::isWallTerrain(mapBlock.tiletypes[lx][ly]))
 							{
 								if(vectr[idx]->main_material == INORGANIC) // stone
 								{
 									b->veinMaterial.type = INORGANIC;
 									b->veinMaterial.index = vectr[idx]->sub_material;
 									b->material.type = INORGANIC;
-									b->material.index = global_features->at(idx).sub_material;
+									b->material.index = vectr[idx]->sub_material;
 									b->hasVein = 1;
 								}
 							}
