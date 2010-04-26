@@ -722,7 +722,9 @@ int loadImgFile(char* filename)
 				return i;
 		}
 		al_clear_to_color(al_map_rgb(0,0,0));
-		draw_textf_border(font, al_get_bitmap_width(al_get_target_bitmap())/2, al_get_bitmap_height(al_get_target_bitmap())/2, ALLEGRO_ALIGN_CENTRE, "Loading %s...", filename);
+		draw_textf_border(font, al_get_bitmap_width(al_get_target_bitmap())/2,
+			al_get_bitmap_height(al_get_target_bitmap())/2,
+			ALLEGRO_ALIGN_CENTRE, "Loading %s...", filename);
 		al_flip_display();
 		static int xOffset = 0;
 		static int yOffset = 0;
