@@ -154,6 +154,9 @@ typedef struct {
 
 	uint32_t menustate;
 	t_viewscreen viewscreen;
+
+	bool spriteIndexOverlay;
+	int currentSpriteOverlay;
 } GameConfiguration;
 
 

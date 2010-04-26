@@ -496,7 +496,8 @@ void DrawSpriteIndexOverlay(int imageIndex){
 }
 
 
-void DoSpriteIndexOverlay(){
+void DoSpriteIndexOverlay()
+{
 	DrawSpriteIndexOverlay(-1);
 	int index = 0;
 	int max = (int)IMGFilenames.size();

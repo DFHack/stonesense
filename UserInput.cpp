@@ -315,8 +315,26 @@ void doKeys(int Key)
 			paintboard();
 		}
 
-		if(Key == ALLEGRO_KEY_F10){
-			DoSpriteIndexOverlay();
+		if(Key == ALLEGRO_KEY_F10)
+		{
+			if(config.spriteIndexOverlay == false)
+			{
+				config.spriteIndexOverlay = true;
+				config.currentSpriteOverlay = -1;
+			}
+			else
+			{
+				config.currentSpriteOverlay ++;
+				if(config.currentSpriteOverlay >= IMGFilenames.size())
+					config.currentSpriteOverlay = -1;
+			}
+		}
+		if(Key == ALLEGRO_KEY_SPACE)
+		{
+			if(config.spriteIndexOverlay == true)
+			{
+				config.spriteIndexOverlay = false;
+			}
 		}
 		if(Key == ALLEGRO_KEY_F9 && config.show_intro){
 			config.show_intro = false;

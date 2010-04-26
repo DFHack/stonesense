@@ -422,6 +422,8 @@ const char *lookupMaterialTypeName(int matType)
 		return "PlantCloth";
 	case LEATHER:
 		return "Leather";
+	case ICE:
+		return "Ice";
 	default:
 		return NULL;
 	}

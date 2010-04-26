@@ -358,9 +358,14 @@ int main(void)
 
 
 	while (true) {
-		if (redraw && al_event_queue_is_empty(queue)) {
+		if (redraw && al_event_queue_is_empty(queue))
+		{
 			al_rest(ALLEGRO_MSECS_TO_SECS(30));
-			if( timeToReloadSegment ){
+			if(config.spriteIndexOverlay)
+			{
+				DrawSpriteIndexOverlay(config.currentSpriteOverlay);
+			}
+			else if( timeToReloadSegment ){
 				reloadDisplayedSegment();
 				paintboard();
 				timeToReloadSegment = false;
