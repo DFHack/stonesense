@@ -300,6 +300,9 @@ int main(void)
 				}
 #endif
 			}
+			if(event.type == ALLEGRO_EVENT_DISPLAY_SWITCH_IN){
+				redraw = true;
+			}
 			if (event.type == ALLEGRO_EVENT_KEY_DOWN) {
 				if(event.keyboard.keycode == ALLEGRO_KEY_F9)
 					break;
@@ -335,20 +338,6 @@ int main(void)
 
 	//DisplayedSegmentX = 242; DisplayedSegmentY = 345;DisplayedSegmentZ = 15;
 
-
-	//while(1)
-	//reloadDisplayedSegment();
-	//if(!viewedSegment) return 1;
-
-	// we should have a dfhack attached now, load the config
-	/*LoadBuildingConfiguration( &buildingTypes );
-	LoadCreatureConfiguration( &creatureTypes );
-	LoadGroundMaterialConfiguration( );
-	*/
-
-
-	// reload now we have config
-	//reloadDisplayedSegment();
 
 #ifdef BENCHMARK
 	benchmark();
