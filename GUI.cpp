@@ -586,13 +586,11 @@ void paintboard(){
 			top += al_get_font_line_height(font);
 			draw_textf_border(font, al_get_bitmap_width(al_get_target_bitmap())/2,top, ALLEGRO_ALIGN_CENTRE, "Locked on DF screen + (%d,%d,%d)",config.viewXoffset,config.viewYoffset,config.viewZoffset);
 		}
-		if(config.follow_DFcursor)
+		if(config.follow_DFcursor && config.debug_mode)
 		{
 			top += al_get_font_line_height(font);
 			if(config.dfCursorX != -30000)
 				draw_textf_border(font, al_get_bitmap_width(al_get_target_bitmap())/2,top, ALLEGRO_ALIGN_CENTRE, "Following DF Cursor at: %d,%d,%d", config.dfCursorX,config.dfCursorY,config.dfCursorZ);
-			else
-				draw_textf_border(font, al_get_bitmap_width(al_get_target_bitmap())/2,top, ALLEGRO_ALIGN_CENTRE, "No DF cursor to follow");
 		}
 		if(config.single_layer_view)
 		{
