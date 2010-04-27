@@ -152,6 +152,44 @@ void animUpdateProc()
 	}
 }
 
+void drawcredits()
+{
+	al_clear_to_color(al_map_rgb(0,0,0));
+	//centred splash image
+	{
+		ALLEGRO_BITMAP* SplashImage = load_bitmap_withWarning("splash.png");
+		al_draw_bitmap_region(SplashImage, 0, 0,
+			al_get_bitmap_width(SplashImage), al_get_bitmap_height(SplashImage),
+			(al_get_bitmap_width(al_get_backbuffer()) - al_get_bitmap_width(SplashImage))/2,
+			(al_get_bitmap_height(al_get_backbuffer()) - al_get_bitmap_height(SplashImage))/2, 0);
+		al_destroy_bitmap(SplashImage);
+	}
+	int op, src, dst, alpha_op, alpha_src, alpha_dst;
+	ALLEGRO_COLOR color;
+	al_get_separate_blender(&op, &src, &dst, &alpha_op, &alpha_src, &alpha_dst, &color);
+	al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, al_map_rgb(255, 255, 0));
+	al_draw_text(font, al_get_bitmap_width(al_get_backbuffer())/2, 5*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "Welcome to Stonesense Slate!");
+	al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
+	al_draw_text(font, al_get_bitmap_width(al_get_backbuffer())/2, 6*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "Stonesense is an isometric viewer for Dwarf Fortress.");
+
+	al_draw_text(font, al_get_bitmap_width(al_get_backbuffer())/2, 8*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "Programming, Jonas Ask, Kris Parker and Japa Illo");
+	al_draw_text(font, al_get_bitmap_width(al_get_backbuffer())/2, 9*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "Lead graphics designer, Dale Holdampf");
+
+	al_draw_text(font, al_get_bitmap_width(al_get_backbuffer())/2, al_get_bitmap_height(al_get_backbuffer())-13*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "Contributors:");
+	al_draw_text(font, al_get_bitmap_width(al_get_backbuffer())/2, al_get_bitmap_height(al_get_backbuffer())-12*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "7c Nickel, Belal, DeKaFu, Dante, Deon, dyze, Errol, fifth angel,");
+	al_draw_text(font, al_get_bitmap_width(al_get_backbuffer())/2, al_get_bitmap_height(al_get_backbuffer())-11*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "frumpton, IDreamOfGiniCoeff, Impaler, Japa, jarathor, ");
+	al_draw_text(font, al_get_bitmap_width(al_get_backbuffer())/2, al_get_bitmap_height(al_get_backbuffer())-10*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "Jiri Petru, Lord Nightmare, McMe, Mike Mayday, Nexii ");
+	al_draw_text(font, al_get_bitmap_width(al_get_backbuffer())/2, al_get_bitmap_height(al_get_backbuffer())-9*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "Malthus, peterix, Seuss, Talvara, winner, and Xandrin.");
+
+	al_draw_text(font, al_get_bitmap_width(al_get_backbuffer())/2, al_get_bitmap_height(al_get_backbuffer())-7*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "With special thanks to peterix for making dfHack");
+
+	//"The program is in a very early alpha, we're only showcasing it to get ideas and feedback, so use it at your own risk."
+	al_draw_text(font, al_get_bitmap_width(al_get_backbuffer())/2, al_get_bitmap_height(al_get_backbuffer())-4*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "Press F9 to continue");
+	// Make the backbuffer visible
+	al_flip_display();
+}
+
+
 int main(void)
 {
 	/*
@@ -243,85 +281,7 @@ int main(void)
 	al_register_event_source(queue, al_get_timer_event_source(reloadtimer));
 	al_register_event_source(queue, al_get_timer_event_source(animationtimer));
 	bool redraw = true;
-	if( config.show_intro )
-	{
-		while(true){
-			if (redraw && al_event_queue_is_empty(queue)) {
-				al_clear_to_color(al_map_rgb(0,0,0));
-				//centred splash image
-				{
-					ALLEGRO_BITMAP* SplashImage = load_bitmap_withWarning("splash.png");
-					al_draw_bitmap_region(SplashImage, 0, 0,
-						al_get_bitmap_width(SplashImage), al_get_bitmap_height(SplashImage),
-						(al_get_bitmap_width(al_get_backbuffer()) - al_get_bitmap_width(SplashImage))/2,
-						(al_get_bitmap_height(al_get_backbuffer()) - al_get_bitmap_height(SplashImage))/2, 0);
-					al_destroy_bitmap(SplashImage);
-				}
-				int op, src, dst, alpha_op, alpha_src, alpha_dst;
-				ALLEGRO_COLOR color;
-				al_get_separate_blender(&op, &src, &dst, &alpha_op, &alpha_src, &alpha_dst, &color);
-				al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, al_map_rgb(255, 255, 0));
-				al_draw_text(font, al_get_bitmap_width(al_get_backbuffer())/2, 5*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "Welcome to Stonesense Slate!");
-				al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
-				al_draw_text(font, al_get_bitmap_width(al_get_backbuffer())/2, 6*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "Stonesense is an isometric viewer for Dwarf Fortress.");
 
-				al_draw_text(font, al_get_bitmap_width(al_get_backbuffer())/2, 8*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "Programming, Jonas Ask, Kris Parker and Japa Illo");
-				al_draw_text(font, al_get_bitmap_width(al_get_backbuffer())/2, 9*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "Lead graphics designer, Dale Holdampf");
-
-				al_draw_text(font, al_get_bitmap_width(al_get_backbuffer())/2, al_get_bitmap_height(al_get_backbuffer())-13*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "Contributors:");
-				al_draw_text(font, al_get_bitmap_width(al_get_backbuffer())/2, al_get_bitmap_height(al_get_backbuffer())-12*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "7c Nickel, Belal, DeKaFu, Dante, Deon, dyze, Errol, fifth angel,");
-				al_draw_text(font, al_get_bitmap_width(al_get_backbuffer())/2, al_get_bitmap_height(al_get_backbuffer())-11*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "frumpton, IDreamOfGiniCoeff, Impaler, Japa, jarathor, ");
-				al_draw_text(font, al_get_bitmap_width(al_get_backbuffer())/2, al_get_bitmap_height(al_get_backbuffer())-10*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "Jiri Petru, Lord Nightmare, McMe, Mike Mayday, Nexii ");
-				al_draw_text(font, al_get_bitmap_width(al_get_backbuffer())/2, al_get_bitmap_height(al_get_backbuffer())-9*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "Malthus, peterix, Seuss, Talvara, winner, and Xandrin.");
-
-				al_draw_text(font, al_get_bitmap_width(al_get_backbuffer())/2, al_get_bitmap_height(al_get_backbuffer())-7*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "With special thanks to peterix for making dfHack");
-
-				//"The program is in a very early alpha, we're only showcasing it to get ideas and feedback, so use it at your own risk."
-				al_draw_text(font, al_get_bitmap_width(al_get_backbuffer())/2, al_get_bitmap_height(al_get_backbuffer())-4*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "Press F9 to continue");
-				// Make the backbuffer visible
-				al_flip_display();
-				redraw = false;
-			}
-			al_wait_for_event(queue, &event);
-			if (event.type == ALLEGRO_EVENT_DISPLAY_RESIZE) {
-				if(!al_acknowledge_resize(event.display.source))
-				{
-					DisplayErr("Failed to resize diplay");
-					exit(0);
-				}
-				redraw = true;
-#if 1
-				{
-					/* XXX the opengl drivers currently don't resize the backbuffer */
-					ALLEGRO_BITMAP *bb = al_get_backbuffer();
-					int w = al_get_bitmap_width(bb);
-					int h = al_get_bitmap_height(bb);
-					WriteErr("backbuffer w, h: %d, %d\n", w, h);
-				}
-#endif
-			}
-			if(event.type == ALLEGRO_EVENT_DISPLAY_SWITCH_IN){
-				redraw = true;
-			}
-			if (event.type == ALLEGRO_EVENT_KEY_DOWN) {
-				if(event.keyboard.keycode == ALLEGRO_KEY_F9)
-					break;
-				else
-				{
-					doKeys(event.keyboard.keycode);
-				}
-			}
-			if (event.type == ALLEGRO_EVENT_KEY_DOWN) {
-				if(event.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
-					exit(0);
-			}
-			if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
-				exit(0);
-			}
-		}
-		al_clear_to_color(al_map_rgb(0, 0, 0));
-		al_flip_display();
-	}
 	//upper left corners
 	DisplayedSegmentX = DisplayedSegmentY = DisplayedSegmentZ = 0;
 
@@ -353,6 +313,10 @@ int main(void)
 			if(config.spriteIndexOverlay)
 			{
 				DrawSpriteIndexOverlay(config.currentSpriteOverlay);
+			}
+			else if( config.show_intro )
+			{
+				drawcredits();
 			}
 			else if( timeToReloadSegment ){
 				reloadDisplayedSegment();
@@ -391,8 +355,11 @@ int main(void)
 		if (event.type == ALLEGRO_EVENT_KEY_DOWN) {
 			if(event.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
 				break;
-			else
+			else 
+			{
 				doKeys(event.keyboard.keycode);
+				redraw = true;
+			}
 		}
 		if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
 			break;
