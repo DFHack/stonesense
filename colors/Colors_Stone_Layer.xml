@@ -25,7 +25,7 @@
       <subtype value="CLAYSTONE" />
     </material>
   </color>
-  <color red="145" green="105" blue="102">
+  <color red="214" green="168" blue="165">
     <material value="Inorganic">
       <subtype value="ROCK_SALT" />
     </material>
