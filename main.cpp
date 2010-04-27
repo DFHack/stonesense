@@ -238,6 +238,7 @@ int main(void)
 	config.imageCacheSize = 4096;
 	config.fontsize = 10;
 	config.font = al_create_path("DejaVuSans.ttf");
+	config.creditScreen = true;
 	initRandomCube();
 	loadConfigFile();
 	loadfont();
@@ -314,7 +315,7 @@ int main(void)
 			{
 				DrawSpriteIndexOverlay(config.currentSpriteOverlay);
 			}
-			else if( config.show_intro )
+			else if( config.show_intro && config.creditScreen )
 			{
 				drawcredits();
 			}

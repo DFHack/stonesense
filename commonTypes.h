@@ -156,6 +156,7 @@ typedef struct {
 	t_viewscreen viewscreen;
 
 	bool spriteIndexOverlay;
+	bool creditScreen;
 	int currentSpriteOverlay;
 } GameConfiguration;
 

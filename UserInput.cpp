@@ -292,8 +292,13 @@ void doKeys(int Key)
 			initAutoReload();
 		paintboard();
 	}
+	if(Key == ALLEGRO_KEY_F9)
+	{
+		config.creditScreen = false;
+	}
 
-	if(config.debug_mode){
+	if(config.debug_mode)
+	{
 		if(Key == ALLEGRO_KEY_PAD_8){
 			config.follow_DFcursor = false;
 			debugCursor.y--;
@@ -335,9 +340,6 @@ void doKeys(int Key)
 			{
 				config.spriteIndexOverlay = false;
 			}
-		}
-		if(Key == ALLEGRO_KEY_F9 && config.show_intro){
-			config.show_intro = false;
 		}
 	}
 }
