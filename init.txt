@@ -42,7 +42,7 @@ set's weather or not stonesense tries to cache all the loaded images into a sing
 [CACHE_IMAGES:YES]
 
 Sets Stonesense in debug mode. Adds additional information to displays.
-[DEBUGMODE:NO]
+[DEBUGMODE:YES]
 
 Set's the debug cursor to follow the cursor from DF when it is there.
 [FOLLOW_DF_CURSOR:YES]

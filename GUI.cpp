@@ -283,14 +283,6 @@ void drawDebugCursorAndInfo(){
 	}
 	if (tform != NULL)
 	{
-		const char fore = lookupMaterialFore(b->material.type, b->material.index);
-		const char back = lookupMaterialBack(b->material.type, b->material.index);
-		const char bright = lookupMaterialBright(b->material.type, b->material.index);
-		draw_textf_border(font, 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0,
-			"Fore: %d, Back: %d, Bright: %d", fore, back, bright);
-	}
-	if (tform != NULL)
-	{
 		const char* matName = lookupMaterialTypeName(b->layerMaterial.type);
 		const char* subMatName = lookupMaterialName(b->layerMaterial.type,b->layerMaterial.index);
 		draw_textf_border(font, 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0,
@@ -339,7 +331,7 @@ void drawDebugCursorAndInfo(){
 		generateCreatureDebugString( b->creature, strCreature );
 		//memset(strCreature, -1, 50);
 		draw_textf_border(font, 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
-			"flag1: %s ", strCreature );
+			"flag1: %s Sex: %d", strCreature, b->creature->sex + 1);
 	}
 	if(b->designation.bits.traffic)
 	{

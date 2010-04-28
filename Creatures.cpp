@@ -188,11 +188,10 @@ CreatureConfiguration *GetCreatureConfig( t_creature* c ){
 		if(!creatureMatchesJob) continue;
 
 		bool creatureMatchesSex = true;
-		if( testConfig->sex != eCreatureSex_NA )
+		if( testConfig->sex != 0 )
 		{
 			creatureMatchesSex = 
-				(c->sex == 0 &&  testConfig->sex == eCreatureSex_Female) ||
-				(c->sex == 1 &&  testConfig->sex == eCreatureSex_Male);
+				(c->sex == testConfig->sex + 1);
 		}
 		if(!creatureMatchesSex) continue;
 
