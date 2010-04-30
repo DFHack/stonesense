@@ -137,6 +137,12 @@ bool addSingleCreatureConfig( TiXmlElement* elemCreature, vector<vector<Creature
 			WriteErr("custom: %s\n",customStr);	
 		}
 
+		const char* filename = elemVariant->Attribute("file");
+		if (filename != NULL && filename[0] != 0)
+		{
+			sprite.fileIndex = loadConfigImgFile((char*)filename,elemCreature);
+		}
+
 		const char* sexstr = elemVariant->Attribute("sex");
 		sheetIndexStr = elemVariant->Attribute("sheetIndex");
 		uint8_t cresex = 0;

@@ -191,7 +191,7 @@ CreatureConfiguration *GetCreatureConfig( t_creature* c ){
 		if( testConfig->sex != 0 )
 		{
 			creatureMatchesSex = 
-				(c->sex == testConfig->sex + 1);
+				(c->sex == testConfig->sex-1);
 		}
 		if(!creatureMatchesSex) continue;
 

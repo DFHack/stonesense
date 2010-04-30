@@ -50,6 +50,7 @@ bool ContentLoader::Load(API& DF){
 	flushBuildingConfig(&buildingConfigs);
 	flushTerrainConfig(terrainFloorConfigs);
 	flushTerrainConfig(terrainBlockConfigs);
+	flushColorConfig(colorConfigs);
 	creatureConfigs.clear();
 	treeConfigs.clear();
 	shrubConfigs.clear();

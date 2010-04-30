@@ -177,7 +177,7 @@ void drawcredits()
 
 	al_draw_text(font, al_get_bitmap_width(al_get_backbuffer())/2, al_get_bitmap_height(al_get_backbuffer())-13*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "Contributors:");
 	al_draw_text(font, al_get_bitmap_width(al_get_backbuffer())/2, al_get_bitmap_height(al_get_backbuffer())-12*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "7c Nickel, Belal, DeKaFu, Dante, Deon, dyze, Errol, fifth angel,");
-	al_draw_text(font, al_get_bitmap_width(al_get_backbuffer())/2, al_get_bitmap_height(al_get_backbuffer())-11*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "frumpton, IDreamOfGiniCoeff, Impaler, Japa, jarathor, ");
+	al_draw_text(font, al_get_bitmap_width(al_get_backbuffer())/2, al_get_bitmap_height(al_get_backbuffer())-11*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "frumpton, IDreamOfGiniCoeff, Impaler, jarathor, ");
 	al_draw_text(font, al_get_bitmap_width(al_get_backbuffer())/2, al_get_bitmap_height(al_get_backbuffer())-10*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "Jiri Petru, Lord Nightmare, McMe, Mike Mayday, Nexii ");
 	al_draw_text(font, al_get_bitmap_width(al_get_backbuffer())/2, al_get_bitmap_height(al_get_backbuffer())-9*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "Malthus, peterix, Seuss, Talvara, winner, and Xandrin.");
 
