@@ -1,3 +1,12 @@
+----==== 'Slate', May ??th 2010 ====----
+* DF31.x compatible
+* Snow piles in various hights
+* Transparent water and windows
+* Colored materials
+* Allegro 4.9 accelerated graphics
+* Colorable ramps for all materials
+* Resizable window
+
 ----==== 'Granite', Dec 17th 2009 ====----
 * Unified content configuration system
 * All terrain sprites configurable by type and material

@@ -1,13 +1,14 @@
-Welcome to Stonesense 1.0
+Welcome to Stonesense Slate RC1 (2.0)
 
 Thank you for trying out our little visualizer,
 as always, we appreciate any feedback.
 
-Make sure you have DF running, with your game loaded. 
+Please note, that for the time being Stonesense Slate ONLY supports DF 31_1, 31_2 and 31_3.
+Make sure you have DF running, with your game loaded.
 
-If all you see is a blank screen, DON'T PANIC.
-This just means you're viewing a hidden area.
-Use the coordinates in the upper left to move up or down till you hit the surface.
+IF Stonesense should at any time lock up, it might happen that DF freezes.
+If this happens just kill of the Stonesense.exe process (if it didn't die on itself)
+and use the fdunstuck.exe utility supplied with this distribution.
 
 --== Configuration ==--
 
@@ -36,9 +37,10 @@ H: Toggle Hidden Blocks
 B: Toggle Blacked Out Areas
 S: Toggle Single Layer View
 N: Toggle Creature Names
-F2: Hide Display Overlays
+F2: Screenshot mode/Hide Display Overlays
 F5: Save Screenshot
 Numpad + and -: Increase/Decrease AutoReload Rate
+CTRL + navigation: Adjusts follow mode offset
 
 -- Debug Keys --
 (prolly not useful for you guys)
@@ -67,9 +69,8 @@ http://www.bay12games.com/forum/index.php?topic=43260.0
 
 --== Known Issues ==--
 
-The system tries to avoid reading when theres no valid map, but it will still
-occasionally get the timing and die
-Some slight memory leaks- dont leave it running 8 hours
+We have seen some crash bugs from time to times.
+If it locks up, use the dfunstuck utility to save your fort.
 
 Good Luck!
 - The Stonesense Crew
