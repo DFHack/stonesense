@@ -34,6 +34,8 @@
   <creature gameID="GROUNDHOG" sheetIndex="7" />
   <creature gameID="TROLL" sheetIndex="16" />
   <creature gameID="NIGHTWING" sheetIndex="17" />
+	<creature gameID="FISH_CONGER_EEL" sheetIndex="18" />
+	<creature gameID="OGRE" sheetIndex="19" />
   <creature gameID="MULE" sheetIndex="24" />
   <creature gameID="DONKEY" sheetIndex="24" />
   <creature gameID="MUSKOX" sheetIndex="25" />
