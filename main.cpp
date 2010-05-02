@@ -272,8 +272,11 @@ int main(void)
 	draw_textf_border(font, al_get_bitmap_width(al_get_target_bitmap())/2, al_get_bitmap_height(al_get_target_bitmap())/2, ALLEGRO_ALIGN_CENTRE, "Starting up...");
 	al_flip_display();
 	reloadtimer = al_install_timer(ALLEGRO_MSECS_TO_SECS(config.automatic_reload_time));
-	animationtimer = al_install_timer(ALLEGRO_MSECS_TO_SECS(config.automatic_reload_time));
+	animationtimer = al_install_timer(ALLEGRO_MSECS_TO_SECS(config.animation_step));
+	if(config.animation_step)
+	{
 	al_start_timer(animationtimer);
+	}
 	// Start the event queue to handle keyboard input
 	queue = al_create_event_queue();
 	al_register_event_source(queue, al_get_keyboard_event_source());
@@ -306,6 +309,7 @@ int main(void)
 	//install_int( animUpdateProc, config.animation_step );
 	initAutoReload();
 
+	timeToReloadSegment = true;
 
 	while (true) {
 		if (redraw && al_event_queue_is_empty(queue))

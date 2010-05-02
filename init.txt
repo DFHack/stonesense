@@ -51,16 +51,16 @@ Shows building graphics for stockpiles. (Toggle with 'u')
 Fog color, and alpha at the bottom z-level.
 Setting the alpha to 0, or SHOW_FOG to NO disables fog, for a slight performance increase.
 Color and alpha ranges are 0 (min) to 255 (max)
-[SHOW_FOG:NO]
-[FOG_RED:95]
-[FOG_GREEN:95]
-[FOG_BLUE:160]
-[FOG_ALPHA:32]
+[SHOW_FOG:YES]
+[FOG_RED:0]
+[FOG_GREEN:0]
+[FOG_BLUE:0]
+[FOG_ALPHA:10]
 
 Background color. setting this the same as the fog color produces a nice effect.
-[BACK_RED:95]
-[BACK_GREEN:95]
-[BACK_BLUE:160]
+[BACK_RED:0]
+[BACK_GREEN:0]
+[BACK_BLUE:0]
 
 This value, in milliseconds, is how long Stonesense waits between
 reloading the map. If zero, the autoreload will be disabled until
@@ -78,7 +78,7 @@ Now independant of map refresh.
 --Debug Mode--
 
 Sets Stonesense in debug mode. Adds additional information to displays.
-[DEBUGMODE:NO]
+[DEBUGMODE:YES]
 
 Set's the debug cursor to follow the cursor from DF when it is there.
 [FOLLOW_DF_CURSOR:YES]
