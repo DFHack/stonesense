@@ -248,7 +248,7 @@
     </material>
   </block>
   <!-- damaged walls -->
-  <block sprite="29">
+  <block sprite="29" color="material">
     <!-- wall feat? -->
     <terrain value="176" />
     <terrain value="177" />
