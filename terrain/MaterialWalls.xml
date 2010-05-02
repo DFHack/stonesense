@@ -6,7 +6,7 @@
     <terrain value="494" />
     <material value="Wood" />
   </block>
-  <block sprite="140">
+  <block sprite="140" color="material">
     <!-- cons -->
     <terrain value="494" />
   </block>
