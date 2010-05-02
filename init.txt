@@ -14,8 +14,8 @@ with your drivers, or the program will still load in window mode.
 
 These two options set how large the cube loaded from Dwarf Fortress is.
 Each entry expects the number of tiles to load.
-[SEGMENTSIZE_XY:50]
-[SEGMENTSIZE_Z:10]
+[SEGMENTSIZE_XY:70]
+[SEGMENTSIZE_Z:7]
 
 Change this to off to skip the intro.
 [INTRO:ON]
@@ -29,7 +29,7 @@ Changes the fontfile to use.
 Lifts the segment up to the top off the screen, equivalent to a given
 number of z levels.
 Use this with a large segment size to get blocks covering the entire screen.
-[LIFTSEGMENT:0]
+[LIFTSEGMENT:12]
 
 Follow DF window is on when Stonesense launches. (Toggle with 'f')
 [FOLLOW_DF_SCREEN:YES]
