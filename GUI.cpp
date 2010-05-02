@@ -349,7 +349,7 @@ void drawDebugCursorAndInfo(){
 	if(b->building.info.type != BUILDINGTYPE_BLACKBOX)
 	{
 		draw_textf_border(font, 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0,
-			"Temp1: %dU, %.2f'C, %d'F, Temp2: %dU, %.2f'C, %d'F", b->temp1, (float)(b->temp1-10000)*5/9, b->temp1-9968, b->temp2, (float)(b->temp2-10000)*5/9, b->temp2-9968);
+			"Temp1: %dU, %.2f'C, %d'F", b->temp1, (float)(b->temp1-10000)*5/9, b->temp1-9968);
 	}
 	if(b->snowlevel || b->mudlevel)
 	{
