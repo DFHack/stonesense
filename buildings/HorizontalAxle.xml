@@ -12,16 +12,20 @@
 			<NeighbourSameBuilding dir="West"/>
 			<NeighbourSameBuilding dir="East"/>
 		</or>
-		<sprite index = 6 frame="024" />
-		<sprite index = 7 frame="135" />
+		<sprite index = 6 frame="024" color = "material" />
+		<sprite index = 7 frame="135" color = "material" />
+		<sprite index = 14 frame="024" />
+		<sprite index = 15 frame="135" />
 	</else>
 	<else>
 		<or>
 			<NeighbourSameBuilding dir="North"/>
 			<NeighbourSameBuilding dir="South"/>
 		</or>
-		<sprite index = 4 frame="024" />
-		<sprite index = 5 frame="135" />
+		<sprite index = 4 frame="024" color = "material" />
+		<sprite index = 5 frame="135" color = "material" />
+		<sprite index = 12 frame="024" />
+		<sprite index = 13 frame="135" />
 	</else>
 	<!-- look for gears preferentially -->
 	<else>
@@ -29,16 +33,20 @@
 			<NeighbourOfType dir="East" value="building_gear_assembly"/>
 			<NeighbourOfType dir="West" value="building_gear_assembly"/>
 		</or>
-		<sprite index = 6 frame="024" />
-		<sprite index = 7 frame="135" />
+		<sprite index = 6 frame="024" color = "material" />
+		<sprite index = 7 frame="135" color = "material" />
+		<sprite index = 14 frame="024" />
+		<sprite index = 15 frame="135" />
 	</else>
 	<else>
 		<or>
 			<NeighbourOfType dir="North" value="building_gear_assembly"/>
 			<NeighbourOfType dir="South" value="building_gear_assembly"/>
 		</or>
-		<sprite index = 4 frame="024" />
-		<sprite index = 5 frame="135" />
+		<sprite index = 4 frame="024" color = "material" />
+		<sprite index = 5 frame="135" color = "material" />
+		<sprite index = 12 frame="024" />
+		<sprite index = 13 frame="135" />
 	</else>
 	<!-- any other hints -->
 	<else>
@@ -52,12 +60,16 @@
 			<NeighbourOfType dir="East" value="building_axle_horizontal"/>
 			<NeighbourOfType dir="West" value="building_axle_horizontal"/>
 		</or>
-		<sprite index = 6 frame="024" />
-		<sprite index = 7 frame="135" />
+		<sprite index = 6 frame="024" color = "material" />
+		<sprite index = 7 frame="135" color = "material" />
+		<sprite index = 14 frame="024" />
+		<sprite index = 15 frame="135" />
 	</else>	
 	<else>
-		<sprite index = 4 frame="024" />
-		<sprite index = 5 frame="135" />
+		<sprite index = 4 frame="024" color = "material" />
+		<sprite index = 5 frame="135" color = "material" />
+		<sprite index = 12 frame="024" />
+		<sprite index = 13 frame="135" />
 	</else>
 		
 </building> 

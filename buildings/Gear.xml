@@ -1,13 +1,11 @@
-<?xml version="1.0" ?>
-
-
-
-<building name="Gear Assembly" gameID="building_gear_assemblyst" file="mechanics.png">
-
-	<include file="sBlueprint.xml" />
-
-	<else>
-		<sprite index = 0 frames="024"/>
-		<sprite index = 1 frames="135"/>
-	</else>
-</building> 
+<?xml version="1.0"?>
+<building name="Gear Assembly" gameID="building_gear_assemblyst"
+file="mechanics.png">
+  <include file="sBlueprint.xml" />
+  <else>
+    <sprite index="0" frames="024" color="xml" red="210" green="135" blue="80"/>
+    <sprite index="1" frames="135" color="xml" red="210" green="135" blue="80"/>
+    <sprite index="8" frames="024" color="material" />
+    <sprite index="9" frames="135" color="material" />
+  </else>
+</building>

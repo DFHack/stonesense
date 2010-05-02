@@ -1,105 +1,120 @@
-<?xml version="1.0" ?>
-
-<building name="Waterwheel" gameID="building_water_wheelst" file="mechanics.png">
-
-	<include file="sBlueprint.xml" />
-
-	<else>
-		<and>
-			<or>
-				<NeighbourSameBuilding dir="North" />
-				<NeighbourSameBuilding dir="South" />
-			</or>
-			<PositionIndex value=1 />
-		</and>
-		<sprite index= 52 offsety=15 offsetx=7 />
-		<if>
-			<not><FluidBelow value=4 /></not>
-			<sprite index= 47 offsety=15 offsetx=7 />
-		</if>
-		<sprite index= 41 offsety=3 frame="024" />
-		<sprite index= 44 offsety=3 frame="135" />
-	</else>
-	<else>	
-		<NeighbourSameBuilding dir="North" />
-		<sprite index= 51 offsety=7 offsetx=2 />
-		<if>
-			<not><FluidBelow value=7 /></not>
-			<if>
-				<FluidBelow value=4 />
-				<sprite index= 49 offsety=7 offsetx=2 />
-			</if>
-			<else>
-				<sprite index= 46 offsety=7 offsetx=2 />
-			</else>
-		</if>
-		<sprite index= 40 offsety=3 />
-		<sprite index= 43 offsety=3/>
-	</else>
-	<else>	
-		<NeighbourSameBuilding dir="South" />
-		<sprite index= 53 offsety=16/>
-		<if>
-			<not><FluidBelow value=7 /></not>
-			<if>
-				<FluidBelow value=4/>
-				<sprite index= 50 offsety=16/>
-			</if>
-			<else>
-				<sprite index= 48 offsety=16/>
-			</else>
-		</if>
-		<sprite index= 42 offsety=3 frame="024" />
-		<sprite index= 45 offsety=3 frame="135" />
-	</else>
-	
-	<else>
-		<and>
-			<PositionIndex value=1 />
-			<or>
-				<NeighbourSameBuilding dir="West" />
-				<NeighbourSameBuilding dir="East" />
-			</or>
-		</and>
-		<sprite index= 72 offsety=15 offsetx=-7/>
-		<if>
-			<not><FluidBelow value=4 /></not>
-			<sprite index= 67 offsety=15 offsetx=-7/>
-		</if>
-		<sprite index= 61 offsety=3 frame="024" />
-		<sprite index= 64 offsety=3 frame="135" />
-	</else>
-	<else>	
-		<NeighbourSameBuilding dir="West" />
-		<sprite index= 71 offsety=7 offsetx=-2/>
-		<if>
-			<not><FluidBelow value=7 /></not>
-			<if>
-				<FluidBelow value=4/>
-				<sprite index= 69 offsety=7 offsetx=-2/>
-			</if>
-			<else>
-				<sprite index= 66 offsety=7 offsetx=-2/>
-			</else>
-		</if>
-		<sprite index= 60 offsety=3 frame="024" />
-		<sprite index= 63 offsety=3 frame="135" />
-	</else>
-	<else>	
-		<NeighbourSameBuilding dir="East" />
-		<sprite index= 73 offsety=16/>
-		<if>
-			<not><FluidBelow value=7 /></not>
-			<if>
-				<FluidBelow value=4/>
-				<sprite index= 70 offsety=16/>
-			</if>
-			<else>
-				<sprite index= 68 offsety=16/>
-			</else>
-		</if>	
-		<sprite index= 62 offsety=3 frame="024" />
-		<sprite index= 65 offsety=3 frame="135" />
-	</else>
-	<empty />
-</building> 
+<?xml version="1.0"?>
+<building name="Waterwheel" gameID="building_water_wheelst"
+file="mechanics.png">
+  <include file="sBlueprint.xml" />
+  <else>
+    <and>
+      <or>
+        <NeighbourSameBuilding dir="North" />
+        <NeighbourSameBuilding dir="South" />
+      </or>
+      <PositionIndex value="1" />
+    </and>
+    <sprite index="52" offsety="15" offsetx="7" color="material" />
+    <if>
+      <not>
+        <FluidBelow value="4" />
+      </not>
+      <sprite index="47" offsety="15" offsetx="7"
+      color="material" />
+    </if>
+    <sprite index="41" offsety="3" frame="024" color="material" />
+    <sprite index="44" offsety="3" frame="135" color="material" />
+  </else>
+  <else>
+    <NeighbourSameBuilding dir="North" />
+    <sprite index="51" offsety="7" offsetx="2" color="material" />
+    <if>
+      <not>
+        <FluidBelow value="7" />
+      </not>
+      <if>
+        <FluidBelow value="4" />
+        <sprite index="49" offsety="7" offsetx="2"
+        color="material" />
+      </if>
+      <else>
+        <sprite index="46" offsety="7" offsetx="2"
+        color="material" />
+      </else>
+    </if>
+    <sprite index="40" offsety="3" color="material" />
+    <sprite index="43" offsety="3" color="material" />
+  </else>
+  <else>
+    <NeighbourSameBuilding dir="South" />
+    <sprite index="53" offsety="16" color="material" />
+    <if>
+      <not>
+        <FluidBelow value="7" />
+      </not>
+      <if>
+        <FluidBelow value="4" />
+        <sprite index="50" offsety="16" color="material" />
+      </if>
+      <else>
+        <sprite index="48" offsety="16" color="material" />
+      </else>
+    </if>
+    <sprite index="42" offsety="3" frame="024" color="material" />
+    <sprite index="45" offsety="3" frame="135" color="material" />
+  </else>
+  <else>
+    <and>
+      <PositionIndex value="1" />
+      <or>
+        <NeighbourSameBuilding dir="West" />
+        <NeighbourSameBuilding dir="East" />
+      </or>
+    </and>
+    <sprite index="72" offsety="15" offsetx="-7"
+    color="material" />
+    <if>
+      <not>
+        <FluidBelow value="4" />
+      </not>
+      <sprite index="67" offsety="15" offsetx="-7" />
+    </if>
+    <sprite index="61" offsety="3" frame="024" color="material" />
+    <sprite index="64" offsety="3" frame="135" color="material" />
+  </else>
+  <else>
+    <NeighbourSameBuilding dir="West" />
+    <sprite index="71" offsety="7" offsetx="-2" color="material" />
+    <if>
+      <not>
+        <FluidBelow value="7" />
+      </not>
+      <if>
+        <FluidBelow value="4" />
+        <sprite index="69" offsety="7" offsetx="-2"
+        color="material" />
+      </if>
+      <else>
+        <sprite index="66" offsety="7" offsetx="-2"
+        color="material" />
+      </else>
+    </if>
+    <sprite index="60" offsety="3" frame="024" color="material" />
+    <sprite index="63" offsety="3" frame="135" color="material" />
+  </else>
+  <else>
+    <NeighbourSameBuilding dir="East" />
+    <sprite index="73" offsety="16" color="material" />
+    <if>
+      <not>
+        <FluidBelow value="7" />
+      </not>
+      <if>
+        <FluidBelow value="4" />
+        <sprite index="70" offsety="16" color="material" />
+      </if>
+      <else>
+        <sprite index="68" offsety="16" color="material" />
+      </else>
+    </if>
+    <sprite index="62" offsety="3" frame="024" color="material" />
+    <sprite index="65" offsety="3" frame="135" color="material" />
+  </else>
+  <empty />
+</building>

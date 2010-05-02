@@ -1,6 +1,6 @@
 ----==== 'Slate', May ??th 2010 ====----
 * DF31.x compatible
-* Snow piles in various hights
+* Snow piles in various heights
 * Transparent water and windows
 * Colored materials
 * Allegro 4.9 accelerated graphics

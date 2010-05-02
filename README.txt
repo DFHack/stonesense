@@ -8,7 +8,7 @@ Make sure you have DF running, with your game loaded.
 
 IF Stonesense should at any time lock up, it might happen that DF freezes.
 If this happens just kill of the Stonesense.exe process (if it didn't die on itself)
-and use the fdunstuck.exe utility supplied with this distribution.
+and use the dfunstuck.exe utility supplied with this distribution.
 
 --== Configuration ==--
 
