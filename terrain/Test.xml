@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<blocks file="blocks.png">
+  <!-- construct -->
+  <block sprite="143" color="material">
+    <!-- pillar -->
+    <terrain value="495" />
+    <!-- wall -->
+    <terrain value="496" />
+    <terrain value="497" />
+    <terrain value="498" />
+    <terrain value="499" />
+    <terrain value="500" />
+    <terrain value="501" />
+    <terrain value="502" />
+    <terrain value="503" />
+    <terrain value="504" />
+    <terrain value="505" />
+    <terrain value="506" />
+    <terrain value="507" />
+    <terrain value="508" />
+    <terrain value="509" />
+    <terrain value="510" />
+    <terrain value="511" />
+    <terrain value="512" />
+    <terrain value="513" />
+    <terrain value="514" />
+	<form value="block" />
+	<material value="Inorganic" />
+  </block>
+    <!-- construct -->
+  <block sprite="144" color="material">
+    <!-- pillar -->
+    <terrain value="495" />
+    <!-- wall -->
+    <terrain value="496" />
+    <terrain value="497" />
+    <terrain value="498" />
+    <terrain value="499" />
+    <terrain value="500" />
+    <terrain value="501" />
+    <terrain value="502" />
+    <terrain value="503" />
+    <terrain value="504" />
+    <terrain value="505" />
+    <terrain value="506" />
+    <terrain value="507" />
+    <terrain value="508" />
+    <terrain value="509" />
+    <terrain value="510" />
+    <terrain value="511" />
+    <terrain value="512" />
+    <terrain value="513" />
+    <terrain value="514" />
+	<form value="boulder" />
+	<material value="Inorganic" />
+  </block>
+</blocks>

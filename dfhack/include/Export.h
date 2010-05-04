@@ -23,21 +23,17 @@ distribution.
 */
 
 #ifdef LINUX_BUILD
-#ifndef DFHACK_EXPORT
-#ifndef SWIGIMPORTED
-#define DFHACK_EXPORT __attribute__ ((visibility("default")))
-#else
-#define DFHACK_EXPORT
-#endif
-#endif
-#else
-#ifdef BUILD_DFHACK_LIB
-#ifndef DFHACK_EXPORT
-#define DFHACK_EXPORT __declspec(dllexport)
-#endif
-#else
-#ifndef DFHACK_EXPORT
-#define DFHACK_EXPORT __declspec(dllimport)
-#endif
-#endif
+    #ifndef DFHACK_EXPORT
+        #define DFHACK_EXPORT __attribute__ ((visibility("default")))
+    #endif
+    #else
+    #ifdef BUILD_DFHACK_LIB
+        #ifndef DFHACK_EXPORT
+            #define DFHACK_EXPORT __declspec(dllexport)
+        #endif
+    #else
+        #ifndef DFHACK_EXPORT
+            #define DFHACK_EXPORT __declspec(dllimport)
+        #endif
+    #endif
 #endif

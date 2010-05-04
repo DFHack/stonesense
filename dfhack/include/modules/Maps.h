@@ -14,10 +14,17 @@ namespace DFHack
     
     enum e_feature
     {
+        feature_Other,
         feature_Adamantine_Tube,
         feature_Underworld,
-        // add stuff here, don't reorder or delete
-        feature_Other = 10000,
+        feature_Hell_Temple
+    };
+    static const char * sa_feature[]=
+    {
+        (char*)"Other",
+        (char*)"Adamantine Tube",
+        (char*)"Underworld",
+        (char*)"Hell Temple"
     };
     union planecoord
     {
@@ -291,9 +298,9 @@ namespace DFHack
             }
          */
         bool ReadGeology( std::vector < std::vector <uint16_t> >& assign );
-        vector <t_feature> global_features;
+        std::vector <t_feature> global_features;
         // map between feature address and the read object
-            map <uint32_t, t_feature> local_feature_store;
+            std::map <uint32_t, t_feature> local_feature_store;
             // map between mangled coords and pointer to feature
                 
         
@@ -348,6 +355,10 @@ namespace DFHack
                             t_blockflags &blockflags);
         bool WriteBlockFlags(uint32_t blockx, uint32_t blocky, uint32_t blockz,
                              t_blockflags blockflags);
+        /// read/write features
+        bool ReadFeatures(uint32_t blockx, uint32_t blocky, uint32_t blockz, int16_t & local, int16_t & global);
+        bool WriteLocalFeature(uint32_t blockx, uint32_t blocky, uint32_t blockz, int16_t local = -1);
+        bool WriteGlobalFeature(uint32_t blockx, uint32_t blocky, uint32_t blockz, int16_t local = -1);
 
         /// read region offsets of a block - used for determining layer stone matgloss
         bool ReadRegionOffsets(uint32_t blockx, uint32_t blocky, uint32_t blockz,

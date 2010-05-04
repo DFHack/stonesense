@@ -270,17 +270,18 @@ void drawDebugCursorAndInfo(){
 
 	if (tform != NULL)
 	{
+		const char* formName = lookupFormName(b->consForm);
 		const char* matName = lookupMaterialTypeName(b->material.type);
 		const char* subMatName = lookupMaterialName(b->material.type,b->material.index);
 		draw_textf_border(font, 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0,
-			"%s:%i Material:%s%s%s", tform, ttype, 
+			"%s %s:%i Material:%s%s%s", formName, tform, ttype, 
 			matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
 	}
-	if (tform != NULL)
-	{
-		draw_textf_border(font, 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0,
-			"MaterialType: %d, MaterialIndex: %d", b->material.type, b->material.index);
-	}
+	//if (tform != NULL)
+	//{
+	//	draw_textf_border(font, 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0,
+	//		"MaterialType: %d, MaterialIndex: %d", b->material.type, b->material.index);
+	//}
 	if (tform != NULL)
 	{
 		const char* matName = lookupMaterialTypeName(b->layerMaterial.type);
@@ -324,7 +325,7 @@ void drawDebugCursorAndInfo(){
 	if(b->creature != null){
 		draw_textf_border(font, 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
 			"Creature:%s(%i) Job:%s", 
-			contentLoader.creatureMaterials.at(b->creature->race).id, b->creature->race, 
+			contentLoader.Mats->race.at(b->creature->race).id, b->creature->race, 
 			contentLoader.professionStrings.at(b->creature->profession).c_str());
 
 		char strCreature[150] = {0};

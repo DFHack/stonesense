@@ -16,6 +16,7 @@ void changeConstructionMaterials(WorldSegment* segment, vector<t_construction>* 
 		if( !b ) continue;
 		b->material.type=construct->mat_type;
 		b->material.index=construct->mat_idx;
+		b->consForm = construct->form;
 	}
 }
 

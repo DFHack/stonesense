@@ -33,14 +33,11 @@ public:
 	vector<TerrainConfiguration*> terrainBlockConfigs;
 	vector<ColorConfiguration> colorConfigs;
 
-	vector<t_matgloss> inorganicMaterials;
-	vector<t_matgloss> organicMaterials;
-	vector<t_matgloss> creatureMaterials;
-
 	vector<string> classIdStrings;
 	vector<string> professionStrings;
 	memory_info *memoryInfo;
 	DFHack::Buildings * Bld;
+	DFHack::Materials * Mats;
 };
 
 //singleton instance
@@ -60,3 +57,4 @@ uint8_t lookupMaterialBack(int matType,int matIndex);
 uint8_t lookupMaterialBright(int matType,int matIndex);
 const char *lookupTreeName(int matIndex);
 ALLEGRO_COLOR lookupMaterialColor(int matType,int matIndex);
+const char * lookupFormName(int formType);

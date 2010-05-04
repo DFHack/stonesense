@@ -1064,6 +1064,8 @@ size=212
         <Offset name="map_data_feature_local">0x2C</Offset> local features
         <Offset name="map_data_feature_global">0x30</Offset> global features
 
+        Map Features
+        ============
         WORLD + 0x54374
         <Address name="global_feature_vector">0x16AF4FC</Address>
         <Offset name= "global_feature_funcptr_">0x100</Offset>
@@ -1150,7 +1152,7 @@ map_data_1b60_offset          0x1B9c
         <Offset name="creature_civ">0X120</Offset>
         <Offset name="creature_soulskill_vector">0X1F4</Offset>
         <Offset name="creature_pickup_equipment_bit">0X21C</Offset>
-        <Offset name="creature_mood">0x238</Offset>
+        <Offset name="creature_mood">0x288</Offset>
         
         <Offset name="creature_pregnancy">0x28C</Offset>
         <Offset name="creature_pregnancy_ptr">0x290</Offset>
@@ -1165,6 +1167,10 @@ map_data_1b60_offset          0x1B9c
         <Offset name="creature_disease_resistance">0x4F0</Offset>
         -->
         <Offset name="creature_current_job">0x390</Offset> <!-- from chmod -->
+        
+        <Offset name="creature_mood_skill">0x394</Offset> the skill that will be increased at the end of the mood (or not)
+        <Offset name="creature_appearance_vector">0x604</Offset> seems to be indexes in the list of possible colors defined in the raws for each group
+        
         <Offset name="creature_artifact_name">0x6D0</Offset>
         <Offset name="creature_labors">0x770</Offset>
         <Offset name="creature_soul_vector">0x073C</Offset>
@@ -1177,6 +1183,20 @@ map_data_1b60_offset          0x1B9c
         <Offset name="soul_skills_vector">0x1F4</Offset>
         <Offset name="soul_traits">0x224</Offset>
         <Offset name="soul_mental">0x88</Offset>
+
+        Job structure
+        =============
+        <Offset name="job_id">0x0</Offset> Incrementaly assigned
+        <Offset name="job_type">0x8</Offset> seems to be just like the old occupations
+        <Offset name="job_materials_vector">0xa4</Offset>
+
+        Job materials
+        =============
+        <Offset name="job_material_maintype">0x0</Offset> like mood materials, 0=bars, 4=stone, 5=wood, 57=cloth, 54=leather ...
+        <Offset name="job_material_sectype1">0x2</Offset> subsubtype ?
+        <Offset name="job_material_sectype2">0x4</Offset> subtype ?
+        <Offset name="job_material_sectype3">0x8</Offset> index of material (for example, 2 is for silver)
+        <Offset name="job_material_flags">0x18</Offset> set only for shell / bone mood requirements ?
 
         <!--
         mid = AddStrucMember(id,"analytical_ability",   0X88,   0x60000400, GetStrucIdByName("s_attrib"),   28);
@@ -1213,6 +1233,7 @@ map_data_1b60_offset          0x1B9c
         WORLD + 0x54CD0
         <Address name="creature_type_vector">0x016AFE58</Address>
         <Offset name="creature_type_caste_vector">0x138</Offset>
+        <Offset name="creature_type_extract_vector">0x1A14</Offset>
         <Offset name="creature_tile">0xE0</Offset>
         <Offset name="creature_tile_color">0xF6</Offset>
  
@@ -1399,6 +1420,7 @@ map_data_1b60_offset          0x1B9c
         <Offset name="creature_pickup_equipment_bit">0X21C</Offset>
         <!--<Offset name="creature_mood">0x238</Offset>-->
         
+        <Offset name="creature_mood">0x288</Offset>
         <Offset name="creature_physical">0x464</Offset>
         <!--
         <Offset name="creature_strength">0x464</Offset>
@@ -1417,20 +1439,14 @@ map_data_1b60_offset          0x1B9c
         <Offset name="creature_default_soul">0x0758</Offset>
         <Offset name="creature_happiness">0x834</Offset>
 
-	Job structure
-	=============
-	<Offset name="job_type">0x4</Offset> seems to be just like the old occupations
-	<Offset name="job_materials_vector">0xa4</Offset>
-
-	Job materials
-	=============
-	<Offset name="job_material_maintype">0x0</Offset> like mood materials, 0=bars, 4=stone, 5=wood, 57=cloth, 54=leather ...
-        
         Materials
         =========
         soil, stone, metal
         inorganics vector = WORLD + 0x54B7C = 0x16B0D4C
-        <Address name="mat_inorganics">0x16B0D4C</Address>
+	<Address name="mat_inorganics">0x16B0D4C</Address>
+
+	stuff like glass, coke, ...
+	<Address name="mat_other">0x16BA114</Address>
         
         wood and plant matter, WORLD + 0x54B94
         <Address name="mat_organics_all">0x16B0D64</Address>
@@ -1442,7 +1458,10 @@ map_data_1b60_offset          0x1B9c
         <Address name="mat_organics_trees">0x16B0DAC</Address>
         
         creature types actually used for creatures, WORLD + 0x54CD0
-        <Address name="creature_type_vector">0x16B0EA0</Address>
+	<Address name="creature_type_vector">0x16B0EA0</Address>
+
+	stuff that is used somehow
+	<Address name="mat_stuff">0x16BA114</Address>
         
         Constructions
         =============
@@ -1479,6 +1498,13 @@ map_data_1b60_offset          0x1B9c
 	<Offset name="descriptor_color_r">0x6C</Offset> floats !
 	<Offset name="descriptor_color_v">0x70</Offset>
 	<Offset name="descriptor_color_b">0x74</Offset>
+
+	Items
+	=====
+	<Address name="items_vector">0x166FE00</Address>
+
+	<Offset name="item_improvement_vector">0xA0</Offset>
+	<Offset name="item_improvement_quality">0x14</Offset> 
         
     </Entry>
                             .-"""-.

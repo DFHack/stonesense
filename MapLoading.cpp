@@ -365,7 +365,7 @@ void ReadCellToSegment(API& DF, WorldSegment& segment, int CellX, int CellY, int
 
 				//read global features
 				int16_t idx = mapBlock.global_feature;
-				if( idx != -1 && uint16_t(idx) < global_features->size() && global_features->at(idx).type == DFHack::feature_Underworld)
+				if( idx != -1 && uint16_t(idx) < global_features->size() && global_features->at(idx).main_material != -1)
 				{
 					if(designations[lx][ly].bits.feature_global)
 					{
@@ -392,9 +392,9 @@ void ReadCellToSegment(API& DF, WorldSegment& segment, int CellX, int CellY, int
 					if(it != local_features->end())
 					{
 						std::vector<DFHack::t_feature *>& vectr = (*it).second;
-						if(uint16_t(idx) < vectr.size() && vectr[idx]->type == DFHack::feature_Adamantine_Tube)
+						if(uint16_t(idx) < vectr.size() && vectr[idx]->main_material != -1)
 						{
-							if(mapBlock.designation[lx][ly].bits.feature_local && DFHack::isWallTerrain(mapBlock.tiletypes[lx][ly]))
+							if(mapBlock.designation[lx][ly].bits.feature_local)
 							{
 								if(vectr[idx]->main_material == INORGANIC) // stone
 								{

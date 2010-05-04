@@ -75,7 +75,7 @@ void DrawCreatureText(int drawx, int drawy, t_creature* creature ){
 		else if (config.names_use_species)
 		{
 			draw_textf_border(font, drawx, drawy-(20+al_get_font_line_height(font)), 0, 
-				"[%s]", contentLoader.creatureMaterials.at(creature->race).id);
+				"[%s]", contentLoader.Mats->race.at(creature->race).id);
 		}
 }
 

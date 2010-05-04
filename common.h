@@ -238,3 +238,9 @@ extern ALLEGRO_MOUSE_STATE mouse;
 #define LEATHER 37
 #define WOOD 420
 #define PLANTCLOTH 421
+
+#define NUM_FORMS 5
+#define FORM_BAR 1
+#define FORM_BLOCK 2
+#define FORM_BOULDER 3
+#define FORM_LOG 4

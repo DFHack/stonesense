@@ -80,6 +80,8 @@ public:
 	uint16_t temp1;
 	uint16_t temp2;
 
+	uint16_t consForm;
+
 private:
 
 };
