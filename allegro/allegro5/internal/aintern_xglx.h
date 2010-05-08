@@ -25,6 +25,10 @@
 #include <X11/extensions/Xinerama.h>
 #endif
 
+#ifdef ALLEGRO_XWINDOWS_WITH_XRANDR
+#include <X11/extensions/Xrandr.h>
+#endif
+
 typedef struct ALLEGRO_SYSTEM_XGLX ALLEGRO_SYSTEM_XGLX;
 typedef struct ALLEGRO_DISPLAY_XGLX ALLEGRO_DISPLAY_XGLX;
 typedef struct ALLEGRO_MOUSE_CURSOR_XGLX ALLEGRO_MOUSE_CURSOR_XGLX;
@@ -53,11 +57,15 @@ struct ALLEGRO_SYSTEM_XGLX
 
    #ifdef ALLEGRO_XWINDOWS_WITH_XF86VIDMODE
    /* For VidMode extension. */
-   int modes_count;
-   XF86VidModeModeInfo **modes;
-   XF86VidModeModeInfo *original_mode;
+   int xfvm_available;
+   int xfvm_screen_count;
+   struct {
+      int mode_count;
+      XF86VidModeModeInfo **modes;
+      XF86VidModeModeInfo *original_mode;
+   } *xfvm_screen;
    #endif
-   
+
    _AL_THREAD thread; /* background thread. */
    _AL_MUTEX lock; /* thread lock for whenever we access internals. */
    // FIXME: One condition variable really would be enough.
@@ -65,16 +73,21 @@ struct ALLEGRO_SYSTEM_XGLX
    bool pointer_grabbed; /* Is an XGrabPointer in effect? */
    bool inhibit_screensaver; /* Should we inhibit the screensaver? */
 
-   #ifdef ALLEGRO_XWINDOWS_WITH_XINERAMA
+   bool mmon_interface_inited;
+#ifdef ALLEGRO_XWINDOWS_WITH_XINERAMA
    int xinerama_available;
    int xinerama_screen_count;
    XineramaScreenInfo *xinerama_screen_info;
-   #endif
-
-   /* Keep all decoded X11 visuals around for users to query. */
-   bool using_fbc;
-   int visuals_count;
-   ALLEGRO_EXTRA_DISPLAY_SETTINGS **visuals;
+#endif
+#ifdef ALLEGRO_XWINDOWS_WITH_XRANDR
+   int xrandr_available;
+   XRRScreenResources *xrandr_res;
+   // these are technically changeable at runtime if we handle XRandR events.
+   // or more accurately, they can become stale at runtime if we don't handle XRandR events.
+   int xrandr_output_count;
+   XRROutputInfo **xrandr_outputs;
+   XRRModeInfo **xrandr_stored_modes;
+#endif
 };
 
 /* This is our version of ALLEGRO_DISPLAY with driver specific extra data. */
@@ -96,6 +109,8 @@ struct ALLEGRO_DISPLAY_XGLX
    _AL_COND mapped; /* Condition variable to wait for mapping a window. */
    bool is_mapped;  /* Set to true when mapped. */
 
+   int resize_count; /* Increments when resized. */
+
    /* Cursor for this window. */
    Cursor invisible_cursor;
    Cursor current_cursor;
@@ -103,10 +118,10 @@ struct ALLEGRO_DISPLAY_XGLX
 
    /* Icon for this window. */
    Pixmap icon, icon_mask;
-   
+
    /* Desktop position. */
    int x, y;
-   
+
    /* al_set_mouse_xy implementation */
    bool mouse_warp;
 };
@@ -140,22 +155,32 @@ void _al_xwin_mouse_switch_handler(ALLEGRO_DISPLAY *display,
 /* cursor */
 void _al_xglx_add_cursor_functions(ALLEGRO_DISPLAY_INTERFACE *vt);
 
-/* fullscreen */
-int _al_xglx_get_num_display_modes(void);
+/* fullscreen and multi monitor stuff */
+
+void _al_xsys_mmon_exit(ALLEGRO_SYSTEM_XGLX *s);
+
+int _al_xglx_get_num_display_modes(ALLEGRO_SYSTEM_XGLX *s, int adapter);
 ALLEGRO_DISPLAY_MODE *_al_xglx_get_display_mode(
-   int index, ALLEGRO_DISPLAY_MODE *mode);
-bool _al_xglx_fullscreen_set_mode(ALLEGRO_SYSTEM_XGLX *s, int w, int h,
+   ALLEGRO_SYSTEM_XGLX *s, int adapter, int index, ALLEGRO_DISPLAY_MODE *mode);
+bool _al_xglx_fullscreen_set_mode(ALLEGRO_SYSTEM_XGLX *s, ALLEGRO_DISPLAY_XGLX *d, int w, int h,
    int format, int refresh_rate);
 void _al_xglx_store_video_mode(ALLEGRO_SYSTEM_XGLX *s);
-void _al_xglx_restore_video_mode(ALLEGRO_SYSTEM_XGLX *s);
-void _al_xglx_free_mode_infos(ALLEGRO_SYSTEM_XGLX *s);
+void _al_xglx_restore_video_mode(ALLEGRO_SYSTEM_XGLX *s, int adapter);
 void _al_xglx_fullscreen_to_display(ALLEGRO_SYSTEM_XGLX *s,
    ALLEGRO_DISPLAY_XGLX *d);
-void _al_xglx_toggle_fullscreen_window(ALLEGRO_DISPLAY *display, bool onoff);
+void _al_xglx_toggle_fullscreen_window(ALLEGRO_DISPLAY *display);
+void _al_display_xglx_await_resize(ALLEGRO_DISPLAY *d);
+void _al_xglx_set_above(ALLEGRO_DISPLAY *display);
+void _al_xglx_get_display_offset(ALLEGRO_SYSTEM_XGLX *s, int adapter, int *x, int *y);
+
+int _al_xglx_fullscreen_select_mode(ALLEGRO_SYSTEM_XGLX *s, int adapter, int w, int h, int format, int refresh_rate);
+
+void _al_xglx_get_monitor_info(ALLEGRO_SYSTEM_XGLX *s, int adapter, ALLEGRO_MONITOR_INFO *info);
+int _al_xglx_get_num_video_adapters(ALLEGRO_SYSTEM_XGLX *s);
+
 
 /* glx_config */
 void _al_xglx_config_select_visual(ALLEGRO_DISPLAY_XGLX *glx);
 bool _al_xglx_config_create_context(ALLEGRO_DISPLAY_XGLX *glx);
-void _al_xglx_free_visuals_info(void);
 
 #endif

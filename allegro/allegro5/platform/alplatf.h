@@ -9,7 +9,7 @@
 /* #undef ALLEGRO_MACOSX */
 /* #undef ALLEGRO_BCC32 */
 /* #undef ALLEGRO_GP2XWIZ */
-/* #undef ALLEGRO_CFG_WANT_NATIVE_APPLE_IMAGE_LOADER */
+#define ALLEGRO_CFG_WANT_NATIVE_IMAGE_LOADER
 
 #define ALLEGRO_CFG_ALLOW_SSE
 #define ALLEGRO_NO_ASM
@@ -53,6 +53,7 @@
 /* #undef ALLEGRO_HAVE_MKSTEMP */
 /* #undef ALLEGRO_HAVE_MMAP */
 /* #undef ALLEGRO_HAVE_MPROTECT */
+/* #undef ALLEGRO_HAVE_POSIX_MONOTONIC_CLOCK */
 /* #undef ALLEGRO_HAVE_SCHED_YIELD */
 #define ALLEGRO_HAVE_STRICMP
 #define ALLEGRO_HAVE_STRLWR
@@ -114,8 +115,11 @@
 /* Define if XF86VidMode extension is supported. */
 /* #undef ALLEGRO_XWINDOWS_WITH_XF86VIDMODE */
 
-/* Define if XF86VidMode extension is supported. */
+/* Define if Xinerama extension is supported. */
 /* #undef ALLEGRO_XWINDOWS_WITH_XINERAMA */
+
+/* Define if XRandR extension is supported. */
+/* #undef ALLEGRO_XWINDOWS_WITH_XRANDR */
 
 /* Define if XIM extension is supported. */
 /* #undef ALLEGRO_XWINDOWS_WITH_XIM */

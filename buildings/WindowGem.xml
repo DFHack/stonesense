@@ -12,10 +12,12 @@
 			<NeighbourWall dir="North" />
 			<NeighbourWall dir="South" />
 		</or>
-		<sprite index=67 file = "doorsAndWindows.png"/>
+		<sprite index=69 file = "doorsAndWindows.png" color = "material" />
+		<sprite index=71 file = "doorsAndWindows.png"/>
 	</if>
 	<else>
-		<sprite index = 66 file = "doorsAndWindows.png"/>
+		<sprite index = 68 file = "doorsAndWindows.png" color = "material"/>
+		<sprite index = 70 file = "doorsAndWindows.png"/>
 	</else>
 	
 </building> 
