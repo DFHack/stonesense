@@ -523,14 +523,14 @@ void DoSpriteIndexOverlay()
 void paintboard(){
 	uint32_t starttime = clock();
 	//al_set_new_bitmap_format(ALLEGRO_PIXEL_FORMAT_ANY_NO_ALPHA);
-	//if(!buffer)
-	//	buffer = al_create_bitmap(al_get_display_width(), al_get_display_height());
-	//if(al_get_bitmap_width(buffer) != al_get_display_width() || al_get_bitmap_height(buffer) != al_get_display_height())
-	//{
-	//	al_destroy_bitmap(buffer);
-	//	buffer = al_create_bitmap(al_get_display_width(), al_get_display_height());
-	//}
-	//al_set_target_bitmap(al_get_backbuffer());
+	if(!buffer)
+		buffer = al_create_bitmap(al_get_display_width(), al_get_display_height());
+	if(al_get_bitmap_width(buffer) != al_get_display_width() || al_get_bitmap_height(buffer) != al_get_display_height())
+	{
+		al_destroy_bitmap(buffer);
+		buffer = al_create_bitmap(al_get_display_width(), al_get_display_height());
+	}
+	al_set_target_bitmap(buffer);
 	//al_set_separate_blender(ALLEGRO_ALPHA, ALLEGRO_INVERSE_ALPHA, ALLEGRO_ONE, ALLEGRO_ONE, al_map_rgba(255, 255, 255, 255));
 	//al_set_blender(ALLEGRO_ALPHA, ALLEGRO_INVERSE_ALPHA, al_map_rgba(255, 255, 255, 255));
 	al_clear_to_color(al_map_rgb(config.backr,config.backg,config.backb));
@@ -598,8 +598,8 @@ void paintboard(){
 		al_hold_bitmap_drawing(false);
 		DrawMinimap();
 	}
-	//al_set_target_bitmap(al_get_backbuffer());
-	//al_draw_bitmap(buffer, 0, 0, 0);
+	al_set_target_bitmap(al_get_backbuffer());
+	al_draw_bitmap(buffer, 0, 0, 0);
 	al_flip_display();
 }
 
@@ -878,6 +878,7 @@ void saveMegashot(){
 	int tempViewy = DisplayedSegmentY;
 	bool tempFollow = config.follow_DFscreen;
 	int tempLift = config.lift_segment_offscreen;
+	int currentFlags = al_get_new_bitmap_flags();
 	//now make them real big.
 	config.follow_DFscreen = false;
 	config.lift_segment_offscreen = 0;
@@ -908,7 +909,7 @@ void saveMegashot(){
 	timer = clock() - timer;
 	WriteErr("Took %ims\n", timer);
 	//al_set_new_bitmap_format(ALLEGRO_PIXEL_FORMAT_ANY);
-	al_set_new_bitmap_flags(ALLEGRO_VIDEO_BITMAP);
+	al_set_new_bitmap_flags(currentFlags);
 }
 
 void draw_particle_cloud(int count, float centerX, float centerY, float rangeX, float rangeY, ALLEGRO_BITMAP *sprite)

@@ -78,7 +78,7 @@ Now independant of map refresh.
 --Debug Mode--
 
 Sets Stonesense in debug mode. Adds additional information to displays.
-[DEBUGMODE:NO]
+[DEBUGMODE:YES]
 
 Set's the debug cursor to follow the cursor from DF when it is there.
 [FOLLOW_DF_CURSOR:YES]
@@ -115,6 +115,6 @@ Dot NOT turn this on unless something is going very wonky. this will slow loadin
 and possibly quickly fill up yout hard-drive.
 [LOG_IMAGECACHE:NO]
 
-Windows Vista, with built-in drivers, seems to sometimes have trouble with OpenGl. Setting this value to 
-NO may solve some crashing issues.
-[USE_OPENGL:YES]
+Set the preferred renderer. Valid values are SOFTWARE, OPENGL, DIRECTX, and ANY. SOFTWARE has the highest 
+compatibility, but is very slow.
+[RENDERER:ANY]

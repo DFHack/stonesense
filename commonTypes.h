@@ -151,6 +151,8 @@ typedef struct {
 	int imageCacheSize;
 	dfColors colors;
 	bool opengl;
+	bool directX;
+	bool software;
 
 	uint32_t menustate;
 	t_viewscreen viewscreen;

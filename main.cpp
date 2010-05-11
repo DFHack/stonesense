@@ -248,7 +248,7 @@ int main(void)
 
 
 	int gfxMode = config.Fullscreen ? ALLEGRO_FULLSCREEN : ALLEGRO_WINDOWED;
-	al_set_new_display_flags(gfxMode|ALLEGRO_RESIZABLE|(config.opengl ? ALLEGRO_OPENGL : 0));
+	al_set_new_display_flags(gfxMode|ALLEGRO_RESIZABLE|(config.opengl ? ALLEGRO_OPENGL : 0)|(config.directX ? ALLEGRO_DIRECT3D_INTERNAL : 0));
 	display = al_create_display(config.screenWidth, config.screenHeight);
 	if(!display)
 	{
@@ -261,6 +261,9 @@ int main(void)
 		exit(1);
 		return 1;
 	}
+
+	if(config.software)
+		al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP|ALLEGRO_ALPHA_TEST);
 
 	IMGIcon = load_bitmap_withWarning("stonesense.png");
 	al_set_display_icon(IMGIcon);

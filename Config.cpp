@@ -76,7 +76,7 @@ void parseConfigLine( string line ){
 	if( line.find("[SEGMENTSIZE_Z") != -1){
 		int value = parseIntFromLine( "SEGMENTSIZE_Z", line );
 		if(value < 1) value = DEFAULT_SEGMENTSIZE_Z;
-		if(value > 255) value = 30;
+		if(value > 255) value = 255;
 		config.segmentSize.z = value;
 	}
 
@@ -544,9 +544,11 @@ void parseConfigLine( string line ){
 		if(value < 0) value = 0;
 		config.colors.white_b = value;
 	}
-		if( line.find("[USE_OPENGL") != -1){
-		string result = parseStrFromLine( "USE_OPENGL", line );
-		config.opengl = (result == "YES");
+		if( line.find("[RENDERER") != -1){
+		string result = parseStrFromLine( "RENDERER", line );
+		config.opengl = (result == "OPENGL");
+		config.software = (result == "SOFTWARE");
+		config.directX = (result == "DIRECTX");
 	}
 }
 

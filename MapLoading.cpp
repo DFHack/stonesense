@@ -894,11 +894,11 @@ void reloadDisplayedSegment(){
 	viewedSegment = ReadMapSegment(DF, DisplayedSegmentX, DisplayedSegmentY, DisplayedSegmentZ,
 		config.segmentSize.x, config.segmentSize.y, segmentHeight);
 
-	if(!viewedSegment || viewedSegment->regionSize.x == 0 || viewedSegment->regionSize.y == 0)
-	{
-		abortAutoReload();
-		timeToReloadConfig = true;
-	}
+	//if(!viewedSegment || viewedSegment->regionSize.x == 0 || viewedSegment->regionSize.y == 0)
+	//{
+	//	abortAutoReload();
+	//	timeToReloadConfig = true;
+	//}
 	if( pDFApiHandle ){
 		DF.Resume();
 	}
