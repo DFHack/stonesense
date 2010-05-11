@@ -531,6 +531,7 @@ void paintboard(){
 		al_destroy_bitmap(buffer);
 		buffer = al_create_bitmap(al_get_display_width(), al_get_display_height());
 	}
+	ALLEGRO_BITMAP * backup = al_get_target_bitmap();
 	al_set_target_bitmap(buffer);
 	//al_set_separate_blender(ALLEGRO_ALPHA, ALLEGRO_INVERSE_ALPHA, ALLEGRO_ONE, ALLEGRO_ONE, al_map_rgba(255, 255, 255, 255));
 	//al_set_blender(ALLEGRO_ALPHA, ALLEGRO_INVERSE_ALPHA, al_map_rgba(255, 255, 255, 255));
@@ -599,7 +600,7 @@ void paintboard(){
 		al_hold_bitmap_drawing(false);
 		DrawMinimap();
 	}
-	al_set_target_bitmap(al_get_backbuffer());
+	al_set_target_bitmap(backup);
 	al_draw_bitmap(buffer, 0, 0, 0);
 	al_flip_display();
 }
