@@ -37,6 +37,7 @@ ALLEGRO_BITMAP* IMGObjectSheet;
 ALLEGRO_BITMAP* IMGCreatureSheet; 
 ALLEGRO_BITMAP* IMGRampSheet; 
 ALLEGRO_BITMAP* buffer = 0;
+ALLEGRO_BITMAP* bigFile = 0;
 vector<ALLEGRO_BITMAP*> IMGCache;
 vector<ALLEGRO_BITMAP*> IMGFilelist;
 vector<string*> IMGFilenames;
@@ -870,7 +871,6 @@ void saveMegashot(){
 			break;
 		index++;
 	};
-	WriteErr("\nSaving large screenshot to %s\n", filename);
 	int timer = clock();
 	//back up all the relevant values
 	Crd3D tempSize = config.segmentSize;
@@ -892,22 +892,30 @@ void saveMegashot(){
 	reloadDisplayedSegment();
 	//Draw the image and save it
 	//al_set_new_bitmap_format(ALLEGRO_PIXEL_FORMAT_ANY_NO_ALPHA);
-	al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP);
-	ALLEGRO_BITMAP* bigFile = al_create_bitmap(bigImageWidth, bigImageHeight);
-	al_set_target_bitmap(bigFile);
-	al_clear_to_color(al_map_rgb(config.backr,config.backg,config.backb));
-	viewedSegment->drawAllBlocks();
-	al_save_bitmap(filename, bigFile);
-	al_set_target_bitmap(al_get_backbuffer());
-	al_destroy_bitmap(bigFile);
+	//al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP);
+	bigFile = al_create_bitmap(bigImageWidth, bigImageHeight);
+	if(bigFile)
+	{
+		WriteErr("\nSaving large screenshot to %s\n", filename);
+		al_set_target_bitmap(bigFile);
+		al_clear_to_color(al_map_rgb(config.backr,config.backg,config.backb));
+		viewedSegment->drawAllBlocks();
+		al_save_bitmap(filename, bigFile);
+		al_set_target_bitmap(al_get_backbuffer());
+		al_destroy_bitmap(bigFile);
+		timer = clock() - timer;
+		WriteErr("Took %ims\n", timer);
+	}
+	else
+	{
+		WriteErr("Failed to take large screenshot. try using software mode\n");
+	}
 	//restore everything that we changed.
 	config.segmentSize = tempSize;
 	DisplayedSegmentX = tempViewx;
 	DisplayedSegmentY = tempViewy;
 	config.follow_DFscreen = tempFollow;
 	config.lift_segment_offscreen = tempLift;
-	timer = clock() - timer;
-	WriteErr("Took %ims\n", timer);
 	//al_set_new_bitmap_format(ALLEGRO_PIXEL_FORMAT_ANY);
 	al_set_new_bitmap_flags(currentFlags);
 }
