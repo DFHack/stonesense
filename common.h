@@ -166,6 +166,7 @@ void correctBlockForSegmetOffset(int32_t& x, int32_t& y, int32_t& z);
 void WriteErr(char* msg, ...);
 void LogVerbose(char* msg, ...);
 void DisplayErr(const char *format, ...);
+void SetTitle(const char *format, ...);
 
 extern GameConfiguration config;
 

@@ -855,6 +855,7 @@ void saveImage(ALLEGRO_BITMAP* image){
 	al_save_bitmap(filename, image);
 }
 void saveMegashot(){
+	config.showRenderStatus = true;
 	draw_textf_border(font, al_get_bitmap_width(al_get_target_bitmap())/2, al_get_bitmap_height(al_get_target_bitmap())/2, ALLEGRO_ALIGN_CENTRE, "Saving large screenshot...");
 	al_flip_display();
 	char filename[20] ={0};
@@ -918,6 +919,7 @@ void saveMegashot(){
 	config.lift_segment_offscreen = tempLift;
 	//al_set_new_bitmap_format(ALLEGRO_PIXEL_FORMAT_ANY);
 	al_set_new_bitmap_flags(currentFlags);
+	config.showRenderStatus = false;
 }
 
 void draw_particle_cloud(int count, float centerX, float centerY, float rangeX, float rangeY, ALLEGRO_BITMAP *sprite)

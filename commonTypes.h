@@ -160,6 +160,8 @@ typedef struct {
 	bool spriteIndexOverlay;
 	bool creditScreen;
 	int currentSpriteOverlay;
+
+	bool showRenderStatus;
 } GameConfiguration;
 
 

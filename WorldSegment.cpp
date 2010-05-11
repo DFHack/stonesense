@@ -160,6 +160,8 @@ void WorldSegment::drawAllBlocks(){
 
 	for(int32_t vsz=0; vsz < vszmax; vsz++)
 	{
+		if(config.showRenderStatus)
+			SetTitle("Stonesense - Drawing Terrain, Level %d/%d", (vsz+1), vszmax);
 		if(config.fogenable && config.foga)
 		{
 			if(!fog)
@@ -224,6 +226,8 @@ void WorldSegment::drawAllBlocks(){
 		}
 		al_hold_bitmap_drawing(false);
 	}
+	if(config.showRenderStatus)
+		SetTitle("Stonesense");
 }
 
 /*

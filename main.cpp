@@ -110,6 +110,32 @@ void DisplayErr(const char *format, ...)
 
 	al_ustr_free(buf);
 }
+
+void SetTitle(const char *format, ...)
+{
+	ALLEGRO_USTR *buf;
+	va_list ap;
+	const char *s;
+
+	/* Fast path for common case. */
+	if (0 == strcmp(format, "%s")) {
+		va_start(ap, format);
+		s = va_arg(ap, const char *);
+		al_set_window_title(s);
+		va_end(ap);
+		return;
+	}
+
+	va_start(ap, format);
+	buf = al_ustr_new("");
+	al_ustr_vappendf(buf, format, ap);
+	va_end(ap);
+
+	al_set_window_title(al_cstr(buf));
+
+	al_ustr_free(buf);
+}
+
 void correctBlockForSegmetOffset(int32_t& x, int32_t& y, int32_t& z){
 	x -= viewedSegment->x;
 	y -= viewedSegment->y; //DisplayedSegmentY;
@@ -261,6 +287,7 @@ int main(void)
 		exit(1);
 		return 1;
 	}
+	SetTitle("Stonesense");
 
 	if(config.software)
 		al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP|ALLEGRO_ALPHA_TEST);
