@@ -185,11 +185,10 @@ bool addSingleCreatureConfig( TiXmlElement* elemCreature, vector<vector<Creature
 
 		//do bodyparts
 		const char* bodyVarPartStr = elemVariant->Attribute("bodypart");
-		if (bodyVarPartStr == NULL || bodyVarPartStr[0] == 0)
-		{
-			for(int i = 0; i < 128; i++)sprite.bodyPart[i] = 0;
-		}
-		else
+		//clear old bodypart string
+		memset(sprite.bodyPart, 0, sizeof(sprite.bodyPart));
+		//copy new, if found
+		if (bodyVarPartStr != NULL && bodyVarPartStr[0] != 0)
 		{
 			strcpy(sprite.bodyPart, bodyVarPartStr);
 		}
@@ -217,11 +216,10 @@ bool addSingleCreatureConfig( TiXmlElement* elemCreature, vector<vector<Creature
 	}
 	//do bodyparts
 	const char* bodyPartStr = elemCreature->Attribute("bodypart");
-	if (bodyPartStr == NULL || bodyPartStr[0] == 0)
-	{
-		for(int i = 0; i < 128; i++)sprite.bodyPart[i] = 0;
-	}
-	else
+	//clear old bodypart string
+	memset(sprite.bodyPart, 0, sizeof(sprite.bodyPart));
+	//copy new, if found
+	if (bodyPartStr != NULL && bodyPartStr[0] != 0)
 	{
 		strcpy(sprite.bodyPart, bodyPartStr);
 	}

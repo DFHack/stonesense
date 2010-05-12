@@ -1,0 +1,191 @@
+<?xml version="1.0" ?>
+
+<creatures>
+
+ <creature gameID="DOG"  file="beefmo_domestics.png" >
+
+  <variant prof="CHILD" sheetIndex =60  frames = "0"/>
+  <variant prof="CHILD" sheetIndex =61  frames = "1"/>
+  <variant prof="CHILD" sheetIndex =62  frames = "2"/>
+  <variant prof="CHILD" sheetIndex =63  frames = "3"/>
+  <variant prof="CHILD" sheetIndex =64  frames = "4"/>
+  <variant prof="CHILD" sheetIndex =65  frames = "5"/>
+
+  <variant prof="?Hunting creature?" sheetIndex =20  frames = "0"/>
+  <variant prof="?Hunting creature?" sheetIndex =21  frames = "1"/>
+  <variant prof="?Hunting creature?" sheetIndex =22  frames = "2"/>
+  <variant prof="?Hunting creature?" sheetIndex =23  frames = "3"/>
+  <variant prof="?Hunting creature?" sheetIndex =24  frames = "4"/>
+  <variant prof="?Hunting creature?" sheetIndex =25  frames = "5"/>
+
+  <variant prof="?War creature?" sheetIndex =40  frames = "0"/>
+  <variant prof="?War creature?" sheetIndex =41  frames = "1"/>
+  <variant prof="?War creature?" sheetIndex =42  frames = "2"/>
+  <variant prof="?War creature?" sheetIndex =43  frames = "3"/>
+  <variant prof="?War creature?" sheetIndex =44  frames = "4"/>
+  <variant prof="?War creature?" sheetIndex =45  frames = "5"/>
+
+  <variant special="Normal" sheetIndex =0  frames = "0"/>
+  <variant special="Normal" sheetIndex =1  frames = "1"/>
+  <variant special="Normal" sheetIndex =2  frames = "2"/>
+  <variant special="Normal" sheetIndex =3  frames = "3"/>
+  <variant special="Normal" sheetIndex =4  frames = "4"/>
+  <variant special="Normal" sheetIndex =5  frames = "5"/>
+
+ </creature>
+
+
+ <creature gameID="CAT"  file="beefmo_domestics.png" >
+
+  <variant prof="CHILD" sheetIndex =100  frames = "0"/>
+  <variant prof="CHILD" sheetIndex =101  frames = "1"/>
+  <variant prof="CHILD" sheetIndex =102  frames = "2"/>
+  <variant prof="CHILD" sheetIndex =103  frames = "3"/>
+  <variant prof="CHILD" sheetIndex =104  frames = "4"/>
+  <variant prof="CHILD" sheetIndex =105  frames = "5"/>
+
+  <variant special="Normal" sheetIndex =80  frames = "0"/>
+  <variant special="Normal" sheetIndex =81  frames = "1"/>
+  <variant special="Normal" sheetIndex =82  frames = "2"/>
+  <variant special="Normal" sheetIndex =83  frames = "3"/>
+  <variant special="Normal" sheetIndex =84  frames = "4"/>
+  <variant special="Normal" sheetIndex =85  frames = "5"/>
+
+ </creature>
+
+
+ <creature gameID="HORSE"  file="beefmo_domestics.png" >
+
+  <variant prof="CHILD" sheetIndex =140  frames = "0" color = "bodypart" bodypart = "hair" />
+  <variant prof="CHILD" sheetIndex =141  frames = "1" color = "bodypart" bodypart = "hair" />
+  <variant prof="CHILD" sheetIndex =142  frames = "2" color = "bodypart" bodypart = "hair" />
+  <variant prof="CHILD" sheetIndex =143  frames = "3" color = "bodypart" bodypart = "hair" />
+  <variant prof="CHILD" sheetIndex =144  frames = "4" color = "bodypart" bodypart = "hair" />
+  <variant prof="CHILD" sheetIndex =145  frames = "5" color = "bodypart" bodypart = "hair" />
+
+  <variant special="Normal" sheetIndex =120  frames = "0" color = "bodypart" bodypart = "hair" />
+  <variant special="Normal" sheetIndex =121  frames = "1" color = "bodypart" bodypart = "hair" />
+  <variant special="Normal" sheetIndex =122  frames = "2" color = "bodypart" bodypart = "hair" />
+  <variant special="Normal" sheetIndex =123  frames = "3" color = "bodypart" bodypart = "hair" />
+  <variant special="Normal" sheetIndex =124  frames = "4" color = "bodypart" bodypart = "hair" />
+  <variant special="Normal" sheetIndex =125  frames = "5" color = "bodypart" bodypart = "hair" />
+
+ </creature>
+
+
+ <creature gameID="DONKEY"  file="beefmo_domestics.png" >
+
+  <variant prof="CHILD" sheetIndex =180  frames = "0" color = "bodypart" bodypart = "hair" />
+  <variant prof="CHILD" sheetIndex =181  frames = "1" color = "bodypart" bodypart = "hair" />
+  <variant prof="CHILD" sheetIndex =182  frames = "2" color = "bodypart" bodypart = "hair" />
+  <variant prof="CHILD" sheetIndex =183  frames = "3" color = "bodypart" bodypart = "hair" />
+  <variant prof="CHILD" sheetIndex =184  frames = "4" color = "bodypart" bodypart = "hair" />
+  <variant prof="CHILD" sheetIndex =185  frames = "5" color = "bodypart" bodypart = "hair" />
+
+  <variant special="Normal" sheetIndex =160  frames = "0" color = "bodypart" bodypart = "hair" />
+  <variant special="Normal" sheetIndex =161  frames = "1" color = "bodypart" bodypart = "hair" />
+  <variant special="Normal" sheetIndex =162  frames = "2" color = "bodypart" bodypart = "hair" />
+  <variant special="Normal" sheetIndex =163  frames = "3" color = "bodypart" bodypart = "hair" />
+  <variant special="Normal" sheetIndex =164  frames = "4" color = "bodypart" bodypart = "hair" />
+  <variant special="Normal" sheetIndex =165  frames = "5" color = "bodypart" bodypart = "hair" />
+
+ </creature>
+
+
+ <creature gameID="MULE"  file="beefmo_domestics.png" >
+
+  <variant special="Normal" sheetIndex =200  frames = "0" color = "bodypart" bodypart = "hair" />
+  <variant special="Normal" sheetIndex =201  frames = "1" color = "bodypart" bodypart = "hair" />
+  <variant special="Normal" sheetIndex =202  frames = "2" color = "bodypart" bodypart = "hair" />
+  <variant special="Normal" sheetIndex =203  frames = "3" color = "bodypart" bodypart = "hair" />
+  <variant special="Normal" sheetIndex =204  frames = "4" color = "bodypart" bodypart = "hair" />
+  <variant special="Normal" sheetIndex =205  frames = "5" color = "bodypart" bodypart = "hair" />
+
+ </creature>
+
+
+
+ <creature gameID="MUSKOX"  file="beefmo_domestics.png" >
+
+  <variant prof="CHILD" sheetIndex =240  frames = "0"/>
+  <variant prof="CHILD" sheetIndex =241  frames = "1"/>
+  <variant prof="CHILD" sheetIndex =242  frames = "2"/>
+  <variant prof="CHILD" sheetIndex =243  frames = "3"/>
+  <variant prof="CHILD" sheetIndex =244  frames = "4"/>
+  <variant prof="CHILD" sheetIndex =245  frames = "5"/>
+
+  <variant special="Normal" sheetIndex =220  frames = "0"/>
+  <variant special="Normal" sheetIndex =221  frames = "1"/>
+  <variant special="Normal" sheetIndex =222  frames = "2"/>
+  <variant special="Normal" sheetIndex =223  frames = "3"/>
+  <variant special="Normal" sheetIndex =224  frames = "4"/>
+  <variant special="Normal" sheetIndex =225  frames = "5"/>
+
+ </creature>
+
+
+
+ <creature gameID="COW"  file="beefmo_domestics.png" >
+
+  <variant prof="CHILD" sheetIndex =300  frames = "0"/>
+  <variant prof="CHILD" sheetIndex =301  frames = "1"/>
+  <variant prof="CHILD" sheetIndex =302  frames = "2"/>
+  <variant prof="CHILD" sheetIndex =303  frames = "3"/>
+  <variant prof="CHILD" sheetIndex =304  frames = "4"/>
+  <variant prof="CHILD" sheetIndex =305  frames = "5"/>
+
+  <variant special="Normal" sex="F" sheetIndex =280  frames = "0"/>
+  <variant special="Normal" sex="F" sheetIndex =281  frames = "1"/>
+  <variant special="Normal" sex="F" sheetIndex =282  frames = "2"/>
+  <variant special="Normal" sex="F" sheetIndex =283  frames = "3"/>
+  <variant special="Normal" sex="F" sheetIndex =284  frames = "4"/>
+  <variant special="Normal" sex="F" sheetIndex =285  frames = "5"/>
+
+  <variant special="Normal" sex="M" sheetIndex =260  frames = "0"/>
+  <variant special="Normal" sex="M" sheetIndex =261  frames = "1"/>
+  <variant special="Normal" sex="M" sheetIndex =262  frames = "2"/>
+  <variant special="Normal" sex="M" sheetIndex =263  frames = "3"/>
+  <variant special="Normal" sex="M" sheetIndex =264  frames = "4"/>
+  <variant special="Normal" sex="M" sheetIndex =265  frames = "5"/>
+
+ </creature>
+
+
+<creature gameID="CAMEL_1_HUMP"  file="beefmo_domestics.png" >
+
+  <variant prof="CHILD" sheetIndex =360  frames = "0"/>
+  <variant prof="CHILD" sheetIndex =361  frames = "1"/>
+  <variant prof="CHILD" sheetIndex =362  frames = "2"/>
+  <variant prof="CHILD" sheetIndex =363  frames = "3"/>
+  <variant prof="CHILD" sheetIndex =364  frames = "4"/>
+  <variant prof="CHILD" sheetIndex =365  frames = "5"/>
+
+  <variant special="Normal" sheetIndex =320  frames = "0"/>
+  <variant special="Normal" sheetIndex =321  frames = "1"/>
+  <variant special="Normal" sheetIndex =322  frames = "2"/>
+  <variant special="Normal" sheetIndex =323  frames = "3"/>
+  <variant special="Normal" sheetIndex =324  frames = "4"/>
+  <variant special="Normal" sheetIndex =325  frames = "5"/>
+
+ </creature>
+
+
+<creature gameID="CAMEL_2_HUMP"  file="beefmo_domestics.png" >
+
+  <variant prof="CHILD" sheetIndex =340  frames = "0"/>
+  <variant prof="CHILD" sheetIndex =341  frames = "1"/>
+  <variant prof="CHILD" sheetIndex =342  frames = "2"/>
+  <variant prof="CHILD" sheetIndex =343  frames = "3"/>
+  <variant prof="CHILD" sheetIndex =344  frames = "4"/>
+  <variant prof="CHILD" sheetIndex =345  frames = "5"/>
+
+  <variant special="Normal" sheetIndex =360  frames = "0"/>
+  <variant special="Normal" sheetIndex =361  frames = "1"/>
+  <variant special="Normal" sheetIndex =362  frames = "2"/>
+  <variant special="Normal" sheetIndex =363  frames = "3"/>
+  <variant special="Normal" sheetIndex =364  frames = "4"/>
+  <variant special="Normal" sheetIndex =365  frames = "5"/>
+
+ </creature>
+
+</creatures>
