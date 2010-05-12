@@ -35,22 +35,93 @@
  </creature>
 
 
- <creature gameID="CAT"  file="beefmo_domestics.png" >
+ <creature gameID="CAT"  file="beefmo_cat.png" >
 
-  <variant prof="CHILD" sheetIndex =100  frames = "0"/>
-  <variant prof="CHILD" sheetIndex =101  frames = "1"/>
-  <variant prof="CHILD" sheetIndex =102  frames = "2"/>
-  <variant prof="CHILD" sheetIndex =103  frames = "3"/>
-  <variant prof="CHILD" sheetIndex =104  frames = "4"/>
-  <variant prof="CHILD" sheetIndex =105  frames = "5"/>
+  <variant prof="CHILD" sheetIndex =20  frames = "0" color = "bodypart" bodypart = "hair" >
+  <subsprite sprite = 60  color = "bodypart" bodypart = "ears" />
+  <subsprite sprite = 100  color = "bodypart" bodypart = "tail" />
+  <subsprite sprite = 140  color = "bodypart" bodypart = "head" />
+  <subsprite sprite = 180  color = "bodypart" bodypart = "front paws" />
+  <subsprite sprite = 220  color = "bodypart" bodypart = "rear paws" />
+  </variant>
+  <variant prof="CHILD" sheetIndex =21  frames = "1" color = "bodypart" bodypart = "hair" >
+  <subsprite sprite = 61  color = "bodypart" bodypart = "ears" />
+  <subsprite sprite = 101  color = "bodypart" bodypart = "tail" />
+  <subsprite sprite = 141  color = "bodypart" bodypart = "head" />
+  <subsprite sprite = 181  color = "bodypart" bodypart = "front paws" />
+  <subsprite sprite = 221  color = "bodypart" bodypart = "rear paws" />
+  </variant>
+  <variant prof="CHILD" sheetIndex =22  frames = "2" color = "bodypart" bodypart = "hair" >
+  <subsprite sprite = 62  color = "bodypart" bodypart = "ears" />
+  <subsprite sprite = 102  color = "bodypart" bodypart = "tail" />
+  <subsprite sprite = 142  color = "bodypart" bodypart = "head" />
+  <subsprite sprite = 182  color = "bodypart" bodypart = "front paws" />
+  <subsprite sprite = 222  color = "bodypart" bodypart = "rear paws" />
+  </variant>
+  <variant prof="CHILD" sheetIndex =23  frames = "3" color = "bodypart" bodypart = "hair" >
+  <subsprite sprite = 63  color = "bodypart" bodypart = "ears" />
+  <subsprite sprite = 103  color = "bodypart" bodypart = "tail" />
+  <subsprite sprite = 143  color = "bodypart" bodypart = "head" />
+  <subsprite sprite = 183  color = "bodypart" bodypart = "front paws" />
+  <subsprite sprite = 223  color = "bodypart" bodypart = "rear paws" />
+  </variant>
+  <variant prof="CHILD" sheetIndex =24  frames = "4" color = "bodypart" bodypart = "hair" >
+  <subsprite sprite = 64  color = "bodypart" bodypart = "ears" />
+  <subsprite sprite = 104  color = "bodypart" bodypart = "tail" />
+  <subsprite sprite = 144  color = "bodypart" bodypart = "head" />
+  <subsprite sprite = 184  color = "bodypart" bodypart = "front paws" />
+  <subsprite sprite = 224  color = "bodypart" bodypart = "rear paws" />
+  </variant>
+  <variant prof="CHILD" sheetIndex =25  frames = "5" color = "bodypart" bodypart = "hair" >
+  <subsprite sprite = 65  color = "bodypart" bodypart = "ears" />
+  <subsprite sprite = 105  color = "bodypart" bodypart = "tail" />
+  <subsprite sprite = 145  color = "bodypart" bodypart = "head" />
+  <subsprite sprite = 185  color = "bodypart" bodypart = "front paws" />
+  <subsprite sprite = 225  color = "bodypart" bodypart = "rear paws" />
+  </variant>
 
-  <variant special="Normal" sheetIndex =80  frames = "0"/>
-  <variant special="Normal" sheetIndex =81  frames = "1"/>
-  <variant special="Normal" sheetIndex =82  frames = "2"/>
-  <variant special="Normal" sheetIndex =83  frames = "3"/>
-  <variant special="Normal" sheetIndex =84  frames = "4"/>
-  <variant special="Normal" sheetIndex =85  frames = "5"/>
-
+  <variant special="Normal" sheetIndex =0  frames = "0" color = "bodypart" bodypart = "hair" >
+  <subsprite sprite = 40  color = "bodypart" bodypart = "ears" />
+  <subsprite sprite = 80  color = "bodypart" bodypart = "tail" />
+  <subsprite sprite = 120  color = "bodypart" bodypart = "head" />
+  <subsprite sprite = 160  color = "bodypart" bodypart = "front paws" />
+  <subsprite sprite = 200  color = "bodypart" bodypart = "rear paws" />
+  </variant>
+  <variant special="Normal" sheetIndex =1  frames = "1" color = "bodypart" bodypart = "hair" >
+  <subsprite sprite = 41  color = "bodypart" bodypart = "ears" />
+  <subsprite sprite = 81  color = "bodypart" bodypart = "tail" />
+  <subsprite sprite = 121  color = "bodypart" bodypart = "head" />
+  <subsprite sprite = 161  color = "bodypart" bodypart = "front paws" />
+  <subsprite sprite = 201  color = "bodypart" bodypart = "rear paws" />
+  </variant>
+  <variant special="Normal" sheetIndex =2  frames = "2" color = "bodypart" bodypart = "hair" >
+  <subsprite sprite = 42  color = "bodypart" bodypart = "ears" />
+  <subsprite sprite = 82  color = "bodypart" bodypart = "tail" />
+  <subsprite sprite = 122  color = "bodypart" bodypart = "head" />
+  <subsprite sprite = 162  color = "bodypart" bodypart = "front paws" />
+  <subsprite sprite = 202  color = "bodypart" bodypart = "rear paws" />
+  </variant>
+  <variant special="Normal" sheetIndex =3  frames = "3" color = "bodypart" bodypart = "hair" >
+  <subsprite sprite = 43  color = "bodypart" bodypart = "ears" />
+  <subsprite sprite = 83  color = "bodypart" bodypart = "tail" />
+  <subsprite sprite = 123  color = "bodypart" bodypart = "head" />
+  <subsprite sprite = 163  color = "bodypart" bodypart = "front paws" />
+  <subsprite sprite = 203  color = "bodypart" bodypart = "rear paws" />
+  </variant>
+  <variant special="Normal" sheetIndex =4  frames = "4" color = "bodypart" bodypart = "hair" >
+  <subsprite sprite = 44  color = "bodypart" bodypart = "ears" />
+  <subsprite sprite = 84  color = "bodypart" bodypart = "tail" />
+  <subsprite sprite = 124  color = "bodypart" bodypart = "head" />
+  <subsprite sprite = 164  color = "bodypart" bodypart = "front paws" />
+  <subsprite sprite = 204  color = "bodypart" bodypart = "rear paws" />
+  </variant>
+  <variant special="Normal" sheetIndex =5  frames = "5" color = "bodypart" bodypart = "hair" >
+  <subsprite sprite = 45  color = "bodypart" bodypart = "ears" />
+  <subsprite sprite = 85  color = "bodypart" bodypart = "tail" />
+  <subsprite sprite = 125  color = "bodypart" bodypart = "head" />
+  <subsprite sprite = 165  color = "bodypart" bodypart = "front paws" />
+  <subsprite sprite = 205  color = "bodypart" bodypart = "rear paws" />
+	</variant>
  </creature>
 
 

@@ -104,6 +104,7 @@ bool addSingleCreatureConfig( TiXmlElement* elemCreature, vector<vector<Creature
 	sprite.y=0;
 	sprite.animFrames=ALL_FRAMES;
 	int baseShadow = DEFAULT_SHADOW;
+	uint8_t red, green, blue;
 	const char* shadowStr = elemCreature->Attribute("shadow");
 	if (shadowStr != NULL && shadowStr[0] != 0)
 	{
@@ -193,6 +194,75 @@ bool addSingleCreatureConfig( TiXmlElement* elemCreature, vector<vector<Creature
 			strcpy(sprite.bodyPart, bodyVarPartStr);
 		}
 
+			//subsprites
+		sprite.subSprites.clear();
+		TiXmlElement* elemVarSubSprite = elemVariant->FirstChildElement("subsprite");
+		while(elemVarSubSprite)
+		{
+			const char* subVarSpriteIndexStr = elemVarSubSprite->Attribute("sprite");
+			if (subVarSpriteIndexStr == NULL || subVarSpriteIndexStr[0] == 0)
+			{
+				contentError("Invalid Subsprite definition",elemVarSubSprite);
+				break; //nothing to work with
+			}
+			// make a base sprite
+			t_subSprite subVarSprite;
+			subVarSprite.sheetIndex=atoi(subVarSpriteIndexStr);
+			subVarSprite.fileIndex=sprite.fileIndex; //should be the same file as the main sprite by default.
+
+			//do custom colors
+			const char* subVarSpriteRedStr = elemVarSubSprite->Attribute("red");
+			if (subVarSpriteRedStr == NULL || subVarSpriteRedStr[0] == 0)
+			{
+				red = 255;
+			}
+			else red=atoi(subVarSpriteRedStr);
+			const char* subVarSpriteGreenStr = elemVarSubSprite->Attribute("green");
+			if (subVarSpriteGreenStr == NULL || subVarSpriteGreenStr[0] == 0)
+			{
+				green = 255;
+			}
+			else green=atoi(subVarSpriteGreenStr);
+			const char* subVarSpriteBlueStr = elemVarSubSprite->Attribute("blue");
+			if (subVarSpriteBlueStr == NULL || subVarSpriteBlueStr[0] == 0)
+			{
+				blue = 255;
+			}
+			else blue=atoi(subVarSpriteBlueStr);
+			subVarSprite.shadeColor = al_map_rgb(red, green, blue);
+
+			//decide what the sprite should be shaded by.
+			const char* subVarSpriteColorStr = elemVarSubSprite->Attribute("color");
+			if (subVarSpriteColorStr == NULL || subVarSpriteColorStr[0] == 0)
+			{
+				subVarSprite.shadeBy = ShadeNone;
+			}
+			else
+			{
+				subVarSprite.shadeBy = getShadeType(subVarSpriteColorStr);
+			}
+
+			//do bodyparts
+			const char* subBodyPartStr = elemVarSubSprite->Attribute("bodypart");
+			//clear old bodypart string
+			memset(subVarSprite.bodyPart, 0, sizeof(sprite.bodyPart));
+			//copy new, if found
+			if (subBodyPartStr != NULL && subBodyPartStr[0] != 0)
+			{
+				strcpy(subVarSprite.bodyPart, subBodyPartStr);
+			}
+
+			// check for local file definitions
+			const char* subfilename = elemVarSubSprite->Attribute("file");
+			if (subfilename != NULL && subfilename[0] != 0)
+			{
+				subVarSprite.fileIndex = loadConfigImgFile((char*)subfilename,elemVarSubSprite);
+			}
+			sprite.subSprites.push_back(subVarSprite);
+			elemVarSubSprite = elemVarSubSprite->NextSiblingElement("subsprite");
+		}
+
+
 		//create profession config
 		sprite.sheetIndex=atoi(sheetIndexStr);
 		CreatureConfiguration cre( professionID, customStr , cresex, crespec, sprite, shadow);
@@ -214,6 +284,29 @@ bool addSingleCreatureConfig( TiXmlElement* elemCreature, vector<vector<Creature
 	{
 		sprite.shadeBy = getShadeType(spriteColorStr);
 	}
+
+	//  do custom colors
+	const char* spriteRedStr = elemCreature->Attribute("red");
+	if (spriteRedStr == NULL || spriteRedStr[0] == 0)
+	{
+		red = 255;
+	}
+	else red=atoi(spriteRedStr);
+	const char* spriteGreenStr = elemCreature->Attribute("green");
+	if (spriteGreenStr == NULL || spriteGreenStr[0] == 0)
+	{
+		green = 255;
+	}
+	else green=atoi(spriteGreenStr);
+	const char* spriteBlueStr = elemCreature->Attribute("blue");
+	if (spriteBlueStr == NULL || spriteBlueStr[0] == 0)
+	{
+		blue = 255;
+	}
+	else blue=atoi(spriteBlueStr);
+
+	sprite.shadeColor = al_map_rgb(red, green, blue);
+
 	//do bodyparts
 	const char* bodyPartStr = elemCreature->Attribute("bodypart");
 	//clear old bodypart string
@@ -222,6 +315,73 @@ bool addSingleCreatureConfig( TiXmlElement* elemCreature, vector<vector<Creature
 	if (bodyPartStr != NULL && bodyPartStr[0] != 0)
 	{
 		strcpy(sprite.bodyPart, bodyPartStr);
+	}
+	//subsprites
+	sprite.subSprites.clear();
+	TiXmlElement* elemSubSprite = elemCreature->FirstChildElement("subsprite");
+	while(elemSubSprite)
+	{
+		const char* subSpriteIndexStr = elemSubSprite->Attribute("sprite");
+		if (subSpriteIndexStr == NULL || subSpriteIndexStr[0] == 0)
+		{
+			contentError("Invalid Subsprite definition",elemSubSprite);
+			break; //nothing to work with
+		}
+		// make a base sprite
+		t_subSprite subSprite;
+		subSprite.sheetIndex=atoi(subSpriteIndexStr);
+		subSprite.fileIndex=sprite.fileIndex; //should be the same file as the main sprite by default.
+
+		//do custom colors
+		const char* subSpriteRedStr = elemSubSprite->Attribute("red");
+		if (subSpriteRedStr == NULL || subSpriteRedStr[0] == 0)
+		{
+			red = 255;
+		}
+		else red=atoi(subSpriteRedStr);
+		const char* subSpriteGreenStr = elemSubSprite->Attribute("green");
+		if (subSpriteGreenStr == NULL || subSpriteGreenStr[0] == 0)
+		{
+			green = 255;
+		}
+		else green=atoi(subSpriteGreenStr);
+		const char* subSpriteBlueStr = elemSubSprite->Attribute("blue");
+		if (subSpriteBlueStr == NULL || subSpriteBlueStr[0] == 0)
+		{
+			blue = 255;
+		}
+		else blue=atoi(subSpriteBlueStr);
+		subSprite.shadeColor = al_map_rgb(red, green, blue);
+
+		//decide what the sprite should be shaded by.
+		const char* subSpriteColorStr = elemSubSprite->Attribute("color");
+		if (subSpriteColorStr == NULL || subSpriteColorStr[0] == 0)
+		{
+			subSprite.shadeBy = ShadeNone;
+		}
+		else
+		{
+			subSprite.shadeBy = getShadeType(subSpriteColorStr);
+		}
+
+		//do bodyparts
+		const char* subBodyPartStr = elemSubSprite->Attribute("bodypart");
+		//clear old bodypart string
+		memset(subSprite.bodyPart, 0, sizeof(sprite.bodyPart));
+		//copy new, if found
+		if (subBodyPartStr != NULL && subBodyPartStr[0] != 0)
+		{
+			strcpy(subSprite.bodyPart, subBodyPartStr);
+		}
+
+		// check for local file definitions
+		const char* subfilename = elemSubSprite->Attribute("file");
+		if (subfilename != NULL && subfilename[0] != 0)
+		{
+			subSprite.fileIndex = loadConfigImgFile((char*)subfilename,elemSubSprite);
+		}
+		sprite.subSprites.push_back(subSprite);
+		elemSubSprite = elemSubSprite->NextSiblingElement("subsprite");
 	}
 	if (sheetIndexStr)
 	{

@@ -106,29 +106,7 @@ void parseWallFloorSpriteElement( TiXmlElement* elemWallFloorSprite, vector<Terr
 	}
 	else
 	{
-		sprite.shadeBy = ShadeNone;
-		if( strcmp(spriteColorStr, "none") == 0)
-			sprite.shadeBy = ShadeNone;
-		if( strcmp(spriteColorStr, "xml") == 0)
-			sprite.shadeBy = ShadeXml;
-		if( strcmp(spriteColorStr, "material") == 0)
-			sprite.shadeBy = ShadeMat;
-		if( strcmp(spriteColorStr, "layer") == 0)
-			sprite.shadeBy = ShadeLayer;
-		if( strcmp(spriteColorStr, "vein") == 0)
-			sprite.shadeBy = ShadeVein;
-		if( strcmp(spriteColorStr, "material_fore") == 0)
-			sprite.shadeBy = ShadeMatFore;
-		if( strcmp(spriteColorStr, "material_back") == 0)
-			sprite.shadeBy = ShadeMatBack;
-		if( strcmp(spriteColorStr, "layer_fore") == 0)
-			sprite.shadeBy = ShadeLayerFore;
-		if( strcmp(spriteColorStr, "layer_back") == 0)
-			sprite.shadeBy = ShadeLayerBack;
-		if( strcmp(spriteColorStr, "vein_fore") == 0)
-			sprite.shadeBy = ShadeVeinFore;
-		if( strcmp(spriteColorStr, "vein_back") == 0)
-			sprite.shadeBy = ShadeVeinBack;
+		sprite.shadeBy = getShadeType(spriteColorStr);
 	}
 
 
@@ -193,36 +171,14 @@ void parseWallFloorSpriteElement( TiXmlElement* elemWallFloorSprite, vector<Terr
 		}
 		else
 		{
-			subSprite.shadeBy = ShadeNone;
-			if( strcmp(subSpriteColorStr, "none") == 0)
-				subSprite.shadeBy = ShadeNone;
-			if( strcmp(subSpriteColorStr, "xml") == 0)
-				subSprite.shadeBy = ShadeXml;
-			if( strcmp(subSpriteColorStr, "material") == 0)
-				subSprite.shadeBy = ShadeMat;
-			if( strcmp(subSpriteColorStr, "layer") == 0)
-				subSprite.shadeBy = ShadeLayer;
-			if( strcmp(subSpriteColorStr, "vein") == 0)
-				subSprite.shadeBy = ShadeVein;
-			if( strcmp(subSpriteColorStr, "material_fore") == 0)
-				subSprite.shadeBy = ShadeMatFore;
-			if( strcmp(subSpriteColorStr, "material_back") == 0)
-				subSprite.shadeBy = ShadeMatBack;
-			if( strcmp(subSpriteColorStr, "layer_fore") == 0)
-				subSprite.shadeBy = ShadeLayerFore;
-			if( strcmp(subSpriteColorStr, "layer_back") == 0)
-				subSprite.shadeBy = ShadeLayerBack;
-			if( strcmp(subSpriteColorStr, "vein_fore") == 0)
-				subSprite.shadeBy = ShadeVeinFore;
-			if( strcmp(subSpriteColorStr, "vein_back") == 0)
-				subSprite.shadeBy = ShadeVeinBack;
+			subSprite.shadeBy = getShadeType(subSpriteColorStr);
 		}
 
 		// check for local file definitions
 		const char* subfilename = elemSubType->Attribute("file");
 		if (subfilename != NULL && subfilename[0] != 0)
 		{
-			subSprite.fileIndex = loadConfigImgFile((char*)subfilename,elemWallFloorSprite);
+			subSprite.fileIndex = loadConfigImgFile((char*)subfilename,elemSubType);
 		}
 		sprite.subSprites.push_back(subSprite);
 	}
