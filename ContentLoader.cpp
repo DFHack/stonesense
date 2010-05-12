@@ -71,9 +71,7 @@ bool ContentLoader::Load(API& DF){
 	//classIdStrings = *tempClasses;
 
 	Mats = DF.getMaterials();
-	Mats->ReadInorganicMaterials();
-	Mats->ReadOrganicMaterials ();
-	Mats->ReadCreatureTypes ();
+	Mats->ReadAllMaterials();
 	Bld = DF.getBuildings();
 	DFHack::memory_info *mem = DF.getMemoryInfo();
 	if(professionStrings.empty())
@@ -609,4 +607,33 @@ ALLEGRO_COLOR lookupMaterialColor(int matType,int matIndex)
 		return contentLoader.colorConfigs.at(matType).colorMaterials.at(matIndex).color;
 	}
 	else return al_map_rgb(255, 255, 255);
+}
+
+ShadeBy getShadeType(const char* Input)
+{
+	if( strcmp(Input, "none") == 0)
+		return ShadeNone;
+	if( strcmp(Input, "xml") == 0)
+		return ShadeXml;
+	if( strcmp(Input, "material") == 0)
+		return ShadeMat;
+	if( strcmp(Input, "layer") == 0)
+		return ShadeLayer;
+	if( strcmp(Input, "vein") == 0)
+		return ShadeVein;
+	if( strcmp(Input, "material_fore") == 0)
+		return ShadeMatFore;
+	if( strcmp(Input, "material_back") == 0)
+		return ShadeMatBack;
+	if( strcmp(Input, "layer_fore") == 0)
+		return ShadeLayerFore;
+	if( strcmp(Input, "layer_back") == 0)
+		return ShadeLayerBack;
+	if( strcmp(Input, "vein_fore") == 0)
+		return ShadeVeinFore;
+	if( strcmp(Input, "vein_back") == 0)
+		return ShadeVeinBack;
+	if( strcmp(Input, "bodypart") == 0)
+		return ShadeBodyPart;
+	return ShadeNone;
 }

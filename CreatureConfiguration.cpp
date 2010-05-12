@@ -172,6 +172,28 @@ bool addSingleCreatureConfig( TiXmlElement* elemCreature, vector<vector<Creature
 		if (shadow < 0 || shadow > MAX_SHADOW)
 			shadow = baseShadow;
 
+		//decide what the sprite should be shaded by.
+		const char* spriteVarColorStr = elemVariant->Attribute("color");
+		if (spriteVarColorStr == NULL || spriteVarColorStr[0] == 0)
+		{
+			sprite.shadeBy = ShadeNone;
+		}
+		else
+		{
+			sprite.shadeBy = getShadeType(spriteVarColorStr);
+		}
+
+		//do bodyparts
+		const char* bodyVarPartStr = elemVariant->Attribute("bodypart");
+		if (bodyVarPartStr == NULL || bodyVarPartStr[0] == 0)
+		{
+			for(int i = 0; i < 128; i++)sprite.bodyPart[i] = 0;
+		}
+		else
+		{
+			strcpy(sprite.bodyPart, bodyVarPartStr);
+		}
+
 		//create profession config
 		sprite.sheetIndex=atoi(sheetIndexStr);
 		CreatureConfiguration cre( professionID, customStr , cresex, crespec, sprite, shadow);
@@ -184,6 +206,25 @@ bool addSingleCreatureConfig( TiXmlElement* elemCreature, vector<vector<Creature
 	baseShadow;
 	sheetIndexStr = elemCreature->Attribute("sheetIndex");
 	sprite.animFrames = ALL_FRAMES;
+	const char* spriteColorStr = elemCreature->Attribute("color");
+	if (spriteColorStr == NULL || spriteColorStr[0] == 0)
+	{
+		sprite.shadeBy = ShadeNone;
+	}
+	else
+	{
+		sprite.shadeBy = getShadeType(spriteColorStr);
+	}
+	//do bodyparts
+	const char* bodyPartStr = elemCreature->Attribute("bodypart");
+	if (bodyPartStr == NULL || bodyPartStr[0] == 0)
+	{
+		for(int i = 0; i < 128; i++)sprite.bodyPart[i] = 0;
+	}
+	else
+	{
+		strcpy(sprite.bodyPart, bodyPartStr);
+	}
 	if (sheetIndexStr)
 	{
 		sprite.sheetIndex = atoi( sheetIndexStr );

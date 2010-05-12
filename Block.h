@@ -34,7 +34,7 @@ public:
 	t_matglossPair water;
 	t_designation designation;
 	t_occupancy occ;
-	t_creature* creature;
+	t_creature * creature;
 	//bool mirroredBuilding;
 	t_matglossPair tree;
 

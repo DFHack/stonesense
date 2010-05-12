@@ -5,6 +5,7 @@
 #include "VegetationConfiguration.h"
 #include "GroundMaterialConfiguration.h"
 #include "ColorConfiguration.h"
+#include "commonTypes.h"
 
 class ContentLoader{
 private:
@@ -58,3 +59,4 @@ uint8_t lookupMaterialBright(int matType,int matIndex);
 const char *lookupTreeName(int matIndex);
 ALLEGRO_COLOR lookupMaterialColor(int matType,int matIndex);
 const char * lookupFormName(int formType);
+ShadeBy getShadeType(const char* Input);

@@ -20,10 +20,10 @@
     <Profession name="BABY" sheetIndex="122" />
     <variant sex="F" sheetIndex="101" />
   </creature>
-  <creature gameID="CAT" sheetIndex="20">
+  <creature gameID="CAT" sheetIndex="20" >
     <variant prof="CHILD" sheetIndex="21" />
   </creature>
-  <creature gameID="DOG" sheetIndex="22">
+  <creature gameID="DOG" sheetIndex="22" >
     <variant prof="CHILD" sheetIndex="23" />
   </creature>
   <creature gameID="MACAQUE_RHESUS" sheetIndex="2" />
@@ -34,10 +34,12 @@
   <creature gameID="GROUNDHOG" sheetIndex="7" />
   <creature gameID="TROLL" sheetIndex="16" />
   <creature gameID="NIGHTWING" sheetIndex="17" />
-	<creature gameID="FISH_CONGER_EEL" sheetIndex="18" />
-	<creature gameID="OGRE" sheetIndex="19" />
-  <creature gameID="MULE" sheetIndex="24" />
-  <creature gameID="DONKEY" sheetIndex="24" />
+  <creature gameID="FISH_CONGER_EEL" sheetIndex="18" />
+  <creature gameID="OGRE" sheetIndex="19" />
+  <creature gameID="MULE" sheetIndex="24" color="bodypart"
+  bodypart="hair" />
+  <creature gameID="DONKEY" sheetIndex="24" color="bodypart"
+  bodypart="hair" />
   <creature gameID="MUSKOX" sheetIndex="25" />
   <creature gameID="HORSE" sheetIndex="26" />
   <creature gameID="DEER" sheetIndex="27" />

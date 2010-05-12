@@ -381,6 +381,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\spriteColors.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\SpriteMaps.cpp"
 				>
 			</File>
@@ -508,6 +512,10 @@
 			</File>
 			<File
 				RelativePath=".\MapLoading.h"
+				>
+			</File>
+			<File
+				RelativePath=".\spriteColors.h"
 				>
 			</File>
 			<File

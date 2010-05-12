@@ -852,7 +852,8 @@ void reloadDisplayedSegment(){
 	TMR1_START;
 
 	//dispose old segment
-	if(viewedSegment){
+	if(viewedSegment)
+	{
 		viewedSegment->Dispose();
 		delete(viewedSegment);
 	}

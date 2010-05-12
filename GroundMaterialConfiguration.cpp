@@ -12,8 +12,8 @@ TerrainMaterialConfiguration::TerrainMaterialConfiguration()
 	defaultSprite.resize(NUM_FORMS);
 	for(int i = 0; i < NUM_FORMS; i++)
 	{
-	defaultSprite[i].fileIndex=INVALID_INDEX;
-	defaultSprite[i].sheetIndex=UNCONFIGURED_INDEX;
+		defaultSprite[i].fileIndex=INVALID_INDEX;
+		defaultSprite[i].sheetIndex=UNCONFIGURED_INDEX;
 	}
 	//dont really care about the rest of the sprite right now.
 
@@ -24,8 +24,8 @@ TerrainConfiguration::TerrainConfiguration()
 	defaultSprite.resize(NUM_FORMS);
 	for(int i = 0; i < NUM_FORMS; i++)
 	{
-	defaultSprite[i].fileIndex=INVALID_INDEX;
-	defaultSprite[i].sheetIndex=UNCONFIGURED_INDEX;
+		defaultSprite[i].fileIndex=INVALID_INDEX;
+		defaultSprite[i].sheetIndex=UNCONFIGURED_INDEX;
 	}
 	//dont really care about the rest of the sprite right now.
 }
@@ -205,17 +205,17 @@ void parseWallFloorSpriteElement( TiXmlElement* elemWallFloorSprite, vector<Terr
 			if( strcmp(subSpriteColorStr, "vein") == 0)
 				subSprite.shadeBy = ShadeVein;
 			if( strcmp(subSpriteColorStr, "material_fore") == 0)
-			subSprite.shadeBy = ShadeMatFore;
-		if( strcmp(subSpriteColorStr, "material_back") == 0)
-			subSprite.shadeBy = ShadeMatBack;
-		if( strcmp(subSpriteColorStr, "layer_fore") == 0)
-			subSprite.shadeBy = ShadeLayerFore;
-		if( strcmp(subSpriteColorStr, "layer_back") == 0)
-			subSprite.shadeBy = ShadeLayerBack;
-		if( strcmp(subSpriteColorStr, "vein_fore") == 0)
-			subSprite.shadeBy = ShadeVeinFore;
-		if( strcmp(subSpriteColorStr, "vein_back") == 0)
-			subSprite.shadeBy = ShadeVeinBack;
+				subSprite.shadeBy = ShadeMatFore;
+			if( strcmp(subSpriteColorStr, "material_back") == 0)
+				subSprite.shadeBy = ShadeMatBack;
+			if( strcmp(subSpriteColorStr, "layer_fore") == 0)
+				subSprite.shadeBy = ShadeLayerFore;
+			if( strcmp(subSpriteColorStr, "layer_back") == 0)
+				subSprite.shadeBy = ShadeLayerBack;
+			if( strcmp(subSpriteColorStr, "vein_fore") == 0)
+				subSprite.shadeBy = ShadeVeinFore;
+			if( strcmp(subSpriteColorStr, "vein_back") == 0)
+				subSprite.shadeBy = ShadeVeinBack;
 		}
 
 		// check for local file definitions

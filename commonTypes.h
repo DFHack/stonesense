@@ -14,7 +14,8 @@ enum ShadeBy
 	ShadeLayerFore,
 	ShadeLayerBack,
 	ShadeVeinFore,
-	ShadeVeinBack
+	ShadeVeinBack,
+	ShadeBodyPart
 } ;
 struct t_subSprite
 {
@@ -22,6 +23,7 @@ struct t_subSprite
 	int32_t fileIndex;
 	ALLEGRO_COLOR shadeColor;
 	ShadeBy shadeBy;
+	char bodyPart[128];
 } ;
 
 struct t_SpriteWithOffset{
@@ -35,6 +37,7 @@ struct t_SpriteWithOffset{
 	bool needOutline;
 	vector<t_subSprite> subSprites;
 	ShadeBy shadeBy;
+	char bodyPart[128];
 } ;
 
 typedef struct dfColors

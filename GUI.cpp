@@ -64,6 +64,34 @@ void ScreenToPoint(int x,int y,int &x1, int &y1, int &z1)
 	y1/=TILEWIDTH;
 
 }
+
+int get_textf_width(const ALLEGRO_FONT *font, const char *format, ...)
+{
+	ALLEGRO_USTR *buf;
+	va_list ap;
+	const char *s;
+
+	int width;
+	/* Fast path for common case. */
+	if (0 == strcmp(format, "%s")) {
+		va_start(ap, format);
+		s = va_arg(ap, const char *);
+		width = al_get_text_width(font, s);
+		va_end(ap);
+		return width;
+	}
+
+	va_start(ap, format);
+	buf = al_ustr_new("");
+	al_ustr_vappendf(buf, format, ap);
+	va_end(ap);
+
+	width = al_get_text_width(font, al_cstr(buf));
+
+	al_ustr_free(buf);
+	return width;
+}
+
 void draw_textf_border(const ALLEGRO_FONT *font, float x, float y, int flags, const char *format, ...)
 {
 	ALLEGRO_STATE backup;
@@ -334,6 +362,27 @@ void drawDebugCursorAndInfo(){
 		//memset(strCreature, -1, 50);
 		draw_textf_border(font, 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
 			"flag1: %s Sex: %d", strCreature, b->creature->sex + 1);
+		int yy = al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font));
+		int xx = 2;
+		for(unsigned int j = 0; j<b->creature->nbcolors ; j++)
+		{
+			uint32_t cr_color = contentLoader.Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].colorlist[b->creature->color[j]];
+			if(cr_color < contentLoader.Mats->color.size())
+			{
+				int op, src, dst, alpha_op, alpha_src, alpha_dst;
+				ALLEGRO_COLOR color;
+				al_get_separate_blender(&op, &src, &dst, &alpha_op, &alpha_src, &alpha_dst, &color);
+				al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, 
+					al_map_rgb_f(
+					contentLoader.Mats->color[cr_color].r,
+					contentLoader.Mats->color[cr_color].v,
+					contentLoader.Mats->color[cr_color].b));
+				draw_textf_border(font, xx, yy, 0,
+					"%s ", contentLoader.Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].part);
+				al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
+				xx += get_textf_width(font, "%s ", contentLoader.Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].part);
+			}
+		}
 	}
 	if(b->designation.bits.traffic)
 	{

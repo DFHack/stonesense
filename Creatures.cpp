@@ -5,6 +5,7 @@
 #include "ContentLoader.h"
 #include "GUI.h"
 #include "Block.h"
+#include "spriteColors.h"
 
 
 //vector<t_matgloss> v_creatureNames;
@@ -25,6 +26,10 @@ bool IsCreatureVisible( t_creature* c ){
 }
 
 void DrawCreature(int drawx, int drawy, t_creature* creature ){
+	int op, src, dst, alpha_op, alpha_src, alpha_dst;
+	ALLEGRO_COLOR color;
+	al_get_separate_blender(&op, &src, &dst, &alpha_op, &alpha_src, &alpha_dst, &color);
+
 	t_SpriteWithOffset sprite = GetCreatureSpriteMap( creature );
 	//if(creature->x == 151 && creature->y == 145)
 	//  int j = 10;    	
@@ -37,7 +42,9 @@ void DrawCreature(int drawx, int drawy, t_creature* creature ){
 	{
 		creatureSheet = getImgFile(sprite.fileIndex);
 	}
+	al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, getSpriteColor(sprite, creature));
 	DrawSpriteFromSheet( sprite.sheetIndex, creatureSheet, drawx, drawy );
+	al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
 	if(!(sprite.subSprites.empty()))
 	{
 		for(int i = 0; i < sprite.subSprites.size(); i++)
@@ -50,7 +57,9 @@ void DrawCreature(int drawx, int drawy, t_creature* creature ){
 			{
 				creatureSheet = getImgFile(sprite.subSprites[i].fileIndex);
 			}
-			DrawSpriteFromSheet( sprite.sheetIndex, creatureSheet, drawx, drawy );
+			al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, getSpriteColor(sprite.subSprites[i], creature));
+			DrawSpriteFromSheet( sprite.subSprites[i].sheetIndex, creatureSheet, drawx, drawy );
+			al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
 		}
 	}
 }
