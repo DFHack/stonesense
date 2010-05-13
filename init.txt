@@ -38,7 +38,7 @@ Follow the center of the DF window, rather than scale to the edges.
 [TRACK_CENTER:YES]
 
 Sets an initial x/y/z offset for follow mode
-[FOLLOW_OFFSET_X:0]
+[FOLLOW_OFFSET_X:-15]
 [FOLLOW_OFFSET_Y:0]
 [FOLLOW_OFFSET_Z:0]
 
@@ -52,15 +52,15 @@ Fog color, and alpha at the bottom z-level.
 Setting the alpha to 0, or SHOW_FOG to NO disables fog, for a slight performance increase.
 Color and alpha ranges are 0 (min) to 255 (max)
 [SHOW_FOG:YES]
-[FOG_RED:95]
-[FOG_GREEN:95]
-[FOG_BLUE:160]
+[FOG_RED:128]
+[FOG_GREEN:158]
+[FOG_BLUE:177]
 [FOG_ALPHA:10]
 
 Background color. setting this the same as the fog color produces a nice effect.
-[BACK_RED:95]
-[BACK_GREEN:95]
-[BACK_BLUE:160]
+[BACK_RED:128]
+[BACK_GREEN:158]
+[BACK_BLUE:177]
 
 This value, in milliseconds, is how long Stonesense waits between
 reloading the map. If zero, the autoreload will be disabled until
@@ -98,7 +98,7 @@ Shows all creatures, for debugging. Living, dead, kidnapped, caged, EVERY single
 
 Adds more logging information to what is written to stonesense.log. May be useful
 if trying having issues with sprite configuration tweaking.
-[VERBOSE_LOGGING:NO]
+[VERBOSE_LOGGING:YES]
 
 --Troubleshooting--
 
@@ -118,3 +118,59 @@ and possibly quickly fill up yout hard-drive.
 Set the preferred renderer. Valid values are SOFTWARE, OPENGL, DIRECTX, and ANY. SOFTWARE has the highest 
 compatibility, but is very slow.
 [RENDERER:OPENGL]
+
+--Colors--
+
+Stonesense can use the colors from DF for various purposes. these are set here the same way as in DF
+
+[BLACK_R:0]
+[BLACK_G:0]
+[BLACK_B:0]
+[BLUE_R:13]
+[BLUE_G:103]
+[BLUE_B:196]
+[GREEN_R:68]
+[GREEN_G:158]
+[GREEN_B:53]
+[CYAN_R:86]
+[CYAN_G:163]
+[CYAN_B:205]
+[RED_R:151]
+[RED_G:26]
+[RED_B:26]
+[MAGENTA_R:255]
+[MAGENTA_G:110]
+[MAGENTA_B:187]
+[BROWN_R:120]
+[BROWN_G:94]
+[BROWN_B:47]
+[LGRAY_R:185]
+[LGRAY_G:192]
+[LGRAY_B:162]
+[DGRAY_R:88]
+[DGRAY_G:83]
+[DGRAY_B:86]
+[LBLUE_R:145]
+[LBLUE_G:202]
+[LBLUE_B:255]
+[LGREEN_R:131]
+[LGREEN_G:212]
+[LGREEN_B:82]
+[LCYAN_R:176]
+[LCYAN_G:223]
+[LCYAN_B:215]
+[LRED_R:255]
+[LRED_G:34]
+[LRED_B:34]
+[LMAGENTA_R:255]
+[LMAGENTA_G:167]
+[LMAGENTA_B:246]
+[YELLOW_R:255]
+[YELLOW_G:218]
+[YELLOW_B:90]
+[WHITE_R:255]
+[WHITE_G:255]
+[WHITE_B:255]
+
+
+Source: http://df.magmawiki.com/index.php/Color_scheme#ixzz0nnC90qXc

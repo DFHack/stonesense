@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<creatures>
+	<creature gameID="ELF" sheetIndex="0" file="ELFS.png" color="bodypart" bodypart="skin" >
+		<subsprite sprite="1" color="bodypart" bodypart="hair" />
+		<subsprite sprite="2" />
+		<subsprite sprite="3" color="profession" />
+	</creature>
+</creatures>

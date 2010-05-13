@@ -94,4 +94,41 @@
     <material value="Inorganic" />
 	<subsprite sprite="50" />
   </floor>
+  
+    <!-- construct -->
+  <floor sprite="49" color="material">
+    <!-- floor -->
+    <terrain value="493" />
+    <!-- fort -->
+    <terrain value="494" />
+    <!-- pillar -->
+    <terrain value="495" />
+    <!-- wall -->
+    <terrain value="496" />
+    <terrain value="497" />
+    <terrain value="498" />
+    <terrain value="499" />
+    <terrain value="500" />
+    <terrain value="501" />
+    <terrain value="502" />
+    <terrain value="503" />
+    <terrain value="504" />
+    <terrain value="505" />
+    <terrain value="506" />
+    <terrain value="507" />
+    <terrain value="508" />
+    <terrain value="509" />
+    <terrain value="510" />
+    <terrain value="511" />
+    <terrain value="512" />
+    <terrain value="513" />
+    <terrain value="514" />
+    <!-- stair -->
+    <terrain value="517" />
+    <!-- ramp -->
+    <terrain value="518" />
+    <form value="boulder" />
+    <material value="Inorganic" />
+	<subsprite sprite="51" />
+  </floor>
 </floors>

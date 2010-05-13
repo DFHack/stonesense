@@ -143,7 +143,7 @@
     </material>
   </floor>
   <!-- construct -->
-  <floor sprite="37">
+  <floor sprite="38" color = "material">
     <!-- floor -->
     <terrain value="493" />
     <!-- stair -->
@@ -175,95 +175,35 @@
     <terrain value="513" />
     <terrain value="514" />
     <material value="Metal">
+      <subtype value="IRON" />
       <subtype value="GOLD" />
-      <subtype value="BRONZE" />
-      <subtype value="COPPER" />
-      <subtype value="BISMUTH_BRONZE" />
-      <subtype value="ROSE_GOLD" />
-      <subtype value="BRASS" />
-    </material>
-  </floor>
-  <!-- construct -->
-  <floor sprite="38">
-    <!-- floor -->
-    <terrain value="493" />
-    <!-- stair -->
-    <terrain value="517" />
-    <!-- ramp -->
-    <terrain value="518" />
-    <!-- fort -->
-    <terrain value="494" />
-    <!-- pillar -->
-    <terrain value="495" />
-    <!-- wall -->
-    <terrain value="496" />
-    <terrain value="497" />
-    <terrain value="498" />
-    <terrain value="499" />
-    <terrain value="500" />
-    <terrain value="501" />
-    <terrain value="502" />
-    <terrain value="503" />
-    <terrain value="504" />
-    <terrain value="505" />
-    <terrain value="506" />
-    <terrain value="507" />
-    <terrain value="508" />
-    <terrain value="509" />
-    <terrain value="510" />
-    <terrain value="511" />
-    <terrain value="512" />
-    <terrain value="513" />
-    <terrain value="514" />
-    <material value="Metal">
       <subtype value="SILVER" />
+      <subtype value="COPPER" />
+      <subtype value="NICKEL" />
+      <subtype value="ZINC" />
+      <subtype value="BRONZE" />
+      <subtype value="BRASS" />
+      <subtype value="STEEL" />
+      <subtype value="PIG_IRON" />
       <subtype value="PLATINUM" />
       <subtype value="ELECTRUM" />
+      <subtype value="TIN" />
       <subtype value="PEWTER_FINE" />
       <subtype value="PEWTER_TRIFLE" />
       <subtype value="PEWTER_LAY" />
+      <subtype value="LEAD" />
       <subtype value="ALUMINUM" />
       <subtype value="NICKEL_SILVER" />
+      <subtype value="BILLON" />
       <subtype value="STERLING_SILVER" />
-    </material>
-  </floor>
-  <!-- construct -->
-  <floor sprite="34">
-    <!-- floor -->
-    <terrain value="493" />
-    <!-- stair -->
-    <terrain value="517" />
-    <!-- ramp -->
-    <terrain value="518" />
-    <!-- fort -->
-    <terrain value="494" />
-    <!-- pillar -->
-    <terrain value="495" />
-    <!-- wall -->
-    <terrain value="496" />
-    <terrain value="497" />
-    <terrain value="498" />
-    <terrain value="499" />
-    <terrain value="500" />
-    <terrain value="501" />
-    <terrain value="502" />
-    <terrain value="503" />
-    <terrain value="504" />
-    <terrain value="505" />
-    <terrain value="506" />
-    <terrain value="507" />
-    <terrain value="508" />
-    <terrain value="509" />
-    <terrain value="510" />
-    <terrain value="511" />
-    <terrain value="512" />
-    <terrain value="513" />
-    <terrain value="514" />
-    <material value="Ice" />
-    <material value="Metal">
+      <subtype value="BLACK_BRONZE" />
+      <subtype value="ROSE_GOLD" />
+      <subtype value="BISMUTH" />
+      <subtype value="BISMUTH_BRONZE" />
       <subtype value="ADAMANTINE" />
     </material>
   </floor>
+
   <floor sprite="23">
     <!-- Soil floors -->
     <terrain value="353" />
