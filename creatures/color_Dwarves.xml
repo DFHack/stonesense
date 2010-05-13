@@ -3,9 +3,11 @@
   <creature gameID="DWARF" sheetIndex="40" file="color_dwarves.png">
     <subsprite sprite="41" color="bodypart" bodypart="hair" />
     <subsprite sprite="42" color="bodypart" bodypart="skin" />
+	<subsprite sprite="43" color="profession"/>
     <variant prof="CHILD" sheetIndex="80">
       <subsprite sprite="81" color="bodypart" bodypart="hair" />
       <subsprite sprite="82" color="bodypart" bodypart="skin" />
+	  <subsprite sprite="83" color="profession"/>
     </variant>
     <variant prof="BABY" sheetIndex="60">
       <subsprite sprite="61" color="bodypart" bodypart="hair" />
