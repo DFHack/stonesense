@@ -7,7 +7,6 @@
     <variant prof="CHILD" sheetIndex="80">
       <subsprite sprite="81" color="bodypart" bodypart="hair" />
       <subsprite sprite="82" color="bodypart" bodypart="skin" />
-	  <subsprite sprite="83" color="profession"/>
     </variant>
     <variant prof="BABY" sheetIndex="60">
       <subsprite sprite="61" color="bodypart" bodypart="hair" />
@@ -16,6 +15,7 @@
     <variant sex="F" sheetIndex="0">
       <subsprite sprite="1" color="bodypart" bodypart="hair" />
       <subsprite sprite="2" color="bodypart" bodypart="skin" />
+	  <subsprite sprite="3" color="profession"/>
     </variant>
   </creature>
 </creatures>
