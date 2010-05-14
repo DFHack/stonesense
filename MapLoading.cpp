@@ -448,6 +448,7 @@ WorldSegment* ReadMapSegment(API &DF, int x, int y, int z, int sizex, int sizey,
 	DFHack::Position *Pos =DF.getPosition();
 	DFHack::Vegetation *Veg =DF.getVegetation();
 	DFHack::Constructions *Cons = DF.getConstructions();
+	DFHack::World *Wold = DF.getWorld();
 
 	if(!Maps->Start())
 	{
@@ -473,6 +474,12 @@ WorldSegment* ReadMapSegment(API &DF, int x, int y, int z, int sizex, int sizey,
 		contentLoader.Load(DF);
 		timeToReloadConfig = false;
 	}
+
+	//read date
+	contentLoader.currentTick = Wold->ReadCurrentTick();
+	contentLoader.currentDay = Wold->ReadCurrentDay();
+	contentLoader.currentMonth = Wold->ReadCurrentMonth();
+	contentLoader.currentYear = Wold->ReadCurrentYear();
 
 	//Read Number of cells
 	int celldimX, celldimY, celldimZ;

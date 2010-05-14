@@ -275,16 +275,6 @@ namespace DFHack
         t_matglossPair material;
         bool active;
     };
-    struct t_attrib
-    {
-        uint32_t level;
-        uint32_t field_4;
-        uint32_t field_8;
-        uint32_t field_C;
-        uint32_t leveldiff;
-        uint32_t field_14;
-        uint32_t field_18;
-    };
 
 
     // FIXME: define in Memory.xml instead?
@@ -358,6 +348,9 @@ namespace DFHack
         t_soul defaultSoul;
         uint32_t nbcolors;
         uint32_t color[MAX_COLORS];
+
+        uint32_t birth_year;
+        uint32_t birth_time;
     };
     
     class APIPrivate;

@@ -31,6 +31,8 @@ using namespace std;
 #include <modules/Buildings.h>
 #include <modules/Constructions.h>
 #include <modules/Gui.h>
+#include <modules/world.h>
+
 using namespace DFHack;
 
 #include "commonTypes.h"

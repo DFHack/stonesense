@@ -65,7 +65,9 @@ ALLEGRO_COLOR getSpriteColor(t_subSprite &sprite, t_matglossPair material, t_mat
 
 ALLEGRO_COLOR getSpriteColor(t_SpriteWithOffset &sprite, t_creature* creature)
 {
+	uint32_t dayofLife = creature->birth_year*12*28 + creature->birth_time/1200;
 	Block* b = viewedSegment->getBlock(creature->x, creature->y, creature->z);
+	ALLEGRO_COLOR output;
 	if(sprite.shadeBy == ShadeBodyPart)
 	{
 		for(unsigned int j = 0; j<b->creature->nbcolors ; j++)
@@ -75,13 +77,28 @@ ALLEGRO_COLOR getSpriteColor(t_SpriteWithOffset &sprite, t_creature* creature)
 				uint32_t cr_color = contentLoader.Mats->raceEx[creature->race].castes[creature->caste].ColorModifier[j].colorlist[creature->color[j]];
 				if(cr_color < contentLoader.Mats->color.size())
 				{
-					return al_map_rgb_f(
+					if(contentLoader.Mats->raceEx[creature->race].castes[creature->caste].ColorModifier[j].startdate > 0)
+					{
+
+						if((contentLoader.Mats->raceEx[creature->race].castes[creature->caste].ColorModifier[j].startdate <= dayofLife) &&
+							(contentLoader.Mats->raceEx[creature->race].castes[creature->caste].ColorModifier[j].enddate > dayofLife))
+						{
+							output = al_map_rgb_f(
+								contentLoader.Mats->color[cr_color].r,
+								contentLoader.Mats->color[cr_color].v,
+								contentLoader.Mats->color[cr_color].b);
+							return output;
+						}
+					}
+					else
+						output = al_map_rgb_f(
 						contentLoader.Mats->color[cr_color].r,
 						contentLoader.Mats->color[cr_color].v,
 						contentLoader.Mats->color[cr_color].b);
 				}
 			}
 		}
+		return output;
 	}
 	else if(sprite.shadeBy == ShadeJob)
 	{
@@ -194,7 +211,7 @@ int getJobColor(unsigned char job)
 	case 33:
 	case 34:
 	case 35:
-		return 2;
+		return 1;
 	case 36:
 	case 37:
 	case 38:

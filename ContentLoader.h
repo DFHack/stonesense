@@ -39,6 +39,11 @@ public:
 	memory_info *memoryInfo;
 	DFHack::Buildings * Bld;
 	DFHack::Materials * Mats;
+
+	uint32_t currentTick;
+	uint32_t currentYear;
+	uint32_t currentMonth;
+	uint32_t currentDay;
 };
 
 //singleton instance

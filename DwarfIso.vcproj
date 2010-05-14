@@ -542,7 +542,15 @@
 					>
 				</File>
 				<File
+					RelativePath=".\dfhack\include\DFGlobal.h"
+					>
+				</File>
+				<File
 					RelativePath=".\dfhack\include\DFHackAPI.h"
+					>
+				</File>
+				<File
+					RelativePath=".\dfhack\include\DFHackAPI_C.h"
 					>
 				</File>
 				<File
@@ -551,6 +559,10 @@
 				</File>
 				<File
 					RelativePath=".\dfhack\include\DFMemInfoManager.h"
+					>
+				</File>
+				<File
+					RelativePath=".\dfhack\include\DFMiscUtils.h"
 					>
 				</File>
 				<File
@@ -601,7 +613,15 @@
 						>
 					</File>
 					<File
+						RelativePath=".\dfhack\include\modules\Buildings_C.h"
+						>
+					</File>
+					<File
 						RelativePath=".\dfhack\include\modules\Constructions.h"
+						>
+					</File>
+					<File
+						RelativePath=".\dfhack\include\modules\Constructions_C.h"
 						>
 					</File>
 					<File
@@ -609,7 +629,23 @@
 						>
 					</File>
 					<File
+						RelativePath=".\dfhack\include\modules\Creatures_C.h"
+						>
+					</File>
+					<File
 						RelativePath=".\dfhack\include\modules\Gui.h"
+						>
+					</File>
+					<File
+						RelativePath=".\dfhack\include\modules\Gui_C.h"
+						>
+					</File>
+					<File
+						RelativePath=".\dfhack\include\modules\Items.h"
+						>
+					</File>
+					<File
+						RelativePath=".\dfhack\include\modules\Items_C.h"
 						>
 					</File>
 					<File
@@ -617,7 +653,15 @@
 						>
 					</File>
 					<File
+						RelativePath=".\dfhack\include\modules\Maps_C.h"
+						>
+					</File>
+					<File
 						RelativePath=".\dfhack\include\modules\Materials.h"
+						>
+					</File>
+					<File
+						RelativePath=".\dfhack\include\modules\Materials_C.h"
 						>
 					</File>
 					<File
@@ -625,11 +669,27 @@
 						>
 					</File>
 					<File
+						RelativePath=".\dfhack\include\modules\Position_C.h"
+						>
+					</File>
+					<File
 						RelativePath=".\dfhack\include\modules\Translation.h"
 						>
 					</File>
 					<File
+						RelativePath=".\dfhack\include\modules\Translation_C.h"
+						>
+					</File>
+					<File
 						RelativePath=".\dfhack\include\modules\Vegetation.h"
+						>
+					</File>
+					<File
+						RelativePath=".\dfhack\include\modules\Vegetation_C.h"
+						>
+					</File>
+					<File
+						RelativePath=".\dfhack\include\modules\World.h"
 						>
 					</File>
 				</Filter>

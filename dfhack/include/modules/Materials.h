@@ -50,6 +50,8 @@ namespace DFHack
     {
         char part[128];
         std::vector<uint32_t> colorlist;
+        uint32_t startdate; /* in days */
+        uint32_t enddate; /* in days */
     };
     
     struct t_creaturecaste
@@ -60,6 +62,24 @@ namespace DFHack
         char adjective[128];
         std::vector<t_colormodifier> ColorModifier;
         std::vector<t_bodypart> bodypart;
+
+        t_attrib strength;
+        t_attrib agility;
+        t_attrib toughness;
+        t_attrib endurance;
+        t_attrib recuperation;
+        t_attrib disease_resistance;
+        t_attrib analytical_ability;
+        t_attrib focus;
+        t_attrib willpower;
+        t_attrib creativity;
+        t_attrib intuition;
+        t_attrib patience;
+        t_attrib memory;
+        t_attrib linguistic_ability;
+        t_attrib spatial_sense;
+        t_attrib musicality;
+        t_attrib kinesthetic_sense;
     };
 
     struct t_matglossOther
