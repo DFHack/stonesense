@@ -622,6 +622,7 @@ void paintboard(){
 			draw_textf_border(font, 10, 3*al_get_font_line_height(font), 0, "Timer2: %ims", ClockedTime2);
 			draw_textf_border(font, 10, 4*al_get_font_line_height(font), 0, "Draw: %ims", DrawTime);
 			draw_textf_border(font, 10, 5*al_get_font_line_height(font), 0, "D1: %i", blockFactory.getPoolSize());
+			draw_textf_border(font, 10, 6*al_get_font_line_height(font), 0, "%i/%i/%i, %i:%i", contentLoader.currentDay+1, contentLoader.currentMonth+1, contentLoader.currentYear, contentLoader.currentHour, (contentLoader.currentTickRel*60)/50);
 			drawDebugCursorAndInfo();
 		}
 		int top = 0;

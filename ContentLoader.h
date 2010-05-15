@@ -42,8 +42,10 @@ public:
 
 	uint32_t currentTick;
 	uint32_t currentYear;
-	uint32_t currentMonth;
-	uint32_t currentDay;
+	uint8_t currentMonth;
+	uint8_t currentDay;
+	uint8_t currentHour;
+	uint8_t currentTickRel;
 };
 
 //singleton instance

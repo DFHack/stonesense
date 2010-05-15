@@ -476,10 +476,12 @@ WorldSegment* ReadMapSegment(API &DF, int x, int y, int z, int sizex, int sizey,
 	}
 
 	//read date
-	contentLoader.currentTick = Wold->ReadCurrentTick();
-	contentLoader.currentDay = Wold->ReadCurrentDay();
-	contentLoader.currentMonth = Wold->ReadCurrentMonth();
 	contentLoader.currentYear = Wold->ReadCurrentYear();
+	contentLoader.currentTick = Wold->ReadCurrentTick();
+	contentLoader.currentMonth = (contentLoader.currentTick+9)/33600;
+	contentLoader.currentDay = ((contentLoader.currentTick+9)%33600)/1200;
+	contentLoader.currentHour = ((contentLoader.currentTick+9)-(((contentLoader.currentMonth*28)+contentLoader.currentDay)*1200))/50;
+	contentLoader.currentTickRel = (contentLoader.currentTick+9)-(((((contentLoader.currentMonth*28)+contentLoader.currentDay)*24)+contentLoader.currentHour)*50);
 
 	//Read Number of cells
 	int celldimX, celldimY, celldimZ;
