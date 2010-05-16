@@ -70,6 +70,8 @@ ALLEGRO_COLOR getSpriteColor(t_SpriteWithOffset &sprite, t_creature* creature)
 	ALLEGRO_COLOR output;
 	if(sprite.shadeBy == ShadeBodyPart)
 	{
+		if((!config.skipCreatureTypes) && (!config.skipCreatureTypesEx))
+		{
 		for(unsigned int j = 0; j<b->creature->nbcolors ; j++)
 		{
 			if(strcmp(contentLoader.Mats->raceEx[creature->race].castes[creature->caste].ColorModifier[j].part, sprite.bodyPart) == 0)
@@ -99,6 +101,8 @@ ALLEGRO_COLOR getSpriteColor(t_SpriteWithOffset &sprite, t_creature* creature)
 			}
 		}
 		return output;
+		}
+		else return al_map_rgb(255,255,255);
 	}
 	else if(sprite.shadeBy == ShadeJob)
 	{

@@ -19,7 +19,7 @@ using namespace std;
 #define color_segmentoutline al_map_rgb(0,0,0)
 
 extern ALLEGRO_FONT *font;
- 
+
 WorldSegment* viewedSegment;
 int DisplayedSegmentX;
 int DisplayedSegmentY;
@@ -404,7 +404,8 @@ void drawDebugCursorAndInfo(){
 
 	//creatures
 	if(b->creature != null){
-		draw_textf_border(font, 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
+		if(!config.skipCreatureTypes)
+			draw_textf_border(font, 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
 			"Creature:%s(%i) Job:%s", 
 			contentLoader.Mats->race.at(b->creature->race).id, b->creature->race, 
 			contentLoader.professionStrings.at(b->creature->profession).c_str());
@@ -416,25 +417,26 @@ void drawDebugCursorAndInfo(){
 			"flag1: %s Sex: %d", strCreature, b->creature->sex + 1);
 		int yy = al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font));
 		int xx = 2;
-		for(unsigned int j = 0; j<b->creature->nbcolors ; j++)
-		{
-			uint32_t cr_color = contentLoader.Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].colorlist[b->creature->color[j]];
-			if(cr_color < contentLoader.Mats->color.size())
+		if((!config.skipCreatureTypes) && (!config.skipCreatureTypesEx))
+			for(unsigned int j = 0; j<b->creature->nbcolors ; j++)
 			{
-				int op, src, dst, alpha_op, alpha_src, alpha_dst;
-				ALLEGRO_COLOR color;
-				al_get_separate_blender(&op, &src, &dst, &alpha_op, &alpha_src, &alpha_dst, &color);
-				al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, 
-					al_map_rgb_f(
-					contentLoader.Mats->color[cr_color].r,
-					contentLoader.Mats->color[cr_color].v,
-					contentLoader.Mats->color[cr_color].b));
-				draw_textf_border(font, xx, yy, 0,
-					"%s ", contentLoader.Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].part);
-				al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
-				xx += get_textf_width(font, "%s ", contentLoader.Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].part);
+				uint32_t cr_color = contentLoader.Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].colorlist[b->creature->color[j]];
+				if(cr_color < contentLoader.Mats->color.size())
+				{
+					int op, src, dst, alpha_op, alpha_src, alpha_dst;
+					ALLEGRO_COLOR color;
+					al_get_separate_blender(&op, &src, &dst, &alpha_op, &alpha_src, &alpha_dst, &color);
+					al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, 
+						al_map_rgb_f(
+						contentLoader.Mats->color[cr_color].r,
+						contentLoader.Mats->color[cr_color].v,
+						contentLoader.Mats->color[cr_color].b));
+					draw_textf_border(font, xx, yy, 0,
+						"%s ", contentLoader.Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].part);
+					al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
+					xx += get_textf_width(font, "%s ", contentLoader.Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].part);
+				}
 			}
-		}
 	}
 	if(b->designation.bits.traffic)
 	{
@@ -724,9 +726,9 @@ ALLEGRO_BITMAP* load_bitmap_withWarning(char* path){
 void loadGraphicsFromDisk(){
 	/*al_clear_to_color(al_map_rgb(0,0,0));
 	draw_textf_border(font,
-		al_get_bitmap_width(al_get_target_bitmap())/2,
-		al_get_bitmap_height(al_get_target_bitmap())/2,
-		ALLEGRO_ALIGN_CENTRE, "Loading...");
+	al_get_bitmap_width(al_get_target_bitmap())/2,
+	al_get_bitmap_height(al_get_target_bitmap())/2,
+	ALLEGRO_ALIGN_CENTRE, "Loading...");
 	al_flip_display();*/
 	int index;
 	index = loadImgFile("objects.png");
@@ -823,8 +825,8 @@ int loadImgFile(char* filename)
 		/*
 		al_clear_to_color(al_map_rgb(0,0,0));
 		draw_textf_border(font, al_get_bitmap_width(al_get_target_bitmap())/2,
-			al_get_bitmap_height(al_get_target_bitmap())/2,
-			ALLEGRO_ALIGN_CENTRE, "Loading %s...", filename);
+		al_get_bitmap_height(al_get_target_bitmap())/2,
+		ALLEGRO_ALIGN_CENTRE, "Loading %s...", filename);
 		al_flip_display();
 		*/
 		static int xOffset = 0;

@@ -70,8 +70,86 @@ bool ContentLoader::Load(API& DF){
 	//// make a copy for our use
 	//classIdStrings = *tempClasses;
 
-	Mats = DF.getMaterials();
-	Mats->ReadAllMaterials();
+	try
+	{
+		Mats = DF.getMaterials();
+	}
+	catch(exception &e)
+	{
+		WriteErr("%s\n", e.what());
+	}
+	if(!config.skipCreatureTypes);
+	{
+		try
+		{
+			Mats->ReadCreatureTypes();
+		}
+		catch(exception &e)
+		{
+			WriteErr("%s\n", e.what());
+			config.skipCreatureTypes = true;
+		}
+	}
+	if(!config.skipCreatureTypesEx)
+	{
+		try
+		{
+			Mats->ReadCreatureTypesEx();
+		}
+		catch(exception &e)
+		{
+			WriteErr("%s\n", e.what());
+			config.skipCreatureTypesEx = true;
+		}
+	}
+	try
+	{
+		Mats->ReadDescriptorColors();
+	}
+	catch(exception &e)
+	{
+		WriteErr("%s\n", e.what());
+	}
+	try
+	{
+		Mats->ReadInorganicMaterials();
+	}
+	catch(exception &e)
+	{
+		WriteErr("%s\n", e.what());
+	}
+	try
+	{
+		Mats->ReadOrganicMaterials();
+	}
+	catch(exception &e)
+	{
+		WriteErr("%s\n", e.what());
+	}
+	try
+	{
+		Mats->ReadOthers();
+	}
+	catch(exception &e)
+	{
+		WriteErr("%s\n", e.what());
+	}
+	try
+	{
+		Mats->ReadPlantMaterials();
+	}
+	catch(exception &e)
+	{
+		WriteErr("%s\n", e.what());
+	}
+	try
+	{
+		Mats->ReadWoodMaterials();
+	}
+	catch(exception &e)
+	{
+		WriteErr("%s\n", e.what());
+	}
 	Bld = DF.getBuildings();
 	DFHack::memory_info *mem = DF.getMemoryInfo();
 	if(professionStrings.empty())
@@ -389,6 +467,7 @@ int lookupMaterialIndex(int matType, const char* strValue)
 	}
 	else if (matType == LEATHER)
 	{
+		if(!config.skipCreatureTypes);
 		typeVector=&(contentLoader.Mats->race);
 	}
 	else
@@ -440,7 +519,8 @@ const char *lookupMaterialName(int matType,int matIndex)
 	}
 	else if (matType == LEATHER)
 	{
-		typeVector=&(contentLoader.Mats->race);
+		if(!config.skipCreatureTypes)
+			typeVector=&(contentLoader.Mats->race);
 	}
 	else
 	{

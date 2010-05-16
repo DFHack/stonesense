@@ -443,12 +443,64 @@ bool checkFloorBorderRequirement(WorldSegment* segment, int x, int y, int z, dir
 WorldSegment* ReadMapSegment(API &DF, int x, int y, int z, int sizex, int sizey, int sizez){
 	uint32_t index;
 	TMR2_START;
-	DFHack::Maps * Maps = DF.getMaps();
-	DFHack::Materials * Mats = DF.getMaterials();
-	DFHack::Position *Pos =DF.getPosition();
-	DFHack::Vegetation *Veg =DF.getVegetation();
-	DFHack::Constructions *Cons = DF.getConstructions();
-	DFHack::World *Wold = DF.getWorld();
+	DFHack::Maps *Maps;
+	try
+	{
+		Maps = DF.getMaps();
+	}
+	catch (exception &e)
+	{
+		WriteErr("%s\n", e.what());
+	}
+	DFHack::Materials *Mats;
+	try
+	{
+		Mats = DF.getMaterials();
+	}
+	catch (exception &e)
+	{
+		WriteErr("%s\n", e.what());
+	}
+	DFHack::Position *Pos;
+	try
+	{
+		Pos = DF.getPosition();
+	}
+	catch (exception &e)
+	{
+		WriteErr("%s\n", e.what());
+	}
+	DFHack::Vegetation *Veg;
+	try
+	{
+		Veg = DF.getVegetation();
+	}
+	catch (exception &e)
+	{
+		WriteErr("%s\n", e.what());
+	}
+	DFHack::Constructions *Cons;
+	try
+	{
+		Cons = DF.getConstructions();
+	}
+	catch (exception &e)
+	{
+		WriteErr("%s\n", e.what());
+	}
+	DFHack::World *Wold;
+	if(!config.skipWorld)
+	{
+		try
+		{
+			Wold = DF.getWorld();
+		}
+		catch (exception &e)
+		{
+			WriteErr("%s\n", e.what());
+			config.skipWorld = true;
+		}
+	}
 
 	if(!Maps->Start())
 	{
@@ -476,12 +528,15 @@ WorldSegment* ReadMapSegment(API &DF, int x, int y, int z, int sizex, int sizey,
 	}
 
 	//read date
+	if(!config.skipWorld)
+	{
 	contentLoader.currentYear = Wold->ReadCurrentYear();
 	contentLoader.currentTick = Wold->ReadCurrentTick();
 	contentLoader.currentMonth = (contentLoader.currentTick+9)/33600;
 	contentLoader.currentDay = ((contentLoader.currentTick+9)%33600)/1200;
 	contentLoader.currentHour = ((contentLoader.currentTick+9)-(((contentLoader.currentMonth*28)+contentLoader.currentDay)*1200))/50;
 	contentLoader.currentTickRel = (contentLoader.currentTick+9)-(((((contentLoader.currentMonth*28)+contentLoader.currentDay)*24)+contentLoader.currentHour)*50);
+	}
 
 	//Read Number of cells
 	int celldimX, celldimY, celldimZ;
@@ -659,6 +714,7 @@ WorldSegment* ReadMapSegment(API &DF, int x, int y, int z, int sizex, int sizey,
 	//	DF.FinishReadEffects();
 	//}
 	//Read Creatures
+	if(!config.skipCreatures)
 	ReadCreaturesToSegment( DF, segment );
 
 	//do misc beautification

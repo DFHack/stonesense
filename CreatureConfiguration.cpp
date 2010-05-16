@@ -73,27 +73,32 @@ int translateProfession(const char* currentProf)
 
 void pushCreatureConfig( vector<vector<CreatureConfiguration>*>& knownCreatures, unsigned int gameID, CreatureConfiguration& cre)
 {
-	vector<CreatureConfiguration>* creatureList;
-	if (knownCreatures.size() <= gameID)
+	if(!config.skipCreatureTypes)
 	{
-		//resize using hint from creature name list
-		unsigned int newsize = gameID +1;
-		if (newsize <= contentLoader.Mats->race.size())
+		vector<CreatureConfiguration>* creatureList;
+		if (knownCreatures.size() <= gameID)
 		{
-			newsize = contentLoader.Mats->race.size() + 1;
+			//resize using hint from creature name list
+			unsigned int newsize = gameID +1;
+			if (newsize <= contentLoader.Mats->race.size())
+			{
+				newsize = contentLoader.Mats->race.size() + 1;
+			}
+			knownCreatures.resize(newsize);
 		}
-		knownCreatures.resize(newsize);
+		creatureList = knownCreatures[gameID];
+		if (creatureList == NULL)
+		{
+			creatureList = new vector<CreatureConfiguration>();
+			knownCreatures[gameID]=creatureList;
+		}
+		creatureList->push_back(cre);
 	}
-	creatureList = knownCreatures[gameID];
-	if (creatureList == NULL)
-	{
-		creatureList = new vector<CreatureConfiguration>();
-		knownCreatures[gameID]=creatureList;
-	}
-	creatureList->push_back(cre);
 }
 
 bool addSingleCreatureConfig( TiXmlElement* elemCreature, vector<vector<CreatureConfiguration>*>& knownCreatures, int basefile ){
+	if(config.skipCreatureTypes)
+		return false;
 	int gameID = lookupIndexedType(elemCreature->Attribute("gameID"),contentLoader.Mats->race);
 	if (gameID == INVALID_INDEX)
 		return false;
@@ -194,7 +199,7 @@ bool addSingleCreatureConfig( TiXmlElement* elemCreature, vector<vector<Creature
 			strcpy(sprite.bodyPart, bodyVarPartStr);
 		}
 
-			//subsprites
+		//subsprites
 		sprite.subSprites.clear();
 		TiXmlElement* elemVarSubSprite = elemVariant->FirstChildElement("subsprite");
 		while(elemVarSubSprite)

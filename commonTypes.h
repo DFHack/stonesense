@@ -167,6 +167,12 @@ typedef struct {
 
 	bool showRenderStatus;
 	bool dayNightCycle;
+
+	//follows are anti-crash things
+	bool skipWorld;
+	bool skipCreatures;
+	bool skipCreatureTypes;
+	bool skipCreatureTypesEx;
 } GameConfiguration;
 
 

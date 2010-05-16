@@ -83,7 +83,8 @@ void DrawCreatureText(int drawx, int drawy, t_creature* creature ){
 		}
 		else if (config.names_use_species)
 		{
-			draw_textf_border(font, drawx, drawy-(20+al_get_font_line_height(font)), 0, 
+			if(!config.skipCreatureTypes)
+				draw_textf_border(font, drawx, drawy-(20+al_get_font_line_height(font)), 0, 
 				"[%s]", contentLoader.Mats->race.at(creature->race).id);
 		}
 }
@@ -99,7 +100,21 @@ void ReadCreaturesToSegment(API& DF, WorldSegment* segment)
 	int z1 = segment->z;
 	int z2 = segment->z + segment->sizez;
 	uint32_t numcreatures;
-	DFHack::Creatures * Creatures = DF.getCreatures();
+	DFHack::Creatures * Creatures;
+	if(!config.skipCreatures)
+	{
+		try
+		{
+			Creatures = DF.getCreatures();
+		}
+		catch(exception &err)
+		{
+			WriteErr("%s\n", err.what());
+			config.skipCreatures = true;
+			return;
+		}
+	}
+
 	try
 	{
 		if(!Creatures->Start(numcreatures)) return;
