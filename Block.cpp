@@ -139,7 +139,7 @@ void Block::Draw(){
 			int spriteOffset = 0;;
 			if(sprite.numVariations)
 				spriteOffset = rando % sprite.numVariations;
-			al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, getSpriteColor(sprite, this->material, this->layerMaterial, this->veinMaterial));
+			al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*getSpriteColor(sprite, this->material, this->layerMaterial, this->veinMaterial));
 
 
 			//if floor is muddy, override regular floor
@@ -148,7 +148,7 @@ void Block::Draw(){
 				sprite.sheetIndex = SPRITEFLOOR_WATERFLOOR;
 				sprite.fileIndex = INVALID_INDEX;
 				spriteOffset = 0;
-				al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, al_map_rgb(255, 255, 255));
+				al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
 			}
 			////if floor is snowed down, override  regular floor
 			//if( snowlevel )
@@ -156,7 +156,7 @@ void Block::Draw(){
 			//	sprite.sheetIndex = SPRITEFLOOR_SNOW;
 			//	sprite.fileIndex = INVALID_INDEX;
 			//	spriteOffset = 0;
-			//	al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, al_map_rgb(255, 255, 255));
+			//	al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
 			//}
 
 			if (sprite.sheetIndex == UNCONFIGURED_INDEX)
@@ -178,7 +178,7 @@ void Block::Draw(){
 					{
 						sheetOffsetX = TILEWIDTH * ((sprite.subSprites[i].sheetIndex+spriteOffset) % SHEET_OBJECTSWIDE);
 						sheetOffsetY = (TILEHEIGHT + FLOORHEIGHT) * ((sprite.subSprites[i].sheetIndex+spriteOffset) / SHEET_OBJECTSWIDE);
-						al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, getSpriteColor(sprite.subSprites[i], this->material, this->layerMaterial, this->veinMaterial));
+						al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*getSpriteColor(sprite.subSprites[i], this->material, this->layerMaterial, this->veinMaterial));
 						al_draw_bitmap_region(imageSheet(sprite.subSprites[i],IMGObjectSheet), sheetOffsetX, sheetOffsetY,  TILEWIDTH, TILEHEIGHT + FLOORHEIGHT, drawx, drawy, 0);
 						al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
 					}
@@ -204,13 +204,13 @@ void Block::Draw(){
 	//draw surf
 	if(eff_oceanwave > 0)
 	{
-		al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, al_map_rgba(255, 255, 255, (255*eff_oceanwave)/100));
+		al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*al_map_rgba(255, 255, 255, (255*eff_oceanwave)/100));
 		al_draw_bitmap(sprite_oceanwave, drawx, drawy - (WALLHEIGHT), 0);
 		al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
 	}
 	if(eff_webing > 0)
 	{
-		al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, al_map_rgba(255, 255, 255, (255*eff_webing)/100));
+		al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*al_map_rgba(255, 255, 255, (255*eff_webing)/100));
 		al_draw_bitmap(sprite_webing, drawx, drawy - (WALLHEIGHT), 0);
 		al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
 	}
@@ -226,7 +226,7 @@ void Block::Draw(){
 		{
 			sheetOffsetX = SPRITEWIDTH * ramp.index;
 			sheetOffsetY = ((TILEHEIGHT + FLOORHEIGHT + SPRITEHEIGHT) * sprite.sheetIndex)+(TILEHEIGHT + FLOORHEIGHT);
-			al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, getSpriteColor(sprite, this->material, this->layerMaterial, this->veinMaterial));
+			al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*getSpriteColor(sprite, this->material, this->layerMaterial, this->veinMaterial));
 			al_draw_bitmap_region(imageSheet(sprite,IMGRampSheet), sheetOffsetX, sheetOffsetY, SPRITEWIDTH, SPRITEHEIGHT, drawx, drawy - (WALLHEIGHT), 0);
 			al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
 			if(!(sprite.subSprites.empty()))
@@ -235,7 +235,7 @@ void Block::Draw(){
 				{
 					sheetOffsetX = SPRITEWIDTH * ramp.index;
 					sheetOffsetY = ((TILEHEIGHT + FLOORHEIGHT + SPRITEHEIGHT) * sprite.subSprites[i].sheetIndex)+(TILEHEIGHT + FLOORHEIGHT);
-					al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, getSpriteColor(sprite.subSprites[i], this->material, this->layerMaterial, this->veinMaterial));
+					al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*getSpriteColor(sprite.subSprites[i], this->material, this->layerMaterial, this->veinMaterial));
 					al_draw_bitmap_region(imageSheet(sprite.subSprites[i],IMGObjectSheet), sheetOffsetX, sheetOffsetY, SPRITEWIDTH, SPRITEHEIGHT, drawx, drawy - (WALLHEIGHT), 0);
 					al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
 				}
@@ -293,7 +293,7 @@ void Block::Draw(){
 				sprite.sheetIndex += rando % sprite.numVariations;
 			if (!(sprite.animFrames & (1 << currentAnimationFrame)))
 				continue;
-			al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, getSpriteColor(sprite, building.info.material, this->layerMaterial, this->veinMaterial));
+			al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*getSpriteColor(sprite, building.info.material, this->layerMaterial, this->veinMaterial));
 
 			DrawSpriteFromSheet(sprite.sheetIndex , imageSheet(sprite,IMGObjectSheet), 
 				drawx + building.sprites[i].x,
@@ -322,14 +322,14 @@ void Block::Draw(){
 		{
 			if (mirrored)
 				sprite.sheetIndex += 1;
-			al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, getSpriteColor(sprite, this->material, this->layerMaterial, this->veinMaterial));
+			al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*getSpriteColor(sprite, this->material, this->layerMaterial, this->veinMaterial));
 			DrawSpriteFromSheet( sprite.sheetIndex, imageSheet(sprite,IMGObjectSheet), drawx, drawy );
 			al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
 			if(!(sprite.subSprites.empty()))
 			{
 				for(int i = 0; i < sprite.subSprites.size(); i++)
 				{
-					al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, getSpriteColor(sprite.subSprites[i], this->material, this->layerMaterial, this->veinMaterial));
+					al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*getSpriteColor(sprite.subSprites[i], this->material, this->layerMaterial, this->veinMaterial));
 					DrawSpriteFromSheet( sprite.subSprites[i].sheetIndex, imageSheet(sprite.subSprites[i],IMGObjectSheet), drawx, drawy );
 					al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
 				}
@@ -360,7 +360,7 @@ void Block::Draw(){
 				int sheetx = (sprite.sheetIndex+spriteOffset) % SHEET_OBJECTSWIDE;
 				int sheety = (sprite.sheetIndex+spriteOffset) / SHEET_OBJECTSWIDE;
 				//draw a tiny bit of wall
-				al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, getSpriteColor(sprite, this->material, this->layerMaterial, this->veinMaterial));
+				al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*getSpriteColor(sprite, this->material, this->layerMaterial, this->veinMaterial));
 				al_draw_bitmap_region(imageSheet(sprite,IMGObjectSheet),
 					sheetx * SPRITEWIDTH, sheety * SPRITEHEIGHT+WALL_CUTOFF_HEIGHT,
 					SPRITEWIDTH, SPRITEHEIGHT-WALL_CUTOFF_HEIGHT, drawx, drawy - (WALLHEIGHT)+WALL_CUTOFF_HEIGHT, 0);
@@ -371,7 +371,7 @@ void Block::Draw(){
 					{
 						sheetx = (sprite.subSprites[i].sheetIndex+spriteOffset) % SHEET_OBJECTSWIDE;
 						sheety = (sprite.subSprites[i].sheetIndex+spriteOffset) / SHEET_OBJECTSWIDE;
-						al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, getSpriteColor(sprite.subSprites[i], this->material, this->layerMaterial, this->veinMaterial));
+						al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*getSpriteColor(sprite.subSprites[i], this->material, this->layerMaterial, this->veinMaterial));
 						al_draw_bitmap_region(imageSheet(sprite.subSprites[i],IMGObjectSheet),
 							sheetx * SPRITEWIDTH, sheety * SPRITEHEIGHT+WALL_CUTOFF_HEIGHT,
 							SPRITEWIDTH, SPRITEHEIGHT-WALL_CUTOFF_HEIGHT, drawx, drawy - (WALLHEIGHT)+WALL_CUTOFF_HEIGHT, 0);
@@ -387,14 +387,14 @@ void Block::Draw(){
 			else 
 			{
 				//al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, al_map_rgb(sprite.shadeRed, sprite.shadeGreen, sprite.shadeBlue));
-				al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, getSpriteColor(sprite, this->material, this->layerMaterial, this->veinMaterial));
+				al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*getSpriteColor(sprite, this->material, this->layerMaterial, this->veinMaterial));
 				DrawSpriteFromSheet(sprite.sheetIndex+spriteOffset, imageSheet(sprite,IMGObjectSheet), drawx, drawy );
 				al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
 				if(sprite.subSprites.size() > 0)
 				{
 					for(int i = 0; i < sprite.subSprites.size(); i++)
 					{
-						al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, getSpriteColor(sprite.subSprites[i], this->material, this->layerMaterial, this->veinMaterial));
+						al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*getSpriteColor(sprite.subSprites[i], this->material, this->layerMaterial, this->veinMaterial));
 						DrawSpriteFromSheet(sprite.subSprites[i].sheetIndex+spriteOffset, imageSheet(sprite.subSprites[i],IMGObjectSheet), drawx, drawy );
 						al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
 					}
@@ -559,7 +559,7 @@ void Block::DrawRamptops(){
 		{
 			sheetOffsetX = SPRITEWIDTH * ramp.index;
 			sheetOffsetY = (TILEHEIGHT + FLOORHEIGHT + SPRITEHEIGHT) * sprite.sheetIndex;
-			al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, getSpriteColor(sprite, this->material, this->layerMaterial, this->veinMaterial));
+			al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*getSpriteColor(sprite, this->material, this->layerMaterial, this->veinMaterial));
 			al_draw_bitmap_region(imageSheet(sprite,IMGRampSheet), sheetOffsetX, sheetOffsetY, SPRITEWIDTH, TILEHEIGHT + FLOORHEIGHT, drawx, drawy, 0);
 			al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
 		}

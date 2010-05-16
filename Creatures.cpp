@@ -42,7 +42,7 @@ void DrawCreature(int drawx, int drawy, t_creature* creature ){
 	{
 		creatureSheet = getImgFile(sprite.fileIndex);
 	}
-	al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, getSpriteColor(sprite, creature));
+	al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*getSpriteColor(sprite, creature));
 	DrawSpriteFromSheet( sprite.sheetIndex, creatureSheet, drawx, drawy );
 	al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
 	if(!(sprite.subSprites.empty()))
@@ -57,7 +57,7 @@ void DrawCreature(int drawx, int drawy, t_creature* creature ){
 			{
 				creatureSheet = getImgFile(sprite.subSprites[i].fileIndex);
 			}
-			al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, getSpriteColor(sprite.subSprites[i], creature));
+			al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*getSpriteColor(sprite.subSprites[i], creature));
 			DrawSpriteFromSheet( sprite.subSprites[i].sheetIndex, creatureSheet, drawx, drawy );
 			al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
 		}

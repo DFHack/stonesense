@@ -46,6 +46,58 @@ GLhandleARB tinter_shader;
 Crd3D debugCursor;
 
 
+ALLEGRO_COLOR operator*(const ALLEGRO_COLOR &color1, const ALLEGRO_COLOR &color2)
+{
+	ALLEGRO_COLOR temp;
+	temp.r=color1.r*color2.r;
+	temp.g=color1.g*color2.g;
+	temp.b=color1.b*color2.b;
+	temp.a=color1.a*color2.a;
+	return temp;
+}
+
+ALLEGRO_COLOR operator+(const ALLEGRO_COLOR &color1, const ALLEGRO_COLOR &color2)
+{
+	ALLEGRO_COLOR temp;
+	temp.r=color1.r+(color2.r*(1-color1.r));
+	temp.g=color1.g+(color2.g*(1-color1.g));
+	temp.b=color1.b+(color2.b*(1-color1.b));
+	temp.a=color1.a+(color2.a*(1-color1.a));
+	return temp;
+}
+
+ALLEGRO_COLOR partialBlend(ALLEGRO_COLOR & color2, ALLEGRO_COLOR & color1, int percent)
+{
+	float blend = percent/100.0;
+	ALLEGRO_COLOR result;
+	result.r=(blend*color1.r)+((1.0-blend)*color2.r);
+	result.g=(blend*color1.g)+((1.0-blend)*color2.g);
+	result.b=(blend*color1.b)+((1.0-blend)*color2.b);
+	result.a=(blend*color1.a)+((1.0-blend)*color2.a);
+	return result;
+}
+
+ALLEGRO_COLOR getDayShade(int hour, int tick)
+{
+	ALLEGRO_COLOR nightShade = al_map_rgb(158,155,255);
+	ALLEGRO_COLOR dawnShade = al_map_rgb(254,172,142);
+
+	if(hour < 6)
+		return nightShade;
+	else if((hour < 7) && (tick < 25))
+		return partialBlend(nightShade, dawnShade, (tick * 4));
+	else if(hour < 7)
+		return partialBlend(dawnShade, al_map_rgb(255,255,255), ((tick-25) * 4));
+	else if((hour > 20) && (hour <= 21) && (tick < 25))
+		return partialBlend(al_map_rgb(255,255,255), dawnShade, (tick * 4));
+	else if((hour > 20) && (hour <= 21))
+		return partialBlend(dawnShade, nightShade, ((tick-25) * 4));
+	else if(hour > 21)
+		return nightShade;
+	return al_map_rgb(255,255,255);
+}
+
+
 void ScreenToPoint(int x,int y,int &x1, int &y1, int &z1)
 { //assume z of 0
 	x-=TILEWIDTH/2;

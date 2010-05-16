@@ -247,3 +247,4 @@ extern ALLEGRO_MOUSE_STATE mouse;
 #define FORM_BLOCK 2
 #define FORM_BOULDER 3
 #define FORM_LOG 4
+

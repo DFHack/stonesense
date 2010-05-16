@@ -1,6 +1,7 @@
 #include "common.h"
 #include "WorldSegment.h"
 #include "GUI.h"
+#include "ContentLoader.h"
 
 
 ALLEGRO_BITMAP * level = 0;
@@ -187,6 +188,7 @@ void WorldSegment::drawAllBlocks(){
 		{
 			if (config.show_osd) DrawCurrentLevelOutline(true);
 		}
+		al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*getDayShade(contentLoader.currentHour, contentLoader.currentTickRel));
 		al_hold_bitmap_drawing(true);
 		for(int32_t vsx=1; vsx < vsxmax; vsx++)
 		{
@@ -210,6 +212,7 @@ void WorldSegment::drawAllBlocks(){
 			}
 		}
 		al_hold_bitmap_drawing(false);
+		al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
 		al_hold_bitmap_drawing(true);
 		for(int32_t vsx=1; vsx < vsxmax; vsx++)
 		{
