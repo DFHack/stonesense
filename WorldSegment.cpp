@@ -188,7 +188,8 @@ void WorldSegment::drawAllBlocks(){
 		{
 			if (config.show_osd) DrawCurrentLevelOutline(true);
 		}
-		al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*getDayShade(contentLoader.currentHour, contentLoader.currentTickRel));
+		if(config.dayNightCycle)
+			al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*getDayShade(contentLoader.currentHour, contentLoader.currentTickRel));
 		al_hold_bitmap_drawing(true);
 		for(int32_t vsx=1; vsx < vsxmax; vsx++)
 		{

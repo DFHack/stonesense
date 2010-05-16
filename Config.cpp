@@ -544,11 +544,15 @@ void parseConfigLine( string line ){
 		if(value < 0) value = 0;
 		config.colors.white_b = value;
 	}
-		if( line.find("[RENDERER") != -1){
+	if( line.find("[RENDERER") != -1){
 		string result = parseStrFromLine( "RENDERER", line );
 		config.opengl = (result == "OPENGL");
 		config.software = (result == "SOFTWARE");
 		config.directX = (result == "DIRECTX");
+	}
+	if( line.find("[NIGHT") != -1){
+		string result = parseStrFromLine( "NIGHT", line );
+		config.dayNightCycle = (result == "YES");
 	}
 }
 

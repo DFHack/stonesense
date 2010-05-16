@@ -166,6 +166,7 @@ typedef struct {
 	int currentSpriteOverlay;
 
 	bool showRenderStatus;
+	bool dayNightCycle;
 } GameConfiguration;
 
 

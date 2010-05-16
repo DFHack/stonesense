@@ -296,7 +296,7 @@ int main(void)
 	al_set_display_icon(IMGIcon);
 
 	//al_set_blender(ALLEGRO_ALPHA, ALLEGRO_INVERSE_ALPHA, al_map_rgba_f(1.0, 1.0, 1.0, 1.0));
-	al_set_separate_blender(ALLEGRO_ADD, ALLEGRO_ALPHA, ALLEGRO_INVERSE_ALPHA, ALLEGRO_ADD, ALLEGRO_ALPHA, ALLEGRO_ONE, al_map_rgba_f(1, 1, 1, 1));
+	al_set_separate_blender(ALLEGRO_ADD, ALLEGRO_ALPHA, ALLEGRO_INVERSE_ALPHA, ALLEGRO_ADD, ALLEGRO_ALPHA, ALLEGRO_ONE, al_map_rgba_f(1.0, 1.0, 1.0, 1.0));
 	loadGraphicsFromDisk();
 	al_clear_to_color(al_map_rgb(0,0,0));
 	draw_textf_border(font, al_get_bitmap_width(al_get_target_bitmap())/2, al_get_bitmap_height(al_get_target_bitmap())/2, ALLEGRO_ALIGN_CENTRE, "Starting up...");
