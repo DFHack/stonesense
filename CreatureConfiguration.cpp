@@ -204,7 +204,7 @@ bool addSingleCreatureConfig( TiXmlElement* elemCreature, vector<vector<Creature
 		TiXmlElement* elemVarSubSprite = elemVariant->FirstChildElement("subsprite");
 		while(elemVarSubSprite)
 		{
-			const char* subVarSpriteIndexStr = elemVarSubSprite->Attribute("sprite");
+			const char* subVarSpriteIndexStr = elemVarSubSprite->Attribute("sheetIndex");
 			if (subVarSpriteIndexStr == NULL || subVarSpriteIndexStr[0] == 0)
 			{
 				contentError("Invalid Subsprite definition",elemVarSubSprite);
@@ -326,7 +326,7 @@ bool addSingleCreatureConfig( TiXmlElement* elemCreature, vector<vector<Creature
 	TiXmlElement* elemSubSprite = elemCreature->FirstChildElement("subsprite");
 	while(elemSubSprite)
 	{
-		const char* subSpriteIndexStr = elemSubSprite->Attribute("sprite");
+		const char* subSpriteIndexStr = elemSubSprite->Attribute("sheetIndex");
 		if (subSpriteIndexStr == NULL || subSpriteIndexStr[0] == 0)
 		{
 			contentError("Invalid Subsprite definition",elemSubSprite);
