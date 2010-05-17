@@ -173,6 +173,13 @@ typedef struct {
 	bool skipCreatures;
 	bool skipCreatureTypes;
 	bool skipCreatureTypesEx;
+	bool skipDescriptorColors;
+	bool skipBuildings;
+	bool skipVegetation;
+	bool skipConstructions;
+	bool skipMaps;
+	bool skipInorganicMats;
+	bool skipOrganicMats;
 } GameConfiguration;
 
 

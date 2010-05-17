@@ -194,17 +194,19 @@ void ReadCellToSegment(API& DF, WorldSegment& segment, int CellX, int CellY, int
 					   vector<t_construction>* allConstructions,
 					   vector< vector <uint16_t> >* allLayers,
 					   vector<DFHack::t_feature> * global_features,
-					   std::map <DFHack::planecoord, std::vector<DFHack::t_feature *> > *local_features)
+					   std::map <DFHack::planecoord, std::vector<DFHack::t_feature *> > *local_features,
+					   DFHack::Maps *Maps)
 {
+	if(config.skipMaps)
+		return;
+
 	//boundry check
-	DFHack::Maps *Maps =DF.getMaps();
 	int celldimX, celldimY, celldimZ;
 	Maps->getSize((unsigned int &)celldimX, (unsigned int &)celldimY, (unsigned int &)celldimZ);
 	if( CellX < 0 || CellX >= celldimX ||
 		CellY < 0 || CellY >= celldimY ||
-		CellZ < 0 || CellZ >= celldimZ
-		) return;
-
+		CellZ < 0 || CellZ >= celldimZ ) 
+		return;
 	if(!(DF.isSuspended()))
 		DisplayErr("DF isn't suspended! something is very very wrong!");
 	if(!Maps->isValidBlock(CellX, CellY, CellZ))
@@ -444,13 +446,16 @@ WorldSegment* ReadMapSegment(API &DF, int x, int y, int z, int sizex, int sizey,
 	uint32_t index;
 	TMR2_START;
 	DFHack::Maps *Maps;
-	try
+	if(!config.skipMaps)
 	{
-		Maps = DF.getMaps();
-	}
-	catch (exception &e)
-	{
-		WriteErr("%s\n", e.what());
+		try
+		{
+			Maps = DF.getMaps();
+		}
+		catch (exception &e)
+		{
+			WriteErr("%DFhack exeption: s\n", e.what());
+		}
 	}
 	DFHack::Materials *Mats;
 	try
@@ -459,7 +464,7 @@ WorldSegment* ReadMapSegment(API &DF, int x, int y, int z, int sizex, int sizey,
 	}
 	catch (exception &e)
 	{
-		WriteErr("%s\n", e.what());
+		WriteErr("DFhack exeption: %s\n", e.what());
 	}
 	DFHack::Position *Pos;
 	try
@@ -468,25 +473,33 @@ WorldSegment* ReadMapSegment(API &DF, int x, int y, int z, int sizex, int sizey,
 	}
 	catch (exception &e)
 	{
-		WriteErr("%s\n", e.what());
+		WriteErr("DFhack exeption: %s\n", e.what());
 	}
 	DFHack::Vegetation *Veg;
-	try
+	if(!config.skipVegetation)
 	{
-		Veg = DF.getVegetation();
-	}
-	catch (exception &e)
-	{
-		WriteErr("%s\n", e.what());
+		try
+		{
+			Veg = DF.getVegetation();
+		}
+		catch (exception &e)
+		{
+			WriteErr("DFhack exeption: %s\n", e.what());
+			config.skipVegetation = true;
+		}
 	}
 	DFHack::Constructions *Cons;
-	try
+	if(!config.skipConstructions)
 	{
-		Cons = DF.getConstructions();
-	}
-	catch (exception &e)
-	{
-		WriteErr("%s\n", e.what());
+		try
+		{
+			Cons = DF.getConstructions();
+		}
+		catch (exception &e)
+		{
+			WriteErr("DFhack exeption: %s\n", e.what());
+			config.skipConstructions = true;
+		}
 	}
 	DFHack::World *Wold;
 	if(!config.skipWorld)
@@ -497,15 +510,23 @@ WorldSegment* ReadMapSegment(API &DF, int x, int y, int z, int sizex, int sizey,
 		}
 		catch (exception &e)
 		{
-			WriteErr("%s\n", e.what());
+			WriteErr("DFhack exeption: %s\n", e.what());
 			config.skipWorld = true;
 		}
 	}
 
-	if(!Maps->Start())
+	if(!config.skipMaps)
 	{
-		WriteErr("Can't init map.");
-		DisconnectFromDF();
+		if(!Maps->Start())
+		{
+			WriteErr("Can't init map.");
+			DisconnectFromDF();
+			//return new blank segment
+			return new WorldSegment(x,y,z + 1,sizex,sizey,sizez + 1);
+		}
+	}
+	else
+	{
 		//return new blank segment
 		return new WorldSegment(x,y,z + 1,sizex,sizey,sizez + 1);
 	}
@@ -530,12 +551,12 @@ WorldSegment* ReadMapSegment(API &DF, int x, int y, int z, int sizex, int sizey,
 	//read date
 	if(!config.skipWorld)
 	{
-	contentLoader.currentYear = Wold->ReadCurrentYear();
-	contentLoader.currentTick = Wold->ReadCurrentTick();
-	contentLoader.currentMonth = (contentLoader.currentTick+9)/33600;
-	contentLoader.currentDay = ((contentLoader.currentTick+9)%33600)/1200;
-	contentLoader.currentHour = ((contentLoader.currentTick+9)-(((contentLoader.currentMonth*28)+contentLoader.currentDay)*1200))/50;
-	contentLoader.currentTickRel = (contentLoader.currentTick+9)-(((((contentLoader.currentMonth*28)+contentLoader.currentDay)*24)+contentLoader.currentHour)*50);
+		contentLoader.currentYear = Wold->ReadCurrentYear();
+		contentLoader.currentTick = Wold->ReadCurrentTick();
+		contentLoader.currentMonth = (contentLoader.currentTick+9)/33600;
+		contentLoader.currentDay = ((contentLoader.currentTick+9)%33600)/1200;
+		contentLoader.currentHour = ((contentLoader.currentTick+9)-(((contentLoader.currentMonth*28)+contentLoader.currentDay)*1200))/50;
+		contentLoader.currentTickRel = (contentLoader.currentTick+9)-(((((contentLoader.currentMonth*28)+contentLoader.currentDay)*24)+contentLoader.currentHour)*50);
 	}
 
 	//Read Number of cells
@@ -559,7 +580,8 @@ WorldSegment* ReadMapSegment(API &DF, int x, int y, int z, int sizex, int sizey,
 
 	//read world wide buildings
 	vector<t_building> allBuildings;
-	ReadBuildings(DF, &allBuildings);
+	if(!config.skipBuildings)
+		ReadBuildings(DF, &allBuildings);
 
 	/*if(GroundMaterialNamesTranslatedFromGame == false)
 	TranslateGroundMaterialNames();*/
@@ -578,22 +600,34 @@ WorldSegment* ReadMapSegment(API &DF, int x, int y, int z, int sizex, int sizey,
 	vector<t_construction> allConstructions;
 	uint32_t numconstructions = 0;
 
-	if (Cons->Start(numconstructions))
+	if(!config.skipConstructions)
 	{
-		t_construction tempcon;
-		index = 0;
-		while(index < numconstructions)
+		try
 		{
-			Cons->Read(index, tempcon);
-			if(segment->CoordinateInsideSegment(tempcon.x, tempcon.y, tempcon.z))
-				allConstructions.push_back(tempcon);
-			index++;
+			if (Cons->Start(numconstructions))
+			{
+				t_construction tempcon;
+				index = 0;
+				while(index < numconstructions)
+				{
+					Cons->Read(index, tempcon);
+					if(segment->CoordinateInsideSegment(tempcon.x, tempcon.y, tempcon.z))
+						allConstructions.push_back(tempcon);
+					index++;
+				}
+				Cons->Finish();
+			}
 		}
-		Cons->Finish();
+		catch(exception &e)
+		{
+			WriteErr("DFhack exception: %s\n", e.what());
+			config.skipConstructions = true;
+		}
 	}
 
 	//merge buildings with segment
-	MergeBuildingsToSegment(&allBuildings, segment);
+	if(!config.skipBuildings)
+		MergeBuildingsToSegment(&allBuildings, segment);
 
 	//figure out what cells to read
 	int32_t firstTileToReadX = x;
@@ -623,7 +657,7 @@ WorldSegment* ReadMapSegment(API &DF, int x, int y, int z, int sizex, int sizey,
 				//load the blcoks from this cell to the map segment
 				ReadCellToSegment(DF, *segment, cellx, celly, lz, 
 					firstTileToReadX, firstTileToReadY, lastTileToReadX, lastTileToReadY,
-					0, &allBuildings, &allConstructions, &layers, &global_features, &local_features);
+					0, &allBuildings, &allConstructions, &layers, &global_features, &local_features, Maps);
 
 			}
 			firstTileToReadY = lastTileToReadY + 1;
@@ -637,30 +671,34 @@ WorldSegment* ReadMapSegment(API &DF, int x, int y, int z, int sizex, int sizey,
 
 	//Read Vegetation
 	uint32_t numtrees;
-	try
+	if(!config.skipVegetation)
 	{
-		if (Veg->Start(numtrees))
+		try
 		{
-			t_tree temptree;
-			index = 0;
-			while(index < numtrees )
+			if (Veg->Start(numtrees))
 			{
-				Veg->Read(index, temptree);
-				//want hashtable :(
-				Block* b;
-				if( b = segment->getBlock( temptree.x, temptree.y, temptree.z) )
+				t_tree temptree;
+				index = 0;
+				while(index < numtrees )
 				{
-					b->tree.type = temptree.type;
-					b->tree.index = temptree.material;
+					Veg->Read(index, temptree);
+					//want hashtable :(
+					Block* b;
+					if( b = segment->getBlock( temptree.x, temptree.y, temptree.z) )
+					{
+						b->tree.type = temptree.type;
+						b->tree.index = temptree.material;
+					}
+					index ++;
 				}
-				index ++;
+				Veg->Finish();
 			}
-			Veg->Finish();
 		}
-	}
-	catch(exception &err)
-	{
-		WriteErr("Exeption: %s \n", err.what());
+		catch(exception &err)
+		{
+			WriteErr("DFhack exeption: %s\n", err.what());
+			config.skipVegetation = true;
+		}
 	}
 
 	////Read Effects
@@ -715,7 +753,7 @@ WorldSegment* ReadMapSegment(API &DF, int x, int y, int z, int sizex, int sizey,
 	//}
 	//Read Creatures
 	if(!config.skipCreatures)
-	ReadCreaturesToSegment( DF, segment );
+		ReadCreaturesToSegment( DF, segment );
 
 	//do misc beautification
 	uint32_t numblocks = segment->getNumBlocks();
@@ -765,7 +803,7 @@ bool ConnectDFAPI(API* pDF){
 	}
 	catch(exception & err)
 	{
-		WriteErr("Exeption: %s \n", err.what());
+		WriteErr("DFhack exeption: %s \n", err.what());
 		return false;
 	}
 	catch(...)
@@ -849,7 +887,7 @@ void FollowCurrentDFWindow( )
 	}
 	catch(exception &err)
 	{
-		WriteErr("Exeption: %s \n", err.what());
+		WriteErr("DFhack exeption: %s \n", err.what());
 		config.follow_DFscreen = false;
 	}
 }
@@ -881,7 +919,7 @@ void FollowCurrentDFCenter( )
 	}
 	catch(exception &err)
 	{
-		WriteErr("Exeption: %s \n", err.what());
+		WriteErr("DFhack exeption: %s \n", err.what());
 		config.follow_DFscreen = false;
 	}
 }
@@ -906,7 +944,7 @@ void reloadDisplayedSegment(){
 		catch (exception& e)
 		{
 			WriteErr("No Dwarf Fortress executable found\n");
-			WriteErr("Exeption:%s\n", e.what());
+			WriteErr("DFhack exeption: %s\n", e.what());
 			delete( pDFApiHandle );
 			pDFApiHandle = 0;
 			return ;
@@ -933,7 +971,7 @@ void reloadDisplayedSegment(){
 	}
 	catch (exception& e)
 	{
-		WriteErr("Exeption:%s\n", e.what());
+		WriteErr("DFhack exeption: %s\n", e.what());
 		return ;
 	}
 

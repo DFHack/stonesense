@@ -76,9 +76,9 @@ bool ContentLoader::Load(API& DF){
 	}
 	catch(exception &e)
 	{
-		WriteErr("%s\n", e.what());
+		WriteErr("DFhack exeption: %s\n", e.what());
 	}
-	if(!config.skipCreatureTypes);
+	if(!config.skipCreatureTypes)
 	{
 		try
 		{
@@ -86,7 +86,7 @@ bool ContentLoader::Load(API& DF){
 		}
 		catch(exception &e)
 		{
-			WriteErr("%s\n", e.what());
+			WriteErr("DFhack exeption: %s\n", e.what());
 			config.skipCreatureTypes = true;
 		}
 	}
@@ -98,33 +98,45 @@ bool ContentLoader::Load(API& DF){
 		}
 		catch(exception &e)
 		{
-			WriteErr("%s\n", e.what());
+			WriteErr("DFhack exeption: %s\n", e.what());
 			config.skipCreatureTypesEx = true;
 		}
 	}
-	try
+	if(!config.skipDescriptorColors)
 	{
-		Mats->ReadDescriptorColors();
+		try
+		{
+			Mats->ReadDescriptorColors();
+		}
+		catch(exception &e)
+		{
+			WriteErr("DFhack exeption: %s\n", e.what());
+			config.skipDescriptorColors = true;
+		}
 	}
-	catch(exception &e)
+	if(!config.skipInorganicMats)
 	{
-		WriteErr("%s\n", e.what());
+		try
+		{
+			Mats->ReadInorganicMaterials();
+		}
+		catch(exception &e)
+		{
+			WriteErr("DFhack exeption: %s\n", e.what());
+			config.skipInorganicMats = true;
+		}
 	}
-	try
+	if(!config.skipOrganicMats)
 	{
-		Mats->ReadInorganicMaterials();
-	}
-	catch(exception &e)
-	{
-		WriteErr("%s\n", e.what());
-	}
-	try
-	{
-		Mats->ReadOrganicMaterials();
-	}
-	catch(exception &e)
-	{
-		WriteErr("%s\n", e.what());
+		try
+		{
+			Mats->ReadOrganicMaterials();
+		}
+		catch(exception &e)
+		{
+			WriteErr("DFhack exeption: %s\n", e.what());
+			config.skipOrganicMats = true;
+		}
 	}
 	try
 	{
@@ -132,7 +144,7 @@ bool ContentLoader::Load(API& DF){
 	}
 	catch(exception &e)
 	{
-		WriteErr("%s\n", e.what());
+		WriteErr("DFhack exeption: %s\n", e.what());
 	}
 	try
 	{
@@ -140,7 +152,7 @@ bool ContentLoader::Load(API& DF){
 	}
 	catch(exception &e)
 	{
-		WriteErr("%s\n", e.what());
+		WriteErr("DFhack exeption: %s\n", e.what());
 	}
 	try
 	{
@@ -148,10 +160,10 @@ bool ContentLoader::Load(API& DF){
 	}
 	catch(exception &e)
 	{
-		WriteErr("%s\n", e.what());
+		WriteErr("DFhack exeption: %s\n", e.what());
 	}
 	Bld = DF.getBuildings();
-	DFHack::memory_info *mem = DF.getMemoryInfo();
+	contentLoader.MemInfo = DF.getMemoryInfo();
 	if(professionStrings.empty())
 	{
 		for(int i=0;; i++)
@@ -159,9 +171,9 @@ bool ContentLoader::Load(API& DF){
 			string temp;
 			try
 			{
-				temp =  mem->getProfession(i);
+				temp =  MemInfo->getProfession(i);
 			}
-			catch(exception &)
+			catch(exception &e)
 			{
 				break;
 			}
@@ -177,7 +189,7 @@ bool ContentLoader::Load(API& DF){
 		for(int i = 0; ; i++)
 		{
 			string temp;
-			if(!mem->resolveClassIDToClassname(i, temp))
+			if(!MemInfo->resolveClassIDToClassname(i, temp))
 			{
 				break;
 			}
@@ -453,15 +465,15 @@ int lookupMaterialIndex(int matType, const char* strValue)
 {
 	vector<t_matgloss>* typeVector;
 	// for appropriate elements, look up subtype
-	if (matType == INORGANIC)
+	if ((matType == INORGANIC) && (!config.skipInorganicMats))
 	{
 		typeVector=&(contentLoader.Mats->inorganic);
 	}
-	else if (matType == WOOD)
+	else if ((matType == WOOD) && (!config.skipOrganicMats))
 	{
 		typeVector=&(contentLoader.Mats->organic);
 	}
-	else if (matType == PLANTCLOTH)
+	else if ((matType == PLANTCLOTH) && (!config.skipOrganicMats))
 	{
 		typeVector=&(contentLoader.Mats->organic);
 	}
@@ -505,15 +517,15 @@ const char *lookupMaterialName(int matType,int matIndex)
 		return NULL;
 	vector<t_matgloss>* typeVector;
 	// for appropriate elements, look up subtype
-	if (matType == INORGANIC)
+	if ((matType == INORGANIC) && (!config.skipInorganicMats))
 	{
 		typeVector=&(contentLoader.Mats->inorganic);
 	}
-	else if (matType == WOOD)
+	else if ((matType == WOOD) && (!config.skipOrganicMats))
 	{
 		typeVector=&(contentLoader.Mats->organic);
 	}
-	else if (matType == PLANTCLOTH)
+	else if ((matType == PLANTCLOTH) && (!config.skipOrganicMats))
 	{
 		typeVector=&(contentLoader.Mats->organic);
 	}
@@ -534,6 +546,8 @@ const char *lookupMaterialName(int matType,int matIndex)
 
 const char *lookupTreeName(int matIndex)
 {
+	if(config.skipOrganicMats)
+		return NULL;
 	if (matIndex < 0)
 		return NULL;
 	vector<t_matgloss>* typeVector;

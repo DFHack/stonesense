@@ -63,7 +63,7 @@ Background color. setting this the same as the fog color produces a nice effect.
 [BACK_BLUE:177]
 
 Sets weather Stonesense should use a day/night effect
-[NIGHT:NO]
+[NIGHT:YES]
 
 This value, in milliseconds, is how long Stonesense waits between
 reloading the map. If zero, the autoreload will be disabled until

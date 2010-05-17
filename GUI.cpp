@@ -415,9 +415,10 @@ void drawDebugCursorAndInfo(){
 		//memset(strCreature, -1, 50);
 		draw_textf_border(font, 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
 			"flag1: %s Sex: %d", strCreature, b->creature->sex + 1);
-		int yy = al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font));
-		int xx = 2;
-		if((!config.skipCreatureTypes) && (!config.skipCreatureTypesEx))
+		if((!config.skipCreatureTypes) && (!config.skipCreatureTypesEx) && (!config.skipDescriptorColors))
+		{
+			int yy = al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font));
+			int xx = 2;
 			for(unsigned int j = 0; j<b->creature->nbcolors ; j++)
 			{
 				uint32_t cr_color = contentLoader.Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].colorlist[b->creature->color[j]];
@@ -437,6 +438,7 @@ void drawDebugCursorAndInfo(){
 					xx += get_textf_width(font, "%s ", contentLoader.Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].part);
 				}
 			}
+		}
 	}
 	if(b->designation.bits.traffic)
 	{

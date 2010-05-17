@@ -109,7 +109,7 @@ void ReadCreaturesToSegment(API& DF, WorldSegment* segment)
 		}
 		catch(exception &err)
 		{
-			WriteErr("%s\n", err.what());
+			WriteErr("DFhack exeption: %s\n", err.what());
 			config.skipCreatures = true;
 			return;
 		}
@@ -121,7 +121,7 @@ void ReadCreaturesToSegment(API& DF, WorldSegment* segment)
 	}
 	catch(exception &err)
 	{
-		WriteErr("Exeption: %s \n", err.what());
+		WriteErr("DFhack exeption: %s \n", err.what());
 		return;
 	}
 	if(!numcreatures) return;

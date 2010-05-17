@@ -70,34 +70,34 @@ ALLEGRO_COLOR getSpriteColor(t_SpriteWithOffset &sprite, t_creature* creature)
 	ALLEGRO_COLOR output;
 	if(sprite.shadeBy == ShadeBodyPart)
 	{
-		if((!config.skipCreatureTypes) && (!config.skipCreatureTypesEx))
+		if((!config.skipCreatureTypes) && (!config.skipCreatureTypesEx) && (!config.skipDescriptorColors))
 		{
 		for(unsigned int j = 0; j<b->creature->nbcolors ; j++)
 		{
 			if(strcmp(contentLoader.Mats->raceEx[creature->race].castes[creature->caste].ColorModifier[j].part, sprite.bodyPart) == 0)
 			{
 				uint32_t cr_color = contentLoader.Mats->raceEx[creature->race].castes[creature->caste].ColorModifier[j].colorlist[creature->color[j]];
-				if(cr_color < contentLoader.Mats->color.size())
-				{
-					if(contentLoader.Mats->raceEx[creature->race].castes[creature->caste].ColorModifier[j].startdate > 0)
+					if(cr_color < contentLoader.Mats->color.size())
 					{
-
-						if((contentLoader.Mats->raceEx[creature->race].castes[creature->caste].ColorModifier[j].startdate <= dayofLife) &&
-							(contentLoader.Mats->raceEx[creature->race].castes[creature->caste].ColorModifier[j].enddate > dayofLife))
+						if(contentLoader.Mats->raceEx[creature->race].castes[creature->caste].ColorModifier[j].startdate > 0)
 						{
-							output = al_map_rgb_f(
-								contentLoader.Mats->color[cr_color].r,
-								contentLoader.Mats->color[cr_color].v,
-								contentLoader.Mats->color[cr_color].b);
-							return output;
+
+							if((contentLoader.Mats->raceEx[creature->race].castes[creature->caste].ColorModifier[j].startdate <= dayofLife) &&
+								(contentLoader.Mats->raceEx[creature->race].castes[creature->caste].ColorModifier[j].enddate > dayofLife))
+							{
+								output = al_map_rgb_f(
+									contentLoader.Mats->color[cr_color].r,
+									contentLoader.Mats->color[cr_color].v,
+									contentLoader.Mats->color[cr_color].b);
+								return output;
+							}
 						}
+						else
+							output = al_map_rgb_f(
+							contentLoader.Mats->color[cr_color].r,
+							contentLoader.Mats->color[cr_color].v,
+							contentLoader.Mats->color[cr_color].b);
 					}
-					else
-						output = al_map_rgb_f(
-						contentLoader.Mats->color[cr_color].r,
-						contentLoader.Mats->color[cr_color].v,
-						contentLoader.Mats->color[cr_color].b);
-				}
 			}
 		}
 		return output;

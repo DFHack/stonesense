@@ -63,18 +63,48 @@ dirTypes findWallCloseTo(WorldSegment* segment, Block* b){
 
 void ReadBuildings(API& DF, vector<t_building>* buildingHolder)
 {
+	if(config.skipBuildings)
+		return;
 	if(!buildingHolder) return;
 
-	DFHack::Buildings * Bld = DF.getBuildings();
+	DFHack::Buildings * Bld;
+	try
+	{
+		Bld = DF.getBuildings();
+	}
+	catch (exception &e)
+	{
+		WriteErr("DFhack exeption: %s\n", e.what());
+		config.skipBuildings = true;
+		return;
+	}
 
 	vector<string> dummy;
 	uint32_t numbuildings = 0;
-	if (!Bld->Start(numbuildings)) return;
+	try
+	{
+		if (!Bld->Start(numbuildings)) return;
+	}
+	catch (exception &e)
+	{
+		WriteErr("DFhack exeption: %s\n", e.what());
+		config.skipBuildings = true;
+		return;
+	}
 	t_building tempbuilding;
 
 	uint32_t index = 0;
 	while(index < numbuildings){
-		Bld->Read(index, tempbuilding);
+		try
+		{
+			Bld->Read(index, tempbuilding);
+		}
+		catch (exception &e)
+		{
+			WriteErr("DFhack exeption: %s\n", e.what());
+			config.skipBuildings = true;
+			return;
+		}
 		buildingHolder->push_back(tempbuilding);
 		index++;
 	}
