@@ -103,6 +103,7 @@ bool addSingleCreatureConfig( TiXmlElement* elemCreature, vector<vector<Creature
 	if (gameID == INVALID_INDEX)
 		return false;
 	const char* sheetIndexStr;
+	int defaultFile;
 	t_SpriteWithOffset sprite;
 	sprite.fileIndex=basefile;
 	sprite.x=0;
@@ -120,7 +121,7 @@ bool addSingleCreatureConfig( TiXmlElement* elemCreature, vector<vector<Creature
 	const char* filename = elemCreature->Attribute("file");
 	if (filename != NULL && filename[0] != 0)
 	{
-		sprite.fileIndex = loadConfigImgFile((char*)filename,elemCreature);
+		sprite.fileIndex = defaultFile = loadConfigImgFile((char*)filename,elemCreature);
 	}
 	TiXmlElement* elemVariant = elemCreature->FirstChildElement("variant");
 	while( elemVariant ){
@@ -148,6 +149,7 @@ bool addSingleCreatureConfig( TiXmlElement* elemCreature, vector<vector<Creature
 		{
 			sprite.fileIndex = loadConfigImgFile((char*)filename,elemCreature);
 		}
+		else sprite.fileIndex = defaultFile;
 
 		const char* sexstr = elemVariant->Attribute("sex");
 		sheetIndexStr = elemVariant->Attribute("sheetIndex");
@@ -277,6 +279,7 @@ bool addSingleCreatureConfig( TiXmlElement* elemCreature, vector<vector<Creature
 	}
 
 	//create default config
+	sprite.fileIndex = defaultFile;
 	baseShadow;
 	sheetIndexStr = elemCreature->Attribute("sheetIndex");
 	sprite.animFrames = ALL_FRAMES;

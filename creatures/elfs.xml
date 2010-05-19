@@ -1,10 +1,428 @@
 <?xml version="1.0"?>
 <creatures>
-  <creature gameID="ELF" sheetIndex="0" file="elfs.png" color="bodypart" bodypart="skin">
+  <creature gameID="ELF" sheetIndex="0" file="elfs.png"
+  color="bodypart" bodypart="skin">
     <subsprite sheetIndex="1" color="bodypart" bodypart="hair" />
     <subsprite sheetIndex="2" />
     <subsprite sheetIndex="3" color="profession" />
-    <variant sex="F" sheetIndex="4" color="bodypart" bodypart="skin">
+    <variant prof="TRADER" sex="M" sheetIndex="2" file="elves.png">
+      <subsprite sheetIndex="2" color="bodypart" bodypart="hair"
+      file="elves_hair.png" />
+      <subsprite sheetIndex="2" color="bodypart" bodypart="skin"
+      file="elves_skin.png" />
+    </variant>
+    <variant prof="MERCHANT" sex="M" sheetIndex="2"
+    file="elves.png">
+      <subsprite sheetIndex="2" color="bodypart" bodypart="hair"
+      file="elves_hair.png" />
+      <subsprite sheetIndex="2" color="bodypart" bodypart="skin"
+      file="elves_skin.png" />
+    </variant>
+    <variant prof="HERBALIST" sex="M" sheetIndex="4"
+    file="elves.png">
+      <subsprite sheetIndex="4" color="bodypart" bodypart="hair"
+      file="elves_hair.png" />
+      <subsprite sheetIndex="4" color="bodypart" bodypart="skin"
+      file="elves_skin.png" />
+    </variant>
+    <variant prof="CLOTHIER" sex="M" sheetIndex="6"
+    file="elves.png">
+      <subsprite sheetIndex="6" color="bodypart" bodypart="hair"
+      file="elves_hair.png" />
+      <subsprite sheetIndex="6" color="bodypart" bodypart="skin"
+      file="elves_skin.png" />
+    </variant>
+    <variant prof="WEAVER" sex="M" sheetIndex="8" file="elves.png">
+      <subsprite sheetIndex="8" color="bodypart" bodypart="hair"
+      file="elves_hair.png" />
+      <subsprite sheetIndex="8" color="bodypart" bodypart="skin"
+      file="elves_skin.png" />
+    </variant>
+    <variant prof="WOODWORKER" sex="M" sheetIndex="10"
+    file="elves.png">
+      <subsprite sheetIndex="10" color="bodypart" bodypart="hair"
+      file="elves_hair.png" />
+      <subsprite sheetIndex="10" color="bodypart" bodypart="skin"
+      file="elves_skin.png" />
+    </variant>
+    <variant prof="WOODCRAFTER" sex="M" sheetIndex="10"
+    file="elves.png">
+      <subsprite sheetIndex="10" color="bodypart" bodypart="hair"
+      file="elves_hair.png" />
+      <subsprite sheetIndex="10" color="bodypart" bodypart="skin"
+      file="elves_skin.png" />
+    </variant>
+    <variant prof="BOWYER" sex="M" sheetIndex="10"
+    file="elves.png">
+      <subsprite sheetIndex="2" color="bodypart" bodypart="hair"
+      file="elves_hair.png" />
+      <subsprite sheetIndex="2" color="bodypart" bodypart="skin"
+      file="elves_skin.png" />
+    </variant>
+    <variant prof="ANIMAL_CARETAKER" sex="M" sheetIndex="12"
+    file="elves.png">
+      <subsprite sheetIndex="12" color="bodypart" bodypart="hair"
+      file="elves_hair.png" />
+      <subsprite sheetIndex="12" color="bodypart" bodypart="skin"
+      file="elves_skin.png" />
+    </variant>
+    <variant prof="RANGER" sex="M" sheetIndex="12"
+    file="elves.png">
+      <subsprite sheetIndex="12" color="bodypart" bodypart="hair"
+      file="elves_hair.png" />
+      <subsprite sheetIndex="12" color="bodypart" bodypart="skin"
+      file="elves_skin.png" />
+    </variant>
+    <variant prof="TRAPPER" sex="M" sheetIndex="12"
+    file="elves.png">
+      <subsprite sheetIndex="12" color="bodypart" bodypart="hair"
+      file="elves_hair.png" />
+      <subsprite sheetIndex="12" color="bodypart" bodypart="skin"
+      file="elves_skin.png" />
+    </variant>
+    <variant prof="HUNTER" sex="M" sheetIndex="12"
+    file="elves.png">
+      <subsprite sheetIndex="12" color="bodypart" bodypart="hair"
+      file="elves_hair.png" />
+      <subsprite sheetIndex="12" color="bodypart" bodypart="skin"
+      file="elves_skin.png" />
+    </variant>
+    <variant prof="WRESTLER" sex="M" sheetIndex="20"
+    file="elves.png">
+      <subsprite sheetIndex="20" color="bodypart" bodypart="hair"
+      file="elves_hair.png" />
+      <subsprite sheetIndex="20" color="bodypart" bodypart="skin"
+      file="elves_skin.png" />
+    </variant>
+    <variant prof="AXEMAN" sex="M" sheetIndex="28"
+    file="elves.png">
+      <subsprite sheetIndex="28" color="bodypart" bodypart="hair"
+      file="elves_hair.png" />
+      <subsprite sheetIndex="28" color="bodypart" bodypart="skin"
+      file="elves_skin.png" />
+    </variant>
+    <variant prof="HAMMERMAN" sex="M" sheetIndex="28"
+    file="elves.png">
+      <subsprite sheetIndex="28" color="bodypart" bodypart="hair"
+      file="elves_hair.png" />
+      <subsprite sheetIndex="28" color="bodypart" bodypart="skin"
+      file="elves_skin.png" />
+    </variant>
+    <variant prof="MACEMAN" sex="M" sheetIndex="26"
+    file="elves.png">
+      <subsprite sheetIndex="26" color="bodypart" bodypart="hair"
+      file="elves_hair.png" />
+      <subsprite sheetIndex="26" color="bodypart" bodypart="skin"
+      file="elves_skin.png" />
+    </variant>
+    <variant prof="BOWMAN" sex="M" sheetIndex="32"
+    file="elves.png">
+      <subsprite sheetIndex="32" color="bodypart" bodypart="hair"
+      file="elves_hair.png" />
+      <subsprite sheetIndex="32" color="bodypart" bodypart="skin"
+      file="elves_skin.png" />
+    </variant>
+    <variant prof="CROSSBOWMAN" sex="M" sheetIndex="34"
+    file="elves.png">
+      <subsprite sheetIndex="34" color="bodypart" bodypart="hair"
+      file="elves_hair.png" />
+      <subsprite sheetIndex="34" color="bodypart" bodypart="skin"
+      file="elves_skin.png" />
+    </variant>
+    <variant prof="SPEARMAN" sex="M" sheetIndex="24"
+    file="elves.png">
+      <subsprite sheetIndex="24" color="bodypart" bodypart="hair"
+      file="elves_hair.png" />
+      <subsprite sheetIndex="24" color="bodypart" bodypart="skin"
+      file="elves_skin.png" />
+    </variant>
+    <variant prof="SWORDSMAN" sex="M" sheetIndex="22/"
+    file="elves.png">
+      <subsprite sheetIndex="22" color="bodypart" bodypart="hair"
+      file="elves_hair.png" />
+      <subsprite sheetIndex="22" color="bodypart" bodypart="skin"
+      file="elves_skin.png" />
+    </variant>
+    <variant prof="BLOWGUNMAN" sex="M" sheetIndex="36"
+    file="elves.png">
+      <subsprite sheetIndex="36" color="bodypart" bodypart="hair"
+      file="elves_hair.png" />
+      <subsprite sheetIndex="36" color="bodypart" bodypart="skin"
+      file="elves_skin.png" />
+    </variant>
+    <variant prof="MASTER_WRESTLER" sex="M" sheetIndex="20"
+    file="elves.png">
+      <subsprite sheetIndex="20" color="bodypart" bodypart="hair"
+      file="elves_hair.png" />
+      <subsprite sheetIndex="20" color="bodypart" bodypart="skin"
+      file="elves_skin.png" />
+    </variant>
+    <variant prof="MASTER_AXEMAN" sex="M" sheetIndex="28"
+    file="elves.png">
+      <subsprite sheetIndex="28" color="bodypart" bodypart="hair"
+      file="elves_hair.png" />
+      <subsprite sheetIndex="28" color="bodypart" bodypart="skin"
+      file="elves_skin.png" />
+    </variant>
+    <variant prof="MASTER_HAMMERMAN" sex="M" sheetIndex="28"
+    file="elves.png">
+      <subsprite sheetIndex="28" color="bodypart" bodypart="hair"
+      file="elves_hair.png" />
+      <subsprite sheetIndex="28" color="bodypart" bodypart="skin"
+      file="elves_skin.png" />
+    </variant>
+    <variant prof="MASTER_MACEMAN" sex="M" sheetIndex="24"
+    file="elves.png">
+      <subsprite sheetIndex="24" color="bodypart" bodypart="hair"
+      file="elves_hair.png" />
+      <subsprite sheetIndex="24" color="bodypart" bodypart="skin"
+      file="elves_skin.png" />
+    </variant>
+    <variant prof="MASTER_BOWMAN" sex="M" sheetIndex="32"
+    file="elves.png">
+      <subsprite sheetIndex="32" color="bodypart" bodypart="hair"
+      file="elves_hair.png" />
+      <subsprite sheetIndex="32" color="bodypart" bodypart="skin"
+      file="elves_skin.png" />
+    </variant>
+    <variant prof="MASTER_CROSSBOWMAN" sex="M" sheetIndex="34"
+    file="elves.png">
+      <subsprite sheetIndex="34" color="bodypart" bodypart="hair"
+      file="elves_hair.png" />
+      <subsprite sheetIndex="34" color="bodypart" bodypart="skin"
+      file="elves_skin.png" />
+    </variant>
+    <variant prof="MASTER_SPEARMAN" sex="M" sheetIndex="24"
+    file="elves.png">
+      <subsprite sheetIndex="24" color="bodypart" bodypart="hair"
+      file="elves_hair.png" />
+      <subsprite sheetIndex="24" color="bodypart" bodypart="skin"
+      file="elves_skin.png" />
+    </variant>
+    <variant prof="MASTER_SWORDSMAN" sex="M" sheetIndex="22"
+    file="elves.png">
+      <subsprite sheetIndex="22" color="bodypart" bodypart="hair"
+      file="elves_hair.png" />
+      <subsprite sheetIndex="22" color="bodypart" bodypart="skin"
+      file="elves_skin.png" />
+    </variant>
+    <variant prof="MASTER_BLOWGUNMAN" sex="M" sheetIndex="36"
+    file="elves.png">
+      <subsprite sheetIndex="36" color="bodypart" bodypart="hair"
+      file="elves_hair.png" />
+      <subsprite sheetIndex="36" color="bodypart" bodypart="skin"
+      file="elves_skin.png" />
+    </variant>
+    <variant prof="TRADER" sex="F" sheetIndex="3" file="elves.png">
+      <subsprite sheetIndex="3" color="bodypart" bodypart="hair"
+      file="elves_hair.png" />
+      <subsprite sheetIndex="3" color="bodypart" bodypart="skin"
+      file="elves_skin.png" />
+    </variant>
+    <variant prof="MERCHANT" sex="F" sheetIndex="3"
+    file="elves.png">
+      <subsprite sheetIndex="3" color="bodypart" bodypart="hair"
+      file="elves_hair.png" />
+      <subsprite sheetIndex="3" color="bodypart" bodypart="skin"
+      file="elves_skin.png" />
+    </variant>
+    <variant prof="HERBALIST" sex="F" sheetIndex="5"
+    file="elves.png">
+      <subsprite sheetIndex="5" color="bodypart" bodypart="hair"
+      file="elves_hair.png" />
+      <subsprite sheetIndex="5" color="bodypart" bodypart="skin"
+      file="elves_skin.png" />
+    </variant>
+    <variant prof="CLOTHIER" sex="F" sheetIndex="7"
+    file="elves.png">
+      <subsprite sheetIndex="7" color="bodypart" bodypart="hair"
+      file="elves_hair.png" />
+      <subsprite sheetIndex="7" color="bodypart" bodypart="skin"
+      file="elves_skin.png" />
+    </variant>
+    <variant prof="WEAVER" sex="F" sheetIndex="9" file="elves.png">
+      <subsprite sheetIndex="9" color="bodypart" bodypart="hair"
+      file="elves_hair.png" />
+      <subsprite sheetIndex="9" color="bodypart" bodypart="skin"
+      file="elves_skin.png" />
+    </variant>
+    <variant prof="WOODWORKER" sex="F" sheetIndex="11"
+    file="elves.png">
+      <subsprite sheetIndex="11" color="bodypart" bodypart="hair"
+      file="elves_hair.png" />
+      <subsprite sheetIndex="11" color="bodypart" bodypart="skin"
+      file="elves_skin.png" />
+    </variant>
+    <variant prof="WOODCRAFTER" sex="F" sheetIndex="11"
+    file="elves.png">
+      <subsprite sheetIndex="11" color="bodypart" bodypart="hair"
+      file="elves_hair.png" />
+      <subsprite sheetIndex="11" color="bodypart" bodypart="skin"
+      file="elves_skin.png" />
+    </variant>
+    <variant prof="BOWYER" sex="F" sheetIndex="11"
+    file="elves.png">
+      <subsprite sheetIndex="11" color="bodypart" bodypart="hair"
+      file="elves_hair.png" />
+      <subsprite sheetIndex="11" color="bodypart" bodypart="skin"
+      file="elves_skin.png" />
+    </variant>
+    <variant prof="ANIMAL_CARETAKER" sex="F" sheetIndex="13"
+    file="elves.png">
+      <subsprite sheetIndex="13" color="bodypart" bodypart="hair"
+      file="elves_hair.png" />
+      <subsprite sheetIndex="13" color="bodypart" bodypart="skin"
+      file="elves_skin.png" />
+    </variant>
+    <variant prof="RANGER" sex="F" sheetIndex="13"
+    file="elves.png">
+      <subsprite sheetIndex="13" color="bodypart" bodypart="hair"
+      file="elves_hair.png" />
+      <subsprite sheetIndex="13" color="bodypart" bodypart="skin"
+      file="elves_skin.png" />
+    </variant>
+    <variant prof="TRAPPER" sex="F" sheetIndex="13"
+    file="elves.png">
+      <subsprite sheetIndex="13" color="bodypart" bodypart="hair"
+      file="elves_hair.png" />
+      <subsprite sheetIndex="13" color="bodypart" bodypart="skin"
+      file="elves_skin.png" />
+    </variant>
+    <variant prof="HUNTER" sex="F" sheetIndex="13"
+    file="elves.png">
+      <subsprite sheetIndex="13" color="bodypart" bodypart="hair"
+      file="elves_hair.png" />
+      <subsprite sheetIndex="13" color="bodypart" bodypart="skin"
+      file="elves_skin.png" />
+    </variant>
+    <variant prof="WRESTLER" sex="F" sheetIndex="21"
+    file="elves.png">
+      <subsprite sheetIndex="21" color="bodypart" bodypart="hair"
+      file="elves_hair.png" />
+      <subsprite sheetIndex="21" color="bodypart" bodypart="skin"
+      file="elves_skin.png" />
+    </variant>
+    <variant prof="AXEMAN" sex="F" sheetIndex="29"
+    file="elves.png">
+      <subsprite sheetIndex="29" color="bodypart" bodypart="hair"
+      file="elves_hair.png" />
+      <subsprite sheetIndex="29" color="bodypart" bodypart="skin"
+      file="elves_skin.png" />
+    </variant>
+    <variant prof="HAMMERMAN" sex="F" sheetIndex="29"
+    file="elves.png">
+      <subsprite sheetIndex="29" color="bodypart" bodypart="hair"
+      file="elves_hair.png" />
+      <subsprite sheetIndex="29" color="bodypart" bodypart="skin"
+      file="elves_skin.png" />
+    </variant>
+    <variant prof="MACEMAN" sex="F" sheetIndex="3"
+    file="elves.png">
+      <subsprite sheetIndex="3" color="bodypart" bodypart="hair"
+      file="elves_hair.png" />
+      <subsprite sheetIndex="3" color="bodypart" bodypart="skin"
+      file="elves_skin.png" />
+    </variant>
+    <variant prof="BOWMAN" sex="F" sheetIndex="33"
+    file="elves.png">
+      <subsprite sheetIndex="33" color="bodypart" bodypart="hair"
+      file="elves_hair.png" />
+      <subsprite sheetIndex="33" color="bodypart" bodypart="skin"
+      file="elves_skin.png" />
+    </variant>
+    <variant prof="CROSSBOWMAN" sex="F" sheetIndex="35"
+    file="elves.png">
+      <subsprite sheetIndex="35" color="bodypart" bodypart="hair"
+      file="elves_hair.png" />
+      <subsprite sheetIndex="35" color="bodypart" bodypart="skin"
+      file="elves_skin.png" />
+    </variant>
+    <variant prof="SPEARMAN" sex="F" sheetIndex="25"
+    file="elves.png">
+      <subsprite sheetIndex="25" color="bodypart" bodypart="hair"
+      file="elves_hair.png" />
+      <subsprite sheetIndex="25" color="bodypart" bodypart="skin"
+      file="elves_skin.png" />
+    </variant>
+    <variant prof="SWORDSMAN" sex="F" sheetIndex="23"
+    file="elves.png">
+      <subsprite sheetIndex="23" color="bodypart" bodypart="hair"
+      file="elves_hair.png" />
+      <subsprite sheetIndex="23" color="bodypart" bodypart="skin"
+      file="elves_skin.png" />
+    </variant>
+    <variant prof="BLOWGUNMAN" sex="F" sheetIndex="37"
+    file="elves.png">
+      <subsprite sheetIndex="37" color="bodypart" bodypart="hair"
+      file="elves_hair.png" />
+      <subsprite sheetIndex="37" color="bodypart" bodypart="skin"
+      file="elves_skin.png" />
+    </variant>
+    <variant prof="MASTER_WRESTLER" sex="F" sheetIndex="21"
+    file="elves.png">
+      <subsprite sheetIndex="21" color="bodypart" bodypart="hair"
+      file="elves_hair.png" />
+      <subsprite sheetIndex="21" color="bodypart" bodypart="skin"
+      file="elves_skin.png" />
+    </variant>
+    <variant prof="MASTER_AXEMAN" sex="F" sheetIndex="29"
+    file="elves.png">
+      <subsprite sheetIndex="29" color="bodypart" bodypart="hair"
+      file="elves_hair.png" />
+      <subsprite sheetIndex="29" color="bodypart" bodypart="skin"
+      file="elves_skin.png" />
+    </variant>
+    <variant prof="MASTER_HAMMERMAN" sex="F" sheetIndex="29"
+    file="elves.png">
+      <subsprite sheetIndex="29" color="bodypart" bodypart="hair"
+      file="elves_hair.png" />
+      <subsprite sheetIndex="29" color="bodypart" bodypart="skin"
+      file="elves_skin.png" />
+    </variant>
+    <variant prof="MASTER_MACEMAN" sex="F" sheetIndex="25"
+    file="elves.png">
+      <subsprite sheetIndex="25" color="bodypart" bodypart="hair"
+      file="elves_hair.png" />
+      <subsprite sheetIndex="25" color="bodypart" bodypart="skin"
+      file="elves_skin.png" />
+    </variant>
+    <variant prof="MASTER_BOWMAN" sex="F" sheetIndex="33"
+    file="elves.png">
+      <subsprite sheetIndex="33" color="bodypart" bodypart="hair"
+      file="elves_hair.png" />
+      <subsprite sheetIndex="33" color="bodypart" bodypart="skin"
+      file="elves_skin.png" />
+    </variant>
+    <variant prof="MASTER_CROSSBOWMAN" sex="F" sheetIndex="35"
+    file="elves.png">
+      <subsprite sheetIndex="35" color="bodypart" bodypart="hair"
+      file="elves_hair.png" />
+      <subsprite sheetIndex="35" color="bodypart" bodypart="skin"
+      file="elves_skin.png" />
+    </variant>
+    <variant prof="MASTER_SPEARMAN" sex="F" sheetIndex="25"
+    file="elves.png">
+      <subsprite sheetIndex="25" color="bodypart" bodypart="hair"
+      file="elves_hair.png" />
+      <subsprite sheetIndex="25" color="bodypart" bodypart="skin"
+      file="elves_skin.png" />
+    </variant>
+    <variant prof="MASTER_SWORDSMAN" sex="F" sheetIndex="23"
+    file="elves.png">
+      <subsprite sheetIndex="23" color="bodypart" bodypart="hair"
+      file="elves_hair.png" />
+      <subsprite sheetIndex="23" color="bodypart" bodypart="skin"
+      file="elves_skin.png" />
+    </variant>
+    <variant prof="MASTER_BLOWGUNMAN" sex="F" sheetIndex="37"
+    file="elves.png">
+      <subsprite sheetIndex="37" color="bodypart" bodypart="hair"
+      file="elves_hair.png" />
+      <subsprite sheetIndex="37" color="bodypart" bodypart="skin"
+      file="elves_skin.png" />
+    </variant>
+    <variant sex="F" sheetIndex="4" color="bodypart"
+    bodypart="skin">
       <subsprite sheetIndex="5" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="6" />
       <subsprite sheetIndex="7" color="profession" />
