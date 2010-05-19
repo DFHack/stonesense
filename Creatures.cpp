@@ -32,7 +32,7 @@ void DrawCreature(int drawx, int drawy, t_creature* creature ){
 
 	t_SpriteWithOffset sprite = GetCreatureSpriteMap( creature );
 	//if(creature->x == 151 && creature->y == 145)
-	//  int j = 10;    	
+	//  int j = 10; 
 	ALLEGRO_BITMAP* creatureSheet;
 	if (sprite.fileIndex == -1)
 	{

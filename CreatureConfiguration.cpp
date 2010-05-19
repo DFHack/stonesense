@@ -103,7 +103,7 @@ bool addSingleCreatureConfig( TiXmlElement* elemCreature, vector<vector<Creature
 	if (gameID == INVALID_INDEX)
 		return false;
 	const char* sheetIndexStr;
-	int defaultFile;
+	int defaultFile = basefile;
 	t_SpriteWithOffset sprite;
 	sprite.fileIndex=basefile;
 	sprite.x=0;
