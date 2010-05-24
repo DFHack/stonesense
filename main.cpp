@@ -272,6 +272,14 @@ int main(void)
 	debugCursor.x = config.segmentSize.x / 2;
 	debugCursor.y = config.segmentSize.y / 2;
 
+	uint32_t version = al_get_allegro_version();
+	int major = version >> 24;
+	int minor = (version >> 16) & 255;
+	int revision = (version >> 8) & 255;
+	int release = version & 255;
+
+	WriteErr("Using allegro version %d.%d.%d r%d\n", major, minor, revision, release);
+
 
 	int gfxMode = config.Fullscreen ? ALLEGRO_FULLSCREEN : ALLEGRO_WINDOWED;
 	al_set_new_display_flags(gfxMode|ALLEGRO_RESIZABLE|(config.opengl ? ALLEGRO_OPENGL : 0)|(config.directX ? ALLEGRO_DIRECT3D_INTERNAL : 0));

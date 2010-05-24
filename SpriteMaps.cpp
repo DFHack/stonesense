@@ -49,6 +49,12 @@ t_SpriteWithOffset GetTerrainSpriteMap(int in, t_matglossPair material, vector<T
 			return terrain->defaultSprite[0];
 		else return terrain->defaultSprite[tempform];
 	}
+	if(material.index == -1)
+	{
+		if(terrainMat->defaultSprite[tempform].sheetIndex == UNCONFIGURED_INDEX)
+			return terrainMat->defaultSprite[0];
+		else return terrainMat->defaultSprite[tempform];
+	}
 	// return subtype, type default or terrain default as available
 	// do map lookup
 	map<int,t_SpriteWithOffset>::iterator it = terrainMat->overridingMaterials[tempform].find(material.index);

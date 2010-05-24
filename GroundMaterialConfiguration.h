@@ -13,7 +13,7 @@ class TerrainMaterialConfiguration
 public:
 	vector<t_SpriteWithOffset> defaultSprite;
 	int gameID;
-	vector<map<int,t_SpriteWithOffset>> overridingMaterials;
+	vector<map<int,t_SpriteWithOffset> > overridingMaterials;
 	
 	TerrainMaterialConfiguration();
 	~TerrainMaterialConfiguration(){}

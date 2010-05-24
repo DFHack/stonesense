@@ -355,8 +355,8 @@ void drawDebugCursorAndInfo(){
 		const char* matName = lookupMaterialTypeName(b->material.type);
 		const char* subMatName = lookupMaterialName(b->material.type,b->material.index);
 		draw_textf_border(font, 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0,
-			"%s %s:%i Material:%s%s%s", formName, tform, ttype, 
-			matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
+			"%s %s:%i Material:%s%s%s (%d,%d)", formName, tform, ttype, 
+			matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"", b->material.type,b->material.index);
 	}
 	//if (tform != NULL)
 	//{
