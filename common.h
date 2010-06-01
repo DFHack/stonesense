@@ -164,6 +164,7 @@ enum dirRelative{
 
 //main.cpp
 void correctBlockForSegmetOffset(int32_t& x, int32_t& y, int32_t& z);
+uint32_t IntNoise(uint32_t x);
 
 void WriteErr(char* msg, ...);
 void LogVerbose(char* msg, ...);

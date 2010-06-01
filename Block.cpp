@@ -33,7 +33,7 @@ void initRandomCube()
 	for(int i = 0; i < RANDOM_CUBE; i++)
 		for(int j = 0; j < RANDOM_CUBE; j++)
 			for(int k = 0; k < RANDOM_CUBE; k++)
-				randomCube[i][j][k] = rand();
+				randomCube[i][j][k] = IntNoise(i+(j*RANDOM_CUBE)+(k*RANDOM_CUBE*RANDOM_CUBE));
 }
 
 Block::Block(WorldSegment* ownerSegment)
@@ -434,7 +434,7 @@ void Block::Draw(){
 	// creature
 	// ensure there is *some* creature according to the map data
 	// (no guarantee it is the right one)
-	if(creaturePresent)
+	if(creaturePresent&&((!designation.bits.hidden)||config.show_hidden_blocks))
 	{
 		DrawCreature(drawx, drawy, creature);
 	}
@@ -522,7 +522,7 @@ void Block::Drawcreaturetext(){
 	// creature
 	// ensure there is *some* creature according to the map data
 	// (no guarantee it is the right one)
-	if(creaturePresent)
+	if(creaturePresent&&((!designation.bits.hidden)||config.show_hidden_blocks))
 	{
 		DrawCreatureText(drawx, drawy, creature);
 	}
