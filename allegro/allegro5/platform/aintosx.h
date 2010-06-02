@@ -46,7 +46,7 @@
 #endif
 
 #if MAC_OS_X_VERSION_MIN_REQUIRED < 1040
-#error Cannot target OS X versions before 10.4
+#error Can't target OS X versions before 10.4
 #endif
 
 /* We include code to detect a "dead bootstrap context" and fail

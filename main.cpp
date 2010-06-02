@@ -61,13 +61,6 @@ int32_t viewz = 0;
 bool followmode = true;*/
 volatile int close_button_pressed = false;
 
-uint32_t IntNoise(uint32_t x)			 
-{
-	x = (x<<13) ^ x;
-	return (x * (x * x * 15731 + 789221) + 1376312589) & 0x7fffffff;    
-}
-
-
 void WriteErr(char* msg, ...){
 	va_list arglist;
 	va_start(arglist, msg);
@@ -272,6 +265,7 @@ int main(void)
 	config.fontsize = 10;
 	config.font = al_create_path("DejaVuSans.ttf");
 	config.creditScreen = true;
+	initRandomCube();
 	loadConfigFile();
 	loadfont();
 	//set debug cursor
