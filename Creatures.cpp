@@ -11,7 +11,192 @@
 //vector<t_matgloss> v_creatureNames;
 //vector<CreatureConfiguration> creatureTypes;
 
-
+ALLEGRO_USTR* bufferToUstr(const char* buffer, int length)
+{
+	ALLEGRO_USTR* temp = al_ustr_new("");
+	for(int i = 0; i < length; i++)
+	{
+		switch((unsigned char)buffer[i])
+		{
+		case 0:
+			{
+				i = length;
+				break;
+			}
+		case 128:
+			{
+				al_ustr_append_chr(temp, 0xC7);
+				break;
+			}
+		case 129:
+			{
+				al_ustr_append_chr(temp, 0xFC);
+				break;
+			}
+		case 130:
+			{
+				al_ustr_append_chr(temp, 0xE9);
+				break;
+			}
+		case 131:
+			{
+				al_ustr_append_chr(temp, 0xE2);
+				break;
+			}
+		case 132:
+			{
+				al_ustr_append_chr(temp, 0xE4);
+				break;
+			}
+		case 133:
+			{
+				al_ustr_append_chr(temp, 0xE0);
+				break;
+			}
+		case 134:
+			{
+				al_ustr_append_chr(temp, 0xE5);
+				break;
+			}
+		case 135:
+			{
+				al_ustr_append_chr(temp, 0xE7);
+				break;
+			}
+		case 136:
+			{
+				al_ustr_append_chr(temp, 0xEA);
+				break;
+			}
+		case 137:
+			{
+				al_ustr_append_chr(temp, 0xEB);
+				break;
+			}
+		case 138:
+			{
+				al_ustr_append_chr(temp, 0xE8);
+				break;
+			}
+		case 139:
+			{
+				al_ustr_append_chr(temp, 0xEF);
+				break;
+			}
+		case 140:
+			{
+				al_ustr_append_chr(temp, 0xEE);
+				break;
+			}
+		case 141:
+			{
+				al_ustr_append_chr(temp, 0xC4);
+				break;
+			}
+		case 142:
+			{
+				al_ustr_append_chr(temp, 0xC5);
+				break;
+			}
+		case 143:
+			{
+				al_ustr_append_chr(temp, 0xC9);
+				break;
+			}
+		case 144:
+			{
+				al_ustr_append_chr(temp, 0xFC);
+				break;
+			}
+		case 145:
+			{
+				al_ustr_append_chr(temp, 0xE9);
+				break;
+			}
+		case 146:
+			{
+				al_ustr_append_chr(temp, 0xC6);
+				break;
+			}
+		case 147:
+			{
+				al_ustr_append_chr(temp, 0xF4);
+				break;
+			}
+		case 148:
+			{
+				al_ustr_append_chr(temp, 0xF6);
+				break;
+			}
+		case 149:
+			{
+				al_ustr_append_chr(temp, 0xF2);
+				break;
+			}
+		case 150:
+			{
+				al_ustr_append_chr(temp, 0xFB);
+				break;
+			}
+		case 151:
+			{
+				al_ustr_append_chr(temp, 0xF9);
+				break;
+			}
+		case 152:
+			{
+				al_ustr_append_chr(temp, 0xFF);
+				break;
+			}
+		case 153:
+			{
+				al_ustr_append_chr(temp, 0xD6);
+				break;
+			}
+		case 154:
+			{
+				al_ustr_append_chr(temp, 0xDC);
+				break;
+			}
+		case 160:
+			{
+				al_ustr_append_chr(temp, 0xE1);
+				break;
+			}
+		case 161:
+			{
+				al_ustr_append_chr(temp, 0xED);
+				break;
+			}
+		case 162:
+			{
+				al_ustr_append_chr(temp, 0xF3);
+				break;
+			}
+		case 163:
+			{
+				al_ustr_append_chr(temp, 0xFA);
+				break;
+			}
+		case 164:
+			{
+				al_ustr_append_chr(temp, 0xF1);
+				break;
+			}
+		case 165:
+			{
+				al_ustr_append_chr(temp, 0xD1);
+				break;
+			}
+		default:
+			{
+				al_ustr_append_chr(temp, buffer[i]);
+				break;
+			}
+		}
+	}
+	return temp;		
+}
 
 bool IsCreatureVisible( t_creature* c ){
 	if( config.show_all_creatures ) return true;
@@ -76,10 +261,11 @@ void DrawCreatureText(int drawx, int drawy, t_creature* creature ){
 			char buffer[128];
 			strncpy(buffer,creature->name.first_name,127);
 			buffer[127]=0;
+			ALLEGRO_USTR* temp = bufferToUstr(buffer, 128);
 			if (buffer[0]>90)
 				buffer[0] -= 32;
-			draw_textf_border(font, drawx, drawy-(20+al_get_font_line_height(font)), 0,
-				"%s", buffer );
+			draw_ustr_border(font, drawx, drawy-(20+al_get_font_line_height(font)), 0,
+				temp );
 		}
 		else if (config.names_use_species)
 		{
