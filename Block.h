@@ -35,7 +35,6 @@ public:
 	t_designation designation;
 	t_occupancy occ;
 	t_creature * creature;
-	//bool mirroredBuilding;
 	t_matglossPair tree;
 
 	int mudlevel;

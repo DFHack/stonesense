@@ -1069,9 +1069,12 @@ size=212
         WORLD + 0x54374
         <Address name="global_feature_vector">0x16AF4FC</Address>
         <Offset name= "global_feature_funcptr_">0x100</Offset>
+        <Offset name="global_feature_mat">0x34</Offset>
+        <Offset name="global_feature_submat">0x38</Offset>
         WORLD + 0x54440
         <Address name="local_feature_start_ptr">0x16AF5C8</Address>
-
+        <Offset name="local_feature_mat">0x30</Offset>
+        <Offset name="local_feature_submat">0x34</Offset>
         <!--
 map_data_map_x_offset         0x0058
 map_data_map_y_offset         0x005A
@@ -1541,7 +1544,6 @@ map_data_1b60_offset          0x1B9c
         <Address name="current_tick">0x0e47e08</Address>
         <Address name="current_year">0x0e79f00</Address>
     </Entry>
-    
     <Entry version="v0.31.04" os="windows" id="0.31.04" base="0.31.03" rebase="0x0">
         <String name="md5">655a895c5b90d15eb9bb71e28c6c62e5</String>
         <HexValue name="pe_timestamp">0x4bf014fa</HexValue>
@@ -1587,13 +1589,72 @@ map_data_1b60_offset          0x1B9c
         <Address name="buildings_vector">0x16793e8</Address> 
         <Address name="items_vector">0x1678800</Address>
 
+        <Address name="window_dims">0x18030fc</Address> 0x17f6b00
+        <Address name="window_x">0xe640dc</Address>0xe32798 01
+        <Address name="window_y">0xe921b0</Address>0xe60838 01
+        <Address name="window_z">0xe9218c</Address>0xe60814 01
+        <Address name="cursor_xyz">0xae92c8</Address>0xae82cc 01
+
         <Offset name="item_type_accessor">0x0</Offset> Why do i have to redefine this ???
-		
-		<Address name="window_dims">0x18030fc</Address> 0x17f6b00
-		<Address name="window_x">0xe640dc</Address>0xe32798 01
-		<Address name="window_y">0xe921b0</Address>0xe60838 01
-		<Address name="window_z">0xe9218c</Address>0xe60814 01
-		<Address name="cursor_xyz">0xae92c8</Address>0xae82cc 01
+    </Entry>
+    <Entry version="v0.31.05" os="windows" id="0.31.05" base="0.31.04" rebase="0x8010">
+        <String name="md5">394ff63fc00fedd5df0b36e4beb589bc</String>
+        <HexValue name="pe_timestamp">0x4c091569</HexValue>
+        <!--<Address name="creature_vector">0x1678704</Address> CHMOD-->
+        <Address name="dwarf_race_index">0x014abee4</Address> CHMOD
+        <Address name="dwarf_civ_id">0x1471FB0</Address> BOGUS!
+<!--
+        <Address name="mat_inorganics">0x16BD0B0</Address> 
+        <Address name="mat_organics_all">0x16BD0C8</Address> 
+        <Address name="mat_organics_plants">0x16bd0e0</Address> 
+        <Address name="mat_organics_trees">0x16bd110</Address> 
+        <Address name="creature_type_vector">0x16BD204</Address> 
+        <Address name="descriptor_colors_vector">0x16C5ACC</Address> 
+        <Address name="descriptor_all_colors">0x16C5AFC</Address> 
+        -->
+        <!--<Address name="mat_other">0x16C6478</Address>-->
+        <!--<Address name="mat_stuff">0x16C6478</Address> -->
+        <!--<Address name="descriptor_vectors_start">0x16C5AE4</Address> -->
+        <!--
+        <Address name="language_vector">0x16BD384</Address> OLD
+        <Address name="translation_vector">0x16BD3B4</Address> OLD
+        
+        <Address name="language_vector">0x016c539c</Address> CHMOD
+        <Address name="translation_vector">0x016c53cc</Address> CHMOD
+        -->
+        <Address name="current_tick">0xE80780</Address> LOOKS O.K.
+        <Address name="current_year">0xEB2878</Address> LOOKS O.K.
+<!--
+        <Address name="map_data">0x16c2ad4</Address> old 0x016BAAC4
+        <Address name="x_count_block">0x16c2af4</Address> old 0x016BAAE4
+        <Address name="y_count_block">0x16c2af8</Address> old 0x016BAAE8
+        <Address name="z_count_block">0x16c2afc</Address> old 0x016BAAEC
+        <Address name="x_count">0x16c2b00</Address> old 0x016BAAF0
+        <Address name="y_count">0x16c2b04</Address> old 0x016BAAF4
+        <Address name="z_count">0x16c2b08</Address> old 0x016BAAF8
+        <Address name="region_x">0x16c2b0C</Address> old 0x016BAAFC
+        <Address name="region_y">0x16c2b10</Address> old 0x016BAB00
+        <Address name="region_z">0x16c2b14</Address> old 0x016BAB04
+        <Address name="world_size_x">0x16C4190</Address> VERIFIED
+        <Address name="world_size_y">0x16C4192</Address> VERIFIED
+        <Address name="geoblock_vector">0x16C48E8</Address> LOOKS O.K.
+        <Address name="ptr2_region_array">0x16C4930</Address> LOOKS O.K.
+        <Address name="global_feature_vector">0x16C48B8</Address> LOOKS O.K.
+        <Address name="local_feature_start_ptr">0x16BC974</Address> 
+
+        <Address name="construction_vector">0x1664CD8</Address> 
+        <Address name="vegetation_vector">0x1679D54</Address>
+        <Address name="buildings_vector">0x16793e8</Address> 
+        <Address name="items_vector">0x1678800</Address> 
+-->
+        <Address name="window_dims">0x180b10c</Address> LOOKS O.K.
+        <Address name="window_x">0xe6c0dc</Address> VERIFIED
+        <Address name="window_y">0xe9a1b0</Address> VERIFIED
+        <Address name="window_z">0xe9a18c</Address> VERIFIED
+        <Address name="cursor_xyz">0xaf12cc</Address> VERIFIED
+
+        <Offset name="item_type_accessor">0x0</Offset> Why do i have to redefine this ???
+        ... what?
     </Entry>
         
                             .-"""-.
@@ -1619,135 +1680,78 @@ map_data_1b60_offset          0x1B9c
     <!-- Windows logo by Microsoft -->
     <!-- Tux logo by the Linux guys :) -->
 
-    <Entry version="v0.30_04" os="linux" id="30_04lin" base="meta-2010">
-        <String name="md5">1d759a11af258263ef5c139d6d9a3e15</String>
+    <Entry version="linux-offsets-2010" os="all" id="linux-offsets-2010" base="meta-2010">
         Basic things
         ============
-        <HexValue name="sizeof_vector">0xC</HexValue>
-        <Offset name="vector_triplet">0x0</Offset>
-        <HexValue name="sizeof_string">0x4</HexValue>
-        <!-- most probably a static object, because its parts are often
-             referenced as offset to this address *and* as addresses    -->
-        <Address name="WORLD">0x0</Address> 0x0165B188
+        <HexValue name="sizeof_vector">0xC</HexValue> VERIFIED
+        <Offset name="vector_triplet">0x0</Offset> VERIFIED
+        <HexValue name="sizeof_string">0x4</HexValue> VERIFIED
 
-        Position and window dimensions
-        ==============================
-        <Address name="window_x">0x8cd3b18</Address> 0xe32798
-        <Address name="window_y">0x8cd3b1c</Address> 0xe60838
-        <Address name="window_z">0x8cd3b20</Address> 0xe60814
-        <Address name="cursor_xyz">0x8b17370</Address> 0xae82cc
-
-        <Address name="window_dims">0x9464d6c</Address> 0x17f5ab8
-        GUI State
-        =========
-        <Address name="pause_state">0x92c971c</Address> 0x146e45f
-<!--
-        Bogus: <Address name="current_cursor_creature">0xae82cc</Address>
-
-        <Address name="current_menu_state">0x017f6f38</Address>
-
-        Bogus: <Address name="view_screen">0xae82cc</Address>
--->
-        Map stuff
-        =========
-        <Address name="map_data">0x9322d20</Address>
-        <Offset name="map_data_vein_vector">0x08</Offset>
-        <Offset name="map_data_feature_local">0x20</Offset>
-        <Offset name="map_data_feature_global">0x24</Offset>
-        <Offset name="map_data_type">0x006A</Offset>
-        <Offset name="map_data_designation">0x026C</Offset>
-        <Offset name="map_data_occupancy">0x066c</Offset>
-        <Offset name="map_data_temperature1_offset">0x156c</Offset>
-        <Offset name="map_data_temperature2_offset">0x176c</Offset>
-        <Offset name="map_data_biome_stuffs">0x1D6C</Offset>
-        <Offset name="map_data_pathfinding_offset">0x0D6c</Offset>
-
-        Map Features
-        ============
-        WORLD + 0x54374
-        <Address name="global_feature_vector">0x16AF4FC</Address>
-        <Offset name= "global_feature_funcptr_">0x100</Offset>
-        WORLD + 0x54440
-        <Address name="local_feature_start_ptr">0x16AF5C8</Address>
-
-        * map size in blocks *
+        MAP BLOCK OFFSETS
+        =================
+        <Offset name="map_data_vein_vector">0x08</Offset> VERIFIED
+        <Offset name="map_data_feature_local">0x20</Offset> VERIFIED
+        <Offset name="map_data_feature_global">0x24</Offset> VERIFIED
+        <Offset name="map_data_type">0x006A</Offset> VERIFIED
+        <Offset name="map_data_designation">0x026C</Offset> VERIFIED
+        <Offset name="map_data_occupancy">0x066c</Offset> VERIFIED
+        <Offset name="map_data_temperature1_offset">0x156c</Offset> VERIFIED
+        <Offset name="map_data_temperature2_offset">0x176c</Offset> VERIFIED
+        <Offset name="map_data_biome_stuffs">0x1D6C</Offset> VERIFIED
+        <Offset name="map_data_pathfinding_offset">0x0D6c</Offset> VERIFIED
         
+        MAP FEATURE OFFSETS
+        ===================
+        <Offset name= "global_feature_funcptr_">0x94</Offset> VERIFIED
+        <Offset name="global_feature_mat">0x28</Offset> VERIFIED
+        <Offset name="global_feature_submat">0x2C</Offset> VERIFIED
+        
+        <Offset name="local_feature_mat">0x24</Offset> VERIFIED
+        <Offset name="local_feature_submat">0x28</Offset> VERIFIED
 
-        <Address name="x_count_block">0x9322d34</Address> 0x016ad738
-        <Address name="y_count_block">0x9322d38</Address>0x016ad73C
-        <Address name="z_count_block">0x9322d3C</Address>0x016ad740
-        
-        * map size in tiles *
-        <Address name="x_count">0x9322d40</Address> 0x016ad744
-        <Address name="y_count">0x9322d44</Address> 0x016ad748
-        <Address name="z_count">0x9322d48</Address> 0x016ad74C
-        
-        * region coords *
-        WORLD + 0x525C8
-        <Address name="region_x">0x9322d4C</Address> 0x016ad750
-        WORLD + 0x525CC
-        <Address name="region_y">0x9322d50</Address> 0x016ad754
-        WORLD + 0x525D0
-        <Address name="region_z">0x9322d54</Address> 0x016ad758
-        
-        * World size * (WORDs)
-        <Address name="world_size_x">0x016AEDD4</Address> FIX
-        <Address name="world_size_y">0x016AEDD6</Address> FIX
-        
-        <Address name="geoblock_vector">0x16AF52C</Address> FIX
-        <Address name="ptr2_region_array">0x16AF574</Address> FIX
-        
         values for the region structure
         ===============================
-        <HexValue name="region_size">0x64</HexValue> FIX
-        <Offset name="region_geo_index_off">0x60</Offset> FIX
+        <HexValue name="region_size">0x58</HexValue> VERIFIED
+        <Offset name="region_geo_index_off">0x54</Offset> VERIFIED
         geoblock offsets
         ================
-        <Offset name="geolayer_geoblock_offset">0x4</Offset> vector
-        <Offset name="type_inside_geolayer">0x4</Offset> vector
+        <Offset name="geolayer_geoblock_offset">0x4</Offset> VERIFIED
+        <Offset name="type_inside_geolayer">0x4</Offset> VERIFIED
         
         Name struct
         ===========
-        <Offset name="name_firstname">0x0</Offset>
-        <Offset name="name_nickname">0x4</Offset>
-        <Offset name="name_words">0x8</Offset>
-        <!--
-        Creatures
-        =========
-        <Address name="creature_vector">0x0166ecc4</Address>
-        <Address name="dwarf_race_index">0x01470fbc</Address>
-        <Address name="dwarf_civ_id">0x01470fb0</Address>
-        
+        <Offset name="name_firstname">0x0</Offset> VERIFIED
+        <Offset name="name_nickname">0x4</Offset> VERIFIED
+        <Offset name="name_words">0x8</Offset> VERIFIED
+
+        Creature offsets
+        ================
         <Offset name="creature_name">0x0</Offset>
         <Offset name="creature_custom_profession">0x6c</Offset>
-        <Offset name="creature_profession">0x88</Offset>
-        <Offset name="creature_race">0x8C</Offset>
+        <Offset name="creature_profession">0x3c</Offset> *
+        <Offset name="creature_race">0x44</Offset> *
         <Offset name="creature_position">0x90</Offset>
-        <Offset name="creature_flags1">0xF8</Offset>
-        <Offset name="creature_flags2">0xFC</Offset>
-        <Offset name="creature_sex">0x110</Offset>
+        <Offset name="creature_flags1">0x8C</Offset> *
+        <Offset name="creature_flags2">0x90</Offset> *
+        <Offset name="creature_caste">0x110</Offset>
+        <Offset name="creature_sex">0xA6</Offset> *
         <Offset name="creature_id">0x114</Offset>
-        <Offset name="creature_civ">0X120</Offset>
+        <Offset name="creature_civ">0XB4</Offset> *
         <Offset name="creature_soulskill_vector">0X1F4</Offset>
         <Offset name="creature_pickup_equipment_bit">0X21C</Offset>
-        <Offset name="creature_mood">0x288</Offset>
         
-        <Offset name="creature_pregnancy">0x28C</Offset>
-        <Offset name="creature_pregnancy_ptr">0x290</Offset>
-        <Offset name="creature_birth_year">0x298</Offset>
-        <Offset name="creature_birth_time">0x29C</Offset>
-        
+        <Offset name="creature_mood">0x18C</Offset> *
+        <Offset name="creature_birth_year">0x19C</Offset> *
+        <Offset name="creature_birth_time">0x1A0</Offset> *
         <Offset name="creature_physical">0x464</Offset>
-        <Offset name="creature_current_job">0x390</Offset>
-        
+        <Offset name="creature_current_job">0x390</Offset> from chmod
         <Offset name="creature_mood_skill">0x394</Offset> the skill that will be increased at the end of the mood (or not)
-        <Offset name="creature_appearance_vector">0x604</Offset> seems to be indexes in the list of possible colors defined in the raws for each group
-        
-        <Offset name="creature_artifact_name">0x6D0</Offset>
-        <Offset name="creature_labors">0x770</Offset>
-        <Offset name="creature_soul_vector">0x073C</Offset>
-        <Offset name="creature_default_soul">0x0754</Offset>
-        <Offset name="creature_happiness">0x830</Offset>
+        <Offset name="creature_appearance_vector">0x604</Offset>
+        <Offset name="creature_artifact_name">0x6D4</Offset>
+        <Offset name="creature_labors">0x774</Offset>
+        <Offset name="creature_soul_vector">0x0740</Offset>
+        <Offset name="creature_default_soul">0x0758</Offset>
+        <Offset name="creature_happiness">0x834</Offset>
 
         Souls
         =====
@@ -1755,6 +1759,23 @@ map_data_1b60_offset          0x1B9c
         <Offset name="soul_skills_vector">0x1F4</Offset>
         <Offset name="soul_traits">0x224</Offset>
         <Offset name="soul_mental">0x88</Offset>
+
+        Castes
+        ======
+        <Offset name="color_modifier_part">0x70</Offset>
+        <Offset name="color_modifier_startdate">0x64</Offset>
+        <Offset name="color_modifier_enddate">0x68</Offset>
+        <Offset name="caste_bodypart_vector">0x51C</Offset>
+        <Offset name="caste_color_modifiers">0xACC</Offset>
+        <Offset name="caste_attributes">0x654</Offset>
+
+        Body Parts
+        ==========
+        <Offset name="bodypart_id">0x0</Offset>
+        <Offset name="bodypart_category">0x1C</Offset>
+        <Offset name="bodypart_layers_vector">0x44</Offset>
+        <Offset name="bodypart_singular_vector">0x78</Offset>
+        <Offset name="bodypart_plural_vector">0x90</Offset>
 
         Job structure
         =============
@@ -1769,44 +1790,143 @@ map_data_1b60_offset          0x1B9c
         <Offset name="job_material_sectype2">0x4</Offset> subtype ?
         <Offset name="job_material_sectype3">0x8</Offset> index of material (for example, 2 is for silver)
         <Offset name="job_material_flags">0x18</Offset> set only for shell / bone mood requirements ?
-        -->
-        Materials
-        =========
-        soil, stone, metal
-        inorganics vector = WORLD + 0x54B7C = 0x16AFD04
-        <Address name="mat_inorganics">0x9324e68</Address>0x16afd04
-        
-        wood and plant matter, WORLD + 0x54B94
-        <Address name="mat_organics_all">0x9324E74</Address>
-        
-        plant matter, WORLD + 0x54BAC
-        <Address name="mat_organics_plants">0x9324E80</Address>
-        
-        just wood, WORLD + 0x54BDC
-        <Address name="mat_organics_trees">0x9324E98</Address>
-        <!--
-        creature types actually used for creatures,
-        WORLD + 0x54CD0
-        <Address name="creature_type_vector">0x016AFE58</Address>
-        <Offset name="creature_type_caste_vector">0x138</Offset>
+
+        Creature type offsets
+        =====================
+        <Offset name="creature_type_caste_vector">0x60</Offset> VERIFIED
         <Offset name="creature_type_extract_vector">0x1A14</Offset>
         <Offset name="creature_tile">0xE0</Offset>
         <Offset name="creature_tile_color">0xF6</Offset>
+        <!--
+        struct CreatureType
+        {
+            Vector<CreatureCasteType*> creature_type_caste_vector (0x138);
+            Vector<CreatureExtractType*> creature_type_extract_vector (0x1A14);
+            Offset creature_tile (0xE0);
+            Offset creature_tile_color (0xF6);
+        }
+        -->
 
-        
+        Color descriptors
+        =================
+        <Offset name="descriptor_rawname">0x0</Offset> VERIFIED
+        <Offset name="descriptor_name">0x1C</Offset> VERIFIED
+        <Offset name="descriptor_color_r">0x24</Offset> VERIFIED
+        <Offset name="descriptor_color_v">0x28</Offset> VERIFIED
+        <Offset name="descriptor_color_b">0x2C</Offset> VERIFIED
+
+        Language tables
+        ===============
+        <Offset name="word_table">0x1C</Offset> VERIFIED
+
         Constructions
         =============
-        WORLD + 0x108
-        <Address name="construction_vector">0x165b290</Address>
         <Offset name="sizeof_construction">0x14</Offset>
+    </Entry>
+
+    <Entry version="v0.30_04" os="linux" id="30_04lin" base="linux-offsets-2010">
+        <String name="md5">1d759a11af258263ef5c139d6d9a3e15</String>
+        <!-- most probably a static object, because its parts are often
+             referenced as offset to this address *and* as addresses    -->
+        <Address name="WORLD">0x92D00C0</Address>
+
+        Position and window dimensions
+        ==============================
+        <Address name="window_x">0x8cd3b18</Address>
+        <Address name="window_y">0x8cd3b1c</Address>
+        <Address name="window_z">0x8cd3b20</Address>
+        <Address name="cursor_xyz">0x8b17370</Address>
+        <Address name="window_dims">0x9464d6c</Address>
+
+        GUI State
+        =========
+        <Address name="pause_state">0x92c971c</Address>
+
+        Map data
+        =========
+        <Address name="map_data">0x9322d20</Address> WORLD + 0x52C60
+
+        Map Features
+        ============
+        WORLD + 0x5487C
+        <Address name="global_feature_vector">0x932493C</Address>
+        WORLD + 0x548F4
+        <Address name="local_feature_start_ptr">0x93249B4</Address>
+
+        * map size in blocks *
+        <Address name="x_count_block">0x9322d34</Address>
+        <Address name="y_count_block">0x9322d38</Address>
+        <Address name="z_count_block">0x9322d3C</Address>
         
+        * map size in tiles *
+        <Address name="x_count">0x9322d40</Address>
+        <Address name="y_count">0x9322d44</Address>
+        <Address name="z_count">0x9322d48</Address>
+        
+        * region coords *
+        WORLD + 0x525C8
+        <Address name="region_x">0x9322d4C</Address>
+        WORLD + 0x525CC
+        <Address name="region_y">0x9322d50</Address>
+        WORLD + 0x525D0
+        <Address name="region_z">0x9322d54</Address>
+        
+        * World size * (WORDs)
+        WORLD + 0x542E0
+        <Address name="world_size_x">0x93243A0</Address>
+        WORLD + 0x542E2
+        <Address name="world_size_y">0x93243A2</Address>
+        WORLD + 0x54894
+        <Address name="geoblock_vector">0x9324954</Address>
+        WORLD + 0x548B8
+        <Address name="ptr2_region_array">0x9324978</Address>
+        
+        Creatures
+        =========
+        <Address name="creature_vector">0x092E3AA0</Address>
+        <Address name="dwarf_race_index">0x092CB608</Address>
+        <Address name="dwarf_civ_id">0x092CB5FC</Address>
+        
+        Materials
+        =========
+        soil, stone, metal
+        inorganics vector
+        <Address name="mat_inorganics">0x9324e68</Address>0x16afd04
+        
+        wood and plant matter
+        <Address name="mat_organics_all">0x9324E74</Address>
+        
+        plant matter
+        <Address name="mat_organics_plants">0x9324E80</Address>
+        
+        just wood
+        <Address name="mat_organics_trees">0x9324E98</Address>
+
+        creature types actually used for creatures,
+        <Address name="creature_type_vector">0x09324F14</Address>
+
+        Color descriptors
+        =================
+        <Address name="descriptor_colors_vector">0x9329378</Address> VERIFIED
+        <Address name="descriptor_all_colors">0x9329390</Address> VERIFIED
+
         Translations
         ============
         WORLD + 0x54E50
-        <Address name="language_vector">0x016AFFD8</Address>
+        <Address name="language_vector">0x9324fd4</Address>
         WORLD + 0x54E80
-        <Address name="translation_vector">0x016B0008</Address>
-        <Offset name="word_table">0x4C</Offset>
+        <Address name="translation_vector">0x9324fec</Address>
+
+        Constructions
+        =============
+        WORLD + 0x84
+        <Address name="construction_vector">0x92D0144</Address> 0x165b290
+
+        Time
+        ====
+        <Address name="current_year">0x92C9680</Address>
+        <Address name="current_tick">0x92C9688</Address>
+<!--
         
         Vegetation
         ==========
@@ -1842,155 +1962,42 @@ map_data_1b60_offset          0x1B9c
         <HexValue name="hotkey_size">0x2C</HexValue>
  -->        
 <!--
-        <HexValue name="sizeof_vector">0xC</HexValue>
-        <Offset name="vector_triplet">0x0</Offset>
-
-        Name struct
-        ===========
-        <Offset name="name_firstname">0x0</Offset>
-        <Offset name="name_nickname">0x4</Offset>
-        <Offset name="name_words">0x8</Offset>
-        <HexValue name="sizeof_string">0x4</HexValue>
-
-        Position
-        ========
-        <Address name="window_dims">0</Address> Was 0x17f5ab8
-        0x17f6b00
-        0x17f6b08
-        0x17f6b10
-        
-        Map
-        ===
-        <Address name="map_data">0</Address>
-        
-        * map size in blocks *
-        <Address name="x_count_block">0</Address>
-        <Address name="y_count_block">0</Address>
-        <Address name="z_count_block">0</Address>
-        
-        * map size in tiles *
-        <Address name="x_count">0</Address>
-        <Address name="y_count">0</Address>
-        <Address name="z_count">0</Address>
-        
-        * Suspected region coords *
-        <Address name="region_x">0</Address>
-        <Address name="region_y">0</Address>
-        <Address name="region_z">0</Address>
-        
-        * World size * (WORDs)
-        <Address name="world_size_x">0</Address>
-        <Address name="world_size_y">0</Address>
-        
-        * geology *
-        <Address name="geoblock_vector">0</Address>
-        <Address name="ptr2_region_array">0</Address>
-        
-        * features *
-        WORLD + 0x54374
-        <Address name="global_feature_vector">0</Address>
-        WORLD + 0x54440
-        <Address name="local_feature_start_ptr">0</Address>
-        
-        Creatures
-        =========
-        <Address name="creature_vector">0</Address>
-        <Address name="dwarf_race_index">0</Address>
-        <Address name="dwarf_civ_id">0</Address>
-        <Offset name="creature_name">0x0</Offset>
-        <Offset name="creature_custom_profession">0x6c</Offset>
-        <Offset name="creature_profession">0x88</Offset>
-        <Offset name="creature_race">0x8C</Offset>
-        <Offset name="creature_position">0x90</Offset>
-        <Offset name="creature_flags1">0xF8</Offset>
-        <Offset name="creature_flags2">0xFC</Offset>
-        <Offset name="creature_caste">0x110</Offset>
-        <Offset name="creature_sex">0x112</Offset>
-        <Offset name="creature_id">0x114</Offset>
-        <Offset name="creature_civ">0X120</Offset>
-        <Offset name="creature_soulskill_vector">0X1F4</Offset>
-        <Offset name="creature_pickup_equipment_bit">0X21C</Offset>
-        
-        <Offset name="creature_mood">0x288</Offset>
-        <Offset name="creature_birth_year">0x298</Offset>
-        <Offset name="creature_birth_time">0x29C</Offset>
-        <Offset name="creature_physical">0x464</Offset>
-        <Offset name="creature_current_job">0x390</Offset> from chmod
-        <Offset name="creature_mood_skill">0x394</Offset> the skill that will be increased at the end of the mood (or not)
-        <Offset name="creature_appearance_vector">0x604</Offset>
-        <Offset name="creature_artifact_name">0x6D4</Offset>
-        <Offset name="creature_labors">0x774</Offset>
-        <Offset name="creature_soul_vector">0x0740</Offset>
-        <Offset name="creature_default_soul">0x0758</Offset>
-        <Offset name="creature_happiness">0x834</Offset>
-
-        Souls
-        =====
-        <Offset name="soul_name">0x0</Offset>
-        <Offset name="soul_skills_vector">0x1F4</Offset>
-        <Offset name="soul_traits">0x224</Offset>
-        <Offset name="soul_mental">0x88</Offset>
-
-        Castes
-        ======
-        <Offset name="color_modifier_part">0x70</Offset>
-        <Offset name="color_modifier_startdate">0x64</Offset>
-        <Offset name="color_modifier_enddate">0x68</Offset>
-        <Offset name="caste_bodypart_vector">0x51C</Offset>
-        <Offset name="caste_color_modifiers">0xACC</Offset>
-        <Offset name="caste_attributes">0x654</Offset>
-
-        Body Parts
-        ==========
-        <Offset name="bodypart_id">0x0</Offset>
-        <Offset name="bodypart_category">0x1C</Offset>
-        <Offset name="bodypart_layers_vector">0x44</Offset>
-        <Offset name="bodypart_singular_vector">0x78</Offset>
-        <Offset name="bodypart_plural_vector">0x90</Offset>
-
         Materials
         =========
-        <Address name="mat_inorganics">0</Address>
+        <Address name="mat_inorganics">0x9324E64</Address>
 
         stuff like glass, coke, ...
-        <Address name="mat_other">0</Address>
+        <Address name="mat_other">17</Address>
         
         wood and plant matter, WORLD + 0x54B94
-        <Address name="mat_organics_all">0</Address>
+        <Address name="mat_organics_all">18</Address>
         
         plant matter, WORLD + 0x54BAC
-        <Address name="mat_organics_plants">0</Address>
+        <Address name="mat_organics_plants">19</Address>
         
         just wood, WORLD + 0x54BDC
-        <Address name="mat_organics_trees">0</Address>
+        <Address name="mat_organics_trees">20</Address>
         
         creature types actually used for creatures, WORLD + 0x54CD0
-        <Address name="creature_type_vector">0</Address>
+        <Address name="creature_type_vector">0x09324F10</Address>
 
         stuff that is used somehow
-        <Address name="mat_stuff">0</Address>
+        <Address name="mat_stuff">21</Address>
         
         Constructions
         =============
         WORLD + 0x108
-        <Address name="construction_vector">0</Address>
-        
-        Translations
-        ============
-        WORLD + 0x54E50
-        <Address name="language_vector">0</Address>
-        WORLD + 0x54E80
-        <Address name="translation_vector">0</Address>
+        <Address name="construction_vector">22</Address>
         
         Vegetation
         ==========
         WORLD + 0x15184
-        <Address name="vegetation_vector">0</Address>
+        <Address name="vegetation_vector">25</Address>
         
         Buildings
         =========
         WORLD + 0x14818
-        <Address name="buildings_vector">0</Address>
+        <Address name="buildings_vector">26</Address>
         WORLD + 0x5D610
         <Address name="custom_workshop_vector">0</Address>
         <Offset name="custom_workshop_name">0x4</Offset>
@@ -1998,37 +2005,118 @@ map_data_1b60_offset          0x1B9c
 
         Descriptor colors
         =================
-        <Address name="descriptor_vectors_start">0</Address>
+        <Address name="descriptor_vectors_start">27</Address>
         <Offset name="descriptor_rawname">0x0</Offset>
         <Offset name="descriptor_name">0x4C</Offset>
-        <Address name="descriptor_colors_vector">0</Address> this includes RVB
+        <Address name="descriptor_colors_vector">28</Address> this includes RVB
         <Offset name="descriptor_color_r">0x6C</Offset> floats !
         <Offset name="descriptor_color_v">0x70</Offset>
         <Offset name="descriptor_color_b">0x74</Offset>
-        <Address name="descriptor_all_colors">0</Address> A list of all colors, including eyes and stuff
+        <Address name="descriptor_all_colors">29</Address> A list of all colors, including eyes and stuff
 
         Items
         =====
-        <Address name="items_vector">0</Address>
+        <Address name="items_vector">30</Address>
         List of offsets in the VTable :
         <Offset name="item_type_accessor">0x0</Offset>
         <Offset name="item_subtype_accessor">0x4</Offset>
         <Offset name="item_subindex_accessor">0x8</Offset>
         <Offset name="item_index_accessor">0xC</Offset>
         <Offset name="item_quality_accessor">0x238</Offset>
-
         <Offset name="item_improvement_vector">0xA0</Offset>
         <Offset name="item_improvement_subindex">0x4</Offset>
         <Offset name="item_improvement_index">0x8</Offset>
         <Offset name="item_improvement_quality">0x14</Offset>
         <Offset name="item_type_accessor">0x14</Offset>  (in the vtable)
+        -->
+    </Entry>
+    <Entry version="v0.31.05" os="linux" id="30_05lin" base="linux-offsets-2010">
+        <String name="md5">fea3801a26538b1741f3cc9294139fca</String>
+        <!-- most probably a static object, because its parts are often
+             referenced as offset to this address *and* as addresses    -->
+        <Address name="WORLD">0x92C60E0</Address> MOST PROBABLY BOGUS!
+
+        Position and window dimensions
+        ==============================
+        <Address name="window_x">0x8cc9b38</Address> VERIFIED
+        <Address name="window_y">0x8cc9b3c</Address> VERIFIED
+        <Address name="window_z">0x8cc9b40</Address> VERIFIED
+        <Address name="cursor_xyz">0x8b0d36c</Address> VERIFIED
+        <Address name="window_dims">0x945ad8c</Address> VERIFIED
+        GUI State
+        =========
+        <Address name="pause_state">0x92bf73c</Address> VERIFIED
+
+        Map data
+        ========
+        WORLD + 0x52C60?
+        <Address name="map_data">0x9318D40</Address> VERIFIED
+
+        Map Features
+        ============
+        WORLD + 0x5487C?
+        <Address name="global_feature_vector">0x931A95C</Address> VERIFIED
+        WORLD + 0x548F4?
+        <Address name="local_feature_start_ptr">0x931A9D4</Address> VERIFIED
+
+        * map size in blocks *
+        <Address name="x_count_block">0x9318D54</Address> VERIFIED
+        <Address name="y_count_block">0x9318D58</Address> VERIFIED
+        <Address name="z_count_block">0x9318D5C</Address> VERIFIED
         
-        Time
-        ====
-        <Address name="current_tick">0</Address>
-        <Address name="current_year">0</Address>-->
+        * map size in tiles *
+        <Address name="x_count">0x9318D60</Address> VERIFIED
+        <Address name="y_count">0x9318D64</Address> VERIFIED
+        <Address name="z_count">0x9318D68</Address> VERIFIED
+        
+        * region coords *
+        WORLD + 0x525C8
+        <Address name="region_x">0x9318D6C</Address> VERIFIED
+        WORLD + 0x525CC
+        <Address name="region_y">0x9318D70</Address> VERIFIED
+        WORLD + 0x525D0
+        <Address name="region_z">0x9318D74</Address> VERIFIED (old = 0x9322d54)
+        
+        * World size * (WORDs)
+        WORLD + 0x542E0
+        <Address name="world_size_x">0x931A3C0</Address> VERIFIED
+        WORLD + 0x542E2
+        <Address name="world_size_y">0x931A3C2</Address> VERIFIED
+        WORLD + 0x54894
+        <Address name="geoblock_vector">0x931A974</Address> VERIFIED
+        WORLD + 0x548B8
+        <Address name="ptr2_region_array">0x931A998</Address> VERIFIED
+
+        Materials
+        =========
+        soil, stone, metal
+        inorganics vector
+        <Address name="mat_inorganics">0x931ae88</Address> VERIFIED
+        
+        wood and plant matter
+        <Address name="mat_organics_all">0x931ae94</Address> VERIFIED
+        
+        plant matter
+        <Address name="mat_organics_plants">0x931aea0</Address> VERIFIED
+        
+        just wood
+        <Address name="mat_organics_trees">0x931aeb8</Address> VERIFIED
+
+        creature types actually used for creatures,
+        <Address name="creature_type_vector">0x931af34</Address> VERIFIED
+
+        Color descriptors
+        =================
+        <Address name="descriptor_colors_vector">0x931f398</Address> VERIFIED
+        <Address name="descriptor_all_colors">0x931f3b0</Address> VERIFIED
+
+        Translations
+        ============
+        WORLD + 0x54E50
+        <Address name="language_vector">0x931aff4</Address>
+        WORLD + 0x54E80
+        <Address name="translation_vector">0x931b00c</Address>
     </Entry>
     </MemoryDescriptors>
 </DFExtractor>
-
 
