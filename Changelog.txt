@@ -1,9 +1,14 @@
-----==== 'Slate', May ??th 2010 ====----
-* DF31.x compatible
+----==== 'Slate', June 7th 2010 ====----
+* DF31.01 to 05 compatible
 * Snow piles in various heights
+* Now supports the Object Testing Arena
+* Dwarf and animal skin/hair colors
+* Constructions reflect if they're built with rough stone or blocks
 * Transparent water and windows
+* Optional Day/Night mode
 * Colored materials
 * Allegro 4.9 accelerated graphics
+* DirectX, OpenGL or software renderding supported
 * Colorable ramps for all materials
 * Resizable window
 
