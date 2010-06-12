@@ -11,6 +11,19 @@
 //vector<t_matgloss> v_creatureNames;
 //vector<CreatureConfiguration> creatureTypes;
 
+int32_t charToUpper(int32_t c)
+{
+	if(c >= 0x61 && c <= 0x7A)
+		return c-0x20;
+	else if(c >= 0xE0 && c <= 0xF6)
+		return c-0x20;
+	else if(c >= 0xF8 && c <= 0xFE)
+		return c-0x20;
+	else return c;
+}
+
+
+
 ALLEGRO_USTR* bufferToUstr(const char* buffer, int length)
 {
 	ALLEGRO_USTR* temp = al_ustr_new("");
@@ -262,10 +275,10 @@ void DrawCreatureText(int drawx, int drawy, t_creature* creature ){
 			strncpy(buffer,creature->name.first_name,127);
 			buffer[127]=0;
 			ALLEGRO_USTR* temp = bufferToUstr(buffer, 128);
-			if (buffer[0]>90)
-				buffer[0] -= 32;
+			al_ustr_set_chr(temp, 0, charToUpper(al_ustr_get(temp, 0)));
 			draw_ustr_border(font, drawx, drawy-(20+al_get_font_line_height(font)), 0,
 				temp );
+			al_ustr_free(temp);
 		}
 		else if (config.names_use_species)
 		{
