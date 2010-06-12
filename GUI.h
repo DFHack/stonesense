@@ -44,6 +44,7 @@ extern double oneBlockInPixels;
 extern ALLEGRO_BITMAP* IMGObjectSheet; 
 extern ALLEGRO_BITMAP* IMGCreatureSheet; 
 extern ALLEGRO_BITMAP* IMGRampSheet;  
+extern ALLEGRO_BITMAP* IMGStatusSheet; 
 
 extern Crd3D debugCursor;
 extern vector<string*> IMGFilenames;

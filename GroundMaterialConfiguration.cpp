@@ -109,6 +109,19 @@ void parseWallFloorSpriteElement( TiXmlElement* elemWallFloorSprite, vector<Terr
 		sprite.shadeBy = getShadeType(spriteColorStr);
 	}
 
+	//Should the sprite be shown only when there is snow?
+	const char* spriteSnowMinStr = elemWallFloorSprite->Attribute("snow_min");
+	if (spriteSnowMinStr == NULL || spriteSnowMinStr[0] == 0)
+	{
+		sprite.snowMin = 0;
+	}
+	else sprite.snowMin=atoi(spriteSnowMinStr);
+	const char* spriteSnowMaxStr = elemWallFloorSprite->Attribute("snow_max");
+	if (spriteSnowMaxStr == NULL || spriteSnowMaxStr[0] == 0)
+	{
+		sprite.snowMax = 255;
+	}
+	else sprite.snowMax=atoi(spriteSnowMaxStr);
 
 	//not all tiles work well with an outline
 	const char* spriteOutlineStr = elemWallFloorSprite->Attribute("outline");
@@ -173,6 +186,20 @@ void parseWallFloorSpriteElement( TiXmlElement* elemWallFloorSprite, vector<Terr
 		{
 			subSprite.shadeBy = getShadeType(subSpriteColorStr);
 		}
+
+		//Should the sprite be shown only when there is snow?
+		const char* subSpriteSnowMinStr = elemSubType->Attribute("snow_min");
+		if (subSpriteSnowMinStr == NULL || spriteSnowMinStr[0] == 0)
+		{
+			subSprite.snowMin = 0;
+		}
+		else subSprite.snowMin=atoi(subSpriteSnowMinStr);
+		const char* subSpriteSnowMaxStr = elemSubType->Attribute("snow_max");
+		if (subSpriteSnowMaxStr == NULL || subSpriteSnowMaxStr[0] == 0)
+		{
+			subSprite.snowMax = 255;
+		}
+		else subSprite.snowMax=atoi(subSpriteSnowMaxStr);
 
 		// check for local file definitions
 		const char* subfilename = elemSubType->Attribute("file");

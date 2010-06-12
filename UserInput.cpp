@@ -225,6 +225,10 @@ void doKeys(int Key)
 		config.show_zones = !config.show_zones;
 		timeToReloadSegment = true;
 	}
+	if(Key == ALLEGRO_KEY_M){
+		config.show_creature_moods = !config.show_creature_moods;
+		timeToReloadSegment = true;
+	}
 	if(Key == ALLEGRO_KEY_C){
 		config.truncate_walls = !config.truncate_walls;
 		timeToReloadSegment = true;

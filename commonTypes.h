@@ -25,6 +25,8 @@ struct t_subSprite
 	ALLEGRO_COLOR shadeColor;
 	ShadeBy shadeBy;
 	char bodyPart[128];
+	uint8_t snowMin;
+	uint8_t snowMax;
 } ;
 
 struct t_SpriteWithOffset{
@@ -39,6 +41,8 @@ struct t_SpriteWithOffset{
 	vector<t_subSprite> subSprites;
 	ShadeBy shadeBy;
 	char bodyPart[128];
+	uint8_t snowMin;
+	uint8_t snowMax;
 } ;
 
 typedef struct dfColors
@@ -167,6 +171,8 @@ typedef struct {
 
 	bool showRenderStatus;
 	bool dayNightCycle;
+
+	bool show_creature_moods;
 
 	//follows are anti-crash things
 	bool skipWorld;

@@ -36,6 +36,7 @@ double oneBlockInPixels = 0;
 ALLEGRO_BITMAP* IMGObjectSheet;
 ALLEGRO_BITMAP* IMGCreatureSheet; 
 ALLEGRO_BITMAP* IMGRampSheet; 
+ALLEGRO_BITMAP* IMGStatusSheet; 
 ALLEGRO_BITMAP* buffer = 0;
 ALLEGRO_BITMAP* bigFile = 0;
 vector<ALLEGRO_BITMAP*> IMGCache;
@@ -414,7 +415,7 @@ void drawDebugCursorAndInfo(){
 		generateCreatureDebugString( b->creature, strCreature );
 		//memset(strCreature, -1, 50);
 		draw_textf_border(font, 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
-			"flag1: %s Sex: %d", strCreature, b->creature->sex + 1);
+			"flag1: %s Sex: %d  Mood: %d Job: %d", strCreature, b->creature->sex + 1, b->creature->mood, (b->creature->current_job.active?b->creature->current_job.jobType:0));
 		if((!config.skipCreatureTypes) && (!config.skipCreatureTypesEx) && (!config.skipDescriptorColors))
 		{
 			int yy = al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font));
@@ -739,6 +740,8 @@ void loadGraphicsFromDisk(){
 	IMGCreatureSheet = al_create_sub_bitmap(IMGFilelist[index], 0, 0, al_get_bitmap_width(IMGFilelist[index]), al_get_bitmap_height(IMGFilelist[index]));
 	index = loadImgFile("ramps.png");
 	IMGRampSheet = al_create_sub_bitmap(IMGFilelist[index], 0, 0, al_get_bitmap_width(IMGFilelist[index]), al_get_bitmap_height(IMGFilelist[index]));
+	index = loadImgFile("SSStatusIcons.png");
+	IMGStatusSheet = al_create_sub_bitmap(IMGFilelist[index], 0, 0, al_get_bitmap_width(IMGFilelist[index]), al_get_bitmap_height(IMGFilelist[index]));
 	createEffectSprites();
 }
 
@@ -762,6 +765,11 @@ void flushImgFiles()
 	{
 		al_destroy_bitmap(IMGRampSheet);
 		IMGRampSheet = 0;
+	}
+	if(IMGStatusSheet)
+	{
+		al_destroy_bitmap(IMGStatusSheet);
+		IMGStatusSheet = 0;
 	}
 	uint32_t numFiles = (uint32_t)IMGFilelist.size();
 	assert( numFiles == IMGFilenames.size());

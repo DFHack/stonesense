@@ -228,6 +228,37 @@ void DrawCreature(int drawx, int drawy, t_creature* creature ){
 	ALLEGRO_COLOR color;
 	al_get_separate_blender(&op, &src, &dst, &alpha_op, &alpha_src, &alpha_dst, &color);
 
+	vector<int> statusIcons;
+
+	//if(config.show_creature_happiness)
+	if(config.show_creature_moods)
+	{
+		if(creature->happiness == 0)
+			statusIcons.push_back(6);
+		else if(creature->happiness >= 1 && creature->happiness <= 25)
+			statusIcons.push_back(5);
+		else if(creature->happiness >= 26 && creature->happiness <= 50)
+			statusIcons.push_back(4);
+		else if(creature->happiness >= 51 && creature->happiness <= 75)
+			statusIcons.push_back(3);
+		else if(creature->happiness >= 76 && creature->happiness <= 125)
+			statusIcons.push_back(2);
+		else if(creature->happiness >= 126 && creature->happiness <= 150)
+			statusIcons.push_back(1);
+		else if(creature->happiness >= 151)
+			statusIcons.push_back(0);
+
+		if(creature->mood == 5)
+			statusIcons.push_back(18);
+		else if(creature->mood == 6)
+			statusIcons.push_back(18);
+
+		if(creature->current_job.active && creature->current_job.jobType == 21)
+			statusIcons.push_back(16);
+		else if(creature->current_job.active && creature->current_job.jobType == 52)
+			statusIcons.push_back(17);
+	}
+
 	t_SpriteWithOffset sprite = GetCreatureSpriteMap( creature );
 	//if(creature->x == 151 && creature->y == 145)
 	//  int j = 10; 
@@ -260,13 +291,22 @@ void DrawCreature(int drawx, int drawy, t_creature* creature ){
 			al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
 		}
 	}
+	if(statusIcons.size())
+	{
+		for(int i = 0; i < statusIcons.size(); i++)
+		{
+			unsigned int sheetx = 16 * (statusIcons[i] % 7);
+			unsigned int sheety = 16 * (statusIcons[i] / 7);
+			al_draw_bitmap_region(IMGStatusSheet, sheetx, sheety, 16, 16, drawx - (statusIcons.size()*8) + (16*i) + (SPRITEWIDTH/2), drawy - (16 + WALLHEIGHT + al_get_font_line_height(font)), 0);
+		}
+	}
 }
 
 void DrawCreatureText(int drawx, int drawy, t_creature* creature ){
 	if( config.show_creature_names )
 		if (creature->name.nickname[0] && config.names_use_nick)
 		{
-			draw_textf_border(font, drawx, drawy-(20+al_get_font_line_height(font)), 0, 
+			draw_textf_border(font, drawx, drawy-(WALLHEIGHT+al_get_font_line_height(font)), 0, 
 				"%s", creature->name.nickname );
 		}
 		else if (creature->name.first_name[0])
@@ -276,14 +316,14 @@ void DrawCreatureText(int drawx, int drawy, t_creature* creature ){
 			buffer[127]=0;
 			ALLEGRO_USTR* temp = bufferToUstr(buffer, 128);
 			al_ustr_set_chr(temp, 0, charToUpper(al_ustr_get(temp, 0)));
-			draw_ustr_border(font, drawx, drawy-(20+al_get_font_line_height(font)), 0,
+			draw_ustr_border(font, drawx, drawy-(WALLHEIGHT+al_get_font_line_height(font)), 0,
 				temp );
 			al_ustr_free(temp);
 		}
 		else if (config.names_use_species)
 		{
 			if(!config.skipCreatureTypes)
-				draw_textf_border(font, drawx, drawy-(20+al_get_font_line_height(font)), 0, 
+				draw_textf_border(font, drawx, drawy-(WALLHEIGHT+al_get_font_line_height(font)), 0, 
 				"[%s]", contentLoader.Mats->race.at(creature->race).id);
 		}
 }

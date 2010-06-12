@@ -168,7 +168,8 @@ void Block::Draw(){
 
 			sheetOffsetX = TILEWIDTH * ((sprite.sheetIndex+spriteOffset) % SHEET_OBJECTSWIDE);
 			sheetOffsetY = (TILEHEIGHT + FLOORHEIGHT) * ((sprite.sheetIndex+spriteOffset) / SHEET_OBJECTSWIDE);
-			al_draw_bitmap_region(imageSheet(sprite,IMGObjectSheet), sheetOffsetX, sheetOffsetY,  TILEWIDTH, TILEHEIGHT + FLOORHEIGHT, drawx, drawy, 0);
+			if((sprite.snowMin <= snowlevel) && (sprite.snowMax >= snowlevel))
+				al_draw_bitmap_region(imageSheet(sprite,IMGObjectSheet), sheetOffsetX, sheetOffsetY,  TILEWIDTH, TILEHEIGHT + FLOORHEIGHT, drawx, drawy, 0);
 			al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
 			if(sprite.sheetIndex != SPRITEFLOOR_WATERFLOOR && sprite.sheetIndex != SPRITEFLOOR_SNOW)
 			{
@@ -179,7 +180,8 @@ void Block::Draw(){
 						sheetOffsetX = TILEWIDTH * ((sprite.subSprites[i].sheetIndex+spriteOffset) % SHEET_OBJECTSWIDE);
 						sheetOffsetY = (TILEHEIGHT + FLOORHEIGHT) * ((sprite.subSprites[i].sheetIndex+spriteOffset) / SHEET_OBJECTSWIDE);
 						al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*getSpriteColor(sprite.subSprites[i], this->material, this->layerMaterial, this->veinMaterial));
-						al_draw_bitmap_region(imageSheet(sprite.subSprites[i],IMGObjectSheet), sheetOffsetX, sheetOffsetY,  TILEWIDTH, TILEHEIGHT + FLOORHEIGHT, drawx, drawy, 0);
+						if((sprite.subSprites[i].snowMin <= snowlevel) && (sprite.subSprites[i].snowMax >= snowlevel))
+							al_draw_bitmap_region(imageSheet(sprite.subSprites[i],IMGObjectSheet), sheetOffsetX, sheetOffsetY,  TILEWIDTH, TILEHEIGHT + FLOORHEIGHT, drawx, drawy, 0);
 						al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
 					}
 				}
@@ -227,7 +229,8 @@ void Block::Draw(){
 			sheetOffsetX = SPRITEWIDTH * ramp.index;
 			sheetOffsetY = ((TILEHEIGHT + FLOORHEIGHT + SPRITEHEIGHT) * sprite.sheetIndex)+(TILEHEIGHT + FLOORHEIGHT);
 			al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*getSpriteColor(sprite, this->material, this->layerMaterial, this->veinMaterial));
-			al_draw_bitmap_region(imageSheet(sprite,IMGRampSheet), sheetOffsetX, sheetOffsetY, SPRITEWIDTH, SPRITEHEIGHT, drawx, drawy - (WALLHEIGHT), 0);
+			if((sprite.snowMin <= snowlevel) && (sprite.snowMax >= snowlevel))
+				al_draw_bitmap_region(imageSheet(sprite,IMGRampSheet), sheetOffsetX, sheetOffsetY, SPRITEWIDTH, SPRITEHEIGHT, drawx, drawy - (WALLHEIGHT), 0);
 			al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
 			if(!(sprite.subSprites.empty()))
 			{
@@ -236,7 +239,8 @@ void Block::Draw(){
 					sheetOffsetX = SPRITEWIDTH * ramp.index;
 					sheetOffsetY = ((TILEHEIGHT + FLOORHEIGHT + SPRITEHEIGHT) * sprite.subSprites[i].sheetIndex)+(TILEHEIGHT + FLOORHEIGHT);
 					al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*getSpriteColor(sprite.subSprites[i], this->material, this->layerMaterial, this->veinMaterial));
-					al_draw_bitmap_region(imageSheet(sprite.subSprites[i],IMGObjectSheet), sheetOffsetX, sheetOffsetY, SPRITEWIDTH, SPRITEHEIGHT, drawx, drawy - (WALLHEIGHT), 0);
+					if((sprite.subSprites[i].snowMin <= snowlevel) && (sprite.subSprites[i].snowMax >= snowlevel))
+						al_draw_bitmap_region(imageSheet(sprite.subSprites[i],IMGObjectSheet), sheetOffsetX, sheetOffsetY, SPRITEWIDTH, SPRITEHEIGHT, drawx, drawy - (WALLHEIGHT), 0);
 					al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
 				}
 			}
@@ -361,7 +365,8 @@ void Block::Draw(){
 				int sheety = (sprite.sheetIndex+spriteOffset) / SHEET_OBJECTSWIDE;
 				//draw a tiny bit of wall
 				al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*getSpriteColor(sprite, this->material, this->layerMaterial, this->veinMaterial));
-				al_draw_bitmap_region(imageSheet(sprite,IMGObjectSheet),
+				if((sprite.snowMin <= snowlevel) && (sprite.snowMax >= snowlevel))
+					al_draw_bitmap_region(imageSheet(sprite,IMGObjectSheet),
 					sheetx * SPRITEWIDTH, sheety * SPRITEHEIGHT+WALL_CUTOFF_HEIGHT,
 					SPRITEWIDTH, SPRITEHEIGHT-WALL_CUTOFF_HEIGHT, drawx, drawy - (WALLHEIGHT)+WALL_CUTOFF_HEIGHT, 0);
 				al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
@@ -372,7 +377,8 @@ void Block::Draw(){
 						sheetx = (sprite.subSprites[i].sheetIndex+spriteOffset) % SHEET_OBJECTSWIDE;
 						sheety = (sprite.subSprites[i].sheetIndex+spriteOffset) / SHEET_OBJECTSWIDE;
 						al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*getSpriteColor(sprite.subSprites[i], this->material, this->layerMaterial, this->veinMaterial));
-						al_draw_bitmap_region(imageSheet(sprite.subSprites[i],IMGObjectSheet),
+						if((sprite.subSprites[i].snowMin <= snowlevel) && (sprite.subSprites[i].snowMax >= snowlevel))
+							al_draw_bitmap_region(imageSheet(sprite.subSprites[i],IMGObjectSheet),
 							sheetx * SPRITEWIDTH, sheety * SPRITEHEIGHT+WALL_CUTOFF_HEIGHT,
 							SPRITEWIDTH, SPRITEHEIGHT-WALL_CUTOFF_HEIGHT, drawx, drawy - (WALLHEIGHT)+WALL_CUTOFF_HEIGHT, 0);
 						al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
@@ -388,14 +394,16 @@ void Block::Draw(){
 			{
 				//al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, al_map_rgb(sprite.shadeRed, sprite.shadeGreen, sprite.shadeBlue));
 				al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*getSpriteColor(sprite, this->material, this->layerMaterial, this->veinMaterial));
-				DrawSpriteFromSheet(sprite.sheetIndex+spriteOffset, imageSheet(sprite,IMGObjectSheet), drawx, drawy );
+				if((sprite.snowMin <= snowlevel) && (sprite.snowMax >= snowlevel))
+					DrawSpriteFromSheet(sprite.sheetIndex+spriteOffset, imageSheet(sprite,IMGObjectSheet), drawx, drawy );
 				al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
 				if(sprite.subSprites.size() > 0)
 				{
 					for(int i = 0; i < sprite.subSprites.size(); i++)
 					{
 						al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*getSpriteColor(sprite.subSprites[i], this->material, this->layerMaterial, this->veinMaterial));
-						DrawSpriteFromSheet(sprite.subSprites[i].sheetIndex+spriteOffset, imageSheet(sprite.subSprites[i],IMGObjectSheet), drawx, drawy );
+						if((sprite.subSprites[i].snowMin <= snowlevel) && (sprite.subSprites[i].snowMax >= snowlevel))
+							DrawSpriteFromSheet(sprite.subSprites[i].sheetIndex+spriteOffset, imageSheet(sprite.subSprites[i],IMGObjectSheet), drawx, drawy );
 						al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
 					}
 				}
