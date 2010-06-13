@@ -18,6 +18,7 @@ public:
 	vector<ColorMaterialConfiguration> colorMaterials;
 	ALLEGRO_COLOR color;
 	bool colorSet;
+	ColorConfiguration();
 	~ColorConfiguration();
 } ;
 

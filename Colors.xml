@@ -3,4 +3,7 @@
   <color red="79" green="205" blue="88">
     <material value="GreenGlass" />
   </color>
+  <color red="60" green="35" blue="127">
+    <material value="Inorganic" />
+  </color>
 </colors>

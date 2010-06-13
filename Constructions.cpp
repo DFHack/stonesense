@@ -15,10 +15,11 @@ void changeConstructionMaterials(WorldSegment* segment, vector<t_construction>* 
 		b = segment->getBlock(construct->x, construct->y, construct->z);
 		if( !b ) continue;
 		//don't assign invalid material indexes
-		if(construct->mat_idx != -1){
-			b->material.type = construct->mat_type;
-			b->material.index = construct->mat_idx;
-		}
+		//if(construct->mat_idx != -1){
+		//on second thought, invalid indices are needed.
+		b->material.type = construct->mat_type;
+		b->material.index = construct->mat_idx;
+		//}
 		b->consForm = construct->form;
 	}
 }

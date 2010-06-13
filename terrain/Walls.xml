@@ -250,6 +250,12 @@
     <terrain value="439" />
     <terrain value="440" />
   </block>
+    <!-- stone -->
+  <block sprite="21" color="xml" red="255" green = "0" blue = "0">
+  <!-- Semi molten rock -->
+    <terrain value="263" />
+	<subsprite sprite = "146" color="xml" red="32" green = "0" blue = "0"/>
+  </block>
   <!-- construct -->
   <block sprite="22" color="material">
     <!-- pillar -->

@@ -331,7 +331,10 @@ void ReadCellToSegment(API& DF, WorldSegment& segment, int CellX, int CellY, int
 				//this only needs to be done for included blocks
 
 				//determine rock/soil type
-				int rockIndex = (*allLayers) [regionoffsets[designations[lx][ly].bits.biome]] [designations[lx][ly].bits.geolayer_index];
+				int rockIndex = -1;
+				if(regionoffsets[designations[lx][ly].bits.biome] < (*allLayers).size())
+					if(designations[lx][ly].bits.geolayer_index < (*allLayers).at(regionoffsets[designations[lx][ly].bits.biome]).size())
+						rockIndex = (*allLayers).at(regionoffsets[designations[lx][ly].bits.biome]).at(designations[lx][ly].bits.geolayer_index);
 				b->layerMaterial.type = INORGANIC;
 				b->layerMaterial.index = rockIndex;
 				//check veins
@@ -371,14 +374,15 @@ void ReadCellToSegment(API& DF, WorldSegment& segment, int CellX, int CellY, int
 				{
 					if(designations[lx][ly].bits.feature_global)
 					{
-						if(global_features->at(idx).main_material == INORGANIC) // stone
-						{
-							b->layerMaterial.type = INORGANIC;
+						//if(global_features->at(idx).main_material == INORGANIC) // stone
+						//{
+						//there may be other features.
+							b->layerMaterial.type = global_features->at(idx).main_material;
 							b->layerMaterial.index = global_features->at(idx).sub_material;
-							b->material.type = INORGANIC;
+							b->material.type = global_features->at(idx).main_material;
 							b->material.index = global_features->at(idx).sub_material;
 							b->hasVein = 0;
-						}
+						//}
 					}
 				}
 
@@ -398,14 +402,15 @@ void ReadCellToSegment(API& DF, WorldSegment& segment, int CellX, int CellY, int
 						{
 							if(mapBlock.designation[lx][ly].bits.feature_local)
 							{
-								if(vectr[idx]->main_material == INORGANIC) // stone
-								{
-									b->veinMaterial.type = INORGANIC;
+								//if(vectr[idx]->main_material == INORGANIC) // stone
+								//{
+								//We can probably get away with this.
+									b->veinMaterial.type = vectr[idx]->main_material;
 									b->veinMaterial.index = vectr[idx]->sub_material;
-									b->material.type = INORGANIC;
+									b->material.type = vectr[idx]->main_material;
 									b->material.index = vectr[idx]->sub_material;
 									b->hasVein = 1;
-								}
+								//}
 							}
 						}
 					}

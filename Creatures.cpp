@@ -248,7 +248,17 @@ void DrawCreature(int drawx, int drawy, t_creature* creature ){
 		else if(creature->happiness >= 151)
 			statusIcons.push_back(0);
 
-		if(creature->mood == 5)
+		if(creature->mood == 0)
+			statusIcons.push_back(19);
+		else if(creature->mood == 1)
+			statusIcons.push_back(19);
+		else if(creature->mood == 2)
+			statusIcons.push_back(19);
+		else if(creature->mood == 3)
+			statusIcons.push_back(19);
+		else if(creature->mood == 4)
+			statusIcons.push_back(19);
+		else if(creature->mood == 5)
 			statusIcons.push_back(18);
 		else if(creature->mood == 6)
 			statusIcons.push_back(18);

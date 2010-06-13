@@ -8,6 +8,12 @@ ColorMaterialConfiguration::ColorMaterialConfiguration()
 	colorSet = 0;
 }
 
+ColorConfiguration::ColorConfiguration()
+{
+	color = al_map_rgb(255,255,255);
+	colorSet = 0;
+}
+
 ColorConfiguration::~ColorConfiguration()
 {
 	colorMaterials.clear();

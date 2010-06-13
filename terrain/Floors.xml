@@ -324,6 +324,11 @@
     <terrain value="443" />
     <terrain value="444" />
   </floor>
+   <floor sprite="3" color="xml" red="255" green = "0" blue = "0">
+    <!-- Semi molten rock -->
+    <terrain value="263" />
+	<subsprite sprite = "51" color="xml" red="32" green = "0" blue = "0"/>
+  </floor>
   <!-- magma flow -->
   <floor sprite="31">
     <terrain value="264" />
