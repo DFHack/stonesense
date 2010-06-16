@@ -89,6 +89,7 @@ inline ALLEGRO_BITMAP* imageSheet(t_subSprite sprite, ALLEGRO_BITMAP* defaultBmp
 }
 
 void Block::Draw(){
+	bool defaultSnow = 1;
 	int sheetOffsetX, sheetOffsetY;
 	t_SpriteWithOffset sprite;
 	/*if(config.hide_outer_blocks){
@@ -168,6 +169,7 @@ void Block::Draw(){
 
 			sheetOffsetX = TILEWIDTH * ((sprite.sheetIndex+spriteOffset) % SHEET_OBJECTSWIDE);
 			sheetOffsetY = (TILEHEIGHT + FLOORHEIGHT) * ((sprite.sheetIndex+spriteOffset) / SHEET_OBJECTSWIDE);
+			if (sprite.snowMin > 0) defaultSnow = 0;
 			if((sprite.snowMin <= snowlevel) && (sprite.snowMax >= snowlevel))
 				al_draw_bitmap_region(imageSheet(sprite,IMGObjectSheet), sheetOffsetX, sheetOffsetY,  TILEWIDTH, TILEHEIGHT + FLOORHEIGHT, drawx, drawy, 0);
 			al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
@@ -177,6 +179,7 @@ void Block::Draw(){
 				{
 					for(int i = 0; i < sprite.subSprites.size(); i++)
 					{
+						if (sprite.subSprites[i].snowMin > 0) defaultSnow = 0;
 						sheetOffsetX = TILEWIDTH * ((sprite.subSprites[i].sheetIndex+spriteOffset) % SHEET_OBJECTSWIDE);
 						sheetOffsetY = (TILEHEIGHT + FLOORHEIGHT) * ((sprite.subSprites[i].sheetIndex+spriteOffset) / SHEET_OBJECTSWIDE);
 						al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*getSpriteColor(sprite.subSprites[i], this->material, this->layerMaterial, this->veinMaterial));
@@ -229,6 +232,7 @@ void Block::Draw(){
 			sheetOffsetX = SPRITEWIDTH * ramp.index;
 			sheetOffsetY = ((TILEHEIGHT + FLOORHEIGHT + SPRITEHEIGHT) * sprite.sheetIndex)+(TILEHEIGHT + FLOORHEIGHT);
 			al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*getSpriteColor(sprite, this->material, this->layerMaterial, this->veinMaterial));
+			if (sprite.snowMin > 0) defaultSnow = 0;
 			if((sprite.snowMin <= snowlevel) && (sprite.snowMax >= snowlevel))
 				al_draw_bitmap_region(imageSheet(sprite,IMGRampSheet), sheetOffsetX, sheetOffsetY, SPRITEWIDTH, SPRITEHEIGHT, drawx, drawy - (WALLHEIGHT), 0);
 			al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
@@ -249,7 +253,7 @@ void Block::Draw(){
 
 
 	//first part of snow
-	if(ramp.type == 0)
+	if(ramp.type == 0 && wallType == 0 && stairType == 0 && defaultSnow)
 	{
 		if(snowlevel > 75)
 		{
@@ -448,17 +452,20 @@ void Block::Draw(){
 	}
 
 	//second part of snow
-	if(snowlevel > 75)
+	if(wallType == 0 && stairType == 0 && defaultSnow)
 	{
-		DrawSpriteFromSheet( 24, IMGObjectSheet, drawx, drawy );
-	}
-	else if(snowlevel > 50)
-	{
-		DrawSpriteFromSheet( 25, IMGObjectSheet, drawx, drawy );
-	}
-	else if(snowlevel > 25)
-	{
-		DrawSpriteFromSheet( 26, IMGObjectSheet, drawx, drawy );
+		if(snowlevel > 75)
+		{
+			DrawSpriteFromSheet( 24, IMGObjectSheet, drawx, drawy );
+		}
+		else if(snowlevel > 50)
+		{
+			DrawSpriteFromSheet( 25, IMGObjectSheet, drawx, drawy );
+		}
+		else if(snowlevel > 25)
+		{
+			DrawSpriteFromSheet( 26, IMGObjectSheet, drawx, drawy );
+		}
 	}
 
 	//if(eff_miasma > 0)

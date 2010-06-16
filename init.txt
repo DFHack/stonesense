@@ -18,7 +18,7 @@ Each entry expects the number of tiles to load.
 [SEGMENTSIZE_Z:7]
 
 Change this to off to skip the intro.
-[INTRO:ON]
+[INTRO:OFF]
 
 Changes the interface font size.
 [FONTSIZE:10]
@@ -81,7 +81,7 @@ Now independant of map refresh.
 --Debug Mode--
 
 Sets Stonesense in debug mode. Adds additional information to displays.
-[DEBUGMODE:NO]
+[DEBUGMODE:YES]
 
 Set's the debug cursor to follow the cursor from DF when it is there.
 [FOLLOW_DF_CURSOR:YES]
