@@ -238,7 +238,15 @@ extern ALLEGRO_MOUSE_STATE mouse;
 #define FILTH_FROZEN 16
 #define UNKOWN_FROZEN 17
 #define GRIME 18
+#define ICHOR 20
 #define LEATHER 37
+#define BLOOD_1 39
+#define BLOOD_2 40
+#define BLOOD_3 41
+#define BLOOD_4 42
+#define BLOOD_5 43
+#define BLOOD_6 44
+#define BLOOD_NAMED 242
 #define WOOD 420
 #define PLANTCLOTH 421
 

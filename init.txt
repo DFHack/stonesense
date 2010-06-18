@@ -38,7 +38,7 @@ Follow the center of the DF window, rather than scale to the edges.
 [TRACK_CENTER:YES]
 
 Sets an initial x/y/z offset for follow mode
-[FOLLOW_OFFSET_X:0]
+[FOLLOW_OFFSET_X:-15]
 [FOLLOW_OFFSET_Y:0]
 [FOLLOW_OFFSET_Z:0]
 
@@ -101,7 +101,7 @@ Shows all creatures, for debugging. Living, dead, kidnapped, caged, EVERY single
 
 Adds more logging information to what is written to stonesense.log. May be useful
 if trying having issues with sprite configuration tweaking.
-[VERBOSE_LOGGING:NP]
+[VERBOSE_LOGGING:NO]
 
 --Troubleshooting--
 

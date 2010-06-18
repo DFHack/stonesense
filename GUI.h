@@ -45,6 +45,7 @@ extern ALLEGRO_BITMAP* IMGObjectSheet;
 extern ALLEGRO_BITMAP* IMGCreatureSheet; 
 extern ALLEGRO_BITMAP* IMGRampSheet;  
 extern ALLEGRO_BITMAP* IMGStatusSheet; 
+extern ALLEGRO_BITMAP* IMGBloodSheet;
 
 extern Crd3D debugCursor;
 extern vector<string*> IMGFilenames;
@@ -52,3 +53,4 @@ extern vector<string*> IMGFilenames;
 ALLEGRO_COLOR operator*(const ALLEGRO_COLOR &color1, const ALLEGRO_COLOR &color2);
 ALLEGRO_COLOR operator+(const ALLEGRO_COLOR &color1, const ALLEGRO_COLOR &color2);
 ALLEGRO_COLOR getDayShade(int hour, int tick);
+ALLEGRO_COLOR partialBlend(ALLEGRO_COLOR & color2, ALLEGRO_COLOR & color1, int percent);

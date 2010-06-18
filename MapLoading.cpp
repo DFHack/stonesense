@@ -266,6 +266,10 @@ void ReadCellToSegment(API& DF, WorldSegment& segment, int CellX, int CellY, int
 			b->designation = designations[lx][ly];
 			b->mudlevel = 0;
 			b->snowlevel = 0;
+			b->bloodlevel = 0;
+			float red=0;
+			float green=0;
+			float blue=0;
 			for(int i = 0; i < splatter.size(); i++)
 			{
 				if(splatter[i].mat1 == MUD)
@@ -276,7 +280,50 @@ void ReadCellToSegment(API& DF, WorldSegment& segment, int CellX, int CellY, int
 				{
 					b->snowlevel = splatter[i].intensity[lx][ly];
 				}
+				else if(splatter[i].mat1 == VOMIT)
+				{
+					b->bloodlevel += splatter[i].intensity[lx][ly];
+					red += (127.0f * splatter[i].intensity[lx][ly] / 255.0f);
+					green += (196.0f * splatter[i].intensity[lx][ly] / 255.0f);
+					blue += (28.0f * splatter[i].intensity[lx][ly] / 255.0f);
+				}
+				else if(splatter[i].mat1 == ICHOR)
+				{
+					b->bloodlevel += splatter[i].intensity[lx][ly];
+					red += (255.0f * splatter[i].intensity[lx][ly] / 255.0f);
+					green += (255.0f * splatter[i].intensity[lx][ly] / 255.0f);
+					blue += (255.0f * splatter[i].intensity[lx][ly] / 255.0f);
+				}
+				else if(splatter[i].mat1 == BLOOD_NAMED)
+				{
+					b->bloodlevel += splatter[i].intensity[lx][ly];
+					red += (150.0f * splatter[i].intensity[lx][ly] / 255.0f);
+					green += (0.0f * splatter[i].intensity[lx][ly] / 255.0f);
+					blue += (24.0f * splatter[i].intensity[lx][ly] / 255.0f);
+				}
+				else if(splatter[i].mat1 == BLOOD_1
+					|| splatter[i].mat1 == BLOOD_2
+					|| splatter[i].mat1 == BLOOD_3
+					|| splatter[i].mat1 == BLOOD_4
+					|| splatter[i].mat1 == BLOOD_5
+					|| splatter[i].mat1 == BLOOD_6)
+				{
+					b->bloodlevel += splatter[i].intensity[lx][ly];
+					if(splatter[i].mat2 == 206)
+					{
+						red += (0.0f * splatter[i].intensity[lx][ly] / 255.0f);
+						green += (255.0f * splatter[i].intensity[lx][ly] / 255.0f);
+						blue += (255.0f * splatter[i].intensity[lx][ly] / 255.0f);
+					}
+					else
+					{
+						red += (150.0f * splatter[i].intensity[lx][ly] / 255.0f);
+						green += (0.0f * splatter[i].intensity[lx][ly] / 255.0f);
+						blue += (24.0f * splatter[i].intensity[lx][ly] / 255.0f);
+					}
+				}
 			}
+			b->bloodcolor = al_map_rgb_f(red/b->bloodlevel, green/b->bloodlevel, blue/b->bloodlevel);
 
 			//temperatures
 

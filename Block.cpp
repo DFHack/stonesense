@@ -251,7 +251,7 @@ void Block::Draw(){
 		}
 	}
 
-
+	drawFloorBlood ( this, drawx, drawy );
 	//first part of snow
 	if(ramp.type == 0 && wallType == 0 && stairType == 0 && defaultSnow)
 	{
@@ -330,14 +330,20 @@ void Block::Draw(){
 		{
 			if (mirrored)
 				sprite.sheetIndex += 1;
-			al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*getSpriteColor(sprite, this->material, this->layerMaterial, this->veinMaterial));
+			if(bloodlevel)
+				al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*getSpriteColor(sprite, this->material, this->layerMaterial, this->veinMaterial)*bloodcolor);
+			else
+				al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*getSpriteColor(sprite, this->material, this->layerMaterial, this->veinMaterial));
 			DrawSpriteFromSheet( sprite.sheetIndex, imageSheet(sprite,IMGObjectSheet), drawx, drawy );
 			al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
 			if(!(sprite.subSprites.empty()))
 			{
 				for(int i = 0; i < sprite.subSprites.size(); i++)
 				{
-					al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*getSpriteColor(sprite.subSprites[i], this->material, this->layerMaterial, this->veinMaterial));
+					if(bloodlevel)
+						al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*getSpriteColor(sprite.subSprites[i], this->material, this->layerMaterial, this->veinMaterial)*bloodcolor);
+					else
+						al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*getSpriteColor(sprite.subSprites[i], this->material, this->layerMaterial, this->veinMaterial));
 					DrawSpriteFromSheet( sprite.subSprites[i].sheetIndex, imageSheet(sprite.subSprites[i],IMGObjectSheet), drawx, drawy );
 					al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
 				}
@@ -368,7 +374,10 @@ void Block::Draw(){
 				int sheetx = (sprite.sheetIndex+spriteOffset) % SHEET_OBJECTSWIDE;
 				int sheety = (sprite.sheetIndex+spriteOffset) / SHEET_OBJECTSWIDE;
 				//draw a tiny bit of wall
-				al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*getSpriteColor(sprite, this->material, this->layerMaterial, this->veinMaterial));
+				if(bloodlevel)
+					al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*getSpriteColor(sprite, this->material, this->layerMaterial, this->veinMaterial)*bloodcolor);
+				else
+					al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*getSpriteColor(sprite, this->material, this->layerMaterial, this->veinMaterial));
 				if((sprite.snowMin <= snowlevel) && (sprite.snowMax >= snowlevel))
 					al_draw_bitmap_region(imageSheet(sprite,IMGObjectSheet),
 					sheetx * SPRITEWIDTH, sheety * SPRITEHEIGHT+WALL_CUTOFF_HEIGHT,
@@ -380,7 +389,10 @@ void Block::Draw(){
 					{
 						sheetx = (sprite.subSprites[i].sheetIndex+spriteOffset) % SHEET_OBJECTSWIDE;
 						sheety = (sprite.subSprites[i].sheetIndex+spriteOffset) / SHEET_OBJECTSWIDE;
-						al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*getSpriteColor(sprite.subSprites[i], this->material, this->layerMaterial, this->veinMaterial));
+						if(bloodlevel)
+							al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*getSpriteColor(sprite.subSprites[i], this->material, this->layerMaterial, this->veinMaterial)*bloodcolor);
+						else
+							al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*getSpriteColor(sprite.subSprites[i], this->material, this->layerMaterial, this->veinMaterial));
 						if((sprite.subSprites[i].snowMin <= snowlevel) && (sprite.subSprites[i].snowMax >= snowlevel))
 							al_draw_bitmap_region(imageSheet(sprite.subSprites[i],IMGObjectSheet),
 							sheetx * SPRITEWIDTH, sheety * SPRITEHEIGHT+WALL_CUTOFF_HEIGHT,
@@ -397,7 +409,10 @@ void Block::Draw(){
 			else 
 			{
 				//al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, al_map_rgb(sprite.shadeRed, sprite.shadeGreen, sprite.shadeBlue));
-				al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*getSpriteColor(sprite, this->material, this->layerMaterial, this->veinMaterial));
+				if(bloodlevel)
+					al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*getSpriteColor(sprite, this->material, this->layerMaterial, this->veinMaterial)*bloodcolor);
+				else
+					al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*getSpriteColor(sprite, this->material, this->layerMaterial, this->veinMaterial));
 				if((sprite.snowMin <= snowlevel) && (sprite.snowMax >= snowlevel))
 					DrawSpriteFromSheet(sprite.sheetIndex+spriteOffset, imageSheet(sprite,IMGObjectSheet), drawx, drawy );
 				al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
@@ -405,7 +420,10 @@ void Block::Draw(){
 				{
 					for(int i = 0; i < sprite.subSprites.size(); i++)
 					{
-						al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*getSpriteColor(sprite.subSprites[i], this->material, this->layerMaterial, this->veinMaterial));
+						if(bloodlevel)
+							al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*getSpriteColor(sprite.subSprites[i], this->material, this->layerMaterial, this->veinMaterial)*bloodcolor);
+						else
+							al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*getSpriteColor(sprite.subSprites[i], this->material, this->layerMaterial, this->veinMaterial));
 						if((sprite.subSprites[i].snowMin <= snowlevel) && (sprite.subSprites[i].snowMax >= snowlevel))
 							DrawSpriteFromSheet(sprite.subSprites[i].sheetIndex+spriteOffset, imageSheet(sprite.subSprites[i],IMGObjectSheet), drawx, drawy );
 						al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
@@ -430,20 +448,32 @@ void Block::Draw(){
 	}
 
 	//water
-	if(water.index > 0){
+	if(water.index > 0)
+	{
 		int spriteNum = 0;
 		int waterlevel = water.index;
 
 		//if(waterlevel == 7) waterlevel--;
 
 		if(water.type == 0)
+		{
+			if(bloodlevel == 0)
+				al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*al_map_rgb(168,248,248));
+			else if(bloodlevel <= 255)
+				al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*partialBlend(al_map_rgb(168,248,248), bloodcolor, (bloodlevel*100/255)));
+			else
+				al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*bloodcolor);
 			spriteNum = SPRITEOBJECT_WATERLEVEL1 + waterlevel - 1;
+		}
 		else
+		{
 			spriteNum = SPRITEOBJECT_WATERLEVEL1_LAVA + waterlevel - 1;
+		}
 		DrawSpriteFromSheet( spriteNum, IMGObjectSheet, drawx, drawy );
-	}
+		al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
+		}
 
-	// creature
+		// creature
 	// ensure there is *some* creature according to the map data
 	// (no guarantee it is the right one)
 	if(creaturePresent)
@@ -647,3 +677,78 @@ void destroyEffectSprites()
 	al_destroy_bitmap(sprite_boiling);
 	al_destroy_bitmap(sprite_oceanwave);
 }
+
+
+void drawFloorBlood ( Block *b, int32_t drawx, int32_t drawy )
+{
+	t_occupancy occ = b->occ;
+	t_SpriteWithOffset sprite;
+
+	int x = b->x, y = b->y, z = b->z;
+
+
+	if( b->water.index < 1 && (b->bloodlevel))
+	{
+		sprite.fileIndex = INVALID_INDEX;
+
+		// Spatter (should be blood, not blood2) swapped for testing
+		if( b->bloodlevel <= 255 )
+			sprite.sheetIndex = 7;
+
+		// Smear (should be blood2, not blood) swapped for testing
+		else
+		{
+			// if there's no block in the respective direction it's false. if there's no blood in that direction it's false too. should also check to see if there's a ramp below, but since blood doesn't flow, that'd look wrong anyway.
+			bool _N = ( b->ownerSegment->getBlockRelativeTo( x, y, z, eUp ) != NULL ? (b->ownerSegment->getBlockRelativeTo( x, y, z, eUp )->bloodlevel > 255) : false ),
+				_S = ( b->ownerSegment->getBlockRelativeTo( x, y, z, eDown ) != NULL ? (b->ownerSegment->getBlockRelativeTo( x, y, z, eDown )->bloodlevel > 255) : false ),
+				_E = ( b->ownerSegment->getBlockRelativeTo( x, y, z, eRight ) != NULL ? (b->ownerSegment->getBlockRelativeTo( x, y, z, eRight )->bloodlevel > 255) : false ),
+				_W = ( b->ownerSegment->getBlockRelativeTo( x, y, z, eLeft ) != NULL ? (b->ownerSegment->getBlockRelativeTo( x, y, z, eLeft )->bloodlevel > 255) : false );
+
+			// do rules-based puddling
+			if( _N || _S || _E || _W )
+			{
+				if( _E )
+				{
+					if( _N && _S )
+						sprite.sheetIndex = 5;
+					else if( _S )
+						sprite.sheetIndex = 3;
+					else if( _W )
+						sprite.sheetIndex = 1;
+					else
+						sprite.sheetIndex = 6;
+				}
+				else if( _W )
+				{
+					if( _S && _N)
+						sprite.sheetIndex = 5;
+					else if( _S )
+						sprite.sheetIndex = 2;
+					else
+						sprite.sheetIndex = 0;
+				}
+				else if ( _N )
+					sprite.sheetIndex = 4;
+				else
+					sprite.sheetIndex = 2;
+			}
+			else
+				sprite.sheetIndex = 8;
+		}
+		int op, src, dst, alpha_op, alpha_src, alpha_dst;
+		ALLEGRO_COLOR color;
+		al_get_separate_blender(&op, &src, &dst, &alpha_op, &alpha_src, &alpha_dst, &color);
+		if(b->bloodlevel <=255)
+			al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, al_map_rgba_f(b->bloodcolor.r, b->bloodcolor.g, b->bloodcolor.b, (b->bloodlevel/255.0f)));
+		else
+			al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, b->bloodcolor);
+
+		int sheetOffsetX = TILEWIDTH * (sprite.sheetIndex % SHEET_OBJECTSWIDE),
+			sheetOffsetY = 0;
+
+		al_draw_bitmap_region( IMGBloodSheet, sheetOffsetX, sheetOffsetY, TILEWIDTH, TILEHEIGHT+FLOORHEIGHT, drawx, drawy, 0);
+		al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
+		al_draw_bitmap_region( IMGBloodSheet, sheetOffsetX, sheetOffsetY+TILEHEIGHT+FLOORHEIGHT, TILEWIDTH, TILEHEIGHT+FLOORHEIGHT, drawx, drawy, 0);
+	}
+}
+

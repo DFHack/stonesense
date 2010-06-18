@@ -37,6 +37,7 @@ ALLEGRO_BITMAP* IMGObjectSheet;
 ALLEGRO_BITMAP* IMGCreatureSheet; 
 ALLEGRO_BITMAP* IMGRampSheet; 
 ALLEGRO_BITMAP* IMGStatusSheet; 
+ALLEGRO_BITMAP* IMGBloodSheet; 
 ALLEGRO_BITMAP* buffer = 0;
 ALLEGRO_BITMAP* bigFile = 0;
 vector<ALLEGRO_BITMAP*> IMGCache;
@@ -459,10 +460,10 @@ void drawDebugCursorAndInfo(){
 		draw_textf_border(font, 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0,
 			"Temp1: %dU, %.2f'C, %d'F", b->temp1, (float)(b->temp1-10000)*5/9, b->temp1-9968);
 	}
-	if(b->snowlevel || b->mudlevel)
+	if(b->snowlevel || b->mudlevel || b->bloodlevel)
 	{
 		draw_textf_border(font, 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0,
-			"Snow: %d, Mud: %d", b->snowlevel, b->mudlevel);
+			"Snow: %d, Mud: %d, Blood: %d", b->snowlevel, b->mudlevel, b->bloodlevel);
 	}
 
 	////effects
@@ -742,6 +743,8 @@ void loadGraphicsFromDisk(){
 	IMGRampSheet = al_create_sub_bitmap(IMGFilelist[index], 0, 0, al_get_bitmap_width(IMGFilelist[index]), al_get_bitmap_height(IMGFilelist[index]));
 	index = loadImgFile("SSStatusIcons.png");
 	IMGStatusSheet = al_create_sub_bitmap(IMGFilelist[index], 0, 0, al_get_bitmap_width(IMGFilelist[index]), al_get_bitmap_height(IMGFilelist[index]));
+	index = loadImgFile("gibs.png");
+	IMGBloodSheet = al_create_sub_bitmap(IMGFilelist[index], 0, 0, al_get_bitmap_width(IMGFilelist[index]), al_get_bitmap_height(IMGFilelist[index]));
 	createEffectSprites();
 }
 

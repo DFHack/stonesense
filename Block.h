@@ -39,6 +39,8 @@ public:
 
 	int mudlevel;
 	int snowlevel;
+	int bloodlevel;
+	ALLEGRO_COLOR bloodcolor;
 	struct BlockEffects //size 40
 	{
 		uint16_t count;
@@ -94,6 +96,7 @@ bool hasBuildingOfID(Block* b, int ID);
 bool hasBuildingIdentity(Block* b, uint32_t index, int buildingOcc);
 bool hasBuildingOfIndex(Block* b, uint32_t index);
 bool wallShouldNotHaveBorders( int in );
+void drawFloorBlood ( Block *b, int32_t drawx, int32_t drawy );
 
 ALLEGRO_COLOR getSpriteColor(t_subSprite &sprite, t_matglossPair material, t_matglossPair layerMaterial, t_matglossPair veinMaterial);
 ALLEGRO_COLOR getSpriteColor(t_SpriteWithOffset &sprite, t_matglossPair material, t_matglossPair layerMaterial, t_matglossPair veinMaterial);
