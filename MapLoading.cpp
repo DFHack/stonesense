@@ -309,11 +309,17 @@ void ReadCellToSegment(API& DF, WorldSegment& segment, int CellX, int CellY, int
 					|| splatter[i].mat1 == BLOOD_6)
 				{
 					b->bloodlevel += splatter[i].intensity[lx][ly];
-					if(splatter[i].mat2 == 206)
+					if(splatter[i].mat2 == 206) //troll
 					{
 						red += (0.0f * splatter[i].intensity[lx][ly] / 255.0f);
 						green += (255.0f * splatter[i].intensity[lx][ly] / 255.0f);
 						blue += (255.0f * splatter[i].intensity[lx][ly] / 255.0f);
+					}
+					else if(splatter[i].mat2 == 242) //imp
+					{
+						red += (0.0f * splatter[i].intensity[lx][ly] / 255.0f);
+						green += (0.0f * splatter[i].intensity[lx][ly] / 255.0f);
+						blue += (0.0f * splatter[i].intensity[lx][ly] / 255.0f);
 					}
 					else
 					{
