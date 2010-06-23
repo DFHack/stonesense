@@ -1,6 +1,7 @@
 #pragma once
 
 #include "common.h"
+#include "SpriteObjects.h"
 
 enum enumFloorSprites{
 	SPRITEFLOOR_NA = 0,
@@ -64,5 +65,5 @@ enum BlockIDs{
 // or one with sheetIndex == INVALID_INDEX if none found
 t_SpriteWithOffset GetBlockSpriteMap(int in, t_matglossPair material, uint16_t form);
 t_SpriteWithOffset GetFloorSpriteMap(int in, t_matglossPair material, uint16_t form);
-t_SpriteWithOffset GetSpriteVegetation( TileClass type, int index);
+c_sprite GetSpriteVegetation( TileClass type, int index);
 

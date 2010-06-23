@@ -83,6 +83,7 @@ public:
 
 	uint16_t consForm;
 
+
 private:
 
 };

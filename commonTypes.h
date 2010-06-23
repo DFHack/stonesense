@@ -29,7 +29,8 @@ struct t_subSprite
 	uint8_t snowMax;
 } ;
 
-struct t_SpriteWithOffset{
+struct t_SpriteWithOffset
+{
 	int32_t sheetIndex;
 	int16_t x;
 	int16_t y;

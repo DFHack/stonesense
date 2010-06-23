@@ -389,6 +389,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\SpriteObjects.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\UserInput.cpp"
 				>
 			</File>
@@ -520,6 +524,10 @@
 			</File>
 			<File
 				RelativePath=".\SpriteMaps.h"
+				>
+			</File>
+			<File
+				RelativePath=".\SpriteObjects.h"
 				>
 			</File>
 			<File

@@ -21,7 +21,9 @@
 	<plant gameID = "PALM" sheetIndex = 17 />
 	<plant gameID = "PINE" sheetIndex = 18 />
 	<plant gameID = "RUBBER" sheetIndex = 19 />
-	<plant gameID = "SAGUARO" sheetIndex = 29 />
+	<plant gameID = "SAGUARO" sheetIndex = 29 >
+		<tile rel_x = 0 rel_y = 0 rel_z = 1 sheetindex = 20/>
+	</plant>
 	<plant gameID = "MANGROVE" sheetIndex = 21 />
 	<plant gameID = "WILLOW" sheetIndex = 28 />
 	<plant gameID = "BLACK_CAP" sheetIndex = 40 />

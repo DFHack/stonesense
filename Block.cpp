@@ -276,8 +276,7 @@ void Block::Draw(){
 
 	//vegetation
 	if(tree.index > 0 || tree.type > 0){
-		sprite =  GetSpriteVegetation( (TileClass) getVegetationType( this->floorType ), tree.index );
-		DrawSpriteFromSheet( sprite.sheetIndex, imageSheet(sprite,IMGObjectSheet), drawx, drawy );
+		GetSpriteVegetation( (TileClass) getVegetationType( this->floorType ), tree.index ).draw_screen(drawx, drawy);
 	}
 
 	//shadow
