@@ -276,7 +276,10 @@ void Block::Draw(){
 
 	//vegetation
 	if(tree.index > 0 || tree.type > 0){
-		GetSpriteVegetation( (TileClass) getVegetationType( this->floorType ), tree.index ).draw_screen(drawx, drawy);
+		c_sprite * vegetationsprite = 0;
+		vegetationsprite = GetSpriteVegetation( (TileClass) getVegetationType( this->floorType ), tree.index );
+		if(vegetationsprite)
+			vegetationsprite->draw_screen(drawx, drawy);
 	}
 
 	//shadow

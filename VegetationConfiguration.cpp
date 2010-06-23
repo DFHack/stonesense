@@ -63,7 +63,7 @@ bool addSingleVegetationConfig( TiXmlElement* elemRoot,  vector<VegetationConfig
 	return true;
 }
 
-c_sprite getVegetationSprite(vector<VegetationConfiguration>& vegetationConfigs,int index,bool live,bool grown)
+c_sprite * getVegetationSprite(vector<VegetationConfiguration>& vegetationConfigs,int index,bool live,bool grown)
 {
 	int vcmax = (int)vegetationConfigs.size();
 	for (int i=0;i<vcmax;i++)
@@ -72,9 +72,9 @@ c_sprite getVegetationSprite(vector<VegetationConfiguration>& vegetationConfigs,
 		if (current->gameID != INVALID_INDEX && current->gameID != index) continue;
 		if (current->live != live) continue;
 		if (current->grown != grown) continue;
-		return current->sprite;
+		return &(current->sprite);
 	}
-	c_sprite sprite;
+	c_sprite* sprite = new c_sprite;
 	return sprite;
 }
 

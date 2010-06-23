@@ -86,13 +86,12 @@ t_SpriteWithOffset GetBlockSpriteMap(int in, t_matglossPair material, uint16_t f
 	return GetTerrainSpriteMap(in, material, contentLoader.terrainBlockConfigs, form);
 }
 
-c_sprite GetSpriteVegetation( TileClass type, int index)
+c_sprite * GetSpriteVegetation( TileClass type, int index)
 {
 	int base_sprite = SPRITEOBJECT_BLUEPRINT;
 	vector<VegetationConfiguration>* graphicSet;
 	bool live=true;
 	bool grown=true;
-	
 	switch(type)
 	{
 	case TREE_DEAD:
@@ -125,15 +124,15 @@ c_sprite GetSpriteVegetation( TileClass type, int index)
 		graphicSet = &(contentLoader.shrubConfigs);
 		break;
 	default:
-		c_sprite defaultSprite;
+		c_sprite * defaultSprite = new c_sprite;
 		return defaultSprite;
 	}  	
   	
-	c_sprite configuredSprite = getVegetationSprite(*graphicSet,index,live,grown);
-	if (configuredSprite.get_sheetindex() == -1)
+	c_sprite * configuredSprite = getVegetationSprite(*graphicSet,index,live,grown);
+	if (configuredSprite->get_sheetindex() == -1)
 	{
-		configuredSprite.set_fileindex(-1); // should be set already, but...
-		configuredSprite.set_sheetindex(base_sprite);
+		configuredSprite->set_fileindex(-1); // should be set already, but...
+		configuredSprite->set_sheetindex(base_sprite);
 	}
 	return configuredSprite;
 }

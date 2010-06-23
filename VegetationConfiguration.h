@@ -17,4 +17,4 @@ public:
 
 
 bool addSingleVegetationConfig( TiXmlElement* elemRoot,  vector<VegetationConfiguration>* vegetationConfigs, vector<t_matgloss>& plantNames );
-c_sprite getVegetationSprite(vector<VegetationConfiguration>& vegetationConfigs,int index,bool live,bool grown);
+c_sprite * getVegetationSprite(vector<VegetationConfiguration>& vegetationConfigs,int index,bool live,bool grown);
