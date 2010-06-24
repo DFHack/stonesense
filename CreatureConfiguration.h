@@ -1,6 +1,6 @@
 #pragma once
 #include "dfhack/depends/tinyxml/tinyxml.h"
-
+#include "SpriteObjects.h"
 
 #define CREATURESTRLENGTH 50
 
@@ -16,13 +16,13 @@ class CreatureConfiguration
 public:
 	char professionstr[CREATURESTRLENGTH];
 	int professionID;
-	t_SpriteWithOffset sprite;
+	c_sprite sprite;
 	int shadow;
 	enumCreatureSpecialCases special;
 	uint8_t sex;
 
 	CreatureConfiguration(){}
-	CreatureConfiguration(int professionID, const char* professionStr, uint8_t sex, enumCreatureSpecialCases special, t_SpriteWithOffset &sprite, int shadow);
+	CreatureConfiguration(int professionID, const char* professionStr, uint8_t sex, enumCreatureSpecialCases special, c_sprite &sprite, int shadow);
 	~CreatureConfiguration(void);
 };
 

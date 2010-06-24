@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <blocks file="blocks.png">
   <!-- construct -->
-  <block sprite="143" color="material">
+  <block sheetIndex="143" color="material">
     <!-- pillar -->
     <terrain value="495" />
     <!-- wall -->
@@ -26,10 +26,10 @@
     <terrain value="514" />
     <form value="block" />
     <material value="Inorganic" />
-    <subsprite sprite="145" />
+    <subsprite sheetIndex="145" />
   </block>
   <!-- construct -->
-  <block sprite="144" color="material">
+  <block sheetIndex="144" color="material">
     <!-- pillar -->
     <terrain value="495" />
     <!-- wall -->
@@ -54,12 +54,12 @@
     <terrain value="514" />
     <form value="boulder" />
     <material value="Inorganic" />
-    <subsprite sprite="146" />
+    <subsprite sheetIndex="146" />
   </block>
 </blocks>
 <floors file="floors.png">
   <!-- construct -->
-  <floor sprite="48" color="material">
+  <floor sheetIndex="48" color="material">
     <!-- floor -->
     <terrain value="493" />
     <!-- fort -->
@@ -92,11 +92,11 @@
     <terrain value="518" />
     <form value="block" />
     <material value="Inorganic" />
-	<subsprite sprite="50" />
+	<subsprite sheetIndex="50" />
   </floor>
   
     <!-- construct -->
-  <floor sprite="49" color="material">
+  <floor sheetIndex="49" color="material">
     <!-- floor -->
     <terrain value="493" />
     <!-- fort -->
@@ -129,6 +129,6 @@
     <terrain value="518" />
     <form value="boulder" />
     <material value="Inorganic" />
-	<subsprite sprite="51" />
+	<subsprite sheetIndex="51" />
   </floor>
 </floors>

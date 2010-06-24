@@ -3,7 +3,7 @@
 <floors file="craggyfloors.png"> 
 
 <!-- stone -->
-<floor sprite= 0 variations = 4 color = layer outline=0>
+<floor sheetIndex= 0 variations = 4 color = layer outline=0>
 	<!-- below stair -->
 	<terrain value= 57 />
 	<terrain value= 60 />

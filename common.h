@@ -256,3 +256,4 @@ extern ALLEGRO_MOUSE_STATE mouse;
 #define FORM_BOULDER 3
 #define FORM_LOG 4
 
+extern int randomCube[RANDOM_CUBE][RANDOM_CUBE][RANDOM_CUBE];

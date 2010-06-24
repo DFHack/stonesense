@@ -63,7 +63,7 @@ enum BlockIDs{
 
 // returns appropriate t_SpriteWithOffset,
 // or one with sheetIndex == INVALID_INDEX if none found
-t_SpriteWithOffset GetBlockSpriteMap(int in, t_matglossPair material, uint16_t form);
-t_SpriteWithOffset GetFloorSpriteMap(int in, t_matglossPair material, uint16_t form);
+c_sprite * GetBlockSpriteMap(int in, t_matglossPair material, uint16_t form);
+c_sprite * GetFloorSpriteMap(int in, t_matglossPair material, uint16_t form);
 c_sprite * GetSpriteVegetation( TileClass type, int index);
 

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <floors file="floors.png">
   <!-- construct (wood planks) -->
-  <floor sprite="10" color="material">
+  <floor sheetIndex="10" color="material">
     <!-- floor -->
     <terrain value="493" />
     <!-- stair -->
@@ -11,7 +11,7 @@
     <material value="Wood" />
   </floor>
   <!-- construct (wood logs) -->
-  <floor sprite="22" color="material">
+  <floor sheetIndex="22" color="material">
     <!-- fort -->
     <terrain value="494" />
     <!-- pillar -->
@@ -39,7 +39,7 @@
     <material value="Wood" />
   </floor>
   <!-- construct -->
-  <floor sprite="36">
+  <floor sheetIndex="36">
     <!-- floor -->
     <terrain value="493" />
     <!-- stair -->
@@ -73,7 +73,7 @@
     <material value="GreenGlass" />
   </floor>
   <!-- construct -->
-  <floor sprite="35">
+  <floor sheetIndex="35">
     <!-- floor -->
     <terrain value="493" />
     <!-- stair -->
@@ -107,7 +107,7 @@
     <material value="ClearGlass" />
     <material value="CrystalGlass" />
   </floor>
-  <floor sprite="56">
+  <floor sheetIndex="56">
     <!-- floor -->
     <terrain value="493" />
     <!-- stair -->
@@ -143,7 +143,7 @@
     </material>
   </floor>
   <!-- construct -->
-  <floor sprite="38" color = "material">
+  <floor sheetIndex="38" color = "material">
     <!-- floor -->
     <terrain value="493" />
     <!-- stair -->
@@ -204,7 +204,7 @@
     </material>
   </floor>
 
-  <floor sprite="23">
+  <floor sheetIndex="23">
     <!-- Soil floors -->
     <terrain value="353" />
     <!-- Wet Soil floors -->
@@ -217,7 +217,7 @@
       <subtype value="SANDY_CLAY" />
     </material>
   </floor>
-  <floor sprite="24">
+  <floor sheetIndex="24">
     <!-- Soil floors -->
     <terrain value="355" />
     <!-- Wet Soil floors -->
@@ -230,7 +230,7 @@
       <subtype value="SANDY_CLAY" />
     </material>
   </floor>
-  <floor sprite="25">
+  <floor sheetIndex="25">
     <!-- Soil floors -->
     <terrain value="354" />
     <!-- Wet Soil floors -->
@@ -243,7 +243,7 @@
       <subtype value="SANDY_CLAY" />
     </material>
   </floor>
-  <floor sprite="26">
+  <floor sheetIndex="26">
     <!-- Soil floors -->
     <terrain value="352" />
     <!-- Wet Soil floors -->
@@ -256,7 +256,7 @@
       <subtype value="SANDY_CLAY" />
     </material>
   </floor>
-  <floor sprite="9">
+  <floor sheetIndex="9">
     <!-- Dry grass -->
     <terrain value="387" />
     <terrain value="388" />
@@ -273,7 +273,7 @@
     <!-- Dead shrub -->
     <terrain value="393" />
   </floor>
-  <floor sprite="13">
+  <floor sheetIndex="13">
     <!-- Soil floors -->
     <terrain value="352" />
     <terrain value="353" />
@@ -289,7 +289,7 @@
       <subtype value="SAND_YELLOW" />
     </material>
   </floor>
-  <floor sprite="14">
+  <floor sheetIndex="14">
     <!-- Soil floors -->
     <terrain value="352" />
     <terrain value="353" />
@@ -305,7 +305,7 @@
       <subtype value="SILT" />
     </material>
   </floor>
-  <floor sprite="15">
+  <floor sheetIndex="15">
     <!-- Soil floors -->
     <terrain value="352" />
     <terrain value="353" />
@@ -320,7 +320,7 @@
       <subtype value="SAND_BLACK" />
     </material>
   </floor>
-  <floor sprite="16">
+  <floor sheetIndex="16">
     <!-- Soil floors -->
     <terrain value="352" />
     <terrain value="353" />
@@ -335,7 +335,7 @@
       <subtype value="SAND_WHITE" />
     </material>
   </floor>
-  <floor sprite="9">
+  <floor sheetIndex="9">
     <!-- Dry Grass -->
     <terrain value="387" />
     <terrain value="388" />
@@ -353,7 +353,7 @@
     <!-- Dead shrub -->
     <terrain value="393" />
   </floor>
-  <floor sprite="28">
+  <floor sheetIndex="28">
     <!-- Grass on clay -->
     <terrain value="348" />
     <terrain value="349" />
@@ -374,7 +374,7 @@
       <subtype value="CLAY_LOAM" />
     </material>
   </floor>
-  <floor sprite="29">
+  <floor sheetIndex="29">
     <!-- Dry Grass on clay -->
     <terrain value="387" />
     <terrain value="388" />

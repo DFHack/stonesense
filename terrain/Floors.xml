@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <floors file="floors.png">
   <!-- watery -->
-  <floor sprite="18">
+  <floor sheetIndex="18">
     <!-- pool -->
     <terrain value="2" />
     <!-- waterfall -->
@@ -30,12 +30,12 @@
         <terrain value= 381 /> -->
   </floor>
   <!-- driftwood -->
-  <floor sprite="3" color="material">
+  <floor sheetIndex="3" color="material">
     <terrain value="19" />
-    <subsprite sprite="30" />
+    <subsprite sheetIndex="30" />
   </floor>
   <!-- vegetation -->
-  <floor sprite="2">
+  <floor sheetIndex="2">
     <!-- tree -->
     <terrain value="24" />
     <!-- shrub -->
@@ -70,7 +70,7 @@
     <terrain value="401" />
   </floor>
   <!-- ice -->
-  <floor sprite="34">
+  <floor sheetIndex="34">
     <!-- below stair -->
     <terrain value="27" />
     <!-- below ramp -->
@@ -87,12 +87,12 @@
     <terrain value="364" />
   </floor>
   <!-- gaps -->
-  <floor sprite="32">
+  <floor sheetIndex="32">
     <!-- chasm -->
     <terrain value="35" />
   </floor>
   <!-- obsidian -->
-  <floor sprite="17">
+  <floor sheetIndex="17">
     <!-- below stair -->
     <terrain value="38" />
     <!-- below ramp -->
@@ -109,7 +109,7 @@
     <terrain value="343" />
   </floor>
   <!-- soil -->
-  <floor sprite="4">
+  <floor sheetIndex="4">
     <!-- below stair -->
     <terrain value="41" />
     <!-- below grass stair -->
@@ -141,20 +141,20 @@
     <terrain value="358" />
     <terrain value="359" />
   </floor>
-  <floor sprite="46">
+  <floor sheetIndex="46">
     <!-- fires -->
     <terrain value="70" />
   </floor>
-  <floor sprite="47">
+  <floor sheetIndex="47">
     <!-- fires -->
     <terrain value="67" />
   </floor>
   <!-- hfspit -->
-  <floor sprite="33">
+  <floor sheetIndex="33">
     <terrain value="42" />
   </floor>
   <!-- sm stone -->
-  <floor sprite="20" color="material">
+  <floor sheetIndex="20" color="material">
     <terrain value="43" />
     <terrain value="45" />
     <terrain value="46" />
@@ -228,7 +228,7 @@
     <terrain value="435" />
   </floor>
   <!-- sm obsidian -->
-  <floor sprite="17">
+  <floor sheetIndex="17">
     <!-- floor -->
     <terrain value="44" />
     <!-- below pillar -->
@@ -257,7 +257,7 @@
     <terrain value="326" />
   </floor>
   <!-- sm ice -->
-  <floor sprite="34">
+  <floor sheetIndex="34">
     <terrain value="47" />
     <!-- below pillar -->
     <terrain value="83" />
@@ -285,7 +285,7 @@
     <terrain value="468" />
   </floor>
   <!-- stone -->
-  <floor sprite="3" color="material">
+  <floor sheetIndex="3" color="material">
     <!-- below stair -->
     <terrain value="57" />
     <terrain value="60" />
@@ -324,24 +324,24 @@
     <terrain value="443" />
     <terrain value="444" />
   </floor>
-   <floor sprite="3" color="xml" red="255" green = "0" blue = "0">
+   <floor sheetIndex="3" color="xml" red="255" green = "0" blue = "0">
     <!-- Semi molten rock -->
     <terrain value="263" />
-	<subsprite sprite = "51" color="xml" red="32" green = "0" blue = "0"/>
+	<subsprite sheetIndex = "51" color="xml" red="32" green = "0" blue = "0"/>
   </floor>
   <!-- magma flow -->
-  <floor sprite="31">
+  <floor sheetIndex="31">
     <terrain value="264" />
   </floor>
   <!-- boulder -->
-  <floor sprite="6" color="material">
+  <floor sheetIndex="6" color="material">
     <terrain value="402" />
     <terrain value="403" />
     <terrain value="404" />
     <terrain value="445" />
   </floor>
   <!-- pebbles -->
-  <floor sprite="5" color="material">
+  <floor sheetIndex="5" color="material">
     <terrain value="405" />
     <terrain value="406" />
     <terrain value="407" />
@@ -363,7 +363,7 @@
     <terrain value="449" />
   </floor>
   <!-- construct -->
-  <floor sprite="1" color="material">
+  <floor sheetIndex="1" color="material">
     <!-- floor -->
     <terrain value="493" />
     <!-- fort -->

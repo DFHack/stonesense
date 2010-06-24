@@ -5,7 +5,7 @@
 <floors>
 
 <!-- default floor -->
-<floor sprite = 3 color = material >
+<floor sheetIndex = 3 color = material >
 	<terrain value="2"/>
 	
 	<terrain value="19"/>
@@ -321,7 +321,7 @@
 </floor>
 
 <!-- explicitly blank brook top, downward stairs -->
-<floor sprite = -1>
+<floor sheetIndex = -1>
 	<terrain value="381"/>
 	<terrain value="25"/>
 	<terrain value="26"/>

@@ -269,38 +269,10 @@ void DrawCreature(int drawx, int drawy, t_creature* creature ){
 			statusIcons.push_back(17);
 	}
 
-	t_SpriteWithOffset sprite = GetCreatureSpriteMap( creature );
+	c_sprite * sprite = GetCreatureSpriteMap( creature );
 	//if(creature->x == 151 && creature->y == 145)
 	//  int j = 10; 
-	ALLEGRO_BITMAP* creatureSheet;
-	if (sprite.fileIndex == -1)
-	{
-		creatureSheet = IMGCreatureSheet;
-	}
-	else
-	{
-		creatureSheet = getImgFile(sprite.fileIndex);
-	}
-	al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*getSpriteColor(sprite, creature));
-	DrawSpriteFromSheet( sprite.sheetIndex, creatureSheet, drawx, drawy );
-	al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
-	if(!(sprite.subSprites.empty()))
-	{
-		for(int i = 0; i < sprite.subSprites.size(); i++)
-		{
-			if (sprite.subSprites[i].fileIndex == -1)
-			{
-				creatureSheet = IMGCreatureSheet;
-			}
-			else
-			{
-				creatureSheet = getImgFile(sprite.subSprites[i].fileIndex);
-			}
-			al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*getSpriteColor(sprite.subSprites[i], creature));
-			DrawSpriteFromSheet( sprite.subSprites[i].sheetIndex, creatureSheet, drawx, drawy );
-			al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
-		}
-	}
+	sprite->draw_world(creature->x,creature->y, creature->z);
 	if(statusIcons.size())
 	{
 		for(int i = 0; i < statusIcons.size(); i++)
@@ -445,9 +417,9 @@ CreatureConfiguration *GetCreatureConfig( t_creature* c ){
 	{
 		return NULL;
 	}
+	int rando = randomCube[c->x%RANDOM_CUBE][c->y%RANDOM_CUBE][c->z%RANDOM_CUBE];
+	int offsetAnimFrame = (currentAnimationFrame + rando) % MAX_ANIMFRAME;
 
-	//search list for given creature variant
-	int offsetAnimFrame = (currentAnimationFrame + c->id) % MAX_ANIMFRAME;
 	num = (uint32_t)creatureData->size();
 	for(uint32_t i=0; i < num; i++)
 	{
@@ -477,9 +449,8 @@ CreatureConfiguration *GetCreatureConfig( t_creature* c ){
 		}
 		if(!creatureMatchesSpecial) continue;
 
-		if (!(testConfig->sprite.animFrames & (1 << offsetAnimFrame)))
+		if (!(testConfig->sprite.get_animframes() & (1 << offsetAnimFrame)))
 			continue;
-
 		// dont try to match strings until other tests pass
 		if( testConfig->professionstr[0])
 		{ //cant be NULL, so check has length
@@ -493,12 +464,12 @@ CreatureConfiguration *GetCreatureConfig( t_creature* c ){
 }
 
 
-t_SpriteWithOffset GetCreatureSpriteMap( t_creature* c )
+c_sprite* GetCreatureSpriteMap( t_creature* c )
 {
 	CreatureConfiguration *testConfig = GetCreatureConfig( c );
 	if (testConfig == NULL)
-		return spriteCre_NA;
-	return testConfig->sprite;
+		return new c_sprite;
+	return &(testConfig->sprite);
 }
 
 int GetCreatureShadowMap( t_creature* c )

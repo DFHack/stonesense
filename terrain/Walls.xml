@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <blocks file="blocks.png">
   <!-- fortifications -->
-  <block sprite="141" color="material">
+  <block sheetIndex="141" color="material">
     <!-- stone -->
     <terrain value="65" />
     <!-- obs -->
@@ -17,7 +17,7 @@
   </block>
   <!-- ramps -->
   <!-- grass -->
-  <block sprite="0" file="ramps.png">
+  <block sheetIndex="0" file="ramps.png">
     <!-- dry -->
     <terrain value="233" />
     <!-- dead -->
@@ -29,7 +29,7 @@
     <terrain value="241" />
   </block>
   <!-- stone -->
-  <block sprite="1" file="ramps.png" color="material">
+  <block sheetIndex="1" file="ramps.png" color="material">
     <!-- stone -->
     <terrain value="237" />
     <!-- obs -->
@@ -57,7 +57,7 @@
         <terrain value="518"/>
 </block> -->
   <!-- stairs -->
-  <block sprite="160" color="material">
+  <block sheetIndex="160" color="material">
     <!-- ice -->
     <terrain value="25" />
     <terrain value="27" />
@@ -86,7 +86,7 @@
     <terrain value="517" />
   </block>
   <!-- ice -->
-  <block sprite="6">
+  <block sheetIndex="6">
     <!-- wall -->
     <terrain value="361" />
     <terrain value="362" />
@@ -94,7 +94,7 @@
     <terrain value="364" />
   </block>
   <!-- sm ice -->
-  <block sprite="6">
+  <block sheetIndex="6">
     <!-- pillar -->
     <terrain value="83" />
     <!-- sm wall -->
@@ -119,7 +119,7 @@
     <terrain value="468" />
   </block>
   <!-- obsidian -->
-  <block sprite="9">
+  <block sheetIndex="9">
     <!-- below ramp -->
     <terrain value="238" />
     <!-- wall -->
@@ -134,7 +134,7 @@
     <terrain value="343" />
   </block>
   <!-- sm obsidian -->
-  <block sprite="9">
+  <block sheetIndex="9">
     <!-- pillar -->
     <terrain value="80" />
     <!-- wall -->
@@ -161,12 +161,12 @@
     <terrain value="326" />
   </block>
   <!-- soil -->
-  <block sprite="5">
+  <block sheetIndex="5">
     <!-- wall -->
     <terrain value="265" />
   </block>
   <!-- sm stone -->
-  <block sprite="20" color="material">
+  <block sheetIndex="20" color="material">
     <!-- pillar -->
     <terrain value="79" />
     <terrain value="81" />
@@ -233,7 +233,7 @@
     <terrain value="435" />
   </block>
   <!-- stone -->
-  <block sprite="21" color="material">
+  <block sheetIndex="21" color="material">
     <!-- wall feat? -->
     <terrain value="176" />
     <terrain value="177" />
@@ -251,13 +251,13 @@
     <terrain value="440" />
   </block>
     <!-- stone -->
-  <block sprite="21" color="xml" red="255" green = "0" blue = "0">
+  <block sheetIndex="21" color="xml" red="255" green = "0" blue = "0">
   <!-- Semi molten rock -->
     <terrain value="263" />
-	<subsprite sprite = "146" color="xml" red="32" green = "0" blue = "0"/>
+	<subsprite sheetIndex = "146" color="xml" red="32" green = "0" blue = "0"/>
   </block>
   <!-- construct -->
-  <block sprite="22" color="material">
+  <block sheetIndex="22" color="material">
     <!-- pillar -->
     <terrain value="495" />
     <!-- wall -->

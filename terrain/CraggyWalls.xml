@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <blocks file="craggywalls.png">
   <!-- stone -->
-  <block sprite="0" variations="4" color="vein" outline="0">
+  <block sheetIndex="0" variations="4" color="vein" outline="0">
     <!-- wall feat? -->
     <terrain value="176" />
     <terrain value="177" />
@@ -13,16 +13,16 @@
     <terrain value="334" />
     <terrain value="335" />
   </block>
-  <block sprite="0" variations="4" color="layer" outline="0">
+  <block sheetIndex="0" variations="4" color="layer" outline="0">
     <!-- vein wall -->
     <terrain value="437" />
     <terrain value="438" />
     <terrain value="439" />
     <terrain value="440" />
-    <subsprite sprite="4" color="vein" />
+    <subsprite sheetIndex="4" color="vein" />
   </block>
   <!-- construct -->
-  <block sprite="8" color="material">
+  <block sheetIndex="8" color="material">
     <!-- pillar -->
     <terrain value="495" />
     <!-- wall -->
@@ -49,6 +49,6 @@
       <subtype value="GOLD" />
       <subtype value="ADAMANTINE" />
     </material>
-    <subsprite sprite="9" color="none" />
+    <subsprite sheetIndex="9" color="none" />
   </block>
 </blocks>

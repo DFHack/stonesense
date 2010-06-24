@@ -1,18 +1,18 @@
 <?xml version="1.0"?>
 <blocks file="blocks.png">
   <!-- fortifications -->
-  <block sprite="142" color="material">
+  <block sheetIndex="142" color="material">
     <!-- cons -->
     <terrain value="494" />
     <material value="Wood" />
   </block>
-  <block sprite="140" color="material">
+  <block sheetIndex="140" color="material">
     <!-- cons -->
     <terrain value="494" />
   </block>
   <!-- ramps -->
   <!-- stone -->
-  <block sprite="1" file="ramps.png" color="material">
+  <block sheetIndex="1" file="ramps.png" color="material">
     <!-- stone -->
     <terrain value="237" />
     <!-- obs -->
@@ -23,44 +23,44 @@
     <terrain value="240" />
   </block>
   <!-- brick -->
-  <block sprite="2" file="ramps.png" color="material">
+  <block sheetIndex="2" file="ramps.png" color="material">
     <!-- cons -->
     <terrain value="518" />
   </block>
-  <block sprite="5" file="ramps.png">
+  <block sheetIndex="5" file="ramps.png">
     <!-- ice -->
     <terrain value="245" />
   </block>
-  <block sprite="5" file="ramps.png">
+  <block sheetIndex="5" file="ramps.png">
     <!-- ice -->
     <terrain value="518" />
     <material value="Ice" />
   </block>
-  <block sprite="4" file="ramps.png">
+  <block sheetIndex="4" file="ramps.png">
     <!-- cons -->
     <terrain value="518" />
     <material value="GreenGlass" />
   </block>
-  <block sprite="3" file="ramps.png">
+  <block sheetIndex="3" file="ramps.png">
     <!-- cons -->
     <terrain value="518" />
     <material value="ClearGlass" />
     <material value="CrystalGlass" />
   </block>
-  <block sprite="6" file="ramps.png" color="material">
+  <block sheetIndex="6" file="ramps.png" color="material">
     <!-- cons -->
     <terrain value="518" />
     <material value="Wood" />
   </block>
   <!-- stairs -->
-  <block sprite="162" color="material">
+  <block sheetIndex="162" color="material">
     <!-- cons -->
     <terrain value="515" />
     <terrain value="517" />
     <material value="Wood" />
   </block>
   <!-- construct -->
-  <block sprite="8" color="material">
+  <block sheetIndex="8" color="material">
     <!-- pillar -->
     <terrain value="495" />
     <!-- wall -->
@@ -86,7 +86,7 @@
     <material value="Wood" />
   </block>
   <!-- construct -->
-  <block sprite="26">
+  <block sheetIndex="26">
     <!-- pillar -->
     <terrain value="495" />
     <!-- wall -->
@@ -112,7 +112,7 @@
     <material value="GreenGlass" />
   </block>
   <!-- construct -->
-  <block sprite="25">
+  <block sheetIndex="25">
     <!-- pillar -->
     <terrain value="495" />
     <!-- wall -->
@@ -139,7 +139,7 @@
     <material value="CrystalGlass" />
   </block>
   <!-- construct -->
-  <block sprite="9">
+  <block sheetIndex="9">
     <!-- pillar -->
     <terrain value="495" />
     <!-- wall -->
@@ -167,7 +167,7 @@
     </material>
   </block>
   <!-- construct -->
-  <block sprite="46">
+  <block sheetIndex="46">
     <!-- pillar -->
     <terrain value="495" />
     <!-- wall -->
@@ -195,7 +195,7 @@
     </material>
   </block>
   <!-- construct -->
-  <block sprite="7" color="material">
+  <block sheetIndex="7" color="material">
     <!-- pillar -->
     <terrain value="495" />
     <!-- wall -->
@@ -248,7 +248,7 @@
     </material>
   </block>
   <!-- damaged walls -->
-  <block sprite="29" color="material">
+  <block sheetIndex="29" color="material">
     <!-- wall feat? -->
     <terrain value="176" />
     <terrain value="177" />
@@ -263,7 +263,7 @@
     <terrain value="439" />
   </block>
   <!-- gems -->
-  <block sprite="31" color="material">
+  <block sheetIndex="31" color="material">
     <!-- wall feat? -->
     <terrain value="219" />
     <!-- wall feat? -->
@@ -401,7 +401,7 @@
     </material>
   </block>
   <!-- soil -->
-  <block sprite="10">
+  <block sheetIndex="10">
     <!-- wall -->
     <terrain value="265" />
     <material value="Stone">
@@ -411,7 +411,7 @@
   </block>
   <subtype value="" />
   <!-- soil -->
-  <block sprite="11">
+  <block sheetIndex="11">
     <!-- wall -->
     <terrain value="265" />
     <material value="Stone">
@@ -420,7 +420,7 @@
     </material>
   </block>
   <!-- soil -->
-  <block sprite="12">
+  <block sheetIndex="12">
     <!-- wall -->
     <terrain value="265" />
     <material value="Stone">
@@ -428,7 +428,7 @@
     </material>
   </block>
   <!-- soil -->
-  <block sprite="13">
+  <block sheetIndex="13">
     <!-- wall -->
     <terrain value="265" />
     <material value="Stone">
@@ -436,7 +436,7 @@
     </material>
   </block>
   <!-- soil -->
-  <block sprite="14">
+  <block sheetIndex="14">
     <!-- wall -->
     <terrain value="265" />
     <material value="Stone">
@@ -448,7 +448,7 @@
     </material>
   </block>
   <!-- construct -->
-  <block sprite="6" outline="0">
+  <block sheetIndex="6" outline="0">
     <!-- pillar -->
     <terrain value="495" />
     <!-- wall -->

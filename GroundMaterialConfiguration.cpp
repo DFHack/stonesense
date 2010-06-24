@@ -12,8 +12,8 @@ TerrainMaterialConfiguration::TerrainMaterialConfiguration()
 	defaultSprite.resize(NUM_FORMS);
 	for(int i = 0; i < NUM_FORMS; i++)
 	{
-		defaultSprite[i].fileIndex=INVALID_INDEX;
-		defaultSprite[i].sheetIndex=UNCONFIGURED_INDEX;
+		defaultSprite[i].set_fileindex(INVALID_INDEX);
+		defaultSprite[i].set_sheetindex(UNCONFIGURED_INDEX);
 	}
 	//dont really care about the rest of the sprite right now.
 
@@ -24,8 +24,8 @@ TerrainConfiguration::TerrainConfiguration()
 	defaultSprite.resize(NUM_FORMS);
 	for(int i = 0; i < NUM_FORMS; i++)
 	{
-		defaultSprite[i].fileIndex=INVALID_INDEX;
-		defaultSprite[i].sheetIndex=UNCONFIGURED_INDEX;
+		defaultSprite[i].set_fileindex(INVALID_INDEX);
+		defaultSprite[i].set_sheetindex(UNCONFIGURED_INDEX);
 	}
 	//dont really care about the rest of the sprite right now.
 }
@@ -51,164 +51,22 @@ void DumpInorganicMaterialNamesToDisk(){
 	fclose(fp);
 }
 
-void parseWallFloorSpriteElement( TiXmlElement* elemWallFloorSprite, vector<TerrainConfiguration*>& configTable ,int basefile)
+void parseWallFloorSpriteElement( TiXmlElement* elemWallFloorSprite, vector<TerrainConfiguration*>& configTable ,int basefile, bool floor)
 {
-	const char* spriteIndexStr = elemWallFloorSprite->Attribute("sprite");
+	const char* spriteIndexStr = elemWallFloorSprite->Attribute("sheetIndex");
 	if (spriteIndexStr == NULL || spriteIndexStr[0] == 0)
 	{
 		contentError("Invalid or missing sprite attribute",elemWallFloorSprite);
 		return; //nothing to work with
 	}
 	// make a base sprite
-	t_SpriteWithOffset sprite;
-	sprite.sheetIndex=atoi(spriteIndexStr);
-	sprite.fileIndex=basefile;
-	sprite.x=0;
-	sprite.y=0;
-	sprite.animFrames=ALL_FRAMES; //augh! no animated terrains! please!
-	sprite.numVariations = 0;
-	uint8_t red, green, blue;
-	//check for randomised tiles
-	const char* spriteVariationsStr = elemWallFloorSprite->Attribute("variations");
-	if (spriteVariationsStr == NULL || spriteVariationsStr[0] == 0)
+	c_sprite sprite;
+	if(floor)
 	{
-		sprite.numVariations = 0;
+		sprite.set_size(SPRITEWIDTH, (TILEHEIGHT + FLOORHEIGHT));
+		sprite.set_offset(0, (WALLHEIGHT));
 	}
-	else sprite.numVariations=atoi(spriteVariationsStr);
-
-	//  do custom colors
-	const char* spriteRedStr = elemWallFloorSprite->Attribute("red");
-	if (spriteRedStr == NULL || spriteRedStr[0] == 0)
-	{
-		red = 255;
-	}
-	else red=atoi(spriteRedStr);
-	const char* spriteGreenStr = elemWallFloorSprite->Attribute("green");
-	if (spriteGreenStr == NULL || spriteGreenStr[0] == 0)
-	{
-		green = 255;
-	}
-	else green=atoi(spriteGreenStr);
-	const char* spriteBlueStr = elemWallFloorSprite->Attribute("blue");
-	if (spriteBlueStr == NULL || spriteBlueStr[0] == 0)
-	{
-		blue = 255;
-	}
-	else blue=atoi(spriteBlueStr);
-
-	sprite.shadeColor = al_map_rgb(red, green, blue);
-
-	//decide what the sprite should be shaded by.
-	const char* spriteColorStr = elemWallFloorSprite->Attribute("color");
-	if (spriteColorStr == NULL || spriteColorStr[0] == 0)
-	{
-		sprite.shadeBy = ShadeNone;
-	}
-	else
-	{
-		sprite.shadeBy = getShadeType(spriteColorStr);
-	}
-
-	//Should the sprite be shown only when there is snow?
-	const char* spriteSnowMinStr = elemWallFloorSprite->Attribute("snow_min");
-	if (spriteSnowMinStr == NULL || spriteSnowMinStr[0] == 0)
-	{
-		sprite.snowMin = 0;
-	}
-	else sprite.snowMin=atoi(spriteSnowMinStr);
-	const char* spriteSnowMaxStr = elemWallFloorSprite->Attribute("snow_max");
-	if (spriteSnowMaxStr == NULL || spriteSnowMaxStr[0] == 0)
-	{
-		sprite.snowMax = 255;
-	}
-	else sprite.snowMax=atoi(spriteSnowMaxStr);
-
-	//not all tiles work well with an outline
-	const char* spriteOutlineStr = elemWallFloorSprite->Attribute("outline");
-	if (spriteOutlineStr == NULL || spriteOutlineStr[0] == 0)
-	{
-		sprite.needOutline = true;
-	}
-	else sprite.needOutline=(atoi(spriteOutlineStr) == 1);
-	// check for local file definitions
-	const char* filename = elemWallFloorSprite->Attribute("file");
-	if (filename != NULL && filename[0] != 0)
-	{
-		sprite.fileIndex = loadConfigImgFile((char*)filename,elemWallFloorSprite);
-	}
-
-
-	//add subsprites, if any.
-	TiXmlElement* elemSubType = elemWallFloorSprite->FirstChildElement("subsprite");
-	for(TiXmlElement* elemSubType = elemWallFloorSprite->FirstChildElement("subsprite");
-		elemSubType;
-		elemSubType = elemSubType->NextSiblingElement("subsprite"))
-	{
-		const char* subSpriteIndexStr = elemSubType->Attribute("sprite");
-		if (subSpriteIndexStr == NULL || subSpriteIndexStr[0] == 0)
-		{
-			contentError("Invalid Subsprite definition",elemSubType);
-			return; //nothing to work with
-		}
-		// make a base sprite
-		t_subSprite subSprite;
-		subSprite.sheetIndex=atoi(subSpriteIndexStr);
-		subSprite.fileIndex=sprite.fileIndex; //should be the same file as the main sprite by default.
-
-		//do custom colors
-		const char* subSpriteRedStr = elemSubType->Attribute("red");
-		if (subSpriteRedStr == NULL || subSpriteRedStr[0] == 0)
-		{
-			red = 255;
-		}
-		else red=atoi(subSpriteRedStr);
-		const char* subSpriteGreenStr = elemSubType->Attribute("green");
-		if (subSpriteGreenStr == NULL || subSpriteGreenStr[0] == 0)
-		{
-			green = 255;
-		}
-		else green=atoi(subSpriteGreenStr);
-		const char* subSpriteBlueStr = elemSubType->Attribute("blue");
-		if (subSpriteBlueStr == NULL || subSpriteBlueStr[0] == 0)
-		{
-			blue = 255;
-		}
-		else blue=atoi(subSpriteBlueStr);
-		subSprite.shadeColor = al_map_rgb(red, green, blue);
-
-		//decide what the sprite should be shaded by.
-		const char* subSpriteColorStr = elemSubType->Attribute("color");
-		if (subSpriteColorStr == NULL || subSpriteColorStr[0] == 0)
-		{
-			subSprite.shadeBy = ShadeNone;
-		}
-		else
-		{
-			subSprite.shadeBy = getShadeType(subSpriteColorStr);
-		}
-
-		//Should the sprite be shown only when there is snow?
-		const char* subSpriteSnowMinStr = elemSubType->Attribute("snow_min");
-		if (subSpriteSnowMinStr == NULL || spriteSnowMinStr[0] == 0)
-		{
-			subSprite.snowMin = 0;
-		}
-		else subSprite.snowMin=atoi(subSpriteSnowMinStr);
-		const char* subSpriteSnowMaxStr = elemSubType->Attribute("snow_max");
-		if (subSpriteSnowMaxStr == NULL || subSpriteSnowMaxStr[0] == 0)
-		{
-			subSprite.snowMax = 255;
-		}
-		else subSprite.snowMax=atoi(subSpriteSnowMaxStr);
-
-		// check for local file definitions
-		const char* subfilename = elemSubType->Attribute("file");
-		if (subfilename != NULL && subfilename[0] != 0)
-		{
-			subSprite.fileIndex = loadConfigImgFile((char*)subfilename,elemSubType);
-		}
-		sprite.subSprites.push_back(subSprite);
-	}
+	sprite.set_by_xml(elemWallFloorSprite, basefile);
 
 	vector<int> lookupKeys;
 
@@ -280,7 +138,7 @@ void parseWallFloorSpriteElement( TiXmlElement* elemWallFloorSprite, vector<Terr
 			for( int i = 0; i < NUM_FORMS; i++)
 			{
 				if(formToggle[i])
-					if (tConfig->defaultSprite[i].sheetIndex == UNCONFIGURED_INDEX)
+					if (tConfig->defaultSprite[i].get_sheetindex() == UNCONFIGURED_INDEX)
 					{
 						tConfig->defaultSprite[i] = sprite;
 					}
@@ -322,7 +180,7 @@ void parseWallFloorSpriteElement( TiXmlElement* elemWallFloorSprite, vector<Terr
 				for( int i = 0; i < NUM_FORMS; i++)
 				{
 					if(formToggle[i])
-						if (tConfig->terrainMaterials[elemIndex]->defaultSprite[i].sheetIndex == UNCONFIGURED_INDEX)
+						if (tConfig->terrainMaterials[elemIndex]->defaultSprite[i].get_sheetindex() == UNCONFIGURED_INDEX)
 						{
 							tConfig->terrainMaterials[elemIndex]->defaultSprite[i] = sprite;
 						}
@@ -361,7 +219,7 @@ void parseWallFloorSpriteElement( TiXmlElement* elemWallFloorSprite, vector<Terr
 				{
 					if(formToggle[i])
 					{
-						map<int,t_SpriteWithOffset>::iterator it = tConfig->terrainMaterials[elemIndex]->overridingMaterials[i].find(subtypeId);
+						map<int,c_sprite>::iterator it = tConfig->terrainMaterials[elemIndex]->overridingMaterials[i].find(subtypeId);
 						if (it == tConfig->terrainMaterials[elemIndex]->overridingMaterials[i].end())
 						{
 							tConfig->terrainMaterials[elemIndex]->overridingMaterials[i][subtypeId]=sprite;
@@ -386,7 +244,7 @@ bool addSingleTerrainConfig( TiXmlElement* elemRoot){
 		//parse floors
 		TiXmlElement* elemFloor = elemRoot->FirstChildElement("floor");
 		while( elemFloor ){
-			parseWallFloorSpriteElement( elemFloor, contentLoader.terrainFloorConfigs, basefile );
+			parseWallFloorSpriteElement( elemFloor, contentLoader.terrainFloorConfigs, basefile, true);
 			elemFloor = elemFloor->NextSiblingElement("floor");
 		}
 	}
@@ -394,7 +252,7 @@ bool addSingleTerrainConfig( TiXmlElement* elemRoot){
 		//parse walls
 		TiXmlElement* elemWall = elemRoot->FirstChildElement("block");
 		while( elemWall ){
-			parseWallFloorSpriteElement( elemWall, contentLoader.terrainBlockConfigs, basefile );
+			parseWallFloorSpriteElement( elemWall, contentLoader.terrainBlockConfigs, basefile, false);
 			elemWall = elemWall->NextSiblingElement("block");
 		}
 	}

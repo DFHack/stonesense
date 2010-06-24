@@ -2,7 +2,7 @@
 <!-- fallbacks for blocks not defined elsewhere -->
 <blocks>
   <!-- fortifications -->
-  <block sprite="201" color="material">
+  <block sheetIndex="201" color="material">
     <terrain value="65" />
     <terrain value="326" />
     <terrain value="327" />
@@ -11,7 +11,7 @@
     <terrain value="494" />
   </block>
   <!-- ramps -->
-  <block sprite="0" color="material">
+  <block sheetIndex="0" color="material">
     <terrain value="233" />
     <terrain value="234" />
     <terrain value="235" />
@@ -25,7 +25,7 @@
     <terrain value="518" />
   </block>
   <!-- stairs -->
-  <block sprite="202" color="material">
+  <block sheetIndex="202" color="material">
     <!-- ice -->
     <terrain value="25" />
     <terrain value="27" />
@@ -54,7 +54,7 @@
     <terrain value="517" />
   </block>
   <!-- walls -->
-  <block sprite="200" color="material">
+  <block sheetIndex="200" color="material">
     <!-- pillars -->
     <terrain value="79" />
     <terrain value="80" />
