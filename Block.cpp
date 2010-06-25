@@ -175,36 +175,22 @@ void Block::Draw(){
 		al_draw_bitmap(sprite_webing, drawx, drawy - (WALLHEIGHT), 0);
 		al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
 	}
-	////Draw Ramp
-	//if(ramp.type > 0){
-	//	spriteobject = GetBlockSpriteMap(ramp.type, material, consForm);
-	//	if (spriteobject->get_sheetindex() == UNCONFIGURED_INDEX)
-	//	{
-	//		spriteobject->set_sheetindex(0);
-	//		spriteobject->set_fileindex(INVALID_INDEX);
-	//	}
-	//	if (spriteobject->get_sheetindex() != INVALID_INDEX)
-	//	{
-	//		sheetOffsetX = SPRITEWIDTH * ramp.index;
-	//		sheetOffsetY = ((TILEHEIGHT + FLOORHEIGHT + SPRITEHEIGHT) * sprite.sheetIndex)+(TILEHEIGHT + FLOORHEIGHT);
-	//		al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*getSpriteColor(sprite, this->material, this->layerMaterial, this->veinMaterial));
-	//		if (sprite.snowMin > 0) defaultSnow = 0;
-	//		al_draw_bitmap_region(imageSheet(sprite,IMGRampSheet), sheetOffsetX, sheetOffsetY, SPRITEWIDTH, SPRITEHEIGHT, drawx, drawy - (WALLHEIGHT), 0);
-	//		al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
-	//		if(!(sprite.subSprites.empty()))
-	//		{
-	//			for(int i = 0; i < sprite.subSprites.size(); i++)
-	//			{
-	//				sheetOffsetX = SPRITEWIDTH * ramp.index;
-	//				sheetOffsetY = ((TILEHEIGHT + FLOORHEIGHT + SPRITEHEIGHT) * sprite.subSprites[i].sheetIndex)+(TILEHEIGHT + FLOORHEIGHT);
-	//				al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*getSpriteColor(sprite.subSprites[i], this->material, this->layerMaterial, this->veinMaterial));
-	//				if((sprite.subSprites[i].snowMin <= snowlevel) && (sprite.subSprites[i].snowMax >= snowlevel))
-	//					al_draw_bitmap_region(imageSheet(sprite.subSprites[i],IMGObjectSheet), sheetOffsetX, sheetOffsetY, SPRITEWIDTH, SPRITEHEIGHT, drawx, drawy - (WALLHEIGHT), 0);
-	//				al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
-	//			}
-	//		}
-	//	}
-	//}
+	//Draw Ramp
+	if(ramp.type > 0){
+		spriteobject = GetBlockSpriteMap(ramp.type, material, consForm);
+		if (spriteobject->get_sheetindex() == UNCONFIGURED_INDEX)
+		{
+			spriteobject->set_sheetindex(0);
+			spriteobject->set_fileindex(INVALID_INDEX);
+		}
+		if (spriteobject->get_sheetindex() != INVALID_INDEX)
+		{
+			spriteobject->set_size(SPRITEWIDTH, SPRITEHEIGHT);
+			spriteobject->set_offset(0, 0);
+			spriteobject->set_tile_layout(RAMPBOTTOMTILE);
+			spriteobject->draw_world(x, y, z, (config.truncate_walls && this->z == ownerSegment->z + ownerSegment->sizez -2));
+		}
+	}
 
 	drawFloorBlood ( this, drawx, drawy );
 	//first part of snow
@@ -270,43 +256,33 @@ void Block::Draw(){
 
 
 
-	////Draw Stairs
-	//if(stairType > 0){
-	//	//down part
-	//	//skipping at the moment?
-	//	//int spriteNum = GetFloorSpriteMap(stairType,material);
-	//	//DrawSpriteFromSheet( spriteNum, target, IMGObjectSheet, drawx, drawy );
+	//Draw Stairs
+	if(stairType > 0)
+	{
+		bool mirrored = false;
+		if(findWallCloseTo(ownerSegment, this) == eSimpleW)
+			mirrored = true;
 
-	//	//up part
+		//down part
+		spriteobject = GetFloorSpriteMap(stairType, material, consForm);
+		if(spriteobject->get_sheetindex() != INVALID_INDEX && spriteobject->get_sheetindex() != UNCONFIGURED_INDEX)
+		{
+			if (mirrored)
+				spriteobject->draw_world_offset(x, y, z, 1);
+			else
+				spriteobject->draw_world(x, y, z);
+		}
 
-	//	bool mirrored = false;
-	//	if(findWallCloseTo(ownerSegment, this) == eSimpleW)
-	//		mirrored = true;
-	//	sprite = GetBlockSpriteMap(stairType, material, consForm);
-	//	if(sprite.sheetIndex != INVALID_INDEX && sprite.sheetIndex != UNCONFIGURED_INDEX)
-	//	{
-	//		if (mirrored)
-	//			sprite.sheetIndex += 1;
-	//		if(bloodlevel)
-	//			al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*getSpriteColor(sprite, this->material, this->layerMaterial, this->veinMaterial)*bloodcolor);
-	//		else
-	//			al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*getSpriteColor(sprite, this->material, this->layerMaterial, this->veinMaterial));
-	//		DrawSpriteFromSheet( sprite.sheetIndex, imageSheet(sprite,IMGObjectSheet), drawx, drawy );
-	//		al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
-	//		if(!(sprite.subSprites.empty()))
-	//		{
-	//			for(int i = 0; i < sprite.subSprites.size(); i++)
-	//			{
-	//				if(bloodlevel)
-	//					al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*getSpriteColor(sprite.subSprites[i], this->material, this->layerMaterial, this->veinMaterial)*bloodcolor);
-	//				else
-	//					al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*getSpriteColor(sprite.subSprites[i], this->material, this->layerMaterial, this->veinMaterial));
-	//				DrawSpriteFromSheet( sprite.subSprites[i].sheetIndex, imageSheet(sprite.subSprites[i],IMGObjectSheet), drawx, drawy );
-	//				al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
-	//			}
-	//		}
-	//	}
-	//}
+		//up part
+		spriteobject = GetBlockSpriteMap(stairType, material, consForm);
+		if(spriteobject->get_sheetindex() != INVALID_INDEX && spriteobject->get_sheetindex() != UNCONFIGURED_INDEX)
+		{
+			if (mirrored)
+				spriteobject->draw_world_offset(x, y, z, 1);
+			else
+				spriteobject->draw_world(x, y, z);
+		}
+	}
 
 	if(wallType > 0)
 	{
@@ -324,114 +300,11 @@ void Block::Draw(){
 		}    
 		else 
 		{
-			if( config.truncate_walls && this->z == ownerSegment->z + ownerSegment->sizez -2)
-			{
-				spriteobject->draw_world(x, y, z, true);
-			}
-			else
-			{
-				spriteobject->draw_world(x, y, z, false);
-			}
+			spriteobject->draw_world(x, y, z, (config.truncate_walls && this->z == ownerSegment->z + ownerSegment->sizez -2));
 		}
 	}
 
-	////Draw Walls
-	//if(wallType > 0){
-	//	//draw wall
-	//	sprite =  GetBlockSpriteMap(wallType, material, consForm);
-	//	int spriteOffset = 0;
-	//	if(sprite.numVariations)
-	//		spriteOffset = rando % sprite.numVariations;
-	//	if (sprite.sheetIndex == UNCONFIGURED_INDEX)
-	//	{
-	//		sprite.sheetIndex = SPRITEOBJECT_WALL_NA;
-	//		sprite.fileIndex = INVALID_INDEX;
-	//		spriteOffset = 0;
-	//	}
-	//	if (sprite.sheetIndex == INVALID_INDEX)
-	//	{
-	//		//skip   
-	//	}    
-	//	else 
-	//	{
-	//		if( config.truncate_walls && this->z == ownerSegment->z + ownerSegment->sizez -2){
-	//			int sheetx = (sprite.sheetIndex+spriteOffset) % SHEET_OBJECTSWIDE;
-	//			int sheety = (sprite.sheetIndex+spriteOffset) / SHEET_OBJECTSWIDE;
-	//			//draw a tiny bit of wall
-	//			if(bloodlevel)
-	//				al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*getSpriteColor(sprite, this->material, this->layerMaterial, this->veinMaterial)*bloodcolor);
-	//			else
-	//				al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*getSpriteColor(sprite, this->material, this->layerMaterial, this->veinMaterial));
-	//			if((sprite.snowMin <= snowlevel) && (sprite.snowMax >= snowlevel))
-	//				al_draw_bitmap_region(imageSheet(sprite,IMGObjectSheet),
-	//				sheetx * SPRITEWIDTH, sheety * SPRITEHEIGHT+WALL_CUTOFF_HEIGHT,
-	//				SPRITEWIDTH, SPRITEHEIGHT-WALL_CUTOFF_HEIGHT, drawx, drawy - (WALLHEIGHT)+WALL_CUTOFF_HEIGHT, 0);
-	//			al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
-	//			if(sprite.subSprites.size() > 0)
-	//			{
-	//				for(int i = 0; i < sprite.subSprites.size(); i++)
-	//				{
-	//					sheetx = (sprite.subSprites[i].sheetIndex+spriteOffset) % SHEET_OBJECTSWIDE;
-	//					sheety = (sprite.subSprites[i].sheetIndex+spriteOffset) / SHEET_OBJECTSWIDE;
-	//					if(bloodlevel)
-	//						al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*getSpriteColor(sprite.subSprites[i], this->material, this->layerMaterial, this->veinMaterial)*bloodcolor);
-	//					else
-	//						al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*getSpriteColor(sprite.subSprites[i], this->material, this->layerMaterial, this->veinMaterial));
-	//					if((sprite.subSprites[i].snowMin <= snowlevel) && (sprite.subSprites[i].snowMax >= snowlevel))
-	//						al_draw_bitmap_region(imageSheet(sprite.subSprites[i],IMGObjectSheet),
-	//						sheetx * SPRITEWIDTH, sheety * SPRITEHEIGHT+WALL_CUTOFF_HEIGHT,
-	//						SPRITEWIDTH, SPRITEHEIGHT-WALL_CUTOFF_HEIGHT, drawx, drawy - (WALLHEIGHT)+WALL_CUTOFF_HEIGHT, 0);
-	//					al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
-	//				}
-	//			}
-	//			//draw cut-off floor thing
-	//			al_draw_bitmap_region(IMGObjectSheet, 
-	//				TILEWIDTH * SPRITEFLOOR_CUTOFF, 0,
-	//				SPRITEWIDTH, SPRITEWIDTH, 
-	//				drawx, drawy-(SPRITEHEIGHT-WALL_CUTOFF_HEIGHT)/2, 0);
-	//		}
-	//		else 
-	//		{
-	//			//al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, al_map_rgb(sprite.shadeRed, sprite.shadeGreen, sprite.shadeBlue));
-	//			if(bloodlevel)
-	//				al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*getSpriteColor(sprite, this->material, this->layerMaterial, this->veinMaterial)*bloodcolor);
-	//			else
-	//				al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*getSpriteColor(sprite, this->material, this->layerMaterial, this->veinMaterial));
-	//			if((sprite.snowMin <= snowlevel) && (sprite.snowMax >= snowlevel))
-	//				DrawSpriteFromSheet(sprite.sheetIndex+spriteOffset, imageSheet(sprite,IMGObjectSheet), drawx, drawy );
-	//			al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
-	//			if(sprite.subSprites.size() > 0)
-	//			{
-	//				for(int i = 0; i < sprite.subSprites.size(); i++)
-	//				{
-	//					if(bloodlevel)
-	//						al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*getSpriteColor(sprite.subSprites[i], this->material, this->layerMaterial, this->veinMaterial)*bloodcolor);
-	//					else
-	//						al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*getSpriteColor(sprite.subSprites[i], this->material, this->layerMaterial, this->veinMaterial));
-	//					if((sprite.subSprites[i].snowMin <= snowlevel) && (sprite.subSprites[i].snowMax >= snowlevel))
-	//						DrawSpriteFromSheet(sprite.subSprites[i].sheetIndex+spriteOffset, imageSheet(sprite.subSprites[i],IMGObjectSheet), drawx, drawy );
-	//					al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
-	//				}
-	//			}
 
-	//			if(sprite.needOutline)
-	//			{
-	//				//drawy -= (WALLHEIGHT);
-	//				//Northern border
-	//				if(this->depthBorderNorth)
-	//					DrawSpriteFromSheet(281, IMGObjectSheet, drawx, drawy );
-
-	//				//Western border
-	//				if(this->depthBorderWest)
-	//					DrawSpriteFromSheet(280, IMGObjectSheet, drawx, drawy );
-
-	//				//drawy += (WALLHEIGHT);
-	//			}
-	//		}
-	//	}
-	//}
-
-	//water
 	if(water.index > 0)
 	{
 		int spriteNum = 0;
@@ -559,41 +432,23 @@ void Block::Drawcreaturetext(){
 }
 
 void Block::DrawRamptops(){
-	//if (ramp.type > 0)
-	//{
-	//	int op, src, dst, alpha_op, alpha_src, alpha_dst;
-	//	ALLEGRO_COLOR color;
-	//	al_get_separate_blender(&op, &src, &dst, &alpha_op, &alpha_src, &alpha_dst, &color);
-	//	int sheetOffsetX, sheetOffsetY;
-	//	/*if(config.hide_outer_blocks){
-	//	if(x == ownerSegment->x || x == ownerSegment->x + ownerSegment->sizex - 1) return;
-	//	if(y == ownerSegment->y || y == ownerSegment->y + ownerSegment->sizey - 1) return;
-	//	}*/
-	//	int32_t drawx = x;
-	//	int32_t drawy = y;
-	//	int32_t drawz = z+1; //- ownerSegment->sizez + 1;
-
-	//	correctBlockForSegmetOffset( drawx, drawy, drawz);
-	//	correctBlockForRotation( drawx, drawy, drawz);
-	//	pointToScreen((int*)&drawx, (int*)&drawy, drawz);
-	//	drawx -= TILEWIDTH>>1;
-
-	//	t_SpriteWithOffset sprite = GetBlockSpriteMap(ramp.type,material, consForm);
-	//	if (sprite.sheetIndex == UNCONFIGURED_INDEX)
-	//	{
-	//		sprite.sheetIndex = 0;
-	//		sprite.fileIndex = INVALID_INDEX;
-	//	}
-	//	if (sprite.sheetIndex != INVALID_INDEX)
-	//	{
-	//		sheetOffsetX = SPRITEWIDTH * ramp.index;
-	//		sheetOffsetY = (TILEHEIGHT + FLOORHEIGHT + SPRITEHEIGHT) * sprite.sheetIndex;
-	//		al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*getSpriteColor(sprite, this->material, this->layerMaterial, this->veinMaterial));
-	//		al_draw_bitmap_region(imageSheet(sprite,IMGRampSheet), sheetOffsetX, sheetOffsetY, SPRITEWIDTH, TILEHEIGHT + FLOORHEIGHT, drawx, drawy, 0);
-	//		al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
-	//	}
-	//}
-
+	if (ramp.type > 0)
+	{
+		//Draw Ramp
+		c_sprite * spriteobject = GetBlockSpriteMap(ramp.type,material, consForm);
+		if (spriteobject->get_sheetindex() == UNCONFIGURED_INDEX)
+		{
+			spriteobject->set_sheetindex(0);
+			spriteobject->set_fileindex(INVALID_INDEX);
+		}
+		if (spriteobject->get_sheetindex() != INVALID_INDEX)
+		{
+			spriteobject->set_size(SPRITEWIDTH, TILEHEIGHT);
+			spriteobject->set_offset(0, -(FLOORHEIGHT));
+			spriteobject->set_tile_layout(RAMPTOPTILE);
+			spriteobject->draw_world(x, y, z, (config.truncate_walls && this->z == ownerSegment->z + ownerSegment->sizez -2));
+		}
+	}
 }
 
 bool hasWall(Block* b){

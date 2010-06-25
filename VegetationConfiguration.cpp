@@ -74,7 +74,7 @@ c_sprite * getVegetationSprite(vector<VegetationConfiguration>& vegetationConfig
 		if (current->grown != grown) continue;
 		return &(current->sprite);
 	}
-	c_sprite* sprite = new c_sprite;
+	static c_sprite* sprite = new c_sprite;
 	sprite->set_sheetindex(-1);
 	return sprite;
 }

@@ -16,7 +16,7 @@ c_sprite *  GetTerrainSpriteMap(int in, t_matglossPair material, vector<TerrainC
 	if(form == constr_logs)
 		tempform = FORM_LOG;
 	// in case we need to return nothing
-	c_sprite * defaultSprite = new c_sprite;
+	static c_sprite * defaultSprite = new c_sprite;
 	defaultSprite->set_sheetindex(UNCONFIGURED_INDEX);
 	defaultSprite->set_fileindex(INVALID_INDEX);
 
@@ -85,6 +85,7 @@ c_sprite * GetBlockSpriteMap(int in, t_matglossPair material, uint16_t form){
 
 c_sprite * GetSpriteVegetation( TileClass type, int index)
 {
+	static c_sprite * defaultSprite = new c_sprite;
 	int base_sprite = SPRITEOBJECT_BLUEPRINT;
 	vector<VegetationConfiguration>* graphicSet;
 	bool live=true;
@@ -121,7 +122,6 @@ c_sprite * GetSpriteVegetation( TileClass type, int index)
 		graphicSet = &(contentLoader.shrubConfigs);
 		break;
 	default:
-		c_sprite * defaultSprite = new c_sprite;
 		defaultSprite->set_sheetindex(SPRITEOBJECT_BLANK);
 		return defaultSprite;
 	}  	

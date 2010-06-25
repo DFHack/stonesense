@@ -466,9 +466,10 @@ CreatureConfiguration *GetCreatureConfig( t_creature* c ){
 
 c_sprite* GetCreatureSpriteMap( t_creature* c )
 {
+	static c_sprite * defaultSprite = new c_sprite;
 	CreatureConfiguration *testConfig = GetCreatureConfig( c );
 	if (testConfig == NULL)
-		return new c_sprite;
+		return defaultSprite;
 	return &(testConfig->sprite);
 }
 

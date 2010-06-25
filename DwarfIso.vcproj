@@ -47,7 +47,6 @@
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="0"
-				WarningLevel="3"
 				Detect64BitPortabilityProblems="true"
 				DebugInformationFormat="3"
 			/>
@@ -63,8 +62,9 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions=" /STACK:10000000 /machine:I386 /debug"
-				AdditionalDependencies="kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib allegro-debug.lib allegro_primitives-debug.lib allegro_font-debug.lib allegro_ttf-debug.lib allegro_image-debug.lib allegro_dialog-debug.lib libpng.lib zdll.lib winmm.lib psapi.lib opengl32.lib glu32.lib dfhack\dfhack.lib"
-				LinkIncremental="2"
+				AdditionalDependencies="kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib allegro.lib allegro_primitives.lib allegro_font.lib allegro_ttf.lib allegro_image.lib allegro_dialog.lib libpng.lib zdll.lib winmm.lib psapi.lib opengl32.lib glu32.lib dfhack\dfhack.lib"
+				OutputFile="$(ProjectDir)\$(ProjectName).exe"
+				LinkIncremental="1"
 				AdditionalLibraryDirectories="allegro\lib"
 				GenerateDebugInformation="true"
 				SubSystem="2"

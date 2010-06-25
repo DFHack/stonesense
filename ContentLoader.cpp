@@ -731,5 +731,7 @@ ShadeBy getShadeType(const char* Input)
 		return ShadeBodyPart;
 	if( strcmp(Input, "profession") == 0)
 		return ShadeJob;
+	if( strcmp(Input, "blood") == 0)
+		return ShadeBlood;
 	return ShadeNone;
 }

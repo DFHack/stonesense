@@ -4,6 +4,7 @@
 #include "ContentLoader.h"
 #include "WorldSegment.h"
 #include "spriteColors.h"
+#include "SpriteMaps.h"
 
 c_sprite::c_sprite(void)
 {
@@ -13,6 +14,8 @@ c_sprite::c_sprite(void)
 	spriteheight = SPRITEHEIGHT;
 	offset_x = 0;
 	offset_y = 0;
+	offset_user_x = 0;
+	offset_user_y = 0;
 	variations = 0;
 	animframes = ALL_FRAMES;
 	shadecolor = al_map_rgb(255,255,255);
@@ -29,6 +32,7 @@ c_sprite::~c_sprite(void)
 
 void c_sprite::reset()
 {
+	LogVerbose("\tResetting sprite %d to default values\n", this);
 	fileindex = -1;
 	sheetindex = 0;
 	spritewidth = SPRITEWIDTH;
@@ -36,15 +40,9 @@ void c_sprite::reset()
 	offset_x = 0;
 	offset_y = 0;
 	variations = 0;
+	tilelayout = 0;
 	animframes = ALL_FRAMES;
 	shadecolor = al_map_rgb(255,255,255);
-	for (uint32_t i=0;i<subsprites.size();i++)
-	{
-		if (subsprites[i] != NULL)
-		{
-			delete(subsprites[i]);
-		}
-	}
 	subsprites.clear();
 }
 
@@ -60,7 +58,9 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
 	const char* sheetIndexStr;
 	sheetIndexStr = elemSprite->Attribute("sheetIndex");
 	if (sheetIndexStr != NULL && sheetIndexStr[0] != 0)
+	{
 		sheetindex=atoi(sheetIndexStr);
+	}
 
 	//load files, if any
 	const char* filename = elemSprite->Attribute("file");
@@ -79,7 +79,10 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
 	{
 		variations = 0;
 	}
-	else variations=atoi(spriteVariationsStr);
+	else 
+	{
+		variations=atoi(spriteVariationsStr);
+	}
 
 	//decide what the sprite should be shaded by.
 	const char* spriteVarColorStr = elemSprite->Attribute("color");
@@ -170,11 +173,12 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
 		elemSubType;
 		elemSubType = elemSubType->NextSiblingElement("subsprite"))
 	{
-		c_sprite * subsprite = new c_sprite;
-		subsprite->set_by_xml(elemSubType, fileindex);
+		c_sprite subsprite;
+		subsprite.set_size(spritewidth, spriteheight);
+		subsprite.set_by_xml(elemSubType, fileindex);
+		subsprite.set_offset(offset_x, offset_y);
 		subsprites.push_back(subsprite);
 	}
-
 }
 
 /// This is just a very basic sprite drawing routine. all it uses are screen coords
@@ -190,48 +194,143 @@ void c_sprite::draw_screen(int x, int y)
 	{
 		for(int i = 0; i < subsprites.size(); i++)
 		{
-			subsprites[i]->draw_screen(x, y);
+			subsprites[i].draw_screen(x, y);
 		}
 	}
 }
 
 void c_sprite::draw_world(int x, int y, int z, bool chop)
 {
+	draw_world_offset(x, y, z, 0, chop);
+}
+
+
+void c_sprite::draw_world_offset(int x, int y, int z, int tileoffset, bool chop)
+{
 	int rando = randomCube[x%RANDOM_CUBE][y%RANDOM_CUBE][z%RANDOM_CUBE];
 	int offsetAnimFrame = (currentAnimationFrame + rando) % MAX_ANIMFRAME;
 	if (animframes & (1 << offsetAnimFrame))
 	{
 		Block* b = viewedSegment->getBlock(x, y, z);
-		int op, src, dst, alpha_op, alpha_src, alpha_dst;
-		ALLEGRO_COLOR color;
-		al_get_separate_blender(&op, &src, &dst, &alpha_op, &alpha_src, &alpha_dst, &color);
-		int32_t drawx = x;
-		int32_t drawy = y;
-		int32_t drawz = z; //- ownerSegment->sizez + 1;
+		if((snowmin <= b->snowlevel && (snowmax == -1 || snowmax >= b->snowlevel)) && (bloodmin <= b->bloodlevel && (bloodmax == -1 || bloodmax >= b->bloodlevel)))
+		{
+			int op, src, dst, alpha_op, alpha_src, alpha_dst;
+			ALLEGRO_COLOR color;
+			al_get_separate_blender(&op, &src, &dst, &alpha_op, &alpha_src, &alpha_dst, &color);
+			int32_t drawx = x;
+			int32_t drawy = y;
+			int32_t drawz = z; //- ownerSegment->sizez + 1;
 
 
-		correctBlockForSegmetOffset( drawx, drawy, drawz);
-		correctBlockForRotation( drawx, drawy, drawz);
-		int32_t viewx = drawx;
-		int32_t viewy = drawy;
-		int32_t viewz = drawz;
-		pointToScreen((int*)&drawx, (int*)&drawy, drawz);
-		drawx -= TILEWIDTH>>1;
+			correctBlockForSegmetOffset( drawx, drawy, drawz);
+			correctBlockForRotation( drawx, drawy, drawz);
+			int32_t viewx = drawx;
+			int32_t viewy = drawy;
+			int32_t viewz = drawz;
+			pointToScreen((int*)&drawx, (int*)&drawy, drawz);
+			drawx -= TILEWIDTH>>1;
 
-		int sheetx = sheetindex % SHEET_OBJECTSWIDE;
-		int sheety = sheetindex / SHEET_OBJECTSWIDE;
-		al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*get_color(b));
-		if(fileindex == -1)
-			al_draw_bitmap_region(IMGObjectSheet, sheetx * spritewidth, sheety * spriteheight, spritewidth, spriteheight, drawx + offset_x, drawy + offset_y, 0);
-		else 
-			al_draw_bitmap_region(getImgFile(fileindex), sheetx * spritewidth, sheety * spriteheight, spritewidth, spriteheight, drawx + offset_x, drawy + (offset_y - WALLHEIGHT), 0);
-		al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
+			int sheetx, sheety;
+			if(tilelayout == BLOCKTILE)
+			{
+			sheetx = ((sheetindex+tileoffset) % SHEET_OBJECTSWIDE) * spritewidth;
+			sheety = ((sheetindex+tileoffset) / SHEET_OBJECTSWIDE) * spriteheight;
+			}
+			else if(tilelayout == RAMPBOTTOMTILE)
+			{
+			sheetx = sheetx = SPRITEWIDTH * b->ramp.index;
+			sheety = sheety = ((TILEHEIGHT + FLOORHEIGHT + SPRITEHEIGHT) * sheetindex)+(TILEHEIGHT + FLOORHEIGHT);
+			}
+			else if(tilelayout == RAMPTOPTILE)
+			{
+			sheetx = sheetx = SPRITEWIDTH * b->ramp.index;
+			sheety = sheety = (TILEHEIGHT + FLOORHEIGHT + SPRITEHEIGHT) * sheetindex;
+			}
+			else
+			{
+			sheetx = ((sheetindex+tileoffset) % SHEET_OBJECTSWIDE) * spritewidth;
+			sheety = ((sheetindex+tileoffset) / SHEET_OBJECTSWIDE) * spriteheight;
+			}
+			if(chop)
+			{
+				al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*get_color(b));
+				if(fileindex == -1)
+					al_draw_bitmap_region(IMGObjectSheet, sheetx, sheety+WALL_CUTOFF_HEIGHT, spritewidth, spriteheight-WALL_CUTOFF_HEIGHT, drawx + offset_x + offset_user_x, drawy + offset_user_y + (offset_y - WALLHEIGHT)+WALL_CUTOFF_HEIGHT, 0);
+				else 
+					al_draw_bitmap_region(getImgFile(fileindex), sheetx, (sheety)+WALL_CUTOFF_HEIGHT, spritewidth, spriteheight-WALL_CUTOFF_HEIGHT, drawx + offset_x + offset_user_x, drawy + offset_user_y + (offset_y - WALLHEIGHT)+WALL_CUTOFF_HEIGHT, 0);
+				al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
+				//draw cut-off floor thing
+				al_draw_bitmap_region(IMGObjectSheet, 
+					TILEWIDTH * SPRITEFLOOR_CUTOFF, 0,
+					SPRITEWIDTH, SPRITEWIDTH, 
+					drawx+offset_x, drawy+offset_y-((SPRITEHEIGHT-WALL_CUTOFF_HEIGHT)/2), 0);
+			}
+			else
+			{
+				al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*get_color(b));
+				if(fileindex == -1)
+					al_draw_bitmap_region(IMGObjectSheet, sheetx, sheety, spritewidth, spriteheight, drawx + offset_x + offset_user_x, drawy + offset_user_y + (offset_y - WALLHEIGHT), 0);
+				else 
+					al_draw_bitmap_region(getImgFile(fileindex), sheetx, sheety, spritewidth, spriteheight, drawx + offset_x + offset_user_x, drawy + offset_user_y + (offset_y - WALLHEIGHT), 0);
+				al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
+				if(needoutline)
+				{
+					//drawy -= (WALLHEIGHT);
+					//Northern border
+					if(b->depthBorderNorth)
+						DrawSpriteFromSheet(281, IMGObjectSheet, drawx + offset_x, drawy + offset_y );
+
+					//Western border
+					if(b->depthBorderWest)
+						DrawSpriteFromSheet(280, IMGObjectSheet, drawx + offset_x, drawy + offset_y );
+
+					//drawy += (WALLHEIGHT);
+				}
+			}
+		}
 	}
 	if(!subsprites.empty())
 	{
 		for(int i = 0; i < subsprites.size(); i++)
 		{
-			subsprites[i]->draw_world(x, y, z);
+			subsprites[i].draw_world_offset(x, y, z, tileoffset, chop);
+		}
+	}
+}
+
+void c_sprite::set_size(uint8_t x, uint8_t y)
+{
+	spritewidth = x; spriteheight = y;
+	if(!subsprites.empty())
+	{
+		for(int i = 0; i < subsprites.size(); i++)
+		{
+			subsprites[i].set_size(spritewidth, spriteheight);
+		}
+	}
+}
+
+void c_sprite::set_offset(int16_t offx, int16_t offy)
+{
+	offset_x = offx;
+	offset_y = offy;
+	if(!subsprites.empty())
+	{
+		for(int i = 0; i < subsprites.size(); i++)
+		{
+			subsprites[i].set_offset(offset_x, offset_y);
+		}
+	}
+}
+
+void c_sprite::set_tile_layout(uint8_t layout)
+{
+	tilelayout = layout;
+	if(!subsprites.empty())
+	{
+		for(int i = 0; i < subsprites.size(); i++)
+		{
+			subsprites[i].set_tile_layout(layout);
 		}
 	}
 }
@@ -298,6 +397,8 @@ ALLEGRO_COLOR c_sprite::get_color(Block* b)
 		else return al_map_rgb(255,255,255);
 	case ShadeJob:
 		return getDfColor(getJobColor(b->creature->profession));
+	case ShadeBlood:
+		return b->bloodcolor;
 	default:
 		return al_map_rgb(255, 255, 255);
 	} ;

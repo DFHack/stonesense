@@ -591,8 +591,8 @@ void DrawSpriteIndexOverlay(int imageIndex){
 		}
 	}	
 	draw_textf_border(font, al_get_bitmap_width(al_get_target_bitmap())-10, al_get_bitmap_height(al_get_target_bitmap()) -al_get_font_line_height(font), ALLEGRO_ALIGN_RIGHT, 
-		"%s (Press SPACE to return)",
-		(imageIndex==-1?"objects.png":IMGFilenames[imageIndex]->c_str()));  
+		"%s (%d) (Press SPACE to return)",
+		(imageIndex==-1?"objects.png":IMGFilenames[imageIndex]->c_str()), imageIndex);  
 	al_flip_display();
 }
 
