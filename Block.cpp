@@ -238,18 +238,10 @@ void Block::Draw(){
 	{
 		int spriteNum =  SPRITEOBJECT_NA; //getBuildingSprite(this->building, mirroredBuilding);
 
-		for(uint32_t i=0; i < building.sprites.size(); i++){
-			sprite = building.sprites[i];
-			if(sprite.numVariations)
-				sprite.sheetIndex += rando % sprite.numVariations;
-			if (!(sprite.animFrames & (1 << currentAnimationFrame)))
-				continue;
-			al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*getSpriteColor(sprite, building.info.material, this->layerMaterial, this->veinMaterial));
-
-			DrawSpriteFromSheet(sprite.sheetIndex , imageSheet(sprite,IMGObjectSheet), 
-				drawx + building.sprites[i].x,
-				drawy + building.sprites[i].y);
-			al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
+		for(uint32_t i=0; i < building.sprites.size(); i++)
+		{
+			spriteobject = &building.sprites[i];
+			spriteobject->draw_world(x, y, z);
 		}
 	}
 

@@ -61,6 +61,18 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
 	{
 		sheetindex=atoi(sheetIndexStr);
 	}
+	const char* spriteStr;
+	spriteStr = elemSprite->Attribute("sprite");
+	if (spriteStr != NULL && spriteStr[0] != 0)
+	{
+		sheetindex=atoi(spriteStr);
+	}
+	const char* indexStr;
+	indexStr = elemSprite->Attribute("index");
+	if (indexStr != NULL && indexStr[0] != 0)
+	{
+		sheetindex=atoi(indexStr);
+	}
 
 	//load files, if any
 	const char* filename = elemSprite->Attribute("file");
@@ -160,6 +172,20 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
 		bloodmax = -1;
 	}
 	else bloodmax=atoi(spritebloodMaxStr);
+
+	//Add user settable sprite offsets
+	const char* strOffsetX = elemSprite->Attribute("offsetx");
+	if (strOffsetX == NULL || strOffsetX[0] == 0)
+	{
+		offset_user_x = 0;
+	}
+	else offset_user_x=atoi(strOffsetX);
+	const char* strOffsetY = elemSprite->Attribute("offsety");
+	if (strOffsetY == NULL || strOffsetY[0] == 0)
+	{
+		offset_user_y = 0;
+	}
+	else offset_user_y=atoi(strOffsetY);
 
 	//not all tiles work well with an outline
 	const char* spriteOutlineStr = elemSprite->Attribute("outline");

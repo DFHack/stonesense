@@ -159,15 +159,12 @@ SpriteElement::SpriteElement()
 	: SpriteNode()
 {
 	//cout << "SpriteElement +" << endl;
-	sprite.sheetIndex = -1;
-	sprite.x = 0;
-	sprite.y = 0;
-	sprite.animFrames = 0;
+	sprite.set_sheetindex(-1);
 }
 
 bool SpriteElement::BlockMatches(Block* b)
 {
-	if (sprite.sheetIndex > -1)
+	if (sprite.get_sheetindex() > -1)
 	{
 		b->building.sprites.push_back(sprite);
 	}

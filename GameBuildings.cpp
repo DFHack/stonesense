@@ -185,15 +185,7 @@ void loadBuildingSprites ( Block* b, API& DF){
 	}
 	//add yellow box, if needed. But only if the building was not found (this way we can have blank slots in buildings)
 	if(b->building.sprites.size() == 0 && foundBlockBuildingInfo == false){
-		t_SpriteWithOffset unknownBuildingSprite = 
-		{
-			SPRITEOBJECT_NA, 
-			0, 
-			0,
-			-1,
-			0,
-			1+2+4+8+16+32
-		};
+		c_sprite unknownBuildingSprite;
 		b->building.sprites.push_back( unknownBuildingSprite );
 	}
 }

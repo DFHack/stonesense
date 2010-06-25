@@ -371,10 +371,11 @@ void ReadCellToSegment(API& DF, WorldSegment& segment, int CellX, int CellY, int
 				b->ramp.type = 0;
 				b->water.index = 0;
 				b->building.info.type = BUILDINGTYPE_BLACKBOX;
-				t_SpriteWithOffset sprite = {SPRITEOBJECT_BLACK, 0, 0,-1, 0, ALL_FRAMES};
-				sprite.y=4;
+				c_sprite sprite;
+				sprite.set_sheetindex(SPRITEOBJECT_BLACK);
+				sprite.set_offset(0, 4);
 				b->building.sprites.push_back( sprite );
-				sprite.y=0;
+				sprite.set_offset(0, 0);
 				b->building.sprites.push_back( sprite );
 				shouldBeIncluded= true;
 			}

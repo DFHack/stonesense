@@ -5,7 +5,7 @@
 #define BLOCKTILE 0
 #define RAMPBOTTOMTILE 1
 #define RAMPTOPTILE 2
-
+class Block;
 class c_sprite
 {
 private:

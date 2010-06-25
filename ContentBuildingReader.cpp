@@ -178,76 +178,14 @@ inline bool readNode(SpriteNode* node, TiXmlElement* elemNode, TiXmlElement* ele
 	}
 	else if ((strcmp(strType, "sprite") == 0) || (strcmp(strType, "empty") == 0))
 	{
-		uint8_t red, green, blue;
+		int fileindex = 0;
+		const char* pfilename = elemParent->Attribute("file");
+		if (pfilename != NULL && pfilename[0] != 0)
+		{
+			fileindex = loadConfigImgFile((char*)pfilename,elemNode);
+		}
 		SpriteElement* sprite = new SpriteElement();
-		const char* strSheetIndex = elemNode->Attribute("index");
-		const char* strOffsetX = elemNode->Attribute("offsetx");
-		const char* strOffsetY = elemNode->Attribute("offsety");
-		const char* filename = elemNode->Attribute("file");
-		const char* spriteVariationsStr = elemNode->Attribute("variations");
-		const char* spriteColorStr = elemNode->Attribute("color");
-		getAnimFrames(elemNode->Attribute("frames"));
-		sprite->sprite.animFrames = getAnimFrames(elemNode->Attribute("frames"));
-		if (sprite->sprite.animFrames == 0)
-			sprite->sprite.animFrames = ALL_FRAMES;
-
-		//  do custom colors
-		const char* spriteRedStr = elemNode->Attribute("red");
-		if (spriteRedStr == NULL || spriteRedStr[0] == 0)
-		{
-			red = 255;
-		}
-		else red=atoi(spriteRedStr);
-		const char* spriteGreenStr = elemNode->Attribute("green");
-		if (spriteGreenStr == NULL || spriteGreenStr[0] == 0)
-		{
-			green = 255;
-		}
-		else green=atoi(spriteGreenStr);
-		const char* spriteBlueStr = elemNode->Attribute("blue");
-		if (spriteBlueStr == NULL || spriteBlueStr[0] == 0)
-		{
-			blue = 255;
-		}
-		else blue=atoi(spriteBlueStr);
-		sprite->sprite.shadeColor = al_map_rgb(red, green, blue);
-
-		//decide what the sprite should be shaded by.
-		if (spriteColorStr == NULL || spriteColorStr[0] == 0)
-		{
-			sprite->sprite.shadeBy = ShadeNone;
-		}
-		else
-		{
-			sprite->sprite.shadeBy = ShadeNone;
-			if( strcmp(spriteColorStr, "none") == 0)
-				sprite->sprite.shadeBy = ShadeNone;
-			if( strcmp(spriteColorStr, "xml") == 0)
-				sprite->sprite.shadeBy = ShadeXml;
-			if( strcmp(spriteColorStr, "material") == 0)
-				sprite->sprite.shadeBy = ShadeMat;
-			if( strcmp(spriteColorStr, "layer") == 0)
-				sprite->sprite.shadeBy = ShadeLayer;
-			if( strcmp(spriteColorStr, "vein") == 0)
-				sprite->sprite.shadeBy = ShadeVein;
-		}
-		sprite->sprite.sheetIndex = (strSheetIndex != 0 ? atoi(strSheetIndex) : -1);
-		sprite->sprite.x    = (strOffsetX    != 0 ? atoi(strOffsetX)    : 0);
-		sprite->sprite.y   = (strOffsetY    != 0 ? atoi(strOffsetY)    : 0);
-		sprite->sprite.fileIndex = -1;
-		sprite->sprite.numVariations = (spriteVariationsStr !=0 ? atoi(spriteVariationsStr) : 0);
-		if (filename != NULL && filename[0] != 0)
-		{
-			sprite->sprite.fileIndex = loadConfigImgFile((char*)filename,elemNode);
-		}
-		else
-		{
-			const char* pfilename = elemParent->Attribute("file");
-			if (pfilename != NULL && pfilename[0] != 0)
-			{
-				sprite->sprite.fileIndex = loadConfigImgFile((char*)pfilename,elemNode);
-			}
-		}
+		sprite->sprite.set_by_xml(elemNode, fileindex);
 		node->addChild(sprite);
 	}
 	else if (strcmp(strType, "include") == 0)

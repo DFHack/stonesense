@@ -66,7 +66,7 @@ class SpriteElement : public SpriteNode
 private:
 
 public:
-  t_SpriteWithOffset sprite;
+  c_sprite sprite;
   
   SpriteElement(void);
   ~SpriteElement(void){};

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "common.h"
+#include "SpriteObjects.h"
 
 class WorldSegment;
 
@@ -67,7 +68,7 @@ public:
 	int16_t eff_oceanwave;
 	struct {
 		t_building info;
-		vector<t_SpriteWithOffset> sprites;
+		vector<c_sprite> sprites;
 		uint32_t index;
 	} building;
 
