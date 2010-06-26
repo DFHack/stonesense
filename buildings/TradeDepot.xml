@@ -6,7 +6,7 @@
 	
 	<if>
 		<not><BuildingOccupancy value="1" /></not>
-		<sprite file="" index = 140 color = material />
+		<sprite file="" index = 140 color = building />
 	</if>
 	
 	<include file="wsUpperBorder.xml"/>
@@ -22,7 +22,7 @@
 				<PositionIndex value=24 />
 			</or>
 		</and>
-		<sprite file="" index = 141 color = material />
+		<sprite file="" index = 141 color = building />
 	</if>		
 		
 	<include file="ws5x5Blueprint.xml"/>

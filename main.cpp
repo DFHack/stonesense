@@ -349,6 +349,8 @@ int main(void)
 
 	timeToReloadSegment = true;
 
+	DFHack::ContextManager DFMgr("Memory.xml");
+
 	while (true) {
 		if (redraw && al_event_queue_is_empty(queue))
 		{

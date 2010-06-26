@@ -5,7 +5,7 @@
 <building name="Paved Road" gameID="building_road_pavedst"> 
 	
 
-		<sprite index = "140" color = material />
+		<sprite index = "140" color = building />
 
 	
 </building> 

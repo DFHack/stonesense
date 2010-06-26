@@ -8,8 +8,6 @@
 #include "WorldSegment.h"
 #include "ContentLoader.h"
 
-#include "dfhack/include/DFTypes.h"
-
 ALLEGRO_COLOR getSpriteColor(t_SpriteWithOffset &sprite, t_matglossPair material, t_matglossPair layerMaterial, t_matglossPair veinMaterial)
 {
 	int matFore = lookupMaterialFore(material.type, material.index);

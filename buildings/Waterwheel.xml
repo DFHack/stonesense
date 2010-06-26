@@ -10,20 +10,20 @@ file="mechanics.png">
       </or>
       <PositionIndex value="1" />
     </and>
-    <sprite index="52" offsety="15" offsetx="7" color="material" />
+    <sprite index="52" offsety="15" offsetx="7" color="building" />
     <if>
       <not>
         <FluidBelow value="4" />
       </not>
       <sprite index="47" offsety="15" offsetx="7"
-      color="material" />
+      color="building" />
     </if>
-    <sprite index="41" offsety="3" frame="024" color="material" />
-    <sprite index="44" offsety="3" frame="135" color="material" />
+    <sprite index="41" offsety="3" frame="024" color="building" />
+    <sprite index="44" offsety="3" frame="135" color="building" />
   </else>
   <else>
     <NeighbourSameBuilding dir="North" />
-    <sprite index="51" offsety="7" offsetx="2" color="material" />
+    <sprite index="51" offsety="7" offsetx="2" color="building" />
     <if>
       <not>
         <FluidBelow value="7" />
@@ -31,33 +31,33 @@ file="mechanics.png">
       <if>
         <FluidBelow value="4" />
         <sprite index="49" offsety="7" offsetx="2"
-        color="material" />
+        color="building" />
       </if>
       <else>
         <sprite index="46" offsety="7" offsetx="2"
-        color="material" />
+        color="building" />
       </else>
     </if>
-    <sprite index="40" offsety="3" color="material" />
-    <sprite index="43" offsety="3" color="material" />
+    <sprite index="40" offsety="3" color="building" />
+    <sprite index="43" offsety="3" color="building" />
   </else>
   <else>
     <NeighbourSameBuilding dir="South" />
-    <sprite index="53" offsety="16" color="material" />
+    <sprite index="53" offsety="16" color="building" />
     <if>
       <not>
         <FluidBelow value="7" />
       </not>
       <if>
         <FluidBelow value="4" />
-        <sprite index="50" offsety="16" color="material" />
+        <sprite index="50" offsety="16" color="building" />
       </if>
       <else>
-        <sprite index="48" offsety="16" color="material" />
+        <sprite index="48" offsety="16" color="building" />
       </else>
     </if>
-    <sprite index="42" offsety="3" frame="024" color="material" />
-    <sprite index="45" offsety="3" frame="135" color="material" />
+    <sprite index="42" offsety="3" frame="024" color="building" />
+    <sprite index="45" offsety="3" frame="135" color="building" />
   </else>
   <else>
     <and>
@@ -68,19 +68,19 @@ file="mechanics.png">
       </or>
     </and>
     <sprite index="72" offsety="15" offsetx="-7"
-    color="material" />
+    color="building" />
     <if>
       <not>
         <FluidBelow value="4" />
       </not>
       <sprite index="67" offsety="15" offsetx="-7" />
     </if>
-    <sprite index="61" offsety="3" frame="024" color="material" />
-    <sprite index="64" offsety="3" frame="135" color="material" />
+    <sprite index="61" offsety="3" frame="024" color="building" />
+    <sprite index="64" offsety="3" frame="135" color="building" />
   </else>
   <else>
     <NeighbourSameBuilding dir="West" />
-    <sprite index="71" offsety="7" offsetx="-2" color="material" />
+    <sprite index="71" offsety="7" offsetx="-2" color="building" />
     <if>
       <not>
         <FluidBelow value="7" />
@@ -88,33 +88,33 @@ file="mechanics.png">
       <if>
         <FluidBelow value="4" />
         <sprite index="69" offsety="7" offsetx="-2"
-        color="material" />
+        color="building" />
       </if>
       <else>
         <sprite index="66" offsety="7" offsetx="-2"
-        color="material" />
+        color="building" />
       </else>
     </if>
-    <sprite index="60" offsety="3" frame="024" color="material" />
-    <sprite index="63" offsety="3" frame="135" color="material" />
+    <sprite index="60" offsety="3" frame="024" color="building" />
+    <sprite index="63" offsety="3" frame="135" color="building" />
   </else>
   <else>
     <NeighbourSameBuilding dir="East" />
-    <sprite index="73" offsety="16" color="material" />
+    <sprite index="73" offsety="16" color="building" />
     <if>
       <not>
         <FluidBelow value="7" />
       </not>
       <if>
         <FluidBelow value="4" />
-        <sprite index="70" offsety="16" color="material" />
+        <sprite index="70" offsety="16" color="building" />
       </if>
       <else>
-        <sprite index="68" offsety="16" color="material" />
+        <sprite index="68" offsety="16" color="building" />
       </else>
     </if>
-    <sprite index="62" offsety="3" frame="024" color="material" />
-    <sprite index="65" offsety="3" frame="135" color="material" />
+    <sprite index="62" offsety="3" frame="024" color="building" />
+    <sprite index="65" offsety="3" frame="135" color="building" />
   </else>
   <empty />
 </building>

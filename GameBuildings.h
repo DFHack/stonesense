@@ -40,10 +40,10 @@ enum BuildingTypes{
 
 
 int getBuildingSprite(t_building &building, bool mirrored);
-void ReadBuildingsToSegment(API& DF, WorldSegment* segment);
+void ReadBuildingsToSegment(DFHack::Context& DF, WorldSegment* segment);
 void MergeBuildingsToSegment(vector<t_building>* buildings, WorldSegment* segment);
-void loadBuildingSprites( Block* b, API & DF);
-void ReadBuildings(API& DF, vector<t_building>* buildingHolder);
+void loadBuildingSprites( Block* b, DFHack::Context & DF);
+void ReadBuildings(DFHack::Context& DF, vector<t_building>* buildingHolder);
 bool BlockHasSuspendedBuilding(vector<t_building>* buildingList, Block* b);
 
 dirTypes findWallCloseTo(WorldSegment* segment, Block* b);

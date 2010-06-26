@@ -2,9 +2,11 @@
 <building name="Table" gameID="building_tablest">
   <if>
     <MaterialType value="Wood" />
-    <sprite index="82" color="material" />
+    <sprite index="82" color="building" />
   </if>
   <else>
-    <sprite index="83" color="material" />
+    <sprite index="83" color="building" >
+		<subsprite sheetIndex = "62" bloodmin = "1" color = "blood" />
+	</sprite>
   </else>
 </building>

@@ -61,7 +61,7 @@ dirTypes findWallCloseTo(WorldSegment* segment, Block* b){
 	return eSimpleSingle;
 }
 
-void ReadBuildings(API& DF, vector<t_building>* buildingHolder)
+void ReadBuildings(DFHack::Context& DF, vector<t_building>* buildingHolder)
 {
 	if(config.skipBuildings)
 		return;
@@ -163,7 +163,7 @@ void MergeBuildingsToSegment(vector<t_building>* buildings, WorldSegment* segmen
 }
 
 
-void loadBuildingSprites ( Block* b, API& DF){
+void loadBuildingSprites ( Block* b, DFHack::Context& DF){
 	bool foundBlockBuildingInfo = false;
 	if (b == NULL)
 	{

@@ -8,8 +8,8 @@
 #include "Creatures.h"
 #include "ContentLoader.h"
 
-static API* pDFApiHandle = 0;
-
+static DFHack::Context* pDFApiHandle = 0;
+static DFHack::ContextManager* DFMgr = 0;
 const memory_info *dfMemoryInfo;
 bool memInfoHasBeenRead;
 
@@ -186,7 +186,7 @@ bool areNeighborsVisible(t_designation designations[16][16],int  x,int y)
 	return false;
 }
 
-void ReadCellToSegment(API& DF, WorldSegment& segment, int CellX, int CellY, int CellZ,
+void ReadCellToSegment(DFHack::Context& DF, WorldSegment& segment, int CellX, int CellY, int CellZ,
 					   uint32_t BoundrySX, uint32_t BoundrySY,
 					   uint32_t BoundryEX, uint32_t BoundryEY, 
 					   uint16_t Flags/*not in use*/, 
@@ -329,7 +329,7 @@ void ReadCellToSegment(API& DF, WorldSegment& segment, int CellX, int CellY, int
 					}
 				}
 			}
-			b->bloodcolor = al_map_rgb_f(red/b->bloodlevel, green/b->bloodlevel, blue/b->bloodlevel);
+			b->bloodcolor = al_map_rgba_f(red/b->bloodlevel, green/b->bloodlevel, blue/b->bloodlevel, (b->bloodlevel > 100) ? 1 : b->bloodlevel / 100.0f);
 
 			//temperatures
 
@@ -501,7 +501,7 @@ bool checkFloorBorderRequirement(WorldSegment* segment, int x, int y, int z, dir
 }
 
 
-WorldSegment* ReadMapSegment(API &DF, int x, int y, int z, int sizex, int sizey, int sizez){
+WorldSegment* ReadMapSegment(DFHack::Context &DF, int x, int y, int z, int sizex, int sizey, int sizez){
 	uint32_t index;
 	TMR2_START;
 	DFHack::Maps *Maps;
@@ -855,7 +855,7 @@ WorldSegment* ReadMapSegment(API &DF, int x, int y, int z, int sizex, int sizey,
 }
 
 
-bool ConnectDFAPI(API* pDF){
+bool ConnectDFAPI(DFHack::Context* pDF){
 	try
 	{
 		pDF->Attach();
@@ -994,9 +994,10 @@ void reloadDisplayedSegment(){
 			ALLEGRO_ALIGN_CENTRE, "Connecting to DF...");
 		al_flip_display();
 		memInfoHasBeenRead = false;
-		pDFApiHandle = new API("Memory.xml");
+		DFMgr = new ContextManager("Memory.xml");
 		try
 		{
+			pDFApiHandle = DFMgr->getSingleContext();
 			pDFApiHandle->Attach();
 			pDFApiHandle->Detach();
 		}
@@ -1009,7 +1010,7 @@ void reloadDisplayedSegment(){
 			return ;
 		}
 	}
-	API& DF = *pDFApiHandle;
+	DFHack::Context& DF = *pDFApiHandle;
 	DF.Attach();
 	TMR1_START;
 

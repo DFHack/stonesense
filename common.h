@@ -18,20 +18,8 @@
 
 using namespace std;
 
-#include <DFTypes.h>
-#include <DFHackAPI.h>
-#include <DFProcess.h>
-#include <DFMemInfo.h>
-#include <DFVector.h>
-#include <modules/Vegetation.h>
-#include <modules/Materials.h>
-#include <modules/Position.h>
-#include <modules/Maps.h>
-#include <modules/Creatures.h>
-#include <modules/Buildings.h>
-#include <modules/Constructions.h>
-#include <modules/Gui.h>
-#include <modules/world.h>
+#include <DFHack.h>
+#include <dfhack/DFTileTypes.h>
 
 using namespace DFHack;
 

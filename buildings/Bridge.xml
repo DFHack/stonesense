@@ -15,7 +15,7 @@
           <NeighbourIdentical dir="West" />
           <NeighbourIdentical dir="East" />
         </or>
-        <sprite index="366" color="material" />
+        <sprite index="366" color="building" />
         <if>
           <not>
             <NeighbourIdentical dir="West" />
@@ -26,7 +26,7 @@
           <not>
             <NeighbourIdentical dir="East" />
           </not>
-          <sprite index="368" color="material" />
+          <sprite index="368" color="building" />
         </if>
       </if>
       <else>
@@ -35,19 +35,19 @@
           <not>
             <NeighbourIdentical dir="North" />
           </not>
-          <sprite index="371" color="material" />
+          <sprite index="371" color="building" />
         </if>
         <if>
           <not>
             <NeighbourIdentical dir="South" />
           </not>
-          <sprite index="370" color="material" />
+          <sprite index="370" color="building" />
         </if>
       </else>
     </if>
     <else>
       <!-- flat -->
-      <sprite index="360" color="material" />
+      <sprite index="360" color="building" />
       <if>
         <not>
           <or>
@@ -55,31 +55,31 @@
             <NeighbourSameBuilding dir="West" />
           </or>
         </not>
-        <sprite index="365" color="material" />
+        <sprite index="365" color="building" />
       </if>
       <else>
         <not>
           <NeighbourSameBuilding dir="North" />
         </not>
-        <sprite index="362" color="material" />
+        <sprite index="362" color="building" />
       </else>
       <else>
         <not>
           <NeighbourSameBuilding dir="West" />
         </not>
-        <sprite index="361" color="material" />
+        <sprite index="361" color="building" />
       </else>
       <if>
         <not>
           <NeighbourSameBuilding dir="South" />
         </not>
-        <sprite index="363" color="material" />
+        <sprite index="363" color="building" />
       </if>
       <if>
         <not>
           <NeighbourSameBuilding dir="East" />
         </not>
-        <sprite index="364" color="material" />
+        <sprite index="364" color="building" />
       </if>
     </else>
   </else>
@@ -92,39 +92,39 @@
         <NeighbourIdentical dir="West" />
         <NeighbourIdentical dir="East" />
       </or>
-      <sprite index="330" color="material" />
+      <sprite index="330" color="building" />
       <if>
         <not>
           <NeighbourIdentical dir="West" />
         </not>
-        <sprite index="331" color="material" />
+        <sprite index="331" color="building" />
       </if>
       <if>
         <not>
           <NeighbourIdentical dir="East" />
         </not>
-        <sprite index="332" color="material" />
+        <sprite index="332" color="building" />
       </if>
     </if>
     <else>
-      <sprite index="333" color="material" />
+      <sprite index="333" color="building" />
       <if>
         <not>
           <NeighbourIdentical dir="North" />
         </not>
-        <sprite index="335" color="material" />
+        <sprite index="335" color="building" />
       </if>
       <if>
         <not>
           <NeighbourIdentical dir="South" />
         </not>
-        <sprite index="334" color="material" />
+        <sprite index="334" color="building" />
       </if>
     </else>
   </else>
   <else>
     <!-- flat -->
-    <sprite index="324" color="material" />
+    <sprite index="324" color="building" />
     <if>
       <not>
         <or>
@@ -132,31 +132,31 @@
           <NeighbourSameBuilding dir="West" />
         </or>
       </not>
-      <sprite index="329" color="material" />
+      <sprite index="329" color="building" />
     </if>
     <else>
       <not>
         <NeighbourSameBuilding dir="North" />
       </not>
-      <sprite index="326" color="material" />
+      <sprite index="326" color="building" />
     </else>
     <else>
       <not>
         <NeighbourSameBuilding dir="West" />
       </not>
-      <sprite index="325" color="material" />
+      <sprite index="325" color="building" />
     </else>
     <if>
       <not>
         <NeighbourSameBuilding dir="South" />
       </not>
-      <sprite index="327" color="material" />
+      <sprite index="327" color="building" />
     </if>
     <if>
       <not>
         <NeighbourSameBuilding dir="East" />
       </not>
-      <sprite index="328" color="material" />
+      <sprite index="328" color="building" />
     </if>
   </else>
   <!-- edging on flat bridges -->
@@ -171,13 +171,13 @@
       <not>
         <NeighbourSameBuilding dir="North" />
       </not>
-      <sprite index="282" offsety="12" color="material" />
+      <sprite index="282" offsety="12" color="building" />
     </if>
     <if>
       <not>
         <NeighbourSameBuilding dir="West" />
       </not>
-      <sprite index="280" offsety="12" color="material" />
+      <sprite index="280" offsety="12" color="building" />
     </if>
   </if>
 </building>

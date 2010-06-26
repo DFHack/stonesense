@@ -1,11 +1,12 @@
 #pragma once
 
 #include "dfhack/depends/tinyxml/tinyxml.h"
+#include "common.h"
 
 #define BLOCKTILE 0
 #define RAMPBOTTOMTILE 1
 #define RAMPTOPTILE 2
-class Block;
+
 class c_sprite
 {
 private:
@@ -49,7 +50,7 @@ public:
 	void set_animframes(char in){ animframes = in; }
 	void set_size(uint8_t x, uint8_t y);
 	void set_offset(int16_t x, int16_t y);
-	ALLEGRO_COLOR get_color(Block * b);
+	ALLEGRO_COLOR get_color(void * b);
 	void reset();
 	void set_tile_layout(uint8_t layout);
 };

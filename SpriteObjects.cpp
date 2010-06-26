@@ -24,28 +24,12 @@ c_sprite::c_sprite(void)
 	snowmax = -1;
 	bloodmin = 0;
 	bloodmax = -1;
+	needoutline=0;
 }
 
 c_sprite::~c_sprite(void)
 {
 }
-
-void c_sprite::reset()
-{
-	LogVerbose("\tResetting sprite %d to default values\n", this);
-	fileindex = -1;
-	sheetindex = 0;
-	spritewidth = SPRITEWIDTH;
-	spriteheight = SPRITEHEIGHT;
-	offset_x = 0;
-	offset_y = 0;
-	variations = 0;
-	tilelayout = 0;
-	animframes = ALL_FRAMES;
-	shadecolor = al_map_rgb(255,255,255);
-	subsprites.clear();
-}
-
 
 void c_sprite::set_by_xml(TiXmlElement *elemSprite, int32_t inFile)
 {
@@ -237,6 +221,9 @@ void c_sprite::draw_world_offset(int x, int y, int z, int tileoffset, bool chop)
 	int offsetAnimFrame = (currentAnimationFrame + rando) % MAX_ANIMFRAME;
 	if (animframes & (1 << offsetAnimFrame))
 	{
+		int randoffset = 0;
+		if(variations)
+			randoffset = rando%variations;
 		Block* b = viewedSegment->getBlock(x, y, z);
 		if((snowmin <= b->snowlevel && (snowmax == -1 || snowmax >= b->snowlevel)) && (bloodmin <= b->bloodlevel && (bloodmax == -1 || bloodmax >= b->bloodlevel)))
 		{
@@ -259,23 +246,23 @@ void c_sprite::draw_world_offset(int x, int y, int z, int tileoffset, bool chop)
 			int sheetx, sheety;
 			if(tilelayout == BLOCKTILE)
 			{
-			sheetx = ((sheetindex+tileoffset) % SHEET_OBJECTSWIDE) * spritewidth;
-			sheety = ((sheetindex+tileoffset) / SHEET_OBJECTSWIDE) * spriteheight;
+			sheetx = ((sheetindex+tileoffset+randoffset) % SHEET_OBJECTSWIDE) * spritewidth;
+			sheety = ((sheetindex+tileoffset+randoffset) / SHEET_OBJECTSWIDE) * spriteheight;
 			}
 			else if(tilelayout == RAMPBOTTOMTILE)
 			{
 			sheetx = sheetx = SPRITEWIDTH * b->ramp.index;
-			sheety = sheety = ((TILEHEIGHT + FLOORHEIGHT + SPRITEHEIGHT) * sheetindex)+(TILEHEIGHT + FLOORHEIGHT);
+			sheety = sheety = ((TILEHEIGHT + FLOORHEIGHT + SPRITEHEIGHT) * (sheetindex+tileoffset+randoffset))+(TILEHEIGHT + FLOORHEIGHT);
 			}
 			else if(tilelayout == RAMPTOPTILE)
 			{
 			sheetx = sheetx = SPRITEWIDTH * b->ramp.index;
-			sheety = sheety = (TILEHEIGHT + FLOORHEIGHT + SPRITEHEIGHT) * sheetindex;
+			sheety = sheety = (TILEHEIGHT + FLOORHEIGHT + SPRITEHEIGHT) * (sheetindex+tileoffset+randoffset);
 			}
 			else
 			{
-			sheetx = ((sheetindex+tileoffset) % SHEET_OBJECTSWIDE) * spritewidth;
-			sheety = ((sheetindex+tileoffset) / SHEET_OBJECTSWIDE) * spriteheight;
+			sheetx = ((sheetindex+tileoffset+randoffset) % SHEET_OBJECTSWIDE) * spritewidth;
+			sheety = ((sheetindex+tileoffset+randoffset) / SHEET_OBJECTSWIDE) * spriteheight;
 			}
 			if(chop)
 			{
@@ -361,9 +348,10 @@ void c_sprite::set_tile_layout(uint8_t layout)
 	}
 }
 
-ALLEGRO_COLOR c_sprite::get_color(Block* b)
+ALLEGRO_COLOR c_sprite::get_color(void* block)
 {
-	uint32_t dayofLife;
+	Block * b = (Block *) block;
+	uint32_t dayofLife = 0;
 	switch(shadeBy)
 	{
 	case ShadeNone:
@@ -372,6 +360,8 @@ ALLEGRO_COLOR c_sprite::get_color(Block* b)
 		return shadecolor;
 	case ShadeMat:
 		return lookupMaterialColor(b->material.type, b->material.index);
+	case ShadeBuilding:
+		return lookupMaterialColor(b->building.info.material.type, b->building.info.material.index);
 	case ShadeLayer:
 		return lookupMaterialColor(b->layerMaterial.type, b->layerMaterial.index);
 	case ShadeVein:
@@ -389,40 +379,48 @@ ALLEGRO_COLOR c_sprite::get_color(Block* b)
 	case ShadeVeinBack:
 		return getDfColor(lookupMaterialBack(b->veinMaterial.type, b->veinMaterial.index));
 	case ShadeBodyPart:
-		dayofLife = b->creature->birth_year*12*28 + b->creature->birth_time/1200;
-		if((!config.skipCreatureTypes) && (!config.skipCreatureTypesEx) && (!config.skipDescriptorColors))
+		if(b->creaturePresent)
 		{
-			for(unsigned int j = 0; j<b->creature->nbcolors ; j++)
+			dayofLife = b->creature->birth_year*12*28 + b->creature->birth_time/1200;
+			if((!config.skipCreatureTypes) && (!config.skipCreatureTypesEx) && (!config.skipDescriptorColors))
 			{
-				if(strcmp(contentLoader.Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].part, bodypart) == 0)
+				for(unsigned int j = 0; j<b->creature->nbcolors ; j++)
 				{
-					uint32_t cr_color = contentLoader.Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].colorlist[b->creature->color[j]];
-					if(cr_color < contentLoader.Mats->color.size())
+					if(strcmp(contentLoader.Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].part, bodypart) == 0)
 					{
-						if(contentLoader.Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].startdate > 0)
+						uint32_t cr_color = contentLoader.Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].colorlist[b->creature->color[j]];
+						if(cr_color < contentLoader.Mats->color.size())
 						{
-
-							if((contentLoader.Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].startdate <= dayofLife) &&
-								(contentLoader.Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].enddate > dayofLife))
+							if(contentLoader.Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].startdate > 0)
 							{
-								return al_map_rgb_f(
-									contentLoader.Mats->color[cr_color].r,
-									contentLoader.Mats->color[cr_color].v,
-									contentLoader.Mats->color[cr_color].b);;
+
+								if((contentLoader.Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].startdate <= dayofLife) &&
+									(contentLoader.Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].enddate > dayofLife))
+								{
+									return al_map_rgb_f(
+										contentLoader.Mats->color[cr_color].r,
+										contentLoader.Mats->color[cr_color].v,
+										contentLoader.Mats->color[cr_color].b);;
+								}
 							}
+							else
+								return al_map_rgb_f(
+								contentLoader.Mats->color[cr_color].r,
+								contentLoader.Mats->color[cr_color].v,
+								contentLoader.Mats->color[cr_color].b);
 						}
-						else
-							return al_map_rgb_f(
-							contentLoader.Mats->color[cr_color].r,
-							contentLoader.Mats->color[cr_color].v,
-							contentLoader.Mats->color[cr_color].b);
 					}
 				}
 			}
+			else return al_map_rgb(255,255,255);
 		}
 		else return al_map_rgb(255,255,255);
 	case ShadeJob:
-		return getDfColor(getJobColor(b->creature->profession));
+		if(b->creaturePresent)
+		{
+			return getDfColor(getJobColor(b->creature->profession));
+		}
+		else return al_map_rgb(255,255,255);
 	case ShadeBlood:
 		return b->bloodcolor;
 	default:

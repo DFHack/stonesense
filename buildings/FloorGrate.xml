@@ -4,6 +4,6 @@
 
 <building name="Grate" gameID="building_grate_floorst"> 
 
-		<sprite index = 307 color = "material"/>
+		<sprite index = 307 color = "building"/>
 
 </building> 

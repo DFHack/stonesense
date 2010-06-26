@@ -4,7 +4,6 @@
 #include "MapLoading.h"
 #include "GUI.h"
 #include "ContentLoader.h"
-#include "dfhack/include/DFError.h"
 
 #include "dfhack/depends/tinyxml/tinyxml.h"
 

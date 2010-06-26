@@ -18,9 +18,9 @@
   </else>
   <else>
     <MaterialType value="Wood" />
-    <sprite index="89" color="material" />
+    <sprite index="89" color="building" />
   </else>
   <else>
-    <sprite index="90" color="material" />
+    <sprite index="90" color="building" />
   </else>
 </building>

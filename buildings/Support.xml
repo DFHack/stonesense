@@ -2,9 +2,9 @@
 <building name="Support" gameID="building_supportst">
   <if>
     <MaterialType value="Wood" />
-    <sprite index="95" color="material" />
+    <sprite index="95" color="building" />
   </if>
   <else>
-    <sprite index="94" color="material" />
+    <sprite index="94" color="building" />
   </else>
 </building>

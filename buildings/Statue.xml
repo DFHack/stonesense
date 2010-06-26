@@ -3,5 +3,5 @@
 
 
 <building name="Statue" gameID="building_statuest"> 
-		<sprite index = 86 color = material />
+		<sprite index = 86 color = building />
 </building> 

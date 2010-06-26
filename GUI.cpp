@@ -75,7 +75,9 @@ ALLEGRO_COLOR partialBlend(ALLEGRO_COLOR & color2, ALLEGRO_COLOR & color1, int p
 	result.r=(blend*color1.r)+((1.0-blend)*color2.r);
 	result.g=(blend*color1.g)+((1.0-blend)*color2.g);
 	result.b=(blend*color1.b)+((1.0-blend)*color2.b);
-	result.a=(blend*color1.a)+((1.0-blend)*color2.a);
+	if(color1.a > color2.a)
+		result.a = color1.a;
+	else result.a = color2.a;
 	return result;
 }
 

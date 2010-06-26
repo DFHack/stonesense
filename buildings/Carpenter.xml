@@ -43,10 +43,10 @@ file="workshop.png">
       <if>
         <MaterialType value="Wood" />
         <rotate>
-          <sprite index="82" offsetx="2" offsety="-1" color="material" />
-          <sprite index="83" color="material" />
-          <sprite index="82" color="material" />
-          <sprite index="83" offsetx="-2" offsety="-1" color="material" />
+          <sprite index="82" offsetx="2" offsety="-1" color="building" />
+          <sprite index="83" color="building" />
+          <sprite index="82" color="building" />
+          <sprite index="83" offsetx="-2" offsety="-1" color="building" />
         </rotate>
       </if>
       <else>
@@ -73,11 +73,11 @@ file="workshop.png">
       <else>
         <rotate>
           <sprite index="80" offsetx="2" offsety="-1"
-          color="material" />
-          <sprite index="81" color="material" />
-          <sprite index="80" color="material" />
+          color="building" />
+          <sprite index="81" color="building" />
+          <sprite index="80" color="building" />
           <sprite index="81" offsetx="-2" offsety="-1"
-          color="material" />
+          color="building" />
         </rotate>
       </else>
       <rotate>
@@ -98,12 +98,12 @@ file="workshop.png">
       <if>
         <MaterialType value="Wood" />
         <rotate>
-          <sprite index="82" color="material" />
+          <sprite index="82" color="building" />
           <sprite index="83" offsetx="-2" offsety="-1"
-          color="material" />
+          color="building" />
           <sprite index="82" offsetx="2" offsety="-1"
-          color="material" />
-          <sprite index="83" color="material" />
+          color="building" />
+          <sprite index="83" color="building" />
         </rotate>
       </if>
       <else>
@@ -129,12 +129,12 @@ file="workshop.png">
       </else>
       <else>
         <rotate>
-          <sprite index="80" color="material" />
+          <sprite index="80" color="building" />
           <sprite index="81" offsetx="-2" offsety="-1"
-          color="material" />
+          color="building" />
           <sprite index="80" offsetx="2" offsety="-1"
-          color="material" />
-          <sprite index="81" color="material" />
+          color="building" />
+          <sprite index="81" color="building" />
         </rotate>
       </else>
       <rotate>

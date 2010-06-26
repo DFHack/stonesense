@@ -25,7 +25,7 @@ gameID="building_farmers_workshopst" file="workshop.png">
     <BuildingOccupancy value="3" />
     <if>
       <PositionIndex value="1" />
-      <sprite index="140" color="material" />
+      <sprite index="140" color="building" />
       <sprite index="155" />
     </if>
     <else>

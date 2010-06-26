@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
 <building name="Lever" gameID="building_leverst">
   <sprite index="108" />
-  <sprite index="109" color="material" />
+  <sprite index="109" color="building" />
 </building>

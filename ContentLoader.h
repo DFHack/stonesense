@@ -24,7 +24,7 @@ public:
 	ContentLoader(void);
 	~ContentLoader(void);
 
-	bool Load(API& DF);
+	bool Load( DFHack::Context& DF);
 
 	vector<BuildingConfiguration> buildingConfigs;
 	vector<vector<CreatureConfiguration>*> creatureConfigs;

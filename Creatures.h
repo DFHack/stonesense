@@ -5,7 +5,7 @@
 
 #define	SPRITECRE_NA 0;
 
-void ReadCreaturesToSegment(API& DF, WorldSegment* segment);
+void ReadCreaturesToSegment( DFHack::Context& DF, WorldSegment* segment);
 
 void DrawCreature(int drawx, int drawy, t_creature* creature );
 void DrawCreatureText(int drawx, int drawy, t_creature* creature );

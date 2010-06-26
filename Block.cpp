@@ -9,8 +9,6 @@
 #include "ContentLoader.h"
 #include "spriteColors.h"
 
-#include "dfhack/include/DFTypes.h"
-
 
 
 ALLEGRO_BITMAP *sprite_miasma = 0;

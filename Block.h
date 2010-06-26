@@ -2,7 +2,6 @@
 
 #include "common.h"
 #include "SpriteObjects.h"
-
 class WorldSegment;
 
 

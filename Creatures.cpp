@@ -312,7 +312,7 @@ void DrawCreatureText(int drawx, int drawy, t_creature* creature ){
 
 //t_creature* global = 0;
 
-void ReadCreaturesToSegment(API& DF, WorldSegment* segment)
+void ReadCreaturesToSegment( DFHack::Context& DF, WorldSegment* segment)
 {
 	int x1 = segment->x;
 	int x2 = segment->x + segment->sizex;

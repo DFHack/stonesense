@@ -40,7 +40,7 @@ void DumpPrefessionNamesToDisk(vector<string> material, const char* filename){
 	}
 	fclose(fp);
 }
-bool ContentLoader::Load(API& DF){
+bool ContentLoader::Load( DFHack::Context& DF){
 	/*draw_textf_border(font, 
 	al_get_bitmap_width(al_get_target_bitmap())/2,
 	al_get_bitmap_height(al_get_target_bitmap())/2,
@@ -733,5 +733,7 @@ ShadeBy getShadeType(const char* Input)
 		return ShadeJob;
 	if( strcmp(Input, "blood") == 0)
 		return ShadeBlood;
+	if( strcmp(Input, "building") == 0)
+		return ShadeBuilding;
 	return ShadeNone;
 }
