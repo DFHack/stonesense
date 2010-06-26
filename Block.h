@@ -53,7 +53,7 @@ public:
 	} blockeffects;
 
 	//individual effects
-	int16_t eff_miasma;
+	/*int16_t eff_miasma;
 	int16_t eff_water;
 	int16_t eff_water2;
 	int16_t eff_blood;
@@ -62,8 +62,8 @@ public:
 	int16_t eff_smoke;
 	int16_t eff_dragonfire;
 	int16_t eff_fire;
+	int16_t eff_boiling;*/
 	int16_t eff_webing;
-	int16_t eff_boiling;
 	int16_t eff_oceanwave;
 	struct {
 		t_building info;
