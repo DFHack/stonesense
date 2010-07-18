@@ -25,6 +25,7 @@ c_sprite::c_sprite(void)
 	bloodmin = 0;
 	bloodmax = -1;
 	needoutline=0;
+	defaultsheet=IMGObjectSheet;
 }
 
 c_sprite::~c_sprite(void)
@@ -36,7 +37,7 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite, int32_t inFile)
 	fileindex = inFile;
 	set_by_xml(elemSprite);
 }
-	
+
 void c_sprite::set_by_xml(TiXmlElement *elemSprite)
 {
 	const char* sheetIndexStr;
@@ -89,6 +90,52 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
 	else
 	{
 		shadeBy = getShadeType(spriteVarColorStr);
+	}
+
+	//some sprites should only be drawn when the tile is chopped in half
+	const char* spriteChopStr = elemSprite->Attribute("halftile");
+	if (spriteChopStr == NULL || spriteChopStr[0] == 0)
+	{
+		halftile = HALFTILECHOP;
+	}
+	else if( strcmp(spriteChopStr, "chop") == 0)
+	{
+		halftile = HALFTILECHOP;
+	}
+	else if( strcmp(spriteChopStr, "yes") == 0)
+	{
+		halftile = HALFTILEYES;
+	}
+	else if( strcmp(spriteChopStr, "no") == 0)
+	{
+		halftile = HALFTILENO;
+	}
+	else if( strcmp(spriteChopStr, "both") == 0)
+	{
+		halftile = HALFTILEBOTH;
+	}
+
+	//some sprites are actually tile borders.
+	const char* spriteBorderStr = elemSprite->Attribute("tileborder");
+	if (spriteBorderStr == NULL || spriteBorderStr[0] == 0)
+	{
+		isoutline = OUTLINENONE;
+	}
+	else if( strcmp(spriteBorderStr, "none") == 0)
+	{
+		isoutline = OUTLINENONE;
+	}
+	else if( strcmp(spriteBorderStr, "left") == 0)
+	{
+		isoutline = OUTLINELEFT;
+	}
+	else if( strcmp(spriteBorderStr, "right") == 0)
+	{
+		isoutline = OUTLINERIGHT;
+	}
+	else if( strcmp(spriteBorderStr, "bottom") == 0)
+	{
+		isoutline = OUTLINEBOTTOM;
 	}
 
 	//do bodyparts
@@ -246,29 +293,29 @@ void c_sprite::draw_world_offset(int x, int y, int z, int tileoffset, bool chop)
 			int sheetx, sheety;
 			if(tilelayout == BLOCKTILE)
 			{
-			sheetx = ((sheetindex+tileoffset+randoffset) % SHEET_OBJECTSWIDE) * spritewidth;
-			sheety = ((sheetindex+tileoffset+randoffset) / SHEET_OBJECTSWIDE) * spriteheight;
+				sheetx = ((sheetindex+tileoffset+randoffset) % SHEET_OBJECTSWIDE) * spritewidth;
+				sheety = ((sheetindex+tileoffset+randoffset) / SHEET_OBJECTSWIDE) * spriteheight;
 			}
 			else if(tilelayout == RAMPBOTTOMTILE)
 			{
-			sheetx = sheetx = SPRITEWIDTH * b->ramp.index;
-			sheety = sheety = ((TILEHEIGHT + FLOORHEIGHT + SPRITEHEIGHT) * (sheetindex+tileoffset+randoffset))+(TILEHEIGHT + FLOORHEIGHT);
+				sheetx = sheetx = SPRITEWIDTH * b->ramp.index;
+				sheety = sheety = ((TILEHEIGHT + FLOORHEIGHT + SPRITEHEIGHT) * (sheetindex+tileoffset+randoffset))+(TILEHEIGHT + FLOORHEIGHT);
 			}
 			else if(tilelayout == RAMPTOPTILE)
 			{
-			sheetx = sheetx = SPRITEWIDTH * b->ramp.index;
-			sheety = sheety = (TILEHEIGHT + FLOORHEIGHT + SPRITEHEIGHT) * (sheetindex+tileoffset+randoffset);
+				sheetx = sheetx = SPRITEWIDTH * b->ramp.index;
+				sheety = sheety = (TILEHEIGHT + FLOORHEIGHT + SPRITEHEIGHT) * (sheetindex+tileoffset+randoffset);
 			}
 			else
 			{
-			sheetx = ((sheetindex+tileoffset+randoffset) % SHEET_OBJECTSWIDE) * spritewidth;
-			sheety = ((sheetindex+tileoffset+randoffset) / SHEET_OBJECTSWIDE) * spriteheight;
+				sheetx = ((sheetindex+tileoffset+randoffset) % SHEET_OBJECTSWIDE) * spritewidth;
+				sheety = ((sheetindex+tileoffset+randoffset) / SHEET_OBJECTSWIDE) * spriteheight;
 			}
-			if(chop)
+			if(chop && ( halftile == HALFTILECHOP))
 			{
 				al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*get_color(b));
-				if(fileindex == -1)
-					al_draw_bitmap_region(IMGObjectSheet, sheetx, sheety+WALL_CUTOFF_HEIGHT, spritewidth, spriteheight-WALL_CUTOFF_HEIGHT, drawx + offset_x + offset_user_x, drawy + offset_user_y + (offset_y - WALLHEIGHT)+WALL_CUTOFF_HEIGHT, 0);
+				if(fileindex < 0)
+					al_draw_bitmap_region(defaultsheet, sheetx, sheety+WALL_CUTOFF_HEIGHT, spritewidth, spriteheight-WALL_CUTOFF_HEIGHT, drawx + offset_x + offset_user_x, drawy + offset_user_y + (offset_y - WALLHEIGHT)+WALL_CUTOFF_HEIGHT, 0);
 				else 
 					al_draw_bitmap_region(getImgFile(fileindex), sheetx, (sheety)+WALL_CUTOFF_HEIGHT, spritewidth, spriteheight-WALL_CUTOFF_HEIGHT, drawx + offset_x + offset_user_x, drawy + offset_user_y + (offset_y - WALLHEIGHT)+WALL_CUTOFF_HEIGHT, 0);
 				al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
@@ -278,14 +325,17 @@ void c_sprite::draw_world_offset(int x, int y, int z, int tileoffset, bool chop)
 					SPRITEWIDTH, SPRITEWIDTH, 
 					drawx+offset_x, drawy+offset_y-((SPRITEHEIGHT-WALL_CUTOFF_HEIGHT)/2), 0);
 			}
-			else
+			else if ((chop && (halftile == HALFTILEYES)) || (!chop && (halftile == HALFTILENO)) || (!chop && (halftile == HALFTILECHOP)) || (halftile == HALFTILEBOTH))
 			{
-				al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*get_color(b));
-				if(fileindex == -1)
-					al_draw_bitmap_region(IMGObjectSheet, sheetx, sheety, spritewidth, spriteheight, drawx + offset_x + offset_user_x, drawy + offset_user_y + (offset_y - WALLHEIGHT), 0);
-				else 
-					al_draw_bitmap_region(getImgFile(fileindex), sheetx, sheety, spritewidth, spriteheight, drawx + offset_x + offset_user_x, drawy + offset_user_y + (offset_y - WALLHEIGHT), 0);
-				al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
+				if((isoutline == OUTLINENONE) || ((isoutline == OUTLINERIGHT) && (b->depthBorderNorth)) || ((isoutline == OUTLINELEFT) && (b->depthBorderWest)) || ((isoutline == OUTLINEBOTTOM) && (b->depthBorderDown)))
+				{
+					al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*get_color(b));
+					if(fileindex < 0)
+						al_draw_bitmap_region(defaultsheet, sheetx, sheety, spritewidth, spriteheight, drawx + offset_x + offset_user_x, drawy + offset_user_y + (offset_y - WALLHEIGHT), 0);
+					else 
+						al_draw_bitmap_region(getImgFile(fileindex), sheetx, sheety, spritewidth, spriteheight, drawx + offset_x + offset_user_x, drawy + offset_user_y + (offset_y - WALLHEIGHT), 0);
+					al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
+				}
 				if(needoutline)
 				{
 					//drawy -= (WALLHEIGHT);

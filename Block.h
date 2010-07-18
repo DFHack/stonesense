@@ -26,6 +26,7 @@ public:
 
 	bool depthBorderNorth;
 	bool depthBorderWest;
+	bool depthBorderDown;
 	int shadow;
 
 	bool creaturePresent;

@@ -7,6 +7,15 @@
 #define RAMPBOTTOMTILE 1
 #define RAMPTOPTILE 2
 
+#define HALFTILECHOP 0
+#define HALFTILEYES 1
+#define HALFTILENO 2
+#define HALFTILEBOTH 3
+
+#define OUTLINENONE 0
+#define OUTLINELEFT 1
+#define OUTLINERIGHT 2
+#define OUTLINEBOTTOM 3
 class c_sprite
 {
 private:
@@ -32,6 +41,12 @@ private:
 
 	bool needoutline;
 
+	char isoutline;
+
+	char halftile;
+
+	ALLEGRO_BITMAP * defaultsheet;
+
 	uint8_t tilelayout;
 public:
 	c_sprite(void);
@@ -51,6 +66,8 @@ public:
 	void set_size(uint8_t x, uint8_t y);
 	void set_offset(int16_t x, int16_t y);
 	ALLEGRO_COLOR get_color(void * b);
+	ALLEGRO_BITMAP * get_defaultsprite(void){ return defaultsheet; }
+	void set_defaultsprite(ALLEGRO_BITMAP * in){ defaultsheet = in; }
 	void reset();
 	void set_tile_layout(uint8_t layout);
 };

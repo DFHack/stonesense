@@ -835,16 +835,26 @@ WorldSegment* ReadMapSegment(DFHack::Context &DF, int x, int y, int z, int sizex
 		if(b->ramp.type > 0) 
 			b->ramp.index = CalculateRampType(b->x, b->y, b->z, segment);
 		//add edges to blocks and floors  
-		if( b->floorType > 0 ){
+		if( b->floorType > 0 )
+		{
 			b->depthBorderWest = checkFloorBorderRequirement(segment, b->x, b->y, b->z, eLeft);
 			b->depthBorderNorth = checkFloorBorderRequirement(segment, b->x, b->y, b->z, eUp);
-		}else if( b->wallType > 0 && wallShouldNotHaveBorders( b->wallType ) == false ){
+			Block* belowBlock = segment->getBlockRelativeTo(b->x, b->y, b->z, eBelow);
+			if(!belowBlock || (!belowBlock->wallType && !belowBlock->ramp.type)) 
+				b->depthBorderDown = true;
+		}
+		else if( b->wallType > 0 && wallShouldNotHaveBorders( b->wallType ) == false )
+		{
 			Block* leftBlock = segment->getBlockRelativeTo(b->x, b->y, b->z, eLeft);
 			Block* upBlock = segment->getBlockRelativeTo(b->x, b->y, b->z, eUp);
 			if(!leftBlock || (!leftBlock->wallType && !leftBlock->ramp.type)) 
 				b->depthBorderWest = true;
 			if(!upBlock || (!upBlock->wallType && !upBlock->ramp.type))
 				b->depthBorderNorth = true;
+			Block* belowBlock = segment->getBlockRelativeTo(b->x, b->y, b->z, eBelow);
+			if(!belowBlock || (!belowBlock->wallType && !belowBlock->ramp.type)) 
+				b->depthBorderDown = true;
+
 		}
 	}
 
