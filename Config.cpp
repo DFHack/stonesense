@@ -76,7 +76,6 @@ void parseConfigLine( string line ){
 	if( line.find("[SEGMENTSIZE_Z") != -1){
 		int value = parseIntFromLine( "SEGMENTSIZE_Z", line );
 		if(value < 1) value = DEFAULT_SEGMENTSIZE_Z;
-		if(value > 255) value = 255;
 		config.segmentSize.z = value;
 	}
 

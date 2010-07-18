@@ -1,8 +1,8 @@
 #ifndef ALLEGRO_INTERNAL_BITMAP_NEW_H
 #define ALLEGRO_INTERNAL_BITMAP_NEW_H
 
-#include "allegro5/display_new.h"
-#include "allegro5/bitmap_new.h"
+#include "allegro5/display.h"
+#include "allegro5/bitmap.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -52,6 +52,9 @@ struct ALLEGRO_BITMAP
    int lock_flags;
    ALLEGRO_LOCKED_REGION locked_region;
 
+   /* Transformation for this bitmap */
+   ALLEGRO_TRANSFORM transform;
+
    /* Info for sub-bitmaps */
    ALLEGRO_BITMAP *parent;
    int xofs;
@@ -70,14 +73,19 @@ struct ALLEGRO_BITMAP
 struct ALLEGRO_BITMAP_INTERFACE
 {
    int id;
-   void (*draw_bitmap)(struct ALLEGRO_BITMAP *bitmap, float x, float y, int flags);
-   void (*draw_bitmap_region)(ALLEGRO_BITMAP *bitmap, float sx, float sy,
+   void (*draw_bitmap)(struct ALLEGRO_BITMAP *bitmap,
+      ALLEGRO_COLOR tint, float x, float y, int flags);
+   void (*draw_bitmap_region)(ALLEGRO_BITMAP *bitmap,
+      ALLEGRO_COLOR tint,float sx, float sy,
       float sw, float sh, float dx, float dy, int flags);
-   void (*draw_scaled_bitmap)(ALLEGRO_BITMAP *bitmap, float sx, float sy,
+   void (*draw_scaled_bitmap)(ALLEGRO_BITMAP *bitmap,
+      ALLEGRO_COLOR tint, float sx, float sy,
       float sw, float sh, float dx, float dy, float dw, float dh, int flags);
-   void (*draw_rotated_bitmap)(ALLEGRO_BITMAP *bitmap, float cx, float cy,
+   void (*draw_rotated_bitmap)(ALLEGRO_BITMAP *bitmap,
+      ALLEGRO_COLOR tint, float cx, float cy,
       float angle, float dx, float dy, int flags);
-   void (*draw_rotated_scaled_bitmap)(ALLEGRO_BITMAP *bitmap, float cx, float cy,
+   void (*draw_rotated_scaled_bitmap)(ALLEGRO_BITMAP *bitmap,
+      ALLEGRO_COLOR tint, float cx, float cy,
       float angle, float dx, float dy, float xscale, float yscale,
       int flags);
    /* After the memory-copy of the bitmap has been modified, need to call this
@@ -116,22 +124,28 @@ void _al_convert_to_display_bitmap(ALLEGRO_BITMAP *bitmap);
 bool _al_format_has_alpha(int format);
 bool _al_pixel_format_is_real(int format);
 bool _al_pixel_format_fits(int format1, int format2);
-int _al_get_real_pixel_format(int format);
+int _al_get_real_pixel_format(ALLEGRO_DISPLAY *display, int format);
 
 /* Memory bitmap blitting */
 void _al_draw_bitmap_region_memory(ALLEGRO_BITMAP *bitmap,
+   ALLEGRO_COLOR tint,
    int sx, int sy, int sw, int sh,
    int dx, int dy, int flags);
 void _al_draw_bitmap_memory(ALLEGRO_BITMAP *bitmap,
+   ALLEGRO_COLOR tint,
    int dx, int dy, int flags);
 void _al_draw_scaled_bitmap_memory(ALLEGRO_BITMAP *bitmap,
+   ALLEGRO_COLOR tint,
    int sx, int sy, int sw, int sh, int dx, int dy, int dw, int dh, int flags);
 void _al_draw_rotated_bitmap_memory(ALLEGRO_BITMAP *bitmap,
+   ALLEGRO_COLOR tint,
    int center_x, int center_y, int dx, int dy, float angle, int flags);
 void _al_draw_rotated_bitmap_memory(ALLEGRO_BITMAP *bitmap,
+   ALLEGRO_COLOR tint,
    int center_x, int center_y, int dx, int dy,
    float angle, int flags);
 void _al_draw_rotated_scaled_bitmap_memory(ALLEGRO_BITMAP *bitmap,
+   ALLEGRO_COLOR tint,
    int center_x, int center_y, int dx, int dy,
    float xscale, float yscale, float angle, int flags);
 
@@ -156,7 +170,8 @@ typedef void (*ALLEGRO_MEMORY_BLENDER)(
    ALLEGRO_COLOR *dest_color,
    ALLEGRO_COLOR *result);
 
-void _al_blend(ALLEGRO_COLOR *src_color, ALLEGRO_BITMAP *dest, int dx, int dy, ALLEGRO_COLOR *result);
+void _al_blend_memory(ALLEGRO_COLOR *src_color, ALLEGRO_BITMAP *dest,
+   int dx, int dy, ALLEGRO_COLOR *result);
 
 #ifdef ALLEGRO_GP2XWIZ
 /* Optimized blitters */

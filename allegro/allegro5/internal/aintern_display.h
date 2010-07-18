@@ -3,8 +3,8 @@
 
 #include "allegro5/allegro5.h"
 #include "allegro5/transformations.h"
-#include "allegro5/display_new.h"
-#include "allegro5/bitmap_new.h"
+#include "allegro5/display.h"
+#include "allegro5/bitmap.h"
 #include "allegro5/internal/aintern_events.h"
 
 
@@ -28,6 +28,7 @@ struct ALLEGRO_DISPLAY_INTERFACE
    	int width, int height);
    bool (*acknowledge_resize)(ALLEGRO_DISPLAY *d);
    bool (*resize_display)(ALLEGRO_DISPLAY *d, int width, int height);
+   void (*quick_size)(ALLEGRO_DISPLAY *d);
 
    ALLEGRO_BITMAP *(*create_bitmap)(ALLEGRO_DISPLAY *d,
    	int w, int h);
@@ -48,10 +49,6 @@ struct ALLEGRO_DISPLAY_INTERFACE
 
    bool (*wait_for_vsync)(ALLEGRO_DISPLAY *display);
 
-   ALLEGRO_MOUSE_CURSOR *(*create_mouse_cursor)(ALLEGRO_DISPLAY *display,
-      ALLEGRO_BITMAP *bmp, int x_focus, int y_focus);
-   void (*destroy_mouse_cursor)(ALLEGRO_DISPLAY *display,
-      ALLEGRO_MOUSE_CURSOR *cursor);
    bool (*set_mouse_cursor)(ALLEGRO_DISPLAY *display,
       ALLEGRO_MOUSE_CURSOR *cursor);
    bool (*set_system_mouse_cursor)(ALLEGRO_DISPLAY *display,
@@ -69,7 +66,7 @@ struct ALLEGRO_DISPLAY_INTERFACE
    void (*flush_vertex_cache)(ALLEGRO_DISPLAY *d);
    void* (*prepare_vertex_cache)(ALLEGRO_DISPLAY *d, int num_new_vertices);
    
-   void (*update_transformation)(ALLEGRO_DISPLAY* d);
+   void (*update_transformation)(ALLEGRO_DISPLAY* d, ALLEGRO_BITMAP *target);
 
    void (*shutdown)(void);
 };
@@ -85,15 +82,15 @@ typedef struct ALLEGRO_BLENDER
    int blend_alpha_op;
    int blend_alpha_source;
    int blend_alpha_dest;
-   ALLEGRO_COLOR blend_color;
 } ALLEGRO_BLENDER;
 
 /* These are settings Allegro itself doesn't really care about on its
  * own, but which users may want to specify for a display anyway.
  */
+ALLEGRO_STATIC_ASSERT(ALLEGRO_DISPLAY_OPTIONS_COUNT <= 32);
 typedef struct
 {
-   int required, suggested;
+   int required, suggested; /* Bitfields. */
    int settings[ALLEGRO_DISPLAY_OPTIONS_COUNT];
 
    /* These are come in handy when creating a context. */
@@ -123,8 +120,9 @@ struct ALLEGRO_DISPLAY
    void* vertex_cache;
    uintptr_t cache_texture;
    
-   ALLEGRO_TRANSFORM cur_transform;
    ALLEGRO_BLENDER cur_blender;
+   
+   void (*display_invalidated)(ALLEGRO_DISPLAY*);
 };
 
 int  _al_score_display_settings(ALLEGRO_EXTRA_DISPLAY_SETTINGS *eds, ALLEGRO_EXTRA_DISPLAY_SETTINGS *ref);
@@ -139,11 +137,14 @@ void _al_draw_pixel_memory(ALLEGRO_BITMAP *bmp, float x, float y, ALLEGRO_COLOR 
 
 void _al_destroy_display_bitmaps(ALLEGRO_DISPLAY *d);
 
+/* This is called from the primitives addon. */
+AL_FUNC(void, _al_set_display_invalidated_callback, (ALLEGRO_DISPLAY *display,
+   void (*display_invalidated)(ALLEGRO_DISPLAY*)));
+
 /* Defined in tls.c */
+bool _al_set_current_display_only(ALLEGRO_DISPLAY *display);
 void _al_set_new_display_settings(ALLEGRO_EXTRA_DISPLAY_SETTINGS *settings);
 ALLEGRO_EXTRA_DISPLAY_SETTINGS *_al_get_new_display_settings(void);
-ALLEGRO_DISPLAY *_al_get_current_display(void);
-void _al_initialize_blender(ALLEGRO_BLENDER *blender);
 
 #ifdef __cplusplus
 }

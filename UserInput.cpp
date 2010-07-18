@@ -27,7 +27,7 @@ void initAutoReload()
 	if( config.automatic_reload_time > 0 )
 	{
 		if(!reloadtimer)
-			reloadtimer = al_install_timer(ALLEGRO_MSECS_TO_SECS(config.automatic_reload_time));
+			reloadtimer = al_create_timer(ALLEGRO_MSECS_TO_SECS(config.automatic_reload_time));
 		else
 			al_set_timer_speed(reloadtimer, ALLEGRO_MSECS_TO_SECS(config.automatic_reload_time));
 		al_start_timer(reloadtimer);
@@ -39,7 +39,7 @@ void abortAutoReload()
 {
 	config.automatic_reload_time = 0;
 	al_stop_timer(reloadtimer);
-	al_uninstall_timer(reloadtimer);
+	al_destroy_timer(reloadtimer);
 	//remove_int( automaticReloadProc );	
 }
 

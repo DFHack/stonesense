@@ -1,7 +1,7 @@
 #ifndef ALLEGRO_INTERNAL_SYSTEM_NEW_H
 #define ALLEGRO_INTERNAL_SYSTEM_NEW_H
 
-#include "allegro5/system_new.h"
+#include "allegro5/system.h"
 #include "allegro5/internal/aintern_display.h"
 #include "allegro5/internal/aintern_dtor.h"
 #include "allegro5/internal/aintern_events.h"
@@ -25,6 +25,8 @@ struct ALLEGRO_SYSTEM_INTERFACE
    void (*shutdown_system)(void);
    int (*get_num_video_adapters)(void);
    void (*get_monitor_info)(int adapter, ALLEGRO_MONITOR_INFO *info);
+   ALLEGRO_MOUSE_CURSOR *(*create_mouse_cursor)(ALLEGRO_BITMAP *bmp, int x_focus, int y_focus);
+   void (*destroy_mouse_cursor)(ALLEGRO_MOUSE_CURSOR *cursor);
    bool (*get_cursor_position)(int *ret_x, int *ret_y);
    ALLEGRO_PATH *(*get_path)(int id);
    bool (*inhibit_screensaver)(bool inhibit);

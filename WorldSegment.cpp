@@ -157,7 +157,7 @@ void WorldSegment::drawAllBlocks(){
 	//al_hold_bitmap_drawing(true);
 	int op, src, dst, alpha_op, alpha_src, alpha_dst;
 	ALLEGRO_COLOR color;
-	al_get_separate_blender(&op, &src, &dst, &alpha_op, &alpha_src, &alpha_dst, &color);
+	al_get_separate_blender(&op, &src, &dst, &alpha_op, &alpha_src, &alpha_dst);
 
 	for(int32_t vsz=0; vsz < vszmax; vsz++)
 	{
@@ -180,16 +180,13 @@ void WorldSegment::drawAllBlocks(){
 				al_clear_to_color(al_map_rgb(config.fogr, config.fogg, config.fogb));
 				al_set_target_bitmap(temp);
 			}
-			al_set_separate_blender(ALLEGRO_ADD, ALLEGRO_ALPHA, ALLEGRO_INVERSE_ALPHA, ALLEGRO_ADD, ALLEGRO_ZERO, ALLEGRO_ONE, al_map_rgba(255, 255, 255, config.foga));
-			al_draw_bitmap(fog, 0, 0, 0);
-			al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
+			al_draw_tinted_bitmap(fog, al_map_rgba(255, 255, 255, config.foga), 0, 0, 0);
 		}
 		if(vsz == vszmax-1)
 		{
 			if (config.show_osd) DrawCurrentLevelOutline(true);
 		}
 		if(config.dayNightCycle)
-			al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*getDayShade(contentLoader.currentHour, contentLoader.currentTickRel));
 		al_hold_bitmap_drawing(true);
 		for(int32_t vsx=1; vsx < vsxmax; vsx++)
 		{
@@ -213,7 +210,6 @@ void WorldSegment::drawAllBlocks(){
 			}
 		}
 		al_hold_bitmap_drawing(false);
-		al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
 		al_hold_bitmap_drawing(true);
 		for(int32_t vsx=1; vsx < vsxmax; vsx++)
 		{

@@ -63,9 +63,9 @@ public:
 	int16_t eff_smoke;
 	int16_t eff_dragonfire;
 	int16_t eff_fire;
-	int16_t eff_boiling;*/
+	int16_t eff_boiling;
 	int16_t eff_webing;
-	int16_t eff_oceanwave;
+	int16_t eff_oceanwave;*/
 	struct {
 		t_building info;
 		vector<c_sprite> sprites;

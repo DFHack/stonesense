@@ -15,7 +15,6 @@
 #include "allegro5/internal/aintern_bitmap.h"
 #include "allegro5/platform/aintxglx.h"
 #include "allegro5/internal/aintern_opengl.h"
-#include "allegro5/internal/aintern_memory.h"
 
 #ifdef ALLEGRO_XWINDOWS_WITH_XF86VIDMODE
 #include <X11/extensions/xf86vmode.h>
@@ -153,6 +152,9 @@ void _al_xwin_mouse_switch_handler(ALLEGRO_DISPLAY *display,
    const XCrossingEvent *event);
 
 /* cursor */
+ALLEGRO_MOUSE_CURSOR *_al_xwin_create_mouse_cursor(ALLEGRO_BITMAP *bmp,
+   int x_focus, int y_focus);
+void _al_xwin_destroy_mouse_cursor(ALLEGRO_MOUSE_CURSOR *cursor);
 void _al_xglx_add_cursor_functions(ALLEGRO_DISPLAY_INTERFACE *vt);
 
 /* fullscreen and multi monitor stuff */

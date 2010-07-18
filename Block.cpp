@@ -95,9 +95,6 @@ void Block::Draw(){
 	if(x == ownerSegment->x || x == ownerSegment->x + ownerSegment->sizex - 1) return;
 	if(y == ownerSegment->y || y == ownerSegment->y + ownerSegment->sizey - 1) return;
 	}*/
-	int op, src, dst, alpha_op, alpha_src, alpha_dst;
-	ALLEGRO_COLOR color;
-	al_get_separate_blender(&op, &src, &dst, &alpha_op, &alpha_src, &alpha_dst, &color);
 	int32_t drawx = x;
 	int32_t drawy = y;
 	int32_t drawz = z; //- ownerSegment->sizez + 1;
@@ -160,19 +157,19 @@ void Block::Draw(){
 		}
 	}
 
-	//draw surf
-	if(eff_oceanwave > 0)
-	{
-		al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*al_map_rgba(255, 255, 255, (255*eff_oceanwave)/100));
-		al_draw_bitmap(sprite_oceanwave, drawx, drawy - (WALLHEIGHT), 0);
-		al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
-	}
-	if(eff_webing > 0)
-	{
-		al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*al_map_rgba(255, 255, 255, (255*eff_webing)/100));
-		al_draw_bitmap(sprite_webing, drawx, drawy - (WALLHEIGHT), 0);
-		al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
-	}
+	////draw surf
+	//if(eff_oceanwave > 0)
+	//{
+	//	al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*al_map_rgba(255, 255, 255, (255*eff_oceanwave)/100));
+	//	al_draw_tinted_bitmap(sprite_oceanwave, drawx, drawy - (WALLHEIGHT), 0);
+	//	al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
+	//}
+	//if(eff_webing > 0)
+	//{
+	//	al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*al_map_rgba(255, 255, 255, (255*eff_webing)/100));
+	//	al_draw_tinted_bitmap(sprite_webing, drawx, drawy - (WALLHEIGHT), 0);
+	//	al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
+	//}
 	//Draw Ramp
 	if(ramp.type > 0){
 		spriteobject = GetBlockSpriteMap(ramp.type, material, consForm);
@@ -196,19 +193,19 @@ void Block::Draw(){
 	{
 		if(snowlevel > 75)
 		{
-			DrawSpriteFromSheet( 20, IMGObjectSheet, drawx, drawy );
+			DrawSpriteFromSheet( 20, IMGObjectSheet, al_map_rgb(255,255,255), drawx, drawy );
 		}
 		else if(snowlevel > 50)
 		{
-			DrawSpriteFromSheet( 21, IMGObjectSheet, drawx, drawy );
+			DrawSpriteFromSheet( 21, IMGObjectSheet, al_map_rgb(255,255,255), drawx, drawy );
 		}
 		else if(snowlevel > 25)
 		{
-			DrawSpriteFromSheet( 22, IMGObjectSheet, drawx, drawy );
+			DrawSpriteFromSheet( 22, IMGObjectSheet, al_map_rgb(255,255,255), drawx, drawy );
 		}
 		else if(snowlevel > 0)
 		{
-			DrawSpriteFromSheet( 23, IMGObjectSheet, drawx, drawy );
+			DrawSpriteFromSheet( 23, IMGObjectSheet, al_map_rgb(255,255,255), drawx, drawy );
 		}
 	}
 
@@ -224,7 +221,7 @@ void Block::Draw(){
 	//shadow
 	if (shadow > 0)
 	{
-		DrawSpriteFromSheet( BASE_SHADOW_TILE + shadow - 1, IMGObjectSheet, drawx, (ramp.type > 0)?(drawy - (WALLHEIGHT/2)):drawy );
+		DrawSpriteFromSheet( BASE_SHADOW_TILE + shadow - 1, IMGObjectSheet, al_map_rgb(255,255,255), drawx, (ramp.type > 0)?(drawy - (WALLHEIGHT/2)):drawy );
 	}
 
 	//Building
@@ -302,22 +299,22 @@ void Block::Draw(){
 
 		//if(waterlevel == 7) waterlevel--;
 
+		ALLEGRO_COLOR spatter;
 		if(water.type == 0)
 		{
 			if(bloodlevel == 0)
-				al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*al_map_rgb(168,248,248));
+				spatter = al_map_rgb(168,248,248);
 			else if(bloodlevel <= 255)
-				al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*partialBlend(al_map_rgb(168,248,248), bloodcolor, (bloodlevel*100/255)));
+				spatter = partialBlend(al_map_rgb(168,248,248), bloodcolor, (bloodlevel*100/255));
 			else
-				al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*bloodcolor);
+				spatter = bloodcolor;
 			spriteNum = SPRITEOBJECT_WATERLEVEL1 + waterlevel - 1;
 		}
 		else
 		{
 			spriteNum = SPRITEOBJECT_WATERLEVEL1_LAVA + waterlevel - 1;
 		}
-		DrawSpriteFromSheet( spriteNum, IMGObjectSheet, drawx, drawy );
-		al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
+		DrawSpriteFromSheet( spriteNum, IMGObjectSheet, spatter, drawx, drawy );
 		}
 
 		// creature
@@ -333,15 +330,15 @@ void Block::Draw(){
 	{
 		if(snowlevel > 75)
 		{
-			DrawSpriteFromSheet( 24, IMGObjectSheet, drawx, drawy );
+			DrawSpriteFromSheet( 24, IMGObjectSheet, al_map_rgb(255,255,255), drawx, drawy );
 		}
 		else if(snowlevel > 50)
 		{
-			DrawSpriteFromSheet( 25, IMGObjectSheet, drawx, drawy );
+			DrawSpriteFromSheet( 25, IMGObjectSheet, al_map_rgb(255,255,255), drawx, drawy );
 		}
 		else if(snowlevel > 25)
 		{
-			DrawSpriteFromSheet( 26, IMGObjectSheet, drawx, drawy );
+			DrawSpriteFromSheet( 26, IMGObjectSheet, al_map_rgb(255,255,255), drawx, drawy );
 		}
 	}
 
@@ -391,7 +388,6 @@ void Block::Draw(){
 	//{
 	//	draw_particle_cloud(eff_smoke, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_smoke);
 	//}
-	al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
 }
 
 void Block::Drawcreaturetext(){
@@ -513,6 +509,7 @@ void drawFloorBlood ( Block *b, int32_t drawx, int32_t drawy )
 	t_occupancy occ = b->occ;
 	t_SpriteWithOffset sprite;
 
+	ALLEGRO_COLOR spatter;
 	int x = b->x, y = b->y, z = b->z;
 
 
@@ -564,20 +561,16 @@ void drawFloorBlood ( Block *b, int32_t drawx, int32_t drawy )
 			else
 				sprite.sheetIndex = 8;
 		}
-		int op, src, dst, alpha_op, alpha_src, alpha_dst;
-		ALLEGRO_COLOR color;
-		al_get_separate_blender(&op, &src, &dst, &alpha_op, &alpha_src, &alpha_dst, &color);
 		if(b->bloodlevel <=255)
-			al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, al_map_rgba_f(b->bloodcolor.r, b->bloodcolor.g, b->bloodcolor.b, (b->bloodlevel/255.0f)));
+			spatter = al_map_rgba_f(b->bloodcolor.r, b->bloodcolor.g, b->bloodcolor.b, (b->bloodlevel/255.0f));
 		else
-			al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, b->bloodcolor);
+			spatter = b->bloodcolor;
 
 		int sheetOffsetX = TILEWIDTH * (sprite.sheetIndex % SHEET_OBJECTSWIDE),
 			sheetOffsetY = 0;
 
-		al_draw_bitmap_region( IMGBloodSheet, sheetOffsetX, sheetOffsetY, TILEWIDTH, TILEHEIGHT+FLOORHEIGHT, drawx, drawy, 0);
-		al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
-		al_draw_bitmap_region( IMGBloodSheet, sheetOffsetX, sheetOffsetY+TILEHEIGHT+FLOORHEIGHT, TILEWIDTH, TILEHEIGHT+FLOORHEIGHT, drawx, drawy, 0);
+		al_draw_tinted_bitmap_region( IMGBloodSheet, spatter, sheetOffsetX, sheetOffsetY, TILEWIDTH, TILEHEIGHT+FLOORHEIGHT, drawx, drawy, 0);
+		al_draw_tinted_bitmap_region( IMGBloodSheet, al_map_rgb(255,255,255), sheetOffsetX, sheetOffsetY+TILEHEIGHT+FLOORHEIGHT, TILEWIDTH, TILEHEIGHT+FLOORHEIGHT, drawx, drawy, 0);
 	}
 }
 

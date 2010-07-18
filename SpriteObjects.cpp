@@ -274,9 +274,6 @@ void c_sprite::draw_world_offset(int x, int y, int z, int tileoffset, bool chop)
 		Block* b = viewedSegment->getBlock(x, y, z);
 		if((snowmin <= b->snowlevel && (snowmax == -1 || snowmax >= b->snowlevel)) && (bloodmin <= b->bloodlevel && (bloodmax == -1 || bloodmax >= b->bloodlevel)))
 		{
-			int op, src, dst, alpha_op, alpha_src, alpha_dst;
-			ALLEGRO_COLOR color;
-			al_get_separate_blender(&op, &src, &dst, &alpha_op, &alpha_src, &alpha_dst, &color);
 			int32_t drawx = x;
 			int32_t drawy = y;
 			int32_t drawz = z; //- ownerSegment->sizez + 1;
@@ -313,12 +310,10 @@ void c_sprite::draw_world_offset(int x, int y, int z, int tileoffset, bool chop)
 			}
 			if(chop && ( halftile == HALFTILECHOP))
 			{
-				al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*get_color(b));
 				if(fileindex < 0)
-					al_draw_bitmap_region(defaultsheet, sheetx, sheety+WALL_CUTOFF_HEIGHT, spritewidth, spriteheight-WALL_CUTOFF_HEIGHT, drawx + offset_x + offset_user_x, drawy + offset_user_y + (offset_y - WALLHEIGHT)+WALL_CUTOFF_HEIGHT, 0);
+					al_draw_tinted_bitmap_region(defaultsheet, get_color(b), sheetx, sheety+WALL_CUTOFF_HEIGHT, spritewidth, spriteheight-WALL_CUTOFF_HEIGHT, drawx + offset_x + offset_user_x, drawy + offset_user_y + (offset_y - WALLHEIGHT)+WALL_CUTOFF_HEIGHT, 0);
 				else 
-					al_draw_bitmap_region(getImgFile(fileindex), sheetx, (sheety)+WALL_CUTOFF_HEIGHT, spritewidth, spriteheight-WALL_CUTOFF_HEIGHT, drawx + offset_x + offset_user_x, drawy + offset_user_y + (offset_y - WALLHEIGHT)+WALL_CUTOFF_HEIGHT, 0);
-				al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
+					al_draw_tinted_bitmap_region(getImgFile(fileindex), get_color(b), sheetx, (sheety)+WALL_CUTOFF_HEIGHT, spritewidth, spriteheight-WALL_CUTOFF_HEIGHT, drawx + offset_x + offset_user_x, drawy + offset_user_y + (offset_y - WALLHEIGHT)+WALL_CUTOFF_HEIGHT, 0);
 				//draw cut-off floor thing
 				al_draw_bitmap_region(IMGObjectSheet, 
 					TILEWIDTH * SPRITEFLOOR_CUTOFF, 0,
@@ -329,23 +324,21 @@ void c_sprite::draw_world_offset(int x, int y, int z, int tileoffset, bool chop)
 			{
 				if((isoutline == OUTLINENONE) || ((isoutline == OUTLINERIGHT) && (b->depthBorderNorth)) || ((isoutline == OUTLINELEFT) && (b->depthBorderWest)) || ((isoutline == OUTLINEBOTTOM) && (b->depthBorderDown)))
 				{
-					al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*get_color(b));
 					if(fileindex < 0)
-						al_draw_bitmap_region(defaultsheet, sheetx, sheety, spritewidth, spriteheight, drawx + offset_x + offset_user_x, drawy + offset_user_y + (offset_y - WALLHEIGHT), 0);
+						al_draw_tinted_bitmap_region(defaultsheet, get_color(b), sheetx, sheety, spritewidth, spriteheight, drawx + offset_x + offset_user_x, drawy + offset_user_y + (offset_y - WALLHEIGHT), 0);
 					else 
-						al_draw_bitmap_region(getImgFile(fileindex), sheetx, sheety, spritewidth, spriteheight, drawx + offset_x + offset_user_x, drawy + offset_user_y + (offset_y - WALLHEIGHT), 0);
-					al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
+						al_draw_tinted_bitmap_region(getImgFile(fileindex), get_color(b), sheetx, sheety, spritewidth, spriteheight, drawx + offset_x + offset_user_x, drawy + offset_user_y + (offset_y - WALLHEIGHT), 0);
 				}
 				if(needoutline)
 				{
 					//drawy -= (WALLHEIGHT);
 					//Northern border
 					if(b->depthBorderNorth)
-						DrawSpriteFromSheet(281, IMGObjectSheet, drawx + offset_x, drawy + offset_y );
+						DrawSpriteFromSheet(281, IMGObjectSheet, al_map_rgb(255,255,255), drawx + offset_x, drawy + offset_y );
 
 					//Western border
 					if(b->depthBorderWest)
-						DrawSpriteFromSheet(280, IMGObjectSheet, drawx + offset_x, drawy + offset_y );
+						DrawSpriteFromSheet(280, IMGObjectSheet, al_map_rgb(255,255,255), drawx + offset_x, drawy + offset_y );
 
 					//drawy += (WALLHEIGHT);
 				}

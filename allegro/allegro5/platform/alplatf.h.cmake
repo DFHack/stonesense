@@ -4,12 +4,11 @@
 #cmakedefine ALLEGRO_MSVC
 #cmakedefine ALLEGRO_CFG_D3D
 #cmakedefine ALLEGRO_CFG_D3D9EX
-#cmakedefine D3D_DEBUG_INFO
 #cmakedefine ALLEGRO_CFG_OPENGL
 #cmakedefine ALLEGRO_MACOSX
 #cmakedefine ALLEGRO_BCC32
 #cmakedefine ALLEGRO_GP2XWIZ
-#cmakedefine ALLEGRO_CFG_WANT_NATIVE_APPLE_IMAGE_LOADER
+#cmakedefine ALLEGRO_CFG_WANT_NATIVE_IMAGE_LOADER
 
 #cmakedefine ALLEGRO_CFG_ALLOW_SSE
 #cmakedefine ALLEGRO_NO_ASM
@@ -114,8 +113,11 @@
 /* Define if XF86VidMode extension is supported. */
 #cmakedefine ALLEGRO_XWINDOWS_WITH_XF86VIDMODE
 
-/* Define if XF86VidMode extension is supported. */
+/* Define if Xinerama extension is supported. */
 #cmakedefine ALLEGRO_XWINDOWS_WITH_XINERAMA
+
+/* Define if XRandR extension is supported. */
+#cmakedefine ALLEGRO_XWINDOWS_WITH_XRANDR
 
 /* Define if XIM extension is supported. */
 #cmakedefine ALLEGRO_XWINDOWS_WITH_XIM

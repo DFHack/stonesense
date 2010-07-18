@@ -30,7 +30,7 @@
 #include "allegro5/platform/aintwthr.h"
 #include "allegro5/internal/aintern_display.h"
 #include "allegro5/internal/aintern_system.h"
-#include "allegro5/system_new.h"
+#include "allegro5/system.h"
 
 
 #define WINDOWS_RGB(r,g,b)  ((COLORREF)(((BYTE)(r)|((WORD)((BYTE)(g))<<8))|(((DWORD)(BYTE)(b))<<16)))
@@ -77,10 +77,6 @@ void _al_win_thread_init(void);
 void _al_win_thread_exit(void);
 
 /* input routines */
-AL_FUNC(void, _al_win_input_init, (void));
-AL_FUNC(void, _al_win_input_exit, (void));
-bool _al_win_input_register_event(HANDLE event_id, void (*handler)(void));
-bool _al_win_input_unregister_event(HANDLE event_id);
 void _al_win_grab_input(ALLEGRO_DISPLAY_WIN *win_disp);
 
 /* keyboard routines */
@@ -154,8 +150,8 @@ struct ALLEGRO_MOUSE_CURSOR_WIN
    HCURSOR hcursor;
 };
 
-ALLEGRO_MOUSE_CURSOR* _al_win_create_mouse_cursor(ALLEGRO_DISPLAY *display, ALLEGRO_BITMAP *sprite, int xfocus, int yfocus);
-void _al_win_destroy_mouse_cursor(ALLEGRO_DISPLAY *display, ALLEGRO_MOUSE_CURSOR *cursor);
+ALLEGRO_MOUSE_CURSOR* _al_win_create_mouse_cursor(ALLEGRO_BITMAP *sprite, int xfocus, int yfocus);
+void _al_win_destroy_mouse_cursor(ALLEGRO_MOUSE_CURSOR *cursor);
 bool _al_win_set_mouse_cursor(ALLEGRO_DISPLAY *display, ALLEGRO_MOUSE_CURSOR *cursor);
 bool _al_win_set_system_mouse_cursor(ALLEGRO_DISPLAY *display, ALLEGRO_SYSTEM_MOUSE_CURSOR cursor_id);
 bool _al_win_show_mouse_cursor(ALLEGRO_DISPLAY *display);
