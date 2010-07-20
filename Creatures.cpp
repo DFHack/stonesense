@@ -5,7 +5,7 @@
 #include "ContentLoader.h"
 #include "GUI.h"
 #include "Block.h"
-#include "spriteColors.h"
+#include "SpriteColors.h"
 
 
 //vector<t_matgloss> v_creatureNames;

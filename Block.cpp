@@ -7,7 +7,7 @@
 #include "WorldSegment.h"
 #include "BlockFactory.h"
 #include "ContentLoader.h"
-#include "spriteColors.h"
+#include "SpriteColors.h"
 
 
 

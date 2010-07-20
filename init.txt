@@ -107,7 +107,7 @@ if trying having issues with sprite configuration tweaking.
 
 Stonesense will try to merge all loaded sprites into a single texture, for performance reasons.
 if your videocard has low memory, you may want to disable this.
-[CACHE_IMAGES:YES]
+[CACHE_IMAGES:NO]
 
 This set's the preferred size of the internal image cache. If your videocard does not support it, 
 a smaller size is used.

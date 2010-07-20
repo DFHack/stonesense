@@ -53,4 +53,4 @@ extern vector<string*> IMGFilenames;
 ALLEGRO_COLOR operator*(const ALLEGRO_COLOR &color1, const ALLEGRO_COLOR &color2);
 ALLEGRO_COLOR operator+(const ALLEGRO_COLOR &color1, const ALLEGRO_COLOR &color2);
 ALLEGRO_COLOR getDayShade(int hour, int tick);
-ALLEGRO_COLOR partialBlend(ALLEGRO_COLOR & color2, ALLEGRO_COLOR & color1, int percent);
+ALLEGRO_COLOR partialBlend(const ALLEGRO_COLOR & color2, const ALLEGRO_COLOR & color1, int percent);

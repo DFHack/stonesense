@@ -68,7 +68,7 @@ ALLEGRO_COLOR operator+(const ALLEGRO_COLOR &color1, const ALLEGRO_COLOR &color2
 	return temp;
 }
 
-ALLEGRO_COLOR partialBlend(ALLEGRO_COLOR & color2, ALLEGRO_COLOR & color1, int percent)
+ALLEGRO_COLOR partialBlend(const ALLEGRO_COLOR & color2, const ALLEGRO_COLOR & color1, int percent)
 {
 	float blend = percent/100.0;
 	ALLEGRO_COLOR result;
@@ -358,10 +358,6 @@ void drawDebugCursorAndInfo(){
 			"Vein Material:%s%s%s", 
 			matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
 	} 
-	char occs[33];
-	itoa(b->occ.whole, occs, 2);
-	draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0,
-		"Occupancy flags: %s", occs );
 
 	if(b->water.index > 0 || b->tree.index != 0)
 		draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 

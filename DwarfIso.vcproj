@@ -381,7 +381,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\spriteColors.cpp"
+				RelativePath=".\SpriteColors.cpp"
 				>
 			</File>
 			<File
@@ -519,7 +519,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\spriteColors.h"
+				RelativePath=".\SpriteColors.h"
 				>
 			</File>
 			<File

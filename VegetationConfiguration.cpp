@@ -4,7 +4,7 @@
 #include "MapLoading.h"
 #include "GUI.h"
 #include "ContentLoader.h"
-#include "spriteObjects.h"
+#include "SpriteObjects.h"
 
 #include "dfhack/depends/tinyxml/tinyxml.h"
 

@@ -42,13 +42,13 @@ SET(PROJECT_SRCS
     Constructions.cpp
     ContentBuildingReader
     ContentLoader.cpp
-    Contributions.txt
     CreatureConfiguration.cpp
     Creatures.cpp
     GUI.cpp
     GameBuildings.cpp
     GroundMaterialConfiguration.cpp
     MapLoading.cpp
+	SpriteColors.cpp
     SpriteMaps.cpp
     UserInput.cpp
     WorldSegment.cpp
@@ -93,7 +93,7 @@ IF(UNIX)
 #    INCLUDE_DIRECTORIES(${ALLEGRO_INCLUDE_DIR})
  
 #    SET(PROJECT_LIBS ${ALLEGRO5_LIBRARIES} ${PROJECT_LIBS})
-    SET(PROJECT_LIBS allegro allegro_primitives allegro_color allegro_dialog allegro_flac allegro_font allegro_image allegro_main allegro_memfile allegro_ttf allegro_vorbis dfhack-debug ${PROJECT_LIBS})
+    SET(PROJECT_LIBS allegro allegro_primitives allegro_color allegro_dialog allegro_font allegro_image allegro_main allegro_ttf dfhack-debug ${PROJECT_LIBS})
     
     ADD_EXECUTABLE(stonesense ${PROJECT_SRCS} ${PLATFORM_SRC})
     TARGET_LINK_LIBRARIES(stonesense ${PROJECT_LIBS})

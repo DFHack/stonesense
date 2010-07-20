@@ -1,4 +1,4 @@
-#include "spriteColors.h"
+#include "SpriteColors.h"
 #include "Block.h"
 #include "common.h"
 #include "GUI.h"

@@ -3,7 +3,7 @@
 #include "GUI.h"
 #include "ContentLoader.h"
 #include "WorldSegment.h"
-#include "spriteColors.h"
+#include "SpriteColors.h"
 #include "SpriteMaps.h"
 
 c_sprite::c_sprite(void)
