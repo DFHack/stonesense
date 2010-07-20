@@ -22,6 +22,7 @@ include_directories (
     ${CMAKE_SOURCE_DIR}/dfhack/include/
     ${CMAKE_SOURCE_DIR}/dfhack/depends/md5/
     ${CMAKE_SOURCE_DIR}/dfhack/depends/tinyxml/
+	${CMAKE_SOURCE_DIR}/dfhack/
     ${CMAKE_SOURCE_DIR}/allegro/lib/
     ${CMAKE_SOURCE_DIR}
 )
@@ -50,6 +51,7 @@ SET(PROJECT_SRCS
     MapLoading.cpp
 	SpriteColors.cpp
     SpriteMaps.cpp
+    SpriteObjects.cpp
     UserInput.cpp
     WorldSegment.cpp
     VegetationConfiguration.cpp
@@ -93,7 +95,7 @@ IF(UNIX)
 #    INCLUDE_DIRECTORIES(${ALLEGRO_INCLUDE_DIR})
  
 #    SET(PROJECT_LIBS ${ALLEGRO5_LIBRARIES} ${PROJECT_LIBS})
-    SET(PROJECT_LIBS allegro allegro_primitives allegro_color allegro_dialog allegro_font allegro_image allegro_main allegro_ttf dfhack-debug ${PROJECT_LIBS})
+    SET(PROJECT_LIBS allegro allegro_primitives allegro_color allegro_dialog allegro_font allegro_image allegro_main allegro_ttf dfhack ${PROJECT_LIBS})
     
     ADD_EXECUTABLE(stonesense ${PROJECT_SRCS} ${PLATFORM_SRC})
     TARGET_LINK_LIBRARIES(stonesense ${PROJECT_LIBS})
@@ -108,13 +110,14 @@ ELSE(UNIX)
     
     IF(MINGW)
         add_definitions()
-        SET(PROJECT_LIBS liballegro.a liballegro_primitives.a liballegro_image.a liballegro_font.a liballegro_dialog.a liballegro_ttf.dll.a libpng.dll.a libglu32.a libglaux.a dfhack.a psapi mingw32)
+        SET(PROJECT_LIBS liballegro.a liballegro_primitives.a liballegro_image.a liballegro_font.a liballegro_dialog.a liballegro_ttf.dll.a libpng.dll.a libglu32.a libglaux.a libdfhack.dll.a psapi mingw32)
         include_directories (
 		    ${include_directories}
 		    ${CMAKE_SOURCE_DIR}/allegro
 	    )
 	    LINK_DIRECTORIES(
 		    ${LINK_DIRECTORIES}
+			${CMAKE_SOURCE_DIR}/dfhack
 		    ${CMAKE_SOURCE_DIR}/allegro/lib
 	    )
 	     

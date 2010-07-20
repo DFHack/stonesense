@@ -6,7 +6,6 @@
 #define CL_MOD_MAPS
 
 #include "dfhack/DFExport.h"
-#include "dfhack/DFModule.h"
 namespace DFHack
 {
     /***************************************************************************
@@ -305,10 +304,10 @@ namespace DFHack
     /***************************************************************************
                              C L I E N T   M O D U L E
     ***************************************************************************/
-    #ifndef BUILD_SHM
+    
     class DFContextShared;
     struct t_viewscreen;
-    class DFHACK_EXPORT Maps : public Module
+    class DFHACK_EXPORT Maps
     {
         public:
         
@@ -423,6 +422,5 @@ namespace DFHack
         struct Private;
         Private *d;
     };
-    #endif
 }
 #endif

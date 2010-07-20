@@ -5,13 +5,12 @@
 * Gui: Query the DF's GUI state
 */
 #include "dfhack/DFExport.h"
-#include "dfhack/DFModule.h"
 
 namespace DFHack
 {
     class DFContextShared;
     struct t_viewscreen;
-    class DFHACK_EXPORT Gui: public Module
+    class DFHACK_EXPORT Gui
     {
         public:
         

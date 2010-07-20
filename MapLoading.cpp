@@ -424,7 +424,7 @@ void ReadCellToSegment(DFHack::Context& DF, WorldSegment& segment, int CellX, in
 
 				//read global features
 				int16_t idx = mapBlock.global_feature;
-				if( idx != -1 && uint16_t(idx) < global_features->size() && global_features->at(idx).main_material != -1)
+				if( idx != -1 && (uint16_t)idx < global_features->size() && global_features->at(idx).main_material != -1)
 				{
 					if(designations[lx][ly].bits.feature_global)
 					{
@@ -452,7 +452,7 @@ void ReadCellToSegment(DFHack::Context& DF, WorldSegment& segment, int CellX, in
 					if(it != local_features->end())
 					{
 						std::vector<DFHack::t_feature *>& vectr = (*it).second;
-						if(uint16_t(idx) < vectr.size() && vectr[idx]->main_material != -1)
+						if((uint16_t)idx < vectr.size() && vectr[idx]->main_material != -1)
 						{
 							if(mapBlock.designation[lx][ly].bits.feature_local)
 							{

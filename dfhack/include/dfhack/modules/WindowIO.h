@@ -27,7 +27,6 @@ distribution.
 
 #include "dfhack/DFPragma.h"
 #include "dfhack/DFExport.h"
-#include "dfhack/DFModule.h"
 
 namespace DFHack
 {
@@ -89,13 +88,12 @@ enum t_special
     NUM_SPECIALS
 };
 class DFContextShared;
-class DFHACK_EXPORT WindowIO : public Module
+class DFHACK_EXPORT WindowIO
 {
     class Private;
     private:
         Private * d;
     public:
-        bool Finish(){return true;};
         WindowIO(DFHack::DFContextShared * d);
         ~WindowIO();
         void TypeStr (const char *input, int delay = 0, bool useShift = false);

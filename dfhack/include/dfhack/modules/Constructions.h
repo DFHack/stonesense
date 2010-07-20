@@ -4,7 +4,6 @@
 * DF constructions
 */
 #include "dfhack/DFExport.h"
-#include "dfhack/DFModule.h"
 namespace DFHack
 {
     // type of item the construction is made of
@@ -41,7 +40,7 @@ namespace DFHack
     };
     #pragma pack (pop)
     class DFContextShared;
-    class DFHACK_EXPORT Constructions : public Module
+    class DFHACK_EXPORT Constructions
     {
         public:
         Constructions(DFContextShared * d);

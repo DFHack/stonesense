@@ -4,7 +4,6 @@
 * DF translation tables and name translation
 */
 #include "dfhack/DFExport.h"
-#include "dfhack/DFModule.h"
 namespace DFHack
 {
     class DFContextShared;
@@ -14,8 +13,8 @@ namespace DFHack
         DFDict translations;
         DFDict foreign_languages;
     } Dicts;
-
-    class DFHACK_EXPORT Translation : public Module
+    
+    class DFHACK_EXPORT Translation
     {
         public:
         Translation(DFContextShared * d);
@@ -27,7 +26,7 @@ namespace DFHack
         Dicts * getDicts();
         // translate a name using the loaded dictionaries
         std::string TranslateName(const DFHack::t_name& name, bool inEnglish = true);
-
+        
         private:
         struct Private;
         Private *d;
