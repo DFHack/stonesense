@@ -396,16 +396,19 @@ void drawDebugCursorAndInfo(){
 			int xx = 2;
 			for(unsigned int j = 0; j<b->creature->nbcolors ; j++)
 			{
-				uint32_t cr_color = contentLoader.Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].colorlist[b->creature->color[j]];
-				if(cr_color < contentLoader.Mats->color.size())
+				if(contentLoader.Mats->raceEx.at(b->creature->race).castes.at(b->creature->caste).ColorModifier.at(j).colorlist.size() > b->creature->color[j])
 				{
-					draw_textf_border(font, 
-						al_map_rgb_f(
-						contentLoader.Mats->color[cr_color].r,
-						contentLoader.Mats->color[cr_color].v,
-						contentLoader.Mats->color[cr_color].b), xx, yy, 0,
-						"%s ", contentLoader.Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].part);
-					xx += get_textf_width(font, "%s ", contentLoader.Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].part);
+					uint32_t cr_color = contentLoader.Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].colorlist[b->creature->color[j]];
+					if(cr_color < contentLoader.Mats->color.size())
+					{
+						draw_textf_border(font, 
+							al_map_rgb_f(
+							contentLoader.Mats->color[cr_color].r,
+							contentLoader.Mats->color[cr_color].v,
+							contentLoader.Mats->color[cr_color].b), xx, yy, 0,
+							"%s ", contentLoader.Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].part);
+						xx += get_textf_width(font, "%s ", contentLoader.Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].part);
+					}
 				}
 			}
 		}

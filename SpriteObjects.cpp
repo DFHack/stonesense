@@ -26,6 +26,8 @@ c_sprite::c_sprite(void)
 	bloodmax = -1;
 	needoutline=0;
 	defaultsheet=IMGObjectSheet;
+	tilelayout=BLOCKTILE;
+	shadeBy=ShadeNone;
 }
 
 c_sprite::~c_sprite(void)
@@ -349,7 +351,7 @@ void c_sprite::draw_world_offset(int x, int y, int z, int tileoffset, bool chop)
 	{
 		for(int i = 0; i < subsprites.size(); i++)
 		{
-			subsprites[i].draw_world_offset(x, y, z, tileoffset, chop);
+			subsprites.at(i).draw_world_offset(x, y, z, tileoffset, chop);
 		}
 	}
 }
@@ -431,26 +433,29 @@ ALLEGRO_COLOR c_sprite::get_color(void* block)
 				{
 					if(strcmp(contentLoader.Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].part, bodypart) == 0)
 					{
-						uint32_t cr_color = contentLoader.Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].colorlist[b->creature->color[j]];
-						if(cr_color < contentLoader.Mats->color.size())
+						if(contentLoader.Mats->raceEx.at(b->creature->race).castes.at(b->creature->caste).ColorModifier.at(j).colorlist.size() > b->creature->color[j])
 						{
-							if(contentLoader.Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].startdate > 0)
+							uint32_t cr_color = contentLoader.Mats->raceEx.at(b->creature->race).castes.at(b->creature->caste).ColorModifier.at(j).colorlist.at(b->creature->color[j]);
+							if(cr_color < contentLoader.Mats->color.size())
 							{
-
-								if((contentLoader.Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].startdate <= dayofLife) &&
-									(contentLoader.Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].enddate > dayofLife))
+								if(contentLoader.Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].startdate > 0)
 								{
-									return al_map_rgb_f(
-										contentLoader.Mats->color[cr_color].r,
-										contentLoader.Mats->color[cr_color].v,
-										contentLoader.Mats->color[cr_color].b);;
+
+									if((contentLoader.Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].startdate <= dayofLife) &&
+										(contentLoader.Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].enddate > dayofLife))
+									{
+										return al_map_rgb_f(
+											contentLoader.Mats->color[cr_color].r,
+											contentLoader.Mats->color[cr_color].v,
+											contentLoader.Mats->color[cr_color].b);;
+									}
 								}
+								else
+									return al_map_rgb_f(
+									contentLoader.Mats->color[cr_color].r,
+									contentLoader.Mats->color[cr_color].v,
+									contentLoader.Mats->color[cr_color].b);
 							}
-							else
-								return al_map_rgb_f(
-								contentLoader.Mats->color[cr_color].r,
-								contentLoader.Mats->color[cr_color].v,
-								contentLoader.Mats->color[cr_color].b);
 						}
 					}
 				}

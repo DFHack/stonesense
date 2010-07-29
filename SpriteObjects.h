@@ -67,7 +67,7 @@ public:
 	void set_offset(int16_t x, int16_t y);
 	ALLEGRO_COLOR get_color(void * b);
 	ALLEGRO_BITMAP * get_defaultsprite(void){ return defaultsheet; }
-	void set_defaultsprite(ALLEGRO_BITMAP * in){ defaultsheet = in; }
+	void set_defaultsheet(ALLEGRO_BITMAP * in){ defaultsheet = in; }
 	void reset();
 	void set_tile_layout(uint8_t layout);
 };

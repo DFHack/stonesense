@@ -371,8 +371,9 @@ void ReadCellToSegment(DFHack::Context& DF, WorldSegment& segment, int CellX, in
 				b->ramp.type = 0;
 				b->water.index = 0;
 				b->building.info.type = BUILDINGTYPE_BLACKBOX;
-				c_sprite sprite;
+				static c_sprite sprite;
 				sprite.set_sheetindex(SPRITEOBJECT_BLACK);
+				sprite.set_defaultsheet(IMGObjectSheet);
 				sprite.set_offset(0, 4);
 				b->building.sprites.push_back( sprite );
 				sprite.set_offset(0, 0);
