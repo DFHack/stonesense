@@ -230,7 +230,8 @@ void doKeys(int Key)
 		timeToReloadSegment = true;
 	}
 	if(Key == ALLEGRO_KEY_C){
-		config.truncate_walls = !config.truncate_walls;
+		config.truncate_walls++;
+		if (config.truncate_walls > 2) config.truncate_walls = 0;
 		timeToReloadSegment = true;
 	}
 	if(Key == ALLEGRO_KEY_F){

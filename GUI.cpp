@@ -436,6 +436,10 @@ void drawDebugCursorAndInfo(){
 		draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0,
 			"Snow: %d, Mud: %d, Blood: %d", b->snowlevel, b->mudlevel, b->bloodlevel);
 	}
+	//borders
+			draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0,
+				"Open: %d, floor: %d, Wall: %d", b->openborders, b->floorborders, b->wallborders);
+
 
 	////effects
 	//if(b->blockeffects.lifetime > 0)
@@ -602,16 +606,16 @@ void DoSpriteIndexOverlay()
 void paintboard(){
 	uint32_t starttime = clock();
 	//al_set_new_bitmap_format(ALLEGRO_PIXEL_FORMAT_ANY_NO_ALPHA);
-	if(!buffer)
-		buffer = al_create_bitmap(al_get_display_width(al_get_current_display()), al_get_display_height(al_get_current_display()));
-	if(al_get_bitmap_width(buffer) != al_get_display_width(al_get_current_display()) || al_get_bitmap_height(buffer) != al_get_display_height(al_get_current_display()))
-	{
-		al_destroy_bitmap(buffer);
-		buffer = al_create_bitmap(al_get_display_width(al_get_current_display()), al_get_display_height(al_get_current_display()));
-	}
-	ALLEGRO_BITMAP * backup = al_get_target_bitmap();
+	//if(!buffer)
+	//	buffer = al_create_bitmap(al_get_display_width(al_get_current_display()), al_get_display_height(al_get_current_display()));
+	//if(al_get_bitmap_width(buffer) != al_get_display_width(al_get_current_display()) || al_get_bitmap_height(buffer) != al_get_display_height(al_get_current_display()))
+	//{
+	//	al_destroy_bitmap(buffer);
+	//	buffer = al_create_bitmap(al_get_display_width(al_get_current_display()), al_get_display_height(al_get_current_display()));
+	//}
+	//ALLEGRO_BITMAP * backup = al_get_target_bitmap();
 	//al_set_target_bitmap(buffer);
-	//al_set_separate_blender(ALLEGRO_ALPHA, ALLEGRO_INVERSE_ALPHA, ALLEGRO_ONE, ALLEGRO_ONE, al_map_rgba(255, 255, 255, 255));
+	//al_set_separate_blender(ALLEGRO_ALPHA, ALLEGRO_INVERSE_ALPHA, ALLEGRO_ONE, ALLEGRO_ONE);
 	//al_set_blender(ALLEGRO_ALPHA, ALLEGRO_INVERSE_ALPHA, al_map_rgba(255, 255, 255, 255));
 	al_clear_to_color(al_map_rgb(config.backr,config.backg,config.backb));
 	//clear_to_color(buffer,makecol(12,7,49)); //this one is calm and nice

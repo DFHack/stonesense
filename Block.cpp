@@ -313,6 +313,7 @@ void Block::Draw(){
 		else
 		{
 			spriteNum = SPRITEOBJECT_WATERLEVEL1_LAVA + waterlevel - 1;
+			spatter = al_map_rgb(255,255,255);
 		}
 		DrawSpriteFromSheet( spriteNum, IMGObjectSheet, spatter, drawx, drawy );
 		}

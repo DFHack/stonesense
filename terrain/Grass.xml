@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<floors file="grass.png">
+  <!-- vegetation -->
+  <floor sheetIndex="0">
+    <!-- tree -->
+    <terrain value="24" />
+    <!-- shrub -->
+    <terrain value="34" />
+    <!-- sapling -->
+    <terrain value="231" />
+    <!-- grass -->
+    <terrain value="348" />
+    <terrain value="349" />
+    <terrain value="350" />
+    <terrain value="351" />
+    <!-- dry grass -->
+    <terrain value="387" />
+    <terrain value="388" />
+    <terrain value="389" />
+    <terrain value="390" />
+    <!-- dead tree -->
+    <terrain value="391" />
+    <!-- dead sapling -->
+    <terrain value="392" />
+    <!-- dead shrub -->
+    <terrain value="393" />
+    <!-- dead grass -->
+    <terrain value="394" />
+    <terrain value="395" />
+    <terrain value="396" />
+    <terrain value="397" />
+    <!-- grass -->
+    <terrain value="398" />
+    <terrain value="399" />
+    <terrain value="400" />
+    <terrain value="401" />
+	
+	<subsprite sheetIndex="01" variations="2" frames="45"/>
+	<subsprite sheetIndex="21" variations="2" frames="03"/>
+	<subsprite sheetIndex="41" variations="2" frames="12"/>
+	</floor>
+</floors>

@@ -29,6 +29,10 @@ public:
 	bool depthBorderDown;
 	int shadow;
 
+	uint8_t wallborders;
+	uint8_t floorborders;
+	uint8_t openborders;
+
 	bool creaturePresent;
 	bool buildingPresent;
 	t_matglossPair ramp;

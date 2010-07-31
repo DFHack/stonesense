@@ -124,7 +124,7 @@ typedef struct {
 	bool debug_mode;
 	bool track_center;
 	int lift_segment_offscreen;
-	bool truncate_walls;
+	uint8_t truncate_walls;
 	bool follow_DFscreen;
 	bool verbose_logging;
 	int viewXoffset;

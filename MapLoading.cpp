@@ -836,10 +836,21 @@ WorldSegment* ReadMapSegment(DFHack::Context &DF, int x, int y, int z, int sizex
 		if(b->ramp.type > 0) 
 			b->ramp.index = CalculateRampType(b->x, b->y, b->z, segment);
 		//add edges to blocks and floors  
+
+		Block * dir1 = segment->getBlockRelativeTo(b->x, b->y, b->z, eUpLeft);
+		Block * dir2 = segment->getBlockRelativeTo(b->x, b->y, b->z, eUp);
+		Block * dir3 = segment->getBlockRelativeTo(b->x, b->y, b->z, eUpRight);
+		Block * dir4 = segment->getBlockRelativeTo(b->x, b->y, b->z, eRight);
+		Block * dir5 = segment->getBlockRelativeTo(b->x, b->y, b->z, eDownRight);
+		Block * dir6 = segment->getBlockRelativeTo(b->x, b->y, b->z, eDown);
+		Block * dir7 = segment->getBlockRelativeTo(b->x, b->y, b->z, eDownLeft);
+		Block * dir8 = segment->getBlockRelativeTo(b->x, b->y, b->z, eLeft);
+
 		if( b->floorType > 0 )
 		{
 			b->depthBorderWest = checkFloorBorderRequirement(segment, b->x, b->y, b->z, eLeft);
 			b->depthBorderNorth = checkFloorBorderRequirement(segment, b->x, b->y, b->z, eUp);
+
 			Block* belowBlock = segment->getBlockRelativeTo(b->x, b->y, b->z, eBelow);
 			if(!belowBlock || (!belowBlock->wallType && !belowBlock->ramp.type)) 
 				b->depthBorderDown = true;
@@ -855,8 +866,36 @@ WorldSegment* ReadMapSegment(DFHack::Context &DF, int x, int y, int z, int sizex
 			Block* belowBlock = segment->getBlockRelativeTo(b->x, b->y, b->z, eBelow);
 			if(!belowBlock || (!belowBlock->wallType && !belowBlock->ramp.type)) 
 				b->depthBorderDown = true;
-
 		}
+		b->openborders = 0;
+		if(!dir1 || (!dir1->wallType && !dir1->ramp.type && !dir1->floorType)) b->openborders |= 1;
+		if(!dir2 || (!dir2->wallType && !dir2->ramp.type && !dir2->floorType)) b->openborders |= 2;
+		if(!dir3 || (!dir3->wallType && !dir3->ramp.type && !dir3->floorType)) b->openborders |= 4;
+		if(!dir4 || (!dir4->wallType && !dir4->ramp.type && !dir4->floorType)) b->openborders |= 8;
+		if(!dir5 || (!dir5->wallType && !dir5->ramp.type && !dir5->floorType)) b->openborders |= 16;
+		if(!dir6 || (!dir6->wallType && !dir6->ramp.type && !dir6->floorType)) b->openborders |= 32;
+		if(!dir7 || (!dir7->wallType && !dir7->ramp.type && !dir7->floorType)) b->openborders |= 64;
+		if(!dir8 || (!dir8->wallType && !dir8->ramp.type && !dir8->floorType)) b->openborders |= 128;
+
+		b->wallborders = 0;
+		if(dir1) if(dir1->wallType || dir1->ramp.type) b->wallborders |= 1;
+		if(dir2) if(dir2->wallType || dir2->ramp.type) b->wallborders |= 2;
+		if(dir3) if(dir3->wallType || dir3->ramp.type) b->wallborders |= 4;
+		if(dir4) if(dir4->wallType || dir4->ramp.type) b->wallborders |= 8;
+		if(dir5) if(dir5->wallType || dir5->ramp.type) b->wallborders |= 16;
+		if(dir6) if(dir6->wallType || dir6->ramp.type) b->wallborders |= 32;
+		if(dir7) if(dir7->wallType || dir7->ramp.type) b->wallborders |= 64;
+		if(dir8) if(dir8->wallType || dir8->ramp.type) b->wallborders |= 128;
+
+		b->floorborders = 0;
+		if(dir1) if(dir1->floorType) b->floorborders |= 1;
+		if(dir2) if(dir2->floorType) b->floorborders |= 2;
+		if(dir3) if(dir3->floorType) b->floorborders |= 4;
+		if(dir4) if(dir4->floorType) b->floorborders |= 8;
+		if(dir5) if(dir5->floorType) b->floorborders |= 16;
+		if(dir6) if(dir6->floorType) b->floorborders |= 32;
+		if(dir7) if(dir7->floorType) b->floorborders |= 64;
+		if(dir8) if(dir8->floorType) b->floorborders |= 128;
 	}
 
 	Maps->Finish();

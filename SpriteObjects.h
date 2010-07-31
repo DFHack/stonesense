@@ -48,6 +48,13 @@ private:
 	ALLEGRO_BITMAP * defaultsheet;
 
 	uint8_t tilelayout;
+
+	uint8_t openborders;
+	uint8_t wallborders;
+	uint8_t floorborders;
+	uint8_t notopenborders;
+	uint8_t notwallborders;
+	uint8_t notfloorborders;
 public:
 	c_sprite(void);
 	~c_sprite(void);
