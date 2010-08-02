@@ -108,6 +108,13 @@ void Block::Draw(){
 	pointToScreen((int*)&drawx, (int*)&drawy, drawz);
 	drawx -= TILEWIDTH>>1;
 
+	bool chopThisBlock = 0;
+
+	if(config.truncate_walls == 1) chopThisBlock = 1;
+	else if(config.truncate_walls == 2 && obscuringCreature == 1) chopThisBlock = 1;
+	else if(config.truncate_walls == 3 && (obscuringCreature == 1 || obscuringBuilding == 1)) chopThisBlock = 1;
+	else if(config.truncate_walls == 4 && obscuringBuilding == 1) chopThisBlock = 1;
+
 	ALLEGRO_COLOR tileBorderColor = al_map_rgb(85,85,85);
 	int rando = randomCube[x%RANDOM_CUBE][y%RANDOM_CUBE][z%RANDOM_CUBE];
 	//Draw Floor
@@ -183,7 +190,7 @@ void Block::Draw(){
 			spriteobject->set_size(SPRITEWIDTH, SPRITEHEIGHT);
 			spriteobject->set_offset(0, 0);
 			spriteobject->set_tile_layout(RAMPBOTTOMTILE);
-			spriteobject->draw_world(x, y, z, (config.truncate_walls && this->z == ownerSegment->z + ownerSegment->sizez -2));
+			spriteobject->draw_world(x, y, z, (chopThisBlock && this->z == ownerSegment->z + ownerSegment->sizez -2));
 		}
 	}
 
@@ -226,8 +233,8 @@ void Block::Draw(){
 
 	//Building
 	bool skipBuilding =
-		(building.info.type == TranslateBuildingName("building_civzonest", contentLoader.classIdStrings ) && !config.show_stockpiles) ||
-		(building.info.type == TranslateBuildingName("building_stockpilest", contentLoader.classIdStrings ) && !config.show_zones);
+		(building.info.type == contentLoader.civzoneNum && !config.show_stockpiles) ||
+		(building.info.type == contentLoader.stockpileNum && !config.show_zones);
 
 	if(building.info.type != BUILDINGTYPE_NA && !skipBuilding)
 	{
@@ -287,7 +294,7 @@ void Block::Draw(){
 		}    
 		else 
 		{
-			spriteobject->draw_world(x, y, z, (config.truncate_walls && this->z == ownerSegment->z + ownerSegment->sizez -2));
+			spriteobject->draw_world(x, y, z, (chopThisBlock && this->z == ownerSegment->z + ownerSegment->sizez -2));
 		}
 	}
 
@@ -316,9 +323,9 @@ void Block::Draw(){
 			spatter = al_map_rgb(255,255,255);
 		}
 		DrawSpriteFromSheet( spriteNum, IMGObjectSheet, spatter, drawx, drawy );
-		}
+	}
 
-		// creature
+	// creature
 	// ensure there is *some* creature according to the map data
 	// (no guarantee it is the right one)
 	if(creaturePresent)
@@ -421,6 +428,13 @@ void Block::Drawcreaturetext(){
 void Block::DrawRamptops(){
 	if (ramp.type > 0)
 	{
+
+		bool chopThisBlock = 0;
+
+		if(config.truncate_walls == 1) chopThisBlock = 1;
+		else if(config.truncate_walls == 2 && obscuringCreature == 1) chopThisBlock = 1;
+		else if(config.truncate_walls == 3 && (obscuringCreature == 1 || obscuringBuilding == 1)) chopThisBlock = 1;
+		else if(config.truncate_walls == 4 && obscuringBuilding == 1) chopThisBlock = 1;
 		//Draw Ramp
 		c_sprite * spriteobject = GetBlockSpriteMap(ramp.type,material, consForm);
 		if (spriteobject->get_sheetindex() == UNCONFIGURED_INDEX)
@@ -433,7 +447,7 @@ void Block::DrawRamptops(){
 			spriteobject->set_size(SPRITEWIDTH, TILEHEIGHT);
 			spriteobject->set_offset(0, -(FLOORHEIGHT));
 			spriteobject->set_tile_layout(RAMPTOPTILE);
-			spriteobject->draw_world(x, y, z, (config.truncate_walls && this->z == ownerSegment->z + ownerSegment->sizez -2));
+			spriteobject->draw_world(x, y, z, (chopThisBlock && this->z == ownerSegment->z + ownerSegment->sizez -2));
 		}
 	}
 }

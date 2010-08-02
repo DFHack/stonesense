@@ -46,6 +46,9 @@ public:
 	uint8_t currentDay;
 	uint8_t currentHour;
 	uint8_t currentTickRel;
+
+	int stockpileNum;
+	int civzoneNum;
 };
 
 //singleton instance

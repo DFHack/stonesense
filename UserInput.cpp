@@ -231,7 +231,7 @@ void doKeys(int Key)
 	}
 	if(Key == ALLEGRO_KEY_C){
 		config.truncate_walls++;
-		if (config.truncate_walls > 2) config.truncate_walls = 0;
+		if (config.truncate_walls > 4) config.truncate_walls = 0;
 		timeToReloadSegment = true;
 	}
 	if(Key == ALLEGRO_KEY_F){

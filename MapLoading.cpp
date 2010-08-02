@@ -267,70 +267,81 @@ void ReadCellToSegment(DFHack::Context& DF, WorldSegment& segment, int CellX, in
 			b->mudlevel = 0;
 			b->snowlevel = 0;
 			b->bloodlevel = 0;
-			float red=0;
-			float green=0;
-			float blue=0;
-			for(int i = 0; i < splatter.size(); i++)
+			if(1)
 			{
-				if(splatter[i].mat1 == MUD)
+				long red=0;
+				long green=0;
+				long blue=0;
+				for(int i = 0; i < splatter.size(); i++)
 				{
-					b->mudlevel = splatter[i].intensity[lx][ly];
-				}
-				else if(splatter[i].mat1 == ICE)
-				{
-					b->snowlevel = splatter[i].intensity[lx][ly];
-				}
-				else if(splatter[i].mat1 == VOMIT)
-				{
-					b->bloodlevel += splatter[i].intensity[lx][ly];
-					red += (127.0f * splatter[i].intensity[lx][ly] / 255.0f);
-					green += (196.0f * splatter[i].intensity[lx][ly] / 255.0f);
-					blue += (28.0f * splatter[i].intensity[lx][ly] / 255.0f);
-				}
-				else if(splatter[i].mat1 == ICHOR)
-				{
-					b->bloodlevel += splatter[i].intensity[lx][ly];
-					red += (255.0f * splatter[i].intensity[lx][ly] / 255.0f);
-					green += (255.0f * splatter[i].intensity[lx][ly] / 255.0f);
-					blue += (255.0f * splatter[i].intensity[lx][ly] / 255.0f);
-				}
-				else if(splatter[i].mat1 == BLOOD_NAMED)
-				{
-					b->bloodlevel += splatter[i].intensity[lx][ly];
-					red += (150.0f * splatter[i].intensity[lx][ly] / 255.0f);
-					green += (0.0f * splatter[i].intensity[lx][ly] / 255.0f);
-					blue += (24.0f * splatter[i].intensity[lx][ly] / 255.0f);
-				}
-				else if(splatter[i].mat1 == BLOOD_1
-					|| splatter[i].mat1 == BLOOD_2
-					|| splatter[i].mat1 == BLOOD_3
-					|| splatter[i].mat1 == BLOOD_4
-					|| splatter[i].mat1 == BLOOD_5
-					|| splatter[i].mat1 == BLOOD_6)
-				{
-					b->bloodlevel += splatter[i].intensity[lx][ly];
-					if(splatter[i].mat2 == 206) //troll
+					if(splatter[i].mat1 == MUD)
 					{
-						red += (0.0f * splatter[i].intensity[lx][ly] / 255.0f);
-						green += (255.0f * splatter[i].intensity[lx][ly] / 255.0f);
-						blue += (255.0f * splatter[i].intensity[lx][ly] / 255.0f);
+						b->mudlevel = splatter[i].intensity[lx][ly];
 					}
-					else if(splatter[i].mat2 == 242) //imp
+					else if(splatter[i].mat1 == ICE)
 					{
-						red += (0.0f * splatter[i].intensity[lx][ly] / 255.0f);
-						green += (0.0f * splatter[i].intensity[lx][ly] / 255.0f);
-						blue += (0.0f * splatter[i].intensity[lx][ly] / 255.0f);
+						b->snowlevel = splatter[i].intensity[lx][ly];
 					}
-					else
+					else if(splatter[i].mat1 == VOMIT)
 					{
-						red += (150.0f * splatter[i].intensity[lx][ly] / 255.0f);
-						green += (0.0f * splatter[i].intensity[lx][ly] / 255.0f);
-						blue += (24.0f * splatter[i].intensity[lx][ly] / 255.0f);
+						b->bloodlevel += splatter[i].intensity[lx][ly];
+						red += (127 * splatter[i].intensity[lx][ly]);
+						green += (196 * splatter[i].intensity[lx][ly]);
+						blue += (28 *splatter[i].intensity[lx][ly]);
+					}
+					else if(splatter[i].mat1 == ICHOR)
+					{
+						b->bloodlevel += splatter[i].intensity[lx][ly];
+						red += (255 * splatter[i].intensity[lx][ly]);
+						green += (255 * splatter[i].intensity[lx][ly]);
+						blue += (255 * splatter[i].intensity[lx][ly]);
+					}
+					else if(splatter[i].mat1 == BLOOD_NAMED)
+					{
+						b->bloodlevel += splatter[i].intensity[lx][ly];
+						red += (150 * splatter[i].intensity[lx][ly]);
+						//green += (0 * splatter[i].intensity[lx][ly]);
+						blue += (24 * splatter[i].intensity[lx][ly]);
+					}
+					else if(splatter[i].mat1 == BLOOD_1
+						|| splatter[i].mat1 == BLOOD_2
+						|| splatter[i].mat1 == BLOOD_3
+						|| splatter[i].mat1 == BLOOD_4
+						|| splatter[i].mat1 == BLOOD_5
+						|| splatter[i].mat1 == BLOOD_6)
+					{
+						b->bloodlevel += splatter[i].intensity[lx][ly];
+						if(splatter[i].mat2 == 206) //troll
+						{
+							//red += (0 * splatter[i].intensity[lx][ly]);
+							green += (255 * splatter[i].intensity[lx][ly]);
+							blue += (255 * splatter[i].intensity[lx][ly]);
+						}
+						else if(splatter[i].mat2 == 242) //imp
+						{
+							//red += (0 * splatter[i].intensity[lx][ly]);
+							//green += (0 * splatter[i].intensity[lx][ly]);
+							//blue += (0 * splatter[i].intensity[lx][ly]);
+						}
+						else
+						{
+							red += (150 * splatter[i].intensity[lx][ly]);
+							//green += (0 * splatter[i].intensity[lx][ly]);
+							blue += (24 * splatter[i].intensity[lx][ly]);
+						}
 					}
 				}
+				if(b->bloodlevel)
+				{
+				b->bloodcolor = al_map_rgba(red/b->bloodlevel, green/b->bloodlevel, blue/b->bloodlevel, (b->bloodlevel > 255) ? 255 : b->bloodlevel);
+				}
+				else
+					b->bloodcolor = al_map_rgba(0,0,0,0);
 			}
-			b->bloodcolor = al_map_rgba_f(red/b->bloodlevel, green/b->bloodlevel, blue/b->bloodlevel, (b->bloodlevel > 100) ? 1 : b->bloodlevel / 100.0f);
-
+			else
+			{
+				b->bloodcolor = al_map_rgb(150, 0, 24);
+			}
 			//temperatures
 
 			b->temp1 = temp1[lx][ly];
@@ -432,11 +443,11 @@ void ReadCellToSegment(DFHack::Context& DF, WorldSegment& segment, int CellX, in
 						//if(global_features->at(idx).main_material == INORGANIC) // stone
 						//{
 						//there may be other features.
-							b->layerMaterial.type = global_features->at(idx).main_material;
-							b->layerMaterial.index = global_features->at(idx).sub_material;
-							b->material.type = global_features->at(idx).main_material;
-							b->material.index = global_features->at(idx).sub_material;
-							b->hasVein = 0;
+						b->layerMaterial.type = global_features->at(idx).main_material;
+						b->layerMaterial.index = global_features->at(idx).sub_material;
+						b->material.type = global_features->at(idx).main_material;
+						b->material.index = global_features->at(idx).sub_material;
+						b->hasVein = 0;
 						//}
 					}
 				}
@@ -460,11 +471,11 @@ void ReadCellToSegment(DFHack::Context& DF, WorldSegment& segment, int CellX, in
 								//if(vectr[idx]->main_material == INORGANIC) // stone
 								//{
 								//We can probably get away with this.
-									b->veinMaterial.type = vectr[idx]->main_material;
-									b->veinMaterial.index = vectr[idx]->sub_material;
-									b->material.type = vectr[idx]->main_material;
-									b->material.index = vectr[idx]->sub_material;
-									b->hasVein = 1;
+								b->veinMaterial.type = vectr[idx]->main_material;
+								b->veinMaterial.index = vectr[idx]->sub_material;
+								b->material.type = vectr[idx]->main_material;
+								b->material.index = vectr[idx]->sub_material;
+								b->hasVein = 1;
 								//}
 							}
 						}
@@ -846,6 +857,17 @@ WorldSegment* ReadMapSegment(DFHack::Context &DF, int x, int y, int z, int sizex
 		Block * dir7 = segment->getBlockRelativeTo(b->x, b->y, b->z, eDownLeft);
 		Block * dir8 = segment->getBlockRelativeTo(b->x, b->y, b->z, eLeft);
 
+		b->obscuringBuilding=0;
+		b->obscuringCreature=0;
+
+		if(dir1) if(dir1->creaturePresent) b->obscuringCreature = 1;
+		if(dir2) if(dir2->creaturePresent) b->obscuringCreature = 1;
+		if(dir8) if(dir8->creaturePresent) b->obscuringCreature = 1;
+
+		if(dir1) if(dir1->building.info.type != BUILDINGTYPE_NA && dir1->building.info.type != BUILDINGTYPE_BLACKBOX && dir1->building.info.type != contentLoader.civzoneNum && dir1->building.info.type != contentLoader.stockpileNum) b->obscuringBuilding = 1;
+		if(dir2) if(dir2->building.info.type != BUILDINGTYPE_NA && dir2->building.info.type != BUILDINGTYPE_BLACKBOX && dir2->building.info.type != contentLoader.civzoneNum && dir2->building.info.type != contentLoader.stockpileNum) b->obscuringBuilding = 1;
+		if(dir8) if(dir8->building.info.type != BUILDINGTYPE_NA && dir8->building.info.type != BUILDINGTYPE_BLACKBOX && dir8->building.info.type != contentLoader.civzoneNum && dir8->building.info.type != contentLoader.stockpileNum) b->obscuringBuilding = 1;
+
 		if( b->floorType > 0 )
 		{
 			b->depthBorderWest = checkFloorBorderRequirement(segment, b->x, b->y, b->z, eLeft);
@@ -868,14 +890,14 @@ WorldSegment* ReadMapSegment(DFHack::Context &DF, int x, int y, int z, int sizex
 				b->depthBorderDown = true;
 		}
 		b->openborders = 0;
-		if(!dir1 || (!dir1->wallType && !dir1->ramp.type && !dir1->floorType)) b->openborders |= 1;
-		if(!dir2 || (!dir2->wallType && !dir2->ramp.type && !dir2->floorType)) b->openborders |= 2;
-		if(!dir3 || (!dir3->wallType && !dir3->ramp.type && !dir3->floorType)) b->openborders |= 4;
-		if(!dir4 || (!dir4->wallType && !dir4->ramp.type && !dir4->floorType)) b->openborders |= 8;
-		if(!dir5 || (!dir5->wallType && !dir5->ramp.type && !dir5->floorType)) b->openborders |= 16;
-		if(!dir6 || (!dir6->wallType && !dir6->ramp.type && !dir6->floorType)) b->openborders |= 32;
-		if(!dir7 || (!dir7->wallType && !dir7->ramp.type && !dir7->floorType)) b->openborders |= 64;
-		if(!dir8 || (!dir8->wallType && !dir8->ramp.type && !dir8->floorType)) b->openborders |= 128;
+		if(dir1) if(!dir1 || (!dir1->wallType && !dir1->ramp.type && !dir1->floorType)) b->openborders |= 1;
+		if(dir2) if(!dir2 || (!dir2->wallType && !dir2->ramp.type && !dir2->floorType)) b->openborders |= 2;
+		if(dir3) if(!dir3 || (!dir3->wallType && !dir3->ramp.type && !dir3->floorType)) b->openborders |= 4;
+		if(dir4) if(!dir4 || (!dir4->wallType && !dir4->ramp.type && !dir4->floorType)) b->openborders |= 8;
+		if(dir5) if(!dir5 || (!dir5->wallType && !dir5->ramp.type && !dir5->floorType)) b->openborders |= 16;
+		if(dir6) if(!dir6 || (!dir6->wallType && !dir6->ramp.type && !dir6->floorType)) b->openborders |= 32;
+		if(dir7) if(!dir7 || (!dir7->wallType && !dir7->ramp.type && !dir7->floorType)) b->openborders |= 64;
+		if(dir8) if(!dir8 || (!dir8->wallType && !dir8->ramp.type && !dir8->floorType)) b->openborders |= 128;
 
 		b->wallborders = 0;
 		if(dir1) if(dir1->wallType || dir1->ramp.type) b->wallborders |= 1;

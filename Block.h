@@ -88,6 +88,8 @@ public:
 
 	uint16_t consForm;
 
+	bool obscuringCreature;
+	bool obscuringBuilding;
 
 private:
 

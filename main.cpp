@@ -333,7 +333,6 @@ int main(void)
 
 	//DisplayedSegmentX = 242; DisplayedSegmentY = 345;DisplayedSegmentZ = 15;
 
-
 #ifdef BENCHMARK
 	benchmark();
 #endif

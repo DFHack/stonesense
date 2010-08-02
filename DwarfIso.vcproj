@@ -61,7 +61,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalOptions=" /STACK:10000000 /machine:I386 /debug"
+				AdditionalOptions=" /STACK:10000000 /machine:I386 /debug /fixed:no "
 				AdditionalDependencies="kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib allegro.lib allegro_primitives.lib allegro_font.lib allegro_ttf.lib allegro_image.lib allegro_dialog.lib libpng.lib zdll.lib winmm.lib psapi.lib opengl32.lib glu32.lib dfhack\dfhack-debug.lib"
 				OutputFile="$(ProjectDir)\$(ProjectName).exe"
 				LinkIncremental="1"
@@ -139,6 +139,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				UseLibraryDependencyInputs="true"
+				AdditionalOptions="/fixed:no"
 				AdditionalDependencies="kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib allegro.lib allegro_primitives.lib allegro_font.lib allegro_ttf.lib allegro_image.lib allegro_dialog.lib libpng.lib zdll.lib winmm.lib psapi.lib opengl32.lib glu32.lib dfhack\dfhack.lib $(NOINHERIT)"
 				OutputFile="$(ProjectDir)\$(ProjectName).exe"
 				LinkIncremental="1"
@@ -1645,6 +1646,22 @@
 				>
 			</File>
 		</Filter>
+		<Filter
+			Name="My Amplifier Results"
+			>
+			<File
+				RelativePath=".\My Amplifier Results\r002hs\r002hs.ampl"
+				>
+			</File>
+			<File
+				RelativePath=".\My Amplifier Results\r003hs\r003hs.ampl"
+				>
+			</File>
+		</Filter>
+		<File
+			RelativePath=".\VTune\Stonesense.vpj"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>

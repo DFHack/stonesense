@@ -197,6 +197,9 @@ bool ContentLoader::Load( DFHack::Context& DF){
 		}
 	}
 
+	civzoneNum = TranslateBuildingName("building_civzonest", contentLoader.classIdStrings );
+	stockpileNum = TranslateBuildingName("building_stockpilest", contentLoader.classIdStrings );
+
 	//DumpPrefessionNamesToDisk(professionStrings, "priofessiondump.txt");
 	//DumpPrefessionNamesToDisk(classIdStrings, "buildingdump.txt");
 	//DumpMaterialNamesToDisk(inorganicMaterials, "DUMPSES.txt");
