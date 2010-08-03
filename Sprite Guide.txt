@@ -1,0 +1,165 @@
+All tiles in stonesense use a single system to define them, using XML tags and attributes. the tag that defines a sprite is diifferent for each type, but the attributes are the same.
+
+All sprites have the following format:
+
+<tag attribute1="value1" attribute2="value2" ... >
+	<subtag attribute="val"/>
+	...
+</tag>
+
+where 'tag' is the identifier for the type of sprite in question, attribute is one of the many possible sprite attributes, and val is a value for that attribute. 
+
+this is a list of possible sprite attributes, and associated values.
+
+Attribue: sheetIndex, sprite, index
+Valid Values: Any positive number
+Default Value: "-1"
+Description: This is teh single most important attribute of any sprite. It referrs to the the location of the sprite on the tileset, starting from 0 in the upper left, and going down a row every 20 sprites.
+
+Attribute: file
+Valid Values: any valid image file
+Default Value: "objects.png"
+Description: while a tileset can be specified outside of the sprite, it is sometimes usefull to specify it here. Path is relative.
+
+Attribue: frames
+Valid Values: any combinatio of the numbers 0-5
+Default Value: "012345"
+Description: this is a list of frames that the tile can show up on, with a random offset per tile. so a value of "024" would mean that the tile would show up every other frame.
+
+Attribute: needopen
+Valid Values: any combination of the numbers 0-8
+Default Value: "12345678"
+Description: this is a list of adjascent tiles that would be empty for this tile to be shown. numbers refer to the following tiles:
+              /\
+             /  \
+            /    \
+           /\ 1  /\                  
+          /  \  /  \                   
+         / 8  \/ 2  \                  
+        /\    /\    /\                
+       /  \  /  \  /  \                
+      / 7  \/    \/ 3  \               
+      \    /\    /\    /               
+       \  /  \  /  \  /                
+        \/ 6  \/ 4  \/                 
+         \    /\    /                  
+          \  /  \  /                   
+           \/ 5  \/                    
+            \    /                     
+             \  /                      
+              \/                       
+In order for the sprite to be shown, at least one of the listed numbers must contain an empty space. However, this can be over-rided by the next two attributes, which can also allow the tile to be shown on their own conditions. Setting this value to "0" means that the tile will not over-ride the next two attributes.
+
+Attribute: needfloor
+Valid Values: any combination of the numbers 0-8
+Default Value: "12345678"
+Description: same as for needopen, but replace open space with floor tiles.
+
+Attribute: needwall
+Valid Values: any combination of the numbers 0-8
+Default Value: "12345678"
+Description: same as for needopen, but replace open space with wall tiles.
+
+Attribute: neednotopen
+Valid Values: any combination of the numbers 0-8
+Default Value: "0"
+Description: similar to needopen, but this attribute lists neighbors that must NOT contain an open space. if any of the listed neighbors are open, the tile will not show, regardless of other circumstances.
+
+Attribute: neednotfloor
+Valid Values: any combination of the numbers 0-8
+Default Value: "0"
+Description: same as for neednotopen, but replace open space with floor tiles.
+
+Attribute: neednotfloor
+Valid Values: any combination of the numbers 0-8
+Default Value: "0"
+Description: same as for neednotopen, but replace open space with wall tiles.
+
+Attribute: variations
+Valid values: and positive number
+Default Value: "0"
+Description: if this number is more than 0, a random number between 0 and this number-1 is added to the sheetIndex. eg, if this attribute is 5 and sheetIndex is 21, then tiles will range from 21-25
+
+Attribute: color
+Valid Values: "none", "xml", "material", "layer", "vein", "building", "material_fore", "material_back", "layer_fore", "layer_back", "vein_fore", "vein_back", "bodypart", "profession", "blood"
+Default Value: "none"
+Description: Sets how this tile is colored. 
+	"none" means the tile is not colored
+	"xml" means the tile color is specified using the red, green, and blue tile attributes shown later.
+	"Material" means that the tile will be colored according to the material of the tile that shows up in DF. adding this to creatures results in chameleons.
+	"layer" means that the tile will be colored according to the main rock layer, which lies beneath all veins and constructions.
+	"vein" means that teh tile will be colored according to the mineral vein, which lies beneath constructions, but is above the layer.
+	"building" means that the tile will be colored according to the building that is built on it. it's probably a bad idea to use this one outside of building sprites.
+	"material_fore", "material_back", "layer_fore", "layer_back", "vein_fore", and "vein_back" are currently waiting for DFhack to update it's features. they may or may not work.
+	"bodypart" meanst that this sprite is colored according to a creature's body part, specified later. adding this to a landscape tile will result in teh tile being colored only when a creature is on it.
+	"profession" means that the sprite will be colored according to the creature's profesion.
+	"blood" means that the tile will be colored according to whatever blood is splattered onto it.
+	
+Attribute: bodypart
+Valid Values: any valid body part
+Default Value: none
+Description: this will chose which bodypart of teh creature to pull the color from. only valid if color="bodyart"
+
+Attribute: red, green, blue, alpha
+Valid Values: "0"-"255"
+Default: "255"
+Description: sets the color to tint the sprite by manually. only valid if color="xml"
+
+Attribute: halftile
+Valid Values: "chop", "yes", "no", "both"
+Default Value: "chop"
+Description: tiles can be chopped in half to reveal what's behind them.
+	"chop" means that the built-in auto-chopping method is used.
+	"yes" means that this sprite is considered a half tile, and will only show up when the tile is chopped in half.
+	"no" means that this is a full tile, and will be hidden when the tile is chopped.
+	"both" means that the tile will always be shown, regardless of the tile state.
+
+Attribute: tileborder
+Valid Values: "none", "left", "right", "bottom"
+Description: similar to the need* attriibutes, but specifically for tile borders, for simplicity.
+
+Attribute: snow_min
+Valid Values: any positive integer
+Default Value: "0"
+Description: the tile will only be shown is the snow is this amount or more. typical snow values are 0-100
+
+Attriibute: snow_max
+Valid Values: any number
+Default Value: "-1"
+Description: this tiile will only show up if the snow amound is less than or equal to this number. -1 means no limit.
+
+Attribute: blood_min
+Valid Values: any positive integer
+Default Value: "0"
+Description: similar to snow_min
+
+Attriibute: snow_max
+Valid Values: any number
+Default Value: "-1"
+Description: similar to snow_max
+
+Attribute: offsetx
+Valid Values: any reasonable number
+Default Value: 0
+Description: the sprite, when drawn, is shifted to the right by this amount.
+
+Attribute: offsety
+Valid Values: any reasonable number
+Default Value: 0
+Description: the sprite, when drawn, is shifted down by this amount.
+
+Attribute: outline
+Valid Values: "0", "1"
+Default Value: "1"
+Description: if this is set to 0, then the tile will not get the anti-escher outlines.
+
+Additional sprites can be layered on top using the subsprite tag, like so:
+
+<floors>
+	<floor sheetindex="1">
+		blah blah
+		<subsprite sheetIndex="2" color="material"/>
+	</floor>
+</floors>
+
+you can add as many subsprites as you need.
