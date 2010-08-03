@@ -78,7 +78,7 @@ Description: same as for neednotopen, but replace open space with wall tiles.
 Attribute: variations
 Valid values: and positive number
 Default Value: "0"
-Description: if this number is more than 0, a random number between 0 and this number-1 is added to the sheetIndex. eg, if this attribute is 5 and sheetIndex is 21, then tiles will range from 21-25
+Description: This is used for giving random variation to sprites. If this number is more than 0, a random number between 0 and this number-1 is added to the sheetIndex. eg, if this attribute is 5 and sheetIndex is 21, then tiles will range from 21-25
 
 Attribute: color
 Valid Values: "none", "xml", "material", "layer", "vein", "building", "material_fore", "material_back", "layer_fore", "layer_back", "vein_fore", "vein_back", "bodypart", "profession", "blood"
@@ -165,3 +165,5 @@ Additional sprites can be layered on top using the subsprite tag, like so:
 you can add as many subsprites as you need.
 
 Remember that most of these can be applied to any and all sprites, so you can have dwarves leann against a wall if they are standing next to one, or have a willow tree that is leaning over the edge of a cliff, that gets snowed over in winter.
+
+however, some of them don't fit well in some situations, like making a rock floor colored by skin tone, or a dorf's clothing being colored according to the rock he's standing on, but the option is there.
