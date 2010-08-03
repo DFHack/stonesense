@@ -9,27 +9,27 @@ All sprites have the following format:
 
 where 'tag' is the identifier for the type of sprite in question, attribute is one of the many possible sprite attributes, and val is a value for that attribute. 
 
-this is a list of possible sprite attributes, and associated values.
+This is a list of possible sprite attributes, and associated values.
 
 Attribue: sheetIndex, sprite, index
 Valid Values: Any positive number
 Default Value: "-1"
-Description: This is teh single most important attribute of any sprite. It referrs to the the location of the sprite on the tileset, starting from 0 in the upper left, and going down a row every 20 sprites.
+Description: This is the single most important attribute of any sprite. It referrs to the the location of the sprite on the tileset, starting from 0 in the upper left, and going down a row every 20 sprites.
 
 Attribute: file
 Valid Values: any valid image file
 Default Value: "objects.png"
-Description: while a tileset can be specified outside of the sprite, it is sometimes usefull to specify it here. Path is relative.
+Description: describes which file (called "sprite sheet") the sprite can be found in. Sprite sheet can be defined on an XML-file level too, this way all sprites listen in the XML-file use the same file so it doesn't have to be set for every sprite (local definitions will override the global ones).
 
 Attribue: frames
 Valid Values: any combinatio of the numbers 0-5
 Default Value: "012345"
-Description: this is a list of frames that the tile can show up on, with a random offset per tile. so a value of "024" would mean that the tile would show up every other frame.
+Description: This is used for animating a sprite, it is a list of frames that the sprite can show up on, with a random offset per sprite. so a value of "024" would mean that the sprite would show up every other frame.
 
 Attribute: needopen
 Valid Values: any combination of the numbers 0-8
 Default Value: "12345678"
-Description: this is a list of adjascent tiles that would be empty for this tile to be shown. numbers refer to the following tiles:
+Description: this is a list of adjascent tiles that would be empty for this sprite to be shown. numbers refer to the following tiles:
               /\
              /  \
             /    \
@@ -48,7 +48,7 @@ Description: this is a list of adjascent tiles that would be empty for this tile
             \    /                     
              \  /                      
               \/                       
-In order for the sprite to be shown, at least one of the listed numbers must contain an empty space. However, this can be over-rided by the next two attributes, which can also allow the tile to be shown on their own conditions. Setting this value to "0" means that the tile will not over-ride the next two attributes.
+In order for the sprite to be shown, at least one of the listed numbers must contain an empty space. However, this can be over-rided by the next two attributes, which can also allow the sprite to be shown on their own conditions. Setting this value to "0" means that the sprite will not over-ride the next two attributes.
 
 Attribute: needfloor
 Valid Values: any combination of the numbers 0-8
@@ -63,7 +63,7 @@ Description: same as for needopen, but replace open space with wall tiles.
 Attribute: neednotopen
 Valid Values: any combination of the numbers 0-8
 Default Value: "0"
-Description: similar to needopen, but this attribute lists neighbors that must NOT contain an open space. if any of the listed neighbors are open, the tile will not show, regardless of other circumstances.
+Description: similar to needopen, but this attribute lists neighbors that must NOT contain an open space. if any of the listed neighbors are open, the sprite will not show, regardless of other circumstances.
 
 Attribute: neednotfloor
 Valid Values: any combination of the numbers 0-8
@@ -83,17 +83,17 @@ Description: if this number is more than 0, a random number between 0 and this n
 Attribute: color
 Valid Values: "none", "xml", "material", "layer", "vein", "building", "material_fore", "material_back", "layer_fore", "layer_back", "vein_fore", "vein_back", "bodypart", "profession", "blood"
 Default Value: "none"
-Description: Sets how this tile is colored. 
-	"none" means the tile is not colored
-	"xml" means the tile color is specified using the red, green, and blue tile attributes shown later.
-	"Material" means that the tile will be colored according to the material of the tile that shows up in DF. adding this to creatures results in chameleons.
-	"layer" means that the tile will be colored according to the main rock layer, which lies beneath all veins and constructions.
-	"vein" means that teh tile will be colored according to the mineral vein, which lies beneath constructions, but is above the layer.
-	"building" means that the tile will be colored according to the building that is built on it. it's probably a bad idea to use this one outside of building sprites.
+Description: Sets how this sprite is colored. 
+	"none" means the sprite is not colored
+	"xml" means the sprite color is specified using the red, green, and blue sprite attributes shown later.
+	"Material" means that the sprite will be colored according to the material of the sprite that shows up in DF. adding this to creatures results in chameleons.
+	"layer" means that the sprite will be colored according to the main rock layer, which lies beneath all veins and constructions.
+	"vein" means that teh sprite will be colored according to the mineral vein, which lies beneath constructions, but is above the layer.
+	"building" means that the sprite will be colored according to the building that is built on it. it's probably a bad idea to use this one outside of building sprites.
 	"material_fore", "material_back", "layer_fore", "layer_back", "vein_fore", and "vein_back" are currently waiting for DFhack to update it's features. they may or may not work.
-	"bodypart" meanst that this sprite is colored according to a creature's body part, specified later. adding this to a landscape tile will result in teh tile being colored only when a creature is on it.
+	"bodypart" meanst that this sprite is colored according to a creature's body part, specified later. adding this to a landscape sprite will result in the sprite being colored only when a creature is on it.
 	"profession" means that the sprite will be colored according to the creature's profesion.
-	"blood" means that the tile will be colored according to whatever blood is splattered onto it.
+	"blood" means that the sprite will be colored according to whatever blood is splattered onto it.
 	
 Attribute: bodypart
 Valid Values: any valid body part
@@ -110,9 +110,9 @@ Valid Values: "chop", "yes", "no", "both"
 Default Value: "chop"
 Description: tiles can be chopped in half to reveal what's behind them.
 	"chop" means that the built-in auto-chopping method is used.
-	"yes" means that this sprite is considered a half tile, and will only show up when the tile is chopped in half.
-	"no" means that this is a full tile, and will be hidden when the tile is chopped.
-	"both" means that the tile will always be shown, regardless of the tile state.
+	"yes" means that this sprite is considered a half sprite, and will only show up when the tile is chopped in half.
+	"no" means that this is a full sprite, and will be hidden when the tile is chopped.
+	"both" means that the sprite will always be shown, regardless of the tile state.
 
 Attribute: tileborder
 Valid Values: "none", "left", "right", "bottom"
@@ -121,7 +121,7 @@ Description: similar to the need* attriibutes, but specifically for tile borders
 Attribute: snow_min
 Valid Values: any positive integer
 Default Value: "0"
-Description: the tile will only be shown is the snow is this amount or more. typical snow values are 0-100
+Description: the sprite will only be shown is the snow is this amount or more. typical snow values are 0-100
 
 Attriibute: snow_max
 Valid Values: any number
@@ -163,3 +163,5 @@ Additional sprites can be layered on top using the subsprite tag, like so:
 </floors>
 
 you can add as many subsprites as you need.
+
+Remember that most of these can be applied to any and all sprites, so you can have dwarves leann against a wall if they are standing next to one, or have a willow tree that is leaning over the edge of a cliff, that gets snowed over in winter.
