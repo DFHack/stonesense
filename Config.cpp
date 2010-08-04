@@ -97,6 +97,10 @@ void parseConfigLine( string line ){
 		string result = parseStrFromLine( "DEBUGMODE", line );
 		config.debug_mode = (result == "YES");
 	}
+	if( line.find("[TRANSPARENT_SCREENSHOTS") != -1){
+		string result = parseStrFromLine( "TRANSPARENT_SCREENSHOTS", line );
+		config.transparentScreenshots = (result == "YES");
+	}
 	if( line.find("[LIFTSEGMENT") != -1){
 		int value = parseIntFromLine( "LIFTSEGMENT", line);
 		config.lift_segment_offscreen = value;

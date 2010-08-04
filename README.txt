@@ -3,7 +3,7 @@ Welcome to Stonesense Slate RC1 (2.0)
 Thank you for trying out our little visualizer,
 as always, we appreciate any feedback.
 
-Please note, that for the time being Stonesense Slate ONLY supports DF 31_1, 31_2 and 31_3.
+Please note, that for the time being Stonesense Slate ONLY supports DF 31_1, through 31_12.
 Make sure you have DF running, with your game loaded.
 
 IF Stonesense should at any time lock up, it might happen that DF freezes.
@@ -39,6 +39,7 @@ S: Toggle Single Layer View
 N: Toggle Creature Names
 F2: Screenshot mode/Hide Display Overlays
 F5: Save Screenshot
+CTRL + F5: Save Screenshot of entire fortress
 Numpad + and -: Increase/Decrease AutoReload Rate
 CTRL + navigation: Adjusts follow mode offset
 

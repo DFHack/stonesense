@@ -48,6 +48,9 @@ Shows building graphics for zones. (Toggle with 'i')
 Shows building graphics for stockpiles. (Toggle with 'u')
 [SHOW_STOCKPILES:NO]
 
+Sets weather screenshots should have transparent backgrounds
+[TRANSPARENT_SCREENSHOTS:NO]
+
 Fog color, and alpha at the bottom z-level.
 Setting the alpha to 0, or SHOW_FOG to NO disables fog, for a slight performance increase.
 Color and alpha ranges are 0 (min) to 255 (max)

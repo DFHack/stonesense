@@ -1,0 +1,629 @@
+<?xml version="1.0" ?>
+
+<creatures>
+
+ <creature gameID="WALRUS"  file="beefmo_large_ocean.png" >
+
+  <variant prof="Child" sheetIndex =0  frames = "0"/>
+  <variant prof="Child" sheetIndex =1  frames = "1"/>
+  <variant prof="Child" sheetIndex =2  frames = "2"/>
+  <variant prof="Child" sheetIndex =3  frames = "3"/>
+  <variant prof="Child" sheetIndex =4  frames = "4"/>
+  <variant prof="Child" sheetIndex =5  frames = "5"/>
+
+  <variant special="Normal" sex="F" sheetIndex =20  frames = "0"/>
+  <variant special="Normal" sex="F" sheetIndex =21  frames = "1"/>
+  <variant special="Normal" sex="F" sheetIndex =22  frames = "2"/>
+  <variant special="Normal" sex="F" sheetIndex =23  frames = "3"/>
+  <variant special="Normal" sex="F" sheetIndex =24  frames = "4"/>
+  <variant special="Normal" sex="F" sheetIndex =25  frames = "5"/>
+
+  <variant special="Normal" sex="M" sheetIndex =40  frames = "0"/>
+  <variant special="Normal" sex="M" sheetIndex =41  frames = "1"/>
+  <variant special="Normal" sex="M" sheetIndex =42  frames = "2"/>
+  <variant special="Normal" sex="M" sheetIndex =43  frames = "3"/>
+  <variant special="Normal" sex="M" sheetIndex =44  frames = "4"/>
+  <variant special="Normal" sex="M" sheetIndex =45  frames = "5"/>
+
+  <variant special="Skeleton" sheetIndex =60  frames = "0"/>
+  <variant special="Skeleton" sheetIndex =61  frames = "1"/>
+  <variant special="Skeleton" sheetIndex =62  frames = "2"/>
+  <variant special="Skeleton" sheetIndex =63  frames = "3"/>
+  <variant special="Skeleton" sheetIndex =64  frames = "4"/>
+  <variant special="Skeleton" sheetIndex =65  frames = "5"/>
+
+  <variant special="Zombie" sheetIndex =80  frames = "0"/>
+  <variant special="Zombie" sheetIndex =81  frames = "1"/>
+  <variant special="Zombie" sheetIndex =82  frames = "2"/>
+  <variant special="Zombie" sheetIndex =83  frames = "3"/>
+  <variant special="Zombie" sheetIndex =84  frames = "4"/>
+  <variant special="Zombie" sheetIndex =85  frames = "5"/>
+
+ </creature>
+
+ <creature gameID="WHALE"  file="beefmo_large_ocean.png" >
+
+  <variant prof="Child" sheetIndex =100  frames = "0"/>
+  <variant prof="Child" sheetIndex =101  frames = "1"/>
+  <variant prof="Child" sheetIndex =102  frames = "2"/>
+  <variant prof="Child" sheetIndex =103  frames = "3"/>
+  <variant prof="Child" sheetIndex =104  frames = "4"/>
+  <variant prof="Child" sheetIndex =105  frames = "5"/>
+
+  <variant special="Normal" sex="F" sheetIndex =120  frames = "0"/>
+  <variant special="Normal" sex="F" sheetIndex =121  frames = "1"/>
+  <variant special="Normal" sex="F" sheetIndex =122  frames = "2"/>
+  <variant special="Normal" sex="F" sheetIndex =123  frames = "3"/>
+  <variant special="Normal" sex="F" sheetIndex =124  frames = "4"/>
+  <variant special="Normal" sex="F" sheetIndex =125  frames = "5"/>
+
+  <variant special="Normal" sex="M" sheetIndex =120  frames = "0"/>
+  <variant special="Normal" sex="M" sheetIndex =121  frames = "1"/>
+  <variant special="Normal" sex="M" sheetIndex =122  frames = "2"/>
+  <variant special="Normal" sex="M" sheetIndex =123  frames = "3"/>
+  <variant special="Normal" sex="M" sheetIndex =124  frames = "4"/>
+  <variant special="Normal" sex="M" sheetIndex =125  frames = "5"/>
+
+  <variant special="Skeleton" sheetIndex =140  frames = "0"/>
+  <variant special="Skeleton" sheetIndex =141  frames = "1"/>
+  <variant special="Skeleton" sheetIndex =142  frames = "2"/>
+  <variant special="Skeleton" sheetIndex =143  frames = "3"/>
+  <variant special="Skeleton" sheetIndex =144  frames = "4"/>
+  <variant special="Skeleton" sheetIndex =145  frames = "5"/>
+
+  <variant special="Zombie" sheetIndex =160  frames = "0"/>
+  <variant special="Zombie" sheetIndex =161  frames = "1"/>
+  <variant special="Zombie" sheetIndex =162  frames = "2"/>
+  <variant special="Zombie" sheetIndex =163  frames = "3"/>
+  <variant special="Zombie" sheetIndex =164  frames = "4"/>
+  <variant special="Zombie" sheetIndex =165  frames = "5"/>
+
+ </creature>
+
+ <creature gameID="SHARK_GREAT_WHITE"  file="beefmo_large_ocean.png" >
+
+  <variant prof="Child" sheetIndex =260  frames = "0"/>
+  <variant prof="Child" sheetIndex =261  frames = "1"/>
+  <variant prof="Child" sheetIndex =262  frames = "2"/>
+  <variant prof="Child" sheetIndex =263  frames = "3"/>
+  <variant prof="Child" sheetIndex =264  frames = "4"/>
+  <variant prof="Child" sheetIndex =265  frames = "5"/>
+
+  <variant special="Normal" sex="F" sheetIndex =320  frames = "0"/>
+  <variant special="Normal" sex="F" sheetIndex =321  frames = "1"/>
+  <variant special="Normal" sex="F" sheetIndex =322  frames = "2"/>
+  <variant special="Normal" sex="F" sheetIndex =323  frames = "3"/>
+  <variant special="Normal" sex="F" sheetIndex =324  frames = "4"/>
+  <variant special="Normal" sex="F" sheetIndex =325  frames = "5"/>
+
+  <variant special="Normal" sex="M" sheetIndex =320  frames = "0"/>
+  <variant special="Normal" sex="M" sheetIndex =321  frames = "1"/>
+  <variant special="Normal" sex="M" sheetIndex =322  frames = "2"/>
+  <variant special="Normal" sex="M" sheetIndex =323  frames = "3"/>
+  <variant special="Normal" sex="M" sheetIndex =324  frames = "4"/>
+  <variant special="Normal" sex="M" sheetIndex =325  frames = "5"/>
+
+  <variant special="Skeleton" sheetIndex =340  frames = "0"/>
+  <variant special="Skeleton" sheetIndex =341  frames = "1"/>
+  <variant special="Skeleton" sheetIndex =342  frames = "2"/>
+  <variant special="Skeleton" sheetIndex =343  frames = "3"/>
+  <variant special="Skeleton" sheetIndex =344  frames = "4"/>
+  <variant special="Skeleton" sheetIndex =345  frames = "5"/>
+
+  <variant special="Zombie" sheetIndex =360  frames = "0"/>
+  <variant special="Zombie" sheetIndex =361  frames = "1"/>
+  <variant special="Zombie" sheetIndex =362  frames = "2"/>
+  <variant special="Zombie" sheetIndex =363  frames = "3"/>
+  <variant special="Zombie" sheetIndex =364  frames = "4"/>
+  <variant special="Zombie" sheetIndex =365  frames = "5"/>
+
+ </creature>
+
+ <creature gameID="SHARK_SPINY_DOGFISH"  file="beefmo_large_ocean.png" >
+
+  <variant prof="Child" sheetIndex =260  frames = "0"/>
+  <variant prof="Child" sheetIndex =261  frames = "1"/>
+  <variant prof="Child" sheetIndex =262  frames = "2"/>
+  <variant prof="Child" sheetIndex =263  frames = "3"/>
+  <variant prof="Child" sheetIndex =264  frames = "4"/>
+  <variant prof="Child" sheetIndex =265  frames = "5"/>
+
+  <variant special="Normal" sex="F" sheetIndex =440  frames = "0"/>
+  <variant special="Normal" sex="F" sheetIndex =441  frames = "1"/>
+  <variant special="Normal" sex="F" sheetIndex =442  frames = "2"/>
+  <variant special="Normal" sex="F" sheetIndex =443  frames = "3"/>
+  <variant special="Normal" sex="F" sheetIndex =444  frames = "4"/>
+  <variant special="Normal" sex="F" sheetIndex =445  frames = "5"/>
+
+  <variant special="Normal" sex="M" sheetIndex =440  frames = "0"/>
+  <variant special="Normal" sex="M" sheetIndex =441  frames = "1"/>
+  <variant special="Normal" sex="M" sheetIndex =442  frames = "2"/>
+  <variant special="Normal" sex="M" sheetIndex =443  frames = "3"/>
+  <variant special="Normal" sex="M" sheetIndex =444  frames = "4"/>
+  <variant special="Normal" sex="M" sheetIndex =445  frames = "5"/>
+
+  <variant special="Skeleton" sheetIndex =460  frames = "0"/>
+  <variant special="Skeleton" sheetIndex =461  frames = "1"/>
+  <variant special="Skeleton" sheetIndex =462  frames = "2"/>
+  <variant special="Skeleton" sheetIndex =463  frames = "3"/>
+  <variant special="Skeleton" sheetIndex =464  frames = "4"/>
+  <variant special="Skeleton" sheetIndex =465  frames = "5"/>
+
+  <variant special="Zombie" sheetIndex =480  frames = "0"/>
+  <variant special="Zombie" sheetIndex =481  frames = "1"/>
+  <variant special="Zombie" sheetIndex =482  frames = "2"/>
+  <variant special="Zombie" sheetIndex =483  frames = "3"/>
+  <variant special="Zombie" sheetIndex =484  frames = "4"/>
+  <variant special="Zombie" sheetIndex =485  frames = "5"/>
+
+ </creature>
+
+ <creature gameID="SHARK_WOBBEGONG_SPOTTED"  file="beefmo_large_ocean.png" >
+
+  <variant prof="Child" sheetIndex =280  frames = "0"/>
+  <variant prof="Child" sheetIndex =281  frames = "1"/>
+  <variant prof="Child" sheetIndex =282  frames = "2"/>
+  <variant prof="Child" sheetIndex =283  frames = "3"/>
+  <variant prof="Child" sheetIndex =284  frames = "4"/>
+  <variant prof="Child" sheetIndex =285  frames = "5"/>
+
+  <variant special="Normal" sex="F" sheetIndex =500  frames = "0"/>
+  <variant special="Normal" sex="F" sheetIndex =501  frames = "1"/>
+  <variant special="Normal" sex="F" sheetIndex =502  frames = "2"/>
+  <variant special="Normal" sex="F" sheetIndex =503  frames = "3"/>
+  <variant special="Normal" sex="F" sheetIndex =504  frames = "4"/>
+  <variant special="Normal" sex="F" sheetIndex =505  frames = "5"/>
+
+  <variant special="Normal" sex="M" sheetIndex =500  frames = "0"/>
+  <variant special="Normal" sex="M" sheetIndex =501  frames = "1"/>
+  <variant special="Normal" sex="M" sheetIndex =502  frames = "2"/>
+  <variant special="Normal" sex="M" sheetIndex =503  frames = "3"/>
+  <variant special="Normal" sex="M" sheetIndex =504  frames = "4"/>
+  <variant special="Normal" sex="M" sheetIndex =505  frames = "5"/>
+
+  <variant special="Skeleton" sheetIndex =340  frames = "0"/>
+  <variant special="Skeleton" sheetIndex =341  frames = "1"/>
+  <variant special="Skeleton" sheetIndex =342  frames = "2"/>
+  <variant special="Skeleton" sheetIndex =343  frames = "3"/>
+  <variant special="Skeleton" sheetIndex =344  frames = "4"/>
+  <variant special="Skeleton" sheetIndex =345  frames = "5"/>
+
+  <variant special="Zombie" sheetIndex =360  frames = "0"/>
+  <variant special="Zombie" sheetIndex =361  frames = "1"/>
+  <variant special="Zombie" sheetIndex =362  frames = "2"/>
+  <variant special="Zombie" sheetIndex =363  frames = "3"/>
+  <variant special="Zombie" sheetIndex =364  frames = "4"/>
+  <variant special="Zombie" sheetIndex =365  frames = "5"/>
+
+ </creature>
+
+ <creature gameID="SHARK_WHALE"  file="beefmo_large_ocean.png" >
+
+  <variant prof="Child" sheetIndex =260  frames = "0"/>
+  <variant prof="Child" sheetIndex =261  frames = "1"/>
+  <variant prof="Child" sheetIndex =262  frames = "2"/>
+  <variant prof="Child" sheetIndex =263  frames = "3"/>
+  <variant prof="Child" sheetIndex =264  frames = "4"/>
+  <variant prof="Child" sheetIndex =265  frames = "5"/>
+
+  <variant special="Normal" sex="F" sheetIndex =520  frames = "0"/>
+  <variant special="Normal" sex="F" sheetIndex =521  frames = "1"/>
+  <variant special="Normal" sex="F" sheetIndex =522  frames = "2"/>
+  <variant special="Normal" sex="F" sheetIndex =523  frames = "3"/>
+  <variant special="Normal" sex="F" sheetIndex =524  frames = "4"/>
+  <variant special="Normal" sex="F" sheetIndex =525  frames = "5"/>
+
+  <variant special="Normal" sex="M" sheetIndex =520  frames = "0"/>
+  <variant special="Normal" sex="M" sheetIndex =521  frames = "1"/>
+  <variant special="Normal" sex="M" sheetIndex =522  frames = "2"/>
+  <variant special="Normal" sex="M" sheetIndex =523  frames = "3"/>
+  <variant special="Normal" sex="M" sheetIndex =524  frames = "4"/>
+  <variant special="Normal" sex="M" sheetIndex =525  frames = "5"/>
+
+  <variant special="Skeleton" sheetIndex =540  frames = "0"/>
+  <variant special="Skeleton" sheetIndex =541  frames = "1"/>
+  <variant special="Skeleton" sheetIndex =542  frames = "2"/>
+  <variant special="Skeleton" sheetIndex =543  frames = "3"/>
+  <variant special="Skeleton" sheetIndex =544  frames = "4"/>
+  <variant special="Skeleton" sheetIndex =545  frames = "5"/>
+
+  <variant special="Zombie" sheetIndex =560  frames = "0"/>
+  <variant special="Zombie" sheetIndex =561  frames = "1"/>
+  <variant special="Zombie" sheetIndex =562  frames = "2"/>
+  <variant special="Zombie" sheetIndex =563  frames = "3"/>
+  <variant special="Zombie" sheetIndex =564  frames = "4"/>
+  <variant special="Zombie" sheetIndex =565  frames = "5"/>
+
+ </creature>
+ 
+ <creature gameID="SHARK_BASKING"  file="beefmo_large_ocean.png" >
+
+  <variant prof="Child" sheetIndex =260  frames = "0"/>
+  <variant prof="Child" sheetIndex =261  frames = "1"/>
+  <variant prof="Child" sheetIndex =262  frames = "2"/>
+  <variant prof="Child" sheetIndex =263  frames = "3"/>
+  <variant prof="Child" sheetIndex =264  frames = "4"/>
+  <variant prof="Child" sheetIndex =265  frames = "5"/>
+
+  <variant special="Normal" sex="F" sheetIndex =580  frames = "0"/>
+  <variant special="Normal" sex="F" sheetIndex =581  frames = "1"/>
+  <variant special="Normal" sex="F" sheetIndex =582  frames = "2"/>
+  <variant special="Normal" sex="F" sheetIndex =583  frames = "3"/>
+  <variant special="Normal" sex="F" sheetIndex =584  frames = "4"/>
+  <variant special="Normal" sex="F" sheetIndex =585  frames = "5"/>
+
+  <variant special="Normal" sex="M" sheetIndex =580  frames = "0"/>
+  <variant special="Normal" sex="M" sheetIndex =581  frames = "1"/>
+  <variant special="Normal" sex="M" sheetIndex =582  frames = "2"/>
+  <variant special="Normal" sex="M" sheetIndex =583  frames = "3"/>
+  <variant special="Normal" sex="M" sheetIndex =584  frames = "4"/>
+  <variant special="Normal" sex="M" sheetIndex =585  frames = "5"/>
+
+  <variant special="Skeleton" sheetIndex =340  frames = "0"/>
+  <variant special="Skeleton" sheetIndex =341  frames = "1"/>
+  <variant special="Skeleton" sheetIndex =342  frames = "2"/>
+  <variant special="Skeleton" sheetIndex =343  frames = "3"/>
+  <variant special="Skeleton" sheetIndex =344  frames = "4"/>
+  <variant special="Skeleton" sheetIndex =345  frames = "5"/>
+
+  <variant special="Zombie" sheetIndex =360  frames = "0"/>
+  <variant special="Zombie" sheetIndex =361  frames = "1"/>
+  <variant special="Zombie" sheetIndex =362  frames = "2"/>
+  <variant special="Zombie" sheetIndex =363  frames = "3"/>
+  <variant special="Zombie" sheetIndex =364  frames = "4"/>
+  <variant special="Zombie" sheetIndex =365  frames = "5"/>
+
+ </creature>
+ 
+ <creature gameID="SHARK_NURSE"  file="beefmo_large_ocean.png" >
+
+  <variant prof="Child" sheetIndex =260  frames = "0"/>
+  <variant prof="Child" sheetIndex =261  frames = "1"/>
+  <variant prof="Child" sheetIndex =262  frames = "2"/>
+  <variant prof="Child" sheetIndex =263  frames = "3"/>
+  <variant prof="Child" sheetIndex =264  frames = "4"/>
+  <variant prof="Child" sheetIndex =265  frames = "5"/>
+
+  <variant special="Normal" sex="F" sheetIndex =600  frames = "0"/>
+  <variant special="Normal" sex="F" sheetIndex =601  frames = "1"/>
+  <variant special="Normal" sex="F" sheetIndex =602  frames = "2"/>
+  <variant special="Normal" sex="F" sheetIndex =603  frames = "3"/>
+  <variant special="Normal" sex="F" sheetIndex =604  frames = "4"/>
+  <variant special="Normal" sex="F" sheetIndex =605  frames = "5"/>
+
+  <variant special="Normal" sex="M" sheetIndex =600  frames = "0"/>
+  <variant special="Normal" sex="M" sheetIndex =601  frames = "1"/>
+  <variant special="Normal" sex="M" sheetIndex =602  frames = "2"/>
+  <variant special="Normal" sex="M" sheetIndex =603  frames = "3"/>
+  <variant special="Normal" sex="M" sheetIndex =604  frames = "4"/>
+  <variant special="Normal" sex="M" sheetIndex =605  frames = "5"/>
+
+  <variant special="Skeleton" sheetIndex =340  frames = "0"/>
+  <variant special="Skeleton" sheetIndex =341  frames = "1"/>
+  <variant special="Skeleton" sheetIndex =342  frames = "2"/>
+  <variant special="Skeleton" sheetIndex =343  frames = "3"/>
+  <variant special="Skeleton" sheetIndex =344  frames = "4"/>
+  <variant special="Skeleton" sheetIndex =345  frames = "5"/>
+
+  <variant special="Zombie" sheetIndex =360  frames = "0"/>
+  <variant special="Zombie" sheetIndex =361  frames = "1"/>
+  <variant special="Zombie" sheetIndex =362  frames = "2"/>
+  <variant special="Zombie" sheetIndex =363  frames = "3"/>
+  <variant special="Zombie" sheetIndex =364  frames = "4"/>
+  <variant special="Zombie" sheetIndex =365  frames = "5"/>
+
+ </creature>
+ 
+ <creature gameID="SHARK_MAKO_SHORTFIN"  file="beefmo_large_ocean.png" >
+
+  <variant prof="Child" sheetIndex =260  frames = "0"/>
+  <variant prof="Child" sheetIndex =261  frames = "1"/>
+  <variant prof="Child" sheetIndex =262  frames = "2"/>
+  <variant prof="Child" sheetIndex =263  frames = "3"/>
+  <variant prof="Child" sheetIndex =264  frames = "4"/>
+  <variant prof="Child" sheetIndex =265  frames = "5"/>
+
+  <variant special="Normal" sex="F" sheetIndex =620  frames = "0"/>
+  <variant special="Normal" sex="F" sheetIndex =621  frames = "1"/>
+  <variant special="Normal" sex="F" sheetIndex =622  frames = "2"/>
+  <variant special="Normal" sex="F" sheetIndex =623  frames = "3"/>
+  <variant special="Normal" sex="F" sheetIndex =624  frames = "4"/>
+  <variant special="Normal" sex="F" sheetIndex =625  frames = "5"/>
+
+  <variant special="Normal" sex="M" sheetIndex =620  frames = "0"/>
+  <variant special="Normal" sex="M" sheetIndex =621  frames = "1"/>
+  <variant special="Normal" sex="M" sheetIndex =622  frames = "2"/>
+  <variant special="Normal" sex="M" sheetIndex =623  frames = "3"/>
+  <variant special="Normal" sex="M" sheetIndex =624  frames = "4"/>
+  <variant special="Normal" sex="M" sheetIndex =625  frames = "5"/>
+
+  <variant special="Skeleton" sheetIndex =340  frames = "0"/>
+  <variant special="Skeleton" sheetIndex =341  frames = "1"/>
+  <variant special="Skeleton" sheetIndex =342  frames = "2"/>
+  <variant special="Skeleton" sheetIndex =343  frames = "3"/>
+  <variant special="Skeleton" sheetIndex =344  frames = "4"/>
+  <variant special="Skeleton" sheetIndex =345  frames = "5"/>
+
+  <variant special="Zombie" sheetIndex =360  frames = "0"/>
+  <variant special="Zombie" sheetIndex =361  frames = "1"/>
+  <variant special="Zombie" sheetIndex =362  frames = "2"/>
+  <variant special="Zombie" sheetIndex =363  frames = "3"/>
+  <variant special="Zombie" sheetIndex =364  frames = "4"/>
+  <variant special="Zombie" sheetIndex =365  frames = "5"/>
+
+ </creature>
+ 
+ <creature gameID="SHARK_MAKO_LONGFIN"  file="beefmo_large_ocean.png" >
+
+  <variant prof="Child" sheetIndex =260  frames = "0"/>
+  <variant prof="Child" sheetIndex =261  frames = "1"/>
+  <variant prof="Child" sheetIndex =262  frames = "2"/>
+  <variant prof="Child" sheetIndex =263  frames = "3"/>
+  <variant prof="Child" sheetIndex =264  frames = "4"/>
+  <variant prof="Child" sheetIndex =265  frames = "5"/>
+
+  <variant special="Normal" sex="F" sheetIndex =640  frames = "0"/>
+  <variant special="Normal" sex="F" sheetIndex =641  frames = "1"/>
+  <variant special="Normal" sex="F" sheetIndex =642  frames = "2"/>
+  <variant special="Normal" sex="F" sheetIndex =643  frames = "3"/>
+  <variant special="Normal" sex="F" sheetIndex =644  frames = "4"/>
+  <variant special="Normal" sex="F" sheetIndex =645  frames = "5"/>
+
+  <variant special="Normal" sex="M" sheetIndex =640  frames = "0"/>
+  <variant special="Normal" sex="M" sheetIndex =641  frames = "1"/>
+  <variant special="Normal" sex="M" sheetIndex =642  frames = "2"/>
+  <variant special="Normal" sex="M" sheetIndex =643  frames = "3"/>
+  <variant special="Normal" sex="M" sheetIndex =644  frames = "4"/>
+  <variant special="Normal" sex="M" sheetIndex =645  frames = "5"/>
+
+  <variant special="Skeleton" sheetIndex =340  frames = "0"/>
+  <variant special="Skeleton" sheetIndex =341  frames = "1"/>
+  <variant special="Skeleton" sheetIndex =342  frames = "2"/>
+  <variant special="Skeleton" sheetIndex =343  frames = "3"/>
+  <variant special="Skeleton" sheetIndex =344  frames = "4"/>
+  <variant special="Skeleton" sheetIndex =345  frames = "5"/>
+
+  <variant special="Zombie" sheetIndex =360  frames = "0"/>
+  <variant special="Zombie" sheetIndex =361  frames = "1"/>
+  <variant special="Zombie" sheetIndex =362  frames = "2"/>
+  <variant special="Zombie" sheetIndex =363  frames = "3"/>
+  <variant special="Zombie" sheetIndex =364  frames = "4"/>
+  <variant special="Zombie" sheetIndex =365  frames = "5"/>
+
+ </creature>
+ 
+ <creature gameID="SHARK_TIGER"  file="beefmo_large_ocean.png" >
+
+  <variant prof="Child" sheetIndex =260  frames = "0"/>
+  <variant prof="Child" sheetIndex =261  frames = "1"/>
+  <variant prof="Child" sheetIndex =262  frames = "2"/>
+  <variant prof="Child" sheetIndex =263  frames = "3"/>
+  <variant prof="Child" sheetIndex =264  frames = "4"/>
+  <variant prof="Child" sheetIndex =265  frames = "5"/>
+
+  <variant special="Normal" sex="F" sheetIndex =660  frames = "0"/>
+  <variant special="Normal" sex="F" sheetIndex =661  frames = "1"/>
+  <variant special="Normal" sex="F" sheetIndex =662  frames = "2"/>
+  <variant special="Normal" sex="F" sheetIndex =663  frames = "3"/>
+  <variant special="Normal" sex="F" sheetIndex =664  frames = "4"/>
+  <variant special="Normal" sex="F" sheetIndex =665  frames = "5"/>
+
+  <variant special="Normal" sex="M" sheetIndex =660  frames = "0"/>
+  <variant special="Normal" sex="M" sheetIndex =661  frames = "1"/>
+  <variant special="Normal" sex="M" sheetIndex =662  frames = "2"/>
+  <variant special="Normal" sex="M" sheetIndex =663  frames = "3"/>
+  <variant special="Normal" sex="M" sheetIndex =664  frames = "4"/>
+  <variant special="Normal" sex="M" sheetIndex =665  frames = "5"/>
+
+  <variant special="Skeleton" sheetIndex =340  frames = "0"/>
+  <variant special="Skeleton" sheetIndex =341  frames = "1"/>
+  <variant special="Skeleton" sheetIndex =342  frames = "2"/>
+  <variant special="Skeleton" sheetIndex =343  frames = "3"/>
+  <variant special="Skeleton" sheetIndex =344  frames = "4"/>
+  <variant special="Skeleton" sheetIndex =345  frames = "5"/>
+
+  <variant special="Zombie" sheetIndex =360  frames = "0"/>
+  <variant special="Zombie" sheetIndex =361  frames = "1"/>
+  <variant special="Zombie" sheetIndex =362  frames = "2"/>
+  <variant special="Zombie" sheetIndex =363  frames = "3"/>
+  <variant special="Zombie" sheetIndex =364  frames = "4"/>
+  <variant special="Zombie" sheetIndex =365  frames = "5"/>
+
+ </creature>
+ 
+ <creature gameID="SHARK_BULL"  file="beefmo_large_ocean.png" >
+
+  <variant prof="Child" sheetIndex =260  frames = "0"/>
+  <variant prof="Child" sheetIndex =261  frames = "1"/>
+  <variant prof="Child" sheetIndex =262  frames = "2"/>
+  <variant prof="Child" sheetIndex =263  frames = "3"/>
+  <variant prof="Child" sheetIndex =264  frames = "4"/>
+  <variant prof="Child" sheetIndex =265  frames = "5"/>
+
+  <variant special="Normal" sex="F" sheetIndex =680  frames = "0"/>
+  <variant special="Normal" sex="F" sheetIndex =681  frames = "1"/>
+  <variant special="Normal" sex="F" sheetIndex =682  frames = "2"/>
+  <variant special="Normal" sex="F" sheetIndex =683  frames = "3"/>
+  <variant special="Normal" sex="F" sheetIndex =684  frames = "4"/>
+  <variant special="Normal" sex="F" sheetIndex =685  frames = "5"/>
+
+  <variant special="Normal" sex="M" sheetIndex =680  frames = "0"/>
+  <variant special="Normal" sex="M" sheetIndex =681  frames = "1"/>
+  <variant special="Normal" sex="M" sheetIndex =682  frames = "2"/>
+  <variant special="Normal" sex="M" sheetIndex =683  frames = "3"/>
+  <variant special="Normal" sex="M" sheetIndex =684  frames = "4"/>
+  <variant special="Normal" sex="M" sheetIndex =685  frames = "5"/>
+
+  <variant special="Skeleton" sheetIndex =340  frames = "0"/>
+  <variant special="Skeleton" sheetIndex =341  frames = "1"/>
+  <variant special="Skeleton" sheetIndex =342  frames = "2"/>
+  <variant special="Skeleton" sheetIndex =343  frames = "3"/>
+  <variant special="Skeleton" sheetIndex =344  frames = "4"/>
+  <variant special="Skeleton" sheetIndex =345  frames = "5"/>
+
+  <variant special="Zombie" sheetIndex =360  frames = "0"/>
+  <variant special="Zombie" sheetIndex =361  frames = "1"/>
+  <variant special="Zombie" sheetIndex =362  frames = "2"/>
+  <variant special="Zombie" sheetIndex =363  frames = "3"/>
+  <variant special="Zombie" sheetIndex =364  frames = "4"/>
+  <variant special="Zombie" sheetIndex =365  frames = "5"/>
+
+ </creature>
+ 
+ <creature gameID="SHARK_REEF_BLACKTIP"  file="beefmo_large_ocean.png" >
+
+  <variant prof="Child" sheetIndex =260  frames = "0"/>
+  <variant prof="Child" sheetIndex =261  frames = "1"/>
+  <variant prof="Child" sheetIndex =262  frames = "2"/>
+  <variant prof="Child" sheetIndex =263  frames = "3"/>
+  <variant prof="Child" sheetIndex =264  frames = "4"/>
+  <variant prof="Child" sheetIndex =265  frames = "5"/>
+
+  <variant special="Normal" sex="F" sheetIndex =700  frames = "0"/>
+  <variant special="Normal" sex="F" sheetIndex =701  frames = "1"/>
+  <variant special="Normal" sex="F" sheetIndex =702  frames = "2"/>
+  <variant special="Normal" sex="F" sheetIndex =703  frames = "3"/>
+  <variant special="Normal" sex="F" sheetIndex =704  frames = "4"/>
+  <variant special="Normal" sex="F" sheetIndex =705  frames = "5"/>
+
+  <variant special="Normal" sex="M" sheetIndex =700  frames = "0"/>
+  <variant special="Normal" sex="M" sheetIndex =701  frames = "1"/>
+  <variant special="Normal" sex="M" sheetIndex =702  frames = "2"/>
+  <variant special="Normal" sex="M" sheetIndex =703  frames = "3"/>
+  <variant special="Normal" sex="M" sheetIndex =704  frames = "4"/>
+  <variant special="Normal" sex="M" sheetIndex =705  frames = "5"/>
+
+  <variant special="Skeleton" sheetIndex =340  frames = "0"/>
+  <variant special="Skeleton" sheetIndex =341  frames = "1"/>
+  <variant special="Skeleton" sheetIndex =342  frames = "2"/>
+  <variant special="Skeleton" sheetIndex =343  frames = "3"/>
+  <variant special="Skeleton" sheetIndex =344  frames = "4"/>
+  <variant special="Skeleton" sheetIndex =345  frames = "5"/>
+
+  <variant special="Zombie" sheetIndex =360  frames = "0"/>
+  <variant special="Zombie" sheetIndex =361  frames = "1"/>
+  <variant special="Zombie" sheetIndex =362  frames = "2"/>
+  <variant special="Zombie" sheetIndex =363  frames = "3"/>
+  <variant special="Zombie" sheetIndex =364  frames = "4"/>
+  <variant special="Zombie" sheetIndex =365  frames = "5"/>
+
+ </creature>
+ 
+ <creature gameID="SHARK_REEF_WHITETIP"  file="beefmo_large_ocean.png" >
+
+  <variant prof="Child" sheetIndex =260  frames = "0"/>
+  <variant prof="Child" sheetIndex =261  frames = "1"/>
+  <variant prof="Child" sheetIndex =262  frames = "2"/>
+  <variant prof="Child" sheetIndex =263  frames = "3"/>
+  <variant prof="Child" sheetIndex =264  frames = "4"/>
+  <variant prof="Child" sheetIndex =265  frames = "5"/>
+
+  <variant special="Normal" sex="F" sheetIndex =720  frames = "0"/>
+  <variant special="Normal" sex="F" sheetIndex =721  frames = "1"/>
+  <variant special="Normal" sex="F" sheetIndex =722  frames = "2"/>
+  <variant special="Normal" sex="F" sheetIndex =723  frames = "3"/>
+  <variant special="Normal" sex="F" sheetIndex =724  frames = "4"/>
+  <variant special="Normal" sex="F" sheetIndex =725  frames = "5"/>
+
+  <variant special="Normal" sex="M" sheetIndex =720  frames = "0"/>
+  <variant special="Normal" sex="M" sheetIndex =721  frames = "1"/>
+  <variant special="Normal" sex="M" sheetIndex =722  frames = "2"/>
+  <variant special="Normal" sex="M" sheetIndex =723  frames = "3"/>
+  <variant special="Normal" sex="M" sheetIndex =724  frames = "4"/>
+  <variant special="Normal" sex="M" sheetIndex =725  frames = "5"/>
+
+  <variant special="Skeleton" sheetIndex =340  frames = "0"/>
+  <variant special="Skeleton" sheetIndex =341  frames = "1"/>
+  <variant special="Skeleton" sheetIndex =342  frames = "2"/>
+  <variant special="Skeleton" sheetIndex =343  frames = "3"/>
+  <variant special="Skeleton" sheetIndex =344  frames = "4"/>
+  <variant special="Skeleton" sheetIndex =345  frames = "5"/>
+
+  <variant special="Zombie" sheetIndex =360  frames = "0"/>
+  <variant special="Zombie" sheetIndex =361  frames = "1"/>
+  <variant special="Zombie" sheetIndex =362  frames = "2"/>
+  <variant special="Zombie" sheetIndex =363  frames = "3"/>
+  <variant special="Zombie" sheetIndex =364  frames = "4"/>
+  <variant special="Zombie" sheetIndex =365  frames = "5"/>
+
+ </creature>
+ 
+ <creature gameID="SHARK_BLUE"  file="beefmo_large_ocean.png" >
+
+  <variant prof="Child" sheetIndex =260  frames = "0"/>
+  <variant prof="Child" sheetIndex =261  frames = "1"/>
+  <variant prof="Child" sheetIndex =262  frames = "2"/>
+  <variant prof="Child" sheetIndex =263  frames = "3"/>
+  <variant prof="Child" sheetIndex =264  frames = "4"/>
+  <variant prof="Child" sheetIndex =265  frames = "5"/>
+
+  <variant special="Normal" sex="F" sheetIndex =740  frames = "0"/>
+  <variant special="Normal" sex="F" sheetIndex =741  frames = "1"/>
+  <variant special="Normal" sex="F" sheetIndex =742  frames = "2"/>
+  <variant special="Normal" sex="F" sheetIndex =743  frames = "3"/>
+  <variant special="Normal" sex="F" sheetIndex =744  frames = "4"/>
+  <variant special="Normal" sex="F" sheetIndex =745  frames = "5"/>
+
+  <variant special="Normal" sex="M" sheetIndex =740  frames = "0"/>
+  <variant special="Normal" sex="M" sheetIndex =741  frames = "1"/>
+  <variant special="Normal" sex="M" sheetIndex =742  frames = "2"/>
+  <variant special="Normal" sex="M" sheetIndex =743  frames = "3"/>
+  <variant special="Normal" sex="M" sheetIndex =744  frames = "4"/>
+  <variant special="Normal" sex="M" sheetIndex =745  frames = "5"/>
+
+  <variant special="Skeleton" sheetIndex =340  frames = "0"/>
+  <variant special="Skeleton" sheetIndex =341  frames = "1"/>
+  <variant special="Skeleton" sheetIndex =342  frames = "2"/>
+  <variant special="Skeleton" sheetIndex =343  frames = "3"/>
+  <variant special="Skeleton" sheetIndex =344  frames = "4"/>
+  <variant special="Skeleton" sheetIndex =345  frames = "5"/>
+
+  <variant special="Zombie" sheetIndex =360  frames = "0"/>
+  <variant special="Zombie" sheetIndex =361  frames = "1"/>
+  <variant special="Zombie" sheetIndex =362  frames = "2"/>
+  <variant special="Zombie" sheetIndex =363  frames = "3"/>
+  <variant special="Zombie" sheetIndex =364  frames = "4"/>
+  <variant special="Zombie" sheetIndex =365  frames = "5"/>
+
+ </creature>
+ 
+ <creature gameID="SHARK_HAMMERHEAD"  file="beefmo_large_ocean.png" >
+
+  <variant prof="Child" sheetIndex =300  frames = "0"/>
+  <variant prof="Child" sheetIndex =301  frames = "1"/>
+  <variant prof="Child" sheetIndex =302  frames = "2"/>
+  <variant prof="Child" sheetIndex =303  frames = "3"/>
+  <variant prof="Child" sheetIndex =304  frames = "4"/>
+  <variant prof="Child" sheetIndex =305  frames = "5"/>
+
+  <variant special="Normal" sex="F" sheetIndex =760  frames = "0"/>
+  <variant special="Normal" sex="F" sheetIndex =761  frames = "1"/>
+  <variant special="Normal" sex="F" sheetIndex =762  frames = "2"/>
+  <variant special="Normal" sex="F" sheetIndex =763  frames = "3"/>
+  <variant special="Normal" sex="F" sheetIndex =764  frames = "4"/>
+  <variant special="Normal" sex="F" sheetIndex =765  frames = "5"/>
+
+  <variant special="Normal" sex="M" sheetIndex =760  frames = "0"/>
+  <variant special="Normal" sex="M" sheetIndex =761  frames = "1"/>
+  <variant special="Normal" sex="M" sheetIndex =762  frames = "2"/>
+  <variant special="Normal" sex="M" sheetIndex =763  frames = "3"/>
+  <variant special="Normal" sex="M" sheetIndex =764  frames = "4"/>
+  <variant special="Normal" sex="M" sheetIndex =765  frames = "5"/>
+
+  <variant special="Skeleton" sheetIndex =780  frames = "0"/>
+  <variant special="Skeleton" sheetIndex =781  frames = "1"/>
+  <variant special="Skeleton" sheetIndex =782  frames = "2"/>
+  <variant special="Skeleton" sheetIndex =783  frames = "3"/>
+  <variant special="Skeleton" sheetIndex =784  frames = "4"/>
+  <variant special="Skeleton" sheetIndex =785  frames = "5"/>
+
+  <variant special="Zombie" sheetIndex =800  frames = "0"/>
+  <variant special="Zombie" sheetIndex =801  frames = "1"/>
+  <variant special="Zombie" sheetIndex =802  frames = "2"/>
+  <variant special="Zombie" sheetIndex =803  frames = "3"/>
+  <variant special="Zombie" sheetIndex =804  frames = "4"/>
+  <variant special="Zombie" sheetIndex =805  frames = "5"/>
+
+ </creature>
+ 
+</creatures>

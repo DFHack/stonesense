@@ -298,6 +298,7 @@ int main(void)
 	IMGIcon = load_bitmap_withWarning("stonesense.png");
 	al_set_display_icon(display, IMGIcon);
 
+	al_set_separate_blender(ALLEGRO_ADD, ALLEGRO_ALPHA, ALLEGRO_INVERSE_ALPHA, ALLEGRO_ADD, ALLEGRO_ONE, ALLEGRO_ONE);
 	loadGraphicsFromDisk();
 	al_clear_to_color(al_map_rgb(0,0,0));
 	al_draw_textf(font, al_map_rgb(255,255,255), al_get_bitmap_width(al_get_target_bitmap())/2, al_get_bitmap_height(al_get_target_bitmap())/2, ALLEGRO_ALIGN_CENTRE, "Starting up...");
@@ -324,12 +325,12 @@ int main(void)
 	//DisplayedSegmentX = 238; DisplayedSegmentY = 220;DisplayedSegmentZ = 23;
 
 	//ford. Main hall
-	DisplayedSegmentX = 172; DisplayedSegmentY = 195;DisplayedSegmentZ = 15;
+	//DisplayedSegmentX = 172; DisplayedSegmentY = 195;DisplayedSegmentZ = 15;
 
 	//ford. desert map
 	//sDisplayedSegmentX = 78; DisplayedSegmentY = 123;DisplayedSegmentZ = 15;
 
-	DisplayedSegmentX = 125; DisplayedSegmentY = 125;DisplayedSegmentZ = 18;
+	//DisplayedSegmentX = 125; DisplayedSegmentY = 125;DisplayedSegmentZ = 18;
 
 	//DisplayedSegmentX = 242; DisplayedSegmentY = 345;DisplayedSegmentZ = 15;
 
@@ -357,6 +358,7 @@ int main(void)
 			}
 			else if( timeToReloadSegment ){
 				reloadDisplayedSegment();
+				al_clear_to_color(al_map_rgb(config.backr,config.backg,config.backb));
 				paintboard();
 				timeToReloadSegment = false;
 				animationFrameShown = true;

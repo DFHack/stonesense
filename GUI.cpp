@@ -437,8 +437,8 @@ void drawDebugCursorAndInfo(){
 			"Snow: %d, Mud: %d, Blood: %d", b->snowlevel, b->mudlevel, b->bloodlevel);
 	}
 	//borders
-			draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0,
-				"Open: %d, floor: %d, Wall: %d", b->openborders, b->floorborders, b->wallborders);
+	draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0,
+		"Open: %d, floor: %d, Wall: %d", b->openborders, b->floorborders, b->wallborders);
 
 
 	////effects
@@ -600,6 +600,7 @@ void DoSpriteIndexOverlay()
 		}
 	}
 	//redraw screen again
+	al_clear_to_color(al_map_rgb(config.backr,config.backg,config.backb));
 	paintboard();
 }
 
@@ -617,7 +618,7 @@ void paintboard(){
 	//al_set_target_bitmap(buffer);
 	//al_set_separate_blender(ALLEGRO_ALPHA, ALLEGRO_INVERSE_ALPHA, ALLEGRO_ONE, ALLEGRO_ONE);
 	//al_set_blender(ALLEGRO_ALPHA, ALLEGRO_INVERSE_ALPHA, al_map_rgba(255, 255, 255, 255));
-	al_clear_to_color(al_map_rgb(config.backr,config.backg,config.backb));
+	//al_clear_to_color(al_map_rgb(config.backr,config.backg,config.backb));
 	//clear_to_color(buffer,makecol(12,7,49)); //this one is calm and nice
 
 	if( viewedSegment == NULL ){
@@ -900,6 +901,7 @@ int loadImgFile(ALLEGRO_PATH* filepath)
 }
 
 void saveScreenshot(){
+	al_clear_to_color(al_map_rgb(config.backr,config.backg,config.backb));
 	paintboard();
 	//get filename
 	char filename[20] ={0};
@@ -921,6 +923,8 @@ void saveScreenshot(){
 	//al_set_new_bitmap_format(ALLEGRO_PIXEL_FORMAT_ANY_NO_ALPHA);
 	ALLEGRO_BITMAP* temp = al_create_bitmap(al_get_bitmap_width(al_get_target_bitmap()), al_get_bitmap_height(al_get_target_bitmap()));
 	al_set_target_bitmap(temp);
+	if(!config.transparentScreenshots)
+		al_clear_to_color(al_map_rgb(config.backr,config.backg,config.backb));
 	paintboard();
 	al_save_bitmap(filename, temp);
 	al_set_target_bitmap(al_get_backbuffer(al_get_current_display()));
@@ -991,7 +995,8 @@ void saveMegashot(){
 	{
 		WriteErr("\nSaving large screenshot to %s\n", filename);
 		al_set_target_bitmap(bigFile);
-		al_clear_to_color(al_map_rgb(config.backr,config.backg,config.backb));
+		if(!config.transparentScreenshots)
+			al_clear_to_color(al_map_rgb(config.backr,config.backg,config.backb));
 		viewedSegment->drawAllBlocks();
 		al_save_bitmap(filename, bigFile);
 		al_set_target_bitmap(al_get_backbuffer(al_get_current_display()));
