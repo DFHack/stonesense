@@ -88,7 +88,7 @@ Description: Sets how this sprite is colored.
 	"xml" means the sprite color is specified using the red, green, and blue sprite attributes shown later.
 	"Material" means that the sprite will be colored according to the material of the sprite that shows up in DF. adding this to creatures results in chameleons.
 	"layer" means that the sprite will be colored according to the main rock layer, which lies beneath all veins and constructions.
-	"vein" means that teh sprite will be colored according to the mineral vein, which lies beneath constructions, but is above the layer.
+	"vein" means that the sprite will be colored according to the mineral vein, which lies beneath constructions, but is above the layer.
 	"building" means that the sprite will be colored according to the building that is built on it. it's probably a bad idea to use this one outside of building sprites.
 	"material_fore", "material_back", "layer_fore", "layer_back", "vein_fore", and "vein_back" are currently waiting for DFhack to update it's features. they may or may not work.
 	"bodypart" meanst that this sprite is colored according to a creature's body part, specified later. adding this to a landscape sprite will result in the sprite being colored only when a creature is on it.
@@ -98,7 +98,7 @@ Description: Sets how this sprite is colored.
 Attribute: bodypart
 Valid Values: any valid body part
 Default Value: none
-Description: this will chose which bodypart of teh creature to pull the color from. only valid if color="bodyart"
+Description: this will chose which bodypart of the creature to pull the color from. only valid if color="bodyart"
 
 Attribute: red, green, blue, alpha
 Valid Values: "0"-"255"
