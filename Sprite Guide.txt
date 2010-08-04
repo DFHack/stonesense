@@ -70,7 +70,7 @@ Valid Values: any combination of the numbers 0-8
 Default Value: "0"
 Description: same as for neednotopen, but replace open space with floor tiles.
 
-Attribute: neednotfloor
+Attribute: neednotwall 
 Valid Values: any combination of the numbers 0-8
 Default Value: "0"
 Description: same as for neednotopen, but replace open space with wall tiles.
