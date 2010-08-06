@@ -66,9 +66,11 @@ c_sprite::c_sprite(void)
 	openborders = ALL_BORDERS;
 	wallborders = ALL_BORDERS;
 	floorborders = ALL_BORDERS;
+	rampborders = ALL_BORDERS;
 	notopenborders = 0;
 	notwallborders = 0;
 	notfloorborders = 0;
+	notrampborders = 0;
 }
 
 c_sprite::~c_sprite(void)
@@ -119,11 +121,15 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
 
 	wallborders = getBorders(elemSprite->Attribute("needwall"));
 
+	rampborders = getBorders(elemSprite->Attribute("needramp"));
+
 	notopenborders = getUnBorders(elemSprite->Attribute("neednotopen"));
 
 	notfloorborders = getUnBorders(elemSprite->Attribute("neednotfloor"));
 
 	notwallborders = getUnBorders(elemSprite->Attribute("neednotwall"));
+
+	notrampborders = getUnBorders(elemSprite->Attribute("neednotramp"));
 
 	//check for randomised tiles
 	const char* spriteVariationsStr = elemSprite->Attribute("variations");
@@ -327,7 +333,7 @@ void c_sprite::draw_world_offset(int x, int y, int z, int tileoffset, bool chop)
 		if(variations)
 			randoffset = rando%variations;
 		Block* b = viewedSegment->getBlock(x, y, z);
-		if(((openborders & b->openborders) || (wallborders & b->wallborders) || (floorborders & b->floorborders)) && !((notopenborders & b->openborders) || (notwallborders & b->wallborders) || (notfloorborders & b->floorborders)))
+		if(((openborders & b->openborders) || (rampborders & b->rampborders) || (wallborders & b->wallborders) || (floorborders & b->floorborders)) && !((notopenborders & b->openborders) || (notrampborders & b->rampborders) || (notwallborders & b->wallborders) || (notfloorborders & b->floorborders)))
 		{
 			if((snowmin <= b->snowlevel && (snowmax == -1 || snowmax >= b->snowlevel)) && (bloodmin <= b->bloodlevel && (bloodmax == -1 || bloodmax >= b->bloodlevel)))
 			{

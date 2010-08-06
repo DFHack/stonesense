@@ -177,7 +177,7 @@ typedef struct {
 
 	bool show_creature_moods;
 
-	bool transparentScreenshots
+	bool transparentScreenshots;
 	//follows are anti-crash things
 	bool skipWorld;
 	bool skipCreatures;

@@ -32,6 +32,7 @@ public:
 	uint8_t wallborders;
 	uint8_t floorborders;
 	uint8_t openborders;
+	uint8_t rampborders;
 
 	bool creaturePresent;
 	bool buildingPresent;

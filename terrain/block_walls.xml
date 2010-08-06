@@ -1,0 +1,103 @@
+<?xml version="1.0"?>
+<blocks file="block_walls.png">>
+  <!-- construct -->
+  <block sheetIndex="0" color="material" halftile="no">
+    <!-- pillar -->
+    <terrain value="495" />
+    <!-- wall -->
+    <terrain value="496" />
+    <terrain value="497" />
+    <terrain value="498" />
+    <terrain value="499" />
+    <terrain value="500" />
+    <terrain value="501" />
+    <terrain value="502" />
+    <terrain value="503" />
+    <terrain value="504" />
+    <terrain value="505" />
+    <terrain value="506" />
+    <terrain value="507" />
+    <terrain value="508" />
+    <terrain value="509" />
+    <terrain value="510" />
+    <terrain value="511" />
+    <terrain value="512" />
+    <terrain value="513" />
+    <terrain value="514" />
+	<subsprite 
+		sheetIndex="1" 
+		color="material" 
+		halftile="no" 
+		tileborder="left"
+		/>
+	<subsprite 
+		sheetIndex="2" 
+		color="material" 
+		halftile="no" 
+		tileborder="right"
+		/>
+	<subsprite sheetIndex="4" color="material" halftile="yes"/>
+	<subsprite 
+		sheetIndex="5" 
+		color="material" 
+		halftile="yes" 
+		tileborder="left"
+		/>
+	<subsprite 
+		sheetIndex="6" 
+		color="material" 
+		halftile="yes" 
+		tileborder="right"
+		/>
+  </block>
+</blocks>
+<floors file="block_floors.png">>
+  <!-- construct -->
+  <floor sheetIndex="0" color="material" halftile="no">
+    <!-- floor -->
+    <terrain value="493" />
+    <!-- stair -->
+    <terrain value="517" />
+    <!-- ramp -->
+    <terrain value="518" />
+    <!-- fort -->
+    <terrain value="494" />
+    <!-- pillar -->
+    <terrain value="495" />
+    <!-- wall -->
+    <terrain value="496" />
+    <terrain value="497" />
+    <terrain value="498" />
+    <terrain value="499" />
+    <terrain value="500" />
+    <terrain value="501" />
+    <terrain value="502" />
+    <terrain value="503" />
+    <terrain value="504" />
+    <terrain value="505" />
+    <terrain value="506" />
+    <terrain value="507" />
+    <terrain value="508" />
+    <terrain value="509" />
+    <terrain value="510" />
+    <terrain value="511" />
+    <terrain value="512" />
+    <terrain value="513" />
+    <terrain value="514" />
+	<subsprite 
+		sheetIndex="1" 
+		color="material" 
+		tileborder="left"
+		/>
+	<subsprite 
+		sheetIndex="2" 
+		color="material" 
+		tileborder="right"
+		/>
+	<subsprite 
+		sheetIndex="3" 
+		color="material" 
+		tileborder="bottom"
+		/>
+  </floor>
+</floors>

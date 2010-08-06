@@ -900,14 +900,24 @@ WorldSegment* ReadMapSegment(DFHack::Context &DF, int x, int y, int z, int sizex
 		if(dir8) if(!dir8 || (!dir8->wallType && !dir8->ramp.type && !dir8->floorType)) b->openborders |= 128;
 
 		b->wallborders = 0;
-		if(dir1) if(dir1->wallType || dir1->ramp.type) b->wallborders |= 1;
-		if(dir2) if(dir2->wallType || dir2->ramp.type) b->wallborders |= 2;
-		if(dir3) if(dir3->wallType || dir3->ramp.type) b->wallborders |= 4;
-		if(dir4) if(dir4->wallType || dir4->ramp.type) b->wallborders |= 8;
-		if(dir5) if(dir5->wallType || dir5->ramp.type) b->wallborders |= 16;
-		if(dir6) if(dir6->wallType || dir6->ramp.type) b->wallborders |= 32;
-		if(dir7) if(dir7->wallType || dir7->ramp.type) b->wallborders |= 64;
-		if(dir8) if(dir8->wallType || dir8->ramp.type) b->wallborders |= 128;
+		if(dir1) if(dir1->wallType) b->wallborders |= 1;
+		if(dir2) if(dir2->wallType) b->wallborders |= 2;
+		if(dir3) if(dir3->wallType) b->wallborders |= 4;
+		if(dir4) if(dir4->wallType) b->wallborders |= 8;
+		if(dir5) if(dir5->wallType) b->wallborders |= 16;
+		if(dir6) if(dir6->wallType) b->wallborders |= 32;
+		if(dir7) if(dir7->wallType) b->wallborders |= 64;
+		if(dir8) if(dir8->wallType) b->wallborders |= 128;
+
+		b->rampborders = 0;
+		if(dir1) if(dir1->ramp.type) b->wallborders |= 1;
+		if(dir2) if(dir2->ramp.type) b->wallborders |= 2;
+		if(dir3) if(dir3->ramp.type) b->wallborders |= 4;
+		if(dir4) if(dir4->ramp.type) b->wallborders |= 8;
+		if(dir5) if(dir5->ramp.type) b->wallborders |= 16;
+		if(dir6) if(dir6->ramp.type) b->wallborders |= 32;
+		if(dir7) if(dir7->ramp.type) b->wallborders |= 64;
+		if(dir8) if(dir8->ramp.type) b->wallborders |= 128;
 
 		b->floorborders = 0;
 		if(dir1) if(dir1->floorType) b->floorborders |= 1;
