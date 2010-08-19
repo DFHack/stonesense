@@ -159,8 +159,11 @@ void Block::Draw(){
 			{
 				spriteobject->set_sheetindex(SPRITEOBJECT_FLOOR_NA);
 				spriteobject->set_fileindex(INVALID_INDEX);
+				spriteobject->set_offset(0, WALLHEIGHT);
+				spriteobject->draw_world(x, y, z);
 			}
-			spriteobject->draw_world(x, y, z);
+			else
+				spriteobject->draw_world(x, y, z);
 		}
 	}
 
@@ -184,14 +187,15 @@ void Block::Draw(){
 		{
 			spriteobject->set_sheetindex(0);
 			spriteobject->set_fileindex(INVALID_INDEX);
+			spriteobject->set_defaultsheet(IMGRampSheet);
 		}
 		if (spriteobject->get_sheetindex() != INVALID_INDEX)
 		{
 			spriteobject->set_size(SPRITEWIDTH, SPRITEHEIGHT);
-			spriteobject->set_offset(0, 0);
 			spriteobject->set_tile_layout(RAMPBOTTOMTILE);
 			spriteobject->draw_world(x, y, z, (chopThisBlock && this->z == ownerSegment->z + ownerSegment->sizez -2));
 		}
+		spriteobject->set_tile_layout(BLOCKTILE);
 	}
 
 	drawFloorBlood ( this, drawx, drawy );
@@ -287,6 +291,8 @@ void Block::Draw(){
 		{
 			spriteobject->set_sheetindex(SPRITEOBJECT_WALL_NA);
 			spriteobject->set_fileindex(INVALID_INDEX);
+				spriteobject->set_tile_layout(BLOCKTILE);
+				spriteobject->set_defaultsheet(IMGObjectSheet);
 		}
 		if (spriteobject->get_sheetindex() == INVALID_INDEX)
 		{
@@ -447,8 +453,11 @@ void Block::DrawRamptops(){
 			spriteobject->set_size(SPRITEWIDTH, TILEHEIGHT);
 			spriteobject->set_offset(0, -(FLOORHEIGHT));
 			spriteobject->set_tile_layout(RAMPTOPTILE);
+			spriteobject->set_defaultsheet(IMGRampSheet);
 			spriteobject->draw_world(x, y, z, (chopThisBlock && this->z == ownerSegment->z + ownerSegment->sizez -2));
+			spriteobject->set_offset(0, 0);
 		}
+		spriteobject->set_tile_layout(BLOCKTILE);
 	}
 }
 

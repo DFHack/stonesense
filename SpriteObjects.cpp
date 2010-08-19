@@ -42,6 +42,10 @@ uint8_t getUnBorders(const char* framestring)
 
 c_sprite::c_sprite(void)
 {
+	reset();
+}
+void c_sprite::reset(void)
+{
 	fileindex = -1;
 	sheetindex = 0;
 	spritewidth = SPRITEWIDTH;
@@ -62,6 +66,8 @@ c_sprite::c_sprite(void)
 	defaultsheet=IMGObjectSheet;
 	tilelayout=BLOCKTILE;
 	shadeBy=ShadeNone;
+	isoutline = OUTLINENONE;
+	halftile = HALFTILECHOP;
 
 	openborders = ALL_BORDERS;
 	wallborders = ALL_BORDERS;
@@ -71,6 +77,13 @@ c_sprite::c_sprite(void)
 	notwallborders = 0;
 	notfloorborders = 0;
 	notrampborders = 0;
+	randomanimation = 0;
+	{
+		for(int i = 0; i < subsprites.size(); i++)
+		{
+			subsprites[i].reset();
+		}
+	}
 }
 
 c_sprite::~c_sprite(void)
@@ -103,7 +116,12 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
 	{
 		sheetindex=atoi(indexStr);
 	}
-
+	const char* animoffStr;
+	animoffStr = elemSprite->Attribute("random_anim_offset");
+	if (animoffStr != NULL && indexStr[0] != 0)
+	{
+		randomanimation=atoi(animoffStr);
+	}
 	//load files, if any
 	const char* filename = elemSprite->Attribute("file");
 	if (filename != NULL && filename[0] != 0)
@@ -326,7 +344,7 @@ void c_sprite::draw_world(int x, int y, int z, bool chop)
 void c_sprite::draw_world_offset(int x, int y, int z, int tileoffset, bool chop)
 {
 	int rando = randomCube[x%RANDOM_CUBE][y%RANDOM_CUBE][z%RANDOM_CUBE];
-	int offsetAnimFrame = (currentAnimationFrame + rando) % MAX_ANIMFRAME;
+	int offsetAnimFrame = (randomanimation?rando:0 + currentAnimationFrame) % MAX_ANIMFRAME;
 	if (animframes & (1 << offsetAnimFrame))
 	{
 		int randoffset = 0;
@@ -406,6 +424,7 @@ void c_sprite::draw_world_offset(int x, int y, int z, int tileoffset, bool chop)
 						//drawy += (WALLHEIGHT);
 					}
 				}
+				//draw_textf_border(font, al_map_rgb(255,255,255), drawx, drawy, 0, "%d,%d", fileindex, sheetindex);
 			}
 		}
 	}

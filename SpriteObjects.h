@@ -40,6 +40,7 @@ private:
 	int bloodmax;
 
 	bool needoutline;
+	bool randomanimation;
 
 	char isoutline;
 

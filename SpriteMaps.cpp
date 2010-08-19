@@ -2,7 +2,7 @@
 #include "SpriteMaps.h"
 #include "GroundMaterialConfiguration.h"
 #include "ContentLoader.h"
-
+#include "GUI.h"
 
 c_sprite *  GetTerrainSpriteMap(int in, t_matglossPair material, vector<TerrainConfiguration*>& configTable, uint16_t form)
 {
@@ -17,6 +17,7 @@ c_sprite *  GetTerrainSpriteMap(int in, t_matglossPair material, vector<TerrainC
 		tempform = FORM_LOG;
 	// in case we need to return nothing
 	static c_sprite * defaultSprite = new c_sprite;
+	defaultSprite->reset();
 	defaultSprite->set_sheetindex(UNCONFIGURED_INDEX);
 	defaultSprite->set_fileindex(INVALID_INDEX);
 
