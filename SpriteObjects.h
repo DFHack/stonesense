@@ -80,4 +80,5 @@ public:
 	void set_defaultsheet(ALLEGRO_BITMAP * in){ defaultsheet = in; }
 	void reset();
 	void set_tile_layout(uint8_t layout);
+	bool animate;
 };

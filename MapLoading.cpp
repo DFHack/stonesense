@@ -12,6 +12,7 @@ static DFHack::Context* pDFApiHandle = 0;
 static DFHack::ContextManager* DFMgr = 0;
 const memory_info *dfMemoryInfo;
 bool memInfoHasBeenRead;
+bool connected = 0;
 
 inline bool IDisWall(int in){
 	//if not a custom type, do a lookup in dfHack's interface
@@ -1085,7 +1086,11 @@ void reloadDisplayedSegment(){
 		}
 	}
 	DFHack::Context& DF = *pDFApiHandle;
-	DF.Attach();
+	if( !connected)
+	{
+		DF.Attach();
+		connected = 1;
+	}
 	TMR1_START;
 
 	//dispose old segment

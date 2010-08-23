@@ -165,6 +165,7 @@ bool addSingleCreatureConfig( TiXmlElement* elemCreature, vector<vector<Creature
 			shadow = baseShadow;
 
 		sprite.set_by_xml(elemVariant, defaultFile);
+		sprite.animate = 0;
 		CreatureConfiguration cre( professionID, customStr , cresex, crespec, sprite, shadow);
 		//add a copy to known creatures
 		pushCreatureConfig(knownCreatures, gameID, cre);

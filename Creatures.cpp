@@ -447,6 +447,7 @@ CreatureConfiguration *GetCreatureConfig( t_creature* c ){
 
 		if (!(testConfig->sprite.get_animframes() & (1 << offsetAnimFrame)))
 			continue;
+
 		// dont try to match strings until other tests pass
 		if( testConfig->professionstr[0])
 		{ //cant be NULL, so check has length

@@ -78,6 +78,7 @@ void c_sprite::reset(void)
 	notfloorborders = 0;
 	notrampborders = 0;
 	randomanimation = 0;
+	animate = 1;
 	{
 		for(int i = 0; i < subsprites.size(); i++)
 		{
@@ -345,7 +346,7 @@ void c_sprite::draw_world_offset(int x, int y, int z, int tileoffset, bool chop)
 {
 	int rando = randomCube[x%RANDOM_CUBE][y%RANDOM_CUBE][z%RANDOM_CUBE];
 	int offsetAnimFrame = (randomanimation?rando:0 + currentAnimationFrame) % MAX_ANIMFRAME;
-	if (animframes & (1 << offsetAnimFrame))
+	if ((animframes & (1 << offsetAnimFrame)) || !animate)
 	{
 		int randoffset = 0;
 		if(variations)
