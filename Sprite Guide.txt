@@ -26,6 +26,10 @@ Valid Values: any combinatio of the numbers 0-5
 Default Value: "012345"
 Description: This is used for animating a sprite, it is a list of frames that the sprite can show up on, with a random offset per sprite. so a value of "024" would mean that the sprite would show up every other frame.
 
+Attribute: random_anim_offset
+Valid values: "0", "1"
+Default Value: "0"
+Description: some sprites are better if hte animations on different tiles are out of synch with each other, while others need to match. Setting this to "1" will add a random number of frames to each tile.
 Attribute: needopen
 Valid Values: any combination of the numbers 0-8
 Default Value: "12345678"

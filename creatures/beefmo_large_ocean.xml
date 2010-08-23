@@ -4,12 +4,12 @@
 
  <creature gameID="WALRUS"  file="beefmo_large_ocean.png" >
 
-  <variant prof="Child" sheetIndex =0  frames = "0"/>
-  <variant prof="Child" sheetIndex =1  frames = "1"/>
-  <variant prof="Child" sheetIndex =2  frames = "2"/>
-  <variant prof="Child" sheetIndex =3  frames = "3"/>
-  <variant prof="Child" sheetIndex =4  frames = "4"/>
-  <variant prof="Child" sheetIndex =5  frames = "5"/>
+  <variant prof="CHILD" sheetIndex =0  frames = "0"/>
+  <variant prof="CHILD" sheetIndex =1  frames = "1"/>
+  <variant prof="CHILD" sheetIndex =2  frames = "2"/>
+  <variant prof="CHILD" sheetIndex =3  frames = "3"/>
+  <variant prof="CHILD" sheetIndex =4  frames = "4"/>
+  <variant prof="CHILD" sheetIndex =5  frames = "5"/>
 
   <variant special="Normal" sex="F" sheetIndex =20  frames = "0"/>
   <variant special="Normal" sex="F" sheetIndex =21  frames = "1"/>
@@ -43,12 +43,12 @@
 
  <creature gameID="WHALE"  file="beefmo_large_ocean.png" >
 
-  <variant prof="Child" sheetIndex =100  frames = "0"/>
-  <variant prof="Child" sheetIndex =101  frames = "1"/>
-  <variant prof="Child" sheetIndex =102  frames = "2"/>
-  <variant prof="Child" sheetIndex =103  frames = "3"/>
-  <variant prof="Child" sheetIndex =104  frames = "4"/>
-  <variant prof="Child" sheetIndex =105  frames = "5"/>
+  <variant prof="CHILD" sheetIndex =100  frames = "0"/>
+  <variant prof="CHILD" sheetIndex =101  frames = "1"/>
+  <variant prof="CHILD" sheetIndex =102  frames = "2"/>
+  <variant prof="CHILD" sheetIndex =103  frames = "3"/>
+  <variant prof="CHILD" sheetIndex =104  frames = "4"/>
+  <variant prof="CHILD" sheetIndex =105  frames = "5"/>
 
   <variant special="Normal" sex="F" sheetIndex =120  frames = "0"/>
   <variant special="Normal" sex="F" sheetIndex =121  frames = "1"/>
@@ -82,12 +82,12 @@
 
  <creature gameID="SHARK_GREAT_WHITE"  file="beefmo_large_ocean.png" >
 
-  <variant prof="Child" sheetIndex =260  frames = "0"/>
-  <variant prof="Child" sheetIndex =261  frames = "1"/>
-  <variant prof="Child" sheetIndex =262  frames = "2"/>
-  <variant prof="Child" sheetIndex =263  frames = "3"/>
-  <variant prof="Child" sheetIndex =264  frames = "4"/>
-  <variant prof="Child" sheetIndex =265  frames = "5"/>
+  <variant prof="CHILD" sheetIndex =260  frames = "0"/>
+  <variant prof="CHILD" sheetIndex =261  frames = "1"/>
+  <variant prof="CHILD" sheetIndex =262  frames = "2"/>
+  <variant prof="CHILD" sheetIndex =263  frames = "3"/>
+  <variant prof="CHILD" sheetIndex =264  frames = "4"/>
+  <variant prof="CHILD" sheetIndex =265  frames = "5"/>
 
   <variant special="Normal" sex="F" sheetIndex =320  frames = "0"/>
   <variant special="Normal" sex="F" sheetIndex =321  frames = "1"/>
@@ -121,12 +121,12 @@
 
  <creature gameID="SHARK_SPINY_DOGFISH"  file="beefmo_large_ocean.png" >
 
-  <variant prof="Child" sheetIndex =260  frames = "0"/>
-  <variant prof="Child" sheetIndex =261  frames = "1"/>
-  <variant prof="Child" sheetIndex =262  frames = "2"/>
-  <variant prof="Child" sheetIndex =263  frames = "3"/>
-  <variant prof="Child" sheetIndex =264  frames = "4"/>
-  <variant prof="Child" sheetIndex =265  frames = "5"/>
+  <variant prof="CHILD" sheetIndex =260  frames = "0"/>
+  <variant prof="CHILD" sheetIndex =261  frames = "1"/>
+  <variant prof="CHILD" sheetIndex =262  frames = "2"/>
+  <variant prof="CHILD" sheetIndex =263  frames = "3"/>
+  <variant prof="CHILD" sheetIndex =264  frames = "4"/>
+  <variant prof="CHILD" sheetIndex =265  frames = "5"/>
 
   <variant special="Normal" sex="F" sheetIndex =440  frames = "0"/>
   <variant special="Normal" sex="F" sheetIndex =441  frames = "1"/>
@@ -160,12 +160,12 @@
 
  <creature gameID="SHARK_WOBBEGONG_SPOTTED"  file="beefmo_large_ocean.png" >
 
-  <variant prof="Child" sheetIndex =280  frames = "0"/>
-  <variant prof="Child" sheetIndex =281  frames = "1"/>
-  <variant prof="Child" sheetIndex =282  frames = "2"/>
-  <variant prof="Child" sheetIndex =283  frames = "3"/>
-  <variant prof="Child" sheetIndex =284  frames = "4"/>
-  <variant prof="Child" sheetIndex =285  frames = "5"/>
+  <variant prof="CHILD" sheetIndex =280  frames = "0"/>
+  <variant prof="CHILD" sheetIndex =281  frames = "1"/>
+  <variant prof="CHILD" sheetIndex =282  frames = "2"/>
+  <variant prof="CHILD" sheetIndex =283  frames = "3"/>
+  <variant prof="CHILD" sheetIndex =284  frames = "4"/>
+  <variant prof="CHILD" sheetIndex =285  frames = "5"/>
 
   <variant special="Normal" sex="F" sheetIndex =500  frames = "0"/>
   <variant special="Normal" sex="F" sheetIndex =501  frames = "1"/>
@@ -199,12 +199,12 @@
 
  <creature gameID="SHARK_WHALE"  file="beefmo_large_ocean.png" >
 
-  <variant prof="Child" sheetIndex =260  frames = "0"/>
-  <variant prof="Child" sheetIndex =261  frames = "1"/>
-  <variant prof="Child" sheetIndex =262  frames = "2"/>
-  <variant prof="Child" sheetIndex =263  frames = "3"/>
-  <variant prof="Child" sheetIndex =264  frames = "4"/>
-  <variant prof="Child" sheetIndex =265  frames = "5"/>
+  <variant prof="CHILD" sheetIndex =260  frames = "0"/>
+  <variant prof="CHILD" sheetIndex =261  frames = "1"/>
+  <variant prof="CHILD" sheetIndex =262  frames = "2"/>
+  <variant prof="CHILD" sheetIndex =263  frames = "3"/>
+  <variant prof="CHILD" sheetIndex =264  frames = "4"/>
+  <variant prof="CHILD" sheetIndex =265  frames = "5"/>
 
   <variant special="Normal" sex="F" sheetIndex =520  frames = "0"/>
   <variant special="Normal" sex="F" sheetIndex =521  frames = "1"/>
@@ -238,12 +238,12 @@
  
  <creature gameID="SHARK_BASKING"  file="beefmo_large_ocean.png" >
 
-  <variant prof="Child" sheetIndex =260  frames = "0"/>
-  <variant prof="Child" sheetIndex =261  frames = "1"/>
-  <variant prof="Child" sheetIndex =262  frames = "2"/>
-  <variant prof="Child" sheetIndex =263  frames = "3"/>
-  <variant prof="Child" sheetIndex =264  frames = "4"/>
-  <variant prof="Child" sheetIndex =265  frames = "5"/>
+  <variant prof="CHILD" sheetIndex =260  frames = "0"/>
+  <variant prof="CHILD" sheetIndex =261  frames = "1"/>
+  <variant prof="CHILD" sheetIndex =262  frames = "2"/>
+  <variant prof="CHILD" sheetIndex =263  frames = "3"/>
+  <variant prof="CHILD" sheetIndex =264  frames = "4"/>
+  <variant prof="CHILD" sheetIndex =265  frames = "5"/>
 
   <variant special="Normal" sex="F" sheetIndex =580  frames = "0"/>
   <variant special="Normal" sex="F" sheetIndex =581  frames = "1"/>
@@ -277,12 +277,12 @@
  
  <creature gameID="SHARK_NURSE"  file="beefmo_large_ocean.png" >
 
-  <variant prof="Child" sheetIndex =260  frames = "0"/>
-  <variant prof="Child" sheetIndex =261  frames = "1"/>
-  <variant prof="Child" sheetIndex =262  frames = "2"/>
-  <variant prof="Child" sheetIndex =263  frames = "3"/>
-  <variant prof="Child" sheetIndex =264  frames = "4"/>
-  <variant prof="Child" sheetIndex =265  frames = "5"/>
+  <variant prof="CHILD" sheetIndex =260  frames = "0"/>
+  <variant prof="CHILD" sheetIndex =261  frames = "1"/>
+  <variant prof="CHILD" sheetIndex =262  frames = "2"/>
+  <variant prof="CHILD" sheetIndex =263  frames = "3"/>
+  <variant prof="CHILD" sheetIndex =264  frames = "4"/>
+  <variant prof="CHILD" sheetIndex =265  frames = "5"/>
 
   <variant special="Normal" sex="F" sheetIndex =600  frames = "0"/>
   <variant special="Normal" sex="F" sheetIndex =601  frames = "1"/>
@@ -316,12 +316,12 @@
  
  <creature gameID="SHARK_MAKO_SHORTFIN"  file="beefmo_large_ocean.png" >
 
-  <variant prof="Child" sheetIndex =260  frames = "0"/>
-  <variant prof="Child" sheetIndex =261  frames = "1"/>
-  <variant prof="Child" sheetIndex =262  frames = "2"/>
-  <variant prof="Child" sheetIndex =263  frames = "3"/>
-  <variant prof="Child" sheetIndex =264  frames = "4"/>
-  <variant prof="Child" sheetIndex =265  frames = "5"/>
+  <variant prof="CHILD" sheetIndex =260  frames = "0"/>
+  <variant prof="CHILD" sheetIndex =261  frames = "1"/>
+  <variant prof="CHILD" sheetIndex =262  frames = "2"/>
+  <variant prof="CHILD" sheetIndex =263  frames = "3"/>
+  <variant prof="CHILD" sheetIndex =264  frames = "4"/>
+  <variant prof="CHILD" sheetIndex =265  frames = "5"/>
 
   <variant special="Normal" sex="F" sheetIndex =620  frames = "0"/>
   <variant special="Normal" sex="F" sheetIndex =621  frames = "1"/>
@@ -355,12 +355,12 @@
  
  <creature gameID="SHARK_MAKO_LONGFIN"  file="beefmo_large_ocean.png" >
 
-  <variant prof="Child" sheetIndex =260  frames = "0"/>
-  <variant prof="Child" sheetIndex =261  frames = "1"/>
-  <variant prof="Child" sheetIndex =262  frames = "2"/>
-  <variant prof="Child" sheetIndex =263  frames = "3"/>
-  <variant prof="Child" sheetIndex =264  frames = "4"/>
-  <variant prof="Child" sheetIndex =265  frames = "5"/>
+  <variant prof="CHILD" sheetIndex =260  frames = "0"/>
+  <variant prof="CHILD" sheetIndex =261  frames = "1"/>
+  <variant prof="CHILD" sheetIndex =262  frames = "2"/>
+  <variant prof="CHILD" sheetIndex =263  frames = "3"/>
+  <variant prof="CHILD" sheetIndex =264  frames = "4"/>
+  <variant prof="CHILD" sheetIndex =265  frames = "5"/>
 
   <variant special="Normal" sex="F" sheetIndex =640  frames = "0"/>
   <variant special="Normal" sex="F" sheetIndex =641  frames = "1"/>
@@ -394,12 +394,12 @@
  
  <creature gameID="SHARK_TIGER"  file="beefmo_large_ocean.png" >
 
-  <variant prof="Child" sheetIndex =260  frames = "0"/>
-  <variant prof="Child" sheetIndex =261  frames = "1"/>
-  <variant prof="Child" sheetIndex =262  frames = "2"/>
-  <variant prof="Child" sheetIndex =263  frames = "3"/>
-  <variant prof="Child" sheetIndex =264  frames = "4"/>
-  <variant prof="Child" sheetIndex =265  frames = "5"/>
+  <variant prof="CHILD" sheetIndex =260  frames = "0"/>
+  <variant prof="CHILD" sheetIndex =261  frames = "1"/>
+  <variant prof="CHILD" sheetIndex =262  frames = "2"/>
+  <variant prof="CHILD" sheetIndex =263  frames = "3"/>
+  <variant prof="CHILD" sheetIndex =264  frames = "4"/>
+  <variant prof="CHILD" sheetIndex =265  frames = "5"/>
 
   <variant special="Normal" sex="F" sheetIndex =660  frames = "0"/>
   <variant special="Normal" sex="F" sheetIndex =661  frames = "1"/>
@@ -433,12 +433,12 @@
  
  <creature gameID="SHARK_BULL"  file="beefmo_large_ocean.png" >
 
-  <variant prof="Child" sheetIndex =260  frames = "0"/>
-  <variant prof="Child" sheetIndex =261  frames = "1"/>
-  <variant prof="Child" sheetIndex =262  frames = "2"/>
-  <variant prof="Child" sheetIndex =263  frames = "3"/>
-  <variant prof="Child" sheetIndex =264  frames = "4"/>
-  <variant prof="Child" sheetIndex =265  frames = "5"/>
+  <variant prof="CHILD" sheetIndex =260  frames = "0"/>
+  <variant prof="CHILD" sheetIndex =261  frames = "1"/>
+  <variant prof="CHILD" sheetIndex =262  frames = "2"/>
+  <variant prof="CHILD" sheetIndex =263  frames = "3"/>
+  <variant prof="CHILD" sheetIndex =264  frames = "4"/>
+  <variant prof="CHILD" sheetIndex =265  frames = "5"/>
 
   <variant special="Normal" sex="F" sheetIndex =680  frames = "0"/>
   <variant special="Normal" sex="F" sheetIndex =681  frames = "1"/>
@@ -472,12 +472,12 @@
  
  <creature gameID="SHARK_REEF_BLACKTIP"  file="beefmo_large_ocean.png" >
 
-  <variant prof="Child" sheetIndex =260  frames = "0"/>
-  <variant prof="Child" sheetIndex =261  frames = "1"/>
-  <variant prof="Child" sheetIndex =262  frames = "2"/>
-  <variant prof="Child" sheetIndex =263  frames = "3"/>
-  <variant prof="Child" sheetIndex =264  frames = "4"/>
-  <variant prof="Child" sheetIndex =265  frames = "5"/>
+  <variant prof="CHILD" sheetIndex =260  frames = "0"/>
+  <variant prof="CHILD" sheetIndex =261  frames = "1"/>
+  <variant prof="CHILD" sheetIndex =262  frames = "2"/>
+  <variant prof="CHILD" sheetIndex =263  frames = "3"/>
+  <variant prof="CHILD" sheetIndex =264  frames = "4"/>
+  <variant prof="CHILD" sheetIndex =265  frames = "5"/>
 
   <variant special="Normal" sex="F" sheetIndex =700  frames = "0"/>
   <variant special="Normal" sex="F" sheetIndex =701  frames = "1"/>
@@ -511,12 +511,12 @@
  
  <creature gameID="SHARK_REEF_WHITETIP"  file="beefmo_large_ocean.png" >
 
-  <variant prof="Child" sheetIndex =260  frames = "0"/>
-  <variant prof="Child" sheetIndex =261  frames = "1"/>
-  <variant prof="Child" sheetIndex =262  frames = "2"/>
-  <variant prof="Child" sheetIndex =263  frames = "3"/>
-  <variant prof="Child" sheetIndex =264  frames = "4"/>
-  <variant prof="Child" sheetIndex =265  frames = "5"/>
+  <variant prof="CHILD" sheetIndex =260  frames = "0"/>
+  <variant prof="CHILD" sheetIndex =261  frames = "1"/>
+  <variant prof="CHILD" sheetIndex =262  frames = "2"/>
+  <variant prof="CHILD" sheetIndex =263  frames = "3"/>
+  <variant prof="CHILD" sheetIndex =264  frames = "4"/>
+  <variant prof="CHILD" sheetIndex =265  frames = "5"/>
 
   <variant special="Normal" sex="F" sheetIndex =720  frames = "0"/>
   <variant special="Normal" sex="F" sheetIndex =721  frames = "1"/>
@@ -550,12 +550,12 @@
  
  <creature gameID="SHARK_BLUE"  file="beefmo_large_ocean.png" >
 
-  <variant prof="Child" sheetIndex =260  frames = "0"/>
-  <variant prof="Child" sheetIndex =261  frames = "1"/>
-  <variant prof="Child" sheetIndex =262  frames = "2"/>
-  <variant prof="Child" sheetIndex =263  frames = "3"/>
-  <variant prof="Child" sheetIndex =264  frames = "4"/>
-  <variant prof="Child" sheetIndex =265  frames = "5"/>
+  <variant prof="CHILD" sheetIndex =260  frames = "0"/>
+  <variant prof="CHILD" sheetIndex =261  frames = "1"/>
+  <variant prof="CHILD" sheetIndex =262  frames = "2"/>
+  <variant prof="CHILD" sheetIndex =263  frames = "3"/>
+  <variant prof="CHILD" sheetIndex =264  frames = "4"/>
+  <variant prof="CHILD" sheetIndex =265  frames = "5"/>
 
   <variant special="Normal" sex="F" sheetIndex =740  frames = "0"/>
   <variant special="Normal" sex="F" sheetIndex =741  frames = "1"/>
@@ -589,12 +589,12 @@
  
  <creature gameID="SHARK_HAMMERHEAD"  file="beefmo_large_ocean.png" >
 
-  <variant prof="Child" sheetIndex =300  frames = "0"/>
-  <variant prof="Child" sheetIndex =301  frames = "1"/>
-  <variant prof="Child" sheetIndex =302  frames = "2"/>
-  <variant prof="Child" sheetIndex =303  frames = "3"/>
-  <variant prof="Child" sheetIndex =304  frames = "4"/>
-  <variant prof="Child" sheetIndex =305  frames = "5"/>
+  <variant prof="CHILD" sheetIndex =300  frames = "0"/>
+  <variant prof="CHILD" sheetIndex =301  frames = "1"/>
+  <variant prof="CHILD" sheetIndex =302  frames = "2"/>
+  <variant prof="CHILD" sheetIndex =303  frames = "3"/>
+  <variant prof="CHILD" sheetIndex =304  frames = "4"/>
+  <variant prof="CHILD" sheetIndex =305  frames = "5"/>
 
   <variant special="Normal" sex="F" sheetIndex =760  frames = "0"/>
   <variant special="Normal" sex="F" sheetIndex =761  frames = "1"/>

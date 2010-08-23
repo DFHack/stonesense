@@ -1,0 +1,130 @@
+<?xml version="1.0" ?>
+
+<creatures>
+<creature gameID="GOBLIN" sheetIndex = 0 file="goblins.png" >
+
+	<!-- Mining -->
+	<variant prof="MINER" sheetIndex = 80/>
+
+	<!-- Engineering -->
+	<variant prof="ENGINEER" sheetIndex = 81/>
+	<variant prof="MECHANIC" sheetIndex = 82/>
+	<variant prof="PUMP_OPERATOR" sheetIndex = 83/>
+	<variant prof="SIEGE_OPERATOR" sheetIndex = 84/>
+	<variant prof="SIEGE_ENGINEER" sheetIndex = 85/>
+
+	<!-- Woodworking -->
+	<variant prof="WOODWORKER" sheetIndex = 86/>
+	<variant prof="CARPENTER" sheetIndex = 87/>
+	<variant prof="BOWYER" sheetIndex = 88/>
+	<variant prof="WOODCUTTER" sheetIndex = 89/>
+
+	<!-- Jeweling -->
+	<variant prof="JEWELER" sheetIndex = 90/>
+	<variant prof="GEM_CUTTER" sheetIndex = 91/>
+	<variant prof="GEM_SETTER" sheetIndex = 92/>	
+
+	<!-- Fishing -->
+	<variant prof="FISHERY_WORKER" sheetIndex = 100/>
+	<variant prof="FISHERMAN" sheetIndex = 101/>
+	<variant prof="FISH_DISSECTOR" sheetIndex = 102/>
+	<variant prof="FISH_CLEANER" sheetIndex = 103/>	
+	
+	<!-- Masonry -->	
+	<variant prof="STONEWORKER" sheetIndex = 104/>	
+	<variant prof="ENGRAVER" sheetIndex = 105/>	
+	<variant prof="MASON" sheetIndex = 106/>	
+	<variant prof="ARCHITECT" sheetIndex = 107/>
+	
+	<!-- Farming & Food processing -->	
+	<variant prof="FARMER" sheetIndex = 108/>
+	<variant prof="MILKER" sheetIndex = 109/>
+	<variant prof="PLANTER" sheetIndex = 111/>
+	<variant prof="HERBALIST" sheetIndex = 112/>
+	<variant prof="CHEESE_MAKER" sheetIndex = 113/>
+	<variant prof="COOK" sheetIndex = 114/>
+	<variant prof="MILLER" sheetIndex = 115/>
+	<variant prof="BUTCHER" sheetIndex = 116/>
+	<variant prof="BREWER" sheetIndex = 117/>	
+
+	<!-- Animal handling -->
+	<variant prof="RANGER" sheetIndex = 120/>	
+	<variant prof="ANIMAL_CARETAKER" sheetIndex = 121/>	
+	<variant prof="ANIMAL_TRAINER" sheetIndex = 122/>	
+	<variant prof="HUNTER" sheetIndex = 123/>	
+	<variant prof="TRAPPER" sheetIndex = 124/>	
+	<variant prof="ANIMAL_DISSECTOR" sheetIndex = 125/>
+	
+	<!-- Animal processing -->	
+	<variant prof="TANNER" sheetIndex = 126/>	
+	<variant prof="DYER" sheetIndex = 127/>	
+	<variant prof="SOAP_MAKER" sheetIndex = 128/>	
+	<variant prof="POTASH_MAKER" sheetIndex = 129/>	
+	<variant prof="LYE_MAKER" sheetIndex = 130/>	
+	<variant prof="WOOD_BURNER" sheetIndex = 131/>	
+	
+	<!-- Smithing -->	
+	<variant prof="METALSMITH" sheetIndex = 132/>	
+	<variant prof="FURNACE_OPERATOR" sheetIndex = 133/>	
+	<variant prof="WEAPONSMITH" sheetIndex = 134/>	
+	<variant prof="ARMORER" sheetIndex = 135/>	
+	<variant prof="BLACKSMITH" sheetIndex = 136/>	
+	<variant prof="METALCRAFTER" sheetIndex = 137/>	
+
+	<!-- Crafting -->
+	<variant prof="CRAFTSMAN" sheetIndex = 140/>	
+	<variant prof="WOODCRAFTER" sheetIndex = 141/>	
+	<variant prof="STONECRAFTER" sheetIndex = 142/>	
+	<variant prof="LEATHERWORKER" sheetIndex = 143/>	
+	<variant prof="BONE_CARVER" sheetIndex = 144/>	
+	<variant prof="WEAVER" sheetIndex = 145/>	
+	<variant prof="CLOTHIER" sheetIndex = 146/>	
+	<variant prof="GLASSMAKER" sheetIndex = 147/>	
+	<variant prof="STRAND_EXTRACTOR" sheetIndex = 148/>		
+
+	<!-- Basic military -->
+	<variant prof="WRESTLER" sheetIndex = 1/>
+	<variant prof="SPEARMAN" sheetIndex = 2/>
+	<variant prof="SWORDSMAN" sheetIndex = 3/>	
+	<variant prof="AXEMAN" sheetIndex = 4/>
+	<variant prof="HAMMERMAN" sheetIndex = 5/>
+	<variant prof="CROSSBOWMAN" sheetIndex = 6/>
+	<variant prof="MACEMAN" sheetIndex = 7/>
+	<variant prof="LASHER" sheetIndex = 8/>
+	<variant prof="BLOWGUNMAN" sheetIndex = 9/>
+	<variant prof="PIKEMAN" sheetIndex = 10/>
+	<variant prof="BOWMAN" sheetIndex = 11/>
+	
+	<!-- Elite military -->	
+	<variant prof="MASTER_WRESTLER" sheetIndex = 21/>
+	<variant prof="MASTER_SPEARMAN" sheetIndex = 22/>
+	<variant prof="MASTER_SWORDSMAN" sheetIndex = 23/>
+	<variant prof="MASTER_AXEMAN" sheetIndex = 24/>
+	<variant prof="MASTER_HAMMERMAN" sheetIndex = 25/>
+	<variant prof="MASTER_CROSSBOWMAN" sheetIndex = 26/>
+	<variant prof="MASTER_MACEMAN" sheetIndex = 27/>
+	<variant prof="MASTER_BLOWGUNMAN" sheetIndex = 28/>
+	<variant prof="MASTER_BLOWGUNMAN" sheetIndex = 29/>	
+	<variant prof="MASTER_PIKEMAN" sheetIndex = 30/>
+	<variant prof="MASTER_BOWMAN" sheetIndex = 31/>
+
+	<!-- Leaders -->	
+	<variant prof="ALCHEMIST" sheetIndex = 56/>
+	<variant prof="DOCTOR" sheetIndex = 58/>
+	<variant prof="SURGEON" sheetIndex = 59/>
+	<variant prof="CLERK" sheetIndex = 54/>
+	<variant prof="MERCHANT" sheetIndex = 58/>
+	
+
+	<!-- Managers -->	
+	<variant prof="ADMINISTRATOR" sheetIndex = 96/>
+
+	<!-- Various -->	
+	<variant prof="BABY" sheetIndex = 13/>		
+	<variant prof="CHILD" sheetIndex = 14/>
+	<variant prof="DRUNK" sheetIndex = 17/>
+	<variant prof="MASTER_THIEF" sheetIndex = 18/>
+	<variant prof="THIEF" sheetIndex = 19/>
+	
+</creature>
+</creatures>
