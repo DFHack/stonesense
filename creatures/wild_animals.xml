@@ -1,0 +1,60 @@
+	<?xml version="1.0" ?>
+<creatures file="wild_animals.png">
+ <creature gameID="ELEPHANT" sheetIndex = 0  >
+ </creature>
+ <creature gameID="LION" sheetIndex = 1  >
+ <variant sex="F" sheetIndex="21" />
+ </creature>
+ <creature gameID="TIGER" sheetIndex = 2  >
+ </creature>
+ <creature gameID="JAGUAR" sheetIndex = 3  >
+ </creature>
+ <creature gameID="LEOPARD" sheetIndex = 4  >
+ </creature>
+ <creature gameID="CHEETAH" sheetIndex = 5  >
+ </creature>
+ <creature gameID="LION_GIANT" sheetIndex = 1  >
+ <variant sex="F" sheetIndex="21" />
+ </creature>
+ <creature gameID="TIGER_GIANT" sheetIndex = 2  >
+ </creature>
+ <creature gameID="JAGUAR_GIANT" sheetIndex = 3  >
+ </creature>
+ <creature gameID="LEOPARD_GIANT" sheetIndex = 4  >
+ </creature>
+ <creature gameID="CHEETAH_GIANT" sheetIndex = 5  >
+ </creature>
+ <creature gameID="COUGAR" sheetIndex = 6  >
+ </creature>
+ <creature gameID="TIGERMAN" sheetIndex = 7  >
+ <variant prof="CHILD" sheetIndex="26" />
+ <variant sex="F" sheetIndex="27" />
+ </creature>
+ <creature gameID="ELK" sheetIndex = 40  >
+  <variant sex="F" sheetIndex="60" />
+ </creature>
+ <creature gameID="DEER" sheetIndex = 41  >
+ <variant sex="F" sheetIndex="61" />
+ </creature>
+ <creature gameID="GAZELLE" sheetIndex = 42  >
+ <variant sex="F" sheetIndex="62" />
+ </creature>
+ <creature gameID="BEAR_POLAR" sheetIndex = 43  >
+ </creature>
+ <creature gameID="BEAR_GRIZZLY" sheetIndex = 44  >
+ </creature>
+ <creature gameID="BEAR_BLACK" sheetIndex = 45  >
+ </creature>
+ <creature gameID="WOLF" sheetIndex = 46  >
+ </creature>
+ <creature gameID="WOLF_ICE" sheetIndex = 47  >
+ </creature>
+ <creature gameID="MARMOT_HOARY" sheetIndex = 80  >
+ </creature>
+ <creature gameID="GOAT_MOUNTAIN" sheetIndex = 81  >
+ </creature>
+ <creature gameID="WARTHOG" sheetIndex = 82  >
+ </creature>
+ <creature gameID="RACCOON" sheetIndex = 83  >
+ </creature>
+</creatures>

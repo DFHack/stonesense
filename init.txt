@@ -18,7 +18,7 @@ Each entry expects the number of tiles to load.
 [SEGMENTSIZE_Z:5]
 
 Change this to off to skip the intro.
-[INTRO:OFF]
+[INTRO:ON]
 
 Changes the interface font size.
 [FONTSIZE:10]

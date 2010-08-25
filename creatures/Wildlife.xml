@@ -42,9 +42,6 @@
   bodypart="hair" />
   <creature gameID="MUSKOX" sheetIndex="25" />
   <creature gameID="HORSE" sheetIndex="26" />
-  <creature gameID="DEER" sheetIndex="27" />
-  <creature gameID="BEAR_BLACK" sheetIndex="28" />
-  <creature gameID="BEAR_GRIZZLY" sheetIndex="28" />
   <creature gameID="FISH_CARP" sheetIndex="29" />
   <creature gameID="OLM_GIANT" sheetIndex="30" />
   <creature gameID="RATMAN" sheetIndex="31" />

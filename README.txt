@@ -1,4 +1,4 @@
-Welcome to Stonesense Slate RC1 (2.0)
+Welcome to Stonesense Slate(2.1)
 
 Thank you for trying out our little visualizer,
 as always, we appreciate any feedback.
@@ -37,6 +37,7 @@ H: Toggle Hidden Blocks
 B: Toggle Blacked Out Areas
 S: Toggle Single Layer View
 N: Toggle Creature Names
+M: TOggle Creature Emotion Icons
 F2: Screenshot mode/Hide Display Overlays
 F5: Save Screenshot
 CTRL + F5: Save Screenshot of entire fortress
