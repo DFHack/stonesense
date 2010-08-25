@@ -7,10 +7,13 @@
 * Transparent water and windows
 * Optional Day/Night mode
 * Colored materials
+* Properly displays dwarven characters
+* Added beefmoo's domestic animals
 * Allegro 4.9 accelerated graphics
 * DirectX, OpenGL or software renderding supported
 * Colorable ramps for all materials
 * Resizable window
+* Full-map screenshot now working properly, and fast
 
 ----==== 'Granite', Dec 17th 2009 ====----
 * Unified content configuration system
