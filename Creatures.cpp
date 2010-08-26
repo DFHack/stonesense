@@ -464,10 +464,12 @@ CreatureConfiguration *GetCreatureConfig( t_creature* c ){
 c_sprite* GetCreatureSpriteMap( t_creature* c )
 {
 	static c_sprite * defaultSprite = new c_sprite;
+	defaultSprite->reset();
 	defaultSprite->set_defaultsheet(IMGCreatureSheet);
 	CreatureConfiguration *testConfig = GetCreatureConfig( c );
 	if (testConfig == NULL)
 		return defaultSprite;
+	testConfig->sprite.set_defaultsheet(IMGCreatureSheet);
 	return &(testConfig->sprite);
 }
 
