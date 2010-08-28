@@ -284,6 +284,20 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
 	}
 	else bloodmax=atoi(spritebloodMaxStr);
 
+		//Should the sprite be shown only when there is mud?
+	const char* spritemudMinStr = elemSprite->Attribute("mud_min");
+	if (spritemudMinStr == NULL || spritemudMinStr[0] == 0)
+	{
+		mudmin = 0;
+	}
+	else mudmin=atoi(spritemudMinStr);
+	const char* spritemudMaxStr = elemSprite->Attribute("mud_max");
+	if (spritemudMaxStr == NULL || spritemudMaxStr[0] == 0)
+	{
+		mudmax = -1;
+	}
+	else mudmax=atoi(spritemudMaxStr);
+
 	//Add user settable sprite offsets
 	const char* strOffsetX = elemSprite->Attribute("offsetx");
 	if (strOffsetX == NULL || strOffsetX[0] == 0)
@@ -354,7 +368,7 @@ void c_sprite::draw_world_offset(int x, int y, int z, int tileoffset, bool chop)
 		Block* b = viewedSegment->getBlock(x, y, z);
 		if(((openborders & b->openborders) || (rampborders & b->rampborders) || (wallborders & b->wallborders) || (floorborders & b->floorborders)) && !((notopenborders & b->openborders) || (notrampborders & b->rampborders) || (notwallborders & b->wallborders) || (notfloorborders & b->floorborders)))
 		{
-			if((snowmin <= b->snowlevel && (snowmax == -1 || snowmax >= b->snowlevel)) && (bloodmin <= b->bloodlevel && (bloodmax == -1 || bloodmax >= b->bloodlevel)))
+			if((snowmin <= b->snowlevel && (snowmax == -1 || snowmax >= b->snowlevel)) && (bloodmin <= b->bloodlevel && (bloodmax == -1 || bloodmax >= b->bloodlevel)) && (mudmin <= b->mudlevel && (mudmax == -1 || mudmax >= b->mudlevel)))
 			{
 				int32_t drawx = x;
 				int32_t drawy = y;

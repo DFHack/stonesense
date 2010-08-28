@@ -137,7 +137,17 @@ Valid Values: any positive integer
 Default Value: "0"
 Description: similar to snow_min
 
-Attriibute: snow_max
+Attriibute: blood_max
+Valid Values: any number
+Default Value: "-1"
+Description: similar to snow_max
+
+Attribute: mud_min
+Valid Values: any positive integer
+Default Value: "0"
+Description: similar to snow_min
+
+Attriibute: mud_max
 Valid Values: any number
 Default Value: "-1"
 Description: similar to snow_max

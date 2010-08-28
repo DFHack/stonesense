@@ -38,6 +38,8 @@ private:
 	int snowmax;
 	int bloodmin;
 	int bloodmax;
+	int mudmin;
+	int mudmax;
 
 	bool needoutline;
 	bool randomanimation;
