@@ -53,8 +53,10 @@ void DumpInorganicMaterialNamesToDisk(){
 
 void parseWallFloorSpriteElement( TiXmlElement* elemWallFloorSprite, vector<TerrainConfiguration*>& configTable ,int basefile, bool floor)
 {
-	const char* spriteIndexStr = elemWallFloorSprite->Attribute("sheetIndex");
-	if (spriteIndexStr == NULL || spriteIndexStr[0] == 0)
+	const char* spriteSheetIndexStr = elemWallFloorSprite->Attribute("sheetIndex");
+	const char* spriteSpriteStr = elemWallFloorSprite->Attribute("sprite");
+	const char* spriteIndexStr = elemWallFloorSprite->Attribute("index");
+	if ((spriteSheetIndexStr == NULL || spriteSheetIndexStr[0] == 0) && (spriteSpriteStr == NULL || spriteSpriteStr[0] == 0) && (spriteIndexStr == NULL || spriteIndexStr[0] == 0))
 	{
 		contentError("Invalid or missing sprite attribute",elemWallFloorSprite);
 		return; //nothing to work with
