@@ -119,7 +119,7 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
 	}
 	const char* animoffStr;
 	animoffStr = elemSprite->Attribute("random_anim_offset");
-	if (animoffStr != NULL && indexStr[0] != 0)
+	if (animoffStr != NULL && animoffStr[0] != 0)
 	{
 		randomanimation=atoi(animoffStr);
 	}
@@ -359,7 +359,7 @@ void c_sprite::draw_world(int x, int y, int z, bool chop)
 void c_sprite::draw_world_offset(int x, int y, int z, int tileoffset, bool chop)
 {
 	int rando = randomCube[x%RANDOM_CUBE][y%RANDOM_CUBE][z%RANDOM_CUBE];
-	int offsetAnimFrame = (randomanimation?rando:0 + currentAnimationFrame) % MAX_ANIMFRAME;
+	int offsetAnimFrame = ((randomanimation?rando:0) + currentAnimationFrame) % MAX_ANIMFRAME;
 	if ((animframes & (1 << offsetAnimFrame)) || !animate)
 	{
 		int randoffset = 0;

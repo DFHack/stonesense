@@ -290,6 +290,11 @@ int main(void)
 		exit(1);
 		return 1;
 	}
+	if (!al_init_primitives_addon()) {
+		WriteErr("al_init_primitives_addon failed. \n");
+		exit(1);
+		return 1;
+	}
 	SetTitle("Stonesense");
 
 	if(config.software)

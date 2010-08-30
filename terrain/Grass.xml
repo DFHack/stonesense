@@ -35,8 +35,8 @@
     <terrain value="400" />
     <terrain value="401" />
 	
-	<subsprite sheetIndex="01" variations="2" frames="45"/>
-	<subsprite sheetIndex="21" variations="2" frames="03"/>
-	<subsprite sheetIndex="41" variations="2" frames="12"/>
+	<subsprite sheetIndex="01" variations="2" frames="45" random_anim_offset="1" />
+	<subsprite sheetIndex="21" variations="2" frames="03" random_anim_offset="1" />
+	<subsprite sheetIndex="41" variations="2" frames="12" random_anim_offset="1" />
 	</floor>
 </floors>
