@@ -225,7 +225,7 @@ int main(void)
 	al_install_keyboard();
 	al_install_mouse();
 	al_show_mouse_cursor(display);
-	al_set_system_mouse_cursor(display, ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT);
+	//al_set_system_mouse_cursor(display, ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT);
 	WriteErr("\nStonesense launched\n");
 
 	config.debug_mode = false;

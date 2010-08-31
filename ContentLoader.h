@@ -36,7 +36,7 @@ public:
 
 	vector<string> classIdStrings;
 	vector<string> professionStrings;
-	memory_info *MemInfo;
+	VersionInfo *MemInfo;
 	DFHack::Buildings * Bld;
 	DFHack::Materials * Mats;
 

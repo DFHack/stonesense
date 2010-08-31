@@ -10,7 +10,7 @@
 
 static DFHack::Context* pDFApiHandle = 0;
 static DFHack::ContextManager* DFMgr = 0;
-const memory_info *dfMemoryInfo;
+const VersionInfo *dfMemoryInfo;
 bool memInfoHasBeenRead;
 bool connected = 0;
 

@@ -18,6 +18,7 @@ ENDIF(NOT DEFINED CMAKE_BUILD_TYPE)
 
 SET( EXECUTABLE_OUTPUT_PATH ${stonesense_SOURCE_DIR} CACHE PATH "Output directory for stonesense, default is root" )
 
+if(WIN32)
 include_directories (
     ${CMAKE_SOURCE_DIR}/dfhack/include/
     ${CMAKE_SOURCE_DIR}/dfhack/depends/md5/
@@ -26,6 +27,13 @@ include_directories (
     ${CMAKE_SOURCE_DIR}/allegro/lib/
     ${CMAKE_SOURCE_DIR}
 )
+else(WIN32)
+include_directories (
+    ${CMAKE_SOURCE_DIR}/dfhack/depends/md5/
+    ${CMAKE_SOURCE_DIR}/dfhack/depends/tinyxml/
+    ${CMAKE_SOURCE_DIR}
+)
+endif(WIN32)
 
 SET(PROJECT_SRCS
     dfhack/depends/tinyxml/tinystr.cpp
@@ -95,8 +103,16 @@ IF(UNIX)
 #    INCLUDE_DIRECTORIES(${ALLEGRO_INCLUDE_DIR})
  
 #    SET(PROJECT_LIBS ${ALLEGRO5_LIBRARIES} ${PROJECT_LIBS})
-    SET(PROJECT_LIBS allegro allegro_primitives allegro_color allegro_dialog allegro_font allegro_image allegro_main allegro_ttf dfhack ${PROJECT_LIBS})
+    if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+        SET(PROJECT_LIBS allegro allegro_primitives allegro_color allegro_dialog allegro_font
+                         allegro_image allegro_main allegro_ttf dfhack-debug ${PROJECT_LIBS})
+    else(CMAKE_BUILD_TYPE STREQUAL "Debug")
     
+        SET(PROJECT_LIBS allegro allegro_primitives allegro_color allegro_dialog
+                         allegro_font allegro_image allegro_main allegro_ttf dfhack
+                         ${PROJECT_LIBS})
+    endif(CMAKE_BUILD_TYPE STREQUAL "Debug")
+ 
     ADD_EXECUTABLE(stonesense ${PROJECT_SRCS} ${PLATFORM_SRC})
     TARGET_LINK_LIBRARIES(stonesense ${PROJECT_LIBS})
     
