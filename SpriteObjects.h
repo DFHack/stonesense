@@ -56,10 +56,14 @@ private:
 	uint8_t wallborders;
 	uint8_t floorborders;
 	uint8_t rampborders;
+	uint8_t upstairborders;
+	uint8_t downstairborders;
 	uint8_t notopenborders;
 	uint8_t notwallborders;
 	uint8_t notfloorborders;
 	uint8_t notrampborders;
+	uint8_t notupstairborders;
+	uint8_t notdownstairborders;
 public:
 	c_sprite(void);
 	~c_sprite(void);

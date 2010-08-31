@@ -910,6 +910,44 @@ WorldSegment* ReadMapSegment(DFHack::Context &DF, int x, int y, int z, int sizex
 		if(dir7) if(dir7->ramp.type) b->wallborders |= 64;
 		if(dir8) if(dir8->ramp.type) b->wallborders |= 128;
 
+		b->upstairborders = 0;
+		b->downstairborders = 0;
+		if(dir1) if(dir1->stairType == STAIR_UP) b->upstairborders |= 1;
+		if(dir2) if(dir2->stairType == STAIR_UP) b->upstairborders |= 2;
+		if(dir3) if(dir3->stairType == STAIR_UP) b->upstairborders |= 4;
+		if(dir4) if(dir4->stairType == STAIR_UP) b->upstairborders |= 8;
+		if(dir5) if(dir5->stairType == STAIR_UP) b->upstairborders |= 16;
+		if(dir6) if(dir6->stairType == STAIR_UP) b->upstairborders |= 32;
+		if(dir7) if(dir7->stairType == STAIR_UP) b->upstairborders |= 64;
+		if(dir8) if(dir8->stairType == STAIR_UP) b->upstairborders |= 128;
+
+		if(dir1) if(dir1->stairType == STAIR_UPDOWN) b->upstairborders |= 1;
+		if(dir2) if(dir2->stairType == STAIR_UPDOWN) b->upstairborders |= 2;
+		if(dir3) if(dir3->stairType == STAIR_UPDOWN) b->upstairborders |= 4;
+		if(dir4) if(dir4->stairType == STAIR_UPDOWN) b->upstairborders |= 8;
+		if(dir5) if(dir5->stairType == STAIR_UPDOWN) b->upstairborders |= 16;
+		if(dir6) if(dir6->stairType == STAIR_UPDOWN) b->upstairborders |= 32;
+		if(dir7) if(dir7->stairType == STAIR_UPDOWN) b->upstairborders |= 64;
+		if(dir8) if(dir8->stairType == STAIR_UPDOWN) b->upstairborders |= 128;
+
+		if(dir1) if(dir1->stairType == STAIR_UPDOWN) b->downstairborders |= 1;
+		if(dir2) if(dir2->stairType == STAIR_UPDOWN) b->downstairborders |= 2;
+		if(dir3) if(dir3->stairType == STAIR_UPDOWN) b->downstairborders |= 4;
+		if(dir4) if(dir4->stairType == STAIR_UPDOWN) b->downstairborders |= 8;
+		if(dir5) if(dir5->stairType == STAIR_UPDOWN) b->downstairborders |= 16;
+		if(dir6) if(dir6->stairType == STAIR_UPDOWN) b->downstairborders |= 32;
+		if(dir7) if(dir7->stairType == STAIR_UPDOWN) b->downstairborders |= 64;
+		if(dir8) if(dir8->stairType == STAIR_UPDOWN) b->downstairborders |= 128;
+
+		if(dir1) if(dir1->stairType == STAIR_DOWN) b->downstairborders |= 1;
+		if(dir2) if(dir2->stairType == STAIR_DOWN) b->downstairborders |= 2;
+		if(dir3) if(dir3->stairType == STAIR_DOWN) b->downstairborders |= 4;
+		if(dir4) if(dir4->stairType == STAIR_DOWN) b->downstairborders |= 8;
+		if(dir5) if(dir5->stairType == STAIR_DOWN) b->downstairborders |= 16;
+		if(dir6) if(dir6->stairType == STAIR_DOWN) b->downstairborders |= 32;
+		if(dir7) if(dir7->stairType == STAIR_DOWN) b->downstairborders |= 64;
+		if(dir8) if(dir8->stairType == STAIR_DOWN) b->downstairborders |= 128;
+
 		b->floorborders = 0;
 		if(dir1) if(dir1->floorType) b->floorborders |= 1;
 		if(dir2) if(dir2->floorType) b->floorborders |= 2;
@@ -920,7 +958,7 @@ WorldSegment* ReadMapSegment(DFHack::Context &DF, int x, int y, int z, int sizex
 		if(dir7) if(dir7->floorType) b->floorborders |= 64;
 		if(dir8) if(dir8->floorType) b->floorborders |= 128;
 
-		b->openborders = ~(b->floorborders|b->rampborders|b->wallborders);
+		b->openborders = ~(b->floorborders|b->rampborders|b->wallborders|b->downstairborders|b->upstairborders);
 	}
 
 	Maps->Finish();

@@ -33,6 +33,8 @@ public:
 	uint8_t floorborders;
 	uint8_t openborders;
 	uint8_t rampborders;
+	uint8_t upstairborders;
+	uint8_t downstairborders;
 
 	bool creaturePresent;
 	bool buildingPresent;

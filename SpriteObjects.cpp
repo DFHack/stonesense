@@ -73,10 +73,14 @@ void c_sprite::reset(void)
 	wallborders = ALL_BORDERS;
 	floorborders = ALL_BORDERS;
 	rampborders = ALL_BORDERS;
+	upstairborders = ALL_BORDERS;
+	downstairborders = ALL_BORDERS;
 	notopenborders = 0;
 	notwallborders = 0;
 	notfloorborders = 0;
 	notrampborders = 0;
+	notupstairborders = 0;
+	notdownstairborders = 0;
 	randomanimation = 0;
 	animate = 1;
 	{
@@ -142,6 +146,10 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
 
 	rampborders = getBorders(elemSprite->Attribute("needramp"));
 
+	upstairborders = getBorders(elemSprite->Attribute("needupstair"));
+
+	downstairborders = getBorders(elemSprite->Attribute("needdownstair"));
+
 	notopenborders = getUnBorders(elemSprite->Attribute("neednotopen"));
 
 	notfloorborders = getUnBorders(elemSprite->Attribute("neednotfloor"));
@@ -149,6 +157,10 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
 	notwallborders = getUnBorders(elemSprite->Attribute("neednotwall"));
 
 	notrampborders = getUnBorders(elemSprite->Attribute("neednotramp"));
+
+	notupstairborders = getUnBorders(elemSprite->Attribute("neednotupstair"));
+
+	notdownstairborders = getUnBorders(elemSprite->Attribute("neednotdownstair"));
 
 	//check for randomised tiles
 	const char* spriteVariationsStr = elemSprite->Attribute("variations");
@@ -366,7 +378,7 @@ void c_sprite::draw_world_offset(int x, int y, int z, int tileoffset, bool chop)
 		if(variations)
 			randoffset = rando%variations;
 		Block* b = viewedSegment->getBlock(x, y, z);
-		if(((openborders & b->openborders) || (rampborders & b->rampborders) || (wallborders & b->wallborders) || (floorborders & b->floorborders)) && !((notopenborders & b->openborders) || (notrampborders & b->rampborders) || (notwallborders & b->wallborders) || (notfloorborders & b->floorborders)))
+		if(((openborders & b->openborders) || (upstairborders & b->upstairborders) || (downstairborders & b->downstairborders) || (rampborders & b->rampborders) || (wallborders & b->wallborders) || (floorborders & b->floorborders)) && !((notopenborders & b->openborders) || (notupstairborders & b->upstairborders) || (notdownstairborders & b->downstairborders) || (notrampborders & b->rampborders) || (notwallborders & b->wallborders) || (notfloorborders & b->floorborders)))
 		{
 			if((snowmin <= b->snowlevel && (snowmax == -1 || snowmax >= b->snowlevel)) && (bloodmin <= b->bloodlevel && (bloodmax == -1 || bloodmax >= b->bloodlevel)) && (mudmin <= b->mudlevel && (mudmax == -1 || mudmax >= b->mudlevel)))
 			{

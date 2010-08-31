@@ -64,6 +64,21 @@ Valid Values: any combination of the numbers 0-8
 Default Value: "12345678"
 Description: same as for needopen, but replace open space with wall tiles.
 
+Attribute: needramp
+Valid Values: any combination of the numbers 0-8
+Default Value: "12345678"
+Description: same as for needopen, but replace open space with wall tiles.
+
+Attribute: needupstair
+Valid Values: any combination of the numbers 0-8
+Default Value: "12345678"
+Description: same as for needopen, but replace open space with wall tiles.
+
+Attribute: needdownstair
+Valid Values: any combination of the numbers 0-8
+Default Value: "12345678"
+Description: same as for needopen, but replace open space with wall tiles.
+
 Attribute: neednotopen
 Valid Values: any combination of the numbers 0-8
 Default Value: "0"
@@ -74,7 +89,17 @@ Valid Values: any combination of the numbers 0-8
 Default Value: "0"
 Description: same as for neednotopen, but replace open space with floor tiles.
 
-Attribute: neednotwall 
+Attribute: neednotramp 
+Valid Values: any combination of the numbers 0-8
+Default Value: "0"
+Description: same as for neednotopen, but replace open space with wall tiles.
+
+Attribute: neednotupstair 
+Valid Values: any combination of the numbers 0-8
+Default Value: "0"
+Description: same as for neednotopen, but replace open space with wall tiles.
+
+Attribute: neednotdownstair 
 Valid Values: any combination of the numbers 0-8
 Default Value: "0"
 Description: same as for neednotopen, but replace open space with wall tiles.
