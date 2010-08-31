@@ -354,53 +354,57 @@ void ReadCreaturesToSegment( DFHack::Context& DF, WorldSegment* segment)
 	{
 	Creatures->ReadCreature( index, *tempcreature );*/
 	uint32_t index = 0;
-	try
+	if(!config.skipCreatures)
 	{
-		while((index = Creatures->ReadCreatureInBox( index, *tempcreature, x1,y1,z1,x2,y2,z2)) != -1 )
+		try
 		{
-			index++;
-			if( IsCreatureVisible( tempcreature ) )
+			while((index = Creatures->ReadCreatureInBox( index, *tempcreature, x1,y1,z1,x2,y2,z2)) != -1 )
 			{
-				Block* b = segment->getBlock (tempcreature->x, tempcreature->y, tempcreature->z );
-				if(!b)
+				index++;
+				if( IsCreatureVisible( tempcreature ) )
 				{
-					//inside segment, but no block to represent it
-					b = new Block(segment);
-					b->x = tempcreature->x;
-					b->y = tempcreature->y;
-					b->z = tempcreature->z;
-					// fake block occupancy where needed. This is starting to get hacky...
-					b->creaturePresent=true;
-					segment->addBlock( b );
-				}
-				if (!b->creature)
-				{
-					b->creaturePresent=true;
-					b->creature = tempcreature;
-					// add shadow to nearest floor block
-					for (int bz = tempcreature->z;bz>=z1;bz--)
+					Block* b = segment->getBlock (tempcreature->x, tempcreature->y, tempcreature->z );
+					if(!b)
 					{
-						b = segment->getBlock (tempcreature->x, tempcreature->y, bz );
-						if (!b) continue;
-						if (b->floorType > 0 || b->wallType > 0 || b->ramp.type > 0)
-						{
-							// todo figure out appropriate shadow size
-							int tempShadow = GetCreatureShadowMap( tempcreature );
-							if (b->shadow < tempShadow)
-								b->shadow=tempShadow;
-							break;	
-						}
+						//inside segment, but no block to represent it
+						b = new Block(segment);
+						b->x = tempcreature->x;
+						b->y = tempcreature->y;
+						b->z = tempcreature->z;
+						// fake block occupancy where needed. This is starting to get hacky...
+						b->creaturePresent=true;
+						segment->addBlock( b );
 					}
-					// need a new tempcreature now
-					// old tempcreature should be deleted when b is
-					tempcreature = new t_creature;
+					if (!b->creature)
+					{
+						b->creaturePresent=true;
+						b->creature = tempcreature;
+						// add shadow to nearest floor block
+						for (int bz = tempcreature->z;bz>=z1;bz--)
+						{
+							b = segment->getBlock (tempcreature->x, tempcreature->y, bz );
+							if (!b) continue;
+							if (b->floorType > 0 || b->wallType > 0 || b->ramp.type > 0)
+							{
+								// todo figure out appropriate shadow size
+								int tempShadow = GetCreatureShadowMap( tempcreature );
+								if (b->shadow < tempShadow)
+									b->shadow=tempShadow;
+								break;	
+							}
+						}
+						// need a new tempcreature now
+						// old tempcreature should be deleted when b is
+						tempcreature = new t_creature;
+					}
 				}
 			}
 		}
-	}
-	catch (exception &e)
-	{
-		WriteErr("DFhack exeption: %s\n", e.what());
+		catch (exception &e)
+		{
+			WriteErr("DFhack exeption: %s\n", e.what());
+			config.skipCreatures = true;
+		}
 	}
 	delete(tempcreature); // there will be one left over
 	Creatures->Finish();
