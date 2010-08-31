@@ -207,6 +207,8 @@ bool ContentLoader::Load( DFHack::Context& DF){
 
 	//DF.Resume();
 
+	contentLoader.obsidian = lookupMaterialIndex(INORGANIC, "OBSIDIAN");
+
 	loadGraphicsFromDisk(); //these get destroyed when flushImgFiles is called.
 	bool overallResult = parseContentIndexFile( "index.txt" );
 	translationComplete = false;

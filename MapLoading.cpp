@@ -363,7 +363,7 @@ void ReadCellToSegment(DFHack::Context& DF, WorldSegment& segment, int CellX, in
 				b->stairType = t;
 			if(isRampTerrain(t))
 				b->ramp.type = t;
-
+			b->tileType = t;
 
 			//142,136,15
 			//if(b->x == 142 && b->y == 136 && b->z == 15)
@@ -481,6 +481,12 @@ void ReadCellToSegment(DFHack::Context& DF, WorldSegment& segment, int CellX, in
 							}
 						}
 					}
+				}
+
+				if(tileTypeTable[b->tileType].m == OBSIDIAN)
+				{
+					b->material.type = INORGANIC;
+					b->material.index = contentLoader.obsidian;
 				}
 
 

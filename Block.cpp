@@ -87,6 +87,10 @@ inline ALLEGRO_BITMAP* imageSheet(t_subSprite sprite, ALLEGRO_BITMAP* defaultBmp
 }
 
 void Block::Draw(){
+	if((material.type == INORGANIC) && (material.index == -1))
+	{
+		material.index = 0;
+	}
 	bool defaultSnow = 1;
 	int sheetOffsetX, sheetOffsetY;
 	t_SpriteWithOffset sprite;

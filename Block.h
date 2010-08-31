@@ -19,6 +19,7 @@ public:
 	int floorType;
 	int wallType;
 	int stairType;
+	int tileType;
 	t_matglossPair material;
 	t_matglossPair layerMaterial;
 	t_matglossPair veinMaterial;

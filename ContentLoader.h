@@ -49,6 +49,8 @@ public:
 
 	int stockpileNum;
 	int civzoneNum;
+
+	int obsidian;
 };
 
 //singleton instance
