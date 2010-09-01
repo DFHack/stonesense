@@ -70,7 +70,7 @@
       <subtype value="CINNABAR" />
     </material>
   </color>
-  <color red="79" green="70" blue="55">
+  <color red="51" green="102" blue="205">
     <material value="Inorganic">
       <subtype value="COBALTITE" />
     </material>
@@ -120,7 +120,7 @@
       <subtype value="BRIMSTONE" />
     </material>
   </color>
-  <color red="189" green="195" blue="183">
+  <color red="0" green="0" blue="128">
     <material value="Inorganic">
       <subtype value="KIMBERLITE" />
     </material>
@@ -235,7 +235,7 @@
       <subtype value="ORTHOCLASE" />
     </material>
   </color>
-  <color red="127" green="173" blue="160">
+  <color red="69" green="173" blue="208">
     <material value="Inorganic">
       <subtype value="MICROCLINE" />
     </material>
