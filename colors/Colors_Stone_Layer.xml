@@ -75,7 +75,7 @@
       <subtype value="RHYOLITE" />
     </material>
   </color>
-  <color red="0" green="0" blue="128">
+  <color red="75" green="64" blue="68">
     <material value="Inorganic">
       <subtype value="BASALT" />
     </material>
