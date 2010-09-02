@@ -85,7 +85,7 @@
       <subtype value="ANDESITE" />
     </material>
   </color>
-  <color red="32" green="32" blue="32">
+  <color red="64" green="64" blue="64">
     <material value="Inorganic">
       <subtype value="OBSIDIAN" />
     </material>
