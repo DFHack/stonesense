@@ -118,48 +118,6 @@
     <terrain value="467" />
     <terrain value="468" />
   </block>
-  <!-- obsidian -->
-  <block sheetIndex="9">
-    <!-- below ramp -->
-    <terrain value="238" />
-    <!-- wall -->
-    <terrain value="328" />
-    <terrain value="329" />
-    <terrain value="330" />
-    <terrain value="331" />
-    <!-- floor -->
-    <terrain value="340" />
-    <terrain value="341" />
-    <terrain value="342" />
-    <terrain value="343" />
-  </block>
-  <!-- sm obsidian -->
-  <block sheetIndex="9">
-    <!-- pillar -->
-    <terrain value="80" />
-    <!-- wall -->
-    <terrain value="269" />
-    <terrain value="270" />
-    <terrain value="271" />
-    <terrain value="272" />
-    <terrain value="273" />
-    <terrain value="274" />
-    <terrain value="275" />
-    <terrain value="276" />
-    <terrain value="277" />
-    <terrain value="278" />
-    <terrain value="279" />
-    <terrain value="280" />
-    <terrain value="281" />
-    <terrain value="282" />
-    <terrain value="283" />
-    <terrain value="284" />
-    <terrain value="285" />
-    <terrain value="286" />
-    <terrain value="287" />
-    <!-- fort -->
-    <terrain value="326" />
-  </block>
   <!-- soil -->
   <block sheetIndex="5">
     <!-- wall -->
@@ -231,6 +189,28 @@
     <terrain value="433" />
     <terrain value="434" />
     <terrain value="435" />
+    <!-- obs pillar -->
+    <terrain value="80" />
+    <!-- obs wall -->
+    <terrain value="269" />
+    <terrain value="270" />
+    <terrain value="271" />
+    <terrain value="272" />
+    <terrain value="273" />
+    <terrain value="274" />
+    <terrain value="275" />
+    <terrain value="276" />
+    <terrain value="277" />
+    <terrain value="278" />
+    <terrain value="279" />
+    <terrain value="280" />
+    <terrain value="281" />
+    <terrain value="282" />
+    <terrain value="283" />
+    <terrain value="284" />
+    <terrain value="285" />
+    <terrain value="286" />
+    <terrain value="287" />
   </block>
   <!-- stone -->
   <block sheetIndex="21" color="material">
@@ -239,11 +219,21 @@
     <terrain value="177" />
     <terrain value="178" />
     <terrain value="219" />
+    <!-- wall obs -->
+    <terrain value="328" />
+    <terrain value="329" />
+    <terrain value="330" />
+    <terrain value="331" />
     <!-- wall feat? -->
     <terrain value="332" />
     <terrain value="333" />
     <terrain value="334" />
     <terrain value="335" />
+    <!-- floor -->
+    <terrain value="340" />
+    <terrain value="341" />
+    <terrain value="342" />
+    <terrain value="343" />
     <!-- vein wall -->
     <terrain value="437" />
     <terrain value="438" />

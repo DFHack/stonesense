@@ -91,23 +91,6 @@
     <!-- chasm -->
     <terrain value="35" />
   </floor>
-  <!-- obsidian -->
-  <floor sheetIndex="17">
-    <!-- below stair -->
-    <terrain value="38" />
-    <!-- below ramp -->
-    <terrain value="238" />
-    <!-- wall -->
-    <terrain value="328" />
-    <terrain value="329" />
-    <terrain value="330" />
-    <terrain value="331" />
-    <!-- floor -->
-    <terrain value="340" />
-    <terrain value="341" />
-    <terrain value="342" />
-    <terrain value="343" />
-  </floor>
   <!-- soil -->
   <floor sheetIndex="4">
     <!-- below stair -->
@@ -155,6 +138,8 @@
   </floor>
   <!-- sm stone -->
   <floor sheetIndex="20" color="material">
+    <!-- floor -->
+    <terrain value="44" />
     <terrain value="43" />
     <terrain value="45" />
     <terrain value="46" />
@@ -164,6 +149,7 @@
     <terrain value="436" />
     <!-- below pillar -->
     <terrain value="79" />
+    <terrain value="80" />
     <terrain value="81" />
     <terrain value="82" />
     <!-- feat wall -->
@@ -226,14 +212,7 @@
     <terrain value="433" />
     <terrain value="434" />
     <terrain value="435" />
-  </floor>
-  <!-- sm obsidian -->
-  <floor sheetIndex="17">
-    <!-- floor -->
-    <terrain value="44" />
-    <!-- below pillar -->
-    <terrain value="80" />
-    <!-- wall -->
+    <!-- obs wall -->
     <terrain value="269" />
     <terrain value="270" />
     <terrain value="271" />
@@ -287,6 +266,7 @@
   <!-- stone -->
   <floor sheetIndex="3" color="material">
     <!-- below stair -->
+	<terrain value="38" />
     <terrain value="57" />
     <terrain value="60" />
     <terrain value="63" />
@@ -297,6 +277,7 @@
     <terrain value="219" />
     <!-- below ramp -->
     <terrain value="237" />
+    <terrain value="238" />
     <terrain value="239" />
     <terrain value="240" />
     <!-- wall -->
@@ -304,6 +285,10 @@
     <terrain value="333" />
     <terrain value="334" />
     <terrain value="335" />
+    <terrain value="328" />
+    <terrain value="329" />
+    <terrain value="330" />
+    <terrain value="331" />
     <!-- floor -->
     <terrain value="336" />
     <terrain value="337" />
@@ -313,6 +298,10 @@
     <terrain value="345" />
     <terrain value="346" />
     <terrain value="347" />
+    <terrain value="340" />
+    <terrain value="341" />
+    <terrain value="342" />
+    <terrain value="343" />
     <!-- veinwall -->
     <terrain value="437" />
     <terrain value="438" />
