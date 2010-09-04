@@ -33,6 +33,10 @@
   <floor sheetIndex="3" color="material">
     <terrain value="19" />
     <subsprite sheetIndex="30" />
+	<subsprite 
+		sheetIndex="18"
+		mud_min="10"
+		/>
   </floor>
   <!-- vegetation -->
   <floor sheetIndex="2">
@@ -68,6 +72,10 @@
     <terrain value="399" />
     <terrain value="400" />
     <terrain value="401" />
+	<subsprite 
+		sheetIndex="18"
+		mud_min="10"
+		/>
   </floor>
   <!-- ice -->
   <floor sheetIndex="34">
@@ -85,6 +93,10 @@
     <terrain value="362" />
     <terrain value="363" />
     <terrain value="364" />
+	<subsprite 
+		sheetIndex="18"
+		mud_min="10"
+		/>
   </floor>
   <!-- gaps -->
   <floor sheetIndex="32">
@@ -123,6 +135,10 @@
     <terrain value="357" />
     <terrain value="358" />
     <terrain value="359" />
+	<subsprite 
+		sheetIndex="18"
+		mud_min="10"
+		/>
   </floor>
   <floor sheetIndex="46">
     <!-- fires -->
@@ -234,6 +250,10 @@
     <terrain value="287" />
     <!-- fort -->
     <terrain value="326" />
+	<subsprite 
+		sheetIndex="18"
+		mud_min="10"
+		/>
   </floor>
   <!-- sm ice -->
   <floor sheetIndex="34">
@@ -262,6 +282,10 @@
     <terrain value="466" />
     <terrain value="467" />
     <terrain value="468" />
+	<subsprite 
+		sheetIndex="18"
+		mud_min="10"
+		/>
   </floor>
   <!-- stone -->
   <floor sheetIndex="3" color="material">
@@ -312,11 +336,19 @@
     <terrain value="442" />
     <terrain value="443" />
     <terrain value="444" />
+	<subsprite 
+		sheetIndex="18"
+		mud_min="10"
+		/>
   </floor>
    <floor sheetIndex="3" color="xml" red="255" green = "0" blue = "0">
     <!-- Semi molten rock -->
     <terrain value="263" />
 	<subsprite sheetIndex = "51" color="xml" red="32" green = "0" blue = "0"/>
+	<subsprite 
+		sheetIndex="18"
+		mud_min="10"
+		/>
   </floor>
   <!-- magma flow -->
   <floor sheetIndex="31">
@@ -328,6 +360,10 @@
     <terrain value="403" />
     <terrain value="404" />
     <terrain value="445" />
+	<subsprite 
+		sheetIndex="18"
+		mud_min="10"
+		/>
   </floor>
   <!-- pebbles -->
   <floor sheetIndex="5" color="material">
@@ -350,6 +386,10 @@
     <terrain value="447" />
     <terrain value="448" />
     <terrain value="449" />
+	<subsprite 
+		sheetIndex="18"
+		mud_min="10"
+		/>
   </floor>
   <!-- construct -->
   <floor sheetIndex="1" color="material">
@@ -383,5 +423,9 @@
     <terrain value="517" />
     <!-- ramp -->
     <terrain value="518" />
+	<subsprite 
+		sheetIndex="18"
+		mud_min="10"
+		/>
   </floor>
 </floors>

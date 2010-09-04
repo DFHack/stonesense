@@ -477,10 +477,6 @@ const char *lookupMaterialTypeName(int matType)
 		return "GreenGlass";
 	case WOOD:
 		return "Wood";
-	case PLANTCLOTH:
-		return "PlantCloth";
-	case LEATHER:
-		return "Leather";
 	case ICE:
 		return "Ice";
 	case CLEAR_GLASS:

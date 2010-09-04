@@ -9,6 +9,10 @@
     <!-- ramp -->
     <terrain value="518" />
     <material value="Wood" />
+	<subsprite 
+		sheetIndex="18"
+		mud_min="10"
+		/>
   </floor>
   <!-- construct (wood logs) -->
   <floor sheetIndex="22" color="material">
@@ -37,6 +41,10 @@
     <terrain value="513" />
     <terrain value="514" />
     <material value="Wood" />
+	<subsprite 
+		sheetIndex="18"
+		mud_min="10"
+		/>
   </floor>
   <!-- construct -->
   <floor sheetIndex="36">
@@ -71,7 +79,11 @@
     <terrain value="513" />
     <terrain value="514" />
     <material value="GreenGlass" />
-  </floor>
+ 	<subsprite 
+		sheetIndex="18"
+		mud_min="10"
+		/>
+ </floor>
   <!-- construct -->
   <floor sheetIndex="35">
     <!-- floor -->
@@ -106,6 +118,10 @@
     <terrain value="514" />
     <material value="ClearGlass" />
     <material value="CrystalGlass" />
+	<subsprite 
+		sheetIndex="18"
+		mud_min="10"
+		/>
   </floor>
   <floor sheetIndex="56">
     <!-- floor -->
@@ -141,6 +157,10 @@
     <material value="Stone">
       <subtype value="RUTILE" />
     </material>
+	<subsprite 
+		sheetIndex="18"
+		mud_min="10"
+		/>
   </floor>
   <!-- construct -->
   <floor sheetIndex="38" color = "material">
@@ -202,6 +222,10 @@
       <subtype value="BISMUTH_BRONZE" />
       <subtype value="ADAMANTINE" />
     </material>
+	<subsprite 
+		sheetIndex="18"
+		mud_min="10"
+		/>
   </floor>
 
   <floor sheetIndex="23">
@@ -216,6 +240,10 @@
       <subtype value="PELAGIC_CLAY" />
       <subtype value="SANDY_CLAY" />
     </material>
+	<subsprite 
+		sheetIndex="18"
+		mud_min="10"
+		/>
   </floor>
   <floor sheetIndex="24">
     <!-- Soil floors -->
@@ -229,6 +257,10 @@
       <subtype value="PELAGIC_CLAY" />
       <subtype value="SANDY_CLAY" />
     </material>
+	<subsprite 
+		sheetIndex="18"
+		mud_min="10"
+		/>
   </floor>
   <floor sheetIndex="25">
     <!-- Soil floors -->
@@ -242,6 +274,10 @@
       <subtype value="PELAGIC_CLAY" />
       <subtype value="SANDY_CLAY" />
     </material>
+	<subsprite 
+		sheetIndex="18"
+		mud_min="10"
+		/>
   </floor>
   <floor sheetIndex="26">
     <!-- Soil floors -->
@@ -255,6 +291,10 @@
       <subtype value="PELAGIC_CLAY" />
       <subtype value="SANDY_CLAY" />
     </material>
+	<subsprite 
+		sheetIndex="18"
+		mud_min="10"
+		/>
   </floor>
   <floor sheetIndex="9">
     <!-- Dry grass -->
@@ -272,6 +312,10 @@
     <terrain value="392" />
     <!-- Dead shrub -->
     <terrain value="393" />
+	<subsprite 
+		sheetIndex="18"
+		mud_min="10"
+		/>
   </floor>
   <floor sheetIndex="13">
     <!-- Soil floors -->
@@ -288,6 +332,10 @@
       <subtype value="SAND_TAN" />
       <subtype value="SAND_YELLOW" />
     </material>
+	<subsprite 
+		sheetIndex="18"
+		mud_min="10"
+		/>
   </floor>
   <floor sheetIndex="14">
     <!-- Soil floors -->
@@ -304,6 +352,10 @@
       <subtype value="SAND_RED" />
       <subtype value="SILT" />
     </material>
+	<subsprite 
+		sheetIndex="18"
+		mud_min="10"
+		/>
   </floor>
   <floor sheetIndex="15">
     <!-- Soil floors -->
@@ -319,6 +371,10 @@
     <material value="Stone">
       <subtype value="SAND_BLACK" />
     </material>
+	<subsprite 
+		sheetIndex="18"
+		mud_min="10"
+		/>
   </floor>
   <floor sheetIndex="16">
     <!-- Soil floors -->
@@ -334,6 +390,10 @@
     <material value="Stone">
       <subtype value="SAND_WHITE" />
     </material>
+	<subsprite 
+		sheetIndex="18"
+		mud_min="10"
+		/>
   </floor>
   <floor sheetIndex="9">
     <!-- Dry Grass -->
@@ -352,6 +412,10 @@
     <terrain value="392" />
     <!-- Dead shrub -->
     <terrain value="393" />
+	<subsprite 
+		sheetIndex="18"
+		mud_min="10"
+		/>
   </floor>
   <floor sheetIndex="28">
     <!-- Grass on clay -->
@@ -373,6 +437,10 @@
       <subtype value="SILTY_CLAY" />
       <subtype value="CLAY_LOAM" />
     </material>
+	<subsprite 
+		sheetIndex="18"
+		mud_min="10"
+		/>
   </floor>
   <floor sheetIndex="29">
     <!-- Dry Grass on clay -->
@@ -396,5 +464,9 @@
       <subtype value="SILTY_CLAY" />
       <subtype value="CLAY_LOAM" />
     </material>
+	<subsprite 
+		sheetIndex="18"
+		mud_min="10"
+		/>
   </floor>
 </floors>
