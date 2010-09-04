@@ -424,34 +424,6 @@ char getAnimFrames(const char* framestring)
 	return aframes;
 }
 
-int lookupMaterialType(const char* strValue)
-{
-	if (strValue == NULL || strValue[0] == 0)
-		return INVALID_INDEX;
-	else if( strcmp(strValue, "Stone") == 0)
-		return INORGANIC;
-	else if( strcmp(strValue, "Metal") == 0)
-		return INORGANIC;
-	else if( strcmp(strValue, "Inorganic") == 0)
-		return INORGANIC;
-	else if( strcmp(strValue, "GreenGlass") == 0)
-		return GREEN_GLASS;
-	else if( strcmp(strValue, "Wood") == 0)
-		return WOOD;
-	else if( strcmp(strValue, "Ice") == 0)
-		return ICE;
-	else if( strcmp(strValue, "ClearGlass") == 0)
-		return CLEAR_GLASS;
-	else if( strcmp(strValue, "CrystalGlass") == 0)
-		return CRYSTAL_GLASS;
-	else if( strcmp(strValue, "PlantCloth") == 0)
-		return PLANTCLOTH;
-	else if( strcmp(strValue, "Leather") == 0)
-		return LEATHER;
-	//TODO this needs fixing on dfhack side
-	return INVALID_INDEX;
-}
-
 int lookupIndexedType(const char* indexName, vector<t_matgloss>& typeVector)
 {
 	if (indexName == NULL || indexName[0] == 0)
@@ -502,7 +474,7 @@ const char *lookupMaterialTypeName(int matType)
 	case INORGANIC:
 		return "Inorganic";
 	case GREEN_GLASS:
-		return "Green Glass";
+		return "GreenGlass";
 	case WOOD:
 		return "Wood";
 	case PLANTCLOTH:
@@ -511,9 +483,45 @@ const char *lookupMaterialTypeName(int matType)
 		return "Leather";
 	case ICE:
 		return "Ice";
+	case CLEAR_GLASS:
+		return "ClearGlass";
+	case CRYSTAL_GLASS:
+		return "CrystalGlass";
+	case PLANTCLOTH:
+		return "PlantCloth";
+	case LEATHER:
+		return "Leather";
 	default:
 		return NULL;
 	}
+}
+
+int lookupMaterialType(const char* strValue)
+{
+	if (strValue == NULL || strValue[0] == 0)
+		return INVALID_INDEX;
+	else if( strcmp(strValue, "Stone") == 0)
+		return INORGANIC;
+	else if( strcmp(strValue, "Metal") == 0)
+		return INORGANIC;
+	else if( strcmp(strValue, "Inorganic") == 0)
+		return INORGANIC;
+	else if( strcmp(strValue, "GreenGlass") == 0)
+		return GREEN_GLASS;
+	else if( strcmp(strValue, "Wood") == 0)
+		return WOOD;
+	else if( strcmp(strValue, "Ice") == 0)
+		return ICE;
+	else if( strcmp(strValue, "ClearGlass") == 0)
+		return CLEAR_GLASS;
+	else if( strcmp(strValue, "CrystalGlass") == 0)
+		return CRYSTAL_GLASS;
+	else if( strcmp(strValue, "PlantCloth") == 0)
+		return PLANTCLOTH;
+	else if( strcmp(strValue, "Leather") == 0)
+		return LEATHER;
+	//TODO this needs fixing on dfhack side
+	return INVALID_INDEX;
 }
 
 const char *lookupMaterialName(int matType,int matIndex)
