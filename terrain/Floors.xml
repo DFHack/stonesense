@@ -1,7 +1,9 @@
 <?xml version="1.0"?>
 <floors file="floors.png">
   <!-- watery -->
-  <floor sheetIndex="18">
+  <floor sheetIndex="4">
+		<!-- add some mud on top-->
+		<subsprite sheetIndex="18"/>
     <!-- pool -->
     <terrain value="2" />
     <!-- waterfall -->
