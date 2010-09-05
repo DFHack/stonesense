@@ -62,6 +62,8 @@ void c_sprite::reset(void)
 	snowmax = -1;
 	bloodmin = 0;
 	bloodmax = -1;
+	mudmin = 0;
+	mudmax = -1;
 	needoutline=0;
 	defaultsheet=IMGObjectSheet;
 	tilelayout=BLOCKTILE;
