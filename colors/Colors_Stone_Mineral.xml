@@ -220,7 +220,7 @@
       <subtype value="HORNBLENDE" />
     </material>
   </color>
-  <color red="227" green="225" blue="238">
+  <color red="206" green="170" blue="169">
     <material value="Inorganic">
       <subtype value="KAOLINITE" />
     </material>
