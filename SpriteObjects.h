@@ -43,6 +43,7 @@ private:
 
 	bool needoutline;
 	bool randomanimation;
+	bool bloodsprite;
 
 	char isoutline;
 

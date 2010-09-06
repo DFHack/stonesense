@@ -334,7 +334,7 @@ void ReadCellToSegment(DFHack::Context& DF, WorldSegment& segment, int CellX, in
 				}
 				if(b->bloodlevel)
 				{
-				b->bloodcolor = al_map_rgba(red/b->bloodlevel, green/b->bloodlevel, blue/b->bloodlevel, (b->bloodlevel > 255) ? 255 : b->bloodlevel);
+				b->bloodcolor = al_map_rgba(red/b->bloodlevel, green/b->bloodlevel, blue/b->bloodlevel, (b->bloodlevel > config.bloodcutoff) ? 255 : b->bloodlevel*255/config.bloodcutoff);
 				}
 				else
 					b->bloodcolor = al_map_rgba(0,0,0,0);

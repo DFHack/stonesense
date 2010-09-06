@@ -192,6 +192,12 @@ Valid Values: "0", "1"
 Default Value: "1"
 Description: if this is set to 0, then the tile will not get the anti-escher outlines.
 
+Attribute: blood_sprite
+Valid Values: "0", "1"
+Default Value: "0"
+Description: if this is set to 1, then the tile will be offset according to the surrounding blood. 
+Useful for adding blood pools. This over-rides 'variations' so they cannot be used together.
+
 Additional sprites can be layered on top using the subsprite tag, like so:
 
 <floors>

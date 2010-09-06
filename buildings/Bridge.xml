@@ -55,31 +55,46 @@
             <NeighbourSameBuilding dir="West" />
           </or>
         </not>
-        <sprite index="365" color="building" />
+        <sprite index="365" color="building"  >
+			<subsprite blood_min="1" sheetIndex="0" blood_sprite="1" color="blood" file = "bgibs.png"/>
+			<subsprite blood_min="1" sheetIndex="20" blood_sprite="1" file = "bgibs.png"/>
+		</sprite>
       </if>
       <else>
         <not>
           <NeighbourSameBuilding dir="North" />
         </not>
-        <sprite index="362" color="building" />
+        <sprite index="362" color="building" >
+			<subsprite blood_min="1" sheetIndex="0" blood_sprite="1" color="blood" file = "bgibs.png"/>
+			<subsprite blood_min="1" sheetIndex="20" blood_sprite="1" file = "bgibs.png"/>
+		</sprite>
       </else>
       <else>
         <not>
           <NeighbourSameBuilding dir="West" />
         </not>
-        <sprite index="361" color="building" />
+        <sprite index="361" color="building" >
+			<subsprite blood_min="1" sheetIndex="0" blood_sprite="1" color="blood" file = "bgibs.png"/>
+			<subsprite blood_min="1" sheetIndex="20" blood_sprite="1" file = "bgibs.png"/>
+		</sprite>
       </else>
       <if>
         <not>
           <NeighbourSameBuilding dir="South" />
         </not>
-        <sprite index="363" color="building" />
+        <sprite index="363" color="building" >
+			<subsprite blood_min="1" sheetIndex="0" blood_sprite="1" color="blood" file = "bgibs.png"/>
+			<subsprite blood_min="1" sheetIndex="20" blood_sprite="1" file = "bgibs.png"/>
+		</sprite>
       </if>
       <if>
         <not>
           <NeighbourSameBuilding dir="East" />
         </not>
-        <sprite index="364" color="building" />
+        <sprite index="364" color="building" >
+			<subsprite blood_min="1" sheetIndex="0" blood_sprite="1" color="blood" file = "bgibs.png"/>
+			<subsprite blood_min="1" sheetIndex="20" blood_sprite="1" file = "bgibs.png"/>
+		</sprite>
       </if>
     </else>
   </else>
@@ -132,31 +147,46 @@
           <NeighbourSameBuilding dir="West" />
         </or>
       </not>
-      <sprite index="329" color="building" />
+      <sprite index="329" color="building" >
+			<subsprite blood_min="1" sheetIndex="0" blood_sprite="1" color="blood" file = "bgibs.png"/>
+			<subsprite blood_min="1" sheetIndex="20" blood_sprite="1" file = "bgibs.png"/>
+		</sprite>
     </if>
     <else>
       <not>
         <NeighbourSameBuilding dir="North" />
       </not>
-      <sprite index="326" color="building" />
+      <sprite index="326" color="building" >
+			<subsprite blood_min="1" sheetIndex="0" blood_sprite="1" color="blood" file = "bgibs.png"/>
+			<subsprite blood_min="1" sheetIndex="20" blood_sprite="1" file = "bgibs.png"/>
+		</sprite>
     </else>
     <else>
       <not>
         <NeighbourSameBuilding dir="West" />
       </not>
-      <sprite index="325" color="building" />
+      <sprite index="325" color="building" >
+			<subsprite blood_min="1" sheetIndex="0" blood_sprite="1" color="blood" file = "bgibs.png"/>
+			<subsprite blood_min="1" sheetIndex="20" blood_sprite="1" file = "bgibs.png"/>
+		</sprite>
     </else>
     <if>
       <not>
         <NeighbourSameBuilding dir="South" />
       </not>
-      <sprite index="327" color="building" />
+      <sprite index="327" color="building" >
+			<subsprite blood_min="1" sheetIndex="0" blood_sprite="1" color="blood" file = "bgibs.png"/>
+			<subsprite blood_min="1" sheetIndex="20" blood_sprite="1" file = "bgibs.png"/>
+		</sprite>
     </if>
     <if>
       <not>
         <NeighbourSameBuilding dir="East" />
       </not>
-      <sprite index="328" color="building" />
+      <sprite index="328" color="building" >
+			<subsprite blood_min="1" sheetIndex="0" blood_sprite="1" color="blood" file = "bgibs.png"/>
+			<subsprite blood_min="1" sheetIndex="20" blood_sprite="1" file = "bgibs.png"/>
+		</sprite>
     </if>
   </else>
   <!-- edging on flat bridges -->

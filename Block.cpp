@@ -321,8 +321,8 @@ void Block::Draw(){
 		{
 			if(bloodlevel == 0)
 				spatter = al_map_rgb(168,248,248);
-			else if(bloodlevel <= 255)
-				spatter = partialBlend(al_map_rgb(168,248,248), bloodcolor, (bloodlevel*100/255));
+			else if(bloodlevel <= config.bloodcutoff)
+				spatter = partialBlend(al_map_rgb(168,248,248), bloodcolor, (bloodlevel*100/config.bloodcutoff));
 			else
 				spatter = bloodcolor;
 			spriteNum = SPRITEOBJECT_WATERLEVEL1 + waterlevel - 1;
@@ -536,8 +536,6 @@ void drawFloorBlood ( Block *b, int32_t drawx, int32_t drawy )
 {
 	t_occupancy occ = b->occ;
 	t_SpriteWithOffset sprite;
-
-	ALLEGRO_COLOR spatter;
 	int x = b->x, y = b->y, z = b->z;
 
 
@@ -546,17 +544,17 @@ void drawFloorBlood ( Block *b, int32_t drawx, int32_t drawy )
 		sprite.fileIndex = INVALID_INDEX;
 
 		// Spatter (should be blood, not blood2) swapped for testing
-		if( b->bloodlevel <= 255 )
+		if( b->bloodlevel <= config.poolcutoff )
 			sprite.sheetIndex = 7;
 
 		// Smear (should be blood2, not blood) swapped for testing
 		else
 		{
 			// if there's no block in the respective direction it's false. if there's no blood in that direction it's false too. should also check to see if there's a ramp below, but since blood doesn't flow, that'd look wrong anyway.
-			bool _N = ( b->ownerSegment->getBlockRelativeTo( x, y, z, eUp ) != NULL ? (b->ownerSegment->getBlockRelativeTo( x, y, z, eUp )->bloodlevel > 255) : false ),
-				_S = ( b->ownerSegment->getBlockRelativeTo( x, y, z, eDown ) != NULL ? (b->ownerSegment->getBlockRelativeTo( x, y, z, eDown )->bloodlevel > 255) : false ),
-				_E = ( b->ownerSegment->getBlockRelativeTo( x, y, z, eRight ) != NULL ? (b->ownerSegment->getBlockRelativeTo( x, y, z, eRight )->bloodlevel > 255) : false ),
-				_W = ( b->ownerSegment->getBlockRelativeTo( x, y, z, eLeft ) != NULL ? (b->ownerSegment->getBlockRelativeTo( x, y, z, eLeft )->bloodlevel > 255) : false );
+			bool _N = ( b->ownerSegment->getBlockRelativeTo( x, y, z, eUp ) != NULL ? (b->ownerSegment->getBlockRelativeTo( x, y, z, eUp )->bloodlevel > config.poolcutoff) : false ),
+				_S = ( b->ownerSegment->getBlockRelativeTo( x, y, z, eDown ) != NULL ? (b->ownerSegment->getBlockRelativeTo( x, y, z, eDown )->bloodlevel > config.poolcutoff) : false ),
+				_E = ( b->ownerSegment->getBlockRelativeTo( x, y, z, eRight ) != NULL ? (b->ownerSegment->getBlockRelativeTo( x, y, z, eRight )->bloodlevel > config.poolcutoff) : false ),
+				_W = ( b->ownerSegment->getBlockRelativeTo( x, y, z, eLeft ) != NULL ? (b->ownerSegment->getBlockRelativeTo( x, y, z, eLeft )->bloodlevel > config.poolcutoff) : false );
 
 			// do rules-based puddling
 			if( _N || _S || _E || _W )
@@ -589,15 +587,11 @@ void drawFloorBlood ( Block *b, int32_t drawx, int32_t drawy )
 			else
 				sprite.sheetIndex = 8;
 		}
-		if(b->bloodlevel <=255)
-			spatter = al_map_rgba_f(b->bloodcolor.r, b->bloodcolor.g, b->bloodcolor.b, (b->bloodlevel/255.0f));
-		else
-			spatter = b->bloodcolor;
 
 		int sheetOffsetX = TILEWIDTH * (sprite.sheetIndex % SHEET_OBJECTSWIDE),
 			sheetOffsetY = 0;
 
-		al_draw_tinted_bitmap_region( IMGBloodSheet, spatter, sheetOffsetX, sheetOffsetY, TILEWIDTH, TILEHEIGHT+FLOORHEIGHT, drawx, drawy, 0);
+		al_draw_tinted_bitmap_region( IMGBloodSheet, b->bloodcolor, sheetOffsetX, sheetOffsetY, TILEWIDTH, TILEHEIGHT+FLOORHEIGHT, drawx, drawy, 0);
 		al_draw_tinted_bitmap_region( IMGBloodSheet, al_map_rgb(255,255,255), sheetOffsetX, sheetOffsetY+TILEHEIGHT+FLOORHEIGHT, TILEWIDTH, TILEHEIGHT+FLOORHEIGHT, drawx, drawy, 0);
 	}
 }

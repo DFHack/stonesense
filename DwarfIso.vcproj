@@ -1645,6 +1645,10 @@
 				RelativePath=".\res.rc"
 				>
 			</File>
+			<File
+				RelativePath=".\Sprite Guide.txt"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="My Amplifier Results"

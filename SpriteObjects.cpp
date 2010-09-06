@@ -7,6 +7,63 @@
 #include "SpriteMaps.h"
 
 #define ALL_BORDERS 255
+
+int getBloodOffset ( Block *b )
+{
+	int offset = 0;
+	int x = b->x, y = b->y, z = b->z;
+
+
+	if( b->water.index < 1 && (b->bloodlevel))
+	{
+
+		// Spatter (should be blood, not blood2) swapped for testing
+		if( b->bloodlevel <= config.poolcutoff )
+			offset = 7;
+
+		// Smear (should be blood2, not blood) swapped for testing
+		else
+		{
+			// if there's no block in the respective direction it's false. if there's no blood in that direction it's false too. should also check to see if there's a ramp below, but since blood doesn't flow, that'd look wrong anyway.
+			bool _N = ( b->ownerSegment->getBlockRelativeTo( x, y, z, eUp ) != NULL ? (b->ownerSegment->getBlockRelativeTo( x, y, z, eUp )->bloodlevel > config.poolcutoff) : false ),
+				_S = ( b->ownerSegment->getBlockRelativeTo( x, y, z, eDown ) != NULL ? (b->ownerSegment->getBlockRelativeTo( x, y, z, eDown )->bloodlevel > config.poolcutoff) : false ),
+				_E = ( b->ownerSegment->getBlockRelativeTo( x, y, z, eRight ) != NULL ? (b->ownerSegment->getBlockRelativeTo( x, y, z, eRight )->bloodlevel > config.poolcutoff) : false ),
+				_W = ( b->ownerSegment->getBlockRelativeTo( x, y, z, eLeft ) != NULL ? (b->ownerSegment->getBlockRelativeTo( x, y, z, eLeft )->bloodlevel > config.poolcutoff) : false );
+
+			// do rules-based puddling
+			if( _N || _S || _E || _W )
+			{
+				if( _E )
+				{
+					if( _N && _S )
+						offset = 5;
+					else if( _S )
+						offset = 3;
+					else if( _W )
+						offset = 1;
+					else
+						offset = 6;
+				}
+				else if( _W )
+				{
+					if( _S && _N)
+						offset = 5;
+					else if( _S )
+						offset = 2;
+					else
+						offset = 0;
+				}
+				else if ( _N )
+					offset = 4;
+				else
+					offset = 2;
+			}
+			else
+				offset = 8;
+		}
+	}
+	return offset;
+}
 uint8_t getBorders(const char* framestring)
 {
 	if (framestring == NULL)
@@ -85,6 +142,7 @@ void c_sprite::reset(void)
 	notdownstairborders = 0;
 	randomanimation = 0;
 	animate = 1;
+	bloodsprite = 0;
 	{
 		for(int i = 0; i < subsprites.size(); i++)
 		{
@@ -331,6 +389,11 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
 	if (spriteOutlineStr != NULL && spriteOutlineStr[0] != 0)
 		needoutline=(atoi(spriteOutlineStr) == 1);
 
+	//get the possible offset for blood bools
+	const char* spriteBloodStr = elemSprite->Attribute("blood_sprite");
+	if (spriteBloodStr != NULL && spriteBloodStr[0] != 0)
+		bloodsprite=(atoi(spriteBloodStr) == 1);
+
 	subsprites.clear();
 	//add subsprites, if any.
 	TiXmlElement* elemSubSprite = elemSprite->FirstChildElement("subsprite");
@@ -372,14 +435,25 @@ void c_sprite::draw_world(int x, int y, int z, bool chop)
 
 void c_sprite::draw_world_offset(int x, int y, int z, int tileoffset, bool chop)
 {
+	//sprites can be offset by a random amount, both animationwise, and just variationwise.
+	//the base offset is set here.
 	int rando = randomCube[x%RANDOM_CUBE][y%RANDOM_CUBE][z%RANDOM_CUBE];
+	//and the random offset of the animation frame is set here, provided the sprite iis set to use random animation frames. 
 	int offsetAnimFrame = ((randomanimation?rando:0) + currentAnimationFrame) % MAX_ANIMFRAME;
+	//the following stuff is only bothered with if the animation frames say it should be drawn. this can be over-ridden
+	// by setting animate to 0
 	if ((animframes & (1 << offsetAnimFrame)) || !animate)
 	{
+		//if set by the xml file, a random offset between 0 and 'variations' is added to the sprite.
 		int randoffset = 0;
 		if(variations)
 			randoffset = rando%variations;
+
 		Block* b = viewedSegment->getBlock(x, y, z);
+
+		//if the xml says that this is a blood sprite, and offset is set here for proper pooling. this over-rides the random offset.
+		if(bloodsprite)
+			randoffset = getBloodOffset(b);
 		if(((openborders & b->openborders) || (upstairborders & b->upstairborders) || (downstairborders & b->downstairborders) || (rampborders & b->rampborders) || (wallborders & b->wallborders) || (floorborders & b->floorborders)) && !((notopenborders & b->openborders) || (notupstairborders & b->upstairborders) || (notdownstairborders & b->downstairborders) || (notrampborders & b->rampborders) || (notwallborders & b->wallborders) || (notfloorborders & b->floorborders)))
 		{
 			if((snowmin <= b->snowlevel && (snowmax == -1 || snowmax >= b->snowlevel)) && (bloodmin <= b->bloodlevel && (bloodmax == -1 || bloodmax >= b->bloodlevel)) && (mudmin <= b->mudlevel && (mudmax == -1 || mudmax >= b->mudlevel)))

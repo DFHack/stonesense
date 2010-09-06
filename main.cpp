@@ -260,6 +260,8 @@ int main(void)
 	config.fontsize = 10;
 	config.font = al_create_path("DejaVuSans.ttf");
 	config.creditScreen = true;
+	config.bloodcutoff = 100;
+	config.poolcutoff = 100;
 	initRandomCube();
 	loadConfigFile();
 	loadfont();
