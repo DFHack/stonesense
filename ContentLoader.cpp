@@ -350,6 +350,8 @@ bool ContentLoader::parseContentXMLFile( char* filepath ){
 			runningResult &= parseTreeContent( elemRoot );
 		else if( elementType.compare( "colors" ) == 0 )
 			runningResult &= parseColorContent( elemRoot );
+		else if( elementType.compare( "fluids" ) == 0 )
+			runningResult &= parseFluidContent( elemRoot );
 		else
 			contentError("Unrecognised root element",elemRoot);
 
@@ -382,6 +384,10 @@ bool ContentLoader::parseTerrainContent(TiXmlElement* elemRoot ){
 
 bool ContentLoader::parseColorContent(TiXmlElement* elemRoot ){
 	return addSingleColorConfig( elemRoot );
+}
+
+bool ContentLoader::parseFluidContent(TiXmlElement* elemRoot ){
+	return addSingleFluidConfig( elemRoot );
 }
 
 const char* getDocument(TiXmlNode* element)

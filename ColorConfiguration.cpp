@@ -117,7 +117,8 @@ void flushColorConfig(vector<ColorConfiguration>& config)
 	config.clear();
 }
 
-bool addSingleColorConfig( TiXmlElement* elemRoot){
+bool addSingleColorConfig( TiXmlElement* elemRoot)
+{
 	string elementType = elemRoot->Value();
 	if(elementType.compare( "colors" ) == 0){
 		//parse colors

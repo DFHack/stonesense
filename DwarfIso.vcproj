@@ -457,6 +457,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\FluidConfiguration.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\GroundMaterialConfiguration.cpp"
 					>
 				</File>
@@ -1616,6 +1620,10 @@
 				</File>
 				<File
 					RelativePath=".\CreatureConfiguration.h"
+					>
+				</File>
+				<File
+					RelativePath=".\FluidConfiguration.h"
 					>
 				</File>
 				<File

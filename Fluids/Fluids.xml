@@ -1,0 +1,18 @@
+<fluids>
+	<fluid type="water" level = "1" sheetIndex = "127"/>
+	<fluid type="water" level = "2" sheetIndex = "128"/>
+	<fluid type="water" level = "3" sheetIndex = "129"/>
+	<fluid type="water" level = "4" sheetIndex = "130"/>
+	<fluid type="water" level = "5" sheetIndex = "131"/>
+	<fluid type="water" level = "6" sheetIndex = "132"/>
+	<fluid type="water" level = "7" sheetIndex = "133"/>
+	
+	<fluid type="lava" level = "1" sheetIndex = "120"/>
+	<fluid type="lava" level = "2" sheetIndex = "121"/>
+	<fluid type="lava" level = "3" sheetIndex = "122"/>
+	<fluid type="lava" level = "4" sheetIndex = "123"/>
+	<fluid type="lava" level = "5" sheetIndex = "124"/>
+	<fluid type="lava" level = "6" sheetIndex = "125"/>
+	<fluid type="lava" level = "7" sheetIndex = "126"/>
+
+</fluids>

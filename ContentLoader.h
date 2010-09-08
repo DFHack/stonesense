@@ -6,6 +6,7 @@
 #include "GroundMaterialConfiguration.h"
 #include "ColorConfiguration.h"
 #include "commonTypes.h"
+#include "FluidConfiguration.h"
 
 class ContentLoader{
 private:
@@ -17,6 +18,7 @@ private:
 	bool parseTreeContent( TiXmlElement* elemRoot );
 	bool parseShrubContent( TiXmlElement* elemRoot );
 	bool parseColorContent( TiXmlElement* elemRoot );
+	bool parseFluidContent( TiXmlElement* elemRoot );
 	void flushCreatureConfig();
 
 	bool translationComplete;
@@ -33,6 +35,8 @@ public:
 	vector<TerrainConfiguration*> terrainFloorConfigs;
 	vector<TerrainConfiguration*> terrainBlockConfigs;
 	vector<ColorConfiguration> colorConfigs;
+	FluidConfiguration lava[7];
+	FluidConfiguration water[7];
 
 	vector<string> classIdStrings;
 	vector<string> professionStrings;

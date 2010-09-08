@@ -435,6 +435,7 @@ void c_sprite::draw_world(int x, int y, int z, bool chop)
 
 void c_sprite::draw_world_offset(int x, int y, int z, int tileoffset, bool chop)
 {
+	if(defaultsheet == 0) defaultsheet = IMGObjectSheet;
 	//sprites can be offset by a random amount, both animationwise, and just variationwise.
 	//the base offset is set here.
 	int rando = randomCube[x%RANDOM_CUBE][y%RANDOM_CUBE][z%RANDOM_CUBE];

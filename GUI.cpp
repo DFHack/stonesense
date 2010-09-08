@@ -388,8 +388,14 @@ void drawDebugCursorAndInfo(){
 		char strCreature[150] = {0};
 		generateCreatureDebugString( b->creature, strCreature );
 		//memset(strCreature, -1, 50);
+		try{
 		draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
-			"flag1: %s Sex: %d  Mood: %d Job: %d", strCreature, b->creature->sex + 1, b->creature->mood, (b->creature->current_job.active?b->creature->current_job.jobType:0));
+			"flag1: %s Sex: %d  Mood: %d Job: %s", strCreature, b->creature->sex + 1, b->creature->mood, (b->creature->current_job.active?contentLoader.MemInfo->getJob(b->creature->current_job.jobType).c_str():""));
+		}
+		catch(exception &e)
+		{
+			WriteErr("DFhack exeption: %s\n", e.what());
+		} 
 		if((!config.skipCreatureTypes) && (!config.skipCreatureTypesEx) && (!config.skipDescriptorColors))
 		{
 			int yy = al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font));

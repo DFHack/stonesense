@@ -311,28 +311,15 @@ void Block::Draw(){
 
 	if(water.index > 0)
 	{
-		int spriteNum = 0;
-		int waterlevel = water.index;
-
 		//if(waterlevel == 7) waterlevel--;
-
-		ALLEGRO_COLOR spatter;
 		if(water.type == 0)
 		{
-			if(bloodlevel == 0)
-				spatter = al_map_rgb(168,248,248);
-			else if(bloodlevel <= config.bloodcutoff)
-				spatter = partialBlend(al_map_rgb(168,248,248), bloodcolor, (bloodlevel*100/config.bloodcutoff));
-			else
-				spatter = bloodcolor;
-			spriteNum = SPRITEOBJECT_WATERLEVEL1 + waterlevel - 1;
+			contentLoader.water[water.index-1].sprite.draw_world(x, y, z, (chopThisBlock && this->z == ownerSegment->z + ownerSegment->sizez -2));
 		}
 		else
 		{
-			spriteNum = SPRITEOBJECT_WATERLEVEL1_LAVA + waterlevel - 1;
-			spatter = al_map_rgb(255,255,255);
+			contentLoader.lava[water.index-1].sprite.draw_world(x, y, z, (chopThisBlock && this->z == ownerSegment->z + ownerSegment->sizez -2));
 		}
-		DrawSpriteFromSheet( spriteNum, IMGObjectSheet, spatter, drawx, drawy );
 	}
 
 	// creature
