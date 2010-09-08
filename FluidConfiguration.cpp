@@ -34,7 +34,7 @@ void parseFluidElement( TiXmlElement* elemFluid, int basefile)
 		return; //nothing to work with
 	}
 	level = atoi(fluidLevelStr);
-	if( (level <= 0) || (level > 7))
+	if( (level <= 0) || (level > 8))
 	{
 		contentError("Invalid or missing level attribute",elemFluid);
 		return; //nothing to work with

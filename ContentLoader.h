@@ -35,8 +35,8 @@ public:
 	vector<TerrainConfiguration*> terrainFloorConfigs;
 	vector<TerrainConfiguration*> terrainBlockConfigs;
 	vector<ColorConfiguration> colorConfigs;
-	FluidConfiguration lava[7];
-	FluidConfiguration water[7];
+	FluidConfiguration lava[8];
+	FluidConfiguration water[8];
 
 	vector<string> classIdStrings;
 	vector<string> professionStrings;

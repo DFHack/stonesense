@@ -624,7 +624,8 @@ void paintboard(){
 	//al_set_target_bitmap(buffer);
 	//al_set_separate_blender(ALLEGRO_ALPHA, ALLEGRO_INVERSE_ALPHA, ALLEGRO_ONE, ALLEGRO_ONE);
 	//al_set_blender(ALLEGRO_ALPHA, ALLEGRO_INVERSE_ALPHA, al_map_rgba(255, 255, 255, 255));
-	//al_clear_to_color(al_map_rgb(config.backr,config.backg,config.backb));
+	if(!config.transparentScreenshots)
+		al_clear_to_color(al_map_rgb(config.backr,config.backg,config.backb));
 	//clear_to_color(buffer,makecol(12,7,49)); //this one is calm and nice
 
 	if( viewedSegment == NULL ){
