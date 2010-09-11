@@ -6,6 +6,7 @@ class WorldSegment{
 private:
 	vector<Block*> blocks;
 public:
+	bool loaded;
 	int x, y, z;
 	int sizex, sizey, sizez;
 	Crd3D regionSize;

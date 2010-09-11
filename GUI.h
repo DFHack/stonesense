@@ -28,6 +28,7 @@ void saveMegashot();
 void saveImage(ALLEGRO_BITMAP* image);
 void draw_particle_cloud(int count, float centerX, float centerY, float rangeX, float rangeY, ALLEGRO_BITMAP *sprite);
 extern WorldSegment* viewedSegment;//current, loaded
+extern WorldSegment* altSegment;//background
 extern int DisplayedSegmentX;
 extern int DisplayedSegmentY;
 extern int DisplayedSegmentZ;
@@ -54,3 +55,5 @@ ALLEGRO_COLOR operator*(const ALLEGRO_COLOR &color1, const ALLEGRO_COLOR &color2
 ALLEGRO_COLOR operator+(const ALLEGRO_COLOR &color1, const ALLEGRO_COLOR &color2);
 ALLEGRO_COLOR getDayShade(int hour, int tick);
 ALLEGRO_COLOR partialBlend(const ALLEGRO_COLOR & color2, const ALLEGRO_COLOR & color1, int percent);
+
+void swapSegments(void);

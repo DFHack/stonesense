@@ -13,6 +13,16 @@ static DFHack::ContextManager* DFMgr = 0;
 const VersionInfo *dfMemoryInfo;
 bool memInfoHasBeenRead;
 bool connected = 0;
+bool threadrunnng = 0;
+struct segParams
+{
+	int x;
+	int y;
+	int z;
+	int sizex;
+	int sizey;
+	int sizez;
+} parms;
 
 inline bool IDisWall(int in){
 	//if not a custom type, do a lookup in dfHack's interface
@@ -968,6 +978,7 @@ WorldSegment* ReadMapSegment(DFHack::Context &DF, int x, int y, int z, int sizex
 	}
 
 	Maps->Finish();
+	segment->loaded = 1;
 	TMR2_STOP;
 
 	return segment;
@@ -1102,6 +1113,33 @@ void FollowCurrentDFCenter( )
 	}
 }
 
+static void * threadedSegment(ALLEGRO_THREAD *thread, void *arg)
+{
+	bool keep_going = 1;
+	while(keep_going)
+	{
+		al_lock_mutex(config.readMutex);
+		config.threadstarted = 1;
+		pDFApiHandle->Suspend();
+		if(altSegment)
+		{
+			altSegment->Dispose();
+			delete(altSegment);
+		}
+		altSegment = ReadMapSegment(*pDFApiHandle, parms.x, parms.y, parms.z,
+			parms.sizex, parms.sizey, parms.sizez);
+		config.threadstarted = 0;
+		pDFApiHandle->Resume();
+		if(al_get_thread_should_stop(thread))
+			keep_going = 0;
+		al_wait_cond(config.readCond, config.readMutex);
+		swapSegments();
+		al_unlock_mutex(config.readMutex);
+		al_rest(config.automatic_reload_time/1000.0);
+	}
+	return 0;
+}
+
 void reloadDisplayedSegment(){
 	//create handle to dfHack API
 	bool firstLoad = (pDFApiHandle == 0);
@@ -1137,33 +1175,23 @@ void reloadDisplayedSegment(){
 	}
 	TMR1_START;
 
-	//dispose old segment
-	if(viewedSegment)
-	{
-		viewedSegment->Dispose();
-		delete(viewedSegment);
-	}
-
 #ifndef RELEASE
 	firstLoad=false;
 #endif
 
-	try
+	if (timeToReloadConfig)
 	{
 		DF.Suspend();
+		contentLoader.Load(DF);
+		timeToReloadConfig = false;
 	}
-	catch (exception& e)
-	{
-		WriteErr("DFhack exeption: %s\n", e.what());
-		return ;
-	}
-
-	DFHack::Gui * G = DF.getGui();
 
 	//G->Start();
 	//G->ReadViewScreen(config.viewscreen);
 	//config.menustate = G->ReadMenuState();
 	//G->Finish();
+	//dispose old segment
+
 	if (firstLoad || config.follow_DFscreen)
 	{
 		if (config.track_center)
@@ -1178,16 +1206,26 @@ void reloadDisplayedSegment(){
 
 	int segmentHeight = config.single_layer_view ? 2 : config.segmentSize.z;
 	//load segment
-	viewedSegment = ReadMapSegment(DF, DisplayedSegmentX, DisplayedSegmentY, DisplayedSegmentZ,
-		config.segmentSize.x, config.segmentSize.y, segmentHeight);
+	if(!config.threadmade)
+	{
+		config.readThread = al_create_thread(threadedSegment, NULL);
+		config.threadmade = 1;
+	}
+	//if(config.threadstarted)
+	//	al_join_thread(config.readThread, NULL);
 
+	parms.x = DisplayedSegmentX;
+	parms.y = DisplayedSegmentY;
+	parms.z = DisplayedSegmentZ;
+	parms.sizex = config.segmentSize.x;
+	parms.sizey = config.segmentSize.y;
+	parms.sizez = segmentHeight;
+	al_start_thread(config.readThread);
+	al_broadcast_cond(config.readCond);
 	//if(!viewedSegment || viewedSegment->regionSize.x == 0 || viewedSegment->regionSize.y == 0)
 	//{
 	//	abortAutoReload();
 	//	timeToReloadConfig = true;
 	//}
-	if( pDFApiHandle ){
-		DF.Resume();
-	}
 	TMR1_STOP;
 }

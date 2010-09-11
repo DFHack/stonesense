@@ -262,6 +262,7 @@ int main(void)
 	config.creditScreen = true;
 	config.bloodcutoff = 100;
 	config.poolcutoff = 100;
+	config.threadmade = 0;
 	initRandomCube();
 	loadConfigFile();
 	loadfont();
@@ -340,6 +341,9 @@ int main(void)
 	//DisplayedSegmentX = 125; DisplayedSegmentY = 125;DisplayedSegmentZ = 18;
 
 	//DisplayedSegmentX = 242; DisplayedSegmentY = 345;DisplayedSegmentZ = 15;
+
+	config.readMutex = al_create_mutex();
+	config.readCond = al_create_cond();
 
 #ifdef BENCHMARK
 	benchmark();
@@ -424,7 +428,11 @@ int main(void)
 	flushImgFiles();
 	DisconnectFromDF();
 
-	//dispose old segment
+	//dispose old segments
+	if(altSegment){
+		altSegment->Dispose();
+		delete(altSegment);
+	}
 	if(viewedSegment){
 		viewedSegment->Dispose();
 		delete(viewedSegment);

@@ -148,6 +148,8 @@ viewedSegment->blocks[i]->Draw(target);
 }*/
 
 void WorldSegment::drawAllBlocks(){
+	if(!loaded)
+		return;
 
 	// x,y,z print pricess
 	ALLEGRO_BITMAP * temp = al_get_target_bitmap();

@@ -21,6 +21,7 @@ using namespace std;
 extern ALLEGRO_FONT *font;
 
 WorldSegment* viewedSegment;
+WorldSegment* altSegment;
 int DisplayedSegmentX;
 int DisplayedSegmentY;
 int DisplayedSegmentZ;
@@ -47,7 +48,12 @@ GLhandleARB tinter;
 GLhandleARB tinter_shader;
 Crd3D debugCursor;
 
-
+void swapSegments(void)
+{
+	WorldSegment* backupSegment = viewedSegment;
+	viewedSegment = altSegment;
+	altSegment = backupSegment;
+}
 ALLEGRO_COLOR operator*(const ALLEGRO_COLOR &color1, const ALLEGRO_COLOR &color2)
 {
 	ALLEGRO_COLOR temp;
@@ -993,7 +999,7 @@ void saveMegashot(){
 	DisplayedSegmentX = -1;
 	DisplayedSegmentY = -1;
 	//Rebuild stuff
-	reloadDisplayedSegment();
+	//reloadDisplayedSegment();
 	//Draw the image and save it
 	//al_set_new_bitmap_format(ALLEGRO_PIXEL_FORMAT_ANY_NO_ALPHA);
 	//al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP);
