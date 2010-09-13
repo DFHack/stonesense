@@ -30,18 +30,18 @@
     <MaterialType value="Metal" subtype="ADAMANTINE" />
 	</or>
     <rotate>
-      <sprite index="44" color="material" />
-      <sprite index="45" color="material" />
-      <sprite index="46" color="material" />
-      <sprite index="47" color="material" />
+      <sprite index="44" color="building" />
+      <sprite index="45" color="building" />
+      <sprite index="46" color="building" />
+      <sprite index="47" color="building" />
     </rotate>
   </if>
   <else>
     <rotate>
-      <sprite index="40" color="material" />
-      <sprite index="41" color="material" />
-      <sprite index="42" color="material" />
-      <sprite index="43" color="material" />
+      <sprite index="40" color="building" />
+      <sprite index="41" color="building" />
+      <sprite index="42" color="building" />
+      <sprite index="43" color="building" />
     </rotate>
   </else>
 </include>

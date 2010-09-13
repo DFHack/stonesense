@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <include file="../workshop.png">
-  <sprite index="20" color="material" />
-  <sprite index="140" color="material" />
+  <sprite index="20" color="building" />
+  <sprite index="140" color="building" />
   <!-- borders -->
   <if>
     <not>
