@@ -17,17 +17,24 @@
   </block>
   <!-- ramps -->
   <!-- grass -->
-  <block sheetIndex="0" file="ramps.png">
+  <block sheetIndex="8" file="ramps.png" color = "material">
+    <!-- grass -->
+    <terrain value="235" />
+    <terrain value="236" />
+		<subsprite sheetIndex="7" file="ramps.png" />
+  </block>
+  <block sheetIndex="8" file="ramps.png" color = "material">
     <!-- dry -->
     <terrain value="233" />
     <!-- dead -->
     <terrain value="234" />
-    <!-- grass -->
-    <terrain value="235" />
-    <terrain value="236" />
+		<subsprite sheetIndex="9" file="ramps.png" />
+  </block>
+    <block sheetIndex="8" file="ramps.png" color = "material">
     <!-- soil -->
     <terrain value="241" />
   </block>
+
   <!-- stone -->
   <block sheetIndex="1" file="ramps.png" color="material">
     <!-- stone -->
