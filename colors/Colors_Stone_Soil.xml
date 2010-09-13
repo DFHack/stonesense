@@ -1,0 +1,103 @@
+<?xml version="1.0"?>
+<colors>
+  <color red="215" green="174" blue="172">
+    <material value="Inorganic">
+      <subtype value="CLAY" />
+    </material>
+  </color>
+  <color red="236" green="170" blue="138">
+    <material value="Inorganic">
+      <subtype value="SILTY_CLAY" />
+    </material>
+  </color>
+  <color red="153" green="137" blue="112">
+    <material value="Inorganic">
+      <subtype value="SANDY_CLAY" />
+    </material>
+  </color>
+  <color red="158" green="114" blue="90">
+    <material value="Inorganic">
+      <subtype value="CLAY_LOAM" />
+    </material>
+  </color>
+  <color red="175" green="157" blue="126">
+    <material value="Inorganic">
+      <subtype value="SANDY_CLAY_LOAM" />
+    </material>
+  </color>
+  <color red="119" green="84" blue="73">
+    <material value="Inorganic">
+      <subtype value="SILTY_CLAY_LOAM" />
+    </material>
+  </color>
+  <color red="104" green="99" blue="96">
+    <material value="Inorganic">
+      <subtype value="LOAM" />
+    </material>
+  </color>
+  <color red="170" green="135" blue="102">
+    <material value="Inorganic">
+      <subtype value="SANDY_LOAM" />
+    </material>
+  </color>
+  <color red="148" green="103" blue="87">
+    <material value="Inorganic">
+      <subtype value="SILT_LOAM" />
+    </material>
+  </color>
+  <color red="198" green="166" blue="155">
+    <material value="Inorganic">
+      <subtype value="LOAMY_SAND" />
+    </material>
+  </color>
+  <color red="121" green="114" blue="109">
+    <material value="Inorganic">
+      <subtype value="SILT" />
+    </material>
+  </color>
+  <color red="218" green="204" blue="190">
+    <material value="Inorganic">
+      <subtype value="SAND_TAN" />
+    </material>
+  </color>
+  <color red="220" green="191" blue="120">
+    <material value="Inorganic">
+      <subtype value="SAND_YELLOW" />
+    </material>
+  </color>
+  <color red="255" green="255" blue="255">
+    <material value="Inorganic">
+      <subtype value="SAND_WHITE" />
+    </material>
+  </color>
+  <color red="119" green="120" blue="128">
+    <material value="Inorganic">
+      <subtype value="SAND_BLACK" />
+    </material>
+  </color>
+  <color red="223" green="84" blue="34">
+    <material value="Inorganic">
+      <subtype value="SAND_RED" />
+    </material>
+  </color>
+  <color red="111" green="90" blue="85">
+    <material value="Inorganic">
+      <subtype value="PEAT" />
+    </material>
+  </color>
+  <color red="163" green="158" blue="150">
+    <material value="Inorganic">
+      <subtype value="PELAGIC_CLAY" />
+    </material>
+  </color>
+  <color red="214" green="184" blue="124">
+    <material value="Inorganic">
+      <subtype value="CALCAREOUS_OOZE" />
+    </material>
+  </color>
+  <color red="255" green="217" blue="194">
+    <material value="Inorganic">
+      <subtype value="SILICEOUS_OOZE" />
+    </material>
+  </color>
+</colors>
