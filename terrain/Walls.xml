@@ -119,7 +119,7 @@
     <terrain value="468" />
   </block>
   <!-- soil -->
-  <block sheetIndex="5">
+  <block sheetIndex="5" color = "material">
     <!-- wall -->
     <terrain value="265" />
   </block>

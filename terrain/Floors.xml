@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <floors file="floors.png">
   <!-- watery -->
-  <floor sheetIndex="4">
+  <floor sheetIndex="4" color = "material">
 		<!-- add some mud on top-->
 		<subsprite sheetIndex="18"/>
     <!-- pool -->
@@ -106,7 +106,7 @@
     <terrain value="35" />
   </floor>
   <!-- soil -->
-  <floor sheetIndex="4">
+  <floor sheetIndex="4" color = "material">
     <!-- below stair -->
     <terrain value="41" />
     <!-- below grass stair -->

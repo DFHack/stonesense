@@ -245,7 +245,7 @@
 		mud_min="10"
 		/>
   </floor>
-  <floor sheetIndex="24">
+  <floor sheetIndex="24" color="material">
     <!-- Soil floors -->
     <terrain value="355" />
     <!-- Wet Soil floors -->
@@ -262,7 +262,7 @@
 		mud_min="10"
 		/>
   </floor>
-  <floor sheetIndex="25">
+  <floor sheetIndex="25" color="material">
     <!-- Soil floors -->
     <terrain value="354" />
     <!-- Wet Soil floors -->
@@ -279,7 +279,7 @@
 		mud_min="10"
 		/>
   </floor>
-  <floor sheetIndex="26">
+  <floor sheetIndex="26" color="material">
     <!-- Soil floors -->
     <terrain value="352" />
     <!-- Wet Soil floors -->
@@ -317,7 +317,7 @@
 		mud_min="10"
 		/>
   </floor>
-  <floor sheetIndex="13">
+  <floor sheetIndex="13" color = "material">
     <!-- Soil floors -->
     <terrain value="352" />
     <terrain value="353" />
@@ -331,87 +331,11 @@
     <material value="Stone">
       <subtype value="SAND_TAN" />
       <subtype value="SAND_YELLOW" />
-    </material>
-	<subsprite 
-		sheetIndex="18"
-		mud_min="10"
-		/>
-  </floor>
-  <floor sheetIndex="14">
-    <!-- Soil floors -->
-    <terrain value="352" />
-    <terrain value="353" />
-    <terrain value="354" />
-    <terrain value="355" />
-    <!-- Wet Soil floors -->
-    <terrain value="356" />
-    <terrain value="357" />
-    <terrain value="358" />
-    <terrain value="359" />
-    <material value="Stone">
       <subtype value="SAND_RED" />
       <subtype value="SILT" />
-    </material>
-	<subsprite 
-		sheetIndex="18"
-		mud_min="10"
-		/>
-  </floor>
-  <floor sheetIndex="15">
-    <!-- Soil floors -->
-    <terrain value="352" />
-    <terrain value="353" />
-    <terrain value="354" />
-    <terrain value="355" />
-    <!-- Wet Soil floors -->
-    <terrain value="356" />
-    <terrain value="357" />
-    <terrain value="358" />
-    <terrain value="359" />
-    <material value="Stone">
       <subtype value="SAND_BLACK" />
-    </material>
-	<subsprite 
-		sheetIndex="18"
-		mud_min="10"
-		/>
-  </floor>
-  <floor sheetIndex="16">
-    <!-- Soil floors -->
-    <terrain value="352" />
-    <terrain value="353" />
-    <terrain value="354" />
-    <terrain value="355" />
-    <!-- Wet Soil floors -->
-    <terrain value="356" />
-    <terrain value="357" />
-    <terrain value="358" />
-    <terrain value="359" />
-    <material value="Stone">
       <subtype value="SAND_WHITE" />
     </material>
-	<subsprite 
-		sheetIndex="18"
-		mud_min="10"
-		/>
-  </floor>
-  <floor sheetIndex="9">
-    <!-- Dry Grass -->
-    <terrain value="387" />
-    <terrain value="388" />
-    <terrain value="389" />
-    <terrain value="390" />
-    <!-- Darker dry grass -->
-    <terrain value="394" />
-    <terrain value="395" />
-    <terrain value="396" />
-    <terrain value="397" />
-    <!-- Dead Tree -->
-    <terrain value="391" />
-    <!-- Dead sapling -->
-    <terrain value="392" />
-    <!-- Dead shrub -->
-    <terrain value="393" />
 	<subsprite 
 		sheetIndex="18"
 		mud_min="10"
