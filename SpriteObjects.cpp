@@ -134,6 +134,8 @@ void c_sprite::reset(void)
 	rampborders = ALL_BORDERS;
 	upstairborders = ALL_BORDERS;
 	downstairborders = ALL_BORDERS;
+	lightborders = ALL_BORDERS;
+	darkborders =  0;
 	notopenborders = 0;
 	notwallborders = 0;
 	notfloorborders = 0;
@@ -210,6 +212,10 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
 
 	downstairborders = getBorders(elemSprite->Attribute("needdownstair"));
 
+	darkborders = getUnBorders(elemSprite->Attribute("needdark"));
+
+	lightborders = getBorders(elemSprite->Attribute("needlight"));
+
 	notopenborders = getUnBorders(elemSprite->Attribute("neednotopen"));
 
 	notfloorborders = getUnBorders(elemSprite->Attribute("neednotfloor"));
@@ -265,6 +271,25 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
 	else if( strcmp(spriteChopStr, "both") == 0)
 	{
 		halftile = HALFTILEBOTH;
+	}
+
+	//hidden in the shadows
+	const char* spriteShadowStr = elemSprite->Attribute("inside");
+	if (spriteShadowStr == NULL || spriteShadowStr[0] == 0)
+	{
+		light = LIGHTANY;
+	}
+	else if( strcmp(spriteShadowStr, "yes") == 0)
+	{
+		light = LIGHTNO;
+	}
+	else if( strcmp(spriteShadowStr, "no") == 0)
+	{
+		light = LIGHTYES;
+	}
+	else if( strcmp(spriteShadowStr, "both") == 0)
+	{
+		light = LIGHTANY;
 	}
 
 	//some sprites are actually tile borders.
@@ -356,7 +381,7 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
 	}
 	else bloodmax=atoi(spritebloodMaxStr);
 
-		//Should the sprite be shown only when there is mud?
+	//Should the sprite be shown only when there is mud?
 	const char* spritemudMinStr = elemSprite->Attribute("mud_min");
 	if (spritemudMinStr == NULL || spritemudMinStr[0] == 0)
 	{
@@ -455,9 +480,31 @@ void c_sprite::draw_world_offset(int x, int y, int z, int tileoffset, bool chop)
 		//if the xml says that this is a blood sprite, and offset is set here for proper pooling. this over-rides the random offset.
 		if(bloodsprite)
 			randoffset = getBloodOffset(b);
-		if(((openborders & b->openborders) || (upstairborders & b->upstairborders) || (downstairborders & b->downstairborders) || (rampborders & b->rampborders) || (wallborders & b->wallborders) || (floorborders & b->floorborders)) && !((notopenborders & b->openborders) || (notupstairborders & b->upstairborders) || (notdownstairborders & b->downstairborders) || (notrampborders & b->rampborders) || (notwallborders & b->wallborders) || (notfloorborders & b->floorborders)))
+		if(( //these are all border conditions. this first section is a list of positive conditions. if at least one of the border conditions is met, the tile can be shown.
+			(openborders & b->openborders) ||
+			(upstairborders & b->upstairborders) ||
+			(downstairborders & b->downstairborders) ||
+			(rampborders & b->rampborders) ||
+			(wallborders & b->wallborders) ||
+			(floorborders & b->floorborders) ||
+			(lightborders & b->lightborders)
+			) && !( //This second block consists of negative conditions. if /any/ of these border conditions are met, the tile will not be drawn
+			(notopenborders & b->openborders) ||
+			(notupstairborders & b->upstairborders) ||
+			(notdownstairborders & b->downstairborders) ||
+			(notrampborders & b->rampborders) ||
+			(notwallborders & b->wallborders) ||
+			(notfloorborders & b->floorborders) ||
+			(darkborders & b->lightborders)
+			))
 		{
-			if((snowmin <= b->snowlevel && (snowmax == -1 || snowmax >= b->snowlevel)) && (bloodmin <= b->bloodlevel && (bloodmax == -1 || bloodmax >= b->bloodlevel)) && (mudmin <= b->mudlevel && (mudmax == -1 || mudmax >= b->mudlevel)))
+			if(
+				(snowmin <= b->snowlevel &&
+				(snowmax == -1 || snowmax >= b->snowlevel)) &&
+				(bloodmin <= b->bloodlevel && (bloodmax == -1 || bloodmax >= b->bloodlevel)) &&
+				(mudmin <= b->mudlevel && (mudmax == -1 || mudmax >= b->mudlevel)) &&
+				((light==LIGHTANY) || ((light==LIGHTYES) && b->designation.bits.skyview) || ((light==LIGHTNO) && !(b->designation.bits.skyview))) //only bother with this tile if it's in the light, or not.
+				)
 			{
 				int32_t drawx = x;
 				int32_t drawy = y;

@@ -16,6 +16,11 @@
 #define OUTLINELEFT 1
 #define OUTLINERIGHT 2
 #define OUTLINEBOTTOM 3
+
+#define LIGHTANY 0
+#define LIGHTYES 1
+#define LIGHTNO 2
+
 class c_sprite
 {
 private:
@@ -41,13 +46,26 @@ private:
 	int mudmin;
 	int mudmax;
 
+	unsigned int waterMin : 3;
+	unsigned int waterMax : 3;
+	unsigned int waterAboveMin : 3;
+	unsigned int waterAboveMax : 3;
+	unsigned int waterBelowMin : 3;
+	unsigned int waterBelowMax : 3;
+	unsigned int waterRightMin : 3;
+	unsigned int waterRightMax : 3;
+	unsigned int waterLeftMin : 3;
+	unsigned int waterLeftMax : 3;
+
 	bool needoutline;
 	bool randomanimation;
 	bool bloodsprite;
 
-	char isoutline;
+	unsigned char isoutline : 2;
 
-	char halftile;
+	unsigned char halftile : 2;
+
+	unsigned char light : 2;
 
 	ALLEGRO_BITMAP * defaultsheet;
 
@@ -59,6 +77,8 @@ private:
 	uint8_t rampborders;
 	uint8_t upstairborders;
 	uint8_t downstairborders;
+	uint8_t lightborders;
+	uint8_t darkborders;
 	uint8_t notopenborders;
 	uint8_t notwallborders;
 	uint8_t notfloorborders;

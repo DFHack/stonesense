@@ -373,7 +373,7 @@ void ReadCellToSegment(DFHack::Context& DF, WorldSegment& segment, int CellX, in
 			bool isHidden = designations[lx][ly].bits.hidden;
 			//option for including hidden blocks
 			isHidden &= !config.show_hidden_blocks;
-			bool shouldBeIncluded = (!isOpenTerrain(t) || b->water.index) && !isHidden;
+			bool shouldBeIncluded = (!isOpenTerrain(t) || b->water.index || !designations[lx][ly].bits.skyview) && !isHidden;
 			//include hidden blocks as shaded black 
 			if(config.shade_hidden_blocks && isHidden && (isBlockOnVisibleEdgeOfSegment(&segment, b) || areNeighborsVisible(designations, lx, ly)))
 			{
@@ -963,6 +963,17 @@ WorldSegment* ReadMapSegment(DFHack::Context &DF, int x, int y, int z, int sizex
 		if(dir6) if(dir6->floorType) b->floorborders |= 32;
 		if(dir7) if(dir7->floorType) b->floorborders |= 64;
 		if(dir8) if(dir8->floorType) b->floorborders |= 128;
+
+		b->lightborders = 0;
+		if(dir1) if(!dir1->designation.bits.skyview) b->lightborders |= 1;
+		if(dir2) if(!dir2->designation.bits.skyview) b->lightborders |= 2;
+		if(dir3) if(!dir3->designation.bits.skyview) b->lightborders |= 4;
+		if(dir4) if(!dir4->designation.bits.skyview) b->lightborders |= 8;
+		if(dir5) if(!dir5->designation.bits.skyview) b->lightborders |= 16;
+		if(dir6) if(!dir6->designation.bits.skyview) b->lightborders |= 32;
+		if(dir7) if(!dir7->designation.bits.skyview) b->lightborders |= 64;
+		if(dir8) if(!dir8->designation.bits.skyview) b->lightborders |= 128;
+		b->lightborders = ~b->lightborders;
 
 		b->openborders = ~(b->floorborders|b->rampborders|b->wallborders|b->downstairborders|b->upstairborders);
 	}

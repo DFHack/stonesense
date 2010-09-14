@@ -46,7 +46,54 @@ vector<string*> IMGFilenames;
 GLhandleARB tinter;
 GLhandleARB tinter_shader;
 Crd3D debugCursor;
+void draw_diamond(float x, float y, ALLEGRO_COLOR color)
+{
+	al_draw_filled_triangle(x, y, x+4, y+4, x-4, y+4, color);
+	al_draw_filled_triangle(x+4, y+4, x, y+8, x-4, y+4, color);
+}
+void draw_borders(float x, float y, uint8_t borders)
+{
+	if(borders & 1)
+		draw_diamond(x, y, al_map_rgb(255,255,255));
+	else
+		draw_diamond(x, y, al_map_rgb(0,0,0));
 
+	if(borders & 2)
+		draw_diamond(x+4, y+4, al_map_rgb(255,255,255));
+	else
+		draw_diamond(x+4, y+4, al_map_rgb(0,0,0));
+
+	if(borders & 4)
+		draw_diamond(x+8, y+8, al_map_rgb(255,255,255));
+	else
+		draw_diamond(x+8, y+8, al_map_rgb(0,0,0));
+
+	if(borders & 8)
+		draw_diamond(x+4, y+12, al_map_rgb(255,255,255));
+	else
+		draw_diamond(x+4, y+12, al_map_rgb(0,0,0));
+
+	if(borders & 16)
+		draw_diamond(x, y+16, al_map_rgb(255,255,255));
+	else
+		draw_diamond(x, y+16, al_map_rgb(0,0,0));
+
+	if(borders & 32)
+		draw_diamond(x-4, y+12, al_map_rgb(255,255,255));
+	else
+		draw_diamond(x-4, y+12, al_map_rgb(0,0,0));
+
+	if(borders & 64)
+		draw_diamond(x-8, y+8, al_map_rgb(255,255,255));
+	else
+		draw_diamond(x-8, y+8, al_map_rgb(0,0,0));
+
+	if(borders & 128)
+		draw_diamond(x-4, y+4, al_map_rgb(255,255,255));
+	else
+		draw_diamond(x-4, y+4, al_map_rgb(0,0,0));
+
+}
 
 ALLEGRO_COLOR operator*(const ALLEGRO_COLOR &color1, const ALLEGRO_COLOR &color2)
 {
@@ -443,9 +490,10 @@ void drawDebugCursorAndInfo(){
 			"Snow: %d, Mud: %d, Blood: %d", b->snowlevel, b->mudlevel, b->bloodlevel);
 	}
 	//borders
-	draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0,
-		"Open: %d, floor: %d, Wall: %d, Ramp: %d", b->openborders, b->floorborders, b->wallborders, b->rampborders);
-
+	int dray = al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font));
+	draw_textf_border(font, al_map_rgb(255,255,255), 16, dray, 0,
+		"Open: %d, floor: %d, Wall: %d, Ramp: %d Light: %d", b->openborders, b->floorborders, b->wallborders, b->rampborders, b->lightborders);
+	draw_borders(8, dray, b->lightborders);
 
 	////effects
 	//if(b->blockeffects.lifetime > 0)
