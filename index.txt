@@ -7,4 +7,4 @@ buildings/index.txt
 vegetation/index.txt
 colors/index.txt
 Colors.xml
-Fluids/Fluids.xml
+Fluids/index.txt

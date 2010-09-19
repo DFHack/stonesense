@@ -1,0 +1,460 @@
+<fluids file="water2.png">
+	<fluid type="water" level = "1" sheetIndex = "251" color = "none" red = "150" green = "237" blue = "224">
+		<subsprite sheetIndex = "258" color = "blood"/>
+		<subsprite sheetIndex = "240" variations="4" frames="0" random_anim_offset="0" offsety="16" water_direction="0" />
+		<subsprite sheetIndex = "260" variations="4" frames="1" random_anim_offset="0" offsety="16" water_direction="0" />
+		<subsprite sheetIndex = "280" variations="4" frames="2" random_anim_offset="0" offsety="16" water_direction="0" />
+		<subsprite sheetIndex = "300" variations="4" frames="3" random_anim_offset="0" offsety="16" water_direction="0" />
+		<subsprite sheetIndex = "320" variations="4" frames="4" random_anim_offset="0" offsety="16" water_direction="0" />
+		<subsprite sheetIndex = "340" variations="4" frames="5" random_anim_offset="0" offsety="16" water_direction="0" />
+		<!-- Direction 1 -->
+		<subsprite sheetIndex = "15" variations="4" frames="0" random_anim_offset="0" offsety="16" water_direction="1" />
+		<subsprite sheetIndex = "35" variations="4" frames="1" random_anim_offset="0" offsety="16" water_direction="1" />
+		<subsprite sheetIndex = "55" variations="4" frames="2" random_anim_offset="0" offsety="16" water_direction="1" />
+		<subsprite sheetIndex = "75" variations="4" frames="3" random_anim_offset="0" offsety="16" water_direction="1" />
+		<subsprite sheetIndex = "95" variations="4" frames="4" random_anim_offset="0" offsety="16" water_direction="1" />
+		<subsprite sheetIndex = "115" variations="4" frames="5" random_anim_offset="0" offsety="16" water_direction="1" />
+		<!-- Direction 2 -->
+		<subsprite sheetIndex = "05" variations="4" frames="0" random_anim_offset="0" offsety="16" water_direction="2" />
+		<subsprite sheetIndex = "25" variations="4" frames="1" random_anim_offset="0" offsety="16" water_direction="2" />
+		<subsprite sheetIndex = "45" variations="4" frames="2" random_anim_offset="0" offsety="16" water_direction="2" />
+		<subsprite sheetIndex = "65" variations="4" frames="3" random_anim_offset="0" offsety="16" water_direction="2" />
+		<subsprite sheetIndex = "85" variations="4" frames="4" random_anim_offset="0" offsety="16" water_direction="2" />
+		<subsprite sheetIndex = "105" variations="4" frames="5" random_anim_offset="0" offsety="16" water_direction="2" />
+		<!-- Direction 3 -->
+		<subsprite sheetIndex = "130" variations="4" frames="0" random_anim_offset="0" offsety="16" water_direction="3" />
+		<subsprite sheetIndex = "150" variations="4" frames="1" random_anim_offset="0" offsety="16" water_direction="3" />
+		<subsprite sheetIndex = "170" variations="4" frames="2" random_anim_offset="0" offsety="16" water_direction="3" />
+		<subsprite sheetIndex = "190" variations="4" frames="3" random_anim_offset="0" offsety="16" water_direction="3" />
+		<subsprite sheetIndex = "210" variations="4" frames="4" random_anim_offset="0" offsety="16" water_direction="3" />
+		<subsprite sheetIndex = "230" variations="4" frames="5" random_anim_offset="0" offsety="16" water_direction="3" />
+		<!-- Direction 4 -->
+		<subsprite sheetIndex = "120" variations="4" frames="0" random_anim_offset="0" offsety="16" water_direction="4" />
+		<subsprite sheetIndex = "140" variations="4" frames="1" random_anim_offset="0" offsety="16" water_direction="4" />
+		<subsprite sheetIndex = "160" variations="4" frames="2" random_anim_offset="0" offsety="16" water_direction="4" />
+		<subsprite sheetIndex = "180" variations="4" frames="3" random_anim_offset="0" offsety="16" water_direction="4" />
+		<subsprite sheetIndex = "200" variations="4" frames="4" random_anim_offset="0" offsety="16" water_direction="4" />
+		<subsprite sheetIndex = "220" variations="4" frames="5" random_anim_offset="0" offsety="16" water_direction="4" />
+		<!-- Direction 5 -->
+		<subsprite sheetIndex = "10" variations="4" frames="0" random_anim_offset="0" offsety="16" water_direction="5" />
+		<subsprite sheetIndex = "30" variations="4" frames="1" random_anim_offset="0" offsety="16" water_direction="5" />
+		<subsprite sheetIndex = "50" variations="4" frames="2" random_anim_offset="0" offsety="16" water_direction="5" />
+		<subsprite sheetIndex = "70" variations="4" frames="3" random_anim_offset="0" offsety="16" water_direction="5" />
+		<subsprite sheetIndex = "90" variations="4" frames="4" random_anim_offset="0" offsety="16" water_direction="5" />
+		<subsprite sheetIndex = "110" variations="4" frames="5" random_anim_offset="0" offsety="16" water_direction="5" />
+		<!-- Direction 6 -->
+		<subsprite sheetIndex = "125" variations="4" frames="0" random_anim_offset="0" offsety="16" water_direction="6" />
+		<subsprite sheetIndex = "145" variations="4" frames="1" random_anim_offset="0" offsety="16" water_direction="6" />
+		<subsprite sheetIndex = "165" variations="4" frames="2" random_anim_offset="0" offsety="16" water_direction="6" />
+		<subsprite sheetIndex = "185" variations="4" frames="3" random_anim_offset="0" offsety="16" water_direction="6" />
+		<subsprite sheetIndex = "205" variations="4" frames="4" random_anim_offset="0" offsety="16" water_direction="6" />
+		<subsprite sheetIndex = "225" variations="4" frames="5" random_anim_offset="0" offsety="16" water_direction="6" />
+		<!-- Direction 7 -->
+		<subsprite sheetIndex = "135" variations="4" frames="0" random_anim_offset="0" offsety="16" water_direction="7" />
+		<subsprite sheetIndex = "155" variations="4" frames="1" random_anim_offset="0" offsety="16" water_direction="7" />
+		<subsprite sheetIndex = "175" variations="4" frames="2" random_anim_offset="0" offsety="16" water_direction="7" />
+		<subsprite sheetIndex = "195" variations="4" frames="3" random_anim_offset="0" offsety="16" water_direction="7" />
+		<subsprite sheetIndex = "215" variations="4" frames="4" random_anim_offset="0" offsety="16" water_direction="7" />
+		<subsprite sheetIndex = "235" variations="4" frames="5" random_anim_offset="0" offsety="16" water_direction="7" />
+		<!-- Direction 8 -->
+		<subsprite sheetIndex = "0" variations="4" frames="0" random_anim_offset="0" offsety="16" water_direction="8" />
+		<subsprite sheetIndex = "20" variations="4" frames="1" random_anim_offset="0" offsety="16" water_direction="8" />
+		<subsprite sheetIndex = "40" variations="4" frames="2" random_anim_offset="0" offsety="16" water_direction="8" />
+		<subsprite sheetIndex = "60" variations="4" frames="3" random_anim_offset="0" offsety="16" water_direction="8" />
+		<subsprite sheetIndex = "80" variations="4" frames="4" random_anim_offset="0" offsety="16" water_direction="8" />
+		<subsprite sheetIndex = "100" variations="4" frames="5" random_anim_offset="0" offsety="16" water_direction="8" />
+	</fluid>
+	<fluid type="water" level = "2" sheetIndex = "250" color = "none" red = "150" green = "237" blue = "224">
+		<subsprite sheetIndex = "257" color = "blood"/>
+		<subsprite sheetIndex = "240" variations="4" frames="0" random_anim_offset="0" offsety="14" water_direction="0" />
+		<subsprite sheetIndex = "260" variations="4" frames="1" random_anim_offset="0" offsety="14" water_direction="0" />
+		<subsprite sheetIndex = "280" variations="4" frames="2" random_anim_offset="0" offsety="14" water_direction="0" />
+		<subsprite sheetIndex = "300" variations="4" frames="3" random_anim_offset="0" offsety="14" water_direction="0" />
+		<subsprite sheetIndex = "320" variations="4" frames="4" random_anim_offset="0" offsety="14" water_direction="0" />
+		<subsprite sheetIndex = "340" variations="4" frames="5" random_anim_offset="0" offsety="14" water_direction="0" />
+		<!-- Direction 1 -->
+		<subsprite sheetIndex = "15" variations="4" frames="0" random_anim_offset="0" offsety="14" water_direction="1" />
+		<subsprite sheetIndex = "35" variations="4" frames="1" random_anim_offset="0" offsety="14" water_direction="1" />
+		<subsprite sheetIndex = "55" variations="4" frames="2" random_anim_offset="0" offsety="14" water_direction="1" />
+		<subsprite sheetIndex = "75" variations="4" frames="3" random_anim_offset="0" offsety="14" water_direction="1" />
+		<subsprite sheetIndex = "95" variations="4" frames="4" random_anim_offset="0" offsety="14" water_direction="1" />
+		<subsprite sheetIndex = "115" variations="4" frames="5" random_anim_offset="0" offsety="14" water_direction="1" />
+		<!-- Direction 2 -->
+		<subsprite sheetIndex = "05" variations="4" frames="0" random_anim_offset="0" offsety="14" water_direction="2" />
+		<subsprite sheetIndex = "25" variations="4" frames="1" random_anim_offset="0" offsety="14" water_direction="2" />
+		<subsprite sheetIndex = "45" variations="4" frames="2" random_anim_offset="0" offsety="14" water_direction="2" />
+		<subsprite sheetIndex = "65" variations="4" frames="3" random_anim_offset="0" offsety="14" water_direction="2" />
+		<subsprite sheetIndex = "85" variations="4" frames="4" random_anim_offset="0" offsety="14" water_direction="2" />
+		<subsprite sheetIndex = "105" variations="4" frames="5" random_anim_offset="0" offsety="14" water_direction="2" />
+		<!-- Direction 3 -->
+		<subsprite sheetIndex = "130" variations="4" frames="0" random_anim_offset="0" offsety="14" water_direction="3" />
+		<subsprite sheetIndex = "150" variations="4" frames="1" random_anim_offset="0" offsety="14" water_direction="3" />
+		<subsprite sheetIndex = "170" variations="4" frames="2" random_anim_offset="0" offsety="14" water_direction="3" />
+		<subsprite sheetIndex = "190" variations="4" frames="3" random_anim_offset="0" offsety="14" water_direction="3" />
+		<subsprite sheetIndex = "210" variations="4" frames="4" random_anim_offset="0" offsety="14" water_direction="3" />
+		<subsprite sheetIndex = "230" variations="4" frames="5" random_anim_offset="0" offsety="14" water_direction="3" />
+		<!-- Direction 4 -->
+		<subsprite sheetIndex = "120" variations="4" frames="0" random_anim_offset="0" offsety="14" water_direction="4" />
+		<subsprite sheetIndex = "140" variations="4" frames="1" random_anim_offset="0" offsety="14" water_direction="4" />
+		<subsprite sheetIndex = "160" variations="4" frames="2" random_anim_offset="0" offsety="14" water_direction="4" />
+		<subsprite sheetIndex = "180" variations="4" frames="3" random_anim_offset="0" offsety="14" water_direction="4" />
+		<subsprite sheetIndex = "200" variations="4" frames="4" random_anim_offset="0" offsety="14" water_direction="4" />
+		<subsprite sheetIndex = "220" variations="4" frames="5" random_anim_offset="0" offsety="14" water_direction="4" />
+		<!-- Direction 5 -->
+		<subsprite sheetIndex = "10" variations="4" frames="0" random_anim_offset="0" offsety="14" water_direction="5" />
+		<subsprite sheetIndex = "30" variations="4" frames="1" random_anim_offset="0" offsety="14" water_direction="5" />
+		<subsprite sheetIndex = "50" variations="4" frames="2" random_anim_offset="0" offsety="14" water_direction="5" />
+		<subsprite sheetIndex = "70" variations="4" frames="3" random_anim_offset="0" offsety="14" water_direction="5" />
+		<subsprite sheetIndex = "90" variations="4" frames="4" random_anim_offset="0" offsety="14" water_direction="5" />
+		<subsprite sheetIndex = "110" variations="4" frames="5" random_anim_offset="0" offsety="14" water_direction="5" />
+		<!-- Direction 6 -->
+		<subsprite sheetIndex = "125" variations="4" frames="0" random_anim_offset="0" offsety="14" water_direction="6" />
+		<subsprite sheetIndex = "145" variations="4" frames="1" random_anim_offset="0" offsety="14" water_direction="6" />
+		<subsprite sheetIndex = "165" variations="4" frames="2" random_anim_offset="0" offsety="14" water_direction="6" />
+		<subsprite sheetIndex = "185" variations="4" frames="3" random_anim_offset="0" offsety="14" water_direction="6" />
+		<subsprite sheetIndex = "205" variations="4" frames="4" random_anim_offset="0" offsety="14" water_direction="6" />
+		<subsprite sheetIndex = "225" variations="4" frames="5" random_anim_offset="0" offsety="14" water_direction="6" />
+		<!-- Direction 7 -->
+		<subsprite sheetIndex = "135" variations="4" frames="0" random_anim_offset="0" offsety="14" water_direction="7" />
+		<subsprite sheetIndex = "155" variations="4" frames="1" random_anim_offset="0" offsety="14" water_direction="7" />
+		<subsprite sheetIndex = "175" variations="4" frames="2" random_anim_offset="0" offsety="14" water_direction="7" />
+		<subsprite sheetIndex = "195" variations="4" frames="3" random_anim_offset="0" offsety="14" water_direction="7" />
+		<subsprite sheetIndex = "215" variations="4" frames="4" random_anim_offset="0" offsety="14" water_direction="7" />
+		<subsprite sheetIndex = "235" variations="4" frames="5" random_anim_offset="0" offsety="14" water_direction="7" />
+		<!-- Direction 8 -->
+		<subsprite sheetIndex = "0" variations="4" frames="0" random_anim_offset="0" offsety="14" water_direction="8" />
+		<subsprite sheetIndex = "20" variations="4" frames="1" random_anim_offset="0" offsety="14" water_direction="8" />
+		<subsprite sheetIndex = "40" variations="4" frames="2" random_anim_offset="0" offsety="14" water_direction="8" />
+		<subsprite sheetIndex = "60" variations="4" frames="3" random_anim_offset="0" offsety="14" water_direction="8" />
+		<subsprite sheetIndex = "80" variations="4" frames="4" random_anim_offset="0" offsety="14" water_direction="8" />
+		<subsprite sheetIndex = "100" variations="4" frames="5" random_anim_offset="0" offsety="14" water_direction="8" />
+	</fluid>
+	<fluid type="water" level = "3" sheetIndex = "249" color = "none" red = "150" green = "237" blue = "224">
+		<subsprite sheetIndex = "256" color = "blood"/>
+		<subsprite sheetIndex = "240" variations="4" frames="0" random_anim_offset="0" offsety="12" water_direction="0" />
+		<subsprite sheetIndex = "260" variations="4" frames="1" random_anim_offset="0" offsety="12" water_direction="0" />
+		<subsprite sheetIndex = "280" variations="4" frames="2" random_anim_offset="0" offsety="12" water_direction="0" />
+		<subsprite sheetIndex = "300" variations="4" frames="3" random_anim_offset="0" offsety="12" water_direction="0" />
+		<subsprite sheetIndex = "320" variations="4" frames="4" random_anim_offset="0" offsety="12" water_direction="0" />
+		<subsprite sheetIndex = "340" variations="4" frames="5" random_anim_offset="0" offsety="12" water_direction="0" />
+		<!-- Direction 1 -->
+		<subsprite sheetIndex = "15" variations="4" frames="0" random_anim_offset="0" offsety="12" water_direction="1" />
+		<subsprite sheetIndex = "35" variations="4" frames="1" random_anim_offset="0" offsety="12" water_direction="1" />
+		<subsprite sheetIndex = "55" variations="4" frames="2" random_anim_offset="0" offsety="12" water_direction="1" />
+		<subsprite sheetIndex = "75" variations="4" frames="3" random_anim_offset="0" offsety="12" water_direction="1" />
+		<subsprite sheetIndex = "95" variations="4" frames="4" random_anim_offset="0" offsety="12" water_direction="1" />
+		<subsprite sheetIndex = "115" variations="4" frames="5" random_anim_offset="0" offsety="12" water_direction="1" />
+		<!-- Direction 2 -->
+		<subsprite sheetIndex = "05" variations="4" frames="0" random_anim_offset="0" offsety="12" water_direction="2" />
+		<subsprite sheetIndex = "25" variations="4" frames="1" random_anim_offset="0" offsety="12" water_direction="2" />
+		<subsprite sheetIndex = "45" variations="4" frames="2" random_anim_offset="0" offsety="12" water_direction="2" />
+		<subsprite sheetIndex = "65" variations="4" frames="3" random_anim_offset="0" offsety="12" water_direction="2" />
+		<subsprite sheetIndex = "85" variations="4" frames="4" random_anim_offset="0" offsety="12" water_direction="2" />
+		<subsprite sheetIndex = "105" variations="4" frames="5" random_anim_offset="0" offsety="12" water_direction="2" />
+		<!-- Direction 3 -->
+		<subsprite sheetIndex = "130" variations="4" frames="0" random_anim_offset="0" offsety="12" water_direction="3" />
+		<subsprite sheetIndex = "150" variations="4" frames="1" random_anim_offset="0" offsety="12" water_direction="3" />
+		<subsprite sheetIndex = "170" variations="4" frames="2" random_anim_offset="0" offsety="12" water_direction="3" />
+		<subsprite sheetIndex = "190" variations="4" frames="3" random_anim_offset="0" offsety="12" water_direction="3" />
+		<subsprite sheetIndex = "210" variations="4" frames="4" random_anim_offset="0" offsety="12" water_direction="3" />
+		<subsprite sheetIndex = "230" variations="4" frames="5" random_anim_offset="0" offsety="12" water_direction="3" />
+		<!-- Direction 4 -->
+		<subsprite sheetIndex = "120" variations="4" frames="0" random_anim_offset="0" offsety="12" water_direction="4" />
+		<subsprite sheetIndex = "140" variations="4" frames="1" random_anim_offset="0" offsety="12" water_direction="4" />
+		<subsprite sheetIndex = "160" variations="4" frames="2" random_anim_offset="0" offsety="12" water_direction="4" />
+		<subsprite sheetIndex = "180" variations="4" frames="3" random_anim_offset="0" offsety="12" water_direction="4" />
+		<subsprite sheetIndex = "200" variations="4" frames="4" random_anim_offset="0" offsety="12" water_direction="4" />
+		<subsprite sheetIndex = "220" variations="4" frames="5" random_anim_offset="0" offsety="12" water_direction="4" />
+		<!-- Direction 5 -->
+		<subsprite sheetIndex = "10" variations="4" frames="0" random_anim_offset="0" offsety="12" water_direction="5" />
+		<subsprite sheetIndex = "30" variations="4" frames="1" random_anim_offset="0" offsety="12" water_direction="5" />
+		<subsprite sheetIndex = "50" variations="4" frames="2" random_anim_offset="0" offsety="12" water_direction="5" />
+		<subsprite sheetIndex = "70" variations="4" frames="3" random_anim_offset="0" offsety="12" water_direction="5" />
+		<subsprite sheetIndex = "90" variations="4" frames="4" random_anim_offset="0" offsety="12" water_direction="5" />
+		<subsprite sheetIndex = "110" variations="4" frames="5" random_anim_offset="0" offsety="12" water_direction="5" />
+		<!-- Direction 6 -->
+		<subsprite sheetIndex = "125" variations="4" frames="0" random_anim_offset="0" offsety="12" water_direction="6" />
+		<subsprite sheetIndex = "145" variations="4" frames="1" random_anim_offset="0" offsety="12" water_direction="6" />
+		<subsprite sheetIndex = "165" variations="4" frames="2" random_anim_offset="0" offsety="12" water_direction="6" />
+		<subsprite sheetIndex = "185" variations="4" frames="3" random_anim_offset="0" offsety="12" water_direction="6" />
+		<subsprite sheetIndex = "205" variations="4" frames="4" random_anim_offset="0" offsety="12" water_direction="6" />
+		<subsprite sheetIndex = "225" variations="4" frames="5" random_anim_offset="0" offsety="12" water_direction="6" />
+		<!-- Direction 7 -->
+		<subsprite sheetIndex = "135" variations="4" frames="0" random_anim_offset="0" offsety="12" water_direction="7" />
+		<subsprite sheetIndex = "155" variations="4" frames="1" random_anim_offset="0" offsety="12" water_direction="7" />
+		<subsprite sheetIndex = "175" variations="4" frames="2" random_anim_offset="0" offsety="12" water_direction="7" />
+		<subsprite sheetIndex = "195" variations="4" frames="3" random_anim_offset="0" offsety="12" water_direction="7" />
+		<subsprite sheetIndex = "215" variations="4" frames="4" random_anim_offset="0" offsety="12" water_direction="7" />
+		<subsprite sheetIndex = "235" variations="4" frames="5" random_anim_offset="0" offsety="12" water_direction="7" />
+		<!-- Direction 8 -->
+		<subsprite sheetIndex = "0" variations="4" frames="0" random_anim_offset="0" offsety="12" water_direction="8" />
+		<subsprite sheetIndex = "20" variations="4" frames="1" random_anim_offset="0" offsety="12" water_direction="8" />
+		<subsprite sheetIndex = "40" variations="4" frames="2" random_anim_offset="0" offsety="12" water_direction="8" />
+		<subsprite sheetIndex = "60" variations="4" frames="3" random_anim_offset="0" offsety="12" water_direction="8" />
+		<subsprite sheetIndex = "80" variations="4" frames="4" random_anim_offset="0" offsety="12" water_direction="8" />
+		<subsprite sheetIndex = "100" variations="4" frames="5" random_anim_offset="0" offsety="12" water_direction="8" />
+	</fluid>
+	<fluid type="water" level = "4" sheetIndex = "248" color = "none" red = "150" green = "237" blue = "224">
+		<subsprite sheetIndex = "255" color = "blood"/>
+		<subsprite sheetIndex = "240" variations="4" frames="0" random_anim_offset="0" offsety="9" water_direction="0" />
+		<subsprite sheetIndex = "260" variations="4" frames="1" random_anim_offset="0" offsety="9" water_direction="0" />
+		<subsprite sheetIndex = "280" variations="4" frames="2" random_anim_offset="0" offsety="9" water_direction="0" />
+		<subsprite sheetIndex = "300" variations="4" frames="3" random_anim_offset="0" offsety="9" water_direction="0" />
+		<subsprite sheetIndex = "320" variations="4" frames="4" random_anim_offset="0" offsety="9" water_direction="0" />
+		<subsprite sheetIndex = "340" variations="4" frames="5" random_anim_offset="0" offsety="9" water_direction="0" />
+		<!-- Direction 1 -->
+		<subsprite sheetIndex = "15" variations="4" frames="0" random_anim_offset="0" offsety="9" water_direction="1" />
+		<subsprite sheetIndex = "35" variations="4" frames="1" random_anim_offset="0" offsety="9" water_direction="1" />
+		<subsprite sheetIndex = "55" variations="4" frames="2" random_anim_offset="0" offsety="9" water_direction="1" />
+		<subsprite sheetIndex = "75" variations="4" frames="3" random_anim_offset="0" offsety="9" water_direction="1" />
+		<subsprite sheetIndex = "95" variations="4" frames="4" random_anim_offset="0" offsety="9" water_direction="1" />
+		<subsprite sheetIndex = "115" variations="4" frames="5" random_anim_offset="0" offsety="9" water_direction="1" />
+		<!-- Direction 2 -->
+		<subsprite sheetIndex = "05" variations="4" frames="0" random_anim_offset="0" offsety="9" water_direction="2" />
+		<subsprite sheetIndex = "25" variations="4" frames="1" random_anim_offset="0" offsety="9" water_direction="2" />
+		<subsprite sheetIndex = "45" variations="4" frames="2" random_anim_offset="0" offsety="9" water_direction="2" />
+		<subsprite sheetIndex = "65" variations="4" frames="3" random_anim_offset="0" offsety="9" water_direction="2" />
+		<subsprite sheetIndex = "85" variations="4" frames="4" random_anim_offset="0" offsety="9" water_direction="2" />
+		<subsprite sheetIndex = "105" variations="4" frames="5" random_anim_offset="0" offsety="9" water_direction="2" />
+		<!-- Direction 3 -->
+		<subsprite sheetIndex = "130" variations="4" frames="0" random_anim_offset="0" offsety="9" water_direction="3" />
+		<subsprite sheetIndex = "150" variations="4" frames="1" random_anim_offset="0" offsety="9" water_direction="3" />
+		<subsprite sheetIndex = "170" variations="4" frames="2" random_anim_offset="0" offsety="9" water_direction="3" />
+		<subsprite sheetIndex = "190" variations="4" frames="3" random_anim_offset="0" offsety="9" water_direction="3" />
+		<subsprite sheetIndex = "210" variations="4" frames="4" random_anim_offset="0" offsety="9" water_direction="3" />
+		<subsprite sheetIndex = "230" variations="4" frames="5" random_anim_offset="0" offsety="9" water_direction="3" />
+		<!-- Direction 4 -->
+		<subsprite sheetIndex = "120" variations="4" frames="0" random_anim_offset="0" offsety="9" water_direction="4" />
+		<subsprite sheetIndex = "140" variations="4" frames="1" random_anim_offset="0" offsety="9" water_direction="4" />
+		<subsprite sheetIndex = "160" variations="4" frames="2" random_anim_offset="0" offsety="9" water_direction="4" />
+		<subsprite sheetIndex = "180" variations="4" frames="3" random_anim_offset="0" offsety="9" water_direction="4" />
+		<subsprite sheetIndex = "200" variations="4" frames="4" random_anim_offset="0" offsety="9" water_direction="4" />
+		<subsprite sheetIndex = "220" variations="4" frames="5" random_anim_offset="0" offsety="9" water_direction="4" />
+		<!-- Direction 5 -->
+		<subsprite sheetIndex = "10" variations="4" frames="0" random_anim_offset="0" offsety="9" water_direction="5" />
+		<subsprite sheetIndex = "30" variations="4" frames="1" random_anim_offset="0" offsety="9" water_direction="5" />
+		<subsprite sheetIndex = "50" variations="4" frames="2" random_anim_offset="0" offsety="9" water_direction="5" />
+		<subsprite sheetIndex = "70" variations="4" frames="3" random_anim_offset="0" offsety="9" water_direction="5" />
+		<subsprite sheetIndex = "90" variations="4" frames="4" random_anim_offset="0" offsety="9" water_direction="5" />
+		<subsprite sheetIndex = "110" variations="4" frames="5" random_anim_offset="0" offsety="9" water_direction="5" />
+		<!-- Direction 6 -->
+		<subsprite sheetIndex = "125" variations="4" frames="0" random_anim_offset="0" offsety="9" water_direction="6" />
+		<subsprite sheetIndex = "145" variations="4" frames="1" random_anim_offset="0" offsety="9" water_direction="6" />
+		<subsprite sheetIndex = "165" variations="4" frames="2" random_anim_offset="0" offsety="9" water_direction="6" />
+		<subsprite sheetIndex = "185" variations="4" frames="3" random_anim_offset="0" offsety="9" water_direction="6" />
+		<subsprite sheetIndex = "205" variations="4" frames="4" random_anim_offset="0" offsety="9" water_direction="6" />
+		<subsprite sheetIndex = "225" variations="4" frames="5" random_anim_offset="0" offsety="9" water_direction="6" />
+		<!-- Direction 7 -->
+		<subsprite sheetIndex = "135" variations="4" frames="0" random_anim_offset="0" offsety="9" water_direction="7" />
+		<subsprite sheetIndex = "155" variations="4" frames="1" random_anim_offset="0" offsety="9" water_direction="7" />
+		<subsprite sheetIndex = "175" variations="4" frames="2" random_anim_offset="0" offsety="9" water_direction="7" />
+		<subsprite sheetIndex = "195" variations="4" frames="3" random_anim_offset="0" offsety="9" water_direction="7" />
+		<subsprite sheetIndex = "215" variations="4" frames="4" random_anim_offset="0" offsety="9" water_direction="7" />
+		<subsprite sheetIndex = "235" variations="4" frames="5" random_anim_offset="0" offsety="9" water_direction="7" />
+		<!-- Direction 8 -->
+		<subsprite sheetIndex = "0" variations="4" frames="0" random_anim_offset="0" offsety="9" water_direction="8" />
+		<subsprite sheetIndex = "20" variations="4" frames="1" random_anim_offset="0" offsety="9" water_direction="8" />
+		<subsprite sheetIndex = "40" variations="4" frames="2" random_anim_offset="0" offsety="9" water_direction="8" />
+		<subsprite sheetIndex = "60" variations="4" frames="3" random_anim_offset="0" offsety="9" water_direction="8" />
+		<subsprite sheetIndex = "80" variations="4" frames="4" random_anim_offset="0" offsety="9" water_direction="8" />
+		<subsprite sheetIndex = "100" variations="4" frames="5" random_anim_offset="0" offsety="9" water_direction="8" />
+	</fluid>
+	<fluid type="water" level = "5" sheetIndex = "247" color = "none" red = "150" green = "237" blue = "224">
+		<subsprite sheetIndex = "254" color = "blood"/>
+		<subsprite sheetIndex = "240" variations="4" frames="0" random_anim_offset="0" offsety="6" water_direction="0" />
+		<subsprite sheetIndex = "260" variations="4" frames="1" random_anim_offset="0" offsety="6" water_direction="0" />
+		<subsprite sheetIndex = "280" variations="4" frames="2" random_anim_offset="0" offsety="6" water_direction="0" />
+		<subsprite sheetIndex = "300" variations="4" frames="3" random_anim_offset="0" offsety="6" water_direction="0" />
+		<subsprite sheetIndex = "320" variations="4" frames="4" random_anim_offset="0" offsety="6" water_direction="0" />
+		<subsprite sheetIndex = "340" variations="4" frames="5" random_anim_offset="0" offsety="6" water_direction="0" />
+		<!-- Direction 1 -->
+		<subsprite sheetIndex = "15" variations="4" frames="0" random_anim_offset="0" offsety="6" water_direction="1" />
+		<subsprite sheetIndex = "35" variations="4" frames="1" random_anim_offset="0" offsety="6" water_direction="1" />
+		<subsprite sheetIndex = "55" variations="4" frames="2" random_anim_offset="0" offsety="6" water_direction="1" />
+		<subsprite sheetIndex = "75" variations="4" frames="3" random_anim_offset="0" offsety="6" water_direction="1" />
+		<subsprite sheetIndex = "95" variations="4" frames="4" random_anim_offset="0" offsety="6" water_direction="1" />
+		<subsprite sheetIndex = "115" variations="4" frames="5" random_anim_offset="0" offsety="6" water_direction="1" />
+		<!-- Direction 2 -->
+		<subsprite sheetIndex = "05" variations="4" frames="0" random_anim_offset="0" offsety="6" water_direction="2" />
+		<subsprite sheetIndex = "25" variations="4" frames="1" random_anim_offset="0" offsety="6" water_direction="2" />
+		<subsprite sheetIndex = "45" variations="4" frames="2" random_anim_offset="0" offsety="6" water_direction="2" />
+		<subsprite sheetIndex = "65" variations="4" frames="3" random_anim_offset="0" offsety="6" water_direction="2" />
+		<subsprite sheetIndex = "85" variations="4" frames="4" random_anim_offset="0" offsety="6" water_direction="2" />
+		<subsprite sheetIndex = "105" variations="4" frames="5" random_anim_offset="0" offsety="6" water_direction="2" />
+		<!-- Direction 3 -->
+		<subsprite sheetIndex = "130" variations="4" frames="0" random_anim_offset="0" offsety="6" water_direction="3" />
+		<subsprite sheetIndex = "150" variations="4" frames="1" random_anim_offset="0" offsety="6" water_direction="3" />
+		<subsprite sheetIndex = "170" variations="4" frames="2" random_anim_offset="0" offsety="6" water_direction="3" />
+		<subsprite sheetIndex = "190" variations="4" frames="3" random_anim_offset="0" offsety="6" water_direction="3" />
+		<subsprite sheetIndex = "210" variations="4" frames="4" random_anim_offset="0" offsety="6" water_direction="3" />
+		<subsprite sheetIndex = "230" variations="4" frames="5" random_anim_offset="0" offsety="6" water_direction="3" />
+		<!-- Direction 4 -->
+		<subsprite sheetIndex = "120" variations="4" frames="0" random_anim_offset="0" offsety="6" water_direction="4" />
+		<subsprite sheetIndex = "140" variations="4" frames="1" random_anim_offset="0" offsety="6" water_direction="4" />
+		<subsprite sheetIndex = "160" variations="4" frames="2" random_anim_offset="0" offsety="6" water_direction="4" />
+		<subsprite sheetIndex = "180" variations="4" frames="3" random_anim_offset="0" offsety="6" water_direction="4" />
+		<subsprite sheetIndex = "200" variations="4" frames="4" random_anim_offset="0" offsety="6" water_direction="4" />
+		<subsprite sheetIndex = "220" variations="4" frames="5" random_anim_offset="0" offsety="6" water_direction="4" />
+		<!-- Direction 5 -->
+		<subsprite sheetIndex = "10" variations="4" frames="0" random_anim_offset="0" offsety="6" water_direction="5" />
+		<subsprite sheetIndex = "30" variations="4" frames="1" random_anim_offset="0" offsety="6" water_direction="5" />
+		<subsprite sheetIndex = "50" variations="4" frames="2" random_anim_offset="0" offsety="6" water_direction="5" />
+		<subsprite sheetIndex = "70" variations="4" frames="3" random_anim_offset="0" offsety="6" water_direction="5" />
+		<subsprite sheetIndex = "90" variations="4" frames="4" random_anim_offset="0" offsety="6" water_direction="5" />
+		<subsprite sheetIndex = "110" variations="4" frames="5" random_anim_offset="0" offsety="6" water_direction="5" />
+		<!-- Direction 6 -->
+		<subsprite sheetIndex = "125" variations="4" frames="0" random_anim_offset="0" offsety="6" water_direction="6" />
+		<subsprite sheetIndex = "145" variations="4" frames="1" random_anim_offset="0" offsety="6" water_direction="6" />
+		<subsprite sheetIndex = "165" variations="4" frames="2" random_anim_offset="0" offsety="6" water_direction="6" />
+		<subsprite sheetIndex = "185" variations="4" frames="3" random_anim_offset="0" offsety="6" water_direction="6" />
+		<subsprite sheetIndex = "205" variations="4" frames="4" random_anim_offset="0" offsety="6" water_direction="6" />
+		<subsprite sheetIndex = "225" variations="4" frames="5" random_anim_offset="0" offsety="6" water_direction="6" />
+		<!-- Direction 7 -->
+		<subsprite sheetIndex = "135" variations="4" frames="0" random_anim_offset="0" offsety="6" water_direction="7" />
+		<subsprite sheetIndex = "155" variations="4" frames="1" random_anim_offset="0" offsety="6" water_direction="7" />
+		<subsprite sheetIndex = "175" variations="4" frames="2" random_anim_offset="0" offsety="6" water_direction="7" />
+		<subsprite sheetIndex = "195" variations="4" frames="3" random_anim_offset="0" offsety="6" water_direction="7" />
+		<subsprite sheetIndex = "215" variations="4" frames="4" random_anim_offset="0" offsety="6" water_direction="7" />
+		<subsprite sheetIndex = "235" variations="4" frames="5" random_anim_offset="0" offsety="6" water_direction="7" />
+		<!-- Direction 8 -->
+		<subsprite sheetIndex = "0" variations="4" frames="0" random_anim_offset="0" offsety="6" water_direction="8" />
+		<subsprite sheetIndex = "20" variations="4" frames="1" random_anim_offset="0" offsety="6" water_direction="8" />
+		<subsprite sheetIndex = "40" variations="4" frames="2" random_anim_offset="0" offsety="6" water_direction="8" />
+		<subsprite sheetIndex = "60" variations="4" frames="3" random_anim_offset="0" offsety="6" water_direction="8" />
+		<subsprite sheetIndex = "80" variations="4" frames="4" random_anim_offset="0" offsety="6" water_direction="8" />
+		<subsprite sheetIndex = "100" variations="4" frames="5" random_anim_offset="0" offsety="6" water_direction="8" />
+	</fluid>
+	<fluid type="water" level = "6" sheetIndex = "246" color = "none" red = "150" green = "237" blue = "224">
+		<subsprite sheetIndex = "253" color = "blood"/>
+		<subsprite sheetIndex = "240" variations="4" frames="0" random_anim_offset="0" offsety="3" water_direction="0" />
+		<subsprite sheetIndex = "260" variations="4" frames="1" random_anim_offset="0" offsety="3" water_direction="0" />
+		<subsprite sheetIndex = "280" variations="4" frames="2" random_anim_offset="0" offsety="3" water_direction="0" />
+		<subsprite sheetIndex = "300" variations="4" frames="3" random_anim_offset="0" offsety="3" water_direction="0" />
+		<subsprite sheetIndex = "320" variations="4" frames="4" random_anim_offset="0" offsety="3" water_direction="0" />
+		<subsprite sheetIndex = "340" variations="4" frames="5" random_anim_offset="0" offsety="3" water_direction="0" />
+		<!-- Direction 1 -->
+		<subsprite sheetIndex = "15" variations="4" frames="0" random_anim_offset="0" offsety="3" water_direction="1" />
+		<subsprite sheetIndex = "35" variations="4" frames="1" random_anim_offset="0" offsety="3" water_direction="1" />
+		<subsprite sheetIndex = "55" variations="4" frames="2" random_anim_offset="0" offsety="3" water_direction="1" />
+		<subsprite sheetIndex = "75" variations="4" frames="3" random_anim_offset="0" offsety="3" water_direction="1" />
+		<subsprite sheetIndex = "95" variations="4" frames="4" random_anim_offset="0" offsety="3" water_direction="1" />
+		<subsprite sheetIndex = "115" variations="4" frames="5" random_anim_offset="0" offsety="3" water_direction="1" />
+		<!-- Direction 2 -->
+		<subsprite sheetIndex = "05" variations="4" frames="0" random_anim_offset="0" offsety="3" water_direction="2" />
+		<subsprite sheetIndex = "25" variations="4" frames="1" random_anim_offset="0" offsety="3" water_direction="2" />
+		<subsprite sheetIndex = "45" variations="4" frames="2" random_anim_offset="0" offsety="3" water_direction="2" />
+		<subsprite sheetIndex = "65" variations="4" frames="3" random_anim_offset="0" offsety="3" water_direction="2" />
+		<subsprite sheetIndex = "85" variations="4" frames="4" random_anim_offset="0" offsety="3" water_direction="2" />
+		<subsprite sheetIndex = "105" variations="4" frames="5" random_anim_offset="0" offsety="3" water_direction="2" />
+		<!-- Direction 3 -->
+		<subsprite sheetIndex = "130" variations="4" frames="0" random_anim_offset="0" offsety="3" water_direction="3" />
+		<subsprite sheetIndex = "150" variations="4" frames="1" random_anim_offset="0" offsety="3" water_direction="3" />
+		<subsprite sheetIndex = "170" variations="4" frames="2" random_anim_offset="0" offsety="3" water_direction="3" />
+		<subsprite sheetIndex = "190" variations="4" frames="3" random_anim_offset="0" offsety="3" water_direction="3" />
+		<subsprite sheetIndex = "210" variations="4" frames="4" random_anim_offset="0" offsety="3" water_direction="3" />
+		<subsprite sheetIndex = "230" variations="4" frames="5" random_anim_offset="0" offsety="3" water_direction="3" />
+		<!-- Direction 4 -->
+		<subsprite sheetIndex = "120" variations="4" frames="0" random_anim_offset="0" offsety="3" water_direction="4" />
+		<subsprite sheetIndex = "140" variations="4" frames="1" random_anim_offset="0" offsety="3" water_direction="4" />
+		<subsprite sheetIndex = "160" variations="4" frames="2" random_anim_offset="0" offsety="3" water_direction="4" />
+		<subsprite sheetIndex = "180" variations="4" frames="3" random_anim_offset="0" offsety="3" water_direction="4" />
+		<subsprite sheetIndex = "200" variations="4" frames="4" random_anim_offset="0" offsety="3" water_direction="4" />
+		<subsprite sheetIndex = "220" variations="4" frames="5" random_anim_offset="0" offsety="3" water_direction="4" />
+		<!-- Direction 5 -->
+		<subsprite sheetIndex = "10" variations="4" frames="0" random_anim_offset="0" offsety="3" water_direction="5" />
+		<subsprite sheetIndex = "30" variations="4" frames="1" random_anim_offset="0" offsety="3" water_direction="5" />
+		<subsprite sheetIndex = "50" variations="4" frames="2" random_anim_offset="0" offsety="3" water_direction="5" />
+		<subsprite sheetIndex = "70" variations="4" frames="3" random_anim_offset="0" offsety="3" water_direction="5" />
+		<subsprite sheetIndex = "90" variations="4" frames="4" random_anim_offset="0" offsety="3" water_direction="5" />
+		<subsprite sheetIndex = "110" variations="4" frames="5" random_anim_offset="0" offsety="3" water_direction="5" />
+		<!-- Direction 6 -->
+		<subsprite sheetIndex = "125" variations="4" frames="0" random_anim_offset="0" offsety="3" water_direction="6" />
+		<subsprite sheetIndex = "145" variations="4" frames="1" random_anim_offset="0" offsety="3" water_direction="6" />
+		<subsprite sheetIndex = "165" variations="4" frames="2" random_anim_offset="0" offsety="3" water_direction="6" />
+		<subsprite sheetIndex = "185" variations="4" frames="3" random_anim_offset="0" offsety="3" water_direction="6" />
+		<subsprite sheetIndex = "205" variations="4" frames="4" random_anim_offset="0" offsety="3" water_direction="6" />
+		<subsprite sheetIndex = "225" variations="4" frames="5" random_anim_offset="0" offsety="3" water_direction="6" />
+		<!-- Direction 7 -->
+		<subsprite sheetIndex = "135" variations="4" frames="0" random_anim_offset="0" offsety="3" water_direction="7" />
+		<subsprite sheetIndex = "155" variations="4" frames="1" random_anim_offset="0" offsety="3" water_direction="7" />
+		<subsprite sheetIndex = "175" variations="4" frames="2" random_anim_offset="0" offsety="3" water_direction="7" />
+		<subsprite sheetIndex = "195" variations="4" frames="3" random_anim_offset="0" offsety="3" water_direction="7" />
+		<subsprite sheetIndex = "215" variations="4" frames="4" random_anim_offset="0" offsety="3" water_direction="7" />
+		<subsprite sheetIndex = "235" variations="4" frames="5" random_anim_offset="0" offsety="3" water_direction="7" />
+		<!-- Direction 8 -->
+		<subsprite sheetIndex = "0" variations="4" frames="0" random_anim_offset="0" offsety="3" water_direction="8" />
+		<subsprite sheetIndex = "20" variations="4" frames="1" random_anim_offset="0" offsety="3" water_direction="8" />
+		<subsprite sheetIndex = "40" variations="4" frames="2" random_anim_offset="0" offsety="3" water_direction="8" />
+		<subsprite sheetIndex = "60" variations="4" frames="3" random_anim_offset="0" offsety="3" water_direction="8" />
+		<subsprite sheetIndex = "80" variations="4" frames="4" random_anim_offset="0" offsety="3" water_direction="8" />
+		<subsprite sheetIndex = "100" variations="4" frames="5" random_anim_offset="0" offsety="3" water_direction="8" />
+	</fluid>
+	<fluid type="water" level = "7" sheetIndex = "245" color = "none" red = "150" green = "237" blue = "224">
+		<subsprite sheetIndex = "252" color = "blood"/>
+		<subsprite sheetIndex = "240" variations="4" frames="0" random_anim_offset="0" water_direction="0" />
+		<subsprite sheetIndex = "260" variations="4" frames="1" random_anim_offset="0" water_direction="0" />
+		<subsprite sheetIndex = "280" variations="4" frames="2" random_anim_offset="0" water_direction="0" />
+		<subsprite sheetIndex = "300" variations="4" frames="3" random_anim_offset="0" water_direction="0" />
+		<subsprite sheetIndex = "320" variations="4" frames="4" random_anim_offset="0" water_direction="0" />
+		<subsprite sheetIndex = "340" variations="4" frames="5" random_anim_offset="0" water_direction="0" />
+		<!-- Direction 1 -->
+		<subsprite sheetIndex = "15" variations="4" frames="0" random_anim_offset="0" offsety="0" water_direction="1" />
+		<subsprite sheetIndex = "35" variations="4" frames="1" random_anim_offset="0" offsety="0" water_direction="1" />
+		<subsprite sheetIndex = "55" variations="4" frames="2" random_anim_offset="0" offsety="0" water_direction="1" />
+		<subsprite sheetIndex = "75" variations="4" frames="3" random_anim_offset="0" offsety="0" water_direction="1" />
+		<subsprite sheetIndex = "95" variations="4" frames="4" random_anim_offset="0" offsety="0" water_direction="1" />
+		<subsprite sheetIndex = "115" variations="4" frames="5" random_anim_offset="0" offsety="0" water_direction="1" />
+		<!-- Direction 2 -->
+		<subsprite sheetIndex = "05" variations="4" frames="0" random_anim_offset="0" offsety="0" water_direction="2" />
+		<subsprite sheetIndex = "25" variations="4" frames="1" random_anim_offset="0" offsety="0" water_direction="2" />
+		<subsprite sheetIndex = "45" variations="4" frames="2" random_anim_offset="0" offsety="0" water_direction="2" />
+		<subsprite sheetIndex = "65" variations="4" frames="3" random_anim_offset="0" offsety="0" water_direction="2" />
+		<subsprite sheetIndex = "85" variations="4" frames="4" random_anim_offset="0" offsety="0" water_direction="2" />
+		<subsprite sheetIndex = "105" variations="4" frames="5" random_anim_offset="0" offsety="0" water_direction="2" />
+		<!-- Direction 3 -->
+		<subsprite sheetIndex = "130" variations="4" frames="0" random_anim_offset="0" offsety="0" water_direction="3" />
+		<subsprite sheetIndex = "150" variations="4" frames="1" random_anim_offset="0" offsety="0" water_direction="3" />
+		<subsprite sheetIndex = "170" variations="4" frames="2" random_anim_offset="0" offsety="0" water_direction="3" />
+		<subsprite sheetIndex = "190" variations="4" frames="3" random_anim_offset="0" offsety="0" water_direction="3" />
+		<subsprite sheetIndex = "210" variations="4" frames="4" random_anim_offset="0" offsety="0" water_direction="3" />
+		<subsprite sheetIndex = "230" variations="4" frames="5" random_anim_offset="0" offsety="0" water_direction="3" />
+		<!-- Direction 4 -->
+		<subsprite sheetIndex = "120" variations="4" frames="0" random_anim_offset="0" offsety="0" water_direction="4" />
+		<subsprite sheetIndex = "140" variations="4" frames="1" random_anim_offset="0" offsety="0" water_direction="4" />
+		<subsprite sheetIndex = "160" variations="4" frames="2" random_anim_offset="0" offsety="0" water_direction="4" />
+		<subsprite sheetIndex = "180" variations="4" frames="3" random_anim_offset="0" offsety="0" water_direction="4" />
+		<subsprite sheetIndex = "200" variations="4" frames="4" random_anim_offset="0" offsety="0" water_direction="4" />
+		<subsprite sheetIndex = "220" variations="4" frames="5" random_anim_offset="0" offsety="0" water_direction="4" />
+		<!-- Direction 5 -->
+		<subsprite sheetIndex = "10" variations="4" frames="0" random_anim_offset="0" offsety="0" water_direction="5" />
+		<subsprite sheetIndex = "30" variations="4" frames="1" random_anim_offset="0" offsety="0" water_direction="5" />
+		<subsprite sheetIndex = "50" variations="4" frames="2" random_anim_offset="0" offsety="0" water_direction="5" />
+		<subsprite sheetIndex = "70" variations="4" frames="3" random_anim_offset="0" offsety="0" water_direction="5" />
+		<subsprite sheetIndex = "90" variations="4" frames="4" random_anim_offset="0" offsety="0" water_direction="5" />
+		<subsprite sheetIndex = "110" variations="4" frames="5" random_anim_offset="0" offsety="0" water_direction="5" />
+		<!-- Direction 6 -->
+		<subsprite sheetIndex = "125" variations="4" frames="0" random_anim_offset="0" offsety="0" water_direction="6" />
+		<subsprite sheetIndex = "145" variations="4" frames="1" random_anim_offset="0" offsety="0" water_direction="6" />
+		<subsprite sheetIndex = "165" variations="4" frames="2" random_anim_offset="0" offsety="0" water_direction="6" />
+		<subsprite sheetIndex = "185" variations="4" frames="3" random_anim_offset="0" offsety="0" water_direction="6" />
+		<subsprite sheetIndex = "205" variations="4" frames="4" random_anim_offset="0" offsety="0" water_direction="6" />
+		<subsprite sheetIndex = "225" variations="4" frames="5" random_anim_offset="0" offsety="0" water_direction="6" />
+		<!-- Direction 7 -->
+		<subsprite sheetIndex = "135" variations="4" frames="0" random_anim_offset="0" offsety="0" water_direction="7" />
+		<subsprite sheetIndex = "155" variations="4" frames="1" random_anim_offset="0" offsety="0" water_direction="7" />
+		<subsprite sheetIndex = "175" variations="4" frames="2" random_anim_offset="0" offsety="0" water_direction="7" />
+		<subsprite sheetIndex = "195" variations="4" frames="3" random_anim_offset="0" offsety="0" water_direction="7" />
+		<subsprite sheetIndex = "215" variations="4" frames="4" random_anim_offset="0" offsety="0" water_direction="7" />
+		<subsprite sheetIndex = "235" variations="4" frames="5" random_anim_offset="0" offsety="0" water_direction="7" />
+		<!-- Direction 8 -->
+		<subsprite sheetIndex = "0" variations="4" frames="0" random_anim_offset="0" offsety="0" water_direction="8" />
+		<subsprite sheetIndex = "20" variations="4" frames="1" random_anim_offset="0" offsety="0" water_direction="8" />
+		<subsprite sheetIndex = "40" variations="4" frames="2" random_anim_offset="0" offsety="0" water_direction="8" />
+		<subsprite sheetIndex = "60" variations="4" frames="3" random_anim_offset="0" offsety="0" water_direction="8" />
+		<subsprite sheetIndex = "80" variations="4" frames="4" random_anim_offset="0" offsety="0" water_direction="8" />
+		<subsprite sheetIndex = "100" variations="4" frames="5" random_anim_offset="0" offsety="0" water_direction="8" />
+	</fluid>
+	<fluid type="water" level = "8" sheetIndex = "245" color = "none" red = "150" green = "237" blue = "224">
+		<subsprite sheetIndex = "252" color = "blood"/>
+	</fluid>
+</fluids>

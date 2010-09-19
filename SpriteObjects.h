@@ -56,6 +56,7 @@ private:
 	unsigned int waterRightMax : 3;
 	unsigned int waterLeftMin : 3;
 	unsigned int waterLeftMax : 3;
+	char water_direction;
 
 	bool needoutline;
 	bool randomanimation;
@@ -107,5 +108,6 @@ public:
 	void set_defaultsheet(ALLEGRO_BITMAP * in){ defaultsheet = in; }
 	void reset();
 	void set_tile_layout(uint8_t layout);
+	void set_needoutline( bool i ) {needoutline = i;}
 	bool animate;
 };

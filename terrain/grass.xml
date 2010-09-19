@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <floors file="grass.png">
   <!-- vegetation -->
-  <floor sheetIndex="0" color = "matarial">
+  <floor sheetIndex="0" color = "material">
     <!-- tree -->
     <terrain value="24" />
     <!-- shrub -->
