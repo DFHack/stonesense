@@ -30,10 +30,11 @@ Attribute: random_anim_offset
 Valid values: "0", "1"
 Default Value: "0"
 Description: some sprites are better if hte animations on different tiles are out of synch with each other, while others need to match. Setting this to "1" will add a random number of frames to each tile.
-Attribute: needopen
+
+Attribute: border_open_OR, border_floor_OR, border_wall_OR, border_ramp_OR, border_upstair_OR, border_downstair_OR, border_dark_OR, border_light_OR
 Valid Values: any combination of the numbers 0-8
 Default Value: "12345678"
-Description: this is a list of adjascent tiles that would be empty for this sprite to be shown. numbers refer to the following tiles:
+Description: this is a list of adjascent tiles, at least one of which must be empty, or floor, etc, for this sprite to be shown. numbers refer to the following tiles:
               /\
              /  \
             /    \
@@ -52,57 +53,11 @@ Description: this is a list of adjascent tiles that would be empty for this spri
             \    /                     
              \  /                      
               \/                       
-In order for the sprite to be shown, at least one of the listed numbers must contain an empty space. However, this can be over-rided by the next two attributes, which can also allow the sprite to be shown on their own conditions. Setting this value to "0" means that the sprite will not over-ride the next two attributes.
 
-Attribute: needfloor
-Valid Values: any combination of the numbers 0-8
-Default Value: "12345678"
-Description: same as for needopen, but replace open space with floor tiles.
-
-Attribute: needwall
-Valid Values: any combination of the numbers 0-8
-Default Value: "12345678"
-Description: same as for needopen, but replace open space with wall tiles.
-
-Attribute: needramp
-Valid Values: any combination of the numbers 0-8
-Default Value: "12345678"
-Description: same as for needopen, but replace open space with wall tiles.
-
-Attribute: needupstair
-Valid Values: any combination of the numbers 0-8
-Default Value: "12345678"
-Description: same as for needopen, but replace open space with wall tiles.
-
-Attribute: needdownstair
-Valid Values: any combination of the numbers 0-8
-Default Value: "12345678"
-Description: same as for needopen, but replace open space with wall tiles.
-
-Attribute: neednotopen
+Attribute: border_open_NOR, border_floor_NOR, border_wall_NOR, border_ramp_NOR, border_upstair_NOR, border_downstair_NOR
 Valid Values: any combination of the numbers 0-8
 Default Value: "0"
-Description: similar to needopen, but this attribute lists neighbors that must NOT contain an open space. if any of the listed neighbors are open, the sprite will not show, regardless of other circumstances.
-
-Attribute: neednotfloor
-Valid Values: any combination of the numbers 0-8
-Default Value: "0"
-Description: same as for neednotopen, but replace open space with floor tiles.
-
-Attribute: neednotramp 
-Valid Values: any combination of the numbers 0-8
-Default Value: "0"
-Description: same as for neednotopen, but replace open space with wall tiles.
-
-Attribute: neednotupstair 
-Valid Values: any combination of the numbers 0-8
-Default Value: "0"
-Description: same as for neednotopen, but replace open space with wall tiles.
-
-Attribute: neednotdownstair 
-Valid Values: any combination of the numbers 0-8
-Default Value: "0"
-Description: same as for neednotopen, but replace open space with wall tiles.
+Description: similar to border_open_OR, et al, but this attribute lists neighbors that must NOT contain an open space, etc. if any of the listed neighbors are open, the sprite will not show, regardless of other circumstances.
 
 Attribute: variations
 Valid values: and positive number
