@@ -830,6 +830,7 @@ WorldSegment* ReadMapSegment(DFHack::Context &DF, int x, int y, int z, int sizex
 	//	DF.FinishReadEffects();
 	//}
 	//Read Creatures
+
 	if(!config.skipCreatures)
 		ReadCreaturesToSegment( DF, segment );
 
@@ -1197,8 +1198,17 @@ void reloadDisplayedSegment(){
 	//	abortAutoReload();
 	//	timeToReloadConfig = true;
 	//}
-	if( pDFApiHandle ){
-		DF.Resume();
+	if( pDFApiHandle )
+	{
+		try
+		{
+			DF.Resume();
+		}
+		catch (exception& e)
+		{
+			WriteErr("DFhack exeption: %s\n", e.what());
+			return ;
+		}
 	}
 	TMR1_STOP;
 }
