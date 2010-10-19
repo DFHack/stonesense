@@ -1,4 +1,4 @@
-Welcome to Stonesense Slate(2.1)
+Welcome to Stonesense Slate(2.2)
 
 Thank you for trying out our little visualizer,
 as always, we appreciate any feedback.

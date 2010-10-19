@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <colors>
-  <color red="215" green="174" blue="172">
+  <color red="255" green="119" blue="35">
     <material value="Inorganic">
       <subtype value="CLAY" />
     </material>
