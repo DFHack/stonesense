@@ -228,7 +228,7 @@
 		/>
   </floor>
 
-  <floor sheetIndex="23">
+  <floor sheetIndex="23" color="material">
     <!-- Soil floors -->
     <terrain value="353" />
     <!-- Wet Soil floors -->

@@ -10,7 +10,7 @@
       <subtype value="SILTY_CLAY" />
     </material>
   </color>
-  <color red="153" green="137" blue="112">
+  <color red="165" green="116" blue="48">
     <material value="Inorganic">
       <subtype value="SANDY_CLAY" />
     </material>
@@ -65,7 +65,7 @@
       <subtype value="SAND_YELLOW" />
     </material>
   </color>
-  <color red="255" green="255" blue="255">
+  <color red="243" green="232" blue="255">
     <material value="Inorganic">
       <subtype value="SAND_WHITE" />
     </material>
