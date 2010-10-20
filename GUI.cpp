@@ -490,10 +490,12 @@ void drawDebugCursorAndInfo(){
 			"Snow: %d, Mud: %d, Blood: %d", b->snowlevel, b->mudlevel, b->bloodlevel);
 	}
 	//borders
+	/*
 	int dray = al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font));
 	draw_textf_border(font, al_map_rgb(255,255,255), 16, dray, 0,
 		"Open: %d, floor: %d, Wall: %d, Ramp: %d Light: %d", b->openborders, b->floorborders, b->wallborders, b->rampborders, b->lightborders);
 	draw_borders(8, dray, b->lightborders);
+	*/
 
 	////effects
 	//if(b->blockeffects.lifetime > 0)
