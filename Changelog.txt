@@ -1,4 +1,4 @@
-----==== 2.2 'Slate', October 20th 2010 ====----
+----==== 2.2 'Slate', October 23rd 2010 ====----
 * DF31.01 to .16 compatible
 
 ----==== 2.1 'Slate', August 26th 2010 ====----

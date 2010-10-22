@@ -3,7 +3,7 @@ Welcome to Stonesense Slate(2.2)
 Thank you for trying out our little visualizer,
 as always, we appreciate any feedback.
 
-Please note, that for the time being Stonesense Slate ONLY supports DF 31_1, through 31_12.
+Please note, that for the time being Stonesense Slate ONLY supports DF 31_1, through 31_16.
 Make sure you have DF running, with your game loaded.
 
 IF Stonesense should at any time lock up, it might happen that DF freezes.
