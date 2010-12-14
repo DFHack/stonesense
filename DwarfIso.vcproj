@@ -354,6 +354,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\BlockTree.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Config.cpp"
 				>
 			</File>
@@ -489,6 +493,10 @@
 			</File>
 			<File
 				RelativePath=".\BlockFactory.h"
+				>
+			</File>
+			<File
+				RelativePath=".\BlockTree.h"
 				>
 			</File>
 			<File
