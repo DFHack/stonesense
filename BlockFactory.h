@@ -8,6 +8,7 @@ class BlockFactory
   vector<Block*> pool;
   
 public:
+	ALLEGRO_MUTEX * mute;
   BlockFactory(void);
   ~BlockFactory(void);
   Block* allocateBlock( );

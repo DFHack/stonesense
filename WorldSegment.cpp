@@ -151,6 +151,7 @@ void WorldSegment::drawAllBlocks(){
 	if(!loaded)
 		return;
 
+	al_lock_mutex(mute);
 	// x,y,z print pricess
 	ALLEGRO_BITMAP * temp = al_get_target_bitmap();
 	int32_t vsxmax = viewedSegment->sizex-1;
@@ -230,6 +231,7 @@ void WorldSegment::drawAllBlocks(){
 	}
 	if(config.showRenderStatus)
 		SetTitle("Stonesense");
+	al_unlock_mutex(mute);
 }
 
 /*
