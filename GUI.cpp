@@ -289,7 +289,7 @@ void drawDebugCursorAndInfo(){
 		int y = config.dfCursorY;
 		int z = config.dfCursorZ;
 		correctBlockForSegmetOffset(x,y,z);
-		correctBlockForRotation( x, y, z);
+		correctBlockForRotation( x, y, z, viewedSegment->rotation);
 		debugCursor.x = x;
 		debugCursor.y = y;
 		debugCursor.z = z;

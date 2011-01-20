@@ -223,7 +223,7 @@ bool IsCreatureVisible( t_creature* c ){
 	return true;
 }
 
-void DrawCreature(int drawx, int drawy, t_creature* creature ){
+void DrawCreature(int drawx, int drawy, t_creature* creature, Block * b){
 	vector<int> statusIcons;
 
 	//if(config.show_creature_happiness)
@@ -268,7 +268,7 @@ void DrawCreature(int drawx, int drawy, t_creature* creature ){
 	c_sprite * sprite = GetCreatureSpriteMap( creature );
 	//if(creature->x == 151 && creature->y == 145)
 	//  int j = 10; 
-	sprite->draw_world(creature->x,creature->y, creature->z);
+	sprite->draw_world(creature->x,creature->y, creature->z, b);
 	if(statusIcons.size())
 	{
 		for(int i = 0; i < statusIcons.size(); i++)

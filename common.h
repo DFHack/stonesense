@@ -181,7 +181,7 @@ extern bool animationFrameShown;
 
 extern bool key[ALLEGRO_KEY_MAX];
 
-void correctBlockForRotation(int32_t& x, int32_t& y, int32_t& z);
+void correctBlockForRotation(int32_t& x, int32_t& y, int32_t& z, unsigned char rot);
 
 //from UserInput.cpp
 void doKeys();

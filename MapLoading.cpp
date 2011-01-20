@@ -665,6 +665,7 @@ WorldSegment* ReadMapSegment(DFHack::Context &DF, int x, int y, int z, int sizex
 	segment->regionSize.x = celldimX * CELLEDGESIZE;
 	segment->regionSize.y = celldimY * CELLEDGESIZE;
 	segment->regionSize.z = celldimZ;
+	segment->rotation = DisplayedRotation;
 
 	//read world wide buildings
 	vector<t_building> allBuildings;
@@ -1115,8 +1116,7 @@ void FollowCurrentDFCenter( )
 
 static void * threadedSegment(ALLEGRO_THREAD *thread, void *arg)
 {
-	bool keep_going = 1;
-	while(keep_going)
+	while(!al_get_thread_should_stop(thread))
 	{
 		al_lock_mutex(config.readMutex);
 		config.threadstarted = 1;
@@ -1130,8 +1130,6 @@ static void * threadedSegment(ALLEGRO_THREAD *thread, void *arg)
 			parms.sizex, parms.sizey, parms.sizez);
 		config.threadstarted = 0;
 		pDFApiHandle->Resume();
-		if(al_get_thread_should_stop(thread))
-			keep_going = 0;
 		al_wait_cond(config.readCond, config.readMutex);
 		swapSegments();
 		al_unlock_mutex(config.readMutex);

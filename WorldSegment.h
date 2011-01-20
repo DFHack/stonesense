@@ -9,11 +9,11 @@ public:
 	bool loaded;
 	int x, y, z;
 	int sizex, sizey, sizez;
+	unsigned char rotation;
 	Crd3D regionSize;
 	Block** blocksAsPointerVolume;
 	WorldSegment(int x, int y, int z, int sizex, int sizey, int sizez)
 	{
-		mute = al_create_mutex();
 		this->x = x; 
 		this->y = y; 
 		this->z = z - sizez + 1;
@@ -29,9 +29,6 @@ public:
 	}
 
 	~WorldSegment(){
-		al_lock_mutex(mute);
-		al_unlock_mutex(mute);
-		al_destroy_mutex(mute);
 		uint32_t num = (uint32_t)blocks.size();
 		for(uint32_t i = 0; i < num; i++){
 			delete(blocks[i]);
@@ -54,5 +51,4 @@ public:
 	void addBlock(Block* b);
 	void drawAllBlocks();
 	bool CoordinateInsideSegment(uint32_t x, uint32_t y, uint32_t z);
-	ALLEGRO_MUTEX * mute;
 };

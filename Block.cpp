@@ -105,7 +105,7 @@ void Block::Draw(){
 
 
 	correctBlockForSegmetOffset( drawx, drawy, drawz);
-	correctBlockForRotation( drawx, drawy, drawz);
+	correctBlockForRotation( drawx, drawy, drawz, ownerSegment->rotation);
 	int32_t viewx = drawx;
 	int32_t viewy = drawy;
 	int32_t viewz = drawz;
@@ -164,10 +164,10 @@ void Block::Draw(){
 				spriteobject->set_sheetindex(SPRITEOBJECT_FLOOR_NA);
 				spriteobject->set_fileindex(INVALID_INDEX);
 				spriteobject->set_offset(0, WALLHEIGHT);
-				spriteobject->draw_world(x, y, z);
+				spriteobject->draw_world(x, y, z, this);
 			}
 			else
-				spriteobject->draw_world(x, y, z);
+				spriteobject->draw_world(x, y, z, this);
 		}
 	}
 
@@ -197,7 +197,7 @@ void Block::Draw(){
 		{
 			spriteobject->set_size(SPRITEWIDTH, SPRITEHEIGHT);
 			spriteobject->set_tile_layout(RAMPBOTTOMTILE);
-			spriteobject->draw_world(x, y, z, (chopThisBlock && this->z == ownerSegment->z + ownerSegment->sizez -2));
+			spriteobject->draw_world(x, y, z, this, (chopThisBlock && this->z == ownerSegment->z + ownerSegment->sizez -2));
 		}
 		spriteobject->set_tile_layout(BLOCKTILE);
 	}
@@ -230,7 +230,7 @@ void Block::Draw(){
 		c_sprite * vegetationsprite = 0;
 		vegetationsprite = GetSpriteVegetation( (TileClass) getVegetationType( this->floorType ), tree.index );
 		if(vegetationsprite)
-			vegetationsprite->draw_world(x, y, z);
+			vegetationsprite->draw_world(x, y, z, this);
 	}
 
 	//shadow
@@ -251,7 +251,7 @@ void Block::Draw(){
 		for(uint32_t i=0; i < building.sprites.size(); i++)
 		{
 			spriteobject = &building.sprites[i];
-			spriteobject->draw_world(x, y, z);
+			spriteobject->draw_world(x, y, z, this);
 		}
 	}
 
@@ -270,9 +270,9 @@ void Block::Draw(){
 		if(spriteobject->get_sheetindex() != INVALID_INDEX && spriteobject->get_sheetindex() != UNCONFIGURED_INDEX)
 		{
 			if (mirrored)
-				spriteobject->draw_world_offset(x, y, z, 1);
+				spriteobject->draw_world_offset(x, y, z, this, 1);
 			else
-				spriteobject->draw_world(x, y, z);
+				spriteobject->draw_world(x, y, z, this);
 		}
 
 		//up part
@@ -280,9 +280,9 @@ void Block::Draw(){
 		if(spriteobject->get_sheetindex() != INVALID_INDEX && spriteobject->get_sheetindex() != UNCONFIGURED_INDEX)
 		{
 			if (mirrored)
-				spriteobject->draw_world_offset(x, y, z, 1);
+				spriteobject->draw_world_offset(x, y, z, this, 1);
 			else
-				spriteobject->draw_world(x, y, z);
+				spriteobject->draw_world(x, y, z, this);
 		}
 	}
 
@@ -304,7 +304,7 @@ void Block::Draw(){
 		}    
 		else 
 		{
-			spriteobject->draw_world(x, y, z, (chopThisBlock && this->z == ownerSegment->z + ownerSegment->sizez -2));
+			spriteobject->draw_world(x, y, z, this, (chopThisBlock && this->z == ownerSegment->z + ownerSegment->sizez -2));
 		}
 	}
 
@@ -314,11 +314,11 @@ void Block::Draw(){
 		//if(waterlevel == 7) waterlevel--;
 		if(water.type == 0)
 		{
-			contentLoader.water[water.index-1].sprite.draw_world(x, y, z, (chopThisBlock && this->z == ownerSegment->z + ownerSegment->sizez -2));
+			contentLoader.water[water.index-1].sprite.draw_world(x, y, z, this, (chopThisBlock && this->z == ownerSegment->z + ownerSegment->sizez -2));
 		}
 		else
 		{
-			contentLoader.lava[water.index-1].sprite.draw_world(x, y, z, (chopThisBlock && this->z == ownerSegment->z + ownerSegment->sizez -2));
+			contentLoader.lava[water.index-1].sprite.draw_world(x, y, z, this, (chopThisBlock && this->z == ownerSegment->z + ownerSegment->sizez -2));
 		}
 	}
 
@@ -327,7 +327,7 @@ void Block::Draw(){
 	// (no guarantee it is the right one)
 	if(creaturePresent)
 	{
-		DrawCreature(drawx, drawy, creature);
+		DrawCreature(drawx, drawy, creature, this);
 	}
 
 	//second part of snow
@@ -408,7 +408,7 @@ void Block::Drawcreaturetext(){
 	int32_t drawz = z; //- ownerSegment->sizez + 1;
 
 	correctBlockForSegmetOffset( drawx, drawy, drawz);
-	correctBlockForRotation( drawx, drawy, drawz);
+	correctBlockForRotation( drawx, drawy, drawz, ownerSegment->rotation);
 	pointToScreen((int*)&drawx, (int*)&drawy, drawz);
 	drawx -= TILEWIDTH>>1;
 
@@ -445,7 +445,7 @@ void Block::DrawRamptops(){
 			spriteobject->set_offset(0, -(FLOORHEIGHT));
 			spriteobject->set_tile_layout(RAMPTOPTILE);
 			spriteobject->set_defaultsheet(IMGRampSheet);
-			spriteobject->draw_world(x, y, z, (chopThisBlock && this->z == ownerSegment->z + ownerSegment->sizez -2));
+			spriteobject->draw_world(x, y, z, this, (chopThisBlock && this->z == ownerSegment->z + ownerSegment->sizez -2));
 			spriteobject->set_offset(0, 0);
 		}
 		spriteobject->set_tile_layout(BLOCKTILE);

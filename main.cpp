@@ -425,6 +425,12 @@ int main(void)
 				redraw = true;
 		}
 	}
+	if(config.threadmade)
+	{
+		al_broadcast_cond(config.readCond);
+		al_destroy_thread(config.readThread);
+		config.spriteIndexOverlay = 0;
+	}
 	flushImgFiles();
 	DisconnectFromDF();
 
