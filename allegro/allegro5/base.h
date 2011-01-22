@@ -16,8 +16,8 @@
  *      See readme.txt for copyright information.
  */
 
-#ifndef ALLEGRO_BASE_H
-#define ALLEGRO_BASE_H
+#ifndef __al_included_allegro5_base_h
+#define __al_included_allegro5_base_h
 
 #ifndef ALLEGRO_NO_STD_HEADERS
    #include <errno.h>
@@ -53,9 +53,9 @@
    extern "C" {
 #endif
 
-#define ALLEGRO_VERSION          4
-#define ALLEGRO_SUB_VERSION      9
-#define ALLEGRO_WIP_VERSION      21
+#define ALLEGRO_VERSION          5
+#define ALLEGRO_SUB_VERSION      0
+#define ALLEGRO_WIP_VERSION      0
 
 /* Not sure we need it, but since ALLEGRO_VERSION_STR contains it:
  * 0 = SVN
@@ -65,11 +65,11 @@
  * Note x.y.z (= x.y.z.0) has release number 1, and x.y.z.1 has release
  * number 2, just to confuse you.
  */
-#define ALLEGRO_RELEASE_NUMBER   1
+#define ALLEGRO_RELEASE_NUMBER   0
 
-#define ALLEGRO_VERSION_STR      "4.9.21 (WIP)"
+#define ALLEGRO_VERSION_STR      "5.0.0 (RC4)"
 #define ALLEGRO_DATE_STR         "2010"
-#define ALLEGRO_DATE             20100718    /* yyyymmdd */
+#define ALLEGRO_DATE             20101231    /* yyyymmdd */
 #define ALLEGRO_VERSION_INT \
     ((ALLEGRO_VERSION << 24) | (ALLEGRO_SUB_VERSION << 16) | \
     (ALLEGRO_WIP_VERSION << 8) | ALLEGRO_RELEASE_NUMBER)
@@ -87,12 +87,12 @@ AL_FUNC(int, al_run_main, (int argc, char **argv, int (*)(int, char **)));
 
 #define AL_ID(a,b,c,d)     (((a)<<24) | ((b)<<16) | ((c)<<8) | (d))
 
-typedef struct _DRIVER_INFO         /* info about a hardware driver */
+typedef struct _AL_DRIVER_INFO      /* info about a hardware driver */
 {
    int id;                          /* integer ID */
    void *driver;                    /* the driver structure */
    int autodetect;                  /* set to allow autodetection */
-} _DRIVER_INFO;
+} _AL_DRIVER_INFO;
 
        
 
@@ -100,4 +100,4 @@ typedef struct _DRIVER_INFO         /* info about a hardware driver */
    }
 #endif
 
-#endif          /* ifndef ALLEGRO_BASE_H */
+#endif

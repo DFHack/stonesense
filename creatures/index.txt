@@ -3,10 +3,10 @@ beefmo_subterranean.xml
 humies.xml
 elfs.xml
 wild_animals.xml
-goblins.xml
+#goblins.xml
 
 #this is an example of colored creatures. they aren't as good as teh other ones.
-# gobbos.xml
+gobbos.xml
 beefmo_domestics.xml
 Wildlife.xml
 color_Dwarves.xml

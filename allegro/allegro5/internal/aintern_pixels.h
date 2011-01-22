@@ -1,5 +1,5 @@
-#ifndef __al_included_aintern_pixels_h
-#define __al_included_aintern_pixels_h
+#ifndef __al_included_allegro5_aintern_pixels_h
+#define __al_included_allegro5_aintern_pixels_h
 
 #include "allegro5/internal/aintern_float.h"
 
@@ -94,7 +94,7 @@
                _al_rgb_scale_5[(_gp_pixel & 0xF800) >> 11],                      \
                _al_rgb_scale_5[(_gp_pixel & 0x07C0) >> 6],                       \
                _al_rgb_scale_5[(_gp_pixel & 0x003E) >> 1],                       \
-               255);                                                          \
+               _al_rgb_scale_1[_gp_pixel & 1]);                                                          \
             if (advance)                                                      \
                data += 2;                                                     \
             break;                                                            \
@@ -106,7 +106,7 @@
                _al_rgb_scale_5[(_gp_pixel & 0x7C00) >> 10],                      \
                _al_rgb_scale_5[(_gp_pixel & 0x03E0) >> 5],                       \
                _al_rgb_scale_5[(_gp_pixel & 0x001F)],                            \
-               255);                                                          \
+               _al_rgb_scale_1[(_gp_pixel & 0x8000) >> 15]);                  \
             if (advance)                                                      \
                data += 2;                                                     \
             break;                                                            \
@@ -236,12 +236,13 @@
          case ALLEGRO_PIXEL_FORMAT_ANY_24_NO_ALPHA:                           \
          case ALLEGRO_PIXEL_FORMAT_ANY_32_NO_ALPHA:                           \
          case ALLEGRO_PIXEL_FORMAT_ANY_32_WITH_ALPHA:                         \
-            TRACE("INLINE_GET got fake _gp_pixel format: %d\n", format);      \
+            ALLEGRO_ERROR("INLINE_GET got fake _gp_pixel format: %d\n", format); \
             abort();                                                          \
             break;                                                            \
                                                                               \
          case ALLEGRO_NUM_PIXEL_FORMATS:                                      \
-            TRACE("INLINE_GET got non _gp_pixel format: %d\n", format);       \
+         default:                                                             \
+            ALLEGRO_ERROR("INLINE_GET got non _gp_pixel format: %d\n", format); \
             abort();                                                          \
             break;                                                            \
       }                                                                       \
@@ -435,12 +436,12 @@
          case ALLEGRO_PIXEL_FORMAT_ANY_24_NO_ALPHA:                           \
          case ALLEGRO_PIXEL_FORMAT_ANY_32_NO_ALPHA:                           \
          case ALLEGRO_PIXEL_FORMAT_ANY_32_WITH_ALPHA:                         \
-            TRACE("INLINE_PUT got fake _pp_pixel format: %d\n", format);      \
+            ALLEGRO_ERROR("INLINE_PUT got fake _pp_pixel format: %d\n", format); \
             abort();                                                          \
             break;                                                            \
                                                                               \
          case ALLEGRO_NUM_PIXEL_FORMATS:                                      \
-            TRACE("INLINE_PUT got non _pp_pixel format: %d\n", format);       \
+            ALLEGRO_ERROR("INLINE_PUT got non _pp_pixel format: %d\n", format); \
             abort();                                                          \
             break;                                                            \
       }                                                                       \
@@ -454,6 +455,6 @@ AL_ARRAY(float, _al_u8_to_float);
 AL_FUNC(char const *, _al_format_name, (ALLEGRO_PIXEL_FORMAT format));
 AL_FUNC(void, _al_init_pixels, (void));
 
-#endif /* __al_included_aintern_pixels_h */
+#endif
 
 /* vim: set sts=3 sw=3 et: */

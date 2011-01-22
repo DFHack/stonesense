@@ -1,7 +1,7 @@
-#ifndef ALLEGRO_INTERNAL_DISPLAY_NEW_H
-#define ALLEGRO_INTERNAL_DISPLAY_NEW_H
+#ifndef __al_included_allegro5_aintern_display_h
+#define __al_included_allegro5_aintern_display_h
 
-#include "allegro5/allegro5.h"
+#include "allegro5/allegro.h"
 #include "allegro5/transformations.h"
 #include "allegro5/display.h"
 #include "allegro5/bitmap.h"
@@ -35,14 +35,13 @@ struct ALLEGRO_DISPLAY_INTERFACE
    
    void (*set_target_bitmap)(ALLEGRO_DISPLAY *display, ALLEGRO_BITMAP *bitmap);
    ALLEGRO_BITMAP *(*get_backbuffer)(ALLEGRO_DISPLAY *d);
-   ALLEGRO_BITMAP *(*get_frontbuffer)(ALLEGRO_DISPLAY *d);
 
    bool (*is_compatible_bitmap)(ALLEGRO_DISPLAY *display, ALLEGRO_BITMAP *bitmap);
    void (*switch_out)(ALLEGRO_DISPLAY *display);
    void (*switch_in)(ALLEGRO_DISPLAY *display);
 
    void (*draw_memory_bitmap_region)(ALLEGRO_DISPLAY *display, ALLEGRO_BITMAP *bitmap,
-      float sx, float sy, float sw, float sh, float dx, float dy, int flags);
+      float sx, float sy, float sw, float sh, int flags);
 
    ALLEGRO_BITMAP *(*create_sub_bitmap)(ALLEGRO_DISPLAY *display, ALLEGRO_BITMAP *parent,
       int x, int y, int width, int height);
@@ -132,7 +131,6 @@ int  _al_deduce_color_format(ALLEGRO_EXTRA_DISPLAY_SETTINGS *eds);
 int  _al_display_settings_sorter(const void *p0, const void *p1);
 
 void _al_clear_memory(ALLEGRO_COLOR *color);
-void _al_draw_filled_rectangle_memory(int x1, int y1, int x2, int y2, ALLEGRO_COLOR *color);
 void _al_draw_pixel_memory(ALLEGRO_BITMAP *bmp, float x, float y, ALLEGRO_COLOR *color);
 
 void _al_destroy_display_bitmaps(ALLEGRO_DISPLAY *d);

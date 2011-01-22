@@ -1,5 +1,5 @@
-#ifndef ALLEGRO_INTERNAL_XGLX_NEW_H
-#define ALLEGRO_INTERNAL_XGLX_NEW_H
+#ifndef __al_included_allegro5_aintern_xglx_h
+#define __al_included_allegro5_aintern_xglx_h
 
 #include <X11/Xlib.h>
 #include <X11/Xatom.h>
@@ -7,7 +7,7 @@
 #include <string.h>
 #include <stdio.h>
 
-#include "allegro5/allegro5.h"
+#include "allegro5/allegro.h"
 #include "allegro5/allegro_opengl.h"
 #include "allegro5/internal/aintern.h"
 #include "allegro5/platform/aintunix.h"
@@ -44,11 +44,15 @@ struct ALLEGRO_SYSTEM_XGLX
     * way to enforce locking for them.
     * The only solution seems to be two X11 display connections. One to do our
     * input handling, and one for OpenGL graphics.
+    *
+    * Note: these may be NULL if we are not connected to an X server, for
+    * headless command-line tools. We don't have a separate "null" system
+    * driver.
     */
    Display *x11display; /* The X11 display. You *MUST* only access this from one
     * thread at a time, use the mutex lock below to ensure it.
     */
-   Display *gfxdisplay; /* Annother X11 display we use for graphics. You *MUST*
+   Display *gfxdisplay; /* Another X11 display we use for graphics. You *MUST*
     * only use this in the main thread.
     */
 
@@ -109,6 +113,7 @@ struct ALLEGRO_DISPLAY_XGLX
    bool is_mapped;  /* Set to true when mapped. */
 
    int resize_count; /* Increments when resized. */
+   bool programmatic_resize; /* Set while programmatic resize in progress. */
 
    /* Cursor for this window. */
    Cursor invisible_cursor;
@@ -170,9 +175,8 @@ void _al_xglx_store_video_mode(ALLEGRO_SYSTEM_XGLX *s);
 void _al_xglx_restore_video_mode(ALLEGRO_SYSTEM_XGLX *s, int adapter);
 void _al_xglx_fullscreen_to_display(ALLEGRO_SYSTEM_XGLX *s,
    ALLEGRO_DISPLAY_XGLX *d);
-void _al_xglx_toggle_fullscreen_window(ALLEGRO_DISPLAY *display);
-void _al_display_xglx_await_resize(ALLEGRO_DISPLAY *d);
-void _al_xglx_set_above(ALLEGRO_DISPLAY *display);
+void _al_xglx_toggle_fullscreen_window(ALLEGRO_DISPLAY *display, int value);
+void _al_display_xglx_await_resize(ALLEGRO_DISPLAY *d, int old_resize_count, bool delay_hack);
 void _al_xglx_get_display_offset(ALLEGRO_SYSTEM_XGLX *s, int adapter, int *x, int *y);
 
 int _al_xglx_fullscreen_select_mode(ALLEGRO_SYSTEM_XGLX *s, int adapter, int w, int h, int format, int refresh_rate);

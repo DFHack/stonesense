@@ -1,7 +1,7 @@
-#ifndef ALLEGRO_PRIMITIVES_H
-#define ALLEGRO_PRIMITIVES_H
+#ifndef __al_included_allegro5_allegro_primitives_h
+#define __al_included_allegro5_allegro_primitives_h
 
-#include <allegro5/allegro5.h>
+#include <allegro5/allegro.h>
 
 #if (defined ALLEGRO_MINGW32) || (defined ALLEGRO_MSVC) || (defined ALLEGRO_BCC32)
 #ifndef ALLEGRO_STATICLINK
@@ -87,9 +87,9 @@ struct ALLEGRO_VERTEX_ELEMENT {
  */
 typedef struct ALLEGRO_VERTEX_DECL ALLEGRO_VERTEX_DECL;
 
-/* Type: ALLEGRO_PRIM_COLOR
- */
-typedef uint32_t ALLEGRO_PRIM_COLOR;
+/* Duplicated in allegro5/internal/aintern_tri_soft.h */
+#ifndef _ALLEGRO_VERTEX_DEFINED
+#define _ALLEGRO_VERTEX_DEFINED
 
 /* Type: ALLEGRO_VERTEX
  */
@@ -100,6 +100,7 @@ struct ALLEGRO_VERTEX {
   float u, v;
   ALLEGRO_COLOR color;
 };
+#endif
 
 ALLEGRO_PRIM_FUNC(uint32_t, al_get_allegro_primitives_version, (void));
 

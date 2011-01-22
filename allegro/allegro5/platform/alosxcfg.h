@@ -16,8 +16,8 @@
  */
 
 
-#ifndef ALOSXCFG_H
-#define ALOSXCFG_H
+#ifndef __al_included_allegro5_alosxcfg_h
+#define __al_included_allegro5_alosxcfg_h
 
 /* Include configuration information.  */
 #include "allegro5/platform/alplatf.h"
@@ -30,18 +30,6 @@
 #define ALLEGRO_USE_CONSTRUCTOR
 #define ALLEGRO_MULTITHREADED
 
-/* Provide implementations of missing functions.  */
-#ifndef ALLEGRO_HAVE_STRICMP
-#define ALLEGRO_NO_STRICMP
-#endif
-
-#ifndef ALLEGRO_HAVE_STRLWR
-#define ALLEGRO_NO_STRLWR
-#endif
-
-#ifndef ALLEGRO_HAVE_STRUPR
-#define ALLEGRO_NO_STRUPR
-#endif
 
 /* Arrange for other headers to be included later on */
 #define ALLEGRO_EXTRA_HEADER     "allegro5/platform/alosx.h"

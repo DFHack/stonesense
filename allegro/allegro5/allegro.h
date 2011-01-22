@@ -19,8 +19,8 @@
  */
 
 
-#ifndef ALLEGRO_H
-#define ALLEGRO_H
+#ifndef __al_included_allegro5_allegro_h
+#define __al_included_allegro5_allegro_h
 
 
 #include "allegro5/base.h"
@@ -54,15 +54,21 @@
 #include "allegro5/fshook.h"
 #include "allegro5/path.h"
 
-#include "fmaths.h"
+#include "allegro5/fmaths.h"
 
-#include "config.h"
+#include "allegro5/config.h"
+
+
+#ifndef ALLEGRO_NO_COMPATIBILITY
+   #include "allegro5/alcompat.h"
+#endif
+
 
 #ifdef ALLEGRO_EXTRA_HEADER
    #include ALLEGRO_EXTRA_HEADER
 #endif
 
 
-#endif          /* ifndef ALLEGRO_H */
+#endif
 
 

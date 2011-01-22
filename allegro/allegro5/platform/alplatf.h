@@ -8,6 +8,7 @@
 /* #undef ALLEGRO_MACOSX */
 /* #undef ALLEGRO_BCC32 */
 /* #undef ALLEGRO_GP2XWIZ */
+/* #undef ALLEGRO_IPHONE */
 #define ALLEGRO_CFG_WANT_NATIVE_IMAGE_LOADER
 
 #define ALLEGRO_CFG_ALLOW_SSE
@@ -46,6 +47,8 @@
 /* #undef ALLEGRO_HAVE_SYS_UTSNAME_H */
 #define ALLEGRO_HAVE_SYS_TYPES_H
 /* #undef ALLEGRO_HAVE_OSATOMIC_H */
+/* #undef ALLEGRO_HAVE_SYS_INOTIFY_H */
+/* #undef ALLEGRO_HAVE_SYS_TIMERFD_H */
 
 /* Define to 1 if the corresponding functions are available. */
 /* #undef ALLEGRO_HAVE_GETEXECNAME */
@@ -53,9 +56,6 @@
 /* #undef ALLEGRO_HAVE_MMAP */
 /* #undef ALLEGRO_HAVE_MPROTECT */
 /* #undef ALLEGRO_HAVE_SCHED_YIELD */
-#define ALLEGRO_HAVE_STRICMP
-#define ALLEGRO_HAVE_STRLWR
-#define ALLEGRO_HAVE_STRUPR
 /* #undef ALLEGRO_HAVE_SYSCONF */
 /* #undef ALLEGRO_HAVE_FSEEKO */
 /* #undef ALLEGRO_HAVE_FTELLO */

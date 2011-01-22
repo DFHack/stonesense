@@ -15,8 +15,8 @@
  *      See readme.txt for copyright information.
  */
 
-#ifndef AINTUNIX_H
-#define AINTUNIX_H
+#ifndef __al_included_allegro5_aintunix_h
+#define __al_included_allegro5_aintunix_h
 
 #include "allegro5/path.h"
 
@@ -38,9 +38,9 @@ extern "C" {
 
 
    /* Dynamic driver lists, for modules */
-   AL_VAR(_DRIVER_INFO *, _unix_gfx_driver_list);
-   AL_VAR(_DRIVER_INFO *, _unix_digi_driver_list);
-   AL_VAR(_DRIVER_INFO *, _unix_midi_driver_list);
+   AL_VAR(_AL_DRIVER_INFO *, _unix_gfx_driver_list);
+   AL_VAR(_AL_DRIVER_INFO *, _unix_digi_driver_list);
+   AL_VAR(_AL_DRIVER_INFO *, _unix_midi_driver_list);
    AL_FUNC(void, _unix_driver_lists_init, (void));
    AL_FUNC(void, _unix_driver_lists_shutdown, (void));
 
@@ -91,4 +91,4 @@ AL_VAR(struct ALLEGRO_JOYSTICK_DRIVER, _al_joydrv_linux);
 #endif
 
 
-#endif /* ifndef AINTUNIX_H */
+#endif
