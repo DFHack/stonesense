@@ -46,6 +46,7 @@ Block::Block(WorldSegment* ownerSegment)
 
 	this->material.type = INVALID_INDEX;
 	this->material.index = INVALID_INDEX;
+	creature = 0;
 }
 
 
@@ -225,13 +226,13 @@ void Block::Draw(){
 	}
 
 
-	//vegetation
-	if(tree.index > 0 || tree.type > 0){
-		c_sprite * vegetationsprite = 0;
-		vegetationsprite = GetSpriteVegetation( (TileClass) getVegetationType( this->floorType ), tree.index );
-		if(vegetationsprite)
-			vegetationsprite->draw_world(x, y, z);
-	}
+	////vegetation
+	//if(tree.index > 0 || tree.type > 0){
+	//	c_sprite * vegetationsprite = 0;
+	//	vegetationsprite = GetSpriteVegetation( (TileClass) getVegetationType( this->floorType ), tree.index );
+	//	if(vegetationsprite)
+	//		vegetationsprite->draw_world(x, y, z);
+	//}
 
 	//shadow
 	if (shadow > 0)
@@ -246,8 +247,6 @@ void Block::Draw(){
 
 	if(building.info.type != BUILDINGTYPE_NA && !skipBuilding)
 	{
-		int spriteNum =  SPRITEOBJECT_NA; //getBuildingSprite(this->building, mirroredBuilding);
-
 		for(uint32_t i=0; i < building.sprites.size(); i++)
 		{
 			spriteobject = &building.sprites[i];

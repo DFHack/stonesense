@@ -3,6 +3,7 @@
 #include "GroundMaterialConfiguration.h"
 #include "ContentLoader.h"
 #include "GUI.h"
+#include "BlockTree.h"
 
 c_sprite *  GetTerrainSpriteMap(int in, t_matglossPair material, vector<TerrainConfiguration*>& configTable, uint16_t form)
 {
@@ -84,9 +85,9 @@ c_sprite * GetBlockSpriteMap(int in, t_matglossPair material, uint16_t form){
 	return GetTerrainSpriteMap(in, material, contentLoader.terrainBlockConfigs, form);
 }
 
-c_sprite * GetSpriteVegetation( TileClass type, int index)
+c_block_tree * GetTreeVegetation( TileClass type, int index)
 {
-	static c_sprite * defaultSprite = new c_sprite;
+	static c_block_tree * defaultTree = new c_block_tree;
 	int base_sprite = SPRITEOBJECT_BLUEPRINT;
 	vector<VegetationConfiguration>* graphicSet;
 	bool live=true;
@@ -123,16 +124,16 @@ c_sprite * GetSpriteVegetation( TileClass type, int index)
 		graphicSet = &(contentLoader.shrubConfigs);
 		break;
 	default:
-		defaultSprite->set_sheetindex(SPRITEOBJECT_BLANK);
-		return defaultSprite;
+		defaultTree->set_sheetindex(SPRITEOBJECT_BLANK);
+		return defaultTree;
 	}  	
   	
-	c_sprite * configuredSprite = getVegetationSprite(*graphicSet,index,live,grown);
-	if (configuredSprite->get_sheetindex() == -1)
+	c_block_tree * configuredTree = getVegetationTree(*graphicSet,index,live,grown);
+	if (configuredTree->get_sheetindex() == -1)
 	{
-		configuredSprite->set_fileindex(-1); // should be set already, but...
-		configuredSprite->set_sheetindex(base_sprite);
+		configuredTree->set_fileindex(-1); // should be set already, but...
+		configuredTree->set_sheetindex(base_sprite);
 	}
-	return configuredSprite;
+	return configuredTree;
 }
 

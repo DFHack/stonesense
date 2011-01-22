@@ -2,6 +2,7 @@
 
 #include "common.h"
 #include "SpriteObjects.h"
+#include "BlockTree.h"
 
 enum enumFloorSprites{
 	SPRITEFLOOR_NA = 0,
@@ -65,5 +66,5 @@ enum BlockIDs{
 // or one with sheetIndex == INVALID_INDEX if none found
 c_sprite * GetBlockSpriteMap(int in, t_matglossPair material, uint16_t form);
 c_sprite * GetFloorSpriteMap(int in, t_matglossPair material, uint16_t form);
-c_sprite * GetSpriteVegetation( TileClass type, int index);
+c_block_tree * GetTreeVegetation( TileClass type, int index);
 
