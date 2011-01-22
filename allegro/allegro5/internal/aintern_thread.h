@@ -1,9 +1,7 @@
-#ifndef _al_included_aintern_thread_h
-#define _al_included_aintern_thread_h
+#ifndef __al_included_allegro5_aintern_thread_h
+#define __al_included_allegro5_aintern_thread_h
 
-#ifndef SCAN_EXPORT
 #include ALLEGRO_INTERNAL_THREAD_HEADER
-#endif
 
 #ifdef __cplusplus
    extern "C" {
@@ -43,11 +41,6 @@ AL_FUNC(void, _al_cond_signal, (_AL_COND*));
 #endif
 
 AL_FUNC(int, _al_cond_timedwait, (_AL_COND*, _AL_MUTEX*, const ALLEGRO_TIMEOUT *timeout));
-
-#if defined ALLEGRO_MACOSX || defined ALLEGRO_GP2XWIZ || defined ALLEGRO_IPHONE
-// Do some one-time initialisation for the thread support
-void _al_pthreads_tls_init(void);
-#endif
 
 
 #ifdef __cplusplus

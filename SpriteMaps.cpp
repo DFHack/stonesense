@@ -20,7 +20,7 @@ c_sprite *  GetTerrainSpriteMap(int in, t_matglossPair material, vector<TerrainC
 	defaultSprite->reset();
 	defaultSprite->set_sheetindex(UNCONFIGURED_INDEX);
 	defaultSprite->set_fileindex(INVALID_INDEX);
-
+	defaultSprite->set_needoutline(1);
 	// first check the input is sane
 	if( in < 0 || in >= (int)configTable.size() )
 	{

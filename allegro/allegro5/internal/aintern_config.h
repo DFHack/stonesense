@@ -1,10 +1,7 @@
-#ifndef AINTERN_CONFIG_H
-#define AINTERN_CONFIG_H
+#ifndef __al_included_allegro5_aintern_config_h
+#define __al_included_allegro5_aintern_config_h
 
 #include "allegro5/internal/aintern_aatree.h"
-
-typedef struct ALLEGRO_CONFIG_ENTRY ALLEGRO_CONFIG_ENTRY;
-typedef struct ALLEGRO_CONFIG_SECTION ALLEGRO_CONFIG_SECTION;
 
 struct ALLEGRO_CONFIG_ENTRY {
    bool is_comment;
@@ -28,5 +25,5 @@ struct ALLEGRO_CONFIG {
 };
 
 
-#endif /* AINTERN_CONFIG_H */
+#endif
 

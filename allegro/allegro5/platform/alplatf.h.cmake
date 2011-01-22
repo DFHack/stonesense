@@ -8,6 +8,7 @@
 #cmakedefine ALLEGRO_MACOSX
 #cmakedefine ALLEGRO_BCC32
 #cmakedefine ALLEGRO_GP2XWIZ
+#cmakedefine ALLEGRO_IPHONE
 #cmakedefine ALLEGRO_CFG_WANT_NATIVE_IMAGE_LOADER
 
 #cmakedefine ALLEGRO_CFG_ALLOW_SSE
@@ -46,6 +47,8 @@
 #cmakedefine ALLEGRO_HAVE_SYS_UTSNAME_H
 #cmakedefine ALLEGRO_HAVE_SYS_TYPES_H
 #cmakedefine ALLEGRO_HAVE_OSATOMIC_H
+#cmakedefine ALLEGRO_HAVE_SYS_INOTIFY_H
+#cmakedefine ALLEGRO_HAVE_SYS_TIMERFD_H
 
 /* Define to 1 if the corresponding functions are available. */
 #cmakedefine ALLEGRO_HAVE_GETEXECNAME
@@ -53,9 +56,6 @@
 #cmakedefine ALLEGRO_HAVE_MMAP
 #cmakedefine ALLEGRO_HAVE_MPROTECT
 #cmakedefine ALLEGRO_HAVE_SCHED_YIELD
-#cmakedefine ALLEGRO_HAVE_STRICMP
-#cmakedefine ALLEGRO_HAVE_STRLWR
-#cmakedefine ALLEGRO_HAVE_STRUPR
 #cmakedefine ALLEGRO_HAVE_SYSCONF
 #cmakedefine ALLEGRO_HAVE_FSEEKO
 #cmakedefine ALLEGRO_HAVE_FTELLO

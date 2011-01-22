@@ -13,12 +13,8 @@
  *      See readme.txt for copyright information.
  */
 
-/* Title: Threads
- */
-
-
-#ifndef _al_included_threads_h
-#define _al_included_threads_h
+#ifndef __al_included_allegro5_threads_h
+#define __al_included_allegro5_threads_h
 
 #include "allegro5/altime.h"
 
@@ -57,7 +53,7 @@ AL_FUNC(void, al_destroy_mutex, (ALLEGRO_MUTEX *mutex));
 AL_FUNC(ALLEGRO_COND *, al_create_cond, (void));
 AL_FUNC(void, al_destroy_cond, (ALLEGRO_COND *cond));
 AL_FUNC(void, al_wait_cond, (ALLEGRO_COND *cond, ALLEGRO_MUTEX *mutex));
-AL_FUNC(int, al_wait_cond_timed, (ALLEGRO_COND *cond, ALLEGRO_MUTEX *mutex,
+AL_FUNC(int, al_wait_cond_until, (ALLEGRO_COND *cond, ALLEGRO_MUTEX *mutex,
                     const ALLEGRO_TIMEOUT *timeout));
 AL_FUNC(void, al_broadcast_cond, (ALLEGRO_COND *cond));
 AL_FUNC(void, al_signal_cond, (ALLEGRO_COND *cond));
@@ -66,6 +62,6 @@ AL_FUNC(void, al_signal_cond, (ALLEGRO_COND *cond));
    }
 #endif
 
-#endif          /* ifndef _al_included_threads_h */
+#endif
 
 /* vim: set sts=3 sw=3 et: */

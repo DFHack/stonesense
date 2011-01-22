@@ -1,5 +1,5 @@
-#ifndef _al_included_aintern_keyboard_h
-#define _al_included_aintern_keyboard_h
+#ifndef __al_included_allegro5_aintern_keyboard_h
+#define __al_included_allegro5_aintern_keyboard_h
 
 #ifdef __cplusplus
    extern "C" {
@@ -21,7 +21,7 @@ typedef struct ALLEGRO_KEYBOARD_DRIVER
 } ALLEGRO_KEYBOARD_DRIVER;
 
 
-AL_ARRAY(_DRIVER_INFO, _al_keyboard_driver_list);
+AL_ARRAY(_AL_DRIVER_INFO, _al_keyboard_driver_list);
 
 AL_ARRAY(const char *, _al_keyboard_common_names);
 

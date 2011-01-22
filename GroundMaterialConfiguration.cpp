@@ -68,6 +68,7 @@ void parseWallFloorSpriteElement( TiXmlElement* elemWallFloorSprite, vector<Terr
 		sprite.set_size(SPRITEWIDTH, (TILEHEIGHT + FLOORHEIGHT));
 		sprite.set_offset(0, (WALLHEIGHT));
 	}
+	sprite.set_needoutline(1);
 	sprite.set_by_xml(elemWallFloorSprite, basefile);
 
 	vector<int> lookupKeys;

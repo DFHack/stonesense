@@ -36,11 +36,19 @@ public:
 	uint8_t rampborders;
 	uint8_t upstairborders;
 	uint8_t downstairborders;
-
+	uint8_t lightborders;
+	
 	bool creaturePresent;
 	bool buildingPresent;
 	t_matglossPair ramp;
 	t_matglossPair water;
+
+	//following are neighbor water levels
+	t_matglossPair abovewater;
+	t_matglossPair belowwater;
+	t_matglossPair rightwater;
+	t_matglossPair leftwater;
+
 	t_designation designation;
 	t_occupancy occ;
 	t_creature * creature;

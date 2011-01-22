@@ -339,6 +339,7 @@ void ReadCreaturesToSegment( DFHack::Context& DF, WorldSegment* segment)
 	catch(exception &err)
 	{
 		WriteErr("DFhack exeption: %s \n", err.what());
+		config.skipCreatures = true;
 		return;
 	}
 	if(!numcreatures) return;

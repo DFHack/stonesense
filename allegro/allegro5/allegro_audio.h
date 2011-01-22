@@ -3,8 +3,8 @@
  * Originally done by KC/Milan
  */
 
-#ifndef __al_included_allegro_audio_h
-#define __al_included_allegro_audio_h
+#ifndef __al_included_allegro5_allegro_audio_h
+#define __al_included_allegro5_allegro_audio_h
 
 #ifdef __cplusplus
 extern "C" {
@@ -13,7 +13,7 @@ extern "C" {
 /* Title: Audio types
  */
 
-#include "allegro5/allegro5.h"
+#include "allegro5/allegro.h"
 
 
 #if (defined ALLEGRO_MINGW32) || (defined ALLEGRO_MSVC) || (defined ALLEGRO_BCC32)
@@ -328,7 +328,7 @@ ALLEGRO_KCM_AUDIO_FUNC(ALLEGRO_MIXER *, al_get_default_mixer, (void));
 ALLEGRO_KCM_AUDIO_FUNC(bool, al_set_default_mixer, (ALLEGRO_MIXER *mixer));
 ALLEGRO_KCM_AUDIO_FUNC(bool, al_restore_default_mixer, (void));
 ALLEGRO_KCM_AUDIO_FUNC(bool, al_play_sample, (ALLEGRO_SAMPLE *data,
-      float gain, float pan, float speed, int loop, ALLEGRO_SAMPLE_ID *ret_id));
+      float gain, float pan, float speed, ALLEGRO_PLAYMODE loop, ALLEGRO_SAMPLE_ID *ret_id));
 ALLEGRO_KCM_AUDIO_FUNC(void, al_stop_sample, (ALLEGRO_SAMPLE_ID *spl_id));
 ALLEGRO_KCM_AUDIO_FUNC(void, al_stop_samples, (void));
 
@@ -367,7 +367,7 @@ ALLEGRO_KCM_AUDIO_FUNC(ALLEGRO_AUDIO_STREAM *, al_load_audio_stream_f, (ALLEGRO_
 #endif
 
 
-#endif  /* __al_included_allegro_audio_h */
+#endif
 
 
 /* vim: set sts=3 sw=3 et: */

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <floors file="grass.png">
   <!-- vegetation -->
-  <floor sheetIndex="0">
+  <floor sheetIndex="0" color = "material">
     <!-- tree -->
     <terrain value="24" />
     <!-- shrub -->
@@ -13,22 +13,6 @@
     <terrain value="349" />
     <terrain value="350" />
     <terrain value="351" />
-    <!-- dry grass -->
-    <terrain value="387" />
-    <terrain value="388" />
-    <terrain value="389" />
-    <terrain value="390" />
-    <!-- dead tree -->
-    <terrain value="391" />
-    <!-- dead sapling -->
-    <terrain value="392" />
-    <!-- dead shrub -->
-    <terrain value="393" />
-    <!-- dead grass -->
-    <terrain value="394" />
-    <terrain value="395" />
-    <terrain value="396" />
-    <terrain value="397" />
     <!-- grass -->
     <terrain value="398" />
     <terrain value="399" />

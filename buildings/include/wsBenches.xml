@@ -3,7 +3,7 @@
   <!-- benches -->
   <if>
     <MaterialType value="Wood" />
-    <sprite index="21" color="material" />
+    <sprite index="21" color="building" />
   </if>
   <else>
   <or>
@@ -34,7 +34,7 @@
     <MaterialType value="Metal" subtype="BISMUTH_BRONZE" />
     <MaterialType value="Metal" subtype="ADAMANTINE" />
 	</or>
-    <sprite index="22" color="material" />
+    <sprite index="22" color="building" />
   </else>
   <else>
     <MaterialType value="GreenGlass" />
@@ -48,7 +48,7 @@
     <sprite index="23" />
   </else>
   <else>
-    <sprite index="20" color="material" />
+    <sprite index="20" color="building" />
   </else>
   <!-- borders -->
   <if>

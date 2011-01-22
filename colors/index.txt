@@ -3,3 +3,4 @@ Colors_Stone_Layer.xml
 Colors_Stone_Mineral.xml
 Colors_Stone_Gem.xml
 Colors_Metal.xml
+Colors_Stone_Soil.xml

@@ -1,7 +1,7 @@
-#ifndef ALLEGRO_PHYSFS_H
-#define ALLEGRO_PHYSFS_H
+#ifndef __al_included_allegro5_allegro_physfs_h
+#define __al_included_allegro5_allegro_physfs_h
 
-#include "allegro5/allegro5.h"
+#include "allegro5/allegro.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -38,4 +38,4 @@ ALLEGRO_PHYSFS_FUNC(uint32_t, al_get_allegro_physfs_version, (void));
 }
 #endif
 
-#endif /* ALLEGRO_PHYSFS_H */
+#endif

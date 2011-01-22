@@ -15,10 +15,10 @@
  *      See readme.txt for copyright information.
  */
 
-#ifndef AINTWIN_H
-#define AINTWIN_H
+#ifndef __al_included_allegro5_aintwin_h
+#define __al_included_allegro5_aintwin_h
 
-#ifndef ALLEGRO_H
+#ifndef __al_included_allegro5_allegro_h
    #error must include allegro.h first
 #endif
 
@@ -64,6 +64,13 @@ struct ALLEGRO_DISPLAY_WIN
     * after al_resize_display called you can call acknowledge_resize
     */
    bool can_acknowledge;
+
+   /* For internal use by the windows driver. When this is set and a Windows
+    * window resize event is received by the window procedure, the event is
+    * ignored and this value is set to false.
+    */
+   bool ignore_resize;
+
    /* Size to reset to when al_set_display_flag(FULLSCREEN_WINDOW, false)
     * is called.
     */
@@ -104,6 +111,9 @@ AL_FUNC(void, _al_win_wnd_schedule_proc, (HWND wnd, void (*proc)(void*), void *p
 AL_FUNC(void, _al_win_wnd_call_proc, (HWND wnd, void (*proc)(void*), void *param));
 
 extern bool _al_win_disable_screensaver;
+
+/* dynamic library loading */
+HMODULE _al_win_safe_load_library(const char *filename);
 
 /* time */
 void _al_win_init_time(void);
@@ -167,8 +177,6 @@ bool _al_win_hide_mouse_cursor(ALLEGRO_DISPLAY *display);
                                                   int refresh_rate, int flags,
                                                   ALLEGRO_DISPLAY_MODE *mode);
    bool _al_d3d_init_display(void);
-   int  _al_d3d_get_num_video_adapters(void);
-   void _al_d3d_get_monitor_info(int adapter, ALLEGRO_MONITOR_INFO *info);
 #endif /*  defined ALLEGRO_CFG_D3D */
 
 #if defined ALLEGRO_CFG_OPENGL
@@ -178,8 +186,6 @@ bool _al_win_hide_mouse_cursor(ALLEGRO_DISPLAY *display);
                                                   int refresh_rate, int flags,
                                                   ALLEGRO_DISPLAY_MODE *mode);
    bool _al_wgl_init_display(void);
-   int  _al_wgl_get_num_video_adapters(void);
-   void _al_wgl_get_monitor_info(int adapter, ALLEGRO_MONITOR_INFO *info);
 #endif /*  defined ALLEGRO_CFG_OPENGL */
 
 
@@ -188,5 +194,5 @@ bool _al_win_hide_mouse_cursor(ALLEGRO_DISPLAY *display);
 #endif
 
 
-#endif          /* !defined AINTWIN_H */
+#endif
 

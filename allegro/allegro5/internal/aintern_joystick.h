@@ -1,5 +1,5 @@
-#ifndef _al_included_aintern_joystick_h
-#define _al_included_aintern_joystick_h
+#ifndef __al_included_allegro5_aintern_joystick_h
+#define __al_included_allegro5_aintern_joystick_h
 
 #include "allegro5/internal/aintern_events.h"
 
@@ -16,19 +16,22 @@ typedef struct ALLEGRO_JOYSTICK_DRIVER
    const char *joydrv_ascii_name;
    AL_METHOD(bool, init_joystick, (void));
    AL_METHOD(void, exit_joystick, (void));
+   AL_METHOD(bool, reconfigure_joysticks, (void));
    AL_METHOD(int, num_joysticks, (void));
-   AL_METHOD(ALLEGRO_JOYSTICK*, get_joystick, (int joyn));
-   AL_METHOD(void, release_joystick, (ALLEGRO_JOYSTICK*));
-   AL_METHOD(void, get_joystick_state, (ALLEGRO_JOYSTICK*, ALLEGRO_JOYSTICK_STATE *ret_state));
+   AL_METHOD(ALLEGRO_JOYSTICK *, get_joystick, (int joyn));
+   AL_METHOD(void, release_joystick, (ALLEGRO_JOYSTICK *joy));
+   AL_METHOD(void, get_joystick_state, (ALLEGRO_JOYSTICK *joy, ALLEGRO_JOYSTICK_STATE *ret_state));
+   AL_METHOD(const char *, get_name, (ALLEGRO_JOYSTICK *joy));
+   AL_METHOD(bool, get_active, (ALLEGRO_JOYSTICK *joy));
 } ALLEGRO_JOYSTICK_DRIVER;
 
 
-AL_ARRAY(_DRIVER_INFO, _al_joystick_driver_list);
+AL_ARRAY(_AL_DRIVER_INFO, _al_joystick_driver_list);
 
 
 /* macros for constructing the driver list */
 #define _AL_BEGIN_JOYSTICK_DRIVER_LIST                         \
-   _DRIVER_INFO _al_joystick_driver_list[] =                   \
+   _AL_DRIVER_INFO _al_joystick_driver_list[] =                \
    {
 
 #define _AL_END_JOYSTICK_DRIVER_LIST                           \
@@ -46,7 +49,7 @@ typedef struct _AL_JOYSTICK_AXIS_INFO
 /* information about one or more axis (a slider or directional control) */
 typedef struct _AL_JOYSTICK_STICK_INFO
 {
-   ALLEGRO_JOYFLAGS flags;
+   int flags; /* bit-field */
    int num_axes;
    _AL_JOYSTICK_AXIS_INFO axis[_AL_MAX_JOYSTICK_AXES];
    char *name;
@@ -72,11 +75,10 @@ typedef struct _AL_JOYSTICK_INFO
 
 struct ALLEGRO_JOYSTICK
 {
-   ALLEGRO_EVENT_SOURCE es;
    _AL_JOYSTICK_INFO info;
-   int num;
 };
 
+void _al_generate_joystick_event(ALLEGRO_EVENT *event);
 
 #ifdef __cplusplus
    }

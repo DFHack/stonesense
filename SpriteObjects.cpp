@@ -8,6 +8,44 @@
 
 #define ALL_BORDERS 255
 
+unsigned char get_water_direction( Block *b )
+{
+	int tiletype = b->floorType;
+	if(tiletype == 0) return 0;
+	if(tiletype == 365) return 2;
+	if(tiletype == 366) return 6;
+	if(tiletype == 367) return 4;
+	if(tiletype == 368) return 8;
+	if(tiletype == 369) return 1;
+	if(tiletype == 370) return 3;
+	if(tiletype == 371) return 7;
+	if(tiletype == 372) return 5;
+	if(tiletype == 373) return 2;
+	if(tiletype == 374) return 6;
+	if(tiletype == 375) return 4;
+	if(tiletype == 376) return 8;
+	if(tiletype == 377) return 1;
+	if(tiletype == 378) return 3;
+	if(tiletype == 379) return 7;
+	if(tiletype == 380) return 5;
+	return 0;
+}
+
+unsigned char get_relative_water_direction( Block *b )
+{
+	int  dir = get_water_direction(b);
+	if(dir == 0) return dir;
+	if(DisplayedRotation == 1)
+		dir += 2;
+	if(DisplayedRotation == 2)
+		dir += 4;
+	if(DisplayedRotation == 3)
+		dir += 6;
+	if(dir > 8)
+		dir -= 8;
+	return dir;
+}
+
 int getBloodOffset ( Block *b )
 {
 	int offset = 0;
@@ -127,6 +165,7 @@ void c_sprite::reset(void)
 	shadeBy=ShadeNone;
 	isoutline = OUTLINENONE;
 	halftile = HALFTILECHOP;
+	water_direction = -1;
 
 	openborders = ALL_BORDERS;
 	wallborders = ALL_BORDERS;
@@ -134,6 +173,8 @@ void c_sprite::reset(void)
 	rampborders = ALL_BORDERS;
 	upstairborders = ALL_BORDERS;
 	downstairborders = ALL_BORDERS;
+	lightborders = ALL_BORDERS;
+	darkborders =  0;
 	notopenborders = 0;
 	notwallborders = 0;
 	notfloorborders = 0;
@@ -198,29 +239,33 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
 	if (animframes == 0)
 		animframes = ALL_FRAMES;
 
-	openborders = getBorders(elemSprite->Attribute("needopen"));
+	openborders = getBorders(elemSprite->Attribute("border_open_OR"));
 
-	floorborders = getBorders(elemSprite->Attribute("needfloor"));
+	floorborders = getBorders(elemSprite->Attribute("border_floor_OR"));
 
-	wallborders = getBorders(elemSprite->Attribute("needwall"));
+	wallborders = getBorders(elemSprite->Attribute("border_wall_OR"));
 
-	rampborders = getBorders(elemSprite->Attribute("needramp"));
+	rampborders = getBorders(elemSprite->Attribute("border_ramp_OR"));
 
-	upstairborders = getBorders(elemSprite->Attribute("needupstair"));
+	upstairborders = getBorders(elemSprite->Attribute("border_upstair_OR"));
 
-	downstairborders = getBorders(elemSprite->Attribute("needdownstair"));
+	downstairborders = getBorders(elemSprite->Attribute("border_downstair_OR"));
 
-	notopenborders = getUnBorders(elemSprite->Attribute("neednotopen"));
+	darkborders = getUnBorders(elemSprite->Attribute("border_dark_OR"));
 
-	notfloorborders = getUnBorders(elemSprite->Attribute("neednotfloor"));
+	lightborders = getBorders(elemSprite->Attribute("border_light_OR"));
 
-	notwallborders = getUnBorders(elemSprite->Attribute("neednotwall"));
+	notopenborders = getUnBorders(elemSprite->Attribute("border_open_NOR"));
 
-	notrampborders = getUnBorders(elemSprite->Attribute("neednotramp"));
+	notfloorborders = getUnBorders(elemSprite->Attribute("border_floor_NOR"));
 
-	notupstairborders = getUnBorders(elemSprite->Attribute("neednotupstair"));
+	notwallborders = getUnBorders(elemSprite->Attribute("border_wall_NOR"));
 
-	notdownstairborders = getUnBorders(elemSprite->Attribute("neednotdownstair"));
+	notrampborders = getUnBorders(elemSprite->Attribute("border_ramp_NOR"));
+
+	notupstairborders = getUnBorders(elemSprite->Attribute("border_upstair_NOR"));
+
+	notdownstairborders = getUnBorders(elemSprite->Attribute("border_downstair_NOR"));
 
 	//check for randomised tiles
 	const char* spriteVariationsStr = elemSprite->Attribute("variations");
@@ -231,6 +276,17 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
 	else 
 	{
 		variations=atoi(spriteVariationsStr);
+	}
+
+
+	const char* waterDirStr = elemSprite->Attribute("water_direction");
+	if (waterDirStr == NULL || waterDirStr[0] == 0)
+	{
+		water_direction = -1;
+	}
+	else 
+	{
+		water_direction=atoi(waterDirStr);
 	}
 
 	//decide what the sprite should be shaded by.
@@ -265,6 +321,25 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
 	else if( strcmp(spriteChopStr, "both") == 0)
 	{
 		halftile = HALFTILEBOTH;
+	}
+
+	//hidden in the shadows
+	const char* spriteShadowStr = elemSprite->Attribute("dark");
+	if (spriteShadowStr == NULL || spriteShadowStr[0] == 0)
+	{
+		light = LIGHTANY;
+	}
+	else if( strcmp(spriteShadowStr, "yes") == 0)
+	{
+		light = LIGHTNO;
+	}
+	else if( strcmp(spriteShadowStr, "no") == 0)
+	{
+		light = LIGHTYES;
+	}
+	else if( strcmp(spriteShadowStr, "both") == 0)
+	{
+		light = LIGHTANY;
 	}
 
 	//some sprites are actually tile borders.
@@ -356,7 +431,7 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
 	}
 	else bloodmax=atoi(spritebloodMaxStr);
 
-		//Should the sprite be shown only when there is mud?
+	//Should the sprite be shown only when there is mud?
 	const char* spritemudMinStr = elemSprite->Attribute("mud_min");
 	if (spritemudMinStr == NULL || spritemudMinStr[0] == 0)
 	{
@@ -455,13 +530,37 @@ void c_sprite::draw_world_offset(int x, int y, int z, Block * b, int tileoffset,
 		//if the xml says that this is a blood sprite, and offset is set here for proper pooling. this over-rides the random offset.
 		if(bloodsprite)
 			randoffset = getBloodOffset(b);
-		if(((openborders & b->openborders) || (upstairborders & b->upstairborders) || (downstairborders & b->downstairborders) || (rampborders & b->rampborders) || (wallborders & b->wallborders) || (floorborders & b->floorborders)) && !((notopenborders & b->openborders) || (notupstairborders & b->upstairborders) || (notdownstairborders & b->downstairborders) || (notrampborders & b->rampborders) || (notwallborders & b->wallborders) || (notfloorborders & b->floorborders)))
+		if((water_direction < 0) || (water_direction == get_relative_water_direction(b)))
 		{
-			if((snowmin <= b->snowlevel && (snowmax == -1 || snowmax >= b->snowlevel)) && (bloodmin <= b->bloodlevel && (bloodmax == -1 || bloodmax >= b->bloodlevel)) && (mudmin <= b->mudlevel && (mudmax == -1 || mudmax >= b->mudlevel)))
+			if(( //these are all border conditions. this first section is a list of positive conditions. if at least one of the border conditions is met, the tile can be shown.
+				(openborders & b->openborders) ||
+				(upstairborders & b->upstairborders) ||
+				(downstairborders & b->downstairborders) ||
+				(rampborders & b->rampborders) ||
+				(wallborders & b->wallborders) ||
+				(floorborders & b->floorborders) ||
+				(lightborders & b->lightborders)
+				) && !( //This second block consists of negative conditions. if /any/ of these border conditions are met, the tile will not be drawn
+				(notopenborders & b->openborders) ||
+				(notupstairborders & b->upstairborders) ||
+				(notdownstairborders & b->downstairborders) ||
+				(notrampborders & b->rampborders) ||
+				(notwallborders & b->wallborders) ||
+				(notfloorborders & b->floorborders) ||
+				(darkborders & b->lightborders)
+				))
 			{
-				int32_t drawx = x;
-				int32_t drawy = y;
-				int32_t drawz = z; //- ownerSegment->sizez + 1;
+				if(
+					(snowmin <= b->snowlevel &&
+					(snowmax == -1 || snowmax >= b->snowlevel)) &&
+					(bloodmin <= b->bloodlevel && (bloodmax == -1 || bloodmax >= b->bloodlevel)) &&
+					(mudmin <= b->mudlevel && (mudmax == -1 || mudmax >= b->mudlevel)) &&
+					((light==LIGHTANY) || ((light==LIGHTYES) && b->designation.bits.skyview) || ((light==LIGHTNO) && !(b->designation.bits.skyview))) //only bother with this tile if it's in the light, or not.
+					)
+				{
+					int32_t drawx = x;
+					int32_t drawy = y;
+					int32_t drawz = z; //- ownerSegment->sizez + 1;
 
 
 				correctBlockForSegmetOffset( drawx, drawy, drawz);
@@ -472,63 +571,64 @@ void c_sprite::draw_world_offset(int x, int y, int z, Block * b, int tileoffset,
 				pointToScreen((int*)&drawx, (int*)&drawy, drawz);
 				drawx -= TILEWIDTH>>1;
 
-				int sheetx, sheety;
-				if(tilelayout == BLOCKTILE)
-				{
-					sheetx = ((sheetindex+tileoffset+randoffset) % SHEET_OBJECTSWIDE) * spritewidth;
-					sheety = ((sheetindex+tileoffset+randoffset) / SHEET_OBJECTSWIDE) * spriteheight;
-				}
-				else if(tilelayout == RAMPBOTTOMTILE)
-				{
-					sheetx = sheetx = SPRITEWIDTH * b->ramp.index;
-					sheety = sheety = ((TILEHEIGHT + FLOORHEIGHT + SPRITEHEIGHT) * (sheetindex+tileoffset+randoffset))+(TILEHEIGHT + FLOORHEIGHT);
-				}
-				else if(tilelayout == RAMPTOPTILE)
-				{
-					sheetx = sheetx = SPRITEWIDTH * b->ramp.index;
-					sheety = sheety = (TILEHEIGHT + FLOORHEIGHT + SPRITEHEIGHT) * (sheetindex+tileoffset+randoffset);
-				}
-				else
-				{
-					sheetx = ((sheetindex+tileoffset+randoffset) % SHEET_OBJECTSWIDE) * spritewidth;
-					sheety = ((sheetindex+tileoffset+randoffset) / SHEET_OBJECTSWIDE) * spriteheight;
-				}
-				if(chop && ( halftile == HALFTILECHOP))
-				{
-					if(fileindex < 0)
-						al_draw_tinted_bitmap_region(defaultsheet, get_color(b), sheetx, sheety+WALL_CUTOFF_HEIGHT, spritewidth, spriteheight-WALL_CUTOFF_HEIGHT, drawx + offset_x + offset_user_x, drawy + offset_user_y + (offset_y - WALLHEIGHT)+WALL_CUTOFF_HEIGHT, 0);
-					else 
-						al_draw_tinted_bitmap_region(getImgFile(fileindex), get_color(b), sheetx, (sheety)+WALL_CUTOFF_HEIGHT, spritewidth, spriteheight-WALL_CUTOFF_HEIGHT, drawx + offset_x + offset_user_x, drawy + offset_user_y + (offset_y - WALLHEIGHT)+WALL_CUTOFF_HEIGHT, 0);
-					//draw cut-off floor thing
-					al_draw_bitmap_region(IMGObjectSheet, 
-						TILEWIDTH * SPRITEFLOOR_CUTOFF, 0,
-						SPRITEWIDTH, SPRITEWIDTH, 
-						drawx+offset_x, drawy+offset_y-((SPRITEHEIGHT-WALL_CUTOFF_HEIGHT)/2), 0);
-				}
-				else if ((chop && (halftile == HALFTILEYES)) || (!chop && (halftile == HALFTILENO)) || (!chop && (halftile == HALFTILECHOP)) || (halftile == HALFTILEBOTH))
-				{
-					if((isoutline == OUTLINENONE) || ((isoutline == OUTLINERIGHT) && (b->depthBorderNorth)) || ((isoutline == OUTLINELEFT) && (b->depthBorderWest)) || ((isoutline == OUTLINEBOTTOM) && (b->depthBorderDown)))
+					int sheetx, sheety;
+					if(tilelayout == BLOCKTILE)
+					{
+						sheetx = ((sheetindex+tileoffset+randoffset) % SHEET_OBJECTSWIDE) * spritewidth;
+						sheety = ((sheetindex+tileoffset+randoffset) / SHEET_OBJECTSWIDE) * spriteheight;
+					}
+					else if(tilelayout == RAMPBOTTOMTILE)
+					{
+						sheetx = sheetx = SPRITEWIDTH * b->ramp.index;
+						sheety = sheety = ((TILEHEIGHT + FLOORHEIGHT + SPRITEHEIGHT) * (sheetindex+tileoffset+randoffset))+(TILEHEIGHT + FLOORHEIGHT);
+					}
+					else if(tilelayout == RAMPTOPTILE)
+					{
+						sheetx = sheetx = SPRITEWIDTH * b->ramp.index;
+						sheety = sheety = (TILEHEIGHT + FLOORHEIGHT + SPRITEHEIGHT) * (sheetindex+tileoffset+randoffset);
+					}
+					else
+					{
+						sheetx = ((sheetindex+tileoffset+randoffset) % SHEET_OBJECTSWIDE) * spritewidth;
+						sheety = ((sheetindex+tileoffset+randoffset) / SHEET_OBJECTSWIDE) * spriteheight;
+					}
+					if(chop && ( halftile == HALFTILECHOP))
 					{
 						if(fileindex < 0)
-							al_draw_tinted_bitmap_region(defaultsheet, get_color(b), sheetx, sheety, spritewidth, spriteheight, drawx + offset_x + offset_user_x, drawy + offset_user_y + (offset_y - WALLHEIGHT), 0);
+							al_draw_tinted_bitmap_region(defaultsheet, get_color(b), sheetx, sheety+WALL_CUTOFF_HEIGHT, spritewidth, spriteheight-WALL_CUTOFF_HEIGHT, drawx + offset_x + offset_user_x, drawy + offset_user_y + (offset_y - WALLHEIGHT)+WALL_CUTOFF_HEIGHT, 0);
 						else 
-							al_draw_tinted_bitmap_region(getImgFile(fileindex), get_color(b), sheetx, sheety, spritewidth, spriteheight, drawx + offset_x + offset_user_x, drawy + offset_user_y + (offset_y - WALLHEIGHT), 0);
+							al_draw_tinted_bitmap_region(getImgFile(fileindex), get_color(b), sheetx, (sheety)+WALL_CUTOFF_HEIGHT, spritewidth, spriteheight-WALL_CUTOFF_HEIGHT, drawx + offset_x + offset_user_x, drawy + offset_user_y + (offset_y - WALLHEIGHT)+WALL_CUTOFF_HEIGHT, 0);
+						//draw cut-off floor thing
+						al_draw_bitmap_region(IMGObjectSheet, 
+							TILEWIDTH * SPRITEFLOOR_CUTOFF, 0,
+							SPRITEWIDTH, SPRITEWIDTH, 
+							drawx+offset_x, drawy+offset_y-((SPRITEHEIGHT-WALL_CUTOFF_HEIGHT)/2), 0);
 					}
-					if(needoutline)
+					else if ((chop && (halftile == HALFTILEYES)) || (!chop && (halftile == HALFTILENO)) || (!chop && (halftile == HALFTILECHOP)) || (halftile == HALFTILEBOTH))
 					{
-						//drawy -= (WALLHEIGHT);
-						//Northern border
-						if(b->depthBorderNorth)
-							DrawSpriteFromSheet(281, IMGObjectSheet, al_map_rgb(255,255,255), drawx + offset_x, drawy + offset_y );
+						if((isoutline == OUTLINENONE) || ((isoutline == OUTLINERIGHT) && (b->depthBorderNorth)) || ((isoutline == OUTLINELEFT) && (b->depthBorderWest)) || ((isoutline == OUTLINEBOTTOM) && (b->depthBorderDown)))
+						{
+							if(fileindex < 0)
+								al_draw_tinted_bitmap_region(defaultsheet, get_color(b), sheetx, sheety, spritewidth, spriteheight, drawx + offset_x + offset_user_x, drawy + offset_user_y + (offset_y - WALLHEIGHT), 0);
+							else 
+								al_draw_tinted_bitmap_region(getImgFile(fileindex), get_color(b), sheetx, sheety, spritewidth, spriteheight, drawx + offset_x + offset_user_x, drawy + offset_user_y + (offset_y - WALLHEIGHT), 0);
+						}
+						if(needoutline)
+						{
+							//drawy -= (WALLHEIGHT);
+							//Northern border
+							if(b->depthBorderNorth)
+								DrawSpriteFromSheet(281, IMGObjectSheet, al_map_rgb(255,255,255), drawx + offset_x, drawy + offset_y );
 
-						//Western border
-						if(b->depthBorderWest)
-							DrawSpriteFromSheet(280, IMGObjectSheet, al_map_rgb(255,255,255), drawx + offset_x, drawy + offset_y );
+							//Western border
+							if(b->depthBorderWest)
+								DrawSpriteFromSheet(280, IMGObjectSheet, al_map_rgb(255,255,255), drawx + offset_x, drawy + offset_y );
 
-						//drawy += (WALLHEIGHT);
+							//drawy += (WALLHEIGHT);
+						}
 					}
+					//draw_textf_border(font, al_map_rgb(255,255,255), drawx, drawy, 0, "%d,%d", fileindex, sheetindex);
 				}
-				//draw_textf_border(font, al_map_rgb(255,255,255), drawx, drawy, 0, "%d,%d", fileindex, sheetindex);
 			}
 		}
 	}

@@ -2,7 +2,7 @@
 <include file="../workshop.png">
   <if>
     <MaterialType value="Wood" />
-    <sprite index="141" color="material" />
+    <sprite index="141" color="building" />
   </if>
   <else>
     <MaterialType value="GreenGlass" />
@@ -16,6 +16,6 @@
     <sprite index="143" />
   </else>
   <else>
-    <sprite index="140" color="material" />
+    <sprite index="140" color="building" />
   </else>
 </include>

@@ -1,5 +1,5 @@
-#ifndef __al_included_file_h
-#define __al_included_file_h
+#ifndef __al_included_allegro5_file_h
+#define __al_included_allegro5_file_h
 
 #include "allegro5/base.h"
 #include "allegro5/path.h"
@@ -19,7 +19,7 @@ typedef struct ALLEGRO_FILE ALLEGRO_FILE;
  */
 typedef struct ALLEGRO_FILE_INTERFACE
 {
-   AL_METHOD(ALLEGRO_FILE*, fi_fopen, (const char *path, const char *mode));
+   AL_METHOD(void *,  fi_fopen, (const char *path, const char *mode));
    AL_METHOD(void,    fi_fclose, (ALLEGRO_FILE *handle));
    AL_METHOD(size_t,  fi_fread, (ALLEGRO_FILE *f, void *ptr, size_t size));
    AL_METHOD(size_t,  fi_fwrite, (ALLEGRO_FILE *f, const void *ptr, size_t size));
@@ -28,15 +28,10 @@ typedef struct ALLEGRO_FILE_INTERFACE
    AL_METHOD(bool,    fi_fseek, (ALLEGRO_FILE *f, int64_t offset, int whence));
    AL_METHOD(bool,    fi_feof, (ALLEGRO_FILE *f));
    AL_METHOD(bool,    fi_ferror, (ALLEGRO_FILE *f));
+   AL_METHOD(void,    fi_fclearerr, (ALLEGRO_FILE *f));
    AL_METHOD(int,     fi_fungetc, (ALLEGRO_FILE *f, int c));
    AL_METHOD(off_t,   fi_fsize, (ALLEGRO_FILE *f));
 } ALLEGRO_FILE_INTERFACE;
-
-
-struct ALLEGRO_FILE
-{
-   const ALLEGRO_FILE_INTERFACE *vtable;
-};
 
 
 /* Enum: ALLEGRO_SEEK
@@ -51,6 +46,8 @@ typedef enum ALLEGRO_SEEK
 
 /* The basic operations. */
 AL_FUNC(ALLEGRO_FILE*, al_fopen, (const char *path, const char *mode));
+AL_FUNC(ALLEGRO_FILE*, al_fopen_interface, (const ALLEGRO_FILE_INTERFACE *vt, const char *path, const char *mode));
+AL_FUNC(ALLEGRO_FILE*, al_create_file_handle, (const ALLEGRO_FILE_INTERFACE *vt, void *userdata));
 AL_FUNC(void, al_fclose, (ALLEGRO_FILE *f));
 AL_FUNC(size_t, al_fread, (ALLEGRO_FILE *f, void *ptr, size_t size));
 AL_FUNC(size_t, al_fwrite, (ALLEGRO_FILE *f, const void *ptr, size_t size));
@@ -59,6 +56,7 @@ AL_FUNC(int64_t, al_ftell, (ALLEGRO_FILE *f));
 AL_FUNC(bool, al_fseek, (ALLEGRO_FILE *f, int64_t offset, int whence));
 AL_FUNC(bool, al_feof, (ALLEGRO_FILE *f));
 AL_FUNC(bool, al_ferror, (ALLEGRO_FILE *f));
+AL_FUNC(void, al_fclearerr, (ALLEGRO_FILE *f));
 AL_FUNC(int, al_fungetc, (ALLEGRO_FILE *f, int c));
 AL_FUNC(int64_t, al_fsize, (ALLEGRO_FILE *f));
 
@@ -87,6 +85,9 @@ AL_FUNC(const ALLEGRO_FILE_INTERFACE *, al_get_new_file_interface, (void));
 AL_FUNC(void, al_set_new_file_interface, (const ALLEGRO_FILE_INTERFACE *
       file_interface));
 AL_FUNC(void, al_set_standard_file_interface, (void));
+
+/* ALLEGRO_FILE field accessors */
+AL_FUNC(void *, al_get_file_userdata, (ALLEGRO_FILE *f));
 
 
 #ifdef __cplusplus

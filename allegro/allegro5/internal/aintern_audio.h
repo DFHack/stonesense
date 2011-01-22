@@ -5,7 +5,7 @@
 #ifndef AINTERN_AUDIO_H
 #define AINTERN_AUDIO_H
 
-#include "allegro5/allegro5.h"
+#include "allegro5/allegro.h"
 #include "allegro5/internal/aintern_vector.h"
 #include "../allegro_audio.h"
 
@@ -303,6 +303,9 @@ void _al_kcm_init_destructors(void);
 void _al_kcm_shutdown_destructors(void);
 void _al_kcm_register_destructor(void *object, void (*func)(void*));
 void _al_kcm_unregister_destructor(void *object);
+void _al_kcm_foreach_destructor(
+      void (*callback)(void *object, void (*func)(void *), void *udata),
+      void *userdata);
 
 ALLEGRO_KCM_AUDIO_FUNC(void, _al_kcm_shutdown_default_mixer, (void));
 

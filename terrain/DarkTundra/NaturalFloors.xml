@@ -1,0 +1,598 @@
+<?xml version="1.0" ?>
+<floors file="NaturalFloors.png">
+	<floor sprite="16" variations="2">
+		<terrain value="41" />
+		<terrain value="51" />
+		<terrain value="54" />
+		<terrain value="233" />
+		<terrain value="234" />
+		<terrain value="235" />
+		<terrain value="236" />
+		<terrain value="241" />
+		<terrain value="242" />
+		<terrain value="243" />
+		<terrain value="244" />
+		<terrain value="261" />
+		<terrain value="265" />
+		<terrain value="352" />
+		<terrain value="353" />
+		<terrain value="354" />
+		<terrain value="355" />
+		<terrain value="356" />
+		<terrain value="357" />
+		<terrain value="358" />
+		<terrain value="359" />
+		<subsprite sheetIndex="37" mud_min="10" variations="3"/>
+	</floor>
+	<floor sprite="16" variations="2">
+		<terrain value="41" />
+		<terrain value="51" />
+		<terrain value="54" />
+		<terrain value="233" />
+		<terrain value="234" />
+		<terrain value="235" />
+		<terrain value="236" />
+		<terrain value="241" />
+		<terrain value="242" />
+		<terrain value="243" />
+		<terrain value="244" />
+		<terrain value="261" />
+		<terrain value="265" />
+		<terrain value="352" />
+		<terrain value="353" />
+		<terrain value="354" />
+		<terrain value="355" />
+		<terrain value="356" />
+		<terrain value="357" />
+		<terrain value="358" />
+		<terrain value="359" />
+		<subsprite sheetIndex="37" mud_min="10" variations="3"/>
+		<material value="Inorganic">
+			<subtype value="LOAM"/>
+			<subtype value="LOAMY_SAND"/>
+			<subtype value="SANDY_LOAM"/>
+			<subtype value="SILT_LOAM"/>
+		</material>
+	</floor>
+	<floor sprite="58">
+		<terrain value="41" />
+		<terrain value="51" />
+		<terrain value="54" />
+		<terrain value="233" />
+		<terrain value="234" />
+		<terrain value="235" />
+		<terrain value="236" />
+		<terrain value="241" />
+		<terrain value="242" />
+		<terrain value="243" />
+		<terrain value="244" />
+		<terrain value="261" />
+		<terrain value="265" />
+		<terrain value="352" />
+		<terrain value="353" />
+		<terrain value="354" />
+		<terrain value="355" />
+		<terrain value="356" />
+		<terrain value="357" />
+		<terrain value="358" />
+		<terrain value="359" />
+		<subsprite sprite="59"/>
+		<subsprite sheetIndex="37" mud_min="10" variations="3"/>
+		<material value="Inorganic">
+			<subtype value="CLAY"/>
+			<subtype value="CLAY_LOAM"/>
+			<subtype value="SILTY_CLAY"/>
+		</material>
+	</floor>
+	<floor sprite="58">
+		<terrain value="41" />
+		<terrain value="51" />
+		<terrain value="54" />
+		<terrain value="233" />
+		<terrain value="234" />
+		<terrain value="235" />
+		<terrain value="236" />
+		<terrain value="241" />
+		<terrain value="242" />
+		<terrain value="243" />
+		<terrain value="244" />
+		<terrain value="261" />
+		<terrain value="265" />
+		<terrain value="352" />
+		<terrain value="353" />
+		<terrain value="354" />
+		<terrain value="355" />
+		<terrain value="356" />
+		<terrain value="357" />
+		<terrain value="358" />
+		<terrain value="359" />
+		<subsprite sheetIndex="37" mud_min="10" variations="3"/>
+		<material value="Inorganic">
+			<subtype value="SANDY_CLAY"/>
+			<subtype value="SANDY_CLAY_LOAM"/>
+			<subtype value="SILTY_CLAY_LOAM"/>
+		</material>
+	</floor>
+	<floor sprite="56" variations="2">
+		<terrain value="41" />
+		<terrain value="51" />
+		<terrain value="54" />
+		<terrain value="233" />
+		<terrain value="234" />
+		<terrain value="235" />
+		<terrain value="236" />
+		<terrain value="241" />
+		<terrain value="242" />
+		<terrain value="243" />
+		<terrain value="244" />
+		<terrain value="261" />
+		<terrain value="265" />
+		<terrain value="352" />
+		<terrain value="353" />
+		<terrain value="354" />
+		<terrain value="355" />
+		<terrain value="356" />
+		<terrain value="357" />
+		<terrain value="358" />
+		<terrain value="359" />
+		<subsprite sheetIndex="37" mud_min="10" variations="3"/>
+		<material value="Inorganic">
+			<subtype value="SILT"/>
+			<subtype value="PEAT"/>
+		</material>
+	</floor>
+	<floor sprite="40">
+		<terrain value="258"/>
+		<terrain value="259"/>
+		<terrain value="260"/>
+		<terrain value="262"/>
+		<terrain value="364"/>
+	</floor>
+	<floor sprite="43">
+		<terrain value="331"/>
+		<terrain value="340"/>
+		<terrain value="341"/>
+		<terrain value="342"/>
+		<terrain value="343"/>
+	</floor>
+	<floor sprite="43">
+		<terrain value="336"/>
+		<terrain value="337"/>
+		<terrain value="338"/>
+		<terrain value="339"/>
+		<material value="Inorganic">
+			<subtype value="OBSIDIAN"/>
+		</material>
+	</floor>
+	<floor sprite="20">
+		<terrain value="19"/>
+		<subsprite sprite="60" variations="4"/>
+	</floor>
+	<floor sprite="37" variations="3"> 
+		<!-- pool -->
+		<terrain value="2" />
+		<!-- waterfall -->
+		<terrain value="89" />
+		<!-- river src -->
+		<terrain value="90" />
+		<!-- river -->
+		<terrain value="365" />
+		<terrain value="366" />
+		<terrain value="367" />
+		<terrain value="368" />
+		<terrain value="369" />
+		<terrain value="370" />
+		<terrain value="371" />
+		<terrain value="372" />
+		<!-- stream -->
+		<terrain value="373" />
+		<terrain value="374" />
+		<terrain value="375" />
+		<terrain value="376" />
+		<terrain value="377" />
+		<terrain value="378" />
+		<terrain value="379" />
+		<terrain value="380" />
+		<!-- stream top
+        <terrain value= 381 /> --> 
+	</floor>
+	<floor sprite="17"> 
+		<!-- Dry grass -->
+		<terrain value="387" />
+		<terrain value="388" />
+		<terrain value="389" />
+		<terrain value="390" />
+		<terrain value="394" />
+		<terrain value="395" />
+		<terrain value="396" />
+		<terrain value="397" />
+		<!-- Dead Tree -->
+		<terrain value="391" />
+		<!-- Dead sapling -->
+		<terrain value="392" />
+		<!-- Dead shrub -->
+		<terrain value="393" />
+		<subsprite sheetIndex="44" mud_max="10"/>
+		<subsprite sheetIndex="45" mud_max="10" variations="6" frames="045"/>
+		<subsprite sheetIndex="46" mud_max="10" variations="6" frames="345"/>
+		<subsprite sheetIndex="47" mud_max="10" variations="6" frames="234"/>
+		<subsprite sheetIndex="48" mud_max="10" variations="6" frames="123"/>
+		<subsprite sheetIndex="49" mud_max="10" variations="6" frames="012"/>
+		<subsprite sheetIndex="50" mud_max="10" variations="6" frames="015"/>
+		<subsprite sheetIndex="37" mud_min="10" variations="3"/>
+	</floor>
+	<floor sprite="17"> 
+		<!-- tree -->
+		<terrain value="24" />
+		<!-- shrub -->
+		<terrain value="34" />
+		<!-- sapling -->
+		<terrain value="231" />
+		<!-- grass -->
+		<terrain value="348" />
+		<terrain value="349" />
+		<terrain value="350" />
+		<terrain value="351" />
+		<!-- grass -->
+		<terrain value="398" />
+		<terrain value="399" />
+		<terrain value="400" />
+		<terrain value="401" />
+		<subsprite sheetIndex="25" mud_max="10"/>
+		<subsprite sheetIndex="26" mud_max="10" variations="6" frames="045"/>
+		<subsprite sheetIndex="27" mud_max="10" variations="6" frames="345"/>
+		<subsprite sheetIndex="28" mud_max="10" variations="6" frames="234"/>
+		<subsprite sheetIndex="29" mud_max="10" variations="6" frames="123"/>
+		<subsprite sheetIndex="30" mud_max="10" variations="6" frames="012"/>
+		<subsprite sheetIndex="31" mud_max="10" variations="6" frames="015"/>
+		<subsprite sheetIndex="37" mud_min="10" variations="3"/>
+	</floor>
+	<!-- sand -->
+	<floor sprite="20">
+		<terrain value="265" />
+		<terrain value="352" />
+		<terrain value="353" />
+		<terrain value="354" />
+		<terrain value="355" />
+		<terrain value="356" />
+		<terrain value="357" />
+		<terrain value="358" />
+		<terrain value="359" />
+		<subsprite sheetIndex="41" mud_min="10"/>
+		<material value="Stone">
+			<subtype value="SAND_YELLOW" />
+		</material>
+	</floor>
+	<floor sprite="21">
+		<terrain value="265" />
+		<terrain value="352" />
+		<terrain value="353" />
+		<terrain value="354" />
+		<terrain value="355" />
+		<terrain value="356" />
+		<terrain value="357" />
+		<terrain value="358" />
+		<terrain value="359" />
+		<subsprite sheetIndex="41" mud_min="10"/>
+		<material value="Stone">
+			<subtype value="SAND_WHITE" />
+		</material>
+	</floor>
+	<floor sprite="22">
+		<terrain value="265" />
+		<terrain value="352" />
+		<terrain value="353" />
+		<terrain value="354" />
+		<terrain value="355" />
+		<terrain value="356" />
+		<terrain value="357" />
+		<terrain value="358" />
+		<terrain value="359" />
+		<subsprite sheetIndex="41" mud_min="10"/>
+		<material value="Stone">
+			<subtype value="SAND_BLACK" />
+		</material>
+	</floor>
+	<floor sprite="23">
+		<terrain value="265" />
+		<terrain value="352" />
+		<terrain value="353" />
+		<terrain value="354" />
+		<terrain value="355" />
+		<terrain value="356" />
+		<terrain value="357" />
+		<terrain value="358" />
+		<terrain value="359" />
+		<subsprite sheetIndex="41" mud_min="10"/>
+		<material value="Stone">
+			<subtype value="SAND_RED" />
+		</material>
+	</floor>
+	<floor sprite="24">
+		<terrain value="265" />
+		<terrain value="352" />
+		<terrain value="353" />
+		<terrain value="354" />
+		<terrain value="355" />
+		<terrain value="356" />
+		<terrain value="357" />
+		<terrain value="358" />
+		<terrain value="359" />
+		<subsprite sheetIndex="41" mud_min="10"/>
+		<material value="Stone">
+			<subtype value="SAND_TAN" />
+		</material>
+	</floor>
+	<!-- stone -->
+	<floor sprite="17"> 
+		<!-- below stair -->
+		<terrain value="57" />
+		<terrain value= "60" />
+		<terrain value= "63" />
+		<!-- below wall -->
+		<terrain value= "176" />
+		<terrain value= "177" />
+		<terrain value= "178" />
+		<terrain value= "219" />
+		<!-- below ramp -->
+		<terrain value= "237" />
+		<terrain value= "239" />
+		<terrain value= "240" />
+		<!-- wall -->
+		<terrain value= "332" />
+		<terrain value= "333" />
+		<terrain value= "334" />
+		<terrain value= "335" />
+		<!-- floor -->
+		<terrain value= "336" />
+		<terrain value= "337" />
+		<terrain value= "338" />
+		<terrain value= "339" />
+		<terrain value= "344" />
+		<terrain value= "345" />
+		<terrain value= "346" />
+		<terrain value= "347" />
+		<subsprite sheetIndex="0" color="layer" mud_max="10"/>
+		<subsprite sheetIndex="37" mud_min="10" variations="3"/>
+	</floor>
+	<floor sprite="17"> 
+		<!-- veinwall -->
+		<terrain value= "437" />
+		<terrain value= "438" />
+		<terrain value= "439" />
+		<terrain value= "440" />
+		<!-- veinfloor -->
+		<terrain value= "441" />
+		<terrain value= "442" />
+		<terrain value= "443" />
+		<terrain value= "444" />
+		<subsprite sheetIndex="0" color="layer" mud_max="10"/>
+		<subsprite sprite="1" color="vein" mud_max="10"/>
+		<subsprite sheetIndex="37" mud_min="10" variations="3"/>
+	</floor>
+	<!-- gems -->
+	<floor sprite="17"> 
+		<!-- veinwall -->
+		<terrain value= "437" />
+		<terrain value= "438" />
+		<terrain value= "439" />
+		<terrain value= "440" />
+		<!-- veinfloor -->
+		<terrain value= "441" />
+		<terrain value= "442" />
+		<terrain value= "443" />
+		<terrain value= "444" />
+		<!-- floor -->
+		<terrain value= "344" />
+		<terrain value= "345" />
+		<terrain value= "346" />
+		<terrain value= "347" />
+		<subsprite sheetIndex="0" color="layer" mud_max="10"/>
+		<subsprite sheetIndex="37" mud_min="10" variations="3"/>
+		<subsprite sprite="2" color="material" />
+		<subsprite sprite="3"/>
+		<material value="Stone">
+			<subtype value="ONYX" />
+			<subtype value="MORION" />
+			<subtype value="SCHORL" />
+			<subtype value="LACE AGATE" />
+			<subtype value="BLUE JADE" />
+			<subtype value="LAPIS LAZULI" />
+			<subtype value="PRASE" />
+			<subtype value="PRASE OPAL" />
+			<subtype value="BLOODSTONE" />
+			<subtype value="MOSS AGATE" />
+			<subtype value="MOSS OPAL" />
+			<subtype value="VARISCITE" />
+			<subtype value="CHRYSOPRASE" />
+			<subtype value="CHRYSOCOLLA" />
+			<subtype value="SARD" />
+			<subtype value="CARNELIAN" />
+			<subtype value="BANDED AGATE" />
+			<subtype value="SARDONYX" />
+			<subtype value="CHERRY OPAL" />
+			<subtype value="PINK JADE" />
+			<subtype value="TUBE AGATE" />
+			<subtype value="FIRE AGATE" />
+			<subtype value="PLUME AGATE" />
+			<subtype value="BROWN JASPER" />
+			<subtype value="PICTURE JASPER" />
+			<subtype value="SMOKY QUARTZ" />
+			<subtype value="WAX OPAL" />
+			<subtype value="WOOD OPAL" />
+			<subtype value="AMBER OPAL" />
+			<subtype value="GOLD OPAL" />
+			<subtype value="CITRINE" />
+			<subtype value="YELLOW JASPER" />
+			<subtype value="TIGEREYE" />
+			<subtype value="TIGER IRON" />
+			<subtype value="SUNSTONE" />
+			<subtype value="RESIN OPAL" />
+			<subtype value="PYRITE" />
+			<subtype value="CLEAR TOURMALINE" />
+			<subtype value="GRAY CHALCEDONY" />
+			<subtype value="DENDRITIC AGATE" />
+			<subtype value="SHELL OPAL" />
+			<subtype value="BONE OPAL" />
+			<subtype value="WHITE CHALCEDONY" />
+			<subtype value="FORTIFICATION AGATE" />
+			<subtype value="MILK QUARTZ" />
+			<subtype value="MOONSTONE" />
+			<subtype value="WHITE JADE" />
+			<subtype value="JASPER OPAL" />
+			<subtype value="PINEAPPLE OPAL" />
+			<subtype value="ONYX OPAL" />
+			<subtype value="MILK OPAL" />
+			<subtype value="PIPE OPAL" />
+			<subtype value="AVENTURINE" />
+			<subtype value="TURQUOISE" />
+			<subtype value="QUARTZ_ROSE" />
+			<subtype value="CRYSTAL_ROCK" />
+			<subtype value="BLACK ZIRCON" />
+			<subtype value="BLACK PYROPE" />
+			<subtype value="MELANITE" />
+			<subtype value="INDIGO TOURMALINE" />
+			<subtype value="BLUE GARNET" />
+			<subtype value="TSAVORITE" />
+			<subtype value="GREEN TOURMALINE" />
+			<subtype value="DEMANTOID" />
+			<subtype value="GREEN ZIRCON" />
+			<subtype value="GREEN JADE" />
+			<subtype value="HELIODOR" />
+			<subtype value="PERIDOT" />
+			<subtype value="RED ZIRCON" />
+			<subtype value="RED TOURMALINE" />
+			<subtype value="RED PYROPE" />
+			<subtype value="ALMANDINE" />
+			<subtype value="RED GROSSULAR" />
+			<subtype value="PINK TOURMALINE" />
+			<subtype value="RED BERYL" />
+			<subtype value="FIRE OPAL" />
+			<subtype value="RHODOLITE" />
+			<subtype value="SPINEL_PURPLE" />
+			<subtype value="ALEXANDRITE" />
+			<subtype value="TANZANITE" />
+			<subtype value="MORGANITE" />
+			<subtype value="VIOLET SPESSARTINE" />
+			<subtype value="PINK GARNET" />
+			<subtype value="KUNZITE" />
+			<subtype value="CINNAMON GROSSULAR" />
+			<subtype value="HONEY YELLOW BERYL" />
+			<subtype value="JELLY OPAL" />
+			<subtype value="BROWN ZIRCON" />
+			<subtype value="YELLOW ZIRCON" />
+			<subtype value="GOLDEN BERYL" />
+			<subtype value="YELLOW SPESSARTINE" />
+			<subtype value="TOPAZ" />
+			<subtype value="TOPAZOLITE" />
+			<subtype value="YELLOW GROSSULAR" />
+			<subtype value="RUBICELLE" />
+			<subtype value="CLEAR GARNET" />
+			<subtype value="GOSHENITE" />
+			<subtype value="CAT'S EYE" />
+			<subtype value="CLEAR ZIRCON" />
+			<subtype value="AMETHYST" />
+			<subtype value="AQUAMARINE" />
+			<subtype value="SPINEL_RED" />
+			<subtype value="CHRYSOBERYL" />
+			<subtype value="OPAL_PFIRE" />
+			<subtype value="OPAL_REDFLASH" />
+			<subtype value="OPAL_BLACK" />
+			<subtype value="OPAL_WHITE" />
+			<subtype value="OPAL_CRYSTAL" />
+			<subtype value="OPAL_CLARO" />
+			<subtype value="OPAL_LEVIN" />
+			<subtype value="OPAL_HARLEQUIN" />
+			<subtype value="OPAL_PINFIRE" />
+			<subtype value="OPAL_BANDFIRE" />
+			<subtype value="DIAMOND_LY" />
+			<subtype value="DIAMOND_FY" />
+			<subtype value="EMERALD" />
+			<subtype value="RUBY" />
+			<subtype value="SAPPHIRE" />
+			<subtype value="DIAMOND_CLEAR" />
+			<subtype value="DIAMOND_RED" />
+			<subtype value="DIAMOND_GREEN" />
+			<subtype value="DIAMOND_BLUE" />
+			<subtype value="DIAMOND_YELLOW" />
+			<subtype value="DIAMOND_BLACK" />
+			<subtype value="SAPPHIRE_STAR" />
+			<subtype value="RUBY_STAR" />
+		</material>
+	</floor>
+	<!-- gems -->
+	<floor sprite="4" color="material" outline="0"> 
+		<!-- veinwall -->
+		<terrain value= "437" />
+		<terrain value= "438" />
+		<terrain value= "439" />
+		<terrain value= "440" />
+		<!-- veinfloor -->
+		<terrain value= "441" />
+		<terrain value= "442" />
+		<terrain value= "443" />
+		<terrain value= "444" />
+		<!-- floor -->
+		<terrain value= "344" />
+		<terrain value= "345" />
+		<terrain value= "346" />
+		<terrain value= "347" />
+		<!-- below stair -->
+		<terrain value= "57" />
+		<terrain value= "60" />
+		<terrain value= "63" />
+		<!-- below wall -->
+		<terrain value= "176" />
+		<terrain value= "177" />
+		<terrain value= "178" />
+		<terrain value= "219" />
+		<!-- below ramp -->
+		<terrain value= "237" />
+		<terrain value= "239" />
+		<terrain value= "240" />
+		<!-- wall -->
+		<terrain value= "332" />
+		<terrain value= "333" />
+		<terrain value= "334" />
+		<terrain value= "335" />
+		<!-- floor -->
+		<terrain value= "336" />
+		<terrain value= "337" />
+		<terrain value= "338" />
+		<terrain value= "339" />
+		<terrain value= "344" />
+		<terrain value= "345" />
+		<terrain value= "346" />
+		<terrain value= "347" />
+		<material value="Stone">
+			<subtype value="RAW_ADAMANTINE" />
+		</material>
+	</floor>
+	<!-- pebbles -->
+	<floor sprite="14" color="material">
+		<terrain value="405" />
+		<terrain value="406" />
+		<terrain value="407" />
+		<terrain value="408" />
+	</floor>
+	<!-- boulder -->
+	<floor sprite="15" color="material">
+		<terrain value="402" />
+	</floor>
+	<!-- semi-molten rock -->
+	<floor sprite="5" outline="0">
+		<terrain value="264" />
+		<terrain value="263" />
+	</floor>
+	<!-- glowing pit -->
+	<floor sprite="6" outline="0">
+		<terrain value="42" />
+		<subsprite sprite="7" outline="0" frames="15"/>
+		<subsprite sprite="8" outline="0" frames="24"/>
+		<subsprite sprite="9" outline="0" frames="3"/>
+		<subsprite sprite="13" color="layer" outline="0" border_floor_NOR="1" border_wall_NOR="2"/>
+		<subsprite sprite="10" color="layer" outline="0" border_floor_NOR="1" border_wall_NOR="8"/>
+		<subsprite sprite="11" color="layer" outline="0" border_floor_NOR="8"/>
+		<subsprite sprite="12" color="layer" outline="0" border_floor_NOR="2"/>
+	</floor>
+</floors>

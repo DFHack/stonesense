@@ -1,3 +1,5 @@
+#DarkTundra/index.txt
+
 #floorborders.xml
 block_walls.xml
 grass.xml

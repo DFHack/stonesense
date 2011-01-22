@@ -14,12 +14,10 @@
  *
  */
 
-#ifndef ALLEGRO_DIRECT3D_H
-#define ALLEGRO_DIRECT3D_H
+#ifndef __al_included_allegro5_allegro_direct3d_h
+#define __al_included_allegro5_allegro_direct3d_h
 
-#ifndef SCAN_DEPEND
 #include <d3d9.h>
-#endif
 
 #ifdef __cplusplus
    extern "C" {
@@ -39,6 +37,7 @@ AL_FUNC(LPDIRECT3DTEXTURE9, al_get_d3d_video_texture,  (ALLEGRO_BITMAP *));
 AL_FUNC(bool,               al_have_d3d_non_pow2_texture_support,   (void));
 AL_FUNC(bool,               al_have_d3d_non_square_texture_support, (void));
 AL_FUNC(void,               al_get_d3d_texture_position, (ALLEGRO_BITMAP *bitmap, int *u, int *v));
+AL_FUNC(bool,               al_is_d3d_device_lost, (ALLEGRO_DISPLAY *display));
 
 
 #ifdef __cplusplus
