@@ -1119,10 +1119,13 @@ static void * threadedSegment(ALLEGRO_THREAD *thread, void *arg)
 	while(!al_get_thread_should_stop(thread))
 	{
 		al_lock_mutex(config.readMutex);
+		al_wait_cond(config.readCond, config.readMutex);
 		config.threadstarted = 1;
 		pDFApiHandle->Suspend();
 		if(altSegment)
 		{
+			al_lock_mutex(altSegment->mutie);
+			al_unlock_mutex(altSegment->mutie);
 			altSegment->Dispose();
 			delete(altSegment);
 		}
@@ -1130,8 +1133,11 @@ static void * threadedSegment(ALLEGRO_THREAD *thread, void *arg)
 			parms.sizex, parms.sizey, parms.sizez);
 		config.threadstarted = 0;
 		pDFApiHandle->Resume();
-		al_wait_cond(config.readCond, config.readMutex);
+		if(viewedSegment)
+			al_lock_mutex(viewedSegment->mutie);
 		swapSegments();
+		if(altSegment)
+		al_unlock_mutex(altSegment->mutie);
 		al_unlock_mutex(config.readMutex);
 		al_rest(config.automatic_reload_time/1000.0);
 	}

@@ -639,7 +639,7 @@ void paintboard(){
 		return;
 	}
 
-
+	al_lock_mutex(viewedSegment->mutie);
 
 	viewedSegment->drawAllBlocks();
 	if (config.show_osd) DrawCurrentLevelOutline(false);
@@ -699,6 +699,7 @@ void paintboard(){
 	}
 	//al_set_target_bitmap(backup);
 	//al_draw_bitmap(buffer, 0, 0, 0);
+	al_unlock_mutex(viewedSegment->mutie);
 	al_flip_display();
 }
 
