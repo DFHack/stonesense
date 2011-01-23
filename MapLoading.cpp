@@ -10,6 +10,7 @@
 
 static DFHack::Context* pDFApiHandle = 0;
 static DFHack::ContextManager* DFMgr = 0;
+static DFHack::Process * DFProc = 0;
 const VersionInfo *dfMemoryInfo;
 bool memInfoHasBeenRead;
 bool connected = 0;
@@ -22,6 +23,9 @@ struct segParams
 	int sizex;
 	int sizey;
 	int sizez;
+	ALLEGRO_MUTEX * m_connection;
+	bool thread_connect;
+	bool is_connected;
 } parms;
 
 inline bool IDisWall(int in){
@@ -1130,10 +1134,13 @@ static void * threadedSegment(ALLEGRO_THREAD *thread, void *arg)
 {
 	while(!al_get_thread_should_stop(thread))
 	{
-		al_lock_mutex(config.readMutex);
 		al_wait_cond(config.readCond, config.readMutex);
+		if(parms.is_connected == 0)
+		{
+			DFProc->attach();
+			parms.is_connected = 1;
+		}
 		config.threadstarted = 1;
-		pDFApiHandle->Suspend();
 		if(altSegment)
 		{
 			al_lock_mutex(altSegment->mutie);
@@ -1141,10 +1148,17 @@ static void * threadedSegment(ALLEGRO_THREAD *thread, void *arg)
 			altSegment->Dispose();
 			delete(altSegment);
 		}
+		pDFApiHandle->Suspend();
 		altSegment = ReadMapSegment(*pDFApiHandle, parms.x, parms.y, parms.z,
 			parms.sizex, parms.sizey, parms.sizez);
 		config.threadstarted = 0;
 		pDFApiHandle->Resume();
+		if(parms.thread_connect == 0)
+		{
+			DFProc->detach();
+			parms.is_connected = 0;
+			al_unlock_mutex(parms.m_connection);
+		}
 		if(viewedSegment)
 			al_lock_mutex(viewedSegment->mutie);
 		swapSegments();
@@ -1159,7 +1173,11 @@ static void * threadedSegment(ALLEGRO_THREAD *thread, void *arg)
 void reloadDisplayedSegment(){
 	//create handle to dfHack API
 	bool firstLoad = (pDFApiHandle == 0);
-	if(pDFApiHandle == 0){
+	if(pDFApiHandle == 0)
+	{
+		parms.m_connection = al_create_mutex();
+		parms.is_connected = 0;
+		al_lock_mutex(parms.m_connection);
 		al_clear_to_color(al_map_rgb(0,0,0));
 		draw_textf_border(font, al_map_rgb(255,255,255),
 			al_get_bitmap_width(al_get_target_bitmap())/2,
@@ -1182,12 +1200,12 @@ void reloadDisplayedSegment(){
 			pDFApiHandle = 0;
 			return ;
 		}
+		al_unlock_mutex(parms.m_connection);
 	}
 	DFHack::Context& DF = *pDFApiHandle;
-	if( !connected)
+	if(DFProc == 0)
 	{
-		DF.Attach();
-		connected = 1;
+		DFProc = DF.getProcess();
 	}
 	TMR1_START;
 
@@ -1197,9 +1215,16 @@ void reloadDisplayedSegment(){
 
 	if (timeToReloadConfig)
 	{
+		parms.thread_connect = 0;
+		al_lock_mutex(parms.m_connection);
+		DF.Attach();
 		DF.Suspend();
 		contentLoader.Load(DF);
 		timeToReloadConfig = false;
+		//DF.Resume();
+		DFProc->detach();
+		parms.thread_connect = 1;
+		al_unlock_mutex(parms.m_connection);
 	}
 
 	//G->Start();
@@ -1208,17 +1233,18 @@ void reloadDisplayedSegment(){
 	//G->Finish();
 	//dispose old segment
 
-	if (firstLoad || config.follow_DFscreen)
-	{
-		if (config.track_center)
-		{
-			FollowCurrentDFCenter();
-		}
-		else
-		{
-			FollowCurrentDFWindow();
-		}
-	}
+	//FIXME
+	//if (firstLoad || config.follow_DFscreen)
+	//{
+	//	if (config.track_center)
+	//	{
+	//		FollowCurrentDFCenter();
+	//	}
+	//	else
+	//	{
+	//		FollowCurrentDFWindow();
+	//	}
+	//}
 
 	int segmentHeight = config.single_layer_view ? 2 : config.segmentSize.z;
 	//load segment
