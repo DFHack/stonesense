@@ -1,8 +1,5 @@
-/* Title: Display types
- */
-
-#ifndef ALLEGRO_DISPLAY_NEW_H
-#define ALLEGRO_DISPLAY_NEW_H
+#ifndef __al_included_allegro5_display_h
+#define __al_included_allegro5_display_h
 
 #include "allegro5/color.h"
 #include "allegro5/bitmap.h"
@@ -73,6 +70,17 @@ enum
 };
 
 
+enum ALLEGRO_DISPLAY_ORIENTATION
+{
+   ALLEGRO_DISPLAY_ORIENTATION_0_DEGREES,
+   ALLEGRO_DISPLAY_ORIENTATION_90_DEGREES,
+   ALLEGRO_DISPLAY_ORIENTATION_180_DEGREES,
+   ALLEGRO_DISPLAY_ORIENTATION_270_DEGREES,
+   ALLEGRO_DISPLAY_ORIENTATION_FACE_UP,
+   ALLEGRO_DISPLAY_ORIENTATION_FACE_DOWN
+};
+
+
 /* Type: ALLEGRO_DISPLAY
  */
 typedef struct ALLEGRO_DISPLAY ALLEGRO_DISPLAY;
@@ -118,7 +126,6 @@ AL_FUNC(ALLEGRO_DISPLAY*, al_get_current_display, (void));
 AL_FUNC(void,            al_set_target_bitmap, (ALLEGRO_BITMAP *bitmap));
 AL_FUNC(void,            al_set_target_backbuffer, (ALLEGRO_DISPLAY *display));
 AL_FUNC(ALLEGRO_BITMAP*, al_get_backbuffer,    (ALLEGRO_DISPLAY *display));
-AL_FUNC(ALLEGRO_BITMAP*, al_get_frontbuffer,   (ALLEGRO_DISPLAY *display));
 AL_FUNC(ALLEGRO_BITMAP*, al_get_target_bitmap, (void));
 
 AL_FUNC(bool, al_acknowledge_resize, (ALLEGRO_DISPLAY *display));

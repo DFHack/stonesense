@@ -16,11 +16,11 @@
  */
 
 
-#ifndef AINTERN_H
-#define AINTERN_H
+#ifndef __al_included_allegro5_aintern_h
+#define __al_included_allegro5_aintern_h
 
-#ifndef ALLEGRO_H
-   #error must include allegro.h first
+#ifndef __al_included_allegro5_allegro_h
+   #error must include allegro5/allegro.h first
 #endif
 
 #ifdef __cplusplus
@@ -30,11 +30,6 @@
 #define _ALLEGRO_MIN(x,y)     (((x) < (y)) ? (x) : (y))
 #define _ALLEGRO_MAX(x,y)     (((x) > (y)) ? (x) : (y))
 #define _ALLEGRO_CLAMP(x,y,z) _ALLEGRO_MAX((x), _ALLEGRO_MIN((y), (z)))
-
-AL_FUNC(void, _al_rotate_scale_flip_coordinates, (al_fixed w, al_fixed h,
-   al_fixed x, al_fixed y, al_fixed cx, al_fixed cy, al_fixed angle,
-   al_fixed scale_x, al_fixed scale_y, int h_flip, int v_flip,
-   al_fixed xs[4], al_fixed ys[4]));
 
 
 AL_FUNCPTR(int, _al_trace_handler, (const char *msg));
@@ -58,10 +53,10 @@ AL_FUNC(char *, _al_sane_strncpy, (char *dest, const char *src, size_t n));
 AL_FUNC(void, _al_srand, (int seed));
 AL_FUNC(int, _al_rand, (void));
 
-
+AL_FUNC(int, _al_stricmp, (const char *s1, const char *s2));
 
 #ifdef __cplusplus
    }
 #endif
 
-#endif          /* ifndef AINTERN_H */
+#endif

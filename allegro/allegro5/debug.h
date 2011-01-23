@@ -16,8 +16,8 @@
  */
 
 
-#ifndef ALLEGRO_DEBUG_H
-#define ALLEGRO_DEBUG_H
+#ifndef __al_included_allegro5_debug_h
+#define __al_included_allegro5_debug_h
 
 #include <assert.h>
 #include "allegro5/base.h"
@@ -29,21 +29,23 @@
 AL_FUNC(bool, _al_trace_prefix, (char const *channel, int level,
    char const *file, int line, char const *function));
 
-AL_PRINTFUNC(void, al_trace, (const char *msg, ...), 1, 2);
-
-AL_FUNC(void, al_register_trace_handler, (AL_METHOD(int, handler, (const char *msg))));
+AL_PRINTFUNC(void, _al_trace_suffix, (const char *msg, ...), 1, 2);
 
 
 #ifdef DEBUGMODE
    /* Must not be used with a trailing semicolon. */
-   #define ALLEGRO_DEBUG_CHANNEL(x) static char const *__al_debug_channel = x;
+   #ifdef ALLEGRO_GCC
+      #define ALLEGRO_DEBUG_CHANNEL(x) \
+         static char const *__al_debug_channel __attribute__((unused)) = x;
+   #else
+      #define ALLEGRO_DEBUG_CHANNEL(x) \
+         static char const *__al_debug_channel = x;
+   #endif
    #define ALLEGRO_TRACE_CHANNEL_LEVEL(channel, level)                        \
       !_al_trace_prefix(channel, level, __FILE__, __LINE__, __func__)         \
-      ? (void)0 : al_trace
-   #define TRACE                 al_trace
+      ? (void)0 : _al_trace_suffix
 #else
-   #define TRACE                                    1 ? (void) 0 : al_trace
-   #define ALLEGRO_TRACE_CHANNEL_LEVEL(channel, x)  1 ? (void) 0 : al_trace
+   #define ALLEGRO_TRACE_CHANNEL_LEVEL(channel, x)  1 ? (void) 0 : _al_trace_suffix
    #define ALLEGRO_DEBUG_CHANNEL(x)
 #endif
 
@@ -58,7 +60,8 @@ AL_FUNC(void, al_register_trace_handler, (AL_METHOD(int, handler, (const char *m
 #define ALLEGRO_ASSERT_CONCAT_(a, b)   a##b
 #define ALLEGRO_ASSERT_CONCAT(a, b)    ALLEGRO_ASSERT_CONCAT_(a, b)
 #define ALLEGRO_STATIC_ASSERT(e) \
-   enum { ALLEGRO_ASSERT_CONCAT(static_assert_line_, __LINE__) = 1/!!(e) }
+   struct ALLEGRO_ASSERT_CONCAT(static_assert_line_, __LINE__) \
+      { unsigned int bf : !!(e); }
 
 /* We are lazy and use just ASSERT while Allegro itself is compiled. */
 #ifdef ALLEGRO_LIB_BUILD
@@ -69,6 +72,6 @@ AL_FUNC(void, al_register_trace_handler, (AL_METHOD(int, handler, (const char *m
    }
 #endif
 
-#endif          /* ifndef ALLEGRO_DEBUG_H */
+#endif
 
 

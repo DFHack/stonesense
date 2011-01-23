@@ -15,14 +15,14 @@
  */
 
 
-#ifndef A5_OPENGL_ALLEGRO_H
-#define A5_OPENGL_ALLEGRO_H
+#ifndef __al_included_allegro5_allegro_opengl_h
+#define __al_included_allegro5_allegro_opengl_h
 
 #ifdef __cplusplus
    extern "C" {
 #endif
 
-#if defined(ALLEGRO_WINDOWS) && !defined(SCAN_EXPORT)
+#if defined(ALLEGRO_WINDOWS)
 #include <windows.h>
 #endif
 
@@ -30,6 +30,8 @@
 
 #include <OpenGLES/ES1/gl.h>
 #include <OpenGLES/ES1/glext.h>
+#include <OpenGLES/ES2/gl.h>
+#include <OpenGLES/ES2/glext.h>
 
 /* Apple defines OES versions for these - however the separated alpha ones
  * don't seem to work on the device and just crash.
@@ -37,6 +39,11 @@
 #define glBlendEquation glBlendEquationOES
 #define glBlendFuncSeparate glBlendFuncSeparateOES
 #define glBlendEquationSeparate glBlendEquationSeparateOES
+#ifdef GL_FUNC_ADD
+#undef GL_FUNC_ADD
+#undef GL_FUNC_SUBTRACT
+#undef GL_FUNC_REVERSE_SUBTRACT
+#endif
 #define GL_FUNC_ADD GL_FUNC_ADD_OES
 #define GL_FUNC_SUBTRACT GL_FUNC_SUBTRACT_OES
 #define GL_FUNC_REVERSE_SUBTRACT GL_FUNC_REVERSE_SUBTRACT_OES
@@ -109,9 +116,15 @@
  *  Public OpenGL-related API
  */
 
+/* Enum: ALLEGRO_OPENGL_VARIANT
+ */
+typedef enum ALLEGRO_OPENGL_VARIANT {
+   ALLEGRO_DESKTOP_OPENGL = 0,
+   ALLEGRO_OPENGL_ES
+} ALLEGRO_OPENGL_VARIANT;
 
-AL_FUNC(float,                 al_get_opengl_version,            (void));
-AL_FUNC(int,                   al_is_opengl_extension_supported, (const char *extension));
+AL_FUNC(uint32_t,              al_get_opengl_version,            (void));
+AL_FUNC(bool,                  al_have_opengl_extension,         (const char *extension));
 AL_FUNC(void*,                 al_get_opengl_proc_address,       (const char *name));
 AL_FUNC(ALLEGRO_OGL_EXT_LIST*, al_get_opengl_extension_list,     (void));
 AL_FUNC(GLuint,                al_get_opengl_texture,            (ALLEGRO_BITMAP *bitmap));
@@ -121,9 +134,11 @@ AL_FUNC(void,                  al_get_opengl_texture_size,       (ALLEGRO_BITMAP
                                                                   int *w, int *h));
 AL_FUNC(void,                  al_get_opengl_texture_position,   (ALLEGRO_BITMAP *bitmap,
                                                                   int *u, int *v));
+AL_FUNC(void,                  al_set_current_opengl_context,    (ALLEGRO_DISPLAY *display));
+AL_FUNC(int,                   al_get_opengl_variant,            (void));
 
 #ifdef __cplusplus
    }
 #endif
 
-#endif /* A5_OPENGL_ALLEGRO_H */
+#endif

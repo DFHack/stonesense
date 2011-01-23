@@ -1,5 +1,5 @@
-#ifndef _al_included_aintern_mouse_h
-#define _al_included_aintern_mouse_h
+#ifndef __al_included_allegro5_aintern_mouse_h
+#define __al_included_allegro5_aintern_mouse_h
 
 #include "allegro5/internal/aintern_events.h"
 
@@ -25,7 +25,7 @@ typedef struct ALLEGRO_MOUSE_DRIVER
 } ALLEGRO_MOUSE_DRIVER;
 
 
-AL_ARRAY(_DRIVER_INFO, _al_mouse_driver_list);
+AL_ARRAY(_AL_DRIVER_INFO, _al_mouse_driver_list);
 
 
 struct ALLEGRO_MOUSE

@@ -664,6 +664,7 @@
             <class name="building_civzonest"/><!-- zone -->
             <class name="building_actualst"/>
             <class name="buildingst"/>
+            <class name="building_slabst" />
         </VTable>
         <Offsets>
             <Address name="WORLD" description="A huge object that many things in DF are part of. Contains the whole game and can be used as a base
@@ -1751,6 +1752,9 @@
         <PETimeStamp value="0x4CA9D544" />
         <MD5 value="702b3ebaae468f73eb1411af54863013" />
         <Offsets>
+            <Group name="Materials">
+                <Address name="other" value="0x16A21FC"/> 0x16445F0 + 0x5DC0C see code at 0x9CFB01
+            </Group>
             <Group name="Creatures">
                 <Address name="current_civ" value="0x1484868 0x14848b8" />
                 <Address name="current_race" value="0x1484874 0x14848c4" />
@@ -1771,6 +1775,101 @@
                 <Address name="current_year" value="0xe8b410" />
                 <Address name="current_weather" value="0x1480948" />
             </Group>
+            <Group name="Items">
+                <Address name="items_vector" value="0x16580d8" />
+                <Offset name="item_type_accessor" value="0x0" />
+                <Offset name="item_subtype_accessor" value="0x4" />
+                <Offset name="item_subindex_accessor" value="0x8" />
+                <Offset name="item_index_accessor" value="0xC" />
+                <Offset name="item_quality_accessor" value="0x238" />
+                <Offset name="item_improvement_vector" value="0x90" />
+            </Group>
+        </Offsets>
+    </Version>
+    <Version name="v0.31.18 SDL" os="windows" base="v0.31.16 SDL" rebase="0x492D0">
+        <PETimeStamp value="0x4CE2841D" />
+        <MD5 value="b7be6b9db369d6adb72319dcf780f9f5" />
+        <Offsets>
+            <Address name="WORLD" valid="false" />
+            <Group name="Buildings">
+                <Address name="buildings_vector" value="0x16a1be0" />
+                <Address name="custom_workshop_vector" value="0x16eaca0" />
+                <!--
+                <Offset name="building_custom_workshop_type" value="0x11c" /> INVALID!
+                <Offset name="custom_workshop_name" value="0x4" /> INVALID!
+                <Offset name="custom_workshop_type" value="0x20" /> INVALID!
+                -->
+            </Group>
+
+            <Group name="Position" valid="false">
+                <Address name="cursor_xyz" value="0xb127f0" valid="true" />
+                <Address name="window_dims" value="0xb1307c" valid="true" />
+                <Address name="window_x" value="0xe8dee4" valid="true" />
+                <Address name="window_y" value="0xebbfb8" valid="true" />
+                <Address name="window_z" value="0xebbf94" valid="true" />
+            </Group>
+            <Group name="GUI" valid="false">
+                <Address name="pause_state" value="0x14c9be1" valid="true" />
+            </Group>
+            <Group name="Maps">
+                <Group name="features">
+                    <Group name="global">
+                        <Address name="vector" value="0x16e4c30" />
+                    </Group>
+                    <Group name="local">
+                        <Address name="start_ptr" value="0x16e4cc4" />
+                    </Group>
+                </Group>
+                <Group name="geology">
+                    <Address name="geoblock_vector" value="0x16E4C50" />
+                    <Address name="ptr2_region_array" value="0x16E4C80" />
+                </Group>
+            </Group>
+            <Group name="Creatures" valid="false" >
+                0x016a12c0 vector
+            </Group>
+            <Group name="Materials" valid="false" >
+                <Address name="creature_type_vector" value="0x16E533C" valid="true" /> MAYBE... THE DETAILS WILL BE DIFFERENT
+                <Address name="inorganics" value="0x16e527C" valid="true" />
+                <!--<Address name="inorganics_gems?" value="0x16e528C" valid="true" />--> WTF IS THIS, I DON'T EVEN...
+                <Address name="organics_all" value="0x16e529C" valid="true" />
+                <Address name="organics_plants" value="0x16e52AC" valid="true" />
+                <Address name="organics_trees" value="0x16e52CC" valid="true" />
+            </Group>
+            <Group name="Constructions">
+                <Address name="vector" value="0x168d930"/>
+            </Group>
+            <Group name="Translations">
+                <Address name="language_vector" value="0x016e553c"/>
+                <Address name="translation_vector" value="0x016e551c"/>
+            </Group>
+            <!--
+            <Group name="Vegetation" valid="false">
+                <Address name="vector"/>
+                <Offset name="tree_desc_offset" valid="true"/>
+            </Group>
+            -->
+            <Group name="Items" valid="false">
+                <!-- most of those seem completely unused! -->
+                <Address name="items_vector" />
+                List of offsets in the VTable :
+                <Offset name="item_type_accessor" />
+                <Offset name="item_subtype_accessor" />
+                <Offset name="item_subindex_accessor" />
+                <Offset name="item_index_accessor" />
+                <Offset name="item_quality_accessor" />
+                <Offset name="item_improvement_vector" />
+                <Offset name="item_improvement_subindex" />
+                <Offset name="item_improvement_index" />
+                <Offset name="item_improvement_quality" />
+                <Offset name="item_type_accessor" />  (in the vtable)
+            </Group>
+            <Group name="World" valid="false">
+                <Address name="current_tick" description="Current time of the year" />
+                <Address name="current_year" description="Current year" />
+                <Address name="current_weather" value="0x14c9bb8" valid="true" />
+            </Group>
+
         </Offsets>
     </Version>
                             .-"""-.
@@ -1799,7 +1898,7 @@
         <MD5 value="fea3801a26538b1741f3cc9294139fca" />
         <Offsets>
             <Address name="WORLD" value="0x92C60E0" valid="false" />
-            <Group name="vector" valid="true">
+            <Group name="vector">
                 <HexValue name="sizeof" value="0xC" />
                 <Offset name="start" value="0x0" />
                 <!--
@@ -1809,10 +1908,10 @@
                 DWORD AllocationEnd
                 -->
             </Group>
-            <Group name="string" valid="true">
+            <Group name="string">
                 <HexValue name="sizeof" value="0x4" />
             </Group>
-            <Group name="name" valid="true">
+            <Group name="name">
                 <Offset name="first" value="0x0" />
                 <Offset name="nick" value="0x4" />
                 <Offset name="second_words" value="0x8" />
@@ -1840,7 +1939,7 @@
                 <Address name="region_z" value="0x9318D74" />
                 <Address name="world_size_x" value="0x931A3C0" />
                 <Address name="world_size_y" value="0x931A3C2" />
-                <Group name="block" valid="true">
+                <Group name="block">
                     <Offset name="vein_vector" value="0x08" />
                     <Offset name="feature_local" value="0x20" />
                     <Offset name="feature_global" value="0x24" />
@@ -1880,7 +1979,7 @@
                 <Address name="vector" value="0x92D9AC0" />
                 <Address name="current_race" value="0x92C1628" />
                 <Address name="current_civ" value="0x92C161C" />
-                <Group name="creature" valid="verify" >
+                <Group name="creature">
                     <Offset name="name" value="0x0" />
                     <Offset name="custom_profession" value="0x3c" />
                     <Offset name="profession" value="0x40" />
@@ -1938,7 +2037,7 @@
                 <Address name="organics_plants" value="0x931aea0" /><!-- plant matter, WORLD + 0x54BAC -->
                 <Address name="organics_trees" value="0x931aeb8" /><!-- just wood, WORLD + 0x54BDC -->
                 <Address name="creature_type_vector" value="0x931af34" /><!-- creature types, WORLD + 0x54CD0 -->
-                <Group name="creature" valid="verify">
+                <Group name="creature"> VERIFY
                     <Offset name="caste_vector" value="0x60" />
                     <Offset name="extract_vector" value="0x18f4" />
                     <Offset name="tile" value="0x20" />
@@ -2013,15 +2112,15 @@
         <MD5 value="4f1f988bc1b425d4193d3d8b7b0579a5" />
         <Offsets>
             <Group name="Creatures">
-                <Group name="creature" valid="verify" >
+                <Group name="creature"> VERIFY
                     <Group name="advanced">
                         <Offset name="soul_vector" value="0x0524" />
-                        <Offset name="current_soul" value="0x0530" valid="verify" />
+                        <Offset name="current_soul" value="0x0530" />
                         <Offset name="labors" value="0x540" />
                         <Offset name="happiness" value="0x5d0" />
                     </Group>
                 </Group>
-                <Group name="soul" valid="verify">
+                <Group name="soul">
                     <Offset name="name" value="0x0" />
                     <Offset name="mental" value="0x88" />
                     <Offset name="skills_vector" value="0x1C4" /> CHMOD
@@ -2132,7 +2231,7 @@
                 <Address name="window_z" value="0x8ceb240" />
                 <Address name="cursor_xyz" value="0x8b2e740" />
                 <Address name="window_dims" value="0x8b2ec48" />
-                <Address name="screen_tiles_pointer" invalid = "true" />
+                <Address name="screen_tiles_pointer" valid = "false" />
             </Group>
             <Group name="GUI">
                 <Address name="pause_state" value="0x92e0e90"/>
@@ -2196,7 +2295,7 @@
                 <Address name="window_z" value="0x8cee540 0x8ceb240" />
                 <Address name="cursor_xyz" value="0x8b31a30 0x8b2e740" />
                 <Address name="window_dims" value="0x8b31f48 0x8b2ec48" />
-                <Address name="screen_tiles_pointer" invalid = "true" />
+                <Address name="screen_tiles_pointer" valid = "false" />
             </Group>
             <Group name="GUI">
                 <Address name="pause_state" value="0x92e0e90"/>
@@ -2214,8 +2313,21 @@
         </Offsets>
         
     </Version>
-    <Version name="v0.31.16 linux" os="linux" base="DF2010">
+    <Version name="faek" os="linux" base="v0.31.14 linux">
+        <Offsets>
+            <Group name="Position" valid="false" />
+        </Offsets>
+    </Version>
+    <Version name="v0.31.16 linux" os="linux" base="faek" rebase="0x1b40">
         <MD5 value="9cca2fa5da509e2f9a1042ddd1f9669c" />
+        <Offsets>
+            <Group name="Position">
+                <Address name="cursor_xyz" value="0x8b33550" />
+            </Group>
+            <Group name="GUI">
+                <Address name="pause_state" value="0x92e5cb0"/>
+            </Group>
+        </Offsets>
     </Version>
 </DFHack>
 

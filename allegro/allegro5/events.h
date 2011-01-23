@@ -1,30 +1,5 @@
-/* Title: Events
- *
- * Overview of the event system
- *
- * An "event" is a thing that happens at some instant in time.  The fact that
- * this event occurred is captured in a piece of data, known also as an
- * "event".
- *
- * Event can be created by some certain types of objects, collectively known as
- * "event sources", and then placed into "event queues", in chronological
- * order.  The user can take events out of event queues, also in chronological
- * order, and examine them.
- *
- * >  event source 1 \
- * >                   \
- * >  event source 2 ---->--- event queue ----->---- user
- * >                   /
- * >  event source 3 /
- * >
- * >               Events are             The user takes events
- * >               generated and          out of the queue,
- * >               placed into		  examines them,
- * >               event queues.          and acts on them.
- */
-
-#ifndef _al_included_events_h
-#define _al_included_events_h
+#ifndef __al_included_allegro5_events_h
+#define __al_included_allegro5_events_h
 
 #include "allegro5/base.h"
 
@@ -42,9 +17,10 @@ enum
    ALLEGRO_EVENT_JOYSTICK_AXIS               =  1,
    ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN        =  2,
    ALLEGRO_EVENT_JOYSTICK_BUTTON_UP          =  3,
+   ALLEGRO_EVENT_JOYSTICK_CONFIGURATION      =  4,
 
    ALLEGRO_EVENT_KEY_DOWN                    = 10,
-   ALLEGRO_EVENT_KEY_REPEAT                  = 11,
+   ALLEGRO_EVENT_KEY_CHAR                    = 11,
    ALLEGRO_EVENT_KEY_UP                      = 12,
 
    ALLEGRO_EVENT_MOUSE_AXES                  = 20,
@@ -62,7 +38,8 @@ enum
    ALLEGRO_EVENT_DISPLAY_LOST                = 43,
    ALLEGRO_EVENT_DISPLAY_FOUND               = 44,
    ALLEGRO_EVENT_DISPLAY_SWITCH_IN           = 45,
-   ALLEGRO_EVENT_DISPLAY_SWITCH_OUT          = 46
+   ALLEGRO_EVENT_DISPLAY_SWITCH_OUT          = 46,
+   ALLEGRO_EVENT_DISPLAY_ORIENTATION         = 47
 };
 
 
@@ -117,19 +94,19 @@ typedef struct ALLEGRO_ANY_EVENT
 } ALLEGRO_ANY_EVENT;
 
 
-
 typedef struct ALLEGRO_DISPLAY_EVENT
 {
    _AL_EVENT_HEADER(struct ALLEGRO_DISPLAY)
    int x, y;
    int width, height;
+   int orientation;
 } ALLEGRO_DISPLAY_EVENT;
-
 
 
 typedef struct ALLEGRO_JOYSTICK_EVENT
 {
    _AL_EVENT_HEADER(struct ALLEGRO_JOYSTICK)
+   struct ALLEGRO_JOYSTICK *id;
    int stick;
    int axis;
    float pos;
@@ -143,8 +120,9 @@ typedef struct ALLEGRO_KEYBOARD_EVENT
    _AL_EVENT_HEADER(struct ALLEGRO_KEYBOARD)
    struct ALLEGRO_DISPLAY *display; /* the window the key was pressed in */
    int keycode;                 /* the physical key pressed */
-   unsigned int unichar;        /* unicode character */
+   int unichar;                 /* unicode character or negative */
    unsigned int modifiers;      /* bitfield */
+   bool repeat;                 /* auto-repeated or not */
 } ALLEGRO_KEYBOARD_EVENT;
 
 
@@ -240,7 +218,7 @@ AL_FUNC(void, al_register_event_source, (ALLEGRO_EVENT_QUEUE*, ALLEGRO_EVENT_SOU
 AL_FUNC(void, al_unregister_event_source, (ALLEGRO_EVENT_QUEUE*, ALLEGRO_EVENT_SOURCE*));
 AL_FUNC(void, al_set_event_source_data, (ALLEGRO_EVENT_SOURCE*, intptr_t data));
 AL_FUNC(intptr_t, al_get_event_source_data, (const ALLEGRO_EVENT_SOURCE*));
-AL_FUNC(bool, al_event_queue_is_empty, (ALLEGRO_EVENT_QUEUE*));
+AL_FUNC(bool, al_is_event_queue_empty, (ALLEGRO_EVENT_QUEUE*));
 AL_FUNC(bool, al_get_next_event, (ALLEGRO_EVENT_QUEUE*, ALLEGRO_EVENT *ret_event));
 AL_FUNC(bool, al_peek_next_event, (ALLEGRO_EVENT_QUEUE*, ALLEGRO_EVENT *ret_event));
 AL_FUNC(bool, al_drop_next_event, (ALLEGRO_EVENT_QUEUE*));
@@ -261,10 +239,4 @@ AL_FUNC(bool, al_wait_for_event_until, (ALLEGRO_EVENT_QUEUE *queue,
 
 #endif
 
-/*
- * Local Variables:
- * c-basic-offset: 3
- * indent-tabs-mode: nil
- * End:
- */
 /* vim: set sts=3 sw=3 et: */

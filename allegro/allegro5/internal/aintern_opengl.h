@@ -1,8 +1,28 @@
-#ifndef ALLEGRO_INTERNAL_OPENGL_NEW_H
-#define ALLEGRO_INTERNAL_OPENGL_NEW_H
+#ifndef __al_included_allegro5_aintern_opengl_h
+#define __al_included_allegro5_aintern_opengl_h
 
 #include "allegro5/internal/aintern_bitmap.h"
 #include "allegro5/internal/aintern_display.h"
+
+
+enum {
+   _ALLEGRO_OPENGL_VERSION_0     = 0, /* dummy */
+   _ALLEGRO_OPENGL_VERSION_1_0   = 0x01000000,
+   _ALLEGRO_OPENGL_VERSION_1_1   = 0x01010000,
+   _ALLEGRO_OPENGL_VERSION_1_2   = 0x01020000,
+   _ALLEGRO_OPENGL_VERSION_1_2_1 = 0x01020100,
+   _ALLEGRO_OPENGL_VERSION_1_3   = 0x01030000,
+   _ALLEGRO_OPENGL_VERSION_1_4   = 0x01040000,
+   _ALLEGRO_OPENGL_VERSION_1_5   = 0x01050000,
+   _ALLEGRO_OPENGL_VERSION_2_0   = 0x02000000,
+   _ALLEGRO_OPENGL_VERSION_2_1   = 0x02010000,
+   _ALLEGRO_OPENGL_VERSION_3_0   = 0x03000000,
+   _ALLEGRO_OPENGL_VERSION_3_1   = 0x03010000,
+   _ALLEGRO_OPENGL_VERSION_3_2   = 0x03020000,
+   _ALLEGRO_OPENGL_VERSION_3_3   = 0x03030000,
+   _ALLEGRO_OPENGL_VERSION_4_0   = 0x04000000
+};
+
 
 typedef struct ALLEGRO_BITMAP_OGL
 {
@@ -32,7 +52,7 @@ typedef struct ALLEGRO_BITMAP_OGL
 
 
 typedef struct OPENGL_INFO {
-   float version;          /* OpenGL version */
+   uint32_t version;       /* OpenGL version */
    int num_texture_units;  /* Number of texture units */
    int max_texture_size;   /* Maximum texture size */
    int is_voodoo3_and_under; /* Special cases for Voodoo 1-3 */
