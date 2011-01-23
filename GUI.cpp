@@ -289,8 +289,8 @@ Crd2D LocalBlockToScreen(int32_t x, int32_t y, int32_t z){
 }
 
 void DrawCurrentLevelOutline(bool backPart){
-	int x = viewedSegment->x+1;
-	int y = viewedSegment->y+1;
+	int x = DisplayedSegmentX+1;
+	int y = DisplayedSegmentY+1;
 	int z = DisplayedSegmentZ;
 	int sizex = config.segmentSize.x-2;
 	int sizey = config.segmentSize.y-2;
