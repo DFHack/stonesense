@@ -1080,9 +1080,9 @@ void FollowCurrentDFWindow( )
 			newviewx = newviewx + (viewsizex / 2) - mapx / 2;
 			newviewy = newviewy + (viewsizey / 2) - mapy / 2;
 
-			DisplayedSegmentX = float (newviewx) * scalex - (config.segmentSize.x / 2) + config.viewXoffset + mapx / 2;
-			DisplayedSegmentY = float (newviewy) * scaley - (config.segmentSize.y / 2) + config.viewYoffset + mapy / 2;
-			DisplayedSegmentZ = newviewz + config.viewZoffset + 1;
+			parms.x = float (newviewx) * scalex - (config.segmentSize.x / 2) + config.viewXoffset + mapx / 2;
+			parms.y = float (newviewy) * scaley - (config.segmentSize.y / 2) + config.viewYoffset + mapy / 2;
+			parms.z = newviewz + config.viewZoffset + 1;
 
 		}
 		else
@@ -1113,9 +1113,9 @@ void FollowCurrentDFCenter( )
 			Pos->getWindowSize(viewsizex,viewsizey); 
 			Pos->getViewCoords(newviewx,newviewy,newviewz);
 
-			DisplayedSegmentX = newviewx + (viewsizex/2) - (config.segmentSize.x / 2) + config.viewXoffset;
-			DisplayedSegmentY = newviewy + (viewsizey/2) - (config.segmentSize.y / 2) + config.viewYoffset;
-			DisplayedSegmentZ = newviewz + config.viewZoffset + 1;       
+			parms.x = newviewx + (viewsizex/2) - (config.segmentSize.x / 2) + config.viewXoffset;
+			parms.y = newviewy + (viewsizey/2) - (config.segmentSize.y / 2) + config.viewYoffset;
+			parms.z = newviewz + config.viewZoffset + 1;       
 		}
 		else
 		{
@@ -1132,6 +1132,7 @@ void FollowCurrentDFCenter( )
 
 static void * threadedSegment(ALLEGRO_THREAD *thread, void *arg)
 {
+	static bool firstLoad = 1;
 	while(!al_get_thread_should_stop(thread))
 	{
 		al_wait_cond(config.readCond, config.readMutex);
@@ -1149,6 +1150,18 @@ static void * threadedSegment(ALLEGRO_THREAD *thread, void *arg)
 			delete(altSegment);
 		}
 		pDFApiHandle->Suspend();
+		if (firstLoad || config.follow_DFscreen)
+		{
+			firstLoad = 0;
+			if (config.track_center)
+			{
+				FollowCurrentDFCenter();
+			}
+			else
+			{
+				FollowCurrentDFWindow();
+			}
+		}
 		altSegment = ReadMapSegment(*pDFApiHandle, parms.x, parms.y, parms.z,
 			parms.sizex, parms.sizey, parms.sizez);
 		config.threadstarted = 0;
@@ -1233,18 +1246,12 @@ void reloadDisplayedSegment(){
 	//G->Finish();
 	//dispose old segment
 
-	//FIXME
-	//if (firstLoad || config.follow_DFscreen)
-	//{
-	//	if (config.track_center)
-	//	{
-	//		FollowCurrentDFCenter();
-	//	}
-	//	else
-	//	{
-	//		FollowCurrentDFWindow();
-	//	}
-	//}
+	if (firstLoad || config.follow_DFscreen)
+	{
+		DisplayedSegmentX = parms.x;
+		DisplayedSegmentY = parms.y;
+		DisplayedSegmentZ = parms.z;
+	}
 
 	int segmentHeight = config.single_layer_view ? 2 : config.segmentSize.z;
 	//load segment
