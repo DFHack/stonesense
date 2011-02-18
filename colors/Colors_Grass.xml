@@ -1,0 +1,188 @@
+<?xml version="1.0"?>
+<colors>
+  <color red="5" green="149" blue="49">
+    <material value="Wood">
+      <subtype value="MEADOW-GRASS" />
+    </material>
+  </color>
+  <color red="23" green="199" blue="69">
+    <material value="Wood">
+      <subtype value="HAIR GRASS" />
+    </material>
+  </color>
+  <color red="34" green="150" blue="72">
+    <material value="Wood">
+      <subtype value="BENTGRASS" />
+    </material>
+  </color>
+  <color red="83" green="174" blue="112">
+    <material value="Wood">
+      <subtype value="RYEGRASS" />
+    </material>
+  </color>
+  <color red="255" green="128" blue="255">
+    <material value="Wood">
+      <subtype value="FESCUE GRASS" />
+    </material>
+  </color>
+  <color red="255" green="128" blue="255">
+    <material value="Wood">
+      <subtype value="REEDGRASS" />
+    </material>
+  </color>
+  <color red="255" green="128" blue="255">
+    <material value="Wood">
+      <subtype value="KNOTGRASS" />
+    </material>
+  </color>
+  <color red="255" green="128" blue="255">
+    <material value="Wood">
+      <subtype value="ZOYSIA" />
+    </material>
+  </color>
+  <color red="255" green="128" blue="255">
+    <material value="Wood">
+      <subtype value="DOG'S TOOTH GRASS" />
+    </material>
+  </color>
+  <color red="255" green="128" blue="255">
+    <material value="Wood">
+      <subtype value="DALLISGRASS" />
+    </material>
+  </color>
+  <color red="255" green="128" blue="255">
+    <material value="Wood">
+      <subtype value="CARPETGRASS" />
+    </material>
+  </color>
+  <color red="255" green="128" blue="255">
+    <material value="Wood">
+      <subtype value="SATINTAIL" />
+    </material>
+  </color>
+  <color red="255" green="128" blue="255">
+    <material value="Wood">
+      <subtype value="GRAMA" />
+    </material>
+  </color>
+  <color red="255" green="128" blue="255">
+    <material value="Wood">
+      <subtype value="DROPSEED GRASS" />
+    </material>
+  </color>
+  <color red="255" green="128" blue="255">
+    <material value="Wood">
+      <subtype value="NEEDLE GRASS" />
+    </material>
+  </color>
+  <color red="255" green="128" blue="255">
+    <material value="Wood">
+      <subtype value="BABY TOES SUCCULENT" />
+    </material>
+  </color>
+  <color red="255" green="128" blue="255">
+    <material value="Wood">
+      <subtype value="PEBBLE PLANTS" />
+    </material>
+  </color>
+  <color red="255" green="128" blue="255">
+    <material value="Wood">
+      <subtype value="BLUE SEDGE" />
+    </material>
+  </color>
+  <color red="255" green="128" blue="255">
+    <material value="Wood">
+      <subtype value="FIELD SEDGE" />
+    </material>
+  </color>
+  <color red="255" green="128" blue="255">
+    <material value="Wood">
+      <subtype value="PURPLE MOOR GRASS" />
+    </material>
+  </color>
+  <color red="255" green="128" blue="255">
+    <material value="Wood">
+      <subtype value="VELVET GRASS" />
+    </material>
+  </color>
+  <color red="255" green="128" blue="255">
+    <material value="Wood">
+      <subtype value="MEADOWSWEET" />
+    </material>
+  </color>
+  <color red="255" green="128" blue="255">
+    <material value="Wood">
+      <subtype value="RUSH" />
+    </material>
+  </color>
+  <color red="255" green="128" blue="255">
+    <material value="Wood">
+      <subtype value="MARSH THISTLE" />
+    </material>
+  </color>
+  <color red="255" green="128" blue="255">
+    <material value="Wood">
+      <subtype value="COMMON REED" />
+    </material>
+  </color>
+  <color red="255" green="128" blue="255">
+    <material value="Wood">
+      <subtype value="CATTAIL" />
+    </material>
+  </color>
+  <color red="255" green="128" blue="255">
+    <material value="Wood">
+      <subtype value="SAWGRASS" />
+    </material>
+  </color>
+  <color red="255" green="128" blue="255">
+    <material value="Wood">
+      <subtype value="COTTONGRASS" />
+    </material>
+  </color>
+  <color red="255" green="128" blue="255">
+    <material value="Wood">
+      <subtype value="WHITE MOUNTAIN HEATHER" />
+    </material>
+  </color>
+  <color red="255" green="128" blue="255">
+    <material value="Wood">
+      <subtype value="MOUNTAIN AVENS" />
+    </material>
+  </color>
+  <color red="255" green="128" blue="255">
+    <material value="Wood">
+      <subtype value="CLOUDBERRY" />
+    </material>
+  </color>
+  <color red="255" green="128" blue="255">
+    <material value="Wood">
+      <subtype value="WORMY TENDRILS" />
+    </material>
+  </color>
+  <color red="255" green="128" blue="255">
+    <material value="Wood">
+      <subtype value="EYEBALL" />
+    </material>
+  </color>
+  <color red="255" green="128" blue="255">
+    <material value="Wood">
+      <subtype value="BUBBLE BULBS" />
+    </material>
+  </color>
+  <color red="255" green="128" blue="255">
+    <material value="Wood">
+      <subtype value="DOWNY GRASS" />
+    </material>
+  </color>
+  <color red="255" green="128" blue="255">
+    <material value="Wood">
+      <subtype value="CAVE MOSS" />
+    </material>
+  </color>
+  <color red="255" green="128" blue="255">
+    <material value="Wood">
+      <subtype value="FLOOR FUNGI" />
+    </material>
+  </color>
+</colors>
