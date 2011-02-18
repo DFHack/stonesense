@@ -110,7 +110,7 @@
       <subtype value="MEADOWSWEET" />
     </material>
   </color>
-  <color red="255" green="128" blue="255">
+  <color red="114" green="177" blue="71">
     <material value="Wood">
       <subtype value="RUSH" />
     </material>
@@ -120,17 +120,17 @@
       <subtype value="MARSH THISTLE" />
     </material>
   </color>
-  <color red="255" green="128" blue="255">
+  <color red="156" green="215" blue="110">
     <material value="Wood">
       <subtype value="COMMON REED" />
     </material>
   </color>
-  <color red="255" green="128" blue="255">
+  <color red="108" green="176" blue="76">
     <material value="Wood">
       <subtype value="CATTAIL" />
     </material>
   </color>
-  <color red="255" green="128" blue="255">
+  <color red="98" green="137" blue="67">
     <material value="Wood">
       <subtype value="SAWGRASS" />
     </material>
@@ -170,17 +170,17 @@
       <subtype value="BUBBLE BULBS" />
     </material>
   </color>
-  <color red="255" green="128" blue="255">
+  <color red="250" green="250" blue="236">
     <material value="Wood">
       <subtype value="DOWNY GRASS" />
     </material>
   </color>
-  <color red="255" green="128" blue="255">
+  <color red="0" green="255" blue="232">
     <material value="Wood">
       <subtype value="CAVE MOSS" />
     </material>
   </color>
-  <color red="255" green="128" blue="255">
+  <color red="205" green="209" blue="148">
     <material value="Wood">
       <subtype value="FLOOR FUNGI" />
     </material>
