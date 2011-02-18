@@ -48,11 +48,7 @@
    #import <Kernel/IOKit/hidsystem/IOHIDUsageTables.h>
 #endif
 
-
-/* The following code comes from alunix.h */
-/* Magic to capture name of executable file */
-extern int    __crt0_argc;
-extern char **__crt0_argv;
+ALLEGRO_PATH *_al_osx_get_path(int id);
 
 #ifndef ALLEGRO_NO_MAGIC_MAIN
    #define ALLEGRO_MAGIC_MAIN

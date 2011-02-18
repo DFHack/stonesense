@@ -219,9 +219,22 @@ int main(void)
 	#endif
 	*/
 	al_init();
-	al_init_image_addon();
+	if (!al_init_image_addon()) {
+		WriteErr("al_init_image_addon failed. \n");
+		exit(1);
+		return 1;
+	}
 	al_init_font_addon();
-	al_init_ttf_addon();
+	if (!al_init_ttf_addon()) {
+		WriteErr("al_init_ttf_addon failed. \n");
+		exit(1);
+		return 1;
+	}
+	if (!al_init_primitives_addon()) {
+		WriteErr("al_init_primitives_addon failed. \n");
+		exit(1);
+		return 1;
+	}
 	al_install_keyboard();
 	al_install_mouse();
 	al_show_mouse_cursor(display);
@@ -289,11 +302,6 @@ int main(void)
 	}
 	if (!al_install_keyboard()) {
 		al_show_native_message_box(display, "Error", "Error", "al_install_keyboard failed.", NULL, ALLEGRO_MESSAGEBOX_ERROR);
-		exit(1);
-		return 1;
-	}
-	if (!al_init_primitives_addon()) {
-		WriteErr("al_init_primitives_addon failed. \n");
 		exit(1);
 		return 1;
 	}
