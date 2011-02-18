@@ -45,6 +45,8 @@ public:
 	VersionInfo *MemInfo;
 	DFHack::Buildings * Bld;
 	DFHack::Materials * Mats;
+	std::vector<t_matgloss> organic;
+	std::vector<t_matgloss> inorganic;
 
 	uint32_t currentTick;
 	uint32_t currentYear;

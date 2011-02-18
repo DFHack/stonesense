@@ -161,6 +161,7 @@ void c_sprite::reset(void)
 	mudmax = -1;
 	grassmin = 0;
 	grassmax = -1;
+	grasstype = -1;
 	needoutline=0;
 	defaultsheet=IMGObjectSheet;
 	tilelayout=BLOCKTILE;
@@ -433,6 +434,14 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
 	}
 	else grassmax=atoi(spriteGrassMaxStr);
 
+	//does the sprite match a particular grass type?
+	const char* idstr = elemSprite->Attribute("grass_type");
+	int grasstype = INVALID_INDEX;
+	if (idstr && idstr[0])
+	{
+		grasstype = lookupIndexedType(idstr,contentLoader.organic);
+	}
+
 	//Should the sprite be shown only when there is blood?
 	const char* spritebloodMinStr = elemSprite->Attribute("blood_min");
 	if (spritebloodMinStr == NULL || spritebloodMinStr[0] == 0)
@@ -572,7 +581,8 @@ void c_sprite::draw_world_offset(int x, int y, int z, int tileoffset, bool chop)
 					(bloodmin <= b->bloodlevel && (bloodmax == -1 || bloodmax >= b->bloodlevel)) &&
 					(mudmin <= b->mudlevel && (mudmax == -1 || mudmax >= b->mudlevel)) &&
 					(grassmin <= b->grasslevel && (grassmax == -1 || grassmax >= b->grasslevel)) &&
-					((light==LIGHTANY) || ((light==LIGHTYES) && b->designation.bits.skyview) || ((light==LIGHTNO) && !(b->designation.bits.skyview))) //only bother with this tile if it's in the light, or not.
+					((light==LIGHTANY) || ((light==LIGHTYES) && b->designation.bits.skyview) || ((light==LIGHTNO) && !(b->designation.bits.skyview)))  &&//only bother with this tile if it's in the light, or not.
+					((grasstype == -1) || (grasstype == b->grassmat))
 					)
 				{
 					int32_t drawx = x;

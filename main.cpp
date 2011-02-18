@@ -313,7 +313,7 @@ int main(void)
 	IMGIcon = load_bitmap_withWarning("stonesense.png");
 	al_set_display_icon(display, IMGIcon);
 
-	al_set_separate_blender(ALLEGRO_ADD, ALLEGRO_ALPHA, ALLEGRO_INVERSE_ALPHA, ALLEGRO_ADD, ALLEGRO_ONE, ALLEGRO_ONE);
+	//al_set_separate_blender(ALLEGRO_ADD, ALLEGRO_ALPHA, ALLEGRO_INVERSE_ALPHA, ALLEGRO_ADD, ALLEGRO_ONE, ALLEGRO_ONE);
 	loadGraphicsFromDisk();
 	al_clear_to_color(al_map_rgb(0,0,0));
 	al_draw_textf(font, al_map_rgb(255,255,255), al_get_bitmap_width(al_get_target_bitmap())/2, al_get_bitmap_height(al_get_target_bitmap())/2, ALLEGRO_ALIGN_CENTRE, "Starting up...");

@@ -48,6 +48,8 @@ private:
 	int grassmax;
 	int grassmin;
 
+	int grasstype;
+
 	unsigned int waterMin : 3;
 	unsigned int waterMax : 3;
 	unsigned int waterAboveMin : 3;

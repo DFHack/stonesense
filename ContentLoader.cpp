@@ -221,6 +221,9 @@ bool ContentLoader::Load( DFHack::Context& DF){
 
 	//DF.Resume();
 
+	//time to copy all the junk from mats to contentloader.
+	this->organic = Mats->organic;
+	this->inorganic = Mats->inorganic;
 	contentLoader.obsidian = lookupMaterialIndex(INORGANIC, "OBSIDIAN");
 
 	loadGraphicsFromDisk(); //these get destroyed when flushImgFiles is called.
@@ -387,15 +390,15 @@ bool ContentLoader::parseCreatureContent(TiXmlElement* elemRoot ){
 }
 
 bool ContentLoader::parseShrubContent(TiXmlElement* elemRoot ){
-	return addSingleVegetationConfig( elemRoot, &shrubConfigs, Mats->organic );
+	return addSingleVegetationConfig( elemRoot, &shrubConfigs, organic );
 }
 
 bool ContentLoader::parseTreeContent(TiXmlElement* elemRoot ){
-	return addSingleVegetationConfig( elemRoot, &treeConfigs, Mats->organic );
+	return addSingleVegetationConfig( elemRoot, &treeConfigs, organic );
 }
 
 bool ContentLoader::parseGrassContent(TiXmlElement* elemRoot ){
-	return addSingleVegetationConfig( elemRoot, &grassConfigs, Mats->organic );
+	return addSingleVegetationConfig( elemRoot, &grassConfigs, organic );
 }
 
 bool ContentLoader::parseTerrainContent(TiXmlElement* elemRoot ){
@@ -470,15 +473,15 @@ int lookupMaterialIndex(int matType, const char* strValue)
 	// for appropriate elements, look up subtype
 	if ((matType == INORGANIC) && (!config.skipInorganicMats))
 	{
-		typeVector=&(contentLoader.Mats->inorganic);
+		typeVector=&(contentLoader.inorganic);
 	}
 	else if ((matType == WOOD) && (!config.skipOrganicMats))
 	{
-		typeVector=&(contentLoader.Mats->organic);
+		typeVector=&(contentLoader.organic);
 	}
 	else if ((matType == PLANTCLOTH) && (!config.skipOrganicMats))
 	{
-		typeVector=&(contentLoader.Mats->organic);
+		typeVector=&(contentLoader.organic);
 	}
 	else if (matType == LEATHER)
 	{
@@ -554,15 +557,15 @@ const char *lookupMaterialName(int matType,int matIndex)
 	// for appropriate elements, look up subtype
 	if ((matType == INORGANIC) && (!config.skipInorganicMats))
 	{
-		typeVector=&(contentLoader.Mats->inorganic);
+		typeVector=&(contentLoader.inorganic);
 	}
 	else if ((matType == WOOD) && (!config.skipOrganicMats))
 	{
-		typeVector=&(contentLoader.Mats->organic);
+		typeVector=&(contentLoader.organic);
 	}
 	else if ((matType == PLANTCLOTH) && (!config.skipOrganicMats))
 	{
-		typeVector=&(contentLoader.Mats->organic);
+		typeVector=&(contentLoader.organic);
 	}
 	else if (matType == LEATHER)
 	{
@@ -587,7 +590,7 @@ const char *lookupTreeName(int matIndex)
 		return NULL;
 	vector<t_matgloss>* typeVector;
 	// for appropriate elements, look up subtype
-	typeVector=&(contentLoader.Mats->organic);
+	typeVector=&(contentLoader.organic);
 	if (matIndex >= typeVector->size())
 		return NULL;
 	return (*typeVector)[matIndex].id;
