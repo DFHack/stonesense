@@ -58,6 +58,13 @@ public:
 	int snowlevel;
 	int bloodlevel;
 	ALLEGRO_COLOR bloodcolor;
+
+	uint8_t grasslevel;
+	uint32_t grassmat;
+
+	//vector<uint8_t> grasslevels;
+	//vector<uint32_t> grassmats;
+
 	struct BlockEffects //size 40
 	{
 		uint16_t count;

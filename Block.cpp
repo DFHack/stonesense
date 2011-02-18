@@ -233,6 +233,20 @@ void Block::Draw(){
 			vegetationsprite->draw_world(x, y, z);
 	}
 
+	//Grass
+	if(this->grasslevel > 0 && (
+		(tileTypeTable[this->floorType].m == GRASS) || 
+		(tileTypeTable[this->floorType].m == GRASS2) ||
+		(tileTypeTable[this->floorType].m == GRASS_DEAD) ||
+		(tileTypeTable[this->floorType].m == GRASS_DRY)))
+	{
+		c_sprite * vegetationsprite = 0;
+		vegetationsprite = getVegetationSprite(contentLoader.grassConfigs,grassmat,true,true);
+		if(vegetationsprite)
+			vegetationsprite->draw_world(x, y, z);
+	}
+
+
 	//shadow
 	if (shadow > 0)
 	{

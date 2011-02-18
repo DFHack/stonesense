@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<grasses file="grass.png">
+  <plant gameID="REEDGRASS" grass_min="75" sheetIndex="44" variations="1">
+    <subsprite grass_min="50" grass_max="74" sheetIndex="42" variations="1" />
+    <subsprite grass_min="25" grass_max="49" sheetIndex="40" variations="1" />
+  </plant>
+  <plant gameID="GRAMA" grass_min="75" sheetIndex="44" variations="1">
+    <subsprite grass_min="50" grass_max="74" sheetIndex="42" variations="1" />
+    <subsprite grass_min="25" grass_max="49" sheetIndex="40" variations="1" />
+  </plant>
+  <plant gameID="NEEDLE GRASS" grass_min="75" sheetIndex="24" variations="1">
+    <subsprite grass_min="50" grass_max="74" sheetIndex="22" variations="1" />
+    <subsprite grass_min="25" grass_max="49" sheetIndex="20" variations="1" />
+  </plant>
+  <plant gameID="DOG'S TOOTH GRASS" grass_min="75" sheetIndex="24" variations="1">
+    <subsprite grass_min="50" grass_max="74" sheetIndex="22" variations="1" />
+    <subsprite grass_min="25" grass_max="49" sheetIndex="20" variations="1" />
+  </plant>
+  <plant gameID="BENTGRASS" grass_min="75" sheetIndex="4" variations="1">
+    <subsprite grass_min="50" grass_max="74" sheetIndex="2" variations="1" />
+    <subsprite grass_min="25" grass_max="49" sheetIndex="0" variations="1" />
+  </plant>
+  <plant gameID="DROPSEED GRASS" grass_min="75" sheetIndex="44" variations="1">
+    <subsprite grass_min="50" grass_max="74" sheetIndex="42" variations="1" />
+    <subsprite grass_min="25" grass_max="49" sheetIndex="40" variations="1" />
+  </plant>
+</grasses>

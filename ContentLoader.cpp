@@ -162,8 +162,22 @@ bool ContentLoader::Load( DFHack::Context& DF){
 	{
 		WriteErr("DFhack exeption: %s\n", e.what());
 	}
+	try
+	{
 	Bld = DF.getBuildings();
-	contentLoader.MemInfo = DF.getMemoryInfo();
+	}
+	catch(exception &e)
+	{
+		WriteErr("DFhack exeption: %s\n", e.what());
+	}
+	try
+	{
+		contentLoader.MemInfo = DF.getMemoryInfo();
+	}
+	catch(exception &e)
+	{
+		WriteErr("DFhack exeption: %s\n", e.what());
+	}
 	if(professionStrings.empty())
 	{
 		for(int i=0;; i++)
@@ -348,6 +362,8 @@ bool ContentLoader::parseContentXMLFile( char* filepath ){
 			runningResult &= parseShrubContent( elemRoot );
 		else if( elementType.compare( "trees" ) == 0 )
 			runningResult &= parseTreeContent( elemRoot );
+		else if( elementType.compare( "grasses" ) == 0 )
+			runningResult &= parseGrassContent( elemRoot );
 		else if( elementType.compare( "colors" ) == 0 )
 			runningResult &= parseColorContent( elemRoot );
 		else if( elementType.compare( "fluids" ) == 0 )
@@ -376,6 +392,10 @@ bool ContentLoader::parseShrubContent(TiXmlElement* elemRoot ){
 
 bool ContentLoader::parseTreeContent(TiXmlElement* elemRoot ){
 	return addSingleVegetationConfig( elemRoot, &treeConfigs, Mats->organic );
+}
+
+bool ContentLoader::parseGrassContent(TiXmlElement* elemRoot ){
+	return addSingleVegetationConfig( elemRoot, &grassConfigs, Mats->organic );
 }
 
 bool ContentLoader::parseTerrainContent(TiXmlElement* elemRoot ){

@@ -19,6 +19,7 @@ private:
 	bool parseShrubContent( TiXmlElement* elemRoot );
 	bool parseColorContent( TiXmlElement* elemRoot );
 	bool parseFluidContent( TiXmlElement* elemRoot );
+	bool parseGrassContent( TiXmlElement* elemRoot );
 	void flushCreatureConfig();
 
 	bool translationComplete;
@@ -32,6 +33,7 @@ public:
 	vector<vector<CreatureConfiguration>*> creatureConfigs;
 	vector<VegetationConfiguration> treeConfigs;
 	vector<VegetationConfiguration> shrubConfigs;
+	vector<VegetationConfiguration> grassConfigs;
 	vector<TerrainConfiguration*> terrainFloorConfigs;
 	vector<TerrainConfiguration*> terrainBlockConfigs;
 	vector<ColorConfiguration> colorConfigs;

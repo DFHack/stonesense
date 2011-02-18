@@ -45,6 +45,8 @@ private:
 	int bloodmax;
 	int mudmin;
 	int mudmax;
+	int grassmax;
+	int grassmin;
 
 	unsigned int waterMin : 3;
 	unsigned int waterMax : 3;

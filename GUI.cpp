@@ -405,6 +405,20 @@ void drawDebugCursorAndInfo(){
 			"Vein Material:%s%s%s", 
 			matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
 	} 
+	if (b->grasslevel > 0)
+	{
+		const char* subMatName = lookupMaterialName(WOOD,b->grassmat);
+		draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0,
+			"Grass length:%d, Material: %s", 
+			b->grasslevel, subMatName?subMatName:"");
+	} 
+	//for(int j = 0; j < b->grasslevels.size(); j++)
+	//{
+	//	const char* subMatName = lookupMaterialName(WOOD,b->grassmats.at(j));
+	//	draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0,
+	//		"Grass length:%d, Material: %s", 
+	//		b->grasslevels.at(j), subMatName?subMatName:"");
+	//} 
 
 	if(b->water.index > 0 || b->tree.index != 0)
 		draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 

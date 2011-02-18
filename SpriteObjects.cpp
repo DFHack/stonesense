@@ -159,6 +159,8 @@ void c_sprite::reset(void)
 	bloodmax = -1;
 	mudmin = 0;
 	mudmax = -1;
+	grassmin = 0;
+	grassmax = -1;
 	needoutline=0;
 	defaultsheet=IMGObjectSheet;
 	tilelayout=BLOCKTILE;
@@ -417,6 +419,20 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
 	}
 	else snowmax=atoi(spriteSnowMaxStr);
 
+	//Should the sprite be shown only when there is grass?
+	const char* spriteGrassMinStr = elemSprite->Attribute("grass_min");
+	if (spriteGrassMinStr == NULL || spriteGrassMinStr[0] == 0)
+	{
+		grassmin = 0;
+	}
+	else grassmin=atoi(spriteGrassMinStr);
+	const char* spriteGrassMaxStr = elemSprite->Attribute("grass_max");
+	if (spriteGrassMaxStr == NULL || spriteGrassMaxStr[0] == 0)
+	{
+		grassmax = -1;
+	}
+	else grassmax=atoi(spriteGrassMaxStr);
+
 	//Should the sprite be shown only when there is blood?
 	const char* spritebloodMinStr = elemSprite->Attribute("blood_min");
 	if (spritebloodMinStr == NULL || spritebloodMinStr[0] == 0)
@@ -555,6 +571,7 @@ void c_sprite::draw_world_offset(int x, int y, int z, int tileoffset, bool chop)
 					(snowmax == -1 || snowmax >= b->snowlevel)) &&
 					(bloodmin <= b->bloodlevel && (bloodmax == -1 || bloodmax >= b->bloodlevel)) &&
 					(mudmin <= b->mudlevel && (mudmax == -1 || mudmax >= b->mudlevel)) &&
+					(grassmin <= b->grasslevel && (grassmax == -1 || grassmax >= b->grasslevel)) &&
 					((light==LIGHTANY) || ((light==LIGHTYES) && b->designation.bits.skyview) || ((light==LIGHTNO) && !(b->designation.bits.skyview))) //only bother with this tile if it's in the light, or not.
 					)
 				{

@@ -238,8 +238,10 @@ void ReadCellToSegment(DFHack::Context& DF, WorldSegment& segment, int CellX, in
 	vector <t_vein> veins;
 	vector <t_frozenliquidvein> ices;
 	vector <t_spattervein> splatter;
+	vector <t_grassvein> grass;
 
-	Maps->ReadVeins(CellX,CellY,CellZ,&veins,&ices,&splatter);
+
+	Maps->ReadVeins(CellX,CellY,CellZ,&veins,&ices,&splatter,&grass);
 	uint32_t numVeins = (uint32_t)veins.size();
 
 	//parse cell
@@ -268,6 +270,19 @@ void ReadCellToSegment(DFHack::Context& DF, WorldSegment& segment, int CellX, in
 			b->mudlevel = 0;
 			b->snowlevel = 0;
 			b->bloodlevel = 0;
+			b->grasslevel = 0;
+			//b->grasslevels.clear();
+			//b->grassmats.clear();
+			for(int i = 0; i < grass.size(); i++)
+			{
+				if(grass[i].intensity[lx][ly] > 0 && b->grasslevel == 0)//b->grasslevel)
+				{
+					b->grasslevel = grass[i].intensity[lx][ly];
+					b->grassmat = grass[i].material;
+					//b->grasslevels.push_back(grass[i].intensity[lx][ly]);
+					//b->grassmats.push_back(grass[i].material);
+				}
+			}
 			if(1)
 			{
 				long red=0;
