@@ -155,7 +155,7 @@
       <subtype value="CLOUDBERRY" />
     </material>
   </color>
-  <color red="255" green="128" blue="255">
+  <color red="12" green="15" blue="238">
     <material value="Wood">
       <subtype value="WORMY TENDRILS" />
     </material>

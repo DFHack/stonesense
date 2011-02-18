@@ -773,5 +773,7 @@ ShadeBy getShadeType(const char* Input)
 		return ShadeBlood;
 	if( strcmp(Input, "building") == 0)
 		return ShadeBuilding;
+	if( strcmp(Input, "grass") == 0)
+		return ShadeGrass;
 	return ShadeNone;
 }

@@ -717,6 +717,8 @@ ALLEGRO_COLOR c_sprite::get_color(void* block)
 		return shadecolor;
 	case ShadeMat:
 		return lookupMaterialColor(b->material.type, b->material.index);
+	case ShadeGrass:
+		return lookupMaterialColor(WOOD, b->grassmat);
 	case ShadeBuilding:
 		return lookupMaterialColor(b->building.info.material.type, b->building.info.material.index);
 	case ShadeLayer:
