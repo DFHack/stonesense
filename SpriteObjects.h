@@ -21,6 +21,9 @@
 #define LIGHTYES 1
 #define LIGHTNO 2
 
+
+class Block;
+
 class c_sprite
 {
 private:
@@ -94,8 +97,8 @@ public:
 	c_sprite(void);
 	~c_sprite(void);
 	void draw_screen(int x, int y);
-	void draw_world(int x, int y, int z, bool chop = false);
-	void draw_world_offset(int x, int y, int z, int offset, bool chop = false);
+	void draw_world(int x, int y, int z, Block * b, bool chop = false);
+	void draw_world_offset(int x, int y, int z, Block * b, int offset, bool chop = false);
 	void draw_world_ramp_bottom(int x, int y, int z, bool chop = false);
 	void set_by_xml(TiXmlElement* elemSprite, int32_t fileindex);
 	void set_by_xml(TiXmlElement* elemSprite);

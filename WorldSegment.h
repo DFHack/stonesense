@@ -6,8 +6,11 @@ class WorldSegment{
 private:
 	vector<Block*> blocks;
 public:
+	ALLEGRO_MUTEX * mutie;
+	bool loaded;
 	int x, y, z;
 	int sizex, sizey, sizez;
+	unsigned char rotation;
 	Crd3D regionSize;
 	Block** blocksAsPointerVolume;
 	WorldSegment(int x, int y, int z, int sizex, int sizey, int sizez)
@@ -24,6 +27,7 @@ public:
 		uint32_t memoryNeeded = sizex * sizey * sizez * sizeof(Block*);
 		blocksAsPointerVolume = (Block**) malloc( memoryNeeded );
 		memset(blocksAsPointerVolume, 0, memoryNeeded);
+		mutie = al_create_mutex();
 	}
 
 	~WorldSegment(){
@@ -36,6 +40,7 @@ public:
 
 	void Dispose(void){
 		free(blocksAsPointerVolume);
+		al_destroy_mutex(mutie);
 	}
 
 	uint32_t getNumBlocks(){

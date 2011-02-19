@@ -26,7 +26,7 @@ Block* WorldSegment::getBlock(int32_t x, int32_t y, int32_t z){
 	ly -= this->y;
 	lz -= this->z;
 
-	correctBlockForRotation( (int32_t&)lx,(int32_t&)ly,(int32_t&)lz );
+	correctBlockForRotation( (int32_t&)lx,(int32_t&)ly,(int32_t&)lz , rotation);
 
 	uint32_t index = lx + (ly * this->sizex) + ((lz) * this->sizex * this->sizey);
 	return blocksAsPointerVolume[index];
@@ -41,7 +41,7 @@ Block* WorldSegment::getBlockRelativeTo(uint32_t x, uint32_t y, uint32_t z,  dir
 	ly -= this->y;
 	lz -= this->z;
 
-	correctBlockForRotation( (int32_t&)lx,(int32_t&)ly,(int32_t&)lz );
+	correctBlockForRotation( (int32_t&)lx,(int32_t&)ly,(int32_t&)lz, rotation );
 	switch (direction){
 	case eUp:
 		ly--; break;
@@ -83,7 +83,7 @@ Block* WorldSegment::getBlockRelativeTo(uint32_t x, uint32_t y, uint32_t z,  dir
 	ly -= this->y;
 	lz -= this->z;
 
-	correctBlockForRotation( (int32_t&)lx,(int32_t&)ly,(int32_t&)lz );
+	correctBlockForRotation( (int32_t&)lx,(int32_t&)ly,(int32_t&)lz, rotation);
 	switch (direction){
 	case eUp:
 		ly-= distance; break;
@@ -130,21 +130,21 @@ Block* WorldSegment::getBlock(uint32_t index){
 	return blocks[index];
 }
 
-void correctBlockForRotation(int32_t& x, int32_t& y, int32_t& z){
+void correctBlockForRotation(int32_t& x, int32_t& y, int32_t& z, unsigned char rot){
 	int32_t oldx = x;
 	int32_t oldy = y;
 	int w = config.segmentSize.x;
 	int h = config.segmentSize.y;
 
-	if(DisplayedRotation == 1){
+	if(rot == 1){
 		x = h - oldy -1;
 		y = oldx;
 	}
-	if(DisplayedRotation == 2){
+	if(rot == 2){
 		x = w - oldx -1;
 		y = h - oldy -1;
 	}
-	if(DisplayedRotation == 3){
+	if(rot == 3){
 		x = oldy;
 		y = w - oldx -1;
 	}
@@ -163,7 +163,7 @@ void WorldSegment::addBlock(Block* b){
 	z -= this->z;
 
 	//rotate
-	correctBlockForRotation( (int32_t&)x, (int32_t&)y, (int32_t&)z );
+	correctBlockForRotation( (int32_t&)x, (int32_t&)y, (int32_t&)z, rotation);
 
 	uint32_t index = x + (y * this->sizex) + ((z) * this->sizex * this->sizey);
 	//assert( x < sizex && x >=0);
@@ -190,6 +190,8 @@ viewedSegment->blocks[i]->Draw(target);
 }*/
 
 void WorldSegment::drawAllBlocks(){
+	if(!loaded)
+		return;
 
 	// x,y,z print pricess
 	ALLEGRO_BITMAP * temp = al_get_target_bitmap();

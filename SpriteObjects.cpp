@@ -527,13 +527,13 @@ void c_sprite::draw_screen(int x, int y)
 	}
 }
 
-void c_sprite::draw_world(int x, int y, int z, bool chop)
+void c_sprite::draw_world(int x, int y, int z, Block * b, bool chop)
 {
-	draw_world_offset(x, y, z, 0, chop);
+	draw_world_offset(x, y, z, b, 0, chop);
 }
 
 
-void c_sprite::draw_world_offset(int x, int y, int z, int tileoffset, bool chop)
+void c_sprite::draw_world_offset(int x, int y, int z, Block * b, int tileoffset, bool chop)
 {
 	if(defaultsheet == 0) defaultsheet = IMGObjectSheet;
 	//sprites can be offset by a random amount, both animationwise, and just variationwise.
@@ -550,8 +550,8 @@ void c_sprite::draw_world_offset(int x, int y, int z, int tileoffset, bool chop)
 		if(variations)
 			randoffset = rando%variations;
 
-		Block* b = viewedSegment->getBlock(x, y, z);
-
+		if(!b)
+			return;
 		//if the xml says that this is a blood sprite, and offset is set here for proper pooling. this over-rides the random offset.
 		if(bloodsprite)
 			randoffset = getBloodOffset(b);
@@ -591,7 +591,7 @@ void c_sprite::draw_world_offset(int x, int y, int z, int tileoffset, bool chop)
 
 
 					correctBlockForSegmetOffset( drawx, drawy, drawz);
-					correctBlockForRotation( drawx, drawy, drawz);
+				correctBlockForRotation( drawx, drawy, drawz, b->ownerSegment->rotation);
 					int32_t viewx = drawx;
 					int32_t viewy = drawy;
 					int32_t viewz = drawz;
@@ -663,7 +663,7 @@ void c_sprite::draw_world_offset(int x, int y, int z, int tileoffset, bool chop)
 	{
 		for(int i = 0; i < subsprites.size(); i++)
 		{
-			subsprites.at(i).draw_world_offset(x, y, z, tileoffset, chop);
+			subsprites.at(i).draw_world_offset(x, y, z, b, tileoffset, chop);
 		}
 	}
 }

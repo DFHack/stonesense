@@ -22,7 +22,7 @@ public:
 	void add_sprite(int x, c_sprite sprite);
 	void reset();
 
-	void draw_world(int x, int y, int z, bool chop = false){own_sprite.draw_world(x,y,z,chop);}
+	void draw_world(int x, int y, int z, Block * b, bool chop = false){own_sprite.draw_world(x,y,z,b,chop);}
 };
 
 class c_block_tree_branch
@@ -42,7 +42,7 @@ public:
 	void add_sprite(int x, int y, c_sprite sprite);
 	void reset();
 
-	void draw_world(int x, int y, int z, bool chop = false){own_twig.draw_world(x,y,z,chop);}
+	void draw_world(int x, int y, int z, Block * b, bool chop = false){own_twig.draw_world(x,y,z,b,chop);}
 };
 
 class c_block_tree
@@ -61,5 +61,5 @@ public:
 	void add_sprite(int x, int y, int z, c_sprite sprite);
 	void reset();
 
-	void draw_world(int x, int y, int z, bool chop = false){own_branch.draw_world(x,y,z,chop);}
+	void draw_world(int x, int y, int z, Block * b, bool chop = false){own_branch.draw_world(x,y,z,b,chop);}
 };

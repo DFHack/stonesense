@@ -194,6 +194,14 @@ typedef struct {
 	bool skipMaps;
 	bool skipInorganicMats;
 	bool skipOrganicMats;
+
+	//following are threading stuff
+
+	ALLEGRO_MUTEX * readMutex;
+	ALLEGRO_COND * readCond;
+	ALLEGRO_THREAD * readThread;
+	bool threadmade;
+	bool threadstarted;
 } GameConfiguration;
 
 

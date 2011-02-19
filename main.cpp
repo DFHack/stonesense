@@ -137,9 +137,9 @@ void SetTitle(const char *format, ...)
 }
 
 void correctBlockForSegmetOffset(int32_t& x, int32_t& y, int32_t& z){
-	x -= viewedSegment->x;
-	y -= viewedSegment->y; //DisplayedSegmentY;
-	z -= viewedSegment->z + viewedSegment->sizez - 2; // loading one above the top of the displayed segment for block rules
+	x -= DisplayedSegmentX;
+	y -= DisplayedSegmentY; //DisplayedSegmentY;
+	z -= DisplayedSegmentZ + viewedSegment->sizez - 2; // loading one above the top of the displayed segment for block rules
 }
 
 void loadfont()
@@ -275,6 +275,7 @@ int main(void)
 	config.creditScreen = true;
 	config.bloodcutoff = 100;
 	config.poolcutoff = 100;
+	config.threadmade = 0;
 	initRandomCube();
 	loadConfigFile();
 	loadfont();
@@ -348,6 +349,9 @@ int main(void)
 	//DisplayedSegmentX = 125; DisplayedSegmentY = 125;DisplayedSegmentZ = 18;
 
 	//DisplayedSegmentX = 242; DisplayedSegmentY = 345;DisplayedSegmentZ = 15;
+
+	config.readMutex = al_create_mutex();
+	config.readCond = al_create_cond();
 
 #ifdef BENCHMARK
 	benchmark();
@@ -429,10 +433,20 @@ int main(void)
 				redraw = true;
 		}
 	}
+	if(config.threadmade)
+	{
+		al_broadcast_cond(config.readCond);
+		al_destroy_thread(config.readThread);
+		config.spriteIndexOverlay = 0;
+	}
 	flushImgFiles();
 	DisconnectFromDF();
 
-	//dispose old segment
+	//dispose old segments
+	if(altSegment){
+		altSegment->Dispose();
+		delete(altSegment);
+	}
 	if(viewedSegment){
 		viewedSegment->Dispose();
 		delete(viewedSegment);

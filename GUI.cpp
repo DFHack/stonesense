@@ -21,6 +21,7 @@ using namespace std;
 extern ALLEGRO_FONT *font;
 
 WorldSegment* viewedSegment;
+WorldSegment* altSegment;
 int DisplayedSegmentX;
 int DisplayedSegmentY;
 int DisplayedSegmentZ;
@@ -94,7 +95,12 @@ void draw_borders(float x, float y, uint8_t borders)
 		draw_diamond(x-4, y+4, al_map_rgb(0,0,0));
 
 }
-
+void swapSegments(void)
+{
+	WorldSegment* backupSegment = viewedSegment;
+	viewedSegment = altSegment;
+	altSegment = backupSegment;
+}
 ALLEGRO_COLOR operator*(const ALLEGRO_COLOR &color1, const ALLEGRO_COLOR &color2)
 {
 	ALLEGRO_COLOR temp;
@@ -283,8 +289,8 @@ Crd2D LocalBlockToScreen(int32_t x, int32_t y, int32_t z){
 }
 
 void DrawCurrentLevelOutline(bool backPart){
-	int x = viewedSegment->x+1;
-	int y = viewedSegment->y+1;
+	int x = DisplayedSegmentX+1;
+	int y = DisplayedSegmentY+1;
 	int z = DisplayedSegmentZ;
 	int sizex = config.segmentSize.x-2;
 	int sizey = config.segmentSize.y-2;
@@ -330,7 +336,7 @@ void drawDebugCursorAndInfo(){
 		int y = config.dfCursorY;
 		int z = config.dfCursorZ;
 		correctBlockForSegmetOffset(x,y,z);
-		correctBlockForRotation( x, y, z);
+		correctBlockForRotation( x, y, z, viewedSegment->rotation);
 		debugCursor.x = x;
 		debugCursor.y = y;
 		debugCursor.z = z;
@@ -697,7 +703,7 @@ void paintboard(){
 		return;
 	}
 
-
+	al_lock_mutex(viewedSegment->mutie);
 
 	viewedSegment->drawAllBlocks();
 	if (config.show_osd) DrawCurrentLevelOutline(false);
@@ -757,6 +763,7 @@ void paintboard(){
 	}
 	//al_set_target_bitmap(backup);
 	//al_draw_bitmap(buffer, 0, 0, 0);
+	al_unlock_mutex(viewedSegment->mutie);
 	al_flip_display();
 }
 
@@ -1057,7 +1064,7 @@ void saveMegashot(){
 	DisplayedSegmentX = -1;
 	DisplayedSegmentY = -1;
 	//Rebuild stuff
-	reloadDisplayedSegment();
+	//reloadDisplayedSegment();
 	//Draw the image and save it
 	//al_set_new_bitmap_format(ALLEGRO_PIXEL_FORMAT_ANY_NO_ALPHA);
 	//al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP);
