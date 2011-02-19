@@ -436,11 +436,11 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
 
 	//does the sprite match a particular grass type?
 	const char* idstr = elemSprite->Attribute("grass_type");
-	int grasstype = INVALID_INDEX;
-	if (idstr && idstr[0])
+	if (idstr == NULL || idstr[0] == 0)
 	{
-		grasstype = lookupIndexedType(idstr,contentLoader.organic);
+		grasstype = INVALID_INDEX;
 	}
+	else grasstype = lookupIndexedType(idstr,contentLoader.organic);
 
 	//Should the sprite be shown only when there is blood?
 	const char* spritebloodMinStr = elemSprite->Attribute("blood_min");

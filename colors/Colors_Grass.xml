@@ -35,22 +35,22 @@
       <subtype value="KNOTGRASS" />
     </material>
   </color>
-  <color red="255" green="128" blue="255">
+  <color red="117" green="188" blue="47">
     <material value="Wood">
       <subtype value="ZOYSIA" />
     </material>
   </color>
-  <color red="255" green="128" blue="255">
+  <color red="149" green="207" blue="148">
     <material value="Wood">
       <subtype value="DOG'S TOOTH GRASS" />
     </material>
   </color>
-  <color red="255" green="128" blue="255">
+  <color red="80" green="145" blue="112" >
     <material value="Wood">
       <subtype value="DALLISGRASS" />
     </material>
   </color>
-  <color red="255" green="128" blue="255">
+  <color red="134" green="230" blue="82">
     <material value="Wood">
       <subtype value="CARPETGRASS" />
     </material>
@@ -60,17 +60,17 @@
       <subtype value="SATINTAIL" />
     </material>
   </color>
-  <color red="255" green="128" blue="255">
+  <color red="128" green="158" blue="85">
     <material value="Wood">
       <subtype value="GRAMA" />
     </material>
   </color>
-  <color red="255" green="128" blue="255">
+  <color red="144" green="171" blue="62">
     <material value="Wood">
       <subtype value="DROPSEED GRASS" />
     </material>
   </color>
-  <color red="255" green="128" blue="255">
+  <color red="109" green="203" blue="96">
     <material value="Wood">
       <subtype value="NEEDLE GRASS" />
     </material>
@@ -165,7 +165,7 @@
       <subtype value="EYEBALL" />
     </material>
   </color>
-  <color red="255" green="128" blue="255">
+  <color red="67" green="225" blue="175">
     <material value="Wood">
       <subtype value="BUBBLE BULBS" />
     </material>
