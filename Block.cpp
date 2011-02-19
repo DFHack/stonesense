@@ -46,6 +46,7 @@ Block::Block(WorldSegment* ownerSegment)
 
 	this->material.type = INVALID_INDEX;
 	this->material.index = INVALID_INDEX;
+	creature = 0;
 }
 
 
@@ -225,13 +226,13 @@ void Block::Draw(){
 	}
 
 
-	//vegetation
-	if(tree.index > 0 || tree.type > 0){
-		c_sprite * vegetationsprite = 0;
-		vegetationsprite = GetSpriteVegetation( (TileClass) getVegetationType( this->floorType ), tree.index );
-		if(vegetationsprite)
-			vegetationsprite->draw_world(x, y, z);
-	}
+	////vegetation
+	//if(tree.index > 0 || tree.type > 0){
+	//	c_sprite * vegetationsprite = 0;
+	//	vegetationsprite = GetSpriteVegetation( (TileClass) getVegetationType( this->floorType ), tree.index );
+	//	if(vegetationsprite)
+	//		vegetationsprite->draw_world(x, y, z);
+	//}
 
 	//Grass
 	if(this->grasslevel > 0 && (
@@ -240,8 +241,8 @@ void Block::Draw(){
 		(tileTypeTable[this->floorType].m == GRASS_DEAD) ||
 		(tileTypeTable[this->floorType].m == GRASS_DRY)))
 	{
-		c_sprite * vegetationsprite = 0;
-		vegetationsprite = getVegetationSprite(contentLoader.grassConfigs,grassmat,true,true);
+		c_block_tree * vegetationsprite = 0;
+		vegetationsprite = getVegetationTree(contentLoader.grassConfigs,grassmat,true,true);
 		if(vegetationsprite)
 			vegetationsprite->draw_world(x, y, z);
 	}
@@ -260,8 +261,6 @@ void Block::Draw(){
 
 	if(building.info.type != BUILDINGTYPE_NA && !skipBuilding)
 	{
-		int spriteNum =  SPRITEOBJECT_NA; //getBuildingSprite(this->building, mirroredBuilding);
-
 		for(uint32_t i=0; i < building.sprites.size(); i++)
 		{
 			spriteobject = &building.sprites[i];

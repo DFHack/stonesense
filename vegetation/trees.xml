@@ -1,35 +1,79 @@
-<?xml version="1.0" ?>
-
+<?xml version="1.0"?>
 <trees file="trees.png">
-	<plant gameID = "ACACIA" sheetIndex = 0 />
-	<plant gameID = "ALDER" sheetIndex = 1 />
-	<plant gameID = "ASH" sheetIndex = 2 />
-	<plant gameID = "BIRCH" sheetIndex = 31 />
-	<plant gameID = "CACAO" sheetIndex = 4 />
-	<plant gameID = "CANDLENUT" sheetIndex = 5 />
-	<plant gameID = "CEDAR" sheetIndex = 6 />
-	<plant gameID = "CHESTNUT" sheetIndex = 7 />
-	<plant gameID = "FEATHER" sheetIndex = 8 />
-	<plant gameID = "GLUMPRONG" sheetIndex = 9 />
-	<plant gameID = "HIGHWOOD" sheetIndex = 10 />
-	<plant gameID = "LARCH" sheetIndex = 11 />
-	<plant gameID = "MANGO" sheetIndex = 12 />
-	<plant gameID = "KAPOK" sheetIndex = 13 />
-	<plant gameID = "MAHOGANY" sheetIndex = 14 />
-	<plant gameID = "MAPLE" sheetIndex = 15 />
-	<plant gameID = "OAK" sheetIndex = 16 />
-	<plant gameID = "PALM" sheetIndex = 17 />
-	<plant gameID = "PINE" sheetIndex = 18 />
-	<plant gameID = "RUBBER" sheetIndex = 19 />
-	<plant gameID = "SAGUARO" sheetIndex = 29 />
-	<plant gameID = "MANGROVE" sheetIndex = 21 />
-	<plant gameID = "WILLOW" sheetIndex = 28 />
-	<plant gameID = "BLACK_CAP" sheetIndex = 40 />
-	<plant gameID = "NETHER_CAP" sheetIndex = 41 />
-	<plant gameID = "GOBLIN_CAP" sheetIndex = 42 />
-	<plant gameID = "TUNNEL_TUBE" sheetIndex = 43 />
-	<plant gameID = "SPORE_TREE" sheetIndex = 44 />
-	<plant gameID = "BLOOD_THORN" sheetIndex = 45 />
-	<plant gameID = "FUNGIWOOD" sheetIndex = 46 />
-	<plant gameID = "TOWER_CAP" sheetIndex = 22 />
-</trees> 
+  <plant gameID="MANGO" sheetIndex="12" />
+  <plant gameID="ALDER" sheetIndex="1" />
+  <plant gameID="ASH" sheetIndex="47">
+    <branch sheetIndex="48" Z="1" />
+    <branch sheetIndex="2" Z="1" Y="1" />
+    <branch sheetIndex="2" Z="1" Y="-1" />
+    <branch sheetIndex="2" Z="1" X="-1" />
+    <branch sheetIndex="2" Z="1" X="1" />
+  </plant>
+  <plant gameID="BIRCH" sheetIndex="31" />
+  <plant gameID="CACAO" sheetIndex="4" />
+  <plant gameID="CANDLENUT" sheetIndex="5" />
+  <plant gameID="CEDAR" sheetIndex="6" />
+  <plant gameID="CHESTNUT" sheetIndex="7" />
+  <plant gameID="FEATHER" sheetIndex="8" />
+  <plant gameID="GLUMPRONG" sheetIndex="9" />
+  <plant gameID="HIGHWOOD" sheetIndex="10" />
+  <plant gameID="LARCH" sheetIndex="11" />
+  <plant gameID="ACACIA" sheetIndex="0" X="-1" Y="-1" Z="0"
+  file="acaciaMultitile.png">
+    <subsprite sheetIndex="3" file="acaciaMultitile.png" />
+    <branch sheetIndex="1" X="0" Y="-1" Z="0"
+    file="acaciaMultitile.png">
+      <subsprite sheetIndex="4" file="acaciaMultitile.png" />
+    </branch>
+    <branch sheetIndex="2" X="1" Y="-1" Z="0"
+    file="acaciaMultitile.png">
+      <subsprite sheetIndex="5" file="acaciaMultitile.png" />
+    </branch>
+    <branch sheetIndex="20" X="-1" Y="0" Z="0"
+    file="acaciaMultitile.png">
+      <subsprite sheetIndex="23" file="acaciaMultitile.png" />
+    </branch>
+    <branch sheetIndex="21" X="0" Y="0" Z="0"
+    file="acaciaMultitile.png">
+      <subsprite sheetIndex="24" file="acaciaMultitile.png" />
+    </branch>
+    <branch sheetIndex="22" X="1" Y="0" Z="0"
+    file="acaciaMultitile.png">
+      <subsprite sheetIndex="25" file="acaciaMultitile.png" />
+    </branch>
+    <branch sheetIndex="40" X="-1" Y="1" Z="0"
+    file="acaciaMultitile.png">
+      <subsprite sheetIndex="43" file="acaciaMultitile.png" />
+    </branch>
+    <branch sheetIndex="41" X="0" Y="1" Z="0"
+    file="acaciaMultitile.png">
+      <subsprite sheetIndex="44" file="acaciaMultitile.png" />
+    </branch>
+    <branch sheetIndex="42" X="1" Y="1" Z="0"
+    file="acaciaMultitile.png">
+      <subsprite sheetIndex="45" file="acaciaMultitile.png" />
+    </branch>
+  </plant>
+  <plant gameID="KAPOK" sheetIndex="13" />
+  <plant gameID="MAHOGANY" sheetIndex="14" />
+  <plant gameID="MAPLE" sheetIndex="15" />
+  <plant gameID="OAK" sheetIndex="16" />
+  <plant gameID="PALM" sheetIndex="47">
+    <branch sheetIndex="47" Z="1" />
+    <branch sheetIndex="47" Z="2" />
+    <branch sheetIndex="17" Z="3" />
+  </plant>
+  <plant gameID="PINE" sheetIndex="18" />
+  <plant gameID="RUBBER" sheetIndex="19" />
+  <plant gameID="SAGUARO" sheetIndex="29" />
+  <plant gameID="MANGROVE" sheetIndex="21" />
+  <plant gameID="WILLOW" sheetIndex="28" />
+  <plant gameID="BLACK_CAP" sheetIndex="40" />
+  <plant gameID="NETHER_CAP" sheetIndex="41" />
+  <plant gameID="GOBLIN_CAP" sheetIndex="42" />
+  <plant gameID="TUNNEL_TUBE" sheetIndex="43" />
+  <plant gameID="SPORE_TREE" sheetIndex="44" />
+  <plant gameID="BLOOD_THORN" sheetIndex="45" />
+  <plant gameID="FUNGIWOOD" sheetIndex="46" />
+  <plant gameID="TOWER_CAP" sheetIndex="22" />
+</trees>

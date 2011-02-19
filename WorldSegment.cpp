@@ -73,6 +73,48 @@ Block* WorldSegment::getBlockRelativeTo(uint32_t x, uint32_t y, uint32_t z,  dir
 	return blocksAsPointerVolume[index];
 }
 
+Block* WorldSegment::getBlockRelativeTo(uint32_t x, uint32_t y, uint32_t z,  dirRelative direction, int distance)
+{
+	int32_t lx = x;
+	int32_t ly = y;
+	int32_t lz = z;
+	//make local
+	lx -= this->x;
+	ly -= this->y;
+	lz -= this->z;
+
+	correctBlockForRotation( (int32_t&)lx,(int32_t&)ly,(int32_t&)lz );
+	switch (direction){
+	case eUp:
+		ly-= distance; break;
+	case eDown:
+		ly+= distance; break;
+	case eLeft:
+		lx-= distance; break;
+	case eRight:
+		lx+= distance; break;
+	case eAbove:
+		lz+= distance; break;
+	case eBelow:
+		lz-= distance; break;
+	case eUpLeft:
+		ly-= distance; lx-= distance; break;
+	case eUpRight:
+		ly-= distance; lx+= distance; break;
+	case eDownLeft:
+		ly+= distance; lx-= distance; break;
+	case eDownRight:
+		ly+= distance; lx+= distance; break;
+	}
+
+	if((int)lx < 0 || lx >= this->sizex) return 0;
+	if((int)ly < 0 || ly >= this->sizey) return 0;
+	if((int)lz < 0 || lz >= this->sizez) return 0;
+
+	uint32_t index = lx + (ly * this->sizex) + ((lz) * this->sizex * this->sizey);
+	return blocksAsPointerVolume[index];
+}
+
 Block* WorldSegment::getBlockLocal(uint32_t x, uint32_t y, uint32_t z){
 	if((int)x < 0 || x >= (uint32_t)this->sizex) return 0;
 	if((int)y < 0 || y >= (uint32_t)this->sizey) return 0;

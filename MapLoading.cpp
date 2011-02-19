@@ -781,6 +781,9 @@ WorldSegment* ReadMapSegment(DFHack::Context &DF, int x, int y, int z, int sizex
 					{
 						b->tree.type = temptree.type;
 						b->tree.index = temptree.material;
+
+						c_block_tree * Tree = GetTreeVegetation( (TileClass) getVegetationType( b->floorType ), b->tree.index );
+						Tree->insert_sprites(segment, temptree.x, temptree.y, temptree.z);
 					}
 					index ++;
 				}
