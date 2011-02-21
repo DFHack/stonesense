@@ -1153,7 +1153,8 @@ static void * threadedSegment(ALLEGRO_THREAD *thread, void *arg)
 	static bool firstLoad = 1;
 	while(!al_get_thread_should_stop(thread))
 	{
-		al_wait_cond(config.readCond, config.readMutex);
+		//al_lock_mutex(config.readMutex);
+		//al_wait_cond(config.readCond, config.readMutex);
 		if(parms.is_connected == 0)
 		{
 			DFProc->attach();
@@ -1195,7 +1196,7 @@ static void * threadedSegment(ALLEGRO_THREAD *thread, void *arg)
 		swapSegments();
 		if(altSegment)
 		al_unlock_mutex(altSegment->mutie);
-		al_unlock_mutex(config.readMutex);
+		//al_unlock_mutex(config.readMutex);
 		al_rest(config.automatic_reload_time/1000.0);
 	}
 	return 0;
@@ -1287,8 +1288,10 @@ void reloadDisplayedSegment(){
 	parms.sizex = config.segmentSize.x;
 	parms.sizey = config.segmentSize.y;
 	parms.sizez = segmentHeight;
+
 	al_start_thread(config.readThread);
-	al_broadcast_cond(config.readCond);
+	//al_broadcast_cond(config.readCond);
+
 	//if(!viewedSegment || viewedSegment->regionSize.x == 0 || viewedSegment->regionSize.y == 0)
 	//{
 	//	abortAutoReload();

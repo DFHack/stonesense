@@ -74,5 +74,6 @@ c_block_tree * getVegetationTree(vector<VegetationConfiguration>& vegetationConf
 		return &(current->tree);
 	}
 	static c_block_tree* tree = new c_block_tree;
+	tree->set_sheetindex(-1);
 	return tree;
 }
