@@ -233,6 +233,24 @@ bool ContentLoader::Load( DFHack::Context& DF){
 	return true;
 }
 
+bool ContentLoader::reload_configs()
+{
+	flushBuildingConfig(&buildingConfigs);
+	flushTerrainConfig(terrainFloorConfigs);
+	flushTerrainConfig(terrainBlockConfigs);
+	flushColorConfig(colorConfigs);
+	creatureConfigs.clear();
+	treeConfigs.clear();
+	shrubConfigs.clear();
+	grassConfigs.clear();
+	flushImgFiles();
+
+	loadGraphicsFromDisk(); //these get destroyed when flushImgFiles is called.
+	bool overallResult = parseContentIndexFile( "index.txt" );
+
+	return overallResult;
+}
+
 // takes a filename and the file referring to it, and makes a combined filename in
 // HTML style: (ie "/something" is relative to the stonesense root, everything
 // else is relative to the referrer)

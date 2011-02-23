@@ -29,6 +29,8 @@ public:
 
 	bool Load( DFHack::Context& DF);
 
+	bool reload_configs();
+
 	vector<BuildingConfiguration> buildingConfigs;
 	vector<vector<CreatureConfiguration>*> creatureConfigs;
 	vector<VegetationConfiguration> treeConfigs;

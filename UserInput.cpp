@@ -212,10 +212,8 @@ void doKeys(int Key)
 		paintboard();
 	}
 	if(Key == ALLEGRO_KEY_G){
-		flushImgFiles();
-		loadGraphicsFromDisk();
-		timeToReloadConfig = true;
-		timeToReloadSegment = true;
+		//contentLoader.reload_configs();
+		//timeToReloadSegment = true;
 	}
 	if(Key == ALLEGRO_KEY_U){
 		config.show_stockpiles = !config.show_stockpiles;
