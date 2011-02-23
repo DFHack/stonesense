@@ -353,10 +353,12 @@ void drawDebugCursorAndInfo(){
 	Block* b = viewedSegment->getBlockLocal( debugCursor.x, debugCursor.y, debugCursor.z+viewedSegment->sizez-2);
 	int i = 10;
 	draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, "Block 0x%x", b);
+	
+	draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
+		"Coord:(%i,%i,%i)", debugCursor.x, debugCursor.y, debugCursor.z);
+
 	if(!b) return;
 
-	draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
-		"Coord:(%i,%i,%i)", b->x,b->y,b->z);
 
 	int ttype;
 	char* tform = NULL;

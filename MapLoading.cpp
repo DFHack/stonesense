@@ -1148,54 +1148,59 @@ void FollowCurrentDFCenter( )
 	}
 }
 
-static void * threadedSegment(ALLEGRO_THREAD *thread, void *arg)
+void read_segment( void *arg)
 {
 	static bool firstLoad = 1;
+	//al_lock_mutex(config.readMutex);
+	//al_wait_cond(config.readCond, config.readMutex);
+	if(parms.is_connected == 0)
+	{
+		DFProc->attach();
+		parms.is_connected = 1;
+	}
+	config.threadstarted = 1;
+	if(altSegment)
+	{
+		al_lock_mutex(altSegment->mutie);
+		al_unlock_mutex(altSegment->mutie);
+		altSegment->Dispose();
+		delete(altSegment);
+	}
+	pDFApiHandle->Suspend();
+	if (firstLoad || config.follow_DFscreen)
+	{
+		firstLoad = 0;
+		if (config.track_center)
+		{
+			FollowCurrentDFCenter();
+		}
+		else
+		{
+			FollowCurrentDFWindow();
+		}
+	}
+	altSegment = ReadMapSegment(*pDFApiHandle, parms.x, parms.y, parms.z,
+		parms.sizex, parms.sizey, parms.sizez);
+	config.threadstarted = 0;
+	pDFApiHandle->Resume();
+	if(parms.thread_connect == 0)
+	{
+		DFProc->detach();
+		parms.is_connected = 0;
+		al_unlock_mutex(parms.m_connection);
+	}
+	if(viewedSegment)
+		al_lock_mutex(viewedSegment->mutie);
+	swapSegments();
+	if(altSegment)
+		al_unlock_mutex(altSegment->mutie);
+}
+
+static void * threadedSegment(ALLEGRO_THREAD *thread, void *arg)
+{
 	while(!al_get_thread_should_stop(thread))
 	{
-		//al_lock_mutex(config.readMutex);
-		//al_wait_cond(config.readCond, config.readMutex);
-		if(parms.is_connected == 0)
-		{
-			DFProc->attach();
-			parms.is_connected = 1;
-		}
-		config.threadstarted = 1;
-		if(altSegment)
-		{
-			al_lock_mutex(altSegment->mutie);
-			al_unlock_mutex(altSegment->mutie);
-			altSegment->Dispose();
-			delete(altSegment);
-		}
-		pDFApiHandle->Suspend();
-		if (firstLoad || config.follow_DFscreen)
-		{
-			firstLoad = 0;
-			if (config.track_center)
-			{
-				FollowCurrentDFCenter();
-			}
-			else
-			{
-				FollowCurrentDFWindow();
-			}
-		}
-		altSegment = ReadMapSegment(*pDFApiHandle, parms.x, parms.y, parms.z,
-			parms.sizex, parms.sizey, parms.sizez);
-		config.threadstarted = 0;
-		pDFApiHandle->Resume();
-		if(parms.thread_connect == 0)
-		{
-			DFProc->detach();
-			parms.is_connected = 0;
-			al_unlock_mutex(parms.m_connection);
-		}
-		if(viewedSegment)
-			al_lock_mutex(viewedSegment->mutie);
-		swapSegments();
-		if(altSegment)
-		al_unlock_mutex(altSegment->mutie);
+		read_segment(arg);
 		//al_unlock_mutex(config.readMutex);
 		al_rest(config.automatic_reload_time/1000.0);
 	}
@@ -1274,10 +1279,13 @@ void reloadDisplayedSegment(){
 
 	int segmentHeight = config.single_layer_view ? 2 : config.segmentSize.z;
 	//load segment
-	if(!config.threadmade)
+	if(config.threading_enable)
 	{
-		config.readThread = al_create_thread(threadedSegment, NULL);
-		config.threadmade = 1;
+		if(!config.threadmade)
+		{
+			config.readThread = al_create_thread(threadedSegment, NULL);
+			config.threadmade = 1;
+		}
 	}
 	//if(config.threadstarted)
 	//	al_join_thread(config.readThread, NULL);
@@ -1289,7 +1297,11 @@ void reloadDisplayedSegment(){
 	parms.sizey = config.segmentSize.y;
 	parms.sizez = segmentHeight;
 
-	al_start_thread(config.readThread);
+	if(config.threading_enable)
+		al_start_thread(config.readThread);
+	else
+		read_segment(NULL);
+
 	//al_broadcast_cond(config.readCond);
 
 	//if(!viewedSegment || viewedSegment->regionSize.x == 0 || viewedSegment->regionSize.y == 0)

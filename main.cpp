@@ -139,7 +139,7 @@ void SetTitle(const char *format, ...)
 void correctBlockForSegmetOffset(int32_t& x, int32_t& y, int32_t& z){
 	x -= DisplayedSegmentX;
 	y -= DisplayedSegmentY; //DisplayedSegmentY;
-	z -= DisplayedSegmentZ + viewedSegment->sizez - 2; // loading one above the top of the displayed segment for block rules
+	z -= DisplayedSegmentZ - 1; // + viewedSegment->sizez - 2; // loading one above the top of the displayed segment for block rules
 }
 
 void loadfont()
@@ -276,6 +276,7 @@ int main(void)
 	config.bloodcutoff = 100;
 	config.poolcutoff = 100;
 	config.threadmade = 0;
+	config.threading_enable = 1;
 	initRandomCube();
 	loadConfigFile();
 	loadfont();

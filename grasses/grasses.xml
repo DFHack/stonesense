@@ -1,27 +1,176 @@
 <?xml version="1.0"?>
-<grasses file="grass.png">
-  <plant gameID="REEDGRASS" grass_min="75" sheetIndex="44" variations="1">
-    <subsprite grass_min="50" grass_max="74" sheetIndex="42" variations="1" />
-    <subsprite grass_min="25" grass_max="49" sheetIndex="40" variations="1" />
+<grasses file="grasses_gray.png">
+  <plant gameID="MEADOW-GRASS" color = "grass" grass_min="75" sheetIndex="4" variations="2">
+    <subsprite grass_min="50" color = "grass" grass_max="74" sheetIndex="2" variations="2" />
+    <subsprite grass_min="25" color = "grass" grass_max="49" sheetIndex="0" variations="2" />
   </plant>
-  <plant gameID="GRAMA" grass_min="75" sheetIndex="44" variations="1">
-    <subsprite grass_min="50" grass_max="74" sheetIndex="42" variations="1" />
-    <subsprite grass_min="25" grass_max="49" sheetIndex="40" variations="1" />
+  <plant gameID="HAIR GRASS" color = "grass" grass_min="75" sheetIndex="10" variations="2">
+    <subsprite grass_min="50" color = "grass" grass_max="74" sheetIndex="8" variations="2" />
+    <subsprite grass_min="25" color = "grass" grass_max="49" sheetIndex="6" variations="2" />
   </plant>
-  <plant gameID="NEEDLE GRASS" grass_min="75" sheetIndex="24" variations="1">
-    <subsprite grass_min="50" grass_max="74" sheetIndex="22" variations="1" />
-    <subsprite grass_min="25" grass_max="49" sheetIndex="20" variations="1" />
+  <plant gameID="BENTGRASS" color = "grass" grass_min="75" sheetIndex="4" variations="2">
+    <subsprite grass_min="50" color = "grass" grass_max="74" sheetIndex="2" variations="2" />
+    <subsprite grass_min="25" color = "grass" grass_max="49" sheetIndex="0" variations="2" />
   </plant>
-  <plant gameID="DOG'S TOOTH GRASS" grass_min="75" sheetIndex="24" variations="1">
-    <subsprite grass_min="50" grass_max="74" sheetIndex="22" variations="1" />
-    <subsprite grass_min="25" grass_max="49" sheetIndex="20" variations="1" />
+  <plant gameID="RYEGRASS" color = "grass" grass_min="75" sheetIndex="16" variations="2">
+    <subsprite grass_min="50" color = "grass" grass_max="74" sheetIndex="14" variations="2" />
+    <subsprite grass_min="25" color = "grass" grass_max="49" sheetIndex="12" variations="2" />
   </plant>
-  <plant gameID="BENTGRASS" grass_min="75" sheetIndex="4" variations="1">
-    <subsprite grass_min="50" grass_max="74" sheetIndex="2" variations="1" />
-    <subsprite grass_min="25" grass_max="49" sheetIndex="0" variations="1" />
+  <plant gameID="FESCUE GRASS" color = "grass" grass_min="75" sheetIndex="10" variations="2">
+    <subsprite grass_min="50" color = "grass" grass_max="74" sheetIndex="8" variations="2" />
+    <subsprite grass_min="25" color = "grass" grass_max="49" sheetIndex="6" variations="2" />
   </plant>
-  <plant gameID="DROPSEED GRASS" grass_min="75" sheetIndex="44" variations="1">
-    <subsprite grass_min="50" grass_max="74" sheetIndex="42" variations="1" />
-    <subsprite grass_min="25" grass_max="49" sheetIndex="40" variations="1" />
+  <plant gameID="REEDGRASS" color = "grass" grass_min="75" sheetIndex="36" variations="2">
+    <subsprite grass_min="50" color = "grass" grass_max="74" sheetIndex="34" variations="2" />
+    <subsprite grass_min="25" color = "grass" grass_max="49" sheetIndex="32" variations="2" />
   </plant>
+  
+  <plant gameID="KNOTGRASS" color = "grass" grass_min="75" sheetIndex="16" variations="2">
+    <subsprite grass_min="50" color = "grass" grass_max="74" sheetIndex="14" variations="2" />
+    <subsprite grass_min="25" color = "grass" grass_max="49" sheetIndex="12" variations="2" />
+  </plant>
+  <plant gameID="ZOYSIA" color = "grass" grass_min="75" sheetIndex="4" variations="2">
+    <subsprite grass_min="50" color = "grass" grass_max="74" sheetIndex="2" variations="2" />
+    <subsprite grass_min="25" color = "grass" grass_max="49" sheetIndex="0" variations="2" />
+  </plant>
+  <plant gameID="DOG'S TOOTH GRASS" color = "grass" grass_min="75" sheetIndex="4" variations="2">
+    <subsprite grass_min="50" color = "grass" grass_max="74" sheetIndex="2" variations="2" />
+    <subsprite grass_min="25" color = "grass" grass_max="49" sheetIndex="0" variations="2" />
+  </plant>
+  <plant gameID="DALLISGRASS" color = "grass" grass_min="75" sheetIndex="4" variations="2">
+    <subsprite grass_min="50" color = "grass" grass_max="74" sheetIndex="2" variations="2" />
+    <subsprite grass_min="25" color = "grass" grass_max="49" sheetIndex="0" variations="2" />
+  </plant>
+  <plant gameID="CARPETGRASS" color = "grass" grass_min="75" sheetIndex="4" variations="2">
+    <subsprite grass_min="50" color = "grass" grass_max="74" sheetIndex="2" variations="2" />
+    <subsprite grass_min="25" color = "grass" grass_max="49" sheetIndex="0" variations="2" />
+  </plant>
+  <plant gameID="SATINTAIL" color = "grass" grass_min="75" sheetIndex="4" variations="2">
+    <subsprite grass_min="50" color = "grass" grass_max="74" sheetIndex="2" variations="2" />
+    <subsprite grass_min="25" color = "grass" grass_max="49" sheetIndex="0" variations="2" />
+  </plant>
+ 
+ 
+ <plant gameID="GRAMA" color = "grass" grass_min="75" sheetIndex="16" variations="2">
+    <subsprite grass_min="50" color = "grass" grass_max="74" sheetIndex="14" variations="2" />
+    <subsprite grass_min="25" color = "grass" grass_max="49" sheetIndex="12" variations="2" />
+  </plant>
+  <plant gameID="DROPSEED GRASS" color = "grass" grass_min="75" sheetIndex="4" variations="2">
+    <subsprite grass_min="50" color = "grass" grass_max="74" sheetIndex="2" variations="2" />
+    <subsprite grass_min="25" color = "grass" grass_max="49" sheetIndex="0" variations="2" />
+  </plant>
+  <plant gameID="NEEDLE GRASS" color = "grass" grass_min="75" sheetIndex="10" variations="2">
+    <subsprite grass_min="50" color = "grass" grass_max="74" sheetIndex="8" variations="2" />
+    <subsprite grass_min="25" color = "grass" grass_max="49" sheetIndex="6" variations="2" />
+  </plant>
+  <plant gameID="BABY TOES SUCCULENT" file="grasses.png" grass_min="75" sheetIndex="56" variations="2">
+    <subsprite grass_min="50"  grass_max="74" sheetIndex="54" variations="2" />
+    <subsprite grass_min="25"  grass_max="49" sheetIndex="52" variations="2" />
+  </plant>
+  <plant gameID="PEBBLE PLANTS" file="grasses.png" grass_min="75" sheetIndex="50" variations="2">
+    <subsprite grass_min="50"  grass_max="74" sheetIndex="48" variations="2" />
+    <subsprite grass_min="25"  grass_max="49" sheetIndex="46" variations="2" />
+  </plant>
+  <plant gameID="BLUE SEDGE" color = "grass" grass_min="75" sheetIndex="4" variations="2">
+    <subsprite grass_min="50" color = "grass" grass_max="74" sheetIndex="2" variations="2" />
+    <subsprite grass_min="25" color = "grass" grass_max="49" sheetIndex="0" variations="2" />
+  </plant>
+  
+  <plant gameID="FIELD SEDGE" color = "grass" grass_min="75" sheetIndex="4" variations="2">
+    <subsprite grass_min="50" color = "grass" grass_max="74" sheetIndex="2" variations="2" />
+    <subsprite grass_min="25" color = "grass" grass_max="49" sheetIndex="0" variations="2" />
+  </plant>
+  <plant gameID="PURPLE MOOR GRASS" color = "grass" grass_min="75" sheetIndex="4" variations="2">
+    <subsprite grass_min="50" color = "grass" grass_max="74" sheetIndex="2" variations="2" />
+    <subsprite grass_min="25" color = "grass" grass_max="49" sheetIndex="0" variations="2" />
+  </plant>
+  <plant gameID="VELVET GRASS" color = "grass" grass_min="75" sheetIndex="4" variations="2">
+    <subsprite grass_min="50" color = "grass" grass_max="74" sheetIndex="2" variations="2" />
+    <subsprite grass_min="25" color = "grass" grass_max="49" sheetIndex="0" variations="2" />
+  </plant>
+  <plant gameID="MEADOWSWEET" color = "grass" grass_min="75" sheetIndex="4" variations="2">
+    <subsprite grass_min="50" color = "grass" grass_max="74" sheetIndex="2" variations="2" />
+    <subsprite grass_min="25" color = "grass" grass_max="49" sheetIndex="0" variations="2" />
+  </plant>
+   <plant gameID="RUSH" color = "grass" grass_min="75" sheetIndex="4" variations="2">
+    <subsprite grass_min="50" color = "grass" grass_max="74" sheetIndex="2" variations="2" />
+    <subsprite grass_min="25" color = "grass" grass_max="49" sheetIndex="0" variations="2" />
+  </plant>
+  <plant gameID="MARSH THISTLE" color = "grass" grass_min="75" sheetIndex="4" variations="2">
+    <subsprite grass_min="50" color = "grass" grass_max="74" sheetIndex="2" variations="2" />
+    <subsprite grass_min="25" color = "grass" grass_max="49" sheetIndex="0" variations="2" />
+  </plant>
+  
+  <plant gameID="COMMON REED" file="grasses.png" grass_min="75" sheetIndex="36" variations="2">
+    <subsprite grass_min="50" grass_max="74" sheetIndex="34" variations="2" />
+    <subsprite grass_min="25" grass_max="49" sheetIndex="32" variations="2" />
+  </plant>
+  <plant gameID="CATTAIL" color = "grass" grass_min="75" sheetIndex="36" variations="2">
+    <subsprite grass_min="50" color = "grass" grass_max="74" sheetIndex="34" variations="2" />
+    <subsprite grass_min="25" color = "grass" grass_max="49" sheetIndex="32" variations="2" />
+  </plant>
+  <plant gameID="SAWGRASS" color = "grass" grass_min="75" sheetIndex="4" variations="2">
+    <subsprite grass_min="50" color = "grass" grass_max="74" sheetIndex="2" variations="2" />
+    <subsprite grass_min="25" color = "grass" grass_max="49" sheetIndex="0" variations="2" />
+  </plant>
+  <plant gameID="COTTONGRASS" file="grasses.png" grass_min="75" sheetIndex="30" variations="2">
+    <subsprite grass_min="50" grass_max="74" sheetIndex="28" variations="2" />
+    <subsprite grass_min="25" grass_max="49" sheetIndex="26" variations="2" />
+  </plant>
+  <plant gameID="WHITE MOUNTAIN HEATHER" color = "grass" grass_min="75" sheetIndex="4" variations="2">
+    <subsprite grass_min="50" color = "grass" grass_max="74" sheetIndex="2" variations="2" />
+    <subsprite grass_min="25" color = "grass" grass_max="49" sheetIndex="0" variations="2" />
+  </plant>
+  <plant gameID="MOUNTAIN AVENS" color = "grass" grass_min="75" sheetIndex="4" variations="2">
+    <subsprite grass_min="50" color = "grass" grass_max="74" sheetIndex="2" variations="2" />
+    <subsprite grass_min="25" color = "grass" grass_max="49" sheetIndex="0" variations="2" />
+  </plant>
+  
+  <plant gameID="WORMY TENDRILS" file="grasses.png"  grass_min="75" sheetIndex="64" variations="2">
+    <subsprite grass_min="75" sheetIndex="64" variations="2" frames="45" random_anim_offset="1" />
+	<subsprite grass_min="75" sheetIndex="84" variations="2" frames="03" random_anim_offset="1" />
+    <subsprite grass_min="75" sheetIndex="104" variations="2" frames="12" random_anim_offset="1" />
+	
+	<subsprite grass_min="50" grass_max="74" sheetIndex="62" variations="2" frames="45" random_anim_offset="1" />
+	<subsprite grass_min="50" grass_max="74" sheetIndex="82" variations="2" frames="03" random_anim_offset="1" />
+	<subsprite grass_min="50" grass_max="74" sheetIndex="102" variations="2" frames="12" random_anim_offset="1" />
+	
+	<subsprite grass_min="25" grass_max="49" sheetIndex="60" variations="2" frames="45" random_anim_offset="1" />
+	<subsprite grass_min="25" grass_max="49" sheetIndex="80" variations="2" frames="03" random_anim_offset="1" />
+	<subsprite grass_min="25" grass_max="49" sheetIndex="100" variations="2" frames="12" random_anim_offset="1" />
+  </plant>
+  
+  <plant gameID="EYEBALL" file="grasses.png"  grass_min="75" sheetIndex="70" variations="2">
+	<subsprite grass_min="75" sheetIndex="70" variations="2" frames="45" random_anim_offset="1" />
+	<subsprite grass_min="75" sheetIndex="90" variations="2" frames="03" random_anim_offset="1" />
+    <subsprite grass_min="75" sheetIndex="110" variations="2" frames="12" random_anim_offset="1" />
+	
+	<subsprite grass_min="50" grass_max="74" sheetIndex="68" variations="2" frames="45" random_anim_offset="1" />
+	<subsprite grass_min="50" grass_max="74" sheetIndex="88" variations="2" frames="03" random_anim_offset="1" />
+	<subsprite grass_min="50" grass_max="74" sheetIndex="108" variations="2" frames="12" random_anim_offset="1" />
+	
+	<subsprite grass_min="25" grass_max="49" sheetIndex="66" variations="2" frames="45" random_anim_offset="1" />
+	<subsprite grass_min="25" grass_max="49" sheetIndex="86" variations="2" frames="03" random_anim_offset="1" />
+	<subsprite grass_min="25" grass_max="49" sheetIndex="106" variations="2" frames="12" random_anim_offset="1" />
+  </plant>
+  
+  <plant gameID="BUBBLE BULBS" file="grasses.png"  grass_min="75" sheetIndex="96" variations="2">
+    <subsprite  grass_min="50" grass_max="74" sheetIndex="94" variations="2" />
+    <subsprite  grass_min="25" grass_max="49" sheetIndex="92" variations="2" />
+  </plant>
+  <plant gameID="DOWNY GRASS" file="grasses.png"  grass_min="75" sheetIndex="76" variations="2">
+    <subsprite  grass_min="50" grass_max="74" sheetIndex="74" variations="2" />
+    <subsprite  grass_min="25" grass_max="49" sheetIndex="72" variations="2" />
+  </plant>
+  
+  
+  <plant gameID="CAVE MOSS" file="grasses.png"  grass_min="75" sheetIndex="24" variations="2">
+    <subsprite  grass_min="50" grass_max="74" sheetIndex="22" variations="2" />
+    <subsprite  grass_min="25" grass_max="49" sheetIndex="20" variations="2" />
+  </plant>
+  <plant gameID="FLOOR FUNGI" file="grasses.png"  grass_min="75" sheetIndex="44" variations="2">
+    <subsprite  grass_min="50" grass_max="74" sheetIndex="42" variations="2" />
+    <subsprite  grass_min="25" grass_max="49" sheetIndex="40" variations="2" />
+  </plant>
+
 </grasses>

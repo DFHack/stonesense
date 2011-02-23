@@ -202,6 +202,8 @@ typedef struct {
 	ALLEGRO_THREAD * readThread;
 	bool threadmade;
 	bool threadstarted;
+
+	bool threading_enable;
 } GameConfiguration;
 
 
