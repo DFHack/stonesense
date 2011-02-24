@@ -44,12 +44,13 @@ SET(PROJECT_SRCS
     Block.cpp
     BlockCondition.cpp
     BlockFactory.cpp
+	BlockTree.cpp
     BuildingConfiguration.cpp
     ColorConfiguration.cpp
     ConditionalSprite.cpp
     Config.cpp
     Constructions.cpp
-    ContentBuildingReader
+    ContentBuildingReader.cpp
     ContentLoader.cpp
     CreatureConfiguration.cpp
     Creatures.cpp
