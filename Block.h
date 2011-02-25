@@ -93,6 +93,7 @@ public:
 		t_building info;
 		vector<c_sprite> sprites;
 		uint32_t index;
+		uint32_t custom_building_type;
 	} building;
 
 	bool IsVisible(){

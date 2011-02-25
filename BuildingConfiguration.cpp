@@ -87,3 +87,21 @@ int TranslateBuildingName( const char* currentName, vector<string>& buildingName
     WriteErr("Unable to match building '%s' to anything in-game\n", currentName);
 	return INVALID_INDEX;
 }
+
+int TranslateBuildingName( const char* currentName, map<uint32_t, std::string>& buildingNames )
+{
+  if (currentName == NULL || currentName[0]==0)
+	return INVALID_INDEX;
+
+    uint32_t j;
+    uint32_t num =  (uint32_t)buildingNames.size();
+    for(j=0; j < num; j++){
+      if( strcmp( currentName, buildingNames[j].c_str()) == 0){
+        //assign ID
+        return (j);
+      }
+    }
+    
+    WriteErr("Unable to match building '%s' to anything in-game\n", currentName);
+	return INVALID_INDEX;
+}

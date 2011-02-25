@@ -145,6 +145,7 @@ void MergeBuildingsToSegment(vector<t_building>* buildings, WorldSegment* segmen
 							continue; 
 						b->building.index = i;
 						b->building.info = tempbuilding;
+						b->building.custom_building_type = contentLoader.Bld->GetCustomWorkshopType(tempbuilding);
 					}
 				}
 			}
@@ -170,19 +171,37 @@ void loadBuildingSprites ( Block* b, DFHack::Context& DF){
 		WriteErr("Null Block skipped in loadBuildingSprites\n");
 		return;
 	}
+	if(b->building.custom_building_type == -1)
+	{
+		uint32_t numBuildings = (uint32_t)contentLoader.buildingConfigs.size();
+		for(uint32_t i = 0; i < numBuildings; i++){
+			BuildingConfiguration& conf = contentLoader.buildingConfigs[i];
+			if(b->building.info.type != conf.gameID) continue;
 
-	uint32_t numBuildings = (uint32_t)contentLoader.buildingConfigs.size();
-	for(uint32_t i = 0; i < numBuildings; i++){
-		BuildingConfiguration& conf = contentLoader.buildingConfigs[i];
-		if(b->building.info.type != conf.gameID) continue;
-
-		//check all sprites for one that matches all conditions
-		if (conf.sprites != NULL && conf.sprites->BlockMatches(b))
-		{
-			foundBlockBuildingInfo = true;
+			//check all sprites for one that matches all conditions
+			if (conf.sprites != NULL && conf.sprites->BlockMatches(b))
+			{
+				foundBlockBuildingInfo = true;
+			}
+			break;
 		}
-		break;
 	}
+	else
+	{
+		uint32_t numCustBuildings = (uint32_t)contentLoader.customBuildingConfigs.size();
+		for(uint32_t i = 0; i < numCustBuildings; i++){
+			BuildingConfiguration& cust = contentLoader.customBuildingConfigs[i];
+			if(b->building.custom_building_type != cust.gameID) continue;
+
+			//check all sprites for one that matches all conditions
+			if (cust.sprites != NULL && cust.sprites->BlockMatches(b))
+			{
+				foundBlockBuildingInfo = true;
+			}
+			break;
+		}
+	}
+
 	//add yellow box, if needed. But only if the building was not found (this way we can have blank slots in buildings)
 	if(b->building.sprites.size() == 0 && foundBlockBuildingInfo == false){
 		c_sprite unknownBuildingSprite;

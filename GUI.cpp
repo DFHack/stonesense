@@ -444,6 +444,12 @@ void drawDebugCursorAndInfo(){
 			b->building.info.type, b->building.info.vtable,
 			matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"",
 			b->building.info.material.type,b->building.info.material.index);
+
+		if(b->building.custom_building_type != -1)
+		{
+		draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
+		"Custom workshop type %s (%d)", contentLoader.custom_workshop_types[b->building.custom_building_type].c_str(),b->building.custom_building_type);
+		}
 	}
 
 	//creatures

@@ -13,6 +13,7 @@ private:
 	bool parseContentIndexFile( char* filepath );
 	bool parseContentXMLFile( char* filepath );
 	bool parseBuildingContent( TiXmlElement* elemRoot );
+	bool parseCustomBuildingContent( TiXmlElement* elemRoot );
 	bool parseCreatureContent( TiXmlElement* elemRoot );
 	bool parseTerrainContent ( TiXmlElement* elemRoot );
 	bool parseTreeContent( TiXmlElement* elemRoot );
@@ -32,6 +33,7 @@ public:
 	bool reload_configs();
 
 	vector<BuildingConfiguration> buildingConfigs;
+	vector<BuildingConfiguration> customBuildingConfigs;
 	vector<vector<CreatureConfiguration>*> creatureConfigs;
 	vector<VegetationConfiguration> treeConfigs;
 	vector<VegetationConfiguration> shrubConfigs;
@@ -44,6 +46,7 @@ public:
 
 	vector<string> classIdStrings;
 	vector<string> professionStrings;
+	std::map <uint32_t, std::string> custom_workshop_types;
 	VersionInfo *MemInfo;
 	DFHack::Buildings * Bld;
 	DFHack::Materials * Mats;

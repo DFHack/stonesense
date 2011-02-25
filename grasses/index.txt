@@ -1,1 +1,2 @@
 grasses.xml
+grasses_grayscale.xml

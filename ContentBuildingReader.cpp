@@ -251,7 +251,7 @@ bool parseSpriteNode(SpriteNode* node, TiXmlElement* elemParent)
 		contentError("Empty SpriteNode Element",elemParent);
 		return false;		
 	}
-	if ( strcmp(strParent,"building") != 0 && strcmp(strParent,"rotate") != 0)
+	if ( strcmp(strParent,"building") != 0 && strcmp(strParent,"custom_workshop") != 0 && strcmp(strParent,"rotate") != 0)
 	{
 		//flag to allow else statements to be empty, rather than needing an "always" tag
 		bool allowBlank = (strcmp(strParent,"else") == 0 || elemParent->Attribute("else"));
@@ -283,6 +283,36 @@ bool addSingleBuildingConfig( TiXmlElement* elemRoot,  vector<BuildingConfigurat
 	}
 
 	int gameID = TranslateBuildingName(strGameID, contentLoader.classIdStrings );
+
+	if (gameID == INVALID_INDEX) {
+		return false;
+	}
+
+	BuildingConfiguration building(strName, gameID );
+	RootBlock* spriteroot = new RootBlock();
+	building.sprites = spriteroot;
+	if (!parseSpriteNode(spriteroot,elemRoot))
+	{
+		delete(spriteroot);
+		return false;
+	}
+
+	//add a copy of 'building' to known buildings
+	knownBuildings->push_back( building );
+	return true;
+}
+
+bool addSingleCustomBuildingConfig( TiXmlElement* elemRoot,  vector<BuildingConfiguration>* knownBuildings ){
+	const char* strName = elemRoot->Attribute("name");
+	const char* strGameID = elemRoot->Attribute("gameID");
+
+	if (strName == NULL || strGameID == NULL || strName[0] == 0 || strGameID[0] == 0)
+	{
+		contentError("<building> node must have name and gameID attributes",elemRoot);
+		return false;
+	}
+
+	int gameID = TranslateBuildingName(strGameID, contentLoader.custom_workshop_types );
 
 	if (gameID == INVALID_INDEX) {
 		return false;

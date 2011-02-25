@@ -1,7 +1,41 @@
 <?xml version="1.0"?>
 <include file="../workshop.png">
-  <sprite index="20" color="building" />
-  <sprite index="140" color="building" />
+  <if>
+    <MaterialType value="Wood" />
+    <sprite index="21" color="building" />
+  </if>
+  <else>
+    <MaterialType value="GreenGlass" />
+    <sprite index="24" />
+  </else>
+  <else>
+    <or>
+      <MaterialType value="ClearGlass" />
+      <MaterialType value="CrystalGlass" />
+    </or>
+    <sprite index="23" />
+  </else>
+  <else>
+    <sprite index="20" color="building" />
+  </else>
+  <if>
+    <MaterialType value="Wood" />
+    <sprite index="141" color="building" />
+  </if>
+  <else>
+    <MaterialType value="GreenGlass" />
+    <sprite index="144" />
+  </else>
+  <else>
+    <or>
+      <MaterialType value="ClearGlass" />
+      <MaterialType value="CrystalGlass" />
+    </or>
+    <sprite index="143" />
+  </else>
+  <else>
+    <sprite index="140" color="building" />
+  </else>
   <!-- borders -->
   <if>
     <not>

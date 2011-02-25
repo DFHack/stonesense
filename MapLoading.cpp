@@ -649,11 +649,11 @@ WorldSegment* ReadMapSegment(DFHack::Context &DF, int x, int y, int z, int sizex
 		memInfoHasBeenRead = true;
 	}
 
-	if (timeToReloadConfig)
-	{
-		contentLoader.Load(DF);
-		timeToReloadConfig = false;
-	}
+	//if (timeToReloadConfig)
+	//{
+	//	contentLoader.Load(DF);
+	//	timeToReloadConfig = false;
+	//}
 
 	//read date
 	if(!config.skipWorld)

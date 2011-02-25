@@ -17,6 +17,7 @@ ContentLoader::~ContentLoader(void)
 { 
 	//flush content on exit
 	flushBuildingConfig(&buildingConfigs);
+	flushBuildingConfig(&customBuildingConfigs);
 	flushTerrainConfig(terrainFloorConfigs);
 	flushTerrainConfig(terrainBlockConfigs);	
 	flushCreatureConfig();
@@ -48,6 +49,7 @@ bool ContentLoader::Load( DFHack::Context& DF){
 	al_flip_display();*/
 	//flush old config
 	flushBuildingConfig(&buildingConfigs);
+	flushBuildingConfig(&customBuildingConfigs);
 	flushTerrainConfig(terrainFloorConfigs);
 	flushTerrainConfig(terrainBlockConfigs);
 	flushColorConfig(colorConfigs);
@@ -170,6 +172,13 @@ bool ContentLoader::Load( DFHack::Context& DF){
 	{
 		WriteErr("DFhack exeption: %s\n", e.what());
 	}
+	if(Bld)
+	{
+		unsigned int bla;
+		Bld->Start(bla);
+		Bld->ReadCustomWorkshopTypes(custom_workshop_types);
+		Bld->Finish();
+	}
 	try
 	{
 		contentLoader.MemInfo = DF.getMemoryInfo();
@@ -236,6 +245,7 @@ bool ContentLoader::Load( DFHack::Context& DF){
 bool ContentLoader::reload_configs()
 {
 	flushBuildingConfig(&buildingConfigs);
+	flushBuildingConfig(&customBuildingConfigs);
 	flushTerrainConfig(terrainFloorConfigs);
 	flushTerrainConfig(terrainBlockConfigs);
 	flushColorConfig(colorConfigs);
@@ -373,6 +383,8 @@ bool ContentLoader::parseContentXMLFile( char* filepath ){
 		string elementType = elemRoot->Value();
 		if( elementType.compare( "building" ) == 0 )
 			runningResult &= parseBuildingContent( elemRoot );
+		else if( elementType.compare( "custom_workshop" ) == 0 )
+			runningResult &= parseCustomBuildingContent( elemRoot );
 		else if( elementType.compare( "creatures" ) == 0 )
 			runningResult &= parseCreatureContent( elemRoot );
 		else if( elementType.compare( "floors" ) == 0 )
@@ -401,6 +413,10 @@ bool ContentLoader::parseContentXMLFile( char* filepath ){
 
 bool ContentLoader::parseBuildingContent(TiXmlElement* elemRoot ){
 	return addSingleBuildingConfig( elemRoot, &buildingConfigs );
+}
+
+bool ContentLoader::parseCustomBuildingContent(TiXmlElement* elemRoot ){
+	return addSingleCustomBuildingConfig( elemRoot, &customBuildingConfigs );
 }
 
 bool ContentLoader::parseCreatureContent(TiXmlElement* elemRoot ){

@@ -24,3 +24,4 @@ public:
 
 //void TranslateBuildingNames(vector<BuildingConfiguration>& configs, vector<string>& buildingNames );
 int TranslateBuildingName( const char* currentName, vector<string>& buildingNames );
+int TranslateBuildingName( const char* currentName, map<uint32_t, std::string>& buildingNames );
