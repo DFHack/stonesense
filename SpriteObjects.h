@@ -21,6 +21,11 @@
 #define LIGHTYES 1
 #define LIGHTNO 2
 
+#define GRASS_GROWTH_ANY 0
+#define GRASS_GROWTH_NORMAL 1
+#define GRASS_GROWTH_DRY 2
+#define GRASS_GROWTH_DEAD 3
+
 
 class Block;
 
@@ -52,6 +57,7 @@ private:
 	int grassmin;
 
 	int grasstype;
+	char grass_growth;
 
 	unsigned int waterMin : 3;
 	unsigned int waterMax : 3;

@@ -341,7 +341,7 @@
 		mud_min="10"
 		/>
   </floor>
-  <floor sheetIndex="28">
+  <floor sheetIndex="4" color="material">
     <!-- Grass on clay -->
     <terrain value="348" />
     <terrain value="349" />
@@ -366,7 +366,7 @@
 		mud_min="10"
 		/>
   </floor>
-  <floor sheetIndex="29">
+  <floor sheetIndex="4" color="material">
     <!-- Dry Grass on clay -->
     <terrain value="387" />
     <terrain value="388" />

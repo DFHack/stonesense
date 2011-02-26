@@ -162,6 +162,7 @@ void c_sprite::reset(void)
 	grassmin = 0;
 	grassmax = -1;
 	grasstype = -1;
+	grass_growth = GRASS_GROWTH_ANY;
 	needoutline=0;
 	defaultsheet=IMGObjectSheet;
 	tilelayout=BLOCKTILE;
@@ -366,6 +367,29 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
 	else if( strcmp(spriteBorderStr, "bottom") == 0)
 	{
 		isoutline = OUTLINEBOTTOM;
+	}
+
+	//Grass states
+	const char* grass_growth_string = elemSprite->Attribute("grass_state");
+	if (grass_growth_string == NULL || grass_growth_string[0] == 0)
+	{
+		grass_growth = GRASS_GROWTH_ANY;
+	}
+	else if( strcmp(grass_growth_string, "any") == 0)
+	{
+		grass_growth = GRASS_GROWTH_ANY;
+	}
+	else if( strcmp(grass_growth_string, "green") == 0)
+	{
+		grass_growth = GRASS_GROWTH_NORMAL;
+	}
+	else if( strcmp(grass_growth_string, "dry") == 0)
+	{
+		grass_growth = GRASS_GROWTH_DRY;
+	}
+	else if( strcmp(grass_growth_string, "dead") == 0)
+	{
+		grass_growth = GRASS_GROWTH_DEAD;
 	}
 
 	//do bodyparts
@@ -582,7 +606,22 @@ void c_sprite::draw_world_offset(int x, int y, int z, Block * b, int tileoffset,
 					(mudmin <= b->mudlevel && (mudmax == -1 || mudmax >= b->mudlevel)) &&
 					(grassmin <= b->grasslevel && (grassmax == -1 || grassmax >= b->grasslevel)) &&
 					((light==LIGHTANY) || ((light==LIGHTYES) && b->designation.bits.skyview) || ((light==LIGHTNO) && !(b->designation.bits.skyview)))  &&//only bother with this tile if it's in the light, or not.
-					((grasstype == -1) || (grasstype == b->grassmat))
+					((grasstype == -1) || (grasstype == b->grassmat)) &&
+						(
+							(grass_growth == GRASS_GROWTH_ANY) || 
+							(
+								(grass_growth == GRASS_GROWTH_NORMAL) && 
+								((tileTypeTable[b->tileType].m == GRASS) || (tileTypeTable[b->tileType].m == GRASS2))
+							) ||
+							(
+								(grass_growth == GRASS_GROWTH_DRY) && 
+								(tileTypeTable[b->tileType].m == GRASS_DRY)
+							) ||
+							(
+								(grass_growth == GRASS_GROWTH_DEAD) && 
+								(tileTypeTable[b->tileType].m == GRASS_DEAD)
+							)
+						)
 					)
 				{
 					int32_t drawx = x;
