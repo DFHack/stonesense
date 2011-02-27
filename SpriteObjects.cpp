@@ -567,6 +567,13 @@ void c_sprite::draw_world_offset(int x, int y, int z, Block * b, int tileoffset,
 	int offsetAnimFrame = ((randomanimation?rando:0) + currentAnimationFrame) % MAX_ANIMFRAME;
 	//the following stuff is only bothered with if the animation frames say it should be drawn. this can be over-ridden
 	// by setting animate to 0
+
+	if(sheetindex == 48)
+	{
+		int spam = 0;
+		spam++;
+	}
+	
 	if ((animframes & (1 << offsetAnimFrame)) || !animate)
 	{
 		//if set by the xml file, a random offset between 0 and 'variations' is added to the sprite.
@@ -599,6 +606,7 @@ void c_sprite::draw_world_offset(int x, int y, int z, Block * b, int tileoffset,
 				(darkborders & b->lightborders)
 				))
 			{
+				int foo = 0;
 				if(
 					(snowmin <= b->snowlevel &&
 					(snowmax == -1 || snowmax >= b->snowlevel)) &&
@@ -658,12 +666,20 @@ void c_sprite::draw_world_offset(int x, int y, int z, Block * b, int tileoffset,
 						sheetx = ((sheetindex+tileoffset+randoffset) % SHEET_OBJECTSWIDE) * spritewidth;
 						sheety = ((sheetindex+tileoffset+randoffset) / SHEET_OBJECTSWIDE) * spriteheight;
 					}
+					ALLEGRO_COLOR shade_color = get_color(b);
+					if(!b->designation.bits.pile)
+					{
+						shade_color.r *= 0.25f;
+						shade_color.g *= 0.25f;
+						shade_color.b *= 0.25f;
+
+					}
 					if(chop && ( halftile == HALFTILECHOP))
 					{
 						if(fileindex < 0)
-							al_draw_tinted_bitmap_region(defaultsheet, get_color(b), sheetx, sheety+WALL_CUTOFF_HEIGHT, spritewidth, spriteheight-WALL_CUTOFF_HEIGHT, drawx + offset_x + offset_user_x, drawy + offset_user_y + (offset_y - WALLHEIGHT)+WALL_CUTOFF_HEIGHT, 0);
+							al_draw_tinted_bitmap_region(defaultsheet, shade_color, sheetx, sheety+WALL_CUTOFF_HEIGHT, spritewidth, spriteheight-WALL_CUTOFF_HEIGHT, drawx + offset_x + offset_user_x, drawy + offset_user_y + (offset_y - WALLHEIGHT)+WALL_CUTOFF_HEIGHT, 0);
 						else 
-							al_draw_tinted_bitmap_region(getImgFile(fileindex), get_color(b), sheetx, (sheety)+WALL_CUTOFF_HEIGHT, spritewidth, spriteheight-WALL_CUTOFF_HEIGHT, drawx + offset_x + offset_user_x, drawy + offset_user_y + (offset_y - WALLHEIGHT)+WALL_CUTOFF_HEIGHT, 0);
+							al_draw_tinted_bitmap_region(getImgFile(fileindex), shade_color, sheetx, (sheety)+WALL_CUTOFF_HEIGHT, spritewidth, spriteheight-WALL_CUTOFF_HEIGHT, drawx + offset_x + offset_user_x, drawy + offset_user_y + (offset_y - WALLHEIGHT)+WALL_CUTOFF_HEIGHT, 0);
 						//draw cut-off floor thing
 						al_draw_bitmap_region(IMGObjectSheet, 
 							TILEWIDTH * SPRITEFLOOR_CUTOFF, 0,
@@ -675,9 +691,9 @@ void c_sprite::draw_world_offset(int x, int y, int z, Block * b, int tileoffset,
 						if((isoutline == OUTLINENONE) || ((isoutline == OUTLINERIGHT) && (b->depthBorderNorth)) || ((isoutline == OUTLINELEFT) && (b->depthBorderWest)) || ((isoutline == OUTLINEBOTTOM) && (b->depthBorderDown)))
 						{
 							if(fileindex < 0)
-								al_draw_tinted_bitmap_region(defaultsheet, get_color(b), sheetx, sheety, spritewidth, spriteheight, drawx + offset_x + offset_user_x, drawy + offset_user_y + (offset_y - WALLHEIGHT), 0);
+								al_draw_tinted_bitmap_region(defaultsheet, shade_color, sheetx, sheety, spritewidth, spriteheight, drawx + offset_x + offset_user_x, drawy + offset_user_y + (offset_y - WALLHEIGHT), 0);
 							else 
-								al_draw_tinted_bitmap_region(getImgFile(fileindex), get_color(b), sheetx, sheety, spritewidth, spriteheight, drawx + offset_x + offset_user_x, drawy + offset_user_y + (offset_y - WALLHEIGHT), 0);
+								al_draw_tinted_bitmap_region(getImgFile(fileindex), shade_color, sheetx, sheety, spritewidth, spriteheight, drawx + offset_x + offset_user_x, drawy + offset_user_y + (offset_y - WALLHEIGHT), 0);
 						}
 						if(needoutline)
 						{

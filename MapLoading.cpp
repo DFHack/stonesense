@@ -136,6 +136,9 @@ bool isBlockOnVisibleEdgeOfSegment(WorldSegment* segment, Block* b)
 	if(b->z == segment->z + segment->sizez - 2) 
 		return true;
 
+	if(!(segment->getBlock(b->x, b->y, b->z+1)))
+		return true;
+
 	if (DisplayedRotation == 0 && 
 		(
 		b->x == segment->x + segment->sizex - 2
@@ -242,12 +245,14 @@ void ReadCellToSegment(DFHack::Context& DF, WorldSegment& segment, int CellX, in
 	uint8_t regionoffsets[16];
 	t_temperatures temp1, temp2;
 	DFHack::mapblock40d mapBlock;
+	std::vector<t_tree> plants;
 	Maps->ReadTileTypes(CellX, CellY, CellZ, (tiletypes40d *) tiletypes);
 	Maps->ReadDesignations(CellX, CellY, CellZ, (designations40d *) designations);
 	Maps->ReadOccupancy(CellX, CellY, CellZ, (occupancies40d *) occupancies);
 	Maps->ReadRegionOffsets(CellX,CellY,CellZ, (biome_indices40d *)regionoffsets);
 	Maps->ReadTemperatures(CellX, CellY, CellZ, &temp1, &temp2);
 	Maps->ReadBlock40d(CellX, CellY, CellZ, &mapBlock);
+	Maps->ReadVegetation(CellX, CellY, CellZ, &plants);
 	//read local vein data
 	vector <t_vein> veins;
 	vector <t_frozenliquidvein> ices;
@@ -259,7 +264,8 @@ void ReadCellToSegment(DFHack::Context& DF, WorldSegment& segment, int CellX, in
 	uint32_t numVeins = (uint32_t)veins.size();
 
 	//parse cell
-	for(uint32_t ly = BoundrySY; ly <= BoundryEY; ly++){
+	for(uint32_t ly = BoundrySY; ly <= BoundryEY; ly++)
+	{
 		for(uint32_t lx = BoundrySX; lx <= BoundryEX; lx++){
 			uint32_t gx = lx + (CellX * CELLEDGESIZE);
 			uint32_t gy = ly + (CellY * CELLEDGESIZE);
@@ -530,6 +536,24 @@ void ReadCellToSegment(DFHack::Context& DF, WorldSegment& segment, int CellX, in
 
 		}
 	}
+		
+	//add trees and other vegetation
+	for(int i = 0; i < plants.size(); i++)
+	{
+		Block* b = segment.getBlock( plants[i].x, plants[i].y, CellZ);
+		if(b && (
+			(tileTypeTable[b->tileType].c == TREE_DEAD) || 
+			(tileTypeTable[b->tileType].c == TREE_OK) ||
+			(tileTypeTable[b->tileType].c == SAPLING_DEAD) ||
+			(tileTypeTable[b->tileType].c == SAPLING_OK) ||
+			(tileTypeTable[b->tileType].c == SHRUB_DEAD) ||
+			(tileTypeTable[b->tileType].c == SHRUB_OK)
+			))
+		{
+			b->tree.type = plants[i].type;
+			b->tree.index = plants[i].material;
+		}
+	}
 }
 
 
@@ -582,19 +606,19 @@ WorldSegment* ReadMapSegment(DFHack::Context &DF, int x, int y, int z, int sizex
 	{
 		WriteErr("DFhack exeption: %s\n", e.what());
 	}
-	DFHack::Vegetation *Veg;
-	if(!config.skipVegetation)
-	{
-		try
-		{
-			Veg = DF.getVegetation();
-		}
-		catch (exception &e)
-		{
-			WriteErr("DFhack exeption: %s\n", e.what());
-			config.skipVegetation = true;
-		}
-	}
+	//DFHack::Vegetation *Veg;
+	//if(!config.skipVegetation)
+	//{
+	//	try
+	//	{
+	//		Veg = DF.getVegetation();
+	//	}
+	//	catch (exception &e)
+	//	{
+	//		WriteErr("DFhack exeption: %s\n", e.what());
+	//		config.skipVegetation = true;
+	//	}
+	//}
 	DFHack::Constructions *Cons;
 	if(!config.skipConstructions)
 	{
@@ -778,39 +802,39 @@ WorldSegment* ReadMapSegment(DFHack::Context &DF, int x, int y, int z, int sizex
 
 
 	//Read Vegetation
-	uint32_t numtrees;
-	if(!config.skipVegetation)
-	{
-		try
-		{
-			if (Veg->Start(numtrees))
-			{
-				t_tree temptree;
-				index = 0;
-				while(index < numtrees )
-				{
-					Veg->Read(index, temptree);
-					//want hashtable :(
-					Block* b;
-					if( b = segment->getBlock( temptree.x, temptree.y, temptree.z) )
-					{
-						b->tree.type = temptree.type;
-						b->tree.index = temptree.material;
+	//uint32_t numtrees;
+	//if(!config.skipVegetation)
+	//{
+	//	try
+	//	{
+	//		if (Veg->Start(numtrees))
+	//		{
+	//			t_tree temptree;
+	//			index = 0;
+	//			while(index < numtrees )
+	//			{
+	//				Veg->Read(index, temptree);
+	//				//want hashtable :(
+	//				Block* b;
+	//				if( b = segment->getBlock( temptree.x, temptree.y, temptree.z) )
+	//				{
+	//					b->tree.type = temptree.type;
+	//					b->tree.index = temptree.material;
 
-						c_block_tree * Tree = GetTreeVegetation( (TileClass) getVegetationType( b->floorType ), b->tree.index );
-						Tree->insert_sprites(segment, temptree.x, temptree.y, temptree.z);
-					}
-					index ++;
-				}
-				Veg->Finish();
-			}
-		}
-		catch(exception &err)
-		{
-			WriteErr("DFhack exeption: %s\n", err.what());
-			config.skipVegetation = true;
-		}
-	}
+	//					c_block_tree * Tree = GetTreeVegetation( (TileClass) getVegetationType( b->floorType ), b->tree.index );
+	//					Tree->insert_sprites(segment, temptree.x, temptree.y, temptree.z);
+	//				}
+	//				index ++;
+	//			}
+	//			Veg->Finish();
+	//		}
+	//	}
+	//	catch(exception &err)
+	//	{
+	//		WriteErr("DFhack exeption: %s\n", err.what());
+	//		config.skipVegetation = true;
+	//	}
+	//}
 
 	////Read Effects
 	//uint32_t numeffects;
@@ -871,6 +895,15 @@ WorldSegment* ReadMapSegment(DFHack::Context &DF, int x, int y, int z, int sizex
 	uint32_t numblocks = segment->getNumBlocks();
 	for(uint32_t i=0; i < numblocks; i++){
 		Block* b = segment->getBlock(i);
+
+		//populate trees
+		if(b->tree.index)
+		{
+			c_block_tree * Tree = GetTreeVegetation( (TileClass) getVegetationType( b->floorType ), b->tree.index );
+			Tree->insert_sprites(segment, b->x, b->y, b->z);
+		}
+
+
 		//setup building sprites
 		if( b->building.info.type != BUILDINGTYPE_NA && b->building.info.type != BUILDINGTYPE_BLACKBOX )
 			loadBuildingSprites( b, DF );

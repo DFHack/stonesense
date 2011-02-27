@@ -434,6 +434,10 @@ void drawDebugCursorAndInfo(){
 	if(b->tree.index != 0)
 		draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
 		"tree name:%s type:%i", lookupTreeName(b->tree.index), b->tree.type);
+	if(b->building.sprites.size() != 0)
+		draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
+		"%i extra sprites.", b->building.sprites.size());
+
 	//building
 	if(b->building.info.type != BUILDINGTYPE_NA && b->building.info.type != BUILDINGTYPE_BLACKBOX && b->building.info.type != BUILDINGTYPE_TREE){
 		const char* matName = lookupMaterialTypeName(b->building.info.material.type);
@@ -498,6 +502,11 @@ void drawDebugCursorAndInfo(){
 	{
 		draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
 			"Traffic: %d", b->designation.bits.traffic);
+	}
+	if(b->designation.bits.pile)
+	{
+		draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
+			"Stockpile?");
 	}
 	if(b->designation.bits.water_table)
 	{

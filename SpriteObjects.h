@@ -21,10 +21,13 @@
 #define LIGHTYES 1
 #define LIGHTNO 2
 
-#define GRASS_GROWTH_ANY 0
-#define GRASS_GROWTH_NORMAL 1
-#define GRASS_GROWTH_DRY 2
-#define GRASS_GROWTH_DEAD 3
+enum grass_growth
+{
+	GRASS_GROWTH_ANY,
+	GRASS_GROWTH_NORMAL,
+	GRASS_GROWTH_DRY,
+	GRASS_GROWTH_DEAD
+};
 
 
 class Block;

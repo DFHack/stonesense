@@ -12,11 +12,7 @@ c_block_tree_twig::~c_block_tree_twig()
 
 void c_block_tree_twig::insert_sprites(WorldSegment *w, int x, int y, int z)
 {
-	if(
-		!(x < w->x || x >= w->x + w->sizex) &&
-		!(y < w->y || y >= w->y + w->sizey) &&
-		!(z < w->z || z >= w->z + w->sizez)
-		)
+	if(w->CoordinateInsideSegment(x,y,z))
 		if(own_sprite.get_sheetindex() >= 0)
 		{
 			Block * b_orig = w->getBlock(x, y, z);

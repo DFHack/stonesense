@@ -46,6 +46,14 @@ Block::Block(WorldSegment* ownerSegment)
 
 	this->material.type = INVALID_INDEX;
 	this->material.index = INVALID_INDEX;
+
+	wallborders = 0;
+	floorborders = 0;
+	openborders = 255;
+	rampborders = 0;
+	upstairborders = 0;
+	downstairborders = 0;
+	lightborders = 255;
 	creature = 0;
 }
 
@@ -268,9 +276,6 @@ void Block::Draw(){
 		}
 	}
 
-
-
-
 	//Draw Stairs
 	if(stairType > 0)
 	{
@@ -338,7 +343,7 @@ void Block::Draw(){
 	// creature
 	// ensure there is *some* creature according to the map data
 	// (no guarantee it is the right one)
-	if(creaturePresent)
+	if(creaturePresent && (config.show_hidden_blocks || !designation.bits.hidden))
 	{
 		DrawCreature(drawx, drawy, creature, this);
 	}
@@ -428,7 +433,7 @@ void Block::Drawcreaturetext(){
 	// creature
 	// ensure there is *some* creature according to the map data
 	// (no guarantee it is the right one)
-	if(creaturePresent)
+	if(creaturePresent && (config.show_hidden_blocks || !designation.bits.hidden))
 	{
 		DrawCreatureText(drawx, drawy, creature);
 	}
