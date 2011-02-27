@@ -174,10 +174,7 @@ bool ContentLoader::Load( DFHack::Context& DF){
 	}
 	if(Bld)
 	{
-		unsigned int bla;
-		Bld->Start(bla);
 		Bld->ReadCustomWorkshopTypes(custom_workshop_types);
-		Bld->Finish();
 	}
 	try
 	{
