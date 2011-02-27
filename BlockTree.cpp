@@ -10,7 +10,7 @@ c_block_tree_twig::~c_block_tree_twig()
 {
 }
 
-void c_block_tree_twig::insert_sprites(WorldSegment *w, int x, int y, int z)
+void c_block_tree_twig::insert_sprites(WorldSegment *w, int x, int y, int z, Block * parent)
 {
 	if(w->CoordinateInsideSegment(x,y,z))
 		if(own_sprite.get_sheetindex() >= 0)
@@ -26,6 +26,7 @@ void c_block_tree_twig::insert_sprites(WorldSegment *w, int x, int y, int z)
 			}
 			b_orig->building.sprites.push_back(own_sprite);
 			b_orig->building.info.type = BUILDINGTYPE_TREE;
+			b_orig->building.parent = parent;
 		}
 		for(int i = 0; i < eastward_growth.size(); i++)
 		{
@@ -49,6 +50,7 @@ void c_block_tree_twig::insert_sprites(WorldSegment *w, int x, int y, int z)
 					}
 					b_orig->building.sprites.push_back(eastward_growth[i]);
 					b_orig->building.info.type = BUILDINGTYPE_TREE;
+					b_orig->building.parent = parent;
 				}
 		}
 		for(int i = 0; i < westward_growth.size(); i++)
@@ -73,6 +75,7 @@ void c_block_tree_twig::insert_sprites(WorldSegment *w, int x, int y, int z)
 					}
 					b_orig->building.sprites.push_back(westward_growth[i]);
 					b_orig->building.info.type = BUILDINGTYPE_TREE;
+					b_orig->building.parent = parent;
 				}
 		}
 }
@@ -146,22 +149,22 @@ void c_block_tree_branch::add_sprite(int x, int y, c_sprite sprite)
 	}
 }
 
-void c_block_tree_branch::insert_sprites(WorldSegment *w, int x, int y, int z)
+void c_block_tree_branch::insert_sprites(WorldSegment *w, int x, int y, int z, Block * parent)
 {
-	own_twig.insert_sprites(w, x, y, z);	
+	own_twig.insert_sprites(w, x, y, z, parent);	
 	for(int i = 0; i < northward_growth.size(); i++)
 	{
 		Block * b = w->getBlock(x, y + i + 1, z);
 		if(b && (b->wallType || b->stairType))
 			break;
-		northward_growth[i].insert_sprites(w, x, y + i + 1, z);
+		northward_growth[i].insert_sprites(w, x, y + i + 1, z, parent);
 	}
 	for(int i = 0; i < southward_growth.size(); i++)
 	{
 		Block * b = w->getBlock(x, y - i - 1, z);
 		if(b && (b->wallType || b->stairType))
 			break;
-		southward_growth[i].insert_sprites(w, x, y - i - 1, z);
+		southward_growth[i].insert_sprites(w, x, y - i - 1, z, parent);
 	}
 }
 
@@ -200,15 +203,15 @@ void c_block_tree::add_sprite(int x, int y, int z, c_sprite sprite)
 	}
 }
 
-void c_block_tree::insert_sprites(WorldSegment *w, int x, int y, int z)
+void c_block_tree::insert_sprites(WorldSegment *w, int x, int y, int z, Block * parent)
 {
-	own_branch.insert_sprites(w, x, y, z);
+	own_branch.insert_sprites(w, x, y, z, parent);
 	for(int i = 0; i < upward_growth.size(); i++)
 	{
 		Block * b = w->getBlock(x, y, z + i + 1);
 		if((b && (b->floorType || b->wallType || b->stairType)) || ((z + i + 1) > w->z + w->sizez))
 			break;
-		upward_growth[i].insert_sprites(w, x, y, z + i + 1);
+		upward_growth[i].insert_sprites(w, x, y, z + i + 1, parent);
 	}
 }
 

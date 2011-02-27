@@ -4,6 +4,8 @@
 #include "Block.h"
 #include "WorldSegment.h"
 
+class Block;
+
 class c_block_tree_twig
 {
 	c_sprite own_sprite;
@@ -13,7 +15,7 @@ public:
 	c_block_tree_twig(void);
 	~c_block_tree_twig(void);
 
-	void insert_sprites(WorldSegment * w, int x, int y, int z);
+	void insert_sprites(WorldSegment * w, int x, int y, int z, Block * parent);
 	void set_single_sprite(void);
 	void set_sheetindex(int32_t in){ own_sprite.set_sheetindex(in); }
 	void set_fileindex(int32_t in){ own_sprite.set_fileindex(in); }
@@ -34,7 +36,7 @@ public:
 	c_block_tree_branch(void);
 	~c_block_tree_branch(void);
 
-	void insert_sprites(WorldSegment * w, int x, int y, int z);
+	void insert_sprites(WorldSegment * w, int x, int y, int z, Block * parent);
 	void set_sheetindex(int32_t in){ own_twig.set_sheetindex(in); }
 	void set_fileindex(int32_t in){ own_twig.set_fileindex(in); }
 	int32_t get_sheetindex(void){ return own_twig.get_sheetindex(); }
@@ -53,7 +55,7 @@ public:
 	c_block_tree(void);
 	~c_block_tree(void);
 
-	void insert_sprites(WorldSegment * w, int x, int y, int z);
+	void insert_sprites(WorldSegment * w, int x, int y, int z, Block * parent);
 	void set_sheetindex(int32_t in){ own_branch.set_sheetindex(in); }
 	void set_fileindex(int32_t in){ own_branch.set_fileindex(in); }
 	int32_t get_sheetindex(void){ return own_branch.get_sheetindex(); }

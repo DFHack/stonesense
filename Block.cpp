@@ -43,6 +43,7 @@ Block::Block(WorldSegment* ownerSegment)
 
 	building.info.type = BUILDINGTYPE_NA;
 	building.index = -1;
+	building.parent = 0;
 
 	this->material.type = INVALID_INDEX;
 	this->material.index = INVALID_INDEX;
@@ -272,7 +273,10 @@ void Block::Draw(){
 		for(uint32_t i=0; i < building.sprites.size(); i++)
 		{
 			spriteobject = &building.sprites[i];
-			spriteobject->draw_world(x, y, z, this);
+			if(building.parent)
+				spriteobject->draw_world(x, y, z, building.parent);
+			else
+				spriteobject->draw_world(x, y, z, this);
 		}
 	}
 

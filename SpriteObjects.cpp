@@ -562,7 +562,7 @@ void c_sprite::draw_world_offset(int x, int y, int z, Block * b, int tileoffset,
 	if(defaultsheet == 0) defaultsheet = IMGObjectSheet;
 	//sprites can be offset by a random amount, both animationwise, and just variationwise.
 	//the base offset is set here.
-	int rando = randomCube[x%RANDOM_CUBE][y%RANDOM_CUBE][z%RANDOM_CUBE];
+	int rando = randomCube[(b->x)%RANDOM_CUBE][(b->y)%RANDOM_CUBE][(b->z)%RANDOM_CUBE];
 	//and the random offset of the animation frame is set here, provided the sprite iis set to use random animation frames. 
 	int offsetAnimFrame = ((randomanimation?rando:0) + currentAnimationFrame) % MAX_ANIMFRAME;
 	//the following stuff is only bothered with if the animation frames say it should be drawn. this can be over-ridden
