@@ -218,19 +218,19 @@ void Block::Draw(){
 	{
 		if(snowlevel > 75)
 		{
-			DrawSpriteFromSheet( 20, IMGObjectSheet, al_map_rgb(255,255,255), drawx, drawy );
+			DrawSpriteFromSheet( 20, IMGObjectSheet, al_map_rgb(255,255,255), drawx, drawy, this);
 		}
 		else if(snowlevel > 50)
 		{
-			DrawSpriteFromSheet( 21, IMGObjectSheet, al_map_rgb(255,255,255), drawx, drawy );
+			DrawSpriteFromSheet( 21, IMGObjectSheet, al_map_rgb(255,255,255), drawx, drawy, this );
 		}
 		else if(snowlevel > 25)
 		{
-			DrawSpriteFromSheet( 22, IMGObjectSheet, al_map_rgb(255,255,255), drawx, drawy );
+			DrawSpriteFromSheet( 22, IMGObjectSheet, al_map_rgb(255,255,255), drawx, drawy, this );
 		}
 		else if(snowlevel > 0)
 		{
-			DrawSpriteFromSheet( 23, IMGObjectSheet, al_map_rgb(255,255,255), drawx, drawy );
+			DrawSpriteFromSheet( 23, IMGObjectSheet, al_map_rgb(255,255,255), drawx, drawy, this );
 		}
 	}
 
@@ -260,7 +260,7 @@ void Block::Draw(){
 	//shadow
 	if (shadow > 0)
 	{
-		DrawSpriteFromSheet( BASE_SHADOW_TILE + shadow - 1, IMGObjectSheet, al_map_rgb(255,255,255), drawx, (ramp.type > 0)?(drawy - (WALLHEIGHT/2)):drawy );
+		DrawSpriteFromSheet( BASE_SHADOW_TILE + shadow - 1, IMGObjectSheet, al_map_rgb(255,255,255), drawx, (ramp.type > 0)?(drawy - (WALLHEIGHT/2)):drawy , this);
 	}
 
 	//Building
@@ -357,15 +357,15 @@ void Block::Draw(){
 	{
 		if(snowlevel > 75)
 		{
-			DrawSpriteFromSheet( 24, IMGObjectSheet, al_map_rgb(255,255,255), drawx, drawy );
+			DrawSpriteFromSheet( 24, IMGObjectSheet, al_map_rgb(255,255,255), drawx, drawy, this );
 		}
 		else if(snowlevel > 50)
 		{
-			DrawSpriteFromSheet( 25, IMGObjectSheet, al_map_rgb(255,255,255), drawx, drawy );
+			DrawSpriteFromSheet( 25, IMGObjectSheet, al_map_rgb(255,255,255), drawx, drawy, this );
 		}
 		else if(snowlevel > 25)
 		{
-			DrawSpriteFromSheet( 26, IMGObjectSheet, al_map_rgb(255,255,255), drawx, drawy );
+			DrawSpriteFromSheet( 26, IMGObjectSheet, al_map_rgb(255,255,255), drawx, drawy, this );
 		}
 	}
 

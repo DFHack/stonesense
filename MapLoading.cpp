@@ -896,6 +896,12 @@ WorldSegment* ReadMapSegment(DFHack::Context &DF, int x, int y, int z, int sizex
 	for(uint32_t i=0; i < numblocks; i++){
 		Block* b = segment->getBlock(i);
 
+
+
+		//setup building sprites
+		if( b->building.info.type != BUILDINGTYPE_NA && b->building.info.type != BUILDINGTYPE_BLACKBOX )
+			loadBuildingSprites( b, DF );
+
 		//populate trees
 		if(b->tree.index)
 		{
@@ -903,10 +909,6 @@ WorldSegment* ReadMapSegment(DFHack::Context &DF, int x, int y, int z, int sizex
 			Tree->insert_sprites(segment, b->x, b->y, b->z, b);
 		}
 
-
-		//setup building sprites
-		if( b->building.info.type != BUILDINGTYPE_NA && b->building.info.type != BUILDINGTYPE_BLACKBOX )
-			loadBuildingSprites( b, DF );
 
 		//setup deep water
 		if( b->water.index == 7 && b->water.type == 0)

@@ -607,7 +607,7 @@ void DrawMinimap(){
 	MiniMapBottomRightY = posy+mapheight;
 }
 
-void DrawSpriteFromSheet( int spriteNum, ALLEGRO_BITMAP* spriteSheet, ALLEGRO_COLOR color, int x, int y){
+void DrawSpriteFromSheet( int spriteNum, ALLEGRO_BITMAP* spriteSheet, ALLEGRO_COLOR color, int x, int y, Block * b){
 	int sheetx = spriteNum % SHEET_OBJECTSWIDE;
 	int sheety = spriteNum / SHEET_OBJECTSWIDE;
 	//
@@ -623,6 +623,12 @@ void DrawSpriteFromSheet( int spriteNum, ALLEGRO_BITMAP* spriteSheet, ALLEGRO_CO
 	10, 60 , SPRITEWIDTH, SPRITEHEIGHT);
 	*/
 	//draw_trans_sprite(target, tiny, x, y);
+	if(b && b->designation.bits.pile && config.fog_of_war)
+	{
+		color.r *= 0.25f;
+		color.g *= 0.25f;
+		color.b *= 0.25f;
+	}
 	al_draw_tinted_bitmap_region(spriteSheet, color, sheetx * SPRITEWIDTH, sheety * SPRITEHEIGHT, SPRITEWIDTH, SPRITEHEIGHT, x, y - (WALLHEIGHT), 0);
 }
 

@@ -180,6 +180,8 @@ typedef struct {
 
 	bool transparentScreenshots;
 
+	bool fog_of_war;
+
 	uint16_t bloodcutoff;
 	uint16_t poolcutoff;
 	//follows are anti-crash things

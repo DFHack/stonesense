@@ -4,6 +4,7 @@
 #include "GameBuildings.h"
 #include "BuildingConfiguration.h"
 #include "ContentLoader.h"
+#include "gui.h"
 
 //vector<BuildingConfiguration> buildingTypes;
 //vector <string> v_buildingtypes;//should be empty for all buildings
@@ -205,6 +206,9 @@ void loadBuildingSprites ( Block* b, DFHack::Context& DF){
 	//add yellow box, if needed. But only if the building was not found (this way we can have blank slots in buildings)
 	if(b->building.sprites.size() == 0 && foundBlockBuildingInfo == false){
 		c_sprite unknownBuildingSprite;
+		unknownBuildingSprite.set_defaultsheet(IMGObjectSheet);
+		unknownBuildingSprite.set_fileindex(-1);
+		unknownBuildingSprite.set_sheetindex(0);
 		b->building.sprites.push_back( unknownBuildingSprite );
 	}
 }

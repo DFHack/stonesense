@@ -17,7 +17,7 @@ void flushImgFiles();
 //returns index into getImgFile. Will only create new bitmaps when needed
 int loadImgFile(char* filename);
 int loadImgFile(ALLEGRO_PATH* filepath);
-void DrawSpriteFromSheet( int spriteNum,ALLEGRO_BITMAP* spriteSheet, ALLEGRO_COLOR color, int x, int y);
+void DrawSpriteFromSheet( int spriteNum,ALLEGRO_BITMAP* spriteSheet, ALLEGRO_COLOR color, int x, int y, Block * b = 0);
 ALLEGRO_BITMAP * CreateSpriteFromSheet( int spriteNum, ALLEGRO_BITMAP* spriteSheet);
 ALLEGRO_BITMAP* load_bitmap_withWarning(char* path);
 void DrawSpriteIndexOverlay(int i);

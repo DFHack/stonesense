@@ -667,12 +667,11 @@ void c_sprite::draw_world_offset(int x, int y, int z, Block * b, int tileoffset,
 						sheety = ((sheetindex+tileoffset+randoffset) / SHEET_OBJECTSWIDE) * spriteheight;
 					}
 					ALLEGRO_COLOR shade_color = get_color(b);
-					if(!b->designation.bits.pile)
+					if(!b->designation.bits.pile && config.fog_of_war)
 					{
 						shade_color.r *= 0.25f;
 						shade_color.g *= 0.25f;
 						shade_color.b *= 0.25f;
-
 					}
 					if(chop && ( halftile == HALFTILECHOP))
 					{
@@ -700,11 +699,11 @@ void c_sprite::draw_world_offset(int x, int y, int z, Block * b, int tileoffset,
 							//drawy -= (WALLHEIGHT);
 							//Northern border
 							if(b->depthBorderNorth)
-								DrawSpriteFromSheet(281, IMGObjectSheet, al_map_rgb(255,255,255), drawx + offset_x, drawy + offset_y );
+								DrawSpriteFromSheet(281, IMGObjectSheet, al_map_rgb(255,255,255), drawx + offset_x, drawy + offset_y, b );
 
 							//Western border
 							if(b->depthBorderWest)
-								DrawSpriteFromSheet(280, IMGObjectSheet, al_map_rgb(255,255,255), drawx + offset_x, drawy + offset_y );
+								DrawSpriteFromSheet(280, IMGObjectSheet, al_map_rgb(255,255,255), drawx + offset_x, drawy + offset_y, b );
 
 							//drawy += (WALLHEIGHT);
 						}

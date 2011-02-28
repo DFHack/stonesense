@@ -242,7 +242,7 @@ void c_block_tree::set_by_xml(TiXmlElement *elemTree, int fileindex)
 	add_sprite(x, y, z, sprite);
 
 	//add branches, if any.
-	TiXmlElement* elemBranch = elemTree->FirstChildElement("branch");
+	//TiXmlElement* elemBranch = elemTree->FirstChildElement("branch");
 	for(TiXmlElement* elemBranch = elemTree->FirstChildElement("branch");
 		elemBranch;
 		elemBranch = elemBranch->NextSiblingElement("branch"))
