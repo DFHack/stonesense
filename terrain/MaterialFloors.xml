@@ -296,7 +296,7 @@
 		mud_min="10"
 		/>
   </floor>
-  <floor sheetIndex="9">
+  <floor sheetIndex="4" color = "material">
     <!-- Dry grass -->
     <terrain value="387" />
     <terrain value="388" />

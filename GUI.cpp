@@ -200,6 +200,17 @@ int get_textf_width(const ALLEGRO_FONT *font, const char *format, ...)
 	al_ustr_free(buf);
 	return width;
 }
+void draw_text_border(const ALLEGRO_FONT *font, ALLEGRO_COLOR color, float x, float y, int flags, const char *ustr)
+{
+	int xx, yy, ww, hh;
+	al_get_text_dimensions(font, ustr, &xx, &yy, &ww, &hh);
+	if(flags & ALLEGRO_ALIGN_CENTRE)
+		xx -= ww/2;
+	else if(flags & ALLEGRO_ALIGN_RIGHT)
+		xx -= ww;
+	al_draw_filled_rectangle(x+xx, y+yy, x+xx+ww, y+yy+hh, al_map_rgba_f(0.0,0.0,0.0,0.75));
+	al_draw_text(font, color, x, y, flags, ustr);
+}
 
 void draw_textf_border(const ALLEGRO_FONT *font, ALLEGRO_COLOR color, float x, float y, int flags, const char *format, ...)
 {
@@ -211,11 +222,7 @@ void draw_textf_border(const ALLEGRO_FONT *font, ALLEGRO_COLOR color, float x, f
 	if (0 == strcmp(format, "%s")) {
 		va_start(arglist, format);
 		s = va_arg(arglist, const char *);
-		al_draw_text(font, al_map_rgb(0, 0, 0), x-1, y-1, flags, s);
-		al_draw_text(font, al_map_rgb(0, 0, 0), x-1, y+1, flags, s);
-		al_draw_text(font, al_map_rgb(0, 0, 0), x+1, y+1, flags, s);
-		al_draw_text(font, al_map_rgb(0, 0, 0), x+1, y-1, flags, s);
-		al_draw_text(font, color, x, y, flags, s);
+		draw_text_border(font, color, x, y, flags, s);
 		va_end(arglist);
 		return;
 	}
@@ -225,29 +232,8 @@ void draw_textf_border(const ALLEGRO_FONT *font, ALLEGRO_COLOR color, float x, f
 	buf = al_ustr_new("");
 	al_ustr_vappendf(buf, format, arglist);
 	va_end(arglist);
-	al_draw_text(font, al_map_rgb(0, 0, 0), x-1, y-1, flags, al_cstr(buf));
-	al_draw_text(font, al_map_rgb(0, 0, 0), x-1, y+1, flags, al_cstr(buf));
-	al_draw_text(font, al_map_rgb(0, 0, 0), x+1, y+1, flags, al_cstr(buf));
-	al_draw_text(font, al_map_rgb(0, 0, 0), x+1, y-1, flags, al_cstr(buf));
-	al_draw_text(font, al_map_rgb(0, 0, 0), x-1, y, flags, al_cstr(buf));
-	al_draw_text(font, al_map_rgb(0, 0, 0), x, y+1, flags, al_cstr(buf));
-	al_draw_text(font, al_map_rgb(0, 0, 0), x+1, y, flags, al_cstr(buf));
-	al_draw_text(font, al_map_rgb(0, 0, 0), x, y-1, flags, al_cstr(buf));
-	al_draw_text(font, color, x, y, flags, al_cstr(buf));
+	draw_text_border(font, color, x, y, flags, al_cstr(buf));
 	al_ustr_free(buf);
-}
-void draw_text_border(const ALLEGRO_FONT *font, ALLEGRO_COLOR color, float x, float y, int flags, const char *ustr)
-{
-	al_draw_text(font, al_map_rgb(0, 0, 0), x-1, y-1, flags, ustr);
-	al_draw_text(font, al_map_rgb(0, 0, 0), x-1, y+1, flags, ustr);
-	al_draw_text(font, al_map_rgb(0, 0, 0), x+1, y+1, flags, ustr);
-	al_draw_text(font, al_map_rgb(0, 0, 0), x+1, y-1, flags, ustr);
-
-	al_draw_text(font, al_map_rgb(0, 0, 0), x-1, y, flags, ustr);
-	al_draw_text(font, al_map_rgb(0, 0, 0), x, y+1, flags, ustr);
-	al_draw_text(font, al_map_rgb(0, 0, 0), x+1, y, flags, ustr);
-	al_draw_text(font, al_map_rgb(0, 0, 0), x, y-1, flags, ustr);
-	al_draw_text(font, color, x, y, flags, ustr);
 }
 void draw_ustr_border(const ALLEGRO_FONT *font, ALLEGRO_COLOR color, float x, float y, int flags, const ALLEGRO_USTR *ustr)
 {
@@ -746,14 +732,17 @@ void paintboard(){
 	for(int i = 0; i<10; i++)
 		DrawTime += DrawTimes[i];
 	DrawTime = DrawTime / 10;
+	static double last_frame_time;
+	double time_since_last_frame = al_get_time() - last_frame_time;
+	last_frame_time = al_get_time();
 	if (config.show_osd)
 	{
 		al_hold_bitmap_drawing(true);
 		draw_textf_border(font, al_map_rgb(255,255,255), 10,al_get_font_line_height(font), 0, "%i,%i,%i, r%i", DisplayedSegmentX,DisplayedSegmentY,DisplayedSegmentZ, DisplayedRotation);
 
 		if(config.debug_mode){
-			draw_textf_border(font, al_map_rgb(255,255,255), 10, 2*al_get_font_line_height(font), 0, "Timer1: %ims", ClockedTime);
-			draw_textf_border(font, al_map_rgb(255,255,255), 10, 3*al_get_font_line_height(font), 0, "Timer2: %ims", ClockedTime2);
+			draw_textf_border(font, al_map_rgb(255,255,255), 10, 3*al_get_font_line_height(font), 0, "Map Read Time: %ims", ClockedTime2);
+			draw_textf_border(font, al_map_rgb(255,255,255), 10, 2*al_get_font_line_height(font), 0, "FPS: %.2f", 1.0/time_since_last_frame);
 			draw_textf_border(font, al_map_rgb(255,255,255), 10, 4*al_get_font_line_height(font), 0, "Draw: %ims", DrawTime);
 			draw_textf_border(font, al_map_rgb(255,255,255), 10, 5*al_get_font_line_height(font), 0, "D1: %i", blockFactory.getPoolSize());
 			draw_textf_border(font, al_map_rgb(255,255,255), 10, 6*al_get_font_line_height(font), 0, "%i/%i/%i, %i:%i", contentLoader.currentDay+1, contentLoader.currentMonth+1, contentLoader.currentYear, contentLoader.currentHour, (contentLoader.currentTickRel*60)/50);

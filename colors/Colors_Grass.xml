@@ -55,7 +55,7 @@
       <subtype value="CARPETGRASS" />
     </material>
   </color>
-  <color red="170" green="74" blue="101">
+  <color red="190" green="112" blue="82">
     <material value="Wood">
       <subtype value="SATINTAIL" />
     </material>

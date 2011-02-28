@@ -21,7 +21,7 @@
     <!-- grass -->
     <terrain value="235" />
     <terrain value="236" />
-		<subsprite sheetIndex="7" file="ramps.png" color = "grass" />
+		<subsprite sheetIndex="7" file="ramps.png" color = "grass" grass_min="1"/>
   </block>
   <block sheetIndex="8" file="ramps.png" color = "material">
     <!-- dry -->

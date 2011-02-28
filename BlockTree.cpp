@@ -25,7 +25,8 @@ void c_block_tree_twig::insert_sprites(WorldSegment *w, int x, int y, int z, Blo
 				w->addBlock(b_orig);
 			}
 			b_orig->building.sprites.push_back(own_sprite);
-			b_orig->building.info.type = BUILDINGTYPE_TREE;
+			if(b_orig->building.info.type == BUILDINGTYPE_NA)
+				b_orig->building.info.type = BUILDINGTYPE_TREE;
 			b_orig->building.parent = parent;
 		}
 		for(int i = 0; i < eastward_growth.size(); i++)
@@ -49,7 +50,8 @@ void c_block_tree_twig::insert_sprites(WorldSegment *w, int x, int y, int z, Blo
 						w->addBlock(b_orig);
 					}
 					b_orig->building.sprites.push_back(eastward_growth[i]);
-					b_orig->building.info.type = BUILDINGTYPE_TREE;
+					if(b_orig->building.info.type == BUILDINGTYPE_NA)
+						b_orig->building.info.type = BUILDINGTYPE_TREE;
 					b_orig->building.parent = parent;
 				}
 		}
@@ -74,7 +76,8 @@ void c_block_tree_twig::insert_sprites(WorldSegment *w, int x, int y, int z, Blo
 						w->addBlock(b_orig);
 					}
 					b_orig->building.sprites.push_back(westward_growth[i]);
-					b_orig->building.info.type = BUILDINGTYPE_TREE;
+					if(b_orig->building.info.type == BUILDINGTYPE_NA)
+						b_orig->building.info.type = BUILDINGTYPE_TREE;
 					b_orig->building.parent = parent;
 				}
 		}
