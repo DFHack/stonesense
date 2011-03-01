@@ -907,6 +907,7 @@
                 <Address name="current_tick" description="Current time of the year" />
                 <Address name="current_year" description="Current year" />
                 <Address name="current_weather" description="5x5 array of bytes for surrounding biomes. For each: 0=clear, 1=raining, 2=snowing." />
+                <Address name="game_mode" description="Current game mode" />
             </Group>
         </Offsets>
     </Base>
@@ -998,6 +999,7 @@
                 <Address name="world_size_y" value="0x016AEDD6" />
                 <Group name="block">
                     <Offset name="vein_vector" value="0x08" />
+                    <Offset name="vegetation_vector" value="0x0078" />
                     <Offset name="type" value="0x009A" />
                     <Offset name="designation" value="0x029C" />
                     <Offset name="occupancy" value="0x069c" />
@@ -1555,6 +1557,7 @@
                     <Offset name="vein_vector" value="0x08" />
                     <Offset name="feature_local" value="0x24" />
                     <Offset name="feature_global" value="0x28" />
+                    <Offset name="vegetation_vector" value="0x60" />
                     <Offset name="type" value="0x7A" />
                     <Offset name="designation" value="0x27C" />
                     <Offset name="occupancy" value="0x67C" />
@@ -1962,7 +1965,6 @@
                     <Offset name="vein_vector" value="0x8" />
                     <Offset name="feature_global" value="0x28" />
                     <Offset name="feature_local" value="0x24" />
-                    <Offset name="vegetation_vector" value="0x60" />
                     <Offset name="type" value="0x7a" />
                     <Offset name="designation" value="0x27c" />
                     <Offset name="occupancy" value="0x67c" />
@@ -2028,10 +2030,15 @@
                 0x16dad88
                 <Address name="custom_workshop_vector" value="0x1724204" valid="true" />
             </Group>
-            <Group name="World">
+            <Group name="World" valid="true">
                 <Address name="current_tick" value="0xe2e180" /> maybe
                 <Address name="current_year" value="0xf0d268" />
                 <Address name="current_weather" value="0x15027A0" />
+                <Address name="game_mode" value="0xb4a814" />
+                fortress = 0, adventure = 1, arena = 0, menu and legends = 3 0xb4a814
+                Game mode: 0xb4a818 . fortress = 0, adventure = 1, arena = 4
+                0xe2e2a2 seems to be a copy of the first one
+                
             </Group>
             <Group name="Translations" valid="true">
                 <Address name="language_vector" value="0x0171ea94 0x016e553c"/>
@@ -2126,6 +2133,7 @@
                     <Offset name="vein_vector" value="0x08" />
                     <Offset name="feature_local" value="0x20" />
                     <Offset name="feature_global" value="0x24" />
+                    <Offset name="vegetation_vector" value="0x54" />
                     <Offset name="type" value="0x006A" />
                     <Offset name="designation" value="0x026C" />
                     <Offset name="occupancy" value="0x066c" />

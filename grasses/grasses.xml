@@ -153,7 +153,7 @@
 	<subsprite grass_state="dead" grass_min="36" grass_max="65" sheetIndex="294" variations="2" />
     <subsprite grass_state="dead" grass_min="1" grass_max="35" sheetIndex="292" variations="2" />
   </plant>
-  <plant gameID="BABY TOES SUCCULENT" grass_state="green" grass_min="66" sheetIndex="52" variations="2">
+  <plant gameID="BABY TOES SUCCULENT" grass_state="green" grass_min="66" sheetIndex="56" variations="2">
     <subsprite grass_min="36" grass_state="green" grass_max="65" sheetIndex="54" variations="2" />
     <subsprite grass_min="1" grass_state="green" grass_max="35" sheetIndex="52" variations="2" />
 	<subsprite file="grasses_gray.png" color="xml" red="147" green="156" blue="73" grass_min="66" grass_state="dry" sheetIndex="56" variations="2" />

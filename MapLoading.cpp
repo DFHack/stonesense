@@ -650,8 +650,8 @@ WorldSegment* ReadMapSegment(DFHack::Context &DF, int x, int y, int z, int sizex
 	{
 		if(!Maps->Start())
 		{
-			WriteErr("Can't init map.");
-			DisconnectFromDF();
+			//WriteErr("Can't init map.");
+			//DisconnectFromDF();
 			//return new blank segment
 			return new WorldSegment(x,y,z + 1,sizex,sizey,sizez + 1);
 		}
@@ -688,6 +688,7 @@ WorldSegment* ReadMapSegment(DFHack::Context &DF, int x, int y, int z, int sizex
 		contentLoader.currentDay = ((contentLoader.currentTick+9)%33600)/1200;
 		contentLoader.currentHour = ((contentLoader.currentTick+9)-(((contentLoader.currentMonth*28)+contentLoader.currentDay)*1200))/50;
 		contentLoader.currentTickRel = (contentLoader.currentTick+9)-(((((contentLoader.currentMonth*28)+contentLoader.currentDay)*24)+contentLoader.currentHour)*50);
+		contentLoader.gameMode = Wold->ReadGameMode();
 	}
 
 	//Read Number of cells

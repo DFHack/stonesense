@@ -277,6 +277,7 @@ int main(void)
 	config.poolcutoff = 100;
 	config.threadmade = 0;
 	config.threading_enable = 1;
+	config.fog_of_war = 1;
 	initRandomCube();
 	loadConfigFile();
 	loadfont();

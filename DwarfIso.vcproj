@@ -316,6 +316,91 @@
 				Name="VCPostBuildEventTool"
 			/>
 		</Configuration>
+		<Configuration
+			Name="Extra optimise test|Win32"
+			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
+			IntermediateDirectory="$(ConfigurationName)"
+			ConfigurationType="1"
+			CharacterSet="2"
+			WholeProgramOptimization="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="3"
+				InlineFunctionExpansion="2"
+				EnableIntrinsicFunctions="true"
+				FavorSizeOrSpeed="1"
+				AdditionalIncludeDirectories=".\allegro;.\dfhack\include;.\depends\md5;.\depends\argstream;.\tinyxml"
+				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG"
+				RuntimeLibrary="2"
+				UsePrecompiledHeader="0"
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="3"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				UseLibraryDependencyInputs="true"
+				AdditionalOptions="/fixed:no"
+				AdditionalDependencies="kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib allegro.lib allegro_primitives.lib allegro_font.lib allegro_ttf.lib allegro_image.lib allegro_dialog.lib libpng.lib zdll.lib winmm.lib psapi.lib opengl32.lib glu32.lib dfhack\dfhack.lib $(NOINHERIT)"
+				OutputFile="$(ProjectDir)\$(ProjectName).exe"
+				LinkIncremental="1"
+				SuppressStartupBanner="true"
+				AdditionalLibraryDirectories="allegro\lib"
+				GenerateDebugInformation="true"
+				SubSystem="2"
+				OptimizeReferences="2"
+				EnableCOMDATFolding="2"
+				TargetMachine="1"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
 	</Configurations>
 	<References>
 		<AssemblyReference
@@ -585,6 +670,14 @@
 							Name="VCCustomBuildTool"
 						/>
 					</FileConfiguration>
+					<FileConfiguration
+						Name="Extra optimise test|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
 				</File>
 				<Filter
 					Name="dfhack"
@@ -618,6 +711,14 @@
 						</FileConfiguration>
 						<FileConfiguration
 							Name="Test|Win32"
+							ExcludedFromBuild="true"
+							>
+							<Tool
+								Name="VCCustomBuildTool"
+							/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Extra optimise test|Win32"
 							ExcludedFromBuild="true"
 							>
 							<Tool
@@ -660,6 +761,14 @@
 								Name="VCCustomBuildTool"
 							/>
 						</FileConfiguration>
+						<FileConfiguration
+							Name="Extra optimise test|Win32"
+							ExcludedFromBuild="true"
+							>
+							<Tool
+								Name="VCCustomBuildTool"
+							/>
+						</FileConfiguration>
 					</File>
 					<File
 						RelativePath=".\dfhack\include\dfhack\DFError.h"
@@ -690,6 +799,14 @@
 						</FileConfiguration>
 						<FileConfiguration
 							Name="Test|Win32"
+							ExcludedFromBuild="true"
+							>
+							<Tool
+								Name="VCCustomBuildTool"
+							/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Extra optimise test|Win32"
 							ExcludedFromBuild="true"
 							>
 							<Tool
@@ -732,6 +849,14 @@
 								Name="VCCustomBuildTool"
 							/>
 						</FileConfiguration>
+						<FileConfiguration
+							Name="Extra optimise test|Win32"
+							ExcludedFromBuild="true"
+							>
+							<Tool
+								Name="VCCustomBuildTool"
+							/>
+						</FileConfiguration>
 					</File>
 					<File
 						RelativePath=".\dfhack\include\dfhack\DFGlobal.h"
@@ -762,6 +887,14 @@
 						</FileConfiguration>
 						<FileConfiguration
 							Name="Test|Win32"
+							ExcludedFromBuild="true"
+							>
+							<Tool
+								Name="VCCustomBuildTool"
+							/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Extra optimise test|Win32"
 							ExcludedFromBuild="true"
 							>
 							<Tool
@@ -804,6 +937,14 @@
 								Name="VCCustomBuildTool"
 							/>
 						</FileConfiguration>
+						<FileConfiguration
+							Name="Extra optimise test|Win32"
+							ExcludedFromBuild="true"
+							>
+							<Tool
+								Name="VCCustomBuildTool"
+							/>
+						</FileConfiguration>
 					</File>
 					<File
 						RelativePath=".\dfhack\include\dfhack\DFMemInfo.h"
@@ -834,6 +975,14 @@
 						</FileConfiguration>
 						<FileConfiguration
 							Name="Test|Win32"
+							ExcludedFromBuild="true"
+							>
+							<Tool
+								Name="VCCustomBuildTool"
+							/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Extra optimise test|Win32"
 							ExcludedFromBuild="true"
 							>
 							<Tool
@@ -876,6 +1025,14 @@
 								Name="VCCustomBuildTool"
 							/>
 						</FileConfiguration>
+						<FileConfiguration
+							Name="Extra optimise test|Win32"
+							ExcludedFromBuild="true"
+							>
+							<Tool
+								Name="VCCustomBuildTool"
+							/>
+						</FileConfiguration>
 					</File>
 					<File
 						RelativePath=".\dfhack\include\dfhack\DFModule.h"
@@ -906,6 +1063,14 @@
 						</FileConfiguration>
 						<FileConfiguration
 							Name="Test|Win32"
+							ExcludedFromBuild="true"
+							>
+							<Tool
+								Name="VCCustomBuildTool"
+							/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Extra optimise test|Win32"
 							ExcludedFromBuild="true"
 							>
 							<Tool
@@ -948,6 +1113,14 @@
 								Name="VCCustomBuildTool"
 							/>
 						</FileConfiguration>
+						<FileConfiguration
+							Name="Extra optimise test|Win32"
+							ExcludedFromBuild="true"
+							>
+							<Tool
+								Name="VCCustomBuildTool"
+							/>
+						</FileConfiguration>
 					</File>
 					<File
 						RelativePath=".\dfhack\include\dfhack\DFProcess.h"
@@ -978,6 +1151,14 @@
 						</FileConfiguration>
 						<FileConfiguration
 							Name="Test|Win32"
+							ExcludedFromBuild="true"
+							>
+							<Tool
+								Name="VCCustomBuildTool"
+							/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Extra optimise test|Win32"
 							ExcludedFromBuild="true"
 							>
 							<Tool
@@ -1020,6 +1201,14 @@
 								Name="VCCustomBuildTool"
 							/>
 						</FileConfiguration>
+						<FileConfiguration
+							Name="Extra optimise test|Win32"
+							ExcludedFromBuild="true"
+							>
+							<Tool
+								Name="VCCustomBuildTool"
+							/>
+						</FileConfiguration>
 					</File>
 					<File
 						RelativePath=".\dfhack\include\dfhack\DFstdint_win.h"
@@ -1050,6 +1239,14 @@
 						</FileConfiguration>
 						<FileConfiguration
 							Name="Test|Win32"
+							ExcludedFromBuild="true"
+							>
+							<Tool
+								Name="VCCustomBuildTool"
+							/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Extra optimise test|Win32"
 							ExcludedFromBuild="true"
 							>
 							<Tool
@@ -1092,6 +1289,14 @@
 								Name="VCCustomBuildTool"
 							/>
 						</FileConfiguration>
+						<FileConfiguration
+							Name="Extra optimise test|Win32"
+							ExcludedFromBuild="true"
+							>
+							<Tool
+								Name="VCCustomBuildTool"
+							/>
+						</FileConfiguration>
 					</File>
 					<File
 						RelativePath=".\dfhack\include\dfhack\DFTypes.h"
@@ -1128,6 +1333,14 @@
 								Name="VCCustomBuildTool"
 							/>
 						</FileConfiguration>
+						<FileConfiguration
+							Name="Extra optimise test|Win32"
+							ExcludedFromBuild="true"
+							>
+							<Tool
+								Name="VCCustomBuildTool"
+							/>
+						</FileConfiguration>
 					</File>
 					<File
 						RelativePath=".\dfhack\include\dfhack\DFVector.h"
@@ -1158,6 +1371,14 @@
 						</FileConfiguration>
 						<FileConfiguration
 							Name="Test|Win32"
+							ExcludedFromBuild="true"
+							>
+							<Tool
+								Name="VCCustomBuildTool"
+							/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Extra optimise test|Win32"
 							ExcludedFromBuild="true"
 							>
 							<Tool
@@ -1203,6 +1424,14 @@
 									Name="VCCustomBuildTool"
 								/>
 							</FileConfiguration>
+							<FileConfiguration
+								Name="Extra optimise test|Win32"
+								ExcludedFromBuild="true"
+								>
+								<Tool
+									Name="VCCustomBuildTool"
+								/>
+							</FileConfiguration>
 						</File>
 						<File
 							RelativePath=".\dfhack\include\dfhack\modules\Constructions.h"
@@ -1233,6 +1462,14 @@
 							</FileConfiguration>
 							<FileConfiguration
 								Name="Test|Win32"
+								ExcludedFromBuild="true"
+								>
+								<Tool
+									Name="VCCustomBuildTool"
+								/>
+							</FileConfiguration>
+							<FileConfiguration
+								Name="Extra optimise test|Win32"
 								ExcludedFromBuild="true"
 								>
 								<Tool
@@ -1275,6 +1512,14 @@
 									Name="VCCustomBuildTool"
 								/>
 							</FileConfiguration>
+							<FileConfiguration
+								Name="Extra optimise test|Win32"
+								ExcludedFromBuild="true"
+								>
+								<Tool
+									Name="VCCustomBuildTool"
+								/>
+							</FileConfiguration>
 						</File>
 						<File
 							RelativePath=".\dfhack\include\dfhack\modules\Gui.h"
@@ -1305,6 +1550,14 @@
 							</FileConfiguration>
 							<FileConfiguration
 								Name="Test|Win32"
+								ExcludedFromBuild="true"
+								>
+								<Tool
+									Name="VCCustomBuildTool"
+								/>
+							</FileConfiguration>
+							<FileConfiguration
+								Name="Extra optimise test|Win32"
 								ExcludedFromBuild="true"
 								>
 								<Tool
@@ -1347,6 +1600,14 @@
 									Name="VCCustomBuildTool"
 								/>
 							</FileConfiguration>
+							<FileConfiguration
+								Name="Extra optimise test|Win32"
+								ExcludedFromBuild="true"
+								>
+								<Tool
+									Name="VCCustomBuildTool"
+								/>
+							</FileConfiguration>
 						</File>
 						<File
 							RelativePath=".\dfhack\include\dfhack\modules\Maps.h"
@@ -1377,6 +1638,14 @@
 							</FileConfiguration>
 							<FileConfiguration
 								Name="Test|Win32"
+								ExcludedFromBuild="true"
+								>
+								<Tool
+									Name="VCCustomBuildTool"
+								/>
+							</FileConfiguration>
+							<FileConfiguration
+								Name="Extra optimise test|Win32"
 								ExcludedFromBuild="true"
 								>
 								<Tool
@@ -1419,6 +1688,14 @@
 									Name="VCCustomBuildTool"
 								/>
 							</FileConfiguration>
+							<FileConfiguration
+								Name="Extra optimise test|Win32"
+								ExcludedFromBuild="true"
+								>
+								<Tool
+									Name="VCCustomBuildTool"
+								/>
+							</FileConfiguration>
 						</File>
 						<File
 							RelativePath=".\dfhack\include\dfhack\modules\Position.h"
@@ -1449,6 +1726,14 @@
 							</FileConfiguration>
 							<FileConfiguration
 								Name="Test|Win32"
+								ExcludedFromBuild="true"
+								>
+								<Tool
+									Name="VCCustomBuildTool"
+								/>
+							</FileConfiguration>
+							<FileConfiguration
+								Name="Extra optimise test|Win32"
 								ExcludedFromBuild="true"
 								>
 								<Tool
@@ -1491,6 +1776,14 @@
 									Name="VCCustomBuildTool"
 								/>
 							</FileConfiguration>
+							<FileConfiguration
+								Name="Extra optimise test|Win32"
+								ExcludedFromBuild="true"
+								>
+								<Tool
+									Name="VCCustomBuildTool"
+								/>
+							</FileConfiguration>
 						</File>
 						<File
 							RelativePath=".\dfhack\include\dfhack\modules\Vegetation.h"
@@ -1521,6 +1814,14 @@
 							</FileConfiguration>
 							<FileConfiguration
 								Name="Test|Win32"
+								ExcludedFromBuild="true"
+								>
+								<Tool
+									Name="VCCustomBuildTool"
+								/>
+							</FileConfiguration>
+							<FileConfiguration
+								Name="Extra optimise test|Win32"
 								ExcludedFromBuild="true"
 								>
 								<Tool
@@ -1563,6 +1864,14 @@
 									Name="VCCustomBuildTool"
 								/>
 							</FileConfiguration>
+							<FileConfiguration
+								Name="Extra optimise test|Win32"
+								ExcludedFromBuild="true"
+								>
+								<Tool
+									Name="VCCustomBuildTool"
+								/>
+							</FileConfiguration>
 						</File>
 						<File
 							RelativePath=".\dfhack\include\dfhack\modules\World.h"
@@ -1593,6 +1902,14 @@
 							</FileConfiguration>
 							<FileConfiguration
 								Name="Test|Win32"
+								ExcludedFromBuild="true"
+								>
+								<Tool
+									Name="VCCustomBuildTool"
+								/>
+							</FileConfiguration>
+							<FileConfiguration
+								Name="Extra optimise test|Win32"
 								ExcludedFromBuild="true"
 								>
 								<Tool

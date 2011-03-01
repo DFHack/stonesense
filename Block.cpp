@@ -212,6 +212,20 @@ void Block::Draw(){
 		spriteobject->set_tile_layout(BLOCKTILE);
 	}
 
+	//Grass
+	if(this->grasslevel > 0 && (
+		(tileTypeTable[this->floorType].m == GRASS) || 
+		(tileTypeTable[this->floorType].m == GRASS2) ||
+		(tileTypeTable[this->floorType].m == GRASS_DEAD) ||
+		(tileTypeTable[this->floorType].m == GRASS_DRY)))
+	{
+		c_block_tree * vegetationsprite = 0;
+		vegetationsprite = getVegetationTree(contentLoader.grassConfigs,grassmat,true,true);
+		if(vegetationsprite)
+			vegetationsprite->draw_world(x, y, z, this);
+	}
+
+
 	drawFloorBlood ( this, drawx, drawy );
 	//first part of snow
 	if(ramp.type == 0 && wallType == 0 && stairType == 0 && defaultSnow)
@@ -243,18 +257,6 @@ void Block::Draw(){
 	//		vegetationsprite->draw_world(x, y, z);
 	//}
 
-	//Grass
-	if(this->grasslevel > 0 && (
-		(tileTypeTable[this->floorType].m == GRASS) || 
-		(tileTypeTable[this->floorType].m == GRASS2) ||
-		(tileTypeTable[this->floorType].m == GRASS_DEAD) ||
-		(tileTypeTable[this->floorType].m == GRASS_DRY)))
-	{
-		c_block_tree * vegetationsprite = 0;
-		vegetationsprite = getVegetationTree(contentLoader.grassConfigs,grassmat,true,true);
-		if(vegetationsprite)
-			vegetationsprite->draw_world(x, y, z, this);
-	}
 
 
 	//shadow

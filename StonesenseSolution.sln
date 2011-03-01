@@ -7,6 +7,7 @@ Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Benchmark|Win32 = Benchmark|Win32
 		Debug|Win32 = Debug|Win32
+		Extra optimise test|Win32 = Extra optimise test|Win32
 		Release|Win32 = Release|Win32
 		Test|Win32 = Test|Win32
 	EndGlobalSection
@@ -15,6 +16,8 @@ Global
 		{37B19492-24AE-43C0-B67E-B252915A1C98}.Benchmark|Win32.Build.0 = Benchmark|Win32
 		{37B19492-24AE-43C0-B67E-B252915A1C98}.Debug|Win32.ActiveCfg = Debug|Win32
 		{37B19492-24AE-43C0-B67E-B252915A1C98}.Debug|Win32.Build.0 = Debug|Win32
+		{37B19492-24AE-43C0-B67E-B252915A1C98}.Extra optimise test|Win32.ActiveCfg = Extra optimise test|Win32
+		{37B19492-24AE-43C0-B67E-B252915A1C98}.Extra optimise test|Win32.Build.0 = Extra optimise test|Win32
 		{37B19492-24AE-43C0-B67E-B252915A1C98}.Release|Win32.ActiveCfg = Release|Win32
 		{37B19492-24AE-43C0-B67E-B252915A1C98}.Release|Win32.Build.0 = Release|Win32
 		{37B19492-24AE-43C0-B67E-B252915A1C98}.Test|Win32.ActiveCfg = Test|Win32
