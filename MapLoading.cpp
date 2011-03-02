@@ -646,6 +646,18 @@ WorldSegment* ReadMapSegment(DFHack::Context &DF, int x, int y, int z, int sizex
 		}
 	}
 
+	//read date
+	if(!config.skipWorld)
+	{
+		contentLoader.currentYear = Wold->ReadCurrentYear();
+		contentLoader.currentTick = Wold->ReadCurrentTick();
+		contentLoader.currentMonth = (contentLoader.currentTick+9)/33600;
+		contentLoader.currentDay = ((contentLoader.currentTick+9)%33600)/1200;
+		contentLoader.currentHour = ((contentLoader.currentTick+9)-(((contentLoader.currentMonth*28)+contentLoader.currentDay)*1200))/50;
+		contentLoader.currentTickRel = (contentLoader.currentTick+9)-(((((contentLoader.currentMonth*28)+contentLoader.currentDay)*24)+contentLoader.currentHour)*50);
+		Wold->ReadGameMode(contentLoader.gameMode);
+	}
+
 	if(!config.skipMaps)
 	{
 		if(!Maps->Start())
@@ -679,17 +691,7 @@ WorldSegment* ReadMapSegment(DFHack::Context &DF, int x, int y, int z, int sizex
 	//	timeToReloadConfig = false;
 	//}
 
-	//read date
-	if(!config.skipWorld)
-	{
-		contentLoader.currentYear = Wold->ReadCurrentYear();
-		contentLoader.currentTick = Wold->ReadCurrentTick();
-		contentLoader.currentMonth = (contentLoader.currentTick+9)/33600;
-		contentLoader.currentDay = ((contentLoader.currentTick+9)%33600)/1200;
-		contentLoader.currentHour = ((contentLoader.currentTick+9)-(((contentLoader.currentMonth*28)+contentLoader.currentDay)*1200))/50;
-		contentLoader.currentTickRel = (contentLoader.currentTick+9)-(((((contentLoader.currentMonth*28)+contentLoader.currentDay)*24)+contentLoader.currentHour)*50);
-		contentLoader.gameMode = Wold->ReadGameMode();
-	}
+
 
 	//Read Number of cells
 	int celldimX, celldimY, celldimZ;

@@ -344,7 +344,7 @@ void drawDebugCursorAndInfo(){
 		"Coord:(%i,%i,%i)", debugCursor.x, debugCursor.y, debugCursor.z);
 	
 	draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
-		"Game Mode:%i", contentLoader.gameMode);
+		"Game Mode:%i, Control Mode:%i", contentLoader.gameMode.game_mode, contentLoader.gameMode.control_mode);
 
 	if(!b) return;
 
@@ -612,7 +612,7 @@ void DrawSpriteFromSheet( int spriteNum, ALLEGRO_BITMAP* spriteSheet, ALLEGRO_CO
 	10, 60 , SPRITEWIDTH, SPRITEHEIGHT);
 	*/
 	//draw_trans_sprite(target, tiny, x, y);
-	if(b && b->designation.bits.pile && config.fog_of_war && (contentLoader.gameMode == 1))
+	if(b && b->designation.bits.pile && config.fog_of_war && (contentLoader.gameMode.control_mode == 1))
 	{
 		color.r *= 0.25f;
 		color.g *= 0.25f;

@@ -59,7 +59,7 @@ public:
 	uint8_t currentDay;
 	uint8_t currentHour;
 	uint8_t currentTickRel;
-	uint32_t gameMode;
+	t_gamemodes gameMode;
 
 	int stockpileNum;
 	int civzoneNum;
