@@ -676,9 +676,9 @@ void c_sprite::draw_world_offset(int x, int y, int z, Block * b, int tileoffset,
 					if(chop && ( halftile == HALFTILECHOP))
 					{
 						if(fileindex < 0)
-							al_draw_tinted_bitmap_region(defaultsheet, shade_color, sheetx, sheety+WALL_CUTOFF_HEIGHT, spritewidth, spriteheight-WALL_CUTOFF_HEIGHT, drawx + offset_x + offset_user_x, drawy + offset_user_y + (offset_y - WALLHEIGHT)+WALL_CUTOFF_HEIGHT, 0);
+							al_draw_tinted_bitmap_region(defaultsheet, premultiply(shade_color), sheetx, sheety+WALL_CUTOFF_HEIGHT, spritewidth, spriteheight-WALL_CUTOFF_HEIGHT, drawx + offset_x + offset_user_x, drawy + offset_user_y + (offset_y - WALLHEIGHT)+WALL_CUTOFF_HEIGHT, 0);
 						else 
-							al_draw_tinted_bitmap_region(getImgFile(fileindex), shade_color, sheetx, (sheety)+WALL_CUTOFF_HEIGHT, spritewidth, spriteheight-WALL_CUTOFF_HEIGHT, drawx + offset_x + offset_user_x, drawy + offset_user_y + (offset_y - WALLHEIGHT)+WALL_CUTOFF_HEIGHT, 0);
+							al_draw_tinted_bitmap_region(getImgFile(fileindex), premultiply(shade_color), sheetx, (sheety)+WALL_CUTOFF_HEIGHT, spritewidth, spriteheight-WALL_CUTOFF_HEIGHT, drawx + offset_x + offset_user_x, drawy + offset_user_y + (offset_y - WALLHEIGHT)+WALL_CUTOFF_HEIGHT, 0);
 						//draw cut-off floor thing
 						al_draw_bitmap_region(IMGObjectSheet, 
 							TILEWIDTH * SPRITEFLOOR_CUTOFF, 0,
@@ -690,9 +690,9 @@ void c_sprite::draw_world_offset(int x, int y, int z, Block * b, int tileoffset,
 						if((isoutline == OUTLINENONE) || ((isoutline == OUTLINERIGHT) && (b->depthBorderNorth)) || ((isoutline == OUTLINELEFT) && (b->depthBorderWest)) || ((isoutline == OUTLINEBOTTOM) && (b->depthBorderDown)))
 						{
 							if(fileindex < 0)
-								al_draw_tinted_bitmap_region(defaultsheet, shade_color, sheetx, sheety, spritewidth, spriteheight, drawx + offset_x + offset_user_x, drawy + offset_user_y + (offset_y - WALLHEIGHT), 0);
+								al_draw_tinted_bitmap_region(defaultsheet, premultiply(shade_color), sheetx, sheety, spritewidth, spriteheight, drawx + offset_x + offset_user_x, drawy + offset_user_y + (offset_y - WALLHEIGHT), 0);
 							else 
-								al_draw_tinted_bitmap_region(getImgFile(fileindex), shade_color, sheetx, sheety, spritewidth, spriteheight, drawx + offset_x + offset_user_x, drawy + offset_user_y + (offset_y - WALLHEIGHT), 0);
+								al_draw_tinted_bitmap_region(getImgFile(fileindex), premultiply(shade_color), sheetx, sheety, spritewidth, spriteheight, drawx + offset_x + offset_user_x, drawy + offset_user_y + (offset_y - WALLHEIGHT), 0);
 						}
 						if(needoutline)
 						{

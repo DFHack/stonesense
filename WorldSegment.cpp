@@ -199,9 +199,6 @@ void WorldSegment::drawAllBlocks(){
 	int32_t vsymax = viewedSegment->sizey-1;
 	int32_t vszmax = viewedSegment->sizez-1; // grabbing one tile +z more than we should for tile rules
 	//al_hold_bitmap_drawing(true);
-	int op, src, dst, alpha_op, alpha_src, alpha_dst;
-	ALLEGRO_COLOR color;
-	al_get_separate_blender(&op, &src, &dst, &alpha_op, &alpha_src, &alpha_dst);
 
 	for(int32_t vsz=0; vsz < vszmax; vsz++)
 	{
@@ -213,7 +210,7 @@ void WorldSegment::drawAllBlocks(){
 			{
 				fog = al_create_bitmap(al_get_bitmap_width(temp), al_get_bitmap_height(temp));
 				al_set_target_bitmap(fog);
-				al_clear_to_color(al_map_rgb(config.fogr, config.fogg, config.fogb));
+				al_clear_to_color(premultiply(al_map_rgba_f(config.fogr, config.fogg, config.fogb, config.foga)));
 				al_set_target_bitmap(temp);
 			}
 			if(!((al_get_bitmap_width(fog) == al_get_bitmap_width(temp)) && (al_get_bitmap_height(fog) == al_get_bitmap_height(temp))))
@@ -221,10 +218,10 @@ void WorldSegment::drawAllBlocks(){
 				al_destroy_bitmap(fog);
 				fog = al_create_bitmap(al_get_bitmap_width(temp), al_get_bitmap_height(temp));
 				al_set_target_bitmap(fog);
-				al_clear_to_color(al_map_rgb(config.fogr, config.fogg, config.fogb));
+				al_clear_to_color(al_map_rgba_f(config.fogr*config.foga, config.fogg*config.foga, config.fogb*config.foga, config.foga));
 				al_set_target_bitmap(temp);
 			}
-			al_draw_tinted_bitmap(fog, al_map_rgba(255, 255, 255, config.foga), 0, 0, 0);
+			al_draw_bitmap(fog, 0, 0, 0);
 		}
 		if(vsz == vszmax-1)
 		{

@@ -602,8 +602,8 @@ void drawFloorBlood ( Block *b, int32_t drawx, int32_t drawy )
 		int sheetOffsetX = TILEWIDTH * (sprite.sheetIndex % SHEET_OBJECTSWIDE),
 			sheetOffsetY = 0;
 
-		al_draw_tinted_bitmap_region( IMGBloodSheet, b->bloodcolor, sheetOffsetX, sheetOffsetY, TILEWIDTH, TILEHEIGHT+FLOORHEIGHT, drawx, drawy, 0);
-		al_draw_tinted_bitmap_region( IMGBloodSheet, al_map_rgb(255,255,255), sheetOffsetX, sheetOffsetY+TILEHEIGHT+FLOORHEIGHT, TILEWIDTH, TILEHEIGHT+FLOORHEIGHT, drawx, drawy, 0);
+		al_draw_tinted_bitmap_region( IMGBloodSheet, premultiply(b->bloodcolor), sheetOffsetX, sheetOffsetY, TILEWIDTH, TILEHEIGHT+FLOORHEIGHT, drawx, drawy, 0);
+		al_draw_bitmap_region( IMGBloodSheet, sheetOffsetX, sheetOffsetY+TILEHEIGHT+FLOORHEIGHT, TILEWIDTH, TILEHEIGHT+FLOORHEIGHT, drawx, drawy, 0);
 	}
 }
 

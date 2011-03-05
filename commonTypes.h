@@ -140,10 +140,10 @@ typedef struct {
 	int screenHeight;
 	bool Fullscreen;
 	bool show_intro;
-	int fogr;
-	int fogg;
-	int fogb;
-	int foga;
+	float fogr;
+	float fogg;
+	float fogb;
+	float foga;
 	int backr;
 	int backg;
 	int backb;

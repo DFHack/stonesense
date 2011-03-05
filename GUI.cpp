@@ -47,11 +47,23 @@ vector<string*> IMGFilenames;
 GLhandleARB tinter;
 GLhandleARB tinter_shader;
 Crd3D debugCursor;
+
+ALLEGRO_COLOR premultiply(ALLEGRO_COLOR input)
+{
+	ALLEGRO_COLOR out;
+	out.a = input.a;
+	out.r = input.r * input.a;
+	out.g = input.g * input.a;
+	out.b = input.b * input.a;
+	return out;
+}
+
 void draw_diamond(float x, float y, ALLEGRO_COLOR color)
 {
 	al_draw_filled_triangle(x, y, x+4, y+4, x-4, y+4, color);
 	al_draw_filled_triangle(x+4, y+4, x, y+8, x-4, y+4, color);
 }
+
 void draw_borders(float x, float y, uint8_t borders)
 {
 	if(borders & 1)
@@ -618,7 +630,7 @@ void DrawSpriteFromSheet( int spriteNum, ALLEGRO_BITMAP* spriteSheet, ALLEGRO_CO
 		color.g *= 0.25f;
 		color.b *= 0.25f;
 	}
-	al_draw_tinted_bitmap_region(spriteSheet, color, sheetx * SPRITEWIDTH, sheety * SPRITEHEIGHT, SPRITEWIDTH, SPRITEHEIGHT, x, y - (WALLHEIGHT), 0);
+	al_draw_tinted_bitmap_region(spriteSheet, premultiply(color), sheetx * SPRITEWIDTH, sheety * SPRITEHEIGHT, SPRITEWIDTH, SPRITEHEIGHT, x, y - (WALLHEIGHT), 0);
 }
 
 ALLEGRO_BITMAP * CreateSpriteFromSheet( int spriteNum, ALLEGRO_BITMAP* spriteSheet)
@@ -641,7 +653,7 @@ void DrawSpriteIndexOverlay(int imageIndex){
 		currentImage=IMGFilelist[imageIndex];
 	}
 	al_clear_to_color(al_map_rgb(255, 0, 255));
-	al_draw_tinted_bitmap(currentImage, al_map_rgb(255,255,255),0,0,0);
+	al_draw_bitmap(currentImage,0,0,0);
 	for(int i =0; i<= 20*SPRITEWIDTH; i+=SPRITEWIDTH)
 		al_draw_line(i,0,i, al_get_bitmap_height(al_get_target_bitmap()), al_map_rgb(0,0,0), 0);
 	for(int i =0; i< al_get_bitmap_height(al_get_target_bitmap()); i+=SPRITEHEIGHT)

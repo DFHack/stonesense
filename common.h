@@ -245,3 +245,5 @@ extern ALLEGRO_MOUSE_STATE mouse;
 #define FORM_LOG 4
 
 extern int randomCube[RANDOM_CUBE][RANDOM_CUBE][RANDOM_CUBE];
+
+ALLEGRO_COLOR premultiply(ALLEGRO_COLOR input);

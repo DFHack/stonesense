@@ -160,27 +160,19 @@ void parseConfigLine( string line ){
 	}
 	if( line.find("[FOG_RED") != -1){
 		int value = parseIntFromLine( "FOG_RED", line);
-		if(value > 255) value = 255;
-		if(value < 0) value = 0;
-		config.fogr = value;
+		config.fogr = value / 255.0;
 	}
 	if( line.find("[FOG_GREEN") != -1){
 		int value = parseIntFromLine( "FOG_GREEN", line);
-		if(value > 255) value = 255;
-		if(value < 0) value = 0;
-		config.fogg = value;
+		config.fogg = value / 255.0;
 	}
 	if( line.find("[FOG_BLUE") != -1){
 		int value = parseIntFromLine( "FOG_BLUE", line);
-		if(value > 255) value = 255;
-		if(value < 0) value = 0;
-		config.fogb = value;
+		config.fogb = value / 255.0;
 	}
 	if( line.find("[FOG_ALPHA") != -1){
 		int value = parseIntFromLine( "FOG_ALPHA", line);
-		if(value > 255) value = 255;
-		if(value < 0) value = 0;
-		config.foga = value;
+		config.foga = value / 255.0;
 	}
 	if( line.find("[SHOW_FOG") != -1){
 		string result = parseStrFromLine( "SHOW_FOG", line );
