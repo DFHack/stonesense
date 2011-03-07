@@ -43,6 +43,9 @@ DFHACK_EXPORT int World_ReadCurrentDay(DFHackObject* world, uint32_t* day);
 DFHACK_EXPORT int World_ReadCurrentWeather(DFHackObject* world, uint8_t* weather);
 DFHACK_EXPORT int World_WriteCurrentWeather(DFHackObject* world, uint8_t weather);
 
+DFHACK_EXPORT int World_ReadGameMode(DFHackObject* world, t_gamemodes*);
+DFHACK_EXPORT int World_WriteGameMode(DFHackObject* world, t_gamemodes);
+
 #ifdef __cplusplus
 }
 #endif

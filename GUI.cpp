@@ -249,14 +249,13 @@ void draw_textf_border(const ALLEGRO_FONT *font, ALLEGRO_COLOR color, float x, f
 }
 void draw_ustr_border(const ALLEGRO_FONT *font, ALLEGRO_COLOR color, float x, float y, int flags, const ALLEGRO_USTR *ustr)
 {
-	al_draw_ustr(font, al_map_rgb(0, 0, 0), x-1, y-1, flags, ustr);
-	al_draw_ustr(font, al_map_rgb(0, 0, 0), x-1, y+1, flags, ustr);
-	al_draw_ustr(font, al_map_rgb(0, 0, 0), x+1, y+1, flags, ustr);
-	al_draw_ustr(font, al_map_rgb(0, 0, 0), x+1, y-1, flags, ustr);
-	al_draw_ustr(font, al_map_rgb(0, 0, 0), x-1, y, flags, ustr);
-	al_draw_ustr(font, al_map_rgb(0, 0, 0), x, y+1, flags, ustr);
-	al_draw_ustr(font, al_map_rgb(0, 0, 0), x+1, y, flags, ustr);
-	al_draw_ustr(font, al_map_rgb(0, 0, 0), x, y-1, flags, ustr);
+	int xx, yy, ww, hh;
+	al_get_ustr_dimensions(font, ustr, &xx, &yy, &ww, &hh);
+	if(flags & ALLEGRO_ALIGN_CENTRE)
+		xx -= ww/2;
+	else if(flags & ALLEGRO_ALIGN_RIGHT)
+		xx -= ww;
+	al_draw_filled_rectangle(x+xx, y+yy, x+xx+ww, y+yy+hh, al_map_rgba_f(0.0,0.0,0.0,0.75));
 	al_draw_ustr(font, color, x, y, flags, ustr);
 }
 void pointToScreen(int *inx, int *iny, int inz){
