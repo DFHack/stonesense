@@ -215,11 +215,11 @@ void doKeys(int Key)
 		//contentLoader.reload_configs();
 		//timeToReloadSegment = true;
 	}
-	if(Key == ALLEGRO_KEY_U){
+	if(Key == ALLEGRO_KEY_I){
 		config.show_stockpiles = !config.show_stockpiles;
 		timeToReloadSegment = true;
 	}
-	if(Key == ALLEGRO_KEY_I){
+	if(Key == ALLEGRO_KEY_U){
 		config.show_zones = !config.show_zones;
 		timeToReloadSegment = true;
 	}

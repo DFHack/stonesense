@@ -185,4 +185,19 @@
       <subtype value="FLOOR FUNGI" />
     </material>
   </color>
+  <color red="106" green="158" blue="68">
+    <material value="Wood">
+      <subtype value="BAMBOO, ARROW" />
+    </material>
+  </color>
+  <color red="182" green="214" blue="96">
+    <material value="Wood">
+      <subtype value="BAMBOO, GOLDEN" />
+    </material>
+  </color>
+  <color red="127" green="192" blue="94">
+    <material value="Wood">
+      <subtype value="BAMBOO, HEDGE" />
+    </material>
+  </color>
 </colors>

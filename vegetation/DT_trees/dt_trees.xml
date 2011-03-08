@@ -1,0 +1,214 @@
+<?xml version="1.0"?>
+<trees file="trees.png">
+  <plant gameID="ACACIA" sheetIndex="0">
+    <branch sheetIndex="1" Z="0" Y="1" X="-1" />
+    <branch sheetIndex="4" Z="0" Y="0" X="1" />
+    <branch sheetIndex="6" Z="0" Y="-1" X="0" />
+    <branch sheetIndex="8" Z="0" Y="0" X="-1" />
+    <branch sheetIndex="10" Z="1" Y="0" X="0" offsety="4" />
+    <branch sheetIndex="13" Z="1" Y="1" X="1" offsety="4" />
+    <branch sheetIndex="14" Z="1" Y="0" X="1" offsety="4" />
+    <branch sheetIndex="15" Z="1" Y="-1" X="1" offsety="4" />
+    <branch sheetIndex="16" Z="1" Y="-1" X="0" offsety="4" />
+    <branch sheetIndex="17" Z="1" Y="-1" X="-1" offsety="4" />
+  </plant>
+  <plant gameID="ALDER" sheetIndex="20">
+    <branch sheetIndex="22" Z="0" Y="1" X="0" />
+    <branch sheetIndex="26" Z="0" Y="-1" X="0" />
+    <branch sheetIndex="28" Z="0" Y="0" X="-1" />
+    <branch sheetIndex="30" Z="1" Y="0" X="0" offsety="4" />
+  </plant>
+  <plant gameID="ASH" sheetIndex="40">
+    <branch sheetIndex="50" Z="1" Y="0" X="0" offsety="4" />
+    <branch sheetIndex="54" Z="1" Y="0" X="1" offsety="4" />
+  </plant>
+  <plant gameID="BIRCH" sheetIndex="60">
+    <branch sheetIndex="62" Z="0" Y="1" X="0" />
+    <branch sheetIndex="68" Z="0" Y="0" X="-1" />
+    <branch sheetIndex="70" Z="1" Y="0" X="0" offsety="4" />
+  </plant>
+  <plant gameID="BLACK_CAP" sheetIndex="80" />
+  <plant gameID="BLOOD_THORN" sheetIndex="100">
+    <branch sheetIndex="102" Z="0" Y="1" X="0" />
+    <branch sheetIndex="108" Z="0" Y="0" X="-1" />
+  </plant>
+  <plant gameID="CACAO" sheetIndex="120">
+    <branch sheetIndex="130" Z="1" Y="0" X="0" offsety="4" />
+  </plant>
+  <plant gameID="CANDLENUT" sheetIndex="140">
+    <branch sheetIndex="144" Z="0" Y="0" X="1" />
+    <branch sheetIndex="150" Z="1" Y="0" X="0" offsety="4" />
+    <branch sheetIndex="154" Z="1" Y="0" X="1" offsety="4" />
+    <branch sheetIndex="156" Z="1" Y="-1" X="0" offsety="4" />
+  </plant>
+  <plant gameID="CEDAR" sheetIndex="160">
+    <branch sheetIndex="170" Z="1" Y="0" X="0" offsety="4" />
+    <branch sheetIndex="174" Z="1" Y="0" X="1" offsety="4" />
+    <branch sheetIndex="176" Z="1" Y="-1" X="0" offsety="4" />
+    <branch sheetIndex="179" Z="2" Y="0" X="0" offsety="8" />
+  </plant>
+  <plant gameID="CHESTNUT" sheetIndex="180">
+    <branch sheetIndex="190" Z="1" Y="0" X="0" offsety="4" />
+    <branch sheetIndex="191" Z="1" Y="1" X="-1" offsety="4" />
+    <branch sheetIndex="192" Z="1" Y="1" X="0" offsety="4" />
+    <branch sheetIndex="193" Z="2" Y="1" X="1" offsety="4" />
+    <branch sheetIndex="194" Z="1" Y="0" X="1" offsety="4" />
+    <branch sheetIndex="196" Z="1" Y="-1" X="1" offsety="4" />
+    <branch sheetIndex="197" Z="2" Y="-1" X="0" offsety="4" />
+    <branch sheetIndex="198" Z="2" Y="-1" X="-1" offsety="8" />
+  </plant>
+  <plant gameID="FEATHER" sheetIndex="200"></plant>
+  <plant gameID="FUNGIWOOD" sheetIndex="220" />
+  <plant gameID="GLUMPRONG" sheetIndex="240"></plant>
+  <plant gameID="GOBLIN_CAP" sheetIndex="260" />
+  <plant gameID="HIGHWOOD" sheetIndex="280">
+    <branch sheetIndex="281" Z="0" Y="1" X="-1" />
+    <branch sheetIndex="282" Z="0" Y="1" X="0" />
+    <branch sheetIndex="283" Z="0" Y="1" X="1" />
+    <branch sheetIndex="284" Z="0" Y="0" X="1" />
+    <branch sheetIndex="285" Z="0" Y="-1" X="1" />
+    <branch sheetIndex="286" Z="0" Y="-1" X="0" />
+    <branch sheetIndex="287" Z="0" Y="-1" X="-1" />
+    <branch sheetIndex="288" Z="0" Y="0" X="-1" />
+    <branch sheetIndex="290" Z="1" Y="0" X="0" offsety="4" />
+    <branch sheetIndex="291" Z="1" Y="1" X="-1" offsety="4" />
+    <branch sheetIndex="292" Z="1" Y="1" X="0" offsety="4" />
+    <branch sheetIndex="293" Z="1" Y="1" X="1" offsety="4" />
+    <branch sheetIndex="294" Z="1" Y="0" X="1" offsety="4" />
+    <branch sheetIndex="295" Z="1" Y="-1" X="1" offsety="4" />
+    <branch sheetIndex="296" Z="1" Y="-1" X="0" offsety="4" />
+    <branch sheetIndex="297" Z="1" Y="-1" X="-1" offsety="4" />
+    <branch sheetIndex="298" Z="1" Y="0" X="-1" offsety="4" />
+    <branch sheetIndex="299" Z="2" Y="0" X="0" offsety="8" />
+  </plant>
+  <plant gameID="KAPOK" sheetIndex="300"></plant>
+  <plant gameID="LARCH" sheetIndex="320">
+    <branch sheetIndex="321" Z="0" Y="1" X="-1" />
+    <branch sheetIndex="322" Z="0" Y="1" X="0" />
+    <branch sheetIndex="323" Z="0" Y="1" X="1" />
+    <branch sheetIndex="324" Z="0" Y="0" X="1" />
+    <branch sheetIndex="325" Z="0" Y="-1" X="1" />
+    <branch sheetIndex="326" Z="0" Y="-1" X="0" />
+    <branch sheetIndex="327" Z="0" Y="-1" X="-1" />
+    <branch sheetIndex="328" Z="0" Y="0" X="-1" />
+    <branch sheetIndex="330" Z="1" Y="0" X="0" offsety="4" />
+    <branch sheetIndex="331" Z="1" Y="1" X="-1" offsety="4" />
+    <branch sheetIndex="332" Z="1" Y="1" X="0" offsety="4" />
+    <branch sheetIndex="333" Z="1" Y="1" X="1" offsety="4" />
+    <branch sheetIndex="334" Z="1" Y="0" X="1" offsety="4" />
+    <branch sheetIndex="335" Z="1" Y="-1" X="1" offsety="4" />
+    <branch sheetIndex="336" Z="1" Y="-1" X="0" offsety="4" />
+    <branch sheetIndex="337" Z="1" Y="-1" X="-1" offsety="4" />
+    <branch sheetIndex="338" Z="1" Y="0" X="-1" offsety="4" />
+    <branch sheetIndex="339" Z="2" Y="0" X="0" offsety="8" />
+  </plant>
+  <plant gameID="MANGO" sheetIndex="340"></plant>
+  <plant gameID="MAHOGANY" sheetIndex="360"></plant>
+  <plant gameID="MAPLE" sheetIndex="380"></plant>
+  <plant gameID="MANGROVE" sheetIndex="400"></plant>
+  <plant gameID="NETHER_CAP" sheetIndex="420" />
+  <plant gameID="OAK" sheetIndex="440">
+    <branch sheetIndex="441" Z="0" Y="1" X="-1" />
+    <branch sheetIndex="442" Z="0" Y="1" X="0" />
+    <branch sheetIndex="443" Z="0" Y="1" X="1" />
+    <branch sheetIndex="444" Z="0" Y="0" X="1" />
+    <branch sheetIndex="445" Z="0" Y="-1" X="1" />
+    <branch sheetIndex="446" Z="0" Y="-1" X="0" />
+    <branch sheetIndex="447" Z="0" Y="-1" X="-1" />
+    <branch sheetIndex="448" Z="0" Y="0" X="-1" />
+    <branch sheetIndex="450" Z="1" Y="0" X="0" offsety="4" />
+    <branch sheetIndex="451" Z="1" Y="1" X="-1" offsety="4" />
+    <branch sheetIndex="452" Z="1" Y="1" X="0" offsety="4" />
+    <branch sheetIndex="453" Z="1" Y="1" X="1" offsety="4" />
+    <branch sheetIndex="454" Z="1" Y="0" X="1" offsety="4" />
+    <branch sheetIndex="455" Z="1" Y="-1" X="1" offsety="4" />
+    <branch sheetIndex="456" Z="1" Y="-1" X="0" offsety="4" />
+    <branch sheetIndex="457" Z="1" Y="-1" X="-1" offsety="4" />
+    <branch sheetIndex="458" Z="1" Y="0" X="-1" offsety="4" />
+    <branch sheetIndex="459" Z="2" Y="0" X="0" offsety="8" />
+  </plant>
+  <plant gameID="PALM" sheetIndex="460">
+    <branch sheetIndex="461" Z="0" Y="1" X="-1" />
+    <branch sheetIndex="462" Z="0" Y="1" X="0" />
+    <branch sheetIndex="463" Z="0" Y="1" X="1" />
+    <branch sheetIndex="464" Z="0" Y="0" X="1" />
+    <branch sheetIndex="465" Z="0" Y="-1" X="1" />
+    <branch sheetIndex="466" Z="0" Y="-1" X="0" />
+    <branch sheetIndex="467" Z="0" Y="-1" X="-1" />
+    <branch sheetIndex="468" Z="0" Y="0" X="-1" />
+    <branch sheetIndex="470" Z="1" Y="0" X="0" offsety="4" />
+    <branch sheetIndex="471" Z="1" Y="1" X="-1" offsety="4" />
+    <branch sheetIndex="472" Z="1" Y="1" X="0" offsety="4" />
+    <branch sheetIndex="473" Z="1" Y="1" X="1" offsety="4" />
+    <branch sheetIndex="474" Z="1" Y="0" X="1" offsety="4" />
+    <branch sheetIndex="475" Z="1" Y="-1" X="1" offsety="4" />
+    <branch sheetIndex="476" Z="1" Y="-1" X="0" offsety="4" />
+    <branch sheetIndex="477" Z="1" Y="-1" X="-1" offsety="4" />
+    <branch sheetIndex="478" Z="1" Y="0" X="-1" offsety="4" />
+    <branch sheetIndex="479" Z="2" Y="0" X="0" offsety="8" />
+  </plant>
+  <plant gameID="PINE" sheetIndex="480">
+    <branch sheetIndex="481" Z="0" Y="1" X="-1" />
+    <branch sheetIndex="482" Z="0" Y="1" X="0" />
+    <branch sheetIndex="483" Z="0" Y="1" X="1" />
+    <branch sheetIndex="484" Z="0" Y="0" X="1" />
+    <branch sheetIndex="485" Z="0" Y="-1" X="1" />
+    <branch sheetIndex="486" Z="0" Y="-1" X="0" />
+    <branch sheetIndex="487" Z="0" Y="-1" X="-1" />
+    <branch sheetIndex="488" Z="0" Y="0" X="-1" />
+    <branch sheetIndex="490" Z="1" Y="0" X="0" offsety="4" />
+    <branch sheetIndex="491" Z="1" Y="1" X="-1" offsety="4" />
+    <branch sheetIndex="492" Z="1" Y="1" X="0" offsety="4" />
+    <branch sheetIndex="493" Z="1" Y="1" X="1" offsety="4" />
+    <branch sheetIndex="494" Z="1" Y="0" X="1" offsety="4" />
+    <branch sheetIndex="495" Z="1" Y="-1" X="1" offsety="4" />
+    <branch sheetIndex="496" Z="1" Y="-1" X="0" offsety="4" />
+    <branch sheetIndex="497" Z="1" Y="-1" X="-1" offsety="4" />
+    <branch sheetIndex="498" Z="1" Y="0" X="-1" offsety="4" />
+    <branch sheetIndex="499" Z="2" Y="0" X="0" offsety="8" />
+  </plant>
+  <plant gameID="RUBBER" sheetIndex="500"></plant>
+  <plant gameID="SAGUARO" sheetIndex="520">
+    <branch sheetIndex="521" Z="0" Y="1" X="-1" />
+    <branch sheetIndex="522" Z="0" Y="1" X="0" />
+    <branch sheetIndex="523" Z="0" Y="1" X="1" />
+    <branch sheetIndex="524" Z="0" Y="0" X="1" />
+    <branch sheetIndex="525" Z="0" Y="-1" X="1" />
+    <branch sheetIndex="526" Z="0" Y="-1" X="0" />
+    <branch sheetIndex="527" Z="0" Y="-1" X="-1" />
+    <branch sheetIndex="528" Z="0" Y="0" X="-1" />
+    <branch sheetIndex="530" Z="1" Y="0" X="0" offsety="4" />
+    <branch sheetIndex="531" Z="1" Y="1" X="-1" offsety="4" />
+    <branch sheetIndex="532" Z="1" Y="1" X="0" offsety="4" />
+    <branch sheetIndex="533" Z="1" Y="1" X="1" offsety="4" />
+    <branch sheetIndex="534" Z="1" Y="0" X="1" offsety="4" />
+    <branch sheetIndex="535" Z="1" Y="-1" X="1" offsety="4" />
+    <branch sheetIndex="536" Z="1" Y="-1" X="0" offsety="4" />
+    <branch sheetIndex="537" Z="1" Y="-1" X="-1" offsety="4" />
+    <branch sheetIndex="538" Z="1" Y="0" X="-1" offsety="4" />
+    <branch sheetIndex="539" Z="2" Y="0" X="0" offsety="8" />
+  </plant>
+  <plant gameID="SPORE_TREE" sheetIndex="540" />
+  <plant gameID="TOWER_CAP" sheetIndex="560" />
+  <plant gameID="TUNNEL_TUBE" sheetIndex="580" />
+  <plant gameID="WILLOW" sheetIndex="600">
+    <branch sheetIndex="601" Z="0" Y="1" X="-1" />
+    <branch sheetIndex="602" Z="0" Y="1" X="0" />
+    <branch sheetIndex="603" Z="0" Y="1" X="1" />
+    <branch sheetIndex="604" Z="0" Y="0" X="1" />
+    <branch sheetIndex="605" Z="0" Y="-1" X="1" />
+    <branch sheetIndex="606" Z="0" Y="-1" X="0" />
+    <branch sheetIndex="607" Z="0" Y="-1" X="-1" />
+    <branch sheetIndex="608" Z="0" Y="0" X="-1" />
+    <branch sheetIndex="610" Z="1" Y="0" X="0" offsety="4" />
+    <branch sheetIndex="611" Z="1" Y="1" X="-1" offsety="4" />
+    <branch sheetIndex="612" Z="1" Y="1" X="0" offsety="4" />
+    <branch sheetIndex="613" Z="1" Y="1" X="1" offsety="4" />
+    <branch sheetIndex="614" Z="1" Y="0" X="1" offsety="4" />
+    <branch sheetIndex="615" Z="1" Y="-1" X="1" offsety="4" />
+    <branch sheetIndex="616" Z="1" Y="-1" X="0" offsety="4" />
+    <branch sheetIndex="617" Z="1" Y="-1" X="-1" offsety="4" />
+    <branch sheetIndex="618" Z="1" Y="0" X="-1" offsety="4" />
+    <branch sheetIndex="619" Z="2" Y="0" X="0" offsety="8" />
+  </plant>
+</trees>

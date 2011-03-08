@@ -894,16 +894,41 @@ WorldSegment* ReadMapSegment(DFHack::Context &DF, int x, int y, int z, int sizex
 	if(!config.skipCreatures)
 		ReadCreaturesToSegment( DF, segment );
 
+	Maps->Finish();
+	segment->loaded = 1;
+	TMR2_STOP;
+
+	segment->processed = 0;
+
+	return segment;
+}
+
+void beautify_Segment(WorldSegment * segment)
+{
+	if(!segment)
+		return;
+	TMR1_START;
 	//do misc beautification
 	uint32_t numblocks = segment->getNumBlocks();
 	for(uint32_t i=0; i < numblocks; i++){
 		Block* b = segment->getBlock(i);
 
-
+		//Grass
+		if(b->grasslevel > 0 && (
+			(tileTypeTable[b->floorType].m == GRASS) || 
+			(tileTypeTable[b->floorType].m == GRASS2) ||
+			(tileTypeTable[b->floorType].m == GRASS_DEAD) ||
+			(tileTypeTable[b->floorType].m == GRASS_DRY)))
+		{
+			c_block_tree * vegetationsprite = 0;
+			vegetationsprite = getVegetationTree(contentLoader.grassConfigs,b->grassmat,true,true);
+			if(vegetationsprite)
+				vegetationsprite->insert_sprites(segment, b->x, b->y, b->z, b);
+		}
 
 		//setup building sprites
-		if( b->building.info.type != BUILDINGTYPE_NA && b->building.info.type != BUILDINGTYPE_BLACKBOX )
-			loadBuildingSprites( b, DF );
+		if( b->building.info.type != BUILDINGTYPE_NA && b->building.info.type != BUILDINGTYPE_BLACKBOX && b->building.info.type != BUILDINGTYPE_TREE)
+			loadBuildingSprites( b);
 
 		//populate trees
 		if(b->tree.index)
@@ -1049,12 +1074,8 @@ WorldSegment* ReadMapSegment(DFHack::Context &DF, int x, int y, int z, int sizex
 
 		b->openborders = ~(b->floorborders|b->rampborders|b->wallborders|b->downstairborders|b->upstairborders);
 	}
-
-	Maps->Finish();
-	segment->loaded = 1;
-	TMR2_STOP;
-
-	return segment;
+	segment->processed = 1;
+	TMR1_STOP;
 }
 
 
@@ -1221,6 +1242,7 @@ void read_segment( void *arg)
 		parms.sizex, parms.sizey, parms.sizez);
 	config.threadstarted = 0;
 	pDFApiHandle->Resume();
+	beautify_Segment(altSegment);
 	if(parms.thread_connect == 0)
 	{
 		DFProc->detach();
@@ -1339,6 +1361,7 @@ void reloadDisplayedSegment(){
 		al_start_thread(config.readThread);
 	else
 		read_segment(NULL);
+
 
 	//al_broadcast_cond(config.readCond);
 

@@ -8,6 +8,7 @@ private:
 public:
 	ALLEGRO_MUTEX * mutie;
 	bool loaded;
+	bool processed;
 	int x, y, z;
 	int sizex, sizey, sizez;
 	unsigned char rotation;

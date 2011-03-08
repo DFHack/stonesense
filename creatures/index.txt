@@ -1,3 +1,5 @@
+caravan_animals.xml
+
 beefmo_large_ocean.xml
 beefmo_subterranean.xml
 humies.xml

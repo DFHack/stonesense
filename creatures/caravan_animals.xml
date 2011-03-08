@@ -1,0 +1,123 @@
+<?xml version="1.0" ?>
+<creatures>
+ <creature gameID="BIRD_CHICKEN"  file="caravan_animals.png" >
+  
+  <variant special="Normal" sex="F" sheetIndex ="0" frame="0" color = "bodypart" bodypart = "feathers" >
+  <subsprite sheetIndex = "6" /> </variant>
+  <variant special="Normal" sex="F" sheetIndex ="1" frame="1" color = "bodypart" bodypart = "feathers" >
+  <subsprite sheetIndex = "6" /> </variant>
+  <variant special="Normal" sex="F" sheetIndex ="2" frame="2" color = "bodypart" bodypart = "feathers" >
+  <subsprite sheetIndex = "6" /> </variant>
+  <variant special="Normal" sex="F" sheetIndex ="3" frame="3" color = "bodypart" bodypart = "feathers" >
+  <subsprite sheetIndex = "6" /> </variant>
+  <variant special="Normal" sex="F" sheetIndex ="4" frame="4" color = "bodypart" bodypart = "feathers" >
+  <subsprite sheetIndex = "6" /> </variant>
+  <variant special="Normal" sex="F" sheetIndex ="5" frame="5" color = "bodypart" bodypart = "feathers" >
+  <subsprite sheetIndex = "6" /> </variant>
+  
+  <variant special="Normal" sex="M" sheetIndex ="20" frame="0" color = "bodypart" bodypart = "feathers" >
+  <subsprite sheetIndex = "26" /></variant>
+  <variant special="Normal" sex="M" sheetIndex ="21" frame="1" color = "bodypart" bodypart = "feathers" >
+  <subsprite sheetIndex = "26" /></variant>
+  <variant special="Normal" sex="M" sheetIndex ="22" frame="2" color = "bodypart" bodypart = "feathers" >
+  <subsprite sheetIndex = "26" /></variant>
+  <variant special="Normal" sex="M" sheetIndex ="23" frame="3" color = "bodypart" bodypart = "feathers" >
+  <subsprite sheetIndex = "26" /></variant>
+  <variant special="Normal" sex="M" sheetIndex ="24" frame="4" color = "bodypart" bodypart = "feathers" >
+  <subsprite sheetIndex = "26" /></variant>
+  <variant special="Normal" sex="M" sheetIndex ="25" frame="5" color = "bodypart" bodypart = "feathers" >
+  <subsprite sheetIndex = "26" /></variant>
+  
+  <variant prof="CHILD" sheetIndex ="7"  color = "bodypart" bodypart = "feathers" >
+  <subsprite sheetIndex = "8" />
+  </variant>
+  </creature>
+
+<creature gameID="BIRD_TURKEY"  file="caravan_animals.png" >
+  <variant special="Normal" sex="F" sheetIndex ="11"  color = "bodypart" bodypart = "feathers" >
+  <subsprite sheetIndex = "12" />
+  </variant>
+  <variant special="Normal" sex="M" sheetIndex ="10"  color = "bodypart" bodypart = "feathers" >
+  <subsprite sheetIndex = "12" />
+  </variant>
+  <variant prof="CHILD" sheetIndex ="13"  color = "bodypart" bodypart = "feathers" >
+  <subsprite sheetIndex = "14" />
+  </variant>
+</creature>
+  
+  <creature gameID="BIRD_PEAFOWL_BLUE"  file="caravan_animals.png" >
+  <variant special="Normal" sex="F" sheetIndex ="50"  />
+  <variant special="Normal" sex="M" sheetIndex ="51"  />
+  <variant prof="CHILD" sheetIndex ="52"  color = "bodypart" bodypart = "feathers" />
+  </creature>
+
+ <creature gameID="BIRD_DUCK"  file="caravan_animals.png" >
+  <variant prof="CHILD" sheetIndex ="32"  color = "bodypart" bodypart = "feathers" >
+  <subsprite sheetIndex = "33" />
+  </variant>
+   
+  <variant special="Normal" sheetIndex ="30"  color = "bodypart" bodypart = "feathers" >
+  <subsprite sheetIndex = "31" />
+  </variant>
+  </creature>
+  
+   <creature gameID="BIRD_GEESE"  file="caravan_animals.png" >
+  <variant prof="CHILD" sheetIndex ="42"  color = "bodypart" bodypart = "feathers" >
+  <subsprite sheetIndex = "43" />
+  </variant>
+   
+  <variant special="Normal" sheetIndex ="40"  color = "bodypart" bodypart = "feathers" >
+  <subsprite sheetIndex = "41" />
+  </variant>
+  </creature>
+  
+   <creature gameID="ALPACA"  file="caravan_animals.png" >
+  <variant prof="CHILD" sheetIndex ="63"  color = "bodypart" bodypart = "wool" >
+  <subsprite sheetIndex = "64" color = "bodypart" bodypart = "skin"/>
+  </variant>
+   
+  <variant special="Normal" sheetIndex ="60"  color = "bodypart" bodypart = "wool" >
+  <subsprite sheetIndex = "62" color = "bodypart" bodypart = "skin"/>
+  </variant>
+  </creature>
+  
+   <creature gameID="LLAMA"  file="caravan_animals.png" >
+  <variant prof="CHILD" sheetIndex ="63"  color = "bodypart" bodypart = "wool" >
+  <subsprite sheetIndex = "64" color = "bodypart" bodypart = "skin"/>
+  </variant>
+   
+  <variant special="Normal" sheetIndex ="61"  color = "bodypart" bodypart = "wool" >
+  <subsprite sheetIndex = "62" color = "bodypart" bodypart = "skin"/>
+  </variant>
+  </creature>
+  
+  <creature gameID="YAK"  file="caravan_animals.png" >
+  <variant prof="CHILD" sheetIndex ="82"  color = "bodypart" bodypart = "hair" >
+  </variant>
+   
+  <variant special="Normal" sheetIndex ="80"  color = "bodypart" bodypart = "hair" >
+  <subsprite sheetIndex = "81" />
+  </variant>
+  </creature>
+  
+  <creature gameID="SHEEP"  file="caravan_animals.png" >
+  <variant special="Normal" sex="F" sheetIndex ="90"  color = "bodypart" bodypart = "wool" >
+  <subsprite sheetIndex = "91" color = "bodypart" bodypart = "skin"/>
+  </variant>
+  <variant special="Normal" sex="M" sheetIndex ="90"  color = "bodypart" bodypart = "wool" >
+  <subsprite sheetIndex = "91" color = "bodypart" bodypart = "skin"/>
+  <subsprite sheetIndex = "92" />
+  </variant>
+  <variant prof="CHILD" sheetIndex ="93"  color = "bodypart" bodypart = "wool" >
+  <subsprite sheetIndex = "94" color = "bodypart" bodypart = "skin"/>
+  </variant>
+</creature>
+  <creature gameID="RABBIT"  file="caravan_animals.png" >
+  <variant prof="CHILD" sheetIndex ="71"  color = "bodypart" bodypart = "hair" />
+  
+   
+  <variant special="Normal" sheetIndex ="70"  color = "bodypart" bodypart = "hair" />
+  
+  </creature>
+  
+</creatures>

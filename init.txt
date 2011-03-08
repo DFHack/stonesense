@@ -40,7 +40,7 @@ Follow the center of the DF window, rather than scale to the edges.
 Sets an initial x/y/z offset for follow mode
 [FOLLOW_OFFSET_X:0]
 [FOLLOW_OFFSET_Y:0]
-[FOLLOW_OFFSET_Z:2]
+[FOLLOW_OFFSET_Z:0]
 
 Shows building graphics for zones. (Toggle with 'i')
 [SHOW_ZONES:NO]

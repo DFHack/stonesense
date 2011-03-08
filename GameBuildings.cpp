@@ -165,7 +165,7 @@ void MergeBuildingsToSegment(vector<t_building>* buildings, WorldSegment* segmen
 }
 
 
-void loadBuildingSprites ( Block* b, DFHack::Context& DF){
+void loadBuildingSprites ( Block* b){
 	bool foundBlockBuildingInfo = false;
 	if (b == NULL)
 	{
