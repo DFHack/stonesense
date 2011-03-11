@@ -291,6 +291,7 @@ void ReadCellToSegment(DFHack::Context& DF, WorldSegment& segment, int CellX, in
 			b->snowlevel = 0;
 			b->bloodlevel = 0;
 			b->grasslevel = 0;
+			b->grassmat = -1;
 			//b->grasslevels.clear();
 			//b->grassmats.clear();
 			for(int i = 0; i < grass.size(); i++)

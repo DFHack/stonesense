@@ -1,6 +1,9 @@
 <?xml version="1.0"?>
 <colors>
-  <color red="113" green="129" blue="0">
+  <color red="84" green="147" blue="57">
+    <material value="Wood">
+    </material>
+  </color>  <color red="113" green="129" blue="0">
     <material value="Wood">
       <subtype value="MEADOW-GRASS" />
     </material>
