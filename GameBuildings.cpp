@@ -4,7 +4,7 @@
 #include "GameBuildings.h"
 #include "BuildingConfiguration.h"
 #include "ContentLoader.h"
-#include "gui.h"
+#include "GUI.h"
 
 //vector<BuildingConfiguration> buildingTypes;
 //vector <string> v_buildingtypes;//should be empty for all buildings

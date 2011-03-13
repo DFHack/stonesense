@@ -1,6 +1,6 @@
 #include "BlockTree.h"
 #include "GameBuildings.h"
-#include "gui.h"
+#include "GUI.h"
 
 c_block_tree_twig::c_block_tree_twig()
 {
