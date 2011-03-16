@@ -1,3 +1,9 @@
+----==== 2.3 'Slate', March 15rd 2011 ====----
+* DF31.21 compatible
+* Support for multi-threaded rendering
+* Support for different grass types
+* More animals, chickens, rabbits etc
+
 ----==== 2.2 'Slate', October 23rd 2010 ====----
 * DF31.01 to .16 compatible
 
