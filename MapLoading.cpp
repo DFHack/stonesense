@@ -598,10 +598,10 @@ WorldSegment* ReadMapSegment(DFHack::Context &DF, int x, int y, int z, int sizex
 	{
 		WriteErr("DFhack exeption: %s\n", e.what());
 	}
-	DFHack::Position *Pos;
+	DFHack::Gui *Pos;
 	try
 	{
-		Pos = DF.getPosition();
+		Pos = DF.getGui();
 	}
 	catch (exception &e)
 	{
@@ -1123,7 +1123,7 @@ void FollowCurrentDFWindow( )
 	int32_t viewsizey;
 	int32_t newviewz;
 	int32_t mapx, mapy, mapz;
-	DFHack::Position *Pos =pDFApiHandle->getPosition();
+	DFHack::Gui *Pos =pDFApiHandle->getGui();
 	try
 	{
 		if (Pos)
@@ -1183,7 +1183,7 @@ void FollowCurrentDFCenter( )
 	int32_t viewsizex;
 	int32_t viewsizey;
 	int32_t newviewz;
-	DFHack::Position *Pos =pDFApiHandle->getPosition();
+	DFHack::Gui *Pos =pDFApiHandle->getGui();
 	try
 	{
 		if (Pos)
