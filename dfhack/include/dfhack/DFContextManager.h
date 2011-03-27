@@ -40,6 +40,7 @@ namespace DFHack
     /**
      * Used to enumerate, create and destroy Contexts. The very base of DFHack.
      * @see DFHack::Context
+     * \ingroup grp_context
      */
     class DFHACK_EXPORT ContextManager
     {
@@ -80,7 +81,7 @@ namespace DFHack
 
         /**
         * Convenience method to return a single valid Context
-        * @return pointer to a Context
+        * @return pointer to a Context. The Context isn't attached!
         */
         Context * getSingleContext();
 
@@ -95,6 +96,7 @@ namespace DFHack
      * Class used for holding a set of invalidated Context AND Process objects temporarily and destroy them safely.
      * @see DFHack::Context
      * @see DFHack::Process
+     * \ingroup grp_context
      */
     class DFHACK_EXPORT BadContexts
     {

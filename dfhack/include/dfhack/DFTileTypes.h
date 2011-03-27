@@ -655,10 +655,10 @@ namespace DFHack
                     MAPTILE_FEATSTONE_WALL_WORN2,
                       MAPTILE_FEATSTONE_WALL_WORN3,
                         MAPTILE_FEATSTONE_WALL,*/
-        {"cracked featstone wall",WALL,STONE,VAR_1, TILE_CRACKED },
-        {"damaged featstone wall",WALL,STONE,VAR_1, TILE_DAMAGED },
-        {"worn featstone wall",WALL,STONE,VAR_1,    TILE_WORN },
-        {"featstone wall",WALL,STONE,VAR_1},
+        {"cracked featstone wall",WALL,FEATSTONE,VAR_1, TILE_CRACKED },
+        {"damaged featstone wall",WALL,FEATSTONE,VAR_1, TILE_DAMAGED },
+        {"worn featstone wall",WALL,FEATSTONE,VAR_1,    TILE_WORN },
+        {"featstone wall",WALL,FEATSTONE,VAR_1},
         {"stone floor",FLOOR,STONE,VAR_1},
         {"stone floor",FLOOR,STONE,VAR_2},
         {"stone floor",FLOOR,STONE,VAR_3},
@@ -880,6 +880,53 @@ namespace DFHack
         {"constructed ramp",RAMP,CONSTRUCTED, VAR_1},
         {0 ,EMPTY, AIR, VAR_1} // end
     };
+    // tile is missing a floor
+    inline
+    bool LowPassable(uint16_t tiletype)
+    {
+        switch(DFHack::tileTypeTable[tiletype].c)
+        {
+            case DFHack::EMPTY:
+            case DFHack::STAIR_DOWN:
+            case DFHack::STAIR_UPDOWN:
+            case DFHack::RAMP_TOP:
+                return true;
+            default:
+                return false;
+        }
+    };
+
+    // tile is missing a roof
+    inline
+    bool HighPassable(uint16_t tiletype)
+    {
+        switch(DFHack::tileTypeTable[tiletype].c)
+        {
+            case DFHack::EMPTY:
+            case DFHack::STAIR_DOWN:
+            case DFHack::STAIR_UPDOWN:
+            case DFHack::STAIR_UP:
+            case DFHack::RAMP:
+            case DFHack::RAMP_TOP:
+            case DFHack::FLOOR:
+            case DFHack::SAPLING_DEAD:
+            case DFHack::SAPLING_OK:
+            case DFHack::SHRUB_DEAD:
+            case DFHack::SHRUB_OK:
+            case DFHack::BOULDER:
+            case DFHack::PEBBLES:
+                return true;
+            default:
+                return false;
+        }
+    };
+
+    inline
+    bool FlowPassable(uint16_t tiletype)
+    {
+        TileClass tc = tileTypeTable[tiletype].c;
+        return tc != WALL && tc != PILLAR && tc != TREE_DEAD && tc != TREE_OK;
+    };
 
     inline
     bool isWallTerrain(int in)
@@ -945,6 +992,7 @@ namespace DFHack
         }
         return -1;
     }
+    /*
     //Convenience version of the above, to pass strings as the direction
     inline
     int32_t findTileType( const TileClass tclass, const TileMaterial tmat, const TileVariant tvar, const TileSpecial tspecial, const char *tdirStr )
@@ -956,7 +1004,7 @@ namespace DFHack
             return findTileType(tclass,tmat,tvar,tspecial, 0 );
         }
     }
-
+*/
 
     //zilpin: Find a tile type similar to the one given, but with a different class.
     //Useful for tile-editing operations.

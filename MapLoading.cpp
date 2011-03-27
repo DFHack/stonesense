@@ -1263,7 +1263,7 @@ static void * threadedSegment(ALLEGRO_THREAD *thread, void *arg)
 	{
 		read_segment(arg);
 		//al_unlock_mutex(config.readMutex);
-		al_rest(config.automatic_reload_time/1000.0);
+		//al_rest(config.automatic_reload_time/1000.0);
 	}
 	return 0;
 }

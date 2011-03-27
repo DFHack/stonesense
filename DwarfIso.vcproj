@@ -1994,6 +1994,18 @@
 				RelativePath=".\My Amplifier Results\r003hs\r003hs.ampl"
 				>
 			</File>
+			<File
+				RelativePath=".\My Amplifier Results\r006hs\r006hs.ampl"
+				>
+			</File>
+			<File
+				RelativePath=".\My Amplifier Results\r007hs\r007hs.ampl"
+				>
+			</File>
+			<File
+				RelativePath=".\My Amplifier Results\r008hs\r008hs.ampl"
+				>
+			</File>
 		</Filter>
 		<File
 			RelativePath=".\VTune\Stonesense.vpj"

@@ -1,4 +1,3 @@
-
 /*
 www.sourceforge.net/projects/dfhack
 Copyright (c) 2009 Petr Mrázek (peterix), Kenneth Ferland (Impaler[WrG]), dorf
@@ -33,7 +32,6 @@ namespace DFHack
     class Maps;
     class Gui;
     class World;
-    class Position;
     class Materials;
     class Items;
     class Translation;
@@ -44,17 +42,23 @@ namespace DFHack
     class DFContextShared;
     class WindowIO;
     class Process;
-
+    /**
+     * This class wraps all the different related objects for a particular Process
+     * \ingroup grp_context
+     */
     class DFHACK_EXPORT Context
     {
         public:
         Context(Process * p);
         ~Context();
 
+        /// @return true if there's version information for the associated Process
         bool isValid();
-
+        /// attach to the related process. Claims OS debugging resources
         bool Attach();
+        /// detach from the related process. Releases OS debugging resources
         bool Detach();
+        /// @return true if the process is attached.
         bool isAttached();
 
         /// stop the tracked process
@@ -77,8 +81,6 @@ namespace DFHack
         void ReadRaw (const uint32_t offset, const uint32_t size, uint8_t *target);
         void WriteRaw (const uint32_t offset, const uint32_t size, uint8_t *source);
 
-        // FIXME: this is crap.
-
         /// get the creatures module
         Creatures * getCreatures();
 
@@ -90,9 +92,6 @@ namespace DFHack
 
         /// get the world module
         World * getWorld();
-
-        /// get the position module
-        Position * getPosition();
 
         /// get the materials module
         Materials * getMaterials();
@@ -125,15 +124,6 @@ namespace DFHack
         bool WriteEffect(const uint32_t index, const t_effect_df40d & effect);
         void FinishReadEffects();
         */
-        /*
-         * Trees and shrubs
-         */
-        /*
-        bool InitReadVegetation( uint32_t & numplants );
-        bool ReadVegetation(const int32_t index, t_tree_desc & shrubbery);
-        void FinishReadVegetation();
-        */
-
         /*
          * Notes placed by the player
          */
@@ -168,12 +158,6 @@ namespace DFHack
         /*
          * Get the other API parts for raw access
          */
-        
-        /*
-            // FIXME: BAD!
-            bool ReadAllMatgloss(vector< vector< string > > & all);
-        */
-        //bool ReadItemTypes(std::vector< std::vector< t_itemType > > & itemTypes);
     private:
         DFContextShared * d;
     };
