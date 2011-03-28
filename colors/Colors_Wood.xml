@@ -5,7 +5,7 @@
       <subtype value="MANGROVE" />
     </material>
   </color>
-  <color red="229" green="212" blue="173">
+  <color red="234" green="231" blue="213">
     <material value="Wood">
       <subtype value="SAGUARO" />
     </material>
@@ -100,7 +100,7 @@
       <subtype value="FEATHER" />
     </material>
   </color>
-  <color red="91" green="59" blue="29">
+  <color red="221" green="218" blue="212">
     <material value="Wood">
       <subtype value="HIGHWOOD" />
     </material>
