@@ -2,37 +2,437 @@
 
 
 
-<building name="Glass Window" gameID="building_window_glassst">
+<building name="Glass Window" gameID="building_window_glassst" file="Windows.png">
 
+
+	<!-- straight or end pieces -->
 	<if>
-		<or>
-			<NeighbourSameType dir="North" />
-			<NeighbourSameType dir="South" />
-			<NeighbourWall dir="North" />
-			<NeighbourWall dir="South" />
-		</or>
+		<and>
+			<or>
+				<NeighbourSameType dir="North" />
+				<NeighbourSameType dir="South" />
+				<NeighbourOfType dir="North" value="building_window_gemst"/>
+				<NeighbourOfType dir="South" value="building_window_gemst"/>
+				<NeighbourOfType dir="North" value="building_doorst"/>
+				<NeighbourOfType dir="South" value="building_doorst"/>
+				<NeighbourWall dir="North" />
+				<NeighbourWall dir="South" />
+			</or>
+			<not>
+				<or>
+					<NeighbourSameType dir="East" />
+					<NeighbourSameType dir="West" />
+					<NeighbourOfType dir="East" value="building_window_gemst"/>
+					<NeighbourOfType dir="West" value="building_window_gemst"/>
+					<NeighbourOfType dir="East" value="building_doorst"/>
+					<NeighbourOfType dir="West" value="building_doorst"/>
+					<NeighbourWall dir="East" />
+					<NeighbourWall dir="West" />
+				</or>
+			</not>
+		</and>
 		<if>
 			<MaterialType value="GreenGlass"/>
-			<sprite index=63 file = "doorsAndWindows.png"/>
+			<sprite index=3 />
 		</if>
 		<else>
 			<MaterialType value="CrystalGlass"/>
-			<sprite index=65 file = "doorsAndWindows.png"/>
+			<sprite index=5 />
 		</else>
 		<else>
-			<sprite index=61 file = "doorsAndWindows.png"/>
+			<sprite index=1 />
 		</else>
 	</if>
 	<else>
-		<MaterialType value="GreenGlass"/>
-		<sprite index=62 file = "doorsAndWindows.png"/>
-	</else>
-	<else>
-		<MaterialType value="CrystalGlass"/>
-		<sprite index=64 file = "doorsAndWindows.png"/>
-	</else>
-	<else>
-		<sprite index=60 file = "doorsAndWindows.png"/>
+		<and>
+			<or>
+				<NeighbourSameType dir="East" />
+				<NeighbourSameType dir="West" />
+				<NeighbourOfType dir="East" value="building_window_gemst"/>
+				<NeighbourOfType dir="West" value="building_window_gemst"/>
+				<NeighbourOfType dir="East" value="building_doorst"/>
+				<NeighbourOfType dir="West" value="building_doorst"/>
+				<NeighbourWall dir="East" />
+				<NeighbourWall dir="West" />
+			</or>
+			<not>
+				<or>
+					<NeighbourSameType dir="North" />
+					<NeighbourSameType dir="South" />
+					<NeighbourOfType dir="North" value="building_window_gemst"/>
+					<NeighbourOfType dir="South" value="building_window_gemst"/>
+					<NeighbourOfType dir="North" value="building_doorst"/>
+					<NeighbourOfType dir="South" value="building_doorst"/>
+					<NeighbourWall dir="North" />
+					<NeighbourWall dir="South" />
+				</or>
+			</not>
+		</and>
+		<if>
+			<MaterialType value="GreenGlass"/>
+			<sprite index=2 />
+		</if>
+		<else>
+			<MaterialType value="CrystalGlass"/>
+			<sprite index=4 />
+		</else>
+		<else>
+			<sprite index=0 />
+		</else>
 	</else>
 
+	<!-- Center piece -->
+	<else>
+		<and>
+			<or>
+				<NeighbourSameType dir="East" />
+				<NeighbourOfType dir="East" value="building_window_gemst"/>
+				<NeighbourOfType dir="East" value="building_doorst"/>
+				<NeighbourWall dir="East" />
+			</or>
+			<or>
+				<NeighbourSameType dir="West" />
+				<NeighbourOfType dir="West" value="building_window_gemst"/>
+				<NeighbourOfType dir="West" value="building_doorst"/>
+				<NeighbourWall dir="West" />
+			</or>
+			<or>
+				<NeighbourSameType dir="North" />
+				<NeighbourOfType dir="North" value="building_window_gemst"/>
+				<NeighbourOfType dir="North" value="building_doorst"/>
+				<NeighbourWall dir="North" />
+			</or>			
+			<or>
+				<NeighbourSameType dir="South" />
+				<NeighbourOfType dir="South" value="building_window_gemst"/>
+				<NeighbourOfType dir="South" value="building_doorst"/>
+				<NeighbourWall dir="South" />
+			</or>
+		</and>
+		<if>
+			<MaterialType value="GreenGlass"/>
+			<sprite index=102 />
+		</if>
+		<else>
+			<MaterialType value="CrystalGlass"/>
+			<sprite index=104 />
+		</else>
+		<else>
+			<sprite index=100 />
+		</else>
+	</else>
+
+	<!-- Corners piece -->
+	<else>
+		<and>
+			<or>
+				<NeighbourSameType dir="South" />
+				<NeighbourSameType dir="East" />
+				<NeighbourOfType dir="South" value="building_window_gemst"/>
+				<NeighbourOfType dir="East" value="building_window_gemst"/>
+				<NeighbourOfType dir="South" value="building_doorst"/>
+				<NeighbourOfType dir="East" value="building_doorst"/>
+				<NeighbourWall dir="South" />
+				<NeighbourWall dir="East" />
+			</or>
+			<not>
+				<or>
+					<NeighbourSameType dir="West" />
+					<NeighbourSameType dir="North" />
+					<NeighbourOfType dir="West" value="building_window_gemst"/>
+					<NeighbourOfType dir="North" value="building_window_gemst"/>
+					<NeighbourOfType dir="West" value="building_doorst"/>
+					<NeighbourOfType dir="North" value="building_doorst"/>
+					<NeighbourWall dir="West" />
+					<NeighbourWall dir="North" />
+				</or>
+			</not>
+		</and>
+		<if>
+			<MaterialType value="GreenGlass"/>
+			<sprite index=23 />
+		</if>
+		<else>
+			<MaterialType value="CrystalGlass"/>
+			<sprite index=25 />
+		</else>
+		<else>
+			<sprite index=21 />
+		</else>
+	</else>	
+	<else>
+		<and>
+			<or>
+				<NeighbourSameType dir="South" />
+				<NeighbourSameType dir="West" />
+				<NeighbourOfType dir="South" value="building_window_gemst"/>
+				<NeighbourOfType dir="West" value="building_window_gemst"/>
+				<NeighbourOfType dir="South" value="building_doorst"/>
+				<NeighbourOfType dir="West" value="building_doorst"/>
+				<NeighbourWall dir="South" />
+				<NeighbourWall dir="West" />
+			</or>
+			<not>
+				<or>
+					<NeighbourSameType dir="East" />
+					<NeighbourSameType dir="North" />
+					<NeighbourOfType dir="East" value="building_window_gemst"/>
+					<NeighbourOfType dir="North" value="building_window_gemst"/>
+					<NeighbourOfType dir="East" value="building_doorst"/>
+					<NeighbourOfType dir="North" value="building_doorst"/>
+					<NeighbourWall dir="East" />
+					<NeighbourWall dir="North" />
+				</or>
+			</not>
+		</and>
+		<if>
+			<MaterialType value="GreenGlass"/>
+			<sprite index=43 />
+		</if>
+		<else>
+			<MaterialType value="CrystalGlass"/>
+			<sprite index=45 />
+		</else>
+		<else>
+			<sprite index=41 />
+		</else>
+	</else>
+	<else>
+		<and>
+			<or>
+				<NeighbourSameType dir="North" />
+				<NeighbourSameType dir="West" />
+				<NeighbourOfType dir="North" value="building_window_gemst"/>
+				<NeighbourOfType dir="West" value="building_window_gemst"/>
+				<NeighbourOfType dir="North" value="building_doorst"/>
+				<NeighbourOfType dir="West" value="building_doorst"/>
+				<NeighbourWall dir="North" />
+				<NeighbourWall dir="West" />
+			</or>
+			<not>
+				<or>
+					<NeighbourSameType dir="East" />
+					<NeighbourSameType dir="South" />
+					<NeighbourOfType dir="East" value="building_window_gemst"/>
+					<NeighbourOfType dir="South" value="building_window_gemst"/>
+					<NeighbourOfType dir="East" value="building_doorst"/>
+					<NeighbourOfType dir="South" value="building_doorst"/>
+					<NeighbourWall dir="East" />
+					<NeighbourWall dir="South" />
+				</or>
+			</not>
+		</and>
+		<if>
+			<MaterialType value="GreenGlass"/>
+			<sprite index=22 />
+		</if>
+		<else>
+			<MaterialType value="CrystalGlass"/>
+			<sprite index=24 />
+		</else>
+		<else>
+			<sprite index=20 />
+		</else>
+	</else>
+        <else>
+		<and>
+			<or>
+				<NeighbourSameType dir="North" />
+				<NeighbourSameType dir="East" />
+				<NeighbourOfType dir="North" value="building_window_gemst"/>
+				<NeighbourOfType dir="East" value="building_window_gemst"/>
+				<NeighbourOfType dir="North" value="building_doorst"/>
+				<NeighbourOfType dir="East" value="building_doorst"/>
+				<NeighbourWall dir="North" />
+				<NeighbourWall dir="East" />
+			</or>
+			<not>
+				<or>
+					<NeighbourSameType dir="West" />
+					<NeighbourSameType dir="South" />
+					<NeighbourOfType dir="West" value="building_window_gemst"/>
+					<NeighbourOfType dir="South" value="building_window_gemst"/>
+					<NeighbourOfType dir="West" value="building_doorst"/>
+					<NeighbourOfType dir="South" value="building_doorst"/>
+					<NeighbourWall dir="West" />
+					<NeighbourWall dir="South" />
+				</or>
+			</not>
+		</and>
+		<if>
+			<MaterialType value="GreenGlass"/>
+			<sprite index=42 />
+		</if>
+		<else>
+			<MaterialType value="CrystalGlass"/>
+			<sprite index=44 />
+		</else>
+		<else>
+			<sprite index=40 />
+		</else>
+	</else>
+
+	<!-- T-Sections -->
+	<else>
+		<and>
+			<or>
+				<NeighbourSameType dir="South" />
+				<NeighbourSameType dir="West" />
+				<NeighbourSameType dir="East" />
+				<NeighbourOfType dir="South" value="building_window_gemst"/>
+				<NeighbourOfType dir="West" value="building_window_gemst"/>
+				<NeighbourOfType dir="East" value="building_window_gemst"/>
+				<NeighbourOfType dir="South" value="building_doorst"/>
+				<NeighbourOfType dir="West" value="building_doorst"/>
+				<NeighbourOfType dir="East" value="building_doorst"/>
+				<NeighbourWall dir="South" />
+				<NeighbourWall dir="West" />
+				<NeighbourWall dir="East" />
+			</or>
+			<not>
+				<or>
+					<NeighbourSameType dir="North" />
+					<NeighbourOfType dir="North" value="building_window_gemst"/>
+					<NeighbourOfType dir="North" value="building_doorst"/>
+					<NeighbourWall dir="North" />
+				</or>
+			</not>
+		</and>
+		<if>
+			<MaterialType value="GreenGlass"/>
+			<sprite index=62 />
+		</if>
+		<else>
+			<MaterialType value="CrystalGlass"/>
+			<sprite index=64 />
+		</else>
+		<else>
+			<sprite index=60 />
+		</else>
+	</else>	
+	<else>
+		<and>
+			<or>
+				<NeighbourSameType dir="North" />
+				<NeighbourSameType dir="West" />
+				<NeighbourSameType dir="East" />
+				<NeighbourOfType dir="North" value="building_window_gemst"/>
+				<NeighbourOfType dir="West" value="building_window_gemst"/>
+				<NeighbourOfType dir="East" value="building_window_gemst"/>
+				<NeighbourOfType dir="North" value="building_doorst"/>
+				<NeighbourOfType dir="West" value="building_doorst"/>
+				<NeighbourOfType dir="East" value="building_doorst"/>
+				<NeighbourWall dir="North" />
+				<NeighbourWall dir="West" />
+				<NeighbourWall dir="East" />
+			</or>
+			<not>
+				<or>
+					<NeighbourSameType dir="South" />
+					<NeighbourOfType dir="South" value="building_window_gemst"/>
+					<NeighbourOfType dir="South" value="building_doorst"/>
+					<NeighbourWall dir="South" />
+				</or>
+			</not>
+		</and>
+		<if>
+			<MaterialType value="GreenGlass"/>
+			<sprite index=82 />
+		</if>
+		<else>
+			<MaterialType value="CrystalGlass"/>
+			<sprite index=84 />
+		</else>
+		<else>
+			<sprite index=80 />
+		</else>
+	</else>
+	<else>
+		<and>
+			<or>
+				<NeighbourSameType dir="North" />
+				<NeighbourSameType dir="East" />
+				<NeighbourSameType dir="South" />
+				<NeighbourOfType dir="North" value="building_window_gemst"/>
+				<NeighbourOfType dir="East" value="building_window_gemst"/>
+				<NeighbourOfType dir="South" value="building_window_gemst"/>
+				<NeighbourOfType dir="North" value="building_doorst"/>
+				<NeighbourOfType dir="East" value="building_doorst"/>
+				<NeighbourOfType dir="South" value="building_doorst"/>
+				<NeighbourWall dir="North" />
+				<NeighbourWall dir="East" />
+				<NeighbourWall dir="South" />
+			</or>
+			<not>
+				<or>
+					<NeighbourSameType dir="West" />
+					<NeighbourOfType dir="West" value="building_window_gemst"/>
+					<NeighbourOfType dir="West" value="building_doorst"/>
+					<NeighbourWall dir="West" />
+				</or>
+			</not>
+		</and>
+		<if>
+			<MaterialType value="GreenGlass"/>
+			<sprite index=63 />
+		</if>
+		<else>
+			<MaterialType value="CrystalGlass"/>
+			<sprite index=65 />
+		</else>
+		<else>
+			<sprite index=61 />
+		</else>
+	</else>
+	<else>
+		<and>
+			<or>
+				<NeighbourSameType dir="West" />
+				<NeighbourSameType dir="North" />
+				<NeighbourSameType dir="South" />
+				<NeighbourOfType dir="West" value="building_window_gemst"/>
+				<NeighbourOfType dir="North" value="building_window_gemst"/>
+				<NeighbourOfType dir="South" value="building_window_gemst"/>
+				<NeighbourOfType dir="West" value="building_doorst"/>
+				<NeighbourOfType dir="North" value="building_doorst"/>
+				<NeighbourOfType dir="South" value="building_doorst"/>
+				<NeighbourWall dir="West" />
+				<NeighbourWall dir="North" />
+				<NeighbourWall dir="South" />				
+			</or>
+			<not>
+				<or>
+					<NeighbourSameType dir="East" />
+					<NeighbourOfType dir="East" value="building_window_gemst"/>
+					<NeighbourOfType dir="East" value="building_doorst"/>
+					<NeighbourWall dir="East" />
+				</or>
+			</not>
+		</and>
+		<if>
+			<MaterialType value="GreenGlass"/>
+			<sprite index=83 />
+		</if>
+		<else>
+			<MaterialType value="CrystalGlass"/>
+			<sprite index=85 />
+		</else>
+		<else>
+			<sprite index=81 />
+		</else>
+	</else>
+	<!-- default -->
+	<else>
+		<if>
+			<MaterialType value="GreenGlass"/>
+			<sprite index=2 />
+		</if>
+		<else>
+			<MaterialType value="CrystalGlass"/>
+			<sprite index=4 />
+		</else>
+		<else>
+			<sprite index=0 />
+		</else>
+	</else>
 </building> 

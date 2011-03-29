@@ -1,47 +1,90 @@
 <?xml version="1.0" ?>
 
+<building name="Floodgate" gameID="building_floodgatest" file="DoorsAndFloodgates.png"> 
 
-
-<building name="Floodgate" gameID="building_floodgatest" file="doorsAndWindows.png"> 
-
-	<if>
-		<BuildingOccupancy value="2" />
-		<empty/>
-	</if>
-	<else>
-		<or>
-			<NeighbourSameType dir="North" />
-			<NeighbourSameType dir="South" />
-		</or>
-		<if>
-			<MaterialType value="Wood" />
-			<sprite index=3 color="building" />
-			<sprite index=23 />
-		</if>
-		<else>
-			<sprite index=1 color="building" />
-		</else>
-	</else>
-	<else>
-		<or>
-			<NeighbourWall dir="North" />
-			<NeighbourWall dir="South" />
-		</or>
-		<if>
-			<MaterialType value="Wood" />
-			<sprite index=3 color="building" />
-			<sprite index=23 />
-		</if>
-		<else>
-			<sprite index=1 color="building" />
-		</else>
-	</else>
-	<else>
+	<if><!-- wooden -->
 		<MaterialType value="Wood" />
-		<sprite index = 2 color="building" />
-		<sprite index=22 />
+		<if><!-- wooden & opened -->
+			<BuildingOccupancy value="2" />
+			<sprite index="33" color="building" />
+		</if>
+		<else>
+			<sprite index="13" color="building" />
+			<sprite index="53" />
+		</else>		
+	</if>
+	<else><!-- some kind of metall -->
+		<or>
+			<MaterialType value="Inorganic" subtype="IRON" />
+			<MaterialType value="Inorganic" subtype="GOLD" />
+			<MaterialType value="Inorganic" subtype="SILVER" />
+			<MaterialType value="Inorganic" subtype="COPPER" />
+			<MaterialType value="Inorganic" subtype="NICKEL" />
+			<MaterialType value="Inorganic" subtype="ZINC" />
+			<MaterialType value="Inorganic" subtype="BRONZE" />
+			<MaterialType value="Inorganic" subtype="BRASS" />
+			<MaterialType value="Inorganic" subtype="STEEL" />
+			<MaterialType value="Inorganic" subtype="PIG_IRON" />
+			<MaterialType value="Inorganic" subtype="PLATINUM" />
+			<MaterialType value="Inorganic" subtype="ELECTRUM" />
+			<MaterialType value="Inorganic" subtype="TIN" />
+			<MaterialType value="Inorganic" subtype="PEWTER_FINE" />
+			<MaterialType value="Inorganic" subtype="PEWTER_TRIFLE" />
+			<MaterialType value="Inorganic" subtype="PEWTER_LAY" />
+			<MaterialType value="Inorganic" subtype="LEAD" />
+			<MaterialType value="Inorganic" subtype="ALUMINUM" />
+			<MaterialType value="Inorganic" subtype="NICKEL_SILVER" />
+			<MaterialType value="Inorganic" subtype="BILLON" />
+			<MaterialType value="Inorganic" subtype="STERLING_SILVER" />	
+			<MaterialType value="Inorganic" subtype="BLACK_BRONZE" />
+			<MaterialType value="Inorganic" subtype="ROSE_GOLD" />		
+			<MaterialType value="Inorganic" subtype="BISMUTH" />	
+			<MaterialType value="Inorganic" subtype="BISMUTH_BRONZE" />	
+			<MaterialType value="Inorganic" subtype="ADAMANTINE" />
+		</or>
+		<if><!-- some kind of metall & opened -->
+			<BuildingOccupancy value="2" />
+			<sprite index="34" color="building" />
+		</if>
+		<else>
+			<sprite index="14" color="building" />
+		</else>	
+    </else>
+	<else><!-- GreenGlass -->
+		<MaterialType value="GreenGlass" />
+		<if><!-- GreenGlass & opened -->
+			<BuildingOccupancy value="2" />
+			<sprite index="36" />
+		</if>
+		<else>
+			<sprite index="55" /><!-- frame -->
+			<sprite index="16" /><!-- green glass block -->
+			<sprite index="56" /><!-- frame -->
+		</else>		
 	</else>
-	<else>
-		<sprite index = 0 color="building" />
+	<else><!-- ClearGlass or CrystalGlass -->
+		<or>
+			<MaterialType value="ClearGlass" />
+			<MaterialType value="CrystalGlass" />
+		</or>
+		<if><!-- ClearGlass or CrystalGlass & opened -->
+			<BuildingOccupancy value="2" />
+			<sprite index="35" color="building" /><!-- glass block -->
+			<sprite index="57" /><!-- frame -->
+		</if>
+		<else>
+			<sprite index="55" /><!-- frame -->
+			<sprite index="15" color="building" /><!-- glass block -->
+			<sprite index="56" /><!-- frame -->
+		</else>		
 	</else>
-</building> 
+	<else><!-- any other material (e.g. stone) -->
+		<if><!-- any other material & opened -->
+			<BuildingOccupancy value="2" />
+			<sprite index="32" color="building" />
+		</if>
+		<else>
+			<sprite index="12" color="building" />
+		</else>
+	</else>
+</building>

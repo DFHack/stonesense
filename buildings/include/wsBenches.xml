@@ -38,7 +38,7 @@
   </else>
   <else>
     <MaterialType value="GreenGlass" />
-    <sprite index="23" />
+    <sprite index="24" />
   </else>
   <else>
     <or>

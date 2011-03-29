@@ -1,34 +1,34 @@
 <?xml version="1.0"?>
 <include file="../workshop.png">
   <if>
-  <or>
-    <MaterialType value="Metal" subtype="IRON" />
-    <MaterialType value="Metal" subtype="GOLD" />
-    <MaterialType value="Metal" subtype="SILVER" />
-    <MaterialType value="Metal" subtype="COPPER" />
-    <MaterialType value="Metal" subtype="NICKEL" />
-    <MaterialType value="Metal" subtype="ZINC" />
-    <MaterialType value="Metal" subtype="BRONZE" />
-    <MaterialType value="Metal" subtype="BRASS" />
-    <MaterialType value="Metal" subtype="STEEL" />
-    <MaterialType value="Metal" subtype="PIG_IRON" />
-    <MaterialType value="Metal" subtype="PLATINUM" />
-    <MaterialType value="Metal" subtype="ELECTRUM" />
-    <MaterialType value="Metal" subtype="TIN" />
-    <MaterialType value="Metal" subtype="PEWTER_FINE" />
-    <MaterialType value="Metal" subtype="PEWTER_TRIFLE" />
-    <MaterialType value="Metal" subtype="PEWTER_LAY" />
-    <MaterialType value="Metal" subtype="LEAD" />
-    <MaterialType value="Metal" subtype="ALUMINUM" />
-    <MaterialType value="Metal" subtype="NICKEL_SILVER" />
-    <MaterialType value="Metal" subtype="BILLON" />
-    <MaterialType value="Metal" subtype="STERLING_SILVER" />
-    <MaterialType value="Metal" subtype="BLACK_BRONZE" />
-    <MaterialType value="Metal" subtype="ROSE_GOLD" />
-    <MaterialType value="Metal" subtype="BISMUTH" />
-    <MaterialType value="Metal" subtype="BISMUTH_BRONZE" />
-    <MaterialType value="Metal" subtype="ADAMANTINE" />
-	</or>
+    <or>
+      <MaterialType value="Metal" subtype="IRON" />
+      <MaterialType value="Metal" subtype="GOLD" />
+      <MaterialType value="Metal" subtype="SILVER" />
+      <MaterialType value="Metal" subtype="COPPER" />
+      <MaterialType value="Metal" subtype="NICKEL" />
+      <MaterialType value="Metal" subtype="ZINC" />
+      <MaterialType value="Metal" subtype="BRONZE" />
+      <MaterialType value="Metal" subtype="BRASS" />
+      <MaterialType value="Metal" subtype="STEEL" />
+      <MaterialType value="Metal" subtype="PIG_IRON" />
+      <MaterialType value="Metal" subtype="PLATINUM" />
+      <MaterialType value="Metal" subtype="ELECTRUM" />
+      <MaterialType value="Metal" subtype="TIN" />
+      <MaterialType value="Metal" subtype="PEWTER_FINE" />
+      <MaterialType value="Metal" subtype="PEWTER_TRIFLE" />
+      <MaterialType value="Metal" subtype="PEWTER_LAY" />
+      <MaterialType value="Metal" subtype="LEAD" />
+      <MaterialType value="Metal" subtype="ALUMINUM" />
+      <MaterialType value="Metal" subtype="NICKEL_SILVER" />
+      <MaterialType value="Metal" subtype="BILLON" />
+      <MaterialType value="Metal" subtype="STERLING_SILVER" />
+      <MaterialType value="Metal" subtype="BLACK_BRONZE" />
+      <MaterialType value="Metal" subtype="ROSE_GOLD" />
+      <MaterialType value="Metal" subtype="BISMUTH" />
+      <MaterialType value="Metal" subtype="BISMUTH_BRONZE" />
+      <MaterialType value="Metal" subtype="ADAMANTINE" />
+    </or>
     <rotate>
       <sprite index="44" color="building" />
       <sprite index="45" color="building" />

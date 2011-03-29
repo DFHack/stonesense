@@ -74,6 +74,6 @@
   <plant gameID="TUNNEL_TUBE" sheetIndex="43" />
   <plant gameID="SPORE_TREE" sheetIndex="44" />
   <plant gameID="BLOOD_THORN" sheetIndex="45" />
-  <plant gameID="FUNGIWOOD" sheetIndex="46" />
+  <plant gameID="FUNGIWOOD" sheetIndex="30" />
   <plant gameID="TOWER_CAP" sheetIndex="22" />
 </trees>
