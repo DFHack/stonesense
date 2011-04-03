@@ -47,6 +47,9 @@ extern ALLEGRO_BITMAP* IMGCreatureSheet;
 extern ALLEGRO_BITMAP* IMGRampSheet;  
 extern ALLEGRO_BITMAP* IMGStatusSheet; 
 extern ALLEGRO_BITMAP* IMGBloodSheet;
+extern ALLEGRO_BITMAP* IMGEngFloorSheet;
+extern ALLEGRO_BITMAP* IMGEngLeftSheet;
+extern ALLEGRO_BITMAP* IMGEngRightSheet;
 
 extern Crd3D debugCursor;
 extern vector<string*> IMGFilenames;

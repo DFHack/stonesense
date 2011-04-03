@@ -43,6 +43,8 @@ int parseIntFromLine( string keyword, string line ){
 
 
 void parseConfigLine( string line ){
+	if(line.empty())
+		return;
 	char c = line[0];
 	if( c != '[') return;
 

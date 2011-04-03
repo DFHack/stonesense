@@ -39,6 +39,10 @@ ALLEGRO_BITMAP* IMGCreatureSheet;
 ALLEGRO_BITMAP* IMGRampSheet; 
 ALLEGRO_BITMAP* IMGStatusSheet; 
 ALLEGRO_BITMAP* IMGBloodSheet; 
+ALLEGRO_BITMAP* IMGEngFloorSheet;
+ALLEGRO_BITMAP* IMGEngLeftSheet;
+ALLEGRO_BITMAP* IMGEngRightSheet;
+
 ALLEGRO_BITMAP* buffer = 0;
 ALLEGRO_BITMAP* bigFile = 0;
 vector<ALLEGRO_BITMAP*> IMGCache;
@@ -826,6 +830,12 @@ void loadGraphicsFromDisk(){
 	IMGStatusSheet = al_create_sub_bitmap(IMGFilelist[index], 0, 0, al_get_bitmap_width(IMGFilelist[index]), al_get_bitmap_height(IMGFilelist[index]));
 	index = loadImgFile("gibs.png");
 	IMGBloodSheet = al_create_sub_bitmap(IMGFilelist[index], 0, 0, al_get_bitmap_width(IMGFilelist[index]), al_get_bitmap_height(IMGFilelist[index]));
+	index = loadImgFile("engravings_floor.png");
+	IMGEngFloorSheet = al_create_sub_bitmap(IMGFilelist[index], 0, 0, al_get_bitmap_width(IMGFilelist[index]), al_get_bitmap_height(IMGFilelist[index]));
+	index = loadImgFile("engravings_left.png");
+	IMGEngLeftSheet = al_create_sub_bitmap(IMGFilelist[index], 0, 0, al_get_bitmap_width(IMGFilelist[index]), al_get_bitmap_height(IMGFilelist[index]));
+	index = loadImgFile("engravings_right.png");
+	IMGEngRightSheet = al_create_sub_bitmap(IMGFilelist[index], 0, 0, al_get_bitmap_width(IMGFilelist[index]), al_get_bitmap_height(IMGFilelist[index]));
 	createEffectSprites();
 }
 
@@ -854,6 +864,21 @@ void flushImgFiles()
 	{
 		al_destroy_bitmap(IMGStatusSheet);
 		IMGStatusSheet = 0;
+	}
+	if(IMGEngFloorSheet)
+	{
+		al_destroy_bitmap(IMGEngFloorSheet);
+		IMGEngFloorSheet = 0;
+	}
+	if(IMGEngLeftSheet)
+	{
+		al_destroy_bitmap(IMGEngLeftSheet);
+		IMGEngLeftSheet = 0;
+	}
+	if(IMGEngRightSheet)
+	{
+		al_destroy_bitmap(IMGEngRightSheet);
+		IMGEngRightSheet = 0;
 	}
 	uint32_t numFiles = (uint32_t)IMGFilelist.size();
 	assert( numFiles == IMGFilenames.size());

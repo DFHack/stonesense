@@ -56,6 +56,7 @@ Block::Block(WorldSegment* ownerSegment)
 	downstairborders = 0;
 	lightborders = 255;
 	creature = 0;
+	engraving_character = 0;
 }
 
 
@@ -181,6 +182,13 @@ void Block::Draw(){
 		}
 	}
 
+	//Floor Engravings
+	if((floorType > 0) && engraving_character && engraving_flags.floor)
+	{
+		DrawSpriteFromSheet( engraving_character, IMGEngFloorSheet, al_map_rgba_f(1.0,1.0,1.0,((engraving_quality + 5.0f) / 10.0f)), drawx, drawy, this );
+	}
+
+
 	////draw surf
 	//if(eff_oceanwave > 0)
 	//{
@@ -194,6 +202,7 @@ void Block::Draw(){
 	//	al_draw_tinted_bitmap(sprite_webing, drawx, drawy - (WALLHEIGHT), 0);
 	//	al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
 	//}
+
 	//Draw Ramp
 	if(ramp.type > 0){
 		spriteobject = GetBlockSpriteMap(ramp.type, material, consForm);
@@ -316,6 +325,39 @@ void Block::Draw(){
 		else 
 		{
 			spriteobject->draw_world(x, y, z, this, (chopThisBlock && this->z == ownerSegment->z + ownerSegment->sizez -2));
+		}
+	}
+
+	//Wall Engravings
+	if((wallType > 0) && engraving_character)
+	{
+		if(ownerSegment->rotation == 0)
+		{
+			if(engraving_flags.east)
+				DrawSpriteFromSheet( engraving_character, IMGEngRightSheet, al_map_rgba_f(1.0,1.0,1.0,((engraving_quality + 5.0f) / 10.0f)), drawx, drawy, this );
+			if(engraving_flags.south)
+				DrawSpriteFromSheet( engraving_character, IMGEngLeftSheet, al_map_rgba_f(1.0,1.0,1.0,((engraving_quality + 5.0f) / 10.0f)), drawx, drawy, this );
+		}
+		if(ownerSegment->rotation == 1)
+		{
+			if(engraving_flags.north)
+				DrawSpriteFromSheet( engraving_character, IMGEngRightSheet, al_map_rgba_f(1.0,1.0,1.0,((engraving_quality + 5.0f) / 10.0f)), drawx, drawy, this );
+			if(engraving_flags.east)
+				DrawSpriteFromSheet( engraving_character, IMGEngLeftSheet, al_map_rgba_f(1.0,1.0,1.0,((engraving_quality + 5.0f) / 10.0f)), drawx, drawy, this );
+		}
+		if(ownerSegment->rotation == 2)
+		{
+			if(engraving_flags.west)
+				DrawSpriteFromSheet( engraving_character, IMGEngRightSheet, al_map_rgba_f(1.0,1.0,1.0,((engraving_quality + 5.0f) / 10.0f)), drawx, drawy, this );
+			if(engraving_flags.north)
+				DrawSpriteFromSheet( engraving_character, IMGEngLeftSheet, al_map_rgba_f(1.0,1.0,1.0,((engraving_quality + 5.0f) / 10.0f)), drawx, drawy, this );
+		}
+		if(ownerSegment->rotation == 3)
+		{
+			if(engraving_flags.south)
+				DrawSpriteFromSheet( engraving_character, IMGEngRightSheet, al_map_rgba_f(1.0,1.0,1.0,((engraving_quality + 5.0f) / 10.0f)), drawx, drawy, this );
+			if(engraving_flags.west)
+				DrawSpriteFromSheet( engraving_character, IMGEngLeftSheet, al_map_rgba_f(1.0,1.0,1.0,((engraving_quality + 5.0f) / 10.0f)), drawx, drawy, this );
 		}
 	}
 

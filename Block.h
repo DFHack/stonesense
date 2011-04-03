@@ -62,6 +62,10 @@ public:
 	uint8_t grasslevel;
 	uint32_t grassmat;
 
+	uint8_t engraving_character;
+	flg_engraving engraving_flags;
+	uint8_t engraving_quality;
+
 	//vector<uint8_t> grasslevels;
 	//vector<uint32_t> grassmats;
 

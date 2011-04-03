@@ -891,6 +891,9 @@
                 <Address name="vector"/>
                 <Offset name="sizeof"/>
             </Group>
+            <Group name="Engravings">
+                <Address name="vector"/>
+            </Group>
             <Group name="Translations">
                 <Address name="language_vector"/>
                 <Address name="translation_vector"/>
@@ -2126,6 +2129,9 @@
                     <Offset name="biome_stuffs" value="0x1d80" />
                 </Group>
             </Group>
+            <Group name="Materials">
+                <Address name="other" value="0x170d0e8" />
+            </Group>
             <Group name="World">
                 <Address name="control_mode" value="0xb33814" />
                 <Address name="game_mode" value="0xb33818"/>
@@ -2150,7 +2156,13 @@
         <MD5 value="eddc258fa59c89481516ad96eb51b35b" />
     </Version>
     <Version name="v0.31.25 SDL" os="windows" base="v0.31.24 SDL">
-        <PETimeStamp value="0x4d90764f" />
+        <PETimeStamp value="0x4D90764F" />
+        <MD5 value="6ada05fc94785b53efe6aa5728b3756b" />
+        <Offsets>
+            <Group name="Engravings">
+                <Address name="vector" value="0x16B0A78"/>
+            </Group>
+        </Offsets>
     </Version>
                             .-"""-.
                            '       \
@@ -2680,6 +2692,16 @@
     <Version name="v0.31.22 linux" os="linux" base="v0.31.19 linux" rebase="0x12A80">
         <MD5 value="c7319be110759209bd736071fb367960" />
         <Offsets>
+            <Group name="Buildings" valid="true">
+                <Address name="buildings_vector" value="0x940b998" />
+                One of the two, really:
+                0x940b998
+                0x940b9a4
+                <Address name="custom_workshop_vector" value="0x94506f8" />
+            </Group>
+            <Group name="Constructions" valid="true">
+                <Address name="vector" value="0x93f7984" />
+            </Group>
             <Group name="Position">
                 <Address name="cursor_xyz" value="0x8c3dfc0" />
                 <Address name="window_dims" value="0x8c3e4c8" />
@@ -2730,6 +2752,7 @@
                 one of those:
                 0x944c3c8
                 0x944c3d4
+                <Address name="other" value="0x9450c54" />
                 <Group name="creature">
                     <Offset name="tile_color" value="0x38" />
                     <Offset name="extract_vector" value="0x1f74" />
@@ -2754,7 +2777,7 @@
                     -->
                 </Group>
                 
-                <Group name="descriptors">
+                <Group name="descriptors" valid="true">
                     <Address name="colors_vector" value="0x94506c8 0x93cdff4" />
                     <Address name="all_colors_vector" value="0x94506E0 0x93ce00c" />
                 </Group>
@@ -2765,7 +2788,44 @@
                 <Address name="language_vector" value="0x944c564"/>
                 <Address name="translation_vector" value="0x944c57c"/>
             </Group>
-
+            <Group name="Vegetation" valid="true">
+                <Address name="vector" value="0x940bed0" />
+            </Group>
+            <Group name="World">
+                <Address name="control_mode" value="0x8c3dff0" />
+                <Address name="game_mode" value="0x8c3e000" />
+                <!--
+                <Address name="current_weather" value="0x936e248" valid="false" />
+                <Address name="current_year" value="0x936e264" valid="false" />
+                <Address name="current_tick" value="0x936e284" valid="false" />
+                -->
+            </Group>
+        </Offsets>
+    </Version>
+    <Version name="v0.31.23 linux" os="linux" base="v0.31.22 linux">
+        <MD5 value="c8e82e6e7cc606bf4e8d2c91993b9c0d" />
+        <Offsets valid="false" />
+    </Version>
+    <Version name="v0.31.24 linux" os="linux" base="v0.31.23 linux">
+        <MD5 value="a47468cec4f4f0ff1fc03ac7d95c17ed" />
+        <Offsets valid="false" />
+    </Version>
+    <Version name="v0.31.25 linux" os="linux" base="v0.31.24 linux">
+        <MD5 value="fc15065c4d1977ca019c6dad220413d1" />
+        <Offsets>
+            <Group name="Engravings">
+                <Address name="vector" value="0x93f77b8"/>
+                there are some possibly related vectors right next to it.
+            </Group>
+            <Group name="string" valid="true" />
+            <Group name="vector" valid="true" />
+            <Group name="Position" valid="true">
+                <Address name="cursor_xyz" value="0x8c3de60"/>
+                <!--<Address name="window_dims" value="0x8c3e4c8" />-->
+                <Address name="window_x" value="0x8dfaa98" />
+                <Address name="window_y" value="0x8dfaa9c" />
+                <Address name="window_z" value="0x8dfaaa0" />
+            </Group>
         </Offsets>
     </Version>
 </DFHack>

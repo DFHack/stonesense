@@ -633,6 +633,16 @@ WorldSegment* ReadMapSegment(DFHack::Context &DF, int x, int y, int z, int sizex
 			config.skipConstructions = true;
 		}
 	}
+	DFHack::Engravings *Eng;
+	try
+	{
+		Eng = DF.getEngravings();
+	}
+	catch (exception &e)
+	{
+		WriteErr("DFhack exeption: %s\n", e.what());
+		config.skipConstructions = true;
+	}
 	DFHack::World *Wold;
 	if(!config.skipWorld)
 	{
@@ -803,6 +813,35 @@ WorldSegment* ReadMapSegment(DFHack::Context &DF, int x, int y, int z, int sizex
 
 	//translate constructions
 	changeConstructionMaterials(segment, &allConstructions);
+
+	uint32_t numengravings = 0;
+	try
+	{
+		if (Eng->Start(numengravings))
+		{
+			dfh_engraving engraved;
+			t_engraving &tempeng = engraved.s;
+			index = 0;
+			Block * b = 0;
+			while(index < numengravings)
+			{
+				Eng->Read(index, engraved);
+				if(segment->CoordinateInsideSegment(tempeng.x, tempeng.y, tempeng.z))
+				{
+					b = segment->getBlock(tempeng.x, tempeng.y, tempeng.z);
+					b->engraving_character = tempeng.display_character;
+					b->engraving_flags = tempeng.flags;
+					b->engraving_quality = tempeng.quality;
+				}
+				index++;
+			}
+			Eng->Finish();
+		}
+	}
+	catch(exception &e)
+	{
+		WriteErr("DFhack exception: %s\n", e.what());
+	}
 
 
 	//Read Vegetation
