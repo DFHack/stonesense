@@ -15,7 +15,7 @@ with your drivers, or the program will still load in window mode.
 These two options set how large the cube loaded from Dwarf Fortress is.
 Each entry expects the number of tiles to load.
 [SEGMENTSIZE_XY:70]
-[SEGMENTSIZE_Z:5]
+[SEGMENTSIZE_Z:4]
 
 Change this to off to skip the intro.
 [INTRO:OFF]
@@ -58,7 +58,7 @@ Color and alpha ranges are 0 (min) to 255 (max)
 [FOG_RED:128]
 [FOG_GREEN:158]
 [FOG_BLUE:177]
-[FOG_ALPHA:10]
+[FOG_ALPHA:128]
 
 Background color. setting this the same as the fog color produces a nice effect.
 [BACK_RED:128]
@@ -79,7 +79,7 @@ Amount to change the auto reload time with each press of Numpad+/-
 
 Amount of time, in milliseconds, before the animation swaps to the next frame.
 Now independant of map refresh.
-[ANIMATION_RATE:150]
+[ANIMATION_RATE:196]
 
 --Debug Mode--
 
