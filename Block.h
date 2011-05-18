@@ -20,9 +20,9 @@ public:
 	int wallType;
 	int stairType;
 	int tileType;
-	t_matglossPair material;
-	t_matglossPair layerMaterial;
-	t_matglossPair veinMaterial;
+	DFHack::t_matglossPair material;
+    DFHack::t_matglossPair layerMaterial;
+    DFHack::t_matglossPair veinMaterial;
 	bool hasVein;
 
 	bool depthBorderNorth;
@@ -40,19 +40,19 @@ public:
 	
 	bool creaturePresent;
 	bool buildingPresent;
-	t_matglossPair ramp;
-	t_matglossPair water;
+    DFHack::t_matglossPair ramp;
+    DFHack::t_matglossPair water;
 
 	//following are neighbor water levels
-	t_matglossPair abovewater;
-	t_matglossPair belowwater;
-	t_matglossPair rightwater;
-	t_matglossPair leftwater;
+    DFHack::t_matglossPair abovewater;
+    DFHack::t_matglossPair belowwater;
+    DFHack::t_matglossPair rightwater;
+    DFHack::t_matglossPair leftwater;
 
-	t_designation designation;
-	t_occupancy occ;
-	t_creature * creature;
-	t_matglossPair tree;
+    DFHack::t_designation designation;
+    DFHack::t_occupancy occ;
+    DFHack::t_creature * creature;
+    DFHack::t_matglossPair tree;
 
 	int mudlevel;
 	int snowlevel;
@@ -63,7 +63,7 @@ public:
 	uint32_t grassmat;
 
 	uint8_t engraving_character;
-	flg_engraving engraving_flags;
+    DFHack::flg_engraving engraving_flags;
 	uint8_t engraving_quality;
 
 	//vector<uint8_t> grasslevels;
@@ -73,7 +73,7 @@ public:
 	{
 		uint16_t count;
 		uint16_t type;
-		t_matglossPair material;
+        DFHack::t_matglossPair material;
 		int16_t lifetime;
 		int16_t x_direction;
 		int16_t y_direction;
@@ -94,8 +94,8 @@ public:
 	int16_t eff_webing;
 	int16_t eff_oceanwave;*/
 	struct {
-		t_building info;
-		vector<c_sprite> sprites;
+        DFHack::t_building info;
+		std::vector<c_sprite> sprites;
 		uint32_t index;
 		int32_t custom_building_type;
 		Block * parent;
@@ -131,5 +131,5 @@ bool hasBuildingOfIndex(Block* b, uint32_t index);
 bool wallShouldNotHaveBorders( int in );
 void drawFloorBlood ( Block *b, int32_t drawx, int32_t drawy );
 
-ALLEGRO_COLOR getSpriteColor(t_subSprite &sprite, t_matglossPair material, t_matglossPair layerMaterial, t_matglossPair veinMaterial);
-ALLEGRO_COLOR getSpriteColor(t_SpriteWithOffset &sprite, t_matglossPair material, t_matglossPair layerMaterial, t_matglossPair veinMaterial);
+ALLEGRO_COLOR getSpriteColor(t_subSprite &sprite, DFHack::t_matglossPair material, DFHack::t_matglossPair layerMaterial, DFHack::t_matglossPair veinMaterial);
+ALLEGRO_COLOR getSpriteColor(t_SpriteWithOffset &sprite, DFHack::t_matglossPair material, DFHack::t_matglossPair layerMaterial, DFHack::t_matglossPair veinMaterial);

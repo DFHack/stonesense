@@ -619,15 +619,15 @@ void c_sprite::draw_world_offset(int x, int y, int z, Block * b, int tileoffset,
 							(grass_growth == GRASS_GROWTH_ANY) || 
 							(
 								(grass_growth == GRASS_GROWTH_NORMAL) && 
-								((tileTypeTable[b->tileType].m == GRASS) || (tileTypeTable[b->tileType].m == GRASS2))
+								((tileTypeTable[b->tileType].material == GRASS) || (tileTypeTable[b->tileType].material == GRASS2))
 							) ||
 							(
 								(grass_growth == GRASS_GROWTH_DRY) && 
-								(tileTypeTable[b->tileType].m == GRASS_DRY)
+								(tileTypeTable[b->tileType].material == GRASS_DRY)
 							) ||
 							(
 								(grass_growth == GRASS_GROWTH_DEAD) && 
-								(tileTypeTable[b->tileType].m == GRASS_DEAD)
+								(tileTypeTable[b->tileType].material == GRASS_DEAD)
 							)
 						)
 					)
@@ -813,16 +813,16 @@ ALLEGRO_COLOR c_sprite::get_color(void* block)
 										(contentLoader.Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].enddate > dayofLife))
 									{
 										return al_map_rgb_f(
-											contentLoader.Mats->color[cr_color].r,
-											contentLoader.Mats->color[cr_color].v,
-											contentLoader.Mats->color[cr_color].b);;
+											contentLoader.Mats->color[cr_color].red,
+											contentLoader.Mats->color[cr_color].green,
+											contentLoader.Mats->color[cr_color].blue);;
 									}
 								}
 								else
 									return al_map_rgb_f(
-									contentLoader.Mats->color[cr_color].r,
-									contentLoader.Mats->color[cr_color].v,
-									contentLoader.Mats->color[cr_color].b);
+									contentLoader.Mats->color[cr_color].red,
+									contentLoader.Mats->color[cr_color].green,
+									contentLoader.Mats->color[cr_color].blue);
 							}
 						}
 					}

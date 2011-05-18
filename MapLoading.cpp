@@ -245,7 +245,7 @@ void ReadCellToSegment(DFHack::Context& DF, WorldSegment& segment, int CellX, in
 	uint8_t regionoffsets[16];
 	t_temperatures temp1, temp2;
 	DFHack::mapblock40d mapBlock;
-	std::vector<t_tree> plants;
+	std::vector<DFHack::dfh_plant> plants;
 	Maps->ReadTileTypes(CellX, CellY, CellZ, (tiletypes40d *) tiletypes);
 	Maps->ReadDesignations(CellX, CellY, CellZ, (designations40d *) designations);
 	Maps->ReadOccupancy(CellX, CellY, CellZ, (occupancies40d *) occupancies);
@@ -519,7 +519,7 @@ void ReadCellToSegment(DFHack::Context& DF, WorldSegment& segment, int CellX, in
 					}
 				}
 
-				if(tileTypeTable[b->tileType].m == OBSIDIAN)
+				if(tileTypeTable[b->tileType].material == OBSIDIAN)
 				{
 					b->material.type = INORGANIC;
 					b->material.index = contentLoader.obsidian;
@@ -541,18 +541,18 @@ void ReadCellToSegment(DFHack::Context& DF, WorldSegment& segment, int CellX, in
 	//add trees and other vegetation
 	for(int i = 0; i < plants.size(); i++)
 	{
-		Block* b = segment.getBlock( plants[i].x, plants[i].y, CellZ);
+		Block* b = segment.getBlock( plants[i].sdata.x, plants[i].sdata.y, CellZ);
 		if(b && (
-			(tileTypeTable[b->tileType].c == TREE_DEAD) || 
-			(tileTypeTable[b->tileType].c == TREE_OK) ||
-			(tileTypeTable[b->tileType].c == SAPLING_DEAD) ||
-			(tileTypeTable[b->tileType].c == SAPLING_OK) ||
-			(tileTypeTable[b->tileType].c == SHRUB_DEAD) ||
-			(tileTypeTable[b->tileType].c == SHRUB_OK)
+			(tileTypeTable[b->tileType].shape == TREE_DEAD) || 
+			(tileTypeTable[b->tileType].shape == TREE_OK) ||
+			(tileTypeTable[b->tileType].shape == SAPLING_DEAD) ||
+			(tileTypeTable[b->tileType].shape == SAPLING_OK) ||
+			(tileTypeTable[b->tileType].shape == SHRUB_DEAD) ||
+			(tileTypeTable[b->tileType].shape == SHRUB_OK)
 			))
 		{
-			b->tree.type = plants[i].type;
-			b->tree.index = plants[i].material;
+			b->tree.type = plants[i].sdata.type;
+			b->tree.index = plants[i].sdata.material;
 		}
 	}
 }
@@ -955,10 +955,10 @@ void beautify_Segment(WorldSegment * segment)
 
 		//Grass
 		if(b->grasslevel > 0 && (
-			(tileTypeTable[b->floorType].m == GRASS) || 
-			(tileTypeTable[b->floorType].m == GRASS2) ||
-			(tileTypeTable[b->floorType].m == GRASS_DEAD) ||
-			(tileTypeTable[b->floorType].m == GRASS_DRY)))
+			(tileTypeTable[b->floorType].material == GRASS) || 
+			(tileTypeTable[b->floorType].material == GRASS2) ||
+			(tileTypeTable[b->floorType].material == GRASS_DEAD) ||
+			(tileTypeTable[b->floorType].material == GRASS_DRY)))
 		{
 			c_block_tree * vegetationsprite = 0;
 			vegetationsprite = getVegetationTree(contentLoader.grassConfigs,b->grassmat,true,true);
@@ -973,7 +973,7 @@ void beautify_Segment(WorldSegment * segment)
 		//populate trees
 		if(b->tree.index)
 		{
-			c_block_tree * Tree = GetTreeVegetation( (TileClass) getVegetationType( b->floorType ), b->tree.index );
+			c_block_tree * Tree = GetTreeVegetation( (TileShape) tileShape( b->floorType ), b->tree.index );
 			Tree->insert_sprites(segment, b->x, b->y, b->z, b);
 		}
 

@@ -84,17 +84,17 @@ ALLEGRO_COLOR getSpriteColor(t_SpriteWithOffset &sprite, t_creature* creature)
 								(contentLoader.Mats->raceEx[creature->race].castes[creature->caste].ColorModifier[j].enddate > dayofLife))
 							{
 								output = al_map_rgb_f(
-									contentLoader.Mats->color[cr_color].r,
-									contentLoader.Mats->color[cr_color].v,
-									contentLoader.Mats->color[cr_color].b);
+									contentLoader.Mats->color[cr_color].red,
+									contentLoader.Mats->color[cr_color].green,
+									contentLoader.Mats->color[cr_color].blue);
 								return output;
 							}
 						}
 						else
 							output = al_map_rgb_f(
-							contentLoader.Mats->color[cr_color].r,
-							contentLoader.Mats->color[cr_color].v,
-							contentLoader.Mats->color[cr_color].b);
+							contentLoader.Mats->color[cr_color].red,
+							contentLoader.Mats->color[cr_color].green,
+							contentLoader.Mats->color[cr_color].blue);
 					}
 			}
 		}

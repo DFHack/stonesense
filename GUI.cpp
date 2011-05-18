@@ -492,9 +492,9 @@ void drawDebugCursorAndInfo(){
 					{
 						draw_textf_border(font, 
 							al_map_rgb_f(
-							contentLoader.Mats->color[cr_color].r,
-							contentLoader.Mats->color[cr_color].v,
-							contentLoader.Mats->color[cr_color].b), xx, yy, 0,
+							contentLoader.Mats->color[cr_color].red,
+							contentLoader.Mats->color[cr_color].green,
+							contentLoader.Mats->color[cr_color].blue), xx, yy, 0,
 							"%s ", contentLoader.Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].part);
 						xx += get_textf_width(font, "%s ", contentLoader.Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].part);
 					}

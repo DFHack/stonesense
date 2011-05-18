@@ -2,11 +2,11 @@
 #pragma warning( disable : 4312 ) //64-bit portability issue
 #pragma warning( disable : 4996 ) //'deprecated' function warning
 #pragma warning( disable : 4251 ) //'identifier' : class 'type' needs to have dll-interface to be used by clients of class 'type2'
-#define SKIP_DFHACK_STDINT
 
 #include <assert.h>
 #include <vector>
 #include <map>
+
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_font.h>
@@ -15,13 +15,13 @@
 #include <allegro5/allegro_native_dialog.h>
 #include <allegro5/allegro_opengl.h>
 #include <allegro5/utf8.h>
-
-using namespace std;
+// allegro leaks X headers, undef some of it here:
+#undef TileShape
+// allegro also leaks stdint.h and some weird equivalent of it on windows. let's disable the copy leaked by dfhack.
+#define SKIP_DFHACK_STDINT
 
 #include <DFHack.h>
 #include <dfhack/DFTileTypes.h>
-
-using namespace DFHack;
 
 #include "commonTypes.h"
 #include "Block.h"
@@ -247,3 +247,5 @@ extern ALLEGRO_MOUSE_STATE mouse;
 extern int randomCube[RANDOM_CUBE][RANDOM_CUBE][RANDOM_CUBE];
 
 ALLEGRO_COLOR premultiply(ALLEGRO_COLOR input);
+using namespace DFHack;
+using namespace std;

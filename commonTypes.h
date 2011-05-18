@@ -42,7 +42,7 @@ struct t_SpriteWithOffset
 	char animFrames;
 	ALLEGRO_COLOR shadeColor;
 	bool needOutline;
-	vector<t_subSprite> subSprites;
+	std::vector<t_subSprite> subSprites;
 	ShadeBy shadeBy;
 	char bodyPart[128];
 	uint8_t snowMin;
@@ -167,7 +167,7 @@ typedef struct {
 	bool software;
 
 	uint32_t menustate;
-	t_viewscreen viewscreen;
+	DFHack::t_viewscreen viewscreen;
 
 	bool spriteIndexOverlay;
 	bool creditScreen;

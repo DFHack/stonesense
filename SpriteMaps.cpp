@@ -85,7 +85,7 @@ c_sprite * GetBlockSpriteMap(int in, t_matglossPair material, uint16_t form){
 	return GetTerrainSpriteMap(in, material, contentLoader.terrainBlockConfigs, form);
 }
 
-c_block_tree * GetTreeVegetation( TileClass type, int index)
+c_block_tree * GetTreeVegetation( TileShape type, int index)
 {
 	static c_block_tree * defaultTree = new c_block_tree;
 	int base_sprite = SPRITEOBJECT_BLUEPRINT;
@@ -126,8 +126,8 @@ c_block_tree * GetTreeVegetation( TileClass type, int index)
 	default:
 		defaultTree->set_sheetindex(SPRITEOBJECT_BLANK);
 		return defaultTree;
-	}  	
-  	
+	}
+	
 	c_block_tree * configuredTree = getVegetationTree(*graphicSet,index,live,grown);
 	if (configuredTree->get_sheetindex() == -1)
 	{

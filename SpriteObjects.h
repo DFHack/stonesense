@@ -45,7 +45,7 @@ private:
 	int16_t offset_user_y;
 	uint8_t variations;
 	ShadeBy shadeBy;
-	vector<c_sprite> subsprites;
+	std::vector<c_sprite> subsprites;
 	ALLEGRO_COLOR shadecolor;
 	char bodypart[128];
 	char animframes;

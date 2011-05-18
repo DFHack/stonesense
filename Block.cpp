@@ -1,4 +1,3 @@
-#include "Block.h"
 #include "common.h"
 #include "GUI.h"
 #include "SpriteMaps.h"
@@ -8,8 +7,6 @@
 #include "BlockFactory.h"
 #include "ContentLoader.h"
 #include "SpriteColors.h"
-
-
 
 ALLEGRO_BITMAP *sprite_miasma = 0;
 ALLEGRO_BITMAP *sprite_water = 0;
