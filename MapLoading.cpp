@@ -576,7 +576,7 @@ bool checkFloorBorderRequirement(WorldSegment* segment, int x, int y, int z, dir
 
 WorldSegment* ReadMapSegment(DFHack::Context &DF, int x, int y, int z, int sizex, int sizey, int sizez){
 	uint32_t index;
-	TMR2_START;
+	clock_t start_time = clock();
 	DFHack::Maps *Maps;
 	if(!config.skipMaps)
 	{
@@ -936,7 +936,7 @@ WorldSegment* ReadMapSegment(DFHack::Context &DF, int x, int y, int z, int sizex
 
 	Maps->Finish();
 	segment->loaded = 1;
-	TMR2_STOP;
+	segment->read_time = clock() - start_time;
 
 	segment->processed = 0;
 

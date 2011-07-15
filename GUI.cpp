@@ -354,10 +354,10 @@ void drawDebugCursorAndInfo(){
 	Block* b = viewedSegment->getBlockLocal( debugCursor.x, debugCursor.y, debugCursor.z+viewedSegment->sizez-2);
 	int i = 10;
 	draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, "Block 0x%x", b);
-	
+
 	draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
 		"Coord:(%i,%i,%i)", debugCursor.x, debugCursor.y, debugCursor.z);
-	
+
 	draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
 		"Game Mode:%i, Control Mode:%i", contentLoader.gameMode.game_mode, contentLoader.gameMode.control_mode);
 
@@ -455,8 +455,8 @@ void drawDebugCursorAndInfo(){
 
 		if(b->building.custom_building_type != -1)
 		{
-		draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
-		"Custom workshop type %s (%d)", contentLoader.custom_workshop_types[b->building.custom_building_type].c_str(),b->building.custom_building_type);
+			draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
+				"Custom workshop type %s (%d)", contentLoader.custom_workshop_types[b->building.custom_building_type].c_str(),b->building.custom_building_type);
 		}
 	}
 
@@ -472,8 +472,8 @@ void drawDebugCursorAndInfo(){
 		generateCreatureDebugString( b->creature, strCreature );
 		//memset(strCreature, -1, 50);
 		try{
-		draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
-			"flag1: %s Sex: %d  Mood: %d Job: %s", strCreature, b->creature->sex + 1, b->creature->mood, (b->creature->current_job.active?contentLoader.MemInfo->getJob(b->creature->current_job.jobType).c_str():""));
+			draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
+				"flag1: %s Sex: %d  Mood: %d Job: %s", strCreature, b->creature->sex + 1, b->creature->mood, (b->creature->current_job.active?contentLoader.MemInfo->getJob(b->creature->current_job.jobType).c_str():""));
 		}
 		catch(exception &e)
 		{
@@ -534,7 +534,7 @@ void drawDebugCursorAndInfo(){
 	/*
 	int dray = al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font));
 	draw_textf_border(font, al_map_rgb(255,255,255), 16, dray, 0,
-		"Open: %d, floor: %d, Wall: %d, Ramp: %d Light: %d", b->openborders, b->floorborders, b->wallborders, b->rampborders, b->lightborders);
+	"Open: %d, floor: %d, Wall: %d, Ramp: %d Light: %d", b->openborders, b->floorborders, b->wallborders, b->rampborders, b->lightborders);
 	draw_borders(8, dray, b->lightborders);
 	*/
 
@@ -614,6 +614,10 @@ void DrawMinimap(){
 void DrawSpriteFromSheet( int spriteNum, ALLEGRO_BITMAP* spriteSheet, ALLEGRO_COLOR color, int x, int y, Block * b){
 	int sheetx = spriteNum % SHEET_OBJECTSWIDE;
 	int sheety = spriteNum / SHEET_OBJECTSWIDE;
+#ifdef _DEBUG
+	config.drawcount ++;
+#endif
+
 	//
 	/*
 	static ALLEGRO_BITMAP* tiny = null;
@@ -759,14 +763,17 @@ void paintboard(){
 		draw_textf_border(font, al_map_rgb(255,255,255), 10,al_get_font_line_height(font), 0, "%i,%i,%i, r%i", DisplayedSegmentX,DisplayedSegmentY,DisplayedSegmentZ, DisplayedRotation);
 
 		if(config.debug_mode){
-			draw_textf_border(font, al_map_rgb(255,255,255), 10, 3*al_get_font_line_height(font), 0, "Map Read Time: %ims", ClockedTime2);
+			draw_textf_border(font, al_map_rgb(255,255,255), 10, 3*al_get_font_line_height(font), 0, "Map Read Time: %ds", viewedSegment->read_time);
 			draw_textf_border(font, al_map_rgb(255,255,255), 10, 4*al_get_font_line_height(font), 0, "Map Beautification Time: %ims", ClockedTime);
 			draw_textf_border(font, al_map_rgb(255,255,255), 10, 2*al_get_font_line_height(font), 0, "FPS: %.2f", 1.0/time_since_last_frame);
 			draw_textf_border(font, al_map_rgb(255,255,255), 10, 5*al_get_font_line_height(font), 0, "Draw: %ims", DrawTime);
 			draw_textf_border(font, al_map_rgb(255,255,255), 10, 6*al_get_font_line_height(font), 0, "D1: %i", blockFactory.getPoolSize());
 			draw_textf_border(font, al_map_rgb(255,255,255), 10, 7*al_get_font_line_height(font), 0, "%i/%i/%i, %i:%i", contentLoader.currentDay+1, contentLoader.currentMonth+1, contentLoader.currentYear, contentLoader.currentHour, (contentLoader.currentTickRel*60)/50);
+			draw_textf_border(font, al_map_rgb(255,255,255), 10, 8*al_get_font_line_height(font), 0, "%i Sprites drawn, %i tiles drawn, %.1f sprites per tile.", config.drawcount, config.tilecount, ((float)config.drawcount/(float)config.tilecount));
 			drawDebugCursorAndInfo();
 		}
+		config.drawcount = 0;
+		config.tilecount = 0;
 		int top = 0;
 		if(config.follow_DFscreen)
 		{

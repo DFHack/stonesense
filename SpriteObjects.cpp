@@ -539,9 +539,19 @@ void c_sprite::draw_screen(int x, int y)
 	int sheetx = sheetindex % SHEET_OBJECTSWIDE;
 	int sheety = sheetindex / SHEET_OBJECTSWIDE;
 	if(fileindex == -1)
+	{
+#ifdef _DEBUG
+		config.drawcount ++;
+#endif
 		al_draw_bitmap_region(IMGObjectSheet, sheetx * spritewidth, sheety * spriteheight, spritewidth, spriteheight, x + offset_x, y + offset_y, 0);
+	}
 	else 
+	{
+#ifdef _DEBUG
+		config.drawcount ++;
+#endif
 		al_draw_bitmap_region(getImgFile(fileindex), sheetx * spritewidth, sheety * spriteheight, spritewidth, spriteheight, x + offset_x, y + (offset_y - WALLHEIGHT), 0);
+	}
 	if(!subsprites.empty())
 	{
 		for(int i = 0; i < subsprites.size(); i++)
@@ -573,7 +583,7 @@ void c_sprite::draw_world_offset(int x, int y, int z, Block * b, int tileoffset,
 		int spam = 0;
 		spam++;
 	}
-	
+
 	if ((animframes & (1 << offsetAnimFrame)) || !animate)
 	{
 		//if set by the xml file, a random offset between 0 and 'variations' is added to the sprite.
@@ -631,6 +641,8 @@ void c_sprite::draw_world_offset(int x, int y, int z, Block * b, int tileoffset,
 							)
 						)
 					)
+					)
+					)
 				{
 					int32_t drawx = x;
 					int32_t drawy = y;
@@ -638,7 +650,7 @@ void c_sprite::draw_world_offset(int x, int y, int z, Block * b, int tileoffset,
 
 
 					correctBlockForSegmetOffset( drawx, drawy, drawz);
-				correctBlockForRotation( drawx, drawy, drawz, b->ownerSegment->rotation);
+					correctBlockForRotation( drawx, drawy, drawz, b->ownerSegment->rotation);
 					int32_t viewx = drawx;
 					int32_t viewy = drawy;
 					int32_t viewz = drawz;
@@ -676,10 +688,23 @@ void c_sprite::draw_world_offset(int x, int y, int z, Block * b, int tileoffset,
 					if(chop && ( halftile == HALFTILECHOP))
 					{
 						if(fileindex < 0)
+						{
+#ifdef _DEBUG
+							config.drawcount ++;
+#endif
 							al_draw_tinted_bitmap_region(defaultsheet, premultiply(shade_color), sheetx, sheety+WALL_CUTOFF_HEIGHT, spritewidth, spriteheight-WALL_CUTOFF_HEIGHT, drawx + offset_x + offset_user_x, drawy + offset_user_y + (offset_y - WALLHEIGHT)+WALL_CUTOFF_HEIGHT, 0);
+						}
 						else 
+						{
+#ifdef _DEBUG
+							config.drawcount ++;
+#endif
 							al_draw_tinted_bitmap_region(getImgFile(fileindex), premultiply(shade_color), sheetx, (sheety)+WALL_CUTOFF_HEIGHT, spritewidth, spriteheight-WALL_CUTOFF_HEIGHT, drawx + offset_x + offset_user_x, drawy + offset_user_y + (offset_y - WALLHEIGHT)+WALL_CUTOFF_HEIGHT, 0);
+						}
 						//draw cut-off floor thing
+#ifdef _DEBUG
+						config.drawcount ++;
+#endif
 						al_draw_bitmap_region(IMGObjectSheet, 
 							TILEWIDTH * SPRITEFLOOR_CUTOFF, 0,
 							SPRITEWIDTH, SPRITEWIDTH, 
@@ -690,9 +715,19 @@ void c_sprite::draw_world_offset(int x, int y, int z, Block * b, int tileoffset,
 						if((isoutline == OUTLINENONE) || ((isoutline == OUTLINERIGHT) && (b->depthBorderNorth)) || ((isoutline == OUTLINELEFT) && (b->depthBorderWest)) || ((isoutline == OUTLINEBOTTOM) && (b->depthBorderDown)))
 						{
 							if(fileindex < 0)
+							{
+#ifdef _DEBUG
+								config.drawcount ++;
+#endif
 								al_draw_tinted_bitmap_region(defaultsheet, premultiply(shade_color), sheetx, sheety, spritewidth, spriteheight, drawx + offset_x + offset_user_x, drawy + offset_user_y + (offset_y - WALLHEIGHT), 0);
+							}
 							else 
+							{
+#ifdef _DEBUG
+								config.drawcount ++;
+#endif
 								al_draw_tinted_bitmap_region(getImgFile(fileindex), premultiply(shade_color), sheetx, sheety, spritewidth, spriteheight, drawx + offset_x + offset_user_x, drawy + offset_user_y + (offset_y - WALLHEIGHT), 0);
+							}
 						}
 						if(needoutline)
 						{

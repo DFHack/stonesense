@@ -206,6 +206,9 @@ typedef struct {
 	bool threadstarted;
 
 	bool threading_enable;
+
+	int drawcount;
+	int tilecount;
 } GameConfiguration;
 
 

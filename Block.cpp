@@ -99,6 +99,14 @@ void Block::Draw(){
 	{
 		material.index = 0;
 	}
+
+#ifdef _DEBUG
+	if(!(this->designation.bits.hidden) || config.show_hidden_blocks)
+	{
+		config.tilecount ++;
+	}
+#endif
+
 	bool defaultSnow = 1;
 	int sheetOffsetX, sheetOffsetY;
 	t_SpriteWithOffset sprite;
