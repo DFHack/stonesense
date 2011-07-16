@@ -7,6 +7,8 @@
 #include <vector>
 #include <map>
 
+#define ALLEGRO_NO_MAGIC_MAIN //This is a DLL file. we got no main function.
+
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_font.h>
