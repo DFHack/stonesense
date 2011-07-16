@@ -91,9 +91,11 @@ static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALL
 	con.print("Focus on the main window (black) and press keys to see events. \n");
 	con.print("Escape quits.\n\n");
 
-	while (!al_get_thread_should_stop(thred)) {
+	while (!al_get_thread_should_stop(thred))
+	{
 		/* Take the next event out of the event queue, and store it in `event'. */
-		al_wait_for_event_timed(queue, &event, 1.0f);
+		bool in_time = 0;
+		in_time = al_wait_for_event_timed(queue, &event, 1.0f);
 
 		/* Check what type of event we got and act accordingly.  ALLEGRO_EVENT
 		* is a union type and interpretation of its contents is dependent on
@@ -104,8 +106,10 @@ static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALL
 		* fields respectively, e.g. 'event.any.timestamp'
 		*/
 
+		if(in_time)
 		{
-			switch (event.type) {
+			switch (event.type)
+			{
 
 				/* ALLEGRO_EVENT_KEY_DOWN - a keyboard key was pressed.
 				*/
