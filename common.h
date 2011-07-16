@@ -6,6 +6,7 @@
 #include <assert.h>
 #include <vector>
 #include <map>
+#include <stdint.h>
 
 #define ALLEGRO_NO_MAGIC_MAIN //This is a DLL file. we got no main function.
 
@@ -23,7 +24,10 @@
 #define SKIP_DFHACK_STDINT
 
 #include <DFHack.h>
-#include <dfhack/DFTileTypes.h>
+#include <dfhack/Core.h>
+#include <dfhack/Console.h>
+#include <dfhack/Export.h>
+#include <dfhack/PluginManager.h>
 
 #include "commonTypes.h"
 #include "Block.h"
