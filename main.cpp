@@ -1,13 +1,13 @@
 #include <assert.h>
 #include <vector>
-
+#include <list>
 
 using namespace std;
 
 #include "common.h"
 #include "Block.h"
 #include "GUI.h"
-#include "SpriteMaps.h"
+//#include "SpriteMaps.h"
 #include "GameBuildings.h"
 #include "Constructions.h"
 #include "MapLoading.h"
@@ -15,6 +15,10 @@ using namespace std;
 #include "Creatures.h"
 #include "GroundMaterialConfiguration.h"
 #include "ContentLoader.h"
+
+#define WIDTH        640
+#define HEIGHT       480
+#define SIZE_LOG     50
 
 #ifdef LINUX_BUILD
 #include "stonesense.xpm"
@@ -38,14 +42,10 @@ vector<t_matgloss> v_stonetypes;
 
 ALLEGRO_FONT * font;
 
-ALLEGRO_DISPLAY * display;
-
-ALLEGRO_KEYBOARD_STATE keyboard;
+//ALLEGRO_KEYBOARD_STATE keyboard;
 
 ALLEGRO_TIMER * reloadtimer;
 ALLEGRO_TIMER * animationtimer;
-
-ALLEGRO_EVENT_QUEUE *queue;
 
 ALLEGRO_EVENT event;
 
@@ -55,11 +55,137 @@ int mouse_x, mouse_y, mouse_z;
 unsigned int mouse_b;
 bool key[ALLEGRO_KEY_MAX];
 
+//thread listings
+list<ALLEGRO_THREAD * > thread_listing;
+ALLEGRO_MUTEX * list_mutex;
+
 /*int32_t viewx = 0;
 int32_t viewy = 0;
 int32_t viewz = 0;
 bool followmode = true;*/
-volatile int close_button_pressed = false;
+
+//testing allegro stuff.
+
+static void log_key(ALLEGRO_DISPLAY * display, char const *how, int keycode, int unichar, int modifiers, DFHack::Console & con)
+{
+	char multibyte[5] = {0, 0, 0, 0, 0};
+	const char* key_name;
+
+	al_utf8_encode(multibyte, unichar <= 32 ? ' ' : unichar);
+	key_name = al_keycode_to_name(keycode);
+	con.print("Display %p  %-8s  code=%03d, char='%s' (%4d), modifiers=%08x, [%s]\n",
+		display, how, keycode, multibyte, unichar, modifiers, key_name);
+}
+
+/* main_loop:
+*  The main loop of the program.  Here we wait for events to come in from
+*  any one of the event sources and react to each one accordingly.  While
+*  there are no events to react to the program sleeps and consumes very
+*  little CPU time.  See main() to see how the event sources and event queue
+*  are set up.
+*/
+static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALLEGRO_THREAD * thred, DFHack::Console & con)
+{
+	ALLEGRO_EVENT event;
+
+	con.print("Focus on the main window (black) and press keys to see events. \n");
+	con.print("Escape quits.\n\n");
+
+	while (!al_get_thread_should_stop(thred)) {
+		/* Take the next event out of the event queue, and store it in `event'. */
+		al_wait_for_event_timed(queue, &event, 1.0f);
+
+		/* Check what type of event we got and act accordingly.  ALLEGRO_EVENT
+		* is a union type and interpretation of its contents is dependent on
+		* the event type, which is given by the 'type' field.
+		*
+		* Each event also comes from an event source and has a timestamp.
+		* These are accessible through the 'any.source' and 'any.timestamp'
+		* fields respectively, e.g. 'event.any.timestamp'
+		*/
+
+		{
+			switch (event.type) {
+
+				/* ALLEGRO_EVENT_KEY_DOWN - a keyboard key was pressed.
+				*/
+			case ALLEGRO_EVENT_KEY_DOWN:
+				if(event.keyboard.display != display)
+					break;
+				if (event.keyboard.keycode == ALLEGRO_KEY_ESCAPE) {
+					return;
+				}
+				log_key(display, "KEY_DOWN", event.keyboard.keycode, 0, 0, con);
+				break;
+				/* ALLEGRO_EVENT_KEY_UP - a keyboard key was released.
+				*/
+			case ALLEGRO_EVENT_KEY_UP:
+				if(event.keyboard.display != display)
+					break;
+				log_key(display, "KEY_UP", event.keyboard.keycode, 0, 0, con);
+				break;
+
+				/* ALLEGRO_EVENT_KEY_CHAR - a character was typed or repeated.
+				*/
+			case ALLEGRO_EVENT_KEY_CHAR:
+				if(event.keyboard.display != display)
+					break;
+				{
+					char const *label = (event.keyboard.repeat ? "repeat" : "KEY_CHAR");
+					log_key(display, label,
+						event.keyboard.keycode,
+						event.keyboard.unichar,
+						event.keyboard.modifiers, con);
+					break;
+				}
+
+				/* ALLEGRO_EVENT_DISPLAY_CLOSE - the window close button was pressed.
+				*/
+			case ALLEGRO_EVENT_DISPLAY_CLOSE:
+				return;
+
+				/* We received an event of some type we don't know about.
+				* Just ignore it.
+				*/
+			default:
+				break;
+			}
+		}
+	}
+}
+
+//replacement for main()
+static void * stonesense_thread(ALLEGRO_THREAD * thred, void * parms)
+{
+	DFHack::Core * c = (DFHack::Core * )parms;
+	ALLEGRO_DISPLAY * display;
+	display = al_create_display(WIDTH, HEIGHT);
+	if (!display) {
+		c->con.printerr("al_create_display failed\n");
+		al_lock_mutex(list_mutex);
+		thread_listing.remove(thred);
+		al_unlock_mutex(list_mutex);
+		return NULL;
+	}
+
+	ALLEGRO_EVENT_QUEUE *queue;
+	queue = al_create_event_queue();
+	if (!queue) {
+		c->con.printerr("al_create_event_queue failed\n");
+		return NULL;
+	}
+
+	al_register_event_source(queue, al_get_keyboard_event_source());
+	al_register_event_source(queue, al_get_display_event_source(display));
+
+	main_loop(display, queue, thred, c->con);
+	al_destroy_display(display);
+
+	al_lock_mutex(list_mutex);
+	thread_listing.remove(thred);
+	al_unlock_mutex(list_mutex);
+	return NULL;
+}
 
 //All this fun DFhack stuff I gotta do now.
 DFhackCExport command_result stonesense_command(DFHack::Core * c, std::vector<std::string> & params);
@@ -67,15 +193,19 @@ DFhackCExport command_result stonesense_command(DFHack::Core * c, std::vector<st
 //set the plugin name
 DFhackCExport const char * plugin_name ( void )
 {
-    return "stonesense";
+	return "stonesense";
 }
 
 //This is the init command. it includes input options.
 DFhackCExport command_result plugin_init ( Core * c, std::vector <PluginCommand> &commands)
 {
-    commands.clear();
-    commands.push_back(PluginCommand("stonesense","Start up the stonesense visualiser.",stonesense_command));
-    return CR_OK;
+	commands.clear();
+	commands.push_back(PluginCommand("stonesense","Start up the stonesense visualiser.",stonesense_command));
+	list_mutex = al_create_mutex();
+	al_lock_mutex(list_mutex);
+	thread_listing.size();
+	al_unlock_mutex(list_mutex);
+	return CR_OK;
 }
 
 //this command is called every frame DF.
@@ -87,13 +217,40 @@ DFhackCExport command_result plugin_onupdate ( Core * c )
 //And the shutdown command.
 DFhackCExport command_result plugin_shutdown ( Core * c )
 {
-    return CR_OK;
+	while(thread_listing.size())
+	{
+		al_lock_mutex(list_mutex);
+		ALLEGRO_THREAD * doomed_thread = thread_listing.front();
+		al_unlock_mutex(list_mutex);
+		al_join_thread(doomed_thread, NULL);
+	}
+	al_uninstall_system();
+	return CR_OK;
 }
 
 //and the actual stonesense command. Maybe.
 DFhackCExport command_result stonesense_command(DFHack::Core * c, std::vector<std::string> & params)
 {
-	return CR_OK;
+	if(!al_is_system_installed())
+		if (!al_init()) {
+			c->con.printerr("Could not init Allegro.\n");
+			return CR_FAILURE;
+		}
+
+		if(!al_is_keyboard_installed())
+			if (!al_install_keyboard()) {
+				c->con.printerr("al_install_keyboard failed\n");
+				return CR_FAILURE;
+			}
+
+			ALLEGRO_THREAD *thread;
+			thread = al_create_thread(stonesense_thread, (void * )c);
+			al_start_thread(thread);
+			al_lock_mutex(list_mutex);
+			thread_listing.push_back(thread);
+			al_unlock_mutex(list_mutex);
+
+			return CR_OK;
 }
 
 //void WriteErr(char* msg, ...){

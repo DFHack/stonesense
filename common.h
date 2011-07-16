@@ -207,7 +207,6 @@ class BuildingConfiguration;
 #define FILENAME_BUFFERSIZE_LOCAL 200
 
 extern ALLEGRO_FONT *font;
-extern ALLEGRO_DISPLAY     *display;
 extern ALLEGRO_KEYBOARD_STATE keyboard;
 extern ALLEGRO_TIMER *reloadtimer;
 extern ALLEGRO_TIMER * animationtimer;
