@@ -61,6 +61,8 @@ DFHack::Console * DFConsole;
 
 ALLEGRO_THREAD *thread;
 
+bool redraw = true;
+
 /*int32_t viewx = 0;
 int32_t viewy = 0;
 int32_t viewz = 0;
@@ -146,13 +148,13 @@ bool loadfont()
 	return 1;
 }
 
-void benchmark(){
+void benchmark(DFHack::Core * c){
 	DisplayedSegmentX = DisplayedSegmentY = 0;
 	DisplayedSegmentX = 110; DisplayedSegmentY = 110;DisplayedSegmentZ = 18;
 	uint32_t startTime = clock();
 	int i = 20;
 	while(i--)
-		reloadDisplayedSegment();
+		reloadDisplayedSegment(c);
 
 	FILE* fp = fopen("benchmark.txt", "w" );
 	if(!fp) return;
@@ -209,82 +211,83 @@ void drawcredits()
 /*
 int main(void)
 {
-	al_init();
 
 
 
-	al_install_keyboard();
-	al_install_mouse();
-	al_show_mouse_cursor(display);
-	//al_set_system_mouse_cursor(display, ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT);
+
+//upper left corners
+DisplayedSegmentX = DisplayedSegmentY = DisplayedSegmentZ = 0;
+
+//ramps
+//DisplayedSegmentX = 238; DisplayedSegmentY = 220;DisplayedSegmentZ = 23;
+
+//ford. Main hall
+//DisplayedSegmentX = 172; DisplayedSegmentY = 195;DisplayedSegmentZ = 15;
+
+//ford. desert map
+//sDisplayedSegmentX = 78; DisplayedSegmentY = 123;DisplayedSegmentZ = 15;
+
+//DisplayedSegmentX = 125; DisplayedSegmentY = 125;DisplayedSegmentZ = 18;
+
+//DisplayedSegmentX = 242; DisplayedSegmentY = 345;DisplayedSegmentZ = 15;
 
 
+DFHack::CoreManager DFMgr("Memory.xml");
 
-	if(!display)
+while (true) {
+
+
+if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
+break;
+}
+if (event.type == ALLEGRO_EVENT_TIMER &&
+event.timer.source == reloadtimer){
+timeToReloadSegment = true;
+redraw = true;
+}
+if (event.type == ALLEGRO_EVENT_TIMER &&
+event.timer.source == animationtimer){
+animUpdateProc();
+redraw = true;
+}
+}
+if(config.threadmade)
+{
+al_broadcast_cond(config.readCond);
+al_destroy_thread(config.readThread);
+config.spriteIndexOverlay = 0;
+}
+flushImgFiles();
+DisconnectFromDF();
+
+//dispose old segments
+if(altSegment){
+altSegment->Dispose();
+delete(altSegment);
+}
+if(viewedSegment){
+viewedSegment->Dispose();
+delete(viewedSegment);
+}
+
+return 0;
+}
+*/
+
+/* main_loop:
+*  The main loop of the program.  Here we wait for events to come in from
+*  any one of the event sources and react to each one accordingly.  While
+*  there are no events to react to the program sleeps and consumes very
+*  little CPU time.  See main() to see how the event sources and event queue
+*  are set up.
+*/
+static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALLEGRO_THREAD * thred, DFHack::Console & con, DFHack::Core * core)
+{
+	ALLEGRO_EVENT event;
+	DFHack::Maps * maps = core->getMaps();
+	DFHack::t_gamemodes game_mode;
+	while (!al_get_thread_should_stop(thred))
 	{
-		WriteErr("Could not init display\n");
-		exit(1);
-		return 1;
-	}
-	if (!al_install_keyboard()) {
-		al_show_native_message_box(display, "Error", "Error", "al_install_keyboard failed.", NULL, ALLEGRO_MESSAGEBOX_ERROR);
-		exit(1);
-		return 1;
-	}
-	
-
-
-
-	//al_set_separate_blender(ALLEGRO_ADD, ALLEGRO_ALPHA, ALLEGRO_INVERSE_ALPHA, ALLEGRO_ADD, ALLEGRO_ONE, ALLEGRO_ONE);
-	loadGraphicsFromDisk();
-	al_clear_to_color(al_map_rgb(0,0,0));
-	al_draw_textf(font, al_map_rgb(255,255,255), al_get_bitmap_width(al_get_target_bitmap())/2, al_get_bitmap_height(al_get_target_bitmap())/2, ALLEGRO_ALIGN_CENTRE, "Starting up...");
-	al_flip_display();
-	reloadtimer = al_create_timer(ALLEGRO_MSECS_TO_SECS(config.automatic_reload_time));
-	animationtimer = al_create_timer(ALLEGRO_MSECS_TO_SECS(config.animation_step));
-	if(config.animation_step)
-	{
-	al_start_timer(animationtimer);
-	}
-	// Start the event queue to handle keyboard input
-	queue = al_create_event_queue();
-	al_register_event_source(queue, al_get_keyboard_event_source());
-	al_register_event_source(queue, al_get_display_event_source(display));
-	al_register_event_source(queue, al_get_mouse_event_source());
-	al_register_event_source(queue, al_get_timer_event_source(reloadtimer));
-	al_register_event_source(queue, al_get_timer_event_source(animationtimer));
-	bool redraw = true;
-
-	//upper left corners
-	DisplayedSegmentX = DisplayedSegmentY = DisplayedSegmentZ = 0;
-
-	//ramps
-	//DisplayedSegmentX = 238; DisplayedSegmentY = 220;DisplayedSegmentZ = 23;
-
-	//ford. Main hall
-	//DisplayedSegmentX = 172; DisplayedSegmentY = 195;DisplayedSegmentZ = 15;
-
-	//ford. desert map
-	//sDisplayedSegmentX = 78; DisplayedSegmentY = 123;DisplayedSegmentZ = 15;
-
-	//DisplayedSegmentX = 125; DisplayedSegmentY = 125;DisplayedSegmentZ = 18;
-
-	//DisplayedSegmentX = 242; DisplayedSegmentY = 345;DisplayedSegmentZ = 15;
-
-	config.readMutex = al_create_mutex();
-	config.readCond = al_create_cond();
-
-#ifdef BENCHMARK
-	benchmark();
-#endif
-	//install_int( animUpdateProc, config.animation_step );
-	initAutoReload();
-
-	timeToReloadSegment = true;
-
-	DFHack::CoreManager DFMgr("Memory.xml");
-
-	while (true) {
 		if (redraw && al_event_queue_is_empty(queue))
 		{
 			al_rest(ALLEGRO_MSECS_TO_SECS(30));
@@ -292,12 +295,12 @@ int main(void)
 			{
 				DrawSpriteIndexOverlay(config.currentSpriteOverlay);
 			}
-			else if( config.show_intro && config.creditScreen )
+			else if(!maps->Start())
 			{
 				drawcredits();
 			}
 			else if( timeToReloadSegment ){
-				reloadDisplayedSegment();
+				reloadDisplayedSegment(core);
 				al_clear_to_color(al_map_rgb(config.backr,config.backg,config.backb));
 				paintboard();
 				timeToReloadSegment = false;
@@ -311,85 +314,6 @@ int main(void)
 			doKeys();
 			redraw = false;
 		}
-
-		al_wait_for_event(queue, &event);
-		if (event.type == ALLEGRO_EVENT_DISPLAY_RESIZE) {
-			if(!al_acknowledge_resize(event.display.source))
-			{
-				DisplayErr("Failed to resize diplay");
-				exit(0);
-			}
-			timeToReloadSegment = true;
-			redraw = true;
-#if 1
-			{
-				//XXX the opengl drivers currently don't resize the backbuffer
-				ALLEGRO_BITMAP *bb = al_get_backbuffer(al_get_current_display());
-				int w = al_get_bitmap_width(bb);
-				int h = al_get_bitmap_height(bb);
-				WriteErr("backbuffer w, h: %d, %d\n", w, h);
-			}
-#endif
-		}
-		if (event.type == ALLEGRO_EVENT_KEY_DOWN) {
-			if(event.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
-				break;
-			else 
-			{
-				doKeys(event.keyboard.keycode);
-				redraw = true;
-			}
-		}
-		if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
-			break;
-		}
-		if (event.type == ALLEGRO_EVENT_TIMER &&
-			event.timer.source == reloadtimer){
-				timeToReloadSegment = true;
-				redraw = true;
-		}
-		if (event.type == ALLEGRO_EVENT_TIMER &&
-			event.timer.source == animationtimer){
-				animUpdateProc();
-				redraw = true;
-		}
-	}
-	if(config.threadmade)
-	{
-		al_broadcast_cond(config.readCond);
-		al_destroy_thread(config.readThread);
-		config.spriteIndexOverlay = 0;
-	}
-	flushImgFiles();
-	DisconnectFromDF();
-
-	//dispose old segments
-	if(altSegment){
-		altSegment->Dispose();
-		delete(altSegment);
-	}
-	if(viewedSegment){
-		viewedSegment->Dispose();
-		delete(viewedSegment);
-	}
-
-	return 0;
-}
-*/
-
-/* main_loop:
-*  The main loop of the program.  Here we wait for events to come in from
-*  any one of the event sources and react to each one accordingly.  While
-*  there are no events to react to the program sleeps and consumes very
-*  little CPU time.  See main() to see how the event sources and event queue
-*  are set up.
-*/
-static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALLEGRO_THREAD * thred, DFHack::Console & con)
-{
-	ALLEGRO_EVENT event;
-
-	while (!al_get_thread_should_stop(thred))
-	{
 		/* Take the next event out of the event queue, and store it in `event'. */
 		bool in_time = 0;
 		in_time = al_wait_for_event_timed(queue, &event, 1.0f);
@@ -407,38 +331,55 @@ static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALL
 		{
 			switch (event.type)
 			{
-
+			case ALLEGRO_EVENT_DISPLAY_RESIZE:
+				if(!al_acknowledge_resize(event.display.source))
+				{
+					DFConsole->printerr("Failed to resize diplay");
+					return;
+				}
+				timeToReloadSegment = true;
+				redraw = true;
+#if 1
+				{
+					//XXX the opengl drivers currently don't resize the backbuffer
+					ALLEGRO_BITMAP *bb = al_get_backbuffer(al_get_current_display());
+					int w = al_get_bitmap_width(bb);
+					int h = al_get_bitmap_height(bb);
+					WriteErr("backbuffer w, h: %d, %d\n", w, h);
+				}
+#endif
 				/* ALLEGRO_EVENT_KEY_DOWN - a keyboard key was pressed.
 				*/
 			case ALLEGRO_EVENT_KEY_DOWN:
 				if(event.keyboard.display != display)
 					break;
-				if (event.keyboard.keycode == ALLEGRO_KEY_ESCAPE) {
+				else if (event.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
+				{
 					return;
 				}
-				break;
-				/* ALLEGRO_EVENT_KEY_UP - a keyboard key was released.
-				*/
-			case ALLEGRO_EVENT_KEY_UP:
-				if(event.keyboard.display != display)
-					break;
-				break;
-
-				/* ALLEGRO_EVENT_KEY_CHAR - a character was typed or repeated.
-				*/
-			case ALLEGRO_EVENT_KEY_CHAR:
-				if(event.keyboard.display != display)
-					break;
+				else
 				{
-
-					break;
+					doKeys(event.keyboard.keycode);
+					redraw = true;
 				}
+				break;
 
 				/* ALLEGRO_EVENT_DISPLAY_CLOSE - the window close button was pressed.
 				*/
 			case ALLEGRO_EVENT_DISPLAY_CLOSE:
 				return;
 
+			case ALLEGRO_EVENT_TIMER:
+				if(event.timer.source == reloadtimer)
+				{
+					timeToReloadSegment = true;
+					redraw = true;
+				}
+				else if (event.timer.source == animationtimer)
+				{
+					animUpdateProc();
+					redraw = true;
+				}
 				/* We received an event of some type we don't know about.
 				* Just ignore it.
 				*/
@@ -542,11 +483,56 @@ static void * stonesense_thread(ALLEGRO_THREAD * thred, void * parms)
 		return NULL;
 	}
 
+	loadGraphicsFromDisk();
+	al_clear_to_color(al_map_rgb(0,0,0));
+	al_draw_textf(font, al_map_rgb(255,255,255), al_get_bitmap_width(al_get_target_bitmap())/2, al_get_bitmap_height(al_get_target_bitmap())/2, ALLEGRO_ALIGN_CENTRE, "Starting up...");
+	al_flip_display();
+
+	reloadtimer = al_create_timer(ALLEGRO_MSECS_TO_SECS(config.automatic_reload_time));
+	animationtimer = al_create_timer(ALLEGRO_MSECS_TO_SECS(config.animation_step));
+
+	if(config.animation_step)
+	{
+		al_start_timer(animationtimer);
+	}
+
+
 	al_register_event_source(queue, al_get_keyboard_event_source());
 	al_register_event_source(queue, al_get_display_event_source(display));
+	al_register_event_source(queue, al_get_mouse_event_source());
+	al_register_event_source(queue, al_get_timer_event_source(reloadtimer));
+	al_register_event_source(queue, al_get_timer_event_source(animationtimer));
 
-	main_loop(display, queue, thred, c->con);
+	config.readMutex = al_create_mutex();
+	config.readCond = al_create_cond();
+
+#ifdef BENCHMARK
+	benchmark();
+#endif
+	//install_int( animUpdateProc, config.animation_step );
+	initAutoReload();
+
+	timeToReloadSegment = true;
+
+	main_loop(display, queue, thred, c->con, c);
 	al_destroy_display(display);
+
+	if(config.threadmade)
+	{
+		al_broadcast_cond(config.readCond);
+		al_destroy_thread(config.readThread);
+		config.spriteIndexOverlay = 0;
+	}
+	flushImgFiles();
+
+	if(altSegment){
+		altSegment->Dispose();
+		delete(altSegment);
+	}
+	if(viewedSegment){
+		viewedSegment->Dispose();
+		delete(viewedSegment);
+	}
 	DFConsole->print("Stonesense shutdown./n");
 	stonesense_started = 0;
 	return NULL;
@@ -622,14 +608,14 @@ DFhackCExport command_result stonesense_command(DFHack::Core * c, std::vector<st
 				DFConsole->printerr("al_install_keyboard failed\n");
 				return CR_FAILURE;
 			}
-		if(!al_is_mouse_installed())
-		{
-			if (!al_install_mouse()) 
+			if(!al_is_mouse_installed())
 			{
-				DFConsole->printerr("al_install_mouse failed\n");
-				return CR_FAILURE;
+				if (!al_install_mouse()) 
+				{
+					DFConsole->printerr("al_install_mouse failed\n");
+					return CR_FAILURE;
+				}
 			}
-		}
 	}
 
 	thread = al_create_thread(stonesense_thread, (void * )c);

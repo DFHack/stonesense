@@ -215,7 +215,8 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
 {
 	if(config.skipMaps)
 		return;
-
+	if(!Maps->Start())
+		return;
 	//boundry check
 	int cellDimX, cellDimY, cellDimZ;
 	Maps->getSize((unsigned int &)cellDimX, (unsigned int &)cellDimY, (unsigned int &)cellDimZ);
@@ -1208,7 +1209,7 @@ void read_segment( void *arg)
 		altSegment->Dispose();
 		delete(altSegment);
 	}
-	pDFApiHandle->Suspend();
+	//pDFApiHandle->Suspend();
 	if (firstLoad || config.follow_DFscreen)
 	{
 		firstLoad = 0;
@@ -1224,7 +1225,7 @@ void read_segment( void *arg)
 	altSegment = ReadMapSegment(*pDFApiHandle, parms.x, parms.y, parms.z,
 		parms.sizex, parms.sizey, parms.sizez);
 	config.threadstarted = 0;
-	pDFApiHandle->Resume();
+	//pDFApiHandle->Resume();
 	beautify_Segment(altSegment);
 	if(viewedSegment)
 		al_lock_mutex(viewedSegment->mutie);
@@ -1244,20 +1245,11 @@ static void * threadedSegment(ALLEGRO_THREAD *thread, void *arg)
 	return 0;
 }
 
-void reloadDisplayedSegment(){
+void reloadDisplayedSegment(DFHack::Core * c){
 	//create handle to dfHack API
-	bool firstLoad = (pDFApiHandle == 0);
-	if(pDFApiHandle == 0)
-	{
-		al_clear_to_color(al_map_rgb(0,0,0));
-		draw_textf_border(font, al_map_rgb(255,255,255),
-			al_get_bitmap_width(al_get_target_bitmap())/2,
-			al_get_bitmap_height(al_get_target_bitmap())/2,
-			ALLEGRO_ALIGN_CENTRE, "Connecting to DF...");
-		al_flip_display();
-		memInfoHasBeenRead = false;
-	}
-	DFHack::Core& DF = *pDFApiHandle;
+	static bool firstLoad = 1;
+	DFHack::Core & DF = *c;
+	pDFApiHandle = c;
 	TMR1_START;
 
 #ifndef RELEASE
@@ -1267,7 +1259,7 @@ void reloadDisplayedSegment(){
 	if (timeToReloadConfig)
 	{
 		parms.thread_connect = 0;
-		DF.Suspend();
+		//DF.Suspend();
 		contentLoader.Load(DF);
 		timeToReloadConfig = false;
 		//DF.Resume();
