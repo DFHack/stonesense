@@ -359,7 +359,7 @@ void drawDebugCursorAndInfo(){
 		"Coord:(%i,%i,%i)", debugCursor.x, debugCursor.y, debugCursor.z);
 
 	draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
-		"Game Mode:%i, Control Mode:%i", contentLoader.gameMode.game_mode, contentLoader.gameMode.control_mode);
+		"Game Mode:%i, Control Mode:%i", contentLoader.gameMode.g_mode, contentLoader.gameMode.g_type);
 
 	if(!b) return;
 
@@ -631,7 +631,7 @@ void DrawSpriteFromSheet( int spriteNum, ALLEGRO_BITMAP* spriteSheet, ALLEGRO_CO
 	10, 60 , SPRITEWIDTH, SPRITEHEIGHT);
 	*/
 	//draw_trans_sprite(target, tiny, x, y);
-	if(b && (!b->designation.bits.pile) && config.fog_of_war && (contentLoader.gameMode.control_mode == 1))
+	if(b && (!b->designation.bits.pile) && config.fog_of_war && (contentLoader.gameMode.g_mode == GAMEMODE_ADVENTURE))
 	{
 		color.r *= 0.25f;
 		color.g *= 0.25f;
@@ -808,16 +808,7 @@ void paintboard(){
 
 
 
-ALLEGRO_BITMAP* load_bitmap_withWarning(char* path){
-	ALLEGRO_BITMAP* img = 0;
-	img = al_load_bitmap(path);
-	if(!img){
-		DisplayErr("Cannot load image: %s", path);
-		exit(0);
-	}
-	al_convert_mask_to_alpha(img, al_map_rgb(255, 0, 255));
-	return img;
-}
+
 
 void loadGraphicsFromDisk(){
 	/*al_clear_to_color(al_map_rgb(0,0,0));
@@ -828,20 +819,28 @@ void loadGraphicsFromDisk(){
 	al_flip_display();*/
 	int index;
 	index = loadImgFile("objects.png");
+	if(index == -1) return;
 	IMGObjectSheet = al_create_sub_bitmap(IMGFilelist[index], 0, 0, al_get_bitmap_width(IMGFilelist[index]), al_get_bitmap_height(IMGFilelist[index]));
 	index = loadImgFile("creatures.png");
+	if(index == -1) return;
 	IMGCreatureSheet = al_create_sub_bitmap(IMGFilelist[index], 0, 0, al_get_bitmap_width(IMGFilelist[index]), al_get_bitmap_height(IMGFilelist[index]));
 	index = loadImgFile("ramps.png");
+	if(index == -1) return;
 	IMGRampSheet = al_create_sub_bitmap(IMGFilelist[index], 0, 0, al_get_bitmap_width(IMGFilelist[index]), al_get_bitmap_height(IMGFilelist[index]));
 	index = loadImgFile("SSStatusIcons.png");
+	if(index == -1) return;
 	IMGStatusSheet = al_create_sub_bitmap(IMGFilelist[index], 0, 0, al_get_bitmap_width(IMGFilelist[index]), al_get_bitmap_height(IMGFilelist[index]));
 	index = loadImgFile("gibs.png");
+	if(index == -1) return;
 	IMGBloodSheet = al_create_sub_bitmap(IMGFilelist[index], 0, 0, al_get_bitmap_width(IMGFilelist[index]), al_get_bitmap_height(IMGFilelist[index]));
 	index = loadImgFile("engravings_floor.png");
+	if(index == -1) return;
 	IMGEngFloorSheet = al_create_sub_bitmap(IMGFilelist[index], 0, 0, al_get_bitmap_width(IMGFilelist[index]), al_get_bitmap_height(IMGFilelist[index]));
 	index = loadImgFile("engravings_left.png");
+	if(index == -1) return;
 	IMGEngLeftSheet = al_create_sub_bitmap(IMGFilelist[index], 0, 0, al_get_bitmap_width(IMGFilelist[index]), al_get_bitmap_height(IMGFilelist[index]));
 	index = loadImgFile("engravings_right.png");
+	if(index == -1) return;
 	IMGEngRightSheet = al_create_sub_bitmap(IMGFilelist[index], 0, 0, al_get_bitmap_width(IMGFilelist[index]), al_get_bitmap_height(IMGFilelist[index]));
 	createEffectSprites();
 }
@@ -959,13 +958,15 @@ int loadImgFile(char* filename)
 		int currentCache = IMGCache.size() -1;
 		static int columnWidth = 0;
 		ALLEGRO_BITMAP* tempfile = load_bitmap_withWarning(filename);
+		if(!tempfile)
+			return -1;
 		LogVerbose("New image: %s\n",filename);
 		if(currentCache < 0)
 		{
 			IMGCache.push_back(al_create_bitmap(config.imageCacheSize, config.imageCacheSize));
 			if(!IMGCache[0])
 			{
-				DisplayErr("Cannot create bitmap sized %ix%i, please chose a smaller size",config.imageCacheSize,config.imageCacheSize);
+				DFConsole->printerr("Cannot create bitmap sized %ix%i, please chose a smaller size",config.imageCacheSize,config.imageCacheSize);
 			}
 			currentCache = IMGCache.size() -1;
 			LogVerbose("Creating image cache #%d\n",currentCache);
@@ -1025,7 +1026,10 @@ int loadImgFile(char* filename)
 			if (strcmp(filename, IMGFilenames[i]->c_str()) == 0)
 				return i;
 		}
-		IMGFilelist.push_back(load_bitmap_withWarning(filename));
+		ALLEGRO_BITMAP * temp = load_bitmap_withWarning(filename);
+		if(!temp)
+			return -1;
+		IMGFilelist.push_back(temp);
 		IMGFilenames.push_back(new string(filename));
 		LogVerbose("New image: %s\n",filename);
 		return (int)IMGFilelist.size() - 1;

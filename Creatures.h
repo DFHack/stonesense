@@ -7,7 +7,7 @@
 
 class Block;
 
-void ReadCreaturesToSegment( DFHack::Context& DF, WorldSegment* segment);
+void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment);
 
 void DrawCreature(int drawx, int drawy, t_creature* creature, Block * b);
 void DrawCreatureText(int drawx, int drawy, t_creature* creature );

@@ -183,6 +183,7 @@ inline bool readNode(SpriteNode* node, TiXmlElement* elemNode, TiXmlElement* ele
 		if (pfilename != NULL && pfilename[0] != 0)
 		{
 			fileindex = loadConfigImgFile((char*)pfilename,elemNode);
+			if(fileindex == -1) return false;
 		}
 		SpriteElement* sprite = new SpriteElement();
 		sprite->sprite.set_by_xml(elemNode, fileindex);

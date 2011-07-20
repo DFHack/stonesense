@@ -28,7 +28,7 @@ public:
 	ContentLoader(void);
 	~ContentLoader(void);
 
-	bool Load( DFHack::Context& DF);
+	bool Load( DFHack::Core& DF);
 
 	bool reload_configs();
 

@@ -22,6 +22,7 @@
 #undef TileShape
 // allegro also leaks stdint.h and some weird equivalent of it on windows. let's disable the copy leaked by dfhack.
 #define SKIP_DFHACK_STDINT
+#define DFHACK_WANT_TILETYPES
 
 #include <DFHack.h>
 #include <dfhack/Core.h>
@@ -161,7 +162,6 @@ void correctBlockForSegmetOffset(int32_t& x, int32_t& y, int32_t& z);
 
 void WriteErr(char* msg, ...);
 void LogVerbose(char* msg, ...);
-void DisplayErr(const char *format, ...);
 void SetTitle(const char *format, ...);
 
 extern GameConfiguration config;
@@ -250,6 +250,8 @@ extern ALLEGRO_MOUSE_STATE mouse;
 #define FORM_LOG 4
 
 extern int randomCube[RANDOM_CUBE][RANDOM_CUBE][RANDOM_CUBE];
+
+extern DFHack::Console * DFConsole;
 
 ALLEGRO_COLOR premultiply(ALLEGRO_COLOR input);
 using namespace DFHack;

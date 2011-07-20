@@ -62,7 +62,7 @@ dirTypes findWallCloseTo(WorldSegment* segment, Block* b){
 	return eSimpleSingle;
 }
 
-void ReadBuildings(DFHack::Context& DF, vector<t_building>* buildingHolder)
+void ReadBuildings(DFHack::Core& DF, vector<t_building>* buildingHolder)
 {
 	if(config.skipBuildings)
 		return;

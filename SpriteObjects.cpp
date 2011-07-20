@@ -237,6 +237,7 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
 	if (filename != NULL && filename[0] != 0)
 	{
 		fileindex = loadConfigImgFile((char*)filename,elemSprite);
+		if(fileindex == -1) return;
 	}
 
 	animframes = getAnimFrames(elemSprite->Attribute("frames"));
@@ -641,8 +642,6 @@ void c_sprite::draw_world_offset(int x, int y, int z, Block * b, int tileoffset,
 							)
 						)
 					)
-					)
-					)
 				{
 					int32_t drawx = x;
 					int32_t drawy = y;
@@ -679,7 +678,7 @@ void c_sprite::draw_world_offset(int x, int y, int z, Block * b, int tileoffset,
 						sheety = ((sheetindex+tileoffset+randoffset) / SHEET_OBJECTSWIDE) * spriteheight;
 					}
 					ALLEGRO_COLOR shade_color = get_color(b);
-					if(!b->designation.bits.pile && config.fog_of_war && (contentLoader.gameMode.control_mode == 1))
+					if(!b->designation.bits.pile && config.fog_of_war && (contentLoader.gameMode.g_mode == GAMEMODE_ADVENTURE))
 					{
 						shade_color.r *= 0.25f;
 						shade_color.g *= 0.25f;

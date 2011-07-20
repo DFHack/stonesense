@@ -80,7 +80,7 @@ void DumpDWordVector (const char * name, DFHack::Process *p, uint32_t addr)
 address = absolute address of dump start
 length = length in lines. 1 line = 16 bytes
 */
-void hexdump (DFHack::Context *DF, uint32_t address, uint32_t length)
+void hexdump (DFHack::Core *DF, uint32_t address, uint32_t length)
 {
     char *buf = new char[length];
     DF->ReadRaw(address, length, (uint8_t *) buf);
@@ -109,7 +109,7 @@ void hexdump (DFHack::Context *DF, uint32_t address, uint32_t length)
     delete buf;
 }
 
-void interleave_hex (DFHack::Context* DF, vector < uint32_t > & addresses, uint32_t length)
+void interleave_hex (DFHack::Core* DF, vector < uint32_t > & addresses, uint32_t length)
 {
     vector <char * > bufs;
 

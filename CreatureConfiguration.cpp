@@ -116,6 +116,7 @@ bool addSingleCreatureConfig( TiXmlElement* elemCreature, vector<vector<Creature
 	if (filename != NULL && filename[0] != 0)
 	{
 		defaultFile = loadConfigImgFile((char*)filename,elemCreature);
+		if(defaultFile == -1) return false;
 	}
 	TiXmlElement* elemVariant = elemCreature->FirstChildElement("variant");
 	while( elemVariant ){
@@ -189,6 +190,7 @@ bool addCreaturesConfig( TiXmlElement* elemRoot, vector<vector<CreatureConfigura
 	if (filename != NULL && filename[0] != 0)
 	{
 		basefile = loadConfigImgFile((char*)filename,elemRoot);
+		if(basefile == -1) return false;
 	} 
 	TiXmlElement* elemCreature = elemRoot->FirstChildElement("creature");
 	if (elemCreature == NULL)

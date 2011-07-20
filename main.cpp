@@ -25,6 +25,7 @@ using namespace std;
 extern void *allegro_icon;
 #endif
 
+bool stonesense_started = 0;
 
 uint32_t ClockedTime = 0;
 uint32_t ClockedTime2 = 0;
@@ -42,7 +43,8 @@ vector<t_matgloss> v_stonetypes;
 
 ALLEGRO_FONT * font;
 
-//ALLEGRO_KEYBOARD_STATE keyboard;
+ALLEGRO_DISPLAY * display;
+ALLEGRO_KEYBOARD_STATE keyboard;
 
 ALLEGRO_TIMER * reloadtimer;
 ALLEGRO_TIMER * animationtimer;
@@ -55,27 +57,325 @@ int mouse_x, mouse_y, mouse_z;
 unsigned int mouse_b;
 bool key[ALLEGRO_KEY_MAX];
 
-//thread listings
-list<ALLEGRO_THREAD * > thread_listing;
-ALLEGRO_MUTEX * list_mutex;
+DFHack::Console * DFConsole;
+
+ALLEGRO_THREAD *thread;
 
 /*int32_t viewx = 0;
 int32_t viewy = 0;
 int32_t viewz = 0;
 bool followmode = true;*/
 
-//testing allegro stuff.
-
-static void log_key(ALLEGRO_DISPLAY * display, char const *how, int keycode, int unichar, int modifiers, DFHack::Console & con)
-{
-	char multibyte[5] = {0, 0, 0, 0, 0};
-	const char* key_name;
-
-	al_utf8_encode(multibyte, unichar <= 32 ? ' ' : unichar);
-	key_name = al_keycode_to_name(keycode);
-	con.print("Display %p  %-8s  code=%03d, char='%s' (%4d), modifiers=%08x, [%s]\n",
-		display, how, keycode, multibyte, unichar, modifiers, key_name);
+ALLEGRO_BITMAP* load_bitmap_withWarning(char* path){
+	ALLEGRO_BITMAP* img = 0;
+	img = al_load_bitmap(path);
+	if(!img){
+		DFConsole->printerr("Cannot load image: %s\n", path);
+		al_set_thread_should_stop(thread);
+		return 0;
+	}
+	al_convert_mask_to_alpha(img, al_map_rgb(255, 0, 255));
+	return img;
 }
+
+
+void WriteErr(char* msg, ...){
+	va_list arglist;
+	va_start(arglist, msg);
+	//  char buf[200] = {0};
+	//  vsprintf(buf, msg, arglist);
+	FILE* fp = fopen( "Stonesense.log", "a");
+	if(fp)
+		vfprintf( fp, msg, arglist );
+	va_end(arglist);
+	fclose(fp);
+}
+
+void LogVerbose(char* msg, ...){
+	if (!config.verbose_logging)
+		return;
+	va_list arglist;
+	va_start(arglist, msg);
+	//  char buf[200] = {0};
+	//  vsprintf(buf, msg, arglist);
+	FILE* fp = fopen( "Stonesense.log", "a");
+	if(fp)
+		vfprintf( fp, msg, arglist );
+	va_end(arglist);
+	fclose(fp);
+}
+
+void SetTitle(const char *format, ...)
+{
+	ALLEGRO_USTR *buf;
+	va_list ap;
+	const char *s;
+
+	/* Fast path for common case. */
+	if (0 == strcmp(format, "%s")) {
+		va_start(ap, format);
+		s = va_arg(ap, const char *);
+		al_set_window_title(display, s);
+		va_end(ap);
+		return;
+	}
+
+	va_start(ap, format);
+	buf = al_ustr_new("");
+	al_ustr_vappendf(buf, format, ap);
+	va_end(ap);
+
+	al_set_window_title(display, al_cstr(buf));
+
+	al_ustr_free(buf);
+}
+
+void correctBlockForSegmetOffset(int32_t& x, int32_t& y, int32_t& z){
+	x -= DisplayedSegmentX;
+	y -= DisplayedSegmentY; //DisplayedSegmentY;
+	z -= DisplayedSegmentZ - 1; // + viewedSegment->sizez - 2; // loading one above the top of the displayed segment for block rules
+}
+
+bool loadfont()
+{
+	font = al_load_font(al_path_cstr(config.font, ALLEGRO_NATIVE_PATH_SEP), config.fontsize, 0);
+	if (!font) {
+		DFConsole->printerr("Cannot load font: %s\n", al_path_cstr(config.font, ALLEGRO_NATIVE_PATH_SEP));
+		return 0;
+	}
+	return 1;
+}
+
+void benchmark(){
+	DisplayedSegmentX = DisplayedSegmentY = 0;
+	DisplayedSegmentX = 110; DisplayedSegmentY = 110;DisplayedSegmentZ = 18;
+	uint32_t startTime = clock();
+	int i = 20;
+	while(i--)
+		reloadDisplayedSegment();
+
+	FILE* fp = fopen("benchmark.txt", "w" );
+	if(!fp) return;
+	fprintf( fp, "%lims", clock() - startTime);
+	fclose(fp);
+}
+
+void animUpdateProc()
+{
+	if (animationFrameShown)
+	{
+		// check before setting, or threadsafety will be borked
+		if (currentAnimationFrame >= (MAX_ANIMFRAME-1)) // ie ends up [0 .. MAX_ANIMFRAME)
+			currentAnimationFrame = 0;
+		else
+			currentAnimationFrame = currentAnimationFrame + 1;
+		animationFrameShown = false;
+	}
+}
+
+void drawcredits()
+{
+	al_clear_to_color(al_map_rgb(0,0,0));
+	//centred splash image
+	{
+		static ALLEGRO_BITMAP* SplashImage = load_bitmap_withWarning("splash.png");
+		if(!SplashImage)
+			return;
+		al_draw_bitmap_region(SplashImage, 0, 0,
+			al_get_bitmap_width(SplashImage), al_get_bitmap_height(SplashImage),
+			(al_get_bitmap_width(al_get_backbuffer(al_get_current_display())) - al_get_bitmap_width(SplashImage))/2,
+			(al_get_bitmap_height(al_get_backbuffer(al_get_current_display())) - al_get_bitmap_height(SplashImage))/2, 0);
+	}
+	al_draw_text(font, al_map_rgb(255, 255, 0), al_get_bitmap_width(al_get_backbuffer(al_get_current_display()))/2, 5*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "Welcome to Stonesense Slate!");
+	al_draw_text(font, al_map_rgb(255, 255, 255), al_get_bitmap_width(al_get_backbuffer(al_get_current_display()))/2, 6*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "Stonesense is an isometric viewer for Dwarf Fortress.");
+
+	al_draw_text(font, al_map_rgb(255, 255, 255), al_get_bitmap_width(al_get_backbuffer(al_get_current_display()))/2, 8*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "Programming, Jonas Ask, Kris Parker and Japa Illo");
+	al_draw_text(font, al_map_rgb(255, 255, 255), al_get_bitmap_width(al_get_backbuffer(al_get_current_display()))/2, 9*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "Lead graphics designer, Dale Holdampf");
+
+	al_draw_text(font, al_map_rgb(255, 255, 255), al_get_bitmap_width(al_get_backbuffer(al_get_current_display()))/2, al_get_bitmap_height(al_get_backbuffer(al_get_current_display()))-13*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "Contributors:");
+	al_draw_text(font, al_map_rgb(255, 255, 255), al_get_bitmap_width(al_get_backbuffer(al_get_current_display()))/2, al_get_bitmap_height(al_get_backbuffer(al_get_current_display()))-12*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "7c Nickel, BatCountry, Belal, Belannaer, DeKaFu, Dante, Deon, dyze,");
+	al_draw_text(font, al_map_rgb(255, 255, 255), al_get_bitmap_width(al_get_backbuffer(al_get_current_display()))/2, al_get_bitmap_height(al_get_backbuffer(al_get_current_display()))-11*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "Errol, fifth angel, frumpton, IDreamOfGiniCoeff, Impaler, ");
+	al_draw_text(font, al_map_rgb(255, 255, 255), al_get_bitmap_width(al_get_backbuffer(al_get_current_display()))/2, al_get_bitmap_height(al_get_backbuffer(al_get_current_display()))-10*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "Japa, jarathor, Jiri Petru, Jordix, Lord Nightmare, McMe, Mike Mayday, Nexii ");
+	al_draw_text(font, al_map_rgb(255, 255, 255), al_get_bitmap_width(al_get_backbuffer(al_get_current_display()))/2, al_get_bitmap_height(al_get_backbuffer(al_get_current_display()))-9*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "Malthus, peterix, Seuss, soup, Talvara, winner, Xandrin.");
+
+	al_draw_text(font, al_map_rgb(255, 255, 255), al_get_bitmap_width(al_get_backbuffer(al_get_current_display()))/2, al_get_bitmap_height(al_get_backbuffer(al_get_current_display()))-7*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "With special thanks to peterix for making dfHack");
+
+	//"The program is in a very early alpha, we're only showcasing it to get ideas and feedback, so use it at your own risk."
+	al_draw_text(font, al_map_rgb(255, 255, 255), al_get_bitmap_width(al_get_backbuffer(al_get_current_display()))/2, al_get_bitmap_height(al_get_backbuffer(al_get_current_display()))-4*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "Press F9 to continue");
+	// Make the backbuffer visible
+	al_flip_display();
+}
+//
+/*
+int main(void)
+{
+	al_init();
+
+
+
+	al_install_keyboard();
+	al_install_mouse();
+	al_show_mouse_cursor(display);
+	//al_set_system_mouse_cursor(display, ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT);
+
+
+
+	if(!display)
+	{
+		WriteErr("Could not init display\n");
+		exit(1);
+		return 1;
+	}
+	if (!al_install_keyboard()) {
+		al_show_native_message_box(display, "Error", "Error", "al_install_keyboard failed.", NULL, ALLEGRO_MESSAGEBOX_ERROR);
+		exit(1);
+		return 1;
+	}
+	
+
+
+
+	//al_set_separate_blender(ALLEGRO_ADD, ALLEGRO_ALPHA, ALLEGRO_INVERSE_ALPHA, ALLEGRO_ADD, ALLEGRO_ONE, ALLEGRO_ONE);
+	loadGraphicsFromDisk();
+	al_clear_to_color(al_map_rgb(0,0,0));
+	al_draw_textf(font, al_map_rgb(255,255,255), al_get_bitmap_width(al_get_target_bitmap())/2, al_get_bitmap_height(al_get_target_bitmap())/2, ALLEGRO_ALIGN_CENTRE, "Starting up...");
+	al_flip_display();
+	reloadtimer = al_create_timer(ALLEGRO_MSECS_TO_SECS(config.automatic_reload_time));
+	animationtimer = al_create_timer(ALLEGRO_MSECS_TO_SECS(config.animation_step));
+	if(config.animation_step)
+	{
+	al_start_timer(animationtimer);
+	}
+	// Start the event queue to handle keyboard input
+	queue = al_create_event_queue();
+	al_register_event_source(queue, al_get_keyboard_event_source());
+	al_register_event_source(queue, al_get_display_event_source(display));
+	al_register_event_source(queue, al_get_mouse_event_source());
+	al_register_event_source(queue, al_get_timer_event_source(reloadtimer));
+	al_register_event_source(queue, al_get_timer_event_source(animationtimer));
+	bool redraw = true;
+
+	//upper left corners
+	DisplayedSegmentX = DisplayedSegmentY = DisplayedSegmentZ = 0;
+
+	//ramps
+	//DisplayedSegmentX = 238; DisplayedSegmentY = 220;DisplayedSegmentZ = 23;
+
+	//ford. Main hall
+	//DisplayedSegmentX = 172; DisplayedSegmentY = 195;DisplayedSegmentZ = 15;
+
+	//ford. desert map
+	//sDisplayedSegmentX = 78; DisplayedSegmentY = 123;DisplayedSegmentZ = 15;
+
+	//DisplayedSegmentX = 125; DisplayedSegmentY = 125;DisplayedSegmentZ = 18;
+
+	//DisplayedSegmentX = 242; DisplayedSegmentY = 345;DisplayedSegmentZ = 15;
+
+	config.readMutex = al_create_mutex();
+	config.readCond = al_create_cond();
+
+#ifdef BENCHMARK
+	benchmark();
+#endif
+	//install_int( animUpdateProc, config.animation_step );
+	initAutoReload();
+
+	timeToReloadSegment = true;
+
+	DFHack::CoreManager DFMgr("Memory.xml");
+
+	while (true) {
+		if (redraw && al_event_queue_is_empty(queue))
+		{
+			al_rest(ALLEGRO_MSECS_TO_SECS(30));
+			if(config.spriteIndexOverlay)
+			{
+				DrawSpriteIndexOverlay(config.currentSpriteOverlay);
+			}
+			else if( config.show_intro && config.creditScreen )
+			{
+				drawcredits();
+			}
+			else if( timeToReloadSegment ){
+				reloadDisplayedSegment();
+				al_clear_to_color(al_map_rgb(config.backr,config.backg,config.backb));
+				paintboard();
+				timeToReloadSegment = false;
+				animationFrameShown = true;
+			}
+			else if (animationFrameShown == false)
+			{
+				paintboard();
+				animationFrameShown = true;
+			}
+			doKeys();
+			redraw = false;
+		}
+
+		al_wait_for_event(queue, &event);
+		if (event.type == ALLEGRO_EVENT_DISPLAY_RESIZE) {
+			if(!al_acknowledge_resize(event.display.source))
+			{
+				DisplayErr("Failed to resize diplay");
+				exit(0);
+			}
+			timeToReloadSegment = true;
+			redraw = true;
+#if 1
+			{
+				//XXX the opengl drivers currently don't resize the backbuffer
+				ALLEGRO_BITMAP *bb = al_get_backbuffer(al_get_current_display());
+				int w = al_get_bitmap_width(bb);
+				int h = al_get_bitmap_height(bb);
+				WriteErr("backbuffer w, h: %d, %d\n", w, h);
+			}
+#endif
+		}
+		if (event.type == ALLEGRO_EVENT_KEY_DOWN) {
+			if(event.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
+				break;
+			else 
+			{
+				doKeys(event.keyboard.keycode);
+				redraw = true;
+			}
+		}
+		if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
+			break;
+		}
+		if (event.type == ALLEGRO_EVENT_TIMER &&
+			event.timer.source == reloadtimer){
+				timeToReloadSegment = true;
+				redraw = true;
+		}
+		if (event.type == ALLEGRO_EVENT_TIMER &&
+			event.timer.source == animationtimer){
+				animUpdateProc();
+				redraw = true;
+		}
+	}
+	if(config.threadmade)
+	{
+		al_broadcast_cond(config.readCond);
+		al_destroy_thread(config.readThread);
+		config.spriteIndexOverlay = 0;
+	}
+	flushImgFiles();
+	DisconnectFromDF();
+
+	//dispose old segments
+	if(altSegment){
+		altSegment->Dispose();
+		delete(altSegment);
+	}
+	if(viewedSegment){
+		viewedSegment->Dispose();
+		delete(viewedSegment);
+	}
+
+	return 0;
+}
+*/
 
 /* main_loop:
 *  The main loop of the program.  Here we wait for events to come in from
@@ -87,9 +387,6 @@ static void log_key(ALLEGRO_DISPLAY * display, char const *how, int keycode, int
 static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALLEGRO_THREAD * thred, DFHack::Console & con)
 {
 	ALLEGRO_EVENT event;
-
-	con.print("Focus on the main window (black) and press keys to see events. \n");
-	con.print("Escape quits.\n\n");
 
 	while (!al_get_thread_should_stop(thred))
 	{
@@ -119,14 +416,12 @@ static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALL
 				if (event.keyboard.keycode == ALLEGRO_KEY_ESCAPE) {
 					return;
 				}
-				log_key(display, "KEY_DOWN", event.keyboard.keycode, 0, 0, con);
 				break;
 				/* ALLEGRO_EVENT_KEY_UP - a keyboard key was released.
 				*/
 			case ALLEGRO_EVENT_KEY_UP:
 				if(event.keyboard.display != display)
 					break;
-				log_key(display, "KEY_UP", event.keyboard.keycode, 0, 0, con);
 				break;
 
 				/* ALLEGRO_EVENT_KEY_CHAR - a character was typed or repeated.
@@ -135,11 +430,7 @@ static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALL
 				if(event.keyboard.display != display)
 					break;
 				{
-					char const *label = (event.keyboard.repeat ? "repeat" : "KEY_CHAR");
-					log_key(display, label,
-						event.keyboard.keycode,
-						event.keyboard.unichar,
-						event.keyboard.modifiers, con);
+
 					break;
 				}
 
@@ -162,20 +453,92 @@ static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALL
 static void * stonesense_thread(ALLEGRO_THREAD * thred, void * parms)
 {
 	DFHack::Core * c = (DFHack::Core * )parms;
-	ALLEGRO_DISPLAY * display;
-	display = al_create_display(WIDTH, HEIGHT);
-	if (!display) {
-		c->con.printerr("al_create_display failed\n");
-		al_lock_mutex(list_mutex);
-		thread_listing.remove(thred);
-		al_unlock_mutex(list_mutex);
+	DFConsole->print("\nStonesense launched\n");
+
+	config.debug_mode = false;
+	config.hide_outer_blocks = false;
+	config.shade_hidden_blocks = true;
+	config.load_ground_materials = true;
+	config.automatic_reload_time = 0;
+	config.automatic_reload_step = 500;
+	config.lift_segment_offscreen = 0;
+	config.Fullscreen = FULLSCREEN;
+	config.screenHeight = RESOLUTION_HEIGHT;
+	config.screenWidth = RESOLUTION_WIDTH;
+	config.segmentSize.x = DEFAULT_SEGMENTSIZE;
+	config.segmentSize.y = DEFAULT_SEGMENTSIZE;
+	config.segmentSize.z = DEFAULT_SEGMENTSIZE_Z;
+	config.show_creature_names = true;
+	config.show_osd = true;
+	config.show_intro = true;
+	config.track_center = false;
+	config.animation_step = 300;
+	config.follow_DFscreen = false;
+	timeToReloadConfig = true;
+	config.fogr = 255;
+	config.fogg = 255;
+	config.fogb = 255;
+	config.foga = 255;
+	config.backr = 95;
+	config.backg = 95;
+	config.backb = 160;
+	config.fogenable = true;
+	config.imageCacheSize = 4096;
+	config.fontsize = 10;
+	config.font = al_create_path("data/art/font.ttf");
+	config.creditScreen = true;
+	config.bloodcutoff = 100;
+	config.poolcutoff = 100;
+	config.threadmade = 0;
+	config.threading_enable = 1;
+	config.fog_of_war = 1;
+	initRandomCube();
+	loadConfigFile();
+	if(!loadfont())
+	{
+		stonesense_started = 0;
 		return NULL;
 	}
+	//set debug cursor
+	debugCursor.x = config.segmentSize.x / 2;
+	debugCursor.y = config.segmentSize.y / 2;
+
+	uint32_t version = al_get_allegro_version();
+	int major = version >> 24;
+	int minor = (version >> 16) & 255;
+	int revision = (version >> 8) & 255;
+	int release = version & 255;
+
+	DFConsole->print("Using allegro version %d.%d.%d r%d\n", major, minor, revision, release);
+
+	int gfxMode = config.Fullscreen ? ALLEGRO_FULLSCREEN : ALLEGRO_WINDOWED;
+	al_set_new_display_flags(gfxMode|ALLEGRO_RESIZABLE|(config.opengl ? ALLEGRO_OPENGL : 0)|(config.directX ? ALLEGRO_DIRECT3D_INTERNAL : 0));
+	display = al_create_display(config.screenWidth, config.screenHeight);
+	if (!display) {
+		c->con.printerr("al_create_display failed\n");
+		stonesense_started = 0;
+		return NULL;
+	}
+
+	SetTitle("Stonesense");
+
+	if(config.software)
+		al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP|ALLEGRO_ALPHA_TEST);
+
+	IMGIcon = load_bitmap_withWarning("stonesense.png");
+	if(!IMGIcon)
+	{
+		stonesense_started = 0;
+		return NULL;
+	}
+
+	al_set_display_icon(display, IMGIcon);
 
 	ALLEGRO_EVENT_QUEUE *queue;
 	queue = al_create_event_queue();
 	if (!queue) {
 		c->con.printerr("al_create_event_queue failed\n");
+		stonesense_started = 0;
 		return NULL;
 	}
 
@@ -184,10 +547,8 @@ static void * stonesense_thread(ALLEGRO_THREAD * thred, void * parms)
 
 	main_loop(display, queue, thred, c->con);
 	al_destroy_display(display);
-
-	al_lock_mutex(list_mutex);
-	thread_listing.remove(thred);
-	al_unlock_mutex(list_mutex);
+	DFConsole->print("Stonesense shutdown./n");
+	stonesense_started = 0;
 	return NULL;
 }
 
@@ -205,10 +566,6 @@ DFhackCExport command_result plugin_init ( Core * c, std::vector <PluginCommand>
 {
 	commands.clear();
 	commands.push_back(PluginCommand("stonesense","Start up the stonesense visualiser.",stonesense_command));
-	list_mutex = al_create_mutex();
-	al_lock_mutex(list_mutex);
-	thread_listing.size();
-	al_unlock_mutex(list_mutex);
 	return CR_OK;
 }
 
@@ -221,13 +578,8 @@ DFhackCExport command_result plugin_onupdate ( Core * c )
 //And the shutdown command.
 DFhackCExport command_result plugin_shutdown ( Core * c )
 {
-	while(thread_listing.size())
-	{
-		al_lock_mutex(list_mutex);
-		ALLEGRO_THREAD * doomed_thread = thread_listing.front();
-		al_unlock_mutex(list_mutex);
-		al_join_thread(doomed_thread, NULL);
-	}
+	if(thread)
+		al_join_thread(thread, NULL);
 	al_uninstall_system();
 	return CR_OK;
 }
@@ -235,421 +587,52 @@ DFhackCExport command_result plugin_shutdown ( Core * c )
 //and the actual stonesense command. Maybe.
 DFhackCExport command_result stonesense_command(DFHack::Core * c, std::vector<std::string> & params)
 {
+	if(stonesense_started)
+	{
+		c->con.print("Stonesense already running.\n");
+		return CR_OK;
+	}
+	stonesense_started = true;
+	DFConsole = &(c->con);
 	if(!al_is_system_installed())
+	{
 		if (!al_init()) {
-			c->con.printerr("Could not init Allegro.\n");
+			DFConsole->printerr("Could not init Allegro.\n");
+			return CR_FAILURE;
+		}
+
+		if (!al_init_image_addon())
+		{
+			DFConsole->printerr("al_init_image_addon failed. \n");
+			return CR_FAILURE;
+		}
+		if (!al_init_primitives_addon()) {
+			DFConsole->printerr("al_init_primitives_addon failed. \n");
+			return CR_FAILURE;
+		}
+		al_init_font_addon();
+		if (!al_init_ttf_addon())
+		{
+			DFConsole->printerr("al_init_ttf_addon failed. \n");
 			return CR_FAILURE;
 		}
 
 		if(!al_is_keyboard_installed())
 			if (!al_install_keyboard()) {
-				c->con.printerr("al_install_keyboard failed\n");
+				DFConsole->printerr("al_install_keyboard failed\n");
 				return CR_FAILURE;
 			}
+		if(!al_is_mouse_installed())
+		{
+			if (!al_install_mouse()) 
+			{
+				DFConsole->printerr("al_install_mouse failed\n");
+				return CR_FAILURE;
+			}
+		}
+	}
 
-			ALLEGRO_THREAD *thread;
-			thread = al_create_thread(stonesense_thread, (void * )c);
-			al_start_thread(thread);
-			al_lock_mutex(list_mutex);
-			thread_listing.push_back(thread);
-			al_unlock_mutex(list_mutex);
-
-			return CR_OK;
+	thread = al_create_thread(stonesense_thread, (void * )c);
+	al_start_thread(thread);
+	return CR_OK;
 }
-
-//void WriteErr(char* msg, ...){
-//	va_list arglist;
-//	va_start(arglist, msg);
-//	//  char buf[200] = {0};
-//	//  vsprintf(buf, msg, arglist);
-//	FILE* fp = fopen( "Stonesense.log", "a");
-//	if(fp)
-//		vfprintf( fp, msg, arglist );
-//	va_end(arglist);
-//	fclose(fp);
-//}
-//
-//void LogVerbose(char* msg, ...){
-//	if (!config.verbose_logging)
-//		return;
-//	va_list arglist;
-//	va_start(arglist, msg);
-//	//  char buf[200] = {0};
-//	//  vsprintf(buf, msg, arglist);
-//	FILE* fp = fopen( "Stonesense.log", "a");
-//	if(fp)
-//		vfprintf( fp, msg, arglist );
-//	va_end(arglist);
-//	fclose(fp);
-//}
-//void DisplayErr(const char *format, ...)
-//{
-//	ALLEGRO_USTR *buf;
-//	va_list ap;
-//	const char *s;
-//
-//	/* Fast path for common case. */
-//	if (0 == strcmp(format, "%s")) {
-//		va_start(ap, format);
-//		s = va_arg(ap, const char *);
-//		al_show_native_message_box(display, "Error", "ERROR", s, NULL, ALLEGRO_MESSAGEBOX_ERROR);
-//		va_end(ap);
-//		return;
-//	}
-//
-//	va_start(ap, format);
-//	buf = al_ustr_new("");
-//	al_ustr_vappendf(buf, format, ap);
-//	va_end(ap);
-//
-//	al_show_native_message_box(display, "Error", "ERROR", al_cstr(buf), NULL, ALLEGRO_MESSAGEBOX_ERROR);
-//
-//	al_ustr_free(buf);
-//}
-//
-//void SetTitle(const char *format, ...)
-//{
-//	ALLEGRO_USTR *buf;
-//	va_list ap;
-//	const char *s;
-//
-//	/* Fast path for common case. */
-//	if (0 == strcmp(format, "%s")) {
-//		va_start(ap, format);
-//		s = va_arg(ap, const char *);
-//		al_set_window_title(display, s);
-//		va_end(ap);
-//		return;
-//	}
-//
-//	va_start(ap, format);
-//	buf = al_ustr_new("");
-//	al_ustr_vappendf(buf, format, ap);
-//	va_end(ap);
-//
-//	al_set_window_title(display, al_cstr(buf));
-//
-//	al_ustr_free(buf);
-//}
-//
-//void correctBlockForSegmetOffset(int32_t& x, int32_t& y, int32_t& z){
-//	x -= DisplayedSegmentX;
-//	y -= DisplayedSegmentY; //DisplayedSegmentY;
-//	z -= DisplayedSegmentZ - 1; // + viewedSegment->sizez - 2; // loading one above the top of the displayed segment for block rules
-//}
-//
-//void loadfont()
-//{
-//	font = al_load_font(al_path_cstr(config.font, ALLEGRO_NATIVE_PATH_SEP), config.fontsize, 0);
-//	if (!font) {
-//		DisplayErr("Cannot load font: %s", al_path_cstr(config.font, ALLEGRO_NATIVE_PATH_SEP));
-//		exit(1);
-//	}
-//}
-//
-//void benchmark(){
-//	DisplayedSegmentX = DisplayedSegmentY = 0;
-//	DisplayedSegmentX = 110; DisplayedSegmentY = 110;DisplayedSegmentZ = 18;
-//	uint32_t startTime = clock();
-//	int i = 20;
-//	while(i--)
-//		reloadDisplayedSegment();
-//
-//	FILE* fp = fopen("benchmark.txt", "w" );
-//	if(!fp) return;
-//	fprintf( fp, "%lims", clock() - startTime);
-//	fclose(fp);
-//}
-//
-//void animUpdateProc()
-//{
-//	if (animationFrameShown)
-//	{
-//		// check before setting, or threadsafety will be borked
-//		if (currentAnimationFrame >= (MAX_ANIMFRAME-1)) // ie ends up [0 .. MAX_ANIMFRAME)
-//			currentAnimationFrame = 0;
-//		else
-//			currentAnimationFrame = currentAnimationFrame + 1;
-//		animationFrameShown = false;
-//	}
-//}
-//
-//void drawcredits()
-//{
-//	al_clear_to_color(al_map_rgb(0,0,0));
-//	//centred splash image
-//	{
-//		ALLEGRO_BITMAP* SplashImage = load_bitmap_withWarning("splash.png");
-//		al_draw_bitmap_region(SplashImage, 0, 0,
-//			al_get_bitmap_width(SplashImage), al_get_bitmap_height(SplashImage),
-//			(al_get_bitmap_width(al_get_backbuffer(al_get_current_display())) - al_get_bitmap_width(SplashImage))/2,
-//			(al_get_bitmap_height(al_get_backbuffer(al_get_current_display())) - al_get_bitmap_height(SplashImage))/2, 0);
-//		al_destroy_bitmap(SplashImage);
-//	}
-//	al_draw_text(font, al_map_rgb(255, 255, 0), al_get_bitmap_width(al_get_backbuffer(al_get_current_display()))/2, 5*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "Welcome to Stonesense Slate!");
-//	al_draw_text(font, al_map_rgb(255, 255, 255), al_get_bitmap_width(al_get_backbuffer(al_get_current_display()))/2, 6*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "Stonesense is an isometric viewer for Dwarf Fortress.");
-//
-//	al_draw_text(font, al_map_rgb(255, 255, 255), al_get_bitmap_width(al_get_backbuffer(al_get_current_display()))/2, 8*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "Programming, Jonas Ask, Kris Parker and Japa Illo");
-//	al_draw_text(font, al_map_rgb(255, 255, 255), al_get_bitmap_width(al_get_backbuffer(al_get_current_display()))/2, 9*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "Lead graphics designer, Dale Holdampf");
-//
-//	al_draw_text(font, al_map_rgb(255, 255, 255), al_get_bitmap_width(al_get_backbuffer(al_get_current_display()))/2, al_get_bitmap_height(al_get_backbuffer(al_get_current_display()))-13*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "Contributors:");
-//	al_draw_text(font, al_map_rgb(255, 255, 255), al_get_bitmap_width(al_get_backbuffer(al_get_current_display()))/2, al_get_bitmap_height(al_get_backbuffer(al_get_current_display()))-12*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "7c Nickel, BatCountry, Belal, Belannaer, DeKaFu, Dante, Deon, dyze,");
-//	al_draw_text(font, al_map_rgb(255, 255, 255), al_get_bitmap_width(al_get_backbuffer(al_get_current_display()))/2, al_get_bitmap_height(al_get_backbuffer(al_get_current_display()))-11*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "Errol, fifth angel, frumpton, IDreamOfGiniCoeff, Impaler, ");
-//	al_draw_text(font, al_map_rgb(255, 255, 255), al_get_bitmap_width(al_get_backbuffer(al_get_current_display()))/2, al_get_bitmap_height(al_get_backbuffer(al_get_current_display()))-10*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "Japa, jarathor, Jiri Petru, Jordix, Lord Nightmare, McMe, Mike Mayday, Nexii ");
-//	al_draw_text(font, al_map_rgb(255, 255, 255), al_get_bitmap_width(al_get_backbuffer(al_get_current_display()))/2, al_get_bitmap_height(al_get_backbuffer(al_get_current_display()))-9*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "Malthus, peterix, Seuss, soup, Talvara, winner, Xandrin.");
-//
-//	al_draw_text(font, al_map_rgb(255, 255, 255), al_get_bitmap_width(al_get_backbuffer(al_get_current_display()))/2, al_get_bitmap_height(al_get_backbuffer(al_get_current_display()))-7*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "With special thanks to peterix for making dfHack");
-//
-//	//"The program is in a very early alpha, we're only showcasing it to get ideas and feedback, so use it at your own risk."
-//	al_draw_text(font, al_map_rgb(255, 255, 255), al_get_bitmap_width(al_get_backbuffer(al_get_current_display()))/2, al_get_bitmap_height(al_get_backbuffer(al_get_current_display()))-4*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "Press F9 to continue");
-//	// Make the backbuffer visible
-//	al_flip_display();
-//}
-//
-//
-//int main(void)
-//{
-//	/*
-//	#ifdef LINUX_BUILD
-//	allegro_icon = stonesense_xpm;
-//	#endif
-//	*/
-//	al_init();
-//	if (!al_init_image_addon()) {
-//		WriteErr("al_init_image_addon failed. \n");
-//		exit(1);
-//		return 1;
-//	}
-//	al_init_font_addon();
-//	if (!al_init_ttf_addon()) {
-//		WriteErr("al_init_ttf_addon failed. \n");
-//		exit(1);
-//		return 1;
-//	}
-//	if (!al_init_primitives_addon()) {
-//		WriteErr("al_init_primitives_addon failed. \n");
-//		exit(1);
-//		return 1;
-//	}
-//	al_install_keyboard();
-//	al_install_mouse();
-//	al_show_mouse_cursor(display);
-//	//al_set_system_mouse_cursor(display, ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT);
-//	WriteErr("\nStonesense launched\n");
-//
-//	config.debug_mode = false;
-//	config.hide_outer_blocks = false;
-//	config.shade_hidden_blocks = true;
-//	config.load_ground_materials = true;
-//	config.automatic_reload_time = 0;
-//	config.automatic_reload_step = 500;
-//	config.lift_segment_offscreen = 0;
-//	config.Fullscreen = FULLSCREEN;
-//	config.screenHeight = RESOLUTION_HEIGHT;
-//	config.screenWidth = RESOLUTION_WIDTH;
-//	config.segmentSize.x = DEFAULT_SEGMENTSIZE;
-//	config.segmentSize.y = DEFAULT_SEGMENTSIZE;
-//	config.segmentSize.z = DEFAULT_SEGMENTSIZE_Z;
-//	config.show_creature_names = true;
-//	config.show_osd = true;
-//	config.show_intro = true;
-//	config.track_center = false;
-//	config.animation_step = 300;
-//	config.follow_DFscreen = false;
-//	timeToReloadConfig = true;
-//	config.fogr = 255;
-//	config.fogg = 255;
-//	config.fogb = 255;
-//	config.foga = 255;
-//	config.backr = 95;
-//	config.backg = 95;
-//	config.backb = 160;
-//	config.fogenable = true;
-//	config.imageCacheSize = 4096;
-//	config.fontsize = 10;
-//	config.font = al_create_path("DejaVuSans.ttf");
-//	config.creditScreen = true;
-//	config.bloodcutoff = 100;
-//	config.poolcutoff = 100;
-//	config.threadmade = 0;
-//	config.threading_enable = 1;
-//	config.fog_of_war = 1;
-//	initRandomCube();
-//	loadConfigFile();
-//	loadfont();
-//	//set debug cursor
-//	debugCursor.x = config.segmentSize.x / 2;
-//	debugCursor.y = config.segmentSize.y / 2;
-//
-//	uint32_t version = al_get_allegro_version();
-//	int major = version >> 24;
-//	int minor = (version >> 16) & 255;
-//	int revision = (version >> 8) & 255;
-//	int release = version & 255;
-//
-//	WriteErr("Using allegro version %d.%d.%d r%d\n", major, minor, revision, release);
-//
-//
-//	int gfxMode = config.Fullscreen ? ALLEGRO_FULLSCREEN : ALLEGRO_WINDOWED;
-//	al_set_new_display_flags(gfxMode|ALLEGRO_RESIZABLE|(config.opengl ? ALLEGRO_OPENGL : 0)|(config.directX ? ALLEGRO_DIRECT3D_INTERNAL : 0));
-//	display = al_create_display(config.screenWidth, config.screenHeight);
-//	if(!display)
-//	{
-//		WriteErr("Could not init display\n");
-//		exit(1);
-//		return 1;
-//	}
-//	if (!al_install_keyboard()) {
-//		al_show_native_message_box(display, "Error", "Error", "al_install_keyboard failed.", NULL, ALLEGRO_MESSAGEBOX_ERROR);
-//		exit(1);
-//		return 1;
-//	}
-//	SetTitle("Stonesense");
-//
-//	if(config.software)
-//		al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP|ALLEGRO_ALPHA_TEST);
-//
-//	IMGIcon = load_bitmap_withWarning("stonesense.png");
-//	al_set_display_icon(display, IMGIcon);
-//
-//	//al_set_separate_blender(ALLEGRO_ADD, ALLEGRO_ALPHA, ALLEGRO_INVERSE_ALPHA, ALLEGRO_ADD, ALLEGRO_ONE, ALLEGRO_ONE);
-//	loadGraphicsFromDisk();
-//	al_clear_to_color(al_map_rgb(0,0,0));
-//	al_draw_textf(font, al_map_rgb(255,255,255), al_get_bitmap_width(al_get_target_bitmap())/2, al_get_bitmap_height(al_get_target_bitmap())/2, ALLEGRO_ALIGN_CENTRE, "Starting up...");
-//	al_flip_display();
-//	reloadtimer = al_create_timer(ALLEGRO_MSECS_TO_SECS(config.automatic_reload_time));
-//	animationtimer = al_create_timer(ALLEGRO_MSECS_TO_SECS(config.animation_step));
-//	if(config.animation_step)
-//	{
-//	al_start_timer(animationtimer);
-//	}
-//	// Start the event queue to handle keyboard input
-//	queue = al_create_event_queue();
-//	al_register_event_source(queue, al_get_keyboard_event_source());
-//	al_register_event_source(queue, al_get_display_event_source(display));
-//	al_register_event_source(queue, al_get_mouse_event_source());
-//	al_register_event_source(queue, al_get_timer_event_source(reloadtimer));
-//	al_register_event_source(queue, al_get_timer_event_source(animationtimer));
-//	bool redraw = true;
-//
-//	//upper left corners
-//	DisplayedSegmentX = DisplayedSegmentY = DisplayedSegmentZ = 0;
-//
-//	//ramps
-//	//DisplayedSegmentX = 238; DisplayedSegmentY = 220;DisplayedSegmentZ = 23;
-//
-//	//ford. Main hall
-//	//DisplayedSegmentX = 172; DisplayedSegmentY = 195;DisplayedSegmentZ = 15;
-//
-//	//ford. desert map
-//	//sDisplayedSegmentX = 78; DisplayedSegmentY = 123;DisplayedSegmentZ = 15;
-//
-//	//DisplayedSegmentX = 125; DisplayedSegmentY = 125;DisplayedSegmentZ = 18;
-//
-//	//DisplayedSegmentX = 242; DisplayedSegmentY = 345;DisplayedSegmentZ = 15;
-//
-//	config.readMutex = al_create_mutex();
-//	config.readCond = al_create_cond();
-//
-//#ifdef BENCHMARK
-//	benchmark();
-//#endif
-//	//install_int( animUpdateProc, config.animation_step );
-//	initAutoReload();
-//
-//	timeToReloadSegment = true;
-//
-//	DFHack::ContextManager DFMgr("Memory.xml");
-//
-//	while (true) {
-//		if (redraw && al_event_queue_is_empty(queue))
-//		{
-//			al_rest(ALLEGRO_MSECS_TO_SECS(30));
-//			if(config.spriteIndexOverlay)
-//			{
-//				DrawSpriteIndexOverlay(config.currentSpriteOverlay);
-//			}
-//			else if( config.show_intro && config.creditScreen )
-//			{
-//				drawcredits();
-//			}
-//			else if( timeToReloadSegment ){
-//				reloadDisplayedSegment();
-//				al_clear_to_color(al_map_rgb(config.backr,config.backg,config.backb));
-//				paintboard();
-//				timeToReloadSegment = false;
-//				animationFrameShown = true;
-//			}
-//			else if (animationFrameShown == false)
-//			{
-//				paintboard();
-//				animationFrameShown = true;
-//			}
-//			doKeys();
-//			redraw = false;
-//		}
-//
-//		al_wait_for_event(queue, &event);
-//		if (event.type == ALLEGRO_EVENT_DISPLAY_RESIZE) {
-//			if(!al_acknowledge_resize(event.display.source))
-//			{
-//				DisplayErr("Failed to resize diplay");
-//				exit(0);
-//			}
-//			timeToReloadSegment = true;
-//			redraw = true;
-//#if 1
-//			{
-//				/* XXX the opengl drivers currently don't resize the backbuffer */
-//				ALLEGRO_BITMAP *bb = al_get_backbuffer(al_get_current_display());
-//				int w = al_get_bitmap_width(bb);
-//				int h = al_get_bitmap_height(bb);
-//				WriteErr("backbuffer w, h: %d, %d\n", w, h);
-//			}
-//#endif
-//		}
-//		if (event.type == ALLEGRO_EVENT_KEY_DOWN) {
-//			if(event.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
-//				break;
-//			else 
-//			{
-//				doKeys(event.keyboard.keycode);
-//				redraw = true;
-//			}
-//		}
-//		if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
-//			break;
-//		}
-//		if (event.type == ALLEGRO_EVENT_TIMER &&
-//			event.timer.source == reloadtimer){
-//				timeToReloadSegment = true;
-//				redraw = true;
-//		}
-//		if (event.type == ALLEGRO_EVENT_TIMER &&
-//			event.timer.source == animationtimer){
-//				animUpdateProc();
-//				redraw = true;
-//		}
-//	}
-//	if(config.threadmade)
-//	{
-//		al_broadcast_cond(config.readCond);
-//		al_destroy_thread(config.readThread);
-//		config.spriteIndexOverlay = 0;
-//	}
-//	flushImgFiles();
-//	DisconnectFromDF();
-//
-//	//dispose old segments
-//	if(altSegment){
-//		altSegment->Dispose();
-//		delete(altSegment);
-//	}
-//	if(viewedSegment){
-//		viewedSegment->Dispose();
-//		delete(viewedSegment);
-//	}
-//
-//	return 0;
-//}
-////END_OF_MAIN()

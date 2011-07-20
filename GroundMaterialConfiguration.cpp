@@ -240,6 +240,7 @@ bool addSingleTerrainConfig( TiXmlElement* elemRoot){
 	if (filename != NULL && filename[0] != 0)
 	{
 		basefile = loadConfigImgFile((char*)filename,elemRoot);
+		if(basefile == -1) return false;
 	}
 
 	string elementType = elemRoot->Value();

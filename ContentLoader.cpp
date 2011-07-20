@@ -41,7 +41,7 @@ void DumpPrefessionNamesToDisk(vector<string> material, const char* filename){
 	}
 	fclose(fp);
 }
-bool ContentLoader::Load( DFHack::Context& DF){
+bool ContentLoader::Load( DFHack::Core& DF){
 	/*draw_textf_border(font, 
 	al_get_bitmap_width(al_get_target_bitmap())/2,
 	al_get_bitmap_height(al_get_target_bitmap())/2,
@@ -61,12 +61,6 @@ bool ContentLoader::Load( DFHack::Context& DF){
 	// This is an extra suspend/resume, but it only happens when reloading the config
 	// ie not enough to worry about
 	//DF.Suspend();
-
-	if(!DF.isAttached())
-	{
-		WriteErr("FAIL");
-		return false;
-	}
 	////read data from DF
 	//const vector<string> *tempClasses = DF.getMemoryInfo()->getClassIDMapping();
 	//// make a copy for our use
@@ -178,7 +172,7 @@ bool ContentLoader::Load( DFHack::Context& DF){
 	}
 	try
 	{
-		contentLoader.MemInfo = DF.getMemoryInfo();
+		contentLoader.MemInfo = DF.vinfo;
 	}
 	catch(exception &e)
 	{
