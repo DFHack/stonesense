@@ -642,7 +642,7 @@ const char * lookupFormName(int formType)
 uint8_t lookupMaterialFore(int matType,int matIndex)
 {
 	if (matIndex < 0)
-		return NULL;
+		return 0;
 	vector<t_matgloss>* typeVector;
 	//// for appropriate elements, look up subtype
 	//if (matType == Mat_Wood)
@@ -660,17 +660,17 @@ uint8_t lookupMaterialFore(int matType,int matIndex)
 	//else
 	//{
 	//maybe allow some more in later
-	return NULL;
+	return 0;
 	//}
 	if (matIndex >= typeVector->size())
-		return NULL;
+		return 0;
 	return (*typeVector)[matIndex].fore;
 }
 
 uint8_t lookupMaterialBack(int matType,int matIndex)
 {
 	if (matIndex < 0)
-		return NULL;
+		return 0;
 	vector<t_matgloss>* typeVector;
 	//// for appropriate elements, look up subtype
 	//if (matType == Mat_Wood)
@@ -688,17 +688,17 @@ uint8_t lookupMaterialBack(int matType,int matIndex)
 	//else
 	//{
 	//maybe allow some more in later
-	return NULL;
+	return 0;
 	//}
 	if (matIndex >= typeVector->size())
-		return NULL;
+		return 0;
 	return (*typeVector)[matIndex].back;
 }
 
 uint8_t lookupMaterialBright(int matType,int matIndex)
 {
 	if (matIndex < 0)
-		return NULL;
+		return 0;
 	vector<t_matgloss>* typeVector;
 	//// for appropriate elements, look up subtype
 	//if (matType == Mat_Wood)
@@ -716,10 +716,10 @@ uint8_t lookupMaterialBright(int matType,int matIndex)
 	//else
 	//{
 	//maybe allow some more in later
-	return NULL;
+	return 0;
 	//}
 	if (matIndex >= typeVector->size())
-		return NULL;
+		return 0;
 	return (*typeVector)[matIndex].bright;
 }
 

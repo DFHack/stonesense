@@ -365,7 +365,7 @@ void drawDebugCursorAndInfo(){
 
 
 	int ttype;
-	char* tform = NULL;
+	const char* tform = NULL;
 	if (b->floorType>0)
 	{
 		ttype=b->floorType;	  
@@ -373,18 +373,18 @@ void drawDebugCursorAndInfo(){
 	}
 	else if (b->wallType > 0)
 	{
-		ttype=b->wallType;	  
-		tform="wall";	 
+		ttype=b->wallType;
+		tform="wall";
 	}
 	else if (b->ramp.type > 0)
 	{
-		ttype=b->ramp.type;	  
-		tform="ramp";	 
+		ttype=b->ramp.type;
+		tform="ramp";
 	}
 	else if (b->stairType > 0)
 	{
-		ttype=b->stairType;	  
-		tform="stair";	 
+		ttype=b->stairType;
+		tform="stair";
 	}
 
 	if (tform != NULL)
@@ -915,7 +915,7 @@ inline int returnGreater(int a, int b)
 	else return b;
 }
 
-int loadImgFile(char* filename)
+int loadImgFile(const char* filename)
 {
 	if(config.cache_images)
 	{
