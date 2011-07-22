@@ -10,8 +10,8 @@
 
 class ContentLoader{
 private:
-	bool parseContentIndexFile( char* filepath );
-	bool parseContentXMLFile( char* filepath );
+	bool parseContentIndexFile( const char* filepath );
+	bool parseContentXMLFile( const char* filepath );
 	bool parseBuildingContent( TiXmlElement* elemRoot );
 	bool parseCustomBuildingContent( TiXmlElement* elemRoot );
 	bool parseCreatureContent( TiXmlElement* elemRoot );
@@ -51,7 +51,7 @@ public:
 	DFHack::Buildings * Bld;
 	DFHack::Materials * Mats;
 	std::vector<t_matgloss> organic;
-	std::vector<t_matgloss> inorganic;
+    std::vector<t_matglossInorganic> inorganic;
 
 	uint32_t currentTick;
 	uint32_t currentYear;
@@ -76,7 +76,8 @@ extern char getAnimFrames(const char* framestring);
 extern int loadConfigImgFile(const char* filename, TiXmlElement* referrer);
 int lookupMaterialType(const char* strValue);
 int lookupMaterialIndex(int matType, const char* strValue);
-int lookupIndexedType(const char* indexName, vector<t_matgloss>& typeVector);
+template <typename T>
+int lookupIndexedType(const char* indexName, vector<T>& typeVector);
 const char *lookupMaterialTypeName(int matType);
 const char *lookupMaterialName(int matType,int matIndex);
 uint8_t lookupMaterialFore(int matType,int matIndex);

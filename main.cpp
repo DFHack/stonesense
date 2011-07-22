@@ -68,7 +68,7 @@ int32_t viewy = 0;
 int32_t viewz = 0;
 bool followmode = true;*/
 
-ALLEGRO_BITMAP* load_bitmap_withWarning(char* path){
+ALLEGRO_BITMAP* load_bitmap_withWarning(const char* path){
 	ALLEGRO_BITMAP* img = 0;
 	img = al_load_bitmap(path);
 	if(!img){
@@ -81,7 +81,7 @@ ALLEGRO_BITMAP* load_bitmap_withWarning(char* path){
 }
 
 
-void WriteErr(char* msg, ...){
+void WriteErr(const char* msg, ...){
 	va_list arglist;
 	va_start(arglist, msg);
 	//  char buf[200] = {0};
@@ -93,7 +93,7 @@ void WriteErr(char* msg, ...){
 	fclose(fp);
 }
 
-void LogVerbose(char* msg, ...){
+void LogVerbose(const char* msg, ...){
 	if (!config.verbose_logging)
 		return;
 	va_list arglist;
@@ -533,7 +533,7 @@ static void * stonesense_thread(ALLEGRO_THREAD * thred, void * parms)
 		viewedSegment->Dispose();
 		delete(viewedSegment);
 	}
-	DFConsole->print("Stonesense shutdown./n");
+	DFConsole->print("Stonesense shutdown.\n");
 	stonesense_started = 0;
 	return NULL;
 }
@@ -552,6 +552,7 @@ DFhackCExport command_result plugin_init ( Core * c, std::vector <PluginCommand>
 {
 	commands.clear();
 	commands.push_back(PluginCommand("stonesense","Start up the stonesense visualiser.",stonesense_command));
+    commands.push_back(PluginCommand("ssense","Start up the stonesense visualiser.",stonesense_command));
 	return CR_OK;
 }
 

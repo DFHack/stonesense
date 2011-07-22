@@ -160,8 +160,8 @@ enum dirRelative{
 //main.cpp
 void correctBlockForSegmetOffset(int32_t& x, int32_t& y, int32_t& z);
 
-void WriteErr(char* msg, ...);
-void LogVerbose(char* msg, ...);
+void WriteErr(const char* msg, ...);
+void LogVerbose(const char* msg, ...);
 void SetTitle(const char *format, ...);
 
 extern GameConfiguration config;

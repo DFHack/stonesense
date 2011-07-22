@@ -72,16 +72,16 @@ ALLEGRO_COLOR getSpriteColor(t_SpriteWithOffset &sprite, t_creature* creature)
 		{
 		for(unsigned int j = 0; j<b->creature->nbcolors ; j++)
 		{
-			if(strcmp(contentLoader.Mats->raceEx[creature->race].castes[creature->caste].ColorModifier[j].part, sprite.bodyPart) == 0)
+            t_creaturecaste & caste = contentLoader.Mats->raceEx[creature->race].castes[creature->caste];
+            std::vector<t_colormodifier> & colormods =caste.ColorModifier;
+			if(colormods[j].part == sprite.bodyPart)
 			{
-				uint32_t cr_color = contentLoader.Mats->raceEx[creature->race].castes[creature->caste].ColorModifier[j].colorlist[creature->color[j]];
+				uint32_t cr_color = colormods[j].colorlist[creature->color[j]];
 					if(cr_color < contentLoader.Mats->color.size())
 					{
-						if(contentLoader.Mats->raceEx[creature->race].castes[creature->caste].ColorModifier[j].startdate > 0)
+						if(colormods[j].startdate > 0)
 						{
-
-							if((contentLoader.Mats->raceEx[creature->race].castes[creature->caste].ColorModifier[j].startdate <= dayofLife) &&
-								(contentLoader.Mats->raceEx[creature->race].castes[creature->caste].ColorModifier[j].enddate > dayofLife))
+							if((colormods[j].startdate <= dayofLife) && (colormods[j].enddate > dayofLife))
 							{
 								output = al_map_rgb_f(
 									contentLoader.Mats->color[cr_color].red,

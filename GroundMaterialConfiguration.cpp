@@ -46,7 +46,7 @@ void DumpInorganicMaterialNamesToDisk(){
 	FILE* fp = fopen("dump.txt", "w");
 	if(!fp) return;
 	for(uint32_t j=0; j < contentLoader.inorganic.size(); j++){
-		fprintf(fp, "%i:%s\n",j, contentLoader.inorganic[j].id);
+		fprintf(fp, "%i:%s\n",j, contentLoader.inorganic[j].id.c_str());
 	}
 	fclose(fp);
 }

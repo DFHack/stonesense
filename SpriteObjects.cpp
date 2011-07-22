@@ -831,20 +831,23 @@ ALLEGRO_COLOR c_sprite::get_color(void* block)
 			dayofLife = b->creature->birth_year*12*28 + b->creature->birth_time/1200;
 			if((!config.skipCreatureTypes) && (!config.skipCreatureTypesEx) && (!config.skipDescriptorColors))
 			{
+                t_creaturecaste & caste = contentLoader.Mats->raceEx[b->creature->race].castes[b->creature->caste];
+                std::vector<t_colormodifier> & colormods =caste.ColorModifier;
 				for(unsigned int j = 0; j<b->creature->nbcolors ; j++)
 				{
-					if(strcmp(contentLoader.Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].part, bodypart) == 0)
+                    t_colormodifier & colormod = colormods[j];
+                    if(colormods[j].part == bodypart)
 					{
-						if(contentLoader.Mats->raceEx.at(b->creature->race).castes.at(b->creature->caste).ColorModifier.at(j).colorlist.size() > b->creature->color[j])
+                        if(colormods[j].colorlist.size() > b->creature->color[j])
 						{
-							uint32_t cr_color = contentLoader.Mats->raceEx.at(b->creature->race).castes.at(b->creature->caste).ColorModifier.at(j).colorlist.at(b->creature->color[j]);
+							uint32_t cr_color = colormod.colorlist.at(b->creature->color[j]);
 							if(cr_color < contentLoader.Mats->color.size())
 							{
-								if(contentLoader.Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].startdate > 0)
+								if(colormod.startdate > 0)
 								{
 
-									if((contentLoader.Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].startdate <= dayofLife) &&
-										(contentLoader.Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].enddate > dayofLife))
+                                    if((colormod.startdate <= dayofLife) &&
+                                        (colormod.enddate > dayofLife))
 									{
 										return al_map_rgb_f(
 											contentLoader.Mats->color[cr_color].red,

@@ -302,7 +302,7 @@ void DrawCreatureText(int drawx, int drawy, t_creature* creature ){
 		{
 			if(!config.skipCreatureTypes)
 				draw_textf_border(font, al_map_rgb(255,255,255), drawx, drawy-(WALLHEIGHT+al_get_font_line_height(font)), 0, 
-				"[%s]", contentLoader.Mats->race.at(creature->race).id);
+				"[%s]", contentLoader.Mats->race.at(creature->race).id.c_str());
 		}
 }
 
