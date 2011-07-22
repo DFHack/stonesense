@@ -1,6 +1,7 @@
 PROJECT (stonesense)
 SET(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/CMake/Modules)
 
+# WTF
 if(WIN32)
 include_directories (
     ${CMAKE_SOURCE_DIR}/dfhack/include/
@@ -56,22 +57,16 @@ IF(UNIX)
     SET(PROJECT_LIBS allegro allegro_primitives allegro_color allegro_dialog
                      allegro_font allegro_image allegro_main allegro_ttf
                      ${PROJECT_LIBS})
-    DFHACK_PLUGIN(stonesense ${PROJECT_SRCS} LINK_LIBRARIES ${PROJECT_LIBS})
 # windows
 ELSE(UNIX)
-    # THIS IS TOTAL BULL****
-    add_definitions(-DBUILD_DFHACK_LIB)
-    SET (PLATFORM_SRC
-    )
-    SET(PROJECT_LIBS kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib allegro.lib allegro_primitives.lib allegro_font.lib allegro_ttf.lib allegro_image.lib allegro_dialog.lib libpng.lib zdll.lib winmm.lib psapi.lib opengl32.lib glu32.lib dfhack/build/dfhack.lib $(NOINHERIT))
+    SET(PROJECT_LIBS kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib allegro.lib allegro_primitives.lib allegro_font.lib allegro_ttf.lib allegro_image.lib allegro_dialog.lib libpng.lib zdll.lib winmm.lib psapi.lib opengl32.lib glu32.lib $(NOINHERIT))
     include_directories (
         ${include_directories}
-        ${CMAKE_SOURCE_DIR}/allegro
+        ${stonesense_SOURCE_DIR}/allegro
     )
     LINK_DIRECTORIES(
         ${LINK_DIRECTORIES}
-        ${CMAKE_SOURCE_DIR}/allegro/lib
+        ${stonesense_SOURCE_DIR}/allegro/lib
     )
-    ADD_EXECUTABLE(stonesense WIN32 ${PROJECT_SRCS} ${PLATFORM_SRC})
-    TARGET_LINK_LIBRARIES(stonesense ${PROJECT_LIBS})
 ENDIF(UNIX)
+DFHACK_PLUGIN(stonesense ${PROJECT_SRCS} LINK_LIBRARIES ${PROJECT_LIBS})
