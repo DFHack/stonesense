@@ -1325,5 +1325,6 @@ void reloadDisplayedSegment(DFHack::Core * c){
 	//		return ;
 	//	}
 	//}
+	firstLoad = 0;
 	TMR1_STOP;
 }
