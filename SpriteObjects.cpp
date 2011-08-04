@@ -641,8 +641,6 @@ void c_sprite::draw_world_offset(int x, int y, int z, Block * b, int tileoffset,
 							)
 						)
 					)
-					)
-					)
 				{
 					int32_t drawx = x;
 					int32_t drawy = y;
