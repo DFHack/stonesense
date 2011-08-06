@@ -398,6 +398,7 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
 			//option for including hidden blocks
 			isHidden &= !config.show_hidden_blocks;
 			bool shouldBeIncluded = (!isOpenTerrain(t) || b->water.index || !designations[lx][ly].bits.skyview) && !isHidden;
+            /*
 			//include hidden blocks as shaded black 
 			if(config.shade_hidden_blocks && isHidden && (isBlockOnVisibleEdgeOfSegment(&segment, b) || areNeighborsVisible(designations, lx, ly)))
 			{
@@ -416,7 +417,7 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
 				b->building.sprites.push_back( sprite );
 				shouldBeIncluded= true;
 			}
-
+*/
 			if( shouldBeIncluded )
 			{
 				//this only needs to be done for included blocks

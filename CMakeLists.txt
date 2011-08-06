@@ -8,7 +8,6 @@ include_directories (
     ${CMAKE_SOURCE_DIR}/dfhack/depends/md5/
     ${CMAKE_SOURCE_DIR}/dfhack/depends/tinyxml/
     ${CMAKE_SOURCE_DIR}/dfhack/
-    ${CMAKE_SOURCE_DIR}/allegro/lib/
     ${CMAKE_SOURCE_DIR}
 )
 else(WIN32)
@@ -59,14 +58,14 @@ IF(UNIX)
                      ${PROJECT_LIBS})
 # windows
 ELSE(UNIX)
-    SET(PROJECT_LIBS kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib allegro.lib allegro_primitives.lib allegro_font.lib allegro_ttf.lib allegro_image.lib allegro_dialog.lib libpng.lib zdll.lib winmm.lib psapi.lib opengl32.lib glu32.lib $(NOINHERIT))
+    SET(PROJECT_LIBS kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib allegro-5.0.3-monolith-md.lib winmm.lib psapi.lib opengl32.lib glu32.lib $(NOINHERIT))
     include_directories (
         ${include_directories}
-        ${stonesense_SOURCE_DIR}/allegro
+        ${stonesense_SOURCE_DIR}/allegro5/include
     )
     LINK_DIRECTORIES(
         ${LINK_DIRECTORIES}
-        ${stonesense_SOURCE_DIR}/allegro/lib
+        ${stonesense_SOURCE_DIR}/allegro5/lib
     )
 ENDIF(UNIX)
 DFHACK_PLUGIN(stonesense ${PROJECT_SRCS} LINK_LIBRARIES ${PROJECT_LIBS})

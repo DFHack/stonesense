@@ -1035,12 +1035,12 @@ int loadImgFile(const char* filename)
 		return (int)IMGFilelist.size() - 1;
 	}
 }
+/*
 int loadImgFile(ALLEGRO_PATH* filepath)
 {
-	char *filename = strcpy(filename,al_path_cstr(filepath, ALLEGRO_NATIVE_PATH_SEP));
-	return loadImgFile(filename);
+    return loadImgFile(al_path_cstr(filepath, ALLEGRO_NATIVE_PATH_SEP));
 }
-
+*/
 void saveScreenshot(){
 	al_clear_to_color(al_map_rgb(config.backr,config.backg,config.backb));
 	paintboard();

@@ -281,6 +281,7 @@ namespace DFHack
     {
         std::string name;
         mutable void * vptr;
+        static int zlo;
     public:
         ClassNameCheck() : vptr(0) {};
         ClassNameCheck(std::string _name) : name(_name), vptr(0) {};
