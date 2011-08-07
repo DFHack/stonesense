@@ -38,11 +38,11 @@ public:
 			delete(blocks[i]);
 		}
 		blocks.clear();
+		al_destroy_mutex(mutie);
 	}
 
 	void Dispose(void){
 		free(blocksAsPointerVolume);
-		al_destroy_mutex(mutie);
 	}
 
 	uint32_t getNumBlocks(){

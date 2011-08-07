@@ -26,6 +26,12 @@ distribution.
 #include "dfhack/Pragma.h"
 #include "dfhack/Export.h"
 #include <ostream>
+namespace tthread
+{
+    class mutex;
+    class condition_variable;
+    class thread;
+}
 namespace  DFHack
 {
     class Private;
@@ -58,7 +64,7 @@ namespace  DFHack
         ///dtor, NOT thread-safe
         ~Console();
         /// initialize the console. NOT thread-safe
-        bool init( void );
+        bool init( bool sharing );
         /// shutdown the console. NOT thread-safe
         bool shutdown( void );
 
@@ -92,5 +98,7 @@ namespace  DFHack
         void history_clear();
     private:
         Private * d;
+        tthread::mutex * wlock;
+        bool inited;
     };
 }

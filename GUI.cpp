@@ -828,13 +828,13 @@ void loadGraphicsFromDisk()
         return true;
     };
     if(!globulate("objects.png", IMGObjectSheet)) return;
-    if(!globulate("creatures.png", IMGObjectSheet)) return;
-    if(!globulate("ramps.png", IMGObjectSheet)) return;
-    if(!globulate("SSStatusIcons.png", IMGObjectSheet)) return;
-    if(!globulate("gibs.png", IMGObjectSheet)) return;
-    if(!globulate("engravings_floor.png", IMGObjectSheet)) return;
-    if(!globulate("engravings_left.png", IMGObjectSheet)) return;
-    if(!globulate("engravings_right.png", IMGObjectSheet)) return;
+    if(!globulate("creatures.png", IMGCreatureSheet)) return;
+    if(!globulate("ramps.png", IMGRampSheet)) return;
+    if(!globulate("SSStatusIcons.png", IMGStatusSheet)) return;
+    if(!globulate("gibs.png", IMGBloodSheet)) return;
+    if(!globulate("engravings_floor.png", IMGEngFloorSheet)) return;
+    if(!globulate("engravings_left.png", IMGEngLeftSheet)) return;
+    if(!globulate("engravings_right.png", IMGEngRightSheet)) return;
 /*
     al_set_path_filename(p,"creatures.png");
     index = loadImgFile(al_path_cstr(p,ALLEGRO_NATIVE_PATH_SEP));

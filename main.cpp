@@ -194,7 +194,7 @@ void drawcredits()
 	{
         if(!SplashImage)
         {
-            ALLEGRO_PATH * p = al_create_path("stonesense/stonesense.png");
+            ALLEGRO_PATH * p = al_create_path("stonesense/splash.png");
             SplashImage = load_bitmap_withWarning(al_path_cstr(p, ALLEGRO_NATIVE_PATH_SEP));
             al_destroy_path(p);
         }
@@ -205,10 +205,10 @@ void drawcredits()
 			(al_get_bitmap_width(al_get_backbuffer(al_get_current_display())) - al_get_bitmap_width(SplashImage))/2,
 			(al_get_bitmap_height(al_get_backbuffer(al_get_current_display())) - al_get_bitmap_height(SplashImage))/2, 0);
 	}
-	al_draw_text(font, al_map_rgb(255, 255, 0), al_get_bitmap_width(al_get_backbuffer(al_get_current_display()))/2, 5*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "Welcome to Stonesense Slate!");
+	al_draw_text(font, al_map_rgb(255, 255, 0), al_get_bitmap_width(al_get_backbuffer(al_get_current_display()))/2, 5*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "Welcome to Stonesense Felsite!");
 	al_draw_text(font, al_map_rgb(255, 255, 255), al_get_bitmap_width(al_get_backbuffer(al_get_current_display()))/2, 6*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "Stonesense is an isometric viewer for Dwarf Fortress.");
 
-	al_draw_text(font, al_map_rgb(255, 255, 255), al_get_bitmap_width(al_get_backbuffer(al_get_current_display()))/2, 8*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "Programming, Jonas Ask, Kris Parker and Japa Illo");
+	al_draw_text(font, al_map_rgb(255, 255, 255), al_get_bitmap_width(al_get_backbuffer(al_get_current_display()))/2, 8*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "Programming, Jonas Ask, Kris Parker, Japa Illo, and peterix");
 	al_draw_text(font, al_map_rgb(255, 255, 255), al_get_bitmap_width(al_get_backbuffer(al_get_current_display()))/2, 9*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "Lead graphics designer, Dale Holdampf");
 
 	al_draw_text(font, al_map_rgb(255, 255, 255), al_get_bitmap_width(al_get_backbuffer(al_get_current_display()))/2, al_get_bitmap_height(al_get_backbuffer(al_get_current_display()))-13*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "Contributors:");
@@ -220,7 +220,7 @@ void drawcredits()
 	al_draw_text(font, al_map_rgb(255, 255, 255), al_get_bitmap_width(al_get_backbuffer(al_get_current_display()))/2, al_get_bitmap_height(al_get_backbuffer(al_get_current_display()))-7*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "With special thanks to peterix for making dfHack");
 
 	//"The program is in a very early alpha, we're only showcasing it to get ideas and feedback, so use it at your own risk."
-	al_draw_text(font, al_map_rgb(255, 255, 255), al_get_bitmap_width(al_get_backbuffer(al_get_current_display()))/2, al_get_bitmap_height(al_get_backbuffer(al_get_current_display()))-4*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "Press F9 to continue");
+	//al_draw_text(font, al_map_rgb(255, 255, 255), al_get_bitmap_width(al_get_backbuffer(al_get_current_display()))/2, al_get_bitmap_height(al_get_backbuffer(al_get_current_display()))-4*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "Press F9 to continue");
 	// Make the backbuffer visible
 	al_flip_display();
 }

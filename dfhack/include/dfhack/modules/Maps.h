@@ -35,6 +35,7 @@ distribution.
 #include "dfhack/modules/Vegetation.h"
 #include <vector>
 #include "dfhack/Virtual.h"
+#include <dfhack/BitArray.h>
 
 /**
  * \defgroup grp_maps Maps module and its types
@@ -146,6 +147,7 @@ namespace DFHack
         uint32_t origin;
     };
 
+
     /**
      * mineral vein object - bitmap with a material type
      * \ingroup grp_maps
@@ -158,6 +160,29 @@ namespace DFHack
         /// assignment[y] & (1 << x) describes the tile (x, y) of the block
         int16_t assignment[16];
         uint32_t flags;
+
+        //zilpin: Functions to more conveniently check the assignment flags of the vein.
+        //Coordinates are given in tile within the block.
+        //Important to make these inline.
+        inline bool getassignment( DFCoord & xy )
+        {
+            return getassignment(xy.x,xy.y);
+        }
+        inline bool getassignment( int x, int y )
+        {
+            return (assignment[y] & (1 << x));
+        }
+        inline void setassignment( DFCoord & xy, bool bit )
+        {
+            return setassignment(xy.x,xy.y, bit);
+        }
+        inline void setassignment( int x, int y, bool bit )
+        {
+            if(bit)
+                assignment[y] |= (1 << x);
+            else
+                assignment[y] &= 0xFFFF ^ (1 << x);
+        }
     };
 
     /**
@@ -436,11 +461,18 @@ namespace DFHack
         unsigned int liquid_1 : 1;
         unsigned int liquid_2 : 1;
         /// rest of the flags is completely unknown
-        unsigned int unk_2: 28;
-        // there's a possibility that this flags field is shorter than 32 bits
-        // FIXME: yes, it's a crazy dynamically sized array of flags. DERP.
+        unsigned int unk_2: 4;
     };
-
+    enum e_block_flags
+    {
+        /// designated for jobs (digging and stuff like that)
+        BLOCK_DESIGNATED,
+        /// possibly related to the designated flag
+        BLOCK_UNKN1,
+        /// two flags required for liquid flow.
+        BLOCK_LIQUIDFLOW_1,
+        BLOCK_LIQUIDFLOW_2,
+    };
     /**
      * map block flags wrapper
      * \ingroup grp_maps
@@ -510,9 +542,7 @@ namespace DFHack
     // one of the vector is the 'effects' vector. another should be item id/index vector
     struct df_block
     {
-        // FIXME: wrap the flag array!
-        unsigned char * flagarray;
-        unsigned long flagarray_slots;
+        BitArray <e_block_flags> flags;
         // how to handle this virtual mess?
         std::vector <t_virtual *> block_events;
         // no idea what these are
@@ -737,7 +767,7 @@ namespace DFHack
         /// copy/write the block flags
         bool ReadBlockFlags(uint32_t blockx, uint32_t blocky, uint32_t blockz, t_blockflags &blockflags);
         bool WriteBlockFlags(uint32_t blockx, uint32_t blocky, uint32_t blockz, t_blockflags blockflags);
-        
+
         /// copy/write features
         bool SetBlockLocalFeature(uint32_t blockx, uint32_t blocky, uint32_t blockz, int16_t local = -1);
         bool SetBlockGlobalFeature(uint32_t blockx, uint32_t blocky, uint32_t blockz, int16_t local = -1);
@@ -755,10 +785,13 @@ namespace DFHack
                        std::vector<t_grassvein *>* grass = 0,
                        std::vector<t_worldconstruction *>* constructions = 0
                       );
+
         /// remove a block event from the block by address
         bool RemoveBlockEvent(uint32_t x, uint32_t y, uint32_t z, t_virtual * which );
+
         /// read all plants in this block
         bool ReadVegetation(uint32_t x, uint32_t y, uint32_t z, std::vector<df_plant *>*& plants);
+
         private:
         struct Private;
         Private *d;

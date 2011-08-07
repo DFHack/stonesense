@@ -33,6 +33,15 @@ distribution.
 #include <stdint.h>
 #include "dfhack/Console.h"
 
+struct WINDOW;
+
+namespace tthread
+{
+    class mutex;
+    class condition_variable;
+    class thread;
+}
+
 namespace DFHack
 {
     class Process;
@@ -49,6 +58,7 @@ namespace DFHack
     class Buildings;
     class Constructions;
     class Vermin;
+    class Notes;
     class VersionInfo;
     class VersionInfoFactory;
     class PluginManager;
@@ -68,6 +78,8 @@ namespace DFHack
         friend int  ::SDL_NumJoysticks(void);
         friend void ::SDL_Quit(void);
         friend int  ::SDL_PollEvent(SDL::Event *);
+        friend int  ::SDL_Init(uint32_t flags);
+        friend int  ::wgetch(WINDOW * w);
     public:
         /// Get the single Core instance or make one.
         static Core& getInstance()
@@ -107,10 +119,17 @@ namespace DFHack
         Constructions * getConstructions();
         /// get the vermin module
         Vermin * getVermin();
+        /// get the notes module
+        Notes * getNotes();
         /// sets the current hotkey command
         bool setHotkeyCmd( std::string cmd );
         /// removes the hotkey command and gives it to the caller thread
         std::string getHotkeyCmd( void );
+
+		/// adds a named pointer (for later or between plugins)
+		void RegisterData(void *p,std::string key);
+		/// returns a named pointer.
+		void *GetData(std::string key);
 
         DFHack::Process * p;
         DFHack::VersionInfo * vinfo;
@@ -121,13 +140,14 @@ namespace DFHack
         int Update   (void);
         int Shutdown (void);
         int SDL_Event(SDL::Event* event, int orig_return);
+        bool ncurses_wgetch(int in, int & out);
         Core(Core const&);              // Don't Implement
         void operator=(Core const&);    // Don't implement
         bool errorstate;
         // regulate access to DF
         struct Cond;
-        SDL::Mutex * AccessMutex;
-        SDL::Mutex * StackMutex;
+        tthread::mutex * AccessMutex;
+        tthread::mutex * StackMutex;
         std::stack < Core::Cond * > suspended_tools;
         Core::Cond * core_cond;
         // FIXME: shouldn't be kept around like this
@@ -147,6 +167,7 @@ namespace DFHack
             Buildings * pBuildings;
             Constructions * pConstructions;
             Vermin * pVermin;
+            Notes * pNotes;
         } s_mods;
         std::vector <Module *> allModules;
         DFHack::PluginManager * plug_mgr;
@@ -154,9 +175,12 @@ namespace DFHack
         int hotkey_states[16];
         std::string hotkey_cmd;
         bool hotkey_set;
-        SDL::Mutex * HotkeyMutex;
-        SDL::Cond * HotkeyCond;
+        tthread::mutex * HotkeyMutex;
+        tthread::condition_variable * HotkeyCond;
         // Very important!
         bool started;
+
+		tthread::mutex * misc_data_mutex;
+		std::map<std::string,void*> misc_data_map;
     };
 }
