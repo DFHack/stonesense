@@ -52,18 +52,18 @@ void parseFluidElement( TiXmlElement* elemFluid, int basefile)
 
 	if(type)
 	{
-		if(contentLoader.lava[level-1].fluidset == 0)
+		if(contentLoader->lava[level-1].fluidset == 0)
 		{
-			contentLoader.lava[level-1].sprite = tempSprite;
-			contentLoader.lava[level-1].fluidset = 1;
+			contentLoader->lava[level-1].sprite = tempSprite;
+			contentLoader->lava[level-1].fluidset = 1;
 		}
 	}
 	else
 	{
-		if(contentLoader.water[level-1].fluidset == 0)
+		if(contentLoader->water[level-1].fluidset == 0)
 		{
-			contentLoader.water[level-1].sprite = tempSprite;
-			contentLoader.water[level-1].fluidset = 1;
+			contentLoader->water[level-1].sprite = tempSprite;
+			contentLoader->water[level-1].fluidset = 1;
 		}
 	}
 }

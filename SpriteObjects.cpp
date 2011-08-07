@@ -465,7 +465,7 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
 	{
 		grasstype = INVALID_INDEX;
 	}
-	else grasstype = lookupIndexedType(idstr,contentLoader.organic);
+	else grasstype = lookupIndexedType(idstr,contentLoader->organic);
 
 	//Should the sprite be shown only when there is blood?
 	const char* spritebloodMinStr = elemSprite->Attribute("blood_min");
@@ -678,7 +678,7 @@ void c_sprite::draw_world_offset(int x, int y, int z, Block * b, int tileoffset,
 						sheety = ((sheetindex+tileoffset+randoffset) / SHEET_OBJECTSWIDE) * spriteheight;
 					}
 					ALLEGRO_COLOR shade_color = get_color(b);
-					if(!b->designation.bits.pile && config.fog_of_war && (contentLoader.gameMode.g_mode == GAMEMODE_ADVENTURE))
+					if(!b->designation.bits.pile && config.fog_of_war && (contentLoader->gameMode.g_mode == GAMEMODE_ADVENTURE))
 					{
 						shade_color.r *= 0.25f;
 						shade_color.g *= 0.25f;
@@ -831,7 +831,7 @@ ALLEGRO_COLOR c_sprite::get_color(void* block)
 			dayofLife = b->creature->birth_year*12*28 + b->creature->birth_time/1200;
 			if((!config.skipCreatureTypes) && (!config.skipCreatureTypesEx) && (!config.skipDescriptorColors))
 			{
-                t_creaturecaste & caste = contentLoader.Mats->raceEx[b->creature->race].castes[b->creature->caste];
+                t_creaturecaste & caste = contentLoader->Mats->raceEx[b->creature->race].castes[b->creature->caste];
                 std::vector<t_colormodifier> & colormods =caste.ColorModifier;
 				for(unsigned int j = 0; j<b->creature->nbcolors ; j++)
 				{
@@ -841,7 +841,7 @@ ALLEGRO_COLOR c_sprite::get_color(void* block)
                         if(colormods[j].colorlist.size() > b->creature->color[j])
 						{
 							uint32_t cr_color = colormod.colorlist.at(b->creature->color[j]);
-							if(cr_color < contentLoader.Mats->color.size())
+							if(cr_color < contentLoader->Mats->color.size())
 							{
 								if(colormod.startdate > 0)
 								{
@@ -850,16 +850,16 @@ ALLEGRO_COLOR c_sprite::get_color(void* block)
                                         (colormod.enddate > dayofLife))
 									{
 										return al_map_rgb_f(
-											contentLoader.Mats->color[cr_color].red,
-											contentLoader.Mats->color[cr_color].green,
-											contentLoader.Mats->color[cr_color].blue);;
+											contentLoader->Mats->color[cr_color].red,
+											contentLoader->Mats->color[cr_color].green,
+											contentLoader->Mats->color[cr_color].blue);;
 									}
 								}
 								else
 									return al_map_rgb_f(
-									contentLoader.Mats->color[cr_color].red,
-									contentLoader.Mats->color[cr_color].green,
-									contentLoader.Mats->color[cr_color].blue);
+									contentLoader->Mats->color[cr_color].red,
+									contentLoader->Mats->color[cr_color].green,
+									contentLoader->Mats->color[cr_color].blue);
 							}
 						}
 					}

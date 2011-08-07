@@ -283,7 +283,7 @@ bool addSingleBuildingConfig( TiXmlElement* elemRoot,  vector<BuildingConfigurat
 		return false;
 	}
 
-	int gameID = TranslateBuildingName(strGameID, contentLoader.classIdStrings );
+	int gameID = TranslateBuildingName(strGameID, contentLoader->classIdStrings );
 
 	if (gameID == INVALID_INDEX) {
 		return false;
@@ -313,7 +313,7 @@ bool addSingleCustomBuildingConfig( TiXmlElement* elemRoot,  vector<BuildingConf
 		return false;
 	}
 
-	int gameID = TranslateBuildingName(strGameID, contentLoader.custom_workshop_types );
+	int gameID = TranslateBuildingName(strGameID, contentLoader->custom_workshop_types );
 
 	if (gameID == INVALID_INDEX) {
 		return false;

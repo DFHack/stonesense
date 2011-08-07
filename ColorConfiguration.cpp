@@ -124,7 +124,7 @@ bool addSingleColorConfig( TiXmlElement* elemRoot)
 		//parse colors
 		TiXmlElement* elemColor = elemRoot->FirstChildElement("color");
 		while( elemColor ){
-			parseColorElement( elemColor, contentLoader.colorConfigs);
+			parseColorElement( elemColor, contentLoader->colorConfigs);
 			elemColor = elemColor->NextSiblingElement("color");
 		}
 	}

@@ -72,29 +72,29 @@ ALLEGRO_COLOR getSpriteColor(t_SpriteWithOffset &sprite, t_creature* creature)
 		{
 		for(unsigned int j = 0; j<b->creature->nbcolors ; j++)
 		{
-            t_creaturecaste & caste = contentLoader.Mats->raceEx[creature->race].castes[creature->caste];
+            t_creaturecaste & caste = contentLoader->Mats->raceEx[creature->race].castes[creature->caste];
             std::vector<t_colormodifier> & colormods =caste.ColorModifier;
 			if(colormods[j].part == sprite.bodyPart)
 			{
 				uint32_t cr_color = colormods[j].colorlist[creature->color[j]];
-					if(cr_color < contentLoader.Mats->color.size())
+					if(cr_color < contentLoader->Mats->color.size())
 					{
 						if(colormods[j].startdate > 0)
 						{
 							if((colormods[j].startdate <= dayofLife) && (colormods[j].enddate > dayofLife))
 							{
 								output = al_map_rgb_f(
-									contentLoader.Mats->color[cr_color].red,
-									contentLoader.Mats->color[cr_color].green,
-									contentLoader.Mats->color[cr_color].blue);
+									contentLoader->Mats->color[cr_color].red,
+									contentLoader->Mats->color[cr_color].green,
+									contentLoader->Mats->color[cr_color].blue);
 								return output;
 							}
 						}
 						else
 							output = al_map_rgb_f(
-							contentLoader.Mats->color[cr_color].red,
-							contentLoader.Mats->color[cr_color].green,
-							contentLoader.Mats->color[cr_color].blue);
+							contentLoader->Mats->color[cr_color].red,
+							contentLoader->Mats->color[cr_color].green,
+							contentLoader->Mats->color[cr_color].blue);
 					}
 			}
 		}

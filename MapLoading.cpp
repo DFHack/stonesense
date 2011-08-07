@@ -511,7 +511,7 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
 				if(tileTypeTable[b->tileType].material == OBSIDIAN)
 				{
 					b->material.type = INORGANIC;
-					b->material.index = contentLoader.obsidian;
+					b->material.index = contentLoader->obsidian;
 				}
 
 
@@ -649,13 +649,13 @@ WorldSegment* ReadMapSegment(DFHack::Core &DF, int x, int y, int z, int sizex, i
 	//read date
 	if(!config.skipWorld)
 	{
-		contentLoader.currentYear = Wold->ReadCurrentYear();
-		contentLoader.currentTick = Wold->ReadCurrentTick();
-		contentLoader.currentMonth = (contentLoader.currentTick+9)/33600;
-		contentLoader.currentDay = ((contentLoader.currentTick+9)%33600)/1200;
-		contentLoader.currentHour = ((contentLoader.currentTick+9)-(((contentLoader.currentMonth*28)+contentLoader.currentDay)*1200))/50;
-		contentLoader.currentTickRel = (contentLoader.currentTick+9)-(((((contentLoader.currentMonth*28)+contentLoader.currentDay)*24)+contentLoader.currentHour)*50);
-		Wold->ReadGameMode(contentLoader.gameMode);
+		contentLoader->currentYear = Wold->ReadCurrentYear();
+		contentLoader->currentTick = Wold->ReadCurrentTick();
+		contentLoader->currentMonth = (contentLoader->currentTick+9)/33600;
+		contentLoader->currentDay = ((contentLoader->currentTick+9)%33600)/1200;
+		contentLoader->currentHour = ((contentLoader->currentTick+9)-(((contentLoader->currentMonth*28)+contentLoader->currentDay)*1200))/50;
+		contentLoader->currentTickRel = (contentLoader->currentTick+9)-(((((contentLoader->currentMonth*28)+contentLoader->currentDay)*24)+contentLoader->currentHour)*50);
+		Wold->ReadGameMode(contentLoader->gameMode);
 	}
 
 	if(!config.skipMaps)
@@ -682,7 +682,7 @@ WorldSegment* ReadMapSegment(DFHack::Core &DF, int x, int y, int z, int sizex, i
 
 	//if (timeToReloadConfig)
 	//{
-	//	contentLoader.Load(DF);
+	//	contentLoader->Load(DF);
 	//	timeToReloadConfig = false;
 	//}
 
@@ -945,7 +945,7 @@ void beautify_Segment(WorldSegment * segment)
 			(tileTypeTable[b->floorType].material == GRASS_DRY)))
 		{
 			c_block_tree * vegetationsprite = 0;
-			vegetationsprite = getVegetationTree(contentLoader.grassConfigs,b->grassmat,true,true);
+			vegetationsprite = getVegetationTree(contentLoader->grassConfigs,b->grassmat,true,true);
 			if(vegetationsprite)
 				vegetationsprite->insert_sprites(segment, b->x, b->y, b->z, b);
 		}
@@ -992,9 +992,9 @@ void beautify_Segment(WorldSegment * segment)
 		if(dir2) if(dir2->creaturePresent) b->obscuringCreature = 1;
 		if(dir8) if(dir8->creaturePresent) b->obscuringCreature = 1;
 
-		if(dir1) if(dir1->building.info.type != BUILDINGTYPE_NA && dir1->building.info.type != BUILDINGTYPE_BLACKBOX && dir1->building.info.type != contentLoader.civzoneNum && dir1->building.info.type != contentLoader.stockpileNum) b->obscuringBuilding = 1;
-		if(dir2) if(dir2->building.info.type != BUILDINGTYPE_NA && dir2->building.info.type != BUILDINGTYPE_BLACKBOX && dir2->building.info.type != contentLoader.civzoneNum && dir2->building.info.type != contentLoader.stockpileNum) b->obscuringBuilding = 1;
-		if(dir8) if(dir8->building.info.type != BUILDINGTYPE_NA && dir8->building.info.type != BUILDINGTYPE_BLACKBOX && dir8->building.info.type != contentLoader.civzoneNum && dir8->building.info.type != contentLoader.stockpileNum) b->obscuringBuilding = 1;
+		if(dir1) if(dir1->building.info.type != BUILDINGTYPE_NA && dir1->building.info.type != BUILDINGTYPE_BLACKBOX && dir1->building.info.type != contentLoader->civzoneNum && dir1->building.info.type != contentLoader->stockpileNum) b->obscuringBuilding = 1;
+		if(dir2) if(dir2->building.info.type != BUILDINGTYPE_NA && dir2->building.info.type != BUILDINGTYPE_BLACKBOX && dir2->building.info.type != contentLoader->civzoneNum && dir2->building.info.type != contentLoader->stockpileNum) b->obscuringBuilding = 1;
+		if(dir8) if(dir8->building.info.type != BUILDINGTYPE_NA && dir8->building.info.type != BUILDINGTYPE_BLACKBOX && dir8->building.info.type != contentLoader->civzoneNum && dir8->building.info.type != contentLoader->stockpileNum) b->obscuringBuilding = 1;
 
 		if( b->floorType > 0 )
 		{
@@ -1263,7 +1263,7 @@ void reloadDisplayedSegment(DFHack::Core * c){
 	{
 		parms.thread_connect = 0;
 		//DF.Suspend();
-		contentLoader.Load(DF);
+		contentLoader->Load(DF);
 		timeToReloadConfig = false;
 		//DF.Resume();
 	}

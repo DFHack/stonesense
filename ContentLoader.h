@@ -67,8 +67,7 @@ public:
 	int obsidian;
 };
 
-//singleton instance
-extern ContentLoader contentLoader;
+extern ContentLoader * contentLoader;
 
 extern const char* getDocument(TiXmlNode* element);
 extern void contentError(const char* message, TiXmlNode* element);

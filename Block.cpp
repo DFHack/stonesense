@@ -268,8 +268,8 @@ void Block::Draw(){
 
 	//Building
 	bool skipBuilding =
-		(building.info.type == contentLoader.civzoneNum && !config.show_stockpiles) ||
-		(building.info.type == contentLoader.stockpileNum && !config.show_zones);
+		(building.info.type == contentLoader->civzoneNum && !config.show_stockpiles) ||
+		(building.info.type == contentLoader->stockpileNum && !config.show_zones);
 
 	if(building.info.type != BUILDINGTYPE_NA && !skipBuilding)
 	{
@@ -372,11 +372,11 @@ void Block::Draw(){
 		//if(waterlevel == 7) waterlevel--;
 		if(water.type == 0)
 		{
-			contentLoader.water[water.index-1].sprite.draw_world(x, y, z, this, (chopThisBlock && this->z == ownerSegment->z + ownerSegment->sizez -2));
+			contentLoader->water[water.index-1].sprite.draw_world(x, y, z, this, (chopThisBlock && this->z == ownerSegment->z + ownerSegment->sizez -2));
 		}
 		else
 		{
-			contentLoader.lava[water.index-1].sprite.draw_world(x, y, z, this, (chopThisBlock && this->z == ownerSegment->z + ownerSegment->sizez -2));
+			contentLoader->lava[water.index-1].sprite.draw_world(x, y, z, this, (chopThisBlock && this->z == ownerSegment->z + ownerSegment->sizez -2));
 		}
 	}
 

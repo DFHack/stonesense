@@ -433,6 +433,7 @@ static void * stonesense_thread(ALLEGRO_THREAD * thred, void * parms)
 	config.threadmade = 0;
 	config.threading_enable = 1;
 	config.fog_of_war = 1;
+    contentLoader = new ContentLoader();
 	initRandomCube();
 	loadConfigFile();
 	if(!loadfont())
@@ -527,12 +528,18 @@ static void * stonesense_thread(ALLEGRO_THREAD * thred, void * parms)
 
 	if(altSegment){
 		altSegment->Dispose();
-		delete(altSegment);
+		delete altSegment;
+        altSegment = 0;
 	}
 	if(viewedSegment){
 		viewedSegment->Dispose();
-		delete(viewedSegment);
+		delete viewedSegment;
+        viewedSegment = 0;
 	}
+	al_destroy_bitmap(IMGIcon);
+    IMGIcon = 0;
+    delete contentLoader;
+    contentLoader = 0;
 	DFConsole->print("Stonesense shutdown.\n");
 	stonesense_started = 0;
 	return NULL;

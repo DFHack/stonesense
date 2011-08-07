@@ -78,11 +78,11 @@ c_sprite *  GetTerrainSpriteMap(int in, t_matglossPair material, vector<TerrainC
 }
 
 c_sprite * GetFloorSpriteMap(int in, t_matglossPair material, uint16_t form){
-	return GetTerrainSpriteMap(in, material, contentLoader.terrainFloorConfigs, form);
+	return GetTerrainSpriteMap(in, material, contentLoader->terrainFloorConfigs, form);
 }
 
 c_sprite * GetBlockSpriteMap(int in, t_matglossPair material, uint16_t form){
-	return GetTerrainSpriteMap(in, material, contentLoader.terrainBlockConfigs, form);
+	return GetTerrainSpriteMap(in, material, contentLoader->terrainBlockConfigs, form);
 }
 
 c_block_tree * GetTreeVegetation( TileShape type, int index)
@@ -96,32 +96,32 @@ c_block_tree * GetTreeVegetation( TileShape type, int index)
 	{
 	case TREE_DEAD:
 		base_sprite = SPRITEOBJECT_TREE_DEAD;
-		graphicSet = &(contentLoader.treeConfigs);
+		graphicSet = &(contentLoader->treeConfigs);
 		live = false;
 		break;
 	case TREE_OK:
 		base_sprite = SPRITEOBJECT_TREE_OK;
-		graphicSet = &(contentLoader.treeConfigs);
+		graphicSet = &(contentLoader->treeConfigs);
 		break;
 	case SAPLING_DEAD:
 		base_sprite = SPRITEOBJECT_SAPLING_DEAD;
 		live = false;
 		grown = false;
-		graphicSet = &(contentLoader.treeConfigs);
+		graphicSet = &(contentLoader->treeConfigs);
 		break;
 	case SAPLING_OK: 
 		base_sprite = SPRITEOBJECT_SAPLING_OK;
 		grown = false;
-		graphicSet = &(contentLoader.treeConfigs);
+		graphicSet = &(contentLoader->treeConfigs);
 		break;
 	case SHRUB_DEAD:
 		base_sprite = SPRITEOBJECT_SHRUB_DEAD;
 		live = false;
-		graphicSet = &(contentLoader.shrubConfigs);
+		graphicSet = &(contentLoader->shrubConfigs);
 		break;
 	case SHRUB_OK: 
 		base_sprite = SPRITEOBJECT_SHRUB_OK;
-		graphicSet = &(contentLoader.shrubConfigs);
+		graphicSet = &(contentLoader->shrubConfigs);
 		break;
 	default:
 		defaultTree->set_sheetindex(SPRITEOBJECT_BLANK);

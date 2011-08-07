@@ -41,7 +41,7 @@ void DumpProfessionsToDisk(){
 	FILE* fp = fopen("dump.txt", "w");
 	if(!fp) return;
 	string proffStr;
-	for(int j=0; (proffStr = contentLoader.professionStrings[j]) != "" ; j++){
+	for(int j=0; (proffStr = contentLoader->professionStrings[j]) != "" ; j++){
 		fprintf(fp, "%i:%s\n",j, proffStr.c_str());
 	}
 	fclose(fp);
@@ -55,10 +55,10 @@ int translateProfession(const char* currentProf)
 	if (currentProf == NULL || currentProf[0]==0)
 		return INVALID_INDEX;
 
-	dfNumJobs = contentLoader.professionStrings.size();
+	dfNumJobs = contentLoader->professionStrings.size();
 	for(j=0; j < dfNumJobs; j++)
 	{   
-		proffStr = contentLoader.professionStrings[j];
+		proffStr = contentLoader->professionStrings[j];
 		if( proffStr.compare( currentProf ) == 0)
 		{
 			//assign ID
@@ -78,9 +78,9 @@ void pushCreatureConfig( vector<vector<CreatureConfiguration>*>& knownCreatures,
 		{
 			//resize using hint from creature name list
 			unsigned int newsize = gameID +1;
-			if (newsize <= contentLoader.Mats->race.size())
+			if (newsize <= contentLoader->Mats->race.size())
 			{
-				newsize = contentLoader.Mats->race.size() + 1;
+				newsize = contentLoader->Mats->race.size() + 1;
 			}
 			knownCreatures.resize(newsize);
 		}
@@ -97,7 +97,7 @@ void pushCreatureConfig( vector<vector<CreatureConfiguration>*>& knownCreatures,
 bool addSingleCreatureConfig( TiXmlElement* elemCreature, vector<vector<CreatureConfiguration>*>& knownCreatures, int basefile ){
 	if(config.skipCreatureTypes)
 		return false;
-	int gameID = lookupIndexedType(elemCreature->Attribute("gameID"),contentLoader.Mats->race);
+	int gameID = lookupIndexedType(elemCreature->Attribute("gameID"),contentLoader->Mats->race);
 	if (gameID == INVALID_INDEX)
 		return false;
 	const char* sheetIndexStr;

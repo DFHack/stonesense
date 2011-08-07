@@ -8,7 +8,7 @@
 #include "dfhack/depends/tinyxml/tinyxml.h"
 #include "GUI.h"
 
-ContentLoader contentLoader;
+ContentLoader * contentLoader;
 
 
 
@@ -172,7 +172,7 @@ bool ContentLoader::Load( DFHack::Core& DF){
 	}
 	try
 	{
-		contentLoader.MemInfo = DF.vinfo;
+		contentLoader->MemInfo = DF.vinfo;
 	}
 	catch(exception &e)
 	{
@@ -211,8 +211,8 @@ bool ContentLoader::Load( DFHack::Core& DF){
 		}
 	}
 
-	civzoneNum = TranslateBuildingName("building_civzonest", contentLoader.classIdStrings );
-	stockpileNum = TranslateBuildingName("building_stockpilest", contentLoader.classIdStrings );
+	civzoneNum = TranslateBuildingName("building_civzonest", contentLoader->classIdStrings );
+	stockpileNum = TranslateBuildingName("building_stockpilest", contentLoader->classIdStrings );
 
 	//DumpPrefessionNamesToDisk(professionStrings, "priofessiondump.txt");
 	//DumpPrefessionNamesToDisk(classIdStrings, "buildingdump.txt");
@@ -224,7 +224,7 @@ bool ContentLoader::Load( DFHack::Core& DF){
 	//time to copy all the junk from mats to contentloader.
 	this->organic = Mats->organic;
 	this->inorganic = Mats->inorganic;
-	contentLoader.obsidian = lookupMaterialIndex(INORGANIC, "OBSIDIAN");
+	contentLoader->obsidian = lookupMaterialIndex(INORGANIC, "OBSIDIAN");
 
 	loadGraphicsFromDisk(); //these get destroyed when flushImgFiles is called.
 	bool overallResult = parseContentIndexFile( "index.txt" );
@@ -483,19 +483,19 @@ int lookupMaterialIndex(int matType, const char* strValue)
     // for appropriate elements, look up subtype
     if (matType == INORGANIC && !config.skipInorganicMats)
     {
-        return lookupIndexedType(strValue,contentLoader.inorganic);
+        return lookupIndexedType(strValue,contentLoader->inorganic);
     }
     else if (matType == WOOD && !config.skipOrganicMats)
     {
-        return lookupIndexedType(strValue,contentLoader.organic);
+        return lookupIndexedType(strValue,contentLoader->organic);
     }
     else if (matType == PLANTCLOTH && !config.skipOrganicMats)
     {
-        return lookupIndexedType(strValue,contentLoader.organic);
+        return lookupIndexedType(strValue,contentLoader->organic);
     }
     else if (matType == LEATHER && !config.skipCreatureTypes)
     {
-        return lookupIndexedType(strValue,contentLoader.Mats->race);
+        return lookupIndexedType(strValue,contentLoader->Mats->race);
     }
     else
     {
@@ -565,24 +565,24 @@ const char *lookupMaterialName(int matType,int matIndex)
 	// for appropriate elements, look up subtype
 	if ((matType == INORGANIC) && (!config.skipInorganicMats))
 	{
-        if(matIndex < contentLoader.inorganic.size())
+        if(matIndex < contentLoader->inorganic.size())
         {
-            return contentLoader.inorganic[0].id.c_str();
+            return contentLoader->inorganic[0].id.c_str();
         }
         else return NULL;
 	}
 	else if ((matType == WOOD) && (!config.skipOrganicMats))
 	{
-		typeVector=&(contentLoader.organic);
+		typeVector=&(contentLoader->organic);
 	}
 	else if ((matType == PLANTCLOTH) && (!config.skipOrganicMats))
 	{
-		typeVector=&(contentLoader.organic);
+		typeVector=&(contentLoader->organic);
 	}
 	else if (matType == LEATHER)
 	{
 		if(!config.skipCreatureTypes)
-			typeVector=&(contentLoader.Mats->race);
+			typeVector=&(contentLoader->Mats->race);
 	}
 	else
 	{
@@ -602,7 +602,7 @@ const char *lookupTreeName(int matIndex)
 		return NULL;
 	vector<t_matgloss>* typeVector;
 	// for appropriate elements, look up subtype
-	typeVector=&(contentLoader.organic);
+	typeVector=&(contentLoader->organic);
 	if (matIndex >= typeVector->size())
 		return NULL;
 	return (*typeVector)[matIndex].id.c_str();
@@ -734,21 +734,21 @@ void ContentLoader::flushCreatureConfig()
 }
 ALLEGRO_COLOR lookupMaterialColor(int matType,int matIndex)
 {
-	if (matType >= contentLoader.colorConfigs.size())
+	if (matType >= contentLoader->colorConfigs.size())
 	{
 		return al_map_rgb(255, 255, 255);
 	}
 	if (matIndex < 0)
 	{
-		return contentLoader.colorConfigs.at(matType).color;
+		return contentLoader->colorConfigs.at(matType).color;
 	}
-	if (matIndex >= contentLoader.colorConfigs.at(matType).colorMaterials.size())
+	if (matIndex >= contentLoader->colorConfigs.at(matType).colorMaterials.size())
 	{
 		return al_map_rgb(255, 255, 255);
 	}
-	if (contentLoader.colorConfigs.at(matType).colorMaterials.at(matIndex).colorSet)
+	if (contentLoader->colorConfigs.at(matType).colorMaterials.at(matIndex).colorSet)
 	{
-		return contentLoader.colorConfigs.at(matType).colorMaterials.at(matIndex).color;
+		return contentLoader->colorConfigs.at(matType).colorMaterials.at(matIndex).color;
 	}
 	else return al_map_rgb(255, 255, 255);
 }

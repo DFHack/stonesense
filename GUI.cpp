@@ -359,7 +359,7 @@ void drawDebugCursorAndInfo(){
 		"Coord:(%i,%i,%i)", debugCursor.x, debugCursor.y, debugCursor.z);
 
 	draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
-		"Game Mode:%i, Control Mode:%i", contentLoader.gameMode.g_mode, contentLoader.gameMode.g_type);
+		"Game Mode:%i, Control Mode:%i", contentLoader->gameMode.g_mode, contentLoader->gameMode.g_type);
 
 	if(!b) return;
 
@@ -448,7 +448,7 @@ void drawDebugCursorAndInfo(){
 		const char* subMatName = lookupMaterialName(b->building.info.material.type,b->building.info.material.index);
 		draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
 			"Building: %s(%i,0x%x) Material: %s%s%s (%d,%d)", 
-			contentLoader.classIdStrings.at(b->building.info.type).c_str(),
+			contentLoader->classIdStrings.at(b->building.info.type).c_str(),
 			b->building.info.type, b->building.info.vtable,
 			matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"",
 			b->building.info.material.type,b->building.info.material.index);
@@ -456,7 +456,7 @@ void drawDebugCursorAndInfo(){
 		if(b->building.custom_building_type != -1)
 		{
 			draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
-				"Custom workshop type %s (%d)", contentLoader.custom_workshop_types[b->building.custom_building_type].c_str(),b->building.custom_building_type);
+				"Custom workshop type %s (%d)", contentLoader->custom_workshop_types[b->building.custom_building_type].c_str(),b->building.custom_building_type);
 		}
 	}
 
@@ -465,15 +465,15 @@ void drawDebugCursorAndInfo(){
 		if(!config.skipCreatureTypes)
 			draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
 			"Creature:%s(%i) Job:%s", 
-			contentLoader.Mats->race.at(b->creature->race).id.c_str(), b->creature->race, 
-			contentLoader.professionStrings.at(b->creature->profession).c_str());
+			contentLoader->Mats->race.at(b->creature->race).id.c_str(), b->creature->race, 
+			contentLoader->professionStrings.at(b->creature->profession).c_str());
 
 		char strCreature[150] = {0};
 		generateCreatureDebugString( b->creature, strCreature );
 		//memset(strCreature, -1, 50);
 		try{
 			draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
-				"flag1: %s Sex: %d  Mood: %d Job: %s", strCreature, b->creature->sex + 1, b->creature->mood, (b->creature->current_job.active?contentLoader.MemInfo->getJob(b->creature->current_job.jobType).c_str():""));
+				"flag1: %s Sex: %d  Mood: %d Job: %s", strCreature, b->creature->sex + 1, b->creature->mood, (b->creature->current_job.active?contentLoader->MemInfo->getJob(b->creature->current_job.jobType).c_str():""));
 		}
 		catch(exception &e)
 		{
@@ -485,18 +485,18 @@ void drawDebugCursorAndInfo(){
 			int xx = 2;
 			for(unsigned int j = 0; j<b->creature->nbcolors ; j++)
 			{
-				if(contentLoader.Mats->raceEx.at(b->creature->race).castes.at(b->creature->caste).ColorModifier.at(j).colorlist.size() > b->creature->color[j])
+				if(contentLoader->Mats->raceEx.at(b->creature->race).castes.at(b->creature->caste).ColorModifier.at(j).colorlist.size() > b->creature->color[j])
 				{
-					uint32_t cr_color = contentLoader.Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].colorlist[b->creature->color[j]];
-					if(cr_color < contentLoader.Mats->color.size())
+					uint32_t cr_color = contentLoader->Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].colorlist[b->creature->color[j]];
+					if(cr_color < contentLoader->Mats->color.size())
 					{
 						draw_textf_border(font, 
 							al_map_rgb_f(
-							contentLoader.Mats->color[cr_color].red,
-							contentLoader.Mats->color[cr_color].green,
-							contentLoader.Mats->color[cr_color].blue), xx, yy, 0,
-							"%s ", contentLoader.Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].part.c_str());
-						xx += get_textf_width(font, "%s ", contentLoader.Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].part.c_str());
+							contentLoader->Mats->color[cr_color].red,
+							contentLoader->Mats->color[cr_color].green,
+							contentLoader->Mats->color[cr_color].blue), xx, yy, 0,
+							"%s ", contentLoader->Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].part.c_str());
+						xx += get_textf_width(font, "%s ", contentLoader->Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].part.c_str());
 					}
 				}
 			}
@@ -631,7 +631,7 @@ void DrawSpriteFromSheet( int spriteNum, ALLEGRO_BITMAP* spriteSheet, ALLEGRO_CO
 	10, 60 , SPRITEWIDTH, SPRITEHEIGHT);
 	*/
 	//draw_trans_sprite(target, tiny, x, y);
-	if(b && (!b->designation.bits.pile) && config.fog_of_war && (contentLoader.gameMode.g_mode == GAMEMODE_ADVENTURE))
+	if(b && (!b->designation.bits.pile) && config.fog_of_war && (contentLoader->gameMode.g_mode == GAMEMODE_ADVENTURE))
 	{
 		color.r *= 0.25f;
 		color.g *= 0.25f;
@@ -768,7 +768,7 @@ void paintboard(){
 			draw_textf_border(font, al_map_rgb(255,255,255), 10, 2*al_get_font_line_height(font), 0, "FPS: %.2f", 1.0/time_since_last_frame);
 			draw_textf_border(font, al_map_rgb(255,255,255), 10, 5*al_get_font_line_height(font), 0, "Draw: %ims", DrawTime);
 			draw_textf_border(font, al_map_rgb(255,255,255), 10, 6*al_get_font_line_height(font), 0, "D1: %i", blockFactory.getPoolSize());
-			draw_textf_border(font, al_map_rgb(255,255,255), 10, 7*al_get_font_line_height(font), 0, "%i/%i/%i, %i:%i", contentLoader.currentDay+1, contentLoader.currentMonth+1, contentLoader.currentYear, contentLoader.currentHour, (contentLoader.currentTickRel*60)/50);
+			draw_textf_border(font, al_map_rgb(255,255,255), 10, 7*al_get_font_line_height(font), 0, "%i/%i/%i, %i:%i", contentLoader->currentDay+1, contentLoader->currentMonth+1, contentLoader->currentYear, contentLoader->currentHour, (contentLoader->currentTickRel*60)/50);
 			draw_textf_border(font, al_map_rgb(255,255,255), 10, 8*al_get_font_line_height(font), 0, "%i Sprites drawn, %i tiles drawn, %.1f sprites per tile.", config.drawcount, config.tilecount, ((float)config.drawcount/(float)config.tilecount));
 			drawDebugCursorAndInfo();
 		}

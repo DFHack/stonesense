@@ -302,7 +302,7 @@ void DrawCreatureText(int drawx, int drawy, t_creature* creature ){
 		{
 			if(!config.skipCreatureTypes)
 				draw_textf_border(font, al_map_rgb(255,255,255), drawx, drawy-(WALLHEIGHT+al_get_font_line_height(font)), 0, 
-				"[%s]", contentLoader.Mats->race.at(creature->race).id.c_str());
+				"[%s]", contentLoader->Mats->race.at(creature->race).id.c_str());
 		}
 }
 
@@ -415,12 +415,12 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
 CreatureConfiguration *GetCreatureConfig( t_creature* c ){
 	//find list for creature type
 	vector<CreatureConfiguration>* creatureData;
-	uint32_t num = (uint32_t)contentLoader.creatureConfigs.size();
+	uint32_t num = (uint32_t)contentLoader->creatureConfigs.size();
 	if (c->race >= num)
 	{
 		return NULL;	
 	}
-	creatureData = contentLoader.creatureConfigs[c->race];
+	creatureData = contentLoader->creatureConfigs[c->race];
 	if (creatureData == NULL)
 	{
 		return NULL;
