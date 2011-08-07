@@ -68,16 +68,18 @@ int32_t viewy = 0;
 int32_t viewz = 0;
 bool followmode = true;*/
 
-ALLEGRO_BITMAP* load_bitmap_withWarning(const char* path){
-	ALLEGRO_BITMAP* img = 0;
-	img = al_load_bitmap(path);
-	if(!img){
-		DFConsole->printerr("Cannot load image: %s\n", path);
-		al_set_thread_should_stop(thread);
-		return 0;
-	}
-	al_convert_mask_to_alpha(img, al_map_rgb(255, 0, 255));
-	return img;
+ALLEGRO_BITMAP* load_bitmap_withWarning(const char* path)
+{
+    ALLEGRO_BITMAP* img = 0;
+    img = al_load_bitmap(path);
+    if(!img)
+    {
+        DFConsole->printerr("Cannot load image: %s\n", path);
+        al_set_thread_should_stop(thread);
+        return 0;
+    }
+    al_convert_mask_to_alpha(img, al_map_rgb(255, 0, 255));
+    return img;
 }
 
 
@@ -140,12 +142,21 @@ void correctBlockForSegmetOffset(int32_t& x, int32_t& y, int32_t& z){
 
 bool loadfont()
 {
-	font = al_load_font(al_path_cstr(config.font, ALLEGRO_NATIVE_PATH_SEP), config.fontsize, 0);
-	if (!font) {
-		DFConsole->printerr("Cannot load font: %s\n", al_path_cstr(config.font, ALLEGRO_NATIVE_PATH_SEP));
-		return 0;
-	}
-	return 1;
+    ALLEGRO_PATH * p = al_create_path_for_directory("stonesense");
+    if(!al_join_paths(p, config.font))
+    {
+        al_destroy_path(p);
+        return false;
+    }
+    font = al_load_font(al_path_cstr(p, ALLEGRO_NATIVE_PATH_SEP), config.fontsize, 0);
+    if (!font)
+    {
+        DFConsole->printerr("Cannot load font: %s\n", al_path_cstr(p, ALLEGRO_NATIVE_PATH_SEP));
+        al_destroy_path(p);
+        return false;
+    }
+    al_destroy_path(p);
+    return true;
 }
 
 void benchmark(DFHack::Core * c){
@@ -177,10 +188,16 @@ void animUpdateProc()
 
 void drawcredits()
 {
+    static ALLEGRO_BITMAP* SplashImage = NULL; // BUG: leaks the image
 	al_clear_to_color(al_map_rgb(0,0,0));
 	//centred splash image
 	{
-		static ALLEGRO_BITMAP* SplashImage = load_bitmap_withWarning("splash.png");
+        if(!SplashImage)
+        {
+            ALLEGRO_PATH * p = al_create_path("stonesense/stonesense.png");
+            SplashImage = load_bitmap_withWarning(al_path_cstr(p, ALLEGRO_NATIVE_PATH_SEP));
+            al_destroy_path(p);
+        }
 		if(!SplashImage)
 			return;
 		al_draw_bitmap_region(SplashImage, 0, 0,
@@ -467,9 +484,12 @@ static void * stonesense_thread(ALLEGRO_THREAD * thred, void * parms)
 	if(config.software)
 		al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP|ALLEGRO_ALPHA_TEST);
 
-	IMGIcon = load_bitmap_withWarning("stonesense.png");
+    ALLEGRO_PATH * p = al_create_path("stonesense/stonesense.png");
+    IMGIcon = load_bitmap_withWarning(al_path_cstr(p, ALLEGRO_NATIVE_PATH_SEP));
+    al_destroy_path(p);
 	if(!IMGIcon)
 	{
+        al_destroy_display(display);
 		stonesense_started = 0;
 		return NULL;
 	}

@@ -70,6 +70,7 @@ public:
 extern ContentLoader * contentLoader;
 
 extern const char* getDocument(TiXmlNode* element);
+bool getLocalFilename(char * buffer, const char* filename, const char* relativeto);
 extern void contentError(const char* message, TiXmlNode* element);
 extern char getAnimFrames(const char* framestring);
 extern int loadConfigImgFile(const char* filename, TiXmlElement* referrer);

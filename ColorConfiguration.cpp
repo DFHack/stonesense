@@ -112,11 +112,6 @@ void parseColorElement( TiXmlElement* elemColor, vector<ColorConfiguration> & co
 	}
 }
 
-void flushColorConfig(vector<ColorConfiguration>& config)
-{
-	config.clear();
-}
-
 bool addSingleColorConfig( TiXmlElement* elemRoot)
 {
 	string elementType = elemRoot->Value();

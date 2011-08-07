@@ -202,9 +202,9 @@ bool loadConfigFile();
 //xmlBuildingReader.cpp
 class BuildingConfiguration;
 
-#define FILENAME_BUFFERSIZE 50
-// temp buffers are bigger because they deal with absolute paths
-#define FILENAME_BUFFERSIZE_LOCAL 200
+// BUG: this is dangerous!
+#define FILENAME_BUFFERSIZE 1024
+#define FILENAME_BUFFERSIZE_LOCAL 2048
 
 extern ALLEGRO_FONT *font;
 extern ALLEGRO_KEYBOARD_STATE keyboard;

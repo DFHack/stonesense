@@ -810,39 +810,63 @@ void paintboard(){
 
 
 
-void loadGraphicsFromDisk(){
-	/*al_clear_to_color(al_map_rgb(0,0,0));
-	draw_textf_border(font,
-	al_get_bitmap_width(al_get_target_bitmap())/2,
-	al_get_bitmap_height(al_get_target_bitmap())/2,
-	ALLEGRO_ALIGN_CENTRE, "Loading...");
-	al_flip_display();*/
-	int index;
-	index = loadImgFile("objects.png");
-	if(index == -1) return;
-	IMGObjectSheet = al_create_sub_bitmap(IMGFilelist[index], 0, 0, al_get_bitmap_width(IMGFilelist[index]), al_get_bitmap_height(IMGFilelist[index]));
-	index = loadImgFile("creatures.png");
-	if(index == -1) return;
-	IMGCreatureSheet = al_create_sub_bitmap(IMGFilelist[index], 0, 0, al_get_bitmap_width(IMGFilelist[index]), al_get_bitmap_height(IMGFilelist[index]));
-	index = loadImgFile("ramps.png");
-	if(index == -1) return;
-	IMGRampSheet = al_create_sub_bitmap(IMGFilelist[index], 0, 0, al_get_bitmap_width(IMGFilelist[index]), al_get_bitmap_height(IMGFilelist[index]));
-	index = loadImgFile("SSStatusIcons.png");
-	if(index == -1) return;
-	IMGStatusSheet = al_create_sub_bitmap(IMGFilelist[index], 0, 0, al_get_bitmap_width(IMGFilelist[index]), al_get_bitmap_height(IMGFilelist[index]));
-	index = loadImgFile("gibs.png");
-	if(index == -1) return;
-	IMGBloodSheet = al_create_sub_bitmap(IMGFilelist[index], 0, 0, al_get_bitmap_width(IMGFilelist[index]), al_get_bitmap_height(IMGFilelist[index]));
-	index = loadImgFile("engravings_floor.png");
-	if(index == -1) return;
-	IMGEngFloorSheet = al_create_sub_bitmap(IMGFilelist[index], 0, 0, al_get_bitmap_width(IMGFilelist[index]), al_get_bitmap_height(IMGFilelist[index]));
-	index = loadImgFile("engravings_left.png");
-	if(index == -1) return;
-	IMGEngLeftSheet = al_create_sub_bitmap(IMGFilelist[index], 0, 0, al_get_bitmap_width(IMGFilelist[index]), al_get_bitmap_height(IMGFilelist[index]));
-	index = loadImgFile("engravings_right.png");
-	if(index == -1) return;
-	IMGEngRightSheet = al_create_sub_bitmap(IMGFilelist[index], 0, 0, al_get_bitmap_width(IMGFilelist[index]), al_get_bitmap_height(IMGFilelist[index]));
-	createEffectSprites();
+void loadGraphicsFromDisk()
+{
+    auto globulate = [](const char * filename, ALLEGRO_BITMAP *& imgd ) -> bool
+    {
+        int index;
+        ALLEGRO_PATH * p = al_create_path_for_directory("stonesense");
+        al_set_path_filename(p,filename);
+        index = loadImgFile(al_path_cstr(p,ALLEGRO_NATIVE_PATH_SEP));
+        if(index == -1)
+        {
+            al_destroy_path(p);
+            return false;
+        }
+        imgd = al_create_sub_bitmap(IMGFilelist[index], 0, 0, al_get_bitmap_width(IMGFilelist[index]), al_get_bitmap_height(IMGFilelist[index]));
+        al_destroy_path(p);
+        return true;
+    };
+    if(!globulate("objects.png", IMGObjectSheet)) return;
+    if(!globulate("creatures.png", IMGObjectSheet)) return;
+    if(!globulate("ramps.png", IMGObjectSheet)) return;
+    if(!globulate("SSStatusIcons.png", IMGObjectSheet)) return;
+    if(!globulate("gibs.png", IMGObjectSheet)) return;
+    if(!globulate("engravings_floor.png", IMGObjectSheet)) return;
+    if(!globulate("engravings_left.png", IMGObjectSheet)) return;
+    if(!globulate("engravings_right.png", IMGObjectSheet)) return;
+/*
+    al_set_path_filename(p,"creatures.png");
+    index = loadImgFile(al_path_cstr(p,ALLEGRO_NATIVE_PATH_SEP));
+    if(index == -1) return;
+    IMGCreatureSheet = al_create_sub_bitmap(IMGFilelist[index], 0, 0, al_get_bitmap_width(IMGFilelist[index]), al_get_bitmap_height(IMGFilelist[index]));
+
+    al_set_path_filename(p,"ramps.png");
+    index = loadImgFile(al_path_cstr(p,ALLEGRO_NATIVE_PATH_SEP));
+    if(index == -1) return;
+    IMGRampSheet = al_create_sub_bitmap(IMGFilelist[index], 0, 0, al_get_bitmap_width(IMGFilelist[index]), al_get_bitmap_height(IMGFilelist[index]));
+
+    index = loadImgFile("SSStatusIcons.png");
+    if(index == -1) return;
+    IMGStatusSheet = al_create_sub_bitmap(IMGFilelist[index], 0, 0, al_get_bitmap_width(IMGFilelist[index]), al_get_bitmap_height(IMGFilelist[index]));
+
+    index = loadImgFile("gibs.png");
+    if(index == -1) return;
+    IMGBloodSheet = al_create_sub_bitmap(IMGFilelist[index], 0, 0, al_get_bitmap_width(IMGFilelist[index]), al_get_bitmap_height(IMGFilelist[index]));
+
+    index = loadImgFile("engravings_floor.png");
+    if(index == -1) return;
+    IMGEngFloorSheet = al_create_sub_bitmap(IMGFilelist[index], 0, 0, al_get_bitmap_width(IMGFilelist[index]), al_get_bitmap_height(IMGFilelist[index]));
+
+    index = loadImgFile("engravings_left.png");
+    if(index == -1) return;
+    IMGEngLeftSheet = al_create_sub_bitmap(IMGFilelist[index], 0, 0, al_get_bitmap_width(IMGFilelist[index]), al_get_bitmap_height(IMGFilelist[index]));
+
+    index = loadImgFile("engravings_right.png");
+    if(index == -1) return;
+    IMGEngRightSheet = al_create_sub_bitmap(IMGFilelist[index], 0, 0, al_get_bitmap_width(IMGFilelist[index]), al_get_bitmap_height(IMGFilelist[index]));
+    */
+    createEffectSprites();
 }
 
 //delete and clean out the image files

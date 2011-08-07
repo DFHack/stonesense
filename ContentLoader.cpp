@@ -21,7 +21,7 @@ ContentLoader::~ContentLoader(void)
 	flushTerrainConfig(terrainFloorConfigs);
 	flushTerrainConfig(terrainBlockConfigs);	
 	flushCreatureConfig();
-	flushColorConfig(colorConfigs);
+	colorConfigs.clear();
 }
 
 void DumpMaterialNamesToDisk(vector<t_matgloss> material, const char* filename){
@@ -52,7 +52,7 @@ bool ContentLoader::Load( DFHack::Core& DF){
 	flushBuildingConfig(&customBuildingConfigs);
 	flushTerrainConfig(terrainFloorConfigs);
 	flushTerrainConfig(terrainBlockConfigs);
-	flushColorConfig(colorConfigs);
+    colorConfigs.clear();
 	creatureConfigs.clear();
 	treeConfigs.clear();
 	shrubConfigs.clear();
@@ -227,7 +227,9 @@ bool ContentLoader::Load( DFHack::Core& DF){
 	contentLoader->obsidian = lookupMaterialIndex(INORGANIC, "OBSIDIAN");
 
 	loadGraphicsFromDisk(); //these get destroyed when flushImgFiles is called.
-	bool overallResult = parseContentIndexFile( "index.txt" );
+    ALLEGRO_PATH * p = al_create_path("stonesense/index.txt");
+    bool overallResult = parseContentIndexFile( al_path_cstr(p, ALLEGRO_NATIVE_PATH_SEP) );
+    al_destroy_path(p);
 	translationComplete = false;
 
 	return true;
@@ -239,7 +241,7 @@ bool ContentLoader::reload_configs()
 	flushBuildingConfig(&customBuildingConfigs);
 	flushTerrainConfig(terrainFloorConfigs);
 	flushTerrainConfig(terrainBlockConfigs);
-	flushColorConfig(colorConfigs);
+    colorConfigs.clear();
 	creatureConfigs.clear();
 	treeConfigs.clear();
 	shrubConfigs.clear();
@@ -247,7 +249,9 @@ bool ContentLoader::reload_configs()
 	flushImgFiles();
 
 	loadGraphicsFromDisk(); //these get destroyed when flushImgFiles is called.
-	bool overallResult = parseContentIndexFile( "index.txt" );
+    ALLEGRO_PATH * p = al_create_path("stonesense/index.txt");
+    bool overallResult = parseContentIndexFile( al_path_cstr(p, ALLEGRO_NATIVE_PATH_SEP) );
+    al_destroy_path(p);
 
 	return overallResult;
 }

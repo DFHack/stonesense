@@ -206,17 +206,25 @@ inline bool readNode(SpriteNode* node, TiXmlElement* elemNode, TiXmlElement* ele
 
 bool includeFile(SpriteNode* node, TiXmlElement* includeNode, SpriteBlock* &oldSibling)
 {
-	string filenameStr("buildings/include/");
-	filenameStr.append(includeNode->Attribute("file"));
+    // get path... ugly
+    char configfilepath[FILENAME_BUFFERSIZE] = {0};
+    const char* documentRef = getDocument(includeNode);
 
-	TiXmlDocument doc( filenameStr.c_str() );
+    if (!getLocalFilename(configfilepath,includeNode->Attribute("file"),documentRef))
+    {
+        return false;
+    }
+    ALLEGRO_PATH * incpath = al_create_path(configfilepath);
+    al_append_path_component(incpath, "include");
+    TiXmlDocument doc( al_path_cstr(incpath, ALLEGRO_NATIVE_PATH_SEP) );
+    al_destroy_path(incpath);
 	bool loadOkay = doc.LoadFile();
 	TiXmlHandle hDoc(&doc);
 	TiXmlElement* elemParent;
 	if(!loadOkay)
 	{
 		contentError("Include failed",includeNode);
-		WriteErr("File load failed: %s\n",filenameStr.c_str());
+        WriteErr("File load failed: %s\n",configfilepath);
 		WriteErr("Line %d: %s\n",doc.ErrorRow(),doc.ErrorDesc());
 		return false;
 	}

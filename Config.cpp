@@ -554,21 +554,26 @@ void parseConfigLine( string line ){
 }
 
 
-bool loadConfigFile(){
-	string line;
-	ifstream myfile ("init.txt");
-	if (myfile.is_open() == false)
-	{
-		cout << "Cannot find init file" << endl;
-		return false;
-	}
+bool loadConfigFile()
+{
+    string line;
+    ALLEGRO_PATH * p =al_create_path("stonesense/init.txt");
+    const char * path = al_path_cstr(p,ALLEGRO_NATIVE_PATH_SEP);
+    ifstream myfile (path);
+    if (myfile.is_open() == false)
+    {
+        cout << "Cannot find init file" << endl;
+        al_destroy_path(p);
+        return false;
+    }
 
-	while ( !myfile.eof() )
-	{
-		getline (myfile,line);
-		cout << line << endl;
-		parseConfigLine( line );
-	}
-	myfile.close();
-	return true;
+    while ( !myfile.eof() )
+    {
+        getline (myfile,line);
+        cout << line << endl;
+        parseConfigLine( line );
+    }
+    myfile.close();
+    al_destroy_path(p);
+    return true;
 }

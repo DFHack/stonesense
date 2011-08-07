@@ -70,7 +70,7 @@ void parseFluidElement( TiXmlElement* elemFluid, int basefile)
 
 bool addSingleFluidConfig( TiXmlElement* elemRoot)
 {
-	int basefile = INVALID_INDEX;
+	int basefile = 0;
 	const char* filename = elemRoot->Attribute("file");
 	if (filename != NULL && filename[0] != 0)
 	{
