@@ -53,8 +53,11 @@ SET(PROJECT_SRCS
 
 #linux
 IF(UNIX)
-    SET(PROJECT_LIBS allegro allegro_primitives allegro_color allegro_dialog
-                     allegro_font allegro_image allegro_main allegro_ttf
+#    SET(PROJECT_LIBS allegro allegro_primitives allegro_color allegro_dialog
+#                     allegro_font allegro_image allegro_main allegro_ttf
+#                     ${PROJECT_LIBS})
+    SET(PROJECT_LIBS allegro-static allegro_primitives-static allegro_color-static allegro_dialog-static
+                     allegro_font-static allegro_image-static allegro_main-static allegro_ttf-static
                      ${PROJECT_LIBS})
 # windows
 ELSE(UNIX)
@@ -69,7 +72,8 @@ ELSE(UNIX)
     )
 ENDIF(UNIX)
 DFHACK_PLUGIN(stonesense ${PROJECT_SRCS} LINK_LIBRARIES ${PROJECT_LIBS})
+#install resources into DF/stonesense
 install(DIRECTORY resources/
-        DESTINATION "${DFHACK_DATA_DESTINATION}/stonesense"
+        DESTINATION "stonesense"
         PATTERN "CVS" EXCLUDE
         PATTERN ".svn" EXCLUDE)
