@@ -655,6 +655,9 @@ void c_sprite::draw_world_offset(int x, int y, int z, Block * b, int tileoffset,
 					int32_t viewz = drawz;
 					pointToScreen((int*)&drawx, (int*)&drawy, drawz);
 					drawx -= TILEWIDTH>>1;
+						
+					if(((drawx + spritewidth) < 0) || (drawx > al_get_bitmap_width(al_get_target_bitmap())) || ((drawy + spriteheight) < 0) || (drawy > al_get_bitmap_height(al_get_target_bitmap())))
+						return;
 
 					int sheetx, sheety;
 					if(tilelayout == BLOCKTILE)

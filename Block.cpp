@@ -128,6 +128,9 @@ void Block::Draw(){
 	pointToScreen((int*)&drawx, (int*)&drawy, drawz);
 	drawx -= TILEWIDTH>>1;
 
+	if(((drawx + TILEWIDTH) < 0) || (drawx > al_get_bitmap_width(al_get_target_bitmap())) || ((drawy + TILEHEIGHT + WALLHEIGHT + FLOORHEIGHT) < 0) || (drawy > al_get_bitmap_height(al_get_target_bitmap())))
+		return;
+
 	bool chopThisBlock = 0;
 
 	if(config.truncate_walls == 1) chopThisBlock = 1;
