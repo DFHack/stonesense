@@ -478,7 +478,20 @@ static void * stonesense_thread(ALLEGRO_THREAD * thred, void * parms)
 		stonesense_started = 0;
 		return NULL;
 	}
-
+    if(!al_is_keyboard_installed())
+    {
+        if (!al_install_keyboard())
+        {
+            DFConsole->printerr("Stonesense: al_install_keyboard failed\n");
+        }
+    }
+    if(!al_is_mouse_installed())
+    {
+        if (!al_install_mouse())
+        {
+            DFConsole->printerr("Stonesense: al_install_mouse failed\n");
+        }
+    }
 	SetTitle("Stonesense");
 
 	if(config.software)
@@ -630,20 +643,6 @@ DFhackCExport command_result stonesense_command(DFHack::Core * c, std::vector<st
 			DFConsole->printerr("al_init_ttf_addon failed. \n");
 			return CR_FAILURE;
 		}
-
-		if(!al_is_keyboard_installed())
-			if (!al_install_keyboard()) {
-				DFConsole->printerr("al_install_keyboard failed\n");
-				return CR_FAILURE;
-			}
-			if(!al_is_mouse_installed())
-			{
-				if (!al_install_mouse()) 
-				{
-					DFConsole->printerr("al_install_mouse failed\n");
-					return CR_FAILURE;
-				}
-			}
 	}
 
 	thread = al_create_thread(stonesense_thread, (void * )c);

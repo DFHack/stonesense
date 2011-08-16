@@ -56,11 +56,10 @@ IF(UNIX)
     OPTION(STONESENSE_STATIC "Static link allegro to Stonesense." OFF)
     IF(STONESENSE_STATIC)
         #this is terrible :(
-        SET(PROJECT_LIBS allegro-static allegro_primitives-static allegro_color-static allegro_dialog-static
+        #lions live here
+        SET(PROJECT_LIBS allegro-static allegro_primitives-static allegro_color-static
                          allegro_font-static allegro_image-static allegro_main-static allegro_ttf-static
-                         jpeg png z
-                         m pthread SM ICE X11 Xext Xcursor Xxf86vm Xinerama Xrandr Xpm GL GLU
-                         gtk-x11-2.0 gdk-x11-2.0 atk-1.0 gio-2.0 pangoft2-1.0 pangocairo-1.0 gdk_pixbuf-2.0 png14 cairo pango-1.0 freetype fontconfig gobject-2.0 gmodule gthread rt glib
+                         m pthread SM ICE X11 Xext Xcursor Xxf86vm Xinerama Xrandr Xpm GL GLU jpeg
                          ${PROJECT_LIBS})
     ELSE()
         SET(PROJECT_LIBS allegro allegro_primitives allegro_color allegro_dialog
