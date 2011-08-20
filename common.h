@@ -17,6 +17,7 @@
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_opengl.h>
 #include <allegro5/utf8.h>
+
 // allegro leaks X headers, undef some of it here:
 #undef TileShape
 // allegro also leaks stdint.h and some weird equivalent of it on windows. let's disable the copy leaked by dfhack.
