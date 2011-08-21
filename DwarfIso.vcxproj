@@ -225,6 +225,7 @@
     <ClCompile Include="GUI.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MapLoading.cpp" />
+    <ClCompile Include="Occlusion_Test.cpp" />
     <ClCompile Include="SpriteColors.cpp" />
     <ClCompile Include="SpriteMaps.cpp" />
     <ClCompile Include="SpriteObjects.cpp" />
@@ -445,7 +446,6 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Test|Win32'">true</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="dfhack\library\argstream\argstream.h" />
     <ClInclude Include="Block.h" />
     <ClInclude Include="BlockCondition.h" />
     <ClInclude Include="BlockFactory.h" />
@@ -458,6 +458,7 @@
     <ClInclude Include="GameBuildings.h" />
     <ClInclude Include="GUI.h" />
     <ClInclude Include="MapLoading.h" />
+    <ClInclude Include="Occlusion_Test.h" />
     <ClInclude Include="SpriteColors.h" />
     <ClInclude Include="SpriteMaps.h" />
     <ClInclude Include="SpriteObjects.h" />

@@ -54,6 +54,7 @@ Block::Block(WorldSegment* ownerSegment)
 	lightborders = 255;
 	creature = 0;
 	engraving_character = 0;
+	visible = true;
 }
 
 
@@ -94,7 +95,10 @@ inline ALLEGRO_BITMAP* imageSheet(t_subSprite sprite, ALLEGRO_BITMAP* defaultBmp
 	}
 }
 
-void Block::Draw(){
+void Block::Draw()
+{
+	if(!visible)
+		return;
 	if((material.type == INORGANIC) && (material.index == -1))
 	{
 		material.index = 0;
@@ -115,21 +119,20 @@ void Block::Draw(){
 	if(x == ownerSegment->x || x == ownerSegment->x + ownerSegment->sizex - 1) return;
 	if(y == ownerSegment->y || y == ownerSegment->y + ownerSegment->sizey - 1) return;
 	}*/
-	int32_t drawx = x;
-	int32_t drawy = y;
-	int32_t drawz = z; //- ownerSegment->sizez + 1;
+
+	drawx = x;
+	drawy = y;
+	drawz = z; //- ownerSegment->sizez + 1;
 
 
 	correctBlockForSegmetOffset( drawx, drawy, drawz);
 	correctBlockForRotation( drawx, drawy, drawz, ownerSegment->rotation);
-	int32_t viewx = drawx;
-	int32_t viewy = drawy;
-	int32_t viewz = drawz;
 	pointToScreen((int*)&drawx, (int*)&drawy, drawz);
 	drawx -= TILEWIDTH>>1;
 
 	if(((drawx + TILEWIDTH) < 0) || (drawx > al_get_bitmap_width(al_get_target_bitmap())) || ((drawy + TILEHEIGHT + WALLHEIGHT + FLOORHEIGHT) < 0) || (drawy > al_get_bitmap_height(al_get_target_bitmap())))
-		return;
+		visible = false;
+	else visible = true;
 
 	bool chopThisBlock = 0;
 
@@ -483,7 +486,10 @@ void Block::Drawcreaturetext(){
 
 }
 
-void Block::DrawRamptops(){
+void Block::DrawRamptops()
+{
+	if(!visible)
+		return;
 	if (ramp.type > 0)
 	{
 

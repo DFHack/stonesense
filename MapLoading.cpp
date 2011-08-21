@@ -7,6 +7,7 @@
 #include "GameBuildings.h"
 #include "Creatures.h"
 #include "ContentLoader.h"
+#include "Occlusion_Test.h"
 
 static DFHack::Core* pDFApiHandle = 0;
 static DFHack::Process * DFProc = 0;
@@ -398,7 +399,7 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
 			//option for including hidden blocks
 			isHidden &= !config.show_hidden_blocks;
 			bool shouldBeIncluded = (!isOpenTerrain(t) || b->water.index || !designations[lx][ly].bits.skyview) && !isHidden;
-            /*
+
 			//include hidden blocks as shaded black 
 			if(config.shade_hidden_blocks && isHidden && (isBlockOnVisibleEdgeOfSegment(&segment, b) || areNeighborsVisible(designations, lx, ly)))
 			{
@@ -417,7 +418,7 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
 				b->building.sprites.push_back( sprite );
 				shouldBeIncluded= true;
 			}
-*/
+
 			if( shouldBeIncluded )
 			{
 				//this only needs to be done for included blocks
@@ -934,8 +935,14 @@ void beautify_Segment(WorldSegment * segment)
 	TMR1_START;
 	//do misc beautification
 	uint32_t numblocks = segment->getNumBlocks();
+
 	for(uint32_t i=0; i < numblocks; i++){
 		Block* b = segment->getBlock(i);
+
+		occlude_block(b);
+
+		if(!b->visible)
+			continue;
 
 		//Grass
 		if(b->grasslevel > 0 && (

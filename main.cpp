@@ -15,6 +15,7 @@ using namespace std;
 #include "Creatures.h"
 #include "GroundMaterialConfiguration.h"
 #include "ContentLoader.h"
+#include "Occlusion_Test.h"
 
 #define WIDTH        640
 #define HEIGHT       480
@@ -453,6 +454,7 @@ static void * stonesense_thread(ALLEGRO_THREAD * thred, void * parms)
     contentLoader = new ContentLoader();
 	initRandomCube();
 	loadConfigFile();
+	init_masks();
 	if(!loadfont())
 	{
 		stonesense_started = 0;
