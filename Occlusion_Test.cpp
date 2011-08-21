@@ -1,6 +1,6 @@
 #include "common.h"
 #include <bitset>
-#include "block.h"
+#include "Block.h"
 #include "WorldSegment.h"
 #include "GUI.h"
 

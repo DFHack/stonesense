@@ -42,6 +42,7 @@ SET(PROJECT_SRCS
     GameBuildings.cpp
     GroundMaterialConfiguration.cpp
     MapLoading.cpp
+    Occlusion_Test.cpp
     SpriteColors.cpp
     SpriteMaps.cpp
     SpriteObjects.cpp
@@ -57,30 +58,30 @@ IF(UNIX)
     IF(STONESENSE_STATIC)
         #this is terrible :(
         #lions live here
-        ADD_DEFINITIONS("-DALLEGRO_STATICLINK")
-        SET(PROJECT_LIBS
-            allegro-static
-            allegro_primitives-static
-            allegro_font-static
-            allegro_image-static
-            allegro_ttf-static
-            m
-            pthread
-            SM
-            ICE
-            X11
-            Xext
-            Xcursor
-            Xxf86vm
-            Xinerama
-            Xrandr
-            Xpm
-            GL
-            GLU
-            jpeg
-            #png and freetype are already loaded by DF
-            ${PROJECT_LIBS}
-           )
+        #ADD_DEFINITIONS("-DALLEGRO_STATICLINK")
+        #SET(PROJECT_LIBS
+        #    allegro-static
+        #    allegro_primitives-static
+        #    allegro_font-static
+        #    allegro_image-static
+        #    allegro_ttf-static
+        #    m
+        #    pthread
+        #    SM
+        #    ICE
+        #    X11
+        #    Xext
+        #    Xcursor
+        #    Xxf86vm
+        #    Xinerama
+        #    Xrandr
+        #    Xpm
+        #    GL
+        #    GLU
+        #    jpeg
+        #    #png and freetype are already loaded by DF
+        #    ${PROJECT_LIBS}
+        #   )
     ELSE()
         SET(PROJECT_LIBS
             allegro
@@ -90,6 +91,21 @@ IF(UNIX)
             allegro_ttf
             ${PROJECT_LIBS}
            )
+        OPTION(STONESENSE_INTERNAL_SO "Link with prebuilt internal allegro libs and headers." ON)
+        IF(STONESENSE_INTERNAL_SO)
+            include_directories (
+                ${include_directories}
+                ${stonesense_SOURCE_DIR}/alleg-ssense/include-linux
+            )
+            LINK_DIRECTORIES(
+                ${LINK_DIRECTORIES}
+                ${stonesense_SOURCE_DIR}/alleg-ssense/bin-linux
+            )
+            install(DIRECTORY alleg-ssense/bin-linux/
+                    DESTINATION "stonesense/deplibs"
+                    PATTERN "CVS" EXCLUDE
+                    PATTERN ".svn" EXCLUDE)
+        ENDIF()
     ENDIF()
 # windows
 ELSE(UNIX)
@@ -120,14 +136,6 @@ ELSE(UNIX)
             shlwapi.lib
             $(NOINHERIT)
            )
-        include_directories (
-            ${include_directories}
-            ${stonesense_SOURCE_DIR}/alleg-ssense/include
-        )
-        LINK_DIRECTORIES(
-            ${LINK_DIRECTORIES}
-            ${stonesense_SOURCE_DIR}/alleg-ssense/lib
-        )
     ELSE()
         SET(PROJECT_LIBS
             kernel32.lib
@@ -151,15 +159,15 @@ ELSE(UNIX)
             glu32.lib
             $(NOINHERIT)
            )
-        include_directories (
-            ${include_directories}
-            ${stonesense_SOURCE_DIR}/alleg-ssense/include
-        )
-        LINK_DIRECTORIES(
-            ${LINK_DIRECTORIES}
-            ${stonesense_SOURCE_DIR}/alleg-ssense/lib
-        )
     ENDIF()
+    include_directories (
+        ${include_directories}
+        ${stonesense_SOURCE_DIR}/alleg-ssense/include
+    )
+    LINK_DIRECTORIES(
+        ${LINK_DIRECTORIES}
+        ${stonesense_SOURCE_DIR}/alleg-ssense/lib
+    )
 ENDIF(UNIX)
 DFHACK_PLUGIN(stonesense ${PROJECT_SRCS} LINK_LIBRARIES ${PROJECT_LIBS})
 #install resources into DF/stonesense
