@@ -541,16 +541,16 @@ void c_sprite::draw_screen(int x, int y)
 	int sheety = sheetindex / SHEET_OBJECTSWIDE;
 	if(fileindex == -1)
 	{
-#ifdef _DEBUG
-		config.drawcount ++;
-#endif
+		if(config.block_count)
+			config.drawcount ++;
+
 		al_draw_bitmap_region(IMGObjectSheet, sheetx * spritewidth, sheety * spriteheight, spritewidth, spriteheight, x + offset_x, y + offset_y, 0);
 	}
 	else 
 	{
-#ifdef _DEBUG
-		config.drawcount ++;
-#endif
+		if(config.block_count)
+			config.drawcount ++;
+
 		al_draw_bitmap_region(getImgFile(fileindex), sheetx * spritewidth, sheety * spriteheight, spritewidth, spriteheight, x + offset_x, y + (offset_y - WALLHEIGHT), 0);
 	}
 	if(!subsprites.empty())
@@ -626,21 +626,21 @@ void c_sprite::draw_world_offset(int x, int y, int z, Block * b, int tileoffset,
 					(grassmin <= b->grasslevel && (grassmax == -1 || grassmax >= b->grasslevel)) &&
 					((light==LIGHTANY) || ((light==LIGHTYES) && b->designation.bits.skyview) || ((light==LIGHTNO) && !(b->designation.bits.skyview)))  &&//only bother with this tile if it's in the light, or not.
 					((grasstype == -1) || (grasstype == b->grassmat)) &&
-						(
-							(grass_growth == GRASS_GROWTH_ANY) || 
-							(
-								(grass_growth == GRASS_GROWTH_NORMAL) && 
-								((tileTypeTable[b->tileType].material == GRASS) || (tileTypeTable[b->tileType].material == GRASS2))
-							) ||
-							(
-								(grass_growth == GRASS_GROWTH_DRY) && 
-								(tileTypeTable[b->tileType].material == GRASS_DRY)
-							) ||
-							(
-								(grass_growth == GRASS_GROWTH_DEAD) && 
-								(tileTypeTable[b->tileType].material == GRASS_DEAD)
-							)
-						)
+					(
+					(grass_growth == GRASS_GROWTH_ANY) || 
+					(
+					(grass_growth == GRASS_GROWTH_NORMAL) && 
+					((tileTypeTable[b->tileType].material == GRASS) || (tileTypeTable[b->tileType].material == GRASS2))
+					) ||
+					(
+					(grass_growth == GRASS_GROWTH_DRY) && 
+					(tileTypeTable[b->tileType].material == GRASS_DRY)
+					) ||
+					(
+					(grass_growth == GRASS_GROWTH_DEAD) && 
+					(tileTypeTable[b->tileType].material == GRASS_DEAD)
+					)
+					)
 					)
 				{
 					int32_t drawx = x;
@@ -655,7 +655,7 @@ void c_sprite::draw_world_offset(int x, int y, int z, Block * b, int tileoffset,
 					int32_t viewz = drawz;
 					pointToScreen((int*)&drawx, (int*)&drawy, drawz);
 					drawx -= TILEWIDTH>>1;
-						
+
 					if(((drawx + spritewidth) < 0) || (drawx > al_get_bitmap_width(al_get_target_bitmap())) || ((drawy + spriteheight) < 0) || (drawy > al_get_bitmap_height(al_get_target_bitmap())))
 						return;
 
@@ -691,22 +691,21 @@ void c_sprite::draw_world_offset(int x, int y, int z, Block * b, int tileoffset,
 					{
 						if(fileindex < 0)
 						{
-#ifdef _DEBUG
-							config.drawcount ++;
-#endif
+							if(config.block_count)
+								config.drawcount ++;
 							al_draw_tinted_bitmap_region(defaultsheet, premultiply(shade_color), sheetx, sheety+WALL_CUTOFF_HEIGHT, spritewidth, spriteheight-WALL_CUTOFF_HEIGHT, drawx + offset_x + offset_user_x, drawy + offset_user_y + (offset_y - WALLHEIGHT)+WALL_CUTOFF_HEIGHT, 0);
 						}
 						else 
 						{
-#ifdef _DEBUG
-							config.drawcount ++;
-#endif
+							if(config.block_count)
+								config.drawcount ++;
+
 							al_draw_tinted_bitmap_region(getImgFile(fileindex), premultiply(shade_color), sheetx, (sheety)+WALL_CUTOFF_HEIGHT, spritewidth, spriteheight-WALL_CUTOFF_HEIGHT, drawx + offset_x + offset_user_x, drawy + offset_user_y + (offset_y - WALLHEIGHT)+WALL_CUTOFF_HEIGHT, 0);
 						}
 						//draw cut-off floor thing
-#ifdef _DEBUG
-						config.drawcount ++;
-#endif
+						if(config.block_count)
+							config.drawcount ++;
+
 						al_draw_bitmap_region(IMGObjectSheet, 
 							TILEWIDTH * SPRITEFLOOR_CUTOFF, 0,
 							SPRITEWIDTH, SPRITEWIDTH, 
@@ -718,16 +717,16 @@ void c_sprite::draw_world_offset(int x, int y, int z, Block * b, int tileoffset,
 						{
 							if(fileindex < 0)
 							{
-#ifdef _DEBUG
-								config.drawcount ++;
-#endif
+								if(config.block_count)
+									config.drawcount ++;
+
 								al_draw_tinted_bitmap_region(defaultsheet, premultiply(shade_color), sheetx, sheety, spritewidth, spriteheight, drawx + offset_x + offset_user_x, drawy + offset_user_y + (offset_y - WALLHEIGHT), 0);
 							}
 							else 
 							{
-#ifdef _DEBUG
-								config.drawcount ++;
-#endif
+								if(config.block_count)
+									config.drawcount ++;
+
 								al_draw_tinted_bitmap_region(getImgFile(fileindex), premultiply(shade_color), sheetx, sheety, spritewidth, spriteheight, drawx + offset_x + offset_user_x, drawy + offset_user_y + (offset_y - WALLHEIGHT), 0);
 							}
 						}
@@ -834,14 +833,14 @@ ALLEGRO_COLOR c_sprite::get_color(void* block)
 			dayofLife = b->creature->birth_year*12*28 + b->creature->birth_time/1200;
 			if((!config.skipCreatureTypes) && (!config.skipCreatureTypesEx) && (!config.skipDescriptorColors))
 			{
-                t_creaturecaste & caste = contentLoader->Mats->raceEx[b->creature->race].castes[b->creature->caste];
-                std::vector<t_colormodifier> & colormods =caste.ColorModifier;
+				t_creaturecaste & caste = contentLoader->Mats->raceEx[b->creature->race].castes[b->creature->caste];
+				std::vector<t_colormodifier> & colormods =caste.ColorModifier;
 				for(unsigned int j = 0; j<b->creature->nbcolors ; j++)
 				{
-                    t_colormodifier & colormod = colormods[j];
-                    if(colormods[j].part == bodypart)
+					t_colormodifier & colormod = colormods[j];
+					if(colormods[j].part == bodypart)
 					{
-                        if(colormods[j].colorlist.size() > b->creature->color[j])
+						if(colormods[j].colorlist.size() > b->creature->color[j])
 						{
 							uint32_t cr_color = colormod.colorlist.at(b->creature->color[j]);
 							if(cr_color < contentLoader->Mats->color.size())
@@ -849,8 +848,8 @@ ALLEGRO_COLOR c_sprite::get_color(void* block)
 								if(colormod.startdate > 0)
 								{
 
-                                    if((colormod.startdate <= dayofLife) &&
-                                        (colormod.enddate > dayofLife))
+									if((colormod.startdate <= dayofLife) &&
+										(colormod.enddate > dayofLife))
 									{
 										return al_map_rgb_f(
 											contentLoader->Mats->color[cr_color].red,

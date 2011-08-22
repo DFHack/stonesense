@@ -182,6 +182,9 @@ typedef struct {
 
 	bool fog_of_war;
 
+	bool occlusion;
+	bool block_count;
+
 	uint16_t bloodcutoff;
 	uint16_t poolcutoff;
 	//follows are anti-crash things

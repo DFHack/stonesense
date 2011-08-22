@@ -113,7 +113,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>.\allegro;.\dfhack\include;.\depends\md5;.\depends\argstream;.\tinyxml;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\alleg-ssense\include;.\dfhack\include;.\depends\md5;.\depends\argstream;.\tinyxml;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <PrecompiledHeader>
@@ -125,10 +125,10 @@
     </ProjectReference>
     <Link>
       <AdditionalOptions>/fixed:no %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;allegro.lib;allegro_primitives.lib;allegro_font.lib;allegro_ttf.lib;allegro_image.lib;allegro_dialog.lib;libpng.lib;zdll.lib;winmm.lib;psapi.lib;opengl32.lib;glu32.lib;dfhack\SDL.lib</AdditionalDependencies>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;allegro.lib;allegro_primitives.lib;allegro_font.lib;allegro_ttf.lib;allegro_image.lib;libpng.lib;zdll.lib;winmm.lib;psapi.lib;opengl32.lib;glu32.lib;dfhack\SDL.lib</AdditionalDependencies>
       <OutputFile>..\..\..\peterix-dfhack-fedb615\build\VC2010\bin\plugins\stonesense.plug.dll</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <AdditionalLibraryDirectories>allegro\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>.\alleg-ssense\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>

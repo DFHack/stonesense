@@ -104,12 +104,11 @@ void Block::Draw()
 		material.index = 0;
 	}
 
-#ifdef _DEBUG
-	if(!(this->designation.bits.hidden) || config.show_hidden_blocks)
+	
+	if((!(this->designation.bits.hidden) || config.show_hidden_blocks) && config.block_count)
 	{
 		config.tilecount ++;
 	}
-#endif
 
 	bool defaultSnow = 1;
 	int sheetOffsetX, sheetOffsetY;
@@ -130,9 +129,8 @@ void Block::Draw()
 	pointToScreen((int*)&drawx, (int*)&drawy, drawz);
 	drawx -= TILEWIDTH>>1;
 
-	if(((drawx + TILEWIDTH) < 0) || (drawx > al_get_bitmap_width(al_get_target_bitmap())) || ((drawy + TILEHEIGHT + WALLHEIGHT + FLOORHEIGHT) < 0) || (drawy > al_get_bitmap_height(al_get_target_bitmap())))
-		visible = false;
-	else visible = true;
+	if(((drawx + TILEWIDTH) < 0) || (drawx > al_get_bitmap_width(al_get_target_bitmap())) || ((drawy + TILEHEIGHT + FLOORHEIGHT) < 0) || (drawy - WALLHEIGHT > al_get_bitmap_height(al_get_target_bitmap())))
+		return;
 
 	bool chopThisBlock = 0;
 

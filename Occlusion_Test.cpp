@@ -4,50 +4,20 @@
 #include "WorldSegment.h"
 #include "GUI.h"
 
-bitset<TILEHEIGHT+WALLHEIGHT+FLOORHEIGHT> base_mask_left;
-bitset<TILEHEIGHT+WALLHEIGHT+FLOORHEIGHT> base_mask_right;
-bitset<TILEHEIGHT+WALLHEIGHT+FLOORHEIGHT> wall_mask_center;
-bitset<TILEHEIGHT+WALLHEIGHT+FLOORHEIGHT> wall_mask_side;
-bitset<TILEHEIGHT+WALLHEIGHT+FLOORHEIGHT> floor_mask_center;
-bitset<TILEHEIGHT+WALLHEIGHT+FLOORHEIGHT> floor_mask_side;
+#define SCALE_FACTOR 4
 
-void init_masks()
-{
-	base_mask_left.set();
-	base_mask_right.set();
-	wall_mask_center.set();
-	wall_mask_side.set();
-	floor_mask_center.set();
-	floor_mask_side.set();
+#define S_TILE_HEIGHT 4
+#define S_FLOOR_HEIGHT 1
+#define S_WALL_HEIGHT 4
+#define S_BLOCK_HEIGHT (S_FLOOR_HEIGHT+S_WALL_HEIGHT)
+#define S_SPRITE_HEIGHT (S_BLOCK_HEIGHT+S_TILE_HEIGHT)
 
-	for(int i = 0; i < (TILEHEIGHT / 2 ) ; i++)
-	{
-		if(i >= wall_mask_side.size())
-			break;
-		wall_mask_side.set(i, false);
-	}
-	for(int i = 0; i < (WALLHEIGHT) ; i++)
-	{
-		if(i >= floor_mask_center.size())
-			break;
-		floor_mask_center.set(i, false);
-	}
-	for(int i = 0; i < (WALLHEIGHT + (TILEHEIGHT / 2) ) ; i++)
-	{
-		if(i >= floor_mask_side.size())
-			break;
-		floor_mask_side.set(i, false);
-	}
-	for(int i = TILEHEIGHT+WALLHEIGHT+FLOORHEIGHT - 1; i >= (WALLHEIGHT+FLOORHEIGHT + (TILEHEIGHT / 2 )) ; i--)
-	{
-		if(i >= floor_mask_side.size())
-			break;
-		floor_mask_side.set(i, false);
-		wall_mask_side.set(i, false);
-	}
-}
-
-
+bitset<2*S_SPRITE_HEIGHT> base_mask_left;
+bitset<2*S_SPRITE_HEIGHT> base_mask_right;
+bitset<2*S_SPRITE_HEIGHT> wall_mask_left;
+bitset<2*S_SPRITE_HEIGHT> wall_mask_right;
+bitset<2*S_SPRITE_HEIGHT> floor_mask_left;
+bitset<2*S_SPRITE_HEIGHT> floor_mask_right;
 
 bool is_block_solid(Block * b)
 {
@@ -65,26 +35,26 @@ void mask_center(Block * b, int offset)
 	{
 		if(offset >= 0)
 		{
-			base_mask_left &= ~(wall_mask_center << offset);
-			base_mask_right &= ~(wall_mask_center << offset);
+			base_mask_left &= ~(wall_mask_left << offset*2);
+			base_mask_right &= ~(wall_mask_right << offset*2);
 		}
 		else
 		{
-			base_mask_left &= ~(wall_mask_center >> abs(offset));
-			base_mask_right &= ~(wall_mask_center >> abs(offset));
+			base_mask_left &= ~(wall_mask_left >> -offset*2);
+			base_mask_right &= ~(wall_mask_right >> -offset*2);
 		}
 	}
-	else if(b->floorType)
+	else if(b->floorType || b->ramp.type)
 	{
 		if(offset >= 0)
 		{
-			base_mask_left &= ~(floor_mask_center << offset);
-			base_mask_right &= ~(floor_mask_center << offset);
+			base_mask_left &= ~(floor_mask_left << offset*2);
+			base_mask_right &= ~(floor_mask_right << offset*2);
 		}
 		else
 		{
-			base_mask_left &= ~(floor_mask_center >> abs(offset));
-			base_mask_right &= ~(floor_mask_center >> abs(offset));
+			base_mask_left &= ~(floor_mask_left >> -offset*2);
+			base_mask_right &= ~(floor_mask_right >> -offset*2);
 		}
 	}
 }
@@ -99,22 +69,22 @@ void mask_left(Block * b, int offset)
 	{
 		if(offset >= 0)
 		{
-			base_mask_left &= ~(wall_mask_side << offset);
+			base_mask_left &= ~(wall_mask_right << offset*2);
 		}
 		else
 		{
-			base_mask_left &= ~(wall_mask_side >> abs(offset));
+			base_mask_left &= ~(wall_mask_right >> -offset*2);
 		}
 	}
-	else if(b->floorType)
+	else if(b->floorType || b->ramp.type)
 	{
 		if(offset >= 0)
 		{
-			base_mask_left &= ~(floor_mask_center << offset);
+			base_mask_left &= ~(floor_mask_right << offset*2);
 		}
 		else
 		{
-			base_mask_left &= ~(floor_mask_center >> abs(offset));
+			base_mask_left &= ~(floor_mask_right >> -offset*2);
 		}
 	}
 }
@@ -129,23 +99,66 @@ void mask_right(Block * b, int offset)
 	{
 		if(offset >= 0)
 		{
-			base_mask_right &= ~(wall_mask_side << offset);
+			base_mask_right &= ~(wall_mask_left << offset*2);
 		}
 		else
 		{
-			base_mask_right &= ~(wall_mask_side >> abs(offset));
+			base_mask_right &= ~(wall_mask_left >> -offset*2);
 		}
 	}
-	else if(b->floorType)
+	else if(b->floorType || b->ramp.type)
 	{
 		if(offset >= 0)
 		{
-			base_mask_right &= ~(floor_mask_center << offset);
+			base_mask_right &= ~(floor_mask_left << offset*2);
 		}
 		else
 		{
-			base_mask_right &= ~(floor_mask_center >> abs(offset));
+			base_mask_right &= ~(floor_mask_left >> -offset*2);
 		}
+	}
+}
+
+void init_masks()
+{
+	//load up some mask files
+	int flags = al_get_new_bitmap_flags();
+	al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP);
+	ALLEGRO_BITMAP * wall = load_bitmap_withWarning("stonesense/mask_wall.png");
+	ALLEGRO_BITMAP * floor = load_bitmap_withWarning("stonesense/mask_floor.png");
+	al_set_new_bitmap_flags(flags);
+
+	//copy the mask to the bitsets. Each half is seperate to simplify things.
+	for(int y = 0; y < S_SPRITE_HEIGHT; y++)
+	{
+		wall_mask_left.set(0 + (y*2), al_get_pixel(wall, 0, y).r > 0.5);
+		wall_mask_left.set(1 + (y*2), al_get_pixel(wall, 1, y).r > 0.5);
+		wall_mask_right.set(0 + (y*2), al_get_pixel(wall, 2, y).r > 0.5);
+		wall_mask_right.set(1 + (y*2), al_get_pixel(wall, 3, y).r > 0.5);
+	}
+	for(int y = 0; y < S_SPRITE_HEIGHT; y++)
+	{
+		floor_mask_left.set(0 + (y*2), al_get_pixel(floor, 0, y).r > 0.5);
+		floor_mask_left.set(1 + (y*2), al_get_pixel(floor, 1, y).r > 0.5);
+		floor_mask_right.set(0 + (y*2), al_get_pixel(floor, 2, y).r > 0.5);
+		floor_mask_right.set(1 + (y*2), al_get_pixel(floor, 3, y).r > 0.5);
+	}
+
+	al_destroy_bitmap(wall);
+	al_destroy_bitmap(floor);
+
+	base_mask_left.set();
+	base_mask_right.set();
+	int offset = 4;
+	if(offset >= 0)
+	{
+		base_mask_left &= ~(wall_mask_left << offset*2);
+		base_mask_right &= ~(wall_mask_right << offset*2);
+	}
+	else
+	{
+		base_mask_left &= ~(wall_mask_left >> -offset*2);
+		base_mask_right &= ~(wall_mask_right >> -offset*2);
 	}
 }
 
@@ -187,35 +200,36 @@ void occlude_block(Block * b)
 	};
 
 	bool done = 0;
-
 	for(int relZ = 0; (relZ < distZ) && !done; relZ++)
 	{
-		int stepZ = relZ * (BLOCKHEIGHT) / (TILEHEIGHT + BLOCKHEIGHT);
+		int stepZ = relZ * S_BLOCK_HEIGHT / S_SPRITE_HEIGHT;
+		if(relZ > 0)
+			stepZ--;
 
-		for(int relXY = 0; (relXY <= (((TILEHEIGHT + BLOCKHEIGHT) / (TILEHEIGHT))+1)) && !done; relXY++)
+		for(int relXY = 0; (relXY <= (((TILEHEIGHT + BLOCKHEIGHT) / (TILEHEIGHT))+1)) && !done && relXY <= distX && relXY <= distY; relXY++)
 		{
 			int tempX = baseX + ((relXY + stepZ) * stepX);
 			int tempY = baseY + ((relXY + stepZ) * stepY);
 			int tempZ = baseZ + relZ;
 			//DFConsole->print("Base: %d,%d,%d. Current: %d,%d,%d. Offset: %d. \n", baseX, baseY, baseZ, tempX + stepX, tempY + stepY, tempZ, (((relXY + stepZ) + ((relXY + stepZ)) * TILEHEIGHT / 2) - (relZ * BLOCKHEIGHT)));
-			mask_center(segment->getBlock(tempX + stepX, tempY + stepY, tempZ), ((relXY + stepZ) + ((relXY + stepZ)) * TILEHEIGHT / 2) - (relZ * BLOCKHEIGHT));
+			mask_center(segment->getBlock(tempX + stepX, tempY + stepY, tempZ), ((relXY+stepZ) * S_TILE_HEIGHT + S_TILE_HEIGHT) - (relZ * S_BLOCK_HEIGHT));
 			if(base_mask_left.none() && base_mask_right.none())
 			{
 				done = true;
 				break;
 			}
-			//mask_left(segment->getBlockLocal(tempX, tempY+stepY, tempZ), (((relXY + relXY+stepY) * TILEHEIGHT / 2) - (relZ * BLOCKHEIGHT)));
-			//if(base_mask_left.none() && base_mask_right.none())
-			//{
-			//	done = true;
-			//	break;
-			//}
-			//mask_right(segment->getBlockLocal(tempX+stepX, tempY, tempZ), (((relXY+stepX + relXY) * TILEHEIGHT / 2) - (relZ * BLOCKHEIGHT)));
-			//if(base_mask_left.none() && base_mask_right.none())
-			//{
-			//	done = true;
-			//	break;
-			//}
+			mask_left(segment->getBlock(tempX, tempY + stepY, tempZ), ((relXY+stepZ) * S_TILE_HEIGHT + S_TILE_HEIGHT/2) - (relZ * S_BLOCK_HEIGHT));
+			if(base_mask_left.none() && base_mask_right.none())
+			{
+				done = true;
+				break;
+			}
+			mask_right(segment->getBlock(tempX + stepX, tempY, tempZ), ((relXY+stepZ) * S_TILE_HEIGHT + S_TILE_HEIGHT/2) - (relZ * S_BLOCK_HEIGHT));
+			if(base_mask_left.none() && base_mask_right.none())
+			{
+				done = true;
+				break;
+			}
 		}
 	}
 

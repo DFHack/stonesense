@@ -932,14 +932,15 @@ void beautify_Segment(WorldSegment * segment)
 {
 	if(!segment)
 		return;
-	TMR1_START;
+	clock_t start_time = clock();
 	//do misc beautification
 	uint32_t numblocks = segment->getNumBlocks();
 
 	for(uint32_t i=0; i < numblocks; i++){
 		Block* b = segment->getBlock(i);
 
-		occlude_block(b);
+		if(config.occlusion)
+			occlude_block(b);
 
 		if(!b->visible)
 			continue;
@@ -1106,7 +1107,7 @@ void beautify_Segment(WorldSegment * segment)
 		b->openborders = ~(b->floorborders|b->rampborders|b->wallborders|b->downstairborders|b->upstairborders);
 	}
 	segment->processed = 1;
-	TMR1_STOP;
+	segment->beautify_time = clock() - start_time;
 }
 
 void FollowCurrentDFWindow()
