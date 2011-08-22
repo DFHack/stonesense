@@ -22,6 +22,12 @@ bitset<2*S_SPRITE_HEIGHT> floor_mask_right;
 bool is_block_solid(Block * b)
 {
 	//fixme: glass, etc, needs to return false.
+	if(
+		b->material.type == 3 ||
+		b->material.type == 4 ||
+		b->material.type == 5 ||
+		b->material.type == 6)
+		return false;
 	return true;
 }
 
