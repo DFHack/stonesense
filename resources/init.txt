@@ -72,7 +72,7 @@ This value, in milliseconds, is how long Stonesense waits between
 reloading the map. If zero, the autoreload will be disabled until
 set with Numpad+. Note that this will only work if a DF map is
 ready when Stonesense loads.
-[AUTO_RELOAD_TIME:500]
+[AUTO_RELOAD_TIME:50]
 
 Amount to change the auto reload time with each press of Numpad+/-
 [AUTO_RELOAD_STEP:50]

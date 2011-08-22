@@ -308,7 +308,7 @@ static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALL
 	{
 		if (redraw && al_event_queue_is_empty(queue))
 		{
-			al_rest(ALLEGRO_MSECS_TO_SECS(30));
+			al_rest(0);
 			if(config.spriteIndexOverlay)
 			{
 				DrawSpriteIndexOverlay(config.currentSpriteOverlay);
