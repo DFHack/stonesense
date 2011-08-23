@@ -139,6 +139,14 @@ void Block::Draw()
 	else if(config.truncate_walls == 3 && (obscuringCreature == 1 || obscuringBuilding == 1)) chopThisBlock = 1;
 	else if(config.truncate_walls == 4 && obscuringBuilding == 1) chopThisBlock = 1;
 
+	if(building.info.type == BUILDINGTYPE_BLACKBOX)
+	{
+		DrawSpriteFromSheet( SPRITEOBJECT_BLACK, IMGObjectSheet, al_map_rgb(255,255,255), drawx, drawy+FLOORHEIGHT, this);
+		DrawSpriteFromSheet( SPRITEOBJECT_BLACK, IMGObjectSheet, al_map_rgb(255,255,255), drawx, drawy, this);
+		return;
+	}
+
+
 	ALLEGRO_COLOR tileBorderColor = al_map_rgb(85,85,85);
 	int rando = randomCube[x%RANDOM_CUBE][y%RANDOM_CUBE][z%RANDOM_CUBE];
 	//Draw Floor

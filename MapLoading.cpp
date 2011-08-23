@@ -403,19 +403,19 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
 			//include hidden blocks as shaded black 
 			if(config.shade_hidden_blocks && isHidden && (isBlockOnVisibleEdgeOfSegment(&segment, b) || areNeighborsVisible(designations, lx, ly)))
 			{
-				b->wallType = 0;
-				b->floorType = 0;
-				b->stairType = 0;
-				b->ramp.type = 0;
-				b->water.index = 0;
+				//b->wallType = 0;
+				//b->floorType = 0;
+				//b->stairType = 0;
+				//b->ramp.type = 0;
+				//b->water.index = 0;
 				b->building.info.type = BUILDINGTYPE_BLACKBOX;
-				static c_sprite sprite;
-				sprite.set_sheetindex(SPRITEOBJECT_BLACK);
-				sprite.set_defaultsheet(IMGObjectSheet);
-				sprite.set_offset(0, 4);
-				b->building.sprites.push_back( sprite );
-				sprite.set_offset(0, 0);
-				b->building.sprites.push_back( sprite );
+				//static c_sprite sprite;
+				//sprite.set_sheetindex(SPRITEOBJECT_BLACK);
+				//sprite.set_defaultsheet(IMGObjectSheet);
+				//sprite.set_offset(0, 4);
+				//b->building.sprites.push_back( sprite );
+				//sprite.set_offset(0, 0);
+				//b->building.sprites.push_back( sprite );
 				shouldBeIncluded= true;
 			}
 
