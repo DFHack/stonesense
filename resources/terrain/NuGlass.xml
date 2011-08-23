@@ -1,0 +1,192 @@
+<?xml version="1.0"?>
+<floors file="Nuglass.png">
+  <!-- construct -->
+  <floor sheetIndex="0" border_floor_NOR="2468" border_wall_NOR="2468" border_open_NOR="0">
+    <!-- floor -->
+    <terrain value="493" />
+    <material value="CrystalGlass" />
+    <subsprite sheetIndex="1" border_floor_NOR="468" border_wall_NOR="468" border_open_NOR="2" outline="0" />
+    <subsprite sheetIndex="2" border_floor_NOR="268" border_wall_NOR="268" border_open_NOR="4" outline="0" />
+    <subsprite sheetIndex="3" border_floor_NOR="68" border_wall_NOR="68" border_open_NOR="24" outline="0" />
+    <subsprite sheetIndex="4" border_floor_NOR="248" border_wall_NOR="248" border_open_NOR="6" outline="0" />
+    <subsprite sheetIndex="5" border_floor_NOR="48" border_wall_NOR="48" border_open_NOR="26" outline="0" />
+    <subsprite sheetIndex="6" border_floor_NOR="28" border_wall_NOR="28" border_open_NOR="46" outline="0" />
+    <subsprite sheetIndex="7" border_floor_NOR="8" border_wall_NOR="8" border_open_NOR="246" outline="0" />
+    <subsprite sheetIndex="8" border_floor_NOR="246" border_wall_NOR="246" border_open_NOR="8" outline="0" />
+    <subsprite sheetIndex="9" border_floor_NOR="46" border_wall_NOR="46" border_open_NOR="28" outline="0" />
+    <subsprite sheetIndex="10" border_floor_NOR="26" border_wall_NOR="26" border_open_NOR="48" outline="0" />
+    <subsprite sheetIndex="11" border_floor_NOR="6" border_wall_NOR="6" border_open_NOR="248" outline="0" />
+    <subsprite sheetIndex="12" border_floor_NOR="24" border_wall_NOR="24" border_open_NOR="68" outline="0" />
+    <subsprite sheetIndex="13" border_floor_NOR="4" border_wall_NOR="4" border_open_NOR="268" outline="0" />
+    <subsprite sheetIndex="14" border_floor_NOR="2" border_wall_NOR="2" border_open_NOR="468" outline="0" />
+    <subsprite sheetIndex="15" border_floor_NOR="0" border_wall_NOR="0" border_open_NOR="2468" outline="0" />
+  </floor>
+  <!-- construct -->
+  <floor sheetIndex="20" border_floor_NOR="2468" border_wall_NOR="2468" border_open_NOR="0" outline="0">
+    <!-- floor -->
+    <terrain value="493" />
+    <material value="ClearGlass" />
+    <subsprite sheetIndex="21" border_floor_NOR="468" border_wall_NOR="468" border_open_NOR="2" outline="0" />
+    <subsprite sheetIndex="22" border_floor_NOR="268" border_wall_NOR="268" border_open_NOR="4" outline="0" />
+    <subsprite sheetIndex="23" border_floor_NOR="68" border_wall_NOR="68" border_open_NOR="24" outline="0" />
+    <subsprite sheetIndex="24" border_floor_NOR="248" border_wall_NOR="248" border_open_NOR="6" outline="0" />
+    <subsprite sheetIndex="25" border_floor_NOR="48" border_wall_NOR="48" border_open_NOR="26" outline="0" />
+    <subsprite sheetIndex="26" border_floor_NOR="28" border_wall_NOR="28" border_open_NOR="46" outline="0" />
+    <subsprite sheetIndex="27" border_floor_NOR="8" border_wall_NOR="8" border_open_NOR="246" outline="0" />
+    <subsprite sheetIndex="28" border_floor_NOR="246" border_wall_NOR="246" border_open_NOR="8" outline="0" />
+    <subsprite sheetIndex="29" border_floor_NOR="46" border_wall_NOR="46" border_open_NOR="28" outline="0" />
+    <subsprite sheetIndex="30" border_floor_NOR="26" border_wall_NOR="26" border_open_NOR="48" outline="0" />
+    <subsprite sheetIndex="31" border_floor_NOR="6" border_wall_NOR="6" border_open_NOR="248" outline="0" />
+    <subsprite sheetIndex="32" border_floor_NOR="24" border_wall_NOR="24" border_open_NOR="68" outline="0" />
+    <subsprite sheetIndex="33" border_floor_NOR="4" border_wall_NOR="4" border_open_NOR="268" outline="0" />
+    <subsprite sheetIndex="34" border_floor_NOR="2" border_wall_NOR="2" border_open_NOR="468" outline="0" />
+    <subsprite sheetIndex="35" border_floor_NOR="0" border_wall_NOR="0" border_open_NOR="2468" outline="0" />
+  </floor>
+  <!-- construct -->
+  <floor sheetIndex="40" border_floor_NOR="2468" border_wall_NOR="2468"
+  border_open_NOR="0" outline="0">
+    <!-- floor -->
+    <terrain value="493" />
+    <material value="GreenGlass" />
+    <subsprite sheetIndex="41" border_floor_NOR="468" border_wall_NOR="468" border_open_NOR="2" outline="0" />
+    <subsprite sheetIndex="42" border_floor_NOR="268" border_wall_NOR="268" border_open_NOR="4" outline="0" />
+    <subsprite sheetIndex="43" border_floor_NOR="68" border_wall_NOR="68" border_open_NOR="24" outline="0" />
+    <subsprite sheetIndex="44" border_floor_NOR="248" border_wall_NOR="248" border_open_NOR="6" outline="0" />
+    <subsprite sheetIndex="45" border_floor_NOR="48" border_wall_NOR="48" border_open_NOR="26" outline="0" />
+    <subsprite sheetIndex="46" border_floor_NOR="28" border_wall_NOR="28" border_open_NOR="46" outline="0" />
+    <subsprite sheetIndex="47" border_floor_NOR="8" border_wall_NOR="8" border_open_NOR="246" outline="0" />
+    <subsprite sheetIndex="48" border_floor_NOR="246" border_wall_NOR="246" border_open_NOR="8" outline="0" />
+    <subsprite sheetIndex="49" border_floor_NOR="46" border_wall_NOR="46" border_open_NOR="28" outline="0" />
+    <subsprite sheetIndex="50" border_floor_NOR="26" border_wall_NOR="26" border_open_NOR="48" outline="0" />
+    <subsprite sheetIndex="51" border_floor_NOR="6" border_wall_NOR="6" border_open_NOR="248" outline="0" />
+    <subsprite sheetIndex="52" border_floor_NOR="24" border_wall_NOR="24" border_open_NOR="68" outline="0" />
+    <subsprite sheetIndex="53" border_floor_NOR="4" border_wall_NOR="4" border_open_NOR="268" outline="0" />
+    <subsprite sheetIndex="54" border_floor_NOR="2" border_wall_NOR="2" border_open_NOR="468" outline="0" />
+    <subsprite sheetIndex="55" border_floor_NOR="0" border_wall_NOR="0" border_open_NOR="2468" outline="0" />
+  </floor>
+  <!-- construct -->
+  <floor sheetIndex="60" border_floor_NOR="2468" border_wall_NOR="2468" border_open_NOR="0"
+  outline="0">
+    <!-- pillar -->
+    <terrain value="495" />
+    <!-- wall -->
+    <terrain value="496" />
+    <terrain value="497" />
+    <terrain value="498" />
+    <terrain value="499" />
+    <terrain value="500" />
+    <terrain value="501" />
+    <terrain value="502" />
+    <terrain value="503" />
+    <terrain value="504" />
+    <terrain value="505" />
+    <terrain value="506" />
+    <terrain value="507" />
+    <terrain value="508" />
+    <terrain value="509" />
+    <terrain value="510" />
+    <terrain value="511" />
+    <terrain value="512" />
+    <terrain value="513" />
+    <terrain value="514" />
+    <material value="CrystalGlass" />
+    <subsprite sheetIndex="41" border_floor_NOR="468" border_wall_NOR="468" border_open_NOR="2" outline="0" />
+    <subsprite sheetIndex="42" border_floor_NOR="268" border_wall_NOR="268" border_open_NOR="4" outline="0" />
+    <subsprite sheetIndex="43" border_floor_NOR="68" border_wall_NOR="68" border_open_NOR="24" outline="0" />
+    <subsprite sheetIndex="44" border_floor_NOR="248" border_wall_NOR="248" border_open_NOR="6" outline="0" />
+    <subsprite sheetIndex="45" border_floor_NOR="48" border_wall_NOR="48" border_open_NOR="26" outline="0" />
+    <subsprite sheetIndex="46" border_floor_NOR="28" border_wall_NOR="28" border_open_NOR="46" outline="0" />
+    <subsprite sheetIndex="47" border_floor_NOR="8" border_wall_NOR="8" border_open_NOR="246" outline="0" />
+    <subsprite sheetIndex="48" border_floor_NOR="246" border_wall_NOR="246" border_open_NOR="8" outline="0" />
+    <subsprite sheetIndex="49" border_floor_NOR="46" border_wall_NOR="46" border_open_NOR="28" outline="0" />
+    <subsprite sheetIndex="70" border_floor_NOR="26" border_wall_NOR="26" border_open_NOR="48" outline="0" />
+    <subsprite sheetIndex="71" border_floor_NOR="6" border_wall_NOR="6" border_open_NOR="248" outline="0" />
+    <subsprite sheetIndex="72" border_floor_NOR="24" border_wall_NOR="24" border_open_NOR="68" outline="0" />
+    <subsprite sheetIndex="73" border_floor_NOR="4" border_wall_NOR="4" border_open_NOR="268" outline="0" />
+    <subsprite sheetIndex="74" border_floor_NOR="2" border_wall_NOR="2" border_open_NOR="468" outline="0" />
+    <subsprite sheetIndex="75" border_floor_NOR="0" border_wall_NOR="0" border_open_NOR="2468" outline="0" />
+  </floor>
+  <!-- construct -->
+  <floor sheetIndex="80" border_floor_NOR="2468" border_wall_NOR="2468" border_open_NOR="0"
+  outline="0">
+    <!-- pillar -->
+    <terrain value="495" />
+    <!-- wall -->
+    <terrain value="496" />
+    <terrain value="497" />
+    <terrain value="498" />
+    <terrain value="499" />
+    <terrain value="500" />
+    <terrain value="501" />
+    <terrain value="502" />
+    <terrain value="503" />
+    <terrain value="504" />
+    <terrain value="505" />
+    <terrain value="506" />
+    <terrain value="507" />
+    <terrain value="508" />
+    <terrain value="509" />
+    <terrain value="510" />
+    <terrain value="511" />
+    <terrain value="512" />
+    <terrain value="513" />
+    <terrain value="514" />
+    <material value="ClearGlass" />
+    <subsprite sheetIndex="81" border_floor_NOR="468" border_wall_NOR="468" border_open_NOR="2" outline="0" />
+    <subsprite sheetIndex="82" border_floor_NOR="268" border_wall_NOR="268" border_open_NOR="4" outline="0" />
+    <subsprite sheetIndex="83" border_floor_NOR="68" border_wall_NOR="68" border_open_NOR="24" outline="0" />
+    <subsprite sheetIndex="84" border_floor_NOR="248" border_wall_NOR="248" border_open_NOR="6" outline="0" />
+    <subsprite sheetIndex="85" border_floor_NOR="48" border_wall_NOR="48" border_open_NOR="26" outline="0" />
+    <subsprite sheetIndex="86" border_floor_NOR="28" border_wall_NOR="28" border_open_NOR="46" outline="0" />
+    <subsprite sheetIndex="87" border_floor_NOR="8" border_wall_NOR="8" border_open_NOR="246" outline="0" />
+    <subsprite sheetIndex="88" border_floor_NOR="246" border_wall_NOR="246" border_open_NOR="8" outline="0" />
+    <subsprite sheetIndex="89" border_floor_NOR="46" border_wall_NOR="46" border_open_NOR="28" outline="0" />
+    <subsprite sheetIndex="90" border_floor_NOR="26" border_wall_NOR="26" border_open_NOR="48" outline="0" />
+    <subsprite sheetIndex="91" border_floor_NOR="6" border_wall_NOR="6" border_open_NOR="248" outline="0" />
+    <subsprite sheetIndex="92" border_floor_NOR="24" border_wall_NOR="24" border_open_NOR="68" outline="0" />
+    <subsprite sheetIndex="93" border_floor_NOR="4" border_wall_NOR="4" border_open_NOR="268" outline="0" />
+    <subsprite sheetIndex="94" border_floor_NOR="2" border_wall_NOR="2" border_open_NOR="468" outline="0" />
+    <subsprite sheetIndex="95" border_floor_NOR="0" border_wall_NOR="0" border_open_NOR="2468" outline="0" />
+  </floor>
+  <!-- construct -->
+  <floor sheetIndex="100" border_floor_NOR="2468" border_wall_NOR="2468" border_open_NOR="0" outline="0">
+    <!-- pillar -->
+    <terrain value="495" />
+    <!-- wall -->
+    <terrain value="496" />
+    <terrain value="497" />
+    <terrain value="498" />
+    <terrain value="499" />
+    <terrain value="500" />
+    <terrain value="501" />
+    <terrain value="502" />
+    <terrain value="503" />
+    <terrain value="504" />
+    <terrain value="505" />
+    <terrain value="506" />
+    <terrain value="507" />
+    <terrain value="508" />
+    <terrain value="509" />
+    <terrain value="510" />
+    <terrain value="511" />
+    <terrain value="512" />
+    <terrain value="513" />
+    <terrain value="514" />
+    <material value="GreenGlass" />
+    <subsprite sheetIndex="101" border_floor_NOR="468" border_wall_NOR="468" border_open_NOR="2" outline="0" />
+    <subsprite sheetIndex="102" border_floor_NOR="268" border_wall_NOR="268" border_open_NOR="4" outline="0" />
+    <subsprite sheetIndex="103" border_floor_NOR="68" border_wall_NOR="68" border_open_NOR="24" outline="0" />
+    <subsprite sheetIndex="104" border_floor_NOR="248" border_wall_NOR="248" border_open_NOR="6" outline="0" />
+    <subsprite sheetIndex="105" border_floor_NOR="48" border_wall_NOR="48" border_open_NOR="26" outline="0" />
+    <subsprite sheetIndex="106" border_floor_NOR="28" border_wall_NOR="28" border_open_NOR="46" outline="0" />
+    <subsprite sheetIndex="107" border_floor_NOR="8" border_wall_NOR="8" border_open_NOR="246" outline="0" />
+    <subsprite sheetIndex="108" border_floor_NOR="246" border_wall_NOR="246" border_open_NOR="8" outline="0" />
+    <subsprite sheetIndex="109" border_floor_NOR="46" border_wall_NOR="46" border_open_NOR="28" outline="0" />
+    <subsprite sheetIndex="110" border_floor_NOR="26" border_wall_NOR="26" border_open_NOR="48" outline="0" />
+    <subsprite sheetIndex="111" border_floor_NOR="6" border_wall_NOR="6" border_open_NOR="248" outline="0" />
+    <subsprite sheetIndex="112" border_floor_NOR="24" border_wall_NOR="24" border_open_NOR="68" outline="0" />
+    <subsprite sheetIndex="113" border_floor_NOR="4" border_wall_NOR="4" border_open_NOR="268" outline="0" />
+    <subsprite sheetIndex="114" border_floor_NOR="2" border_wall_NOR="2" border_open_NOR="468" outline="0" />
+    <subsprite sheetIndex="115" border_floor_NOR="0" border_wall_NOR="0" border_open_NOR="2468" outline="0" />
+  </floor>
+</floors>

@@ -1,3 +1,6 @@
+NuGlass.xml
+NuGlass_Walls.xml
+
 #DarkTundra/index.txt
 
 #floorborders.xml
