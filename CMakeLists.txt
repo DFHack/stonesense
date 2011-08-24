@@ -93,18 +93,31 @@ IF(UNIX)
            )
         OPTION(STONESENSE_INTERNAL_SO "Link with prebuilt internal allegro libs and headers." ON)
         IF(STONESENSE_INTERNAL_SO)
+            SET(PROJECT_LIBS
+                ${stonesense_SOURCE_DIR}/alleg-ssense/bin-linux/liballegro.so.5.0
+                ${stonesense_SOURCE_DIR}/alleg-ssense/bin-linux/liballegro_primitives.so.5.0
+                ${stonesense_SOURCE_DIR}/alleg-ssense/bin-linux/liballegro_font.so.5.0
+                ${stonesense_SOURCE_DIR}/alleg-ssense/bin-linux/liballegro_image.so.5.0
+                ${stonesense_SOURCE_DIR}/alleg-ssense/bin-linux/liballegro_ttf.so.5.0
+                ${PROJECT_LIBS}
+            )
             include_directories (
                 ${include_directories}
                 ${stonesense_SOURCE_DIR}/alleg-ssense/include-linux
-            )
-            LINK_DIRECTORIES(
-                ${LINK_DIRECTORIES}
-                ${stonesense_SOURCE_DIR}/alleg-ssense/bin-linux
             )
             install(DIRECTORY alleg-ssense/bin-linux/
                     DESTINATION "stonesense/deplibs"
                     PATTERN "CVS" EXCLUDE
                     PATTERN ".svn" EXCLUDE)
+        ELSE()
+            SET(PROJECT_LIBS
+                allegro
+                allegro_primitives
+                allegro_font
+                allegro_image
+                allegro_ttf
+                ${PROJECT_LIBS}
+            )
         ENDIF()
     ENDIF()
 # windows
