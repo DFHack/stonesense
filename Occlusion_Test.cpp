@@ -28,6 +28,8 @@ bool is_block_solid(Block * b)
 		b->material.type == 5 ||
 		b->material.type == 6)
 		return false;
+	if(tileTypeTable[b->tileType].shape == BROOK_TOP)
+		return false;
 	return true;
 }
 
@@ -37,7 +39,7 @@ void mask_center(Block * b, int offset)
 		return;
 	if(!is_block_solid(b))
 		return;
-	if(b->wallType)
+	if(b->wallType && tileTypeTable[b->tileType].shape != BROOK_BED)
 	{
 		if(offset >= 0)
 		{
@@ -50,7 +52,7 @@ void mask_center(Block * b, int offset)
 			base_mask_right &= ~(wall_mask_right >> -offset*2);
 		}
 	}
-	else if(b->floorType || b->ramp.type)
+	else if(b->floorType || b->ramp.type || tileTypeTable[b->tileType].shape != BROOK_BED)
 	{
 		if(offset >= 0)
 		{
@@ -71,7 +73,7 @@ void mask_left(Block * b, int offset)
 		return;
 	if(!is_block_solid(b))
 		return;
-	if(b->wallType)
+	if(b->wallType && tileTypeTable[b->tileType].shape != BROOK_BED)
 	{
 		if(offset >= 0)
 		{
@@ -82,7 +84,7 @@ void mask_left(Block * b, int offset)
 			base_mask_left &= ~(wall_mask_right >> -offset*2);
 		}
 	}
-	else if(b->floorType || b->ramp.type)
+	else if(b->floorType || b->ramp.type || tileTypeTable[b->tileType].shape != BROOK_BED)
 	{
 		if(offset >= 0)
 		{
@@ -101,7 +103,7 @@ void mask_right(Block * b, int offset)
 		return;
 	if(!is_block_solid(b))
 		return;
-	if(b->wallType)
+	if(b->wallType && tileTypeTable[b->tileType].shape != BROOK_BED)
 	{
 		if(offset >= 0)
 		{
@@ -112,7 +114,7 @@ void mask_right(Block * b, int offset)
 			base_mask_right &= ~(wall_mask_left >> -offset*2);
 		}
 	}
-	else if(b->floorType || b->ramp.type)
+	else if(b->floorType || b->ramp.type || tileTypeTable[b->tileType].shape != BROOK_BED)
 	{
 		if(offset >= 0)
 		{
