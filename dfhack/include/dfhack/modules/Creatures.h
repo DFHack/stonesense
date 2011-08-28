@@ -1,10 +1,35 @@
+/*
+https://github.com/peterix/dfhack
+Copyright (c) 2009-2011 Petr Mrázek (peterix@gmail.com)
+
+This software is provided 'as-is', without any express or implied
+warranty. In no event will the authors be held liable for any
+damages arising from the use of this software.
+
+Permission is granted to anyone to use this software for any
+purpose, including commercial applications, and to alter it and
+redistribute it freely, subject to the following restrictions:
+
+1. The origin of this software must not be misrepresented; you must
+not claim that you wrote the original software. If you use this
+software in a product, an acknowledgment in the product documentation
+would be appreciated but is not required.
+
+2. Altered source versions must be plainly marked as such, and
+must not be misrepresented as being the original software.
+
+3. This notice may not be removed or altered from any source
+distribution.
+*/
+
+#pragma once
 #ifndef CL_MOD_CREATURES
 #define CL_MOD_CREATURES
 /*
 * Creatures
 */
-#include "dfhack/DFExport.h"
-#include "dfhack/DFModule.h"
+#include "dfhack/Export.h"
+#include "dfhack/Module.h"
 #include "dfhack/modules/Items.h"
 /**
  * \defgroup grp_creatures Creatures module parts
@@ -107,6 +132,40 @@ namespace DFHack
             unsigned int breathing_problem : 1; /*!< Breathing -- having a problem */
             unsigned int roaming_wilderness_population_source : 1;
             unsigned int roaming_wilderness_population_source_not_a_map_feature : 1;
+        } bits;
+    };
+
+    union t_creaturflags3
+    {
+        uint32_t whole; /*!< Access all flags as a single 32bit number. */
+        struct
+        {
+            unsigned int unk0 : 1; /*!< Is 1 for new and dead creatures,
+                                     periodicaly set to 0 for non-dead creatures.
+                                     */
+            unsigned int unk1 : 1; /*!< Is 1 for new creatures, periodically set
+                                     to 0 for non-dead creatures. */
+            unsigned int unk2 : 1; /*!< Is set to 1 every tick for non-dead
+                                     creatures. */
+            unsigned int unk3 : 1; /*!< Is periodically set to 0 for non-dead
+                                     creatures. */
+            unsigned int announce_titan : 1; /*!< Announces creature like an
+                                               FB or titan. */
+            unsigned int unk5 : 1; 
+            unsigned int unk6 : 1; 
+            unsigned int unk7 : 1; 
+            unsigned int unk8 : 1; /*!< Is set to 1 every tick for non-dead
+                                     creatures. */
+            unsigned int unk9 : 1; /*!< Is set to 0 every tick for non-dead
+                                     creatures. */
+            unsigned int scuttle : 1; /*!< Scuttle creature: causes creature
+                                        to be killed, leaving a behind corpse
+                                        and generating negative thoughts like
+                                        a real kill. */
+            unsigned int unk11 : 1;
+            unsigned int ghostly : 1; /*!< Creature is a ghost. */
+
+            unsigned int unk13_31 : 19;
         } bits;
     };
 
@@ -260,6 +319,7 @@ namespace DFHack
 
         t_creaturflags1 flags1;
         t_creaturflags2 flags2;
+        t_creaturflags3 flags3;
 
         t_name name;
 
@@ -304,7 +364,7 @@ namespace DFHack
     class DFHACK_EXPORT Creatures : public Module
     {
     public:
-        Creatures(DFHack::DFContextShared * d);
+        Creatures();
         ~Creatures();
         bool Start( uint32_t & numCreatures );
         bool Finish();
@@ -317,8 +377,14 @@ namespace DFHack
             const uint16_t x2, const uint16_t y2,const uint16_t z2);
         bool ReadCreature(const int32_t index, t_creature & furball);
         bool ReadJob(const t_creature * furball, std::vector<t_material> & mat);
+
         bool ReadInventoryIdx(const uint32_t index, std::vector<uint32_t> & item);
         bool ReadInventoryPtr(const uint32_t index, std::vector<uint32_t> & item);
+
+        bool ReadOwnedItemsIdx(const uint32_t index, std::vector<int32_t> & item);
+        bool ReadOwnedItemsPtr(const uint32_t index, std::vector<int32_t> & item);
+
+        int32_t FindIndexById(int32_t id);
 
         /* Getters */
         uint32_t GetDwarfRaceIndex ( void );
@@ -328,6 +394,7 @@ namespace DFHack
         bool WriteLabors(const uint32_t index, uint8_t labors[NUM_CREATURE_LABORS]);
         bool WriteHappiness(const uint32_t index, const uint32_t happinessValue);
         bool WriteFlags(const uint32_t index, const uint32_t flags1, const uint32_t flags2);
+        bool WriteFlags(const uint32_t index, const uint32_t flags1, const uint32_t flags2, uint32_t flags3);
         bool WriteSkills(const uint32_t index, const t_soul &soul);
         bool WriteAttributes(const uint32_t index, const t_creature &creature);
         bool WriteSex(const uint32_t index, const uint8_t sex);
@@ -337,6 +404,14 @@ namespace DFHack
         bool WriteJob(const t_creature * furball, std::vector<t_material> const& mat);
         bool WritePos(const uint32_t index, const t_creature &creature);
         bool WriteCiv(const uint32_t index, const int32_t civ);
+        bool WritePregnancy(const uint32_t index, const uint32_t pregTimer);
+
+        void CopyNameTo(t_creature &creature, uint32_t address);
+
+    protected:
+        friend class Items;
+        bool RemoveOwnedItemIdx(const uint32_t index, int32_t id);
+        bool RemoveOwnedItemPtr(const uint32_t index, int32_t id);
 
     private:
         struct Private;

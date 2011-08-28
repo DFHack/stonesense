@@ -8,7 +8,7 @@
 #include "dfhack/depends/tinyxml/tinyxml.h"
 #include "GUI.h"
 
-ContentLoader contentLoader;
+ContentLoader * contentLoader;
 
 
 
@@ -21,14 +21,14 @@ ContentLoader::~ContentLoader(void)
 	flushTerrainConfig(terrainFloorConfigs);
 	flushTerrainConfig(terrainBlockConfigs);	
 	flushCreatureConfig();
-	flushColorConfig(colorConfigs);
+	colorConfigs.clear();
 }
 
 void DumpMaterialNamesToDisk(vector<t_matgloss> material, const char* filename){
 	FILE* fp = fopen(filename, "w");
 	if(!fp) return;
 	for(uint32_t j=0; j < material.size(); j++){
-		fprintf(fp, "%i:%s\n",j, material[j].id);
+		fprintf(fp, "%i:%s\n",j, material[j].id.c_str());
 	}
 	fclose(fp);
 }
@@ -41,7 +41,7 @@ void DumpPrefessionNamesToDisk(vector<string> material, const char* filename){
 	}
 	fclose(fp);
 }
-bool ContentLoader::Load( DFHack::Context& DF){
+bool ContentLoader::Load( DFHack::Core& DF){
 	/*draw_textf_border(font, 
 	al_get_bitmap_width(al_get_target_bitmap())/2,
 	al_get_bitmap_height(al_get_target_bitmap())/2,
@@ -52,7 +52,7 @@ bool ContentLoader::Load( DFHack::Context& DF){
 	flushBuildingConfig(&customBuildingConfigs);
 	flushTerrainConfig(terrainFloorConfigs);
 	flushTerrainConfig(terrainBlockConfigs);
-	flushColorConfig(colorConfigs);
+    colorConfigs.clear();
 	creatureConfigs.clear();
 	treeConfigs.clear();
 	shrubConfigs.clear();
@@ -61,12 +61,6 @@ bool ContentLoader::Load( DFHack::Context& DF){
 	// This is an extra suspend/resume, but it only happens when reloading the config
 	// ie not enough to worry about
 	//DF.Suspend();
-
-	if(!DF.isAttached())
-	{
-		WriteErr("FAIL");
-		return false;
-	}
 	////read data from DF
 	//const vector<string> *tempClasses = DF.getMemoryInfo()->getClassIDMapping();
 	//// make a copy for our use
@@ -178,7 +172,7 @@ bool ContentLoader::Load( DFHack::Context& DF){
 	}
 	try
 	{
-		contentLoader.MemInfo = DF.getMemoryInfo();
+		contentLoader->MemInfo = DF.vinfo;
 	}
 	catch(exception &e)
 	{
@@ -217,8 +211,8 @@ bool ContentLoader::Load( DFHack::Context& DF){
 		}
 	}
 
-	civzoneNum = TranslateBuildingName("building_civzonest", contentLoader.classIdStrings );
-	stockpileNum = TranslateBuildingName("building_stockpilest", contentLoader.classIdStrings );
+	civzoneNum = TranslateBuildingName("building_civzonest", contentLoader->classIdStrings );
+	stockpileNum = TranslateBuildingName("building_stockpilest", contentLoader->classIdStrings );
 
 	//DumpPrefessionNamesToDisk(professionStrings, "priofessiondump.txt");
 	//DumpPrefessionNamesToDisk(classIdStrings, "buildingdump.txt");
@@ -230,10 +224,12 @@ bool ContentLoader::Load( DFHack::Context& DF){
 	//time to copy all the junk from mats to contentloader.
 	this->organic = Mats->organic;
 	this->inorganic = Mats->inorganic;
-	contentLoader.obsidian = lookupMaterialIndex(INORGANIC, "OBSIDIAN");
+	contentLoader->obsidian = lookupMaterialIndex(INORGANIC, "OBSIDIAN");
 
 	loadGraphicsFromDisk(); //these get destroyed when flushImgFiles is called.
-	bool overallResult = parseContentIndexFile( "index.txt" );
+    ALLEGRO_PATH * p = al_create_path("stonesense/index.txt");
+    bool overallResult = parseContentIndexFile( al_path_cstr(p, ALLEGRO_NATIVE_PATH_SEP) );
+    al_destroy_path(p);
 	translationComplete = false;
 
 	return true;
@@ -245,7 +241,7 @@ bool ContentLoader::reload_configs()
 	flushBuildingConfig(&customBuildingConfigs);
 	flushTerrainConfig(terrainFloorConfigs);
 	flushTerrainConfig(terrainBlockConfigs);
-	flushColorConfig(colorConfigs);
+    colorConfigs.clear();
 	creatureConfigs.clear();
 	treeConfigs.clear();
 	shrubConfigs.clear();
@@ -253,7 +249,9 @@ bool ContentLoader::reload_configs()
 	flushImgFiles();
 
 	loadGraphicsFromDisk(); //these get destroyed when flushImgFiles is called.
-	bool overallResult = parseContentIndexFile( "index.txt" );
+    ALLEGRO_PATH * p = al_create_path("stonesense/index.txt");
+    bool overallResult = parseContentIndexFile( al_path_cstr(p, ALLEGRO_NATIVE_PATH_SEP) );
+    al_destroy_path(p);
 
 	return overallResult;
 }
@@ -281,7 +279,7 @@ bool getLocalFilename(char * buffer, const char* filename, const char* relativet
 	return true;
 }
 
-bool ContentLoader::parseContentIndexFile( char* filepath )
+bool ContentLoader::parseContentIndexFile( const char* filepath )
 {
 	/*
 	al_clear_to_color(al_map_rgb(0,0,0));
@@ -358,7 +356,7 @@ bool ContentLoader::parseContentIndexFile( char* filepath )
 	return true;
 }
 
-bool ContentLoader::parseContentXMLFile( char* filepath ){
+bool ContentLoader::parseContentXMLFile( const char* filepath ){
 	/*
 	al_clear_to_color(al_map_rgb(0,0,0));
 	draw_textf_border(font, al_get_bitmap_width(al_get_target_bitmap())/2,
@@ -484,47 +482,30 @@ char getAnimFrames(const char* framestring)
 	return aframes;
 }
 
-int lookupIndexedType(const char* indexName, vector<t_matgloss>& typeVector)
-{
-	if (indexName == NULL || indexName[0] == 0)
-	{
-		return INVALID_INDEX;	
-	}
-	uint32_t vsize = (uint32_t)typeVector.size();
-	for(uint32_t i=0; i < vsize; i++){
-		if (strcmp(indexName,typeVector[i].id) == 0)
-			return i;
-	}
-	return INVALID_INDEX;
-}
-
 int lookupMaterialIndex(int matType, const char* strValue)
 {
-	vector<t_matgloss>* typeVector;
-	// for appropriate elements, look up subtype
-	if ((matType == INORGANIC) && (!config.skipInorganicMats))
-	{
-		typeVector=&(contentLoader.inorganic);
-	}
-	else if ((matType == WOOD) && (!config.skipOrganicMats))
-	{
-		typeVector=&(contentLoader.organic);
-	}
-	else if ((matType == PLANTCLOTH) && (!config.skipOrganicMats))
-	{
-		typeVector=&(contentLoader.organic);
-	}
-	else if (matType == LEATHER)
-	{
-		if(!config.skipCreatureTypes);
-		typeVector=&(contentLoader.Mats->race);
-	}
-	else
-	{
-		//maybe allow some more in later
-		return INVALID_INDEX;
-	}
-	return lookupIndexedType(strValue,*typeVector);
+    // for appropriate elements, look up subtype
+    if (matType == INORGANIC && !config.skipInorganicMats)
+    {
+        return lookupIndexedType(strValue,contentLoader->inorganic);
+    }
+    else if (matType == WOOD && !config.skipOrganicMats)
+    {
+        return lookupIndexedType(strValue,contentLoader->organic);
+    }
+    else if (matType == PLANTCLOTH && !config.skipOrganicMats)
+    {
+        return lookupIndexedType(strValue,contentLoader->organic);
+    }
+    else if (matType == LEATHER && !config.skipCreatureTypes)
+    {
+        return lookupIndexedType(strValue,contentLoader->Mats->race);
+    }
+    else
+    {
+        //maybe allow some more in later
+        return INVALID_INDEX;
+    }
 }
 
 const char *lookupMaterialTypeName(int matType)
@@ -588,20 +569,24 @@ const char *lookupMaterialName(int matType,int matIndex)
 	// for appropriate elements, look up subtype
 	if ((matType == INORGANIC) && (!config.skipInorganicMats))
 	{
-		typeVector=&(contentLoader.inorganic);
+        if(matIndex < contentLoader->inorganic.size())
+        {
+            return contentLoader->inorganic[0].id.c_str();
+        }
+        else return NULL;
 	}
 	else if ((matType == WOOD) && (!config.skipOrganicMats))
 	{
-		typeVector=&(contentLoader.organic);
+		typeVector=&(contentLoader->organic);
 	}
 	else if ((matType == PLANTCLOTH) && (!config.skipOrganicMats))
 	{
-		typeVector=&(contentLoader.organic);
+		typeVector=&(contentLoader->organic);
 	}
 	else if (matType == LEATHER)
 	{
 		if(!config.skipCreatureTypes)
-			typeVector=&(contentLoader.Mats->race);
+			typeVector=&(contentLoader->Mats->race);
 	}
 	else
 	{
@@ -610,7 +595,7 @@ const char *lookupMaterialName(int matType,int matIndex)
 	}
 	if (matIndex >= typeVector->size())
 		return NULL;
-	return (*typeVector)[matIndex].id;
+	return (*typeVector)[matIndex].id.c_str();
 }
 
 const char *lookupTreeName(int matIndex)
@@ -621,10 +606,10 @@ const char *lookupTreeName(int matIndex)
 		return NULL;
 	vector<t_matgloss>* typeVector;
 	// for appropriate elements, look up subtype
-	typeVector=&(contentLoader.organic);
+	typeVector=&(contentLoader->organic);
 	if (matIndex >= typeVector->size())
 		return NULL;
-	return (*typeVector)[matIndex].id;
+	return (*typeVector)[matIndex].id.c_str();
 }
 
 const char * lookupFormName(int formType)
@@ -647,7 +632,7 @@ const char * lookupFormName(int formType)
 uint8_t lookupMaterialFore(int matType,int matIndex)
 {
 	if (matIndex < 0)
-		return NULL;
+		return 0;
 	vector<t_matgloss>* typeVector;
 	//// for appropriate elements, look up subtype
 	//if (matType == Mat_Wood)
@@ -665,17 +650,17 @@ uint8_t lookupMaterialFore(int matType,int matIndex)
 	//else
 	//{
 	//maybe allow some more in later
-	return NULL;
+	return 0;
 	//}
 	if (matIndex >= typeVector->size())
-		return NULL;
+		return 0;
 	return (*typeVector)[matIndex].fore;
 }
 
 uint8_t lookupMaterialBack(int matType,int matIndex)
 {
 	if (matIndex < 0)
-		return NULL;
+		return 0;
 	vector<t_matgloss>* typeVector;
 	//// for appropriate elements, look up subtype
 	//if (matType == Mat_Wood)
@@ -693,17 +678,17 @@ uint8_t lookupMaterialBack(int matType,int matIndex)
 	//else
 	//{
 	//maybe allow some more in later
-	return NULL;
+	return 0;
 	//}
 	if (matIndex >= typeVector->size())
-		return NULL;
+		return 0;
 	return (*typeVector)[matIndex].back;
 }
 
 uint8_t lookupMaterialBright(int matType,int matIndex)
 {
 	if (matIndex < 0)
-		return NULL;
+		return 0;
 	vector<t_matgloss>* typeVector;
 	//// for appropriate elements, look up subtype
 	//if (matType == Mat_Wood)
@@ -721,10 +706,10 @@ uint8_t lookupMaterialBright(int matType,int matIndex)
 	//else
 	//{
 	//maybe allow some more in later
-	return NULL;
+	return 0;
 	//}
 	if (matIndex >= typeVector->size())
-		return NULL;
+		return 0;
 	return (*typeVector)[matIndex].bright;
 }
 
@@ -753,21 +738,21 @@ void ContentLoader::flushCreatureConfig()
 }
 ALLEGRO_COLOR lookupMaterialColor(int matType,int matIndex)
 {
-	if (matType >= contentLoader.colorConfigs.size())
+	if (matType >= contentLoader->colorConfigs.size())
 	{
 		return al_map_rgb(255, 255, 255);
 	}
 	if (matIndex < 0)
 	{
-		return contentLoader.colorConfigs.at(matType).color;
+		return contentLoader->colorConfigs.at(matType).color;
 	}
-	if (matIndex >= contentLoader.colorConfigs.at(matType).colorMaterials.size())
+	if (matIndex >= contentLoader->colorConfigs.at(matType).colorMaterials.size())
 	{
 		return al_map_rgb(255, 255, 255);
 	}
-	if (contentLoader.colorConfigs.at(matType).colorMaterials.at(matIndex).colorSet)
+	if (contentLoader->colorConfigs.at(matType).colorMaterials.at(matIndex).colorSet)
 	{
-		return contentLoader.colorConfigs.at(matType).colorMaterials.at(matIndex).color;
+		return contentLoader->colorConfigs.at(matType).colorMaterials.at(matIndex).color;
 	}
 	else return al_map_rgb(255, 255, 255);
 }

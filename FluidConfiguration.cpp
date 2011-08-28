@@ -52,29 +52,30 @@ void parseFluidElement( TiXmlElement* elemFluid, int basefile)
 
 	if(type)
 	{
-		if(contentLoader.lava[level-1].fluidset == 0)
+		if(contentLoader->lava[level-1].fluidset == 0)
 		{
-			contentLoader.lava[level-1].sprite = tempSprite;
-			contentLoader.lava[level-1].fluidset = 1;
+			contentLoader->lava[level-1].sprite = tempSprite;
+			contentLoader->lava[level-1].fluidset = 1;
 		}
 	}
 	else
 	{
-		if(contentLoader.water[level-1].fluidset == 0)
+		if(contentLoader->water[level-1].fluidset == 0)
 		{
-			contentLoader.water[level-1].sprite = tempSprite;
-			contentLoader.water[level-1].fluidset = 1;
+			contentLoader->water[level-1].sprite = tempSprite;
+			contentLoader->water[level-1].fluidset = 1;
 		}
 	}
 }
 
 bool addSingleFluidConfig( TiXmlElement* elemRoot)
 {
-	int basefile = INVALID_INDEX;
+	int basefile = 0;
 	const char* filename = elemRoot->Attribute("file");
 	if (filename != NULL && filename[0] != 0)
 	{
 		basefile = loadConfigImgFile((char*)filename,elemRoot);
+		if(basefile == -1) return false;
 	}
 
 	string elementType = elemRoot->Value();

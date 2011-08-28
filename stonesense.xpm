@@ -1,5 +1,5 @@
 /* XPM */
-static char * stonesense_xpm[] = {
+static const char * stonesense_xpm[] = {
 "16 16 15 1",
 " 	c None",
 ".	c #025811",

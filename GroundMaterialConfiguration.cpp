@@ -45,8 +45,8 @@ TerrainConfiguration::~TerrainConfiguration()
 void DumpInorganicMaterialNamesToDisk(){
 	FILE* fp = fopen("dump.txt", "w");
 	if(!fp) return;
-	for(uint32_t j=0; j < contentLoader.inorganic.size(); j++){
-		fprintf(fp, "%i:%s\n",j, contentLoader.inorganic[j].id);
+	for(uint32_t j=0; j < contentLoader->inorganic.size(); j++){
+		fprintf(fp, "%i:%s\n",j, contentLoader->inorganic[j].id.c_str());
 	}
 	fclose(fp);
 }
@@ -240,6 +240,7 @@ bool addSingleTerrainConfig( TiXmlElement* elemRoot){
 	if (filename != NULL && filename[0] != 0)
 	{
 		basefile = loadConfigImgFile((char*)filename,elemRoot);
+		if(basefile == -1) return false;
 	}
 
 	string elementType = elemRoot->Value();
@@ -247,7 +248,7 @@ bool addSingleTerrainConfig( TiXmlElement* elemRoot){
 		//parse floors
 		TiXmlElement* elemFloor = elemRoot->FirstChildElement("floor");
 		while( elemFloor ){
-			parseWallFloorSpriteElement( elemFloor, contentLoader.terrainFloorConfigs, basefile, true);
+			parseWallFloorSpriteElement( elemFloor, contentLoader->terrainFloorConfigs, basefile, true);
 			elemFloor = elemFloor->NextSiblingElement("floor");
 		}
 	}
@@ -255,7 +256,7 @@ bool addSingleTerrainConfig( TiXmlElement* elemRoot){
 		//parse walls
 		TiXmlElement* elemWall = elemRoot->FirstChildElement("block");
 		while( elemWall ){
-			parseWallFloorSpriteElement( elemWall, contentLoader.terrainBlockConfigs, basefile, false);
+			parseWallFloorSpriteElement( elemWall, contentLoader->terrainBlockConfigs, basefile, false);
 			elemWall = elemWall->NextSiblingElement("block");
 		}
 	}

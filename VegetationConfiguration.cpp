@@ -31,6 +31,7 @@ bool addSingleVegetationConfig( TiXmlElement* elemRoot,  vector<VegetationConfig
 	if (filename != NULL && filename[0] != 0)
 	{
 		basefile = loadConfigImgFile((char*)filename, elemRoot);
+		if(basefile == -1) return false;
 	}
 
 	TiXmlElement* elemTree;

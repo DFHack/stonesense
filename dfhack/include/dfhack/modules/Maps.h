@@ -1,13 +1,41 @@
+/*
+https://github.com/peterix/dfhack
+Copyright (c) 2009-2011 Petr Mrázek (peterix@gmail.com)
+
+This software is provided 'as-is', without any express or implied
+warranty. In no event will the authors be held liable for any
+damages arising from the use of this software.
+
+Permission is granted to anyone to use this software for any
+purpose, including commercial applications, and to alter it and
+redistribute it freely, subject to the following restrictions:
+
+1. The origin of this software must not be misrepresented; you must
+not claim that you wrote the original software. If you use this
+software in a product, an acknowledgment in the product documentation
+would be appreciated but is not required.
+
+2. Altered source versions must be plainly marked as such, and
+must not be misrepresented as being the original software.
+
+3. This notice may not be removed or altered from any source
+distribution.
+*/
+
 /*******************************************************************************
                                     M A P S
                             Read and write DF's map
 *******************************************************************************/
+#pragma once
 #ifndef CL_MOD_MAPS
 #define CL_MOD_MAPS
 
-#include "dfhack/DFExport.h"
-#include "dfhack/DFModule.h"
-#include "Vegetation.h"
+#include "dfhack/Export.h"
+#include "dfhack/Module.h"
+#include "dfhack/modules/Vegetation.h"
+#include <vector>
+#include "dfhack/Virtual.h"
+#include <dfhack/BitArray.h>
 
 /**
  * \defgroup grp_maps Maps module and its types
@@ -119,85 +147,109 @@ namespace DFHack
         uint32_t origin;
     };
 
+
     /**
      * mineral vein object - bitmap with a material type
      * \ingroup grp_maps
      */
-    struct t_vein
+    struct t_vein : public t_virtual
     {
-        uint32_t vtable;
         /// index into the inorganic material vector
         int32_t type;
         /// bit mask describing how the vein maps to the map block
         /// assignment[y] & (1 << x) describes the tile (x, y) of the block
         int16_t assignment[16];
         uint32_t flags;
-        /// this is NOT part of the DF vein, but an address of the vein as seen by DFhack.
-        uint32_t address_of; 
+
+        //zilpin: Functions to more conveniently check the assignment flags of the vein.
+        //Coordinates are given in tile within the block.
+        //Important to make these inline.
+        inline bool getassignment( DFCoord & xy )
+        {
+            return getassignment(xy.x,xy.y);
+        }
+        inline bool getassignment( int x, int y )
+        {
+            return (assignment[y] & (1 << x));
+        }
+        inline void setassignment( DFCoord & xy, bool bit )
+        {
+            return setassignment(xy.x,xy.y, bit);
+        }
+        inline void setassignment( int x, int y, bool bit )
+        {
+            if(bit)
+                assignment[y] |= (1 << x);
+            else
+                assignment[y] &= 0xFFFF ^ (1 << x);
+        }
     };
 
     /**
      * stores what tiles should appear when the ice melts - bitmap of material types
      * \ingroup grp_maps
      */
-    struct t_frozenliquidvein
+    struct t_frozenliquidvein : public t_virtual
     {
-        uint32_t vtable;
         /// a 16x16 array of the original tile types
         int16_t tiles[16][16];
-        /// this is NOT part of the DF vein, but an address of the vein as seen by DFhack.
-        uint32_t address_of;
     };
-
+    /**
+     * \ingroup grp_maps
+     */
+    enum e_matter_state
+    {
+        state_solid,
+        state_liquid,
+        state_gas,
+        state_powder,
+        state_paste,
+        state_pressed
+    };
     /**
      * a 'spattervein' defines what coverings the individual map tiles have (snow, blood, etc)
      * bitmap of intensity with matrial type
      * \ingroup grp_maps
      * @see PrintSplatterType
      */
-    struct t_spattervein
+    struct t_spattervein : public t_virtual
     {
-        uint32_t vtable;
         /// generic material.
         uint16_t mat1;
+        /// possibly alignment artifact
         uint16_t unk1;
         /// material vector index
         uint32_t mat2;
-        /// something even more specific?
-        uint16_t mat3;
+        /**
+         * matter state - liquid/solid/etc.
+         * @ref e_matter_state
+         */
+        uint16_t matter_state;
         /// 16x16 array of covering 'intensity'
         uint8_t intensity[16][16];
-        /// this is NOT part of the DF vein, but an address of the vein as seen by DFhack.
-        uint32_t address_of;
     };
     /**
      * a 'grass vein' defines the grass coverage of a map block
      * bitmap of density (max = 100) with plant material type
      * \ingroup grp_maps
      */
-    struct t_grassvein
+    struct t_grassvein : public t_virtual
     {
-        uint32_t vtable;
         /// material vector index
         uint32_t material;
         /// 16x16 array of covering 'intensity'
         uint8_t intensity[16][16];
-        /// this is NOT part of the DF vein, but an address of the vein as seen by DFhack.
-        uint32_t address_of;
     };
     /**
      * defines the world constructions present. The material member is a mystery.
      * \ingroup grp_maps
      */
-    struct t_worldconstruction
+    struct t_worldconstruction : public t_virtual
     {
-        uint32_t vtable;
         /// material vector index
         uint32_t material;
         /// 16x16 array of bits
         uint16_t assignment[16];
-        /// this is NOT part of the structure, but an address of it as seen by DFhack.
-        uint32_t address_of;
     };
 
     /**
@@ -409,10 +461,18 @@ namespace DFHack
         unsigned int liquid_1 : 1;
         unsigned int liquid_2 : 1;
         /// rest of the flags is completely unknown
-        unsigned int unk_2: 28;
-        // there's a possibility that this flags field is shorter than 32 bits
+        unsigned int unk_2: 4;
     };
-
+    enum e_block_flags
+    {
+        /// designated for jobs (digging and stuff like that)
+        BLOCK_DESIGNATED,
+        /// possibly related to the designated flag
+        BLOCK_UNKN1,
+        /// two flags required for liquid flow.
+        BLOCK_LIQUIDFLOW_1,
+        BLOCK_LIQUIDFLOW_2,
+    };
     /**
      * map block flags wrapper
      * \ingroup grp_maps
@@ -447,7 +507,7 @@ namespace DFHack
      * array of 16 biome indexes valid for the block
      * \ingroup grp_maps
      */
-    typedef uint8_t biome_indices40d [16];
+    typedef uint8_t biome_indices40d [9];
     /**
      * 16x16 array of temperatures
      * \ingroup grp_maps
@@ -478,7 +538,98 @@ namespace DFHack
         int32_t mystery;
     } mapblock40d;
 
-    class DFContextShared;
+    // A raw DF block.
+    // one of the vector is the 'effects' vector. another should be item id/index vector
+    struct df_block
+    {
+        BitArray <e_block_flags> flags;
+        // how to handle this virtual mess?
+        std::vector <t_virtual *> block_events;
+        // no idea what these are
+        long unk1;
+        long unk2;
+        long unk3;
+        // feature indexes
+        signed long local_feature;  // local feature index, -1 = no local feature
+        signed long global_feature; // global feature index, -1 = no global feature
+        signed long mystery; // no idea. couldn't manage to catch its use in debugger.
+        // more mysterious numbers
+        long unk4;
+        long unk5;
+        long unk6;
+        std::vector <unsigned long> items; // item related - probly item IDs
+        std::vector <void *> effects;
+        signed long unk7; // -1 most of the time, another index?
+        unsigned long unk8; // again, index?
+        std::vector<df_plant *> plants;
+        unsigned short map_x;
+        unsigned short map_y;
+        unsigned short map_z;
+        unsigned short region_x;
+        unsigned short region_y;
+        unsigned short tiletype[16][16]; // weird 2-byte alignment here
+        t_designation designation[16][16];
+        t_occupancy occupancy[16][16];
+        // following is uncertain, but total length should be fixed.
+        unsigned char unk9[16][16];
+        unsigned long pathfinding[16][16];
+        unsigned short unk10[16][16];
+        unsigned short unk11[16][16];
+        unsigned short unk12[16][16];
+        // end uncertain section
+        unsigned short temperature_1[16][16];
+        unsigned short temperature_2[16][16];
+        // no idea again. needs research...
+        unsigned short unk13[16][16];
+        unsigned short unk14[16][16];
+        unsigned char region_offset[9];
+    };
+    template <typename T>
+    struct df_array
+    {
+        inline T& operator[] (uint32_t index)
+        {
+            return array[index];
+        };
+        T * array;
+    };
+    template <typename T>
+    struct df_2darray
+    {
+        inline df_array<T>& operator[] (uint32_t index)
+        {
+            return array[index];
+        };
+        df_array <T> * array;
+    };
+    template <typename T>
+    struct df_3darray
+    {
+        inline df_2darray<T>& operator[] (uint32_t index)
+        {
+            return array[index];
+        };
+        inline bool operator! ()
+        {
+            return !array;
+        }
+        df_2darray <T> * array;
+    };
+    struct map_data
+    {
+        df_3darray<df_block *> map;
+        std::vector <void *> unk1;
+        void * unk2;
+        uint32_t x_size_blocks;
+        uint32_t y_size_blocks;
+        uint32_t z_size_blocks;
+        uint32_t x_size;
+        uint32_t y_size;
+        uint32_t z_size;
+        int32_t  x_area_offset;
+        int32_t  y_area_offset;
+        int32_t  z_area_offset;
+    };
     /**
      * The Maps module
      * \ingroup grp_modules
@@ -487,8 +638,10 @@ namespace DFHack
     class DFHACK_EXPORT Maps : public Module
     {
         public:
+        // the map data of DF, as we know it.
+        map_data * mdata;
         
-        Maps(DFHack::DFContextShared * d);
+        Maps();
         ~Maps();
         bool Start();
         bool Finish();
@@ -551,6 +704,10 @@ namespace DFHack
          */
         bool ReadFeatures(uint32_t x, uint32_t y, uint32_t z, int16_t & local, int16_t & global);
         /**
+         * Set the feature indexes of a block
+         */
+        bool WriteFeatures(uint32_t x, uint32_t y, uint32_t z, const int16_t & local, const int16_t & global);
+        /**
          * Get pointers to features of a block
          */
         bool ReadFeatures(uint32_t x, uint32_t y, uint32_t z, t_feature ** local, t_feature ** global);
@@ -580,60 +737,61 @@ namespace DFHack
         void getPosition(int32_t& x, int32_t& y, int32_t& z);
 
         /**
-         * Return false/0 on failure, buffer allocated by client app, 256 items long
+         * Get the map block or NULL if block is not valid
          */
-        bool isValidBlock(uint32_t blockx, uint32_t blocky, uint32_t blockz);
+        df_block * getBlock (uint32_t blockx, uint32_t blocky, uint32_t blockz);
 
-        /**
-         * Get the address of a block or 0 if block is not valid
-         */
-        uint32_t getBlockPtr (uint32_t blockx, uint32_t blocky, uint32_t blockz);
-
-        /// read the whole map block at block coords (see DFTypes.h for the block structure)
+        /// copy the whole map block at block coords (see DFTypes.h for the block structure)
         bool ReadBlock40d(uint32_t blockx, uint32_t blocky, uint32_t blockz, mapblock40d * buffer);
 
-        /// read/write block tile types
+        /// copy/write block tile types
         bool ReadTileTypes(uint32_t blockx, uint32_t blocky, uint32_t blockz, tiletypes40d *buffer);
         bool WriteTileTypes(uint32_t blockx, uint32_t blocky, uint32_t blockz, tiletypes40d *buffer);
 
-        /// read/write block designations
+        /// copy/write block designations
         bool ReadDesignations(uint32_t blockx, uint32_t blocky, uint32_t blockz, designations40d *buffer);
         bool WriteDesignations (uint32_t blockx, uint32_t blocky, uint32_t blockz, designations40d *buffer);
 
-        /// read/write temperatures
+        /// copy/write temperatures
         bool ReadTemperatures(uint32_t blockx, uint32_t blocky, uint32_t blockz, t_temperatures *temp1, t_temperatures *temp2);
         bool WriteTemperatures (uint32_t blockx, uint32_t blocky, uint32_t blockz, t_temperatures *temp1, t_temperatures *temp2);
 
-        /// read/write block occupancies
+        /// copy/write block occupancies
         bool ReadOccupancy(uint32_t blockx, uint32_t blocky, uint32_t blockz, occupancies40d *buffer);
         bool WriteOccupancy(uint32_t blockx, uint32_t blocky, uint32_t blockz, occupancies40d *buffer);
 
-        /// read/write the block dirty bit - this is used to mark a map block so that DF scans it for designated jobs like digging
+        /// copy/write the block dirty bit - this is used to mark a map block so that DF scans it for designated jobs like digging
         bool ReadDirtyBit(uint32_t blockx, uint32_t blocky, uint32_t blockz, bool &dirtybit);
         bool WriteDirtyBit(uint32_t blockx, uint32_t blocky, uint32_t blockz, bool dirtybit);
 
-        /// read/write the block flags
+        /// copy/write the block flags
         bool ReadBlockFlags(uint32_t blockx, uint32_t blocky, uint32_t blockz, t_blockflags &blockflags);
         bool WriteBlockFlags(uint32_t blockx, uint32_t blocky, uint32_t blockz, t_blockflags blockflags);
-        
-        /// read/write features
+
+        /// copy/write features
         bool SetBlockLocalFeature(uint32_t blockx, uint32_t blocky, uint32_t blockz, int16_t local = -1);
         bool SetBlockGlobalFeature(uint32_t blockx, uint32_t blocky, uint32_t blockz, int16_t local = -1);
 
-        /// read region offsets of a block - used for determining layer stone matgloss
+        /// copy region offsets of a block - used for determining layer stone matgloss
         bool ReadRegionOffsets(uint32_t blockx, uint32_t blocky, uint32_t blockz,
                                biome_indices40d *buffer);
 
-        /// block event reading - mineral veins, what's under ice, blood smears and mud
-        bool ReadVeins(uint32_t x, uint32_t y, uint32_t z,
-                       std::vector<t_vein>* veins,
-                       std::vector<t_frozenliquidvein>* ices = 0,
-                       std::vector<t_spattervein>* splatter = 0,
-                       std::vector<t_grassvein>* grass = 0,
-                       std::vector<t_worldconstruction>* constructions = 0
+        /// sorts the block event vector into multiple vectors by type
+        /// mineral veins, what's under ice, blood smears and mud
+        bool SortBlockEvents(uint32_t x, uint32_t y, uint32_t z,
+                       std::vector<t_vein *>* veins,
+                       std::vector<t_frozenliquidvein *>* ices = 0,
+                       std::vector<t_spattervein *>* splatter = 0,
+                       std::vector<t_grassvein *>* grass = 0,
+                       std::vector<t_worldconstruction *>* constructions = 0
                       );
+
+        /// remove a block event from the block by address
+        bool RemoveBlockEvent(uint32_t x, uint32_t y, uint32_t z, t_virtual * which );
+
         /// read all plants in this block
-        bool ReadVegetation(uint32_t x, uint32_t y, uint32_t z, std::vector<t_tree>* plants);
+        bool ReadVegetation(uint32_t x, uint32_t y, uint32_t z, std::vector<df_plant *>*& plants);
+
         private:
         struct Private;
         Private *d;

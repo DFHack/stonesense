@@ -32,8 +32,8 @@ int getDirectionFromString(const char* strDir)
 
 int getBuildingFromString(const char* strType)
 {
-  for (uint32_t i=0; i<contentLoader.classIdStrings.size(); i++){
-		if (contentLoader.classIdStrings[i].compare(strType) == 0)
+  for (uint32_t i=0; i<contentLoader->classIdStrings.size(); i++){
+		if (contentLoader->classIdStrings[i].compare(strType) == 0)
 		{
 			return i;
 		}
@@ -330,7 +330,7 @@ bool NotConditionalNode::addCondition(BlockCondition* cond)
 }
 
 bool HaveFloorCondition::Matches(Block* b)
-{	
+{
 	return (b->floorType > 0);
 }
 

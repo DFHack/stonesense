@@ -359,13 +359,13 @@ void drawDebugCursorAndInfo(){
 		"Coord:(%i,%i,%i)", debugCursor.x, debugCursor.y, debugCursor.z);
 
 	draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
-		"Game Mode:%i, Control Mode:%i", contentLoader.gameMode.game_mode, contentLoader.gameMode.control_mode);
+		"Game Mode:%i, Control Mode:%i", contentLoader->gameMode.g_mode, contentLoader->gameMode.g_type);
 
 	if(!b) return;
 
 
 	int ttype;
-	char* tform = NULL;
+	const char* tform = NULL;
 	if (b->floorType>0)
 	{
 		ttype=b->floorType;	  
@@ -373,18 +373,18 @@ void drawDebugCursorAndInfo(){
 	}
 	else if (b->wallType > 0)
 	{
-		ttype=b->wallType;	  
-		tform="wall";	 
+		ttype=b->wallType;
+		tform="wall";
 	}
 	else if (b->ramp.type > 0)
 	{
-		ttype=b->ramp.type;	  
-		tform="ramp";	 
+		ttype=b->ramp.type;
+		tform="ramp";
 	}
 	else if (b->stairType > 0)
 	{
-		ttype=b->stairType;	  
-		tform="stair";	 
+		ttype=b->stairType;
+		tform="stair";
 	}
 
 	if (tform != NULL)
@@ -448,7 +448,7 @@ void drawDebugCursorAndInfo(){
 		const char* subMatName = lookupMaterialName(b->building.info.material.type,b->building.info.material.index);
 		draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
 			"Building: %s(%i,0x%x) Material: %s%s%s (%d,%d)", 
-			contentLoader.classIdStrings.at(b->building.info.type).c_str(),
+			contentLoader->classIdStrings.at(b->building.info.type).c_str(),
 			b->building.info.type, b->building.info.vtable,
 			matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"",
 			b->building.info.material.type,b->building.info.material.index);
@@ -456,7 +456,7 @@ void drawDebugCursorAndInfo(){
 		if(b->building.custom_building_type != -1)
 		{
 			draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
-				"Custom workshop type %s (%d)", contentLoader.custom_workshop_types[b->building.custom_building_type].c_str(),b->building.custom_building_type);
+				"Custom workshop type %s (%d)", contentLoader->custom_workshop_types[b->building.custom_building_type].c_str(),b->building.custom_building_type);
 		}
 	}
 
@@ -465,15 +465,15 @@ void drawDebugCursorAndInfo(){
 		if(!config.skipCreatureTypes)
 			draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
 			"Creature:%s(%i) Job:%s", 
-			contentLoader.Mats->race.at(b->creature->race).id, b->creature->race, 
-			contentLoader.professionStrings.at(b->creature->profession).c_str());
+			contentLoader->Mats->race.at(b->creature->race).id.c_str(), b->creature->race, 
+			contentLoader->professionStrings.at(b->creature->profession).c_str());
 
 		char strCreature[150] = {0};
 		generateCreatureDebugString( b->creature, strCreature );
 		//memset(strCreature, -1, 50);
 		try{
 			draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
-				"flag1: %s Sex: %d  Mood: %d Job: %s", strCreature, b->creature->sex + 1, b->creature->mood, (b->creature->current_job.active?contentLoader.MemInfo->getJob(b->creature->current_job.jobType).c_str():""));
+				"flag1: %s Sex: %d  Mood: %d Job: %s", strCreature, b->creature->sex + 1, b->creature->mood, (b->creature->current_job.active?contentLoader->MemInfo->getJob(b->creature->current_job.jobType).c_str():""));
 		}
 		catch(exception &e)
 		{
@@ -485,18 +485,18 @@ void drawDebugCursorAndInfo(){
 			int xx = 2;
 			for(unsigned int j = 0; j<b->creature->nbcolors ; j++)
 			{
-				if(contentLoader.Mats->raceEx.at(b->creature->race).castes.at(b->creature->caste).ColorModifier.at(j).colorlist.size() > b->creature->color[j])
+				if(contentLoader->Mats->raceEx.at(b->creature->race).castes.at(b->creature->caste).ColorModifier.at(j).colorlist.size() > b->creature->color[j])
 				{
-					uint32_t cr_color = contentLoader.Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].colorlist[b->creature->color[j]];
-					if(cr_color < contentLoader.Mats->color.size())
+					uint32_t cr_color = contentLoader->Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].colorlist[b->creature->color[j]];
+					if(cr_color < contentLoader->Mats->color.size())
 					{
 						draw_textf_border(font, 
 							al_map_rgb_f(
-							contentLoader.Mats->color[cr_color].red,
-							contentLoader.Mats->color[cr_color].green,
-							contentLoader.Mats->color[cr_color].blue), xx, yy, 0,
-							"%s ", contentLoader.Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].part);
-						xx += get_textf_width(font, "%s ", contentLoader.Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].part);
+							contentLoader->Mats->color[cr_color].red,
+							contentLoader->Mats->color[cr_color].green,
+							contentLoader->Mats->color[cr_color].blue), xx, yy, 0,
+							"%s ", contentLoader->Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].part.c_str());
+						xx += get_textf_width(font, "%s ", contentLoader->Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].part.c_str());
 					}
 				}
 			}
@@ -631,7 +631,7 @@ void DrawSpriteFromSheet( int spriteNum, ALLEGRO_BITMAP* spriteSheet, ALLEGRO_CO
 	10, 60 , SPRITEWIDTH, SPRITEHEIGHT);
 	*/
 	//draw_trans_sprite(target, tiny, x, y);
-	if(b && (!b->designation.bits.pile) && config.fog_of_war && (contentLoader.gameMode.control_mode == 1))
+	if(b && (!b->designation.bits.pile) && config.fog_of_war && (contentLoader->gameMode.g_mode == GAMEMODE_ADVENTURE))
 	{
 		color.r *= 0.25f;
 		color.g *= 0.25f;
@@ -763,12 +763,12 @@ void paintboard(){
 		draw_textf_border(font, al_map_rgb(255,255,255), 10,al_get_font_line_height(font), 0, "%i,%i,%i, r%i", DisplayedSegmentX,DisplayedSegmentY,DisplayedSegmentZ, DisplayedRotation);
 
 		if(config.debug_mode){
-			draw_textf_border(font, al_map_rgb(255,255,255), 10, 3*al_get_font_line_height(font), 0, "Map Read Time: %ds", viewedSegment->read_time);
-			draw_textf_border(font, al_map_rgb(255,255,255), 10, 4*al_get_font_line_height(font), 0, "Map Beautification Time: %ims", ClockedTime);
+			draw_textf_border(font, al_map_rgb(255,255,255), 10, 3*al_get_font_line_height(font), 0, "Map Read Time: %dms", viewedSegment->read_time);
+			draw_textf_border(font, al_map_rgb(255,255,255), 10, 4*al_get_font_line_height(font), 0, "Map Beautification Time: %ims", viewedSegment->beautify_time);
 			draw_textf_border(font, al_map_rgb(255,255,255), 10, 2*al_get_font_line_height(font), 0, "FPS: %.2f", 1.0/time_since_last_frame);
 			draw_textf_border(font, al_map_rgb(255,255,255), 10, 5*al_get_font_line_height(font), 0, "Draw: %ims", DrawTime);
 			draw_textf_border(font, al_map_rgb(255,255,255), 10, 6*al_get_font_line_height(font), 0, "D1: %i", blockFactory.getPoolSize());
-			draw_textf_border(font, al_map_rgb(255,255,255), 10, 7*al_get_font_line_height(font), 0, "%i/%i/%i, %i:%i", contentLoader.currentDay+1, contentLoader.currentMonth+1, contentLoader.currentYear, contentLoader.currentHour, (contentLoader.currentTickRel*60)/50);
+			draw_textf_border(font, al_map_rgb(255,255,255), 10, 7*al_get_font_line_height(font), 0, "%i/%i/%i, %i:%i", contentLoader->currentDay+1, contentLoader->currentMonth+1, contentLoader->currentYear, contentLoader->currentHour, (contentLoader->currentTickRel*60)/50);
 			draw_textf_border(font, al_map_rgb(255,255,255), 10, 8*al_get_font_line_height(font), 0, "%i Sprites drawn, %i tiles drawn, %.1f sprites per tile.", config.drawcount, config.tilecount, ((float)config.drawcount/(float)config.tilecount));
 			drawDebugCursorAndInfo();
 		}
@@ -808,42 +808,33 @@ void paintboard(){
 
 
 
-ALLEGRO_BITMAP* load_bitmap_withWarning(char* path){
-	ALLEGRO_BITMAP* img = 0;
-	img = al_load_bitmap(path);
-	if(!img){
-		DisplayErr("Cannot load image: %s", path);
-		exit(0);
-	}
-	al_convert_mask_to_alpha(img, al_map_rgb(255, 0, 255));
-	return img;
-}
 
-void loadGraphicsFromDisk(){
-	/*al_clear_to_color(al_map_rgb(0,0,0));
-	draw_textf_border(font,
-	al_get_bitmap_width(al_get_target_bitmap())/2,
-	al_get_bitmap_height(al_get_target_bitmap())/2,
-	ALLEGRO_ALIGN_CENTRE, "Loading...");
-	al_flip_display();*/
-	int index;
-	index = loadImgFile("objects.png");
-	IMGObjectSheet = al_create_sub_bitmap(IMGFilelist[index], 0, 0, al_get_bitmap_width(IMGFilelist[index]), al_get_bitmap_height(IMGFilelist[index]));
-	index = loadImgFile("creatures.png");
-	IMGCreatureSheet = al_create_sub_bitmap(IMGFilelist[index], 0, 0, al_get_bitmap_width(IMGFilelist[index]), al_get_bitmap_height(IMGFilelist[index]));
-	index = loadImgFile("ramps.png");
-	IMGRampSheet = al_create_sub_bitmap(IMGFilelist[index], 0, 0, al_get_bitmap_width(IMGFilelist[index]), al_get_bitmap_height(IMGFilelist[index]));
-	index = loadImgFile("SSStatusIcons.png");
-	IMGStatusSheet = al_create_sub_bitmap(IMGFilelist[index], 0, 0, al_get_bitmap_width(IMGFilelist[index]), al_get_bitmap_height(IMGFilelist[index]));
-	index = loadImgFile("gibs.png");
-	IMGBloodSheet = al_create_sub_bitmap(IMGFilelist[index], 0, 0, al_get_bitmap_width(IMGFilelist[index]), al_get_bitmap_height(IMGFilelist[index]));
-	index = loadImgFile("engravings_floor.png");
-	IMGEngFloorSheet = al_create_sub_bitmap(IMGFilelist[index], 0, 0, al_get_bitmap_width(IMGFilelist[index]), al_get_bitmap_height(IMGFilelist[index]));
-	index = loadImgFile("engravings_left.png");
-	IMGEngLeftSheet = al_create_sub_bitmap(IMGFilelist[index], 0, 0, al_get_bitmap_width(IMGFilelist[index]), al_get_bitmap_height(IMGFilelist[index]));
-	index = loadImgFile("engravings_right.png");
-	IMGEngRightSheet = al_create_sub_bitmap(IMGFilelist[index], 0, 0, al_get_bitmap_width(IMGFilelist[index]), al_get_bitmap_height(IMGFilelist[index]));
-	createEffectSprites();
+
+void loadGraphicsFromDisk()
+{
+    ALLEGRO_PATH * p = al_create_path_for_directory("stonesense");
+    auto globulate = [&](const char * filename, ALLEGRO_BITMAP *& imgd ) -> bool
+    {
+        int index;
+        al_set_path_filename(p,filename);
+        index = loadImgFile(al_path_cstr(p,ALLEGRO_NATIVE_PATH_SEP));
+        if(index == -1)
+        {
+            return false;
+        }
+        imgd = al_create_sub_bitmap(IMGFilelist[index], 0, 0, al_get_bitmap_width(IMGFilelist[index]), al_get_bitmap_height(IMGFilelist[index]));
+        return true;
+    };
+    if(!globulate("objects.png", IMGObjectSheet)) return;
+    if(!globulate("creatures.png", IMGCreatureSheet)) return;
+    if(!globulate("ramps.png", IMGRampSheet)) return;
+    if(!globulate("SSStatusIcons.png", IMGStatusSheet)) return;
+    if(!globulate("gibs.png", IMGBloodSheet)) return;
+    if(!globulate("engravings_floor.png", IMGEngFloorSheet)) return;
+    if(!globulate("engravings_left.png", IMGEngLeftSheet)) return;
+    if(!globulate("engravings_right.png", IMGEngRightSheet)) return;
+    al_destroy_path(p);
+    createEffectSprites();
 }
 
 //delete and clean out the image files
@@ -916,7 +907,7 @@ inline int returnGreater(int a, int b)
 	else return b;
 }
 
-int loadImgFile(char* filename)
+int loadImgFile(const char* filename)
 {
 	if(config.cache_images)
 	{
@@ -959,13 +950,15 @@ int loadImgFile(char* filename)
 		int currentCache = IMGCache.size() -1;
 		static int columnWidth = 0;
 		ALLEGRO_BITMAP* tempfile = load_bitmap_withWarning(filename);
+		if(!tempfile)
+			return -1;
 		LogVerbose("New image: %s\n",filename);
 		if(currentCache < 0)
 		{
 			IMGCache.push_back(al_create_bitmap(config.imageCacheSize, config.imageCacheSize));
 			if(!IMGCache[0])
 			{
-				DisplayErr("Cannot create bitmap sized %ix%i, please chose a smaller size",config.imageCacheSize,config.imageCacheSize);
+				DFConsole->printerr("Cannot create bitmap sized %ix%i, please chose a smaller size",config.imageCacheSize,config.imageCacheSize);
 			}
 			currentCache = IMGCache.size() -1;
 			LogVerbose("Creating image cache #%d\n",currentCache);
@@ -1025,18 +1018,21 @@ int loadImgFile(char* filename)
 			if (strcmp(filename, IMGFilenames[i]->c_str()) == 0)
 				return i;
 		}
-		IMGFilelist.push_back(load_bitmap_withWarning(filename));
+		ALLEGRO_BITMAP * temp = load_bitmap_withWarning(filename);
+		if(!temp)
+			return -1;
+		IMGFilelist.push_back(temp);
 		IMGFilenames.push_back(new string(filename));
 		LogVerbose("New image: %s\n",filename);
 		return (int)IMGFilelist.size() - 1;
 	}
 }
+/*
 int loadImgFile(ALLEGRO_PATH* filepath)
 {
-	char *filename = strcpy(filename,al_path_cstr(filepath, ALLEGRO_NATIVE_PATH_SEP));
-	return loadImgFile(filename);
+    return loadImgFile(al_path_cstr(filepath, ALLEGRO_NATIVE_PATH_SEP));
 }
-
+*/
 void saveScreenshot(){
 	al_clear_to_color(al_map_rgb(config.backr,config.backg,config.backb));
 	paintboard();

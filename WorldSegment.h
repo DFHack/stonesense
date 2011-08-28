@@ -1,4 +1,5 @@
-#pragma once
+#ifndef WORLDSEGMENT_H
+#define WORLDSEGMENT_H
 
 #include "Block.h"
 
@@ -13,6 +14,7 @@ public:
 	int sizex, sizey, sizez;
 	unsigned char rotation;
 	long read_time;
+	long beautify_time;
 	Crd3D regionSize;
 	Block** blocksAsPointerVolume;
 	WorldSegment(int x, int y, int z, int sizex, int sizey, int sizez)
@@ -38,11 +40,11 @@ public:
 			delete(blocks[i]);
 		}
 		blocks.clear();
+		al_destroy_mutex(mutie);
 	}
 
 	void Dispose(void){
 		free(blocksAsPointerVolume);
-		al_destroy_mutex(mutie);
 	}
 
 	uint32_t getNumBlocks(){
@@ -58,3 +60,5 @@ public:
 	void drawAllBlocks();
 	bool CoordinateInsideSegment(uint32_t x, uint32_t y, uint32_t z);
 };
+
+#endif

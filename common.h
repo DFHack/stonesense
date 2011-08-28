@@ -6,22 +6,30 @@
 #include <assert.h>
 #include <vector>
 #include <map>
+#include <stdint.h>
+
+#define ALLEGRO_NO_MAGIC_MAIN //This is a DLL file. we got no main function.
+#define ALLEGRO_HAVE_STDINT_H
 
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
 #include <allegro5/allegro_image.h>
-#include <allegro5/allegro_native_dialog.h>
 #include <allegro5/allegro_opengl.h>
 #include <allegro5/utf8.h>
+
 // allegro leaks X headers, undef some of it here:
 #undef TileShape
 // allegro also leaks stdint.h and some weird equivalent of it on windows. let's disable the copy leaked by dfhack.
 #define SKIP_DFHACK_STDINT
+#define DFHACK_WANT_TILETYPES
 
 #include <DFHack.h>
-#include <dfhack/DFTileTypes.h>
+#include <dfhack/Core.h>
+#include <dfhack/Console.h>
+#include <dfhack/Export.h>
+#include <dfhack/PluginManager.h>
 
 #include "commonTypes.h"
 #include "Block.h"
@@ -153,9 +161,8 @@ enum dirRelative{
 //main.cpp
 void correctBlockForSegmetOffset(int32_t& x, int32_t& y, int32_t& z);
 
-void WriteErr(char* msg, ...);
-void LogVerbose(char* msg, ...);
-void DisplayErr(const char *format, ...);
+void WriteErr(const char* msg, ...);
+void LogVerbose(const char* msg, ...);
 void SetTitle(const char *format, ...);
 
 extern GameConfiguration config;
@@ -196,12 +203,11 @@ bool loadConfigFile();
 //xmlBuildingReader.cpp
 class BuildingConfiguration;
 
-#define FILENAME_BUFFERSIZE 50
-// temp buffers are bigger because they deal with absolute paths
-#define FILENAME_BUFFERSIZE_LOCAL 200
+// BUG: this is dangerous!
+#define FILENAME_BUFFERSIZE 1024
+#define FILENAME_BUFFERSIZE_LOCAL 2048
 
 extern ALLEGRO_FONT *font;
-extern ALLEGRO_DISPLAY     *display;
 extern ALLEGRO_KEYBOARD_STATE keyboard;
 extern ALLEGRO_TIMER *reloadtimer;
 extern ALLEGRO_TIMER * animationtimer;
@@ -245,6 +251,8 @@ extern ALLEGRO_MOUSE_STATE mouse;
 #define FORM_LOG 4
 
 extern int randomCube[RANDOM_CUBE][RANDOM_CUBE][RANDOM_CUBE];
+
+extern DFHack::Console * DFConsole;
 
 ALLEGRO_COLOR premultiply(ALLEGRO_COLOR input);
 using namespace DFHack;

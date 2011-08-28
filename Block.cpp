@@ -54,6 +54,7 @@ Block::Block(WorldSegment* ownerSegment)
 	lightborders = 255;
 	creature = 0;
 	engraving_character = 0;
+	visible = true;
 }
 
 
@@ -94,18 +95,20 @@ inline ALLEGRO_BITMAP* imageSheet(t_subSprite sprite, ALLEGRO_BITMAP* defaultBmp
 	}
 }
 
-void Block::Draw(){
+void Block::Draw()
+{
+	if(!visible)
+		return;
 	if((material.type == INORGANIC) && (material.index == -1))
 	{
 		material.index = 0;
 	}
 
-#ifdef _DEBUG
-	if(!(this->designation.bits.hidden) || config.show_hidden_blocks)
+	
+	if((!(this->designation.bits.hidden) || config.show_hidden_blocks) && config.block_count)
 	{
 		config.tilecount ++;
 	}
-#endif
 
 	bool defaultSnow = 1;
 	int sheetOffsetX, sheetOffsetY;
@@ -115,18 +118,19 @@ void Block::Draw(){
 	if(x == ownerSegment->x || x == ownerSegment->x + ownerSegment->sizex - 1) return;
 	if(y == ownerSegment->y || y == ownerSegment->y + ownerSegment->sizey - 1) return;
 	}*/
-	int32_t drawx = x;
-	int32_t drawy = y;
-	int32_t drawz = z; //- ownerSegment->sizez + 1;
+
+	drawx = x;
+	drawy = y;
+	drawz = z; //- ownerSegment->sizez + 1;
 
 
 	correctBlockForSegmetOffset( drawx, drawy, drawz);
 	correctBlockForRotation( drawx, drawy, drawz, ownerSegment->rotation);
-	int32_t viewx = drawx;
-	int32_t viewy = drawy;
-	int32_t viewz = drawz;
 	pointToScreen((int*)&drawx, (int*)&drawy, drawz);
 	drawx -= TILEWIDTH>>1;
+
+	if(((drawx + TILEWIDTH) < 0) || (drawx > al_get_bitmap_width(al_get_target_bitmap())) || ((drawy + TILEHEIGHT + FLOORHEIGHT) < 0) || (drawy - WALLHEIGHT > al_get_bitmap_height(al_get_target_bitmap())))
+		return;
 
 	bool chopThisBlock = 0;
 
@@ -134,6 +138,14 @@ void Block::Draw(){
 	else if(config.truncate_walls == 2 && obscuringCreature == 1) chopThisBlock = 1;
 	else if(config.truncate_walls == 3 && (obscuringCreature == 1 || obscuringBuilding == 1)) chopThisBlock = 1;
 	else if(config.truncate_walls == 4 && obscuringBuilding == 1) chopThisBlock = 1;
+
+	if(building.info.type == BUILDINGTYPE_BLACKBOX)
+	{
+		DrawSpriteFromSheet( SPRITEOBJECT_BLACK, IMGObjectSheet, al_map_rgb(255,255,255), drawx, drawy+FLOORHEIGHT, this);
+		DrawSpriteFromSheet( SPRITEOBJECT_BLACK, IMGObjectSheet, al_map_rgb(255,255,255), drawx, drawy, this);
+		return;
+	}
+
 
 	ALLEGRO_COLOR tileBorderColor = al_map_rgb(85,85,85);
 	int rando = randomCube[x%RANDOM_CUBE][y%RANDOM_CUBE][z%RANDOM_CUBE];
@@ -268,8 +280,8 @@ void Block::Draw(){
 
 	//Building
 	bool skipBuilding =
-		(building.info.type == contentLoader.civzoneNum && !config.show_stockpiles) ||
-		(building.info.type == contentLoader.stockpileNum && !config.show_zones);
+		(building.info.type == contentLoader->civzoneNum && !config.show_stockpiles) ||
+		(building.info.type == contentLoader->stockpileNum && !config.show_zones);
 
 	if(building.info.type != BUILDINGTYPE_NA && !skipBuilding)
 	{
@@ -372,11 +384,11 @@ void Block::Draw(){
 		//if(waterlevel == 7) waterlevel--;
 		if(water.type == 0)
 		{
-			contentLoader.water[water.index-1].sprite.draw_world(x, y, z, this, (chopThisBlock && this->z == ownerSegment->z + ownerSegment->sizez -2));
+			contentLoader->water[water.index-1].sprite.draw_world(x, y, z, this, (chopThisBlock && this->z == ownerSegment->z + ownerSegment->sizez -2));
 		}
 		else
 		{
-			contentLoader.lava[water.index-1].sprite.draw_world(x, y, z, this, (chopThisBlock && this->z == ownerSegment->z + ownerSegment->sizez -2));
+			contentLoader->lava[water.index-1].sprite.draw_world(x, y, z, this, (chopThisBlock && this->z == ownerSegment->z + ownerSegment->sizez -2));
 		}
 	}
 
@@ -480,7 +492,10 @@ void Block::Drawcreaturetext(){
 
 }
 
-void Block::DrawRamptops(){
+void Block::DrawRamptops()
+{
+	if(!visible)
+		return;
 	if (ramp.type > 0)
 	{
 

@@ -7,9 +7,9 @@
 #include "GameBuildings.h"
 #include "Creatures.h"
 #include "ContentLoader.h"
+#include "Occlusion_Test.h"
 
-static DFHack::Context* pDFApiHandle = 0;
-static DFHack::ContextManager* DFMgr = 0;
+static DFHack::Core* pDFApiHandle = 0;
 static DFHack::Process * DFProc = 0;
 const VersionInfo *dfMemoryInfo;
 bool memInfoHasBeenRead;
@@ -23,7 +23,6 @@ struct segParams
 	int sizex;
 	int sizey;
 	int sizez;
-	ALLEGRO_MUTEX * m_connection;
 	bool thread_connect;
 	bool is_connected;
 } parms;
@@ -204,7 +203,7 @@ bool areNeighborsVisible(t_designation designations[16][16],int  x,int y)
 	return false;
 }
 
-void ReadCellToSegment(DFHack::Context& DF, WorldSegment& segment, int CellX, int CellY, int CellZ,
+void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int CellY, int CellZ,
 					   uint32_t BoundrySX, uint32_t BoundrySY,
 					   uint32_t BoundryEX, uint32_t BoundryEY, 
 					   uint16_t Flags/*not in use*/, 
@@ -217,17 +216,14 @@ void ReadCellToSegment(DFHack::Context& DF, WorldSegment& segment, int CellX, in
 {
 	if(config.skipMaps)
 		return;
-
 	//boundry check
-	int celldimX, celldimY, celldimZ;
-	Maps->getSize((unsigned int &)celldimX, (unsigned int &)celldimY, (unsigned int &)celldimZ);
-	if( CellX < 0 || CellX >= celldimX ||
-		CellY < 0 || CellY >= celldimY ||
-		CellZ < 0 || CellZ >= celldimZ ) 
+	int cellDimX, cellDimY, cellDimZ;
+	Maps->getSize((unsigned int &)cellDimX, (unsigned int &)cellDimY, (unsigned int &)cellDimZ);
+	if( CellX < 0 || CellX >= cellDimX ||
+		CellY < 0 || CellY >= cellDimY ||
+		CellZ < 0 || CellZ >= cellDimZ ) 
 		return;
-	if(!(DF.isSuspended()))
-		DisplayErr("DF isn't suspended! something is very very wrong!");
-	if(!Maps->isValidBlock(CellX, CellY, CellZ))
+	if(!Maps->getBlock(CellX, CellY, CellZ))
 		return;
 
 
@@ -245,22 +241,30 @@ void ReadCellToSegment(DFHack::Context& DF, WorldSegment& segment, int CellX, in
 	uint8_t regionoffsets[16];
 	t_temperatures temp1, temp2;
 	DFHack::mapblock40d mapBlock;
-	std::vector<DFHack::dfh_plant> plants;
+	std::vector<df_plant *> * plants;
 	Maps->ReadTileTypes(CellX, CellY, CellZ, (tiletypes40d *) tiletypes);
 	Maps->ReadDesignations(CellX, CellY, CellZ, (designations40d *) designations);
 	Maps->ReadOccupancy(CellX, CellY, CellZ, (occupancies40d *) occupancies);
 	Maps->ReadRegionOffsets(CellX,CellY,CellZ, (biome_indices40d *)regionoffsets);
 	Maps->ReadTemperatures(CellX, CellY, CellZ, &temp1, &temp2);
 	Maps->ReadBlock40d(CellX, CellY, CellZ, &mapBlock);
-	Maps->ReadVegetation(CellX, CellY, CellZ, &plants);
+	Maps->ReadVegetation(CellX, CellY, CellZ, plants);
 	//read local vein data
-	vector <t_vein> veins;
-	vector <t_frozenliquidvein> ices;
-	vector <t_spattervein> splatter;
-	vector <t_grassvein> grass;
+	vector <t_vein * > veins;
+	vector <t_frozenliquidvein * > ices;
+	vector <t_spattervein * > splatter;
+	vector <t_grassvein * > grass;
+	vector <t_worldconstruction * > worldconstructions;
+	Maps->SortBlockEvents(
+		CellX,
+		CellY,
+		CellZ,
+		&veins,
+		&ices,
+		&splatter,
+		&grass,
+		&worldconstructions);
 
-
-	Maps->ReadVeins(CellX,CellY,CellZ,&veins,&ices,&splatter,&grass);
 	uint32_t numVeins = (uint32_t)veins.size();
 
 	//parse cell
@@ -296,10 +300,10 @@ void ReadCellToSegment(DFHack::Context& DF, WorldSegment& segment, int CellX, in
 			//b->grassmats.clear();
 			for(int i = 0; i < grass.size(); i++)
 			{
-				if(grass[i].intensity[lx][ly] > 0 && b->grasslevel == 0)//b->grasslevel)
+				if(grass[i]->intensity[lx][ly] > 0 && b->grasslevel == 0)//b->grasslevel)
 				{
-					b->grasslevel = grass[i].intensity[lx][ly];
-					b->grassmat = grass[i].material;
+					b->grasslevel = grass[i]->intensity[lx][ly];
+					b->grassmat = grass[i]->material;
 					//b->grasslevels.push_back(grass[i].intensity[lx][ly]);
 					//b->grassmats.push_back(grass[i].material);
 				}
@@ -311,61 +315,46 @@ void ReadCellToSegment(DFHack::Context& DF, WorldSegment& segment, int CellX, in
 				long blue=0;
 				for(int i = 0; i < splatter.size(); i++)
 				{
-					if(splatter[i].mat1 == MUD)
+					if(splatter[i]->mat1 == MUD)
 					{
-						b->mudlevel = splatter[i].intensity[lx][ly];
+						b->mudlevel = splatter[i]->intensity[lx][ly];
 					}
-					else if(splatter[i].mat1 == ICE)
+					else if(splatter[i]->mat1 == ICE)
 					{
-						b->snowlevel = splatter[i].intensity[lx][ly];
+						b->snowlevel = splatter[i]->intensity[lx][ly];
 					}
-					else if(splatter[i].mat1 == VOMIT)
+					else if(splatter[i]->mat1 == VOMIT)
 					{
-						b->bloodlevel += splatter[i].intensity[lx][ly];
-						red += (127 * splatter[i].intensity[lx][ly]);
-						green += (196 * splatter[i].intensity[lx][ly]);
-						blue += (28 *splatter[i].intensity[lx][ly]);
+						b->bloodlevel += splatter[i]->intensity[lx][ly];
+						red += (127 * splatter[i]->intensity[lx][ly]);
+						green += (196 * splatter[i]->intensity[lx][ly]);
+						blue += (28 *splatter[i]->intensity[lx][ly]);
 					}
-					else if(splatter[i].mat1 == ICHOR)
+					else if(splatter[i]->mat1 == ICHOR)
 					{
-						b->bloodlevel += splatter[i].intensity[lx][ly];
-						red += (255 * splatter[i].intensity[lx][ly]);
-						green += (255 * splatter[i].intensity[lx][ly]);
-						blue += (255 * splatter[i].intensity[lx][ly]);
+						b->bloodlevel += splatter[i]->intensity[lx][ly];
+						red += (255 * splatter[i]->intensity[lx][ly]);
+						green += (255 * splatter[i]->intensity[lx][ly]);
+						blue += (255 * splatter[i]->intensity[lx][ly]);
 					}
-					else if(splatter[i].mat1 == BLOOD_NAMED)
+					else if(splatter[i]->mat1 == BLOOD_NAMED)
 					{
-						b->bloodlevel += splatter[i].intensity[lx][ly];
-						red += (150 * splatter[i].intensity[lx][ly]);
-						//green += (0 * splatter[i].intensity[lx][ly]);
-						blue += (24 * splatter[i].intensity[lx][ly]);
+						b->bloodlevel += splatter[i]->intensity[lx][ly];
+						red += (150 * splatter[i]->intensity[lx][ly]);
+						//green += (0 * splatter[i]->intensity[lx][ly]);
+						blue += (24 * splatter[i]->intensity[lx][ly]);
 					}
-					else if(splatter[i].mat1 == BLOOD_1
-						|| splatter[i].mat1 == BLOOD_2
-						|| splatter[i].mat1 == BLOOD_3
-						|| splatter[i].mat1 == BLOOD_4
-						|| splatter[i].mat1 == BLOOD_5
-						|| splatter[i].mat1 == BLOOD_6)
+					else if(splatter[i]->mat1 == BLOOD_1
+						|| splatter[i]->mat1 == BLOOD_2
+						|| splatter[i]->mat1 == BLOOD_3
+						|| splatter[i]->mat1 == BLOOD_4
+						|| splatter[i]->mat1 == BLOOD_5
+						|| splatter[i]->mat1 == BLOOD_6)
 					{
-						b->bloodlevel += splatter[i].intensity[lx][ly];
-						if(splatter[i].mat2 == 206) //troll
-						{
-							//red += (0 * splatter[i].intensity[lx][ly]);
-							green += (255 * splatter[i].intensity[lx][ly]);
-							blue += (255 * splatter[i].intensity[lx][ly]);
-						}
-						else if(splatter[i].mat2 == 242) //imp
-						{
-							//red += (0 * splatter[i].intensity[lx][ly]);
-							//green += (0 * splatter[i].intensity[lx][ly]);
-							//blue += (0 * splatter[i].intensity[lx][ly]);
-						}
-						else
-						{
-							red += (150 * splatter[i].intensity[lx][ly]);
-							//green += (0 * splatter[i].intensity[lx][ly]);
-							blue += (24 * splatter[i].intensity[lx][ly]);
-						}
+						b->bloodlevel += splatter[i]->intensity[lx][ly];
+						red += (150 * splatter[i]->intensity[lx][ly]);
+						//green += (0 * splatter[i]->intensity[lx][ly]);
+						blue += (24 * splatter[i]->intensity[lx][ly]);
 					}
 				}
 				if(b->bloodlevel)
@@ -410,22 +399,23 @@ void ReadCellToSegment(DFHack::Context& DF, WorldSegment& segment, int CellX, in
 			//option for including hidden blocks
 			isHidden &= !config.show_hidden_blocks;
 			bool shouldBeIncluded = (!isOpenTerrain(t) || b->water.index || !designations[lx][ly].bits.skyview) && !isHidden;
+
 			//include hidden blocks as shaded black 
 			if(config.shade_hidden_blocks && isHidden && (isBlockOnVisibleEdgeOfSegment(&segment, b) || areNeighborsVisible(designations, lx, ly)))
 			{
-				b->wallType = 0;
-				b->floorType = 0;
-				b->stairType = 0;
-				b->ramp.type = 0;
-				b->water.index = 0;
+				//b->wallType = 0;
+				//b->floorType = 0;
+				//b->stairType = 0;
+				//b->ramp.type = 0;
+				//b->water.index = 0;
 				b->building.info.type = BUILDINGTYPE_BLACKBOX;
-				static c_sprite sprite;
-				sprite.set_sheetindex(SPRITEOBJECT_BLACK);
-				sprite.set_defaultsheet(IMGObjectSheet);
-				sprite.set_offset(0, 4);
-				b->building.sprites.push_back( sprite );
-				sprite.set_offset(0, 0);
-				b->building.sprites.push_back( sprite );
+				//static c_sprite sprite;
+				//sprite.set_sheetindex(SPRITEOBJECT_BLACK);
+				//sprite.set_defaultsheet(IMGObjectSheet);
+				//sprite.set_offset(0, 4);
+				//b->building.sprites.push_back( sprite );
+				//sprite.set_offset(0, 0);
+				//b->building.sprites.push_back( sprite );
 				shouldBeIncluded= true;
 			}
 
@@ -454,12 +444,12 @@ void ReadCellToSegment(DFHack::Context& DF, WorldSegment& segment, int CellX, in
 					// DANGER: THIS CODE MAY BE BUGGY
 					// This was apparently causing a crash in previous version
 					// But works fine for me
-					uint16_t row = veins[i].assignment[ly];
+					uint16_t row = veins[i]->assignment[ly];
 					bool set = (row & (1 << lx)) != 0;
 					if(set){
-						rockIndex = veins[i].type;
+						rockIndex = veins[i]->type;
 						b->veinMaterial.type = INORGANIC;
-						b->veinMaterial.index = veins[i].type;
+						b->veinMaterial.index = veins[i]->type;
 						b->hasVein = 1;
 					}
 					else
@@ -522,7 +512,7 @@ void ReadCellToSegment(DFHack::Context& DF, WorldSegment& segment, int CellX, in
 				if(tileTypeTable[b->tileType].material == OBSIDIAN)
 				{
 					b->material.type = INORGANIC;
-					b->material.index = contentLoader.obsidian;
+					b->material.index = contentLoader->obsidian;
 				}
 
 
@@ -539,9 +529,9 @@ void ReadCellToSegment(DFHack::Context& DF, WorldSegment& segment, int CellX, in
 	}
 		
 	//add trees and other vegetation
-	for(int i = 0; i < plants.size(); i++)
+	for(int i = 0; i < plants->size(); i++)
 	{
-		Block* b = segment.getBlock( plants[i].sdata.x, plants[i].sdata.y, CellZ);
+		Block* b = segment.getBlock( plants->at(i)->x, plants->at(i)->y, plants->at(i)->z);
 		if(b && (
 			(tileTypeTable[b->tileType].shape == TREE_DEAD) || 
 			(tileTypeTable[b->tileType].shape == TREE_OK) ||
@@ -551,8 +541,8 @@ void ReadCellToSegment(DFHack::Context& DF, WorldSegment& segment, int CellX, in
 			(tileTypeTable[b->tileType].shape == SHRUB_OK)
 			))
 		{
-			b->tree.type = plants[i].sdata.type;
-			b->tree.index = plants[i].sdata.material;
+			b->tree.type = plants->at(i)->type;
+			b->tree.index = plants->at(i)->material;
 		}
 	}
 }
@@ -574,7 +564,7 @@ bool checkFloorBorderRequirement(WorldSegment* segment, int x, int y, int z, dir
 }
 
 
-WorldSegment* ReadMapSegment(DFHack::Context &DF, int x, int y, int z, int sizex, int sizey, int sizez){
+WorldSegment* ReadMapSegment(DFHack::Core &DF, int x, int y, int z, int sizex, int sizey, int sizez){
 	uint32_t index;
 	clock_t start_time = clock();
 	DFHack::Maps *Maps;
@@ -608,7 +598,7 @@ WorldSegment* ReadMapSegment(DFHack::Context &DF, int x, int y, int z, int sizex
 		WriteErr("DFhack exeption: %s\n", e.what());
 	}
 	//DFHack::Vegetation *Veg;
-	//if(!config.skipVegetation)
+	//if(!skipVegetation)
 	//{
 	//	try
 	//	{
@@ -617,7 +607,7 @@ WorldSegment* ReadMapSegment(DFHack::Context &DF, int x, int y, int z, int sizex
 	//	catch (exception &e)
 	//	{
 	//		WriteErr("DFhack exeption: %s\n", e.what());
-	//		config.skipVegetation = true;
+	//		skipVegetation = true;
 	//	}
 	//}
 	DFHack::Constructions *Cons;
@@ -660,13 +650,13 @@ WorldSegment* ReadMapSegment(DFHack::Context &DF, int x, int y, int z, int sizex
 	//read date
 	if(!config.skipWorld)
 	{
-		contentLoader.currentYear = Wold->ReadCurrentYear();
-		contentLoader.currentTick = Wold->ReadCurrentTick();
-		contentLoader.currentMonth = (contentLoader.currentTick+9)/33600;
-		contentLoader.currentDay = ((contentLoader.currentTick+9)%33600)/1200;
-		contentLoader.currentHour = ((contentLoader.currentTick+9)-(((contentLoader.currentMonth*28)+contentLoader.currentDay)*1200))/50;
-		contentLoader.currentTickRel = (contentLoader.currentTick+9)-(((((contentLoader.currentMonth*28)+contentLoader.currentDay)*24)+contentLoader.currentHour)*50);
-		Wold->ReadGameMode(contentLoader.gameMode);
+		contentLoader->currentYear = Wold->ReadCurrentYear();
+		contentLoader->currentTick = Wold->ReadCurrentTick();
+		contentLoader->currentMonth = (contentLoader->currentTick+9)/33600;
+		contentLoader->currentDay = ((contentLoader->currentTick+9)%33600)/1200;
+		contentLoader->currentHour = ((contentLoader->currentTick+9)-(((contentLoader->currentMonth*28)+contentLoader->currentDay)*1200))/50;
+		contentLoader->currentTickRel = (contentLoader->currentTick+9)-(((((contentLoader->currentMonth*28)+contentLoader->currentDay)*24)+contentLoader->currentHour)*50);
+		Wold->ReadGameMode(contentLoader->gameMode);
 	}
 
 	if(!config.skipMaps)
@@ -684,44 +674,39 @@ WorldSegment* ReadMapSegment(DFHack::Context &DF, int x, int y, int z, int sizex
 		//return new blank segment
 		return new WorldSegment(x,y,z + 1,sizex,sizey,sizez + 1);
 	}
-	if( IsConnectedToDF() == false){
-		DisconnectFromDF();
-		//return new blank segment
-		return new WorldSegment(x,y,z + 1,sizex,sizey,sizez + 1);
-	}
 
 	//read memory info
 	if( memInfoHasBeenRead == false){
-		dfMemoryInfo = DF.getMemoryInfo();
+		dfMemoryInfo = DF.vinfo;
 		memInfoHasBeenRead = true;
 	}
 
 	//if (timeToReloadConfig)
 	//{
-	//	contentLoader.Load(DF);
+	//	contentLoader->Load(DF);
 	//	timeToReloadConfig = false;
 	//}
 
 
 
 	//Read Number of cells
-	int celldimX, celldimY, celldimZ;
-	Maps->getSize((unsigned int &)celldimX, (unsigned int &)celldimY, (unsigned int &)celldimZ);
+	int cellDimX, cellDimY, cellDimZ;
+	Maps->getSize((unsigned int &)cellDimX, (unsigned int &)cellDimY, (unsigned int &)cellDimZ);
 	//Store these
-	config.cellDimX = celldimX * 16;
-	config.cellDimY = celldimY * 16;
-	config.cellDimZ = celldimZ;
+	cellDimX = cellDimX * 16;
+	cellDimY = cellDimY * 16;
+	cellDimZ = cellDimZ;
 	//bound view to world
-	if(x > celldimX * CELLEDGESIZE -sizex/2) DisplayedSegmentX = x = celldimX * CELLEDGESIZE -sizex/2;
-	if(y > celldimY * CELLEDGESIZE -sizey/2) DisplayedSegmentY = y = celldimY * CELLEDGESIZE -sizey/2;
+	if(x > cellDimX * CELLEDGESIZE -sizex/2) DisplayedSegmentX = x = cellDimX * CELLEDGESIZE -sizex/2;
+	if(y > cellDimY * CELLEDGESIZE -sizey/2) DisplayedSegmentY = y = cellDimY * CELLEDGESIZE -sizey/2;
 	if(x < -sizex/2) DisplayedSegmentX = x = -sizex/2;
 	if(y < -sizey/2) DisplayedSegmentY = y = -sizey/2;
 
 	//setup new world segment
 	WorldSegment* segment = new WorldSegment(x,y,z,sizex,sizey,sizez);
-	segment->regionSize.x = celldimX * CELLEDGESIZE;
-	segment->regionSize.y = celldimY * CELLEDGESIZE;
-	segment->regionSize.z = celldimZ;
+	segment->regionSize.x = cellDimX * CELLEDGESIZE;
+	segment->regionSize.y = cellDimY * CELLEDGESIZE;
+	segment->regionSize.z = cellDimZ;
 	segment->rotation = DisplayedRotation;
 
 	//read world wide buildings
@@ -846,7 +831,7 @@ WorldSegment* ReadMapSegment(DFHack::Context &DF, int x, int y, int z, int sizex
 
 	//Read Vegetation
 	//uint32_t numtrees;
-	//if(!config.skipVegetation)
+	//if(!skipVegetation)
 	//{
 	//	try
 	//	{
@@ -875,7 +860,7 @@ WorldSegment* ReadMapSegment(DFHack::Context &DF, int x, int y, int z, int sizex
 	//	catch(exception &err)
 	//	{
 	//		WriteErr("DFhack exeption: %s\n", err.what());
-	//		config.skipVegetation = true;
+	//		skipVegetation = true;
 	//	}
 	//}
 
@@ -947,11 +932,18 @@ void beautify_Segment(WorldSegment * segment)
 {
 	if(!segment)
 		return;
-	TMR1_START;
+	clock_t start_time = clock();
 	//do misc beautification
 	uint32_t numblocks = segment->getNumBlocks();
+
 	for(uint32_t i=0; i < numblocks; i++){
 		Block* b = segment->getBlock(i);
+
+		if(config.occlusion)
+			occlude_block(b);
+
+		if(!b->visible)
+			continue;
 
 		//Grass
 		if(b->grasslevel > 0 && (
@@ -961,7 +953,7 @@ void beautify_Segment(WorldSegment * segment)
 			(tileTypeTable[b->floorType].material == GRASS_DRY)))
 		{
 			c_block_tree * vegetationsprite = 0;
-			vegetationsprite = getVegetationTree(contentLoader.grassConfigs,b->grassmat,true,true);
+			vegetationsprite = getVegetationTree(contentLoader->grassConfigs,b->grassmat,true,true);
 			if(vegetationsprite)
 				vegetationsprite->insert_sprites(segment, b->x, b->y, b->z, b);
 		}
@@ -1008,9 +1000,9 @@ void beautify_Segment(WorldSegment * segment)
 		if(dir2) if(dir2->creaturePresent) b->obscuringCreature = 1;
 		if(dir8) if(dir8->creaturePresent) b->obscuringCreature = 1;
 
-		if(dir1) if(dir1->building.info.type != BUILDINGTYPE_NA && dir1->building.info.type != BUILDINGTYPE_BLACKBOX && dir1->building.info.type != contentLoader.civzoneNum && dir1->building.info.type != contentLoader.stockpileNum) b->obscuringBuilding = 1;
-		if(dir2) if(dir2->building.info.type != BUILDINGTYPE_NA && dir2->building.info.type != BUILDINGTYPE_BLACKBOX && dir2->building.info.type != contentLoader.civzoneNum && dir2->building.info.type != contentLoader.stockpileNum) b->obscuringBuilding = 1;
-		if(dir8) if(dir8->building.info.type != BUILDINGTYPE_NA && dir8->building.info.type != BUILDINGTYPE_BLACKBOX && dir8->building.info.type != contentLoader.civzoneNum && dir8->building.info.type != contentLoader.stockpileNum) b->obscuringBuilding = 1;
+		if(dir1) if(dir1->building.info.type != BUILDINGTYPE_NA && dir1->building.info.type != BUILDINGTYPE_BLACKBOX && dir1->building.info.type != contentLoader->civzoneNum && dir1->building.info.type != contentLoader->stockpileNum) b->obscuringBuilding = 1;
+		if(dir2) if(dir2->building.info.type != BUILDINGTYPE_NA && dir2->building.info.type != BUILDINGTYPE_BLACKBOX && dir2->building.info.type != contentLoader->civzoneNum && dir2->building.info.type != contentLoader->stockpileNum) b->obscuringBuilding = 1;
+		if(dir8) if(dir8->building.info.type != BUILDINGTYPE_NA && dir8->building.info.type != BUILDINGTYPE_BLACKBOX && dir8->building.info.type != contentLoader->civzoneNum && dir8->building.info.type != contentLoader->stockpileNum) b->obscuringBuilding = 1;
 
 		if( b->floorType > 0 )
 		{
@@ -1115,46 +1107,10 @@ void beautify_Segment(WorldSegment * segment)
 		b->openborders = ~(b->floorborders|b->rampborders|b->wallborders|b->downstairborders|b->upstairborders);
 	}
 	segment->processed = 1;
-	TMR1_STOP;
+	segment->beautify_time = clock() - start_time;
 }
 
-
-bool ConnectDFAPI(DFHack::Context* pDF){
-	try
-	{
-		pDF->Attach();
-	}
-	catch(exception & err)
-	{
-		WriteErr("DFhack exeption: %s \n", err.what());
-		return false;
-	}
-	catch(...)
-	{
-		return false;
-	}
-	//in case DF has locked up, force it's thread to resume
-	pDF->ForceResume();
-	return pDF->isAttached();
-}
-
-void DisconnectFromDF(){
-	if(pDFApiHandle){
-		//pDFApiHandle->getMaps()->DestroyMap();
-		//in case DF has locked up, force it's thread to resume
-		pDFApiHandle->ForceResume();
-		pDFApiHandle->Detach();
-		delete pDFApiHandle;
-		pDFApiHandle = 0;
-	}
-}
-
-bool IsConnectedToDF(){
-	if(!pDFApiHandle) return false;
-	return pDFApiHandle->isAttached();
-}
-
-void FollowCurrentDFWindow( )
+void FollowCurrentDFWindow()
 {
 	int32_t newviewx;
 	int32_t newviewy;
@@ -1215,7 +1171,7 @@ void FollowCurrentDFWindow( )
 	}
 }
 
-void FollowCurrentDFCenter( )
+void FollowCurrentDFCenter()
 {
 	int32_t newviewx;
 	int32_t newviewy;
@@ -1249,14 +1205,12 @@ void FollowCurrentDFCenter( )
 
 void read_segment( void *arg)
 {
+	DFHack::Maps * maps = pDFApiHandle->getMaps();
+	if(!maps->Start())
+		return;
 	static bool firstLoad = 1;
-	//al_lock_mutex(config.readMutex);
-	//al_wait_cond(config.readCond, config.readMutex);
-	if(parms.is_connected == 0)
-	{
-		DFProc->attach();
-		parms.is_connected = 1;
-	}
+	//al_lock_mutex(readMutex);
+	//al_wait_cond(readCond, readMutex);
 	config.threadstarted = 1;
 	if(altSegment)
 	{
@@ -1265,6 +1219,7 @@ void read_segment( void *arg)
 		altSegment->Dispose();
 		delete(altSegment);
 	}
+	
 	pDFApiHandle->Suspend();
 	if (firstLoad || config.follow_DFscreen)
 	{
@@ -1283,12 +1238,6 @@ void read_segment( void *arg)
 	config.threadstarted = 0;
 	pDFApiHandle->Resume();
 	beautify_Segment(altSegment);
-	if(parms.thread_connect == 0)
-	{
-		DFProc->detach();
-		parms.is_connected = 0;
-		al_unlock_mutex(parms.m_connection);
-	}
 	if(viewedSegment)
 		al_lock_mutex(viewedSegment->mutie);
 	swapSegments();
@@ -1301,49 +1250,17 @@ static void * threadedSegment(ALLEGRO_THREAD *thread, void *arg)
 	while(!al_get_thread_should_stop(thread))
 	{
 		read_segment(arg);
-		//al_unlock_mutex(config.readMutex);
-		//al_rest(config.automatic_reload_time/1000.0);
+		//al_unlock_mutex(readMutex);
+		//al_rest(automatic_reload_time/1000.0);
 	}
 	return 0;
 }
 
-void reloadDisplayedSegment(){
+void reloadDisplayedSegment(DFHack::Core * c){
 	//create handle to dfHack API
-	bool firstLoad = (pDFApiHandle == 0);
-	if(pDFApiHandle == 0)
-	{
-		parms.m_connection = al_create_mutex();
-		parms.is_connected = 0;
-		al_lock_mutex(parms.m_connection);
-		al_clear_to_color(al_map_rgb(0,0,0));
-		draw_textf_border(font, al_map_rgb(255,255,255),
-			al_get_bitmap_width(al_get_target_bitmap())/2,
-			al_get_bitmap_height(al_get_target_bitmap())/2,
-			ALLEGRO_ALIGN_CENTRE, "Connecting to DF...");
-		al_flip_display();
-		memInfoHasBeenRead = false;
-		DFMgr = new ContextManager("Memory.xml");
-		try
-		{
-			pDFApiHandle = DFMgr->getSingleContext();
-			pDFApiHandle->Attach();
-			pDFApiHandle->Detach();
-		}
-		catch (exception& e)
-		{
-			WriteErr("No Dwarf Fortress executable found\n");
-			WriteErr("DFhack exeption: %s\n", e.what());
-			delete( pDFApiHandle );
-			pDFApiHandle = 0;
-			return ;
-		}
-		al_unlock_mutex(parms.m_connection);
-	}
-	DFHack::Context& DF = *pDFApiHandle;
-	if(DFProc == 0)
-	{
-		DFProc = DF.getProcess();
-	}
+	static bool firstLoad = 1;
+	DFHack::Core & DF = *c;
+	pDFApiHandle = c;
 	TMR1_START;
 
 #ifndef RELEASE
@@ -1353,20 +1270,15 @@ void reloadDisplayedSegment(){
 	if (timeToReloadConfig)
 	{
 		parms.thread_connect = 0;
-		al_lock_mutex(parms.m_connection);
-		DF.Attach();
-		DF.Suspend();
-		contentLoader.Load(DF);
+		//DF.Suspend();
+		contentLoader->Load(DF);
 		timeToReloadConfig = false;
 		//DF.Resume();
-		DFProc->detach();
-		parms.thread_connect = 1;
-		al_unlock_mutex(parms.m_connection);
 	}
 
 	//G->Start();
-	//G->ReadViewScreen(config.viewscreen);
-	//config.menustate = G->ReadMenuState();
+	//G->ReadViewScreen(viewscreen);
+	//menustate = G->ReadMenuState();
 	//G->Finish();
 	//dispose old segment
 
@@ -1387,8 +1299,8 @@ void reloadDisplayedSegment(){
 			config.threadmade = 1;
 		}
 	}
-	//if(config.threadstarted)
-	//	al_join_thread(config.readThread, NULL);
+	//if(threadstarted)
+	//	al_join_thread(readThread, NULL);
 
 	parms.x = DisplayedSegmentX;
 	parms.y = DisplayedSegmentY;
@@ -1403,7 +1315,7 @@ void reloadDisplayedSegment(){
 		read_segment(NULL);
 
 
-	//al_broadcast_cond(config.readCond);
+	//al_broadcast_cond(readCond);
 
 	//if(!viewedSegment || viewedSegment->regionSize.x == 0 || viewedSegment->regionSize.y == 0)
 	//{
@@ -1422,5 +1334,6 @@ void reloadDisplayedSegment(){
 	//		return ;
 	//	}
 	//}
+	firstLoad = 0;
 	TMR1_STOP;
 }

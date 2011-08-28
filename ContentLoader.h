@@ -10,8 +10,8 @@
 
 class ContentLoader{
 private:
-	bool parseContentIndexFile( char* filepath );
-	bool parseContentXMLFile( char* filepath );
+	bool parseContentIndexFile( const char* filepath );
+	bool parseContentXMLFile( const char* filepath );
 	bool parseBuildingContent( TiXmlElement* elemRoot );
 	bool parseCustomBuildingContent( TiXmlElement* elemRoot );
 	bool parseCreatureContent( TiXmlElement* elemRoot );
@@ -28,7 +28,7 @@ public:
 	ContentLoader(void);
 	~ContentLoader(void);
 
-	bool Load( DFHack::Context& DF);
+	bool Load( DFHack::Core& DF);
 
 	bool reload_configs();
 
@@ -51,7 +51,7 @@ public:
 	DFHack::Buildings * Bld;
 	DFHack::Materials * Mats;
 	std::vector<t_matgloss> organic;
-	std::vector<t_matgloss> inorganic;
+    std::vector<t_matglossInorganic> inorganic;
 
 	uint32_t currentTick;
 	uint32_t currentYear;
@@ -67,16 +67,30 @@ public:
 	int obsidian;
 };
 
-//singleton instance
-extern ContentLoader contentLoader;
+extern ContentLoader * contentLoader;
 
 extern const char* getDocument(TiXmlNode* element);
+bool getLocalFilename(char * buffer, const char* filename, const char* relativeto);
 extern void contentError(const char* message, TiXmlNode* element);
 extern char getAnimFrames(const char* framestring);
 extern int loadConfigImgFile(const char* filename, TiXmlElement* referrer);
 int lookupMaterialType(const char* strValue);
 int lookupMaterialIndex(int matType, const char* strValue);
-int lookupIndexedType(const char* indexName, vector<t_matgloss>& typeVector);
+template <typename T>
+int lookupIndexedType(const char* indexName, std::vector<T>& typeVector)
+{
+    if (indexName == NULL || indexName[0] == 0)
+    {
+        return INVALID_INDEX;
+    }
+    uint32_t vsize = (uint32_t)typeVector.size();
+    for(uint32_t i=0; i < vsize; i++)
+    {
+        if (typeVector[i].id == indexName)
+            return i;
+    }
+    return INVALID_INDEX;
+}
 const char *lookupMaterialTypeName(int matType);
 const char *lookupMaterialName(int matType,int matIndex);
 uint8_t lookupMaterialFore(int matType,int matIndex);

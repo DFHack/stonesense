@@ -62,7 +62,7 @@ dirTypes findWallCloseTo(WorldSegment* segment, Block* b){
 	return eSimpleSingle;
 }
 
-void ReadBuildings(DFHack::Context& DF, vector<t_building>* buildingHolder)
+void ReadBuildings(DFHack::Core& DF, vector<t_building>* buildingHolder)
 {
 	if(config.skipBuildings)
 		return;
@@ -140,13 +140,13 @@ void MergeBuildingsToSegment(vector<t_building>* buildings, WorldSegment* segmen
 
 					if( b ){
 						//handle special case where zones and stockpiles overlap buildings, and try to replace them
-						if(b->building.info.type != BUILDINGTYPE_NA && tempbuilding.type == TranslateBuildingName("building_civzonest", contentLoader.classIdStrings ) )
+						if(b->building.info.type != BUILDINGTYPE_NA && tempbuilding.type == TranslateBuildingName("building_civzonest", contentLoader->classIdStrings ) )
 							continue;
-						if(b->building.info.type != BUILDINGTYPE_NA && tempbuilding.type == TranslateBuildingName("building_stockpilest", contentLoader.classIdStrings ) )
+						if(b->building.info.type != BUILDINGTYPE_NA && tempbuilding.type == TranslateBuildingName("building_stockpilest", contentLoader->classIdStrings ) )
 							continue; 
 						b->building.index = i;
 						b->building.info = tempbuilding;
-						b->building.custom_building_type = contentLoader.Bld->GetCustomWorkshopType(tempbuilding);
+						b->building.custom_building_type = contentLoader->Bld->GetCustomWorkshopType(tempbuilding);
 					}
 				}
 			}
@@ -174,9 +174,9 @@ void loadBuildingSprites ( Block* b){
 	}
 	if(b->building.custom_building_type == -1)
 	{
-		uint32_t numBuildings = (uint32_t)contentLoader.buildingConfigs.size();
+		uint32_t numBuildings = (uint32_t)contentLoader->buildingConfigs.size();
 		for(uint32_t i = 0; i < numBuildings; i++){
-			BuildingConfiguration& conf = contentLoader.buildingConfigs[i];
+			BuildingConfiguration& conf = contentLoader->buildingConfigs[i];
 			if(b->building.info.type != conf.gameID) continue;
 
 			//check all sprites for one that matches all conditions
@@ -189,9 +189,9 @@ void loadBuildingSprites ( Block* b){
 	}
 	else
 	{
-		uint32_t numCustBuildings = (uint32_t)contentLoader.customBuildingConfigs.size();
+		uint32_t numCustBuildings = (uint32_t)contentLoader->customBuildingConfigs.size();
 		for(uint32_t i = 0; i < numCustBuildings; i++){
-			BuildingConfiguration& cust = contentLoader.customBuildingConfigs[i];
+			BuildingConfiguration& cust = contentLoader->customBuildingConfigs[i];
 			if(b->building.custom_building_type != cust.gameID) continue;
 
 			//check all sprites for one that matches all conditions
@@ -224,10 +224,10 @@ bool BlockHasSuspendedBuilding(vector<t_building>* buildingList, Block* b){
 		if(b->x < building->x1  ||   b->x > building->x2) continue;
 		if(b->y < building->y1  ||   b->y > building->y2) continue;
 
-		if(building->type == TranslateBuildingName("building_bridgest", contentLoader.classIdStrings )){
+		if(building->type == TranslateBuildingName("building_bridgest", contentLoader->classIdStrings )){
 			return true;
 		}
-		if(building->type == TranslateBuildingName("building_civzonest", contentLoader.classIdStrings ))
+		if(building->type == TranslateBuildingName("building_civzonest", contentLoader->classIdStrings ))
 			return true;
 	}
 	return false;
