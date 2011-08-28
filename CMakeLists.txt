@@ -83,14 +83,6 @@ IF(UNIX)
         #    ${PROJECT_LIBS}
         #   )
     ELSE()
-        SET(PROJECT_LIBS
-            allegro
-            allegro_primitives
-            allegro_font
-            allegro_image
-            allegro_ttf
-            ${PROJECT_LIBS}
-           )
         OPTION(STONESENSE_INTERNAL_SO "Link with prebuilt internal allegro libs and headers." ON)
         IF(STONESENSE_INTERNAL_SO)
             SET(PROJECT_LIBS

@@ -619,27 +619,55 @@ void c_sprite::draw_world_offset(int x, int y, int z, Block * b, int tileoffset,
 			{
 				int foo = 0;
 				if(
-					(snowmin <= b->snowlevel &&
-					(snowmax == -1 || snowmax >= b->snowlevel)) &&
-					(bloodmin <= b->bloodlevel && (bloodmax == -1 || bloodmax >= b->bloodlevel)) &&
-					(mudmin <= b->mudlevel && (mudmax == -1 || mudmax >= b->mudlevel)) &&
-					(grassmin <= b->grasslevel && (grassmax == -1 || grassmax >= b->grasslevel)) &&
-					((light==LIGHTANY) || ((light==LIGHTYES) && b->designation.bits.skyview) || ((light==LIGHTNO) && !(b->designation.bits.skyview)))  &&//only bother with this tile if it's in the light, or not.
-					((grasstype == -1) || (grasstype == b->grassmat)) &&
 					(
-					(grass_growth == GRASS_GROWTH_ANY) || 
+						snowmin <= b->snowlevel &&
+						(snowmax == -1 || snowmax >= b->snowlevel)
+					) &&
 					(
-					(grass_growth == GRASS_GROWTH_NORMAL) && 
-					((tileTypeTable[b->tileType].material == GRASS) || (tileTypeTable[b->tileType].material == GRASS2))
-					) ||
+						bloodmin <= b->bloodlevel &&
+						(bloodmax == -1 || bloodmax >= b->bloodlevel)
+					) &&
 					(
-					(grass_growth == GRASS_GROWTH_DRY) && 
-					(tileTypeTable[b->tileType].material == GRASS_DRY)
-					) ||
+						mudmin <= b->mudlevel &&
+						(mudmax == -1 || mudmax >= b->mudlevel)
+					) &&
 					(
-					(grass_growth == GRASS_GROWTH_DEAD) && 
-					(tileTypeTable[b->tileType].material == GRASS_DEAD)
+						grassmin <= b->grasslevel &&
+						(grassmax == -1 || grassmax >= b->grasslevel)
+					) &&
+					//only bother with this tile if it's in the light, or not.
+					(
+						(light==LIGHTANY) ||
+						(
+							(light==LIGHTYES) && b->designation.bits.skyview
+						)
+						||
+						(
+							(light==LIGHTNO) && !(b->designation.bits.skyview)
+						)
+					) &&
+					(
+						(grasstype == -1) || (grasstype == b->grassmat)
+					) &&
+					(
+						(grass_growth == GRASS_GROWTH_ANY) || 
+						(
+							(grass_growth == GRASS_GROWTH_NORMAL) && 
+							(
+								(tileTypeTable[b->tileType].material == GRASS) ||
+								(tileTypeTable[b->tileType].material == GRASS2)
+							)
+						) ||
+						(
+							(grass_growth == GRASS_GROWTH_DRY) &&
+							(tileTypeTable[b->tileType].material == GRASS_DRY)
+						) ||
+						(
+							(grass_growth == GRASS_GROWTH_DEAD) &&
+							(tileTypeTable[b->tileType].material == GRASS_DEAD)
+						)
 					)
+				)
 				{
 					int32_t drawx = x;
 					int32_t drawy = y;
