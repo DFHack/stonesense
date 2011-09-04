@@ -21,6 +21,10 @@ bitset<2*S_SPRITE_HEIGHT> floor_mask_right;
 
 bool is_block_solid(Block * b)
 {
+	if(DFHack::tileTypeTable[b->tileType].shape == RAMP_TOP)
+		return false;
+	if(!config.shade_hidden_blocks && !config.show_hidden_blocks && b->designation.bits.hidden)
+		return false;
 	//fixme: glass, etc, needs to return false.
 	if(
 		b->material.type == 3 ||
