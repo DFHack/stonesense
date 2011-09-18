@@ -351,6 +351,7 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
 	if(z2<0) z2=0;
 
 	t_creature *tempcreature = new t_creature();
+	df_creature *unit_ptr = 0;
 	/*for (uint32_t index = 0; index < numcreatures ; index++)
 	{
 	Creatures->ReadCreature( index, *tempcreature );*/
@@ -359,8 +360,9 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
 	{
 		try
 		{
-			while((index = Creatures->ReadCreatureInBox( index, *tempcreature, x1,y1,z1,x2,y2,z2)) != -1 )
+			while((index = Creatures->GetCreatureInBox( index, &unit_ptr, x1,y1,z1,x2,y2,z2)) != -1 )
 			{
+				Creatures->CopyCreature(unit_ptr,*tempcreature);
 				index++;
 				if( IsCreatureVisible( tempcreature ) )
 				{
@@ -463,7 +465,7 @@ CreatureConfiguration *GetCreatureConfig( t_creature* c ){
 		// dont try to match strings until other tests pass
 		if( testConfig->professionstr[0])
 		{ //cant be NULL, so check has length
-			creatureMatchesJob = (strcmp(testConfig->professionstr,c->custom_profession)==0);
+					creatureMatchesJob = (c->custom_profession == testConfig->professionstr);
 		}
 		if(!creatureMatchesJob) continue;
 
