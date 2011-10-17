@@ -24,7 +24,8 @@ void DrawSpriteIndexOverlay(int i);
 void DoSpriteIndexOverlay();
 void loadGraphicsFromDisk();
 void saveScreenshot();
-void saveMegashot();
+void saveMegashot(bool tall);
+void dumpSegment();
 void saveImage(ALLEGRO_BITMAP* image);
 void draw_particle_cloud(int count, float centerX, float centerY, float rangeX, float rangeY, ALLEGRO_BITMAP *sprite);
 extern WorldSegment* viewedSegment;//current, loaded

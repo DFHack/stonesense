@@ -110,6 +110,7 @@ public:
 	void Draw();
 	void Drawcreaturetext();
 	void DrawRamptops();
+	void DrawPixel(int drawx, int drawy);
 
 	uint16_t temp1;
 	uint16_t temp2;
