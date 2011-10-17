@@ -39,7 +39,9 @@ M: Toggle creature emotion icons.
 O: Toggle occlusion culling.
 F2: Screenshot mode/hide display overlays
 F5: Save Screenshot
-CTRL + F5: Save Screenshot of entire fortress
+CTRL + F5: Save Screenshot of entire fortress with the current Z level settings.
+CTRL + SHIFT + F5: Save a screenshot of the entire fortress from the current top Z level down to the bottom of the map.
+ALT + F5: Save a volumetric thing I'm testing out.
 Numpad + and -: Increase/Decrease AutoReload Rate
 CTRL + navigation: Adjusts follow mode offset
 
