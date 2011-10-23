@@ -6,7 +6,7 @@
 #include "ContentLoader.h"
 #include "SpriteObjects.h"
 
-#include "dfhack/depends/tinyxml/tinyxml.h"
+#include "tinyxml.h"
 
 
 VegetationConfiguration::VegetationConfiguration(int gameID, c_block_tree &tree, bool live, bool grown)

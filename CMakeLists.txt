@@ -2,27 +2,18 @@ PROJECT (stonesense)
 SET(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/CMake/Modules)
 
 # WTF
-if(WIN32)
 include_directories (
-    ${CMAKE_SOURCE_DIR}/dfhack/include/
-    ${CMAKE_SOURCE_DIR}/dfhack/depends/md5/
-    ${CMAKE_SOURCE_DIR}/dfhack/depends/tinyxml/
-    ${CMAKE_SOURCE_DIR}/dfhack/
+    ${dfhack_SOURCE_DIR}/library/depends/md5/
+    ${dfhack_SOURCE_DIR}/library/depends/tinyxml/
     ${CMAKE_SOURCE_DIR}
 )
-else(WIN32)
-include_directories (
-    ${CMAKE_SOURCE_DIR}/dfhack/depends/md5/
-    ${CMAKE_SOURCE_DIR}/dfhack/depends/tinyxml/
-    ${CMAKE_SOURCE_DIR}
-)
-endif(WIN32)
+
 
 SET(PROJECT_SRCS
-    dfhack/depends/tinyxml/tinystr.cpp
-    dfhack/depends/tinyxml/tinyxml.cpp
-    dfhack/depends/tinyxml/tinyxmlerror.cpp
-    dfhack/depends/tinyxml/tinyxmlparser.cpp
+    ${dfhack_SOURCE_DIR}/library/depends/tinyxml/tinystr.cpp
+    ${dfhack_SOURCE_DIR}/library/depends/tinyxml/tinyxml.cpp
+    ${dfhack_SOURCE_DIR}/library/depends/tinyxml/tinyxmlerror.cpp
+    ${dfhack_SOURCE_DIR}/library/depends/tinyxml/tinyxmlparser.cpp
 
     Block.cpp
     BlockCondition.cpp

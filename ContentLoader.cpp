@@ -5,7 +5,7 @@
 #include "MapLoading.h"
 #include "ColorConfiguration.h"
 
-#include "dfhack/depends/tinyxml/tinyxml.h"
+#include "tinyxml.h"
 #include "GUI.h"
 
 ContentLoader * contentLoader;

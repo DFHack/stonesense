@@ -1,6 +1,6 @@
 #pragma once
 
-#include "dfhack/depends/tinyxml/tinyxml.h"
+#include "tinyxml.h"
 #include "common.h"
 
 #define BLOCKTILE 0

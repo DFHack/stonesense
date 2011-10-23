@@ -1,5 +1,5 @@
 #pragma once
-#include "dfhack/depends/tinyxml/tinyxml.h"
+#include "tinyxml.h"
 #include "BuildingConfiguration.h"
 #include "CreatureConfiguration.h"
 #include "VegetationConfiguration.h"

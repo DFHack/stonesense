@@ -5,7 +5,7 @@
 #include "GUI.h"
 #include "ContentLoader.h"
 
-#include "dfhack/depends/tinyxml/tinyxml.h"
+#include "tinyxml.h"
 
 
 CreatureConfiguration::CreatureConfiguration(int professionID, const char* professionStr, uint8_t sex, enumCreatureSpecialCases special, c_sprite &sprite, int shadow)
