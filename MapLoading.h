@@ -17,4 +17,20 @@ void beautify_Segment(WorldSegment * segment);
 void DisconnectFromDF();
 bool IsConnectedToDF();
 
+void read_segment( void *arg);
+
 extern const VersionInfo *dfMemoryInfo;
+
+struct segParams
+{
+	int x;
+	int y;
+	int z;
+	int sizex;
+	int sizey;
+	int sizez;
+	bool thread_connect;
+	bool is_connected;
+};
+
+extern segParams parms;

@@ -358,3 +358,15 @@ bool WorldSegment::CoordinateInsideSegment(uint32_t x, uint32_t y, uint32_t z){
 	if( (int32_t)z < this->z || (int32_t)z >= this->z + this->sizez) return false;
 	return true;
 }
+
+void WorldSegment::drawPixels()
+{
+	for(int32_t vsx=0; vsx < this->sizex; vsx++)
+		for(int32_t vsy=0; vsy < this->sizey; vsy++)
+			for(int32_t vsz=0; vsz < this->sizez; vsz++)
+			{
+				Block *b = getBlockLocal(vsx,vsy,vsz);
+				if (b)
+					b->DrawPixel(vsx, (vsz*this->sizey) + vsy);
+			}
+}

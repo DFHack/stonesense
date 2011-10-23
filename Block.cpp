@@ -525,6 +525,32 @@ void Block::DrawRamptops()
 	}
 }
 
+void Block::DrawPixel(int drawx, int drawy)
+{
+	ALLEGRO_COLOR temp;
+	if(floorType > 0 || wallType > 0 || ramp.type > 0 || stairType > 0)
+	{
+		al_put_pixel(drawx, drawy, lookupMaterialColor(this->material.type, this->material.index));
+	}
+	if(this->water.index)
+	{
+		if(this->water.type == 0) //water
+			al_draw_pixel(drawx, drawy, al_map_rgba_f(0.6f, 0.85f, 0.92f, (float)water.index / 7.0f));
+		else
+			al_draw_pixel(drawx, drawy, al_map_rgba_f(1.0f, 0.5f, 0.15f, (float)water.index / 7.0f));
+	}
+	//Grass
+	if(grasslevel > 0 && (
+		(tileTypeTable[floorType].material == GRASS) || 
+		(tileTypeTable[floorType].material == GRASS2) ||
+		(tileTypeTable[floorType].material == GRASS_DEAD) ||
+		(tileTypeTable[floorType].material == GRASS_DRY)))
+	{
+		temp = lookupMaterialColor(WOOD, grassmat);
+		al_draw_pixel(drawx, drawy, al_map_rgba_f(temp.r,temp.g, temp.b, (float)grasslevel/100.0f));
+	}
+}
+
 bool hasWall(Block* b){
 	if(!b) return false;
 	return b->wallType > 0;

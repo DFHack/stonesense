@@ -1083,8 +1083,81 @@ void saveImage(ALLEGRO_BITMAP* image){
 	};
 	al_save_bitmap(filename, image);
 }
-void saveMegashot(){
+
+void dumpSegment()
+{
+	al_lock_mutex(config.readMutex);
+
+	//back up all the relevant values
+	Crd3D tempSize = config.segmentSize;
+	int tempViewx = DisplayedSegmentX;
+	int tempViewy = DisplayedSegmentY;
+	bool tempFollow = config.follow_DFscreen;
+	int tempLift = config.lift_segment_offscreen;
+	int currentFlags = al_get_new_bitmap_flags();
+	//now make them real big.
+	config.follow_DFscreen = false;
+	config.lift_segment_offscreen = 0;
+	parms.x = 0;
+	parms.y = 0;
+	parms.z = config.cellDimZ - 1;
+	parms.sizex = config.cellDimX;
+	parms.sizey = config.cellDimY;
+	parms.sizez = config.cellDimZ;
+
+	read_segment(NULL);
+	//get filename
+	char filename[20] ={0};
+	FILE* fp;
+	int index = 1;
+	//search for the first screenshot# that does not exist already
+	while(true){
+		sprintf(filename, "screenshot%i.png", index);
+
+		fp = fopen(filename, "r");
+		if( fp != 0)
+			fclose(fp);
+		else
+			//file does not exist, so exit loop
+			break;
+		index++;
+	};
+	int tempFlags = al_get_new_bitmap_flags();
+	al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP);
+
+	ALLEGRO_BITMAP * volume = al_create_bitmap(viewedSegment->sizex, (viewedSegment->sizez * viewedSegment->sizey));
+	if(!volume)
+	{
+		DFConsole->printerr("Failed to create volumetric image.");
+		al_set_new_bitmap_flags(tempFlags);
+		return;
+	}
+
+	ALLEGRO_BITMAP * backup = al_get_target_bitmap();
+	al_set_target_bitmap(volume);
+
+	al_clear_to_color(al_map_rgba(0,0,0,0));
+	viewedSegment->drawPixels();
+
+	al_save_bitmap(filename, volume);
+	al_destroy_bitmap(volume);
+
+	al_set_target_bitmap(backup);
+	al_set_new_bitmap_flags(tempFlags);
+
+	//restore everything that we changed.
+	config.segmentSize = tempSize;
+	DisplayedSegmentX = tempViewx;
+	DisplayedSegmentY = tempViewy;
+	config.follow_DFscreen = tempFollow;
+	config.lift_segment_offscreen = tempLift;
+
+	al_unlock_mutex(config.readMutex);
+}
+
+void saveMegashot(bool tall){
 	config.showRenderStatus = true;
+	al_lock_mutex(config.readMutex);
 	draw_textf_border(font, al_map_rgb(255,255,255), al_get_bitmap_width(al_get_target_bitmap())/2, al_get_bitmap_height(al_get_target_bitmap())/2, ALLEGRO_ALIGN_CENTRE, "Saving large screenshot...");
 	al_flip_display();
 	char filename[20] ={0};
@@ -1103,30 +1176,36 @@ void saveMegashot(){
 	};
 	int timer = clock();
 	//back up all the relevant values
-	Crd3D tempSize = config.segmentSize;
+	Crd3D backupsize = config.segmentSize;
 	int tempViewx = DisplayedSegmentX;
 	int tempViewy = DisplayedSegmentY;
+	int tempViewz = DisplayedSegmentZ;
 	bool tempFollow = config.follow_DFscreen;
 	int tempLift = config.lift_segment_offscreen;
-	int currentFlags = al_get_new_bitmap_flags();
 	//now make them real big.
 	config.follow_DFscreen = false;
 	config.lift_segment_offscreen = 0;
-	int bigImageWidth = (config.cellDimX * TILEWIDTH);
-	int bigImageHeight = ((config.cellDimX + config.cellDimY) * TILEHEIGHT / 2) + ((config.segmentSize.z - 1) * BLOCKHEIGHT);
 	config.segmentSize.x = config.cellDimX + 2;
 	config.segmentSize.y = config.cellDimY + 2;
+	if(tall)
+		config.segmentSize.z = DisplayedSegmentZ + 1;
+	int bigImageWidth = (config.cellDimX * TILEWIDTH);
+	int bigImageHeight = ((config.cellDimX + config.cellDimY) * TILEHEIGHT / 2) + ((config.segmentSize.z - 1) * BLOCKHEIGHT);
+	parms.sizex = config.segmentSize.x;
+	parms.sizey = config.segmentSize.y;
+	parms.sizez = config.segmentSize.z;
 	DisplayedSegmentX = -1;
 	DisplayedSegmentY = -1;
+	parms.x = DisplayedSegmentX;
+	parms.y = DisplayedSegmentY;
+	parms.z = DisplayedSegmentZ;
 	//Rebuild stuff
-	//reloadDisplayedSegment();
+	read_segment(NULL);
 	//Draw the image and save it
-	//al_set_new_bitmap_format(ALLEGRO_PIXEL_FORMAT_ANY_NO_ALPHA);
-	//al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP);
 	bigFile = al_create_bitmap(bigImageWidth, bigImageHeight);
 	if(bigFile)
 	{
-		WriteErr("\nSaving large screenshot to %s\n", filename);
+		DFConsole->print("\nSaving large screenshot to %s\n", filename);
 		al_set_target_bitmap(bigFile);
 		if(!config.transparentScreenshots)
 			al_clear_to_color(al_map_rgb(config.backr,config.backg,config.backb));
@@ -1135,21 +1214,27 @@ void saveMegashot(){
 		al_set_target_bitmap(al_get_backbuffer(al_get_current_display()));
 		al_destroy_bitmap(bigFile);
 		timer = clock() - timer;
-		WriteErr("Took %ims\n", timer);
+		DFConsole->print("Took %ims\n", timer);
 	}
 	else
 	{
-		WriteErr("Failed to take large screenshot. try using software mode\n");
+		DFConsole->printerr("Failed to take large screenshot. try using software mode\n");
 	}
 	//restore everything that we changed.
-	config.segmentSize = tempSize;
+	config.segmentSize = backupsize;
+	parms.sizex = config.segmentSize.x;
+	parms.sizey = config.segmentSize.y;
+	parms.sizez = config.segmentSize.z;
 	DisplayedSegmentX = tempViewx;
 	DisplayedSegmentY = tempViewy;
+	DisplayedSegmentZ = tempViewz;
+	parms.x = DisplayedSegmentX;
+	parms.y = DisplayedSegmentY;
+	parms.z = DisplayedSegmentZ;
 	config.follow_DFscreen = tempFollow;
 	config.lift_segment_offscreen = tempLift;
-	//al_set_new_bitmap_format(ALLEGRO_PIXEL_FORMAT_ANY);
-	al_set_new_bitmap_flags(currentFlags);
 	config.showRenderStatus = false;
+	al_unlock_mutex(config.readMutex);
 }
 
 void draw_particle_cloud(int count, float centerX, float centerY, float rangeX, float rangeY, ALLEGRO_BITMAP *sprite)

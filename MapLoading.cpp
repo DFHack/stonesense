@@ -15,17 +15,7 @@ const VersionInfo *dfMemoryInfo;
 bool memInfoHasBeenRead;
 bool connected = 0;
 bool threadrunnng = 0;
-struct segParams
-{
-	int x;
-	int y;
-	int z;
-	int sizex;
-	int sizey;
-	int sizez;
-	bool thread_connect;
-	bool is_connected;
-} parms;
+segParams parms;
 
 inline bool IDisWall(int in){
 	//if not a custom type, do a lookup in dfHack's interface
@@ -696,6 +686,9 @@ WorldSegment* ReadMapSegment(DFHack::Core &DF, int x, int y, int z, int sizex, i
 	cellDimX = cellDimX * 16;
 	cellDimY = cellDimY * 16;
 	cellDimZ = cellDimZ;
+	config.cellDimX = cellDimX;
+	config.cellDimY = cellDimY;
+	config.cellDimZ = cellDimZ;
 	//bound view to world
 	if(x > cellDimX * CELLEDGESIZE -sizex/2) DisplayedSegmentX = x = cellDimX * CELLEDGESIZE -sizex/2;
 	if(y > cellDimY * CELLEDGESIZE -sizey/2) DisplayedSegmentY = y = cellDimY * CELLEDGESIZE -sizey/2;
@@ -1249,9 +1242,10 @@ static void * threadedSegment(ALLEGRO_THREAD *thread, void *arg)
 {
 	while(!al_get_thread_should_stop(thread))
 	{
+		al_lock_mutex(config.readMutex);
 		read_segment(arg);
-		//al_unlock_mutex(readMutex);
-		//al_rest(automatic_reload_time/1000.0);
+		al_unlock_mutex(config.readMutex);
+		al_rest(config.automatic_reload_time/1000.0);
 	}
 	return 0;
 }

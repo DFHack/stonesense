@@ -274,12 +274,15 @@ void doKeys(int Key)
 		timeToReloadSegment = true;
 	}
 	if(Key == ALLEGRO_KEY_F5){
-		if (!(al_key_down(&keyboard,ALLEGRO_KEY_LCTRL) || al_key_down(&keyboard,ALLEGRO_KEY_RCTRL)))
+		if (al_key_down(&keyboard,ALLEGRO_KEY_LCTRL) || al_key_down(&keyboard,ALLEGRO_KEY_RCTRL))
+			if (al_key_down(&keyboard,ALLEGRO_KEY_LSHIFT) || al_key_down(&keyboard,ALLEGRO_KEY_RSHIFT))
+				saveMegashot(true);
+			else
+				saveMegashot(false);
+		else if (al_key_down(&keyboard,ALLEGRO_KEY_ALT) || al_key_down(&keyboard,ALLEGRO_KEY_ALTGR))
+			dumpSegment();
+		else
 			saveScreenshot();
-		else{
-			saveMegashot();
-		}
-
 	} 
 	if(Key == ALLEGRO_KEY_PAD_PLUS){
 		config.automatic_reload_time += config.automatic_reload_step;

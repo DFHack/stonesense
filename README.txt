@@ -1,14 +1,12 @@
-Welcome to Stonesense Slate(2.2)
+Welcome to Stonesense Felsite(3.1)
 
 Thank you for trying out our little visualizer,
 as always, we appreciate any feedback.
 
-Please note, that for the time being Stonesense Slate ONLY supports DF 31_1, through 31_16.
-Make sure you have DF running, with your game loaded.
+Please note, that for the time being Stonesense Felsite ONLY supports DF 31_25.
 
-IF Stonesense should at any time lock up, it might happen that DF freezes.
-If this happens just kill of the Stonesense.exe process (if it didn't die on itself)
-and use the dfunstuck.exe utility supplied with this distribution.
+To run stonesense, Copy DFHack into the dwarf fortress folder, and run DwarfFortress.exe.
+When DFHack console appears, type in stonesense and press enter.
 
 --== Configuration ==--
 
@@ -29,18 +27,21 @@ PG UP/PG Down: Move up and down
 1 and 2: Increase/decrease Z depth shown
 Enter: Rotate view 90 degrees
 ESC: Exit program
-U: Toggle Stockpiles
-I: Toggle Zones
-C: Toggle Truncated Walls
-F: Toggle Follow Mode
-H: Toggle Hidden Blocks
-B: Toggle Blacked Out Areas
-S: Toggle Single Layer View
-N: Toggle Creature Names
-M: TOggle Creature Emotion Icons
-F2: Screenshot mode/Hide Display Overlays
+U: Toggle stockpiles.
+I: Toggle zones.
+C: Toggle truncated walls.
+F: Toggle follow mode.
+H: Toggle hidden blocks.
+B: Toggle blacked out areas.
+S: Toggle single layer view.
+N: Toggle creature names.
+M: Toggle creature emotion icons.
+O: Toggle occlusion culling.
+F2: Screenshot mode/hide display overlays
 F5: Save Screenshot
-CTRL + F5: Save Screenshot of entire fortress
+CTRL + F5: Save Screenshot of entire fortress with the current Z level settings.
+CTRL + SHIFT + F5: Save a screenshot of the entire fortress from the current top Z level down to the bottom of the map.
+ALT + F5: Save a volumetric thing I'm testing out.
 Numpad + and -: Increase/Decrease AutoReload Rate
 CTRL + navigation: Adjusts follow mode offset
 
@@ -61,6 +62,10 @@ holding Ctrl while using the keyboard window movement keys.
 
 When you turn on cursor follow mode, the debug cursor will follow the DF cursor when it exists.
 
+-- Occlusion Culling --
+
+There is an experimental feature that hides blocks that are not visible, for a speed increase.
+This is a work in progress, and very buggy. It can be turned off with 'o', if something is missing.
 --== Contacts ==--
 
 Stonesense mailing list:
