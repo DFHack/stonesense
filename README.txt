@@ -55,7 +55,6 @@ Numpad numbers: Move debug cursor (if available)
 Ctrl+F: Toggle Cursor Follow Mode
 
 -- Follow mode --
-
 When you turn on follow mode, the screen will jump to the location of the DF window.
 You can adjust the position of the follow mode relative to the DF window by
 holding Ctrl while using the keyboard window movement keys.
@@ -63,9 +62,9 @@ holding Ctrl while using the keyboard window movement keys.
 When you turn on cursor follow mode, the debug cursor will follow the DF cursor when it exists.
 
 -- Occlusion Culling --
-
 There is an experimental feature that hides blocks that are not visible, for a speed increase.
 This is a work in progress, and very buggy. It can be turned off with 'o', if something is missing.
+
 --== Contacts ==--
 
 Stonesense mailing list:
@@ -77,7 +76,6 @@ http://www.bay12games.com/forum/index.php?topic=43260.0
 --== Known Issues ==--
 
 We have seen some crash bugs from time to times.
-If it locks up, use the dfunstuck utility to save your fort.
 
 Good Luck!
 - The Stonesense Crew
