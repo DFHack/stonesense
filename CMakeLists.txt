@@ -171,3 +171,5 @@ install(DIRECTORY resources/
         DESTINATION "stonesense"
         PATTERN "CVS" EXCLUDE
         PATTERN ".svn" EXCLUDE)
+# install readme
+install(FILES README.txt DESTINATION stonesense)
