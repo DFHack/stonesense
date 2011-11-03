@@ -412,7 +412,7 @@ static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALL
 static void * stonesense_thread(ALLEGRO_THREAD * thred, void * parms)
 {
 	DFHack::Core * c = (DFHack::Core * )parms;
-	DFConsole->print("\nStonesense launched\n");
+	DFConsole->print("Stonesense launched\n");
 
 	config.debug_mode = false;
 	config.hide_outer_blocks = false;

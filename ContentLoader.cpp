@@ -112,51 +112,19 @@ bool ContentLoader::Load( DFHack::Core& DF){
 	}
 	if(!config.skipInorganicMats)
 	{
-		try
+		if(!Mats->CopyInorganicMaterials(this->inorganic))
 		{
-			Mats->ReadInorganicMaterials();
-		}
-		catch(exception &e)
-		{
-			WriteErr("DFhack exeption: %s\n", e.what());
+			WriteErr("Missing inorganic materials!\n");
 			config.skipInorganicMats = true;
 		}
 	}
 	if(!config.skipOrganicMats)
 	{
-		try
+		if(!Mats->CopyOrganicMaterials(this->organic))
 		{
-			Mats->ReadOrganicMaterials();
-		}
-		catch(exception &e)
-		{
-			WriteErr("DFhack exeption: %s\n", e.what());
+			WriteErr("Missing organic materials!\n");
 			config.skipOrganicMats = true;
 		}
-	}
-	try
-	{
-		Mats->ReadOthers();
-	}
-	catch(exception &e)
-	{
-		WriteErr("DFhack exeption: %s\n", e.what());
-	}
-	try
-	{
-		Mats->ReadPlantMaterials();
-	}
-	catch(exception &e)
-	{
-		WriteErr("DFhack exeption: %s\n", e.what());
-	}
-	try
-	{
-		Mats->ReadWoodMaterials();
-	}
-	catch(exception &e)
-	{
-		WriteErr("DFhack exeption: %s\n", e.what());
 	}
 	try
 	{
@@ -221,9 +189,7 @@ bool ContentLoader::Load( DFHack::Core& DF){
 
 	//DF.Resume();
 
-	//time to copy all the junk from mats to contentloader.
-	this->organic = Mats->organic;
-	this->inorganic = Mats->inorganic;
+	//Find what is obsidian
 	contentLoader->obsidian = lookupMaterialIndex(INORGANIC, "OBSIDIAN");
 
 	loadGraphicsFromDisk(); //these get destroyed when flushImgFiles is called.
