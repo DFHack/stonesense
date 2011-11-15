@@ -806,33 +806,30 @@ void paintboard(){
 }
 
 
-
-
-
+bool load_from_path (ALLEGRO_PATH * p, const char * filename, ALLEGRO_BITMAP *& imgd)
+{
+    int index;
+    al_set_path_filename(p,filename);
+    index = loadImgFile(al_path_cstr(p,ALLEGRO_NATIVE_PATH_SEP));
+    if(index == -1)
+    {
+        return false;
+    }
+    imgd = al_create_sub_bitmap(IMGFilelist[index], 0, 0, al_get_bitmap_width(IMGFilelist[index]), al_get_bitmap_height(IMGFilelist[index]));
+    return true;
+}
 
 void loadGraphicsFromDisk()
 {
     ALLEGRO_PATH * p = al_create_path_for_directory("stonesense");
-    auto globulate = [&](const char * filename, ALLEGRO_BITMAP *& imgd ) -> bool
-    {
-        int index;
-        al_set_path_filename(p,filename);
-        index = loadImgFile(al_path_cstr(p,ALLEGRO_NATIVE_PATH_SEP));
-        if(index == -1)
-        {
-            return false;
-        }
-        imgd = al_create_sub_bitmap(IMGFilelist[index], 0, 0, al_get_bitmap_width(IMGFilelist[index]), al_get_bitmap_height(IMGFilelist[index]));
-        return true;
-    };
-    if(!globulate("objects.png", IMGObjectSheet)) return;
-    if(!globulate("creatures.png", IMGCreatureSheet)) return;
-    if(!globulate("ramps.png", IMGRampSheet)) return;
-    if(!globulate("SSStatusIcons.png", IMGStatusSheet)) return;
-    if(!globulate("gibs.png", IMGBloodSheet)) return;
-    if(!globulate("engravings_floor.png", IMGEngFloorSheet)) return;
-    if(!globulate("engravings_left.png", IMGEngLeftSheet)) return;
-    if(!globulate("engravings_right.png", IMGEngRightSheet)) return;
+    if(!load_from_path("objects.png", IMGObjectSheet)) return;
+    if(!load_from_path("creatures.png", IMGCreatureSheet)) return;
+    if(!load_from_path("ramps.png", IMGRampSheet)) return;
+    if(!load_from_path("SSStatusIcons.png", IMGStatusSheet)) return;
+    if(!load_from_path("gibs.png", IMGBloodSheet)) return;
+    if(!load_from_path("engravings_floor.png", IMGEngFloorSheet)) return;
+    if(!load_from_path("engravings_left.png", IMGEngLeftSheet)) return;
+    if(!load_from_path("engravings_right.png", IMGEngRightSheet)) return;
     al_destroy_path(p);
     createEffectSprites();
 }
