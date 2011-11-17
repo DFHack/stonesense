@@ -822,14 +822,14 @@ bool load_from_path (ALLEGRO_PATH * p, const char * filename, ALLEGRO_BITMAP *& 
 void loadGraphicsFromDisk()
 {
     ALLEGRO_PATH * p = al_create_path_for_directory("stonesense");
-    if(!load_from_path("objects.png", IMGObjectSheet)) return;
-    if(!load_from_path("creatures.png", IMGCreatureSheet)) return;
-    if(!load_from_path("ramps.png", IMGRampSheet)) return;
-    if(!load_from_path("SSStatusIcons.png", IMGStatusSheet)) return;
-    if(!load_from_path("gibs.png", IMGBloodSheet)) return;
-    if(!load_from_path("engravings_floor.png", IMGEngFloorSheet)) return;
-    if(!load_from_path("engravings_left.png", IMGEngLeftSheet)) return;
-    if(!load_from_path("engravings_right.png", IMGEngRightSheet)) return;
+    if(!load_from_path(p, "objects.png", IMGObjectSheet)) return;
+    if(!load_from_path(p, "creatures.png", IMGCreatureSheet)) return;
+    if(!load_from_path(p, "ramps.png", IMGRampSheet)) return;
+    if(!load_from_path(p, "SSStatusIcons.png", IMGStatusSheet)) return;
+    if(!load_from_path(p, "gibs.png", IMGBloodSheet)) return;
+    if(!load_from_path(p, "engravings_floor.png", IMGEngFloorSheet)) return;
+    if(!load_from_path(p, "engravings_left.png", IMGEngLeftSheet)) return;
+    if(!load_from_path(p, "engravings_right.png", IMGEngRightSheet)) return;
     al_destroy_path(p);
     createEffectSprites();
 }
