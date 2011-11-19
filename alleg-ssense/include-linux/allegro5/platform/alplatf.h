@@ -110,7 +110,7 @@
 /* #undef ALLEGRO_XWINDOWS_WITH_XF86DGA2 */
 
 /* Define if XF86VidMode extension is supported. */
-#define ALLEGRO_XWINDOWS_WITH_XF86VIDMODE
+/* #undef ALLEGRO_XWINDOWS_WITH_XF86VIDMODE */
 
 /* Define if Xinerama extension is supported. */
 #define ALLEGRO_XWINDOWS_WITH_XINERAMA
