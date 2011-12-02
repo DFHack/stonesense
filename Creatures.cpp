@@ -317,12 +317,12 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
 	int z1 = segment->z;
 	int z2 = segment->z + segment->sizez;
 	uint32_t numcreatures;
-	DFHack::Creatures * Creatures;
+	DFHack::Units * Creatures;
 	if(!config.skipCreatures)
 	{
 		try
 		{
-			Creatures = DF.getCreatures();
+			Creatures = DF.getUnits();
 		}
 		catch(exception &err)
 		{
