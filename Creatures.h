@@ -9,14 +9,14 @@ class Block;
 
 void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment);
 
-void DrawCreature(int drawx, int drawy, t_creature* creature, Block * b);
-void DrawCreatureText(int drawx, int drawy, t_creature* creature );
-c_sprite* GetCreatureSpriteMap( t_creature* c );
-int GetCreatureShadowMap( t_creature* c );
+void DrawCreature(int drawx, int drawy, t_unit* creature, Block * b);
+void DrawCreatureText(int drawx, int drawy, t_unit* creature );
+c_sprite* GetCreatureSpriteMap( t_unit* c );
+int GetCreatureShadowMap( t_unit* c );
 
 
-void generateCreatureDebugString( t_creature* c, char* strbuffer);
-void generateCreatureDebugString2( t_creature* c, char* strbuffer);
+void generateCreatureDebugString( t_unit* c, char* strbuffer);
+void generateCreatureDebugString2( t_unit* c, char* strbuffer);
 
 //extern vector<t_matgloss> v_creatureNames;
 //extern vector<CreatureConfiguration> creatureTypes;

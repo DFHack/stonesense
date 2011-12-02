@@ -61,7 +61,7 @@ ALLEGRO_COLOR getSpriteColor(t_subSprite &sprite, t_matglossPair material, t_mat
 	return getSpriteColor(tempSprite, material, layerMaterial, veinMaterial);
 }
 
-ALLEGRO_COLOR getSpriteColor(t_SpriteWithOffset &sprite, t_creature* creature)
+ALLEGRO_COLOR getSpriteColor(t_SpriteWithOffset &sprite, t_unit* creature)
 {
 	uint32_t dayofLife = creature->birth_year*12*28 + creature->birth_time/1200;
 	Block* b = viewedSegment->getBlock(creature->x, creature->y, creature->z);
@@ -110,7 +110,7 @@ ALLEGRO_COLOR getSpriteColor(t_SpriteWithOffset &sprite, t_creature* creature)
 	return getSpriteColor(sprite, b->material, b->layerMaterial, b->veinMaterial);
 }
 
-ALLEGRO_COLOR getSpriteColor(t_subSprite &sprite, t_creature* creature)
+ALLEGRO_COLOR getSpriteColor(t_subSprite &sprite, t_unit* creature)
 {
 	t_SpriteWithOffset tempSprite;
 

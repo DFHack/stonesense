@@ -211,7 +211,7 @@ ALLEGRO_USTR* bufferToUstr(const char* buffer, int length)
 	return temp;		
 }
 
-bool IsCreatureVisible( t_creature* c ){
+bool IsCreatureVisible( t_unit* c ){
 	if( config.show_all_creatures ) return true;
 
 	if( c->flags1.bits.dead )
@@ -223,7 +223,7 @@ bool IsCreatureVisible( t_creature* c ){
 	return true;
 }
 
-void DrawCreature(int drawx, int drawy, t_creature* creature, Block * b){
+void DrawCreature(int drawx, int drawy, t_unit* creature, Block * b){
 	vector<int> statusIcons;
 
 	//if(config.show_creature_happiness)
@@ -280,7 +280,7 @@ void DrawCreature(int drawx, int drawy, t_creature* creature, Block * b){
 	}
 }
 
-void DrawCreatureText(int drawx, int drawy, t_creature* creature ){
+void DrawCreatureText(int drawx, int drawy, t_unit* creature ){
 	if( config.show_creature_names )
 		if (creature->name.nickname[0] && config.names_use_nick)
 		{
@@ -350,8 +350,8 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
 	if(y2<0) y2=0;
 	if(z2<0) z2=0;
 
-	t_creature *tempcreature = new t_creature();
-	df_creature *unit_ptr = 0;
+	t_unit *tempcreature = new t_unit();
+	df_unit *unit_ptr = 0;
 	/*for (uint32_t index = 0; index < numcreatures ; index++)
 	{
 	Creatures->ReadCreature( index, *tempcreature );*/
@@ -398,7 +398,7 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
 						}
 						// need a new tempcreature now
 						// old tempcreature should be deleted when b is
-						tempcreature = new t_creature;
+						tempcreature = new t_unit;
 					}
 				}
 			}
@@ -414,7 +414,7 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
 }
 
 
-CreatureConfiguration *GetCreatureConfig( t_creature* c ){
+CreatureConfiguration *GetCreatureConfig( t_unit* c ){
 	//find list for creature type
 	vector<CreatureConfiguration>* creatureData;
 	uint32_t num = (uint32_t)contentLoader->creatureConfigs.size();
@@ -475,7 +475,7 @@ CreatureConfiguration *GetCreatureConfig( t_creature* c ){
 }
 
 
-c_sprite* GetCreatureSpriteMap( t_creature* c )
+c_sprite* GetCreatureSpriteMap( t_unit* c )
 {
 	static c_sprite * defaultSprite = new c_sprite;
 	defaultSprite->reset();
@@ -487,7 +487,7 @@ c_sprite* GetCreatureSpriteMap( t_creature* c )
 	return &(testConfig->sprite);
 }
 
-int GetCreatureShadowMap( t_creature* c )
+int GetCreatureShadowMap( t_unit* c )
 {
 	CreatureConfiguration *testConfig = GetCreatureConfig( c );
 	if (testConfig == NULL)
@@ -495,7 +495,7 @@ int GetCreatureShadowMap( t_creature* c )
 	return testConfig->shadow;
 }
 
-void generateCreatureDebugString( t_creature* c, char* strbuffer){
+void generateCreatureDebugString( t_unit* c, char* strbuffer){
 	if(c->flags1.bits.active_invader)
 		strcat(strbuffer, "activeInvader ");
 	if(c->flags1.bits.caged)

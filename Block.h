@@ -54,7 +54,7 @@ public:
 
     DFHack::t_designation designation;
     DFHack::t_occupancy occ;
-    DFHack::t_creature * creature;
+    DFHack::t_unit * creature;
     DFHack::t_matglossPair tree;
 
 	int mudlevel;
