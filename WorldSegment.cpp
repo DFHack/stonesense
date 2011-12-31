@@ -209,19 +209,24 @@ void WorldSegment::drawAllBlocks(){
 			if(!fog)
 			{
 				fog = al_create_bitmap(al_get_bitmap_width(temp), al_get_bitmap_height(temp));
+				level = al_create_bitmap(al_get_bitmap_width(temp), al_get_bitmap_height(temp));
 				al_set_target_bitmap(fog);
-				al_clear_to_color(premultiply(al_map_rgba_f(config.fogr, config.fogg, config.fogb, config.foga)));
+				al_clear_to_color(premultiply(al_map_rgba_f(config.fogr, config.fogg, config.fogb, 1)));
+				al_set_target_bitmap(level);
+				al_clear_to_color(al_map_rgba_f(0, 0, 0, 0));
 				al_set_target_bitmap(temp);
 			}
 			if(!((al_get_bitmap_width(fog) == al_get_bitmap_width(temp)) && (al_get_bitmap_height(fog) == al_get_bitmap_height(temp))))
 			{
-				al_destroy_bitmap(fog);
 				fog = al_create_bitmap(al_get_bitmap_width(temp), al_get_bitmap_height(temp));
+				level = al_create_bitmap(al_get_bitmap_width(temp), al_get_bitmap_height(temp));
 				al_set_target_bitmap(fog);
-				al_clear_to_color(al_map_rgba_f(config.fogr*config.foga, config.fogg*config.foga, config.fogb*config.foga, config.foga));
+				al_clear_to_color(premultiply(al_map_rgba_f(config.fogr, config.fogg, config.fogb, 1)));
+				al_set_target_bitmap(level);
+				al_clear_to_color(al_map_rgba_f(0, 0, 0, 0));
 				al_set_target_bitmap(temp);
 			}
-			al_draw_bitmap(fog, 0, 0, 0);
+			al_set_target_bitmap(level);
 		}
 		if(vsz == vszmax-1)
 		{
@@ -229,6 +234,7 @@ void WorldSegment::drawAllBlocks(){
 		}
 		if(config.dayNightCycle)
 		al_hold_bitmap_drawing(true);
+		al_set_separate_blender(ALLEGRO_ADD, ALLEGRO_ONE, ALLEGRO_INVERSE_ALPHA, ALLEGRO_ADD, ALLEGRO_ONE, ALLEGRO_INVERSE_ALPHA);
 		for(int32_t vsx=1; vsx < vsxmax; vsx++)
 		{
 			for(int32_t vsy=1; vsy < vsymax; vsy++)
@@ -266,6 +272,21 @@ void WorldSegment::drawAllBlocks(){
 			}
 		}
 		al_hold_bitmap_drawing(false);
+
+		if(config.fogenable && config.foga)
+		{
+			float actual_alpha = vszmax - vsz; //distance from the top
+			actual_alpha/=config.foga;
+			if(actual_alpha > 1.0) actual_alpha = 1.0;
+			al_set_target_bitmap(level);
+			int op, src, dst, alpha_op, alpha_src, alpha_dst;
+			al_get_separate_blender(&op, &src, &dst, &alpha_op, &alpha_src, &alpha_dst);
+			al_set_separate_blender(ALLEGRO_ADD, ALLEGRO_ONE, ALLEGRO_INVERSE_ALPHA, ALLEGRO_ADD, ALLEGRO_ZERO, ALLEGRO_ONE);
+			al_draw_tinted_bitmap(fog, al_map_rgba_f(actual_alpha,actual_alpha,actual_alpha,actual_alpha), 0,0,0);
+			al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst);
+			al_set_target_bitmap(temp);
+			al_draw_bitmap(level, 0,0,0);
+		}
 	}
 	if(config.showRenderStatus)
 		SetTitle("Stonesense");
