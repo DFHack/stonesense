@@ -26,10 +26,10 @@
 #define DFHACK_WANT_TILETYPES
 
 #include <DFHack.h>
-#include <dfhack/Core.h>
-#include <dfhack/Console.h>
-#include <dfhack/Export.h>
-#include <dfhack/PluginManager.h>
+#include "Core.h"
+#include <Console.h>
+#include <Export.h>
+#include <PluginManager.h>
 
 #include "commonTypes.h"
 #include "Block.h"
