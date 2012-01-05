@@ -8,6 +8,16 @@
 #include <map>
 #include <stdint.h>
 
+// allegro also leaks stdint.h and some weird equivalent of it on windows. let's disable the copy leaked by dfhack.
+#define SKIP_DFHACK_STDINT
+#define DFHACK_WANT_TILETYPES
+
+#include <DFHack.h>
+#include "Core.h"
+#include <Console.h>
+#include <Export.h>
+#include <PluginManager.h>
+
 #define ALLEGRO_NO_MAGIC_MAIN //This is a DLL file. we got no main function.
 #define ALLEGRO_HAVE_STDINT_H
 
@@ -21,15 +31,6 @@
 
 // allegro leaks X headers, undef some of it here:
 #undef TileShape
-// allegro also leaks stdint.h and some weird equivalent of it on windows. let's disable the copy leaked by dfhack.
-#define SKIP_DFHACK_STDINT
-#define DFHACK_WANT_TILETYPES
-
-#include <DFHack.h>
-#include "Core.h"
-#include <Console.h>
-#include <Export.h>
-#include <PluginManager.h>
 
 #include "commonTypes.h"
 #include "Block.h"
