@@ -146,7 +146,7 @@ void MergeBuildingsToSegment(vector<t_building>* buildings, WorldSegment* segmen
 							continue; 
 						b->building.index = i;
 						b->building.info = tempbuilding;
-						b->building.custom_building_type = contentLoader->Bld->GetCustomWorkshopType(tempbuilding);
+						b->building.custom_building_type = tempbuilding.custom_type;
 					}
 				}
 			}
