@@ -197,7 +197,7 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
 					   uint32_t BoundrySX, uint32_t BoundrySY,
 					   uint32_t BoundryEX, uint32_t BoundryEY, 
 					   uint16_t Flags/*not in use*/, 
-					   vector<t_building>* allBuildings, 
+                       vector<Buildings::t_building>* allBuildings, 
 					   vector<t_construction>* allConstructions,
 					   vector< vector <uint16_t> >* allLayers,
 					   vector<DFHack::t_feature> * global_features,
@@ -703,7 +703,7 @@ WorldSegment* ReadMapSegment(DFHack::Core &DF, int x, int y, int z, int sizex, i
 	segment->rotation = DisplayedRotation;
 
 	//read world wide buildings
-	vector<t_building> allBuildings;
+    vector<Buildings::t_building> allBuildings;
 	if(!config.skipBuildings)
 		ReadBuildings(DF, &allBuildings);
 

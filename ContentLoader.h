@@ -48,7 +48,6 @@ public:
 	vector<string> professionStrings;
 	std::map <uint32_t, std::string> custom_workshop_types;
 	VersionInfo *MemInfo;
-	DFHack::Buildings * Bld;
 	DFHack::Materials * Mats;
 	std::vector<t_matgloss> organic;
     std::vector<t_matglossInorganic> inorganic;

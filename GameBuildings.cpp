@@ -62,43 +62,21 @@ dirTypes findWallCloseTo(WorldSegment* segment, Block* b){
 	return eSimpleSingle;
 }
 
-void ReadBuildings(DFHack::Core& DF, vector<t_building>* buildingHolder)
+void ReadBuildings(DFHack::Core& DF, vector<Buildings::t_building>* buildingHolder)
 {
 	if(config.skipBuildings)
 		return;
 	if(!buildingHolder) return;
 
-	DFHack::Buildings * Bld;
-	try
-	{
-		Bld = DF.getBuildings();
-	}
-	catch (exception &e)
-	{
-		WriteErr("DFhack exeption: %s\n", e.what());
-		config.skipBuildings = true;
-		return;
-	}
-
 	vector<string> dummy;
-	uint32_t numbuildings = 0;
-	try
-	{
-		if (!Bld->Start(numbuildings)) return;
-	}
-	catch (exception &e)
-	{
-		WriteErr("DFhack exeption: %s\n", e.what());
-		config.skipBuildings = true;
-		return;
-	}
-	t_building tempbuilding;
+    uint32_t numbuildings = Buildings::getNumBuildings();
+	Buildings::t_building tempbuilding;
 
 	uint32_t index = 0;
 	while(index < numbuildings){
 		try
 		{
-			Bld->Read(index, tempbuilding);
+			Buildings::Read(index, tempbuilding);
 		}
 		catch (exception &e)
 		{
@@ -109,12 +87,11 @@ void ReadBuildings(DFHack::Core& DF, vector<t_building>* buildingHolder)
 		buildingHolder->push_back(tempbuilding);
 		index++;
 	}
-	Bld->Finish();
 }
 
 
-void MergeBuildingsToSegment(vector<t_building>* buildings, WorldSegment* segment){
-	t_building tempbuilding;
+void MergeBuildingsToSegment(vector<Buildings::t_building>* buildings, WorldSegment* segment){
+	Buildings::t_building tempbuilding;
 	uint32_t numBuildings = (uint32_t)buildings->size();
 	for(uint32_t i=0; i < numBuildings; i++){
 		tempbuilding = (*buildings)[i];
@@ -214,10 +191,10 @@ void loadBuildingSprites ( Block* b){
 }
 
 /*TODO: this function takes a massive amount of work, looping all buildings for every block*/
-bool BlockHasSuspendedBuilding(vector<t_building>* buildingList, Block* b){
+bool BlockHasSuspendedBuilding(vector<Buildings::t_building>* buildingList, Block* b){
 	uint32_t num = (uint32_t)buildingList->size();
 	for(uint32_t i=0; i < num; i++){
-		t_building* building = &(*buildingList)[i];
+		Buildings::t_building* building = &(*buildingList)[i];
 
 		//boundry check
 		if(b->z != building->z) continue;

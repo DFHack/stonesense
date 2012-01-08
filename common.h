@@ -17,6 +17,8 @@
 #include <Console.h>
 #include <Export.h>
 #include <PluginManager.h>
+using namespace DFHack;
+using namespace DFHack::Simple;
 
 #define ALLEGRO_NO_MAGIC_MAIN //This is a DLL file. we got no main function.
 #define ALLEGRO_HAVE_STDINT_H
@@ -256,5 +258,4 @@ extern int randomCube[RANDOM_CUBE][RANDOM_CUBE][RANDOM_CUBE];
 extern DFHack::Console * DFConsole;
 
 ALLEGRO_COLOR premultiply(ALLEGRO_COLOR input);
-using namespace DFHack;
 using namespace std;

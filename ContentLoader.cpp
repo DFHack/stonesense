@@ -126,18 +126,7 @@ bool ContentLoader::Load( DFHack::Core& DF){
 			config.skipOrganicMats = true;
 		}
 	}
-	try
-	{
-	Bld = DF.getBuildings();
-	}
-	catch(exception &e)
-	{
-		WriteErr("DFhack exeption: %s\n", e.what());
-	}
-	if(Bld)
-	{
-		Bld->ReadCustomWorkshopTypes(custom_workshop_types);
-	}
+    Buildings::ReadCustomWorkshopTypes(custom_workshop_types);
 	try
 	{
 		contentLoader->MemInfo = DF.vinfo;
