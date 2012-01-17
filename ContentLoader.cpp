@@ -21,6 +21,7 @@ ContentLoader::~ContentLoader(void)
 	flushTerrainConfig(terrainFloorConfigs);
 	flushTerrainConfig(terrainBlockConfigs);	
 	flushCreatureConfig();
+    flushItemConfig();
 	colorConfigs.clear();
 }
 
@@ -54,6 +55,7 @@ bool ContentLoader::Load( DFHack::Core& DF){
 	flushTerrainConfig(terrainBlockConfigs);
     colorConfigs.clear();
 	creatureConfigs.clear();
+    itemConfigs.clear();
 	treeConfigs.clear();
 	shrubConfigs.clear();
 	flushImgFiles();
@@ -198,6 +200,7 @@ bool ContentLoader::reload_configs()
 	flushTerrainConfig(terrainBlockConfigs);
     colorConfigs.clear();
 	creatureConfigs.clear();
+    itemConfigs.clear();
 	treeConfigs.clear();
 	shrubConfigs.clear();
 	grassConfigs.clear();
@@ -351,6 +354,8 @@ bool ContentLoader::parseContentXMLFile( const char* filepath ){
 			runningResult &= parseColorContent( elemRoot );
 		else if( elementType.compare( "fluids" ) == 0 )
 			runningResult &= parseFluidContent( elemRoot );
+        else if( elementType.compare( "items" ) == 0 )
+            runningResult &= parseItemContent( elemRoot );
 		else
 			contentError("Unrecognised root element",elemRoot);
 
@@ -391,6 +396,10 @@ bool ContentLoader::parseTerrainContent(TiXmlElement* elemRoot ){
 
 bool ContentLoader::parseColorContent(TiXmlElement* elemRoot ){
 	return addSingleColorConfig( elemRoot );
+}
+
+bool ContentLoader::parseItemContent(TiXmlElement* elemRoot ){
+  return addItemsConfig( elemRoot, itemConfigs );
 }
 
 bool ContentLoader::parseFluidContent(TiXmlElement* elemRoot ){
@@ -691,6 +700,24 @@ void ContentLoader::flushCreatureConfig()
 	// make big enough to hold all creatures
 	creatureConfigs.clear();
 }
+
+void ContentLoader::flushItemConfig()
+{
+	uint32_t num = (uint32_t)itemConfigs.size();
+	for ( int i = 0 ; i < num; i++ )
+	{
+		if (itemConfigs[i])
+			delete itemConfigs[i];
+	}
+	// make big enough to hold all items
+	itemConfigs.clear();
+	//if (num <= itemNameStrings.size())
+	//{
+	//	num = itemNameStrings.size() + 1;
+	//}
+	itemConfigs.resize(num,NULL);
+}
+
 ALLEGRO_COLOR lookupMaterialColor(int matType,int matIndex)
 {
 	if (matType >= contentLoader->colorConfigs.size())

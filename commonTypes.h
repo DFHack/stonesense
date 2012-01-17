@@ -220,3 +220,14 @@ enum enumCreatureSex{
 	eCreatureSex_Male,
 	eCreatureSex_Female
 };
+
+struct t_CachedItem{
+	int itemType;
+	int matType;
+	int matIndex;
+	uint32_t flags;
+	int itemIndex;
+	int itemID;
+	uint32_t cachePass;
+	bool fullPass;
+} ;

@@ -294,6 +294,8 @@ void Block::Draw()
 				spriteobject->draw_world(x, y, z, this);
 		}
 	}
+	
+	
 
 	//Draw Stairs
 	if(stairType > 0)
@@ -321,6 +323,24 @@ void Block::Draw()
 			else
 				spriteobject->draw_world(x, y, z, this);
 		}
+	}
+	
+	//insert item here!
+	if (occ.bits.item)
+	{
+        // this should be an actual item eventually...
+        t_CachedItem fakeitem;
+        // wacky location to itemtype for testing
+        fakeitem.itemType = (drawx * 7 + drawy * 13) % 10;
+        fakeitem.matType = 4;
+        fakeitem.matType = 4;
+        fakeitem.flags = 0;
+        fakeitem.itemIndex = 42;
+        fakeitem.itemID = 42;
+        fakeitem.cachePass = 0;
+        fakeitem.fullPass = 0;
+        DrawItem(drawx, drawy, fakeitem);
+		//DrawSpriteFromSheet(306, IMGObjectSheet, al_map_rgb(255,255,255), drawx, drawy, this );
 	}
 
 	if(wallType > 0)
