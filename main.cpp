@@ -574,6 +574,7 @@ static void * stonesense_thread(ALLEGRO_THREAD * thred, void * parms)
 		delete viewedSegment;
         viewedSegment = 0;
 	}
+    clearItemCache();
 	al_destroy_bitmap(IMGIcon);
     IMGIcon = 0;
     delete contentLoader;

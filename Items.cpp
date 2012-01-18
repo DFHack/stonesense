@@ -30,7 +30,15 @@ unordered_map<ItemLocKey,t_CachedItem*,LocKeyHash,LocKeyEqual> itemCache;
 
 void clearItemCache()
 {
-    // MEMORY LEAK - need to free the stored pointers here
+    // need to free the stored pointers here
+    unordered_map<ItemLocKey,t_CachedItem*,LocKeyHash,LocKeyEqual>::iterator it;
+    for (it=itemCache.begin() ; it != itemCache.end(); it++ )
+    {
+        if (it->second != NULL)
+        {
+            delete (it->second);
+        }
+    }
 	itemCache.clear();
 }
 
@@ -79,17 +87,24 @@ void handleItem(df_item *item)
 // overly simple atm
 void ReadItems(DFHack::Core& DF)
 {
-    //TODO error checking
+    if (config.skipItems)
+    {
+        return;
+    }
     DFHack::Items *Items = DF.getItems();
     vector<df_item *> itemlist;
-    Items->readItemVectorSubset(itemlist, search_offset, config.item_search_rate);
+    if (!Items->readItemVectorSubset(itemlist, search_offset, config.item_search_rate))
+    {
+        config.skipItems = true;
+        WriteErr("readItemVectorSubset failed. Offset error?\n");
+        return;
+    }
     for (std::size_t i=0; i < itemlist.size(); i++)
     {
         handleItem(itemlist[i]);
     }
     if (itemlist.size()<config.item_search_rate)
     {
-        WriteErr("Looped on search at %d\n",(search_offset+itemlist.size()));
         search_offset=0;
     }
     else
@@ -100,6 +115,10 @@ void ReadItems(DFHack::Core& DF)
 
 void DrawItem(int drawx, int drawy, t_CachedItem& item )
 {
+    if (config.skipItems)
+    {
+        return;
+    }
 	t_SpriteWithOffset sprite = GetItemSpriteMap( item );
 	if (sprite.sheetIndex == INVALID_INDEX)
 		return;

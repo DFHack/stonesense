@@ -913,7 +913,7 @@ WorldSegment* ReadMapSegment(DFHack::Core &DF, int x, int y, int z, int sizex, i
 		ReadCreaturesToSegment( DF, segment );
     
     //Read Items
-    if (config.show_items && !config.skipItems)
+    if (config.show_items)
     {
         ReadItems(DF);
     }
