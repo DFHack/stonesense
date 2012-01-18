@@ -430,6 +430,7 @@ static void * stonesense_thread(ALLEGRO_THREAD * thred, void * parms)
 	config.show_creature_names = true;
 	config.show_osd = true;
 	config.show_intro = true;
+    config.show_items = false;
 	config.track_center = false;
 	config.animation_step = 300;
 	config.follow_DFscreen = false;
@@ -452,6 +453,7 @@ static void * stonesense_thread(ALLEGRO_THREAD * thred, void * parms)
 	config.threading_enable = 1;
 	config.fog_of_war = 1;
 	config.occlusion = 1;
+    config.item_search_rate=500;
     contentLoader = new ContentLoader();
 	initRandomCube();
 	loadConfigFile();
@@ -572,6 +574,7 @@ static void * stonesense_thread(ALLEGRO_THREAD * thred, void * parms)
 		delete viewedSegment;
         viewedSegment = 0;
 	}
+    clearItemCache();
 	al_destroy_bitmap(IMGIcon);
     IMGIcon = 0;
     delete contentLoader;

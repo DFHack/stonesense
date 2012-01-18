@@ -7,6 +7,7 @@
 #include "BlockFactory.h"
 #include "ContentLoader.h"
 #include "SpriteColors.h"
+#include "Items.h"
 
 ALLEGRO_BITMAP *sprite_miasma = 0;
 ALLEGRO_BITMAP *sprite_water = 0;
@@ -294,6 +295,8 @@ void Block::Draw()
 				spriteobject->draw_world(x, y, z, this);
 		}
 	}
+	
+	
 
 	//Draw Stairs
 	if(stairType > 0)
@@ -321,6 +324,20 @@ void Block::Draw()
 			else
 				spriteobject->draw_world(x, y, z, this);
 		}
+	}
+	
+	//insert item here!
+	if (occ.bits.item && config.show_items)
+	{
+        t_CachedItem *item= getCachedItem(x,y,z);
+        if (item == NULL)
+        {
+            DrawSpriteFromSheet(142, IMGObjectSheet, al_map_rgb(255,255,255), drawx, drawy, this );
+        }
+        else
+        {
+            DrawItem(drawx, drawy, *item);            
+        }
 	}
 
 	if(wallType > 0)

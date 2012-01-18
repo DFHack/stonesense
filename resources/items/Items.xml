@@ -1,0 +1,109 @@
+<?xml version="1.0" ?>
+
+<items file="items.png" >
+<item gameID="0" gameName="item_bar" sheetIndex = 23 />
+<item gameID="1" gameName="item_smallgem" sheetIndex = 16 />
+<item gameID="2" gameName="item_blocks" sheetIndex = 76 />
+<item gameID="3" gameName="item_rough" sheetIndex = 16 />
+<item gameID="4" gameName="item_stone" sheetIndex = 1 />
+<item gameID="5" gameName="item_wood" sheetIndex = 0 />
+<item gameID="6" gameName="item_door" sheetIndex = 49 />
+<item gameID="7" gameName="item_floodgate" sheetIndex = 51 />
+<item gameID="8" gameName="item_bed" sheetIndex = 48 />
+<item gameID="9" gameName="item_chair" sheetIndex = 45 />
+<item gameID="10" gameName="item_chain" sheetIndex = 21 />
+<item gameID="11" gameName="item_flask" material="Leather" sheetIndex = 59 />
+<item gameID="11" gameName="item_flask" sheetIndex = 18 />
+<item gameID="12" gameName="item_goblet" sheetIndex = 28 />
+<item gameID="13" gameName="item_instrument" sheetIndex = 40 />
+<item gameID="14" gameName="item_toy" sheetIndex = 80 />
+<item gameID="15" gameName="item_window" sheetIndex = 55 />
+<item gameID="16" gameName="item_cage" sheetIndex = 22 />
+<item gameID="17" gameName="item_barrel" material="Metal" sheetIndex = 69 />
+<item gameID="17" gameName="item_barrel" sheetIndex = 2 />
+<item gameID="18" gameName="item_bucket" sheetIndex = 7 />
+<item gameID="19" gameName="item_animaltrap" sheetIndex = 81 />
+<item gameID="20" gameName="item_table" sheetIndex = 46 />
+<item gameID="21" gameName="item_coffin" sheetIndex = 82 />
+<item gameID="22" gameName="item_statue" sheetIndex = 53 />
+<item gameID="23" gameName="item_corpse" sheetIndex = 35 />
+<item gameID="24" gameName="item_weapon" sheetIndex = 31 />
+<item gameID="25" gameName="item_armor" material="Metal" sheetIndex = 61 />
+<item gameID="25" gameName="item_armor" material="Leather" sheetIndex = 11 />
+<item gameID="25" gameName="item_armor" sheetIndex = 67 />
+<item gameID="26" gameName="item_shoes" material="Metal" sheetIndex = 63 />
+<item gameID="26" gameName="item_shoes" sheetIndex = 13 />
+<item gameID="27" gameName="item_shield" material="Metal" sheetIndex = 62 />
+<item gameID="27" gameName="item_shield" sheetIndex = 12 />
+<item gameID="28" gameName="item_helm" material="Metal" sheetIndex = 65 />
+<item gameID="28" gameName="item_helm" material="Leather" sheetIndex = 15 />
+<item gameID="28" gameName="item_helm" sheetIndex = 68 />
+<item gameID="29" gameName="item_gloves" material="Metal" sheetIndex = 64 />
+<item gameID="29" gameName="item_gloves" sheetIndex = 14 />
+<item gameID="30" gameName="item_box" material="Leather" sheetIndex = 43 />
+<item gameID="30" gameName="item_box" material="Silk" sheetIndex = 43 />
+<item gameID="30" gameName="item_box" material="PlantCloth" sheetIndex = 43 />
+<item gameID="30" gameName="item_box" sheetIndex = 58 />
+<item gameID="31" gameName="item_bin" material="Metal" sheetIndex = 70 />
+<item gameID="31" gameName="item_bin" sheetIndex = 3 />
+<item gameID="32" gameName="item_armorstand" sheetIndex = 56 />
+<item gameID="33" gameName="item_weaponrack" sheetIndex = 57 />
+<item gameID="34" gameName="item_cabinet" sheetIndex = 47 />
+<item gameID="35" gameName="item_figurine" sheetIndex = 41 />
+<item gameID="36" gameName="item_amulet" sheetIndex = 42 />
+<item gameID="37" gameName="item_scepter" sheetIndex = 27 />
+<item gameID="38" gameName="item_ammo" sheetIndex = 8 />
+<item gameID="39" gameName="item_crown" sheetIndex = 39 />
+<item gameID="40" gameName="item_ring" sheetIndex = 29 />
+<item gameID="41" gameName="item_earring" sheetIndex = 29 />
+<item gameID="42" gameName="item_bracelet" sheetIndex = 38 />
+<item gameID="43" gameName="item_gem" sheetIndex = 17 />
+<item gameID="44" gameName="item_anvil" sheetIndex = 52 />
+<item gameID="45" gameName="item_corpsepiece" sheetIndex = 34 />
+<item gameID="46" gameName="item_remains" sheetIndex = 34 />
+<item gameID="47" gameName="item_meat" sheetIndex = 24 />
+<item gameID="48" gameName="item_fish" sheetIndex = 24 />
+<item gameID="49" gameName="item_fish_raw" sheetIndex = 72 />
+<!-- 50: vermin -->
+<!-- 51: pet vermin -->
+<item gameID="52" gameName="item_seeds" sheetIndex = 73 />
+<item gameID="53" gameName="item_plant" sheetIndex = 44 />
+<item gameID="54" gameName="item_skin_tanned" sheetIndex = 19 />
+<item gameID="55" gameName="item_leaves" sheetIndex = 77 />
+<item gameID="56" gameName="item_thread" sheetIndex = 37 />
+<item gameID="57" gameName="item_cloth" sheetIndex = 36 />
+<item gameID="58" gameName="item_totem" sheetIndex = 30 />
+<item gameID="59" gameName="item_pants" material="Metal" sheetIndex = 60 />
+<item gameID="59" gameName="item_pants" material="Leather" sheetIndex = 10 />
+<item gameID="59" gameName="item_pants" sheetIndex = 66 />
+<item gameID="60" gameName="item_backpack" sheetIndex = 71 />
+<item gameID="61" gameName="item_quiver" sheetIndex = 9 />
+<item gameID="62" gameName="item_catapultparts" sheetIndex = 84 />
+<item gameID="63" gameName="item_ballistaparts" sheetIndex = 84 />
+<item gameID="64" gameName="item_siegeammo" sheetIndex = 85 />
+<item gameID="65" gameName="item_ballistaarrowhead" sheetIndex = 78 />
+<item gameID="66" gameName="item_trapparts" sheetIndex = 32 />
+<item gameID="67" gameName="item_trapcomp" sheetIndex = 33 />
+<item gameID="68" gameName="item_drink" sheetIndex = 74 />
+<item gameID="69" gameName="item_powder_misc" sheetIndex = 75 />
+<item gameID="70" gameName="item_cheese" sheetIndex = 79 />
+<item gameID="71" gameName="item_food" sheetIndex = 26 />
+<item gameID="72" gameName="item_liquid_misc" sheetIndex = 74 />
+<item gameID="73" gameName="item_coin" sheetIndex = 73 />
+<item gameID="74" gameName="item_glob" sheetIndex = 25 />
+<!-- 75: rock -->
+<item gameID="76" gameName="item_pipe_section" sheetIndex = 86 />
+<item gameID="77" gameName="item_hatch_cover" sheetIndex = 50 />
+<item gameID="78" gameName="item_grate" sheetIndex = 54 />
+<item gameID="79" gameName="item_quern" sheetIndex = 83 />
+<item gameID="80" gameName="item_millstone" sheetIndex = 83 />
+<!-- 81: splint -->
+<!-- 82: crutch -->
+<!-- 83: tractionbench -->
+<!-- 84: cast -->
+<!-- 85: tool -->
+<!-- 86: slab -->
+<!-- 87: egg -->
+</items>
+
+

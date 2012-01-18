@@ -5,77 +5,58 @@ I'm just getting the project out there, so the public light will force me to tid
 
 1 - I've only tested it with MSVS 2005
 
-2 - On linux, You will need Allegro 5.0.0, the graphics library we use. Get it at http://alleg.sourceforge.net/
-	Note that this can be tricky to compile, annd you need to verify that you have all the dependencies, as a few missing ones will
-	result in allegro compiling, but not the required modules.
-
-3 - You will also need the latest DFhack as of 2011/01/22, get it from http://github.com/peterix/dfhack
+2 - You will also need the latest DFhack as of 2011/01/22, get it from http://github.com/peterix/dfhack
 
 Specific Build Notes
 ====================
 
 *** MinGW ***
 
-(I am including specific version numbers here so I can give precise file info, as things
-update, you may have better luck with newer versions)
-
-1) Get cmake-2.6.4-win32-x86.exe from
-http://www.cmake.org/files/v2.6/cmake-2.6.4-win32-x86.exe
-and install
-
-2) Get MinGW-5.1.6.exe installer from
-http://sourceforge.net/projects/mingw/files/Automated%20MinGW%20Installer/
-
-Install with:
-g++ compiler
-MinGW make (this didnt want to automatically grab today, you may need to manually install it)
-
-3) Get subversion checkout of stonesense (PySVN Workbench works nicely)
-see http://code.google.com/p/stonesense/source/checkout
-
-4) Get allegro-mingw-5.0.0.zip from
-http://sourceforge.net/projects/alleg/files/
-
-Unpack allegro into the stonesense directory
-(so you have a stonesense/allegro-mingw-5.0.0 directory)
-
-* Yes you need the whole lot not just the libs *
-
-(If you have a newer allegro, change its directory name, or tweak the directories in CMakeList.txt)
-
-5) add any missing .cpp files to the CMakeList.txt list under
-
-SET(PROJECT_SRCS
-
-(or wait till the compiler process winges about them to help figure out what is missing)
-
-6) *** You will need to either set up paths to MinGW and CMake in your environment or
-a dos shell for the following steps ***
-
-something like
-
-set path=c:\Program Files\CMake 2.6\bin;c:\MinGW\bin;%path%
-
-7) Run the build-MinGW32-release.bat batch file
-
-* If you are running in a dos prompt, you will need to be in the build directory *
-
-
+My understanding is that the linking version of DFHack will not compile via MinGW due to DLL compatibiliy issues
 
 *** Linux ***
 
-1) Get the source
+1) Get the libraries
 
-svn checkout http://stonesense.googlecode.com/svn/trunk stonesense
+Your distro should have dev packages for libpng, and zlib
+You can also build your own debug allegro libraries if you are particularly adventurous, but that is unnecessary (stonesense comes with prebuild allegro libs) and left as an exercise for the masochistic
+You will also need git, make, cmake and a g++
 
-2) Get the libraries
+2) Get the source from git
 
-Your distro should have dev packages for allegro, libpng, and zlib
-You will also need make, cmake and a g++
+start with a terminal somewhere suitable for putting a dfhack dev area (ie writeable and not too wacky)
 
-3) Run the built in make
+> git clone git://github.com/peterix/dfhack.git # read only repo @ https://github.com/peterix/dfhack
+> cd dfhack # step into the new directory
+> git submodule init # set up the stonesense submodule
+> git submodule update # and fetch it from read only repo @ https://github.com/peterix/stonesense
 
-cd stonesense/build
-cmake .. -DCMAKE_BUILD_TYPE:string=Release
-make
+3) Make sure stonesense is set to be built
+
+in dfhack/plugins/CMakeLists.txt, make sure the option
+OPTION(BUILD_STONESENSE "Build stonesense (needs a checkout first)." ON)
+is actually set to ON
+
+4) Configure the build
+
+assuming your terminal is still pointing at the dfhack area from step 2
+
+> cd build
+> make cmake .. -DCMAKE_BUILD_TYPE:string=Release -DCMAKE_INSTALL_PREFIX=<location_of_df>
+
+note that <location_of_df> should be replaced by the df folder
+you could also configure stuff with ccmake if you prefer
+
+4) Actually build stuff
+
+terminal, still in the build directory from step 4
+
+> make
+> make install
+
+5) Debug whatever went wrong in step 4 and 5
+
+One possibility is you dont have all the libraries you need (what happens if you google the error message? Is there some package lib<string from the error message> that you could install.
+
+Theres always the chance that something was missing from a check in- git should be able to back up to older versions of dfhack and/or stonesense to see if they work better.
 

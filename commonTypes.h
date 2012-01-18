@@ -117,6 +117,7 @@ typedef struct {
 	bool shade_hidden_blocks;
 	bool show_hidden_blocks;
 	bool show_creature_names;
+    bool show_items;
 	bool names_use_nick;
 	bool names_use_species;
 	bool show_all_creatures;
@@ -187,6 +188,9 @@ typedef struct {
 
 	uint16_t bloodcutoff;
 	uint16_t poolcutoff;
+    
+    size_t item_search_rate;
+    
 	//follows are anti-crash things
 	bool skipWorld;
 	bool skipCreatures;
@@ -199,6 +203,7 @@ typedef struct {
 	bool skipMaps;
 	bool skipInorganicMats;
 	bool skipOrganicMats;
+    bool skipItems;
 
 	//following are threading stuff
 
@@ -220,3 +225,14 @@ enum enumCreatureSex{
 	eCreatureSex_Male,
 	eCreatureSex_Female
 };
+
+struct t_CachedItem{
+	t_itemType itemType;
+	t_materialType matType;
+	t_materialIndex matIndex;
+	uint32_t flags;
+	int itemIndex;
+	int itemID;
+	uint32_t cachePass;
+	bool fullPass;
+} ;

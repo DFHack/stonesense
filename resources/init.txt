@@ -84,7 +84,7 @@ Now independant of map refresh.
 --Debug Mode--
 
 Sets Stonesense in debug mode. Adds additional information to displays.
-[DEBUGMODE:NO]
+[DEBUGMODE:YES]
 
 Set's the debug cursor to follow the cursor from DF when it is there.
 [FOLLOW_DF_CURSOR:YES]
@@ -105,6 +105,13 @@ Shows all creatures, for debugging. Living, dead, kidnapped, caged, EVERY single
 Adds more logging information to what is written to stonesense.log. May be useful
 if trying having issues with sprite configuration tweaking.
 [VERBOSE_LOGGING:NO]
+
+Show items (Toggle with something, later)
+[SHOW_ITEMS:NO]
+
+How many items to check per frame
+Higher numbers will display items earlier, but impact framerate
+[ITEM_SEARCH_RATE:50]
 
 --Troubleshooting--
 
