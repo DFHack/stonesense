@@ -5,11 +5,7 @@ I'm just getting the project out there, so the public light will force me to tid
 
 1 - I've only tested it with MSVS 2005
 
-2 - On linux, You will need Allegro 5.0.0, the graphics library we use. Get it at http://alleg.sourceforge.net/
-	Note that this can be tricky to compile, annd you need to verify that you have all the dependencies, as a few missing ones will
-	result in allegro compiling, but not the required modules.
-
-3 - You will also need the latest DFhack as of 2011/01/22, get it from http://github.com/peterix/dfhack
+2 - You will also need the latest DFhack as of 2011/01/22, get it from http://github.com/peterix/dfhack
 
 Specific Build Notes
 ====================
