@@ -430,6 +430,7 @@ static void * stonesense_thread(ALLEGRO_THREAD * thred, void * parms)
 	config.show_creature_names = true;
 	config.show_osd = true;
 	config.show_intro = true;
+    config.show_items = false;
 	config.track_center = false;
 	config.animation_step = 300;
 	config.follow_DFscreen = false;

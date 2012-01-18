@@ -327,7 +327,7 @@ void Block::Draw()
 	}
 	
 	//insert item here!
-	if (occ.bits.item)
+	if (occ.bits.item && config.show_items && !config.skipItems)
 	{
         t_CachedItem *item= getCachedItem(x,y,z);
         if (item == NULL)

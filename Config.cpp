@@ -551,6 +551,10 @@ void parseConfigLine( string line ){
 		string result = parseStrFromLine( "NIGHT", line );
 		config.dayNightCycle = (result == "YES");
 	}
+    if( line.find("[SHOW_ITEMS") != -1){
+		string result = parseStrFromLine( "SHOW_ITEMS", line );
+		config.show_items = (result == "YES");
+	}
     if( line.find("[ITEM_SEARCH_RATE") != -1){
 		int value = parseIntFromLine( "ITEM_SEARCH_RATE", line);
         if(value > 50000) value = 50000;

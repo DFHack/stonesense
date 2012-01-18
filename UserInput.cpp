@@ -273,6 +273,15 @@ void doKeys(int Key)
 		config.show_osd = !config.show_osd;
 		timeToReloadSegment = true;
 	}
+    if(Key == ALLEGRO_KEY_F3){
+		config.show_items = !config.show_items;
+        //this would be a good time to clear out the item cache
+        if (!config.show_items)
+        {
+            clearItemCache();
+        }
+		timeToReloadSegment = true;
+	}
 	if(Key == ALLEGRO_KEY_F5){
 		if (al_key_down(&keyboard,ALLEGRO_KEY_LCTRL) || al_key_down(&keyboard,ALLEGRO_KEY_RCTRL))
 			if (al_key_down(&keyboard,ALLEGRO_KEY_LSHIFT) || al_key_down(&keyboard,ALLEGRO_KEY_RSHIFT))

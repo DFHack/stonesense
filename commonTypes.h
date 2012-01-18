@@ -117,6 +117,7 @@ typedef struct {
 	bool shade_hidden_blocks;
 	bool show_hidden_blocks;
 	bool show_creature_names;
+    bool show_items;
 	bool names_use_nick;
 	bool names_use_species;
 	bool show_all_creatures;

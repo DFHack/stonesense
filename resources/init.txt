@@ -107,7 +107,7 @@ if trying having issues with sprite configuration tweaking.
 [VERBOSE_LOGGING:NO]
 
 Show items (Toggle with something, later)
-[SHOW_ITEMS:YES]
+[SHOW_ITEMS:NO]
 
 How many items to check per frame
 Higher numbers will display items earlier, but impact framerate
