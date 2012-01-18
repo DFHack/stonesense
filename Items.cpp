@@ -92,6 +92,9 @@ void ReadItems(DFHack::Core& DF)
         return;
     }
     DFHack::Items *Items = DF.getItems();
+    //size_t vectorsize;
+    //Items->readItemVectorSize(vectorsize);
+    //WriteErr("Item vector size: %d\n",vectorsize);
     vector<df_item *> itemlist;
     if (!Items->readItemVectorSubset(itemlist, search_offset, config.item_search_rate))
     {
