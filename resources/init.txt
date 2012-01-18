@@ -106,6 +106,13 @@ Adds more logging information to what is written to stonesense.log. May be usefu
 if trying having issues with sprite configuration tweaking.
 [VERBOSE_LOGGING:NO]
 
+Show items (Toggle with something, later)
+[SHOW_ITEMS:YES]
+
+How many items to check per frame
+Higher numbers will display items earlier, but impact framerate
+[ITEM_SEARCH_RATE:50]
+
 --Troubleshooting--
 
 Stonesense will try to merge all loaded sprites into a single texture, for performance reasons.

@@ -452,6 +452,7 @@ static void * stonesense_thread(ALLEGRO_THREAD * thred, void * parms)
 	config.threading_enable = 1;
 	config.fog_of_war = 1;
 	config.occlusion = 1;
+    config.item_search_rate=500;
     contentLoader = new ContentLoader();
 	initRandomCube();
 	loadConfigFile();

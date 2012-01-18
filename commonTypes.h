@@ -187,6 +187,9 @@ typedef struct {
 
 	uint16_t bloodcutoff;
 	uint16_t poolcutoff;
+    
+    size_t item_search_rate;
+    
 	//follows are anti-crash things
 	bool skipWorld;
 	bool skipCreatures;

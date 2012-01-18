@@ -10,7 +10,6 @@ struct ItemLocKey{
     uint32_t z;
 } ;
 
-size_t search_size=5000;
 size_t search_offset=0;
 
 // this hash assumes we wont use more than about 10 bits in each coordinate
@@ -83,19 +82,19 @@ void ReadItems(DFHack::Core& DF)
     //TODO error checking
     DFHack::Items *Items = DF.getItems();
     vector<df_item *> itemlist;
-    Items->readItemVectorSubset(itemlist, search_offset, search_size);
+    Items->readItemVectorSubset(itemlist, search_offset, config.item_search_rate);
     for (std::size_t i=0; i < itemlist.size(); i++)
     {
         handleItem(itemlist[i]);
     }
-    if (itemlist.size()<search_size)
+    if (itemlist.size()<config.item_search_rate)
     {
         WriteErr("Looped on search at %d\n",(search_offset+itemlist.size()));
         search_offset=0;
     }
     else
     {
-        search_offset += search_size;
+        search_offset += config.item_search_rate;
     }
 }
 
