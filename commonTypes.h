@@ -199,6 +199,7 @@ typedef struct {
 	bool skipMaps;
 	bool skipInorganicMats;
 	bool skipOrganicMats;
+    bool skipItems;
 
 	//following are threading stuff
 
@@ -222,9 +223,9 @@ enum enumCreatureSex{
 };
 
 struct t_CachedItem{
-	int itemType;
-	int matType;
-	int matIndex;
+	t_itemType itemType;
+	t_materialType matType;
+	t_materialIndex matIndex;
 	uint32_t flags;
 	int itemIndex;
 	int itemID;

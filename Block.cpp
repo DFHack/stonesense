@@ -7,6 +7,7 @@
 #include "BlockFactory.h"
 #include "ContentLoader.h"
 #include "SpriteColors.h"
+#include "Items.h"
 
 ALLEGRO_BITMAP *sprite_miasma = 0;
 ALLEGRO_BITMAP *sprite_water = 0;
@@ -328,19 +329,15 @@ void Block::Draw()
 	//insert item here!
 	if (occ.bits.item)
 	{
-        // this should be an actual item eventually...
-        t_CachedItem fakeitem;
-        // wacky location to itemtype for testing
-        fakeitem.itemType = (drawx * 7 + drawy * 13) % 10;
-        fakeitem.matType = 4;
-        fakeitem.matType = 4;
-        fakeitem.flags = 0;
-        fakeitem.itemIndex = 42;
-        fakeitem.itemID = 42;
-        fakeitem.cachePass = 0;
-        fakeitem.fullPass = 0;
-        DrawItem(drawx, drawy, fakeitem);
-		//DrawSpriteFromSheet(306, IMGObjectSheet, al_map_rgb(255,255,255), drawx, drawy, this );
+        t_CachedItem *item= getCachedItem(x,y,z);
+        if (item == NULL)
+        {
+            DrawSpriteFromSheet(142, IMGObjectSheet, al_map_rgb(255,255,255), drawx, drawy, this );
+        }
+        else
+        {
+            DrawItem(drawx, drawy, *item);            
+        }
 	}
 
 	if(wallType > 0)

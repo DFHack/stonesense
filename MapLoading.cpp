@@ -911,6 +911,12 @@ WorldSegment* ReadMapSegment(DFHack::Core &DF, int x, int y, int z, int sizex, i
 
 	if(!config.skipCreatures)
 		ReadCreaturesToSegment( DF, segment );
+    
+    //Read Items
+    //if (config.show_items)
+    //{
+        ReadItems(DF);
+    //}
 
 	Maps->Finish();
 	segment->loaded = 1;

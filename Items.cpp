@@ -4,12 +4,14 @@
 
 #include <unordered_map>
 
-
 struct ItemLocKey{
 	uint32_t x;
     uint32_t y;
     uint32_t z;
 } ;
+
+size_t search_size=5000;
+size_t search_offset=0;
 
 // this hash assumes we wont use more than about 10 bits in each coordinate
 // it could probably be made better but more expensive with more advanced bit twiddling
@@ -31,6 +33,70 @@ void clearItemCache()
 {
     // MEMORY LEAK - need to free the stored pointers here
 	itemCache.clear();
+}
+
+void clearCachedItem(uint32_t x,uint32_t y,uint32_t z)
+{
+    ItemLocKey lookup;
+    lookup.x = x;
+    lookup.y = y;
+    lookup.z = z;
+    delete (itemCache[lookup]);
+    //ugh, gotta be a way to get rid of it altogether
+    itemCache[lookup] = NULL;
+}
+
+t_CachedItem* getCachedItem(uint32_t x, uint32_t y, uint32_t z)
+{
+    ItemLocKey lookup;
+    lookup.x = x;
+    lookup.y = y;
+    lookup.z = z;
+    return itemCache[lookup];
+}
+
+void handleItem(df_item *item)
+{
+    ItemLocKey lookup;
+    lookup.x = item->x;
+    lookup.y = item->y;
+    lookup.z= item->z;
+    t_CachedItem* cached = itemCache[lookup];
+    if (cached == NULL)
+    {
+        cached = new t_CachedItem;
+        itemCache[lookup] = cached;
+    }
+    cached->itemType = item->getType();
+    cached->matType = item->getMaterial();
+    cached->matIndex = item->getMaterialIndex();
+    cached->flags = 0;
+    cached->itemIndex=0;
+    cached->itemID=0;
+    cached->cachePass=0;
+    cached->fullPass=0;
+}
+
+// overly simple atm
+void ReadItems(DFHack::Core& DF)
+{
+    //TODO error checking
+    DFHack::Items *Items = DF.getItems();
+    vector<df_item *> itemlist;
+    Items->readItemVectorSubset(itemlist, search_offset, search_size);
+    for (std::size_t i=0; i < itemlist.size(); i++)
+    {
+        handleItem(itemlist[i]);
+    }
+    if (itemlist.size()<search_size)
+    {
+        WriteErr("Looped on search at %d\n",(search_offset+itemlist.size()));
+        search_offset=0;
+    }
+    else
+    {
+        search_offset += search_size;
+    }
 }
 
 void DrawItem(int drawx, int drawy, t_CachedItem& item )
