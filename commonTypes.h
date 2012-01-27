@@ -167,7 +167,7 @@ typedef struct {
 	bool software;
 
 	uint32_t menustate;
-	DFHack::t_viewscreen viewscreen;
+	//DFHack::t_viewscreen viewscreen;
 
 	bool spriteIndexOverlay;
 	bool creditScreen;

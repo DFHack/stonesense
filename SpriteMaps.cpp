@@ -5,16 +5,18 @@
 #include "GUI.h"
 #include "BlockTree.h"
 
+using df::enums::item_type::item_type;
+
 c_sprite *  GetTerrainSpriteMap(int in, t_matglossPair material, vector<TerrainConfiguration*>& configTable, uint16_t form)
 {
 	int tempform;
-	if(form == constr_bar)
+    if(form == item_type::BAR)
 		tempform = FORM_BAR;
-	if(form == constr_block)
+    if(form == item_type::BLOCKS)
 		tempform = FORM_BLOCK;
-	if(form == constr_boulder)
+    if(form == item_type::BOULDER)
 		tempform = FORM_BOULDER;
-	if(form == constr_logs)
+    if(form == item_type::WOOD)
 		tempform = FORM_LOG;
 	// in case we need to return nothing
 	static c_sprite * defaultSprite = new c_sprite;

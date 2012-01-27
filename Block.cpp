@@ -200,7 +200,7 @@ void Block::Draw()
 	}
 
 	//Floor Engravings
-	if((floorType > 0) && engraving_character && engraving_flags.floor)
+		if((floorType > 0) && engraving_character && engraving_flags.bits.floor)
 	{
 		DrawSpriteFromSheet( engraving_character, IMGEngFloorSheet, al_map_rgba_f(1.0,1.0,1.0,((engraving_quality + 5.0f) / 10.0f)), drawx, drawy, this );
 	}
@@ -350,30 +350,30 @@ void Block::Draw()
 	{
 		if(ownerSegment->rotation == 0)
 		{
-			if(engraving_flags.east)
+            if(engraving_flags.bits.east)
 				DrawSpriteFromSheet( engraving_character, IMGEngRightSheet, al_map_rgba_f(1.0,1.0,1.0,((engraving_quality + 5.0f) / 10.0f)), drawx, drawy, this );
-			if(engraving_flags.south)
+            if(engraving_flags.bits.south)
 				DrawSpriteFromSheet( engraving_character, IMGEngLeftSheet, al_map_rgba_f(1.0,1.0,1.0,((engraving_quality + 5.0f) / 10.0f)), drawx, drawy, this );
 		}
 		if(ownerSegment->rotation == 1)
 		{
-			if(engraving_flags.north)
+            if(engraving_flags.bits.north)
 				DrawSpriteFromSheet( engraving_character, IMGEngRightSheet, al_map_rgba_f(1.0,1.0,1.0,((engraving_quality + 5.0f) / 10.0f)), drawx, drawy, this );
-			if(engraving_flags.east)
+            if(engraving_flags.bits.east)
 				DrawSpriteFromSheet( engraving_character, IMGEngLeftSheet, al_map_rgba_f(1.0,1.0,1.0,((engraving_quality + 5.0f) / 10.0f)), drawx, drawy, this );
 		}
 		if(ownerSegment->rotation == 2)
 		{
-			if(engraving_flags.west)
+            if(engraving_flags.bits.west)
 				DrawSpriteFromSheet( engraving_character, IMGEngRightSheet, al_map_rgba_f(1.0,1.0,1.0,((engraving_quality + 5.0f) / 10.0f)), drawx, drawy, this );
-			if(engraving_flags.north)
+            if(engraving_flags.bits.north)
 				DrawSpriteFromSheet( engraving_character, IMGEngLeftSheet, al_map_rgba_f(1.0,1.0,1.0,((engraving_quality + 5.0f) / 10.0f)), drawx, drawy, this );
 		}
 		if(ownerSegment->rotation == 3)
 		{
-			if(engraving_flags.south)
+            if(engraving_flags.bits.south)
 				DrawSpriteFromSheet( engraving_character, IMGEngRightSheet, al_map_rgba_f(1.0,1.0,1.0,((engraving_quality + 5.0f) / 10.0f)), drawx, drawy, this );
-			if(engraving_flags.west)
+            if(engraving_flags.bits.west)
 				DrawSpriteFromSheet( engraving_character, IMGEngLeftSheet, al_map_rgba_f(1.0,1.0,1.0,((engraving_quality + 5.0f) / 10.0f)), drawx, drawy, this );
 		}
 	}

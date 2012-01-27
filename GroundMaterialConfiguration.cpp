@@ -193,7 +193,7 @@ void parseWallFloorSpriteElement( TiXmlElement* elemWallFloorSprite, vector<Terr
 		for (;elemSubtype; elemSubtype = elemSubtype ->NextSiblingElement("subtype"))
 		{
 			// get subtype
-			int subtypeId = lookupMaterialIndex(elemIndex,elemSubtype->Attribute("value"));
+			int subtypeId = lookupMaterialIndex( elemIndex,elemSubtype->Attribute("value"));
 			if (subtypeId == INVALID_INDEX)
 			{
 				contentError("Invalid or missing value attribute",elemSubtype);

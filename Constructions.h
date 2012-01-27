@@ -3,4 +3,4 @@
 
 bool IDisConstruction(int in);
 
-void changeConstructionMaterials(WorldSegment* segment, vector<t_construction>* allConstructions);
+void changeConstructionMaterials(WorldSegment* segment, vector<df::construction>* allConstructions);

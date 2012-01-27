@@ -73,7 +73,7 @@ bool getLocalFilename(char * buffer, const char* filename, const char* relativet
 extern void contentError(const char* message, TiXmlNode* element);
 extern char getAnimFrames(const char* framestring);
 extern int loadConfigImgFile(const char* filename, TiXmlElement* referrer);
-int lookupMaterialType(const char* strValue);
+MAT_BASICS lookupMaterialType(const char* strValue);
 int lookupMaterialIndex(int matType, const char* strValue);
 template <typename T>
 int lookupIndexedType(const char* indexName, std::vector<T>& typeVector)
