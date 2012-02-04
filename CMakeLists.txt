@@ -110,64 +110,44 @@ IF(UNIX)
     ENDIF()
 # windows
 ELSE(UNIX)
-    IF(STONESENSE_STATIC)
-        ADD_DEFINITIONS("-DALLEGRO_STATICLINK")
-        SET(PROJECT_LIBS
-            kernel32.lib
-            user32.lib
-            gdi32.lib
-            winspool.lib
-            shell32.lib
-            ole32.lib
-            oleaut32.lib
-            uuid.lib
-            comdlg32.lib
-            advapi32.lib
-            allegro-static.lib
-            allegro_primitives-static.lib
-            allegro_font-static.lib
-            allegro_image-static.lib
-            allegro_ttf-static.lib
-            freetype-static.lib
-            winmm.lib
-            psapi.lib
-            opengl32.lib
-            glu32.lib
-            gdiplus.lib
-            shlwapi.lib
-            $(NOINHERIT)
-           )
-    ELSE()
-        SET(PROJECT_LIBS
-            kernel32.lib
-            user32.lib
-            gdi32.lib
-            winspool.lib
-            shell32.lib
-            ole32.lib
-            oleaut32.lib
-            uuid.lib
-            comdlg32.lib
-            advapi32.lib
-            allegro.lib
-            allegro_primitives.lib
-            allegro_font.lib
-            allegro_image.lib
-            allegro_ttf.lib
-            winmm.lib
-            psapi.lib
-            opengl32.lib
-            glu32.lib
-            $(NOINHERIT)
-           )
-    ENDIF()
+    FILE(DOWNLOAD http://cloud.github.com/downloads/peterix/stonesense/allegrow.tar.gz
+                  ${stonesense_SOURCE_DIR}/allegrow.tar.gz
+                  EXPECTED_MD5 5bf41454531ee9d847b6ddac122bbc51)
+    execute_process(COMMAND ${CMAKE_COMMAND} -E tar xzf ${stonesense_SOURCE_DIR}/allegrow.tar.gz
+                    WORKING_DIRECTORY ${stonesense_SOURCE_DIR})
+    ADD_DEFINITIONS("-DALLEGRO_STATICLINK")
+    SET(PROJECT_LIBS
+        kernel32.lib
+        user32.lib
+        gdi32.lib
+        winspool.lib
+        shell32.lib
+        ole32.lib
+        oleaut32.lib
+        uuid.lib
+        comdlg32.lib
+        advapi32.lib
+        allegro-static.lib
+        allegro_primitives-static.lib
+        allegro_font-static.lib
+        allegro_image-static.lib
+        allegro_ttf-static.lib
+        freetype-static.lib
+        winmm.lib
+        psapi.lib
+        opengl32.lib
+        glu32.lib
+        gdiplus.lib
+        shlwapi.lib
+        $(NOINHERIT)
+       )
     include_directories (
         ${include_directories}
-        ${stonesense_SOURCE_DIR}/alleg-ssense/include
+        ${stonesense_SOURCE_DIR}/allegrow/include
     )
     LINK_DIRECTORIES(
         ${LINK_DIRECTORIES}
-        ${stonesense_SOURCE_DIR}/alleg-ssense/lib
+        ${stonesense_SOURCE_DIR}/allegrow/lib
     )
 ENDIF(UNIX)
 DFHACK_PLUGIN(stonesense ${PROJECT_SRCS} LINK_LIBRARIES ${PROJECT_LIBS})
