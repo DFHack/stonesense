@@ -127,9 +127,9 @@ void Block::Draw()
 	correctBlockForSegmetOffset( drawx, drawy, drawz);
 	correctBlockForRotation( drawx, drawy, drawz, ownerSegment->rotation);
 	pointToScreen((int*)&drawx, (int*)&drawy, drawz);
-	drawx -= TILEWIDTH>>1;
+	drawx -= (TILEWIDTH>>1)*config.scale;
 
-	if(((drawx + TILEWIDTH) < 0) || (drawx > al_get_bitmap_width(al_get_target_bitmap())) || ((drawy + TILEHEIGHT + FLOORHEIGHT) < 0) || (drawy - WALLHEIGHT > al_get_bitmap_height(al_get_target_bitmap())))
+	if(((drawx + TILEWIDTH*config.scale) < 0) || (drawx > al_get_bitmap_width(al_get_target_bitmap())) || ((drawy + (TILEHEIGHT + FLOORHEIGHT)*config.scale) < 0) || (drawy - WALLHEIGHT*config.scale > al_get_bitmap_height(al_get_target_bitmap())))
 		return;
 
 	bool chopThisBlock = 0;
@@ -141,7 +141,7 @@ void Block::Draw()
 
 	if(building.info.type == BUILDINGTYPE_BLACKBOX)
 	{
-		DrawSpriteFromSheet( SPRITEOBJECT_BLACK, IMGObjectSheet, al_map_rgb(255,255,255), drawx, drawy+FLOORHEIGHT, this);
+		DrawSpriteFromSheet( SPRITEOBJECT_BLACK, IMGObjectSheet, al_map_rgb(255,255,255), drawx, drawy+FLOORHEIGHT*config.scale, this);
 		DrawSpriteFromSheet( SPRITEOBJECT_BLACK, IMGObjectSheet, al_map_rgb(255,255,255), drawx, drawy, this);
 		return;
 	}
@@ -275,7 +275,7 @@ void Block::Draw()
 	//shadow
 	if (shadow > 0)
 	{
-		DrawSpriteFromSheet( BASE_SHADOW_TILE + shadow - 1, IMGObjectSheet, al_map_rgb(255,255,255), drawx, (ramp.type > 0)?(drawy - (WALLHEIGHT/2)):drawy , this);
+		DrawSpriteFromSheet( BASE_SHADOW_TILE + shadow - 1, IMGObjectSheet, al_map_rgb(255,255,255), drawx, (ramp.type > 0)?(drawy - ((WALLHEIGHT/2)*config.scale)):drawy , this);
 	}
 
 	//Building

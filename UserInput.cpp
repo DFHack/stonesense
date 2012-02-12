@@ -277,11 +277,27 @@ void doKeys(int Key)
 		config.zoom++;
 		if (config.zoom == -1)
 			config.zoom = 1;
+		if(config.zoom > 0)
+		{
+			config.scale = 1.0f * config.zoom;
+		}
+		if(config.zoom < 0)
+		{
+			config.scale = 1.0f / abs((float)config.zoom);
+		}
 	}
 	if(Key == ALLEGRO_KEY_COMMA){
 		config.zoom--;
 		if (config.zoom == 0)
 			config.zoom = -2;
+		if(config.zoom > 0)
+		{
+			config.scale = 1.0f * config.zoom;
+		}
+		if(config.zoom < 0)
+		{
+			config.scale = 1.0f / abs((float)config.zoom);
+		}
 	}
 	if(Key == ALLEGRO_KEY_F5){
 		if (al_key_down(&keyboard,ALLEGRO_KEY_LCTRL) || al_key_down(&keyboard,ALLEGRO_KEY_RCTRL))

@@ -214,6 +214,7 @@ typedef struct {
 	int tilecount;
 
 	int zoom;
+	float scale;
 } GameConfiguration;
 
 

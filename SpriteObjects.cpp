@@ -673,16 +673,15 @@ void c_sprite::draw_world_offset(int x, int y, int z, Block * b, int tileoffset,
 					int32_t drawy = y;
 					int32_t drawz = z; //- ownerSegment->sizez + 1;
 
-
 					correctBlockForSegmetOffset( drawx, drawy, drawz);
 					correctBlockForRotation( drawx, drawy, drawz, b->ownerSegment->rotation);
 					int32_t viewx = drawx;
 					int32_t viewy = drawy;
 					int32_t viewz = drawz;
 					pointToScreen((int*)&drawx, (int*)&drawy, drawz);
-					drawx -= TILEWIDTH>>1;
+					drawx -= (TILEWIDTH>>1)*config.scale;
 
-					if(((drawx + spritewidth) < 0) || (drawx > al_get_bitmap_width(al_get_target_bitmap())) || ((drawy + spriteheight) < 0) || (drawy > al_get_bitmap_height(al_get_target_bitmap())))
+					if(((drawx + spritewidth*config.scale) < 0) || (drawx > al_get_bitmap_width(al_get_target_bitmap())) || ((drawy + spriteheight*config.scale) < 0) || (drawy > al_get_bitmap_height(al_get_target_bitmap())))
 						return;
 
 					int sheetx, sheety;
@@ -719,23 +718,24 @@ void c_sprite::draw_world_offset(int x, int y, int z, Block * b, int tileoffset,
 						{
 							if(config.block_count)
 								config.drawcount ++;
-							al_draw_tinted_bitmap_region(defaultsheet, premultiply(shade_color), sheetx, sheety+WALL_CUTOFF_HEIGHT, spritewidth, spriteheight-WALL_CUTOFF_HEIGHT, drawx + offset_x + offset_user_x, drawy + offset_user_y + (offset_y - WALLHEIGHT)+WALL_CUTOFF_HEIGHT, 0);
+							al_draw_tinted_scaled_bitmap(defaultsheet, premultiply(shade_color), sheetx, sheety+WALL_CUTOFF_HEIGHT, spritewidth, spriteheight-WALL_CUTOFF_HEIGHT, drawx + (offset_x + offset_user_x)*config.scale, drawy + (offset_user_y + (offset_y - WALLHEIGHT)+WALL_CUTOFF_HEIGHT)*config.scale, spritewidth*config.scale, (spriteheight-WALL_CUTOFF_HEIGHT)*config.scale, 0);
 						}
 						else 
 						{
 							if(config.block_count)
 								config.drawcount ++;
 
-							al_draw_tinted_bitmap_region(getImgFile(fileindex), premultiply(shade_color), sheetx, (sheety)+WALL_CUTOFF_HEIGHT, spritewidth, spriteheight-WALL_CUTOFF_HEIGHT, drawx + offset_x + offset_user_x, drawy + offset_user_y + (offset_y - WALLHEIGHT)+WALL_CUTOFF_HEIGHT, 0);
+							al_draw_tinted_scaled_bitmap(getImgFile(fileindex), premultiply(shade_color), sheetx, (sheety)+WALL_CUTOFF_HEIGHT, spritewidth, spriteheight-WALL_CUTOFF_HEIGHT, drawx + (offset_x + offset_user_x)*config.scale, drawy + (offset_user_y + (offset_y - WALLHEIGHT)+WALL_CUTOFF_HEIGHT)*config.scale, spritewidth*config.scale, (spriteheight-WALL_CUTOFF_HEIGHT)*config.scale, 0);
 						}
 						//draw cut-off floor thing
 						if(config.block_count)
 							config.drawcount ++;
 
-						al_draw_bitmap_region(IMGObjectSheet, 
+						al_draw_scaled_bitmap(IMGObjectSheet, 
 							TILEWIDTH * SPRITEFLOOR_CUTOFF, 0,
 							SPRITEWIDTH, SPRITEWIDTH, 
-							drawx+offset_x, drawy+offset_y-((SPRITEHEIGHT-WALL_CUTOFF_HEIGHT)/2), 0);
+							drawx+offset_x, drawy+offset_y-((SPRITEHEIGHT-WALL_CUTOFF_HEIGHT)/2),
+							SPRITEWIDTH*config.scale, SPRITEWIDTH*config.scale, 0);
 					}
 					else if ((chop && (halftile == HALFTILEYES)) || (!chop && (halftile == HALFTILENO)) || (!chop && (halftile == HALFTILECHOP)) || (halftile == HALFTILEBOTH))
 					{
@@ -746,14 +746,14 @@ void c_sprite::draw_world_offset(int x, int y, int z, Block * b, int tileoffset,
 								if(config.block_count)
 									config.drawcount ++;
 
-								al_draw_tinted_bitmap_region(defaultsheet, premultiply(shade_color), sheetx, sheety, spritewidth, spriteheight, drawx + offset_x + offset_user_x, drawy + offset_user_y + (offset_y - WALLHEIGHT), 0);
+								al_draw_tinted_scaled_bitmap(defaultsheet, premultiply(shade_color), sheetx, sheety, spritewidth, spriteheight, drawx + (offset_x + offset_user_x)*config.scale, drawy + (offset_user_y + (offset_y - WALLHEIGHT))*config.scale,spritewidth*config.scale, spriteheight*config.scale, 0);
 							}
 							else 
 							{
 								if(config.block_count)
 									config.drawcount ++;
 
-								al_draw_tinted_bitmap_region(getImgFile(fileindex), premultiply(shade_color), sheetx, sheety, spritewidth, spriteheight, drawx + offset_x + offset_user_x, drawy + offset_user_y + (offset_y - WALLHEIGHT), 0);
+								al_draw_tinted_scaled_bitmap(getImgFile(fileindex), premultiply(shade_color), sheetx, sheety, spritewidth, spriteheight, drawx + (offset_x + offset_user_x)*config.scale, drawy + (offset_user_y + (offset_y - WALLHEIGHT))*config.scale,spritewidth*config.scale, spriteheight*config.scale, 0);
 							}
 						}
 						if(needoutline)
@@ -761,11 +761,11 @@ void c_sprite::draw_world_offset(int x, int y, int z, Block * b, int tileoffset,
 							//drawy -= (WALLHEIGHT);
 							//Northern border
 							if(b->depthBorderNorth)
-								DrawSpriteFromSheet(281, IMGObjectSheet, al_map_rgb(255,255,255), drawx + offset_x, drawy + offset_y, b );
+								DrawSpriteFromSheet(281, IMGObjectSheet, al_map_rgb(255,255,255), drawx + (offset_x)*config.scale, drawy + (offset_y)*config.scale, b );
 
 							//Western border
 							if(b->depthBorderWest)
-								DrawSpriteFromSheet(280, IMGObjectSheet, al_map_rgb(255,255,255), drawx + offset_x, drawy + offset_y, b );
+								DrawSpriteFromSheet(280, IMGObjectSheet, al_map_rgb(255,255,255), drawx + (offset_x)*config.scale, drawy + (offset_y)*config.scale, b );
 
 							//drawy += (WALLHEIGHT);
 						}

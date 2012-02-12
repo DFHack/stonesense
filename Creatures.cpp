@@ -295,14 +295,14 @@ void DrawCreatureText(int drawx, int drawy, t_unit* creature ){
 			buffer[127]=0;
 			ALLEGRO_USTR* temp = bufferToUstr(buffer, 128);
 			al_ustr_set_chr(temp, 0, charToUpper(al_ustr_get(temp, 0)));
-			draw_ustr_border(font, al_map_rgb(255,255,255), drawx, drawy-(WALLHEIGHT+al_get_font_line_height(font)), 0,
+			draw_ustr_border(font, al_map_rgb(255,255,255), drawx, drawy-((WALLHEIGHT*config.scale)+al_get_font_line_height(font)), 0,
 				temp );
 			al_ustr_free(temp);
 		}
 		else if (config.names_use_species)
 		{
 			if(!config.skipCreatureTypes)
-				draw_textf_border(font, al_map_rgb(255,255,255), drawx, drawy-(WALLHEIGHT+al_get_font_line_height(font)), 0, 
+				draw_textf_border(font, al_map_rgb(255,255,255), drawx, drawy-(WALLHEIGHT*config.scale+al_get_font_line_height(font)), 0, 
 				"[%s]", contentLoader->Mats->race.at(creature->race).id.c_str());
 		}
 }

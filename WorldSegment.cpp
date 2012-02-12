@@ -213,7 +213,11 @@ void WorldSegment::drawAllBlocks(){
 				al_set_target_bitmap(fog);
 				al_clear_to_color(premultiply(al_map_rgba_f(config.fogr, config.fogg, config.fogb, 1)));
 				al_set_target_bitmap(level);
-				al_clear_to_color(al_map_rgba_f(0, 0, 0, 0));
+				int op, src, dst, alpha_op, alpha_src, alpha_dst;
+				al_get_separate_blender(&op, &src, &dst, &alpha_op, &alpha_src, &alpha_dst);
+				al_set_separate_blender(ALLEGRO_ADD, ALLEGRO_ONE, ALLEGRO_ZERO,ALLEGRO_ADD, ALLEGRO_ONE, ALLEGRO_ZERO);
+				al_clear_to_color(al_map_rgba(0,0,0,0));
+				al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst);
 				al_set_target_bitmap(temp);
 			}
 			if(!((al_get_bitmap_width(fog) == al_get_bitmap_width(temp)) && (al_get_bitmap_height(fog) == al_get_bitmap_height(temp))))
@@ -223,11 +227,20 @@ void WorldSegment::drawAllBlocks(){
 				al_set_target_bitmap(fog);
 				al_clear_to_color(premultiply(al_map_rgba_f(config.fogr, config.fogg, config.fogb, 1)));
 				al_set_target_bitmap(level);
-				al_clear_to_color(al_map_rgba_f(0, 0, 0, 0));
+				int op, src, dst, alpha_op, alpha_src, alpha_dst;
+				al_get_separate_blender(&op, &src, &dst, &alpha_op, &alpha_src, &alpha_dst);
+				al_set_separate_blender(ALLEGRO_ADD, ALLEGRO_ONE, ALLEGRO_ZERO,ALLEGRO_ADD, ALLEGRO_ONE, ALLEGRO_ZERO);
+				al_clear_to_color(al_map_rgba(0,0,0,0));
+				al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst);
 				al_set_target_bitmap(temp);
 			}
 			al_set_target_bitmap(level);
 		}
+		int op, src, dst, alpha_op, alpha_src, alpha_dst;
+		al_get_separate_blender(&op, &src, &dst, &alpha_op, &alpha_src, &alpha_dst);
+		al_set_separate_blender(ALLEGRO_ADD, ALLEGRO_ONE, ALLEGRO_ZERO,ALLEGRO_ADD, ALLEGRO_ONE, ALLEGRO_ZERO);
+		al_clear_to_color(al_map_rgba(0,0,0,0));
+		al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst);
 		if(vsz == vszmax-1)
 		{
 			if (config.show_osd) DrawCurrentLevelOutline(true);
