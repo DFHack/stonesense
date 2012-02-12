@@ -273,6 +273,16 @@ void doKeys(int Key)
 		config.show_osd = !config.show_osd;
 		timeToReloadSegment = true;
 	}
+	if(Key == ALLEGRO_KEY_FULLSTOP){
+		config.zoom++;
+		if (config.zoom == -1)
+			config.zoom = 1;
+	}
+	if(Key == ALLEGRO_KEY_COMMA){
+		config.zoom--;
+		if (config.zoom == 0)
+			config.zoom = -2;
+	}
 	if(Key == ALLEGRO_KEY_F5){
 		if (al_key_down(&keyboard,ALLEGRO_KEY_LCTRL) || al_key_down(&keyboard,ALLEGRO_KEY_RCTRL))
 			if (al_key_down(&keyboard,ALLEGRO_KEY_LSHIFT) || al_key_down(&keyboard,ALLEGRO_KEY_RSHIFT))

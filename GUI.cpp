@@ -270,6 +270,16 @@ void pointToScreen(int *inx, int *iny, int inz){
 	int y = *inx+*iny;
 	x = x * TILEWIDTH / 2;
 	y = y * TILEHEIGHT / 2;
+	if(config.zoom > 0)
+	{
+		x*=config.zoom;
+		y*=config.zoom;
+	}
+	if(config.zoom < 0)
+	{
+		x/=abs(config.zoom);
+		y/=abs(config.zoom);
+	}
 	x+=offx;
 	y+=offy;
 	y-=z * BLOCKHEIGHT;
