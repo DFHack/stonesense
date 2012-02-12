@@ -48,7 +48,6 @@ public:
 	vector<string> professionStrings;
 	std::map <uint32_t, std::string> custom_workshop_types;
 	VersionInfo *MemInfo;
-	DFHack::Buildings * Bld;
 	DFHack::Materials * Mats;
 	std::vector<t_matgloss> organic;
     std::vector<t_matglossInorganic> inorganic;
@@ -74,7 +73,7 @@ bool getLocalFilename(char * buffer, const char* filename, const char* relativet
 extern void contentError(const char* message, TiXmlNode* element);
 extern char getAnimFrames(const char* framestring);
 extern int loadConfigImgFile(const char* filename, TiXmlElement* referrer);
-int lookupMaterialType(const char* strValue);
+MAT_BASICS lookupMaterialType(const char* strValue);
 int lookupMaterialIndex(int matType, const char* strValue);
 template <typename T>
 int lookupIndexedType(const char* indexName, std::vector<T>& typeVector)

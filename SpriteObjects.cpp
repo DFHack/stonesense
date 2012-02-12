@@ -639,11 +639,11 @@ void c_sprite::draw_world_offset(int x, int y, int z, Block * b, int tileoffset,
 					(
 						(light==LIGHTANY) ||
 						(
-							(light==LIGHTYES) && b->designation.bits.skyview
+							(light==LIGHTYES) && b->designation.bits.outside
 						)
 						||
 						(
-							(light==LIGHTNO) && !(b->designation.bits.skyview)
+                            (light==LIGHTNO) && !(b->designation.bits.outside)
 						)
 					) &&
 					(

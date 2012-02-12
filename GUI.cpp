@@ -457,9 +457,9 @@ void drawDebugCursorAndInfo(){
 		const char* matName = lookupMaterialTypeName(b->building.info.material.type);
 		const char* subMatName = lookupMaterialName(b->building.info.material.type,b->building.info.material.index);
 		draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
-			"Building: %s(%i,0x%x) Material: %s%s%s (%d,%d)", 
+			"Building: %s(%i) Material: %s%s%s (%d,%d)", 
 			contentLoader->classIdStrings.at(b->building.info.type).c_str(),
-			b->building.info.type, b->building.info.vtable,
+			b->building.info.type,
 			matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"",
 			b->building.info.material.type,b->building.info.material.index);
 

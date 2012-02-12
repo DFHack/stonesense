@@ -8,6 +8,18 @@
 #include <map>
 #include <stdint.h>
 
+// allegro also leaks stdint.h and some weird equivalent of it on windows. let's disable the copy leaked by dfhack.
+#define SKIP_DFHACK_STDINT
+#define DFHACK_WANT_TILETYPES
+
+#include <DFHack.h>
+#include "Core.h"
+#include <Console.h>
+#include <Export.h>
+#include <PluginManager.h>
+using namespace DFHack;
+using namespace DFHack::Simple;
+
 #define ALLEGRO_NO_MAGIC_MAIN //This is a DLL file. we got no main function.
 #define ALLEGRO_HAVE_STDINT_H
 
@@ -21,15 +33,6 @@
 
 // allegro leaks X headers, undef some of it here:
 #undef TileShape
-// allegro also leaks stdint.h and some weird equivalent of it on windows. let's disable the copy leaked by dfhack.
-#define SKIP_DFHACK_STDINT
-#define DFHACK_WANT_TILETYPES
-
-#include <DFHack.h>
-#include <dfhack/Core.h>
-#include <dfhack/Console.h>
-#include <dfhack/Export.h>
-#include <dfhack/PluginManager.h>
 
 #include "commonTypes.h"
 #include "Block.h"
@@ -213,36 +216,40 @@ extern ALLEGRO_TIMER *reloadtimer;
 extern ALLEGRO_TIMER * animationtimer;
 extern ALLEGRO_MOUSE_STATE mouse;
 
-#define INORGANIC 0
-#define AMBER 1
-#define CORAL 2
-#define GREEN_GLASS 3
-#define CLEAR_GLASS 4
-#define CRYSTAL_GLASS 5
-#define ICE 6
-#define COAL 7
-#define POTASH 8
-#define ASH 9
-#define PEARLASH 10
-#define LYE 11
-#define MUD 12
-#define VOMIT 13
-#define SALT 14
-#define FILTH 15
-#define FILTH_FROZEN 16
-#define UNKOWN_FROZEN 17
-#define GRIME 18
-#define ICHOR 20
-#define LEATHER 37
-#define BLOOD_1 39
-#define BLOOD_2 40
-#define BLOOD_3 41
-#define BLOOD_4 42
-#define BLOOD_5 43
-#define BLOOD_6 44
-#define BLOOD_NAMED 242
-#define WOOD 420
-#define PLANTCLOTH 421
+enum MAT_BASICS
+{
+    INVALID = -1,
+    INORGANIC = 0,
+    AMBER = 1,
+    CORAL = 2,
+    GREEN_GLASS = 3,
+    CLEAR_GLASS = 4,
+    CRYSTAL_GLASS = 5,
+    ICE = 6,
+    COAL = 7,
+    POTASH = 8,
+    ASH = 9,
+    PEARLASH = 10,
+    LYE = 11,
+    MUD = 12,
+    VOMIT = 13,
+    SALT = 14,
+    FILTH = 15,
+    FILTH_FROZEN = 16,
+    UNKOWN_FROZEN = 17,
+    GRIME = 18,
+    ICHOR = 20,
+    LEATHER = 37,
+    BLOOD_1 = 39,
+    BLOOD_2 = 40,
+    BLOOD_3 = 41,
+    BLOOD_4 = 42,
+    BLOOD_5 = 43,
+    BLOOD_6 = 44,
+    BLOOD_NAMED = 242,
+    WOOD = 420,
+    PLANTCLOTH = 421,
+};
 
 #define NUM_FORMS 5
 #define FORM_BAR 1
@@ -255,5 +262,4 @@ extern int randomCube[RANDOM_CUBE][RANDOM_CUBE][RANDOM_CUBE];
 extern DFHack::Console * DFConsole;
 
 ALLEGRO_COLOR premultiply(ALLEGRO_COLOR input);
-using namespace DFHack;
 using namespace std;

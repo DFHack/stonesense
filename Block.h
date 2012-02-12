@@ -54,7 +54,7 @@ public:
 
     DFHack::t_designation designation;
     DFHack::t_occupancy occ;
-    DFHack::t_unit * creature;
+    DFHack::Simple::Units::t_unit * creature;
     DFHack::t_matglossPair tree;
 
 	int mudlevel;
@@ -66,7 +66,7 @@ public:
 	uint32_t grassmat;
 
 	uint8_t engraving_character;
-    DFHack::flg_engraving engraving_flags;
+    df::engraving_flags engraving_flags;
 	uint8_t engraving_quality;
 
 	//vector<uint8_t> grasslevels;
@@ -97,7 +97,7 @@ public:
 	int16_t eff_webing;
 	int16_t eff_oceanwave;*/
 	struct {
-        DFHack::t_building info;
+        Buildings::t_building info;
 		std::vector<c_sprite> sprites;
 		uint32_t index;
 		int32_t custom_building_type;

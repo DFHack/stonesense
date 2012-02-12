@@ -302,7 +302,6 @@ return 0;
 static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALLEGRO_THREAD * thred, DFHack::Console & con, DFHack::Core * core)
 {
 	ALLEGRO_EVENT event;
-	DFHack::Maps * maps = core->getMaps();
 	DFHack::t_gamemodes game_mode;
 	while (!al_get_thread_should_stop(thred))
 	{
@@ -313,7 +312,7 @@ static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALL
 			{
 				DrawSpriteIndexOverlay(config.currentSpriteOverlay);
 			}
-			else if(!maps->Start())
+			else if(!Maps::IsValid())
 			{
 				drawcredits();
 			}

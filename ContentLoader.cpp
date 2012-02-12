@@ -126,18 +126,7 @@ bool ContentLoader::Load( DFHack::Core& DF){
 			config.skipOrganicMats = true;
 		}
 	}
-	try
-	{
-	Bld = DF.getBuildings();
-	}
-	catch(exception &e)
-	{
-		WriteErr("DFhack exeption: %s\n", e.what());
-	}
-	if(Bld)
-	{
-		Bld->ReadCustomWorkshopTypes(custom_workshop_types);
-	}
+    Buildings::ReadCustomWorkshopTypes(custom_workshop_types);
 	try
 	{
 		contentLoader->MemInfo = DF.vinfo;
@@ -478,53 +467,53 @@ const char *lookupMaterialTypeName(int matType)
 {
 	switch (matType)
 	{
-	case INORGANIC:
+    case MAT_BASICS::INORGANIC:
 		return "Inorganic";
-	case GREEN_GLASS:
+    case MAT_BASICS::GREEN_GLASS:
 		return "GreenGlass";
-	case WOOD:
+    case MAT_BASICS::WOOD:
 		return "Wood";
-	case ICE:
+    case MAT_BASICS::ICE:
 		return "Ice";
-	case CLEAR_GLASS:
+    case MAT_BASICS::CLEAR_GLASS:
 		return "ClearGlass";
-	case CRYSTAL_GLASS:
+    case MAT_BASICS::CRYSTAL_GLASS:
 		return "CrystalGlass";
-	case PLANTCLOTH:
+    case MAT_BASICS::PLANTCLOTH:
 		return "PlantCloth";
-	case LEATHER:
+    case MAT_BASICS::LEATHER:
 		return "Leather";
 	default:
 		return NULL;
 	}
 }
 
-int lookupMaterialType(const char* strValue)
+MAT_BASICS lookupMaterialType(const char* strValue)
 {
 	if (strValue == NULL || strValue[0] == 0)
-		return INVALID_INDEX;
+        return MAT_BASICS::INVALID;
 	else if( strcmp(strValue, "Stone") == 0)
-		return INORGANIC;
+        return MAT_BASICS::INORGANIC;
 	else if( strcmp(strValue, "Metal") == 0)
-		return INORGANIC;
+        return MAT_BASICS::INORGANIC;
 	else if( strcmp(strValue, "Inorganic") == 0)
-		return INORGANIC;
+        return MAT_BASICS::INORGANIC;
 	else if( strcmp(strValue, "GreenGlass") == 0)
-		return GREEN_GLASS;
+        return MAT_BASICS::GREEN_GLASS;
 	else if( strcmp(strValue, "Wood") == 0)
-		return WOOD;
+        return MAT_BASICS::WOOD;
 	else if( strcmp(strValue, "Ice") == 0)
-		return ICE;
+        return MAT_BASICS::ICE;
 	else if( strcmp(strValue, "ClearGlass") == 0)
-		return CLEAR_GLASS;
+        return MAT_BASICS::CLEAR_GLASS;
 	else if( strcmp(strValue, "CrystalGlass") == 0)
-		return CRYSTAL_GLASS;
+        return MAT_BASICS::CRYSTAL_GLASS;
 	else if( strcmp(strValue, "PlantCloth") == 0)
-		return PLANTCLOTH;
+        return MAT_BASICS::PLANTCLOTH;
 	else if( strcmp(strValue, "Leather") == 0)
-		return LEATHER;
+        return MAT_BASICS::LEATHER;
 	//TODO this needs fixing on dfhack side
-	return INVALID_INDEX;
+    return MAT_BASICS::INVALID;
 }
 
 const char *lookupMaterialName(int matType,int matIndex)
@@ -578,17 +567,18 @@ const char *lookupTreeName(int matIndex)
 	return (*typeVector)[matIndex].id.c_str();
 }
 
+typedef df::enums::item_type::item_type itt;
 const char * lookupFormName(int formType)
 {
 	switch (formType)
 	{
-	case constr_bar:
+    case itt::BAR:
 		return "bar";
-	case constr_block:
+    case itt::BLOCKS:
 		return "block";
-	case constr_boulder:
+    case itt::BOULDER:
 		return "boulder";
-	case constr_logs:
+    case itt::WOOD:
 		return "log";
 	default:
 		return NULL;

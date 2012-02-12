@@ -8,6 +8,7 @@
 #include "Creatures.h"
 #include "ContentLoader.h"
 #include "Occlusion_Test.h"
+#include <df/plant.h>
 
 static DFHack::Core* pDFApiHandle = 0;
 static DFHack::Process * DFProc = 0;
@@ -16,6 +17,8 @@ bool memInfoHasBeenRead;
 bool connected = 0;
 bool threadrunnng = 0;
 segParams parms;
+
+using namespace DFHack::Simple;
 
 inline bool IDisWall(int in){
 	//if not a custom type, do a lookup in dfHack's interface
@@ -197,23 +200,20 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
 					   uint32_t BoundrySX, uint32_t BoundrySY,
 					   uint32_t BoundryEX, uint32_t BoundryEY, 
 					   uint16_t Flags/*not in use*/, 
-					   vector<t_building>* allBuildings, 
-					   vector<t_construction>* allConstructions,
-					   vector< vector <uint16_t> >* allLayers,
-					   vector<DFHack::t_feature> * global_features,
-					   std::map <DFHack::planecoord, std::vector<DFHack::t_feature *> > *local_features,
-					   DFHack::Maps *Maps)
+                       vector<Buildings::t_building>* allBuildings, 
+					   vector<df::construction>* allConstructions,
+					   vector< vector <uint16_t> >* allLayers)
 {
 	if(config.skipMaps)
 		return;
 	//boundry check
 	int cellDimX, cellDimY, cellDimZ;
-	Maps->getSize((unsigned int &)cellDimX, (unsigned int &)cellDimY, (unsigned int &)cellDimZ);
+	Maps::getSize((unsigned int &)cellDimX, (unsigned int &)cellDimY, (unsigned int &)cellDimZ);
 	if( CellX < 0 || CellX >= cellDimX ||
 		CellY < 0 || CellY >= cellDimY ||
 		CellZ < 0 || CellZ >= cellDimZ ) 
 		return;
-	if(!Maps->getBlock(CellX, CellY, CellZ))
+	if(!Maps::getBlock(CellX, CellY, CellZ))
 		return;
 
 
@@ -231,21 +231,21 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
 	uint8_t regionoffsets[16];
 	t_temperatures temp1, temp2;
 	DFHack::mapblock40d mapBlock;
-	std::vector<df_plant *> * plants;
-	Maps->ReadTileTypes(CellX, CellY, CellZ, (tiletypes40d *) tiletypes);
-	Maps->ReadDesignations(CellX, CellY, CellZ, (designations40d *) designations);
-	Maps->ReadOccupancy(CellX, CellY, CellZ, (occupancies40d *) occupancies);
-	Maps->ReadRegionOffsets(CellX,CellY,CellZ, (biome_indices40d *)regionoffsets);
-	Maps->ReadTemperatures(CellX, CellY, CellZ, &temp1, &temp2);
-	Maps->ReadBlock40d(CellX, CellY, CellZ, &mapBlock);
-	Maps->ReadVegetation(CellX, CellY, CellZ, plants);
+    std::vector<df::plant *>* plants;
+	Maps::ReadTileTypes(CellX, CellY, CellZ, (tiletypes40d *) tiletypes);
+	Maps::ReadDesignations(CellX, CellY, CellZ, (designations40d *) designations);
+	Maps::ReadOccupancy(CellX, CellY, CellZ, (occupancies40d *) occupancies);
+	Maps::ReadRegionOffsets(CellX,CellY,CellZ, (biome_indices40d *)regionoffsets);
+	Maps::ReadTemperatures(CellX, CellY, CellZ, &temp1, &temp2);
+	Maps::ReadBlock40d(CellX, CellY, CellZ, &mapBlock);
+	Maps::ReadVegetation(CellX, CellY, CellZ, plants);
 	//read local vein data
-	vector <t_vein * > veins;
-	vector <t_frozenliquidvein * > ices;
-	vector <t_spattervein * > splatter;
-	vector <t_grassvein * > grass;
-	vector <t_worldconstruction * > worldconstructions;
-	Maps->SortBlockEvents(
+    vector <df::block_square_event_mineralst * > veins;
+    vector <df::block_square_event_frozen_liquidst * > ices;
+    vector <df::block_square_event_material_spatterst * > splatter;
+    vector <df::block_square_event_grassst * > grass;
+    vector <df::block_square_event_world_constructionst * > worldconstructions;
+	Maps::SortBlockEvents(
 		CellX,
 		CellY,
 		CellZ,
@@ -290,10 +290,10 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
 			//b->grassmats.clear();
 			for(int i = 0; i < grass.size(); i++)
 			{
-				if(grass[i]->intensity[lx][ly] > 0 && b->grasslevel == 0)//b->grasslevel)
+				if(grass[i]->amount[lx][ly] > 0 && b->grasslevel == 0)//b->grasslevel)
 				{
-					b->grasslevel = grass[i]->intensity[lx][ly];
-					b->grassmat = grass[i]->material;
+					b->grasslevel = grass[i]->amount[lx][ly];
+					b->grassmat = grass[i]->plant_index;
 					//b->grasslevels.push_back(grass[i].intensity[lx][ly]);
 					//b->grassmats.push_back(grass[i].material);
 				}
@@ -305,46 +305,46 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
 				long blue=0;
 				for(int i = 0; i < splatter.size(); i++)
 				{
-					if(splatter[i]->mat1 == MUD)
+					if(splatter[i]->mat_type == MUD)
 					{
-						b->mudlevel = splatter[i]->intensity[lx][ly];
+						b->mudlevel = splatter[i]->amount[lx][ly];
 					}
-					else if(splatter[i]->mat1 == ICE)
+					else if(splatter[i]->mat_type == MAT_BASICS::ICE)
 					{
-						b->snowlevel = splatter[i]->intensity[lx][ly];
+						b->snowlevel = splatter[i]->amount[lx][ly];
 					}
-					else if(splatter[i]->mat1 == VOMIT)
+					else if(splatter[i]->mat_type == VOMIT)
 					{
-						b->bloodlevel += splatter[i]->intensity[lx][ly];
-						red += (127 * splatter[i]->intensity[lx][ly]);
-						green += (196 * splatter[i]->intensity[lx][ly]);
-						blue += (28 *splatter[i]->intensity[lx][ly]);
+						b->bloodlevel += splatter[i]->amount[lx][ly];
+                        red += (127 * splatter[i]->amount[lx][ly]);
+                        green += (196 * splatter[i]->amount[lx][ly]);
+                        blue += (28 *splatter[i]->amount[lx][ly]);
 					}
-					else if(splatter[i]->mat1 == ICHOR)
+                    else if(splatter[i]->mat_type == ICHOR)
 					{
-						b->bloodlevel += splatter[i]->intensity[lx][ly];
-						red += (255 * splatter[i]->intensity[lx][ly]);
-						green += (255 * splatter[i]->intensity[lx][ly]);
-						blue += (255 * splatter[i]->intensity[lx][ly]);
+                        b->bloodlevel += splatter[i]->amount[lx][ly];
+                        red += (255 * splatter[i]->amount[lx][ly]);
+                        green += (255 * splatter[i]->amount[lx][ly]);
+                        blue += (255 * splatter[i]->amount[lx][ly]);
 					}
-					else if(splatter[i]->mat1 == BLOOD_NAMED)
+                    else if(splatter[i]->mat_type == BLOOD_NAMED)
 					{
-						b->bloodlevel += splatter[i]->intensity[lx][ly];
-						red += (150 * splatter[i]->intensity[lx][ly]);
+                        b->bloodlevel += splatter[i]->amount[lx][ly];
+                        red += (150 * splatter[i]->amount[lx][ly]);
 						//green += (0 * splatter[i]->intensity[lx][ly]);
-						blue += (24 * splatter[i]->intensity[lx][ly]);
+                        blue += (24 * splatter[i]->amount[lx][ly]);
 					}
-					else if(splatter[i]->mat1 == BLOOD_1
-						|| splatter[i]->mat1 == BLOOD_2
-						|| splatter[i]->mat1 == BLOOD_3
-						|| splatter[i]->mat1 == BLOOD_4
-						|| splatter[i]->mat1 == BLOOD_5
-						|| splatter[i]->mat1 == BLOOD_6)
+                    else if(splatter[i]->mat_type == BLOOD_1
+                            || splatter[i]->mat_type == BLOOD_2
+                            || splatter[i]->mat_type == BLOOD_3
+                            || splatter[i]->mat_type == BLOOD_4
+                            || splatter[i]->mat_type == BLOOD_5
+                            || splatter[i]->mat_type == BLOOD_6)
 					{
-						b->bloodlevel += splatter[i]->intensity[lx][ly];
-						red += (150 * splatter[i]->intensity[lx][ly]);
+                        b->bloodlevel += splatter[i]->amount[lx][ly];
+                        red += (150 * splatter[i]->amount[lx][ly]);
 						//green += (0 * splatter[i]->intensity[lx][ly]);
-						blue += (24 * splatter[i]->intensity[lx][ly]);
+                        blue += (24 * splatter[i]->amount[lx][ly]);
 					}
 				}
 				if(b->bloodlevel)
@@ -388,7 +388,7 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
 			bool isHidden = designations[lx][ly].bits.hidden;
 			//option for including hidden blocks
 			isHidden &= !config.show_hidden_blocks;
-			bool shouldBeIncluded = (!isOpenTerrain(t) || b->water.index || !designations[lx][ly].bits.skyview) && !isHidden;
+			bool shouldBeIncluded = (!isOpenTerrain(t) || b->water.index || !designations[lx][ly].bits.outside) && !isHidden;
 
 			//include hidden blocks as shaded black 
 			if(config.shade_hidden_blocks && isHidden && (isBlockOnVisibleEdgeOfSegment(&segment, b) || areNeighborsVisible(designations, lx, ly)))
@@ -434,12 +434,12 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
 					// DANGER: THIS CODE MAY BE BUGGY
 					// This was apparently causing a crash in previous version
 					// But works fine for me
-					uint16_t row = veins[i]->assignment[ly];
+					uint16_t row = veins[i]->tile_bitmask[ly];
 					bool set = (row & (1 << lx)) != 0;
 					if(set){
-						rockIndex = veins[i]->type;
+						rockIndex = veins[i]->inorganic_mat;
 						b->veinMaterial.type = INORGANIC;
-						b->veinMaterial.index = veins[i]->type;
+						b->veinMaterial.index = veins[i]->inorganic_mat;
 						b->hasVein = 1;
 					}
 					else
@@ -451,59 +451,49 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
 				b->material.type = INORGANIC;
 				b->material.index = b->veinMaterial.index;
 
-				//read global features
-				int16_t idx = mapBlock.global_feature;
-				if( idx != -1 && (uint16_t)idx < global_features->size() && global_features->at(idx).main_material != -1)
-				{
-					if(designations[lx][ly].bits.feature_global)
-					{
-						//if(global_features->at(idx).main_material == INORGANIC) // stone
-						//{
-						//there may be other features.
-						b->layerMaterial.type = global_features->at(idx).main_material;
-						b->layerMaterial.index = global_features->at(idx).sub_material;
-						b->material.type = global_features->at(idx).main_material;
-						b->material.index = global_features->at(idx).sub_material;
-						b->hasVein = 0;
-						//}
-					}
-				}
+                //read global/local features
+                int16_t idx = mapBlock.global_feature;
+                t_feature local, global;
+                Maps::ReadFeatures(CellX,CellY,CellZ,&local,&global);
+                if( idx != -1 && global.type != -1 && global.main_material != -1)
+                {
+                    if(designations[lx][ly].bits.feature_global)
+                    {
+                        //if(global_features->at(idx).main_material == INORGANIC) // stone
+                        //{
+                        //there may be other features.
+                        b->layerMaterial.type = global.main_material;
+                        b->layerMaterial.index = global.sub_material;
+                        b->material.type = global.main_material;
+                        b->material.index = global.sub_material;
+                        b->hasVein = 0;
+                        //}
+                    }
+                }
 
-				//read local features
-				idx = mapBlock.local_feature;
-				if( idx != -1 )
-				{
-					DFHack::planecoord pc;
-					pc.dim.x = CellX;
-					pc.dim.y = CellY;
-					std::map <DFHack::planecoord, std::vector<DFHack::t_feature *> >::iterator it;
-					it = local_features->find(pc);
-					if(it != local_features->end())
-					{
-						std::vector<DFHack::t_feature *>& vectr = (*it).second;
-						if((uint16_t)idx < vectr.size() && vectr[idx]->main_material != -1)
-						{
-							if(mapBlock.designation[lx][ly].bits.feature_local)
-							{
-								//if(vectr[idx]->main_material == INORGANIC) // stone
-								//{
-								//We can probably get away with this.
-								b->veinMaterial.type = vectr[idx]->main_material;
-								b->veinMaterial.index = vectr[idx]->sub_material;
-								b->material.type = vectr[idx]->main_material;
-								b->material.index = vectr[idx]->sub_material;
-								b->hasVein = 1;
-								//}
-							}
-						}
-					}
-				}
+                //read local features
+                idx = mapBlock.local_feature;
+                if( idx != -1 && local.type != -1 && local.main_material != -1 )
+                {
+                    if(mapBlock.designation[lx][ly].bits.feature_local)
+                    {
+                        //if(vectr[idx]->main_material == INORGANIC) // stone
+                        //{
+                        //We can probably get away with this.
+                        b->veinMaterial.type = local.main_material;
+                        b->veinMaterial.index = local.sub_material;
+                        b->material.type = local.main_material;
+                        b->material.index = local.sub_material;
+                        b->hasVein = 1;
+                        //}
+                    }
+                }
 
-				if(tileTypeTable[b->tileType].material == OBSIDIAN)
-				{
-					b->material.type = INORGANIC;
-					b->material.index = contentLoader->obsidian;
-				}
+                if(tileTypeTable[b->tileType].material == OBSIDIAN)
+                {
+                    b->material.type = INORGANIC;
+                    b->material.index = contentLoader->obsidian;
+                }
 
 
 				//string name = v_stonetypes[j].id;
@@ -521,7 +511,8 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
 	//add trees and other vegetation
 	for(int i = 0; i < plants->size(); i++)
 	{
-		Block* b = segment.getBlock( plants->at(i)->x, plants->at(i)->y, plants->at(i)->z);
+        df::plant * wheat = plants->at(i);
+        Block* b = segment.getBlock( wheat->pos.x, wheat->pos.y, wheat->pos.z);
 		if(b && (
 			(tileTypeTable[b->tileType].shape == TREE_DEAD) || 
 			(tileTypeTable[b->tileType].shape == TREE_OK) ||
@@ -531,8 +522,8 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
 			(tileTypeTable[b->tileType].shape == SHRUB_OK)
 			))
 		{
-			b->tree.type = plants->at(i)->type;
-			b->tree.index = plants->at(i)->material;
+            b->tree.type = wheat->flags.whole;
+            b->tree.index = wheat->material;
 		}
 	}
 }
@@ -557,18 +548,6 @@ bool checkFloorBorderRequirement(WorldSegment* segment, int x, int y, int z, dir
 WorldSegment* ReadMapSegment(DFHack::Core &DF, int x, int y, int z, int sizex, int sizey, int sizez){
 	uint32_t index;
 	clock_t start_time = clock();
-	DFHack::Maps *Maps;
-	if(!config.skipMaps)
-	{
-		try
-		{
-			Maps = DF.getMaps();
-		}
-		catch (exception &e)
-		{
-			WriteErr("%DFhack exeption: s\n", e.what());
-		}
-	}
 	DFHack::Materials *Mats;
 	try
 	{
@@ -600,29 +579,6 @@ WorldSegment* ReadMapSegment(DFHack::Core &DF, int x, int y, int z, int sizex, i
 	//		skipVegetation = true;
 	//	}
 	//}
-	DFHack::Constructions *Cons;
-	if(!config.skipConstructions)
-	{
-		try
-		{
-			Cons = DF.getConstructions();
-		}
-		catch (exception &e)
-		{
-			WriteErr("DFhack exeption: %s\n", e.what());
-			config.skipConstructions = true;
-		}
-	}
-	DFHack::Engravings *Eng;
-	try
-	{
-		Eng = DF.getEngravings();
-	}
-	catch (exception &e)
-	{
-		WriteErr("DFhack exeption: %s\n", e.what());
-		config.skipConstructions = true;
-	}
 	DFHack::World *Wold;
 	if(!config.skipWorld)
 	{
@@ -651,7 +607,7 @@ WorldSegment* ReadMapSegment(DFHack::Core &DF, int x, int y, int z, int sizex, i
 
 	if(!config.skipMaps)
 	{
-		if(!Maps->Start())
+		if(!Maps::IsValid())
 		{
 			//WriteErr("Can't init map.");
 			//DisconnectFromDF();
@@ -681,7 +637,7 @@ WorldSegment* ReadMapSegment(DFHack::Core &DF, int x, int y, int z, int sizex, i
 
 	//Read Number of cells
 	int cellDimX, cellDimY, cellDimZ;
-	Maps->getSize((unsigned int &)cellDimX, (unsigned int &)cellDimY, (unsigned int &)cellDimZ);
+	Maps::getSize((unsigned int &)cellDimX, (unsigned int &)cellDimY, (unsigned int &)cellDimZ);
 	//Store these
 	cellDimX = cellDimX * 16;
 	cellDimY = cellDimY * 16;
@@ -703,7 +659,7 @@ WorldSegment* ReadMapSegment(DFHack::Core &DF, int x, int y, int z, int sizex, i
 	segment->rotation = DisplayedRotation;
 
 	//read world wide buildings
-	vector<t_building> allBuildings;
+    vector<Buildings::t_building> allBuildings;
 	if(!config.skipBuildings)
 		ReadBuildings(DF, &allBuildings);
 
@@ -712,7 +668,7 @@ WorldSegment* ReadMapSegment(DFHack::Core &DF, int x, int y, int z, int sizex, i
 
 	// get region geology
 	vector< vector <uint16_t> > layers;
-	if(!Maps->ReadGeology( layers ))
+	if(!Maps::ReadGeology( layers ))
 	{
 		WriteErr("Can't get region geology.\n");
 	}
@@ -721,25 +677,25 @@ WorldSegment* ReadMapSegment(DFHack::Core &DF, int x, int y, int z, int sizex, i
 	Pos->getCursorCoords(config.dfCursorX, config.dfCursorY, config.dfCursorZ);
 
 	// read constructions
-	vector<t_construction> allConstructions;
+	vector<df::construction> allConstructions;
 	uint32_t numconstructions = 0;
 
 	if(!config.skipConstructions)
 	{
 		try
 		{
-			if (Cons->Start(numconstructions))
+            numconstructions = Constructions::getCount();
+            if (numconstructions)
 			{
-				t_construction tempcon;
+				df::construction tempcon;
 				index = 0;
 				while(index < numconstructions)
 				{
-					Cons->Read(index, tempcon);
-					if(segment->CoordinateInsideSegment(tempcon.x, tempcon.y, tempcon.z))
+					tempcon = *Constructions::getConstruction(index);
+                    if(segment->CoordinateInsideSegment(tempcon.pos.x, tempcon.pos.y, tempcon.pos.z))
 						allConstructions.push_back(tempcon);
 					index++;
 				}
-				Cons->Finish();
 			}
 		}
 		catch(exception &e)
@@ -757,13 +713,6 @@ WorldSegment* ReadMapSegment(DFHack::Core &DF, int x, int y, int z, int sizex, i
 	int32_t firstTileToReadX = x;
 	if( firstTileToReadX < 0 ) firstTileToReadX = 0;
 
-	//read global features
-	vector<DFHack::t_feature> global_features;
-	Maps->ReadGlobalFeatures(global_features);
-
-	//read local features
-	std::map <DFHack::planecoord, std::vector<DFHack::t_feature *> > local_features;
-	Maps->ReadLocalFeatures(local_features);
 	while(firstTileToReadX < x + sizex){
 		int cellx = firstTileToReadX / CELLEDGESIZE;
 		int32_t lastTileInCellX = (cellx+1) * CELLEDGESIZE - 1;
@@ -781,7 +730,7 @@ WorldSegment* ReadMapSegment(DFHack::Core &DF, int x, int y, int z, int sizex, i
 				//load the blcoks from this cell to the map segment
 				ReadCellToSegment(DF, *segment, cellx, celly, lz, 
 					firstTileToReadX, firstTileToReadY, lastTileToReadX, lastTileToReadY,
-					0, &allBuildings, &allConstructions, &layers, &global_features, &local_features, Maps);
+					0, &allBuildings, &allConstructions, &layers );
 
 			}
 			firstTileToReadY = lastTileToReadY + 1;
@@ -795,32 +744,31 @@ WorldSegment* ReadMapSegment(DFHack::Core &DF, int x, int y, int z, int sizex, i
 	uint32_t numengravings = 0;
 	try
 	{
-		if (Eng->Start(numengravings))
+        numengravings = Engravings::getCount();
+        if (numengravings)
 		{
-			dfh_engraving engraved;
-			t_engraving &tempeng = engraved.s;
+			df::engraving * engraved;
 			index = 0;
 			Block * b = 0;
 			while(index < numengravings)
 			{
-				Eng->Read(index, engraved);
-				if(segment->CoordinateInsideSegment(tempeng.x, tempeng.y, tempeng.z))
+                engraved = Engravings::getEngraving(index);
+                df::coord pos = engraved->pos;
+                if(segment->CoordinateInsideSegment(pos.x, pos.y, pos.z))
 				{
-					b = segment->getBlock(tempeng.x, tempeng.y, tempeng.z);
-					b->engraving_character = tempeng.display_character;
-					b->engraving_flags = tempeng.flags;
-					b->engraving_quality = tempeng.quality;
+                    b = segment->getBlock(pos.x, pos.y, pos.z);
+					b->engraving_character = engraved->tile;
+					b->engraving_flags = engraved->flags;
+					b->engraving_quality = engraved->quality;
 				}
 				index++;
 			}
-			Eng->Finish();
 		}
 	}
 	catch(exception &e)
 	{
 		WriteErr("DFhack exception: %s\n", e.what());
 	}
-
 
 	//Read Vegetation
 	//uint32_t numtrees;
@@ -912,7 +860,6 @@ WorldSegment* ReadMapSegment(DFHack::Core &DF, int x, int y, int z, int sizex, i
 	if(!config.skipCreatures)
 		ReadCreaturesToSegment( DF, segment );
 
-	Maps->Finish();
 	segment->loaded = 1;
 	segment->read_time = clock() - start_time;
 
@@ -1087,14 +1034,14 @@ void beautify_Segment(WorldSegment * segment)
 		if(dir8) if(dir8->floorType) b->floorborders |= 128;
 
 		b->lightborders = 0;
-		if(dir1) if(!dir1->designation.bits.skyview) b->lightborders |= 1;
-		if(dir2) if(!dir2->designation.bits.skyview) b->lightborders |= 2;
-		if(dir3) if(!dir3->designation.bits.skyview) b->lightborders |= 4;
-		if(dir4) if(!dir4->designation.bits.skyview) b->lightborders |= 8;
-		if(dir5) if(!dir5->designation.bits.skyview) b->lightborders |= 16;
-		if(dir6) if(!dir6->designation.bits.skyview) b->lightborders |= 32;
-		if(dir7) if(!dir7->designation.bits.skyview) b->lightborders |= 64;
-		if(dir8) if(!dir8->designation.bits.skyview) b->lightborders |= 128;
+		if(dir1) if(!dir1->designation.bits.outside) b->lightborders |= 1;
+        if(dir2) if(!dir2->designation.bits.outside) b->lightborders |= 2;
+        if(dir3) if(!dir3->designation.bits.outside) b->lightborders |= 4;
+        if(dir4) if(!dir4->designation.bits.outside) b->lightborders |= 8;
+        if(dir5) if(!dir5->designation.bits.outside) b->lightborders |= 16;
+        if(dir6) if(!dir6->designation.bits.outside) b->lightborders |= 32;
+        if(dir7) if(!dir7->designation.bits.outside) b->lightborders |= 64;
+        if(dir8) if(!dir8->designation.bits.outside) b->lightborders |= 128;
 		b->lightborders = ~b->lightborders;
 
 		b->openborders = ~(b->floorborders|b->rampborders|b->wallborders|b->downstairborders|b->upstairborders);
@@ -1134,7 +1081,7 @@ void FollowCurrentDFWindow()
 			+-------------+  W - corrected view
 
 			*/
-			pDFApiHandle->getMaps()->getSize((uint32_t &)mapx, (uint32_t &)mapy, (uint32_t &)mapz);
+			Maps::getSize((uint32_t &)mapx, (uint32_t &)mapy, (uint32_t &)mapz);
 			mapx *= 16;
 			mapy *= 16;
 
@@ -1198,8 +1145,7 @@ void FollowCurrentDFCenter()
 
 void read_segment( void *arg)
 {
-	DFHack::Maps * maps = pDFApiHandle->getMaps();
-	if(!maps->Start())
+	if(!Maps::IsValid())
 		return;
 	static bool firstLoad = 1;
 	//al_lock_mutex(readMutex);
