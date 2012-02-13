@@ -174,7 +174,7 @@ void parseConfigLine( string line ){
 	}
 	if( line.find("[FOG_ALPHA") != -1){
 		int value = parseIntFromLine( "FOG_ALPHA", line);
-		config.foga = value;
+		config.foga = value / 255.0;
 	}
 	if( line.find("[SHOW_FOG") != -1){
 		string result = parseStrFromLine( "SHOW_FOG", line );

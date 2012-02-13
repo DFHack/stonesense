@@ -453,7 +453,7 @@ static void * stonesense_thread(ALLEGRO_THREAD * thred, void * parms)
 	config.fog_of_war = 1;
 	config.occlusion = 1;
     contentLoader = new ContentLoader();
-	config.zoom = 1;
+	config.zoom = 0;
 	config.scale = 1.0f;
 	initRandomCube();
 	loadConfigFile();
