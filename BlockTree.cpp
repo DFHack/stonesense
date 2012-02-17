@@ -40,7 +40,7 @@ void c_block_tree_twig::insert_sprites(WorldSegment *w, int x, int y, int z, Blo
 	switch(DisplayedRotation)
 	{
 	case 0:
-		for(int i = 0; i < eastward_growth.size(); i++)
+		for(unsigned int i = 0; i < eastward_growth.size(); i++)
 		{
 			if(w->CoordinateInsideSegment(x + i + 1,y,z))
 			{
@@ -50,7 +50,7 @@ void c_block_tree_twig::insert_sprites(WorldSegment *w, int x, int y, int z, Blo
 				}
 			}
 		}
-		for(int i = 0; i < westward_growth.size(); i++)
+		for(unsigned int i = 0; i < westward_growth.size(); i++)
 		{
 			if(w->CoordinateInsideSegment(x - i - 1,y,z))
 			{
@@ -62,7 +62,7 @@ void c_block_tree_twig::insert_sprites(WorldSegment *w, int x, int y, int z, Blo
 		}
 		break;
 	case 1:
-		for(int i = 0; i < westward_growth.size(); i++)
+		for(unsigned int i = 0; i < westward_growth.size(); i++)
 		{
 			if(w->CoordinateInsideSegment(x, y + i + 1, z))
 			{
@@ -72,7 +72,7 @@ void c_block_tree_twig::insert_sprites(WorldSegment *w, int x, int y, int z, Blo
 				}
 			}
 		}
-		for(int i = 0; i < eastward_growth.size(); i++)
+		for(unsigned int i = 0; i < eastward_growth.size(); i++)
 		{
 			if(w->CoordinateInsideSegment(x, y - i - 1, z))
 			{
@@ -84,7 +84,7 @@ void c_block_tree_twig::insert_sprites(WorldSegment *w, int x, int y, int z, Blo
 		}
 		break;
 	case 2:
-		for(int i = 0; i < eastward_growth.size(); i++)
+		for(unsigned int i = 0; i < eastward_growth.size(); i++)
 		{
 			if(w->CoordinateInsideSegment(x - i - 1,y,z))
 			{
@@ -94,7 +94,7 @@ void c_block_tree_twig::insert_sprites(WorldSegment *w, int x, int y, int z, Blo
 				}
 			}
 		}
-		for(int i = 0; i < westward_growth.size(); i++)
+		for(unsigned int i = 0; i < westward_growth.size(); i++)
 		{
 			if(w->CoordinateInsideSegment(x + i + 1,y,z))
 			{
@@ -106,7 +106,7 @@ void c_block_tree_twig::insert_sprites(WorldSegment *w, int x, int y, int z, Blo
 		}
 		break;
 	case 3:
-		for(int i = 0; i < westward_growth.size(); i++)
+		for(unsigned int i = 0; i < westward_growth.size(); i++)
 		{
 			if(w->CoordinateInsideSegment(x, y - i - 1, z))
 			{
@@ -116,7 +116,7 @@ void c_block_tree_twig::insert_sprites(WorldSegment *w, int x, int y, int z, Blo
 				}
 			}
 		}
-		for(int i = 0; i < eastward_growth.size(); i++)
+		for(unsigned int i = 0; i < eastward_growth.size(); i++)
 		{
 			if(w->CoordinateInsideSegment(x, y + i + 1, z))
 			{
@@ -208,14 +208,14 @@ void c_block_tree_branch::insert_sprites(WorldSegment *w, int x, int y, int z, B
 		for(int i = 0; i < southward_growth.size(); i++)
 		{
 			Block * b = w->getBlock(x, y + i + 1, z);
-			if(b && (b->wallType || b->stairType))
+			if(b && (b->tileShapeBasic==df::enums::tiletype_shape_basic::Wall || b->tileShapeBasic==df::enums::tiletype_shape_basic::Stair))
 				break;
 			southward_growth[i].insert_sprites(w, x, y + i + 1, z, parent);
 		}
 		for(int i = 0; i < northward_growth.size(); i++)
 		{
 			Block * b = w->getBlock(x, y - i - 1, z);
-			if(b && (b->wallType || b->stairType))
+			if(b && (b->tileShapeBasic==df::enums::tiletype_shape_basic::Wall || b->tileShapeBasic==df::enums::tiletype_shape_basic::Stair))
 				break;
 			northward_growth[i].insert_sprites(w, x, y - i - 1, z, parent);
 		}
@@ -224,14 +224,14 @@ void c_block_tree_branch::insert_sprites(WorldSegment *w, int x, int y, int z, B
 		for(int i = 0; i < southward_growth.size(); i++)
 		{
 			Block * b = w->getBlock(x + i + 1, y , z);
-			if(b && (b->wallType || b->stairType))
+			if(b && (b->tileShapeBasic==df::enums::tiletype_shape_basic::Wall || b->tileShapeBasic==df::enums::tiletype_shape_basic::Stair))
 				break;
 			southward_growth[i].insert_sprites(w, x + i + 1, y , z, parent);
 		}
 		for(int i = 0; i < northward_growth.size(); i++)
 		{
 			Block * b = w->getBlock(x - i - 1, y , z);
-			if(b && (b->wallType || b->stairType))
+			if(b && (b->tileShapeBasic==df::enums::tiletype_shape_basic::Wall || b->tileShapeBasic==df::enums::tiletype_shape_basic::Stair))
 				break;
 			northward_growth[i].insert_sprites(w, x - i - 1, y , z, parent);
 		}
@@ -240,14 +240,14 @@ void c_block_tree_branch::insert_sprites(WorldSegment *w, int x, int y, int z, B
 		for(int i = 0; i < southward_growth.size(); i++)
 		{
 			Block * b = w->getBlock(x, y - i - 1, z);
-			if(b && (b->wallType || b->stairType))
+			if(b && (b->tileShapeBasic==df::enums::tiletype_shape_basic::Wall || b->tileShapeBasic==df::enums::tiletype_shape_basic::Stair))
 				break;
 			southward_growth[i].insert_sprites(w, x, y - i - 1, z, parent);
 		}
 		for(int i = 0; i < northward_growth.size(); i++)
 		{
 			Block * b = w->getBlock(x, y + i + 1, z);
-			if(b && (b->wallType || b->stairType))
+			if(b && (b->tileShapeBasic==df::enums::tiletype_shape_basic::Wall || b->tileShapeBasic==df::enums::tiletype_shape_basic::Stair))
 				break;
 			northward_growth[i].insert_sprites(w, x, y + i + 1, z, parent);
 		}
@@ -256,14 +256,14 @@ void c_block_tree_branch::insert_sprites(WorldSegment *w, int x, int y, int z, B
 		for(int i = 0; i < southward_growth.size(); i++)
 		{
 			Block * b = w->getBlock(x - i - 1, y , z);
-			if(b && (b->wallType || b->stairType))
+			if(b && (b->tileShapeBasic==df::enums::tiletype_shape_basic::Wall || b->tileShapeBasic==df::enums::tiletype_shape_basic::Stair))
 				break;
 			southward_growth[i].insert_sprites(w, x - i - 1, y , z, parent);
 		}
 		for(int i = 0; i < northward_growth.size(); i++)
 		{
 			Block * b = w->getBlock(x + i + 1, y , z);
-			if(b && (b->wallType || b->stairType))
+			if(b && (b->tileShapeBasic==df::enums::tiletype_shape_basic::Wall || b->tileShapeBasic==df::enums::tiletype_shape_basic::Stair))
 				break;
 			northward_growth[i].insert_sprites(w, x + i + 1, y , z, parent);
 		}
@@ -312,7 +312,12 @@ void c_block_tree::insert_sprites(WorldSegment *w, int x, int y, int z, Block * 
 	for(int i = 0; i < upward_growth.size(); i++)
 	{
 		Block * b = w->getBlock(x, y, z + i + 1);
-		if((b && (b->floorType || b->wallType || b->stairType)) || ((z + i + 1) > w->z + w->sizez))
+		if((b && (
+			b->tileShapeBasic==df::enums::tiletype_shape_basic::Floor || 
+			b->tileShapeBasic==df::enums::tiletype_shape_basic::Wall || 
+			b->tileShapeBasic==df::enums::tiletype_shape_basic::Stair)) || 
+			((z + i + 1) > w->z + w->sizez)
+			)
 			break;
 		upward_growth[i].insert_sprites(w, x, y, z + i + 1, parent);
 	}
