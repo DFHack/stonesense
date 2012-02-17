@@ -3,6 +3,7 @@
 
 #include "common.h"
 #include "SpriteObjects.h"
+#include "TileTypes.h"
 class WorldSegment;
 
 
@@ -19,10 +20,11 @@ public:
 
 	uint32_t x, y, z;
 	int drawx, drawy, drawz;
-	int floorType;
-	int wallType;
-	int stairType;
-	int tileType;
+	df::tiletype_shape_basic tileShapeBasic;
+	df::tiletype_shape tileShape;
+	df::tiletype_special tileSpecial;
+	df::tiletype_material tileMaterial;
+	df::tiletype tileType;
 	DFHack::t_matglossPair material;
     DFHack::t_matglossPair layerMaterial;
     DFHack::t_matglossPair veinMaterial;
@@ -105,7 +107,7 @@ public:
 	} building;
 
 	bool IsVisible(){
-		return (floorType || wallType) != 0;
+		return (tileShapeBasic==df::enums::tiletype_shape_basic::Floor || tileShapeBasic==df::enums::tiletype_shape_basic::Wall) != 0;
 	}
 	void Draw();
 	void Drawcreaturetext();

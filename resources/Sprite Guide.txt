@@ -155,6 +155,11 @@ Useful for adding blood pools. This over-rides 'variations' so they cannot be us
 
 Additional sprites can be layered on top using the subsprite tag, like so:
 
+Attriibute: zoom
+Valid Values: any number
+Default Value: "0"
+Description: Sets the scale of the sprite, in the form of 2^x. this means 0 is normal sized, -1 is half sized, 1 is double, 2 is quadruple, etc.
+
 <floors>
 	<floor sheetindex="1">
 		blah blah

@@ -66,5 +66,5 @@ enum BlockIDs{
 // or one with sheetIndex == INVALID_INDEX if none found
 c_sprite * GetBlockSpriteMap(int in, t_matglossPair material, uint16_t form);
 c_sprite * GetFloorSpriteMap(int in, t_matglossPair material, uint16_t form);
-c_block_tree * GetTreeVegetation( DFHack::TileShape type, int index);
+c_block_tree * GetTreeVegetation( df::tiletype_shape shape, df::tiletype_special special, int index);
 

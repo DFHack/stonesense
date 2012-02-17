@@ -173,7 +173,12 @@ ALLEGRO_COLOR getDayShade(int hour, int tick)
 
 void ScreenToPoint(int x,int y,int &x1, int &y1, int &z1)
 { //assume z of 0
-	x-=TILEWIDTH/2;
+	x-=al_get_bitmap_width(al_get_target_bitmap()) / 2;
+	y-=al_get_bitmap_height(al_get_target_bitmap()) / 2;
+	x/=config.scale;
+	y/=config.scale;
+	x+=al_get_bitmap_width(al_get_target_bitmap()) / 2;
+	y+=al_get_bitmap_height(al_get_target_bitmap()) / 2;	x-=TILEWIDTH/2;
 	y+=TILEWIDTH/2;
 	z1 = -3;
 	y+= z1*BLOCKHEIGHT/2;
@@ -270,9 +275,15 @@ void pointToScreen(int *inx, int *iny, int inz){
 	int y = *inx+*iny;
 	x = x * TILEWIDTH / 2;
 	y = y * TILEHEIGHT / 2;
+	y-=z * BLOCKHEIGHT;
 	x+=offx;
 	y+=offy;
-	y-=z * BLOCKHEIGHT;
+	x-=al_get_bitmap_width(al_get_target_bitmap()) / 2;
+	y-=al_get_bitmap_height(al_get_target_bitmap()) / 2;
+	x*=config.scale;
+	y*=config.scale;
+	x+=al_get_bitmap_width(al_get_target_bitmap()) / 2;
+	y+=al_get_bitmap_height(al_get_target_bitmap()) / 2;
 	*inx=x;*iny=y;
 }
 
@@ -311,22 +322,22 @@ void DrawCurrentLevelOutline(bool backPart){
 	p3.y += FLOORHEIGHT;
 	p4.y += FLOORHEIGHT;
 	if(backPart){
-		al_draw_line(p1.x, p1.y, p1.x, p1.y-BLOCKHEIGHT, color_segmentoutline, 0);
-		al_draw_line(p1.x, p1.y, p1.x, p1.y-BLOCKHEIGHT, color_segmentoutline, 0);
+		al_draw_line(p1.x, p1.y, p1.x, p1.y-BLOCKHEIGHT*config.scale, color_segmentoutline, 0);
+		al_draw_line(p1.x, p1.y, p1.x, p1.y-BLOCKHEIGHT*config.scale, color_segmentoutline, 0);
 		al_draw_line(p1.x, p1.y, p2.x, p2.y, color_segmentoutline, 0);
-		al_draw_line(p1.x, p1.y-BLOCKHEIGHT, p2.x, p2.y-BLOCKHEIGHT, color_segmentoutline, 0);
-		al_draw_line(p2.x, p2.y, p2.x, p2.y-BLOCKHEIGHT, color_segmentoutline, 0);
+		al_draw_line(p1.x, p1.y-BLOCKHEIGHT*config.scale, p2.x, p2.y-BLOCKHEIGHT*config.scale, color_segmentoutline, 0);
+		al_draw_line(p2.x, p2.y, p2.x, p2.y-BLOCKHEIGHT*config.scale, color_segmentoutline, 0);
 
 		al_draw_line(p1.x, p1.y, p3.x, p3.y, color_segmentoutline, 0);
-		al_draw_line(p1.x, p1.y-BLOCKHEIGHT, p3.x, p3.y-BLOCKHEIGHT, color_segmentoutline, 0);
-		al_draw_line(p3.x, p3.y, p3.x, p3.y-BLOCKHEIGHT, color_segmentoutline, 0);
+		al_draw_line(p1.x, p1.y-BLOCKHEIGHT*config.scale, p3.x, p3.y-BLOCKHEIGHT*config.scale, color_segmentoutline, 0);
+		al_draw_line(p3.x, p3.y, p3.x, p3.y-BLOCKHEIGHT*config.scale, color_segmentoutline, 0);
 	}else{
-		al_draw_line(p4.x, p4.y, p4.x, p4.y-BLOCKHEIGHT, color_segmentoutline, 0);
+		al_draw_line(p4.x, p4.y, p4.x, p4.y-BLOCKHEIGHT*config.scale, color_segmentoutline, 0);
 		al_draw_line(p4.x, p4.y, p2.x, p2.y, color_segmentoutline ,0);
-		al_draw_line(p4.x, p4.y-BLOCKHEIGHT, p2.x, p2.y-BLOCKHEIGHT, color_segmentoutline ,0);
+		al_draw_line(p4.x, p4.y-BLOCKHEIGHT*config.scale, p2.x, p2.y-BLOCKHEIGHT*config.scale, color_segmentoutline ,0);
 
 		al_draw_line(p4.x, p4.y, p3.x, p3.y, color_segmentoutline, 0);
-		al_draw_line(p4.x, p4.y-BLOCKHEIGHT, p3.x, p3.y-BLOCKHEIGHT, color_segmentoutline, 0);
+		al_draw_line(p4.x, p4.y-BLOCKHEIGHT*config.scale, p3.x, p3.y-BLOCKHEIGHT*config.scale, color_segmentoutline, 0);
 	}
 }
 
@@ -611,7 +622,7 @@ void DrawMinimap(){
 	MiniMapBottomRightY = posy+mapheight;
 }
 
-void DrawSpriteFromSheet( int spriteNum, ALLEGRO_BITMAP* spriteSheet, ALLEGRO_COLOR color, int x, int y, Block * b){
+void DrawSpriteFromSheet( int spriteNum, ALLEGRO_BITMAP* spriteSheet, ALLEGRO_COLOR color, float x, float y, Block * b){
 	int sheetx = spriteNum % SHEET_OBJECTSWIDE;
 	int sheety = spriteNum / SHEET_OBJECTSWIDE;
 #ifdef _DEBUG
@@ -637,7 +648,7 @@ void DrawSpriteFromSheet( int spriteNum, ALLEGRO_BITMAP* spriteSheet, ALLEGRO_CO
 		color.g *= 0.25f;
 		color.b *= 0.25f;
 	}
-	al_draw_tinted_bitmap_region(spriteSheet, premultiply(color), sheetx * SPRITEWIDTH, sheety * SPRITEHEIGHT, SPRITEWIDTH, SPRITEHEIGHT, x, y - (WALLHEIGHT), 0);
+	al_draw_tinted_scaled_bitmap(spriteSheet, premultiply(color), sheetx * SPRITEWIDTH, sheety * SPRITEHEIGHT, SPRITEWIDTH, SPRITEHEIGHT, x, y - (WALLHEIGHT)*config.scale, SPRITEWIDTH*config.scale, SPRITEHEIGHT*config.scale, 0);
 }
 
 ALLEGRO_BITMAP * CreateSpriteFromSheet( int spriteNum, ALLEGRO_BITMAP* spriteSheet)
@@ -725,8 +736,14 @@ void paintboard(){
 	//al_set_target_bitmap(buffer);
 	//al_set_separate_blender(ALLEGRO_ALPHA, ALLEGRO_INVERSE_ALPHA, ALLEGRO_ONE, ALLEGRO_ONE);
 	//al_set_blender(ALLEGRO_ALPHA, ALLEGRO_INVERSE_ALPHA, al_map_rgba(255, 255, 255, 255));
+	int op, src, dst, alpha_op, alpha_src, alpha_dst;
+	al_get_separate_blender(&op, &src, &dst, &alpha_op, &alpha_src, &alpha_dst);
+	al_set_separate_blender(ALLEGRO_ADD, ALLEGRO_ONE, ALLEGRO_ZERO,ALLEGRO_ADD, ALLEGRO_ONE, ALLEGRO_ZERO);
+	al_clear_to_color(al_map_rgba(0,0,0,0));
 	if(!config.transparentScreenshots)
 		al_clear_to_color(al_map_rgb(config.backr,config.backg,config.backb));
+	al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst);
+
 	//clear_to_color(buffer,makecol(12,7,49)); //this one is calm and nice
 
 	if( viewedSegment == NULL ){
@@ -760,7 +777,7 @@ void paintboard(){
 	if (config.show_osd)
 	{
 		al_hold_bitmap_drawing(true);
-		draw_textf_border(font, al_map_rgb(255,255,255), 10,al_get_font_line_height(font), 0, "%i,%i,%i, r%i", DisplayedSegmentX,DisplayedSegmentY,DisplayedSegmentZ, DisplayedRotation);
+		draw_textf_border(font, al_map_rgb(255,255,255), 10,al_get_font_line_height(font), 0, "%i,%i,%i, r%i, z%i", DisplayedSegmentX,DisplayedSegmentY,DisplayedSegmentZ, DisplayedRotation, config.zoom);
 
 		if(config.debug_mode){
 			draw_textf_border(font, al_map_rgb(255,255,255), 10, 3*al_get_font_line_height(font), 0, "Map Read Time: %dms", viewedSegment->read_time);
@@ -1133,7 +1150,11 @@ void dumpSegment()
 	ALLEGRO_BITMAP * backup = al_get_target_bitmap();
 	al_set_target_bitmap(volume);
 
+	int op, src, dst, alpha_op, alpha_src, alpha_dst;
+	al_get_separate_blender(&op, &src, &dst, &alpha_op, &alpha_src, &alpha_dst);
+	al_set_separate_blender(ALLEGRO_ADD, ALLEGRO_ONE, ALLEGRO_ZERO,ALLEGRO_ADD, ALLEGRO_ONE, ALLEGRO_ZERO);
 	al_clear_to_color(al_map_rgba(0,0,0,0));
+	al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst);
 	viewedSegment->drawPixels();
 
 	al_save_bitmap(filename, volume);

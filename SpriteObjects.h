@@ -84,6 +84,8 @@ private:
 
 	unsigned char light : 2;
 
+	float spritescale;
+
 	ALLEGRO_BITMAP * defaultsheet;
 
 	uint8_t tilelayout;

@@ -325,6 +325,7 @@ static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALL
 			}
 			else if (animationFrameShown == false)
 			{
+				al_clear_to_color(al_map_rgb(config.backr,config.backg,config.backb));
 				paintboard();
 				animationFrameShown = true;
 			}
@@ -452,6 +453,8 @@ static void * stonesense_thread(ALLEGRO_THREAD * thred, void * parms)
 	config.fog_of_war = 1;
 	config.occlusion = 1;
     contentLoader = new ContentLoader();
+	config.zoom = 0;
+	config.scale = 1.0f;
 	initRandomCube();
 	loadConfigFile();
 	init_masks();
@@ -497,7 +500,8 @@ static void * stonesense_thread(ALLEGRO_THREAD * thred, void * parms)
 	SetTitle("Stonesense");
 
 	if(config.software)
-		al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP|ALLEGRO_ALPHA_TEST);
+		al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP|ALLEGRO_ALPHA_TEST|ALLEGRO_MIN_LINEAR|ALLEGRO_MAG_LINEAR);
+	else al_set_new_bitmap_flags(ALLEGRO_MIN_LINEAR|ALLEGRO_MAG_LINEAR);
 
     ALLEGRO_PATH * p = al_create_path("stonesense/stonesense.png");
     IMGIcon = load_bitmap_withWarning(al_path_cstr(p, ALLEGRO_NATIVE_PATH_SEP));

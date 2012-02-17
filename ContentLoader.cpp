@@ -137,24 +137,11 @@ bool ContentLoader::Load( DFHack::Core& DF){
 	}
 	if(professionStrings.empty())
 	{
-		for(int i=0;; i++)
+		FOR_ENUM_ITEMS(profession, i)
 		{
-			string temp;
-			try
-			{
-				temp =  MemInfo->getProfession(i);
-			}
-			catch(exception &e)
-			{
-				break;
-			}
-			if(temp[0])
-			{
-				professionStrings.push_back(temp);
-			}
+			professionStrings.push_back(string(ENUM_ATTR(profession, key, i)));
 		}
 	}
-
 	if(classIdStrings.empty())
 	{
 		for(int i = 0; ; i++)

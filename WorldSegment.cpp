@@ -4,7 +4,6 @@
 #include "ContentLoader.h"
 
 
-ALLEGRO_BITMAP * level = 0;
 ALLEGRO_BITMAP * fog = 0;
 
 Block* WorldSegment::getBlock(int32_t x, int32_t y, int32_t z){
