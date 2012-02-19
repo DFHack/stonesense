@@ -5,10 +5,13 @@
 
 bool BuildingNamesTranslatedFromGame = false;
 
-BuildingConfiguration::BuildingConfiguration(string name, int gameID)
+BuildingConfiguration::BuildingConfiguration(string name, int game_type, int game_subtype, std::string str_custom)
 {  
   this->name = name;
-  this->gameID = gameID;
+  this->game_type = game_type;
+  this->game_subtype = game_subtype;
+  this->game_custom = -1;
+  this->str_custom = str_custom;
   this->width = this->height = 1;
   this->canBeFloating = false;
   this->canBeAnySize = false;
@@ -22,7 +25,10 @@ BuildingConfiguration::BuildingConfiguration(string name, int gameID)
 BuildingConfiguration::BuildingConfiguration()
 {  
   this->name = "";
-  this->gameID = BUILDINGTYPE_NA;
+  this->game_type = -1;
+  this->game_subtype = -1;
+  this->game_custom = -1;
+  this->str_custom = str_custom;
   this->width = this->height = 1;
   this->canBeFloating = false;
   this->canBeAnySize = false;
@@ -40,12 +46,14 @@ BuildingConfiguration::~BuildingConfiguration(void)
 
 
 void DumpBuildingNamesToDisk(){
+    /*
   FILE* fp = fopen("buildingdump.txt", "w");
   if(!fp) return;
   for(uint32_t j=0; j < contentLoader->classIdStrings.size(); j++){
     fprintf(fp, "%i:%s\n",j, contentLoader->classIdStrings[j].c_str());
   }
   fclose(fp);
+  */
 }
 
 /*void TranslateBuildingNames( vector<BuildingConfiguration>& configs, vector<string>& buildingNames ){

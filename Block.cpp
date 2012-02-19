@@ -8,6 +8,8 @@
 #include "ContentLoader.h"
 #include "SpriteColors.h"
 #include "TileTypes.h"
+#include "df/building_type.h"
+using namespace df::enums;
 
 ALLEGRO_BITMAP *sprite_miasma = 0;
 ALLEGRO_BITMAP *sprite_water = 0;
@@ -285,8 +287,8 @@ void Block::Draw()
 
 	//Building
 	bool skipBuilding =
-		(building.info.type == contentLoader->civzoneNum && !config.show_stockpiles) ||
-		(building.info.type == contentLoader->stockpileNum && !config.show_zones);
+        (building.info.type == building_type::Civzone && !config.show_stockpiles) ||
+        (building.info.type == building_type::Stockpile && !config.show_zones);
 
 	if(building.info.type != BUILDINGTYPE_NA && !skipBuilding)
 	{

@@ -281,64 +281,144 @@ bool parseSpriteNode(SpriteNode* node, TiXmlElement* elemParent)
 	return true;
 }
 
+#include "df/siegeengine_type.h"
+#include "df/workshop_type.h"
+#include "df/trap_type.h"
+#include "df/shop_type.h"
+#include "df/construction_type.h"
+#include "df/furnace_type.h"
+
 bool addSingleBuildingConfig( TiXmlElement* elemRoot,  vector<BuildingConfiguration>* knownBuildings ){
-	const char* strName = elemRoot->Attribute("name");
-	const char* strGameID = elemRoot->Attribute("gameID");
+    const char* strName = elemRoot->Attribute("name");
+    const char* strGameID = elemRoot->Attribute("game_type");
+    const char* strGameSub = elemRoot->Attribute("game_subtype");
+    const char* strGameCustom = elemRoot->Attribute("game_custom");
 
-	if (strName == NULL || strGameID == NULL || strName[0] == 0 || strGameID[0] == 0)
-	{
-		contentError("<building> node must have name and gameID attributes",elemRoot);
-		return false;
-	}
+    if (strName == NULL || strGameID == NULL || strName[0] == 0 || strGameID[0] == 0)
+    {
+        contentError("<building> node must have name and game_type attributes",elemRoot);
+        return false;
+    }
+    building_type::building_type main_type = (building_type::building_type) INVALID_INDEX;
+    int subtype = INVALID_INDEX;
 
-	int gameID = TranslateBuildingName(strGameID, contentLoader->classIdStrings );
+    FOR_ENUM_ITEMS(building_type,i)
+    {
+        if (strGameID == ENUM_KEY_STR(building_type,i))
+        {
+            main_type = i;
+            break;
+        }
+    }
+    if(main_type == (building_type::building_type) INVALID_INDEX)
+        return false;
 
-	if (gameID == INVALID_INDEX) {
-		return false;
-	}
+    // get subtype string, if available
+    string sub;
+    if(strGameSub)
+        sub = strGameSub;
 
-	BuildingConfiguration building(strName, gameID );
-	RootBlock* spriteroot = new RootBlock();
-	building.sprites = spriteroot;
-	if (!parseSpriteNode(spriteroot,elemRoot))
-	{
-		delete(spriteroot);
-		return false;
-	}
+    bool needs_custom = false;
 
-	//add a copy of 'building' to known buildings
-	knownBuildings->push_back( building );
-	return true;
-}
+    // process types
+    switch (main_type)
+    {
+        case building_type::Furnace:
+        {
+            FOR_ENUM_ITEMS(furnace_type,i)
+            {
+                if (strGameSub == ENUM_KEY_STR(furnace_type,i))
+                {
+                    subtype = i;
+                    break;
+                }
+            }
+            if(subtype == INVALID_INDEX)
+                return false;
+            if(subtype == furnace_type::Custom)
+                needs_custom = true;
+            break;
+        }
+        case building_type::Construction:
+        {
+            FOR_ENUM_ITEMS(construction_type,i)
+            {
+                if (strGameSub == ENUM_KEY_STR(construction_type,i))
+                {
+                    subtype = i;
+                    break;
+                }
+            }
+            if(subtype == INVALID_INDEX)
+                return false;
+            break;
+        }
+        case building_type::SiegeEngine:
+        {
+            FOR_ENUM_ITEMS(siegeengine_type,i)
+            {
+                if (strGameSub == ENUM_KEY_STR(siegeengine_type,i))
+                {
+                    subtype = i;
+                    break;
+                }
+            }
+            if(subtype == INVALID_INDEX)
+                return false;
+            break;
+        }
+        case building_type::Shop:
+        {
+            FOR_ENUM_ITEMS(shop_type,i)
+            {
+                if (strGameSub == ENUM_KEY_STR(shop_type,i))
+                {
+                    subtype = i;
+                    break;
+                }
+            }
+            if(subtype == INVALID_INDEX)
+                return false;
+            break;
+        }
+        case building_type::Workshop:
+        {
+            FOR_ENUM_ITEMS(workshop_type,i)
+            {
+                if (strGameSub == ENUM_KEY_STR(workshop_type,i))
+                {
+                    subtype = i;
+                    break;
+                }
+            }
+            if(subtype == INVALID_INDEX)
+                return false;
+            if(subtype == workshop_type::Custom)
+                needs_custom = true;
+            break;
+        }
+        default:
+        {
+            // we need no sub/custom type.
+            break;
+        }
+    }
+    // needs custom building spec, doesn't have a string... FAIL
+    if (needs_custom && !strGameCustom)
+        return false;
 
-bool addSingleCustomBuildingConfig( TiXmlElement* elemRoot,  vector<BuildingConfiguration>* knownBuildings ){
-	const char* strName = elemRoot->Attribute("name");
-	const char* strGameID = elemRoot->Attribute("gameID");
+    BuildingConfiguration building(strName, main_type, subtype, string(strGameCustom) );
+    RootBlock* spriteroot = new RootBlock();
+    building.sprites = spriteroot;
+    if (!parseSpriteNode(spriteroot,elemRoot))
+    {
+        delete(spriteroot);
+        return false;
+    }
 
-	if (strName == NULL || strGameID == NULL || strName[0] == 0 || strGameID[0] == 0)
-	{
-		contentError("<building> node must have name and gameID attributes",elemRoot);
-		return false;
-	}
-
-	int gameID = TranslateBuildingName(strGameID, contentLoader->custom_workshop_types );
-
-	if (gameID == INVALID_INDEX) {
-		return false;
-	}
-
-	BuildingConfiguration building(strName, gameID );
-	RootBlock* spriteroot = new RootBlock();
-	building.sprites = spriteroot;
-	if (!parseSpriteNode(spriteroot,elemRoot))
-	{
-		delete(spriteroot);
-		return false;
-	}
-
-	//add a copy of 'building' to known buildings
-	knownBuildings->push_back( building );
-	return true;
+    //add a copy of 'building' to known buildings
+    knownBuildings->push_back( building );
+    return true;
 }
 
 void flushBuildingConfig( vector<BuildingConfiguration>* knownBuildings )

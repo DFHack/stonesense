@@ -21,13 +21,13 @@ segParams parms;
 using namespace DFHack::Simple;
 
 inline bool IDisWall(int in){
-	//if not a custom type, do a lookup in dfHack's interface
-	return isWallTerrain( in );
+    //if not a custom type, do a lookup in dfHack's interface
+    return isWallTerrain( (tiletype::tiletype) in );
 }
 
 inline bool IDisFloor(int in){
-	//if not a custom type, do a lookup in dfHack's interface
-	return isFloorTerrain( in );;
+    //if not a custom type, do a lookup in dfHack's interface
+    return isFloorTerrain( (tiletype::tiletype) in );;
 }
 
 //big look up table
@@ -940,9 +940,26 @@ void beautify_Segment(WorldSegment * segment)
 		if(dir2) if(dir2->creaturePresent) b->obscuringCreature = 1;
 		if(dir8) if(dir8->creaturePresent) b->obscuringCreature = 1;
 
-		if(dir1) if(dir1->building.info.type != BUILDINGTYPE_NA && dir1->building.info.type != BUILDINGTYPE_BLACKBOX && dir1->building.info.type != contentLoader->civzoneNum && dir1->building.info.type != contentLoader->stockpileNum) b->obscuringBuilding = 1;
-		if(dir2) if(dir2->building.info.type != BUILDINGTYPE_NA && dir2->building.info.type != BUILDINGTYPE_BLACKBOX && dir2->building.info.type != contentLoader->civzoneNum && dir2->building.info.type != contentLoader->stockpileNum) b->obscuringBuilding = 1;
-		if(dir8) if(dir8->building.info.type != BUILDINGTYPE_NA && dir8->building.info.type != BUILDINGTYPE_BLACKBOX && dir8->building.info.type != contentLoader->civzoneNum && dir8->building.info.type != contentLoader->stockpileNum) b->obscuringBuilding = 1;
+        if(dir1)
+            if(dir1->building.info.type != BUILDINGTYPE_NA
+                && dir1->building.info.type != BUILDINGTYPE_BLACKBOX
+                && dir1->building.info.type != df::enums::building_type::Civzone
+                && dir1->building.info.type != df::enums::building_type::Stockpile
+            )
+                b->obscuringBuilding = 1;
+        if(dir2)
+            if(dir2->building.info.type != BUILDINGTYPE_NA
+                && dir2->building.info.type != BUILDINGTYPE_BLACKBOX
+                && dir2->building.info.type != df::enums::building_type::Civzone
+                && dir2->building.info.type != df::enums::building_type::Stockpile
+            )
+                b->obscuringBuilding = 1;
+        if(dir8)
+            if(dir8->building.info.type != BUILDINGTYPE_NA
+                && dir8->building.info.type != BUILDINGTYPE_BLACKBOX
+                && dir8->building.info.type != df::enums::building_type::Civzone
+                && dir8->building.info.type != df::enums::building_type::Stockpile
+            ) b->obscuringBuilding = 1;
 
 		if( b->floorType > 0 )
 		{

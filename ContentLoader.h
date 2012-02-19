@@ -13,7 +13,6 @@ private:
 	bool parseContentIndexFile( const char* filepath );
 	bool parseContentXMLFile( const char* filepath );
 	bool parseBuildingContent( TiXmlElement* elemRoot );
-	bool parseCustomBuildingContent( TiXmlElement* elemRoot );
 	bool parseCreatureContent( TiXmlElement* elemRoot );
 	bool parseTerrainContent ( TiXmlElement* elemRoot );
 	bool parseTreeContent( TiXmlElement* elemRoot );
@@ -44,7 +43,6 @@ public:
 	FluidConfiguration lava[8];
 	FluidConfiguration water[8];
 
-	vector<string> classIdStrings;
 	vector<string> professionStrings;
 	std::map <uint32_t, std::string> custom_workshop_types;
 	VersionInfo *MemInfo;
@@ -59,9 +57,6 @@ public:
 	uint8_t currentHour;
 	uint8_t currentTickRel;
 	t_gamemodes gameMode;
-
-	int stockpileNum;
-	int civzoneNum;
 
 	int obsidian;
 };

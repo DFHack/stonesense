@@ -43,7 +43,7 @@ return eSimpleSingle;
 
 bool blockHasBridge(Block* b){
 	if(!b) return 0;
-	return b->building.info.type == BUILDINGTYPE_BRIDGE;
+	return b->building.info.type == df::enums::building_type::Bridge;
 }
 
 dirTypes findWallCloseTo(WorldSegment* segment, Block* b){
@@ -117,9 +117,9 @@ void MergeBuildingsToSegment(vector<Buildings::t_building>* buildings, WorldSegm
 
 					if( b ){
 						//handle special case where zones and stockpiles overlap buildings, and try to replace them
-						if(b->building.info.type != BUILDINGTYPE_NA && tempbuilding.type == TranslateBuildingName("building_civzonest", contentLoader->classIdStrings ) )
+						if(b->building.info.type != BUILDINGTYPE_NA && tempbuilding.type == df::enums::building_type::Civzone )
 							continue;
-						if(b->building.info.type != BUILDINGTYPE_NA && tempbuilding.type == TranslateBuildingName("building_stockpilest", contentLoader->classIdStrings ) )
+                        if(b->building.info.type != BUILDINGTYPE_NA && tempbuilding.type == df::enums::building_type::Stockpile )
 							continue; 
 						b->building.index = i;
 						b->building.info = tempbuilding;

@@ -374,12 +374,13 @@ void drawDebugCursorAndInfo(){
 
 	if(!b) return;
 
-
+    // FIXME: Commented out due to missing floor/wall/etc Type
+    /*
 	int ttype;
 	const char* tform = NULL;
 	if (b->floorType>0)
 	{
-		ttype=b->floorType;	  
+		ttype=b->floorType;	
 		tform="floor";
 	}
 	else if (b->wallType > 0)
@@ -541,6 +542,7 @@ void drawDebugCursorAndInfo(){
 		draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0,
 			"Snow: %d, Mud: %d, Blood: %d", b->snowlevel, b->mudlevel, b->bloodlevel);
 	}
+	*/
 	//borders
 	/*
 	int dray = al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font));

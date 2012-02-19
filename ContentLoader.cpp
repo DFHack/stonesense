@@ -142,6 +142,7 @@ bool ContentLoader::Load( DFHack::Core& DF){
 			professionStrings.push_back(string(ENUM_ATTR(profession, key, i)));
 		}
 	}
+	/*
 	if(classIdStrings.empty())
 	{
 		for(int i = 0; ; i++)
@@ -154,9 +155,7 @@ bool ContentLoader::Load( DFHack::Core& DF){
 			classIdStrings.push_back(temp);
 		}
 	}
-
-	civzoneNum = TranslateBuildingName("building_civzonest", contentLoader->classIdStrings );
-	stockpileNum = TranslateBuildingName("building_stockpilest", contentLoader->classIdStrings );
+	*/
 
 	//DumpPrefessionNamesToDisk(professionStrings, "priofessiondump.txt");
 	//DumpPrefessionNamesToDisk(classIdStrings, "buildingdump.txt");
@@ -320,8 +319,6 @@ bool ContentLoader::parseContentXMLFile( const char* filepath ){
 		string elementType = elemRoot->Value();
 		if( elementType.compare( "building" ) == 0 )
 			runningResult &= parseBuildingContent( elemRoot );
-		else if( elementType.compare( "custom_workshop" ) == 0 )
-			runningResult &= parseCustomBuildingContent( elemRoot );
 		else if( elementType.compare( "creatures" ) == 0 )
 			runningResult &= parseCreatureContent( elemRoot );
 		else if( elementType.compare( "floors" ) == 0 )
@@ -350,10 +347,6 @@ bool ContentLoader::parseContentXMLFile( const char* filepath ){
 
 bool ContentLoader::parseBuildingContent(TiXmlElement* elemRoot ){
 	return addSingleBuildingConfig( elemRoot, &buildingConfigs );
-}
-
-bool ContentLoader::parseCustomBuildingContent(TiXmlElement* elemRoot ){
-	return addSingleCustomBuildingConfig( elemRoot, &customBuildingConfigs );
 }
 
 bool ContentLoader::parseCreatureContent(TiXmlElement* elemRoot ){
