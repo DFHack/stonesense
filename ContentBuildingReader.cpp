@@ -301,17 +301,21 @@ bool addSingleBuildingConfig( TiXmlElement* elemRoot,  vector<BuildingConfigurat
     }
     building_type::building_type main_type = (building_type::building_type) INVALID_INDEX;
     int subtype = INVALID_INDEX;
-
+    string game_type_s;
     FOR_ENUM_ITEMS(building_type,i)
     {
-        if (strGameID == ENUM_KEY_STR(building_type,i))
+        game_type_s = strGameID;
+        if (game_type_s == ENUM_KEY_STR(building_type,i))
         {
             main_type = i;
             break;
         }
     }
     if(main_type == (building_type::building_type) INVALID_INDEX)
+    {
+        contentError("<building> unknown game_type value",elemRoot);
         return false;
+    }
 
     // get subtype string, if available
     string sub;
@@ -325,74 +329,114 @@ bool addSingleBuildingConfig( TiXmlElement* elemRoot,  vector<BuildingConfigurat
     {
         case building_type::Furnace:
         {
+            if(!strGameSub)
+            {
+                contentError("<building> missing game_subtype attribute",elemRoot);
+                return false;
+            }
             FOR_ENUM_ITEMS(furnace_type,i)
             {
-                if (strGameSub == ENUM_KEY_STR(furnace_type,i))
+                if (sub == ENUM_KEY_STR(furnace_type,i))
                 {
                     subtype = i;
                     break;
                 }
             }
             if(subtype == INVALID_INDEX)
+            {
+                contentError("<building> unknown game_subtype value",elemRoot);
                 return false;
+            }
             if(subtype == furnace_type::Custom)
                 needs_custom = true;
             break;
         }
         case building_type::Construction:
         {
+            if(!strGameSub)
+            {
+                contentError("<building> missing game_subtype attribute",elemRoot);
+                return false;
+            }
             FOR_ENUM_ITEMS(construction_type,i)
             {
-                if (strGameSub == ENUM_KEY_STR(construction_type,i))
+                if (sub == ENUM_KEY_STR(construction_type,i))
                 {
                     subtype = i;
                     break;
                 }
             }
             if(subtype == INVALID_INDEX)
+            {
+                contentError("<building> unknown game_subtype value",elemRoot);
                 return false;
+            }
             break;
         }
         case building_type::SiegeEngine:
         {
+            if(!strGameSub)
+            {
+                contentError("<building> missing game_subtype attribute",elemRoot);
+                return false;
+            }
             FOR_ENUM_ITEMS(siegeengine_type,i)
             {
-                if (strGameSub == ENUM_KEY_STR(siegeengine_type,i))
+                if (sub == ENUM_KEY_STR(siegeengine_type,i))
                 {
                     subtype = i;
                     break;
                 }
             }
             if(subtype == INVALID_INDEX)
+            {
+                contentError("<building> unknown game_subtype value",elemRoot);
                 return false;
+            }
             break;
         }
         case building_type::Shop:
         {
+            if(!strGameSub)
+            {
+                contentError("<building> missing game_subtype attribute",elemRoot);
+                return false;
+            }
             FOR_ENUM_ITEMS(shop_type,i)
             {
-                if (strGameSub == ENUM_KEY_STR(shop_type,i))
+                if (sub == ENUM_KEY_STR(shop_type,i))
                 {
                     subtype = i;
                     break;
                 }
             }
             if(subtype == INVALID_INDEX)
+            {
+                contentError("<building> unknown game_subtype value",elemRoot);
                 return false;
+            }
             break;
         }
         case building_type::Workshop:
         {
+            if(!strGameSub)
+            {
+                contentError("<building> missing game_subtype attribute",elemRoot);
+                return false;
+            }
             FOR_ENUM_ITEMS(workshop_type,i)
             {
-                if (strGameSub == ENUM_KEY_STR(workshop_type,i))
+                if (sub == ENUM_KEY_STR(workshop_type,i))
                 {
                     subtype = i;
                     break;
                 }
             }
             if(subtype == INVALID_INDEX)
+            {
+                contentError("<building> unknown game_subtype value",elemRoot);
                 return false;
+            }
             if(subtype == workshop_type::Custom)
                 needs_custom = true;
             break;
@@ -403,16 +447,24 @@ bool addSingleBuildingConfig( TiXmlElement* elemRoot,  vector<BuildingConfigurat
             break;
         }
     }
+    string custom;
     // needs custom building spec, doesn't have a string... FAIL
     if (needs_custom && !strGameCustom)
+    {
+        contentError("<building> game_custom attribute is required, but missng.",elemRoot);
         return false;
-
-    BuildingConfiguration building(strName, main_type, subtype, string(strGameCustom) );
+    }
+    else if (strGameCustom)
+    {
+        custom = strGameCustom;
+    }
+    BuildingConfiguration building(strName, main_type, subtype, custom );
     RootBlock* spriteroot = new RootBlock();
     building.sprites = spriteroot;
     if (!parseSpriteNode(spriteroot,elemRoot))
     {
         delete(spriteroot);
+        contentError("<building> Failed while parsing sprite node",elemRoot);
         return false;
     }
 

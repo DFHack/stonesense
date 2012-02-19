@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<building name="Table" gameID="building_tablest">
+<building name="Table" game_type="Table">
   <if>
     <MaterialType value="Wood" />
     <sprite index="82" color="building" />
