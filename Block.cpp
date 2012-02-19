@@ -9,7 +9,6 @@
 #include "SpriteColors.h"
 #include "TileTypes.h"
 #include "df/building_type.h"
-using namespace df::enums;
 
 ALLEGRO_BITMAP *sprite_miasma = 0;
 ALLEGRO_BITMAP *sprite_water = 0;
@@ -153,27 +152,27 @@ void Block::Draw()
 	int rando = randomCube[x%RANDOM_CUBE][y%RANDOM_CUBE][z%RANDOM_CUBE];
 	//Draw Floor
 	if(
-		tileShapeBasic==df::enums::tiletype_shape_basic::Floor || 
-		tileShapeBasic==df::enums::tiletype_shape_basic::Wall ||
-		tileShapeBasic==df::enums::tiletype_shape_basic::Ramp || 
-		tileShapeBasic==df::enums::tiletype_shape_basic::Stair
+		tileShapeBasic==tiletype_shape_basic::Floor || 
+		tileShapeBasic==tiletype_shape_basic::Wall ||
+		tileShapeBasic==tiletype_shape_basic::Ramp || 
+		tileShapeBasic==tiletype_shape_basic::Stair
 		)
 	{
 
 		//If tile has no floor, look for a Filler Floor from it's wall
-		if (tileShapeBasic==df::enums::tiletype_shape_basic::Floor)
+		if (tileShapeBasic==tiletype_shape_basic::Floor)
 		{
 			spriteobject = GetFloorSpriteMap(tileType, this->material, consForm);
 		}
-		else if (tileShapeBasic==df::enums::tiletype_shape_basic::Wall)
+		else if (tileShapeBasic==tiletype_shape_basic::Wall)
 		{
 			spriteobject = GetFloorSpriteMap(tileType, this->material, consForm);
 		}
-		else if (tileShapeBasic==df::enums::tiletype_shape_basic::Ramp)
+		else if (tileShapeBasic==tiletype_shape_basic::Ramp)
 		{
 			spriteobject = GetFloorSpriteMap(tileType, this->material, consForm);
 		}
-		else if (tileShapeBasic==df::enums::tiletype_shape_basic::Stair)
+		else if (tileShapeBasic==tiletype_shape_basic::Stair)
 		{
 			spriteobject = GetFloorSpriteMap(tileType, this->material, consForm);
 		} 
@@ -207,7 +206,7 @@ void Block::Draw()
 	}
 
 	//Floor Engravings
-		if((tileShapeBasic==df::enums::tiletype_shape_basic::Floor) && engraving_character && engraving_flags.bits.floor)
+		if((tileShapeBasic==tiletype_shape_basic::Floor) && engraving_character && engraving_flags.bits.floor)
 	{
 		DrawSpriteFromSheet( engraving_character, IMGEngFloorSheet, al_map_rgba_f(1.0,1.0,1.0,((engraving_quality + 5.0f) / 10.0f)), drawx, drawy, this );
 	}
@@ -228,8 +227,8 @@ void Block::Draw()
 	//}
 
 	//Draw Ramp
-	if(ramp.type > 0){
-		spriteobject = GetBlockSpriteMap(ramp.type, material, consForm);
+	if(tileShapeBasic==tiletype_shape_basic::Ramp){
+		spriteobject = GetBlockSpriteMap(tileType, material, consForm);
 		if (spriteobject->get_sheetindex() == UNCONFIGURED_INDEX)
 		{
 			spriteobject->set_sheetindex(0);
@@ -248,7 +247,7 @@ void Block::Draw()
 
 	drawFloorBlood ( this, drawx, drawy );
 	//first part of snow
-	if(tileShapeBasic!=df::enums::tiletype_shape_basic::Ramp && tileShapeBasic!=df::enums::tiletype_shape_basic::Wall && tileShapeBasic!=df::enums::tiletype_shape_basic::Stair == 0 && defaultSnow)
+	if(tileShapeBasic!=tiletype_shape_basic::Ramp && tileShapeBasic!=tiletype_shape_basic::Wall && tileShapeBasic!=tiletype_shape_basic::Stair == 0 && defaultSnow)
 	{
 		if(snowlevel > 75)
 		{
@@ -282,7 +281,7 @@ void Block::Draw()
 	//shadow
 	if (shadow > 0)
 	{
-		DrawSpriteFromSheet( BASE_SHADOW_TILE + shadow - 1, IMGObjectSheet, al_map_rgb(255,255,255), drawx, (ramp.type > 0)?(drawy - ((WALLHEIGHT/2)*config.scale)):drawy , this);
+		DrawSpriteFromSheet( BASE_SHADOW_TILE + shadow - 1, IMGObjectSheet, al_map_rgb(255,255,255), drawx, (tileShapeBasic==tiletype_shape_basic::Ramp)?(drawy - ((WALLHEIGHT/2)*config.scale)):drawy , this);
 	}
 
 	//Building
@@ -303,7 +302,7 @@ void Block::Draw()
 	}
 
 	//Draw Stairs
-	if(tileShapeBasic==df::enums::tiletype_shape_basic::Stair)
+	if(tileShapeBasic==tiletype_shape_basic::Stair)
 	{
 		bool mirrored = false;
 		if(findWallCloseTo(ownerSegment, this) == eSimpleW)
@@ -330,7 +329,7 @@ void Block::Draw()
 		}
 	}
 
-	if(tileShapeBasic==df::enums::tiletype_shape_basic::Wall)
+	if(tileShapeBasic==tiletype_shape_basic::Wall)
 	{
 		//draw wall
 		spriteobject =  GetBlockSpriteMap(tileType, material, consForm);
@@ -353,7 +352,7 @@ void Block::Draw()
 	}
 
 	//Wall Engravings
-	if((tileShapeBasic==df::enums::tiletype_shape_basic::Wall) && engraving_character)
+	if((tileShapeBasic==tiletype_shape_basic::Wall) && engraving_character)
 	{
 		if(ownerSegment->rotation == 0)
 		{
@@ -408,7 +407,7 @@ void Block::Draw()
 	}
 
 	//second part of snow
-	if(tileShapeBasic!=df::enums::tiletype_shape_basic::Wall && tileShapeBasic!=df::enums::tiletype_shape_basic::Stair && defaultSnow)
+	if(tileShapeBasic!=tiletype_shape_basic::Wall && tileShapeBasic!=tiletype_shape_basic::Stair && defaultSnow)
 	{
 		if(snowlevel > 75)
 		{
@@ -502,7 +501,7 @@ void Block::DrawRamptops()
 {
 	if(!visible)
 		return;
-	if (ramp.type > 0)
+	if (tileShapeBasic==tiletype_shape_basic::Ramp)
 	{
 
 		bool chopThisBlock = 0;
@@ -512,7 +511,7 @@ void Block::DrawRamptops()
 		else if(config.truncate_walls == 3 && (obscuringCreature == 1 || obscuringBuilding == 1)) chopThisBlock = 1;
 		else if(config.truncate_walls == 4 && obscuringBuilding == 1) chopThisBlock = 1;
 		//Draw Ramp
-		c_sprite * spriteobject = GetBlockSpriteMap(ramp.type,material, consForm);
+		c_sprite * spriteobject = GetBlockSpriteMap(tileType,material, consForm);
 		if (spriteobject->get_sheetindex() == UNCONFIGURED_INDEX)
 		{
 			spriteobject->set_sheetindex(0);
@@ -535,10 +534,10 @@ void Block::DrawPixel(int drawx, int drawy)
 {
 	ALLEGRO_COLOR temp;
 	if(
-		tileShapeBasic==df::enums::tiletype_shape_basic::Floor || 
-		tileShapeBasic==df::enums::tiletype_shape_basic::Wall ||
-		tileShapeBasic==df::enums::tiletype_shape_basic::Ramp || 
-		tileShapeBasic==df::enums::tiletype_shape_basic::Stair
+		tileShapeBasic==tiletype_shape_basic::Floor || 
+		tileShapeBasic==tiletype_shape_basic::Wall ||
+		tileShapeBasic==tiletype_shape_basic::Ramp || 
+		tileShapeBasic==tiletype_shape_basic::Stair
 		)
 	{
 		al_put_pixel(drawx, drawy, lookupMaterialColor(this->material.type, this->material.index));
@@ -552,10 +551,10 @@ void Block::DrawPixel(int drawx, int drawy)
 	}
 	//Grass
 	if(grasslevel > 0 && (
-		(tileMaterial == df::tiletype_material::GRASS_DARK) || 
-		(tileMaterial == df::tiletype_material::GRASS_DARK) ||
-		(tileMaterial == df::tiletype_material::GRASS_DRY) ||
-		(tileMaterial == df::tiletype_material::GRASS_DEAD)))
+		(tileMaterial == tiletype_material::GRASS_DARK) || 
+		(tileMaterial == tiletype_material::GRASS_DARK) ||
+		(tileMaterial == tiletype_material::GRASS_DRY) ||
+		(tileMaterial == tiletype_material::GRASS_DEAD)))
 	{
 		temp = lookupMaterialColor(WOOD, grassmat);
 		al_draw_pixel(drawx, drawy, al_map_rgba_f(temp.r,temp.g, temp.b, (float)grasslevel/100.0f));
@@ -564,7 +563,7 @@ void Block::DrawPixel(int drawx, int drawy)
 
 bool hasWall(Block* b){
 	if(!b) return false;
-	return b->tileShapeBasic==df::enums::tiletype_shape_basic::Wall;
+	return b->tileShapeBasic==tiletype_shape_basic::Wall;
 }
 
 bool hasBuildingOfID(Block* b, int ID){

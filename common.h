@@ -19,6 +19,7 @@
 #include <PluginManager.h>
 using namespace DFHack;
 using namespace DFHack::Simple;
+using namespace df::enums;
 
 #define ALLEGRO_NO_MAGIC_MAIN //This is a DLL file. we got no main function.
 #define ALLEGRO_HAVE_STDINT_H

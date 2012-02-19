@@ -6,8 +6,6 @@
 #include "BlockTree.h"
 #include "TileTypes.h"
 
-using df::enums::item_type::item_type;
-
 c_sprite *  GetTerrainSpriteMap(int in, t_matglossPair material, vector<TerrainConfiguration*>& configTable, uint16_t form)
 {
 	int tempform;
@@ -97,8 +95,8 @@ c_block_tree * GetTreeVegetation( df::tiletype_shape shape, df::tiletype_special
 	bool grown=true;
 	switch(shape)
 	{
-	case TREE:
-		if(special == DEAD)
+	case tiletype_shape::TREE:
+		if(special == tiletype_special::DEAD)
 		{
 			base_sprite = SPRITEOBJECT_TREE_DEAD;
 			graphicSet = &(contentLoader->treeConfigs);
@@ -110,8 +108,8 @@ c_block_tree * GetTreeVegetation( df::tiletype_shape shape, df::tiletype_special
 			graphicSet = &(contentLoader->treeConfigs);
 		}
 		break;
-	case SAPLING:
-		if(special == DEAD)
+	case tiletype_shape::SAPLING:
+		if(special == tiletype_special::DEAD)
 		{
 			base_sprite = SPRITEOBJECT_SAPLING_DEAD;
 			live = false;
@@ -125,8 +123,8 @@ c_block_tree * GetTreeVegetation( df::tiletype_shape shape, df::tiletype_special
 			graphicSet = &(contentLoader->treeConfigs);
 		}
 		break;
-	case SHRUB:
-		if(special == DEAD)
+	case tiletype_shape::SHRUB:
+		if(special == tiletype_special::DEAD)
 		{
 			base_sprite = SPRITEOBJECT_SHRUB_DEAD;
 			live = false;

@@ -233,7 +233,7 @@ void WorldSegment::drawAllBlocks(){
 			for(int32_t vsy=1; vsy < vsymax; vsy++)
 			{
 				Block *b = getBlockLocal(vsx,vsy,vsz);
-				if (b==NULL || (b->floorType == 0 && b->ramp.type == 0 && b->wallType == 0))
+				if (b==NULL || (b->tileShapeBasic!=tiletype_shape_basic::Floor && b->tileShapeBasic!=tiletype_shape_basic::Ramp && b->tileShapeBasic==tiletype_shape_basic::Wall))
 				{
 					Block* bLow = getBlockLocal(vsx,vsy,vsz-1);
 					if (bLow != NULL)

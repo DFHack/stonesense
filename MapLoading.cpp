@@ -56,8 +56,8 @@ inline bool isBlockHighRampEnd(uint32_t x, uint32_t y, uint32_t z, WorldSegment*
 {
 	Block* block = segment->getBlockRelativeTo( x, y, z, dir);
 	if(!block) return false;
-	if(block->wallType == 0) return false;
-	return IDisWall( block->wallType );
+	if(block->tileShapeBasic!=tiletype_shape_basic::Wall) return false;
+	return IDisWall( block->tileType );
 }
 
 inline int blockWaterDepth(uint32_t x, uint32_t y, uint32_t z, WorldSegment* segment, dirRelative dir)
@@ -72,9 +72,9 @@ inline bool isBlockHighRampTop(uint32_t x, uint32_t y, uint32_t z, WorldSegment*
 {
 	Block* block = segment->getBlockRelativeTo( x, y, z, dir);
 	if(!block) return false;
-	if(block->floorType == 0 && block->ramp.type == 0 && block->stairType == 0) return false;
-	if(block->wallType == 0) return true;
-	return !IDisWall( block->wallType );
+	if(block->tileShapeBasic!=tiletype_shape_basic::Floor && block->tileShapeBasic!=tiletype_shape_basic::Ramp && block->tileShapeBasic!=tiletype_shape_basic::Stair) return false;
+	if(block->tileShapeBasic!=tiletype_shape_basic::Wall) return true;
+	return !IDisWall( block->tileType );
 }
 
 int CalculateRampType(uint32_t x, uint32_t y, uint32_t z, WorldSegment* segment){
@@ -225,7 +225,7 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
 
 
 	//read cell data
-	uint16_t tiletypes[16][16];
+	tiletype::tiletype tiletypes[16][16];
 	t_designation designations[16][16];
 	t_occupancy occupancies[16][16];
 	uint8_t regionoffsets[16];
@@ -369,16 +369,12 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
 			}
 
 			//read tiletype
-			int t = tiletypes[lx][ly];
-			if(IDisWall(t)) 
-				b->wallType = t;
-			if(IDisFloor(t))
-				b->floorType = t;
-			if(isStairTerrain(t))
-				b->stairType = t;
-			if(isRampTerrain(t))
-				b->ramp.type = t;
-			b->tileType = t;
+			b->tileType = tiletypes[lx][ly];
+			b->tileShape = tiletype::get_shape(b->tileType);
+			b->tileShapeBasic = tiletype_shape::get_basic_shape(b->tileShape);
+			b->tileSpecial = tiletype::get_special(b->tileType);
+			b->tileMaterial = tiletype::get_material(b->tileType);
+
 
 			//142,136,15
 			//if(b->x == 142 && b->y == 136 && b->z == 15)
@@ -388,24 +384,12 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
 			bool isHidden = designations[lx][ly].bits.hidden;
 			//option for including hidden blocks
 			isHidden &= !config.show_hidden_blocks;
-			bool shouldBeIncluded = (!isOpenTerrain(t) || b->water.index || !designations[lx][ly].bits.outside) && !isHidden;
+			bool shouldBeIncluded = (!isOpenTerrain(b->tileType) || b->water.index || !designations[lx][ly].bits.outside) && !isHidden;
 
 			//include hidden blocks as shaded black 
 			if(config.shade_hidden_blocks && isHidden && (isBlockOnVisibleEdgeOfSegment(&segment, b) || areNeighborsVisible(designations, lx, ly)))
 			{
-				//b->wallType = 0;
-				//b->floorType = 0;
-				//b->stairType = 0;
-				//b->ramp.type = 0;
-				//b->water.index = 0;
 				b->building.info.type = BUILDINGTYPE_BLACKBOX;
-				//static c_sprite sprite;
-				//sprite.set_sheetindex(SPRITEOBJECT_BLACK);
-				//sprite.set_defaultsheet(IMGObjectSheet);
-				//sprite.set_offset(0, 4);
-				//b->building.sprites.push_back( sprite );
-				//sprite.set_offset(0, 0);
-				//b->building.sprites.push_back( sprite );
 				shouldBeIncluded= true;
 			}
 
@@ -489,7 +473,7 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
                     }
                 }
 
-                if(tileTypeTable[b->tileType].material == OBSIDIAN)
+				if(b->tileMaterial == tiletype_material::LAVA_STONE)
                 {
                     b->material.type = INORGANIC;
                     b->material.index = contentLoader->obsidian;
@@ -514,12 +498,9 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
         df::plant * wheat = plants->at(i);
         Block* b = segment.getBlock( wheat->pos.x, wheat->pos.y, wheat->pos.z);
 		if(b && (
-			(tileTypeTable[b->tileType].shape == TREE_DEAD) || 
-			(tileTypeTable[b->tileType].shape == TREE_OK) ||
-			(tileTypeTable[b->tileType].shape == SAPLING_DEAD) ||
-			(tileTypeTable[b->tileType].shape == SAPLING_OK) ||
-			(tileTypeTable[b->tileType].shape == SHRUB_DEAD) ||
-			(tileTypeTable[b->tileType].shape == SHRUB_OK)
+			(b->tileMaterial == tiletype_shape::TREE) || 
+			(b->tileMaterial == tiletype_shape::SAPLING) ||
+			(b->tileMaterial == tiletype_shape::SHRUB)
 			))
 		{
             b->tree.type = wheat->flags.whole;
@@ -532,12 +513,12 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
 bool checkFloorBorderRequirement(WorldSegment* segment, int x, int y, int z, dirRelative offset)
 {
 	Block* bHigh = segment->getBlockRelativeTo(x, y, z, offset);
-	if (bHigh && (bHigh->floorType > 0 || bHigh->ramp.type > 0 || bHigh->wallType > 0))
+	if (bHigh && (bHigh->tileShapeBasic==tiletype_shape_basic::Floor || bHigh->tileShapeBasic==tiletype_shape_basic::Ramp || bHigh->tileShapeBasic==tiletype_shape_basic::Wall))
 	{
 		return false;
 	}
 	Block* bLow = segment->getBlockRelativeTo(x, y, z-1, offset);
-	if (bLow == NULL || bLow->ramp.type == 0)
+	if (bLow == NULL || bLow->tileShapeBasic!=tiletype_shape_basic::Ramp)
 	{
 		return true;
 	}
@@ -790,7 +771,7 @@ WorldSegment* ReadMapSegment(DFHack::Core &DF, int x, int y, int z, int sizex, i
 	//					b->tree.type = temptree.type;
 	//					b->tree.index = temptree.material;
 
-	//					c_block_tree * Tree = GetTreeVegetation( (TileClass) getVegetationType( b->floorType ), b->tree.index );
+	//					c_block_tree * Tree = GetTreeVegetation( (TileClass) getVegetationType( b->tileType ), b->tree.index );
 	//					Tree->insert_sprites(segment, temptree.x, temptree.y, temptree.z);
 	//				}
 	//				index ++;
@@ -887,10 +868,10 @@ void beautify_Segment(WorldSegment * segment)
 
 		//Grass
 		if(b->grasslevel > 0 && (
-			(tileTypeTable[b->floorType].material == GRASS) || 
-			(tileTypeTable[b->floorType].material == GRASS2) ||
-			(tileTypeTable[b->floorType].material == GRASS_DEAD) ||
-			(tileTypeTable[b->floorType].material == GRASS_DRY)))
+			(b->tileMaterial == tiletype_material::GRASS_LIGHT) || 
+			(b->tileMaterial == tiletype_material::GRASS_DARK) ||
+			(b->tileMaterial == tiletype_material::GRASS_DEAD) ||
+			(b->tileMaterial == tiletype_material::GRASS_DRY)))
 		{
 			c_block_tree * vegetationsprite = 0;
 			vegetationsprite = getVegetationTree(contentLoader->grassConfigs,b->grassmat,true,true);
@@ -905,7 +886,7 @@ void beautify_Segment(WorldSegment * segment)
 		//populate trees
 		if(b->tree.index)
 		{
-			c_block_tree * Tree = GetTreeVegetation( (TileShape) tileShape( b->floorType ), b->tree.index );
+			c_block_tree * Tree = GetTreeVegetation(b->tileShape, b->tileSpecial, b->tree.index );
 			Tree->insert_sprites(segment, b->x, b->y, b->z, b);
 		}
 
@@ -920,7 +901,7 @@ void beautify_Segment(WorldSegment * segment)
 
 
 		//setup ramps
-		if(b->ramp.type > 0) 
+		if(b->tileShapeBasic==tiletype_shape_basic::Ramp) 
 			b->ramp.index = CalculateRampType(b->x, b->y, b->z, segment);
 		//add edges to blocks and floors  
 
@@ -961,94 +942,94 @@ void beautify_Segment(WorldSegment * segment)
                 && dir8->building.info.type != df::enums::building_type::Stockpile
             ) b->obscuringBuilding = 1;
 
-		if( b->floorType > 0 )
+		if( b->tileShapeBasic==tiletype_shape_basic::Floor )
 		{
 			b->depthBorderWest = checkFloorBorderRequirement(segment, b->x, b->y, b->z, eLeft);
 			b->depthBorderNorth = checkFloorBorderRequirement(segment, b->x, b->y, b->z, eUp);
 
 			Block* belowBlock = segment->getBlockRelativeTo(b->x, b->y, b->z, eBelow);
-			if(!belowBlock || (!belowBlock->wallType && !belowBlock->ramp.type)) 
+			if(!belowBlock || (belowBlock->tileShapeBasic!=tiletype_shape_basic::Wall && belowBlock->tileShapeBasic!=tiletype_shape_basic::Wall)) 
 				b->depthBorderDown = true;
 		}
-		else if( b->wallType > 0 && wallShouldNotHaveBorders( b->wallType ) == false )
+		else if( b->tileShapeBasic==tiletype_shape_basic::Wall && wallShouldNotHaveBorders( b->tileType ) == false )
 		{
 			Block* leftBlock = segment->getBlockRelativeTo(b->x, b->y, b->z, eLeft);
 			Block* upBlock = segment->getBlockRelativeTo(b->x, b->y, b->z, eUp);
-			if(!leftBlock || (!leftBlock->wallType && !leftBlock->ramp.type)) 
+			if(!leftBlock || (leftBlock->tileShapeBasic!=tiletype_shape_basic::Wall && leftBlock->tileShapeBasic!=tiletype_shape_basic::Ramp)) 
 				b->depthBorderWest = true;
-			if(!upBlock || (!upBlock->wallType && !upBlock->ramp.type))
+			if(!upBlock || (upBlock->tileShapeBasic!=tiletype_shape_basic::Wall && upBlock->tileShapeBasic!=tiletype_shape_basic::Ramp))
 				b->depthBorderNorth = true;
 			Block* belowBlock = segment->getBlockRelativeTo(b->x, b->y, b->z, eBelow);
-			if(!belowBlock || (!belowBlock->wallType && !belowBlock->ramp.type)) 
+			if(!belowBlock || (belowBlock->tileShapeBasic!=tiletype_shape_basic::Wall && belowBlock->tileShapeBasic!=tiletype_shape_basic::Ramp)) 
 				b->depthBorderDown = true;
 		}
 		b->wallborders = 0;
-		if(dir1) if(dir1->wallType) b->wallborders |= 1;
-		if(dir2) if(dir2->wallType) b->wallborders |= 2;
-		if(dir3) if(dir3->wallType) b->wallborders |= 4;
-		if(dir4) if(dir4->wallType) b->wallborders |= 8;
-		if(dir5) if(dir5->wallType) b->wallborders |= 16;
-		if(dir6) if(dir6->wallType) b->wallborders |= 32;
-		if(dir7) if(dir7->wallType) b->wallborders |= 64;
-		if(dir8) if(dir8->wallType) b->wallborders |= 128;
+		if(dir1) if(dir1->tileShapeBasic==tiletype_shape_basic::Wall) b->wallborders |= 1;
+		if(dir2) if(dir2->tileShapeBasic==tiletype_shape_basic::Wall) b->wallborders |= 2;
+		if(dir3) if(dir3->tileShapeBasic==tiletype_shape_basic::Wall) b->wallborders |= 4;
+		if(dir4) if(dir4->tileShapeBasic==tiletype_shape_basic::Wall) b->wallborders |= 8;
+		if(dir5) if(dir5->tileShapeBasic==tiletype_shape_basic::Wall) b->wallborders |= 16;
+		if(dir6) if(dir6->tileShapeBasic==tiletype_shape_basic::Wall) b->wallborders |= 32;
+		if(dir7) if(dir7->tileShapeBasic==tiletype_shape_basic::Wall) b->wallborders |= 64;
+		if(dir8) if(dir8->tileShapeBasic==tiletype_shape_basic::Wall) b->wallborders |= 128;
 
 		b->rampborders = 0;
-		if(dir1) if(dir1->ramp.type) b->wallborders |= 1;
-		if(dir2) if(dir2->ramp.type) b->wallborders |= 2;
-		if(dir3) if(dir3->ramp.type) b->wallborders |= 4;
-		if(dir4) if(dir4->ramp.type) b->wallborders |= 8;
-		if(dir5) if(dir5->ramp.type) b->wallborders |= 16;
-		if(dir6) if(dir6->ramp.type) b->wallborders |= 32;
-		if(dir7) if(dir7->ramp.type) b->wallborders |= 64;
-		if(dir8) if(dir8->ramp.type) b->wallborders |= 128;
+		if(dir1) if(dir1->tileShapeBasic==tiletype_shape_basic::Ramp) b->wallborders |= 1;
+		if(dir2) if(dir2->tileShapeBasic==tiletype_shape_basic::Ramp) b->wallborders |= 2;
+		if(dir3) if(dir3->tileShapeBasic==tiletype_shape_basic::Ramp) b->wallborders |= 4;
+		if(dir4) if(dir4->tileShapeBasic==tiletype_shape_basic::Ramp) b->wallborders |= 8;
+		if(dir5) if(dir5->tileShapeBasic==tiletype_shape_basic::Ramp) b->wallborders |= 16;
+		if(dir6) if(dir6->tileShapeBasic==tiletype_shape_basic::Ramp) b->wallborders |= 32;
+		if(dir7) if(dir7->tileShapeBasic==tiletype_shape_basic::Ramp) b->wallborders |= 64;
+		if(dir8) if(dir8->tileShapeBasic==tiletype_shape_basic::Ramp) b->wallborders |= 128;
 
 		b->upstairborders = 0;
 		b->downstairborders = 0;
-		if(dir1) if(dir1->stairType == STAIR_UP) b->upstairborders |= 1;
-		if(dir2) if(dir2->stairType == STAIR_UP) b->upstairborders |= 2;
-		if(dir3) if(dir3->stairType == STAIR_UP) b->upstairborders |= 4;
-		if(dir4) if(dir4->stairType == STAIR_UP) b->upstairborders |= 8;
-		if(dir5) if(dir5->stairType == STAIR_UP) b->upstairborders |= 16;
-		if(dir6) if(dir6->stairType == STAIR_UP) b->upstairborders |= 32;
-		if(dir7) if(dir7->stairType == STAIR_UP) b->upstairborders |= 64;
-		if(dir8) if(dir8->stairType == STAIR_UP) b->upstairborders |= 128;
+		if(dir1) if(dir1->tileShape == tiletype_shape::STAIR_UP) b->upstairborders |= 1;
+		if(dir2) if(dir2->tileShape == tiletype_shape::STAIR_UP) b->upstairborders |= 2;
+		if(dir3) if(dir3->tileShape == tiletype_shape::STAIR_UP) b->upstairborders |= 4;
+		if(dir4) if(dir4->tileShape == tiletype_shape::STAIR_UP) b->upstairborders |= 8;
+		if(dir5) if(dir5->tileShape == tiletype_shape::STAIR_UP) b->upstairborders |= 16;
+		if(dir6) if(dir6->tileShape == tiletype_shape::STAIR_UP) b->upstairborders |= 32;
+		if(dir7) if(dir7->tileShape == tiletype_shape::STAIR_UP) b->upstairborders |= 64;
+		if(dir8) if(dir8->tileShape == tiletype_shape::STAIR_UP) b->upstairborders |= 128;
 
-		if(dir1) if(dir1->stairType == STAIR_UPDOWN) b->upstairborders |= 1;
-		if(dir2) if(dir2->stairType == STAIR_UPDOWN) b->upstairborders |= 2;
-		if(dir3) if(dir3->stairType == STAIR_UPDOWN) b->upstairborders |= 4;
-		if(dir4) if(dir4->stairType == STAIR_UPDOWN) b->upstairborders |= 8;
-		if(dir5) if(dir5->stairType == STAIR_UPDOWN) b->upstairborders |= 16;
-		if(dir6) if(dir6->stairType == STAIR_UPDOWN) b->upstairborders |= 32;
-		if(dir7) if(dir7->stairType == STAIR_UPDOWN) b->upstairborders |= 64;
-		if(dir8) if(dir8->stairType == STAIR_UPDOWN) b->upstairborders |= 128;
+		if(dir1) if(dir1->tileShape == tiletype_shape::STAIR_UPDOWN) b->upstairborders |= 1;
+		if(dir2) if(dir2->tileShape == tiletype_shape::STAIR_UPDOWN) b->upstairborders |= 2;
+		if(dir3) if(dir3->tileShape == tiletype_shape::STAIR_UPDOWN) b->upstairborders |= 4;
+		if(dir4) if(dir4->tileShape == tiletype_shape::STAIR_UPDOWN) b->upstairborders |= 8;
+		if(dir5) if(dir5->tileShape == tiletype_shape::STAIR_UPDOWN) b->upstairborders |= 16;
+		if(dir6) if(dir6->tileShape == tiletype_shape::STAIR_UPDOWN) b->upstairborders |= 32;
+		if(dir7) if(dir7->tileShape == tiletype_shape::STAIR_UPDOWN) b->upstairborders |= 64;
+		if(dir8) if(dir8->tileShape == tiletype_shape::STAIR_UPDOWN) b->upstairborders |= 128;
 
-		if(dir1) if(dir1->stairType == STAIR_UPDOWN) b->downstairborders |= 1;
-		if(dir2) if(dir2->stairType == STAIR_UPDOWN) b->downstairborders |= 2;
-		if(dir3) if(dir3->stairType == STAIR_UPDOWN) b->downstairborders |= 4;
-		if(dir4) if(dir4->stairType == STAIR_UPDOWN) b->downstairborders |= 8;
-		if(dir5) if(dir5->stairType == STAIR_UPDOWN) b->downstairborders |= 16;
-		if(dir6) if(dir6->stairType == STAIR_UPDOWN) b->downstairborders |= 32;
-		if(dir7) if(dir7->stairType == STAIR_UPDOWN) b->downstairborders |= 64;
-		if(dir8) if(dir8->stairType == STAIR_UPDOWN) b->downstairborders |= 128;
+		if(dir1) if(dir1->tileShape == tiletype_shape::STAIR_UPDOWN) b->downstairborders |= 1;
+		if(dir2) if(dir2->tileShape == tiletype_shape::STAIR_UPDOWN) b->downstairborders |= 2;
+		if(dir3) if(dir3->tileShape == tiletype_shape::STAIR_UPDOWN) b->downstairborders |= 4;
+		if(dir4) if(dir4->tileShape == tiletype_shape::STAIR_UPDOWN) b->downstairborders |= 8;
+		if(dir5) if(dir5->tileShape == tiletype_shape::STAIR_UPDOWN) b->downstairborders |= 16;
+		if(dir6) if(dir6->tileShape == tiletype_shape::STAIR_UPDOWN) b->downstairborders |= 32;
+		if(dir7) if(dir7->tileShape == tiletype_shape::STAIR_UPDOWN) b->downstairborders |= 64;
+		if(dir8) if(dir8->tileShape == tiletype_shape::STAIR_UPDOWN) b->downstairborders |= 128;
 
-		if(dir1) if(dir1->stairType == STAIR_DOWN) b->downstairborders |= 1;
-		if(dir2) if(dir2->stairType == STAIR_DOWN) b->downstairborders |= 2;
-		if(dir3) if(dir3->stairType == STAIR_DOWN) b->downstairborders |= 4;
-		if(dir4) if(dir4->stairType == STAIR_DOWN) b->downstairborders |= 8;
-		if(dir5) if(dir5->stairType == STAIR_DOWN) b->downstairborders |= 16;
-		if(dir6) if(dir6->stairType == STAIR_DOWN) b->downstairborders |= 32;
-		if(dir7) if(dir7->stairType == STAIR_DOWN) b->downstairborders |= 64;
-		if(dir8) if(dir8->stairType == STAIR_DOWN) b->downstairborders |= 128;
+		if(dir1) if(dir1->tileShape == tiletype_shape::STAIR_DOWN) b->downstairborders |= 1;
+		if(dir2) if(dir2->tileShape == tiletype_shape::STAIR_DOWN) b->downstairborders |= 2;
+		if(dir3) if(dir3->tileShape == tiletype_shape::STAIR_DOWN) b->downstairborders |= 4;
+		if(dir4) if(dir4->tileShape == tiletype_shape::STAIR_DOWN) b->downstairborders |= 8;
+		if(dir5) if(dir5->tileShape == tiletype_shape::STAIR_DOWN) b->downstairborders |= 16;
+		if(dir6) if(dir6->tileShape == tiletype_shape::STAIR_DOWN) b->downstairborders |= 32;
+		if(dir7) if(dir7->tileShape == tiletype_shape::STAIR_DOWN) b->downstairborders |= 64;
+		if(dir8) if(dir8->tileShape == tiletype_shape::STAIR_DOWN) b->downstairborders |= 128;
 
 		b->floorborders = 0;
-		if(dir1) if(dir1->floorType) b->floorborders |= 1;
-		if(dir2) if(dir2->floorType) b->floorborders |= 2;
-		if(dir3) if(dir3->floorType) b->floorborders |= 4;
-		if(dir4) if(dir4->floorType) b->floorborders |= 8;
-		if(dir5) if(dir5->floorType) b->floorborders |= 16;
-		if(dir6) if(dir6->floorType) b->floorborders |= 32;
-		if(dir7) if(dir7->floorType) b->floorborders |= 64;
-		if(dir8) if(dir8->floorType) b->floorborders |= 128;
+		if(dir1) if(dir1->tileShapeBasic==tiletype_shape_basic::Floor) b->floorborders |= 1;
+		if(dir2) if(dir2->tileShapeBasic==tiletype_shape_basic::Floor) b->floorborders |= 2;
+		if(dir3) if(dir3->tileShapeBasic==tiletype_shape_basic::Floor) b->floorborders |= 4;
+		if(dir4) if(dir4->tileShapeBasic==tiletype_shape_basic::Floor) b->floorborders |= 8;
+		if(dir5) if(dir5->tileShapeBasic==tiletype_shape_basic::Floor) b->floorborders |= 16;
+		if(dir6) if(dir6->tileShapeBasic==tiletype_shape_basic::Floor) b->floorborders |= 32;
+		if(dir7) if(dir7->tileShapeBasic==tiletype_shape_basic::Floor) b->floorborders |= 64;
+		if(dir8) if(dir8->tileShapeBasic==tiletype_shape_basic::Floor) b->floorborders |= 128;
 
 		b->lightborders = 0;
 		if(dir1) if(!dir1->designation.bits.outside) b->lightborders |= 1;

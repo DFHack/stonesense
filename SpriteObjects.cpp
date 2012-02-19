@@ -10,7 +10,8 @@
 
 unsigned char get_water_direction( Block *b )
 {
-	int tiletype = b->floorType;
+	//Fixme: add the new river ramps, possibly change to a switch statement
+	int tiletype = b->tileType;
 	if(tiletype == 0) return 0;
 	if(tiletype == 365) return 2;
 	if(tiletype == 366) return 6;
@@ -662,17 +663,17 @@ void c_sprite::draw_world_offset(int x, int y, int z, Block * b, int tileoffset,
 						(
 							(grass_growth == GRASS_GROWTH_NORMAL) && 
 							(
-								(tileTypeTable[b->tileType].material == GRASS) ||
-								(tileTypeTable[b->tileType].material == GRASS2)
+							(b->tileMaterial == tiletype_material::GRASS_DARK) ||
+								(b->tileMaterial == tiletype_material::GRASS_LIGHT)
 							)
 						) ||
 						(
 							(grass_growth == GRASS_GROWTH_DRY) &&
-							(tileTypeTable[b->tileType].material == GRASS_DRY)
+							(b->tileMaterial == tiletype_material::GRASS_DRY)
 						) ||
 						(
 							(grass_growth == GRASS_GROWTH_DEAD) &&
-							(tileTypeTable[b->tileType].material == GRASS_DEAD)
+							(b->tileMaterial == tiletype_material::GRASS_DEAD)
 						)
 					)
 				)
