@@ -440,6 +440,34 @@ int lookupMaterialIndex(int matType, const char* strValue)
     }
 }
 
+#include "df/siegeengine_type.h"
+#include "df/workshop_type.h"
+#include "df/trap_type.h"
+#include "df/shop_type.h"
+#include "df/construction_type.h"
+#include "df/furnace_type.h"
+
+const char *lookupBuildingSubtype(int main_type, int i)
+{    
+	// process types
+	switch (main_type)
+	{
+	case building_type::Furnace:
+		return ENUM_KEY_STR(furnace_type,(furnace_type::furnace_type)i);
+	case building_type::Construction:
+		return ENUM_KEY_STR(construction_type,(construction_type::construction_type)i);
+	case building_type::SiegeEngine:
+		return ENUM_KEY_STR(siegeengine_type,(siegeengine_type::siegeengine_type)i);
+	case building_type::Shop:
+		return ENUM_KEY_STR(shop_type,(shop_type::shop_type)i);
+	case building_type::Workshop:
+		return ENUM_KEY_STR(workshop_type,(workshop_type::workshop_type)i);
+	default:
+		return "NA";
+	}
+	return "NA";
+}
+
 const char *lookupMaterialTypeName(int matType)
 {
 	switch (matType)

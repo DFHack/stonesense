@@ -86,6 +86,7 @@ int lookupIndexedType(const char* indexName, std::vector<T>& typeVector)
 }
 const char *lookupMaterialTypeName(int matType);
 const char *lookupMaterialName(int matType,int matIndex);
+const char *lookupBuildingSubtype(int main_type, int i);
 uint8_t lookupMaterialFore(int matType,int matIndex);
 uint8_t lookupMaterialBack(int matType,int matIndex);
 uint8_t lookupMaterialBright(int matType,int matIndex);

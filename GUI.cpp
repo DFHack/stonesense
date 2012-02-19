@@ -458,10 +458,13 @@ void drawDebugCursorAndInfo(){
 	if(b->building.info.type != BUILDINGTYPE_NA && b->building.info.type != BUILDINGTYPE_BLACKBOX && b->building.info.type != BUILDINGTYPE_TREE){
 		const char* matName = lookupMaterialTypeName(b->building.info.material.type);
 		const char* subMatName = lookupMaterialName(b->building.info.material.type,b->building.info.material.index);
+		const char* subTypeName = lookupBuildingSubtype(b->building.info.type, b->building.info.subtype);
 		draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
-			"Building: gametype = %s(%i) Material: %s%s%s (%d,%d)", 
+			"Building: game_type = %s(%i) game_subtype = %s(%i) Material: %s%s%s (%d,%d)", 
 			ENUM_KEY_STR(building_type, (building_type::building_type)b->building.info.type),
 			b->building.info.type,
+			subTypeName,
+			b->building.info.subtype,
 			matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"",
 			b->building.info.material.type,b->building.info.material.index);
 
