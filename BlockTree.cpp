@@ -24,7 +24,7 @@ void insert_sprite(WorldSegment *w, int x, int y, int z, Block * parent, c_sprit
 	}
 	b_orig->building.sprites.push_back(sprite);
 	if(b_orig->building.info.type == BUILDINGTYPE_NA)
-		b_orig->building.info.type = BUILDINGTYPE_TREE;
+		b_orig->building.info.type = (building_type::building_type) BUILDINGTYPE_TREE;
 	b_orig->building.parent = parent;
 }
 

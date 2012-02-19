@@ -389,7 +389,7 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
 			//include hidden blocks as shaded black 
 			if(config.shade_hidden_blocks && isHidden && (isBlockOnVisibleEdgeOfSegment(&segment, b) || areNeighborsVisible(designations, lx, ly)))
 			{
-				b->building.info.type = BUILDINGTYPE_BLACKBOX;
+				b->building.info.type = (building_type::building_type) BUILDINGTYPE_BLACKBOX;
 				shouldBeIncluded= true;
 			}
 

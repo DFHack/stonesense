@@ -40,7 +40,7 @@ Block::Block(WorldSegment* ownerSegment)
 
 	this->ownerSegment = ownerSegment;
 
-	building.info.type = BUILDINGTYPE_NA;
+	building.info.type = (building_type::building_type) BUILDINGTYPE_NA;
 	building.index = -1;
 	building.parent = 0;
 
