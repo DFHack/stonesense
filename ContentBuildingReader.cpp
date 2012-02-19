@@ -116,14 +116,14 @@ int parseConditionNode(ConditionalNode* node, TiXmlElement* elemCondition, bool 
 		{
 			contentError("Unable to add subcondition",elemCondition);
 			delete(cond);
-			return 0;	
+			return 0;
 		}
 		return 1;
 	}
 	else if (!silent)
 	{
 		contentError("Misplaced or invalid element in Condition",elemCondition);
-		return 0;		  
+		return 0;
 	}
 	return -1;
 }
@@ -148,7 +148,7 @@ inline bool readNode(SpriteNode* node, TiXmlElement* elemNode, TiXmlElement* ele
 			if (!oldSibling)
 			{
 				contentError("Misplaced or invalid element in SpriteNode",elemNode);
-				return false;						
+				return false;
 			}
 			oldSibling->addElse(block);	
 		}
@@ -331,8 +331,8 @@ bool addSingleBuildingConfig( TiXmlElement* elemRoot,  vector<BuildingConfigurat
         {
             if(!strGameSub)
             {
-                contentError("<building> missing game_subtype attribute",elemRoot);
-                return false;
+                contentError("<building> Is generic - game_subtype missing.",elemRoot);
+                break;
             }
             FOR_ENUM_ITEMS(furnace_type,i)
             {
@@ -355,8 +355,8 @@ bool addSingleBuildingConfig( TiXmlElement* elemRoot,  vector<BuildingConfigurat
         {
             if(!strGameSub)
             {
-                contentError("<building> missing game_subtype attribute",elemRoot);
-                return false;
+                contentError("<building> Is generic - game_subtype missing.",elemRoot);
+                break;
             }
             FOR_ENUM_ITEMS(construction_type,i)
             {
@@ -377,8 +377,8 @@ bool addSingleBuildingConfig( TiXmlElement* elemRoot,  vector<BuildingConfigurat
         {
             if(!strGameSub)
             {
-                contentError("<building> missing game_subtype attribute",elemRoot);
-                return false;
+                contentError("<building> Is generic - game_subtype missing.",elemRoot);
+                break;
             }
             FOR_ENUM_ITEMS(siegeengine_type,i)
             {
@@ -399,8 +399,8 @@ bool addSingleBuildingConfig( TiXmlElement* elemRoot,  vector<BuildingConfigurat
         {
             if(!strGameSub)
             {
-                contentError("<building> missing game_subtype attribute",elemRoot);
-                return false;
+                contentError("<building> Is generic - game_subtype missing.",elemRoot);
+                break;
             }
             FOR_ENUM_ITEMS(shop_type,i)
             {
@@ -421,8 +421,8 @@ bool addSingleBuildingConfig( TiXmlElement* elemRoot,  vector<BuildingConfigurat
         {
             if(!strGameSub)
             {
-                contentError("<building> missing game_subtype attribute",elemRoot);
-                return false;
+                contentError("<building> Is generic - game_subtype missing.",elemRoot);
+                break;
             }
             FOR_ENUM_ITEMS(workshop_type,i)
             {
