@@ -201,10 +201,9 @@ bool BlockHasSuspendedBuilding(vector<Buildings::t_building>* buildingList, Bloc
 		if(b->x < building->x1  ||   b->x > building->x2) continue;
 		if(b->y < building->y1  ||   b->y > building->y2) continue;
 
-		if(building->type == TranslateBuildingName("building_bridgest", contentLoader->classIdStrings )){
+		if(building->type == df::enums::building_type::Bridge)
 			return true;
-		}
-		if(building->type == TranslateBuildingName("building_civzonest", contentLoader->classIdStrings ))
+		if(building->type == df::enums::building_type::Civzone)
 			return true;
 	}
 	return false;
