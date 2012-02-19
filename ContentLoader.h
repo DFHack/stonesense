@@ -32,7 +32,6 @@ public:
 	bool reload_configs();
 
 	vector<BuildingConfiguration> buildingConfigs;
-	vector<BuildingConfiguration> customBuildingConfigs;
 	vector<vector<CreatureConfiguration>*> creatureConfigs;
 	vector<VegetationConfiguration> treeConfigs;
 	vector<VegetationConfiguration> shrubConfigs;

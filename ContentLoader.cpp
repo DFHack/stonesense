@@ -17,7 +17,6 @@ ContentLoader::~ContentLoader(void)
 { 
 	//flush content on exit
 	flushBuildingConfig(&buildingConfigs);
-	flushBuildingConfig(&customBuildingConfigs);
 	flushTerrainConfig(terrainFloorConfigs);
 	flushTerrainConfig(terrainBlockConfigs);	
 	flushCreatureConfig();
@@ -49,7 +48,6 @@ bool ContentLoader::Load( DFHack::Core& DF){
 	al_flip_display();*/
 	//flush old config
 	flushBuildingConfig(&buildingConfigs);
-	flushBuildingConfig(&customBuildingConfigs);
 	flushTerrainConfig(terrainFloorConfigs);
 	flushTerrainConfig(terrainBlockConfigs);
     colorConfigs.clear();
@@ -179,7 +177,6 @@ bool ContentLoader::Load( DFHack::Core& DF){
 bool ContentLoader::reload_configs()
 {
 	flushBuildingConfig(&buildingConfigs);
-	flushBuildingConfig(&customBuildingConfigs);
 	flushTerrainConfig(terrainFloorConfigs);
 	flushTerrainConfig(terrainBlockConfigs);
     colorConfigs.clear();

@@ -99,7 +99,7 @@ public:
 	int16_t eff_webing;
 	int16_t eff_oceanwave;*/
 	struct {
-        Buildings::t_building info;
+        DFHack::Simple::Buildings::t_building info;
 		std::vector<c_sprite> sprites;
 		uint32_t index;
 		int32_t custom_building_type;
