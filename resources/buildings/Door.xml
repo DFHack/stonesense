@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<building name="Door" gameID="building_doorst"
-file="DoorsAndFloodgates.png">
+<building name="Door" game_type="Door" file="DoorsAndFloodgates.png">
   <if>
     <!-- if there is wall at north or south -->
     <or>

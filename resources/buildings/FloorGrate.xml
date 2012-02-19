@@ -2,7 +2,7 @@
 
 
 
-<building name="Grate" gameID="building_grate_floorst"> 
+<building name="Grate" game_type="GrateFloor" > 
 
 		<sprite index = 307 color = "building"/>
 

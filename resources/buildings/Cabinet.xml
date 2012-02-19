@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<building name="Cabinet" gameID="building_cabinetst">
+<building name="Cabinet" game_type="Cabinet" >
   <if>
     <MaterialType value="Wood" />
     <sprite index="88" color="building" />

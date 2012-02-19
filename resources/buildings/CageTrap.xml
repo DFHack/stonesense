@@ -2,6 +2,6 @@
 
 
 
-<building name="Trap" gameID="building_cage_trapst">
+<building name="Trap" game_type="Trap" game_subtype="CageTrap">
 		<sprite index = 355 />
 </building> 

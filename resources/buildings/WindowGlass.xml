@@ -2,7 +2,7 @@
 
 
 
-<building name="Glass Window" gameID="building_window_glassst" file="Windows.png">
+<building name="Glass Window" game_type="WindowGlass" file="Windows.png">
 
 
 	<!-- straight or end pieces -->

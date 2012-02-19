@@ -2,7 +2,7 @@
 
 
 
-<building name="Dyers" gameID="building_dyers_shopst" file="workshop.png"> 
+<building name="Dyers" game_type="Workshop" game_subtype="Dyers" file="workshop.png"> 
 	<!-- benches block -->
 	<if> 
 		<!-- replace this with position index if required -->

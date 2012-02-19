@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
-<building name="Nestbox" gameID="building_nest_boxst">
+<building name="Nestbox" game_type="NestBox" >
   <sprite index="0" file="caravan_1.png" color="building" />
   <sprite index="1" file="caravan_1.png" />
 </building>
-<building name="Bee Hive" gameID="building_hivest">
+<building name="Bee Hive" game_type="Hive" >
   <if>
     <MaterialType value="Wood" />
     <sprite index="2" file="caravan_1.png" color="building" />
@@ -52,6 +52,6 @@
     random_anim_offset="1" />
   </else>
 </building>
-<building name="Slab" gameID="building_slabst">
+<building name="Slab" game_type="Slab" >
   <sprite index="22" file="caravan_1.png" color="building" />
 </building>

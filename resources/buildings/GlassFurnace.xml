@@ -2,7 +2,7 @@
 
 
 
-<building name="Glass Furnace" gameID="building_glass_furnacest" file="workshop.png">
+<building name="Glass Furnace" game_type="Furnace" game_subtype="GlassFurnace" file="workshop.png">
 
 	<!-- benches block -->
 	<if>

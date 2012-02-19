@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 
-<building name="Zone" gameID="building_civzonest">
+<building name="Zone" game_type="Civzone" >
 
 		<sprite index = 320 />
 

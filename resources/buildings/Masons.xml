@@ -2,7 +2,7 @@
 
 
 
-<building name="Masonry" gameID="building_masons_workshopst" file="workshop.png">
+<building name="Masonry" game_type="Workshop" game_subtype="Masons" file="workshop.png">
 
 	<!-- benches block -->
 	<if> 

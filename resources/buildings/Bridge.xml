@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<building name="Bridge" gameID="building_bridgest">
+<building name="Bridge" game_type="Bridge" >
   <if>
     <BuildingOccupancy value="2" />
     <empty />

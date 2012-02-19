@@ -2,6 +2,6 @@
 
 
 
-<building name="Millstone" gameID="building_millstonest"> 
+<building name="Millstone" game_type="Workshop" game_subtype="Millstone"> 
 	<sprite index = "306" />
 </building> 

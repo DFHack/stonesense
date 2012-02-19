@@ -2,6 +2,6 @@
 
 
 
-<building name="Trap" gameID="building_stonefall_trapst">
+<building name="Trap" game_type="Trap" game_subtype="StoneFallTrap">
 		<sprite index = 355 />
 </building> 

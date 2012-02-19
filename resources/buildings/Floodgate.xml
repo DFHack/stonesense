@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 
-<building name="Floodgate" gameID="building_floodgatest" file="DoorsAndFloodgates.png"> 
+<building name="Floodgate" game_type="Floodgate" file="DoorsAndFloodgates.png"> 
 
 	<if><!-- wooden -->
 		<MaterialType value="Wood" />

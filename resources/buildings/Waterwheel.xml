@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<building name="Waterwheel" gameID="building_water_wheelst"
-file="mechanics.png">
+<building name="Waterwheel" game_type="WaterWheel" file="mechanics.png">
   <include file="sBlueprint.xml" />
   <else>
     <and>

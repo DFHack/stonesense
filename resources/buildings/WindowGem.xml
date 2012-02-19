@@ -2,7 +2,7 @@
 
 
 
-<building name="Gem Window" gameID="building_window_gemst" file="Windows.png">
+<building name="Gem Window" game_type="WindowGem" file="Windows.png">
 
 	<!-- straight or end pieces -->
 	<if>

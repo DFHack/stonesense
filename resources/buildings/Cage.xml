@@ -2,7 +2,7 @@
 
 
 
-<building name="Cage" gameID="building_cagest"> 
+<building name="Cage" game_type="Cage" > 
 	<if>
 		<MaterialType value="Wood" />
 		<sprite index = 313 />

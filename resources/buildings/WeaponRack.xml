@@ -2,6 +2,6 @@
 
 
 
-<building name="Weapon Rack" gameID="building_weaponrackst"> 
+<building name="Weapon Rack" game_type="Weaponrack"> 
 		<sprite index = 93 />
 </building> 

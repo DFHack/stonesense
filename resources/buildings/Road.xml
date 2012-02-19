@@ -2,7 +2,7 @@
 
 
 
-<building name="Paved Road" gameID="building_road_pavedst"> 
+<building name="Paved Road" game_type="RoadPaved"> 
 	
 
 		<sprite index = "140" color = building >
