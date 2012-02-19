@@ -102,7 +102,6 @@ public:
         DFHack::Simple::Buildings::t_building info;
 		std::vector<c_sprite> sprites;
 		uint32_t index;
-		int32_t custom_building_type;
 		Block * parent;
 	} building;
 

@@ -11,7 +11,7 @@ class SpriteNode
 	
 	// this returns true if the sprite matched, and also adds
 	// sprites to the block as required
-    virtual bool BlockMatches(Block* b)=0;
+    virtual bool copyToBlock(Block* b)=0;
     // adds a child if appropriate (vestigial in some cases)
     virtual void addChild(SpriteNode* child){};	
 };
@@ -25,7 +25,7 @@ class RootBlock : public SpriteNode
 		RootBlock(void);
 		~RootBlock(void); 
 	
-    bool BlockMatches(Block* b);
+    bool copyToBlock(Block* b);
     void addChild(SpriteNode* child);	
 };
 
@@ -40,7 +40,7 @@ class SpriteBlock : public ConditionalNode, public SpriteNode
 		SpriteBlock(void);
 		~SpriteBlock(void);
 	
-    bool BlockMatches(Block* b);	
+    bool copyToBlock(Block* b);
     bool addCondition(BlockCondition* cond);
     void addChild(SpriteNode* child);
 	void addElse(SpriteNode* child);
@@ -55,7 +55,7 @@ class RotationBlock : public ConditionalNode, public SpriteNode
 		RotationBlock(void);
 		~RotationBlock(void);
 	
-    bool BlockMatches(Block* b);	
+    bool copyToBlock(Block* b);
     bool addCondition(BlockCondition* cond);
     void addChild(SpriteNode* child);
 };
@@ -71,5 +71,5 @@ public:
   SpriteElement(void);
   ~SpriteElement(void){};
 
-  bool BlockMatches(Block* b);
+  bool copyToBlock(Block* b);
 };

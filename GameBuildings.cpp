@@ -123,7 +123,6 @@ void MergeBuildingsToSegment(vector<Buildings::t_building>* buildings, WorldSegm
 							continue; 
 						b->building.index = i;
 						b->building.info = tempbuilding;
-						b->building.custom_building_type = tempbuilding.custom_type;
 					}
 				}
 			}
@@ -150,23 +149,29 @@ void loadBuildingSprites ( Block* b)
 		WriteErr("Null Block skipped in loadBuildingSprites\n");
 		return;
 	}
-    uint32_t numBuildings = (uint32_t)contentLoader->buildingConfigs.size();
-    for(uint32_t i = 0; i < numBuildings; i++)
+    BuildingConfiguration* generic = NULL, *specific = NULL, *custom = NULL;
+    for(auto iter = contentLoader->buildingConfigs.begin(); iter < contentLoader->buildingConfigs.end(); iter++)
     {
-        BuildingConfiguration& conf = contentLoader->buildingConfigs[i];
-        if(b->building.info.type != conf.game_type ||
-           b->building.info.subtype != conf.game_subtype ||
-           b->building.info.custom_type != conf.game_custom
-        ) continue;
-
-        //check all sprites for one that matches all conditions
-        if (conf.sprites != NULL && conf.sprites->BlockMatches(b))
+        BuildingConfiguration & conf = *iter;
+        if(b->building.info.type == conf.game_type)
         {
-            foundBlockBuildingInfo = true;
+            generic = &conf;
+            if(b->building.info.subtype == conf.game_subtype)
+            {
+                specific = &conf;
+                if(b->building.info.custom_type == conf.game_custom)
+                {
+                    custom = &conf;
+                }
+            }
         }
-        break;
     }
-
+    BuildingConfiguration * final = custom?custom:(specific?specific:(generic?generic:NULL));
+    //check all sprites for one that matches all conditions
+    if (final && final->sprites != NULL && final->sprites->copyToBlock(b))
+    {
+        foundBlockBuildingInfo = true;
+    }
 	//add yellow box, if needed. But only if the building was not found (this way we can have blank slots in buildings)
 	if(b->building.sprites.size() == 0 && foundBlockBuildingInfo == false){
 		c_sprite unknownBuildingSprite;

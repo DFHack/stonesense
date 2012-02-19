@@ -22,14 +22,14 @@ RootBlock::~RootBlock(void)
 	}
 }
 
-bool RootBlock::BlockMatches(Block* b)
+bool RootBlock::copyToBlock(Block* b)
 {
 	bool haveMatch = false;
 	uint32_t max = (uint32_t)children.size();
 	
 	for(uint32_t i=0; i<max; i++)
 	{
-		if (children[i]->BlockMatches(b))
+		if (children[i]->copyToBlock(b))
 		{
 			haveMatch = true;	
 		}
@@ -63,7 +63,7 @@ SpriteBlock::~SpriteBlock(void)
 	}
 };
 
-bool SpriteBlock::BlockMatches(Block* b)
+bool SpriteBlock::copyToBlock(Block* b)
 {
 	bool condMatch = false;
 	if (conditions == NULL)
@@ -81,7 +81,7 @@ bool SpriteBlock::BlockMatches(Block* b)
 		uint32_t max = (uint32_t)children.size();
 		for(uint32_t i=0; i<max; i++)
 		{
-			if (children[i]->BlockMatches(b))
+			if (children[i]->copyToBlock(b))
 			{
 				haveMatch = true;	
 			}
@@ -89,7 +89,7 @@ bool SpriteBlock::BlockMatches(Block* b)
 	}
 	else if (elsenode != NULL)
 	{
-		haveMatch = elsenode->BlockMatches(b);
+		haveMatch = elsenode->copyToBlock(b);
 	}
 	return haveMatch;
 }
@@ -131,7 +131,7 @@ RotationBlock::~RotationBlock(void)
 	}
 };
 
-bool RotationBlock::BlockMatches(Block* b)
+bool RotationBlock::copyToBlock(Block* b)
 {
 	int index = DisplayedRotation;
 	int max = (int)children.size();
@@ -141,7 +141,7 @@ bool RotationBlock::BlockMatches(Block* b)
 	{
 		index = index - max;
 	}
-	return children[index]->BlockMatches(b);
+	return children[index]->copyToBlock(b);
 }
 
 bool RotationBlock::addCondition(BlockCondition* cond){
@@ -162,7 +162,7 @@ SpriteElement::SpriteElement()
 	sprite.set_sheetindex(-1);
 }
 
-bool SpriteElement::BlockMatches(Block* b)
+bool SpriteElement::copyToBlock(Block* b)
 {
 	if (sprite.get_sheetindex() > -1)
 	{
