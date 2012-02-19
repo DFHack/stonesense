@@ -363,7 +363,6 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
 						// add shadow to nearest floor block
 						for (int bz = tempcreature->z;bz>=z1;bz--)
 						{
-                            using namespace df::enums::tiletype_shape_basic;
 							b = segment->getBlock (tempcreature->x, tempcreature->y, bz );
 							if (!b) continue;
                             if (b->tileShapeBasic==tiletype_shape_basic::Floor ||

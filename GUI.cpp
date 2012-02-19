@@ -374,28 +374,27 @@ void drawDebugCursorAndInfo(){
 
 	if(!b) return;
 
-    // FIXME: Commented out due to missing floor/wall/etc Type
-    /*
+
 	int ttype;
 	const char* tform = NULL;
-	if (b->floorType>0)
+	if (b->tileShapeBasic==tiletype_shape_basic::Floor)
 	{
-		ttype=b->floorType;	
+		ttype=b->tileType;	
 		tform="floor";
 	}
-	else if (b->wallType > 0)
+	else if (b->tileShapeBasic==tiletype_shape_basic::Wall)
 	{
-		ttype=b->wallType;
+		ttype=b->tileType;
 		tform="wall";
 	}
-	else if (b->ramp.type > 0)
+	else if (b->tileShapeBasic==tiletype_shape_basic::Ramp > 0)
 	{
-		ttype=b->ramp.type;
+		ttype=b->tileType;
 		tform="ramp";
 	}
-	else if (b->stairType > 0)
+	else if (b->tileShapeBasic==tiletype_shape_basic::Stair > 0)
 	{
-		ttype=b->stairType;
+		ttype=b->tileType;
 		tform="stair";
 	}
 

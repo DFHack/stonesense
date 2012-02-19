@@ -333,7 +333,7 @@ bool NotConditionalNode::addCondition(BlockCondition* cond)
 
 bool HaveFloorCondition::Matches(Block* b)
 {
-	return (b->tileShapeBasic==df::enums::tiletype_shape_basic::Floor);
+	return (b->tileShapeBasic==tiletype_shape_basic::Floor);
 }
 
 FluidBelowCondition::FluidBelowCondition(const char* strValue)
