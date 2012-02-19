@@ -2,7 +2,7 @@
 
 
 
-<building name="Still" gameID="building_stillst" file="workshop.png">
+<building name="Still" game_type="Workshop" game_subtype="Still" file="workshop.png">
 
 	<include file="wsUpperBorder.xml"/>
 

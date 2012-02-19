@@ -2,6 +2,6 @@
 
 
 
-<building name="Construction Blueprint" gameID="building_constructionst">
+<building name="Construction Blueprint" game_type="Construction" >
 	<sprite index = 321 />
 </building> 

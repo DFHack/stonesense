@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<building name="Wagon" gameID="building_wagonst">
+<building name="Wagon" game_type="Wagon">
   <if>
     <PositionIndex value="0" />
     <rotate>

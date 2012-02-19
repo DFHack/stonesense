@@ -2,7 +2,7 @@
 
 
 
-<building name="Butchers shop" gameID="building_butchers_shopst" file="workshop.png"> 
+<building name="Butchers shop" game_type="Workshop" game_subtype="Butchers" file="workshop.png"> 
 	
 	<!-- benches block -->
 	<if> 

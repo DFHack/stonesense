@@ -2,7 +2,7 @@
 
 
 
-<building name="Magma Smelter" gameID="building_magma_smelterst" file="workshop.png"> 
+<building name="Magma Smelter" game_type="Furnace" game_subtype="MagmaSmelter" file="workshop.png"> 
 
 	<!-- benches block -->
 	<if>

@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<building name="Support" gameID="building_supportst">
+<building name="Support" game_type="Support">
   <if>
     <MaterialType value="Wood" />
     <sprite index="95" color="building" />

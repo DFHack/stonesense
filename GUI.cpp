@@ -387,12 +387,12 @@ void drawDebugCursorAndInfo(){
 		ttype=b->tileType;
 		tform="wall";
 	}
-	else if (b->tileShapeBasic==tiletype_shape_basic::Ramp > 0)
+	else if (b->tileShapeBasic==tiletype_shape_basic::Ramp)
 	{
 		ttype=b->tileType;
 		tform="ramp";
 	}
-	else if (b->tileShapeBasic==tiletype_shape_basic::Stair > 0)
+	else if (b->tileShapeBasic==tiletype_shape_basic::Stair)
 	{
 		ttype=b->tileType;
 		tform="stair";
@@ -452,26 +452,26 @@ void drawDebugCursorAndInfo(){
 	if(b->building.sprites.size() != 0)
 		draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
 		"%i extra sprites.", b->building.sprites.size());
-/*
+
     // FIXME: classidstrings is no more
 	//building
 	if(b->building.info.type != BUILDINGTYPE_NA && b->building.info.type != BUILDINGTYPE_BLACKBOX && b->building.info.type != BUILDINGTYPE_TREE){
 		const char* matName = lookupMaterialTypeName(b->building.info.material.type);
 		const char* subMatName = lookupMaterialName(b->building.info.material.type,b->building.info.material.index);
 		draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
-			"Building: %s(%i) Material: %s%s%s (%d,%d)", 
-			contentLoader->classIdStrings.at(b->building.info.type).c_str(),
+			"Building: gametype = %s(%i) Material: %s%s%s (%d,%d)", 
+			ENUM_KEY_STR(building_type, (building_type::building_type)b->building.info.type),
 			b->building.info.type,
 			matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"",
 			b->building.info.material.type,b->building.info.material.index);
 
-		if(b->building.custom_building_type != -1)
-		{
-			draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
-				"Custom workshop type %s (%d)", contentLoader->custom_workshop_types[b->building.custom_building_type].c_str(),b->building.custom_building_type);
-		}
+		//if(b->building.custom_building_type != -1)
+		//{
+		//	draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
+		//		"Custom workshop type %s (%d)", contentLoader->custom_workshop_types[b->building.custom_building_type].c_str(),b->building.custom_building_type);
+		//}
 	}
-*/
+
 	//creatures
 	if(b->creature != null){
 		if(!config.skipCreatureTypes)

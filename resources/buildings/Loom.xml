@@ -2,7 +2,7 @@
 
 
 
-<building name="Loom" gameID="building_loomst"  file="workshop.png"> 
+<building name="Loom" game_type="Workshop" game_subtype="Loom" file="workshop.png"> 
 
 	<include file="wsUpperBorder.xml"/>
 

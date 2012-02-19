@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<building name="Craftdwarfs Workshop" gameID="building_craftdwarfs_workshopst" file="workshop.png"> 
+<building name="Craftdwarfs Workshop" game_type="Workshop" game_subtype="Craftdwarfs" file="workshop.png"> 
 	<!-- benches block -->
 	<if> 
 		<!-- replace this with position index if required -->

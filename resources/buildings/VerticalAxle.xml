@@ -2,7 +2,7 @@
 
 
 
-<building name="Vertical Axle" gameID="building_axle_verticalst" file="mechanics.png">
+<building name="Vertical Axle" game_type="AxleVertical" file="mechanics.png">
 
 	<include file="sBlueprint.xml" />
 
