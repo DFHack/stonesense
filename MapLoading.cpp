@@ -493,20 +493,23 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
 	}
 		
 	//add trees and other vegetation
-	for(int i = 0; i < plants->size(); i++)
+	for(auto iter = plants->begin(); iter != plants->end(); iter++)
 	{
-        df::plant * wheat = plants->at(i);
+        df::plant * wheat = *iter;
+        assert(wheat != NULL);
         Block* b = segment.getBlock( wheat->pos.x, wheat->pos.y, wheat->pos.z);
-		if(b && (
-			(b->tileMaterial == tiletype_shape::TREE) || 
-			(b->tileMaterial == tiletype_shape::SAPLING) ||
-			(b->tileMaterial == tiletype_shape::SHRUB)
-			))
-		{
+        if(!b)
+        {
+            continue;
+        }
+        if( b->tileShape == tiletype_shape::TREE ||
+            b->tileShape == tiletype_shape::SAPLING ||
+            b->tileShape == tiletype_shape::SHRUB)
+        {
             b->tree.type = wheat->flags.whole;
             b->tree.index = wheat->material;
-		}
-	}
+        }
+    }
 }
 
 
