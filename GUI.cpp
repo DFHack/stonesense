@@ -452,7 +452,8 @@ void drawDebugCursorAndInfo(){
 	if(b->building.sprites.size() != 0)
 		draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
 		"%i extra sprites.", b->building.sprites.size());
-
+/*
+    // FIXME: classidstrings is no more
 	//building
 	if(b->building.info.type != BUILDINGTYPE_NA && b->building.info.type != BUILDINGTYPE_BLACKBOX && b->building.info.type != BUILDINGTYPE_TREE){
 		const char* matName = lookupMaterialTypeName(b->building.info.material.type);
@@ -470,7 +471,7 @@ void drawDebugCursorAndInfo(){
 				"Custom workshop type %s (%d)", contentLoader->custom_workshop_types[b->building.custom_building_type].c_str(),b->building.custom_building_type);
 		}
 	}
-
+*/
 	//creatures
 	if(b->creature != null){
 		if(!config.skipCreatureTypes)
@@ -482,6 +483,8 @@ void drawDebugCursorAndInfo(){
 		char strCreature[150] = {0};
 		generateCreatureDebugString( b->creature, strCreature );
 		//memset(strCreature, -1, 50);
+        /*
+        // FIXME:: getJob is no more.
 		try{
 			draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
 				"flag1: %s Sex: %d  Mood: %d Job: %s", strCreature, b->creature->sex + 1, b->creature->mood, (b->creature->current_job.active?contentLoader->MemInfo->getJob(b->creature->current_job.jobType).c_str():""));
@@ -489,7 +492,8 @@ void drawDebugCursorAndInfo(){
 		catch(exception &e)
 		{
 			WriteErr("DFhack exeption: %s\n", e.what());
-		} 
+		}
+		*/
 		if((!config.skipCreatureTypes) && (!config.skipCreatureTypesEx) && (!config.skipDescriptorColors))
 		{
 			int yy = al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font));
@@ -541,7 +545,6 @@ void drawDebugCursorAndInfo(){
 		draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0,
 			"Snow: %d, Mud: %d, Blood: %d", b->snowlevel, b->mudlevel, b->bloodlevel);
 	}
-	*/
 	//borders
 	/*
 	int dray = al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font));
