@@ -212,19 +212,20 @@ void Block::Draw()
 	}
 
 
-	////draw surf
-	//if(eff_oceanwave > 0)
-	//{
-	//	al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*al_map_rgba(255, 255, 255, (255*eff_oceanwave)/100));
-	//	al_draw_tinted_bitmap(sprite_oceanwave, drawx, drawy - (WALLHEIGHT), 0);
-	//	al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
-	//}
-	//if(eff_webing > 0)
-	//{
-	//	al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color*al_map_rgba(255, 255, 255, (255*eff_webing)/100));
-	//	al_draw_tinted_bitmap(sprite_webing, drawx, drawy - (WALLHEIGHT), 0);
-	//	al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
-	//}
+	//draw surf
+		//fixme: needs to be scaled
+	if(Eff_OceanWave.density > 0)
+	{
+		ALLEGRO_COLOR tint = lookupMaterialColor(Eff_OceanWave.matt.type, Eff_OceanWave.matt.index);
+		tint.a*=Eff_OceanWave.density/100.0f;
+		al_draw_tinted_bitmap(sprite_oceanwave,tint, drawx, drawy - (WALLHEIGHT), 0);
+	}
+	if(Eff_Web.density > 0)
+	{
+		ALLEGRO_COLOR tint = lookupMaterialColor(Eff_Web.matt.type, Eff_Web.matt.index);
+		tint.a*=Eff_Web.density/100.0f;
+		al_draw_tinted_bitmap(sprite_webing,tint, drawx, drawy - (WALLHEIGHT), 0);
+	}
 
 	//Draw Ramp
 	if(tileShapeBasic==tiletype_shape_basic::Ramp){
@@ -247,7 +248,7 @@ void Block::Draw()
 
 	drawFloorBlood ( this, drawx, drawy );
 	//first part of snow
-	if(tileShapeBasic!=tiletype_shape_basic::Ramp && tileShapeBasic!=tiletype_shape_basic::Wall && tileShapeBasic!=tiletype_shape_basic::Stair == 0 && defaultSnow)
+	if(tileShapeBasic!=tiletype_shape_basic::Ramp && tileShapeBasic!=tiletype_shape_basic::Wall && tileShapeBasic!=tiletype_shape_basic::Stair && defaultSnow)
 	{
 		if(snowlevel > 75)
 		{
@@ -423,52 +424,56 @@ void Block::Draw()
 		}
 	}
 
-	//if(eff_miasma > 0)
-	//{
-	//	draw_particle_cloud(eff_miasma, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_miasma);
-	//}
-	//if(eff_water > 0)
-	//{
-	//	draw_particle_cloud(eff_water, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_water);
-	//}
-	//if(eff_water2 > 0)
-	//{
-	//	draw_particle_cloud(eff_water2, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_water2);
-	//}
-	//if(eff_blood > 0)
-	//{
-	//	draw_particle_cloud(eff_blood, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_blood);
-	//}
-	////if(eff_magma > 0)
-	////{
-	////	al_set_separate_blender(op, ALLEGRO_ONE, ALLEGRO_ONE, alpha_op, ALLEGRO_ONE, ALLEGRO_ONE, al_map_rgba(255, 255, 255, (255*eff_magma/100)));
-	////	DrawSpriteFromSheet( 185, IMGObjectSheet, drawx, drawy );
-	////	al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
-	////}
-	//if(eff_magma > 0)
-	//{
-	//	draw_particle_cloud(eff_magma, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_magma);
-	//}
-	//if(eff_dust > 0)
-	//{
-	//	draw_particle_cloud(eff_dust, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_dust);
-	//}
-	//if(eff_smoke > 0)
-	//{
-	//	draw_particle_cloud(eff_smoke, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_smoke);
-	//}
-	//if(eff_dragonfire > 0)
-	//{
-	//	draw_particle_cloud(eff_smoke, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_smoke);
-	//}
-	//if(eff_fire > 0)
-	//{
-	//	draw_particle_cloud(eff_smoke, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_smoke);
-	//}
-	//if(eff_boiling > 0)
-	//{
-	//	draw_particle_cloud(eff_smoke, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_smoke);
-	//}
+	if(Eff_Steam.density > 0)
+	{
+		ALLEGRO_COLOR tint = lookupMaterialColor(Eff_Steam.matt.type, Eff_Steam.matt.index);
+		draw_particle_cloud(Eff_Steam.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_water, tint);
+	}
+	if(Eff_Mist.density > 0)
+	{
+		ALLEGRO_COLOR tint = lookupMaterialColor(Eff_Mist.matt.type, Eff_Mist.matt.index);
+		draw_particle_cloud(Eff_Mist.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_water2, tint);
+	}
+	if(Eff_MaterialDust.density > 0)
+	{
+		ALLEGRO_COLOR tint = lookupMaterialColor(Eff_MaterialDust.matt.type, Eff_MaterialDust.matt.index);
+		draw_particle_cloud(Eff_MaterialDust.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_dust, tint);
+	}
+	if(Eff_MagmaMist.density > 0)
+	{
+		ALLEGRO_COLOR tint = lookupMaterialColor(Eff_MagmaMist.matt.type, Eff_MagmaMist.matt.index);
+		draw_particle_cloud(Eff_MagmaMist.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_magma, tint);
+	}
+	if(Eff_Smoke.density > 0)
+	{
+		ALLEGRO_COLOR tint = lookupMaterialColor(Eff_Smoke.matt.type, Eff_Smoke.matt.index);
+		draw_particle_cloud(Eff_Smoke.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_smoke, tint);
+	}
+	if(Eff_Dragonfire.density > 0)
+	{
+		ALLEGRO_COLOR tint = lookupMaterialColor(Eff_Dragonfire.matt.type, Eff_Dragonfire.matt.index);
+		draw_particle_cloud(Eff_Dragonfire.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_dragonfire, tint);
+	}
+	if(Eff_Fire.density > 0)
+	{
+		ALLEGRO_COLOR tint = lookupMaterialColor(Eff_Fire.matt.type, Eff_Fire.matt.index);
+		draw_particle_cloud(Eff_Fire.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_fire, tint);
+	}
+	if(Eff_MaterialGas.density > 0)
+	{
+		ALLEGRO_COLOR tint = lookupMaterialColor(Eff_MaterialGas.matt.type, Eff_MaterialGas.matt.index);
+		draw_particle_cloud(Eff_MaterialGas.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_miasma, tint);
+	}
+	if(Eff_MaterialVapor.density > 0)
+	{
+		ALLEGRO_COLOR tint = lookupMaterialColor(Eff_MaterialVapor.matt.type, Eff_MaterialVapor.matt.index);
+		draw_particle_cloud(Eff_MaterialVapor.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_boiling, tint);
+	}
+	if(Eff_OceanWave.density > 0)
+	{
+		ALLEGRO_COLOR tint = lookupMaterialColor(Eff_OceanWave.matt.type, Eff_OceanWave.matt.index);
+		draw_particle_cloud(Eff_OceanWave.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_oceanwave, tint);
+	}
 }
 
 void Block::Drawcreaturetext(){

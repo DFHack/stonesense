@@ -9,6 +9,7 @@
 #include "ContentLoader.h"
 #include "Occlusion_Test.h"
 #include <df/plant.h>
+#include <df/effect.h>
 
 static DFHack::Core* pDFApiHandle = 0;
 static DFHack::Process * DFProc = 0;
@@ -225,20 +226,24 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
 
 
 	//read cell data
-	tiletype::tiletype tiletypes[16][16];
-	t_designation designations[16][16];
-	t_occupancy occupancies[16][16];
-	uint8_t regionoffsets[16];
-	t_temperatures temp1, temp2;
-	DFHack::mapblock40d mapBlock;
-    std::vector<df::plant *>* plants;
-	Maps::ReadTileTypes(CellX, CellY, CellZ, (tiletypes40d *) tiletypes);
-	Maps::ReadDesignations(CellX, CellY, CellZ, (designations40d *) designations);
-	Maps::ReadOccupancy(CellX, CellY, CellZ, (occupancies40d *) occupancies);
-	Maps::ReadRegionOffsets(CellX,CellY,CellZ, (biome_indices40d *)regionoffsets);
-	Maps::ReadTemperatures(CellX, CellY, CellZ, &temp1, &temp2);
-	Maps::ReadBlock40d(CellX, CellY, CellZ, &mapBlock);
-	Maps::ReadVegetation(CellX, CellY, CellZ, plants);
+	df::map_block *trueBlock;
+	trueBlock = Maps::getBlock(CellX, CellY, CellZ);
+
+	//tiletype::tiletype tiletypes[16][16];
+	//t_designation designations[16][16];
+	//t_occupancy occupancies[16][16];
+	//uint8_t regionoffsets[16];
+	//t_temperatures temp1, temp2;
+	//DFHack::mapblock40d mapBlock;
+	//std::vector<df::plant *>* plants;
+	//Maps::ReadTileTypes(CellX, CellY, CellZ, (tiletypes40d *) tiletypes);
+	//Maps::ReadDesignations(CellX, CellY, CellZ, (designations40d *) designations);
+	//Maps::ReadOccupancy(CellX, CellY, CellZ, (occupancies40d *) occupancies);
+	//Maps::ReadRegionOffsets(CellX,CellY,CellZ, (biome_indices40d *)regionoffsets);
+	//Maps::ReadTemperatures(CellX, CellY, CellZ, &temp1, &temp2);
+	//Maps::ReadBlock40d(CellX, CellY, CellZ, &mapBlock);
+	//Maps::ReadVegetation(CellX, CellY, CellZ, plants);
+
 	//read local vein data
     vector <df::block_square_event_mineralst * > veins;
     vector <df::block_square_event_frozen_liquidst * > ices;
@@ -279,8 +284,8 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
 				b->z = CellZ;
 			}
 
-			b->occ = occupancies[lx][ly];
-			b->designation = designations[lx][ly];
+			b->occ = trueBlock->occupancy[lx][ly];
+			b->designation = trueBlock->designation[lx][ly];
 			b->mudlevel = 0;
 			b->snowlevel = 0;
 			b->bloodlevel = 0;
@@ -360,16 +365,16 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
 			}
 			//temperatures
 
-			b->temp1 = temp1[lx][ly];
-			b->temp2 = temp2[lx][ly];
+			b->temp1 = trueBlock->temperature_1[lx][ly];
+			b->temp2 = trueBlock->temperature_2[lx][ly];
 			//liquids
-			if(designations[lx][ly].bits.flow_size > 0){
-				b->water.type  = designations[lx][ly].bits.liquid_type;
-				b->water.index = designations[lx][ly].bits.flow_size;
+			if(trueBlock->designation[lx][ly].bits.flow_size > 0){
+				b->water.type  = trueBlock->designation[lx][ly].bits.liquid_type;
+				b->water.index = trueBlock->designation[lx][ly].bits.flow_size;
 			}
 
 			//read tiletype
-			b->tileType = tiletypes[lx][ly];
+			b->tileType = trueBlock->tiletype[lx][ly];
 			b->tileShape = tiletype::get_shape(b->tileType);
 			b->tileShapeBasic = tiletype_shape::get_basic_shape(b->tileShape);
 			b->tileSpecial = tiletype::get_special(b->tileType);
@@ -381,13 +386,13 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
 			//  int j = 10;
 
 			//save in segment
-			bool isHidden = designations[lx][ly].bits.hidden;
+			bool isHidden = trueBlock->designation[lx][ly].bits.hidden;
 			//option for including hidden blocks
 			isHidden &= !config.show_hidden_blocks;
-			bool shouldBeIncluded = (!isOpenTerrain(b->tileType) || b->water.index || !designations[lx][ly].bits.outside) && !isHidden;
+			bool shouldBeIncluded = (!isOpenTerrain(b->tileType) || b->water.index || !trueBlock->designation[lx][ly].bits.outside) && !isHidden;
 
 			//include hidden blocks as shaded black 
-			if(config.shade_hidden_blocks && isHidden && (isBlockOnVisibleEdgeOfSegment(&segment, b) || areNeighborsVisible(designations, lx, ly)))
+			if(config.shade_hidden_blocks && isHidden && (isBlockOnVisibleEdgeOfSegment(&segment, b) || areNeighborsVisible(trueBlock->designation, lx, ly)))
 			{
 				b->building.info.type = (building_type::building_type) BUILDINGTYPE_BLACKBOX;
 				shouldBeIncluded= true;
@@ -399,9 +404,9 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
 
 				//determine rock/soil type
 				int rockIndex = -1;
-				if(regionoffsets[designations[lx][ly].bits.biome] < (*allLayers).size())
-					if(designations[lx][ly].bits.geolayer_index < (*allLayers).at(regionoffsets[designations[lx][ly].bits.biome]).size())
-						rockIndex = (*allLayers).at(regionoffsets[designations[lx][ly].bits.biome]).at(designations[lx][ly].bits.geolayer_index);
+				if(trueBlock->region_offset[trueBlock->designation[lx][ly].bits.biome] < (*allLayers).size())
+					if(trueBlock->designation[lx][ly].bits.geolayer_index < (*allLayers).at(trueBlock->region_offset[trueBlock->designation[lx][ly].bits.biome]).size())
+						rockIndex = (*allLayers).at(trueBlock->region_offset[trueBlock->designation[lx][ly].bits.biome]).at(trueBlock->designation[lx][ly].bits.geolayer_index);
 				b->layerMaterial.type = INORGANIC;
 				b->layerMaterial.index = rockIndex;
 				//check veins
@@ -436,12 +441,12 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
 				b->material.index = b->veinMaterial.index;
 
                 //read global/local features
-                int16_t idx = mapBlock.global_feature;
+                int16_t idx = trueBlock->global_feature;
                 t_feature local, global;
                 Maps::ReadFeatures(CellX,CellY,CellZ,&local,&global);
                 if( idx != -1 && global.type != -1 && global.main_material != -1)
                 {
-                    if(designations[lx][ly].bits.feature_global)
+                    if(trueBlock->designation[lx][ly].bits.feature_global)
                     {
                         //if(global_features->at(idx).main_material == INORGANIC) // stone
                         //{
@@ -456,10 +461,10 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
                 }
 
                 //read local features
-                idx = mapBlock.local_feature;
+                idx = trueBlock->local_feature;
                 if( idx != -1 && local.type != -1 && local.main_material != -1 )
                 {
-                    if(mapBlock.designation[lx][ly].bits.feature_local)
+                    if(trueBlock->designation[lx][ly].bits.feature_local)
                     {
                         //if(vectr[idx]->main_material == INORGANIC) // stone
                         //{
@@ -493,7 +498,7 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
 	}
 		
 	//add trees and other vegetation
-	for(auto iter = plants->begin(); iter != plants->end(); iter++)
+	for(auto iter = trueBlock->plants.begin(); iter != trueBlock->plants.end(); iter++)
 	{
         df::plant * wheat = *iter;
         assert(wheat != NULL);
@@ -510,6 +515,114 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
             b->tree.index = wheat->material;
         }
     }
+
+	//add effects
+	for(auto iter = trueBlock->effects.begin(); iter != trueBlock->effects.end(); iter++)
+	{
+        df::effect * eff = *iter;
+        assert(eff != NULL);
+        Block* b = segment.getBlock( eff->x, eff->y, eff->z);
+        if(!b)
+        {
+			if(segment.CoordinateInsideSegment(eff->x, eff->y, eff->z))
+			{
+				b = new Block(&segment);
+				b->x=eff->x;
+				b->y=eff->y;
+				b->z=eff->z;
+				segment.addBlock(b);
+			}
+			else
+				continue;
+		}
+		switch(eff->type)
+		{
+		case effect_type::Steam:
+			{
+				b->Eff_Steam.density = eff->density;
+				b->Eff_Steam.matt.index = eff->mat_index;
+				b->Eff_Steam.matt.type = eff->mat_type;
+				break;
+			}
+		case effect_type::Mist:
+			{
+				b->Eff_Mist.density = eff->density;
+				b->Eff_Mist.matt.index = eff->mat_index;
+				b->Eff_Mist.matt.type = eff->mat_type;
+				break;
+			}
+		case effect_type::MaterialDust:
+			{
+				b->Eff_MaterialDust.density = eff->density;
+				b->Eff_MaterialDust.matt.index = eff->mat_index;
+				b->Eff_MaterialDust.matt.type = eff->mat_type;
+				break;
+			}
+		case effect_type::MagmaMist:
+			{
+				b->Eff_MagmaMist.density = eff->density;
+				b->Eff_MagmaMist.matt.index = eff->mat_index;
+				b->Eff_MagmaMist.matt.type = eff->mat_type;
+				break;
+			}
+		case effect_type::Smoke:
+			{
+				b->Eff_Smoke.density = eff->density;
+				b->Eff_Smoke.matt.index = eff->mat_index;
+				b->Eff_Smoke.matt.type = eff->mat_type;
+				break;
+			}
+		case effect_type::Dragonfire:
+			{
+				b->Eff_Dragonfire.density = eff->density;
+				b->Eff_Dragonfire.matt.index = eff->mat_index;
+				b->Eff_Dragonfire.matt.type = eff->mat_type;
+				break;
+			}
+		case effect_type::Fire:
+			{
+				b->Eff_Fire.density = eff->density;
+				b->Eff_Fire.matt.index = eff->mat_index;
+				b->Eff_Fire.matt.type = eff->mat_type;
+				break;
+			}
+		case effect_type::Web:
+			{
+				b->Eff_Web.density = eff->density;
+				b->Eff_Web.matt.index = eff->mat_index;
+				b->Eff_Web.matt.type = eff->mat_type;
+				break;
+			}
+		case effect_type::MaterialGas:
+			{
+				b->Eff_MaterialGas.density = eff->density;
+				b->Eff_MaterialGas.matt.index = eff->mat_index;
+				b->Eff_MaterialGas.matt.type = eff->mat_type;
+				break;
+			}
+		case effect_type::MaterialVapor:
+			{
+				b->Eff_MaterialVapor.density = eff->density;
+				b->Eff_MaterialVapor.matt.index = eff->mat_index;
+				b->Eff_MaterialVapor.matt.type = eff->mat_type;
+				break;
+			}
+		case effect_type::OceanWave:
+			{
+				b->Eff_OceanWave.density = eff->density;
+				b->Eff_OceanWave.matt.index = eff->mat_index;
+				b->Eff_OceanWave.matt.type = eff->mat_type;
+				break;
+			}
+		case effect_type::SeaFoam:
+			{
+				b->Eff_SeaFoam.density = eff->density;
+				b->Eff_SeaFoam.matt.index = eff->mat_index;
+				b->Eff_SeaFoam.matt.type = eff->mat_type;
+				break;
+			}
+		}
+	}
 }
 
 

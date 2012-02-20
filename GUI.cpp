@@ -1262,12 +1262,12 @@ void saveMegashot(bool tall){
 	al_unlock_mutex(config.readMutex);
 }
 
-void draw_particle_cloud(int count, float centerX, float centerY, float rangeX, float rangeY, ALLEGRO_BITMAP *sprite)
+void draw_particle_cloud(int count, float centerX, float centerY, float rangeX, float rangeY, ALLEGRO_BITMAP *sprite, ALLEGRO_COLOR tint)
 {
 	for(int i = 0;i < count;i++)
 	{
 		float drawx = centerX + ((((float)rand() / RAND_MAX) - 0.5) * rangeX);
 		float drawy = centerY + ((((float)rand() / RAND_MAX) - 0.5) * rangeY);
-		al_draw_bitmap(sprite, drawx, drawy, 0);
+		al_draw_tinted_bitmap(sprite, tint, drawx, drawy, 0);
 	}
 }

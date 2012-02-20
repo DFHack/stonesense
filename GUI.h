@@ -27,7 +27,7 @@ void saveScreenshot();
 void saveMegashot(bool tall);
 void dumpSegment();
 void saveImage(ALLEGRO_BITMAP* image);
-void draw_particle_cloud(int count, float centerX, float centerY, float rangeX, float rangeY, ALLEGRO_BITMAP *sprite);
+void draw_particle_cloud(int count, float centerX, float centerY, float rangeX, float rangeY, ALLEGRO_BITMAP *sprite, ALLEGRO_COLOR tint);
 extern WorldSegment* viewedSegment;//current, loaded
 extern WorldSegment* altSegment;//background
 extern int DisplayedSegmentX;

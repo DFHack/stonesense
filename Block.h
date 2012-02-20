@@ -6,6 +6,11 @@
 #include "TileTypes.h"
 class WorldSegment;
 
+struct Effect
+{
+	DFHack::t_matglossPair matt;
+	int16_t density;
+};
 
 class Block
 {
@@ -86,18 +91,18 @@ public:
 	} blockeffects;
 
 	//individual effects
-	/*int16_t eff_miasma;
-	int16_t eff_water;
-	int16_t eff_water2;
-	int16_t eff_blood;
-	int16_t eff_dust;
-	int16_t eff_magma;
-	int16_t eff_smoke;
-	int16_t eff_dragonfire;
-	int16_t eff_fire;
-	int16_t eff_boiling;
-	int16_t eff_webing;
-	int16_t eff_oceanwave;*/
+	Effect Eff_Steam;
+	Effect Eff_Mist;
+	Effect Eff_MaterialDust;
+	Effect Eff_MagmaMist;
+	Effect Eff_Smoke;
+	Effect Eff_Dragonfire;
+	Effect Eff_Fire;
+	Effect Eff_Web;
+	Effect Eff_MaterialGas;
+	Effect Eff_MaterialVapor;
+	Effect Eff_OceanWave;
+	Effect Eff_SeaFoam;
 	struct {
         DFHack::Simple::Buildings::t_building info;
 		std::vector<c_sprite> sprites;
