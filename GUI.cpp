@@ -556,46 +556,110 @@ void drawDebugCursorAndInfo(){
 	draw_borders(8, dray, b->lightborders);
 	*/
 
-	////effects
-	//if(b->blockeffects.lifetime > 0)
-	//	draw_textf_border(font, 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
-	//	"Effect Count:%i, Type:%i, Lifetime: %i, Direction:%i,%i", b->blockeffects.count, b->blockeffects.type, b->blockeffects.lifetime, b->blockeffects.x_direction, b->blockeffects.y_direction);
-	//if(b->eff_miasma > 0)
-	//	draw_textf_border(font, 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
-	//	"Miasma: %d", b->eff_miasma);
-	//if(b->eff_water > 0)
-	//	draw_textf_border(font, 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
-	//	"Water Mist: %d", b->eff_water);
-	//if(b->eff_water2 > 0)
-	//	draw_textf_border(font, 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
-	//	"Water Mist 2: %d", b->eff_water2);
-	//if(b->eff_blood > 0)
-	//	draw_textf_border(font, 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
-	//	"Blood Mist: %d", b->eff_blood);
-	//if(b->eff_dust > 0)
-	//	draw_textf_border(font, 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
-	//	"Dust: %d", b->eff_dust);
-	//if(b->eff_magma > 0)
-	//	draw_textf_border(font, 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
-	//	"Magma Mist: %d", b->eff_magma);
-	//if(b->eff_smoke > 0)
-	//	draw_textf_border(font, 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
-	//	"Smoke: %d", b->eff_smoke);
-	//if(b->eff_dragonfire > 0)
-	//	draw_textf_border(font, 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
-	//	"Dragonfire: %d", b->eff_dragonfire);
-	//if(b->eff_fire > 0)
-	//	draw_textf_border(font, 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
-	//	"Fire: %d", b->eff_fire);
-	//if(b->eff_webing > 0)
-	//	draw_textf_border(font, 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
-	//	"Webbing: %d", b->eff_webing);
-	//if(b->eff_boiling > 0)
-	//	draw_textf_border(font, 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
-	//	"Boiling Substances: %d", b->eff_boiling);
-	//if(b->eff_oceanwave > 0)
-	//	draw_textf_border(font, 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
-	//	"Ocean Wave: %d", b->eff_oceanwave);
+	if(b->Eff_Miasma.density > 0)
+	{
+		const char* matName = lookupMaterialTypeName(b->Eff_Miasma.matt.type);
+		const char* subMatName = lookupMaterialName(b->Eff_Miasma.matt.type,b->Eff_Miasma.matt.index);
+		draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0,
+			"Miasma: %d, Material:%s%s%s", 
+			b->Eff_Miasma.density, matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
+	}
+	if(b->Eff_Steam.density > 0)
+	{
+		const char* matName = lookupMaterialTypeName(b->Eff_Steam.matt.type);
+		const char* subMatName = lookupMaterialName(b->Eff_Steam.matt.type,b->Eff_Steam.matt.index);
+		draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0,
+			"Steam: %d, Material:%s%s%s", 
+			b->Eff_Steam.density, matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
+	}
+	if(b->Eff_Mist.density > 0)
+	{
+		const char* matName = lookupMaterialTypeName(b->Eff_Mist.matt.type);
+		const char* subMatName = lookupMaterialName(b->Eff_Mist.matt.type,b->Eff_Mist.matt.index);
+		draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0,
+			"Mist: %d, Material:%s%s%s", 
+			b->Eff_Mist.density, matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
+	}
+	if(b->Eff_MaterialDust.density > 0)
+	{
+		const char* matName = lookupMaterialTypeName(b->Eff_MaterialDust.matt.type);
+		const char* subMatName = lookupMaterialName(b->Eff_MaterialDust.matt.type,b->Eff_MaterialDust.matt.index);
+		draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0,
+			"MaterialDust: %d, Material:%s%s%s", 
+			b->Eff_MaterialDust.density, matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
+	}
+	if(b->Eff_MagmaMist.density > 0)
+	{
+		const char* matName = lookupMaterialTypeName(b->Eff_MagmaMist.matt.type);
+		const char* subMatName = lookupMaterialName(b->Eff_MagmaMist.matt.type,b->Eff_MagmaMist.matt.index);
+		draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0,
+			"MagmaMist: %d, Material:%s%s%s", 
+			b->Eff_MagmaMist.density, matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
+	}
+	if(b->Eff_Smoke.density > 0)
+	{
+		const char* matName = lookupMaterialTypeName(b->Eff_Smoke.matt.type);
+		const char* subMatName = lookupMaterialName(b->Eff_Smoke.matt.type,b->Eff_Smoke.matt.index);
+		draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0,
+			"Smoke: %d, Material:%s%s%s", 
+			b->Eff_Smoke.density, matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
+	}
+	if(b->Eff_Dragonfire.density > 0)
+	{
+		const char* matName = lookupMaterialTypeName(b->Eff_Dragonfire.matt.type);
+		const char* subMatName = lookupMaterialName(b->Eff_Dragonfire.matt.type,b->Eff_Dragonfire.matt.index);
+		draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0,
+			"Dragonfire: %d, Material:%s%s%s", 
+			b->Eff_Dragonfire.density, matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
+	}
+	if(b->Eff_Fire.density > 0)
+	{
+		const char* matName = lookupMaterialTypeName(b->Eff_Fire.matt.type);
+		const char* subMatName = lookupMaterialName(b->Eff_Fire.matt.type,b->Eff_Fire.matt.index);
+		draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0,
+			"Fire: %d, Material:%s%s%s", 
+			b->Eff_Fire.density, matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
+	}
+	if(b->Eff_Web.density > 0)
+	{
+		const char* matName = lookupMaterialTypeName(b->Eff_Web.matt.type);
+		const char* subMatName = lookupMaterialName(b->Eff_Web.matt.type,b->Eff_Web.matt.index);
+		draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0,
+			"Web: %d, Material:%s%s%s", 
+			b->Eff_Web.density, matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
+	}
+	if(b->Eff_MaterialGas.density > 0)
+	{
+		const char* matName = lookupMaterialTypeName(b->Eff_MaterialGas.matt.type);
+		const char* subMatName = lookupMaterialName(b->Eff_MaterialGas.matt.type,b->Eff_MaterialGas.matt.index);
+		draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0,
+			"MaterialGas: %d, Material:%s%s%s", 
+			b->Eff_MaterialGas.density, matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
+	}
+	if(b->Eff_MaterialVapor.density > 0)
+	{
+		const char* matName = lookupMaterialTypeName(b->Eff_MaterialVapor.matt.type);
+		const char* subMatName = lookupMaterialName(b->Eff_MaterialVapor.matt.type,b->Eff_MaterialVapor.matt.index);
+		draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0,
+			"MaterialVapor: %d, Material:%s%s%s", 
+			b->Eff_MaterialVapor.density, matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
+	}
+	if(b->Eff_OceanWave.density > 0)
+	{
+		const char* matName = lookupMaterialTypeName(b->Eff_OceanWave.matt.type);
+		const char* subMatName = lookupMaterialName(b->Eff_OceanWave.matt.type,b->Eff_OceanWave.matt.index);
+		draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0,
+			"OceanWave: %d, Material:%s%s%s", 
+			b->Eff_OceanWave.density, matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
+	}
+	if(b->Eff_SeaFoam.density > 0)
+	{
+		const char* matName = lookupMaterialTypeName(b->Eff_SeaFoam.matt.type);
+		const char* subMatName = lookupMaterialName(b->Eff_SeaFoam.matt.type,b->Eff_SeaFoam.matt.index);
+		draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0,
+			"SeaFoam: %d, Material:%s%s%s", 
+			b->Eff_SeaFoam.density, matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
+	}
 
 	//basecon
 	//textprintf(target, font, 2, config.screenHeight-20-(i--*10), 0xFFFFFF, 

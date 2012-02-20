@@ -214,10 +214,10 @@ void Block::Draw()
 
 	//draw surf
 		//fixme: needs to be scaled
-	if(Eff_OceanWave.density > 0)
+	if(Eff_SeaFoam.density > 0)
 	{
-		ALLEGRO_COLOR tint = lookupMaterialColor(Eff_OceanWave.matt.type, Eff_OceanWave.matt.index);
-		tint.a*=Eff_OceanWave.density/100.0f;
+		ALLEGRO_COLOR tint = lookupMaterialColor(Eff_SeaFoam.matt.type, Eff_SeaFoam.matt.index);
+		tint.a*=Eff_SeaFoam.density/100.0f;
 		al_draw_tinted_bitmap(sprite_oceanwave,tint, drawx, drawy - (WALLHEIGHT), 0);
 	}
 	if(Eff_Web.density > 0)
@@ -247,6 +247,8 @@ void Block::Draw()
 
 
 	drawFloorBlood ( this, drawx, drawy );
+
+
 	//first part of snow
 	if(tileShapeBasic!=tiletype_shape_basic::Ramp && tileShapeBasic!=tiletype_shape_basic::Wall && tileShapeBasic!=tiletype_shape_basic::Stair && defaultSnow)
 	{
@@ -424,6 +426,11 @@ void Block::Draw()
 		}
 	}
 
+	if(Eff_Miasma.density > 0)
+	{
+		ALLEGRO_COLOR tint = lookupMaterialColor(Eff_Miasma.matt.type, Eff_Miasma.matt.index);
+		draw_particle_cloud(Eff_Miasma.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_miasma, tint);
+	}
 	if(Eff_Steam.density > 0)
 	{
 		ALLEGRO_COLOR tint = lookupMaterialColor(Eff_Steam.matt.type, Eff_Steam.matt.index);
@@ -462,7 +469,7 @@ void Block::Draw()
 	if(Eff_MaterialGas.density > 0)
 	{
 		ALLEGRO_COLOR tint = lookupMaterialColor(Eff_MaterialGas.matt.type, Eff_MaterialGas.matt.index);
-		draw_particle_cloud(Eff_MaterialGas.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_miasma, tint);
+		draw_particle_cloud(Eff_MaterialGas.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_boiling, tint);
 	}
 	if(Eff_MaterialVapor.density > 0)
 	{
@@ -472,7 +479,7 @@ void Block::Draw()
 	if(Eff_OceanWave.density > 0)
 	{
 		ALLEGRO_COLOR tint = lookupMaterialColor(Eff_OceanWave.matt.type, Eff_OceanWave.matt.index);
-		draw_particle_cloud(Eff_OceanWave.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_oceanwave, tint);
+		draw_particle_cloud(Eff_OceanWave.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_water, tint);
 	}
 }
 

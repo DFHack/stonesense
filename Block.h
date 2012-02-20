@@ -91,6 +91,7 @@ public:
 	} blockeffects;
 
 	//individual effects
+	Effect Eff_Miasma;
 	Effect Eff_Steam;
 	Effect Eff_Mist;
 	Effect Eff_MaterialDust;
