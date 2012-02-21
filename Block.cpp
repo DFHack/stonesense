@@ -220,12 +220,6 @@ void Block::Draw()
 		tint.a*=Eff_SeaFoam.density/100.0f;
 		al_draw_tinted_bitmap(sprite_oceanwave,tint, drawx, drawy - (WALLHEIGHT), 0);
 	}
-	if(Eff_Web.density > 0)
-	{
-		ALLEGRO_COLOR tint = lookupMaterialColor(Eff_Web.matt.type, Eff_Web.matt.index);
-		tint.a*=Eff_Web.density/100.0f;
-		al_draw_tinted_bitmap(sprite_webing,tint, drawx, drawy - (WALLHEIGHT), 0);
-	}
 
 	//Draw Ramp
 	if(tileShapeBasic==tiletype_shape_basic::Ramp){
@@ -426,6 +420,13 @@ void Block::Draw()
 		}
 	}
 
+	if(Eff_Web.density > 0)
+	{
+		ALLEGRO_COLOR tint = lookupMaterialColor(Eff_Web.matt.type, Eff_Web.matt.index);
+		tint.a*=Eff_Web.density/100.0f;
+		DrawSpriteFromSheet(rando%5, sprite_webing, tint, drawx, drawy- WALLHEIGHT, this, 4.0f);
+		//al_draw_tinted_bitmap(sprite_webing,tint, drawx, drawy - (WALLHEIGHT), 0);
+	}
 	if(Eff_Miasma.density > 0)
 	{
 		ALLEGRO_COLOR tint = lookupMaterialColor(Eff_Miasma.matt.type, Eff_Miasma.matt.index);
@@ -618,7 +619,7 @@ void createEffectSprites()
 	sprite_smoke		= CreateSpriteFromSheet( 186, IMGObjectSheet);
 	sprite_dragonfire	= CreateSpriteFromSheet( 187, IMGObjectSheet);
 	sprite_fire			= CreateSpriteFromSheet( 188, IMGObjectSheet);
-	sprite_webing		= CreateSpriteFromSheet( 189, IMGObjectSheet);
+	sprite_webing		= load_bitmap_withWarning("stonesense/Effect_web.png");
 	sprite_boiling		= CreateSpriteFromSheet( 190, IMGObjectSheet);
 	sprite_oceanwave	= CreateSpriteFromSheet( 191, IMGObjectSheet);
 }

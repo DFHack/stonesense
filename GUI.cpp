@@ -693,7 +693,7 @@ void DrawMinimap(){
 	MiniMapBottomRightY = posy+mapheight;
 }
 
-void DrawSpriteFromSheet( int spriteNum, ALLEGRO_BITMAP* spriteSheet, ALLEGRO_COLOR color, float x, float y, Block * b){
+void DrawSpriteFromSheet( int spriteNum, ALLEGRO_BITMAP* spriteSheet, ALLEGRO_COLOR color, float x, float y, Block * b, float in_scale){
 	int sheetx = spriteNum % SHEET_OBJECTSWIDE;
 	int sheety = spriteNum / SHEET_OBJECTSWIDE;
 #ifdef _DEBUG
@@ -719,7 +719,7 @@ void DrawSpriteFromSheet( int spriteNum, ALLEGRO_BITMAP* spriteSheet, ALLEGRO_CO
 		color.g *= 0.25f;
 		color.b *= 0.25f;
 	}
-	al_draw_tinted_scaled_bitmap(spriteSheet, premultiply(color), sheetx * SPRITEWIDTH, sheety * SPRITEHEIGHT, SPRITEWIDTH, SPRITEHEIGHT, x, y - (WALLHEIGHT)*config.scale, SPRITEWIDTH*config.scale, SPRITEHEIGHT*config.scale, 0);
+	al_draw_tinted_scaled_bitmap(spriteSheet, premultiply(color), sheetx * SPRITEWIDTH * in_scale, sheety * SPRITEHEIGHT * in_scale, SPRITEWIDTH * in_scale, SPRITEHEIGHT * in_scale, x, y - (WALLHEIGHT)*config.scale, SPRITEWIDTH*config.scale, SPRITEHEIGHT*config.scale, 0);
 }
 
 ALLEGRO_BITMAP * CreateSpriteFromSheet( int spriteNum, ALLEGRO_BITMAP* spriteSheet)
