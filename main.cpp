@@ -588,7 +588,7 @@ static void * stonesense_thread(ALLEGRO_THREAD * thred, void * parms)
 DFhackCExport command_result stonesense_command(DFHack::Core * c, std::vector<std::string> & params);
 
 //set the plugin name/dfhack version
-DFHACK_PLUGIN("kittens");
+DFHACK_PLUGIN("stonesense");
 
 //This is the init command. it includes input options.
 DFhackCExport command_result plugin_init ( Core * c, std::vector <PluginCommand> &commands)
