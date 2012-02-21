@@ -178,6 +178,7 @@ extern uint32_t ClockedTime2;
 extern bool timeToReloadSegment;
 extern bool timeToReloadConfig;
 extern char currentAnimationFrame;
+extern uint32_t currentFrameLong;
 extern bool animationFrameShown;
 
 #define MAX_ANIMFRAME 6

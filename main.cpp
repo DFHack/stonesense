@@ -38,6 +38,7 @@ GameConfiguration config;
 bool timeToReloadSegment;
 bool timeToReloadConfig;
 char currentAnimationFrame;
+uint32_t currentFrameLong;
 bool animationFrameShown;
 
 vector<t_matgloss> v_stonetypes;
@@ -183,6 +184,7 @@ void animUpdateProc()
 			currentAnimationFrame = 0;
 		else
 			currentAnimationFrame = currentAnimationFrame + 1;
+		currentFrameLong+=1;
 		animationFrameShown = false;
 	}
 }

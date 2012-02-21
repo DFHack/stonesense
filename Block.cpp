@@ -424,7 +424,7 @@ void Block::Draw()
 	{
 		ALLEGRO_COLOR tint = lookupMaterialColor(Eff_Web.matt.type, Eff_Web.matt.index);
 		tint.a*=Eff_Web.density/100.0f;
-		DrawSpriteFromSheet(rando%5, sprite_webing, tint, drawx, drawy- WALLHEIGHT, this, 4.0f);
+		DrawSpriteFromSheet(rando%5, sprite_webing, tint, drawx, drawy, this, 4.0f);
 		//al_draw_tinted_bitmap(sprite_webing,tint, drawx, drawy - (WALLHEIGHT), 0);
 	}
 	if(Eff_Miasma.density > 0)
@@ -460,12 +460,22 @@ void Block::Draw()
 	if(Eff_Dragonfire.density > 0)
 	{
 		ALLEGRO_COLOR tint = lookupMaterialColor(Eff_Dragonfire.matt.type, Eff_Dragonfire.matt.index);
-		draw_particle_cloud(Eff_Dragonfire.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_dragonfire, tint);
+		tint.a*=Eff_Dragonfire.density/100.0f;
+		tint.g*=Eff_Dragonfire.density/100.0f;
+		tint.b*=Eff_Dragonfire.density/100.0f;
+		DrawSpriteFromSheet((((currentFrameLong+rando)%128)*20), sprite_dragonfire, tint, drawx, drawy, this, 1.0f);
+		//ALLEGRO_COLOR tint = lookupMaterialColor(Eff_Dragonfire.matt.type, Eff_Dragonfire.matt.index);
+		//draw_particle_cloud(Eff_Dragonfire.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_dragonfire, tint);
 	}
 	if(Eff_Fire.density > 0)
 	{
 		ALLEGRO_COLOR tint = lookupMaterialColor(Eff_Fire.matt.type, Eff_Fire.matt.index);
-		draw_particle_cloud(Eff_Fire.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_fire, tint);
+		tint.a*=Eff_Fire.density/100.0f;
+		tint.g*=Eff_Fire.density/100.0f;
+		tint.b*=Eff_Fire.density/100.0f;
+		DrawSpriteFromSheet((((currentFrameLong+rando)%128)*20), sprite_dragonfire, tint, drawx, drawy, this, 1.0f);
+		//ALLEGRO_COLOR tint = lookupMaterialColor(Eff_Fire.matt.type, Eff_Fire.matt.index);
+		//draw_particle_cloud(Eff_Fire.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_fire, tint);
 	}
 	if(Eff_MaterialGas.density > 0)
 	{
@@ -617,7 +627,7 @@ void createEffectSprites()
 	sprite_dust			= CreateSpriteFromSheet( 184, IMGObjectSheet);
 	sprite_magma		= CreateSpriteFromSheet( 185, IMGObjectSheet);
 	sprite_smoke		= CreateSpriteFromSheet( 186, IMGObjectSheet);
-	sprite_dragonfire	= CreateSpriteFromSheet( 187, IMGObjectSheet);
+	sprite_dragonfire	= load_bitmap_withWarning("stonesense/Effect_flames.png");
 	sprite_fire			= CreateSpriteFromSheet( 188, IMGObjectSheet);
 	sprite_webing		= load_bitmap_withWarning("stonesense/Effect_web.png");
 	sprite_boiling		= CreateSpriteFromSheet( 190, IMGObjectSheet);

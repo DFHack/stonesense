@@ -359,7 +359,8 @@ void drawDebugCursorAndInfo(){
 	int spriteNum =  SPRITEOBJECT_CURSOR;
 	int sheetx = spriteNum % SHEET_OBJECTSWIDE;
 	int sheety = spriteNum / SHEET_OBJECTSWIDE;
-	al_draw_bitmap_region(IMGObjectSheet, sheetx * SPRITEWIDTH, sheety * SPRITEHEIGHT, SPRITEWIDTH, SPRITEHEIGHT, point.x - SPRITEWIDTH/2, point.y - (WALLHEIGHT), 0);
+	DrawSpriteFromSheet(SPRITEOBJECT_CURSOR, IMGObjectSheet, al_map_rgb(255,255,255), point.x-((SPRITEWIDTH/2)*config.scale), point.y);
+	//al_draw_bitmap_region(IMGObjectSheet, sheetx * SPRITEWIDTH, sheety * SPRITEHEIGHT, SPRITEWIDTH, SPRITEHEIGHT, point.x - SPRITEWIDTH/2, point.y - (WALLHEIGHT), 0);
 
 	//get block info
 	Block* b = viewedSegment->getBlockLocal( debugCursor.x, debugCursor.y, debugCursor.z+viewedSegment->sizez-2);
