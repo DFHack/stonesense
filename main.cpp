@@ -365,6 +365,8 @@ static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALL
 					ALLEGRO_BITMAP *bb = al_get_backbuffer(al_get_current_display());
 					int w = al_get_bitmap_width(bb);
 					int h = al_get_bitmap_height(bb);
+					config.screenHeight = h;
+					config.screenWidth = w;
 					WriteErr("backbuffer w, h: %d, %d\n", w, h);
 				}
 #endif

@@ -1239,9 +1239,10 @@ void FollowCurrentDFCenter()
 		{
 			Pos->getWindowSize(viewsizex,viewsizey); 
 			Pos->getViewCoords(newviewx,newviewy,newviewz);
-
-			parms.x = newviewx + (viewsizex/2) - (config.segmentSize.x / 2) + config.viewXoffset;
-			parms.y = newviewy + (viewsizey/2) - (config.segmentSize.y / 2) + config.viewYoffset;
+			int screenx, screeny, screenz;
+			ScreenToPoint(config.screenWidth/2, config.screenHeight/2, screenx, screeny, screenz);
+			parms.x = newviewx + (viewsizex/2) - screenx + config.viewXoffset;
+			parms.y = newviewy + (viewsizey/2) - screeny + config.viewYoffset;
 			parms.z = newviewz + config.viewZoffset + 1;       
 		}
 		else

@@ -173,18 +173,19 @@ ALLEGRO_COLOR getDayShade(int hour, int tick)
 
 void ScreenToPoint(int x,int y,int &x1, int &y1, int &z1)
 { //assume z of 0
-	x-=al_get_bitmap_width(al_get_target_bitmap()) / 2;
-	y-=al_get_bitmap_height(al_get_target_bitmap()) / 2;
+	x-=config.screenWidth / 2;
+	y-=config.screenHeight / 2;
 	x/=config.scale;
 	y/=config.scale;
-	x+=al_get_bitmap_width(al_get_target_bitmap()) / 2;
-	y+=al_get_bitmap_height(al_get_target_bitmap()) / 2;	x-=TILEWIDTH/2;
+	x+=config.screenWidth / 2;
+	y+=config.screenHeight / 2;
+	x-=TILEWIDTH/2;
 	y+=TILEWIDTH/2;
 	z1 = -3;
 	y+= z1*BLOCKHEIGHT/2;
 	//y-=BLOCKHEIGHT;
 	x+=TILEWIDTH>>1;
-	int offx = al_get_bitmap_width(al_get_target_bitmap()) /2;
+	int offx = config.screenWidth /2;
 	int offy = (-20)-(BLOCKHEIGHT * config.lift_segment_offscreen);
 	y-=offy;
 	x-=offx;
@@ -1331,8 +1332,8 @@ void draw_particle_cloud(int count, float centerX, float centerY, float rangeX, 
 {
 	for(int i = 0;i < count;i++)
 	{
-		float drawx = centerX + ((((float)rand() / RAND_MAX) - 0.5) * rangeX);
-		float drawy = centerY + ((((float)rand() / RAND_MAX) - 0.5) * rangeY);
+		float drawx = centerX + ((((float)rand() / RAND_MAX) - 0.5) * rangeX * config.scale);
+		float drawy = centerY + ((((float)rand() / RAND_MAX) - 0.5) * rangeY * config.scale);
 		al_draw_tinted_bitmap(sprite, tint, drawx, drawy, 0);
 	}
 }
