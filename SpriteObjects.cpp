@@ -5,6 +5,7 @@
 #include "WorldSegment.h"
 #include "SpriteColors.h"
 #include "SpriteMaps.h"
+#include <cmath>
 
 #define ALL_BORDERS 255
 
@@ -239,7 +240,7 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
 	if (scaleStr != NULL && scaleStr[0] != 0)
 	{
 		int scalev=atoi(scaleStr);
-		spritescale=pow(2.0f,(float)scalev);
+		spritescale=std::pow(2.0f,(float)scalev);
 	}
 	//load files, if any
 	const char* filename = elemSprite->Attribute("file");
