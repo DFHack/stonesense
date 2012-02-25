@@ -504,8 +504,8 @@ static void * stonesense_thread(ALLEGRO_THREAD * thred, void * parms)
 	SetTitle("Stonesense");
 
 	if(config.software)
-		al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP|ALLEGRO_ALPHA_TEST|ALLEGRO_MIN_LINEAR|ALLEGRO_MAG_LINEAR);
-	else al_set_new_bitmap_flags(ALLEGRO_MIN_LINEAR|ALLEGRO_MAG_LINEAR);
+		al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP|ALLEGRO_ALPHA_TEST|ALLEGRO_MIN_LINEAR|ALLEGRO_MAG_LINEAR|ALLEGRO_MIPMAP);
+	else al_set_new_bitmap_flags(ALLEGRO_MIN_LINEAR|ALLEGRO_MAG_LINEAR|ALLEGRO_MIPMAP);
 
     ALLEGRO_PATH * p = al_create_path("stonesense/stonesense.png");
     IMGIcon = load_bitmap_withWarning(al_path_cstr(p, ALLEGRO_NATIVE_PATH_SEP));
