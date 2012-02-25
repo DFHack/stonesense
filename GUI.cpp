@@ -254,9 +254,10 @@ void draw_textf_border(const ALLEGRO_FONT *font, ALLEGRO_COLOR color, float x, f
 	buf = al_ustr_new("");
 	al_ustr_vappendf(buf, format, arglist);
 	va_end(arglist);
-	draw_text_border(font, color, x, y, flags, al_cstr(buf));
+	draw_ustr_border(font, color, x, y, flags, buf);
 	al_ustr_free(buf);
 }
+
 void draw_ustr_border(const ALLEGRO_FONT *font, ALLEGRO_COLOR color, float x, float y, int flags, const ALLEGRO_USTR *ustr)
 {
 	int xx, yy, ww, hh;
@@ -268,6 +269,7 @@ void draw_ustr_border(const ALLEGRO_FONT *font, ALLEGRO_COLOR color, float x, fl
 	al_draw_filled_rectangle(x+xx, y+yy, x+xx+ww, y+yy+hh, al_map_rgba_f(0.0,0.0,0.0,0.75));
 	al_draw_ustr(font, color, x, y, flags, ustr);
 }
+
 void pointToScreen(int *inx, int *iny, int inz){
 	int offx = al_get_bitmap_width(al_get_target_bitmap()) / 2;
 	int offy = (-20)-(BLOCKHEIGHT * config.lift_segment_offscreen);
@@ -543,7 +545,7 @@ void drawDebugCursorAndInfo(){
 	if(b->building.info.type != BUILDINGTYPE_BLACKBOX)
 	{
 		draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0,
-			"Temp1: %dU, %.2f'C, %d'F", b->temp1, (float)(b->temp1-10000)*5/9, b->temp1-9968);
+			"Temp1: %dU, %.2f'C, %d'F", b->temp1, (float)(b->temp1-10000)*5.0f/9.0f, b->temp1-9968);
 	}
 	if(b->snowlevel || b->mudlevel || b->bloodlevel)
 	{
