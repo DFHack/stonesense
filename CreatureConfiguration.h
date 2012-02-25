@@ -20,9 +20,10 @@ public:
 	int shadow;
 	enumCreatureSpecialCases special;
 	uint8_t sex;
+	int caste;
 
 	CreatureConfiguration(){}
-	CreatureConfiguration(int professionID, const char* professionStr, uint8_t sex, enumCreatureSpecialCases special, c_sprite &sprite, int shadow);
+	CreatureConfiguration(int professionID, const char* professionStr, uint8_t sex, int caste, enumCreatureSpecialCases special, c_sprite &sprite, int shadow);
 	~CreatureConfiguration(void);
 };
 

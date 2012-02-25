@@ -5,398 +5,398 @@
     <subsprite sheetIndex="44" />
 	<subsprite sheetIndex="45" />
 
-    <variant prof="MINER" sex="M" sheetIndex="40" color="bodypart" bodypart="skin" >
+    <variant prof="MINER" caste="MALE" sheetIndex="40" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="42" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="46" />
     </variant>
-    <variant prof="WOODWORKER" sex="M" sheetIndex="40" color="bodypart" bodypart="skin" >
+    <variant prof="WOODWORKER" caste="MALE" sheetIndex="40" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="42" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="47" />
     </variant>
-    <variant prof="CARPENTER" sex="M" sheetIndex="40" color="bodypart" bodypart="skin" >
+    <variant prof="CARPENTER" caste="MALE" sheetIndex="40" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="42" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="47" />
     </variant>
-    <variant prof="BOWYER" sex="M" sheetIndex="40" color="bodypart" bodypart="skin" >
+    <variant prof="BOWYER" caste="MALE" sheetIndex="40" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="42" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="47" />
     </variant>
-    <variant prof="WOODCUTTER" sex="M" sheetIndex="40" color="bodypart" bodypart="skin" >
+    <variant prof="WOODCUTTER" caste="MALE" sheetIndex="40" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="42" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="47" />
     </variant>
-    <variant prof="STONEWORKER" sex="M" sheetIndex="40" color="bodypart" bodypart="skin" >
+    <variant prof="STONEWORKER" caste="MALE" sheetIndex="40" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="42" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="48" />
     </variant>
-    <variant prof="ENGRAVER" sex="M" sheetIndex="40" color="bodypart" bodypart="skin" >
+    <variant prof="ENGRAVER" caste="MALE" sheetIndex="40" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="42" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="48" />
     </variant>
-    <variant prof="MASON" sex="M" sheetIndex="40" color="bodypart" bodypart="skin" >
+    <variant prof="MASON" caste="MALE" sheetIndex="40" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="42" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="48" />
     </variant>
-    <variant prof="RANGER" sex="M" sheetIndex="40" color="bodypart" bodypart="skin" >
+    <variant prof="RANGER" caste="MALE" sheetIndex="40" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="42" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="49" />
     </variant>
-    <variant prof="ANIMAL_CARETAKER" sex="M" sheetIndex="40" color="bodypart" bodypart="skin" >
+    <variant prof="ANIMAL_CARETAKER" caste="MALE" sheetIndex="40" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="42" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="49" />
     </variant>
-    <variant prof="ANIMAL_TRAINER" sex="M" sheetIndex="40" color="bodypart" bodypart="skin" >
+    <variant prof="ANIMAL_TRAINER" caste="MALE" sheetIndex="40" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="42" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="49" />
     </variant>
-    <variant prof="HUNTER" sex="M" sheetIndex="40" color="bodypart" bodypart="skin" >
+    <variant prof="HUNTER" caste="MALE" sheetIndex="40" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="42" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="49" />
     </variant>
-    <variant prof="TRAPPER" sex="M" sheetIndex="40" color="bodypart" bodypart="skin" >
+    <variant prof="TRAPPER" caste="MALE" sheetIndex="40" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="42" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="49" />
     </variant>
-    <variant prof="ANIMAL_DISSECTOR" sex="M" sheetIndex="40" color="bodypart" bodypart="skin" >
+    <variant prof="ANIMAL_DISSECTOR" caste="MALE" sheetIndex="40" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="42" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="49" />
     </variant>
-    <variant prof="METALSMITH" sex="M" sheetIndex="40" color="bodypart" bodypart="skin" >
+    <variant prof="METALSMITH" caste="MALE" sheetIndex="40" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="43" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="50" />
     </variant>
-    <variant prof="FURNACE_OPERATOR" sex="M" sheetIndex="40" color="bodypart" bodypart="skin" >
+    <variant prof="FURNACE_OPERATOR" caste="MALE" sheetIndex="40" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="43" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="50" />
     </variant>
-    <variant prof="WEAPONSMITH" sex="M" sheetIndex="40" color="bodypart" bodypart="skin" >
+    <variant prof="WEAPONSMITH" caste="MALE" sheetIndex="40" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="43" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="50" />
     </variant>
-    <variant prof="ARMORER" sex="M" sheetIndex="40" color="bodypart" bodypart="skin" >
+    <variant prof="ARMORER" caste="MALE" sheetIndex="40" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="43" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="50" />
     </variant>
-    <variant prof="BLACKSMITH" sex="M" sheetIndex="40" color="bodypart" bodypart="skin" >
+    <variant prof="BLACKSMITH" caste="MALE" sheetIndex="40" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="43" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="50" />
     </variant>
-    <variant prof="METALCRAFTER" sex="M" sheetIndex="40" color="bodypart" bodypart="skin" >
+    <variant prof="METALCRAFTER" caste="MALE" sheetIndex="40" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="43" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="50" />
     </variant>
-    <variant prof="JEWELER" sex="M" sheetIndex="40" color="bodypart" bodypart="skin" >
+    <variant prof="JEWELER" caste="MALE" sheetIndex="40" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="42" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="51" />
     </variant>
-    <variant prof="GEM_CUTTER" sex="M" sheetIndex="40" color="bodypart" bodypart="skin" >
+    <variant prof="GEM_CUTTER" caste="MALE" sheetIndex="40" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="42" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="51" />
     </variant>
-    <variant prof="GEM_SETTER" sex="M" sheetIndex="40" color="bodypart" bodypart="skin" >
+    <variant prof="GEM_SETTER" caste="MALE" sheetIndex="40" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="42" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="51" />
     </variant>
-    <variant prof="CRAFTSMAN" sex="M" sheetIndex="40" color="bodypart" bodypart="skin" >
+    <variant prof="CRAFTSMAN" caste="MALE" sheetIndex="40" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="42" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="52" />
     </variant>
-    <variant prof="WOODCRAFTER" sex="M" sheetIndex="40" color="bodypart" bodypart="skin" >
+    <variant prof="WOODCRAFTER" caste="MALE" sheetIndex="40" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="42" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="52" />
     </variant>
-    <variant prof="STONECRAFTER" sex="M" sheetIndex="40" color="bodypart" bodypart="skin" >
+    <variant prof="STONECRAFTER" caste="MALE" sheetIndex="40" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="42" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="52" />
     </variant>
-    <variant prof="LEATHERWORKER" sex="M" sheetIndex="40" color="bodypart" bodypart="skin" >
+    <variant prof="LEATHERWORKER" caste="MALE" sheetIndex="40" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="42" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="52" />
     </variant>
-    <variant prof="BONE_CARVER" sex="M" sheetIndex="40" color="bodypart" bodypart="skin" >
+    <variant prof="BONE_CARVER" caste="MALE" sheetIndex="40" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="42" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="52" />
     </variant>
-    <variant prof="WEAVER" sex="M" sheetIndex="40" color="bodypart" bodypart="skin" >
+    <variant prof="WEAVER" caste="MALE" sheetIndex="40" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="42" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="52" />
     </variant>
-    <variant prof="CLOTHIER" sex="M" sheetIndex="40" color="bodypart" bodypart="skin" >
+    <variant prof="CLOTHIER" caste="MALE" sheetIndex="40" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="42" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="52" />
     </variant>
-    <variant prof="GLASSMAKER" sex="M" sheetIndex="40" color="bodypart" bodypart="skin" >
+    <variant prof="GLASSMAKER" caste="MALE" sheetIndex="40" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="42" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="52" />
     </variant>
-    <variant prof="STRAND_EXTRACTOR" sex="M" sheetIndex="40" color="bodypart" bodypart="skin" >
+    <variant prof="STRAND_EXTRACTOR" caste="MALE" sheetIndex="40" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="42" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="52" />
     </variant>
-    <variant prof="FISHERY_WORKER" sex="M" sheetIndex="41" color="bodypart" bodypart="skin" >
+    <variant prof="FISHERY_WORKER" caste="MALE" sheetIndex="41" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="42" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="53" />
     </variant>
-    <variant prof="FISHERMAN" sex="M" sheetIndex="41" color="bodypart" bodypart="skin" >
+    <variant prof="FISHERMAN" caste="MALE" sheetIndex="41" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="42" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="53" />
     </variant>
-    <variant prof="FISH_DISSECTOR" sex="M" sheetIndex="41" color="bodypart" bodypart="skin" >
+    <variant prof="FISH_DISSECTOR" caste="MALE" sheetIndex="41" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="42" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="53" />
     </variant>
-    <variant prof="FISH_CLEANER" sex="M" sheetIndex="41" color="bodypart" bodypart="skin" >
+    <variant prof="FISH_CLEANER" caste="MALE" sheetIndex="41" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="42" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="53" />
     </variant>
-    <variant prof="FARMER" sex="M" sheetIndex="40" color="bodypart" bodypart="skin" >
+    <variant prof="FARMER" caste="MALE" sheetIndex="40" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="42" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="54" />
     </variant>
-    <variant prof="CHEESE_MAKER" sex="M" sheetIndex="40" color="bodypart" bodypart="skin" >
+    <variant prof="CHEESE_MAKER" caste="MALE" sheetIndex="40" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="42" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="54" />
     </variant>
-    <variant prof="MILKER" sex="M" sheetIndex="40" color="bodypart" bodypart="skin" >
+    <variant prof="MILKER" caste="MALE" sheetIndex="40" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="42" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="54" />
     </variant>
-    <variant prof="COOK" sex="M" sheetIndex="40" color="bodypart" bodypart="skin" >
+    <variant prof="COOK" caste="MALE" sheetIndex="40" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="42" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="54" />
     </variant>
-    <variant prof="THRESHER" sex="M" sheetIndex="40" color="bodypart" bodypart="skin" >
+    <variant prof="THRESHER" caste="MALE" sheetIndex="40" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="42" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="54" />
     </variant>
-    <variant prof="MILLER" sex="M" sheetIndex="40" color="bodypart" bodypart="skin" >
+    <variant prof="MILLER" caste="MALE" sheetIndex="40" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="42" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="54" />
     </variant>
-    <variant prof="BUTCHER" sex="M" sheetIndex="40" color="bodypart" bodypart="skin" >
+    <variant prof="BUTCHER" caste="MALE" sheetIndex="40" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="42" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="54" />
     </variant>
-    <variant prof="TANNER" sex="M" sheetIndex="40" color="bodypart" bodypart="skin" >
+    <variant prof="TANNER" caste="MALE" sheetIndex="40" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="42" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="54" />
     </variant>
-    <variant prof="DYER" sex="M" sheetIndex="40" color="bodypart" bodypart="skin" >
+    <variant prof="DYER" caste="MALE" sheetIndex="40" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="42" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="54" />
     </variant>
-    <variant prof="PLANTER" sex="M" sheetIndex="40" color="bodypart" bodypart="skin" >
+    <variant prof="PLANTER" caste="MALE" sheetIndex="40" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="42" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="54" />
     </variant>
-    <variant prof="HERBALIST" sex="M" sheetIndex="40" color="bodypart" bodypart="skin" >
+    <variant prof="HERBALIST" caste="MALE" sheetIndex="40" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="42" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="54" />
     </variant>
-    <variant prof="BREWER" sex="M" sheetIndex="40" color="bodypart" bodypart="skin" >
+    <variant prof="BREWER" caste="MALE" sheetIndex="40" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="42" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="54" />
     </variant>
-    <variant prof="SOAP_MAKER" sex="M" sheetIndex="40" color="bodypart" bodypart="skin" >
+    <variant prof="SOAP_MAKER" caste="MALE" sheetIndex="40" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="42" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="54" />
     </variant>
-    <variant prof="POTASH_MAKER" sex="M" sheetIndex="40" color="bodypart" bodypart="skin" >
+    <variant prof="POTASH_MAKER" caste="MALE" sheetIndex="40" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="42" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="54" />
     </variant>
-    <variant prof="LYE_MAKER" sex="M" sheetIndex="40" color="bodypart" bodypart="skin" >
+    <variant prof="LYE_MAKER" caste="MALE" sheetIndex="40" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="42" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="54" />
     </variant>
-    <variant prof="WOOD_BURNER" sex="M" sheetIndex="40" color="bodypart" bodypart="skin" >
+    <variant prof="WOOD_BURNER" caste="MALE" sheetIndex="40" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="42" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="54" />
     </variant>
-    <variant prof="ENGINEER" sex="M" sheetIndex="40" color="bodypart" bodypart="skin" >
+    <variant prof="ENGINEER" caste="MALE" sheetIndex="40" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="42" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="55" />
     </variant>
-    <variant prof="MECHANIC" sex="M" sheetIndex="40" color="bodypart" bodypart="skin" >
+    <variant prof="MECHANIC" caste="MALE" sheetIndex="40" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="42" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="55" />
     </variant>
-    <variant prof="SIEGE_ENGINEER" sex="M" sheetIndex="40" color="bodypart" bodypart="skin" >
+    <variant prof="SIEGE_ENGINEER" caste="MALE" sheetIndex="40" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="42" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="55" />
     </variant>
-    <variant prof="SIEGE_OPERATOR" sex="M" sheetIndex="40" color="bodypart" bodypart="skin" >
+    <variant prof="SIEGE_OPERATOR" caste="MALE" sheetIndex="40" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="42" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="55" />
     </variant>
-    <variant prof="PUMP_OPERATOR" sex="M" sheetIndex="40" color="bodypart" bodypart="skin" >
+    <variant prof="PUMP_OPERATOR" caste="MALE" sheetIndex="40" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="42" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="55" />
     </variant>
 
-    <variant prof="HAMMERMAN" sex="M" sheetIndex="61" color="bodypart" bodypart="skin" >
+    <variant prof="HAMMERMAN" caste="MALE" sheetIndex="61" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="42" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="65" />
     </variant>
-    <variant prof="MASTER_HAMMERMAN" sex="M" sheetIndex="61" color="bodypart" bodypart="skin" >
+    <variant prof="MASTER_HAMMERMAN" caste="MALE" sheetIndex="61" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="42" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="66" />
     </variant>
-    <variant prof="SPEARMAN" sex="M" sheetIndex="61" color="bodypart" bodypart="skin" >
+    <variant prof="SPEARMAN" caste="MALE" sheetIndex="61" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="42" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="67" />
     </variant>
-    <variant prof="MASTER_SPEARMAN" sex="M" sheetIndex="61" color="bodypart" bodypart="skin" >
+    <variant prof="MASTER_SPEARMAN" caste="MALE" sheetIndex="61" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="42" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="68" />
     </variant>
-    <variant prof="CROSSBOWMAN" sex="M" sheetIndex="61" color="bodypart" bodypart="skin" >
+    <variant prof="CROSSBOWMAN" caste="MALE" sheetIndex="61" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="42" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="69" />
     </variant>
-    <variant prof="MASTER_CROSSBOWMAN" sex="M" sheetIndex="61" color="bodypart" bodypart="skin" >
+    <variant prof="MASTER_CROSSBOWMAN" caste="MALE" sheetIndex="61" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="42" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="70" />
     </variant>
-    <variant prof="WRESTLER" sex="M" sheetIndex="60" color="bodypart" bodypart="skin" >
+    <variant prof="WRESTLER" caste="MALE" sheetIndex="60" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="42" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="71" />
     </variant>
-    <variant prof="MASTER_WRESTLER" sex="M" sheetIndex="60" color="bodypart" bodypart="skin" >
+    <variant prof="MASTER_WRESTLER" caste="MALE" sheetIndex="60" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="42" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="72" />
     </variant>
-    <variant prof="AXEMAN" sex="M" sheetIndex="61" color="bodypart" bodypart="skin" >
+    <variant prof="AXEMAN" caste="MALE" sheetIndex="61" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="42" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="73" />
     </variant>
-    <variant prof="MASTER_AXEMAN" sex="M" sheetIndex="61" color="bodypart" bodypart="skin" >
+    <variant prof="MASTER_AXEMAN" caste="MALE" sheetIndex="61" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="42" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="74" />
     </variant>
-    <variant prof="SWORDSMAN" sex="M" sheetIndex="60" color="bodypart" bodypart="skin" >
+    <variant prof="SWORDSMAN" caste="MALE" sheetIndex="60" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="42" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="75" />
     </variant>
-    <variant prof="MASTER_SWORDSMAN" sex="M" sheetIndex="60" color="bodypart" bodypart="skin" >
+    <variant prof="MASTER_SWORDSMAN" caste="MALE" sheetIndex="60" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="42" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="76" />
     </variant>
-    <variant prof="MACEMAN" sex="M" sheetIndex="62" color="bodypart" bodypart="skin" >
+    <variant prof="MACEMAN" caste="MALE" sheetIndex="62" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="42" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="77" />
     </variant>
-    <variant prof="MASTER_MACEMAN" sex="M" sheetIndex="62" color="bodypart" bodypart="skin" >
+    <variant prof="MASTER_MACEMAN" caste="MALE" sheetIndex="62" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="42" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="78" />
     </variant>
-    <variant prof="PIKEMAN" sex="M" sheetIndex="61" color="bodypart" bodypart="skin" >
+    <variant prof="PIKEMAN" caste="MALE" sheetIndex="61" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="42" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="67" />
     </variant>
-    <variant prof="MASTER_PIKEMAN" sex="M" sheetIndex="61" color="bodypart" bodypart="skin" >
+    <variant prof="MASTER_PIKEMAN" caste="MALE" sheetIndex="61" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="42" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="68" />
     </variant>
-    <variant prof="BOWMAN" sex="M" sheetIndex="61" color="bodypart" bodypart="skin" >
+    <variant prof="BOWMAN" caste="MALE" sheetIndex="61" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="42" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="69" />
     </variant>
-    <variant prof="MASTER_BOWMAN" sex="M" sheetIndex="61" color="bodypart" bodypart="skin" >
+    <variant prof="MASTER_BOWMAN" caste="MALE" sheetIndex="61" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="42" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="70" />
     </variant>
-    <variant prof="BLOWGUNMAN" sex="M" sheetIndex="61" color="bodypart" bodypart="skin" >
+    <variant prof="BLOWGUNMAN" caste="MALE" sheetIndex="61" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="42" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="69" />
     </variant>
-    <variant prof="MASTER_BLOWGUNMAN" sex="M" sheetIndex="61" color="bodypart" bodypart="skin" >
+    <variant prof="MASTER_BLOWGUNMAN" caste="MALE" sheetIndex="61" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="42" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="70" />
     </variant>
-    <variant prof="LASHER" sex="M" sheetIndex="60" color="bodypart" bodypart="skin" >
+    <variant prof="LASHER" caste="MALE" sheetIndex="60" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="42" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="71" />
     </variant>
-    <variant prof="MASTER_LASHER" sex="M" sheetIndex="60" color="bodypart" bodypart="skin" >
+    <variant prof="MASTER_LASHER" caste="MALE" sheetIndex="60" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="42" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="44" />
 	  <subsprite sheetIndex="72" />
@@ -414,404 +414,404 @@
     </variant>
 
 	
-    <variant prof="MINER" sex="F" sheetIndex="0" color="bodypart" bodypart="skin" >
+    <variant prof="MINER" caste="FEMALE" sheetIndex="0" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="2" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="6" />
     </variant>
-    <variant prof="WOODWORKER" sex="F" sheetIndex="0" color="bodypart" bodypart="skin" >
+    <variant prof="WOODWORKER" caste="FEMALE" sheetIndex="0" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="3" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="7" />
     </variant>
-    <variant prof="CARPENTER" sex="F" sheetIndex="0" color="bodypart" bodypart="skin" >
+    <variant prof="CARPENTER" caste="FEMALE" sheetIndex="0" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="3" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="7" />
     </variant>
-    <variant prof="BOWYER" sex="F" sheetIndex="0" color="bodypart" bodypart="skin" >
+    <variant prof="BOWYER" caste="FEMALE" sheetIndex="0" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="3" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="7" />
     </variant>
-    <variant prof="WOODCUTTER" sex="F" sheetIndex="0" color="bodypart" bodypart="skin" >
+    <variant prof="WOODCUTTER" caste="FEMALE" sheetIndex="0" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="3" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="7" />
     </variant>
-    <variant prof="STONEWORKER" sex="F" sheetIndex="0" color="bodypart" bodypart="skin" >
+    <variant prof="STONEWORKER" caste="FEMALE" sheetIndex="0" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="2" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="8" />
     </variant>
-    <variant prof="ENGRAVER" sex="F" sheetIndex="0" color="bodypart" bodypart="skin" >
+    <variant prof="ENGRAVER" caste="FEMALE" sheetIndex="0" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="2" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="8" />
     </variant>
-    <variant prof="MASON" sex="F" sheetIndex="0" color="bodypart" bodypart="skin" >
+    <variant prof="MASON" caste="FEMALE" sheetIndex="0" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="2" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="8" />
     </variant>
-    <variant prof="RANGER" sex="F" sheetIndex="0" color="bodypart" bodypart="skin" >
+    <variant prof="RANGER" caste="FEMALE" sheetIndex="0" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="2" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="9" />
     </variant>
-    <variant prof="ANIMAL_CARETAKER" sex="F" sheetIndex="0" color="bodypart" bodypart="skin" >
+    <variant prof="ANIMAL_CARETAKER" caste="FEMALE" sheetIndex="0" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="2" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="9" />
     </variant>
-    <variant prof="ANIMAL_TRAINER" sex="F" sheetIndex="0" color="bodypart" bodypart="skin" >
+    <variant prof="ANIMAL_TRAINER" caste="FEMALE" sheetIndex="0" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="2" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="9" />
     </variant>
-    <variant prof="HUNTER" sex="F" sheetIndex="0" color="bodypart" bodypart="skin" >
+    <variant prof="HUNTER" caste="FEMALE" sheetIndex="0" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="2" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="9" />
     </variant>
-    <variant prof="TRAPPER" sex="F" sheetIndex="0" color="bodypart" bodypart="skin" >
+    <variant prof="TRAPPER" caste="FEMALE" sheetIndex="0" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="2" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="9" />
     </variant>
-    <variant prof="ANIMAL_DISSECTOR" sex="F" sheetIndex="0" color="bodypart" bodypart="skin" >
+    <variant prof="ANIMAL_DISSECTOR" caste="FEMALE" sheetIndex="0" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="2" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="9" />
     </variant>
-    <variant prof="METALSMITH" sex="F" sheetIndex="0" color="bodypart" bodypart="skin" >
+    <variant prof="METALSMITH" caste="FEMALE" sheetIndex="0" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="3" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="10" />
     </variant>
-    <variant prof="FURNACE_OPERATOR" sex="F" sheetIndex="0" color="bodypart" bodypart="skin" >
+    <variant prof="FURNACE_OPERATOR" caste="FEMALE" sheetIndex="0" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="3" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="10" />
     </variant>
-    <variant prof="WEAPONSMITH" sex="F" sheetIndex="0" color="bodypart" bodypart="skin" >
+    <variant prof="WEAPONSMITH" caste="FEMALE" sheetIndex="0" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="3" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="10" />
     </variant>
-    <variant prof="ARMORER" sex="F" sheetIndex="0" color="bodypart" bodypart="skin" >
+    <variant prof="ARMORER" caste="FEMALE" sheetIndex="0" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="3" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="10" />
     </variant>
-    <variant prof="BLACKSMITH" sex="F" sheetIndex="0" color="bodypart" bodypart="skin" >
+    <variant prof="BLACKSMITH" caste="FEMALE" sheetIndex="0" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="3" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="10" />
     </variant>
-    <variant prof="METALCRAFTER" sex="F" sheetIndex="0" color="bodypart" bodypart="skin" >
+    <variant prof="METALCRAFTER" caste="FEMALE" sheetIndex="0" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="3" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="10" />
     </variant>
-    <variant prof="JEWELER" sex="F" sheetIndex="0" color="bodypart" bodypart="skin" >
+    <variant prof="JEWELER" caste="FEMALE" sheetIndex="0" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="2" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="11" />
     </variant>
-    <variant prof="GEM_CUTTER" sex="F" sheetIndex="0" color="bodypart" bodypart="skin" >
+    <variant prof="GEM_CUTTER" caste="FEMALE" sheetIndex="0" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="2" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="11" />
     </variant>
-    <variant prof="GEM_SETTER" sex="F" sheetIndex="0" color="bodypart" bodypart="skin" >
+    <variant prof="GEM_SETTER" caste="FEMALE" sheetIndex="0" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="2" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="11" />
     </variant>
-    <variant prof="CRAFTSMAN" sex="F" sheetIndex="0" color="bodypart" bodypart="skin" >
+    <variant prof="CRAFTSMAN" caste="FEMALE" sheetIndex="0" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="2" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="12" />
     </variant>
-    <variant prof="WOODCRAFTER" sex="F" sheetIndex="0" color="bodypart" bodypart="skin" >
+    <variant prof="WOODCRAFTER" caste="FEMALE" sheetIndex="0" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="2" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="12" />
     </variant>
-    <variant prof="STONECRAFTER" sex="F" sheetIndex="0" color="bodypart" bodypart="skin" >
+    <variant prof="STONECRAFTER" caste="FEMALE" sheetIndex="0" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="2" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="12" />
     </variant>
-    <variant prof="LEATHERWORKER" sex="F" sheetIndex="0" color="bodypart" bodypart="skin" >
+    <variant prof="LEATHERWORKER" caste="FEMALE" sheetIndex="0" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="2" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="12" />
     </variant>
-    <variant prof="BONE_CARVER" sex="F" sheetIndex="0" color="bodypart" bodypart="skin" >
+    <variant prof="BONE_CARVER" caste="FEMALE" sheetIndex="0" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="2" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="12" />
     </variant>
-    <variant prof="WEAVER" sex="F" sheetIndex="0" color="bodypart" bodypart="skin" >
+    <variant prof="WEAVER" caste="FEMALE" sheetIndex="0" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="2" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="12" />
     </variant>
-    <variant prof="CLOTHIER" sex="F" sheetIndex="0" color="bodypart" bodypart="skin" >
+    <variant prof="CLOTHIER" caste="FEMALE" sheetIndex="0" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="2" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="12" />
     </variant>
-    <variant prof="GLASSMAKER" sex="F" sheetIndex="0" color="bodypart" bodypart="skin" >
+    <variant prof="GLASSMAKER" caste="FEMALE" sheetIndex="0" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="2" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="12" />
     </variant>
-    <variant prof="STRAND_EXTRACTOR" sex="F" sheetIndex="0" color="bodypart" bodypart="skin" >
+    <variant prof="STRAND_EXTRACTOR" caste="FEMALE" sheetIndex="0" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="2" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="12" />
     </variant>
-    <variant prof="FISHERY_WORKER" sex="F" sheetIndex="1" color="bodypart" bodypart="skin" >
+    <variant prof="FISHERY_WORKER" caste="FEMALE" sheetIndex="1" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="2" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="13" />
     </variant>
-    <variant prof="FISHERMAN" sex="F" sheetIndex="1" color="bodypart" bodypart="skin" >
+    <variant prof="FISHERMAN" caste="FEMALE" sheetIndex="1" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="2" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="13" />
     </variant>
-    <variant prof="FISH_DISSECTOR" sex="F" sheetIndex="1" color="bodypart" bodypart="skin" >
+    <variant prof="FISH_DISSECTOR" caste="FEMALE" sheetIndex="1" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="2" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="13" />
     </variant>
-    <variant prof="FISH_CLEANER" sex="F" sheetIndex="1" color="bodypart" bodypart="skin" >
+    <variant prof="FISH_CLEANER" caste="FEMALE" sheetIndex="1" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="2" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="13" />
     </variant>
-    <variant prof="FARMER" sex="F" sheetIndex="0" color="bodypart" bodypart="skin" >
+    <variant prof="FARMER" caste="FEMALE" sheetIndex="0" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="2" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="14" />
     </variant>
-    <variant prof="CHEESE_MAKER" sex="F" sheetIndex="0" color="bodypart" bodypart="skin" >
+    <variant prof="CHEESE_MAKER" caste="FEMALE" sheetIndex="0" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="2" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="14" />
     </variant>
-    <variant prof="MILKER" sex="F" sheetIndex="0" color="bodypart" bodypart="skin" >
+    <variant prof="MILKER" caste="FEMALE" sheetIndex="0" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="2" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="14" />
     </variant>
-    <variant prof="COOK" sex="F" sheetIndex="0" color="bodypart" bodypart="skin" >
+    <variant prof="COOK" caste="FEMALE" sheetIndex="0" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="2" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="14" />
     </variant>
-    <variant prof="THRESHER" sex="F" sheetIndex="0" color="bodypart" bodypart="skin" >
+    <variant prof="THRESHER" caste="FEMALE" sheetIndex="0" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="2" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="14" />
     </variant>
-    <variant prof="MILLER" sex="F" sheetIndex="0" color="bodypart" bodypart="skin" >
+    <variant prof="MILLER" caste="FEMALE" sheetIndex="0" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="2" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="14" />
     </variant>
-    <variant prof="BUTCHER" sex="F" sheetIndex="0" color="bodypart" bodypart="skin" >
+    <variant prof="BUTCHER" caste="FEMALE" sheetIndex="0" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="2" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="14" />
     </variant>
-    <variant prof="TANNER" sex="F" sheetIndex="0" color="bodypart" bodypart="skin" >
+    <variant prof="TANNER" caste="FEMALE" sheetIndex="0" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="2" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="14" />
     </variant>
-    <variant prof="DYER" sex="F" sheetIndex="0" color="bodypart" bodypart="skin" >
+    <variant prof="DYER" caste="FEMALE" sheetIndex="0" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="2" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="14" />
     </variant>
-    <variant prof="PLANTER" sex="F" sheetIndex="0" color="bodypart" bodypart="skin" >
+    <variant prof="PLANTER" caste="FEMALE" sheetIndex="0" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="2" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="14" />
     </variant>
-    <variant prof="HERBALIST" sex="F" sheetIndex="0" color="bodypart" bodypart="skin" >
+    <variant prof="HERBALIST" caste="FEMALE" sheetIndex="0" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="2" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="14" />
     </variant>
-    <variant prof="BREWER" sex="F" sheetIndex="0" color="bodypart" bodypart="skin" >
+    <variant prof="BREWER" caste="FEMALE" sheetIndex="0" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="2" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="14" />
     </variant>
-    <variant prof="SOAP_MAKER" sex="F" sheetIndex="0" color="bodypart" bodypart="skin" >
+    <variant prof="SOAP_MAKER" caste="FEMALE" sheetIndex="0" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="2" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="14" />
     </variant>
-    <variant prof="POTASH_MAKER" sex="F" sheetIndex="0" color="bodypart" bodypart="skin" >
+    <variant prof="POTASH_MAKER" caste="FEMALE" sheetIndex="0" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="2" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="14" />
     </variant>
-    <variant prof="LYE_MAKER" sex="F" sheetIndex="0" color="bodypart" bodypart="skin" >
+    <variant prof="LYE_MAKER" caste="FEMALE" sheetIndex="0" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="2" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="14" />
     </variant>
-    <variant prof="WOOD_BURNER" sex="F" sheetIndex="0" color="bodypart" bodypart="skin" >
+    <variant prof="WOOD_BURNER" caste="FEMALE" sheetIndex="0" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="2" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="14" />
     </variant>
-    <variant prof="ENGINEER" sex="F" sheetIndex="0" color="bodypart" bodypart="skin" >
+    <variant prof="ENGINEER" caste="FEMALE" sheetIndex="0" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="3" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="15" />
     </variant>
-    <variant prof="MECHANIC" sex="F" sheetIndex="0" color="bodypart" bodypart="skin" >
+    <variant prof="MECHANIC" caste="FEMALE" sheetIndex="0" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="3" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="15" />
     </variant>
-    <variant prof="SIEGE_ENGINEER" sex="F" sheetIndex="0" color="bodypart" bodypart="skin" >
+    <variant prof="SIEGE_ENGINEER" caste="FEMALE" sheetIndex="0" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="3" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="15" />
     </variant>
-    <variant prof="SIEGE_OPERATOR" sex="F" sheetIndex="0" color="bodypart" bodypart="skin" >
+    <variant prof="SIEGE_OPERATOR" caste="FEMALE" sheetIndex="0" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="3" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="15" />
     </variant>
-    <variant prof="PUMP_OPERATOR" sex="F" sheetIndex="0" color="bodypart" bodypart="skin" >
+    <variant prof="PUMP_OPERATOR" caste="FEMALE" sheetIndex="0" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="3" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="15" />
     </variant>
 
-    <variant prof="HAMMERMAN" sex="F" sheetIndex="21" color="bodypart" bodypart="skin" >
+    <variant prof="HAMMERMAN" caste="FEMALE" sheetIndex="21" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="2" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="25" />
     </variant>
-    <variant prof="MASTER_HAMMERMAN" sex="F" sheetIndex="21" color="bodypart" bodypart="skin" >
+    <variant prof="MASTER_HAMMERMAN" caste="FEMALE" sheetIndex="21" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="2" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="26" />
     </variant>
-    <variant prof="SPEARMAN" sex="F" sheetIndex="22" color="bodypart" bodypart="skin" >
+    <variant prof="SPEARMAN" caste="FEMALE" sheetIndex="22" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="2" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="27" />
     </variant>
-    <variant prof="MASTER_SPEARMAN" sex="F" sheetIndex="22" color="bodypart" bodypart="skin" >
+    <variant prof="MASTER_SPEARMAN" caste="FEMALE" sheetIndex="22" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="2" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="28" />
     </variant>
-    <variant prof="CROSSBOWMAN" sex="F" sheetIndex="21" color="bodypart" bodypart="skin" >
+    <variant prof="CROSSBOWMAN" caste="FEMALE" sheetIndex="21" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="2" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="29" />
     </variant>
-    <variant prof="MASTER_CROSSBOWMAN" sex="F" sheetIndex="21" color="bodypart" bodypart="skin" >
+    <variant prof="MASTER_CROSSBOWMAN" caste="FEMALE" sheetIndex="21" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="2" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="30" />
     </variant>
-    <variant prof="WRESTLER" sex="F" sheetIndex="20" color="bodypart" bodypart="skin" >
+    <variant prof="WRESTLER" caste="FEMALE" sheetIndex="20" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="2" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="31" />
     </variant>
-    <variant prof="MASTER_WRESTLER" sex="F" sheetIndex="20" color="bodypart" bodypart="skin" >
+    <variant prof="MASTER_WRESTLER" caste="FEMALE" sheetIndex="20" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="2" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="32" />
     </variant>
-    <variant prof="AXEMAN" sex="F" sheetIndex="21" color="bodypart" bodypart="skin" >
+    <variant prof="AXEMAN" caste="FEMALE" sheetIndex="21" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="2" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="33" />
     </variant>
-    <variant prof="MASTER_AXEMAN" sex="F" sheetIndex="21" color="bodypart" bodypart="skin" >
+    <variant prof="MASTER_AXEMAN" caste="FEMALE" sheetIndex="21" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="2" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="34" />
     </variant>
-    <variant prof="SWORDSMAN" sex="F" sheetIndex="20" color="bodypart" bodypart="skin" >
+    <variant prof="SWORDSMAN" caste="FEMALE" sheetIndex="20" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="2" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="35" />
     </variant>
-    <variant prof="MASTER_SWORDSMAN" sex="F" sheetIndex="20" color="bodypart" bodypart="skin" >
+    <variant prof="MASTER_SWORDSMAN" caste="FEMALE" sheetIndex="20" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="2" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="36" />
     </variant>
-    <variant prof="MACEMAN" sex="F" sheetIndex="21" color="bodypart" bodypart="skin" >
+    <variant prof="MACEMAN" caste="FEMALE" sheetIndex="21" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="2" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="37" />
     </variant>
-    <variant prof="MASTER_MACEMAN" sex="F" sheetIndex="21" color="bodypart" bodypart="skin" >
+    <variant prof="MASTER_MACEMAN" caste="FEMALE" sheetIndex="21" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="2" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="38" />
     </variant>
-    <variant prof="PIKEMAN" sex="F" sheetIndex="22" color="bodypart" bodypart="skin" >
+    <variant prof="PIKEMAN" caste="FEMALE" sheetIndex="22" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="2" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="27" />
     </variant>
-    <variant prof="MASTER_PIKEMAN" sex="F" sheetIndex="22" color="bodypart" bodypart="skin" >
+    <variant prof="MASTER_PIKEMAN" caste="FEMALE" sheetIndex="22" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="2" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="28" />
     </variant>
-    <variant prof="BOWMAN" sex="F" sheetIndex="21" color="bodypart" bodypart="skin" >
+    <variant prof="BOWMAN" caste="FEMALE" sheetIndex="21" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="2" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="29" />
     </variant>
-    <variant prof="MASTER_BOWMAN" sex="F" sheetIndex="21" color="bodypart" bodypart="skin" >
+    <variant prof="MASTER_BOWMAN" caste="FEMALE" sheetIndex="21" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="2" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="30" />
     </variant>
-    <variant prof="BLOWGUNMAN" sex="F" sheetIndex="21" color="bodypart" bodypart="skin" >
+    <variant prof="BLOWGUNMAN" caste="FEMALE" sheetIndex="21" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="2" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="29" />
     </variant>
-    <variant prof="MASTER_BLOWGUNMAN" sex="F" sheetIndex="21" color="bodypart" bodypart="skin" >
+    <variant prof="MASTER_BLOWGUNMAN" caste="FEMALE" sheetIndex="21" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="2" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="30" />
     </variant>
-    <variant prof="LASHER" sex="F" sheetIndex="20" color="bodypart" bodypart="skin" >
+    <variant prof="LASHER" caste="FEMALE" sheetIndex="20" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="2" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="31" />
     </variant>
-    <variant prof="MASTER_LASHER" sex="F" sheetIndex="20" color="bodypart" bodypart="skin" >
+    <variant prof="MASTER_LASHER" caste="FEMALE" sheetIndex="20" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="2" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="32" />
     </variant>
 	
-    <variant sex="F" sheetIndex="0" color="bodypart" bodypart="skin" >
+    <variant caste="FEMALE" sheetIndex="0" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="3" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
 	  <subsprite sheetIndex="5" />

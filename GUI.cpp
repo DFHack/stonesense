@@ -483,8 +483,9 @@ void drawDebugCursorAndInfo(){
 	if(b->creature != null){
 		if(!config.skipCreatureTypes)
 			draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
-			"Creature:%s(%i) Job:%s", 
+			"Creature:%s(%i) Caste:%s(%i) Job:%s", 
 			contentLoader->Mats->race.at(b->creature->race).id.c_str(), b->creature->race, 
+			contentLoader->Mats->raceEx.at(b->creature->race).castes.at(b->creature->caste).id.c_str(), b->creature->caste, 
 			contentLoader->professionStrings.at(b->creature->profession).c_str());
 
 		char strCreature[150] = {0};

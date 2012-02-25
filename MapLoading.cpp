@@ -308,53 +308,43 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
 				long red=0;
 				long green=0;
 				long blue=0;
+				long bloodlevel=0;
 				for(int i = 0; i < splatter.size(); i++)
 				{
+					if(!splatter[i]->amount[lx][ly])
+						continue;
+					uint8_t level = (uint8_t)splatter[i]->amount[lx][ly];
 					if(splatter[i]->mat_type == MUD)
 					{
-						b->mudlevel = splatter[i]->amount[lx][ly];
+						b->mudlevel = level;
 					}
 					else if(splatter[i]->mat_type == MAT_BASICS::ICE)
 					{
-						b->snowlevel = splatter[i]->amount[lx][ly];
+						b->snowlevel = level;
 					}
 					else if(splatter[i]->mat_type == VOMIT)
 					{
-						b->bloodlevel += splatter[i]->amount[lx][ly];
-                        red += (127 * splatter[i]->amount[lx][ly]);
-                        green += (196 * splatter[i]->amount[lx][ly]);
-                        blue += (28 *splatter[i]->amount[lx][ly]);
+						bloodlevel += level;
+                        red += (127 * level);
+                        green += (196 * level);
+                        blue += (28 *level);
 					}
-                    else if(splatter[i]->mat_type == ICHOR)
+                    else if(splatter[i]->mat_type > 19)
 					{
-                        b->bloodlevel += splatter[i]->amount[lx][ly];
-                        red += (255 * splatter[i]->amount[lx][ly]);
-                        green += (255 * splatter[i]->amount[lx][ly]);
-                        blue += (255 * splatter[i]->amount[lx][ly]);
-					}
-                    else if(splatter[i]->mat_type == BLOOD_NAMED)
-					{
-                        b->bloodlevel += splatter[i]->amount[lx][ly];
-                        red += (150 * splatter[i]->amount[lx][ly]);
-						//green += (0 * splatter[i]->intensity[lx][ly]);
-                        blue += (24 * splatter[i]->amount[lx][ly]);
-					}
-                    else if(splatter[i]->mat_type == BLOOD_1
-                            || splatter[i]->mat_type == BLOOD_2
-                            || splatter[i]->mat_type == BLOOD_3
-                            || splatter[i]->mat_type == BLOOD_4
-                            || splatter[i]->mat_type == BLOOD_5
-                            || splatter[i]->mat_type == BLOOD_6)
-					{
-                        b->bloodlevel += splatter[i]->amount[lx][ly];
-                        red += (150 * splatter[i]->amount[lx][ly]);
-						//green += (0 * splatter[i]->intensity[lx][ly]);
-                        blue += (24 * splatter[i]->amount[lx][ly]);
+						MaterialInfo mat;
+						mat.decode(splatter[i]->mat_type, splatter[i]->mat_index);
+                        bloodlevel += level;
+                        red += (contentLoader->Mats->color[mat.material->state_color[splatter[i]->mat_state]].red * level * 255);
+						green += (contentLoader->Mats->color[mat.material->state_color[splatter[i]->mat_state]].green * level * 255);
+                        blue += (contentLoader->Mats->color[mat.material->state_color[splatter[i]->mat_state]].blue * level * 255);
 					}
 				}
-				if(b->bloodlevel)
+				if(bloodlevel < 0)
+					bloodlevel = 0-bloodlevel;
+				b->bloodlevel = bloodlevel;
+				if(bloodlevel)
 				{
-				b->bloodcolor = al_map_rgba(red/b->bloodlevel, green/b->bloodlevel, blue/b->bloodlevel, (b->bloodlevel > config.bloodcutoff) ? 255 : b->bloodlevel*255/config.bloodcutoff);
+				b->bloodcolor = al_map_rgba(red/b->bloodlevel, green/b->bloodlevel, blue/b->bloodlevel, (bloodlevel > config.bloodcutoff) ? 255 : bloodlevel*255/config.bloodcutoff);
 				}
 				else
 					b->bloodcolor = al_map_rgba(0,0,0,0);

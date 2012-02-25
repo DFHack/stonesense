@@ -8,7 +8,7 @@
 #include "tinyxml.h"
 
 
-CreatureConfiguration::CreatureConfiguration(int professionID, const char* professionStr, uint8_t sex, enumCreatureSpecialCases special, c_sprite &sprite, int shadow)
+CreatureConfiguration::CreatureConfiguration(int professionID, const char* professionStr, uint8_t sex, int incaste, enumCreatureSpecialCases special, c_sprite &sprite, int shadow)
 {
 	memset(this, 0, sizeof(CreatureConfiguration) );
 	this->sprite = sprite;
@@ -16,6 +16,7 @@ CreatureConfiguration::CreatureConfiguration(int professionID, const char* profe
 	this->sex = sex;
 	this->shadow = shadow;
 	this->special = special;
+	this->caste = incaste;
 
 	if(professionStr){
 		int len = (int) strlen(professionStr);
@@ -140,12 +141,16 @@ bool addSingleCreatureConfig( TiXmlElement* elemCreature, vector<vector<Creature
 		}
 
 		const char* sexstr = elemVariant->Attribute("sex");
-		sheetIndexStr = elemVariant->Attribute("sheetIndex");
 		uint8_t cresex = 0;
 		if(sexstr){
 			if(strcmp( sexstr, "M" ) == 0) cresex = 2;
 			if(strcmp( sexstr, "F" ) == 0) cresex = 1;
-			if(atoi(sexstr)) cresex = atoi(sexstr);
+		}
+		int caste = -1;
+		const char* caststr = elemVariant->Attribute("caste");
+		if (caststr != NULL && caststr[0] != 0)
+		{
+			caste = lookupIndexedType(caststr,contentLoader->Mats->raceEx[gameID].castes);
 		}
 		const char* specstr = elemVariant->Attribute("special");
 		enumCreatureSpecialCases crespec = eCSC_Any;
@@ -167,7 +172,7 @@ bool addSingleCreatureConfig( TiXmlElement* elemCreature, vector<vector<Creature
 
 		sprite.set_by_xml(elemVariant, defaultFile);
 		sprite.animate = 0;
-		CreatureConfiguration cre( professionID, customStr , cresex, crespec, sprite, shadow);
+		CreatureConfiguration cre( professionID, customStr , cresex, caste, crespec, sprite, shadow);
 		//add a copy to known creatures
 		pushCreatureConfig(knownCreatures, gameID, cre);
 		elemVariant = elemVariant->NextSiblingElement("variant");
@@ -177,7 +182,7 @@ bool addSingleCreatureConfig( TiXmlElement* elemCreature, vector<vector<Creature
 	if (sheetIndexStr)
 	{
 		sprite.set_by_xml(elemCreature, basefile);
-		CreatureConfiguration cre( INVALID_INDEX, NULL, eCreatureSex_NA, eCSC_Any, sprite, baseShadow);
+		CreatureConfiguration cre( INVALID_INDEX, NULL, eCreatureSex_NA, INVALID_INDEX, eCSC_Any, sprite, baseShadow);
 		//add a copy to known creatures
 		pushCreatureConfig(knownCreatures, gameID, cre);
 	}

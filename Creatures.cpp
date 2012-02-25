@@ -429,6 +429,13 @@ CreatureConfiguration *GetCreatureConfig( t_unit* c ){
 		}
 		if(!creatureMatchesSex) continue;
 
+		bool creatureMatchesCaste = true;
+		if( testConfig->caste != INVALID_INDEX )
+		{
+			creatureMatchesCaste = testConfig->caste == c->caste;
+		}
+		if(!creatureMatchesCaste) continue;
+
 		bool creatureMatchesSpecial = true;
 		if (testConfig->special != eCSC_Any)
 		{
