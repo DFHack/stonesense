@@ -137,7 +137,9 @@ bool ContentLoader::Load( DFHack::Core& DF){
 	{
 		FOR_ENUM_ITEMS(profession, i)
 		{
-			professionStrings.push_back(string(ENUM_ATTR(profession, key, i)));
+			if(i<0)
+				continue;
+			professionStrings.push_back(string(ENUM_KEY_STR(profession, i)));
 		}
 	}
 	/*
@@ -531,7 +533,7 @@ const char *lookupMaterialName(int matType,int matIndex)
 	{
         if(matIndex < contentLoader->inorganic.size())
         {
-            return contentLoader->inorganic[0].id.c_str();
+            return contentLoader->inorganic[matIndex].id.c_str();
         }
         else return NULL;
 	}
