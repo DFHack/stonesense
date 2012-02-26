@@ -411,7 +411,14 @@ void drawDebugCursorAndInfo(){
 			"%s %s:%i Material:%s%s%s (%d,%d)", formName, tform, ttype, 
 			matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"", b->material.type,b->material.index);
 	}
-	//if (tform != NULL)
+	if (tform != NULL)
+	{
+		MaterialInfo mat;
+		mat.decode(b->material.type, b->material.index);
+		ALLEGRO_COLOR color = al_map_rgb_f(contentLoader->Mats->color[mat.material->state_color[0]].red, contentLoader->Mats->color[mat.material->state_color[0]].green, contentLoader->Mats->color[mat.material->state_color[0]].blue);
+		draw_textf_border(font, color, 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0,
+			"%s", mat.material->state_name[0].c_str());
+	}	//if (tform != NULL)
 	//{
 	//	draw_textf_border(font, 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0,
 	//		"MaterialType: %d, MaterialIndex: %d", b->material.type, b->material.index);
@@ -1335,8 +1342,10 @@ void draw_particle_cloud(int count, float centerX, float centerY, float rangeX, 
 {
 	for(int i = 0;i < count;i++)
 	{
+		int width = al_get_bitmap_width(sprite);
+		int height = al_get_bitmap_height(sprite);
 		float drawx = centerX + ((((float)rand() / RAND_MAX) - 0.5) * rangeX * config.scale);
 		float drawy = centerY + ((((float)rand() / RAND_MAX) - 0.5) * rangeY * config.scale);
-		al_draw_tinted_bitmap(sprite, tint, drawx, drawy, 0);
+		al_draw_tinted_scaled_bitmap(sprite, tint, 0, 0, width, height, drawx, drawy,width*config.scale, height*config.scale, 0);
 	}
 }
