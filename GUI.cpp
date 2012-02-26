@@ -495,6 +495,35 @@ void drawDebugCursorAndInfo(){
 			contentLoader->Mats->raceEx.at(b->creature->race).castes.at(b->creature->caste).id.c_str(), b->creature->caste, 
 			contentLoader->professionStrings.at(b->creature->profession).c_str());
 
+		if(!config.skipCreatureTypes)
+		{
+			MaterialInfo wep;
+			if(b->Weapon.matt.type >=0)
+				wep.decode(b->Weapon.matt.type, b->Weapon.matt.index);
+			MaterialInfo arm;
+			if(b->Armor.matt.type >=0)
+				arm.decode(b->Armor.matt.type, b->Armor.matt.index);
+			MaterialInfo sho;
+			if(b->Shoes.matt.type >=0)
+				sho.decode(b->Shoes.matt.type, b->Shoes.matt.index);
+			MaterialInfo shi;
+			if(b->Shield.matt.type >=0)
+				shi.decode(b->Shield.matt.type, b->Shield.matt.index);
+			MaterialInfo hel;
+			if(b->Helm.matt.type >=0)
+				hel.decode(b->Helm.matt.type, b->Helm.matt.index);
+			MaterialInfo glo;
+			if(b->Gloves.matt.type >=0)
+				glo.decode(b->Gloves.matt.type, b->Gloves.matt.index);
+			draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
+			"Worn %s(%d,%d) weapon, %s(%d,%d) armor, %s(%d,%d) shoes, %s(%d,%d) shield, %s(%d,%d) helm, %s(%d,%d) gloves", 
+			b->Weapon.matt.type >=0?wep.material->state_name[0].c_str():"no", b->Weapon.matt.type, b->Weapon.matt.index,
+			b->Armor.matt.type >=0?arm.material->state_name[0].c_str():"no", b->Armor.matt.type, b->Armor.matt.index,
+			b->Shoes.matt.type >=0?sho.material->state_name[0].c_str():"no", b->Shoes.matt.type, b->Shoes.matt.index,
+			b->Shield.matt.type >=0?shi.material->state_name[0].c_str():"no", b->Shield.matt.type, b->Shield.matt.index,
+			b->Helm.matt.type >=0?hel.material->state_name[0].c_str():"no", b->Helm.matt.type, b->Helm.matt.index,
+			b->Gloves.matt.type >=0?glo.material->state_name[0].c_str():"no",  b->Gloves.matt.type, b->Gloves.matt.index);
+		}
 		char strCreature[150] = {0};
 		generateCreatureDebugString( b->creature, strCreature );
 		//memset(strCreature, -1, 50);

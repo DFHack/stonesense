@@ -8,6 +8,7 @@
 #include "SpriteColors.h"
 #include "DataDefs.h"
 #include "df/world.h"
+#include "df/unit_inventory_item.h"
 
 //vector<t_matgloss> v_creatureNames;
 //vector<CreatureConfiguration> creatureTypes;
@@ -374,6 +375,88 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
 								if (b->shadow < tempShadow)
 									b->shadow=tempShadow;
 								break;	
+							}
+						}
+						// add the materials of what the creature's wearing.
+						b->Weapon.matt.index=INVALID_INDEX;
+						b->Weapon.matt.type=INVALID_INDEX;
+						b->Weapon.rating = 0;
+						b->Armor.matt.index=INVALID_INDEX;
+						b->Armor.matt.type=INVALID_INDEX;
+						b->Armor.rating = 0;
+						b->Shoes.matt.index=INVALID_INDEX;
+						b->Shoes.matt.type=INVALID_INDEX;
+						b->Shoes.rating = 0;
+						b->Shield.matt.index=INVALID_INDEX;
+						b->Shield.matt.type=INVALID_INDEX;
+						b->Shield.rating = 0;
+						b->Helm.matt.index=INVALID_INDEX;
+						b->Helm.matt.type=INVALID_INDEX;
+						b->Helm.rating = 0;
+						b->Gloves.matt.index=INVALID_INDEX;
+						b->Gloves.matt.type=INVALID_INDEX;
+						b->Gloves.rating = 0;
+						for (int i = 0; i < b->creature->origin->inventory.size(); i++)
+						{
+							if(b->creature->origin->inventory[i]->mode == df::unit_inventory_item::T_mode::Weapon ||
+								b->creature->origin->inventory[i]->mode == df::unit_inventory_item::T_mode::Worn)
+							{
+								item_type::item_type type = b->creature->origin->inventory[i]->item->getType();
+								int8_t armor = b->creature->origin->inventory[i]->item->getEffectiveArmorLevel();
+								if (type = item_type::WEAPON)
+								{
+									//if(armor > b->Weapon.rating)
+									//{
+										b->Weapon.rating = armor;
+										b->Weapon.matt.type = b->creature->origin->inventory[i]->item->getActualMaterial();
+										b->Weapon.matt.index = b->creature->origin->inventory[i]->item->getActualMaterialIndex();
+									//}
+								}
+								if (type = item_type::ARMOR)
+								{
+									//if(armor > b->Armor.rating)
+									//{
+										b->Armor.rating = armor;
+										b->Armor.matt.type = b->creature->origin->inventory[i]->item->getActualMaterial();
+										b->Armor.matt.index = b->creature->origin->inventory[i]->item->getActualMaterialIndex();
+									//}
+								}
+								if (type = item_type::SHOES)
+								{
+									//if(armor > b->Shoes.rating)
+									//{
+										b->Shoes.rating = armor;
+										b->Shoes.matt.type = b->creature->origin->inventory[i]->item->getActualMaterial();
+										b->Shoes.matt.index = b->creature->origin->inventory[i]->item->getActualMaterialIndex();
+									//}
+								}
+								if (type = item_type::SHIELD)
+								{
+									//if(armor > b->Shield.rating)
+									//{
+										b->Shield.rating = armor;
+										b->Shield.matt.type = b->creature->origin->inventory[i]->item->getActualMaterial();
+										b->Shield.matt.index = b->creature->origin->inventory[i]->item->getActualMaterialIndex();
+									//}
+								}
+								if (type = item_type::HELM)
+								{
+									//if(armor > b->Helm.rating)
+									//{
+										b->Helm.rating = armor;
+										b->Helm.matt.type = b->creature->origin->inventory[i]->item->getActualMaterial();
+										b->Helm.matt.index = b->creature->origin->inventory[i]->item->getActualMaterialIndex();
+									//}
+								}
+								if (type = item_type::GLOVES)
+								{
+									//if(armor > b->Weapon.rating)
+									//{
+										b->Gloves.rating = armor;
+										b->Gloves.matt.type = b->creature->origin->inventory[i]->item->getActualMaterial();
+										b->Gloves.matt.index = b->creature->origin->inventory[i]->item->getActualMaterialIndex();
+									//}
+								}
 							}
 						}
 						// need a new tempcreature now

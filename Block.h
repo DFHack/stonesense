@@ -12,6 +12,12 @@ struct Effect
 	int16_t density;
 };
 
+struct Worn_Item
+{
+	DFHack::t_matglossPair matt;
+	int8_t rating;
+};
+
 class Block
 {
 public:
@@ -126,6 +132,15 @@ public:
 
 	bool obscuringCreature;
 	bool obscuringBuilding;
+
+	//These are actually applied to the creature standing here, but there's only one creature shown, so it's okay.
+	Worn_Item Weapon;
+	Worn_Item Armor;
+	Worn_Item Shoes;
+	Worn_Item Shield;
+	Worn_Item Helm;
+	Worn_Item Gloves;
+
 
 private:
 
