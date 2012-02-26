@@ -312,6 +312,8 @@ void DrawCreatureText(int drawx, int drawy, t_unit* creature ){
 using df::global::world;
 void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
 {
+    if(config.skipCreatures)
+        return;
 	int x1 = segment->x;
 	int x2 = segment->x + segment->sizex;
 	int y1 = segment->y;
@@ -335,143 +337,150 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
 	{
 	Creatures->ReadCreature( index, *tempcreature );*/
 	uint32_t index = 0;
-	if(!config.skipCreatures)
-	{
-		try
-		{
-			while((index = DFHack::Simple::Units::GetCreatureInBox( index, &unit_ptr, x1,y1,z1,x2,y2,z2)) != -1 )
-			{
-                DFHack::Simple::Units::CopyCreature(unit_ptr,*tempcreature);
-				index++;
-				if( IsCreatureVisible( tempcreature ) )
-				{
-					Block* b = segment->getBlock (tempcreature->x, tempcreature->y, tempcreature->z );
-					if(!b)
-					{
-						//inside segment, but no block to represent it
-						b = new Block(segment);
-						b->x = tempcreature->x;
-						b->y = tempcreature->y;
-						b->z = tempcreature->z;
-						// fake block occupancy where needed. This is starting to get hacky...
-						b->creaturePresent=true;
-						segment->addBlock( b );
-					}
-					if (!b->creature)
-					{
-						b->creaturePresent=true;
-						b->creature = tempcreature;
-						// add shadow to nearest floor block
-						for (int bz = tempcreature->z;bz>=z1;bz--)
-						{
-							b = segment->getBlock (tempcreature->x, tempcreature->y, bz );
-							if (!b) continue;
-                            if (b->tileShapeBasic==tiletype_shape_basic::Floor ||
-                                b->tileShapeBasic==tiletype_shape_basic::Wall  ||
-                                b->tileShapeBasic==tiletype_shape_basic::Ramp)
-							{
-								// todo figure out appropriate shadow size
-								int tempShadow = GetCreatureShadowMap( tempcreature );
-								if (b->shadow < tempShadow)
-									b->shadow=tempShadow;
-								break;	
-							}
-						}
-						// add the materials of what the creature's wearing.
-						b->Weapon.matt.index=INVALID_INDEX;
-						b->Weapon.matt.type=INVALID_INDEX;
-						b->Weapon.rating = 0;
-						b->Armor.matt.index=INVALID_INDEX;
-						b->Armor.matt.type=INVALID_INDEX;
-						b->Armor.rating = 0;
-						b->Shoes.matt.index=INVALID_INDEX;
-						b->Shoes.matt.type=INVALID_INDEX;
-						b->Shoes.rating = 0;
-						b->Shield.matt.index=INVALID_INDEX;
-						b->Shield.matt.type=INVALID_INDEX;
-						b->Shield.rating = 0;
-						b->Helm.matt.index=INVALID_INDEX;
-						b->Helm.matt.type=INVALID_INDEX;
-						b->Helm.rating = 0;
-						b->Gloves.matt.index=INVALID_INDEX;
-						b->Gloves.matt.type=INVALID_INDEX;
-						b->Gloves.rating = 0;
-						for (int i = 0; i < b->creature->origin->inventory.size(); i++)
-						{
-							if(b->creature->origin->inventory[i]->mode == df::unit_inventory_item::T_mode::Weapon ||
-								b->creature->origin->inventory[i]->mode == df::unit_inventory_item::T_mode::Worn)
-							{
-								item_type::item_type type = b->creature->origin->inventory[i]->item->getType();
-								int8_t armor = b->creature->origin->inventory[i]->item->getEffectiveArmorLevel();
-								if (type = item_type::WEAPON)
-								{
-									//if(armor > b->Weapon.rating)
-									//{
-										b->Weapon.rating = armor;
-										b->Weapon.matt.type = b->creature->origin->inventory[i]->item->getActualMaterial();
-										b->Weapon.matt.index = b->creature->origin->inventory[i]->item->getActualMaterialIndex();
-									//}
-								}
-								if (type = item_type::ARMOR)
-								{
-									//if(armor > b->Armor.rating)
-									//{
-										b->Armor.rating = armor;
-										b->Armor.matt.type = b->creature->origin->inventory[i]->item->getActualMaterial();
-										b->Armor.matt.index = b->creature->origin->inventory[i]->item->getActualMaterialIndex();
-									//}
-								}
-								if (type = item_type::SHOES)
-								{
-									//if(armor > b->Shoes.rating)
-									//{
-										b->Shoes.rating = armor;
-										b->Shoes.matt.type = b->creature->origin->inventory[i]->item->getActualMaterial();
-										b->Shoes.matt.index = b->creature->origin->inventory[i]->item->getActualMaterialIndex();
-									//}
-								}
-								if (type = item_type::SHIELD)
-								{
-									//if(armor > b->Shield.rating)
-									//{
-										b->Shield.rating = armor;
-										b->Shield.matt.type = b->creature->origin->inventory[i]->item->getActualMaterial();
-										b->Shield.matt.index = b->creature->origin->inventory[i]->item->getActualMaterialIndex();
-									//}
-								}
-								if (type = item_type::HELM)
-								{
-									//if(armor > b->Helm.rating)
-									//{
-										b->Helm.rating = armor;
-										b->Helm.matt.type = b->creature->origin->inventory[i]->item->getActualMaterial();
-										b->Helm.matt.index = b->creature->origin->inventory[i]->item->getActualMaterialIndex();
-									//}
-								}
-								if (type = item_type::GLOVES)
-								{
-									//if(armor > b->Weapon.rating)
-									//{
-										b->Gloves.rating = armor;
-										b->Gloves.matt.type = b->creature->origin->inventory[i]->item->getActualMaterial();
-										b->Gloves.matt.index = b->creature->origin->inventory[i]->item->getActualMaterialIndex();
-									//}
-								}
-							}
-						}
-						// need a new tempcreature now
-						// old tempcreature should be deleted when b is
-						tempcreature = new t_unit;
-					}
-				}
-			}
-		}
-		catch (exception &e)
-		{
-			WriteErr("DFhack exeption: %s\n", e.what());
-			config.skipCreatures = true;
-		}
-	}
+    while((index = DFHack::Simple::Units::GetCreatureInBox( index, &unit_ptr, x1,y1,z1,x2,y2,z2)) != -1 )
+    {
+        DFHack::Simple::Units::CopyCreature(unit_ptr,*tempcreature);
+        index++;
+        // if the creature isn't visible, we need not process it further.
+        if( !IsCreatureVisible( tempcreature ) )
+            continue;
+        // Acquire a cube element thingie!
+        Block* b = segment->getBlock (tempcreature->x, tempcreature->y, tempcreature->z );
+        // If we failed at that, make a new one out of fairy dust and makebelieve ;)
+        if(!b)
+        {
+            //inside segment, but no block to represent it
+            b = new Block(segment);
+            b->x = tempcreature->x;
+            b->y = tempcreature->y;
+            b->z = tempcreature->z;
+            // fake block occupancy where needed. This is starting to get hacky...
+            b->creaturePresent=true;
+            segment->addBlock( b );
+        }
+
+        // creature already there? SKIP.
+        if(b->creature)
+            continue;
+
+        //Creature not yet there, we process...
+        b->creaturePresent=true;
+        b->creature = tempcreature;
+        // add shadow to nearest floor block
+        for (int bz = tempcreature->z;bz>=z1;bz--)
+        {
+            b = segment->getBlock (tempcreature->x, tempcreature->y, bz );
+            if (!b) continue;
+            if (b->tileShapeBasic==tiletype_shape_basic::Floor ||
+                b->tileShapeBasic==tiletype_shape_basic::Wall  ||
+                b->tileShapeBasic==tiletype_shape_basic::Ramp)
+            {
+                // todo figure out appropriate shadow size
+                int tempShadow = GetCreatureShadowMap( tempcreature );
+                if (b->shadow < tempShadow)
+                    b->shadow=tempShadow;
+                break;
+            }
+        }
+        // add the materials of what the creature's wearing.
+        // FIXME: this is constructor material. Don't clutter normal code with this.
+        b->Weapon.matt.index=INVALID_INDEX;
+        b->Weapon.matt.type=INVALID_INDEX;
+        b->Weapon.rating = 0;
+        b->Armor.matt.index=INVALID_INDEX;
+        b->Armor.matt.type=INVALID_INDEX;
+        b->Armor.rating = 0;
+        b->Shoes.matt.index=INVALID_INDEX;
+        b->Shoes.matt.type=INVALID_INDEX;
+        b->Shoes.rating = 0;
+        b->Shield.matt.index=INVALID_INDEX;
+        b->Shield.matt.type=INVALID_INDEX;
+        b->Shield.rating = 0;
+        b->Helm.matt.index=INVALID_INDEX;
+        b->Helm.matt.type=INVALID_INDEX;
+        b->Helm.rating = 0;
+        b->Gloves.matt.index=INVALID_INDEX;
+        b->Gloves.matt.type=INVALID_INDEX;
+        b->Gloves.rating = 0;
+        for (auto iter = unit_ptr->inventory.begin(); iter != unit_ptr->inventory.end(); iter++)
+        {
+            df::unit_inventory_item * itemslot = *iter;
+            // skip if invalid
+            if(!itemslot)
+                continue;
+
+            df::item * item = itemslot->item;
+            // skip if no item associated with item slot
+            if(!item)
+                continue;
+
+            // skip if not weapon or worn item
+            if(itemslot->mode != df::unit_inventory_item::T_mode::Weapon &&
+               itemslot->mode != df::unit_inventory_item::T_mode::Worn)
+                continue;
+
+            item_type::item_type type = item->getType();
+            int8_t armor = item->getEffectiveArmorLevel();
+            //FIXME: this could be made nicer. Somehow.
+            switch (item->getType())
+            {
+                case item_type::WEAPON:
+                    //if(armor > b->Weapon.rating)
+                    //{
+                    b->Weapon.rating = armor;
+                    b->Weapon.matt.type = item->getActualMaterial();
+                    b->Weapon.matt.index = item->getActualMaterialIndex();
+                    //}
+                break;
+                case item_type::ARMOR:
+                    //if(armor > b->Weapon.rating)
+                    //{
+                    b->Armor.rating = armor;
+                    b->Armor.matt.type = item->getActualMaterial();
+                    b->Armor.matt.index = item->getActualMaterialIndex();
+                    //}
+                break;
+                case item_type::SHOES:
+                    //if(armor > b->Weapon.rating)
+                    //{
+                    b->Shoes.rating = armor;
+                    b->Shoes.matt.type = item->getActualMaterial();
+                    b->Shoes.matt.index = item->getActualMaterialIndex();
+                    //}
+                break;
+                case item_type::SHIELD:
+                    //if(armor > b->Weapon.rating)
+                    //{
+                    b->Shield.rating = armor;
+                    b->Shield.matt.type = item->getActualMaterial();
+                    b->Shield.matt.index = item->getActualMaterialIndex();
+                    //}
+                break;
+                case item_type::HELM:
+                    //if(armor > b->Weapon.rating)
+                    //{
+                    b->Helm.rating = armor;
+                    b->Helm.matt.type = item->getActualMaterial();
+                    b->Helm.matt.index = item->getActualMaterialIndex();
+                    //}
+                break;
+                case item_type::GLOVES:
+                    //if(armor > b->Weapon.rating)
+                    //{
+                    b->Gloves.rating = armor;
+                    b->Gloves.matt.type = item->getActualMaterial();
+                    b->Gloves.matt.index = item->getActualMaterialIndex();
+                    //}
+                break;
+                default:
+                    // something unexpected. Should we react at all?
+                    break;
+            }
+        }
+        // need a new tempcreature now
+        // old tempcreature should be deleted when b is
+        tempcreature = new t_unit;
+    }
 	delete(tempcreature); // there will be one left over
 }
 
