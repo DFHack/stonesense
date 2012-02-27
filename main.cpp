@@ -61,14 +61,9 @@ bool key[ALLEGRO_KEY_MAX];
 
 DFHack::Console * DFConsole;
 
-ALLEGRO_THREAD *thread;
-
+/// main thread of stonesense - handles events
+ALLEGRO_THREAD *stonesense_event_thread;
 bool redraw = true;
-
-/*int32_t viewx = 0;
-int32_t viewy = 0;
-int32_t viewz = 0;
-bool followmode = true;*/
 
 ALLEGRO_BITMAP* load_bitmap_withWarning(const char* path)
 {
@@ -77,7 +72,7 @@ ALLEGRO_BITMAP* load_bitmap_withWarning(const char* path)
     if(!img)
     {
         DFConsole->printerr("Cannot load image: %s\n", path);
-        al_set_thread_should_stop(thread);
+        al_set_thread_should_stop(stonesense_event_thread);
         return 0;
     }
     al_convert_mask_to_alpha(img, al_map_rgb(255, 0, 255));
@@ -227,72 +222,6 @@ void drawcredits()
 	// Make the backbuffer visible
 	al_flip_display();
 }
-//
-/*
-int main(void)
-{
-
-
-
-
-//upper left corners
-DisplayedSegmentX = DisplayedSegmentY = DisplayedSegmentZ = 0;
-
-//ramps
-//DisplayedSegmentX = 238; DisplayedSegmentY = 220;DisplayedSegmentZ = 23;
-
-//ford. Main hall
-//DisplayedSegmentX = 172; DisplayedSegmentY = 195;DisplayedSegmentZ = 15;
-
-//ford. desert map
-//sDisplayedSegmentX = 78; DisplayedSegmentY = 123;DisplayedSegmentZ = 15;
-
-//DisplayedSegmentX = 125; DisplayedSegmentY = 125;DisplayedSegmentZ = 18;
-
-//DisplayedSegmentX = 242; DisplayedSegmentY = 345;DisplayedSegmentZ = 15;
-
-
-DFHack::CoreManager DFMgr("Memory.xml");
-
-while (true) {
-
-
-if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
-break;
-}
-if (event.type == ALLEGRO_EVENT_TIMER &&
-event.timer.source == reloadtimer){
-timeToReloadSegment = true;
-redraw = true;
-}
-if (event.type == ALLEGRO_EVENT_TIMER &&
-event.timer.source == animationtimer){
-animUpdateProc();
-redraw = true;
-}
-}
-if(config.threadmade)
-{
-al_broadcast_cond(config.readCond);
-al_destroy_thread(config.readThread);
-config.spriteIndexOverlay = 0;
-}
-flushImgFiles();
-DisconnectFromDF();
-
-//dispose old segments
-if(altSegment){
-altSegment->Dispose();
-delete(altSegment);
-}
-if(viewedSegment){
-viewedSegment->Dispose();
-delete(viewedSegment);
-}
-
-return 0;
-}
-*/
 
 /* main_loop:
 *  The main loop of the program.  Here we wait for events to come in from
@@ -301,11 +230,11 @@ return 0;
 *  little CPU time.  See main() to see how the event sources and event queue
 *  are set up.
 */
-static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALLEGRO_THREAD * thred, DFHack::Console & con, DFHack::Core * core)
+static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALLEGRO_THREAD * main_thread, DFHack::Console & con, DFHack::Core * core)
 {
 	ALLEGRO_EVENT event;
 	DFHack::t_gamemodes game_mode;
-	while (!al_get_thread_should_stop(thred))
+	while (!al_get_thread_should_stop(main_thread))
 	{
 		if (redraw && al_event_queue_is_empty(queue))
 		{
@@ -413,7 +342,7 @@ static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALL
 }
 
 //replacement for main()
-static void * stonesense_thread(ALLEGRO_THREAD * thred, void * parms)
+static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
 {
 	DFHack::Core * c = (DFHack::Core * )parms;
 	DFConsole->print("Stonesense launched\n");
@@ -553,39 +482,42 @@ static void * stonesense_thread(ALLEGRO_THREAD * thred, void * parms)
 #ifdef BENCHMARK
 	benchmark();
 #endif
-	//install_int( animUpdateProc, config.animation_step );
-	initAutoReload();
+    // init map segment wrapper and its lock, start the reload thread.
+    map_segment = new SegmentWrap();
+    initAutoReload();
 
-	timeToReloadSegment = true;
+    timeToReloadSegment = true;
+    // enter event loop here:
+    main_loop(display, queue, main_thread, c->con, c);
 
-	main_loop(display, queue, thred, c->con, c);
-	al_destroy_display(display);
+    // window is destroyed.
+    al_destroy_display(display);
 
-	if(config.threadmade)
-	{
-		al_broadcast_cond(config.readCond);
-		al_destroy_thread(config.readThread);
-		config.spriteIndexOverlay = 0;
-	}
-	flushImgFiles();
+    if(config.threadmade)
+    {
+        al_broadcast_cond(config.readCond);
+        al_destroy_thread(config.readThread);
+        config.spriteIndexOverlay = 0;
+    }
+    flushImgFiles();
 
-	if(altSegment){
-		altSegment->Dispose();
-		delete altSegment;
-        altSegment = 0;
-	}
-	if(viewedSegment){
-		viewedSegment->Dispose();
-		delete viewedSegment;
-        viewedSegment = 0;
-	}
-	al_destroy_bitmap(IMGIcon);
+    // remove the uranium fuel from the reactor... or map segment from the clutches of other threads.
+    map_segment->lock();
+    WorldSegment * last = map_segment->swap(NULL);
+    map_segment->unlock();
+    if(last)
+    {
+        last->Dispose();
+        delete last;
+    }
+
+    al_destroy_bitmap(IMGIcon);
     IMGIcon = 0;
     delete contentLoader;
     contentLoader = 0;
-	DFConsole->print("Stonesense shutdown.\n");
-	stonesense_started = 0;
-	return NULL;
+    DFConsole->print("Stonesense shutdown.\n");
+    stonesense_started = 0;
+    return NULL;
 }
 
 //All this fun DFhack stuff I gotta do now.
@@ -597,62 +529,62 @@ DFHACK_PLUGIN("stonesense");
 //This is the init command. it includes input options.
 DFhackCExport command_result plugin_init ( Core * c, std::vector <PluginCommand> &commands)
 {
-	commands.clear();
-	commands.push_back(PluginCommand("stonesense","Start up the stonesense visualiser.",stonesense_command));
+    commands.clear();
+    commands.push_back(PluginCommand("stonesense","Start up the stonesense visualiser.",stonesense_command));
     commands.push_back(PluginCommand("ssense","Start up the stonesense visualiser.",stonesense_command));
-	return CR_OK;
+    return CR_OK;
 }
 
 //this command is called every frame DF.
 DFhackCExport command_result plugin_onupdate ( Core * c )
 {
-	return CR_OK;
+    return CR_OK;
 }
 
 //And the shutdown command.
 DFhackCExport command_result plugin_shutdown ( Core * c )
 {
-	if(thread)
-		al_join_thread(thread, NULL);
-	al_uninstall_system();
-	return CR_OK;
+    if(stonesense_event_thread)
+        al_join_thread(stonesense_event_thread, NULL);
+    al_uninstall_system();
+    return CR_OK;
 }
 
 //and the actual stonesense command. Maybe.
 DFhackCExport command_result stonesense_command(DFHack::Core * c, std::vector<std::string> & params)
 {
-	if(stonesense_started)
-	{
-		c->con.print("Stonesense already running.\n");
-		return CR_OK;
-	}
-	stonesense_started = true;
-	DFConsole = &(c->con);
-	if(!al_is_system_installed())
-	{
-		if (!al_init()) {
-			DFConsole->printerr("Could not init Allegro.\n");
-			return CR_FAILURE;
-		}
+    if(stonesense_started)
+    {
+        c->con.print("Stonesense already running.\n");
+        return CR_OK;
+    }
+    stonesense_started = true;
+    DFConsole = &(c->con);
+    if(!al_is_system_installed())
+    {
+        if (!al_init()) {
+            DFConsole->printerr("Could not init Allegro.\n");
+            return CR_FAILURE;
+        }
 
-		if (!al_init_image_addon())
-		{
-			DFConsole->printerr("al_init_image_addon failed. \n");
-			return CR_FAILURE;
-		}
-		if (!al_init_primitives_addon()) {
-			DFConsole->printerr("al_init_primitives_addon failed. \n");
-			return CR_FAILURE;
-		}
-		al_init_font_addon();
-		if (!al_init_ttf_addon())
-		{
-			DFConsole->printerr("al_init_ttf_addon failed. \n");
-			return CR_FAILURE;
-		}
-	}
+        if (!al_init_image_addon())
+        {
+            DFConsole->printerr("al_init_image_addon failed. \n");
+            return CR_FAILURE;
+        }
+        if (!al_init_primitives_addon()) {
+            DFConsole->printerr("al_init_primitives_addon failed. \n");
+            return CR_FAILURE;
+        }
+        al_init_font_addon();
+        if (!al_init_ttf_addon())
+        {
+            DFConsole->printerr("al_init_ttf_addon failed. \n");
+            return CR_FAILURE;
+        }
+    }
 
-	thread = al_create_thread(stonesense_thread, (void * )c);
-	al_start_thread(thread);
-	return CR_OK;
+    stonesense_event_thread = al_create_thread(stonesense_thread, (void * )c);
+    al_start_thread(stonesense_event_thread);
+    return CR_OK;
 }

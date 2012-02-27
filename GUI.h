@@ -7,7 +7,7 @@ void pointToScreen(int *inx, int *iny, int inz);
 Crd2D WorldBlockToScreen(int32_t x, int32_t y, int32_t z);
 Crd2D LocalBlockToScreen(int32_t x, int32_t y, int32_t z);
 void DrawCurrentLevelOutline(bool backPart);
-void DrawMinimap();
+void DrawMinimap(WorldSegment *);
 void paintboard();
 void draw_textf_border(const ALLEGRO_FONT *font, ALLEGRO_COLOR color, float x, float y, int flags, const char *format, ...);
 void draw_text_border(const ALLEGRO_FONT *font, ALLEGRO_COLOR color, float x, float y, int flags, const char *ustr);
@@ -28,8 +28,10 @@ void saveMegashot(bool tall);
 void dumpSegment();
 void saveImage(ALLEGRO_BITMAP* image);
 void draw_particle_cloud(int count, float centerX, float centerY, float rangeX, float rangeY, ALLEGRO_BITMAP *sprite, ALLEGRO_COLOR tint);
-extern WorldSegment* viewedSegment;//current, loaded
-extern WorldSegment* altSegment;//background
+
+/// currently visible map segment
+extern SegmentWrap* map_segment;
+
 extern int DisplayedSegmentX;
 extern int DisplayedSegmentY;
 extern int DisplayedSegmentZ;

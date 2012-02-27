@@ -163,30 +163,9 @@ void WorldSegment::addBlock(Block* b){
 
 	//rotate
 	correctBlockForRotation( (int32_t&)x, (int32_t&)y, (int32_t&)z, rotation);
-
 	uint32_t index = x + (y * this->sizex) + ((z) * this->sizex * this->sizey);
-	//assert( x < sizex && x >=0);
-	//assert( y < sizey && y >=0);
-	//assert( z < sizez && z >=0);
-	//assure not overwriting
-	//if(blocksAsPointerVolume[index] != 0)
-	//  assert(blocksAsPointerVolume[index] == 0);
-
 	blocksAsPointerVolume[index] = b;
-	/*Block* test = getBlock(b->x, b->y, b->z);
-	if(test->x != b->x || test->y != b->y || test->z != b->z){
-	test = getBlock(b->x, b->y, b->z);
-	assert (test == b);
-	}*/
-
 }
-/*
-void WorldSegment::drawAllBlocks(ALLEGRO_BITMAP* target){
-uint32_t numblocks = (uint32_t)this->blocks.size();
-for(uint32_t i=0; i < numblocks; i++){
-viewedSegment->blocks[i]->Draw(target);
-}
-}*/
 
 void WorldSegment::drawAllBlocks(){
 	if(!loaded)
@@ -194,9 +173,9 @@ void WorldSegment::drawAllBlocks(){
 
 	// x,y,z print pricess
 	ALLEGRO_BITMAP * temp = al_get_target_bitmap();
-	int32_t vsxmax = viewedSegment->sizex-1;
-	int32_t vsymax = viewedSegment->sizey-1;
-	int32_t vszmax = viewedSegment->sizez-1; // grabbing one tile +z more than we should for tile rules
+	int32_t vsxmax = sizex-1;
+	int32_t vsymax = sizey-1;
+	int32_t vszmax = sizez-1; // grabbing one tile +z more than we should for tile rules
 	//al_hold_bitmap_drawing(true);
 
 	for(int32_t vsz=0; vsz < vszmax; vsz++)
@@ -270,88 +249,8 @@ void WorldSegment::drawAllBlocks(){
 		SetTitle("Stonesense");
 }
 
-/*
-void WorldSegment::drawAllBlocks(ALLEGRO_BITMAP* target){
-// x,y,z print pricess
-int32_t vsxmax = viewedSegment->x + viewedSegment->sizex;
-int32_t vsymax = viewedSegment->y + viewedSegment->sizey;
-int32_t vszmax = viewedSegment->z + viewedSegment->sizez;
-for(int32_t vsz=viewedSegment->z; vsz < vszmax; vsz++){
-switch (DisplayedRotation * 0){
-case 0:
-for(int32_t vsx=viewedSegment->x; vsx < vsxmax; vsx++){
-for(int32_t vsy=viewedSegment->y; vsy < vsymax; vsy++){
-Block *b = getBlock(vsx,vsy,vsz);
-if (b)
-{
-b->Draw(screen);
-//while(!key[KEY_SPACE]);
-//while(key[KEY_SPACE]);
-}
-}
-}
-break;
-case 1:
-for(int32_t vsx=viewedSegment->x; vsx < vsxmax; vsx++){
-for(int32_t vsy=vsymax-1; vsy >= viewedSegment->y; vsy--){
-Block *b = getBlock(vsx,vsy,vsz);
-if (b)
-{
-b->Draw(target);
-
-}
-}
-}
-break;
-case 2:
-for(int32_t vsx=vsxmax-1; vsx >= viewedSegment->x; vsx--){
-for(int32_t vsy=vsymax-1; vsy >= viewedSegment->y; vsy--){
-Block *b = getBlock(vsx,vsy,vsz);
-if (b)
-{
-b->Draw(target);
-}
-}
-}
-break;
-case 3:
-for(int32_t vsx=vsxmax-1; vsx >= viewedSegment->x; vsx--){
-for(int32_t vsy=viewedSegment->y; vsy < vsymax; vsy++){
-Block *b = getBlock(vsx,vsy,vsz);
-if (b)
-{
-b->Draw(target);
-}
-}
-}
-break;
-}
-}
-}
-*/
-/*void WorldSegment::drawAllBlocks(ALLEGRO_BITMAP* target){
-// x,y,z print pricess
-int32_t vsxmax = viewedSegment->x + viewedSegment->sizex;
-int32_t vsymax = viewedSegment->y + viewedSegment->sizey;
-int32_t vszmax = viewedSegment->z + viewedSegment->sizez;
-for(int32_t vsz=viewedSegment->z; vsz < vszmax; vsz++){
-for(int32_t vsx=viewedSegment->x; vsx < vsxmax; vsx++){
-for(int32_t vsy=viewedSegment->y; vsy < vsymax; vsy++){
-Block *b = getBlock(vsx,vsy,vsz);
-if (b)
-{
-b->Draw(target);
-}
-}
-}
-}
-} */
-
 
 bool WorldSegment::CoordinateInsideSegment(uint32_t x, uint32_t y, uint32_t z){
-	/*if( x < 0 || (int32_t)x >= this->regionSize.x) return false;
-	if( y < 0 || (int32_t)y >= this->regionSize.y) return false;
-	if( z < 0 || (int32_t)z >= this->regionSize.z) return false;*/
 	if( (int32_t)x < this->x || (int32_t)x >= this->x + this->sizex) return false;
 	if( (int32_t)y < this->y || (int32_t)y >= this->y + this->sizey) return false;
 	if( (int32_t)z < this->z || (int32_t)z >= this->z + this->sizez) return false;

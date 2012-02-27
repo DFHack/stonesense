@@ -1,5 +1,4 @@
-#ifndef BLOCK_H
-#define BLOCK_H
+#pragma once
 
 #include "common.h"
 #include "SpriteObjects.h"
@@ -156,8 +155,3 @@ bool hasBuildingIdentity(Block* b, uint32_t index, int buildingOcc);
 bool hasBuildingOfIndex(Block* b, uint32_t index);
 bool wallShouldNotHaveBorders( int in );
 void drawFloorBlood ( Block *b, int32_t drawx, int32_t drawy );
-
-ALLEGRO_COLOR getSpriteColor(t_subSprite &sprite, DFHack::t_matglossPair material, DFHack::t_matglossPair layerMaterial, DFHack::t_matglossPair veinMaterial);
-ALLEGRO_COLOR getSpriteColor(t_SpriteWithOffset &sprite, DFHack::t_matglossPair material, DFHack::t_matglossPair layerMaterial, DFHack::t_matglossPair veinMaterial);
-
-#endif
