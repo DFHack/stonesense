@@ -8,50 +8,6 @@
 #include "WorldSegment.h"
 #include "ContentLoader.h"
 
-ALLEGRO_COLOR getDfColor(int color)
-{
-	switch (color)
-	{
-	case 0:
-		return al_map_rgb(config.colors.black_r, config.colors.black_g, config.colors.black_b);
-	case 1:
-		return al_map_rgb(config.colors.blue_r, config.colors.blue_g, config.colors.blue_b);
-	case 2:
-		return al_map_rgb(config.colors.green_r, config.colors.green_g, config.colors.green_b);
-	case 3:
-		return al_map_rgb(config.colors.cyan_r, config.colors.cyan_g, config.colors.cyan_b);
-	case 4:
-		return al_map_rgb(config.colors.red_r, config.colors.red_g, config.colors.red_b);
-	case 5:
-		return al_map_rgb(config.colors.magenta_r, config.colors.magenta_g, config.colors.magenta_b);
-	case 6:
-		return al_map_rgb(config.colors.brown_r, config.colors.brown_g, config.colors.brown_b);
-	case 7:
-		return al_map_rgb(config.colors.lgray_r, config.colors.lgray_g, config.colors.lgray_b);
-	case 8:
-		return al_map_rgb(config.colors.dgray_r, config.colors.dgray_g, config.colors.dgray_b);
-	case 9:
-		return al_map_rgb(config.colors.lblue_r, config.colors.lblue_g, config.colors.lblue_b);
-	case 10:
-		return al_map_rgb(config.colors.lgreen_r, config.colors.lgreen_g, config.colors.lgreen_b);
-	case 11:
-		return al_map_rgb(config.colors.lcyan_r, config.colors.lcyan_g, config.colors.lcyan_b);
-	case 12:
-		return al_map_rgb(config.colors.lred_r, config.colors.lred_g, config.colors.lred_b);
-	case 13:
-		return al_map_rgb(config.colors.lmagenta_r, config.colors.lmagenta_g, config.colors.lmagenta_b);
-	case 14:
-		return al_map_rgb(config.colors.yellow_r, config.colors.yellow_g, config.colors.yellow_b);
-	case 15:
-		return al_map_rgb(config.colors.white_r, config.colors.white_g, config.colors.white_b);
-	}
-	return al_map_rgb(255,255,255);
-}
-
-ALLEGRO_COLOR getDfColor(int color, int bright)
-{
-	return getDfColor(color+(bright*8));
-}
 int getJobColor(unsigned char job)
 {
 	switch (job)

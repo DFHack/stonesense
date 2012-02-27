@@ -770,34 +770,23 @@ WorldSegment* ReadMapSegment(DFHack::Core &DF, int x, int y, int z, int sizex, i
 	//translate constructions
 	changeConstructionMaterials(segment, &allConstructions);
 
-	uint32_t numengravings = 0;
-	try
-	{
-        numengravings = Engravings::getCount();
-        if (numengravings)
-		{
-			df::engraving * engraved;
-			index = 0;
-			Block * b = 0;
-			while(index < numengravings)
-			{
-                engraved = Engravings::getEngraving(index);
-                df::coord pos = engraved->pos;
-                if(segment->CoordinateInsideSegment(pos.x, pos.y, pos.z))
-				{
-                    b = segment->getBlock(pos.x, pos.y, pos.z);
-					b->engraving_character = engraved->tile;
-					b->engraving_flags = engraved->flags;
-					b->engraving_quality = engraved->quality;
-				}
-				index++;
-			}
-		}
-	}
-	catch(exception &e)
-	{
-		WriteErr("DFhack exception: %s\n", e.what());
-	}
+    uint32_t numengravings = Engravings::getCount();
+    df::engraving * engraved;
+    index = 0;
+    Block * b = 0;
+    while(index < numengravings)
+    {
+        engraved = Engravings::getEngraving(index);
+        df::coord pos = engraved->pos;
+        if(segment->CoordinateInsideSegment(pos.x, pos.y, pos.z))
+        {
+            b = segment->getBlock(pos.x, pos.y, pos.z);
+            b->engraving_character = engraved->tile;
+            b->engraving_flags = engraved->flags;
+            b->engraving_quality = engraved->quality;
+        }
+        index++;
+    }
 
 	//Read Creatures
 	if(!config.skipCreatures)

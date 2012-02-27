@@ -2,6 +2,7 @@
 #include <fstream>
 #include <string>
 #include "common.h"
+#include "commonTypes.h"
 
 using namespace std;
 
@@ -238,308 +239,308 @@ void parseConfigLine( string line ){
 		int value = parseIntFromLine( "BLACK_R", line);
 		if(value > 255) value = 255;
 		if(value < 0) value = 0;
-		config.colors.black_r = value;
+		config.colors[dfColors::black].red = value;
 	}
 	if( line.find("[BLACK_G") != -1)
 	{
 		int value = parseIntFromLine( "BLACK_G", line);
 		if(value > 255) value = 255;
 		if(value < 0) value = 0;
-		config.colors.black_g = value;
+        config.colors[dfColors::black].green = value;
 	}
 	if( line.find("[BLACK_B") != -1)
 	{
 		int value = parseIntFromLine( "BLACK_B", line);
 		if(value > 255) value = 255;
 		if(value < 0) value = 0;
-		config.colors.black_b = value;
+        config.colors[dfColors::black].blue = value;
 	}
 	if( line.find("[BLUE_R") != -1)
 	{
 		int value = parseIntFromLine( "BLUE_R", line);
 		if(value > 255) value = 255;
 		if(value < 0) value = 0;
-		config.colors.blue_r = value;
+        config.colors[dfColors::blue].red = value;
 	}
 	if( line.find("[BLUE_G") != -1)
 	{
 		int value = parseIntFromLine( "BLUE_G", line);
 		if(value > 255) value = 255;
 		if(value < 0) value = 0;
-		config.colors.blue_g = value;
+        config.colors[dfColors::blue].green = value;
 	}
 	if( line.find("[BLUE_B") != -1)
 	{
 		int value = parseIntFromLine( "BLUE_B", line);
 		if(value > 255) value = 255;
 		if(value < 0) value = 0;
-		config.colors.blue_b = value;
+        config.colors[dfColors::blue].blue = value;
 	}
 	if( line.find("[GREEN_R") != -1)
 	{
 		int value = parseIntFromLine( "GREEN_R", line);
 		if(value > 255) value = 255;
 		if(value < 0) value = 0;
-		config.colors.green_r = value;
+        config.colors[dfColors::green].red = value;
 	}
 	if( line.find("[GREEN_G") != -1)
 	{
 		int value = parseIntFromLine( "GREEN_G", line);
 		if(value > 255) value = 255;
 		if(value < 0) value = 0;
-		config.colors.green_g = value;
+        config.colors[dfColors::green].green = value;
 	}
 	if( line.find("[GREEN_B") != -1)
 	{
 		int value = parseIntFromLine( "GREEN_B", line);
 		if(value > 255) value = 255;
 		if(value < 0) value = 0;
-		config.colors.green_b = value;
+        config.colors[dfColors::green].blue = value;
 	}
 	if( line.find("[CYAN_R") != -1)
 	{
 		int value = parseIntFromLine( "CYAN_R", line);
 		if(value > 255) value = 255;
 		if(value < 0) value = 0;
-		config.colors.cyan_r = value;
+		config.colors[dfColors::cyan].red= value;
 	}
 	if( line.find("[CYAN_G") != -1)
 	{
 		int value = parseIntFromLine( "CYAN_G", line);
 		if(value > 255) value = 255;
 		if(value < 0) value = 0;
-		config.colors.cyan_g = value;
+		config.colors[dfColors::cyan].green= value;
 	}
 	if( line.find("[CYAN_B") != -1)
 	{
 		int value = parseIntFromLine( "CYAN_B", line);
 		if(value > 255) value = 255;
 		if(value < 0) value = 0;
-		config.colors.cyan_b = value;
+		config.colors[dfColors::cyan].blue= value;
 	}
 	if( line.find("[RED_R") != -1)
 	{
 		int value = parseIntFromLine( "RED_R", line);
 		if(value > 255) value = 255;
 		if(value < 0) value = 0;
-		config.colors.red_r = value;
+		config.colors[dfColors::red].red= value;
 	}
 	if( line.find("[RED_G") != -1)
 	{
 		int value = parseIntFromLine( "RED_G", line);
 		if(value > 255) value = 255;
 		if(value < 0) value = 0;
-		config.colors.red_g = value;
+		config.colors[dfColors::red].green= value;
 	}
 	if( line.find("[RED_B") != -1)
 	{
 		int value = parseIntFromLine( "RED_B", line);
 		if(value > 255) value = 255;
 		if(value < 0) value = 0;
-		config.colors.red_b = value;
+		config.colors[dfColors::red].blue= value;
 	}
 	if( line.find("[MAGENTA_R") != -1)
 	{
 		int value = parseIntFromLine( "MAGENTA_R", line);
 		if(value > 255) value = 255;
 		if(value < 0) value = 0;
-		config.colors.magenta_r = value;
+		config.colors[dfColors::magenta].red= value;
 	}
 	if( line.find("[MAGENTA_G") != -1)
 	{
 		int value = parseIntFromLine( "MAGENTA_G", line);
 		if(value > 255) value = 255;
 		if(value < 0) value = 0;
-		config.colors.magenta_g = value;
+		config.colors[dfColors::magenta].green= value;
 	}
 	if( line.find("[MAGENTA_B") != -1)
 	{
 		int value = parseIntFromLine( "MAGENTA_B", line);
 		if(value > 255) value = 255;
 		if(value < 0) value = 0;
-		config.colors.magenta_b = value;
+		config.colors[dfColors::magenta].blue= value;
 	}
 	if( line.find("[BROWN_R") != -1)
 	{
 		int value = parseIntFromLine( "BROWN_R", line);
 		if(value > 255) value = 255;
 		if(value < 0) value = 0;
-		config.colors.brown_r = value;
+		config.colors[dfColors::brown].red= value;
 	}
 	if( line.find("[BROWN_G") != -1)
 	{
 		int value = parseIntFromLine( "BROWN_G", line);
 		if(value > 255) value = 255;
 		if(value < 0) value = 0;
-		config.colors.brown_g = value;
+		config.colors[dfColors::brown].green= value;
 	}
 	if( line.find("[BROWN_B") != -1){
 		int value = parseIntFromLine( "BROWN_B", line);
 		if(value > 255) value = 255;
 		if(value < 0) value = 0;
-		config.colors.brown_b = value;
+		config.colors[dfColors::brown].blue= value;
 	}
 	if( line.find("[LGRAY_R") != -1){
 		int value = parseIntFromLine( "LGRAY_R", line);
 		if(value > 255) value = 255;
 		if(value < 0) value = 0;
-		config.colors.lgray_r = value;
+		config.colors[dfColors::lgray].red= value;
 	}
 	if( line.find("[LGRAY_R") != -1){
 		int value = parseIntFromLine( "LGRAY_R", line);
 		if(value > 255) value = 255;
 		if(value < 0) value = 0;
-		config.colors.lgray_g = value;
+		config.colors[dfColors::lgray].green= value;
 	}
 	if( line.find("[LGRAY_R") != -1){
 		int value = parseIntFromLine( "LGRAY_R", line);
 		if(value > 255) value = 255;
 		if(value < 0) value = 0;
-		config.colors.lgray_b = value;
+		config.colors[dfColors::lgray].blue= value;
 	}
 	if( line.find("[DGRAY_R") != -1){
 		int value = parseIntFromLine( "DGRAY_R", line);
 		if(value > 255) value = 255;
 		if(value < 0) value = 0;
-		config.colors.dgray_r = value;
+		config.colors[dfColors::dgray].red= value;
 	}
 	if( line.find("[DGRAY_R") != -1){
 		int value = parseIntFromLine( "DGRAY_R", line);
 		if(value > 255) value = 255;
 		if(value < 0) value = 0;
-		config.colors.dgray_g = value;
+		config.colors[dfColors::dgray].green= value;
 	}
 	if( line.find("[DGRAY_R") != -1){
 		int value = parseIntFromLine( "DGRAY_R", line);
 		if(value > 255) value = 255;
 		if(value < 0) value = 0;
-		config.colors.dgray_b = value;
+		config.colors[dfColors::dgray].blue= value;
 	}
 	if( line.find("[LBLUE_R") != -1){
 		int value = parseIntFromLine( "LBLUE_R", line);
 		if(value > 255) value = 255;
 		if(value < 0) value = 0;
-		config.colors.lblue_r = value;
+		config.colors[dfColors::lblue].red= value;
 	}
 	if( line.find("[LBLUE_G") != -1){
 		int value = parseIntFromLine( "LBLUE_G", line);
 		if(value > 255) value = 255;
 		if(value < 0) value = 0;
-		config.colors.lblue_g = value;
+		config.colors[dfColors::lblue].green= value;
 	}
 	if( line.find("[LBLUE_B") != -1){
 		int value = parseIntFromLine( "LBLUE_B", line);
 		if(value > 255) value = 255;
 		if(value < 0) value = 0;
-		config.colors.lblue_b = value;
+		config.colors[dfColors::lblue].blue= value;
 	}
 	if( line.find("[LGREEN_R") != -1){
 		int value = parseIntFromLine( "LGREEN_R", line);
 		if(value > 255) value = 255;
 		if(value < 0) value = 0;
-		config.colors.lgreen_r = value;
+		config.colors[dfColors::lgreen].red= value;
 	}
 	if( line.find("[LGREEN_G") != -1){
 		int value = parseIntFromLine( "LGREEN_G", line);
 		if(value > 255) value = 255;
 		if(value < 0) value = 0;
-		config.colors.lgreen_g = value;
+		config.colors[dfColors::lgreen].green= value;
 	}
 	if( line.find("[LGREEN_B") != -1){
 		int value = parseIntFromLine( "LGREEN_B", line);
 		if(value > 255) value = 255;
 		if(value < 0) value = 0;
-		config.colors.lgreen_b = value;
+		config.colors[dfColors::lgreen].blue= value;
 	}
 	if( line.find("[LCYAN_R") != -1){
 		int value = parseIntFromLine( "LCYAN_R", line);
 		if(value > 255) value = 255;
 		if(value < 0) value = 0;
-		config.colors.lcyan_r = value;
+		config.colors[dfColors::lcyan].red= value;
 	}
 	if( line.find("[LCYAN_G") != -1){
 		int value = parseIntFromLine( "LCYAN_G", line);
 		if(value > 255) value = 255;
 		if(value < 0) value = 0;
-		config.colors.lcyan_g = value;
+		config.colors[dfColors::lcyan].green= value;
 	}
 	if( line.find("[LCYAN_B") != -1){
 		int value = parseIntFromLine( "LCYAN_B", line);
 		if(value > 255) value = 255;
 		if(value < 0) value = 0;
-		config.colors.lcyan_b = value;
+		config.colors[dfColors::lcyan].blue= value;
 	}
 	if( line.find("[LRED_R") != -1){
 		int value = parseIntFromLine( "LRED_R", line);
 		if(value > 255) value = 255;
 		if(value < 0) value = 0;
-		config.colors.lred_r = value;
+		config.colors[dfColors::lred].red= value;
 	}
 	if( line.find("[LRED_G") != -1){
 		int value = parseIntFromLine( "LRED_G", line);
 		if(value > 255) value = 255;
 		if(value < 0) value = 0;
-		config.colors.lred_g = value;
+		config.colors[dfColors::lred].green= value;
 	}
 	if( line.find("[LRED_B") != -1){
 		int value = parseIntFromLine( "LRED_B", line);
 		if(value > 255) value = 255;
 		if(value < 0) value = 0;
-		config.colors.lred_b = value;
+		config.colors[dfColors::lred].blue= value;
 	}
 	if( line.find("[LMAGENTA_R") != -1){
 		int value = parseIntFromLine( "LMAGENTA_R", line);
 		if(value > 255) value = 255;
 		if(value < 0) value = 0;
-		config.colors.lmagenta_r = value;
+		config.colors[dfColors::lmagenta].red= value;
 	}
 	if( line.find("[LMAGENTA_G") != -1){
 		int value = parseIntFromLine( "LMAGENTA_G", line);
 		if(value > 255) value = 255;
 		if(value < 0) value = 0;
-		config.colors.lmagenta_g = value;
+		config.colors[dfColors::lmagenta].green= value;
 	}
 	if( line.find("[LMAGENTA_B") != -1){
 		int value = parseIntFromLine( "LMAGENTA_B", line);
 		if(value > 255) value = 255;
 		if(value < 0) value = 0;
-		config.colors.lmagenta_b = value;
+		config.colors[dfColors::lmagenta].blue= value;
 	}
 	if( line.find("[YELLOW_R") != -1){
 		int value = parseIntFromLine( "YELLOW_R", line);
 		if(value > 255) value = 255;
 		if(value < 0) value = 0;
-		config.colors.yellow_r = value;
+		config.colors[dfColors::yellow].red= value;
 	}
 	if( line.find("[YELLOW_G") != -1){
 		int value = parseIntFromLine( "YELLOW_G", line);
 		if(value > 255) value = 255;
 		if(value < 0) value = 0;
-		config.colors.yellow_g = value;
+		config.colors[dfColors::yellow].green= value;
 	}
 	if( line.find("[YELLOW_B") != -1){
 		int value = parseIntFromLine( "YELLOW_B", line);
 		if(value > 255) value = 255;
 		if(value < 0) value = 0;
-		config.colors.yellow_b = value;
+		config.colors[dfColors::yellow].blue= value;
 	}
 	if( line.find("[WHITE_R") != -1){
 		int value = parseIntFromLine( "WHITE_R", line);
 		if(value > 255) value = 255;
 		if(value < 0) value = 0;
-		config.colors.white_r = value;
+		config.colors[dfColors::white].red= value;
 	}
 	if( line.find("[WHITE_G") != -1){
 		int value = parseIntFromLine( "WHITE_G", line);
 		if(value > 255) value = 255;
 		if(value < 0) value = 0;
-		config.colors.white_g = value;
+		config.colors[dfColors::white].green= value;
 	}
 	if( line.find("[WHITE_B") != -1){
 		int value = parseIntFromLine( "WHITE_B", line);
 		if(value > 255) value = 255;
 		if(value < 0) value = 0;
-		config.colors.white_b = value;
+		config.colors[dfColors::white].blue= value;
 	}
 	if( line.find("[RENDERER") != -1){
 		string result = parseStrFromLine( "RENDERER", line );
@@ -573,6 +574,9 @@ bool loadConfigFile()
         cout << line << endl;
         parseConfigLine( line );
     }
+    // update allegro colors loaded from file
+    config.colors.update();
+    //close file, etc.
     myfile.close();
     al_destroy_path(p);
     return true;

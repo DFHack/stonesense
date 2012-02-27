@@ -899,17 +899,17 @@ ALLEGRO_COLOR c_sprite::get_color(void* block)
 	case ShadeVein:
 		return lookupMaterialColor(b->veinMaterial.type, b->veinMaterial.index);
 	case ShadeMatFore:
-		return getDfColor(lookupMaterialFore(b->material.type, b->material.index), lookupMaterialBright(b->material.type, b->material.index));
+        return config.colors.getDfColor(lookupMaterialFore(b->material.type, b->material.index), lookupMaterialBright(b->material.type, b->material.index));
 	case ShadeMatBack:
-		return getDfColor(lookupMaterialBack(b->material.type, b->material.index));
+        return config.colors.getDfColor(lookupMaterialBack(b->material.type, b->material.index));
 	case ShadeLayerFore:
-		return getDfColor(lookupMaterialFore(b->layerMaterial.type, b->layerMaterial.index), lookupMaterialBright(b->layerMaterial.type, b->layerMaterial.index));
+        return config.colors.getDfColor(lookupMaterialFore(b->layerMaterial.type, b->layerMaterial.index), lookupMaterialBright(b->layerMaterial.type, b->layerMaterial.index));
 	case ShadeLayerBack:
-		return getDfColor(lookupMaterialBack(b->layerMaterial.type, b->layerMaterial.index));
+        return config.colors.getDfColor(lookupMaterialBack(b->layerMaterial.type, b->layerMaterial.index));
 	case ShadeVeinFore:
-		return getDfColor(lookupMaterialFore(b->veinMaterial.type, b->veinMaterial.index), lookupMaterialBright(b->veinMaterial.type, b->veinMaterial.index));
+        return config.colors.getDfColor(lookupMaterialFore(b->veinMaterial.type, b->veinMaterial.index), lookupMaterialBright(b->veinMaterial.type, b->veinMaterial.index));
 	case ShadeVeinBack:
-		return getDfColor(lookupMaterialBack(b->veinMaterial.type, b->veinMaterial.index));
+        return config.colors.getDfColor(lookupMaterialBack(b->veinMaterial.type, b->veinMaterial.index));
 	case ShadeBodyPart:
 		if(b->creaturePresent)
 		{
@@ -956,7 +956,7 @@ ALLEGRO_COLOR c_sprite::get_color(void* block)
 	case ShadeJob:
 		if(b->creaturePresent)
 		{
-			return getDfColor(getJobColor(b->creature->profession));
+			return config.colors.getDfColor(getJobColor(b->creature->profession));
 		}
 		else return al_map_rgb(255,255,255);
 	case ShadeBlood:
