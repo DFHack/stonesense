@@ -767,5 +767,17 @@ ShadeBy getShadeType(const char* Input)
 		return ShadeBuilding;
 	if( strcmp(Input, "grass") == 0)
 		return ShadeGrass;
+	if( strcmp(Input, "weapon") == 0)
+		return ShadeWeapon;
+	if( strcmp(Input, "armor") == 0)
+		return ShadeArmor;
+	if( strcmp(Input, "shoes") == 0)
+		return ShadeShoes;
+	if( strcmp(Input, "shield") == 0)
+		return ShadeShield;
+	if( strcmp(Input, "helm") == 0)
+		return ShadeHelm;
+	if( strcmp(Input, "gloves") == 0)
+		return ShadeGloves;
 	return ShadeNone;
 }

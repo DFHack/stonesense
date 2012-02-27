@@ -675,9 +675,9 @@ void c_sprite::draw_world_offset(int x, int y, int z, Block * b, int tileoffset,
 						(
 							(grass_growth == GRASS_GROWTH_DEAD) &&
 							(b->tileMaterial == tiletype_material::GRASS_DEAD)
-						)
-					)
-				)
+							)
+							)
+							)
 				{
 					int32_t drawx = x;
 					int32_t drawy = y;
@@ -728,7 +728,8 @@ void c_sprite::draw_world_offset(int x, int y, int z, Block * b, int tileoffset,
 						{
 							if(config.block_count)
 								config.drawcount ++;
-							al_draw_tinted_scaled_bitmap(
+							if(shade_color.a > 0.001f)
+								al_draw_tinted_scaled_bitmap(
 								defaultsheet, premultiply(shade_color),
 								sheetx * spritescale,
 								(sheety+WALL_CUTOFF_HEIGHT) * spritescale,
@@ -745,7 +746,8 @@ void c_sprite::draw_world_offset(int x, int y, int z, Block * b, int tileoffset,
 							if(config.block_count)
 								config.drawcount ++;
 
-							al_draw_tinted_scaled_bitmap(
+							if(shade_color.a > 0.001f)
+								al_draw_tinted_scaled_bitmap(
 								getImgFile(fileindex),
 								premultiply(shade_color),
 								sheetx * spritescale,
@@ -762,7 +764,8 @@ void c_sprite::draw_world_offset(int x, int y, int z, Block * b, int tileoffset,
 						if(config.block_count)
 							config.drawcount ++;
 
-						al_draw_scaled_bitmap(IMGObjectSheet, 
+						if(shade_color.a > 0.001f)
+							al_draw_scaled_bitmap(IMGObjectSheet, 
 							TILEWIDTH * SPRITEFLOOR_CUTOFF, 0,
 							SPRITEWIDTH, SPRITEWIDTH, 
 							drawx+offset_x, drawy+offset_y-((SPRITEHEIGHT-WALL_CUTOFF_HEIGHT)/2),
@@ -777,7 +780,8 @@ void c_sprite::draw_world_offset(int x, int y, int z, Block * b, int tileoffset,
 								if(config.block_count)
 									config.drawcount ++;
 
-								al_draw_tinted_scaled_bitmap(
+								if(shade_color.a > 0.001f)
+									al_draw_tinted_scaled_bitmap(
 									defaultsheet, premultiply(shade_color),
 									sheetx * spritescale,
 									sheety * spritescale,
@@ -794,7 +798,8 @@ void c_sprite::draw_world_offset(int x, int y, int z, Block * b, int tileoffset,
 								if(config.block_count)
 									config.drawcount ++;
 
-								al_draw_tinted_scaled_bitmap(
+								if(shade_color.a > 0.001f)
+									al_draw_tinted_scaled_bitmap(
 									getImgFile(fileindex),
 									premultiply(shade_color),
 									sheetx * spritescale,
@@ -956,6 +961,36 @@ ALLEGRO_COLOR c_sprite::get_color(void* block)
 		else return al_map_rgb(255,255,255);
 	case ShadeBlood:
 		return b->bloodcolor;
+	case ShadeWeapon:
+		if(b->Weapon.matt.type < 0)
+			return al_map_rgba(0,0,0,0);
+		else
+			return lookupMaterialColor(b->Weapon.matt.type, b->Weapon.matt.index);
+	case ShadeArmor:
+		if(b->Armor.matt.type < 0)
+			return al_map_rgba(0,0,0,0);
+		else
+			return lookupMaterialColor(b->Armor.matt.type, b->Armor.matt.index);
+	case ShadeShoes:
+		if(b->Shoes.matt.type < 0)
+			return al_map_rgba(0,0,0,0);
+		else
+			return lookupMaterialColor(b->Shoes.matt.type, b->Shoes.matt.index);
+	case ShadeShield:
+		if(b->Shield.matt.type < 0)
+			return al_map_rgba(0,0,0,0);
+		else
+			return lookupMaterialColor(b->Shield.matt.type, b->Shield.matt.index);
+	case ShadeHelm:
+		if(b->Helm.matt.type < 0)
+			return al_map_rgba(0,0,0,0);
+		else
+			return lookupMaterialColor(b->Helm.matt.type, b->Helm.matt.index);
+	case ShadeGloves:
+		if(b->Gloves.matt.type < 0)
+			return al_map_rgba(0,0,0,0);
+		else
+			return lookupMaterialColor(b->Gloves.matt.type, b->Gloves.matt.index);
 	default:
 		return al_map_rgb(255, 255, 255);
 	} ;
