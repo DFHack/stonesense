@@ -463,7 +463,8 @@ void Block::Draw()
 		tint.a*=Eff_Dragonfire.density/100.0f;
 		tint.g*=Eff_Dragonfire.density/100.0f;
 		tint.b*=Eff_Dragonfire.density/100.0f;
-		DrawSpriteFromSheet((((currentFrameLong+rando)%8)*20), sprite_dragonfire, tint, drawx, drawy, this, 1.0f);
+		int size = 3 - ((Eff_Dragonfire.density-1)/25);
+		DrawSpriteFromSheet((((currentFrameLong+rando)%8)*20+size), sprite_dragonfire, tint, drawx, drawy, this, 2.0f);
 		//ALLEGRO_COLOR tint = lookupMaterialColor(Eff_Dragonfire.matt.type, Eff_Dragonfire.matt.index);
 		//draw_particle_cloud(Eff_Dragonfire.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_dragonfire, tint);
 	}
@@ -473,7 +474,8 @@ void Block::Draw()
 		tint.a*=Eff_Fire.density/100.0f;
 		tint.g*=Eff_Fire.density/100.0f;
 		tint.b*=Eff_Fire.density/100.0f;
-		DrawSpriteFromSheet((((currentFrameLong+rando)%8)*20), sprite_dragonfire, tint, drawx, drawy, this, 1.0f);
+		int size = 3 - ((Eff_Fire.density-1)/25);
+		DrawSpriteFromSheet((((currentFrameLong+rando)%8)*20+size), sprite_dragonfire, tint, drawx, drawy, this, 2.0f);
 		//ALLEGRO_COLOR tint = lookupMaterialColor(Eff_Fire.matt.type, Eff_Fire.matt.index);
 		//draw_particle_cloud(Eff_Fire.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_fire, tint);
 	}
