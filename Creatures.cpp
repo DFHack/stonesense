@@ -213,7 +213,7 @@ ALLEGRO_USTR* bufferToUstr(const char* buffer, int length)
 	return temp;		
 }
 
-bool IsCreatureVisible( t_unit* c ){
+bool IsCreatureVisible( df::unit* c ){
 	if( config.show_all_creatures ) return true;
 
 	if( c->flags1.bits.dead )
@@ -333,17 +333,15 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
 
 	t_unit *tempcreature = new t_unit();
     df::unit *unit_ptr = 0;
-	/*for (uint32_t index = 0; index < numcreatures ; index++)
-	{
-	Creatures->ReadCreature( index, *tempcreature );*/
 	uint32_t index = 0;
     while((index = DFHack::Simple::Units::GetCreatureInBox( index, &unit_ptr, x1,y1,z1,x2,y2,z2)) != -1 )
     {
-        DFHack::Simple::Units::CopyCreature(unit_ptr,*tempcreature);
         index++;
         // if the creature isn't visible, we need not process it further.
-        if( !IsCreatureVisible( tempcreature ) )
+        if( !IsCreatureVisible( unit_ptr ) )
             continue;
+        // make a copy of some creature data
+        DFHack::Simple::Units::CopyCreature(unit_ptr,*tempcreature);
         // Acquire a cube element thingie!
         Block* b = segment->getBlock (tempcreature->x, tempcreature->y, tempcreature->z );
         // If we failed at that, make a new one out of fairy dust and makebelieve ;)

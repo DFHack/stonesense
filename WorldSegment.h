@@ -1,5 +1,4 @@
-#ifndef WORLDSEGMENT_H
-#define WORLDSEGMENT_H
+#pragma once
 
 #include "Block.h"
 
@@ -7,7 +6,6 @@ class WorldSegment{
 private:
 	vector<Block*> blocks;
 public:
-	ALLEGRO_MUTEX * mutie;
 	bool loaded;
 	bool processed;
 	int x, y, z;
@@ -31,7 +29,6 @@ public:
 		uint32_t memoryNeeded = sizex * sizey * sizez * sizeof(Block*);
 		blocksAsPointerVolume = (Block**) malloc( memoryNeeded );
 		memset(blocksAsPointerVolume, 0, memoryNeeded);
-		mutie = al_create_mutex();
 	}
 
 	~WorldSegment(){
@@ -40,7 +37,6 @@ public:
 			delete(blocks[i]);
 		}
 		blocks.clear();
-		al_destroy_mutex(mutie);
 	}
 
 	void Dispose(void){
@@ -62,4 +58,42 @@ public:
 	bool CoordinateInsideSegment(uint32_t x, uint32_t y, uint32_t z);
 };
 
-#endif
+// FIXME: make nicer. one day. maybe.
+class SegmentWrap
+{
+public:
+    SegmentWrap()
+    {
+        segment = NULL;
+        mutex = al_create_mutex();
+        locked = false;
+    }
+    ~SegmentWrap()
+    {
+        al_destroy_mutex(mutex);
+    }
+    void lock()
+    {
+        al_lock_mutex(mutex);
+        locked = true;
+    }
+    void unlock()
+    {
+        al_unlock_mutex(mutex);
+        locked = false;
+    }
+    WorldSegment * swap(WorldSegment * newsegment)
+    {
+        WorldSegment * temp = segment;
+        segment = newsegment;
+        return temp;
+    }
+    WorldSegment * get()
+    {
+        return segment;
+    }
+private:
+    ALLEGRO_MUTEX * mutex;
+    WorldSegment * segment;
+    bool locked;
+};

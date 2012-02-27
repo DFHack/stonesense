@@ -74,16 +74,7 @@ void ReadBuildings(DFHack::Core& DF, vector<Buildings::t_building>* buildingHold
 
 	uint32_t index = 0;
 	while(index < numbuildings){
-		try
-		{
-			Buildings::Read(index, tempbuilding);
-		}
-		catch (exception &e)
-		{
-			WriteErr("DFhack exeption: %s\n", e.what());
-			config.skipBuildings = true;
-			return;
-		}
+        Buildings::Read(index, tempbuilding);
 		buildingHolder->push_back(tempbuilding);
 		index++;
 	}
@@ -115,15 +106,13 @@ void MergeBuildingsToSegment(vector<Buildings::t_building>* buildings, WorldSegm
 						segment->addBlock( b );
 					}
 
-					if( b ){
-						//handle special case where zones and stockpiles overlap buildings, and try to replace them
-						if(b->building.info.type != BUILDINGTYPE_NA && tempbuilding.type == df::enums::building_type::Civzone )
-							continue;
-                        if(b->building.info.type != BUILDINGTYPE_NA && tempbuilding.type == df::enums::building_type::Stockpile )
-							continue; 
-						b->building.index = i;
-						b->building.info = tempbuilding;
-					}
+                    //handle special case where zones and stockpiles overlap buildings, and try to replace them
+                    if(b->building.info.type != BUILDINGTYPE_NA && tempbuilding.type == df::enums::building_type::Civzone )
+                        continue;
+                    if(b->building.info.type != BUILDINGTYPE_NA && tempbuilding.type == df::enums::building_type::Stockpile )
+                        continue;
+                    b->building.index = i;
+                    b->building.info = tempbuilding;
 				}
 			}
 	}

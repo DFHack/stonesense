@@ -158,7 +158,7 @@ enum dirRelative{
   eDownLeft,
   eDownRight,
 };
-//class WorldSegment;
+class SegmentWrap;
 
 
 

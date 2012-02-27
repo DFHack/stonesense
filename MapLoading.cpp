@@ -229,21 +229,6 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
 	df::map_block *trueBlock;
 	trueBlock = Maps::getBlock(CellX, CellY, CellZ);
 
-	//tiletype::tiletype tiletypes[16][16];
-	//t_designation designations[16][16];
-	//t_occupancy occupancies[16][16];
-	//uint8_t regionoffsets[16];
-	//t_temperatures temp1, temp2;
-	//DFHack::mapblock40d mapBlock;
-	//std::vector<df::plant *>* plants;
-	//Maps::ReadTileTypes(CellX, CellY, CellZ, (tiletypes40d *) tiletypes);
-	//Maps::ReadDesignations(CellX, CellY, CellZ, (designations40d *) designations);
-	//Maps::ReadOccupancy(CellX, CellY, CellZ, (occupancies40d *) occupancies);
-	//Maps::ReadRegionOffsets(CellX,CellY,CellZ, (biome_indices40d *)regionoffsets);
-	//Maps::ReadTemperatures(CellX, CellY, CellZ, &temp1, &temp2);
-	//Maps::ReadBlock40d(CellX, CellY, CellZ, &mapBlock);
-	//Maps::ReadVegetation(CellX, CellY, CellZ, plants);
-
 	//read local vein data
     vector <df::block_square_event_mineralst * > veins;
     vector <df::block_square_event_frozen_liquidst * > ices;
@@ -635,49 +620,14 @@ bool checkFloorBorderRequirement(WorldSegment* segment, int x, int y, int z, dir
 WorldSegment* ReadMapSegment(DFHack::Core &DF, int x, int y, int z, int sizex, int sizey, int sizez){
 	uint32_t index;
 	clock_t start_time = clock();
-	DFHack::Materials *Mats;
-	try
-	{
-		Mats = DF.getMaterials();
-	}
-	catch (exception &e)
-	{
-		WriteErr("DFhack exeption: %s\n", e.what());
-	}
-	DFHack::Gui *Pos;
-	try
-	{
-		Pos = DF.getGui();
-	}
-	catch (exception &e)
-	{
-		WriteErr("DFhack exeption: %s\n", e.what());
-	}
-	//DFHack::Vegetation *Veg;
-	//if(!skipVegetation)
-	//{
-	//	try
-	//	{
-	//		Veg = DF.getVegetation();
-	//	}
-	//	catch (exception &e)
-	//	{
-	//		WriteErr("DFhack exeption: %s\n", e.what());
-	//		skipVegetation = true;
-	//	}
-	//}
-	DFHack::World *Wold;
+	DFHack::Materials *Mats = DF.getMaterials();
+
+	DFHack::Gui *Pos = DF.getGui();
+
+	DFHack::World *Wold = 0;
 	if(!config.skipWorld)
 	{
-		try
-		{
-			Wold = DF.getWorld();
-		}
-		catch (exception &e)
-		{
-			WriteErr("DFhack exeption: %s\n", e.what());
-			config.skipWorld = true;
-		}
+        Wold = DF.getWorld();
 	}
 
 	//read date
@@ -769,27 +719,19 @@ WorldSegment* ReadMapSegment(DFHack::Core &DF, int x, int y, int z, int sizex, i
 
 	if(!config.skipConstructions)
 	{
-		try
-		{
-            numconstructions = Constructions::getCount();
-            if (numconstructions)
-			{
-				df::construction tempcon;
-				index = 0;
-				while(index < numconstructions)
-				{
-					tempcon = *Constructions::getConstruction(index);
-                    if(segment->CoordinateInsideSegment(tempcon.pos.x, tempcon.pos.y, tempcon.pos.z))
-						allConstructions.push_back(tempcon);
-					index++;
-				}
-			}
-		}
-		catch(exception &e)
-		{
-			WriteErr("DFhack exception: %s\n", e.what());
-			config.skipConstructions = true;
-		}
+        numconstructions = Constructions::getCount();
+        if (numconstructions)
+        {
+            df::construction tempcon;
+            index = 0;
+            while(index < numconstructions)
+            {
+                tempcon = *Constructions::getConstruction(index);
+                if(segment->CoordinateInsideSegment(tempcon.pos.x, tempcon.pos.y, tempcon.pos.z))
+                    allConstructions.push_back(tempcon);
+                index++;
+            }
+        }
 	}
 
 	//merge buildings with segment
@@ -857,93 +799,7 @@ WorldSegment* ReadMapSegment(DFHack::Core &DF, int x, int y, int z, int sizex, i
 		WriteErr("DFhack exception: %s\n", e.what());
 	}
 
-	//Read Vegetation
-	//uint32_t numtrees;
-	//if(!skipVegetation)
-	//{
-	//	try
-	//	{
-	//		if (Veg->Start(numtrees))
-	//		{
-	//			t_tree temptree;
-	//			index = 0;
-	//			while(index < numtrees )
-	//			{
-	//				Veg->Read(index, temptree);
-	//				//want hashtable :(
-	//				Block* b;
-	//				if( b = segment->getBlock( temptree.x, temptree.y, temptree.z) )
-	//				{
-	//					b->tree.type = temptree.type;
-	//					b->tree.index = temptree.material;
-
-	//					c_block_tree * Tree = GetTreeVegetation( (TileClass) getVegetationType( b->tileType ), b->tree.index );
-	//					Tree->insert_sprites(segment, temptree.x, temptree.y, temptree.z);
-	//				}
-	//				index ++;
-	//			}
-	//			Veg->Finish();
-	//		}
-	//	}
-	//	catch(exception &err)
-	//	{
-	//		WriteErr("DFhack exeption: %s\n", err.what());
-	//		skipVegetation = true;
-	//	}
-	//}
-
-	////Read Effects
-	//uint32_t numeffects;
-	//if (DF.InitReadEffects(numeffects))
-	//{
-	//	t_effect_df40d tempeffect;
-	//	index = 0;
-	//	while(index < numeffects )
-	//	{
-	//		DF.ReadEffect(index, tempeffect);
-	//		//want hashtable :(
-	//		Block* b;
-	//		if( b = segment->getBlock( tempeffect.x, tempeffect.y, tempeffect.z) )
-	//			if(!(tempeffect.isHidden))
-	//			{
-	//				b->blockeffects.type = tempeffect.type;
-	//				b->blockeffects.canCreateNew = tempeffect.canCreateNew;
-	//				b->blockeffects.lifetime = tempeffect.lifetime;
-	//				b->blockeffects.material = tempeffect.material;
-	//				b->blockeffects.x_direction = tempeffect.x_direction;
-	//				b->blockeffects.y_direction = tempeffect.y_direction;
-	//				b->blockeffects.count +=1;
-	//				if(tempeffect.type == 0)
-	//					b->eff_miasma = tempeffect.lifetime;
-	//				if(tempeffect.type == 1)
-	//					b->eff_water = tempeffect.lifetime;
-	//				if(tempeffect.type == 2)
-	//					b->eff_water2 = tempeffect.lifetime;
-	//				if(tempeffect.type == 3)
-	//					b->eff_blood = tempeffect.lifetime;
-	//				if(tempeffect.type == 4)
-	//					b->eff_dust = tempeffect.lifetime;
-	//				if(tempeffect.type == 5)
-	//					b->eff_magma = tempeffect.lifetime;
-	//				if(tempeffect.type == 6)
-	//					b->eff_smoke = tempeffect.lifetime;
-	//				if(tempeffect.type == 7)
-	//					b->eff_dragonfire = tempeffect.lifetime;
-	//				if(tempeffect.type == 8)
-	//					b->eff_fire = tempeffect.lifetime;
-	//				if(tempeffect.type == 9)
-	//					b->eff_webing = tempeffect.lifetime;
-	//				if(tempeffect.type == 10)
-	//					b->eff_boiling = tempeffect.lifetime;
-	//				if(tempeffect.type == 11)
-	//					b->eff_oceanwave = tempeffect.lifetime;
-	//			}
-	//			index ++;
-	//	}
-	//	DF.FinishReadEffects();
-	//}
 	//Read Creatures
-
 	if(!config.skipCreatures)
 		ReadCreaturesToSegment( DF, segment );
 
@@ -1250,48 +1106,41 @@ void FollowCurrentDFCenter()
 
 void read_segment( void *arg)
 {
-	if(!Maps::IsValid())
-		return;
-	static bool firstLoad = 1;
-	//al_lock_mutex(readMutex);
-	//al_wait_cond(readCond, readMutex);
-	config.threadstarted = 1;
-	if(altSegment)
-	{
-		al_lock_mutex(altSegment->mutie);
-		al_unlock_mutex(altSegment->mutie);
-		altSegment->Dispose();
-		delete(altSegment);
-	}
-	
-	pDFApiHandle->Suspend();
-	if (firstLoad || config.follow_DFscreen)
-	{
-		firstLoad = 0;
-		if (config.track_center)
-		{
-			FollowCurrentDFCenter();
-		}
-		else
-		{
-			FollowCurrentDFWindow();
-		}
-	}
-	altSegment = ReadMapSegment(*pDFApiHandle, parms.x, parms.y, parms.z,
-		parms.sizex, parms.sizey, parms.sizez);
-	config.threadstarted = 0;
-	pDFApiHandle->Resume();
-	beautify_Segment(altSegment);
-	if(viewedSegment)
-		al_lock_mutex(viewedSegment->mutie);
-	swapSegments();
-	if(altSegment)
-		al_unlock_mutex(altSegment->mutie);
+    if(!Maps::IsValid())
+        return;
+    static bool firstLoad = 1;
+    config.threadstarted = 1;
+
+    pDFApiHandle->Suspend();
+    if (firstLoad || config.follow_DFscreen)
+    {
+        firstLoad = 0;
+        if (config.track_center)
+        {
+            FollowCurrentDFCenter();
+        }
+        else
+        {
+            FollowCurrentDFWindow();
+        }
+    }
+    WorldSegment * segment = ReadMapSegment(*pDFApiHandle, parms.x, parms.y, parms.z,parms.sizex, parms.sizey, parms.sizez);
+    config.threadstarted = 0;
+    pDFApiHandle->Resume();
+    beautify_Segment(segment);
+    map_segment->lock();
+    WorldSegment* old_segment = map_segment->swap(segment);
+    map_segment->unlock();
+    if(old_segment)
+    {
+        old_segment->Dispose();
+        delete old_segment;
+    }
 }
 
-static void * threadedSegment(ALLEGRO_THREAD *thread, void *arg)
+static void * threadedSegment(ALLEGRO_THREAD *read_thread, void *arg)
 {
-	while(!al_get_thread_should_stop(thread))
+	while(!al_get_thread_should_stop(read_thread))
 	{
 		al_lock_mutex(config.readMutex);
 		read_segment(arg);
@@ -1315,17 +1164,9 @@ void reloadDisplayedSegment(DFHack::Core * c){
 	if (timeToReloadConfig)
 	{
 		parms.thread_connect = 0;
-		//DF.Suspend();
 		contentLoader->Load(DF);
 		timeToReloadConfig = false;
-		//DF.Resume();
 	}
-
-	//G->Start();
-	//G->ReadViewScreen(viewscreen);
-	//menustate = G->ReadMenuState();
-	//G->Finish();
-	//dispose old segment
 
 	if (firstLoad || config.follow_DFscreen)
 	{
@@ -1344,8 +1185,6 @@ void reloadDisplayedSegment(DFHack::Core * c){
 			config.threadmade = 1;
 		}
 	}
-	//if(threadstarted)
-	//	al_join_thread(readThread, NULL);
 
 	parms.x = DisplayedSegmentX;
 	parms.y = DisplayedSegmentY;
@@ -1359,26 +1198,6 @@ void reloadDisplayedSegment(DFHack::Core * c){
 	else
 		read_segment(NULL);
 
-
-	//al_broadcast_cond(readCond);
-
-	//if(!viewedSegment || viewedSegment->regionSize.x == 0 || viewedSegment->regionSize.y == 0)
-	//{
-	//	abortAutoReload();
-	//	timeToReloadConfig = true;
-	//}
-	//if( pDFApiHandle )
-	//{
-	//	try
-	//	{
-	//		DF.Resume();
-	//	}
-	//	catch (exception& e)
-	//	{
-	//		WriteErr("DFhack exeption: %s\n", e.what());
-	//		return ;
-	//	}
-	//}
 	firstLoad = 0;
 	TMR1_STOP;
 }

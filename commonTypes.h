@@ -115,7 +115,8 @@ typedef struct Crd3D {
 }Crd3D;
 
 
-typedef struct {
+typedef struct
+{
 	bool show_zones;
 	bool show_stockpiles;
 	bool show_osd;

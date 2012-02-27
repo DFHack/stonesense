@@ -20,8 +20,7 @@ using namespace std;
 
 extern ALLEGRO_FONT *font;
 
-WorldSegment* viewedSegment;
-WorldSegment* altSegment;
+SegmentWrap* map_segment;
 int DisplayedSegmentX;
 int DisplayedSegmentY;
 int DisplayedSegmentZ;
@@ -111,12 +110,7 @@ void draw_borders(float x, float y, uint8_t borders)
 		draw_diamond(x-4, y+4, al_map_rgb(0,0,0));
 
 }
-void swapSegments(void)
-{
-	WorldSegment* backupSegment = viewedSegment;
-	viewedSegment = altSegment;
-	altSegment = backupSegment;
-}
+
 ALLEGRO_COLOR operator*(const ALLEGRO_COLOR &color1, const ALLEGRO_COLOR &color2)
 {
 	ALLEGRO_COLOR temp;
@@ -344,14 +338,15 @@ void DrawCurrentLevelOutline(bool backPart){
 	}
 }
 
-void drawDebugCursorAndInfo(){
+void drawDebugCursorAndInfo(WorldSegment * segment)
+{
 	if((config.dfCursorX != -30000) && config.follow_DFcursor)
 	{
 		int x = config.dfCursorX;
 		int y = config.dfCursorY;
 		int z = config.dfCursorZ;
 		correctBlockForSegmetOffset(x,y,z);
-		correctBlockForRotation( x, y, z, viewedSegment->rotation);
+        correctBlockForRotation( x, y, z, segment->rotation);
 		debugCursor.x = x;
 		debugCursor.y = y;
 		debugCursor.z = z;
@@ -366,7 +361,7 @@ void drawDebugCursorAndInfo(){
 	//al_draw_bitmap_region(IMGObjectSheet, sheetx * SPRITEWIDTH, sheety * SPRITEHEIGHT, SPRITEWIDTH, SPRITEHEIGHT, point.x - SPRITEWIDTH/2, point.y - (WALLHEIGHT), 0);
 
 	//get block info
-	Block* b = viewedSegment->getBlockLocal( debugCursor.x, debugCursor.y, debugCursor.z+viewedSegment->sizez-2);
+    Block* b = segment->getBlockLocal( debugCursor.x, debugCursor.y, debugCursor.z+segment->sizez-2);
 	int i = 10;
 	draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, "Block 0x%x", b);
 
@@ -707,31 +702,33 @@ void drawDebugCursorAndInfo(){
 	//   "base: %d %d %d ", b->basetile, b->basecon.type, b->basecon.index );
 }
 
-void DrawMinimap(){
-	int size = 100;
-	//double oneBlockInPixels;
-	int posx = al_get_bitmap_width(al_get_target_bitmap())-size-10;
-	int posy = 10;
+void DrawMinimap(WorldSegment * segment)
+{
+    int size = 100;
+    //double oneBlockInPixels;
+    int posx = al_get_bitmap_width(al_get_target_bitmap())-size-10;
+    int posy = 10;
 
-	if(!viewedSegment || viewedSegment->regionSize.x == 0 || viewedSegment->regionSize.y == 0){
-		draw_textf_border(font, al_map_rgb(255,255,255), posx, posy, 0, "No map loaded");
-		return;
-	}
+    if(!segment || segment->regionSize.x == 0 || segment->regionSize.y == 0)
+    {
+        draw_textf_border(font, al_map_rgb(255,255,255), posx, posy, 0, "No map loaded");
+        return;
+    }
 
-	oneBlockInPixels = (double) size / viewedSegment->regionSize.x;
-	//map outine
-	int mapheight = (int)(viewedSegment->regionSize.y * oneBlockInPixels);
-	al_draw_rectangle(posx, posy, posx+size, posy+mapheight, al_map_rgb(0,0,0),0);
-	//current segment outline
-	int x = (size * (viewedSegment->x+1)) / viewedSegment->regionSize.x;
-	int y = (mapheight * (viewedSegment->y+1)) / viewedSegment->regionSize.y;
-	MiniMapSegmentWidth = (viewedSegment->sizex-2) * oneBlockInPixels;
-	MiniMapSegmentHeight = (viewedSegment->sizey-2) * oneBlockInPixels;
-	al_draw_rectangle(posx+x, posy+y, posx+x+MiniMapSegmentWidth, posy+y+MiniMapSegmentHeight,al_map_rgb(0,0,0),0);
-	MiniMapTopLeftX = posx;
-	MiniMapTopLeftY = posy;
-	MiniMapBottomRightX = posx+size;
-	MiniMapBottomRightY = posy+mapheight;
+    oneBlockInPixels = (double) size / segment->regionSize.x;
+    //map outine
+    int mapheight = (int)(segment->regionSize.y * oneBlockInPixels);
+    al_draw_rectangle(posx, posy, posx+size, posy+mapheight, al_map_rgb(0,0,0),0);
+    //current segment outline
+    int x = (size * (segment->x+1)) / segment->regionSize.x;
+    int y = (mapheight * (segment->y+1)) / segment->regionSize.y;
+    MiniMapSegmentWidth = (segment->sizex-2) * oneBlockInPixels;
+    MiniMapSegmentHeight = (segment->sizey-2) * oneBlockInPixels;
+    al_draw_rectangle(posx+x, posy+y, posx+x+MiniMapSegmentWidth, posy+y+MiniMapSegmentHeight,al_map_rgb(0,0,0),0);
+    MiniMapTopLeftX = posx;
+    MiniMapTopLeftY = posy;
+    MiniMapBottomRightX = posx+size;
+    MiniMapBottomRightY = posy+mapheight;
 }
 
 void DrawSpriteFromSheet( int spriteNum, ALLEGRO_BITMAP* spriteSheet, ALLEGRO_COLOR color, float x, float y, Block * b, float in_scale){
@@ -834,41 +831,36 @@ void DoSpriteIndexOverlay()
 	paintboard();
 }
 
-void paintboard(){
-	uint32_t starttime = clock();
-	//al_set_new_bitmap_format(ALLEGRO_PIXEL_FORMAT_ANY_NO_ALPHA);
-	//if(!buffer)
-	//	buffer = al_create_bitmap(al_get_display_width(al_get_current_display()), al_get_display_height(al_get_current_display()));
-	//if(al_get_bitmap_width(buffer) != al_get_display_width(al_get_current_display()) || al_get_bitmap_height(buffer) != al_get_display_height(al_get_current_display()))
-	//{
-	//	al_destroy_bitmap(buffer);
-	//	buffer = al_create_bitmap(al_get_display_width(al_get_current_display()), al_get_display_height(al_get_current_display()));
-	//}
-	//ALLEGRO_BITMAP * backup = al_get_target_bitmap();
-	//al_set_target_bitmap(buffer);
-	//al_set_separate_blender(ALLEGRO_ALPHA, ALLEGRO_INVERSE_ALPHA, ALLEGRO_ONE, ALLEGRO_ONE);
-	//al_set_blender(ALLEGRO_ALPHA, ALLEGRO_INVERSE_ALPHA, al_map_rgba(255, 255, 255, 255));
-	int op, src, dst, alpha_op, alpha_src, alpha_dst;
-	al_get_separate_blender(&op, &src, &dst, &alpha_op, &alpha_src, &alpha_dst);
-	al_set_separate_blender(ALLEGRO_ADD, ALLEGRO_ONE, ALLEGRO_ZERO,ALLEGRO_ADD, ALLEGRO_ONE, ALLEGRO_ZERO);
-	al_clear_to_color(al_map_rgba(0,0,0,0));
-	if(!config.transparentScreenshots)
-		al_clear_to_color(al_map_rgb(config.backr,config.backg,config.backb));
+void paintboard()
+{
+    uint32_t starttime = clock();
+
+    int op, src, dst, alpha_op, alpha_src, alpha_dst;
+    al_get_separate_blender(&op, &src, &dst, &alpha_op, &alpha_src, &alpha_dst);
+    al_set_separate_blender(ALLEGRO_ADD, ALLEGRO_ONE, ALLEGRO_ZERO,ALLEGRO_ADD, ALLEGRO_ONE, ALLEGRO_ZERO);
+    if(config.transparentScreenshots)
+    {
+        al_clear_to_color(al_map_rgba(0,0,0,0));
+    }
+    else
+    {
+        al_clear_to_color(al_map_rgb(config.backr,config.backg,config.backb));
+    }
 	al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst);
 
-	//clear_to_color(buffer,makecol(12,7,49)); //this one is calm and nice
-
-	if( viewedSegment == NULL ){
-		draw_textf_border(font, al_map_rgb(255,255,255), al_get_bitmap_width(al_get_target_bitmap())/2, al_get_bitmap_height(al_get_target_bitmap())/2, ALLEGRO_ALIGN_CENTRE, "Could not find DF process");
-		return;
-	}
-
-	al_lock_mutex(viewedSegment->mutie);
-
-	viewedSegment->drawAllBlocks();
+    // lock segment for painting and retrieve it.
+    map_segment->lock();
+    WorldSegment * segment = map_segment->get();
+    if( segment == NULL )
+    {
+        draw_textf_border(font, al_map_rgb(255,255,255), al_get_bitmap_width(al_get_target_bitmap())/2, al_get_bitmap_height(al_get_target_bitmap())/2, ALLEGRO_ALIGN_CENTRE, "Could not find DF process");
+        map_segment->unlock();
+        return;
+    }
+	segment->drawAllBlocks();
 	if (config.show_osd) DrawCurrentLevelOutline(false);
 
-	DebugInt1 = viewedSegment->getNumBlocks();
+    DebugInt1 = segment->getNumBlocks();
 
 	uint32_t DrawTime = clock() - starttime;
 
@@ -892,14 +884,14 @@ void paintboard(){
 		draw_textf_border(font, al_map_rgb(255,255,255), 10,al_get_font_line_height(font), 0, "%i,%i,%i, r%i, z%i", DisplayedSegmentX,DisplayedSegmentY,DisplayedSegmentZ, DisplayedRotation, config.zoom);
 
 		if(config.debug_mode){
-			draw_textf_border(font, al_map_rgb(255,255,255), 10, 3*al_get_font_line_height(font), 0, "Map Read Time: %dms", viewedSegment->read_time);
-			draw_textf_border(font, al_map_rgb(255,255,255), 10, 4*al_get_font_line_height(font), 0, "Map Beautification Time: %ims", viewedSegment->beautify_time);
+			draw_textf_border(font, al_map_rgb(255,255,255), 10, 3*al_get_font_line_height(font), 0, "Map Read Time: %dms", segment->read_time);
+			draw_textf_border(font, al_map_rgb(255,255,255), 10, 4*al_get_font_line_height(font), 0, "Map Beautification Time: %ims", segment->beautify_time);
 			draw_textf_border(font, al_map_rgb(255,255,255), 10, 2*al_get_font_line_height(font), 0, "FPS: %.2f", 1.0/time_since_last_frame);
 			draw_textf_border(font, al_map_rgb(255,255,255), 10, 5*al_get_font_line_height(font), 0, "Draw: %ims", DrawTime);
 			draw_textf_border(font, al_map_rgb(255,255,255), 10, 6*al_get_font_line_height(font), 0, "D1: %i", blockFactory.getPoolSize());
 			draw_textf_border(font, al_map_rgb(255,255,255), 10, 7*al_get_font_line_height(font), 0, "%i/%i/%i, %i:%i", contentLoader->currentDay+1, contentLoader->currentMonth+1, contentLoader->currentYear, contentLoader->currentHour, (contentLoader->currentTickRel*60)/50);
 			draw_textf_border(font, al_map_rgb(255,255,255), 10, 8*al_get_font_line_height(font), 0, "%i Sprites drawn, %i tiles drawn, %.1f sprites per tile.", config.drawcount, config.tilecount, ((float)config.drawcount/(float)config.tilecount));
-			drawDebugCursorAndInfo();
+			drawDebugCursorAndInfo(segment);
 		}
 		config.drawcount = 0;
 		config.tilecount = 0;
@@ -926,11 +918,9 @@ void paintboard(){
 			draw_textf_border(font, al_map_rgb(255,255,255), al_get_bitmap_width(al_get_target_bitmap())/2,top, ALLEGRO_ALIGN_CENTRE, "Reloading every %0.1fs", (float)config.automatic_reload_time/1000);
 		}
 		al_hold_bitmap_drawing(false);
-		DrawMinimap();
+		DrawMinimap(segment);
 	}
-	//al_set_target_bitmap(backup);
-	//al_draw_bitmap(buffer, 0, 0, 0);
-	al_unlock_mutex(viewedSegment->mutie);
+	map_segment->unlock();
 	al_flip_display();
 }
 
@@ -1210,8 +1200,11 @@ void saveImage(ALLEGRO_BITMAP* image){
 	al_save_bitmap(filename, image);
 }
 
+//FIXME: filled with black magic
 void dumpSegment()
 {
+    return;
+    /*
 	al_lock_mutex(config.readMutex);
 
 	//back up all the relevant values
@@ -1251,7 +1244,7 @@ void dumpSegment()
 	int tempFlags = al_get_new_bitmap_flags();
 	al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP);
 
-	ALLEGRO_BITMAP * volume = al_create_bitmap(viewedSegment->sizex, (viewedSegment->sizez * viewedSegment->sizey));
+	ALLEGRO_BITMAP * volume = al_create_bitmap(segment->sizex, (segment->sizez * segment->sizey));
 	if(!volume)
 	{
 		DFConsole->printerr("Failed to create volumetric image.");
@@ -1283,9 +1276,14 @@ void dumpSegment()
 	config.lift_segment_offscreen = tempLift;
 
 	al_unlock_mutex(config.readMutex);
+	*/
 }
 
-void saveMegashot(bool tall){
+// FIXME: even more black magic.
+void saveMegashot(bool tall)
+{
+    return;
+    /*
 	config.showRenderStatus = true;
 	al_lock_mutex(config.readMutex);
 	draw_textf_border(font, al_map_rgb(255,255,255), al_get_bitmap_width(al_get_target_bitmap())/2, al_get_bitmap_height(al_get_target_bitmap())/2, ALLEGRO_ALIGN_CENTRE, "Saving large screenshot...");
@@ -1365,6 +1363,7 @@ void saveMegashot(bool tall){
 	config.lift_segment_offscreen = tempLift;
 	config.showRenderStatus = false;
 	al_unlock_mutex(config.readMutex);
+	*/
 }
 
 void draw_particle_cloud(int count, float centerX, float centerY, float rangeX, float rangeY, ALLEGRO_BITMAP *sprite, ALLEGRO_COLOR tint)
