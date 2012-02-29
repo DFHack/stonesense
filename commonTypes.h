@@ -1,6 +1,7 @@
 #pragma once
 
 #include "common.h"
+#include "SpriteColors.h"
 
 enum ShadeBy
 {
@@ -55,64 +56,73 @@ struct t_SpriteWithOffset
 	uint8_t snowMax;
 } ;
 
-typedef struct dfColors
-{
-	uint8_t black_r;
-	uint8_t black_g;
-	uint8_t black_b;
-	uint8_t blue_r;
-	uint8_t blue_g;
-	uint8_t blue_b;
-	uint8_t green_r;
-	uint8_t green_g;
-	uint8_t green_b;
-	uint8_t cyan_r;
-	uint8_t cyan_g;
-	uint8_t cyan_b;
-	uint8_t red_r;
-	uint8_t red_g;
-	uint8_t red_b;
-	uint8_t magenta_r;
-	uint8_t magenta_g;
-	uint8_t magenta_b;
-	uint8_t brown_r;
-	uint8_t brown_g;
-	uint8_t brown_b;
-	uint8_t lgray_r;
-	uint8_t lgray_g;
-	uint8_t lgray_b;
-	uint8_t dgray_r;
-	uint8_t dgray_g;
-	uint8_t dgray_b;
-	uint8_t lblue_r;
-	uint8_t lblue_g;
-	uint8_t lblue_b;
-	uint8_t lgreen_r;
-	uint8_t lgreen_g;
-	uint8_t lgreen_b;
-	uint8_t lcyan_r;
-	uint8_t lcyan_g;
-	uint8_t lcyan_b;
-	uint8_t lred_r;
-	uint8_t lred_g;
-	uint8_t lred_b;
-	uint8_t lmagenta_r;
-	uint8_t lmagenta_g;
-	uint8_t lmagenta_b;
-	uint8_t yellow_r;
-	uint8_t yellow_g;
-	uint8_t yellow_b;
-	uint8_t white_r;
-	uint8_t white_g;
-	uint8_t white_b;
-} dfColors;
-
 typedef struct Crd2D {
 	int32_t x,y;
 }Crd2D;
 typedef struct Crd3D {
 	int32_t x,y,z;
 }Crd3D;
+
+class dfColors
+{
+public:
+    dfColors()
+    {
+        memset(colors, 0, sizeof(colors));
+        update();
+    }
+    struct color
+    {
+        uint8_t red;
+        uint8_t green;
+        uint8_t blue;
+        ALLEGRO_COLOR al;
+        void update()
+        {
+            al = al_map_rgb(red,green,blue);
+        }
+    }colors[16];
+    enum color_name
+    {
+        black,
+        blue,
+        green,
+        cyan,
+        red,
+        magenta,
+        brown,
+        lgray,
+        dgray,
+        lblue,
+        lgreen,
+        lcyan,
+        lred,
+        lmagenta,
+        yellow,
+        white
+    };
+    void update()
+    {
+        for (int i = 0; i < 16; i++)
+        {
+            colors[i].update();
+        }
+    }
+    color & operator [] (color_name col)
+    {
+        return colors[col];
+    }
+    ALLEGRO_COLOR getDfColor(int color)
+    {
+        if(color < 0 || color >= 16)
+            return al_map_rgb(255,255,255);
+        return colors[ (color_name) color].al;
+    }
+    ALLEGRO_COLOR getDfColor(int color, int bright)
+    {
+        return getDfColor(color+(bright*8));
+    }
+};
 
 
 typedef struct
