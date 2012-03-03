@@ -322,7 +322,7 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
 	int z2 = segment->z + segment->sizez;
 	uint32_t numcreatures;
 
-    numcreatures = DFHack::Simple::Units::getNumCreatures();
+    numcreatures = DFHack::Units::getNumCreatures();
 	if(!numcreatures) return;
 	if(x1<0) x1=0;
 	if(y1<0) y1=0;
@@ -334,14 +334,14 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
 	t_unit *tempcreature = new t_unit();
     df::unit *unit_ptr = 0;
 	uint32_t index = 0;
-    while((index = DFHack::Simple::Units::GetCreatureInBox( index, &unit_ptr, x1,y1,z1,x2,y2,z2)) != -1 )
+    while((index = DFHack::Units::GetCreatureInBox( index, &unit_ptr, x1,y1,z1,x2,y2,z2)) != -1 )
     {
         index++;
         // if the creature isn't visible, we need not process it further.
         if( !IsCreatureVisible( unit_ptr ) )
             continue;
         // make a copy of some creature data
-        DFHack::Simple::Units::CopyCreature(unit_ptr,*tempcreature);
+        DFHack::Units::CopyCreature(unit_ptr,*tempcreature);
         // Acquire a cube element thingie!
         Block* b = segment->getBlock (tempcreature->x, tempcreature->y, tempcreature->z );
         // If we failed at that, make a new one out of fairy dust and makebelieve ;)
@@ -367,16 +367,16 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
         // add shadow to nearest floor block
         for (int bz = tempcreature->z;bz>=z1;bz--)
         {
-            b = segment->getBlock (tempcreature->x, tempcreature->y, bz );
-            if (!b) continue;
-            if (b->tileShapeBasic==tiletype_shape_basic::Floor ||
-                b->tileShapeBasic==tiletype_shape_basic::Wall  ||
-                b->tileShapeBasic==tiletype_shape_basic::Ramp)
+            Block * floor_tile = segment->getBlock (tempcreature->x, tempcreature->y, bz );
+            if (!floor_tile) continue;
+            if (floor_tile->tileShapeBasic==tiletype_shape_basic::Floor ||
+                floor_tile->tileShapeBasic==tiletype_shape_basic::Wall  ||
+                floor_tile->tileShapeBasic==tiletype_shape_basic::Ramp)
             {
                 // todo figure out appropriate shadow size
                 int tempShadow = GetCreatureShadowMap( tempcreature );
-                if (b->shadow < tempShadow)
-                    b->shadow=tempShadow;
+                if (floor_tile->shadow < tempShadow)
+                    floor_tile->shadow=tempShadow;
                 break;
             }
         }

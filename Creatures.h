@@ -7,7 +7,7 @@
 
 class Block;
 
-using DFHack::Simple::Units::t_unit;
+using DFHack::Units::t_unit;
 
 void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment);
 
