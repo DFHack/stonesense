@@ -19,7 +19,6 @@ bool connected = 0;
 bool threadrunnng = 0;
 segParams parms;
 
-using namespace DFHack::Simple;
 
 inline bool IDisWall(int in){
     //if not a custom type, do a lookup in dfHack's interface
@@ -622,8 +621,6 @@ WorldSegment* ReadMapSegment(DFHack::Core &DF, int x, int y, int z, int sizex, i
 	clock_t start_time = clock();
 	DFHack::Materials *Mats = DF.getMaterials();
 
-	DFHack::Gui *Pos = DF.getGui();
-
 	DFHack::World *Wold = 0;
 	if(!config.skipWorld)
 	{
@@ -711,7 +708,7 @@ WorldSegment* ReadMapSegment(DFHack::Core &DF, int x, int y, int z, int sizex, i
 	}
 
 	//read cursor
-	Pos->getCursorCoords(config.dfCursorX, config.dfCursorY, config.dfCursorZ);
+	Gui::getCursorCoords(config.dfCursorX, config.dfCursorY, config.dfCursorZ);
 
 	// read constructions
 	vector<df::construction> allConstructions;
@@ -1001,96 +998,59 @@ void beautify_Segment(WorldSegment * segment)
 
 void FollowCurrentDFWindow()
 {
-	int32_t newviewx;
-	int32_t newviewy;
-	int32_t viewsizex;
-	int32_t viewsizey;
-	int32_t newviewz;
-	int32_t mapx, mapy, mapz;
-	DFHack::Gui *Pos =pDFApiHandle->getGui();
-	try
-	{
-		if (Pos)
-		{
-			// we take the rectangle you'd get if you scrolled the DF view closely around
-			// map edges with a pen pierced through the center,
-			// compute the scaling factor between this rectangle and the map bounds and then scale
-			// the coords with this scaling factor
-			/**
+    int32_t newviewx;
+    int32_t newviewy;
+    int32_t viewsizex;
+    int32_t viewsizey;
+    int32_t newviewz;
+    int32_t mapx, mapy, mapz;
+    // we take the rectangle you'd get if you scrolled the DF view closely around
+    // map edges with a pen pierced through the center,
+    // compute the scaling factor between this rectangle and the map bounds and then scale
+    // the coords with this scaling factor
+    /**
+    +---+
+    |W+-++----------+
+    +-+-+---------+ |
+      | |         | |
+      | | inner   | |
+      | |   rect. | |
+      | |         | |
+      | |         | |--- map boundary
+      | +---------+ |
+      +-------------+  W - corrected view
+    */
+    Maps::getSize((uint32_t &)mapx, (uint32_t &)mapy, (uint32_t &)mapz);
+    mapx *= 16;
+    mapy *= 16;
 
-			+---+
-			|W+-++----------+
-			+-+-+---------+ |
-			| |         | |
-			| | inner   | |
-			| |   rect. | |
-			| |         | |
-			| |         | |--- map boundary
-			| +---------+ |
-			+-------------+  W - corrected view
+    Gui::getWindowSize(viewsizex,viewsizey);
+    float scalex = float (mapx) / float (mapx - viewsizex);
+    float scaley = float (mapy) / float (mapy - viewsizey);
 
-			*/
-			Maps::getSize((uint32_t &)mapx, (uint32_t &)mapy, (uint32_t &)mapz);
-			mapx *= 16;
-			mapy *= 16;
+    Gui::getViewCoords(newviewx,newviewy,newviewz);
+    newviewx = newviewx + (viewsizex / 2) - mapx / 2;
+    newviewy = newviewy + (viewsizey / 2) - mapy / 2;
 
-			Pos->getWindowSize(viewsizex,viewsizey);
-			float scalex = float (mapx) / float (mapx - viewsizex);
-			float scaley = float (mapy) / float (mapy - viewsizey);
-
-			Pos->getViewCoords(newviewx,newviewy,newviewz);
-			newviewx = newviewx + (viewsizex / 2) - mapx / 2;
-			newviewy = newviewy + (viewsizey / 2) - mapy / 2;
-
-			parms.x = float (newviewx) * scalex - (config.segmentSize.x / 2) + config.viewXoffset + mapx / 2;
-			parms.y = float (newviewy) * scaley - (config.segmentSize.y / 2) + config.viewYoffset + mapy / 2;
-			parms.z = newviewz + config.viewZoffset + 1;
-
-		}
-		else
-		{
-			//fail
-			config.follow_DFscreen = false;
-		}
-	}
-	catch(exception &err)
-	{
-		WriteErr("DFhack exeption: %s \n", err.what());
-		config.follow_DFscreen = false;
-	}
+    parms.x = float (newviewx) * scalex - (config.segmentSize.x / 2) + config.viewXoffset + mapx / 2;
+    parms.y = float (newviewy) * scaley - (config.segmentSize.y / 2) + config.viewYoffset + mapy / 2;
+    parms.z = newviewz + config.viewZoffset + 1;
 }
 
 void FollowCurrentDFCenter()
 {
-	int32_t newviewx;
-	int32_t newviewy;
-	int32_t viewsizex;
-	int32_t viewsizey;
-	int32_t newviewz;
-	DFHack::Gui *Pos =pDFApiHandle->getGui();
-	try
-	{
-		if (Pos)
-		{
-			Pos->getWindowSize(viewsizex,viewsizey); 
-			Pos->getViewCoords(newviewx,newviewy,newviewz);
-			int screenx, screeny, screenz;
-			ScreenToPoint(config.screenWidth/2, config.screenHeight/2, screenx, screeny, screenz);
-			parms.x = newviewx + (viewsizex/2) - screenx + config.viewXoffset;
-			parms.y = newviewy + (viewsizey/2) - screeny + config.viewYoffset;
-			parms.z = newviewz + config.viewZoffset + 1;       
-		}
-		else
-		{
-			//fail
-			config.follow_DFscreen = false;
-		}
-	}
-	catch(exception &err)
-	{
-		WriteErr("DFhack exeption: %s \n", err.what());
-		config.follow_DFscreen = false;
-	}
+    int32_t newviewx;
+    int32_t newviewy;
+    int32_t viewsizex;
+    int32_t viewsizey;
+    int32_t newviewz;
+    Gui::getWindowSize(viewsizex,viewsizey);
+    Gui::getViewCoords(newviewx,newviewy,newviewz);
+    int screenx, screeny, screenz;
+    ScreenToPoint(config.screenWidth/2, config.screenHeight/2, screenx, screeny, screenz);
+    parms.x = newviewx + (viewsizex/2) - screenx + config.viewXoffset;
+    parms.y = newviewy + (viewsizey/2) - screeny + config.viewYoffset;
+    parms.z = newviewz + config.viewZoffset + 1;
 }
 
 void read_segment( void *arg)

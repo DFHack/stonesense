@@ -66,7 +66,7 @@ public:
 
     DFHack::t_designation designation;
     DFHack::t_occupancy occ;
-    DFHack::Simple::Units::t_unit * creature;
+    DFHack::Units::t_unit * creature;
     DFHack::t_matglossPair tree;
 
 	int mudlevel;
@@ -110,7 +110,7 @@ public:
 	Effect Eff_OceanWave;
 	Effect Eff_SeaFoam;
 	struct {
-        DFHack::Simple::Buildings::t_building info;
+        DFHack::Buildings::t_building info;
 		std::vector<c_sprite> sprites;
 		uint32_t index;
 		Block * parent;
