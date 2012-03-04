@@ -24,7 +24,6 @@ VegetationConfiguration::~VegetationConfiguration(void)
 
 bool addSingleVegetationConfig( TiXmlElement* elemRoot,  vector<VegetationConfiguration>* vegetationConfigs, vector<t_matgloss>& plantNames )
 {
-	const char* sheetIndexStr;
 	int basefile = -1;
 
 	const char* filename = elemRoot->Attribute("file");

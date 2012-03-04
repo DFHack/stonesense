@@ -33,6 +33,12 @@ void initRandomCube()
 				randomCube[i][j][k] = rand();
 }
 
+Worn_Item::Worn_Item()
+{
+	matt.index = -1;
+	matt.type = -1;
+}
+
 Block::Block(WorldSegment* ownerSegment)
 {
 	//clear out own memory
@@ -64,6 +70,8 @@ Block::Block(WorldSegment* ownerSegment)
 Block::~Block(void){
 	if( creature )
 		delete(creature);
+	if(inv)
+		delete(inv);
 }
 
 void* Block::operator new (size_t size){

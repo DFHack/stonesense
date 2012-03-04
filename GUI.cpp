@@ -16,6 +16,25 @@ using namespace std;
 #include "BlockFactory.h"
 #include "Block.h"
 
+#include "df/ui.h"
+#include "df/building_actual.h"
+
+#include "df/itemdef.h"
+#include "df/itemdef_weaponst.h"
+#include "df/itemdef_trapcompst.h"
+#include "df/itemdef_toyst.h"
+#include "df/itemdef_toolst.h"
+#include "df/itemdef_instrumentst.h"
+#include "df/itemdef_armorst.h"
+#include "df/itemdef_ammost.h"
+#include "df/itemdef_siegeammost.h"
+#include "df/itemdef_glovesst.h"
+#include "df/itemdef_shoesst.h"
+#include "df/itemdef_shieldst.h"
+#include "df/itemdef_helmst.h"
+#include "df/itemdef_pantsst.h"
+#include "df/itemdef_foodst.h"
+
 #define color_segmentoutline al_map_rgb(0,0,0)
 
 extern ALLEGRO_FONT *font;
@@ -60,6 +79,46 @@ ALLEGRO_COLOR premultiply(ALLEGRO_COLOR input)
 	out.b = input.b * input.a;
 	return out;
 }
+
+const char * get_item_subtype(item_type::item_type type, int subtype)
+{
+	if (subtype < 0)
+		return "?";
+	switch(type)
+	{
+	case item_type::WEAPON:
+		return df::global::world->raws.itemdefs.weapons[subtype]->id.c_str();
+	case item_type::TRAPCOMP:
+		return df::global::world->raws.itemdefs.trapcomps[subtype]->id.c_str();
+	case item_type::TOY:
+		return df::global::world->raws.itemdefs.toys[subtype]->id.c_str();
+	case item_type::TOOL:
+		return df::global::world->raws.itemdefs.tools[subtype]->id.c_str();
+	case item_type::INSTRUMENT:
+		return df::global::world->raws.itemdefs.instruments[subtype]->id.c_str();
+	case item_type::ARMOR:
+		return df::global::world->raws.itemdefs.armor[subtype]->id.c_str();
+	case item_type::AMMO:
+		return df::global::world->raws.itemdefs.ammo[subtype]->id.c_str();
+	case item_type::SIEGEAMMO:
+		return df::global::world->raws.itemdefs.siege_ammo[subtype]->id.c_str();
+	case item_type::GLOVES:
+		return df::global::world->raws.itemdefs.gloves[subtype]->id.c_str();
+	case item_type::SHOES:
+		return df::global::world->raws.itemdefs.shoes[subtype]->id.c_str();
+	case item_type::SHIELD:
+		return df::global::world->raws.itemdefs.shields[subtype]->id.c_str();
+	case item_type::HELM:
+		return df::global::world->raws.itemdefs.helms[subtype]->id.c_str();
+	case item_type::PANTS:
+		return df::global::world->raws.itemdefs.pants[subtype]->id.c_str();
+	case item_type::FOOD:
+		return df::global::world->raws.itemdefs.food[subtype]->id.c_str();
+	default:
+		return "?";
+	}
+}
+
 
 void draw_diamond(float x, float y, ALLEGRO_COLOR color)
 {
@@ -338,8 +397,10 @@ void DrawCurrentLevelOutline(bool backPart){
 	}
 }
 
-void drawDebugCursorAndInfo(WorldSegment * segment)
+void drawDebugCursorAndInfo(WorldSegment * segment, DFHack::Core * c)
 {
+	using df::global::ui;
+
 	if((config.dfCursorX != -30000) && config.follow_DFcursor)
 	{
 		int x = config.dfCursorX;
@@ -363,17 +424,12 @@ void drawDebugCursorAndInfo(WorldSegment * segment)
 	//get block info
     Block* b = segment->getBlockLocal( debugCursor.x, debugCursor.y, debugCursor.z+segment->sizez-2);
 	int i = 10;
-	draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, "Block 0x%x", b);
+	draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0, "Block 0x%x", b);
 
-	draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
+	draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0, 
 		"Coord:(%i,%i,%i)", debugCursor.x, debugCursor.y, debugCursor.z);
 
-	draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
-		"Game Mode:%i, Control Mode:%i", contentLoader->gameMode.g_mode, contentLoader->gameMode.g_type);
-
 	if(!b) return;
-
-
 	int ttype;
 	const char* tform = NULL;
 	if (b->tileShapeBasic==tiletype_shape_basic::Floor)
@@ -397,304 +453,438 @@ void drawDebugCursorAndInfo(WorldSegment * segment)
 		tform="stair";
 	}
 
-	if (tform != NULL)
+	switch(ui->main.mode)
 	{
-		const char* formName = lookupFormName(b->consForm);
-		const char* matName = lookupMaterialTypeName(b->material.type);
-		const char* subMatName = lookupMaterialName(b->material.type,b->material.index);
-		draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0,
-			"%s %s:%i Material:%s%s%s (%d,%d)", formName, tform, ttype, 
-			matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"", b->material.type,b->material.index);
-	}
-	if (tform != NULL)
-	{
-		MaterialInfo mat;
-		mat.decode(b->material.type, b->material.index);
-		ALLEGRO_COLOR color = al_map_rgb_f(contentLoader->Mats->color[mat.material->state_color[0]].red, contentLoader->Mats->color[mat.material->state_color[0]].green, contentLoader->Mats->color[mat.material->state_color[0]].blue);
-		draw_textf_border(font, color, 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0,
-			"%s", mat.material->state_name[0].c_str());
-	}	//if (tform != NULL)
-	//{
-	//	draw_textf_border(font, 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0,
-	//		"MaterialType: %d, MaterialIndex: %d", b->material.type, b->material.index);
-	//}
-	if (tform != NULL)
-	{
-		const char* matName = lookupMaterialTypeName(b->layerMaterial.type);
-		const char* subMatName = lookupMaterialName(b->layerMaterial.type,b->layerMaterial.index);
-		draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0,
-			"Layer Material:%s%s%s", 
-			matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
-	} 
-	if ((tform != NULL) && b->hasVein == 1)
-	{
-		const char* matName = lookupMaterialTypeName(b->veinMaterial.type);
-		const char* subMatName = lookupMaterialName(b->veinMaterial.type,b->veinMaterial.index);
-		draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0,
-			"Vein Material:%s%s%s", 
-			matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
-	} 
-	if (tform != NULL)//(b->grasslevel > 0)
-	{
-		const char* subMatName = lookupMaterialName(WOOD,b->grassmat);
-		draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0,
-			"Grass length:%d, Material: %s", 
-			b->grasslevel, subMatName?subMatName:"");
-	} 
-	//for(int j = 0; j < b->grasslevels.size(); j++)
-	//{
-	//	const char* subMatName = lookupMaterialName(WOOD,b->grassmats.at(j));
-	//	draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0,
-	//		"Grass length:%d, Material: %s", 
-	//		b->grasslevels.at(j), subMatName?subMatName:"");
-	//} 
-
-	if(b->water.index > 0 || b->tree.index != 0)
-		draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
-		"tree:%i water:%i,%i", b->tree.index, b->water.type, b->water.index);
-	if(b->tree.index != 0)
-		draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
-		"tree name:%s type:%i", lookupTreeName(b->tree.index), b->tree.type);
-	if(b->building.sprites.size() != 0)
-		draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
-		"%i extra sprites.", b->building.sprites.size());
-
-    // FIXME: classidstrings is no more
-	//building
-	if(b->building.info.type != BUILDINGTYPE_NA && b->building.info.type != BUILDINGTYPE_BLACKBOX && b->building.info.type != BUILDINGTYPE_TREE){
-		const char* matName = lookupMaterialTypeName(b->building.info.material.type);
-		const char* subMatName = lookupMaterialName(b->building.info.material.type,b->building.info.material.index);
-		const char* subTypeName = lookupBuildingSubtype(b->building.info.type, b->building.info.subtype);
-		draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
-			"Building: game_type = %s(%i) game_subtype = %s(%i) Material: %s%s%s (%d,%d)", 
-			ENUM_KEY_STR(building_type, (building_type::building_type)b->building.info.type),
-			b->building.info.type,
-			subTypeName,
-			b->building.info.subtype,
-			matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"",
-			b->building.info.material.type,b->building.info.material.index);
-
-		//if(b->building.custom_building_type != -1)
-		//{
-		//	draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
-		//		"Custom workshop type %s (%d)", contentLoader->custom_workshop_types[b->building.custom_building_type].c_str(),b->building.custom_building_type);
-		//}
-	}
-
-	//creatures
-	if(b->creature != null){
-		if(!config.skipCreatureTypes)
-			draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
+	case ui_sidebar_mode::BuildingItems:
+		if(b->building.info.type != BUILDINGTYPE_NA && b->building.info.type != BUILDINGTYPE_BLACKBOX && b->building.info.type != BUILDINGTYPE_TREE)
+		{
+			auto Actual_building = virtual_cast<df::building_actual>(b->building.info.origin);
+			if(!Actual_building)
+				break;
+			c->Suspend();
+			Actual_building->contained_items.size(); //Item array.
+			std::string BuildingName;
+			Actual_building->getName(&BuildingName);
+			draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0, 
+				"%s", 
+				BuildingName.c_str());
+			for(int index = 0; index < Actual_building->contained_items.size(); index++)
+			{
+				MaterialInfo mat;
+				mat.decode(Actual_building->contained_items[index]->item->getMaterial(), Actual_building->contained_items[index]->item->getMaterialIndex());
+				char stacknum[8] = {0};
+				sprintf(stacknum, " [%d]", Actual_building->contained_items[index]->item->getStackSize());
+				draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0, 
+					"%s - %s%s%s%s%s", 
+					mat.getToken().c_str(),
+					ENUM_KEY_STR(item_type, Actual_building->contained_items[index]->item->getType()),
+					(Actual_building->contained_items[index]->item->getSubtype()>=0)?"/":"",
+					(Actual_building->contained_items[index]->item->getSubtype()>=0)?get_item_subtype(Actual_building->contained_items[index]->item->getType(),Actual_building->contained_items[index]->item->getSubtype()):"",
+					Actual_building->contained_items[index]->item->getStackSize()>1?stacknum:"",
+					(Actual_building->contained_items[index]->use_mode == 2?" [B]":""));
+			}
+			c->Resume();
+		}
+		break;
+	case ui_sidebar_mode::ViewUnits:
+		//creatures
+		if(b->creature == null)
+			break;
+		draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0, 
 			"Creature:%s(%i) Caste:%s(%i) Job:%s", 
 			contentLoader->Mats->race.at(b->creature->race).id.c_str(), b->creature->race, 
 			contentLoader->Mats->raceEx.at(b->creature->race).castes.at(b->creature->caste).id.c_str(), b->creature->caste, 
 			contentLoader->professionStrings.at(b->creature->profession).c_str());
 
-		if(!config.skipCreatureTypes)
+		//Inventories!
+		if(b->inv)
 		{
-			MaterialInfo wep;
-			if(b->Weapon.matt.type >=0)
-				wep.decode(b->Weapon.matt.type, b->Weapon.matt.index);
-			MaterialInfo arm;
-			if(b->Armor.matt.type >=0)
-				arm.decode(b->Armor.matt.type, b->Armor.matt.index);
-			MaterialInfo sho;
-			if(b->Shoes.matt.type >=0)
-				sho.decode(b->Shoes.matt.type, b->Shoes.matt.index);
-			MaterialInfo shi;
-			if(b->Shield.matt.type >=0)
-				shi.decode(b->Shield.matt.type, b->Shield.matt.index);
-			MaterialInfo hel;
-			if(b->Helm.matt.type >=0)
-				hel.decode(b->Helm.matt.type, b->Helm.matt.index);
-			MaterialInfo glo;
-			if(b->Gloves.matt.type >=0)
-				glo.decode(b->Gloves.matt.type, b->Gloves.matt.index);
-			draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
-			"Worn %s(%d,%d) weapon, %s(%d,%d) armor, %s(%d,%d) shoes, %s(%d,%d) shield, %s(%d,%d) helm, %s(%d,%d) gloves", 
-			b->Weapon.matt.type >=0?wep.material->state_name[0].c_str():"no", b->Weapon.matt.type, b->Weapon.matt.index,
-			b->Armor.matt.type >=0?arm.material->state_name[0].c_str():"no", b->Armor.matt.type, b->Armor.matt.index,
-			b->Shoes.matt.type >=0?sho.material->state_name[0].c_str():"no", b->Shoes.matt.type, b->Shoes.matt.index,
-			b->Shield.matt.type >=0?shi.material->state_name[0].c_str():"no", b->Shield.matt.type, b->Shield.matt.index,
-			b->Helm.matt.type >=0?hel.material->state_name[0].c_str():"no", b->Helm.matt.type, b->Helm.matt.index,
-			b->Gloves.matt.type >=0?glo.material->state_name[0].c_str():"no",  b->Gloves.matt.type, b->Gloves.matt.index);
-		}
-		char strCreature[150] = {0};
-		generateCreatureDebugString( b->creature, strCreature );
-		//memset(strCreature, -1, 50);
-        /*
-        // FIXME:: getJob is no more.
-		try{
-			draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
-				"flag1: %s Sex: %d  Mood: %d Job: %s", strCreature, b->creature->sex + 1, b->creature->mood, (b->creature->current_job.active?contentLoader->MemInfo->getJob(b->creature->current_job.jobType).c_str():""));
-		}
-		catch(exception &e)
-		{
-			WriteErr("DFhack exeption: %s\n", e.what());
-		}
-		*/
-		if((!config.skipCreatureTypes) && (!config.skipCreatureTypesEx) && (!config.skipDescriptorColors))
-		{
-			int yy = al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font));
-			int xx = 2;
-			for(unsigned int j = 0; j<b->creature->nbcolors ; j++)
+			if(!b->inv->Weapons.empty())
 			{
-				if(contentLoader->Mats->raceEx.at(b->creature->race).castes.at(b->creature->caste).ColorModifier.at(j).colorlist.size() > b->creature->color[j])
+				draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0, 
+					"Weapons:");
+				for(int ind = 0; ind < b->inv->Weapons.size(); ind++)
 				{
-					uint32_t cr_color = contentLoader->Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].colorlist[b->creature->color[j]];
-					if(cr_color < contentLoader->Mats->color.size())
-					{
-						draw_textf_border(font, 
-							al_map_rgb_f(
-							contentLoader->Mats->color[cr_color].red,
-							contentLoader->Mats->color[cr_color].green,
-							contentLoader->Mats->color[cr_color].blue), xx, yy, 0,
-							"%s ", contentLoader->Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].part.c_str());
-						xx += get_textf_width(font, "%s ", contentLoader->Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].part.c_str());
-					}
+					if(b->inv->Weapons[ind].matt.type < 0)
+						continue;
+					const char* matName = lookupMaterialTypeName(b->inv->Weapons[ind].matt.type);
+					const char* subMatName = lookupMaterialName(b->inv->Weapons[ind].matt.type,b->inv->Weapons[ind].matt.index);
+					draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0, 
+						"    %s%s%s - %s/%s", 
+						matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"",
+						ENUM_KEY_STR(item_type, item_type::WEAPON),
+						get_item_subtype(item_type::WEAPON,ind));
+				}
+			}
+			if(!b->inv->Armor.empty())
+			{
+				draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0, 
+					"Armor:");
+				for(int ind = 0; ind < b->inv->Armor.size(); ind++)
+				{
+					if(b->inv->Armor[ind].matt.type < 0)
+						continue;
+					const char* matName = lookupMaterialTypeName(b->inv->Armor[ind].matt.type);
+					const char* subMatName = lookupMaterialName(b->inv->Armor[ind].matt.type,b->inv->Armor[ind].matt.index);
+					draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0, 
+						"    %s%s%s - %s/%s", 
+						matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"",
+						ENUM_KEY_STR(item_type, item_type::ARMOR),
+						get_item_subtype(item_type::ARMOR,ind));
+				}
+			}
+			if(!b->inv->Shoes.empty())
+			{
+				draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0, 
+					"Shoes:");
+				for(int ind = 0; ind < b->inv->Shoes.size(); ind++)
+				{
+					if(b->inv->Shoes[ind].matt.type < 0)
+						continue;
+					const char* matName = lookupMaterialTypeName(b->inv->Shoes[ind].matt.type);
+					const char* subMatName = lookupMaterialName(b->inv->Shoes[ind].matt.type,b->inv->Shoes[ind].matt.index);
+					draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0, 
+						"    %s%s%s - %s/%s", 
+						matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"",
+						ENUM_KEY_STR(item_type, item_type::SHOES),
+						get_item_subtype(item_type::SHOES,ind));
+				}
+			}
+			if(!b->inv->Shield.empty())
+			{
+				draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0, 
+					"Shield:");
+				for(int ind = 0; ind < b->inv->Shield.size(); ind++)
+				{
+					if(b->inv->Shield[ind].matt.type < 0)
+						continue;
+					const char* matName = lookupMaterialTypeName(b->inv->Shield[ind].matt.type);
+					const char* subMatName = lookupMaterialName(b->inv->Shield[ind].matt.type,b->inv->Shield[ind].matt.index);
+					draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0, 
+						"    %s%s%s - %s/%s", 
+						matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"",
+						ENUM_KEY_STR(item_type, item_type::SHIELD),
+						get_item_subtype(item_type::SHIELD,ind));
+				}
+			}
+			if(!b->inv->Helm.empty())
+			{
+				draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0, 
+					"Headwear:");
+				for(int ind = 0; ind < b->inv->Helm.size(); ind++)
+				{
+					if(b->inv->Helm[ind].matt.type < 0)
+						continue;
+					const char* matName = lookupMaterialTypeName(b->inv->Helm[ind].matt.type);
+					const char* subMatName = lookupMaterialName(b->inv->Helm[ind].matt.type,b->inv->Helm[ind].matt.index);
+					draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0, 
+						"    %s%s%s - %s/%s", 
+						matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"",
+						ENUM_KEY_STR(item_type, item_type::HELM),
+						get_item_subtype(item_type::HELM,ind));
+				}
+			}
+			if(!b->inv->Gloves.empty())
+			{
+				draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0, 
+					"Gloves:");
+				for(int ind = 0; ind < b->inv->Gloves.size(); ind++)
+				{
+					if(b->inv->Gloves[ind].matt.type < 0)
+						continue;
+					const char* matName = lookupMaterialTypeName(b->inv->Gloves[ind].matt.type);
+					const char* subMatName = lookupMaterialName(b->inv->Gloves[ind].matt.type,b->inv->Gloves[ind].matt.index);
+					draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0, 
+						"    %s%s%s - %s/%s", 
+						matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"",
+						ENUM_KEY_STR(item_type, item_type::GLOVES),
+						get_item_subtype(item_type::GLOVES,ind));
+				}
+			}
+			if(!b->inv->Pants.empty())
+			{
+				draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0, 
+					"Pants:");
+				for(int ind = 0; ind < b->inv->Pants.size(); ind++)
+				{
+					if(b->inv->Pants[ind].matt.type < 0)
+						continue;
+					const char* matName = lookupMaterialTypeName(b->inv->Pants[ind].matt.type);
+					const char* subMatName = lookupMaterialName(b->inv->Pants[ind].matt.type,b->inv->Pants[ind].matt.index);
+					draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0, 
+						"    %s%s%s - %s/%s", 
+						matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"",
+						ENUM_KEY_STR(item_type, item_type::PANTS),
+						get_item_subtype(item_type::PANTS,ind));
 				}
 			}
 		}
-	}
-	if(b->designation.bits.traffic)
-	{
-		draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
-			"Traffic: %d", b->designation.bits.traffic);
-	}
-	if(b->designation.bits.pile)
-	{
-		draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0, 
-			"Stockpile?");
-	}
-	if(b->designation.bits.water_table)
-	{
-		draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0,"Water table");
-	}
-	if(b->designation.bits.rained)
-	{
-		draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0,"Rained");
-	}
-	if(b->building.info.type != BUILDINGTYPE_BLACKBOX)
-	{
-		draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0,
-			"Temp1: %dU, %.2f'C, %d'F", b->temp1, (float)(b->temp1-10000)*5.0f/9.0f, b->temp1-9968);
-	}
-	if(b->snowlevel || b->mudlevel || b->bloodlevel)
-	{
-		draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0,
-			"Snow: %d, Mud: %d, Blood: %d", b->snowlevel, b->mudlevel, b->bloodlevel);
-	}
-	//borders
-	/*
-	int dray = al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font));
-	draw_textf_border(font, al_map_rgb(255,255,255), 16, dray, 0,
-	"Open: %d, floor: %d, Wall: %d, Ramp: %d Light: %d", b->openborders, b->floorborders, b->wallborders, b->rampborders, b->lightborders);
-	draw_borders(8, dray, b->lightborders);
-	*/
+		if(1) //just so it has it's own scope
+		{
+		char strCreature[150] = {0};
+		generateCreatureDebugString( b->creature, strCreature );
+		//memset(strCreature, -1, 50);
+		/*
+		// FIXME:: getJob is no more.
+		try{
+		draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0, 
+		"flag1: %s Sex: %d  Mood: %d Job: %s", strCreature, b->creature->sex + 1, b->creature->mood, (b->creature->current_job.active?contentLoader->MemInfo->getJob(b->creature->current_job.jobType).c_str():""));
+		}
+		catch(exception &e)
+		{
+		WriteErr("DFhack exeption: %s\n", e.what());
+		}
+		*/
 
-	if(b->Eff_Miasma.density > 0)
-	{
-		const char* matName = lookupMaterialTypeName(b->Eff_Miasma.matt.type);
-		const char* subMatName = lookupMaterialName(b->Eff_Miasma.matt.type,b->Eff_Miasma.matt.index);
-		draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0,
-			"Miasma: %d, Material:%s%s%s", 
-			b->Eff_Miasma.density, matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
-	}
-	if(b->Eff_Steam.density > 0)
-	{
-		const char* matName = lookupMaterialTypeName(b->Eff_Steam.matt.type);
-		const char* subMatName = lookupMaterialName(b->Eff_Steam.matt.type,b->Eff_Steam.matt.index);
-		draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0,
-			"Steam: %d, Material:%s%s%s", 
-			b->Eff_Steam.density, matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
-	}
-	if(b->Eff_Mist.density > 0)
-	{
-		const char* matName = lookupMaterialTypeName(b->Eff_Mist.matt.type);
-		const char* subMatName = lookupMaterialName(b->Eff_Mist.matt.type,b->Eff_Mist.matt.index);
-		draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0,
-			"Mist: %d, Material:%s%s%s", 
-			b->Eff_Mist.density, matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
-	}
-	if(b->Eff_MaterialDust.density > 0)
-	{
-		const char* matName = lookupMaterialTypeName(b->Eff_MaterialDust.matt.type);
-		const char* subMatName = lookupMaterialName(b->Eff_MaterialDust.matt.type,b->Eff_MaterialDust.matt.index);
-		draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0,
-			"MaterialDust: %d, Material:%s%s%s", 
-			b->Eff_MaterialDust.density, matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
-	}
-	if(b->Eff_MagmaMist.density > 0)
-	{
-		const char* matName = lookupMaterialTypeName(b->Eff_MagmaMist.matt.type);
-		const char* subMatName = lookupMaterialName(b->Eff_MagmaMist.matt.type,b->Eff_MagmaMist.matt.index);
-		draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0,
-			"MagmaMist: %d, Material:%s%s%s", 
-			b->Eff_MagmaMist.density, matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
-	}
-	if(b->Eff_Smoke.density > 0)
-	{
-		const char* matName = lookupMaterialTypeName(b->Eff_Smoke.matt.type);
-		const char* subMatName = lookupMaterialName(b->Eff_Smoke.matt.type,b->Eff_Smoke.matt.index);
-		draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0,
-			"Smoke: %d, Material:%s%s%s", 
-			b->Eff_Smoke.density, matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
-	}
-	if(b->Eff_Dragonfire.density > 0)
-	{
-		const char* matName = lookupMaterialTypeName(b->Eff_Dragonfire.matt.type);
-		const char* subMatName = lookupMaterialName(b->Eff_Dragonfire.matt.type,b->Eff_Dragonfire.matt.index);
-		draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0,
-			"Dragonfire: %d, Material:%s%s%s", 
-			b->Eff_Dragonfire.density, matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
-	}
-	if(b->Eff_Fire.density > 0)
-	{
-		const char* matName = lookupMaterialTypeName(b->Eff_Fire.matt.type);
-		const char* subMatName = lookupMaterialName(b->Eff_Fire.matt.type,b->Eff_Fire.matt.index);
-		draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0,
-			"Fire: %d, Material:%s%s%s", 
-			b->Eff_Fire.density, matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
-	}
-	if(b->Eff_Web.density > 0)
-	{
-		const char* matName = lookupMaterialTypeName(b->Eff_Web.matt.type);
-		const char* subMatName = lookupMaterialName(b->Eff_Web.matt.type,b->Eff_Web.matt.index);
-		draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0,
-			"Web: %d, Material:%s%s%s", 
-			b->Eff_Web.density, matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
-	}
-	if(b->Eff_MaterialGas.density > 0)
-	{
-		const char* matName = lookupMaterialTypeName(b->Eff_MaterialGas.matt.type);
-		const char* subMatName = lookupMaterialName(b->Eff_MaterialGas.matt.type,b->Eff_MaterialGas.matt.index);
-		draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0,
-			"MaterialGas: %d, Material:%s%s%s", 
-			b->Eff_MaterialGas.density, matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
-	}
-	if(b->Eff_MaterialVapor.density > 0)
-	{
-		const char* matName = lookupMaterialTypeName(b->Eff_MaterialVapor.matt.type);
-		const char* subMatName = lookupMaterialName(b->Eff_MaterialVapor.matt.type,b->Eff_MaterialVapor.matt.index);
-		draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0,
-			"MaterialVapor: %d, Material:%s%s%s", 
-			b->Eff_MaterialVapor.density, matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
-	}
-	if(b->Eff_OceanWave.density > 0)
-	{
-		const char* matName = lookupMaterialTypeName(b->Eff_OceanWave.matt.type);
-		const char* subMatName = lookupMaterialName(b->Eff_OceanWave.matt.type,b->Eff_OceanWave.matt.index);
-		draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0,
-			"OceanWave: %d, Material:%s%s%s", 
-			b->Eff_OceanWave.density, matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
-	}
-	if(b->Eff_SeaFoam.density > 0)
-	{
-		const char* matName = lookupMaterialTypeName(b->Eff_SeaFoam.matt.type);
-		const char* subMatName = lookupMaterialName(b->Eff_SeaFoam.matt.type,b->Eff_SeaFoam.matt.index);
-		draw_textf_border(font, al_map_rgb(255,255,255), 2, al_get_bitmap_height(al_get_target_bitmap())-20-(i--*al_get_font_line_height(font)), 0,
-			"SeaFoam: %d, Material:%s%s%s", 
-			b->Eff_SeaFoam.density, matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
+		int yy = (i++*al_get_font_line_height(font));
+		int xx = 2;
+		for(unsigned int j = 0; j<b->creature->nbcolors ; j++)
+		{
+			if(contentLoader->Mats->raceEx.at(b->creature->race).castes.at(b->creature->caste).ColorModifier.at(j).colorlist.size() > b->creature->color[j])
+			{
+				uint32_t cr_color = contentLoader->Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].colorlist[b->creature->color[j]];
+				if(cr_color < contentLoader->Mats->color.size())
+				{
+					draw_textf_border(font, 
+						al_map_rgb_f(
+						contentLoader->Mats->color[cr_color].red,
+						contentLoader->Mats->color[cr_color].green,
+						contentLoader->Mats->color[cr_color].blue), xx, yy, 0,
+						"%s ", contentLoader->Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].part.c_str());
+					xx += get_textf_width(font, "%s ", contentLoader->Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].part.c_str());
+				}
+			}
+		}
+		}
+		break;
+	default:
+		draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0, 
+		"Game Mode:%i, Control Mode:%i", contentLoader->gameMode.g_mode, contentLoader->gameMode.g_type);
+		if (tform != NULL)
+		{
+			const char* formName = lookupFormName(b->consForm);
+			const char* matName = lookupMaterialTypeName(b->material.type);
+			const char* subMatName = lookupMaterialName(b->material.type,b->material.index);
+			draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0,
+				"%s %s:%i Material:%s%s%s (%d,%d)", formName, tform, ttype, 
+				matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"", b->material.type,b->material.index);
+		}
+		if (tform != NULL)
+		{
+			MaterialInfo mat;
+			mat.decode(b->material.type, b->material.index);
+			ALLEGRO_COLOR color = al_map_rgb_f(contentLoader->Mats->color[mat.material->state_color[0]].red, contentLoader->Mats->color[mat.material->state_color[0]].green, contentLoader->Mats->color[mat.material->state_color[0]].blue);
+			draw_textf_border(font, color, 2, (i++*al_get_font_line_height(font)), 0,
+				"%s", mat.material->state_name[0].c_str());
+		}	//if (tform != NULL)
+		//{
+		//	draw_textf_border(font, 2, (i++*al_get_font_line_height(font)), 0,
+		//		"MaterialType: %d, MaterialIndex: %d", b->material.type, b->material.index);
+		//}
+		if (tform != NULL)
+		{
+			const char* matName = lookupMaterialTypeName(b->layerMaterial.type);
+			const char* subMatName = lookupMaterialName(b->layerMaterial.type,b->layerMaterial.index);
+			draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0,
+				"Layer Material:%s%s%s", 
+				matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
+		} 
+		if ((tform != NULL) && b->hasVein == 1)
+		{
+			const char* matName = lookupMaterialTypeName(b->veinMaterial.type);
+			const char* subMatName = lookupMaterialName(b->veinMaterial.type,b->veinMaterial.index);
+			draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0,
+				"Vein Material:%s%s%s", 
+				matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
+		} 
+		if (tform != NULL)//(b->grasslevel > 0)
+		{
+			const char* subMatName = lookupMaterialName(WOOD,b->grassmat);
+			draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0,
+				"Grass length:%d, Material: %s", 
+				b->grasslevel, subMatName?subMatName:"");
+		} 
+		//for(int j = 0; j < b->grasslevels.size(); j++)
+		//{
+		//	const char* subMatName = lookupMaterialName(WOOD,b->grassmats.at(j));
+		//	draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0,
+		//		"Grass length:%d, Material: %s", 
+		//		b->grasslevels.at(j), subMatName?subMatName:"");
+		//} 
+
+		if(b->water.index > 0 || b->tree.index != 0)
+			draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0, 
+			"tree:%i water:%i,%i", b->tree.index, b->water.type, b->water.index);
+		if(b->tree.index != 0)
+			draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0, 
+			"tree name:%s type:%i", lookupTreeName(b->tree.index), b->tree.type);
+		if(b->building.sprites.size() != 0)
+			draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0, 
+			"%i extra sprites.", b->building.sprites.size());
+
+		// FIXME: classidstrings is no more
+		//building
+		if(b->building.info.type != BUILDINGTYPE_NA && b->building.info.type != BUILDINGTYPE_BLACKBOX && b->building.info.type != BUILDINGTYPE_TREE){
+			const char* matName = lookupMaterialTypeName(b->building.info.material.type);
+			const char* subMatName = lookupMaterialName(b->building.info.material.type,b->building.info.material.index);
+			const char* subTypeName = lookupBuildingSubtype(b->building.info.type, b->building.info.subtype);
+			draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0, 
+				"Building: game_type = %s(%i) game_subtype = %s(%i) Material: %s%s%s (%d,%d)", 
+				ENUM_KEY_STR(building_type, (building_type::building_type)b->building.info.type),
+				b->building.info.type,
+				subTypeName,
+				b->building.info.subtype,
+				matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"",
+				b->building.info.material.type,b->building.info.material.index);
+
+			//if(b->building.custom_building_type != -1)
+			//{
+			//	draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0, 
+			//		"Custom workshop type %s (%d)", contentLoader->custom_workshop_types[b->building.custom_building_type].c_str(),b->building.custom_building_type);
+			//}
+		}
+
+		if(b->designation.bits.traffic)
+		{
+			draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0, 
+				"Traffic: %d", b->designation.bits.traffic);
+		}
+		if(b->designation.bits.pile)
+		{
+			draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0, 
+				"Stockpile?");
+		}
+		if(b->designation.bits.water_table)
+		{
+			draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0,"Water table");
+		}
+		if(b->designation.bits.rained)
+		{
+			draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0,"Rained");
+		}
+		if(b->building.info.type != BUILDINGTYPE_BLACKBOX)
+		{
+			draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0,
+				"Temp1: %dU, %.2f'C, %d'F", b->temp1, (float)(b->temp1-10000)*5.0f/9.0f, b->temp1-9968);
+		}
+		if(b->snowlevel || b->mudlevel || b->bloodlevel)
+		{
+			draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0,
+				"Snow: %d, Mud: %d, Blood: %d", b->snowlevel, b->mudlevel, b->bloodlevel);
+		}
+		//borders
+		/*
+			int dray = (i++*al_get_font_line_height(font));
+		draw_textf_border(font, al_map_rgb(255,255,255), 16, dray, 0,
+			"Open: %d, floor: %d, Wall: %d, Ramp: %d Light: %d", b->openborders, b->floorborders, b->wallborders, b->rampborders, b->lightborders);
+		draw_borders(8, dray, b->lightborders);
+		*/
+
+			if(b->Eff_Miasma.density > 0)
+			{
+				const char* matName = lookupMaterialTypeName(b->Eff_Miasma.matt.type);
+				const char* subMatName = lookupMaterialName(b->Eff_Miasma.matt.type,b->Eff_Miasma.matt.index);
+				draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0,
+					"Miasma: %d, Material:%s%s%s", 
+					b->Eff_Miasma.density, matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
+			}
+			if(b->Eff_Steam.density > 0)
+			{
+				const char* matName = lookupMaterialTypeName(b->Eff_Steam.matt.type);
+				const char* subMatName = lookupMaterialName(b->Eff_Steam.matt.type,b->Eff_Steam.matt.index);
+				draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0,
+					"Steam: %d, Material:%s%s%s", 
+					b->Eff_Steam.density, matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
+			}
+			if(b->Eff_Mist.density > 0)
+			{
+				const char* matName = lookupMaterialTypeName(b->Eff_Mist.matt.type);
+				const char* subMatName = lookupMaterialName(b->Eff_Mist.matt.type,b->Eff_Mist.matt.index);
+				draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0,
+					"Mist: %d, Material:%s%s%s", 
+					b->Eff_Mist.density, matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
+			}
+			if(b->Eff_MaterialDust.density > 0)
+			{
+				const char* matName = lookupMaterialTypeName(b->Eff_MaterialDust.matt.type);
+				const char* subMatName = lookupMaterialName(b->Eff_MaterialDust.matt.type,b->Eff_MaterialDust.matt.index);
+				draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0,
+					"MaterialDust: %d, Material:%s%s%s", 
+					b->Eff_MaterialDust.density, matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
+			}
+			if(b->Eff_MagmaMist.density > 0)
+			{
+				const char* matName = lookupMaterialTypeName(b->Eff_MagmaMist.matt.type);
+				const char* subMatName = lookupMaterialName(b->Eff_MagmaMist.matt.type,b->Eff_MagmaMist.matt.index);
+				draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0,
+					"MagmaMist: %d, Material:%s%s%s", 
+					b->Eff_MagmaMist.density, matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
+			}
+			if(b->Eff_Smoke.density > 0)
+			{
+				const char* matName = lookupMaterialTypeName(b->Eff_Smoke.matt.type);
+				const char* subMatName = lookupMaterialName(b->Eff_Smoke.matt.type,b->Eff_Smoke.matt.index);
+				draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0,
+					"Smoke: %d, Material:%s%s%s", 
+					b->Eff_Smoke.density, matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
+			}
+			if(b->Eff_Dragonfire.density > 0)
+			{
+				const char* matName = lookupMaterialTypeName(b->Eff_Dragonfire.matt.type);
+				const char* subMatName = lookupMaterialName(b->Eff_Dragonfire.matt.type,b->Eff_Dragonfire.matt.index);
+				draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0,
+					"Dragonfire: %d, Material:%s%s%s", 
+					b->Eff_Dragonfire.density, matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
+			}
+			if(b->Eff_Fire.density > 0)
+			{
+				const char* matName = lookupMaterialTypeName(b->Eff_Fire.matt.type);
+				const char* subMatName = lookupMaterialName(b->Eff_Fire.matt.type,b->Eff_Fire.matt.index);
+				draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0,
+					"Fire: %d, Material:%s%s%s", 
+					b->Eff_Fire.density, matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
+			}
+			if(b->Eff_Web.density > 0)
+			{
+				const char* matName = lookupMaterialTypeName(b->Eff_Web.matt.type);
+				const char* subMatName = lookupMaterialName(b->Eff_Web.matt.type,b->Eff_Web.matt.index);
+				draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0,
+					"Web: %d, Material:%s%s%s", 
+					b->Eff_Web.density, matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
+			}
+			if(b->Eff_MaterialGas.density > 0)
+			{
+				const char* matName = lookupMaterialTypeName(b->Eff_MaterialGas.matt.type);
+				const char* subMatName = lookupMaterialName(b->Eff_MaterialGas.matt.type,b->Eff_MaterialGas.matt.index);
+				draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0,
+					"MaterialGas: %d, Material:%s%s%s", 
+					b->Eff_MaterialGas.density, matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
+			}
+			if(b->Eff_MaterialVapor.density > 0)
+			{
+				const char* matName = lookupMaterialTypeName(b->Eff_MaterialVapor.matt.type);
+				const char* subMatName = lookupMaterialName(b->Eff_MaterialVapor.matt.type,b->Eff_MaterialVapor.matt.index);
+				draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0,
+					"MaterialVapor: %d, Material:%s%s%s", 
+					b->Eff_MaterialVapor.density, matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
+			}
+			if(b->Eff_OceanWave.density > 0)
+			{
+				const char* matName = lookupMaterialTypeName(b->Eff_OceanWave.matt.type);
+				const char* subMatName = lookupMaterialName(b->Eff_OceanWave.matt.type,b->Eff_OceanWave.matt.index);
+				draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0,
+					"OceanWave: %d, Material:%s%s%s", 
+					b->Eff_OceanWave.density, matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
+			}
+			if(b->Eff_SeaFoam.density > 0)
+			{
+				const char* matName = lookupMaterialTypeName(b->Eff_SeaFoam.matt.type);
+				const char* subMatName = lookupMaterialName(b->Eff_SeaFoam.matt.type,b->Eff_SeaFoam.matt.index);
+				draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0,
+					"SeaFoam: %d, Material:%s%s%s", 
+					b->Eff_SeaFoam.density, matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
+			}
+		break;
 	}
 
 	//basecon
@@ -799,7 +989,7 @@ void DrawSpriteIndexOverlay(int imageIndex){
 }
 
 
-void DoSpriteIndexOverlay()
+void DoSpriteIndexOverlay(DFHack::Core * c)
 {
 	DrawSpriteIndexOverlay(-1);
 	int index = 0;
@@ -828,10 +1018,10 @@ void DoSpriteIndexOverlay()
 	}
 	//redraw screen again
 	al_clear_to_color(al_map_rgb(config.backr,config.backg,config.backb));
-	paintboard();
+	paintboard(c);
 }
 
-void paintboard()
+void paintboard(DFHack::Core * c)
 {
     uint32_t starttime = clock();
 
@@ -891,7 +1081,7 @@ void paintboard()
 			draw_textf_border(font, al_map_rgb(255,255,255), 10, 6*al_get_font_line_height(font), 0, "D1: %i", blockFactory.getPoolSize());
 			draw_textf_border(font, al_map_rgb(255,255,255), 10, 7*al_get_font_line_height(font), 0, "%i/%i/%i, %i:%i", contentLoader->currentDay+1, contentLoader->currentMonth+1, contentLoader->currentYear, contentLoader->currentHour, (contentLoader->currentTickRel*60)/50);
 			draw_textf_border(font, al_map_rgb(255,255,255), 10, 8*al_get_font_line_height(font), 0, "%i Sprites drawn, %i tiles drawn, %.1f sprites per tile.", config.drawcount, config.tilecount, ((float)config.drawcount/(float)config.tilecount));
-			drawDebugCursorAndInfo(segment);
+			drawDebugCursorAndInfo(segment, c);
 		}
 		config.drawcount = 0;
 		config.tilecount = 0;
@@ -1149,9 +1339,9 @@ int loadImgFile(ALLEGRO_PATH* filepath)
     return loadImgFile(al_path_cstr(filepath, ALLEGRO_NATIVE_PATH_SEP));
 }
 */
-void saveScreenshot(){
+void saveScreenshot(DFHack::Core * c){
 	al_clear_to_color(al_map_rgb(config.backr,config.backg,config.backb));
-	paintboard();
+	paintboard(c);
 	//get filename
 	char filename[20] ={0};
 	FILE* fp;
@@ -1174,7 +1364,7 @@ void saveScreenshot(){
 	al_set_target_bitmap(temp);
 	if(!config.transparentScreenshots)
 		al_clear_to_color(al_map_rgb(config.backr,config.backg,config.backb));
-	paintboard();
+	paintboard(c);
 	al_save_bitmap(filename, temp);
 	al_set_target_bitmap(al_get_backbuffer(al_get_current_display()));
 	al_destroy_bitmap(temp);

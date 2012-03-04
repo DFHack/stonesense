@@ -961,36 +961,6 @@ ALLEGRO_COLOR c_sprite::get_color(void* block)
 		else return al_map_rgb(255,255,255);
 	case ShadeBlood:
 		return b->bloodcolor;
-	case ShadeWeapon:
-		if(b->Weapon.matt.type < 0)
-			return al_map_rgba(0,0,0,0);
-		else
-			return lookupMaterialColor(b->Weapon.matt.type, b->Weapon.matt.index);
-	case ShadeArmor:
-		if(b->Armor.matt.type < 0)
-			return al_map_rgba(0,0,0,0);
-		else
-			return lookupMaterialColor(b->Armor.matt.type, b->Armor.matt.index);
-	case ShadeShoes:
-		if(b->Shoes.matt.type < 0)
-			return al_map_rgba(0,0,0,0);
-		else
-			return lookupMaterialColor(b->Shoes.matt.type, b->Shoes.matt.index);
-	case ShadeShield:
-		if(b->Shield.matt.type < 0)
-			return al_map_rgba(0,0,0,0);
-		else
-			return lookupMaterialColor(b->Shield.matt.type, b->Shield.matt.index);
-	case ShadeHelm:
-		if(b->Helm.matt.type < 0)
-			return al_map_rgba(0,0,0,0);
-		else
-			return lookupMaterialColor(b->Helm.matt.type, b->Helm.matt.index);
-	case ShadeGloves:
-		if(b->Gloves.matt.type < 0)
-			return al_map_rgba(0,0,0,0);
-		else
-			return lookupMaterialColor(b->Gloves.matt.type, b->Gloves.matt.index);
 	default:
 		return al_map_rgb(255, 255, 255);
 	} ;

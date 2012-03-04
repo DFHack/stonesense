@@ -196,7 +196,7 @@ void correctBlockForRotation(int32_t& x, int32_t& y, int32_t& z, unsigned char r
 
 //from UserInput.cpp
 void doKeys();
-void doKeys(int key);
+void doKeys(int key, DFHack::Core * c);
 void initAutoReload();
 void abortAutoReload();
 

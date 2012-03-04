@@ -15,7 +15,21 @@ struct Worn_Item
 {
 	DFHack::t_matglossPair matt;
 	int8_t rating;
+	Worn_Item();
 };
+
+struct Unit_Inventory
+{
+	std::vector<Worn_Item> Weapons;
+	std::vector<Worn_Item> Armor;
+	std::vector<Worn_Item> Shoes;
+	std::vector<Worn_Item> Shield;
+	std::vector<Worn_Item> Helm;
+	std::vector<Worn_Item> Gloves;
+	std::vector<Worn_Item> Pants;
+};
+
+
 
 class Block
 {
@@ -133,12 +147,7 @@ public:
 	bool obscuringBuilding;
 
 	//These are actually applied to the creature standing here, but there's only one creature shown, so it's okay.
-	Worn_Item Weapon;
-	Worn_Item Armor;
-	Worn_Item Shoes;
-	Worn_Item Shield;
-	Worn_Item Helm;
-	Worn_Item Gloves;
+	Unit_Inventory * inv;
 
 
 private:

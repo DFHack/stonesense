@@ -380,26 +380,6 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
                 break;
             }
         }
-        // add the materials of what the creature's wearing.
-        // FIXME: this is constructor material. Don't clutter normal code with this.
-        b->Weapon.matt.index=INVALID_INDEX;
-        b->Weapon.matt.type=INVALID_INDEX;
-        b->Weapon.rating = 0;
-        b->Armor.matt.index=INVALID_INDEX;
-        b->Armor.matt.type=INVALID_INDEX;
-        b->Armor.rating = 0;
-        b->Shoes.matt.index=INVALID_INDEX;
-        b->Shoes.matt.type=INVALID_INDEX;
-        b->Shoes.rating = 0;
-        b->Shield.matt.index=INVALID_INDEX;
-        b->Shield.matt.type=INVALID_INDEX;
-        b->Shield.rating = 0;
-        b->Helm.matt.index=INVALID_INDEX;
-        b->Helm.matt.type=INVALID_INDEX;
-        b->Helm.rating = 0;
-        b->Gloves.matt.index=INVALID_INDEX;
-        b->Gloves.matt.type=INVALID_INDEX;
-        b->Gloves.rating = 0;
         for (auto iter = unit_ptr->inventory.begin(); iter != unit_ptr->inventory.end(); iter++)
         {
             df::unit_inventory_item * itemslot = *iter;
@@ -417,65 +397,77 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
                itemslot->mode != df::unit_inventory_item::T_mode::Worn)
                 continue;
 
+			//skip if there's no subtype. there should be, but who knows.
+			if(item->getSubtype() < 0)
+				continue;
+
             item_type::item_type type = item->getType();
             int8_t armor = item->getEffectiveArmorLevel();
-            //FIXME: this could be made nicer. Somehow.
+            //FIXME: this could be made nicer. Somehow
             switch (item->getType())
-            {
-                case item_type::WEAPON:
-                    //if(armor > b->Weapon.rating)
-                    //{
-                    b->Weapon.rating = armor;
-                    b->Weapon.matt.type = item->getActualMaterial();
-                    b->Weapon.matt.index = item->getActualMaterialIndex();
-                    //}
-                break;
-                case item_type::ARMOR:
-                    //if(armor > b->Weapon.rating)
-                    //{
-                    b->Armor.rating = armor;
-                    b->Armor.matt.type = item->getActualMaterial();
-                    b->Armor.matt.index = item->getActualMaterialIndex();
-                    //}
-                break;
-                case item_type::SHOES:
-                    //if(armor > b->Weapon.rating)
-                    //{
-                    b->Shoes.rating = armor;
-                    b->Shoes.matt.type = item->getActualMaterial();
-                    b->Shoes.matt.index = item->getActualMaterialIndex();
-                    //}
-                break;
-                case item_type::SHIELD:
-                    //if(armor > b->Weapon.rating)
-                    //{
-                    b->Shield.rating = armor;
-                    b->Shield.matt.type = item->getActualMaterial();
-                    b->Shield.matt.index = item->getActualMaterialIndex();
-                    //}
-                break;
-                case item_type::HELM:
-                    //if(armor > b->Weapon.rating)
-                    //{
-                    b->Helm.rating = armor;
-                    b->Helm.matt.type = item->getActualMaterial();
-                    b->Helm.matt.index = item->getActualMaterialIndex();
-                    //}
-                break;
-                case item_type::GLOVES:
-                    //if(armor > b->Weapon.rating)
-                    //{
-                    b->Gloves.rating = armor;
-                    b->Gloves.matt.type = item->getActualMaterial();
-                    b->Gloves.matt.index = item->getActualMaterialIndex();
-                    //}
-                break;
-                default:
-                    // something unexpected. Should we react at all?
-                    break;
-            }
-        }
-        // need a new tempcreature now
+			{
+			case item_type::WEAPON:
+				if(!b->inv)
+					b->inv = new(Unit_Inventory);
+				if(b->inv->Weapons.size() <= item->getSubtype())
+					b->inv->Weapons.resize(item->getSubtype()+1);
+				b->inv->Weapons[item->getSubtype()].matt.type = item->getActualMaterial();
+				b->inv->Weapons[item->getSubtype()].matt.index = item->getActualMaterialIndex();
+				break;
+			case item_type::ARMOR:
+				if(!b->inv)
+					b->inv = new(Unit_Inventory);
+				if(b->inv->Armor.size() <= item->getSubtype())
+					b->inv->Armor.resize(item->getSubtype()+1);
+				b->inv->Armor[item->getSubtype()].matt.type = item->getActualMaterial();
+				b->inv->Armor[item->getSubtype()].matt.index = item->getActualMaterialIndex();
+				break;
+			case item_type::SHOES:
+				if(!b->inv)
+					b->inv = new(Unit_Inventory);
+				if(b->inv->Shoes.size() <= item->getSubtype())
+					b->inv->Shoes.resize(item->getSubtype()+1);
+				b->inv->Shoes[item->getSubtype()].matt.type = item->getActualMaterial();
+				b->inv->Shoes[item->getSubtype()].matt.index = item->getActualMaterialIndex();
+				break;
+			case item_type::SHIELD:
+				if(!b->inv)
+					b->inv = new(Unit_Inventory);
+				if(b->inv->Shield.size() <= item->getSubtype())
+					b->inv->Shield.resize(item->getSubtype()+1);
+				b->inv->Shield[item->getSubtype()].matt.type = item->getActualMaterial();
+				b->inv->Shield[item->getSubtype()].matt.index = item->getActualMaterialIndex();
+				break;
+			case item_type::HELM:
+				if(!b->inv)
+					b->inv = new(Unit_Inventory);
+				if(b->inv->Helm.size() <= item->getSubtype())
+					b->inv->Helm.resize(item->getSubtype()+1);
+				b->inv->Helm[item->getSubtype()].matt.type = item->getActualMaterial();
+				b->inv->Helm[item->getSubtype()].matt.index = item->getActualMaterialIndex();
+				break;
+			case item_type::GLOVES:
+				if(!b->inv)
+					b->inv = new(Unit_Inventory);
+				if(b->inv->Gloves.size() <= item->getSubtype())
+					b->inv->Gloves.resize(item->getSubtype()+1);
+				b->inv->Gloves[item->getSubtype()].matt.type = item->getActualMaterial();
+				b->inv->Gloves[item->getSubtype()].matt.index = item->getActualMaterialIndex();
+				break;
+			case item_type::PANTS:
+				if(!b->inv)
+					b->inv = new(Unit_Inventory);
+				if(b->inv->Pants.size() <= item->getSubtype())
+					b->inv->Pants.resize(item->getSubtype()+1);
+				b->inv->Pants[item->getSubtype()].matt.type = item->getActualMaterial();
+				b->inv->Pants[item->getSubtype()].matt.index = item->getActualMaterialIndex();
+				break;
+			default:
+				// something unexpected. Should we react at all?
+				break;
+			}
+		}
+		// need a new tempcreature now
         // old tempcreature should be deleted when b is
         tempcreature = new t_unit;
     }

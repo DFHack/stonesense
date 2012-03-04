@@ -250,14 +250,14 @@ static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALL
 			else if( timeToReloadSegment ){
 				reloadDisplayedSegment(core);
 				al_clear_to_color(al_map_rgb(config.backr,config.backg,config.backb));
-				paintboard();
+				paintboard(core);
 				timeToReloadSegment = false;
 				animationFrameShown = true;
 			}
 			else if (animationFrameShown == false)
 			{
 				al_clear_to_color(al_map_rgb(config.backr,config.backg,config.backb));
-				paintboard();
+				paintboard(core);
 				animationFrameShown = true;
 			}
 			doKeys();
@@ -310,7 +310,7 @@ static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALL
 				}
 				else
 				{
-					doKeys(event.keyboard.keycode);
+					doKeys(event.keyboard.keycode, core);
 					redraw = true;
 				}
 				break;
