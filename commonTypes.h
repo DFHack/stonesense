@@ -21,12 +21,7 @@ enum ShadeBy
 	ShadeBlood,
 	ShadeBuilding,
 	ShadeGrass,
-	ShadeWeapon,
-	ShadeArmor,
-	ShadeShoes,
-	ShadeShield,
-	ShadeHelm,
-	ShadeGloves
+	ShadeItem
 } ;
 struct t_subSprite
 {

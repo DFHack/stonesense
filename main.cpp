@@ -233,7 +233,6 @@ void drawcredits()
 static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALLEGRO_THREAD * main_thread, DFHack::Console & con, DFHack::Core * core)
 {
 	ALLEGRO_EVENT event;
-	DFHack::t_gamemodes game_mode;
 	while (!al_get_thread_should_stop(main_thread))
 	{
 		if (redraw && al_event_queue_is_empty(queue))

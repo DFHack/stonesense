@@ -84,6 +84,21 @@ int lookupIndexedType(const char* indexName, std::vector<T>& typeVector)
     }
     return INVALID_INDEX;
 }
+template <typename T>
+int lookupIndexedPonterType(const char* indexName, std::vector<T*>& typeVector)
+{
+    if (indexName == NULL || indexName[0] == 0)
+    {
+        return INVALID_INDEX;
+    }
+    uint32_t vsize = (uint32_t)typeVector.size();
+    for(uint32_t i=0; i < vsize; i++)
+    {
+        if (typeVector[i]->id == indexName)
+            return i;
+    }
+    return INVALID_INDEX;
+}
 const char *lookupMaterialTypeName(int matType);
 const char *lookupMaterialName(int matType,int matIndex);
 const char *lookupBuildingSubtype(int main_type, int i);

@@ -7,6 +7,15 @@
 #include "SpriteMaps.h"
 #include <cmath>
 
+#include "df/world_raws.h"
+#include "df/itemdef_weaponst.h"
+#include "df/itemdef_armorst.h"
+#include "df/itemdef_shoesst.h"
+#include "df/itemdef_shieldst.h"
+#include "df/itemdef_helmst.h"
+#include "df/itemdef_glovesst.h"
+#include "df/itemdef_pantsst.h"
+
 #define ALL_BORDERS 255
 
 unsigned char get_water_direction( Block *b )
@@ -191,6 +200,8 @@ void c_sprite::reset(void)
 	animate = 1;
 	bloodsprite = 0;
 	spritescale=1.0f;
+	itemtype= -1;
+	itemsubtype=-1;
 	{
 		for(int i = 0; i < subsprites.size(); i++)
 		{
@@ -477,6 +488,56 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
 	}
 	else grasstype = lookupIndexedType(idstr,contentLoader->organic);
 
+	//find the item type
+	const char* equiptypestr = elemSprite->Attribute("equipment_class");
+	if (equiptypestr == NULL || equiptypestr[0] == 0)
+	{
+		itemtype = INVALID_INDEX;
+	}
+	else for(int index=ENUM_FIRST_ITEM(item_type); index <= ENUM_LAST_ITEM(item_type); index++)
+	{
+		if(strcmp(equiptypestr, ENUM_KEY_STR(item_type, (item_type::item_type)index)) == 0)
+			itemtype = index;
+	}
+
+	const char* equipsindexstr = elemSprite->Attribute("equipment_name");
+	if (equipsindexstr == NULL || equipsindexstr[0] == 0)
+	{
+		itemsubtype = INVALID_INDEX;
+	}
+	else
+	{
+		df::world_raws::T_itemdefs &defs = df::global::world->raws.itemdefs;
+		switch(itemtype)
+		{
+		case item_type::WEAPON:
+			itemsubtype = lookupIndexedPonterType(equipsindexstr, defs.weapons);
+			break;
+		case item_type::ARMOR:
+			itemsubtype = lookupIndexedPonterType(equipsindexstr, defs.armor);
+			break;
+		case item_type::SHOES:
+			itemsubtype = lookupIndexedPonterType(equipsindexstr, defs.shoes);
+			break;
+		case item_type::SHIELD:
+			itemsubtype = lookupIndexedPonterType(equipsindexstr, defs.shields);
+			break;
+		case item_type::HELM:
+			itemsubtype = lookupIndexedPonterType(equipsindexstr, defs.helms);
+			break;
+		case item_type::GLOVES:
+			itemsubtype = lookupIndexedPonterType(equipsindexstr, defs.gloves);
+			break;
+		case item_type::PANTS:
+			itemsubtype = lookupIndexedPonterType(equipsindexstr, defs.pants);
+			break;
+		default:
+			itemsubtype = INVALID_INDEX;
+		}
+	}
+
+
+
 	//Should the sprite be shown only when there is blood?
 	const char* spritebloodMinStr = elemSprite->Attribute("blood_min");
 	if (spritebloodMinStr == NULL || spritebloodMinStr[0] == 0)
@@ -607,231 +668,271 @@ void c_sprite::draw_world_offset(int x, int y, int z, Block * b, int tileoffset,
 		//if the xml says that this is a blood sprite, and offset is set here for proper pooling. this over-rides the random offset.
 		if(bloodsprite)
 			randoffset = getBloodOffset(b);
-		if((water_direction < 0) || (water_direction == get_relative_water_direction(b)))
+		if(!((water_direction < 0) || (water_direction == get_relative_water_direction(b))))
+			goto draw_subsprite;
+		if(!( //these are all border conditions. this first section is a list of positive conditions. if at least one of the border conditions is met, the tile can be shown.
+			(openborders & b->openborders) ||
+			(upstairborders & b->upstairborders) ||
+			(downstairborders & b->downstairborders) ||
+			(rampborders & b->rampborders) ||
+			(wallborders & b->wallborders) ||
+			(floorborders & b->floorborders) ||
+			(lightborders & b->lightborders)
+			))
+			goto draw_subsprite;
+		if( //This second block consists of negative conditions. if /any/ of these border conditions are met, the tile will not be drawn
+			(notopenborders & b->openborders) ||
+			(notupstairborders & b->upstairborders) ||
+			(notdownstairborders & b->downstairborders) ||
+			(notrampborders & b->rampborders) ||
+			(notwallborders & b->wallborders) ||
+			(notfloorborders & b->floorborders) ||
+			(darkborders & b->lightborders)
+			)
+			goto draw_subsprite;
+		int foo = 0;
+		if(!(snowmin <= b->snowlevel &&	(snowmax == -1 || snowmax >= b->snowlevel)))
+			goto draw_subsprite;
+		if (!(bloodmin <= b->bloodlevel && (bloodmax == -1 || bloodmax >= b->bloodlevel)))
+			goto draw_subsprite;
+		if(!(mudmin <= b->mudlevel && (mudmax == -1 || mudmax >= b->mudlevel)))
+			goto draw_subsprite;
+		if(!(grassmin <= b->grasslevel && (grassmax == -1 || grassmax >= b->grasslevel)))
+			goto draw_subsprite;
+		//only bother with this tile if it's in the light, or not.
+		if(!((light==LIGHTANY) || ((light==LIGHTYES) && b->designation.bits.outside) || ((light==LIGHTNO) && !(b->designation.bits.outside)))) 
+			goto draw_subsprite;
+		if(!((grasstype == -1) || (grasstype == b->grassmat))) 
+			goto draw_subsprite;
+		if(!((grass_growth == GRASS_GROWTH_ANY) || 
+			((grass_growth == GRASS_GROWTH_NORMAL) && 
+			((b->tileMaterial == tiletype_material::GRASS_DARK) ||
+			(b->tileMaterial == tiletype_material::GRASS_LIGHT))) ||
+			((grass_growth == GRASS_GROWTH_DRY) && 
+			(b->tileMaterial == tiletype_material::GRASS_DRY)) ||
+			((grass_growth == GRASS_GROWTH_DEAD) &&
+			(b->tileMaterial == tiletype_material::GRASS_DEAD))))
+			goto draw_subsprite;
+
+		if(itemtype !=  INVALID_INDEX) //fixme: we need to store basic types separately and use them.
 		{
-			if(( //these are all border conditions. this first section is a list of positive conditions. if at least one of the border conditions is met, the tile can be shown.
-				(openborders & b->openborders) ||
-				(upstairborders & b->upstairborders) ||
-				(downstairborders & b->downstairborders) ||
-				(rampborders & b->rampborders) ||
-				(wallborders & b->wallborders) ||
-				(floorborders & b->floorborders) ||
-				(lightborders & b->lightborders)
-				) && !( //This second block consists of negative conditions. if /any/ of these border conditions are met, the tile will not be drawn
-				(notopenborders & b->openborders) ||
-				(notupstairborders & b->upstairborders) ||
-				(notdownstairborders & b->downstairborders) ||
-				(notrampborders & b->rampborders) ||
-				(notwallborders & b->wallborders) ||
-				(notfloorborders & b->floorborders) ||
-				(darkborders & b->lightborders)
-				))
+			if(!b->inv)
+				goto draw_subsprite;
+			switch (itemtype)
 			{
-				int foo = 0;
-				if(
-					(
-						snowmin <= b->snowlevel &&
-						(snowmax == -1 || snowmax >= b->snowlevel)
-					) &&
-					(
-						bloodmin <= b->bloodlevel &&
-						(bloodmax == -1 || bloodmax >= b->bloodlevel)
-					) &&
-					(
-						mudmin <= b->mudlevel &&
-						(mudmax == -1 || mudmax >= b->mudlevel)
-					) &&
-					(
-						grassmin <= b->grasslevel &&
-						(grassmax == -1 || grassmax >= b->grasslevel)
-					) &&
-					//only bother with this tile if it's in the light, or not.
-					(
-						(light==LIGHTANY) ||
-						(
-							(light==LIGHTYES) && b->designation.bits.outside
-						)
-						||
-						(
-                            (light==LIGHTNO) && !(b->designation.bits.outside)
-						)
-					) &&
-					(
-						(grasstype == -1) || (grasstype == b->grassmat)
-					) &&
-					(
-						(grass_growth == GRASS_GROWTH_ANY) || 
-						(
-							(grass_growth == GRASS_GROWTH_NORMAL) && 
-							(
-							(b->tileMaterial == tiletype_material::GRASS_DARK) ||
-								(b->tileMaterial == tiletype_material::GRASS_LIGHT)
-							)
-						) ||
-						(
-							(grass_growth == GRASS_GROWTH_DRY) &&
-							(b->tileMaterial == tiletype_material::GRASS_DRY)
-						) ||
-						(
-							(grass_growth == GRASS_GROWTH_DEAD) &&
-							(b->tileMaterial == tiletype_material::GRASS_DEAD)
-							)
-							)
-							)
-				{
-					int32_t drawx = x;
-					int32_t drawy = y;
-					int32_t drawz = z; //- ownerSegment->sizez + 1;
-
-					correctBlockForSegmetOffset( drawx, drawy, drawz);
-					correctBlockForRotation( drawx, drawy, drawz, b->ownerSegment->rotation);
-					int32_t viewx = drawx;
-					int32_t viewy = drawy;
-					int32_t viewz = drawz;
-					pointToScreen((int*)&drawx, (int*)&drawy, drawz);
-					drawx -= (TILEWIDTH>>1)*config.scale;
-
-					if(((drawx + spritewidth*config.scale) < 0) || (drawx > al_get_bitmap_width(al_get_target_bitmap())) || ((drawy + spriteheight*config.scale) < 0) || (drawy > al_get_bitmap_height(al_get_target_bitmap())))
-						return;
-
-					int sheetx, sheety;
-					if(tilelayout == BLOCKTILE)
-					{
-						sheetx = ((sheetindex+tileoffset+randoffset) % SHEET_OBJECTSWIDE) * spritewidth;
-						sheety = ((sheetindex+tileoffset+randoffset) / SHEET_OBJECTSWIDE) * spriteheight;
-					}
-					else if(tilelayout == RAMPBOTTOMTILE)
-					{
-						sheetx = SPRITEWIDTH * b->ramp.index;
-						sheety = ((TILEHEIGHT + FLOORHEIGHT + SPRITEHEIGHT) * (sheetindex+tileoffset+randoffset))+(TILEHEIGHT + FLOORHEIGHT);
-					}
-					else if(tilelayout == RAMPTOPTILE)
-					{
-						sheetx = SPRITEWIDTH * b->ramp.index;
-						sheety = (TILEHEIGHT + FLOORHEIGHT + SPRITEHEIGHT) * (sheetindex+tileoffset+randoffset);
-					}
-					else
-					{
-						sheetx = ((sheetindex+tileoffset+randoffset) % SHEET_OBJECTSWIDE) * spritewidth;
-						sheety = ((sheetindex+tileoffset+randoffset) / SHEET_OBJECTSWIDE) * spriteheight;
-					}
-					ALLEGRO_COLOR shade_color = get_color(b);
-					if(!b->designation.bits.pile && config.fog_of_war && (contentLoader->gameMode.g_mode == GAMEMODE_ADVENTURE))
-					{
-						shade_color.r *= 0.25f;
-						shade_color.g *= 0.25f;
-						shade_color.b *= 0.25f;
-					}
-					if(chop && ( halftile == HALFTILECHOP))
-					{
-						if(fileindex < 0)
-						{
-							if(config.block_count)
-								config.drawcount ++;
-							if(shade_color.a > 0.001f)
-								al_draw_tinted_scaled_bitmap(
-								defaultsheet, premultiply(shade_color),
-								sheetx * spritescale,
-								(sheety+WALL_CUTOFF_HEIGHT) * spritescale,
-								spritewidth * spritescale,
-								(spriteheight-WALL_CUTOFF_HEIGHT) * spritescale,
-								drawx + (offset_x + offset_user_x)*config.scale,
-								drawy + (offset_user_y + (offset_y - WALLHEIGHT)+WALL_CUTOFF_HEIGHT)*config.scale,
-								spritewidth*config.scale,
-								(spriteheight-WALL_CUTOFF_HEIGHT)*config.scale,
-								0);
-						}
-						else 
-						{
-							if(config.block_count)
-								config.drawcount ++;
-
-							if(shade_color.a > 0.001f)
-								al_draw_tinted_scaled_bitmap(
-								getImgFile(fileindex),
-								premultiply(shade_color),
-								sheetx * spritescale,
-								(sheety+WALL_CUTOFF_HEIGHT) * spritescale,
-								spritewidth * spritescale,
-								(spriteheight-WALL_CUTOFF_HEIGHT) * spritescale,
-								drawx + (offset_x + offset_user_x)*config.scale,
-								drawy + (offset_user_y + (offset_y - WALLHEIGHT)+WALL_CUTOFF_HEIGHT)*config.scale,
-								spritewidth*config.scale,
-								(spriteheight-WALL_CUTOFF_HEIGHT)*config.scale,
-								0);
-						}
-						//draw cut-off floor thing
-						if(config.block_count)
-							config.drawcount ++;
-
-						if(shade_color.a > 0.001f)
-							al_draw_scaled_bitmap(IMGObjectSheet, 
-							TILEWIDTH * SPRITEFLOOR_CUTOFF, 0,
-							SPRITEWIDTH, SPRITEWIDTH, 
-							drawx+offset_x, drawy+offset_y-((SPRITEHEIGHT-WALL_CUTOFF_HEIGHT)/2),
-							SPRITEWIDTH*config.scale, SPRITEWIDTH*config.scale, 0);
-					}
-					else if ((chop && (halftile == HALFTILEYES)) || (!chop && (halftile == HALFTILENO)) || (!chop && (halftile == HALFTILECHOP)) || (halftile == HALFTILEBOTH))
-					{
-						if((isoutline == OUTLINENONE) || ((isoutline == OUTLINERIGHT) && (b->depthBorderNorth)) || ((isoutline == OUTLINELEFT) && (b->depthBorderWest)) || ((isoutline == OUTLINEBOTTOM) && (b->depthBorderDown)))
-						{
-							if(fileindex < 0)
-							{
-								if(config.block_count)
-									config.drawcount ++;
-
-								if(shade_color.a > 0.001f)
-									al_draw_tinted_scaled_bitmap(
-									defaultsheet, premultiply(shade_color),
-									sheetx * spritescale,
-									sheety * spritescale,
-									spritewidth * spritescale,
-									spriteheight * spritescale,
-									drawx + (offset_x + offset_user_x)*config.scale,
-									drawy + (offset_user_y + (offset_y - WALLHEIGHT))*config.scale,
-									spritewidth*config.scale,
-									spriteheight*config.scale,
-									0);
-							}
-							else 
-							{
-								if(config.block_count)
-									config.drawcount ++;
-
-								if(shade_color.a > 0.001f)
-									al_draw_tinted_scaled_bitmap(
-									getImgFile(fileindex),
-									premultiply(shade_color),
-									sheetx * spritescale,
-									sheety * spritescale,
-									spritewidth * spritescale,
-									spriteheight * spritescale,
-									drawx + (offset_x + offset_user_x)*config.scale,
-									drawy + (offset_user_y + (offset_y - WALLHEIGHT))*config.scale,
-									spritewidth*config.scale,
-									spriteheight*config.scale,
-									0);
-							}
-						}
-						if(needoutline)
-						{
-							//drawy -= (WALLHEIGHT);
-							//Northern border
-							if(b->depthBorderNorth)
-								DrawSpriteFromSheet(281, IMGObjectSheet, al_map_rgb(255,255,255), drawx + (offset_x)*config.scale, drawy + (offset_y)*config.scale, b );
-
-							//Western border
-							if(b->depthBorderWest)
-								DrawSpriteFromSheet(280, IMGObjectSheet, al_map_rgb(255,255,255), drawx + (offset_x)*config.scale, drawy + (offset_y)*config.scale, b );
-
-							//drawy += (WALLHEIGHT);
-						}
-					}
-					//draw_textf_border(font, al_map_rgb(255,255,255), drawx, drawy, 0, "%d,%d", fileindex, sheetindex);
-				}
+			case item_type::WEAPON:
+				if(b->inv->Weapons.empty())
+					goto draw_subsprite;
+				if(itemsubtype >= b->inv->Weapons.size())
+					goto draw_subsprite;
+				if(b->inv->Weapons[itemsubtype].matt.type == INVALID_INDEX)
+					goto draw_subsprite;
+				break;
+			case item_type::ARMOR:
+				if(b->inv->Armor.empty())
+					goto draw_subsprite;
+				if(itemsubtype >= b->inv->Armor.size())
+					goto draw_subsprite;
+				if(b->inv->Armor[itemsubtype].matt.type == INVALID_INDEX)
+					goto draw_subsprite;
+				break;
+			case item_type::SHOES:
+				if(b->inv->Shoes.empty())
+					goto draw_subsprite;
+				if(itemsubtype >= b->inv->Shoes.size())
+					goto draw_subsprite;
+				if(b->inv->Shoes[itemsubtype].matt.type == INVALID_INDEX)
+					goto draw_subsprite;
+				break;
+			case item_type::SHIELD:
+				if(b->inv->Shield.empty())
+					goto draw_subsprite;
+				if(itemsubtype >= b->inv->Shield.size())
+					goto draw_subsprite;
+				if(b->inv->Shield[itemsubtype].matt.type == INVALID_INDEX)
+					goto draw_subsprite;
+				break;
+			case item_type::HELM:
+				if(b->inv->Helm.empty())
+					goto draw_subsprite;
+				if(itemsubtype >= b->inv->Helm.size())
+					goto draw_subsprite;
+				if(b->inv->Helm[itemsubtype].matt.type == INVALID_INDEX)
+					goto draw_subsprite;
+				break;
+			case item_type::GLOVES:
+				if(b->inv->Gloves.empty())
+					goto draw_subsprite;
+				if(itemsubtype >= b->inv->Gloves.size())
+					goto draw_subsprite;
+				if(b->inv->Gloves[itemsubtype].matt.type == INVALID_INDEX)
+					goto draw_subsprite;
+				break;
+			case item_type::PANTS:
+				if(b->inv->Pants.empty())
+					goto draw_subsprite;
+				if(itemsubtype >= b->inv->Pants.size())
+					goto draw_subsprite;
+				if(b->inv->Pants[itemsubtype].matt.type == INVALID_INDEX)
+					goto draw_subsprite;
+				break;
+			default:
+				goto draw_subsprite;
 			}
 		}
+
+
+		int32_t drawx = x;
+		int32_t drawy = y;
+		int32_t drawz = z; //- ownerSegment->sizez + 1;
+
+		correctBlockForSegmetOffset( drawx, drawy, drawz);
+		correctBlockForRotation( drawx, drawy, drawz, b->ownerSegment->rotation);
+		int32_t viewx = drawx;
+		int32_t viewy = drawy;
+		int32_t viewz = drawz;
+		pointToScreen((int*)&drawx, (int*)&drawy, drawz);
+		drawx -= (TILEWIDTH>>1)*config.scale;
+
+		if(((drawx + spritewidth*config.scale) < 0) || (drawx > al_get_bitmap_width(al_get_target_bitmap())) || ((drawy + spriteheight*config.scale) < 0) || (drawy > al_get_bitmap_height(al_get_target_bitmap())))
+			return;
+
+		int sheetx, sheety;
+		if(tilelayout == BLOCKTILE)
+		{
+			sheetx = ((sheetindex+tileoffset+randoffset) % SHEET_OBJECTSWIDE) * spritewidth;
+			sheety = ((sheetindex+tileoffset+randoffset) / SHEET_OBJECTSWIDE) * spriteheight;
+		}
+		else if(tilelayout == RAMPBOTTOMTILE)
+		{
+			sheetx = SPRITEWIDTH * b->ramp.index;
+			sheety = ((TILEHEIGHT + FLOORHEIGHT + SPRITEHEIGHT) * (sheetindex+tileoffset+randoffset))+(TILEHEIGHT + FLOORHEIGHT);
+		}
+		else if(tilelayout == RAMPTOPTILE)
+		{
+			sheetx = SPRITEWIDTH * b->ramp.index;
+			sheety = (TILEHEIGHT + FLOORHEIGHT + SPRITEHEIGHT) * (sheetindex+tileoffset+randoffset);
+		}
+		else
+		{
+			sheetx = ((sheetindex+tileoffset+randoffset) % SHEET_OBJECTSWIDE) * spritewidth;
+			sheety = ((sheetindex+tileoffset+randoffset) / SHEET_OBJECTSWIDE) * spriteheight;
+		}
+		ALLEGRO_COLOR shade_color = get_color(b);
+		if(!b->designation.bits.pile && config.fog_of_war && (contentLoader->gameMode.g_mode == GAMEMODE_ADVENTURE))
+		{
+			shade_color.r *= 0.25f;
+			shade_color.g *= 0.25f;
+			shade_color.b *= 0.25f;
+		}
+		if(chop && ( halftile == HALFTILECHOP))
+		{
+			if(fileindex < 0)
+			{
+				if(config.block_count)
+					config.drawcount ++;
+				if(shade_color.a > 0.001f)
+					al_draw_tinted_scaled_bitmap(
+					defaultsheet, premultiply(shade_color),
+					sheetx * spritescale,
+					(sheety+WALL_CUTOFF_HEIGHT) * spritescale,
+					spritewidth * spritescale,
+					(spriteheight-WALL_CUTOFF_HEIGHT) * spritescale,
+					drawx + (offset_x + offset_user_x)*config.scale,
+					drawy + (offset_user_y + (offset_y - WALLHEIGHT)+WALL_CUTOFF_HEIGHT)*config.scale,
+					spritewidth*config.scale,
+					(spriteheight-WALL_CUTOFF_HEIGHT)*config.scale,
+					0);
+			}
+			else 
+			{
+				if(config.block_count)
+					config.drawcount ++;
+
+				if(shade_color.a > 0.001f)
+					al_draw_tinted_scaled_bitmap(
+					getImgFile(fileindex),
+					premultiply(shade_color),
+					sheetx * spritescale,
+					(sheety+WALL_CUTOFF_HEIGHT) * spritescale,
+					spritewidth * spritescale,
+					(spriteheight-WALL_CUTOFF_HEIGHT) * spritescale,
+					drawx + (offset_x + offset_user_x)*config.scale,
+					drawy + (offset_user_y + (offset_y - WALLHEIGHT)+WALL_CUTOFF_HEIGHT)*config.scale,
+					spritewidth*config.scale,
+					(spriteheight-WALL_CUTOFF_HEIGHT)*config.scale,
+					0);
+			}
+			//draw cut-off floor thing
+			if(config.block_count)
+				config.drawcount ++;
+
+			if(shade_color.a > 0.001f)
+				al_draw_scaled_bitmap(IMGObjectSheet, 
+				TILEWIDTH * SPRITEFLOOR_CUTOFF, 0,
+				SPRITEWIDTH, SPRITEWIDTH, 
+				drawx+offset_x, drawy+offset_y-((SPRITEHEIGHT-WALL_CUTOFF_HEIGHT)/2),
+				SPRITEWIDTH*config.scale, SPRITEWIDTH*config.scale, 0);
+		}
+		else if ((chop && (halftile == HALFTILEYES)) || (!chop && (halftile == HALFTILENO)) || (!chop && (halftile == HALFTILECHOP)) || (halftile == HALFTILEBOTH))
+		{
+			if((isoutline == OUTLINENONE) || ((isoutline == OUTLINERIGHT) && (b->depthBorderNorth)) || ((isoutline == OUTLINELEFT) && (b->depthBorderWest)) || ((isoutline == OUTLINEBOTTOM) && (b->depthBorderDown)))
+			{
+				if(fileindex < 0)
+				{
+					if(config.block_count)
+						config.drawcount ++;
+
+					if(shade_color.a > 0.001f)
+						al_draw_tinted_scaled_bitmap(
+						defaultsheet, premultiply(shade_color),
+						sheetx * spritescale,
+						sheety * spritescale,
+						spritewidth * spritescale,
+						spriteheight * spritescale,
+						drawx + (offset_x + offset_user_x)*config.scale,
+						drawy + (offset_user_y + (offset_y - WALLHEIGHT))*config.scale,
+						spritewidth*config.scale,
+						spriteheight*config.scale,
+						0);
+				}
+				else 
+				{
+					if(config.block_count)
+						config.drawcount ++;
+
+					if(shade_color.a > 0.001f)
+						al_draw_tinted_scaled_bitmap(
+						getImgFile(fileindex),
+						premultiply(shade_color),
+						sheetx * spritescale,
+						sheety * spritescale,
+						spritewidth * spritescale,
+						spriteheight * spritescale,
+						drawx + (offset_x + offset_user_x)*config.scale,
+						drawy + (offset_user_y + (offset_y - WALLHEIGHT))*config.scale,
+						spritewidth*config.scale,
+						spriteheight*config.scale,
+						0);
+				}
+			}
+			if(needoutline)
+			{
+				//drawy -= (WALLHEIGHT);
+				//Northern border
+				if(b->depthBorderNorth)
+					DrawSpriteFromSheet(281, IMGObjectSheet, al_map_rgb(255,255,255), drawx + (offset_x)*config.scale, drawy + (offset_y)*config.scale, b );
+
+				//Western border
+				if(b->depthBorderWest)
+					DrawSpriteFromSheet(280, IMGObjectSheet, al_map_rgb(255,255,255), drawx + (offset_x)*config.scale, drawy + (offset_y)*config.scale, b );
+
+				//drawy += (WALLHEIGHT);
+			}
+		}
+		//draw_textf_border(font, al_map_rgb(255,255,255), drawx, drawy, 0, "%d,%d", fileindex, sheetindex);
 	}
+draw_subsprite:
 	if(!subsprites.empty())
 	{
 		for(int i = 0; i < subsprites.size(); i++)
@@ -899,17 +1000,17 @@ ALLEGRO_COLOR c_sprite::get_color(void* block)
 	case ShadeVein:
 		return lookupMaterialColor(b->veinMaterial.type, b->veinMaterial.index);
 	case ShadeMatFore:
-        return config.colors.getDfColor(lookupMaterialFore(b->material.type, b->material.index), lookupMaterialBright(b->material.type, b->material.index));
+		return config.colors.getDfColor(lookupMaterialFore(b->material.type, b->material.index), lookupMaterialBright(b->material.type, b->material.index));
 	case ShadeMatBack:
-        return config.colors.getDfColor(lookupMaterialBack(b->material.type, b->material.index));
+		return config.colors.getDfColor(lookupMaterialBack(b->material.type, b->material.index));
 	case ShadeLayerFore:
-        return config.colors.getDfColor(lookupMaterialFore(b->layerMaterial.type, b->layerMaterial.index), lookupMaterialBright(b->layerMaterial.type, b->layerMaterial.index));
+		return config.colors.getDfColor(lookupMaterialFore(b->layerMaterial.type, b->layerMaterial.index), lookupMaterialBright(b->layerMaterial.type, b->layerMaterial.index));
 	case ShadeLayerBack:
-        return config.colors.getDfColor(lookupMaterialBack(b->layerMaterial.type, b->layerMaterial.index));
+		return config.colors.getDfColor(lookupMaterialBack(b->layerMaterial.type, b->layerMaterial.index));
 	case ShadeVeinFore:
-        return config.colors.getDfColor(lookupMaterialFore(b->veinMaterial.type, b->veinMaterial.index), lookupMaterialBright(b->veinMaterial.type, b->veinMaterial.index));
+		return config.colors.getDfColor(lookupMaterialFore(b->veinMaterial.type, b->veinMaterial.index), lookupMaterialBright(b->veinMaterial.type, b->veinMaterial.index));
 	case ShadeVeinBack:
-        return config.colors.getDfColor(lookupMaterialBack(b->veinMaterial.type, b->veinMaterial.index));
+		return config.colors.getDfColor(lookupMaterialBack(b->veinMaterial.type, b->veinMaterial.index));
 	case ShadeBodyPart:
 		if(b->creaturePresent)
 		{
@@ -961,6 +1062,47 @@ ALLEGRO_COLOR c_sprite::get_color(void* block)
 		else return al_map_rgb(255,255,255);
 	case ShadeBlood:
 		return b->bloodcolor;
+	case ShadeItem:
+		if(itemsubtype >=0)
+		{
+			//FIXME: need a way to get a material for generic types.
+			switch(itemtype)
+			{
+			case -1:
+				return al_map_rgb(255, 255, 255);
+			case item_type::WEAPON:
+				if(itemsubtype < b->inv->Weapons.size())
+					return lookupMaterialColor(b->inv->Weapons[itemsubtype].matt.type, b->inv->Weapons[itemsubtype].matt.index);
+				break;
+			case item_type::ARMOR:
+				if(itemsubtype < b->inv->Armor.size())
+					return lookupMaterialColor(b->inv->Armor[itemsubtype].matt.type, b->inv->Armor[itemsubtype].matt.index);
+				break;
+			case item_type::SHOES:
+				if(itemsubtype < b->inv->Shoes.size())
+					return lookupMaterialColor(b->inv->Shoes[itemsubtype].matt.type, b->inv->Shoes[itemsubtype].matt.index);
+				break;
+			case item_type::SHIELD:
+				if(itemsubtype < b->inv->Shield.size())
+					return lookupMaterialColor(b->inv->Shield[itemsubtype].matt.type, b->inv->Shield[itemsubtype].matt.index);
+				break;
+			case item_type::GLOVES:
+				if(itemsubtype < b->inv->Weapons.size())
+					return lookupMaterialColor(b->inv->Gloves[itemsubtype].matt.type, b->inv->Gloves[itemsubtype].matt.index);
+				break;
+			case item_type::PANTS:
+				if(itemsubtype < b->inv->Pants.size())
+					return lookupMaterialColor(b->inv->Pants[itemsubtype].matt.type, b->inv->Pants[itemsubtype].matt.index);
+				break;
+			case item_type::HELM:
+				if(itemsubtype < b->inv->Helm.size())
+					return lookupMaterialColor(b->inv->Helm[itemsubtype].matt.type, b->inv->Helm[itemsubtype].matt.index);
+				break;
+			default:
+				return al_map_rgb(255, 255, 255);
+			}
+		}
+		else return al_map_rgb(255,255,255);
 	default:
 		return al_map_rgb(255, 255, 255);
 	} ;

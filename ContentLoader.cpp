@@ -520,21 +520,21 @@ const char *lookupMaterialTypeName(int matType)
 {
 	switch (matType)
 	{
-    case MAT_BASICS::INORGANIC:
+    case INORGANIC:
 		return "Inorganic";
-    case MAT_BASICS::GREEN_GLASS:
+    case GREEN_GLASS:
 		return "GreenGlass";
-    case MAT_BASICS::WOOD:
+    case WOOD:
 		return "Wood";
-    case MAT_BASICS::ICE:
+    case ICE:
 		return "Ice";
-    case MAT_BASICS::CLEAR_GLASS:
+    case CLEAR_GLASS:
 		return "ClearGlass";
-    case MAT_BASICS::CRYSTAL_GLASS:
+    case CRYSTAL_GLASS:
 		return "CrystalGlass";
-    case MAT_BASICS::PLANTCLOTH:
+    case PLANTCLOTH:
 		return "PlantCloth";
-    case MAT_BASICS::LEATHER:
+    case LEATHER:
 		return "Leather";
 	default:
 		return NULL;
@@ -544,29 +544,29 @@ const char *lookupMaterialTypeName(int matType)
 MAT_BASICS lookupMaterialType(const char* strValue)
 {
 	if (strValue == NULL || strValue[0] == 0)
-        return MAT_BASICS::INVALID;
+        return INVALID;
 	else if( strcmp(strValue, "Stone") == 0)
-        return MAT_BASICS::INORGANIC;
+        return INORGANIC;
 	else if( strcmp(strValue, "Metal") == 0)
-        return MAT_BASICS::INORGANIC;
+        return INORGANIC;
 	else if( strcmp(strValue, "Inorganic") == 0)
-        return MAT_BASICS::INORGANIC;
+        return INORGANIC;
 	else if( strcmp(strValue, "GreenGlass") == 0)
-        return MAT_BASICS::GREEN_GLASS;
+        return GREEN_GLASS;
 	else if( strcmp(strValue, "Wood") == 0)
-        return MAT_BASICS::WOOD;
+        return WOOD;
 	else if( strcmp(strValue, "Ice") == 0)
-        return MAT_BASICS::ICE;
+        return ICE;
 	else if( strcmp(strValue, "ClearGlass") == 0)
-        return MAT_BASICS::CLEAR_GLASS;
+        return CLEAR_GLASS;
 	else if( strcmp(strValue, "CrystalGlass") == 0)
-        return MAT_BASICS::CRYSTAL_GLASS;
+        return CRYSTAL_GLASS;
 	else if( strcmp(strValue, "PlantCloth") == 0)
-        return MAT_BASICS::PLANTCLOTH;
+        return PLANTCLOTH;
 	else if( strcmp(strValue, "Leather") == 0)
-        return MAT_BASICS::LEATHER;
+        return LEATHER;
 	//TODO this needs fixing on dfhack side
-    return MAT_BASICS::INVALID;
+    return INVALID;
 }
 
 const char *lookupMaterialName(int matType,int matIndex)
@@ -620,18 +620,17 @@ const char *lookupTreeName(int matIndex)
 	return (*typeVector)[matIndex].id.c_str();
 }
 
-typedef df::enums::item_type::item_type itt;
 const char * lookupFormName(int formType)
 {
 	switch (formType)
 	{
-    case itt::BAR:
+    case item_type::BAR:
 		return "bar";
-    case itt::BLOCKS:
+    case item_type::BLOCKS:
 		return "block";
-    case itt::BOULDER:
+    case item_type::BOULDER:
 		return "boulder";
-    case itt::WOOD:
+    case item_type::WOOD:
 		return "log";
 	default:
 		return NULL;
@@ -747,16 +746,20 @@ void ContentLoader::flushCreatureConfig()
 }
 ALLEGRO_COLOR lookupMaterialColor(int matType,int matIndex)
 {
+	if (matType < 0)
+	{
+		//This should not normally happen, but if it does, we don't want crashes, so we'll return magic pink so show something's wrong.
+		return al_map_rgb(255, 0, 255);
+	}
 	if (matType >= contentLoader->colorConfigs.size())
 	{
 		//if it's more than the size of our colorconfigs, then just make a guess based off what DF tells us.
 		MaterialInfo mat;
 		mat.decode(matType, matIndex);
-		ALLEGRO_COLOR out = al_map_rgb_f(
+		return al_map_rgb_f(
 			contentLoader->Mats->color[mat.material->state_color[0]].red,
 			contentLoader->Mats->color[mat.material->state_color[0]].green,
 			contentLoader->Mats->color[mat.material->state_color[0]].blue);
-		return out;
 	}
 	if (matIndex < 0)
 	{
@@ -764,7 +767,12 @@ ALLEGRO_COLOR lookupMaterialColor(int matType,int matIndex)
 	}
 	if (matIndex >= contentLoader->colorConfigs.at(matType).colorMaterials.size())
 	{
-		return al_map_rgb(255, 255, 255);
+		MaterialInfo mat;
+		mat.decode(matType, matIndex);
+		return al_map_rgb_f(
+			contentLoader->Mats->color[mat.material->state_color[0]].red,
+			contentLoader->Mats->color[mat.material->state_color[0]].green,
+			contentLoader->Mats->color[mat.material->state_color[0]].blue);
 	}
 	if (contentLoader->colorConfigs.at(matType).colorMaterials.at(matIndex).colorSet)
 	{
@@ -772,11 +780,10 @@ ALLEGRO_COLOR lookupMaterialColor(int matType,int matIndex)
 	}
 	MaterialInfo mat;
 	mat.decode(matType, matIndex);
-	ALLEGRO_COLOR out = al_map_rgb_f(
+	return al_map_rgb_f(
 		contentLoader->Mats->color[mat.material->state_color[0]].red,
 		contentLoader->Mats->color[mat.material->state_color[0]].green,
 		contentLoader->Mats->color[mat.material->state_color[0]].blue);
-	return out;
 }
 
 ShadeBy getShadeType(const char* Input)
@@ -813,17 +820,7 @@ ShadeBy getShadeType(const char* Input)
 		return ShadeBuilding;
 	if( strcmp(Input, "grass") == 0)
 		return ShadeGrass;
-	if( strcmp(Input, "weapon") == 0)
-		return ShadeWeapon;
-	if( strcmp(Input, "armor") == 0)
-		return ShadeArmor;
-	if( strcmp(Input, "shoes") == 0)
-		return ShadeShoes;
-	if( strcmp(Input, "shield") == 0)
-		return ShadeShield;
-	if( strcmp(Input, "helm") == 0)
-		return ShadeHelm;
-	if( strcmp(Input, "gloves") == 0)
-		return ShadeGloves;
+	if( strcmp(Input, "equipment") == 0)
+		return ShadeItem;
 	return ShadeNone;
 }

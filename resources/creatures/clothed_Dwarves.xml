@@ -17,9 +17,10 @@
     <variant caste="FEMALE" sheetIndex="0" color="bodypart" bodypart="skin" >
       <subsprite sheetIndex="3" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="4" />
-      <subsprite sheetIndex="86" color="helm"/>
-	  <subsprite sheetIndex="88" color="shoes"/>
-	  <subsprite sheetIndex="89" color="armor"/>
+      <subsprite sheetIndex="86" equipment_class="HELM" equipment_name="ITEM_HELM_CAP" color="equipment"/>
+	  <subsprite sheetIndex="87" equipment_class="SHOES" equipment_name="ITEM_SHOES_SHOES" color="equipment"/>
+	  <subsprite sheetIndex="89" equipment_class="PANTS" equipment_name="ITEM_PANTS_SKIRT" color="equipment"/>
+	  <subsprite sheetIndex="88" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_MAIL_SHIRT" color="equipment"/>
     </variant>
   </creature>
 </creatures>

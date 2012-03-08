@@ -302,7 +302,7 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
 					{
 						b->mudlevel = level;
 					}
-					else if(splatter[i]->mat_type == MAT_BASICS::ICE)
+					else if(splatter[i]->mat_type == ICE)
 					{
 						b->snowlevel = level;
 					}

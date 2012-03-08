@@ -507,11 +507,11 @@ void drawDebugCursorAndInfo(WorldSegment * segment, DFHack::Core * c)
 				{
 					if(b->inv->Weapons[ind].matt.type < 0)
 						continue;
-					const char* matName = lookupMaterialTypeName(b->inv->Weapons[ind].matt.type);
-					const char* subMatName = lookupMaterialName(b->inv->Weapons[ind].matt.type,b->inv->Weapons[ind].matt.index);
+					MaterialInfo mat;
+					mat.decode(b->inv->Weapons[ind].matt.type,b->inv->Weapons[ind].matt.index);
 					draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0, 
-						"    %s%s%s - %s/%s", 
-						matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"",
+						"    %s - %s/%s", 
+						mat.getToken().c_str(),
 						ENUM_KEY_STR(item_type, item_type::WEAPON),
 						get_item_subtype(item_type::WEAPON,ind));
 				}
@@ -524,11 +524,11 @@ void drawDebugCursorAndInfo(WorldSegment * segment, DFHack::Core * c)
 				{
 					if(b->inv->Armor[ind].matt.type < 0)
 						continue;
-					const char* matName = lookupMaterialTypeName(b->inv->Armor[ind].matt.type);
-					const char* subMatName = lookupMaterialName(b->inv->Armor[ind].matt.type,b->inv->Armor[ind].matt.index);
+					MaterialInfo mat;
+					mat.decode(b->inv->Armor[ind].matt.type,b->inv->Armor[ind].matt.index);
 					draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0, 
-						"    %s%s%s - %s/%s", 
-						matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"",
+						"    %s - %s/%s", 
+						mat.getToken().c_str(),
 						ENUM_KEY_STR(item_type, item_type::ARMOR),
 						get_item_subtype(item_type::ARMOR,ind));
 				}
@@ -541,11 +541,11 @@ void drawDebugCursorAndInfo(WorldSegment * segment, DFHack::Core * c)
 				{
 					if(b->inv->Shoes[ind].matt.type < 0)
 						continue;
-					const char* matName = lookupMaterialTypeName(b->inv->Shoes[ind].matt.type);
-					const char* subMatName = lookupMaterialName(b->inv->Shoes[ind].matt.type,b->inv->Shoes[ind].matt.index);
+					MaterialInfo mat;
+					mat.decode(b->inv->Shoes[ind].matt.type,b->inv->Shoes[ind].matt.index);
 					draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0, 
-						"    %s%s%s - %s/%s", 
-						matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"",
+						"    %s - %s/%s", 
+						mat.getToken().c_str(),
 						ENUM_KEY_STR(item_type, item_type::SHOES),
 						get_item_subtype(item_type::SHOES,ind));
 				}
@@ -558,11 +558,11 @@ void drawDebugCursorAndInfo(WorldSegment * segment, DFHack::Core * c)
 				{
 					if(b->inv->Shield[ind].matt.type < 0)
 						continue;
-					const char* matName = lookupMaterialTypeName(b->inv->Shield[ind].matt.type);
-					const char* subMatName = lookupMaterialName(b->inv->Shield[ind].matt.type,b->inv->Shield[ind].matt.index);
+					MaterialInfo mat;
+					mat.decode(b->inv->Shield[ind].matt.type,b->inv->Shield[ind].matt.index);
 					draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0, 
-						"    %s%s%s - %s/%s", 
-						matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"",
+						"    %s - %s/%s", 
+						mat.getToken().c_str(),
 						ENUM_KEY_STR(item_type, item_type::SHIELD),
 						get_item_subtype(item_type::SHIELD,ind));
 				}
@@ -575,11 +575,11 @@ void drawDebugCursorAndInfo(WorldSegment * segment, DFHack::Core * c)
 				{
 					if(b->inv->Helm[ind].matt.type < 0)
 						continue;
-					const char* matName = lookupMaterialTypeName(b->inv->Helm[ind].matt.type);
-					const char* subMatName = lookupMaterialName(b->inv->Helm[ind].matt.type,b->inv->Helm[ind].matt.index);
+					MaterialInfo mat;
+					mat.decode(b->inv->Helm[ind].matt.type,b->inv->Helm[ind].matt.index);
 					draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0, 
-						"    %s%s%s - %s/%s", 
-						matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"",
+						"    %s - %s/%s", 
+						mat.getToken().c_str(),
 						ENUM_KEY_STR(item_type, item_type::HELM),
 						get_item_subtype(item_type::HELM,ind));
 				}
@@ -592,11 +592,11 @@ void drawDebugCursorAndInfo(WorldSegment * segment, DFHack::Core * c)
 				{
 					if(b->inv->Gloves[ind].matt.type < 0)
 						continue;
-					const char* matName = lookupMaterialTypeName(b->inv->Gloves[ind].matt.type);
-					const char* subMatName = lookupMaterialName(b->inv->Gloves[ind].matt.type,b->inv->Gloves[ind].matt.index);
+					MaterialInfo mat;
+					mat.decode(b->inv->Gloves[ind].matt.type,b->inv->Gloves[ind].matt.index);
 					draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0, 
-						"    %s%s%s - %s/%s", 
-						matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"",
+						"    %s - %s/%s", 
+						mat.getToken().c_str(),
 						ENUM_KEY_STR(item_type, item_type::GLOVES),
 						get_item_subtype(item_type::GLOVES,ind));
 				}
@@ -609,11 +609,11 @@ void drawDebugCursorAndInfo(WorldSegment * segment, DFHack::Core * c)
 				{
 					if(b->inv->Pants[ind].matt.type < 0)
 						continue;
-					const char* matName = lookupMaterialTypeName(b->inv->Pants[ind].matt.type);
-					const char* subMatName = lookupMaterialName(b->inv->Pants[ind].matt.type,b->inv->Pants[ind].matt.index);
+					MaterialInfo mat;
+					mat.decode(b->inv->Pants[ind].matt.type,b->inv->Pants[ind].matt.index);
 					draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0, 
-						"    %s%s%s - %s/%s", 
-						matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"",
+						"    %s - %s/%s", 
+						mat.getToken().c_str(),
 						ENUM_KEY_STR(item_type, item_type::PANTS),
 						get_item_subtype(item_type::PANTS,ind));
 				}

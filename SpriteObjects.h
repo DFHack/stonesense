@@ -104,6 +104,9 @@ private:
 	uint8_t notrampborders;
 	uint8_t notupstairborders;
 	uint8_t notdownstairborders;
+
+	int itemtype;
+	int itemsubtype;
 public:
 	c_sprite(void);
 	~c_sprite(void);
