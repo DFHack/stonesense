@@ -101,7 +101,7 @@ MaterialTypeCondition::MaterialTypeCondition(const char* strValue, const char* s
 	subtype = lookupMaterialIndex( value, strSubtype);
 	if (subtype == INVALID_INDEX)
 	{
-		WriteErr("Material subtype not found in MaterialTypeCondition: %s\n", strSubtype);
+		LogError("Material subtype not found in MaterialTypeCondition: %s\n", strSubtype);
 		//make material never match;
 		value = INVALID_INDEX;
 	}
@@ -324,7 +324,7 @@ bool NotConditionalNode::addCondition(BlockCondition* cond)
 {
 	if (childcond != NULL)
 	{
-		WriteErr("Too many condition elements for NotConditionalNode\n");
+		LogError("Too many condition elements for NotConditionalNode\n");
 		return false;
 	}
 	childcond = cond;

@@ -11,7 +11,7 @@
 
 inline bool IDisWall(int in);
 inline bool IDisFloor(int in);
-void reloadDisplayedSegment(DFHack::Core * DF);
+void reloadDisplayedSegment();
 void beautify_Segment(WorldSegment * segment);
 
 void DisconnectFromDF();

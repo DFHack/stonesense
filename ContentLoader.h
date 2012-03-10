@@ -27,7 +27,7 @@ public:
 	ContentLoader(void);
 	~ContentLoader(void);
 
-	bool Load( DFHack::Core& DF);
+	bool Load();
 
 	bool reload_configs();
 
@@ -44,7 +44,6 @@ public:
 
 	vector<string> professionStrings;
 	std::map <uint32_t, std::string> custom_workshop_types;
-	VersionInfo *MemInfo;
 	DFHack::Materials * Mats;
 	std::vector<t_matgloss> organic;
     std::vector<t_matglossInorganic> inorganic;

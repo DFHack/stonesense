@@ -164,7 +164,7 @@ class SegmentWrap;
 //main.cpp
 void correctBlockForSegmetOffset(int32_t& x, int32_t& y, int32_t& z);
 
-void WriteErr(const char* msg, ...);
+void LogError(const char* msg, ...);
 void LogVerbose(const char* msg, ...);
 void SetTitle(const char *format, ...);
 
@@ -196,7 +196,7 @@ void correctBlockForRotation(int32_t& x, int32_t& y, int32_t& z, unsigned char r
 
 //from UserInput.cpp
 void doKeys();
-void doKeys(int key, DFHack::Core * c);
+void doKeys(int key);
 void initAutoReload();
 void abortAutoReload();
 
@@ -259,8 +259,6 @@ enum MAT_BASICS
 #define FORM_LOG 4
 
 extern int randomCube[RANDOM_CUBE][RANDOM_CUBE][RANDOM_CUBE];
-
-extern DFHack::Console * DFConsole;
 
 ALLEGRO_COLOR premultiply(ALLEGRO_COLOR input);
 using namespace std;

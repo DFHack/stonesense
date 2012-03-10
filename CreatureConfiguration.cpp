@@ -66,7 +66,7 @@ int translateProfession(const char* currentProf)
 			return j;
 		}
 	}
-	WriteErr("Unable to match profession '%s' to anything in-game\n", currentProf);
+	LogError("Unable to match profession '%s' to anything in-game\n", currentProf);
 	return INT_MAX; //if it is left at INVALID_INDEX, the condition is ignored entierly.
 }
 
@@ -137,7 +137,7 @@ bool addSingleCreatureConfig( TiXmlElement* elemCreature, vector<vector<Creature
 
 		if (customStr != NULL)
 		{
-			WriteErr("custom: %s\n",customStr);	
+			LogError("custom: %s\n",customStr);	
 		}
 
 		const char* sexstr = elemVariant->Attribute("sex");

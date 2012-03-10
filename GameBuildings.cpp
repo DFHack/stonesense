@@ -135,7 +135,7 @@ void loadBuildingSprites ( Block* b)
 	bool foundBlockBuildingInfo = false;
 	if (b == NULL)
 	{
-		WriteErr("Null Block skipped in loadBuildingSprites\n");
+		LogError("Null Block skipped in loadBuildingSprites\n");
 		return;
 	}
     BuildingConfiguration* generic = NULL, *specific = NULL, *custom = NULL;

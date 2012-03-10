@@ -97,7 +97,7 @@ bool SpriteBlock::copyToBlock(Block* b)
 bool SpriteBlock::addCondition(BlockCondition* cond){
 	if (conditions != NULL)
 	{
-		WriteErr("Too many condition elements for SpriteBlock\n");
+		LogError("Too many condition elements for SpriteBlock\n");
 		return false;
 	}
 	conditions = cond;
@@ -145,7 +145,7 @@ bool RotationBlock::copyToBlock(Block* b)
 }
 
 bool RotationBlock::addCondition(BlockCondition* cond){
-	WriteErr("Condition elements not permitted for RotationBlock\n");
+	LogError("Condition elements not permitted for RotationBlock\n");
 	return false;
 }
 

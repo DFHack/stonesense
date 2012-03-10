@@ -11,10 +11,11 @@
 #include <df/plant.h>
 #include <df/effect.h>
 
+/*
 static DFHack::Core* pDFApiHandle = 0;
 static DFHack::Process * DFProc = 0;
 const VersionInfo *dfMemoryInfo;
-bool memInfoHasBeenRead;
+bool memInfoHasBeenRead;*/
 bool connected = 0;
 bool threadrunnng = 0;
 segParams parms;
@@ -616,10 +617,10 @@ bool checkFloorBorderRequirement(WorldSegment* segment, int x, int y, int z, dir
 }
 
 
-WorldSegment* ReadMapSegment(DFHack::Core &DF, int x, int y, int z, int sizex, int sizey, int sizez){
+WorldSegment* ReadMapSegment(int x, int y, int z, int sizex, int sizey, int sizez){
 	uint32_t index;
 	clock_t start_time = clock();
-	DFHack::Materials *Mats = DF.getMaterials();
+	DFHack::Core & DF = Core::getInstance();
 
 	DFHack::World *Wold = 0;
 	if(!config.skipWorld)
@@ -653,12 +654,6 @@ WorldSegment* ReadMapSegment(DFHack::Core &DF, int x, int y, int z, int sizex, i
 	{
 		//return new blank segment
 		return new WorldSegment(x,y,z + 1,sizex,sizey,sizez + 1);
-	}
-
-	//read memory info
-	if( memInfoHasBeenRead == false){
-		dfMemoryInfo = DF.vinfo;
-		memInfoHasBeenRead = true;
 	}
 
 	//if (timeToReloadConfig)
@@ -704,7 +699,7 @@ WorldSegment* ReadMapSegment(DFHack::Core &DF, int x, int y, int z, int sizex, i
 	vector< vector <uint16_t> > layers;
 	if(!Maps::ReadGeology( layers ))
 	{
-		WriteErr("Can't get region geology.\n");
+		LogError("Can't get region geology.\n");
 	}
 
 	//read cursor
@@ -1059,23 +1054,25 @@ void read_segment( void *arg)
         return;
     static bool firstLoad = 1;
     config.threadstarted = 1;
-
-    pDFApiHandle->Suspend();
-    if (firstLoad || config.follow_DFscreen)
+    WorldSegment * segment = 0;
+    // Suspended block
     {
-        firstLoad = 0;
-        if (config.track_center)
+        CoreSuspender suspend;
+        if (firstLoad || config.follow_DFscreen)
         {
-            FollowCurrentDFCenter();
+            firstLoad = 0;
+            if (config.track_center)
+            {
+                FollowCurrentDFCenter();
+            }
+            else
+            {
+                FollowCurrentDFWindow();
+            }
         }
-        else
-        {
-            FollowCurrentDFWindow();
-        }
+        segment = ReadMapSegment(parms.x, parms.y, parms.z,parms.sizex, parms.sizey, parms.sizez);
+        config.threadstarted = 0;
     }
-    WorldSegment * segment = ReadMapSegment(*pDFApiHandle, parms.x, parms.y, parms.z,parms.sizex, parms.sizey, parms.sizez);
-    config.threadstarted = 0;
-    pDFApiHandle->Resume();
     beautify_Segment(segment);
     map_segment->lock();
     WorldSegment* old_segment = map_segment->swap(segment);
@@ -1099,11 +1096,9 @@ static void * threadedSegment(ALLEGRO_THREAD *read_thread, void *arg)
 	return 0;
 }
 
-void reloadDisplayedSegment(DFHack::Core * c){
+void reloadDisplayedSegment(){
 	//create handle to dfHack API
 	static bool firstLoad = 1;
-	DFHack::Core & DF = *c;
-	pDFApiHandle = c;
 	TMR1_START;
 
 #ifndef RELEASE
@@ -1113,7 +1108,7 @@ void reloadDisplayedSegment(DFHack::Core * c){
 	if (timeToReloadConfig)
 	{
 		parms.thread_connect = 0;
-		contentLoader->Load(DF);
+		contentLoader->Load();
 		timeToReloadConfig = false;
 	}
 

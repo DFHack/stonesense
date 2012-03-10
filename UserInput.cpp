@@ -198,7 +198,7 @@ void doKeys(){
 	}
 }
 
-void doKeys(int Key, DFHack::Core * c)
+void doKeys(int Key)
 {
 	al_get_keyboard_state(&keyboard);
 	if(Key == ALLEGRO_KEY_ENTER){
@@ -210,7 +210,7 @@ void doKeys(int Key, DFHack::Core * c)
 		timeToReloadSegment = true;
 	}
 	if(Key == ALLEGRO_KEY_D){
-		paintboard(c);
+		paintboard();
 	}
 	if(Key == ALLEGRO_KEY_G){
 		//contentLoader.reload_configs();
@@ -291,11 +291,11 @@ void doKeys(int Key, DFHack::Core * c)
 		else if (al_key_down(&keyboard,ALLEGRO_KEY_ALT) || al_key_down(&keyboard,ALLEGRO_KEY_ALTGR))
 			dumpSegment();
 		else
-			saveScreenshot(c);
+			saveScreenshot();
 	} 
 	if(Key == ALLEGRO_KEY_PAD_PLUS){
 		config.automatic_reload_time += config.automatic_reload_step;
-		paintboard(c);
+		paintboard();
 		initAutoReload();
 	}
 	if(Key == ALLEGRO_KEY_PAD_MINUS && config.automatic_reload_time){
@@ -309,7 +309,7 @@ void doKeys(int Key, DFHack::Core * c)
 		}
 		else
 			initAutoReload();
-		paintboard(c);
+		paintboard();
 	}
 	if(Key == ALLEGRO_KEY_F9)
 	{
@@ -321,22 +321,22 @@ void doKeys(int Key, DFHack::Core * c)
 		if(Key == ALLEGRO_KEY_PAD_8){
 			config.follow_DFcursor = false;
 			debugCursor.y--;
-			paintboard(c);
+			paintboard();
 		}
 		if(Key == ALLEGRO_KEY_PAD_2){
 			config.follow_DFcursor = false;
 			debugCursor.y++;
-			paintboard(c);
+			paintboard();
 		}
 		if(Key == ALLEGRO_KEY_PAD_4){
 			config.follow_DFcursor = false;
 			debugCursor.x--;
-			paintboard(c);
+			paintboard();
 		}
 		if(Key == ALLEGRO_KEY_PAD_6){
 			config.follow_DFcursor = false;
 			debugCursor.x++;
-			paintboard(c);
+			paintboard();
 		}
 
 		if(Key == ALLEGRO_KEY_F10)

@@ -86,7 +86,7 @@ void DumpPrefessionNamesToDisk(vector<string> material, const char* filename){
 	}
 	fclose(fp);
 }
-bool ContentLoader::Load( DFHack::Core& DF){
+bool ContentLoader::Load(){
 	/*draw_textf_border(font, 
 	al_get_bitmap_width(al_get_target_bitmap())/2,
 	al_get_bitmap_height(al_get_target_bitmap())/2,
@@ -112,11 +112,11 @@ bool ContentLoader::Load( DFHack::Core& DF){
 
 	try
 	{
-		Mats = DF.getMaterials();
+		Mats = Core::getInstance().getMaterials();
 	}
 	catch(exception &e)
 	{
-		WriteErr("DFhack exeption: %s\n", e.what());
+		LogError("DFhack exeption: %s\n", e.what());
 	}
 	if(!config.skipCreatureTypes)
 	{
@@ -126,7 +126,7 @@ bool ContentLoader::Load( DFHack::Core& DF){
 		}
 		catch(exception &e)
 		{
-			WriteErr("DFhack exeption: %s\n", e.what());
+			LogError("DFhack exeption: %s\n", e.what());
 			config.skipCreatureTypes = true;
 		}
 	}
@@ -138,7 +138,7 @@ bool ContentLoader::Load( DFHack::Core& DF){
 		}
 		catch(exception &e)
 		{
-			WriteErr("DFhack exeption: %s\n", e.what());
+			LogError("DFhack exeption: %s\n", e.what());
 			config.skipCreatureTypesEx = true;
 		}
 	}
@@ -150,7 +150,7 @@ bool ContentLoader::Load( DFHack::Core& DF){
 		}
 		catch(exception &e)
 		{
-			WriteErr("DFhack exeption: %s\n", e.what());
+			LogError("DFhack exeption: %s\n", e.what());
 			config.skipDescriptorColors = true;
 		}
 	}
@@ -158,7 +158,7 @@ bool ContentLoader::Load( DFHack::Core& DF){
 	{
 		if(!Mats->CopyInorganicMaterials(this->inorganic))
 		{
-			WriteErr("Missing inorganic materials!\n");
+			LogError("Missing inorganic materials!\n");
 			config.skipInorganicMats = true;
 		}
 	}
@@ -166,19 +166,11 @@ bool ContentLoader::Load( DFHack::Core& DF){
 	{
 		if(!Mats->CopyOrganicMaterials(this->organic))
 		{
-			WriteErr("Missing organic materials!\n");
+			LogError("Missing organic materials!\n");
 			config.skipOrganicMats = true;
 		}
 	}
     Buildings::ReadCustomWorkshopTypes(custom_workshop_types);
-	try
-	{
-		contentLoader->MemInfo = DF.vinfo;
-	}
-	catch(exception &e)
-	{
-		WriteErr("DFhack exeption: %s\n", e.what());
-	}
 	if(professionStrings.empty())
 	{
 		FOR_ENUM_ITEMS(profession, i)
@@ -277,7 +269,7 @@ bool ContentLoader::parseContentIndexFile( const char* filepath )
 	string line;
 	ifstream myfile( filepath );
 	if (myfile.is_open() == false){
-		WriteErr( "Unable to load config index file at: %s!\n", filepath );
+		LogError( "Unable to load config index file at: %s!\n", filepath );
 		return false;
 	}
 	LogVerbose("Reading index at %s...\n", filepath);
@@ -312,7 +304,7 @@ bool ContentLoader::parseContentIndexFile( const char* filepath )
 
 		if (!getLocalFilename(configfilepath,line.c_str(),filepath))
 		{
-			WriteErr("File name parsing failed on %s\n",line.c_str());
+			LogError("File name parsing failed on %s\n",line.c_str());
 			continue;
 		}
 		//WriteErr("but it's all fucked here: %s\n",configfilepath);
@@ -324,17 +316,17 @@ bool ContentLoader::parseContentIndexFile( const char* filepath )
 		{
 			LogVerbose("Reading xml %s...\n", configfilepath);
 			if (!parseContentXMLFile(configfilepath))
-				WriteErr("Failure in reading %s\n",configfilepath);		  
+				LogError("Failure in reading %s\n",configfilepath);
 		}
 		else if (strcmp(extension,".txt") == 0)
 		{
 			LogVerbose("Reading index %s...\n", configfilepath);
 			if (!parseContentIndexFile(configfilepath))
-				WriteErr("Failure in reading %s\n",configfilepath);			  
+				LogError("Failure in reading %s\n",configfilepath);
 		}
 		else
 		{
-			WriteErr("Invalid filename: %s\n",configfilepath);
+			LogError("Invalid filename: %s\n",configfilepath);
 		}
 	}
 	myfile.close();
@@ -352,7 +344,7 @@ bool ContentLoader::parseContentXMLFile( const char* filepath ){
 	TiXmlDocument doc( filepath );
 	if(!doc.LoadFile())
 	{
-		WriteErr("File load failed: %s\n", filepath);
+		LogError("File load failed: %s\n", filepath);
 		return false;
 	}
 	TiXmlHandle hDoc(&doc);
@@ -440,7 +432,7 @@ const char* getDocument(TiXmlNode* element)
 
 void contentError(const char* message, TiXmlNode* element)
 {
-	WriteErr("%s: %s: %s (Line %d)\n",getDocument(element),message,element->Value(),element->Row());
+	LogError("%s: %s: %s (Line %d)\n",getDocument(element),message,element->Value(),element->Row());
 }
 
 // converts list of characters 0-5 into bits, ignoring garbage

@@ -397,7 +397,7 @@ void DrawCurrentLevelOutline(bool backPart){
 	}
 }
 
-void drawDebugCursorAndInfo(WorldSegment * segment, DFHack::Core * c)
+void drawDebugCursorAndInfo(WorldSegment * segment)
 {
 	using df::global::ui;
 
@@ -461,7 +461,7 @@ void drawDebugCursorAndInfo(WorldSegment * segment, DFHack::Core * c)
 			auto Actual_building = virtual_cast<df::building_actual>(b->building.info.origin);
 			if(!Actual_building)
 				break;
-			c->Suspend();
+            CoreSuspender csusp;
 			Actual_building->contained_items.size(); //Item array.
 			std::string BuildingName;
 			Actual_building->getName(&BuildingName);
@@ -483,7 +483,6 @@ void drawDebugCursorAndInfo(WorldSegment * segment, DFHack::Core * c)
 					Actual_building->contained_items[index]->item->getStackSize()>1?stacknum:"",
 					(Actual_building->contained_items[index]->use_mode == 2?" [B]":""));
 			}
-			c->Resume();
 		}
 		break;
 	case ui_sidebar_mode::ViewUnits:
@@ -989,7 +988,7 @@ void DrawSpriteIndexOverlay(int imageIndex){
 }
 
 
-void DoSpriteIndexOverlay(DFHack::Core * c)
+void DoSpriteIndexOverlay()
 {
 	DrawSpriteIndexOverlay(-1);
 	int index = 0;
@@ -1018,10 +1017,10 @@ void DoSpriteIndexOverlay(DFHack::Core * c)
 	}
 	//redraw screen again
 	al_clear_to_color(al_map_rgb(config.backr,config.backg,config.backb));
-	paintboard(c);
+	paintboard();
 }
 
-void paintboard(DFHack::Core * c)
+void paintboard()
 {
     uint32_t starttime = clock();
 
@@ -1081,7 +1080,7 @@ void paintboard(DFHack::Core * c)
 			draw_textf_border(font, al_map_rgb(255,255,255), 10, 6*al_get_font_line_height(font), 0, "D1: %i", blockFactory.getPoolSize());
 			draw_textf_border(font, al_map_rgb(255,255,255), 10, 7*al_get_font_line_height(font), 0, "%i/%i/%i, %i:%i", contentLoader->currentDay+1, contentLoader->currentMonth+1, contentLoader->currentYear, contentLoader->currentHour, (contentLoader->currentTickRel*60)/50);
 			draw_textf_border(font, al_map_rgb(255,255,255), 10, 8*al_get_font_line_height(font), 0, "%i Sprites drawn, %i tiles drawn, %.1f sprites per tile.", config.drawcount, config.tilecount, ((float)config.drawcount/(float)config.tilecount));
-			drawDebugCursorAndInfo(segment, c);
+			drawDebugCursorAndInfo(segment);
 		}
 		config.drawcount = 0;
 		config.tilecount = 0;
@@ -1226,10 +1225,10 @@ int loadImgFile(const char* filename)
 				test = al_create_bitmap(config.imageCacheSize,config.imageCacheSize);
 				if(test)
 				{
-					WriteErr("%i works.\n", config.imageCacheSize);
+					LogError("%i works.\n", config.imageCacheSize);
 					break;
 				}
-				WriteErr("%i is too large. chopping it.\n", config.imageCacheSize);
+				LogError("%i is too large. chopping it.\n", config.imageCacheSize);
 				config.imageCacheSize = config.imageCacheSize / 2;
 			}
 			foundSize = true;
@@ -1261,10 +1260,12 @@ int loadImgFile(const char* filename)
 		LogVerbose("New image: %s\n",filename);
 		if(currentCache < 0)
 		{
+            // FIXME: this is some really weird logic.
 			IMGCache.push_back(al_create_bitmap(config.imageCacheSize, config.imageCacheSize));
 			if(!IMGCache[0])
 			{
-				DFConsole->printerr("Cannot create bitmap sized %ix%i, please chose a smaller size",config.imageCacheSize,config.imageCacheSize);
+                // FIXME: so, what happens when al_create_bitmap fails? rainbows and unicorns?
+                LogVerbose("Cannot create bitmap sized %ix%i, please chose a smaller size",config.imageCacheSize,config.imageCacheSize);
 			}
 			currentCache = IMGCache.size() -1;
 			LogVerbose("Creating image cache #%d\n",currentCache);
@@ -1339,9 +1340,9 @@ int loadImgFile(ALLEGRO_PATH* filepath)
     return loadImgFile(al_path_cstr(filepath, ALLEGRO_NATIVE_PATH_SEP));
 }
 */
-void saveScreenshot(DFHack::Core * c){
+void saveScreenshot(){
 	al_clear_to_color(al_map_rgb(config.backr,config.backg,config.backb));
-	paintboard(c);
+	paintboard();
 	//get filename
 	char filename[20] ={0};
 	FILE* fp;
@@ -1364,7 +1365,7 @@ void saveScreenshot(DFHack::Core * c){
 	al_set_target_bitmap(temp);
 	if(!config.transparentScreenshots)
 		al_clear_to_color(al_map_rgb(config.backr,config.backg,config.backb));
-	paintboard(c);
+	paintboard();
 	al_save_bitmap(filename, temp);
 	al_set_target_bitmap(al_get_backbuffer(al_get_current_display()));
 	al_destroy_bitmap(temp);

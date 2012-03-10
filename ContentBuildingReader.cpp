@@ -224,8 +224,8 @@ bool includeFile(SpriteNode* node, TiXmlElement* includeNode, SpriteBlock* &oldS
 	if(!loadOkay)
 	{
 		contentError("Include failed",includeNode);
-        WriteErr("File load failed: %s\n",configfilepath);
-		WriteErr("Line %d: %s\n",doc.ErrorRow(),doc.ErrorDesc());
+        LogError("File load failed: %s\n",configfilepath);
+		LogError("Line %d: %s\n",doc.ErrorRow(),doc.ErrorDesc());
 		return false;
 	}
 	elemParent = hDoc.FirstChildElement("include").Element();

@@ -59,8 +59,6 @@ int mouse_x, mouse_y, mouse_z;
 unsigned int mouse_b;
 bool key[ALLEGRO_KEY_MAX];
 
-DFHack::Console * DFConsole;
-
 /// main thread of stonesense - handles events
 ALLEGRO_THREAD *stonesense_event_thread;
 bool redraw = true;
@@ -71,7 +69,7 @@ ALLEGRO_BITMAP* load_bitmap_withWarning(const char* path)
     img = al_load_bitmap(path);
     if(!img)
     {
-        DFConsole->printerr("Cannot load image: %s\n", path);
+        LogError("Cannot load image: %s\n", path);
         al_set_thread_should_stop(stonesense_event_thread);
         return 0;
     }
@@ -80,7 +78,7 @@ ALLEGRO_BITMAP* load_bitmap_withWarning(const char* path)
 }
 
 
-void WriteErr(const char* msg, ...){
+void LogError(const char* msg, ...){
 	va_list arglist;
 	va_start(arglist, msg);
 	//  char buf[200] = {0};
@@ -137,7 +135,7 @@ void correctBlockForSegmetOffset(int32_t& x, int32_t& y, int32_t& z){
 	z -= DisplayedSegmentZ - 1; // + viewedSegment->sizez - 2; // loading one above the top of the displayed segment for block rules
 }
 
-bool loadfont()
+bool loadfont(DFHack::color_ostream & output)
 {
     ALLEGRO_PATH * p = al_create_path_for_directory("stonesense");
     if(!al_join_paths(p, config.font))
@@ -148,7 +146,7 @@ bool loadfont()
     font = al_load_font(al_path_cstr(p, ALLEGRO_NATIVE_PATH_SEP), config.fontsize, 0);
     if (!font)
     {
-        DFConsole->printerr("Cannot load font: %s\n", al_path_cstr(p, ALLEGRO_NATIVE_PATH_SEP));
+        output.printerr("Cannot load font: %s\n", al_path_cstr(p, ALLEGRO_NATIVE_PATH_SEP));
         al_destroy_path(p);
         return false;
     }
@@ -156,13 +154,13 @@ bool loadfont()
     return true;
 }
 
-void benchmark(DFHack::Core * c){
+void benchmark(){
 	DisplayedSegmentX = DisplayedSegmentY = 0;
 	DisplayedSegmentX = 110; DisplayedSegmentY = 110;DisplayedSegmentZ = 18;
 	uint32_t startTime = clock();
 	int i = 20;
 	while(i--)
-		reloadDisplayedSegment(c);
+		reloadDisplayedSegment();
 
 	FILE* fp = fopen("benchmark.txt", "w" );
 	if(!fp) return;
@@ -230,7 +228,7 @@ void drawcredits()
 *  little CPU time.  See main() to see how the event sources and event queue
 *  are set up.
 */
-static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALLEGRO_THREAD * main_thread, DFHack::Console & con, DFHack::Core * core)
+static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALLEGRO_THREAD * main_thread, DFHack::color_ostream & con)
 {
 	ALLEGRO_EVENT event;
 	while (!al_get_thread_should_stop(main_thread))
@@ -247,16 +245,16 @@ static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALL
 				drawcredits();
 			}
 			else if( timeToReloadSegment ){
-				reloadDisplayedSegment(core);
+				reloadDisplayedSegment();
 				al_clear_to_color(al_map_rgb(config.backr,config.backg,config.backb));
-				paintboard(core);
+				paintboard();
 				timeToReloadSegment = false;
 				animationFrameShown = true;
 			}
 			else if (animationFrameShown == false)
 			{
 				al_clear_to_color(al_map_rgb(config.backr,config.backg,config.backb));
-				paintboard(core);
+				paintboard();
 				animationFrameShown = true;
 			}
 			doKeys();
@@ -282,7 +280,7 @@ static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALL
 			case ALLEGRO_EVENT_DISPLAY_RESIZE:
 				if(!al_acknowledge_resize(event.display.source))
 				{
-					DFConsole->printerr("Failed to resize diplay");
+					con.printerr("Failed to resize diplay");
 					return;
 				}
 				timeToReloadSegment = true;
@@ -295,7 +293,7 @@ static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALL
 					int h = al_get_bitmap_height(bb);
 					config.screenHeight = h;
 					config.screenWidth = w;
-					WriteErr("backbuffer w, h: %d, %d\n", w, h);
+					LogError("backbuffer w, h: %d, %d\n", w, h);
 				}
 #endif
 				/* ALLEGRO_EVENT_KEY_DOWN - a keyboard key was pressed.
@@ -309,7 +307,7 @@ static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALL
 				}
 				else
 				{
-					doKeys(event.keyboard.keycode, core);
+					doKeys(event.keyboard.keycode);
 					redraw = true;
 				}
 				break;
@@ -343,8 +341,8 @@ static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALL
 //replacement for main()
 static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
 {
-	DFHack::Core * c = (DFHack::Core * )parms;
-	DFConsole->print("Stonesense launched\n");
+    color_ostream_proxy out(Core::getInstance().getConsole());
+	out.print("Stonesense launched\n");
 
 	config.debug_mode = false;
 	config.hide_outer_blocks = false;
@@ -390,7 +388,7 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
 	initRandomCube();
 	loadConfigFile();
 	init_masks();
-	if(!loadfont())
+	if(!loadfont(out))
 	{
 		stonesense_started = 0;
 		return NULL;
@@ -405,13 +403,13 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
 	int revision = (version >> 8) & 255;
 	int release = version & 255;
 
-	DFConsole->print("Using allegro version %d.%d.%d r%d\n", major, minor, revision, release);
+	out.print("Using allegro version %d.%d.%d r%d\n", major, minor, revision, release);
 
 	int gfxMode = config.Fullscreen ? ALLEGRO_FULLSCREEN : ALLEGRO_WINDOWED;
 	al_set_new_display_flags(gfxMode|ALLEGRO_RESIZABLE|(config.opengl ? ALLEGRO_OPENGL : 0)|(config.directX ? ALLEGRO_DIRECT3D_INTERNAL : 0));
 	display = al_create_display(config.screenWidth, config.screenHeight);
 	if (!display) {
-		c->con.printerr("al_create_display failed\n");
+		out.printerr("al_create_display failed\n");
 		stonesense_started = 0;
 		return NULL;
 	}
@@ -419,14 +417,14 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
     {
         if (!al_install_keyboard())
         {
-            DFConsole->printerr("Stonesense: al_install_keyboard failed\n");
+            out.printerr("Stonesense: al_install_keyboard failed\n");
         }
     }
     if(!al_is_mouse_installed())
     {
         if (!al_install_mouse())
         {
-            DFConsole->printerr("Stonesense: al_install_mouse failed\n");
+            out.printerr("Stonesense: al_install_mouse failed\n");
         }
     }
 	SetTitle("Stonesense");
@@ -450,7 +448,7 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
 	ALLEGRO_EVENT_QUEUE *queue;
 	queue = al_create_event_queue();
 	if (!queue) {
-		c->con.printerr("al_create_event_queue failed\n");
+		out.printerr("al_create_event_queue failed\n");
 		stonesense_started = 0;
 		return NULL;
 	}
@@ -487,7 +485,7 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
 
     timeToReloadSegment = true;
     // enter event loop here:
-    main_loop(display, queue, main_thread, c->con, c);
+    main_loop(display, queue, main_thread, out);
 
     // window is destroyed.
     al_destroy_display(display);
@@ -514,19 +512,19 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
     IMGIcon = 0;
     delete contentLoader;
     contentLoader = 0;
-    DFConsole->print("Stonesense shutdown.\n");
+    out.print("Stonesense shutdown.\n");
     stonesense_started = 0;
     return NULL;
 }
 
 //All this fun DFhack stuff I gotta do now.
-DFhackCExport command_result stonesense_command(DFHack::Core * c, std::vector<std::string> & params);
+DFhackCExport command_result stonesense_command(color_ostream &out, std::vector<std::string> & params);
 
 //set the plugin name/dfhack version
 DFHACK_PLUGIN("stonesense");
 
 //This is the init command. it includes input options.
-DFhackCExport command_result plugin_init ( Core * c, std::vector <PluginCommand> &commands)
+DFhackCExport command_result plugin_init ( color_ostream &out, std::vector <PluginCommand> &commands)
 {
     commands.clear();
     commands.push_back(PluginCommand("stonesense","Start up the stonesense visualiser.",stonesense_command));
@@ -535,13 +533,13 @@ DFhackCExport command_result plugin_init ( Core * c, std::vector <PluginCommand>
 }
 
 //this command is called every frame DF.
-DFhackCExport command_result plugin_onupdate ( Core * c )
+DFhackCExport command_result plugin_onupdate ( color_ostream &out )
 {
     return CR_OK;
 }
 
 //And the shutdown command.
-DFhackCExport command_result plugin_shutdown ( Core * c )
+DFhackCExport command_result plugin_shutdown ( color_ostream &out )
 {
     if(stonesense_event_thread)
         al_join_thread(stonesense_event_thread, NULL);
@@ -550,40 +548,39 @@ DFhackCExport command_result plugin_shutdown ( Core * c )
 }
 
 //and the actual stonesense command. Maybe.
-DFhackCExport command_result stonesense_command(DFHack::Core * c, std::vector<std::string> & params)
+DFhackCExport command_result stonesense_command(color_ostream &out, std::vector<std::string> & params)
 {
     if(stonesense_started)
     {
-        c->con.print("Stonesense already running.\n");
+        out.print("Stonesense already running.\n");
         return CR_OK;
     }
     stonesense_started = true;
-    DFConsole = &(c->con);
     if(!al_is_system_installed())
     {
         if (!al_init()) {
-            DFConsole->printerr("Could not init Allegro.\n");
+            out.printerr("Could not init Allegro.\n");
             return CR_FAILURE;
         }
 
         if (!al_init_image_addon())
         {
-            DFConsole->printerr("al_init_image_addon failed. \n");
+            out.printerr("al_init_image_addon failed. \n");
             return CR_FAILURE;
         }
         if (!al_init_primitives_addon()) {
-            DFConsole->printerr("al_init_primitives_addon failed. \n");
+            out.printerr("al_init_primitives_addon failed. \n");
             return CR_FAILURE;
         }
         al_init_font_addon();
         if (!al_init_ttf_addon())
         {
-            DFConsole->printerr("al_init_ttf_addon failed. \n");
+            out.printerr("al_init_ttf_addon failed. \n");
             return CR_FAILURE;
         }
     }
 
-    stonesense_event_thread = al_create_thread(stonesense_thread, (void * )c);
+    stonesense_event_thread = al_create_thread(stonesense_thread, (void*) &out);
     al_start_thread(stonesense_event_thread);
     return CR_OK;
 }
