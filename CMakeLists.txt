@@ -1,20 +1,10 @@
 PROJECT (stonesense)
 SET(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/CMake/Modules)
 
-# WTF
-include_directories (
-    ${dfhack_SOURCE_DIR}/library/depends/md5/
-    ${dfhack_SOURCE_DIR}/library/depends/tinyxml/
-    ${CMAKE_SOURCE_DIR}
-)
+include_directories (${CMAKE_SOURCE_DIR})
 
 
 SET(PROJECT_SRCS
-    ${dfhack_SOURCE_DIR}/library/depends/tinyxml/tinystr.cpp
-    ${dfhack_SOURCE_DIR}/library/depends/tinyxml/tinyxml.cpp
-    ${dfhack_SOURCE_DIR}/library/depends/tinyxml/tinyxmlerror.cpp
-    ${dfhack_SOURCE_DIR}/library/depends/tinyxml/tinyxmlparser.cpp
-
     Block.cpp
     BlockCondition.cpp
     BlockFactory.cpp
@@ -120,7 +110,7 @@ ELSE(UNIX)
         ${stonesense_SOURCE_DIR}/allegrow/lib
     )
 ENDIF(UNIX)
-DFHACK_PLUGIN(stonesense ${PROJECT_SRCS} LINK_LIBRARIES ${PROJECT_LIBS})
+DFHACK_PLUGIN(stonesense ${PROJECT_SRCS} LINK_LIBRARIES dfhack-tinyxml ${PROJECT_LIBS})
 #install resources into DF/stonesense
 install(DIRECTORY resources/
         DESTINATION "stonesense"
