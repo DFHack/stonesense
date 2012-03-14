@@ -871,7 +871,7 @@ void c_sprite::draw_world_offset(int x, int y, int z, Block * b, int tileoffset,
 				al_draw_scaled_bitmap(IMGObjectSheet, 
 				TILEWIDTH * SPRITEFLOOR_CUTOFF, 0,
 				SPRITEWIDTH, SPRITEWIDTH, 
-				drawx+offset_x, drawy+offset_y-((SPRITEHEIGHT-WALL_CUTOFF_HEIGHT)/2),
+				drawx+offset_x, (drawy+offset_y-((SPRITEHEIGHT-WALL_CUTOFF_HEIGHT)/2))*config.scale,
 				SPRITEWIDTH*config.scale, SPRITEWIDTH*config.scale, 0);
 		}
 		else if ((chop && (halftile == HALFTILEYES)) || (!chop && (halftile == HALFTILENO)) || (!chop && (halftile == HALFTILECHOP)) || (halftile == HALFTILEBOTH))

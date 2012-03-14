@@ -618,7 +618,7 @@ void drawDebugCursorAndInfo(WorldSegment * segment)
 				}
 			}
 		}
-		if(1) //just so it has it's own scope
+		//just so it has it's own scope
 		{
 		char strCreature[150] = {0};
 		generateCreatureDebugString( b->creature, strCreature );

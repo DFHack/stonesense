@@ -288,7 +288,7 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
 					//b->grassmats.push_back(grass[i].material);
 				}
 			}
-			if(1)
+			if(1)// just in case we need to quickly disable it.
 			{
 				long red=0;
 				long green=0;
