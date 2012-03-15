@@ -10,10 +10,10 @@
 			<or>
 				<NeighbourSameType dir="North" />
 				<NeighbourSameType dir="South" />
-				<NeighbourOfType dir="North" value="building_window_glassst"/>
-				<NeighbourOfType dir="South" value="building_window_glassst"/>
-				<NeighbourOfType dir="North" value="building_doorst"/>
-				<NeighbourOfType dir="South" value="building_doorst"/>
+				<NeighbourOfType dir="North" value="WindowGlass"/>
+				<NeighbourOfType dir="South" value="WindowGlass"/>
+				<NeighbourOfType dir="North" value="Door"/>
+				<NeighbourOfType dir="South" value="Door"/>
 				<NeighbourWall dir="North" />
 				<NeighbourWall dir="South" />
 			</or>
@@ -21,10 +21,10 @@
 				<or>
 					<NeighbourSameType dir="East" />
 					<NeighbourSameType dir="West" />
-					<NeighbourOfType dir="East" value="building_window_glassst"/>
-					<NeighbourOfType dir="West" value="building_window_glassst"/>
-					<NeighbourOfType dir="East" value="building_doorst"/>
-					<NeighbourOfType dir="West" value="building_doorst"/>
+					<NeighbourOfType dir="East" value="WindowGlass"/>
+					<NeighbourOfType dir="West" value="WindowGlass"/>
+					<NeighbourOfType dir="East" value="Door"/>
+					<NeighbourOfType dir="West" value="Door"/>
 					<NeighbourWall dir="East" />
 					<NeighbourWall dir="West" />
 				</or>
@@ -38,10 +38,10 @@
 			<or>
 				<NeighbourSameType dir="East" />
 				<NeighbourSameType dir="West" />
-				<NeighbourOfType dir="East" value="building_window_glassst"/>
-				<NeighbourOfType dir="West" value="building_window_glassst"/>
-				<NeighbourOfType dir="East" value="building_doorst"/>
-				<NeighbourOfType dir="West" value="building_doorst"/>
+				<NeighbourOfType dir="East" value="WindowGlass"/>
+				<NeighbourOfType dir="West" value="WindowGlass"/>
+				<NeighbourOfType dir="East" value="Door"/>
+				<NeighbourOfType dir="West" value="Door"/>
 				<NeighbourWall dir="East" />
 				<NeighbourWall dir="West" />
 			</or>
@@ -49,10 +49,10 @@
 				<or>
 					<NeighbourSameType dir="North" />
 					<NeighbourSameType dir="South" />
-					<NeighbourOfType dir="North" value="building_window_glassst"/>
-					<NeighbourOfType dir="South" value="building_window_glassst"/>
-					<NeighbourOfType dir="North" value="building_doorst"/>
-					<NeighbourOfType dir="South" value="building_doorst"/>
+					<NeighbourOfType dir="North" value="WindowGlass"/>
+					<NeighbourOfType dir="South" value="WindowGlass"/>
+					<NeighbourOfType dir="North" value="Door"/>
+					<NeighbourOfType dir="South" value="Door"/>
 					<NeighbourWall dir="North" />
 					<NeighbourWall dir="South" />
 				</or>
@@ -67,26 +67,26 @@
 		<and>
 			<or>
 				<NeighbourSameType dir="East" />
-				<NeighbourOfType dir="East" value="building_window_glassst"/>
-				<NeighbourOfType dir="East" value="building_doorst"/>
+				<NeighbourOfType dir="East" value="WindowGlass"/>
+				<NeighbourOfType dir="East" value="Door"/>
 				<NeighbourWall dir="East" />
 			</or>
 			<or>
 				<NeighbourSameType dir="West" />
-				<NeighbourOfType dir="West" value="building_window_glassst"/>
-				<NeighbourOfType dir="West" value="building_doorst"/>
+				<NeighbourOfType dir="West" value="WindowGlass"/>
+				<NeighbourOfType dir="West" value="Door"/>
 				<NeighbourWall dir="West" />
 			</or>
 			<or>
 				<NeighbourSameType dir="North" />
-				<NeighbourOfType dir="North" value="building_window_glassst"/>
-				<NeighbourOfType dir="North" value="building_doorst"/>
+				<NeighbourOfType dir="North" value="WindowGlass"/>
+				<NeighbourOfType dir="North" value="Door"/>
 				<NeighbourWall dir="North" />
 			</or>			
 			<or>
 				<NeighbourSameType dir="South" />
-				<NeighbourOfType dir="South" value="building_window_glassst"/>
-				<NeighbourOfType dir="South" value="building_doorst"/>
+				<NeighbourOfType dir="South" value="WindowGlass"/>
+				<NeighbourOfType dir="South" value="Door"/>
 				<NeighbourWall dir="South" />
 			</or>
 		</and>
@@ -100,10 +100,10 @@
 			<or>
 				<NeighbourSameType dir="South" />
 				<NeighbourSameType dir="East" />
-				<NeighbourOfType dir="South" value="building_window_glassst"/>
-				<NeighbourOfType dir="East" value="building_window_glassst"/>
-				<NeighbourOfType dir="South" value="building_doorst"/>
-				<NeighbourOfType dir="East" value="building_doorst"/>
+				<NeighbourOfType dir="South" value="WindowGlass"/>
+				<NeighbourOfType dir="East" value="WindowGlass"/>
+				<NeighbourOfType dir="South" value="Door"/>
+				<NeighbourOfType dir="East" value="Door"/>
 				<NeighbourWall dir="South" />
 				<NeighbourWall dir="East" />
 			</or>
@@ -111,10 +111,10 @@
 				<or>
 					<NeighbourSameType dir="West" />
 					<NeighbourSameType dir="North" />
-					<NeighbourOfType dir="West" value="building_window_glassst"/>
-					<NeighbourOfType dir="North" value="building_window_glassst"/>
-					<NeighbourOfType dir="West" value="building_doorst"/>
-					<NeighbourOfType dir="North" value="building_doorst"/>
+					<NeighbourOfType dir="West" value="WindowGlass"/>
+					<NeighbourOfType dir="North" value="WindowGlass"/>
+					<NeighbourOfType dir="West" value="Door"/>
+					<NeighbourOfType dir="North" value="Door"/>
 					<NeighbourWall dir="West" />
 					<NeighbourWall dir="North" />
 				</or>
@@ -128,10 +128,10 @@
 			<or>
 				<NeighbourSameType dir="South" />
 				<NeighbourSameType dir="West" />
-				<NeighbourOfType dir="South" value="building_window_glassst"/>
-				<NeighbourOfType dir="West" value="building_window_glassst"/>
-				<NeighbourOfType dir="South" value="building_doorst"/>
-				<NeighbourOfType dir="West" value="building_doorst"/>
+				<NeighbourOfType dir="South" value="WindowGlass"/>
+				<NeighbourOfType dir="West" value="WindowGlass"/>
+				<NeighbourOfType dir="South" value="Door"/>
+				<NeighbourOfType dir="West" value="Door"/>
 				<NeighbourWall dir="South" />
 				<NeighbourWall dir="West" />
 			</or>
@@ -139,10 +139,10 @@
 				<or>
 					<NeighbourSameType dir="East" />
 					<NeighbourSameType dir="North" />
-					<NeighbourOfType dir="East" value="building_window_glassst"/>
-					<NeighbourOfType dir="North" value="building_window_glassst"/>
-					<NeighbourOfType dir="East" value="building_doorst"/>
-					<NeighbourOfType dir="North" value="building_doorst"/>
+					<NeighbourOfType dir="East" value="WindowGlass"/>
+					<NeighbourOfType dir="North" value="WindowGlass"/>
+					<NeighbourOfType dir="East" value="Door"/>
+					<NeighbourOfType dir="North" value="Door"/>
 					<NeighbourWall dir="East" />
 					<NeighbourWall dir="North" />
 				</or>
@@ -156,10 +156,10 @@
 			<or>
 				<NeighbourSameType dir="North" />
 				<NeighbourSameType dir="West" />
-				<NeighbourOfType dir="North" value="building_window_glassst"/>
-				<NeighbourOfType dir="West" value="building_window_glassst"/>
-				<NeighbourOfType dir="North" value="building_doorst"/>
-				<NeighbourOfType dir="West" value="building_doorst"/>
+				<NeighbourOfType dir="North" value="WindowGlass"/>
+				<NeighbourOfType dir="West" value="WindowGlass"/>
+				<NeighbourOfType dir="North" value="Door"/>
+				<NeighbourOfType dir="West" value="Door"/>
 				<NeighbourWall dir="North" />
 				<NeighbourWall dir="West" />
 			</or>
@@ -167,10 +167,10 @@
 				<or>
 					<NeighbourSameType dir="East" />
 					<NeighbourSameType dir="South" />
-					<NeighbourOfType dir="East" value="building_window_glassst"/>
-					<NeighbourOfType dir="South" value="building_window_glassst"/>
-					<NeighbourOfType dir="East" value="building_doorst"/>
-					<NeighbourOfType dir="South" value="building_doorst"/>
+					<NeighbourOfType dir="East" value="WindowGlass"/>
+					<NeighbourOfType dir="South" value="WindowGlass"/>
+					<NeighbourOfType dir="East" value="Door"/>
+					<NeighbourOfType dir="South" value="Door"/>
 					<NeighbourWall dir="East" />
 					<NeighbourWall dir="South" />
 				</or>
@@ -184,10 +184,10 @@
 			<or>
 				<NeighbourSameType dir="North" />
 				<NeighbourSameType dir="East" />
-				<NeighbourOfType dir="North" value="building_window_glassst"/>
-				<NeighbourOfType dir="East" value="building_window_glassst"/>
-				<NeighbourOfType dir="North" value="building_doorst"/>
-				<NeighbourOfType dir="East" value="building_doorst"/>
+				<NeighbourOfType dir="North" value="WindowGlass"/>
+				<NeighbourOfType dir="East" value="WindowGlass"/>
+				<NeighbourOfType dir="North" value="Door"/>
+				<NeighbourOfType dir="East" value="Door"/>
 				<NeighbourWall dir="North" />
 				<NeighbourWall dir="East" />
 			</or>
@@ -195,10 +195,10 @@
 				<or>
 					<NeighbourSameType dir="West" />
 					<NeighbourSameType dir="South" />
-					<NeighbourOfType dir="West" value="building_window_glassst"/>
-					<NeighbourOfType dir="South" value="building_window_glassst"/>
-					<NeighbourOfType dir="West" value="building_doorst"/>
-					<NeighbourOfType dir="South" value="building_doorst"/>
+					<NeighbourOfType dir="West" value="WindowGlass"/>
+					<NeighbourOfType dir="South" value="WindowGlass"/>
+					<NeighbourOfType dir="West" value="Door"/>
+					<NeighbourOfType dir="South" value="Door"/>
 					<NeighbourWall dir="West" />
 					<NeighbourWall dir="South" />
 				</or>
@@ -216,12 +216,12 @@
 				<NeighbourSameType dir="South" />
 				<NeighbourSameType dir="West" />
 				<NeighbourSameType dir="East" />
-				<NeighbourOfType dir="South" value="building_window_glassst"/>
-				<NeighbourOfType dir="West" value="building_window_glassst"/>
-				<NeighbourOfType dir="East" value="building_window_glassst"/>
-				<NeighbourOfType dir="South" value="building_doorst"/>
-				<NeighbourOfType dir="West" value="building_doorst"/>
-				<NeighbourOfType dir="East" value="building_doorst"/>
+				<NeighbourOfType dir="South" value="WindowGlass"/>
+				<NeighbourOfType dir="West" value="WindowGlass"/>
+				<NeighbourOfType dir="East" value="WindowGlass"/>
+				<NeighbourOfType dir="South" value="Door"/>
+				<NeighbourOfType dir="West" value="Door"/>
+				<NeighbourOfType dir="East" value="Door"/>
 				<NeighbourWall dir="South" />
 				<NeighbourWall dir="West" />
 				<NeighbourWall dir="East" />
@@ -229,8 +229,8 @@
 			<not>
 				<or>
 					<NeighbourSameType dir="North" />
-					<NeighbourOfType dir="North" value="building_window_glassst"/>
-					<NeighbourOfType dir="North" value="building_doorst"/>
+					<NeighbourOfType dir="North" value="WindowGlass"/>
+					<NeighbourOfType dir="North" value="Door"/>
 					<NeighbourWall dir="North" />
 				</or>
 			</not>
@@ -244,12 +244,12 @@
 				<NeighbourSameType dir="North" />
 				<NeighbourSameType dir="West" />
 				<NeighbourSameType dir="East" />
-				<NeighbourOfType dir="North" value="building_window_glassst"/>
-				<NeighbourOfType dir="West" value="building_window_glassst"/>
-				<NeighbourOfType dir="East" value="building_window_glassst"/>
-				<NeighbourOfType dir="North" value="building_doorst"/>
-				<NeighbourOfType dir="West" value="building_doorst"/>
-				<NeighbourOfType dir="East" value="building_doorst"/>
+				<NeighbourOfType dir="North" value="WindowGlass"/>
+				<NeighbourOfType dir="West" value="WindowGlass"/>
+				<NeighbourOfType dir="East" value="WindowGlass"/>
+				<NeighbourOfType dir="North" value="Door"/>
+				<NeighbourOfType dir="West" value="Door"/>
+				<NeighbourOfType dir="East" value="Door"/>
 				<NeighbourWall dir="North" />
 				<NeighbourWall dir="West" />
 				<NeighbourWall dir="East" />
@@ -257,8 +257,8 @@
 			<not>
 				<or>
 					<NeighbourSameType dir="South" />
-					<NeighbourOfType dir="South" value="building_window_glassst"/>
-					<NeighbourOfType dir="South" value="building_doorst"/>
+					<NeighbourOfType dir="South" value="WindowGlass"/>
+					<NeighbourOfType dir="South" value="Door"/>
 					<NeighbourWall dir="South" />
 				</or>
 			</not>
@@ -272,12 +272,12 @@
 				<NeighbourSameType dir="North" />
 				<NeighbourSameType dir="East" />
 				<NeighbourSameType dir="South" />
-				<NeighbourOfType dir="North" value="building_window_glassst"/>
-				<NeighbourOfType dir="East" value="building_window_glassst"/>
-				<NeighbourOfType dir="South" value="building_window_glassst"/>
-				<NeighbourOfType dir="North" value="building_doorst"/>
-				<NeighbourOfType dir="East" value="building_doorst"/>
-				<NeighbourOfType dir="South" value="building_doorst"/>
+				<NeighbourOfType dir="North" value="WindowGlass"/>
+				<NeighbourOfType dir="East" value="WindowGlass"/>
+				<NeighbourOfType dir="South" value="WindowGlass"/>
+				<NeighbourOfType dir="North" value="Door"/>
+				<NeighbourOfType dir="East" value="Door"/>
+				<NeighbourOfType dir="South" value="Door"/>
 				<NeighbourWall dir="North" />
 				<NeighbourWall dir="East" />
 				<NeighbourWall dir="South" />
@@ -285,8 +285,8 @@
 			<not>
 				<or>
 					<NeighbourSameType dir="West" />
-					<NeighbourOfType dir="West" value="building_window_glassst"/>
-					<NeighbourOfType dir="West" value="building_doorst"/>
+					<NeighbourOfType dir="West" value="WindowGlass"/>
+					<NeighbourOfType dir="West" value="Door"/>
 					<NeighbourWall dir="West" />
 				</or>
 			</not>
@@ -300,12 +300,12 @@
 				<NeighbourSameType dir="West" />
 				<NeighbourSameType dir="North" />
 				<NeighbourSameType dir="South" />
-				<NeighbourOfType dir="West" value="building_window_glassst"/>
-				<NeighbourOfType dir="North" value="building_window_glassst"/>
-				<NeighbourOfType dir="South" value="building_window_glassst"/>
-				<NeighbourOfType dir="West" value="building_doorst"/>
-				<NeighbourOfType dir="North" value="building_doorst"/>
-				<NeighbourOfType dir="South" value="building_doorst"/>
+				<NeighbourOfType dir="West" value="WindowGlass"/>
+				<NeighbourOfType dir="North" value="WindowGlass"/>
+				<NeighbourOfType dir="South" value="WindowGlass"/>
+				<NeighbourOfType dir="West" value="Door"/>
+				<NeighbourOfType dir="North" value="Door"/>
+				<NeighbourOfType dir="South" value="Door"/>
 				<NeighbourWall dir="West" />
 				<NeighbourWall dir="North" />
 				<NeighbourWall dir="South" />				
@@ -313,8 +313,8 @@
 			<not>
 				<or>
 					<NeighbourSameType dir="East" />
-					<NeighbourOfType dir="East" value="building_window_glassst"/>
-					<NeighbourOfType dir="East" value="building_doorst"/>
+					<NeighbourOfType dir="East" value="WindowGlass"/>
+					<NeighbourOfType dir="East" value="Door"/>
 					<NeighbourWall dir="East" />
 				</or>
 			</not>

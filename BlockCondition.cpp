@@ -32,14 +32,13 @@ int getDirectionFromString(const char* strDir)
 
 int getBuildingFromString(const char* strType)
 {
-    /*
-  for (uint32_t i=0; i<contentLoader->classIdStrings.size(); i++){
-		if (contentLoader->classIdStrings[i].compare(strType) == 0)
-		{
-			return i;
-		}
-	}
-	*/
+    FOR_ENUM_ITEMS(building_type,i)
+    {
+        if (strcmp(strType,ENUM_KEY_STR(building_type,i)) == 0)
+        {
+            return i;
+        }
+    }
 	return INVALID_INDEX;	
 }
 
