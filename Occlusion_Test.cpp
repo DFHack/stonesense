@@ -43,7 +43,7 @@ void mask_center(Block * b, int offset)
 		return;
 	if(!is_block_solid(b))
 		return;
-	if(b->tileShapeBasic==tiletype_shape_basic::Wall && b->tileMaterial != tiletype_shape::BROOK_BED)
+	if(b->tileShapeBasic==tiletype_shape_basic::Wall && b->tileMaterial != tiletype_material::BROOK)
 	{
 		if(offset >= 0)
 		{
@@ -57,10 +57,10 @@ void mask_center(Block * b, int offset)
 		}
 	}
 	else if(
-		b->tileShapeBasic==tiletype_shape_basic::Floor || 
-		b->tileShapeBasic==tiletype_shape_basic::Ramp || 
-		b->tileMaterial != tiletype_shape::BROOK_BED
-		)
+		(b->tileShapeBasic==tiletype_shape_basic::Floor || 
+		b->tileShapeBasic==tiletype_shape_basic::Ramp) && 
+		b->tileMaterial != tiletype_material::BROOK
+		)  //this needs to ignore brooks. This may have been a bug.
 	{
 		if(offset >= 0)
 		{

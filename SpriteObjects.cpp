@@ -718,67 +718,18 @@ void c_sprite::draw_world_offset(int x, int y, int z, Block * b, int tileoffset,
 		{
 			if(!b->inv)
 				goto draw_subsprite;
-			switch (itemtype)
-			{
-			case item_type::WEAPON:
-				if(b->inv->Weapons.empty())
-					goto draw_subsprite;
-				if(itemsubtype >= b->inv->Weapons.size())
-					goto draw_subsprite;
-				if(b->inv->Weapons[itemsubtype].matt.type == INVALID_INDEX)
-					goto draw_subsprite;
-				break;
-			case item_type::ARMOR:
-				if(b->inv->Armor.empty())
-					goto draw_subsprite;
-				if(itemsubtype >= b->inv->Armor.size())
-					goto draw_subsprite;
-				if(b->inv->Armor[itemsubtype].matt.type == INVALID_INDEX)
-					goto draw_subsprite;
-				break;
-			case item_type::SHOES:
-				if(b->inv->Shoes.empty())
-					goto draw_subsprite;
-				if(itemsubtype >= b->inv->Shoes.size())
-					goto draw_subsprite;
-				if(b->inv->Shoes[itemsubtype].matt.type == INVALID_INDEX)
-					goto draw_subsprite;
-				break;
-			case item_type::SHIELD:
-				if(b->inv->Shield.empty())
-					goto draw_subsprite;
-				if(itemsubtype >= b->inv->Shield.size())
-					goto draw_subsprite;
-				if(b->inv->Shield[itemsubtype].matt.type == INVALID_INDEX)
-					goto draw_subsprite;
-				break;
-			case item_type::HELM:
-				if(b->inv->Helm.empty())
-					goto draw_subsprite;
-				if(itemsubtype >= b->inv->Helm.size())
-					goto draw_subsprite;
-				if(b->inv->Helm[itemsubtype].matt.type == INVALID_INDEX)
-					goto draw_subsprite;
-				break;
-			case item_type::GLOVES:
-				if(b->inv->Gloves.empty())
-					goto draw_subsprite;
-				if(itemsubtype >= b->inv->Gloves.size())
-					goto draw_subsprite;
-				if(b->inv->Gloves[itemsubtype].matt.type == INVALID_INDEX)
-					goto draw_subsprite;
-				break;
-			case item_type::PANTS:
-				if(b->inv->Pants.empty())
-					goto draw_subsprite;
-				if(itemsubtype >= b->inv->Pants.size())
-					goto draw_subsprite;
-				if(b->inv->Pants[itemsubtype].matt.type == INVALID_INDEX)
-					goto draw_subsprite;
-				break;
-			default:
+			if(b->inv->item.empty())
 				goto draw_subsprite;
-			}
+			if(b->inv->item.size() <= itemtype)
+				goto draw_subsprite;
+			if(b->inv->item[itemtype].empty())
+				goto draw_subsprite;
+			if(itemsubtype >= b->inv->item[itemtype].size())
+				goto draw_subsprite;
+			if(b->inv->item[itemtype][itemsubtype].empty())
+				goto draw_subsprite;
+			if(b->inv->item[itemtype][itemsubtype][0].matt.type == INVALID_INDEX)
+				goto draw_subsprite;
 		}
 
 
@@ -871,7 +822,7 @@ void c_sprite::draw_world_offset(int x, int y, int z, Block * b, int tileoffset,
 				al_draw_scaled_bitmap(IMGObjectSheet, 
 				TILEWIDTH * SPRITEFLOOR_CUTOFF, 0,
 				SPRITEWIDTH, SPRITEWIDTH, 
-				drawx+offset_x, (drawy+offset_y-((SPRITEHEIGHT-WALL_CUTOFF_HEIGHT)/2))*config.scale,
+				drawx+offset_x, (drawy+offset_y-(((SPRITEHEIGHT-WALL_CUTOFF_HEIGHT)/2)*config.scale)),
 				SPRITEWIDTH*config.scale, SPRITEWIDTH*config.scale, 0);
 		}
 		else if ((chop && (halftile == HALFTILEYES)) || (!chop && (halftile == HALFTILENO)) || (!chop && (halftile == HALFTILECHOP)) || (halftile == HALFTILEBOTH))
@@ -1066,41 +1017,16 @@ ALLEGRO_COLOR c_sprite::get_color(void* block)
 		if(itemsubtype >=0)
 		{
 			//FIXME: need a way to get a material for generic types.
-			switch(itemtype)
-			{
-			case -1:
-				return al_map_rgb(255, 255, 255);
-			case item_type::WEAPON:
-				if(itemsubtype < b->inv->Weapons.size())
-					return lookupMaterialColor(b->inv->Weapons[itemsubtype].matt.type, b->inv->Weapons[itemsubtype].matt.index);
-				break;
-			case item_type::ARMOR:
-				if(itemsubtype < b->inv->Armor.size())
-					return lookupMaterialColor(b->inv->Armor[itemsubtype].matt.type, b->inv->Armor[itemsubtype].matt.index);
-				break;
-			case item_type::SHOES:
-				if(itemsubtype < b->inv->Shoes.size())
-					return lookupMaterialColor(b->inv->Shoes[itemsubtype].matt.type, b->inv->Shoes[itemsubtype].matt.index);
-				break;
-			case item_type::SHIELD:
-				if(itemsubtype < b->inv->Shield.size())
-					return lookupMaterialColor(b->inv->Shield[itemsubtype].matt.type, b->inv->Shield[itemsubtype].matt.index);
-				break;
-			case item_type::GLOVES:
-				if(itemsubtype < b->inv->Weapons.size())
-					return lookupMaterialColor(b->inv->Gloves[itemsubtype].matt.type, b->inv->Gloves[itemsubtype].matt.index);
-				break;
-			case item_type::PANTS:
-				if(itemsubtype < b->inv->Pants.size())
-					return lookupMaterialColor(b->inv->Pants[itemsubtype].matt.type, b->inv->Pants[itemsubtype].matt.index);
-				break;
-			case item_type::HELM:
-				if(itemsubtype < b->inv->Helm.size())
-					return lookupMaterialColor(b->inv->Helm[itemsubtype].matt.type, b->inv->Helm[itemsubtype].matt.index);
-				break;
-			default:
-				return al_map_rgb(255, 255, 255);
-			}
+			//errors here give pink.
+			if(itemtype == -1)
+				return al_map_rgb(255, 0, 0);
+			if(b->inv->item.size() <= itemtype)
+				return al_map_rgb(0, 255, 0);
+			if(b->inv->item[itemtype].size() <= itemsubtype)
+				return al_map_rgb(255, 255, 0);
+			if(b->inv->item[itemtype][itemsubtype].empty())
+				return al_map_rgb(0, 0, 255);
+			return lookupMaterialColor(b->inv->item[itemtype][itemsubtype][0].matt.type, b->inv->item[itemtype][itemsubtype][0].matt.index);
 		}
 		else return al_map_rgb(255,255,255);
 	default:

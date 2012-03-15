@@ -3,6 +3,8 @@
 #include "common.h"
 #include "SpriteObjects.h"
 #include "TileTypes.h"
+#include "df/item_type.h"
+
 class WorldSegment;
 
 struct Effect
@@ -20,13 +22,8 @@ struct Worn_Item
 
 struct Unit_Inventory
 {
-	std::vector<Worn_Item> Weapons;
-	std::vector<Worn_Item> Armor;
-	std::vector<Worn_Item> Shoes;
-	std::vector<Worn_Item> Shield;
-	std::vector<Worn_Item> Helm;
-	std::vector<Worn_Item> Gloves;
-	std::vector<Worn_Item> Pants;
+	//[item_type][item_subtype][item_number]
+	std::vector<std::vector<std::vector<Worn_Item>>> item;
 };
 
 

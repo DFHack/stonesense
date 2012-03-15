@@ -20,6 +20,7 @@
       <subsprite sheetIndex="86" equipment_class="HELM" equipment_name="ITEM_HELM_CAP" color="equipment"/>
 	  <subsprite sheetIndex="87" equipment_class="SHOES" equipment_name="ITEM_SHOES_SHOES" color="equipment"/>
 	  <subsprite sheetIndex="89" equipment_class="PANTS" equipment_name="ITEM_PANTS_SKIRT" color="equipment"/>
+	  <subsprite sheetIndex="89" equipment_class="PANTS" equipment_name="ITEM_PANTS_PANTS" color="equipment"/>
 	  <subsprite sheetIndex="88" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_MAIL_SHIRT" color="equipment"/>
     </variant>
   </creature>
