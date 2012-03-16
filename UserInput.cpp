@@ -1,4 +1,4 @@
-#include "common.h" 
+#include "common.h"
 #include "GUI.h"
 #include "BuildingConfiguration.h"
 #include "ContentLoader.h"
