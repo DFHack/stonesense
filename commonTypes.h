@@ -1,4 +1,4 @@
-#pragma once
+#pragma once 
 
 #include "common.h"
 #include "SpriteColors.h"
@@ -189,6 +189,7 @@ typedef struct
 	bool dayNightCycle;
 
 	bool show_creature_moods;
+	bool show_creature_jobs;
 
 	bool transparentScreenshots;
 

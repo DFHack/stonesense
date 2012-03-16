@@ -1,4 +1,4 @@
-#include "common.h"
+#include "common.h" 
 #include "Creatures.h"
 #include "WorldSegment.h"
 #include "CreatureConfiguration.h"
@@ -9,9 +9,6 @@
 #include "DataDefs.h"
 #include "df/world.h"
 #include "df/unit_inventory_item.h"
-#include "df/item_constructed.h"
-#include "df/itemimprovement.h"
-#include "df/itemimprovement_threadst.h"
 
 //vector<t_matgloss> v_creatureNames;
 //vector<CreatureConfiguration> creatureTypes;
@@ -269,6 +266,7 @@ void DrawCreature(int drawx, int drawy, t_unit* creature, Block * b){
 		else if(creature->current_job.active && creature->current_job.jobType == 52)
 			statusIcons.push_back(17);
 	}
+	
 
 	c_sprite * sprite = GetCreatureSpriteMap( creature );
 	//if(creature->x == 151 && creature->y == 145)
@@ -282,6 +280,13 @@ void DrawCreature(int drawx, int drawy, t_unit* creature, Block * b){
 			unsigned int sheety = 16 * (statusIcons[i] / 7);
 			al_draw_bitmap_region(IMGStatusSheet, sheetx, sheety, 16, 16, drawx - (statusIcons.size()*8) + (16*i) + (SPRITEWIDTH/2), drawy - (16 + WALLHEIGHT + al_get_font_line_height(font)), 0);
 		}
+	}
+	if(config.show_creature_jobs)
+	{
+		unsigned int sheetx = 16 * (creature->profession % 7);
+		unsigned int sheety = 16 * (creature->profession / 7);
+		unsigned int offsety = statusIcons.size() ? 16 : 0;
+		al_draw_bitmap_region(IMGStatusSheet, sheetx, sheety, 16, 16, drawx + (SPRITEWIDTH/2), drawy - (16 + WALLHEIGHT + al_get_font_line_height(font)) - offsety, 0);
 	}
 }
 
@@ -406,40 +411,69 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
 
             item_type::item_type type = item->getType();
             int8_t armor = item->getEffectiveArmorLevel();
-
-			Worn_Item equipment;
-
-			equipment.matt.type = item->getActualMaterial();
-			equipment.matt.index = item->getActualMaterialIndex();
-
-			if(item->isDyed())
-			{
-				auto Constructed_Item = virtual_cast<df::item_constructed>(item);
-				if(Constructed_Item)
-				{
-					for(int idex = 0; idex < Constructed_Item->improvements.size(); idex++)
-					{
-						if(!Constructed_Item->improvements[idex])
-							continue;
-						if(Constructed_Item->improvements[idex]->getType() != improvement_type::THREAD)
-							continue;
-						auto Improvement_Thread = virtual_cast<df::itemimprovement_threadst>(Constructed_Item->improvements[idex]);
-						if(!Improvement_Thread)
-							continue;
-						equipment.matt.type = Improvement_Thread->dye.mat_type;
-						equipment.matt.index = Improvement_Thread->dye.mat_index;
-					}
-				}
-			}
-
             //FIXME: this could be made nicer. Somehow
-			if(!b->inv)
-				b->inv = new(Unit_Inventory);
-			if(b->inv->item.size() <= type)
-				b->inv->item.resize(type+1);
-			if(b->inv->item[type].size() <= item->getSubtype())
-				b->inv->item[type].resize(item->getSubtype()+1);
-			b->inv->item[type][item->getSubtype()].push_back(equipment);
+            switch (item->getType())
+			{
+			case item_type::WEAPON:
+				if(!b->inv)
+					b->inv = new(Unit_Inventory);
+				if(b->inv->Weapons.size() <= item->getSubtype())
+					b->inv->Weapons.resize(item->getSubtype()+1);
+				b->inv->Weapons[item->getSubtype()].matt.type = item->getActualMaterial();
+				b->inv->Weapons[item->getSubtype()].matt.index = item->getActualMaterialIndex();
+				break;
+			case item_type::ARMOR:
+				if(!b->inv)
+					b->inv = new(Unit_Inventory);
+				if(b->inv->Armor.size() <= item->getSubtype())
+					b->inv->Armor.resize(item->getSubtype()+1);
+				b->inv->Armor[item->getSubtype()].matt.type = item->getActualMaterial();
+				b->inv->Armor[item->getSubtype()].matt.index = item->getActualMaterialIndex();
+				break;
+			case item_type::SHOES:
+				if(!b->inv)
+					b->inv = new(Unit_Inventory);
+				if(b->inv->Shoes.size() <= item->getSubtype())
+					b->inv->Shoes.resize(item->getSubtype()+1);
+				b->inv->Shoes[item->getSubtype()].matt.type = item->getActualMaterial();
+				b->inv->Shoes[item->getSubtype()].matt.index = item->getActualMaterialIndex();
+				break;
+			case item_type::SHIELD:
+				if(!b->inv)
+					b->inv = new(Unit_Inventory);
+				if(b->inv->Shield.size() <= item->getSubtype())
+					b->inv->Shield.resize(item->getSubtype()+1);
+				b->inv->Shield[item->getSubtype()].matt.type = item->getActualMaterial();
+				b->inv->Shield[item->getSubtype()].matt.index = item->getActualMaterialIndex();
+				break;
+			case item_type::HELM:
+				if(!b->inv)
+					b->inv = new(Unit_Inventory);
+				if(b->inv->Helm.size() <= item->getSubtype())
+					b->inv->Helm.resize(item->getSubtype()+1);
+				b->inv->Helm[item->getSubtype()].matt.type = item->getActualMaterial();
+				b->inv->Helm[item->getSubtype()].matt.index = item->getActualMaterialIndex();
+				break;
+			case item_type::GLOVES:
+				if(!b->inv)
+					b->inv = new(Unit_Inventory);
+				if(b->inv->Gloves.size() <= item->getSubtype())
+					b->inv->Gloves.resize(item->getSubtype()+1);
+				b->inv->Gloves[item->getSubtype()].matt.type = item->getActualMaterial();
+				b->inv->Gloves[item->getSubtype()].matt.index = item->getActualMaterialIndex();
+				break;
+			case item_type::PANTS:
+				if(!b->inv)
+					b->inv = new(Unit_Inventory);
+				if(b->inv->Pants.size() <= item->getSubtype())
+					b->inv->Pants.resize(item->getSubtype()+1);
+				b->inv->Pants[item->getSubtype()].matt.type = item->getActualMaterial();
+				b->inv->Pants[item->getSubtype()].matt.index = item->getActualMaterialIndex();
+				break;
+			default:
+				// something unexpected. Should we react at all?
+				break;
+			}
 		}
 		// need a new tempcreature now
         // old tempcreature should be deleted when b is

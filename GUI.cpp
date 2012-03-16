@@ -1,4 +1,4 @@
-#include <assert.h>
+#include <assert.h> 
 #include <vector>
 
 using namespace std;
@@ -56,6 +56,7 @@ ALLEGRO_BITMAP* IMGObjectSheet;
 ALLEGRO_BITMAP* IMGCreatureSheet; 
 ALLEGRO_BITMAP* IMGRampSheet; 
 ALLEGRO_BITMAP* IMGStatusSheet; 
+ALLEGRO_BITMAP* IMGJobSheet; 
 ALLEGRO_BITMAP* IMGBloodSheet; 
 ALLEGRO_BITMAP* IMGEngFloorSheet;
 ALLEGRO_BITMAP* IMGEngLeftSheet;
@@ -498,28 +499,127 @@ void drawDebugCursorAndInfo(WorldSegment * segment)
 		//Inventories!
 		if(b->inv)
 		{
-			for(int item_type_idex = 0; item_type_idex < b->inv->item.size(); item_type_idex++)
+			if(!b->inv->Weapons.empty())
 			{
-				if(b->inv->item[item_type_idex].empty())
-					continue;
 				draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0, 
-					"%s:", ENUM_KEY_STR(item_type, (item_type::item_type)item_type_idex));
-				for(int ind = 0; ind < b->inv->item[item_type_idex].size(); ind++)
+					"Weapons:");
+				for(int ind = 0; ind < b->inv->Weapons.size(); ind++)
 				{
-					if(b->inv->item[item_type_idex][ind].empty())
-						continue;
-					if(b->inv->item[item_type_idex][ind][0].matt.type < 0)
+					if(b->inv->Weapons[ind].matt.type < 0)
 						continue;
 					MaterialInfo mat;
-					mat.decode(b->inv->item[item_type_idex][ind][0].matt.type,b->inv->item[item_type_idex][ind][0].matt.index);
+					mat.decode(b->inv->Weapons[ind].matt.type,b->inv->Weapons[ind].matt.index);
 					draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0, 
-						"    %s - %s", 
+						"    %s - %s/%s", 
 						mat.getToken().c_str(),
-						get_item_subtype((item_type::item_type)item_type_idex,ind));
+						ENUM_KEY_STR(item_type, item_type::WEAPON),
+						get_item_subtype(item_type::WEAPON,ind));
+				}
+			}
+			if(!b->inv->Armor.empty())
+			{
+				draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0, 
+					"Armor:");
+				for(int ind = 0; ind < b->inv->Armor.size(); ind++)
+				{
+					if(b->inv->Armor[ind].matt.type < 0)
+						continue;
+					MaterialInfo mat;
+					mat.decode(b->inv->Armor[ind].matt.type,b->inv->Armor[ind].matt.index);
+					draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0, 
+						"    %s - %s/%s", 
+						mat.getToken().c_str(),
+						ENUM_KEY_STR(item_type, item_type::ARMOR),
+						get_item_subtype(item_type::ARMOR,ind));
+				}
+			}
+			if(!b->inv->Shoes.empty())
+			{
+				draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0, 
+					"Shoes:");
+				for(int ind = 0; ind < b->inv->Shoes.size(); ind++)
+				{
+					if(b->inv->Shoes[ind].matt.type < 0)
+						continue;
+					MaterialInfo mat;
+					mat.decode(b->inv->Shoes[ind].matt.type,b->inv->Shoes[ind].matt.index);
+					draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0, 
+						"    %s - %s/%s", 
+						mat.getToken().c_str(),
+						ENUM_KEY_STR(item_type, item_type::SHOES),
+						get_item_subtype(item_type::SHOES,ind));
+				}
+			}
+			if(!b->inv->Shield.empty())
+			{
+				draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0, 
+					"Shield:");
+				for(int ind = 0; ind < b->inv->Shield.size(); ind++)
+				{
+					if(b->inv->Shield[ind].matt.type < 0)
+						continue;
+					MaterialInfo mat;
+					mat.decode(b->inv->Shield[ind].matt.type,b->inv->Shield[ind].matt.index);
+					draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0, 
+						"    %s - %s/%s", 
+						mat.getToken().c_str(),
+						ENUM_KEY_STR(item_type, item_type::SHIELD),
+						get_item_subtype(item_type::SHIELD,ind));
+				}
+			}
+			if(!b->inv->Helm.empty())
+			{
+				draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0, 
+					"Headwear:");
+				for(int ind = 0; ind < b->inv->Helm.size(); ind++)
+				{
+					if(b->inv->Helm[ind].matt.type < 0)
+						continue;
+					MaterialInfo mat;
+					mat.decode(b->inv->Helm[ind].matt.type,b->inv->Helm[ind].matt.index);
+					draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0, 
+						"    %s - %s/%s", 
+						mat.getToken().c_str(),
+						ENUM_KEY_STR(item_type, item_type::HELM),
+						get_item_subtype(item_type::HELM,ind));
+				}
+			}
+			if(!b->inv->Gloves.empty())
+			{
+				draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0, 
+					"Gloves:");
+				for(int ind = 0; ind < b->inv->Gloves.size(); ind++)
+				{
+					if(b->inv->Gloves[ind].matt.type < 0)
+						continue;
+					MaterialInfo mat;
+					mat.decode(b->inv->Gloves[ind].matt.type,b->inv->Gloves[ind].matt.index);
+					draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0, 
+						"    %s - %s/%s", 
+						mat.getToken().c_str(),
+						ENUM_KEY_STR(item_type, item_type::GLOVES),
+						get_item_subtype(item_type::GLOVES,ind));
+				}
+			}
+			if(!b->inv->Pants.empty())
+			{
+				draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0, 
+					"Pants:");
+				for(int ind = 0; ind < b->inv->Pants.size(); ind++)
+				{
+					if(b->inv->Pants[ind].matt.type < 0)
+						continue;
+					MaterialInfo mat;
+					mat.decode(b->inv->Pants[ind].matt.type,b->inv->Pants[ind].matt.index);
+					draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0, 
+						"    %s - %s/%s", 
+						mat.getToken().c_str(),
+						ENUM_KEY_STR(item_type, item_type::PANTS),
+						get_item_subtype(item_type::PANTS,ind));
 				}
 			}
 		}
-		//just so it has it's own scope
+		if(1) //just so it has it's own scope
 		{
 		char strCreature[150] = {0};
 		generateCreatureDebugString( b->creature, strCreature );
@@ -1035,6 +1135,7 @@ void loadGraphicsFromDisk()
     if(!load_from_path(p, "creatures.png", IMGCreatureSheet)) return;
     if(!load_from_path(p, "ramps.png", IMGRampSheet)) return;
     if(!load_from_path(p, "SSStatusIcons.png", IMGStatusSheet)) return;
+    if(!load_from_path(p, "SSJobIcons.png", IMGJobSheet)) return;
     if(!load_from_path(p, "gibs.png", IMGBloodSheet)) return;
     if(!load_from_path(p, "engravings_floor.png", IMGEngFloorSheet)) return;
     if(!load_from_path(p, "engravings_left.png", IMGEngLeftSheet)) return;
@@ -1068,6 +1169,11 @@ void flushImgFiles()
 	{
 		al_destroy_bitmap(IMGStatusSheet);
 		IMGStatusSheet = 0;
+	}
+	if(IMGJobSheet)
+	{
+		al_destroy_bitmap(IMGJobSheet);
+		IMGJobSheet = 0;
 	}
 	if(IMGEngFloorSheet)
 	{

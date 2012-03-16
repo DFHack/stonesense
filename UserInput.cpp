@@ -1,4 +1,4 @@
-#include "common.h"
+#include "common.h" 
 #include "GUI.h"
 #include "BuildingConfiguration.h"
 #include "ContentLoader.h"
@@ -230,6 +230,10 @@ void doKeys(int Key)
 	}
 	if(Key == ALLEGRO_KEY_M){
 		config.show_creature_moods = !config.show_creature_moods;
+		timeToReloadSegment = true;
+	}
+	if(Key == ALLEGRO_KEY_J){
+		config.show_creature_jobs = !config.show_creature_jobs;
 		timeToReloadSegment = true;
 	}
 	if(Key == ALLEGRO_KEY_C){
