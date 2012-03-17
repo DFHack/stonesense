@@ -86,6 +86,7 @@ void LogError(const char* msg, ...){
 	FILE* fp = fopen( "Stonesense.log", "a");
 	if(fp)
 		vfprintf( fp, msg, arglist );
+//	Core::printerr(msg, arglist);
 	va_end(arglist);
 	fclose(fp);
 }
@@ -100,6 +101,7 @@ void LogVerbose(const char* msg, ...){
 	FILE* fp = fopen( "Stonesense.log", "a");
 	if(fp)
 		vfprintf( fp, msg, arglist );
+//	Core::printerr(msg, arglist);
 	va_end(arglist);
 	fclose(fp);
 }

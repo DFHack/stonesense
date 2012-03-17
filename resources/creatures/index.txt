@@ -13,7 +13,7 @@ wild_animals.xml
 gobbos.xml
 beefmo_domestics.xml
 Wildlife.xml
-clothed_Dwarves.xml
-#color_Dwarves.xml
+#clothed_Dwarves.xml
+color_Dwarves.xml
 # Dwarves.xml
 # Elves.xml
