@@ -350,10 +350,10 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
 
 			//read tiletype
 			b->tileType = trueBlock->tiletype[lx][ly];
-			b->tileShape = tiletype::get_shape(b->tileType);
-			b->tileShapeBasic = tiletype_shape::get_basic_shape(b->tileShape);
-			b->tileSpecial = tiletype::get_special(b->tileType);
-			b->tileMaterial = tiletype::get_material(b->tileType);
+			b->tileShape = ENUM_ATTR(tiletype, shape, b->tileType);//tiletype::get_shape(b->tileType);
+			b->tileShapeBasic = ENUM_ATTR(tiletype_shape, basic_shape, b->tileShape);
+			b->tileSpecial = ENUM_ATTR(tiletype, special, b->tileType);
+			b->tileMaterial = ENUM_ATTR(tiletype, material, b->tileType);
 
 
 			//142,136,15
