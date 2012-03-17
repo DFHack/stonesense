@@ -494,10 +494,11 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
 	{
 		itemtype = INVALID_INDEX;
 	}
-	else for(int index=ENUM_FIRST_ITEM(item_type); index <= ENUM_LAST_ITEM(item_type); index++)
+	else
 	{
-		if(strcmp(equiptypestr, ENUM_KEY_STR(item_type, (item_type::item_type)index)) == 0)
-			itemtype = index;
+		df::item_type index;
+		if (find_enum_item(&index, equiptypestr))
+			itemtype = (int)index;
 	}
 
 	const char* equipsindexstr = elemSprite->Attribute("equipment_name");

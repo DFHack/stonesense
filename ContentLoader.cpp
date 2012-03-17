@@ -493,15 +493,15 @@ const char *lookupBuildingSubtype(int main_type, int i)
 	switch (main_type)
 	{
 	case building_type::Furnace:
-		return ENUM_KEY_STR(furnace_type,(furnace_type::furnace_type)i);
+		return enum_item_key_str((df::furnace_type)i);
 	case building_type::Construction:
-		return ENUM_KEY_STR(construction_type,(construction_type::construction_type)i);
+		return enum_item_key_str((df::construction_type)i);
 	case building_type::SiegeEngine:
-		return ENUM_KEY_STR(siegeengine_type,(siegeengine_type::siegeengine_type)i);
+		return enum_item_key_str((df::siegeengine_type)i);
 	case building_type::Shop:
-		return ENUM_KEY_STR(shop_type,(shop_type::shop_type)i);
+		return enum_item_key_str((df::shop_type)i);
 	case building_type::Workshop:
-		return ENUM_KEY_STR(workshop_type,(workshop_type::workshop_type)i);
+		return enum_item_key_str((df::workshop_type)i);
 	default:
 		return "NA";
 	}
