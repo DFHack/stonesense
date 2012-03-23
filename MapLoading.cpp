@@ -355,7 +355,6 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
             b->tileSpecial = tileSpecial(b->tileType);
             b->tileMaterial = tileMaterial(b->tileType);
 
-
 			//142,136,15
 			//if(b->x == 142 && b->y == 136 && b->z == 15)
 			//  int j = 10;

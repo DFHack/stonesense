@@ -747,11 +747,12 @@ ALLEGRO_COLOR lookupMaterialColor(int matType,int matIndex)
 	{
 		//if it's more than the size of our colorconfigs, then just make a guess based off what DF tells us.
 		MaterialInfo mat;
-		mat.decode(matType, matIndex);
-		return al_map_rgb_f(
+		if(mat.decode(matType, matIndex))
+			return al_map_rgb_f(
 			contentLoader->Mats->color[mat.material->state_color[0]].red,
 			contentLoader->Mats->color[mat.material->state_color[0]].green,
 			contentLoader->Mats->color[mat.material->state_color[0]].blue);
+		else return al_map_rgb(255,255,255);
 	}
 	if (matIndex < 0)
 	{
@@ -760,22 +761,24 @@ ALLEGRO_COLOR lookupMaterialColor(int matType,int matIndex)
 	if (matIndex >= contentLoader->colorConfigs.at(matType).colorMaterials.size())
 	{
 		MaterialInfo mat;
-		mat.decode(matType, matIndex);
-		return al_map_rgb_f(
+		if(mat.decode(matType, matIndex))
+			return al_map_rgb_f(
 			contentLoader->Mats->color[mat.material->state_color[0]].red,
 			contentLoader->Mats->color[mat.material->state_color[0]].green,
 			contentLoader->Mats->color[mat.material->state_color[0]].blue);
+		else return al_map_rgb(255,255,255);
 	}
 	if (contentLoader->colorConfigs.at(matType).colorMaterials.at(matIndex).colorSet)
 	{
 		return contentLoader->colorConfigs.at(matType).colorMaterials.at(matIndex).color;
 	}
 	MaterialInfo mat;
-	mat.decode(matType, matIndex);
-	return al_map_rgb_f(
+	if(mat.decode(matType, matIndex))
+		return al_map_rgb_f(
 		contentLoader->Mats->color[mat.material->state_color[0]].red,
 		contentLoader->Mats->color[mat.material->state_color[0]].green,
 		contentLoader->Mats->color[mat.material->state_color[0]].blue);
+	else return al_map_rgb(255,255,255);
 }
 
 ShadeBy getShadeType(const char* Input)

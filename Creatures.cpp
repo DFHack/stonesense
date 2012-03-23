@@ -271,8 +271,9 @@ void DrawCreature(int drawx, int drawy, t_unit* creature, Block * b){
 	}
 
 	c_sprite * sprite = GetCreatureSpriteMap( creature );
-	//if(creature->x == 151 && creature->y == 145)
-	//  int j = 10; 
+	
+	unsigned int offsety = config.show_creature_names ? al_get_font_line_height(font) : 0;
+	
 	sprite->draw_world(creature->x,creature->y, creature->z, b);
 	if(statusIcons.size())
 	{
@@ -280,8 +281,17 @@ void DrawCreature(int drawx, int drawy, t_unit* creature, Block * b){
 		{
 			unsigned int sheetx = 16 * (statusIcons[i] % 7);
 			unsigned int sheety = 16 * (statusIcons[i] / 7);
-			al_draw_bitmap_region(IMGStatusSheet, sheetx, sheety, 16, 16, drawx - (statusIcons.size()*8) + (16*i) + (SPRITEWIDTH/2), drawy - (16 + WALLHEIGHT + al_get_font_line_height(font)), 0);
+			al_draw_bitmap_region(IMGStatusSheet, sheetx, sheety, 16, 16, drawx - (statusIcons.size()*8) + (16*i) + (SPRITEWIDTH*config.scale/2), drawy - (16 + WALLHEIGHT*config.scale + offsety), 0);
 		}
+	}
+	
+	offsety += config.show_creature_moods ? 16 : 0;
+	
+	if(config.show_creature_jobs)
+	{
+		unsigned int sheetx = 16 * (creature->profession % 7);
+		unsigned int sheety = 16 * (creature->profession / 7);
+		al_draw_bitmap_region(IMGStatusSheet, sheetx, sheety, 16, 16, drawx -8 + (SPRITEWIDTH*config.scale/2), drawy - (16 + WALLHEIGHT*config.scale + offsety), 0);
 	}
 }
 

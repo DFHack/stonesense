@@ -232,6 +232,10 @@ void doKeys(int Key)
 		config.show_creature_moods = !config.show_creature_moods;
 		timeToReloadSegment = true;
 	}
+	if(Key == ALLEGRO_KEY_J){
+		config.show_creature_jobs = !config.show_creature_jobs;
+		timeToReloadSegment = true;
+	}
 	if(Key == ALLEGRO_KEY_C){
 		config.truncate_walls++;
 		if (config.truncate_walls > 4) config.truncate_walls = 0;
