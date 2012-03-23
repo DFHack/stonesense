@@ -496,7 +496,7 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
 	}
 	else for(int index=ENUM_FIRST_ITEM(item_type); index <= ENUM_LAST_ITEM(item_type); index++)
 	{
-		if(strcmp(equiptypestr, ENUM_KEY_STR(item_type, (item_type::item_type)index)) == 0)
+		if(strcmp(equiptypestr, ENUM_KEY_STR(item_type, (item_type::item_type)index).c_str()) == 0)
 			itemtype = index;
 	}
 

@@ -34,7 +34,7 @@ int getBuildingFromString(const char* strType)
 {
     FOR_ENUM_ITEMS(building_type,i)
     {
-        if (strcmp(strType,ENUM_KEY_STR(building_type,i)) == 0)
+		if (strcmp(strType,ENUM_KEY_STR(building_type,i).c_str()) == 0)
         {
             return i;
         }
