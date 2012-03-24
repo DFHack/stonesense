@@ -478,7 +478,7 @@ void drawDebugCursorAndInfo(WorldSegment * segment)
 				draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0, 
 					"%s - %s%s%s%s%s", 
 					mat.getToken().c_str(),
-					ENUM_KEY_STR(item_type, Actual_building->contained_items[index]->item->getType()),
+					ENUM_KEY_STR(item_type, Actual_building->contained_items[index]->item->getType()).c_str(),
 					(Actual_building->contained_items[index]->item->getSubtype()>=0)?"/":"",
 					(Actual_building->contained_items[index]->item->getSubtype()>=0)?get_item_subtype(Actual_building->contained_items[index]->item->getType(),Actual_building->contained_items[index]->item->getSubtype()):"",
 					Actual_building->contained_items[index]->item->getStackSize()>1?stacknum:"",
@@ -504,7 +504,7 @@ void drawDebugCursorAndInfo(WorldSegment * segment)
 				if(b->inv->item[item_type_idex].empty())
 					continue;
 				draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0, 
-					"%s:", ENUM_KEY_STR(item_type, (item_type::item_type)item_type_idex));
+					"%s:", ENUM_KEY_STR(item_type, (df::item_type)item_type_idex).c_str());
 				for(int ind = 0; ind < b->inv->item[item_type_idex].size(); ind++)
 				{
 					if(b->inv->item[item_type_idex][ind].empty())
@@ -631,7 +631,7 @@ void drawDebugCursorAndInfo(WorldSegment * segment)
 			const char* subTypeName = lookupBuildingSubtype(b->building.info.type, b->building.info.subtype);
 			draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0, 
 				"Building: game_type = %s(%i) game_subtype = %s(%i) Material: %s%s%s (%d,%d)", 
-				ENUM_KEY_STR(building_type, (building_type::building_type)b->building.info.type),
+				ENUM_KEY_STR(building_type, (df::building_type)b->building.info.type).c_str(),
 				b->building.info.type,
 				subTypeName,
 				b->building.info.subtype,
