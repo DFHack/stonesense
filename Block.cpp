@@ -63,6 +63,8 @@ Block::Block(WorldSegment* ownerSegment)
 	creature = 0;
 	engraving_character = 0;
 	visible = true;
+
+	this->Item.item.type =-1;
 }
 
 
@@ -281,6 +283,11 @@ void Block::Draw()
 	//		vegetationsprite->draw_world(x, y, z);
 	//}
 
+	//items
+	if(Item.item.type >= 0)
+	{
+		DrawSpriteFromSheet( 350, IMGObjectSheet, lookupMaterialColor(Item.matt.type, Item.matt.index), drawx, (tileShapeBasic==tiletype_shape_basic::Ramp)?(drawy - ((WALLHEIGHT/2)*config.scale)):drawy , this);
+	}
 
 
 	//shadow
