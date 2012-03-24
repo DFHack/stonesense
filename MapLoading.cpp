@@ -348,13 +348,12 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
 				b->water.index = trueBlock->designation[lx][ly].bits.flow_size;
 			}
 
-			//read tiletype
-			b->tileType = trueBlock->tiletype[lx][ly];
-			b->tileShape = tiletype::get_shape(b->tileType);
-			b->tileShapeBasic = tiletype_shape::get_basic_shape(b->tileShape);
-			b->tileSpecial = tiletype::get_special(b->tileType);
-			b->tileMaterial = tiletype::get_material(b->tileType);
-
+            //read tiletype
+            b->tileType = trueBlock->tiletype[lx][ly];
+            b->tileShape = tileShape(b->tileType);
+            b->tileShapeBasic = tileShapeBasic(b->tileShape);
+            b->tileSpecial = tileSpecial(b->tileType);
+            b->tileMaterial = tileMaterial(b->tileType);
 
 			//142,136,15
 			//if(b->x == 142 && b->y == 136 && b->z == 15)

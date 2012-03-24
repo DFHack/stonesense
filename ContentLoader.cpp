@@ -493,15 +493,15 @@ const char *lookupBuildingSubtype(int main_type, int i)
 	switch (main_type)
 	{
 	case building_type::Furnace:
-		return ENUM_KEY_STR(furnace_type,(furnace_type::furnace_type)i);
+		return enum_item_key_str((df::furnace_type)i);
 	case building_type::Construction:
-		return ENUM_KEY_STR(construction_type,(construction_type::construction_type)i);
+		return enum_item_key_str((df::construction_type)i);
 	case building_type::SiegeEngine:
-		return ENUM_KEY_STR(siegeengine_type,(siegeengine_type::siegeengine_type)i);
+		return enum_item_key_str((df::siegeengine_type)i);
 	case building_type::Shop:
-		return ENUM_KEY_STR(shop_type,(shop_type::shop_type)i);
+		return enum_item_key_str((df::shop_type)i);
 	case building_type::Workshop:
-		return ENUM_KEY_STR(workshop_type,(workshop_type::workshop_type)i);
+		return enum_item_key_str((df::workshop_type)i);
 	default:
 		return "NA";
 	}
@@ -747,11 +747,12 @@ ALLEGRO_COLOR lookupMaterialColor(int matType,int matIndex)
 	{
 		//if it's more than the size of our colorconfigs, then just make a guess based off what DF tells us.
 		MaterialInfo mat;
-		mat.decode(matType, matIndex);
-		return al_map_rgb_f(
+		if(mat.decode(matType, matIndex))
+			return al_map_rgb_f(
 			contentLoader->Mats->color[mat.material->state_color[0]].red,
 			contentLoader->Mats->color[mat.material->state_color[0]].green,
 			contentLoader->Mats->color[mat.material->state_color[0]].blue);
+		else return al_map_rgb(255,255,255);
 	}
 	if (matIndex < 0)
 	{
@@ -760,22 +761,24 @@ ALLEGRO_COLOR lookupMaterialColor(int matType,int matIndex)
 	if (matIndex >= contentLoader->colorConfigs.at(matType).colorMaterials.size())
 	{
 		MaterialInfo mat;
-		mat.decode(matType, matIndex);
-		return al_map_rgb_f(
+		if(mat.decode(matType, matIndex))
+			return al_map_rgb_f(
 			contentLoader->Mats->color[mat.material->state_color[0]].red,
 			contentLoader->Mats->color[mat.material->state_color[0]].green,
 			contentLoader->Mats->color[mat.material->state_color[0]].blue);
+		else return al_map_rgb(255,255,255);
 	}
 	if (contentLoader->colorConfigs.at(matType).colorMaterials.at(matIndex).colorSet)
 	{
 		return contentLoader->colorConfigs.at(matType).colorMaterials.at(matIndex).color;
 	}
 	MaterialInfo mat;
-	mat.decode(matType, matIndex);
-	return al_map_rgb_f(
+	if(mat.decode(matType, matIndex))
+		return al_map_rgb_f(
 		contentLoader->Mats->color[mat.material->state_color[0]].red,
 		contentLoader->Mats->color[mat.material->state_color[0]].green,
 		contentLoader->Mats->color[mat.material->state_color[0]].blue);
+	else return al_map_rgb(255,255,255);
 }
 
 ShadeBy getShadeType(const char* Input)

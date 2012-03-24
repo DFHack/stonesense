@@ -13,6 +13,8 @@
 #include "df/itemimprovement.h"
 #include "df/itemimprovement_threadst.h"
 
+#include "df/profession.h"
+
 //vector<t_matgloss> v_creatureNames;
 //vector<CreatureConfiguration> creatureTypes;
 
@@ -228,6 +230,7 @@ bool IsCreatureVisible( df::unit* c ){
 	return true;
 }
 
+
 void DrawCreature(int drawx, int drawy, t_unit* creature, Block * b){
 	vector<int> statusIcons;
 
@@ -286,7 +289,7 @@ void DrawCreature(int drawx, int drawy, t_unit* creature, Block * b){
 	}
 	
 	offsety += config.show_creature_moods ? 16 : 0;
-	
+
 	if(config.show_creature_jobs)
 	{
 		unsigned int sheetx = 16 * (creature->profession % 7);
@@ -507,6 +510,12 @@ CreatureConfiguration *GetCreatureConfig( t_unit* c ){
 		{
 			if (testConfig->special == eCSC_Zombie && !c->flags1.bits.zombie) creatureMatchesSpecial = false;
 			if (testConfig->special == eCSC_Skeleton && !c->flags1.bits.skeleton) creatureMatchesSpecial = false;
+			if (testConfig->special == eCSC_Military)
+			{
+				df::profession profession = (df::profession) c->profession;
+				if(!ENUM_ATTR(profession,military,profession))
+					creatureMatchesSpecial = false;
+			}
 			if (testConfig->special == eCSC_Normal && (c->flags1.bits.zombie || c->flags1.bits.skeleton)) creatureMatchesSpecial = false;
 		}
 		if(!creatureMatchesSpecial) continue;
