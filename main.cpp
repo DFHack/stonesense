@@ -81,12 +81,12 @@ ALLEGRO_BITMAP* load_bitmap_withWarning(const char* path)
 void LogError(const char* msg, ...){
 	va_list arglist;
 	va_start(arglist, msg);
-	//  char buf[200] = {0};
-	//  vsprintf(buf, msg, arglist);
+	char buf[512] = {0};
+	vsprintf(buf, msg, arglist);
+	Core::printerr(buf);
 	FILE* fp = fopen( "Stonesense.log", "a");
 	if(fp)
 		vfprintf( fp, msg, arglist );
-//	Core::printerr(msg, arglist);
 	va_end(arglist);
 	fclose(fp);
 }

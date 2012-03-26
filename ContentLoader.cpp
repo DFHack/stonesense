@@ -375,7 +375,7 @@ bool ContentLoader::parseContentXMLFile( const char* filepath ){
 			runningResult &= parseColorContent( elemRoot );
 		else if( elementType.compare( "fluids" ) == 0 )
 			runningResult &= parseFluidContent( elemRoot );
-		else if( elementType.compare( "item" ) == 0 )
+		else if( elementType.compare( "items" ) == 0 )
 			runningResult &= parseItemContent( elemRoot );
 		else
 			contentError("Unrecognised root element",elemRoot);

@@ -1026,11 +1026,11 @@ ALLEGRO_COLOR c_sprite::get_color(void* block)
 				return al_map_rgb(255, 255, 0);
 			if(b->inv->item[itemtype][itemsubtype].empty())
 				return al_map_rgb(0, 0, 255);
-			return lookupMaterialColor(b->inv->item[itemtype][itemsubtype][0].matt.type, b->inv->item[itemtype][itemsubtype][0].matt.index);
+			return lookupMaterialColor(b->inv->item[itemtype][itemsubtype][0].matt.type, b->inv->item[itemtype][itemsubtype][0].matt.index, b->inv->item[itemtype][itemsubtype][0].dyed);
 		}
 		else return al_map_rgb(255,255,255);
 	case ShadeItem:
-		return lookupMaterialColor(b->Item.matt.type, b->Item.matt.index);
+		return lookupMaterialColor(b->Item.matt.type, b->Item.matt.index, b->Item.dyed);
 	default:
 		return al_map_rgb(255, 255, 255);
 	} ;

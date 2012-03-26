@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<items file="items.png">
+	<item game_type="BAR" sheetIndex="23" color="item" />
+	<item game_type="SMALLGEM" sheetIndex="16" />
+	<item game_type="BLOCKS" sheetIndex="76" />
+	<item game_type="ROUGH" sheetIndex="16" />
+	<item game_type="BOULDER" sheetIndex="1" color="item" />
+	<item game_type="WOOD" sheetIndex="0" color="item" />
+	<item game_type="DOOR" sheetIndex="49" color="item" />
+	<item game_type="FLOODGATE" sheetIndex="51" color="item" />
+	<item game_type="BED" sheetIndex="48" color="item" />
+	<item game_type="CHAIR" sheetIndex="45" color="item" />
+	<item game_type="CHAIN" sheetIndex="21" color="item" />
+	<item game_type="FLASK" sheetIndex="18" />
+	<item game_type="GOBLET" sheetIndex="28" color="item" />
+	<item game_type="INSTRUMENT" sheetIndex="40" />
+	<item game_type="TOY" sheetIndex="80" />
+	<item game_type="WINDOW" sheetIndex="55" />
+	<item game_type="CAGE" sheetIndex="22" />
+	<item game_type="BARREL" sheetIndex="69" color="item" />
+	<item game_type="BUCKET" sheetIndex="7" />
+	<item game_type="ANIMALTRAP" sheetIndex="81" />
+	<item game_type="TABLE" sheetIndex="46" color="item" />
+	<item game_type="COFFIN" sheetIndex="82" color="item" />
+	<item game_type="STATUE" sheetIndex="53" color="item" />
+	<item game_type="CORPSE" sheetIndex="35" />
+	<item game_type="WEAPON" sheetIndex="31" />
+	<item game_type="ARMOR" sheetIndex="67" />
+	<item game_type="SHOES" sheetIndex="13" />
+	<item game_type="SHIELD" sheetIndex="12" />
+	<item game_type="HELM" sheetIndex="68" />
+	<item game_type="GLOVES" sheetIndex="14" />
+	<item game_type="BOX" sheetIndex="58" color="item" />
+	<item game_type="BIN" sheetIndex="70" color="item" />
+	<item game_type="ARMORSTAND" sheetIndex="56" />
+	<item game_type="WEAPONRACK" sheetIndex="57" />
+	<item game_type="CABINET" sheetIndex="47" />
+	<item game_type="FIGURINE" sheetIndex="41" color="item" />
+	<item game_type="AMULET" sheetIndex="42" />
+	<item game_type="SCEPTER" sheetIndex="27" />
+	<item game_type="AMMO" sheetIndex="8" />
+	<item game_type="CROWN" sheetIndex="39" color="item" />
+	<item game_type="RING" sheetIndex="29" color="item" />
+	<item game_type="EARRING" sheetIndex="29" />
+	<item game_type="BRACELET" sheetIndex="38" color="item" />
+	<item game_type="GEM" sheetIndex="17" />
+	<item game_type="ANVIL" sheetIndex="52" />
+	<item game_type="CORPSEPIECE" sheetIndex="34" />
+	<item game_type="REMAINS" sheetIndex="34" />
+	<item game_type="MEAT" sheetIndex="24" />
+	<item game_type="FISH" sheetIndex="24" />
+	<item game_type="FISH_RAW" sheetIndex="72" />
+	<!-- 50: vermin -->
+	<!-- 51: pet vermin -->
+	<item game_type="SEEDS" sheetIndex="73" />
+	<item game_type="PLANT" sheetIndex="44" />
+	<item game_type="SKIN_TANNED" sheetIndex="19" />
+	<item game_type="LEAVES" sheetIndex="77" />
+	<item game_type="THREAD" sheetIndex="37" color="item" />
+	<item game_type="CLOTH" sheetIndex="36" color="item" />
+	<item game_type="TOTEM" sheetIndex="30" />
+	<item game_type="PANTS" sheetIndex="66" />
+	<item game_type="BACKPACK" sheetIndex="71" />
+	<item game_type="QUIVER" sheetIndex="9" />
+	<item game_type="CATAPULTPARTS" sheetIndex="84" />
+	<item game_type="BALLISTAPARTS" sheetIndex="84" />
+	<item game_type="SIEGEAMMO" sheetIndex="85" />
+	<item game_type="BALLISTAARROWHEAD" sheetIndex="78" />
+	<item game_type="TRAPPARTS" sheetIndex="32" color="item" />
+	<item game_type="TRAPCOMP" sheetIndex="33" color="item" />
+	<item game_type="DRINK" sheetIndex="74" />
+	<item game_type="POWDER_MISC" sheetIndex="75" />
+	<item game_type="CHEESE" sheetIndex="79" />
+	<item game_type="FOOD" sheetIndex="26" />
+	<item game_type="LIQUID_MISC" sheetIndex="74" />
+	<item game_type="COIN" sheetIndex="73" />
+	<item game_type="GLOB" sheetIndex="25" />
+	<!-- 75: rock -->
+	<item game_type="PIPE_SECTION" sheetIndex="86" color="item" />
+	<item game_type="HATCH_COVER" sheetIndex="50" color="item" />
+	<item game_type="GRATE" sheetIndex="54" color="item" />
+	<item game_type="QUERN" sheetIndex="83" color="item" />
+	<item game_type="MILLSTONE" sheetIndex="83" color="item" />
+</items>

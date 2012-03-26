@@ -1,3 +1,1 @@
-BARREL.xml
-BIN.xml
-WOOD.xml
+items.xml

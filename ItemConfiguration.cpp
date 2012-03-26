@@ -16,34 +16,53 @@ ItemConfiguration::~ItemConfiguration()
 	subItems.clear();
 }
 
-
 bool addSingleItemConfig( TiXmlElement* elemRoot)
 {
-    const char* strGameID = elemRoot->Attribute("game_type");
-    const char* strGameSub = elemRoot->Attribute("game_subtype");
+	int basefile = INVALID_INDEX;
+	const char* filename = elemRoot->Attribute("file");
+	if (filename != NULL && filename[0] != 0)
+	{
+		basefile = loadConfigImgFile((char*)filename,elemRoot);
+		if(basefile == -1) return false;
+	}
 
-    if (strGameID == NULL || strGameID[0] == 0)
-    {
-        contentError("<item> node must game_type attribute",elemRoot);
-        return false;
-    }
+
+	TiXmlElement* elemFloor = elemRoot->FirstChildElement("item");
+	while( elemFloor )
+	{
+		parseItemElement( elemFloor, basefile);
+		elemFloor = elemFloor->NextSiblingElement("item");
+	}
+	return true;
+}
+
+bool parseItemElement( TiXmlElement* elemRoot, int basefile)
+{
+	const char* strGameID = elemRoot->Attribute("game_type");
+	const char* strGameSub = elemRoot->Attribute("game_subtype");
+
+	if (strGameID == NULL || strGameID[0] == 0)
+	{
+		contentError("<item> node must game_type attribute",elemRoot);
+		return false;
+	}
 	item_type::item_type main_type = (item_type::item_type) INVALID_INDEX;
-    int subtype = INVALID_INDEX;
-    string game_type_s;
-    FOR_ENUM_ITEMS(item_type,i)
-    {
-        game_type_s = strGameID;
-        if (game_type_s == ENUM_KEY_STR(item_type,i))
-        {
-            main_type = i;
-            break;
-        }
-    }
-    if(main_type == (item_type::item_type) INVALID_INDEX)
-    {
-        contentError("<item> unknown game_type value",elemRoot);
-        return false;
-    }
+	int subtype = INVALID_INDEX;
+	string game_type_s;
+	FOR_ENUM_ITEMS(item_type,i)
+	{
+		game_type_s = strGameID;
+		if (game_type_s == ENUM_KEY_STR(item_type,i))
+		{
+			main_type = i;
+			break;
+		}
+	}
+	if(main_type == (item_type::item_type) INVALID_INDEX)
+	{
+		contentError("<item> unknown game_type value",elemRoot);
+		return false;
+	}
 
 	if(strGameSub && strGameSub[0] != 0)
 	{
@@ -60,15 +79,6 @@ bool addSingleItemConfig( TiXmlElement* elemRoot)
 			return false;
 		}
 		else subtype = itemdef.subtype;
-	}
-
-	int basefile = -1;
-
-	const char* filename = elemRoot->Attribute("file");
-	if (filename != NULL && filename[0] != 0)
-	{
-		basefile = loadConfigImgFile((char*)filename, elemRoot);
-		if(basefile == -1) return false;
 	}
 
 

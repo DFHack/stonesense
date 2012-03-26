@@ -23,5 +23,5 @@ public:
 };
 
 bool addSingleItemConfig( TiXmlElement* elemRoot);
-
+bool parseItemElement( TiXmlElement* elemRoot, int basefile);
 void flushItemConfig(vector<ItemConfiguration *> &config);

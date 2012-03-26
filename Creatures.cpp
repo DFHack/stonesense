@@ -438,6 +438,7 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
 							continue;
 						equipment.matt.type = Improvement_Thread->dye.mat_type;
 						equipment.matt.index = Improvement_Thread->dye.mat_index;
+						equipment.dyed = 1;
 					}
 				}
 			}

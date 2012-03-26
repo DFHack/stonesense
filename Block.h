@@ -16,6 +16,7 @@ struct Effect
 struct Worn_Item
 {
 	DFHack::t_matglossPair matt;
+	bool dyed;
 	int8_t rating;
 	Worn_Item();
 };

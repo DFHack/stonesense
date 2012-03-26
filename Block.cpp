@@ -37,6 +37,7 @@ Worn_Item::Worn_Item()
 {
 	matt.index = -1;
 	matt.type = -1;
+	dyed = 0;
 }
 
 Block::Block(WorldSegment* ownerSegment)
