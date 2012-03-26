@@ -13,6 +13,7 @@
 #include "df/item_constructed.h"
 #include "df/itemimprovement.h"
 #include "df/itemimprovement_threadst.h"
+#include "df/item_threadst.h"
 /*
 static DFHack::Core* pDFApiHandle = 0;
 static DFHack::Process * DFProc = 0;
@@ -506,7 +507,7 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
 		b->Item.matt.type = found_item->getActualMaterial();
 		b->Item.matt.index = found_item->getActualMaterialIndex();
 
-		if(found_item->isDyed())
+		if(1)//found_item->isDyed())
 		{
 			auto Constructed_Item = virtual_cast<df::item_constructed>(found_item);
 			if(Constructed_Item)
@@ -520,9 +521,20 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
 					auto Improvement_Thread = virtual_cast<df::itemimprovement_threadst>(Constructed_Item->improvements[idex]);
 					if(!Improvement_Thread)
 						continue;
+					if (Improvement_Thread->dye.mat_type < 0) break;
 					b->Item.matt.type = Improvement_Thread->dye.mat_type;
 					b->Item.matt.index = Improvement_Thread->dye.mat_index;
+					b->Item.dyed = 1;
 				}
+			}
+			else if (found_item->getType() == item_type::THREAD)
+			{
+				auto Thread_Item = virtual_cast<df::item_threadst>(found_item);
+				if(!Thread_Item) break;
+				if (Thread_Item->dye_mat_type < 0) break;
+				b->Item.matt.type = Thread_Item->dye_mat_type;
+				b->Item.matt.index = Thread_Item->dye_mat_index;
+				b->Item.dyed = 1;
 			}
 		}
 	}

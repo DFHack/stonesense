@@ -1014,7 +1014,7 @@ ALLEGRO_COLOR c_sprite::get_color(void* block)
 		else return al_map_rgb(255,255,255);
 	case ShadeBlood:
 		return b->bloodcolor;
-	case ShadeItem:
+	case ShadeEquip:
 		if(itemsubtype >=0)
 		{
 			//FIXME: need a way to get a material for generic types.
@@ -1030,6 +1030,8 @@ ALLEGRO_COLOR c_sprite::get_color(void* block)
 			return lookupMaterialColor(b->inv->item[itemtype][itemsubtype][0].matt.type, b->inv->item[itemtype][itemsubtype][0].matt.index);
 		}
 		else return al_map_rgb(255,255,255);
+	case ShadeItem:
+		return lookupMaterialColor(b->Item.matt.type, b->Item.matt.index);
 	default:
 		return al_map_rgb(255, 255, 255);
 	} ;
