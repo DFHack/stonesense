@@ -63,6 +63,8 @@ Block::Block(WorldSegment* ownerSegment)
 	creature = 0;
 	engraving_character = 0;
 	visible = true;
+
+	this->Item.item.type =-1;
 }
 
 
@@ -281,6 +283,11 @@ void Block::Draw()
 	//		vegetationsprite->draw_world(x, y, z);
 	//}
 
+	//items
+	if(Item.item.type >= 0)
+	{
+		DrawSpriteFromSheet( 350, IMGObjectSheet, lookupMaterialColor(Item.matt.type, Item.matt.index), drawx, (tileShapeBasic==tiletype_shape_basic::Ramp)?(drawy - ((WALLHEIGHT/2)*config.scale)):drawy , this);
+	}
 
 
 	//shadow
@@ -634,7 +641,7 @@ void createEffectSprites()
 	sprite_water		= CreateSpriteFromSheet( 181, IMGObjectSheet);
 	sprite_water2		= CreateSpriteFromSheet( 182, IMGObjectSheet);
 	sprite_blood		= CreateSpriteFromSheet( 183, IMGObjectSheet);
-	sprite_dust			= CreateSpriteFromSheet( 184, IMGObjectSheet);
+	sprite_dust			= CreateSpriteFromSheet( 182, IMGObjectSheet);
 	sprite_magma		= CreateSpriteFromSheet( 185, IMGObjectSheet);
 	sprite_smoke		= CreateSpriteFromSheet( 186, IMGObjectSheet);
 	sprite_dragonfire	= load_bitmap_withWarning("stonesense/Effect_flames.png");

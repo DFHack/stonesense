@@ -10,7 +10,9 @@
 #include "Occlusion_Test.h"
 #include <df/plant.h>
 #include <df/effect.h>
-
+#include "df/item_constructed.h"
+#include "df/itemimprovement.h"
+#include "df/itemimprovement_threadst.h"
 /*
 static DFHack::Core* pDFApiHandle = 0;
 static DFHack::Process * DFProc = 0;
@@ -489,6 +491,41 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
             b->tree.index = wheat->material;
         }
     }
+
+	//add items
+	for(auto iter = trueBlock->items.begin(); iter != trueBlock->items.end(); iter++)
+	{
+		int32_t item_index = *iter;
+		df::item * found_item = df::item::find(item_index);
+		if(!found_item) continue;
+        Block* b = segment.getBlock( found_item->pos.x, found_item->pos.y, found_item->pos.z);
+		if(!b) continue;
+		b->Item.item.type = found_item->getType(); //itemtype
+		b->Item.item.index = found_item->getSubtype(); //item subtype
+
+		b->Item.matt.type = found_item->getActualMaterial();
+		b->Item.matt.index = found_item->getActualMaterialIndex();
+
+		if(found_item->isDyed())
+		{
+			auto Constructed_Item = virtual_cast<df::item_constructed>(found_item);
+			if(Constructed_Item)
+			{
+				for(int idex = 0; idex < Constructed_Item->improvements.size(); idex++)
+				{
+					if(!Constructed_Item->improvements[idex])
+						continue;
+					if(Constructed_Item->improvements[idex]->getType() != improvement_type::THREAD)
+						continue;
+					auto Improvement_Thread = virtual_cast<df::itemimprovement_threadst>(Constructed_Item->improvements[idex]);
+					if(!Improvement_Thread)
+						continue;
+					b->Item.matt.type = Improvement_Thread->dye.mat_type;
+					b->Item.matt.index = Improvement_Thread->dye.mat_index;
+				}
+			}
+		}
+	}
 
 	//add effects
 	for(auto iter = trueBlock->effects.begin(); iter != trueBlock->effects.end(); iter++)
