@@ -32,14 +32,10 @@ int getDirectionFromString(const char* strDir)
 
 int getBuildingFromString(const char* strType)
 {
-    FOR_ENUM_ITEMS(building_type,i)
-    {
-		if (strcmp(strType,ENUM_KEY_STR(building_type,i).c_str()) == 0)
-        {
-            return i;
-        }
-    }
-	return INVALID_INDEX;	
+    df::building_type item;
+    if (find_enum_item(&item, strType))
+        return (int)item;
+    return INVALID_INDEX;
 }
 
 NeighbourWallCondition::NeighbourWallCondition(const char* strDir)
