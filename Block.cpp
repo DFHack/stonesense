@@ -64,7 +64,10 @@ Block::Block(WorldSegment* ownerSegment)
 	engraving_character = 0;
 	visible = true;
 
-	this->Item.item.type =-1;
+	Item.item.type =-1;
+	Item.dyed = 0;
+	Item.matt.type=-1;
+	Item.matt.index=-1;
 }
 
 
@@ -286,7 +289,21 @@ void Block::Draw()
 	//items
 	if(Item.item.type >= 0)
 	{
-		DrawSpriteFromSheet( 350, IMGObjectSheet, lookupMaterialColor(Item.matt.type, Item.matt.index), drawx, (tileShapeBasic==tiletype_shape_basic::Ramp)?(drawy - ((WALLHEIGHT/2)*config.scale)):drawy , this);
+		if(
+			contentLoader->itemConfigs[Item.item.type] && 
+			(Item.item.type < contentLoader->itemConfigs[Item.item.type]->subItems.size()) && 
+			contentLoader->itemConfigs[Item.item.type]->subItems[Item.item.type])
+		{
+			contentLoader->itemConfigs[Item.item.type]->subItems[Item.item.type]->sprite.draw_world(x, y, z, this);
+		}
+		else if (
+			contentLoader->itemConfigs[Item.item.type] &&
+			contentLoader->itemConfigs[Item.item.type]->configured)
+		{
+			contentLoader->itemConfigs[Item.item.type]->default_sprite.draw_world(x, y, z, this);
+		}
+		else
+			DrawSpriteFromSheet( 350, IMGObjectSheet, lookupMaterialColor(Item.matt.type, Item.matt.index, Item.dyed), drawx, (tileShapeBasic==tiletype_shape_basic::Ramp)?(drawy - ((WALLHEIGHT/2)*config.scale)):drawy , this);
 	}
 
 

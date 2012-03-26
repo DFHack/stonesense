@@ -673,6 +673,17 @@ void drawDebugCursorAndInfo(WorldSegment * segment)
 			draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0,
 				"Snow: %d, Mud: %d, Blood: %d", b->snowlevel, b->mudlevel, b->bloodlevel);
 		}
+		if(b->Item.item.type >= 0)
+		{
+			MaterialInfo mat;
+			mat.decode(b->Item.matt.type, b->Item.matt.index);
+			ItemTypeInfo itemdef;
+			bool subtype = itemdef.decode((item_type::item_type)b->Item.item.type, b->Item.item.index);
+			draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0, 
+				"Item: %s - %s",
+				mat.getToken().c_str(),
+				subtype?itemdef.getToken().c_str():"");
+		}
 		//borders
 		/*
 			int dray = (i++*al_get_font_line_height(font));

@@ -147,6 +147,7 @@ public:
 	{
 		DFHack::t_matglossPair item;
 		DFHack::t_matglossPair matt;
+		bool dyed;
 	} Item;
 
 	//These are actually applied to the creature standing here, but there's only one creature shown, so it's okay.

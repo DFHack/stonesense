@@ -28,7 +28,8 @@ ContentLoader::~ContentLoader(void)
 	//flush content on exit
 	flushBuildingConfig(&buildingConfigs);
 	flushTerrainConfig(terrainFloorConfigs);
-	flushTerrainConfig(terrainBlockConfigs);	
+	flushTerrainConfig(terrainBlockConfigs);
+	flushItemConfig(itemConfigs);
 	flushCreatureConfig();
 	colorConfigs.clear();
 }
@@ -96,6 +97,7 @@ bool ContentLoader::Load(){
 	flushBuildingConfig(&buildingConfigs);
 	flushTerrainConfig(terrainFloorConfigs);
 	flushTerrainConfig(terrainBlockConfigs);
+	flushItemConfig(itemConfigs);
     colorConfigs.clear();
 	creatureConfigs.clear();
 	treeConfigs.clear();
@@ -219,6 +221,7 @@ bool ContentLoader::reload_configs()
 	flushBuildingConfig(&buildingConfigs);
 	flushTerrainConfig(terrainFloorConfigs);
 	flushTerrainConfig(terrainBlockConfigs);
+	flushItemConfig(itemConfigs);
     colorConfigs.clear();
 	creatureConfigs.clear();
 	treeConfigs.clear();
@@ -372,6 +375,8 @@ bool ContentLoader::parseContentXMLFile( const char* filepath ){
 			runningResult &= parseColorContent( elemRoot );
 		else if( elementType.compare( "fluids" ) == 0 )
 			runningResult &= parseFluidContent( elemRoot );
+		else if( elementType.compare( "item" ) == 0 )
+			runningResult &= parseItemContent( elemRoot );
 		else
 			contentError("Unrecognised root element",elemRoot);
 
@@ -413,6 +418,11 @@ bool ContentLoader::parseColorContent(TiXmlElement* elemRoot ){
 bool ContentLoader::parseFluidContent(TiXmlElement* elemRoot ){
 	return addSingleFluidConfig( elemRoot );
 }
+
+bool ContentLoader::parseItemContent(TiXmlElement* elemRoot ){
+	return addSingleItemConfig( elemRoot );
+}
+
 
 const char* getDocument(TiXmlNode* element)
 {
@@ -736,7 +746,7 @@ void ContentLoader::flushCreatureConfig()
 	// make big enough to hold all creatures
 	creatureConfigs.clear();
 }
-ALLEGRO_COLOR lookupMaterialColor(int matType,int matIndex)
+ALLEGRO_COLOR lookupMaterialColor(int matType,int matIndex, bool dye)
 {
 	if (matType < 0)
 	{
@@ -746,13 +756,7 @@ ALLEGRO_COLOR lookupMaterialColor(int matType,int matIndex)
 	if (matType >= contentLoader->colorConfigs.size())
 	{
 		//if it's more than the size of our colorconfigs, then just make a guess based off what DF tells us.
-		MaterialInfo mat;
-		if(mat.decode(matType, matIndex))
-			return al_map_rgb_f(
-			contentLoader->Mats->color[mat.material->state_color[0]].red,
-			contentLoader->Mats->color[mat.material->state_color[0]].green,
-			contentLoader->Mats->color[mat.material->state_color[0]].blue);
-		else return al_map_rgb(255,255,255);
+		goto DFColor;
 	}
 	if (matIndex < 0)
 	{
@@ -760,24 +764,27 @@ ALLEGRO_COLOR lookupMaterialColor(int matType,int matIndex)
 	}
 	if (matIndex >= contentLoader->colorConfigs.at(matType).colorMaterials.size())
 	{
-		MaterialInfo mat;
-		if(mat.decode(matType, matIndex))
-			return al_map_rgb_f(
-			contentLoader->Mats->color[mat.material->state_color[0]].red,
-			contentLoader->Mats->color[mat.material->state_color[0]].green,
-			contentLoader->Mats->color[mat.material->state_color[0]].blue);
-		else return al_map_rgb(255,255,255);
+		goto DFColor;
 	}
 	if (contentLoader->colorConfigs.at(matType).colorMaterials.at(matIndex).colorSet)
 	{
 		return contentLoader->colorConfigs.at(matType).colorMaterials.at(matIndex).color;
 	}
+	DFColor:
 	MaterialInfo mat;
 	if(mat.decode(matType, matIndex))
-		return al_map_rgb_f(
-		contentLoader->Mats->color[mat.material->state_color[0]].red,
-		contentLoader->Mats->color[mat.material->state_color[0]].green,
-		contentLoader->Mats->color[mat.material->state_color[0]].blue);
+	{
+		if(dye)
+			return al_map_rgb_f(
+			contentLoader->Mats->color[mat.material->powder_dye].red,
+			contentLoader->Mats->color[mat.material->powder_dye].green,
+			contentLoader->Mats->color[mat.material->powder_dye].blue);
+		else
+			return al_map_rgb_f(
+			contentLoader->Mats->color[mat.material->state_color[0]].red,
+			contentLoader->Mats->color[mat.material->state_color[0]].green,
+			contentLoader->Mats->color[mat.material->state_color[0]].blue);
+	}
 	else return al_map_rgb(255,255,255);
 }
 
@@ -816,6 +823,8 @@ ShadeBy getShadeType(const char* Input)
 	if( strcmp(Input, "grass") == 0)
 		return ShadeGrass;
 	if( strcmp(Input, "equipment") == 0)
+		return ShadeEquip;
+	if( strcmp(Input, "item") == 0)
 		return ShadeItem;
 	return ShadeNone;
 }

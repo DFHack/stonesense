@@ -9,3 +9,4 @@ vegetation/index.txt
 colors/index.txt
 Colors.xml
 Fluids/index.txt
+items/index.txt

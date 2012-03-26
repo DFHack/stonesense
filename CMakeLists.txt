@@ -22,6 +22,7 @@ SET(PROJECT_SRCS
     GUI.cpp
     GameBuildings.cpp
     GroundMaterialConfiguration.cpp
+	ItemConfiguration.cpp
     MapLoading.cpp
     Occlusion_Test.cpp
     SpriteColors.cpp

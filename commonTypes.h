@@ -21,7 +21,8 @@ enum ShadeBy
 	ShadeBlood,
 	ShadeBuilding,
 	ShadeGrass,
-	ShadeItem
+	ShadeItem,
+	ShadeEquip
 } ;
 struct t_subSprite
 {

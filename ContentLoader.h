@@ -7,6 +7,7 @@
 #include "ColorConfiguration.h"
 #include "commonTypes.h"
 #include "FluidConfiguration.h"
+#include "ItemConfiguration.h"
 
 class ContentLoader{
 private:
@@ -20,6 +21,7 @@ private:
 	bool parseColorContent( TiXmlElement* elemRoot );
 	bool parseFluidContent( TiXmlElement* elemRoot );
 	bool parseGrassContent( TiXmlElement* elemRoot );
+	bool parseItemContent( TiXmlElement* elemRoot );
 	void flushCreatureConfig();
 
 	bool translationComplete;
@@ -39,6 +41,7 @@ public:
 	vector<TerrainConfiguration*> terrainFloorConfigs;
 	vector<TerrainConfiguration*> terrainBlockConfigs;
 	vector<ColorConfiguration> colorConfigs;
+	vector<ItemConfiguration*> itemConfigs;
 	FluidConfiguration lava[8];
 	FluidConfiguration water[8];
 
@@ -105,6 +108,6 @@ uint8_t lookupMaterialFore(int matType,int matIndex);
 uint8_t lookupMaterialBack(int matType,int matIndex);
 uint8_t lookupMaterialBright(int matType,int matIndex);
 const char *lookupTreeName(int matIndex);
-ALLEGRO_COLOR lookupMaterialColor(int matType,int matIndex);
+ALLEGRO_COLOR lookupMaterialColor(int matType,int matIndex, bool dye = 0);
 const char * lookupFormName(int formType);
 ShadeBy getShadeType(const char* Input);
