@@ -7,6 +7,7 @@
 enum enumCreatureSpecialCases{
 	eCSC_Any,
 	eCSC_Normal,
+	eCSC_Military,
 	eCSC_Zombie,
 	eCSC_Skeleton,
 };
