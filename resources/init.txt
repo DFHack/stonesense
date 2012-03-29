@@ -84,7 +84,7 @@ Now independant of map refresh.
 --Debug Mode--
 
 Sets Stonesense in debug mode. Adds additional information to displays.
-[DEBUGMODE:YES]
+[DEBUGMODE:NO]
 
 Set's the debug cursor to follow the cursor from DF when it is there.
 [FOLLOW_DF_CURSOR:YES]
