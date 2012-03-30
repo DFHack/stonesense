@@ -25,11 +25,11 @@
 	<item game_type="STATUE" sheetIndex="53" color="item" />
 	<item game_type="CORPSE" sheetIndex="35" />
 	<item game_type="WEAPON" sheetIndex="31" />
-	<item game_type="ARMOR" sheetIndex="67" />
-	<item game_type="SHOES" sheetIndex="13" />
+	<item game_type="ARMOR" sheetIndex="67" color="item" />
+	<item game_type="SHOES" sheetIndex="13" color="item" />
 	<item game_type="SHIELD" sheetIndex="12" />
-	<item game_type="HELM" sheetIndex="68" />
-	<item game_type="GLOVES" sheetIndex="14" />
+	<item game_type="HELM" sheetIndex="68" color="item" />
+	<item game_type="GLOVES" sheetIndex="14" color="item" />
 	<item game_type="BOX" sheetIndex="58" color="item" />
 	<item game_type="BIN" sheetIndex="70" color="item" />
 	<item game_type="ARMORSTAND" sheetIndex="56" />
@@ -59,9 +59,9 @@
 	<item game_type="THREAD" sheetIndex="37" color="item" />
 	<item game_type="CLOTH" sheetIndex="36" color="item" />
 	<item game_type="TOTEM" sheetIndex="30" />
-	<item game_type="PANTS" sheetIndex="66" />
+	<item game_type="PANTS" sheetIndex="66" color="item" />
 	<item game_type="BACKPACK" sheetIndex="71" />
-	<item game_type="QUIVER" sheetIndex="9" />
+	<item game_type="QUIVER" sheetIndex="9" color="item" />
 	<item game_type="CATAPULTPARTS" sheetIndex="84" />
 	<item game_type="BALLISTAPARTS" sheetIndex="84" />
 	<item game_type="SIEGEAMMO" sheetIndex="85" />
