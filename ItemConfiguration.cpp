@@ -68,8 +68,9 @@ bool parseItemElement( TiXmlElement* elemRoot, int basefile)
 	{
 		// get subtype string, if available
 		string sub;
-		if(strGameSub)
-			sub = strGameSub;
+		sub += strGameID;
+		sub += ":";
+		sub += strGameSub;
 
 		//process subtypes
 		ItemTypeInfo itemdef;
@@ -101,9 +102,9 @@ bool parseItemElement( TiXmlElement* elemRoot, int basefile)
 	{
 		if(contentLoader->itemConfigs[main_type]->subItems.size() <= subtype)
 			contentLoader->itemConfigs[main_type]->subItems.resize(subtype+1, NULL);
-		if(!contentLoader->itemConfigs[main_type]->subItems[subtype]->configured)
+		if(!contentLoader->itemConfigs[main_type]->subItems[subtype])
 		{
-			contentLoader->itemConfigs[main_type]->subItems[subtype]->configured = true;
+			contentLoader->itemConfigs[main_type]->subItems[subtype] = new ItemSubConfiguration;
 			contentLoader->itemConfigs[main_type]->subItems[subtype]->sprite = sprite;
 		}
 	}
