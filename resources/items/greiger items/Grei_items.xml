@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<items file="Grei_items.png">
+	<item game_type="BIN" sheetIndex="0" color="item" />
+	<item game_type="TOOL" game_subtype="ITEM_TOOL_LARGE_POT" sheetIndex="1" color="item" />
+</items>
