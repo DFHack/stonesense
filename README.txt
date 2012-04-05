@@ -44,6 +44,8 @@ CTRL + SHIFT + F5: Save a screenshot of the entire fortress from the current top
 ALT + F5: Save a volumetric thing I'm testing out.
 Numpad + and -: Increase/Decrease AutoReload Rate
 CTRL + navigation: Adjusts follow mode offset
+,: Zoom out.
+.: Zoom in.
 
 -- Debug Keys --
 (prolly not useful for you guys)
