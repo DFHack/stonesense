@@ -190,7 +190,7 @@ typedef struct
 	bool dayNightCycle;
 
 	bool show_creature_moods;
-	bool show_creature_jobs;
+	bool show_creature_professions;
 
 	bool transparentScreenshots;
 

@@ -49,7 +49,7 @@ extern ALLEGRO_BITMAP* IMGObjectSheet;
 extern ALLEGRO_BITMAP* IMGCreatureSheet; 
 extern ALLEGRO_BITMAP* IMGRampSheet;  
 extern ALLEGRO_BITMAP* IMGStatusSheet; 
-extern ALLEGRO_BITMAP* IMGJobSheet; 
+extern ALLEGRO_BITMAP* IMGProfSheet; 
 extern ALLEGRO_BITMAP* IMGBloodSheet;
 extern ALLEGRO_BITMAP* IMGEngFloorSheet;
 extern ALLEGRO_BITMAP* IMGEngLeftSheet;

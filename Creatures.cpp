@@ -281,6 +281,7 @@ void DrawCreature(int drawx, int drawy, t_unit* creature, Block * b){
 	unsigned int offsety = config.show_creature_names ? al_get_font_line_height(font) : 0;
 	
 	sprite->draw_world(creature->x,creature->y, creature->z, b);
+	
 	if(statusIcons.size())
 	{
 		for(int i = 0; i < statusIcons.size(); i++)
@@ -293,11 +294,11 @@ void DrawCreature(int drawx, int drawy, t_unit* creature, Block * b){
 	
 	offsety += config.show_creature_moods ? 16 : 0;
 
-	if(config.show_creature_jobs)
+	if(config.show_creature_professions)
 	{
 		unsigned int sheetx = 16 * (creature->profession % 7);
 		unsigned int sheety = 16 * (creature->profession / 7);
-		al_draw_bitmap_region(IMGJobSheet, sheetx, sheety, 16, 16, drawx -8 + (SPRITEWIDTH*config.scale/2), drawy - (16 + WALLHEIGHT*config.scale + offsety), 0);
+		al_draw_bitmap_region(IMGProfSheet, sheetx, sheety, 16, 16, drawx -8 + (SPRITEWIDTH*config.scale/2), drawy - (16 + WALLHEIGHT*config.scale + offsety), 0);
 	}
 }
 
