@@ -51,8 +51,8 @@
 		<subsprite sheetIndex="183" zoom="3" equipment_class="HELM" equipment_name="ITEM_HELM_CAP" color="equipment"/>
 		<subsprite sheetIndex="184" zoom="3" equipment_class="HELM" equipment_name="ITEM_HELM_MASK" color="equipment"/>
 		<!--subsprite sheetIndex="107" zoom="3" equipment_class="HELM" equipment_name="ITEM_HELM_TURBAN" color="equipment"/-->
-		<subsprite sheetIndex="185" zoom="3" equipment_class="HELM" equipment_name="ITEM_HELM_HELM" color="equipment"/>
 		<subsprite sheetIndex="186" zoom="3" equipment_class="HELM" equipment_name="ITEM_HELM_HOOD" color="equipment"/>
+		<subsprite sheetIndex="185" zoom="3" equipment_class="HELM" equipment_name="ITEM_HELM_HELM" color="equipment"/>
 		  
 		<subsprite sheetIndex="3" zoom="3" />
 	</variant> 
@@ -106,8 +106,8 @@
 		<subsprite sheetIndex="183" zoom="3" equipment_class="HELM" equipment_name="ITEM_HELM_CAP" color="equipment"/>
 		<subsprite sheetIndex="184" zoom="3" equipment_class="HELM" equipment_name="ITEM_HELM_MASK" color="equipment"/>
 		<!--subsprite sheetIndex="107" zoom="3" equipment_class="HELM" equipment_name="ITEM_HELM_TURBAN" color="equipment"/-->
-		<subsprite sheetIndex="185" zoom="3" equipment_class="HELM" equipment_name="ITEM_HELM_HELM" color="equipment"/>
 		<subsprite sheetIndex="186" zoom="3" equipment_class="HELM" equipment_name="ITEM_HELM_HOOD" color="equipment"/>
+		<subsprite sheetIndex="185" zoom="3" equipment_class="HELM" equipment_name="ITEM_HELM_HELM" color="equipment"/>
 		  
 		<subsprite sheetIndex="3" zoom="3" />
 	</variant> 
@@ -160,8 +160,8 @@
 		<subsprite sheetIndex="183" zoom="3" equipment_class="HELM" equipment_name="ITEM_HELM_CAP" color="equipment"/>
 		<subsprite sheetIndex="184" zoom="3" equipment_class="HELM" equipment_name="ITEM_HELM_MASK" color="equipment"/>
 		<!--subsprite sheetIndex="107" zoom="3" equipment_class="HELM" equipment_name="ITEM_HELM_TURBAN" color="equipment"/-->
-		<subsprite sheetIndex="185" zoom="3" equipment_class="HELM" equipment_name="ITEM_HELM_HELM" color="equipment"/>
 		<subsprite sheetIndex="186" zoom="3" equipment_class="HELM" equipment_name="ITEM_HELM_HOOD" color="equipment"/>
+		<subsprite sheetIndex="185" zoom="3" equipment_class="HELM" equipment_name="ITEM_HELM_HELM" color="equipment"/>
 		  
 		<subsprite sheetIndex="3" zoom="3" />
 	</variant>
@@ -214,8 +214,8 @@
 		<subsprite sheetIndex="183" zoom="3" equipment_class="HELM" equipment_name="ITEM_HELM_CAP" color="equipment"/>
 		<subsprite sheetIndex="184" zoom="3" equipment_class="HELM" equipment_name="ITEM_HELM_MASK" color="equipment"/>
 		<!--subsprite sheetIndex="107" zoom="3" equipment_class="HELM" equipment_name="ITEM_HELM_TURBAN" color="equipment"/-->
-		<subsprite sheetIndex="185" zoom="3" equipment_class="HELM" equipment_name="ITEM_HELM_HELM" color="equipment"/>
 		<subsprite sheetIndex="186" zoom="3" equipment_class="HELM" equipment_name="ITEM_HELM_HOOD" color="equipment"/>
+		<subsprite sheetIndex="185" zoom="3" equipment_class="HELM" equipment_name="ITEM_HELM_HELM" color="equipment"/>
 		  
 		<subsprite sheetIndex="3" zoom="3" />
 	</variant>
