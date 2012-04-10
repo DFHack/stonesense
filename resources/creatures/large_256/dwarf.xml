@@ -57,7 +57,7 @@
 		<subsprite sheetIndex="3" zoom="3" />
 	</variant> 
 	 
-	<variant special="Military" sex="F" file="dwarfm.png" ><!--for now this is just the male sprite without a beard-->
+	<variant special="Military" sex="F" file="dwarff.png" >
 		  
 		<!--rear pieces for shadowing between legs-->
 		<subsprite sheetIndex="148" zoom="3" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_CAPE" color="equipment"/>
