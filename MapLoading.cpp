@@ -206,7 +206,7 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
 					   uint16_t Flags/*not in use*/, 
                        vector<Buildings::t_building>* allBuildings, 
 					   vector<df::construction>* allConstructions,
-					   vector< vector <uint16_t> >* allLayers)
+					   vector< vector <int16_t> >* allLayers)
 {
 	if(config.skipMaps)
 		return;
@@ -239,9 +239,7 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
     vector <df::block_square_event_grassst * > grass;
     vector <df::block_square_event_world_constructionst * > worldconstructions;
 	Maps::SortBlockEvents(
-		CellX,
-		CellY,
-		CellZ,
+		trueBlock,
 		&veins,
 		&ices,
 		&splatter,
@@ -744,8 +742,9 @@ WorldSegment* ReadMapSegment(int x, int y, int z, int sizex, int sizey, int size
 	TranslateGroundMaterialNames();*/
 
 	// get region geology
-	vector< vector <uint16_t> > layers;
-	if(!Maps::ReadGeology( layers ))
+	vector< vector <int16_t> > layers;
+	vector<df::coord2d> geoidx;
+	if(!Maps::ReadGeology( &layers, &geoidx ))
 	{
 		LogError("Can't get region geology.\n");
 	}
