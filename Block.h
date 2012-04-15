@@ -16,7 +16,7 @@ struct Effect
 struct Worn_Item
 {
 	DFHack::t_matglossPair matt;
-	bool dyed;
+	DFHack::t_matglossPair dyematt;
 	int8_t rating;
 	Worn_Item();
 };
@@ -148,7 +148,7 @@ public:
 	{
 		DFHack::t_matglossPair item;
 		DFHack::t_matglossPair matt;
-		bool dyed;
+		DFHack::t_matglossPair dyematt;
 	} Item;
 
 	//These are actually applied to the creature standing here, but there's only one creature shown, so it's okay.

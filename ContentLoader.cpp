@@ -746,8 +746,19 @@ void ContentLoader::flushCreatureConfig()
 	// make big enough to hold all creatures
 	creatureConfigs.clear();
 }
-ALLEGRO_COLOR lookupMaterialColor(int matType,int matIndex, bool dye)
+
+ALLEGRO_COLOR lookupMaterialColor(DFHack::t_matglossPair matt)
+{ 
+	DFHack::t_matglossPair dyematt;
+	dyematt.index = -1, dyematt.type = -1;
+	return lookupMaterialColor(matt, dyematt);
+}
+
+ALLEGRO_COLOR lookupMaterialColor(DFHack::t_matglossPair matt, DFHack::t_matglossPair dyematt)
 {
+	int matType = (int) matt.type;
+	int matIndex = (int) matt.index;
+
 	if (matType < 0)
 	{
 		//This should not normally happen, but if it does, we don't want crashes, so we'll return magic pink so show something's wrong.
@@ -771,14 +782,14 @@ ALLEGRO_COLOR lookupMaterialColor(int matType,int matIndex, bool dye)
 		return contentLoader->colorConfigs.at(matType).colorMaterials.at(matIndex).color;
 	}
 	DFColor:
-	MaterialInfo mat;
+	MaterialInfo mat, dye;
 	if(mat.decode(matType, matIndex))
 	{
-		if(dye)
+		if(dyematt.type>=0 && dyematt.index>=0 && dye.decode(dyematt.type, dyematt.index))
 			return al_map_rgb_f(
-			contentLoader->Mats->color[mat.material->powder_dye].red,
-			contentLoader->Mats->color[mat.material->powder_dye].green,
-			contentLoader->Mats->color[mat.material->powder_dye].blue);
+			contentLoader->Mats->color[dye.material->powder_dye].red	* contentLoader->Mats->color[mat.material->state_color[0]].red,
+			contentLoader->Mats->color[dye.material->powder_dye].green	* contentLoader->Mats->color[mat.material->state_color[0]].green,
+			contentLoader->Mats->color[dye.material->powder_dye].blue	* contentLoader->Mats->color[mat.material->state_color[0]].blue);
 		else
 			return al_map_rgb_f(
 			contentLoader->Mats->color[mat.material->state_color[0]].red,

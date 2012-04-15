@@ -440,9 +440,8 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
 						auto Improvement_Thread = virtual_cast<df::itemimprovement_threadst>(Constructed_Item->improvements[idex]);
 						if(!Improvement_Thread)
 							continue;
-						equipment.matt.type = Improvement_Thread->dye.mat_type;
-						equipment.matt.index = Improvement_Thread->dye.mat_index;
-						equipment.dyed = 1;
+						equipment.dyematt.type = Improvement_Thread->dye.mat_type;
+						equipment.dyematt.index = Improvement_Thread->dye.mat_index;
 					}
 				}
 			}
