@@ -942,15 +942,16 @@ ALLEGRO_COLOR c_sprite::get_color(void* block)
 	case ShadeXml:
 		return shadecolor;
 	case ShadeMat:
-		return lookupMaterialColor(b->material.type, b->material.index);
+		return lookupMaterialColor(b->material);
 	case ShadeGrass:
-		return lookupMaterialColor(WOOD, b->grassmat);
+		DFHack::t_matglossPair woodymat; woodymat.index = WOOD, woodymat.type = b->grassmat;
+		return lookupMaterialColor(woodymat);
 	case ShadeBuilding:
-		return lookupMaterialColor(b->building.info.material.type, b->building.info.material.index);
+		return lookupMaterialColor(b->building.info.material);
 	case ShadeLayer:
-		return lookupMaterialColor(b->layerMaterial.type, b->layerMaterial.index);
+		return lookupMaterialColor(b->layerMaterial);
 	case ShadeVein:
-		return lookupMaterialColor(b->veinMaterial.type, b->veinMaterial.index);
+		return lookupMaterialColor(b->veinMaterial);
 	case ShadeMatFore:
 		return config.colors.getDfColor(lookupMaterialFore(b->material.type, b->material.index), lookupMaterialBright(b->material.type, b->material.index));
 	case ShadeMatBack:
@@ -1027,11 +1028,11 @@ ALLEGRO_COLOR c_sprite::get_color(void* block)
 				return al_map_rgb(255, 255, 0);
 			if(b->inv->item[itemtype][itemsubtype].empty())
 				return al_map_rgb(0, 0, 255);
-			return lookupMaterialColor(b->inv->item[itemtype][itemsubtype][0].matt.type, b->inv->item[itemtype][itemsubtype][0].matt.index, b->inv->item[itemtype][itemsubtype][0].dyed);
+			return lookupMaterialColor(b->inv->item[itemtype][itemsubtype][0].matt, b->inv->item[itemtype][itemsubtype][0].dyematt);
 		}
 		else return al_map_rgb(255,255,255);
 	case ShadeItem:
-		return lookupMaterialColor(b->Item.matt.type, b->Item.matt.index, b->Item.dyed);
+		return lookupMaterialColor(b->Item.matt, b->Item.dyematt);
 	default:
 		return al_map_rgb(255, 255, 255);
 	} ;

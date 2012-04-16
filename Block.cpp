@@ -37,7 +37,8 @@ Worn_Item::Worn_Item()
 {
 	matt.index = -1;
 	matt.type = -1;
-	dyed = 0;
+	dyematt.index = -1;
+	dyematt.type = -1;
 }
 
 Block::Block(WorldSegment* ownerSegment)
@@ -66,9 +67,10 @@ Block::Block(WorldSegment* ownerSegment)
 	visible = true;
 
 	Item.item.type =-1;
-	Item.dyed = 0;
 	Item.matt.type=-1;
 	Item.matt.index=-1;
+	Item.dyematt.type=-1;
+	Item.dyematt.index=-1;
 }
 
 
@@ -230,7 +232,7 @@ void Block::Draw()
 		//fixme: needs to be scaled
 	if(Eff_SeaFoam.density > 0)
 	{
-		ALLEGRO_COLOR tint = lookupMaterialColor(Eff_SeaFoam.matt.type, Eff_SeaFoam.matt.index);
+		ALLEGRO_COLOR tint = lookupMaterialColor(Eff_SeaFoam.matt);
 		tint.a*=Eff_SeaFoam.density/100.0f;
 		al_draw_tinted_bitmap(sprite_oceanwave,tint, drawx, drawy - (WALLHEIGHT), 0);
 	}
@@ -304,7 +306,7 @@ void Block::Draw()
 			contentLoader->itemConfigs[Item.item.type]->default_sprite.draw_world(x, y, z, this);
 		}
 		else
-			DrawSpriteFromSheet( 350, IMGObjectSheet, lookupMaterialColor(Item.matt.type, Item.matt.index, Item.dyed), drawx, (tileShapeBasic==tiletype_shape_basic::Ramp)?(drawy - ((WALLHEIGHT/2)*config.scale)):drawy , this);
+			DrawSpriteFromSheet( 350, IMGObjectSheet, lookupMaterialColor(Item.matt, Item.dyematt), drawx, (tileShapeBasic==tiletype_shape_basic::Ramp)?(drawy - ((WALLHEIGHT/2)*config.scale)):drawy , this);
 	}
 
 
@@ -455,44 +457,44 @@ void Block::Draw()
 
 	if(Eff_Web.density > 0)
 	{
-		ALLEGRO_COLOR tint = lookupMaterialColor(Eff_Web.matt.type, Eff_Web.matt.index);
+		ALLEGRO_COLOR tint = lookupMaterialColor(Eff_Web.matt);
 		tint.a*=Eff_Web.density/100.0f;
 		DrawSpriteFromSheet(rando%5, sprite_webing, tint, drawx, drawy, this, 4.0f);
 		//al_draw_tinted_bitmap(sprite_webing,tint, drawx, drawy - (WALLHEIGHT), 0);
 	}
 	if(Eff_Miasma.density > 0)
 	{
-		ALLEGRO_COLOR tint = lookupMaterialColor(Eff_Miasma.matt.type, Eff_Miasma.matt.index);
+		ALLEGRO_COLOR tint = lookupMaterialColor(Eff_Miasma.matt);
 		draw_particle_cloud(Eff_Miasma.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_miasma, tint);
 	}
 	if(Eff_Steam.density > 0)
 	{
-		ALLEGRO_COLOR tint = lookupMaterialColor(Eff_Steam.matt.type, Eff_Steam.matt.index);
+		ALLEGRO_COLOR tint = lookupMaterialColor(Eff_Steam.matt);
 		draw_particle_cloud(Eff_Steam.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_water, tint);
 	}
 	if(Eff_Mist.density > 0)
 	{
-		ALLEGRO_COLOR tint = lookupMaterialColor(Eff_Mist.matt.type, Eff_Mist.matt.index);
+		ALLEGRO_COLOR tint = lookupMaterialColor(Eff_Mist.matt);
 		draw_particle_cloud(Eff_Mist.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_water2, tint);
 	}
 	if(Eff_MaterialDust.density > 0)
 	{
-		ALLEGRO_COLOR tint = lookupMaterialColor(Eff_MaterialDust.matt.type, Eff_MaterialDust.matt.index);
+		ALLEGRO_COLOR tint = lookupMaterialColor(Eff_MaterialDust.matt);
 		draw_particle_cloud(Eff_MaterialDust.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_dust, tint);
 	}
 	if(Eff_MagmaMist.density > 0)
 	{
-		ALLEGRO_COLOR tint = lookupMaterialColor(Eff_MagmaMist.matt.type, Eff_MagmaMist.matt.index);
+		ALLEGRO_COLOR tint = lookupMaterialColor(Eff_MagmaMist.matt);
 		draw_particle_cloud(Eff_MagmaMist.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_magma, tint);
 	}
 	if(Eff_Smoke.density > 0)
 	{
-		ALLEGRO_COLOR tint = lookupMaterialColor(Eff_Smoke.matt.type, Eff_Smoke.matt.index);
+		ALLEGRO_COLOR tint = lookupMaterialColor(Eff_Smoke.matt);
 		draw_particle_cloud(Eff_Smoke.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_smoke, tint);
 	}
 	if(Eff_Dragonfire.density > 0)
 	{
-		ALLEGRO_COLOR tint = lookupMaterialColor(Eff_Dragonfire.matt.type, Eff_Dragonfire.matt.index);
+		ALLEGRO_COLOR tint = lookupMaterialColor(Eff_Dragonfire.matt);
 		tint.a*=Eff_Dragonfire.density/100.0f;
 		tint.g*=Eff_Dragonfire.density/100.0f;
 		tint.b*=Eff_Dragonfire.density/100.0f;
@@ -503,7 +505,7 @@ void Block::Draw()
 	}
 	if(Eff_Fire.density > 0)
 	{
-		ALLEGRO_COLOR tint = lookupMaterialColor(Eff_Fire.matt.type, Eff_Fire.matt.index);
+		ALLEGRO_COLOR tint = lookupMaterialColor(Eff_Fire.matt);
 		tint.a*=Eff_Fire.density/100.0f;
 		tint.g*=Eff_Fire.density/100.0f;
 		tint.b*=Eff_Fire.density/100.0f;
@@ -514,17 +516,17 @@ void Block::Draw()
 	}
 	if(Eff_MaterialGas.density > 0)
 	{
-		ALLEGRO_COLOR tint = lookupMaterialColor(Eff_MaterialGas.matt.type, Eff_MaterialGas.matt.index);
+		ALLEGRO_COLOR tint = lookupMaterialColor(Eff_MaterialGas.matt);
 		draw_particle_cloud(Eff_MaterialGas.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_boiling, tint);
 	}
 	if(Eff_MaterialVapor.density > 0)
 	{
-		ALLEGRO_COLOR tint = lookupMaterialColor(Eff_MaterialVapor.matt.type, Eff_MaterialVapor.matt.index);
+		ALLEGRO_COLOR tint = lookupMaterialColor(Eff_MaterialVapor.matt);
 		draw_particle_cloud(Eff_MaterialVapor.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_boiling, tint);
 	}
 	if(Eff_OceanWave.density > 0)
 	{
-		ALLEGRO_COLOR tint = lookupMaterialColor(Eff_OceanWave.matt.type, Eff_OceanWave.matt.index);
+		ALLEGRO_COLOR tint = lookupMaterialColor(Eff_OceanWave.matt);
 		draw_particle_cloud(Eff_OceanWave.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_water, tint);
 	}
 }
@@ -598,7 +600,7 @@ void Block::DrawPixel(int drawx, int drawy)
 		tileShapeBasic==tiletype_shape_basic::Stair
 		)
 	{
-		al_put_pixel(drawx, drawy, lookupMaterialColor(this->material.type, this->material.index));
+		al_put_pixel(drawx, drawy, lookupMaterialColor(this->material));
 	}
 	if(this->water.index)
 	{
@@ -614,7 +616,8 @@ void Block::DrawPixel(int drawx, int drawy)
 		(tileMaterial == tiletype_material::GRASS_DRY) ||
 		(tileMaterial == tiletype_material::GRASS_DEAD)))
 	{
-		temp = lookupMaterialColor(WOOD, grassmat);
+		DFHack::t_matglossPair woodymat; woodymat.index = WOOD, woodymat.type = grassmat;
+		temp = lookupMaterialColor(woodymat);
 		al_draw_pixel(drawx, drawy, al_map_rgba_f(temp.r,temp.g, temp.b, (float)grasslevel/100.0f));
 	}
 }

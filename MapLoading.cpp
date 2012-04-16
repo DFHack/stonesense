@@ -520,9 +520,8 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
 					if(!Improvement_Thread)
 						continue;
 					if (Improvement_Thread->dye.mat_type < 0) break;
-					b->Item.matt.type = Improvement_Thread->dye.mat_type;
-					b->Item.matt.index = Improvement_Thread->dye.mat_index;
-					b->Item.dyed = 1;
+					b->Item.dyematt.type = Improvement_Thread->dye.mat_type;
+					b->Item.dyematt.index = Improvement_Thread->dye.mat_index;
 				}
 			}
 			else if (found_item->getType() == item_type::THREAD)
@@ -530,9 +529,8 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
 				auto Thread_Item = virtual_cast<df::item_threadst>(found_item);
 				if(!Thread_Item) break;
 				if (Thread_Item->dye_mat_type < 0) break;
-				b->Item.matt.type = Thread_Item->dye_mat_type;
-				b->Item.matt.index = Thread_Item->dye_mat_index;
-				b->Item.dyed = 1;
+				b->Item.dyematt.type = Thread_Item->dye_mat_type;
+				b->Item.dyematt.index = Thread_Item->dye_mat_index;
 			}
 		}
 	}
