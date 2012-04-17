@@ -944,8 +944,7 @@ ALLEGRO_COLOR c_sprite::get_color(void* block)
 	case ShadeMat:
 		return lookupMaterialColor(b->material);
 	case ShadeGrass:
-		DFHack::t_matglossPair woodymat; woodymat.index = WOOD, woodymat.type = b->grassmat;
-		return lookupMaterialColor(woodymat);
+		return lookupMaterialColor(WOOD, b->grassmat);
 	case ShadeBuilding:
 		return lookupMaterialColor(b->building.info.material);
 	case ShadeLayer:

@@ -749,16 +749,21 @@ void ContentLoader::flushCreatureConfig()
 
 ALLEGRO_COLOR lookupMaterialColor(DFHack::t_matglossPair matt)
 { 
-	DFHack::t_matglossPair dyematt;
-	dyematt.index = -1, dyematt.type = -1;
-	return lookupMaterialColor(matt, dyematt);
+	return lookupMaterialColor((int) matt.type, (int) matt.index, -1, -1);
 }
 
 ALLEGRO_COLOR lookupMaterialColor(DFHack::t_matglossPair matt, DFHack::t_matglossPair dyematt)
-{
-	int matType = (int) matt.type;
-	int matIndex = (int) matt.index;
+{ 
+	return lookupMaterialColor((int) matt.type, (int) matt.index, (int) dyematt.type, (int) dyematt.index);
+}
 
+ALLEGRO_COLOR lookupMaterialColor(int matType, int matIndex)
+{ 
+	return lookupMaterialColor( matType, matIndex, -1, -1);
+}
+
+ALLEGRO_COLOR lookupMaterialColor(int matType, int matIndex, int dyeType, int dyeIndex)
+{
 	if (matType < 0)
 	{
 		//This should not normally happen, but if it does, we don't want crashes, so we'll return magic pink so show something's wrong.
@@ -785,7 +790,7 @@ ALLEGRO_COLOR lookupMaterialColor(DFHack::t_matglossPair matt, DFHack::t_matglos
 	MaterialInfo mat, dye;
 	if(mat.decode(matType, matIndex))
 	{
-		if(dyematt.type>=0 && dyematt.index>=0 && dye.decode(dyematt.type, dyematt.index))
+		if(dyeType>=0 && dyeIndex>=0 && dye.decode(dyeType, dyeIndex))
 			return al_map_rgb_f(
 			contentLoader->Mats->color[dye.material->powder_dye].red	* contentLoader->Mats->color[mat.material->state_color[0]].red,
 			contentLoader->Mats->color[dye.material->powder_dye].green	* contentLoader->Mats->color[mat.material->state_color[0]].green,

@@ -110,5 +110,7 @@ uint8_t lookupMaterialBright(int matType,int matIndex);
 const char *lookupTreeName(int matIndex);
 ALLEGRO_COLOR lookupMaterialColor(DFHack::t_matglossPair matt, DFHack::t_matglossPair dyematt);
 ALLEGRO_COLOR lookupMaterialColor(DFHack::t_matglossPair matt);
+ALLEGRO_COLOR lookupMaterialColor(int matType, int matIndex, int dyeType, int dyeIndex);
+ALLEGRO_COLOR lookupMaterialColor(int matType, int matIndex);
 const char * lookupFormName(int formType);
 ShadeBy getShadeType(const char* Input);

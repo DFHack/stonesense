@@ -616,8 +616,7 @@ void Block::DrawPixel(int drawx, int drawy)
 		(tileMaterial == tiletype_material::GRASS_DRY) ||
 		(tileMaterial == tiletype_material::GRASS_DEAD)))
 	{
-		DFHack::t_matglossPair woodymat; woodymat.index = WOOD, woodymat.type = grassmat;
-		temp = lookupMaterialColor(woodymat);
+		temp = lookupMaterialColor(WOOD, grassmat);
 		al_draw_pixel(drawx, drawy, al_map_rgba_f(temp.r,temp.g, temp.b, (float)grasslevel/100.0f));
 	}
 }
