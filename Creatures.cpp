@@ -15,6 +15,9 @@
 
 #include "df/profession.h"
 
+#include "df/creature_raw.h"
+#include "df/caste_raw.h"
+
 //vector<t_matgloss> v_creatureNames;
 //vector<CreatureConfiguration> creatureTypes;
 
@@ -235,7 +238,7 @@ void DrawCreature(int drawx, int drawy, t_unit* creature, Block * b){
 	vector<int> statusIcons;
 
 	//if(config.show_creature_happiness)
-	if(config.show_creature_moods)
+	if(config.show_creature_moods && df::creature_raw::find(creature->race)->caste[creature->caste]->flags.is_set(caste_raw_flags::CAN_SPEAK))
 	{
 		if(creature->happiness == 0)
 			statusIcons.push_back(6);

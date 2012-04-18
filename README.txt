@@ -3,7 +3,8 @@ Welcome to Stonesense Felsite(3.1)
 Thank you for trying out our little visualizer,
 as always, we appreciate any feedback.
 
-Please note, that for the time being Stonesense Felsite ONLY supports DF 31_25.
+Please note that stonesense is tightly bound to DFHack, and so only works for the version that
+the accompanying DFHack is built for.
 
 To run stonesense, Copy DFHack into the dwarf fortress folder, and run DwarfFortress.exe.
 When DFHack console appears, type in stonesense and press enter.
@@ -44,6 +45,8 @@ CTRL + SHIFT + F5: Save a screenshot of the entire fortress from the current top
 ALT + F5: Save a volumetric thing I'm testing out.
 Numpad + and -: Increase/Decrease AutoReload Rate
 CTRL + navigation: Adjusts follow mode offset
+,: Zoom out.
+.: Zoom in.
 
 -- Debug Keys --
 (prolly not useful for you guys)

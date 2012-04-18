@@ -294,10 +294,10 @@ void Block::Draw()
 	{
 		if(
 			contentLoader->itemConfigs[Item.item.type] && 
-			(Item.item.type < contentLoader->itemConfigs[Item.item.type]->subItems.size()) && 
-			contentLoader->itemConfigs[Item.item.type]->subItems[Item.item.type])
+			(Item.item.index < contentLoader->itemConfigs[Item.item.type]->subItems.size()) && 
+			contentLoader->itemConfigs[Item.item.type]->subItems[Item.item.index])
 		{
-			contentLoader->itemConfigs[Item.item.type]->subItems[Item.item.type]->sprite.draw_world(x, y, z, this);
+			contentLoader->itemConfigs[Item.item.type]->subItems[Item.item.index]->sprite.draw_world(x, y, z, this);
 		}
 		else if (
 			contentLoader->itemConfigs[Item.item.type] &&

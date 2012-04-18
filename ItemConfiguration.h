@@ -6,8 +6,6 @@ class ItemSubConfiguration
 {
 public:
 	c_sprite sprite;
-
-	bool configured;
 };
 
 class ItemConfiguration

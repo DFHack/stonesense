@@ -21,7 +21,7 @@ bitset<2*S_SPRITE_HEIGHT> floor_mask_right;
 
 bool is_block_solid(Block * b)
 {
-	if(b->tileMaterial == tiletype_shape::RAMP_TOP)
+    if(b->tileShape == tiletype_shape::RAMP_TOP)
 		return false;
 	if(!config.shade_hidden_blocks && !config.show_hidden_blocks && b->designation.bits.hidden)
 		return false;
@@ -32,7 +32,7 @@ bool is_block_solid(Block * b)
 		b->material.type == 5 ||
 		b->material.type == 6)
 		return false;
-	if(b->tileMaterial == tiletype_shape::BROOK_TOP)
+    if(b->tileShape == tiletype_shape::BROOK_TOP)
 		return false;
 	return true;
 }
@@ -81,7 +81,7 @@ void mask_left(Block * b, int offset)
 		return;
 	if(!is_block_solid(b))
 		return;
-	if(b->tileShapeBasic==tiletype_shape_basic::Wall && b->tileMaterial != tiletype_shape::BROOK_BED)
+	if(b->tileShapeBasic==tiletype_shape_basic::Wall && b->tileShape != tiletype_shape::BROOK_BED)
 	{
 		if(offset >= 0)
 		{
@@ -92,7 +92,7 @@ void mask_left(Block * b, int offset)
 			base_mask_left &= ~(wall_mask_right >> -offset*2);
 		}
 	}
-	else if(b->tileShapeBasic==tiletype_shape_basic::Floor || b->tileShapeBasic==tiletype_shape_basic::Ramp || b->tileMaterial != tiletype_shape::BROOK_BED)
+    else if(b->tileShapeBasic==tiletype_shape_basic::Floor || b->tileShapeBasic==tiletype_shape_basic::Ramp || b->tileShape != tiletype_shape::BROOK_BED)
 	{
 		if(offset >= 0)
 		{
@@ -111,7 +111,7 @@ void mask_right(Block * b, int offset)
 		return;
 	if(!is_block_solid(b))
 		return;
-	if(b->tileShapeBasic==tiletype_shape_basic::Wall && b->tileMaterial != tiletype_shape::BROOK_BED)
+    if(b->tileShapeBasic==tiletype_shape_basic::Wall && b->tileShape != tiletype_shape::BROOK_BED)
 	{
 		if(offset >= 0)
 		{
@@ -122,7 +122,7 @@ void mask_right(Block * b, int offset)
 			base_mask_right &= ~(wall_mask_left >> -offset*2);
 		}
 	}
-	else if(b->tileShapeBasic==tiletype_shape_basic::Floor || b->tileShapeBasic==tiletype_shape_basic::Ramp || b->tileMaterial != tiletype_shape::BROOK_BED)
+	else if(b->tileShapeBasic==tiletype_shape_basic::Floor || b->tileShapeBasic==tiletype_shape_basic::Ramp || b->tileShape != tiletype_shape::BROOK_BED)
 	{
 		if(offset >= 0)
 		{
