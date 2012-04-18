@@ -849,7 +849,9 @@ void beautify_Segment(WorldSegment * segment)
 	for(uint32_t i=0; i < numblocks; i++){
 		Block* b = segment->getBlock(i);
 
-		if(config.occlusion)
+		if(config.occlusion == 1)
+			occlude_block(b);
+		else if(config.occlusion == 2 && b->designation.bits.hidden)
 			occlude_block(b);
 
 		if(!b->visible)

@@ -196,7 +196,7 @@ typedef struct
 
 	bool fog_of_war;
 
-	bool occlusion;
+	char occlusion;
 	bool block_count;
 
 	uint16_t bloodcutoff;
