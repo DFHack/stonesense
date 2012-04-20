@@ -225,7 +225,7 @@ void doKeys(int Key)
 		timeToReloadSegment = true;
 	}
 	if(Key == ALLEGRO_KEY_O){
-		config.occlusion = (config.occlusion+1)%3;
+		config.occlusion = !config.occlusion;
 		timeToReloadSegment = true;
 	}
 	if(Key == ALLEGRO_KEY_M){
