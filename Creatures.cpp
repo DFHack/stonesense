@@ -300,6 +300,15 @@ void DrawCreature(int drawx, int drawy, t_unit* creature, Block * b){
 		unsigned int sheety = 16 * (creature->profession / 7);
 		al_draw_bitmap_region(IMGProfSheet, sheetx, sheety, 16, 16, drawx -8 + (SPRITEWIDTH*config.scale/2), drawy - (16 + WALLHEIGHT*config.scale + offsety), 0);
 	}
+	
+	offsety += config.show_creature_professions ? 16 : 0;
+
+	if(config.show_creature_jobs && creature->current_job.active)
+	{
+		unsigned int sheetx = 16 * (creature->current_job.jobType % 7);
+		unsigned int sheety = 16 * (creature->current_job.jobType / 7);
+		al_draw_bitmap_region(IMGJobSheet, sheetx, sheety, 16, 16, drawx -8 + (SPRITEWIDTH*config.scale/2), drawy - (16 + WALLHEIGHT*config.scale + offsety), 0);
+	}
 }
 
 void DrawCreatureText(int drawx, int drawy, t_unit* creature ){

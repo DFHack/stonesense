@@ -191,6 +191,7 @@ typedef struct
 
 	bool show_creature_moods;
 	bool show_creature_professions;
+	bool show_creature_jobs;
 
 	bool transparentScreenshots;
 

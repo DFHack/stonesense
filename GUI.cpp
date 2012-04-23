@@ -57,6 +57,7 @@ ALLEGRO_BITMAP* IMGCreatureSheet;
 ALLEGRO_BITMAP* IMGRampSheet; 
 ALLEGRO_BITMAP* IMGStatusSheet; 
 ALLEGRO_BITMAP* IMGProfSheet; 
+ALLEGRO_BITMAP* IMGJobSheet; 
 ALLEGRO_BITMAP* IMGBloodSheet; 
 ALLEGRO_BITMAP* IMGEngFloorSheet;
 ALLEGRO_BITMAP* IMGEngLeftSheet;
@@ -1048,6 +1049,7 @@ void loadGraphicsFromDisk()
     if(!load_from_path(p, "ramps.png", IMGRampSheet)) return;
     if(!load_from_path(p, "SSStatusIcons.png", IMGStatusSheet)) return;
     if(!load_from_path(p, "SSProfIcons.png", IMGProfSheet)) return;
+    if(!load_from_path(p, "SSJobIcons.png", IMGJobSheet)) return;
     if(!load_from_path(p, "gibs.png", IMGBloodSheet)) return;
     if(!load_from_path(p, "engravings_floor.png", IMGEngFloorSheet)) return;
     if(!load_from_path(p, "engravings_left.png", IMGEngLeftSheet)) return;
@@ -1086,6 +1088,11 @@ void flushImgFiles()
 	{
 		al_destroy_bitmap(IMGProfSheet);
 		IMGProfSheet = 0;
+	}
+	if(IMGJobSheet)
+	{
+		al_destroy_bitmap(IMGJobSheet);
+		IMGJobSheet = 0;
 	}
 	if(IMGEngFloorSheet)
 	{
