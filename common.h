@@ -165,6 +165,7 @@ class SegmentWrap;
 void correctBlockForSegmetOffset(int32_t& x, int32_t& y, int32_t& z);
 
 void LogError(const char* msg, ...);
+void PrintMessage(const char* msg, ...);
 void LogVerbose(const char* msg, ...);
 void SetTitle(const char *format, ...);
 

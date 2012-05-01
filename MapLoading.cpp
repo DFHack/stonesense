@@ -778,11 +778,6 @@ WorldSegment* ReadMapSegment(int x, int y, int z, int sizex, int sizey, int size
 	config.cellDimX = cellDimX;
 	config.cellDimY = cellDimY;
 	config.cellDimZ = cellDimZ;
-	//bound view to world
-	if(x > cellDimX -sizex/2) DisplayedSegmentX = x = cellDimX -sizex/2;
-	if(y > cellDimY -sizey/2) DisplayedSegmentY = y = cellDimY -sizey/2;
-	if(x < -sizex/2) DisplayedSegmentX = x = -sizex/2;
-	if(y < -sizey/2) DisplayedSegmentY = y = -sizey/2;
 
 	//setup new world segment
 	WorldSegment* segment = new WorldSegment(x,y,z,sizex,sizey,sizez);

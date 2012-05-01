@@ -92,6 +92,16 @@ void LogError(const char* msg, ...){
 	fclose(fp);
 }
 
+
+void PrintMessage(const char* msg, ...){
+	va_list arglist;
+	va_start(arglist, msg);
+	char buf[512] = {0};
+	vsprintf(buf, msg, arglist);
+	Core::print(buf);
+	va_end(arglist);
+}
+
 void LogVerbose(const char* msg, ...){
 	if (!config.verbose_logging)
 		return;

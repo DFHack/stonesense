@@ -67,10 +67,22 @@ void changeRelativeToRotation( int &inputx, int &inputy, int stepx, int stepy ){
 
 void moveViewRelativeToRotation( int stepx, int stepy )
 {
+
 	if (config.follow_DFscreen)
 		changeRelativeToRotation(config.viewXoffset, config.viewYoffset, stepx, stepy );
-	else
+		//if we're following the DF screen, we DO NOT bound the view, since we have a simple way to get back
+	else{
 		changeRelativeToRotation(DisplayedSegmentX, DisplayedSegmentY, stepx, stepy );
+		//bound view to world
+		if((int)DisplayedSegmentX > (int)config.cellDimX -(int)config.segmentSize.x/2)
+			DisplayedSegmentX = config.cellDimX -config.segmentSize.x/2;
+		if((int)DisplayedSegmentY > (int)config.cellDimY -(int)config.segmentSize.y/2) 
+			DisplayedSegmentY = config.cellDimY -config.segmentSize.y/2;
+		if((int)DisplayedSegmentX < -(int)config.segmentSize.x/2) 
+			DisplayedSegmentX = -config.segmentSize.x/2;
+		if((int)DisplayedSegmentY < -(int)config.segmentSize.y/2) 
+			DisplayedSegmentY = -config.segmentSize.y/2;
+	}
 }
 
 
@@ -251,6 +263,19 @@ void doKeys(int Key)
 		else
 			config.follow_DFscreen = !config.follow_DFscreen;
 		timeToReloadSegment = true;
+	}
+	if(Key == ALLEGRO_KEY_Z){
+		if (config.follow_DFscreen)
+		{
+			config.viewXoffset = 0;
+			config.viewYoffset = 0;
+			config.viewZoffset = 0;
+		}
+		else
+		{
+			DisplayedSegmentX = (config.cellDimX -config.segmentSize.x)/2;
+			DisplayedSegmentY = (config.cellDimY -config.segmentSize.y)/2;
+		}
 	}
 	if(Key == ALLEGRO_KEY_1){
 		config.segmentSize.z--;
