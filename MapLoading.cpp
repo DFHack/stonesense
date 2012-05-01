@@ -772,22 +772,22 @@ WorldSegment* ReadMapSegment(int x, int y, int z, int sizex, int sizey, int size
 	int cellDimX, cellDimY, cellDimZ;
 	Maps::getSize((unsigned int &)cellDimX, (unsigned int &)cellDimY, (unsigned int &)cellDimZ);
 	//Store these
-	cellDimX = cellDimX * 16;
-	cellDimY = cellDimY * 16;
+	cellDimX = cellDimX * CELLEDGESIZE;
+	cellDimY = cellDimY * CELLEDGESIZE;
 	cellDimZ = cellDimZ;
 	config.cellDimX = cellDimX;
 	config.cellDimY = cellDimY;
 	config.cellDimZ = cellDimZ;
 	//bound view to world
-	if(x > cellDimX * CELLEDGESIZE -sizex/2) DisplayedSegmentX = x = cellDimX * CELLEDGESIZE -sizex/2;
-	if(y > cellDimY * CELLEDGESIZE -sizey/2) DisplayedSegmentY = y = cellDimY * CELLEDGESIZE -sizey/2;
+	if(x > cellDimX -sizex/2) DisplayedSegmentX = x = cellDimX -sizex/2;
+	if(y > cellDimY -sizey/2) DisplayedSegmentY = y = cellDimY -sizey/2;
 	if(x < -sizex/2) DisplayedSegmentX = x = -sizex/2;
 	if(y < -sizey/2) DisplayedSegmentY = y = -sizey/2;
 
 	//setup new world segment
 	WorldSegment* segment = new WorldSegment(x,y,z,sizex,sizey,sizez);
-	segment->regionSize.x = cellDimX * CELLEDGESIZE;
-	segment->regionSize.y = cellDimY * CELLEDGESIZE;
+	segment->regionSize.x = cellDimX;
+	segment->regionSize.y = cellDimY;
 	segment->regionSize.z = cellDimZ;
 	segment->rotation = DisplayedRotation;
 
