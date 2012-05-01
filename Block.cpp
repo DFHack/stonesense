@@ -146,6 +146,7 @@ void Block::Draw()
 	pointToScreen((int*)&drawx, (int*)&drawy, drawz);
 	drawx -= (TILEWIDTH>>1)*config.scale;
 
+	//TODO the following check should get incorporated into segment beautification
 	if(((drawx + TILEWIDTH*config.scale) < 0) || (drawx > al_get_bitmap_width(al_get_target_bitmap())) || ((drawy + (TILEHEIGHT + FLOORHEIGHT)*config.scale) < 0) || (drawy - WALLHEIGHT*config.scale > al_get_bitmap_height(al_get_target_bitmap())))
 		return;
 

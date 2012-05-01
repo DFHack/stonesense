@@ -326,22 +326,20 @@ void draw_ustr_border(const ALLEGRO_FONT *font, ALLEGRO_COLOR color, float x, fl
 }
 
 void pointToScreen(int *inx, int *iny, int inz){
-	int offx = al_get_bitmap_width(al_get_target_bitmap()) / 2;
-	int offy = (-20)-(BLOCKHEIGHT * config.lift_segment_offscreen);
-	int z=inz-1;
+	int z = inz-1;
+
 	int x = *inx-*iny;
-	int y = *inx+*iny;
 	x = x * TILEWIDTH / 2;
-	y = y * TILEHEIGHT / 2;
-	y-=z * BLOCKHEIGHT;
-	x+=offx;
-	y+=offy;
-	x-=al_get_bitmap_width(al_get_target_bitmap()) / 2;
-	y-=al_get_bitmap_height(al_get_target_bitmap()) / 2;
-	x*=config.scale;
-	y*=config.scale;
+	x *= config.scale;
 	x+=al_get_bitmap_width(al_get_target_bitmap()) / 2;
-	y+=al_get_bitmap_height(al_get_target_bitmap()) / 2;
+
+	int y = *inx+*iny;
+	y = y*TILEHEIGHT / 2;
+	y -= z*BLOCKHEIGHT;
+	y -= TILEHEIGHT*5/4;
+	y -= BLOCKHEIGHT*config.lift_segment_offscreen;
+	y *= config.scale;
+
 	*inx=x;*iny=y;
 }
 
@@ -860,7 +858,18 @@ void DrawSpriteFromSheet( int spriteNum, ALLEGRO_BITMAP* spriteSheet, ALLEGRO_CO
 		color.g *= 0.25f;
 		color.b *= 0.25f;
 	}
-	al_draw_tinted_scaled_bitmap(spriteSheet, premultiply(color), sheetx * SPRITEWIDTH * in_scale, sheety * SPRITEHEIGHT * in_scale, SPRITEWIDTH * in_scale, SPRITEHEIGHT * in_scale, x, y - (WALLHEIGHT)*config.scale, SPRITEWIDTH*config.scale, SPRITEHEIGHT*config.scale, 0);
+	al_draw_tinted_scaled_bitmap(
+		spriteSheet,
+		premultiply(color),
+		sheetx * SPRITEWIDTH * in_scale,
+		sheety * SPRITEHEIGHT * in_scale,
+		SPRITEWIDTH * in_scale,
+		SPRITEHEIGHT * in_scale,
+		x,
+		y - (WALLHEIGHT)*config.scale,
+		SPRITEWIDTH*config.scale,
+		SPRITEHEIGHT*config.scale,
+		0);
 }
 
 ALLEGRO_BITMAP * CreateSpriteFromSheet( int spriteNum, ALLEGRO_BITMAP* spriteSheet)
@@ -1396,14 +1405,12 @@ void dumpSegment()
 	*/
 }
 
-// FIXME: even more black magic.
 void saveMegashot(bool tall)
 {
-    return;
-    /*
 	config.showRenderStatus = true;
 	al_lock_mutex(config.readMutex);
-	draw_textf_border(font, al_map_rgb(255,255,255), al_get_bitmap_width(al_get_target_bitmap())/2, al_get_bitmap_height(al_get_target_bitmap())/2, ALLEGRO_ALIGN_CENTRE, "Saving large screenshot...");
+
+	draw_textf_border(font, al_map_rgb(255,255,255), al_get_bitmap_width(al_get_target_bitmap())/2, al_get_bitmap_height(al_get_target_bitmap())/2, ALLEGRO_ALIGN_CENTRE, "saving large screenshot...");
 	al_flip_display();
 	char filename[20] ={0};
 	FILE* fp;
@@ -1426,45 +1433,101 @@ void saveMegashot(bool tall)
 	int tempViewy = DisplayedSegmentY;
 	int tempViewz = DisplayedSegmentZ;
 	bool tempFollow = config.follow_DFscreen;
+	bool tempfog = config.fogenable;
 	int tempLift = config.lift_segment_offscreen;
 	//now make them real big.
 	config.follow_DFscreen = false;
+	config.fogenable = false;
 	config.lift_segment_offscreen = 0;
-	config.segmentSize.x = config.cellDimX + 2;
-	config.segmentSize.y = config.cellDimY + 2;
-	if(tall)
-		config.segmentSize.z = DisplayedSegmentZ + 1;
-	int bigImageWidth = (config.cellDimX * TILEWIDTH);
-	int bigImageHeight = ((config.cellDimX + config.cellDimY) * TILEHEIGHT / 2) + ((config.segmentSize.z - 1) * BLOCKHEIGHT);
-	parms.sizex = config.segmentSize.x;
-	parms.sizey = config.segmentSize.y;
+
+	//config.segmentSize.x = config.cellDimX + 2;
+	//config.segmentSize.y = config.cellDimY + 2;
+	if(tall) config.segmentSize.z = DisplayedSegmentZ + 1;
+
+	//parms.sizex = config.segmentSize.x;
+	//parms.sizey = config.segmentSize.y;
 	parms.sizez = config.segmentSize.z;
-	DisplayedSegmentX = -1;
-	DisplayedSegmentY = -1;
-	parms.x = DisplayedSegmentX;
-	parms.y = DisplayedSegmentY;
+	
 	parms.z = DisplayedSegmentZ;
-	//Rebuild stuff
-	read_segment(NULL);
+
+	int bigImageWidth = (config.cellDimX * TILEWIDTH)*config.scale;
+	int bigImageHeight = ( ((config.cellDimX + config.cellDimY) * TILEHEIGHT / 2) + ((config.segmentSize.z - 1) * BLOCKHEIGHT) )*config.scale;
+
 	//Draw the image and save it
 	bigFile = al_create_bitmap(bigImageWidth, bigImageHeight);
 	if(bigFile)
 	{
-		DFConsole->print("\nSaving large screenshot to %s\n", filename);
+		LogError("saving large screenshot to %s\n", filename);
 		al_set_target_bitmap(bigFile);
 		if(!config.transparentScreenshots)
 			al_clear_to_color(al_map_rgb(config.backr,config.backg,config.backb));
-		viewedSegment->drawAllBlocks();
+
+		//dealing with the rotations here
+		//TODO fix how this acts on 2x2 embarks
+		int startx, incrx, stopx;
+		int starty, incry, stopy;
+
+		startx = -1;
+		starty = -1;
+		incrx = parms.sizex-2;
+		incry = parms.sizey-2;
+		stopx = (int)config.cellDimX + 2;
+		stopy = (int)config.cellDimY + 2;
+		
+
+		if(DisplayedRotation == 1 || DisplayedRotation == 2)
+		{
+			starty = (int)config.cellDimY + 2 - incry;
+			stopy = -1 - incry;
+			DisplayedSegmentY = (int)config.cellDimY - incry - 1;
+			incry = -incry;
+		}
+		else{
+			DisplayedSegmentY = -1;
+		}
+
+		if(DisplayedRotation == 3 || DisplayedRotation == 2)
+		{
+			startx = (int)config.cellDimX + 2 - incrx;
+			stopx = -1 - incrx;
+			DisplayedSegmentX = (int)config.cellDimX - incrx - 1;
+			incrx = -incrx;
+		}
+		else{
+			DisplayedSegmentX = -1;
+		}
+		
+		parms.x = startx;
+		parms.y = starty;
+		
+		//now actually loop through and draw the subsegments
+		while((parms.y>=starty && parms.y<stopy) || (parms.y<=starty && parms.y>stopy))
+		{
+			while((parms.x>=startx && parms.x<stopx) || (parms.x<=startx && parms.x>stopx))
+			{
+				//read and draw each individual segment
+				read_segment(NULL);
+				WorldSegment * segment = map_segment->get();
+				segment->drawAllBlocks();
+
+				//DisplayedSegmentX += parms.sizex;
+				parms.x += incrx;
+			}
+			parms.x = startx;
+			parms.y += incry;
+		}
+
+
 		al_save_bitmap(filename, bigFile);
 		al_set_target_bitmap(al_get_backbuffer(al_get_current_display()));
-		al_destroy_bitmap(bigFile);
 		timer = clock() - timer;
-		DFConsole->print("Took %ims\n", timer);
+		LogError("Took %ims\n", timer);
 	}
 	else
 	{
-		DFConsole->printerr("Failed to take large screenshot. try using software mode\n");
+		LogError("Failed to take large screenshot. try using software mode\n");
 	}
+	al_destroy_bitmap(bigFile);
 	//restore everything that we changed.
 	config.segmentSize = backupsize;
 	parms.sizex = config.segmentSize.x;
@@ -1476,11 +1539,12 @@ void saveMegashot(bool tall)
 	parms.x = DisplayedSegmentX;
 	parms.y = DisplayedSegmentY;
 	parms.z = DisplayedSegmentZ;
+	config.fogenable = tempfog;
 	config.follow_DFscreen = tempFollow;
 	config.lift_segment_offscreen = tempLift;
 	config.showRenderStatus = false;
+	
 	al_unlock_mutex(config.readMutex);
-	*/
 }
 
 void draw_particle_cloud(int count, float centerX, float centerY, float rangeX, float rangeY, ALLEGRO_BITMAP *sprite, ALLEGRO_COLOR tint)
