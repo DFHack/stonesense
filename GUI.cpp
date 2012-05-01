@@ -373,10 +373,10 @@ void DrawCurrentLevelOutline(bool backPart){
 	Crd2D p2 = WorldBlockToScreen(x, y + sizey , z);
 	Crd2D p3 = WorldBlockToScreen(x + sizex , y, z);
 	Crd2D p4 = WorldBlockToScreen(x + sizex , y + sizey , z);
-	p1.y += FLOORHEIGHT;
-	p2.y += FLOORHEIGHT;
-	p3.y += FLOORHEIGHT;
-	p4.y += FLOORHEIGHT;
+	p1.y += FLOORHEIGHT*config.scale;
+	p2.y += FLOORHEIGHT*config.scale;
+	p3.y += FLOORHEIGHT*config.scale;
+	p4.y += FLOORHEIGHT*config.scale;
 	if(backPart){
 		al_draw_line(p1.x, p1.y, p1.x, p1.y-BLOCKHEIGHT*config.scale, color_segmentoutline, 0);
 		al_draw_line(p1.x, p1.y, p1.x, p1.y-BLOCKHEIGHT*config.scale, color_segmentoutline, 0);
@@ -1298,6 +1298,7 @@ void saveScreenshot(){
 	//al_set_new_bitmap_format(ALLEGRO_PIXEL_FORMAT_ANY_NO_ALPHA);
 	ALLEGRO_BITMAP* temp = al_create_bitmap(al_get_bitmap_width(al_get_target_bitmap()), al_get_bitmap_height(al_get_target_bitmap()));
 	al_set_target_bitmap(temp);
+	PrintMessage("saving screenshot to %s\n", filename);
 	if(!config.transparentScreenshots)
 		al_clear_to_color(al_map_rgb(config.backr,config.backg,config.backb));
 	paintboard();
@@ -1440,45 +1441,39 @@ void saveMegashot(bool tall)
 	config.fogenable = false;
 	config.lift_segment_offscreen = 0;
 
-	//config.segmentSize.x = config.cellDimX + 2;
-	//config.segmentSize.y = config.cellDimY + 2;
 	if(tall) config.segmentSize.z = DisplayedSegmentZ + 1;
-
-	//parms.sizex = config.segmentSize.x;
-	//parms.sizey = config.segmentSize.y;
 	parms.sizez = config.segmentSize.z;
-	
 	parms.z = DisplayedSegmentZ;
 
+	//make the image
 	int bigImageWidth = (config.cellDimX * TILEWIDTH)*config.scale;
 	int bigImageHeight = ( ((config.cellDimX + config.cellDimY) * TILEHEIGHT / 2) + ((config.segmentSize.z - 1) * BLOCKHEIGHT) )*config.scale;
-
-	//Draw the image and save it
 	bigFile = al_create_bitmap(bigImageWidth, bigImageHeight);
+
+	//draw and save the image
 	if(bigFile)
 	{
-		LogError("saving large screenshot to %s\n", filename);
+		PrintMessage("saving large screenshot to %s\n", filename);
 		al_set_target_bitmap(bigFile);
 		if(!config.transparentScreenshots)
 			al_clear_to_color(al_map_rgb(config.backr,config.backg,config.backb));
 
-		//dealing with the rotations here
-		//TODO fix how this acts on 2x2 embarks
-		int startx, incrx, stopx;
-		int starty, incry, stopy;
+		//here we deal with the rotations
+		int startx, incrx, numx;
+		int starty, incry, numy;
 
 		startx = -1;
 		starty = -1;
 		incrx = parms.sizex-2;
 		incry = parms.sizey-2;
-		stopx = (int)config.cellDimX + 2;
-		stopy = (int)config.cellDimY + 2;
-		
+		numx = (int)(config.cellDimX+3);
+		numx = numx/incrx + (numx%incrx==0 ? 0 : 1);
+		numy = (int)(config.cellDimY+3);
+		numy = numy/incry + (numx%incry==0 ? 0 : 1);
 
 		if(DisplayedRotation == 1 || DisplayedRotation == 2)
 		{
 			starty = (int)config.cellDimY + 2 - incry;
-			stopy = -1 - incry;
 			DisplayedSegmentY = (int)config.cellDimY - incry - 1;
 			incry = -incry;
 		}
@@ -1489,7 +1484,6 @@ void saveMegashot(bool tall)
 		if(DisplayedRotation == 3 || DisplayedRotation == 2)
 		{
 			startx = (int)config.cellDimX + 2 - incrx;
-			stopx = -1 - incrx;
 			DisplayedSegmentX = (int)config.cellDimX - incrx - 1;
 			incrx = -incrx;
 		}
@@ -1501,16 +1495,15 @@ void saveMegashot(bool tall)
 		parms.y = starty;
 		
 		//now actually loop through and draw the subsegments
-		while((parms.y>=starty && parms.y<stopy) || (parms.y<=starty && parms.y>stopy))
+		for(int i=0; i<numy; i++)
 		{
-			while((parms.x>=startx && parms.x<stopx) || (parms.x<=startx && parms.x>stopx))
+			for(int j=0; j<numx; j++)
 			{
 				//read and draw each individual segment
 				read_segment(NULL);
 				WorldSegment * segment = map_segment->get();
 				segment->drawAllBlocks();
 
-				//DisplayedSegmentX += parms.sizex;
 				parms.x += incrx;
 			}
 			parms.x = startx;
@@ -1521,11 +1514,11 @@ void saveMegashot(bool tall)
 		al_save_bitmap(filename, bigFile);
 		al_set_target_bitmap(al_get_backbuffer(al_get_current_display()));
 		timer = clock() - timer;
-		LogError("Took %ims\n", timer);
+		PrintMessage("\ttime for screenshot %ims\n", timer);
 	}
 	else
 	{
-		LogError("Failed to take large screenshot. try using software mode\n");
+		LogError("failed to take large screenshot; try zooming out or using software mode\n");
 	}
 	al_destroy_bitmap(bigFile);
 	//restore everything that we changed.
