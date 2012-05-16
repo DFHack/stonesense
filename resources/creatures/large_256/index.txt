@@ -1,8 +1,7 @@
 jabber.xml
 crundle.xml
 
-waterbuf.xml
-goat.xml
-sheep.xml
+wild.xml
+domestic.xml
 
 dwarf.xml
