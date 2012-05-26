@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<creatures>
+ <creature gameID="JABBERER"  file="jabber.png" >
+  
+  <variant special="Normal" prof="CHILD" sheetIndex="40" zoom="2" color="bodypart" bodypart="skin" >
+  <subsprite sheetIndex="42" zoom="2" color="xml" red="200" green="180" blue="50" /> 
+  <subsprite sheetIndex="43" zoom="2" color="bodypart" bodypart="feathers" /> 
+  <subsprite sheetIndex="44" zoom="2" /> 
+  </variant>
+  
+  <variant special="Normal" sheetIndex="20" zoom="2" color="bodypart" bodypart="skin" >
+  <subsprite sheetIndex="0" zoom="2" color="bodypart" bodypart="skin" offsety="-32"/> 
+  <subsprite sheetIndex="1" zoom="2" color="xml" red="240" green="120" blue="120" offsety="-32"/> 
+  <subsprite sheetIndex="2" zoom="2" color="xml" red="250" green="200" blue="60" offsety="-32"/> 
+  <subsprite sheetIndex="23" zoom="2" color="bodypart" bodypart="feathers" /> 
+  <subsprite sheetIndex="3" zoom="2" color="bodypart" bodypart="feathers" offsety="-32"/> 
+  <subsprite sheetIndex="24" zoom="2" /> 
+  <subsprite sheetIndex="4" zoom="2" offsety="-32"/> 
+  </variant>
+  
+  </creature>
+  
+</creatures>
