@@ -5,6 +5,7 @@
 class BlockFactory
 {
   uint32_t poolSize;
+  uint32_t blocksCreated;
   vector<Block*> pool;
   
 public:
@@ -13,6 +14,7 @@ public:
   Block* allocateBlock( );
   void deleteBlock( Block* );
   uint32_t getPoolSize(){ return poolSize; }
+  uint32_t getBlocksCreated(){ return blocksCreated; }
 };
 
 

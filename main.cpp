@@ -6,6 +6,7 @@ using namespace std;
 
 #include "common.h"
 #include "Block.h"
+#include "BlockFactory.h"
 #include "GUI.h"
 //#include "SpriteMaps.h"
 #include "GameBuildings.h"
@@ -520,6 +521,9 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
         last->Dispose();
         delete last;
     }
+
+	//need to explicitly tear down the current block factory
+	blockFactory.~BlockFactory();
 
     al_destroy_bitmap(IMGIcon);
     IMGIcon = 0;
