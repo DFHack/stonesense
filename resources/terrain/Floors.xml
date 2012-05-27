@@ -2,10 +2,10 @@
 <floors file="floors.png">
   <!-- watery -->
   <floor sheetIndex="4" color = "material">
-		<!-- add some mud on top-->
-		<subsprite sheetIndex="18"/>
     <!-- pool -->
     <terrain value="2" />
+	<!-- below pool ramp -->
+	<terrain value="3" />
     <!-- waterfall -->
     <terrain value="89" />
     <!-- river src -->
@@ -19,6 +19,15 @@
     <terrain value="370" />
     <terrain value="371" />
     <terrain value="372" />
+	<!-- below river ramp -->
+	<terrain value="469" />
+	<terrain value="470" />
+	<terrain value="471" />
+	<terrain value="472" />
+	<terrain value="473" />
+	<terrain value="474" />
+	<terrain value="475" />
+	<terrain value="476" />
     <!-- stream -->
     <terrain value="373" />
     <terrain value="374" />
