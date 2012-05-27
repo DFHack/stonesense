@@ -27,6 +27,7 @@ Well.xml
 Stockpile.xml
 Zone.xml
 
+AnimalTrap.xml
 WeaponTrap.xml
 StonefallTrap.xml
 CageTrap.xml

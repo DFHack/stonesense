@@ -1,7 +1,13 @@
 <?xml version="1.0" ?>
 
-
-
 <building name="Trap" game_type="Trap" game_subtype="WeaponTrap">
-		<sprite index = 356 />
-</building> 
+	<sprite index="356" />
+	<!--if>
+		<NeighbourWall dir="West" />
+			<sprite index ="376" />
+	</if>
+	<if>
+		<NeighbourWall dir="North" />
+			<sprite index ="377" />
+	</if-->
+</building>
