@@ -1,8 +1,11 @@
 <?xml version="1.0"?>
+
 <building name="Table" game_type="Table">
   <if>
     <MaterialType value="Wood" />
-    <sprite index="82" color="building" />
+    <sprite index="82" color="building" >
+		<subsprite sheetIndex = "102" bloodmin = "1" color = "blood" />
+	</sprite>
   </if>
   <else>
     <or>
@@ -33,11 +36,28 @@
       <MaterialType value="Metal" subtype="BISMUTH_BRONZE" />
       <MaterialType value="Metal" subtype="ADAMANTINE" />
     </or>
-    <sprite index="63" color="building" />
+    <sprite index="103" color="building" >
+		<subsprite sheetIndex = "102" bloodmin = "1" color = "blood" />
+	</sprite>
+  </else>
+  <else><!-- GreenGlass -->
+	<MaterialType value="GreenGlass" />
+	<sprite index="62" >
+		<subsprite sheetIndex = "102" bloodmin = "1" color = "blood" />
+	</sprite>
+  </else>
+  <else><!-- ClearGlass or CrystalGlass -->
+	<or>
+		<MaterialType value="ClearGlass" />
+		<MaterialType value="CrystalGlass" />
+	</or>
+	<sprite index="63" >
+		<subsprite sheetIndex = "102" bloodmin = "1" color = "blood" />
+	</sprite>
   </else>
   <else>
     <sprite index="83" color="building" >
-		<subsprite sheetIndex = "62" bloodmin = "1" color = "blood" />
+		<subsprite sheetIndex = "102" bloodmin = "1" color = "blood" />
 	</sprite>
   </else>
 </building>

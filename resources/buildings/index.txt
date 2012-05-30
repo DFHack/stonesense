@@ -27,6 +27,7 @@ Well.xml
 Stockpile.xml
 Zone.xml
 
+AnimalTrap.xml
 WeaponTrap.xml
 StonefallTrap.xml
 CageTrap.xml
@@ -48,7 +49,7 @@ WoodFurnace.xml
 Forge.xml
 MagmaForge.xml
 Masons.xml
-Craftdwarfs.xml
+Craftsdwarfs.xml
 Mechanics.xml
 Butchers.xml
 Loom.xml

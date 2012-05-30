@@ -61,7 +61,7 @@
   </variant>
   </creature>
   
-   <creature gameID="BIRD_GEESE"  file="caravan_animals.png" >
+   <creature gameID="BIRD_GOOSE"  file="caravan_animals.png" >
   <variant prof="CHILD" sheetIndex ="42"  color = "bodypart" bodypart = "feathers" >
   <subsprite sheetIndex = "43" />
   </variant>

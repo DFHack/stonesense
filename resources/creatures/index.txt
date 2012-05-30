@@ -4,7 +4,7 @@ caravan_animals.xml
 
 beefmo_large_ocean.xml
 beefmo_subterranean.xml
-humies.xml
+humans.xml
 elfs.xml
 wild_animals.xml
 #goblins.xml

@@ -1,7 +1,5 @@
 <?xml version="1.0" ?>
 
-
-
 <building name="Trap" game_type="Trap" game_subtype="StoneFallTrap">
-		<sprite index = 355 />
+		<sprite index="359" />
 </building> 

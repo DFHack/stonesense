@@ -1,7 +1,5 @@
 <?xml version="1.0" ?>
 
-
-
 <building name="Vertical Bars" game_type="BarsVertical" file="VerticalBars.png"> 
 
 	<!-- straight or end pieces -->
@@ -22,7 +20,7 @@
 				</or>
 			</not>
 		</and>
-		<sprite index=0 />
+		<sprite index="0" color="building" />
 	</if>	
 	<else>
 		<and>
@@ -41,7 +39,7 @@
 				</or>
 			</not>
 		</and>
-		<sprite index=1  />
+		<sprite index="1"  color="building" />
 	</else>
 	
 	<!-- Center piece -->
@@ -64,7 +62,7 @@
 				<NeighbourWall dir="South" />
 			</or>
 		</and>
-		<sprite index=2  />
+		<sprite index="2"  color="building" />
 	</else>
 	
 	<!-- Corners piece -->
@@ -85,7 +83,7 @@
 				</or>
 			</not>
 		</and>
-		<sprite index=3  />
+		<sprite index="3" color="building" />
 	</else>	
 		<else>
 		<and>
@@ -104,7 +102,7 @@
 				</or>
 			</not>
 		</and>
-		<sprite index=4  />
+		<sprite index="4" color="building" />
 	</else>	
 	<else>
 		<and>
@@ -123,7 +121,7 @@
 				</or>
 			</not>
 		</and>
-		<sprite index=5  />
+		<sprite index="5" color="building" />
 	</else>
 	<else>
 		<and>
@@ -142,9 +140,9 @@
 				</or>
 			</not>
 		</and>
-		<sprite index=6  />
+		<sprite index="6" color="building" />
 	</else>
-	//T-Sections
+	<!-- T-Sections -->
 	<else>
 		<and>
 			<or>
@@ -162,7 +160,7 @@
 				</or>
 			</not>
 		</and>
-		<sprite index=7  />
+		<sprite index="7" color="building" />
 	</else>	
 	<else>
 		<and>
@@ -181,7 +179,7 @@
 				</or>
 			</not>
 		</and>
-		<sprite index=8  />
+		<sprite index="8" color="building" />
 	</else>
 	<else>
 		<and>
@@ -200,7 +198,7 @@
 				</or>
 			</not>
 		</and>
-		<sprite index=9  />
+		<sprite index="9" color="building" />
 	</else>
 	<else>
 		<and>
@@ -219,10 +217,10 @@
 				</or>
 			</not>
 		</and>
-		<sprite index=10  />
+		<sprite index="10" color="building" />
 	</else>
 	<!-- default -->
 	<else>
-		<sprite index=0  />
+		<sprite index="0" color="building" />
 	</else>
 </building> 
