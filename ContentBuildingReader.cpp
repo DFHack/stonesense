@@ -331,7 +331,7 @@ bool addSingleBuildingConfig( TiXmlElement* elemRoot,  vector<BuildingConfigurat
         {
             if(!strGameSub)
             {
-                contentError("<building> Is generic - game_subtype missing.",elemRoot);
+                contentWarning("<building> Is generic - game_subtype missing.",elemRoot);
                 break;
             }
             FOR_ENUM_ITEMS(furnace_type,i)
@@ -355,7 +355,7 @@ bool addSingleBuildingConfig( TiXmlElement* elemRoot,  vector<BuildingConfigurat
         {
             if(!strGameSub)
             {
-                contentError("<building> Is generic - game_subtype missing.",elemRoot);
+                contentWarning("<building> Is generic - game_subtype missing.",elemRoot);
                 break;
             }
             FOR_ENUM_ITEMS(construction_type,i)
@@ -377,7 +377,7 @@ bool addSingleBuildingConfig( TiXmlElement* elemRoot,  vector<BuildingConfigurat
         {
             if(!strGameSub)
             {
-                contentError("<building> Is generic - game_subtype missing.",elemRoot);
+                contentWarning("<building> Is generic - game_subtype missing.",elemRoot);
                 break;
             }
             FOR_ENUM_ITEMS(siegeengine_type,i)
@@ -399,7 +399,7 @@ bool addSingleBuildingConfig( TiXmlElement* elemRoot,  vector<BuildingConfigurat
         {
             if(!strGameSub)
             {
-                contentError("<building> Is generic - game_subtype missing.",elemRoot);
+                contentWarning("<building> Is generic - game_subtype missing.",elemRoot);
                 break;
             }
             FOR_ENUM_ITEMS(shop_type,i)
@@ -421,7 +421,7 @@ bool addSingleBuildingConfig( TiXmlElement* elemRoot,  vector<BuildingConfigurat
         {
             if(!strGameSub)
             {
-                contentError("<building> Is generic - game_subtype missing.",elemRoot);
+                contentWarning("<building> Is generic - game_subtype missing.",elemRoot);
                 break;
             }
             FOR_ENUM_ITEMS(workshop_type,i)
