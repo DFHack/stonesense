@@ -62,6 +62,7 @@ ALLEGRO_BITMAP* IMGBloodSheet;
 ALLEGRO_BITMAP* IMGEngFloorSheet;
 ALLEGRO_BITMAP* IMGEngLeftSheet;
 ALLEGRO_BITMAP* IMGEngRightSheet;
+ALLEGRO_BITMAP* IMGLetterSheet;
 
 ALLEGRO_BITMAP* buffer = 0;
 ALLEGRO_BITMAP* bigFile = 0;
@@ -1063,6 +1064,7 @@ void loadGraphicsFromDisk()
     if(!load_from_path(p, "engravings_floor.png", IMGEngFloorSheet)) return;
     if(!load_from_path(p, "engravings_left.png", IMGEngLeftSheet)) return;
     if(!load_from_path(p, "engravings_right.png", IMGEngRightSheet)) return;
+    if(!load_from_path(p, "Sir_Henry's_32x32.png", IMGLetterSheet)) return;
     al_destroy_path(p);
     createEffectSprites();
 }
@@ -1117,6 +1119,11 @@ void flushImgFiles()
 	{
 		al_destroy_bitmap(IMGEngRightSheet);
 		IMGEngRightSheet = 0;
+	}
+	if(IMGLetterSheet)
+	{
+		al_destroy_bitmap(IMGLetterSheet);
+		IMGLetterSheet = 0;
 	}
 	uint32_t numFiles = (uint32_t)IMGFilelist.size();
 	assert( numFiles == IMGFilenames.size());
