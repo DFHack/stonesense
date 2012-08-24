@@ -444,7 +444,10 @@ void contentError(const char* message, TiXmlNode* element)
 {
 	LogError("%s: %s: %s (Line %d)\n",getDocument(element),message,element->Value(),element->Row());
 }
-
+void contentWarning(const char* message, TiXmlNode* element)
+{
+	LogVerbose("%s: %s: %s (Line %d)\n",getDocument(element),message,element->Value(),element->Row());
+}
 // converts list of characters 0-5 into bits, ignoring garbage
 // eg  "035" or "0  3 5" or "0xx3x5" are all good
 char getAnimFrames(const char* framestring)
