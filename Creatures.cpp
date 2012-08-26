@@ -283,7 +283,7 @@ void DrawCreature(int drawx, int drawy, t_unit* creature, Block * b){
 	{
 		df::creature_raw *raw = df::global::world->raws.creatures.all[creature->race];
 		int spritenum = raw->creature_tile;
-		if(raw->caste[creature->caste]->caste_tile)
+		if(raw->caste[creature->caste]->caste_tile != 1)
 			spritenum = raw->caste[creature->caste]->caste_tile;
 		spritenum += (spritenum/16)*4;
 		ALLEGRO_COLOR tilecolor = config.colors.getDfColor(DFHack::Units::getCasteProfessionColor(creature->race,creature->caste,(df::profession)creature->profession));
