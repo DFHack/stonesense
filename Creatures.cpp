@@ -283,8 +283,11 @@ void DrawCreature(int drawx, int drawy, t_unit* creature, Block * b){
 	{
 		df::creature_raw *raw = df::global::world->raws.creatures.all[creature->race];
 		int spritenum = raw->creature_tile;
+		if(raw->caste[creature->caste]->caste_tile)
+			spritenum = raw->caste[creature->caste]->caste_tile;
 		spritenum += (spritenum/16)*4;
-		DrawSpriteFromSheet(spritenum,IMGLetterSheet,config.colors.getDfColor(raw->color[0],raw->color[2]),drawx,drawy,b);
+		ALLEGRO_COLOR tilecolor = config.colors.getDfColor(DFHack::Units::getCasteProfessionColor(creature->race,creature->caste,(df::profession)creature->profession));
+		DrawSpriteFromSheet(spritenum,IMGLetterSheet,tilecolor,drawx,drawy,b);
 	}
 	
 	unsigned int offsety = config.show_creature_names ? al_get_font_line_height(font) : 0;
