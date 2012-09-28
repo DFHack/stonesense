@@ -601,15 +601,15 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
 	{
         df::flow_info * eff = *iter;
         assert(eff != NULL);
-        Block* b = segment.getBlock( eff->x, eff->y, eff->z);
+        Block* b = segment.getBlock( eff->pos.x, eff->pos.y, eff->pos.z);
         if(!b)
         {
-			if(segment.CoordinateInsideSegment(eff->x, eff->y, eff->z))
+			if(segment.CoordinateInsideSegment(eff->pos.x, eff->pos.y, eff->pos.z))
 			{
 				b = new Block(&segment);
-				b->x=eff->x;
-				b->y=eff->y;
-				b->z=eff->z;
+				b->x=eff->pos.x;
+				b->y=eff->pos.y;
+				b->z=eff->pos.z;
 				segment.addBlock(b);
 			}
 			else
