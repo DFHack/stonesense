@@ -11,6 +11,7 @@ using namespace std;
 //#include "SpriteMaps.h"
 #include "GameBuildings.h"
 #include "Constructions.h"
+#include "DumpInfo.h"
 #include "MapLoading.h"
 #include "WorldSegment.h"
 #include "Creatures.h"
@@ -572,6 +573,12 @@ DFhackCExport command_result stonesense_command(color_ostream &out, std::vector<
         out.print("Stonesense already running.\n");
         return CR_OK;
     }
+
+	if(params.size() > 0 ){
+		DumpInfo(out, params);
+        return CR_OK;
+	}
+
     stonesense_started = true;
     if(!al_is_system_installed())
     {

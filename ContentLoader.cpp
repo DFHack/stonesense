@@ -20,8 +20,6 @@
 
 ContentLoader * contentLoader;
 
-
-
 ContentLoader::ContentLoader(void) { }
 ContentLoader::~ContentLoader(void)
 { 
@@ -34,59 +32,6 @@ ContentLoader::~ContentLoader(void)
 	colorConfigs.clear();
 }
 
-void DumpMaterialNamesToDisk(vector<t_matgloss> material, const char* filename){
-	FILE* fp = fopen(filename, "w");
-	if(!fp) return;
-	for(uint32_t j=0; j < material.size(); j++){
-		fprintf(fp, "%i:%s\n",j, material[j].id.c_str());
-	}
-	fclose(fp);
-}
-
-void DumpItemNamesToDisk(const char* filename)
-{
-	df::world_raws::T_itemdefs &defs = df::global::world->raws.itemdefs;
-	FILE* fp = fopen(filename, "w");
-	if(!fp) return;
-	fprintf(fp, "WEAPON:\n");
-	for(uint32_t j=0; j < defs.weapons.size(); j++){
-		fprintf(fp, "%i:%s\n",j, defs.weapons[j]->id.c_str());
-	}
-	fprintf(fp, "ARMOR:\n");
-	for(uint32_t j=0; j < defs.armor.size(); j++){
-		fprintf(fp, "%i:%s\n",j, defs.armor[j]->id.c_str());
-	}
-	fprintf(fp, "SHOES:\n");
-	for(uint32_t j=0; j < defs.shoes.size(); j++){
-		fprintf(fp, "%i:%s\n",j, defs.shoes[j]->id.c_str());
-	}
-	fprintf(fp, "SHIELD:\n");
-	for(uint32_t j=0; j < defs.shields.size(); j++){
-		fprintf(fp, "%i:%s\n",j, defs.shields[j]->id.c_str());
-	}
-	fprintf(fp, "HELM:\n");
-	for(uint32_t j=0; j < defs.helms.size(); j++){
-		fprintf(fp, "%i:%s\n",j, defs.helms[j]->id.c_str());
-	}
-	fprintf(fp, "GLOVES:\n");
-	for(uint32_t j=0; j < defs.gloves.size(); j++){
-		fprintf(fp, "%i:%s\n",j, defs.gloves[j]->id.c_str());
-	}
-	fprintf(fp, "PANTS:\n");
-	for(uint32_t j=0; j < defs.pants.size(); j++){
-		fprintf(fp, "%i:%s\n",j, defs.pants[j]->id.c_str());
-	}
-	fclose(fp);
-}
-
-void DumpPrefessionNamesToDisk(vector<string> material, const char* filename){
-	FILE* fp = fopen(filename, "w");
-	if(!fp) return;
-	for(uint32_t j=0; j < material.size(); j++){
-		fprintf(fp, "%i:%s\n",j, material[j].c_str());
-	}
-	fclose(fp);
-}
 bool ContentLoader::Load(){
 	/*draw_textf_border(font, 
 	al_get_bitmap_width(al_get_target_bitmap())/2,
@@ -196,13 +141,6 @@ bool ContentLoader::Load(){
 		}
 	}
 	*/
-
-	//DumpPrefessionNamesToDisk(professionStrings, "priofessiondump.txt");
-	//DumpPrefessionNamesToDisk(classIdStrings, "buildingdump.txt");
-	//DumpMaterialNamesToDisk(inorganicMaterials, "DUMPSES.txt");
-	//DumpMaterialNamesToDisk(Mats->race, "creaturedump.txt");
-	DumpItemNamesToDisk("itemdump.txt");
-	//DF.Resume();
 
 	//Find what is obsidian
 	contentLoader->obsidian = lookupMaterialIndex(INORGANIC, "OBSIDIAN");

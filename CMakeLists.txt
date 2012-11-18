@@ -18,6 +18,7 @@ SET(PROJECT_SRCS
     ContentLoader.cpp
     CreatureConfiguration.cpp
     Creatures.cpp
+	DumpInfo.cpp
     FluidConfiguration.cpp
     GUI.cpp
     GameBuildings.cpp
