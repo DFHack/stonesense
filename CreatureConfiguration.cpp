@@ -26,27 +26,7 @@ CreatureConfiguration::CreatureConfiguration(int professionID, const char* profe
 	}
 }
 
-CreatureConfiguration::~CreatureConfiguration(void)
-{
-}
-
-void DumpCreatureNamesToDisk(){
-	/*FILE* fp = fopen("dump.txt", "w");
-	if(!fp) return;
-	for(uint32_t j=0; j < v_creatureNames.size(); j++){
-	fprintf(fp, "%i:%s\n",j, v_creatureNames[j].id);
-	}
-	fclose(fp);*/
-}
-void DumpProfessionsToDisk(){
-	FILE* fp = fopen("dump.txt", "w");
-	if(!fp) return;
-	string proffStr;
-	for(int j=0; (proffStr = contentLoader->professionStrings[j]) != "" ; j++){
-		fprintf(fp, "%i:%s\n",j, proffStr.c_str());
-	}
-	fclose(fp);
-}
+CreatureConfiguration::~CreatureConfiguration(void){}
 
 int translateProfession(const char* currentProf)
 {
