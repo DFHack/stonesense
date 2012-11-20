@@ -32,12 +32,12 @@ inline bool IDisWall(int in){
 
 inline bool IDisFloor(int in){
     //if not a custom type, do a lookup in dfHack's interface
-    return isFloorTerrain( (tiletype::tiletype) in );;
+    return isFloorTerrain( (tiletype::tiletype) in );
 }
 
-inline bool IDhasNoFloor(int in){
+inline bool IDhasTransparentFloor(int in){
     //if not a custom type, do a lookup in dfHack's interface
-    return LowPassable( (tiletype::tiletype) in );;
+    return FlowPassableDown( (tiletype::tiletype) in );
 }
 
 //big look up table
@@ -191,43 +191,18 @@ bool areNeighborsVisible(WorldSegment* segment, Block* b)
 		return true;
 	
 	temp = segment->getBlock(b->x+1, b->y, b->z);
-	if(temp && !(temp->designation.bits.hidden))
+	if(!temp || !(temp->designation.bits.hidden))
 		return true;
 	temp = segment->getBlock(b->x-1, b->y, b->z);
-	if(temp && !(temp->designation.bits.hidden))
+	if(!temp || !(temp->designation.bits.hidden))
 		return true;
 	temp = segment->getBlock(b->x, b->y+1, b->z);
-	if(temp && !(temp->designation.bits.hidden))
+	if(!temp || !(temp->designation.bits.hidden))
 		return true;
 	temp = segment->getBlock(b->x, b->y-1, b->z);
-	if(temp && !(temp->designation.bits.hidden))
+	if(!temp || !(temp->designation.bits.hidden))
 		return true;
 return false;
-}
-
-bool areCellNeighborsVisible(t_designation designations[16][16],int x,int y)
-{
-	//don't do anything if this is the edge of the cell
-	if(x==0 || y==0 || x==15 || y==15)
-		return true;
-	//otherwise look at the neighbors and try to remove what we can
-	if(designations[x-1][y-1].bits.hidden == false)
-		return true;
-	if(designations[x-1][y].bits.hidden == false)
-		return true;
-	if(designations[x-1][y+1].bits.hidden == false)
-		return true;
-	if(designations[x][y-1].bits.hidden == false)
-		return true;
-	if(designations[x][y+1].bits.hidden == false)
-		return true;
-	if(designations[x+1][y-1].bits.hidden == false)
-		return true;
-	if(designations[x+1][y].bits.hidden == false)
-		return true;
-	if(designations[x+1][y+1].bits.hidden == false)
-		return true;
-	return false;
 }
 
 /**
@@ -240,20 +215,20 @@ bool enclosed(WorldSegment* segment, Block* b)
 
 	Block* temp;
 	temp = segment->getBlock(b->x, b->y, b->z+1);
-	if(!temp || IDhasNoFloor(temp->tileType))
+	if(!temp || IDhasTransparentFloor(temp->tileType))
 		return false;
 	
 	temp = segment->getBlock(b->x+1, b->y, b->z);
-	if(temp && !IDisWall(temp->tileType))
+	if(!temp || !IDisWall(temp->tileType))
 		return false;
 	temp = segment->getBlock(b->x-1, b->y, b->z);
-	if(temp && !IDisWall(temp->tileType))
+	if(!temp || !IDisWall(temp->tileType))
 		return false;
 	temp = segment->getBlock(b->x, b->y+1, b->z);
-	if(temp && !IDisWall(temp->tileType))
+	if(!temp || !IDisWall(temp->tileType))
 		return false;
 	temp = segment->getBlock(b->x, b->y-1, b->z);
-	if(temp && !IDisWall(temp->tileType))
+	if(!temp || !IDisWall(temp->tileType))
 		return false;
 
 	return true;
@@ -420,22 +395,20 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
 			//  int j = 10;
 
 			//save in segment
-			bool isHidden = trueBlock->designation[lx][ly].bits.hidden;
-			//option for including hidden blocks
-			isHidden &= !config.show_hidden_blocks;
-			bool shouldBeIncluded = (!isOpenTerrain(b->tileType) || b->water.index || !trueBlock->designation[lx][ly].bits.outside) && !isHidden;
+			bool shouldBeIncluded = true;
+			
+			if(isOpenTerrain(b->tileType)){
+				if(config.show_hidden_blocks)
+					shouldBeIncluded = false;
+				else if(!(trueBlock->designation[lx][ly].bits.hidden))
+					shouldBeIncluded = false;
+			}
+			if(!config.show_hidden_blocks 
+				&& !config.shade_hidden_blocks
+				&& trueBlock->designation[lx][ly].bits.hidden)
+					shouldBeIncluded = false;
 
-			//add back in blocks that are candidates for being shaded black (secondary check in beautify_Segment)
-			if(	(!shouldBeIncluded) 
-				&& config.shade_hidden_blocks 
-				&& isHidden 
-				&& ( isBlockOnVisibleEdgeOfSegment(&segment, b) 
-					|| areCellNeighborsVisible(trueBlock->designation, lx, ly)
-					|| (!segment.getBlock(b->x, b->y, b->z+1) )))
-				shouldBeIncluded = true;
-
-			if( shouldBeIncluded )
-			{
+			if( shouldBeIncluded ){
 				//this only needs to be done for included blocks
 
 				//determine rock/soil type
@@ -498,10 +471,8 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
 
                 //read local features
                 idx = trueBlock->local_feature;
-                if( idx != -1 && local.type != -1 && local.main_material != -1 )
-                {
-                    if(trueBlock->designation[lx][ly].bits.feature_local)
-                    {
+                if( idx != -1 && local.type != -1 && local.main_material != -1 ){
+                    if(trueBlock->designation[lx][ly].bits.feature_local){
                         //if(vectr[idx]->main_material == INORGANIC) // stone
                         //{
                         //We can probably get away with this.
@@ -514,21 +485,19 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
                     }
                 }
 
-				if(b->tileMaterial == tiletype_material::LAVA_STONE)
-                {
+				if(b->tileMaterial == tiletype_material::LAVA_STONE){
                     b->material.type = INORGANIC;
                     b->material.index = contentLoader->obsidian;
                 }
 
 
 				//string name = v_stonetypes[j].id;
-				if (createdBlock)
-				{
+				if (createdBlock){
 					segment.addBlock(b);
 				}
-			}else if (createdBlock){
-				delete(b);
 			}
+			else if (createdBlock)
+				delete(b);
 
 		}
 	}
@@ -739,29 +708,9 @@ WorldSegment* ReadMapSegment(int x, int y, int z, int sizex, int sizey, int size
 		World::ReadGameMode(contentLoader->gameMode);
 	}
 
-	if(!config.skipMaps)
-	{
-		if(!Maps::IsValid())
-		{
-			//WriteErr("Can't init map.");
-			//DisconnectFromDF();
-			//return new blank segment
-			return new WorldSegment(x,y,z + 1,sizex,sizey,sizez + 1);
-		}
-	}
-	else
-	{
-		//return new blank segment
+	if(config.skipMaps || !Maps::IsValid()){
 		return new WorldSegment(x,y,z + 1,sizex,sizey,sizez + 1);
 	}
-
-	//if (timeToReloadConfig)
-	//{
-	//	contentLoader->Load(DF);
-	//	timeToReloadConfig = false;
-	//}
-
-
 
 	//Read Number of cells
 	int cellDimX, cellDimY, cellDimZ;
@@ -843,7 +792,7 @@ WorldSegment* ReadMapSegment(int x, int y, int z, int sizex, int sizey, int size
 			int32_t lastTileToReadY = min<uint32_t>(lastTileInCellY, y+sizey-1);
 
 			for(int lz=z-sizez; lz <= z; lz++){
-				//load the blcoks from this cell to the map segment
+				//load the blocks from this cell to the map segment
 				ReadCellToSegment(DF, *segment, cellx, celly, lz, 
 					firstTileToReadX, firstTileToReadY, lastTileToReadX, lastTileToReadY,
 					0, &allBuildings, &allConstructions, &layers );
@@ -904,6 +853,11 @@ void mask_block(WorldSegment * segment, Block* b)
 	}
 }
 
+void unmasked_block(Block* b){
+	if( b->designation.bits.hidden )
+		b->visible = false;
+}
+
 /**
  * checks to see if the block is a potentially viewable hidden block
  *  if not, makes block not visible
@@ -930,8 +884,12 @@ void beautify_Segment(WorldSegment * segment)
 		Block* b = segment->getBlock(i);
 
 		//first check to see if this block is possible to be seen
-		if(config.shade_hidden_blocks && (!config.show_hidden_blocks))
-			mask_block(segment, b);
+		if(!config.show_hidden_blocks ){
+			if(config.shade_hidden_blocks)
+				mask_block(segment, b);
+			else
+				unmasked_block(b);
+		}
 		else
 			unhidden_block(segment, b);
 
