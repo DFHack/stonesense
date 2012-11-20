@@ -149,6 +149,8 @@ df::tiletype_shape_basic GetBasicShape(string & shapeName){
 			return tiletype_shape_basic::Floor;
 		if(shapeName == "Wall")
 			return tiletype_shape_basic::Wall;
+		if(shapeName == "Ramp")
+			return tiletype_shape_basic::Ramp;
 		if(shapeName == "Stair")
 			return tiletype_shape_basic::Stair;
 		return tiletype_shape_basic::None;
