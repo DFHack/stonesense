@@ -419,25 +419,57 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
 
 				//determine rock/soil type
 				int rockIndex = -1;
-				if(trueBlock->region_offset[trueBlock->designation[lx][ly].bits.biome] < (*allLayers).size())
-					if(trueBlock->designation[lx][ly].bits.geolayer_index < (*allLayers).at(trueBlock->region_offset[trueBlock->designation[lx][ly].bits.biome]).size())
-						rockIndex = (*allLayers).at(trueBlock->region_offset[trueBlock->designation[lx][ly].bits.biome]).at(trueBlock->designation[lx][ly].bits.geolayer_index);
+				bool soilTile = false;//is this tile a match for soil materials?
+				bool soilMat = false;//is the material a soil?
+
+				//first lookup the default geolayer for the location
+				uint32_t tileBiomeIndex = trueBlock->designation[lx][ly].bits.biome;
+				uint8_t tileRegionIndex = trueBlock->region_offset[tileBiomeIndex];
+				uint32_t tileGeolayerIndex = trueBlock->designation[lx][ly].bits.geolayer_index;
+				if(tileRegionIndex < (*allLayers).size())
+					if(tileGeolayerIndex < (*allLayers).at(tileRegionIndex).size())
+						rockIndex = (*allLayers).at(tileRegionIndex).at(tileGeolayerIndex);
+				
+				df::inorganic_raw * rawMat = df::inorganic_raw::find(rockIndex);
+				if(rawMat){
+					soilTile = b->tileMaterial == tiletype_material::SOIL; 
+					soilMat = rawMat->flags.is_set(inorganic_flags::SOIL_ANY);
+					//if the tile is a stone tile but we got a soil material, we need to "dig down" to find it
+					while(!soilTile && soilMat){
+						tileGeolayerIndex++;
+						if(tileGeolayerIndex < (*allLayers).at(tileRegionIndex).size()){
+							rockIndex = (*allLayers).at(tileRegionIndex).at(tileGeolayerIndex);
+							rawMat = df::inorganic_raw::find(rockIndex);
+							if(rawMat){
+								soilMat = rawMat->flags.is_set(inorganic_flags::SOIL_ANY);
+							}
+							else{ rockIndex = -1; break; }
+						}
+						else{ rockIndex = -1; break; }
+					}
+					//if the tile is a soil tile but we got a stone material, we need to "dig up" to find it
+					while(soilTile && !soilMat){
+						tileGeolayerIndex--;
+						rockIndex = (*allLayers).at(tileRegionIndex).at(tileGeolayerIndex);
+						rawMat = df::inorganic_raw::find(rockIndex);
+						if(rawMat){
+							soilMat = rawMat->flags.is_set(inorganic_flags::SOIL_ANY);
+						}
+						else{ rockIndex = -1; break; }
+						if(tileGeolayerIndex = 0){ rockIndex = -1; break; }
+					}
+				}
+				else 
+					rockIndex = -1;
+
 				b->layerMaterial.type = INORGANIC;
 				b->layerMaterial.index = rockIndex;
-				//check veins
-				//if there's no veins, the vein material should just be the layer material.
+
+				//check veins (defaults to layer material)
 				b->veinMaterial.type = INORGANIC;
 				b->veinMaterial.index = rockIndex;
 				for(uint32_t i=0; i<numVeins; i++)
 				{
-					//TODO: This will be fixed in dfHack at some point, but right now objects that arnt veins pass through as. So we filter on vtable
-
-					//if((uint32_t)veins[i].type >= groundTypes.size())
-					//continue;
-
-					// DANGER: THIS CODE MAY BE BUGGY
-					// This was apparently causing a crash in previous version
-					// But works fine for me
 					uint16_t row = veins[i]->tile_bitmask[ly];
 					bool set = (row & (1 << lx)) != 0;
 					if(set){
@@ -463,15 +495,11 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
 				{
 					if(trueBlock->designation[lx][ly].bits.feature_global)
 					{
-						//if(global_features->at(idx).main_material == INORGANIC) // stone
-						//{
-						//there may be other features.
 						b->layerMaterial.type = global.main_material;
 						b->layerMaterial.index = global.sub_material;
 						b->material.type = global.main_material;
 						b->material.index = global.sub_material;
 						b->hasVein = 0;
-						//}
 					}
 				}
 
@@ -479,15 +507,11 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
 				idx = trueBlock->local_feature;
 				if( idx != -1 && local.type != -1 && local.main_material != -1 ){
 					if(trueBlock->designation[lx][ly].bits.feature_local){
-						//if(vectr[idx]->main_material == INORGANIC) // stone
-						//{
-						//We can probably get away with this.
 						b->veinMaterial.type = local.main_material;
 						b->veinMaterial.index = local.sub_material;
 						b->material.type = local.main_material;
 						b->material.index = local.sub_material;
 						b->hasVein = 1;
-						//}
 					}
 				}
 
