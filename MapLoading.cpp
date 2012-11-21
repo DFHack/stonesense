@@ -8,6 +8,7 @@
 #include "Creatures.h"
 #include "ContentLoader.h"
 #include "Occlusion_Test.h"
+#include <df/flow_info.h>
 #include <df/plant.h>
 #include <df/flow_info.h>
 #include "df/item_constructed.h"
@@ -600,15 +601,15 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
 	{
         df::flow_info * eff = *iter;
         assert(eff != NULL);
-        Block* b = segment.getBlock( eff->x, eff->y, eff->z);
+        Block* b = segment.getBlock( eff->pos.x, eff->pos.y, eff->pos.z);
         if(!b)
         {
-			if(segment.CoordinateInsideSegment(eff->x, eff->y, eff->z))
+			if(segment.CoordinateInsideSegment(eff->pos.x, eff->pos.y, eff->pos.z))
 			{
 				b = new Block(&segment);
-				b->x=eff->x;
-				b->y=eff->y;
-				b->z=eff->z;
+				b->x=eff->pos.x;
+				b->y=eff->pos.y;
+				b->z=eff->pos.z;
 				segment.addBlock(b);
 			}
 			else
@@ -726,22 +727,16 @@ WorldSegment* ReadMapSegment(int x, int y, int z, int sizex, int sizey, int size
 	clock_t start_time = clock();
 	DFHack::Core & DF = Core::getInstance();
 
-	DFHack::World *Wold = 0;
-	if(!config.skipWorld)
-	{
-        Wold = DF.getWorld();
-	}
-
 	//read date
 	if(!config.skipWorld)
 	{
-		contentLoader->currentYear = Wold->ReadCurrentYear();
-		contentLoader->currentTick = Wold->ReadCurrentTick();
+		contentLoader->currentYear = World::ReadCurrentYear();
+		contentLoader->currentTick = World::ReadCurrentTick();
 		contentLoader->currentMonth = (contentLoader->currentTick+9)/33600;
 		contentLoader->currentDay = ((contentLoader->currentTick+9)%33600)/1200;
 		contentLoader->currentHour = ((contentLoader->currentTick+9)-(((contentLoader->currentMonth*28)+contentLoader->currentDay)*1200))/50;
 		contentLoader->currentTickRel = (contentLoader->currentTick+9)-(((((contentLoader->currentMonth*28)+contentLoader->currentDay)*24)+contentLoader->currentHour)*50);
-		Wold->ReadGameMode(contentLoader->gameMode);
+		World::ReadGameMode(contentLoader->gameMode);
 	}
 
 	if(!config.skipMaps)

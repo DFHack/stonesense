@@ -277,11 +277,21 @@ void DrawCreature(int drawx, int drawy, t_unit* creature, Block * b){
 	}
 
 	c_sprite * sprite = GetCreatureSpriteMap( creature );
+	if(sprite)
+		sprite->draw_world(creature->x,creature->y, creature->z, b);
+	else
+	{
+		df::creature_raw *raw = df::global::world->raws.creatures.all[creature->race];
+		int spritenum = raw->creature_tile;
+		if(raw->caste[creature->caste]->caste_tile != 1)
+			spritenum = raw->caste[creature->caste]->caste_tile;
+		spritenum += (spritenum/16)*4;
+		ALLEGRO_COLOR tilecolor = config.colors.getDfColor(DFHack::Units::getCasteProfessionColor(creature->race,creature->caste,(df::profession)creature->profession));
+		DrawSpriteFromSheet(spritenum,IMGLetterSheet,tilecolor,drawx,drawy,b);
+	}
 	
 	unsigned int offsety = config.show_creature_names ? al_get_font_line_height(font) : 0;
-	
-	sprite->draw_world(creature->x,creature->y, creature->z, b);
-	
+		
 	if(statusIcons.size())
 	{
 		for(int i = 0; i < statusIcons.size(); i++)
@@ -551,12 +561,9 @@ CreatureConfiguration *GetCreatureConfig( t_unit* c ){
 
 c_sprite* GetCreatureSpriteMap( t_unit* c )
 {
-	static c_sprite * defaultSprite = new c_sprite;
-	defaultSprite->reset();
-	defaultSprite->set_defaultsheet(IMGCreatureSheet);
 	CreatureConfiguration *testConfig = GetCreatureConfig( c );
 	if (testConfig == NULL)
-		return defaultSprite;
+		return NULL;
 	testConfig->sprite.set_defaultsheet(IMGCreatureSheet);
 	return &(testConfig->sprite);
 }

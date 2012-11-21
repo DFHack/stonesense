@@ -34,41 +34,78 @@ SET(PROJECT_SRCS
     main.cpp
 )
 
-#linux
 IF(UNIX)
-    OPTION(STONESENSE_INTERNAL_SO "Link with prebuilt internal allegro libs and headers." ON)
-    IF(STONESENSE_INTERNAL_SO)
-        FILE(DOWNLOAD http://cloud.github.com/downloads/peterix/stonesense/allegro.tar.bz2
-                      ${stonesense_SOURCE_DIR}/allegro.tar.bz2
-                      EXPECTED_MD5 11ce22e71db4a0886eac3af220eef032)
-        execute_process(COMMAND tar xf ${stonesense_SOURCE_DIR}/allegro.tar.bz2
-                        WORKING_DIRECTORY ${stonesense_SOURCE_DIR})
-        SET(PROJECT_LIBS
-            ${stonesense_SOURCE_DIR}/allegro/lib/liballegro.so.5.0
-            ${stonesense_SOURCE_DIR}/allegro/lib/liballegro_primitives.so.5.0
-            ${stonesense_SOURCE_DIR}/allegro/lib/liballegro_font.so.5.0
-            ${stonesense_SOURCE_DIR}/allegro/lib/liballegro_image.so.5.0
-            ${stonesense_SOURCE_DIR}/allegro/lib/liballegro_ttf.so.5.0
-            ${PROJECT_LIBS}
-        )
-        include_directories (
-            ${include_directories}
-            ${stonesense_SOURCE_DIR}/allegro/include
-        )
-        install(DIRECTORY allegro/lib/
-                DESTINATION "stonesense/deplibs"
-                PATTERN "CVS" EXCLUDE
-                PATTERN ".svn" EXCLUDE)
-    ELSE()
-        SET(PROJECT_LIBS
-            allegro
-            allegro_primitives
-            allegro_font
-            allegro_image
-            allegro_ttf
-            ${PROJECT_LIBS}
-        )
-    ENDIF()
+	IF(APPLE)
+	# Mac OS X
+		OPTION(STONESENSE_INTERNAL_DYLIB "Link with prebuilt internal allegro libs and headers." ON)
+		IF(STONESENSE_INTERNAL_DYLIB)
+			FILE(DOWNLOAD http://cloud.github.com/downloads/danaris/dfhack/allegro-507-osx.tar.bz2
+						  ${stonesense_SOURCE_DIR}/allegro-507-osx.tar.bz2
+						  EXPECTED_MD5 10e8d3dacb01f3d58a9b7f6e5b428470)
+			execute_process(COMMAND tar xf ${stonesense_SOURCE_DIR}/allegro-507-osx.tar.bz2
+							WORKING_DIRECTORY ${stonesense_SOURCE_DIR})
+			SET(PROJECT_LIBS
+				${stonesense_SOURCE_DIR}/allegro-osx/lib/liballegro.5.0.7.dylib
+				${stonesense_SOURCE_DIR}/allegro-osx/lib/liballegro_primitives.5.0.7.dylib
+				${stonesense_SOURCE_DIR}/allegro-osx/lib/liballegro_font.5.0.7.dylib
+				${stonesense_SOURCE_DIR}/allegro-osx/lib/liballegro_image.5.0.7.dylib
+				${stonesense_SOURCE_DIR}/allegro-osx/lib/liballegro_ttf.5.0.7.dylib
+				${PROJECT_LIBS}
+			)
+			include_directories (
+				${include_directories}
+				${stonesense_SOURCE_DIR}/allegro-osx/include
+			)
+			install(DIRECTORY allegro-osx/lib/
+					DESTINATION "stonesense/deplibs"
+					PATTERN "CVS" EXCLUDE
+					PATTERN ".svn" EXCLUDE)
+		ELSE()
+			SET(PROJECT_LIBS
+				allegro
+				allegro_primitives
+				allegro_font
+				allegro_image
+				allegro_ttf
+				${PROJECT_LIBS}
+			)
+		ENDIF()
+	ELSE(APPLE)
+	#linux
+		OPTION(STONESENSE_INTERNAL_SO "Link with prebuilt internal allegro libs and headers." ON)
+		IF(STONESENSE_INTERNAL_SO)
+			FILE(DOWNLOAD http://cloud.github.com/downloads/peterix/stonesense/allegro.tar.bz2
+						  ${stonesense_SOURCE_DIR}/allegro.tar.bz2
+						  EXPECTED_MD5 11ce22e71db4a0886eac3af220eef032)
+			execute_process(COMMAND tar xf ${stonesense_SOURCE_DIR}/allegro.tar.bz2
+							WORKING_DIRECTORY ${stonesense_SOURCE_DIR})
+			SET(PROJECT_LIBS
+				${stonesense_SOURCE_DIR}/allegro/lib/liballegro.so.5.0
+				${stonesense_SOURCE_DIR}/allegro/lib/liballegro_primitives.so.5.0
+				${stonesense_SOURCE_DIR}/allegro/lib/liballegro_font.so.5.0
+				${stonesense_SOURCE_DIR}/allegro/lib/liballegro_image.so.5.0
+				${stonesense_SOURCE_DIR}/allegro/lib/liballegro_ttf.so.5.0
+				${PROJECT_LIBS}
+			)
+			include_directories (
+				${include_directories}
+				${stonesense_SOURCE_DIR}/allegro/include
+			)
+			install(DIRECTORY allegro/lib/
+					DESTINATION "stonesense/deplibs"
+					PATTERN "CVS" EXCLUDE
+					PATTERN ".svn" EXCLUDE)
+		ELSE()
+			SET(PROJECT_LIBS
+				allegro
+				allegro_primitives
+				allegro_font
+				allegro_image
+				allegro_ttf
+				${PROJECT_LIBS}
+			)
+		ENDIF()
+	ENDIF()
 # windows
 ELSE(UNIX)
     FILE(DOWNLOAD http://cloud.github.com/downloads/peterix/stonesense/allegrow.tar.gz

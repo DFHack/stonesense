@@ -1,4 +1,4 @@
-large_256/index.txt
+large_128/index.txt
 
 caravan_animals.xml
 

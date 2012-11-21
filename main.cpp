@@ -6,6 +6,7 @@ using namespace std;
 
 #include "common.h"
 #include "Block.h"
+#include "BlockFactory.h"
 #include "GUI.h"
 //#include "SpriteMaps.h"
 #include "GameBuildings.h"
@@ -107,8 +108,9 @@ void LogVerbose(const char* msg, ...){
 		return;
 	va_list arglist;
 	va_start(arglist, msg);
-	//  char buf[200] = {0};
-	//  vsprintf(buf, msg, arglist);
+	char buf[512] = {0};
+	vsprintf(buf, msg, arglist);
+	Core::printerr(buf);
 	FILE* fp = fopen( "Stonesense.log", "a");
 	if(fp)
 		vfprintf( fp, msg, arglist );
@@ -520,6 +522,9 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
         last->Dispose();
         delete last;
     }
+
+	//need to explicitly tear down the current block factory
+	blockFactory.~BlockFactory();
 
     al_destroy_bitmap(IMGIcon);
     IMGIcon = 0;
