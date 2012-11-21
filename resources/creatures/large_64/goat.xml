@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<creatures>
+ 
+ <creature gameID="GOAT_MOUNTAIN"  file="goat.png" >
+  
+  <variant special="Normal" prof="CHILD" sheetIndex="40" zoom="1" color="bodypart" bodypart="hair" >
+  <subsprite sheetIndex="42" zoom="1" /> 
+  </variant>
+  
+  <variant special="Normal" sheetIndex="60" zoom="1" color="bodypart" bodypart="hair" >
+  <subsprite sheetIndex="62" zoom="1" color="xml" red="160" green="140" blue="130" /> 
+  <subsprite sheetIndex="63" zoom="1" /> 
+  </variant>
+  
+ </creature>
+  
+ <creature gameID="GOAT"  file="goat.png" >
+  
+  <variant special="Normal" prof="CHILD" sheetIndex="40" zoom="1" color="bodypart" bodypart="hair" >
+  <subsprite sheetIndex="42" zoom="1" /> 
+  </variant>
+  
+  <variant special="Normal" sex="F" sheetIndex="0" zoom="1" color="bodypart" bodypart="hair" >
+  <subsprite sheetIndex="1" zoom="1" color="bodypart" bodypart="beard" /> 
+  <subsprite sheetIndex="2" zoom="1" color="xml" red="160" green="140" blue="130" /> 
+  <subsprite sheetIndex="3" zoom="1" /> 
+  </variant>
+  
+  <variant special="Normal" sex="M" sheetIndex="20" zoom="1" color="bodypart" bodypart="hair" >
+  <subsprite sheetIndex="21" zoom="1" color="bodypart" bodypart="beard" /> 
+  <subsprite sheetIndex="22" zoom="1" color="xml" red="160" green="140" blue="130" /> 
+  <subsprite sheetIndex="3" zoom="1" /> 
+  </variant>
+  
+ </creature>
+  
+</creatures>
