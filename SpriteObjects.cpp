@@ -771,7 +771,7 @@ void c_sprite::draw_world_offset(int x, int y, int z, Block * b, int tileoffset,
 			sheety = ((sheetindex+tileoffset+randoffset) / SHEET_OBJECTSWIDE) * spriteheight;
 		}
 		ALLEGRO_COLOR shade_color = get_color(b);
-		if(!b->designation.bits.pile && config.fog_of_war && (contentLoader->gameMode.g_mode == GAMEMODE_ADVENTURE))
+		if(b->fog_of_war && config.fog_of_war && (contentLoader->gameMode.g_mode == GAMEMODE_ADVENTURE))
 		{
 			shade_color.r *= 0.25f;
 			shade_color.g *= 0.25f;

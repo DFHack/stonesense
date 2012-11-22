@@ -853,7 +853,7 @@ void DrawSpriteFromSheet( int spriteNum, ALLEGRO_BITMAP* spriteSheet, ALLEGRO_CO
 	10, 60 , SPRITEWIDTH, SPRITEHEIGHT);
 	*/
 	//draw_trans_sprite(target, tiny, x, y);
-	if(b && (!b->designation.bits.pile) && config.fog_of_war && (contentLoader->gameMode.g_mode == GAMEMODE_ADVENTURE))
+	if(config.fog_of_war && (contentLoader->gameMode.g_mode == GAMEMODE_ADVENTURE) && b && b->fog_of_war)
 	{
 		color.r *= 0.25f;
 		color.g *= 0.25f;
