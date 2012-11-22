@@ -21,20 +21,15 @@ bitset<2*S_SPRITE_HEIGHT> floor_mask_right;
 
 bool is_block_solid(Block * b)
 {
-    if(b->tileShape == tiletype_shape::RAMP_TOP)
-		return false;
 	if(!config.shade_hidden_blocks && !config.show_hidden_blocks && b->designation.bits.hidden)
 		return false;
-	//fixme: glass, etc, needs to return false.
 	if(
 		b->material.type == 3 ||
 		b->material.type == 4 ||
 		b->material.type == 5 ||
 		b->material.type == 6)
 		return false;
-    if(b->tileShape == tiletype_shape::BROOK_TOP)
-		return false;
-	return true;
+	return IDhasOpaqueSides(b->tileType) || IDhasOpaqueFloor(b->tileType);
 }
 
 void mask_center(Block * b, int offset)
@@ -190,9 +185,6 @@ void occlude_block(Block * b)
 	int distX = b->ownerSegment->x + b->ownerSegment->sizex - b->x - 1;
 	int distY = b->ownerSegment->y + b->ownerSegment->sizey - b->y - 1;
 	int distZ = b->ownerSegment->z + b->ownerSegment->sizez - b->z - 1;
-	
-	if(distX == 1 || distY == 1 || distZ == 1)
-		return;
 
 	int stepX, stepY;
 

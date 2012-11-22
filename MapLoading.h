@@ -8,9 +8,6 @@
   #define  RESUME_DF ;
 #endif
 
-
-inline bool IDisWall(int in);
-inline bool IDisFloor(int in);
 void reloadDisplayedSegment();
 void beautify_Segment(WorldSegment * segment);
 

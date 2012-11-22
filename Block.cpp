@@ -41,7 +41,7 @@ Worn_Item::Worn_Item()
 	dyematt.type = -1;
 }
 
-Block::Block(WorldSegment* ownerSegment)
+Block::Block(WorldSegment* ownerSegment, df::tiletype type)
 {
 	//clear out own memory
 	memset(this, 0, sizeof(Block));
@@ -54,6 +54,7 @@ Block::Block(WorldSegment* ownerSegment)
 
 	this->material.type = INVALID_INDEX;
 	this->material.index = INVALID_INDEX;
+	this->tileType = type;
 
 	wallborders = 0;
 	floorborders = 0;
@@ -131,15 +132,10 @@ void Block::Draw()
 	bool defaultSnow = 1;
 	t_SpriteWithOffset sprite;
 	c_sprite* spriteobject;
-	/*if(config.hide_outer_blocks){
-	if(x == ownerSegment->x || x == ownerSegment->x + ownerSegment->sizex - 1) return;
-	if(y == ownerSegment->y || y == ownerSegment->y + ownerSegment->sizey - 1) return;
-	}*/
 
 	drawx = x;
 	drawy = y;
-	drawz = z; //- ownerSegment->sizez + 1;
-
+	drawz = z; 
 
 	correctBlockForSegmetOffset( drawx, drawy, drawz);
 	correctBlockForRotation( drawx, drawy, drawz, ownerSegment->rotation);
@@ -168,13 +164,10 @@ void Block::Draw()
 	ALLEGRO_COLOR tileBorderColor = al_map_rgb(85,85,85);
 	int rando = randomCube[x%RANDOM_CUBE][y%RANDOM_CUBE][z%RANDOM_CUBE];
 	//Draw Floor
-	if(
-		tileShapeBasic==tiletype_shape_basic::Floor || 
+	if( tileShapeBasic==tiletype_shape_basic::Floor || 
 		tileShapeBasic==tiletype_shape_basic::Wall ||
 		tileShapeBasic==tiletype_shape_basic::Ramp || 
-		tileShapeBasic==tiletype_shape_basic::Stair
-		)
-	{
+		tileShapeBasic==tiletype_shape_basic::Stair ){
 
 		//If tile has no floor, look for a Filler Floor from it's wall
 		if (tileShapeBasic==tiletype_shape_basic::Floor)

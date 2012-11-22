@@ -387,7 +387,7 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
         if(!b)
         {
             //inside segment, but no block to represent it
-            b = new Block(segment);
+            b = new Block(segment, df::tiletype::OpenSpace);
             b->x = tempcreature->x;
             b->y = tempcreature->y;
             b->z = tempcreature->z;
