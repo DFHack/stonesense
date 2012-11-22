@@ -67,14 +67,15 @@ public:
 	
 	bool creaturePresent;
 	bool buildingPresent;
+	bool fog_of_war;
     DFHack::t_matglossPair ramp;
     DFHack::t_matglossPair water;
 
-	//following are neighbor water levels
-    DFHack::t_matglossPair abovewater;
-    DFHack::t_matglossPair belowwater;
-    DFHack::t_matglossPair rightwater;
-    DFHack::t_matglossPair leftwater;
+	//following are neighbor water levels (unused)
+    //DFHack::t_matglossPair abovewater;
+    //DFHack::t_matglossPair belowwater;
+    //DFHack::t_matglossPair rightwater;
+    //DFHack::t_matglossPair leftwater;
 
     DFHack::t_designation designation;
     DFHack::t_occupancy occ;
@@ -96,16 +97,16 @@ public:
 	//vector<uint8_t> grasslevels;
 	//vector<uint32_t> grassmats;
 
-	struct BlockEffects //size 40
-	{
-		uint16_t count;
-		uint16_t type;
-        DFHack::t_matglossPair material;
-		int16_t lifetime;
-		int16_t x_direction;
-		int16_t y_direction;
-		uint8_t canCreateNew;//??
-	} blockeffects;
+	//struct BlockEffects //size 40
+	//{
+	//	uint16_t count;
+	//	uint16_t type;
+    //  DFHack::t_matglossPair material;
+	//	int16_t lifetime;
+	//	int16_t x_direction;
+	//	int16_t y_direction;
+	//	uint8_t canCreateNew;//??
+	//} blockeffects;
 
 	//individual effects
 	Effect Eff_Miasma;
