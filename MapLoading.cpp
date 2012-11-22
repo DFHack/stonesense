@@ -87,6 +87,10 @@ inline bool isBlockHighRampTop(uint32_t x, uint32_t y, uint32_t z, WorldSegment*
 	return !IDisWall( block->tileType );
 }
 
+inline bool isBlockOnTopOfSegment(WorldSegment* segment, Block* b){
+	return b->z == segment->z + segment->sizez - 2;
+}
+
 int CalculateRampType(uint32_t x, uint32_t y, uint32_t z, WorldSegment* segment){
 	int ramplookup = 0;
 	if (isBlockHighRampEnd(x, y, z, segment, eUp) && isBlockHighRampTop(x, y, z+1, segment, eUp))
@@ -306,6 +310,7 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
 
 			b->occ = trueBlock->occupancy[lx][ly];
 			b->designation = trueBlock->designation[lx][ly];
+			b->fog_of_war = !b->designation.bits.pile;
 			b->mudlevel = 0;
 			b->snowlevel = 0;
 			b->bloodlevel = 0;
@@ -456,8 +461,8 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
 							soilMat = rawMat->flags.is_set(inorganic_flags::SOIL_ANY);
 						}
 						else{ rockIndex = -1; break; }
-						if(tileGeolayerIndex = 0){ rockIndex = -1; break; }
-					}
+						if(tileGeolayerIndex == 0){ rockIndex = -1; break; }
+					}	
 				}
 				else 
 					rockIndex = -1;
@@ -866,7 +871,7 @@ WorldSegment* ReadMapSegment(int x, int y, int z, int sizex, int sizey, int size
 *  if so, put the black mask block overtop
 *  if not, makes block not visible
 */
-void mask_block(WorldSegment * segment, Block* b)
+inline void maskBlock(WorldSegment * segment, Block* b)
 {
 	//include hidden blocks as shaded black, make remaining invisible
 	if( b->designation.bits.hidden )
@@ -878,22 +883,46 @@ void mask_block(WorldSegment * segment, Block* b)
 	}
 }
 
-void unmasked_block(Block* b){
-	if( b->designation.bits.hidden )
-		b->visible = false;
-}
-
 /**
 * checks to see if the block is a potentially viewable hidden block
 *  if not, makes block not visible
 */
-void unhidden_block(WorldSegment * segment, Block* b)
+inline void unhiddenBlock(WorldSegment * segment, Block* b)
 {
 	//make blocks that are impossible to see invisible
 	if( b->designation.bits.hidden 
 		&& (!isBlockOnVisibleEdgeOfSegment(segment, b)) 
 		&& (enclosed(segment, b)) )
 		b->visible = false;
+}
+
+/**
+* enables visibility and disables fog for the first layer of water 
+*  below visible space
+*/
+inline void unhideWaterFromAbove(WorldSegment * segment, Block * b){
+	if( b->water.index 
+		&& !isBlockOnTopOfSegment(segment, b) 
+		&& (b->designation.bits.hidden || b->fog_of_war) ){
+			Block * temp = segment->getBlock(b->x, b->y, b->z+1);
+			if( !temp || (IDhasTransparentFloor(temp->tileType) && !temp->water.index) ){
+				if(contentLoader->gameMode.g_mode == GAMEMODE_ADVENTURE){
+					if(!temp || !temp->fog_of_war){
+						b->designation.bits.hidden = false;
+						b->fog_of_war = false;
+						if(b->building.info.type == BUILDINGTYPE_BLACKBOX)
+							b->building.info.type = (building_type::building_type) BUILDINGTYPE_NA;
+					}
+				}
+				else{
+					if(!temp || !temp->designation.bits.hidden){
+						b->designation.bits.hidden = false;
+						if(b->building.info.type == BUILDINGTYPE_BLACKBOX)
+							b->building.info.type = (building_type::building_type) BUILDINGTYPE_NA;
+					}
+				}
+			}
+	}
 }
 
 void beautify_Segment(WorldSegment * segment)
@@ -907,28 +936,18 @@ void beautify_Segment(WorldSegment * segment)
 
 	for(uint32_t i=0; i < numblocks; i++){
 		Block* b = segment->getBlock(i);
-
-
+		
 		//check to see if this block is possible to be seen
 		if(!config.show_hidden_blocks ){
+			//unhide any liquids that are visible from above
+			unhideWaterFromAbove(segment, b);
 			if(config.shade_hidden_blocks)
-				mask_block(segment, b);
-			else
-				unmasked_block(b);
+				maskBlock(segment, b);
+			else if( b->designation.bits.hidden )
+				b->visible = false;
 		}
 		else
-			unhidden_block(segment, b);
-
-		//unhide any liquids that are visible from above
-		if(b->water.index && b->designation.bits.hidden){
-			Block * temp = segment->getBlock(b->x, b->y, b->z+1);
-			if( !temp || 
-				(!temp->designation.bits.hidden 
-				&& IDhasTransparentFloor(temp->tileType)) ){
-					b->visible = true;
-					b->building.info.type = (building_type::building_type) BUILDINGTYPE_NA;
-			}
-		}
+			unhiddenBlock(segment, b);
 
 		if(!b->visible)
 			continue;
