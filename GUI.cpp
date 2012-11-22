@@ -1004,6 +1004,7 @@ void paintboard()
 			draw_textf_border(font, al_map_rgb(255,255,255), 10, 6*al_get_font_line_height(font), 0, "D1: %i", blockFactory.getPoolSize());
 			draw_textf_border(font, al_map_rgb(255,255,255), 10, 7*al_get_font_line_height(font), 0, "%i/%i/%i, %i:%i", contentLoader->currentDay+1, contentLoader->currentMonth+1, contentLoader->currentYear, contentLoader->currentHour, (contentLoader->currentTickRel*60)/50);
 			draw_textf_border(font, al_map_rgb(255,255,255), 10, 8*al_get_font_line_height(font), 0, "%i Sprites drawn, %i tiles drawn, %.1f sprites per tile.", config.drawcount, config.tilecount, ((float)config.drawcount/(float)config.tilecount));
+
 			drawDebugCursorAndInfo(segment);
 		}
 		config.drawcount = 0;
@@ -1332,85 +1333,6 @@ void saveImage(ALLEGRO_BITMAP* image){
 		index++;
 	};
 	al_save_bitmap(filename, image);
-}
-
-//FIXME: filled with black magic
-void dumpSegment()
-{
-    return;
-    /*
-	al_lock_mutex(config.readMutex);
-
-	//back up all the relevant values
-	Crd3D tempSize = config.segmentSize;
-	int tempViewx = DisplayedSegmentX;
-	int tempViewy = DisplayedSegmentY;
-	bool tempFollow = config.follow_DFscreen;
-	int tempLift = config.lift_segment_offscreen;
-	int currentFlags = al_get_new_bitmap_flags();
-	//now make them real big.
-	config.follow_DFscreen = false;
-	config.lift_segment_offscreen = 0;
-	parms.x = 0;
-	parms.y = 0;
-	parms.z = config.cellDimZ - 1;
-	parms.sizex = config.cellDimX;
-	parms.sizey = config.cellDimY;
-	parms.sizez = config.cellDimZ;
-
-	read_segment(NULL);
-	//get filename
-	char filename[20] ={0};
-	FILE* fp;
-	int index = 1;
-	//search for the first screenshot# that does not exist already
-	while(true){
-		sprintf(filename, "screenshot%i.png", index);
-
-		fp = fopen(filename, "r");
-		if( fp != 0)
-			fclose(fp);
-		else
-			//file does not exist, so exit loop
-			break;
-		index++;
-	};
-	int tempFlags = al_get_new_bitmap_flags();
-	al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP);
-
-	ALLEGRO_BITMAP * volume = al_create_bitmap(segment->sizex, (segment->sizez * segment->sizey));
-	if(!volume)
-	{
-		DFConsole->printerr("Failed to create volumetric image.");
-		al_set_new_bitmap_flags(tempFlags);
-		return;
-	}
-
-	ALLEGRO_BITMAP * backup = al_get_target_bitmap();
-	al_set_target_bitmap(volume);
-
-	int op, src, dst, alpha_op, alpha_src, alpha_dst;
-	al_get_separate_blender(&op, &src, &dst, &alpha_op, &alpha_src, &alpha_dst);
-	al_set_separate_blender(ALLEGRO_ADD, ALLEGRO_ONE, ALLEGRO_ZERO,ALLEGRO_ADD, ALLEGRO_ONE, ALLEGRO_ZERO);
-	al_clear_to_color(al_map_rgba(0,0,0,0));
-	al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst);
-	viewedSegment->drawPixels();
-
-	al_save_bitmap(filename, volume);
-	al_destroy_bitmap(volume);
-
-	al_set_target_bitmap(backup);
-	al_set_new_bitmap_flags(tempFlags);
-
-	//restore everything that we changed.
-	config.segmentSize = tempSize;
-	DisplayedSegmentX = tempViewx;
-	DisplayedSegmentY = tempViewy;
-	config.follow_DFscreen = tempFollow;
-	config.lift_segment_offscreen = tempLift;
-
-	al_unlock_mutex(config.readMutex);
-	*/
 }
 
 void saveMegashot(bool tall)
