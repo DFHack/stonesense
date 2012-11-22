@@ -16,7 +16,7 @@ void insert_sprite(WorldSegment *w, int x, int y, int z, Block * parent, c_sprit
 	Block * b_orig = w->getBlock(x, y, z);
 	if(!b_orig)
 	{
-		b_orig = new Block(w);
+		b_orig = new Block(w, df::tiletype::Tree);
 		b_orig->x = x;
 		b_orig->y = y;
 		b_orig->z = z;

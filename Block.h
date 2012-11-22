@@ -5,6 +5,29 @@
 #include "TileTypes.h"
 #include "df/item_type.h"
 
+
+//not sure where to put these...
+
+inline bool IDisWall(int in){
+	//if not a custom type, do a lookup in dfHack's interface
+	return isWallTerrain( (tiletype::tiletype) in );
+}
+
+inline bool IDisFloor(int in){
+	//if not a custom type, do a lookup in dfHack's interface
+	return isFloorTerrain( (tiletype::tiletype) in );
+}
+
+inline bool IDhasOpaqueFloor(int in){
+	//ignores possible transparent materials
+	return !FlowPassableDown( (tiletype::tiletype) in );
+}
+
+inline bool IDhasOpaqueSides(int in){
+	//ignores possible transparent materials
+	return !FlowPassable( (tiletype::tiletype) in );
+}
+
 class WorldSegment;
 
 struct Effect
@@ -28,11 +51,10 @@ struct Unit_Inventory
 };
 
 
-
 class Block
 {
 public:
-	Block(WorldSegment* ownerSegment);
+	Block(WorldSegment* ownerSegment, df::tiletype type);
 	~Block(void);
 	static void* operator new (size_t size); 
 	static void operator delete (void *p);
@@ -130,7 +152,7 @@ public:
 	} building;
 
 	bool IsVisible(){
-		return (tileShapeBasic==df::enums::tiletype_shape_basic::Floor || tileShapeBasic==df::enums::tiletype_shape_basic::Wall) != 0;
+		return IDisWall(tileType) || IDisFloor(tileType);
 	}
 	void Draw();
 	void Drawcreaturetext();
