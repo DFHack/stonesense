@@ -5,19 +5,19 @@
 class ItemSubConfiguration
 {
 public:
-	c_sprite sprite;
+    c_sprite sprite;
 };
 
 class ItemConfiguration
 {
 public:
-	vector<ItemSubConfiguration*> subItems;
-	c_sprite default_sprite;
+    vector<ItemSubConfiguration*> subItems;
+    c_sprite default_sprite;
 
-	bool configured;
+    bool configured;
 
-	ItemConfiguration();
-	~ItemConfiguration();
+    ItemConfiguration();
+    ~ItemConfiguration();
 };
 
 bool addSingleItemConfig( TiXmlElement* elemRoot);

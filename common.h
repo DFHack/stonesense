@@ -77,7 +77,7 @@ using namespace df::enums;
 #endif
 
 #define GFXMODE GFX_AUTODETECT_WINDOWED
-#define FULLSCREEN false 
+#define FULLSCREEN false
 #define RESOLUTION_WIDTH 800
 #define RESOLUTION_HEIGHT 600
 // Height of a one pixel stripe of the wall of an entire block,
@@ -118,44 +118,44 @@ using namespace df::enums;
 // in ContentLoader/lookupMaterialType deals with
 #define MAX_MATGLOSS 24
 
-enum dirTypes{
-  eSimpleInvalid = -1,
-  eSimpleSingle,
-  //-----START: Do NOT rearrange these, they're used to autoinsert building borders
-  eSimpleN,
-  eSimpleW,
-  eSimpleS,
-  eSimpleE,
+enum dirTypes {
+    eSimpleInvalid = -1,
+    eSimpleSingle,
+    //-----START: Do NOT rearrange these, they're used to autoinsert building borders
+    eSimpleN,
+    eSimpleW,
+    eSimpleS,
+    eSimpleE,
 
-  eSimpleNnW,
-  eSimpleSnW,
-  eSimpleSnE,
-  eSimpleNnE,
-  //-----END
+    eSimpleNnW,
+    eSimpleSnW,
+    eSimpleSnE,
+    eSimpleNnE,
+    //-----END
 
-  eSimpleNnS,
-  eSimpleWnE,
+    eSimpleNnS,
+    eSimpleWnE,
 
-  eSimpleNnEnS,
-  eSimpleNnEnW,
-  eSimpleNnWnS,
-  eSimpleWnSnE,
+    eSimpleNnEnS,
+    eSimpleNnEnW,
+    eSimpleNnWnS,
+    eSimpleWnSnE,
 
-  eSimpleNnWnSnE
+    eSimpleNnWnSnE
 };
 
-enum dirRelative{
-  eLeft,
-  eDown,
-  eRight,
-  eUp,
-  eAbove,
-  eBelow,
+enum dirRelative {
+    eLeft,
+    eDown,
+    eRight,
+    eUp,
+    eAbove,
+    eBelow,
 
-  eUpLeft,
-  eUpRight,
-  eDownLeft,
-  eDownRight,
+    eUpLeft,
+    eUpRight,
+    eDownLeft,
+    eDownRight,
 };
 class SegmentWrap;
 
@@ -218,8 +218,7 @@ extern ALLEGRO_TIMER *reloadtimer;
 extern ALLEGRO_TIMER * animationtimer;
 extern ALLEGRO_MOUSE_STATE mouse;
 
-enum MAT_BASICS
-{
+enum MAT_BASICS {
     INVALID = -1,
     INORGANIC = 0,
     AMBER = 1,

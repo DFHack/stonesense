@@ -6,11 +6,10 @@
 /*
  * extension to building_type enum from DFHack
  */
-enum BuildingTypes
-{
-  BUILDINGTYPE_NA = -1,
-  BUILDINGTYPE_TREE = 998,
-  BUILDINGTYPE_BLACKBOX = 999,
+enum BuildingTypes {
+    BUILDINGTYPE_NA = -1,
+    BUILDINGTYPE_TREE = 998,
+    BUILDINGTYPE_BLACKBOX = 999,
 };
 
 
