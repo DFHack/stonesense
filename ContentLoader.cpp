@@ -728,6 +728,9 @@ ShadeBy getShadeType(const char* Input)
     if( strcmp(Input, "xml") == 0) {
         return ShadeXml;
     }
+    if( strcmp(Input, "inorganic") == 0) {
+        return ShadeInorganic;
+    }
     if( strcmp(Input, "material") == 0) {
         return ShadeMat;
     }
