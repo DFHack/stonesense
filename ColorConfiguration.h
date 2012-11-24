@@ -6,20 +6,20 @@
 class ColorMaterialConfiguration
 {
 public:
-	ALLEGRO_COLOR color;
-	bool colorSet;
-	ColorMaterialConfiguration();
+    ALLEGRO_COLOR color;
+    bool colorSet;
+    ColorMaterialConfiguration();
 } ;
 
 
 class ColorConfiguration
 {
 public:
-	vector<ColorMaterialConfiguration> colorMaterials;
-	ALLEGRO_COLOR color;
-	bool colorSet;
-	ColorConfiguration();
-	~ColorConfiguration();
+    vector<ColorMaterialConfiguration> colorMaterials;
+    ALLEGRO_COLOR color;
+    bool colorSet;
+    ColorConfiguration();
+    ~ColorConfiguration();
 } ;
 
 bool addSingleColorConfig( TiXmlElement* elemRoot);

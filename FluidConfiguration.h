@@ -6,9 +6,9 @@
 class FluidConfiguration
 {
 public:
-	c_sprite sprite;
-	bool fluidset;
-	FluidConfiguration();
+    c_sprite sprite;
+    bool fluidset;
+    FluidConfiguration();
 } ;
 
 void parseFluidElement( TiXmlElement* elemFluid, int basefile);

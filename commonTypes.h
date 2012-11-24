@@ -3,83 +3,76 @@
 #include "common.h"
 #include "SpriteColors.h"
 
-enum ShadeBy
-{
-	ShadeNone,
-	ShadeXml,
-	ShadeMat,
-	ShadeLayer,
-	ShadeVein,
-	ShadeMatFore,
-	ShadeMatBack,
-	ShadeLayerFore,
-	ShadeLayerBack,
-	ShadeVeinFore,
-	ShadeVeinBack,
-	ShadeBodyPart,
-	ShadeJob,
-	ShadeBlood,
-	ShadeBuilding,
-	ShadeGrass,
-	ShadeItem,
-	ShadeEquip
+enum ShadeBy {
+    ShadeNone,
+    ShadeXml,
+    ShadeMat,
+    ShadeLayer,
+    ShadeVein,
+    ShadeMatFore,
+    ShadeMatBack,
+    ShadeLayerFore,
+    ShadeLayerBack,
+    ShadeVeinFore,
+    ShadeVeinBack,
+    ShadeBodyPart,
+    ShadeJob,
+    ShadeBlood,
+    ShadeBuilding,
+    ShadeGrass,
+    ShadeItem,
+    ShadeEquip
 } ;
-struct t_subSprite
-{
-	int32_t sheetIndex;
-	int32_t fileIndex;
-	ALLEGRO_COLOR shadeColor;
-	ShadeBy shadeBy;
-	char bodyPart[128];
-	uint8_t snowMin;
-	uint8_t snowMax;
+struct t_subSprite {
+    int32_t sheetIndex;
+    int32_t fileIndex;
+    ALLEGRO_COLOR shadeColor;
+    ShadeBy shadeBy;
+    char bodyPart[128];
+    uint8_t snowMin;
+    uint8_t snowMax;
 } ;
 
-struct t_SpriteWithOffset
-{
-	int32_t sheetIndex;
-	int16_t x;
-	int16_t y;
-	int32_t fileIndex;
-	uint8_t numVariations;
-	char animFrames;
-	ALLEGRO_COLOR shadeColor;
-	bool needOutline;
-	std::vector<t_subSprite> subSprites;
-	ShadeBy shadeBy;
-	char bodyPart[128];
-	uint8_t snowMin;
-	uint8_t snowMax;
+struct t_SpriteWithOffset {
+    int32_t sheetIndex;
+    int16_t x;
+    int16_t y;
+    int32_t fileIndex;
+    uint8_t numVariations;
+    char animFrames;
+    ALLEGRO_COLOR shadeColor;
+    bool needOutline;
+    std::vector<t_subSprite> subSprites;
+    ShadeBy shadeBy;
+    char bodyPart[128];
+    uint8_t snowMin;
+    uint8_t snowMax;
 } ;
 
 typedef struct Crd2D {
-	int32_t x,y;
-}Crd2D;
+    int32_t x,y;
+} Crd2D;
 typedef struct Crd3D {
-	int32_t x,y,z;
-}Crd3D;
+    int32_t x,y,z;
+} Crd3D;
 
 class dfColors
 {
 public:
-    dfColors()
-    {
+    dfColors() {
         memset(colors, 0, sizeof(colors));
         update();
     }
-    struct color
-    {
+    struct color {
         uint8_t red;
         uint8_t green;
         uint8_t blue;
         ALLEGRO_COLOR al;
-        void update()
-        {
+        void update() {
             al = al_map_rgb(red,green,blue);
         }
-    }colors[16];
-    enum color_name
-    {
+    } colors[16];
+    enum color_name {
         black,
         blue,
         green,
@@ -97,144 +90,139 @@ public:
         yellow,
         white
     };
-    void update()
-    {
-        for (int i = 0; i < 16; i++)
-        {
+    void update() {
+        for (int i = 0; i < 16; i++) {
             colors[i].update();
         }
     }
-    color & operator [] (color_name col)
-    {
+    color & operator [] (color_name col) {
         return colors[col];
     }
-    ALLEGRO_COLOR getDfColor(int color)
-    {
-        if(color < 0 || color >= 16)
+    ALLEGRO_COLOR getDfColor(int color) {
+        if(color < 0 || color >= 16) {
             return al_map_rgb(255,255,255);
+        }
         return colors[ (color_name) color].al;
     }
-    ALLEGRO_COLOR getDfColor(int color, int bright)
-    {
+    ALLEGRO_COLOR getDfColor(int color, int bright) {
         return getDfColor(color+(bright*8));
     }
 };
 
 
-typedef struct
-{
-	bool show_zones;
-	bool show_stockpiles;
-	bool show_osd;
-	bool single_layer_view;
-	bool shade_hidden_blocks;
-	bool show_hidden_blocks;
-	bool show_creature_names;
-	bool names_use_nick;
-	bool names_use_species;
-	bool show_all_creatures;
-	bool load_ground_materials;
-	bool hide_outer_blocks;
-	bool debug_mode;
-	bool track_center;
-	int lift_segment_offscreen;
-	uint8_t truncate_walls;
-	bool follow_DFscreen;
-	bool verbose_logging;
-	int viewXoffset;
-	int viewYoffset;
-	int viewZoffset;
-	int automatic_reload_time;
-	int automatic_reload_step;
-	int animation_step;
-	int fontsize;
-	ALLEGRO_PATH * font;
-	int screenWidth;
-	int screenHeight;
-	bool Fullscreen;
-	bool show_intro;
-	float fogr;
-	float fogg;
-	float fogb;
-	float foga;
-	int backr;
-	int backg;
-	int backb;
-	bool fogenable;
-	Crd3D segmentSize;
-	
-	bool follow_DFcursor;
-	int dfCursorX;
-	int dfCursorY;
-	int dfCursorZ;
-	unsigned int cellDimX;
-	unsigned int cellDimY;
-	unsigned int cellDimZ;
+typedef struct {
+    bool show_zones;
+    bool show_stockpiles;
+    bool show_osd;
+    bool single_layer_view;
+    bool shade_hidden_blocks;
+    bool show_hidden_blocks;
+    bool show_creature_names;
+    bool names_use_nick;
+    bool names_use_species;
+    bool show_all_creatures;
+    bool load_ground_materials;
+    bool hide_outer_blocks;
+    bool debug_mode;
+    bool track_center;
+    int lift_segment_offscreen;
+    uint8_t truncate_walls;
+    bool follow_DFscreen;
+    bool verbose_logging;
+    int viewXoffset;
+    int viewYoffset;
+    int viewZoffset;
+    int automatic_reload_time;
+    int automatic_reload_step;
+    int animation_step;
+    int fontsize;
+    ALLEGRO_PATH * font;
+    int screenWidth;
+    int screenHeight;
+    bool Fullscreen;
+    bool show_intro;
+    float fogr;
+    float fogg;
+    float fogb;
+    float foga;
+    int backr;
+    int backg;
+    int backb;
+    bool fogenable;
+    Crd3D segmentSize;
 
-	bool saveImageCache;
-	bool cache_images;
-	int imageCacheSize;
-	dfColors colors;
-	bool opengl;
-	bool directX;
-	bool software;
+    bool follow_DFcursor;
+    int dfCursorX;
+    int dfCursorY;
+    int dfCursorZ;
+    unsigned int cellDimX;
+    unsigned int cellDimY;
+    unsigned int cellDimZ;
 
-	uint32_t menustate;
-	//DFHack::t_viewscreen viewscreen;
+    bool saveImageCache;
+    bool cache_images;
+    int imageCacheSize;
+    dfColors colors;
+    bool opengl;
+    bool directX;
+    bool software;
 
-	bool spriteIndexOverlay;
-	bool creditScreen;
-	int currentSpriteOverlay;
+    uint32_t menustate;
+    //DFHack::t_viewscreen viewscreen;
 
-	bool showRenderStatus;
-	bool dayNightCycle;
+    bool spriteIndexOverlay;
+    bool creditScreen;
+    int currentSpriteOverlay;
 
-	bool show_creature_moods;
-	bool show_creature_professions;
-	bool show_creature_jobs;
+    bool showRenderStatus;
+    bool dayNightCycle;
 
-	bool transparentScreenshots;
+    bool show_creature_moods;
+    bool show_creature_professions;
+    bool show_creature_jobs;
 
-	bool fog_of_war;
+    bool transparentScreenshots;
 
-	bool occlusion;
-	bool block_count;
+    bool fog_of_war;
 
-	uint16_t bloodcutoff;
-	uint16_t poolcutoff;
-	//follows are anti-crash things
-	bool skipWorld;
-	bool skipCreatures;
-	bool skipCreatureTypes;
-	bool skipCreatureTypesEx;
-	bool skipDescriptorColors;
-	bool skipBuildings;
-	bool skipVegetation;
-	bool skipConstructions;
-	bool skipMaps;
-	bool skipInorganicMats;
-	bool skipOrganicMats;
+    bool occlusion;
+    bool block_count;
 
-	//following are threading stuff
+    uint16_t bloodcutoff;
+    uint16_t poolcutoff;
+    //follows are anti-crash things
+    bool skipWorld;
+    bool skipCreatures;
+    bool skipCreatureTypes;
+    bool skipCreatureTypesEx;
+    bool skipDescriptorColors;
+    bool skipBuildings;
+    bool skipVegetation;
+    bool skipConstructions;
+    bool skipMaps;
+    bool skipInorganicMats;
+    bool skipOrganicMats;
 
-	ALLEGRO_MUTEX * readMutex;
-	ALLEGRO_COND * readCond;
-	ALLEGRO_THREAD * readThread;
-	bool threadmade;
-	bool threadstarted;
+    //following are threading stuff
 
-	bool threading_enable;
+    ALLEGRO_MUTEX * readMutex;
+    ALLEGRO_COND * readCond;
+    ALLEGRO_THREAD * readThread;
+    bool threadmade;
+    bool threadstarted;
 
-	int drawcount;
-	int tilecount;
+    bool threading_enable;
 
-	int zoom;
-	float scale;
+    int drawcount;
+    int tilecount;
+
+    int zoom;
+    float scale;
 } GameConfiguration;
 
 
-enum enumCreatureSex{
-	eCreatureSex_NA,
-	eCreatureSex_Male,
-	eCreatureSex_Female
+enum enumCreatureSex {
+    eCreatureSex_NA,
+    eCreatureSex_Male,
+    eCreatureSex_Female
 };

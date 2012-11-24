@@ -5,14 +5,14 @@
 class VegetationConfiguration
 {
 public:
-  int gameID;
-  bool live;
-  bool grown;
-  c_block_tree tree;
+    int gameID;
+    bool live;
+    bool grown;
+    c_block_tree tree;
 
-  VegetationConfiguration(){}
-  VegetationConfiguration(int gameID, c_block_tree &tree, bool live, bool grown);
-  ~VegetationConfiguration(void);
+    VegetationConfiguration() {}
+    VegetationConfiguration(int gameID, c_block_tree &tree, bool live, bool grown);
+    ~VegetationConfiguration(void);
 };
 
 
