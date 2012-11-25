@@ -6,6 +6,9 @@
 #include "ContentLoader.h"
 #include "GUI.h"
 
+#include "df/buildings_other_id.h"
+
+using df::global::world;
 //vector<BuildingConfiguration> buildingTypes;
 //vector <string> v_buildingtypes;//should be empty for all buildings
 /*
@@ -86,14 +89,24 @@ void ReadBuildings(DFHack::Core& DF, vector<Buildings::t_building>* buildingHold
     }
 
     vector<string> dummy;
-    uint32_t numbuildings = Buildings::getNumBuildings();
     Buildings::t_building tempbuilding;
+    df::buildings_other_id types = df::buildings_other_id::IN_PLAY;
 
-    uint32_t index = 0;
-    while(index < numbuildings) {
-        Buildings::Read(index, tempbuilding);
+    for (int i = 0; i < world->buildings.other[types].size(); i++) {
+        Core & c = Core::getInstance();
+        df::building *bld = world->buildings.other[types][i];
+        tempbuilding.x1 = bld->x1;
+        tempbuilding.x2 = bld->x2;
+        tempbuilding.y1 = bld->y1;
+        tempbuilding.y2 = bld->y2;
+        tempbuilding.z = bld->z;
+        tempbuilding.material.index = bld->mat_index;
+        tempbuilding.material.type = bld->mat_type;
+        tempbuilding.type = bld->getType();
+        tempbuilding.subtype = bld->getSubtype();
+        tempbuilding.custom_type = bld->getCustomType();
+        tempbuilding.origin = bld;
         buildingHolder->push_back(tempbuilding);
-        index++;
     }
 }
 
