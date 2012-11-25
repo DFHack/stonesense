@@ -46,7 +46,7 @@ private:
     ShadeBy shadeBy;
     std::vector<c_sprite> subsprites;
     ALLEGRO_COLOR shadecolor;
-    int inorganicColorType;
+    ALLEGRO_COLOR namedcolor;
     char bodypart[128];
     char animframes;
 

@@ -445,12 +445,14 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
     }
     shadecolor = al_map_rgba(red, green, blue, alpha);
 
-    //do references to predefined inorganic colors 
-    const char* inorganicColorStr = elemSprite->Attribute("inorganic");
-    if (inorganicColorStr == NULL || inorganicColorStr[0] == 0) {
-        inorganicColorType = 0;
+    //do references to predefined named colors 
+    const char* namedColorStr = elemSprite->Attribute("color_name");
+    if (namedColorStr == NULL || namedColorStr[0] == 0) {
+        namedcolor=al_map_rgb_f(255, 255, 255);
     } else {
-        inorganicColorType = lookupMaterialIndex( INORGANIC,inorganicColorStr );
+        int colorindex = lookupIndexedType(namedColorStr, contentLoader->Mats->color);
+        t_descriptor_color col = contentLoader->Mats->color[colorindex];
+        namedcolor = al_map_rgb_f( col.red, col.green, col.blue);
     }
 
     //Should the sprite be shown only when there is snow?
@@ -936,8 +938,8 @@ ALLEGRO_COLOR c_sprite::get_color(void* block)
         return shadecolor;
     case ShadeMat:
         return lookupMaterialColor(b->material);
-    case ShadeInorganic:
-        return lookupMaterialColor(INORGANIC, inorganicColorType);
+    case ShadeNamed:
+        return namedcolor;
     case ShadeGrass:
         return lookupMaterialColor(WOOD, b->grassmat);
     case ShadeBuilding:
