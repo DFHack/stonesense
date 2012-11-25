@@ -6,7 +6,7 @@
 enum ShadeBy {
     ShadeNone,
     ShadeXml,
-    ShadeInorganic,
+    ShadeNamed,
     ShadeMat,
     ShadeLayer,
     ShadeVein,
