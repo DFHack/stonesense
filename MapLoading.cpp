@@ -434,58 +434,69 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
 
                 //determine rock/soil type
                 int rockIndex = -1;
-                bool soilTile = false;//is this tile a match for soil materials?
-                bool soilMat = false;//is the material a soil?
 
                 //first lookup the default geolayer for the location
                 uint32_t tileBiomeIndex = trueBlock->designation[lx][ly].bits.biome;
                 uint8_t tileRegionIndex = trueBlock->region_offset[tileBiomeIndex];
                 uint32_t tileGeolayerIndex = trueBlock->designation[lx][ly].bits.geolayer_index;
-                if(tileRegionIndex < (*allLayers).size())
+                if(tileRegionIndex < (*allLayers).size()) {
                     if(tileGeolayerIndex < (*allLayers).at(tileRegionIndex).size()) {
                         rockIndex = (*allLayers).at(tileRegionIndex).at(tileGeolayerIndex);
                     }
+                }
+                
 
-                df::inorganic_raw * rawMat = df::inorganic_raw::find(rockIndex);
-                if(rawMat) {
-                    soilTile = b->tileMaterial == tiletype_material::SOIL;
-                    soilMat = rawMat->flags.is_set(inorganic_flags::SOIL_ANY);
-                    //if the tile is a stone tile but we got a soil material, we need to "dig down" to find it
-                    while(!soilTile && soilMat) {
-                        tileGeolayerIndex++;
-                        if(tileGeolayerIndex < (*allLayers).at(tileRegionIndex).size()) {
-                            rockIndex = (*allLayers).at(tileRegionIndex).at(tileGeolayerIndex);
-                            rawMat = df::inorganic_raw::find(rockIndex);
-                            if(rawMat) {
-                                soilMat = rawMat->flags.is_set(inorganic_flags::SOIL_ANY);
+                bool soilTile = false;//is this tile a match for soil materials?
+                bool soilMat = false;//is the material a soil?
+                soilTile = b->tileMaterial == tiletype_material::SOIL
+                    || (b->mudlevel == 0 
+                        && (b->tileMaterial == tiletype_material::PLANT 
+                            || b->tileMaterial == tiletype_material::GRASS_LIGHT
+                            || b->tileMaterial == tiletype_material::GRASS_DARK
+                            || b->tileMaterial == tiletype_material::GRASS_DRY
+                            || b->tileMaterial == tiletype_material::GRASS_DEAD));
+                if(b->tileMaterial == tiletype_material::STONE || soilTile) {
+
+                    df::inorganic_raw * rawMat = df::inorganic_raw::find(rockIndex);
+                    if(rawMat) {
+                        soilMat = rawMat->flags.is_set(inorganic_flags::SOIL_ANY);
+                        //if the tile is a stone tile but we got a soil material, we need to "dig down" to find it
+                        while(!soilTile && soilMat) {
+                            tileGeolayerIndex++;
+                            if(tileGeolayerIndex < (*allLayers).at(tileRegionIndex).size()) {
+                                rockIndex = (*allLayers).at(tileRegionIndex).at(tileGeolayerIndex);
+                                rawMat = df::inorganic_raw::find(rockIndex);
+                                if(rawMat) {
+                                    soilMat = rawMat->flags.is_set(inorganic_flags::SOIL_ANY);
+                                } else {
+                                    rockIndex = -1;
+                                    break;
+                                }
                             } else {
                                 rockIndex = -1;
                                 break;
                             }
-                        } else {
-                            rockIndex = -1;
-                            break;
                         }
-                    }
-                    //if the tile is a soil tile but we got a stone material, we need to "dig up" to find it
-                    while(soilTile && !soilMat) {
-                        if(tileGeolayerIndex == 0) {
-                            rockIndex = -1;
-                            break;
-                        }
-                        tileGeolayerIndex--;
-                        rockIndex = (*allLayers).at(tileRegionIndex).at(tileGeolayerIndex);
-                        rawMat = df::inorganic_raw::find(rockIndex);
-                        if(rawMat) {
-                            soilMat = rawMat->flags.is_set(inorganic_flags::SOIL_ANY);
+                        //if the tile is a soil tile but we got a stone material, we need to "dig up" to find it
+                        while(soilTile && !soilMat) {
+                            if(tileGeolayerIndex == 0) {
+                                rockIndex = -1;
+                                break;
+                            }
+                            tileGeolayerIndex--;
+                            rockIndex = (*allLayers).at(tileRegionIndex).at(tileGeolayerIndex);
+                            rawMat = df::inorganic_raw::find(rockIndex);
+                            if(rawMat) {
+                                soilMat = rawMat->flags.is_set(inorganic_flags::SOIL_ANY);
 
-                        } else {
-                            rockIndex = -1;
-                            break;
+                            } else {
+                                rockIndex = -1;
+                                break;
+                            }
                         }
+                    } else {
+                        rockIndex = -1;
                     }
-                } else {
-                    rockIndex = -1;
                 }
 
                 b->layerMaterial.type = INORGANIC;
