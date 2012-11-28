@@ -56,6 +56,7 @@ public:
     void drawAllBlocks();
     void drawPixels();
     bool CoordinateInsideSegment(uint32_t x, uint32_t y, uint32_t z);
+    bool CoordinateInteriorSegment(uint32_t x, uint32_t y, uint32_t z, uint32_t shellthick);
 };
 
 // FIXME: make nicer. one day. maybe.

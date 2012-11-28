@@ -10,26 +10,22 @@
 
 inline bool IDisWall(int in)
 {
-    //if not a custom type, do a lookup in dfHack's interface
     return isWallTerrain( (tiletype::tiletype) in );
 }
 
 inline bool IDisFloor(int in)
 {
-    //if not a custom type, do a lookup in dfHack's interface
     return isFloorTerrain( (tiletype::tiletype) in );
 }
 
 inline bool IDhasOpaqueFloor(int in)
 {
-    //ignores possible transparent materials
     return !FlowPassableDown( (tiletype::tiletype) in );
 }
 
 inline bool IDhasOpaqueSides(int in)
 {
-    //ignores possible transparent materials
-    return !FlowPassable( (tiletype::tiletype) in );
+    return (!FlowPassable( (tiletype::tiletype) in )) && in != tiletype::Tree;
 }
 
 class WorldSegment;
