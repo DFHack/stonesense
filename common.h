@@ -260,5 +260,4 @@ enum MAT_BASICS {
 
 extern int randomCube[RANDOM_CUBE][RANDOM_CUBE][RANDOM_CUBE];
 
-ALLEGRO_COLOR premultiply(ALLEGRO_COLOR input);
 using namespace std;

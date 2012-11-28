@@ -856,7 +856,7 @@ WorldSegment* ReadMapSegment(int x, int y, int z, int sizex, int sizey, int size
         }
         index++;
     }
-
+    
     //Read Creatures
     if(!config.skipCreatures) {
         ReadCreaturesToSegment( DF, segment );

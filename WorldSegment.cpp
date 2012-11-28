@@ -243,18 +243,18 @@ void WorldSegment::drawAllBlocks()
         if(config.showRenderStatus) {
             SetTitle("Stonesense - Drawing Terrain, Level %d/%d", (vsz+1), vszmax);
         }
-        if(config.fogenable && config.foga) {
+        if(config.fogenable) {
             if(!fog) {
                 fog = al_create_bitmap(al_get_bitmap_width(temp), al_get_bitmap_height(temp));
                 al_set_target_bitmap(fog);
-                al_clear_to_color(premultiply(al_map_rgba_f(config.fogr, config.fogg, config.fogb, config.foga)));
+                al_clear_to_color(premultiply(config.fogcol));
                 al_set_target_bitmap(temp);
             }
             if(!((al_get_bitmap_width(fog) == al_get_bitmap_width(temp)) && (al_get_bitmap_height(fog) == al_get_bitmap_height(temp)))) {
                 al_destroy_bitmap(fog);
                 fog = al_create_bitmap(al_get_bitmap_width(temp), al_get_bitmap_height(temp));
                 al_set_target_bitmap(fog);
-                al_clear_to_color(al_map_rgba_f(config.fogr*config.foga, config.fogg*config.foga, config.fogb*config.foga, config.foga));
+                al_clear_to_color(premultiply(config.fogcol));
                 al_set_target_bitmap(temp);
             }
             al_draw_bitmap(fog, 0, 0, 0);
@@ -263,9 +263,6 @@ void WorldSegment::drawAllBlocks()
             if (config.show_osd) {
                 DrawCurrentLevelOutline(true);
             }
-        }
-        if(config.dayNightCycle) {
-            al_hold_bitmap_drawing(true);
         }
         for(int32_t vsx=1; vsx < vsxmax; vsx++) {
             for(int32_t vsy=1; vsy < vsymax; vsy++) {
