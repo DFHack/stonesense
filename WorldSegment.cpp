@@ -314,6 +314,20 @@ bool WorldSegment::CoordinateInsideSegment(uint32_t x, uint32_t y, uint32_t z)
     return true;
 }
 
+bool WorldSegment::CoordinateInteriorSegment(uint32_t x, uint32_t y, uint32_t z, uint32_t shellthick)
+{
+    if( (int32_t)x < this->x + shellthick || (int32_t)x >= this->x + this->sizex - shellthick) {
+        return false;
+    }
+    if( (int32_t)y < this->y + shellthick || (int32_t)y >= this->y + this->sizey - shellthick) {
+        return false;
+    }
+    if( (int32_t)z < this->z + shellthick || (int32_t)z >= this->z + this->sizez - shellthick) {
+        return false;
+    }
+    return true;
+}
+
 void WorldSegment::drawPixels()
 {
     for(int32_t vsx=0; vsx < this->sizex; vsx++)

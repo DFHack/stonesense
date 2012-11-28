@@ -153,10 +153,6 @@ void occlude_block(Block * b)
     int baseY = b->y;
     int baseZ = b->z;
 
-    int distX = b->ownerSegment->x + b->ownerSegment->sizex - b->x - 1;
-    int distY = b->ownerSegment->y + b->ownerSegment->sizey - b->y - 1;
-    int distZ = b->ownerSegment->z + b->ownerSegment->sizez - b->z - 1;
-
     int stepX, stepY;
 
     switch(b->ownerSegment->rotation) {
@@ -179,29 +175,45 @@ void occlude_block(Block * b)
     };
 
     bool done = 0;
-    for(int relZ = 0; (relZ < distZ) && !done; relZ++) {
+    for(int relZ = 0; !done; relZ++) {
         int stepZ = relZ * S_BLOCK_HEIGHT / S_SPRITE_HEIGHT;
         if(relZ > 0) {
             stepZ--;
         }
 
-        for(int relXY = 0; (relXY <= (((TILEHEIGHT + BLOCKHEIGHT) / (TILEHEIGHT))+1)) && !done && relXY <= distX && relXY <= distY; relXY++) {
+        for(int relXY = 0; (relXY <= (((TILEHEIGHT + BLOCKHEIGHT) / (TILEHEIGHT))+1)) && !done ; relXY++) {
             int tempX = baseX + ((relXY + stepZ) * stepX);
             int tempY = baseY + ((relXY + stepZ) * stepY);
             int tempZ = baseZ + relZ;
-            //DFConsole->print("Base: %d,%d,%d. Current: %d,%d,%d. Offset: %d. \n", baseX, baseY, baseZ, tempX + stepX, tempY + stepY, tempZ, (((relXY + stepZ) + ((relXY + stepZ)) * TILEHEIGHT / 2) - (relZ * BLOCKHEIGHT)));
-            mask_center(segment->getBlock(tempX + stepX, tempY + stepY, tempZ), ((relXY+stepZ) * S_TILE_HEIGHT + S_TILE_HEIGHT) - (relZ * S_BLOCK_HEIGHT));
-            if(base_mask_left.none() && base_mask_right.none()) {
-                done = true;
-                break;
+
+            bool centerin = segment->CoordinateInteriorSegment(tempX + stepX, tempY + stepY, tempZ, 1);
+            if(centerin) {
+                Block* center = segment->getBlock(tempX + stepX, tempY + stepY, tempZ);
+                mask_center(center, ((relXY+stepZ) * S_TILE_HEIGHT + S_TILE_HEIGHT) - (relZ * S_BLOCK_HEIGHT));
+                if(base_mask_left.none() && base_mask_right.none()) {
+                    done = true;
+                    break;
+                }
             }
-            mask_left(segment->getBlock(tempX, tempY + stepY, tempZ), ((relXY+stepZ) * S_TILE_HEIGHT + S_TILE_HEIGHT/2) - (relZ * S_BLOCK_HEIGHT));
-            if(base_mask_left.none() && base_mask_right.none()) {
-                done = true;
-                break;
+            bool leftin = segment->CoordinateInteriorSegment(tempX, tempY + stepY, tempZ, 1);
+            if(leftin) {
+                Block* left = segment->getBlock(tempX, tempY + stepY, tempZ);
+                mask_left(left, ((relXY+stepZ) * S_TILE_HEIGHT + S_TILE_HEIGHT/2) - (relZ * S_BLOCK_HEIGHT));
+                if(base_mask_left.none() && base_mask_right.none()) {
+                    done = true;
+                    break;
+                }
             }
-            mask_right(segment->getBlock(tempX + stepX, tempY, tempZ), ((relXY+stepZ) * S_TILE_HEIGHT + S_TILE_HEIGHT/2) - (relZ * S_BLOCK_HEIGHT));
-            if(base_mask_left.none() && base_mask_right.none()) {
+            bool rightin = segment->CoordinateInteriorSegment(tempX + stepX, tempY, tempZ, 1);
+            if(rightin) {
+                Block* right = segment->getBlock(tempX + stepX, tempY, tempZ);
+                mask_right(right, ((relXY+stepZ) * S_TILE_HEIGHT + S_TILE_HEIGHT/2) - (relZ * S_BLOCK_HEIGHT));
+                if(base_mask_left.none() && base_mask_right.none()) {
+                    done = true;
+                    break;
+                }
+            }
+            if(!leftin || !rightin || !centerin) {
                 done = true;
                 break;
             }

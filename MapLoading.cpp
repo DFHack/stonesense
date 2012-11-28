@@ -518,8 +518,13 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
                         b->veinMaterial.index = rockIndex;
                     }
                 }
+                
                 b->material.type = INORGANIC;
-                b->material.index = b->veinMaterial.index;
+                if(soilTile) {
+                    b->material.index = b->layerMaterial.index;
+                } else { 
+                    b->material.index = b->veinMaterial.index;
+                }
 
                 //read global/local features
                 int16_t idx = trueBlock->global_feature;
