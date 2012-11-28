@@ -184,19 +184,19 @@ void parseConfigLine( string line )
     }
     if( line.find("[FOG_RED") != -1) {
         int value = parseIntFromLine( "FOG_RED", line);
-        config.fogr = value / 255.0;
+        config.fogcol.r = value / 255.0;
     }
     if( line.find("[FOG_GREEN") != -1) {
         int value = parseIntFromLine( "FOG_GREEN", line);
-        config.fogg = value / 255.0;
+        config.fogcol.g = value / 255.0;
     }
     if( line.find("[FOG_BLUE") != -1) {
         int value = parseIntFromLine( "FOG_BLUE", line);
-        config.fogb = value / 255.0;
+        config.fogcol.b = value / 255.0;
     }
     if( line.find("[FOG_ALPHA") != -1) {
         int value = parseIntFromLine( "FOG_ALPHA", line);
-        config.foga = value / 255.0;
+        config.fogcol.a = value / 255.0;
     }
     if( line.find("[SHOW_FOG") != -1) {
         string result = parseStrFromLine( "SHOW_FOG", line );
@@ -210,7 +210,7 @@ void parseConfigLine( string line )
         if(value < 0) {
             value = 0;
         }
-        config.backr = value;
+        config.backcol.r = value / 255.0;
     }
     if( line.find("[BACK_GREEN") != -1) {
         int value = parseIntFromLine( "BACK_GREEN", line);
@@ -220,7 +220,7 @@ void parseConfigLine( string line )
         if(value < 0) {
             value = 0;
         }
-        config.backg = value;
+        config.backcol.g = value / 255.0;
     }
     if( line.find("[BACK_BLUE") != -1) {
         int value = parseIntFromLine( "BACK_BLUE", line);
@@ -230,7 +230,7 @@ void parseConfigLine( string line )
         if(value < 0) {
             value = 0;
         }
-        config.backb = value;
+        config.backcol.b = value / 255.0;
     }
     if( line.find("[FOLLOW_OFFSET_X") != -1) {
         int value = parseIntFromLine( "FOLLOW_OFFSET_X", line);

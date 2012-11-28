@@ -448,7 +448,7 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
     //do references to predefined named colors 
     const char* namedColorStr = elemSprite->Attribute("color_name");
     if (namedColorStr == NULL || namedColorStr[0] == 0) {
-        namedcolor=al_map_rgb_f(255, 255, 255);
+        namedcolor=al_map_rgb(255, 255, 255);
     } else {
         int colorindex = lookupIndexedType(namedColorStr, contentLoader->Mats->color);
         t_descriptor_color col = contentLoader->Mats->color[colorindex];
@@ -778,12 +778,7 @@ void c_sprite::draw_world_offset(int x, int y, int z, Block * b, int tileoffset,
             sheetx = ((sheetindex+tileoffset+randoffset) % SHEET_OBJECTSWIDE) * spritewidth;
             sheety = ((sheetindex+tileoffset+randoffset) / SHEET_OBJECTSWIDE) * spriteheight;
         }
-        ALLEGRO_COLOR shade_color = get_color(b);
-        if(b->fog_of_war && config.fog_of_war && (contentLoader->gameMode.g_mode == GAMEMODE_ADVENTURE)) {
-            shade_color.r *= 0.25f;
-            shade_color.g *= 0.25f;
-            shade_color.b *= 0.25f;
-        }
+        ALLEGRO_COLOR shade_color = shadeAdventureMode(get_color(b), b->fog_of_war, b->designation.bits.outside);
         if(chop && ( halftile == HALFTILECHOP)) {
             if(fileindex < 0) {
                 if(config.block_count) {

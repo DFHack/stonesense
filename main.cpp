@@ -266,12 +266,12 @@ static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALL
                 drawcredits();
             } else if( timeToReloadSegment ) {
                 reloadDisplayedSegment();
-                al_clear_to_color(al_map_rgb(config.backr,config.backg,config.backb));
+                al_clear_to_color(config.backcol);
                 paintboard();
                 timeToReloadSegment = false;
                 animationFrameShown = true;
             } else if (animationFrameShown == false) {
-                al_clear_to_color(al_map_rgb(config.backr,config.backg,config.backb));
+                al_clear_to_color(config.backcol);
                 paintboard();
                 animationFrameShown = true;
             }
@@ -373,13 +373,8 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
     config.animation_step = 300;
     config.follow_DFscreen = false;
     timeToReloadConfig = true;
-    config.fogr = 255;
-    config.fogg = 255;
-    config.fogb = 255;
-    config.foga = 255;
-    config.backr = 95;
-    config.backg = 95;
-    config.backb = 160;
+    config.fogcol = al_map_rgba(255, 255, 255, 255);
+    config.backcol = al_map_rgb(95, 95, 160);
     config.fogenable = true;
     config.imageCacheSize = 4096;
     config.fontsize = 10;

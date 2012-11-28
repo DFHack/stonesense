@@ -142,13 +142,8 @@ typedef struct {
     int screenHeight;
     bool Fullscreen;
     bool show_intro;
-    float fogr;
-    float fogg;
-    float fogb;
-    float foga;
-    int backr;
-    int backg;
-    int backb;
+    ALLEGRO_COLOR fogcol;
+    ALLEGRO_COLOR backcol;
     bool fogenable;
     Crd3D segmentSize;
 

@@ -60,9 +60,4 @@ extern ALLEGRO_BITMAP* IMGLetterSheet;
 extern Crd3D debugCursor;
 extern vector<string*> IMGFilenames;
 
-ALLEGRO_COLOR operator*(const ALLEGRO_COLOR &color1, const ALLEGRO_COLOR &color2);
-ALLEGRO_COLOR operator+(const ALLEGRO_COLOR &color1, const ALLEGRO_COLOR &color2);
-ALLEGRO_COLOR getDayShade(int hour, int tick);
-ALLEGRO_COLOR partialBlend(const ALLEGRO_COLOR & color2, const ALLEGRO_COLOR & color1, int percent);
-
 void swapSegments(void);

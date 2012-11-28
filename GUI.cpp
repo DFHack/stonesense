@@ -3,6 +3,7 @@
 
 using namespace std;
 
+#pragma once
 
 #include "common.h"
 #include "Block.h"
@@ -72,16 +73,6 @@ vector<string*> IMGFilenames;
 GLhandleARB tinter;
 GLhandleARB tinter_shader;
 Crd3D debugCursor;
-
-ALLEGRO_COLOR premultiply(ALLEGRO_COLOR input)
-{
-    ALLEGRO_COLOR out;
-    out.a = input.a;
-    out.r = input.r * input.a;
-    out.g = input.g * input.a;
-    out.b = input.b * input.a;
-    return out;
-}
 
 const char * get_item_subtype(item_type::item_type type, int subtype)
 {
@@ -181,63 +172,6 @@ void draw_borders(float x, float y, uint8_t borders)
 
 }
 
-ALLEGRO_COLOR operator*(const ALLEGRO_COLOR &color1, const ALLEGRO_COLOR &color2)
-{
-    ALLEGRO_COLOR temp;
-    temp.r=color1.r*color2.r;
-    temp.g=color1.g*color2.g;
-    temp.b=color1.b*color2.b;
-    temp.a=color1.a*color2.a;
-    return temp;
-}
-
-ALLEGRO_COLOR operator+(const ALLEGRO_COLOR &color1, const ALLEGRO_COLOR &color2)
-{
-    ALLEGRO_COLOR temp;
-    temp.r=color1.r+(color2.r*(1-color1.r));
-    temp.g=color1.g+(color2.g*(1-color1.g));
-    temp.b=color1.b+(color2.b*(1-color1.b));
-    temp.a=color1.a+(color2.a*(1-color1.a));
-    return temp;
-}
-
-ALLEGRO_COLOR partialBlend(const ALLEGRO_COLOR & color2, const ALLEGRO_COLOR & color1, int percent)
-{
-    float blend = percent/100.0;
-    ALLEGRO_COLOR result;
-    result.r=(blend*color1.r)+((1.0-blend)*color2.r);
-    result.g=(blend*color1.g)+((1.0-blend)*color2.g);
-    result.b=(blend*color1.b)+((1.0-blend)*color2.b);
-    if(color1.a > color2.a) {
-        result.a = color1.a;
-    } else {
-        result.a = color2.a;
-    }
-    return result;
-}
-
-ALLEGRO_COLOR getDayShade(int hour, int tick)
-{
-    ALLEGRO_COLOR nightShade = al_map_rgb(158,155,255);
-    ALLEGRO_COLOR dawnShade = al_map_rgb(254,172,142);
-
-    if(hour < 6) {
-        return nightShade;
-    } else if((hour < 7) && (tick < 25)) {
-        return partialBlend(nightShade, dawnShade, (tick * 4));
-    } else if(hour < 7) {
-        return partialBlend(dawnShade, al_map_rgb(255,255,255), ((tick-25) * 4));
-    } else if((hour > 20) && (hour <= 21) && (tick < 25)) {
-        return partialBlend(al_map_rgb(255,255,255), dawnShade, (tick * 4));
-    } else if((hour > 20) && (hour <= 21)) {
-        return partialBlend(dawnShade, nightShade, ((tick-25) * 4));
-    } else if(hour > 21) {
-        return nightShade;
-    }
-    return al_map_rgb(255,255,255);
-}
-
-
 void ScreenToPoint(int x,int y,int &x1, int &y1, int &z1)
 {
     //assume z of 0
@@ -290,6 +224,7 @@ int get_textf_width(const ALLEGRO_FONT *font, const char *format, ...)
     al_ustr_free(buf);
     return width;
 }
+
 void draw_text_border(const ALLEGRO_FONT *font, ALLEGRO_COLOR color, float x, float y, int flags, const char *ustr)
 {
     int xx, yy, ww, hh;
@@ -826,27 +761,9 @@ void DrawSpriteFromSheet( int spriteNum, ALLEGRO_BITMAP* spriteSheet, ALLEGRO_CO
     config.drawcount ++;
 #endif
 
-    //
-    /*
-    static ALLEGRO_BITMAP* tiny = null;
-    if(!tiny)
-    tiny = create_bitmap_ex(32, 32, 32);
-
-    blit(spriteSheet, tiny, sheetx * SPRITEWIDTH, sheety * SPRITEHEIGHT, 0, 0, SPRITEWIDTH, SPRITEHEIGHT);
-
-    blit(tiny, target,
-    0,0,
-    10, 60 , SPRITEWIDTH, SPRITEHEIGHT);
-    */
-    //draw_trans_sprite(target, tiny, x, y);
-    if(config.fog_of_war && (contentLoader->gameMode.g_mode == GAMEMODE_ADVENTURE) && b && b->fog_of_war) {
-        color.r *= 0.25f;
-        color.g *= 0.25f;
-        color.b *= 0.25f;
-    }
     al_draw_tinted_scaled_bitmap(
         spriteSheet,
-        premultiply(color),
+        premultiply(b ? shadeAdventureMode(color, b->fog_of_war, b->designation.bits.outside) : color),
         sheetx * SPRITEWIDTH * in_scale,
         sheety * SPRITEHEIGHT * in_scale,
         SPRITEWIDTH * in_scale,
@@ -925,7 +842,7 @@ void DoSpriteIndexOverlay()
         }
     }
     //redraw screen again
-    al_clear_to_color(al_map_rgb(config.backr,config.backg,config.backb));
+    al_clear_to_color(config.backcol);
     paintboard();
 }
 
@@ -939,7 +856,7 @@ void paintboard()
     if(config.transparentScreenshots) {
         al_clear_to_color(al_map_rgba(0,0,0,0));
     } else {
-        al_clear_to_color(al_map_rgb(config.backr,config.backg,config.backb));
+        al_clear_to_color(config.backcol);
     }
     al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst);
 
@@ -960,7 +877,7 @@ void paintboard()
 
     uint32_t DrawTime = clock() - starttime;
 
-    //teh drawtime indicator is too jumpy, so I'm averaging it out over 10 frames.
+    //the drawtime indicator is too jumpy, so I'm averaging it out over 10 frames.
     static uint32_t DrawTimes[10];
     static int ind = 0;
     if(ind >= 10) {
@@ -1270,7 +1187,7 @@ int loadImgFile(ALLEGRO_PATH* filepath)
 */
 void saveScreenshot()
 {
-    al_clear_to_color(al_map_rgb(config.backr,config.backg,config.backb));
+    al_clear_to_color(config.backcol);
     paintboard();
     //get filename
     char filename[20] = {0};
@@ -1296,7 +1213,7 @@ void saveScreenshot()
     al_set_target_bitmap(temp);
     PrintMessage("saving screenshot to %s\n", filename);
     if(!config.transparentScreenshots) {
-        al_clear_to_color(al_map_rgb(config.backr,config.backg,config.backb));
+        al_clear_to_color(config.backcol);
     }
     paintboard();
     al_save_bitmap(filename, temp);
@@ -1380,7 +1297,7 @@ void saveMegashot(bool tall)
         PrintMessage("saving large screenshot to %s\n", filename);
         al_set_target_bitmap(bigFile);
         if(!config.transparentScreenshots) {
-            al_clear_to_color(al_map_rgb(config.backr,config.backg,config.backb));
+            al_clear_to_color(config.backcol);
         }
 
         //here we deal with the rotations
