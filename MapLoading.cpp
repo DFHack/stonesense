@@ -630,7 +630,7 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
     //add effects
     for(auto iter = trueBlock->flows.begin(); iter != trueBlock->flows.end(); iter++) {
         df::flow_info * eff = *iter;
-        if(eff == NULL || eff->density == 0) {
+        if(eff == NULL || eff->density <= 0) {
             continue;
         }
         Block* b = segment.getBlock( eff->pos.x, eff->pos.y, eff->pos.z);
