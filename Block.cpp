@@ -75,8 +75,6 @@ Block::Block(WorldSegment* ownerSegment, df::tiletype type)
     Item.dyematt.index=-1;
 }
 
-
-
 Block::~Block(void)
 {
     if( creature ) {
@@ -91,6 +89,7 @@ void* Block::operator new (size_t size)
 {
     return blockFactory.allocateBlock( );
 }
+
 void Block::operator delete (void *p)
 {
     blockFactory.deleteBlock( (Block*)p );
@@ -119,10 +118,10 @@ void Block::Draw()
     if(!visible) {
         return;
     }
+
     if((material.type == INORGANIC) && (material.index == -1)) {
         material.index = 0;
     }
-
 
     if((!(this->designation.bits.hidden) || config.show_hidden_blocks) && config.block_count) {
         config.tilecount ++;
@@ -215,7 +214,6 @@ void Block::Draw()
         DrawSpriteFromSheet( engraving_character, IMGEngFloorSheet, al_map_rgba_f(1.0,1.0,1.0,((engraving_quality + 5.0f) / 10.0f)), drawx, drawy, this );
     }
 
-
     //draw surf
     //fixme: needs to be scaled
     if(Eff_SeaFoam.density > 0) {
@@ -240,9 +238,7 @@ void Block::Draw()
         spriteobject->set_tile_layout(BLOCKTILE);
     }
 
-
     drawFloorBlood ( this, drawx, drawy );
-
 
     //first part of snow
     if(tileShapeBasic!=tiletype_shape_basic::Ramp && tileShapeBasic!=tiletype_shape_basic::Wall && tileShapeBasic!=tiletype_shape_basic::Stair && defaultSnow) {
@@ -256,7 +252,6 @@ void Block::Draw()
             DrawSpriteFromSheet( 23, IMGObjectSheet, al_map_rgb(255,255,255), drawx, drawy, this );
         }
     }
-
 
     ////vegetation
     //if(tree.index > 0 || tree.type > 0){
@@ -281,7 +276,6 @@ void Block::Draw()
             DrawSpriteFromSheet( 350, IMGObjectSheet, lookupMaterialColor(Item.matt, Item.dyematt), drawx, (tileShapeBasic==tiletype_shape_basic::Ramp)?(drawy - ((WALLHEIGHT/2)*config.scale)):drawy , this);
         }
     }
-
 
     //shadow
     if (shadow > 0) {
