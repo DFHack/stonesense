@@ -19,18 +19,25 @@ bitset<2*S_SPRITE_HEIGHT> wall_mask_right;
 bitset<2*S_SPRITE_HEIGHT> floor_mask_left;
 bitset<2*S_SPRITE_HEIGHT> floor_mask_right;
 
+inline bool hasOpaqueSides(Block * b){
+    return IDhasOpaqueSides(b->tileType) 
+        || ( b->designation.bits.hidden && (config.shade_hidden_blocks || config.show_hidden_blocks) );
+}
+
+inline bool hasOpaqueFloor(Block * b){
+    return IDhasOpaqueFloor(b->tileType) 
+        || ( b->designation.bits.hidden && (config.shade_hidden_blocks || config.show_hidden_blocks) );
+}
+
 bool is_block_solid(Block * b)
 {
-    if(!config.shade_hidden_blocks && !config.show_hidden_blocks && b->designation.bits.hidden) {
-        return false;
-    }
     if(b->material.type == 3 ||
             b->material.type == 4 ||
             b->material.type == 5 ||
             b->material.type == 6) {
         return false;
     }
-    return IDhasOpaqueSides(b->tileType) || IDhasOpaqueFloor(b->tileType);
+    return hasOpaqueSides(b) || hasOpaqueFloor(b);
 }
 
 void mask_center(Block * b, int offset)
@@ -41,7 +48,7 @@ void mask_center(Block * b, int offset)
     if(!is_block_solid(b)) {
         return;
     }
-    if(IDhasOpaqueSides(b->tileType)) {
+    if(hasOpaqueSides(b)) {
         if(offset >= 0) {
             base_mask_left &= ~(wall_mask_left << offset*2);
             base_mask_right &= ~(wall_mask_right << offset*2);
@@ -49,7 +56,7 @@ void mask_center(Block * b, int offset)
             base_mask_left &= ~(wall_mask_left >> -offset*2);
             base_mask_right &= ~(wall_mask_right >> -offset*2);
         }
-    } else if(IDhasOpaqueFloor(b->tileType)) {
+    } else if(hasOpaqueFloor(b)) {
         if(offset >= 0) {
             base_mask_left &= ~(floor_mask_left << offset*2);
             base_mask_right &= ~(floor_mask_right << offset*2);
@@ -68,13 +75,13 @@ void mask_left(Block * b, int offset)
     if(!is_block_solid(b)) {
         return;
     }
-    if(IDhasOpaqueSides(b->tileType)) {
+    if(hasOpaqueSides(b)) {
         if(offset >= 0) {
             base_mask_left &= ~(wall_mask_right << offset*2);
         } else {
             base_mask_left &= ~(wall_mask_right >> -offset*2);
         }
-    } else if(IDhasOpaqueFloor(b->tileType)) {
+    } else if(hasOpaqueFloor(b)) {
         if(offset >= 0) {
             base_mask_left &= ~(floor_mask_right << offset*2);
         } else {
@@ -91,13 +98,13 @@ void mask_right(Block * b, int offset)
     if(!is_block_solid(b)) {
         return;
     }
-    if(IDhasOpaqueSides(b->tileType)) {
+    if(hasOpaqueSides(b)) {
         if(offset >= 0) {
             base_mask_right &= ~(wall_mask_left << offset*2);
         } else {
             base_mask_right &= ~(wall_mask_left >> -offset*2);
         }
-    } else if(IDhasOpaqueFloor(b->tileType)) {
+    } else if(hasOpaqueFloor(b)) {
         if(offset >= 0) {
             base_mask_right &= ~(floor_mask_left << offset*2);
         } else {
