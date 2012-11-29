@@ -243,6 +243,7 @@ void c_sprite::reset(void)
     spritescale=1.0f;
     itemtype= -1;
     itemsubtype=-1;
+    light=LIGHTANY;
     {
         for(int i = 0; i < subsprites.size(); i++) {
             subsprites[i].reset();

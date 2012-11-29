@@ -191,9 +191,7 @@ void loadBuildingSprites ( Block* b)
     //add yellow box, if needed. But only if the building was not found (this way we can have blank slots in buildings)
     if(b->building.sprites.size() == 0 && foundBlockBuildingInfo == false) {
         c_sprite unknownBuildingSprite;
-        unknownBuildingSprite.set_defaultsheet(IMGObjectSheet);
-        unknownBuildingSprite.set_fileindex(-1);
-        unknownBuildingSprite.set_sheetindex(0);
+        unknownBuildingSprite.reset();
         b->building.sprites.push_back( unknownBuildingSprite );
     }
 }
