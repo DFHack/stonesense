@@ -370,12 +370,20 @@ void drawDebugCursorAndInfo(WorldSegment * segment)
         debugCursor.z = 0;
     }
     Crd2D point = LocalBlockToScreen(debugCursor.x, debugCursor.y, debugCursor.z);
-
-    int spriteNum =  SPRITEOBJECT_CURSOR;
-    int sheetx = spriteNum % SHEET_OBJECTSWIDE;
-    int sheety = spriteNum / SHEET_OBJECTSWIDE;
-    DrawSpriteFromSheet(SPRITEOBJECT_CURSOR, IMGObjectSheet, al_map_rgb(255,255,255), point.x-((SPRITEWIDTH/2)*config.scale), point.y);
-    //al_draw_bitmap_region(IMGObjectSheet, sheetx * SPRITEWIDTH, sheety * SPRITEHEIGHT, SPRITEWIDTH, SPRITEHEIGHT, point.x - SPRITEWIDTH/2, point.y - (WALLHEIGHT), 0);
+    int sheetx = SPRITEOBJECT_CURSOR % SHEET_OBJECTSWIDE;
+    int sheety = SPRITEOBJECT_CURSOR / SHEET_OBJECTSWIDE;
+    al_draw_tinted_scaled_bitmap(
+        IMGObjectSheet,
+        al_map_rgb(255,255,255),
+        sheetx * SPRITEWIDTH,
+        sheety * SPRITEHEIGHT,
+        SPRITEWIDTH,
+        SPRITEHEIGHT,
+        point.x-((SPRITEWIDTH/2)*config.scale),
+        point.y - (WALLHEIGHT)*config.scale,
+        SPRITEWIDTH*config.scale,
+        SPRITEHEIGHT*config.scale,
+        0);
 
     //get block info
     Block* b = segment->getBlockLocal( debugCursor.x, debugCursor.y, debugCursor.z+segment->sizez-2);
@@ -751,28 +759,6 @@ void DrawMinimap(WorldSegment * segment)
     MiniMapTopLeftY = posy;
     MiniMapBottomRightX = posx+size;
     MiniMapBottomRightY = posy+mapheight;
-}
-
-void DrawSpriteFromSheet( int spriteNum, ALLEGRO_BITMAP* spriteSheet, ALLEGRO_COLOR color, float x, float y, Block * b, float in_scale)
-{
-    int sheetx = spriteNum % SHEET_OBJECTSWIDE;
-    int sheety = spriteNum / SHEET_OBJECTSWIDE;
-#ifdef _DEBUG
-    config.drawcount ++;
-#endif
-
-    al_draw_tinted_scaled_bitmap(
-        spriteSheet,
-        premultiply(b ? shadeAdventureMode(color, b->fog_of_war, b->designation.bits.outside) : color),
-        sheetx * SPRITEWIDTH * in_scale,
-        sheety * SPRITEHEIGHT * in_scale,
-        SPRITEWIDTH * in_scale,
-        SPRITEHEIGHT * in_scale,
-        x,
-        y - (WALLHEIGHT)*config.scale,
-        SPRITEWIDTH*config.scale,
-        SPRITEHEIGHT*config.scale,
-        0);
 }
 
 ALLEGRO_BITMAP * CreateSpriteFromSheet( int spriteNum, ALLEGRO_BITMAP* spriteSheet)
@@ -1372,15 +1358,4 @@ void saveMegashot(bool tall)
     config.showRenderStatus = false;
 
     al_unlock_mutex(config.readMutex);
-}
-
-void draw_particle_cloud(int count, float centerX, float centerY, float rangeX, float rangeY, ALLEGRO_BITMAP *sprite, ALLEGRO_COLOR tint)
-{
-    for(int i = 0; i < count; i++) {
-        int width = al_get_bitmap_width(sprite);
-        int height = al_get_bitmap_height(sprite);
-        float drawx = centerX + ((((float)rand() / RAND_MAX) - 0.5) * rangeX * config.scale);
-        float drawy = centerY + ((((float)rand() / RAND_MAX) - 0.5) * rangeY * config.scale);
-        al_draw_tinted_scaled_bitmap(sprite, tint, 0, 0, width, height, drawx, drawy,width*config.scale, height*config.scale, 0);
-    }
 }

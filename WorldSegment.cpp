@@ -274,9 +274,7 @@ void WorldSegment::drawAllBlocks()
                     }
                 }
                 if (b) {
-                    b->Draw();
-                    //while(!key[KEY_SPACE]) ;
-                    //rest(100);
+                    b->Assemble();
                 }
             }
         }
@@ -287,8 +285,6 @@ void WorldSegment::drawAllBlocks()
                 Block *b = getBlockLocal(vsx,vsy,vsz);
                 if (b) {
                     b->Drawcreaturetext();
-                    //while(!key[KEY_SPACE]) ;
-                    //rest(100);
                 }
             }
         }
