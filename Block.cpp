@@ -113,6 +113,39 @@ inline ALLEGRO_BITMAP* imageSheet(t_subSprite sprite, ALLEGRO_BITMAP* defaultBmp
     }
 }
 
+void assembleParticleCloud(int count, float centerX, float centerY, float rangeX, float rangeY, ALLEGRO_BITMAP *sprite, ALLEGRO_COLOR tint)
+{
+    for(int i = 0; i < count; i++) {
+        int width = al_get_bitmap_width(sprite);
+        int height = al_get_bitmap_height(sprite);
+        float drawx = centerX + ((((float)rand() / RAND_MAX) - 0.5) * rangeX * config.scale);
+        float drawy = centerY + ((((float)rand() / RAND_MAX) - 0.5) * rangeY * config.scale);
+        al_draw_tinted_scaled_bitmap(sprite, tint, 0, 0, width, height, drawx, drawy,width*config.scale, height*config.scale, 0);
+    }
+}
+
+void Block::AssembleSpriteFromSheet( int spriteNum, ALLEGRO_BITMAP* spriteSheet, ALLEGRO_COLOR color, float x, float y, Block * b, float in_scale)
+{
+    int sheetx = spriteNum % SHEET_OBJECTSWIDE;
+    int sheety = spriteNum / SHEET_OBJECTSWIDE;
+#ifdef _DEBUG
+    config.drawcount ++;
+#endif
+
+    al_draw_tinted_scaled_bitmap(
+        spriteSheet,
+        premultiply(b ? shadeAdventureMode(color, b->fog_of_war, b->designation.bits.outside) : color),
+        sheetx * SPRITEWIDTH * in_scale,
+        sheety * SPRITEHEIGHT * in_scale,
+        SPRITEWIDTH * in_scale,
+        SPRITEHEIGHT * in_scale,
+        x,
+        y - (WALLHEIGHT)*config.scale,
+        SPRITEWIDTH*config.scale,
+        SPRITEHEIGHT*config.scale,
+        0);
+}
+
 void Block::Assemble()
 {
     if(!visible) {
@@ -158,8 +191,8 @@ void Block::Assemble()
     }
 
     if(building.info.type == BUILDINGTYPE_BLACKBOX) {
-        DrawSpriteFromSheet( SPRITEOBJECT_BLACK, IMGObjectSheet, al_map_rgb(255,255,255), drawx, drawy+FLOORHEIGHT*config.scale);
-        DrawSpriteFromSheet( SPRITEOBJECT_BLACK, IMGObjectSheet, al_map_rgb(255,255,255), drawx, drawy);
+        AssembleSpriteFromSheet( SPRITEOBJECT_BLACK, IMGObjectSheet, al_map_rgb(255,255,255), drawx, drawy+FLOORHEIGHT*config.scale);
+        AssembleSpriteFromSheet( SPRITEOBJECT_BLACK, IMGObjectSheet, al_map_rgb(255,255,255), drawx, drawy);
         return;
     }
 
@@ -211,7 +244,7 @@ void Block::Assemble()
 
     //Floor Engravings
     if((tileShapeBasic==tiletype_shape_basic::Floor) && engraving_character && engraving_flags.bits.floor) {
-        DrawSpriteFromSheet( engraving_character, IMGEngFloorSheet, al_map_rgba_f(1.0,1.0,1.0,((engraving_quality + 5.0f) / 10.0f)), drawx, drawy, this );
+        AssembleSpriteFromSheet( engraving_character, IMGEngFloorSheet, al_map_rgba_f(1.0,1.0,1.0,((engraving_quality + 5.0f) / 10.0f)), drawx, drawy, this );
     }
 
     //draw surf
@@ -243,13 +276,13 @@ void Block::Assemble()
     //first part of snow
     if(tileShapeBasic!=tiletype_shape_basic::Ramp && tileShapeBasic!=tiletype_shape_basic::Wall && tileShapeBasic!=tiletype_shape_basic::Stair && defaultSnow) {
         if(snowlevel > 75) {
-            DrawSpriteFromSheet( 20, IMGObjectSheet, al_map_rgb(255,255,255), drawx, drawy, this);
+            AssembleSpriteFromSheet( 20, IMGObjectSheet, al_map_rgb(255,255,255), drawx, drawy, this);
         } else if(snowlevel > 50) {
-            DrawSpriteFromSheet( 21, IMGObjectSheet, al_map_rgb(255,255,255), drawx, drawy, this );
+            AssembleSpriteFromSheet( 21, IMGObjectSheet, al_map_rgb(255,255,255), drawx, drawy, this );
         } else if(snowlevel > 25) {
-            DrawSpriteFromSheet( 22, IMGObjectSheet, al_map_rgb(255,255,255), drawx, drawy, this );
+            AssembleSpriteFromSheet( 22, IMGObjectSheet, al_map_rgb(255,255,255), drawx, drawy, this );
         } else if(snowlevel > 0) {
-            DrawSpriteFromSheet( 23, IMGObjectSheet, al_map_rgb(255,255,255), drawx, drawy, this );
+            AssembleSpriteFromSheet( 23, IMGObjectSheet, al_map_rgb(255,255,255), drawx, drawy, this );
         }
     }
 
@@ -273,13 +306,13 @@ void Block::Assemble()
             contentLoader->itemConfigs[Item.item.type]->configured) {
             contentLoader->itemConfigs[Item.item.type]->default_sprite.draw_world(x, y, z, this);
         } else {
-            DrawSpriteFromSheet( 350, IMGObjectSheet, lookupMaterialColor(Item.matt, Item.dyematt), drawx, (tileShapeBasic==tiletype_shape_basic::Ramp)?(drawy - ((WALLHEIGHT/2)*config.scale)):drawy , this);
+            AssembleSpriteFromSheet( 350, IMGObjectSheet, lookupMaterialColor(Item.matt, Item.dyematt), drawx, (tileShapeBasic==tiletype_shape_basic::Ramp)?(drawy - ((WALLHEIGHT/2)*config.scale)):drawy , this);
         }
     }
 
     //shadow
     if (shadow > 0) {
-        DrawSpriteFromSheet( BASE_SHADOW_TILE + shadow - 1, IMGObjectSheet, al_map_rgb(255,255,255), drawx, (tileShapeBasic==tiletype_shape_basic::Ramp)?(drawy - ((WALLHEIGHT/2)*config.scale)):drawy , this);
+        AssembleSpriteFromSheet( BASE_SHADOW_TILE + shadow - 1, IMGObjectSheet, al_map_rgb(255,255,255), drawx, (tileShapeBasic==tiletype_shape_basic::Ramp)?(drawy - ((WALLHEIGHT/2)*config.scale)):drawy , this);
     }
 
     //Building
@@ -347,34 +380,34 @@ void Block::Assemble()
     if((tileShapeBasic==tiletype_shape_basic::Wall) && engraving_character) {
         if(ownerSegment->rotation == 0) {
             if(engraving_flags.bits.east) {
-                DrawSpriteFromSheet( engraving_character, IMGEngRightSheet, al_map_rgba_f(1.0,1.0,1.0,((engraving_quality + 5.0f) / 10.0f)), drawx, drawy, this );
+                AssembleSpriteFromSheet( engraving_character, IMGEngRightSheet, al_map_rgba_f(1.0,1.0,1.0,((engraving_quality + 5.0f) / 10.0f)), drawx, drawy, this );
             }
             if(engraving_flags.bits.south) {
-                DrawSpriteFromSheet( engraving_character, IMGEngLeftSheet, al_map_rgba_f(1.0,1.0,1.0,((engraving_quality + 5.0f) / 10.0f)), drawx, drawy, this );
+                AssembleSpriteFromSheet( engraving_character, IMGEngLeftSheet, al_map_rgba_f(1.0,1.0,1.0,((engraving_quality + 5.0f) / 10.0f)), drawx, drawy, this );
             }
         }
         if(ownerSegment->rotation == 1) {
             if(engraving_flags.bits.north) {
-                DrawSpriteFromSheet( engraving_character, IMGEngRightSheet, al_map_rgba_f(1.0,1.0,1.0,((engraving_quality + 5.0f) / 10.0f)), drawx, drawy, this );
+                AssembleSpriteFromSheet( engraving_character, IMGEngRightSheet, al_map_rgba_f(1.0,1.0,1.0,((engraving_quality + 5.0f) / 10.0f)), drawx, drawy, this );
             }
             if(engraving_flags.bits.east) {
-                DrawSpriteFromSheet( engraving_character, IMGEngLeftSheet, al_map_rgba_f(1.0,1.0,1.0,((engraving_quality + 5.0f) / 10.0f)), drawx, drawy, this );
+                AssembleSpriteFromSheet( engraving_character, IMGEngLeftSheet, al_map_rgba_f(1.0,1.0,1.0,((engraving_quality + 5.0f) / 10.0f)), drawx, drawy, this );
             }
         }
         if(ownerSegment->rotation == 2) {
             if(engraving_flags.bits.west) {
-                DrawSpriteFromSheet( engraving_character, IMGEngRightSheet, al_map_rgba_f(1.0,1.0,1.0,((engraving_quality + 5.0f) / 10.0f)), drawx, drawy, this );
+                AssembleSpriteFromSheet( engraving_character, IMGEngRightSheet, al_map_rgba_f(1.0,1.0,1.0,((engraving_quality + 5.0f) / 10.0f)), drawx, drawy, this );
             }
             if(engraving_flags.bits.north) {
-                DrawSpriteFromSheet( engraving_character, IMGEngLeftSheet, al_map_rgba_f(1.0,1.0,1.0,((engraving_quality + 5.0f) / 10.0f)), drawx, drawy, this );
+                AssembleSpriteFromSheet( engraving_character, IMGEngLeftSheet, al_map_rgba_f(1.0,1.0,1.0,((engraving_quality + 5.0f) / 10.0f)), drawx, drawy, this );
             }
         }
         if(ownerSegment->rotation == 3) {
             if(engraving_flags.bits.south) {
-                DrawSpriteFromSheet( engraving_character, IMGEngRightSheet, al_map_rgba_f(1.0,1.0,1.0,((engraving_quality + 5.0f) / 10.0f)), drawx, drawy, this );
+                AssembleSpriteFromSheet( engraving_character, IMGEngRightSheet, al_map_rgba_f(1.0,1.0,1.0,((engraving_quality + 5.0f) / 10.0f)), drawx, drawy, this );
             }
             if(engraving_flags.bits.west) {
-                DrawSpriteFromSheet( engraving_character, IMGEngLeftSheet, al_map_rgba_f(1.0,1.0,1.0,((engraving_quality + 5.0f) / 10.0f)), drawx, drawy, this );
+                AssembleSpriteFromSheet( engraving_character, IMGEngLeftSheet, al_map_rgba_f(1.0,1.0,1.0,((engraving_quality + 5.0f) / 10.0f)), drawx, drawy, this );
             }
         }
     }
@@ -399,43 +432,43 @@ void Block::Assemble()
     //second part of snow
     if(tileShapeBasic!=tiletype_shape_basic::Wall && tileShapeBasic!=tiletype_shape_basic::Stair && defaultSnow) {
         if(snowlevel > 75) {
-            DrawSpriteFromSheet( 24, IMGObjectSheet, al_map_rgb(255,255,255), drawx, drawy, this );
+            AssembleSpriteFromSheet( 24, IMGObjectSheet, al_map_rgb(255,255,255), drawx, drawy, this );
         } else if(snowlevel > 50) {
-            DrawSpriteFromSheet( 25, IMGObjectSheet, al_map_rgb(255,255,255), drawx, drawy, this );
+            AssembleSpriteFromSheet( 25, IMGObjectSheet, al_map_rgb(255,255,255), drawx, drawy, this );
         } else if(snowlevel > 25) {
-            DrawSpriteFromSheet( 26, IMGObjectSheet, al_map_rgb(255,255,255), drawx, drawy, this );
+            AssembleSpriteFromSheet( 26, IMGObjectSheet, al_map_rgb(255,255,255), drawx, drawy, this );
         }
     }
 
     if(Eff_Web.density > 0) {
         ALLEGRO_COLOR tint = lookupMaterialColor(Eff_Web.matt);
         tint.a*=Eff_Web.density/100.0f;
-        DrawSpriteFromSheet(rando%5, sprite_webing, tint, drawx, drawy, this, 4.0f);
+        AssembleSpriteFromSheet(rando%5, sprite_webing, tint, drawx, drawy, this, 4.0f);
         //al_draw_tinted_bitmap(sprite_webing,tint, drawx, drawy - (WALLHEIGHT), 0);
     }
     if(Eff_Miasma.density > 0) {
         ALLEGRO_COLOR tint = lookupMaterialColor(Eff_Miasma.matt);
-        draw_particle_cloud(Eff_Miasma.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_miasma, tint);
+        assembleParticleCloud(Eff_Miasma.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_miasma, tint);
     }
     if(Eff_Steam.density > 0) {
         ALLEGRO_COLOR tint = lookupMaterialColor(Eff_Steam.matt);
-        draw_particle_cloud(Eff_Steam.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_water, tint);
+        assembleParticleCloud(Eff_Steam.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_water, tint);
     }
     if(Eff_Mist.density > 0) {
         ALLEGRO_COLOR tint = lookupMaterialColor(Eff_Mist.matt);
-        draw_particle_cloud(Eff_Mist.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_water2, tint);
+        assembleParticleCloud(Eff_Mist.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_water2, tint);
     }
     if(Eff_MaterialDust.density > 0) {
         ALLEGRO_COLOR tint = lookupMaterialColor(Eff_MaterialDust.matt);
-        draw_particle_cloud(Eff_MaterialDust.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_dust, tint);
+        assembleParticleCloud(Eff_MaterialDust.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_dust, tint);
     }
     if(Eff_MagmaMist.density > 0) {
         ALLEGRO_COLOR tint = lookupMaterialColor(Eff_MagmaMist.matt);
-        draw_particle_cloud(Eff_MagmaMist.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_magma, tint);
+        assembleParticleCloud(Eff_MagmaMist.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_magma, tint);
     }
     if(Eff_Smoke.density > 0) {
         ALLEGRO_COLOR tint = lookupMaterialColor(Eff_Smoke.matt);
-        draw_particle_cloud(Eff_Smoke.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_smoke, tint);
+        assembleParticleCloud(Eff_Smoke.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_smoke, tint);
     }
     if(Eff_Dragonfire.density > 0) {
         ALLEGRO_COLOR tint = lookupMaterialColor(Eff_Dragonfire.matt);
@@ -443,7 +476,7 @@ void Block::Assemble()
         tint.g*=Eff_Dragonfire.density/100.0f;
         tint.b*=Eff_Dragonfire.density/100.0f;
         int size = 3 - ((Eff_Dragonfire.density-1)/25);
-        DrawSpriteFromSheet((((currentFrameLong+rando)%8)*20+size), sprite_dragonfire, tint, drawx, drawy, this, 2.0f);
+        AssembleSpriteFromSheet((((currentFrameLong+rando)%8)*20+size), sprite_dragonfire, tint, drawx, drawy, this, 2.0f);
         //ALLEGRO_COLOR tint = lookupMaterialColor(Eff_Dragonfire.matt.type, Eff_Dragonfire.matt.index);
         //draw_particle_cloud(Eff_Dragonfire.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_dragonfire, tint);
     }
@@ -453,21 +486,21 @@ void Block::Assemble()
         tint.g*=Eff_Fire.density/100.0f;
         tint.b*=Eff_Fire.density/100.0f;
         int size = 3 - ((Eff_Fire.density-1)/25);
-        DrawSpriteFromSheet((((currentFrameLong+rando)%8)*20+size), sprite_dragonfire, tint, drawx, drawy, this, 2.0f);
+        AssembleSpriteFromSheet((((currentFrameLong+rando)%8)*20+size), sprite_dragonfire, tint, drawx, drawy, this, 2.0f);
         //ALLEGRO_COLOR tint = lookupMaterialColor(Eff_Fire.matt.type, Eff_Fire.matt.index);
         //draw_particle_cloud(Eff_Fire.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_fire, tint);
     }
     if(Eff_MaterialGas.density > 0) {
         ALLEGRO_COLOR tint = lookupMaterialColor(Eff_MaterialGas.matt);
-        draw_particle_cloud(Eff_MaterialGas.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_boiling, tint);
+        assembleParticleCloud(Eff_MaterialGas.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_boiling, tint);
     }
     if(Eff_MaterialVapor.density > 0) {
         ALLEGRO_COLOR tint = lookupMaterialColor(Eff_MaterialVapor.matt);
-        draw_particle_cloud(Eff_MaterialVapor.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_boiling, tint);
+        assembleParticleCloud(Eff_MaterialVapor.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_boiling, tint);
     }
     if(Eff_OceanWave.density > 0) {
         ALLEGRO_COLOR tint = lookupMaterialColor(Eff_OceanWave.matt);
-        draw_particle_cloud(Eff_OceanWave.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_water, tint);
+        assembleParticleCloud(Eff_OceanWave.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_water, tint);
     }
 }
 

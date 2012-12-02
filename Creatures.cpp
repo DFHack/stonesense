@@ -261,7 +261,20 @@ void DrawCreature(int drawx, int drawy, t_unit* creature, Block * b)
         }
         spritenum += (spritenum/16)*4;
         ALLEGRO_COLOR tilecolor = config.colors.getDfColor(DFHack::Units::getCasteProfessionColor(creature->race,creature->caste,(df::profession)creature->profession));
-        DrawSpriteFromSheet(spritenum,IMGLetterSheet,tilecolor,drawx,drawy,b);
+        int sheetx = spritenum % SHEET_OBJECTSWIDE;
+        int sheety = spritenum / SHEET_OBJECTSWIDE;
+        al_draw_tinted_scaled_bitmap(
+            IMGLetterSheet,
+            premultiply(b ? shadeAdventureMode(tilecolor, b->fog_of_war, b->designation.bits.outside) : tilecolor),
+            sheetx * SPRITEWIDTH,
+            sheety * SPRITEHEIGHT,
+            SPRITEWIDTH,
+            SPRITEHEIGHT,
+            drawx,
+            drawy - (WALLHEIGHT)*config.scale,
+            SPRITEWIDTH*config.scale,
+            SPRITEHEIGHT*config.scale,
+            0);
     }
 
     unsigned int offsety = config.show_creature_names ? al_get_font_line_height(font) : 0;

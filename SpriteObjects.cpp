@@ -870,12 +870,37 @@ void c_sprite::draw_world_offset(int x, int y, int z, Block * b, int tileoffset,
                 //drawy -= (WALLHEIGHT);
                 //Northern border
                 if(b->depthBorderNorth) {
-                    DrawSpriteFromSheet(281, IMGObjectSheet, al_map_rgb(255,255,255), drawx + (offset_x)*config.scale, drawy + (offset_y)*config.scale, b );
-                }
+                    int sheetx = 281 % SHEET_OBJECTSWIDE;
+                    int sheety = 281 / SHEET_OBJECTSWIDE;
+                    al_draw_tinted_scaled_bitmap(
+                        IMGObjectSheet,
+                        al_map_rgb(255,255,255),
+                        sheetx * SPRITEWIDTH,
+                        sheety * SPRITEHEIGHT,
+                        SPRITEWIDTH,
+                        SPRITEHEIGHT,
+                        drawx + (offset_x)*config.scale,
+                        drawy + (offset_y)*config.scale - (WALLHEIGHT)*config.scale,
+                        SPRITEWIDTH*config.scale,
+                        SPRITEHEIGHT*config.scale,
+                        0);
 
                 //Western border
                 if(b->depthBorderWest) {
-                    DrawSpriteFromSheet(280, IMGObjectSheet, al_map_rgb(255,255,255), drawx + (offset_x)*config.scale, drawy + (offset_y)*config.scale, b );
+                    int sheetx = 280 % SHEET_OBJECTSWIDE;
+                    int sheety = 280 / SHEET_OBJECTSWIDE;
+                    al_draw_tinted_scaled_bitmap(
+                        IMGObjectSheet,
+                        al_map_rgb(255,255,255),
+                        sheetx * SPRITEWIDTH,
+                        sheety * SPRITEHEIGHT,
+                        SPRITEWIDTH,
+                        SPRITEHEIGHT,
+                        drawx + (offset_x)*config.scale,
+                        drawy + (offset_y)*config.scale - (WALLHEIGHT)*config.scale,
+                        SPRITEWIDTH*config.scale,
+                        SPRITEHEIGHT*config.scale,
+                        0);
                 }
 
                 //drawy += (WALLHEIGHT);
