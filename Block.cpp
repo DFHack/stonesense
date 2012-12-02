@@ -113,7 +113,7 @@ inline ALLEGRO_BITMAP* imageSheet(t_subSprite sprite, ALLEGRO_BITMAP* defaultBmp
     }
 }
 
-void Block::Draw()
+void Block::Assemble()
 {
     if(!visible) {
         return;
@@ -497,7 +497,7 @@ void Block::Drawcreaturetext()
 
 }
 
-void Block::DrawRamptops()
+void Block::AddRamptop()
 {
     if(!visible) {
         return;
@@ -533,34 +533,34 @@ void Block::DrawRamptops()
     }
 }
 
-void Block::DrawPixel(int drawx, int drawy)
-{
-    ALLEGRO_COLOR temp;
-    if(
-        tileShapeBasic==tiletype_shape_basic::Floor ||
-        tileShapeBasic==tiletype_shape_basic::Wall ||
-        tileShapeBasic==tiletype_shape_basic::Ramp ||
-        tileShapeBasic==tiletype_shape_basic::Stair
-    ) {
-        al_put_pixel(drawx, drawy, lookupMaterialColor(this->material));
-    }
-    if(this->water.index) {
-        if(this->water.type == 0) { //water
-            al_draw_pixel(drawx, drawy, al_map_rgba_f(0.6f, 0.85f, 0.92f, (float)water.index / 7.0f));
-        } else {
-            al_draw_pixel(drawx, drawy, al_map_rgba_f(1.0f, 0.5f, 0.15f, (float)water.index / 7.0f));
-        }
-    }
-    //Grass
-    if(grasslevel > 0 && (
-                (tileMaterial == tiletype_material::GRASS_DARK) ||
-                (tileMaterial == tiletype_material::GRASS_DARK) ||
-                (tileMaterial == tiletype_material::GRASS_DRY) ||
-                (tileMaterial == tiletype_material::GRASS_DEAD))) {
-        temp = lookupMaterialColor(WOOD, grassmat);
-        al_draw_pixel(drawx, drawy, al_map_rgba_f(temp.r,temp.g, temp.b, (float)grasslevel/100.0f));
-    }
-}
+//void Block::DrawPixel(int drawx, int drawy)
+//{
+//    ALLEGRO_COLOR temp;
+//    if(
+//        tileShapeBasic==tiletype_shape_basic::Floor ||
+//        tileShapeBasic==tiletype_shape_basic::Wall ||
+//        tileShapeBasic==tiletype_shape_basic::Ramp ||
+//        tileShapeBasic==tiletype_shape_basic::Stair
+//    ) {
+//        al_put_pixel(drawx, drawy, lookupMaterialColor(this->material));
+//    }
+//    if(this->water.index) {
+//        if(this->water.type == 0) { //water
+//            al_draw_pixel(drawx, drawy, al_map_rgba_f(0.6f, 0.85f, 0.92f, (float)water.index / 7.0f));
+//        } else {
+//            al_draw_pixel(drawx, drawy, al_map_rgba_f(1.0f, 0.5f, 0.15f, (float)water.index / 7.0f));
+//        }
+//    }
+//    //Grass
+//    if(grasslevel > 0 && (
+//                (tileMaterial == tiletype_material::GRASS_DARK) ||
+//                (tileMaterial == tiletype_material::GRASS_DARK) ||
+//                (tileMaterial == tiletype_material::GRASS_DRY) ||
+//                (tileMaterial == tiletype_material::GRASS_DEAD))) {
+//        temp = lookupMaterialColor(WOOD, grassmat);
+//        al_draw_pixel(drawx, drawy, al_map_rgba_f(temp.r,temp.g, temp.b, (float)grasslevel/100.0f));
+//    }
+//}
 
 bool hasWall(Block* b)
 {

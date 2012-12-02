@@ -47,6 +47,10 @@ struct Unit_Inventory {
     std::vector<std::vector<std::vector<Worn_Item>>> item;
 };
 
+struct Draw_Event{
+
+};
+
 
 class Block
 {
@@ -151,10 +155,10 @@ public:
     bool IsVisible() {
         return IDisWall(tileType) || IDisFloor(tileType);
     }
-    void Draw();
+    void Assemble();
     void Drawcreaturetext();
-    void DrawRamptops();
-    void DrawPixel(int drawx, int drawy);
+    void AddRamptop();
+    //void DrawPixel(int drawx, int drawy);
 
     uint16_t temp1;
     uint16_t temp2;
