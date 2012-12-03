@@ -747,7 +747,7 @@ void c_sprite::draw_world_offset(int x, int y, int z, Block * b, int tileoffset,
         int32_t drawy = y;
         int32_t drawz = z; //- ownerSegment->sizez + 1;
 
-        correctBlockForSegmetOffset( drawx, drawy, drawz);
+        b->ownerSegment->CorrectBlockForSegmentOffset( drawx, drawy, drawz);
         correctBlockForRotation( drawx, drawy, drawz, b->ownerSegment->rotation);
         int32_t viewx = drawx;
         int32_t viewy = drawy;

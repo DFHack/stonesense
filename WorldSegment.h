@@ -55,6 +55,7 @@ public:
     Block* getBlockRelativeTo(uint32_t x, uint32_t y, uint32_t z,  dirRelative direction);
     Block* getBlockRelativeTo(uint32_t x, uint32_t y, uint32_t z,  dirRelative direction, int distance);
     Block* getBlock(uint32_t index);
+    void CorrectBlockForSegmentOffset(int32_t& x, int32_t& y, int32_t& z);
     void addBlock(Block* b);
     void AssembleAllBlocks();
     void DrawAllBlocks();

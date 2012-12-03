@@ -11,7 +11,7 @@ using DFHack::Units::t_unit;
 
 void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment);
 
-void DrawCreature(int drawx, int drawy, t_unit* creature, Block * b);
+void AssembleCreature(int drawx, int drawy, t_unit* creature, Block * b);
 void DrawCreatureText(int drawx, int drawy, t_unit* creature );
 c_sprite* GetCreatureSpriteMap( t_unit* c );
 int GetCreatureShadowMap( t_unit* c );

@@ -151,7 +151,7 @@ void SetTitle(const char *format, ...)
     al_ustr_free(buf);
 }
 
-void correctBlockForSegmetOffset(int32_t& x, int32_t& y, int32_t& z)
+void correctBlockForDisplayedOffset(int32_t& x, int32_t& y, int32_t& z)
 {
     x -= ssState.DisplayedSegmentX;
     y -= ssState.DisplayedSegmentY; //DisplayedSegmentY;

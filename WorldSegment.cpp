@@ -189,6 +189,13 @@ Block* WorldSegment::getBlock(uint32_t index)
     return blocks[index];
 }
 
+void WorldSegment::CorrectBlockForSegmentOffset(int32_t& xin, int32_t& yin, int32_t& zin)
+{
+    xin -= x;
+    yin -= y; //DisplayedSegmentY;
+    zin -= z + sizez - 2; //need to remove the offset
+}
+
 void correctBlockForRotation(int32_t& x, int32_t& y, int32_t& z, unsigned char rot)
 {
     int32_t oldx = x;
@@ -312,12 +319,12 @@ void WorldSegment::AssembleAllBlocks()
                 if (b) {
                     b->Assemble();
                 }
-                if (b==NULL || (b->tileShapeBasic!=tiletype_shape_basic::Floor && b->tileShapeBasic!=tiletype_shape_basic::Ramp && b->tileShapeBasic==tiletype_shape_basic::Wall)) {
-                    Block* bLow = getBlockLocal(vsx,vsy,vsz-1);
-                    if (bLow != NULL) {
-                        bLow->AddRamptop();
-                    }
-                }
+                //if (b==NULL || (b->tileShapeBasic!=tiletype_shape_basic::Floor && b->tileShapeBasic!=tiletype_shape_basic::Ramp && b->tileShapeBasic==tiletype_shape_basic::Wall)) {
+                //    Block* bLow = getBlockLocal(vsx,vsy,vsz-1);
+                //    if (bLow != NULL) {
+                //        bLow->AddRamptop();
+                //    }
+                //}
             }
         }
     }

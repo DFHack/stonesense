@@ -292,7 +292,7 @@ void pointToScreen(int *inx, int *iny, int inz)
 
 Crd2D WorldBlockToScreen(int32_t x, int32_t y, int32_t z)
 {
-    correctBlockForSegmetOffset( x, y, z);
+    correctBlockForDisplayedOffset( x, y, z);
     return LocalBlockToScreen(x, y, z-1);
 }
 
@@ -356,7 +356,7 @@ void drawDebugCursorAndInfo(WorldSegment * segment)
         int x = ssConfig.dfCursorX;
         int y = ssConfig.dfCursorY;
         int z = ssConfig.dfCursorZ;
-        correctBlockForSegmetOffset(x,y,z);
+        correctBlockForDisplayedOffset(x,y,z);
         correctBlockForRotation( x, y, z, segment->rotation);
         debugCursor.x = x;
         debugCursor.y = y;
@@ -399,7 +399,7 @@ void drawDebugCursorAndInfo(WorldSegment * segment)
     } else if (b->tileShapeBasic==tiletype_shape_basic::Wall) {
         ttype=b->tileType;
         tform="wall";
-    } else if (b->tileShapeBasic==tiletype_shape_basic::Ramp) {
+    } else if (b->tileShapeBasic==tiletype_shape_basic::Ramp || b->tileType==tiletype::RampTop) {
         ttype=b->tileType;
         tform="ramp";
     } else if (b->tileShapeBasic==tiletype_shape_basic::Stair) {

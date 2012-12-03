@@ -205,7 +205,37 @@ bool IsCreatureVisible( df::unit* c )
 }
 
 
-void DrawCreature(int drawx, int drawy, t_unit* creature, Block * b)
+void AssembleCreature(int drawx, int drawy, t_unit* creature, Block * b)
+{
+    c_sprite * sprite = GetCreatureSpriteMap( creature );
+    if(sprite) {
+        sprite->draw_world(creature->x,creature->y, creature->z, b);
+    } else {
+        df::creature_raw *raw = df::global::world->raws.creatures.all[creature->race];
+        int spritenum = raw->creature_tile;
+        if(raw->caste[creature->caste]->caste_tile != 1) {
+            spritenum = raw->caste[creature->caste]->caste_tile;
+        }
+        spritenum += (spritenum/16)*4;
+        ALLEGRO_COLOR tilecolor = ssConfig.colors.getDfColor(DFHack::Units::getCasteProfessionColor(creature->race,creature->caste,(df::profession)creature->profession));
+        int sheetx = spritenum % SHEET_OBJECTSWIDE;
+        int sheety = spritenum / SHEET_OBJECTSWIDE;
+        b->AssembleSprite(
+            IMGLetterSheet,
+            premultiply(b ? shadeAdventureMode(tilecolor, b->fog_of_war, b->designation.bits.outside) : tilecolor),
+            sheetx * SPRITEWIDTH,
+            sheety * SPRITEHEIGHT,
+            SPRITEWIDTH,
+            SPRITEHEIGHT,
+            drawx,
+            drawy - (WALLHEIGHT)*ssConfig.scale,
+            SPRITEWIDTH*ssConfig.scale,
+            SPRITEHEIGHT*ssConfig.scale,
+            0);
+    }
+}
+
+void DrawCreatureText(int drawx, int drawy, t_unit* creature )
 {
     vector<int> statusIcons;
 
@@ -250,33 +280,26 @@ void DrawCreature(int drawx, int drawy, t_unit* creature, Block * b)
         }
     }
 
-    c_sprite * sprite = GetCreatureSpriteMap( creature );
-    if(sprite) {
-        sprite->draw_world(creature->x,creature->y, creature->z, b);
-    } else {
-        df::creature_raw *raw = df::global::world->raws.creatures.all[creature->race];
-        int spritenum = raw->creature_tile;
-        if(raw->caste[creature->caste]->caste_tile != 1) {
-            spritenum = raw->caste[creature->caste]->caste_tile;
+    if( ssConfig.show_creature_names ) {
+        if (creature->name.nickname[0] && ssConfig.names_use_nick) {
+            draw_textf_border(font, al_map_rgb(255,255,255), drawx, drawy-(WALLHEIGHT+al_get_font_line_height(font)), 0,
+                              "%s", creature->name.nickname );
+        } else if (creature->name.first_name[0]) {
+            char buffer[128];
+            strncpy(buffer,creature->name.first_name,127);
+            buffer[127]=0;
+            ALLEGRO_USTR* temp = bufferToUstr(buffer, 128);
+            al_ustr_set_chr(temp, 0, charToUpper(al_ustr_get(temp, 0)));
+            draw_ustr_border(font, al_map_rgb(255,255,255), drawx, drawy-((WALLHEIGHT*ssConfig.scale)+al_get_font_line_height(font)), 0,
+                             temp );
+            al_ustr_free(temp);
+        } else if (ssConfig.names_use_species) {
+            if(!ssConfig.skipCreatureTypes)
+                draw_textf_border(font, al_map_rgb(255,255,255), drawx, drawy-(WALLHEIGHT*ssConfig.scale+al_get_font_line_height(font)), 0,
+                                  "[%s]", contentLoader->Mats->race.at(creature->race).id.c_str());
         }
-        spritenum += (spritenum/16)*4;
-        ALLEGRO_COLOR tilecolor = ssConfig.colors.getDfColor(DFHack::Units::getCasteProfessionColor(creature->race,creature->caste,(df::profession)creature->profession));
-        int sheetx = spritenum % SHEET_OBJECTSWIDE;
-        int sheety = spritenum / SHEET_OBJECTSWIDE;
-        al_draw_tinted_scaled_bitmap(
-            IMGLetterSheet,
-            premultiply(b ? shadeAdventureMode(tilecolor, b->fog_of_war, b->designation.bits.outside) : tilecolor),
-            sheetx * SPRITEWIDTH,
-            sheety * SPRITEHEIGHT,
-            SPRITEWIDTH,
-            SPRITEHEIGHT,
-            drawx,
-            drawy - (WALLHEIGHT)*ssConfig.scale,
-            SPRITEWIDTH*ssConfig.scale,
-            SPRITEHEIGHT*ssConfig.scale,
-            0);
     }
-
+    
     unsigned int offsety = ssConfig.show_creature_names ? al_get_font_line_height(font) : 0;
 
     if(statusIcons.size()) {
@@ -302,28 +325,6 @@ void DrawCreature(int drawx, int drawy, t_unit* creature, Block * b)
         unsigned int sheety = 16 * (creature->current_job.jobType / 7);
         al_draw_bitmap_region(IMGJobSheet, sheetx, sheety, 16, 16, drawx -8 + (SPRITEWIDTH*ssConfig.scale/2), drawy - (16 + WALLHEIGHT*ssConfig.scale + offsety), 0);
     }
-}
-
-void DrawCreatureText(int drawx, int drawy, t_unit* creature )
-{
-    if( ssConfig.show_creature_names )
-        if (creature->name.nickname[0] && ssConfig.names_use_nick) {
-            draw_textf_border(font, al_map_rgb(255,255,255), drawx, drawy-(WALLHEIGHT+al_get_font_line_height(font)), 0,
-                              "%s", creature->name.nickname );
-        } else if (creature->name.first_name[0]) {
-            char buffer[128];
-            strncpy(buffer,creature->name.first_name,127);
-            buffer[127]=0;
-            ALLEGRO_USTR* temp = bufferToUstr(buffer, 128);
-            al_ustr_set_chr(temp, 0, charToUpper(al_ustr_get(temp, 0)));
-            draw_ustr_border(font, al_map_rgb(255,255,255), drawx, drawy-((WALLHEIGHT*ssConfig.scale)+al_get_font_line_height(font)), 0,
-                             temp );
-            al_ustr_free(temp);
-        } else if (ssConfig.names_use_species) {
-            if(!ssConfig.skipCreatureTypes)
-                draw_textf_border(font, al_map_rgb(255,255,255), drawx, drawy-(WALLHEIGHT*ssConfig.scale+al_get_font_line_height(font)), 0,
-                                  "[%s]", contentLoader->Mats->race.at(creature->race).id.c_str());
-        }
 }
 
 //t_creature* global = 0;
