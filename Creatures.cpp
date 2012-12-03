@@ -188,7 +188,7 @@ ALLEGRO_USTR* bufferToUstr(const char* buffer, int length)
 
 bool IsCreatureVisible( df::unit* c )
 {
-    if( config.show_all_creatures ) {
+    if( ssConfig.show_all_creatures ) {
         return true;
     }
 
@@ -209,8 +209,8 @@ void DrawCreature(int drawx, int drawy, t_unit* creature, Block * b)
 {
     vector<int> statusIcons;
 
-    //if(config.show_creature_happiness)
-    if(config.show_creature_moods && df::creature_raw::find(creature->race)->caste[creature->caste]->flags.is_set(caste_raw_flags::CAN_SPEAK)) {
+    //if(ssConfig.show_creature_happiness)
+    if(ssConfig.show_creature_moods && df::creature_raw::find(creature->race)->caste[creature->caste]->flags.is_set(caste_raw_flags::CAN_SPEAK)) {
         if(creature->happiness == 0) {
             statusIcons.push_back(6);
         } else if(creature->happiness >= 1 && creature->happiness <= 25) {
@@ -260,7 +260,7 @@ void DrawCreature(int drawx, int drawy, t_unit* creature, Block * b)
             spritenum = raw->caste[creature->caste]->caste_tile;
         }
         spritenum += (spritenum/16)*4;
-        ALLEGRO_COLOR tilecolor = config.colors.getDfColor(DFHack::Units::getCasteProfessionColor(creature->race,creature->caste,(df::profession)creature->profession));
+        ALLEGRO_COLOR tilecolor = ssConfig.colors.getDfColor(DFHack::Units::getCasteProfessionColor(creature->race,creature->caste,(df::profession)creature->profession));
         int sheetx = spritenum % SHEET_OBJECTSWIDE;
         int sheety = spritenum / SHEET_OBJECTSWIDE;
         al_draw_tinted_scaled_bitmap(
@@ -271,43 +271,43 @@ void DrawCreature(int drawx, int drawy, t_unit* creature, Block * b)
             SPRITEWIDTH,
             SPRITEHEIGHT,
             drawx,
-            drawy - (WALLHEIGHT)*config.scale,
-            SPRITEWIDTH*config.scale,
-            SPRITEHEIGHT*config.scale,
+            drawy - (WALLHEIGHT)*ssConfig.scale,
+            SPRITEWIDTH*ssConfig.scale,
+            SPRITEHEIGHT*ssConfig.scale,
             0);
     }
 
-    unsigned int offsety = config.show_creature_names ? al_get_font_line_height(font) : 0;
+    unsigned int offsety = ssConfig.show_creature_names ? al_get_font_line_height(font) : 0;
 
     if(statusIcons.size()) {
         for(int i = 0; i < statusIcons.size(); i++) {
             unsigned int sheetx = 16 * (statusIcons[i] % 7);
             unsigned int sheety = 16 * (statusIcons[i] / 7);
-            al_draw_bitmap_region(IMGStatusSheet, sheetx, sheety, 16, 16, drawx - (statusIcons.size()*8) + (16*i) + (SPRITEWIDTH*config.scale/2), drawy - (16 + WALLHEIGHT*config.scale + offsety), 0);
+            al_draw_bitmap_region(IMGStatusSheet, sheetx, sheety, 16, 16, drawx - (statusIcons.size()*8) + (16*i) + (SPRITEWIDTH*ssConfig.scale/2), drawy - (16 + WALLHEIGHT*ssConfig.scale + offsety), 0);
         }
     }
 
-    offsety += config.show_creature_moods ? 16 : 0;
+    offsety += ssConfig.show_creature_moods ? 16 : 0;
 
-    if(config.show_creature_professions) {
+    if(ssConfig.show_creature_professions) {
         unsigned int sheetx = 16 * (creature->profession % 7);
         unsigned int sheety = 16 * (creature->profession / 7);
-        al_draw_bitmap_region(IMGProfSheet, sheetx, sheety, 16, 16, drawx -8 + (SPRITEWIDTH*config.scale/2), drawy - (16 + WALLHEIGHT*config.scale + offsety), 0);
+        al_draw_bitmap_region(IMGProfSheet, sheetx, sheety, 16, 16, drawx -8 + (SPRITEWIDTH*ssConfig.scale/2), drawy - (16 + WALLHEIGHT*ssConfig.scale + offsety), 0);
     }
 
-    offsety += config.show_creature_professions ? 16 : 0;
+    offsety += ssConfig.show_creature_professions ? 16 : 0;
 
-    if(config.show_creature_jobs && creature->current_job.active) {
+    if(ssConfig.show_creature_jobs && creature->current_job.active) {
         unsigned int sheetx = 16 * (creature->current_job.jobType % 7);
         unsigned int sheety = 16 * (creature->current_job.jobType / 7);
-        al_draw_bitmap_region(IMGJobSheet, sheetx, sheety, 16, 16, drawx -8 + (SPRITEWIDTH*config.scale/2), drawy - (16 + WALLHEIGHT*config.scale + offsety), 0);
+        al_draw_bitmap_region(IMGJobSheet, sheetx, sheety, 16, 16, drawx -8 + (SPRITEWIDTH*ssConfig.scale/2), drawy - (16 + WALLHEIGHT*ssConfig.scale + offsety), 0);
     }
 }
 
 void DrawCreatureText(int drawx, int drawy, t_unit* creature )
 {
-    if( config.show_creature_names )
-        if (creature->name.nickname[0] && config.names_use_nick) {
+    if( ssConfig.show_creature_names )
+        if (creature->name.nickname[0] && ssConfig.names_use_nick) {
             draw_textf_border(font, al_map_rgb(255,255,255), drawx, drawy-(WALLHEIGHT+al_get_font_line_height(font)), 0,
                               "%s", creature->name.nickname );
         } else if (creature->name.first_name[0]) {
@@ -316,12 +316,12 @@ void DrawCreatureText(int drawx, int drawy, t_unit* creature )
             buffer[127]=0;
             ALLEGRO_USTR* temp = bufferToUstr(buffer, 128);
             al_ustr_set_chr(temp, 0, charToUpper(al_ustr_get(temp, 0)));
-            draw_ustr_border(font, al_map_rgb(255,255,255), drawx, drawy-((WALLHEIGHT*config.scale)+al_get_font_line_height(font)), 0,
+            draw_ustr_border(font, al_map_rgb(255,255,255), drawx, drawy-((WALLHEIGHT*ssConfig.scale)+al_get_font_line_height(font)), 0,
                              temp );
             al_ustr_free(temp);
-        } else if (config.names_use_species) {
-            if(!config.skipCreatureTypes)
-                draw_textf_border(font, al_map_rgb(255,255,255), drawx, drawy-(WALLHEIGHT*config.scale+al_get_font_line_height(font)), 0,
+        } else if (ssConfig.names_use_species) {
+            if(!ssConfig.skipCreatureTypes)
+                draw_textf_border(font, al_map_rgb(255,255,255), drawx, drawy-(WALLHEIGHT*ssConfig.scale+al_get_font_line_height(font)), 0,
                                   "[%s]", contentLoader->Mats->race.at(creature->race).id.c_str());
         }
 }
@@ -330,7 +330,7 @@ void DrawCreatureText(int drawx, int drawy, t_unit* creature )
 using df::global::world;
 void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
 {
-    if(config.skipCreatures) {
+    if(ssConfig.skipCreatures) {
         return;
     }
     int x1 = segment->x;

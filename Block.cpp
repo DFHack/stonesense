@@ -118,9 +118,9 @@ void Block::AssembleParticleCloud(int count, float centerX, float centerY, float
     for(int i = 0; i < count; i++) {
         int width = al_get_bitmap_width(sprite);
         int height = al_get_bitmap_height(sprite);
-        float drawx = centerX + ((((float)rand() / RAND_MAX) - 0.5) * rangeX * config.scale);
-        float drawy = centerY + ((((float)rand() / RAND_MAX) - 0.5) * rangeY * config.scale);
-        AssembleSprite(sprite, tint, 0, 0, width, height, drawx, drawy,width*config.scale, height*config.scale, 0);
+        float drawx = centerX + ((((float)rand() / RAND_MAX) - 0.5) * rangeX * ssConfig.scale);
+        float drawy = centerY + ((((float)rand() / RAND_MAX) - 0.5) * rangeY * ssConfig.scale);
+        AssembleSprite(sprite, tint, 0, 0, width, height, drawx, drawy,width*ssConfig.scale, height*ssConfig.scale, 0);
     }
 }
 
@@ -136,9 +136,9 @@ void Block::AssembleSpriteFromSheet( int spriteNum, ALLEGRO_BITMAP* spriteSheet,
         SPRITEWIDTH * in_scale,
         SPRITEHEIGHT * in_scale,
         x,
-        y - (WALLHEIGHT)*config.scale,
-        SPRITEWIDTH*config.scale,
-        SPRITEHEIGHT*config.scale,
+        y - (WALLHEIGHT)*ssConfig.scale,
+        SPRITEWIDTH*ssConfig.scale,
+        SPRITEHEIGHT*ssConfig.scale,
         0);
 }
 
@@ -171,27 +171,27 @@ void Block::Assemble()
     correctBlockForSegmetOffset( drawx, drawy, drawz);
     correctBlockForRotation( drawx, drawy, drawz, ownerSegment->rotation);
     pointToScreen((int*)&drawx, (int*)&drawy, drawz);
-    drawx -= (TILEWIDTH>>1)*config.scale;
+    drawx -= (TILEWIDTH>>1)*ssConfig.scale;
     
     //TODO the following check should get incorporated into segment beautification
-    if(((drawx + TILEWIDTH*config.scale) < 0) || (drawx > ssState.ScreenW) || ((drawy + (TILEHEIGHT + FLOORHEIGHT)*config.scale) < 0) || (drawy - WALLHEIGHT*config.scale > ssState.ScreenH)) {
+    if(((drawx + TILEWIDTH*ssConfig.scale) < 0) || (drawx > ssState.ScreenW) || ((drawy + (TILEHEIGHT + FLOORHEIGHT)*ssConfig.scale) < 0) || (drawy - WALLHEIGHT*ssConfig.scale > ssState.ScreenH)) {
         return;
     }
 
     bool chopThisBlock = 0;
 
-    if(config.truncate_walls == 1) {
+    if(ssConfig.truncate_walls == 1) {
         chopThisBlock = 1;
-    } else if(config.truncate_walls == 2 && obscuringCreature == 1) {
+    } else if(ssConfig.truncate_walls == 2 && obscuringCreature == 1) {
         chopThisBlock = 1;
-    } else if(config.truncate_walls == 3 && (obscuringCreature == 1 || obscuringBuilding == 1)) {
+    } else if(ssConfig.truncate_walls == 3 && (obscuringCreature == 1 || obscuringBuilding == 1)) {
         chopThisBlock = 1;
-    } else if(config.truncate_walls == 4 && obscuringBuilding == 1) {
+    } else if(ssConfig.truncate_walls == 4 && obscuringBuilding == 1) {
         chopThisBlock = 1;
     }
 
     if(building.info.type == BUILDINGTYPE_BLACKBOX) {
-        AssembleSpriteFromSheet( SPRITEOBJECT_BLACK, IMGObjectSheet, al_map_rgb(255,255,255), drawx, drawy+FLOORHEIGHT*config.scale);
+        AssembleSpriteFromSheet( SPRITEOBJECT_BLACK, IMGObjectSheet, al_map_rgb(255,255,255), drawx, drawy+FLOORHEIGHT*ssConfig.scale);
         AssembleSpriteFromSheet( SPRITEOBJECT_BLACK, IMGObjectSheet, al_map_rgb(255,255,255), drawx, drawy);
         return;
     }
@@ -261,9 +261,9 @@ void Block::Assemble()
             foamw,
             foamh,
             drawx,
-            drawy - (WALLHEIGHT)*config.scale,
-            SPRITEWIDTH*config.scale,
-            SPRITEHEIGHT*config.scale,
+            drawy - (WALLHEIGHT)*ssConfig.scale,
+            SPRITEWIDTH*ssConfig.scale,
+            SPRITEHEIGHT*ssConfig.scale,
             0);
     }
 
@@ -318,19 +318,19 @@ void Block::Assemble()
             contentLoader->itemConfigs[Item.item.type]->configured) {
             contentLoader->itemConfigs[Item.item.type]->default_sprite.draw_world(x, y, z, this);
         } else {
-            AssembleSpriteFromSheet( 350, IMGObjectSheet, lookupMaterialColor(Item.matt, Item.dyematt), drawx, (tileShapeBasic==tiletype_shape_basic::Ramp)?(drawy - ((WALLHEIGHT/2)*config.scale)):drawy , this);
+            AssembleSpriteFromSheet( 350, IMGObjectSheet, lookupMaterialColor(Item.matt, Item.dyematt), drawx, (tileShapeBasic==tiletype_shape_basic::Ramp)?(drawy - ((WALLHEIGHT/2)*ssConfig.scale)):drawy , this);
         }
     }
 
     //shadow
     if (shadow > 0) {
-        AssembleSpriteFromSheet( BASE_SHADOW_TILE + shadow - 1, IMGObjectSheet, al_map_rgb(255,255,255), drawx, (tileShapeBasic==tiletype_shape_basic::Ramp)?(drawy - ((WALLHEIGHT/2)*config.scale)):drawy , this);
+        AssembleSpriteFromSheet( BASE_SHADOW_TILE + shadow - 1, IMGObjectSheet, al_map_rgb(255,255,255), drawx, (tileShapeBasic==tiletype_shape_basic::Ramp)?(drawy - ((WALLHEIGHT/2)*ssConfig.scale)):drawy , this);
     }
 
     //Building
     bool skipBuilding =
-        (building.info.type == building_type::Civzone && !config.show_stockpiles) ||
-        (building.info.type == building_type::Stockpile && !config.show_zones);
+        (building.info.type == building_type::Civzone && !ssConfig.show_stockpiles) ||
+        (building.info.type == building_type::Stockpile && !ssConfig.show_zones);
 
     if(building.info.type != BUILDINGTYPE_NA && !skipBuilding) {
         for(uint32_t i=0; i < building.sprites.size(); i++) {
@@ -437,7 +437,7 @@ void Block::Assemble()
     // creature
     // ensure there is *some* creature according to the map data
     // (no guarantee it is the right one)
-    if(creaturePresent && (config.show_hidden_blocks || !designation.bits.hidden)) {
+    if(creaturePresent && (ssConfig.show_hidden_blocks || !designation.bits.hidden)) {
         DrawCreature(drawx, drawy, creature, this);
     }
 
@@ -536,7 +536,7 @@ void Block::Drawcreaturetext()
     // creature
     // ensure there is *some* creature according to the map data
     // (no guarantee it is the right one)
-    if(creaturePresent && (config.show_hidden_blocks || !designation.bits.hidden)) {
+    if(creaturePresent && (ssConfig.show_hidden_blocks || !designation.bits.hidden)) {
         DrawCreatureText(drawx, drawy, creature);
     }
 
@@ -551,13 +551,13 @@ void Block::AddRamptop()
 
         bool chopThisBlock = 0;
 
-        if(config.truncate_walls == 1) {
+        if(ssConfig.truncate_walls == 1) {
             chopThisBlock = 1;
-        } else if(config.truncate_walls == 2 && obscuringCreature == 1) {
+        } else if(ssConfig.truncate_walls == 2 && obscuringCreature == 1) {
             chopThisBlock = 1;
-        } else if(config.truncate_walls == 3 && (obscuringCreature == 1 || obscuringBuilding == 1)) {
+        } else if(ssConfig.truncate_walls == 3 && (obscuringCreature == 1 || obscuringBuilding == 1)) {
             chopThisBlock = 1;
-        } else if(config.truncate_walls == 4 && obscuringBuilding == 1) {
+        } else if(ssConfig.truncate_walls == 4 && obscuringBuilding == 1) {
             chopThisBlock = 1;
         }
         //Draw Ramp
@@ -697,17 +697,17 @@ void Block::AssembleFloorBlood ( int32_t drawx, int32_t drawy )
         sprite.fileIndex = INVALID_INDEX;
 
         // Spatter (should be blood, not blood2) swapped for testing
-        if( bloodlevel <= config.poolcutoff ) {
+        if( bloodlevel <= ssConfig.poolcutoff ) {
             sprite.sheetIndex = 7;
         }
 
         // Smear (should be blood2, not blood) swapped for testing
         else {
             // if there's no block in the respective direction it's false. if there's no blood in that direction it's false too. should also check to see if there's a ramp below, but since blood doesn't flow, that'd look wrong anyway.
-            bool _N = ( ownerSegment->getBlockRelativeTo( x, y, z, eUp ) != NULL ? (ownerSegment->getBlockRelativeTo( x, y, z, eUp )->bloodlevel > config.poolcutoff) : false ),
-                 _S = ( ownerSegment->getBlockRelativeTo( x, y, z, eDown ) != NULL ? (ownerSegment->getBlockRelativeTo( x, y, z, eDown )->bloodlevel > config.poolcutoff) : false ),
-                 _E = ( ownerSegment->getBlockRelativeTo( x, y, z, eRight ) != NULL ? (ownerSegment->getBlockRelativeTo( x, y, z, eRight )->bloodlevel > config.poolcutoff) : false ),
-                 _W = ( ownerSegment->getBlockRelativeTo( x, y, z, eLeft ) != NULL ? (ownerSegment->getBlockRelativeTo( x, y, z, eLeft )->bloodlevel > config.poolcutoff) : false );
+            bool _N = ( ownerSegment->getBlockRelativeTo( x, y, z, eUp ) != NULL ? (ownerSegment->getBlockRelativeTo( x, y, z, eUp )->bloodlevel > ssConfig.poolcutoff) : false ),
+                 _S = ( ownerSegment->getBlockRelativeTo( x, y, z, eDown ) != NULL ? (ownerSegment->getBlockRelativeTo( x, y, z, eDown )->bloodlevel > ssConfig.poolcutoff) : false ),
+                 _E = ( ownerSegment->getBlockRelativeTo( x, y, z, eRight ) != NULL ? (ownerSegment->getBlockRelativeTo( x, y, z, eRight )->bloodlevel > ssConfig.poolcutoff) : false ),
+                 _W = ( ownerSegment->getBlockRelativeTo( x, y, z, eLeft ) != NULL ? (ownerSegment->getBlockRelativeTo( x, y, z, eLeft )->bloodlevel > ssConfig.poolcutoff) : false );
 
             // do rules-based puddling
             if( _N || _S || _E || _W ) {
@@ -751,8 +751,8 @@ void Block::AssembleFloorBlood ( int32_t drawx, int32_t drawy )
             TILEHEIGHT+FLOORHEIGHT,
             drawx,
             drawy,
-            TILEWIDTH*config.scale,
-            (TILEHEIGHT+FLOORHEIGHT)*config.scale,
+            TILEWIDTH*ssConfig.scale,
+            (TILEHEIGHT+FLOORHEIGHT)*ssConfig.scale,
             0);
         AssembleSprite(
             IMGBloodSheet,
@@ -763,8 +763,8 @@ void Block::AssembleFloorBlood ( int32_t drawx, int32_t drawy )
             TILEHEIGHT+FLOORHEIGHT,
             drawx,
             drawy,
-            TILEWIDTH*config.scale,
-            (TILEHEIGHT+FLOORHEIGHT)*config.scale,
+            TILEWIDTH*ssConfig.scale,
+            (TILEHEIGHT+FLOORHEIGHT)*ssConfig.scale,
             0);
     }
 }

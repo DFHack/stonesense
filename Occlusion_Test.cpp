@@ -21,12 +21,12 @@ bitset<2*S_SPRITE_HEIGHT> floor_mask_right;
 
 inline bool hasOpaqueSides(Block * b){
     return IDhasOpaqueSides(b->tileType) 
-        || ( b->designation.bits.hidden && (config.shade_hidden_blocks || config.show_hidden_blocks) );
+        || ( b->designation.bits.hidden && (ssConfig.shade_hidden_blocks || ssConfig.show_hidden_blocks) );
 }
 
 inline bool hasOpaqueFloor(Block * b){
     return IDhasOpaqueFloor(b->tileType) 
-        || ( b->designation.bits.hidden && (config.shade_hidden_blocks || config.show_hidden_blocks) );
+        || ( b->designation.bits.hidden && (ssConfig.shade_hidden_blocks || ssConfig.show_hidden_blocks) );
 }
 
 bool is_block_solid(Block * b)

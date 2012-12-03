@@ -184,13 +184,13 @@ ALLEGRO_COLOR shadeAdventureMode(ALLEGRO_COLOR color, bool foggy, bool outside)
         return color;
     } 
 
-    if(foggy && config.fog_of_war) {
+    if(foggy && ssConfig.fog_of_war) {
         color.r *= 0.25f;
         color.g *= 0.25f;
         color.b *= 0.25f;
     }
 
-    if(config.dayNightCycle) {
+    if(ssConfig.dayNightCycle) {
         if(outside) {
             color = color*getDayShade(contentLoader->currentHour, contentLoader->currentTickRel);
         } else {

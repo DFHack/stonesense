@@ -75,7 +75,7 @@ void parseConfigLine( string line )
     }
     if( line.find("[WINDOWED") != -1) {
         string result = parseStrFromLine( "WINDOWED", line );
-        config.Fullscreen = (result == "NO");
+        ssConfig.Fullscreen = (result == "NO");
     }
     if( line.find("[SEGMENTSIZE_XY") != -1) {
         int value = parseIntFromLine( "SEGMENTSIZE_XY", line );
@@ -86,121 +86,121 @@ void parseConfigLine( string line )
             value = 100;
         }
         //plus 2 to allow edge readings
-        config.segmentSize.x = value+2;
-        config.segmentSize.y = value+2;
+        ssConfig.segmentSize.x = value+2;
+        ssConfig.segmentSize.y = value+2;
     }
     if( line.find("[SEGMENTSIZE_Z") != -1) {
         int value = parseIntFromLine( "SEGMENTSIZE_Z", line );
         if(value < 1) {
             value = DEFAULT_SEGMENTSIZE_Z;
         }
-        config.segmentSize.z = value;
+        ssConfig.segmentSize.z = value;
     }
 
     if( line.find("[ALLCREATURES") != -1) {
         string result = parseStrFromLine( "ALLCREATURES", line );
-        config.show_all_creatures = (result == "YES");
+        ssConfig.show_all_creatures = (result == "YES");
     }
     if( line.find("[AUTO_RELOAD_STEP") != -1) {
         int value = parseIntFromLine( "AUTO_RELOAD_STEP", line);
         if(value < 50) {
             value = 50;
         }
-        config.automatic_reload_step = value;
+        ssConfig.automatic_reload_step = value;
     }
     if( line.find("[AUTO_RELOAD_TIME") != -1) {
         int value = parseIntFromLine( "AUTO_RELOAD_TIME", line);
         if(value < 0) {
             value = 0;
         }
-        config.automatic_reload_time = value;
+        ssConfig.automatic_reload_time = value;
     }
     if( line.find("[DEBUGMODE") != -1) {
         string result = parseStrFromLine( "DEBUGMODE", line );
-        config.debug_mode = (result == "YES");
+        ssConfig.debug_mode = (result == "YES");
     }
     if( line.find("[TRANSPARENT_SCREENSHOTS") != -1) {
         string result = parseStrFromLine( "TRANSPARENT_SCREENSHOTS", line );
-        config.transparentScreenshots = (result == "YES");
+        ssConfig.transparentScreenshots = (result == "YES");
     }
     if( line.find("[LIFTSEGMENT") != -1) {
         int value = parseIntFromLine( "LIFTSEGMENT", line);
-        config.lift_segment_offscreen = value;
+        ssConfig.lift_segment_offscreen = value;
     }
     if( line.find("[ANIMATION_RATE") != -1) {
         int value = parseIntFromLine( "ANIMATION_RATE", line );
         if(value < 50) {
             value = 50;
         }
-        config.animation_step = value;
+        ssConfig.animation_step = value;
     }
     if( line.find("[VERBOSE_LOGGING") != -1) {
         string result = parseStrFromLine( "VERBOSE_LOGGING", line );
-        config.verbose_logging = (result == "YES");
+        ssConfig.verbose_logging = (result == "YES");
     }
     if( line.find("[TRACK_CENTER") != -1) {
         string result = parseStrFromLine( "TRACK_CENTER", line );
-        config.track_center = (result == "YES");
+        ssConfig.track_center = (result == "YES");
     }
     if( line.find("[FOLLOW_DF_SCREEN") != -1) {
         string result = parseStrFromLine( "FOLLOW_DF_SCREEN", line );
-        config.follow_DFscreen = (result == "YES");
+        ssConfig.follow_DFscreen = (result == "YES");
     }
     if( line.find("[FOLLOW_DF_CURSOR") != -1) {
         string result = parseStrFromLine( "FOLLOW_DF_CURSOR", line );
-        config.follow_DFcursor = (result == "YES");
+        ssConfig.follow_DFcursor = (result == "YES");
     }
     if( line.find("[SHOW_CREATURE_NAMES") != -1) {
         string result = parseStrFromLine( "SHOW_CREATURE_NAMES", line );
-        config.show_creature_names = (result == "YES");
+        ssConfig.show_creature_names = (result == "YES");
     }
     if( line.find("[NAMES_USE_NICKNAME") != -1) {
         string result = parseStrFromLine( "NAMES_USE_NICKNAME", line );
-        config.names_use_nick = (result == "YES");
+        ssConfig.names_use_nick = (result == "YES");
     }
     if( line.find("[NAMES_USE_SPECIES") != -1) {
         string result = parseStrFromLine( "NAMES_USE_SPECIES", line );
-        config.names_use_species = (result == "YES");
+        ssConfig.names_use_species = (result == "YES");
     }
     if( line.find("[SHOW_OSD") != -1) {
         string result = parseStrFromLine( "SHOW_OSD", line );
-        config.show_osd = (result == "YES");
+        ssConfig.show_osd = (result == "YES");
     }
     if( line.find("[CACHE_IMAGES") != -1) {
         string result = parseStrFromLine( "CACHE_IMAGES", line );
-        config.cache_images = (result == "YES");
+        ssConfig.cache_images = (result == "YES");
     }
     if( line.find("[SHOW_STOCKPILES") != -1) {
         string result = parseStrFromLine( "SHOW_STOCKPILES", line );
-        config.show_stockpiles = (result == "YES");
+        ssConfig.show_stockpiles = (result == "YES");
     }
     if( line.find("[SHOW_ZONES") != -1) {
         string result = parseStrFromLine( "SHOW_ZONES", line );
-        config.show_zones = (result == "YES");
+        ssConfig.show_zones = (result == "YES");
     }
     if( line.find("[INTRO") != -1) {
         string result = parseStrFromLine( "INTRO", line );
-        config.show_intro = !(result == "OFF");
+        ssConfig.show_intro = !(result == "OFF");
     }
     if( line.find("[FOG_RED") != -1) {
         int value = parseIntFromLine( "FOG_RED", line);
-        config.fogcol.r = value / 255.0;
+        ssConfig.fogcol.r = value / 255.0;
     }
     if( line.find("[FOG_GREEN") != -1) {
         int value = parseIntFromLine( "FOG_GREEN", line);
-        config.fogcol.g = value / 255.0;
+        ssConfig.fogcol.g = value / 255.0;
     }
     if( line.find("[FOG_BLUE") != -1) {
         int value = parseIntFromLine( "FOG_BLUE", line);
-        config.fogcol.b = value / 255.0;
+        ssConfig.fogcol.b = value / 255.0;
     }
     if( line.find("[FOG_ALPHA") != -1) {
         int value = parseIntFromLine( "FOG_ALPHA", line);
-        config.fogcol.a = value / 255.0;
+        ssConfig.fogcol.a = value / 255.0;
     }
     if( line.find("[SHOW_FOG") != -1) {
         string result = parseStrFromLine( "SHOW_FOG", line );
-        config.fogenable = (result == "YES");
+        ssConfig.fogenable = (result == "YES");
     }
     if( line.find("[BACK_RED") != -1) {
         int value = parseIntFromLine( "BACK_RED", line);
@@ -210,7 +210,7 @@ void parseConfigLine( string line )
         if(value < 0) {
             value = 0;
         }
-        config.backcol.r = value / 255.0;
+        ssConfig.backcol.r = value / 255.0;
     }
     if( line.find("[BACK_GREEN") != -1) {
         int value = parseIntFromLine( "BACK_GREEN", line);
@@ -220,7 +220,7 @@ void parseConfigLine( string line )
         if(value < 0) {
             value = 0;
         }
-        config.backcol.g = value / 255.0;
+        ssConfig.backcol.g = value / 255.0;
     }
     if( line.find("[BACK_BLUE") != -1) {
         int value = parseIntFromLine( "BACK_BLUE", line);
@@ -230,7 +230,7 @@ void parseConfigLine( string line )
         if(value < 0) {
             value = 0;
         }
-        config.backcol.b = value / 255.0;
+        ssConfig.backcol.b = value / 255.0;
     }
     if( line.find("[FOLLOW_OFFSET_X") != -1) {
         int value = parseIntFromLine( "FOLLOW_OFFSET_X", line);
@@ -240,7 +240,7 @@ void parseConfigLine( string line )
         if(value < -30) {
             value = -30;
         }
-        config.viewXoffset = value;
+        ssConfig.viewXoffset = value;
     }
     if( line.find("[FOLLOW_OFFSET_Y") != -1) {
         int value = parseIntFromLine( "FOLLOW_OFFSET_Y", line);
@@ -250,7 +250,7 @@ void parseConfigLine( string line )
         if(value < -30) {
             value = -30;
         }
-        config.viewYoffset = value;
+        ssConfig.viewYoffset = value;
     }
     if( line.find("[FOLLOW_OFFSET_Z") != -1) {
         int value = parseIntFromLine( "FOLLOW_OFFSET_Z", line);
@@ -260,26 +260,26 @@ void parseConfigLine( string line )
         if(value < -30) {
             value = -30;
         }
-        config.viewZoffset = value;
+        ssConfig.viewZoffset = value;
     }
     if( line.find("[LOG_IMAGECACHE") != -1) {
         string result = parseStrFromLine( "LOG_IMAGECACHE", line );
-        config.saveImageCache = (result == "YES");
+        ssConfig.saveImageCache = (result == "YES");
     }
     if( line.find("[IMAGE_CACHE_SIZE") != -1) {
         int value = parseIntFromLine( "IMAGE_CACHE_SIZE", line);
-        config.imageCacheSize = value;
+        ssConfig.imageCacheSize = value;
     }
     if( line.find("[FONTSIZE") != -1) {
         int value = parseIntFromLine( "FONTSIZE", line);
         if(value < 1) {
             value = 1;
         }
-        config.fontsize = value;
+        ssConfig.fontsize = value;
     }
     if( line.find("[FONT") != -1) {
         string result = parseStrFromLine( "FONT", line );
-        config.font = al_create_path(result.c_str());
+        ssConfig.font = al_create_path(result.c_str());
     }
     if( line.find("[BLACK_R") != -1) {
         int value = parseIntFromLine( "BLACK_R", line);
@@ -289,7 +289,7 @@ void parseConfigLine( string line )
         if(value < 0) {
             value = 0;
         }
-        config.colors[dfColors::black].red = value;
+        ssConfig.colors[dfColors::black].red = value;
     }
     if( line.find("[BLACK_G") != -1) {
         int value = parseIntFromLine( "BLACK_G", line);
@@ -299,7 +299,7 @@ void parseConfigLine( string line )
         if(value < 0) {
             value = 0;
         }
-        config.colors[dfColors::black].green = value;
+        ssConfig.colors[dfColors::black].green = value;
     }
     if( line.find("[BLACK_B") != -1) {
         int value = parseIntFromLine( "BLACK_B", line);
@@ -309,7 +309,7 @@ void parseConfigLine( string line )
         if(value < 0) {
             value = 0;
         }
-        config.colors[dfColors::black].blue = value;
+        ssConfig.colors[dfColors::black].blue = value;
     }
     if( line.find("[BLUE_R") != -1) {
         int value = parseIntFromLine( "BLUE_R", line);
@@ -319,7 +319,7 @@ void parseConfigLine( string line )
         if(value < 0) {
             value = 0;
         }
-        config.colors[dfColors::blue].red = value;
+        ssConfig.colors[dfColors::blue].red = value;
     }
     if( line.find("[BLUE_G") != -1) {
         int value = parseIntFromLine( "BLUE_G", line);
@@ -329,7 +329,7 @@ void parseConfigLine( string line )
         if(value < 0) {
             value = 0;
         }
-        config.colors[dfColors::blue].green = value;
+        ssConfig.colors[dfColors::blue].green = value;
     }
     if( line.find("[BLUE_B") != -1) {
         int value = parseIntFromLine( "BLUE_B", line);
@@ -339,7 +339,7 @@ void parseConfigLine( string line )
         if(value < 0) {
             value = 0;
         }
-        config.colors[dfColors::blue].blue = value;
+        ssConfig.colors[dfColors::blue].blue = value;
     }
     if( line.find("[GREEN_R") != -1) {
         int value = parseIntFromLine( "GREEN_R", line);
@@ -349,7 +349,7 @@ void parseConfigLine( string line )
         if(value < 0) {
             value = 0;
         }
-        config.colors[dfColors::green].red = value;
+        ssConfig.colors[dfColors::green].red = value;
     }
     if( line.find("[GREEN_G") != -1) {
         int value = parseIntFromLine( "GREEN_G", line);
@@ -359,7 +359,7 @@ void parseConfigLine( string line )
         if(value < 0) {
             value = 0;
         }
-        config.colors[dfColors::green].green = value;
+        ssConfig.colors[dfColors::green].green = value;
     }
     if( line.find("[GREEN_B") != -1) {
         int value = parseIntFromLine( "GREEN_B", line);
@@ -369,7 +369,7 @@ void parseConfigLine( string line )
         if(value < 0) {
             value = 0;
         }
-        config.colors[dfColors::green].blue = value;
+        ssConfig.colors[dfColors::green].blue = value;
     }
     if( line.find("[CYAN_R") != -1) {
         int value = parseIntFromLine( "CYAN_R", line);
@@ -379,7 +379,7 @@ void parseConfigLine( string line )
         if(value < 0) {
             value = 0;
         }
-        config.colors[dfColors::cyan].red= value;
+        ssConfig.colors[dfColors::cyan].red= value;
     }
     if( line.find("[CYAN_G") != -1) {
         int value = parseIntFromLine( "CYAN_G", line);
@@ -389,7 +389,7 @@ void parseConfigLine( string line )
         if(value < 0) {
             value = 0;
         }
-        config.colors[dfColors::cyan].green= value;
+        ssConfig.colors[dfColors::cyan].green= value;
     }
     if( line.find("[CYAN_B") != -1) {
         int value = parseIntFromLine( "CYAN_B", line);
@@ -399,7 +399,7 @@ void parseConfigLine( string line )
         if(value < 0) {
             value = 0;
         }
-        config.colors[dfColors::cyan].blue= value;
+        ssConfig.colors[dfColors::cyan].blue= value;
     }
     if( line.find("[RED_R") != -1) {
         int value = parseIntFromLine( "RED_R", line);
@@ -409,7 +409,7 @@ void parseConfigLine( string line )
         if(value < 0) {
             value = 0;
         }
-        config.colors[dfColors::red].red= value;
+        ssConfig.colors[dfColors::red].red= value;
     }
     if( line.find("[RED_G") != -1) {
         int value = parseIntFromLine( "RED_G", line);
@@ -419,7 +419,7 @@ void parseConfigLine( string line )
         if(value < 0) {
             value = 0;
         }
-        config.colors[dfColors::red].green= value;
+        ssConfig.colors[dfColors::red].green= value;
     }
     if( line.find("[RED_B") != -1) {
         int value = parseIntFromLine( "RED_B", line);
@@ -429,7 +429,7 @@ void parseConfigLine( string line )
         if(value < 0) {
             value = 0;
         }
-        config.colors[dfColors::red].blue= value;
+        ssConfig.colors[dfColors::red].blue= value;
     }
     if( line.find("[MAGENTA_R") != -1) {
         int value = parseIntFromLine( "MAGENTA_R", line);
@@ -439,7 +439,7 @@ void parseConfigLine( string line )
         if(value < 0) {
             value = 0;
         }
-        config.colors[dfColors::magenta].red= value;
+        ssConfig.colors[dfColors::magenta].red= value;
     }
     if( line.find("[MAGENTA_G") != -1) {
         int value = parseIntFromLine( "MAGENTA_G", line);
@@ -449,7 +449,7 @@ void parseConfigLine( string line )
         if(value < 0) {
             value = 0;
         }
-        config.colors[dfColors::magenta].green= value;
+        ssConfig.colors[dfColors::magenta].green= value;
     }
     if( line.find("[MAGENTA_B") != -1) {
         int value = parseIntFromLine( "MAGENTA_B", line);
@@ -459,7 +459,7 @@ void parseConfigLine( string line )
         if(value < 0) {
             value = 0;
         }
-        config.colors[dfColors::magenta].blue= value;
+        ssConfig.colors[dfColors::magenta].blue= value;
     }
     if( line.find("[BROWN_R") != -1) {
         int value = parseIntFromLine( "BROWN_R", line);
@@ -469,7 +469,7 @@ void parseConfigLine( string line )
         if(value < 0) {
             value = 0;
         }
-        config.colors[dfColors::brown].red= value;
+        ssConfig.colors[dfColors::brown].red= value;
     }
     if( line.find("[BROWN_G") != -1) {
         int value = parseIntFromLine( "BROWN_G", line);
@@ -479,7 +479,7 @@ void parseConfigLine( string line )
         if(value < 0) {
             value = 0;
         }
-        config.colors[dfColors::brown].green= value;
+        ssConfig.colors[dfColors::brown].green= value;
     }
     if( line.find("[BROWN_B") != -1) {
         int value = parseIntFromLine( "BROWN_B", line);
@@ -489,7 +489,7 @@ void parseConfigLine( string line )
         if(value < 0) {
             value = 0;
         }
-        config.colors[dfColors::brown].blue= value;
+        ssConfig.colors[dfColors::brown].blue= value;
     }
     if( line.find("[LGRAY_R") != -1) {
         int value = parseIntFromLine( "LGRAY_R", line);
@@ -499,7 +499,7 @@ void parseConfigLine( string line )
         if(value < 0) {
             value = 0;
         }
-        config.colors[dfColors::lgray].red= value;
+        ssConfig.colors[dfColors::lgray].red= value;
     }
     if( line.find("[LGRAY_R") != -1) {
         int value = parseIntFromLine( "LGRAY_R", line);
@@ -509,7 +509,7 @@ void parseConfigLine( string line )
         if(value < 0) {
             value = 0;
         }
-        config.colors[dfColors::lgray].green= value;
+        ssConfig.colors[dfColors::lgray].green= value;
     }
     if( line.find("[LGRAY_R") != -1) {
         int value = parseIntFromLine( "LGRAY_R", line);
@@ -519,7 +519,7 @@ void parseConfigLine( string line )
         if(value < 0) {
             value = 0;
         }
-        config.colors[dfColors::lgray].blue= value;
+        ssConfig.colors[dfColors::lgray].blue= value;
     }
     if( line.find("[DGRAY_R") != -1) {
         int value = parseIntFromLine( "DGRAY_R", line);
@@ -529,7 +529,7 @@ void parseConfigLine( string line )
         if(value < 0) {
             value = 0;
         }
-        config.colors[dfColors::dgray].red= value;
+        ssConfig.colors[dfColors::dgray].red= value;
     }
     if( line.find("[DGRAY_R") != -1) {
         int value = parseIntFromLine( "DGRAY_R", line);
@@ -539,7 +539,7 @@ void parseConfigLine( string line )
         if(value < 0) {
             value = 0;
         }
-        config.colors[dfColors::dgray].green= value;
+        ssConfig.colors[dfColors::dgray].green= value;
     }
     if( line.find("[DGRAY_R") != -1) {
         int value = parseIntFromLine( "DGRAY_R", line);
@@ -549,7 +549,7 @@ void parseConfigLine( string line )
         if(value < 0) {
             value = 0;
         }
-        config.colors[dfColors::dgray].blue= value;
+        ssConfig.colors[dfColors::dgray].blue= value;
     }
     if( line.find("[LBLUE_R") != -1) {
         int value = parseIntFromLine( "LBLUE_R", line);
@@ -559,7 +559,7 @@ void parseConfigLine( string line )
         if(value < 0) {
             value = 0;
         }
-        config.colors[dfColors::lblue].red= value;
+        ssConfig.colors[dfColors::lblue].red= value;
     }
     if( line.find("[LBLUE_G") != -1) {
         int value = parseIntFromLine( "LBLUE_G", line);
@@ -569,7 +569,7 @@ void parseConfigLine( string line )
         if(value < 0) {
             value = 0;
         }
-        config.colors[dfColors::lblue].green= value;
+        ssConfig.colors[dfColors::lblue].green= value;
     }
     if( line.find("[LBLUE_B") != -1) {
         int value = parseIntFromLine( "LBLUE_B", line);
@@ -579,7 +579,7 @@ void parseConfigLine( string line )
         if(value < 0) {
             value = 0;
         }
-        config.colors[dfColors::lblue].blue= value;
+        ssConfig.colors[dfColors::lblue].blue= value;
     }
     if( line.find("[LGREEN_R") != -1) {
         int value = parseIntFromLine( "LGREEN_R", line);
@@ -589,7 +589,7 @@ void parseConfigLine( string line )
         if(value < 0) {
             value = 0;
         }
-        config.colors[dfColors::lgreen].red= value;
+        ssConfig.colors[dfColors::lgreen].red= value;
     }
     if( line.find("[LGREEN_G") != -1) {
         int value = parseIntFromLine( "LGREEN_G", line);
@@ -599,7 +599,7 @@ void parseConfigLine( string line )
         if(value < 0) {
             value = 0;
         }
-        config.colors[dfColors::lgreen].green= value;
+        ssConfig.colors[dfColors::lgreen].green= value;
     }
     if( line.find("[LGREEN_B") != -1) {
         int value = parseIntFromLine( "LGREEN_B", line);
@@ -609,7 +609,7 @@ void parseConfigLine( string line )
         if(value < 0) {
             value = 0;
         }
-        config.colors[dfColors::lgreen].blue= value;
+        ssConfig.colors[dfColors::lgreen].blue= value;
     }
     if( line.find("[LCYAN_R") != -1) {
         int value = parseIntFromLine( "LCYAN_R", line);
@@ -619,7 +619,7 @@ void parseConfigLine( string line )
         if(value < 0) {
             value = 0;
         }
-        config.colors[dfColors::lcyan].red= value;
+        ssConfig.colors[dfColors::lcyan].red= value;
     }
     if( line.find("[LCYAN_G") != -1) {
         int value = parseIntFromLine( "LCYAN_G", line);
@@ -629,7 +629,7 @@ void parseConfigLine( string line )
         if(value < 0) {
             value = 0;
         }
-        config.colors[dfColors::lcyan].green= value;
+        ssConfig.colors[dfColors::lcyan].green= value;
     }
     if( line.find("[LCYAN_B") != -1) {
         int value = parseIntFromLine( "LCYAN_B", line);
@@ -639,7 +639,7 @@ void parseConfigLine( string line )
         if(value < 0) {
             value = 0;
         }
-        config.colors[dfColors::lcyan].blue= value;
+        ssConfig.colors[dfColors::lcyan].blue= value;
     }
     if( line.find("[LRED_R") != -1) {
         int value = parseIntFromLine( "LRED_R", line);
@@ -649,7 +649,7 @@ void parseConfigLine( string line )
         if(value < 0) {
             value = 0;
         }
-        config.colors[dfColors::lred].red= value;
+        ssConfig.colors[dfColors::lred].red= value;
     }
     if( line.find("[LRED_G") != -1) {
         int value = parseIntFromLine( "LRED_G", line);
@@ -659,7 +659,7 @@ void parseConfigLine( string line )
         if(value < 0) {
             value = 0;
         }
-        config.colors[dfColors::lred].green= value;
+        ssConfig.colors[dfColors::lred].green= value;
     }
     if( line.find("[LRED_B") != -1) {
         int value = parseIntFromLine( "LRED_B", line);
@@ -669,7 +669,7 @@ void parseConfigLine( string line )
         if(value < 0) {
             value = 0;
         }
-        config.colors[dfColors::lred].blue= value;
+        ssConfig.colors[dfColors::lred].blue= value;
     }
     if( line.find("[LMAGENTA_R") != -1) {
         int value = parseIntFromLine( "LMAGENTA_R", line);
@@ -679,7 +679,7 @@ void parseConfigLine( string line )
         if(value < 0) {
             value = 0;
         }
-        config.colors[dfColors::lmagenta].red= value;
+        ssConfig.colors[dfColors::lmagenta].red= value;
     }
     if( line.find("[LMAGENTA_G") != -1) {
         int value = parseIntFromLine( "LMAGENTA_G", line);
@@ -689,7 +689,7 @@ void parseConfigLine( string line )
         if(value < 0) {
             value = 0;
         }
-        config.colors[dfColors::lmagenta].green= value;
+        ssConfig.colors[dfColors::lmagenta].green= value;
     }
     if( line.find("[LMAGENTA_B") != -1) {
         int value = parseIntFromLine( "LMAGENTA_B", line);
@@ -699,7 +699,7 @@ void parseConfigLine( string line )
         if(value < 0) {
             value = 0;
         }
-        config.colors[dfColors::lmagenta].blue= value;
+        ssConfig.colors[dfColors::lmagenta].blue= value;
     }
     if( line.find("[YELLOW_R") != -1) {
         int value = parseIntFromLine( "YELLOW_R", line);
@@ -709,7 +709,7 @@ void parseConfigLine( string line )
         if(value < 0) {
             value = 0;
         }
-        config.colors[dfColors::yellow].red= value;
+        ssConfig.colors[dfColors::yellow].red= value;
     }
     if( line.find("[YELLOW_G") != -1) {
         int value = parseIntFromLine( "YELLOW_G", line);
@@ -719,7 +719,7 @@ void parseConfigLine( string line )
         if(value < 0) {
             value = 0;
         }
-        config.colors[dfColors::yellow].green= value;
+        ssConfig.colors[dfColors::yellow].green= value;
     }
     if( line.find("[YELLOW_B") != -1) {
         int value = parseIntFromLine( "YELLOW_B", line);
@@ -729,7 +729,7 @@ void parseConfigLine( string line )
         if(value < 0) {
             value = 0;
         }
-        config.colors[dfColors::yellow].blue= value;
+        ssConfig.colors[dfColors::yellow].blue= value;
     }
     if( line.find("[WHITE_R") != -1) {
         int value = parseIntFromLine( "WHITE_R", line);
@@ -739,7 +739,7 @@ void parseConfigLine( string line )
         if(value < 0) {
             value = 0;
         }
-        config.colors[dfColors::white].red= value;
+        ssConfig.colors[dfColors::white].red= value;
     }
     if( line.find("[WHITE_G") != -1) {
         int value = parseIntFromLine( "WHITE_G", line);
@@ -749,7 +749,7 @@ void parseConfigLine( string line )
         if(value < 0) {
             value = 0;
         }
-        config.colors[dfColors::white].green= value;
+        ssConfig.colors[dfColors::white].green= value;
     }
     if( line.find("[WHITE_B") != -1) {
         int value = parseIntFromLine( "WHITE_B", line);
@@ -759,17 +759,17 @@ void parseConfigLine( string line )
         if(value < 0) {
             value = 0;
         }
-        config.colors[dfColors::white].blue= value;
+        ssConfig.colors[dfColors::white].blue= value;
     }
     if( line.find("[RENDERER") != -1) {
         string result = parseStrFromLine( "RENDERER", line );
-        config.opengl = (result == "OPENGL");
-        config.software = (result == "SOFTWARE");
-        config.directX = (result == "DIRECTX");
+        ssConfig.opengl = (result == "OPENGL");
+        ssConfig.software = (result == "SOFTWARE");
+        ssConfig.directX = (result == "DIRECTX");
     }
     if( line.find("[NIGHT") != -1) {
         string result = parseStrFromLine( "NIGHT", line );
-        config.dayNightCycle = (result == "YES");
+        ssConfig.dayNightCycle = (result == "YES");
     }
 }
 
@@ -792,7 +792,7 @@ bool loadConfigFile()
         parseConfigLine( line );
     }
     // update allegro colors loaded from file
-    config.colors.update();
+    ssConfig.colors.update();
     //close file, etc.
     myfile.close();
     al_destroy_path(p);

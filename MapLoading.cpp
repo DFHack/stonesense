@@ -266,7 +266,7 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
                        //vector<df::construction>* allConstructions,
                        vector< vector <int16_t> >* allLayers)
 {
-    if(config.skipMaps) {
+    if(ssConfig.skipMaps) {
         return;
     }
     //boundry check
@@ -379,7 +379,7 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
                 }
                 b->bloodlevel = bloodlevel;
                 if(bloodlevel) {
-                    b->bloodcolor = al_map_rgba(red/b->bloodlevel, green/b->bloodlevel, blue/b->bloodlevel, (bloodlevel > config.bloodcutoff) ? 255 : bloodlevel*255/config.bloodcutoff);
+                    b->bloodcolor = al_map_rgba(red/b->bloodlevel, green/b->bloodlevel, blue/b->bloodlevel, (bloodlevel > ssConfig.bloodcutoff) ? 255 : bloodlevel*255/ssConfig.bloodcutoff);
                 } else {
                     b->bloodcolor = al_map_rgba(0,0,0,0);
                 }
@@ -407,14 +407,14 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
             bool shouldBeIncluded = true;
 
             if(isOpenTerrain(b->tileType)) {
-                if(config.show_hidden_blocks) {
+                if(ssConfig.show_hidden_blocks) {
                     shouldBeIncluded = false;
                 } else if(!(b->designation.bits.hidden)) {
                     shouldBeIncluded = false;
                 }
-            } else if(!config.show_hidden_blocks
+            } else if(!ssConfig.show_hidden_blocks
                       && b->designation.bits.hidden
-                      && !config.shade_hidden_blocks) {
+                      && !ssConfig.shade_hidden_blocks) {
                 shouldBeIncluded = false;
             }
 
@@ -743,7 +743,7 @@ WorldSegment* ReadMapSegment(int x, int y, int z, int sizex, int sizey, int size
     DFHack::Core & DF = Core::getInstance();
 
     //read date
-    if(!config.skipWorld) {
+    if(!ssConfig.skipWorld) {
         contentLoader->currentYear = World::ReadCurrentYear();
         contentLoader->currentTick = World::ReadCurrentTick();
         contentLoader->currentMonth = (contentLoader->currentTick+9)/33600;
@@ -753,7 +753,7 @@ WorldSegment* ReadMapSegment(int x, int y, int z, int sizex, int sizey, int size
         World::ReadGameMode(contentLoader->gameMode);
     }
 
-    if(config.skipMaps || !Maps::IsValid()) {
+    if(ssConfig.skipMaps || !Maps::IsValid()) {
         return new WorldSegment(x,y,z + 1,sizex,sizey,sizez + 1);
     }
 
@@ -764,9 +764,9 @@ WorldSegment* ReadMapSegment(int x, int y, int z, int sizex, int sizey, int size
     cellDimX = cellDimX * CELLEDGESIZE;
     cellDimY = cellDimY * CELLEDGESIZE;
     cellDimZ = cellDimZ;
-    config.cellDimX = cellDimX;
-    config.cellDimY = cellDimY;
-    config.cellDimZ = cellDimZ;
+    ssConfig.cellDimX = cellDimX;
+    ssConfig.cellDimY = cellDimY;
+    ssConfig.cellDimZ = cellDimZ;
 
     //setup new world segment
     WorldSegment* segment = new WorldSegment(x,y,z,sizex,sizey,sizez);
@@ -777,7 +777,7 @@ WorldSegment* ReadMapSegment(int x, int y, int z, int sizex, int sizey, int size
 
     //read world wide buildings
     vector<Buildings::t_building> allBuildings;
-    if(!config.skipBuildings) {
+    if(!ssConfig.skipBuildings) {
         ReadBuildings(DF, &allBuildings);
     }
 
@@ -792,13 +792,13 @@ WorldSegment* ReadMapSegment(int x, int y, int z, int sizex, int sizey, int size
     }
 
     //read cursor
-    Gui::getCursorCoords(config.dfCursorX, config.dfCursorY, config.dfCursorZ);
+    Gui::getCursorCoords(ssConfig.dfCursorX, ssConfig.dfCursorY, ssConfig.dfCursorZ);
 
     // read constructions
     vector<df::construction> allConstructions;
     uint32_t numconstructions = 0;
 
-    if(!config.skipConstructions) {
+    if(!ssConfig.skipConstructions) {
         numconstructions = Constructions::getCount();
         if (numconstructions) {
             df::construction tempcon;
@@ -814,7 +814,7 @@ WorldSegment* ReadMapSegment(int x, int y, int z, int sizex, int sizey, int size
     }
 
     //merge buildings with segment
-    if(!config.skipBuildings) {
+    if(!ssConfig.skipBuildings) {
         MergeBuildingsToSegment(&allBuildings, segment);
     }
 
@@ -874,7 +874,7 @@ WorldSegment* ReadMapSegment(int x, int y, int z, int sizex, int sizey, int size
     }
     
     //Read Creatures
-    if(!config.skipCreatures) {
+    if(!ssConfig.skipCreatures) {
         ReadCreaturesToSegment( DF, segment );
     }
 
@@ -963,10 +963,10 @@ void beautify_Segment(WorldSegment * segment)
         Block* b = segment->getBlock(i);
 
         //try to mask away blocks that are flagged hidden
-        if(!config.show_hidden_blocks ) {
+        if(!ssConfig.show_hidden_blocks ) {
             //unhide any liquids that are visible from above
             unhideWaterFromAbove(segment, b);
-            if(config.shade_hidden_blocks) {
+            if(ssConfig.shade_hidden_blocks) {
                 maskBlock(segment, b);
             } else if( b->designation.bits.hidden ) {
                 b->visible = false;
@@ -987,7 +987,7 @@ void beautify_Segment(WorldSegment * segment)
             }
 
             //next see if the block is behind something
-            if(config.occlusion) {
+            if(ssConfig.occlusion) {
                 occlude_block(b);
             }
 
@@ -1354,9 +1354,9 @@ void FollowCurrentDFWindow()
     newviewx = newviewx + (viewsizex / 2) - mapx / 2;
     newviewy = newviewy + (viewsizey / 2) - mapy / 2;
 
-    parms.x = float (newviewx) * scalex - (config.segmentSize.x / 2) + config.viewXoffset + mapx / 2;
-    parms.y = float (newviewy) * scaley - (config.segmentSize.y / 2) + config.viewYoffset + mapy / 2;
-    parms.z = newviewz + config.viewZoffset + 1;
+    parms.x = float (newviewx) * scalex - (ssConfig.segmentSize.x / 2) + ssConfig.viewXoffset + mapx / 2;
+    parms.y = float (newviewy) * scaley - (ssConfig.segmentSize.y / 2) + ssConfig.viewYoffset + mapy / 2;
+    parms.z = newviewz + ssConfig.viewZoffset + 1;
 }
 
 void FollowCurrentDFCenter()
@@ -1370,9 +1370,9 @@ void FollowCurrentDFCenter()
     Gui::getViewCoords(newviewx,newviewy,newviewz);
     int screenx, screeny, screenz;
     ScreenToPoint(ssState.ScreenW/2, ssState.ScreenH/2, screenx, screeny, screenz);
-    parms.x = newviewx + (viewsizex/2) - screenx + config.viewXoffset;
-    parms.y = newviewy + (viewsizey/2) - screeny + config.viewYoffset;
-    parms.z = newviewz + config.viewZoffset + 1;
+    parms.x = newviewx + (viewsizex/2) - screenx + ssConfig.viewXoffset;
+    parms.y = newviewy + (viewsizey/2) - screeny + ssConfig.viewYoffset;
+    parms.z = newviewz + ssConfig.viewZoffset + 1;
 }
 
 void read_segment( void *arg)
@@ -1381,21 +1381,21 @@ void read_segment( void *arg)
         return;
     }
     static bool firstLoad = 1;
-    config.threadstarted = 1;
+    ssConfig.threadstarted = 1;
     WorldSegment * segment = 0;
     // Suspended block
     {
         CoreSuspender suspend;
-        if (firstLoad || config.follow_DFscreen) {
+        if (firstLoad || ssConfig.follow_DFscreen) {
             firstLoad = 0;
-            if (config.track_center) {
+            if (ssConfig.track_center) {
                 FollowCurrentDFCenter();
             } else {
                 FollowCurrentDFWindow();
             }
         }
         segment = ReadMapSegment(parms.x, parms.y, parms.z,parms.sizex, parms.sizey, parms.sizez);
-        config.threadstarted = 0;
+        ssConfig.threadstarted = 0;
     }
 
     if(segment) {
@@ -1415,10 +1415,10 @@ void read_segment( void *arg)
 static void * threadedSegment(ALLEGRO_THREAD *read_thread, void *arg)
 {
     while(!al_get_thread_should_stop(read_thread)) {
-        al_lock_mutex(config.readMutex);
+        al_lock_mutex(ssConfig.readMutex);
         read_segment(arg);
-        al_unlock_mutex(config.readMutex);
-        al_rest(config.automatic_reload_time/1000.0);
+        al_unlock_mutex(ssConfig.readMutex);
+        al_rest(ssConfig.automatic_reload_time/1000.0);
     }
     return 0;
 }
@@ -1439,30 +1439,30 @@ void reloadDisplayedSegment()
         timeToReloadConfig = false;
     }
 
-    if (firstLoad || config.follow_DFscreen) {
+    if (firstLoad || ssConfig.follow_DFscreen) {
         ssState.DisplayedSegmentX = parms.x;
         ssState.DisplayedSegmentY = parms.y;
         ssState.DisplayedSegmentZ = parms.z;
     }
 
-    int segmentHeight = config.single_layer_view ? 2 : config.segmentSize.z;
+    int segmentHeight = ssConfig.single_layer_view ? 2 : ssConfig.segmentSize.z;
     //load segment
-    if(config.threading_enable) {
-        if(!config.threadmade) {
-            config.readThread = al_create_thread(threadedSegment, NULL);
-            config.threadmade = 1;
+    if(ssConfig.threading_enable) {
+        if(!ssConfig.threadmade) {
+            ssConfig.readThread = al_create_thread(threadedSegment, NULL);
+            ssConfig.threadmade = 1;
         }
     }
 
     parms.x = ssState.DisplayedSegmentX;
     parms.y = ssState.DisplayedSegmentY;
     parms.z = ssState.DisplayedSegmentZ;
-    parms.sizex = config.segmentSize.x;
-    parms.sizey = config.segmentSize.y;
+    parms.sizex = ssConfig.segmentSize.x;
+    parms.sizey = ssConfig.segmentSize.y;
     parms.sizez = segmentHeight;
 
-    if(config.threading_enable) {
-        al_start_thread(config.readThread);
+    if(ssConfig.threading_enable) {
+        al_start_thread(ssConfig.readThread);
     } else {
         read_segment(NULL);
     }

@@ -53,7 +53,7 @@ int translateProfession(const char* currentProf)
 
 void pushCreatureConfig( vector<vector<CreatureConfiguration>*>& knownCreatures, unsigned int gameID, CreatureConfiguration& cre)
 {
-    if(!config.skipCreatureTypes) {
+    if(!ssConfig.skipCreatureTypes) {
         vector<CreatureConfiguration>* creatureList;
         if (knownCreatures.size() <= gameID) {
             //resize using hint from creature name list
@@ -74,7 +74,7 @@ void pushCreatureConfig( vector<vector<CreatureConfiguration>*>& knownCreatures,
 
 bool addSingleCreatureConfig( TiXmlElement* elemCreature, vector<vector<CreatureConfiguration>*>& knownCreatures, int basefile )
 {
-    if(config.skipCreatureTypes) {
+    if(ssConfig.skipCreatureTypes) {
         return false;
     }
     int gameID = lookupIndexedType(elemCreature->Attribute("gameID"),contentLoader->Mats->race);

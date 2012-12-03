@@ -63,40 +63,40 @@ bool ContentLoader::Load()
     } catch(exception &e) {
         LogError("DFhack exeption: %s\n", e.what());
     }
-    if(!config.skipCreatureTypes) {
+    if(!ssConfig.skipCreatureTypes) {
         try {
             Mats->ReadCreatureTypes();
         } catch(exception &e) {
             LogError("DFhack exeption: %s\n", e.what());
-            config.skipCreatureTypes = true;
+            ssConfig.skipCreatureTypes = true;
         }
     }
-    if(!config.skipCreatureTypesEx) {
+    if(!ssConfig.skipCreatureTypesEx) {
         try {
             Mats->ReadCreatureTypesEx();
         } catch(exception &e) {
             LogError("DFhack exeption: %s\n", e.what());
-            config.skipCreatureTypesEx = true;
+            ssConfig.skipCreatureTypesEx = true;
         }
     }
-    if(!config.skipDescriptorColors) {
+    if(!ssConfig.skipDescriptorColors) {
         try {
             Mats->ReadDescriptorColors();
         } catch(exception &e) {
             LogError("DFhack exeption: %s\n", e.what());
-            config.skipDescriptorColors = true;
+            ssConfig.skipDescriptorColors = true;
         }
     }
-    if(!config.skipInorganicMats) {
+    if(!ssConfig.skipInorganicMats) {
         if(!Mats->CopyInorganicMaterials(this->inorganic)) {
             LogError("Missing inorganic materials!\n");
-            config.skipInorganicMats = true;
+            ssConfig.skipInorganicMats = true;
         }
     }
-    if(!config.skipOrganicMats) {
+    if(!ssConfig.skipOrganicMats) {
         if(!Mats->CopyOrganicMaterials(this->organic)) {
             LogError("Missing organic materials!\n");
-            config.skipOrganicMats = true;
+            ssConfig.skipOrganicMats = true;
         }
     }
     Buildings::ReadCustomWorkshopTypes(custom_workshop_types);
@@ -397,13 +397,13 @@ char getAnimFrames(const char* framestring)
 int lookupMaterialIndex(int matType, const char* strValue)
 {
     // for appropriate elements, look up subtype
-    if (matType == INORGANIC && !config.skipInorganicMats) {
+    if (matType == INORGANIC && !ssConfig.skipInorganicMats) {
         return lookupIndexedType(strValue,contentLoader->inorganic);
-    } else if (matType == WOOD && !config.skipOrganicMats) {
+    } else if (matType == WOOD && !ssConfig.skipOrganicMats) {
         return lookupIndexedType(strValue,contentLoader->organic);
-    } else if (matType == PLANTCLOTH && !config.skipOrganicMats) {
+    } else if (matType == PLANTCLOTH && !ssConfig.skipOrganicMats) {
         return lookupIndexedType(strValue,contentLoader->organic);
-    } else if (matType == LEATHER && !config.skipCreatureTypes) {
+    } else if (matType == LEATHER && !ssConfig.skipCreatureTypes) {
         return lookupIndexedType(strValue,contentLoader->Mats->race);
     } else {
         //maybe allow some more in later
@@ -498,18 +498,18 @@ const char *lookupMaterialName(int matType,int matIndex)
     }
     vector<t_matgloss>* typeVector;
     // for appropriate elements, look up subtype
-    if ((matType == INORGANIC) && (!config.skipInorganicMats)) {
+    if ((matType == INORGANIC) && (!ssConfig.skipInorganicMats)) {
         if(matIndex < contentLoader->inorganic.size()) {
             return contentLoader->inorganic[matIndex].id.c_str();
         } else {
             return NULL;
         }
-    } else if ((matType == WOOD) && (!config.skipOrganicMats)) {
+    } else if ((matType == WOOD) && (!ssConfig.skipOrganicMats)) {
         typeVector=&(contentLoader->organic);
-    } else if ((matType == PLANTCLOTH) && (!config.skipOrganicMats)) {
+    } else if ((matType == PLANTCLOTH) && (!ssConfig.skipOrganicMats)) {
         typeVector=&(contentLoader->organic);
     } else if (matType == LEATHER) {
-        if(!config.skipCreatureTypes) {
+        if(!ssConfig.skipCreatureTypes) {
             typeVector=&(contentLoader->Mats->race);
         }
     } else {
@@ -524,7 +524,7 @@ const char *lookupMaterialName(int matType,int matIndex)
 
 const char *lookupTreeName(int matIndex)
 {
-    if(config.skipOrganicMats) {
+    if(ssConfig.skipOrganicMats) {
         return NULL;
     }
     if (matIndex < 0) {
