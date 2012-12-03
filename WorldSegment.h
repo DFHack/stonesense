@@ -14,6 +14,7 @@ public:
     unsigned char rotation;
     long read_time;
     long beautify_time;
+    long assembly_time;
     Crd3D regionSize;
     Block** blocksAsPointerVolume;
     WorldSegment(int x, int y, int z, int sizex, int sizey, int sizez) {
@@ -53,7 +54,8 @@ public:
     Block* getBlockRelativeTo(uint32_t x, uint32_t y, uint32_t z,  dirRelative direction, int distance);
     Block* getBlock(uint32_t index);
     void addBlock(Block* b);
-    void drawAllBlocks();
+    void AssembleAllBlocks();
+    void DrawAllBlocks();
     //void drawPixels();
     bool CoordinateInsideSegment(uint32_t x, uint32_t y, uint32_t z);
     bool CoordinateInteriorSegment(uint32_t x, uint32_t y, uint32_t z, uint32_t shellthick);

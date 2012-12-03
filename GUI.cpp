@@ -854,7 +854,8 @@ void paintboard()
         map_segment->unlock();
         return;
     }
-    segment->drawAllBlocks();
+    segment->AssembleAllBlocks();
+    segment->DrawAllBlocks();
     if (config.show_osd) {
         DrawCurrentLevelOutline(false);
     }
@@ -886,11 +887,12 @@ void paintboard()
         if(config.debug_mode) {
             draw_textf_border(font, al_map_rgb(255,255,255), 10, 3*al_get_font_line_height(font), 0, "Map Read Time: %dms", segment->read_time);
             draw_textf_border(font, al_map_rgb(255,255,255), 10, 4*al_get_font_line_height(font), 0, "Map Beautification Time: %ims", segment->beautify_time);
+            draw_textf_border(font, al_map_rgb(255,255,255), 10, 5*al_get_font_line_height(font), 0, "Block Sprite Assembly Time: %ims", segment->assembly_time);
             draw_textf_border(font, al_map_rgb(255,255,255), 10, 2*al_get_font_line_height(font), 0, "FPS: %.2f", 1.0/time_since_last_frame);
-            draw_textf_border(font, al_map_rgb(255,255,255), 10, 5*al_get_font_line_height(font), 0, "Draw: %ims", DrawTime);
-            draw_textf_border(font, al_map_rgb(255,255,255), 10, 6*al_get_font_line_height(font), 0, "D1: %i", blockFactory.getPoolSize());
-            draw_textf_border(font, al_map_rgb(255,255,255), 10, 7*al_get_font_line_height(font), 0, "%i/%i/%i, %i:%i", contentLoader->currentDay+1, contentLoader->currentMonth+1, contentLoader->currentYear, contentLoader->currentHour, (contentLoader->currentTickRel*60)/50);
-            draw_textf_border(font, al_map_rgb(255,255,255), 10, 8*al_get_font_line_height(font), 0, "%i Sprites drawn, %i tiles drawn, %.1f sprites per tile.", config.drawcount, config.tilecount, ((float)config.drawcount/(float)config.tilecount));
+            draw_textf_border(font, al_map_rgb(255,255,255), 10, 6*al_get_font_line_height(font), 0, "Draw: %ims", DrawTime-segment->assembly_time);
+            draw_textf_border(font, al_map_rgb(255,255,255), 10, 7*al_get_font_line_height(font), 0, "D1: %i", blockFactory.getPoolSize());
+            draw_textf_border(font, al_map_rgb(255,255,255), 10, 8*al_get_font_line_height(font), 0, "%i/%i/%i, %i:%i", contentLoader->currentDay+1, contentLoader->currentMonth+1, contentLoader->currentYear, contentLoader->currentHour, (contentLoader->currentTickRel*60)/50);
+            draw_textf_border(font, al_map_rgb(255,255,255), 10, 9*al_get_font_line_height(font), 0, "%i Sprites drawn, %i tiles drawn, %.1f sprites per tile.", config.drawcount, config.tilecount, ((float)config.drawcount/(float)config.tilecount));
 
             drawDebugCursorAndInfo(segment);
         }
@@ -1324,7 +1326,8 @@ void saveMegashot(bool tall)
                 //read and draw each individual segment
                 read_segment(NULL);
                 WorldSegment * segment = map_segment->get();
-                segment->drawAllBlocks();
+                segment->AssembleAllBlocks();
+                segment->DrawAllBlocks();
 
                 parms.x += incrx;
             }

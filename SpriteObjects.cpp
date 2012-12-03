@@ -606,29 +606,29 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
 }
 
 /// This is just a very basic sprite drawing routine. all it uses are screen coords
-void c_sprite::draw_screen(int x, int y)
-{
-    int sheetx = sheetindex % SHEET_OBJECTSWIDE;
-    int sheety = sheetindex / SHEET_OBJECTSWIDE;
-    if(fileindex == -1) {
-        if(config.block_count) {
-            config.drawcount ++;
-        }
-
-        al_draw_bitmap_region(IMGObjectSheet, sheetx * spritewidth * spritescale, sheety * spriteheight * spritescale, spritewidth * spritescale, spriteheight * spritescale, x + offset_x, y + offset_y, 0);
-    } else {
-        if(config.block_count) {
-            config.drawcount ++;
-        }
-
-        al_draw_bitmap_region(getImgFile(fileindex), sheetx * spritewidth * spritescale, sheety * spriteheight * spritescale, spritewidth * spritescale, spriteheight * spritescale, x + offset_x, y + (offset_y - WALLHEIGHT * spritescale), 0);
-    }
-    if(!subsprites.empty()) {
-        for(int i = 0; i < subsprites.size(); i++) {
-            subsprites[i].draw_screen(x, y);
-        }
-    }
-}
+//void c_sprite::draw_screen(int x, int y)
+//{
+//    int sheetx = sheetindex % SHEET_OBJECTSWIDE;
+//    int sheety = sheetindex / SHEET_OBJECTSWIDE;
+//    if(fileindex == -1) {
+//        if(config.block_count) {
+//            config.drawcount ++;
+//        }
+//
+//        al_draw_bitmap_region(IMGObjectSheet, sheetx * spritewidth * spritescale, sheety * spriteheight * spritescale, spritewidth * spritescale, spriteheight * spritescale, x + offset_x, y + offset_y, 0);
+//    } else {
+//        if(config.block_count) {
+//            config.drawcount ++;
+//        }
+//
+//        al_draw_bitmap_region(getImgFile(fileindex), sheetx * spritewidth * spritescale, sheety * spriteheight * spritescale, spritewidth * spritescale, spriteheight * spritescale, x + offset_x, y + (offset_y - WALLHEIGHT * spritescale), 0);
+//    }
+//    if(!subsprites.empty()) {
+//        for(int i = 0; i < subsprites.size(); i++) {
+//            subsprites[i].draw_screen(x, y);
+//        }
+//    }
+//}
 
 void c_sprite::draw_world(int x, int y, int z, Block * b, bool chop)
 {
@@ -786,7 +786,7 @@ void c_sprite::draw_world_offset(int x, int y, int z, Block * b, int tileoffset,
                     config.drawcount ++;
                 }
                 if(shade_color.a > 0.001f)
-                    al_draw_tinted_scaled_bitmap(
+                    b->AssembleSprite(
                         defaultsheet, premultiply(shade_color),
                         sheetx * spritescale,
                         (sheety+WALL_CUTOFF_HEIGHT) * spritescale,
@@ -803,7 +803,7 @@ void c_sprite::draw_world_offset(int x, int y, int z, Block * b, int tileoffset,
                 }
 
                 if(shade_color.a > 0.001f)
-                    al_draw_tinted_scaled_bitmap(
+                    b->AssembleSprite(
                         getImgFile(fileindex),
                         premultiply(shade_color),
                         sheetx * spritescale,
@@ -816,26 +816,25 @@ void c_sprite::draw_world_offset(int x, int y, int z, Block * b, int tileoffset,
                         (spriteheight-WALL_CUTOFF_HEIGHT)*config.scale,
                         0);
             }
-            //draw cut-off floor thing
-            if(config.block_count) {
-                config.drawcount ++;
-            }
 
-            if(shade_color.a > 0.001f)
-                al_draw_scaled_bitmap(IMGObjectSheet,
-                                      TILEWIDTH * SPRITEFLOOR_CUTOFF, 0,
-                                      SPRITEWIDTH, SPRITEWIDTH,
-                                      drawx+offset_x, (drawy+offset_y-(((SPRITEHEIGHT-WALL_CUTOFF_HEIGHT)/2)*config.scale)),
-                                      SPRITEWIDTH*config.scale, SPRITEWIDTH*config.scale, 0);
+            if(shade_color.a > 0.001f) {
+                b->AssembleSprite(
+                    IMGObjectSheet,
+                    al_map_rgb(255,255,255),
+                    TILEWIDTH * SPRITEFLOOR_CUTOFF,
+                    0,
+                    SPRITEWIDTH, 
+                    SPRITEWIDTH,
+                    drawx+offset_x, 
+                    (drawy+offset_y-(((SPRITEHEIGHT-WALL_CUTOFF_HEIGHT)/2)*config.scale)),
+                    SPRITEWIDTH*config.scale, SPRITEWIDTH*config.scale, 
+                    0);
+            }
         } else if ((chop && (halftile == HALFTILEYES)) || (!chop && (halftile == HALFTILENO)) || (!chop && (halftile == HALFTILECHOP)) || (halftile == HALFTILEBOTH)) {
             if((isoutline == OUTLINENONE) || ((isoutline == OUTLINERIGHT) && (b->depthBorderNorth)) || ((isoutline == OUTLINELEFT) && (b->depthBorderWest)) || ((isoutline == OUTLINEBOTTOM) && (b->depthBorderDown))) {
                 if(fileindex < 0) {
-                    if(config.block_count) {
-                        config.drawcount ++;
-                    }
-
                     if(shade_color.a > 0.001f)
-                        al_draw_tinted_scaled_bitmap(
+                        b->AssembleSprite(
                             defaultsheet, premultiply(shade_color),
                             sheetx * spritescale,
                             sheety * spritescale,
@@ -852,7 +851,7 @@ void c_sprite::draw_world_offset(int x, int y, int z, Block * b, int tileoffset,
                     }
 
                     if(shade_color.a > 0.001f)
-                        al_draw_tinted_scaled_bitmap(
+                        b->AssembleSprite(
                             getImgFile(fileindex),
                             premultiply(shade_color),
                             sheetx * spritescale,
@@ -872,7 +871,7 @@ void c_sprite::draw_world_offset(int x, int y, int z, Block * b, int tileoffset,
                 if(b->depthBorderNorth) {
                     int sheetx = 281 % SHEET_OBJECTSWIDE;
                     int sheety = 281 / SHEET_OBJECTSWIDE;
-                    al_draw_tinted_scaled_bitmap(
+                    b->AssembleSprite(
                         IMGObjectSheet,
                         al_map_rgb(255,255,255),
                         sheetx * SPRITEWIDTH,
@@ -884,12 +883,13 @@ void c_sprite::draw_world_offset(int x, int y, int z, Block * b, int tileoffset,
                         SPRITEWIDTH*config.scale,
                         SPRITEHEIGHT*config.scale,
                         0);
+                }
 
                 //Western border
                 if(b->depthBorderWest) {
                     int sheetx = 280 % SHEET_OBJECTSWIDE;
                     int sheety = 280 / SHEET_OBJECTSWIDE;
-                    al_draw_tinted_scaled_bitmap(
+                    b->AssembleSprite(
                         IMGObjectSheet,
                         al_map_rgb(255,255,255),
                         sheetx * SPRITEWIDTH,
@@ -906,7 +906,6 @@ void c_sprite::draw_world_offset(int x, int y, int z, Block * b, int tileoffset,
                 //drawy += (WALLHEIGHT);
             }
         }
-        //draw_textf_border(font, al_map_rgb(255,255,255), drawx, drawy, 0, "%d,%d", fileindex, sheetindex);
     }
 draw_subsprite:
     if(!subsprites.empty()) {

@@ -1398,6 +1398,7 @@ void read_segment( void *arg)
         config.threadstarted = 0;
     }
     beautify_Segment(segment);
+    //segment->AssembleAllBlocks();
     map_segment->lock();
     WorldSegment* old_segment = map_segment->swap(segment);
     map_segment->unlock();
