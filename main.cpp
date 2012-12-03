@@ -36,7 +36,7 @@ uint32_t DebugInt1;
 
 int keyoffset=0;
 
-GameConfiguration config;
+GameConfiguration ssConfig;
 GameState ssState;
 bool timeToReloadSegment;
 bool timeToReloadConfig;
@@ -109,7 +109,7 @@ void PrintMessage(const char* msg, ...)
 
 void LogVerbose(const char* msg, ...)
 {
-    if (!config.verbose_logging) {
+    if (!ssConfig.verbose_logging) {
         return;
     }
     va_list arglist;
@@ -161,11 +161,11 @@ void correctBlockForSegmetOffset(int32_t& x, int32_t& y, int32_t& z)
 bool loadfont(DFHack::color_ostream & output)
 {
     ALLEGRO_PATH * p = al_create_path_for_directory("stonesense");
-    if(!al_join_paths(p, config.font)) {
+    if(!al_join_paths(p, ssConfig.font)) {
         al_destroy_path(p);
         return false;
     }
-    font = al_load_font(al_path_cstr(p, ALLEGRO_NATIVE_PATH_SEP), config.fontsize, 0);
+    font = al_load_font(al_path_cstr(p, ALLEGRO_NATIVE_PATH_SEP), ssConfig.fontsize, 0);
     if (!font) {
         output.printerr("Cannot load font: %s\n", al_path_cstr(p, ALLEGRO_NATIVE_PATH_SEP));
         al_destroy_path(p);
@@ -261,18 +261,18 @@ static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALL
     while (!al_get_thread_should_stop(main_thread)) {
         if (redraw && al_event_queue_is_empty(queue)) {
             al_rest(0);
-            if(config.spriteIndexOverlay) {
-                DrawSpriteIndexOverlay(config.currentSpriteOverlay);
+            if(ssConfig.spriteIndexOverlay) {
+                DrawSpriteIndexOverlay(ssConfig.currentSpriteOverlay);
             } else if(!Maps::IsValid()) {
                 drawcredits();
             } else if( timeToReloadSegment ) {
                 reloadDisplayedSegment();
-                al_clear_to_color(config.backcol);
+                al_clear_to_color(ssConfig.backcol);
                 paintboard();
                 timeToReloadSegment = false;
                 animationFrameShown = true;
             } else if (animationFrameShown == false) {
-                al_clear_to_color(config.backcol);
+                al_clear_to_color(ssConfig.backcol);
                 paintboard();
                 animationFrameShown = true;
             }
@@ -354,42 +354,42 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
     color_ostream_proxy out(Core::getInstance().getConsole());
     out.print("Stonesense launched\n");
 
-    config.debug_mode = false;
-    config.hide_outer_blocks = false;
-    config.shade_hidden_blocks = true;
-    config.load_ground_materials = true;
-    config.automatic_reload_time = 0;
-    config.automatic_reload_step = 500;
-    config.lift_segment_offscreen = 0;
-    config.Fullscreen = FULLSCREEN;
+    ssConfig.debug_mode = false;
+    ssConfig.hide_outer_blocks = false;
+    ssConfig.shade_hidden_blocks = true;
+    ssConfig.load_ground_materials = true;
+    ssConfig.automatic_reload_time = 0;
+    ssConfig.automatic_reload_step = 500;
+    ssConfig.lift_segment_offscreen = 0;
+    ssConfig.Fullscreen = FULLSCREEN;
     ssState.ScreenH = RESOLUTION_HEIGHT;
     ssState.ScreenW = RESOLUTION_WIDTH;
-    config.segmentSize.x = DEFAULT_SEGMENTSIZE;
-    config.segmentSize.y = DEFAULT_SEGMENTSIZE;
-    config.segmentSize.z = DEFAULT_SEGMENTSIZE_Z;
-    config.show_creature_names = true;
-    config.show_osd = true;
-    config.show_intro = true;
-    config.track_center = false;
-    config.animation_step = 300;
-    config.follow_DFscreen = false;
+    ssConfig.segmentSize.x = DEFAULT_SEGMENTSIZE;
+    ssConfig.segmentSize.y = DEFAULT_SEGMENTSIZE;
+    ssConfig.segmentSize.z = DEFAULT_SEGMENTSIZE_Z;
+    ssConfig.show_creature_names = true;
+    ssConfig.show_osd = true;
+    ssConfig.show_intro = true;
+    ssConfig.track_center = false;
+    ssConfig.animation_step = 300;
+    ssConfig.follow_DFscreen = false;
     timeToReloadConfig = true;
-    config.fogcol = al_map_rgba(255, 255, 255, 255);
-    config.backcol = al_map_rgb(95, 95, 160);
-    config.fogenable = true;
-    config.imageCacheSize = 4096;
-    config.fontsize = 10;
-    config.font = al_create_path("data/art/font.ttf");
-    config.creditScreen = true;
-    config.bloodcutoff = 100;
-    config.poolcutoff = 100;
-    config.threadmade = 0;
-    config.threading_enable = 1;
-    config.fog_of_war = 1;
-    config.occlusion = 1;
+    ssConfig.fogcol = al_map_rgba(255, 255, 255, 255);
+    ssConfig.backcol = al_map_rgb(95, 95, 160);
+    ssConfig.fogenable = true;
+    ssConfig.imageCacheSize = 4096;
+    ssConfig.fontsize = 10;
+    ssConfig.font = al_create_path("data/art/font.ttf");
+    ssConfig.creditScreen = true;
+    ssConfig.bloodcutoff = 100;
+    ssConfig.poolcutoff = 100;
+    ssConfig.threadmade = 0;
+    ssConfig.threading_enable = 1;
+    ssConfig.fog_of_war = 1;
+    ssConfig.occlusion = 1;
     contentLoader = new ContentLoader();
-    config.zoom = 0;
-    config.scale = 1.0f;
+    ssConfig.zoom = 0;
+    ssConfig.scale = 1.0f;
     initRandomCube();
     loadConfigFile();
     init_masks();
@@ -398,8 +398,8 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
         return NULL;
     }
     //set debug cursor
-    debugCursor.x = config.segmentSize.x / 2;
-    debugCursor.y = config.segmentSize.y / 2;
+    debugCursor.x = ssConfig.segmentSize.x / 2;
+    debugCursor.y = ssConfig.segmentSize.y / 2;
 
     uint32_t version = al_get_allegro_version();
     int major = version >> 24;
@@ -409,8 +409,8 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
 
     out.print("Using allegro version %d.%d.%d r%d\n", major, minor, revision, release);
 
-    int gfxMode = config.Fullscreen ? ALLEGRO_FULLSCREEN : ALLEGRO_WINDOWED;
-    al_set_new_display_flags(gfxMode|ALLEGRO_RESIZABLE|(config.opengl ? ALLEGRO_OPENGL : 0)|(config.directX ? ALLEGRO_DIRECT3D_INTERNAL : 0));
+    int gfxMode = ssConfig.Fullscreen ? ALLEGRO_FULLSCREEN : ALLEGRO_WINDOWED;
+    al_set_new_display_flags(gfxMode|ALLEGRO_RESIZABLE|(ssConfig.opengl ? ALLEGRO_OPENGL : 0)|(ssConfig.directX ? ALLEGRO_DIRECT3D_INTERNAL : 0));
     display = al_create_display(ssState.ScreenW, ssState.ScreenH);
     if (!display) {
         out.printerr("al_create_display failed\n");
@@ -429,7 +429,7 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
     }
     SetTitle("Stonesense");
 
-    if(config.software) {
+    if(ssConfig.software) {
         al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP|ALLEGRO_ALPHA_TEST|ALLEGRO_MIN_LINEAR|ALLEGRO_MIPMAP);
     } else {
         al_set_new_bitmap_flags(ALLEGRO_MIN_LINEAR|ALLEGRO_MIPMAP);
@@ -459,10 +459,10 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
     al_draw_textf(font, al_map_rgb(255,255,255), ssState.ScreenW/2, ssState.ScreenH/2, ALLEGRO_ALIGN_CENTRE, "Starting up...");
     al_flip_display();
 
-    reloadtimer = al_create_timer(ALLEGRO_MSECS_TO_SECS(config.automatic_reload_time));
-    animationtimer = al_create_timer(ALLEGRO_MSECS_TO_SECS(config.animation_step));
+    reloadtimer = al_create_timer(ALLEGRO_MSECS_TO_SECS(ssConfig.automatic_reload_time));
+    animationtimer = al_create_timer(ALLEGRO_MSECS_TO_SECS(ssConfig.animation_step));
 
-    if(config.animation_step) {
+    if(ssConfig.animation_step) {
         al_start_timer(animationtimer);
     }
 
@@ -473,8 +473,8 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
     al_register_event_source(queue, al_get_timer_event_source(reloadtimer));
     al_register_event_source(queue, al_get_timer_event_source(animationtimer));
 
-    config.readMutex = al_create_mutex();
-    config.readCond = al_create_cond();
+    ssConfig.readMutex = al_create_mutex();
+    ssConfig.readCond = al_create_cond();
 
 #ifdef BENCHMARK
     benchmark();
@@ -490,10 +490,10 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
     // window is destroyed.
     al_destroy_display(display);
 
-    if(config.threadmade) {
-        al_broadcast_cond(config.readCond);
-        al_destroy_thread(config.readThread);
-        config.spriteIndexOverlay = 0;
+    if(ssConfig.threadmade) {
+        al_broadcast_cond(ssConfig.readCond);
+        al_destroy_thread(ssConfig.readThread);
+        ssConfig.spriteIndexOverlay = 0;
     }
     flushImgFiles();
 

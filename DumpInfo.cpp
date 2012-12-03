@@ -32,24 +32,24 @@ void dumpSegment()
 {
     return;
     /*
-    al_lock_mutex(config.readMutex);
+    al_lock_mutex(ssConfig.readMutex);
 
     //back up all the relevant values
-    Crd3D tempSize = config.segmentSize;
+    Crd3D tempSize = ssConfig.segmentSize;
     int tempViewx = DisplayedSegmentX;
     int tempViewy = DisplayedSegmentY;
-    bool tempFollow = config.follow_DFscreen;
-    int tempLift = config.lift_segment_offscreen;
+    bool tempFollow = ssConfig.follow_DFscreen;
+    int tempLift = ssConfig.lift_segment_offscreen;
     int currentFlags = al_get_new_bitmap_flags();
     //now make them real big.
-    config.follow_DFscreen = false;
-    config.lift_segment_offscreen = 0;
+    ssConfig.follow_DFscreen = false;
+    ssConfig.lift_segment_offscreen = 0;
     parms.x = 0;
     parms.y = 0;
-    parms.z = config.cellDimZ - 1;
-    parms.sizex = config.cellDimX;
-    parms.sizey = config.cellDimY;
-    parms.sizez = config.cellDimZ;
+    parms.z = ssConfig.cellDimZ - 1;
+    parms.sizex = ssConfig.cellDimX;
+    parms.sizey = ssConfig.cellDimY;
+    parms.sizez = ssConfig.cellDimZ;
 
     read_segment(NULL);
     //get filename
@@ -96,13 +96,13 @@ void dumpSegment()
     al_set_new_bitmap_flags(tempFlags);
 
     //restore everything that we changed.
-    config.segmentSize = tempSize;
+    ssConfig.segmentSize = tempSize;
     DisplayedSegmentX = tempViewx;
     DisplayedSegmentY = tempViewy;
-    config.follow_DFscreen = tempFollow;
-    config.lift_segment_offscreen = tempLift;
+    ssConfig.follow_DFscreen = tempFollow;
+    ssConfig.lift_segment_offscreen = tempLift;
 
-    al_unlock_mutex(config.readMutex);
+    al_unlock_mutex(ssConfig.readMutex);
     */
 }
 

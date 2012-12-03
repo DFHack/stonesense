@@ -172,8 +172,8 @@ void ScreenToPoint(int x,int y,int &x1, int &y1, int &z1)
     //assume z of 0
     x-=ssState.ScreenW / 2;
     y-=ssState.ScreenH / 2;
-    x/=config.scale;
-    y/=config.scale;
+    x/=ssConfig.scale;
+    y/=ssConfig.scale;
     x+=ssState.ScreenW / 2;
     y+=ssState.ScreenH / 2;
     x-=TILEWIDTH/2;
@@ -183,7 +183,7 @@ void ScreenToPoint(int x,int y,int &x1, int &y1, int &z1)
     //y-=BLOCKHEIGHT;
     x+=TILEWIDTH>>1;
     int offx = ssState.ScreenW /2;
-    int offy = (-20)-(BLOCKHEIGHT * config.lift_segment_offscreen);
+    int offy = (-20)-(BLOCKHEIGHT * ssConfig.lift_segment_offscreen);
     y-=offy;
     x-=offx;
     y1=y*2-x;
@@ -276,15 +276,15 @@ void pointToScreen(int *inx, int *iny, int inz)
 
     int x = *inx-*iny;
     x = x * TILEWIDTH / 2;
-    x *= config.scale;
+    x *= ssConfig.scale;
     x+=ssState.ScreenW / 2;
 
     int y = *inx+*iny;
     y = y*TILEHEIGHT / 2;
     y -= z*BLOCKHEIGHT;
     y -= TILEHEIGHT*5/4;
-    y -= BLOCKHEIGHT*config.lift_segment_offscreen;
-    y *= config.scale;
+    y -= BLOCKHEIGHT*ssConfig.lift_segment_offscreen;
+    y *= ssConfig.scale;
 
     *inx=x;
     *iny=y;
@@ -310,10 +310,10 @@ void DrawCurrentLevelOutline(bool backPart)
     int x = ssState.DisplayedSegmentX+1;
     int y = ssState.DisplayedSegmentY+1;
     int z = ssState.DisplayedSegmentZ;
-    int sizex = config.segmentSize.x-2;
-    int sizey = config.segmentSize.y-2;
+    int sizex = ssConfig.segmentSize.x-2;
+    int sizey = ssConfig.segmentSize.y-2;
 
-    if(config.hide_outer_blocks) {
+    if(ssConfig.hide_outer_blocks) {
         x++;
         y++;
         sizex -= 2;
@@ -324,27 +324,27 @@ void DrawCurrentLevelOutline(bool backPart)
     Crd2D p2 = WorldBlockToScreen(x, y + sizey , z);
     Crd2D p3 = WorldBlockToScreen(x + sizex , y, z);
     Crd2D p4 = WorldBlockToScreen(x + sizex , y + sizey , z);
-    p1.y += FLOORHEIGHT*config.scale;
-    p2.y += FLOORHEIGHT*config.scale;
-    p3.y += FLOORHEIGHT*config.scale;
-    p4.y += FLOORHEIGHT*config.scale;
+    p1.y += FLOORHEIGHT*ssConfig.scale;
+    p2.y += FLOORHEIGHT*ssConfig.scale;
+    p3.y += FLOORHEIGHT*ssConfig.scale;
+    p4.y += FLOORHEIGHT*ssConfig.scale;
     if(backPart) {
-        al_draw_line(p1.x, p1.y, p1.x, p1.y-BLOCKHEIGHT*config.scale, color_segmentoutline, 0);
-        al_draw_line(p1.x, p1.y, p1.x, p1.y-BLOCKHEIGHT*config.scale, color_segmentoutline, 0);
+        al_draw_line(p1.x, p1.y, p1.x, p1.y-BLOCKHEIGHT*ssConfig.scale, color_segmentoutline, 0);
+        al_draw_line(p1.x, p1.y, p1.x, p1.y-BLOCKHEIGHT*ssConfig.scale, color_segmentoutline, 0);
         al_draw_line(p1.x, p1.y, p2.x, p2.y, color_segmentoutline, 0);
-        al_draw_line(p1.x, p1.y-BLOCKHEIGHT*config.scale, p2.x, p2.y-BLOCKHEIGHT*config.scale, color_segmentoutline, 0);
-        al_draw_line(p2.x, p2.y, p2.x, p2.y-BLOCKHEIGHT*config.scale, color_segmentoutline, 0);
+        al_draw_line(p1.x, p1.y-BLOCKHEIGHT*ssConfig.scale, p2.x, p2.y-BLOCKHEIGHT*ssConfig.scale, color_segmentoutline, 0);
+        al_draw_line(p2.x, p2.y, p2.x, p2.y-BLOCKHEIGHT*ssConfig.scale, color_segmentoutline, 0);
 
         al_draw_line(p1.x, p1.y, p3.x, p3.y, color_segmentoutline, 0);
-        al_draw_line(p1.x, p1.y-BLOCKHEIGHT*config.scale, p3.x, p3.y-BLOCKHEIGHT*config.scale, color_segmentoutline, 0);
-        al_draw_line(p3.x, p3.y, p3.x, p3.y-BLOCKHEIGHT*config.scale, color_segmentoutline, 0);
+        al_draw_line(p1.x, p1.y-BLOCKHEIGHT*ssConfig.scale, p3.x, p3.y-BLOCKHEIGHT*ssConfig.scale, color_segmentoutline, 0);
+        al_draw_line(p3.x, p3.y, p3.x, p3.y-BLOCKHEIGHT*ssConfig.scale, color_segmentoutline, 0);
     } else {
-        al_draw_line(p4.x, p4.y, p4.x, p4.y-BLOCKHEIGHT*config.scale, color_segmentoutline, 0);
+        al_draw_line(p4.x, p4.y, p4.x, p4.y-BLOCKHEIGHT*ssConfig.scale, color_segmentoutline, 0);
         al_draw_line(p4.x, p4.y, p2.x, p2.y, color_segmentoutline ,0);
-        al_draw_line(p4.x, p4.y-BLOCKHEIGHT*config.scale, p2.x, p2.y-BLOCKHEIGHT*config.scale, color_segmentoutline ,0);
+        al_draw_line(p4.x, p4.y-BLOCKHEIGHT*ssConfig.scale, p2.x, p2.y-BLOCKHEIGHT*ssConfig.scale, color_segmentoutline ,0);
 
         al_draw_line(p4.x, p4.y, p3.x, p3.y, color_segmentoutline, 0);
-        al_draw_line(p4.x, p4.y-BLOCKHEIGHT*config.scale, p3.x, p3.y-BLOCKHEIGHT*config.scale, color_segmentoutline, 0);
+        al_draw_line(p4.x, p4.y-BLOCKHEIGHT*ssConfig.scale, p3.x, p3.y-BLOCKHEIGHT*ssConfig.scale, color_segmentoutline, 0);
     }
 }
 
@@ -352,10 +352,10 @@ void drawDebugCursorAndInfo(WorldSegment * segment)
 {
     using df::global::ui;
 
-    if((config.dfCursorX != -30000) && config.follow_DFcursor) {
-        int x = config.dfCursorX;
-        int y = config.dfCursorY;
-        int z = config.dfCursorZ;
+    if((ssConfig.dfCursorX != -30000) && ssConfig.follow_DFcursor) {
+        int x = ssConfig.dfCursorX;
+        int y = ssConfig.dfCursorY;
+        int z = ssConfig.dfCursorZ;
         correctBlockForSegmetOffset(x,y,z);
         correctBlockForRotation( x, y, z, segment->rotation);
         debugCursor.x = x;
@@ -374,10 +374,10 @@ void drawDebugCursorAndInfo(WorldSegment * segment)
         sheety * SPRITEHEIGHT,
         SPRITEWIDTH,
         SPRITEHEIGHT,
-        point.x-((SPRITEWIDTH/2)*config.scale),
-        point.y - (WALLHEIGHT)*config.scale,
-        SPRITEWIDTH*config.scale,
-        SPRITEHEIGHT*config.scale,
+        point.x-((SPRITEWIDTH/2)*ssConfig.scale),
+        point.y - (WALLHEIGHT)*ssConfig.scale,
+        SPRITEWIDTH*ssConfig.scale,
+        SPRITEHEIGHT*ssConfig.scale,
         0);
 
     //get block info
@@ -823,7 +823,7 @@ void DoSpriteIndexOverlay()
         }
     }
     //redraw screen again
-    al_clear_to_color(config.backcol);
+    al_clear_to_color(ssConfig.backcol);
     paintboard();
 }
 
@@ -834,10 +834,10 @@ void paintboard()
     int op, src, dst, alpha_op, alpha_src, alpha_dst;
     al_get_separate_blender(&op, &src, &dst, &alpha_op, &alpha_src, &alpha_dst);
     al_set_separate_blender(ALLEGRO_ADD, ALLEGRO_ONE, ALLEGRO_ZERO,ALLEGRO_ADD, ALLEGRO_ONE, ALLEGRO_ZERO);
-    if(config.transparentScreenshots) {
+    if(ssConfig.transparentScreenshots) {
         al_clear_to_color(al_map_rgba(0,0,0,0));
     } else {
-        al_clear_to_color(config.backcol);
+        al_clear_to_color(ssConfig.backcol);
     }
     al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst);
 
@@ -850,7 +850,7 @@ void paintboard()
         return;
     }
     segment->DrawAllBlocks();
-    if (config.show_osd) {
+    if (ssConfig.show_osd) {
         DrawCurrentLevelOutline(false);
     }
 
@@ -874,11 +874,11 @@ void paintboard()
     static double last_frame_time;
     double time_since_last_frame = al_get_time() - last_frame_time;
     last_frame_time = al_get_time();
-    if (config.show_osd) {
+    if (ssConfig.show_osd) {
         al_hold_bitmap_drawing(true);
-        draw_textf_border(font, al_map_rgb(255,255,255), 10,al_get_font_line_height(font), 0, "%i,%i,%i, r%i, z%i", ssState.DisplayedSegmentX,ssState.DisplayedSegmentY,ssState.DisplayedSegmentZ, ssState.DisplayedRotation, config.zoom);
+        draw_textf_border(font, al_map_rgb(255,255,255), 10,al_get_font_line_height(font), 0, "%i,%i,%i, r%i, z%i", ssState.DisplayedSegmentX,ssState.DisplayedSegmentY,ssState.DisplayedSegmentZ, ssState.DisplayedRotation, ssConfig.zoom);
 
-        if(config.debug_mode) {
+        if(ssConfig.debug_mode) {
             draw_textf_border(font, al_map_rgb(255,255,255), 10, 3*al_get_font_line_height(font), 0, "Map Read Time: %dms", segment->read_time);
             draw_textf_border(font, al_map_rgb(255,255,255), 10, 4*al_get_font_line_height(font), 0, "Map Beautification Time: %ims", segment->beautify_time);
             draw_textf_border(font, al_map_rgb(255,255,255), 10, 5*al_get_font_line_height(font), 0, "Block Sprite Assembly Time: %ims", segment->assembly_time);
@@ -889,25 +889,25 @@ void paintboard()
             
             drawDebugCursorAndInfo(segment);
         }
-        config.tilecount = 0;
+        ssConfig.tilecount = 0;
         int top = 0;
-        if(config.follow_DFscreen) {
+        if(ssConfig.follow_DFscreen) {
             top += al_get_font_line_height(font);
-            draw_textf_border(font, al_map_rgb(255,255,255), ssState.ScreenW/2,top, ALLEGRO_ALIGN_CENTRE, "Locked on DF screen + (%d,%d,%d)",config.viewXoffset,config.viewYoffset,config.viewZoffset);
+            draw_textf_border(font, al_map_rgb(255,255,255), ssState.ScreenW/2,top, ALLEGRO_ALIGN_CENTRE, "Locked on DF screen + (%d,%d,%d)",ssConfig.viewXoffset,ssConfig.viewYoffset,ssConfig.viewZoffset);
         }
-        if(config.follow_DFcursor && config.debug_mode) {
+        if(ssConfig.follow_DFcursor && ssConfig.debug_mode) {
             top += al_get_font_line_height(font);
-            if(config.dfCursorX != -30000) {
-                draw_textf_border(font, al_map_rgb(255,255,255), ssState.ScreenW/2,top, ALLEGRO_ALIGN_CENTRE, "Following DF Cursor at: %d,%d,%d", config.dfCursorX,config.dfCursorY,config.dfCursorZ);
+            if(ssConfig.dfCursorX != -30000) {
+                draw_textf_border(font, al_map_rgb(255,255,255), ssState.ScreenW/2,top, ALLEGRO_ALIGN_CENTRE, "Following DF Cursor at: %d,%d,%d", ssConfig.dfCursorX,ssConfig.dfCursorY,ssConfig.dfCursorZ);
             }
         }
-        if(config.single_layer_view) {
+        if(ssConfig.single_layer_view) {
             top += al_get_font_line_height(font);
             draw_textf_border(font, al_map_rgb(255,255,255), ssState.ScreenW/2,top, ALLEGRO_ALIGN_CENTRE, "Single layer view");
         }
-        if(config.automatic_reload_time) {
+        if(ssConfig.automatic_reload_time) {
             top += al_get_font_line_height(font);
-            draw_textf_border(font, al_map_rgb(255,255,255), ssState.ScreenW/2,top, ALLEGRO_ALIGN_CENTRE, "Reloading every %0.1fs", (float)config.automatic_reload_time/1000);
+            draw_textf_border(font, al_map_rgb(255,255,255), ssState.ScreenW/2,top, ALLEGRO_ALIGN_CENTRE, "Reloading every %0.1fs", (float)ssConfig.automatic_reload_time/1000);
         }
         al_hold_bitmap_drawing(false);
         DrawMinimap(segment);
@@ -1048,18 +1048,18 @@ inline int returnGreater(int a, int b)
 
 int loadImgFile(const char* filename)
 {
-    if(config.cache_images) {
+    if(ssConfig.cache_images) {
         static bool foundSize = false;
         if(!foundSize) {
             ALLEGRO_BITMAP* test = 0;
             while(true) {
-                test = al_create_bitmap(config.imageCacheSize,config.imageCacheSize);
+                test = al_create_bitmap(ssConfig.imageCacheSize,ssConfig.imageCacheSize);
                 if(test) {
-                    LogError("%i works.\n", config.imageCacheSize);
+                    LogError("%i works.\n", ssConfig.imageCacheSize);
                     break;
                 }
-                LogError("%i is too large. chopping it.\n", config.imageCacheSize);
-                config.imageCacheSize = config.imageCacheSize / 2;
+                LogError("%i is too large. chopping it.\n", ssConfig.imageCacheSize);
+                ssConfig.imageCacheSize = ssConfig.imageCacheSize / 2;
             }
             foundSize = true;
             al_destroy_bitmap(test);
@@ -1091,22 +1091,22 @@ int loadImgFile(const char* filename)
         LogVerbose("New image: %s\n",filename);
         if(currentCache < 0) {
             // FIXME: this is some really weird logic.
-            IMGCache.push_back(al_create_bitmap(config.imageCacheSize, config.imageCacheSize));
+            IMGCache.push_back(al_create_bitmap(ssConfig.imageCacheSize, ssConfig.imageCacheSize));
             if(!IMGCache[0]) {
                 // FIXME: so, what happens when al_create_bitmap fails? rainbows and unicorns?
-                LogVerbose("Cannot create bitmap sized %ix%i, please chose a smaller size",config.imageCacheSize,config.imageCacheSize);
+                LogVerbose("Cannot create bitmap sized %ix%i, please chose a smaller size",ssConfig.imageCacheSize,ssConfig.imageCacheSize);
             }
             currentCache = IMGCache.size() -1;
             LogVerbose("Creating image cache #%d\n",currentCache);
         }
-        if((yOffset + al_get_bitmap_height(tempfile)) <= config.imageCacheSize) {
+        if((yOffset + al_get_bitmap_height(tempfile)) <= ssConfig.imageCacheSize) {
             al_set_blender(ALLEGRO_ADD, ALLEGRO_ONE, ALLEGRO_ZERO);
             al_set_target_bitmap(IMGCache[currentCache]);
             al_draw_bitmap(tempfile, xOffset, yOffset, 0);
             IMGFilelist.push_back(al_create_sub_bitmap(IMGCache[currentCache], xOffset, yOffset, al_get_bitmap_width(tempfile), al_get_bitmap_height(tempfile)));
             yOffset += al_get_bitmap_height(tempfile);
             columnWidth = returnGreater(columnWidth, al_get_bitmap_width(tempfile));
-        } else if ((xOffset + al_get_bitmap_width(tempfile) + columnWidth) <= config.imageCacheSize) {
+        } else if ((xOffset + al_get_bitmap_width(tempfile) + columnWidth) <= ssConfig.imageCacheSize) {
             yOffset = 0;
             xOffset += columnWidth;
             columnWidth = 0;
@@ -1119,7 +1119,7 @@ int loadImgFile(const char* filename)
         } else {
             yOffset = 0;
             xOffset = 0;
-            IMGCache.push_back(al_create_bitmap(config.imageCacheSize, config.imageCacheSize));
+            IMGCache.push_back(al_create_bitmap(ssConfig.imageCacheSize, ssConfig.imageCacheSize));
             currentCache = IMGCache.size() -1;
             LogVerbose("Creating image cache #%d\n",currentCache);
             al_set_blender(ALLEGRO_ADD, ALLEGRO_ONE, ALLEGRO_ZERO);
@@ -1129,14 +1129,14 @@ int loadImgFile(const char* filename)
             yOffset += al_get_bitmap_height(tempfile);
             columnWidth = returnGreater(columnWidth, al_get_bitmap_width(tempfile));
         }
-        if(config.saveImageCache) {
+        if(ssConfig.saveImageCache) {
             saveImage(tempfile);
         }
         al_destroy_bitmap(tempfile);
         al_set_target_bitmap(al_get_backbuffer(al_get_current_display()));
         IMGFilenames.push_back(new string(filename));
         al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst);
-        if(config.saveImageCache) {
+        if(ssConfig.saveImageCache) {
             saveImage(IMGCache[currentCache]);
         }
         al_clear_to_color(al_map_rgb(0,0,0));
@@ -1162,7 +1162,7 @@ int loadImgFile(const char* filename)
 
 void saveScreenshot()
 {
-    al_clear_to_color(config.backcol);
+    al_clear_to_color(ssConfig.backcol);
     paintboard();
     //get filename
     char filename[20] = {0};
@@ -1187,8 +1187,8 @@ void saveScreenshot()
     ALLEGRO_BITMAP* temp = al_create_bitmap(ssState.ScreenW, ssState.ScreenH);
     al_set_target_bitmap(temp);
     PrintMessage("saving screenshot to %s\n", filename);
-    if(!config.transparentScreenshots) {
-        al_clear_to_color(config.backcol);
+    if(!ssConfig.transparentScreenshots) {
+        al_clear_to_color(ssConfig.backcol);
     }
     paintboard();
     al_save_bitmap(filename, temp);
@@ -1222,8 +1222,8 @@ void saveImage(ALLEGRO_BITMAP* image)
 
 void saveMegashot(bool tall)
 {
-    config.showRenderStatus = true;
-    al_lock_mutex(config.readMutex);
+    ssConfig.showRenderStatus = true;
+    al_lock_mutex(ssConfig.readMutex);
 
     draw_textf_border(font, al_map_rgb(255,255,255), ssState.ScreenW/2, ssState.ScreenH/2, ALLEGRO_ALIGN_CENTRE, "saving large screenshot...");
     al_flip_display();
@@ -1245,35 +1245,35 @@ void saveMegashot(bool tall)
     };
     int timer = clock();
     //back up all the relevant values
-    Crd3D backupsize = config.segmentSize;
+    Crd3D backupsize = ssConfig.segmentSize;
     int tempViewx = ssState.DisplayedSegmentX;
     int tempViewy = ssState.DisplayedSegmentY;
     int tempViewz = ssState.DisplayedSegmentZ;
-    bool tempFollow = config.follow_DFscreen;
-    bool tempfog = config.fogenable;
-    int tempLift = config.lift_segment_offscreen;
+    bool tempFollow = ssConfig.follow_DFscreen;
+    bool tempfog = ssConfig.fogenable;
+    int tempLift = ssConfig.lift_segment_offscreen;
     //now make them real big.
-    config.follow_DFscreen = false;
-    config.fogenable = false;
-    config.lift_segment_offscreen = 0;
+    ssConfig.follow_DFscreen = false;
+    ssConfig.fogenable = false;
+    ssConfig.lift_segment_offscreen = 0;
 
     if(tall) {
-        config.segmentSize.z = ssState.DisplayedSegmentZ + 1;
+        ssConfig.segmentSize.z = ssState.DisplayedSegmentZ + 1;
     }
-    parms.sizez = config.segmentSize.z;
+    parms.sizez = ssConfig.segmentSize.z;
     parms.z = ssState.DisplayedSegmentZ;
 
     //make the image
-    int bigImageWidth = (config.cellDimX * TILEWIDTH)*config.scale;
-    int bigImageHeight = ( ((config.cellDimX + config.cellDimY) * TILEHEIGHT / 2) + ((config.segmentSize.z - 1) * BLOCKHEIGHT) )*config.scale;
+    int bigImageWidth = (ssConfig.cellDimX * TILEWIDTH)*ssConfig.scale;
+    int bigImageHeight = ( ((ssConfig.cellDimX + ssConfig.cellDimY) * TILEHEIGHT / 2) + ((ssConfig.segmentSize.z - 1) * BLOCKHEIGHT) )*ssConfig.scale;
     bigFile = al_create_bitmap(bigImageWidth, bigImageHeight);
 
     //draw and save the image
     if(bigFile) {
         PrintMessage("saving large screenshot to %s\n", filename);
         al_set_target_bitmap(bigFile);
-        if(!config.transparentScreenshots) {
-            al_clear_to_color(config.backcol);
+        if(!ssConfig.transparentScreenshots) {
+            al_clear_to_color(ssConfig.backcol);
         }
 
         //here we deal with the rotations
@@ -1284,22 +1284,22 @@ void saveMegashot(bool tall)
         starty = -1;
         incrx = parms.sizex-2;
         incry = parms.sizey-2;
-        numx = (int)(config.cellDimX+3);
+        numx = (int)(ssConfig.cellDimX+3);
         numx = numx/incrx + (numx%incrx==0 ? 0 : 1);
-        numy = (int)(config.cellDimY+3);
+        numy = (int)(ssConfig.cellDimY+3);
         numy = numy/incry + (numx%incry==0 ? 0 : 1);
 
         if(ssState.DisplayedRotation == 1 || ssState.DisplayedRotation == 2) {
-            starty = (int)config.cellDimY + 2 - incry;
-            ssState.DisplayedSegmentY = (int)config.cellDimY - incry - 1;
+            starty = (int)ssConfig.cellDimY + 2 - incry;
+            ssState.DisplayedSegmentY = (int)ssConfig.cellDimY - incry - 1;
             incry = -incry;
         } else {
             ssState.DisplayedSegmentY = -1;
         }
 
         if(ssState.DisplayedRotation == 3 || ssState.DisplayedRotation == 2) {
-            startx = (int)config.cellDimX + 2 - incrx;
-            ssState.DisplayedSegmentX = (int)config.cellDimX - incrx - 1;
+            startx = (int)ssConfig.cellDimX + 2 - incrx;
+            ssState.DisplayedSegmentX = (int)ssConfig.cellDimX - incrx - 1;
             incrx = -incrx;
         } else {
             ssState.DisplayedSegmentX = -1;
@@ -1333,20 +1333,20 @@ void saveMegashot(bool tall)
     }
     al_destroy_bitmap(bigFile);
     //restore everything that we changed.
-    config.segmentSize = backupsize;
-    parms.sizex = config.segmentSize.x;
-    parms.sizey = config.segmentSize.y;
-    parms.sizez = config.segmentSize.z;
+    ssConfig.segmentSize = backupsize;
+    parms.sizex = ssConfig.segmentSize.x;
+    parms.sizey = ssConfig.segmentSize.y;
+    parms.sizez = ssConfig.segmentSize.z;
     ssState.DisplayedSegmentX = tempViewx;
     ssState.DisplayedSegmentY = tempViewy;
     ssState.DisplayedSegmentZ = tempViewz;
     parms.x = ssState.DisplayedSegmentX;
     parms.y = ssState.DisplayedSegmentY;
     parms.z = ssState.DisplayedSegmentZ;
-    config.fogenable = tempfog;
-    config.follow_DFscreen = tempFollow;
-    config.lift_segment_offscreen = tempLift;
-    config.showRenderStatus = false;
+    ssConfig.fogenable = tempfog;
+    ssConfig.follow_DFscreen = tempFollow;
+    ssConfig.lift_segment_offscreen = tempLift;
+    ssConfig.showRenderStatus = false;
 
-    al_unlock_mutex(config.readMutex);
+    al_unlock_mutex(ssConfig.readMutex);
 }

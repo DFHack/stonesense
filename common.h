@@ -169,7 +169,7 @@ void PrintMessage(const char* msg, ...);
 void LogVerbose(const char* msg, ...);
 void SetTitle(const char *format, ...);
 
-extern GameConfiguration config;
+extern GameConfiguration ssConfig;
 extern GameState ssState;
 
 extern uint32_t DebugInt1;

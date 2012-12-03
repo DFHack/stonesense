@@ -106,17 +106,17 @@ int getBloodOffset ( Block *b )
     if( b->water.index < 1 && (b->bloodlevel)) {
 
         // Spatter (should be blood, not blood2) swapped for testing
-        if( b->bloodlevel <= config.poolcutoff ) {
+        if( b->bloodlevel <= ssConfig.poolcutoff ) {
             offset = 7;
         }
 
         // Smear (should be blood2, not blood) swapped for testing
         else {
             // if there's no block in the respective direction it's false. if there's no blood in that direction it's false too. should also check to see if there's a ramp below, but since blood doesn't flow, that'd look wrong anyway.
-            bool _N = ( b->ownerSegment->getBlockRelativeTo( x, y, z, eUp ) != NULL ? (b->ownerSegment->getBlockRelativeTo( x, y, z, eUp )->bloodlevel > config.poolcutoff) : false ),
-                 _S = ( b->ownerSegment->getBlockRelativeTo( x, y, z, eDown ) != NULL ? (b->ownerSegment->getBlockRelativeTo( x, y, z, eDown )->bloodlevel > config.poolcutoff) : false ),
-                 _E = ( b->ownerSegment->getBlockRelativeTo( x, y, z, eRight ) != NULL ? (b->ownerSegment->getBlockRelativeTo( x, y, z, eRight )->bloodlevel > config.poolcutoff) : false ),
-                 _W = ( b->ownerSegment->getBlockRelativeTo( x, y, z, eLeft ) != NULL ? (b->ownerSegment->getBlockRelativeTo( x, y, z, eLeft )->bloodlevel > config.poolcutoff) : false );
+            bool _N = ( b->ownerSegment->getBlockRelativeTo( x, y, z, eUp ) != NULL ? (b->ownerSegment->getBlockRelativeTo( x, y, z, eUp )->bloodlevel > ssConfig.poolcutoff) : false ),
+                 _S = ( b->ownerSegment->getBlockRelativeTo( x, y, z, eDown ) != NULL ? (b->ownerSegment->getBlockRelativeTo( x, y, z, eDown )->bloodlevel > ssConfig.poolcutoff) : false ),
+                 _E = ( b->ownerSegment->getBlockRelativeTo( x, y, z, eRight ) != NULL ? (b->ownerSegment->getBlockRelativeTo( x, y, z, eRight )->bloodlevel > ssConfig.poolcutoff) : false ),
+                 _W = ( b->ownerSegment->getBlockRelativeTo( x, y, z, eLeft ) != NULL ? (b->ownerSegment->getBlockRelativeTo( x, y, z, eLeft )->bloodlevel > ssConfig.poolcutoff) : false );
 
             // do rules-based puddling
             if( _N || _S || _E || _W ) {
@@ -753,9 +753,9 @@ void c_sprite::draw_world_offset(int x, int y, int z, Block * b, int tileoffset,
         int32_t viewy = drawy;
         int32_t viewz = drawz;
         pointToScreen((int*)&drawx, (int*)&drawy, drawz);
-        drawx -= (TILEWIDTH>>1)*config.scale;
+        drawx -= (TILEWIDTH>>1)*ssConfig.scale;
 
-        if(((drawx + spritewidth*config.scale) < 0) || (drawx > ssState.ScreenW) || ((drawy + spriteheight*config.scale) < 0) || (drawy > ssState.ScreenH)) {
+        if(((drawx + spritewidth*ssConfig.scale) < 0) || (drawx > ssState.ScreenW) || ((drawy + spriteheight*ssConfig.scale) < 0) || (drawy > ssState.ScreenH)) {
             return;
         }
 
@@ -783,10 +783,10 @@ void c_sprite::draw_world_offset(int x, int y, int z, Block * b, int tileoffset,
                         (sheety+WALL_CUTOFF_HEIGHT) * spritescale,
                         spritewidth * spritescale,
                         (spriteheight-WALL_CUTOFF_HEIGHT) * spritescale,
-                        drawx + (offset_x + offset_user_x)*config.scale,
-                        drawy + (offset_user_y + (offset_y - WALLHEIGHT)+WALL_CUTOFF_HEIGHT)*config.scale,
-                        spritewidth*config.scale,
-                        (spriteheight-WALL_CUTOFF_HEIGHT)*config.scale,
+                        drawx + (offset_x + offset_user_x)*ssConfig.scale,
+                        drawy + (offset_user_y + (offset_y - WALLHEIGHT)+WALL_CUTOFF_HEIGHT)*ssConfig.scale,
+                        spritewidth*ssConfig.scale,
+                        (spriteheight-WALL_CUTOFF_HEIGHT)*ssConfig.scale,
                         0);
             } else {
 
@@ -798,10 +798,10 @@ void c_sprite::draw_world_offset(int x, int y, int z, Block * b, int tileoffset,
                         (sheety+WALL_CUTOFF_HEIGHT) * spritescale,
                         spritewidth * spritescale,
                         (spriteheight-WALL_CUTOFF_HEIGHT) * spritescale,
-                        drawx + (offset_x + offset_user_x)*config.scale,
-                        drawy + (offset_user_y + (offset_y - WALLHEIGHT)+WALL_CUTOFF_HEIGHT)*config.scale,
-                        spritewidth*config.scale,
-                        (spriteheight-WALL_CUTOFF_HEIGHT)*config.scale,
+                        drawx + (offset_x + offset_user_x)*ssConfig.scale,
+                        drawy + (offset_user_y + (offset_y - WALLHEIGHT)+WALL_CUTOFF_HEIGHT)*ssConfig.scale,
+                        spritewidth*ssConfig.scale,
+                        (spriteheight-WALL_CUTOFF_HEIGHT)*ssConfig.scale,
                         0);
             }
 
@@ -814,8 +814,8 @@ void c_sprite::draw_world_offset(int x, int y, int z, Block * b, int tileoffset,
                     SPRITEWIDTH, 
                     SPRITEWIDTH,
                     drawx+offset_x, 
-                    (drawy+offset_y-(((SPRITEHEIGHT-WALL_CUTOFF_HEIGHT)/2)*config.scale)),
-                    SPRITEWIDTH*config.scale, SPRITEWIDTH*config.scale, 
+                    (drawy+offset_y-(((SPRITEHEIGHT-WALL_CUTOFF_HEIGHT)/2)*ssConfig.scale)),
+                    SPRITEWIDTH*ssConfig.scale, SPRITEWIDTH*ssConfig.scale, 
                     0);
             }
         } else if ((chop && (halftile == HALFTILEYES)) || (!chop && (halftile == HALFTILENO)) || (!chop && (halftile == HALFTILECHOP)) || (halftile == HALFTILEBOTH)) {
@@ -828,10 +828,10 @@ void c_sprite::draw_world_offset(int x, int y, int z, Block * b, int tileoffset,
                             sheety * spritescale,
                             spritewidth * spritescale,
                             spriteheight * spritescale,
-                            drawx + (offset_x + offset_user_x)*config.scale,
-                            drawy + (offset_user_y + (offset_y - WALLHEIGHT))*config.scale,
-                            spritewidth*config.scale,
-                            spriteheight*config.scale,
+                            drawx + (offset_x + offset_user_x)*ssConfig.scale,
+                            drawy + (offset_user_y + (offset_y - WALLHEIGHT))*ssConfig.scale,
+                            spritewidth*ssConfig.scale,
+                            spriteheight*ssConfig.scale,
                             0);
                 } else {
 
@@ -843,10 +843,10 @@ void c_sprite::draw_world_offset(int x, int y, int z, Block * b, int tileoffset,
                             sheety * spritescale,
                             spritewidth * spritescale,
                             spriteheight * spritescale,
-                            drawx + (offset_x + offset_user_x)*config.scale,
-                            drawy + (offset_user_y + (offset_y - WALLHEIGHT))*config.scale,
-                            spritewidth*config.scale,
-                            spriteheight*config.scale,
+                            drawx + (offset_x + offset_user_x)*ssConfig.scale,
+                            drawy + (offset_user_y + (offset_y - WALLHEIGHT))*ssConfig.scale,
+                            spritewidth*ssConfig.scale,
+                            spriteheight*ssConfig.scale,
                             0);
                 }
             }
@@ -863,10 +863,10 @@ void c_sprite::draw_world_offset(int x, int y, int z, Block * b, int tileoffset,
                         sheety * SPRITEHEIGHT,
                         SPRITEWIDTH,
                         SPRITEHEIGHT,
-                        drawx + (offset_x)*config.scale,
-                        drawy + (offset_y)*config.scale - (WALLHEIGHT)*config.scale,
-                        SPRITEWIDTH*config.scale,
-                        SPRITEHEIGHT*config.scale,
+                        drawx + (offset_x)*ssConfig.scale,
+                        drawy + (offset_y)*ssConfig.scale - (WALLHEIGHT)*ssConfig.scale,
+                        SPRITEWIDTH*ssConfig.scale,
+                        SPRITEHEIGHT*ssConfig.scale,
                         0);
                 }
 
@@ -881,10 +881,10 @@ void c_sprite::draw_world_offset(int x, int y, int z, Block * b, int tileoffset,
                         sheety * SPRITEHEIGHT,
                         SPRITEWIDTH,
                         SPRITEHEIGHT,
-                        drawx + (offset_x)*config.scale,
-                        drawy + (offset_y)*config.scale - (WALLHEIGHT)*config.scale,
-                        SPRITEWIDTH*config.scale,
-                        SPRITEHEIGHT*config.scale,
+                        drawx + (offset_x)*ssConfig.scale,
+                        drawy + (offset_y)*ssConfig.scale - (WALLHEIGHT)*ssConfig.scale,
+                        SPRITEWIDTH*ssConfig.scale,
+                        SPRITEHEIGHT*ssConfig.scale,
                         0);
                 }
 
@@ -954,21 +954,21 @@ ALLEGRO_COLOR c_sprite::get_color(void* block)
     case ShadeVein:
         return lookupMaterialColor(b->veinMaterial);
     case ShadeMatFore:
-        return config.colors.getDfColor(lookupMaterialFore(b->material.type, b->material.index), lookupMaterialBright(b->material.type, b->material.index));
+        return ssConfig.colors.getDfColor(lookupMaterialFore(b->material.type, b->material.index), lookupMaterialBright(b->material.type, b->material.index));
     case ShadeMatBack:
-        return config.colors.getDfColor(lookupMaterialBack(b->material.type, b->material.index));
+        return ssConfig.colors.getDfColor(lookupMaterialBack(b->material.type, b->material.index));
     case ShadeLayerFore:
-        return config.colors.getDfColor(lookupMaterialFore(b->layerMaterial.type, b->layerMaterial.index), lookupMaterialBright(b->layerMaterial.type, b->layerMaterial.index));
+        return ssConfig.colors.getDfColor(lookupMaterialFore(b->layerMaterial.type, b->layerMaterial.index), lookupMaterialBright(b->layerMaterial.type, b->layerMaterial.index));
     case ShadeLayerBack:
-        return config.colors.getDfColor(lookupMaterialBack(b->layerMaterial.type, b->layerMaterial.index));
+        return ssConfig.colors.getDfColor(lookupMaterialBack(b->layerMaterial.type, b->layerMaterial.index));
     case ShadeVeinFore:
-        return config.colors.getDfColor(lookupMaterialFore(b->veinMaterial.type, b->veinMaterial.index), lookupMaterialBright(b->veinMaterial.type, b->veinMaterial.index));
+        return ssConfig.colors.getDfColor(lookupMaterialFore(b->veinMaterial.type, b->veinMaterial.index), lookupMaterialBright(b->veinMaterial.type, b->veinMaterial.index));
     case ShadeVeinBack:
-        return config.colors.getDfColor(lookupMaterialBack(b->veinMaterial.type, b->veinMaterial.index));
+        return ssConfig.colors.getDfColor(lookupMaterialBack(b->veinMaterial.type, b->veinMaterial.index));
     case ShadeBodyPart:
         if(b->creaturePresent) {
             dayofLife = b->creature->birth_year*12*28 + b->creature->birth_time/1200;
-            if((!config.skipCreatureTypes) && (!config.skipCreatureTypesEx) && (!config.skipDescriptorColors)) {
+            if((!ssConfig.skipCreatureTypes) && (!ssConfig.skipCreatureTypesEx) && (!ssConfig.skipDescriptorColors)) {
                 t_creaturecaste & caste = contentLoader->Mats->raceEx[b->creature->race].castes[b->creature->caste];
                 std::vector<t_colormodifier> & colormods =caste.ColorModifier;
                 for(unsigned int j = 0; j<b->creature->nbcolors ; j++) {
@@ -1003,7 +1003,7 @@ ALLEGRO_COLOR c_sprite::get_color(void* block)
         }
     case ShadeJob:
         if(b->creaturePresent) {
-            return config.colors.getDfColor(getJobColor(b->creature->profession));
+            return ssConfig.colors.getDfColor(getJobColor(b->creature->profession));
         } else {
             return al_map_rgb(255,255,255);
         }

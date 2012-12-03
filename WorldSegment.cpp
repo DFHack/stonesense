@@ -193,8 +193,8 @@ void correctBlockForRotation(int32_t& x, int32_t& y, int32_t& z, unsigned char r
 {
     int32_t oldx = x;
     int32_t oldy = y;
-    int w = config.segmentSize.x;
-    int h = config.segmentSize.y;
+    int w = ssConfig.segmentSize.x;
+    int h = ssConfig.segmentSize.y;
 
     if(rot == 1) {
         x = h - oldy -1;
@@ -243,27 +243,27 @@ void WorldSegment::DrawAllBlocks()
     //al_hold_bitmap_drawing(true);
 
     for(int32_t vsz=0; vsz < vszmax; vsz++) {
-        if(config.showRenderStatus) {
+        if(ssConfig.showRenderStatus) {
             SetTitle("Stonesense - Drawing Terrain, Level %d/%d", (vsz+1), vszmax);
         }
-        if(config.fogenable) {
+        if(ssConfig.fogenable) {
             if(!fog) {
                 fog = al_create_bitmap(al_get_bitmap_width(temp), al_get_bitmap_height(temp));
                 al_set_target_bitmap(fog);
-                al_clear_to_color(premultiply(config.fogcol));
+                al_clear_to_color(premultiply(ssConfig.fogcol));
                 al_set_target_bitmap(temp);
             }
             if(!((al_get_bitmap_width(fog) == al_get_bitmap_width(temp)) && (al_get_bitmap_height(fog) == al_get_bitmap_height(temp)))) {
                 al_destroy_bitmap(fog);
                 fog = al_create_bitmap(al_get_bitmap_width(temp), al_get_bitmap_height(temp));
                 al_set_target_bitmap(fog);
-                al_clear_to_color(premultiply(config.fogcol));
+                al_clear_to_color(premultiply(ssConfig.fogcol));
                 al_set_target_bitmap(temp);
             }
             al_draw_bitmap(fog, 0, 0, 0);
         }
         if(vsz == vszmax-1) {
-            if (config.show_osd) {
+            if (ssConfig.show_osd) {
                 DrawCurrentLevelOutline(true);
             }
         }
@@ -287,7 +287,7 @@ void WorldSegment::DrawAllBlocks()
         }
         al_hold_bitmap_drawing(false);
     }
-    if(config.showRenderStatus) {
+    if(ssConfig.showRenderStatus) {
         SetTitle("Stonesense");
     }
 }
