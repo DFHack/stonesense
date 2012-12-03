@@ -168,7 +168,11 @@ public:
     void Assemble();
     void Drawcreaturetext();
     void AddRamptop();
-    void Block::AssembleSpriteFromSheet(int spriteNum, ALLEGRO_BITMAP* spriteSheet, ALLEGRO_COLOR color, float x, float y, Block * b=NULL, float in_scale=1.0f);
+    void AssembleFloorBlood ( int32_t drawx, int32_t drawy );
+    void AssembleParticleCloud(int count, float centerX, float centerY, float rangeX, float rangeY, ALLEGRO_BITMAP *sprite, ALLEGRO_COLOR tint);
+    void AssembleSpriteFromSheet(int spriteNum, ALLEGRO_BITMAP* spriteSheet, ALLEGRO_COLOR color, float x, float y, Block * b=NULL, float in_scale=1.0f);
+    void AssembleSprite(ALLEGRO_BITMAP *bitmap, ALLEGRO_COLOR tint, float sx, float sy, float sw, float sh, float dx, float dy, float dw, float dh, int flags);
+    void Draw();
     //void DrawPixel(int drawx, int drawy);
 
     uint16_t temp1;
@@ -203,4 +207,3 @@ bool hasBuildingOfID(Block* b, int ID);
 bool hasBuildingIdentity(Block* b, uint32_t index, int buildingOcc);
 bool hasBuildingOfIndex(Block* b, uint32_t index);
 bool wallShouldNotHaveBorders( int in );
-void drawFloorBlood ( Block *b, int32_t drawx, int32_t drawy );

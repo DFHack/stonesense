@@ -110,7 +110,7 @@ private:
 public:
     c_sprite(void);
     ~c_sprite(void);
-    void draw_screen(int x, int y);
+    //void draw_screen(int x, int y);
     void draw_world(int x, int y, int z, Block * b, bool chop = false);
     void draw_world_offset(int x, int y, int z, Block * b, int offset, bool chop = false);
     void draw_world_ramp_bottom(int x, int y, int z, bool chop = false);

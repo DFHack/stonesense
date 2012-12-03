@@ -113,14 +113,14 @@ inline ALLEGRO_BITMAP* imageSheet(t_subSprite sprite, ALLEGRO_BITMAP* defaultBmp
     }
 }
 
-void assembleParticleCloud(int count, float centerX, float centerY, float rangeX, float rangeY, ALLEGRO_BITMAP *sprite, ALLEGRO_COLOR tint)
+void Block::AssembleParticleCloud(int count, float centerX, float centerY, float rangeX, float rangeY, ALLEGRO_BITMAP *sprite, ALLEGRO_COLOR tint)
 {
     for(int i = 0; i < count; i++) {
         int width = al_get_bitmap_width(sprite);
         int height = al_get_bitmap_height(sprite);
         float drawx = centerX + ((((float)rand() / RAND_MAX) - 0.5) * rangeX * config.scale);
         float drawy = centerY + ((((float)rand() / RAND_MAX) - 0.5) * rangeY * config.scale);
-        al_draw_tinted_scaled_bitmap(sprite, tint, 0, 0, width, height, drawx, drawy,width*config.scale, height*config.scale, 0);
+        AssembleSprite(sprite, tint, 0, 0, width, height, drawx, drawy,width*config.scale, height*config.scale, 0);
     }
 }
 
@@ -128,11 +128,7 @@ void Block::AssembleSpriteFromSheet( int spriteNum, ALLEGRO_BITMAP* spriteSheet,
 {
     int sheetx = spriteNum % SHEET_OBJECTSWIDE;
     int sheety = spriteNum / SHEET_OBJECTSWIDE;
-#ifdef _DEBUG
-    config.drawcount ++;
-#endif
-
-    al_draw_tinted_scaled_bitmap(
+    AssembleSprite(
         spriteSheet,
         premultiply(b ? shadeAdventureMode(color, b->fog_of_war, b->designation.bits.outside) : color),
         sheetx * SPRITEWIDTH * in_scale,
@@ -146,8 +142,16 @@ void Block::AssembleSpriteFromSheet( int spriteNum, ALLEGRO_BITMAP* spriteSheet,
         0);
 }
 
+void Block::AssembleSprite(ALLEGRO_BITMAP *bitmap, ALLEGRO_COLOR tint, float sx, float sy, float sw, float sh, float dx, float dy, float dw, float dh, int flags)
+{
+    Draw_Event d = {bitmap, tint, sx, sy, sw, sh, dx, dy, dw, dh, flags};
+    todraw.push_back(d);
+}
+
 void Block::Assemble()
 {
+    todraw.clear();
+
     if(!visible) {
         return;
     }
@@ -252,7 +256,20 @@ void Block::Assemble()
     if(Eff_SeaFoam.density > 0) {
         ALLEGRO_COLOR tint = lookupMaterialColor(Eff_SeaFoam.matt);
         tint.a*=Eff_SeaFoam.density/100.0f;
-        al_draw_tinted_bitmap(sprite_oceanwave,tint, drawx, drawy - (WALLHEIGHT), 0);
+        int foamw=al_get_bitmap_width(sprite_oceanwave);
+        int foamh=al_get_bitmap_height(sprite_oceanwave);
+        AssembleSprite(
+            sprite_oceanwave,
+            tint,
+            0,
+            0,
+            foamw,
+            foamh,
+            drawx,
+            drawy - (WALLHEIGHT)*config.scale,
+            SPRITEWIDTH*config.scale,
+            SPRITEHEIGHT*config.scale,
+            0);
     }
 
     //Draw Ramp
@@ -271,7 +288,7 @@ void Block::Assemble()
         spriteobject->set_tile_layout(BLOCKTILE);
     }
 
-    drawFloorBlood ( this, drawx, drawy );
+    AssembleFloorBlood ( drawx, drawy );
 
     //first part of snow
     if(tileShapeBasic!=tiletype_shape_basic::Ramp && tileShapeBasic!=tiletype_shape_basic::Wall && tileShapeBasic!=tiletype_shape_basic::Stair && defaultSnow) {
@@ -448,27 +465,27 @@ void Block::Assemble()
     }
     if(Eff_Miasma.density > 0) {
         ALLEGRO_COLOR tint = lookupMaterialColor(Eff_Miasma.matt);
-        assembleParticleCloud(Eff_Miasma.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_miasma, tint);
+        AssembleParticleCloud(Eff_Miasma.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_miasma, tint);
     }
     if(Eff_Steam.density > 0) {
         ALLEGRO_COLOR tint = lookupMaterialColor(Eff_Steam.matt);
-        assembleParticleCloud(Eff_Steam.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_water, tint);
+        AssembleParticleCloud(Eff_Steam.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_water, tint);
     }
     if(Eff_Mist.density > 0) {
         ALLEGRO_COLOR tint = lookupMaterialColor(Eff_Mist.matt);
-        assembleParticleCloud(Eff_Mist.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_water2, tint);
+        AssembleParticleCloud(Eff_Mist.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_water2, tint);
     }
     if(Eff_MaterialDust.density > 0) {
         ALLEGRO_COLOR tint = lookupMaterialColor(Eff_MaterialDust.matt);
-        assembleParticleCloud(Eff_MaterialDust.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_dust, tint);
+        AssembleParticleCloud(Eff_MaterialDust.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_dust, tint);
     }
     if(Eff_MagmaMist.density > 0) {
         ALLEGRO_COLOR tint = lookupMaterialColor(Eff_MagmaMist.matt);
-        assembleParticleCloud(Eff_MagmaMist.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_magma, tint);
+        AssembleParticleCloud(Eff_MagmaMist.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_magma, tint);
     }
     if(Eff_Smoke.density > 0) {
         ALLEGRO_COLOR tint = lookupMaterialColor(Eff_Smoke.matt);
-        assembleParticleCloud(Eff_Smoke.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_smoke, tint);
+        AssembleParticleCloud(Eff_Smoke.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_smoke, tint);
     }
     if(Eff_Dragonfire.density > 0) {
         ALLEGRO_COLOR tint = lookupMaterialColor(Eff_Dragonfire.matt);
@@ -492,15 +509,15 @@ void Block::Assemble()
     }
     if(Eff_MaterialGas.density > 0) {
         ALLEGRO_COLOR tint = lookupMaterialColor(Eff_MaterialGas.matt);
-        assembleParticleCloud(Eff_MaterialGas.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_boiling, tint);
+        AssembleParticleCloud(Eff_MaterialGas.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_boiling, tint);
     }
     if(Eff_MaterialVapor.density > 0) {
         ALLEGRO_COLOR tint = lookupMaterialColor(Eff_MaterialVapor.matt);
-        assembleParticleCloud(Eff_MaterialVapor.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_boiling, tint);
+        AssembleParticleCloud(Eff_MaterialVapor.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_boiling, tint);
     }
     if(Eff_OceanWave.density > 0) {
         ALLEGRO_COLOR tint = lookupMaterialColor(Eff_OceanWave.matt);
-        assembleParticleCloud(Eff_OceanWave.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_water, tint);
+        AssembleParticleCloud(Eff_OceanWave.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_water, tint);
     }
 }
 
@@ -677,28 +694,25 @@ void destroyEffectSprites()
 }
 
 
-void drawFloorBlood ( Block *b, int32_t drawx, int32_t drawy )
+void Block::AssembleFloorBlood ( int32_t drawx, int32_t drawy )
 {
-    t_occupancy occ = b->occ;
     t_SpriteWithOffset sprite;
-    int x = b->x, y = b->y, z = b->z;
 
-
-    if( b->water.index < 1 && (b->bloodlevel)) {
+    if( water.index < 1 && (bloodlevel)) {
         sprite.fileIndex = INVALID_INDEX;
 
         // Spatter (should be blood, not blood2) swapped for testing
-        if( b->bloodlevel <= config.poolcutoff ) {
+        if( bloodlevel <= config.poolcutoff ) {
             sprite.sheetIndex = 7;
         }
 
         // Smear (should be blood2, not blood) swapped for testing
         else {
             // if there's no block in the respective direction it's false. if there's no blood in that direction it's false too. should also check to see if there's a ramp below, but since blood doesn't flow, that'd look wrong anyway.
-            bool _N = ( b->ownerSegment->getBlockRelativeTo( x, y, z, eUp ) != NULL ? (b->ownerSegment->getBlockRelativeTo( x, y, z, eUp )->bloodlevel > config.poolcutoff) : false ),
-                 _S = ( b->ownerSegment->getBlockRelativeTo( x, y, z, eDown ) != NULL ? (b->ownerSegment->getBlockRelativeTo( x, y, z, eDown )->bloodlevel > config.poolcutoff) : false ),
-                 _E = ( b->ownerSegment->getBlockRelativeTo( x, y, z, eRight ) != NULL ? (b->ownerSegment->getBlockRelativeTo( x, y, z, eRight )->bloodlevel > config.poolcutoff) : false ),
-                 _W = ( b->ownerSegment->getBlockRelativeTo( x, y, z, eLeft ) != NULL ? (b->ownerSegment->getBlockRelativeTo( x, y, z, eLeft )->bloodlevel > config.poolcutoff) : false );
+            bool _N = ( ownerSegment->getBlockRelativeTo( x, y, z, eUp ) != NULL ? (ownerSegment->getBlockRelativeTo( x, y, z, eUp )->bloodlevel > config.poolcutoff) : false ),
+                 _S = ( ownerSegment->getBlockRelativeTo( x, y, z, eDown ) != NULL ? (ownerSegment->getBlockRelativeTo( x, y, z, eDown )->bloodlevel > config.poolcutoff) : false ),
+                 _E = ( ownerSegment->getBlockRelativeTo( x, y, z, eRight ) != NULL ? (ownerSegment->getBlockRelativeTo( x, y, z, eRight )->bloodlevel > config.poolcutoff) : false ),
+                 _W = ( ownerSegment->getBlockRelativeTo( x, y, z, eLeft ) != NULL ? (ownerSegment->getBlockRelativeTo( x, y, z, eLeft )->bloodlevel > config.poolcutoff) : false );
 
             // do rules-based puddling
             if( _N || _S || _E || _W ) {
@@ -733,19 +747,21 @@ void drawFloorBlood ( Block *b, int32_t drawx, int32_t drawy )
         int sheetOffsetX = TILEWIDTH * (sprite.sheetIndex % SHEET_OBJECTSWIDE),
             sheetOffsetY = 0;
 
-        al_draw_tinted_scaled_bitmap( IMGBloodSheet,
-                                      premultiply(b->bloodcolor),
-                                      sheetOffsetX,
-                                      sheetOffsetY,
-                                      TILEWIDTH,
-                                      TILEHEIGHT+FLOORHEIGHT,
-                                      drawx,
-                                      drawy,
-                                      TILEWIDTH*config.scale,
-                                      (TILEHEIGHT+FLOORHEIGHT)*config.scale,
-                                      0);
-        al_draw_scaled_bitmap(
+        AssembleSprite( 
             IMGBloodSheet,
+            premultiply(bloodcolor),
+            sheetOffsetX,
+            sheetOffsetY,
+            TILEWIDTH,
+            TILEHEIGHT+FLOORHEIGHT,
+            drawx,
+            drawy,
+            TILEWIDTH*config.scale,
+            (TILEHEIGHT+FLOORHEIGHT)*config.scale,
+            0);
+        AssembleSprite(
+            IMGBloodSheet,
+            al_map_rgb(255,255,255),
             sheetOffsetX,
             sheetOffsetY+TILEHEIGHT+FLOORHEIGHT,
             TILEWIDTH,
@@ -755,6 +771,25 @@ void drawFloorBlood ( Block *b, int32_t drawx, int32_t drawy )
             TILEWIDTH*config.scale,
             (TILEHEIGHT+FLOORHEIGHT)*config.scale,
             0);
+    }
+}
+
+void Block::Draw(){
+    if(visible) {
+        for(int i=0; i<todraw.size(); i++) {
+            al_draw_tinted_scaled_bitmap(
+                todraw[i].bitmap,
+                todraw[i].tint,
+                todraw[i].sx,
+                todraw[i].sy,
+                todraw[i].sw,
+                todraw[i].sh,
+                todraw[i].dx,
+                todraw[i].dy,
+                todraw[i].dw,
+                todraw[i].dh,
+                todraw[i].flags );
+        }
     }
 }
 

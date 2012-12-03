@@ -226,7 +226,7 @@ void WorldSegment::addBlock(Block* b)
     blocksAsPointerVolume[index] = b;
 }
 
-void WorldSegment::drawAllBlocks()
+void WorldSegment::DrawAllBlocks()
 {
     if(!loaded) {
         return;
@@ -267,14 +267,8 @@ void WorldSegment::drawAllBlocks()
         for(int32_t vsx=1; vsx < vsxmax; vsx++) {
             for(int32_t vsy=1; vsy < vsymax; vsy++) {
                 Block *b = getBlockLocal(vsx,vsy,vsz);
-                if (b==NULL || (b->tileShapeBasic!=tiletype_shape_basic::Floor && b->tileShapeBasic!=tiletype_shape_basic::Ramp && b->tileShapeBasic==tiletype_shape_basic::Wall)) {
-                    Block* bLow = getBlockLocal(vsx,vsy,vsz-1);
-                    if (bLow != NULL) {
-                        bLow->AddRamptop();
-                    }
-                }
                 if (b) {
-                    b->Assemble();
+                    b->Draw();
                 }
             }
         }
@@ -293,6 +287,40 @@ void WorldSegment::drawAllBlocks()
     if(config.showRenderStatus) {
         SetTitle("Stonesense");
     }
+}
+
+void WorldSegment::AssembleAllBlocks()
+{
+    if(!loaded) {
+        return;
+    }
+    
+    clock_t start_time = clock();
+
+    // x,y,z print prices
+    int32_t vsxmax = sizex-1;
+    int32_t vsymax = sizey-1;
+    int32_t vszmax = sizez-1; // grabbing one tile +z more than we should for tile rules
+    //al_hold_bitmap_drawing(true);
+
+    for(int32_t vsz=0; vsz < vszmax; vsz++) {
+        for(int32_t vsx=1; vsx < vsxmax; vsx++) {
+            for(int32_t vsy=1; vsy < vsymax; vsy++) {
+                Block *b = getBlockLocal(vsx,vsy,vsz);
+                if (b==NULL || (b->tileShapeBasic!=tiletype_shape_basic::Floor && b->tileShapeBasic!=tiletype_shape_basic::Ramp && b->tileShapeBasic==tiletype_shape_basic::Wall)) {
+                    Block* bLow = getBlockLocal(vsx,vsy,vsz-1);
+                    if (bLow != NULL) {
+                        bLow->AddRamptop();
+                    }
+                }
+                if (b) {
+                    b->Assemble();
+                }
+            }
+        }
+    }
+
+    assembly_time = clock() - start_time;
 }
 
 
