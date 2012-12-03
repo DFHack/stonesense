@@ -35,7 +35,7 @@ void c_block_tree_twig::insert_sprites(WorldSegment *w, int x, int y, int z, Blo
             insert_sprite(w,x,y,z,parent, own_sprite);
         }
     }
-    switch(DisplayedRotation) {
+    switch(ssState.DisplayedRotation) {
     case 0:
         for(unsigned int i = 0; i < eastward_growth.size(); i++) {
             if(w->CoordinateInsideSegment(x + i + 1,y,z)) {
@@ -161,7 +161,7 @@ void c_block_tree_branch::add_sprite(int x, int y, c_sprite sprite)
 void c_block_tree_branch::insert_sprites(WorldSegment *w, int x, int y, int z, Block * parent)
 {
     own_twig.insert_sprites(w, x, y, z, parent);
-    switch(DisplayedRotation) {
+    switch(ssState.DisplayedRotation) {
     case 0:
         for(int i = 0; i < southward_growth.size(); i++) {
             Block * b = w->getBlock(x, y + i + 1, z);

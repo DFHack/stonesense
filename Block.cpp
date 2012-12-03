@@ -160,10 +160,6 @@ void Block::Assemble()
         material.index = 0;
     }
 
-    if((!(this->designation.bits.hidden) || config.show_hidden_blocks) && config.block_count) {
-        config.tilecount ++;
-    }
-
     bool defaultSnow = 1;
     t_SpriteWithOffset sprite;
     c_sprite* spriteobject;
@@ -171,14 +167,14 @@ void Block::Assemble()
     drawx = x;
     drawy = y;
     drawz = z;
-
+    
     correctBlockForSegmetOffset( drawx, drawy, drawz);
     correctBlockForRotation( drawx, drawy, drawz, ownerSegment->rotation);
     pointToScreen((int*)&drawx, (int*)&drawy, drawz);
     drawx -= (TILEWIDTH>>1)*config.scale;
-
+    
     //TODO the following check should get incorporated into segment beautification
-    if(((drawx + TILEWIDTH*config.scale) < 0) || (drawx > al_get_bitmap_width(al_get_target_bitmap())) || ((drawy + (TILEHEIGHT + FLOORHEIGHT)*config.scale) < 0) || (drawy - WALLHEIGHT*config.scale > al_get_bitmap_height(al_get_target_bitmap()))) {
+    if(((drawx + TILEWIDTH*config.scale) < 0) || (drawx > ssState.ScreenW) || ((drawy + (TILEHEIGHT + FLOORHEIGHT)*config.scale) < 0) || (drawy - WALLHEIGHT*config.scale > ssState.ScreenH)) {
         return;
     }
 
@@ -199,7 +195,6 @@ void Block::Assemble()
         AssembleSpriteFromSheet( SPRITEOBJECT_BLACK, IMGObjectSheet, al_map_rgb(255,255,255), drawx, drawy);
         return;
     }
-
 
     ALLEGRO_COLOR tileBorderColor = al_map_rgb(85,85,85);
     int rando = randomCube[x%RANDOM_CUBE][y%RANDOM_CUBE][z%RANDOM_CUBE];

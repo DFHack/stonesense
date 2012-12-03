@@ -37,6 +37,7 @@ uint32_t DebugInt1;
 int keyoffset=0;
 
 GameConfiguration config;
+GameState ssState;
 bool timeToReloadSegment;
 bool timeToReloadConfig;
 char currentAnimationFrame;
@@ -152,9 +153,9 @@ void SetTitle(const char *format, ...)
 
 void correctBlockForSegmetOffset(int32_t& x, int32_t& y, int32_t& z)
 {
-    x -= DisplayedSegmentX;
-    y -= DisplayedSegmentY; //DisplayedSegmentY;
-    z -= DisplayedSegmentZ - 1; // + viewedSegment->sizez - 2; // loading one above the top of the displayed segment for block rules
+    x -= ssState.DisplayedSegmentX;
+    y -= ssState.DisplayedSegmentY; //DisplayedSegmentY;
+    z -= ssState.DisplayedSegmentZ - 1; // + viewedSegment->sizez - 2; // loading one above the top of the displayed segment for block rules
 }
 
 bool loadfont(DFHack::color_ostream & output)
@@ -176,10 +177,10 @@ bool loadfont(DFHack::color_ostream & output)
 
 void benchmark()
 {
-    DisplayedSegmentX = DisplayedSegmentY = 0;
-    DisplayedSegmentX = 110;
-    DisplayedSegmentY = 110;
-    DisplayedSegmentZ = 18;
+    ssState.DisplayedSegmentX = ssState.DisplayedSegmentY = 0;
+    ssState.DisplayedSegmentX = 110;
+    ssState.DisplayedSegmentY = 110;
+    ssState.DisplayedSegmentZ = 18;
     uint32_t startTime = clock();
     int i = 20;
     while(i--) {
@@ -306,8 +307,8 @@ static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALL
                     ALLEGRO_BITMAP *bb = al_get_backbuffer(al_get_current_display());
                     int w = al_get_bitmap_width(bb);
                     int h = al_get_bitmap_height(bb);
-                    config.screenHeight = h;
-                    config.screenWidth = w;
+                    ssState.ScreenH = h;
+                    ssState.ScreenW = w;
                     LogError("backbuffer w, h: %d, %d\n", w, h);
                 }
 #endif
@@ -361,8 +362,8 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
     config.automatic_reload_step = 500;
     config.lift_segment_offscreen = 0;
     config.Fullscreen = FULLSCREEN;
-    config.screenHeight = RESOLUTION_HEIGHT;
-    config.screenWidth = RESOLUTION_WIDTH;
+    ssState.ScreenH = RESOLUTION_HEIGHT;
+    ssState.ScreenW = RESOLUTION_WIDTH;
     config.segmentSize.x = DEFAULT_SEGMENTSIZE;
     config.segmentSize.y = DEFAULT_SEGMENTSIZE;
     config.segmentSize.z = DEFAULT_SEGMENTSIZE_Z;
@@ -410,7 +411,7 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
 
     int gfxMode = config.Fullscreen ? ALLEGRO_FULLSCREEN : ALLEGRO_WINDOWED;
     al_set_new_display_flags(gfxMode|ALLEGRO_RESIZABLE|(config.opengl ? ALLEGRO_OPENGL : 0)|(config.directX ? ALLEGRO_DIRECT3D_INTERNAL : 0));
-    display = al_create_display(config.screenWidth, config.screenHeight);
+    display = al_create_display(ssState.ScreenW, ssState.ScreenH);
     if (!display) {
         out.printerr("al_create_display failed\n");
         stonesense_started = 0;
@@ -455,7 +456,7 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
 
     loadGraphicsFromDisk();
     al_clear_to_color(al_map_rgb(0,0,0));
-    al_draw_textf(font, al_map_rgb(255,255,255), al_get_bitmap_width(al_get_target_bitmap())/2, al_get_bitmap_height(al_get_target_bitmap())/2, ALLEGRO_ALIGN_CENTRE, "Starting up...");
+    al_draw_textf(font, al_map_rgb(255,255,255), ssState.ScreenW/2, ssState.ScreenH/2, ALLEGRO_ALIGN_CENTRE, "Starting up...");
     al_flip_display();
 
     reloadtimer = al_create_timer(ALLEGRO_MSECS_TO_SECS(config.automatic_reload_time));
@@ -479,7 +480,7 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
     benchmark();
 #endif
     // init map segment wrapper and its lock, start the reload thread.
-    map_segment = new SegmentWrap();
+    map_segment.init();
     initAutoReload();
 
     timeToReloadSegment = true;
@@ -497,9 +498,9 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
     flushImgFiles();
 
     // remove the uranium fuel from the reactor... or map segment from the clutches of other threads.
-    map_segment->lock();
-    WorldSegment * last = map_segment->swap(NULL);
-    map_segment->unlock();
+    map_segment.lock();
+    WorldSegment * last = map_segment.swap(NULL);
+    map_segment.unlock();
     if(last) {
         last->Dispose();
         delete last;
@@ -511,6 +512,7 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
     al_destroy_bitmap(IMGIcon);
     IMGIcon = 0;
     delete contentLoader;
+    map_segment.die();
     contentLoader = 0;
     out.print("Stonesense shutdown.\n");
     stonesense_started = 0;

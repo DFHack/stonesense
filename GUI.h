@@ -27,14 +27,6 @@ void saveMegashot(bool tall);
 void dumpSegment();
 void saveImage(ALLEGRO_BITMAP* image);
 
-/// currently visible map segment
-extern SegmentWrap* map_segment;
-
-extern int DisplayedSegmentX;
-extern int DisplayedSegmentY;
-extern int DisplayedSegmentZ;
-extern int DisplayedRotation;
-
 extern int MiniMapTopLeftX;
 extern int MiniMapTopLeftY;
 extern int MiniMapBottomRightX;

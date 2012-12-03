@@ -35,8 +35,8 @@ ContentLoader::~ContentLoader(void)
 bool ContentLoader::Load()
 {
     /*draw_textf_border(font,
-    al_get_bitmap_width(al_get_target_bitmap())/2,
-    al_get_bitmap_height(al_get_target_bitmap())/2,
+    ssState.ScreenW/2,
+    ssState.ScreenH/2,
     ALLEGRO_ALIGN_CENTRE, "Loading...");
     al_flip_display();*/
     //flush old config
@@ -180,8 +180,8 @@ bool ContentLoader::parseContentIndexFile( const char* filepath )
 {
     /*
     al_clear_to_color(al_map_rgb(0,0,0));
-    draw_textf_border(font, al_get_bitmap_width(al_get_target_bitmap())/2,
-    al_get_bitmap_height(al_get_target_bitmap())/2,
+    draw_textf_border(font, ssState.ScreenW/2,
+    ssState.ScreenH/2,
     ALLEGRO_ALIGN_CENTRE, "Loading %s...", filepath);
     al_flip_display();
     */
@@ -256,8 +256,8 @@ bool ContentLoader::parseContentXMLFile( const char* filepath )
 {
     /*
     al_clear_to_color(al_map_rgb(0,0,0));
-    draw_textf_border(font, al_get_bitmap_width(al_get_target_bitmap())/2,
-    al_get_bitmap_height(al_get_target_bitmap())/2,
+    draw_textf_border(font, ssState.ScreenW/2,
+    ssState.ScreenH/2,
     ALLEGRO_ALIGN_CENTRE, "Loading %s...", filepath);
     al_flip_display();*/
     TiXmlDocument doc( filepath );

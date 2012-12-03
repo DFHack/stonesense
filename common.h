@@ -170,6 +170,7 @@ void LogVerbose(const char* msg, ...);
 void SetTitle(const char *format, ...);
 
 extern GameConfiguration config;
+extern GameState ssState;
 
 extern uint32_t DebugInt1;
 extern uint32_t ClockedTime;
