@@ -201,22 +201,34 @@ void Block::Assemble()
 
     
     //Draw Ramp Tops
-    if(false){//tileType == tiletype::RampTop){
-        Block * b = this->ownerSegment->getBlockLocal(this->x, this->y, this->z-1);
+    if(tileType == tiletype::RampTop){
+        Block * b = this->ownerSegment->getBlock(this->x, this->y, this->z-1);
         if(b && b->tileShapeBasic == tiletype_shape_basic::Ramp) {
-            c_sprite * spriteobject = GetBlockSpriteMap(b->tileType,material,b->consForm);
-            if (spriteobject->get_sheetindex() == UNCONFIGURED_INDEX) {
-                spriteobject->set_sheetindex(0);
-                spriteobject->set_fileindex(INVALID_INDEX);
-            }
-            if (spriteobject->get_sheetindex() != INVALID_INDEX) {
-                spriteobject->set_size(SPRITEWIDTH, TILEHEIGHT);
-                spriteobject->set_offset(0, -(FLOORHEIGHT));
-                spriteobject->set_tile_layout(RAMPTOPTILE);
-                spriteobject->set_defaultsheet(IMGRampSheet);
-                spriteobject->draw_world(x, y, z, this, (chopThisBlock && this->z == ownerSegment->z + ownerSegment->sizez -2));
-                spriteobject->set_offset(0, 0);
-            }
+            spriteobject = GetBlockSpriteMap(b->tileType, b->material, b->consForm);
+        if (spriteobject->get_sheetindex() == UNCONFIGURED_INDEX) {
+            spriteobject->set_sheetindex(0);
+            spriteobject->set_fileindex(INVALID_INDEX);
+            spriteobject->set_defaultsheet(IMGRampSheet);
+        }
+        if (spriteobject->get_sheetindex() != INVALID_INDEX) {
+            spriteobject->set_size(SPRITEWIDTH, TILEHEIGHT);
+            spriteobject->set_tile_layout(RAMPTOPTILE);
+            spriteobject->set_offset(0, WALLHEIGHT);
+            spriteobject->draw_world_offset_src(x, y, z, 0, this, b, (chopThisBlock && this->z == ownerSegment->z + ownerSegment->sizez -2));
+            spriteobject->set_offset(0, 0);
+        }
+            //if (spriteobject->get_sheetindex() == UNCONFIGURED_INDEX) {
+            //    spriteobject->set_sheetindex(0);
+            //    spriteobject->set_fileindex(INVALID_INDEX);
+            //}
+            //if (spriteobject->get_sheetindex() != INVALID_INDEX) {
+            //    spriteobject->set_size(SPRITEWIDTH, TILEHEIGHT);
+            //    spriteobject->set_offset(0, -(FLOORHEIGHT));
+            //    spriteobject->set_tile_layout(RAMPTOPTILE);
+            //    spriteobject->set_defaultsheet(IMGRampSheet);
+            //    spriteobject->draw_world(x, y, z, this, (chopThisBlock && this->z == ownerSegment->z + ownerSegment->sizez -2));
+            //    spriteobject->set_offset(0, 0);
+            //}
             spriteobject->set_tile_layout(BLOCKTILE);
         }
     }
@@ -225,7 +237,7 @@ void Block::Assemble()
     if( tileShapeBasic==tiletype_shape_basic::Floor ||
             tileShapeBasic==tiletype_shape_basic::Wall ||
             tileShapeBasic==tiletype_shape_basic::Ramp ||
-            tileShapeBasic==tiletype_shape_basic::Stair ) {
+            tileShapeBasic==tiletype_shape_basic::Stair) {
 
         //If tile has no floor, look for a Filler Floor from it's wall
         if (tileShapeBasic==tiletype_shape_basic::Floor) {
@@ -238,21 +250,6 @@ void Block::Assemble()
             spriteobject = GetFloorSpriteMap(tileType, this->material, consForm);
         }
         if(spriteobject->get_sheetindex() != INVALID_INDEX) {
-            ////if floor is muddy, override regular floor
-            //if( mudlevel && water.index == 0)
-            //{
-            //	sprite.sheetIndex = SPRITEFLOOR_WATERFLOOR;
-            //	sprite.fileIndex = INVALID_INDEX;
-            //}
-            ////if floor is snowed down, override  regular floor
-            //if( snowlevel )
-            //{
-            //	sprite.sheetIndex = SPRITEFLOOR_SNOW;
-            //	sprite.fileIndex = INVALID_INDEX;
-            //	spriteOffset = 0;
-            //	al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst, color);
-            //}
-
             if (spriteobject->get_sheetindex() == UNCONFIGURED_INDEX) {
                 spriteobject->set_sheetindex(SPRITEOBJECT_FLOOR_NA);
                 spriteobject->set_fileindex(INVALID_INDEX);
@@ -301,7 +298,7 @@ void Block::Assemble()
         if (spriteobject->get_sheetindex() != INVALID_INDEX) {
             spriteobject->set_size(SPRITEWIDTH, SPRITEHEIGHT);
             spriteobject->set_tile_layout(RAMPBOTTOMTILE);
-            spriteobject->draw_world(x, y, z, this, (chopThisBlock && this->z == ownerSegment->z + ownerSegment->sizez -2));
+            spriteobject->draw_world_offset(x, y, z, 0, this, (chopThisBlock && this->z == ownerSegment->z + ownerSegment->sizez -2));
         }
         spriteobject->set_tile_layout(BLOCKTILE);
     }
@@ -377,7 +374,7 @@ void Block::Assemble()
         spriteobject = GetFloorSpriteMap(tileType, material, consForm);
         if(spriteobject->get_sheetindex() != INVALID_INDEX && spriteobject->get_sheetindex() != UNCONFIGURED_INDEX) {
             if (mirrored) {
-                spriteobject->draw_world_offset(x, y, z, this, 1);
+                spriteobject->draw_world_offset(x, y, z, 1, this);
             } else {
                 spriteobject->draw_world(x, y, z, this);
             }
@@ -387,7 +384,7 @@ void Block::Assemble()
         spriteobject = GetBlockSpriteMap(tileType, material, consForm);
         if(spriteobject->get_sheetindex() != INVALID_INDEX && spriteobject->get_sheetindex() != UNCONFIGURED_INDEX) {
             if (mirrored) {
-                spriteobject->draw_world_offset(x, y, z, this, 1);
+                spriteobject->draw_world_offset(x, y, z, 1, this);
             } else {
                 spriteobject->draw_world(x, y, z, this);
             }
