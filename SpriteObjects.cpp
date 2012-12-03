@@ -624,13 +624,16 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
 //    }
 //}
 
-void c_sprite::draw_world(int x, int y, int z, Block * b, bool chop)
+inline void c_sprite::draw_world(int x, int y, int z, Block * b, bool chop)
 {
-    draw_world_offset(x, y, z, b, 0, chop);
+    draw_world_offset_src(x, y, z, 0, b, b, chop);
 }
 
+inline void c_sprite::draw_world_offset(int x, int y, int z, int tileoffset, Block * b, bool chop){
+    draw_world_offset_src(x, y, z, tileoffset, b, b, chop);
+}
 
-void c_sprite::draw_world_offset(int x, int y, int z, Block * b, int tileoffset, bool chop)
+void c_sprite::draw_world_offset_src(int x, int y, int z, int tileoffset, Block * b, Block* src, bool chop)
 {
     if(defaultsheet == 0) {
         defaultsheet = IMGObjectSheet;
@@ -688,33 +691,33 @@ void c_sprite::draw_world_offset(int x, int y, int z, Block * b, int tileoffset,
             goto draw_subsprite;
         }
         int foo = 0;
-        if(!(snowmin <= b->snowlevel &&	(snowmax == -1 || snowmax >= b->snowlevel))) {
+        if(!(snowmin <= src->snowlevel &&	(snowmax == -1 || snowmax >= src->snowlevel))) {
             goto draw_subsprite;
         }
-        if (!(bloodmin <= b->bloodlevel && (bloodmax == -1 || bloodmax >= b->bloodlevel))) {
+        if (!(bloodmin <= src->bloodlevel && (bloodmax == -1 || bloodmax >= src->bloodlevel))) {
             goto draw_subsprite;
         }
-        if(!(mudmin <= b->mudlevel && (mudmax == -1 || mudmax >= b->mudlevel))) {
+        if(!(mudmin <= src->mudlevel && (mudmax == -1 || mudmax >= src->mudlevel))) {
             goto draw_subsprite;
         }
-        if(!(grassmin <= b->grasslevel && (grassmax == -1 || grassmax >= b->grasslevel))) {
+        if(!(grassmin <= src->grasslevel && (grassmax == -1 || grassmax >= src->grasslevel))) {
             goto draw_subsprite;
         }
         //only bother with this tile if it's in the light, or not.
         if(!((light==LIGHTANY) || ((light==LIGHTYES) && b->designation.bits.outside) || ((light==LIGHTNO) && !(b->designation.bits.outside)))) {
             goto draw_subsprite;
         }
-        if(!((grasstype == -1) || (grasstype == b->grassmat))) {
+        if(!((grasstype == -1) || (grasstype == src->grassmat))) {
             goto draw_subsprite;
         }
         if(!((grass_growth == GRASS_GROWTH_ANY) ||
                 ((grass_growth == GRASS_GROWTH_NORMAL) &&
-                 ((b->tileMaterial == tiletype_material::GRASS_DARK) ||
-                  (b->tileMaterial == tiletype_material::GRASS_LIGHT))) ||
+                 ((src->tileMaterial == tiletype_material::GRASS_DARK) ||
+                  (src->tileMaterial == tiletype_material::GRASS_LIGHT))) ||
                 ((grass_growth == GRASS_GROWTH_DRY) &&
-                 (b->tileMaterial == tiletype_material::GRASS_DRY)) ||
+                 (src->tileMaterial == tiletype_material::GRASS_DRY)) ||
                 ((grass_growth == GRASS_GROWTH_DEAD) &&
-                 (b->tileMaterial == tiletype_material::GRASS_DEAD)))) {
+                 (src->tileMaterial == tiletype_material::GRASS_DEAD)))) {
             goto draw_subsprite;
         }
 
@@ -764,16 +767,16 @@ void c_sprite::draw_world_offset(int x, int y, int z, Block * b, int tileoffset,
             sheetx = ((sheetindex+tileoffset+randoffset) % SHEET_OBJECTSWIDE) * spritewidth;
             sheety = ((sheetindex+tileoffset+randoffset) / SHEET_OBJECTSWIDE) * spriteheight;
         } else if(tilelayout == RAMPBOTTOMTILE) {
-            sheetx = SPRITEWIDTH * b->ramp.index;
+            sheetx = SPRITEWIDTH * src->ramp.index;
             sheety = ((TILEHEIGHT + FLOORHEIGHT + SPRITEHEIGHT) * (sheetindex+tileoffset+randoffset))+(TILEHEIGHT + FLOORHEIGHT);
         } else if(tilelayout == RAMPTOPTILE) {
-            sheetx = SPRITEWIDTH * b->ramp.index;
+            sheetx = SPRITEWIDTH * src->ramp.index;
             sheety = (TILEHEIGHT + FLOORHEIGHT + SPRITEHEIGHT) * (sheetindex+tileoffset+randoffset);
         } else {
             sheetx = ((sheetindex+tileoffset+randoffset) % SHEET_OBJECTSWIDE) * spritewidth;
             sheety = ((sheetindex+tileoffset+randoffset) / SHEET_OBJECTSWIDE) * spriteheight;
         }
-        ALLEGRO_COLOR shade_color = shadeAdventureMode(get_color(b), b->fog_of_war, b->designation.bits.outside);
+        ALLEGRO_COLOR shade_color = shadeAdventureMode(get_color(src), b->fog_of_war, b->designation.bits.outside);
         if(chop && ( halftile == HALFTILECHOP)) {
             if(fileindex < 0) {
                 if(shade_color.a > 0.001f)
@@ -895,7 +898,7 @@ void c_sprite::draw_world_offset(int x, int y, int z, Block * b, int tileoffset,
 draw_subsprite:
     if(!subsprites.empty()) {
         for(int i = 0; i < subsprites.size(); i++) {
-            subsprites.at(i).draw_world_offset(x, y, z, b, tileoffset, chop);
+            subsprites.at(i).draw_world_offset_src(x, y, z, tileoffset, b, src, chop);
         }
     }
 }
