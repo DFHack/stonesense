@@ -162,7 +162,7 @@ class SegmentWrap;
 
 
 //main.cpp
-void correctBlockForSegmetOffset(int32_t& x, int32_t& y, int32_t& z);
+void correctBlockForDisplayedOffset(int32_t& x, int32_t& y, int32_t& z);
 
 void LogError(const char* msg, ...);
 void PrintMessage(const char* msg, ...);

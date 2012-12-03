@@ -168,7 +168,7 @@ void Block::Assemble()
     drawy = y;
     drawz = z;
     
-    correctBlockForSegmetOffset( drawx, drawy, drawz);
+    ownerSegment->CorrectBlockForSegmentOffset( drawx, drawy, drawz);
     correctBlockForRotation( drawx, drawy, drawz, ownerSegment->rotation);
     pointToScreen((int*)&drawx, (int*)&drawy, drawz);
     drawx -= (TILEWIDTH>>1)*ssConfig.scale;
@@ -198,6 +198,29 @@ void Block::Assemble()
 
     ALLEGRO_COLOR tileBorderColor = al_map_rgb(85,85,85);
     int rando = randomCube[x%RANDOM_CUBE][y%RANDOM_CUBE][z%RANDOM_CUBE];
+
+    
+    //Draw Ramp Tops
+    if(false){//tileType == tiletype::RampTop){
+        Block * b = this->ownerSegment->getBlockLocal(this->x, this->y, this->z-1);
+        if(b && b->tileShapeBasic == tiletype_shape_basic::Ramp) {
+            c_sprite * spriteobject = GetBlockSpriteMap(b->tileType,material,b->consForm);
+            if (spriteobject->get_sheetindex() == UNCONFIGURED_INDEX) {
+                spriteobject->set_sheetindex(0);
+                spriteobject->set_fileindex(INVALID_INDEX);
+            }
+            if (spriteobject->get_sheetindex() != INVALID_INDEX) {
+                spriteobject->set_size(SPRITEWIDTH, TILEHEIGHT);
+                spriteobject->set_offset(0, -(FLOORHEIGHT));
+                spriteobject->set_tile_layout(RAMPTOPTILE);
+                spriteobject->set_defaultsheet(IMGRampSheet);
+                spriteobject->draw_world(x, y, z, this, (chopThisBlock && this->z == ownerSegment->z + ownerSegment->sizez -2));
+                spriteobject->set_offset(0, 0);
+            }
+            spriteobject->set_tile_layout(BLOCKTILE);
+        }
+    }
+
     //Draw Floor
     if( tileShapeBasic==tiletype_shape_basic::Floor ||
             tileShapeBasic==tiletype_shape_basic::Wall ||
@@ -438,7 +461,7 @@ void Block::Assemble()
     // ensure there is *some* creature according to the map data
     // (no guarantee it is the right one)
     if(creaturePresent && (ssConfig.show_hidden_blocks || !designation.bits.hidden)) {
-        DrawCreature(drawx, drawy, creature, this);
+        AssembleCreature(drawx, drawy, creature, this);
     }
 
     //second part of snow
@@ -519,16 +542,12 @@ void Block::Assemble()
 void Block::Drawcreaturetext()
 {
     t_SpriteWithOffset sprite;
-    /*if(config.hide_outer_blocks){
-    if(x == ownerSegment->x || x == ownerSegment->x + ownerSegment->sizex - 1) return;
-    if(y == ownerSegment->y || y == ownerSegment->y + ownerSegment->sizey - 1) return;
-    }*/
 
     int32_t drawx = x;
     int32_t drawy = y;
     int32_t drawz = z; //- ownerSegment->sizez + 1;
 
-    correctBlockForSegmetOffset( drawx, drawy, drawz);
+    ownerSegment->CorrectBlockForSegmentOffset( drawx, drawy, drawz);
     correctBlockForRotation( drawx, drawy, drawz, ownerSegment->rotation);
     pointToScreen((int*)&drawx, (int*)&drawy, drawz);
     drawx -= TILEWIDTH>>1;
@@ -542,41 +561,38 @@ void Block::Drawcreaturetext()
 
 }
 
-void Block::AddRamptop()
-{
-    if(!visible) {
-        return;
-    }
-    if (tileShapeBasic==tiletype_shape_basic::Ramp) {
-
-        bool chopThisBlock = 0;
-
-        if(ssConfig.truncate_walls == 1) {
-            chopThisBlock = 1;
-        } else if(ssConfig.truncate_walls == 2 && obscuringCreature == 1) {
-            chopThisBlock = 1;
-        } else if(ssConfig.truncate_walls == 3 && (obscuringCreature == 1 || obscuringBuilding == 1)) {
-            chopThisBlock = 1;
-        } else if(ssConfig.truncate_walls == 4 && obscuringBuilding == 1) {
-            chopThisBlock = 1;
-        }
-        //Draw Ramp
-        c_sprite * spriteobject = GetBlockSpriteMap(tileType,material, consForm);
-        if (spriteobject->get_sheetindex() == UNCONFIGURED_INDEX) {
-            spriteobject->set_sheetindex(0);
-            spriteobject->set_fileindex(INVALID_INDEX);
-        }
-        if (spriteobject->get_sheetindex() != INVALID_INDEX) {
-            spriteobject->set_size(SPRITEWIDTH, TILEHEIGHT);
-            spriteobject->set_offset(0, -(FLOORHEIGHT));
-            spriteobject->set_tile_layout(RAMPTOPTILE);
-            spriteobject->set_defaultsheet(IMGRampSheet);
-            spriteobject->draw_world(x, y, z, this, (chopThisBlock && this->z == ownerSegment->z + ownerSegment->sizez -2));
-            spriteobject->set_offset(0, 0);
-        }
-        spriteobject->set_tile_layout(BLOCKTILE);
-    }
-}
+//void Block::AddRamptop()
+//{
+//    if (tileShapeBasic==tiletype_shape_basic::Ramp) {
+//
+//        bool chopThisBlock = 0;
+//
+//        if(ssConfig.truncate_walls == 1) {
+//            chopThisBlock = 1;
+//        } else if(ssConfig.truncate_walls == 2 && obscuringCreature == 1) {
+//            chopThisBlock = 1;
+//        } else if(ssConfig.truncate_walls == 3 && (obscuringCreature == 1 || obscuringBuilding == 1)) {
+//            chopThisBlock = 1;
+//        } else if(ssConfig.truncate_walls == 4 && obscuringBuilding == 1) {
+//            chopThisBlock = 1;
+//        }
+//        //Draw Ramp
+//        c_sprite * spriteobject = GetBlockSpriteMap(tileType,material, consForm);
+//        if (spriteobject->get_sheetindex() == UNCONFIGURED_INDEX) {
+//            spriteobject->set_sheetindex(0);
+//            spriteobject->set_fileindex(INVALID_INDEX);
+//        }
+//        if (spriteobject->get_sheetindex() != INVALID_INDEX) {
+//            spriteobject->set_size(SPRITEWIDTH, TILEHEIGHT);
+//            spriteobject->set_offset(0, -(FLOORHEIGHT));
+//            spriteobject->set_tile_layout(RAMPTOPTILE);
+//            spriteobject->set_defaultsheet(IMGRampSheet);
+//            spriteobject->draw_world(x, y, z, this, (chopThisBlock && this->z == ownerSegment->z + ownerSegment->sizez -2));
+//            spriteobject->set_offset(0, 0);
+//        }
+//        spriteobject->set_tile_layout(BLOCKTILE);
+//    }
+//}
 
 //void Block::DrawPixel(int drawx, int drawy)
 //{

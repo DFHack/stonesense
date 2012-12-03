@@ -406,7 +406,7 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
             //check to see if the rest of the block data is worth loading
             bool shouldBeIncluded = true;
 
-            if(isOpenTerrain(b->tileType)) {
+            if(isOpenTerrain(b->tileType) && b->tileType != tiletype::RampTop) {
                 if(ssConfig.show_hidden_blocks) {
                     shouldBeIncluded = false;
                 } else if(!(b->designation.bits.hidden)) {
