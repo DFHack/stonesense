@@ -67,11 +67,11 @@ void parseConfigLine( string line )
 
     if( line.find("[WIDTH") != -1) {
         int width = parseIntFromLine( "WIDTH", line );
-        config.screenWidth = width;
+        ssState.ScreenW = width;
     }
     if( line.find("[HEIGHT") != -1) {
         int height = parseIntFromLine( "HEIGHT", line );
-        config.screenHeight = height;
+        ssState.ScreenH = height;
     }
     if( line.find("[WINDOWED") != -1) {
         string result = parseStrFromLine( "WINDOWED", line );

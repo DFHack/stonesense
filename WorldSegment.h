@@ -2,6 +2,8 @@
 
 #include "Block.h"
 
+extern SegmentWrap map_segment;
+
 class WorldSegment
 {
 private:
@@ -66,12 +68,10 @@ class SegmentWrap
 {
 public:
     SegmentWrap() {
-        segment = NULL;
-        mutex = al_create_mutex();
-        locked = false;
+        init();
     }
     ~SegmentWrap() {
-        al_destroy_mutex(mutex);
+        die();
     }
     void lock() {
         al_lock_mutex(mutex);
@@ -80,6 +80,14 @@ public:
     void unlock() {
         al_unlock_mutex(mutex);
         locked = false;
+    }
+    void init() {
+        segment = NULL;
+        mutex = al_create_mutex();
+        locked = false;
+    }
+    void die() {
+        al_destroy_mutex(mutex);
     }
     WorldSegment * swap(WorldSegment * newsegment) {
         WorldSegment * temp = segment;

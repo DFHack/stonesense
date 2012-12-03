@@ -111,7 +111,7 @@ public:
 };
 
 
-typedef struct {
+struct GameConfiguration {
     bool show_zones;
     bool show_stockpiles;
     bool show_osd;
@@ -138,8 +138,6 @@ typedef struct {
     int animation_step;
     int fontsize;
     ALLEGRO_PATH * font;
-    int screenWidth;
-    int screenHeight;
     bool Fullscreen;
     bool show_intro;
     ALLEGRO_COLOR fogcol;
@@ -208,13 +206,23 @@ typedef struct {
     bool threadstarted;
 
     bool threading_enable;
-
-    int drawcount;
     int tilecount;
 
     int zoom;
     float scale;
-} GameConfiguration;
+};
+
+struct GameState{
+    //properties of the currently viewed portion of the segment
+    int DisplayedSegmentX;
+    int DisplayedSegmentY;
+    int DisplayedSegmentZ;
+    int DisplayedRotation;
+
+    //the width and height of the stonesense window
+    int ScreenW;
+    int ScreenH;
+};
 
 
 enum enumCreatureSex {

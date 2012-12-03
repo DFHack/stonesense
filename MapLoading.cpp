@@ -158,7 +158,7 @@ bool isBlockOnVisibleEdgeOfSegment(WorldSegment* segment, Block* b)
         return true;
     }
 
-    if (DisplayedRotation == 0 &&
+    if (ssState.DisplayedRotation == 0 &&
             (
                 b->x == segment->x + segment->sizex - 2
                 || b->y == segment->y + segment->sizey - 2
@@ -166,7 +166,7 @@ bool isBlockOnVisibleEdgeOfSegment(WorldSegment* segment, Block* b)
                 || b->y == segment->regionSize.y - 1
             )) {
         return true;
-    } else if (DisplayedRotation == 1 &&
+    } else if (ssState.DisplayedRotation == 1 &&
                (
                    b->x == segment->x + segment->sizex - 2
                    || b->y == segment->y + 1
@@ -174,7 +174,7 @@ bool isBlockOnVisibleEdgeOfSegment(WorldSegment* segment, Block* b)
                    || b->y == 0
                )) {
         return true;
-    } else if (DisplayedRotation == 2 &&
+    } else if (ssState.DisplayedRotation == 2 &&
                (
                    b->x == segment->x + 1
                    || b->y == segment->y + 1
@@ -182,7 +182,7 @@ bool isBlockOnVisibleEdgeOfSegment(WorldSegment* segment, Block* b)
                    || b->y == 0
                )) {
         return true;
-    } else if (DisplayedRotation == 3 &&
+    } else if (ssState.DisplayedRotation == 3 &&
                (
                    b->x == segment->x + 1
                    || b->y == segment->y + segment->sizey - 2
@@ -773,7 +773,7 @@ WorldSegment* ReadMapSegment(int x, int y, int z, int sizex, int sizey, int size
     segment->regionSize.x = cellDimX;
     segment->regionSize.y = cellDimY;
     segment->regionSize.z = cellDimZ;
-    segment->rotation = DisplayedRotation;
+    segment->rotation = ssState.DisplayedRotation;
 
     //read world wide buildings
     vector<Buildings::t_building> allBuildings;
@@ -1369,7 +1369,7 @@ void FollowCurrentDFCenter()
     Gui::getWindowSize(viewsizex,viewsizey);
     Gui::getViewCoords(newviewx,newviewy,newviewz);
     int screenx, screeny, screenz;
-    ScreenToPoint(config.screenWidth/2, config.screenHeight/2, screenx, screeny, screenz);
+    ScreenToPoint(ssState.ScreenW/2, ssState.ScreenH/2, screenx, screeny, screenz);
     parms.x = newviewx + (viewsizex/2) - screenx + config.viewXoffset;
     parms.y = newviewy + (viewsizey/2) - screeny + config.viewYoffset;
     parms.z = newviewz + config.viewZoffset + 1;
@@ -1397,11 +1397,15 @@ void read_segment( void *arg)
         segment = ReadMapSegment(parms.x, parms.y, parms.z,parms.sizex, parms.sizey, parms.sizez);
         config.threadstarted = 0;
     }
-    beautify_Segment(segment);
-    //segment->AssembleAllBlocks();
-    map_segment->lock();
-    WorldSegment* old_segment = map_segment->swap(segment);
-    map_segment->unlock();
+
+    if(segment) {
+        beautify_Segment(segment);
+        segment->AssembleAllBlocks();
+    }
+
+    map_segment.lock();
+    WorldSegment* old_segment = map_segment.swap(segment);
+    map_segment.unlock();
     if(old_segment) {
         old_segment->Dispose();
         delete old_segment;
@@ -1436,9 +1440,9 @@ void reloadDisplayedSegment()
     }
 
     if (firstLoad || config.follow_DFscreen) {
-        DisplayedSegmentX = parms.x;
-        DisplayedSegmentY = parms.y;
-        DisplayedSegmentZ = parms.z;
+        ssState.DisplayedSegmentX = parms.x;
+        ssState.DisplayedSegmentY = parms.y;
+        ssState.DisplayedSegmentZ = parms.z;
     }
 
     int segmentHeight = config.single_layer_view ? 2 : config.segmentSize.z;
@@ -1450,9 +1454,9 @@ void reloadDisplayedSegment()
         }
     }
 
-    parms.x = DisplayedSegmentX;
-    parms.y = DisplayedSegmentY;
-    parms.z = DisplayedSegmentZ;
+    parms.x = ssState.DisplayedSegmentX;
+    parms.y = ssState.DisplayedSegmentY;
+    parms.z = ssState.DisplayedSegmentZ;
     parms.sizex = config.segmentSize.x;
     parms.sizey = config.segmentSize.y;
     parms.sizez = segmentHeight;

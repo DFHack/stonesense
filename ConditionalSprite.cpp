@@ -123,7 +123,7 @@ RotationBlock::~RotationBlock(void)
 
 bool RotationBlock::copyToBlock(Block* b)
 {
-    int index = DisplayedRotation;
+    int index = ssState.DisplayedRotation;
     int max = (int)children.size();
     if (max == 0) {
         return false;

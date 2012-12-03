@@ -82,13 +82,13 @@ unsigned char get_relative_water_direction( Block *b )
     if(dir == 0) {
         return dir;
     }
-    if(DisplayedRotation == 1) {
+    if(ssState.DisplayedRotation == 1) {
         dir += 2;
     }
-    if(DisplayedRotation == 2) {
+    if(ssState.DisplayedRotation == 2) {
         dir += 4;
     }
-    if(DisplayedRotation == 3) {
+    if(ssState.DisplayedRotation == 3) {
         dir += 6;
     }
     if(dir > 8) {
@@ -611,15 +611,9 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
 //    int sheetx = sheetindex % SHEET_OBJECTSWIDE;
 //    int sheety = sheetindex / SHEET_OBJECTSWIDE;
 //    if(fileindex == -1) {
-//        if(config.block_count) {
-//            config.drawcount ++;
-//        }
 //
 //        al_draw_bitmap_region(IMGObjectSheet, sheetx * spritewidth * spritescale, sheety * spriteheight * spritescale, spritewidth * spritescale, spriteheight * spritescale, x + offset_x, y + offset_y, 0);
 //    } else {
-//        if(config.block_count) {
-//            config.drawcount ++;
-//        }
 //
 //        al_draw_bitmap_region(getImgFile(fileindex), sheetx * spritewidth * spritescale, sheety * spriteheight * spritescale, spritewidth * spritescale, spriteheight * spritescale, x + offset_x, y + (offset_y - WALLHEIGHT * spritescale), 0);
 //    }
@@ -761,7 +755,7 @@ void c_sprite::draw_world_offset(int x, int y, int z, Block * b, int tileoffset,
         pointToScreen((int*)&drawx, (int*)&drawy, drawz);
         drawx -= (TILEWIDTH>>1)*config.scale;
 
-        if(((drawx + spritewidth*config.scale) < 0) || (drawx > al_get_bitmap_width(al_get_target_bitmap())) || ((drawy + spriteheight*config.scale) < 0) || (drawy > al_get_bitmap_height(al_get_target_bitmap()))) {
+        if(((drawx + spritewidth*config.scale) < 0) || (drawx > ssState.ScreenW) || ((drawy + spriteheight*config.scale) < 0) || (drawy > ssState.ScreenH)) {
             return;
         }
 
@@ -782,9 +776,6 @@ void c_sprite::draw_world_offset(int x, int y, int z, Block * b, int tileoffset,
         ALLEGRO_COLOR shade_color = shadeAdventureMode(get_color(b), b->fog_of_war, b->designation.bits.outside);
         if(chop && ( halftile == HALFTILECHOP)) {
             if(fileindex < 0) {
-                if(config.block_count) {
-                    config.drawcount ++;
-                }
                 if(shade_color.a > 0.001f)
                     b->AssembleSprite(
                         defaultsheet, premultiply(shade_color),
@@ -798,9 +789,6 @@ void c_sprite::draw_world_offset(int x, int y, int z, Block * b, int tileoffset,
                         (spriteheight-WALL_CUTOFF_HEIGHT)*config.scale,
                         0);
             } else {
-                if(config.block_count) {
-                    config.drawcount ++;
-                }
 
                 if(shade_color.a > 0.001f)
                     b->AssembleSprite(
@@ -846,9 +834,6 @@ void c_sprite::draw_world_offset(int x, int y, int z, Block * b, int tileoffset,
                             spriteheight*config.scale,
                             0);
                 } else {
-                    if(config.block_count) {
-                        config.drawcount ++;
-                    }
 
                     if(shade_color.a > 0.001f)
                         b->AssembleSprite(

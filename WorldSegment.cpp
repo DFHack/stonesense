@@ -6,6 +6,9 @@
 
 ALLEGRO_BITMAP * fog = 0;
 
+// currently visible map segment
+SegmentWrap map_segment;
+
 Block* WorldSegment::getBlock(int32_t x, int32_t y, int32_t z)
 {
     if(x < this->x || x >= this->x + this->sizex) {
@@ -301,20 +304,19 @@ void WorldSegment::AssembleAllBlocks()
     int32_t vsxmax = sizex-1;
     int32_t vsymax = sizey-1;
     int32_t vszmax = sizez-1; // grabbing one tile +z more than we should for tile rules
-    //al_hold_bitmap_drawing(true);
 
     for(int32_t vsz=0; vsz < vszmax; vsz++) {
         for(int32_t vsx=1; vsx < vsxmax; vsx++) {
             for(int32_t vsy=1; vsy < vsymax; vsy++) {
                 Block *b = getBlockLocal(vsx,vsy,vsz);
+                if (b) {
+                    b->Assemble();
+                }
                 if (b==NULL || (b->tileShapeBasic!=tiletype_shape_basic::Floor && b->tileShapeBasic!=tiletype_shape_basic::Ramp && b->tileShapeBasic==tiletype_shape_basic::Wall)) {
                     Block* bLow = getBlockLocal(vsx,vsy,vsz-1);
                     if (bLow != NULL) {
                         bLow->AddRamptop();
                     }
-                }
-                if (b) {
-                    b->Assemble();
                 }
             }
         }
