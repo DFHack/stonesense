@@ -209,7 +209,7 @@ void AssembleCreature(int drawx, int drawy, t_unit* creature, Block * b)
 {
     c_sprite * sprite = GetCreatureSpriteMap( creature );
     if(sprite) {
-        sprite->draw_world(creature->x,creature->y, creature->z, b);
+        sprite->assemble_world(creature->x,creature->y, creature->z, b);
     } else {
         df::creature_raw *raw = df::global::world->raws.creatures.all[creature->race];
         int spritenum = raw->creature_tile;

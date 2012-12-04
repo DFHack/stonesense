@@ -242,60 +242,76 @@ void WorldSegment::DrawAllBlocks()
         return;
     }
 
-    // x,y,z print pricess
-    ALLEGRO_BITMAP * temp = al_get_target_bitmap();
-    int32_t vsxmax = sizex-1;
-    int32_t vsymax = sizey-1;
-    int32_t vszmax = sizez-1; // grabbing one tile +z more than we should for tile rules
-    //al_hold_bitmap_drawing(true);
+    //TODO bring fog back - figuring out allegro shaders would probably be a good idea
 
-    for(int32_t vsz=0; vsz < vszmax; vsz++) {
-        if(ssConfig.showRenderStatus) {
-            SetTitle("Stonesense - Drawing Terrain, Level %d/%d", (vsz+1), vszmax);
+    //// x,y,z print pricess
+    //int32_t vsxmax = sizex-1;
+    //int32_t vsymax = sizey-1;
+    //int32_t vszmax = sizez-1; // grabbing one tile +z more than we should for tile rules
+
+    //for(int32_t vsz=0; vsz < vszmax; vsz++) {
+    //    if(ssConfig.fogenable) {
+    //        if(!fog) {
+    //            fog = al_create_bitmap(al_get_bitmap_width(temp), al_get_bitmap_height(temp));
+    //            al_set_target_bitmap(fog);
+    //            al_clear_to_color(premultiply(ssConfig.fogcol));
+    //            al_set_target_bitmap(temp);
+    //        }
+    //        if(!((al_get_bitmap_width(fog) == al_get_bitmap_width(temp)) && (al_get_bitmap_height(fog) == al_get_bitmap_height(temp)))) {
+    //            al_destroy_bitmap(fog);
+    //            fog = al_create_bitmap(al_get_bitmap_width(temp), al_get_bitmap_height(temp));
+    //            al_set_target_bitmap(fog);
+    //            al_clear_to_color(premultiply(ssConfig.fogcol));
+    //            al_set_target_bitmap(temp);
+    //        }
+    //        al_draw_bitmap(fog, 0, 0, 0);
+    //    }
+    //    if(vsz == vszmax-1) {
+    //    }
+
+    //    al_hold_bitmap_drawing(false);
+    //}
+    if(ssConfig.fogenable) {
+        ALLEGRO_BITMAP* temp = al_get_target_bitmap();
+        if(!fog) {
+            fog = al_create_bitmap(ssState.ScreenW, ssState.ScreenH);
+            al_set_target_bitmap(fog);
+            al_clear_to_color(premultiply(ssConfig.fogcol));
+            al_set_target_bitmap(temp);
         }
-        if(ssConfig.fogenable) {
-            if(!fog) {
-                fog = al_create_bitmap(al_get_bitmap_width(temp), al_get_bitmap_height(temp));
-                al_set_target_bitmap(fog);
-                al_clear_to_color(premultiply(ssConfig.fogcol));
-                al_set_target_bitmap(temp);
-            }
-            if(!((al_get_bitmap_width(fog) == al_get_bitmap_width(temp)) && (al_get_bitmap_height(fog) == al_get_bitmap_height(temp)))) {
-                al_destroy_bitmap(fog);
-                fog = al_create_bitmap(al_get_bitmap_width(temp), al_get_bitmap_height(temp));
-                al_set_target_bitmap(fog);
-                al_clear_to_color(premultiply(ssConfig.fogcol));
-                al_set_target_bitmap(temp);
-            }
-            al_draw_bitmap(fog, 0, 0, 0);
+        if(!((al_get_bitmap_width(fog) == ssState.ScreenW) && (al_get_bitmap_height(fog) == ssState.ScreenH))) {
+            al_destroy_bitmap(fog);
+            fog = al_create_bitmap(ssState.ScreenW, ssState.ScreenH);
+            al_set_target_bitmap(fog);
+            al_clear_to_color(premultiply(ssConfig.fogcol));
+            al_set_target_bitmap(temp);
         }
-        if(vsz == vszmax-1) {
-            if (ssConfig.show_osd) {
-                DrawCurrentLevelOutline(true);
-            }
-        }
-        for(int32_t vsx=1; vsx < vsxmax; vsx++) {
-            for(int32_t vsy=1; vsy < vsymax; vsy++) {
-                Block *b = getBlockLocal(vsx,vsy,vsz);
-                if (b) {
-                    b->Draw();
-                }
-            }
-        }
-        al_hold_bitmap_drawing(false);
-        al_hold_bitmap_drawing(true);
-        for(int32_t vsx=1; vsx < vsxmax; vsx++) {
-            for(int32_t vsy=1; vsy < vsymax; vsy++) {
-                Block *b = getBlockLocal(vsx,vsy,vsz);
-                if (b) {
-                    b->Drawcreaturetext();
-                }
-            }
-        }
-        al_hold_bitmap_drawing(false);
     }
-    if(ssConfig.showRenderStatus) {
-        SetTitle("Stonesense");
+
+    if(todraw.size()>0){
+        al_hold_bitmap_drawing(true);
+        for(int i=0; i<todraw.size(); i++) {
+            if(i%ssConfig.bitmapHolds==0) {
+                al_hold_bitmap_drawing(false);
+                al_hold_bitmap_drawing(true);
+            }
+            al_draw_tinted_scaled_bitmap(
+                todraw[i].bitmap,
+                todraw[i].tint,
+                todraw[i].sx,
+                todraw[i].sy,
+                todraw[i].sw,
+                todraw[i].sh,
+                todraw[i].dx,
+                todraw[i].dy,
+                todraw[i].dw,
+                todraw[i].dh,
+                todraw[i].flags );
+        }
+    }
+
+    if (ssConfig.show_osd) {
+        DrawCurrentLevelOutline(true);
     }
 }
 
@@ -304,6 +320,8 @@ void WorldSegment::AssembleAllBlocks()
     if(!loaded) {
         return;
     }
+
+    todraw.clear();
     
     clock_t start_time = clock();
 
@@ -313,18 +331,18 @@ void WorldSegment::AssembleAllBlocks()
     int32_t vszmax = sizez-1; // grabbing one tile +z more than we should for tile rules
 
     for(int32_t vsz=0; vsz < vszmax; vsz++) {
+        //add the fog to the queue
+        if(ssConfig.fogenable && fog) {
+            Draw_Event d = {fog, al_map_rgb(255,255,255), 0, 0, ssState.ScreenW, ssState.ScreenH, 0, 0, ssState.ScreenW, ssState.ScreenH, 0};
+            AssembleSprite(d);
+        }
+        //add the blocks to the queue
         for(int32_t vsx=1; vsx < vsxmax; vsx++) {
             for(int32_t vsy=1; vsy < vsymax; vsy++) {
                 Block *b = getBlockLocal(vsx,vsy,vsz);
                 if (b) {
-                    b->Assemble();
+                    b->AssembleBlock();
                 }
-                //if (b==NULL || (b->tileShapeBasic!=tiletype_shape_basic::Floor && b->tileShapeBasic!=tiletype_shape_basic::Ramp && b->tileShapeBasic==tiletype_shape_basic::Wall)) {
-                //    Block* bLow = getBlockLocal(vsx,vsy,vsz-1);
-                //    if (bLow != NULL) {
-                //        bLow->AddRamptop();
-                //    }
-                //}
             }
         }
     }
@@ -372,3 +390,8 @@ bool WorldSegment::CoordinateInteriorSegment(uint32_t x, uint32_t y, uint32_t z,
 //                }
 //            }
 //}
+
+void WorldSegment::AssembleSprite(Draw_Event d)
+{
+    todraw.push_back(d);
+}

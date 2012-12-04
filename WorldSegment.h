@@ -8,6 +8,7 @@ class WorldSegment
 {
 private:
     vector<Block*> blocks;
+    vector<Draw_Event> todraw;
 public:
     bool loaded;
     bool processed;
@@ -58,6 +59,7 @@ public:
     void CorrectBlockForSegmentOffset(int32_t& x, int32_t& y, int32_t& z);
     void addBlock(Block* b);
     void AssembleAllBlocks();
+    void AssembleSprite(Draw_Event d);
     void DrawAllBlocks();
     //void drawPixels();
     bool CoordinateInsideSegment(uint32_t x, uint32_t y, uint32_t z);

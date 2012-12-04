@@ -153,6 +153,8 @@ struct GameConfiguration {
     unsigned int cellDimY;
     unsigned int cellDimZ;
 
+    int bitmapHolds;
+
     bool saveImageCache;
     bool cache_images;
     int imageCacheSize;
@@ -168,7 +170,6 @@ struct GameConfiguration {
     bool creditScreen;
     int currentSpriteOverlay;
 
-    bool showRenderStatus;
     bool dayNightCycle;
 
     bool show_creature_moods;

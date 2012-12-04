@@ -111,10 +111,15 @@ public:
     c_sprite(void);
     ~c_sprite(void);
     //void draw_screen(int x, int y);
-    inline void draw_world(int x, int y, int z, Block * b, bool chop = false);
-    inline void draw_world_offset(int x, int y, int z, int tileoffset, Block * b, bool chop = false);
-    void draw_world_offset_src(int x, int y, int z, int tileoffset, Block * b, Block* src, bool chop = false);
-    void draw_world_ramp_bottom(int x, int y, int z, bool chop = false);
+    void assemble_world_offset_src(int x, int y, int z, int tileoffset, Block * b, Block* src, bool chop = false);
+    inline void c_sprite::assemble_world(int x, int y, int z, Block * b, bool chop=false)
+    {
+        assemble_world_offset_src(x, y, z, 0, b, b, chop);
+    }
+    inline void c_sprite::assemble_world_offset(int x, int y, int z, int tileoffset, Block * b, bool chop=false){
+        assemble_world_offset_src(x, y, z, tileoffset, b, b, chop);
+    }
+    void assemble_world_ramp_bottom(int x, int y, int z, bool chop = false);
     void set_by_xml(TiXmlElement* elemSprite, int32_t fileindex);
     void set_by_xml(TiXmlElement* elemSprite);
     int32_t get_sheetindex(void) {
