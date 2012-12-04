@@ -47,20 +47,6 @@ struct Unit_Inventory {
     std::vector<std::vector<std::vector<Worn_Item>>> item;
 };
 
-struct Draw_Event{
-    ALLEGRO_BITMAP *bitmap;
-    ALLEGRO_COLOR tint;
-    float sx;
-    float sy;
-    float sw;
-    float sh;
-    float dx;
-    float dy;
-    float dw;
-    float dh;
-    int flags;
-};
-
 class Block
 {
 public:

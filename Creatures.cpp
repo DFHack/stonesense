@@ -235,6 +235,11 @@ void AssembleCreature(int drawx, int drawy, t_unit* creature, Block * b)
     }
 }
 
+void AssembleCreatureText(int drawx, int drawy, t_unit* creature, WorldSegment * seg){
+    Draw_Event d = {CreatureText, creature, al_map_rgb(255,255,255), 0, 0, 0, 0, drawx, drawy, 0, 0, 0};
+    seg->AssembleSprite(d);
+}
+
 void DrawCreatureText(int drawx, int drawy, t_unit* creature )
 {
     vector<int> statusIcons;
