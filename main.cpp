@@ -30,14 +30,14 @@ extern void *allegro_icon;
 
 bool stonesense_started = 0;
 
-uint32_t ClockedTime = 0;
-uint32_t ClockedTime2 = 0;
 uint32_t DebugInt1;
 
 int keyoffset=0;
 
 GameConfiguration ssConfig;
 GameState ssState;
+FrameTimers ssTimers;
+
 bool timeToReloadSegment;
 bool timeToReloadConfig;
 char currentAnimationFrame;
@@ -391,6 +391,12 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
     contentLoader = new ContentLoader();
     ssConfig.zoom = 0;
     ssConfig.scale = 1.0f;
+    ssTimers.assembly_time = 1.0f;
+    ssTimers.beautify_time = 1.0f;
+    ssTimers.draw_time = 1.0f;
+    ssTimers.read_time = 1.0f;
+    ssTimers.prev_frame_time = clock();
+    ssTimers.frame_total = 1.0f;
     initRandomCube();
     loadConfigFile();
     init_masks();

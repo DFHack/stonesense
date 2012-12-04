@@ -171,10 +171,9 @@ void SetTitle(const char *format, ...);
 
 extern GameConfiguration ssConfig;
 extern GameState ssState;
+extern FrameTimers ssTimers;
 
 extern uint32_t DebugInt1;
-extern uint32_t ClockedTime;
-extern uint32_t ClockedTime2;
 
 extern bool timeToReloadSegment;
 extern bool timeToReloadConfig;
@@ -186,11 +185,6 @@ extern bool animationFrameShown;
 
 // binary 00111111
 #define ALL_FRAMES 63
-
-#define TMR1_START (ClockedTime = clock())
-#define TMR1_STOP  (ClockedTime = clock() - ClockedTime)
-#define TMR2_START (ClockedTime2 = clock())
-#define TMR2_STOP  (ClockedTime2 = clock() - ClockedTime2)
 
 extern bool key[ALLEGRO_KEY_MAX];
 

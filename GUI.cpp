@@ -829,7 +829,8 @@ void DoSpriteIndexOverlay()
 
 void paintboard()
 {
-    uint32_t starttime = clock();
+    //do the starting timer stuff
+    clock_t starttime = clock();
 
     int op, src, dst, alpha_op, alpha_src, alpha_dst;
     al_get_separate_blender(&op, &src, &dst, &alpha_op, &alpha_src, &alpha_dst);
@@ -855,35 +856,23 @@ void paintboard()
     }
 
     DebugInt1 = segment->getNumBlocks();
+    
+    //do the closing timer stuff
+    clock_t donetime = clock();
+    ssTimers.draw_time = (donetime - starttime)*0.1 + ssTimers.draw_time*0.9;
+    ssTimers.frame_total = (donetime - ssTimers.prev_frame_time)*0.1 + ssTimers.frame_total*0.9;
+    ssTimers.prev_frame_time = donetime;
 
-    uint32_t DrawTime = clock() - starttime;
-
-    //the drawtime indicator is too jumpy, so I'm averaging it out over 10 frames.
-    static uint32_t DrawTimes[10];
-    static int ind = 0;
-    if(ind >= 10) {
-        ind = 0;
-    }
-    DrawTimes[ind] = DrawTime;
-    ind++;
-    DrawTime = 0;
-    for(int i = 0; i<10; i++) {
-        DrawTime += DrawTimes[i];
-    }
-    DrawTime = DrawTime / 10;
-    static double last_frame_time;
-    double time_since_last_frame = al_get_time() - last_frame_time;
-    last_frame_time = al_get_time();
     if (ssConfig.show_osd) {
         al_hold_bitmap_drawing(true);
         draw_textf_border(font, al_map_rgb(255,255,255), 10,al_get_font_line_height(font), 0, "%i,%i,%i, r%i, z%i", ssState.DisplayedSegmentX,ssState.DisplayedSegmentY,ssState.DisplayedSegmentZ, ssState.DisplayedRotation, ssConfig.zoom);
 
         if(ssConfig.debug_mode) {
-            draw_textf_border(font, al_map_rgb(255,255,255), 10, 3*al_get_font_line_height(font), 0, "Map Read Time: %dms", segment->read_time);
-            draw_textf_border(font, al_map_rgb(255,255,255), 10, 4*al_get_font_line_height(font), 0, "Map Beautification Time: %ims", segment->beautify_time);
-            draw_textf_border(font, al_map_rgb(255,255,255), 10, 5*al_get_font_line_height(font), 0, "Block Sprite Assembly Time: %ims", segment->assembly_time);
-            draw_textf_border(font, al_map_rgb(255,255,255), 10, 2*al_get_font_line_height(font), 0, "FPS: %.2f", 1.0/time_since_last_frame);
-            draw_textf_border(font, al_map_rgb(255,255,255), 10, 6*al_get_font_line_height(font), 0, "Draw: %ims", DrawTime-segment->assembly_time);
+            draw_textf_border(font, al_map_rgb(255,255,255), 10, 3*al_get_font_line_height(font), 0, "Map Read Time: %.2fms", ssTimers.read_time);
+            draw_textf_border(font, al_map_rgb(255,255,255), 10, 4*al_get_font_line_height(font), 0, "Map Beautification Time: %.2fms", ssTimers.beautify_time);
+            draw_textf_border(font, al_map_rgb(255,255,255), 10, 5*al_get_font_line_height(font), 0, "Block Sprite Assembly Time: %.2fms", ssTimers.assembly_time);
+            draw_textf_border(font, al_map_rgb(255,255,255), 10, 2*al_get_font_line_height(font), 0, "FPS: %.2f", 1000.0/ssTimers.frame_total);
+            draw_textf_border(font, al_map_rgb(255,255,255), 10, 6*al_get_font_line_height(font), 0, "Draw: %.2fms", ssTimers.draw_time);
             draw_textf_border(font, al_map_rgb(255,255,255), 10, 7*al_get_font_line_height(font), 0, "D1: %i", blockFactory.getPoolSize());
             draw_textf_border(font, al_map_rgb(255,255,255), 10, 8*al_get_font_line_height(font), 0, "%i/%i/%i, %i:%i", contentLoader->currentDay+1, contentLoader->currentMonth+1, contentLoader->currentYear, contentLoader->currentHour, (contentLoader->currentTickRel*60)/50);
             
@@ -1313,7 +1302,6 @@ void saveMegashot(bool tall)
                 //read and draw each individual segment
                 read_segment(NULL);
                 WorldSegment * segment = map_segment.get();
-                segment->AssembleAllBlocks();
                 segment->DrawAllBlocks();
 
                 parms.x += incrx;
