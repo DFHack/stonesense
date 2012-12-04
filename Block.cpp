@@ -542,7 +542,7 @@ void Block::Drawcreaturetext()
     int32_t drawx = x;
     int32_t drawy = y;
     int32_t drawz = z; //- ownerSegment->sizez + 1;
-
+    
     ownerSegment->CorrectBlockForSegmentOffset( drawx, drawy, drawz);
     correctBlockForRotation( drawx, drawy, drawz, ownerSegment->rotation);
     pointToScreen((int*)&drawx, (int*)&drawy, drawz);
