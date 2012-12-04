@@ -15,11 +15,7 @@
 #include "df/itemimprovement.h"
 #include "df/itemimprovement_threadst.h"
 #include "df/item_threadst.h"
-/*
-static DFHack::Core* pDFApiHandle = 0;
-static DFHack::Process * DFProc = 0;
-const VersionInfo *dfMemoryInfo;
-bool memInfoHasBeenRead;*/
+
 bool connected = 0;
 bool threadrunnng = 0;
 segParams parms;
@@ -842,8 +838,8 @@ WorldSegment* ReadMapSegment(int x, int y, int z, int sizex, int sizey, int size
             for(int lz=z-sizez; lz <= z; lz++) {
                 //load the blocks from this cell to the map segment
                 ReadCellToSegment(DF, *segment, cellx, celly, lz,
-                                  firstTileToReadX, firstTileToReadY, lastTileToReadX, lastTileToReadY,
-                                  /*0, &allBuildings, &allConstructions,*/ &layers );
+                                  firstTileToReadX, firstTileToReadY, 
+                                  lastTileToReadX, lastTileToReadY, &layers );
 
             }
             firstTileToReadY = lastTileToReadY + 1;

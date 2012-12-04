@@ -36,7 +36,7 @@ Block* WorldSegment::getBlock(int32_t x, int32_t y, int32_t z)
     ly -= this->y;
     lz -= this->z;
 
-    correctBlockForRotation( (int32_t&)lx,(int32_t&)ly,(int32_t&)lz , rotation);
+    CorrectBlockForSegmentRotation( (int32_t&)lx,(int32_t&)ly,(int32_t&)lz );
 
     uint32_t index = lx + (ly * this->sizex) + ((lz) * this->sizex * this->sizey);
     return blocksAsPointerVolume[index];
@@ -52,7 +52,7 @@ Block* WorldSegment::getBlockRelativeTo(uint32_t x, uint32_t y, uint32_t z,  dir
     ly -= this->y;
     lz -= this->z;
 
-    correctBlockForRotation( (int32_t&)lx,(int32_t&)ly,(int32_t&)lz, rotation );
+    CorrectBlockForSegmentRotation( (int32_t&)lx,(int32_t&)ly,(int32_t&)lz );
     switch (direction) {
     case eUp:
         ly--;
@@ -114,7 +114,7 @@ Block* WorldSegment::getBlockRelativeTo(uint32_t x, uint32_t y, uint32_t z,  dir
     ly -= this->y;
     lz -= this->z;
 
-    correctBlockForRotation( (int32_t&)lx,(int32_t&)ly,(int32_t&)lz, rotation);
+    CorrectBlockForSegmentRotation( (int32_t&)lx,(int32_t&)ly,(int32_t&)lz );
     switch (direction) {
     case eUp:
         ly-= distance;
@@ -197,22 +197,22 @@ void WorldSegment::CorrectBlockForSegmentOffset(int32_t& xin, int32_t& yin, int3
     zin -= displayedz - 1; //need to remove the offset
 }
 
-void correctBlockForRotation(int32_t& x, int32_t& y, int32_t& z, unsigned char rot)
+void WorldSegment::CorrectBlockForSegmentRotation(int32_t& x, int32_t& y, int32_t& z)
 {
     int32_t oldx = x;
     int32_t oldy = y;
     int w = ssConfig.segmentSize.x;
     int h = ssConfig.segmentSize.y;
 
-    if(rot == 1) {
+    if(rotation == 1) {
         x = h - oldy -1;
         y = oldx;
     }
-    if(rot == 2) {
+    if(rotation == 2) {
         x = w - oldx -1;
         y = h - oldy -1;
     }
-    if(rot == 3) {
+    if(rotation == 3) {
         x = oldy;
         y = w - oldx -1;
     }
@@ -232,7 +232,7 @@ void WorldSegment::addBlock(Block* b)
     z -= this->z;
 
     //rotate
-    correctBlockForRotation( (int32_t&)x, (int32_t&)y, (int32_t&)z, rotation);
+    CorrectBlockForSegmentRotation( (int32_t&)x, (int32_t&)y, (int32_t&)z);
     uint32_t index = x + (y * this->sizex) + ((z) * this->sizex * this->sizey);
     blocksAsPointerVolume[index] = b;
 }
