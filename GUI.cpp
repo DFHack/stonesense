@@ -1239,8 +1239,12 @@ void saveMegashot(bool tall)
     int tempViewz = ssState.DisplayedSegmentZ;
     bool tempFollow = ssConfig.follow_DFscreen;
     bool tempfog = ssConfig.fogenable;
+    bool temposd = ssConfig.show_osd;
     int tempLift = ssConfig.lift_segment_offscreen;
+    int tempW = ssState.ScreenW;
+    int tempH = ssState.ScreenH;
     //now make them real big.
+    ssConfig.show_osd = false;
     ssConfig.follow_DFscreen = false;
     ssConfig.fogenable = false;
     ssConfig.lift_segment_offscreen = 0;
@@ -1252,9 +1256,10 @@ void saveMegashot(bool tall)
     parms.z = ssState.DisplayedSegmentZ;
 
     //make the image
-    int bigImageWidth = (ssConfig.cellDimX * TILEWIDTH)*ssConfig.scale;
-    int bigImageHeight = ( ((ssConfig.cellDimX + ssConfig.cellDimY) * TILEHEIGHT / 2) + ((ssConfig.segmentSize.z - 1) * BLOCKHEIGHT) )*ssConfig.scale;
-    bigFile = al_create_bitmap(bigImageWidth, bigImageHeight);
+    ssState.ScreenW = (ssConfig.cellDimX * TILEWIDTH)*ssConfig.scale;
+    ssState.ScreenH = ( ((ssConfig.cellDimX + ssConfig.cellDimY) * TILEHEIGHT / 2) + ((ssConfig.segmentSize.z - 1) * BLOCKHEIGHT) )*ssConfig.scale;
+    
+    bigFile = al_create_bitmap(ssState.ScreenW, ssState.ScreenH);
 
     //draw and save the image
     if(bigFile) {
@@ -1333,6 +1338,9 @@ void saveMegashot(bool tall)
     ssConfig.fogenable = tempfog;
     ssConfig.follow_DFscreen = tempFollow;
     ssConfig.lift_segment_offscreen = tempLift;
+    ssConfig.show_osd = temposd;
+    ssState.ScreenW = tempW;
+    ssState.ScreenH = tempH;
 
     al_unlock_mutex(ssConfig.readMutex);
 }

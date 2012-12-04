@@ -13,6 +13,7 @@ public:
     bool loaded;
     bool processed;
     int x, y, z;
+    int displayedx, displayedy, displayedz;
     int sizex, sizey, sizez;
     unsigned char rotation;
     Crd3D regionSize;
@@ -24,6 +25,9 @@ public:
         this->sizex = sizex;
         this->sizey = sizey;
         this->sizez = sizez;
+        this->displayedx = ssState.DisplayedSegmentX;
+        this->displayedy = ssState.DisplayedSegmentY;
+        this->displayedz = ssState.DisplayedSegmentZ;
 
         regionSize.x = regionSize.y = regionSize.z = 0;
 

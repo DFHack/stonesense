@@ -191,9 +191,9 @@ Block* WorldSegment::getBlock(uint32_t index)
 
 void WorldSegment::CorrectBlockForSegmentOffset(int32_t& xin, int32_t& yin, int32_t& zin)
 {
-    xin -= x;
-    yin -= y; //DisplayedSegmentY;
-    zin -= z + sizez - 2; //need to remove the offset
+    xin -= displayedx;
+    yin -= displayedy; //DisplayedSegmentY;
+    zin -= displayedz - 1; //need to remove the offset
 }
 
 void correctBlockForRotation(int32_t& x, int32_t& y, int32_t& z, unsigned char rot)
@@ -242,35 +242,6 @@ void WorldSegment::DrawAllBlocks()
         return;
     }
 
-    //TODO bring fog back - figuring out allegro shaders would probably be a good idea
-
-    //// x,y,z print pricess
-    //int32_t vsxmax = sizex-1;
-    //int32_t vsymax = sizey-1;
-    //int32_t vszmax = sizez-1; // grabbing one tile +z more than we should for tile rules
-
-    //for(int32_t vsz=0; vsz < vszmax; vsz++) {
-    //    if(ssConfig.fogenable) {
-    //        if(!fog) {
-    //            fog = al_create_bitmap(al_get_bitmap_width(temp), al_get_bitmap_height(temp));
-    //            al_set_target_bitmap(fog);
-    //            al_clear_to_color(premultiply(ssConfig.fogcol));
-    //            al_set_target_bitmap(temp);
-    //        }
-    //        if(!((al_get_bitmap_width(fog) == al_get_bitmap_width(temp)) && (al_get_bitmap_height(fog) == al_get_bitmap_height(temp)))) {
-    //            al_destroy_bitmap(fog);
-    //            fog = al_create_bitmap(al_get_bitmap_width(temp), al_get_bitmap_height(temp));
-    //            al_set_target_bitmap(fog);
-    //            al_clear_to_color(premultiply(ssConfig.fogcol));
-    //            al_set_target_bitmap(temp);
-    //        }
-    //        al_draw_bitmap(fog, 0, 0, 0);
-    //    }
-    //    if(vsz == vszmax-1) {
-    //    }
-
-    //    al_hold_bitmap_drawing(false);
-    //}
     if(ssConfig.fogenable) {
         ALLEGRO_BITMAP* temp = al_get_target_bitmap();
         if(!fog) {
@@ -286,6 +257,10 @@ void WorldSegment::DrawAllBlocks()
             al_clear_to_color(premultiply(ssConfig.fogcol));
             al_set_target_bitmap(temp);
         }
+    }
+
+    if (ssConfig.show_osd) {
+        DrawCurrentLevelOutline(true);
     }
 
     if(todraw.size()>0){
@@ -311,8 +286,11 @@ void WorldSegment::DrawAllBlocks()
     }
 
     if (ssConfig.show_osd) {
-        DrawCurrentLevelOutline(true);
+        DrawCurrentLevelOutline(false);
     }
+
+    al_hold_bitmap_drawing(false);
+    al_hold_bitmap_drawing(true);
 }
 
 void WorldSegment::AssembleAllBlocks()

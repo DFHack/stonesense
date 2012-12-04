@@ -1402,6 +1402,12 @@ void read_segment( void *arg)
 
     if(segment) {
         beautify_Segment(segment);
+        
+        //putting these here to increase responsiveness of the UI and to make megashots work
+        segment->displayedx = ssState.DisplayedSegmentX;
+        segment->displayedy = ssState.DisplayedSegmentY;
+        segment->displayedz = ssState.DisplayedSegmentZ;
+
         segment->AssembleAllBlocks();
     }
 
