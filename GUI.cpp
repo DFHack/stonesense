@@ -1222,7 +1222,6 @@ void saveImage(ALLEGRO_BITMAP* image)
 
 void saveMegashot(bool tall)
 {
-    ssConfig.showRenderStatus = true;
     al_lock_mutex(ssConfig.readMutex);
 
     draw_textf_border(font, al_map_rgb(255,255,255), ssState.ScreenW/2, ssState.ScreenH/2, ALLEGRO_ALIGN_CENTRE, "saving large screenshot...");
@@ -1346,7 +1345,6 @@ void saveMegashot(bool tall)
     ssConfig.fogenable = tempfog;
     ssConfig.follow_DFscreen = tempFollow;
     ssConfig.lift_segment_offscreen = tempLift;
-    ssConfig.showRenderStatus = false;
 
     al_unlock_mutex(ssConfig.readMutex);
 }

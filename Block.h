@@ -61,7 +61,6 @@ struct Draw_Event{
     int flags;
 };
 
-
 class Block
 {
 public:
@@ -165,14 +164,13 @@ public:
     bool IsVisible() {
         return IDisWall(tileType) || IDisFloor(tileType);
     }
-    void Assemble();
+    void AssembleBlock();
     void Drawcreaturetext();
     void AddRamptop();
     void AssembleFloorBlood ( int32_t drawx, int32_t drawy );
     void AssembleParticleCloud(int count, float centerX, float centerY, float rangeX, float rangeY, ALLEGRO_BITMAP *sprite, ALLEGRO_COLOR tint);
     void AssembleSpriteFromSheet(int spriteNum, ALLEGRO_BITMAP* spriteSheet, ALLEGRO_COLOR color, float x, float y, Block * b=NULL, float in_scale=1.0f);
     void AssembleSprite(ALLEGRO_BITMAP *bitmap, ALLEGRO_COLOR tint, float sx, float sy, float sw, float sh, float dx, float dy, float dw, float dh, int flags);
-    void Draw();
     //void DrawPixel(int drawx, int drawy);
 
     uint16_t temp1;
@@ -194,7 +192,6 @@ public:
 
 
 private:
-    std::vector<Draw_Event> todraw;
 
 };
 void createEffectSprites();

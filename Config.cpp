@@ -262,6 +262,13 @@ void parseConfigLine( string line )
         }
         ssConfig.viewZoffset = value;
     }
+    if( line.find("[BITMAP_HOLDS") != -1) {
+        int value = parseIntFromLine( "BITMAP_HOLDS", line);
+        if(value < 1) {
+            value = 1;
+        }
+        ssConfig.bitmapHolds = value;
+    }
     if( line.find("[LOG_IMAGECACHE") != -1) {
         string result = parseStrFromLine( "LOG_IMAGECACHE", line );
         ssConfig.saveImageCache = (result == "YES");

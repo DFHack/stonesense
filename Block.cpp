@@ -145,12 +145,11 @@ void Block::AssembleSpriteFromSheet( int spriteNum, ALLEGRO_BITMAP* spriteSheet,
 void Block::AssembleSprite(ALLEGRO_BITMAP *bitmap, ALLEGRO_COLOR tint, float sx, float sy, float sw, float sh, float dx, float dy, float dw, float dh, int flags)
 {
     Draw_Event d = {bitmap, tint, sx, sy, sw, sh, dx, dy, dw, dh, flags};
-    todraw.push_back(d);
+    ownerSegment->AssembleSprite(d);
 }
 
-void Block::Assemble()
+void Block::AssembleBlock()
 {
-    todraw.clear();
 
     if(!visible) {
         return;
@@ -214,7 +213,7 @@ void Block::Assemble()
             spriteobject->set_size(SPRITEWIDTH, TILEHEIGHT);
             spriteobject->set_tile_layout(RAMPTOPTILE);
             spriteobject->set_offset(0, WALLHEIGHT);
-            spriteobject->draw_world_offset_src(x, y, z, 0, this, b, (chopThisBlock && this->z == ownerSegment->z + ownerSegment->sizez -2));
+            spriteobject->assemble_world_offset_src(x, y, z, 0, this, b, (chopThisBlock && this->z == ownerSegment->z + ownerSegment->sizez -2));
             spriteobject->set_offset(0, 0);
         }
             //if (spriteobject->get_sheetindex() == UNCONFIGURED_INDEX) {
@@ -226,7 +225,7 @@ void Block::Assemble()
             //    spriteobject->set_offset(0, -(FLOORHEIGHT));
             //    spriteobject->set_tile_layout(RAMPTOPTILE);
             //    spriteobject->set_defaultsheet(IMGRampSheet);
-            //    spriteobject->draw_world(x, y, z, this, (chopThisBlock && this->z == ownerSegment->z + ownerSegment->sizez -2));
+            //    spriteobject->assemble_world(x, y, z, this, (chopThisBlock && this->z == ownerSegment->z + ownerSegment->sizez -2));
             //    spriteobject->set_offset(0, 0);
             //}
             spriteobject->set_tile_layout(BLOCKTILE);
@@ -254,9 +253,9 @@ void Block::Assemble()
                 spriteobject->set_sheetindex(SPRITEOBJECT_FLOOR_NA);
                 spriteobject->set_fileindex(INVALID_INDEX);
                 spriteobject->set_offset(0, WALLHEIGHT);
-                spriteobject->draw_world(x, y, z, this);
+                spriteobject->assemble_world(x, y, z, this);
             } else {
-                spriteobject->draw_world(x, y, z, this);
+                spriteobject->assemble_world(x, y, z, this);
             }
         }
     }
@@ -298,7 +297,7 @@ void Block::Assemble()
         if (spriteobject->get_sheetindex() != INVALID_INDEX) {
             spriteobject->set_size(SPRITEWIDTH, SPRITEHEIGHT);
             spriteobject->set_tile_layout(RAMPBOTTOMTILE);
-            spriteobject->draw_world_offset(x, y, z, 0, this, (chopThisBlock && this->z == ownerSegment->z + ownerSegment->sizez -2));
+            spriteobject->assemble_world_offset(x, y, z, 0, this, (chopThisBlock && this->z == ownerSegment->z + ownerSegment->sizez -2));
         }
         spriteobject->set_tile_layout(BLOCKTILE);
     }
@@ -323,7 +322,7 @@ void Block::Assemble()
     //	c_sprite * vegetationsprite = 0;
     //	vegetationsprite = GetSpriteVegetation( (TileClass) getVegetationType( this->floorType ), tree.index );
     //	if(vegetationsprite)
-    //		vegetationsprite->draw_world(x, y, z);
+    //		vegetationsprite->assemble_world(x, y, z);
     //}
 
     //items
@@ -332,11 +331,11 @@ void Block::Assemble()
             contentLoader->itemConfigs[Item.item.type] &&
             (Item.item.index < contentLoader->itemConfigs[Item.item.type]->subItems.size()) &&
             contentLoader->itemConfigs[Item.item.type]->subItems[Item.item.index]) {
-            contentLoader->itemConfigs[Item.item.type]->subItems[Item.item.index]->sprite.draw_world(x, y, z, this);
+            contentLoader->itemConfigs[Item.item.type]->subItems[Item.item.index]->sprite.assemble_world(x, y, z, this);
         } else if (
             contentLoader->itemConfigs[Item.item.type] &&
             contentLoader->itemConfigs[Item.item.type]->configured) {
-            contentLoader->itemConfigs[Item.item.type]->default_sprite.draw_world(x, y, z, this);
+            contentLoader->itemConfigs[Item.item.type]->default_sprite.assemble_world(x, y, z, this);
         } else {
             AssembleSpriteFromSheet( 350, IMGObjectSheet, lookupMaterialColor(Item.matt, Item.dyematt), drawx, (tileShapeBasic==tiletype_shape_basic::Ramp)?(drawy - ((WALLHEIGHT/2)*ssConfig.scale)):drawy , this);
         }
@@ -356,9 +355,9 @@ void Block::Assemble()
         for(uint32_t i=0; i < building.sprites.size(); i++) {
             spriteobject = &building.sprites[i];
             if(building.parent) {
-                spriteobject->draw_world(x, y, z, building.parent);
+                spriteobject->assemble_world(x, y, z, building.parent);
             } else {
-                spriteobject->draw_world(x, y, z, this);
+                spriteobject->assemble_world(x, y, z, this);
             }
         }
     }
@@ -374,9 +373,9 @@ void Block::Assemble()
         spriteobject = GetFloorSpriteMap(tileType, material, consForm);
         if(spriteobject->get_sheetindex() != INVALID_INDEX && spriteobject->get_sheetindex() != UNCONFIGURED_INDEX) {
             if (mirrored) {
-                spriteobject->draw_world_offset(x, y, z, 1, this);
+                spriteobject->assemble_world_offset(x, y, z, 1, this);
             } else {
-                spriteobject->draw_world(x, y, z, this);
+                spriteobject->assemble_world(x, y, z, this);
             }
         }
 
@@ -384,9 +383,9 @@ void Block::Assemble()
         spriteobject = GetBlockSpriteMap(tileType, material, consForm);
         if(spriteobject->get_sheetindex() != INVALID_INDEX && spriteobject->get_sheetindex() != UNCONFIGURED_INDEX) {
             if (mirrored) {
-                spriteobject->draw_world_offset(x, y, z, 1, this);
+                spriteobject->assemble_world_offset(x, y, z, 1, this);
             } else {
-                spriteobject->draw_world(x, y, z, this);
+                spriteobject->assemble_world(x, y, z, this);
             }
         }
     }
@@ -404,7 +403,7 @@ void Block::Assemble()
         if (spriteobject->get_sheetindex() == INVALID_INDEX) {
             //skip
         } else {
-            spriteobject->draw_world(x, y, z, this, (chopThisBlock && this->z == ownerSegment->z + ownerSegment->sizez -2));
+            spriteobject->assemble_world(x, y, z, this, (chopThisBlock && this->z == ownerSegment->z + ownerSegment->sizez -2));
         }
     }
 
@@ -448,9 +447,9 @@ void Block::Assemble()
     if(water.index > 0) {
         //if(waterlevel == 7) waterlevel--;
         if(water.type == 0) {
-            contentLoader->water[water.index-1].sprite.draw_world(x, y, z, this, (chopThisBlock && this->z == ownerSegment->z + ownerSegment->sizez -2));
+            contentLoader->water[water.index-1].sprite.assemble_world(x, y, z, this, (chopThisBlock && this->z == ownerSegment->z + ownerSegment->sizez -2));
         } else {
-            contentLoader->lava[water.index-1].sprite.draw_world(x, y, z, this, (chopThisBlock && this->z == ownerSegment->z + ownerSegment->sizez -2));
+            contentLoader->lava[water.index-1].sprite.assemble_world(x, y, z, this, (chopThisBlock && this->z == ownerSegment->z + ownerSegment->sizez -2));
         }
     }
 
@@ -584,7 +583,7 @@ void Block::Drawcreaturetext()
 //            spriteobject->set_offset(0, -(FLOORHEIGHT));
 //            spriteobject->set_tile_layout(RAMPTOPTILE);
 //            spriteobject->set_defaultsheet(IMGRampSheet);
-//            spriteobject->draw_world(x, y, z, this, (chopThisBlock && this->z == ownerSegment->z + ownerSegment->sizez -2));
+//            spriteobject->assemble_world(x, y, z, this, (chopThisBlock && this->z == ownerSegment->z + ownerSegment->sizez -2));
 //            spriteobject->set_offset(0, 0);
 //        }
 //        spriteobject->set_tile_layout(BLOCKTILE);
@@ -779,25 +778,6 @@ void Block::AssembleFloorBlood ( int32_t drawx, int32_t drawy )
             TILEWIDTH*ssConfig.scale,
             (TILEHEIGHT+FLOORHEIGHT)*ssConfig.scale,
             0);
-    }
-}
-
-void Block::Draw(){
-    if(visible) {
-        for(int i=0; i<todraw.size(); i++) {
-            al_draw_tinted_scaled_bitmap(
-                todraw[i].bitmap,
-                todraw[i].tint,
-                todraw[i].sx,
-                todraw[i].sy,
-                todraw[i].sw,
-                todraw[i].sh,
-                todraw[i].dx,
-                todraw[i].dy,
-                todraw[i].dw,
-                todraw[i].dh,
-                todraw[i].flags );
-        }
     }
 }
 

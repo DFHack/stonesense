@@ -377,6 +377,7 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
     ssConfig.fogcol = al_map_rgba(255, 255, 255, 255);
     ssConfig.backcol = al_map_rgb(95, 95, 160);
     ssConfig.fogenable = true;
+    ssConfig.bitmapHolds = 4096;
     ssConfig.imageCacheSize = 4096;
     ssConfig.fontsize = 10;
     ssConfig.font = al_create_path("data/art/font.ttf");
