@@ -4,6 +4,26 @@
 
 extern SegmentWrap map_segment;
 
+enum Draw_Event_Type{
+    TintedScaledBitmap,
+    CreatureText
+};
+
+struct Draw_Event{
+    Draw_Event_Type type;
+    void * drawobject;
+    ALLEGRO_COLOR tint;
+    float sx;
+    float sy;
+    float sw;
+    float sh;
+    float dx;
+    float dy;
+    float dw;
+    float dh;
+    int flags;
+};
+
 class WorldSegment
 {
 private:

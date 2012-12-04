@@ -2,6 +2,7 @@
 #include "WorldSegment.h"
 #include "GUI.h"
 #include "ContentLoader.h"
+#include "Creatures.h"
 
 
 ALLEGRO_BITMAP * fog = 0;
@@ -263,25 +264,35 @@ void WorldSegment::DrawAllBlocks()
         DrawCurrentLevelOutline(true);
     }
 
-    if(todraw.size()>0){
+    if(todraw.size()>0) {
         al_hold_bitmap_drawing(true);
         for(int i=0; i<todraw.size(); i++) {
             if(i%ssConfig.bitmapHolds==0) {
                 al_hold_bitmap_drawing(false);
                 al_hold_bitmap_drawing(true);
             }
-            al_draw_tinted_scaled_bitmap(
-                todraw[i].bitmap,
-                todraw[i].tint,
-                todraw[i].sx,
-                todraw[i].sy,
-                todraw[i].sw,
-                todraw[i].sh,
-                todraw[i].dx,
-                todraw[i].dy,
-                todraw[i].dw,
-                todraw[i].dh,
-                todraw[i].flags );
+            switch(todraw[i].type) {
+            case TintedScaledBitmap:
+                al_draw_tinted_scaled_bitmap(
+                    (ALLEGRO_BITMAP*) todraw[i].drawobject,
+                    todraw[i].tint,
+                    todraw[i].sx,
+                    todraw[i].sy,
+                    todraw[i].sw,
+                    todraw[i].sh,
+                    todraw[i].dx,
+                    todraw[i].dy,
+                    todraw[i].dw,
+                    todraw[i].dh,
+                    todraw[i].flags );
+                break;
+            case CreatureText:
+                DrawCreatureText(
+                    todraw[i].dx,
+                    todraw[i].dy,
+                    (t_unit*) todraw[i].drawobject );
+                break;
+            }
         }
     }
 
@@ -311,7 +322,7 @@ void WorldSegment::AssembleAllBlocks()
     for(int32_t vsz=0; vsz < vszmax; vsz++) {
         //add the fog to the queue
         if(ssConfig.fogenable && fog) {
-            Draw_Event d = {fog, al_map_rgb(255,255,255), 0, 0, ssState.ScreenW, ssState.ScreenH, 0, 0, ssState.ScreenW, ssState.ScreenH, 0};
+            Draw_Event d = {TintedScaledBitmap, fog, al_map_rgb(255,255,255), 0, 0, ssState.ScreenW, ssState.ScreenH, 0, 0, ssState.ScreenW, ssState.ScreenH, 0};
             AssembleSprite(d);
         }
         //add the blocks to the queue
