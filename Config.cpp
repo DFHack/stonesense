@@ -778,6 +778,10 @@ void parseConfigLine( string line )
         string result = parseStrFromLine( "NIGHT", line );
         ssConfig.dayNightCycle = (result == "YES");
     }
+    if( line.find("[FOG_OF_WAR") != -1) {
+        string result = parseStrFromLine( "FOG_OF_WAR", line );
+        ssConfig.fog_of_war = (result == "YES");
+    }
 }
 
 
