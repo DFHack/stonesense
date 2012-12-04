@@ -739,7 +739,7 @@ bool checkFloorBorderRequirement(WorldSegment* segment, int x, int y, int z, dir
 WorldSegment* ReadMapSegment(int x, int y, int z, int sizex, int sizey, int sizez)
 {
     uint32_t index;
-    clock_t start_time = clock();
+    clock_t starttime = clock();
     DFHack::Core & DF = Core::getInstance();
 
     //read date
@@ -879,7 +879,7 @@ WorldSegment* ReadMapSegment(int x, int y, int z, int sizex, int sizey, int size
     }
 
     segment->loaded = 1;
-    segment->read_time = clock() - start_time;
+    ssTimers.read_time = (clock() - starttime)*0.1 + ssTimers.read_time*0.9;
 
     segment->processed = 0;
 
@@ -954,7 +954,9 @@ void beautify_Segment(WorldSegment * segment)
     if(!segment) {
         return;
     }
-    clock_t start_time = clock();
+
+    clock_t starttime = clock();
+
     //do misc beautification
 
     uint32_t numblocks = segment->getNumBlocks();
@@ -1315,7 +1317,7 @@ void beautify_Segment(WorldSegment * segment)
         b->openborders = ~(b->floorborders|b->rampborders|b->wallborders|b->downstairborders|b->upstairborders);
     }
     segment->processed = 1;
-    segment->beautify_time = clock() - start_time;
+    ssTimers.beautify_time = (clock() - starttime)*0.1 + ssTimers.beautify_time*0.9;
 }
 
 void FollowCurrentDFWindow()
@@ -1427,11 +1429,6 @@ void reloadDisplayedSegment()
 {
     //create handle to dfHack API
     static bool firstLoad = 1;
-    TMR1_START;
-
-#ifndef RELEASE
-    firstLoad=false;
-#endif
 
     if (timeToReloadConfig) {
         parms.thread_connect = 0;
@@ -1468,5 +1465,4 @@ void reloadDisplayedSegment()
     }
 
     firstLoad = 0;
-    TMR1_STOP;
 }

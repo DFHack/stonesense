@@ -15,9 +15,6 @@ public:
     int x, y, z;
     int sizex, sizey, sizez;
     unsigned char rotation;
-    long read_time;
-    long beautify_time;
-    long assembly_time;
     Crd3D regionSize;
     Block** blocksAsPointerVolume;
     WorldSegment(int x, int y, int z, int sizex, int sizey, int sizez) {

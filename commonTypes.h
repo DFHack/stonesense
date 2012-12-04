@@ -225,6 +225,16 @@ struct GameState{
     int ScreenH;
 };
 
+struct FrameTimers{
+    float read_time;
+    float beautify_time;
+    float assembly_time;
+    float draw_time;
+
+    clock_t prev_frame_time;
+    float frame_total;
+};
+
 
 enum enumCreatureSex {
     eCreatureSex_NA,

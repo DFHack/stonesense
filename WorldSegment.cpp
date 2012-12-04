@@ -323,7 +323,7 @@ void WorldSegment::AssembleAllBlocks()
 
     todraw.clear();
     
-    clock_t start_time = clock();
+    clock_t starttime = clock();
 
     // x,y,z print prices
     int32_t vsxmax = sizex-1;
@@ -347,7 +347,7 @@ void WorldSegment::AssembleAllBlocks()
         }
     }
 
-    assembly_time = clock() - start_time;
+    ssTimers.assembly_time = (clock() - starttime)*0.1 + ssTimers.assembly_time*0.9;
 }
 
 
