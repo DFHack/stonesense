@@ -168,7 +168,7 @@ void Block::AssembleBlock()
     drawz = z;
     
     ownerSegment->CorrectBlockForSegmentOffset( drawx, drawy, drawz);
-    correctBlockForRotation( drawx, drawy, drawz, ownerSegment->rotation);
+    ownerSegment->CorrectBlockForSegmentRotation( drawx, drawy, drawz);
     pointToScreen((int*)&drawx, (int*)&drawy, drawz);
     drawx -= (TILEWIDTH>>1)*ssConfig.scale;
     

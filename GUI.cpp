@@ -357,7 +357,7 @@ void drawDebugCursorAndInfo(WorldSegment * segment)
         int y = ssConfig.dfCursorY;
         int z = ssConfig.dfCursorZ;
         correctBlockForDisplayedOffset(x,y,z);
-        correctBlockForRotation( x, y, z, segment->rotation);
+        segment->CorrectBlockForSegmentRotation( x, y, z );
         debugCursor.x = x;
         debugCursor.y = y;
         debugCursor.z = z;
