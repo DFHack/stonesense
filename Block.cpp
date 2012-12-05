@@ -34,7 +34,7 @@ void initRandomCube()
             }
 }
 
-Worn_Item::Worn_Item()
+worn_item::worn_item()
 {
     matt.index = -1;
     matt.type = -1;
@@ -144,7 +144,7 @@ void Block::AssembleSpriteFromSheet( int spriteNum, ALLEGRO_BITMAP* spriteSheet,
 
 void Block::AssembleSprite(ALLEGRO_BITMAP *bitmap, ALLEGRO_COLOR tint, float sx, float sy, float sw, float sh, float dx, float dy, float dw, float dh, int flags)
 {
-    Draw_Event d = {TintedScaledBitmap, bitmap, tint, sx, sy, sw, sh, dx, dy, dw, dh, flags};
+    draw_event d = {TintedScaledBitmap, bitmap, tint, sx, sy, sw, sh, dx, dy, dw, dh, flags};
     ownerSegment->AssembleSprite(d);
 }
 

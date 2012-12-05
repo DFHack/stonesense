@@ -754,12 +754,16 @@ WorldSegment* ReadMapSegment(int x, int y, int z, int sizex, int sizey, int size
     }
 
     //Read Number of cells
-    int cellDimX, cellDimY, cellDimZ;
-    Maps::getSize((unsigned int &)cellDimX, (unsigned int &)cellDimY, (unsigned int &)cellDimZ);
+    uint32_t cellDimX, cellDimY, cellDimZ;
+    Maps::getSize(cellDimX, cellDimY, cellDimZ);
+    //Read position of cells
+    uint32_t regionX, regionY, regionZ;
+    Maps::getSize(regionX, regionY, regionZ);
     //Store these
-    cellDimX = cellDimX * CELLEDGESIZE;
-    cellDimY = cellDimY * CELLEDGESIZE;
-    cellDimZ = cellDimZ;
+    cellDimX *= CELLEDGESIZE;
+    cellDimY *= CELLEDGESIZE;
+    regionX *= CELLEDGESIZE;
+    regionY *= CELLEDGESIZE;
     ssConfig.cellDimX = cellDimX;
     ssConfig.cellDimY = cellDimY;
     ssConfig.cellDimZ = cellDimZ;
@@ -769,6 +773,9 @@ WorldSegment* ReadMapSegment(int x, int y, int z, int sizex, int sizey, int size
     segment->regionSize.x = cellDimX;
     segment->regionSize.y = cellDimY;
     segment->regionSize.z = cellDimZ;
+    segment->regionPos.x = regionX;
+    segment->regionPos.y = regionY;
+    segment->regionPos.z = regionZ;
     segment->rotation = ssState.DisplayedRotation;
 
     //read world wide buildings

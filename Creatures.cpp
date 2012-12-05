@@ -236,7 +236,7 @@ void AssembleCreature(int drawx, int drawy, t_unit* creature, Block * b)
 }
 
 void AssembleCreatureText(int drawx, int drawy, t_unit* creature, WorldSegment * seg){
-    Draw_Event d = {CreatureText, creature, al_map_rgb(255,255,255), 0, 0, 0, 0, drawx, drawy, 0, 0, 0};
+    draw_event d = {CreatureText, creature, al_map_rgb(255,255,255), 0, 0, 0, 0, drawx, drawy, 0, 0, 0};
     seg->AssembleSprite(d);
 }
 
@@ -447,7 +447,7 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
             item_type::item_type type = item->getType();
             int8_t armor = item->getEffectiveArmorLevel();
 
-            Worn_Item equipment;
+            worn_item equipment;
 
             equipment.matt.type = item->getActualMaterial();
             equipment.matt.index = item->getActualMaterialIndex();
@@ -474,7 +474,7 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
 
             //FIXME: this could be made nicer. Somehow
             if(!b->inv) {
-                b->inv = new(Unit_Inventory);
+                b->inv = new(unit_inventory);
             }
             if(b->inv->item.size() <= type) {
                 b->inv->item.resize(type+1);
