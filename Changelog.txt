@@ -1,3 +1,8 @@
+----==== 3.1 'Felsite', September 8th 2011 ====----
+* Major changes to DFHack, Stonesense is now run from DFHack console
+* Many speed optimizations
+* (list of features is incomplete)
+
 ----==== 2.3 'Slate', March 15rd 2011 ====----
 * DF31.21 compatible
 * Support for multi-threaded rendering
