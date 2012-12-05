@@ -176,20 +176,20 @@ void ScreenToPoint(int x,int y,int &x1, int &y1, int &z1)
     y/=ssConfig.scale;
     x+=ssState.ScreenW / 2;
     y+=ssState.ScreenH / 2;
-    x-=TILEWIDTH/2;
-    y+=TILEWIDTH/2;
+    x-=PLATEWIDTH/2;
+    y+=PLATEWIDTH/2;
     z1 = -3;
     y+= z1*BLOCKHEIGHT/2;
     //y-=BLOCKHEIGHT;
-    x+=TILEWIDTH>>1;
+    x+=PLATEWIDTH>>1;
     int offx = ssState.ScreenW /2;
     int offy = (-20)-(BLOCKHEIGHT * ssConfig.lift_segment_offscreen);
     y-=offy;
     x-=offx;
     y1=y*2-x;
     x1=x*2+y1;
-    x1/=TILEWIDTH;
-    y1/=TILEWIDTH;
+    x1/=PLATEWIDTH;
+    y1/=PLATEWIDTH;
 
 }
 
@@ -275,14 +275,14 @@ void pointToScreen(int *inx, int *iny, int inz)
     int z = inz-1;
 
     int x = *inx-*iny;
-    x = x * TILEWIDTH / 2;
+    x = x * PLATEWIDTH / 2;
     x *= ssConfig.scale;
     x+=ssState.ScreenW / 2;
 
     int y = *inx+*iny;
-    y = y*TILEHEIGHT / 2;
+    y = y*PLATEHEIGHT / 2;
     y -= z*BLOCKHEIGHT;
-    y -= TILEHEIGHT*5/4;
+    y -= PLATEHEIGHT*5/4;
     y -= BLOCKHEIGHT*ssConfig.lift_segment_offscreen;
     y *= ssConfig.scale;
 
@@ -746,7 +746,7 @@ void drawDebugCursorAndInfo(WorldSegment * segment)
 
     //basecon
     //textprintf(target, font, 2, ssState.ScreenH-20-(i--*10), 0xFFFFFF,
-    //   "base: %d %d %d ", b->basetile, b->basecon.type, b->basecon.index );
+    //   "base: %d %d %d ", b->baseplate, b->basecon.type, b->basecon.index );
 }
 
 void DrawMinimap(WorldSegment * segment)
@@ -897,7 +897,7 @@ void paintboard()
             
             drawDebugCursorAndInfo(segment);
         }
-        ssConfig.tilecount = 0;
+        ssConfig.platecount = 0;
         int top = 0;
         if(ssConfig.follow_DFscreen) {
             top += al_get_font_line_height(font);
@@ -1275,8 +1275,8 @@ void saveMegashot(bool tall)
     parms.z = ssState.DisplayedSegmentZ;
 
     //make the image
-    ssState.ScreenW = (ssConfig.cellDimX * TILEWIDTH)*ssConfig.scale;
-    ssState.ScreenH = ( ((ssConfig.cellDimX + ssConfig.cellDimY) * TILEHEIGHT / 2) + ((ssConfig.segmentSize.z - 1) * BLOCKHEIGHT) )*ssConfig.scale;
+    ssState.ScreenW = (ssConfig.cellDimX * PLATEWIDTH)*ssConfig.scale;
+    ssState.ScreenH = ( ((ssConfig.cellDimX + ssConfig.cellDimY) * PLATEHEIGHT / 2) + ((ssConfig.segmentSize.z - 1) * BLOCKHEIGHT) )*ssConfig.scale;
     
     bigFile = al_create_bitmap(ssState.ScreenW, ssState.ScreenH);
 

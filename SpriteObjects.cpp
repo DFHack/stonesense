@@ -217,10 +217,10 @@ void c_sprite::reset(void)
     grass_growth = GRASS_GROWTH_ANY;
     needoutline=0;
     defaultsheet=IMGObjectSheet;
-    tilelayout=BLOCKTILE;
+    platelayout=BLOCKPLATE;
     shadeBy=ShadeNone;
     isoutline = OUTLINENONE;
-    halftile = HALFTILECHOP;
+    halftile = HALFPLATECHOP;
     water_direction = -1;
 
     openborders = ALL_BORDERS;
@@ -331,7 +331,7 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
 
     notdownstairborders = getUnBorders(elemSprite->Attribute("border_downstair_NOR"));
 
-    //check for randomised tiles
+    //check for randomised plates
     const char* spriteVariationsStr = elemSprite->Attribute("variations");
     if (spriteVariationsStr == NULL || spriteVariationsStr[0] == 0) {
         variations = 0;
@@ -355,18 +355,18 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
         shadeBy = getShadeType(spriteVarColorStr);
     }
 
-    //some sprites should only be drawn when the tile is chopped in half
+    //some sprites should only be drawn when the plate is chopped in half
     const char* spriteChopStr = elemSprite->Attribute("halftile");
     if (spriteChopStr == NULL || spriteChopStr[0] == 0) {
-        halftile = HALFTILECHOP;
+        halftile = HALFPLATECHOP;
     } else if( strcmp(spriteChopStr, "chop") == 0) {
-        halftile = HALFTILECHOP;
+        halftile = HALFPLATECHOP;
     } else if( strcmp(spriteChopStr, "yes") == 0) {
-        halftile = HALFTILEYES;
+        halftile = HALFPLATEYES;
     } else if( strcmp(spriteChopStr, "no") == 0) {
-        halftile = HALFTILENO;
+        halftile = HALFPLATENO;
     } else if( strcmp(spriteChopStr, "both") == 0) {
-        halftile = HALFTILEBOTH;
+        halftile = HALFPLATEBOTH;
     }
 
     //hidden in the shadows
@@ -381,8 +381,8 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
         light = LIGHTANY;
     }
 
-    //some sprites are actually tile borders.
-    const char* spriteBorderStr = elemSprite->Attribute("tileborder");
+    //some sprites are actually plate borders.
+    const char* spriteBorderStr = elemSprite->Attribute("plateborder");
     if (spriteBorderStr == NULL || spriteBorderStr[0] == 0) {
         isoutline = OUTLINENONE;
     } else if( strcmp(spriteBorderStr, "none") == 0) {
@@ -579,7 +579,7 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
         offset_user_y=atoi(strOffsetY);
     }
 
-    //not all tiles work well with an outline
+    //not all plates work well with an outline
     const char* spriteOutlineStr = elemSprite->Attribute("outline");
     if (spriteOutlineStr != NULL && spriteOutlineStr[0] != 0) {
         needoutline=(atoi(spriteOutlineStr) == 1);
@@ -624,7 +624,7 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
 //    }
 //}
 
-void c_sprite::assemble_world_offset_src(int x, int y, int z, int tileoffset, Block * b, Block* src, bool chop)
+void c_sprite::assemble_world_offset_src(int x, int y, int z, int plateoffset, Block * b, Block* src, bool chop)
 {
     if(defaultsheet == 0) {
         defaultsheet = IMGObjectSheet;
@@ -659,7 +659,7 @@ void c_sprite::assemble_world_offset_src(int x, int y, int z, int tileoffset, Bl
         if(!((water_direction < 0) || (water_direction == get_relative_water_direction(b)))) {
             goto draw_subsprite;
         }
-        if(!( //these are all border conditions. this first section is a list of positive conditions. if at least one of the border conditions is met, the tile can be shown.
+        if(!( //these are all border conditions. this first section is a list of positive conditions. if at least one of the border conditions is met, the plate can be shown.
                     (openborders & b->openborders) ||
                     (upstairborders & b->upstairborders) ||
                     (downstairborders & b->downstairborders) ||
@@ -670,7 +670,7 @@ void c_sprite::assemble_world_offset_src(int x, int y, int z, int tileoffset, Bl
                 )) {
             goto draw_subsprite;
         }
-        if( //This second block consists of negative conditions. if /any/ of these border conditions are met, the tile will not be drawn
+        if( //This second block consists of negative conditions. if /any/ of these border conditions are met, the plate will not be drawn
             (notopenborders & b->openborders) ||
             (notupstairborders & b->upstairborders) ||
             (notdownstairborders & b->downstairborders) ||
@@ -694,7 +694,7 @@ void c_sprite::assemble_world_offset_src(int x, int y, int z, int tileoffset, Bl
         if(!(grassmin <= src->grasslevel && (grassmax == -1 || grassmax >= src->grasslevel))) {
             goto draw_subsprite;
         }
-        //only bother with this tile if it's in the light, or not.
+        //only bother with this plate if it's in the light, or not.
         if(!((light==LIGHTANY) || ((light==LIGHTYES) && b->designation.bits.outside) || ((light==LIGHTNO) && !(b->designation.bits.outside)))) {
             goto draw_subsprite;
         }
@@ -747,28 +747,28 @@ void c_sprite::assemble_world_offset_src(int x, int y, int z, int tileoffset, Bl
         int32_t viewy = drawy;
         int32_t viewz = drawz;
         pointToScreen((int*)&drawx, (int*)&drawy, drawz);
-        drawx -= (TILEWIDTH>>1)*ssConfig.scale;
+        drawx -= (PLATEWIDTH>>1)*ssConfig.scale;
 
         if(((drawx + spritewidth*ssConfig.scale) < 0) || (drawx > ssState.ScreenW) || ((drawy + spriteheight*ssConfig.scale) < 0) || (drawy > ssState.ScreenH)) {
             return;
         }
 
         int sheetx, sheety;
-        if(tilelayout == BLOCKTILE) {
-            sheetx = ((sheetindex+tileoffset+randoffset) % SHEET_OBJECTSWIDE) * spritewidth;
-            sheety = ((sheetindex+tileoffset+randoffset) / SHEET_OBJECTSWIDE) * spriteheight;
-        } else if(tilelayout == RAMPBOTTOMTILE) {
+        if(platelayout == BLOCKPLATE) {
+            sheetx = ((sheetindex+plateoffset+randoffset) % SHEET_OBJECTSWIDE) * spritewidth;
+            sheety = ((sheetindex+plateoffset+randoffset) / SHEET_OBJECTSWIDE) * spriteheight;
+        } else if(platelayout == RAMPBOTTOMPLATE) {
             sheetx = SPRITEWIDTH * src->ramp.index;
-            sheety = ((TILEHEIGHT + FLOORHEIGHT + SPRITEHEIGHT) * (sheetindex+tileoffset+randoffset))+(TILEHEIGHT + FLOORHEIGHT);
-        } else if(tilelayout == RAMPTOPTILE) {
+            sheety = ((PLATEHEIGHT + FLOORHEIGHT + SPRITEHEIGHT) * (sheetindex+plateoffset+randoffset))+(PLATEHEIGHT + FLOORHEIGHT);
+        } else if(platelayout == RAMPTOPPLATE) {
             sheetx = SPRITEWIDTH * src->ramp.index;
-            sheety = (TILEHEIGHT + FLOORHEIGHT + SPRITEHEIGHT) * (sheetindex+tileoffset+randoffset);
+            sheety = (PLATEHEIGHT + FLOORHEIGHT + SPRITEHEIGHT) * (sheetindex+plateoffset+randoffset);
         } else {
-            sheetx = ((sheetindex+tileoffset+randoffset) % SHEET_OBJECTSWIDE) * spritewidth;
-            sheety = ((sheetindex+tileoffset+randoffset) / SHEET_OBJECTSWIDE) * spriteheight;
+            sheetx = ((sheetindex+plateoffset+randoffset) % SHEET_OBJECTSWIDE) * spritewidth;
+            sheety = ((sheetindex+plateoffset+randoffset) / SHEET_OBJECTSWIDE) * spriteheight;
         }
         ALLEGRO_COLOR shade_color = shadeAdventureMode(get_color(src), b->fog_of_war, b->designation.bits.outside);
-        if(chop && ( halftile == HALFTILECHOP)) {
+        if(chop && ( halftile == HALFPLATECHOP)) {
             if(fileindex < 0) {
                 if(shade_color.a > 0.001f)
                     b->AssembleSprite(
@@ -803,7 +803,7 @@ void c_sprite::assemble_world_offset_src(int x, int y, int z, int tileoffset, Bl
                 b->AssembleSprite(
                     IMGObjectSheet,
                     al_map_rgb(255,255,255),
-                    TILEWIDTH * SPRITEFLOOR_CUTOFF,
+                    PLATEWIDTH * SPRITEFLOOR_CUTOFF,
                     0,
                     SPRITEWIDTH, 
                     SPRITEWIDTH,
@@ -812,7 +812,7 @@ void c_sprite::assemble_world_offset_src(int x, int y, int z, int tileoffset, Bl
                     SPRITEWIDTH*ssConfig.scale, SPRITEWIDTH*ssConfig.scale, 
                     0);
             }
-        } else if ((chop && (halftile == HALFTILEYES)) || (!chop && (halftile == HALFTILENO)) || (!chop && (halftile == HALFTILECHOP)) || (halftile == HALFTILEBOTH)) {
+        } else if ((chop && (halftile == HALFPLATEYES)) || (!chop && (halftile == HALFPLATENO)) || (!chop && (halftile == HALFPLATECHOP)) || (halftile == HALFPLATEBOTH)) {
             if((isoutline == OUTLINENONE) || ((isoutline == OUTLINERIGHT) && (b->depthBorderNorth)) || ((isoutline == OUTLINELEFT) && (b->depthBorderWest)) || ((isoutline == OUTLINEBOTTOM) && (b->depthBorderDown))) {
                 if(fileindex < 0) {
                     if(shade_color.a > 0.001f)
@@ -889,7 +889,7 @@ void c_sprite::assemble_world_offset_src(int x, int y, int z, int tileoffset, Bl
 draw_subsprite:
     if(!subsprites.empty()) {
         for(int i = 0; i < subsprites.size(); i++) {
-            subsprites.at(i).assemble_world_offset_src(x, y, z, tileoffset, b, src, chop);
+            subsprites.at(i).assemble_world_offset_src(x, y, z, plateoffset, b, src, chop);
         }
     }
 }
@@ -916,12 +916,12 @@ void c_sprite::set_offset(int16_t offx, int16_t offy)
     }
 }
 
-void c_sprite::set_tile_layout(uint8_t layout)
+void c_sprite::set_plate_layout(uint8_t layout)
 {
-    tilelayout = layout;
+    platelayout = layout;
     if(!subsprites.empty()) {
         for(int i = 0; i < subsprites.size(); i++) {
-            subsprites[i].set_tile_layout(layout);
+            subsprites[i].set_plate_layout(layout);
         }
     }
 }

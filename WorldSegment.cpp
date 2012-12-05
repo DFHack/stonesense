@@ -335,7 +335,7 @@ void WorldSegment::AssembleCellBlocks(
                 //    CorrectBlockForSegmentOffset( drawx, drawy, drawz);
                 //    CorrectBlockForSegmentRotation( drawx, drawy, drawz);
                 //    pointToScreen((int*)&drawx, (int*)&drawy, drawz);
-                //    drawx -= (TILEWIDTH>>1)*ssConfig.scale;
+                //    drawx -= (PLATEWIDTH>>1)*ssConfig.scale;
                 //    draw_event d = {TintedScaledBitmap, IMGObjectSheet, al_map_rgb(255,255,255), 0, 0, SPRITEWIDTH, SPRITEHEIGHT, drawx, drawy+FLOORHEIGHT, SPRITEWIDTH, SPRITEHEIGHT, 0};
                 //    AssembleSprite(d);
                 //}

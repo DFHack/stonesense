@@ -62,7 +62,7 @@ void parseWallFloorSpriteElement( TiXmlElement* elemWallFloorSprite, vector<Terr
     // make a base sprite
     c_sprite sprite;
     if(floor) {
-        sprite.set_size(SPRITEWIDTH, (TILEHEIGHT + FLOORHEIGHT));
+        sprite.set_size(SPRITEWIDTH, (PLATEHEIGHT + FLOORHEIGHT));
         sprite.set_offset(0, (WALLHEIGHT));
     }
     sprite.set_needoutline(1);
@@ -103,7 +103,7 @@ void parseWallFloorSpriteElement( TiXmlElement* elemWallFloorSprite, vector<Terr
 
     vector<bool> formToggle;
     formToggle.resize(NUM_FORMS);
-    // parse weather tile is for a block, log, etc
+    // parse weather plate is for a block, log, etc
     TiXmlElement* elemForm = elemWallFloorSprite->FirstChildElement("form");
     if(elemForm == NULL) {
         formToggle[0] = true;

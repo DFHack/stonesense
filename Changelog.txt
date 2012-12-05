@@ -49,7 +49,7 @@
 * Tweaks to allow directory based drop-in spritepacks
 * Drop down shadows for creatures
 * More bugfixes
-* Better handling for tiles at top of map.
+* Better handling for blocks at top of map.
 * Logo added
 * Ramp selection algorithm improved
 * Config for initial state of some on-the-fly toggleable settings

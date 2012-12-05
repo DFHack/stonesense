@@ -207,7 +207,7 @@ struct GameConfiguration {
     bool threadstarted;
 
     bool threading_enable;
-    int tilecount;
+    int platecount;
 
     int zoom;
     float scale;

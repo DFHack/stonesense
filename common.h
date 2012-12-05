@@ -10,7 +10,7 @@
 
 // allegro also leaks stdint.h and some weird equivalent of it on windows. let's disable the copy leaked by dfhack.
 #define SKIP_DFHACK_STDINT
-#define DFHACK_WANT_TILETYPES
+#define DFHACK_WANT_PLATETYPES
 
 #include <DFHack.h>
 #include "Core.h"
@@ -49,29 +49,29 @@ using namespace df::enums;
 #define ISOMETRIC
 //#define CAVALIER
 
-// TILEWIDTH: total size of sprite left to right
-// TILEHEIGHT: floor part of sprite top to bottom
+// PLATEWIDTH: total size of sprite left to right
+// PLATEHEIGHT: floor part of sprite top to bottom
 // WALLHEIGHT: height of a one pixel wide stripe of wall top to bottom
 //		== amount top of wall is raised from where the floor would be
-// FLOORHEIGHT: height of a one pixel stripe of the 'wall' of a floor tile
+// FLOORHEIGHT: height of a one pixel stripe of the 'wall' of a floor plate
 
 #ifdef CAVALIER
-#define TILEWIDTH 46
-#define TILEHEIGHT 46
+#define PLATEWIDTH 46
+#define PLATEHEIGHT 46
 #define WALLHEIGHT 24
 #define FLOORHEIGHT 6
 #endif
 
 #ifdef ISOMETRIC
-#define TILEWIDTH 32
-#define TILEHEIGHT 16
+#define PLATEWIDTH 32
+#define PLATEHEIGHT 16
 #define WALLHEIGHT 16
 #define FLOORHEIGHT 4
 #endif
 
 #ifdef DOUBLESIZE
-#define TILEWIDTH 64
-#define TILEHEIGHT 32
+#define PLATEWIDTH 64
+#define PLATEHEIGHT 32
 #define WALLHEIGHT 32
 #define FLOORHEIGHT 8
 #endif
@@ -81,14 +81,14 @@ using namespace df::enums;
 #define RESOLUTION_WIDTH 800
 #define RESOLUTION_HEIGHT 600
 // Height of a one pixel stripe of the wall of an entire block,
-//		including wall and floor tile
+//		including wall and floor plate
 #define BLOCKHEIGHT (WALLHEIGHT + FLOORHEIGHT)
 // Width of area copied from an image file
-// may be different to tile dimensions to allow overlap later
-#define SPRITEWIDTH TILEWIDTH
+// may be different to plate dimensions to allow overlap later
+#define SPRITEWIDTH PLATEWIDTH
 // Height of area copied from an image file
-// may be different to tile dimensions to allow overlap later
-#define SPRITEHEIGHT (TILEHEIGHT + WALLHEIGHT)
+// may be different to plate dimensions to allow overlap later
+#define SPRITEHEIGHT (PLATEHEIGHT + WALLHEIGHT)
 #define WALL_CUTOFF_HEIGHT 15
 
 #define DEFAULT_SEGMENTSIZE 20
@@ -103,7 +103,7 @@ using namespace df::enums;
 
 #define COLOR_SEGMENTOUTLINE 0x112211
 
-#define BASE_SHADOW_TILE 160
+#define BASE_SHADOW_PLATE 160
 #define DEFAULT_SHADOW 4
 #define MAX_SHADOW 7
 
