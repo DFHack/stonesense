@@ -3,14 +3,14 @@
 #include "tinyxml.h"
 #include "common.h"
 
-#define BLOCKTILE 0
-#define RAMPBOTTOMTILE 1
-#define RAMPTOPTILE 2
+#define BLOCKPLATE 0
+#define RAMPBOTTOMPLATE 1
+#define RAMPTOPPLATE 2
 
-#define HALFTILECHOP 0
-#define HALFTILEYES 1
-#define HALFTILENO 2
-#define HALFTILEBOTH 3
+#define HALFPLATECHOP 0
+#define HALFPLATEYES 1
+#define HALFPLATENO 2
+#define HALFPLATEBOTH 3
 
 #define OUTLINENONE 0
 #define OUTLINELEFT 1
@@ -88,7 +88,7 @@ private:
 
     ALLEGRO_BITMAP * defaultsheet;
 
-    uint8_t tilelayout;
+    uint8_t platelayout;
 
     uint8_t openborders;
     uint8_t wallborders;
@@ -111,13 +111,13 @@ public:
     c_sprite(void);
     ~c_sprite(void);
     //void draw_screen(int x, int y);
-    void assemble_world_offset_src(int x, int y, int z, int tileoffset, Block * b, Block* src, bool chop = false);
+    void assemble_world_offset_src(int x, int y, int z, int plateoffset, Block * b, Block* src, bool chop = false);
     inline void c_sprite::assemble_world(int x, int y, int z, Block * b, bool chop=false)
     {
         assemble_world_offset_src(x, y, z, 0, b, b, chop);
     }
-    inline void c_sprite::assemble_world_offset(int x, int y, int z, int tileoffset, Block * b, bool chop=false){
-        assemble_world_offset_src(x, y, z, tileoffset, b, b, chop);
+    inline void c_sprite::assemble_world_offset(int x, int y, int z, int plateoffset, Block * b, bool chop=false){
+        assemble_world_offset_src(x, y, z, plateoffset, b, b, chop);
     }
     void assemble_world_ramp_bottom(int x, int y, int z, bool chop = false);
     void set_by_xml(TiXmlElement* elemSprite, int32_t fileindex);
@@ -150,7 +150,7 @@ public:
         defaultsheet = in;
     }
     void reset();
-    void set_tile_layout(uint8_t layout);
+    void set_plate_layout(uint8_t layout);
     void set_needoutline( bool i ) {
         needoutline = i;
     }

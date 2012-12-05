@@ -6,11 +6,11 @@
 
 #define SCALE_FACTOR 4
 
-#define S_TILE_HEIGHT 4
+#define S_PLATE_HEIGHT 4
 #define S_FLOOR_HEIGHT 1
 #define S_WALL_HEIGHT 4
 #define S_BLOCK_HEIGHT (S_FLOOR_HEIGHT+S_WALL_HEIGHT)
-#define S_SPRITE_HEIGHT (S_BLOCK_HEIGHT+S_TILE_HEIGHT)
+#define S_SPRITE_HEIGHT (S_BLOCK_HEIGHT+S_PLATE_HEIGHT)
 
 bitset<2*S_SPRITE_HEIGHT> base_mask_left;
 bitset<2*S_SPRITE_HEIGHT> base_mask_right;
@@ -188,7 +188,7 @@ void occlude_block(Block * b)
             stepZ--;
         }
 
-        for(int relXY = 0; (relXY <= (((TILEHEIGHT + BLOCKHEIGHT) / (TILEHEIGHT))+1)) && !done ; relXY++) {
+        for(int relXY = 0; (relXY <= (((PLATEHEIGHT + BLOCKHEIGHT) / (PLATEHEIGHT))+1)) && !done ; relXY++) {
             int tempX = baseX + ((relXY + stepZ) * stepX);
             int tempY = baseY + ((relXY + stepZ) * stepY);
             int tempZ = baseZ + relZ;
@@ -196,7 +196,7 @@ void occlude_block(Block * b)
             bool centerin = segment->CoordinateInteriorSegment(tempX + stepX, tempY + stepY, tempZ, 1);
             if(centerin) {
                 Block* center = segment->getBlock(tempX + stepX, tempY + stepY, tempZ);
-                mask_center(center, ((relXY+stepZ) * S_TILE_HEIGHT + S_TILE_HEIGHT) - (relZ * S_BLOCK_HEIGHT));
+                mask_center(center, ((relXY+stepZ) * S_PLATE_HEIGHT + S_PLATE_HEIGHT) - (relZ * S_BLOCK_HEIGHT));
                 if(base_mask_left.none() && base_mask_right.none()) {
                     done = true;
                     break;
@@ -205,7 +205,7 @@ void occlude_block(Block * b)
             bool leftin = segment->CoordinateInteriorSegment(tempX, tempY + stepY, tempZ, 1);
             if(leftin) {
                 Block* left = segment->getBlock(tempX, tempY + stepY, tempZ);
-                mask_left(left, ((relXY+stepZ) * S_TILE_HEIGHT + S_TILE_HEIGHT/2) - (relZ * S_BLOCK_HEIGHT));
+                mask_left(left, ((relXY+stepZ) * S_PLATE_HEIGHT + S_PLATE_HEIGHT/2) - (relZ * S_BLOCK_HEIGHT));
                 if(base_mask_left.none() && base_mask_right.none()) {
                     done = true;
                     break;
@@ -214,7 +214,7 @@ void occlude_block(Block * b)
             bool rightin = segment->CoordinateInteriorSegment(tempX + stepX, tempY, tempZ, 1);
             if(rightin) {
                 Block* right = segment->getBlock(tempX + stepX, tempY, tempZ);
-                mask_right(right, ((relXY+stepZ) * S_TILE_HEIGHT + S_TILE_HEIGHT/2) - (relZ * S_BLOCK_HEIGHT));
+                mask_right(right, ((relXY+stepZ) * S_PLATE_HEIGHT + S_PLATE_HEIGHT/2) - (relZ * S_BLOCK_HEIGHT));
                 if(base_mask_left.none() && base_mask_right.none()) {
                     done = true;
                     break;

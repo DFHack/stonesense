@@ -170,10 +170,10 @@ void Block::AssembleBlock()
     ownerSegment->CorrectBlockForSegmentOffset( drawx, drawy, drawz);
     ownerSegment->CorrectBlockForSegmentRotation( drawx, drawy, drawz);
     pointToScreen((int*)&drawx, (int*)&drawy, drawz);
-    drawx -= (TILEWIDTH>>1)*ssConfig.scale;
+    drawx -= (PLATEWIDTH>>1)*ssConfig.scale;
     
     //TODO the following check should get incorporated into segment beautification
-    if(((drawx + TILEWIDTH*ssConfig.scale) < 0) || (drawx > ssState.ScreenW) || ((drawy + (TILEHEIGHT + FLOORHEIGHT)*ssConfig.scale) < 0) || (drawy - WALLHEIGHT*ssConfig.scale > ssState.ScreenH)) {
+    if(((drawx + PLATEWIDTH*ssConfig.scale) < 0) || (drawx > ssState.ScreenW) || ((drawy + (PLATEHEIGHT + FLOORHEIGHT)*ssConfig.scale) < 0) || (drawy - WALLHEIGHT*ssConfig.scale > ssState.ScreenH)) {
         return;
     }
 
@@ -195,7 +195,7 @@ void Block::AssembleBlock()
         return;
     }
 
-    ALLEGRO_COLOR tileBorderColor = al_map_rgb(85,85,85);
+    ALLEGRO_COLOR plateBorderColor = al_map_rgb(85,85,85);
     int rando = randomCube[x%RANDOM_CUBE][y%RANDOM_CUBE][z%RANDOM_CUBE];
 
 
@@ -210,13 +210,13 @@ void Block::AssembleBlock()
                 spriteobject->set_defaultsheet(IMGRampSheet);
             }
             if (spriteobject->get_sheetindex() != INVALID_INDEX) {
-                spriteobject->set_size(SPRITEWIDTH, TILEHEIGHT);
-                spriteobject->set_tile_layout(RAMPTOPTILE);
+                spriteobject->set_size(SPRITEWIDTH, PLATEHEIGHT);
+                spriteobject->set_plate_layout(RAMPTOPPLATE);
                 spriteobject->set_offset(0, WALLHEIGHT);
                 spriteobject->assemble_world_offset_src(x, y, z, 0, this, b, (chopThisBlock && this->z == ownerSegment->z + ownerSegment->sizez -2));
                 spriteobject->set_offset(0, 0);
             }
-            spriteobject->set_tile_layout(BLOCKTILE);
+            spriteobject->set_plate_layout(BLOCKPLATE);
         }
     }
 
@@ -226,7 +226,7 @@ void Block::AssembleBlock()
             tileShapeBasic==tiletype_shape_basic::Ramp ||
             tileShapeBasic==tiletype_shape_basic::Stair) {
 
-        //If tile has no floor, look for a Filler Floor from it's wall
+        //If plate has no floor, look for a Filler Floor from it's wall
         if (tileShapeBasic==tiletype_shape_basic::Floor) {
             spriteobject = GetFloorSpriteMap(tileType, this->material, consForm);
         } else if (tileShapeBasic==tiletype_shape_basic::Wall) {
@@ -284,10 +284,10 @@ void Block::AssembleBlock()
         }
         if (spriteobject->get_sheetindex() != INVALID_INDEX) {
             spriteobject->set_size(SPRITEWIDTH, SPRITEHEIGHT);
-            spriteobject->set_tile_layout(RAMPBOTTOMTILE);
+            spriteobject->set_plate_layout(RAMPBOTTOMPLATE);
             spriteobject->assemble_world_offset(x, y, z, 0, this, (chopThisBlock && this->z == ownerSegment->z + ownerSegment->sizez -2));
         }
-        spriteobject->set_tile_layout(BLOCKTILE);
+        spriteobject->set_plate_layout(BLOCKPLATE);
     }
 
     AssembleFloorBlood ( drawx, drawy );
@@ -331,7 +331,7 @@ void Block::AssembleBlock()
 
     //shadow
     if (shadow > 0) {
-        AssembleSpriteFromSheet( BASE_SHADOW_TILE + shadow - 1, IMGObjectSheet, al_map_rgb(255,255,255), drawx, (tileShapeBasic==tiletype_shape_basic::Ramp)?(drawy - ((WALLHEIGHT/2)*ssConfig.scale)):drawy , this);
+        AssembleSpriteFromSheet( BASE_SHADOW_PLATE + shadow - 1, IMGObjectSheet, al_map_rgb(255,255,255), drawx, (tileShapeBasic==tiletype_shape_basic::Ramp)?(drawy - ((WALLHEIGHT/2)*ssConfig.scale)):drawy , this);
     }
 
     //Building
@@ -385,7 +385,7 @@ void Block::AssembleBlock()
         if (spriteobject->get_sheetindex() == UNCONFIGURED_INDEX) {
             spriteobject->set_sheetindex(SPRITEOBJECT_WALL_NA);
             spriteobject->set_fileindex(INVALID_INDEX);
-            spriteobject->set_tile_layout(BLOCKTILE);
+            spriteobject->set_plate_layout(BLOCKPLATE);
             spriteobject->set_defaultsheet(IMGObjectSheet);
         }
         if (spriteobject->get_sheetindex() == INVALID_INDEX) {
@@ -688,7 +688,7 @@ void Block::AssembleFloorBlood ( int32_t drawx, int32_t drawy )
             }
         }
 
-        int sheetOffsetX = TILEWIDTH * (sprite.sheetIndex % SHEET_OBJECTSWIDE),
+        int sheetOffsetX = PLATEWIDTH * (sprite.sheetIndex % SHEET_OBJECTSWIDE),
             sheetOffsetY = 0;
 
         AssembleSprite( 
@@ -696,24 +696,24 @@ void Block::AssembleFloorBlood ( int32_t drawx, int32_t drawy )
             premultiply(bloodcolor),
             sheetOffsetX,
             sheetOffsetY,
-            TILEWIDTH,
-            TILEHEIGHT+FLOORHEIGHT,
+            PLATEWIDTH,
+            PLATEHEIGHT+FLOORHEIGHT,
             drawx,
             drawy,
-            TILEWIDTH*ssConfig.scale,
-            (TILEHEIGHT+FLOORHEIGHT)*ssConfig.scale,
+            PLATEWIDTH*ssConfig.scale,
+            (PLATEHEIGHT+FLOORHEIGHT)*ssConfig.scale,
             0);
         AssembleSprite(
             IMGBloodSheet,
             al_map_rgb(255,255,255),
             sheetOffsetX,
-            sheetOffsetY+TILEHEIGHT+FLOORHEIGHT,
-            TILEWIDTH,
-            TILEHEIGHT+FLOORHEIGHT,
+            sheetOffsetY+PLATEHEIGHT+FLOORHEIGHT,
+            PLATEWIDTH,
+            PLATEHEIGHT+FLOORHEIGHT,
             drawx,
             drawy,
-            TILEWIDTH*ssConfig.scale,
-            (TILEHEIGHT+FLOORHEIGHT)*ssConfig.scale,
+            PLATEWIDTH*ssConfig.scale,
+            (PLATEHEIGHT+FLOORHEIGHT)*ssConfig.scale,
             0);
     }
 }
