@@ -4,6 +4,7 @@
 
 void ScreenToPoint(int x,int y,int &x1, int &y1, int &z1);
 void pointToScreen(int *inx, int *iny, int inz);
+void correctForRotation(int32_t& x, int32_t& y, unsigned char rot, int32_t szx, int32_t szy);
 Crd2D WorldBlockToScreen(int32_t x, int32_t y, int32_t z);
 Crd2D LocalBlockToScreen(int32_t x, int32_t y, int32_t z);
 void DrawCurrentLevelOutline(bool backPart);

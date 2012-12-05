@@ -21,12 +21,6 @@ Block* WorldSegment::getBlock(int32_t x, int32_t y, int32_t z)
     if(z < this->z || z >= this->z + this->sizez) {
         return 0;
     }
-    /*for(uint32_t i=0; i<this->blocks.size(); i++){
-    Block* b = this->blocks[i];
-    if(x == b->x && y == b->y && z == b->z)
-    return b;
-    }
-    return 0;*/
 
     uint32_t lx = x;
     uint32_t ly = y;
@@ -113,7 +107,7 @@ Block* WorldSegment::getBlockRelativeTo(uint32_t x, uint32_t y, uint32_t z,  dir
     lx -= this->x;
     ly -= this->y;
     lz -= this->z;
-
+    
     CorrectBlockForSegmentRotation( (int32_t&)lx,(int32_t&)ly,(int32_t&)lz );
     switch (direction) {
     case eUp:
@@ -201,20 +195,18 @@ void WorldSegment::CorrectBlockForSegmentRotation(int32_t& x, int32_t& y, int32_
 {
     int32_t oldx = x;
     int32_t oldy = y;
-    int w = ssConfig.segmentSize.x;
-    int h = ssConfig.segmentSize.y;
 
     if(rotation == 1) {
-        x = h - oldy -1;
+        x = sizey - oldy -1;
         y = oldx;
     }
     if(rotation == 2) {
-        x = w - oldx -1;
-        y = h - oldy -1;
+        x = sizex - oldx -1;
+        y = sizey - oldy -1;
     }
     if(rotation == 3) {
         x = oldy;
-        y = w - oldx -1;
+        y = sizex - oldx -1;
     }
 }
 
@@ -304,6 +296,22 @@ void WorldSegment::DrawAllBlocks()
     al_hold_bitmap_drawing(true);
 }
 
+/**
+ * if direction is -1, returns b-a (positive if a<b)
+ * if direction is  1, returns a-b (negative if a<b)
+ * all other directions return 0
+ */
+int32_t compare(int32_t a, int32_t b, int32_t direction){
+    switch(direction){
+    case -1:
+        return b-a;
+    case 1:
+        return a-b;
+    default:
+        return 0;
+    }
+}
+
 void WorldSegment::AssembleAllBlocks()
 {
     if(!loaded) {
@@ -313,30 +321,148 @@ void WorldSegment::AssembleAllBlocks()
     todraw.clear();
     
     clock_t starttime = clock();
+    int DB1=0;
 
-    // x,y,z print prices
-    int32_t vsxmax = sizex-1;
-    int32_t vsymax = sizey-1;
-    int32_t vszmax = sizez-1; // grabbing one tile +z more than we should for tile rules
+//---------------------------------------------------------//
+    
+    //// x,y,z print prices
+    //int32_t vsxmax = sizex-1;
+    //int32_t vsymax = sizey-1;
+    //int32_t vszmax = sizez-1; // grabbing one tile +z more than we should for tile rules
+    //for(int32_t vsz=0; vsz < vszmax; vsz++) {
+    //    //add the fog to the queue
+    //    if(ssConfig.fogenable && fog) {
+    //        Draw_Event d = {TintedScaledBitmap, fog, al_map_rgb(255,255,255), 0, 0, ssState.ScreenW, ssState.ScreenH, 0, 0, ssState.ScreenW, ssState.ScreenH, 0};
+    //        AssembleSprite(d);
+    //    }
+    //    //add the blocks to the queue
+    //    for(int32_t vsx=1; vsx < vsxmax; vsx++) {
+    //        for(int32_t vsy=1; vsy < vsymax; vsy++) {
+    //            Block *b = getBlockLocal(vsx,vsy,vsz);
+    //            if (b) {
+    //                b->AssembleBlock();
+    //                DB1++;
+    //            }
+    //        }
+    //    }
+    //}
 
-    for(int32_t vsz=0; vsz < vszmax; vsz++) {
-        //add the fog to the queue
+//---------------------------------------------------------//
+    //this is the increment by which we shift in either case
+    int32_t incrx=2;
+    int32_t incry=2;
+    correctForRotation(incrx, incry, 4-rotation, 3, 3);
+    incrx--;
+    incry--;
+
+    //here we set up the variables needed to iterate over the blocks of the cell in correct draw-order
+    int32_t blockstartx=0;
+    int32_t blockstarty=0;
+    correctForRotation(blockstartx, blockstarty, 4-rotation, CELLEDGESIZE, CELLEDGESIZE);
+    int32_t blockendx=CELLEDGESIZE-1;
+    int32_t blockendy=CELLEDGESIZE-1;
+    correctForRotation(blockendx, blockendy, 4-rotation, CELLEDGESIZE, CELLEDGESIZE);
+    
+    //these are used to iterate over the cells themselves
+    int32_t cellminx,cellminy,cellmaxx,cellmaxy;
+    switch(rotation){
+    case 1:
+        cellminx = x/CELLEDGESIZE;           cellminy = (y+sizey-1)/CELLEDGESIZE;
+        cellmaxx = (x+sizex-1)/CELLEDGESIZE; cellmaxy = y/CELLEDGESIZE;
+        break;
+    case 2:
+        cellminx = (x+sizex-1)/CELLEDGESIZE; cellminy = (y+sizey-1)/CELLEDGESIZE;
+        cellmaxx = x/CELLEDGESIZE;           cellmaxy = y/CELLEDGESIZE;
+        break;
+    case 3:
+        cellminx = (x+sizex)/CELLEDGESIZE;   cellminy = y/CELLEDGESIZE;
+        cellmaxx = x/CELLEDGESIZE;           cellmaxy = (y+sizey-1)/CELLEDGESIZE;
+        break;
+    default:
+        cellminx = x/CELLEDGESIZE;           cellminy = y/CELLEDGESIZE;
+        cellmaxx = (x+sizex-1)/CELLEDGESIZE; cellmaxy = (y+sizey-1)/CELLEDGESIZE;
+    }
+
+    for(int lz=z; lz < z+sizez-1; lz++) {
+        //add the fog
         if(ssConfig.fogenable && fog) {
             Draw_Event d = {TintedScaledBitmap, fog, al_map_rgb(255,255,255), 0, 0, ssState.ScreenW, ssState.ScreenH, 0, 0, ssState.ScreenW, ssState.ScreenH, 0};
             AssembleSprite(d);
         }
-        //add the blocks to the queue
-        for(int32_t vsx=1; vsx < vsxmax; vsx++) {
-            for(int32_t vsy=1; vsy < vsymax; vsy++) {
-                Block *b = getBlockLocal(vsx,vsy,vsz);
-                if (b) {
-                    b->AssembleBlock();
+        //figure out what cells to read
+        for(int32_t cellx = cellminx; compare(cellx, cellmaxx, incrx) <= 0; cellx+=incrx) {
+            int32_t firstX = cellx*CELLEDGESIZE + blockstartx;
+            int32_t lastX = cellx*CELLEDGESIZE + blockendx + incrx;
+            switch(rotation){
+            case 1:
+                firstX = max<uint32_t>(firstX, x+1);
+                lastX = min<uint32_t>(lastX, x+sizex-1);
+                break;
+            case 2:
+                firstX = min<uint32_t>(firstX, x+sizex-1);
+                lastX = max<uint32_t>(lastX, x+1);
+                break;
+            case 3:
+                firstX = min<uint32_t>(firstX, x+sizex-1);
+                lastX = max<uint32_t>(lastX, x+1);
+                break;
+            default:
+                firstX = max<uint32_t>(firstX, x+1);
+                lastX = min<uint32_t>(lastX, x+sizex-1);
+            }
+        
+
+            for(int32_t celly = cellminy; compare(celly, cellmaxy, incry) <= 0; celly+=incry) {
+                int32_t firstY = celly*CELLEDGESIZE + blockstarty;
+                int32_t lastY = celly*CELLEDGESIZE + blockendy + incry;
+                switch(rotation){
+                case 1:
+                    firstY = min<uint32_t>(firstY, y+sizey-1);
+                    lastY = max<uint32_t>(lastY, y+1);
+                    break;
+                case 2:
+                    firstY = min<uint32_t>(firstY, y+sizey-1);
+                    lastY = max<uint32_t>(lastY, y+1);
+                    break;
+                case 3:
+                    firstY = max<uint32_t>(firstY, y+1);
+                    lastY = min<uint32_t>(lastY, y+sizey-1);
+                    break;
+                default:
+                    firstY = max<uint32_t>(firstY, y+1);
+                    lastY = min<uint32_t>(lastY, y+sizey-1);
+                }
+
+                //now iterate over the blocks in the cell
+                for(int i=firstX; compare(i, lastX, incrx) < 0; i+=incrx) {
+                    for(int j=firstY; compare(j, lastY, incry) < 0; j+=incry) {
+                        //do stuff!
+                        Block *b = getBlock(i,j,lz);
+                        if (b) {
+                            b->AssembleBlock();
+                            DB1++;
+                        } 
+                        //else {
+                        //    int drawx = i;
+                        //    int drawy = j;
+                        //    int drawz = lz+1;
+
+                        //    CorrectBlockForSegmentOffset( drawx, drawy, drawz);
+                        //    CorrectBlockForSegmentRotation( drawx, drawy, drawz);
+                        //    pointToScreen((int*)&drawx, (int*)&drawy, drawz);
+                        //    drawx -= (TILEWIDTH>>1)*ssConfig.scale;
+                        //    Draw_Event d = {TintedScaledBitmap, IMGObjectSheet, al_map_rgb(255,255,255), 0, 0, SPRITEWIDTH, SPRITEHEIGHT, drawx, drawy+FLOORHEIGHT, SPRITEWIDTH, SPRITEHEIGHT, 0};
+                        //    AssembleSprite(d);
+                        //}
+                    }
                 }
             }
         }
     }
+//---------------------------------------------------------//
 
     ssTimers.assembly_time = (clock() - starttime)*0.1 + ssTimers.assembly_time*0.9;
+    DebugInt1 = DB1;
 }
 
 
