@@ -1,26 +1,20 @@
-For A4:
-Finish floor and wall config
----
-For later versions:
-Animation when not auto-reloading - wont work without complete rewrite
-Non-uniform walls, fluids, etc
-Add configurable key bindings
-Interrupt driven input- debounce keys?
-Better creature name handling- special characters? Capitals? nicknames?
-Alpha transparency?
-Better ramp handling- Big lookup table?
-Status indicators?
-only loading matgloss tables once per valid map
-Objects?
-XML for trees, etc
-Dealing with unloaded underground chunks
-Look into reducing block new/delete for performance
-Multiple XML files for other types of sprites
-Multiple image files for other types of sprites
-Floor sprites with different material types? Layered floor sprites ala buildings?
-Height indicators for floating/flying stuff
-Debug cursor should interact with map more
----
-Things to keep an eye on:
+Feel free to drop ideas of stuff to work on and think about here.  
+
+Latest Update: 2012/12/05
+
+-==Bugs==-
 Crashers with odd materials etc
 Crashers with saving/loading
+
+-==For Later Versions==-
+Add the ability to handle color patterns on creatures.
+Add the ability to distinguish which hand/foot equipment is equipped on.  
+Add configurable key bindings.
+Height indicators for floating/flying stuff?
+Add the allegro shader module and figure out ways to take advantage of it (fog? weather? dynamic lighting?).
+Figure out a way to use sockets to make our own cache of the map?
+
+-==Distant Goals==-
+Let the user control DF through the stonesense window?
+Add some way to put the stonesense display inside the DF window?
+Make some DFHack tools available through the stonesense interface (probe? prospector?)
