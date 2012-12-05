@@ -30,21 +30,21 @@ inline bool IDhasOpaqueSides(int in)
 
 class WorldSegment;
 
-struct Effect {
+struct effect {
     DFHack::t_matglossPair matt;
     int16_t density;
 };
 
-struct Worn_Item {
+struct worn_item {
     DFHack::t_matglossPair matt;
     DFHack::t_matglossPair dyematt;
     int8_t rating;
-    Worn_Item();
+    worn_item();
 };
 
-struct Unit_Inventory {
+struct unit_inventory {
     //[item_type][item_subtype][item_number]
-    std::vector<std::vector<std::vector<Worn_Item>>> item;
+    std::vector<std::vector<std::vector<worn_item>>> item;
 };
 
 class Block
@@ -127,19 +127,19 @@ public:
     //} blockeffects;
 
     //individual effects
-    Effect Eff_Miasma;
-    Effect Eff_Steam;
-    Effect Eff_Mist;
-    Effect Eff_MaterialDust;
-    Effect Eff_MagmaMist;
-    Effect Eff_Smoke;
-    Effect Eff_Dragonfire;
-    Effect Eff_Fire;
-    Effect Eff_Web;
-    Effect Eff_MaterialGas;
-    Effect Eff_MaterialVapor;
-    Effect Eff_OceanWave;
-    Effect Eff_SeaFoam;
+    effect Eff_Miasma;
+    effect Eff_Steam;
+    effect Eff_Mist;
+    effect Eff_MaterialDust;
+    effect Eff_MagmaMist;
+    effect Eff_Smoke;
+    effect Eff_Dragonfire;
+    effect Eff_Fire;
+    effect Eff_Web;
+    effect Eff_MaterialGas;
+    effect Eff_MaterialVapor;
+    effect Eff_OceanWave;
+    effect Eff_SeaFoam;
     struct {
         DFHack::Buildings::t_building info;
         std::vector<c_sprite> sprites;
@@ -174,7 +174,7 @@ public:
     } Item;
 
     //These are actually applied to the creature standing here, but there's only one creature shown, so it's okay.
-    Unit_Inventory * inv;
+    unit_inventory * inv;
 
 
 private:

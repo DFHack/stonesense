@@ -4,13 +4,13 @@
 
 extern SegmentWrap map_segment;
 
-enum Draw_Event_Type{
+enum draw_event_type{
     TintedScaledBitmap,
     CreatureText
 };
 
-struct Draw_Event{
-    Draw_Event_Type type;
+struct draw_event{
+    draw_event_type type;
     void * drawobject;
     ALLEGRO_COLOR tint;
     float sx;
@@ -28,7 +28,7 @@ class WorldSegment
 {
 private:
     vector<Block*> blocks;
-    vector<Draw_Event> todraw;
+    vector<draw_event> todraw;
 public:
     bool loaded;
     bool processed;
@@ -37,6 +37,7 @@ public:
     int sizex, sizey, sizez;
     unsigned char rotation;
     Crd3D regionSize;
+    Crd3D regionPos;
     Block** blocksAsPointerVolume;
     WorldSegment(int x, int y, int z, int sizex, int sizey, int sizez) {
         this->x = x;
@@ -48,8 +49,9 @@ public:
         this->displayedx = ssState.DisplayedSegmentX;
         this->displayedy = ssState.DisplayedSegmentY;
         this->displayedz = ssState.DisplayedSegmentZ;
-
+        
         regionSize.x = regionSize.y = regionSize.z = 0;
+        regionPos.x = regionPos.y = regionPos.z = 0;
 
         uint32_t memoryNeeded = sizex * sizey * sizez * sizeof(Block*);
         blocksAsPointerVolume = (Block**) malloc( memoryNeeded );
@@ -80,8 +82,9 @@ public:
     void CorrectBlockForSegmentOffset(int32_t& x, int32_t& y, int32_t& z);
     void CorrectBlockForSegmentRotation(int32_t& x, int32_t& y, int32_t& z);
     void addBlock(Block* b);
+    void AssembleCellBlocks(int32_t firstX, int32_t firstY, int32_t lastX, int32_t lastY, int32_t incrx, int32_t incry, int32_t z);
     void AssembleAllBlocks();
-    void AssembleSprite(Draw_Event d);
+    void AssembleSprite(draw_event d);
     void DrawAllBlocks();
     //void drawPixels();
     bool CoordinateInsideSegment(uint32_t x, uint32_t y, uint32_t z);
