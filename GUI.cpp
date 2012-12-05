@@ -290,6 +290,27 @@ void pointToScreen(int *inx, int *iny, int inz)
     *iny=y;
 }
 
+/**
+ * Corrects the coordinate (x,y) for rotation in a region of size (szx, szy).
+ */
+void correctForRotation(int32_t& x, int32_t& y, unsigned char rot, int32_t szx, int32_t szy){
+    int32_t oldx = x;
+    int32_t oldy = y;
+
+    if(rot == 1) {
+        x = szy - oldy -1;
+        y = oldx;
+    }
+    if(rot == 2) {
+        x = szx - oldx -1;
+        y = szy - oldy -1;
+    }
+    if(rot == 3) {
+        x = oldy;
+        y = szx - oldx -1;
+    }
+}
+
 Crd2D WorldBlockToScreen(int32_t x, int32_t y, int32_t z)
 {
     correctBlockForDisplayedOffset( x, y, z);
@@ -854,8 +875,6 @@ void paintboard()
     if (ssConfig.show_osd) {
         DrawCurrentLevelOutline(false);
     }
-
-    DebugInt1 = segment->getNumBlocks();
     
     //do the closing timer stuff
     clock_t donetime = clock();
@@ -873,7 +892,7 @@ void paintboard()
             draw_textf_border(font, al_map_rgb(255,255,255), 10, 5*al_get_font_line_height(font), 0, "Block Sprite Assembly Time: %.2fms", ssTimers.assembly_time);
             draw_textf_border(font, al_map_rgb(255,255,255), 10, 2*al_get_font_line_height(font), 0, "FPS: %.2f", 1000.0/ssTimers.frame_total);
             draw_textf_border(font, al_map_rgb(255,255,255), 10, 6*al_get_font_line_height(font), 0, "Draw: %.2fms", ssTimers.draw_time);
-            draw_textf_border(font, al_map_rgb(255,255,255), 10, 7*al_get_font_line_height(font), 0, "D1: %i", blockFactory.getPoolSize());
+            draw_textf_border(font, al_map_rgb(255,255,255), 10, 7*al_get_font_line_height(font), 0, "D1: %i", DebugInt1);
             draw_textf_border(font, al_map_rgb(255,255,255), 10, 8*al_get_font_line_height(font), 0, "%i/%i/%i, %i:%i", contentLoader->currentDay+1, contentLoader->currentMonth+1, contentLoader->currentYear, contentLoader->currentHour, (contentLoader->currentTickRel*60)/50);
             
             drawDebugCursorAndInfo(segment);
