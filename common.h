@@ -99,7 +99,7 @@ using namespace df::enums;
 #define SHEET_OBJECTSWIDE 20
 
 //do not alter, defined by DF
-#define CELLEDGESIZE 16
+#define BLOCKEDGESIZE 16
 
 #define COLOR_SEGMENTOUTLINE 0x112211
 

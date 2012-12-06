@@ -1275,8 +1275,8 @@ void saveMegashot(bool tall)
     parms.z = ssState.DisplayedSegmentZ;
 
     //make the image
-    ssState.ScreenW = (ssConfig.cellDimX * PLATEWIDTH)*ssConfig.scale;
-    ssState.ScreenH = ( ((ssConfig.cellDimX + ssConfig.cellDimY) * PLATEHEIGHT / 2) + ((ssConfig.segmentSize.z - 1) * TILEHEIGHT) )*ssConfig.scale;
+    ssState.ScreenW = (ssConfig.blockDimX * PLATEWIDTH)*ssConfig.scale;
+    ssState.ScreenH = ( ((ssConfig.blockDimX + ssConfig.blockDimY) * PLATEHEIGHT / 2) + ((ssConfig.segmentSize.z - 1) * TILEHEIGHT) )*ssConfig.scale;
     
     bigFile = al_create_bitmap(ssState.ScreenW, ssState.ScreenH);
 
@@ -1296,22 +1296,22 @@ void saveMegashot(bool tall)
         starty = -1;
         incrx = parms.sizex-2;
         incry = parms.sizey-2;
-        numx = (int)(ssConfig.cellDimX+3);
+        numx = (int)(ssConfig.blockDimX+3);
         numx = numx/incrx + (numx%incrx==0 ? 0 : 1);
-        numy = (int)(ssConfig.cellDimY+3);
+        numy = (int)(ssConfig.blockDimY+3);
         numy = numy/incry + (numx%incry==0 ? 0 : 1);
 
         if(ssState.DisplayedRotation == 1 || ssState.DisplayedRotation == 2) {
-            starty = (int)ssConfig.cellDimY + 2 - incry;
-            ssState.DisplayedSegmentY = (int)ssConfig.cellDimY - incry - 1;
+            starty = (int)ssConfig.blockDimY + 2 - incry;
+            ssState.DisplayedSegmentY = (int)ssConfig.blockDimY - incry - 1;
             incry = -incry;
         } else {
             ssState.DisplayedSegmentY = -1;
         }
 
         if(ssState.DisplayedRotation == 3 || ssState.DisplayedRotation == 2) {
-            startx = (int)ssConfig.cellDimX + 2 - incrx;
-            ssState.DisplayedSegmentX = (int)ssConfig.cellDimX - incrx - 1;
+            startx = (int)ssConfig.blockDimX + 2 - incrx;
+            ssState.DisplayedSegmentX = (int)ssConfig.blockDimX - incrx - 1;
             incrx = -incrx;
         } else {
             ssState.DisplayedSegmentX = -1;

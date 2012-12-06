@@ -312,18 +312,18 @@ int32_t compare(int32_t a, int32_t b, int32_t direction){
     }
 }
 
-void WorldSegment::AssembleCellTiles(
+void WorldSegment::AssembleBlockTiles(
     int32_t firstX, int32_t firstY, 
     int32_t lastX, int32_t lastY, 
     int32_t incrx, int32_t incry, 
-    int32_t cellz){
+    int32_t blockz){
         //incrx = incrx >= 0 ? 1 : -1;
         //incry = incry >= 0 ? 1 : -1;
-        //now iterate over the tiles in the cell
+        //now iterate over the tiles in the block
         for(int i=firstX; compare(i, lastX, incrx) < 0; i+=incrx) {
             for(int j=firstY; compare(j, lastY, incry) < 0; j+=incry) {
                 //do stuff!
-                Tile *b = getTile(i,j,cellz);
+                Tile *b = getTile(i,j,blockz);
                 if (b) {
                     b->AssembleTile();
                 } 
@@ -345,8 +345,8 @@ void WorldSegment::AssembleCellTiles(
 
 /**
  * Assembles sprites for all tiles in the segment.  
- * The draw order used draws tiles on a per-cell basis, so cells
- * in the back are drawn before cells in the front.  
+ * The draw order used draws tiles on a per-block basis, so blocks
+ * in the back are drawn before blocks in the front.  
  */
 void WorldSegment::AssembleAllTiles()
 {
@@ -391,36 +391,36 @@ void WorldSegment::AssembleAllTiles()
     incrx--;
     incry--;
 
-    //here we set up the variables needed to iterate over the tiles of the cell in correct draw-order
+    //here we set up the variables needed to iterate over the tiles of the block in correct draw-order
     int32_t tilestartx=0;
     int32_t tilestarty=0;
-    correctForRotation(tilestartx, tilestarty, 4-rotation, CELLEDGESIZE, CELLEDGESIZE);
-    int32_t tileendx=CELLEDGESIZE-1;
-    int32_t tileendy=CELLEDGESIZE-1;
-    correctForRotation(tileendx, tileendy, 4-rotation, CELLEDGESIZE, CELLEDGESIZE);
+    correctForRotation(tilestartx, tilestarty, 4-rotation, BLOCKEDGESIZE, BLOCKEDGESIZE);
+    int32_t tileendx=BLOCKEDGESIZE-1;
+    int32_t tileendy=BLOCKEDGESIZE-1;
+    correctForRotation(tileendx, tileendy, 4-rotation, BLOCKEDGESIZE, BLOCKEDGESIZE);
     
-    //these are used to iterate over the cells themselves
+    //these are used to iterate over the blocks themselves
     int32_t minx, maxx, miny, maxy;
     minx = max<int32_t>(0,x);                     miny = max<int32_t>(0,y);
     maxx = min<int32_t>(x+sizex-1, regionSize.x-1); maxy = min<int32_t>(y+sizey-1, regionSize.y-1); 
 
-    int32_t cellfirstx,cellfirsty,celllastx,celllasty;
+    int32_t blockfirstx,blockfirsty,blocklastx,blocklasty;
     switch(rotation){
     case 1:
-        cellfirstx = minx/CELLEDGESIZE; cellfirsty = maxy/CELLEDGESIZE;
-        celllastx = maxx/CELLEDGESIZE;  celllasty = miny/CELLEDGESIZE;
+        blockfirstx = minx/BLOCKEDGESIZE; blockfirsty = maxy/BLOCKEDGESIZE;
+        blocklastx = maxx/BLOCKEDGESIZE;  blocklasty = miny/BLOCKEDGESIZE;
         break;
     case 2:
-        cellfirstx = maxx/CELLEDGESIZE; cellfirsty = maxy/CELLEDGESIZE;
-        celllastx = minx/CELLEDGESIZE;  celllasty = miny/CELLEDGESIZE;
+        blockfirstx = maxx/BLOCKEDGESIZE; blockfirsty = maxy/BLOCKEDGESIZE;
+        blocklastx = minx/BLOCKEDGESIZE;  blocklasty = miny/BLOCKEDGESIZE;
         break;
     case 3:
-        cellfirstx = maxx/CELLEDGESIZE; cellfirsty = miny/CELLEDGESIZE;
-        celllastx = minx/CELLEDGESIZE;  celllasty = maxy/CELLEDGESIZE;
+        blockfirstx = maxx/BLOCKEDGESIZE; blockfirsty = miny/BLOCKEDGESIZE;
+        blocklastx = minx/BLOCKEDGESIZE;  blocklasty = maxy/BLOCKEDGESIZE;
         break;
     default:
-        cellfirstx = minx/CELLEDGESIZE; cellfirsty = miny/CELLEDGESIZE;
-        celllastx = maxx/CELLEDGESIZE;  celllasty = maxy/CELLEDGESIZE;
+        blockfirstx = minx/BLOCKEDGESIZE; blockfirsty = miny/BLOCKEDGESIZE;
+        blocklastx = maxx/BLOCKEDGESIZE;  blocklasty = maxy/BLOCKEDGESIZE;
     }
 
     for(int32_t lz=z; lz < z+sizez-1; lz++) {
@@ -429,10 +429,10 @@ void WorldSegment::AssembleAllTiles()
             draw_event d = {TintedScaledBitmap, fog, al_map_rgb(255,255,255), 0, 0, ssState.ScreenW, ssState.ScreenH, 0, 0, ssState.ScreenW, ssState.ScreenH, 0};
             AssembleSprite(d);
         }
-        //figure out what cells to read
-        for(int32_t cellx = cellfirstx; compare(cellx, celllastx, incrx) <= 0; cellx+=incrx) {
-            int32_t firstX = cellx*CELLEDGESIZE + tilestartx;
-            int32_t lastX = cellx*CELLEDGESIZE + tileendx + incrx;
+        //figure out what blocks to read
+        for(int32_t blockx = blockfirstx; compare(blockx, blocklastx, incrx) <= 0; blockx+=incrx) {
+            int32_t firstX = blockx*BLOCKEDGESIZE + tilestartx;
+            int32_t lastX = blockx*BLOCKEDGESIZE + tileendx + incrx;
             switch(rotation){
             case 1:
                 firstX = max<int32_t>(firstX, x+1);
@@ -452,9 +452,9 @@ void WorldSegment::AssembleAllTiles()
             }
         
 
-            for(int32_t celly = cellfirsty; compare(celly, celllasty, incry) <= 0; celly+=incry) {
-                int32_t firstY = celly*CELLEDGESIZE + tilestarty;
-                int32_t lastY = celly*CELLEDGESIZE + tileendy + incry;
+            for(int32_t blocky = blockfirsty; compare(blocky, blocklasty, incry) <= 0; blocky+=incry) {
+                int32_t firstY = blocky*BLOCKEDGESIZE + tilestarty;
+                int32_t lastY = blocky*BLOCKEDGESIZE + tileendy + incry;
                 switch(rotation){
                 case 1:
                     firstY = min<int32_t>(firstY, y+sizey-2);
@@ -474,8 +474,8 @@ void WorldSegment::AssembleAllTiles()
                 }
 
                 DB1++;
-                //Now go to that cell, and assemble the sprites for it in the order specified.
-                AssembleCellTiles( firstX, firstY, lastX, lastY, incrx, incry, lz);
+                //Now go to that block, and assemble the sprites for it in the order specified.
+                AssembleBlockTiles( firstX, firstY, lastX, lastY, incrx, incry, lz);
             }
         }
     }

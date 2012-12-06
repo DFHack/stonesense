@@ -254,7 +254,7 @@ bool enclosed(WorldSegment* segment, Tile* b)
     return true;
 }
 
-void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int CellY, int CellZ,
+void ReadBlockToSegment(DFHack::Core& DF, WorldSegment& segment, int BlockX, int BlockY, int BlockZ,
                        uint32_t BoundrySX, uint32_t BoundrySY,
                        uint32_t BoundryEX, uint32_t BoundryEY,
                        //uint16_t Flags/*not in use*/,
@@ -266,28 +266,28 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
         return;
     }
     //boundry check
-    int cellDimX, cellDimY, cellDimZ;
-    Maps::getSize((unsigned int &)cellDimX, (unsigned int &)cellDimY, (unsigned int &)cellDimZ);
-    if( CellX < 0 || CellX >= cellDimX ||
-            CellY < 0 || CellY >= cellDimY ||
-            CellZ < 0 || CellZ >= cellDimZ ) {
+    int blockDimX, blockDimY, blockDimZ;
+    Maps::getSize((unsigned int &)blockDimX, (unsigned int &)blockDimY, (unsigned int &)blockDimZ);
+    if( BlockX < 0 || BlockX >= blockDimX ||
+            BlockY < 0 || BlockY >= blockDimY ||
+            BlockZ < 0 || BlockZ >= blockDimZ ) {
         return;
     }
-    if(!Maps::getBlock(CellX, CellY, CellZ)) {
+    if(!Maps::getBlock(BlockX, BlockY, BlockZ)) {
         return;
     }
 
 
     //make boundries local
-    BoundrySX -= CellX * CELLEDGESIZE;
-    BoundryEX -= CellX * CELLEDGESIZE;
-    BoundrySY -= CellY * CELLEDGESIZE;
-    BoundryEY -= CellY * CELLEDGESIZE;
+    BoundrySX -= BlockX * BLOCKEDGESIZE;
+    BoundryEX -= BlockX * BLOCKEDGESIZE;
+    BoundrySY -= BlockY * BLOCKEDGESIZE;
+    BoundryEY -= BlockY * BLOCKEDGESIZE;
 
 
-    //read cell data
+    //read block data
     df::map_block *trueBlock;
-    trueBlock = Maps::getBlock(CellX, CellY, CellZ);
+    trueBlock = Maps::getBlock(BlockX, BlockY, BlockZ);
 
     //read local vein data
     vector <df::block_square_event_mineralst * > veins;
@@ -305,23 +305,23 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
 
     uint32_t numVeins = (uint32_t)veins.size();
 
-    //parse cell
+    //parse block
     for(uint32_t ly = BoundrySY; ly <= BoundryEY; ly++) {
         for(uint32_t lx = BoundrySX; lx <= BoundryEX; lx++) {
-            uint32_t gx = lx + (CellX * CELLEDGESIZE);
-            uint32_t gy = ly + (CellY * CELLEDGESIZE);
-            if( !segment.CoordinateInsideSegment( gx, gy, CellZ) ) {
+            uint32_t gx = lx + (BlockX * BLOCKEDGESIZE);
+            uint32_t gy = ly + (BlockY * BLOCKEDGESIZE);
+            if( !segment.CoordinateInsideSegment( gx, gy, BlockZ) ) {
                 continue;
             }
             bool createdTile = false;
-            Tile* b = segment.getTile( gx, gy, CellZ);
+            Tile* b = segment.getTile( gx, gy, BlockZ);
 
             if (!b) {
                 createdTile = true;
                 b = new Tile(&segment, df::tiletype::OpenSpace);
                 b->x = gx;
                 b->y = gy;
-                b->z = CellZ;
+                b->z = BlockZ;
             }
 
             b->occ = trueBlock->occupancy[lx][ly];
@@ -525,7 +525,7 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
                 //read global/local features
                 int16_t idx = trueBlock->global_feature;
                 t_feature local, global;
-                Maps::ReadFeatures(CellX,CellY,CellZ,&local,&global);
+                Maps::ReadFeatures(BlockX,BlockY,BlockZ,&local,&global);
                 if( idx != -1 && global.type != -1 && global.main_material != -1) {
                     if(trueBlock->designation[lx][ly].bits.feature_global) {
                         b->layerMaterial.type = global.main_material;
@@ -753,26 +753,26 @@ WorldSegment* ReadMapSegment(int x, int y, int z, int sizex, int sizey, int size
         return new WorldSegment(x,y,z + 1,sizex,sizey,sizez + 1);
     }
 
-    //Read Number of cells
-    uint32_t cellDimX, cellDimY, cellDimZ;
-    Maps::getSize(cellDimX, cellDimY, cellDimZ);
-    //Read position of cells
+    //Read Number of blocks
+    uint32_t blockDimX, blockDimY, blockDimZ;
+    Maps::getSize(blockDimX, blockDimY, blockDimZ);
+    //Read position of blocks
     uint32_t regionX, regionY, regionZ;
     Maps::getSize(regionX, regionY, regionZ);
     //Store these
-    cellDimX *= CELLEDGESIZE;
-    cellDimY *= CELLEDGESIZE;
-    regionX *= CELLEDGESIZE;
-    regionY *= CELLEDGESIZE;
-    ssConfig.cellDimX = cellDimX;
-    ssConfig.cellDimY = cellDimY;
-    ssConfig.cellDimZ = cellDimZ;
+    blockDimX *= BLOCKEDGESIZE;
+    blockDimY *= BLOCKEDGESIZE;
+    regionX *= BLOCKEDGESIZE;
+    regionY *= BLOCKEDGESIZE;
+    ssConfig.blockDimX = blockDimX;
+    ssConfig.blockDimY = blockDimY;
+    ssConfig.blockDimZ = blockDimZ;
 
     //setup new world segment
     WorldSegment* segment = new WorldSegment(x,y,z,sizex,sizey,sizez);
-    segment->regionSize.x = cellDimX;
-    segment->regionSize.y = cellDimY;
-    segment->regionSize.z = cellDimZ;
+    segment->regionSize.x = blockDimX;
+    segment->regionSize.y = blockDimY;
+    segment->regionSize.z = blockDimZ;
     segment->regionPos.x = regionX;
     segment->regionPos.y = regionY;
     segment->regionPos.z = regionZ;
@@ -821,16 +821,16 @@ WorldSegment* ReadMapSegment(int x, int y, int z, int sizex, int sizey, int size
         MergeBuildingsToSegment(&allBuildings, segment);
     }
 
-    //figure out what cells to read
+    //figure out what blocks to read
     int32_t firstTileToReadX = x;
     if( firstTileToReadX < 0 ) {
         firstTileToReadX = 0;
     }
 
     while(firstTileToReadX < x + sizex) {
-        int cellx = firstTileToReadX / CELLEDGESIZE;
-        int32_t lastTileInCellX = (cellx+1) * CELLEDGESIZE - 1;
-        int32_t lastTileToReadX = min<int32_t>(lastTileInCellX, x+sizex-1);
+        int blockx = firstTileToReadX / BLOCKEDGESIZE;
+        int32_t lastTileInBlockX = (blockx+1) * BLOCKEDGESIZE - 1;
+        int32_t lastTileToReadX = min<int32_t>(lastTileInBlockX, x+sizex-1);
 
         int32_t firstTileToReadY = y;
         if( firstTileToReadY < 0 ) {
@@ -838,13 +838,13 @@ WorldSegment* ReadMapSegment(int x, int y, int z, int sizex, int sizey, int size
         }
 
         while(firstTileToReadY < y + sizey) {
-            int celly = firstTileToReadY / CELLEDGESIZE;
-            int32_t lastTileInCellY = (celly+1) * CELLEDGESIZE - 1;
-            int32_t lastTileToReadY = min<uint32_t>(lastTileInCellY, y+sizey-1);
+            int blocky = firstTileToReadY / BLOCKEDGESIZE;
+            int32_t lastTileInBlockY = (blocky+1) * BLOCKEDGESIZE - 1;
+            int32_t lastTileToReadY = min<uint32_t>(lastTileInBlockY, y+sizey-1);
 
             for(int lz=z-sizez; lz <= z; lz++) {
-                //load the tiles from this cell to the map segment
-                ReadCellToSegment(DF, *segment, cellx, celly, lz,
+                //load the tiles from this block to the map segment
+                ReadBlockToSegment(DF, *segment, blockx, blocky, lz,
                                   firstTileToReadX, firstTileToReadY, 
                                   lastTileToReadX, lastTileToReadY, &layers );
 
