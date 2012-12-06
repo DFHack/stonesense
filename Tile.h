@@ -36,10 +36,6 @@ public:
 
     uint32_t x, y, z;
     int drawx, drawy, drawz;
-    df::tiletype_shape_basic tileShapeBasic;
-    df::tiletype_shape tileShape;
-    df::tiletype_special tileSpecial;
-    df::tiletype_material tileMaterial;
     df::tiletype tileType;
     DFHack::t_matglossPair material;
     DFHack::t_matglossPair layerMaterial;
@@ -123,6 +119,28 @@ public:
         Tile * parent;
     } building;
 
+    //tile information loading
+    inline df::tiletype_shape_basic Tile::tileShapeBasic()
+    {
+        return DFHack::tileShapeBasic(DFHack::tileShape(tileType));
+    }
+
+    inline df::tiletype_shape Tile::tileShape()
+    {
+        return DFHack::tileShape(tileType);
+    }
+
+    inline df::tiletype_special Tile::tileSpecial()
+    {
+        return DFHack::tileSpecial(tileType);
+    }
+
+    inline df::tiletype_material Tile::tileMaterial()
+    {
+        return DFHack::tileMaterial(tileType);
+}
+
+    //tile sprite assembly and drawing functions
     void AssembleTile();
     void Drawcreaturetext();
     void AddRamptop();
@@ -130,7 +148,6 @@ public:
     void AssembleParticleCloud(int count, float centerX, float centerY, float rangeX, float rangeY, ALLEGRO_BITMAP *sprite, ALLEGRO_COLOR tint);
     void AssembleSpriteFromSheet(int spriteNum, ALLEGRO_BITMAP* spriteSheet, ALLEGRO_COLOR color, float x, float y, Tile * b=NULL, float in_scale=1.0f);
     void AssembleSprite(ALLEGRO_BITMAP *bitmap, ALLEGRO_COLOR tint, float sx, float sy, float sw, float sh, float dx, float dy, float dw, float dh, int flags);
-    //void DrawPixel(int drawx, int drawy);
 
     uint16_t temp1;
     uint16_t temp2;

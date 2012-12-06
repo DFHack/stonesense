@@ -409,9 +409,9 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
             if (!floor_tile) {
                 continue;
             }
-            if (floor_tile->tileShapeBasic==tiletype_shape_basic::Floor ||
-                    floor_tile->tileShapeBasic==tiletype_shape_basic::Wall  ||
-                    floor_tile->tileShapeBasic==tiletype_shape_basic::Ramp) {
+            if (floor_tile->tileShapeBasic()==tiletype_shape_basic::Floor ||
+                    floor_tile->tileShapeBasic()==tiletype_shape_basic::Wall  ||
+                    floor_tile->tileShapeBasic()==tiletype_shape_basic::Ramp) {
                 // todo figure out appropriate shadow size
                 int tempShadow = GetCreatureShadowMap( tempcreature );
                 if (floor_tile->shadow < tempShadow) {

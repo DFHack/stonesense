@@ -165,14 +165,14 @@ void c_tile_tree_branch::insert_sprites(WorldSegment *w, int x, int y, int z, Ti
     case 0:
         for(int i = 0; i < southward_growth.size(); i++) {
             Tile * b = w->getTile(x, y + i + 1, z);
-            if(b && (b->tileShapeBasic==tiletype_shape_basic::Wall || b->tileShapeBasic==tiletype_shape_basic::Stair)) {
+            if(b && (b->tileShapeBasic()==tiletype_shape_basic::Wall || b->tileShapeBasic()==tiletype_shape_basic::Stair)) {
                 break;
             }
             southward_growth[i].insert_sprites(w, x, y + i + 1, z, parent);
         }
         for(int i = 0; i < northward_growth.size(); i++) {
             Tile * b = w->getTile(x, y - i - 1, z);
-            if(b && (b->tileShapeBasic==tiletype_shape_basic::Wall || b->tileShapeBasic==tiletype_shape_basic::Stair)) {
+            if(b && (b->tileShapeBasic()==tiletype_shape_basic::Wall || b->tileShapeBasic()==tiletype_shape_basic::Stair)) {
                 break;
             }
             northward_growth[i].insert_sprites(w, x, y - i - 1, z, parent);
@@ -181,14 +181,14 @@ void c_tile_tree_branch::insert_sprites(WorldSegment *w, int x, int y, int z, Ti
     case 1:
         for(int i = 0; i < southward_growth.size(); i++) {
             Tile * b = w->getTile(x + i + 1, y , z);
-            if(b && (b->tileShapeBasic==tiletype_shape_basic::Wall || b->tileShapeBasic==tiletype_shape_basic::Stair)) {
+            if(b && (b->tileShapeBasic()==tiletype_shape_basic::Wall || b->tileShapeBasic()==tiletype_shape_basic::Stair)) {
                 break;
             }
             southward_growth[i].insert_sprites(w, x + i + 1, y , z, parent);
         }
         for(int i = 0; i < northward_growth.size(); i++) {
             Tile * b = w->getTile(x - i - 1, y , z);
-            if(b && (b->tileShapeBasic==tiletype_shape_basic::Wall || b->tileShapeBasic==tiletype_shape_basic::Stair)) {
+            if(b && (b->tileShapeBasic()==tiletype_shape_basic::Wall || b->tileShapeBasic()==tiletype_shape_basic::Stair)) {
                 break;
             }
             northward_growth[i].insert_sprites(w, x - i - 1, y , z, parent);
@@ -197,14 +197,14 @@ void c_tile_tree_branch::insert_sprites(WorldSegment *w, int x, int y, int z, Ti
     case 2:
         for(int i = 0; i < southward_growth.size(); i++) {
             Tile * b = w->getTile(x, y - i - 1, z);
-            if(b && (b->tileShapeBasic==tiletype_shape_basic::Wall || b->tileShapeBasic==tiletype_shape_basic::Stair)) {
+            if(b && (b->tileShapeBasic()==tiletype_shape_basic::Wall || b->tileShapeBasic()==tiletype_shape_basic::Stair)) {
                 break;
             }
             southward_growth[i].insert_sprites(w, x, y - i - 1, z, parent);
         }
         for(int i = 0; i < northward_growth.size(); i++) {
             Tile * b = w->getTile(x, y + i + 1, z);
-            if(b && (b->tileShapeBasic==tiletype_shape_basic::Wall || b->tileShapeBasic==tiletype_shape_basic::Stair)) {
+            if(b && (b->tileShapeBasic()==tiletype_shape_basic::Wall || b->tileShapeBasic()==tiletype_shape_basic::Stair)) {
                 break;
             }
             northward_growth[i].insert_sprites(w, x, y + i + 1, z, parent);
@@ -213,14 +213,14 @@ void c_tile_tree_branch::insert_sprites(WorldSegment *w, int x, int y, int z, Ti
     case 3:
         for(int i = 0; i < southward_growth.size(); i++) {
             Tile * b = w->getTile(x - i - 1, y , z);
-            if(b && (b->tileShapeBasic==tiletype_shape_basic::Wall || b->tileShapeBasic==tiletype_shape_basic::Stair)) {
+            if(b && (b->tileShapeBasic()==tiletype_shape_basic::Wall || b->tileShapeBasic()==tiletype_shape_basic::Stair)) {
                 break;
             }
             southward_growth[i].insert_sprites(w, x - i - 1, y , z, parent);
         }
         for(int i = 0; i < northward_growth.size(); i++) {
             Tile * b = w->getTile(x + i + 1, y , z);
-            if(b && (b->tileShapeBasic==tiletype_shape_basic::Wall || b->tileShapeBasic==tiletype_shape_basic::Stair)) {
+            if(b && (b->tileShapeBasic()==tiletype_shape_basic::Wall || b->tileShapeBasic()==tiletype_shape_basic::Stair)) {
                 break;
             }
             northward_growth[i].insert_sprites(w, x + i + 1, y , z, parent);
@@ -266,9 +266,9 @@ void c_tile_tree::insert_sprites(WorldSegment *w, int x, int y, int z, Tile * pa
     for(int i = 0; i < upward_growth.size(); i++) {
         Tile * b = w->getTile(x, y, z + i + 1);
         if((b && (
-                    b->tileShapeBasic==tiletype_shape_basic::Floor ||
-                    b->tileShapeBasic==tiletype_shape_basic::Wall ||
-                    b->tileShapeBasic==tiletype_shape_basic::Stair)) ||
+                    b->tileShapeBasic()==tiletype_shape_basic::Floor ||
+                    b->tileShapeBasic()==tiletype_shape_basic::Wall ||
+                    b->tileShapeBasic()==tiletype_shape_basic::Stair)) ||
                 ((z + i + 1) > w->z + w->sizez)
           ) {
             break;

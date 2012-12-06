@@ -390,7 +390,7 @@ bool NotConditionalNode::addCondition(TileCondition* cond)
 
 bool HaveFloorCondition::Matches(Tile* b)
 {
-    return (b->tileShapeBasic==tiletype_shape_basic::Floor);
+    return (b->tileShapeBasic()==tiletype_shape_basic::Floor);
 }
 
 FluidBelowCondition::FluidBelowCondition(const char* strValue)
