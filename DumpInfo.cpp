@@ -224,24 +224,24 @@ void GenerateTerrainXml(const char* filename, string & type, df::tiletype_shape_
 df::tiletype_shape_basic GetBasicShape(string & shapeName)
 {
     if(shapeName == "None") {
-        return tiletype_shape_basic::None;
+        return df::tiletype_shape_basic::None;
     }
     if(shapeName == "Open") {
-        return tiletype_shape_basic::Open;
+        return df::tiletype_shape_basic::Open;
     }
     if(shapeName == "Floor") {
-        return tiletype_shape_basic::Floor;
+        return df::tiletype_shape_basic::Floor;
     }
     if(shapeName == "Wall") {
-        return tiletype_shape_basic::Wall;
+        return df::tiletype_shape_basic::Wall;
     }
     if(shapeName == "Ramp") {
-        return tiletype_shape_basic::Ramp;
+        return df::tiletype_shape_basic::Ramp;
     }
     if(shapeName == "Stair") {
-        return tiletype_shape_basic::Stair;
+        return df::tiletype_shape_basic::Stair;
     }
-    return tiletype_shape_basic::None;
+    return df::tiletype_shape_basic::None;
 }
 
 void DumpInfo(color_ostream & out, std::vector<std::string> & params)
