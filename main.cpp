@@ -17,7 +17,7 @@ using namespace std;
 #include "Creatures.h"
 #include "GroundMaterialConfiguration.h"
 #include "ContentLoader.h"
-#include "Occlusion_Test.h"
+#include "OcclusionTest.h"
 
 #define WIDTH        640
 #define HEIGHT       480
