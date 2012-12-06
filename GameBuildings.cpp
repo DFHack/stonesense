@@ -149,17 +149,6 @@ void MergeBuildingsToSegment(vector<Buildings::t_building>* buildings, WorldSegm
                 }
             }
     }
-
-    //all tiles in the segment now have their building info loaded.
-    //now set their sprites
-    /*
-    for(uint32_t i=0; i < segment->getNumTiles(); i++){
-    Tile* b = segment->getTile( i );
-    if( b->building.info.type != BUILDINGTYPE_NA && b->building.info.type != BUILDINGTYPE_BLACKBOX )
-    loadBuildingSprites( b );
-    }
-    */
-
 }
 
 

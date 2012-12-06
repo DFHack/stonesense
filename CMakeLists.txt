@@ -7,7 +7,6 @@ include_directories (${CMAKE_SOURCE_DIR})
 SET(PROJECT_SRCS
     Tile.cpp
     TileCondition.cpp
-    TileFactory.cpp
     TileTree.cpp
     BuildingConfiguration.cpp
     ColorConfiguration.cpp

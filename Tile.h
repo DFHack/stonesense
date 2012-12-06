@@ -5,29 +5,6 @@
 #include "TileTypes.h"
 #include "df/item_type.h"
 
-
-//not sure where to put these...
-
-inline bool IDisWall(int in)
-{
-    return isWallTerrain( (tiletype::tiletype) in );
-}
-
-inline bool IDisFloor(int in)
-{
-    return isFloorTerrain( (tiletype::tiletype) in );
-}
-
-inline bool IDhasOpaqueFloor(int in)
-{
-    return !FlowPassableDown( (tiletype::tiletype) in );
-}
-
-inline bool IDhasOpaqueSides(int in)
-{
-    return (!FlowPassable( (tiletype::tiletype) in )) && in != tiletype::Tree;
-}
-
 class WorldSegment;
 
 struct effect {
@@ -52,8 +29,7 @@ class Tile
 public:
     Tile(WorldSegment* ownerSegment, df::tiletype type);
     ~Tile(void);
-    static void* operator new (size_t size);
-    static void operator delete (void *p);
+
     bool visible;
 
     WorldSegment* ownerSegment;
@@ -147,9 +123,6 @@ public:
         Tile * parent;
     } building;
 
-    bool IsVisible() {
-        return IDisWall(tileType) || IDisFloor(tileType);
-    }
     void AssembleTile();
     void Drawcreaturetext();
     void AddRamptop();
@@ -190,3 +163,23 @@ bool hasBuildingOfID(Tile* b, int ID);
 bool hasBuildingIdentity(Tile* b, uint32_t index, int buildingOcc);
 bool hasBuildingOfIndex(Tile* b, uint32_t index);
 bool wallShouldNotHaveBorders( int in );
+
+inline bool IDisWall(int in)
+{
+    return isWallTerrain( (tiletype::tiletype) in );
+}
+
+inline bool IDisFloor(int in)
+{
+    return isFloorTerrain( (tiletype::tiletype) in );
+}
+
+inline bool IDhasOpaqueFloor(int in)
+{
+    return !FlowPassableDown( (tiletype::tiletype) in );
+}
+
+inline bool IDhasOpaqueSides(int in)
+{
+    return (!FlowPassable( (tiletype::tiletype) in )) && in != tiletype::Tree;
+}
