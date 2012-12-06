@@ -7,7 +7,7 @@
 #include "GameBuildings.h"
 #include "Creatures.h"
 #include "ContentLoader.h"
-#include "Occlusion_Test.h"
+#include "OcclusionTest.h"
 #include <df/flow_info.h>
 #include <df/plant.h>
 #include <df/flow_info.h>
