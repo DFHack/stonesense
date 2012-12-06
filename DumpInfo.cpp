@@ -8,15 +8,15 @@ be intended for use by people not interested in development.
 #include <fstream>
 #include "common.h"
 #include "ContentLoader.h"
-#include "ContentBuildingReader.h"
-#include "DumpInfo.h"
-#include "MapLoading.h"
-#include "ColorConfiguration.h"
+//#include "ContentBuildingReader.h"
+//#include "DumpInfo.h"
+//#include "MapLoading.h"
+//#include "ColorConfiguration.h"
+//#include "GUI.h"
 
 #include "tinyxml.h"
-#include "GUI.h"
 
-#include "df/world_raws.h"
+//#include "df/world_raws.h"
 #include "df/itemdef.h"
 #include "df/itemdef_weaponst.h"
 #include "df/itemdef_armorst.h"
