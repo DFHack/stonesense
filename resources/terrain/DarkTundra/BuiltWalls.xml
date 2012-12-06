@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
-<blocks file="BuiltBlocks.png">
-	<block sprite="100">
+<walls file="Builtblocks.png">
+	<wall sprite="100">
 		<terrain value="495" />
 		<terrain value="496" />
 		<terrain value="497" />
@@ -38,8 +38,8 @@
 		<subsprite sprite="239" color="material" outline="0" border_open_NOR="6" border_floor_NOR="6" border_wall_NOR="248"/>
 		<subsprite sprite="239" color="material" outline="0" border_open_NOR="8" border_floor_NOR="8" border_wall_NOR="246"/>
 		<subsprite sprite="239" color="material" outline="0" border_wall_NOR="2468"/>
-	</block>
-	<block sprite="100">
+	</wall>
+	<wall sprite="100">
 		<terrain value="495" />
 		<terrain value="496" />
 		<terrain value="497" />
@@ -77,8 +77,8 @@
 		<subsprite sprite="259" color="material" outline="0" border_open_NOR="6" border_floor_NOR="6" border_wall_NOR="248"/>
 		<subsprite sprite="259" color="material" outline="0" border_open_NOR="8" border_floor_NOR="8" border_wall_NOR="246"/>
 		<subsprite sprite="259" color="material" outline="0" border_wall_NOR="2468"/>
-	</block>
-	<block sprite="100">
+	</wall>
+	<wall sprite="100">
 		<terrain value="495" />
 		<terrain value="496" />
 		<terrain value="497" />
@@ -116,8 +116,8 @@
 		<subsprite sprite="279" color="material" outline="0" border_open_NOR="6" border_floor_NOR="6" border_wall_NOR="248"/>
 		<subsprite sprite="279" color="material" outline="0" border_open_NOR="8" border_floor_NOR="8" border_wall_NOR="246"/>
 		<subsprite sprite="279" color="material" outline="0" border_wall_NOR="2468"/>
-	</block>
-	<block sprite="100">
+	</wall>
+	<wall sprite="100">
 		<terrain value="495" />
 		<terrain value="496" />
 		<terrain value="497" />
@@ -155,8 +155,8 @@
 		<subsprite sprite="219" color="material" outline="0" border_open_NOR="6" border_floor_NOR="6" border_wall_NOR="248"/>
 		<subsprite sprite="219" color="material" outline="0" border_open_NOR="8" border_floor_NOR="8" border_wall_NOR="246"/>
 		<subsprite sprite="219" color="material" outline="0" border_wall_NOR="2468"/>
-	</block>
-	<block sprite="100">
+	</wall>
+	<wall sprite="100">
 		<terrain value="450" />
 		<terrain value="451" />
 		<terrain value="452" />
@@ -193,8 +193,8 @@
 		<subsprite sprite="140" outline="1" border_open_NOR="6" border_floor_NOR="6" border_wall_NOR="248"/>
 		<subsprite sprite="140" outline="1" border_open_NOR="8" border_floor_NOR="8" border_wall_NOR="246"/>
 		<subsprite sprite="140" outline="1" border_wall_NOR="2468"/>
-	</block>
-	<block sprite="100">
+	</wall>
+	<wall sprite="100">
 		<terrain value="495" />
 		<terrain value="496" />
 		<terrain value="497" />
@@ -232,8 +232,8 @@
 		<subsprite sprite="145" outline="1" border_open_NOR="6" border_floor_NOR="6" border_wall_NOR="248"/>
 		<subsprite sprite="145" outline="1" border_open_NOR="8" border_floor_NOR="8" border_wall_NOR="246"/>
 		<subsprite sprite="145" outline="1" border_wall_NOR="2468"/>
-	</block>
-	<block sprite="100" outline="0">
+	</wall>
+	<wall sprite="100" outline="0">
 		<terrain value="269"/>
 		<terrain value="270"/>
 		<terrain value="271"/>
@@ -270,8 +270,8 @@
 		<subsprite sprite="139" outline="0" border_open_NOR="6" border_floor_NOR="6" border_wall_NOR="248"/>
 		<subsprite sprite="139" outline="0" border_open_NOR="8" border_floor_NOR="8" border_wall_NOR="246"/>
 		<subsprite sprite="139" outline="0" border_wall_NOR="2468"/>
-	</block>
-	<block sprite="100" outline="0">
+	</wall>
+	<wall sprite="100" outline="0">
 		<terrain value="417"/>
 		<terrain value="418"/>
 		<terrain value="419"/>
@@ -324,8 +324,8 @@
 		<subsprite sprite="39" color="vein" outline="0" border_open_NOR="8" border_floor_NOR="8" border_wall_NOR="246"/>
 		<subsprite sprite="19" color="layer" outline="0" border_wall_NOR="2468"/>
 		<subsprite sprite="39" color="vein" outline="0" border_wall_NOR="2468"/>
-	</block>
-	<block sprite="100">
+	</wall>
+	<wall sprite="100">
 		<terrain value= 417 />
 		<terrain value= 418 />
 		<terrain value= 419 />
@@ -522,8 +522,8 @@
 			<subtype value="SAPPHIRE_STAR" />
 			<subtype value="RUBY_STAR" />
 		</material>
-	</block>
-	<block sprite="100" outline="0">
+	</wall>
+	<wall sprite="100" outline="0">
 		<terrain value="288"/>
 		<terrain value="289"/>
 		<terrain value="290"/>
@@ -578,8 +578,8 @@
 		<subsprite sprite="19" color="material" outline="0" border_open_NOR="6" border_floor_NOR="6" border_wall_NOR="248"/>
 		<subsprite sprite="19" color="material" outline="0" border_open_NOR="8" border_floor_NOR="8" border_wall_NOR="246"/>
 		<subsprite sprite="19" color="material" outline="0" border_wall_NOR="2468"/>
-	</block>
-	<block sprite="100" outline="0">
+	</wall>
+	<wall sprite="100" outline="0">
 		<terrain value="495"/>
 		<terrain value="496"/>
 		<terrain value="497"/>
@@ -619,8 +619,8 @@
 		<form value="boulder" />
 		
 		<material value="Inorganic" />
-	</block>
-	<block sprite="100" outline="0">
+	</wall>
+	<wall sprite="100" outline="0">
 		<terrain value="495"/>
 		<terrain value="496"/>
 		<terrain value="497"/>
@@ -660,5 +660,5 @@
 		<form value="block" />
 		
 		<material value="Inorganic" />
-	</block>
-</blocks>
+	</wall>
+</walls>

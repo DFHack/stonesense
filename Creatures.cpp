@@ -4,7 +4,7 @@
 #include "CreatureConfiguration.h"
 #include "ContentLoader.h"
 #include "GUI.h"
-#include "Block.h"
+#include "Tile.h"
 #include "SpriteColors.h"
 #include "DataDefs.h"
 #include "df/world.h"
@@ -205,7 +205,7 @@ bool IsCreatureVisible( df::unit* c )
 }
 
 
-void AssembleCreature(int drawx, int drawy, t_unit* creature, Block * b)
+void AssembleCreature(int drawx, int drawy, t_unit* creature, Tile * b)
 {
     c_sprite * sprite = GetCreatureSpriteMap( creature );
     if(sprite) {
@@ -382,17 +382,17 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
         // make a copy of some creature data
         DFHack::Units::CopyCreature(unit_ptr,*tempcreature);
         // Acquire a cube element thingie!
-        Block* b = segment->getBlock (tempcreature->x, tempcreature->y, tempcreature->z );
+        Tile* b = segment->getTile (tempcreature->x, tempcreature->y, tempcreature->z );
         // If we failed at that, make a new one out of fairy dust and makebelieve ;)
         if(!b) {
-            //inside segment, but no block to represent it
-            b = new Block(segment, df::tiletype::OpenSpace);
+            //inside segment, but no tile to represent it
+            b = new Tile(segment, df::tiletype::OpenSpace);
             b->x = tempcreature->x;
             b->y = tempcreature->y;
             b->z = tempcreature->z;
-            // fake block occupancy where needed. This is starting to get hacky...
+            // fake tile occupancy where needed. This is starting to get hacky...
             b->creaturePresent=true;
-            segment->addBlock( b );
+            segment->addTile( b );
         }
 
         // creature already there? SKIP.
@@ -403,9 +403,9 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
         //Creature not yet there, we process...
         b->creaturePresent=true;
         b->creature = tempcreature;
-        // add shadow to nearest floor block
+        // add shadow to nearest floor tile
         for (int bz = tempcreature->z; bz>=z1; bz--) {
-            Block * floor_tile = segment->getBlock (tempcreature->x, tempcreature->y, bz );
+            Tile * floor_tile = segment->getTile (tempcreature->x, tempcreature->y, bz );
             if (!floor_tile) {
                 continue;
             }

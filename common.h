@@ -35,7 +35,7 @@ using namespace df::enums;
 #undef TileShape
 
 #include "commonTypes.h"
-#include "Block.h"
+#include "Tile.h"
 #include <stdio.h>
 #include <stdarg.h>
 
@@ -80,9 +80,9 @@ using namespace df::enums;
 #define FULLSCREEN false
 #define RESOLUTION_WIDTH 800
 #define RESOLUTION_HEIGHT 600
-// Height of a one pixel stripe of the wall of an entire block,
+// Height of a one pixel stripe of the wall of an entire tile,
 //		including wall and floor plate
-#define BLOCKHEIGHT (WALLHEIGHT + FLOORHEIGHT)
+#define TILEHEIGHT (WALLHEIGHT + FLOORHEIGHT)
 // Width of area copied from an image file
 // may be different to plate dimensions to allow overlap later
 #define SPRITEWIDTH PLATEWIDTH
@@ -162,7 +162,7 @@ class SegmentWrap;
 
 
 //main.cpp
-void correctBlockForDisplayedOffset(int32_t& x, int32_t& y, int32_t& z);
+void correctTileForDisplayedOffset(int32_t& x, int32_t& y, int32_t& z);
 
 void LogError(const char* msg, ...);
 void PrintMessage(const char* msg, ...);

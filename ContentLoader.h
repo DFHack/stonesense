@@ -40,7 +40,7 @@ public:
     vector<VegetationConfiguration> shrubConfigs;
     vector<VegetationConfiguration> grassConfigs;
     vector<TerrainConfiguration*> terrainFloorConfigs;
-    vector<TerrainConfiguration*> terrainBlockConfigs;
+    vector<TerrainConfiguration*> terrainWallConfigs;
     vector<ColorConfiguration> colorConfigs;
     vector<ItemConfiguration*> itemConfigs;
     FluidConfiguration lava[8];

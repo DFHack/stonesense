@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<blocks file="NaturalWalls.png">
-	<block sprite="19">
+<walls file="Naturalblocks.png">
+	<wall sprite="19">
 		<terrain value="265" />
 		<material value="Inorganic">
 			<subtype value="LOAM"/>
@@ -8,8 +8,8 @@
 			<subtype value="SANDY_LOAM"/>
 			<subtype value="SILT_LOAM"/>
 		</material>
-	</block>
-	<block sprite="18">
+	</wall>
+	<wall sprite="18">
 		<terrain value="265" />
 		<material value="Inorganic">
 			<subtype value="CLAY"/>
@@ -19,63 +19,63 @@
 			<subtype value="SILTY_CLAY"/>
 			<subtype value="SILTY_CLAY_LOAM"/>
 		</material>
-	</block>
-	<block sprite="17">
+	</wall>
+	<wall sprite="17">
 		<terrain value="265" />
 		<material value="Inorganic">
 			<subtype value="SILT"/>
 			<subtype value="PEAT"/>
 		</material>
-	</block>
-	<block sprite="40">
+	</wall>
+	<wall sprite="40">
 		<terrain value="364"/>
-	</block>
-	<block sprite="25">
+	</wall>
+	<wall sprite="25">
 		<terrain value="331"/>
 		<terrain value="330"/>
 		<terrain value="329"/>
 		<terrain value="328"/>
-	</block>
-	<block sprite="25">
+	</wall>
+	<wall sprite="25">
 		<terrain value="219"/>
 		<material value="Inorganic">
 			<subtype value="OBSIDIAN"/>
 		</material>
-	</block>
+	</wall>
 	
 	<!-- sand -->
-	<block sprite="20">
+	<wall sprite="20">
 		<terrain value="265" />
 		<material value="Stone">
 			<subtype value="SAND_YELLOW" />
 		</material>
-	</block>
-	<block sprite="21">
+	</wall>
+	<wall sprite="21">
 		<terrain value="265" />
 		<material value="Stone">
 			<subtype value="SAND_WHITE" />
 		</material>
-	</block>
-	<block sprite="22">
+	</wall>
+	<wall sprite="22">
 		<terrain value="265" />
 		<material value="Stone">
 			<subtype value="SAND_BLACK" />
 		</material>
-	</block>
-	<block sprite="23">
+	</wall>
+	<wall sprite="23">
 		<terrain value="265" />
 		<material value="Stone">
 			<subtype value="SAND_RED" />
 		</material>
-	</block>
-	<block sprite="24">
+	</wall>
+	<wall sprite="24">
 		<terrain value="265" />
 		<material value="Stone">
 			<subtype value="SAND_TAN" />
 		</material>
-	</block>
+	</wall>
 	<!-- stone -->
-	<block sprite="0" color="material">
+	<wall sprite="0" color="material">
 		<!-- wall feat? -->
 		<terrain value="176" />
 		<terrain value="177" />
@@ -86,17 +86,17 @@
 		<terrain value="333" />
 		<terrain value="334" />
 		<terrain value="335" />
-	</block>
-	<block sprite="0" color="layer">
+	</wall>
+	<wall sprite="0" color="layer">
 		<!-- vein wall -->
 		<terrain value="437" />
 		<terrain value="438" />
 		<terrain value="439" />
 		<terrain value="440" />
 		<subsprite sprite="1" color="vein" />
-	</block>
+	</wall>
 	<!-- gems -->
-	<block sprite="0" color="layer">
+	<wall sprite="0" color="layer">
 		<!-- wall feat? -->
 		<terrain value="219" />
 		<!-- wall feat? -->
@@ -233,9 +233,9 @@
 			<subtype value="SAPPHIRE_STAR" />
 			<subtype value="RUBY_STAR" />
 		</material>
-	</block>
+	</wall>
 	<!-- gems -->
-	<block sprite="4" color="material" outline="0">
+	<wall sprite="4" color="material" outline="0">
 		<!-- wall feat? -->
 		<terrain value="219" />
 		<!-- wall feat? -->
@@ -245,52 +245,52 @@
 		<material value="Stone">
 			<subtype value="RAW_ADAMANTINE" />
 		</material>
-	</block>
+	</wall>
 	<!-- semi-molten rock -->
-	<block sprite="5" outline="0">
+	<wall sprite="5" outline="0">
 		<terrain value="263" />
-	</block>
-	<block sprite="4" file="NaturalRamps.png" color="material">
+	</wall>
+	<wall sprite="4" file="NaturalRamps.png" color="material">
 		<terrain value="518" />
 		<form value="block" />
 		<material value="Inorganic" />
-	</block>
-	<block sprite="9" file="NaturalRamps.png" color="material">
+	</wall>
+	<wall sprite="9" file="NaturalRamps.png" color="material">
 		<terrain value="518" />
 		<material value="Wood" />
-	</block>
-	<block sprite="10" file="NaturalRamps.png" color="material">
+	</wall>
+	<wall sprite="10" file="NaturalRamps.png" color="material">
 		<terrain value="518" />
 		<material value="GreenGlass" />
-	</block>
-	<block sprite="11" file="NaturalRamps.png" color="material">
+	</wall>
+	<wall sprite="11" file="NaturalRamps.png" color="material">
 		<terrain value="518" />
 		<material value="ClearGlass" />
-	</block>
-	<block sprite="12" file="NaturalRamps.png" color="material">
+	</wall>
+	<wall sprite="12" file="NaturalRamps.png" color="material">
 		<terrain value="518" />
 		<material value="CrystalGlass" />
-	</block>
-	<block sprite="5" file="NaturalRamps.png" color="material">
+	</wall>
+	<wall sprite="5" file="NaturalRamps.png" color="material">
 		<terrain value="518" />
 		<form value="boulder" />
 		<material value="Inorganic" />
-	</block>
-	<block sprite="3" file="NaturalRamps.png">
+	</wall>
+	<wall sprite="3" file="NaturalRamps.png">
 		<terrain value="245" />
-	</block>
-	<block sheetIndex="6" file="NaturalRamps.png">
+	</wall>
+	<wall sheetIndex="6" file="NaturalRamps.png">
 		<terrain value="235" />
 		<terrain value="236" />
-	</block>
-	<block sheetIndex="7" file="NaturalRamps.png">
+	</wall>
+	<wall sheetIndex="7" file="NaturalRamps.png">
 		<terrain value="233" />
 		<terrain value="234" />
-	</block>
-	<block sheetIndex="8" file="NaturalRamps.png">
+	</wall>
+	<wall sheetIndex="8" file="NaturalRamps.png">
 		<terrain value="241" />
-	</block>
-	<block sprite="0" file="NaturalRamps.png" color="material">
+	</wall>
+	<wall sprite="0" file="NaturalRamps.png" color="material">
 		<!-- stone -->
 		<terrain value="237" />
 		<!-- obs -->
@@ -302,8 +302,8 @@
 		<material value="Stone">
 			<subtype value="RAW_ADAMANTINE" />
 		</material>
-	</block>
-	<block sprite="1" file="NaturalRamps.png" color="material">
+	</wall>
+	<wall sprite="1" file="NaturalRamps.png" color="material">
 		<!-- stone -->
 		<terrain value="237" />
 		<!-- obs -->
@@ -314,5 +314,5 @@
 		<terrain value="240" />
 		<!-- cons -->
 		<terrain value="518" />
-	</block>
-</blocks>
+	</wall>
+</walls>

@@ -116,14 +116,14 @@ struct GameConfiguration {
     bool show_stockpiles;
     bool show_osd;
     bool single_layer_view;
-    bool shade_hidden_blocks;
-    bool show_hidden_blocks;
+    bool shade_hidden_tiles;
+    bool show_hidden_tiles;
     bool show_creature_names;
     bool names_use_nick;
     bool names_use_species;
     bool show_all_creatures;
     bool load_ground_materials;
-    bool hide_outer_blocks;
+    bool hide_outer_tiles;
     bool debug_mode;
     bool track_center;
     int lift_segment_offscreen;
@@ -181,7 +181,7 @@ struct GameConfiguration {
     bool fog_of_war;
 
     bool occlusion;
-    bool block_count;
+    bool tile_count;
 
     uint16_t bloodcutoff;
     uint16_t poolcutoff;

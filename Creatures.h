@@ -5,13 +5,13 @@
 
 #define	SPRITECRE_NA 0;
 
-class Block;
+class Tile;
 
 using DFHack::Units::t_unit;
 
 void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment);
 
-void AssembleCreature(int drawx, int drawy, t_unit* creature, Block * b);
+void AssembleCreature(int drawx, int drawy, t_unit* creature, Tile * b);
 void AssembleCreatureText(int drawx, int drawy, t_unit* creature, WorldSegment * b);
 void DrawCreatureText(int drawx, int drawy, t_unit* creature );
 c_sprite* GetCreatureSpriteMap( t_unit* c );

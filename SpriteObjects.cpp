@@ -18,7 +18,7 @@
 
 #define ALL_BORDERS 255
 
-unsigned char get_water_direction( Block *b )
+unsigned char get_water_direction( Tile *b )
 {
     //Fixme: add the new river ramps, possibly change to a switch statement
     int tiletype = b->tileType;
@@ -76,7 +76,7 @@ unsigned char get_water_direction( Block *b )
     return 0;
 }
 
-unsigned char get_relative_water_direction( Block *b )
+unsigned char get_relative_water_direction( Tile *b )
 {
     int  dir = get_water_direction(b);
     if(dir == 0) {
@@ -97,7 +97,7 @@ unsigned char get_relative_water_direction( Block *b )
     return dir;
 }
 
-int getBloodOffset ( Block *b )
+int getBloodOffset ( Tile *b )
 {
     int offset = 0;
     int x = b->x, y = b->y, z = b->z;
@@ -112,11 +112,11 @@ int getBloodOffset ( Block *b )
 
         // Smear (should be blood2, not blood) swapped for testing
         else {
-            // if there's no block in the respective direction it's false. if there's no blood in that direction it's false too. should also check to see if there's a ramp below, but since blood doesn't flow, that'd look wrong anyway.
-            bool _N = ( b->ownerSegment->getBlockRelativeTo( x, y, z, eUp ) != NULL ? (b->ownerSegment->getBlockRelativeTo( x, y, z, eUp )->bloodlevel > ssConfig.poolcutoff) : false ),
-                 _S = ( b->ownerSegment->getBlockRelativeTo( x, y, z, eDown ) != NULL ? (b->ownerSegment->getBlockRelativeTo( x, y, z, eDown )->bloodlevel > ssConfig.poolcutoff) : false ),
-                 _E = ( b->ownerSegment->getBlockRelativeTo( x, y, z, eRight ) != NULL ? (b->ownerSegment->getBlockRelativeTo( x, y, z, eRight )->bloodlevel > ssConfig.poolcutoff) : false ),
-                 _W = ( b->ownerSegment->getBlockRelativeTo( x, y, z, eLeft ) != NULL ? (b->ownerSegment->getBlockRelativeTo( x, y, z, eLeft )->bloodlevel > ssConfig.poolcutoff) : false );
+            // if there's no tile in the respective direction it's false. if there's no blood in that direction it's false too. should also check to see if there's a ramp below, but since blood doesn't flow, that'd look wrong anyway.
+            bool _N = ( b->ownerSegment->getTileRelativeTo( x, y, z, eUp ) != NULL ? (b->ownerSegment->getTileRelativeTo( x, y, z, eUp )->bloodlevel > ssConfig.poolcutoff) : false ),
+                 _S = ( b->ownerSegment->getTileRelativeTo( x, y, z, eDown ) != NULL ? (b->ownerSegment->getTileRelativeTo( x, y, z, eDown )->bloodlevel > ssConfig.poolcutoff) : false ),
+                 _E = ( b->ownerSegment->getTileRelativeTo( x, y, z, eRight ) != NULL ? (b->ownerSegment->getTileRelativeTo( x, y, z, eRight )->bloodlevel > ssConfig.poolcutoff) : false ),
+                 _W = ( b->ownerSegment->getTileRelativeTo( x, y, z, eLeft ) != NULL ? (b->ownerSegment->getTileRelativeTo( x, y, z, eLeft )->bloodlevel > ssConfig.poolcutoff) : false );
 
             // do rules-based puddling
             if( _N || _S || _E || _W ) {
@@ -217,7 +217,7 @@ void c_sprite::reset(void)
     grass_growth = GRASS_GROWTH_ANY;
     needoutline=0;
     defaultsheet=IMGObjectSheet;
-    platelayout=BLOCKPLATE;
+    platelayout=TILEPLATE;
     shadeBy=ShadeNone;
     isoutline = OUTLINENONE;
     halftile = HALFPLATECHOP;
@@ -624,7 +624,7 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
 //    }
 //}
 
-void c_sprite::assemble_world_offset_src(int x, int y, int z, int plateoffset, Block * b, Block* src, bool chop)
+void c_sprite::assemble_world_offset_src(int x, int y, int z, int plateoffset, Tile * b, Tile* src, bool chop)
 {
     if(defaultsheet == 0) {
         defaultsheet = IMGObjectSheet;
@@ -670,7 +670,7 @@ void c_sprite::assemble_world_offset_src(int x, int y, int z, int plateoffset, B
                 )) {
             goto draw_subsprite;
         }
-        if( //This second block consists of negative conditions. if /any/ of these border conditions are met, the plate will not be drawn
+        if( //This second tile consists of negative conditions. if /any/ of these border conditions are met, the plate will not be drawn
             (notopenborders & b->openborders) ||
             (notupstairborders & b->upstairborders) ||
             (notdownstairborders & b->downstairborders) ||
@@ -741,8 +741,8 @@ void c_sprite::assemble_world_offset_src(int x, int y, int z, int plateoffset, B
         int32_t drawy = y;
         int32_t drawz = z; //- ownerSegment->sizez + 1;
         
-        b->ownerSegment->CorrectBlockForSegmentOffset( drawx, drawy, drawz );
-        b->ownerSegment->CorrectBlockForSegmentRotation( drawx, drawy, drawz );
+        b->ownerSegment->CorrectTileForSegmentOffset( drawx, drawy, drawz );
+        b->ownerSegment->CorrectTileForSegmentRotation( drawx, drawy, drawz );
         int32_t viewx = drawx;
         int32_t viewy = drawy;
         int32_t viewz = drawz;
@@ -754,7 +754,7 @@ void c_sprite::assemble_world_offset_src(int x, int y, int z, int plateoffset, B
         }
 
         int sheetx, sheety;
-        if(platelayout == BLOCKPLATE) {
+        if(platelayout == TILEPLATE) {
             sheetx = ((sheetindex+plateoffset+randoffset) % SHEET_OBJECTSWIDE) * spritewidth;
             sheety = ((sheetindex+plateoffset+randoffset) / SHEET_OBJECTSWIDE) * spriteheight;
         } else if(platelayout == RAMPBOTTOMPLATE) {
@@ -926,9 +926,9 @@ void c_sprite::set_plate_layout(uint8_t layout)
     }
 }
 
-ALLEGRO_COLOR c_sprite::get_color(void* block)
+ALLEGRO_COLOR c_sprite::get_color(void* tile)
 {
-    Block * b = (Block *) block;
+    Tile * b = (Tile *) tile;
     uint32_t dayofLife = 0;
     switch(shadeBy) {
     case ShadeNone:

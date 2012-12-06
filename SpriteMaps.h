@@ -2,7 +2,7 @@
 
 #include "common.h"
 #include "SpriteObjects.h"
-#include "BlockTree.h"
+#include "TileTree.h"
 
 enum enumFloorSprites {
     SPRITEFLOOR_NA = 0,
@@ -48,7 +48,7 @@ enum enumObjectSprites {
 
 };
 
-enum BlockIDs {
+enum TileIDs {
 
     ID_STONE_FORTIFICATION = 65,
     ID_STONE_WALL_RD2 = 307,
@@ -64,7 +64,7 @@ enum BlockIDs {
 
 // returns appropriate t_SpriteWithOffset,
 // or one with sheetIndex == INVALID_INDEX if none found
-c_sprite * GetBlockSpriteMap(int in, t_matglossPair material, uint16_t form);
+c_sprite * GetTileSpriteMap(int in, t_matglossPair material, uint16_t form);
 c_sprite * GetFloorSpriteMap(int in, t_matglossPair material, uint16_t form);
-c_block_tree * GetTreeVegetation( df::tiletype_shape shape, df::tiletype_special special, int index);
+c_tile_tree * GetTreeVegetation( df::tiletype_shape shape, df::tiletype_special special, int index);
 

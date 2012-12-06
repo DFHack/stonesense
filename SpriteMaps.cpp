@@ -3,7 +3,7 @@
 #include "GroundMaterialConfiguration.h"
 #include "ContentLoader.h"
 #include "GUI.h"
-#include "BlockTree.h"
+#include "TileTree.h"
 #include "TileTypes.h"
 
 c_sprite *  GetTerrainSpriteMap(int in, t_matglossPair material, vector<TerrainConfiguration*>& configTable, uint16_t form)
@@ -84,14 +84,14 @@ c_sprite * GetFloorSpriteMap(int in, t_matglossPair material, uint16_t form)
     return GetTerrainSpriteMap(in, material, contentLoader->terrainFloorConfigs, form);
 }
 
-c_sprite * GetBlockSpriteMap(int in, t_matglossPair material, uint16_t form)
+c_sprite * GetTileSpriteMap(int in, t_matglossPair material, uint16_t form)
 {
-    return GetTerrainSpriteMap(in, material, contentLoader->terrainBlockConfigs, form);
+    return GetTerrainSpriteMap(in, material, contentLoader->terrainWallConfigs, form);
 }
 
-c_block_tree * GetTreeVegetation( df::tiletype_shape shape, df::tiletype_special special, int index)
+c_tile_tree * GetTreeVegetation( df::tiletype_shape shape, df::tiletype_special special, int index)
 {
-    static c_block_tree * defaultTree = new c_block_tree;
+    static c_tile_tree * defaultTree = new c_tile_tree;
     int base_sprite = SPRITEOBJECT_BLUEPRINT;
     vector<VegetationConfiguration>* graphicSet;
     bool live=true;
@@ -134,7 +134,7 @@ c_block_tree * GetTreeVegetation( df::tiletype_shape shape, df::tiletype_special
         return defaultTree;
     }
 
-    c_block_tree * configuredTree = getVegetationTree(*graphicSet,index,live,grown);
+    c_tile_tree * configuredTree = getVegetationTree(*graphicSet,index,live,grown);
     if (configuredTree->get_sheetindex() == -1) {
         configuredTree->set_fileindex(-1); // should be set already, but...
         configuredTree->set_sheetindex(base_sprite);

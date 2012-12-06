@@ -1,18 +1,18 @@
 <?xml version="1.0"?>
-<blocks file="blocks.png">
+<walls file="blocks.png">
   <!-- fortifications -->
-  <block sheetIndex="142" color="material">
+  <wall sheetIndex="142" color="material">
     <!-- cons -->
     <terrain value="494" />
     <material value="Wood" />
-  </block>
-  <block sheetIndex="140" color="material">
+  </wall>
+  <wall sheetIndex="140" color="material">
     <!-- cons -->
     <terrain value="494" />
-  </block>
+  </wall>
   <!-- ramps -->
   <!-- stone -->
-  <block sheetIndex="1" file="ramps.png" color="material">
+  <wall sheetIndex="1" file="ramps.png" color="material">
     <!-- stone -->
     <terrain value="237" />
     <!-- obs -->
@@ -21,46 +21,46 @@
     <terrain value="239" />
     <!-- vein -->
     <terrain value="240" />
-  </block>
+  </wall>
   <!-- brick -->
-  <block sheetIndex="2" file="ramps.png" color="material">
+  <wall sheetIndex="2" file="ramps.png" color="material">
     <!-- cons -->
     <terrain value="518" />
-  </block>
-  <block sheetIndex="5" file="ramps.png">
+  </wall>
+  <wall sheetIndex="5" file="ramps.png">
     <!-- ice -->
     <terrain value="245" />
-  </block>
-  <block sheetIndex="5" file="ramps.png">
+  </wall>
+  <wall sheetIndex="5" file="ramps.png">
     <!-- ice -->
     <terrain value="518" />
     <material value="Ice" />
-  </block>
-  <block sheetIndex="4" file="ramps.png">
+  </wall>
+  <wall sheetIndex="4" file="ramps.png">
     <!-- cons -->
     <terrain value="518" />
     <material value="GreenGlass" />
-  </block>
-  <block sheetIndex="3" file="ramps.png">
+  </wall>
+  <wall sheetIndex="3" file="ramps.png">
     <!-- cons -->
     <terrain value="518" />
     <material value="ClearGlass" />
     <material value="CrystalGlass" />
-  </block>
-  <block sheetIndex="6" file="ramps.png" color="material">
+  </wall>
+  <wall sheetIndex="6" file="ramps.png" color="material">
     <!-- cons -->
     <terrain value="518" />
     <material value="Wood" />
-  </block>
+  </wall>
   <!-- stairs -->
-  <block sheetIndex="162" color="material">
+  <wall sheetIndex="162" color="material">
     <!-- cons -->
     <terrain value="515" />
     <terrain value="517" />
     <material value="Wood" />
-  </block>
+  </wall>
   <!-- construct -->
-  <block sheetIndex="8" color="material">
+  <wall sheetIndex="8" color="material">
     <!-- pillar -->
     <terrain value="495" />
     <!-- wall -->
@@ -84,9 +84,9 @@
     <terrain value="513" />
     <terrain value="514" />
     <material value="Wood" />
-  </block>
+  </wall>
   <!-- construct -->
-  <block sheetIndex="26">
+  <wall sheetIndex="26">
     <!-- pillar -->
     <terrain value="495" />
     <!-- wall -->
@@ -110,9 +110,9 @@
     <terrain value="513" />
     <terrain value="514" />
     <material value="GreenGlass" />
-  </block>
+  </wall>
   <!-- construct -->
-  <block sheetIndex="25">
+  <wall sheetIndex="25">
     <!-- pillar -->
     <terrain value="495" />
     <!-- wall -->
@@ -137,9 +137,9 @@
     <terrain value="514" />
     <material value="ClearGlass" />
     <material value="CrystalGlass" />
-  </block>
+  </wall>
   <!-- construct -->
-  <block sheetIndex="46">
+  <wall sheetIndex="46">
     <!-- pillar -->
     <terrain value="495" />
     <!-- wall -->
@@ -165,9 +165,9 @@
     <material value="Stone">
       <subtype value="RUTILE" />
     </material>
-  </block>
+  </wall>
   <!-- construct -->
-  <block sheetIndex="7" color="material">
+  <wall sheetIndex="7" color="material">
     <!-- pillar -->
     <terrain value="495" />
     <!-- wall -->
@@ -218,9 +218,9 @@
       <subtype value="BISMUTH_BRONZE" />
       <subtype value="ADAMANTINE" />
     </material>
-  </block>
+  </wall>
   <!-- damaged walls -->
-  <block sheetIndex="29" color="material">
+  <wall sheetIndex="29" color="material">
     <!-- wall feat? -->
     <terrain value="176" />
     <terrain value="177" />
@@ -233,9 +233,9 @@
     <terrain value="437" />
     <terrain value="438" />
     <terrain value="439" />
-  </block>
+  </wall>
   <!-- gems -->
-  <block sheetIndex="31" color="material">
+  <wall sheetIndex="31" color="material">
     <!-- wall feat? -->
     <terrain value="219" />
     <!-- wall feat? -->
@@ -371,9 +371,9 @@
       <subtype value="RUBY_STAR" />
       <subtype value="RAW_ADAMANTINE" />
     </material>
-  </block>
+  </wall>
   <!-- soil -->
-  <block sheetIndex="10" color = "material">
+  <wall sheetIndex="10" color = "material">
     <!-- wall -->
     <terrain value="265" />
     <material value="Stone">
@@ -384,9 +384,9 @@
       <subtype value="SAND_BLACK" />
       <subtype value="SAND_WHITE" />
     </material>
-  </block>
+  </wall>
   <!-- soil -->
-  <block sheetIndex="14" color="material">
+  <wall sheetIndex="14" color="material">
     <!-- wall -->
     <terrain value="265" />
     <material value="Stone">
@@ -396,9 +396,9 @@
       <subtype value="SANDY_CLAY" />
       <subtype value="CLAY" />
     </material>
-  </block>
+  </wall>
   <!-- construct -->
-  <block sheetIndex="6" outline="0">
+  <wall sheetIndex="6" outline="0">
     <!-- pillar -->
     <terrain value="495" />
     <!-- wall -->
@@ -422,5 +422,5 @@
     <terrain value="513" />
     <terrain value="514" />
     <material value="Ice" />
-  </block>
-</blocks>
+  </wall>
+</walls>

@@ -26,7 +26,7 @@ ContentLoader::~ContentLoader(void)
     //flush content on exit
     flushBuildingConfig(&buildingConfigs);
     flushTerrainConfig(terrainFloorConfigs);
-    flushTerrainConfig(terrainBlockConfigs);
+    flushTerrainConfig(terrainWallConfigs);
     flushItemConfig(itemConfigs);
     flushCreatureConfig();
     colorConfigs.clear();
@@ -42,7 +42,7 @@ bool ContentLoader::Load()
     //flush old config
     flushBuildingConfig(&buildingConfigs);
     flushTerrainConfig(terrainFloorConfigs);
-    flushTerrainConfig(terrainBlockConfigs);
+    flushTerrainConfig(terrainWallConfigs);
     flushItemConfig(itemConfigs);
     colorConfigs.clear();
     creatureConfigs.clear();
@@ -139,7 +139,7 @@ bool ContentLoader::reload_configs()
 {
     flushBuildingConfig(&buildingConfigs);
     flushTerrainConfig(terrainFloorConfigs);
-    flushTerrainConfig(terrainBlockConfigs);
+    flushTerrainConfig(terrainWallConfigs);
     flushItemConfig(itemConfigs);
     colorConfigs.clear();
     creatureConfigs.clear();
@@ -278,7 +278,7 @@ bool ContentLoader::parseContentXMLFile( const char* filepath )
             runningResult &= parseCreatureContent( elemRoot );
         } else if( elementType.compare( "floors" ) == 0 ) {
             runningResult &= parseTerrainContent( elemRoot );
-        } else if( elementType.compare( "blocks" ) == 0 ) {
+        } else if( elementType.compare( "walls" ) == 0 ) {
             runningResult &= parseTerrainContent( elemRoot );
         } else if( elementType.compare( "shrubs" ) == 0 ) {
             runningResult &= parseShrubContent( elemRoot );

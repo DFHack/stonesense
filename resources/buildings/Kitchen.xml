@@ -18,7 +18,7 @@
 		</rotate>
 	</if>
 
-	<!-- benches block -->
+	<!-- benches wall -->
 	<if else=1> 
 		<!-- replace this with position index if required -->
 		<BuildingOccupancy value="3" />
@@ -28,7 +28,7 @@
 	<else>
 		<include file="wsUpperBorder.xml"/>
 	</else>
-	<!-- end benches block -->
+	<!-- end benches wall -->
  
 	<!-- contents -->
 	

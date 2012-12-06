@@ -4,7 +4,7 @@
 
 <building name="Magma Smelter" game_type="Furnace" game_subtype="MagmaSmelter" file="workshop.png"> 
 
-	<!-- benches block -->
+	<!-- benches wall -->
 	<if>
 		<BuildingOccupancy value="3" />
 		<include file="wsFurnace.xml" />
@@ -13,7 +13,7 @@
 		<HaveFloor/>
 		<include file="wsUpperBorder.xml"/>
 	</else>
-	<!-- end benches block -->
+	<!-- end benches wall -->
  
 	<!-- contents -->
 

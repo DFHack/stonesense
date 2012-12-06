@@ -32,7 +32,7 @@ U: Toggle stockpiles.
 I: Toggle zones.
 C: Toggle truncated walls.
 F: Toggle follow mode.
-H: Toggle hidden blocks.
+H: Toggle hidden tiles.
 B: Toggle blacked out areas.
 S: Toggle single layer view.
 N: Toggle creature names.
@@ -65,7 +65,7 @@ holding Ctrl while using the keyboard window movement keys.
 When you turn on cursor follow mode, the debug cursor will follow the DF cursor when it exists.
 
 -- Occlusion Culling --
-There is an experimental feature that hides blocks that are not visible, for a speed increase.
+There is an experimental feature that hides tiles that are not visible, for a speed increase.
 This is a work in progress, and very buggy. It can be turned off with 'o', if something is missing.
 
 --== Contacts ==--

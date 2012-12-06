@@ -42,46 +42,46 @@ char rampblut[] =
     11 , 16 , 11 , 16 , 17 , 16 , 17 , 10 , 11 , 16 , 11 , 16 , 17 , 11 , 17 , 26
 };
 
-inline bool isBlockHighRampEnd(uint32_t x, uint32_t y, uint32_t z, WorldSegment* segment, dirRelative dir)
+inline bool isTileHighRampEnd(uint32_t x, uint32_t y, uint32_t z, WorldSegment* segment, dirRelative dir)
 {
-    Block* block = segment->getBlockRelativeTo( x, y, z, dir);
-    if(!block) {
+    Tile* tile = segment->getTileRelativeTo( x, y, z, dir);
+    if(!tile) {
         return false;
     }
-    if(block->tileShapeBasic!=tiletype_shape_basic::Wall) {
+    if(tile->tileShapeBasic!=tiletype_shape_basic::Wall) {
         return false;
     }
-    return IDisWall( block->tileType );
+    return IDisWall( tile->tileType );
 }
 
-inline int blockWaterDepth(uint32_t x, uint32_t y, uint32_t z, WorldSegment* segment, dirRelative dir)
+inline int tileWaterDepth(uint32_t x, uint32_t y, uint32_t z, WorldSegment* segment, dirRelative dir)
 {
-    Block* block = segment->getBlockRelativeTo( x, y, z, dir);
-    if(!block) {
+    Tile* tile = segment->getTileRelativeTo( x, y, z, dir);
+    if(!tile) {
         return false;
     }
-    if(block->water.index == 0 || block->water.type == 1) {
+    if(tile->water.index == 0 || tile->water.type == 1) {
         return false;
     }
-    return block->water.index;
+    return tile->water.index;
 }
 
-inline bool isBlockHighRampTop(uint32_t x, uint32_t y, uint32_t z, WorldSegment* segment, dirRelative dir)
+inline bool isTileHighRampTop(uint32_t x, uint32_t y, uint32_t z, WorldSegment* segment, dirRelative dir)
 {
-    Block* block = segment->getBlockRelativeTo( x, y, z, dir);
-    if(!block) {
+    Tile* tile = segment->getTileRelativeTo( x, y, z, dir);
+    if(!tile) {
         return false;
     }
-    if(block->tileShapeBasic!=tiletype_shape_basic::Floor && block->tileShapeBasic!=tiletype_shape_basic::Ramp && block->tileShapeBasic!=tiletype_shape_basic::Stair) {
+    if(tile->tileShapeBasic!=tiletype_shape_basic::Floor && tile->tileShapeBasic!=tiletype_shape_basic::Ramp && tile->tileShapeBasic!=tiletype_shape_basic::Stair) {
         return false;
     }
-    if(block->tileShapeBasic!=tiletype_shape_basic::Wall) {
+    if(tile->tileShapeBasic!=tiletype_shape_basic::Wall) {
         return true;
     }
-    return !IDisWall( block->tileType );
+    return !IDisWall( tile->tileType );
 }
 
-inline bool isBlockOnTopOfSegment(WorldSegment* segment, Block* b)
+inline bool isTileOnTopOfSegment(WorldSegment* segment, Tile* b)
 {
     return b->z == segment->z + segment->sizez - 2;
 }
@@ -89,28 +89,28 @@ inline bool isBlockOnTopOfSegment(WorldSegment* segment, Block* b)
 int CalculateRampType(uint32_t x, uint32_t y, uint32_t z, WorldSegment* segment)
 {
     int ramplookup = 0;
-    if (isBlockHighRampEnd(x, y, z, segment, eUp) && isBlockHighRampTop(x, y, z+1, segment, eUp)) {
+    if (isTileHighRampEnd(x, y, z, segment, eUp) && isTileHighRampTop(x, y, z+1, segment, eUp)) {
         ramplookup ^= 1;
     }
-    if (isBlockHighRampEnd(x, y, z, segment, eUpRight) && isBlockHighRampTop(x, y, z+1, segment, eUpRight)) {
+    if (isTileHighRampEnd(x, y, z, segment, eUpRight) && isTileHighRampTop(x, y, z+1, segment, eUpRight)) {
         ramplookup ^= 2;
     }
-    if (isBlockHighRampEnd(x, y, z, segment, eRight) && isBlockHighRampTop(x, y, z+1, segment, eRight)) {
+    if (isTileHighRampEnd(x, y, z, segment, eRight) && isTileHighRampTop(x, y, z+1, segment, eRight)) {
         ramplookup ^= 4;
     }
-    if (isBlockHighRampEnd(x, y, z, segment, eDownRight) && isBlockHighRampTop(x, y, z+1, segment, eDownRight)) {
+    if (isTileHighRampEnd(x, y, z, segment, eDownRight) && isTileHighRampTop(x, y, z+1, segment, eDownRight)) {
         ramplookup ^= 8;
     }
-    if (isBlockHighRampEnd(x, y, z, segment, eDown) && isBlockHighRampTop(x, y, z+1, segment, eDown)) {
+    if (isTileHighRampEnd(x, y, z, segment, eDown) && isTileHighRampTop(x, y, z+1, segment, eDown)) {
         ramplookup ^= 16;
     }
-    if (isBlockHighRampEnd(x, y, z, segment, eDownLeft) && isBlockHighRampTop(x, y, z+1, segment, eDownLeft)) {
+    if (isTileHighRampEnd(x, y, z, segment, eDownLeft) && isTileHighRampTop(x, y, z+1, segment, eDownLeft)) {
         ramplookup ^= 32;
     }
-    if (isBlockHighRampEnd(x, y, z, segment, eLeft) && isBlockHighRampTop(x, y, z+1, segment, eLeft)) {
+    if (isTileHighRampEnd(x, y, z, segment, eLeft) && isTileHighRampTop(x, y, z+1, segment, eLeft)) {
         ramplookup ^= 64;
     }
-    if (isBlockHighRampEnd(x, y, z, segment, eUpLeft) && isBlockHighRampTop(x, y, z+1, segment, eUpLeft)) {
+    if (isTileHighRampEnd(x, y, z, segment, eUpLeft) && isTileHighRampTop(x, y, z+1, segment, eUpLeft)) {
         ramplookup ^= 128;
     }
 
@@ -119,28 +119,28 @@ int CalculateRampType(uint32_t x, uint32_t y, uint32_t z, WorldSegment* segment)
         return rampblut[ramplookup];
     }
 
-    if (isBlockHighRampEnd(x, y, z, segment, eUp)) {
+    if (isTileHighRampEnd(x, y, z, segment, eUp)) {
         ramplookup ^= 1;
     }
-    if (isBlockHighRampEnd(x, y, z, segment, eUpRight)) {
+    if (isTileHighRampEnd(x, y, z, segment, eUpRight)) {
         ramplookup ^= 2;
     }
-    if (isBlockHighRampEnd(x, y, z, segment, eRight)) {
+    if (isTileHighRampEnd(x, y, z, segment, eRight)) {
         ramplookup ^= 4;
     }
-    if (isBlockHighRampEnd(x, y, z, segment, eDownRight)) {
+    if (isTileHighRampEnd(x, y, z, segment, eDownRight)) {
         ramplookup ^= 8;
     }
-    if (isBlockHighRampEnd(x, y, z, segment, eDown)) {
+    if (isTileHighRampEnd(x, y, z, segment, eDown)) {
         ramplookup ^= 16;
     }
-    if (isBlockHighRampEnd(x, y, z, segment, eDownLeft)) {
+    if (isTileHighRampEnd(x, y, z, segment, eDownLeft)) {
         ramplookup ^= 32;
     }
-    if (isBlockHighRampEnd(x, y, z, segment, eLeft)) {
+    if (isTileHighRampEnd(x, y, z, segment, eLeft)) {
         ramplookup ^= 64;
     }
-    if (isBlockHighRampEnd(x, y, z, segment, eUpLeft)) {
+    if (isTileHighRampEnd(x, y, z, segment, eUpLeft)) {
         ramplookup ^= 128;
     }
 
@@ -148,7 +148,7 @@ int CalculateRampType(uint32_t x, uint32_t y, uint32_t z, WorldSegment* segment)
     return rampblut[ramplookup];
 }
 
-bool isBlockOnVisibleEdgeOfSegment(WorldSegment* segment, Block* b)
+bool isTileOnVisibleEdgeOfSegment(WorldSegment* segment, Tile* b)
 {
     if(b->z == segment->z + segment->sizez - 2) {
         return true;
@@ -191,28 +191,28 @@ bool isBlockOnVisibleEdgeOfSegment(WorldSegment* segment, Block* b)
     return false;
 }
 
-bool areNeighborsVisible(WorldSegment* segment, Block* b)
+bool areNeighborsVisible(WorldSegment* segment, Tile* b)
 {
-    Block* temp;
+    Tile* temp;
 
-    temp = segment->getBlock(b->x, b->y, b->z+1);
+    temp = segment->getTile(b->x, b->y, b->z+1);
     if(!temp || !(temp->designation.bits.hidden)) {
         return true;
     }
 
-    temp = segment->getBlock(b->x+1, b->y, b->z);
+    temp = segment->getTile(b->x+1, b->y, b->z);
     if(!temp || !(temp->designation.bits.hidden)) {
         return true;
     }
-    temp = segment->getBlock(b->x-1, b->y, b->z);
+    temp = segment->getTile(b->x-1, b->y, b->z);
     if(!temp || !(temp->designation.bits.hidden)) {
         return true;
     }
-    temp = segment->getBlock(b->x, b->y+1, b->z);
+    temp = segment->getTile(b->x, b->y+1, b->z);
     if(!temp || !(temp->designation.bits.hidden)) {
         return true;
     }
-    temp = segment->getBlock(b->x, b->y-1, b->z);
+    temp = segment->getTile(b->x, b->y-1, b->z);
     if(!temp || !(temp->designation.bits.hidden)) {
         return true;
     }
@@ -220,33 +220,33 @@ bool areNeighborsVisible(WorldSegment* segment, Block* b)
 }
 
 /**
-* returns true iff the block is enclosed by other solid blocks, and is itself solid
+* returns true iff the tile is enclosed by other solid tiles, and is itself solid
 */
-bool enclosed(WorldSegment* segment, Block* b)
+bool enclosed(WorldSegment* segment, Tile* b)
 {
     if(!IDisWall(b->tileType)) {
         return false;
     }
 
-    Block* temp;
-    temp = segment->getBlock(b->x, b->y, b->z+1);
+    Tile* temp;
+    temp = segment->getTile(b->x, b->y, b->z+1);
     if(!temp || !IDhasOpaqueFloor(temp->tileType)) {
         return false;
     }
 
-    temp = segment->getBlock(b->x+1, b->y, b->z);
+    temp = segment->getTile(b->x+1, b->y, b->z);
     if(!temp || !IDisWall(temp->tileType)) {
         return false;
     }
-    temp = segment->getBlock(b->x-1, b->y, b->z);
+    temp = segment->getTile(b->x-1, b->y, b->z);
     if(!temp || !IDisWall(temp->tileType)) {
         return false;
     }
-    temp = segment->getBlock(b->x, b->y+1, b->z);
+    temp = segment->getTile(b->x, b->y+1, b->z);
     if(!temp || !IDisWall(temp->tileType)) {
         return false;
     }
-    temp = segment->getBlock(b->x, b->y-1, b->z);
+    temp = segment->getTile(b->x, b->y-1, b->z);
     if(!temp || !IDisWall(temp->tileType)) {
         return false;
     }
@@ -313,12 +313,12 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
             if( !segment.CoordinateInsideSegment( gx, gy, CellZ) ) {
                 continue;
             }
-            bool createdBlock = false;
-            Block* b = segment.getBlock( gx, gy, CellZ);
+            bool createdTile = false;
+            Tile* b = segment.getTile( gx, gy, CellZ);
 
             if (!b) {
-                createdBlock = true;
-                b = new Block(&segment, df::tiletype::OpenSpace);
+                createdTile = true;
+                b = new Tile(&segment, df::tiletype::OpenSpace);
                 b->x = gx;
                 b->y = gy;
                 b->z = CellZ;
@@ -399,18 +399,18 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
             b->tileSpecial = tileSpecial(b->tileType);
             b->tileMaterial = tileMaterial(b->tileType);
 
-            //check to see if the rest of the block data is worth loading
+            //check to see if the rest of the tile data is worth loading
             bool shouldBeIncluded = true;
 
             if(isOpenTerrain(b->tileType) && b->tileType != tiletype::RampTop) {
-                if(ssConfig.show_hidden_blocks) {
+                if(ssConfig.show_hidden_tiles) {
                     shouldBeIncluded = false;
                 } else if(!(b->designation.bits.hidden)) {
                     shouldBeIncluded = false;
                 }
-            } else if(!ssConfig.show_hidden_blocks
+            } else if(!ssConfig.show_hidden_tiles
                       && b->designation.bits.hidden
-                      && !ssConfig.shade_hidden_blocks) {
+                      && !ssConfig.shade_hidden_tiles) {
                 shouldBeIncluded = false;
             }
 
@@ -419,13 +419,13 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
                 shouldBeIncluded = true;
             }
 
-            if ( !shouldBeIncluded && createdBlock ) {
+            if ( !shouldBeIncluded && createdTile ) {
                 delete(b);
             } else if( shouldBeIncluded ) {
-                //this only needs to be done for included blocks
+                //this only needs to be done for included tiles
 
-                if (createdBlock) {
-                    segment.addBlock(b);
+                if (createdTile) {
+                    segment.addTile(b);
                 }
 
                 //determine rock/soil type
@@ -560,7 +560,7 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
     for(auto iter = trueBlock->plants.begin(); iter != trueBlock->plants.end(); iter++) {
         df::plant * wheat = *iter;
         assert(wheat != NULL);
-        Block* b = segment.getBlock( wheat->pos.x, wheat->pos.y, wheat->pos.z);
+        Tile* b = segment.getTile( wheat->pos.x, wheat->pos.y, wheat->pos.z);
         if(!b) {
             continue;
         }
@@ -579,7 +579,7 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
         if(!found_item) {
             continue;
         }
-        Block* b = segment.getBlock( found_item->pos.x, found_item->pos.y, found_item->pos.z);
+        Tile* b = segment.getTile( found_item->pos.x, found_item->pos.y, found_item->pos.z);
         if(!b) {
             continue;
         }
@@ -629,14 +629,14 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
         if(eff == NULL || eff->density <= 0) {
             continue;
         }
-        Block* b = segment.getBlock( eff->pos.x, eff->pos.y, eff->pos.z);
+        Tile* b = segment.getTile( eff->pos.x, eff->pos.y, eff->pos.z);
         if(segment.CoordinateInsideSegment(eff->pos.x, eff->pos.y, eff->pos.z)) {
             if(!b) {
-                b = new Block(&segment, df::tiletype::OpenSpace);
+                b = new Tile(&segment, df::tiletype::OpenSpace);
                 b->x=eff->pos.x;
                 b->y=eff->pos.y;
                 b->z=eff->pos.z;
-                segment.addBlock(b);
+                segment.addTile(b);
             }
 
         switch(eff->type) {
@@ -720,11 +720,11 @@ void ReadCellToSegment(DFHack::Core& DF, WorldSegment& segment, int CellX, int C
 
 bool checkFloorBorderRequirement(WorldSegment* segment, int x, int y, int z, dirRelative offset)
 {
-    Block* bHigh = segment->getBlockRelativeTo(x, y, z, offset);
+    Tile* bHigh = segment->getTileRelativeTo(x, y, z, offset);
     if (bHigh && (bHigh->tileShapeBasic==tiletype_shape_basic::Floor || bHigh->tileShapeBasic==tiletype_shape_basic::Ramp || bHigh->tileShapeBasic==tiletype_shape_basic::Wall)) {
         return false;
     }
-    Block* bLow = segment->getBlockRelativeTo(x, y, z-1, offset);
+    Tile* bLow = segment->getTileRelativeTo(x, y, z-1, offset);
     if (bLow == NULL || bLow->tileShapeBasic!=tiletype_shape_basic::Ramp) {
         return true;
     }
@@ -843,7 +843,7 @@ WorldSegment* ReadMapSegment(int x, int y, int z, int sizex, int sizey, int size
             int32_t lastTileToReadY = min<uint32_t>(lastTileInCellY, y+sizey-1);
 
             for(int lz=z-sizez; lz <= z; lz++) {
-                //load the blocks from this cell to the map segment
+                //load the tiles from this cell to the map segment
                 ReadCellToSegment(DF, *segment, cellx, celly, lz,
                                   firstTileToReadX, firstTileToReadY, 
                                   lastTileToReadX, lastTileToReadY, &layers );
@@ -860,12 +860,12 @@ WorldSegment* ReadMapSegment(int x, int y, int z, int sizex, int sizey, int size
     uint32_t numengravings = Engravings::getCount();
     df::engraving * engraved;
     index = 0;
-    Block * b = 0;
+    Tile * b = 0;
     while(index < numengravings) {
         engraved = Engravings::getEngraving(index);
         df::coord pos = engraved->pos;
         if(segment->CoordinateInsideSegment(pos.x, pos.y, pos.z)) {
-            b = segment->getBlock(pos.x, pos.y, pos.z);
+            b = segment->getTile(pos.x, pos.y, pos.z);
             if(!b) {
                 continue;
             }
@@ -890,15 +890,15 @@ WorldSegment* ReadMapSegment(int x, int y, int z, int sizex, int sizey, int size
 }
 
 /**
-* checks to see if the block is a potentially viewable hidden block
-*  if so, put the black mask block overtop
-*  if not, makes block not visible
+* checks to see if the tile is a potentially viewable hidden tile
+*  if so, put the black mask tile overtop
+*  if not, makes tile not visible
 */
-inline void maskBlock(WorldSegment * segment, Block* b)
+inline void maskTile(WorldSegment * segment, Tile* b)
 {
-    //include hidden blocks as shaded black, make remaining invisible
+    //include hidden tiles as shaded black, make remaining invisible
     if( b->designation.bits.hidden ) {
-        if( isBlockOnVisibleEdgeOfSegment(segment, b)
+        if( isTileOnVisibleEdgeOfSegment(segment, b)
                 || areNeighborsVisible(segment, b) ) {
             b->building.info.type = (building_type::building_type) BUILDINGTYPE_BLACKBOX;
         } else {
@@ -908,13 +908,13 @@ inline void maskBlock(WorldSegment * segment, Block* b)
 }
 
 /**
-* checks to see if the block is a potentially viewable hidden block
-*  if not, makes block not visible
+* checks to see if the tile is a potentially viewable hidden tile
+*  if not, makes tile not visible
 * ASSUMES YOU ARE NOT ON THE SEGMENT EDGE
 */
-inline void enclosedBlock(WorldSegment * segment, Block* b)
+inline void enclosedTile(WorldSegment * segment, Tile* b)
 {
-    //make blocks that are impossible to see invisible
+    //make tiles that are impossible to see invisible
     if( b->designation.bits.hidden
             && (enclosed(segment, b)) ) {
         b->visible = false;
@@ -925,12 +925,12 @@ inline void enclosedBlock(WorldSegment * segment, Block* b)
 * enables visibility and disables fog for the first layer of water
 *  below visible space
 */
-inline void unhideWaterFromAbove(WorldSegment * segment, Block * b)
+inline void unhideWaterFromAbove(WorldSegment * segment, Tile * b)
 {
     if( b->water.index
-            && !isBlockOnTopOfSegment(segment, b)
+            && !isTileOnTopOfSegment(segment, b)
             && (b->designation.bits.hidden || b->fog_of_war) ) {
-        Block * temp = segment->getBlock(b->x, b->y, b->z+1);
+        Tile * temp = segment->getTile(b->x, b->y, b->z+1);
         if( !temp || (!IDhasOpaqueFloor(temp->tileType) && !temp->water.index) ) {
             if(contentLoader->gameMode.g_mode == GAMEMODE_ADVENTURE) {
                 if(!temp || !temp->fog_of_war) {
@@ -962,17 +962,17 @@ void beautify_Segment(WorldSegment * segment)
 
     //do misc beautification
 
-    uint32_t numblocks = segment->getNumBlocks();
+    uint32_t numtiles = segment->getNumTiles();
 
-    for(uint32_t i=0; i < numblocks; i++) {
-        Block* b = segment->getBlock(i);
+    for(uint32_t i=0; i < numtiles; i++) {
+        Tile* b = segment->getTile(i);
 
-        //try to mask away blocks that are flagged hidden
-        if(!ssConfig.show_hidden_blocks ) {
+        //try to mask away tiles that are flagged hidden
+        if(!ssConfig.show_hidden_tiles ) {
             //unhide any liquids that are visible from above
             unhideWaterFromAbove(segment, b);
-            if(ssConfig.shade_hidden_blocks) {
-                maskBlock(segment, b);
+            if(ssConfig.shade_hidden_tiles) {
+                maskTile(segment, b);
             } else if( b->designation.bits.hidden ) {
                 b->visible = false;
             }
@@ -982,18 +982,18 @@ void beautify_Segment(WorldSegment * segment)
             continue;
         }
 
-        if( !isBlockOnVisibleEdgeOfSegment(segment, b) ) {
+        if( !isTileOnVisibleEdgeOfSegment(segment, b) ) {
 
-            //hide any blocks that are totally surrounded
-            enclosedBlock(segment, b);
+            //hide any tiles that are totally surrounded
+            enclosedTile(segment, b);
 
             if(!b->visible) {
                 continue;
             }
 
-            //next see if the block is behind something
+            //next see if the tile is behind something
             if(ssConfig.occlusion) {
-                occlude_block(b);
+                occlude_tile(b);
             }
 
             if(!b->visible) {
@@ -1007,7 +1007,7 @@ void beautify_Segment(WorldSegment * segment)
                     (b->tileMaterial == tiletype_material::GRASS_DARK) ||
                     (b->tileMaterial == tiletype_material::GRASS_DEAD) ||
                     (b->tileMaterial == tiletype_material::GRASS_DRY))) {
-            c_block_tree * vegetationsprite = 0;
+            c_tile_tree * vegetationsprite = 0;
             vegetationsprite = getVegetationTree(contentLoader->grassConfigs,b->grassmat,true,true);
             if(vegetationsprite) {
                 vegetationsprite->insert_sprites(segment, b->x, b->y, b->z, b);
@@ -1021,14 +1021,14 @@ void beautify_Segment(WorldSegment * segment)
 
         //populate trees
         if(b->tree.index) {
-            c_block_tree * Tree = GetTreeVegetation(b->tileShape, b->tileSpecial, b->tree.index );
+            c_tile_tree * Tree = GetTreeVegetation(b->tileShape, b->tileSpecial, b->tree.index );
             Tree->insert_sprites(segment, b->x, b->y, b->z, b);
         }
 
 
         //setup deep water
         if( b->water.index == 7 && b->water.type == 0) {
-            int topdepth = blockWaterDepth(b->x, b->y, b->z, segment, eAbove);
+            int topdepth = tileWaterDepth(b->x, b->y, b->z, segment, eAbove);
             if(topdepth) {
                 b->water.index = 8;
             }
@@ -1039,16 +1039,16 @@ void beautify_Segment(WorldSegment * segment)
         if(b->tileShapeBasic==tiletype_shape_basic::Ramp) {
             b->ramp.index = CalculateRampType(b->x, b->y, b->z, segment);
         }
-        //add edges to blocks and floors
+        //add edges to tiles and floors
 
-        Block * dir1 = segment->getBlockRelativeTo(b->x, b->y, b->z, eUpLeft);
-        Block * dir2 = segment->getBlockRelativeTo(b->x, b->y, b->z, eUp);
-        Block * dir3 = segment->getBlockRelativeTo(b->x, b->y, b->z, eUpRight);
-        Block * dir4 = segment->getBlockRelativeTo(b->x, b->y, b->z, eRight);
-        Block * dir5 = segment->getBlockRelativeTo(b->x, b->y, b->z, eDownRight);
-        Block * dir6 = segment->getBlockRelativeTo(b->x, b->y, b->z, eDown);
-        Block * dir7 = segment->getBlockRelativeTo(b->x, b->y, b->z, eDownLeft);
-        Block * dir8 = segment->getBlockRelativeTo(b->x, b->y, b->z, eLeft);
+        Tile * dir1 = segment->getTileRelativeTo(b->x, b->y, b->z, eUpLeft);
+        Tile * dir2 = segment->getTileRelativeTo(b->x, b->y, b->z, eUp);
+        Tile * dir3 = segment->getTileRelativeTo(b->x, b->y, b->z, eUpRight);
+        Tile * dir4 = segment->getTileRelativeTo(b->x, b->y, b->z, eRight);
+        Tile * dir5 = segment->getTileRelativeTo(b->x, b->y, b->z, eDownRight);
+        Tile * dir6 = segment->getTileRelativeTo(b->x, b->y, b->z, eDown);
+        Tile * dir7 = segment->getTileRelativeTo(b->x, b->y, b->z, eDownLeft);
+        Tile * dir8 = segment->getTileRelativeTo(b->x, b->y, b->z, eLeft);
 
         b->obscuringBuilding=0;
         b->obscuringCreature=0;
@@ -1092,21 +1092,21 @@ void beautify_Segment(WorldSegment * segment)
             b->depthBorderWest = checkFloorBorderRequirement(segment, b->x, b->y, b->z, eLeft);
             b->depthBorderNorth = checkFloorBorderRequirement(segment, b->x, b->y, b->z, eUp);
 
-            Block* belowBlock = segment->getBlockRelativeTo(b->x, b->y, b->z, eBelow);
-            if(!belowBlock || (belowBlock->tileShapeBasic!=tiletype_shape_basic::Wall && belowBlock->tileShapeBasic!=tiletype_shape_basic::Wall)) {
+            Tile* belowTile = segment->getTileRelativeTo(b->x, b->y, b->z, eBelow);
+            if(!belowTile || (belowTile->tileShapeBasic!=tiletype_shape_basic::Wall && belowTile->tileShapeBasic!=tiletype_shape_basic::Wall)) {
                 b->depthBorderDown = true;
             }
         } else if( b->tileShapeBasic==tiletype_shape_basic::Wall && wallShouldNotHaveBorders( b->tileType ) == false ) {
-            Block* leftBlock = segment->getBlockRelativeTo(b->x, b->y, b->z, eLeft);
-            Block* upBlock = segment->getBlockRelativeTo(b->x, b->y, b->z, eUp);
-            if(!leftBlock || (leftBlock->tileShapeBasic!=tiletype_shape_basic::Wall && leftBlock->tileShapeBasic!=tiletype_shape_basic::Ramp)) {
+            Tile* leftTile = segment->getTileRelativeTo(b->x, b->y, b->z, eLeft);
+            Tile* upTile = segment->getTileRelativeTo(b->x, b->y, b->z, eUp);
+            if(!leftTile || (leftTile->tileShapeBasic!=tiletype_shape_basic::Wall && leftTile->tileShapeBasic!=tiletype_shape_basic::Ramp)) {
                 b->depthBorderWest = true;
             }
-            if(!upBlock || (upBlock->tileShapeBasic!=tiletype_shape_basic::Wall && upBlock->tileShapeBasic!=tiletype_shape_basic::Ramp)) {
+            if(!upTile || (upTile->tileShapeBasic!=tiletype_shape_basic::Wall && upTile->tileShapeBasic!=tiletype_shape_basic::Ramp)) {
                 b->depthBorderNorth = true;
             }
-            Block* belowBlock = segment->getBlockRelativeTo(b->x, b->y, b->z, eBelow);
-            if(!belowBlock || (belowBlock->tileShapeBasic!=tiletype_shape_basic::Wall && belowBlock->tileShapeBasic!=tiletype_shape_basic::Ramp)) {
+            Tile* belowTile = segment->getTileRelativeTo(b->x, b->y, b->z, eBelow);
+            if(!belowTile || (belowTile->tileShapeBasic!=tiletype_shape_basic::Wall && belowTile->tileShapeBasic!=tiletype_shape_basic::Ramp)) {
                 b->depthBorderDown = true;
             }
         }
@@ -1388,7 +1388,7 @@ void read_segment( void *arg)
     static bool firstLoad = 1;
     ssConfig.threadstarted = 1;
     WorldSegment * segment = 0;
-    // Suspended block
+    // Suspended tile
     {
         CoreSuspender suspend;
         if (firstLoad || ssConfig.follow_DFscreen) {
@@ -1411,7 +1411,7 @@ void read_segment( void *arg)
         segment->displayedy = ssState.DisplayedSegmentY;
         segment->displayedz = ssState.DisplayedSegmentZ;
 
-        segment->AssembleAllBlocks();
+        segment->AssembleAllTiles();
     }
 
     map_segment.lock();

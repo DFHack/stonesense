@@ -1,6 +1,6 @@
 #include "common.h"
 #include <bitset>
-#include "Block.h"
+#include "Tile.h"
 #include "WorldSegment.h"
 #include "GUI.h"
 
@@ -9,8 +9,8 @@
 #define S_PLATE_HEIGHT 4
 #define S_FLOOR_HEIGHT 1
 #define S_WALL_HEIGHT 4
-#define S_BLOCK_HEIGHT (S_FLOOR_HEIGHT+S_WALL_HEIGHT)
-#define S_SPRITE_HEIGHT (S_BLOCK_HEIGHT+S_PLATE_HEIGHT)
+#define S_TILE_HEIGHT (S_FLOOR_HEIGHT+S_WALL_HEIGHT)
+#define S_SPRITE_HEIGHT (S_TILE_HEIGHT+S_PLATE_HEIGHT)
 
 bitset<2*S_SPRITE_HEIGHT> base_mask_left;
 bitset<2*S_SPRITE_HEIGHT> base_mask_right;
@@ -19,17 +19,17 @@ bitset<2*S_SPRITE_HEIGHT> wall_mask_right;
 bitset<2*S_SPRITE_HEIGHT> floor_mask_left;
 bitset<2*S_SPRITE_HEIGHT> floor_mask_right;
 
-inline bool hasOpaqueSides(Block * b){
+inline bool hasOpaqueSides(Tile * b){
     return IDhasOpaqueSides(b->tileType) 
-        || ( b->designation.bits.hidden && (ssConfig.shade_hidden_blocks || ssConfig.show_hidden_blocks) );
+        || ( b->designation.bits.hidden && (ssConfig.shade_hidden_tiles || ssConfig.show_hidden_tiles) );
 }
 
-inline bool hasOpaqueFloor(Block * b){
+inline bool hasOpaqueFloor(Tile * b){
     return IDhasOpaqueFloor(b->tileType) 
-        || ( b->designation.bits.hidden && (ssConfig.shade_hidden_blocks || ssConfig.show_hidden_blocks) );
+        || ( b->designation.bits.hidden && (ssConfig.shade_hidden_tiles || ssConfig.show_hidden_tiles) );
 }
 
-bool is_block_solid(Block * b)
+bool is_tile_solid(Tile * b)
 {
     if(b->material.type == 3 ||
             b->material.type == 4 ||
@@ -40,12 +40,12 @@ bool is_block_solid(Block * b)
     return hasOpaqueSides(b) || hasOpaqueFloor(b);
 }
 
-void mask_center(Block * b, int offset)
+void mask_center(Tile * b, int offset)
 {
     if(!b) {
         return;
     }
-    if(!is_block_solid(b)) {
+    if(!is_tile_solid(b)) {
         return;
     }
     if(hasOpaqueSides(b)) {
@@ -67,12 +67,12 @@ void mask_center(Block * b, int offset)
     }
 }
 
-void mask_left(Block * b, int offset)
+void mask_left(Tile * b, int offset)
 {
     if(!b) {
         return;
     }
-    if(!is_block_solid(b)) {
+    if(!is_tile_solid(b)) {
         return;
     }
     if(hasOpaqueSides(b)) {
@@ -90,12 +90,12 @@ void mask_left(Block * b, int offset)
     }
 }
 
-void mask_right(Block * b, int offset)
+void mask_right(Tile * b, int offset)
 {
     if(!b) {
         return;
     }
-    if(!is_block_solid(b)) {
+    if(!is_tile_solid(b)) {
         return;
     }
     if(hasOpaqueSides(b)) {
@@ -151,7 +151,7 @@ void init_masks()
     }
 }
 
-void occlude_block(Block * b)
+void occlude_tile(Tile * b)
 {
     WorldSegment * segment = b->ownerSegment;
     base_mask_left.set();
@@ -183,20 +183,20 @@ void occlude_block(Block * b)
 
     bool done = 0;
     for(int relZ = 0; !done; relZ++) {
-        int stepZ = relZ * S_BLOCK_HEIGHT / S_SPRITE_HEIGHT;
+        int stepZ = relZ * S_TILE_HEIGHT / S_SPRITE_HEIGHT;
         if(relZ > 0) {
             stepZ--;
         }
 
-        for(int relXY = 0; (relXY <= (((PLATEHEIGHT + BLOCKHEIGHT) / (PLATEHEIGHT))+1)) && !done ; relXY++) {
+        for(int relXY = 0; (relXY <= (((PLATEHEIGHT + TILEHEIGHT) / (PLATEHEIGHT))+1)) && !done ; relXY++) {
             int tempX = baseX + ((relXY + stepZ) * stepX);
             int tempY = baseY + ((relXY + stepZ) * stepY);
             int tempZ = baseZ + relZ;
 
             bool centerin = segment->CoordinateInteriorSegment(tempX + stepX, tempY + stepY, tempZ, 1);
             if(centerin) {
-                Block* center = segment->getBlock(tempX + stepX, tempY + stepY, tempZ);
-                mask_center(center, ((relXY+stepZ) * S_PLATE_HEIGHT + S_PLATE_HEIGHT) - (relZ * S_BLOCK_HEIGHT));
+                Tile* center = segment->getTile(tempX + stepX, tempY + stepY, tempZ);
+                mask_center(center, ((relXY+stepZ) * S_PLATE_HEIGHT + S_PLATE_HEIGHT) - (relZ * S_TILE_HEIGHT));
                 if(base_mask_left.none() && base_mask_right.none()) {
                     done = true;
                     break;
@@ -204,8 +204,8 @@ void occlude_block(Block * b)
             }
             bool leftin = segment->CoordinateInteriorSegment(tempX, tempY + stepY, tempZ, 1);
             if(leftin) {
-                Block* left = segment->getBlock(tempX, tempY + stepY, tempZ);
-                mask_left(left, ((relXY+stepZ) * S_PLATE_HEIGHT + S_PLATE_HEIGHT/2) - (relZ * S_BLOCK_HEIGHT));
+                Tile* left = segment->getTile(tempX, tempY + stepY, tempZ);
+                mask_left(left, ((relXY+stepZ) * S_PLATE_HEIGHT + S_PLATE_HEIGHT/2) - (relZ * S_TILE_HEIGHT));
                 if(base_mask_left.none() && base_mask_right.none()) {
                     done = true;
                     break;
@@ -213,8 +213,8 @@ void occlude_block(Block * b)
             }
             bool rightin = segment->CoordinateInteriorSegment(tempX + stepX, tempY, tempZ, 1);
             if(rightin) {
-                Block* right = segment->getBlock(tempX + stepX, tempY, tempZ);
-                mask_right(right, ((relXY+stepZ) * S_PLATE_HEIGHT + S_PLATE_HEIGHT/2) - (relZ * S_BLOCK_HEIGHT));
+                Tile* right = segment->getTile(tempX + stepX, tempY, tempZ);
+                mask_right(right, ((relXY+stepZ) * S_PLATE_HEIGHT + S_PLATE_HEIGHT/2) - (relZ * S_TILE_HEIGHT));
                 if(base_mask_left.none() && base_mask_right.none()) {
                     done = true;
                     break;

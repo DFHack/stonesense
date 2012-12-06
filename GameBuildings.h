@@ -18,18 +18,18 @@ enum BuildingTypes {
 
 
 
-//int BlockNeighbourhoodType_simple(WorldSegment* segment, Block* b, bool validationFuctionProc(Block*) );
+//int TileNeighbourhoodType_simple(WorldSegment* segment, Tile* b, bool validationFuctionProc(Tile*) );
 
 
 
 int getBuildingSprite(Buildings::t_building &building, bool mirrored);
 void ReadBuildingsToSegment(DFHack::Core& DF, WorldSegment* segment);
 void MergeBuildingsToSegment(vector<Buildings::t_building>* buildings, WorldSegment* segment);
-void loadBuildingSprites( Block* b);
+void loadBuildingSprites( Tile* b);
 void ReadBuildings(DFHack::Core& DF, vector<Buildings::t_building>* buildingHolder);
-bool BlockHasSuspendedBuilding(vector<Buildings::t_building>* buildingList, Block* b);
+bool TileHasSuspendedBuilding(vector<Buildings::t_building>* buildingList, Tile* b);
 
-dirTypes findWallCloseTo(WorldSegment* segment, Block* b);
+dirTypes findWallCloseTo(WorldSegment* segment, Tile* b);
 
 
 //extern vector<BuildingConfiguration> buildingTypes;
