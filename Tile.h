@@ -120,22 +120,22 @@ public:
     } building;
 
     //tile information loading
-    inline df::tiletype_shape_basic Tile::tileShapeBasic()
+    inline df::tiletype_shape_basic tileShapeBasic()
     {
         return DFHack::tileShapeBasic(DFHack::tileShape(tileType));
     }
 
-    inline df::tiletype_shape Tile::tileShape()
+    inline df::tiletype_shape tileShape()
     {
         return DFHack::tileShape(tileType);
     }
 
-    inline df::tiletype_special Tile::tileSpecial()
+    inline df::tiletype_special tileSpecial()
     {
         return DFHack::tileSpecial(tileType);
     }
 
-    inline df::tiletype_material Tile::tileMaterial()
+    inline df::tiletype_material tileMaterial()
     {
         return DFHack::tileMaterial(tileType);
 }
