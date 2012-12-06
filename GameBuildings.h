@@ -6,11 +6,9 @@
 /*
  * extension to building_type enum from DFHack
  */
-enum BuildingTypes {
-    BUILDINGTYPE_NA = -1,
-    BUILDINGTYPE_TREE = 998,
-    BUILDINGTYPE_BLACKBOX = 999,
-};
+#define BUILDINGTYPE_NA (df::building_type) -1
+#define BUILDINGTYPE_TREE (df::building_type) 998
+#define BUILDINGTYPE_BLACKBOX (df::building_type) 999
 
 
 
