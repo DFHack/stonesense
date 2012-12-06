@@ -4,7 +4,6 @@
 #include "GameBuildings.h"
 #include "Creatures.h"
 #include "WorldSegment.h"
-#include "TileFactory.h"
 #include "ContentLoader.h"
 #include "SpriteColors.h"
 #include "TileTypes.h"
@@ -83,16 +82,6 @@ Tile::~Tile(void)
     if(inv) {
         delete(inv);
     }
-}
-
-void* Tile::operator new (size_t size)
-{
-    return tileFactory.allocateTile( );
-}
-
-void Tile::operator delete (void *p)
-{
-    tileFactory.deleteTile( (Tile*)p );
 }
 
 inline ALLEGRO_BITMAP* imageSheet(t_SpriteWithOffset sprite, ALLEGRO_BITMAP* defaultBmp)

@@ -14,7 +14,6 @@ using namespace std;
 #include "GameBuildings.h"
 #include "Creatures.h"
 #include "ContentLoader.h"
-#include "TileFactory.h"
 #include "Tile.h"
 
 #include "df/ui.h"

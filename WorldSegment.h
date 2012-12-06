@@ -32,7 +32,11 @@ private:
 public:
     bool loaded;
     bool processed;
+    //these are the coordinates of the first tile of the loaded segment
     int x, y, z;
+    //these are the coordinates at which the viewport is currently located
+    // note that this may not be the same as the actual coordinates of the segment
+    // due to concurrency
     int displayedx, displayedy, displayedz;
     int sizex, sizey, sizez;
     unsigned char rotation;
