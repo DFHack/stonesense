@@ -1,4 +1,3 @@
-#pragma once
 /*
 Here'a a good place to put textdump methods used as utilities.
 
@@ -26,6 +25,8 @@ be intended for use by people not interested in development.
 #include "df/itemdef_helmst.h"
 #include "df/itemdef_glovesst.h"
 #include "df/itemdef_pantsst.h"
+
+using namespace df::enums;
 
 //FIXME: filled with black magic
 void dumpSegment()
@@ -224,24 +225,24 @@ void GenerateTerrainXml(const char* filename, string & type, df::tiletype_shape_
 df::tiletype_shape_basic GetBasicShape(string & shapeName)
 {
     if(shapeName == "None") {
-        return df::tiletype_shape_basic::None;
+        return tiletype_shape_basic::None;
     }
     if(shapeName == "Open") {
-        return df::tiletype_shape_basic::Open;
+        return tiletype_shape_basic::Open;
     }
     if(shapeName == "Floor") {
-        return df::tiletype_shape_basic::Floor;
+        return tiletype_shape_basic::Floor;
     }
     if(shapeName == "Wall") {
-        return df::tiletype_shape_basic::Wall;
+        return tiletype_shape_basic::Wall;
     }
     if(shapeName == "Ramp") {
-        return df::tiletype_shape_basic::Ramp;
+        return tiletype_shape_basic::Ramp;
     }
     if(shapeName == "Stair") {
-        return df::tiletype_shape_basic::Stair;
+        return tiletype_shape_basic::Stair;
     }
-    return df::tiletype_shape_basic::None;
+    return tiletype_shape_basic::None;
 }
 
 void DumpInfo(color_ostream & out, std::vector<std::string> & params)
