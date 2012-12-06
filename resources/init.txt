@@ -28,7 +28,7 @@ Changes the fontfile to use.
 
 Lifts the segment up to the top off the screen, equivalent to a given
 number of z levels.
-Use this with a large segment size to get blocks covering the entire screen.
+Use this with a large segment size to get walls covering the entire screen.
 [LIFTSEGMENT:12]
 
 Follow DF window is on when Stonesense launches. (Toggle with 'f')

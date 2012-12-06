@@ -230,12 +230,12 @@ bool addSingleTerrainConfig( TiXmlElement* elemRoot)
             elemFloor = elemFloor->NextSiblingElement("floor");
         }
     }
-    if(elementType.compare( "blocks" ) == 0) {
+    if(elementType.compare( "walls" ) == 0) {
         //parse walls
-        TiXmlElement* elemWall = elemRoot->FirstChildElement("block");
+        TiXmlElement* elemWall = elemRoot->FirstChildElement("wall");
         while( elemWall ) {
-            parseWallFloorSpriteElement( elemWall, contentLoader->terrainBlockConfigs, basefile, false);
-            elemWall = elemWall->NextSiblingElement("block");
+            parseWallFloorSpriteElement( elemWall, contentLoader->terrainWallConfigs, basefile, false);
+            elemWall = elemWall->NextSiblingElement("wall");
         }
     }
     return true;

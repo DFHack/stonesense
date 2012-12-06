@@ -4,7 +4,7 @@
 #include "GameBuildings.h"
 #include "Creatures.h"
 #include "WorldSegment.h"
-#include "BlockFactory.h"
+#include "TileFactory.h"
 #include "ContentLoader.h"
 #include "SpriteColors.h"
 #include "TileTypes.h"
@@ -42,10 +42,10 @@ worn_item::worn_item()
     dyematt.type = -1;
 }
 
-Block::Block(WorldSegment* ownerSegment, df::tiletype type)
+Tile::Tile(WorldSegment* ownerSegment, df::tiletype type)
 {
     //clear out own memory
-    memset(this, 0, sizeof(Block));
+    memset(this, 0, sizeof(Tile));
 
     this->ownerSegment = ownerSegment;
 
@@ -75,7 +75,7 @@ Block::Block(WorldSegment* ownerSegment, df::tiletype type)
     Item.dyematt.index=-1;
 }
 
-Block::~Block(void)
+Tile::~Tile(void)
 {
     if( creature ) {
         delete(creature);
@@ -85,14 +85,14 @@ Block::~Block(void)
     }
 }
 
-void* Block::operator new (size_t size)
+void* Tile::operator new (size_t size)
 {
-    return blockFactory.allocateBlock( );
+    return tileFactory.allocateTile( );
 }
 
-void Block::operator delete (void *p)
+void Tile::operator delete (void *p)
 {
-    blockFactory.deleteBlock( (Block*)p );
+    tileFactory.deleteTile( (Tile*)p );
 }
 
 inline ALLEGRO_BITMAP* imageSheet(t_SpriteWithOffset sprite, ALLEGRO_BITMAP* defaultBmp)
@@ -113,7 +113,7 @@ inline ALLEGRO_BITMAP* imageSheet(t_subSprite sprite, ALLEGRO_BITMAP* defaultBmp
     }
 }
 
-void Block::AssembleParticleCloud(int count, float centerX, float centerY, float rangeX, float rangeY, ALLEGRO_BITMAP *sprite, ALLEGRO_COLOR tint)
+void Tile::AssembleParticleCloud(int count, float centerX, float centerY, float rangeX, float rangeY, ALLEGRO_BITMAP *sprite, ALLEGRO_COLOR tint)
 {
     for(int i = 0; i < count; i++) {
         int width = al_get_bitmap_width(sprite);
@@ -124,7 +124,7 @@ void Block::AssembleParticleCloud(int count, float centerX, float centerY, float
     }
 }
 
-void Block::AssembleSpriteFromSheet( int spriteNum, ALLEGRO_BITMAP* spriteSheet, ALLEGRO_COLOR color, float x, float y, Block * b, float in_scale)
+void Tile::AssembleSpriteFromSheet( int spriteNum, ALLEGRO_BITMAP* spriteSheet, ALLEGRO_COLOR color, float x, float y, Tile * b, float in_scale)
 {
     int sheetx = spriteNum % SHEET_OBJECTSWIDE;
     int sheety = spriteNum / SHEET_OBJECTSWIDE;
@@ -142,13 +142,13 @@ void Block::AssembleSpriteFromSheet( int spriteNum, ALLEGRO_BITMAP* spriteSheet,
         0);
 }
 
-void Block::AssembleSprite(ALLEGRO_BITMAP *bitmap, ALLEGRO_COLOR tint, float sx, float sy, float sw, float sh, float dx, float dy, float dw, float dh, int flags)
+void Tile::AssembleSprite(ALLEGRO_BITMAP *bitmap, ALLEGRO_COLOR tint, float sx, float sy, float sw, float sh, float dx, float dy, float dw, float dh, int flags)
 {
     draw_event d = {TintedScaledBitmap, bitmap, tint, sx, sy, sw, sh, dx, dy, dw, dh, flags};
     ownerSegment->AssembleSprite(d);
 }
 
-void Block::AssembleBlock()
+void Tile::AssembleTile()
 {
 
     if(!visible) {
@@ -167,8 +167,8 @@ void Block::AssembleBlock()
     drawy = y;
     drawz = z;
     
-    ownerSegment->CorrectBlockForSegmentOffset( drawx, drawy, drawz);
-    ownerSegment->CorrectBlockForSegmentRotation( drawx, drawy, drawz);
+    ownerSegment->CorrectTileForSegmentOffset( drawx, drawy, drawz);
+    ownerSegment->CorrectTileForSegmentRotation( drawx, drawy, drawz);
     pointToScreen((int*)&drawx, (int*)&drawy, drawz);
     drawx -= (PLATEWIDTH>>1)*ssConfig.scale;
     
@@ -177,16 +177,16 @@ void Block::AssembleBlock()
         return;
     }
 
-    bool chopThisBlock = 0;
+    bool chopThisTile = 0;
 
     if(ssConfig.truncate_walls == 1) {
-        chopThisBlock = 1;
+        chopThisTile = 1;
     } else if(ssConfig.truncate_walls == 2 && obscuringCreature == 1) {
-        chopThisBlock = 1;
+        chopThisTile = 1;
     } else if(ssConfig.truncate_walls == 3 && (obscuringCreature == 1 || obscuringBuilding == 1)) {
-        chopThisBlock = 1;
+        chopThisTile = 1;
     } else if(ssConfig.truncate_walls == 4 && obscuringBuilding == 1) {
-        chopThisBlock = 1;
+        chopThisTile = 1;
     }
 
     if(building.info.type == BUILDINGTYPE_BLACKBOX) {
@@ -201,9 +201,9 @@ void Block::AssembleBlock()
 
     //Draw Ramp Tops
     if(tileType == tiletype::RampTop){
-        Block * b = this->ownerSegment->getBlock(this->x, this->y, this->z-1);
+        Tile * b = this->ownerSegment->getTile(this->x, this->y, this->z-1);
         if(b && b->tileShapeBasic == tiletype_shape_basic::Ramp) {
-            spriteobject = GetBlockSpriteMap(b->tileType, b->material, b->consForm);
+            spriteobject = GetTileSpriteMap(b->tileType, b->material, b->consForm);
             if (spriteobject->get_sheetindex() == UNCONFIGURED_INDEX) {
                 spriteobject->set_sheetindex(0);
                 spriteobject->set_fileindex(INVALID_INDEX);
@@ -213,10 +213,10 @@ void Block::AssembleBlock()
                 spriteobject->set_size(SPRITEWIDTH, PLATEHEIGHT);
                 spriteobject->set_plate_layout(RAMPTOPPLATE);
                 spriteobject->set_offset(0, WALLHEIGHT);
-                spriteobject->assemble_world_offset_src(x, y, z, 0, this, b, (chopThisBlock && this->z == ownerSegment->z + ownerSegment->sizez -2));
+                spriteobject->assemble_world_offset_src(x, y, z, 0, this, b, (chopThisTile && this->z == ownerSegment->z + ownerSegment->sizez -2));
                 spriteobject->set_offset(0, 0);
             }
-            spriteobject->set_plate_layout(BLOCKPLATE);
+            spriteobject->set_plate_layout(TILEPLATE);
         }
     }
 
@@ -276,7 +276,7 @@ void Block::AssembleBlock()
 
     //Draw Ramp
     if(tileShapeBasic==tiletype_shape_basic::Ramp) {
-        spriteobject = GetBlockSpriteMap(tileType, material, consForm);
+        spriteobject = GetTileSpriteMap(tileType, material, consForm);
         if (spriteobject->get_sheetindex() == UNCONFIGURED_INDEX) {
             spriteobject->set_sheetindex(0);
             spriteobject->set_fileindex(INVALID_INDEX);
@@ -285,9 +285,9 @@ void Block::AssembleBlock()
         if (spriteobject->get_sheetindex() != INVALID_INDEX) {
             spriteobject->set_size(SPRITEWIDTH, SPRITEHEIGHT);
             spriteobject->set_plate_layout(RAMPBOTTOMPLATE);
-            spriteobject->assemble_world_offset(x, y, z, 0, this, (chopThisBlock && this->z == ownerSegment->z + ownerSegment->sizez -2));
+            spriteobject->assemble_world_offset(x, y, z, 0, this, (chopThisTile && this->z == ownerSegment->z + ownerSegment->sizez -2));
         }
-        spriteobject->set_plate_layout(BLOCKPLATE);
+        spriteobject->set_plate_layout(TILEPLATE);
     }
 
     AssembleFloorBlood ( drawx, drawy );
@@ -368,7 +368,7 @@ void Block::AssembleBlock()
         }
 
         //up part
-        spriteobject = GetBlockSpriteMap(tileType, material, consForm);
+        spriteobject = GetTileSpriteMap(tileType, material, consForm);
         if(spriteobject->get_sheetindex() != INVALID_INDEX && spriteobject->get_sheetindex() != UNCONFIGURED_INDEX) {
             if (mirrored) {
                 spriteobject->assemble_world_offset(x, y, z, 1, this);
@@ -380,18 +380,18 @@ void Block::AssembleBlock()
 
     if(tileShapeBasic==tiletype_shape_basic::Wall) {
         //draw wall
-        spriteobject =  GetBlockSpriteMap(tileType, material, consForm);
+        spriteobject =  GetTileSpriteMap(tileType, material, consForm);
         int spriteOffset = 0;
         if (spriteobject->get_sheetindex() == UNCONFIGURED_INDEX) {
             spriteobject->set_sheetindex(SPRITEOBJECT_WALL_NA);
             spriteobject->set_fileindex(INVALID_INDEX);
-            spriteobject->set_plate_layout(BLOCKPLATE);
+            spriteobject->set_plate_layout(TILEPLATE);
             spriteobject->set_defaultsheet(IMGObjectSheet);
         }
         if (spriteobject->get_sheetindex() == INVALID_INDEX) {
             //skip
         } else {
-            spriteobject->assemble_world(x, y, z, this, (chopThisBlock && this->z == ownerSegment->z + ownerSegment->sizez -2));
+            spriteobject->assemble_world(x, y, z, this, (chopThisTile && this->z == ownerSegment->z + ownerSegment->sizez -2));
         }
     }
 
@@ -435,16 +435,16 @@ void Block::AssembleBlock()
     if(water.index > 0) {
         //if(waterlevel == 7) waterlevel--;
         if(water.type == 0) {
-            contentLoader->water[water.index-1].sprite.assemble_world(x, y, z, this, (chopThisBlock && this->z == ownerSegment->z + ownerSegment->sizez -2));
+            contentLoader->water[water.index-1].sprite.assemble_world(x, y, z, this, (chopThisTile && this->z == ownerSegment->z + ownerSegment->sizez -2));
         } else {
-            contentLoader->lava[water.index-1].sprite.assemble_world(x, y, z, this, (chopThisBlock && this->z == ownerSegment->z + ownerSegment->sizez -2));
+            contentLoader->lava[water.index-1].sprite.assemble_world(x, y, z, this, (chopThisTile && this->z == ownerSegment->z + ownerSegment->sizez -2));
         }
     }
 
     // creature
     // ensure there is *some* creature according to the map data
     // (no guarantee it is the right one)
-    if(creaturePresent && (ssConfig.show_hidden_blocks || !designation.bits.hidden)) {
+    if(creaturePresent && (ssConfig.show_hidden_tiles || !designation.bits.hidden)) {
         AssembleCreature(drawx, drawy, creature, this);
     }
 
@@ -522,12 +522,12 @@ void Block::AssembleBlock()
         AssembleParticleCloud(Eff_OceanWave.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_water, tint);
     }
     
-    if(creaturePresent && (ssConfig.show_hidden_blocks || !designation.bits.hidden)) {
+    if(creaturePresent && (ssConfig.show_hidden_tiles || !designation.bits.hidden)) {
         AssembleCreatureText(drawx, drawy, creature, ownerSegment);
     }
 }
 
-//void Block::DrawPixel(int drawx, int drawy)
+//void Tile::DrawPixel(int drawx, int drawy)
 //{
 //    ALLEGRO_COLOR temp;
 //    if(
@@ -556,7 +556,7 @@ void Block::AssembleBlock()
 //    }
 //}
 
-bool hasWall(Block* b)
+bool hasWall(Tile* b)
 {
     if(!b) {
         return false;
@@ -564,7 +564,7 @@ bool hasWall(Block* b)
     return b->tileShapeBasic==tiletype_shape_basic::Wall;
 }
 
-bool hasBuildingOfID(Block* b, int ID)
+bool hasBuildingOfID(Tile* b, int ID)
 {
     if(!b) {
         return false;
@@ -572,7 +572,7 @@ bool hasBuildingOfID(Block* b, int ID)
     return b->building.info.type == ID;
 }
 
-bool hasBuildingIdentity(Block* b, uint32_t index, int buildingOcc)
+bool hasBuildingIdentity(Tile* b, uint32_t index, int buildingOcc)
 {
     if(!b) {
         return false;
@@ -583,7 +583,7 @@ bool hasBuildingIdentity(Block* b, uint32_t index, int buildingOcc)
     return b->occ.bits.building == buildingOcc;
 }
 
-bool hasBuildingOfIndex(Block* b, uint32_t index)
+bool hasBuildingOfIndex(Tile* b, uint32_t index)
 {
     if(!b) {
         return false;
@@ -638,7 +638,7 @@ void destroyEffectSprites()
 }
 
 
-void Block::AssembleFloorBlood ( int32_t drawx, int32_t drawy )
+void Tile::AssembleFloorBlood ( int32_t drawx, int32_t drawy )
 {
     t_SpriteWithOffset sprite;
 
@@ -652,11 +652,11 @@ void Block::AssembleFloorBlood ( int32_t drawx, int32_t drawy )
 
         // Smear (should be blood2, not blood) swapped for testing
         else {
-            // if there's no block in the respective direction it's false. if there's no blood in that direction it's false too. should also check to see if there's a ramp below, but since blood doesn't flow, that'd look wrong anyway.
-            bool _N = ( ownerSegment->getBlockRelativeTo( x, y, z, eUp ) != NULL ? (ownerSegment->getBlockRelativeTo( x, y, z, eUp )->bloodlevel > ssConfig.poolcutoff) : false ),
-                 _S = ( ownerSegment->getBlockRelativeTo( x, y, z, eDown ) != NULL ? (ownerSegment->getBlockRelativeTo( x, y, z, eDown )->bloodlevel > ssConfig.poolcutoff) : false ),
-                 _E = ( ownerSegment->getBlockRelativeTo( x, y, z, eRight ) != NULL ? (ownerSegment->getBlockRelativeTo( x, y, z, eRight )->bloodlevel > ssConfig.poolcutoff) : false ),
-                 _W = ( ownerSegment->getBlockRelativeTo( x, y, z, eLeft ) != NULL ? (ownerSegment->getBlockRelativeTo( x, y, z, eLeft )->bloodlevel > ssConfig.poolcutoff) : false );
+            // if there's no tile in the respective direction it's false. if there's no blood in that direction it's false too. should also check to see if there's a ramp below, but since blood doesn't flow, that'd look wrong anyway.
+            bool _N = ( ownerSegment->getTileRelativeTo( x, y, z, eUp ) != NULL ? (ownerSegment->getTileRelativeTo( x, y, z, eUp )->bloodlevel > ssConfig.poolcutoff) : false ),
+                 _S = ( ownerSegment->getTileRelativeTo( x, y, z, eDown ) != NULL ? (ownerSegment->getTileRelativeTo( x, y, z, eDown )->bloodlevel > ssConfig.poolcutoff) : false ),
+                 _E = ( ownerSegment->getTileRelativeTo( x, y, z, eRight ) != NULL ? (ownerSegment->getTileRelativeTo( x, y, z, eRight )->bloodlevel > ssConfig.poolcutoff) : false ),
+                 _W = ( ownerSegment->getTileRelativeTo( x, y, z, eLeft ) != NULL ? (ownerSegment->getTileRelativeTo( x, y, z, eLeft )->bloodlevel > ssConfig.poolcutoff) : false );
 
             // do rules-based puddling
             if( _N || _S || _E || _W ) {

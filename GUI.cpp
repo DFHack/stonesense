@@ -6,7 +6,7 @@ using namespace std;
 #pragma once
 
 #include "common.h"
-#include "Block.h"
+#include "Tile.h"
 #include "GUI.h"
 #include "WorldSegment.h"
 #include "SpriteMaps.h"
@@ -14,8 +14,8 @@ using namespace std;
 #include "GameBuildings.h"
 #include "Creatures.h"
 #include "ContentLoader.h"
-#include "BlockFactory.h"
-#include "Block.h"
+#include "TileFactory.h"
+#include "Tile.h"
 
 #include "df/ui.h"
 #include "df/building_actual.h"
@@ -46,7 +46,7 @@ int MiniMapBottomRightX = 0;
 int MiniMapBottomRightY = 0;
 int MiniMapSegmentWidth =0;
 int MiniMapSegmentHeight =0;
-double oneBlockInPixels = 0;
+double oneTileInPixels = 0;
 
 ALLEGRO_BITMAP* IMGObjectSheet;
 ALLEGRO_BITMAP* IMGCreatureSheet;
@@ -179,11 +179,11 @@ void ScreenToPoint(int x,int y,int &x1, int &y1, int &z1)
     x-=PLATEWIDTH/2;
     y+=PLATEWIDTH/2;
     z1 = -3;
-    y+= z1*BLOCKHEIGHT/2;
-    //y-=BLOCKHEIGHT;
+    y+= z1*TILEHEIGHT/2;
+    //y-=TILEHEIGHT;
     x+=PLATEWIDTH>>1;
     int offx = ssState.ScreenW /2;
-    int offy = (-20)-(BLOCKHEIGHT * ssConfig.lift_segment_offscreen);
+    int offy = (-20)-(TILEHEIGHT * ssConfig.lift_segment_offscreen);
     y-=offy;
     x-=offx;
     y1=y*2-x;
@@ -281,9 +281,9 @@ void pointToScreen(int *inx, int *iny, int inz)
 
     int y = *inx+*iny;
     y = y*PLATEHEIGHT / 2;
-    y -= z*BLOCKHEIGHT;
+    y -= z*TILEHEIGHT;
     y -= PLATEHEIGHT*5/4;
-    y -= BLOCKHEIGHT*ssConfig.lift_segment_offscreen;
+    y -= TILEHEIGHT*ssConfig.lift_segment_offscreen;
     y *= ssConfig.scale;
 
     *inx=x;
@@ -311,13 +311,13 @@ void correctForRotation(int32_t& x, int32_t& y, unsigned char rot, int32_t szx, 
     }
 }
 
-Crd2D WorldBlockToScreen(int32_t x, int32_t y, int32_t z)
+Crd2D WorldTileToScreen(int32_t x, int32_t y, int32_t z)
 {
-    correctBlockForDisplayedOffset( x, y, z);
-    return LocalBlockToScreen(x, y, z-1);
+    correctTileForDisplayedOffset( x, y, z);
+    return LocalTileToScreen(x, y, z-1);
 }
 
-Crd2D LocalBlockToScreen(int32_t x, int32_t y, int32_t z)
+Crd2D LocalTileToScreen(int32_t x, int32_t y, int32_t z)
 {
     pointToScreen((int*)&x, (int*)&y, z);
     Crd2D result;
@@ -334,38 +334,38 @@ void DrawCurrentLevelOutline(bool backPart)
     int sizex = ssConfig.segmentSize.x-2;
     int sizey = ssConfig.segmentSize.y-2;
 
-    if(ssConfig.hide_outer_blocks) {
+    if(ssConfig.hide_outer_tiles) {
         x++;
         y++;
         sizex -= 2;
         sizey -= 2;
     }
 
-    Crd2D p1 = WorldBlockToScreen(x, y, z);
-    Crd2D p2 = WorldBlockToScreen(x, y + sizey , z);
-    Crd2D p3 = WorldBlockToScreen(x + sizex , y, z);
-    Crd2D p4 = WorldBlockToScreen(x + sizex , y + sizey , z);
+    Crd2D p1 = WorldTileToScreen(x, y, z);
+    Crd2D p2 = WorldTileToScreen(x, y + sizey , z);
+    Crd2D p3 = WorldTileToScreen(x + sizex , y, z);
+    Crd2D p4 = WorldTileToScreen(x + sizex , y + sizey , z);
     p1.y += FLOORHEIGHT*ssConfig.scale;
     p2.y += FLOORHEIGHT*ssConfig.scale;
     p3.y += FLOORHEIGHT*ssConfig.scale;
     p4.y += FLOORHEIGHT*ssConfig.scale;
     if(backPart) {
-        al_draw_line(p1.x, p1.y, p1.x, p1.y-BLOCKHEIGHT*ssConfig.scale, color_segmentoutline, 0);
-        al_draw_line(p1.x, p1.y, p1.x, p1.y-BLOCKHEIGHT*ssConfig.scale, color_segmentoutline, 0);
+        al_draw_line(p1.x, p1.y, p1.x, p1.y-TILEHEIGHT*ssConfig.scale, color_segmentoutline, 0);
+        al_draw_line(p1.x, p1.y, p1.x, p1.y-TILEHEIGHT*ssConfig.scale, color_segmentoutline, 0);
         al_draw_line(p1.x, p1.y, p2.x, p2.y, color_segmentoutline, 0);
-        al_draw_line(p1.x, p1.y-BLOCKHEIGHT*ssConfig.scale, p2.x, p2.y-BLOCKHEIGHT*ssConfig.scale, color_segmentoutline, 0);
-        al_draw_line(p2.x, p2.y, p2.x, p2.y-BLOCKHEIGHT*ssConfig.scale, color_segmentoutline, 0);
+        al_draw_line(p1.x, p1.y-TILEHEIGHT*ssConfig.scale, p2.x, p2.y-TILEHEIGHT*ssConfig.scale, color_segmentoutline, 0);
+        al_draw_line(p2.x, p2.y, p2.x, p2.y-TILEHEIGHT*ssConfig.scale, color_segmentoutline, 0);
 
         al_draw_line(p1.x, p1.y, p3.x, p3.y, color_segmentoutline, 0);
-        al_draw_line(p1.x, p1.y-BLOCKHEIGHT*ssConfig.scale, p3.x, p3.y-BLOCKHEIGHT*ssConfig.scale, color_segmentoutline, 0);
-        al_draw_line(p3.x, p3.y, p3.x, p3.y-BLOCKHEIGHT*ssConfig.scale, color_segmentoutline, 0);
+        al_draw_line(p1.x, p1.y-TILEHEIGHT*ssConfig.scale, p3.x, p3.y-TILEHEIGHT*ssConfig.scale, color_segmentoutline, 0);
+        al_draw_line(p3.x, p3.y, p3.x, p3.y-TILEHEIGHT*ssConfig.scale, color_segmentoutline, 0);
     } else {
-        al_draw_line(p4.x, p4.y, p4.x, p4.y-BLOCKHEIGHT*ssConfig.scale, color_segmentoutline, 0);
+        al_draw_line(p4.x, p4.y, p4.x, p4.y-TILEHEIGHT*ssConfig.scale, color_segmentoutline, 0);
         al_draw_line(p4.x, p4.y, p2.x, p2.y, color_segmentoutline ,0);
-        al_draw_line(p4.x, p4.y-BLOCKHEIGHT*ssConfig.scale, p2.x, p2.y-BLOCKHEIGHT*ssConfig.scale, color_segmentoutline ,0);
+        al_draw_line(p4.x, p4.y-TILEHEIGHT*ssConfig.scale, p2.x, p2.y-TILEHEIGHT*ssConfig.scale, color_segmentoutline ,0);
 
         al_draw_line(p4.x, p4.y, p3.x, p3.y, color_segmentoutline, 0);
-        al_draw_line(p4.x, p4.y-BLOCKHEIGHT*ssConfig.scale, p3.x, p3.y-BLOCKHEIGHT*ssConfig.scale, color_segmentoutline, 0);
+        al_draw_line(p4.x, p4.y-TILEHEIGHT*ssConfig.scale, p3.x, p3.y-TILEHEIGHT*ssConfig.scale, color_segmentoutline, 0);
     }
 }
 
@@ -377,15 +377,15 @@ void drawDebugCursorAndInfo(WorldSegment * segment)
         int x = ssConfig.dfCursorX;
         int y = ssConfig.dfCursorY;
         int z = ssConfig.dfCursorZ;
-        correctBlockForDisplayedOffset(x,y,z);
-        segment->CorrectBlockForSegmentRotation( x, y, z );
+        correctTileForDisplayedOffset(x,y,z);
+        segment->CorrectTileForSegmentRotation( x, y, z );
         debugCursor.x = x;
         debugCursor.y = y;
         debugCursor.z = z;
     } else {
         debugCursor.z = 0;
     }
-    Crd2D point = LocalBlockToScreen(debugCursor.x, debugCursor.y, debugCursor.z);
+    Crd2D point = LocalTileToScreen(debugCursor.x, debugCursor.y, debugCursor.z);
     int sheetx = SPRITEOBJECT_CURSOR % SHEET_OBJECTSWIDE;
     int sheety = SPRITEOBJECT_CURSOR / SHEET_OBJECTSWIDE;
     al_draw_tinted_scaled_bitmap(
@@ -401,10 +401,10 @@ void drawDebugCursorAndInfo(WorldSegment * segment)
         SPRITEHEIGHT*ssConfig.scale,
         0);
 
-    //get block info
-    Block* b = segment->getBlockLocal( debugCursor.x, debugCursor.y, debugCursor.z+segment->sizez-2);
+    //get tile info
+    Tile* b = segment->getTileLocal( debugCursor.x, debugCursor.y, debugCursor.z+segment->sizez-2);
     int i = 10;
-    draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0, "Block 0x%x", b);
+    draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0, "Tile 0x%x", b);
 
     draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0,
                       "Coord:(%i,%i,%i)", debugCursor.x, debugCursor.y, debugCursor.z);
@@ -752,7 +752,7 @@ void drawDebugCursorAndInfo(WorldSegment * segment)
 void DrawMinimap(WorldSegment * segment)
 {
     int size = 100;
-    //double oneBlockInPixels;
+    //double oneTileInPixels;
     int posx = ssState.ScreenW-size-10;
     int posy = 10;
 
@@ -761,15 +761,15 @@ void DrawMinimap(WorldSegment * segment)
         return;
     }
 
-    oneBlockInPixels = (double) size / segment->regionSize.x;
+    oneTileInPixels = (double) size / segment->regionSize.x;
     //map outine
-    int mapheight = (int)(segment->regionSize.y * oneBlockInPixels);
+    int mapheight = (int)(segment->regionSize.y * oneTileInPixels);
     al_draw_rectangle(posx, posy, posx+size, posy+mapheight, al_map_rgb(0,0,0),0);
     //current segment outline
     int x = (size * (segment->x+1)) / segment->regionSize.x;
     int y = (mapheight * (segment->y+1)) / segment->regionSize.y;
-    MiniMapSegmentWidth = (segment->sizex-2) * oneBlockInPixels;
-    MiniMapSegmentHeight = (segment->sizey-2) * oneBlockInPixels;
+    MiniMapSegmentWidth = (segment->sizex-2) * oneTileInPixels;
+    MiniMapSegmentHeight = (segment->sizey-2) * oneTileInPixels;
     al_draw_rectangle(posx+x, posy+y, posx+x+MiniMapSegmentWidth, posy+y+MiniMapSegmentHeight,al_map_rgb(0,0,0),0);
     MiniMapTopLeftX = posx;
     MiniMapTopLeftY = posy;
@@ -871,7 +871,7 @@ void paintboard()
         map_segment.unlock();
         return;
     }
-    segment->DrawAllBlocks();
+    segment->DrawAllTiles();
     if (ssConfig.show_osd) {
         DrawCurrentLevelOutline(false);
     }
@@ -889,7 +889,7 @@ void paintboard()
         if(ssConfig.debug_mode) {
             draw_textf_border(font, al_map_rgb(255,255,255), 10, 3*al_get_font_line_height(font), 0, "Map Read Time: %.2fms", ssTimers.read_time);
             draw_textf_border(font, al_map_rgb(255,255,255), 10, 4*al_get_font_line_height(font), 0, "Map Beautification Time: %.2fms", ssTimers.beautify_time);
-            draw_textf_border(font, al_map_rgb(255,255,255), 10, 5*al_get_font_line_height(font), 0, "Block Sprite Assembly Time: %.2fms", ssTimers.assembly_time);
+            draw_textf_border(font, al_map_rgb(255,255,255), 10, 5*al_get_font_line_height(font), 0, "Tile Sprite Assembly Time: %.2fms", ssTimers.assembly_time);
             draw_textf_border(font, al_map_rgb(255,255,255), 10, 2*al_get_font_line_height(font), 0, "FPS: %.2f", 1000.0/ssTimers.frame_total);
             draw_textf_border(font, al_map_rgb(255,255,255), 10, 6*al_get_font_line_height(font), 0, "Draw: %.2fms", ssTimers.draw_time);
             draw_textf_border(font, al_map_rgb(255,255,255), 10, 7*al_get_font_line_height(font), 0, "D1: %i", DebugInt1);
@@ -1276,7 +1276,7 @@ void saveMegashot(bool tall)
 
     //make the image
     ssState.ScreenW = (ssConfig.cellDimX * PLATEWIDTH)*ssConfig.scale;
-    ssState.ScreenH = ( ((ssConfig.cellDimX + ssConfig.cellDimY) * PLATEHEIGHT / 2) + ((ssConfig.segmentSize.z - 1) * BLOCKHEIGHT) )*ssConfig.scale;
+    ssState.ScreenH = ( ((ssConfig.cellDimX + ssConfig.cellDimY) * PLATEHEIGHT / 2) + ((ssConfig.segmentSize.z - 1) * TILEHEIGHT) )*ssConfig.scale;
     
     bigFile = al_create_bitmap(ssState.ScreenW, ssState.ScreenH);
 
@@ -1326,7 +1326,7 @@ void saveMegashot(bool tall)
                 //read and draw each individual segment
                 read_segment(NULL);
                 WorldSegment * segment = map_segment.get();
-                segment->DrawAllBlocks();
+                segment->DrawAllTiles();
 
                 parms.x += incrx;
             }

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
-<blocks file="blocks.png">
+<walls file="blocks.png">
   <!-- fortifications -->
-  <block sheetIndex="141" color="material">
+  <wall sheetIndex="141" color="material">
     <!-- stone -->
     <terrain value="65" />
     <!-- obs -->
@@ -14,23 +14,23 @@
     <terrain value="436" />
     <!-- cons -->
     <terrain value="494" />
-  </block>
+  </wall>
   <!-- ramps -->
   <!-- grass -->
-  <block sheetIndex="8" file="ramps.png" color = "material">
+  <wall sheetIndex="8" file="ramps.png" color = "material">
     <!-- grass -->
     <terrain value="235" />
     <terrain value="236" />
 		<subsprite sheetIndex="7" file="ramps.png" color = "grass" grass_min="1"/>
-  </block>
-  <block sheetIndex="8" file="ramps.png" color = "material">
+  </wall>
+  <wall sheetIndex="8" file="ramps.png" color = "material">
     <!-- dry -->
     <terrain value="233" />
     <!-- dead -->
     <terrain value="234" />
 		<subsprite sheetIndex="9" file="ramps.png" />
-  </block>
-  <block sheetIndex="8" file="ramps.png" color = "material">
+  </wall>
+  <wall sheetIndex="8" file="ramps.png" color = "material">
     <!-- soil -->
     <terrain value="241" />
 	<!-- murky pool -->
@@ -44,10 +44,10 @@
 	<terrain value="474" />
 	<terrain value="475" />
 	<terrain value="476" />
-  </block>
+  </wall>
 
   <!-- stone -->
-  <block sheetIndex="1" file="ramps.png" color="material">
+  <wall sheetIndex="1" file="ramps.png" color="material">
     <!-- stone -->
     <terrain value="237" />
     <!-- obs -->
@@ -58,9 +58,9 @@
     <terrain value="240" />
     <!-- cons -->
     <terrain value="518" />
-  </block>
+  </wall>
   <!-- else fall through to default - ->
-<block>
+<wall>
         <!== stone - ->
         <terrain value="237"/>
         <!== obs - ->
@@ -73,9 +73,9 @@
         <terrain value="245"/>
         <!== cons - ->
         <terrain value="518"/>
-</block> -->
+</wall> -->
   <!-- stairs -->
-  <block sheetIndex="160" color="material">
+  <wall sheetIndex="160" color="material">
     <!-- ice -->
     <terrain value="25" />
     <terrain value="27" />
@@ -102,17 +102,17 @@
     <!-- cons -->
     <terrain value="515" />
     <terrain value="517" />
-  </block>
+  </wall>
   <!-- ice -->
-  <block sheetIndex="6">
+  <wall sheetIndex="6">
     <!-- wall -->
     <terrain value="361" />
     <terrain value="362" />
     <terrain value="363" />
     <terrain value="364" />
-  </block>
+  </wall>
   <!-- sm ice -->
-  <block sheetIndex="6">
+  <wall sheetIndex="6">
     <!-- pillar -->
     <terrain value="83" />
     <!-- sm wall -->
@@ -135,14 +135,14 @@
     <terrain value="466" />
     <terrain value="467" />
     <terrain value="468" />
-  </block>
+  </wall>
   <!-- soil -->
-  <block sheetIndex="5" color = "material">
+  <wall sheetIndex="5" color = "material">
     <!-- wall -->
     <terrain value="265" />
-  </block>
+  </wall>
   <!-- sm stone -->
-  <block sheetIndex="20" color="material">
+  <wall sheetIndex="20" color="material">
     <!-- pillar -->
     <terrain value="79" />
     <terrain value="81" />
@@ -229,9 +229,9 @@
     <terrain value="285" />
     <terrain value="286" />
     <terrain value="287" />
-  </block>
+  </wall>
   <!-- stone -->
-  <block sheetIndex="21" color="material">
+  <wall sheetIndex="21" color="material">
     <!-- wall feat? -->
     <terrain value="176" />
     <terrain value="177" />
@@ -257,15 +257,15 @@
     <terrain value="438" />
     <terrain value="439" />
     <terrain value="440" />
-  </block>
+  </wall>
     <!-- stone -->
-  <block sheetIndex="21" color="xml" red="255" green = "0" blue = "0">
+  <wall sheetIndex="21" color="xml" red="255" green = "0" blue = "0">
   <!-- Semi molten rock -->
     <terrain value="263" />
 	<subsprite sheetIndex = "146" color="xml" red="32" green = "0" blue = "0"/>
-  </block>
+  </wall>
   <!-- construct -->
-  <block sheetIndex="22" color="material">
+  <wall sheetIndex="22" color="material">
     <!-- pillar -->
     <terrain value="495" />
     <!-- wall -->
@@ -288,5 +288,5 @@
     <terrain value="512" />
     <terrain value="513" />
     <terrain value="514" />
-  </block>
-</blocks>
+  </wall>
+</walls>

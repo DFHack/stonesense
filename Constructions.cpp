@@ -7,7 +7,7 @@ void changeConstructionMaterials(WorldSegment* segment, vector<df::construction>
 {
     //find construction
     int32_t i;
-    Block* b;
+    Tile* b;
     df::construction* construct = 0;
     i = (uint32_t) allConstructions->size();
     if(i <= 0) {
@@ -15,7 +15,7 @@ void changeConstructionMaterials(WorldSegment* segment, vector<df::construction>
     }
     while(--i >= 0) {
         construct = &(*allConstructions)[i];
-        b = segment->getBlock(construct->pos.x, construct->pos.y, construct->pos.z);
+        b = segment->getTile(construct->pos.x, construct->pos.y, construct->pos.z);
         if( !b ) {
             continue;
         }

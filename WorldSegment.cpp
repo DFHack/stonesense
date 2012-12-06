@@ -10,7 +10,7 @@ ALLEGRO_BITMAP * fog = 0;
 // currently visible map segment
 SegmentWrap map_segment;
 
-Block* WorldSegment::getBlock(int32_t x, int32_t y, int32_t z)
+Tile* WorldSegment::getTile(int32_t x, int32_t y, int32_t z)
 {
     if(x < this->x || x >= this->x + this->sizex) {
         return 0;
@@ -30,13 +30,13 @@ Block* WorldSegment::getBlock(int32_t x, int32_t y, int32_t z)
     ly -= this->y;
     lz -= this->z;
 
-    CorrectBlockForSegmentRotation( (int32_t&)lx,(int32_t&)ly,(int32_t&)lz );
+    CorrectTileForSegmentRotation( (int32_t&)lx,(int32_t&)ly,(int32_t&)lz );
 
     uint32_t index = lx + (ly * this->sizex) + ((lz) * this->sizex * this->sizey);
-    return blocksAsPointerVolume[index];
+    return tilesAsPointerVolume[index];
 }
 
-Block* WorldSegment::getBlockRelativeTo(uint32_t x, uint32_t y, uint32_t z,  dirRelative direction)
+Tile* WorldSegment::getTileRelativeTo(uint32_t x, uint32_t y, uint32_t z,  dirRelative direction)
 {
     int32_t lx = x;
     int32_t ly = y;
@@ -46,7 +46,7 @@ Block* WorldSegment::getBlockRelativeTo(uint32_t x, uint32_t y, uint32_t z,  dir
     ly -= this->y;
     lz -= this->z;
 
-    CorrectBlockForSegmentRotation( (int32_t&)lx,(int32_t&)ly,(int32_t&)lz );
+    CorrectTileForSegmentRotation( (int32_t&)lx,(int32_t&)ly,(int32_t&)lz );
     switch (direction) {
     case eUp:
         ly--;
@@ -95,10 +95,10 @@ Block* WorldSegment::getBlockRelativeTo(uint32_t x, uint32_t y, uint32_t z,  dir
     }
 
     uint32_t index = lx + (ly * this->sizex) + ((lz) * this->sizex * this->sizey);
-    return blocksAsPointerVolume[index];
+    return tilesAsPointerVolume[index];
 }
 
-Block* WorldSegment::getBlockRelativeTo(uint32_t x, uint32_t y, uint32_t z,  dirRelative direction, int distance)
+Tile* WorldSegment::getTileRelativeTo(uint32_t x, uint32_t y, uint32_t z,  dirRelative direction, int distance)
 {
     int32_t lx = x;
     int32_t ly = y;
@@ -108,7 +108,7 @@ Block* WorldSegment::getBlockRelativeTo(uint32_t x, uint32_t y, uint32_t z,  dir
     ly -= this->y;
     lz -= this->z;
     
-    CorrectBlockForSegmentRotation( (int32_t&)lx,(int32_t&)ly,(int32_t&)lz );
+    CorrectTileForSegmentRotation( (int32_t&)lx,(int32_t&)ly,(int32_t&)lz );
     switch (direction) {
     case eUp:
         ly-= distance;
@@ -157,10 +157,10 @@ Block* WorldSegment::getBlockRelativeTo(uint32_t x, uint32_t y, uint32_t z,  dir
     }
 
     uint32_t index = lx + (ly * this->sizex) + ((lz) * this->sizex * this->sizey);
-    return blocksAsPointerVolume[index];
+    return tilesAsPointerVolume[index];
 }
 
-Block* WorldSegment::getBlockLocal(uint32_t x, uint32_t y, uint32_t z)
+Tile* WorldSegment::getTileLocal(uint32_t x, uint32_t y, uint32_t z)
 {
     if((int)x < 0 || x >= (uint32_t)this->sizex) {
         return 0;
@@ -173,25 +173,25 @@ Block* WorldSegment::getBlockLocal(uint32_t x, uint32_t y, uint32_t z)
     }
 
     uint32_t index = x + (y * this->sizex) + ((z) * this->sizex * this->sizey);
-    return blocksAsPointerVolume[index];
+    return tilesAsPointerVolume[index];
 }
 
-Block* WorldSegment::getBlock(uint32_t index)
+Tile* WorldSegment::getTile(uint32_t index)
 {
-    if(index<0 || index >= blocks.size() ) {
+    if(index<0 || index >= tiles.size() ) {
         return 0;
     }
-    return blocks[index];
+    return tiles[index];
 }
 
-void WorldSegment::CorrectBlockForSegmentOffset(int32_t& xin, int32_t& yin, int32_t& zin)
+void WorldSegment::CorrectTileForSegmentOffset(int32_t& xin, int32_t& yin, int32_t& zin)
 {
     xin -= displayedx;
     yin -= displayedy; //DisplayedSegmentY;
     zin -= displayedz - 1; //need to remove the offset
 }
 
-void WorldSegment::CorrectBlockForSegmentRotation(int32_t& x, int32_t& y, int32_t& z)
+void WorldSegment::CorrectTileForSegmentRotation(int32_t& x, int32_t& y, int32_t& z)
 {
     int32_t oldx = x;
     int32_t oldy = y;
@@ -210,10 +210,10 @@ void WorldSegment::CorrectBlockForSegmentRotation(int32_t& x, int32_t& y, int32_
     }
 }
 
-void WorldSegment::addBlock(Block* b)
+void WorldSegment::addTile(Tile* b)
 {
-    this->blocks.push_back(b);
-    //b = &(this->blocks[ blocks.size() - 1]);
+    this->tiles.push_back(b);
+    //b = &(this->tiles[ tiles.size() - 1]);
 
     uint32_t x = b->x;
     uint32_t y = b->y;
@@ -224,12 +224,12 @@ void WorldSegment::addBlock(Block* b)
     z -= this->z;
 
     //rotate
-    CorrectBlockForSegmentRotation( (int32_t&)x, (int32_t&)y, (int32_t&)z);
+    CorrectTileForSegmentRotation( (int32_t&)x, (int32_t&)y, (int32_t&)z);
     uint32_t index = x + (y * this->sizex) + ((z) * this->sizex * this->sizey);
-    blocksAsPointerVolume[index] = b;
+    tilesAsPointerVolume[index] = b;
 }
 
-void WorldSegment::DrawAllBlocks()
+void WorldSegment::DrawAllTiles()
 {
     if(!loaded) {
         return;
@@ -312,28 +312,28 @@ int32_t compare(int32_t a, int32_t b, int32_t direction){
     }
 }
 
-void WorldSegment::AssembleCellBlocks(
+void WorldSegment::AssembleCellTiles(
     int32_t firstX, int32_t firstY, 
     int32_t lastX, int32_t lastY, 
     int32_t incrx, int32_t incry, 
     int32_t cellz){
         //incrx = incrx >= 0 ? 1 : -1;
         //incry = incry >= 0 ? 1 : -1;
-        //now iterate over the blocks in the cell
+        //now iterate over the tiles in the cell
         for(int i=firstX; compare(i, lastX, incrx) < 0; i+=incrx) {
             for(int j=firstY; compare(j, lastY, incry) < 0; j+=incry) {
                 //do stuff!
-                Block *b = getBlock(i,j,cellz);
+                Tile *b = getTile(i,j,cellz);
                 if (b) {
-                    b->AssembleBlock();
+                    b->AssembleTile();
                 } 
                 //else {
                 //    int drawx = i;
                 //    int drawy = j;
                 //    int drawz = lz+1;
 
-                //    CorrectBlockForSegmentOffset( drawx, drawy, drawz);
-                //    CorrectBlockForSegmentRotation( drawx, drawy, drawz);
+                //    CorrectTileForSegmentOffset( drawx, drawy, drawz);
+                //    CorrectTileForSegmentRotation( drawx, drawy, drawz);
                 //    pointToScreen((int*)&drawx, (int*)&drawy, drawz);
                 //    drawx -= (PLATEWIDTH>>1)*ssConfig.scale;
                 //    draw_event d = {TintedScaledBitmap, IMGObjectSheet, al_map_rgb(255,255,255), 0, 0, SPRITEWIDTH, SPRITEHEIGHT, drawx, drawy+FLOORHEIGHT, SPRITEWIDTH, SPRITEHEIGHT, 0};
@@ -344,11 +344,11 @@ void WorldSegment::AssembleCellBlocks(
 }
 
 /**
- * Assembles sprites for all blocks in the segment.  
- * The draw order used draws blocks on a per-cell basis, so cells
+ * Assembles sprites for all tiles in the segment.  
+ * The draw order used draws tiles on a per-cell basis, so cells
  * in the back are drawn before cells in the front.  
  */
-void WorldSegment::AssembleAllBlocks()
+void WorldSegment::AssembleAllTiles()
 {
     if(!loaded) {
         return;
@@ -371,12 +371,12 @@ void WorldSegment::AssembleAllBlocks()
     //        draw_event d = {TintedScaledBitmap, fog, al_map_rgb(255,255,255), 0, 0, ssState.ScreenW, ssState.ScreenH, 0, 0, ssState.ScreenW, ssState.ScreenH, 0};
     //        AssembleSprite(d);
     //    }
-    //    //add the blocks to the queue
+    //    //add the tiles to the queue
     //    for(int32_t vsx=1; vsx < vsxmax; vsx++) {
     //        for(int32_t vsy=1; vsy < vsymax; vsy++) {
-    //            Block *b = getBlockLocal(vsx,vsy,vsz);
+    //            Tile *b = getTileLocal(vsx,vsy,vsz);
     //            if (b) {
-    //                b->AssembleBlock();
+    //                b->AssembleTile();
     //                DB1++;
     //            }
     //        }
@@ -391,13 +391,13 @@ void WorldSegment::AssembleAllBlocks()
     incrx--;
     incry--;
 
-    //here we set up the variables needed to iterate over the blocks of the cell in correct draw-order
-    int32_t blockstartx=0;
-    int32_t blockstarty=0;
-    correctForRotation(blockstartx, blockstarty, 4-rotation, CELLEDGESIZE, CELLEDGESIZE);
-    int32_t blockendx=CELLEDGESIZE-1;
-    int32_t blockendy=CELLEDGESIZE-1;
-    correctForRotation(blockendx, blockendy, 4-rotation, CELLEDGESIZE, CELLEDGESIZE);
+    //here we set up the variables needed to iterate over the tiles of the cell in correct draw-order
+    int32_t tilestartx=0;
+    int32_t tilestarty=0;
+    correctForRotation(tilestartx, tilestarty, 4-rotation, CELLEDGESIZE, CELLEDGESIZE);
+    int32_t tileendx=CELLEDGESIZE-1;
+    int32_t tileendy=CELLEDGESIZE-1;
+    correctForRotation(tileendx, tileendy, 4-rotation, CELLEDGESIZE, CELLEDGESIZE);
     
     //these are used to iterate over the cells themselves
     int32_t minx, maxx, miny, maxy;
@@ -431,8 +431,8 @@ void WorldSegment::AssembleAllBlocks()
         }
         //figure out what cells to read
         for(int32_t cellx = cellfirstx; compare(cellx, celllastx, incrx) <= 0; cellx+=incrx) {
-            int32_t firstX = cellx*CELLEDGESIZE + blockstartx;
-            int32_t lastX = cellx*CELLEDGESIZE + blockendx + incrx;
+            int32_t firstX = cellx*CELLEDGESIZE + tilestartx;
+            int32_t lastX = cellx*CELLEDGESIZE + tileendx + incrx;
             switch(rotation){
             case 1:
                 firstX = max<int32_t>(firstX, x+1);
@@ -453,8 +453,8 @@ void WorldSegment::AssembleAllBlocks()
         
 
             for(int32_t celly = cellfirsty; compare(celly, celllasty, incry) <= 0; celly+=incry) {
-                int32_t firstY = celly*CELLEDGESIZE + blockstarty;
-                int32_t lastY = celly*CELLEDGESIZE + blockendy + incry;
+                int32_t firstY = celly*CELLEDGESIZE + tilestarty;
+                int32_t lastY = celly*CELLEDGESIZE + tileendy + incry;
                 switch(rotation){
                 case 1:
                     firstY = min<int32_t>(firstY, y+sizey-2);
@@ -475,7 +475,7 @@ void WorldSegment::AssembleAllBlocks()
 
                 DB1++;
                 //Now go to that cell, and assemble the sprites for it in the order specified.
-                AssembleCellBlocks( firstX, firstY, lastX, lastY, incrx, incry, lz);
+                AssembleCellTiles( firstX, firstY, lastX, lastY, incrx, incry, lz);
             }
         }
     }
@@ -519,7 +519,7 @@ bool WorldSegment::CoordinateInteriorSegment(uint32_t x, uint32_t y, uint32_t z,
 //    for(int32_t vsx=0; vsx < this->sizex; vsx++)
 //        for(int32_t vsy=0; vsy < this->sizey; vsy++)
 //            for(int32_t vsz=0; vsz < this->sizez; vsz++) {
-//                Block *b = getBlockLocal(vsx,vsy,vsz);
+//                Tile *b = getTileLocal(vsx,vsy,vsz);
 //                if (b) {
 //                    b->DrawPixel(vsx, (vsz*this->sizey) + vsy);
 //                }

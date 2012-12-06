@@ -5,8 +5,8 @@
 using namespace std;
 
 #include "common.h"
-#include "Block.h"
-#include "BlockFactory.h"
+#include "Tile.h"
+#include "TileFactory.h"
 #include "GUI.h"
 //#include "SpriteMaps.h"
 #include "GameBuildings.h"
@@ -151,11 +151,11 @@ void SetTitle(const char *format, ...)
     al_ustr_free(buf);
 }
 
-void correctBlockForDisplayedOffset(int32_t& x, int32_t& y, int32_t& z)
+void correctTileForDisplayedOffset(int32_t& x, int32_t& y, int32_t& z)
 {
     x -= ssState.DisplayedSegmentX;
     y -= ssState.DisplayedSegmentY; //DisplayedSegmentY;
-    z -= ssState.DisplayedSegmentZ - 1; // + viewedSegment->sizez - 2; // loading one above the top of the displayed segment for block rules
+    z -= ssState.DisplayedSegmentZ - 1; // + viewedSegment->sizez - 2; // loading one above the top of the displayed segment for tile rules
 }
 
 bool loadfont(DFHack::color_ostream & output)
@@ -355,8 +355,8 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
     out.print("Stonesense launched\n");
 
     ssConfig.debug_mode = false;
-    ssConfig.hide_outer_blocks = false;
-    ssConfig.shade_hidden_blocks = true;
+    ssConfig.hide_outer_tiles = false;
+    ssConfig.shade_hidden_tiles = true;
     ssConfig.load_ground_materials = true;
     ssConfig.automatic_reload_time = 0;
     ssConfig.automatic_reload_step = 500;
@@ -513,8 +513,8 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
         delete last;
     }
 
-    //need to explicitly tear down the current block factory
-    blockFactory.~BlockFactory();
+    //need to explicitly tear down the current tile factory
+    tileFactory.~TileFactory();
 
     al_destroy_bitmap(IMGIcon);
     IMGIcon = 0;

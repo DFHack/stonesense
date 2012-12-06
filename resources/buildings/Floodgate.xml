@@ -58,7 +58,7 @@
 		</if>
 		<else>
 			<sprite index="55" /><!-- frame -->
-			<sprite index="16" /><!-- green glass block -->
+			<sprite index="16" /><!-- green glass wall -->
 			<sprite index="56" /><!-- frame -->
 		</else>		
 	</else>
@@ -69,12 +69,12 @@
 		</or>
 		<if><!-- ClearGlass or CrystalGlass & opened -->
 			<BuildingOccupancy value="2" />
-			<sprite index="35" color="building" /><!-- glass block -->
+			<sprite index="35" color="building" /><!-- glass wall -->
 			<sprite index="57" /><!-- frame -->
 		</if>
 		<else>
 			<sprite index="55" /><!-- frame -->
-			<sprite index="15" color="building" /><!-- glass block -->
+			<sprite index="15" color="building" /><!-- glass wall -->
 			<sprite index="56" /><!-- frame -->
 		</else>		
 	</else>

@@ -144,10 +144,10 @@ void doKeys()
         int x, y;
         x = mouse.x;
         y = mouse.y;
-        int blockx,blocky,blockz;
-        ScreenToPoint(x,y,blockx,blocky,blockz);
-        int diffx = blockx - ssConfig.segmentSize.x/2;
-        int diffy = blocky - ssConfig.segmentSize.y/2;
+        int tilex,tiley,tilez;
+        ScreenToPoint(x,y,tilex,tiley,tilez);
+        int diffx = tilex - ssConfig.segmentSize.x/2;
+        int diffy = tiley - ssConfig.segmentSize.y/2;
         /*we use changeRelativeToRotation directly, and not through moveViewRelativeToRotation
         because we don't want to move the offset with the mouse. It just feels weird. */
         // changing to +1,+1 which moves the clicked point to one of the 4 surrounding the center of rotation
@@ -162,15 +162,15 @@ void doKeys()
         x = mouse.x;//pos >> 16;
         y = mouse.y; //pos & 0x0000ffff;
         if(x >= MiniMapTopLeftX && x <= MiniMapBottomRightX && y >= MiniMapTopLeftY && y <= MiniMapBottomRightY) { // in minimap
-            ssState.DisplayedSegmentX = (x-MiniMapTopLeftX-MiniMapSegmentWidth/2)/oneBlockInPixels;
-            ssState.DisplayedSegmentY = (y-MiniMapTopLeftY-MiniMapSegmentHeight/2)/oneBlockInPixels;
+            ssState.DisplayedSegmentX = (x-MiniMapTopLeftX-MiniMapSegmentWidth/2)/oneTileInPixels;
+            ssState.DisplayedSegmentY = (y-MiniMapTopLeftY-MiniMapSegmentHeight/2)/oneTileInPixels;
         } else {
-            int blockx,blocky,blockz;
-            ScreenToPoint(x,y,blockx,blocky,blockz);
-            int diffx = blockx - ssConfig.segmentSize.x/2;
-            int diffy = blocky - ssConfig.segmentSize.y/2;
-            debugCursor.x = blockx;
-            debugCursor.y = blocky;
+            int tilex,tiley,tilez;
+            ScreenToPoint(x,y,tilex,tiley,tilez);
+            int diffx = tilex - ssConfig.segmentSize.x/2;
+            int diffy = tiley - ssConfig.segmentSize.y/2;
+            debugCursor.x = tilex;
+            debugCursor.y = tiley;
         }
         timeToReloadSegment = true;
     }
@@ -313,11 +313,11 @@ void doKeys(int Key)
         timeToReloadSegment = true;
     }
     if(Key == ALLEGRO_KEY_B) {
-        ssConfig.shade_hidden_blocks = !ssConfig.shade_hidden_blocks;
+        ssConfig.shade_hidden_tiles = !ssConfig.shade_hidden_tiles;
         timeToReloadSegment = true;
     }
     if(Key == ALLEGRO_KEY_H) {
-        ssConfig.show_hidden_blocks = !ssConfig.show_hidden_blocks;
+        ssConfig.show_hidden_tiles = !ssConfig.show_hidden_tiles;
         timeToReloadSegment = true;
     }
     if(Key == ALLEGRO_KEY_N) {

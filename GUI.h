@@ -5,8 +5,8 @@
 void ScreenToPoint(int x,int y,int &x1, int &y1, int &z1);
 void pointToScreen(int *inx, int *iny, int inz);
 void correctForRotation(int32_t& x, int32_t& y, unsigned char rot, int32_t szx, int32_t szy);
-Crd2D WorldBlockToScreen(int32_t x, int32_t y, int32_t z);
-Crd2D LocalBlockToScreen(int32_t x, int32_t y, int32_t z);
+Crd2D WorldTileToScreen(int32_t x, int32_t y, int32_t z);
+Crd2D LocalTileToScreen(int32_t x, int32_t y, int32_t z);
 void DrawCurrentLevelOutline(bool backPart);
 void DrawMinimap(WorldSegment *);
 void paintboard();
@@ -34,7 +34,7 @@ extern int MiniMapBottomRightX;
 extern int MiniMapBottomRightY;
 extern int MiniMapSegmentWidth;
 extern int MiniMapSegmentHeight;
-extern double oneBlockInPixels;
+extern double oneTileInPixels;
 
 extern ALLEGRO_BITMAP* IMGObjectSheet;
 extern ALLEGRO_BITMAP* IMGCreatureSheet;

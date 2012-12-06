@@ -9,7 +9,7 @@
 #include "tinyxml.h"
 
 
-VegetationConfiguration::VegetationConfiguration(int gameID, c_block_tree &tree, bool live, bool grown)
+VegetationConfiguration::VegetationConfiguration(int gameID, c_tile_tree &tree, bool live, bool grown)
 {
     memset(this, 0, sizeof(VegetationConfiguration) );
     this->tree = tree;
@@ -50,7 +50,7 @@ bool addSingleVegetationConfig( TiXmlElement* elemRoot,  vector<VegetationConfig
         bool dead = (deadstr && deadstr[0]);
         const char* saplingstr = elemTree->Attribute("sapling");
         bool sapling = (saplingstr && saplingstr[0]);
-        c_block_tree tree;
+        c_tile_tree tree;
         tree.set_by_xml(elemTree, basefile);
         VegetationConfiguration vegetationConfiguration(gameID, tree, !dead, !sapling);
         //add a copy to known creatures
@@ -60,7 +60,7 @@ bool addSingleVegetationConfig( TiXmlElement* elemRoot,  vector<VegetationConfig
     return true;
 }
 
-c_block_tree * getVegetationTree(vector<VegetationConfiguration>& vegetationConfigs,int index,bool live,bool grown)
+c_tile_tree * getVegetationTree(vector<VegetationConfiguration>& vegetationConfigs,int index,bool live,bool grown)
 {
     int vcmax = (int)vegetationConfigs.size();
     for (int i=0; i<vcmax; i++) {
@@ -76,7 +76,7 @@ c_block_tree * getVegetationTree(vector<VegetationConfiguration>& vegetationConf
         }
         return &(current->tree);
     }
-    static c_block_tree* tree = new c_block_tree;
+    static c_tile_tree* tree = new c_tile_tree;
     tree->reset();
     return tree;
 }

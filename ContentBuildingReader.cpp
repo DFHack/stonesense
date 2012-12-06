@@ -4,14 +4,14 @@
 
 #include "common.h"
 #include "BuildingConfiguration.h"
-#include "BlockCondition.h"
+#include "TileCondition.h"
 #include "tinyxml.h"
 #include "GUI.h"
 #include "ContentLoader.h"
 
 int parseConditionNode(ConditionalNode* node, TiXmlElement* elemCondition, bool silent);
 bool parseSpriteNode(SpriteNode* node, TiXmlElement* elemParent);
-bool includeFile(SpriteNode* node, TiXmlElement* includeNode, SpriteBlock* &oldSibling);
+bool includeFile(SpriteNode* node, TiXmlElement* includeNode, SpriteTile* &oldSibling);
 
 bool parseRecursiveNodes (ConditionalNode* pnode, TiXmlElement* pelem)
 {
@@ -28,7 +28,7 @@ bool parseRecursiveNodes (ConditionalNode* pnode, TiXmlElement* pelem)
 int parseConditionNode(ConditionalNode* node, TiXmlElement* elemCondition, bool silent)
 {
     const char* strType = elemCondition->Value();
-    BlockCondition* cond = NULL;
+    TileCondition* cond = NULL;
     if( strcmp(strType, "NeighbourWall") == 0) {
         cond = new NeighbourWallCondition( elemCondition->Attribute("dir") );
     }
@@ -122,16 +122,16 @@ int parseConditionNode(ConditionalNode* node, TiXmlElement* elemCondition, bool 
     return -1;
 }
 
-inline bool readNode(SpriteNode* node, TiXmlElement* elemNode, TiXmlElement* elemParent, SpriteBlock* &oldSibling)
+inline bool readNode(SpriteNode* node, TiXmlElement* elemNode, TiXmlElement* elemParent, SpriteTile* &oldSibling)
 {
     const char* strType = elemNode->Value();
     if (strcmp(strType, "if") == 0 || strcmp(strType, "else") == 0) {
-        SpriteBlock* block = new SpriteBlock();
+        SpriteTile* tile = new SpriteTile();
         if (!elemNode->Attribute("file") && elemParent->Attribute("file")) {
             elemNode->SetAttribute("file", elemParent->Attribute("file"));
         }
-        if (!parseSpriteNode(block,elemNode)) {
-            delete(block);
+        if (!parseSpriteNode(tile,elemNode)) {
+            delete(tile);
             return false;
         }
         if (elemNode->Attribute("else") || strcmp(strType, "else") == 0) {
@@ -139,21 +139,21 @@ inline bool readNode(SpriteNode* node, TiXmlElement* elemNode, TiXmlElement* ele
                 contentError("Misplaced or invalid element in SpriteNode",elemNode);
                 return false;
             }
-            oldSibling->addElse(block);
+            oldSibling->addElse(tile);
         } else {
-            node->addChild(block);
+            node->addChild(tile);
         }
-        oldSibling = block;
+        oldSibling = tile;
     } else if (strcmp(strType, "rotate") == 0) {
-        RotationBlock* block = new RotationBlock();
+        RotationTile* tile = new RotationTile();
         if (!elemNode->Attribute("file") && elemParent->Attribute("file")) {
             elemNode->SetAttribute("file",elemParent->Attribute("file"));
         }
-        if (!parseSpriteNode(block,elemNode)) {
-            delete(block);
+        if (!parseSpriteNode(tile,elemNode)) {
+            delete(tile);
             return false;
         } else {
-            node->addChild(block);
+            node->addChild(tile);
         }
         oldSibling = NULL;
     } else if ((strcmp(strType, "sprite") == 0) || (strcmp(strType, "empty") == 0)) {
@@ -179,7 +179,7 @@ inline bool readNode(SpriteNode* node, TiXmlElement* elemNode, TiXmlElement* ele
     return true;
 }
 
-bool includeFile(SpriteNode* node, TiXmlElement* includeNode, SpriteBlock* &oldSibling)
+bool includeFile(SpriteNode* node, TiXmlElement* includeNode, SpriteTile* &oldSibling)
 {
     // get path... ugly
     char configfilepath[FILENAME_BUFFERSIZE] = {0};
@@ -223,7 +223,7 @@ bool includeFile(SpriteNode* node, TiXmlElement* includeNode, SpriteBlock* &oldS
 bool parseSpriteNode(SpriteNode* node, TiXmlElement* elemParent)
 {
     //TODO: there is a leak here somewhere.
-    SpriteBlock* oldSibling = NULL;
+    SpriteTile* oldSibling = NULL;
     TiXmlElement* elemNode =  elemParent->FirstChildElement();
     const char* strParent = elemParent->Value();
     if (elemNode == NULL) {
@@ -233,9 +233,9 @@ bool parseSpriteNode(SpriteNode* node, TiXmlElement* elemParent)
     if ( strcmp(strParent,"building") != 0 && strcmp(strParent,"custom_workshop") != 0 && strcmp(strParent,"rotate") != 0) {
         //flag to allow else statements to be empty, rather than needing an "always" tag
         bool allowBlank = (strcmp(strParent,"else") == 0 || elemParent->Attribute("else"));
-        // cast should be safe, because only spriteblocks
+        // cast should be safe, because only spritetiles
         // should get here
-        int retvalue =parseConditionNode((SpriteBlock *)node,elemNode,allowBlank);
+        int retvalue =parseConditionNode((SpriteTile *)node,elemNode,allowBlank);
         if (retvalue == 0) {
             return false;
         }
@@ -400,7 +400,7 @@ bool addSingleBuildingConfig( TiXmlElement* elemRoot,  vector<BuildingConfigurat
         custom = strGameCustom;
     }
     BuildingConfiguration building(strName, main_type, subtype, custom );
-    RootBlock* spriteroot = new RootBlock();
+    RootTile* spriteroot = new RootTile();
     building.sprites = spriteroot;
     if (!parseSpriteNode(spriteroot,elemRoot)) {
         delete(spriteroot);

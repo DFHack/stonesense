@@ -3,7 +3,7 @@
 
 
 <building name="Dyers" game_type="Workshop" game_subtype="Dyers" file="workshop.png"> 
-	<!-- benches block -->
+	<!-- benches wall -->
 	<if> 
 		<!-- replace this with position index if required -->
 		<BuildingOccupancy value="3" />	
@@ -13,7 +13,7 @@
 	<else>
 		<include file="wsUpperBorder.xml"/>
 	</else>
-	<!-- end benches block -->
+	<!-- end benches wall -->
  
 	<!-- contents -->
 		

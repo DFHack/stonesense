@@ -17,7 +17,7 @@
 * Added mood icons for creatures
 * Blood, vomit and other bodily fluids now show up
 * Vast improvments to configuration system
-* Improved block outlines to better see structures
+* Improved tile outlines to better see structures
 * Added tons of creatures from the Stonesense Content Repository
 * Fixed issue with creature name cases
 * Countless stability fixes
@@ -27,7 +27,7 @@
 * Snow piles in various heights
 * Now supports the Object Testing Arena
 * Dwarf and animal skin/hair colors
-* Constructions reflect if they're built with rough stone or blocks
+* Constructions reflect if they're built with rough stone or tiles
 * Transparent water and windows
 * Optional Day/Night mode
 * Colored materials
@@ -49,7 +49,7 @@
 * Tweaks to allow directory based drop-in spritepacks
 * Drop down shadows for creatures
 * More bugfixes
-* Better handling for blocks at top of map.
+* Better handling for tiles at top of map.
 * Logo added
 * Ramp selection algorithm improved
 * Config for initial state of some on-the-fly toggleable settings
@@ -79,8 +79,8 @@
 * 56 buildings supported
 * All stone and soil types supported
 * Added sand
-* Option to fill screen with blocks
-* Option to show hidden blocks
+* Option to fill screen with tiles
+* Option to show hidden tiles
 * Adventure mode support
 * Added debug mode for modding
 * Customize buildings with config files
@@ -94,7 +94,7 @@
 * Added custom resolution and fullscreen mode
 * Added drawn borders to wall and floor edges
 * Added single layer view
-* Added black blocks to indicate hidden areas
+* Added black tiles to indicate hidden areas
 * Added auto-reload ability
 * Added alternative z-level navigation
 * Improved minimap

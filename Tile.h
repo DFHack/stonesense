@@ -47,11 +47,11 @@ struct unit_inventory {
     std::vector<std::vector<std::vector<worn_item>>> item;
 };
 
-class Block
+class Tile
 {
 public:
-    Block(WorldSegment* ownerSegment, df::tiletype type);
-    ~Block(void);
+    Tile(WorldSegment* ownerSegment, df::tiletype type);
+    ~Tile(void);
     static void* operator new (size_t size);
     static void operator delete (void *p);
     bool visible;
@@ -115,7 +115,7 @@ public:
     //vector<uint8_t> grasslevels;
     //vector<uint32_t> grassmats;
 
-    //struct BlockEffects //size 40
+    //struct TileEffects //size 40
     //{
     //	uint16_t count;
     //	uint16_t type;
@@ -124,7 +124,7 @@ public:
     //	int16_t x_direction;
     //	int16_t y_direction;
     //	uint8_t canCreateNew;//??
-    //} blockeffects;
+    //} tileeffects;
 
     //individual effects
     effect Eff_Miasma;
@@ -144,18 +144,18 @@ public:
         DFHack::Buildings::t_building info;
         std::vector<c_sprite> sprites;
         uint32_t index;
-        Block * parent;
+        Tile * parent;
     } building;
 
     bool IsVisible() {
         return IDisWall(tileType) || IDisFloor(tileType);
     }
-    void AssembleBlock();
+    void AssembleTile();
     void Drawcreaturetext();
     void AddRamptop();
     void AssembleFloorBlood ( int32_t drawx, int32_t drawy );
     void AssembleParticleCloud(int count, float centerX, float centerY, float rangeX, float rangeY, ALLEGRO_BITMAP *sprite, ALLEGRO_COLOR tint);
-    void AssembleSpriteFromSheet(int spriteNum, ALLEGRO_BITMAP* spriteSheet, ALLEGRO_COLOR color, float x, float y, Block * b=NULL, float in_scale=1.0f);
+    void AssembleSpriteFromSheet(int spriteNum, ALLEGRO_BITMAP* spriteSheet, ALLEGRO_COLOR color, float x, float y, Tile * b=NULL, float in_scale=1.0f);
     void AssembleSprite(ALLEGRO_BITMAP *bitmap, ALLEGRO_COLOR tint, float sx, float sy, float sw, float sh, float dx, float dy, float dw, float dh, int flags);
     //void DrawPixel(int drawx, int drawy);
 
@@ -185,8 +185,8 @@ void destroyEffectSprites();
 void initRandomCube();
 
 //find a better place for these
-bool hasWall(Block* b);
-bool hasBuildingOfID(Block* b, int ID);
-bool hasBuildingIdentity(Block* b, uint32_t index, int buildingOcc);
-bool hasBuildingOfIndex(Block* b, uint32_t index);
+bool hasWall(Tile* b);
+bool hasBuildingOfID(Tile* b, int ID);
+bool hasBuildingIdentity(Tile* b, uint32_t index, int buildingOcc);
+bool hasBuildingOfIndex(Tile* b, uint32_t index);
 bool wallShouldNotHaveBorders( int in );

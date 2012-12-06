@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Block.h"
+#include "Tile.h"
 
 extern SegmentWrap map_segment;
 
@@ -27,7 +27,7 @@ struct draw_event{
 class WorldSegment
 {
 private:
-    vector<Block*> blocks;
+    vector<Tile*> tiles;
     vector<draw_event> todraw;
 public:
     bool loaded;
@@ -38,7 +38,7 @@ public:
     unsigned char rotation;
     Crd3D regionSize;
     Crd3D regionPos;
-    Block** blocksAsPointerVolume;
+    Tile** tilesAsPointerVolume;
     WorldSegment(int x, int y, int z, int sizex, int sizey, int sizez) {
         this->x = x;
         this->y = y;
@@ -53,39 +53,39 @@ public:
         regionSize.x = regionSize.y = regionSize.z = 0;
         regionPos.x = regionPos.y = regionPos.z = 0;
 
-        uint32_t memoryNeeded = sizex * sizey * sizez * sizeof(Block*);
-        blocksAsPointerVolume = (Block**) malloc( memoryNeeded );
-        memset(blocksAsPointerVolume, 0, memoryNeeded);
+        uint32_t memoryNeeded = sizex * sizey * sizez * sizeof(Tile*);
+        tilesAsPointerVolume = (Tile**) malloc( memoryNeeded );
+        memset(tilesAsPointerVolume, 0, memoryNeeded);
     }
 
     ~WorldSegment() {
-        uint32_t num = (uint32_t)blocks.size();
+        uint32_t num = (uint32_t)tiles.size();
         for(uint32_t i = 0; i < num; i++) {
-            delete(blocks[i]);
+            delete(tiles[i]);
         }
-        blocks.clear();
+        tiles.clear();
     }
 
     void Dispose(void) {
-        free(blocksAsPointerVolume);
+        free(tilesAsPointerVolume);
     }
 
-    uint32_t getNumBlocks() {
-        return (uint32_t)blocks.size();
+    uint32_t getNumTiles() {
+        return (uint32_t)tiles.size();
     }
 
-    Block* getBlock(int32_t x, int32_t y, int32_t z);
-    Block* getBlockLocal(uint32_t x, uint32_t y, uint32_t z);
-    Block* getBlockRelativeTo(uint32_t x, uint32_t y, uint32_t z,  dirRelative direction);
-    Block* getBlockRelativeTo(uint32_t x, uint32_t y, uint32_t z,  dirRelative direction, int distance);
-    Block* getBlock(uint32_t index);
-    void CorrectBlockForSegmentOffset(int32_t& x, int32_t& y, int32_t& z);
-    void CorrectBlockForSegmentRotation(int32_t& x, int32_t& y, int32_t& z);
-    void addBlock(Block* b);
-    void AssembleCellBlocks(int32_t firstX, int32_t firstY, int32_t lastX, int32_t lastY, int32_t incrx, int32_t incry, int32_t z);
-    void AssembleAllBlocks();
+    Tile* getTile(int32_t x, int32_t y, int32_t z);
+    Tile* getTileLocal(uint32_t x, uint32_t y, uint32_t z);
+    Tile* getTileRelativeTo(uint32_t x, uint32_t y, uint32_t z,  dirRelative direction);
+    Tile* getTileRelativeTo(uint32_t x, uint32_t y, uint32_t z,  dirRelative direction, int distance);
+    Tile* getTile(uint32_t index);
+    void CorrectTileForSegmentOffset(int32_t& x, int32_t& y, int32_t& z);
+    void CorrectTileForSegmentRotation(int32_t& x, int32_t& y, int32_t& z);
+    void addTile(Tile* b);
+    void AssembleCellTiles(int32_t firstX, int32_t firstY, int32_t lastX, int32_t lastY, int32_t incrx, int32_t incry, int32_t z);
+    void AssembleAllTiles();
     void AssembleSprite(draw_event d);
-    void DrawAllBlocks();
+    void DrawAllTiles();
     //void drawPixels();
     bool CoordinateInsideSegment(uint32_t x, uint32_t y, uint32_t z);
     bool CoordinateInteriorSegment(uint32_t x, uint32_t y, uint32_t z, uint32_t shellthick);

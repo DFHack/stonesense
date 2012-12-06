@@ -1,6 +1,6 @@
 #pragma once
 
-#include "BlockCondition.h"
+#include "TileCondition.h"
 
 // generic superclass
 class SpriteNode
@@ -10,53 +10,53 @@ public:
     virtual ~SpriteNode(void) {};
 
     // this returns true if the sprite matched, and also adds
-    // sprites to the block as required
-    virtual bool copyToBlock(Block* b)=0;
+    // sprites to the tile as required
+    virtual bool copyToTile(Tile* b)=0;
     // adds a child if appropriate (vestigial in some cases)
     virtual void addChild(SpriteNode* child) {};
 };
 
 // root nesting structure
-class RootBlock : public SpriteNode
+class RootTile : public SpriteNode
 {
     vector<SpriteNode*> children;
 
 public:
-    RootBlock(void);
-    ~RootBlock(void);
+    RootTile(void);
+    ~RootTile(void);
 
-    bool copyToBlock(Block* b);
+    bool copyToTile(Tile* b);
     void addChild(SpriteNode* child);
 };
 
 // nesting conditional structure
-class SpriteBlock : public ConditionalNode, public SpriteNode
+class SpriteTile : public ConditionalNode, public SpriteNode
 {
-    BlockCondition* conditions;
+    TileCondition* conditions;
     vector<SpriteNode*> children;
     SpriteNode* elsenode;
 
 public:
-    SpriteBlock(void);
-    ~SpriteBlock(void);
+    SpriteTile(void);
+    ~SpriteTile(void);
 
-    bool copyToBlock(Block* b);
-    bool addCondition(BlockCondition* cond);
+    bool copyToTile(Tile* b);
+    bool addCondition(TileCondition* cond);
     void addChild(SpriteNode* child);
     void addElse(SpriteNode* child);
 };
 
 // rotational conditional structure
-class RotationBlock : public ConditionalNode, public SpriteNode
+class RotationTile : public ConditionalNode, public SpriteNode
 {
     vector<SpriteNode*> children;
 
 public:
-    RotationBlock(void);
-    ~RotationBlock(void);
+    RotationTile(void);
+    ~RotationTile(void);
 
-    bool copyToBlock(Block* b);
-    bool addCondition(BlockCondition* cond);
+    bool copyToTile(Tile* b);
+    bool addCondition(TileCondition* cond);
     void addChild(SpriteNode* child);
 };
 
@@ -71,5 +71,5 @@ public:
     SpriteElement(void);
     ~SpriteElement(void) {};
 
-    bool copyToBlock(Block* b);
+    bool copyToTile(Tile* b);
 };

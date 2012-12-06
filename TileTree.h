@@ -1,21 +1,21 @@
 #pragma once
 #include "common.h"
 #include "SpriteObjects.h"
-#include "Block.h"
+#include "Tile.h"
 #include "WorldSegment.h"
 
-class Block;
+class Tile;
 
-class c_block_tree_twig
+class c_tile_tree_twig
 {
     c_sprite own_sprite;
     vector<c_sprite> westward_growth;
     vector<c_sprite> eastward_growth;
 public:
-    c_block_tree_twig(void);
-    ~c_block_tree_twig(void);
+    c_tile_tree_twig(void);
+    ~c_tile_tree_twig(void);
 
-    void insert_sprites(WorldSegment * w, int x, int y, int z, Block * parent);
+    void insert_sprites(WorldSegment * w, int x, int y, int z, Tile * parent);
     void set_single_sprite(void);
     void set_sheetindex(int32_t in) {
         own_sprite.set_sheetindex(in);
@@ -30,21 +30,21 @@ public:
     void add_sprite(int x, c_sprite sprite);
     void reset();
 
-    void assemble_world(int x, int y, int z, Block * b, bool chop = false) {
+    void assemble_world(int x, int y, int z, Tile * b, bool chop = false) {
         own_sprite.assemble_world(x,y,z,b,chop);
     }
 };
 
-class c_block_tree_branch
+class c_tile_tree_branch
 {
-    c_block_tree_twig own_twig;
-    vector<c_block_tree_twig> northward_growth;
-    vector<c_block_tree_twig> southward_growth;
+    c_tile_tree_twig own_twig;
+    vector<c_tile_tree_twig> northward_growth;
+    vector<c_tile_tree_twig> southward_growth;
 public:
-    c_block_tree_branch(void);
-    ~c_block_tree_branch(void);
+    c_tile_tree_branch(void);
+    ~c_tile_tree_branch(void);
 
-    void insert_sprites(WorldSegment * w, int x, int y, int z, Block * parent);
+    void insert_sprites(WorldSegment * w, int x, int y, int z, Tile * parent);
     void set_sheetindex(int32_t in) {
         own_twig.set_sheetindex(in);
     }
@@ -58,20 +58,20 @@ public:
     void add_sprite(int x, int y, c_sprite sprite);
     void reset();
 
-    void assemble_world(int x, int y, int z, Block * b, bool chop = false) {
+    void assemble_world(int x, int y, int z, Tile * b, bool chop = false) {
         own_twig.assemble_world(x,y,z,b,chop);
     }
 };
 
-class c_block_tree
+class c_tile_tree
 {
-    c_block_tree_branch own_branch;
-    vector<c_block_tree_branch> upward_growth;
+    c_tile_tree_branch own_branch;
+    vector<c_tile_tree_branch> upward_growth;
 public:
-    c_block_tree(void);
-    ~c_block_tree(void);
+    c_tile_tree(void);
+    ~c_tile_tree(void);
 
-    void insert_sprites(WorldSegment * w, int x, int y, int z, Block * parent);
+    void insert_sprites(WorldSegment * w, int x, int y, int z, Tile * parent);
     void set_sheetindex(int32_t in) {
         own_branch.set_sheetindex(in);
     }
@@ -85,7 +85,7 @@ public:
     void add_sprite(int x, int y, int z, c_sprite sprite);
     void reset();
 
-    void assemble_world(int x, int y, int z, Block * b, bool chop = false) {
+    void assemble_world(int x, int y, int z, Tile * b, bool chop = false) {
         own_branch.assemble_world(x,y,z,b,chop);
     }
 };

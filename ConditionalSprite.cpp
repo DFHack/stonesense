@@ -1,57 +1,57 @@
 #include "common.h"
 #include "ConditionalSprite.h"
-#include "Block.h"
+#include "Tile.h"
 #include "GameBuildings.h"
 #include "GUI.h"
 
-/* RootBlock */
+/* RootTile */
 
-RootBlock::RootBlock()
+RootTile::RootTile()
     : SpriteNode()
 {
-    //cout << "RootBlock +" << endl;
+    //cout << "RootTile +" << endl;
 }
 
-RootBlock::~RootBlock(void)
+RootTile::~RootTile(void)
 {
-    //cout << "RootBlock -" << endl;
+    //cout << "RootTile -" << endl;
     uint32_t max = (uint32_t)children.size();
     for(uint32_t i=0; i<max; i++) {
         delete(children[i]);
     }
 }
 
-bool RootBlock::copyToBlock(Block* b)
+bool RootTile::copyToTile(Tile* b)
 {
     bool haveMatch = false;
     uint32_t max = (uint32_t)children.size();
 
     for(uint32_t i=0; i<max; i++) {
-        if (children[i]->copyToBlock(b)) {
+        if (children[i]->copyToTile(b)) {
             haveMatch = true;
         }
     }
     return haveMatch;
 }
 
-void RootBlock::addChild(SpriteNode* child)
+void RootTile::addChild(SpriteNode* child)
 {
     children.push_back(child);
 }
 
-/* SpriteBlock */
+/* SpriteTile */
 
-SpriteBlock::SpriteBlock()
+SpriteTile::SpriteTile()
     : ConditionalNode(), SpriteNode()
 {
-    //cout << "SpriteBlock +" << endl;
+    //cout << "SpriteTile +" << endl;
     conditions = NULL;
     elsenode = NULL;
 }
 
-SpriteBlock::~SpriteBlock(void)
+SpriteTile::~SpriteTile(void)
 {
-    //cout << "SpriteBlock -" << endl;
+    //cout << "SpriteTile -" << endl;
     delete(elsenode);
     delete(conditions);
     uint32_t max = (uint32_t)children.size();
@@ -60,7 +60,7 @@ SpriteBlock::~SpriteBlock(void)
     }
 };
 
-bool SpriteBlock::copyToBlock(Block* b)
+bool SpriteTile::copyToTile(Tile* b)
 {
     bool condMatch = false;
     if (conditions == NULL) {
@@ -73,55 +73,55 @@ bool SpriteBlock::copyToBlock(Block* b)
     if (condMatch) {
         uint32_t max = (uint32_t)children.size();
         for(uint32_t i=0; i<max; i++) {
-            if (children[i]->copyToBlock(b)) {
+            if (children[i]->copyToTile(b)) {
                 haveMatch = true;
             }
         }
     } else if (elsenode != NULL) {
-        haveMatch = elsenode->copyToBlock(b);
+        haveMatch = elsenode->copyToTile(b);
     }
     return haveMatch;
 }
 
-bool SpriteBlock::addCondition(BlockCondition* cond)
+bool SpriteTile::addCondition(TileCondition* cond)
 {
     if (conditions != NULL) {
-        LogError("Too many condition elements for SpriteBlock\n");
+        LogError("Too many condition elements for SpriteTile\n");
         return false;
     }
     conditions = cond;
     return true;
 }
 
-void SpriteBlock::addChild(SpriteNode* child)
+void SpriteTile::addChild(SpriteNode* child)
 {
     children.push_back(child);
 }
 
-void SpriteBlock::addElse(SpriteNode* child)
+void SpriteTile::addElse(SpriteNode* child)
 {
     elsenode = child;
 }
 
 
-/* RotationBlock */
+/* RotationTile */
 
-RotationBlock::RotationBlock()
+RotationTile::RotationTile()
     : ConditionalNode(), SpriteNode()
 {
-    //cout << "SpriteBlock +" << endl;
+    //cout << "SpriteTile +" << endl;
 }
 
-RotationBlock::~RotationBlock(void)
+RotationTile::~RotationTile(void)
 {
-    //cout << "SpriteBlock -" << endl;
+    //cout << "SpriteTile -" << endl;
     uint32_t max = (uint32_t)children.size();
     for(uint32_t i=0; i<max; i++) {
         delete(children[i]);
     }
 };
 
-bool RotationBlock::copyToBlock(Block* b)
+bool RotationTile::copyToTile(Tile* b)
 {
     int index = ssState.DisplayedRotation;
     int max = (int)children.size();
@@ -131,16 +131,16 @@ bool RotationBlock::copyToBlock(Block* b)
     while (index >= max) {
         index = index - max;
     }
-    return children[index]->copyToBlock(b);
+    return children[index]->copyToTile(b);
 }
 
-bool RotationBlock::addCondition(BlockCondition* cond)
+bool RotationTile::addCondition(TileCondition* cond)
 {
-    LogError("Condition elements not permitted for RotationBlock\n");
+    LogError("Condition elements not permitted for RotationTile\n");
     return false;
 }
 
-void RotationBlock::addChild(SpriteNode* child)
+void RotationTile::addChild(SpriteNode* child)
 {
     children.push_back(child);
 }
@@ -154,7 +154,7 @@ SpriteElement::SpriteElement()
     sprite.set_sheetindex(-1);
 }
 
-bool SpriteElement::copyToBlock(Block* b)
+bool SpriteElement::copyToTile(Tile* b)
 {
     if (sprite.get_sheetindex() > -1) {
         b->building.sprites.push_back(sprite);
