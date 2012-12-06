@@ -340,11 +340,11 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
         return;
     }
     int x1 = segment->x;
-    int x2 = segment->x + segment->sizex;
+    int x2 = segment->x + segment->size.x;
     int y1 = segment->y;
-    int y2 = segment->y + segment->sizey;
+    int y2 = segment->y + segment->size.y;
     int z1 = segment->z;
-    int z2 = segment->z + segment->sizez;
+    int z2 = segment->z + segment->size.z;
     uint32_t numcreatures;
 
     numcreatures = DFHack::Units::getNumCreatures();

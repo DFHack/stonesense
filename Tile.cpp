@@ -202,7 +202,7 @@ void Tile::AssembleTile()
                 spriteobject->set_size(SPRITEWIDTH, PLATEHEIGHT);
                 spriteobject->set_plate_layout(RAMPTOPPLATE);
                 spriteobject->set_offset(0, WALLHEIGHT);
-                spriteobject->assemble_world_offset_src(x, y, z, 0, this, b, (chopThisTile && this->z == ownerSegment->z + ownerSegment->sizez -2));
+                spriteobject->assemble_world_offset_src(x, y, z, 0, this, b, (chopThisTile && this->z == ownerSegment->z + ownerSegment->size.z -2));
                 spriteobject->set_offset(0, 0);
             }
             spriteobject->set_plate_layout(TILEPLATE);
@@ -274,7 +274,7 @@ void Tile::AssembleTile()
         if (spriteobject->get_sheetindex() != INVALID_INDEX) {
             spriteobject->set_size(SPRITEWIDTH, SPRITEHEIGHT);
             spriteobject->set_plate_layout(RAMPBOTTOMPLATE);
-            spriteobject->assemble_world_offset(x, y, z, 0, this, (chopThisTile && this->z == ownerSegment->z + ownerSegment->sizez -2));
+            spriteobject->assemble_world_offset(x, y, z, 0, this, (chopThisTile && this->z == ownerSegment->z + ownerSegment->size.z -2));
         }
         spriteobject->set_plate_layout(TILEPLATE);
     }
@@ -380,7 +380,7 @@ void Tile::AssembleTile()
         if (spriteobject->get_sheetindex() == INVALID_INDEX) {
             //skip
         } else {
-            spriteobject->assemble_world(x, y, z, this, (chopThisTile && this->z == ownerSegment->z + ownerSegment->sizez -2));
+            spriteobject->assemble_world(x, y, z, this, (chopThisTile && this->z == ownerSegment->z + ownerSegment->size.z -2));
         }
     }
 
@@ -424,9 +424,9 @@ void Tile::AssembleTile()
     if(water.index > 0) {
         //if(waterlevel == 7) waterlevel--;
         if(water.type == 0) {
-            contentLoader->water[water.index-1].sprite.assemble_world(x, y, z, this, (chopThisTile && this->z == ownerSegment->z + ownerSegment->sizez -2));
+            contentLoader->water[water.index-1].sprite.assemble_world(x, y, z, this, (chopThisTile && this->z == ownerSegment->z + ownerSegment->size.z -2));
         } else {
-            contentLoader->lava[water.index-1].sprite.assemble_world(x, y, z, this, (chopThisTile && this->z == ownerSegment->z + ownerSegment->sizez -2));
+            contentLoader->lava[water.index-1].sprite.assemble_world(x, y, z, this, (chopThisTile && this->z == ownerSegment->z + ownerSegment->size.z -2));
         }
     }
 

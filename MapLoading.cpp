@@ -85,7 +85,7 @@ inline bool isTileHighRampTop(uint32_t x, uint32_t y, uint32_t z, WorldSegment* 
 
 inline bool isTileOnTopOfSegment(WorldSegment* segment, Tile* b)
 {
-    return b->z == segment->z + segment->sizez - 2;
+    return b->z == segment->z + segment->size.z - 2;
 }
 
 int CalculateRampType(uint32_t x, uint32_t y, uint32_t z, WorldSegment* segment)
@@ -152,21 +152,21 @@ int CalculateRampType(uint32_t x, uint32_t y, uint32_t z, WorldSegment* segment)
 
 bool isTileOnVisibleEdgeOfSegment(WorldSegment* segment, Tile* b)
 {
-    if(b->z == segment->z + segment->sizez - 2) {
+    if(b->z == segment->z + segment->size.z - 2) {
         return true;
     }
 
     if (ssState.DisplayedRotation == 0 &&
             (
-                b->x == segment->x + segment->sizex - 2
-                || b->y == segment->y + segment->sizey - 2
+                b->x == segment->x + segment->size.x - 2
+                || b->y == segment->y + segment->size.y - 2
                 || b->x == segment->regionSize.x - 1
                 || b->y == segment->regionSize.y - 1
             )) {
         return true;
     } else if (ssState.DisplayedRotation == 1 &&
                (
-                   b->x == segment->x + segment->sizex - 2
+                   b->x == segment->x + segment->size.x - 2
                    || b->y == segment->y + 1
                    || b->x == segment->regionSize.x - 1
                    || b->y == 0
@@ -183,7 +183,7 @@ bool isTileOnVisibleEdgeOfSegment(WorldSegment* segment, Tile* b)
     } else if (ssState.DisplayedRotation == 3 &&
                (
                    b->x == segment->x + 1
-                   || b->y == segment->y + segment->sizey - 2
+                   || b->y == segment->y + segment->size.y - 2
                    || b->x == 0
                    || b->y == segment->regionSize.y - 1
                )) {
@@ -1389,7 +1389,7 @@ void read_segment( void *arg)
     static bool firstLoad = 1;
     ssConfig.threadstarted = 1;
     WorldSegment * segment = 0;
-    // Suspended tile
+    //suspend DF to read the map
     {
         CoreSuspender suspend;
         if (firstLoad || ssConfig.follow_DFscreen) {
@@ -1408,11 +1408,15 @@ void read_segment( void *arg)
         beautify_Segment(segment);
         
         //putting these here to increase responsiveness of the UI and to make megashots work
-        segment->displayedx = ssState.DisplayedSegmentX;
-        segment->displayedy = ssState.DisplayedSegmentY;
-        segment->displayedz = ssState.DisplayedSegmentZ;
+        segment->displayed.x = ssState.DisplayedSegmentX;
+        segment->displayed.y = ssState.DisplayedSegmentY;
+        segment->displayed.z = ssState.DisplayedSegmentZ;
 
-        segment->AssembleAllTiles();
+        //suspend DF to do the detailed read/draw
+        {
+            CoreSuspender suspend;
+            segment->AssembleAllTiles();
+        }
     }
 
     map_segment.lock();

@@ -382,7 +382,7 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
     }
 
     //some sprites are actually plate borders.
-    const char* spriteBorderStr = elemSprite->Attribute("plateborder");
+    const char* spriteBorderStr = elemSprite->Attribute("tileborder");
     if (spriteBorderStr == NULL || spriteBorderStr[0] == 0) {
         isoutline = OUTLINENONE;
     } else if( strcmp(spriteBorderStr, "none") == 0) {
