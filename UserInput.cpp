@@ -78,11 +78,11 @@ void moveViewRelativeToRotation( int stepx, int stepy )
     else {
         changeRelativeToRotation(ssState.DisplayedSegmentX, ssState.DisplayedSegmentY, stepx, stepy );
         //bound view to world
-        if((int)ssState.DisplayedSegmentX > (int)ssConfig.cellDimX -(int)ssConfig.segmentSize.x/2) {
-            ssState.DisplayedSegmentX = ssConfig.cellDimX -ssConfig.segmentSize.x/2;
+        if((int)ssState.DisplayedSegmentX > (int)ssConfig.blockDimX -(int)ssConfig.segmentSize.x/2) {
+            ssState.DisplayedSegmentX = ssConfig.blockDimX -ssConfig.segmentSize.x/2;
         }
-        if((int)ssState.DisplayedSegmentY > (int)ssConfig.cellDimY -(int)ssConfig.segmentSize.y/2) {
-            ssState.DisplayedSegmentY = ssConfig.cellDimY -ssConfig.segmentSize.y/2;
+        if((int)ssState.DisplayedSegmentY > (int)ssConfig.blockDimY -(int)ssConfig.segmentSize.y/2) {
+            ssState.DisplayedSegmentY = ssConfig.blockDimY -ssConfig.segmentSize.y/2;
         }
         if((int)ssState.DisplayedSegmentX < -(int)ssConfig.segmentSize.x/2) {
             ssState.DisplayedSegmentX = -ssConfig.segmentSize.x/2;
@@ -292,8 +292,8 @@ void doKeys(int Key)
             ssConfig.viewYoffset = 0;
             ssConfig.viewZoffset = 0;
         } else {
-            ssState.DisplayedSegmentX = (ssConfig.cellDimX -ssConfig.segmentSize.x)/2;
-            ssState.DisplayedSegmentY = (ssConfig.cellDimY -ssConfig.segmentSize.y)/2;
+            ssState.DisplayedSegmentX = (ssConfig.blockDimX -ssConfig.segmentSize.x)/2;
+            ssState.DisplayedSegmentY = (ssConfig.blockDimY -ssConfig.segmentSize.y)/2;
         }
     }
     if(Key == ALLEGRO_KEY_1) {

@@ -149,9 +149,9 @@ struct GameConfiguration {
     int dfCursorX;
     int dfCursorY;
     int dfCursorZ;
-    unsigned int cellDimX;
-    unsigned int cellDimY;
-    unsigned int cellDimZ;
+    unsigned int blockDimX;
+    unsigned int blockDimY;
+    unsigned int blockDimZ;
 
     int bitmapHolds;
 

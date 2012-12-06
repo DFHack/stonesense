@@ -46,10 +46,10 @@ void dumpSegment()
     ssConfig.lift_segment_offscreen = 0;
     parms.x = 0;
     parms.y = 0;
-    parms.z = ssConfig.cellDimZ - 1;
-    parms.sizex = ssConfig.cellDimX;
-    parms.sizey = ssConfig.cellDimY;
-    parms.sizez = ssConfig.cellDimZ;
+    parms.z = ssConfig.blockDimZ - 1;
+    parms.sizex = ssConfig.blockDimX;
+    parms.sizey = ssConfig.blockDimY;
+    parms.sizez = ssConfig.blockDimZ;
 
     read_segment(NULL);
     //get filename
