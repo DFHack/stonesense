@@ -401,7 +401,7 @@ void drawDebugCursorAndInfo(WorldSegment * segment)
         0);
 
     //get tile info
-    Tile* b = segment->getTileLocal( debugCursor.x, debugCursor.y, debugCursor.z+segment->sizez-2);
+    Tile* b = segment->getTileLocal( debugCursor.x, debugCursor.y, debugCursor.z+segment->size.z-2);
     int i = 10;
     draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0, "Tile 0x%x", b);
 
@@ -767,8 +767,8 @@ void DrawMinimap(WorldSegment * segment)
     //current segment outline
     int x = (size * (segment->x+1)) / segment->regionSize.x;
     int y = (mapheight * (segment->y+1)) / segment->regionSize.y;
-    MiniMapSegmentWidth = (segment->sizex-2) * oneTileInPixels;
-    MiniMapSegmentHeight = (segment->sizey-2) * oneTileInPixels;
+    MiniMapSegmentWidth = (segment->size.x-2) * oneTileInPixels;
+    MiniMapSegmentHeight = (segment->size.y-2) * oneTileInPixels;
     al_draw_rectangle(posx+x, posy+y, posx+x+MiniMapSegmentWidth, posy+y+MiniMapSegmentHeight,al_map_rgb(0,0,0),0);
     MiniMapTopLeftX = posx;
     MiniMapTopLeftY = posy;

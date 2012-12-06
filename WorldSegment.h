@@ -34,11 +34,11 @@ public:
     bool processed;
     //these are the coordinates and size of the loaded segment
     int x, y, z;
-    int sizex, sizey, sizez;
+    Crd3D size;
     //these are the coordinates at which the viewport is currently located
     // note that this may not be the same as the actual coordinates of the segment
     // due to concurrency
-    int displayedx, displayedy, displayedz;
+    Crd3D displayed;
     unsigned char rotation;
     //these are the size and position of the DF map region to which this segment is a part
     Crd3D regionSize;
@@ -48,12 +48,12 @@ public:
         this->x = x;
         this->y = y;
         this->z = z - sizez + 1;
-        this->sizex = sizex;
-        this->sizey = sizey;
-        this->sizez = sizez;
-        this->displayedx = ssState.DisplayedSegmentX;
-        this->displayedy = ssState.DisplayedSegmentY;
-        this->displayedz = ssState.DisplayedSegmentZ;
+        this->size.x = sizex;
+        this->size.y = sizey;
+        this->size.z = sizez;
+        this->displayed.x = ssState.DisplayedSegmentX;
+        this->displayed.y = ssState.DisplayedSegmentY;
+        this->displayed.z = ssState.DisplayedSegmentZ;
         
         regionSize.x = regionSize.y = regionSize.z = 0;
         regionPos.x = regionPos.y = regionPos.z = 0;
