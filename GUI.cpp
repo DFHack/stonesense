@@ -413,16 +413,16 @@ void drawDebugCursorAndInfo(WorldSegment * segment)
     }
     int ttype;
     const char* tform = NULL;
-    if (b->tileShapeBasic==tiletype_shape_basic::Floor) {
+    if (b->tileShapeBasic()==tiletype_shape_basic::Floor) {
         ttype=b->tileType;
         tform="floor";
-    } else if (b->tileShapeBasic==tiletype_shape_basic::Wall) {
+    } else if (b->tileShapeBasic()==tiletype_shape_basic::Wall) {
         ttype=b->tileType;
         tform="wall";
-    } else if (b->tileShapeBasic==tiletype_shape_basic::Ramp || b->tileType==tiletype::RampTop) {
+    } else if (b->tileShapeBasic()==tiletype_shape_basic::Ramp || b->tileType==tiletype::RampTop) {
         ttype=b->tileType;
         tform="ramp";
-    } else if (b->tileShapeBasic==tiletype_shape_basic::Stair) {
+    } else if (b->tileShapeBasic()==tiletype_shape_basic::Stair) {
         ttype=b->tileType;
         tform="stair";
     }

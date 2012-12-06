@@ -191,7 +191,7 @@ void Tile::AssembleTile()
     //Draw Ramp Tops
     if(tileType == tiletype::RampTop){
         Tile * b = this->ownerSegment->getTile(this->x, this->y, this->z-1);
-        if(b && b->tileShapeBasic == tiletype_shape_basic::Ramp) {
+        if(b && b->tileShapeBasic() == tiletype_shape_basic::Ramp) {
             spriteobject = GetTileSpriteMap(b->tileType, b->material, b->consForm);
             if (spriteobject->get_sheetindex() == UNCONFIGURED_INDEX) {
                 spriteobject->set_sheetindex(0);
@@ -210,19 +210,19 @@ void Tile::AssembleTile()
     }
 
     //Draw Floor
-    if( tileShapeBasic==tiletype_shape_basic::Floor ||
-            tileShapeBasic==tiletype_shape_basic::Wall ||
-            tileShapeBasic==tiletype_shape_basic::Ramp ||
-            tileShapeBasic==tiletype_shape_basic::Stair) {
+    if( tileShapeBasic()==tiletype_shape_basic::Floor ||
+            tileShapeBasic()==tiletype_shape_basic::Wall ||
+            tileShapeBasic()==tiletype_shape_basic::Ramp ||
+            tileShapeBasic()==tiletype_shape_basic::Stair) {
 
         //If plate has no floor, look for a Filler Floor from it's wall
-        if (tileShapeBasic==tiletype_shape_basic::Floor) {
+        if (tileShapeBasic()==tiletype_shape_basic::Floor) {
             spriteobject = GetFloorSpriteMap(tileType, this->material, consForm);
-        } else if (tileShapeBasic==tiletype_shape_basic::Wall) {
+        } else if (tileShapeBasic()==tiletype_shape_basic::Wall) {
             spriteobject = GetFloorSpriteMap(tileType, this->material, consForm);
-        } else if (tileShapeBasic==tiletype_shape_basic::Ramp) {
+        } else if (tileShapeBasic()==tiletype_shape_basic::Ramp) {
             spriteobject = GetFloorSpriteMap(tileType, this->material, consForm);
-        } else if (tileShapeBasic==tiletype_shape_basic::Stair) {
+        } else if (tileShapeBasic()==tiletype_shape_basic::Stair) {
             spriteobject = GetFloorSpriteMap(tileType, this->material, consForm);
         }
         if(spriteobject->get_sheetindex() != INVALID_INDEX) {
@@ -238,7 +238,7 @@ void Tile::AssembleTile()
     }
 
     //Floor Engravings
-    if((tileShapeBasic==tiletype_shape_basic::Floor) && engraving_character && engraving_flags.bits.floor) {
+    if((tileShapeBasic()==tiletype_shape_basic::Floor) && engraving_character && engraving_flags.bits.floor) {
         AssembleSpriteFromSheet( engraving_character, IMGEngFloorSheet, al_map_rgba_f(1.0,1.0,1.0,((engraving_quality + 5.0f) / 10.0f)), drawx, drawy, this );
     }
 
@@ -264,7 +264,7 @@ void Tile::AssembleTile()
     }
 
     //Draw Ramp
-    if(tileShapeBasic==tiletype_shape_basic::Ramp) {
+    if(tileShapeBasic()==tiletype_shape_basic::Ramp) {
         spriteobject = GetTileSpriteMap(tileType, material, consForm);
         if (spriteobject->get_sheetindex() == UNCONFIGURED_INDEX) {
             spriteobject->set_sheetindex(0);
@@ -282,7 +282,7 @@ void Tile::AssembleTile()
     AssembleFloorBlood ( drawx, drawy );
 
     //first part of snow
-    if(tileShapeBasic!=tiletype_shape_basic::Ramp && tileShapeBasic!=tiletype_shape_basic::Wall && tileShapeBasic!=tiletype_shape_basic::Stair && defaultSnow) {
+    if(tileShapeBasic()!=tiletype_shape_basic::Ramp && tileShapeBasic()!=tiletype_shape_basic::Wall && tileShapeBasic()!=tiletype_shape_basic::Stair && defaultSnow) {
         if(snowlevel > 75) {
             AssembleSpriteFromSheet( 20, IMGObjectSheet, al_map_rgb(255,255,255), drawx, drawy, this);
         } else if(snowlevel > 50) {
@@ -314,13 +314,13 @@ void Tile::AssembleTile()
             contentLoader->itemConfigs[Item.item.type]->configured) {
             contentLoader->itemConfigs[Item.item.type]->default_sprite.assemble_world(x, y, z, this);
         } else {
-            AssembleSpriteFromSheet( 350, IMGObjectSheet, lookupMaterialColor(Item.matt, Item.dyematt), drawx, (tileShapeBasic==tiletype_shape_basic::Ramp)?(drawy - ((WALLHEIGHT/2)*ssConfig.scale)):drawy , this);
+            AssembleSpriteFromSheet( 350, IMGObjectSheet, lookupMaterialColor(Item.matt, Item.dyematt), drawx, (tileShapeBasic()==tiletype_shape_basic::Ramp)?(drawy - ((WALLHEIGHT/2)*ssConfig.scale)):drawy , this);
         }
     }
 
     //shadow
     if (shadow > 0) {
-        AssembleSpriteFromSheet( BASE_SHADOW_PLATE + shadow - 1, IMGObjectSheet, al_map_rgb(255,255,255), drawx, (tileShapeBasic==tiletype_shape_basic::Ramp)?(drawy - ((WALLHEIGHT/2)*ssConfig.scale)):drawy , this);
+        AssembleSpriteFromSheet( BASE_SHADOW_PLATE + shadow - 1, IMGObjectSheet, al_map_rgb(255,255,255), drawx, (tileShapeBasic()==tiletype_shape_basic::Ramp)?(drawy - ((WALLHEIGHT/2)*ssConfig.scale)):drawy , this);
     }
 
     //Building
@@ -340,7 +340,7 @@ void Tile::AssembleTile()
     }
 
     //Draw Stairs
-    if(tileShapeBasic==tiletype_shape_basic::Stair) {
+    if(tileShapeBasic()==tiletype_shape_basic::Stair) {
         bool mirrored = false;
         if(findWallCloseTo(ownerSegment, this) == eSimpleW) {
             mirrored = true;
@@ -367,7 +367,7 @@ void Tile::AssembleTile()
         }
     }
 
-    if(tileShapeBasic==tiletype_shape_basic::Wall) {
+    if(tileShapeBasic()==tiletype_shape_basic::Wall) {
         //draw wall
         spriteobject =  GetTileSpriteMap(tileType, material, consForm);
         int spriteOffset = 0;
@@ -385,7 +385,7 @@ void Tile::AssembleTile()
     }
 
     //Wall Engravings
-    if((tileShapeBasic==tiletype_shape_basic::Wall) && engraving_character) {
+    if((tileShapeBasic()==tiletype_shape_basic::Wall) && engraving_character) {
         if(ownerSegment->rotation == 0) {
             if(engraving_flags.bits.east) {
                 AssembleSpriteFromSheet( engraving_character, IMGEngRightSheet, al_map_rgba_f(1.0,1.0,1.0,((engraving_quality + 5.0f) / 10.0f)), drawx, drawy, this );
@@ -438,7 +438,7 @@ void Tile::AssembleTile()
     }
 
     //second part of snow
-    if(tileShapeBasic!=tiletype_shape_basic::Wall && tileShapeBasic!=tiletype_shape_basic::Stair && defaultSnow) {
+    if(tileShapeBasic()!=tiletype_shape_basic::Wall && tileShapeBasic()!=tiletype_shape_basic::Stair && defaultSnow) {
         if(snowlevel > 75) {
             AssembleSpriteFromSheet( 24, IMGObjectSheet, al_map_rgb(255,255,255), drawx, drawy, this );
         } else if(snowlevel > 50) {
@@ -550,7 +550,7 @@ bool hasWall(Tile* b)
     if(!b) {
         return false;
     }
-    return b->tileShapeBasic==tiletype_shape_basic::Wall;
+    return b->tileShapeBasic()==tiletype_shape_basic::Wall;
 }
 
 bool hasBuildingOfID(Tile* b, int ID)
