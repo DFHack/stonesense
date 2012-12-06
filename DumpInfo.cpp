@@ -26,8 +26,6 @@ be intended for use by people not interested in development.
 #include "df/itemdef_glovesst.h"
 #include "df/itemdef_pantsst.h"
 
-using namespace df::enums;
-
 //FIXME: filled with black magic
 void dumpSegment()
 {
