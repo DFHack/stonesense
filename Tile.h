@@ -30,6 +30,7 @@ public:
     Tile(WorldSegment* ownerSegment, df::tiletype type);
     ~Tile(void);
 
+    bool valid;
     bool visible;
 
     WorldSegment* ownerSegment;
