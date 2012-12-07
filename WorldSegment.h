@@ -43,7 +43,7 @@ public:
     //these are the size and position of the DF map region to which this segment is a part
     Crd3D regionSize;
     Crd3D regionPos;
-    WorldSegment(int x, int y, int z, int sizex, int sizey, int sizez) {
+    WorldSegment(int x=0, int y=0, int z=0, int sizex=0, int sizey=0, int sizez=0) {
         this->pos.x = x;
         this->pos.y = y;
         this->pos.z = z - sizez + 1;
@@ -53,7 +53,6 @@ public:
         this->displayed.x = ssState.DisplayedSegmentX;
         this->displayed.y = ssState.DisplayedSegmentY;
         this->displayed.z = ssState.DisplayedSegmentZ;
-        
         regionSize.x = regionSize.y = regionSize.z = 0;
         regionPos.x = regionPos.y = regionPos.z = 0;
 
@@ -70,6 +69,33 @@ public:
         free(tiles);
     }
 
+    void Reset(int x=0, int y=0, int z=0, int sizex=0, int sizey=0, int sizez=0, bool hard=false) {
+        uint32_t num = getNumTiles();
+        for(uint32_t i = 0; i < num; i++) {
+            tiles[i].~Tile();
+        }
+        uint32_t memoryNeeded = sizex * sizey * sizez * sizeof(Tile);
+        if(hard || sizex*sizey*sizez != size.x*size.y*size.z) {
+            free(tiles);
+            uint32_t memoryNeeded = sizex * sizey * sizez * sizeof(Tile);
+            tiles = (Tile*) malloc( memoryNeeded );
+        }
+        if(hard) {
+            memset(tiles, 0, memoryNeeded);
+        }
+        this->pos.x = x;
+        this->pos.y = y;
+        this->pos.z = z - sizez + 1;
+        this->size.x = sizex;
+        this->size.y = sizey;
+        this->size.z = sizez;
+        this->displayed.x = ssState.DisplayedSegmentX;
+        this->displayed.y = ssState.DisplayedSegmentY;
+        this->displayed.z = ssState.DisplayedSegmentZ;
+        regionSize.x = regionSize.y = regionSize.z = 0;
+        regionPos.x = regionPos.y = regionPos.z = 0;
+    }
+
     uint32_t getNumTiles() {
         return size.x * size.y * size.z;
     }
@@ -82,7 +108,7 @@ public:
     void CorrectTileForSegmentOffset(int32_t& x, int32_t& y, int32_t& z);
     void CorrectTileForSegmentRotation(int32_t& x, int32_t& y, int32_t& z);
     void addTile(Tile* b);
-    void AssembleBlockTiles(int32_t firstX, int32_t firstY, int32_t lastX, int32_t lastY, int32_t incrx, int32_t incry, int32_t z);
+    void AssembleBlockTiles(int32_t firstX, int32_t firstY, int32_t lastX, int32_t lastY, int32_t incrx, int32_t incry, int32_t z, vector<vector<int16_t>>* allLayers);
     void AssembleAllTiles();
     void AssembleSprite(draw_event d);
     void DrawAllTiles();
@@ -96,37 +122,55 @@ class SegmentWrap
 {
 public:
     SegmentWrap() {
-        init();
+        drawsegment = new WorldSegment();
+        readsegment = new WorldSegment();
+        drawmutex = al_create_mutex();
+        readmutex = al_create_mutex();
     }
     ~SegmentWrap() {
-        die();
+        delete drawsegment;
+        delete readsegment;
+        al_destroy_mutex(drawmutex);
+        al_destroy_mutex(readmutex);
+    }
+    void shutdown(){
+        drawsegment->Reset();
+        readsegment->Reset();
     }
     void lock() {
-        al_lock_mutex(mutex);
-        locked = true;
+        al_lock_mutex(drawmutex);
+        al_lock_mutex(readmutex);
     }
     void unlock() {
-        al_unlock_mutex(mutex);
-        locked = false;
+        al_unlock_mutex(drawmutex);
+        al_unlock_mutex(readmutex);
     }
-    void init() {
-        segment = NULL;
-        mutex = al_create_mutex();
-        locked = false;
+    void lockDraw() {
+        al_lock_mutex(drawmutex);
     }
-    void die() {
-        al_destroy_mutex(mutex);
+    void unlockDraw() {
+        al_unlock_mutex(drawmutex);
     }
-    WorldSegment * swap(WorldSegment * newsegment) {
-        WorldSegment * temp = segment;
-        segment = newsegment;
-        return temp;
+    void lockRead() {
+        al_lock_mutex(readmutex);
     }
-    WorldSegment * get() {
-        return segment;
+    void unlockRead() {
+        al_unlock_mutex(readmutex);
+    }
+    void swap() {
+        WorldSegment * temp = drawsegment;
+        drawsegment = readsegment;
+        readsegment = temp;
+    }
+    WorldSegment * getRead() {
+        return readsegment;
+    }
+    WorldSegment * getDraw() {
+        return drawsegment;
     }
 private:
-    ALLEGRO_MUTEX * mutex;
-    WorldSegment * segment;
-    bool locked;
+    ALLEGRO_MUTEX * drawmutex;
+    ALLEGRO_MUTEX * readmutex;
+    WorldSegment * drawsegment;
+    WorldSegment * readsegment;
 };

@@ -863,11 +863,11 @@ void paintboard()
     al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst);
 
     // lock segment for painting and retrieve it.
-    map_segment.lock();
-    WorldSegment * segment = map_segment.get();
+    map_segment.lockDraw();
+    WorldSegment * segment = map_segment.getDraw();
     if( segment == NULL ) {
         draw_textf_border(font, al_map_rgb(255,255,255), ssState.ScreenW/2, ssState.ScreenH/2, ALLEGRO_ALIGN_CENTRE, "Could not find DF process");
-        map_segment.unlock();
+        map_segment.unlockDraw();
         return;
     }
     segment->DrawAllTiles();
@@ -919,7 +919,7 @@ void paintboard()
         al_hold_bitmap_drawing(false);
         DrawMinimap(segment);
     }
-    map_segment.unlock();
+    map_segment.unlockDraw();
     al_flip_display();
 }
 
@@ -1324,8 +1324,10 @@ void saveMegashot(bool tall)
             for(int j=0; j<numx; j++) {
                 //read and draw each individual segment
                 read_segment(NULL);
-                WorldSegment * segment = map_segment.get();
+                map_segment.lockDraw();
+                WorldSegment * segment = map_segment.getDraw();
                 segment->DrawAllTiles();
+                map_segment.unlockDraw();
 
                 parms.x += incrx;
             }

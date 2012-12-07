@@ -63,6 +63,8 @@ bool key[ALLEGRO_KEY_MAX];
 
 /// main thread of stonesense - handles events
 ALLEGRO_THREAD *stonesense_event_thread;
+// the segment wrapper handles concurrency control
+SegmentWrap map_segment;
 bool redraw = true;
 
 ALLEGRO_BITMAP* load_bitmap_withWarning(const char* path)
@@ -486,7 +488,6 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
     benchmark();
 #endif
     // init map segment wrapper and its lock, start the reload thread.
-    map_segment.init();
     initAutoReload();
 
     timeToReloadSegment = true;
@@ -505,16 +506,11 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
 
     // remove the uranium fuel from the reactor... or map segment from the clutches of other threads.
     map_segment.lock();
-    WorldSegment * last = map_segment.swap(NULL);
+    map_segment.shutdown();
     map_segment.unlock();
-    if(last) {
-        delete last;
-    }
-
     al_destroy_bitmap(IMGIcon);
     IMGIcon = 0;
     delete contentLoader;
-    map_segment.die();
     contentLoader = 0;
     out.print("Stonesense shutdown.\n");
     stonesense_started = 0;

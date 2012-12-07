@@ -10,6 +10,7 @@
 
 void reloadDisplayedSegment();
 void beautify_Segment(WorldSegment * segment);
+void readMapSegment(WorldSegment* segment, int x, int y, int z, int sizex, int sizey, int sizez);
 
 void DisconnectFromDF();
 bool IsConnectedToDF();
