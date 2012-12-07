@@ -27,7 +27,7 @@ struct draw_event{
 class WorldSegment
 {
 private:
-    Tile* tilesAsPointerVolume;
+    Tile* tiles;
     vector<draw_event> todraw;
 public:
     bool loaded;
@@ -58,16 +58,16 @@ public:
         regionPos.x = regionPos.y = regionPos.z = 0;
 
         uint32_t memoryNeeded = sizex * sizey * sizez * sizeof(Tile);
-        tilesAsPointerVolume = (Tile*) malloc( memoryNeeded );
-        memset(tilesAsPointerVolume, 0, memoryNeeded);
+        tiles = (Tile*) malloc( memoryNeeded );
+        memset(tiles, 0, memoryNeeded);
     }
 
     ~WorldSegment() {
         uint32_t num = getNumTiles();
         for(uint32_t i = 0; i < num; i++) {
-            tilesAsPointerVolume[i].~Tile();
+            tiles[i].~Tile();
         }
-        free(tilesAsPointerVolume);
+        free(tiles);
     }
 
     uint32_t getNumTiles() {

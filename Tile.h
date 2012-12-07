@@ -100,7 +100,8 @@ public:
     //	int16_t y_direction;
     //	uint8_t canCreateNew;//??
     //} tileeffects;
-
+    
+    bool haseffect;
     //individual effects
     effect Eff_Miasma;
     effect Eff_Steam;

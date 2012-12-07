@@ -193,7 +193,7 @@ void occlude_tile(Tile * b)
             int tempY = baseY + ((relXY + stepZ) * stepY);
             int tempZ = baseZ + relZ;
 
-            bool centerin = segment->CoordinateInteriorSegment(tempX + stepX, tempY + stepY, tempZ, 1);
+            bool centerin = segment->CoordinateInteriorSegment(tempX + stepX, tempY + stepY, tempZ, 2);
             if(centerin) {
                 Tile* center = segment->getTile(tempX + stepX, tempY + stepY, tempZ);
                 mask_center(center, ((relXY+stepZ) * S_PLATE_HEIGHT + S_PLATE_HEIGHT) - (relZ * S_TILE_HEIGHT));
@@ -202,7 +202,7 @@ void occlude_tile(Tile * b)
                     break;
                 }
             }
-            bool leftin = segment->CoordinateInteriorSegment(tempX, tempY + stepY, tempZ, 1);
+            bool leftin = segment->CoordinateInteriorSegment(tempX, tempY + stepY, tempZ, 2);
             if(leftin) {
                 Tile* left = segment->getTile(tempX, tempY + stepY, tempZ);
                 mask_left(left, ((relXY+stepZ) * S_PLATE_HEIGHT + S_PLATE_HEIGHT/2) - (relZ * S_TILE_HEIGHT));
@@ -211,7 +211,7 @@ void occlude_tile(Tile * b)
                     break;
                 }
             }
-            bool rightin = segment->CoordinateInteriorSegment(tempX + stepX, tempY, tempZ, 1);
+            bool rightin = segment->CoordinateInteriorSegment(tempX + stepX, tempY, tempZ, 2);
             if(rightin) {
                 Tile* right = segment->getTile(tempX + stepX, tempY, tempZ);
                 mask_right(right, ((relXY+stepZ) * S_PLATE_HEIGHT + S_PLATE_HEIGHT/2) - (relZ * S_TILE_HEIGHT));
