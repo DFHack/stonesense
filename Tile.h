@@ -56,29 +56,28 @@ public:
     uint8_t downstairborders;
     uint8_t lightborders;
 
-    bool creaturePresent;//contained in occ
-    bool buildingPresent;//contained in occ
     bool fog_of_war;//contained in designation
 
     uint8_t rampindex;
 
-    DFHack::t_matglossPair water;//contained in designation
+    //DFHack::t_matglossPair water;//contained in designation
+    bool deepwater;
 
     //following are neighbor water levels (unused)
     //DFHack::t_matglossPair abovewater;
     //DFHack::t_matglossPair belowwater;
     //DFHack::t_matglossPair rightwater;
     //DFHack::t_matglossPair leftwater;
-
+    
     DFHack::t_designation designation;
     DFHack::t_occupancy occ;
 
     DFHack::Units::t_unit * creature;
     DFHack::t_matglossPair tree;
 
-    int mudlevel;
-    int snowlevel;
-    int bloodlevel;
+    uint8_t mudlevel;
+    uint8_t snowlevel;
+    uint8_t bloodlevel;
     ALLEGRO_COLOR bloodcolor;
 
     uint8_t grasslevel;
@@ -116,6 +115,21 @@ public:
     effect Eff_MaterialVapor;
     effect Eff_OceanWave;
     effect Eff_SeaFoam;
+
+    uint16_t consForm;
+
+    bool obscuringCreature;
+    bool obscuringBuilding;
+
+    struct SS_Item {
+        DFHack::t_matglossPair item;
+        DFHack::t_matglossPair matt;
+        DFHack::t_matglossPair dyematt;
+    } Item;
+
+    //These are actually applied to the creature standing here, but there's only one creature shown, so it's okay.
+    unit_inventory * inv;
+
     struct {
         DFHack::Buildings::t_building info;
         std::vector<c_sprite> sprites;
@@ -142,7 +156,7 @@ public:
     inline df::tiletype_material tileMaterial()
     {
         return DFHack::tileMaterial(tileType);
-}
+    }
 
     //tile sprite assembly and drawing functions
     void AssembleTile();
@@ -152,24 +166,6 @@ public:
     void AssembleParticleCloud(int count, float centerX, float centerY, float rangeX, float rangeY, ALLEGRO_BITMAP *sprite, ALLEGRO_COLOR tint);
     void AssembleSpriteFromSheet(int spriteNum, ALLEGRO_BITMAP* spriteSheet, ALLEGRO_COLOR color, float x, float y, Tile * b=NULL, float in_scale=1.0f);
     void AssembleSprite(ALLEGRO_BITMAP *bitmap, ALLEGRO_COLOR tint, float sx, float sy, float sw, float sh, float dx, float dy, float dw, float dh, int flags);
-
-    uint16_t temp1;
-    uint16_t temp2;
-
-    uint16_t consForm;
-
-    bool obscuringCreature;
-    bool obscuringBuilding;
-
-    struct SS_Item {
-        DFHack::t_matglossPair item;
-        DFHack::t_matglossPair matt;
-        DFHack::t_matglossPair dyematt;
-    } Item;
-
-    //These are actually applied to the creature standing here, but there's only one creature shown, so it's okay.
-    unit_inventory * inv;
-
 
 private:
 

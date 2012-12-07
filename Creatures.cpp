@@ -391,7 +391,7 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
             b->y = tempcreature->y;
             b->z = tempcreature->z;
             // fake tile occupancy where needed. This is starting to get hacky...
-            b->creaturePresent=true;
+            b->occ.bits.unit=true;
             segment->addTile( b );
         }
 
@@ -401,7 +401,7 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
         }
 
         //Creature not yet there, we process...
-        b->creaturePresent=true;
+        b->occ.bits.unit=true;
         b->creature = tempcreature;
         // add shadow to nearest floor tile
         for (int bz = tempcreature->z; bz>=z1; bz--) {
