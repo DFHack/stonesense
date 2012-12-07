@@ -121,23 +121,10 @@ void MergeBuildingsToSegment(vector<Buildings::t_building>* buildings, WorldSegm
         //int bheight = tempbuilding.y2 - tempbuilding.y1;
         for(uint32_t yy = tempbuilding.y1; yy <= tempbuilding.y2; yy++)
             for(uint32_t xx = tempbuilding.x1; xx <= tempbuilding.x2; xx++) {
-                Tile* b;
-                bool inside = segment->CoordinateInsideSegment(xx,yy, tempbuilding.z);
-                if(inside) {
+                Tile* b = segment->getTile( xx, yy, tempbuilding.z);
+                if(b) {
                     //want hashtable :(
                     // still need to test for b, because of ramp/building overlap
-                    b = segment->getTile( xx, yy, tempbuilding.z);
-
-                    if(!b) {
-                        //inside segment, but no tile to represent it
-                        b = new Tile(segment, df::tiletype::OpenSpace);
-                        b->x = xx;
-                        b->y = yy;
-                        b->z = tempbuilding.z;
-                        segment->addTile( b );
-						delete b;
-						b = segment->getTile( xx, yy, tempbuilding.z);
-                    }
 
                     //handle special case where zones and stockpiles overlap buildings, and try to replace them
                     if(b->building.info.type != BUILDINGTYPE_NA && tempbuilding.type == df::enums::building_type::Civzone ) {

@@ -385,16 +385,7 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
         Tile* b = segment->getTile (tempcreature->x, tempcreature->y, tempcreature->z );
         // If we failed at that, make a new one out of fairy dust and makebelieve ;)
         if(!b) {
-            //inside segment, but no tile to represent it
-            b = new Tile(segment, df::tiletype::OpenSpace);
-            b->x = tempcreature->x;
-            b->y = tempcreature->y;
-            b->z = tempcreature->z;
-            // fake tile occupancy where needed. This is starting to get hacky...
-            b->occ.bits.unit=true;
-            segment->addTile( b );
-			delete b;
-			b = segment->getTile (tempcreature->x, tempcreature->y, tempcreature->z );
+            continue;
         }
 
         // creature already there? SKIP.

@@ -530,7 +530,7 @@ void drawDebugCursorAndInfo(WorldSegment * segment)
     default:
         draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0,
                           "Game Mode:%i, Control Mode:%i", contentLoader->gameMode.g_mode, contentLoader->gameMode.g_type);
-        if (tform != NULL) {
+        if (tform != NULL && b->material.type != INVALID_INDEX) {
             const char* formName = lookupFormName(b->consForm);
             const char* matName = lookupMaterialTypeName(b->material.type);
             const char* subMatName = lookupMaterialName(b->material.type,b->material.index);
@@ -538,7 +538,7 @@ void drawDebugCursorAndInfo(WorldSegment * segment)
                               "%s %s:%i Material:%s%s%s (%d,%d)", formName, tform, ttype,
                               matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"", b->material.type,b->material.index);
         }
-        if (tform != NULL) {
+        if (tform != NULL && b->material.type != INVALID_INDEX) {
             MaterialInfo mat;
             mat.decode(b->material.type, b->material.index);
             ALLEGRO_COLOR color = al_map_rgb_f(contentLoader->Mats->color[mat.material->state_color[0]].red, contentLoader->Mats->color[mat.material->state_color[0]].green, contentLoader->Mats->color[mat.material->state_color[0]].blue);

@@ -15,13 +15,7 @@ void insert_sprite(WorldSegment *w, int x, int y, int z, Tile * parent, c_sprite
 {
     Tile * b_orig = w->getTile(x, y, z);
     if(!b_orig) {
-        b_orig = new Tile(w, df::tiletype::OpenSpace);
-        b_orig->x = x;
-        b_orig->y = y;
-        b_orig->z = z;
-        w->addTile(b_orig);
-		delete(b_orig);
-		b_orig = w->getTile(x, y, z);
+        return;
     }
     b_orig->building.sprites.push_back(sprite);
     if(b_orig->building.info.type == (building_type::building_type) BUILDINGTYPE_NA) {
