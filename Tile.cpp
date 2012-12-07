@@ -52,6 +52,8 @@ void Tile::Reset(WorldSegment* ownerSegment, df::tiletype type)
     //clear out own memory
     memset(this, 0, sizeof(Tile));
 
+    this->valid=true;
+
     this->ownerSegment = ownerSegment;
 
     building.info.type = (building_type::building_type) BUILDINGTYPE_NA;

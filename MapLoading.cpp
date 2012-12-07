@@ -275,10 +275,6 @@ void ReadBlockToSegment(DFHack::Core& DF, WorldSegment& segment, int BlockX, int
         BlockZ < 0 || BlockZ >= blockDimZ ) {
             return;
     }
-    if(!Maps::getBlock(BlockX, BlockY, BlockZ)) {
-        return;
-    }
-
 
     //make boundries local
     BoundrySX -= BlockX * BLOCKEDGESIZE;
@@ -286,10 +282,12 @@ void ReadBlockToSegment(DFHack::Core& DF, WorldSegment& segment, int BlockX, int
     BoundrySY -= BlockY * BLOCKEDGESIZE;
     BoundryEY -= BlockY * BLOCKEDGESIZE;
 
-
     //read block data
     df::map_block *trueBlock;
     trueBlock = Maps::getBlock(BlockX, BlockY, BlockZ);
+    if(!trueBlock) {
+        return;
+    }
 
     //parse block
     for(uint32_t ly = BoundrySY; ly <= BoundryEY; ly++) {
@@ -300,11 +298,29 @@ void ReadBlockToSegment(DFHack::Core& DF, WorldSegment& segment, int BlockX, int
                 continue;
             }
 
-            Tile * b = segment.getTile(gx, gy, BlockZ);
-            b->Reset(&segment, tiletype::OpenSpace);
-            b->x = gx;
-            b->y = gy;
-            b->z = BlockZ;
+            bool shouldBeIncluded = true;
+
+            //if(isOpenTerrain(trueBlock->tiletype[lx][ly]) && trueBlock->tiletype[lx][ly] != tiletype::RampTop) {
+            //    if(ssConfig.show_hidden_tiles) {
+            //        shouldBeIncluded = false;
+            //    } else if(!(trueBlock->designation[lx][ly].bits.hidden)) {
+            //        shouldBeIncluded = false;
+            //    }
+            //} else if(!ssConfig.show_hidden_tiles
+            //    && trueBlock->designation[lx][ly].bits.hidden) {
+            //        shouldBeIncluded = false;
+            //}
+
+            ////add back in any liquid tiles, in case they can be seen from above
+            //if(trueBlock->designation[lx][ly].bits.flow_size) {
+            //    shouldBeIncluded = true;
+            //}
+
+            if(!shouldBeIncluded){
+                continue;
+            }
+
+            Tile * b = segment.ResetTile(gx, gy, BlockZ, tiletype::OpenSpace);
 
             b->occ = trueBlock->occupancy[lx][ly];
             b->occ.bits.unit = false;//this will be set manually when we read the creatures vector
@@ -718,6 +734,9 @@ void beautify_Segment(WorldSegment * segment)
     for(uint32_t i=0; i < numtiles; i++) {
         Tile* b = segment->getTile(i);
 
+        if(!b) {
+            continue;
+        }
 
         //try to mask away tiles that are flagged hidden
         if(!ssConfig.show_hidden_tiles ) {
@@ -1178,12 +1197,11 @@ void read_segment( void *arg)
             CoreSuspender suspend;
             segment->AssembleAllTiles();
         }
-        map_segment.unlockRead();
-    }
 
-    map_segment.lock();
-    map_segment.swap();
-    map_segment.unlock();
+        map_segment.lockDraw();
+        map_segment.swap();
+        map_segment.unlock();
+    }
 }
 
 static void * threadedSegment(ALLEGRO_THREAD *read_thread, void *arg)

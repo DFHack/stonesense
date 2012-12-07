@@ -73,6 +73,7 @@ public:
         uint32_t num = getNumTiles();
         for(uint32_t i = 0; i < num; i++) {
             tiles[i].~Tile();
+            tiles[i].valid=false;
         }
         uint32_t memoryNeeded = sizex * sizey * sizez * sizeof(Tile);
         if(hard || sizex*sizey*sizez != size.x*size.y*size.z) {
@@ -99,7 +100,9 @@ public:
     uint32_t getNumTiles() {
         return size.x * size.y * size.z;
     }
-
+    
+    Tile* ResetTile(int32_t x, int32_t y, int32_t z, df::tiletype type=tiletype::OpenSpace);
+    Tile* ResetTileLocal(uint32_t x, uint32_t y, uint32_t z, df::tiletype type=tiletype::OpenSpace);
     Tile* getTile(int32_t x, int32_t y, int32_t z);
     Tile* getTileLocal(uint32_t x, uint32_t y, uint32_t z);
     Tile* getTileRelativeTo(uint32_t x, uint32_t y, uint32_t z,  dirRelative direction);

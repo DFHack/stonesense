@@ -6,18 +6,8 @@
 
 ALLEGRO_BITMAP * fog = 0;
 
-Tile* WorldSegment::getTile(int32_t x, int32_t y, int32_t z)
+Tile* WorldSegment::ResetTile(int32_t x, int32_t y, int32_t z, df::tiletype type)
 {
-    if(x < this->pos.x || x >= this->pos.x + this->size.x) {
-        return 0;
-    }
-    if(y < this->pos.y || y >= this->pos.y + this->size.y) {
-        return 0;
-    }
-    if(z < this->pos.z || z >= this->pos.z + this->size.z) {
-        return 0;
-    }
-
     uint32_t lx = x;
     uint32_t ly = y;
     uint32_t lz = z;
@@ -27,9 +17,41 @@ Tile* WorldSegment::getTile(int32_t x, int32_t y, int32_t z)
     lz -= this->pos.z;
 
     CorrectTileForSegmentRotation( (int32_t&)lx,(int32_t&)ly,(int32_t&)lz );
+    return ResetTileLocal(lx, ly, lz, type);
+}
 
-    uint32_t index = lx + (ly * this->size.x) + ((lz) * this->size.x * this->size.y);
+Tile* WorldSegment::ResetTileLocal(uint32_t x, uint32_t y, uint32_t z, df::tiletype type)
+{
+    if((int)x < 0 || x >= (uint32_t)this->size.x) {
+        return 0;
+    }
+    if((int)y < 0 || y >= (uint32_t)this->size.y) {
+        return 0;
+    }
+    if((int)z < 0 || z >= (uint32_t)this->size.z) {
+        return 0;
+    }
+
+    uint32_t index = x + (y * this->size.x) + ((z) * this->size.x * this->size.y);
+    tiles[index].Reset(this, type);
+    tiles[index].x = x + pos.x;
+    tiles[index].y = y + pos.y;
+    tiles[index].z = z + pos.z;
     return &tiles[index];
+}
+
+Tile* WorldSegment::getTile(int32_t x, int32_t y, int32_t z)
+{
+    uint32_t lx = x;
+    uint32_t ly = y;
+    uint32_t lz = z;
+    //make local
+    lx -= this->pos.x;
+    ly -= this->pos.y;
+    lz -= this->pos.z;
+
+    CorrectTileForSegmentRotation( (int32_t&)lx,(int32_t&)ly,(int32_t&)lz );
+    return getTileLocal(lx, ly, lz);
 }
 
 Tile* WorldSegment::getTileRelativeTo(uint32_t x, uint32_t y, uint32_t z,  dirRelative direction)
@@ -79,19 +101,8 @@ Tile* WorldSegment::getTileRelativeTo(uint32_t x, uint32_t y, uint32_t z,  dirRe
         lx++;
         break;
     }
-
-    if((int)lx < 0 || lx >= this->size.x) {
-        return 0;
-    }
-    if((int)ly < 0 || ly >= this->size.y) {
-        return 0;
-    }
-    if((int)lz < 0 || lz >= this->size.z) {
-        return 0;
-    }
-
-    uint32_t index = lx + (ly * this->size.x) + ((lz) * this->size.x * this->size.y);
-    return &tiles[index];
+    
+    return getTileLocal(lx, ly, lz);
 }
 
 Tile* WorldSegment::getTileRelativeTo(uint32_t x, uint32_t y, uint32_t z,  dirRelative direction, int distance)
@@ -142,18 +153,7 @@ Tile* WorldSegment::getTileRelativeTo(uint32_t x, uint32_t y, uint32_t z,  dirRe
         break;
     }
 
-    if((int)lx < 0 || lx >= this->size.x) {
-        return 0;
-    }
-    if((int)ly < 0 || ly >= this->size.y) {
-        return 0;
-    }
-    if((int)lz < 0 || lz >= this->size.z) {
-        return 0;
-    }
-
-    uint32_t index = lx + (ly * this->size.x) + ((lz) * this->size.x * this->size.y);
-    return &tiles[index];
+    return getTileLocal(lx, ly, lz);
 }
 
 Tile* WorldSegment::getTileLocal(uint32_t x, uint32_t y, uint32_t z)
@@ -169,7 +169,7 @@ Tile* WorldSegment::getTileLocal(uint32_t x, uint32_t y, uint32_t z)
     }
 
     uint32_t index = x + (y * this->size.x) + ((z) * this->size.x * this->size.y);
-    return &tiles[index];
+    return getTile(index);
 }
 
 Tile* WorldSegment::getTile(uint32_t index)
@@ -177,7 +177,7 @@ Tile* WorldSegment::getTile(uint32_t index)
     if(index<0 || index >= getNumTiles() ) {
         return NULL;
     }
-    return &tiles[index];
+    return tiles[index].valid ? &tiles[index] : NULL;
 }
 
 void WorldSegment::CorrectTileForSegmentOffset(int32_t& xin, int32_t& yin, int32_t& zin)
@@ -318,6 +318,9 @@ void WorldSegment::AssembleBlockTiles(
         //read the block tiles
         df::map_block *trueBlock;
         trueBlock = Maps::getBlock(firstX/BLOCKEDGESIZE, firstY/BLOCKEDGESIZE, blockz);
+        if(!trueBlock) {
+            return;
+        }
         //read the map features
         t_feature local, global;
         Maps::ReadFeatures(firstX/BLOCKEDGESIZE,firstY/BLOCKEDGESIZE,blockz,&local,&global);
@@ -341,9 +344,13 @@ void WorldSegment::AssembleBlockTiles(
                 int32_t lx = gx % BLOCKEDGESIZE;
                 int32_t ly = gy % BLOCKEDGESIZE;
                 Tile * b = getTile(gx, gy, blockz);
-                if(!b->visible)continue;
+
+                if(!b || !b->visible) {
+                    continue;
+                }
+
                 //check to see if the rest of the tile data is worth loading
-                bool shouldBeIncluded = b->visible;
+                bool shouldBeIncluded = true;
 
                 if(isOpenTerrain(b->tileType) && b->tileType != tiletype::RampTop) {
                     if(ssConfig.show_hidden_tiles) {
