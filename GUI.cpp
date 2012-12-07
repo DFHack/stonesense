@@ -577,9 +577,9 @@ void drawDebugCursorAndInfo(WorldSegment * segment)
         //		b->grasslevels.at(j), subMatName?subMatName:"");
         //}
 
-        if(b->water.index > 0 || b->tree.index != 0)
+        if(b->designation.bits.flow_size > 0 || b->tree.index != 0)
             draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0,
-                              "tree:%i water:%i,%i", b->tree.index, b->water.type, b->water.index);
+                              "tree:%i water:%i,%i", b->tree.index, b->designation.bits.liquid_type, b->designation.bits.flow_size);
         if(b->tree.index != 0)
             draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0,
                               "tree name:%s type:%i", lookupTreeName(b->tree.index), b->tree.type);
@@ -623,10 +623,10 @@ void drawDebugCursorAndInfo(WorldSegment * segment)
         if(b->designation.bits.rained) {
             draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0,"Rained");
         }
-        if(b->building.info.type != BUILDINGTYPE_BLACKBOX) {
-            draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0,
-                              "Temp1: %dU, %.2f'C, %d'F", b->temp1, (float)(b->temp1-10000)*5.0f/9.0f, b->temp1-9968);
-        }
+        //if(b->building.info.type != BUILDINGTYPE_BLACKBOX) {
+        //    draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0,
+        //                      "Temp1: %dU, %.2f'C, %d'F", b->temp1, (float)(b->temp1-10000)*5.0f/9.0f, b->temp1-9968);
+        //}
         if(b->snowlevel || b->mudlevel || b->bloodlevel) {
             draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0,
                               "Snow: %d, Mud: %d, Blood: %d", b->snowlevel, b->mudlevel, b->bloodlevel);
@@ -891,7 +891,7 @@ void paintboard()
             draw_textf_border(font, al_map_rgb(255,255,255), 10, 5*al_get_font_line_height(font), 0, "Tile Sprite Assembly Time: %.2fms", ssTimers.assembly_time);
             draw_textf_border(font, al_map_rgb(255,255,255), 10, 2*al_get_font_line_height(font), 0, "FPS: %.2f", 1000.0/ssTimers.frame_total);
             draw_textf_border(font, al_map_rgb(255,255,255), 10, 6*al_get_font_line_height(font), 0, "Draw: %.2fms", ssTimers.draw_time);
-            draw_textf_border(font, al_map_rgb(255,255,255), 10, 7*al_get_font_line_height(font), 0, "D1: %i", DebugInt1);
+            draw_textf_border(font, al_map_rgb(255,255,255), 10, 7*al_get_font_line_height(font), 0, "D1: %i", sizeof(Tile));//DebugInt1);
             draw_textf_border(font, al_map_rgb(255,255,255), 10, 8*al_get_font_line_height(font), 0, "%i/%i/%i, %i:%i", contentLoader->currentDay+1, contentLoader->currentMonth+1, contentLoader->currentYear, contentLoader->currentHour, (contentLoader->currentTickRel*60)/50);
             
             drawDebugCursorAndInfo(segment);

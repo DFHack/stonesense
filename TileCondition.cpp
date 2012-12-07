@@ -405,5 +405,5 @@ bool FluidBelowCondition::Matches(Tile* b)
     if (!bLow) {
         return false;
     }
-    return (bLow->water.index >= this->value);
+    return (bLow->designation.bits.flow_size >= this->value);
 }

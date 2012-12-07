@@ -60,10 +60,10 @@ inline int tileWaterDepth(uint32_t x, uint32_t y, uint32_t z, WorldSegment* segm
     if(!tile) {
         return false;
     }
-    if(tile->water.index == 0 || tile->water.type == 1) {
+    if(tile->designation.bits.flow_size == 0 || tile->designation.bits.liquid_type == 1) {
         return false;
     }
-    return tile->water.index;
+    return tile->designation.bits.flow_size;
 }
 
 inline bool isTileHighRampTop(uint32_t x, uint32_t y, uint32_t z, WorldSegment* segment, dirRelative dir)
@@ -327,6 +327,7 @@ void ReadBlockToSegment(DFHack::Core& DF, WorldSegment& segment, int BlockX, int
             }
 
             b->occ = trueBlock->occupancy[lx][ly];
+            b->occ.bits.unit = false;//this will be set manually when we read the creatures vector
             b->designation = trueBlock->designation[lx][ly];
             b->fog_of_war = !b->designation.bits.pile;
             b->mudlevel = 0;
@@ -384,15 +385,6 @@ void ReadBlockToSegment(DFHack::Core& DF, WorldSegment& segment, int BlockX, int
             } else {
                 b->bloodcolor = al_map_rgb(150, 0, 24);
             }
-            //temperatures
-
-            b->temp1 = trueBlock->temperature_1[lx][ly];
-            b->temp2 = trueBlock->temperature_2[lx][ly];
-            //liquids
-            if(trueBlock->designation[lx][ly].bits.flow_size > 0) {
-                b->water.type  = trueBlock->designation[lx][ly].bits.liquid_type;
-                b->water.index = trueBlock->designation[lx][ly].bits.flow_size;
-            }
 
             //read tiletype
             b->tileType = trueBlock->tiletype[lx][ly];
@@ -413,7 +405,7 @@ void ReadBlockToSegment(DFHack::Core& DF, WorldSegment& segment, int BlockX, int
             }
 
             //add back in any liquid tiles, in case they can be seen from above
-            if(b->water.index) {
+            if(b->designation.bits.flow_size) {
                 shouldBeIncluded = true;
             }
 
@@ -928,11 +920,11 @@ inline void enclosedTile(WorldSegment * segment, Tile* b)
 */
 inline void unhideWaterFromAbove(WorldSegment * segment, Tile * b)
 {
-    if( b->water.index
+    if( b->designation.bits.flow_size
             && !isTileOnTopOfSegment(segment, b)
             && (b->designation.bits.hidden || b->fog_of_war) ) {
         Tile * temp = segment->getTile(b->x, b->y, b->z+1);
-        if( !temp || (!IDhasOpaqueFloor(temp->tileType) && !temp->water.index) ) {
+        if( !temp || (!IDhasOpaqueFloor(temp->tileType) && !temp->designation.bits.flow_size) ) {
             if(contentLoader->gameMode.g_mode == GAMEMODE_ADVENTURE) {
                 if(!temp || !temp->fog_of_war) {
                     b->designation.bits.hidden = false;
@@ -1028,10 +1020,10 @@ void beautify_Segment(WorldSegment * segment)
 
 
         //setup deep water
-        if( b->water.index == 7 && b->water.type == 0) {
+        if( b->designation.bits.flow_size == 7 && b->designation.bits.liquid_type == 0) {
             int topdepth = tileWaterDepth(b->x, b->y, b->z, segment, eAbove);
             if(topdepth) {
-                b->water.index = 8;
+                b->deepwater = true;
             }
         }
 
@@ -1054,13 +1046,13 @@ void beautify_Segment(WorldSegment * segment)
         b->obscuringBuilding=0;
         b->obscuringCreature=0;
 
-        if(dir1) if(dir1->creaturePresent) {
+        if(dir1) if(dir1->occ.bits.unit) {
                 b->obscuringCreature = 1;
             }
-        if(dir2) if(dir2->creaturePresent) {
+        if(dir2) if(dir2->occ.bits.unit) {
                 b->obscuringCreature = 1;
             }
-        if(dir8) if(dir8->creaturePresent) {
+        if(dir8) if(dir8->occ.bits.unit) {
                 b->obscuringCreature = 1;
             }
 

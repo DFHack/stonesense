@@ -421,19 +421,20 @@ void Tile::AssembleTile()
     }
 
 
-    if(water.index > 0) {
+    if(designation.bits.flow_size > 0) {
         //if(waterlevel == 7) waterlevel--;
-        if(water.type == 0) {
-            contentLoader->water[water.index-1].sprite.assemble_world(x, y, z, this, (chopThisTile && this->z == ownerSegment->pos.z + ownerSegment->size.z -2));
+        uint32_t waterlevel = designation.bits.flow_size + (deepwater ? 1 : 0);
+        if(designation.bits.liquid_type == 0) {
+            contentLoader->water[waterlevel-1].sprite.assemble_world(x, y, z, this, (chopThisTile && this->z == ownerSegment->pos.z + ownerSegment->size.z -2));
         } else {
-            contentLoader->lava[water.index-1].sprite.assemble_world(x, y, z, this, (chopThisTile && this->z == ownerSegment->pos.z + ownerSegment->size.z -2));
+            contentLoader->lava[waterlevel-1].sprite.assemble_world(x, y, z, this, (chopThisTile && this->z == ownerSegment->pos.z + ownerSegment->size.z -2));
         }
     }
 
     // creature
     // ensure there is *some* creature according to the map data
     // (no guarantee it is the right one)
-    if(creaturePresent && (ssConfig.show_hidden_tiles || !designation.bits.hidden)) {
+    if(occ.bits.unit && creature && (ssConfig.show_hidden_tiles || !designation.bits.hidden)) {
         AssembleCreature(drawx, drawy, creature, this);
     }
 
@@ -511,7 +512,7 @@ void Tile::AssembleTile()
         AssembleParticleCloud(Eff_OceanWave.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_water, tint);
     }
     
-    if(creaturePresent && (ssConfig.show_hidden_tiles || !designation.bits.hidden)) {
+    if(occ.bits.unit && creature && (ssConfig.show_hidden_tiles || !designation.bits.hidden)) {
         AssembleCreatureText(drawx, drawy, creature, ownerSegment);
     }
 }
@@ -631,7 +632,7 @@ void Tile::AssembleFloorBlood ( int32_t drawx, int32_t drawy )
 {
     t_SpriteWithOffset sprite;
 
-    if( water.index < 1 && (bloodlevel)) {
+    if( designation.bits.flow_size < 1 && (bloodlevel)) {
         sprite.fileIndex = INVALID_INDEX;
 
         // Spatter (should be blood, not blood2) swapped for testing

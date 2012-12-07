@@ -103,7 +103,7 @@ int getBloodOffset ( Tile *b )
     int x = b->x, y = b->y, z = b->z;
 
 
-    if( b->water.index < 1 && (b->bloodlevel)) {
+    if( b->designation.bits.flow_size < 1 && (b->bloodlevel)) {
 
         // Spatter (should be blood, not blood2) swapped for testing
         if( b->bloodlevel <= ssConfig.poolcutoff ) {
@@ -960,7 +960,7 @@ ALLEGRO_COLOR c_sprite::get_color(void* tile)
     case ShadeVeinBack:
         return ssConfig.colors.getDfColor(lookupMaterialBack(b->veinMaterial.type, b->veinMaterial.index));
     case ShadeBodyPart:
-        if(b->creaturePresent) {
+        if(b->occ.bits.unit && b->creature) {
             dayofLife = b->creature->birth_year*12*28 + b->creature->birth_time/1200;
             if((!ssConfig.skipCreatureTypes) && (!ssConfig.skipCreatureTypesEx) && (!ssConfig.skipDescriptorColors)) {
                 t_creaturecaste & caste = contentLoader->Mats->raceEx[b->creature->race].castes[b->creature->caste];
@@ -996,7 +996,7 @@ ALLEGRO_COLOR c_sprite::get_color(void* tile)
             return al_map_rgb(255,255,255);
         }
     case ShadeJob:
-        if(b->creaturePresent) {
+        if(b->occ.bits.unit && b->creature) {
             return ssConfig.colors.getDfColor(getJobColor(b->creature->profession));
         } else {
             return al_map_rgb(255,255,255);
