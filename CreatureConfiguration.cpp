@@ -85,7 +85,7 @@ bool addSingleCreatureConfig( TiXmlElement* elemCreature, vector<vector<Creature
     int defaultFile = basefile;
     c_sprite sprite;
     sprite.set_fileindex(basefile);
-    int baseShadow = DEFAULT_SHADOW;
+    uint8_t baseShadow = DEFAULT_SHADOW;
     const char* shadowStr = elemCreature->Attribute("shadow");
     if (shadowStr != NULL && shadowStr[0] != 0) {
         baseShadow = atoi( shadowStr );

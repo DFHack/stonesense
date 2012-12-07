@@ -33,7 +33,7 @@ public:
     bool loaded;
     bool processed;
     //these are the coordinates and size of the loaded segment
-    int x, y, z;
+    Crd3D pos;
     Crd3D size;
     //these are the coordinates at which the viewport is currently located
     // note that this may not be the same as the actual coordinates of the segment
@@ -45,9 +45,9 @@ public:
     Crd3D regionPos;
     Tile** tilesAsPointerVolume;
     WorldSegment(int x, int y, int z, int sizex, int sizey, int sizez) {
-        this->x = x;
-        this->y = y;
-        this->z = z - sizez + 1;
+        this->pos.x = x;
+        this->pos.y = y;
+        this->pos.z = z - sizez + 1;
         this->size.x = sizex;
         this->size.y = sizey;
         this->size.z = sizez;

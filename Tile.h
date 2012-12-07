@@ -35,7 +35,7 @@ public:
     WorldSegment* ownerSegment;
 
     uint32_t x, y, z;
-    int drawx, drawy, drawz;
+    //int drawx, drawy, drawz;
     df::tiletype tileType;
     DFHack::t_matglossPair material;
     DFHack::t_matglossPair layerMaterial;
@@ -45,7 +45,8 @@ public:
     bool depthBorderNorth;
     bool depthBorderWest;
     bool depthBorderDown;
-    int shadow;
+
+    uint8_t shadow;
 
     uint8_t wallborders;
     uint8_t floorborders;
@@ -55,11 +56,13 @@ public:
     uint8_t downstairborders;
     uint8_t lightborders;
 
-    bool creaturePresent;
-    bool buildingPresent;
-    bool fog_of_war;
-    DFHack::t_matglossPair ramp;
-    DFHack::t_matglossPair water;
+    bool creaturePresent;//contained in occ
+    bool buildingPresent;//contained in occ
+    bool fog_of_war;//contained in designation
+
+    uint8_t rampindex;
+
+    DFHack::t_matglossPair water;//contained in designation
 
     //following are neighbor water levels (unused)
     //DFHack::t_matglossPair abovewater;
@@ -69,6 +72,7 @@ public:
 
     DFHack::t_designation designation;
     DFHack::t_occupancy occ;
+
     DFHack::Units::t_unit * creature;
     DFHack::t_matglossPair tree;
 

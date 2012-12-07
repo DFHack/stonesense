@@ -15,7 +15,7 @@ void AssembleCreature(int drawx, int drawy, t_unit* creature, Tile * b);
 void AssembleCreatureText(int drawx, int drawy, t_unit* creature, WorldSegment * b);
 void DrawCreatureText(int drawx, int drawy, t_unit* creature );
 c_sprite* GetCreatureSpriteMap( t_unit* c );
-int GetCreatureShadowMap( t_unit* c );
+uint8_t GetCreatureShadowMap( t_unit* c );
 
 
 void generateCreatureDebugString( t_unit* c, char* strbuffer);

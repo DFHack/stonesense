@@ -758,10 +758,10 @@ void c_sprite::assemble_world_offset_src(int x, int y, int z, int plateoffset, T
             sheetx = ((sheetindex+plateoffset+randoffset) % SHEET_OBJECTSWIDE) * spritewidth;
             sheety = ((sheetindex+plateoffset+randoffset) / SHEET_OBJECTSWIDE) * spriteheight;
         } else if(platelayout == RAMPBOTTOMPLATE) {
-            sheetx = SPRITEWIDTH * src->ramp.index;
+            sheetx = SPRITEWIDTH * src->rampindex;
             sheety = ((PLATEHEIGHT + FLOORHEIGHT + SPRITEHEIGHT) * (sheetindex+plateoffset+randoffset))+(PLATEHEIGHT + FLOORHEIGHT);
         } else if(platelayout == RAMPTOPPLATE) {
-            sheetx = SPRITEWIDTH * src->ramp.index;
+            sheetx = SPRITEWIDTH * src->rampindex;
             sheety = (PLATEHEIGHT + FLOORHEIGHT + SPRITEHEIGHT) * (sheetindex+plateoffset+randoffset);
         } else {
             sheetx = ((sheetindex+plateoffset+randoffset) % SHEET_OBJECTSWIDE) * spritewidth;

@@ -339,12 +339,12 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
     if(ssConfig.skipCreatures) {
         return;
     }
-    int x1 = segment->x;
-    int x2 = segment->x + segment->size.x;
-    int y1 = segment->y;
-    int y2 = segment->y + segment->size.y;
-    int z1 = segment->z;
-    int z2 = segment->z + segment->size.z;
+    int x1 = segment->pos.x;
+    int x2 = segment->pos.x + segment->size.x;
+    int y1 = segment->pos.y;
+    int y2 = segment->pos.y + segment->size.y;
+    int z1 = segment->pos.z;
+    int z2 = segment->pos.z + segment->size.z;
     uint32_t numcreatures;
 
     numcreatures = DFHack::Units::getNumCreatures();
@@ -413,7 +413,7 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
                     floor_tile->tileShapeBasic()==tiletype_shape_basic::Wall  ||
                     floor_tile->tileShapeBasic()==tiletype_shape_basic::Ramp) {
                 // todo figure out appropriate shadow size
-                int tempShadow = GetCreatureShadowMap( tempcreature );
+                uint8_t tempShadow = GetCreatureShadowMap( tempcreature );
                 if (floor_tile->shadow < tempShadow) {
                     floor_tile->shadow=tempShadow;
                 }
@@ -587,11 +587,11 @@ c_sprite* GetCreatureSpriteMap( t_unit* c )
     return &(testConfig->sprite);
 }
 
-int GetCreatureShadowMap( t_unit* c )
+uint8_t GetCreatureShadowMap( t_unit* c )
 {
     CreatureConfiguration *testConfig = GetCreatureConfig( c );
     if (testConfig == NULL) {
-        return 4;
+        return DEFAULT_SHADOW;
     }
     return testConfig->shadow;
 }

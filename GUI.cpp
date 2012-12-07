@@ -765,8 +765,8 @@ void DrawMinimap(WorldSegment * segment)
     int mapheight = (int)(segment->regionSize.y * oneTileInPixels);
     al_draw_rectangle(posx, posy, posx+size, posy+mapheight, al_map_rgb(0,0,0),0);
     //current segment outline
-    int x = (size * (segment->x+1)) / segment->regionSize.x;
-    int y = (mapheight * (segment->y+1)) / segment->regionSize.y;
+    int x = (size * (segment->pos.x+1)) / segment->regionSize.x;
+    int y = (mapheight * (segment->pos.y+1)) / segment->regionSize.y;
     MiniMapSegmentWidth = (segment->size.x-2) * oneTileInPixels;
     MiniMapSegmentHeight = (segment->size.y-2) * oneTileInPixels;
     al_draw_rectangle(posx+x, posy+y, posx+x+MiniMapSegmentWidth, posy+y+MiniMapSegmentHeight,al_map_rgb(0,0,0),0);

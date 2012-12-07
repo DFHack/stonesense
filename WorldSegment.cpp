@@ -12,13 +12,13 @@ SegmentWrap map_segment;
 
 Tile* WorldSegment::getTile(int32_t x, int32_t y, int32_t z)
 {
-    if(x < this->x || x >= this->x + this->size.x) {
+    if(x < this->pos.x || x >= this->pos.x + this->size.x) {
         return 0;
     }
-    if(y < this->y || y >= this->y + this->size.y) {
+    if(y < this->pos.y || y >= this->pos.y + this->size.y) {
         return 0;
     }
-    if(z < this->z || z >= this->z + this->size.z) {
+    if(z < this->pos.z || z >= this->pos.z + this->size.z) {
         return 0;
     }
 
@@ -26,9 +26,9 @@ Tile* WorldSegment::getTile(int32_t x, int32_t y, int32_t z)
     uint32_t ly = y;
     uint32_t lz = z;
     //make local
-    lx -= this->x;
-    ly -= this->y;
-    lz -= this->z;
+    lx -= this->pos.x;
+    ly -= this->pos.y;
+    lz -= this->pos.z;
 
     CorrectTileForSegmentRotation( (int32_t&)lx,(int32_t&)ly,(int32_t&)lz );
 
@@ -42,9 +42,9 @@ Tile* WorldSegment::getTileRelativeTo(uint32_t x, uint32_t y, uint32_t z,  dirRe
     int32_t ly = y;
     int32_t lz = z;
     //make local
-    lx -= this->x;
-    ly -= this->y;
-    lz -= this->z;
+    lx -= this->pos.x;
+    ly -= this->pos.y;
+    lz -= this->pos.z;
 
     CorrectTileForSegmentRotation( (int32_t&)lx,(int32_t&)ly,(int32_t&)lz );
     switch (direction) {
@@ -104,9 +104,9 @@ Tile* WorldSegment::getTileRelativeTo(uint32_t x, uint32_t y, uint32_t z,  dirRe
     int32_t ly = y;
     int32_t lz = z;
     //make local
-    lx -= this->x;
-    ly -= this->y;
-    lz -= this->z;
+    lx -= this->pos.x;
+    ly -= this->pos.y;
+    lz -= this->pos.z;
     
     CorrectTileForSegmentRotation( (int32_t&)lx,(int32_t&)ly,(int32_t&)lz );
     switch (direction) {
@@ -219,9 +219,9 @@ void WorldSegment::addTile(Tile* b)
     uint32_t y = b->y;
     uint32_t z = b->z;
     //make local
-    x -= this->x;
-    y -= this->y;
-    z -= this->z;
+    x -= this->pos.x;
+    y -= this->pos.y;
+    z -= this->pos.z;
 
     //rotate
     CorrectTileForSegmentRotation( (int32_t&)x, (int32_t&)y, (int32_t&)z);
@@ -401,8 +401,8 @@ void WorldSegment::AssembleAllTiles()
     
     //these are used to iterate over the blocks themselves
     int32_t minx, maxx, miny, maxy;
-    minx = max<int32_t>(0,x);                     miny = max<int32_t>(0,y);
-    maxx = min<int32_t>(x+size.x-1, regionSize.x-1); maxy = min<int32_t>(y+size.y-1, regionSize.y-1); 
+    minx = max<int32_t>(0,pos.x);                        miny = max<int32_t>(0,pos.y);
+    maxx = min<int32_t>(pos.x+size.x-1, regionSize.x-1); maxy = min<int32_t>(pos.y+size.y-1, regionSize.y-1); 
 
     int32_t blockfirstx,blockfirsty,blocklastx,blocklasty;
     switch(rotation){
@@ -423,7 +423,7 @@ void WorldSegment::AssembleAllTiles()
         blocklastx = maxx/BLOCKEDGESIZE;  blocklasty = maxy/BLOCKEDGESIZE;
     }
 
-    for(int32_t lz=z; lz < z+size.z-1; lz++) {
+    for(int32_t lz=pos.z; lz < pos.z+size.z-1; lz++) {
         //add the fog
         if(ssConfig.fogenable && fog) {
             draw_event d = {TintedScaledBitmap, fog, al_map_rgb(255,255,255), 0, 0, ssState.ScreenW, ssState.ScreenH, 0, 0, ssState.ScreenW, ssState.ScreenH, 0};
@@ -435,20 +435,20 @@ void WorldSegment::AssembleAllTiles()
             int32_t lastX = blockx*BLOCKEDGESIZE + tileendx + incrx;
             switch(rotation){
             case 1:
-                firstX = max<int32_t>(firstX, x+1);
-                lastX = min<int32_t>(lastX, x+size.x-1);
+                firstX = max<int32_t>(firstX, pos.x+1);
+                lastX = min<int32_t>(lastX, pos.x+size.x-1);
                 break;
             case 2:
-                firstX = min<int32_t>(firstX, x+size.x-2);
-                lastX = max<int32_t>(lastX, x);
+                firstX = min<int32_t>(firstX, pos.x+size.x-2);
+                lastX = max<int32_t>(lastX, pos.x);
                 break;
             case 3:
-                firstX = min<int32_t>(firstX, x+size.x-2);
-                lastX = max<int32_t>(lastX, x);
+                firstX = min<int32_t>(firstX, pos.x+size.x-2);
+                lastX = max<int32_t>(lastX, pos.x);
                 break;
             default:
-                firstX = max<int32_t>(firstX, x+1);
-                lastX = min<int32_t>(lastX, x+size.x-1);
+                firstX = max<int32_t>(firstX, pos.x+1);
+                lastX = min<int32_t>(lastX, pos.x+size.x-1);
             }
         
 
@@ -457,20 +457,20 @@ void WorldSegment::AssembleAllTiles()
                 int32_t lastY = blocky*BLOCKEDGESIZE + tileendy + incry;
                 switch(rotation){
                 case 1:
-                    firstY = min<int32_t>(firstY, y+size.y-2);
-                    lastY = max<int32_t>(lastY, y);
+                    firstY = min<int32_t>(firstY, pos.y+size.y-2);
+                    lastY = max<int32_t>(lastY, pos.y);
                     break;
                 case 2:
-                    firstY = min<int32_t>(firstY, y+size.y-2);
-                    lastY = max<int32_t>(lastY, y);
+                    firstY = min<int32_t>(firstY, pos.y+size.y-2);
+                    lastY = max<int32_t>(lastY, pos.y);
                     break;
                 case 3:
-                    firstY = max<int32_t>(firstY, y+1);
-                    lastY = min<int32_t>(lastY, y+size.y-1);
+                    firstY = max<int32_t>(firstY, pos.y+1);
+                    lastY = min<int32_t>(lastY, pos.y+size.y-1);
                     break;
                 default:
-                    firstY = max<int32_t>(firstY, y+1);
-                    lastY = min<int32_t>(lastY, y+size.y-1);
+                    firstY = max<int32_t>(firstY, pos.y+1);
+                    lastY = min<int32_t>(lastY, pos.y+size.y-1);
                 }
 
                 DB1++;
@@ -488,13 +488,13 @@ void WorldSegment::AssembleAllTiles()
 
 bool WorldSegment::CoordinateInsideSegment(uint32_t x, uint32_t y, uint32_t z)
 {
-    if( (int32_t)x < this->x || (int32_t)x >= this->x + this->size.x) {
+    if( (int32_t)x < this->pos.x || (int32_t)x >= this->pos.x + this->size.x) {
         return false;
     }
-    if( (int32_t)y < this->y || (int32_t)y >= this->y + this->size.y) {
+    if( (int32_t)y < this->pos.y || (int32_t)y >= this->pos.y + this->size.y) {
         return false;
     }
-    if( (int32_t)z < this->z || (int32_t)z >= this->z + this->size.z) {
+    if( (int32_t)z < this->pos.z || (int32_t)z >= this->pos.z + this->size.z) {
         return false;
     }
     return true;
@@ -502,13 +502,13 @@ bool WorldSegment::CoordinateInsideSegment(uint32_t x, uint32_t y, uint32_t z)
 
 bool WorldSegment::CoordinateInteriorSegment(uint32_t x, uint32_t y, uint32_t z, uint32_t shellthick)
 {
-    if( (int32_t)x < this->x + shellthick || (int32_t)x >= this->x + this->size.x - shellthick) {
+    if( (int32_t)x < this->pos.x + shellthick || (int32_t)x >= this->pos.x + this->size.x - shellthick) {
         return false;
     }
-    if( (int32_t)y < this->y + shellthick || (int32_t)y >= this->y + this->size.y - shellthick) {
+    if( (int32_t)y < this->pos.y + shellthick || (int32_t)y >= this->pos.y + this->size.y - shellthick) {
         return false;
     }
-    if( (int32_t)z < this->z + shellthick || (int32_t)z >= this->z + this->size.z - shellthick) {
+    if( (int32_t)z < this->pos.z + shellthick || (int32_t)z >= this->pos.z + this->size.z - shellthick) {
         return false;
     }
     return true;
