@@ -393,6 +393,8 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
             // fake tile occupancy where needed. This is starting to get hacky...
             b->occ.bits.unit=true;
             segment->addTile( b );
+			delete b;
+			b = segment->getTile (tempcreature->x, tempcreature->y, tempcreature->z );
         }
 
         // creature already there? SKIP.

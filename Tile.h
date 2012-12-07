@@ -158,6 +158,7 @@ public:
         return DFHack::tileMaterial(tileType);
     }
 
+    void Reset(WorldSegment* ownerSegment, df::tiletype type);
     //tile sprite assembly and drawing functions
     void AssembleTile();
     void Drawcreaturetext();

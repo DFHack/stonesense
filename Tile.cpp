@@ -43,6 +43,12 @@ worn_item::worn_item()
 
 Tile::Tile(WorldSegment* ownerSegment, df::tiletype type)
 {
+    Reset(ownerSegment, type);
+}
+
+
+void Tile::Reset(WorldSegment* ownerSegment, df::tiletype type)
+{
     //clear out own memory
     memset(this, 0, sizeof(Tile));
 
@@ -73,6 +79,7 @@ Tile::Tile(WorldSegment* ownerSegment, df::tiletype type)
     Item.dyematt.type=-1;
     Item.dyematt.index=-1;
 }
+
 
 Tile::~Tile(void)
 {
