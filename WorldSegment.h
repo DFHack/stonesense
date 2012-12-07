@@ -27,7 +27,7 @@ struct draw_event{
 class WorldSegment
 {
 private:
-    vector<Tile*> tiles;
+    Tile* tilesAsPointerVolume;
     vector<draw_event> todraw;
 public:
     bool loaded;
@@ -43,7 +43,6 @@ public:
     //these are the size and position of the DF map region to which this segment is a part
     Crd3D regionSize;
     Crd3D regionPos;
-    Tile** tilesAsPointerVolume;
     WorldSegment(int x, int y, int z, int sizex, int sizey, int sizez) {
         this->pos.x = x;
         this->pos.y = y;
@@ -58,25 +57,21 @@ public:
         regionSize.x = regionSize.y = regionSize.z = 0;
         regionPos.x = regionPos.y = regionPos.z = 0;
 
-        uint32_t memoryNeeded = sizex * sizey * sizez * sizeof(Tile*);
-        tilesAsPointerVolume = (Tile**) malloc( memoryNeeded );
+        uint32_t memoryNeeded = sizex * sizey * sizez * sizeof(Tile);
+        tilesAsPointerVolume = (Tile*) malloc( memoryNeeded );
         memset(tilesAsPointerVolume, 0, memoryNeeded);
     }
 
     ~WorldSegment() {
-        uint32_t num = (uint32_t)tiles.size();
+        uint32_t num = getNumTiles();
         for(uint32_t i = 0; i < num; i++) {
-            delete(tiles[i]);
+            tilesAsPointerVolume[i].~Tile();
         }
-        tiles.clear();
-    }
-
-    void Dispose(void) {
         free(tilesAsPointerVolume);
     }
 
     uint32_t getNumTiles() {
-        return (uint32_t)tiles.size();
+        return size.x * size.y * size.z;
     }
 
     Tile* getTile(int32_t x, int32_t y, int32_t z);

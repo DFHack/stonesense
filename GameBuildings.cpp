@@ -135,6 +135,8 @@ void MergeBuildingsToSegment(vector<Buildings::t_building>* buildings, WorldSegm
                         b->y = yy;
                         b->z = tempbuilding.z;
                         segment->addTile( b );
+						delete b;
+						b = segment->getTile( xx, yy, tempbuilding.z);
                     }
 
                     //handle special case where zones and stockpiles overlap buildings, and try to replace them

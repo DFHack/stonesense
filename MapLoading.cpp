@@ -315,16 +315,11 @@ void ReadBlockToSegment(DFHack::Core& DF, WorldSegment& segment, int BlockX, int
             if( !segment.CoordinateInsideSegment( gx, gy, BlockZ) ) {
                 continue;
             }
-            bool createdTile = false;
-            Tile* b = segment.getTile( gx, gy, BlockZ);
-
-            if (!b) {
-                createdTile = true;
-                b = new Tile(&segment, df::tiletype::OpenSpace);
-                b->x = gx;
-                b->y = gy;
-                b->z = BlockZ;
-            }
+            Tile * b = segment.getTile(gx, gy, BlockZ);
+            b->Reset(&segment, tiletype::OpenSpace);
+            b->x = gx;
+            b->y = gy;
+            b->z = BlockZ;
 
             b->occ = trueBlock->occupancy[lx][ly];
             b->occ.bits.unit = false;//this will be set manually when we read the creatures vector
@@ -409,14 +404,8 @@ void ReadBlockToSegment(DFHack::Core& DF, WorldSegment& segment, int BlockX, int
                 shouldBeIncluded = true;
             }
 
-            if ( !shouldBeIncluded && createdTile ) {
-                delete(b);
-            } else if( shouldBeIncluded ) {
+            if( shouldBeIncluded ) {
                 //this only needs to be done for included tiles
-
-                if (createdTile) {
-                    segment.addTile(b);
-                }
 
                 //determine rock/soil type
                 int rockIndex = -1;
@@ -627,6 +616,8 @@ void ReadBlockToSegment(DFHack::Core& DF, WorldSegment& segment, int BlockX, int
                 b->y=eff->pos.y;
                 b->z=eff->pos.z;
                 segment.addTile(b);
+				delete(b);
+				b = segment.getTile( eff->pos.x, eff->pos.y, eff->pos.z);
             }
 
         switch(eff->type) {
@@ -1415,7 +1406,6 @@ void read_segment( void *arg)
     WorldSegment* old_segment = map_segment.swap(segment);
     map_segment.unlock();
     if(old_segment) {
-        old_segment->Dispose();
         delete old_segment;
     }
 }

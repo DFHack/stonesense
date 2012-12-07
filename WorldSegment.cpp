@@ -33,7 +33,7 @@ Tile* WorldSegment::getTile(int32_t x, int32_t y, int32_t z)
     CorrectTileForSegmentRotation( (int32_t&)lx,(int32_t&)ly,(int32_t&)lz );
 
     uint32_t index = lx + (ly * this->size.x) + ((lz) * this->size.x * this->size.y);
-    return tilesAsPointerVolume[index];
+    return &tilesAsPointerVolume[index];
 }
 
 Tile* WorldSegment::getTileRelativeTo(uint32_t x, uint32_t y, uint32_t z,  dirRelative direction)
@@ -95,7 +95,7 @@ Tile* WorldSegment::getTileRelativeTo(uint32_t x, uint32_t y, uint32_t z,  dirRe
     }
 
     uint32_t index = lx + (ly * this->size.x) + ((lz) * this->size.x * this->size.y);
-    return tilesAsPointerVolume[index];
+    return &tilesAsPointerVolume[index];
 }
 
 Tile* WorldSegment::getTileRelativeTo(uint32_t x, uint32_t y, uint32_t z,  dirRelative direction, int distance)
@@ -157,7 +157,7 @@ Tile* WorldSegment::getTileRelativeTo(uint32_t x, uint32_t y, uint32_t z,  dirRe
     }
 
     uint32_t index = lx + (ly * this->size.x) + ((lz) * this->size.x * this->size.y);
-    return tilesAsPointerVolume[index];
+    return &tilesAsPointerVolume[index];
 }
 
 Tile* WorldSegment::getTileLocal(uint32_t x, uint32_t y, uint32_t z)
@@ -173,15 +173,15 @@ Tile* WorldSegment::getTileLocal(uint32_t x, uint32_t y, uint32_t z)
     }
 
     uint32_t index = x + (y * this->size.x) + ((z) * this->size.x * this->size.y);
-    return tilesAsPointerVolume[index];
+    return &tilesAsPointerVolume[index];
 }
 
 Tile* WorldSegment::getTile(uint32_t index)
 {
-    if(index<0 || index >= tiles.size() ) {
-        return 0;
+    if(index<0 || index >= getNumTiles() ) {
+        return NULL;
     }
-    return tiles[index];
+    return &tilesAsPointerVolume[index];
 }
 
 void WorldSegment::CorrectTileForSegmentOffset(int32_t& xin, int32_t& yin, int32_t& zin)
@@ -212,9 +212,6 @@ void WorldSegment::CorrectTileForSegmentRotation(int32_t& x, int32_t& y, int32_t
 
 void WorldSegment::addTile(Tile* b)
 {
-    this->tiles.push_back(b);
-    //b = &(this->tiles[ tiles.size() - 1]);
-
     uint32_t x = b->x;
     uint32_t y = b->y;
     uint32_t z = b->z;
@@ -226,7 +223,7 @@ void WorldSegment::addTile(Tile* b)
     //rotate
     CorrectTileForSegmentRotation( (int32_t&)x, (int32_t&)y, (int32_t&)z);
     uint32_t index = x + (y * this->size.x) + ((z) * this->size.x * this->size.y);
-    tilesAsPointerVolume[index] = b;
+    tilesAsPointerVolume[index] = *b;
 }
 
 void WorldSegment::DrawAllTiles()
