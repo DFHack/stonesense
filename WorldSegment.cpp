@@ -16,27 +16,23 @@ Tile* WorldSegment::ResetTile(int32_t x, int32_t y, int32_t z, df::tiletype type
     ly -= this->pos.y;
     lz -= this->pos.z;
 
+    if((int)lx < 0 || lx >= (uint32_t)this->size.x) {
+        return 0;
+    }
+    if((int)ly < 0 || ly >= (uint32_t)this->size.y) {
+        return 0;
+    }
+    if((int)lz < 0 || lz >= (uint32_t)this->size.z) {
+        return 0;
+    }
+
     CorrectTileForSegmentRotation( (int32_t&)lx,(int32_t&)ly,(int32_t&)lz );
-    return ResetTileLocal(lx, ly, lz, type);
-}
 
-Tile* WorldSegment::ResetTileLocal(uint32_t x, uint32_t y, uint32_t z, df::tiletype type)
-{
-    if((int)x < 0 || x >= (uint32_t)this->size.x) {
-        return 0;
-    }
-    if((int)y < 0 || y >= (uint32_t)this->size.y) {
-        return 0;
-    }
-    if((int)z < 0 || z >= (uint32_t)this->size.z) {
-        return 0;
-    }
-
-    uint32_t index = x + (y * this->size.x) + ((z) * this->size.x * this->size.y);
+    uint32_t index = lx + (ly * this->size.x) + ((lz) * this->size.x * this->size.y);
     tiles[index].Reset(this, type);
-    tiles[index].x = x + pos.x;
-    tiles[index].y = y + pos.y;
-    tiles[index].z = z + pos.z;
+    tiles[index].x = x;
+    tiles[index].y = y;
+    tiles[index].z = z;
     return &tiles[index];
 }
 
