@@ -54,7 +54,8 @@ void Tile::Reset(WorldSegment* ownerSegment, df::tiletype type)
     //clear out own memory
     memset(this, 0, sizeof(Tile));
 
-    this->valid=true;
+    valid=true;
+    visible = true;
 
     this->ownerSegment = ownerSegment;
 
@@ -75,7 +76,6 @@ void Tile::Reset(WorldSegment* ownerSegment, df::tiletype type)
     lightborders = 255;
     creature = 0;
     engraving_character = 0;
-    visible = true;
 
     Item.item.type =-1;
     Item.matt.type=-1;
