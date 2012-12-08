@@ -200,7 +200,6 @@ struct GameConfiguration {
 
     //following are threading stuff
 
-    ALLEGRO_MUTEX * readMutex;
     ALLEGRO_COND * readCond;
     ALLEGRO_THREAD * readThread;
     bool threadmade;

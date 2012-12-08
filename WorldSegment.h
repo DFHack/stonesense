@@ -64,18 +64,21 @@ public:
     ~WorldSegment() {
         uint32_t num = getNumTiles();
         for(uint32_t i = 0; i < num; i++) {
-            tiles[i].~Tile();
+            if(tiles[i].IsValid()) {
+                tiles[i].~Tile();
+            }
         }
         free(tiles);
     }
 
     void Reset(int x=0, int y=0, int z=0, int sizex=0, int sizey=0, int sizez=0, bool hard=false) {
         uint32_t num = getNumTiles();
+
         for(uint32_t i = 0; i < num; i++) {
-            tiles[i].~Tile();
-            tiles[i].valid=false;
+            tiles[i].Invalidate();
         }
         uint32_t memoryNeeded = sizex * sizey * sizez * sizeof(Tile);
+        //if this is a hard reset, or if the size doesn't match what is needed, get a new segment
         if(hard || sizex*sizey*sizez != size.x*size.y*size.z) {
             free(tiles);
             uint32_t memoryNeeded = sizex * sizey * sizez * sizeof(Tile);
@@ -110,7 +113,7 @@ public:
     Tile* getTile(uint32_t index);
     void CorrectTileForSegmentOffset(int32_t& x, int32_t& y, int32_t& z);
     void CorrectTileForSegmentRotation(int32_t& x, int32_t& y, int32_t& z);
-    void addTile(Tile* b);
+    //void addTile(Tile* b);
     void AssembleBlockTiles(int32_t firstX, int32_t firstY, int32_t lastX, int32_t lastY, int32_t incrx, int32_t incry, int32_t z, vector<vector<int16_t>>* allLayers);
     void AssembleAllTiles();
     void AssembleSprite(draw_event d);

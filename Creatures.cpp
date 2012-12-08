@@ -370,32 +370,30 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
         z2=0;
     }
 
-    t_unit *tempcreature = new t_unit();
+    t_unit *tempcreature = NULL;
     df::unit *unit_ptr = 0;
     uint32_t index = 0;
     while((index = DFHack::Units::GetCreatureInBox( index, &unit_ptr, x1,y1,z1,x2,y2,z2)) != -1 ) {
         index++;
-        // if the creature isn't visible, we need not process it further.
         if( !IsCreatureVisible( unit_ptr ) ) {
             continue;
         }
-        // make a copy of some creature data
-        DFHack::Units::CopyCreature(unit_ptr,*tempcreature);
-        // Acquire a cube element thingie!
-        Tile* b = segment->getTile (tempcreature->x, tempcreature->y, tempcreature->z );
-        // If we failed at that, make a new one out of fairy dust and makebelieve ;)
+        Tile* b = segment->getTile(unit_ptr->pos.x, unit_ptr->pos.y, unit_ptr->pos.z );
         if(!b) {
             continue;
         }
 
         // creature already there? SKIP.
-        if(b->creature) {
+        if(b->occ.bits.unit && b->creature) {
             continue;
         }
-
-        //Creature not yet there, we process...
+        
+        // make a copy of some creature data
+        tempcreature = new t_unit;
+        DFHack::Units::CopyCreature(unit_ptr,*tempcreature);
         b->occ.bits.unit=true;
         b->creature = tempcreature;
+
         // add shadow to nearest floor tile
         for (int bz = tempcreature->z; bz>=z1; bz--) {
             Tile * floor_tile = segment->getTile (tempcreature->x, tempcreature->y, bz );
@@ -477,11 +475,7 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
             }
             b->inv->item[type][item->getSubtype()].push_back(equipment);
         }
-        // need a new tempcreature now
-        // old tempcreature should be deleted when b is
-        tempcreature = new t_unit;
     }
-    delete(tempcreature); // there will be one left over
 }
 
 

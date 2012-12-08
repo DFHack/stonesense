@@ -459,7 +459,7 @@ void drawDebugCursorAndInfo(WorldSegment * segment)
         break;
     case ui_sidebar_mode::ViewUnits:
         //creatures
-        if(b->creature == null) {
+        if(!b->occ.bits.unit || !b->creature) {
             break;
         }
         draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0,
@@ -891,7 +891,7 @@ void paintboard()
             draw_textf_border(font, al_map_rgb(255,255,255), 10, 5*al_get_font_line_height(font), 0, "Tile Sprite Assembly Time: %.2fms", ssTimers.assembly_time);
             draw_textf_border(font, al_map_rgb(255,255,255), 10, 2*al_get_font_line_height(font), 0, "FPS: %.2f", 1000.0/ssTimers.frame_total);
             draw_textf_border(font, al_map_rgb(255,255,255), 10, 6*al_get_font_line_height(font), 0, "Draw: %.2fms", ssTimers.draw_time);
-            draw_textf_border(font, al_map_rgb(255,255,255), 10, 7*al_get_font_line_height(font), 0, "D1: %i", sizeof(Tile));//DebugInt1);
+            draw_textf_border(font, al_map_rgb(255,255,255), 10, 7*al_get_font_line_height(font), 0, "D1: %i", DebugInt1);
             draw_textf_border(font, al_map_rgb(255,255,255), 10, 8*al_get_font_line_height(font), 0, "%i/%i/%i, %i:%i", contentLoader->currentDay+1, contentLoader->currentMonth+1, contentLoader->currentYear, contentLoader->currentHour, (contentLoader->currentTickRel*60)/50);
             
             drawDebugCursorAndInfo(segment);
@@ -1229,7 +1229,7 @@ void saveImage(ALLEGRO_BITMAP* image)
 
 void saveMegashot(bool tall)
 {
-    al_lock_mutex(ssConfig.readMutex);
+    map_segment.lockRead();
 
     draw_textf_border(font, al_map_rgb(255,255,255), ssState.ScreenW/2, ssState.ScreenH/2, ALLEGRO_ALIGN_CENTRE, "saving large screenshot...");
     al_flip_display();
@@ -1362,5 +1362,5 @@ void saveMegashot(bool tall)
     ssState.ScreenW = tempW;
     ssState.ScreenH = tempH;
 
-    al_unlock_mutex(ssConfig.readMutex);
+    map_segment.unlockRead();
 }

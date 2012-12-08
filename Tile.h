@@ -30,7 +30,6 @@ public:
     Tile(WorldSegment* ownerSegment, df::tiletype type);
     ~Tile(void);
 
-    bool valid;
     bool visible;
 
     WorldSegment* ownerSegment;
@@ -170,9 +169,12 @@ public:
     void AssembleSpriteFromSheet(int spriteNum, ALLEGRO_BITMAP* spriteSheet, ALLEGRO_COLOR color, float x, float y, Tile * b=NULL, float in_scale=1.0f);
     void AssembleSprite(ALLEGRO_BITMAP *bitmap, ALLEGRO_COLOR tint, float sx, float sy, float sw, float sh, float dx, float dy, float dw, float dh, int flags);
 
+    bool IsValid();
+    bool Invalidate();
 private:
-
+    bool valid;
 };
+
 void createEffectSprites();
 void destroyEffectSprites();
 void initRandomCube();

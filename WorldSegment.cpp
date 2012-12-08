@@ -174,10 +174,10 @@ Tile* WorldSegment::getTileLocal(uint32_t x, uint32_t y, uint32_t z)
 
 Tile* WorldSegment::getTile(uint32_t index)
 {
-    if(index<0 || index >= getNumTiles() ) {
+    if(index<0 || index>=getNumTiles() ) {
         return NULL;
     }
-    return tiles[index].valid ? &tiles[index] : NULL;
+    return tiles[index].IsValid() ? &tiles[index] : NULL;
 }
 
 void WorldSegment::CorrectTileForSegmentOffset(int32_t& xin, int32_t& yin, int32_t& zin)
@@ -206,21 +206,21 @@ void WorldSegment::CorrectTileForSegmentRotation(int32_t& x, int32_t& y, int32_t
     }
 }
 
-void WorldSegment::addTile(Tile* b)
-{
-    uint32_t x = b->x;
-    uint32_t y = b->y;
-    uint32_t z = b->z;
-    //make local
-    x -= this->pos.x;
-    y -= this->pos.y;
-    z -= this->pos.z;
-
-    //rotate
-    CorrectTileForSegmentRotation( (int32_t&)x, (int32_t&)y, (int32_t&)z);
-    uint32_t index = x + (y * this->size.x) + ((z) * this->size.x * this->size.y);
-    tiles[index] = *b;
-}
+//void WorldSegment::addTile(Tile* b)
+//{
+//    uint32_t x = b->x;
+//    uint32_t y = b->y;
+//    uint32_t z = b->z;
+//    //make local
+//    x -= this->pos.x;
+//    y -= this->pos.y;
+//    z -= this->pos.z;
+//
+//    //rotate
+//    CorrectTileForSegmentRotation( (int32_t&)x, (int32_t&)y, (int32_t&)z);
+//    uint32_t index = x + (y * this->size.x) + ((z) * this->size.x * this->size.y);
+//    tiles[index] = *b;
+//}
 
 void WorldSegment::DrawAllTiles()
 {
@@ -318,7 +318,7 @@ void WorldSegment::AssembleBlockTiles(
         //read the block tiles
         df::map_block *trueBlock;
         trueBlock = Maps::getBlock(firstX/BLOCKEDGESIZE, firstY/BLOCKEDGESIZE, blockz);
-        if(!trueBlock) {
+        if(!trueBlock ) {
             return;
         }
         //read the map features
@@ -726,7 +726,7 @@ void WorldSegment::AssembleAllTiles()
 //---------------------------------------------------------//
 
     ssTimers.assembly_time = (clock() - starttime)*0.1 + ssTimers.assembly_time*0.9;
-    DebugInt1 = DB1;
+    //DebugInt1 = DB1;
 }
 
 
