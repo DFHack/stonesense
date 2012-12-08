@@ -408,80 +408,12 @@ void ReadBlockToSegment(DFHack::Core& DF, WorldSegment& segment,
             if(!b) {
                 continue;
             }
-            b->haseffect = true;
-            switch(eff->type) {
-            case flow_type::Steam: {
-                b->Eff_Steam.density += eff->density;
-                b->Eff_Steam.matt.index = eff->mat_index;
-                b->Eff_Steam.matt.type = eff->mat_type;
-                break;
-                                   }
-            case flow_type::Mist: {
-                b->Eff_Mist.density += eff->density;
-                b->Eff_Mist.matt.index = eff->mat_index;
-                b->Eff_Mist.matt.type = eff->mat_type;
-                break;
-                                  }
-            case flow_type::MaterialDust: {
-                b->Eff_MaterialDust.density += eff->density;
-                b->Eff_MaterialDust.matt.index = eff->mat_index;
-                b->Eff_MaterialDust.matt.type = eff->mat_type;
-                break;
-                                          }
-            case flow_type::MagmaMist: {
-                b->Eff_MagmaMist.density += eff->density;
-                b->Eff_MagmaMist.matt.index = eff->mat_index;
-                b->Eff_MagmaMist.matt.type = eff->mat_type;
-                break;
-                                       }
-            case flow_type::Smoke: {
-                b->Eff_Smoke.density += eff->density;
-                b->Eff_Smoke.matt.index = eff->mat_index;
-                b->Eff_Smoke.matt.type = eff->mat_type;
-                break;
-                                   }
-            case flow_type::Dragonfire: {
-                b->Eff_Dragonfire.density += eff->density;
-                b->Eff_Dragonfire.matt.index = eff->mat_index;
-                b->Eff_Dragonfire.matt.type = eff->mat_type;
-                break;
-                                        }
-            case flow_type::Fire: {
-                b->Eff_Fire.density += eff->density;
-                b->Eff_Fire.matt.index = eff->mat_index;
-                b->Eff_Fire.matt.type = eff->mat_type;
-                break;
-                                  }
-            case flow_type::Web: {
-                b->Eff_Web.density += eff->density;
-                b->Eff_Web.matt.index = eff->mat_index;
-                b->Eff_Web.matt.type = eff->mat_type;
-                break;
-                                 }
-            case flow_type::MaterialGas: {
-                b->Eff_MaterialGas.density += eff->density;
-                b->Eff_MaterialGas.matt.index = eff->mat_index;
-                b->Eff_MaterialGas.matt.type = eff->mat_type;
-                break;
-                                         }
-            case flow_type::MaterialVapor: {
-                b->Eff_MaterialVapor.density += eff->density;
-                b->Eff_MaterialVapor.matt.index = eff->mat_index;
-                b->Eff_MaterialVapor.matt.type = eff->mat_type;
-                break;
-                                           }
-            case flow_type::OceanWave: {
-                b->Eff_OceanWave.density += eff->density;
-                b->Eff_OceanWave.matt.index = eff->mat_index;
-                b->Eff_OceanWave.matt.type = eff->mat_type;
-                break;
-                                       }
-            case flow_type::SeaFoam: {
-                b->Eff_SeaFoam.density += eff->density;
-                b->Eff_SeaFoam.matt.index = eff->mat_index;
-                b->Eff_SeaFoam.matt.type = eff->mat_type;
-                break;
-                                     }
+            if(eff->density > b->tileeffect.density 
+                || b->tileeffect.type == (df::flow_type) INVALID_INDEX) {
+                    b->tileeffect.type = eff->type;
+                    b->tileeffect.density = eff->density;
+                    b->tileeffect.matt.index = eff->mat_index;
+                    b->tileeffect.matt.type = eff->mat_type;
             }
         } 
     }

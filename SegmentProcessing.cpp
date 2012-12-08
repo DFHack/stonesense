@@ -696,7 +696,7 @@ void optimizeSegment(WorldSegment * segment)
             || b->designation.bits.flow_size
             || (b->occ.bits.unit && b->creature)
             || b->building.type != BUILDINGTYPE_NA
-            || b->haseffect)) {
+            || b->tileeffect.type != (df::flow_type) INVALID_INDEX)) {
 
             //hide any tiles that are totally surrounded
             enclosedTile(segment, b);

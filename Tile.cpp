@@ -66,6 +66,8 @@ void Tile::Reset(WorldSegment* ownerSegment, df::tiletype type)
     this->material.index = INVALID_INDEX;
     this->tileType = type;
 
+    tileeffect.type = (df::flow_type) INVALID_INDEX;
+
     wallborders = 0;
     floorborders = 0;
     openborders = 255;
@@ -281,27 +283,6 @@ void Tile::AssembleTile()
         AssembleSpriteFromSheet( engraving_character, IMGEngFloorSheet, al_map_rgba_f(1.0,1.0,1.0,((engraving_quality + 5.0f) / 10.0f)), drawx, drawy, this );
     }
 
-    //draw surf
-    //fixme: needs to be scaled
-    if(Eff_SeaFoam.density > 0) {
-        ALLEGRO_COLOR tint = lookupMaterialColor(Eff_SeaFoam.matt);
-        tint.a*=Eff_SeaFoam.density/100.0f;
-        int foamw=al_get_bitmap_width(sprite_oceanwave);
-        int foamh=al_get_bitmap_height(sprite_oceanwave);
-        AssembleSprite(
-            sprite_oceanwave,
-            tint,
-            0,
-            0,
-            foamw,
-            foamh,
-            drawx,
-            drawy - (WALLHEIGHT)*ssConfig.scale,
-            SPRITEWIDTH*ssConfig.scale,
-            SPRITEHEIGHT*ssConfig.scale,
-            0);
-    }
-
     //Draw Ramp
     if(tileShapeBasic()==tiletype_shape_basic::Ramp) {
         spriteobject = GetTileSpriteMap(tileType, material, consForm);
@@ -486,67 +467,67 @@ void Tile::AssembleTile()
         }
     }
 
-    if(Eff_Web.density > 0) {
-        ALLEGRO_COLOR tint = lookupMaterialColor(Eff_Web.matt);
-        tint.a*=Eff_Web.density/100.0f;
-        AssembleSpriteFromSheet(rando%5, sprite_webing, tint, drawx, drawy, this, 4.0f);
-        //al_draw_tinted_bitmap(sprite_webing,tint, drawx, drawy - (WALLHEIGHT), 0);
-    }
-    if(Eff_Miasma.density > 0) {
-        ALLEGRO_COLOR tint = lookupMaterialColor(Eff_Miasma.matt);
-        AssembleParticleCloud(Eff_Miasma.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_miasma, tint);
-    }
-    if(Eff_Steam.density > 0) {
-        ALLEGRO_COLOR tint = lookupMaterialColor(Eff_Steam.matt);
-        AssembleParticleCloud(Eff_Steam.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_water, tint);
-    }
-    if(Eff_Mist.density > 0) {
-        ALLEGRO_COLOR tint = lookupMaterialColor(Eff_Mist.matt);
-        AssembleParticleCloud(Eff_Mist.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_water2, tint);
-    }
-    if(Eff_MaterialDust.density > 0) {
-        ALLEGRO_COLOR tint = lookupMaterialColor(Eff_MaterialDust.matt);
-        AssembleParticleCloud(Eff_MaterialDust.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_dust, tint);
-    }
-    if(Eff_MagmaMist.density > 0) {
-        ALLEGRO_COLOR tint = lookupMaterialColor(Eff_MagmaMist.matt);
-        AssembleParticleCloud(Eff_MagmaMist.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_magma, tint);
-    }
-    if(Eff_Smoke.density > 0) {
-        ALLEGRO_COLOR tint = lookupMaterialColor(Eff_Smoke.matt);
-        AssembleParticleCloud(Eff_Smoke.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_smoke, tint);
-    }
-    if(Eff_Dragonfire.density > 0) {
-        ALLEGRO_COLOR tint = lookupMaterialColor(Eff_Dragonfire.matt);
-        tint.a*=Eff_Dragonfire.density/100.0f;
-        tint.g*=Eff_Dragonfire.density/100.0f;
-        tint.b*=Eff_Dragonfire.density/100.0f;
-        int size = 3 - ((Eff_Dragonfire.density-1)/25);
-        AssembleSpriteFromSheet((((currentFrameLong+rando)%8)*20+size), sprite_dragonfire, tint, drawx, drawy, this, 2.0f);
-        //ALLEGRO_COLOR tint = lookupMaterialColor(Eff_Dragonfire.matt.type, Eff_Dragonfire.matt.index);
-        //draw_particle_cloud(Eff_Dragonfire.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_dragonfire, tint);
-    }
-    if(Eff_Fire.density > 0) {
-        ALLEGRO_COLOR tint = lookupMaterialColor(Eff_Fire.matt);
-        tint.a*=Eff_Fire.density/100.0f;
-        tint.g*=Eff_Fire.density/100.0f;
-        tint.b*=Eff_Fire.density/100.0f;
-        int size = 3 - ((Eff_Fire.density-1)/25);
-        AssembleSpriteFromSheet((((currentFrameLong+rando)%8)*20+size), sprite_dragonfire, tint, drawx, drawy, this, 2.0f);
-        //ALLEGRO_COLOR tint = lookupMaterialColor(Eff_Fire.matt.type, Eff_Fire.matt.index);
-        //draw_particle_cloud(Eff_Fire.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_fire, tint);
-    }
-    if(Eff_MaterialGas.density > 0) {
-        ALLEGRO_COLOR tint = lookupMaterialColor(Eff_MaterialGas.matt);
-        AssembleParticleCloud(Eff_MaterialGas.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_boiling, tint);
-    }
-    if(Eff_MaterialVapor.density > 0) {
-        ALLEGRO_COLOR tint = lookupMaterialColor(Eff_MaterialVapor.matt);
-        AssembleParticleCloud(Eff_MaterialVapor.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_boiling, tint);
-    }
-    if(Eff_OceanWave.density > 0) {
-        ALLEGRO_COLOR tint = lookupMaterialColor(Eff_OceanWave.matt);
-        AssembleParticleCloud(Eff_OceanWave.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_water, tint);
+    if(tileeffect.density>0) {
+        ALLEGRO_COLOR tint = lookupMaterialColor(tileeffect.matt);
+        int size = 0;
+        switch(tileeffect.type){
+        case df::flow_type::Miasma:
+            AssembleParticleCloud(tileeffect.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_miasma, tint);
+            break;
+        case df::flow_type::Steam:
+            AssembleParticleCloud(tileeffect.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_water, tint);
+            break;
+        case df::flow_type::Mist:
+            AssembleParticleCloud(tileeffect.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_water2, tint);
+            break;
+        case df::flow_type::MaterialDust:
+            AssembleParticleCloud(tileeffect.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_dust, tint);
+            break;
+        case df::flow_type::MagmaMist:
+            AssembleParticleCloud(tileeffect.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_magma, tint);
+            break;
+        case df::flow_type::Smoke:
+            AssembleParticleCloud(tileeffect.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_smoke, tint);
+            break;
+        case df::flow_type::Dragonfire:
+            tint.a*=tileeffect.density/100.0f;
+            tint.g*=tileeffect.density/100.0f;
+            tint.b*=tileeffect.density/100.0f;
+            size = 3 - ((tileeffect.density-1)/25);
+            AssembleSpriteFromSheet((((currentFrameLong+rando)%8)*20+size), sprite_dragonfire, tint, drawx, drawy, this, 2.0f);
+            //ALLEGRO_COLOR tint = lookupMaterialColor(Eff_Dragonfire.matt.type, Eff_Dragonfire.matt.index);
+            //draw_particle_cloud(Eff_Dragonfire.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_dragonfire, tint);
+            break;
+        case df::flow_type::Fire:
+            tint.a*=tileeffect.density/100.0f;
+            tint.g*=tileeffect.density/100.0f;
+            tint.b*=tileeffect.density/100.0f;
+            size = 3 - ((tileeffect.density-1)/25);
+            AssembleSpriteFromSheet((((currentFrameLong+rando)%8)*20+size), sprite_dragonfire, tint, drawx, drawy, this, 2.0f);
+            //ALLEGRO_COLOR tint = lookupMaterialColor(Eff_Fire.matt.type, Eff_Fire.matt.index);
+            //draw_particle_cloud(Eff_Fire.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_fire, tint);
+            break;
+        case df::flow_type::Web:
+            tint.a*=tileeffect.density/100.0f;
+            AssembleSpriteFromSheet(rando%5, sprite_webing, tint, drawx, drawy, this, 4.0f);
+            //al_draw_tinted_bitmap(sprite_webing,tint, drawx, drawy - (WALLHEIGHT), 0);
+            break;
+        case df::flow_type::MaterialGas:
+            AssembleParticleCloud(tileeffect.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_boiling, tint);
+            break;
+        case df::flow_type::MaterialVapor:
+            AssembleParticleCloud(tileeffect.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_boiling, tint);
+            break;
+        case df::flow_type::SeaFoam:
+            tint.a*=tileeffect.density/100.0f;
+            AssembleSprite(sprite_oceanwave, tint, 0, 0, al_get_bitmap_width(sprite_oceanwave), al_get_bitmap_height(sprite_oceanwave), 
+                drawx, drawy - (WALLHEIGHT)*ssConfig.scale, SPRITEWIDTH*ssConfig.scale, SPRITEHEIGHT*ssConfig.scale, 0);
+            break;
+        case df::flow_type::OceanWave:
+            AssembleParticleCloud(tileeffect.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_water, tint);
+            break;
+
+        }
     }
     
     if(occ.bits.unit && creature && (ssConfig.show_hidden_tiles || !designation.bits.hidden)) {

@@ -647,97 +647,74 @@ void drawDebugCursorAndInfo(WorldSegment * segment)
         	"Open: %d, floor: %d, Wall: %d, Ramp: %d Light: %d", b->openborders, b->floorborders, b->wallborders, b->rampborders, b->lightborders);
         draw_borders(8, dray, b->lightborders);
         */
-
-        if(b->Eff_Miasma.density > 0) {
-            const char* matName = lookupMaterialTypeName(b->Eff_Miasma.matt.type);
-            const char* subMatName = lookupMaterialName(b->Eff_Miasma.matt.type,b->Eff_Miasma.matt.index);
+        const char* matName = lookupMaterialTypeName(b->tileeffect.matt.type);
+        const char* subMatName = lookupMaterialName(b->tileeffect.matt.type,b->tileeffect.matt.index);
+        switch(b->tileeffect.type){
+        case df::flow_type::Miasma:
             draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0,
-                              "Miasma: %d, Material:%s%s%s",
-                              b->Eff_Miasma.density, matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
-        }
-        if(b->Eff_Steam.density > 0) {
-            const char* matName = lookupMaterialTypeName(b->Eff_Steam.matt.type);
-            const char* subMatName = lookupMaterialName(b->Eff_Steam.matt.type,b->Eff_Steam.matt.index);
+                "Miasma: %d, Material:%s%s%s",
+                b->tileeffect.density, matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
+            break;
+        case df::flow_type::Steam:
             draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0,
-                              "Steam: %d, Material:%s%s%s",
-                              b->Eff_Steam.density, matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
-        }
-        if(b->Eff_Mist.density > 0) {
-            const char* matName = lookupMaterialTypeName(b->Eff_Mist.matt.type);
-            const char* subMatName = lookupMaterialName(b->Eff_Mist.matt.type,b->Eff_Mist.matt.index);
+                "Steam: %d, Material:%s%s%s",
+                b->tileeffect.density, matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
+            break;
+        case df::flow_type::Mist:
             draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0,
-                              "Mist: %d, Material:%s%s%s",
-                              b->Eff_Mist.density, matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
-        }
-        if(b->Eff_MaterialDust.density > 0) {
-            const char* matName = lookupMaterialTypeName(b->Eff_MaterialDust.matt.type);
-            const char* subMatName = lookupMaterialName(b->Eff_MaterialDust.matt.type,b->Eff_MaterialDust.matt.index);
+                "Mist: %d, Material:%s%s%s",
+                b->tileeffect.density, matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
+            break;
+        case df::flow_type::MaterialDust:
             draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0,
-                              "MaterialDust: %d, Material:%s%s%s",
-                              b->Eff_MaterialDust.density, matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
-        }
-        if(b->Eff_MagmaMist.density > 0) {
-            const char* matName = lookupMaterialTypeName(b->Eff_MagmaMist.matt.type);
-            const char* subMatName = lookupMaterialName(b->Eff_MagmaMist.matt.type,b->Eff_MagmaMist.matt.index);
+                "MaterialDust: %d, Material:%s%s%s",
+                b->tileeffect.density, matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
+            break;
+        case df::flow_type::MagmaMist:
             draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0,
-                              "MagmaMist: %d, Material:%s%s%s",
-                              b->Eff_MagmaMist.density, matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
-        }
-        if(b->Eff_Smoke.density > 0) {
-            const char* matName = lookupMaterialTypeName(b->Eff_Smoke.matt.type);
-            const char* subMatName = lookupMaterialName(b->Eff_Smoke.matt.type,b->Eff_Smoke.matt.index);
+                "MagmaMist: %d, Material:%s%s%s",
+                b->tileeffect.density, matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
+            break;
+        case df::flow_type::Smoke:
             draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0,
-                              "Smoke: %d, Material:%s%s%s",
-                              b->Eff_Smoke.density, matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
-        }
-        if(b->Eff_Dragonfire.density > 0) {
-            const char* matName = lookupMaterialTypeName(b->Eff_Dragonfire.matt.type);
-            const char* subMatName = lookupMaterialName(b->Eff_Dragonfire.matt.type,b->Eff_Dragonfire.matt.index);
+                "Smoke: %d, Material:%s%s%s",
+                b->tileeffect.density, matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
+            break;
+        case df::flow_type::Dragonfire:
             draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0,
-                              "Dragonfire: %d, Material:%s%s%s",
-                              b->Eff_Dragonfire.density, matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
-        }
-        if(b->Eff_Fire.density > 0) {
-            const char* matName = lookupMaterialTypeName(b->Eff_Fire.matt.type);
-            const char* subMatName = lookupMaterialName(b->Eff_Fire.matt.type,b->Eff_Fire.matt.index);
+                "Dragonfire: %d, Material:%s%s%s",
+                b->tileeffect.density, matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
+            break;
+        case df::flow_type::Fire:
             draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0,
-                              "Fire: %d, Material:%s%s%s",
-                              b->Eff_Fire.density, matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
-        }
-        if(b->Eff_Web.density > 0) {
-            const char* matName = lookupMaterialTypeName(b->Eff_Web.matt.type);
-            const char* subMatName = lookupMaterialName(b->Eff_Web.matt.type,b->Eff_Web.matt.index);
+                "Fire: %d, Material:%s%s%s",
+                b->tileeffect.density, matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
+            break;
+        case df::flow_type::Web:
             draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0,
-                              "Web: %d, Material:%s%s%s",
-                              b->Eff_Web.density, matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
-        }
-        if(b->Eff_MaterialGas.density > 0) {
-            const char* matName = lookupMaterialTypeName(b->Eff_MaterialGas.matt.type);
-            const char* subMatName = lookupMaterialName(b->Eff_MaterialGas.matt.type,b->Eff_MaterialGas.matt.index);
+                "Web: %d, Material:%s%s%s",
+                b->tileeffect.density, matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
+            break;
+        case df::flow_type::MaterialGas:
             draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0,
-                              "MaterialGas: %d, Material:%s%s%s",
-                              b->Eff_MaterialGas.density, matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
-        }
-        if(b->Eff_MaterialVapor.density > 0) {
-            const char* matName = lookupMaterialTypeName(b->Eff_MaterialVapor.matt.type);
-            const char* subMatName = lookupMaterialName(b->Eff_MaterialVapor.matt.type,b->Eff_MaterialVapor.matt.index);
+                "MaterialGas: %d, Material:%s%s%s",
+                b->tileeffect.density, matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
+            break;
+        case df::flow_type::MaterialVapor:
             draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0,
-                              "MaterialVapor: %d, Material:%s%s%s",
-                              b->Eff_MaterialVapor.density, matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
-        }
-        if(b->Eff_OceanWave.density > 0) {
-            const char* matName = lookupMaterialTypeName(b->Eff_OceanWave.matt.type);
-            const char* subMatName = lookupMaterialName(b->Eff_OceanWave.matt.type,b->Eff_OceanWave.matt.index);
+                "MaterialVapor: %d, Material:%s%s%s",
+                b->tileeffect.density, matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
+            break;
+        case df::flow_type::OceanWave:
             draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0,
-                              "OceanWave: %d, Material:%s%s%s",
-                              b->Eff_OceanWave.density, matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
-        }
-        if(b->Eff_SeaFoam.density > 0) {
-            const char* matName = lookupMaterialTypeName(b->Eff_SeaFoam.matt.type);
-            const char* subMatName = lookupMaterialName(b->Eff_SeaFoam.matt.type,b->Eff_SeaFoam.matt.index);
+                "OceanWave: %d, Material:%s%s%s",
+                b->tileeffect.density, matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
+            break;
+        case df::flow_type::SeaFoam:
             draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0,
-                              "SeaFoam: %d, Material:%s%s%s",
-                              b->Eff_SeaFoam.density, matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
+                "SeaFoam: %d, Material:%s%s%s",
+                b->tileeffect.density, matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
+            break;
         }
         break;
     }

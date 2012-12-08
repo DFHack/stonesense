@@ -7,11 +7,6 @@
 
 class WorldSegment;
 
-struct effect {
-    DFHack::t_matglossPair matt;
-    int16_t density;
-};
-
 struct worn_item {
     DFHack::t_matglossPair matt;
     DFHack::t_matglossPair dyematt;
@@ -100,22 +95,27 @@ public:
     //	int16_t y_direction;
     //	uint8_t canCreateNew;//??
     //} tileeffects;
+
+    struct effect {
+        DFHack::t_matglossPair matt;
+        int16_t density;
+        df::flow_type type;
+    } tileeffect;
     
-    bool haseffect;
     //individual effects
-    effect Eff_Miasma;
-    effect Eff_Steam;
-    effect Eff_Mist;
-    effect Eff_MaterialDust;
-    effect Eff_MagmaMist;
-    effect Eff_Smoke;
-    effect Eff_Dragonfire;
-    effect Eff_Fire;
-    effect Eff_Web;
-    effect Eff_MaterialGas;
-    effect Eff_MaterialVapor;
-    effect Eff_OceanWave;
-    effect Eff_SeaFoam;
+    //effect Eff_Miasma;
+    //effect Eff_Steam;
+    //effect Eff_Mist;
+    //effect Eff_MaterialDust;
+    //effect Eff_MagmaMist;
+    //effect Eff_Smoke;
+    //effect Eff_Dragonfire;
+    //effect Eff_Fire;
+    //effect Eff_Web;
+    //effect Eff_MaterialGas;
+    //effect Eff_MaterialVapor;
+    //effect Eff_OceanWave;
+    //effect Eff_SeaFoam;
 
     uint16_t consForm;
 
