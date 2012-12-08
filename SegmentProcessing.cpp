@@ -263,7 +263,7 @@ inline void maskTile(WorldSegment * segment, Tile* b)
     if( b->designation.bits.hidden ) {
         if( isTileOnVisibleEdgeOfSegment(segment, b)
             || areNeighborsVisible(segment, b) ) {
-                b->building.info.type = (building_type::building_type) BUILDINGTYPE_BLACKBOX;
+                b->building.type = (building_type::building_type) BUILDINGTYPE_BLACKBOX;
         } else {
             b->visible = false;
         }
@@ -299,15 +299,15 @@ inline void unhideWaterFromAbove(WorldSegment * segment, Tile * b)
                     if(!temp || !temp->fog_of_war) {
                         b->designation.bits.hidden = false;
                         b->fog_of_war = false;
-                        if(b->building.info.type == BUILDINGTYPE_BLACKBOX) {
-                            b->building.info.type = (building_type::building_type) BUILDINGTYPE_NA;
+                        if(b->building.type == BUILDINGTYPE_BLACKBOX) {
+                            b->building.type = (building_type::building_type) BUILDINGTYPE_NA;
                         }
                     }
                 } else {
                     if(!temp || !temp->designation.bits.hidden) {
                         b->designation.bits.hidden = false;
-                        if(b->building.info.type == BUILDINGTYPE_BLACKBOX) {
-                            b->building.info.type = (building_type::building_type) BUILDINGTYPE_NA;
+                        if(b->building.type == BUILDINGTYPE_BLACKBOX) {
+                            b->building.type = (building_type::building_type) BUILDINGTYPE_NA;
                         }
                     }
                 }
@@ -345,26 +345,26 @@ void arrangeTileBorders(WorldSegment * segment, Tile* b)
     }
 
     if(dir1)
-        if(dir1->building.info.type != BUILDINGTYPE_NA
-            && dir1->building.info.type != BUILDINGTYPE_BLACKBOX
-            && dir1->building.info.type != df::enums::building_type::Civzone
-            && dir1->building.info.type != df::enums::building_type::Stockpile
+        if(dir1->building.type != BUILDINGTYPE_NA
+            && dir1->building.type != BUILDINGTYPE_BLACKBOX
+            && dir1->building.type != df::enums::building_type::Civzone
+            && dir1->building.type != df::enums::building_type::Stockpile
             ) {
                 b->obscuringBuilding = 1;
         }
         if(dir2)
-            if(dir2->building.info.type != BUILDINGTYPE_NA
-                && dir2->building.info.type != BUILDINGTYPE_BLACKBOX
-                && dir2->building.info.type != df::enums::building_type::Civzone
-                && dir2->building.info.type != df::enums::building_type::Stockpile
+            if(dir2->building.type != BUILDINGTYPE_NA
+                && dir2->building.type != BUILDINGTYPE_BLACKBOX
+                && dir2->building.type != df::enums::building_type::Civzone
+                && dir2->building.type != df::enums::building_type::Stockpile
                 ) {
                     b->obscuringBuilding = 1;
             }
             if(dir8)
-                if(dir8->building.info.type != BUILDINGTYPE_NA
-                    && dir8->building.info.type != BUILDINGTYPE_BLACKBOX
-                    && dir8->building.info.type != df::enums::building_type::Civzone
-                    && dir8->building.info.type != df::enums::building_type::Stockpile
+                if(dir8->building.type != BUILDINGTYPE_NA
+                    && dir8->building.type != BUILDINGTYPE_BLACKBOX
+                    && dir8->building.type != df::enums::building_type::Civzone
+                    && dir8->building.type != df::enums::building_type::Stockpile
                     ) {
                         b->obscuringBuilding = 1;
                 }
@@ -634,7 +634,7 @@ void addSegmentExtras(WorldSegment * segment)
         }
 
         //setup building sprites
-        if( b->building.info.type != BUILDINGTYPE_NA && b->building.info.type != BUILDINGTYPE_BLACKBOX && b->building.info.type != BUILDINGTYPE_TREE) {
+        if( b->building.type != BUILDINGTYPE_NA && b->building.type != BUILDINGTYPE_BLACKBOX && b->building.type != BUILDINGTYPE_TREE) {
             loadBuildingSprites( b);
         }
 
@@ -695,7 +695,7 @@ void optimizeSegment(WorldSegment * segment)
             && (b->tileType!=tiletype::OpenSpace
             || b->designation.bits.flow_size
             || (b->occ.bits.unit && b->creature)
-            || b->building.info.type != BUILDINGTYPE_NA
+            || b->building.type != BUILDINGTYPE_NA
             || b->haseffect)) {
 
             //hide any tiles that are totally surrounded

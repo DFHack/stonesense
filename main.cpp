@@ -511,6 +511,7 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
     IMGIcon = 0;
     delete contentLoader;
     contentLoader = 0;
+    out.print("tile size is: %i", sizeof(Tile));
     out.print("Stonesense shutdown.\n");
     stonesense_started = 0;
     return NULL;

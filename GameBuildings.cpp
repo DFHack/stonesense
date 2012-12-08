@@ -49,7 +49,7 @@ bool tileHasBridge(Tile* b)
     if(!b) {
         return 0;
     }
-    return b->building.info.type == df::enums::building_type::Bridge;
+    return b->building.type == df::enums::building_type::Bridge;
 }
 
 dirTypes findWallCloseTo(WorldSegment* segment, Tile* b)
@@ -113,28 +113,27 @@ void ReadBuildings(DFHack::Core& DF, vector<Buildings::t_building>* buildingHold
 
 void MergeBuildingsToSegment(vector<Buildings::t_building>* buildings, WorldSegment* segment)
 {
-    Buildings::t_building tempbuilding;
     uint32_t numBuildings = (uint32_t)buildings->size();
     for(uint32_t i=0; i < numBuildings; i++) {
-        tempbuilding = (*buildings)[i];
+        Buildings::t_building* copiedbuilding = segment->AddBuilding((*buildings)[i]);
 
         //int bheight = tempbuilding.y2 - tempbuilding.y1;
-        for(uint32_t yy = tempbuilding.y1; yy <= tempbuilding.y2; yy++)
-            for(uint32_t xx = tempbuilding.x1; xx <= tempbuilding.x2; xx++) {
-                Tile* b = segment->getTile( xx, yy, tempbuilding.z);
+        for(uint32_t yy = copiedbuilding->y1; yy <= copiedbuilding->y2; yy++)
+            for(uint32_t xx = copiedbuilding->x1; xx <= copiedbuilding->x2; xx++) {
+                Tile* b = segment->getTile( xx, yy, copiedbuilding->z);
                 if(b) {
                     //want hashtable :(
                     // still need to test for b, because of ramp/building overlap
 
                     //handle special case where zones and stockpiles overlap buildings, and try to replace them
-                    if(b->building.info.type != BUILDINGTYPE_NA && tempbuilding.type == df::enums::building_type::Civzone ) {
+                    if(b->building.type != BUILDINGTYPE_NA && copiedbuilding->type == df::enums::building_type::Civzone ) {
                         continue;
                     }
-                    if(b->building.info.type != BUILDINGTYPE_NA && tempbuilding.type == df::enums::building_type::Stockpile ) {
+                    if(b->building.type != BUILDINGTYPE_NA && copiedbuilding->type == df::enums::building_type::Stockpile ) {
                         continue;
                     }
-                    b->building.index = i;
-                    b->building.info = tempbuilding;
+                    b->building.type = copiedbuilding->type;
+                    b->building.info = copiedbuilding;
                 }
             }
     }
@@ -151,11 +150,11 @@ void loadBuildingSprites ( Tile* b)
     BuildingConfiguration* generic = NULL, *specific = NULL, *custom = NULL;
     for(auto iter = contentLoader->buildingConfigs.begin(); iter < contentLoader->buildingConfigs.end(); iter++) {
         BuildingConfiguration & conf = *iter;
-        if(b->building.info.type == conf.game_type) {
+        if(b->building.type == conf.game_type) {
             generic = &conf;
-            if(b->building.info.subtype == conf.game_subtype) {
+            if(b->building.info && b->building.info->subtype == conf.game_subtype) {
                 specific = &conf;
-                if(b->building.info.custom_type == conf.game_custom) {
+                if(b->building.info->custom_type == conf.game_custom) {
                     custom = &conf;
                 }
             }

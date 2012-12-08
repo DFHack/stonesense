@@ -520,3 +520,8 @@ void WorldSegment::AssembleSprite(draw_event d)
 {
     todraw.push_back(d);
 }
+
+Buildings::t_building* WorldSegment::AddBuilding(Buildings::t_building building){
+    buildings.push_back(building);
+    return &buildings[buildings.size()-1];
+}
