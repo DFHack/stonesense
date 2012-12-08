@@ -72,6 +72,8 @@ public:
     }
 
     void Reset(int x=0, int y=0, int z=0, int sizex=0, int sizey=0, int sizez=0, bool hard=false) {
+        todraw.clear();
+
         uint32_t num = getNumTiles();
 
         for(uint32_t i = 0; i < num; i++) {
@@ -113,7 +115,7 @@ public:
     void CorrectTileForSegmentOffset(int32_t& x, int32_t& y, int32_t& z);
     void CorrectTileForSegmentRotation(int32_t& x, int32_t& y, int32_t& z);
     //void addTile(Tile* b);
-    void AssembleBlockTiles(int32_t firstX, int32_t firstY, int32_t lastX, int32_t lastY, int32_t incrx, int32_t incry, int32_t z, vector<vector<int16_t>>* allLayers);
+    void AssembleBlockTiles(int32_t firstX, int32_t firstY, int32_t lastX, int32_t lastY, int32_t incrx, int32_t incry, int32_t z);
     void AssembleAllTiles();
     void AssembleSprite(draw_event d);
     void DrawAllTiles();
