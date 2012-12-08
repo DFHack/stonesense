@@ -105,7 +105,6 @@ public:
     }
     
     Tile* ResetTile(int32_t x, int32_t y, int32_t z, df::tiletype type=tiletype::OpenSpace);
-    Tile* ResetTileLocal(uint32_t x, uint32_t y, uint32_t z, df::tiletype type=tiletype::OpenSpace);
     Tile* getTile(int32_t x, int32_t y, int32_t z);
     Tile* getTileLocal(uint32_t x, uint32_t y, uint32_t z);
     Tile* getTileRelativeTo(uint32_t x, uint32_t y, uint32_t z,  dirRelative direction);
