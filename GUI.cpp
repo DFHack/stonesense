@@ -428,8 +428,8 @@ void drawDebugCursorAndInfo(WorldSegment * segment)
 
     switch(ui->main.mode) {
     case ui_sidebar_mode::BuildingItems:
-        if(b->building.info.type != BUILDINGTYPE_NA && b->building.info.type != BUILDINGTYPE_BLACKBOX && b->building.info.type != BUILDINGTYPE_TREE) {
-            auto Actual_building = virtual_cast<df::building_actual>(b->building.info.origin);
+        if(b->building.info && b->building.type != BUILDINGTYPE_NA && b->building.type != BUILDINGTYPE_BLACKBOX && b->building.type != BUILDINGTYPE_TREE) {
+            auto Actual_building = virtual_cast<df::building_actual>(b->building.info->origin);
             if(!Actual_building) {
                 break;
             }
@@ -588,18 +588,18 @@ void drawDebugCursorAndInfo(WorldSegment * segment)
 
         // FIXME: classidstrings is no more
         //building
-        if(b->building.info.type != BUILDINGTYPE_NA && b->building.info.type != BUILDINGTYPE_BLACKBOX && b->building.info.type != BUILDINGTYPE_TREE) {
-            const char* matName = lookupMaterialTypeName(b->building.info.material.type);
-            const char* subMatName = lookupMaterialName(b->building.info.material.type,b->building.info.material.index);
-            const char* subTypeName = lookupBuildingSubtype(b->building.info.type, b->building.info.subtype);
+        if(b->building.info && b->building.type != BUILDINGTYPE_NA && b->building.type != BUILDINGTYPE_BLACKBOX && b->building.type != BUILDINGTYPE_TREE) {
+            const char* matName = lookupMaterialTypeName(b->building.info->material.type);
+            const char* subMatName = lookupMaterialName(b->building.info->material.type,b->building.info->material.index);
+            const char* subTypeName = lookupBuildingSubtype(b->building.type, b->building.info->subtype);
             draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0,
                               "Building: game_type = %s(%i) game_subtype = %s(%i) Material: %s%s%s (%d,%d)",
-                              ENUM_KEY_STR(building_type, (building_type::building_type)b->building.info.type).c_str(),
-                              b->building.info.type,
+                              ENUM_KEY_STR(building_type, (building_type::building_type)b->building.type).c_str(),
+                              b->building.type,
                               subTypeName,
-                              b->building.info.subtype,
+                              b->building.info->subtype,
                               matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"",
-                              b->building.info.material.type,b->building.info.material.index);
+                              b->building.info->material.type,b->building.info->material.index);
 
             //if(b->building.custom_building_type != -1)
             //{
@@ -622,7 +622,7 @@ void drawDebugCursorAndInfo(WorldSegment * segment)
         if(b->designation.bits.rained) {
             draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0,"Rained");
         }
-        //if(b->building.info.type != BUILDINGTYPE_BLACKBOX) {
+        //if(b->building.type != BUILDINGTYPE_BLACKBOX) {
         //    draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0,
         //                      "Temp1: %dU, %.2f'C, %d'F", b->temp1, (float)(b->temp1-10000)*5.0f/9.0f, b->temp1-9968);
         //}

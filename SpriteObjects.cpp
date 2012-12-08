@@ -942,7 +942,7 @@ ALLEGRO_COLOR c_sprite::get_color(void* tile)
     case ShadeGrass:
         return lookupMaterialColor(WOOD, b->grassmat);
     case ShadeBuilding:
-        return lookupMaterialColor(b->building.info.material);
+        return (b->building.info ? lookupMaterialColor(b->building.info->material) : al_map_rgb(255, 255, 255));
     case ShadeLayer:
         return lookupMaterialColor(b->layerMaterial);
     case ShadeVein:

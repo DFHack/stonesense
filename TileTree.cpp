@@ -18,8 +18,8 @@ void insert_sprite(WorldSegment *w, int x, int y, int z, Tile * parent, c_sprite
         return;
     }
     b_orig->building.sprites.push_back(sprite);
-    if(b_orig->building.info.type == (building_type::building_type) BUILDINGTYPE_NA) {
-        b_orig->building.info.type = (building_type::building_type) BUILDINGTYPE_TREE;
+    if(b_orig->building.type == (building_type::building_type) BUILDINGTYPE_NA) {
+        b_orig->building.type = (building_type::building_type) BUILDINGTYPE_TREE;
     }
     b_orig->building.parent = parent;
 }

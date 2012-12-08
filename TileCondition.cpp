@@ -92,9 +92,13 @@ PositionIndexCondition::PositionIndexCondition(const char* strValue)
 
 bool PositionIndexCondition::Matches(Tile* b)
 {
-    int x = b->x - b->building.info.x1;
-    int y = b->y - b->building.info.y1;
-    int w = b->building.info.x2 - b->building.info.x1 + 1 ;
+    if(!b->building.info) {
+        return false;
+    }
+
+    int x = b->x - b->building.info->x1;
+    int y = b->y - b->building.info->y1;
+    int w = b->building.info->x2 - b->building.info->x1 + 1 ;
     int pos = y * w + x;
 
     return pos == this->value;
@@ -126,13 +130,16 @@ MaterialTypeCondition::MaterialTypeCondition(const char* strValue, const char* s
 
 bool MaterialTypeCondition::Matches(Tile* b)
 {
-    if (b->building.info.material.type != this->value) {
+    if(!b->building.info) {
+        return false;
+    }
+    if (b->building.info->material.type != this->value) {
         return false;
     }
     if (this->subtype == INVALID_INDEX) {
         return true;
     }
-    return b->building.info.material.index == this->subtype;
+    return b->building.info->material.index == this->subtype;
 }
 
 
@@ -169,7 +176,7 @@ NeighbourSameBuildingCondition::NeighbourSameBuildingCondition(const char* strDi
 
 bool NeighbourSameBuildingCondition::Matches(Tile* b)
 {
-    int tilesBuildingIndex = b->building.index;
+    Buildings::t_building* tilesBuildingIndex = b->building.info;
 
     bool n = hasBuildingOfIndex( b->ownerSegment->getTileRelativeTo( b->x, b->y, b->z, eUp    ), tilesBuildingIndex );
     bool s = hasBuildingOfIndex( b->ownerSegment->getTileRelativeTo( b->x, b->y, b->z, eDown  ), tilesBuildingIndex );
@@ -206,7 +213,7 @@ NeighbourIdenticalCondition::NeighbourIdenticalCondition(const char* strDir)
 
 bool NeighbourIdenticalCondition::Matches(Tile* b)
 {
-    int tilesBuildingIndex = b->building.index;
+    Buildings::t_building* tilesBuildingIndex = b->building.info;
     int tilesBuildingOcc = b->occ.bits.building;
 
     bool n = hasBuildingIdentity( b->ownerSegment->getTileRelativeTo( b->x, b->y, b->z, eUp ), tilesBuildingIndex, tilesBuildingOcc );
@@ -277,7 +284,7 @@ NeighbourSameTypeCondition::NeighbourSameTypeCondition(const char* strDir)
 
 bool NeighbourSameTypeCondition::Matches(Tile* b)
 {
-    int value = b->building.info.type;
+    int value = b->building.type;
 
     bool n = hasBuildingOfID( b->ownerSegment->getTileRelativeTo( b->x, b->y, b->z, eUp ), value );
     bool s = hasBuildingOfID( b->ownerSegment->getTileRelativeTo( b->x, b->y, b->z, eDown ), value );

@@ -29,6 +29,10 @@ class WorldSegment
 private:
     Tile* tiles;
     vector<draw_event> todraw;
+    
+    //vector<t_unit> units;
+    vector<Buildings::t_building> buildings;
+
 public:
     bool loaded;
     bool processed;
@@ -73,6 +77,7 @@ public:
 
     void Reset(int x=0, int y=0, int z=0, int sizex=0, int sizey=0, int sizez=0, bool hard=false) {
         todraw.clear();
+        buildings.clear();
 
         uint32_t num = getNumTiles();
 
@@ -122,6 +127,7 @@ public:
     //void drawPixels();
     bool CoordinateInsideSegment(uint32_t x, uint32_t y, uint32_t z);
     bool CoordinateInteriorSegment(uint32_t x, uint32_t y, uint32_t z, uint32_t shellthick);
+    Buildings::t_building* AddBuilding(Buildings::t_building tempbuilding);
 };
 
 // FIXME: make nicer. one day. maybe.

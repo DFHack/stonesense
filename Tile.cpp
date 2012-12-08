@@ -59,8 +59,7 @@ void Tile::Reset(WorldSegment* ownerSegment, df::tiletype type)
 
     this->ownerSegment = ownerSegment;
 
-    building.info.type = (building_type::building_type) BUILDINGTYPE_NA;
-    building.index = -1;
+    building.type = (building_type::building_type) BUILDINGTYPE_NA;
     building.parent = 0;
 
     this->material.type = INVALID_INDEX;
@@ -95,6 +94,7 @@ Tile::~Tile(void)
         delete(inv);
         this->inv=NULL;
     }
+    building.info = NULL;
 }
 
 /**
@@ -217,7 +217,7 @@ void Tile::AssembleTile()
         chopThisTile = 1;
     }
 
-    if(building.info.type == BUILDINGTYPE_BLACKBOX) {
+    if(building.type == BUILDINGTYPE_BLACKBOX) {
         AssembleSpriteFromSheet( SPRITEOBJECT_BLACK, IMGObjectSheet, al_map_rgb(255,255,255), drawx, drawy+FLOORHEIGHT*ssConfig.scale);
         AssembleSpriteFromSheet( SPRITEOBJECT_BLACK, IMGObjectSheet, al_map_rgb(255,255,255), drawx, drawy);
         return;
@@ -364,10 +364,10 @@ void Tile::AssembleTile()
 
     //Building
     bool skipBuilding =
-        (building.info.type == building_type::Civzone && !ssConfig.show_stockpiles) ||
-        (building.info.type == building_type::Stockpile && !ssConfig.show_zones);
+        (building.type == building_type::Civzone && !ssConfig.show_stockpiles) ||
+        (building.type == building_type::Stockpile && !ssConfig.show_zones);
 
-    if(building.info.type != BUILDINGTYPE_NA && !skipBuilding) {
+    if(building.type != BUILDINGTYPE_NA && !skipBuilding) {
         for(uint32_t i=0; i < building.sprites.size(); i++) {
             spriteobject = &building.sprites[i];
             if(building.parent) {
@@ -596,26 +596,26 @@ bool hasBuildingOfID(Tile* b, int ID)
     if(!b) {
         return false;
     }
-    return b->building.info.type == ID;
+    return b->building.type == ID;
 }
 
-bool hasBuildingIdentity(Tile* b, uint32_t index, int buildingOcc)
+bool hasBuildingIdentity(Tile* b, Buildings::t_building* index, int buildingOcc)
 {
     if(!b) {
         return false;
     }
-    if (!(b->building.index == index)) {
+    if (!(b->building.info == index)) {
         return false;
     }
     return b->occ.bits.building == buildingOcc;
 }
 
-bool hasBuildingOfIndex(Tile* b, uint32_t index)
+bool hasBuildingOfIndex(Tile* b, Buildings::t_building* index)
 {
     if(!b) {
         return false;
     }
-    return b->building.index == index;
+    return b->building.info == index;
 }
 
 bool wallShouldNotHaveBorders( int in )

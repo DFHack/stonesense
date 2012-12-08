@@ -132,10 +132,10 @@ public:
     unit_inventory * inv;
 
     struct {
-        DFHack::Buildings::t_building info;
+        DFHack::Buildings::t_building* info;
+        df::building_type type;
         std::vector<c_sprite> sprites;
-        uint32_t index;
-        Tile * parent;
+        Tile* parent;
     } building;
 
     //tile information loading
@@ -182,8 +182,8 @@ void initRandomCube();
 //find a better place for these
 bool hasWall(Tile* b);
 bool hasBuildingOfID(Tile* b, int ID);
-bool hasBuildingIdentity(Tile* b, uint32_t index, int buildingOcc);
-bool hasBuildingOfIndex(Tile* b, uint32_t index);
+bool hasBuildingIdentity(Tile* b, Buildings::t_building* index, int buildingOcc);
+bool hasBuildingOfIndex(Tile* b, Buildings::t_building* index);
 bool wallShouldNotHaveBorders( int in );
 
 inline bool IDisWall(int in)
