@@ -46,7 +46,9 @@ Tile::Tile(WorldSegment* ownerSegment, df::tiletype type)
     Reset(ownerSegment, type);
 }
 
-
+/*
+ * resets the state of the Tile, and validates it
+ */
 void Tile::Reset(WorldSegment* ownerSegment, df::tiletype type)
 {
     //clear out own memory
@@ -85,12 +87,40 @@ void Tile::Reset(WorldSegment* ownerSegment, df::tiletype type)
 
 Tile::~Tile(void)
 {
-    if( creature ) {
+    if(creature) {
         delete(creature);
+        this->creature=NULL;
     }
     if(inv) {
         delete(inv);
+        this->inv=NULL;
     }
+}
+
+/**
+ * returns the validity of this Tile
+ * Tiles that are not valid have undefined behavior
+ */
+bool Tile::IsValid()
+{
+    return valid;
+}
+
+/**
+ * invalidates this Tile, and frees memory of any member objects 
+ *  through the deconstructor
+ */
+bool Tile::Invalidate()
+{
+    if(!valid) {
+        return false;
+    }
+
+    this->~Tile();
+
+    valid=false;
+
+    return true;
 }
 
 inline ALLEGRO_BITMAP* imageSheet(t_SpriteWithOffset sprite, ALLEGRO_BITMAP* defaultBmp)
@@ -441,8 +471,6 @@ void Tile::AssembleTile()
     }
 
     // creature
-    // ensure there is *some* creature according to the map data
-    // (no guarantee it is the right one)
     if(occ.bits.unit && creature && (ssConfig.show_hidden_tiles || !designation.bits.hidden)) {
         AssembleCreature(drawx, drawy, creature, this);
     }

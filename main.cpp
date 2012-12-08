@@ -481,7 +481,6 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
     al_register_event_source(queue, al_get_timer_event_source(reloadtimer));
     al_register_event_source(queue, al_get_timer_event_source(animationtimer));
 
-    ssConfig.readMutex = al_create_mutex();
     ssConfig.readCond = al_create_cond();
 
 #ifdef BENCHMARK

@@ -300,21 +300,29 @@ void ReadBlockToSegment(DFHack::Core& DF, WorldSegment& segment, int BlockX, int
 
             bool shouldBeIncluded = true;
 
-            //if(isOpenTerrain(trueBlock->tiletype[lx][ly]) && trueBlock->tiletype[lx][ly] != tiletype::RampTop) {
-            //    if(ssConfig.show_hidden_tiles) {
-            //        shouldBeIncluded = false;
-            //    } else if(!(trueBlock->designation[lx][ly].bits.hidden)) {
-            //        shouldBeIncluded = false;
-            //    }
-            //} else if(!ssConfig.show_hidden_tiles
-            //    && trueBlock->designation[lx][ly].bits.hidden) {
-            //        shouldBeIncluded = false;
-            //}
+            //open terrain needs to be included to make blackboxes if 
+            // we are shading but not showing hidden tiles
+            if(isOpenTerrain(trueBlock->tiletype[lx][ly]) 
+                && trueBlock->tiletype[lx][ly] != tiletype::RampTop) {
+                if(!ssConfig.show_hidden_tiles 
+                    && ssConfig.shade_hidden_tiles 
+                    && trueBlock->designation[lx][ly].bits.hidden) {
+                    shouldBeIncluded = true;
+                } else {
+                    shouldBeIncluded = false;
+                }
+            //all other terrain needs including, except for hidden tiles
+            // when we are neither showing nor shading hidden tiles
+            } else if(!ssConfig.show_hidden_tiles
+                && !ssConfig.shade_hidden_tiles
+                && trueBlock->designation[lx][ly].bits.hidden) {
+                    shouldBeIncluded = false;
+            }
 
-            ////add back in any liquid tiles, in case they can be seen from above
-            //if(trueBlock->designation[lx][ly].bits.flow_size) {
-            //    shouldBeIncluded = true;
-            //}
+            //add back in any liquid tiles, in case they can be seen from above
+            if(trueBlock->designation[lx][ly].bits.flow_size) {
+                shouldBeIncluded = true;
+            }
 
             if(!shouldBeIncluded){
                 continue;
@@ -756,7 +764,7 @@ void beautify_Segment(WorldSegment * segment)
         if( !isTileOnVisibleEdgeOfSegment(segment, b) 
             && (b->tileType!=tiletype::OpenSpace
             || b->designation.bits.flow_size
-            || b->creature
+            || (b->occ.bits.unit && b->creature)
             || b->building.info.type != BUILDINGTYPE_NA
             || b->haseffect)) {
 
@@ -1178,7 +1186,6 @@ void read_segment( void *arg)
                 FollowCurrentDFWindow();
             }
         }
-        map_segment.lockRead();
         segment = map_segment.getRead();
         readMapSegment(segment, parms.x, parms.y, parms.z,parms.sizex, parms.sizey, parms.sizez);
         ssConfig.threadstarted = 0;
@@ -1198,18 +1205,19 @@ void read_segment( void *arg)
             segment->AssembleAllTiles();
         }
 
+        //only need to lock the drawing segment because the reading segment is already locked
         map_segment.lockDraw();
         map_segment.swap();
-        map_segment.unlock();
+        map_segment.unlockDraw();
     }
 }
 
 static void * threadedSegment(ALLEGRO_THREAD *read_thread, void *arg)
 {
     while(!al_get_thread_should_stop(read_thread)) {
-        al_lock_mutex(ssConfig.readMutex);
+        map_segment.lockRead();
         read_segment(arg);
-        al_unlock_mutex(ssConfig.readMutex);
+        map_segment.unlockRead();
         al_rest(ssConfig.automatic_reload_time/1000.0);
     }
     return 0;
