@@ -107,7 +107,6 @@ const char * get_item_subtype(item_type::item_type type, int subtype)
     }
 }
 
-
 void draw_diamond(float x, float y, ALLEGRO_COLOR color)
 {
     al_draw_filled_triangle(x, y, x+4, y+4, x-4, y+4, color);
