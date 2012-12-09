@@ -109,19 +109,29 @@ bool Tile::IsValid()
 }
 
 /**
+ * invalidates this Tile
+ * returns old validity value
+ */
+bool Tile::Invalidate(){
+    if(!valid) {
+        return false;
+    }
+    valid=false;
+    return true;
+}
+
+/**
  * invalidates this Tile, and frees memory of any member objects 
  *  through the deconstructor
+ * returns old validity value
  */
-bool Tile::Invalidate()
+bool Tile::InvalidateAndDestroy()
 {
     if(!valid) {
         return false;
     }
-
     this->~Tile();
-
     valid=false;
-
     return true;
 }
 

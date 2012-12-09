@@ -171,6 +171,7 @@ public:
 
     bool IsValid();
     bool Invalidate();
+    bool InvalidateAndDestroy();
 private:
     bool valid;
 };
