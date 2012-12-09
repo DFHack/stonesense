@@ -75,8 +75,7 @@ void ReadBlockToSegment(DFHack::Core& DF, WorldSegment& segment,
         &ices,
         &splatter,
         &grass,
-        &worldconstructions);     
-
+        &worldconstructions);    
     //parse block
     for(uint32_t ly = BoundrySY; ly <= BoundryEY; ly++) {
         for(uint32_t lx = BoundrySX; lx <= BoundryEX; lx++) {
@@ -115,7 +114,6 @@ void ReadBlockToSegment(DFHack::Core& DF, WorldSegment& segment,
             if(!shouldBeIncluded){
                 continue;
             }
-            
             Tile * b = segment.ResetTile(gx, gy, BlockZ, trueBlock->tiletype[lx][ly]);
             b->occ = trueBlock->occupancy[lx][ly];
             b->occ.bits.unit = false;//this will be set manually when we read the creatures vector
@@ -138,9 +136,6 @@ void ReadBlockToSegment(DFHack::Core& DF, WorldSegment& segment,
                     continue;
             }
 
-            b->mudlevel = 0;
-            b->snowlevel = 0;
-            b->bloodlevel = 0;
             b->grasslevel = 0;
             b->grassmat = -1;
             //b->grasslevels.clear();
@@ -153,47 +148,96 @@ void ReadBlockToSegment(DFHack::Core& DF, WorldSegment& segment,
                     //b->grassmats.push_back(grass[i].material);
                 }
             }
-            if(1) { // just in case we need to quickly disable it.
+            
+            //do spatters
+            b->mudlevel = 0;
+            b->snowlevel = 0;
+            b->bloodlevel = 0;
+            if(ssConfig.bloodcutoff < UINT8_MAX) {
                 long red=0;
                 long green=0;
                 long blue=0;
-                long bloodlevel=0;
+                long blood=0;
+                long snow=0;
                 for(int i = 0; i < splatter.size(); i++) {
                     if(!splatter[i]->amount[lx][ly]) {
                         continue;
                     }
                     uint8_t level = (uint8_t)splatter[i]->amount[lx][ly];
-                    if(splatter[i]->mat_type == MUD) {
-                        b->mudlevel = level;
-                    } else if(splatter[i]->mat_type == ICE) {
-                        b->snowlevel = level;
-                    } else if(splatter[i]->mat_type == VOMIT) {
-                        bloodlevel += level;
+
+                    //try to get the blood/snow tint
+                    MaterialInfo mat;
+                    switch(splatter[i]->mat_type){
+                    case MUD:
+                        //red += (152 * level);
+                        //green += (118 * level);
+                        //blue += (84 *level);
+                        break;
+                    case ICE:
+                        //ice and snow are white, water is blue
+                        if(splatter[i]->mat_state == df::matter_state::Powder 
+                            || splatter[i]->mat_state == df::matter_state::Solid ) {
+                                red += (255 * level);
+                                green += (255 * level);
+                                blue += (255 *level);
+                        } else {
+                                red += (150 * level);
+                                green += (237 * level);
+                                blue += (224 *level);
+                        }
+                        break;
+                    case VOMIT:
                         red += (127 * level);
                         green += (196 * level);
                         blue += (28 *level);
-                    } else if(splatter[i]->mat_type > 19) {
-                        MaterialInfo mat;
-                        mat.decode(splatter[i]->mat_type, splatter[i]->mat_index);
-                        bloodlevel += level;
-                        red += (contentLoader->Mats->color[mat.material->state_color[splatter[i]->mat_state]].red * level * 255);
-                        green += (contentLoader->Mats->color[mat.material->state_color[splatter[i]->mat_state]].green * level * 255);
-                        blue += (contentLoader->Mats->color[mat.material->state_color[splatter[i]->mat_state]].blue * level * 255);
+                        break;
+                    default:
+                        //try to decode the material color, use gray if we fail
+                        if(mat.decode(splatter[i]->mat_type, splatter[i]->mat_index)) {
+                            red += (contentLoader->Mats->color[mat.material->state_color[splatter[i]->mat_state]].red * level * 255);
+                            green += (contentLoader->Mats->color[mat.material->state_color[splatter[i]->mat_state]].green * level * 255);
+                            blue += (contentLoader->Mats->color[mat.material->state_color[splatter[i]->mat_state]].blue * level * 255);
+                        } else {
+                            red += (128 * level);
+                            green += (128 * level);
+                            blue += (128 *level);
+                        }
+
+                    }
+
+                    //use the state innformation to determine if we should be incrementing the snow or the blood
+                    int16_t state = splatter[i]->mat_state;
+                    state = splatter[i]->mat_type == MUD ? INVALID_INDEX : state;
+                    state = splatter[i]->mat_type == VOMIT ? df::matter_state::Paste : state; //change vomit from dust to paste - gross
+                    switch(state) {
+                    case INVALID_INDEX:
+                        b->mudlevel = level;
+                    case df::matter_state::Powder:
+                    case df::matter_state::Solid:
+                        snow += level;
+                        break;
+                    default:
+                        blood += level;
                     }
                 }
-                if(bloodlevel < 0) {
-                    bloodlevel = 0-bloodlevel;
-                }
-                b->bloodlevel = bloodlevel;
-                if(bloodlevel) {
-                    b->bloodcolor = al_map_rgba(red/b->bloodlevel, green/b->bloodlevel, blue/b->bloodlevel, (bloodlevel > ssConfig.bloodcutoff) ? 255 : bloodlevel*255/ssConfig.bloodcutoff);
+                blood = blood<0 ? 0-blood : blood;
+                snow = snow<0 ? 0-snow : snow;
+                int total = blood + snow;
+                if(blood || snow) {
+                    if(snow > blood) {
+                        b->bloodcolor = al_map_rgb(red/total, green/total, blue/total);
+                    } else {
+                        b->bloodcolor = al_map_rgba(red/total, green/total, blue/total, 
+                            (total > ssConfig.bloodcutoff) ? 255 : total*255/ssConfig.bloodcutoff);
+                    }
+                    b->snowlevel = snow>UINT8_MAX ? UINT8_MAX : snow;
+                    b->bloodlevel = blood>UINT8_MAX ? UINT8_MAX : blood;
                 } else {
                     b->bloodcolor = al_map_rgba(0,0,0,0);
                 }
             } else {
                 b->bloodcolor = al_map_rgb(150, 0, 24);
             }
-
 
             //determine rock/soil type
             int rockIndex = -1;
@@ -334,7 +378,10 @@ void ReadBlockToSegment(DFHack::Core& DF, WorldSegment& segment,
         assert(wheat != NULL);
         Tile* b = segment.getTile( wheat->pos.x, wheat->pos.y, wheat->pos.z);
         if(!b) {
-            continue;
+            b = segment.ResetTile(wheat->pos.x, wheat->pos.y, wheat->pos.z, tiletype::OpenSpace);
+            if(!b) {
+                continue;
+            }
         }
         if( b->tileShape() == tiletype_shape::TREE ||
             b->tileShape() == tiletype_shape::SAPLING ||
@@ -353,7 +400,10 @@ void ReadBlockToSegment(DFHack::Core& DF, WorldSegment& segment,
         }
         Tile* b = segment.getTile( found_item->pos.x, found_item->pos.y, found_item->pos.z);
         if(!b) {
-            continue;
+            b = segment.ResetTile(found_item->pos.x, found_item->pos.y, found_item->pos.z, tiletype::OpenSpace);
+            if(!b) {
+                continue;
+            }
         }
         b->Item.item.type = found_item->getType(); //itemtype
         b->Item.item.index = found_item->getSubtype(); //item subtype
@@ -404,9 +454,12 @@ void ReadBlockToSegment(DFHack::Core& DF, WorldSegment& segment,
         }
         Tile* b = segment.getTile( eff->pos.x, eff->pos.y, eff->pos.z);
         if(segment.CoordinateInsideSegment(eff->pos.x, eff->pos.y, eff->pos.z)) {
+        if(!b) {
+            b = segment.ResetTile(eff->pos.x, eff->pos.y, eff->pos.z, tiletype::OpenSpace);
             if(!b) {
                 continue;
             }
+        }
             if(eff->density > b->tileeffect.density 
                 || b->tileeffect.type == (df::flow_type) INVALID_INDEX) {
                     b->tileeffect.type = eff->type;

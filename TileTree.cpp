@@ -15,7 +15,10 @@ void insert_sprite(WorldSegment *w, int x, int y, int z, Tile * parent, c_sprite
 {
     Tile * b_orig = w->getTile(x, y, z);
     if(!b_orig) {
-        return;
+        b_orig = w->ResetTile(x, y, z, tiletype::OpenSpace);
+        if(!b_orig) {
+            return;
+        }
     }
     b_orig->building.sprites.push_back(sprite);
     if(b_orig->building.type == (building_type::building_type) BUILDINGTYPE_NA) {

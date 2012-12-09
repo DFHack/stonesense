@@ -380,7 +380,10 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
         }
         Tile* b = segment->getTile(unit_ptr->pos.x, unit_ptr->pos.y, unit_ptr->pos.z );
         if(!b) {
-            continue;
+            b = segment->ResetTile(unit_ptr->pos.x, unit_ptr->pos.y, unit_ptr->pos.z, tiletype::OpenSpace);
+            if(!b) {
+                continue;
+            }
         }
 
         // creature already there? SKIP.

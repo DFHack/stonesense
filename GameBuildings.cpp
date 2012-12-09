@@ -121,20 +121,24 @@ void MergeBuildingsToSegment(vector<Buildings::t_building>* buildings, WorldSegm
         for(uint32_t yy = copiedbuilding->y1; yy <= copiedbuilding->y2; yy++)
             for(uint32_t xx = copiedbuilding->x1; xx <= copiedbuilding->x2; xx++) {
                 Tile* b = segment->getTile( xx, yy, copiedbuilding->z);
-                if(b) {
-                    //want hashtable :(
-                    // still need to test for b, because of ramp/building overlap
-
-                    //handle special case where zones and stockpiles overlap buildings, and try to replace them
-                    if(b->building.type != BUILDINGTYPE_NA && copiedbuilding->type == df::enums::building_type::Civzone ) {
+                if(!b) {
+                    b = segment->ResetTile(xx, yy, copiedbuilding->z, tiletype::OpenSpace);
+                    if(!b) {
                         continue;
                     }
-                    if(b->building.type != BUILDINGTYPE_NA && copiedbuilding->type == df::enums::building_type::Stockpile ) {
-                        continue;
-                    }
-                    b->building.type = copiedbuilding->type;
-                    b->building.info = copiedbuilding;
                 }
+                //want hashtable :(
+                // still need to test for b, because of ramp/building overlap
+
+                //handle special case where zones and stockpiles overlap buildings, and try to replace them
+                if(b->building.type != BUILDINGTYPE_NA && copiedbuilding->type == df::enums::building_type::Civzone ) {
+                    continue;
+                }
+                if(b->building.type != BUILDINGTYPE_NA && copiedbuilding->type == df::enums::building_type::Stockpile ) {
+                    continue;
+                }
+                b->building.type = copiedbuilding->type;
+                b->building.info = copiedbuilding;
             }
     }
 }
