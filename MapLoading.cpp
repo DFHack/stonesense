@@ -132,7 +132,8 @@ void ReadBlockToSegment(DFHack::Core& DF, WorldSegment& segment,
             //don't read detailed information for blackbox tiles
             if(!ssConfig.show_hidden_tiles
                 && ssConfig.shade_hidden_tiles
-                && b->designation.bits.hidden) {
+                && b->designation.bits.hidden
+                && !b->designation.bits.flow_size) {
                     continue;
             }
 
