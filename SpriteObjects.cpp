@@ -624,7 +624,7 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
 //    }
 //}
 
-void c_sprite::assemble_world_offset_src(int x, int y, int z, int plateoffset, Tile * b, Tile* src, bool chop)
+void c_sprite::assemble_world_offset(int x, int y, int z, int plateoffset, Tile * b, bool chop)
 {
     if(defaultsheet == 0) {
         defaultsheet = IMGObjectSheet;
@@ -682,33 +682,33 @@ void c_sprite::assemble_world_offset_src(int x, int y, int z, int plateoffset, T
             goto draw_subsprite;
         }
         int foo = 0;
-        if(!(snowmin <= src->snowlevel &&	(snowmax == -1 || snowmax >= src->snowlevel))) {
+        if(!(snowmin <= b->snowlevel &&	(snowmax == -1 || snowmax >= b->snowlevel))) {
             goto draw_subsprite;
         }
-        if (!(bloodmin <= src->bloodlevel && (bloodmax == -1 || bloodmax >= src->bloodlevel))) {
+        if (!(bloodmin <= b->bloodlevel && (bloodmax == -1 || bloodmax >= b->bloodlevel))) {
             goto draw_subsprite;
         }
-        if(!(mudmin <= src->mudlevel && (mudmax == -1 || mudmax >= src->mudlevel))) {
+        if(!(mudmin <= b->mudlevel && (mudmax == -1 || mudmax >= b->mudlevel))) {
             goto draw_subsprite;
         }
-        if(!(grassmin <= src->grasslevel && (grassmax == -1 || grassmax >= src->grasslevel))) {
+        if(!(grassmin <= b->grasslevel && (grassmax == -1 || grassmax >= b->grasslevel))) {
             goto draw_subsprite;
         }
         //only bother with this plate if it's in the light, or not.
         if(!((light==LIGHTANY) || ((light==LIGHTYES) && b->designation.bits.outside) || ((light==LIGHTNO) && !(b->designation.bits.outside)))) {
             goto draw_subsprite;
         }
-        if(!((grasstype == -1) || (grasstype == src->grassmat))) {
+        if(!((grasstype == -1) || (grasstype == b->grassmat))) {
             goto draw_subsprite;
         }
         if(!((grass_growth == GRASS_GROWTH_ANY) ||
                 ((grass_growth == GRASS_GROWTH_NORMAL) &&
-                 ((src->tileMaterial() == tiletype_material::GRASS_DARK) ||
-                  (src->tileMaterial() == tiletype_material::GRASS_LIGHT))) ||
+                 ((b->tileMaterial() == tiletype_material::GRASS_DARK) ||
+                  (b->tileMaterial() == tiletype_material::GRASS_LIGHT))) ||
                 ((grass_growth == GRASS_GROWTH_DRY) &&
-                 (src->tileMaterial() == tiletype_material::GRASS_DRY)) ||
+                 (b->tileMaterial() == tiletype_material::GRASS_DRY)) ||
                 ((grass_growth == GRASS_GROWTH_DEAD) &&
-                 (src->tileMaterial() == tiletype_material::GRASS_DEAD)))) {
+                 (b->tileMaterial() == tiletype_material::GRASS_DEAD)))) {
             goto draw_subsprite;
         }
 
@@ -758,16 +758,16 @@ void c_sprite::assemble_world_offset_src(int x, int y, int z, int plateoffset, T
             sheetx = ((sheetindex+plateoffset+randoffset) % SHEET_OBJECTSWIDE) * spritewidth;
             sheety = ((sheetindex+plateoffset+randoffset) / SHEET_OBJECTSWIDE) * spriteheight;
         } else if(platelayout == RAMPBOTTOMPLATE) {
-            sheetx = SPRITEWIDTH * src->rampindex;
+            sheetx = SPRITEWIDTH * b->rampindex;
             sheety = ((PLATEHEIGHT + FLOORHEIGHT + SPRITEHEIGHT) * (sheetindex+plateoffset+randoffset))+(PLATEHEIGHT + FLOORHEIGHT);
         } else if(platelayout == RAMPTOPPLATE) {
-            sheetx = SPRITEWIDTH * src->rampindex;
+            sheetx = SPRITEWIDTH * b->rampindex;
             sheety = (PLATEHEIGHT + FLOORHEIGHT + SPRITEHEIGHT) * (sheetindex+plateoffset+randoffset);
         } else {
             sheetx = ((sheetindex+plateoffset+randoffset) % SHEET_OBJECTSWIDE) * spritewidth;
             sheety = ((sheetindex+plateoffset+randoffset) / SHEET_OBJECTSWIDE) * spriteheight;
         }
-        ALLEGRO_COLOR shade_color = shadeAdventureMode(get_color(src), b->fog_of_war, b->designation.bits.outside);
+        ALLEGRO_COLOR shade_color = shadeAdventureMode(get_color(b), b->fog_of_war, b->designation.bits.outside);
         if(chop && ( halftile == HALFPLATECHOP)) {
             if(fileindex < 0) {
                 if(shade_color.a > 0.001f)
@@ -889,7 +889,7 @@ void c_sprite::assemble_world_offset_src(int x, int y, int z, int plateoffset, T
 draw_subsprite:
     if(!subsprites.empty()) {
         for(int i = 0; i < subsprites.size(); i++) {
-            subsprites.at(i).assemble_world_offset_src(x, y, z, plateoffset, b, src, chop);
+            subsprites.at(i).assemble_world_offset(x, y, z, plateoffset, b, chop);
         }
     }
 }
