@@ -183,8 +183,8 @@ struct GameConfiguration {
     bool occlusion;
     bool tile_count;
 
-    uint16_t bloodcutoff;
-    uint16_t poolcutoff;
+    uint8_t bloodcutoff;
+    uint8_t poolcutoff;
     //follows are anti-crash things
     bool skipWorld;
     bool skipCreatures;

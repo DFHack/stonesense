@@ -106,7 +106,7 @@ int getBloodOffset ( Tile *b )
     if( b->designation.bits.flow_size < 1 && (b->bloodlevel)) {
 
         // Spatter (should be blood, not blood2) swapped for testing
-        if( b->bloodlevel <= ssConfig.poolcutoff ) {
+        if( b->bloodlevel < ssConfig.poolcutoff ) {
             offset = 7;
         }
 

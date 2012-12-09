@@ -309,18 +309,24 @@ void Tile::AssembleTile()
         spriteobject->set_plate_layout(TILEPLATE);
     }
 
-    AssembleFloorBlood ( drawx, drawy );
+    if(snowlevel <= bloodlevel) {
+        AssembleFloorBlood ( drawx, drawy );
+    }
 
     //first part of snow
-    if(tileShapeBasic()!=tiletype_shape_basic::Ramp && tileShapeBasic()!=tiletype_shape_basic::Wall && tileShapeBasic()!=tiletype_shape_basic::Stair && defaultSnow) {
+    if(tileShapeBasic()!=tiletype_shape_basic::Ramp 
+        && tileShapeBasic()!=tiletype_shape_basic::Wall 
+        && tileShapeBasic()!=tiletype_shape_basic::Stair 
+        && defaultSnow
+        && snowlevel>bloodlevel) {
         if(snowlevel > 75) {
-            AssembleSpriteFromSheet( 20, IMGObjectSheet, al_map_rgb(255,255,255), drawx, drawy, this);
+            AssembleSpriteFromSheet( 20, IMGObjectSheet, bloodcolor, drawx, drawy, this);
         } else if(snowlevel > 50) {
-            AssembleSpriteFromSheet( 21, IMGObjectSheet, al_map_rgb(255,255,255), drawx, drawy, this );
+            AssembleSpriteFromSheet( 21, IMGObjectSheet, bloodcolor, drawx, drawy, this );
         } else if(snowlevel > 25) {
-            AssembleSpriteFromSheet( 22, IMGObjectSheet, al_map_rgb(255,255,255), drawx, drawy, this );
+            AssembleSpriteFromSheet( 22, IMGObjectSheet, bloodcolor, drawx, drawy, this );
         } else if(snowlevel > 0) {
-            AssembleSpriteFromSheet( 23, IMGObjectSheet, al_map_rgb(255,255,255), drawx, drawy, this );
+            AssembleSpriteFromSheet( 23, IMGObjectSheet, bloodcolor, drawx, drawy, this );
         }
     }
 
@@ -467,13 +473,16 @@ void Tile::AssembleTile()
     }
 
     //second part of snow
-    if(tileShapeBasic()!=tiletype_shape_basic::Wall && tileShapeBasic()!=tiletype_shape_basic::Stair && defaultSnow) {
+    if(tileShapeBasic()!=tiletype_shape_basic::Wall 
+        && tileShapeBasic()!=tiletype_shape_basic::Stair 
+        && defaultSnow
+        && snowlevel>bloodlevel) {
         if(snowlevel > 75) {
-            AssembleSpriteFromSheet( 24, IMGObjectSheet, al_map_rgb(255,255,255), drawx, drawy, this );
+            AssembleSpriteFromSheet( 24, IMGObjectSheet, bloodcolor, drawx, drawy, this );
         } else if(snowlevel > 50) {
-            AssembleSpriteFromSheet( 25, IMGObjectSheet, al_map_rgb(255,255,255), drawx, drawy, this );
+            AssembleSpriteFromSheet( 25, IMGObjectSheet, bloodcolor, drawx, drawy, this );
         } else if(snowlevel > 25) {
-            AssembleSpriteFromSheet( 26, IMGObjectSheet, al_map_rgb(255,255,255), drawx, drawy, this );
+            AssembleSpriteFromSheet( 26, IMGObjectSheet, bloodcolor, drawx, drawy, this );
         }
     }
 
