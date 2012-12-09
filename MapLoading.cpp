@@ -20,10 +20,10 @@ bool connected = 0;
 bool threadrunnng = 0;
 segParams parms;
 
-//==============================Map Read 1==============================//
+//==============================Map Read ==============================//
 /*
- * This is the first-stage map reading that reads in the minimum 
- *  information required to optimize the map tiles.
+ * This is the first-stage map reading section.  This deals with reading 
+ * from the DF map, and storing what is needed for us to draw things.  
  */
 
 /**
@@ -626,11 +626,6 @@ void readMapSegment(WorldSegment* segment, int x, int y, int z, int sizex, int s
     segment->processed = 0;
     ssTimers.read_time = (clock() - starttime)*0.1 + ssTimers.read_time*0.9;
 }
-
-//==============================Map Read 2==============================//
-/*
- * This is the second-stage map reading called from the sprite assembly functions.
- */
 
 //==================================Misc================================//
 /*
