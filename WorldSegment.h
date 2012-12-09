@@ -76,24 +76,31 @@ public:
     }
 
     void Reset(int x=0, int y=0, int z=0, int sizex=0, int sizey=0, int sizez=0, bool hard=false) {
+        //clear and free old data
         todraw.clear();
-        buildings.clear();
-
-        uint32_t num = getNumTiles();
-
-        for(uint32_t i = 0; i < num; i++) {
-            tiles[i].Invalidate();
+        buildings.clear();            
+        for(uint32_t i = 0; i < getNumTiles(); i++) {
+            tiles[i].InvalidateAndDestroy();
         }
-        uint32_t memoryNeeded = sizex * sizey * sizez * sizeof(Tile);
+
+        uint32_t newNumTiles = sizex * sizey * sizez;
+        uint32_t memoryNeeded = newNumTiles * sizeof(Tile);
         //if this is a hard reset, or if the size doesn't match what is needed, get a new segment
-        if(hard || sizex*sizey*sizez != size.x*size.y*size.z) {
+        if(hard || newNumTiles != getNumTiles()) {
             free(tiles);
-            uint32_t memoryNeeded = sizex * sizey * sizez * sizeof(Tile);
             tiles = (Tile*) malloc( memoryNeeded );
+            
+            //on a hard reset, zero out the entire array
+            if(hard) {
+                memset(tiles, 0, memoryNeeded);
+            //otherwise, just invalidate the entire set of tiles
+            } else {
+                for(uint32_t i = 0; i < newNumTiles; i++) {
+                    tiles[i].Invalidate();
+                }
+            }
         }
-        if(hard) {
-            memset(tiles, 0, memoryNeeded);
-        }
+
         this->pos.x = x;
         this->pos.y = y;
         this->pos.z = z - sizez + 1;
@@ -105,9 +112,10 @@ public:
         this->displayed.z = ssState.DisplayedSegmentZ;
         regionSize.x = regionSize.y = regionSize.z = 0;
         regionPos.x = regionPos.y = regionPos.z = 0;
+        
     }
 
-    uint32_t getNumTiles() {
+    inline uint32_t getNumTiles() {
         return size.x * size.y * size.z;
     }
     
