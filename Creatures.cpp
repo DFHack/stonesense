@@ -8,6 +8,8 @@
 #include "SpriteColors.h"
 #include "DataDefs.h"
 #include "df/world.h"
+#include "df/unit.h"
+#include "df/job.h"
 #include "df/unit_inventory_item.h"
 #include "df/item_constructed.h"
 #include "df/itemimprovement.h"
@@ -285,9 +287,17 @@ void DrawCreatureText(int drawx, int drawy, t_unit* creature )
         }
     }
 
+
     if( ssConfig.show_creature_names ) {
+        ALLEGRO_COLOR textcol;
+        if(ssConfig.show_creature_professions == 2) {
+            textcol = ssConfig.colors.getDfColor(DFHack::Units::getCasteProfessionColor(creature->race,creature->caste,(df::profession)creature->profession));
+        } else {
+            textcol = al_map_rgb(255,255,255);
+        }
+
         if (creature->name.nickname[0] && ssConfig.names_use_nick) {
-            draw_textf_border(font, al_map_rgb(255,255,255), drawx, drawy-(WALLHEIGHT+al_get_font_line_height(font)), 0,
+            draw_textf_border(font, textcol, drawx, drawy-(WALLHEIGHT+al_get_font_line_height(font)), 0,
                               "%s", creature->name.nickname );
         } else if (creature->name.first_name[0]) {
             char buffer[128];
@@ -295,12 +305,12 @@ void DrawCreatureText(int drawx, int drawy, t_unit* creature )
             buffer[127]=0;
             ALLEGRO_USTR* temp = bufferToUstr(buffer, 128);
             al_ustr_set_chr(temp, 0, charToUpper(al_ustr_get(temp, 0)));
-            draw_ustr_border(font, al_map_rgb(255,255,255), drawx, drawy-((WALLHEIGHT*ssConfig.scale)+al_get_font_line_height(font)), 0,
+            draw_ustr_border(font, textcol, drawx, drawy-((WALLHEIGHT*ssConfig.scale)+al_get_font_line_height(font)), 0,
                              temp );
             al_ustr_free(temp);
         } else if (ssConfig.names_use_species) {
             if(!ssConfig.skipCreatureTypes)
-                draw_textf_border(font, al_map_rgb(255,255,255), drawx, drawy-(WALLHEIGHT*ssConfig.scale+al_get_font_line_height(font)), 0,
+                draw_textf_border(font, textcol, drawx, drawy-(WALLHEIGHT*ssConfig.scale+al_get_font_line_height(font)), 0,
                                   "[%s]", contentLoader->Mats->race.at(creature->race).id.c_str());
         }
     }
@@ -317,13 +327,13 @@ void DrawCreatureText(int drawx, int drawy, t_unit* creature )
 
     offsety += ssConfig.show_creature_moods ? 16 : 0;
 
-    if(ssConfig.show_creature_professions) {
+    if(ssConfig.show_creature_professions == 1) {
         unsigned int sheetx = 16 * (creature->profession % 7);
         unsigned int sheety = 16 * (creature->profession / 7);
         al_draw_bitmap_region(IMGProfSheet, sheetx, sheety, 16, 16, drawx -8 + (SPRITEWIDTH*ssConfig.scale/2), drawy - (16 + WALLHEIGHT*ssConfig.scale + offsety), 0);
     }
 
-    offsety += ssConfig.show_creature_professions ? 16 : 0;
+    offsety += ssConfig.show_creature_professions==1 ? 16 : 0;
 
     if(ssConfig.show_creature_jobs && creature->current_job.active) {
         unsigned int sheetx = 16 * (creature->current_job.jobType % 7);
@@ -332,52 +342,93 @@ void DrawCreatureText(int drawx, int drawy, t_unit* creature )
     }
 }
 
-//t_creature* global = 0;
 using df::global::world;
+
+/**
+ * Makes a copy of a DF creature for stonesense to use.
+ * 
+ * If somebody feels like maintaining the DFHack version,
+ * then we won't need to have our own written here >:(
+ */
+void copyCreature(df::unit * source, t_unit & furball)
+{
+    // read pointer from vector at position
+    furball.origin = source;
+
+    //read creature from memory
+    // name
+    Translation::readName(furball.name, &source->name);
+
+    // basic stuff
+    furball.id = source->id;
+    furball.x = source->pos.x;
+    furball.y = source->pos.y;
+    furball.z = source->pos.z;
+    furball.race = source->race;
+    furball.civ = source->civ_id;
+    furball.sex = source->sex;
+    furball.caste = source->caste;
+    furball.flags1.whole = source->flags1.whole;
+    furball.flags2.whole = source->flags2.whole;
+    furball.flags3.whole = source->flags3.whole;
+    // custom profession
+    furball.custom_profession = source->custom_profession;
+    // profession
+    furball.profession = source->profession;
+    // happiness
+    furball.happiness = source->status.happiness;
+    // physical attributes
+    memcpy(&furball.strength, source->body.physical_attrs, sizeof(source->body.physical_attrs));
+
+    // mood stuff
+    furball.mood = source->mood;
+    furball.mood_skill = source->job.mood_skill; 
+    Translation::readName(furball.artifact_name, &source->status.artifact_name);
+
+    // labors
+    memcpy(&furball.labors, &source->status.labors, sizeof(furball.labors));
+
+    furball.birth_year = source->relations.birth_year;
+    furball.birth_time = source->relations.birth_time;
+    furball.pregnancy_timer = source->relations.pregnancy_timer;
+    // appearance
+    furball.nbcolors = source->appearance.colors.size();
+    if(furball.nbcolors>MAX_COLORS)
+        furball.nbcolors = MAX_COLORS;
+
+    for(uint32_t i = 0; i < furball.nbcolors; i++) {
+        furball.color[i] = source->appearance.colors[i];
+    }
+    df::job* unit_job = source->job.current_job;
+    if(unit_job == NULL) {
+        furball.current_job.active = false;
+    } else {
+        furball.current_job.active = true;
+        furball.current_job.jobType = unit_job->job_type;
+        furball.current_job.jobId = unit_job->id;
+    }
+}
+
 void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
 {
     if(ssConfig.skipCreatures) {
         return;
     }
-    int x1 = segment->pos.x;
-    int x2 = segment->pos.x + segment->size.x;
-    int y1 = segment->pos.y;
-    int y2 = segment->pos.y + segment->size.y;
-    int z1 = segment->pos.z;
-    int z2 = segment->pos.z + segment->size.z;
-    uint32_t numcreatures;
 
-    numcreatures = DFHack::Units::getNumCreatures();
-    if(!numcreatures) {
+    if(world->units.active.size() <= 0) {
         return;
-    }
-    if(x1<0) {
-        x1=0;
-    }
-    if(y1<0) {
-        y1=0;
-    }
-    if(z1<0) {
-        z1=0;
-    }
-    if(x2<0) {
-        x2=0;
-    }
-    if(y2<0) {
-        y2=0;
-    }
-    if(z2<0) {
-        z2=0;
     }
 
     t_unit *tempcreature = NULL;
-    df::unit *unit_ptr = 0;
-    uint32_t index = 0;
-    while((index = DFHack::Units::GetCreatureInBox( index, &unit_ptr, x1,y1,z1,x2,y2,z2)) != -1 ) {
-        index++;
-        if( !IsCreatureVisible( unit_ptr ) ) {
+    df::unit *unit_ptr = 0; 
+    for(uint32_t index=0; index<world->units.active.size(); index++) {
+        unit_ptr = world->units.active[index];
+
+        if(!segment->CoordinateInsideSegment(unit_ptr->pos.x,unit_ptr->pos.y,unit_ptr->pos.z)
+            || (!IsCreatureVisible(unit_ptr) && !ssConfig.show_all_creatures)){
             continue;
         }
+
         Tile* b = segment->getTile(unit_ptr->pos.x, unit_ptr->pos.y, unit_ptr->pos.z );
         if(!b) {
             b = segment->ResetTile(unit_ptr->pos.x, unit_ptr->pos.y, unit_ptr->pos.z, tiletype::OpenSpace);
@@ -393,12 +444,12 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
         
         // make a copy of some creature data
         tempcreature = new t_unit;
-        DFHack::Units::CopyCreature(unit_ptr,*tempcreature);
+        copyCreature(unit_ptr,*tempcreature);
         b->occ.bits.unit=true;
         b->creature = tempcreature;
 
         // add shadow to nearest floor tile
-        for (int bz = tempcreature->z; bz>=z1; bz--) {
+        for (int bz = tempcreature->z; bz>=0; bz--) {
             Tile * floor_tile = segment->getTile (tempcreature->x, tempcreature->y, bz );
             if (!floor_tile) {
                 continue;
