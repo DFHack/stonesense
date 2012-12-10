@@ -286,7 +286,40 @@ void DrawCreatureText(int drawx, int drawy, t_unit* creature )
             statusIcons.push_back(17);
         }
     }
+    
+    unsigned int offsety = 0;
 
+    if(ssConfig.show_creature_jobs && creature->current_job.active) {
+        df::job_type jtype = (df::job_type) creature->current_job.jobType;
+
+        const char* jname = ENUM_ATTR(job_type,caption,jtype);
+        
+        //CAN'T DO THIS UNTIL DFHack t_job IMPORTS MATERIAL TYPE???
+        //df::job_skill jskill = ENUM_ATTR(job_type,skill,jtype);
+        //if(jskill == job_skill::NONE){
+        //    check for material type of t_job
+        //}
+        //ALLEGRO_COLOR textcol;
+        //if(jskill != job_skill::NONE) {
+        //    const char* jprofname = ENUM_ATTR(job_skill,caption,jskill);
+        //    textcol = ssConfig.colors.getDfColor(
+        //        DFHack::Units::getCasteProfessionColor(
+        //        creature->race,creature->caste,ENUM_ATTR(
+        //        job_skill,profession,jskill
+        //        )));
+        //    draw_textf_border(font, textcol, drawx, drawy-((WALLHEIGHT*ssConfig.scale)+al_get_font_line_height(font) + offsety), 0,
+        //        "%s (%s)", jname, jprofname );
+        //} else {
+        //    textcol = al_map_rgb(255,255,255);
+        //    draw_textf_border(font, textcol, drawx, drawy-((WALLHEIGHT*ssConfig.scale)+al_get_font_line_height(font) + offsety), 0,
+        //        "%s", jname );
+        //}
+
+        draw_textf_border(font, al_map_rgb(255,255,255), drawx, drawy-((WALLHEIGHT*ssConfig.scale)+al_get_font_line_height(font) + offsety), 0,
+            "%s", jname );
+    }
+
+    offsety += (ssConfig.show_creature_jobs&&creature->current_job.active) ? al_get_font_line_height(font) : 0;
 
     if( ssConfig.show_creature_names ) {
         ALLEGRO_COLOR textcol;
@@ -297,25 +330,25 @@ void DrawCreatureText(int drawx, int drawy, t_unit* creature )
         }
 
         if (creature->name.nickname[0] && ssConfig.names_use_nick) {
-            draw_textf_border(font, textcol, drawx, drawy-(WALLHEIGHT+al_get_font_line_height(font)), 0,
+            draw_textf_border(font, textcol, drawx, drawy-((WALLHEIGHT*ssConfig.scale)+al_get_font_line_height(font) + offsety), 0,
                               "%s", creature->name.nickname );
         } else if (creature->name.first_name[0]) {
             char buffer[128];
             strncpy(buffer,creature->name.first_name,127);
-            buffer[127]=0;
+            buffer[127]=0;	
             ALLEGRO_USTR* temp = bufferToUstr(buffer, 128);
             al_ustr_set_chr(temp, 0, charToUpper(al_ustr_get(temp, 0)));
-            draw_ustr_border(font, textcol, drawx, drawy-((WALLHEIGHT*ssConfig.scale)+al_get_font_line_height(font)), 0,
-                             temp );
+            draw_ustr_border(font, textcol, drawx, drawy-((WALLHEIGHT*ssConfig.scale)+al_get_font_line_height(font) + offsety), 0,
+                temp );
             al_ustr_free(temp);
         } else if (ssConfig.names_use_species) {
             if(!ssConfig.skipCreatureTypes)
-                draw_textf_border(font, textcol, drawx, drawy-(WALLHEIGHT*ssConfig.scale+al_get_font_line_height(font)), 0,
+                draw_textf_border(font, textcol, drawx, drawy-((WALLHEIGHT*ssConfig.scale)+al_get_font_line_height(font) + offsety), 0,
                                   "[%s]", contentLoader->Mats->race.at(creature->race).id.c_str());
         }
     }
-    
-    unsigned int offsety = ssConfig.show_creature_names ? al_get_font_line_height(font) : 0;
+
+    offsety += ssConfig.show_creature_names ? al_get_font_line_height(font) : 0;
 
     if(statusIcons.size()) {
         for(int i = 0; i < statusIcons.size(); i++) {
@@ -331,14 +364,6 @@ void DrawCreatureText(int drawx, int drawy, t_unit* creature )
         unsigned int sheetx = 16 * (creature->profession % 7);
         unsigned int sheety = 16 * (creature->profession / 7);
         al_draw_bitmap_region(IMGProfSheet, sheetx, sheety, 16, 16, drawx -8 + (SPRITEWIDTH*ssConfig.scale/2), drawy - (16 + WALLHEIGHT*ssConfig.scale + offsety), 0);
-    }
-
-    offsety += ssConfig.show_creature_professions==1 ? 16 : 0;
-
-    if(ssConfig.show_creature_jobs && creature->current_job.active) {
-        unsigned int sheetx = 16 * (creature->current_job.jobType % 7);
-        unsigned int sheety = 16 * (creature->current_job.jobType / 7);
-        al_draw_bitmap_region(IMGJobSheet, sheetx, sheety, 16, 16, drawx -8 + (SPRITEWIDTH*ssConfig.scale/2), drawy - (16 + WALLHEIGHT*ssConfig.scale + offsety), 0);
     }
 }
 
