@@ -264,7 +264,8 @@ void doKeys(int Key)
         timeToReloadSegment = true;
     }
     if(Key == ALLEGRO_KEY_P) {
-        ssConfig.show_creature_professions = !ssConfig.show_creature_professions;
+        ssConfig.show_creature_professions++;
+        ssConfig.show_creature_professions = ssConfig.show_creature_professions % 3;
         timeToReloadSegment = true;
     }
     if(Key == ALLEGRO_KEY_J) {
