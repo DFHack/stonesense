@@ -156,7 +156,7 @@ void ReadBlockToSegment(DFHack::Core& DF, WorldSegment& segment,
             b->mudlevel = 0;
             b->snowlevel = 0;
             b->bloodlevel = 0;
-            if(ssConfig.bloodcutoff < UINT8_MAX) {
+            if(ssConfig.bloodcutoff < UCHAR_MAX) {
                 long red=0;
                 long green=0;
                 long blue=0;
@@ -219,8 +219,8 @@ void ReadBlockToSegment(DFHack::Core& DF, WorldSegment& segment,
                         b->bloodcolor = al_map_rgba(red/total, green/total, blue/total, 
                             (total > ssConfig.bloodcutoff) ? 255 : total*255/ssConfig.bloodcutoff);
                     }
-                    b->snowlevel = snow>UINT8_MAX ? UINT8_MAX : snow;
-                    b->bloodlevel = blood>UINT8_MAX ? UINT8_MAX : blood;
+                    b->snowlevel = snow>UCHAR_MAX ? UCHAR_MAX : snow;
+                    b->bloodlevel = blood>UCHAR_MAX ? UCHAR_MAX : blood;
                 } else {
                     b->bloodcolor = al_map_rgba(0,0,0,0);
                 }
