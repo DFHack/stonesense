@@ -177,30 +177,30 @@ void loadBuildingSprites ( Tile* b)
     }
 }
 
-/*TODO: this function takes a massive amount of work, looping all buildings for every tile*/
-bool TileHasSuspendedBuilding(vector<Buildings::t_building>* buildingList, Tile* b)
-{
-    uint32_t num = (uint32_t)buildingList->size();
-    for(uint32_t i=0; i < num; i++) {
-        Buildings::t_building* building = &(*buildingList)[i];
-
-        //boundry check
-        if(b->z != building->z) {
-            continue;
-        }
-        if(b->x < building->x1  ||   b->x > building->x2) {
-            continue;
-        }
-        if(b->y < building->y1  ||   b->y > building->y2) {
-            continue;
-        }
-
-        if(building->type == df::enums::building_type::Bridge) {
-            return true;
-        }
-        if(building->type == df::enums::building_type::Civzone) {
-            return true;
-        }
-    }
-    return false;
-}
+///*TODO: this function takes a massive amount of work, looping all buildings for every tile*/
+//bool TileHasSuspendedBuilding(vector<Buildings::t_building>* buildingList, Tile* b)
+//{
+//    uint32_t num = (uint32_t)buildingList->size();
+//    for(uint32_t i=0; i < num; i++) {
+//        Buildings::t_building* building = &(*buildingList)[i];
+//
+//        //boundry check
+//        if(b->z != building->z) {
+//            continue;
+//        }
+//        if(b->x < building->x1  ||   b->x > building->x2) {
+//            continue;
+//        }
+//        if(b->y < building->y1  ||   b->y > building->y2) {
+//            continue;
+//        }
+//
+//        if(building->type == df::enums::building_type::Bridge) {
+//            return true;
+//        }
+//        if(building->type == df::enums::building_type::Civzone) {
+//            return true;
+//        }
+//    }
+//    return false;
+//}

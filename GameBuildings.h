@@ -25,7 +25,7 @@ void ReadBuildingsToSegment(DFHack::Core& DF, WorldSegment* segment);
 void MergeBuildingsToSegment(vector<Buildings::t_building>* buildings, WorldSegment* segment);
 void loadBuildingSprites( Tile* b);
 void ReadBuildings(DFHack::Core& DF, vector<Buildings::t_building>* buildingHolder);
-bool TileHasSuspendedBuilding(vector<Buildings::t_building>* buildingList, Tile* b);
+//bool TileHasSuspendedBuilding(vector<Buildings::t_building>* buildingList, Tile* b);
 
 dirTypes findWallCloseTo(WorldSegment* segment, Tile* b);
 
