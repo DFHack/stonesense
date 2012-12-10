@@ -457,6 +457,8 @@ const char *lookupMaterialTypeName(int matType)
         return "PlantCloth";
     case LEATHER:
         return "Leather";
+    case VOMIT:
+        return "Vomit";
     default:
         return NULL;
     }
@@ -486,6 +488,8 @@ MAT_BASICS lookupMaterialType(const char* strValue)
         return PLANTCLOTH;
     } else if( strcmp(strValue, "Leather") == 0) {
         return LEATHER;
+    } else if( strcmp(strValue, "Vomit") == 0) {
+        return VOMIT;
     }
     //TODO this needs fixing on dfhack side
     return INVALID;
@@ -668,22 +672,22 @@ void ContentLoader::flushCreatureConfig()
     creatureConfigs.clear();
 }
 
-ALLEGRO_COLOR lookupMaterialColor(DFHack::t_matglossPair matt)
+ALLEGRO_COLOR lookupMaterialColor(DFHack::t_matglossPair matt, ALLEGRO_COLOR defaultColor)
 {
-    return lookupMaterialColor((int) matt.type, (int) matt.index, -1, -1);
+    return lookupMaterialColor((int) matt.type, (int) matt.index, -1, -1, defaultColor);
 }
 
-ALLEGRO_COLOR lookupMaterialColor(DFHack::t_matglossPair matt, DFHack::t_matglossPair dyematt)
+ALLEGRO_COLOR lookupMaterialColor(DFHack::t_matglossPair matt, DFHack::t_matglossPair dyematt, ALLEGRO_COLOR defaultColor)
 {
-    return lookupMaterialColor((int) matt.type, (int) matt.index, (int) dyematt.type, (int) dyematt.index);
+    return lookupMaterialColor((int) matt.type, (int) matt.index, (int) dyematt.type, (int) dyematt.index, defaultColor);
 }
 
-ALLEGRO_COLOR lookupMaterialColor(int matType, int matIndex)
+ALLEGRO_COLOR lookupMaterialColor(int matType, int matIndex, ALLEGRO_COLOR defaultColor)
 {
-    return lookupMaterialColor( matType, matIndex, -1, -1);
+    return lookupMaterialColor( matType, matIndex, -1, -1, defaultColor);
 }
 
-ALLEGRO_COLOR lookupMaterialColor(int matType, int matIndex, int dyeType, int dyeIndex)
+ALLEGRO_COLOR lookupMaterialColor(int matType, int matIndex, int dyeType, int dyeIndex, ALLEGRO_COLOR defaultColor)
 {
     if (matType < 0) {
         //This should not normally happen, but if it does, we don't want crashes, so we'll return magic pink so show something's wrong.
@@ -715,9 +719,8 @@ DFColor:
                        contentLoader->Mats->color[mat.material->state_color[0]].red,
                        contentLoader->Mats->color[mat.material->state_color[0]].green,
                        contentLoader->Mats->color[mat.material->state_color[0]].blue);
-    } else {
-        return al_map_rgb(255,255,255);
-    }
+    } 
+    return defaultColor;
 }
 
 ShadeBy getShadeType(const char* Input)

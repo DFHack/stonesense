@@ -167,48 +167,34 @@ void ReadBlockToSegment(DFHack::Core& DF, WorldSegment& segment,
                         continue;
                     }
                     uint8_t level = (uint8_t)splatter[i]->amount[lx][ly];
+                    ALLEGRO_COLOR tempBlood = al_map_rgb(255,255,255);
 
                     //try to get the blood/snow tint
                     MaterialInfo mat;
                     switch(splatter[i]->mat_type){
                     case MUD:
-                        //red += (152 * level);
-                        //green += (118 * level);
-                        //blue += (84 *level);
                         break;
                     case ICE:
-                        //ice and snow are white, water is blue
-                        if(splatter[i]->mat_state == df::matter_state::Powder 
-                            || splatter[i]->mat_state == df::matter_state::Solid ) {
-                                red += (255 * level);
-                                green += (255 * level);
-                                blue += (255 *level);
-                        } else {
-                                red += (150 * level);
-                                green += (237 * level);
-                                blue += (224 *level);
+                        //ice and snow are white (default), water is blue
+                        if(splatter[i]->mat_state != df::matter_state::Powder 
+                            && splatter[i]->mat_state != df::matter_state::Solid ) {
+                            tempBlood = lookupMaterialColor(splatter[i]->mat_type, -1);
                         }
                         break;
                     case VOMIT:
-                        red += (127 * level);
-                        green += (196 * level);
-                        blue += (28 *level);
+                        tempBlood = lookupMaterialColor(splatter[i]->mat_type, -1);
                         break;
                     default:
-                        //try to decode the material color, use gray if we fail
-                        if(mat.decode(splatter[i]->mat_type, splatter[i]->mat_index)) {
-                            red += (contentLoader->Mats->color[mat.material->state_color[splatter[i]->mat_state]].red * level * 255);
-                            green += (contentLoader->Mats->color[mat.material->state_color[splatter[i]->mat_state]].green * level * 255);
-                            blue += (contentLoader->Mats->color[mat.material->state_color[splatter[i]->mat_state]].blue * level * 255);
-                        } else {
-                            red += (128 * level);
-                            green += (128 * level);
-                            blue += (128 *level);
-                        }
-
+                        tempBlood = lookupMaterialColor(splatter[i]->mat_type, splatter[i]->mat_index, al_map_rgb(128,128,128));
                     }
 
-                    //use the state innformation to determine if we should be incrementing the snow or the blood
+                    if(splatter[i]->mat_type != MUD) {
+                        red += (tempBlood.r * 255 * level);
+                        green += (tempBlood.g * 255 * level);
+                        blue += (tempBlood.b * 255 * level);
+                    }
+
+                    //use the state information to determine if we should be incrementing the snow or the blood
                     int16_t state = splatter[i]->mat_state;
                     state = splatter[i]->mat_type == MUD ? INVALID_INDEX : state;
                     state = splatter[i]->mat_type == VOMIT ? df::matter_state::Paste : state; //change vomit from dust to paste - gross
