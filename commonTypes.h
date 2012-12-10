@@ -173,8 +173,8 @@ struct GameConfiguration {
     bool dayNightCycle;
 
     bool show_creature_moods;
-    bool show_creature_professions;
     bool show_creature_jobs;
+    uint8_t show_creature_professions;
 
     bool transparentScreenshots;
 
