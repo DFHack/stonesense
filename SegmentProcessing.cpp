@@ -633,17 +633,16 @@ void addSegmentExtras(WorldSegment * segment)
                 }
         }
 
-        //setup building sprites
-        if( b->building.type != BUILDINGTYPE_NA && b->building.type != BUILDINGTYPE_BLACKBOX && b->building.type != BUILDINGTYPE_TREE) {
-            loadBuildingSprites( b);
-        }
-
         //populate trees
         if(b->tree.index) {
             c_tile_tree * Tree = GetTreeVegetation(b->tileShape(), b->tileSpecial(), b->tree.index );
             Tree->insert_sprites(segment, b->x, b->y, b->z, b);
         }
 
+        //setup building sprites
+        if( b->building.type != BUILDINGTYPE_NA && b->building.type != BUILDINGTYPE_BLACKBOX) {
+            loadBuildingSprites( b);
+        }
 
         //setup deep water
         if( b->designation.bits.flow_size == 7 && b->designation.bits.liquid_type == 0) {

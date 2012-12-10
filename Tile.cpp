@@ -361,8 +361,8 @@ void Tile::AssembleTile()
 
     //Building
     bool skipBuilding =
-        (building.type == building_type::Civzone && !ssConfig.show_stockpiles) ||
-        (building.type == building_type::Stockpile && !ssConfig.show_zones);
+        (building.type == building_type::Civzone && !ssConfig.show_zones) ||
+        (building.type == building_type::Stockpile && !ssConfig.show_stockpiles);
 
     if(building.type != BUILDINGTYPE_NA && !skipBuilding) {
         for(uint32_t i=0; i < building.sprites.size(); i++) {

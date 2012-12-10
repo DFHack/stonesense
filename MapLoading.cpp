@@ -107,7 +107,9 @@ void ReadBlockToSegment(DFHack::Core& DF, WorldSegment& segment,
             }
 
             //add back in any liquid tiles, in case they can be seen from above
-            if(trueBlock->designation[lx][ly].bits.flow_size) {
+            // as well as any hanging buildings
+            if(trueBlock->designation[lx][ly].bits.flow_size
+                || trueBlock->occupancy[lx][ly].bits.building) {
                 shouldBeIncluded = true;
             }
 
