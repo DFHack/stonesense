@@ -2,6 +2,16 @@
 <creatures>
 <creature gameID="DWARF"  >
 
+	<variant special="Ghost" sex="M" file="dwarfm.png" >
+		<subsprite sheetIndex="11" zoom="2" color="xml" red="120" green="170" blue="225" alpha="200"/>
+		<subsprite sheetIndex="4" zoom="2" />
+	</variant>
+	
+	<variant special="Ghost" sex="F" file="dwarff.png" >
+		<subsprite sheetIndex="11" zoom="2" color="xml" red="120" green="170" blue="225" alpha="200"/>
+		<subsprite sheetIndex="4" zoom="2" />
+	</variant>
+
 	<variant special="Military" sex="M" file="dwarfm.png" >
 		  
 		<!--rear pieces for shadowing between legs-->

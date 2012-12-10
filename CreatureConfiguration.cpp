@@ -145,6 +145,9 @@ bool addSingleCreatureConfig( TiXmlElement* elemCreature, vector<vector<Creature
             if(strcmp( specstr, "Skeleton" ) == 0) {
                 crespec = eCSC_Skeleton;
             }
+            if(strcmp( specstr, "Ghost" ) == 0) {
+                crespec = eCSC_Ghost;
+            }
             if(strcmp( specstr, "Military" ) == 0) {
                 crespec = eCSC_Military;
             }
