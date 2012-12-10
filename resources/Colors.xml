@@ -6,4 +6,11 @@
   <color red="255" green="255" blue="255">
     <material value="Inorganic" />
   </color>
+  <color red="127" green="196" blue="28">
+    <material value="Vomit" />
+  </color>
+  <!--this is actually water-->
+  <color red="76" green="133" blue="168">
+    <material value="Ice" />
+  </color>
 </colors>
