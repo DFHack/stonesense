@@ -534,6 +534,9 @@ CreatureConfiguration *GetCreatureConfig( t_unit* c )
             if (testConfig->special == eCSC_Skeleton && !c->flags1.bits.skeleton) {
                 creatureMatchesSpecial = false;
             }
+            if (testConfig->special == eCSC_Ghost && !c->flags3.bits.ghostly) {
+                creatureMatchesSpecial = false;
+            }
             if (testConfig->special == eCSC_Military) {
                 df::profession profession = (df::profession) c->profession;
                 if(!ENUM_ATTR(profession,military,profession)) {

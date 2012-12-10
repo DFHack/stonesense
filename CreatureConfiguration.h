@@ -10,6 +10,7 @@ enum enumCreatureSpecialCases {
     eCSC_Military,
     eCSC_Zombie,
     eCSC_Skeleton,
+    eCSC_Ghost
 };
 
 class CreatureConfiguration
