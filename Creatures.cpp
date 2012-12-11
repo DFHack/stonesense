@@ -9,6 +9,8 @@
 #include "DataDefs.h"
 #include "df/world.h"
 #include "df/unit.h"
+#include "df/unit_soul.h"
+#include "df/unit_skill.h"
 #include "df/job.h"
 #include "df/unit_inventory_item.h"
 #include "df/item_constructed.h"
@@ -315,7 +317,10 @@ void DrawCreatureText(int drawx, int drawy, t_unit* creature )
         //        "%s", jname );
         //}
 
-        draw_textf_border(font, al_map_rgb(255,255,255), drawx, drawy-((WALLHEIGHT*ssConfig.scale)+al_get_font_line_height(font) + offsety), 0,
+        //go all kinds of crazy if it is a strange mood
+        ALLEGRO_COLOR textcol = ENUM_ATTR(job_type,type,jtype) == df::job_type_class::StrangeMood 
+            ? blinkTechnicolor() : al_map_rgb(255,255,255);
+        draw_textf_border(font, textcol, drawx, drawy-((WALLHEIGHT*ssConfig.scale)+al_get_font_line_height(font) + offsety), 0,
             "%s", jname );
     }
 
@@ -325,6 +330,17 @@ void DrawCreatureText(int drawx, int drawy, t_unit* creature )
         ALLEGRO_COLOR textcol;
         if(ssConfig.show_creature_professions == 2) {
             textcol = ssConfig.colors.getDfColor(DFHack::Units::getCasteProfessionColor(creature->race,creature->caste,(df::profession)creature->profession));
+            //stupid hack to get legendary status of creatures
+            if(creature->flags2.bits.unused) {
+                ALLEGRO_COLOR altcol;
+                //military flash dark, civilians flash light
+                if(ENUM_ATTR(profession,military,(df::profession)creature->profession)) {
+                    altcol = partialBlend(textcol,al_map_rgb(0,0,0),75);
+                } else {
+                    altcol = partialBlend(textcol,al_map_rgb(255,255,255),50);
+                }
+                textcol = blink(textcol, altcol);
+            }
         } else {
             textcol = al_map_rgb(255,255,255);
         }
@@ -370,6 +386,40 @@ void DrawCreatureText(int drawx, int drawy, t_unit* creature )
 using df::global::world;
 
 /**
+ * Tries to figure out if the unit is a legend.
+ * 
+ * Really stupid hack that will probably crash everything.
+ */
+bool hasLegendarySkill(df::unit * source){
+    //oh my god
+    if(!source) {
+        return false;
+    }
+    //ohhh my god
+    if(source->status.souls.size() <= 0) {
+        return false;
+    }
+    //you gotta be kidding me
+    df::unit_soul* soul = source->status.souls[0];
+    if(!soul) {
+        return false;
+    }
+    //...seriously?
+    if(soul->skills.size() <= 0) {
+        return false;
+    }
+    //this is so stupid it hurts
+    for(int i=0; i<soul->skills.size(); i++) {
+        //so very stupid
+        if(soul->skills[i] && soul->skills[i]->rating >= df::skill_rating::Legendary) {
+            return true;
+        }
+    }
+    //I feel dirty
+    return false;
+}
+
+/**
  * Makes a copy of a DF creature for stonesense to use.
  * 
  * If somebody feels like maintaining the DFHack version,
@@ -400,6 +450,11 @@ void copyCreature(df::unit * source, t_unit & furball)
     furball.custom_profession = source->custom_profession;
     // profession
     furball.profession = source->profession;
+    //idiotic hacky workaround to figure out if the creature is a legend
+    //FIXME: get actual skill reading or find the "is a legend" flag if it exists
+    if(ssConfig.show_creature_professions==2) {
+        furball.flags2.bits.unused = hasLegendarySkill(source);
+    }
     // happiness
     furball.happiness = source->status.happiness;
     // physical attributes

@@ -238,3 +238,39 @@ ALLEGRO_COLOR getDayShade(int hour, int tick)
     }
     return al_map_rgb(255,255,255);
 }
+
+ALLEGRO_COLOR blink(ALLEGRO_COLOR c1, ALLEGRO_COLOR c2) {
+    if((currentAnimationFrame>>2)&0x01) {
+        return c2;
+    } 
+    return c1;
+}
+
+ALLEGRO_COLOR blinkTechnicolor() {
+    switch(currentAnimationFrame & 0x07){
+    case 0x00:
+        //yellow;
+        return al_map_rgb(255,255,0);
+    case 0x01:
+        //blue
+        return al_map_rgb(0,0,255);
+    case 0x02:
+        //red
+        return al_map_rgb(255,0,0);
+    case 0x03:
+        //purple
+        return al_map_rgb(128,0,128);
+    case 0x04:
+        //orange
+        return al_map_rgb(255,165,0);
+    case 0x05:
+        //green
+        return al_map_rgb(0,128,0);
+    case 0x06:
+        //burgundy
+        return al_map_rgb(128,0,32);
+    default:
+        //lime
+        return al_map_rgb(0,255,0);
+    }
+}

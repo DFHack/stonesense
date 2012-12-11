@@ -201,6 +201,7 @@ void ReadBlockToSegment(DFHack::Core& DF, WorldSegment& segment,
                     switch(state) {
                     case INVALID_INDEX:
                         b->mudlevel = level;
+                        break;
                     case df::matter_state::Powder:
                     case df::matter_state::Solid:
                         snow += level;
