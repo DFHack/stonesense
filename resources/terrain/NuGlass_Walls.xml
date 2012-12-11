@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<walls file="Nuglass_Walls.png">
+<walls file="Nuglass_walls.png">
   <!-- construct -->
   <wall sheetIndex="0"
 		border_wall_NOR="2468" 
