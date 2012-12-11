@@ -335,7 +335,7 @@ void DrawCreatureText(int drawx, int drawy, t_unit* creature )
                 ALLEGRO_COLOR altcol;
                 //military flash dark, civilians flash light
                 if(ENUM_ATTR(profession,military,(df::profession)creature->profession)) {
-                    altcol = partialBlend(textcol,al_map_rgb(0,0,0),75);
+                    altcol = partialBlend(textcol,al_map_rgb(0,0,0),25);
                 } else {
                     altcol = partialBlend(textcol,al_map_rgb(255,255,255),50);
                 }
