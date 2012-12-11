@@ -203,9 +203,9 @@ void animUpdateProc()
         if (currentAnimationFrame >= (MAX_ANIMFRAME-1)) { // ie ends up [0 .. MAX_ANIMFRAME)
             currentAnimationFrame = 0;
         } else {
-            currentAnimationFrame = currentAnimationFrame + 1;
+            currentAnimationFrame++;
         }
-        currentFrameLong+=1;
+        currentFrameLong++;
         animationFrameShown = false;
     }
 }
