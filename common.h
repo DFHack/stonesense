@@ -50,29 +50,29 @@ using namespace df::enums;
 #define ISOMETRIC
 //#define CAVALIER
 
-// PLATEWIDTH: total size of sprite left to right
-// PLATEHEIGHT: floor part of sprite top to bottom
+// TILEWIDTH: total size of sprite left to right
+// TILETOPHEIGHT: floor part of sprite top to bottom
 // WALLHEIGHT: height of a one pixel wide stripe of wall top to bottom
 //		== amount top of wall is raised from where the floor would be
 // FLOORHEIGHT: height of a one pixel stripe of the 'wall' of a floor plate
 
 #ifdef CAVALIER
-#define PLATEWIDTH 46
-#define PLATEHEIGHT 46
+#define TILEWIDTH 46
+#define TILETOPHEIGHT 46
 #define WALLHEIGHT 24
 #define FLOORHEIGHT 6
 #endif
 
 #ifdef ISOMETRIC
-#define PLATEWIDTH 32
-#define PLATEHEIGHT 16
+#define TILEWIDTH 32
+#define TILETOPHEIGHT 16
 #define WALLHEIGHT 16
 #define FLOORHEIGHT 4
 #endif
 
 #ifdef DOUBLESIZE
-#define PLATEWIDTH 64
-#define PLATEHEIGHT 32
+#define TILEWIDTH 64
+#define TILETOPHEIGHT 32
 #define WALLHEIGHT 32
 #define FLOORHEIGHT 8
 #endif
@@ -86,10 +86,10 @@ using namespace df::enums;
 #define TILEHEIGHT (WALLHEIGHT + FLOORHEIGHT)
 // Width of area copied from an image file
 // may be different to plate dimensions to allow overlap later
-#define SPRITEWIDTH PLATEWIDTH
+#define SPRITEWIDTH TILEWIDTH
 // Height of area copied from an image file
 // may be different to plate dimensions to allow overlap later
-#define SPRITEHEIGHT (PLATEHEIGHT + WALLHEIGHT)
+#define SPRITEHEIGHT (TILETOPHEIGHT + WALLHEIGHT)
 #define WALL_CUTOFF_HEIGHT 15
 
 #define DEFAULT_SEGMENTSIZE 20
