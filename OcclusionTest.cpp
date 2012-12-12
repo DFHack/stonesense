@@ -188,7 +188,7 @@ void occlude_tile(Tile * b)
             stepZ--;
         }
 
-        for(int relXY = 0; (relXY <= (((PLATEHEIGHT + TILEHEIGHT) / (PLATEHEIGHT))+1)) && !done ; relXY++) {
+        for(int relXY = 0; (relXY <= (((TILETOPHEIGHT + TILEHEIGHT) / (TILETOPHEIGHT))+1)) && !done ; relXY++) {
             int tempX = baseX + ((relXY + stepZ) * stepX);
             int tempY = baseY + ((relXY + stepZ) * stepY);
             int tempZ = baseZ + relZ;

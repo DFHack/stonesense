@@ -173,20 +173,20 @@ void ScreenToPoint(int x,int y,int &x1, int &y1, int &z1)
     y/=ssConfig.scale;
     x+=ssState.ScreenW / 2;
     y+=ssState.ScreenH / 2;
-    x-=PLATEWIDTH/2;
-    y+=PLATEWIDTH/2;
+    x-=TILEWIDTH/2;
+    y+=TILEWIDTH/2;
     z1 = -3;
     y+= z1*TILEHEIGHT/2;
     //y-=TILEHEIGHT;
-    x+=PLATEWIDTH>>1;
+    x+=TILEWIDTH>>1;
     int offx = ssState.ScreenW /2;
     int offy = (-20)-(TILEHEIGHT * ssConfig.lift_segment_offscreen);
     y-=offy;
     x-=offx;
     y1=y*2-x;
     x1=x*2+y1;
-    x1/=PLATEWIDTH;
-    y1/=PLATEWIDTH;
+    x1/=TILEWIDTH;
+    y1/=TILEWIDTH;
 
 }
 
@@ -272,14 +272,14 @@ void pointToScreen(int *inx, int *iny, int inz)
     int z = inz-1;
 
     int x = *inx-*iny;
-    x = x * PLATEWIDTH / 2;
+    x = x * TILEWIDTH / 2;
     x *= ssConfig.scale;
     x+=ssState.ScreenW / 2;
 
     int y = *inx+*iny;
-    y = y*PLATEHEIGHT / 2;
+    y = y*TILETOPHEIGHT / 2;
     y -= z*TILEHEIGHT;
-    y -= PLATEHEIGHT*5/4;
+    y -= TILETOPHEIGHT*5/4;
     y -= TILEHEIGHT*ssConfig.lift_segment_offscreen;
     y *= ssConfig.scale;
 
@@ -1230,22 +1230,21 @@ void saveMegashot(bool tall)
     int tempLift = ssConfig.lift_segment_offscreen;
     int tempW = ssState.ScreenW;
     int tempH = ssState.ScreenH;
+    int tempflags = al_get_new_bitmap_flags();
     //now make them real big.
     ssConfig.show_osd = false;
     ssConfig.follow_DFscreen = false;
     ssConfig.fogenable = false;
     ssConfig.lift_segment_offscreen = 0;
 
-    if(tall) {
-        ssConfig.segmentSize.z = ssState.DisplayedSegmentZ + 1;
-    }
-    parms.sizez = ssConfig.segmentSize.z;
-    parms.z = ssState.DisplayedSegmentZ;
-
     //make the image
-    ssState.ScreenW = (ssConfig.blockDimX * PLATEWIDTH)*ssConfig.scale;
-    ssState.ScreenH = ( ((ssConfig.blockDimX + ssConfig.blockDimY) * PLATEHEIGHT / 2) + ((ssConfig.segmentSize.z - 1) * TILEHEIGHT) )*ssConfig.scale;
-    
+    ssState.ScreenW = (ssConfig.blockDimX * TILEWIDTH)*ssConfig.scale;
+    if(tall) {
+        ssState.ScreenH = ( ((ssConfig.blockDimX + ssConfig.blockDimY) * TILETOPHEIGHT / 2) + (ssConfig.blockDimZ * TILEHEIGHT) )*ssConfig.scale;
+    } else {
+        ssState.ScreenH = ( ((ssConfig.blockDimX + ssConfig.blockDimY) * TILETOPHEIGHT / 2) + ((ssConfig.segmentSize.z - 1) * TILEHEIGHT) )*ssConfig.scale;
+    }
+
     bigFile = al_create_bitmap(ssState.ScreenW, ssState.ScreenH);
 
     //draw and save the image
@@ -1259,6 +1258,7 @@ void saveMegashot(bool tall)
         //here we deal with the rotations
         int startx, incrx, numx;
         int starty, incry, numy;
+        int numz;
 
         startx = -1;
         starty = -1;
@@ -1268,6 +1268,7 @@ void saveMegashot(bool tall)
         numx = numx/incrx + (numx%incrx==0 ? 0 : 1);
         numy = (int)(ssConfig.blockDimY+3);
         numy = numy/incry + (numx%incry==0 ? 0 : 1);
+        numz = tall ? ((ssConfig.blockDimZ/(parms.sizez-1)) + 1) : 1;
 
         if(ssState.DisplayedRotation == 1 || ssState.DisplayedRotation == 2) {
             starty = (int)ssConfig.blockDimY + 2 - incry;
@@ -1284,52 +1285,61 @@ void saveMegashot(bool tall)
         } else {
             ssState.DisplayedSegmentX = -1;
         }
-
+        if(tall) {
+            ssState.DisplayedSegmentZ = ssConfig.blockDimZ;
+        }
         parms.x = startx;
         parms.y = starty;
+        parms.z = tall ? 0 : parms.z;
 
         //now actually loop through and draw the subsegments
-        for(int i=0; i<numy; i++) {
-            for(int j=0; j<numx; j++) {
-                //read and draw each individual segment
-                read_segment(NULL);
-                map_segment.lockDraw();
-                WorldSegment * segment = map_segment.getDraw();
-                segment->DrawAllTiles();
-                map_segment.unlockDraw();
+        for(int k=0; k<numz; k++) {
+            for(int i=0; i<numy; i++) {
+                for(int j=0; j<numx; j++) {
+                    //read and draw each individual segment
+                    read_segment(NULL);
+                    map_segment.lockDraw();
+                    WorldSegment * segment = map_segment.getDraw();
+                    segment->DrawAllTiles();
+                    map_segment.unlockDraw();
 
-                parms.x += incrx;
+                    parms.x += incrx;
+                }
+                parms.x = startx;
+                parms.y += incry;
             }
-            parms.x = startx;
-            parms.y += incry;
+            parms.x=startx;
+            parms.y=starty;
+            parms.z += parms.sizez - 1;
         }
 
 
         al_save_bitmap(filename, bigFile);
         al_set_target_bitmap(al_get_backbuffer(al_get_current_display()));
         timer = clock() - timer;
-        PrintMessage("\ttime for screenshot %ims\n", timer);
+        PrintMessage("\ttime for screenshot %ims %i\n", timer, parms.z);
     } else {
-        LogError("failed to take large screenshot; try zooming out or using software mode\n");
+        LogError("failed to take large screenshot; try zooming out\n");
     }
     al_destroy_bitmap(bigFile);
     //restore everything that we changed.
     ssConfig.segmentSize = backupsize;
-    parms.sizex = ssConfig.segmentSize.x;
-    parms.sizey = ssConfig.segmentSize.y;
-    parms.sizez = ssConfig.segmentSize.z;
+    parms.sizex = backupsize.x;
+    parms.sizey = backupsize.y;
+    parms.sizez = backupsize.z;
     ssState.DisplayedSegmentX = tempViewx;
     ssState.DisplayedSegmentY = tempViewy;
     ssState.DisplayedSegmentZ = tempViewz;
-    parms.x = ssState.DisplayedSegmentX;
-    parms.y = ssState.DisplayedSegmentY;
-    parms.z = ssState.DisplayedSegmentZ;
+    parms.x = tempViewx;
+    parms.y = tempViewy;
+    parms.z = tempViewz;
     ssConfig.fogenable = tempfog;
     ssConfig.follow_DFscreen = tempFollow;
     ssConfig.lift_segment_offscreen = tempLift;
     ssConfig.show_osd = temposd;
     ssState.ScreenW = tempW;
     ssState.ScreenH = tempH;
+    al_set_new_bitmap_flags(tempflags);
 
     map_segment.unlockRead();
 }

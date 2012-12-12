@@ -747,7 +747,7 @@ void c_sprite::assemble_world_offset(int x, int y, int z, int plateoffset, Tile 
         int32_t viewy = drawy;
         int32_t viewz = drawz;
         pointToScreen((int*)&drawx, (int*)&drawy, drawz);
-        drawx -= (PLATEWIDTH>>1)*ssConfig.scale;
+        drawx -= (TILEWIDTH>>1)*ssConfig.scale;
 
         if(((drawx + spritewidth*ssConfig.scale) < 0) || (drawx > ssState.ScreenW) || ((drawy + spriteheight*ssConfig.scale) < 0) || (drawy > ssState.ScreenH)) {
             return;
@@ -759,10 +759,10 @@ void c_sprite::assemble_world_offset(int x, int y, int z, int plateoffset, Tile 
             sheety = ((sheetindex+plateoffset+randoffset) / SHEET_OBJECTSWIDE) * spriteheight;
         } else if(platelayout == RAMPBOTTOMPLATE) {
             sheetx = SPRITEWIDTH * b->rampindex;
-            sheety = ((PLATEHEIGHT + FLOORHEIGHT + SPRITEHEIGHT) * (sheetindex+plateoffset+randoffset))+(PLATEHEIGHT + FLOORHEIGHT);
+            sheety = ((TILETOPHEIGHT + FLOORHEIGHT + SPRITEHEIGHT) * (sheetindex+plateoffset+randoffset))+(TILETOPHEIGHT + FLOORHEIGHT);
         } else if(platelayout == RAMPTOPPLATE) {
             sheetx = SPRITEWIDTH * b->rampindex;
-            sheety = (PLATEHEIGHT + FLOORHEIGHT + SPRITEHEIGHT) * (sheetindex+plateoffset+randoffset);
+            sheety = (TILETOPHEIGHT + FLOORHEIGHT + SPRITEHEIGHT) * (sheetindex+plateoffset+randoffset);
         } else {
             sheetx = ((sheetindex+plateoffset+randoffset) % SHEET_OBJECTSWIDE) * spritewidth;
             sheety = ((sheetindex+plateoffset+randoffset) / SHEET_OBJECTSWIDE) * spriteheight;
@@ -803,7 +803,7 @@ void c_sprite::assemble_world_offset(int x, int y, int z, int plateoffset, Tile 
                 b->AssembleSprite(
                     IMGObjectSheet,
                     al_map_rgb(255,255,255),
-                    PLATEWIDTH * SPRITEFLOOR_CUTOFF,
+                    TILEWIDTH * SPRITEFLOOR_CUTOFF,
                     0,
                     SPRITEWIDTH, 
                     SPRITEWIDTH,

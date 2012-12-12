@@ -210,10 +210,10 @@ void Tile::AssembleTile()
     ownerSegment->CorrectTileForSegmentOffset( drawx, drawy, drawz);
     ownerSegment->CorrectTileForSegmentRotation( drawx, drawy, drawz);
     pointToScreen((int*)&drawx, (int*)&drawy, drawz);
-    drawx -= (PLATEWIDTH>>1)*ssConfig.scale;
+    drawx -= (TILEWIDTH>>1)*ssConfig.scale;
     
     //TODO the following check should get incorporated into segment beautification
-    if(((drawx + PLATEWIDTH*ssConfig.scale) < 0) || (drawx > ssState.ScreenW) || ((drawy + (PLATEHEIGHT + FLOORHEIGHT)*ssConfig.scale) < 0) || (drawy - WALLHEIGHT*ssConfig.scale > ssState.ScreenH)) {
+    if(((drawx + TILEWIDTH*ssConfig.scale) < 0) || (drawx > ssState.ScreenW) || ((drawy + (TILETOPHEIGHT + FLOORHEIGHT)*ssConfig.scale) < 0) || (drawy - WALLHEIGHT*ssConfig.scale > ssState.ScreenH)) {
         return;
     }
 
@@ -250,7 +250,7 @@ void Tile::AssembleTile()
                 spriteobject->set_defaultsheet(IMGRampSheet);
             }
             if (spriteobject->get_sheetindex() != INVALID_INDEX) {
-                spriteobject->set_size(SPRITEWIDTH, PLATEHEIGHT);
+                spriteobject->set_size(SPRITEWIDTH, TILETOPHEIGHT);
                 spriteobject->set_plate_layout(RAMPTOPPLATE);
                 spriteobject->set_offset(0, WALLHEIGHT);
                 spriteobject->assemble_world_offset(x, y, z, 0, b, (chopThisTile && this->z == ownerSegment->pos.z + ownerSegment->size.z -2));
@@ -715,7 +715,7 @@ void Tile::AssembleFloorBlood ( int32_t drawx, int32_t drawy )
             }
         }
 
-        int sheetOffsetX = PLATEWIDTH * (sprite.sheetIndex % SHEET_OBJECTSWIDE),
+        int sheetOffsetX = TILEWIDTH * (sprite.sheetIndex % SHEET_OBJECTSWIDE),
             sheetOffsetY = 0;
 
         AssembleSprite( 
@@ -723,24 +723,24 @@ void Tile::AssembleFloorBlood ( int32_t drawx, int32_t drawy )
             premultiply(bloodcolor),
             sheetOffsetX,
             sheetOffsetY,
-            PLATEWIDTH,
-            PLATEHEIGHT+FLOORHEIGHT,
+            TILEWIDTH,
+            TILETOPHEIGHT+FLOORHEIGHT,
             drawx,
             drawy,
-            PLATEWIDTH*ssConfig.scale,
-            (PLATEHEIGHT+FLOORHEIGHT)*ssConfig.scale,
+            TILEWIDTH*ssConfig.scale,
+            (TILETOPHEIGHT+FLOORHEIGHT)*ssConfig.scale,
             0);
         AssembleSprite(
             IMGBloodSheet,
             al_map_rgb(255,255,255),
             sheetOffsetX,
-            sheetOffsetY+PLATEHEIGHT+FLOORHEIGHT,
-            PLATEWIDTH,
-            PLATEHEIGHT+FLOORHEIGHT,
+            sheetOffsetY+TILETOPHEIGHT+FLOORHEIGHT,
+            TILEWIDTH,
+            TILETOPHEIGHT+FLOORHEIGHT,
             drawx,
             drawy,
-            PLATEWIDTH*ssConfig.scale,
-            (PLATEHEIGHT+FLOORHEIGHT)*ssConfig.scale,
+            TILEWIDTH*ssConfig.scale,
+            (TILETOPHEIGHT+FLOORHEIGHT)*ssConfig.scale,
             0);
     }
 }

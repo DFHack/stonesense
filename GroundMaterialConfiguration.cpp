@@ -62,7 +62,7 @@ void parseWallFloorSpriteElement( TiXmlElement* elemWallFloorSprite, vector<Terr
     // make a base sprite
     c_sprite sprite;
     if(floor) {
-        sprite.set_size(SPRITEWIDTH, (PLATEHEIGHT + FLOORHEIGHT));
+        sprite.set_size(SPRITEWIDTH, (TILETOPHEIGHT + FLOORHEIGHT));
         sprite.set_offset(0, (WALLHEIGHT));
     }
     sprite.set_needoutline(1);
