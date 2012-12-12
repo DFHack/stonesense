@@ -76,19 +76,19 @@ void moveViewRelativeToRotation( int stepx, int stepy )
     }
     //if we're following the DF screen, we DO NOT bound the view, since we have a simple way to get back
     else {
-        changeRelativeToRotation(ssState.DisplayedSegmentX, ssState.DisplayedSegmentY, stepx, stepy );
+        changeRelativeToRotation(ssState.DisplayedSegment.x, ssState.DisplayedSegment.y, stepx, stepy );
         //bound view to world
-        if((int)ssState.DisplayedSegmentX > (int)ssConfig.blockDimX -(int)ssConfig.segmentSize.x/2) {
-            ssState.DisplayedSegmentX = ssConfig.blockDimX -ssConfig.segmentSize.x/2;
+        if((int)ssState.DisplayedSegment.x > (int)ssState.RegionDim.x -(int)ssState.SegmentSize.x/2) {
+            ssState.DisplayedSegment.x = ssState.RegionDim.x -ssState.SegmentSize.x/2;
         }
-        if((int)ssState.DisplayedSegmentY > (int)ssConfig.blockDimY -(int)ssConfig.segmentSize.y/2) {
-            ssState.DisplayedSegmentY = ssConfig.blockDimY -ssConfig.segmentSize.y/2;
+        if((int)ssState.DisplayedSegment.y > (int)ssState.RegionDim.y -(int)ssState.SegmentSize.y/2) {
+            ssState.DisplayedSegment.y = ssState.RegionDim.y -ssState.SegmentSize.y/2;
         }
-        if((int)ssState.DisplayedSegmentX < -(int)ssConfig.segmentSize.x/2) {
-            ssState.DisplayedSegmentX = -ssConfig.segmentSize.x/2;
+        if((int)ssState.DisplayedSegment.x < -(int)ssState.SegmentSize.x/2) {
+            ssState.DisplayedSegment.x = -ssState.SegmentSize.x/2;
         }
-        if((int)ssState.DisplayedSegmentY < -(int)ssConfig.segmentSize.y/2) {
-            ssState.DisplayedSegmentY = -ssConfig.segmentSize.y/2;
+        if((int)ssState.DisplayedSegment.y < -(int)ssState.SegmentSize.y/2) {
+            ssState.DisplayedSegment.y = -ssState.SegmentSize.y/2;
         }
     }
 }
@@ -105,15 +105,15 @@ void doKeys()
     if(mouse.z < last_mouse_z) {
         ssConfig.follow_DFscreen = false;
         if(al_key_down(&keyboard,ALLEGRO_KEY_LCTRL) || al_key_down(&keyboard,ALLEGRO_KEY_RCTRL)) {
-            ssConfig.segmentSize.z++;
+            ssState.SegmentSize.z++;
         } else {
             if (ssConfig.follow_DFscreen) {
                 ssConfig.viewZoffset -= stepsize;
             } else {
-                ssState.DisplayedSegmentZ -= stepsize;
+                ssState.DisplayedSegment.z -= stepsize;
             }
-            if(ssState.DisplayedSegmentZ<0) {
-                ssState.DisplayedSegmentZ = 0;
+            if(ssState.DisplayedSegment.z<0) {
+                ssState.DisplayedSegment.z = 0;
             }
         }
         timeToReloadSegment = true;
@@ -122,18 +122,18 @@ void doKeys()
     if(mouse.z > last_mouse_z) {
         ssConfig.follow_DFscreen = false;
         if(al_key_down(&keyboard,ALLEGRO_KEY_LCTRL) || al_key_down(&keyboard,ALLEGRO_KEY_RCTRL)) {
-            ssConfig.segmentSize.z--;
-            if(ssConfig.segmentSize.z <= 0) {
-                ssConfig.segmentSize.z = 1;
+            ssState.SegmentSize.z--;
+            if(ssState.SegmentSize.z <= 0) {
+                ssState.SegmentSize.z = 1;
             }
         } else {
             if (ssConfig.follow_DFscreen) {
                 ssConfig.viewZoffset += stepsize;
             } else {
-                ssState.DisplayedSegmentZ += stepsize;
+                ssState.DisplayedSegment.z += stepsize;
             }
-            if(ssState.DisplayedSegmentZ<0) {
-                ssState.DisplayedSegmentZ = 0;
+            if(ssState.DisplayedSegment.z<0) {
+                ssState.DisplayedSegment.z = 0;
             }
         }
         timeToReloadSegment = true;
@@ -146,12 +146,12 @@ void doKeys()
         y = mouse.y;
         int tilex,tiley,tilez;
         ScreenToPoint(x,y,tilex,tiley,tilez);
-        int diffx = tilex - ssConfig.segmentSize.x/2;
-        int diffy = tiley - ssConfig.segmentSize.y/2;
+        int diffx = tilex - ssState.SegmentSize.x/2;
+        int diffy = tiley - ssState.SegmentSize.y/2;
         /*we use changeRelativeToRotation directly, and not through moveViewRelativeToRotation
         because we don't want to move the offset with the mouse. It just feels weird. */
         // changing to +1,+1 which moves the clicked point to one of the 4 surrounding the center of rotation
-        changeRelativeToRotation(ssState.DisplayedSegmentX, ssState.DisplayedSegmentY, diffx+1, diffy+1 );
+        changeRelativeToRotation(ssState.DisplayedSegment.x, ssState.DisplayedSegment.y, diffx+1, diffy+1 );
         //moveViewRelativeToRotation(diffx+1, diffy+1);
         timeToReloadSegment = true;
         //rest(50);
@@ -162,13 +162,13 @@ void doKeys()
         x = mouse.x;//pos >> 16;
         y = mouse.y; //pos & 0x0000ffff;
         if(x >= MiniMapTopLeftX && x <= MiniMapBottomRightX && y >= MiniMapTopLeftY && y <= MiniMapBottomRightY) { // in minimap
-            ssState.DisplayedSegmentX = (x-MiniMapTopLeftX-MiniMapSegmentWidth/2)/oneTileInPixels;
-            ssState.DisplayedSegmentY = (y-MiniMapTopLeftY-MiniMapSegmentHeight/2)/oneTileInPixels;
+            ssState.DisplayedSegment.x = (x-MiniMapTopLeftX-MiniMapSegmentWidth/2)/oneTileInPixels;
+            ssState.DisplayedSegment.y = (y-MiniMapTopLeftY-MiniMapSegmentHeight/2)/oneTileInPixels;
         } else {
             int tilex,tiley,tilez;
             ScreenToPoint(x,y,tilex,tiley,tilez);
-            int diffx = tilex - ssConfig.segmentSize.x/2;
-            int diffy = tiley - ssConfig.segmentSize.y/2;
+            int diffx = tilex - ssState.SegmentSize.x/2;
+            int diffy = tiley - ssState.SegmentSize.y/2;
             debugCursor.x = tilex;
             debugCursor.y = tiley;
         }
@@ -209,10 +209,10 @@ void doKeys()
         if (ssConfig.follow_DFscreen) {
             ssConfig.viewZoffset -= stepsize;
         } else {
-            ssState.DisplayedSegmentZ -= stepsize;
+            ssState.DisplayedSegment.z -= stepsize;
         }
-        if(ssState.DisplayedSegmentZ<1) {
-            ssState.DisplayedSegmentZ = 1;
+        if(ssState.DisplayedSegment.z<1) {
+            ssState.DisplayedSegment.z = 1;
         }
         timeToReloadSegment = true;
     }
@@ -223,7 +223,7 @@ void doKeys()
         if (ssConfig.follow_DFscreen) {
             ssConfig.viewZoffset += stepsize;
         } else {
-            ssState.DisplayedSegmentZ += stepsize;
+            ssState.DisplayedSegment.z += stepsize;
         }
         timeToReloadSegment = true;
     }
@@ -293,19 +293,19 @@ void doKeys(int Key)
             ssConfig.viewYoffset = 0;
             ssConfig.viewZoffset = 0;
         } else {
-            ssState.DisplayedSegmentX = (ssConfig.blockDimX -ssConfig.segmentSize.x)/2;
-            ssState.DisplayedSegmentY = (ssConfig.blockDimY -ssConfig.segmentSize.y)/2;
+            ssState.DisplayedSegment.x = (ssState.RegionDim.x -ssState.SegmentSize.x)/2;
+            ssState.DisplayedSegment.y = (ssState.RegionDim.y -ssState.SegmentSize.y)/2;
         }
     }
     if(Key == ALLEGRO_KEY_1) {
-        ssConfig.segmentSize.z--;
-        if(ssConfig.segmentSize.z <= 0) {
-            ssConfig.segmentSize.z = 1;
+        ssState.SegmentSize.z--;
+        if(ssState.SegmentSize.z <= 0) {
+            ssState.SegmentSize.z = 1;
         }
         timeToReloadSegment = true;
     }
     if(Key == ALLEGRO_KEY_2) {
-        ssConfig.segmentSize.z++;
+        ssState.SegmentSize.z++;
         //add a limit?
         timeToReloadSegment = true;
     }

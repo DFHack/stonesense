@@ -492,21 +492,12 @@ void readMapSegment(WorldSegment* segment, int x, int y, int z, int sizex, int s
     //Store these
     blockDimX *= BLOCKEDGESIZE;
     blockDimY *= BLOCKEDGESIZE;
-    regionX *= BLOCKEDGESIZE;
-    regionY *= BLOCKEDGESIZE;
-    ssConfig.blockDimX = blockDimX;
-    ssConfig.blockDimY = blockDimY;
-    ssConfig.blockDimZ = blockDimZ;
+    ssState.RegionDim.x = blockDimX;
+    ssState.RegionDim.y = blockDimY;
+    ssState.RegionDim.z = blockDimZ;
 
     //setup new world segment
     segment->Reset(x,y,z,sizex,sizey,sizez,false);
-    segment->regionSize.x = blockDimX;
-    segment->regionSize.y = blockDimY;
-    segment->regionSize.z = blockDimZ;
-    segment->regionPos.x = regionX;
-    segment->regionPos.y = regionY;
-    segment->regionPos.z = regionZ;
-    segment->rotation = ssState.DisplayedRotation;
 
     //read world wide buildings
     vector<Buildings::t_building> allBuildings;
@@ -659,8 +650,8 @@ void FollowCurrentDFWindow()
     newviewx = newviewx + (viewsizex / 2) - mapx / 2;
     newviewy = newviewy + (viewsizey / 2) - mapy / 2;
 
-    parms.x = float (newviewx) * scalex - (ssConfig.segmentSize.x / 2) + ssConfig.viewXoffset + mapx / 2;
-    parms.y = float (newviewy) * scaley - (ssConfig.segmentSize.y / 2) + ssConfig.viewYoffset + mapy / 2;
+    parms.x = float (newviewx) * scalex - (ssState.SegmentSize.x / 2) + ssConfig.viewXoffset + mapx / 2;
+    parms.y = float (newviewy) * scaley - (ssState.SegmentSize.y / 2) + ssConfig.viewYoffset + mapy / 2;
     parms.z = newviewz + ssConfig.viewZoffset + 1;
 }
 
@@ -713,9 +704,7 @@ void read_segment( void *arg)
         beautifySegment(segment);
 
         //putting these here to increase responsiveness of the UI and to make megashots work
-        segment->displayed.x = ssState.DisplayedSegmentX;
-        segment->displayed.y = ssState.DisplayedSegmentY;
-        segment->displayed.z = ssState.DisplayedSegmentZ;
+        segment->displayed = ssState.DisplayedSegment;
 
         segment->AssembleAllTiles();
 
@@ -749,12 +738,12 @@ void reloadDisplayedSegment()
     }
 
     if (firstLoad || ssConfig.follow_DFscreen) {
-        ssState.DisplayedSegmentX = parms.x;
-        ssState.DisplayedSegmentY = parms.y;
-        ssState.DisplayedSegmentZ = parms.z;
+        ssState.DisplayedSegment.x = parms.x;
+        ssState.DisplayedSegment.y = parms.y;
+        ssState.DisplayedSegment.z = parms.z;
     }
 
-    int segmentHeight = ssConfig.single_layer_view ? 2 : ssConfig.segmentSize.z;
+    int segmentHeight = ssConfig.single_layer_view ? 2 : ssState.SegmentSize.z;
     //load segment
     if(ssConfig.threading_enable) {
         if(!ssConfig.threadmade) {
@@ -763,11 +752,11 @@ void reloadDisplayedSegment()
         }
     }
 
-    parms.x = ssState.DisplayedSegmentX;
-    parms.y = ssState.DisplayedSegmentY;
-    parms.z = ssState.DisplayedSegmentZ;
-    parms.sizex = ssConfig.segmentSize.x;
-    parms.sizey = ssConfig.segmentSize.y;
+    parms.x = ssState.DisplayedSegment.x;
+    parms.y = ssState.DisplayedSegment.y;
+    parms.z = ssState.DisplayedSegment.z;
+    parms.sizex = ssState.SegmentSize.x;
+    parms.sizey = ssState.SegmentSize.y;
     parms.sizez = segmentHeight;
 
     if(ssConfig.threading_enable) {

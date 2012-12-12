@@ -44,9 +44,8 @@ public:
     // due to concurrency
     Crd3D displayed;
     unsigned char rotation;
-    //these are the size and position of the DF map region to which this segment is a part
+    //these are the size of the DF map region to which this segment is a part
     Crd3D regionSize;
-    Crd3D regionPos;
     WorldSegment(int x=0, int y=0, int z=0, int sizex=0, int sizey=0, int sizez=0) {
         this->pos.x = x;
         this->pos.y = y;
@@ -54,11 +53,9 @@ public:
         this->size.x = sizex;
         this->size.y = sizey;
         this->size.z = sizez;
-        this->displayed.x = ssState.DisplayedSegmentX;
-        this->displayed.y = ssState.DisplayedSegmentY;
-        this->displayed.z = ssState.DisplayedSegmentZ;
-        regionSize.x = regionSize.y = regionSize.z = 0;
-        regionPos.x = regionPos.y = regionPos.z = 0;
+        displayed = ssState.DisplayedSegment;
+        regionSize = ssState.RegionDim;
+        rotation = ssState.DisplayedRotation;
 
         uint32_t memoryNeeded = sizex * sizey * sizez * sizeof(Tile);
         tiles = (Tile*) malloc( memoryNeeded );
@@ -107,11 +104,9 @@ public:
         this->size.x = sizex;
         this->size.y = sizey;
         this->size.z = sizez;
-        this->displayed.x = ssState.DisplayedSegmentX;
-        this->displayed.y = ssState.DisplayedSegmentY;
-        this->displayed.z = ssState.DisplayedSegmentZ;
-        regionSize.x = regionSize.y = regionSize.z = 0;
-        regionPos.x = regionPos.y = regionPos.z = 0;
+        displayed = ssState.DisplayedSegment;
+        regionSize = ssState.RegionDim;
+        rotation = ssState.DisplayedRotation;
         
     }
 

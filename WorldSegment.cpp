@@ -179,7 +179,7 @@ Tile* WorldSegment::getTile(uint32_t index)
 void WorldSegment::CorrectTileForSegmentOffset(int32_t& xin, int32_t& yin, int32_t& zin)
 {
     xin -= displayed.x;
-    yin -= displayed.y; //DisplayedSegmentY;
+    yin -= displayed.y; //DisplayedSegment.y;
     zin -= displayed.z - 1; //need to remove the offset
 }
 
