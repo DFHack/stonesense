@@ -325,11 +325,11 @@ Crd2D LocalTileToScreen(int32_t x, int32_t y, int32_t z)
 
 void DrawCurrentLevelOutline(bool backPart)
 {
-    int x = ssState.DisplayedSegmentX+1;
-    int y = ssState.DisplayedSegmentY+1;
-    int z = ssState.DisplayedSegmentZ;
-    int sizex = ssConfig.segmentSize.x-2;
-    int sizey = ssConfig.segmentSize.y-2;
+    int x = ssState.DisplayedSegment.x+1;
+    int y = ssState.DisplayedSegment.y+1;
+    int z = ssState.DisplayedSegment.z;
+    int sizex = ssState.SegmentSize.x-2;
+    int sizey = ssState.SegmentSize.y-2;
 
     if(ssConfig.hide_outer_tiles) {
         x++;
@@ -859,7 +859,7 @@ void paintboard()
 
     if (ssConfig.show_osd) {
         al_hold_bitmap_drawing(true);
-        draw_textf_border(font, al_map_rgb(255,255,255), 10,al_get_font_line_height(font), 0, "%i,%i,%i, r%i, z%i", ssState.DisplayedSegmentX,ssState.DisplayedSegmentY,ssState.DisplayedSegmentZ, ssState.DisplayedRotation, ssConfig.zoom);
+        draw_textf_border(font, al_map_rgb(255,255,255), 10,al_get_font_line_height(font), 0, "%i,%i,%i, r%i, z%i", ssState.DisplayedSegment.x,ssState.DisplayedSegment.y,ssState.DisplayedSegment.z, ssState.DisplayedRotation, ssConfig.zoom);
 
         if(ssConfig.debug_mode) {
             draw_textf_border(font, al_map_rgb(255,255,255), 10, 3*al_get_font_line_height(font), 0, "Map Read Time: %.2fms", ssTimers.read_time);
@@ -1220,10 +1220,10 @@ void saveMegashot(bool tall)
     };
     int timer = clock();
     //back up all the relevant values
-    Crd3D backupsize = ssConfig.segmentSize;
-    int tempViewx = ssState.DisplayedSegmentX;
-    int tempViewy = ssState.DisplayedSegmentY;
-    int tempViewz = ssState.DisplayedSegmentZ;
+    Crd3D backupsize = ssState.SegmentSize;
+    int tempViewx = ssState.DisplayedSegment.x;
+    int tempViewy = ssState.DisplayedSegment.y;
+    int tempViewz = ssState.DisplayedSegment.z;
     bool tempFollow = ssConfig.follow_DFscreen;
     bool tempfog = ssConfig.fogenable;
     bool temposd = ssConfig.show_osd;
@@ -1238,11 +1238,11 @@ void saveMegashot(bool tall)
     ssConfig.lift_segment_offscreen = 0;
 
     //make the image
-    ssState.ScreenW = (ssConfig.blockDimX * TILEWIDTH)*ssConfig.scale;
+    ssState.ScreenW = (ssState.RegionDim.x * TILEWIDTH)*ssConfig.scale;
     if(tall) {
-        ssState.ScreenH = ( ((ssConfig.blockDimX + ssConfig.blockDimY) * TILETOPHEIGHT / 2) + (ssConfig.blockDimZ * TILEHEIGHT) )*ssConfig.scale;
+        ssState.ScreenH = ( ((ssState.RegionDim.x + ssState.RegionDim.y) * TILETOPHEIGHT / 2) + (ssState.RegionDim.z * TILEHEIGHT) )*ssConfig.scale;
     } else {
-        ssState.ScreenH = ( ((ssConfig.blockDimX + ssConfig.blockDimY) * TILETOPHEIGHT / 2) + ((ssConfig.segmentSize.z - 1) * TILEHEIGHT) )*ssConfig.scale;
+        ssState.ScreenH = ( ((ssState.RegionDim.x + ssState.RegionDim.y) * TILETOPHEIGHT / 2) + ((ssState.SegmentSize.z - 1) * TILEHEIGHT) )*ssConfig.scale;
     }
 
     bigFile = al_create_bitmap(ssState.ScreenW, ssState.ScreenH);
@@ -1264,29 +1264,29 @@ void saveMegashot(bool tall)
         starty = -1;
         incrx = parms.sizex-2;
         incry = parms.sizey-2;
-        numx = (int)(ssConfig.blockDimX+3);
+        numx = (int)(ssState.RegionDim.x+3);
         numx = numx/incrx + (numx%incrx==0 ? 0 : 1);
-        numy = (int)(ssConfig.blockDimY+3);
+        numy = (int)(ssState.RegionDim.y+3);
         numy = numy/incry + (numx%incry==0 ? 0 : 1);
-        numz = tall ? ((ssConfig.blockDimZ/(parms.sizez-1)) + 1) : 1;
+        numz = tall ? ((ssState.RegionDim.z/(parms.sizez-1)) + 1) : 1;
 
         if(ssState.DisplayedRotation == 1 || ssState.DisplayedRotation == 2) {
-            starty = (int)ssConfig.blockDimY + 2 - incry;
-            ssState.DisplayedSegmentY = (int)ssConfig.blockDimY - incry - 1;
+            starty = (int)ssState.RegionDim.y + 2 - incry;
+            ssState.DisplayedSegment.y = (int)ssState.RegionDim.y - incry - 1;
             incry = -incry;
         } else {
-            ssState.DisplayedSegmentY = -1;
+            ssState.DisplayedSegment.y = -1;
         }
 
         if(ssState.DisplayedRotation == 3 || ssState.DisplayedRotation == 2) {
-            startx = (int)ssConfig.blockDimX + 2 - incrx;
-            ssState.DisplayedSegmentX = (int)ssConfig.blockDimX - incrx - 1;
+            startx = (int)ssState.RegionDim.x + 2 - incrx;
+            ssState.DisplayedSegment.x = (int)ssState.RegionDim.x - incrx - 1;
             incrx = -incrx;
         } else {
-            ssState.DisplayedSegmentX = -1;
+            ssState.DisplayedSegment.x = -1;
         }
         if(tall) {
-            ssState.DisplayedSegmentZ = ssConfig.blockDimZ;
+            ssState.DisplayedSegment.z = ssState.RegionDim.z;
         }
         parms.x = startx;
         parms.y = starty;
@@ -1323,13 +1323,13 @@ void saveMegashot(bool tall)
     }
     al_destroy_bitmap(bigFile);
     //restore everything that we changed.
-    ssConfig.segmentSize = backupsize;
+    ssState.SegmentSize = backupsize;
     parms.sizex = backupsize.x;
     parms.sizey = backupsize.y;
     parms.sizez = backupsize.z;
-    ssState.DisplayedSegmentX = tempViewx;
-    ssState.DisplayedSegmentY = tempViewy;
-    ssState.DisplayedSegmentZ = tempViewz;
+    ssState.DisplayedSegment.x = tempViewx;
+    ssState.DisplayedSegment.y = tempViewy;
+    ssState.DisplayedSegment.z = tempViewz;
     parms.x = tempViewx;
     parms.y = tempViewy;
     parms.z = tempViewz;

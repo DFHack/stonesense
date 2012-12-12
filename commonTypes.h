@@ -143,15 +143,11 @@ struct GameConfiguration {
     ALLEGRO_COLOR fogcol;
     ALLEGRO_COLOR backcol;
     bool fogenable;
-    Crd3D segmentSize;
 
     bool follow_DFcursor;
     int dfCursorX;
     int dfCursorY;
     int dfCursorZ;
-    unsigned int blockDimX;
-    unsigned int blockDimY;
-    unsigned int blockDimZ;
 
     int bitmapHolds;
 
@@ -214,10 +210,12 @@ struct GameConfiguration {
 
 struct GameState{
     //properties of the currently viewed portion of the segment
-    int DisplayedSegmentX;
-    int DisplayedSegmentY;
-    int DisplayedSegmentZ;
+    Crd3D DisplayedSegment;
     int DisplayedRotation;
+    
+    //the size of the next segment to load, and the map region
+    Crd3D SegmentSize;
+    Crd3D RegionDim;
 
     //the width and height of the stonesense window
     int ScreenW;

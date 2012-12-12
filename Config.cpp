@@ -86,15 +86,15 @@ void parseConfigLine( string line )
             value = 100;
         }
         //plus 2 to allow edge readings
-        ssConfig.segmentSize.x = value+2;
-        ssConfig.segmentSize.y = value+2;
+        ssState.SegmentSize.x = value+2;
+        ssState.SegmentSize.y = value+2;
     }
     if( line.find("[SEGMENTSIZE_Z") != -1) {
         int value = parseIntFromLine( "SEGMENTSIZE_Z", line );
         if(value < 1) {
             value = DEFAULT_SEGMENTSIZE_Z;
         }
-        ssConfig.segmentSize.z = value;
+        ssState.SegmentSize.z = value;
     }
 
     if( line.find("[ALLCREATURES") != -1) {

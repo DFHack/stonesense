@@ -154,9 +154,9 @@ void SetTitle(const char *format, ...)
 
 void correctTileForDisplayedOffset(int32_t& x, int32_t& y, int32_t& z)
 {
-    x -= ssState.DisplayedSegmentX;
-    y -= ssState.DisplayedSegmentY; //DisplayedSegmentY;
-    z -= ssState.DisplayedSegmentZ - 1; // + viewedSegment->sizez - 2; // loading one above the top of the displayed segment for tile rules
+    x -= ssState.DisplayedSegment.x;
+    y -= ssState.DisplayedSegment.y; //DisplayedSegment.y;
+    z -= ssState.DisplayedSegment.z - 1; // + viewedSegment->sizez - 2; // loading one above the top of the displayed segment for tile rules
 }
 
 bool loadfont(DFHack::color_ostream & output)
@@ -178,10 +178,10 @@ bool loadfont(DFHack::color_ostream & output)
 
 void benchmark()
 {
-    ssState.DisplayedSegmentX = ssState.DisplayedSegmentY = 0;
-    ssState.DisplayedSegmentX = 110;
-    ssState.DisplayedSegmentY = 110;
-    ssState.DisplayedSegmentZ = 18;
+    ssState.DisplayedSegment.x = ssState.DisplayedSegment.y = 0;
+    ssState.DisplayedSegment.x = 110;
+    ssState.DisplayedSegment.y = 110;
+    ssState.DisplayedSegment.z = 18;
     uint32_t startTime = clock();
     int i = 20;
     while(i--) {
@@ -365,9 +365,9 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
     ssConfig.Fullscreen = FULLSCREEN;
     ssState.ScreenH = RESOLUTION_HEIGHT;
     ssState.ScreenW = RESOLUTION_WIDTH;
-    ssConfig.segmentSize.x = DEFAULT_SEGMENTSIZE;
-    ssConfig.segmentSize.y = DEFAULT_SEGMENTSIZE;
-    ssConfig.segmentSize.z = DEFAULT_SEGMENTSIZE_Z;
+    ssState.SegmentSize.x = DEFAULT_SEGMENTSIZE;
+    ssState.SegmentSize.y = DEFAULT_SEGMENTSIZE;
+    ssState.SegmentSize.z = DEFAULT_SEGMENTSIZE_Z;
     ssConfig.show_creature_names = true;
     ssConfig.show_osd = true;
     ssConfig.show_intro = true;
@@ -406,8 +406,8 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
         return NULL;
     }
     //set debug cursor
-    debugCursor.x = ssConfig.segmentSize.x / 2;
-    debugCursor.y = ssConfig.segmentSize.y / 2;
+    debugCursor.x = ssState.SegmentSize.x / 2;
+    debugCursor.y = ssState.SegmentSize.y / 2;
 
     uint32_t version = al_get_allegro_version();
     int major = version >> 24;
