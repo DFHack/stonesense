@@ -3,6 +3,7 @@
 #include <string>
 #include "common.h"
 #include "commonTypes.h"
+#include "Config.h"
 
 using namespace std;
 
@@ -792,14 +793,13 @@ bool loadConfigFile()
     const char * path = al_path_cstr(p,ALLEGRO_NATIVE_PATH_SEP);
     ifstream myfile (path);
     if (myfile.is_open() == false) {
-        cout << "Cannot find init file" << endl;
+        LogError( "cannot find init file\n" );
         al_destroy_path(p);
         return false;
     }
 
     while ( !myfile.eof() ) {
         getline (myfile,line);
-        cout << line << endl;
         parseConfigLine( line );
     }
     // update allegro colors loaded from file

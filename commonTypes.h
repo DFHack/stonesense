@@ -195,7 +195,6 @@ struct GameConfiguration {
     bool skipOrganicMats;
 
     //following are threading stuff
-
     ALLEGRO_COND * readCond;
     ALLEGRO_THREAD * readThread;
     bool threadmade;

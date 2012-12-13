@@ -321,7 +321,7 @@ static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALL
                 } else if (event.keyboard.keycode == ALLEGRO_KEY_ESCAPE) {
                     return;
                 } else {
-                    doKeys(event.keyboard.keycode);
+                    doKeys(event.keyboard.keycode, event.keyboard.modifiers);
                     redraw = true;
                 }
                 break;
@@ -400,6 +400,7 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
     ssTimers.frame_total = 1.0f;
     initRandomCube();
     loadConfigFile();
+    loadKeymapFile();
     init_masks();
     if(!loadfont(out)) {
         stonesense_started = 0;

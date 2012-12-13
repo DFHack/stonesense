@@ -1317,7 +1317,7 @@ void saveMegashot(bool tall)
         al_save_bitmap(filename, bigFile);
         al_set_target_bitmap(al_get_backbuffer(al_get_current_display()));
         timer = clock() - timer;
-        PrintMessage("\ttime for screenshot %ims %i\n", timer, parms.z);
+        PrintMessage("\ttime for screenshot %ims\n", timer);
     } else {
         LogError("failed to take large screenshot; try zooming out\n");
     }
