@@ -857,7 +857,22 @@ void paintboard()
     ssTimers.frame_total = (donetime - ssTimers.prev_frame_time)*0.1 + ssTimers.frame_total*0.9;
     ssTimers.prev_frame_time = donetime;
 
-    if (ssConfig.show_osd) {
+    if(ssConfig.show_keybinds){
+        string *keyname, *actionname;
+        keyname = actionname = NULL;
+        int line = 1;
+        al_hold_bitmap_drawing(true);
+        for(int32_t i=1; true; i++){
+            if(getKeyStrings(i, keyname, actionname)){
+                draw_textf_border(font, al_map_rgb(255,255,255), 10, line*al_get_font_line_height(font), 0, "%s: %s", keyname->c_str(), actionname->c_str());
+                line++;
+            }
+            if(keyname == NULL) {
+                break;
+            }
+        }
+        al_hold_bitmap_drawing(false);
+    } else if (ssConfig.show_osd) {
         al_hold_bitmap_drawing(true);
         draw_textf_border(font, al_map_rgb(255,255,255), 10,al_get_font_line_height(font), 0, "%i,%i,%i, r%i, z%i", ssState.DisplayedSegment.x,ssState.DisplayedSegment.y,ssState.DisplayedSegment.z, ssState.DisplayedRotation, ssConfig.zoom);
 

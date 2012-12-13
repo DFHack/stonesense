@@ -198,6 +198,7 @@ extern ALLEGRO_KEYBOARD_EVENT eventrepeater;
 
 //Keybinds.cpp
 bool loadKeymapFile();
+bool getKeyStrings(int32_t keycode, std::string*& keyname, std::string*& actionname);
 
 //Config.cpp
 bool loadConfigFile();

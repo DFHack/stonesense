@@ -314,6 +314,10 @@ void action_toggleosd(uint32_t keymod)
     timeToReloadSegment = true;
 }
 
+void action_togglekeybinds(uint32_t keymod){
+    ssConfig.show_keybinds = !ssConfig.show_keybinds;
+}
+
 void action_incrzoom(uint32_t keymod)
 {
     ssConfig.zoom++;
