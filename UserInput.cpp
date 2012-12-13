@@ -11,6 +11,9 @@ extern unsigned int mouse_b;
 ALLEGRO_MOUSE_STATE mouse;
 ALLEGRO_KEYBOARD_STATE board;
 extern ALLEGRO_TIMER * reloadtimer;
+//when set, the event associated with this value will repeat for each frame
+ALLEGRO_KEYBOARD_EVENT eventrepeater;
+
 void mouseProc(int flags)
 {
     //int j = 10;
@@ -100,6 +103,9 @@ void doKeys()
 
     al_get_keyboard_state(&keyboard);
     al_get_mouse_state(&mouse);
+
+    doKey(eventrepeater.keycode, eventrepeater.modifiers);
+
     char stepsize = (al_key_down(&keyboard,ALLEGRO_KEY_LSHIFT) || al_key_down(&keyboard,ALLEGRO_KEY_RSHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
     //mouse_callback = mouseProc;
     static int last_mouse_z;
@@ -175,107 +181,64 @@ void doKeys()
         }
         timeToReloadSegment = true;
     }
-    if(al_key_down(&keyboard,ALLEGRO_KEY_UP)) {
-        if (!(al_key_down(&keyboard,ALLEGRO_KEY_LCTRL) || al_key_down(&keyboard,ALLEGRO_KEY_RCTRL))) {
-            ssConfig.follow_DFscreen = false;
-        }
-        moveViewRelativeToRotation( 0, -stepsize );
-        timeToReloadSegment = true;
-    }
-    if(al_key_down(&keyboard,ALLEGRO_KEY_DOWN)) {
-        if (!(al_key_down(&keyboard,ALLEGRO_KEY_LCTRL) || al_key_down(&keyboard,ALLEGRO_KEY_RCTRL))) {
-            ssConfig.follow_DFscreen = false;
-        }
-        moveViewRelativeToRotation( 0, stepsize );
-        timeToReloadSegment = true;
-    }
-    if(al_key_down(&keyboard,ALLEGRO_KEY_LEFT)) {
-        if (!(al_key_down(&keyboard,ALLEGRO_KEY_LCTRL) || al_key_down(&keyboard,ALLEGRO_KEY_RCTRL))) {
-            ssConfig.follow_DFscreen = false;
-        }
-        moveViewRelativeToRotation( -stepsize, 0 );
-        timeToReloadSegment = true;
-    }
-    if(al_key_down(&keyboard,ALLEGRO_KEY_RIGHT)) {
-        if (!(al_key_down(&keyboard,ALLEGRO_KEY_LCTRL) || al_key_down(&keyboard,ALLEGRO_KEY_RCTRL))) {
-            ssConfig.follow_DFscreen = false;
-        }
-        moveViewRelativeToRotation( stepsize, 0 );
-        timeToReloadSegment = true;
-    }
-    if(al_key_down(&keyboard,ALLEGRO_KEY_PGDN) || al_key_down(&keyboard,ALLEGRO_KEY_9)) {
-        if (!(al_key_down(&keyboard,ALLEGRO_KEY_LCTRL) || al_key_down(&keyboard,ALLEGRO_KEY_RCTRL))) {
-            ssConfig.follow_DFscreen = false;
-        }
-        if (ssConfig.follow_DFscreen) {
-            ssConfig.viewZoffset -= stepsize;
-        } else {
-            ssState.DisplayedSegment.z -= stepsize;
-        }
-        if(ssState.DisplayedSegment.z<1) {
-            ssState.DisplayedSegment.z = 1;
-        }
-        timeToReloadSegment = true;
-    }
-    if(al_key_down(&keyboard,ALLEGRO_KEY_PGUP) || al_key_down(&keyboard,ALLEGRO_KEY_0)) {
-        if (!(al_key_down(&keyboard,ALLEGRO_KEY_LCTRL) || al_key_down(&keyboard,ALLEGRO_KEY_RCTRL))) {
-            ssConfig.follow_DFscreen = false;
-        }
-        if (ssConfig.follow_DFscreen) {
-            ssConfig.viewZoffset += stepsize;
-        } else {
-            ssState.DisplayedSegment.z += stepsize;
-        }
-        timeToReloadSegment = true;
-    }
 }
 
-void action_incrrotation(int keymod){
+void action_incrrotation(uint32_t keymod)
+{
     ssState.DisplayedRotation++;
     ssState.DisplayedRotation %= 4;
     timeToReloadSegment = true;
 }
 
-void action_reloadsegment(int keymod){
+void action_reloadsegment(uint32_t keymod)
+{
     timeToReloadSegment = true;
 }
 
-void action_paintboard(int keymod){
+void action_paintboard(uint32_t keymod)
+{
     paintboard();
 }
 
-void action_togglestockpiles(int keymod){
+void action_togglestockpiles(uint32_t keymod)
+{
     ssConfig.show_stockpiles = !ssConfig.show_stockpiles;
     timeToReloadSegment = true;
 }
 
-void action_togglezones(int keymod){
+void action_togglezones(uint32_t keymod)
+{
     ssConfig.show_zones = !ssConfig.show_zones;
     timeToReloadSegment = true;
 }
 
-void action_toggleocclusion(int keymod){
+void action_toggleocclusion(uint32_t keymod)
+{
     ssConfig.occlusion = !ssConfig.occlusion;
     timeToReloadSegment = true;
 }
 
-void action_togglecreaturemood(int keymod){
+void action_togglecreaturemood(uint32_t keymod)
+{
     ssConfig.show_creature_moods = !ssConfig.show_creature_moods;
     timeToReloadSegment = true;
 }
 
-void action_togglecreatureprof(int keymod){
+void action_togglecreatureprof(uint32_t keymod)
+{
     ssConfig.show_creature_professions++;
     ssConfig.show_creature_professions = ssConfig.show_creature_professions % 3;
     timeToReloadSegment = true;
 }
 
-void action_togglecreaturejob(int keymod){
+void action_togglecreaturejob(uint32_t keymod)
+{
     ssConfig.show_creature_jobs = !ssConfig.show_creature_jobs;
     timeToReloadSegment = true;
 }
 
-void action_chopwall(int keymod){
+void action_chopwall(uint32_t keymod)
+{
     ssConfig.truncate_walls++;
     if (ssConfig.truncate_walls > 4) {
         ssConfig.truncate_walls = 0;
@@ -283,7 +246,8 @@ void action_chopwall(int keymod){
     timeToReloadSegment = true;
 }
 
-void action_togglefollowdfcursor(int keymod){
+void action_togglefollowdfcursor(uint32_t keymod)
+{
     if (al_key_down(&keyboard,ALLEGRO_KEY_LCTRL) || al_key_down(&keyboard,ALLEGRO_KEY_RCTRL)) {
         ssConfig.follow_DFcursor = !ssConfig.follow_DFcursor;
     } else {
@@ -292,7 +256,8 @@ void action_togglefollowdfcursor(int keymod){
     timeToReloadSegment = true;
 }
 
-void action_togglefollowdfscreen(int keymod){
+void action_togglefollowdfscreen(uint32_t keymod)
+{
     if (ssConfig.follow_DFscreen) {
         ssConfig.viewXoffset = 0;
         ssConfig.viewYoffset = 0;
@@ -303,7 +268,8 @@ void action_togglefollowdfscreen(int keymod){
     }
 }
 
-void action_decrsegmentZ(int keymod){
+void action_decrsegmentZ(uint32_t keymod)
+{
     ssState.SegmentSize.z--;
     if(ssState.SegmentSize.z <= 0) {
         ssState.SegmentSize.z = 1;
@@ -311,48 +277,57 @@ void action_decrsegmentZ(int keymod){
     timeToReloadSegment = true;
 }
 
-void action_incrsegmentZ(int keymod){
+void action_incrsegmentZ(uint32_t keymod)
+{
     ssState.SegmentSize.z++;
     //add a limit?
     timeToReloadSegment = true;
 }
 
-void action_togglesinglelayer(int keymod){
+void action_togglesinglelayer(uint32_t keymod)
+{
     ssConfig.single_layer_view = !ssConfig.single_layer_view;
     timeToReloadSegment = true;
 }
 
-void action_toggleshadehidden(int keymod){
+void action_toggleshadehidden(uint32_t keymod)
+{
     ssConfig.shade_hidden_tiles = !ssConfig.shade_hidden_tiles;
     timeToReloadSegment = true;
 }
 
-void action_toggleshowhidden(int keymod){
+void action_toggleshowhidden(uint32_t keymod)
+{
     ssConfig.show_hidden_tiles = !ssConfig.show_hidden_tiles;
     timeToReloadSegment = true;
 }
 
-void action_togglecreaturenames(int keymod){
+void action_togglecreaturenames(uint32_t keymod)
+{
     ssConfig.show_creature_names = !ssConfig.show_creature_names;
     timeToReloadSegment = true;
 }
 
-void action_toggleosd(int keymod){
+void action_toggleosd(uint32_t keymod)
+{
     ssConfig.show_osd = !ssConfig.show_osd;
     timeToReloadSegment = true;
 }
 
-void action_incrzoom(int keymod){
+void action_incrzoom(uint32_t keymod)
+{
     ssConfig.zoom++;
     ssConfig.scale = pow(2.0f, ssConfig.zoom);
 }
 
-void action_decrzoom(int keymod){
+void action_decrzoom(uint32_t keymod)
+{
     ssConfig.zoom--;
     ssConfig.scale = pow(2.0f, ssConfig.zoom);
 }
 
-void action_screenshot(int keymod){
+void action_screenshot(uint32_t keymod)
+{
     if (al_key_down(&keyboard,ALLEGRO_KEY_LCTRL) || al_key_down(&keyboard,ALLEGRO_KEY_RCTRL))
         if (al_key_down(&keyboard,ALLEGRO_KEY_LSHIFT) || al_key_down(&keyboard,ALLEGRO_KEY_RSHIFT)) {
             saveMegashot(true);
@@ -366,13 +341,15 @@ void action_screenshot(int keymod){
     }
 }
 
-void action_incrreloadtime(int keymod){
+void action_incrreloadtime(uint32_t keymod)
+{
     ssConfig.automatic_reload_time += ssConfig.automatic_reload_step;
     paintboard();
     initAutoReload();
 }
 
-void action_decrreloadtime(int keymod){ 
+void action_decrreloadtime(uint32_t keymod)
+{ 
     if(ssConfig.automatic_reload_time) {
         if(ssConfig.automatic_reload_time > 0) {
             ssConfig.automatic_reload_time -= ssConfig.automatic_reload_step;
@@ -387,13 +364,89 @@ void action_decrreloadtime(int keymod){
     }
 }
 
-void action_credits(int keymod){ 
+void action_credits(uint32_t keymod)
+{ 
     ssConfig.creditScreen = false;
+}
+
+void action_decrY(uint32_t keymod)
+{ 
+    char stepsize = (al_key_down(&keyboard,ALLEGRO_KEY_LSHIFT) || al_key_down(&keyboard,ALLEGRO_KEY_RSHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
+    if (!(al_key_down(&keyboard,ALLEGRO_KEY_LCTRL) || al_key_down(&keyboard,ALLEGRO_KEY_RCTRL))) {
+        ssConfig.follow_DFscreen = false;
+    }
+    moveViewRelativeToRotation( 0, -stepsize );
+    timeToReloadSegment = true;
+}
+
+void action_incrY(uint32_t keymod)
+{ 
+    char stepsize = (al_key_down(&keyboard,ALLEGRO_KEY_LSHIFT) || al_key_down(&keyboard,ALLEGRO_KEY_RSHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
+    if (!(al_key_down(&keyboard,ALLEGRO_KEY_LCTRL) || al_key_down(&keyboard,ALLEGRO_KEY_RCTRL))) {
+        ssConfig.follow_DFscreen = false;
+    }
+    moveViewRelativeToRotation( 0, stepsize );
+    timeToReloadSegment = true;
+}
+
+void action_decrX(uint32_t keymod)
+{ 
+    char stepsize = (al_key_down(&keyboard,ALLEGRO_KEY_LSHIFT) || al_key_down(&keyboard,ALLEGRO_KEY_RSHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
+    if (!(al_key_down(&keyboard,ALLEGRO_KEY_LCTRL) || al_key_down(&keyboard,ALLEGRO_KEY_RCTRL))) {
+        ssConfig.follow_DFscreen = false;
+    }
+    moveViewRelativeToRotation( -stepsize, 0 );
+    timeToReloadSegment = true;
+}
+
+void action_incrX(uint32_t keymod)
+{ 
+    char stepsize = (al_key_down(&keyboard,ALLEGRO_KEY_LSHIFT) || al_key_down(&keyboard,ALLEGRO_KEY_RSHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
+    if (!(al_key_down(&keyboard,ALLEGRO_KEY_LCTRL) || al_key_down(&keyboard,ALLEGRO_KEY_RCTRL))) {
+        ssConfig.follow_DFscreen = false;
+    }
+    moveViewRelativeToRotation( stepsize, 0 );
+    timeToReloadSegment = true;
+}
+
+void action_decrZ(uint32_t keymod)
+{ 
+    char stepsize = (al_key_down(&keyboard,ALLEGRO_KEY_LSHIFT) || al_key_down(&keyboard,ALLEGRO_KEY_RSHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
+    if (!(al_key_down(&keyboard,ALLEGRO_KEY_LCTRL) || al_key_down(&keyboard,ALLEGRO_KEY_RCTRL))) {
+        ssConfig.follow_DFscreen = false;
+    }
+    if (ssConfig.follow_DFscreen) {
+        ssConfig.viewZoffset -= stepsize;
+    } else {
+        ssState.DisplayedSegment.z -= stepsize;
+    }
+    if(ssState.DisplayedSegment.z<1) {
+        ssState.DisplayedSegment.z = 1;
+    }
+    timeToReloadSegment = true;
+}
+
+void action_incrZ(uint32_t keymod)
+{ 
+    char stepsize = (al_key_down(&keyboard,ALLEGRO_KEY_LSHIFT) || al_key_down(&keyboard,ALLEGRO_KEY_RSHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
+    if (!(al_key_down(&keyboard,ALLEGRO_KEY_LCTRL) || al_key_down(&keyboard,ALLEGRO_KEY_RCTRL))) {
+        ssConfig.follow_DFscreen = false;
+    }
+    if (ssConfig.follow_DFscreen) {
+        ssConfig.viewZoffset += stepsize;
+    } else {
+        ssState.DisplayedSegment.z += stepsize;
+    }
+    timeToReloadSegment = true;
 }
 
 void doKeys(int32_t key, uint32_t keymod)
 {
-    doKey(key,keymod);
+    if(doKey(key,keymod)) {
+        //if the key is set to repeat, switch on the repeater
+        eventrepeater.keycode = key;
+        eventrepeater.modifiers = keymod;
+    }
     return;
 
     //WAITING TO BE MOVED OVER

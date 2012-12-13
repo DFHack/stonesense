@@ -5,7 +5,7 @@
 
 struct action_name_mapper {
     string name;
-    void (*func)(int);
+    void (*func)(uint32_t);
 };
 
 string parseStrFromLine( string keyword, string line );
