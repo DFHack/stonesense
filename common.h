@@ -191,13 +191,15 @@ extern bool key[ALLEGRO_KEY_MAX];
 
 //from UserInput.cpp
 void doKeys();
-void doKeys(int key);
+void doKeys(int32_t key, uint32_t keymod);
 void initAutoReload();
 void abortAutoReload();
 
+//Keybinds.cpp
+bool loadKeymapFile();
+
 //Config.cpp
 bool loadConfigFile();
-
 
 //xmlBuildingReader.cpp
 class BuildingConfiguration;

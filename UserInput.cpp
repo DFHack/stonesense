@@ -4,6 +4,7 @@
 #include "ContentLoader.h"
 #include "GameBuildings.h"
 #include "Creatures.h"
+#include "UserInput.h"
 #include <math.h>
 extern int mouse_x, mouse_y, mouse_z;
 extern unsigned int mouse_b;
@@ -229,133 +230,150 @@ void doKeys()
     }
 }
 
-void doKeys(int Key)
-{
-    al_get_keyboard_state(&keyboard);
-    if(Key == ALLEGRO_KEY_ENTER) {
-        ssState.DisplayedRotation++;
-        ssState.DisplayedRotation %= 4;
-        timeToReloadSegment = true;
+void action_incrrotation(int keymod){
+    ssState.DisplayedRotation++;
+    ssState.DisplayedRotation %= 4;
+    timeToReloadSegment = true;
+}
+
+void action_reloadsegment(int keymod){
+    timeToReloadSegment = true;
+}
+
+void action_paintboard(int keymod){
+    paintboard();
+}
+
+void action_togglestockpiles(int keymod){
+    ssConfig.show_stockpiles = !ssConfig.show_stockpiles;
+    timeToReloadSegment = true;
+}
+
+void action_togglezones(int keymod){
+    ssConfig.show_zones = !ssConfig.show_zones;
+    timeToReloadSegment = true;
+}
+
+void action_toggleocclusion(int keymod){
+    ssConfig.occlusion = !ssConfig.occlusion;
+    timeToReloadSegment = true;
+}
+
+void action_togglecreaturemood(int keymod){
+    ssConfig.show_creature_moods = !ssConfig.show_creature_moods;
+    timeToReloadSegment = true;
+}
+
+void action_togglecreatureprof(int keymod){
+    ssConfig.show_creature_professions++;
+    ssConfig.show_creature_professions = ssConfig.show_creature_professions % 3;
+    timeToReloadSegment = true;
+}
+
+void action_togglecreaturejob(int keymod){
+    ssConfig.show_creature_jobs = !ssConfig.show_creature_jobs;
+    timeToReloadSegment = true;
+}
+
+void action_chopwall(int keymod){
+    ssConfig.truncate_walls++;
+    if (ssConfig.truncate_walls > 4) {
+        ssConfig.truncate_walls = 0;
     }
-    if(Key == ALLEGRO_KEY_R) {
-        timeToReloadSegment = true;
+    timeToReloadSegment = true;
+}
+
+void action_togglefollowdfcursor(int keymod){
+    if (al_key_down(&keyboard,ALLEGRO_KEY_LCTRL) || al_key_down(&keyboard,ALLEGRO_KEY_RCTRL)) {
+        ssConfig.follow_DFcursor = !ssConfig.follow_DFcursor;
+    } else {
+        ssConfig.follow_DFscreen = !ssConfig.follow_DFscreen;
     }
-    if(Key == ALLEGRO_KEY_D) {
-        paintboard();
+    timeToReloadSegment = true;
+}
+
+void action_togglefollowdfscreen(int keymod){
+    if (ssConfig.follow_DFscreen) {
+        ssConfig.viewXoffset = 0;
+        ssConfig.viewYoffset = 0;
+        ssConfig.viewZoffset = 0;
+    } else {
+        ssState.DisplayedSegment.x = (ssState.RegionDim.x -ssState.SegmentSize.x)/2;
+        ssState.DisplayedSegment.y = (ssState.RegionDim.y -ssState.SegmentSize.y)/2;
     }
-    if(Key == ALLEGRO_KEY_G) {
-        //contentLoader.reload_configs();
-        //timeToReloadSegment = true;
+}
+
+void action_decrsegmentZ(int keymod){
+    ssState.SegmentSize.z--;
+    if(ssState.SegmentSize.z <= 0) {
+        ssState.SegmentSize.z = 1;
     }
-    if(Key == ALLEGRO_KEY_I) {
-        ssConfig.show_stockpiles = !ssConfig.show_stockpiles;
-        timeToReloadSegment = true;
-    }
-    if(Key == ALLEGRO_KEY_U) {
-        ssConfig.show_zones = !ssConfig.show_zones;
-        timeToReloadSegment = true;
-    }
-    if(Key == ALLEGRO_KEY_O) {
-        ssConfig.occlusion = !ssConfig.occlusion;
-        timeToReloadSegment = true;
-    }
-    if(Key == ALLEGRO_KEY_M) {
-        ssConfig.show_creature_moods = !ssConfig.show_creature_moods;
-        timeToReloadSegment = true;
-    }
-    if(Key == ALLEGRO_KEY_P) {
-        ssConfig.show_creature_professions++;
-        ssConfig.show_creature_professions = ssConfig.show_creature_professions % 3;
-        timeToReloadSegment = true;
-    }
-    if(Key == ALLEGRO_KEY_J) {
-        ssConfig.show_creature_jobs = !ssConfig.show_creature_jobs;
-        timeToReloadSegment = true;
-    }
-    if(Key == ALLEGRO_KEY_C) {
-        ssConfig.truncate_walls++;
-        if (ssConfig.truncate_walls > 4) {
-            ssConfig.truncate_walls = 0;
-        }
-        timeToReloadSegment = true;
-    }
-    if(Key == ALLEGRO_KEY_F) {
-        if (al_key_down(&keyboard,ALLEGRO_KEY_LCTRL) || al_key_down(&keyboard,ALLEGRO_KEY_RCTRL)) {
-            ssConfig.follow_DFcursor = !ssConfig.follow_DFcursor;
+    timeToReloadSegment = true;
+}
+
+void action_incrsegmentZ(int keymod){
+    ssState.SegmentSize.z++;
+    //add a limit?
+    timeToReloadSegment = true;
+}
+
+void action_togglesinglelayer(int keymod){
+    ssConfig.single_layer_view = !ssConfig.single_layer_view;
+    timeToReloadSegment = true;
+}
+
+void action_toggleshadehidden(int keymod){
+    ssConfig.shade_hidden_tiles = !ssConfig.shade_hidden_tiles;
+    timeToReloadSegment = true;
+}
+
+void action_toggleshowhidden(int keymod){
+    ssConfig.show_hidden_tiles = !ssConfig.show_hidden_tiles;
+    timeToReloadSegment = true;
+}
+
+void action_togglecreaturenames(int keymod){
+    ssConfig.show_creature_names = !ssConfig.show_creature_names;
+    timeToReloadSegment = true;
+}
+
+void action_toggleosd(int keymod){
+    ssConfig.show_osd = !ssConfig.show_osd;
+    timeToReloadSegment = true;
+}
+
+void action_incrzoom(int keymod){
+    ssConfig.zoom++;
+    ssConfig.scale = pow(2.0f, ssConfig.zoom);
+}
+
+void action_decrzoom(int keymod){
+    ssConfig.zoom--;
+    ssConfig.scale = pow(2.0f, ssConfig.zoom);
+}
+
+void action_screenshot(int keymod){
+    if (al_key_down(&keyboard,ALLEGRO_KEY_LCTRL) || al_key_down(&keyboard,ALLEGRO_KEY_RCTRL))
+        if (al_key_down(&keyboard,ALLEGRO_KEY_LSHIFT) || al_key_down(&keyboard,ALLEGRO_KEY_RSHIFT)) {
+            saveMegashot(true);
         } else {
-            ssConfig.follow_DFscreen = !ssConfig.follow_DFscreen;
+            saveMegashot(false);
         }
-        timeToReloadSegment = true;
+    else if (al_key_down(&keyboard,ALLEGRO_KEY_ALT) || al_key_down(&keyboard,ALLEGRO_KEY_ALTGR)) {
+        dumpSegment();
+    } else {
+        saveScreenshot();
     }
-    if(Key == ALLEGRO_KEY_Z) {
-        if (ssConfig.follow_DFscreen) {
-            ssConfig.viewXoffset = 0;
-            ssConfig.viewYoffset = 0;
-            ssConfig.viewZoffset = 0;
-        } else {
-            ssState.DisplayedSegment.x = (ssState.RegionDim.x -ssState.SegmentSize.x)/2;
-            ssState.DisplayedSegment.y = (ssState.RegionDim.y -ssState.SegmentSize.y)/2;
-        }
-    }
-    if(Key == ALLEGRO_KEY_1) {
-        ssState.SegmentSize.z--;
-        if(ssState.SegmentSize.z <= 0) {
-            ssState.SegmentSize.z = 1;
-        }
-        timeToReloadSegment = true;
-    }
-    if(Key == ALLEGRO_KEY_2) {
-        ssState.SegmentSize.z++;
-        //add a limit?
-        timeToReloadSegment = true;
-    }
-    if(Key == ALLEGRO_KEY_S) {
-        ssConfig.single_layer_view = !ssConfig.single_layer_view;
-        timeToReloadSegment = true;
-    }
-    if(Key == ALLEGRO_KEY_B) {
-        ssConfig.shade_hidden_tiles = !ssConfig.shade_hidden_tiles;
-        timeToReloadSegment = true;
-    }
-    if(Key == ALLEGRO_KEY_H) {
-        ssConfig.show_hidden_tiles = !ssConfig.show_hidden_tiles;
-        timeToReloadSegment = true;
-    }
-    if(Key == ALLEGRO_KEY_N) {
-        ssConfig.show_creature_names = !ssConfig.show_creature_names;
-        timeToReloadSegment = true;
-    }
-    if(Key == ALLEGRO_KEY_F2) {
-        ssConfig.show_osd = !ssConfig.show_osd;
-        timeToReloadSegment = true;
-    }
-    if(Key == ALLEGRO_KEY_FULLSTOP) {
-        ssConfig.zoom++;
-        ssConfig.scale = pow(2.0f, ssConfig.zoom);
-    }
-    if(Key == ALLEGRO_KEY_COMMA) {
-        ssConfig.zoom--;
-        ssConfig.scale = pow(2.0f, ssConfig.zoom);
-    }
-    if(Key == ALLEGRO_KEY_F5) {
-        if (al_key_down(&keyboard,ALLEGRO_KEY_LCTRL) || al_key_down(&keyboard,ALLEGRO_KEY_RCTRL))
-            if (al_key_down(&keyboard,ALLEGRO_KEY_LSHIFT) || al_key_down(&keyboard,ALLEGRO_KEY_RSHIFT)) {
-                saveMegashot(true);
-            } else {
-                saveMegashot(false);
-            }
-        else if (al_key_down(&keyboard,ALLEGRO_KEY_ALT) || al_key_down(&keyboard,ALLEGRO_KEY_ALTGR)) {
-            dumpSegment();
-        } else {
-            saveScreenshot();
-        }
-    }
-    if(Key == ALLEGRO_KEY_PAD_PLUS) {
-        ssConfig.automatic_reload_time += ssConfig.automatic_reload_step;
-        paintboard();
-        initAutoReload();
-    }
-    if(Key == ALLEGRO_KEY_PAD_MINUS && ssConfig.automatic_reload_time) {
+}
+
+void action_incrreloadtime(int keymod){
+    ssConfig.automatic_reload_time += ssConfig.automatic_reload_step;
+    paintboard();
+    initAutoReload();
+}
+
+void action_decrreloadtime(int keymod){ 
+    if(ssConfig.automatic_reload_time) {
         if(ssConfig.automatic_reload_time > 0) {
             ssConfig.automatic_reload_time -= ssConfig.automatic_reload_step;
         }
@@ -367,47 +385,55 @@ void doKeys(int Key)
         }
         paintboard();
     }
-    if(Key == ALLEGRO_KEY_F9) {
-        ssConfig.creditScreen = false;
-    }
+}
 
-    if(ssConfig.debug_mode) {
-        if(Key == ALLEGRO_KEY_PAD_8) {
-            ssConfig.follow_DFcursor = false;
-            debugCursor.y--;
-            paintboard();
-        }
-        if(Key == ALLEGRO_KEY_PAD_2) {
-            ssConfig.follow_DFcursor = false;
-            debugCursor.y++;
-            paintboard();
-        }
-        if(Key == ALLEGRO_KEY_PAD_4) {
-            ssConfig.follow_DFcursor = false;
-            debugCursor.x--;
-            paintboard();
-        }
-        if(Key == ALLEGRO_KEY_PAD_6) {
-            ssConfig.follow_DFcursor = false;
-            debugCursor.x++;
-            paintboard();
-        }
+void action_credits(int keymod){ 
+    ssConfig.creditScreen = false;
+}
 
-        if(Key == ALLEGRO_KEY_F10) {
-            if(ssConfig.spriteIndexOverlay == false) {
-                ssConfig.spriteIndexOverlay = true;
-                ssConfig.currentSpriteOverlay = -1;
-            } else {
-                ssConfig.currentSpriteOverlay ++;
-                if(ssConfig.currentSpriteOverlay >= IMGFilenames.size()) {
-                    ssConfig.currentSpriteOverlay = -1;
-                }
-            }
-        }
-        if(Key == ALLEGRO_KEY_SPACE) {
-            if(ssConfig.spriteIndexOverlay == true) {
-                ssConfig.spriteIndexOverlay = false;
-            }
-        }
-    }
+void doKeys(int32_t key, uint32_t keymod)
+{
+    doKey(key,keymod);
+    return;
+
+    //WAITING TO BE MOVED OVER
+    //if(ssConfig.debug_mode) {
+    //    if(Key == ALLEGRO_KEY_PAD_8) {
+    //        ssConfig.follow_DFcursor = false;
+    //        debugCursor.y--;
+    //        paintboard();
+    //    }
+    //    if(Key == ALLEGRO_KEY_PAD_2) {
+    //        ssConfig.follow_DFcursor = false;
+    //        debugCursor.y++;
+    //        paintboard();
+    //    }
+    //    if(Key == ALLEGRO_KEY_PAD_4) {
+    //        ssConfig.follow_DFcursor = false;
+    //        debugCursor.x--;
+    //        paintboard();
+    //    }
+    //    if(Key == ALLEGRO_KEY_PAD_6) {
+    //        ssConfig.follow_DFcursor = false;
+    //        debugCursor.x++;
+    //        paintboard();
+    //    }
+
+    //    if(Key == ALLEGRO_KEY_F10) {
+    //        if(ssConfig.spriteIndexOverlay == false) {
+    //            ssConfig.spriteIndexOverlay = true;
+    //            ssConfig.currentSpriteOverlay = -1;
+    //        } else {
+    //            ssConfig.currentSpriteOverlay ++;
+    //            if(ssConfig.currentSpriteOverlay >= IMGFilenames.size()) {
+    //                ssConfig.currentSpriteOverlay = -1;
+    //            }
+    //        }
+    //    }
+    //    if(Key == ALLEGRO_KEY_SPACE) {
+    //        if(ssConfig.spriteIndexOverlay == true) {
+    //            ssConfig.spriteIndexOverlay = false;
+    //        }
+    //    }
+    //}
 }
