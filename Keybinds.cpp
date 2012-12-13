@@ -97,12 +97,12 @@ string keynames[] = {
     "KEYS_UP",
     "KEYS_DOWN",
 
-    "KEYS_PAD_SLASH",
-    "KEYS_PAD_ASTERISK",
-    "KEYS_PAD_MINUS",
-    "KEYS_PAD_PLUS",
-    "KEYS_PAD_DELETE",
-    "KEYS_PAD_ENTER",
+    "KEYPAD_SLASH",
+    "KEYPAD_ASTERISK",
+    "KEYPAD_MINUS",
+    "KEYPAD_PLUS",
+    "KEYPAD_DELETE",
+    "KEYPAD_ENTER",
 
     "KEYS_PRINTSCREEN",
     "KEYS_PAUSE",
@@ -117,7 +117,7 @@ string keynames[] = {
     "KEYS_COLON2",
     "KEYS_KANJI",
 
-    "KEYSPAD_EQUALS",	/* MacOS X */
+    "KEYPAD_EQUALS",	/* MacOS X */
     "KEYS_BACKQUOTE",	/* MacOS X */
     "KEYS_SEMICOLON2",	/* MacOS X */
     "KEYS_COMMAND"	/* MacOS X */
@@ -163,13 +163,13 @@ int getKeyCode(string& keyName){
 //    return KEYMOD_NONE;
 //}
 
-void action_noop(int keymod){
+void action_noop(uint32_t keymod){
 #ifdef DEBUG
     PrintMessage("unbound key pressed\n");
 #endif
 }
 
-void action_invalid(int keymod){
+void action_invalid(uint32_t keymod){
     PrintMessage("invalid action\n");
 }
 
@@ -200,12 +200,20 @@ action_name_mapper actionnamemap[] = {
     {"INCR_RELOAD_TIME", action_incrreloadtime},
     {"DECR_RELOAD_TIME", action_decrreloadtime},
     {"CREDITS", action_credits},
+
+    {"DECR_Y", action_decrY},
+    {"INCR_Y", action_incrY},
+    {"DECR_X", action_decrX},
+    {"INCR_X", action_incrX},
+    {"DECR_Z", action_decrZ},
+    {"INCR_Z", action_incrZ},
     //add extra action here!
 
     {"INVALID", action_invalid}//this is the stop condition
 };
 
-void (*actionkeymap[ALLEGRO_KEY_UNKNOWN])(int) ;
+void (*actionkeymap[ALLEGRO_KEY_UNKNOWN])(uint32_t);
+bool repeatingkeys[ALLEGRO_KEY_UNKNOWN];
 
 void parseKeymapLine( string line )
 {    
@@ -235,6 +243,9 @@ void parseKeymapLine( string line )
                     PrintMessage("successfully mapped: op:%i key:%i\n",i,j);
 #endif
                     actionkeymap[j] = actionnamemap[i].func;
+                    if(line.find("*]") != -1) {
+                        repeatingkeys[j] = true;
+                    }
                     break;
                 }
             }
@@ -258,6 +269,7 @@ bool loadKeymapFile(){
     //initialize the keymap to all noops
     for(int i=0; i<ALLEGRO_KEY_UNKNOWN; i++) {
         actionkeymap[i] = action_noop;
+        repeatingkeys[i] = false;
     }
 
     while ( !myfile.eof() ) {
@@ -270,8 +282,10 @@ bool loadKeymapFile(){
     return true;
 }
 
-void doKey(int32_t keycode, uint32_t keymodcode){
+bool doKey(int32_t keycode, uint32_t keymodcode){
     if(keycode>0 && keycode<ALLEGRO_KEY_UNKNOWN) {
         actionkeymap[keycode](keymodcode);
+        return repeatingkeys[keycode];
     }
+    return false;
 }

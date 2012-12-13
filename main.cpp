@@ -326,6 +326,14 @@ static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALL
                 }
                 break;
 
+                /* ALLEGRO_EVENT_KEY_UP - a keyboard key was released.
+                */
+            case ALLEGRO_EVENT_KEY_UP:
+                if (event.keyboard.keycode == eventrepeater.keycode) {
+                    eventrepeater.keycode = 0;
+                } 
+                break;
+
                 /* ALLEGRO_EVENT_DISPLAY_CLOSE - the window close button was pressed.
                 */
             case ALLEGRO_EVENT_DISPLAY_CLOSE:
@@ -402,6 +410,7 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
     loadConfigFile();
     loadKeymapFile();
     init_masks();
+    eventrepeater.keycode=0;
     if(!loadfont(out)) {
         stonesense_started = 0;
         return NULL;
