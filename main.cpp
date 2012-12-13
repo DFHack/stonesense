@@ -378,6 +378,7 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
     ssState.SegmentSize.z = DEFAULT_SEGMENTSIZE_Z;
     ssConfig.show_creature_names = true;
     ssConfig.show_osd = true;
+    ssConfig.show_keybinds = false;
     ssConfig.show_intro = true;
     ssConfig.track_center = false;
     ssConfig.animation_step = 300;

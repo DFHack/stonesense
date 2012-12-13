@@ -194,6 +194,7 @@ action_name_mapper actionnamemap[] = {
     {"TOGGLE_SHADE_HIDDEN_TILES", action_toggleshadehidden},
     {"TOGGLE_SHOW_HIDDEN_TILES", action_toggleshowhidden},
     {"TOGGLE_OSD", action_toggleosd},
+    {"TOGGLE_KEYBINDS", action_togglekeybinds},
     {"INCR_ZOOM", action_incrzoom},
     {"DECR_ZOOM", action_decrzoom},
     {"SCREENSHOT", action_screenshot},
@@ -286,6 +287,24 @@ bool doKey(int32_t keycode, uint32_t keymodcode){
     if(keycode>0 && keycode<ALLEGRO_KEY_UNKNOWN) {
         actionkeymap[keycode](keymodcode);
         return repeatingkeys[keycode];
+    }
+    return false;
+}
+
+bool getKeyStrings(int32_t keycode, string*& keyname, string*& actionname){
+    keyname = actionname = NULL;
+    if(keycode>0 && keycode<ALLEGRO_KEY_UNKNOWN) {
+        keyname = &keynames[keycode];
+        void* action = (void*) actionkeymap[keycode];
+        if(action == (void*) action_noop){
+            return false;
+        }
+        for(int i=0; actionnamemap[i].func != action_invalid; i++) {
+            if(action == (void*) actionnamemap[i].func) {
+                actionname = &(actionnamemap[i].name);
+                return true;
+            }
+        }
     }
     return false;
 }

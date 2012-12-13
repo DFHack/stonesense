@@ -19,6 +19,7 @@ void action_toggleshadehidden(uint32_t keymod);
 void action_toggleshowhidden(uint32_t keymod);
 void action_togglecreaturenames(uint32_t keymod);
 void action_toggleosd(uint32_t keymod);
+void action_togglekeybinds(uint32_t keymod);
 void action_incrzoom(uint32_t keymod);
 void action_decrzoom(uint32_t keymod);
 void action_screenshot(uint32_t keymod);
