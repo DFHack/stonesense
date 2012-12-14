@@ -369,7 +369,8 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
     ssConfig.load_ground_materials = true;
     ssConfig.automatic_reload_time = 0;
     ssConfig.automatic_reload_step = 500;
-    ssConfig.lift_segment_offscreen = 0;
+    ssConfig.lift_segment_offscreen_x = 0;
+    ssConfig.lift_segment_offscreen_y = 0;
     ssConfig.Fullscreen = FULLSCREEN;
     ssState.ScreenH = RESOLUTION_HEIGHT;
     ssState.ScreenW = RESOLUTION_WIDTH;
@@ -381,6 +382,7 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
     ssConfig.show_keybinds = false;
     ssConfig.show_intro = true;
     ssConfig.track_center = false;
+    ssConfig.track_screen_center = true;
     ssConfig.animation_step = 300;
     ssConfig.follow_DFscreen = false;
     timeToReloadConfig = true;
