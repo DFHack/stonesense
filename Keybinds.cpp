@@ -188,8 +188,6 @@ action_name_mapper actionnamemap[] = {
     {"CHOP_WALLS", action_chopwall},
     {"FOLLOW_DF", action_togglefollowdfcursor},
     {"RESET_VIEW_OFFSET", action_togglefollowdfscreen},
-    {"DECR_SEGMENT_Z", action_decrsegmentZ},
-    {"INCR_SEGMENT_Z", action_incrsegmentZ},
     {"TOGGLE_SINGLE_LAYER", action_togglesinglelayer},
     {"TOGGLE_SHADE_HIDDEN_TILES", action_toggleshadehidden},
     {"TOGGLE_SHOW_HIDDEN_TILES", action_toggleshowhidden},
@@ -201,6 +199,13 @@ action_name_mapper actionnamemap[] = {
     {"INCR_RELOAD_TIME", action_incrreloadtime},
     {"DECR_RELOAD_TIME", action_decrreloadtime},
     {"CREDITS", action_credits},
+    
+    {"DECR_SEGMENT_X", action_decrsegmentX},
+    {"INCR_SEGMENT_X", action_incrsegmentX},
+    {"DECR_SEGMENT_Y", action_decrsegmentY},
+    {"INCR_SEGMENT_Y", action_incrsegmentY},
+    {"DECR_SEGMENT_Z", action_decrsegmentZ},
+    {"INCR_SEGMENT_Z", action_incrsegmentZ},
 
     {"DECR_Y", action_decrY},
     {"INCR_Y", action_incrY},
@@ -214,7 +219,6 @@ action_name_mapper actionnamemap[] = {
 };
 
 void (*actionkeymap[ALLEGRO_KEY_UNKNOWN])(uint32_t);
-bool repeatingkeys[ALLEGRO_KEY_UNKNOWN];
 
 void parseKeymapLine( string line )
 {    
@@ -244,9 +248,6 @@ void parseKeymapLine( string line )
                     PrintMessage("successfully mapped: op:%i key:%i\n",i,j);
 #endif
                     actionkeymap[j] = actionnamemap[i].func;
-                    if(line.find("*]") != -1) {
-                        repeatingkeys[j] = true;
-                    }
                     break;
                 }
             }
@@ -270,7 +271,6 @@ bool loadKeymapFile(){
     //initialize the keymap to all noops
     for(int i=0; i<ALLEGRO_KEY_UNKNOWN; i++) {
         actionkeymap[i] = action_noop;
-        repeatingkeys[i] = false;
     }
 
     while ( !myfile.eof() ) {
@@ -286,7 +286,7 @@ bool loadKeymapFile(){
 bool doKey(int32_t keycode, uint32_t keymodcode){
     if(keycode>0 && keycode<ALLEGRO_KEY_UNKNOWN) {
         actionkeymap[keycode](keymodcode);
-        return repeatingkeys[keycode];
+        return true;
     }
     return false;
 }
