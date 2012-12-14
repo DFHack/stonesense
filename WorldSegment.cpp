@@ -498,7 +498,7 @@ bool WorldSegment::CoordinateInteriorSegment(uint32_t x, uint32_t y, uint32_t z,
     if( (int32_t)y < this->pos.y + shellthick || (int32_t)y >= this->pos.y + this->size.y - shellthick) {
         return false;
     }
-    if( (int32_t)z < this->pos.z + shellthick || (int32_t)z >= this->pos.z + this->size.z - shellthick) {
+    if( (int32_t)z < this->pos.z /*bottom is "interior"*/ || (int32_t)z >= this->pos.z + this->size.z - shellthick) {
         return false;
     }
     return true;
