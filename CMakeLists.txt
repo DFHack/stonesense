@@ -32,7 +32,7 @@ SET(PROJECT_SRCS
     UserInput.cpp
     WorldSegment.cpp
     VegetationConfiguration.cpp
-	Keybinds.cpp
+    Keybinds.cpp
     main.cpp
 )
 

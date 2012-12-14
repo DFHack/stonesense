@@ -253,7 +253,7 @@ void Tile::AssembleTile()
                 spriteobject->set_size(SPRITEWIDTH, TILETOPHEIGHT);
                 spriteobject->set_plate_layout(RAMPTOPPLATE);
                 spriteobject->set_offset(0, WALLHEIGHT);
-                spriteobject->assemble_world_offset(x, y, z, 0, b, (chopThisTile && this->z == ownerSegment->pos.z + ownerSegment->size.z -2));
+                spriteobject->assemble_world_offset(x, y, z, 0, b);
                 spriteobject->set_offset(0, 0);
             }
             spriteobject->set_plate_layout(TILEPLATE);
