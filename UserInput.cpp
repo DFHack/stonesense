@@ -11,8 +11,6 @@ extern unsigned int mouse_b;
 ALLEGRO_MOUSE_STATE mouse;
 ALLEGRO_KEYBOARD_STATE board;
 extern ALLEGRO_TIMER * reloadtimer;
-//when set, the event associated with this value will repeat for each frame
-ALLEGRO_KEYBOARD_EVENT eventrepeater;
 
 void mouseProc(int flags)
 {
@@ -103,8 +101,6 @@ void doKeys()
 
     al_get_keyboard_state(&keyboard);
     al_get_mouse_state(&mouse);
-
-    doKey(eventrepeater.keycode, eventrepeater.modifiers);
 
     char stepsize = (al_key_down(&keyboard,ALLEGRO_KEY_LSHIFT) || al_key_down(&keyboard,ALLEGRO_KEY_RSHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
     //mouse_callback = mouseProc;
@@ -248,7 +244,7 @@ void action_chopwall(uint32_t keymod)
 
 void action_togglefollowdfcursor(uint32_t keymod)
 {
-    if (al_key_down(&keyboard,ALLEGRO_KEY_LCTRL) || al_key_down(&keyboard,ALLEGRO_KEY_RCTRL)) {
+    if (keymod&ALLEGRO_KEYMOD_CTRL) {
         ssConfig.follow_DFcursor = !ssConfig.follow_DFcursor;
     } else {
         ssConfig.follow_DFscreen = !ssConfig.follow_DFscreen;
@@ -268,9 +264,46 @@ void action_togglefollowdfscreen(uint32_t keymod)
     }
 }
 
+void action_decrsegmentX(uint32_t keymod)
+{
+    char stepsize = ((keymod&ALLEGRO_KEYMOD_SHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
+    ssState.SegmentSize.x -= stepsize;
+    if(ssState.SegmentSize.x <= 0) {
+        ssState.SegmentSize.x = 1;
+    }
+    timeToReloadSegment = true;
+}
+
+void action_incrsegmentX(uint32_t keymod)
+{
+    char stepsize = ((keymod&ALLEGRO_KEYMOD_SHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
+    ssState.SegmentSize.x += stepsize;
+    //add a limit?
+    timeToReloadSegment = true;
+}
+
+void action_decrsegmentY(uint32_t keymod)
+{
+    char stepsize = ((keymod&ALLEGRO_KEYMOD_SHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
+    ssState.SegmentSize.y -= stepsize;
+    if(ssState.SegmentSize.y <= 0) {
+        ssState.SegmentSize.y = 1;
+    }
+    timeToReloadSegment = true;
+}
+
+void action_incrsegmentY(uint32_t keymod)
+{
+    char stepsize = ((keymod&ALLEGRO_KEYMOD_SHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
+    ssState.SegmentSize.y += stepsize;
+    //add a limit?
+    timeToReloadSegment = true;
+}
+
 void action_decrsegmentZ(uint32_t keymod)
 {
-    ssState.SegmentSize.z--;
+    char stepsize = ((keymod&ALLEGRO_KEYMOD_SHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
+    ssState.SegmentSize.z -= stepsize;
     if(ssState.SegmentSize.z <= 0) {
         ssState.SegmentSize.z = 1;
     }
@@ -279,7 +312,8 @@ void action_decrsegmentZ(uint32_t keymod)
 
 void action_incrsegmentZ(uint32_t keymod)
 {
-    ssState.SegmentSize.z++;
+    char stepsize = ((keymod&ALLEGRO_KEYMOD_SHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
+    ssState.SegmentSize.z += stepsize;
     //add a limit?
     timeToReloadSegment = true;
 }
@@ -332,13 +366,14 @@ void action_decrzoom(uint32_t keymod)
 
 void action_screenshot(uint32_t keymod)
 {
-    if (al_key_down(&keyboard,ALLEGRO_KEY_LCTRL) || al_key_down(&keyboard,ALLEGRO_KEY_RCTRL))
-        if (al_key_down(&keyboard,ALLEGRO_KEY_LSHIFT) || al_key_down(&keyboard,ALLEGRO_KEY_RSHIFT)) {
+    if (keymod&ALLEGRO_KEYMOD_CTRL) {
+        if (keymod&ALLEGRO_KEYMOD_SHIFT) {
             saveMegashot(true);
         } else {
             saveMegashot(false);
         }
-    else if (al_key_down(&keyboard,ALLEGRO_KEY_ALT) || al_key_down(&keyboard,ALLEGRO_KEY_ALTGR)) {
+    }
+    if (keymod&ALLEGRO_KEYMOD_ALT) {
         dumpSegment();
     } else {
         saveScreenshot();
@@ -375,8 +410,12 @@ void action_credits(uint32_t keymod)
 
 void action_decrY(uint32_t keymod)
 { 
-    char stepsize = (al_key_down(&keyboard,ALLEGRO_KEY_LSHIFT) || al_key_down(&keyboard,ALLEGRO_KEY_RSHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
-    if (!(al_key_down(&keyboard,ALLEGRO_KEY_LCTRL) || al_key_down(&keyboard,ALLEGRO_KEY_RCTRL))) {
+    if(keymod&ALLEGRO_KEYMOD_CTRL){
+        action_decrsegmentY(keymod);
+        return;
+    }
+    char stepsize = ((keymod&ALLEGRO_KEYMOD_SHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
+    if (!(keymod&ALLEGRO_KEYMOD_ALT)) {
         ssConfig.follow_DFscreen = false;
     }
     moveViewRelativeToRotation( 0, -stepsize );
@@ -385,8 +424,12 @@ void action_decrY(uint32_t keymod)
 
 void action_incrY(uint32_t keymod)
 { 
-    char stepsize = (al_key_down(&keyboard,ALLEGRO_KEY_LSHIFT) || al_key_down(&keyboard,ALLEGRO_KEY_RSHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
-    if (!(al_key_down(&keyboard,ALLEGRO_KEY_LCTRL) || al_key_down(&keyboard,ALLEGRO_KEY_RCTRL))) {
+    if(keymod&ALLEGRO_KEYMOD_CTRL){
+        action_incrsegmentY(keymod);
+        return;
+    }
+    char stepsize = ((keymod&ALLEGRO_KEYMOD_SHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
+    if (!(keymod&ALLEGRO_KEYMOD_ALT)) {
         ssConfig.follow_DFscreen = false;
     }
     moveViewRelativeToRotation( 0, stepsize );
@@ -395,8 +438,12 @@ void action_incrY(uint32_t keymod)
 
 void action_decrX(uint32_t keymod)
 { 
-    char stepsize = (al_key_down(&keyboard,ALLEGRO_KEY_LSHIFT) || al_key_down(&keyboard,ALLEGRO_KEY_RSHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
-    if (!(al_key_down(&keyboard,ALLEGRO_KEY_LCTRL) || al_key_down(&keyboard,ALLEGRO_KEY_RCTRL))) {
+    if(keymod&ALLEGRO_KEYMOD_CTRL){
+        action_decrsegmentX(keymod);
+        return;
+    }
+    char stepsize = ((keymod&ALLEGRO_KEYMOD_SHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
+    if (!(keymod&ALLEGRO_KEYMOD_ALT)) {
         ssConfig.follow_DFscreen = false;
     }
     moveViewRelativeToRotation( -stepsize, 0 );
@@ -405,8 +452,12 @@ void action_decrX(uint32_t keymod)
 
 void action_incrX(uint32_t keymod)
 { 
-    char stepsize = (al_key_down(&keyboard,ALLEGRO_KEY_LSHIFT) || al_key_down(&keyboard,ALLEGRO_KEY_RSHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
-    if (!(al_key_down(&keyboard,ALLEGRO_KEY_LCTRL) || al_key_down(&keyboard,ALLEGRO_KEY_RCTRL))) {
+    if(keymod&ALLEGRO_KEYMOD_CTRL){
+        action_incrsegmentX(keymod);
+        return;
+    }
+    char stepsize = ((keymod&ALLEGRO_KEYMOD_SHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
+    if (!(keymod&ALLEGRO_KEYMOD_ALT)) {
         ssConfig.follow_DFscreen = false;
     }
     moveViewRelativeToRotation( stepsize, 0 );
@@ -415,8 +466,12 @@ void action_incrX(uint32_t keymod)
 
 void action_decrZ(uint32_t keymod)
 { 
-    char stepsize = (al_key_down(&keyboard,ALLEGRO_KEY_LSHIFT) || al_key_down(&keyboard,ALLEGRO_KEY_RSHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
-    if (!(al_key_down(&keyboard,ALLEGRO_KEY_LCTRL) || al_key_down(&keyboard,ALLEGRO_KEY_RCTRL))) {
+    if(keymod&ALLEGRO_KEYMOD_CTRL){
+        action_decrsegmentZ(keymod);
+        return;
+    }
+    char stepsize = ((keymod&ALLEGRO_KEYMOD_SHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
+    if (!(keymod&ALLEGRO_KEYMOD_ALT)) {
         ssConfig.follow_DFscreen = false;
     }
     if (ssConfig.follow_DFscreen) {
@@ -432,8 +487,12 @@ void action_decrZ(uint32_t keymod)
 
 void action_incrZ(uint32_t keymod)
 { 
-    char stepsize = (al_key_down(&keyboard,ALLEGRO_KEY_LSHIFT) || al_key_down(&keyboard,ALLEGRO_KEY_RSHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
-    if (!(al_key_down(&keyboard,ALLEGRO_KEY_LCTRL) || al_key_down(&keyboard,ALLEGRO_KEY_RCTRL))) {
+    if(keymod&ALLEGRO_KEYMOD_CTRL){
+        action_incrsegmentZ(keymod);
+        return;
+    }
+    char stepsize = ((keymod&ALLEGRO_KEYMOD_SHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
+    if (!(keymod&ALLEGRO_KEYMOD_ALT)) {
         ssConfig.follow_DFscreen = false;
     }
     if (ssConfig.follow_DFscreen) {
@@ -446,11 +505,7 @@ void action_incrZ(uint32_t keymod)
 
 void doKeys(int32_t key, uint32_t keymod)
 {
-    if(doKey(key,keymod)) {
-        //if the key is set to repeat, switch on the repeater
-        eventrepeater.keycode = key;
-        eventrepeater.modifiers = keymod;
-    }
+    doKey(key,keymod);
     return;
 
     //WAITING TO BE MOVED OVER

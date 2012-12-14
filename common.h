@@ -194,7 +194,6 @@ void doKeys();
 void doKeys(int32_t key, uint32_t keymod);
 void initAutoReload();
 void abortAutoReload();
-extern ALLEGRO_KEYBOARD_EVENT eventrepeater;
 
 //Keybinds.cpp
 bool loadKeymapFile();
