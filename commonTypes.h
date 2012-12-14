@@ -127,13 +127,15 @@ struct GameConfiguration {
     bool hide_outer_tiles;
     bool debug_mode;
     bool track_center;
-    int lift_segment_offscreen;
+    int lift_segment_offscreen_x;
+    int lift_segment_offscreen_y;
     uint8_t truncate_walls;
     bool follow_DFscreen;
     bool verbose_logging;
     int viewXoffset;
     int viewYoffset;
     int viewZoffset;
+    bool track_screen_center;
     int automatic_reload_time;
     int automatic_reload_step;
     int animation_step;

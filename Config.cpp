@@ -126,7 +126,7 @@ void parseConfigLine( string line )
     }
     if( line.find("[LIFTSEGMENT") != -1) {
         int value = parseIntFromLine( "LIFTSEGMENT", line);
-        ssConfig.lift_segment_offscreen = value;
+        ssConfig.lift_segment_offscreen_y = value;
     }
     if( line.find("[ANIMATION_RATE") != -1) {
         int value = parseIntFromLine( "ANIMATION_RATE", line );

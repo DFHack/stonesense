@@ -180,7 +180,7 @@ void ScreenToPoint(int x,int y,int &x1, int &y1, int &z1)
     //y-=TILEHEIGHT;
     x+=TILEWIDTH>>1;
     int offx = ssState.ScreenW /2;
-    int offy = (-20)-(TILEHEIGHT * ssConfig.lift_segment_offscreen);
+    int offy = (-20)-(TILEHEIGHT * ssConfig.lift_segment_offscreen_y);
     y-=offy;
     x-=offx;
     y1=y*2-x;
@@ -273,15 +273,20 @@ void pointToScreen(int *inx, int *iny, int inz)
 
     int x = *inx-*iny;
     x = x * TILEWIDTH / 2;
+    x += (TILEWIDTH/2)*ssConfig.lift_segment_offscreen_x;
     x *= ssConfig.scale;
-    x+=ssState.ScreenW / 2;
 
     int y = *inx+*iny;
     y = y*TILETOPHEIGHT / 2;
     y -= z*TILEHEIGHT;
     y -= TILETOPHEIGHT*5/4;
-    y -= TILEHEIGHT*ssConfig.lift_segment_offscreen;
+    y -= TILEHEIGHT*ssConfig.lift_segment_offscreen_y;
     y *= ssConfig.scale;
+
+    if(ssConfig.track_screen_center) {
+        x+=ssState.ScreenW / 2;
+        y+=ssState.ScreenH / 2;
+    }
 
     *inx=x;
     *iny=y;
@@ -1235,25 +1240,18 @@ void saveMegashot(bool tall)
     };
     int timer = clock();
     //back up all the relevant values
-    Crd3D backupsize = ssState.SegmentSize;
-    int tempViewx = ssState.DisplayedSegment.x;
-    int tempViewy = ssState.DisplayedSegment.y;
-    int tempViewz = ssState.DisplayedSegment.z;
-    bool tempFollow = ssConfig.follow_DFscreen;
-    bool tempfog = ssConfig.fogenable;
-    bool temposd = ssConfig.show_osd;
-    int tempLift = ssConfig.lift_segment_offscreen;
-    int tempW = ssState.ScreenW;
-    int tempH = ssState.ScreenH;
+    GameConfiguration tempConfig = ssConfig;
+    GameState tempState = ssState;
     int tempflags = al_get_new_bitmap_flags();
+
     //now make them real big.
     ssConfig.show_osd = false;
     ssConfig.follow_DFscreen = false;
     ssConfig.fogenable = false;
-    ssConfig.lift_segment_offscreen = 0;
+    ssConfig.track_screen_center = false;
 
     //make the image
-    ssState.ScreenW = (ssState.RegionDim.x * TILEWIDTH)*ssConfig.scale;
+    ssState.ScreenW = ((ssState.RegionDim.x + ssState.RegionDim.y) * TILEWIDTH / 2)*ssConfig.scale;
     if(tall) {
         ssState.ScreenH = ( ((ssState.RegionDim.x + ssState.RegionDim.y) * TILETOPHEIGHT / 2) + (ssState.RegionDim.z * TILEHEIGHT) )*ssConfig.scale;
     } else {
@@ -1268,6 +1266,20 @@ void saveMegashot(bool tall)
         al_set_target_bitmap(bigFile);
         if(!ssConfig.transparentScreenshots) {
             al_clear_to_color(ssConfig.backcol);
+        }
+        
+        //zero out the segment lift
+        ssConfig.lift_segment_offscreen_y = 0;
+        //realign the image if the region is rectangular
+        switch(ssState.DisplayedRotation){
+        case 0:
+        case 2:
+            ssConfig.lift_segment_offscreen_x = ssState.RegionDim.y;
+            break;
+        case 1:
+        case 3:
+            ssConfig.lift_segment_offscreen_x = ssState.RegionDim.x;
+            break;
         }
 
         //here we deal with the rotations
@@ -1284,6 +1296,7 @@ void saveMegashot(bool tall)
         numy = (int)(ssState.RegionDim.y+3);
         numy = numy/incry + (numx%incry==0 ? 0 : 1);
         numz = tall ? ((ssState.RegionDim.z/(parms.sizez-1)) + 1) : 1;
+
 
         if(ssState.DisplayedRotation == 1 || ssState.DisplayedRotation == 2) {
             starty = (int)ssState.RegionDim.y + 2 - incry;
@@ -1338,22 +1351,8 @@ void saveMegashot(bool tall)
     }
     al_destroy_bitmap(bigFile);
     //restore everything that we changed.
-    ssState.SegmentSize = backupsize;
-    parms.sizex = backupsize.x;
-    parms.sizey = backupsize.y;
-    parms.sizez = backupsize.z;
-    ssState.DisplayedSegment.x = tempViewx;
-    ssState.DisplayedSegment.y = tempViewy;
-    ssState.DisplayedSegment.z = tempViewz;
-    parms.x = tempViewx;
-    parms.y = tempViewy;
-    parms.z = tempViewz;
-    ssConfig.fogenable = tempfog;
-    ssConfig.follow_DFscreen = tempFollow;
-    ssConfig.lift_segment_offscreen = tempLift;
-    ssConfig.show_osd = temposd;
-    ssState.ScreenW = tempW;
-    ssState.ScreenH = tempH;
+    ssConfig = tempConfig;
+    ssState = tempState;
     al_set_new_bitmap_flags(tempflags);
 
     map_segment.unlockRead();
