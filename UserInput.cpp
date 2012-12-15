@@ -372,8 +372,7 @@ void action_screenshot(uint32_t keymod)
         } else {
             saveMegashot(false);
         }
-    }
-    if (keymod&ALLEGRO_KEYMOD_ALT) {
+    } else if (keymod&ALLEGRO_KEYMOD_ALT) {
         dumpSegment();
     } else {
         saveScreenshot();
