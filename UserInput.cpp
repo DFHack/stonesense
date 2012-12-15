@@ -12,6 +12,13 @@ ALLEGRO_MOUSE_STATE mouse;
 ALLEGRO_KEYBOARD_STATE board;
 extern ALLEGRO_TIMER * reloadtimer;
 
+char dirX = 0;
+char dirY = 0;
+bool bigstep = 0;
+bool mod_shift = 0;
+bool mod_alt = 0;
+bool mod_ctrl = 0;
+
 void mouseProc(int flags)
 {
     //int j = 10;
@@ -408,58 +415,44 @@ void action_credits(uint32_t keymod)
 }
 
 void action_decrY(uint32_t keymod)
-{ 
-    if(keymod&ALLEGRO_KEYMOD_CTRL){
-        action_decrsegmentY(keymod);
-        return;
-    }
-    char stepsize = ((keymod&ALLEGRO_KEYMOD_SHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
-    if (!(keymod&ALLEGRO_KEYMOD_ALT)) {
-        ssConfig.follow_DFscreen = false;
-    }
-    moveViewRelativeToRotation( 0, -stepsize );
-    timeToReloadSegment = true;
+{
+	if(keymod)
+		dirY = -1;
+	else(dirY = 0);
 }
 
 void action_incrY(uint32_t keymod)
 { 
-    if(keymod&ALLEGRO_KEYMOD_CTRL){
-        action_incrsegmentY(keymod);
-        return;
-    }
-    char stepsize = ((keymod&ALLEGRO_KEYMOD_SHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
-    if (!(keymod&ALLEGRO_KEYMOD_ALT)) {
-        ssConfig.follow_DFscreen = false;
-    }
-    moveViewRelativeToRotation( 0, stepsize );
-    timeToReloadSegment = true;
+	if(keymod)
+		dirY = 1;
+	else(dirY = 0);
 }
 
 void action_decrX(uint32_t keymod)
 { 
-    if(keymod&ALLEGRO_KEYMOD_CTRL){
-        action_decrsegmentX(keymod);
-        return;
-    }
-    char stepsize = ((keymod&ALLEGRO_KEYMOD_SHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
-    if (!(keymod&ALLEGRO_KEYMOD_ALT)) {
-        ssConfig.follow_DFscreen = false;
-    }
-    moveViewRelativeToRotation( -stepsize, 0 );
-    timeToReloadSegment = true;
+	if(keymod)
+		dirX = -1;
+	else(dirX = 0);
 }
 
 void action_incrX(uint32_t keymod)
 { 
-    if(keymod&ALLEGRO_KEYMOD_CTRL){
-        action_incrsegmentX(keymod);
-        return;
-    }
-    char stepsize = ((keymod&ALLEGRO_KEYMOD_SHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
-    if (!(keymod&ALLEGRO_KEYMOD_ALT)) {
+	if(keymod)
+		dirX = 1;
+	else(dirX = 0);
+}
+
+void doRepeatActions()
+{
+    //if(mod_ctrl){
+    //    action_decrsegmentY(0);
+    //    return;
+    //}
+    char stepsize = ((mod_shift) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
+    if ((dirX||dirY)&&!(mod_alt)) {
         ssConfig.follow_DFscreen = false;
     }
-    moveViewRelativeToRotation( stepsize, 0 );
+    moveViewRelativeToRotation( dirX * stepsize, dirY * stepsize );
     timeToReloadSegment = true;
 }
 
@@ -500,6 +493,24 @@ void action_incrZ(uint32_t keymod)
         ssState.DisplayedSegment.z += stepsize;
     }
     timeToReloadSegment = true;
+}
+
+void doKeysRepeat(int keycode, bool down)
+{
+	if(keycode == ALLEGRO_KEY_LSHIFT || keycode == ALLEGRO_KEY_RSHIFT)
+	{
+		mod_shift = down;
+	}
+	else if(keycode == ALLEGRO_KEY_ALT || keycode == ALLEGRO_KEY_ALTGR)
+	{
+		mod_alt = down;
+	}
+	else if(keycode == ALLEGRO_KEY_LCTRL || keycode == ALLEGRO_KEY_RCTRL)
+	{
+		mod_ctrl = down;
+	}
+	else doRepeatableKey(keycode, down);
+	return;
 }
 
 void doKeys(int32_t key, uint32_t keymod)

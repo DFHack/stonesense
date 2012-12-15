@@ -207,19 +207,25 @@ action_name_mapper actionnamemap[] = {
     {"DECR_SEGMENT_Z", action_decrsegmentZ},
     {"INCR_SEGMENT_Z", action_incrsegmentZ},
 
+    //add extra action here!
+
+    {"INVALID", action_invalid}//this is the stop condition
+};
+
+action_name_mapper repeatmap[] = {
     {"DECR_Y", action_decrY},
     {"INCR_Y", action_incrY},
     {"DECR_X", action_decrX},
     {"INCR_X", action_incrX},
     {"DECR_Z", action_decrZ},
     {"INCR_Z", action_incrZ},
-    //add extra action here!
+
 
     {"INVALID", action_invalid}//this is the stop condition
 };
 
 void (*actionkeymap[ALLEGRO_KEY_UNKNOWN])(uint32_t);
-
+void (*actionrepeatmap[ALLEGRO_KEY_UNKNOWN])(uint32_t);
 void parseKeymapLine( string line )
 {    
     if(line.empty()) {
@@ -254,6 +260,20 @@ void parseKeymapLine( string line )
             break;
         }
     }
+    for(int i=0; repeatmap[i].func != action_invalid; i++) {
+        if(line.find(repeatmap[i].name)!=-1) {
+            for(int j=0; j<ALLEGRO_KEY_UNKNOWN; j++){
+                if(line.find(keynames[j])!=-1) {
+#ifdef DEBUG
+                    PrintMessage("successfully mapped: op:%i key:%i repeatable.\n",i,j);
+#endif
+                    actionrepeatmap[j] = repeatmap[i].func;
+                    break;
+                }
+            }
+            break;
+        }
+    }
 
 }
 
@@ -271,6 +291,7 @@ bool loadKeymapFile(){
     //initialize the keymap to all noops
     for(int i=0; i<ALLEGRO_KEY_UNKNOWN; i++) {
         actionkeymap[i] = action_noop;
+        actionrepeatmap[i] = action_noop;
     }
 
     while ( !myfile.eof() ) {
@@ -286,6 +307,15 @@ bool loadKeymapFile(){
 bool doKey(int32_t keycode, uint32_t keymodcode){
     if(keycode>0 && keycode<ALLEGRO_KEY_UNKNOWN) {
         actionkeymap[keycode](keymodcode);
+        return true;
+    }
+    return false;
+}
+
+bool doRepeatableKey(int32_t keycode, bool down)
+{
+    if(keycode>0 && keycode<ALLEGRO_KEY_UNKNOWN) {
+        actionrepeatmap[keycode](down);
         return true;
     }
     return false;
