@@ -207,6 +207,8 @@ action_name_mapper actionnamemap[] = {
     {"DECR_SEGMENT_Z", action_decrsegmentZ},
     {"INCR_SEGMENT_Z", action_incrsegmentZ},
 
+    {"DECR_Z", action_decrZ},
+    {"INCR_Z", action_incrZ},
     //add extra action here!
 
     {"INVALID", action_invalid}//this is the stop condition
@@ -217,8 +219,6 @@ action_name_mapper repeatmap[] = {
     {"INCR_Y", action_incrY},
     {"DECR_X", action_decrX},
     {"INCR_X", action_incrX},
-    {"DECR_Z", action_decrZ},
-    {"INCR_Z", action_incrZ},
 
 
     {"INVALID", action_invalid}//this is the stop condition
