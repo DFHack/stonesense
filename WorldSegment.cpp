@@ -270,22 +270,6 @@ void WorldSegment::DrawAllTiles()
 }
 
 /**
- * if direction is -1, returns b-a (positive if a<b)
- * if direction is  1, returns a-b (negative if a<b)
- * all other directions return 0
- */
-int32_t compare(int32_t a, int32_t b, int32_t direction){
-    switch(direction){
-    case -1:
-        return b-a;
-    case 1:
-        return a-b;
-    default:
-        return 0;
-    }
-}
-
-/**
  * Assembles sprites for all tiles in the segment.  
  * The draw order used draws tiles on a per-block basis, so blocks
  * in the back are drawn before blocks in the front.  
