@@ -184,27 +184,6 @@ void ScreenToPoint(int x,int y,int &x1, int &y1, int &z1)
 
     x1 = (x + y)/2;
     y1 = (y - x)/2;
-
-
-    //x/=ssConfig.scale;
-    //y/=ssConfig.scale;
-    //x+=ssState.ScreenW / 2;
-    //y+=ssState.ScreenH / 2;
-    //x-=TILEWIDTH/2;
-    //y+=TILEWIDTH/2;
-    //z1 = -3;
-    //y+= z1*TILEHEIGHT/2;
-    ////y-=TILEHEIGHT;
-    //x+=TILEWIDTH>>1;
-    //int offx = ssState.ScreenW /2;
-    //int offy = (-20)-(TILEHEIGHT * ssConfig.lift_segment_offscreen_y);
-    //y-=offy;
-    //x-=offx;
-    //y1=y*2-x;
-    //x1=x*2+y1;
-    //x1/=TILEWIDTH;
-    //y1/=TILEWIDTH;
-
 }
 
 void pointToScreen(int *inx, int *iny, int inz)
