@@ -530,17 +530,23 @@ void readMapSegment(WorldSegment* segment, int x, int y, int z, int sizex, int s
         }
     }
 
-    //figure out what blocks to read
-    int32_t firstTileToReadX = x;
-    if( firstTileToReadX < 0 ) {
-        firstTileToReadX = 0;
-    }
-
     // get region geology
     vector< vector <int16_t> > layers;
     vector<df::coord2d> geoidx;
     if(!Maps::ReadGeology( &layers, &geoidx )) {
         LogError("Can't get region geology.\n");
+    }
+    
+    if(segment->rotation % 2) {
+        int temp = sizex;
+        sizex = sizey;
+        sizey = temp;
+    }
+
+    //figure out what blocks to read
+    int32_t firstTileToReadX = x;
+    if( firstTileToReadX < 0 ) {
+        firstTileToReadX = 0;
     }
     
     while(firstTileToReadX < x + sizex) {

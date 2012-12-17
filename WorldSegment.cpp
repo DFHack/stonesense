@@ -16,6 +16,8 @@ Tile* WorldSegment::ResetTile(int32_t x, int32_t y, int32_t z, df::tiletype type
     ly -= this->pos.y;
     lz -= this->pos.z;
 
+    CorrectTileForSegmentRotation( (int32_t&)lx,(int32_t&)ly,(int32_t&)lz );
+
     if((int)lx < 0 || lx >= (uint32_t)this->size.x) {
         return 0;
     }
@@ -25,8 +27,6 @@ Tile* WorldSegment::ResetTile(int32_t x, int32_t y, int32_t z, df::tiletype type
     if((int)lz < 0 || lz >= (uint32_t)this->size.z) {
         return 0;
     }
-
-    CorrectTileForSegmentRotation( (int32_t&)lx,(int32_t&)ly,(int32_t&)lz );
 
     uint32_t index = lx + (ly * this->size.x) + ((lz) * this->size.x * this->size.y);
     tiles[index].Reset(this, type);
@@ -189,7 +189,7 @@ void WorldSegment::CorrectTileForSegmentRotation(int32_t& x, int32_t& y, int32_t
     int32_t oldy = y;
 
     if(rotation == 1) {
-        x = size.y - oldy -1;
+        x = size.x - oldy -1;
         y = oldx;
     }
     if(rotation == 2) {
@@ -198,7 +198,7 @@ void WorldSegment::CorrectTileForSegmentRotation(int32_t& x, int32_t& y, int32_t
     }
     if(rotation == 3) {
         x = oldy;
-        y = size.x - oldx -1;
+        y = size.y - oldx -1;
     }
 }
 
@@ -318,18 +318,23 @@ void WorldSegment::AssembleBlockTiles(
                 if (b) {
                     b->AssembleTile();
                 } 
-                //else {
-                //    int drawx = i;
-                //    int drawy = j;
-                //    int drawz = lz+1;
+                else {
+                    int drawx = i;
+                    int drawy = j;
+                    int drawz = blockz+1;
 
-                //    CorrectTileForSegmentOffset( drawx, drawy, drawz);
-                //    CorrectTileForSegmentRotation( drawx, drawy, drawz);
-                //    pointToScreen((int*)&drawx, (int*)&drawy, drawz);
-                //    drawx -= (TILEWIDTH>>1)*ssConfig.scale;
-                //    draw_event d = {TintedScaledBitmap, IMGObjectSheet, al_map_rgb(255,255,255), 0, 0, SPRITEWIDTH, SPRITEHEIGHT, drawx, drawy+FLOORHEIGHT, SPRITEWIDTH, SPRITEHEIGHT, 0};
-                //    AssembleSprite(d);
-                //}
+                    CorrectTileForSegmentOffset( drawx, drawy, drawz);
+                    CorrectTileForSegmentRotation( drawx, drawy, drawz);
+                    pointToScreen((int*)&drawx, (int*)&drawy, drawz);
+                    drawx -= (TILEWIDTH>>1)*ssConfig.scale;
+                    if(CoordinateInsideSegment(i,j,blockz)) {
+                        draw_event d = {TintedScaledBitmap, IMGObjectSheet, al_map_rgb(255,255,255), 0, 0, SPRITEWIDTH, SPRITEHEIGHT, drawx, drawy+FLOORHEIGHT, SPRITEWIDTH, SPRITEHEIGHT, 0};
+                        AssembleSprite(d);
+                    } else {
+                        draw_event d = {TintedScaledBitmap, IMGObjectSheet, al_map_rgb(0,0,255), 0, 0, SPRITEWIDTH, SPRITEHEIGHT, drawx, drawy+FLOORHEIGHT, SPRITEWIDTH, SPRITEHEIGHT, 0};
+                        AssembleSprite(d);
+                    }
+                }
             }
         }
 }
@@ -346,161 +351,203 @@ void WorldSegment::AssembleAllTiles()
     }
     
     clock_t starttime = clock();
-    int DB1=0;
 
 //---------------------------------------------------------//
     
-    //// x,y,z print prices
-    //int32_t vsxmax = sizex-1;
-    //int32_t vsymax = sizey-1;
-    //int32_t vszmax = sizez-1; // grabbing one tile +z more than we should for tile rules
-    //for(int32_t vsz=0; vsz < vszmax; vsz++) {
-    //    //add the fog to the queue
-    //    if(ssConfig.fogenable && fog) {
-    //        draw_event d = {TintedScaledBitmap, fog, al_map_rgb(255,255,255), 0, 0, ssState.ScreenW, ssState.ScreenH, 0, 0, ssState.ScreenW, ssState.ScreenH, 0};
-    //        AssembleSprite(d);
-    //    }
-    //    //add the tiles to the queue
-    //    for(int32_t vsx=1; vsx < vsxmax; vsx++) {
-    //        for(int32_t vsy=1; vsy < vsymax; vsy++) {
-    //            Tile *b = getTileLocal(vsx,vsy,vsz);
-    //            if (b) {
-    //                b->AssembleTile();
-    //                DB1++;
-    //            }
-    //        }
-    //    }
-    //}
-
-//---------------------------------------------------------//
-
-    //this is the increment by which we shift in either case
-    int32_t incrx=2;
-    int32_t incry=2;
-    correctForRotation(incrx, incry, 4-rotation, 3, 3);
-    incrx--;
-    incry--;
-
-    //here we set up the variables needed to iterate over the tiles of the block in correct draw-order
-    int32_t tilestartx=0;
-    int32_t tilestarty=0;
-    correctForRotation(tilestartx, tilestarty, 4-rotation, BLOCKEDGESIZE, BLOCKEDGESIZE);
-    int32_t tileendx=BLOCKEDGESIZE-1;
-    int32_t tileendy=BLOCKEDGESIZE-1;
-    correctForRotation(tileendx, tileendy, 4-rotation, BLOCKEDGESIZE, BLOCKEDGESIZE);
-    
-    //these are used to iterate over the blocks themselves
-    int32_t minx, maxx, miny, maxy;
-    minx = max<int32_t>(0,pos.x);                        miny = max<int32_t>(0,pos.y);
-    maxx = min<int32_t>(pos.x+size.x-1, regionSize.x-1); maxy = min<int32_t>(pos.y+size.y-1, regionSize.y-1); 
-
-    int32_t blockfirstx,blockfirsty,blocklastx,blocklasty;
-    switch(rotation){
-    case 1:
-        blockfirstx = minx/BLOCKEDGESIZE; blockfirsty = maxy/BLOCKEDGESIZE;
-        blocklastx = maxx/BLOCKEDGESIZE;  blocklasty = miny/BLOCKEDGESIZE;
-        break;
-    case 2:
-        blockfirstx = maxx/BLOCKEDGESIZE; blockfirsty = maxy/BLOCKEDGESIZE;
-        blocklastx = minx/BLOCKEDGESIZE;  blocklasty = miny/BLOCKEDGESIZE;
-        break;
-    case 3:
-        blockfirstx = maxx/BLOCKEDGESIZE; blockfirsty = miny/BLOCKEDGESIZE;
-        blocklastx = minx/BLOCKEDGESIZE;  blocklasty = maxy/BLOCKEDGESIZE;
-        break;
-    default:
-        blockfirstx = minx/BLOCKEDGESIZE; blockfirsty = miny/BLOCKEDGESIZE;
-        blocklastx = maxx/BLOCKEDGESIZE;  blocklasty = maxy/BLOCKEDGESIZE;
-    }
-
-    for(int32_t lz=pos.z; lz < pos.z+size.z-1; lz++) {
-        //add the fog
+    // x,y,z print prices
+    int32_t vsxmax = size.x-1;
+    int32_t vsymax = size.y-1;
+    int32_t vszmax = size.z-1; // grabbing one tile +z more than we should for tile rules
+    for(int32_t vsz=0; vsz < vszmax; vsz++) {
+        //add the fog to the queue
         if(ssConfig.fogenable && fog) {
             draw_event d = {TintedScaledBitmap, fog, al_map_rgb(255,255,255), 0, 0, ssState.ScreenW, ssState.ScreenH, 0, 0, ssState.ScreenW, ssState.ScreenH, 0};
             AssembleSprite(d);
         }
-        //figure out what blocks to read
-        for(int32_t blockx = blockfirstx; compare(blockx, blocklastx, incrx) <= 0; blockx+=incrx) {
-            int32_t firstX = blockx*BLOCKEDGESIZE + tilestartx;
-            int32_t lastX = blockx*BLOCKEDGESIZE + tileendx + incrx;
-            switch(rotation){
-            case 1:
-                firstX = max<int32_t>(firstX, pos.x+1);
-                lastX = min<int32_t>(lastX, pos.x+size.x-1);
-                break;
-            case 2:
-                firstX = min<int32_t>(firstX, pos.x+size.x-2);
-                lastX = max<int32_t>(lastX, pos.x);
-                break;
-            case 3:
-                firstX = min<int32_t>(firstX, pos.x+size.x-2);
-                lastX = max<int32_t>(lastX, pos.x);
-                break;
-            default:
-                firstX = max<int32_t>(firstX, pos.x+1);
-                lastX = min<int32_t>(lastX, pos.x+size.x-1);
-            }
-        
-
-            for(int32_t blocky = blockfirsty; compare(blocky, blocklasty, incry) <= 0; blocky+=incry) {
-                int32_t firstY = blocky*BLOCKEDGESIZE + tilestarty;
-                int32_t lastY = blocky*BLOCKEDGESIZE + tileendy + incry;
-                switch(rotation){
-                case 1:
-                    firstY = min<int32_t>(firstY, pos.y+size.y-2);
-                    lastY = max<int32_t>(lastY, pos.y);
-                    break;
-                case 2:
-                    firstY = min<int32_t>(firstY, pos.y+size.y-2);
-                    lastY = max<int32_t>(lastY, pos.y);
-                    break;
-                case 3:
-                    firstY = max<int32_t>(firstY, pos.y+1);
-                    lastY = min<int32_t>(lastY, pos.y+size.y-1);
-                    break;
-                default:
-                    firstY = max<int32_t>(firstY, pos.y+1);
-                    lastY = min<int32_t>(lastY, pos.y+size.y-1);
-                }
-
-                DB1++;
-                //Now go to that block, and assemble the sprites for it in the order specified.
-                AssembleBlockTiles( firstX, firstY, lastX, lastY, incrx, incry, lz);
+        //add the tiles to the queue
+        for(int32_t vsx=1; vsx < vsxmax; vsx++) {
+            for(int32_t vsy=1; vsy < vsymax; vsy++) {
+                Tile *b = getTileLocal(vsx,vsy,vsz);
+                if (b) {
+                    b->AssembleTile();
+                } 
             }
         }
     }
+
+//---------------------------------------------------------//
+
+    ////this is the increment by which we shift in either case
+    //int32_t incrx=2;
+    //int32_t incry=2;
+    //correctForRotation(incrx, incry, 4-rotation, 3, 3);
+    //incrx--;
+    //incry--;
+
+    ////here we set up the variables needed to iterate over the tiles of the block in correct draw-order
+    //int32_t tilestartx=0;
+    //int32_t tilestarty=0;
+    //correctForRotation(tilestartx, tilestarty, 4-rotation, BLOCKEDGESIZE, BLOCKEDGESIZE);
+    //int32_t tileendx=BLOCKEDGESIZE-1;
+    //int32_t tileendy=BLOCKEDGESIZE-1;
+    //correctForRotation(tileendx, tileendy, 4-rotation, BLOCKEDGESIZE, BLOCKEDGESIZE);
+    //
+    ////these are used to iterate over the blocks themselves
+    //int32_t minx, maxx, miny, maxy;
+    //if(rotation%2) {
+    //    minx = max<int32_t>(0,pos.x);                        miny = max<int32_t>(0,pos.y);
+    //    maxx = min<int32_t>(pos.x+size.y-1, regionSize.x-1); maxy = min<int32_t>(pos.y+size.x-1, regionSize.y-1); 
+    //} else {
+    //    minx = max<int32_t>(0,pos.x);                        miny = max<int32_t>(0,pos.y);
+    //    maxx = min<int32_t>(pos.x+size.x-1, regionSize.x-1); maxy = min<int32_t>(pos.y+size.y-1, regionSize.y-1); 
+    //}
+
+    //int32_t blockfirstx,blockfirsty,blocklastx,blocklasty;
+    //switch(rotation){
+    //case 1:
+    //    blockfirstx = minx/BLOCKEDGESIZE; blockfirsty = maxy/BLOCKEDGESIZE;
+    //    blocklastx = maxx/BLOCKEDGESIZE;  blocklasty = miny/BLOCKEDGESIZE;
+    //    break;
+    //case 2:
+    //    blockfirstx = maxx/BLOCKEDGESIZE; blockfirsty = maxy/BLOCKEDGESIZE;
+    //    blocklastx = minx/BLOCKEDGESIZE;  blocklasty = miny/BLOCKEDGESIZE;
+    //    break;
+    //case 3:
+    //    blockfirstx = maxx/BLOCKEDGESIZE; blockfirsty = miny/BLOCKEDGESIZE;
+    //    blocklastx = minx/BLOCKEDGESIZE;  blocklasty = maxy/BLOCKEDGESIZE;
+    //    break;
+    //default:
+    //    blockfirstx = minx/BLOCKEDGESIZE; blockfirsty = miny/BLOCKEDGESIZE;
+    //    blocklastx = maxx/BLOCKEDGESIZE;  blocklasty = maxy/BLOCKEDGESIZE;
+    //}
+
+    //for(int32_t lz=pos.z; lz < pos.z+size.z-1; lz++) {
+    //    //add the fog
+    //    if(ssConfig.fogenable && fog) {
+    //        draw_event d = {TintedScaledBitmap, fog, al_map_rgb(255,255,255), 0, 0, ssState.ScreenW, ssState.ScreenH, 0, 0, ssState.ScreenW, ssState.ScreenH, 0};
+    //        AssembleSprite(d);
+    //    }
+    //    //figure out what blocks to read
+    //    for(int32_t blockx = blockfirstx; compare(blockx, blocklastx, incrx) <= 0; blockx+=incrx) {
+    //        int32_t firstX = blockx*BLOCKEDGESIZE + tilestartx;
+    //        int32_t lastX = blockx*BLOCKEDGESIZE + tileendx + incrx;
+    //        //switch(rotation){
+    //        //case 1:
+    //        //    firstX = max<int32_t>(firstX, pos.x+1);
+    //        //    lastX = min<int32_t>(lastX, pos.x+size.x-1);
+    //        //    break;
+    //        //case 2:
+    //        //    firstX = min<int32_t>(firstX, pos.x+size.x-2);
+    //        //    lastX = max<int32_t>(lastX, pos.x);
+    //        //    break;
+    //        //case 3:
+    //        //    firstX = min<int32_t>(firstX, pos.x+size.x-2);
+    //        //    lastX = max<int32_t>(lastX, pos.x);
+    //        //    break;
+    //        //default:
+    //        //    firstX = max<int32_t>(firstX, pos.x+1);
+    //        //    lastX = min<int32_t>(lastX, pos.x+size.x-1);
+    //        //}
+    //    
+
+    //        for(int32_t blocky = blockfirsty; compare(blocky, blocklasty, incry) <= 0; blocky+=incry) {
+    //            int32_t firstY = blocky*BLOCKEDGESIZE + tilestarty;
+    //            int32_t lastY = blocky*BLOCKEDGESIZE + tileendy + incry;
+    //            //switch(rotation){
+    //            //case 1:
+    //            //    firstY = min<int32_t>(firstY, pos.y+size.y-2);
+    //            //    lastY = max<int32_t>(lastY, pos.y);
+    //            //    break;
+    //            //case 2:
+    //            //    firstY = min<int32_t>(firstY, pos.y+size.y-2);
+    //            //    lastY = max<int32_t>(lastY, pos.y);
+    //            //    break;
+    //            //case 3:
+    //            //    firstY = max<int32_t>(firstY, pos.y+1);
+    //            //    lastY = min<int32_t>(lastY, pos.y+size.y-1);
+    //            //    break;
+    //            //default:
+    //            //    firstY = max<int32_t>(firstY, pos.y+1);
+    //            //    lastY = min<int32_t>(lastY, pos.y+size.y-1);
+    //            //}
+
+    //            DB1++;
+    //            //Now go to that block, and assemble the sprites for it in the order specified.
+    //            AssembleBlockTiles( firstX, firstY, lastX, lastY, incrx, incry, lz);
+    //        }
+    //    }
+    //}
 //---------------------------------------------------------//
 
     ssTimers.assembly_time = (clock() - starttime)*0.1 + ssTimers.assembly_time*0.9;
-    //DebugInt1 = DB1;
 }
 
 
 bool WorldSegment::CoordinateInsideSegment(uint32_t x, uint32_t y, uint32_t z)
 {
-    if( (int32_t)x < this->pos.x || (int32_t)x >= this->pos.x + this->size.x) {
-        return false;
+    uint32_t lx = x;
+    uint32_t ly = y;
+    uint32_t lz = z;
+    //make local
+    lx -= this->pos.x;
+    ly -= this->pos.y;
+    lz -= this->pos.z;
+
+    CorrectTileForSegmentRotation( (int32_t&)lx,(int32_t&)ly,(int32_t&)lz );
+
+    if((int)lx < 0 || lx >= (uint32_t)this->size.x) {
+        return 0;
     }
-    if( (int32_t)y < this->pos.y || (int32_t)y >= this->pos.y + this->size.y) {
-        return false;
+    if((int)ly < 0 || ly >= (uint32_t)this->size.y) {
+        return 0;
     }
-    if( (int32_t)z < this->pos.z || (int32_t)z >= this->pos.z + this->size.z) {
-        return false;
+    if((int)lz < 0 || lz >= (uint32_t)this->size.z) {
+        return 0;
     }
+
+    //if( (int32_t)x < this->pos.x || (int32_t)x >= this->pos.x + this->size.x) {
+    //    return false;
+    //}
+    //if( (int32_t)y < this->pos.y || (int32_t)y >= this->pos.y + this->size.y) {
+    //    return false;
+    //}
+    //if( (int32_t)z < this->pos.z || (int32_t)z >= this->pos.z + this->size.z) {
+    //    return false;
+    //}
     return true;
 }
 
 bool WorldSegment::CoordinateInteriorSegment(uint32_t x, uint32_t y, uint32_t z, uint32_t shellthick)
 {
-    if( (int32_t)x < this->pos.x + shellthick || (int32_t)x >= this->pos.x + this->size.x - shellthick) {
-        return false;
+    uint32_t lx = x;
+    uint32_t ly = y;
+    uint32_t lz = z;
+    //make local
+    lx -= this->pos.x;
+    ly -= this->pos.y;
+    lz -= this->pos.z;
+
+    CorrectTileForSegmentRotation( (int32_t&)lx,(int32_t&)ly,(int32_t&)lz );
+
+    if((int)lx < 0  + shellthick|| lx >= (uint32_t)this->size.x - shellthick) {
+        return 0;
     }
-    if( (int32_t)y < this->pos.y + shellthick || (int32_t)y >= this->pos.y + this->size.y - shellthick) {
-        return false;
+    if((int)ly < 0  + shellthick|| ly >= (uint32_t)this->size.y - shellthick) {
+        return 0;
     }
-    if( (int32_t)z < this->pos.z /*bottom is "interior"*/ || (int32_t)z >= this->pos.z + this->size.z - shellthick) {
-        return false;
+    if((int)lz < 0 /*bottom is "interior"*/ || lz >= (uint32_t)this->size.z - shellthick) {
+        return 0;
     }
+
+    //if( (int32_t)x < this->pos.x + shellthick || (int32_t)x >= this->pos.x + this->size.x - shellthick) {
+    //    return false;
+    //}
+    //if( (int32_t)y < this->pos.y + shellthick || (int32_t)y >= this->pos.y + this->size.y - shellthick) {
+    //    return false;
+    //}
+    //if( (int32_t)z < this->pos.z /*bottom is "interior"*/ || (int32_t)z >= this->pos.z + this->size.z - shellthick) {
+    //    return false;
+    //}
     return true;
 }
 
