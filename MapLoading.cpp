@@ -616,7 +616,7 @@ void readMapSegment(WorldSegment* segment, int x, int y, int z, int sizex, int s
 
 //==================================Misc================================//
 /*
- * TODO: move this stuff to GUI or main or something - really doe not belong 
+ * TODO: move this stuff to GUI or main or something - really does not belong 
  *  here even a little.
  */
 
