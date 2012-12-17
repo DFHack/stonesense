@@ -179,7 +179,7 @@ void ScreenToPoint(int x,int y,int &x1, int &y1, int &z1)
     y = 2 * y / TILETOPHEIGHT;
     
     x = x/ssConfig.scale;
-    x -= (TILEWIDTH/2)*(ssConfig.lift_segment_offscreen_x);
+    x -= (TILEWIDTH/2)*ssConfig.lift_segment_offscreen_x;
     x = 2 * x / TILEWIDTH;
 
     x1 = (x + y)/2;
