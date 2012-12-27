@@ -240,7 +240,7 @@ void AssembleCreature(int drawx, int drawy, t_unit* creature, Tile * b)
 }
 
 void AssembleCreatureText(int drawx, int drawy, t_unit* creature, WorldSegment * seg){
-    draw_event d = {CreatureText, creature, al_map_rgb(255,255,255), 0, 0, 0, 0, drawx, drawy, 0, 0, 0};
+    draw_event d = {CreatureText, creature, al_map_rgb(255,255,255), 0, 0, 0, 0, static_cast<float>(drawx), static_cast<float>(drawy), 0, 0, 0};
     seg->AssembleSprite(d);
 }
 

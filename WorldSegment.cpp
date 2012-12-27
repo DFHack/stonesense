@@ -416,7 +416,7 @@ void WorldSegment::AssembleAllTiles()
     for(int32_t lz=pos.z; lz < pos.z+size.z-1; lz++) {
         //add the fog
         if(ssConfig.fogenable && fog) {
-            draw_event d = {TintedScaledBitmap, fog, al_map_rgb(255,255,255), 0, 0, ssState.ScreenW, ssState.ScreenH, 0, 0, ssState.ScreenW, ssState.ScreenH, 0};
+            draw_event d = {TintedScaledBitmap, fog, al_map_rgb(255,255,255), 0, 0, static_cast<float>(ssState.ScreenW), static_cast<float>(ssState.ScreenH), 0, 0, static_cast<float>(ssState.ScreenW), static_cast<float>(ssState.ScreenH), 0};
             AssembleSprite(d);
         }
         //figure out what blocks to read
