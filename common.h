@@ -190,7 +190,7 @@ extern bool animationFrameShown;
 extern bool key[ALLEGRO_KEY_MAX];
 
 //from UserInput.cpp
-void doKeys();
+void doMouse();
 void doKeys(int32_t key, uint32_t keymod);
 void doKeysRepeat(int keycode, bool down);
 void doRepeatActions();

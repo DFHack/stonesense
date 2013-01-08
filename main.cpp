@@ -277,7 +277,8 @@ static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALL
                 paintboard();
                 animationFrameShown = true;
             }
-            doKeys();
+            doMouse();
+ 			doRepeatActions();
             redraw = false;
         }
         /* Take the next event out of the event queue, and store it in `event'. */
@@ -347,8 +348,7 @@ static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALL
 
             case ALLEGRO_EVENT_TIMER:
                 if(event.timer.source == reloadtimer) {
- 					doRepeatActions();
-                   timeToReloadSegment = true;
+                    timeToReloadSegment = true;
                     redraw = true;
                 } else if (event.timer.source == animationtimer) {
                     animUpdateProc();
