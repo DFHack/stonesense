@@ -49,40 +49,38 @@ Tile::Tile(WorldSegment* ownerSegment, df::tiletype type)
 /*
  * resets the state of the Tile, and validates it
  */
-void Tile::Reset(WorldSegment* ownerSegment, df::tiletype type)
+void Tile::Reset(WorldSegment* segment, df::tiletype type)
 {
     //clear out own memory
-    memset(this, 0, sizeof(Tile));
+    memset(this, 0, sizeof(Tile) - sizeof(SS_Building) - sizeof(SS_Item) - sizeof(SS_Effect));
 
+    //set all the nonzero values
     valid=true;
     visible = true;
 
-    this->ownerSegment = ownerSegment;
+    tileType = type;
+    ownerSegment = segment;
 
-    building.type = (building_type::building_type) BUILDINGTYPE_NA;
-    building.parent = 0;
+    material.type = INVALID_INDEX;
+    material.index = INVALID_INDEX;
 
-    this->material.type = INVALID_INDEX;
-    this->material.index = INVALID_INDEX;
-    this->tileType = type;
+    openborders = 255;
+    lightborders = 255;
 
+    //explicitly define values for all contained structs
     tileeffect.type = (df::flow_type) INVALID_INDEX;
 
-    wallborders = 0;
-    floorborders = 0;
-    openborders = 255;
-    rampborders = 0;
-    upstairborders = 0;
-    downstairborders = 0;
-    lightborders = 255;
-    creature = 0;
-    engraving_character = 0;
-
-    Item.item.type =-1;
-    Item.matt.type=-1;
-    Item.matt.index=-1;
-    Item.dyematt.type=-1;
-    Item.dyematt.index=-1;
+    Item.item.type = INVALID_INDEX;
+    Item.item.index= INVALID_INDEX;
+    Item.matt.type= INVALID_INDEX;
+    Item.matt.index= INVALID_INDEX;
+    Item.dyematt.type= INVALID_INDEX;
+    Item.dyematt.index= INVALID_INDEX;
+    
+    building.type = (building_type::building_type) BUILDINGTYPE_NA;
+    building.parent = NULL;
+    building.info = NULL;
+    building.sprites = vector<c_sprite>();
 }
 
 
