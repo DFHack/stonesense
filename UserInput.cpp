@@ -13,9 +13,6 @@ ALLEGRO_MOUSE_STATE mouse;
 ALLEGRO_KEYBOARD_STATE board;
 extern ALLEGRO_TIMER * reloadtimer;
 
-char dirX = 0;
-char dirY = 0;
-
 /**
  * Returns a keymod bitflag consistent with allegro keycodes for the CTRL, ALT, and SHIFT keys
  * from a given keyboard state.  
@@ -431,30 +428,58 @@ void action_credits(uint32_t keymod)
 
 void action_decrY(uint32_t keymod)
 {
-	if(keymod)
-		dirY = -1;
-	else(dirY = 0);
+    if(keymod&ALLEGRO_KEYMOD_CTRL){
+        action_decrsegmentY(keymod);
+        return;
+    }
+    char stepsize = ((keymod&ALLEGRO_KEYMOD_SHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
+    if (!(keymod&ALLEGRO_KEYMOD_ALT)) {
+        ssConfig.follow_DFscreen = false;
+    }
+    moveViewRelativeToRotation( 0, -stepsize );
+    timeToReloadSegment = true;
 }
 
 void action_incrY(uint32_t keymod)
-{ 
-	if(keymod)
-		dirY = 1;
-	else(dirY = 0);
+{
+    if(keymod&ALLEGRO_KEYMOD_CTRL){
+        action_incrsegmentY(keymod);
+        return;
+    }
+    char stepsize = ((keymod&ALLEGRO_KEYMOD_SHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
+    if (!(keymod&ALLEGRO_KEYMOD_ALT)) {
+        ssConfig.follow_DFscreen = false;
+    }
+    moveViewRelativeToRotation( 0, stepsize );
+    timeToReloadSegment = true;
 }
 
 void action_decrX(uint32_t keymod)
-{ 
-	if(keymod)
-		dirX = -1;
-	else(dirX = 0);
+{
+    if(keymod&ALLEGRO_KEYMOD_CTRL){
+        action_decrsegmentX(keymod);
+        return;
+    }
+    char stepsize = ((keymod&ALLEGRO_KEYMOD_SHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
+    if (!(keymod&ALLEGRO_KEYMOD_ALT)) {
+        ssConfig.follow_DFscreen = false;
+    }
+    moveViewRelativeToRotation( -stepsize, 0 );
+    timeToReloadSegment = true;
 }
 
 void action_incrX(uint32_t keymod)
-{ 
-	if(keymod)
-		dirX = 1;
-	else(dirX = 0);
+{
+    if(keymod&ALLEGRO_KEYMOD_CTRL){
+        action_incrsegmentX(keymod);
+        return;
+    }
+    char stepsize = ((keymod&ALLEGRO_KEYMOD_SHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
+    if (!(keymod&ALLEGRO_KEYMOD_ALT)) {
+        ssConfig.follow_DFscreen = false;
+    }
+    moveViewRelativeToRotation( stepsize, 0 );
+    timeToReloadSegment = true;
 }
 
 void action_decrZ(uint32_t keymod)
@@ -500,26 +525,19 @@ void doRepeatActions()
 {
     al_get_keyboard_state(&keyboard);
     int32_t keymod = getKeyMods(&keyboard);
-    
-    char stepsize = ((keymod&ALLEGRO_KEYMOD_SHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
-    if( dirX||dirY ) {
-        if (!(keymod&ALLEGRO_KEYMOD_ALT)) {
-            ssConfig.follow_DFscreen = false;
+
+    for(int keycode=0; keycode<ALLEGRO_KEY_UNKNOWN; keycode++) {
+        if(isRepeatable(keycode) && al_key_down(&keyboard,keycode)) {
+            doKey(keycode, keymod);
         }
     }
-    moveViewRelativeToRotation( dirX * stepsize, dirY * stepsize );
-    timeToReloadSegment = true;
-}
-
-void doKeysRepeat(int keycode, bool down)
-{
-	doRepeatableKey(keycode, down);
-	return;
 }
 
 void doKeys(int32_t key, uint32_t keymod)
 {
-    doKey(key,keymod);
+    if(!isRepeatable(key)) {
+        doKey(key,keymod);
+    }
     return;
 
     //WAITING TO BE MOVED OVER

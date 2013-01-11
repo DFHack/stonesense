@@ -14,8 +14,8 @@ to leave action names out of the list completely.
 Listing multiple actions on the same line is not supported.  
 Likewise listing the same key for multiple actions will result 
 in only the last action listed being the one taken when the key is 
-pressed.  Currently only keyboard events are supported.  
-Stonesense's mouse events are all currently hardcoded.  
+pressed.  Currently only keyboard events are supported; 
+stonesense's mouse events are all hardcoded.  
 
 A complete listing of valid actions and key values can be found at 
 the bottom of this file.  
@@ -49,10 +49,10 @@ KEYBINDINGS:
 [DECR_RELOAD_TIME:KEYPAD_MINUS]
 [CREDITS:KEYF_9]
 
-[DECR_Y:KEYS_UP]
-[INCR_Y:KEYS_DOWN]
-[DECR_X:KEYS_LEFT]
-[INCR_X:KEYS_RIGHT]
+[DECR_Y:KEYS_UP*]
+[INCR_Y:KEYS_DOWN*]
+[DECR_X:KEYS_LEFT*]
+[INCR_X:KEYS_RIGHT*]
 [DECR_Z:KEYS_PGDN:KEY_9]
 [INCR_Z:KEYS_PGUP:KEY_0]
 

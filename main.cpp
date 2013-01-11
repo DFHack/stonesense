@@ -316,20 +316,6 @@ static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALL
 #endif
                 /* ALLEGRO_EVENT_KEY_DOWN - a keyboard key was pressed.
                 */
-			case ALLEGRO_EVENT_KEY_DOWN:
-                if(event.keyboard.display != display) {
-                    break;
-				} else {
-					doKeysRepeat(event.keyboard.keycode, true);
-				}
-				break;
-			case ALLEGRO_EVENT_KEY_UP:
-                if(event.keyboard.display != display) {
-                    break;
-				} else {
-					doKeysRepeat(event.keyboard.keycode, false);
-				}
-				break;
             case ALLEGRO_EVENT_KEY_CHAR:
                 if(event.keyboard.display != display) {
                     break;
