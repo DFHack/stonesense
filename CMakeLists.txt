@@ -17,14 +17,14 @@ SET(PROJECT_SRCS
     ContentLoader.cpp
     CreatureConfiguration.cpp
     Creatures.cpp
-	DumpInfo.cpp
+    DumpInfo.cpp
     FluidConfiguration.cpp
     GUI.cpp
     GameBuildings.cpp
     GroundMaterialConfiguration.cpp
-	ItemConfiguration.cpp
+    ItemConfiguration.cpp
     MapLoading.cpp
-	SegmentProcessing.cpp 
+    SegmentProcessing.cpp 
     OcclusionTest.cpp
     SpriteColors.cpp
     SpriteMaps.cpp
