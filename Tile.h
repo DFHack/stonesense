@@ -21,10 +21,9 @@ struct unit_inventory {
 
 class Tile
 {
+private:
+    bool valid;
 public:
-    Tile(WorldSegment* ownerSegment, df::tiletype type);
-    ~Tile(void);
-
     bool visible;
 
     WorldSegment* ownerSegment;
@@ -51,18 +50,12 @@ public:
     uint8_t downstairborders;
     uint8_t lightborders;
 
-    bool fog_of_war;//contained in designation
+    bool fog_of_war;
 
     uint8_t rampindex;
 
     //DFHack::t_matglossPair water;//contained in designation
     bool deepwater;
-
-    //following are neighbor water levels (unused)
-    //DFHack::t_matglossPair abovewater;
-    //DFHack::t_matglossPair belowwater;
-    //DFHack::t_matglossPair rightwater;
-    //DFHack::t_matglossPair leftwater;
     
     DFHack::t_designation designation;
     DFHack::t_occupancy occ;
@@ -82,45 +75,22 @@ public:
     df::engraving_flags engraving_flags;
     uint8_t engraving_quality;
 
-    //vector<uint8_t> grasslevels;
-    //vector<uint32_t> grassmats;
-
-    //struct TileEffects //size 40
-    //{
-    //	uint16_t count;
-    //	uint16_t type;
-    //  DFHack::t_matglossPair material;
-    //	int16_t lifetime;
-    //	int16_t x_direction;
-    //	int16_t y_direction;
-    //	uint8_t canCreateNew;//??
-    //} tileeffects;
-
-    struct effect {
-        DFHack::t_matglossPair matt;
-        int16_t density;
-        df::flow_type type;
-    } tileeffect;
-    
-    //individual effects
-    //effect Eff_Miasma;
-    //effect Eff_Steam;
-    //effect Eff_Mist;
-    //effect Eff_MaterialDust;
-    //effect Eff_MagmaMist;
-    //effect Eff_Smoke;
-    //effect Eff_Dragonfire;
-    //effect Eff_Fire;
-    //effect Eff_Web;
-    //effect Eff_MaterialGas;
-    //effect Eff_MaterialVapor;
-    //effect Eff_OceanWave;
-    //effect Eff_SeaFoam;
-
     uint16_t consForm;
 
     bool obscuringCreature;
     bool obscuringBuilding;
+
+    //These are actually applied to the creature standing here, but there's only one creature shown, so it's okay.
+    unit_inventory * inv;
+
+    //These structs must appear here at the end of the object; everything before here is memset to 0, 
+    // while these are all explicitly set to required values on a Reset().
+
+    struct SS_Effect {
+        DFHack::t_matglossPair matt;
+        int16_t density;
+        df::flow_type type;
+    } tileeffect;
 
     struct SS_Item {
         DFHack::t_matglossPair item;
@@ -128,15 +98,17 @@ public:
         DFHack::t_matglossPair dyematt;
     } Item;
 
-    //These are actually applied to the creature standing here, but there's only one creature shown, so it's okay.
-    unit_inventory * inv;
-
-    struct {
+    struct SS_Building {
         DFHack::Buildings::t_building* info;
         df::building_type type;
         std::vector<c_sprite> sprites;
         Tile* parent;
     } building;
+
+    //Functions start here.
+    
+    Tile(WorldSegment* ownerSegment, df::tiletype type);
+    ~Tile(void);
 
     //tile information loading
     inline df::tiletype_shape_basic tileShapeBasic()
@@ -172,8 +144,6 @@ public:
     bool IsValid();
     bool Invalidate();
     bool InvalidateAndDestroy();
-private:
-    bool valid;
 };
 
 void createEffectSprites();

@@ -15,6 +15,7 @@ using namespace std;
 #include "Creatures.h"
 #include "ContentLoader.h"
 #include "Tile.h"
+#include "UserInput.h"
 
 #include "df/ui.h"
 #include "df/building_actual.h"
@@ -871,7 +872,7 @@ void paintboard()
         al_hold_bitmap_drawing(true);
         for(int32_t i=1; true; i++){
             if(getKeyStrings(i, keyname, actionname)){
-                draw_textf_border(font, al_map_rgb(255,255,255), 10, line*al_get_font_line_height(font), 0, "%s: %s", keyname->c_str(), actionname->c_str());
+                draw_textf_border(font, al_map_rgb(255,255,255), 10, line*al_get_font_line_height(font), 0, "%s: %s%s", keyname->c_str(), actionname->c_str(), isRepeatable(i) ? " (repeats)" : "");
                 line++;
             }
             if(keyname == NULL) {
