@@ -34,6 +34,7 @@ using namespace std;
 #include "df/itemdef_helmst.h"
 #include "df/itemdef_pantsst.h"
 #include "df/itemdef_foodst.h"
+#include "df/descriptor_pattern.h"
 
 #define color_segmentoutline al_map_rgb(0,0,0)
 
@@ -515,19 +516,20 @@ void drawDebugCursorAndInfo(WorldSegment * segment)
             int yy = (i++*al_get_font_line_height(font));
             int xx = 2;
             for(unsigned int j = 0; j<b->creature->nbcolors ; j++) {
-                if(contentLoader->Mats->raceEx.at(b->creature->race).castes.at(b->creature->caste).ColorModifier.at(j).colorlist.size() > b->creature->color[j]) {
+                if(b->creature->color[j] < contentLoader->Mats->raceEx.at(b->creature->race).castes.at(b->creature->caste).ColorModifier[j].colorlist.size()) {
                     uint32_t cr_color = contentLoader->Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].colorlist[b->creature->color[j]];
-                    if(cr_color < contentLoader->Mats->color.size()) {
+                    if(cr_color < df::global::world->raws.language.patterns.size()) {
+						uint16_t actual_color = df::global::world->raws.language.patterns[cr_color]->colors[df::global::world->raws.language.patterns[cr_color]->colors.size()-1];
                         draw_textf_border(font,
                                           al_map_rgb_f(
-                                              contentLoader->Mats->color[cr_color].red,
-                                              contentLoader->Mats->color[cr_color].green,
-                                              contentLoader->Mats->color[cr_color].blue), xx, yy, 0,
+										  contentLoader->Mats->color[actual_color].red,
+										  contentLoader->Mats->color[actual_color].green,
+										  contentLoader->Mats->color[actual_color].blue), xx, yy, 0,
                                           "%s ", contentLoader->Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].part.c_str());
                         xx += get_textf_width(font, "%s ", contentLoader->Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].part.c_str());
                     }
-                }
-            }
+				}
+			}
         }
         break;
     default:
