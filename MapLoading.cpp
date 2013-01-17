@@ -30,7 +30,7 @@ segParams parms;
  * Reads the spatter types and colors from the DF vector 'splatter' at local 
  *  position 'lx','ly' into the stonesense Tile 'b'.
  */
-void ReadSpatterToTile(Tile * b, uint32_t lx, uint32_t ly, 
+void readSpatterToTile(Tile * b, uint32_t lx, uint32_t ly, 
     const vector <df::block_square_event_material_spatterst * > & splatter)
 {
     b->mudlevel = 0;
@@ -115,7 +115,7 @@ void ReadSpatterToTile(Tile * b, uint32_t lx, uint32_t ly,
  * stonesense tile. 
  */
 //TODO get cavein-sand to work somehow?
-void ReadMaterialToTile( Tile * b, uint32_t lx, uint32_t ly, 
+void readMaterialToTile( Tile * b, uint32_t lx, uint32_t ly, 
     df::map_block * trueBlock, 
     const t_feature & local, const t_feature & global, 
     const vector <df::block_square_event_mineralst * > & veins,
@@ -249,7 +249,7 @@ void ReadMaterialToTile( Tile * b, uint32_t lx, uint32_t ly,
 * reads one 16x16 map block into stonesense tiles
 * attempts to only read as much information as is necessary to do the tile optimization
 */
-void ReadBlockToSegment(DFHack::Core& DF, WorldSegment& segment, 
+void readBlockToSegment(DFHack::Core& DF, WorldSegment& segment, 
     int BlockX, int BlockY, int BlockZ,
     uint32_t BoundrySX, uint32_t BoundrySY,
     uint32_t BoundryEX, uint32_t BoundryEY,
@@ -364,10 +364,10 @@ void ReadBlockToSegment(DFHack::Core& DF, WorldSegment& segment,
             }
 
             //read the tile spatter
-            ReadSpatterToTile(b, lx, ly, splatter); 
+            readSpatterToTile(b, lx, ly, splatter); 
 
             //read the tile material
-            ReadMaterialToTile(b, lx, ly, trueBlock, local, global, veins, allLayers);
+            readMaterialToTile(b, lx, ly, trueBlock, local, global, veins, allLayers);
         }
     }
 
@@ -575,7 +575,7 @@ void readMapSegment(WorldSegment* segment, int x, int y, int z, int sizex, int s
 
             for(int lz=z-sizez; lz <= z; lz++) {
                 //load the tiles from this block to the map segment
-                ReadBlockToSegment(DF, *segment, blockx, blocky, lz,
+                readBlockToSegment(DF, *segment, blockx, blocky, lz,
                     firstTileToReadX, firstTileToReadY, 
                     lastTileToReadX, lastTileToReadY, &layers);
 
@@ -679,10 +679,8 @@ void FollowCurrentDFCenter()
     int32_t newviewz;
     Gui::getWindowSize(viewsizex,viewsizey);
     Gui::getViewCoords(newviewx,newviewy,newviewz);
-    int screenx, screeny, screenz;
-    ScreenToPoint(ssState.ScreenW/2, ssState.ScreenH/2, screenx, screeny, screenz);
-    parms.x = newviewx + (viewsizex/2) - screenx + ssConfig.viewXoffset;
-    parms.y = newviewy + (viewsizey/2) - screeny + ssConfig.viewYoffset;
+    parms.x = newviewx + (viewsizex/2) - (ssState.SegmentSize.x / 2) + ssConfig.viewXoffset;
+    parms.y = newviewy + (viewsizey/2) - (ssState.SegmentSize.y / 2) + ssConfig.viewYoffset;
     parms.z = newviewz + ssConfig.viewZoffset + 1;
 }
 
