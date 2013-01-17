@@ -15,6 +15,7 @@
 #include "df/itemdef_helmst.h"
 #include "df/itemdef_glovesst.h"
 #include "df/itemdef_pantsst.h"
+#include "df/descriptor_pattern.h"
 
 #define ALL_BORDERS 255
 
@@ -968,26 +969,28 @@ ALLEGRO_COLOR c_sprite::get_color(void* tile)
                 for(unsigned int j = 0; j<b->creature->nbcolors ; j++) {
                     t_colormodifier & colormod = colormods[j];
                     if(colormods[j].part == bodypart) {
-                        if(colormods[j].colorlist.size() > b->creature->color[j]) {
-                            uint32_t cr_color = colormod.colorlist.at(b->creature->color[j]);
-                            if(cr_color < contentLoader->Mats->color.size()) {
-                                if(colormod.startdate > 0) {
-
-                                    if((colormod.startdate <= dayofLife) &&
-                                            (colormod.enddate > dayofLife)) {
-                                        return al_map_rgb_f(
-                                                   contentLoader->Mats->color[cr_color].red,
-                                                   contentLoader->Mats->color[cr_color].green,
-                                                   contentLoader->Mats->color[cr_color].blue);;
-                                    }
-                                } else
-                                    return al_map_rgb_f(
-                                               contentLoader->Mats->color[cr_color].red,
-                                               contentLoader->Mats->color[cr_color].green,
-                                               contentLoader->Mats->color[cr_color].blue);
-                            }
-                        }
-                    }
+						if(colormods[j].colorlist.size() > b->creature->color[j]) {
+							uint32_t cr_color = colormod.colorlist.at(b->creature->color[j]);
+							if(cr_color < df::global::world->raws.language.patterns.size()) {
+								uint16_t actual_color = df::global::world->raws.language.patterns[cr_color]->colors[df::global::world->raws.language.patterns[cr_color]->colors.size()-1];
+								if(actual_color < contentLoader->Mats->color.size()){
+									if(colormod.startdate > 0) {
+										if((colormod.startdate <= dayofLife) &&
+											(colormod.enddate > dayofLife)) {
+												return al_map_rgb_f(
+													contentLoader->Mats->color[actual_color].red,
+													contentLoader->Mats->color[actual_color].green,
+													contentLoader->Mats->color[actual_color].blue);;
+										}
+									} else
+										return al_map_rgb_f(
+										contentLoader->Mats->color[actual_color].red,
+										contentLoader->Mats->color[actual_color].green,
+										contentLoader->Mats->color[actual_color].blue);
+								}
+							}
+						}
+					}
                 }
             } else {
                 return al_map_rgb(255,255,255);
