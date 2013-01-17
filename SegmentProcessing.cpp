@@ -162,7 +162,7 @@ bool isTileOnVisibleEdgeOfSegment(WorldSegment* segment, Tile* b)
             return true;
     } else if (ssState.DisplayedRotation == 1 &&
         (
-        b->x == segment->pos.x + segment->size.x - 2
+        b->x == segment->pos.x + segment->size.y - 2
         || b->y == segment->pos.y + 1
         || b->x == segment->regionSize.x - 1
         || b->y == 0
@@ -179,7 +179,7 @@ bool isTileOnVisibleEdgeOfSegment(WorldSegment* segment, Tile* b)
     } else if (ssState.DisplayedRotation == 3 &&
         (
         b->x == segment->pos.x + 1
-        || b->y == segment->pos.y + segment->size.y - 2
+        || b->y == segment->pos.y + segment->size.x - 2
         || b->x == 0
         || b->y == segment->regionSize.y - 1
         )) {

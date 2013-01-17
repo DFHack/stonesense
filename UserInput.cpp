@@ -125,40 +125,11 @@ void doMouse()
     //mouse_callback = mouseProc;
     static int last_mouse_z;
     if(mouse.z < last_mouse_z) {
-        ssConfig.follow_DFscreen = false;
-        if(keymod&ALLEGRO_KEYMOD_CTRL){
-            ssState.SegmentSize.z++;
-        } else {
-            if (ssConfig.follow_DFscreen) {
-                ssConfig.viewZoffset -= stepsize;
-            } else {
-                ssState.DisplayedSegment.z -= stepsize;
-            }
-            if(ssState.DisplayedSegment.z<0) {
-                ssState.DisplayedSegment.z = 0;
-            }
-        }
-        timeToReloadSegment = true;
+        action_incrZ(keymod);
         last_mouse_z = mouse.z;
     }
     if(mouse.z > last_mouse_z) {
-        ssConfig.follow_DFscreen = false;
-        if(keymod&ALLEGRO_KEYMOD_CTRL){
-            ssState.SegmentSize.z--;
-            if(ssState.SegmentSize.z <= 0) {
-                ssState.SegmentSize.z = 1;
-            }
-        } else {
-            if (ssConfig.follow_DFscreen) {
-                ssConfig.viewZoffset += stepsize;
-            } else {
-                ssState.DisplayedSegment.z += stepsize;
-            }
-            if(ssState.DisplayedSegment.z<0) {
-                ssState.DisplayedSegment.z = 0;
-            }
-        }
-        timeToReloadSegment = true;
+        action_decrZ(keymod);
         last_mouse_z = mouse.z;
     }
     if( mouse.buttons & 2 ) {

@@ -27,10 +27,229 @@ segParams parms;
  */
 
 /**
- * reads one 16x16 map block into stonesense tiles
- * attempts to only read as much information as is necessary to do the tile optimization
+ * Reads the spatter types and colors from the DF vector 'splatter' at local 
+ *  position 'lx','ly' into the stonesense Tile 'b'.
  */
-void ReadBlockToSegment(DFHack::Core& DF, WorldSegment& segment, 
+void readSpatterToTile(Tile * b, uint32_t lx, uint32_t ly, 
+    const vector <df::block_square_event_material_spatterst * > & splatter)
+{
+    b->mudlevel = 0;
+    b->snowlevel = 0;
+    b->bloodlevel = 0;
+    if(ssConfig.bloodcutoff < UCHAR_MAX) {
+        long red=0;
+        long green=0;
+        long blue=0;
+        long blood=0;
+        long snow=0;
+        for(int i = 0; i < splatter.size(); i++) {
+            if(!splatter[i]->amount[lx][ly]) {
+                continue;
+            }
+            uint8_t level = (uint8_t)splatter[i]->amount[lx][ly];
+            ALLEGRO_COLOR tempBlood = al_map_rgb(255,255,255);
+
+            //try to get the blood/snow tint
+            MaterialInfo mat;
+            switch(splatter[i]->mat_type){
+            case MUD:
+                break;
+            case ICE:
+                //ice and snow are white (default), water is blue
+                if(splatter[i]->mat_state != df::matter_state::Powder 
+                    && splatter[i]->mat_state != df::matter_state::Solid ) {
+                        tempBlood = lookupMaterialColor(splatter[i]->mat_type, -1);
+                }
+                break;
+            case VOMIT:
+                tempBlood = lookupMaterialColor(splatter[i]->mat_type, -1);
+                break;
+            default:
+                tempBlood = lookupMaterialColor(splatter[i]->mat_type, splatter[i]->mat_index, al_map_rgb(128,128,128));
+            }
+
+            if(splatter[i]->mat_type != MUD) {
+                red += (tempBlood.r * 255 * level);
+                green += (tempBlood.g * 255 * level);
+                blue += (tempBlood.b * 255 * level);
+            }
+
+            //use the state information to determine if we should be incrementing the snow or the blood
+            int16_t state = splatter[i]->mat_state;
+            state = splatter[i]->mat_type == MUD ? INVALID_INDEX : state;
+            state = splatter[i]->mat_type == VOMIT ? df::matter_state::Paste : state; //change vomit from dust to paste - gross
+            switch(state) {
+            case INVALID_INDEX:
+                b->mudlevel = level;
+                break;
+            case df::matter_state::Powder:
+            case df::matter_state::Solid:
+                snow += level;
+                break;
+            default:
+                blood += level;
+            }
+        }
+        blood = blood<0 ? 0-blood : blood;
+        snow = snow<0 ? 0-snow : snow;
+        int total = blood + snow;
+        if(blood || snow) {
+            if(snow > blood) {
+                b->bloodcolor = al_map_rgb(red/total, green/total, blue/total);
+            } else {
+                b->bloodcolor = al_map_rgba(red/total, green/total, blue/total, 
+                    (total > ssConfig.bloodcutoff) ? 255 : total*255/ssConfig.bloodcutoff);
+            }
+            b->snowlevel = snow>UCHAR_MAX ? UCHAR_MAX : snow;
+            b->bloodlevel = blood>UCHAR_MAX ? UCHAR_MAX : blood;
+        } else {
+            b->bloodcolor = al_map_rgba(0,0,0,0);
+        }
+    } else {
+        b->bloodcolor = al_map_rgb(150, 0, 24);
+    }
+}
+
+/**
+ * Identifies the correct material from the DF vectors, and stores it in the
+ * stonesense tile. 
+ */
+//TODO get cavein-sand to work somehow?
+void readMaterialToTile( Tile * b, uint32_t lx, uint32_t ly, 
+    df::map_block * trueBlock, 
+    const t_feature & local, const t_feature & global, 
+    const vector <df::block_square_event_mineralst * > & veins,
+    vector< vector <int16_t> >* allLayers)
+{
+    //determine rock/soil type
+    int rockIndex = -1;
+
+    //first lookup the default geolayer for the location
+    uint32_t tileBiomeIndex = trueBlock->designation[lx][ly].bits.biome;
+    uint8_t tileRegionIndex = trueBlock->region_offset[tileBiomeIndex];
+    uint32_t tileGeolayerIndex = trueBlock->designation[lx][ly].bits.geolayer_index;
+    if(tileRegionIndex < (*allLayers).size()) {
+        if(tileGeolayerIndex < (*allLayers).at(tileRegionIndex).size()) {
+            rockIndex = (*allLayers).at(tileRegionIndex).at(tileGeolayerIndex);
+        }
+    }
+
+
+    bool soilTile = false;//is this tile a match for soil materials?
+    bool soilMat = false;//is the material a soil?
+    soilTile = b->tileMaterial() == tiletype_material::SOIL
+        || (b->mudlevel == 0 
+        && (b->tileMaterial() == tiletype_material::PLANT 
+        || b->tileMaterial() == tiletype_material::GRASS_LIGHT
+        || b->tileMaterial() == tiletype_material::GRASS_DARK
+        || b->tileMaterial() == tiletype_material::GRASS_DRY
+        || b->tileMaterial() == tiletype_material::GRASS_DEAD));
+    if(b->tileMaterial() == tiletype_material::STONE || soilTile) {
+
+        df::inorganic_raw * rawMat = df::inorganic_raw::find(rockIndex);
+        if(rawMat) {
+            soilMat = rawMat->flags.is_set(inorganic_flags::SOIL_ANY);
+            //if the tile is a stone tile but we got a soil material, we need to "dig down" to find it
+            while(!soilTile && soilMat) {
+                tileGeolayerIndex++;
+                if(tileGeolayerIndex < (*allLayers).at(tileRegionIndex).size()) {
+                    rockIndex = (*allLayers).at(tileRegionIndex).at(tileGeolayerIndex);
+                    rawMat = df::inorganic_raw::find(rockIndex);
+                    if(rawMat) {
+                        soilMat = rawMat->flags.is_set(inorganic_flags::SOIL_ANY);
+                    } else {
+                        rockIndex = -1;
+                        break;
+                    }
+                } else {
+                    rockIndex = -1;
+                    break;
+                }
+            }
+            //if the tile is a soil tile but we got a stone material, we need to "dig up" to find it
+            while(soilTile && !soilMat) {
+                if(tileGeolayerIndex == 0) {
+                    rockIndex = -1;
+                    break;
+                }
+                tileGeolayerIndex--;
+                rockIndex = (*allLayers).at(tileRegionIndex).at(tileGeolayerIndex);
+                rawMat = df::inorganic_raw::find(rockIndex);
+                if(rawMat) {
+                    soilMat = rawMat->flags.is_set(inorganic_flags::SOIL_ANY);
+
+                } else {
+                    rockIndex = -1;
+                    break;
+                }
+            }
+        } else {
+            rockIndex = -1;
+        }
+    }
+
+    b->layerMaterial.type = INORGANIC;
+    b->layerMaterial.index = rockIndex;
+
+    //check veins (defaults to layer material)
+    b->veinMaterial.type = INORGANIC;
+    b->veinMaterial.index = rockIndex;
+    for(uint32_t i=0; i<(uint32_t)veins.size(); i++) {
+        uint16_t row = veins[i]->tile_bitmask[ly];
+        bool set = (row & (1 << lx)) != 0;
+        if(set) {
+            rockIndex = veins[i]->inorganic_mat;
+            b->veinMaterial.type = INORGANIC;
+            b->veinMaterial.index = veins[i]->inorganic_mat;
+            b->hasVein = 1;
+        } else {
+            b->veinMaterial.type = INORGANIC;
+            b->veinMaterial.index = rockIndex;
+        }
+    }
+
+    b->material.type = INORGANIC;
+    if(soilTile) {
+        b->material.index = b->layerMaterial.index;
+    } else { 
+        b->material.index = b->veinMaterial.index;
+    }
+
+    //read global/local features
+    int16_t idx = trueBlock->global_feature;
+    if( idx != -1 && global.type != -1 && global.main_material != -1) {
+        if(trueBlock->designation[lx][ly].bits.feature_global) {
+            b->layerMaterial.type = global.main_material;
+            b->layerMaterial.index = global.sub_material;
+            b->material.type = global.main_material;
+            b->material.index = global.sub_material;
+            b->hasVein = 0;
+        }
+    }
+
+    //read local features
+    idx = trueBlock->local_feature;
+    if( idx != -1 && local.type != -1 && local.main_material != -1 ) {
+        if(trueBlock->designation[lx][ly].bits.feature_local) {
+            b->veinMaterial.type = local.main_material;
+            b->veinMaterial.index = local.sub_material;
+            b->material.type = local.main_material;
+            b->material.index = local.sub_material;
+            b->hasVein = 1;
+        }
+    }
+
+    if(b->tileMaterial() == tiletype_material::LAVA_STONE) {
+        b->material.type = INORGANIC;
+        b->material.index = contentLoader->obsidian;
+    }
+}
+
+/**
+* reads one 16x16 map block into stonesense tiles
+* attempts to only read as much information as is necessary to do the tile optimization
+*/
+void readBlockToSegment(DFHack::Core& DF, WorldSegment& segment, 
     int BlockX, int BlockY, int BlockZ,
     uint32_t BoundrySX, uint32_t BoundrySY,
     uint32_t BoundryEX, uint32_t BoundryEY,
@@ -91,15 +310,15 @@ void ReadBlockToSegment(DFHack::Core& DF, WorldSegment& segment,
             // we are shading but not showing hidden tiles
             if(isOpenTerrain(trueBlock->tiletype[lx][ly]) 
                 && trueBlock->tiletype[lx][ly] != tiletype::RampTop) {
-                if(!ssConfig.show_hidden_tiles 
-                    && ssConfig.shade_hidden_tiles 
-                    && trueBlock->designation[lx][ly].bits.hidden) {
-                    shouldBeIncluded = true;
-                } else {
-                    shouldBeIncluded = false;
-                }
-            //all other terrain needs including, except for hidden tiles
-            // when we are neither showing nor shading hidden tiles
+                    if(!ssConfig.show_hidden_tiles 
+                        && ssConfig.shade_hidden_tiles 
+                        && trueBlock->designation[lx][ly].bits.hidden) {
+                            shouldBeIncluded = true;
+                    } else {
+                        shouldBeIncluded = false;
+                    }
+                    //all other terrain needs including, except for hidden tiles
+                    // when we are neither showing nor shading hidden tiles
             } else if(!ssConfig.show_hidden_tiles
                 && !ssConfig.shade_hidden_tiles
                 && trueBlock->designation[lx][ly].bits.hidden) {
@@ -110,7 +329,7 @@ void ReadBlockToSegment(DFHack::Core& DF, WorldSegment& segment,
             // as well as any hanging buildings
             if(trueBlock->designation[lx][ly].bits.flow_size
                 || trueBlock->occupancy[lx][ly].bits.building) {
-                shouldBeIncluded = true;
+                    shouldBeIncluded = true;
             }
 
             if(!shouldBeIncluded){
@@ -122,15 +341,6 @@ void ReadBlockToSegment(DFHack::Core& DF, WorldSegment& segment,
             b->designation = trueBlock->designation[lx][ly];
             b->fog_of_war = !b->designation.bits.pile;
 
-
-
-
-
-
-
-
-
-
             //don't read detailed information for blackbox tiles
             if(!ssConfig.show_hidden_tiles
                 && ssConfig.shade_hidden_tiles
@@ -139,6 +349,7 @@ void ReadBlockToSegment(DFHack::Core& DF, WorldSegment& segment,
                     continue;
             }
 
+            //read the grasses
             b->grasslevel = 0;
             b->grassmat = -1;
             //b->grasslevels.clear();
@@ -151,215 +362,13 @@ void ReadBlockToSegment(DFHack::Core& DF, WorldSegment& segment,
                     //b->grassmats.push_back(grass[i].material);
                 }
             }
-            
-            //do spatters
-            b->mudlevel = 0;
-            b->snowlevel = 0;
-            b->bloodlevel = 0;
-            if(ssConfig.bloodcutoff < UCHAR_MAX) {
-                long red=0;
-                long green=0;
-                long blue=0;
-                long blood=0;
-                long snow=0;
-                for(int i = 0; i < splatter.size(); i++) {
-                    if(!splatter[i]->amount[lx][ly]) {
-                        continue;
-                    }
-                    uint8_t level = (uint8_t)splatter[i]->amount[lx][ly];
-                    ALLEGRO_COLOR tempBlood = al_map_rgb(255,255,255);
 
-                    //try to get the blood/snow tint
-                    MaterialInfo mat;
-                    switch(splatter[i]->mat_type){
-                    case MUD:
-                        break;
-                    case ICE:
-                        //ice and snow are white (default), water is blue
-                        if(splatter[i]->mat_state != df::matter_state::Powder 
-                            && splatter[i]->mat_state != df::matter_state::Solid ) {
-                            tempBlood = lookupMaterialColor(splatter[i]->mat_type, -1);
-                        }
-                        break;
-                    case VOMIT:
-                        tempBlood = lookupMaterialColor(splatter[i]->mat_type, -1);
-                        break;
-                    default:
-                        tempBlood = lookupMaterialColor(splatter[i]->mat_type, splatter[i]->mat_index, al_map_rgb(128,128,128));
-                    }
+            //read the tile spatter
+            readSpatterToTile(b, lx, ly, splatter); 
 
-                    if(splatter[i]->mat_type != MUD) {
-                        red += (tempBlood.r * 255 * level);
-                        green += (tempBlood.g * 255 * level);
-                        blue += (tempBlood.b * 255 * level);
-                    }
-
-                    //use the state information to determine if we should be incrementing the snow or the blood
-                    int16_t state = splatter[i]->mat_state;
-                    state = splatter[i]->mat_type == MUD ? INVALID_INDEX : state;
-                    state = splatter[i]->mat_type == VOMIT ? df::matter_state::Paste : state; //change vomit from dust to paste - gross
-                    switch(state) {
-                    case INVALID_INDEX:
-                        b->mudlevel = level;
-                        break;
-                    case df::matter_state::Powder:
-                    case df::matter_state::Solid:
-                        snow += level;
-                        break;
-                    default:
-                        blood += level;
-                    }
-                }
-                blood = blood<0 ? 0-blood : blood;
-                snow = snow<0 ? 0-snow : snow;
-                int total = blood + snow;
-                if(blood || snow) {
-                    if(snow > blood) {
-                        b->bloodcolor = al_map_rgb(red/total, green/total, blue/total);
-                    } else {
-                        b->bloodcolor = al_map_rgba(red/total, green/total, blue/total, 
-                            (total > ssConfig.bloodcutoff) ? 255 : total*255/ssConfig.bloodcutoff);
-                    }
-                    b->snowlevel = snow>UCHAR_MAX ? UCHAR_MAX : snow;
-                    b->bloodlevel = blood>UCHAR_MAX ? UCHAR_MAX : blood;
-                } else {
-                    b->bloodcolor = al_map_rgba(0,0,0,0);
-                }
-            } else {
-                b->bloodcolor = al_map_rgb(150, 0, 24);
-            }
-
-            //determine rock/soil type
-            int rockIndex = -1;
-
-            //first lookup the default geolayer for the location
-            uint32_t tileBiomeIndex = trueBlock->designation[lx][ly].bits.biome;
-            uint8_t tileRegionIndex = trueBlock->region_offset[tileBiomeIndex];
-            uint32_t tileGeolayerIndex = trueBlock->designation[lx][ly].bits.geolayer_index;
-            if(tileRegionIndex < (*allLayers).size()) {
-                if(tileGeolayerIndex < (*allLayers).at(tileRegionIndex).size()) {
-                    rockIndex = (*allLayers).at(tileRegionIndex).at(tileGeolayerIndex);
-                }
-            }
-
-
-            bool soilTile = false;//is this tile a match for soil materials?
-            bool soilMat = false;//is the material a soil?
-            soilTile = b->tileMaterial() == tiletype_material::SOIL
-                || (b->mudlevel == 0 
-                && (b->tileMaterial() == tiletype_material::PLANT 
-                || b->tileMaterial() == tiletype_material::GRASS_LIGHT
-                || b->tileMaterial() == tiletype_material::GRASS_DARK
-                || b->tileMaterial() == tiletype_material::GRASS_DRY
-                || b->tileMaterial() == tiletype_material::GRASS_DEAD));
-            if(b->tileMaterial() == tiletype_material::STONE || soilTile) {
-
-                df::inorganic_raw * rawMat = df::inorganic_raw::find(rockIndex);
-                if(rawMat) {
-                    soilMat = rawMat->flags.is_set(inorganic_flags::SOIL_ANY);
-                    //if the tile is a stone tile but we got a soil material, we need to "dig down" to find it
-                    while(!soilTile && soilMat) {
-                        tileGeolayerIndex++;
-                        if(tileGeolayerIndex < (*allLayers).at(tileRegionIndex).size()) {
-                            rockIndex = (*allLayers).at(tileRegionIndex).at(tileGeolayerIndex);
-                            rawMat = df::inorganic_raw::find(rockIndex);
-                            if(rawMat) {
-                                soilMat = rawMat->flags.is_set(inorganic_flags::SOIL_ANY);
-                            } else {
-                                rockIndex = -1;
-                                break;
-                            }
-                        } else {
-                            rockIndex = -1;
-                            break;
-                        }
-                    }
-                    //if the tile is a soil tile but we got a stone material, we need to "dig up" to find it
-                    while(soilTile && !soilMat) {
-                        if(tileGeolayerIndex == 0) {
-                            rockIndex = -1;
-                            break;
-                        }
-                        tileGeolayerIndex--;
-                        rockIndex = (*allLayers).at(tileRegionIndex).at(tileGeolayerIndex);
-                        rawMat = df::inorganic_raw::find(rockIndex);
-                        if(rawMat) {
-                            soilMat = rawMat->flags.is_set(inorganic_flags::SOIL_ANY);
-
-                        } else {
-                            rockIndex = -1;
-                            break;
-                        }
-                    }
-                } else {
-                    rockIndex = -1;
-                }
-            }
-
-            b->layerMaterial.type = INORGANIC;
-            b->layerMaterial.index = rockIndex;
-
-            //check veins (defaults to layer material)
-            b->veinMaterial.type = INORGANIC;
-            b->veinMaterial.index = rockIndex;
-            for(uint32_t i=0; i<(uint32_t)veins.size(); i++) {
-                uint16_t row = veins[i]->tile_bitmask[ly];
-                bool set = (row & (1 << lx)) != 0;
-                if(set) {
-                    rockIndex = veins[i]->inorganic_mat;
-                    b->veinMaterial.type = INORGANIC;
-                    b->veinMaterial.index = veins[i]->inorganic_mat;
-                    b->hasVein = 1;
-                } else {
-                    b->veinMaterial.type = INORGANIC;
-                    b->veinMaterial.index = rockIndex;
-                }
-            }
-
-            b->material.type = INORGANIC;
-            if(soilTile) {
-                b->material.index = b->layerMaterial.index;
-            } else { 
-                b->material.index = b->veinMaterial.index;
-            }
-
-            //read global/local features
-            int16_t idx = trueBlock->global_feature;
-            if( idx != -1 && global.type != -1 && global.main_material != -1) {
-                if(trueBlock->designation[lx][ly].bits.feature_global) {
-                    b->layerMaterial.type = global.main_material;
-                    b->layerMaterial.index = global.sub_material;
-                    b->material.type = global.main_material;
-                    b->material.index = global.sub_material;
-                    b->hasVein = 0;
-                }
-            }
-
-            //read local features
-            idx = trueBlock->local_feature;
-            if( idx != -1 && local.type != -1 && local.main_material != -1 ) {
-                if(trueBlock->designation[lx][ly].bits.feature_local) {
-                    b->veinMaterial.type = local.main_material;
-                    b->veinMaterial.index = local.sub_material;
-                    b->material.type = local.main_material;
-                    b->material.index = local.sub_material;
-                    b->hasVein = 1;
-                }
-            }
-
-            if(b->tileMaterial() == tiletype_material::LAVA_STONE) {
-                b->material.type = INORGANIC;
-                b->material.index = contentLoader->obsidian;
-            }
+            //read the tile material
+            readMaterialToTile(b, lx, ly, trueBlock, local, global, veins, allLayers);
         }
-
-
-
-
-
-
-
-
     }
 
     //add trees and other vegetation
@@ -444,12 +453,12 @@ void ReadBlockToSegment(DFHack::Core& DF, WorldSegment& segment,
         }
         Tile* b = segment.getTile( eff->pos.x, eff->pos.y, eff->pos.z);
         if(segment.CoordinateInsideSegment(eff->pos.x, eff->pos.y, eff->pos.z)) {
-        if(!b) {
-            b = segment.ResetTile(eff->pos.x, eff->pos.y, eff->pos.z, tiletype::OpenSpace);
             if(!b) {
-                continue;
+                b = segment.ResetTile(eff->pos.x, eff->pos.y, eff->pos.z, tiletype::OpenSpace);
+                if(!b) {
+                    continue;
+                }
             }
-        }
             if(eff->density > b->tileeffect.density 
                 || b->tileeffect.type == (df::flow_type) INVALID_INDEX) {
                     b->tileeffect.type = eff->type;
@@ -530,6 +539,12 @@ void readMapSegment(WorldSegment* segment, int x, int y, int z, int sizex, int s
         }
     }
 
+    if(segment->rotation % 2) {
+        int temp = sizex;
+        sizex = sizey;
+        sizey = temp;
+    }
+
     //figure out what blocks to read
     int32_t firstTileToReadX = x;
     if( firstTileToReadX < 0 ) {
@@ -560,7 +575,7 @@ void readMapSegment(WorldSegment* segment, int x, int y, int z, int sizex, int s
 
             for(int lz=z-sizez; lz <= z; lz++) {
                 //load the tiles from this block to the map segment
-                ReadBlockToSegment(DF, *segment, blockx, blocky, lz,
+                readBlockToSegment(DF, *segment, blockx, blocky, lz,
                     firstTileToReadX, firstTileToReadY, 
                     lastTileToReadX, lastTileToReadY, &layers);
 
@@ -664,10 +679,8 @@ void FollowCurrentDFCenter()
     int32_t newviewz;
     Gui::getWindowSize(viewsizex,viewsizey);
     Gui::getViewCoords(newviewx,newviewy,newviewz);
-    int screenx, screeny, screenz;
-    ScreenToPoint(ssState.ScreenW/2, ssState.ScreenH/2, screenx, screeny, screenz);
-    parms.x = newviewx + (viewsizex/2) - screenx + ssConfig.viewXoffset;
-    parms.y = newviewy + (viewsizey/2) - screeny + ssConfig.viewYoffset;
+    parms.x = newviewx + (viewsizex/2) - (ssState.SegmentSize.x / 2) + ssConfig.viewXoffset;
+    parms.y = newviewy + (viewsizey/2) - (ssState.SegmentSize.y / 2) + ssConfig.viewYoffset;
     parms.z = newviewz + ssConfig.viewZoffset + 1;
 }
 
