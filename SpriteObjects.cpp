@@ -419,6 +419,14 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
         strcpy(bodypart, bodyPartStr);
     }
 
+    //picking different patterns isn't really useful, but finding the colors within them is.
+    const char* spritePatternIndexStr = elemSprite->Attribute("pattern_index");
+    if (spritePatternIndexStr == NULL || spritePatternIndexStr[0] == 0) {
+        pattern_index = 0;
+    } else {
+        pattern_index=atoi(spritePatternIndexStr);
+    }
+
     uint8_t red, green, blue, alpha;
     //do custom colors
     const char* spriteRedStr = elemSprite->Attribute("red");
@@ -972,7 +980,7 @@ ALLEGRO_COLOR c_sprite::get_color(void* tile)
 						if(colormods[j].colorlist.size() > b->creature->color[j]) {
 							uint32_t cr_color = colormod.colorlist.at(b->creature->color[j]);
 							if(cr_color < df::global::world->raws.language.patterns.size()) {
-								uint16_t actual_color = df::global::world->raws.language.patterns[cr_color]->colors[df::global::world->raws.language.patterns[cr_color]->colors.size()-1];
+								uint16_t actual_color = df::global::world->raws.language.patterns[cr_color]->colors[pattern_index%df::global::world->raws.language.patterns[cr_color]->colors.size()];
 								if(actual_color < contentLoader->Mats->color.size()){
 									if(colormod.startdate > 0) {
 										if((colormod.startdate <= dayofLife) &&

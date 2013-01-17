@@ -1,4 +1,4 @@
-#include <assert.h>
+﻿#include <assert.h>
 #include <vector>
 
 using namespace std;
@@ -514,21 +514,26 @@ void drawDebugCursorAndInfo(WorldSegment * segment)
             }
             */
 
-            int yy = (i++*al_get_font_line_height(font));
-            int xx = 2;
-            for(unsigned int j = 0; j<b->creature->nbcolors ; j++) {
-                if(b->creature->color[j] < contentLoader->Mats->raceEx.at(b->creature->race).castes.at(b->creature->caste).ColorModifier[j].colorlist.size()) {
-                    uint32_t cr_color = contentLoader->Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].colorlist[b->creature->color[j]];
-                    if(cr_color < df::global::world->raws.language.patterns.size()) {
-						uint16_t actual_color = df::global::world->raws.language.patterns[cr_color]->colors[df::global::world->raws.language.patterns[cr_color]->colors.size()-1];
-                        draw_textf_border(font,
-                                          al_map_rgb_f(
-										  contentLoader->Mats->color[actual_color].red,
-										  contentLoader->Mats->color[actual_color].green,
-										  contentLoader->Mats->color[actual_color].blue), xx, yy, 0,
-                                          "%s ", contentLoader->Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].part.c_str());
-                        xx += get_textf_width(font, "%s ", contentLoader->Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].part.c_str());
-                    }
+			int yy = (i++*al_get_font_line_height(font));
+			int xx = 2;
+			for(unsigned int j = 0; j<b->creature->nbcolors ; j++) {
+				if(b->creature->color[j] < contentLoader->Mats->raceEx.at(b->creature->race).castes.at(b->creature->caste).ColorModifier[j].colorlist.size()) {
+					draw_textf_border(font,
+						al_map_rgb_f(1.0,1.0,1.0), xx, yy, 0,
+						" %s:", contentLoader->Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].part.c_str());
+					xx += get_textf_width(font, " %s:", contentLoader->Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].part.c_str());
+					uint32_t cr_color = contentLoader->Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].colorlist[b->creature->color[j]];
+					if(cr_color < df::global::world->raws.language.patterns.size()) {
+						for(int patternin = 0; patternin < df::global::world->raws.language.patterns[cr_color]->colors.size(); patternin++){
+							uint16_t actual_color = df::global::world->raws.language.patterns[cr_color]->colors[patternin];
+							al_draw_filled_rectangle(xx, yy, xx+al_get_font_line_height(font), yy+al_get_font_line_height(font),
+								al_map_rgb_f(
+								contentLoader->Mats->color[actual_color].red,
+								contentLoader->Mats->color[actual_color].green,
+								contentLoader->Mats->color[actual_color].blue));
+							xx += al_get_font_line_height(font);
+						}
+					}
 				}
 			}
         }
