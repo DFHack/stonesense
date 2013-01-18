@@ -102,6 +102,15 @@ public:
     bool Matches(Tile* b);
 };
 
+class BuildingSpecialCondition : public TileCondition
+{
+public:
+    BuildingSpecialCondition(const char* strValue);
+    ~BuildingSpecialCondition(void) {};
+
+    int value;
+    bool Matches(Tile* b);
+};
 
 class NeighbourIdenticalCondition : public TileCondition
 {

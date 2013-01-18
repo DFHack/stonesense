@@ -185,7 +185,16 @@ bool BuildingOccupancyCondition::Matches(Tile* b)
     return b->occ.bits.building == this->value;
 }
 
+BuildingSpecialCondition::BuildingSpecialCondition(const char* strValue)
+    : TileCondition()
+{
+    this->value = atoi( strValue );
+}
 
+bool BuildingSpecialCondition::Matches(Tile* b)
+{
+	return b->building.special == this->value;
+}
 
 NeighbourSameBuildingCondition::NeighbourSameBuildingCondition(const char* strDir)
     : TileCondition()

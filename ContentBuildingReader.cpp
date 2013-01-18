@@ -53,6 +53,10 @@ int parseConditionNode(ConditionalNode* node, TiXmlElement* elemCondition, bool 
         cond = new BuildingOccupancyCondition( elemCondition->Attribute("value") );
     }
 
+    else if( strcmp(strType, "BuildingSpecial") == 0) {
+        cond = new BuildingOccupancyCondition( elemCondition->Attribute("value") );
+    }
+
     else if( strcmp(strType, "NeighbourSameBuilding") == 0) {
         cond = new NeighbourSameBuildingCondition( elemCondition->Attribute("dir") );
     }
