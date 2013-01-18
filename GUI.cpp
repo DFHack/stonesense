@@ -168,28 +168,50 @@ void draw_borders(float x, float y, uint8_t borders)
 
 void ScreenToPoint(int x,int y,int &x1, int &y1, int &z1)
 {
-    //assume z of 0
-    x-=ssState.ScreenW / 2;
-    y-=ssState.ScreenH / 2;
-    x/=ssConfig.scale;
-    y/=ssConfig.scale;
-    x+=ssState.ScreenW / 2;
-    y+=ssState.ScreenH / 2;
-    x-=TILEWIDTH/2;
-    y+=TILEWIDTH/2;
-    z1 = -3;
-    y+= z1*TILEHEIGHT/2;
-    //y-=TILEHEIGHT;
-    x+=TILEWIDTH>>1;
-    int offx = ssState.ScreenW /2;
-    int offy = (-20)-(TILEHEIGHT * ssConfig.lift_segment_offscreen_y);
-    y-=offy;
-    x-=offx;
-    y1=y*2-x;
-    x1=x*2+y1;
-    x1/=TILEWIDTH;
-    y1/=TILEWIDTH;
+    if(ssConfig.track_screen_center) {
+        x-=ssState.ScreenW / 2;
+        y-=ssState.ScreenH / 2;
+    }
 
+    y = y/ssConfig.scale;
+    y += TILETOPHEIGHT*5/4;
+    y += TILEHEIGHT*ssConfig.lift_segment_offscreen_y;
+    z1 = 0;
+    y += z1*TILEHEIGHT;
+    y = 2 * y / TILETOPHEIGHT;
+    
+    x = x/ssConfig.scale;
+    x -= (TILEWIDTH/2)*(ssConfig.lift_segment_offscreen_x);
+    x = 2 * x / TILEWIDTH;
+
+    x1 = (x + y)/2;
+    y1 = (y - x)/2;
+
+}
+
+void pointToScreen(int *inx, int *iny, int inz)
+{
+    int z = inz-1;
+
+    int x = *inx-*iny;
+    x = x * TILEWIDTH / 2;
+    x += (TILEWIDTH/2)*ssConfig.lift_segment_offscreen_x;
+    x *= ssConfig.scale;
+
+    int y = *inx+*iny;
+    y = y*TILETOPHEIGHT / 2;
+    y -= z*TILEHEIGHT;
+    y -= TILETOPHEIGHT*5/4;
+    y -= TILEHEIGHT*ssConfig.lift_segment_offscreen_y;
+    y *= ssConfig.scale;
+
+    if(ssConfig.track_screen_center) {
+        x+=ssState.ScreenW / 2;
+        y+=ssState.ScreenH / 2;
+    }
+
+    *inx=x;
+    *iny=y;
 }
 
 int get_textf_width(const ALLEGRO_FONT *font, const char *format, ...)
@@ -267,31 +289,6 @@ void draw_ustr_border(const ALLEGRO_FONT *font, ALLEGRO_COLOR color, float x, fl
     }
     al_draw_filled_rectangle(x+xx, y+yy, x+xx+ww, y+yy+hh, al_map_rgba_f(0.0,0.0,0.0,0.75));
     al_draw_ustr(font, color, x, y, flags, ustr);
-}
-
-void pointToScreen(int *inx, int *iny, int inz)
-{
-    int z = inz-1;
-
-    int x = *inx-*iny;
-    x = x * TILEWIDTH / 2;
-    x += (TILEWIDTH/2)*ssConfig.lift_segment_offscreen_x;
-    x *= ssConfig.scale;
-
-    int y = *inx+*iny;
-    y = y*TILETOPHEIGHT / 2;
-    y -= z*TILEHEIGHT;
-    y -= TILETOPHEIGHT*5/4;
-    y -= TILEHEIGHT*ssConfig.lift_segment_offscreen_y;
-    y *= ssConfig.scale;
-
-    if(ssConfig.track_screen_center) {
-        x+=ssState.ScreenW / 2;
-        y+=ssState.ScreenH / 2;
-    }
-
-    *inx=x;
-    *iny=y;
 }
 
 /**
