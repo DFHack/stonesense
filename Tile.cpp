@@ -67,20 +67,19 @@ void Tile::Reset(WorldSegment* segment, df::tiletype type)
     openborders = 255;
     lightborders = 255;
 
-    ////explicitly define values for all contained structs
-    //tileeffect.type = (df::flow_type) INVALID_INDEX;
+    tileeffect.type = (df::flow_type) INVALID_INDEX;
 
-    //Item.item.type = INVALID_INDEX;
-    //Item.item.index= INVALID_INDEX;
-    //Item.matt.type= INVALID_INDEX;
-    //Item.matt.index= INVALID_INDEX;
-    //Item.dyematt.type= INVALID_INDEX;
-    //Item.dyematt.index= INVALID_INDEX;
-    //
-    //building.type = (building_type::building_type) BUILDINGTYPE_NA;
+    Item.item.type = INVALID_INDEX;
+    Item.item.index= INVALID_INDEX;
+    Item.matt.type= INVALID_INDEX;
+    Item.matt.index= INVALID_INDEX;
+    Item.dyematt.type= INVALID_INDEX;
+    Item.dyematt.index= INVALID_INDEX;
+    
+    building.type = (building_type::building_type) BUILDINGTYPE_NA;
     //building.parent = NULL;
     //building.info = NULL;
-    //building.sprites = vector<c_sprite>();
+    building.sprites = vector<c_sprite>();
 }
 
 
