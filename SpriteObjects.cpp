@@ -958,7 +958,7 @@ ALLEGRO_COLOR c_sprite::get_color(void* tile)
 			return (b->building.info ? lookupMaterialColor(b->building.info->material) : al_map_rgb(255, 255, 255));
 		if(b->building.constructed_mats.size() == 0)
 			return (b->building.info ? lookupMaterialColor(b->building.info->material) : al_map_rgb(255, 255, 255));
-		return(lookupMaterialColor(b->building.constructed_mats[pattern_index%b->building.constructed_mats.size()]));
+		return(lookupMaterialColor(b->building.constructed_mats[pattern_index%b->building.constructed_mats.size()].matt, b->building.constructed_mats[pattern_index%b->building.constructed_mats.size()].dyematt));
     case ShadeLayer:
         return lookupMaterialColor(b->layerMaterial);
     case ShadeVein:

@@ -151,13 +151,13 @@ bool MaterialTypeCondition::Matches(Tile* b)
 		return b->building.info->material.index == this->subtype;
 	}
 	else {
-		if (b->building.constructed_mats[item_index%b->building.constructed_mats.size()].type != this->value) {
+		if (b->building.constructed_mats[item_index%b->building.constructed_mats.size()].matt.type != this->value) {
 			return false;
 		}
 		if (this->subtype == INVALID_INDEX) {
 			return true;
 		}
-		return b->building.constructed_mats[item_index%b->building.constructed_mats.size()].index == this->subtype;
+		return b->building.constructed_mats[item_index%b->building.constructed_mats.size()].matt.index == this->subtype;
 	}
 }
 

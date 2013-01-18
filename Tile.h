@@ -104,7 +104,7 @@ public:
         df::building_type type;
         std::vector<c_sprite> sprites;
         Tile* parent;
-		std::vector<DFHack::t_matglossPair> constructed_mats;
+		std::vector<worn_item> constructed_mats;
 		uint8_t special;
     } building;
 

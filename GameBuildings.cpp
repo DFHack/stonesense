@@ -8,6 +8,9 @@
 
 #include "df/buildings_other_id.h"
 #include "df/building_wellst.h"
+#include "df/item_constructed.h"
+#include "df/itemimprovement.h"
+#include "df/itemimprovement_threadst.h"
 
 using df::global::world;
 //vector<BuildingConfiguration> buildingTypes;
@@ -172,9 +175,33 @@ void MergeBuildingsToSegment(vector<Buildings::t_building>* buildings, WorldSegm
 						for(int index = 0; index < Actual_building->contained_items.size(); index++) {
 							if(Actual_building->contained_items[index]->use_mode != 2)
 								break;
-							DFHack::t_matglossPair item_matt;
-							item_matt.type = Actual_building->contained_items[index]->item->getMaterial();
-							item_matt.index = Actual_building->contained_items[index]->item->getMaterialIndex();
+							worn_item item_matt;
+							
+							df::item * item = Actual_building->contained_items[index]->item;
+
+							item_matt.matt.type = item->getActualMaterial();
+							item_matt.matt.index = item->getActualMaterialIndex();
+
+							if(item->isDyed()) {
+								auto Constructed_Item = virtual_cast<df::item_constructed>(item);
+								if(Constructed_Item) {
+									for(int idex = 0; idex < Constructed_Item->improvements.size(); idex++) {
+										if(!Constructed_Item->improvements[idex]) {
+											continue;
+										}
+										if(Constructed_Item->improvements[idex]->getType() != improvement_type::THREAD) {
+											continue;
+										}
+										auto Improvement_Thread = virtual_cast<df::itemimprovement_threadst>(Constructed_Item->improvements[idex]);
+										if(!Improvement_Thread) {
+											continue;
+										}
+										item_matt.dyematt.type = Improvement_Thread->dye.mat_type;
+										item_matt.dyematt.index = Improvement_Thread->dye.mat_index;
+									}
+								}
+							}
+
 							b->building.constructed_mats.push_back(item_matt);
 						}
 					}
