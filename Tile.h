@@ -105,6 +105,7 @@ public:
         std::vector<c_sprite> sprites;
         Tile* parent;
 		std::vector<DFHack::t_matglossPair> constructed_mats;
+		uint8_t special;
     } building;
 
     //Functions start here.

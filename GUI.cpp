@@ -602,14 +602,15 @@ void drawDebugCursorAndInfo(WorldSegment * segment)
             const char* subMatName = lookupMaterialName(b->building.info->material.type,b->building.info->material.index);
             const char* subTypeName = lookupBuildingSubtype(b->building.type, b->building.info->subtype);
             draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0,
-                              "Building: game_type = %s(%i) game_subtype = %s(%i) Material: %s%s%s (%d,%d) Occupancy:%i ",
+                              "Building: game_type = %s(%i) game_subtype = %s(%i) Material: %s%s%s (%d,%d) Occupancy:%i, Special: %i ",
                               ENUM_KEY_STR(building_type, (building_type::building_type)b->building.type).c_str(),
                               b->building.type,
                               subTypeName,
                               b->building.info->subtype,
                               matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"",
                               b->building.info->material.type,b->building.info->material.index,
-                              b->occ.bits.building);
+                              b->occ.bits.building,
+							  b->building.special);
 
             //if(b->building.custom_building_type != -1)
             //{

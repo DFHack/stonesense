@@ -7,6 +7,7 @@
 #include "GUI.h"
 
 #include "df/buildings_other_id.h"
+#include "df/building_wellst.h"
 
 using df::global::world;
 //vector<BuildingConfiguration> buildingTypes;
@@ -117,43 +118,69 @@ void MergeBuildingsToSegment(vector<Buildings::t_building>* buildings, WorldSegm
     for(uint32_t i=0; i < numBuildings; i++) {
         Buildings::t_building* copiedbuilding = segment->AddBuilding((*buildings)[i]);
 
-        //int bheight = tempbuilding.y2 - tempbuilding.y1;
-        for(uint32_t yy = copiedbuilding->y1; yy <= copiedbuilding->y2; yy++)
-            for(uint32_t xx = copiedbuilding->x1; xx <= copiedbuilding->x2; xx++) {
-                Tile* b = segment->getTile( xx, yy, copiedbuilding->z);
-                if(!b) {
-                    b = segment->ResetTile(xx, yy, copiedbuilding->z, tiletype::OpenSpace);
-                    if(!b) {
-                        continue;
-                    }
-                }
-                //want hashtable :(
-                // still need to test for b, because of ramp/building overlap
+		//int bheight = tempbuilding.y2 - tempbuilding.y1;
+		for(uint32_t yy = copiedbuilding->y1; yy <= copiedbuilding->y2; yy++)
+			for(uint32_t xx = copiedbuilding->x1; xx <= copiedbuilding->x2; xx++) {
+				int z2 = copiedbuilding->z;
+				//if it's a well, add the bucket status.
+				if(copiedbuilding->type == df::enums::building_type::Well) {
+					auto well_building = virtual_cast<df::building_wellst>(copiedbuilding->origin);
+					if(well_building)
+						z2 = well_building->bucket_z;
+				}
 
-                //handle special case where zones and stockpiles overlap buildings, and try to replace them
-                if(b->building.type != BUILDINGTYPE_NA && copiedbuilding->type == df::enums::building_type::Civzone ) {
-                    continue;
-                }
-                if(b->building.type != BUILDINGTYPE_NA && copiedbuilding->type == df::enums::building_type::Stockpile ) {
-                    continue;
-                }
-                b->building.type = copiedbuilding->type;
-                b->building.info = copiedbuilding;
+				for(uint32_t zz = copiedbuilding->z; zz >= z2; zz--) {
 
-				//add building components.
-				auto Actual_building = virtual_cast<df::building_actual>(b->building.info->origin);
-				if(Actual_building){
-					for(int index = 0; index < Actual_building->contained_items.size(); index++) {
-						if(Actual_building->contained_items[index]->use_mode != 2)
-							break;
-						DFHack::t_matglossPair item_matt;
-						item_matt.type = Actual_building->contained_items[index]->item->getMaterial();
-						item_matt.index = Actual_building->contained_items[index]->item->getMaterialIndex();
-						b->building.constructed_mats.push_back(item_matt);
+					Tile* b = segment->getTile( xx, yy, zz);
+					if(!b) {
+						b = segment->ResetTile(xx, yy, zz, tiletype::OpenSpace);
+						if(!b) {
+							continue;
+						}
+					}
+					//want hashtable :(
+					// still need to test for b, because of ramp/building overlap
+
+					//handle special case where zones and stockpiles overlap buildings, and try to replace them
+					if(b->building.type != BUILDINGTYPE_NA && copiedbuilding->type == df::enums::building_type::Civzone ) {
+						continue;
+					}
+					if(b->building.type != BUILDINGTYPE_NA && copiedbuilding->type == df::enums::building_type::Stockpile ) {
+						continue;
+					}
+					b->building.type = copiedbuilding->type;
+					b->building.info = copiedbuilding;
+					b->building.special = 0;
+
+					switch (b->building.type){
+					case df::enums::building_type::Well:
+						if(copiedbuilding->z == z2)
+							b->building.special = 0;
+						else if(zz == copiedbuilding->z)
+							b->building.special = 1;
+						else if(zz == z2)
+							b->building.special = 2;
+						else b->building.special = 3;
+						break;
+					default:
+						break;
+					}
+
+					//add building components.
+					auto Actual_building = virtual_cast<df::building_actual>(b->building.info->origin);
+					if(Actual_building){
+						for(int index = 0; index < Actual_building->contained_items.size(); index++) {
+							if(Actual_building->contained_items[index]->use_mode != 2)
+								break;
+							DFHack::t_matglossPair item_matt;
+							item_matt.type = Actual_building->contained_items[index]->item->getMaterial();
+							item_matt.index = Actual_building->contained_items[index]->item->getMaterialIndex();
+							b->building.constructed_mats.push_back(item_matt);
+						}
 					}
 				}
-            }
-    }
+			}
+	}
 }
 
 
