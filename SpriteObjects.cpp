@@ -417,15 +417,18 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
     //copy new, if found
     if (bodyPartStr != NULL && bodyPartStr[0] != 0) {
         strcpy(bodypart, bodyPartStr);
-    }
+	}
 
-    //picking different patterns isn't really useful, but finding the colors within them is.
-    const char* spritePatternIndexStr = elemSprite->Attribute("pattern_index");
-    if (spritePatternIndexStr == NULL || spritePatternIndexStr[0] == 0) {
-        pattern_index = 0;
-    } else {
-        pattern_index=atoi(spritePatternIndexStr);
-    }
+	//picking different patterns isn't really useful, but finding the colors within them is.
+	const char* spritePatternIndexStr = elemSprite->Attribute("pattern_index");
+	if (spritePatternIndexStr == NULL || spritePatternIndexStr[0] == 0) {
+		//if it's a building sprite, the default pattern index needs to be -1. otherwise 0 is fine.
+		if(shadeBy == ShadeBuilding)
+			pattern_index = -1;
+		else pattern_index = 0;
+	} else {
+		pattern_index=atoi(spritePatternIndexStr);
+	}
 
     uint8_t red, green, blue, alpha;
     //do custom colors
@@ -951,7 +954,11 @@ ALLEGRO_COLOR c_sprite::get_color(void* tile)
     case ShadeGrass:
         return lookupMaterialColor(WOOD, b->grassmat);
     case ShadeBuilding:
-        return (b->building.info ? lookupMaterialColor(b->building.info->material) : al_map_rgb(255, 255, 255));
+		if(pattern_index == -1)
+			return (b->building.info ? lookupMaterialColor(b->building.info->material) : al_map_rgb(255, 255, 255));
+		if(b->building.constructed_mats.size() == 0)
+			return (b->building.info ? lookupMaterialColor(b->building.info->material) : al_map_rgb(255, 255, 255));
+		return(lookupMaterialColor(b->building.constructed_mats[pattern_index%b->building.constructed_mats.size()]));
     case ShadeLayer:
         return lookupMaterialColor(b->layerMaterial);
     case ShadeVein:

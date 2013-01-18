@@ -61,11 +61,12 @@ public:
 class MaterialTypeCondition : public TileCondition
 {
 public:
-    MaterialTypeCondition(const char* strValue, const char* strSubtype);
+    MaterialTypeCondition(const char* strValue, const char* strSubtype, const char* item_index);
     ~MaterialTypeCondition(void) {};
 
     int value;
     int subtype;
+	int item_index;
     bool Matches(Tile* b);
 };
 

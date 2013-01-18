@@ -4,6 +4,7 @@
 #include "SpriteObjects.h"
 #include "TileTypes.h"
 #include "df/item_type.h"
+#include <vector>
 
 class WorldSegment;
 
@@ -103,6 +104,7 @@ public:
         df::building_type type;
         std::vector<c_sprite> sprites;
         Tile* parent;
+		std::vector<DFHack::t_matglossPair> constructed_mats;
     } building;
 
     //Functions start here.

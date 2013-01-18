@@ -27,18 +27,18 @@
 		<if>
 			<HaveFloor/>
 			<rotate>
-				<sprite index=175 />
-				<sprite index=176 />
-				<sprite index=175 />
-				<sprite index=176 />
+				<sprite index=175 color="building" pattern_index="1" />
+				<sprite index=176 color="building" pattern_index="1" />
+				<sprite index=175 color="building" pattern_index="1" />
+				<sprite index=176 color="building" pattern_index="1" />
 			</rotate>
 		</if>
 		<else>
 			<rotate>
-				<sprite index=177 />
-				<sprite index=178 />
-				<sprite index=177 />
-				<sprite index=178 />
+				<sprite index=177 color="building" pattern_index="1" />
+				<sprite index=178 color="building" pattern_index="1" />
+				<sprite index=177 color="building" pattern_index="1" />
+				<sprite index=178 color="building" pattern_index="1" />
 			</rotate>
 			<rotate>
 				<sprite index=175 offsetx=2 />

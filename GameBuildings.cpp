@@ -139,6 +139,19 @@ void MergeBuildingsToSegment(vector<Buildings::t_building>* buildings, WorldSegm
                 }
                 b->building.type = copiedbuilding->type;
                 b->building.info = copiedbuilding;
+
+				//add building components.
+				auto Actual_building = virtual_cast<df::building_actual>(b->building.info->origin);
+				if(Actual_building){
+					for(int index = 0; index < Actual_building->contained_items.size(); index++) {
+						if(Actual_building->contained_items[index]->use_mode != 2)
+							break;
+						DFHack::t_matglossPair item_matt;
+						item_matt.type = Actual_building->contained_items[index]->item->getMaterial();
+						item_matt.index = Actual_building->contained_items[index]->item->getMaterialIndex();
+						b->building.constructed_mats.push_back(item_matt);
+					}
+				}
             }
     }
 }
