@@ -125,11 +125,11 @@ void doMouse()
     //mouse_callback = mouseProc;
     static int last_mouse_z;
     if(mouse.z < last_mouse_z) {
-        action_incrZ(keymod);
+        action_decrZ(keymod);
         last_mouse_z = mouse.z;
     }
     if(mouse.z > last_mouse_z) {
-        action_decrZ(keymod);
+        action_incrZ(keymod);
         last_mouse_z = mouse.z;
     }
     if( mouse.buttons & 2 ) {
