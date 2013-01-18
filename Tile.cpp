@@ -52,7 +52,7 @@ Tile::Tile(WorldSegment* ownerSegment, df::tiletype type)
 void Tile::Reset(WorldSegment* segment, df::tiletype type)
 {
     //clear out own memory
-    memset(this, 0, sizeof(Tile) - sizeof(SS_Building) - sizeof(SS_Item) - sizeof(SS_Effect));
+    memset(this, 0, sizeof(Tile));// - sizeof(SS_Building) - sizeof(SS_Item) - sizeof(SS_Effect));
 
     //set all the nonzero values
     valid=true;
@@ -67,7 +67,6 @@ void Tile::Reset(WorldSegment* segment, df::tiletype type)
     openborders = 255;
     lightborders = 255;
 
-    //explicitly define values for all contained structs
     tileeffect.type = (df::flow_type) INVALID_INDEX;
 
     Item.item.type = INVALID_INDEX;
@@ -78,8 +77,8 @@ void Tile::Reset(WorldSegment* segment, df::tiletype type)
     Item.dyematt.index= INVALID_INDEX;
     
     building.type = (building_type::building_type) BUILDINGTYPE_NA;
-    building.parent = NULL;
-    building.info = NULL;
+    //building.parent = NULL;
+    //building.info = NULL;
     building.sprites = vector<c_sprite>();
 }
 
