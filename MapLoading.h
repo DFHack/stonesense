@@ -17,6 +17,9 @@ void read_segment( void *arg);
 
 extern const VersionInfo *dfMemoryInfo;
 
+struct SS_Item;
+SS_Item ConvertItem(df::item * found_item, WorldSegment& segment);
+
 struct segParams {
     int x;
     int y;

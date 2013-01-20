@@ -15,6 +15,12 @@ struct worn_item {
     worn_item();
 };
 
+struct SS_Item {
+    DFHack::t_matglossPair item;
+    DFHack::t_matglossPair matt;
+    DFHack::t_matglossPair dyematt;
+};
+
 struct unit_inventory {
     //[item_type][item_subtype][item_number]
     std::vector<std::vector<std::vector<worn_item>>> item;
@@ -93,11 +99,7 @@ public:
         df::flow_type type;
     } tileeffect;
 
-    struct SS_Item {
-        DFHack::t_matglossPair item;
-        DFHack::t_matglossPair matt;
-        DFHack::t_matglossPair dyematt;
-    } Item;
+	SS_Item Item;
 
     struct SS_Building {
         DFHack::Buildings::t_building* info;

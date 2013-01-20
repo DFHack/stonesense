@@ -5,6 +5,7 @@
 #include "BuildingConfiguration.h"
 #include "ContentLoader.h"
 #include "GUI.h"
+#include "MapLoading.h"
 
 #include "df/buildings_other_id.h"
 #include "df/building_wellst.h"
@@ -118,11 +119,11 @@ void ReadBuildings(DFHack::Core& DF, vector<Buildings::t_building>* buildingHold
 void MergeBuildingsToSegment(vector<Buildings::t_building>* buildings, WorldSegment* segment)
 {
     uint32_t numBuildings = (uint32_t)buildings->size();
-    for(uint32_t i=0; i < numBuildings; i++) {
-        Buildings::t_building* copiedbuilding = segment->AddBuilding((*buildings)[i]);
+	for(uint32_t i=0; i < numBuildings; i++) {
+		Buildings::t_building* copiedbuilding = segment->AddBuilding((*buildings)[i]);
 
 		//int bheight = tempbuilding.y2 - tempbuilding.y1;
-		for(uint32_t yy = copiedbuilding->y1; yy <= copiedbuilding->y2; yy++)
+		for(uint32_t yy = copiedbuilding->y1; yy <= copiedbuilding->y2; yy++) {
 			for(uint32_t xx = copiedbuilding->x1; xx <= copiedbuilding->x2; xx++) {
 				int z2 = copiedbuilding->z;
 				//if it's a well, add the bucket status.
@@ -179,6 +180,18 @@ void MergeBuildingsToSegment(vector<Buildings::t_building>* buildings, WorldSegm
 							
 							df::item * item = Actual_building->contained_items[index]->item;
 
+							if(b->building.type == df::enums::building_type::FarmPlot) {
+								if(item->pos.x == xx && item->pos.y == yy && item->pos.z == zz) {
+									if(item->getType() == df::enums::item_type::SEEDS) {
+										b->building.special = 1;
+									}
+									else if(item->getType() == df::enums::item_type::PLANT) {
+										b->building.special = 2;
+									}
+								}
+								else continue;
+							}
+
 							item_matt.matt.type = item->getActualMaterial();
 							item_matt.matt.index = item->getActualMaterialIndex();
 
@@ -207,6 +220,7 @@ void MergeBuildingsToSegment(vector<Buildings::t_building>* buildings, WorldSegm
 					}
 				}
 			}
+		}
 	}
 }
 

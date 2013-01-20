@@ -246,6 +246,7 @@ enum MAT_BASICS {
     BLOOD_5 = 43,
     BLOOD_6 = 44,
     BLOOD_NAMED = 242,
+	PLANT = 419,
     WOOD = 420,
     PLANTCLOTH = 421,
 };

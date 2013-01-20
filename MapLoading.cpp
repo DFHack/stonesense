@@ -245,6 +245,50 @@ void readMaterialToTile( Tile * b, uint32_t lx, uint32_t ly,
     }
 }
 
+SS_Item ConvertItem(df::item * found_item, WorldSegment& segment){
+	SS_Item Tempitem;
+	Tempitem.item.type = found_item->getType(); //itemtype
+	Tempitem.item.index = found_item->getSubtype(); //item subtype
+
+	Tempitem.matt.type = found_item->getActualMaterial();
+	Tempitem.matt.index = found_item->getActualMaterialIndex();
+
+	if(1) { //found_item->isDyed())
+		auto Constructed_Item = virtual_cast<df::item_constructed>(found_item);
+		if(Constructed_Item) {
+			for(int idex = 0; idex < Constructed_Item->improvements.size(); idex++) {
+				if(!Constructed_Item->improvements[idex]) {
+					continue;
+				}
+				if(Constructed_Item->improvements[idex]->getType() != improvement_type::THREAD) {
+					continue;
+				}
+				auto Improvement_Thread = virtual_cast<df::itemimprovement_threadst>(Constructed_Item->improvements[idex]);
+				if(!Improvement_Thread) {
+					continue;
+				}
+				if (Improvement_Thread->dye.mat_type < 0) {
+					break;
+				}
+				Tempitem.dyematt.type = Improvement_Thread->dye.mat_type;
+				Tempitem.dyematt.index = Improvement_Thread->dye.mat_index;
+			}
+		} else if (found_item->getType() == item_type::THREAD) {
+			auto Thread_Item = virtual_cast<df::item_threadst>(found_item);
+			if(!Thread_Item) {
+				return Tempitem;
+			}
+			if (Thread_Item->dye_mat_type < 0) {
+				return Tempitem;
+			}
+			Tempitem.dyematt.type = Thread_Item->dye_mat_type;
+			Tempitem.dyematt.index = Thread_Item->dye_mat_index;
+		}
+	}
+	return Tempitem;
+}
+
+
 /**
 * reads one 16x16 map block into stonesense tiles
 * attempts to only read as much information as is necessary to do the tile optimization
@@ -392,57 +436,20 @@ void readBlockToSegment(DFHack::Core& DF, WorldSegment& segment,
 
     //add items
     for(auto iter = trueBlock->items.begin(); iter != trueBlock->items.end(); iter++) {
-        int32_t item_index = *iter;
-        df::item * found_item = df::item::find(item_index);
-        if(!found_item) {
-            continue;
-        }
-        Tile* b = segment.getTile( found_item->pos.x, found_item->pos.y, found_item->pos.z);
-        if(!b) {
-            b = segment.ResetTile(found_item->pos.x, found_item->pos.y, found_item->pos.z, tiletype::OpenSpace);
-            if(!b) {
-                continue;
-            }
-        }
-        b->Item.item.type = found_item->getType(); //itemtype
-        b->Item.item.index = found_item->getSubtype(); //item subtype
-
-        b->Item.matt.type = found_item->getActualMaterial();
-        b->Item.matt.index = found_item->getActualMaterialIndex();
-
-        if(1) { //found_item->isDyed())
-            auto Constructed_Item = virtual_cast<df::item_constructed>(found_item);
-            if(Constructed_Item) {
-                for(int idex = 0; idex < Constructed_Item->improvements.size(); idex++) {
-                    if(!Constructed_Item->improvements[idex]) {
-                        continue;
-                    }
-                    if(Constructed_Item->improvements[idex]->getType() != improvement_type::THREAD) {
-                        continue;
-                    }
-                    auto Improvement_Thread = virtual_cast<df::itemimprovement_threadst>(Constructed_Item->improvements[idex]);
-                    if(!Improvement_Thread) {
-                        continue;
-                    }
-                    if (Improvement_Thread->dye.mat_type < 0) {
-                        break;
-                    }
-                    b->Item.dyematt.type = Improvement_Thread->dye.mat_type;
-                    b->Item.dyematt.index = Improvement_Thread->dye.mat_index;
-                }
-            } else if (found_item->getType() == item_type::THREAD) {
-                auto Thread_Item = virtual_cast<df::item_threadst>(found_item);
-                if(!Thread_Item) {
-                    break;
-                }
-                if (Thread_Item->dye_mat_type < 0) {
-                    break;
-                }
-                b->Item.dyematt.type = Thread_Item->dye_mat_type;
-                b->Item.dyematt.index = Thread_Item->dye_mat_index;
-            }
-        }
-    }
+		int32_t item_index = *iter;
+		df::item * found_item = df::item::find(item_index);
+		if(!found_item) {
+			continue;
+		}
+		Tile* b = segment.getTile( found_item->pos.x, found_item->pos.y, found_item->pos.z);
+		if(!b) {
+			b = segment.ResetTile(found_item->pos.x, found_item->pos.y, found_item->pos.z, tiletype::OpenSpace);
+			if(!b) {
+				return;
+			}
+		}
+		b->Item = ConvertItem(found_item, segment);
+	}
 
 
     //add effects

@@ -611,6 +611,15 @@ void drawDebugCursorAndInfo(WorldSegment * segment)
                               b->building.info->material.type,b->building.info->material.index,
                               b->occ.bits.building,
 							  b->building.special);
+			for(int index = 0; index < b->building.constructed_mats.size(); index++) {
+            const char* partMatName = lookupMaterialTypeName(b->building.constructed_mats[index].matt.type);
+            const char* partSubMatName = lookupMaterialName(b->building.constructed_mats[index].matt.type, b->building.constructed_mats[index].matt.index);
+			draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0,
+                              "Material[%i]: %s%s%s (%d,%d)",
+                              index,
+							  partMatName?partMatName:"Unknown",partSubMatName?"/":"",partSubMatName?partSubMatName:"",
+							  b->building.constructed_mats[index].matt.type, b->building.constructed_mats[index].matt.index);
+			}
 
             //if(b->building.custom_building_type != -1)
             //{

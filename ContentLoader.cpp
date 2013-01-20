@@ -401,6 +401,8 @@ int lookupMaterialIndex(int matType, const char* strValue)
         return lookupIndexedType(strValue,contentLoader->inorganic);
     } else if (matType == WOOD && !ssConfig.skipOrganicMats) {
         return lookupIndexedType(strValue,contentLoader->organic);
+    } else if (matType == PLANT && !ssConfig.skipOrganicMats) {
+        return lookupIndexedType(strValue,contentLoader->organic);
     } else if (matType == PLANTCLOTH && !ssConfig.skipOrganicMats) {
         return lookupIndexedType(strValue,contentLoader->organic);
     } else if (matType == LEATHER && !ssConfig.skipCreatureTypes) {
@@ -447,6 +449,8 @@ const char *lookupMaterialTypeName(int matType)
         return "GreenGlass";
     case WOOD:
         return "Wood";
+    case PLANT:
+        return "Plant";
     case ICE:
         return "Ice";
     case CLEAR_GLASS:
@@ -478,6 +482,8 @@ MAT_BASICS lookupMaterialType(const char* strValue)
         return GREEN_GLASS;
     } else if( strcmp(strValue, "Wood") == 0) {
         return WOOD;
+    } else if( strcmp(strValue, "Plant") == 0) {
+        return PLANT;
     } else if( strcmp(strValue, "Ice") == 0) {
         return ICE;
     } else if( strcmp(strValue, "ClearGlass") == 0) {
