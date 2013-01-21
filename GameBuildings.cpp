@@ -134,7 +134,15 @@ void MergeBuildingsToSegment(vector<Buildings::t_building>* buildings, WorldSegm
 				}
 
 				for(uint32_t zz = copiedbuilding->z; zz >= z2; zz--) {
-
+					if(copiedbuilding->type == df::enums::building_type::Civzone ||
+						copiedbuilding->type == df::enums::building_type::Stockpile ||
+						copiedbuilding->type == df::enums::building_type::FarmPlot) {
+							df::coord2d t;
+							t.x = xx;
+							t.y = yy;
+							if(!Buildings::containsTile(copiedbuilding->origin,t))
+								continue;
+					}
 					Tile* b = segment->getTile( xx, yy, zz);
 					if(!b) {
 						b = segment->ResetTile(xx, yy, zz, tiletype::OpenSpace);
