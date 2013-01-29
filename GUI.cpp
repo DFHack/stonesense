@@ -475,24 +475,29 @@ void drawDebugCursorAndInfo(WorldSegment * segment)
             for(int item_type_idex = 0; item_type_idex < b->inv->item.size(); item_type_idex++) {
                 if(b->inv->item[item_type_idex].empty()) {
                     continue;
-                }
-                draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0,
-                                  "%s:", ENUM_KEY_STR(item_type, (item_type::item_type)item_type_idex).c_str());
-                for(int ind = 0; ind < b->inv->item[item_type_idex].size(); ind++) {
-                    if(b->inv->item[item_type_idex][ind].empty()) {
-                        continue;
-                    }
-                    if(b->inv->item[item_type_idex][ind][0].matt.type < 0) {
-                        continue;
-                    }
-                    MaterialInfo mat;
-                    mat.decode(b->inv->item[item_type_idex][ind][0].matt.type,b->inv->item[item_type_idex][ind][0].matt.index);
-                    draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0,
-                                      "    %s - %s",
-                                      mat.getToken().c_str(),
-                                      get_item_subtype((item_type::item_type)item_type_idex,ind));
-                }
-            }
+				}
+				draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0,
+					"%s:", ENUM_KEY_STR(item_type, (item_type::item_type)item_type_idex).c_str());
+				for(int ind = 0; ind < b->inv->item[item_type_idex].size(); ind++) {
+					if(b->inv->item[item_type_idex][ind].empty()) {
+						continue;
+					}
+					draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0,
+						"    %s",
+						get_item_subtype((item_type::item_type)item_type_idex,ind));
+					for(int layerindex = 0; layerindex < b->inv->item[item_type_idex][ind].size(); layerindex++)
+					{
+						if(b->inv->item[item_type_idex][ind][layerindex].matt.type < 0) {
+							continue;
+						}
+						MaterialInfo mat;
+						mat.decode(b->inv->item[item_type_idex][ind][layerindex].matt.type,b->inv->item[item_type_idex][ind][layerindex].matt.index);
+						draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0,
+							"        %s",
+							mat.getToken().c_str());
+					}
+				}
+			}
         }
         //just so it has it's own scope
         {
