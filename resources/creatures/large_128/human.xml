@@ -45,17 +45,20 @@
 		  
 		<!--beard goes here - on top of clothes but below hats-->
 		<subsprite sheetIndex="3" zoom="2" color="bodypart" bodypart="hair" />
-		  
-		<!--subsprite sheetIndex="100" zoom="2" equipment_class="HELM" equipment_name="ITEM_HELM_VEIL_HEAD" color="equipment"/-->
-		<!--subsprite sheetIndex="101" zoom="2" equipment_class="HELM" equipment_name="ITEM_HELM_VEIL_FACE" color="equipment"/-->
-		<subsprite sheetIndex="181" zoom="2" equipment_class="HELM" equipment_name="ITEM_HELM_TURBAN" color="equipment"/>
+		 
 		<subsprite sheetIndex="182" zoom="2" equipment_class="HELM" equipment_name="ITEM_HELM_SCARF_HEAD" color="equipment"/>
 		<subsprite sheetIndex="183" zoom="2" equipment_class="HELM" equipment_name="ITEM_HELM_CAP" color="equipment"/>
+		<subsprite sheetIndex="187" zoom="2" equipment_class="HELM" equipment_name="ITEM_HELM_VEIL_HEAD" color="equipment"/>
+		
+		<!--eyes-->
+		<subsprite sheetIndex="4" zoom="2" />
+		
 		<subsprite sheetIndex="184" zoom="2" equipment_class="HELM" equipment_name="ITEM_HELM_MASK" color="equipment"/>
 		<subsprite sheetIndex="186" zoom="2" equipment_class="HELM" equipment_name="ITEM_HELM_HOOD" color="equipment"/>
 		<subsprite sheetIndex="185" zoom="2" equipment_class="HELM" equipment_name="ITEM_HELM_HELM" color="equipment"/>
+		<subsprite sheetIndex="181" zoom="2" equipment_class="HELM" equipment_name="ITEM_HELM_TURBAN" color="equipment"/>
+		<subsprite sheetIndex="180" zoom="2" equipment_class="HELM" equipment_name="ITEM_HELM_VEIL_FACE" color="equipment"/>
 		  
-		<subsprite sheetIndex="4" zoom="2" />
 	</variant>
 
 	<variant special="Normal" sex="F" file="humanf.png" >
@@ -102,16 +105,19 @@
 		<!--hair goes here - on top of clothes but below hats-->
 		<subsprite sheetIndex="3" zoom="2" color="bodypart" bodypart="hair" />
 		  
-		<!--subsprite sheetIndex="100" zoom="2" equipment_class="HELM" equipment_name="ITEM_HELM_VEIL_HEAD" color="equipment"/-->
-		<!--subsprite sheetIndex="101" zoom="2" equipment_class="HELM" equipment_name="ITEM_HELM_VEIL_FACE" color="equipment"/-->
-		<subsprite sheetIndex="181" zoom="2" equipment_class="HELM" equipment_name="ITEM_HELM_TURBAN" color="equipment"/>
 		<subsprite sheetIndex="182" zoom="2" equipment_class="HELM" equipment_name="ITEM_HELM_SCARF_HEAD" color="equipment"/>
 		<subsprite sheetIndex="183" zoom="2" equipment_class="HELM" equipment_name="ITEM_HELM_CAP" color="equipment"/>
+		<subsprite sheetIndex="187" zoom="2" equipment_class="HELM" equipment_name="ITEM_HELM_VEIL_HEAD" color="equipment"/>
+		
+		<!--eyes-->
+		<subsprite sheetIndex="4" zoom="2" />
+		
 		<subsprite sheetIndex="184" zoom="2" equipment_class="HELM" equipment_name="ITEM_HELM_MASK" color="equipment"/>
 		<subsprite sheetIndex="186" zoom="2" equipment_class="HELM" equipment_name="ITEM_HELM_HOOD" color="equipment"/>
 		<subsprite sheetIndex="185" zoom="2" equipment_class="HELM" equipment_name="ITEM_HELM_HELM" color="equipment"/>
+		<subsprite sheetIndex="181" zoom="2" equipment_class="HELM" equipment_name="ITEM_HELM_TURBAN" color="equipment"/>
+		<subsprite sheetIndex="180" zoom="2" equipment_class="HELM" equipment_name="ITEM_HELM_VEIL_FACE" color="equipment"/>
 		  
-		<subsprite sheetIndex="4" zoom="2" />
 	</variant>
   
 </creature>
