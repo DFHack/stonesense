@@ -245,6 +245,7 @@ void c_sprite::reset(void)
     itemtype= -1;
     itemsubtype=-1;
     light=LIGHTANY;
+	pattern_index=0;
     {
         for(int i = 0; i < subsprites.size(); i++) {
             subsprites[i].reset();
@@ -740,10 +741,10 @@ void c_sprite::assemble_world_offset(int x, int y, int z, int plateoffset, Tile 
             if(itemsubtype >= b->inv->item[itemtype].size()) {
                 goto draw_subsprite;
             }
-            if(b->inv->item[itemtype][itemsubtype].empty()) {
+            if(pattern_index >= b->inv->item[itemtype][itemsubtype].size()) {
                 goto draw_subsprite;
             }
-            if(b->inv->item[itemtype][itemsubtype][0].matt.type == INVALID_INDEX) {
+            if(b->inv->item[itemtype][itemsubtype][pattern_index].matt.type == INVALID_INDEX) {
                 goto draw_subsprite;
             }
         }
@@ -1037,7 +1038,7 @@ ALLEGRO_COLOR c_sprite::get_color(void* tile)
             if(b->inv->item[itemtype][itemsubtype].empty()) {
                 return al_map_rgb(0, 0, 255);
             }
-            return lookupMaterialColor(b->inv->item[itemtype][itemsubtype][0].matt, b->inv->item[itemtype][itemsubtype][0].dyematt);
+            return lookupMaterialColor(b->inv->item[itemtype][itemsubtype][pattern_index].matt, b->inv->item[itemtype][itemsubtype][pattern_index].dyematt);
         } else {
             return al_map_rgb(255,255,255);
         }
