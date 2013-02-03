@@ -29,6 +29,7 @@ Tile* WorldSegment::ResetTile(int32_t x, int32_t y, int32_t z, df::tiletype type
     }
 
     uint32_t index = lx + (ly * this->size.x) + ((lz) * this->size.x * this->size.y);
+    tileschanged |= (tiles[index].tileType != type);
     tiles[index].Reset(this, type);
     tiles[index].x = x;
     tiles[index].y = y;

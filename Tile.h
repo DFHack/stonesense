@@ -90,9 +90,6 @@ public:
     //These are actually applied to the creature standing here, but there's only one creature shown, so it's okay.
     unit_inventory * inv;
 
-    //These structs must appear here at the end of the object; everything before here is memset to 0, 
-    // while these are all explicitly set to required values on a Reset().
-
     struct SS_Effect {
         DFHack::t_matglossPair matt;
         int16_t density;

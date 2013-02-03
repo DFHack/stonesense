@@ -662,9 +662,11 @@ void addSegmentExtras(WorldSegment * segment)
     }
 }
 
-void optimizeSegment(WorldSegment * segment)
+void hideHiddenSegment(WorldSegment * segment)
 {
-    //do misc beautification
+    if(ssConfig.show_hidden_tiles) {
+        return;
+    }
 
     uint32_t numtiles = segment->getNumTiles();
 
@@ -674,6 +676,30 @@ void optimizeSegment(WorldSegment * segment)
         if(!b) {
             continue;
         }
+
+        if( b->designation.bits.hidden ) {
+            if(ssConfig.shade_hidden_tiles) {
+                b->building.type = (building_type::building_type) BUILDINGTYPE_BLACKBOX;
+            } else {
+                b->visible = false;
+            }
+        }
+    }
+}
+
+void optimizeSegment(WorldSegment * segment)
+{
+    uint32_t numtiles = segment->getNumTiles();
+
+    for(uint32_t i=0; i < numtiles; i++) {
+        Tile* b = segment->getTile(i);
+
+        if(!b) {
+            continue;
+        }
+
+        //reset the visibility if the segment has changed
+        b->visible = true;
 
         //try to mask away tiles that are flagged hidden
         if(!ssConfig.show_hidden_tiles ) {
@@ -720,7 +746,11 @@ void beautifySegment(WorldSegment * segment)
 
     clock_t starttime = clock();
 
-    optimizeSegment(segment);
+    if(segment->tileschanged) {
+        optimizeSegment(segment);
+    } else {
+        hideHiddenSegment(segment);
+    }
     addSegmentExtras(segment);
 
     segment->processed = 1;
