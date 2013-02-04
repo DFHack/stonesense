@@ -51,15 +51,12 @@ Tile::Tile(WorldSegment* ownerSegment, df::tiletype type)
  */
 void Tile::Reset(WorldSegment* segment, df::tiletype type)
 {
-    //store the visibility before we zero out the object
-    bool isvisible = visible;
-
     //clear out own memory
     memset(this, 0, sizeof(Tile));// - sizeof(SS_Building) - sizeof(SS_Item) - sizeof(SS_Effect));
 
     //set all the nonzero values
     valid=true;
-    visible = isvisible;
+    visible = true;
 
     tileType = type;
     ownerSegment = segment;

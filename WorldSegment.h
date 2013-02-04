@@ -36,7 +36,6 @@ private:
 public:
     bool loaded;
     bool processed;
-    bool tileschanged;
     //these are the coordinates and size of the loaded segment
     Crd3D pos;
     Crd3D size;
@@ -57,7 +56,6 @@ public:
         displayed = ssState.DisplayedSegment;
         regionSize = ssState.RegionDim;
         rotation = ssState.DisplayedRotation;
-        tileschanged = true;
 
         uint32_t memoryNeeded = sizex * sizey * sizez * sizeof(Tile);
         tiles = (Tile*) malloc( memoryNeeded );
@@ -88,7 +86,6 @@ public:
         if(hard || newNumTiles != getNumTiles()) {
             free(tiles);
             tiles = (Tile*) malloc( memoryNeeded );
-            tileschanged = true;
             
             //on a hard reset, zero out the entire array
             if(hard) {
@@ -99,8 +96,6 @@ public:
                     tiles[i].Invalidate();
                 }
             }
-        } else {
-            tileschanged = false;
         }
 
         this->pos.x = x;
