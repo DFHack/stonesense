@@ -673,7 +673,7 @@ void hideHiddenSegment(WorldSegment * segment)
     for(uint32_t i=0; i < numtiles; i++) {
         Tile* b = segment->getTile(i);
 
-        if(!b || !b->visible) {
+        if(!b) {
             continue;
         }
 
@@ -698,6 +698,7 @@ void optimizeSegment(WorldSegment * segment)
             continue;
         }
 
+        //reset the visibility if the segment has changed
         b->visible = true;
 
         //try to mask away tiles that are flagged hidden
