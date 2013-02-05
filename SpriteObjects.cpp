@@ -9,12 +9,19 @@
 
 #include "df/world_raws.h"
 #include "df/itemdef_weaponst.h"
+#include "df/itemdef_trapcompst.h"
+#include "df/itemdef_toyst.h"
+#include "df/itemdef_toolst.h"
+#include "df/itemdef_instrumentst.h"
 #include "df/itemdef_armorst.h"
+#include "df/itemdef_ammost.h"
+#include "df/itemdef_siegeammost.h"
 #include "df/itemdef_shoesst.h"
 #include "df/itemdef_shieldst.h"
 #include "df/itemdef_helmst.h"
 #include "df/itemdef_glovesst.h"
 #include "df/itemdef_pantsst.h"
+#include "df/itemdef_foodst.h"
 #include "df/descriptor_pattern.h"
 
 #define ALL_BORDERS 255
@@ -518,33 +525,54 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
 
     const char* equipsindexstr = elemSprite->Attribute("equipment_name");
     if (equipsindexstr == NULL || equipsindexstr[0] == 0) {
-        itemsubtype = INVALID_INDEX;
+        itemsubtype = 0;
     } else {
         df::world_raws::T_itemdefs &defs = df::global::world->raws.itemdefs;
         switch(itemtype) {
-        case item_type::WEAPON:
-            itemsubtype = lookupIndexedPonterType(equipsindexstr, defs.weapons);
-            break;
-        case item_type::ARMOR:
-            itemsubtype = lookupIndexedPonterType(equipsindexstr, defs.armor);
-            break;
-        case item_type::SHOES:
-            itemsubtype = lookupIndexedPonterType(equipsindexstr, defs.shoes);
-            break;
-        case item_type::SHIELD:
-            itemsubtype = lookupIndexedPonterType(equipsindexstr, defs.shields);
-            break;
-        case item_type::HELM:
-            itemsubtype = lookupIndexedPonterType(equipsindexstr, defs.helms);
-            break;
-        case item_type::GLOVES:
-            itemsubtype = lookupIndexedPonterType(equipsindexstr, defs.gloves);
-            break;
-        case item_type::PANTS:
-            itemsubtype = lookupIndexedPonterType(equipsindexstr, defs.pants);
-            break;
+		case item_type::WEAPON:
+			itemsubtype = lookupIndexedPonterType(equipsindexstr, defs.weapons);
+			break;
+		case item_type::TRAPCOMP:
+			itemsubtype = lookupIndexedPonterType(equipsindexstr, defs.trapcomps);
+			break;
+		case item_type::TOY:
+			itemsubtype = lookupIndexedPonterType(equipsindexstr, defs.toys);
+			break;
+		case item_type::TOOL:
+			itemsubtype = lookupIndexedPonterType(equipsindexstr, defs.tools);
+			break;
+		case item_type::INSTRUMENT:
+			itemsubtype = lookupIndexedPonterType(equipsindexstr, defs.instruments);
+			break;
+		case item_type::ARMOR:
+			itemsubtype = lookupIndexedPonterType(equipsindexstr, defs.armor);
+			break;
+		case item_type::AMMO:
+			itemsubtype = lookupIndexedPonterType(equipsindexstr, defs.ammo);
+			break;
+		case item_type::SIEGEAMMO:
+			itemsubtype = lookupIndexedPonterType(equipsindexstr, defs.siege_ammo);
+			break;
+		case item_type::GLOVES:
+			itemsubtype = lookupIndexedPonterType(equipsindexstr, defs.gloves);
+			break;
+		case item_type::SHOES:
+			itemsubtype = lookupIndexedPonterType(equipsindexstr, defs.shoes);
+			break;
+		case item_type::SHIELD:
+			itemsubtype = lookupIndexedPonterType(equipsindexstr, defs.shields);
+			break;
+		case item_type::HELM:
+			itemsubtype = lookupIndexedPonterType(equipsindexstr, defs.helms);
+			break;
+		case item_type::PANTS:
+			itemsubtype = lookupIndexedPonterType(equipsindexstr, defs.pants);
+			break;
+		case item_type::FOOD:
+			itemsubtype = lookupIndexedPonterType(equipsindexstr, defs.food);
+			break;
         default:
-            itemsubtype = INVALID_INDEX;
+            itemsubtype = 0;
         }
     }
 
