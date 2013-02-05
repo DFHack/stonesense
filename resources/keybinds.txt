@@ -6,7 +6,8 @@ can recognize.  The syntax is:
 If the closing brace is preceeded by an asterisk: 
 	[<stuff>*]
 then the keys specified will repeat each frame until released, 
-otherwise it will occur exactly once each time the key is pressed.  
+otherwise it will occur exactly once each time the character is
+registered.  
 
 It is possible to specify the same action on multiple lines, or 
 to leave action names out of the list completely.  
@@ -58,42 +59,42 @@ KEYBINDINGS:
 
 VALID ACTIONS:
 
-	Actions:
+	Actions:					Explanation:
 	
-	NOOP
-    ROTATE
-    RELOAD_SEGMENT
-    PAINT
-    TOGGLE_STOCKS
-    TOGGLE_ZONES
-    TOGGLE_OCCLUSION
-    TOGGLE_CREATURE_MOODS
-    TOGGLE_CREATURE_PROFS
-    TOGGLE_CREATURE_JOBS
-    TOGGLE_CREATURE_NAMES
-    CHOP_WALLS
-    FOLLOW_DF
-    RESET_VIEW_OFFSET
-    TOGGLE_SINGLE_LAYER
-    TOGGLE_SHADE_HIDDEN_TILES
-    TOGGLE_SHOW_HIDDEN_TILES
-    TOGGLE_OSD
-    TOGGLE_KEYBINDS
-    INCR_ZOOM
-    DECR_ZOOM
-    SCREENSHOT
-    INCR_RELOAD_TIME
-    DECR_RELOAD_TIME
-    CREDITS
+	NOOP						do nothing (default)
+    ROTATE						rotate the displayed map segment
+    RELOAD_SEGMENT				reload the segment (meaningless when auto-reload enabled)
+    PAINT						draw the loaded segment (meaningless when auto-reload enabled)
+    TOGGLE_STOCKS				toggle display of stockpiles
+    TOGGLE_ZONES				toggle display of activity zones
+    TOGGLE_OCCLUSION			toggle the occlusion culling
+    TOGGLE_CREATURE_MOODS		toggle display of creature mood icons
+    TOGGLE_CREATURE_PROFS		cycle through display of profession indicators (disabled/icons/colored names)
+    TOGGLE_CREATURE_JOBS		cycle through display of job indicators (disabled/icons/text descriptions)
+    TOGGLE_CREATURE_NAMES		toggle the display of creature names
+    CHOP_WALLS					cycle through wall sprite chopping options
+    FOLLOW_DF					toggle following the DF cursor
+    RESET_VIEW_OFFSET			toggle following the DF window
+    TOGGLE_SINGLE_LAYER			toggle single layer mode
+    TOGGLE_SHADE_HIDDEN_TILES	toggle shading hidden tiles
+    TOGGLE_SHOW_HIDDEN_TILES	toggle showing hidden tiles
+    TOGGLE_OSD					toggle the onscreen display (currently this is just minimal text info)
+    TOGGLE_KEYBINDS				toggle display of keybind information
+    INCR_ZOOM					increase the zoom
+    DECR_ZOOM					decrease the zoom
+    SCREENSHOT					take a screenshot (alt: volumetric screenshot / ctrl: megashot / shift+ctrl: full-depth megashot)
+    INCR_RELOAD_TIME			increase the reload timer
+    DECR_RELOAD_TIME			decrease the reload timer
+    CREDITS						show credits
 	
-    DECR_SEGMENT_X
+    DECR_SEGMENT_X				decrease/increase the corresponding displayed segment size coordinate
     INCR_SEGMENT_X
     DECR_SEGMENT_Y
     INCR_SEGMENT_Y
     DECR_SEGMENT_Z
     INCR_SEGMENT_Z
 
-    DECR_X
+    DECR_X						decrease/increase the corresponding segment position coordinate (alt: continue following DF / ctrl: DECR_SEGMENT_*)
     INCR_X
     DECR_Y
     INCR_Y

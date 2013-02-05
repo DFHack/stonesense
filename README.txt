@@ -22,40 +22,7 @@ Scrollwheel: Move up and down
 Ctrl-Scrollwheel: Increase/decrease Z depth shown
 
 -- Keyboard --
-Arrow keys: Move around (hold shift for large moves)
-PG UP/PG Down: Move up and down 
-9 and 0: Alternative move up and down
-1 and 2: Increase/decrease Z depth shown
-Enter: Rotate view 90 degrees
-ESC: Exit program
-U: Toggle stockpiles.
-I: Toggle zones.
-C: Toggle truncated walls.
-F: Toggle follow mode.
-H: Toggle hidden tiles.
-B: Toggle blacked out areas.
-S: Toggle single layer view.
-N: Toggle creature names.
-M: Toggle creature emotion icons.
-O: Toggle occlusion culling.
-F2: Screenshot mode/hide display overlays
-F5: Save Screenshot
-CTRL + F5: Save Screenshot of entire fortress with the current Z level settings.
-CTRL + SHIFT + F5: Save a screenshot of the entire fortress from the current top Z level down to the bottom of the map.
-ALT + F5: Save a volumetric thing I'm testing out.
-Numpad + and -: Increase/Decrease AutoReload Rate
-CTRL + navigation: Adjusts follow mode offset
-,: Zoom out.
-.: Zoom in.
-
--- Debug Keys --
-(prolly not useful for you guys)
-D: redraw screen
-R: reload memory from DF
-G: reload sprites & config from disk
-F10: display available sprites
-Numpad numbers: Move debug cursor (if available)
-Ctrl+F: Toggle Cursor Follow Mode
+Check keybinds.txt for the configured key bindings and descriptions.
 
 -- Follow mode --
 When you turn on follow mode, the screen will jump to the location of the DF window.
@@ -63,10 +30,6 @@ You can adjust the position of the follow mode relative to the DF window by
 holding Ctrl while using the keyboard window movement keys.
 
 When you turn on cursor follow mode, the debug cursor will follow the DF cursor when it exists.
-
--- Occlusion Culling --
-There is an experimental feature that hides tiles that are not visible, for a speed increase.
-This is a work in progress, and very buggy. It can be turned off with 'o', if something is missing.
 
 --== Contacts ==--
 
