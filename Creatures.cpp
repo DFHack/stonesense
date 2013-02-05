@@ -558,16 +558,16 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
                 continue;
             }
 
-            // skip if not weapon or worn item
-            if(itemslot->mode != df::unit_inventory_item::T_mode::Weapon &&
-                    itemslot->mode != df::unit_inventory_item::T_mode::Worn) {
-                continue;
-            }
+			// skip if not weapon or worn item
+			if(itemslot->mode != df::unit_inventory_item::T_mode::Weapon &&
+				itemslot->mode != df::unit_inventory_item::T_mode::Worn &&
+				itemslot->mode != df::unit_inventory_item::T_mode::InBody) {
+					continue;
+			}
 
-            //skip if there's no subtype. there should be, but who knows.
-            if(item->getSubtype() < 0) {
-                continue;
-            }
+            //If there's no subtype, mae it 0, and let DFhack handle it.
+            int subtype = item->getSubtype();
+			if(subtype < 0) subtype = 0;
 
             item_type::item_type type = item->getType();
             int8_t armor = item->getEffectiveArmorLevel();
@@ -604,10 +604,10 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
             if(b->inv->item.size() <= type) {
                 b->inv->item.resize(type+1);
             }
-            if(b->inv->item[type].size() <= item->getSubtype()) {
-                b->inv->item[type].resize(item->getSubtype()+1);
+            if(b->inv->item[type].size() <= subtype) {
+                b->inv->item[type].resize(subtype+1);
             }
-            b->inv->item[type][item->getSubtype()].push_back(equipment);
+            b->inv->item[type][subtype].push_back(equipment);
         }
     }
 }
