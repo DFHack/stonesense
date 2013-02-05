@@ -400,17 +400,23 @@ void Tile::AssembleTile()
         }
     }
 
-    if(tileShapeBasic()==tiletype_shape_basic::Wall) {
+    if(tileShapeBasic()==tiletype_shape_basic::Floor ||
+            tileShapeBasic()==tiletype_shape_basic::Wall) {
         //draw wall
         spriteobject =  GetTileSpriteMap(tileType, material, consForm);
         int spriteOffset = 0;
         if (spriteobject->get_sheetindex() == UNCONFIGURED_INDEX) {
-            spriteobject->set_sheetindex(SPRITEOBJECT_WALL_NA);
-            spriteobject->set_fileindex(INVALID_INDEX);
-            spriteobject->set_plate_layout(TILEPLATE);
-            spriteobject->set_defaultsheet(IMGObjectSheet);
+            if(tileShapeBasic()==tiletype_shape_basic::Wall){
+                spriteobject->set_sheetindex(SPRITEOBJECT_WALL_NA);
+                spriteobject->set_fileindex(INVALID_INDEX);
+                spriteobject->set_plate_layout(TILEPLATE);
+                spriteobject->set_defaultsheet(IMGObjectSheet);
+            } else {
+                //unconfigured non-walls are not valid
+                spriteobject->set_sheetindex(INVALID_INDEX);
+            }
         }
-        if (spriteobject->get_sheetindex() == INVALID_INDEX) {
+        if (spriteobject->get_sheetindex() == INVALID_INDEX ) {
             //skip
         } else {
             spriteobject->assemble_world(x, y, z, this, (chopThisTile && this->z == ownerSegment->pos.z + ownerSegment->size.z -2));
