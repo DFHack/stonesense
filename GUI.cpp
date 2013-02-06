@@ -756,18 +756,18 @@ void DrawMinimap(WorldSegment * segment)
     int posx = ssState.ScreenW-size-10;
     int posy = 10;
 
-    if(!segment || segment->regionSize.x == 0 || segment->regionSize.y == 0) {
+    if(!segment || segment->segState.RegionDim.x == 0 || segment->segState.RegionDim.y == 0) {
         draw_textf_border(font, al_map_rgb(255,255,255), posx, posy, 0, "No map loaded");
         return;
     }
 
-    oneTileInPixels = (double) size / segment->regionSize.x;
+    oneTileInPixels = (double) size / segment->segState.RegionDim.x;
     //map outine
-    int mapheight = (int)(segment->regionSize.y * oneTileInPixels);
+    int mapheight = (int)(segment->segState.RegionDim.y * oneTileInPixels);
     al_draw_rectangle(posx, posy, posx+size, posy+mapheight, al_map_rgb(0,0,0),0);
     //current segment outline
-    int x = (size * (segment->pos.x+1)) / segment->regionSize.x;
-    int y = (mapheight * (segment->pos.y+1)) / segment->regionSize.y;
+    int x = (size * (segment->pos.x+1)) / segment->segState.RegionDim.x;
+    int y = (mapheight * (segment->pos.y+1)) / segment->segState.RegionDim.y;
     MiniMapSegmentWidth = (segment->size.x-2) * oneTileInPixels;
     MiniMapSegmentHeight = (segment->size.y-2) * oneTileInPixels;
     al_draw_rectangle(posx+x, posy+y, posx+x+MiniMapSegmentWidth, posy+y+MiniMapSegmentHeight,al_map_rgb(0,0,0),0);

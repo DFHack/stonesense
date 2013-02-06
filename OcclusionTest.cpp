@@ -162,7 +162,7 @@ void occlude_tile(Tile * b)
 
     int stepX, stepY;
 
-    switch(b->ownerSegment->rotation) {
+    switch(b->ownerSegment->segState.DisplayedRotation) {
     case 0:
         stepX = 1;
         stepY = 1;

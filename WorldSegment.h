@@ -39,13 +39,7 @@ public:
     //these are the coordinates and size of the loaded segment
     Crd3D pos;
     Crd3D size;
-    //these are the coordinates at which the viewport is currently located
-    // note that this may not be the same as the actual coordinates of the segment
-    // due to concurrency
-    Crd3D displayed;
-    unsigned char rotation;
-    //these are the size of the DF map region to which this segment is a part
-    Crd3D regionSize;
+    GameState segState;
     WorldSegment(int x=0, int y=0, int z=0, int sizex=0, int sizey=0, int sizez=0) {
         this->pos.x = x;
         this->pos.y = y;
@@ -53,9 +47,7 @@ public:
         this->size.x = sizex;
         this->size.y = sizey;
         this->size.z = sizez;
-        displayed = ssState.DisplayedSegment;
-        regionSize = ssState.RegionDim;
-        rotation = ssState.DisplayedRotation;
+        segState = ssState;
 
         uint32_t memoryNeeded = sizex * sizey * sizez * sizeof(Tile);
         tiles = (Tile*) malloc( memoryNeeded );
@@ -104,9 +96,7 @@ public:
         this->size.x = sizex;
         this->size.y = sizey;
         this->size.z = sizez;
-        displayed = ssState.DisplayedSegment;
-        regionSize = ssState.RegionDim;
-        rotation = ssState.DisplayedRotation;
+        segState = ssState;
         
     }
 
