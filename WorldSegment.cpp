@@ -289,7 +289,7 @@ void WorldSegment::AssembleAllTiles()
     for(int32_t vsz=0; vsz < vszmax; vsz++) {
         //add the fog to the queue
         if(ssConfig.fogenable && fog) {
-            draw_event d = {TintedScaledBitmap, fog, al_map_rgb(255,255,255), 0, 0, ssState.ScreenW, ssState.ScreenH, 0, 0, ssState.ScreenW, ssState.ScreenH, 0};
+            draw_event d = {TintedScaledBitmap, fog, al_map_rgb(255,255,255), 0, 0, (float)ssState.ScreenW, (float)ssState.ScreenH, 0, 0, (float)ssState.ScreenW, (float)ssState.ScreenH, 0};
             AssembleSprite(d);
         }
         //add the tiles to the queue
