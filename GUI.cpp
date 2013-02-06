@@ -471,27 +471,27 @@ void drawDebugCursorAndInfo(WorldSegment * segment)
                           contentLoader->professionStrings.at(b->creature->profession).c_str());
 
         //Inventories!
-        if(b->inv) {
-            for(int item_type_idex = 0; item_type_idex < b->inv->item.size(); item_type_idex++) {
-                if(b->inv->item[item_type_idex].empty()) {
+        if(b->creature->inv) {
+            for(int item_type_idex = 0; item_type_idex < b->creature->inv->item.size(); item_type_idex++) {
+                if(b->creature->inv->item[item_type_idex].empty()) {
                     continue;
 				}
 				draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0,
 					"%s:", ENUM_KEY_STR(item_type, (item_type::item_type)item_type_idex).c_str());
-				for(int ind = 0; ind < b->inv->item[item_type_idex].size(); ind++) {
-					if(b->inv->item[item_type_idex][ind].empty()) {
+				for(int ind = 0; ind < b->creature->inv->item[item_type_idex].size(); ind++) {
+					if(b->creature->inv->item[item_type_idex][ind].empty()) {
 						continue;
 					}
 					draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0,
 						"    %s",
 						get_item_subtype((item_type::item_type)item_type_idex,ind));
-					for(int layerindex = 0; layerindex < b->inv->item[item_type_idex][ind].size(); layerindex++)
+					for(int layerindex = 0; layerindex < b->creature->inv->item[item_type_idex][ind].size(); layerindex++)
 					{
-						if(b->inv->item[item_type_idex][ind][layerindex].matt.type < 0) {
+						if(b->creature->inv->item[item_type_idex][ind][layerindex].matt.type < 0) {
 							continue;
 						}
 						MaterialInfo mat;
-						mat.decode(b->inv->item[item_type_idex][ind][layerindex].matt.type,b->inv->item[item_type_idex][ind][layerindex].matt.index);
+						mat.decode(b->creature->inv->item[item_type_idex][ind][layerindex].matt.type,b->creature->inv->item[item_type_idex][ind][layerindex].matt.index);
 						draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0,
 							"        %s",
 							mat.getToken().c_str());

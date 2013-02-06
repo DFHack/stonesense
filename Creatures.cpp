@@ -38,8 +38,6 @@ int32_t charToUpper(int32_t c)
     }
 }
 
-
-
 ALLEGRO_USTR* bufferToUstr(const char* buffer, int length)
 {
     ALLEGRO_USTR* temp = al_ustr_new("");
@@ -209,7 +207,7 @@ bool IsCreatureVisible( df::unit* c )
 }
 
 
-void AssembleCreature(int drawx, int drawy, t_unit* creature, Tile * b)
+void AssembleCreature(int drawx, int drawy, SS_Unit* creature, Tile * b)
 {
     c_sprite * sprite = GetCreatureSpriteMap( creature );
     if(sprite) {
@@ -239,12 +237,12 @@ void AssembleCreature(int drawx, int drawy, t_unit* creature, Tile * b)
     }
 }
 
-void AssembleCreatureText(int drawx, int drawy, t_unit* creature, WorldSegment * seg){
-    draw_event d = {CreatureText, creature, al_map_rgb(255,255,255), 0, 0, 0, 0, static_cast<float>(drawx), static_cast<float>(drawy), 0, 0, 0};
+void AssembleCreatureText(int drawx, int drawy, SS_Unit* creature, WorldSegment * seg){
+    draw_event d = {CreatureText, creature, al_map_rgb(255,255,255), 0, 0, 0, 0, (float)drawx, (float)drawy, 0, 0, 0};
     seg->AssembleSprite(d);
 }
 
-void DrawCreatureText(int drawx, int drawy, t_unit* creature )
+void DrawCreatureText(int drawx, int drawy, SS_Unit* creature )
 {
     vector<int> statusIcons;
 
@@ -331,7 +329,7 @@ void DrawCreatureText(int drawx, int drawy, t_unit* creature )
         if(ssConfig.show_creature_professions == 2) {
             textcol = ssConfig.colors.getDfColor(DFHack::Units::getCasteProfessionColor(creature->race,creature->caste,(df::profession)creature->profession));
             //stupid hack to get legendary status of creatures
-            if(creature->flags2.bits.unused) {
+            if(creature->isLegend) {
                 ALLEGRO_COLOR altcol;
                 //military flash dark, civilians flash light
                 if(ENUM_ATTR(profession,military,(df::profession)creature->profession)) {
@@ -387,30 +385,23 @@ using df::global::world;
 
 /**
  * Tries to figure out if the unit is a legend.
- * 
- * Really stupid hack that will probably crash everything.
  */
 bool hasLegendarySkill(df::unit * source){
-    //oh my god
+
     if(!source) {
         return false;
     }
-    //ohhh my god
     if(source->status.souls.size() <= 0) {
         return false;
     }
-    //you gotta be kidding me
     df::unit_soul* soul = source->status.souls[0];
     if(!soul) {
         return false;
     }
-    //...seriously?
     if(soul->skills.size() <= 0) {
         return false;
     }
-    //this is so stupid it hurts
     for(int i=0; i<soul->skills.size(); i++) {
-        //so very stupid
         if(soul->skills[i] && soul->skills[i]->rating >= df::skill_rating::Legendary) {
             return true;
         }
@@ -425,7 +416,7 @@ bool hasLegendarySkill(df::unit * source){
  * If somebody feels like maintaining the DFHack version,
  * then we won't need to have our own written here >:(
  */
-void copyCreature(df::unit * source, t_unit & furball)
+void copyCreature(df::unit * source, SS_Unit & furball)
 {
     // read pointer from vector at position
     furball.origin = source;
@@ -453,7 +444,7 @@ void copyCreature(df::unit * source, t_unit & furball)
     //idiotic hacky workaround to figure out if the creature is a legend
     //FIXME: get actual skill reading or find the "is a legend" flag if it exists
     if(ssConfig.show_creature_professions==2) {
-        furball.flags2.bits.unused = hasLegendarySkill(source);
+        furball.isLegend = hasLegendarySkill(source);
     }
     // happiness
     furball.happiness = source->status.happiness;
@@ -487,6 +478,8 @@ void copyCreature(df::unit * source, t_unit & furball)
         furball.current_job.jobType = unit_job->job_type;
         furball.current_job.jobId = unit_job->id;
     }
+
+    furball.inv = NULL;
 }
 
 void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
@@ -499,14 +492,14 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
         return;
     }
 
-    t_unit *tempcreature = NULL;
+    SS_Unit tempcreature;
     df::unit *unit_ptr = 0; 
     for(uint32_t index=0; index<world->units.active.size(); index++) {
         unit_ptr = world->units.active[index];
 
         if(!segment->CoordinateInsideSegment(unit_ptr->pos.x,unit_ptr->pos.y,unit_ptr->pos.z)
             || (!IsCreatureVisible(unit_ptr) && !ssConfig.show_all_creatures)){
-            continue;
+                continue;
         }
 
         Tile* b = segment->getTile(unit_ptr->pos.x, unit_ptr->pos.y, unit_ptr->pos.z );
@@ -521,28 +514,25 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
         if(b->occ.bits.unit && b->creature) {
             continue;
         }
-        
+
         // make a copy of some creature data
-        tempcreature = new t_unit;
-        copyCreature(unit_ptr,*tempcreature);
-        b->occ.bits.unit=true;
-        b->creature = tempcreature;
+        copyCreature(unit_ptr,tempcreature);
 
         // add shadow to nearest floor tile
-        for (int bz = tempcreature->z; bz>=0; bz--) {
-            Tile * floor_tile = segment->getTile (tempcreature->x, tempcreature->y, bz );
+        for (int bz = tempcreature.z; bz>=0; bz--) {
+            Tile * floor_tile = segment->getTile (tempcreature.x, tempcreature.y, bz );
             if (!floor_tile) {
                 continue;
             }
             if (floor_tile->tileShapeBasic()==tiletype_shape_basic::Floor ||
-                    floor_tile->tileShapeBasic()==tiletype_shape_basic::Wall  ||
-                    floor_tile->tileShapeBasic()==tiletype_shape_basic::Ramp) {
-                // todo figure out appropriate shadow size
-                uint8_t tempShadow = GetCreatureShadowMap( tempcreature );
-                if (floor_tile->shadow < tempShadow) {
-                    floor_tile->shadow=tempShadow;
-                }
-                break;
+                floor_tile->tileShapeBasic()==tiletype_shape_basic::Wall  ||
+                floor_tile->tileShapeBasic()==tiletype_shape_basic::Ramp) {
+                    // todo figure out appropriate shadow size
+                    uint8_t tempShadow = GetCreatureShadowMap( &tempcreature );
+                    if (floor_tile->shadow < tempShadow) {
+                        floor_tile->shadow=tempShadow;
+                    }
+                    break;
             }
         }
         for (auto iter = unit_ptr->inventory.begin(); iter != unit_ptr->inventory.end(); iter++) {
@@ -558,16 +548,16 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
                 continue;
             }
 
-			// skip if not weapon or worn item
-			if(itemslot->mode != df::unit_inventory_item::T_mode::Weapon &&
-				itemslot->mode != df::unit_inventory_item::T_mode::Worn &&
-				itemslot->mode != df::unit_inventory_item::T_mode::InBody) {
-					continue;
-			}
+            // skip if not weapon or worn item
+            if(itemslot->mode != df::unit_inventory_item::T_mode::Weapon &&
+                itemslot->mode != df::unit_inventory_item::T_mode::Worn &&
+                itemslot->mode != df::unit_inventory_item::T_mode::InBody) {
+                    continue;
+            }
 
             //If there's no subtype, mae it 0, and let DFhack handle it.
             int subtype = item->getSubtype();
-			if(subtype < 0) subtype = 0;
+            if(subtype < 0) subtype = 0;
 
             item_type::item_type type = item->getType();
             int8_t armor = item->getEffectiveArmorLevel();
@@ -598,22 +588,25 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
             }
 
             //FIXME: this could be made nicer. Somehow
-            if(!b->inv) {
-                b->inv = new(unit_inventory);
+            if(!tempcreature.inv) {
+                tempcreature.inv = new(unit_inventory);
             }
-            if(b->inv->item.size() <= type) {
-                b->inv->item.resize(type+1);
+            if(tempcreature.inv->item.size() <= type) {
+                tempcreature.inv->item.resize(type+1);
             }
-            if(b->inv->item[type].size() <= subtype) {
-                b->inv->item[type].resize(subtype+1);
+            if(tempcreature.inv->item[type].size() <= subtype) {
+                tempcreature.inv->item[type].resize(subtype+1);
             }
-            b->inv->item[type][subtype].push_back(equipment);
+            tempcreature.inv->item[type][subtype].push_back(equipment);
         }
+
+        b->occ.bits.unit=true;
+        b->creature = segment->AddCreature(tempcreature);
     }
 }
 
 
-CreatureConfiguration *GetCreatureConfig( t_unit* c )
+CreatureConfiguration *GetCreatureConfig( SS_Unit* c )
 {
     //find list for creature type
     vector<CreatureConfiguration>* creatureData;
@@ -700,8 +693,7 @@ CreatureConfiguration *GetCreatureConfig( t_unit* c )
     return NULL;
 }
 
-
-c_sprite* GetCreatureSpriteMap( t_unit* c )
+c_sprite* GetCreatureSpriteMap( SS_Unit* c )
 {
     CreatureConfiguration *testConfig = GetCreatureConfig( c );
     if (testConfig == NULL) {
@@ -711,7 +703,7 @@ c_sprite* GetCreatureSpriteMap( t_unit* c )
     return &(testConfig->sprite);
 }
 
-uint8_t GetCreatureShadowMap( t_unit* c )
+uint8_t GetCreatureShadowMap( SS_Unit* c )
 {
     CreatureConfiguration *testConfig = GetCreatureConfig( c );
     if (testConfig == NULL) {
@@ -720,7 +712,7 @@ uint8_t GetCreatureShadowMap( t_unit* c )
     return testConfig->shadow;
 }
 
-void generateCreatureDebugString( t_unit* c, char* strbuffer)
+void generateCreatureDebugString( SS_Unit* c, char* strbuffer)
 {
     if(c->flags1.bits.active_invader) {
         strcat(strbuffer, "activeInvader ");

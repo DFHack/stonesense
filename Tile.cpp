@@ -85,14 +85,6 @@ void Tile::Reset(WorldSegment* segment, df::tiletype type)
 
 Tile::~Tile(void)
 {
-    if(creature) {
-        delete(creature);
-        this->creature=NULL;
-    }
-    if(inv) {
-        delete(inv);
-        this->inv=NULL;
-    }
     building.info = NULL;
 }
 

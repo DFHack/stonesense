@@ -754,25 +754,25 @@ void c_sprite::assemble_world_offset(int x, int y, int z, int plateoffset, Tile 
         }
 
         if(itemtype !=  INVALID_INDEX) { //fixme: we need to store basic types separately and use them.
-            if(!b->inv) {
+            if(!b->creature->inv) {
                 goto draw_subsprite;
             }
-            if(b->inv->item.empty()) {
+            if(b->creature->inv->item.empty()) {
                 goto draw_subsprite;
             }
-            if(b->inv->item.size() <= itemtype) {
+            if(b->creature->inv->item.size() <= itemtype) {
                 goto draw_subsprite;
             }
-            if(b->inv->item[itemtype].empty()) {
+            if(b->creature->inv->item[itemtype].empty()) {
                 goto draw_subsprite;
             }
-            if(itemsubtype >= b->inv->item[itemtype].size()) {
+            if(itemsubtype >= b->creature->inv->item[itemtype].size()) {
                 goto draw_subsprite;
             }
-            if(pattern_index >= b->inv->item[itemtype][itemsubtype].size()) {
+            if(pattern_index >= b->creature->inv->item[itemtype][itemsubtype].size()) {
                 goto draw_subsprite;
             }
-            if(b->inv->item[itemtype][itemsubtype][pattern_index].matt.type == INVALID_INDEX) {
+            if(b->creature->inv->item[itemtype][itemsubtype][pattern_index].matt.type == INVALID_INDEX) {
                 goto draw_subsprite;
             }
         }
@@ -1057,16 +1057,16 @@ ALLEGRO_COLOR c_sprite::get_color(void* tile)
             if(itemtype == -1) {
                 return al_map_rgb(255, 0, 0);
             }
-            if(b->inv->item.size() <= itemtype) {
+            if(b->creature->inv->item.size() <= itemtype) {
                 return al_map_rgb(0, 255, 0);
             }
-            if(b->inv->item[itemtype].size() <= itemsubtype) {
+            if(b->creature->inv->item[itemtype].size() <= itemsubtype) {
                 return al_map_rgb(255, 255, 0);
             }
-            if(b->inv->item[itemtype][itemsubtype].empty()) {
+            if(b->creature->inv->item[itemtype][itemsubtype].empty()) {
                 return al_map_rgb(0, 0, 255);
             }
-            return lookupMaterialColor(b->inv->item[itemtype][itemsubtype][pattern_index].matt, b->inv->item[itemtype][itemsubtype][pattern_index].dyematt);
+            return lookupMaterialColor(b->creature->inv->item[itemtype][itemsubtype][pattern_index].matt, b->creature->inv->item[itemtype][itemsubtype][pattern_index].dyematt);
         } else {
             return al_map_rgb(255,255,255);
         }

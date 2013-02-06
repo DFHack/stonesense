@@ -240,3 +240,70 @@ enum enumCreatureSex {
     eCreatureSex_Male,
     eCreatureSex_Female
 };
+
+struct SS_Item {
+    DFHack::t_matglossPair item;
+    DFHack::t_matglossPair matt;
+    DFHack::t_matglossPair dyematt;
+};
+
+struct worn_item {
+    DFHack::t_matglossPair matt;
+    DFHack::t_matglossPair dyematt;
+    int8_t rating;
+    worn_item();
+};
+
+struct unit_inventory {
+    //[item_type][item_subtype][item_number]
+    std::vector<std::vector<std::vector<worn_item>>> item;
+};
+
+struct SS_Unit{
+    df::unit * origin;
+    uint16_t x;
+    uint16_t y;
+    uint16_t z;
+    uint32_t race;
+    int32_t civ;
+
+    df::unit_flags1 flags1;
+    df::unit_flags2 flags2;
+    df::unit_flags3 flags3;
+
+    t_name name;
+
+    int16_t mood;
+    int16_t mood_skill;
+    t_name artifact_name;
+
+    uint8_t profession;
+    std::string custom_profession;
+
+    // enabled labors
+    uint8_t labors[NUM_CREATURE_LABORS];
+    DFHack::Units::t_job current_job;
+
+    uint32_t happiness;
+    uint32_t id;
+    t_attrib strength;
+    t_attrib agility;
+    t_attrib toughness;
+    t_attrib endurance;
+    t_attrib recuperation;
+    t_attrib disease_resistance;
+    int32_t squad_leader_id;
+    uint8_t sex;
+    uint16_t caste;
+    uint32_t pregnancy_timer; //Countdown timer to giving birth
+    //bool has_default_soul;
+    //t_soul defaultSoul;
+    uint32_t nbcolors;
+    uint32_t color[MAX_COLORS];
+
+    int32_t birth_year;
+    uint32_t birth_time;
+
+    bool isLegend;
+    unit_inventory * inv;
+};

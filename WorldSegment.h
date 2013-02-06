@@ -30,7 +30,7 @@ private:
     Tile* tiles;
     vector<draw_event> todraw;
     
-    //vector<t_unit> units;
+    vector<SS_Unit> units;
     vector<Buildings::t_building> buildings;
 
 public:
@@ -61,13 +61,26 @@ public:
                 tiles[i].~Tile();
             }
         }
+        for(uint32_t i = 0; i < units.size(); i++) {
+            if(units[i].inv) {
+                delete(units[i].inv);
+                units[i].inv = NULL;
+            }
+        }
         free(tiles);
     }
 
     void Reset(int x=0, int y=0, int z=0, int sizex=0, int sizey=0, int sizez=0, bool hard=false) {
         //clear and free old data
-        todraw.clear();
-        buildings.clear();            
+        for(uint32_t i = 0; i < units.size(); i++) {
+            if(units[i].inv) {
+                delete(units[i].inv);
+                units[i].inv = NULL;
+            }
+        }
+        units.clear();
+        buildings.clear();  
+        todraw.clear();          
         for(uint32_t i = 0; i < getNumTiles(); i++) {
             tiles[i].InvalidateAndDestroy();
         }
@@ -121,6 +134,7 @@ public:
     bool CoordinateInsideSegment(uint32_t x, uint32_t y, uint32_t z);
     bool CoordinateInteriorSegment(uint32_t x, uint32_t y, uint32_t z, uint32_t shellthick);
     Buildings::t_building* AddBuilding(Buildings::t_building tempbuilding);
+    SS_Unit* AddCreature(SS_Unit unit);
 };
 
 // FIXME: make nicer. one day. maybe.
