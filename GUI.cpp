@@ -471,7 +471,7 @@ void drawDebugCursorAndInfo(WorldSegment * segment)
                           contentLoader->professionStrings.at(b->creature->profession).c_str());
 
         //Inventories!
-        if(b->creature->inv) {
+        if(b->creature && b->creature->inv) {
             for(int item_type_idex = 0; item_type_idex < b->creature->inv->item.size(); item_type_idex++) {
                 if(b->creature->inv->item[item_type_idex].empty()) {
                     continue;
