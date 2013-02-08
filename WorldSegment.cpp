@@ -372,12 +372,12 @@ void WorldSegment::AssembleSprite(draw_event d)
     todraw.push_back(d);
 }
 
-Buildings::t_building* WorldSegment::AddBuilding(Buildings::t_building building){
+Buildings::t_building* WorldSegment::PushBuilding(const Buildings::t_building & building){
     buildings.push_back(building);
     return &buildings[buildings.size()-1];
 }
 
-SS_Unit* WorldSegment::AddCreature(SS_Unit unit){
+SS_Unit* WorldSegment::PushCreature(const SS_Unit & unit){
     units.push_back(unit);
     return &units[units.size()-1];
 }

@@ -120,7 +120,7 @@ void MergeBuildingsToSegment(vector<Buildings::t_building>* buildings, WorldSegm
 {
     uint32_t numBuildings = (uint32_t)buildings->size();
 	for(uint32_t i=0; i < numBuildings; i++) {
-		Buildings::t_building* copiedbuilding = segment->AddBuilding((*buildings)[i]);
+		Buildings::t_building* copiedbuilding = segment->PushBuilding((*buildings)[i]);
 
 		//int bheight = tempbuilding.y2 - tempbuilding.y1;
 		for(uint32_t yy = copiedbuilding->y1; yy <= copiedbuilding->y2; yy++) {

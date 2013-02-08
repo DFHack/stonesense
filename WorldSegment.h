@@ -133,8 +133,8 @@ public:
     //void drawPixels();
     bool CoordinateInsideSegment(uint32_t x, uint32_t y, uint32_t z);
     bool CoordinateInteriorSegment(uint32_t x, uint32_t y, uint32_t z, uint32_t shellthick);
-    Buildings::t_building* AddBuilding(Buildings::t_building tempbuilding);
-    SS_Unit* AddCreature(SS_Unit unit);
+    Buildings::t_building* PushBuilding(const Buildings::t_building & tempbuilding);
+    SS_Unit* PushCreature(const SS_Unit & unit);
 };
 
 // FIXME: make nicer. one day. maybe.

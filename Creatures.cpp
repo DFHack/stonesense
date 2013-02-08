@@ -600,8 +600,8 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
             tempcreature.inv->item[type][subtype].push_back(equipment);
         }
 
-        b->occ.bits.unit=true;
-        b->creature = segment->AddCreature(tempcreature);
+        b->occ.bits.unit = true;
+        b->creature = segment->PushCreature(tempcreature);
     }
 }
 
