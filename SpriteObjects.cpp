@@ -576,6 +576,14 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
         }
     }
 
+    //shoud the prite be drawn only if the equipment has a specific material?
+    const char* equipmatstr = elemSprite->Attribute("equipment_material");
+    if (equipmatstr == NULL || equipmatstr[0] == 0) {
+        itemmat = INVALID_INDEX;
+    } else {
+        itemmat = lookupMaterialType(equipmatstr);
+    }
+
 
 
     //Should the sprite be shown only when there is blood?
@@ -749,6 +757,9 @@ void c_sprite::assemble_world_offset(int x, int y, int z, int plateoffset, Tile 
         }
 
         if(itemtype !=  INVALID_INDEX) { //fixme: we need to store basic types separately and use them.
+            if(!b->creature) {
+                goto draw_subsprite;
+            }
             if(!b->creature->inv) {
                 goto draw_subsprite;
             }
@@ -769,6 +780,11 @@ void c_sprite::assemble_world_offset(int x, int y, int z, int plateoffset, Tile 
             }
             if(b->creature->inv->item[itemtype][itemsubtype][pattern_index].matt.type == INVALID_INDEX) {
                 goto draw_subsprite;
+            }
+            if(itemmat != INVALID_INDEX) {
+                if(b->creature->inv->item[itemtype][itemsubtype][pattern_index].matt.type != itemmat) {
+                    goto draw_subsprite;
+                }
             }
         }
 
