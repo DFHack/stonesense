@@ -678,11 +678,6 @@ void c_sprite::assemble_world_offset(int x, int y, int z, int plateoffset, Tile 
     //the following stuff is only bothered with if the animation frames say it should be drawn. this can be over-ridden
     // by setting animate to 0
 
-    if(sheetindex == 48) {
-        int spam = 0;
-        spam++;
-    }
-
     if ((animframes & (1 << offsetAnimFrame)) || !animate) {
         //if set by the xml file, a random offset between 0 and 'variations' is added to the sprite.
         int randoffset = 0;
