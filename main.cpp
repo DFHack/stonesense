@@ -311,7 +311,7 @@ static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALL
                     int h = al_get_bitmap_height(bb);
                     ssState.ScreenH = h;
                     ssState.ScreenW = w;
-                    LogError("backbuffer w, h: %d, %d\n", w, h);
+                    PrintMessage("backbuffer w, h: %d, %d\n", w, h);
                 }
 #endif
                 /* ALLEGRO_EVENT_KEY_DOWN - a keyboard key was pressed.
