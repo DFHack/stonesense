@@ -17,7 +17,6 @@
 		<subsprite sheetIndex="69" zoom="2" equipment_class="PANTS" equipment_name="ITEM_PANTS_LEGGINGS" equipment_material="Metal"/>
 		<subsprite sheetIndex="20" zoom="2" equipment_class="SHOES" equipment_name="ITEM_SHOES_SOCKS" color="equipment"/>
 		<subsprite sheetIndex="21" zoom="2" equipment_class="SHOES" equipment_name="ITEM_SHOES_CHAUSSE" color="equipment"/>
-		<subsprite sheetIndex="26" zoom="2" equipment_class="SHOES" equipment_name="ITEM_SHOES_CHAUSSE" equipment_material="Metal"/>
 		<subsprite sheetIndex="22" zoom="2" equipment_class="SHOES" equipment_name="ITEM_SHOES_SANDAL" color="equipment"/>
 		<subsprite sheetIndex="23" zoom="2" equipment_class="SHOES" equipment_name="ITEM_SHOES_SHOES" color="equipment"/>
 		<subsprite sheetIndex="24" zoom="2" equipment_class="SHOES" equipment_name="ITEM_SHOES_BOOTS_LOW" color="equipment"/>
@@ -79,7 +78,6 @@
 		<subsprite sheetIndex="69" zoom="2" equipment_class="PANTS" equipment_name="ITEM_PANTS_LEGGINGS" equipment_material="Metal"/>
 		<subsprite sheetIndex="20" zoom="2" equipment_class="SHOES" equipment_name="ITEM_SHOES_SOCKS" color="equipment"/>
 		<subsprite sheetIndex="21" zoom="2" equipment_class="SHOES" equipment_name="ITEM_SHOES_CHAUSSE" color="equipment"/>
-		<subsprite sheetIndex="26" zoom="2" equipment_class="SHOES" equipment_name="ITEM_SHOES_CHAUSSE" equipment_material="Metal"/>
 		<subsprite sheetIndex="22" zoom="2" equipment_class="SHOES" equipment_name="ITEM_SHOES_SANDAL" color="equipment"/>
 		<subsprite sheetIndex="23" zoom="2" equipment_class="SHOES" equipment_name="ITEM_SHOES_SHOES" color="equipment"/>
 		<subsprite sheetIndex="24" zoom="2" equipment_class="SHOES" equipment_name="ITEM_SHOES_BOOTS_LOW" color="equipment"/>
