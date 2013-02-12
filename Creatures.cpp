@@ -441,11 +441,8 @@ void copyCreature(df::unit * source, SS_Unit & furball)
     furball.custom_profession = source->custom_profession;
     // profession
     furball.profession = source->profession;
-    //idiotic hacky workaround to figure out if the creature is a legend
-    //FIXME: get actual skill reading or find the "is a legend" flag if it exists
-    if(ssConfig.show_creature_professions==2) {
-        furball.isLegend = hasLegendarySkill(source);
-    }
+    //figure out legendary status
+    furball.isLegend = hasLegendarySkill(source);
     // happiness
     furball.happiness = source->status.happiness;
     // physical attributes
