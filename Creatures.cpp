@@ -492,7 +492,6 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
         return;
     }
 
-    SS_Unit tempcreature;
     df::unit *unit_ptr = 0; 
     for(uint32_t index=0; index<world->units.active.size(); index++) {
         unit_ptr = world->units.active[index];
@@ -516,11 +515,12 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
         }
 
         // make a copy of some creature data
-        copyCreature(unit_ptr,tempcreature);
+        SS_Unit * tempcreature = new SS_Unit();
+        copyCreature(unit_ptr,*tempcreature);
 
         // add shadow to nearest floor tile
-        for (int bz = tempcreature.z; bz>=0; bz--) {
-            Tile * floor_tile = segment->getTile (tempcreature.x, tempcreature.y, bz );
+        for (int bz = tempcreature->z; bz>=0; bz--) {
+            Tile * floor_tile = segment->getTile (tempcreature->x, tempcreature->y, bz );
             if (!floor_tile) {
                 continue;
             }
@@ -528,7 +528,7 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
                 floor_tile->tileShapeBasic()==tiletype_shape_basic::Wall  ||
                 floor_tile->tileShapeBasic()==tiletype_shape_basic::Ramp) {
                     // todo figure out appropriate shadow size
-                    uint8_t tempShadow = GetCreatureShadowMap( &tempcreature );
+                    uint8_t tempShadow = GetCreatureShadowMap( tempcreature );
                     if (floor_tile->shadow < tempShadow) {
                         floor_tile->shadow=tempShadow;
                     }
@@ -588,20 +588,21 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
             }
 
             //FIXME: this could be made nicer. Somehow
-            if(!tempcreature.inv) {
-                tempcreature.inv = new(unit_inventory);
+            if(!tempcreature->inv) {
+                tempcreature->inv = new(unit_inventory);
             }
-            if(tempcreature.inv->item.size() <= type) {
-                tempcreature.inv->item.resize(type+1);
+            if(tempcreature->inv->item.size() <= type) {
+                tempcreature->inv->item.resize(type+1);
             }
-            if(tempcreature.inv->item[type].size() <= subtype) {
-                tempcreature.inv->item[type].resize(subtype+1);
+            if(tempcreature->inv->item[type].size() <= subtype) {
+                tempcreature->inv->item[type].resize(subtype+1);
             }
-            tempcreature.inv->item[type][subtype].push_back(equipment);
+            tempcreature->inv->item[type][subtype].push_back(equipment);
         }
 
         b->occ.bits.unit = true;
-        b->creature = segment->PushCreature(tempcreature);
+        b->creature = tempcreature;
+        segment->PushUnit(tempcreature);
     }
 }
 

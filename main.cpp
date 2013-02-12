@@ -494,7 +494,7 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
     // init map segment wrapper and its lock, start the reload thread.
     initAutoReload();
 
-    timeToReloadSegment = true;
+    timeToReloadSegment = false;
     // enter event loop here:
     main_loop(display, queue, main_thread, out);
 
