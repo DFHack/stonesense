@@ -14,8 +14,10 @@
 		<!--all the body clothes-->
 		<subsprite sheetIndex="60" zoom="2" equipment_class="PANTS" equipment_name="ITEM_PANTS_THONG" color="equipment"/>
 		<subsprite sheetIndex="61" zoom="2" equipment_class="PANTS" equipment_name="ITEM_PANTS_LEGGINGS" color="equipment"/>
+		<subsprite sheetIndex="69" zoom="2" equipment_class="PANTS" equipment_name="ITEM_PANTS_LEGGINGS" equipment_material="Metal"/>
 		<subsprite sheetIndex="20" zoom="2" equipment_class="SHOES" equipment_name="ITEM_SHOES_SOCKS" color="equipment"/>
 		<subsprite sheetIndex="21" zoom="2" equipment_class="SHOES" equipment_name="ITEM_SHOES_CHAUSSE" color="equipment"/>
+		<subsprite sheetIndex="26" zoom="2" equipment_class="SHOES" equipment_name="ITEM_SHOES_CHAUSSE" equipment_material="Metal"/>
 		<subsprite sheetIndex="22" zoom="2" equipment_class="SHOES" equipment_name="ITEM_SHOES_SANDAL" color="equipment"/>
 		<subsprite sheetIndex="23" zoom="2" equipment_class="SHOES" equipment_name="ITEM_SHOES_SHOES" color="equipment"/>
 		<subsprite sheetIndex="24" zoom="2" equipment_class="SHOES" equipment_name="ITEM_SHOES_BOOTS_LOW" color="equipment"/>
@@ -31,6 +33,7 @@
 		<subsprite sheetIndex="101" zoom="2" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_VEST" color="equipment"/>
 		<subsprite sheetIndex="102" zoom="2" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_DRESS" color="equipment"/>
 		<subsprite sheetIndex="103" zoom="2" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_MAIL_SHIRT" color="equipment"/>
+		<subsprite sheetIndex="143" zoom="2" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_MAIL_SHIRT" equipment_material="Metal"/>
 		<subsprite sheetIndex="140" zoom="2" equipment_class="GLOVES" equipment_name="ITEM_GLOVES_GLOVES" color="equipment"/>
 		<subsprite sheetIndex="141" zoom="2" equipment_class="GLOVES" equipment_name="ITEM_GLOVES_MITTENS" color="equipment"/>
 		<subsprite sheetIndex="104" zoom="2" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_TUNIC" color="equipment"/>
@@ -73,8 +76,10 @@
 		<!--all the body clothes-->
 		<subsprite sheetIndex="60" zoom="2" equipment_class="PANTS" equipment_name="ITEM_PANTS_THONG" color="equipment"/>
 		<subsprite sheetIndex="61" zoom="2" equipment_class="PANTS" equipment_name="ITEM_PANTS_LEGGINGS" color="equipment"/>
+		<subsprite sheetIndex="69" zoom="2" equipment_class="PANTS" equipment_name="ITEM_PANTS_LEGGINGS" equipment_material="Metal"/>
 		<subsprite sheetIndex="20" zoom="2" equipment_class="SHOES" equipment_name="ITEM_SHOES_SOCKS" color="equipment"/>
 		<subsprite sheetIndex="21" zoom="2" equipment_class="SHOES" equipment_name="ITEM_SHOES_CHAUSSE" color="equipment"/>
+		<subsprite sheetIndex="26" zoom="2" equipment_class="SHOES" equipment_name="ITEM_SHOES_CHAUSSE" equipment_material="Metal"/>
 		<subsprite sheetIndex="22" zoom="2" equipment_class="SHOES" equipment_name="ITEM_SHOES_SANDAL" color="equipment"/>
 		<subsprite sheetIndex="23" zoom="2" equipment_class="SHOES" equipment_name="ITEM_SHOES_SHOES" color="equipment"/>
 		<subsprite sheetIndex="24" zoom="2" equipment_class="SHOES" equipment_name="ITEM_SHOES_BOOTS_LOW" color="equipment"/>
@@ -90,6 +95,7 @@
 		<subsprite sheetIndex="101" zoom="2" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_VEST" color="equipment"/>
 		<subsprite sheetIndex="102" zoom="2" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_DRESS" color="equipment"/>
 		<subsprite sheetIndex="103" zoom="2" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_MAIL_SHIRT" color="equipment"/>
+		<subsprite sheetIndex="143" zoom="2" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_MAIL_SHIRT" equipment_material="Metal"/>
 		<subsprite sheetIndex="140" zoom="2" equipment_class="GLOVES" equipment_name="ITEM_GLOVES_GLOVES" color="equipment"/>
 		<subsprite sheetIndex="141" zoom="2" equipment_class="GLOVES" equipment_name="ITEM_GLOVES_MITTENS" color="equipment"/>
 		<subsprite sheetIndex="104" zoom="2" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_TUNIC" color="equipment"/>
