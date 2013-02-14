@@ -29,58 +29,30 @@
 unsigned char get_water_direction( Tile *b )
 {
     //Fixme: add the new river ramps, possibly change to a switch statement
-    int tiletype = b->tileType;
-    if(tiletype == 0) {
-        return 0;
-    }
-    if(tiletype == 365) {
-        return 2;
-    }
-    if(tiletype == 366) {
-        return 6;
-    }
-    if(tiletype == 367) {
-        return 4;
-    }
-    if(tiletype == 368) {
-        return 8;
-    }
-    if(tiletype == 369) {
-        return 1;
-    }
-    if(tiletype == 370) {
-        return 3;
-    }
-    if(tiletype == 371) {
-        return 7;
-    }
-    if(tiletype == 372) {
-        return 5;
-    }
-    if(tiletype == 373) {
-        return 2;
-    }
-    if(tiletype == 374) {
-        return 6;
-    }
-    if(tiletype == 375) {
-        return 4;
-    }
-    if(tiletype == 376) {
-        return 8;
-    }
-    if(tiletype == 377) {
-        return 1;
-    }
-    if(tiletype == 378) {
-        return 3;
-    }
-    if(tiletype == 379) {
-        return 7;
-    }
-    if(tiletype == 380) {
-        return 5;
-    }
+	using namespace df::enums::tile_liquid_flow_dir;
+	switch(b->flow_direction)
+	{
+	case none:
+		return 0;
+	case northwest:
+		return 1;
+	case north:
+		return 2;
+	case northeast:
+		return 3;
+	case east:
+		return 4;
+	case southeast:
+		return 5;
+	case south:
+		return 6;
+	case southwest:
+		return 7;
+	case west:
+		return 8;
+	default:
+		return 0;
+	}
     return 0;
 }
 

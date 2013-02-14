@@ -407,6 +407,9 @@ void readBlockToSegment(DFHack::Core& DF, WorldSegment& segment,
                 }
             }
 
+			//read the water flows and direction.
+			b->flow_direction = trueBlock->liquid_flow[lx][ly].bits.perm_flow_dir;
+
             //read the tile spatter
             readSpatterToTile(b, lx, ly, splatter); 
 

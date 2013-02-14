@@ -46,6 +46,8 @@ public:
     //DFHack::t_matglossPair water;//contained in designation
     bool deepwater;
     
+	df::tile_liquid_flow_dir flow_direction;
+
     DFHack::t_designation designation;
     DFHack::t_occupancy occ;
 
