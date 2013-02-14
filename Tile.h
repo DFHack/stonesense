@@ -71,9 +71,6 @@ public:
     bool obscuringCreature;
     bool obscuringBuilding;
 
-    //These structs must appear here at the end of the object; everything before here is memset to 0, 
-    // while these are all explicitly set to required values on a Reset().
-
     struct SS_Effect {
         DFHack::t_matglossPair matt;
         int16_t density;
