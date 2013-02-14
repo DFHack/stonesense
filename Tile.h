@@ -8,24 +8,6 @@
 
 class WorldSegment;
 
-struct worn_item {
-    DFHack::t_matglossPair matt;
-    DFHack::t_matglossPair dyematt;
-    int8_t rating;
-    worn_item();
-};
-
-struct SS_Item {
-    DFHack::t_matglossPair item;
-    DFHack::t_matglossPair matt;
-    DFHack::t_matglossPair dyematt;
-};
-
-struct unit_inventory {
-    //[item_type][item_subtype][item_number]
-    std::vector<std::vector<std::vector<worn_item>>> item;
-};
-
 class Tile
 {
 private:
@@ -67,7 +49,7 @@ public:
     DFHack::t_designation designation;
     DFHack::t_occupancy occ;
 
-    DFHack::Units::t_unit * creature;
+    SS_Unit * creature;
     DFHack::t_matglossPair tree;
 
     uint8_t mudlevel;
@@ -86,9 +68,6 @@ public:
 
     bool obscuringCreature;
     bool obscuringBuilding;
-
-    //These are actually applied to the creature standing here, but there's only one creature shown, so it's okay.
-    unit_inventory * inv;
 
     //These structs must appear here at the end of the object; everything before here is memset to 0, 
     // while these are all explicitly set to required values on a Reset().

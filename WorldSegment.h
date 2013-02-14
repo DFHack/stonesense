@@ -30,8 +30,8 @@ private:
     Tile* tiles;
     vector<draw_event> todraw;
     
-    //vector<t_unit> units;
-    vector<Buildings::t_building> buildings;
+    vector<SS_Unit*> units;
+    vector<Buildings::t_building*> buildings;
 
 public:
     bool loaded;
@@ -39,13 +39,7 @@ public:
     //these are the coordinates and size of the loaded segment
     Crd3D pos;
     Crd3D size;
-    //these are the coordinates at which the viewport is currently located
-    // note that this may not be the same as the actual coordinates of the segment
-    // due to concurrency
-    Crd3D displayed;
-    unsigned char rotation;
-    //these are the size of the DF map region to which this segment is a part
-    Crd3D regionSize;
+    GameState segState;
     WorldSegment(int x=0, int y=0, int z=0, int sizex=0, int sizey=0, int sizez=0) {
         this->pos.x = x;
         this->pos.y = y;
@@ -53,9 +47,7 @@ public:
         this->size.x = sizex;
         this->size.y = sizey;
         this->size.z = sizez;
-        displayed = ssState.DisplayedSegment;
-        regionSize = ssState.RegionDim;
-        rotation = ssState.DisplayedRotation;
+        segState = ssState;
 
         uint32_t memoryNeeded = sizex * sizey * sizez * sizeof(Tile);
         tiles = (Tile*) malloc( memoryNeeded );
@@ -69,13 +61,16 @@ public:
                 tiles[i].~Tile();
             }
         }
+        ClearBuildings();
+        ClearUnits();
         free(tiles);
     }
 
     void Reset(int x=0, int y=0, int z=0, int sizex=0, int sizey=0, int sizez=0, bool hard=false) {
         //clear and free old data
-        todraw.clear();
-        buildings.clear();            
+        ClearBuildings();
+        ClearUnits();
+        todraw.clear();          
         for(uint32_t i = 0; i < getNumTiles(); i++) {
             tiles[i].InvalidateAndDestroy();
         }
@@ -104,9 +99,7 @@ public:
         this->size.x = sizex;
         this->size.y = sizey;
         this->size.z = sizez;
-        displayed = ssState.DisplayedSegment;
-        regionSize = ssState.RegionDim;
-        rotation = ssState.DisplayedRotation;
+        segState = ssState;
         
     }
 
@@ -130,7 +123,10 @@ public:
     //void drawPixels();
     bool CoordinateInsideSegment(uint32_t x, uint32_t y, uint32_t z);
     bool CoordinateInteriorSegment(uint32_t x, uint32_t y, uint32_t z, uint32_t shellthick);
-    Buildings::t_building* AddBuilding(Buildings::t_building tempbuilding);
+    void PushBuilding( Buildings::t_building * tempbuilding);
+    void ClearBuildings();
+    void PushUnit( SS_Unit * unit);
+    void ClearUnits();
 };
 
 // FIXME: make nicer. one day. maybe.

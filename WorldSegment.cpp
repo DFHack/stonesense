@@ -178,9 +178,9 @@ Tile* WorldSegment::getTile(uint32_t index)
 
 void WorldSegment::CorrectTileForSegmentOffset(int32_t& xin, int32_t& yin, int32_t& zin)
 {
-    xin -= displayed.x;
-    yin -= displayed.y; //DisplayedSegment.y;
-    zin -= displayed.z - 1; //need to remove the offset
+    xin -= segState.DisplayedSegment.x;
+    yin -= segState.DisplayedSegment.y; //DisplayedSegment.y;
+    zin -= segState.DisplayedSegment.z - 1; //need to remove the offset
 }
 
 void WorldSegment::CorrectTileForSegmentRotation(int32_t& x, int32_t& y, int32_t& z)
@@ -188,15 +188,15 @@ void WorldSegment::CorrectTileForSegmentRotation(int32_t& x, int32_t& y, int32_t
     int32_t oldx = x;
     int32_t oldy = y;
 
-    if(rotation == 1) {
+    if(segState.DisplayedRotation == 1) {
         x = size.x - oldy -1;
         y = oldx;
     }
-    if(rotation == 2) {
+    if(segState.DisplayedRotation == 2) {
         x = size.x - oldx -1;
         y = size.y - oldy -1;
     }
-    if(rotation == 3) {
+    if(segState.DisplayedRotation == 3) {
         x = oldy;
         y = size.y - oldx -1;
     }
@@ -255,7 +255,7 @@ void WorldSegment::DrawAllTiles()
                 DrawCreatureText(
                     todraw[i].dx,
                     todraw[i].dy,
-                    (t_unit*) todraw[i].drawobject );
+                    (SS_Unit*) todraw[i].drawobject );
                 break;
             }
         }
@@ -289,7 +289,18 @@ void WorldSegment::AssembleAllTiles()
     for(int32_t vsz=0; vsz < vszmax; vsz++) {
         //add the fog to the queue
         if(ssConfig.fogenable && fog) {
-            draw_event d = {TintedScaledBitmap, fog, al_map_rgb(255,255,255), 0, 0, ssState.ScreenW, ssState.ScreenH, 0, 0, ssState.ScreenW, ssState.ScreenH, 0};
+            draw_event d = {TintedScaledBitmap, 
+                fog, 
+                al_map_rgb(255,255,255), 
+                0, 
+                0, 
+                (float)ssState.ScreenW, 
+                (float)ssState.ScreenH, 
+                0, 
+                0, 
+                (float)ssState.ScreenW, 
+                (float)ssState.ScreenH, 
+                0};
             AssembleSprite(d);
         }
         //add the tiles to the queue
@@ -361,7 +372,33 @@ void WorldSegment::AssembleSprite(draw_event d)
     todraw.push_back(d);
 }
 
-Buildings::t_building* WorldSegment::AddBuilding(Buildings::t_building building){
+void WorldSegment::PushBuilding( Buildings::t_building * building)
+{
     buildings.push_back(building);
-    return &buildings[buildings.size()-1];
+}
+
+void WorldSegment::ClearBuildings()
+{
+    for(int i=0; i<buildings.size(); i++){
+        delete(buildings[i]);
+        buildings[i] = NULL;
+    }
+    buildings.clear();
+}
+
+void WorldSegment::PushUnit( SS_Unit * unit)
+{
+    units.push_back(unit);
+}
+
+void WorldSegment::ClearUnits()
+{
+    for(int i=0; i<units.size(); i++){
+        if(units[i]){
+            delete(units[i]->inv);
+            delete(units[i]);
+            units[i] = NULL;
+        }
+    }
+    units.clear();
 }

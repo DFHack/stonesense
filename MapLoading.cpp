@@ -546,7 +546,7 @@ void readMapSegment(WorldSegment* segment, int x, int y, int z, int sizex, int s
         }
     }
 
-    if(segment->rotation % 2) {
+    if(segment->segState.DisplayedRotation % 2) {
         int temp = sizex;
         sizex = sizey;
         sizey = temp;
@@ -724,7 +724,7 @@ void read_segment( void *arg)
         beautifySegment(segment);
 
         //putting these here to increase responsiveness of the UI and to make megashots work
-        segment->displayed = ssState.DisplayedSegment;
+        segment->segState.DisplayedSegment = ssState.DisplayedSegment;
 
         segment->AssembleAllTiles();
 

@@ -85,14 +85,6 @@ void Tile::Reset(WorldSegment* segment, df::tiletype type)
 
 Tile::~Tile(void)
 {
-    if(creature) {
-        delete(creature);
-        this->creature=NULL;
-    }
-    if(inv) {
-        delete(inv);
-        this->inv=NULL;
-    }
     building.info = NULL;
 }
 
@@ -425,7 +417,7 @@ void Tile::AssembleTile()
 
     //Wall Engravings
     if((tileShapeBasic()==tiletype_shape_basic::Wall) && engraving_character) {
-        if(ownerSegment->rotation == 0) {
+        if(ownerSegment->segState.DisplayedRotation == 0) {
             if(engraving_flags.bits.east) {
                 AssembleSpriteFromSheet( engraving_character, IMGEngRightSheet, al_map_rgba_f(1.0,1.0,1.0,((engraving_quality + 5.0f) / 10.0f)), drawx, drawy, this );
             }
@@ -433,7 +425,7 @@ void Tile::AssembleTile()
                 AssembleSpriteFromSheet( engraving_character, IMGEngLeftSheet, al_map_rgba_f(1.0,1.0,1.0,((engraving_quality + 5.0f) / 10.0f)), drawx, drawy, this );
             }
         }
-        if(ownerSegment->rotation == 1) {
+        if(ownerSegment->segState.DisplayedRotation == 1) {
             if(engraving_flags.bits.north) {
                 AssembleSpriteFromSheet( engraving_character, IMGEngRightSheet, al_map_rgba_f(1.0,1.0,1.0,((engraving_quality + 5.0f) / 10.0f)), drawx, drawy, this );
             }
@@ -441,7 +433,7 @@ void Tile::AssembleTile()
                 AssembleSpriteFromSheet( engraving_character, IMGEngLeftSheet, al_map_rgba_f(1.0,1.0,1.0,((engraving_quality + 5.0f) / 10.0f)), drawx, drawy, this );
             }
         }
-        if(ownerSegment->rotation == 2) {
+        if(ownerSegment->segState.DisplayedRotation == 2) {
             if(engraving_flags.bits.west) {
                 AssembleSpriteFromSheet( engraving_character, IMGEngRightSheet, al_map_rgba_f(1.0,1.0,1.0,((engraving_quality + 5.0f) / 10.0f)), drawx, drawy, this );
             }
@@ -449,7 +441,7 @@ void Tile::AssembleTile()
                 AssembleSpriteFromSheet( engraving_character, IMGEngLeftSheet, al_map_rgba_f(1.0,1.0,1.0,((engraving_quality + 5.0f) / 10.0f)), drawx, drawy, this );
             }
         }
-        if(ownerSegment->rotation == 3) {
+        if(ownerSegment->segState.DisplayedRotation == 3) {
             if(engraving_flags.bits.south) {
                 AssembleSpriteFromSheet( engraving_character, IMGEngRightSheet, al_map_rgba_f(1.0,1.0,1.0,((engraving_quality + 5.0f) / 10.0f)), drawx, drawy, this );
             }

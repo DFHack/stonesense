@@ -108,6 +108,7 @@ private:
 
     int itemtype;
     int itemsubtype;
+    int itemmat;
 public:
     c_sprite(void);
     ~c_sprite(void);
