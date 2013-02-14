@@ -448,7 +448,7 @@ void readBlockToSegment(DFHack::Core& DF, WorldSegment& segment,
 		if(!b) {
 			b = segment.ResetTile(found_item->pos.x, found_item->pos.y, found_item->pos.z, tiletype::OpenSpace);
 			if(!b) {
-				return;
+				continue;
 			}
 		}
 		b->Item = ConvertItem(found_item, segment);
