@@ -1,0 +1,104 @@
+<?xml version="1.0" ?>
+<!-- special props -->
+
+<walls file="Tracks.png" >
+<wall sheetIndex="100" outline="0" variationtype="sixteen" halftile="both">
+	<!--stone floor track-->
+    <terrain value="519"/>
+    <terrain value="520"/>
+    <terrain value="521"/>
+    <terrain value="522"/>
+    <terrain value="523"/>
+    <terrain value="524"/>
+    <terrain value="525"/>
+    <terrain value="526"/>
+    <terrain value="527"/>
+    <terrain value="528"/>
+    <terrain value="529"/>
+    <terrain value="530"/>
+    <terrain value="531"/>
+    <terrain value="532"/>
+    <terrain value="533"/>
+	<!--obsidian floor track-->
+    <terrain value="534"/>
+    <terrain value="535"/>
+    <terrain value="536"/>
+    <terrain value="537"/>
+    <terrain value="538"/>
+    <terrain value="539"/>
+    <terrain value="540"/>
+    <terrain value="541"/>
+    <terrain value="542"/>
+    <terrain value="543"/>
+    <terrain value="544"/>
+    <terrain value="545"/>
+    <terrain value="546"/>
+    <terrain value="547"/>
+    <terrain value="548"/>
+	<!--featstone floor track-->
+    <terrain value="549"/>
+    <terrain value="550"/>
+    <terrain value="551"/>
+    <terrain value="552"/>
+    <terrain value="553"/>
+    <terrain value="554"/>
+    <terrain value="555"/>
+    <terrain value="556"/>
+    <terrain value="557"/>
+    <terrain value="558"/>
+    <terrain value="559"/>
+    <terrain value="560"/>
+    <terrain value="561"/>
+    <terrain value="562"/>
+    <terrain value="563"/>
+	<!--vein floor track-->
+    <terrain value="564"/>
+    <terrain value="565"/>
+    <terrain value="566"/>
+    <terrain value="567"/>
+    <terrain value="568"/>
+    <terrain value="569"/>
+    <terrain value="570"/>
+    <terrain value="571"/>
+    <terrain value="572"/>
+    <terrain value="573"/>
+    <terrain value="574"/>
+    <terrain value="575"/>
+    <terrain value="576"/>
+    <terrain value="577"/>
+    <terrain value="578"/>
+	<!--ice floor track-->
+    <terrain value="579"/>
+    <terrain value="580"/>
+    <terrain value="581"/>
+    <terrain value="582"/>
+    <terrain value="583"/>
+    <terrain value="584"/>
+    <terrain value="585"/>
+    <terrain value="586"/>
+    <terrain value="587"/>
+    <terrain value="588"/>
+    <terrain value="589"/>
+    <terrain value="590"/>
+    <terrain value="591"/>
+    <terrain value="592"/>
+    <terrain value="593"/>
+	<!--constructed floor track-->
+    <terrain value="594"/>
+    <terrain value="595"/>
+    <terrain value="596"/>
+    <terrain value="597"/>
+    <terrain value="598"/>
+    <terrain value="599"/>
+    <terrain value="600"/>
+    <terrain value="601"/>
+    <terrain value="602"/>
+    <terrain value="603"/>
+    <terrain value="604"/>
+    <terrain value="605"/>
+    <terrain value="606"/>
+    <terrain value="607"/>
+    <terrain value="608"/>
+</wall>
+
+</walls>

@@ -31,8 +31,10 @@ enum grass_growth : uint8_t {
 enum offset_type : uint8_t {
     NONE,
     VARIATIONS, //random variations
-    //ANIMATION, (unused but planned)
-    FOUR //four cardinal directions
+    ANIMATION, //(unused but planned)
+    FOUR, //four cardinal directions
+	SIXTEEN, //sixteeen cardinal directions
+	ROTATION //The sprite rotates with the viewport, but is otherwise uneffected by the underlying terrain.
 };
 
 
