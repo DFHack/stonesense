@@ -181,7 +181,8 @@ void c_sprite::reset(void)
     offset_y = 0;
     offset_user_x = 0;
     offset_user_y = 0;
-    variations = 0;
+	offsettype = NONE;
+    offsetcode = 0;
     animframes = ALL_FRAMES;
     shadecolor = al_map_rgb(255,255,255);
     subsprites;
@@ -194,7 +195,7 @@ void c_sprite::reset(void)
     grassmin = 0;
     grassmax = -1;
     grasstype = -1;
-    grass_growth = GRASS_GROWTH_ANY;
+    grassgrowth = GRASS_GROWTH_ANY;
     needoutline=0;
     defaultsheet=IMGObjectSheet;
     platelayout=TILEPLATE;
@@ -314,12 +315,17 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
 
     //check for randomised plates
     const char* spriteVariationsStr = elemSprite->Attribute("variations");
-    if (spriteVariationsStr == NULL || spriteVariationsStr[0] == 0) {
-        variations = 0;
-    } else {
-        variations=atoi(spriteVariationsStr);
-    }
-
+    if (spriteVariationsStr != NULL && spriteVariationsStr[0] != 0) {
+		offsettype = VARIATIONS;
+        offsetcode=atoi(spriteVariationsStr);
+    } 
+	
+    //check for rotationally-dependant plates
+    const char* spriteRotationStr = elemSprite->Attribute("rotation");
+    if (spriteRotationStr != NULL && spriteRotationStr[0] != 0) {
+		offsettype = FOUR;
+        offsetcode=atoi(spriteRotationStr);
+    } 
 
     const char* waterDirStr = elemSprite->Attribute("water_direction");
     if (waterDirStr == NULL || waterDirStr[0] == 0) {
@@ -377,17 +383,17 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
     }
 
     //Grass states
-    const char* grass_growth_string = elemSprite->Attribute("grass_state");
-    if (grass_growth_string == NULL || grass_growth_string[0] == 0) {
-        grass_growth = GRASS_GROWTH_ANY;
-    } else if( strcmp(grass_growth_string, "any") == 0) {
-        grass_growth = GRASS_GROWTH_ANY;
-    } else if( strcmp(grass_growth_string, "green") == 0) {
-        grass_growth = GRASS_GROWTH_NORMAL;
-    } else if( strcmp(grass_growth_string, "dry") == 0) {
-        grass_growth = GRASS_GROWTH_DRY;
-    } else if( strcmp(grass_growth_string, "dead") == 0) {
-        grass_growth = GRASS_GROWTH_DEAD;
+    const char* GRASS_GROWTH_string = elemSprite->Attribute("grass_state");
+    if (GRASS_GROWTH_string == NULL || GRASS_GROWTH_string[0] == 0) {
+        grassgrowth = GRASS_GROWTH_ANY;
+    } else if( strcmp(GRASS_GROWTH_string, "any") == 0) {
+        grassgrowth = GRASS_GROWTH_ANY;
+    } else if( strcmp(GRASS_GROWTH_string, "green") == 0) {
+        grassgrowth = GRASS_GROWTH_NORMAL;
+    } else if( strcmp(GRASS_GROWTH_string, "dry") == 0) {
+        grassgrowth = GRASS_GROWTH_DRY;
+    } else if( strcmp(GRASS_GROWTH_string, "dead") == 0) {
+        grassgrowth = GRASS_GROWTH_DEAD;
     }
 
     //do bodyparts
@@ -659,18 +665,24 @@ void c_sprite::assemble_world_offset(int x, int y, int z, int plateoffset, Tile 
     // by setting animate to 0
 
     if ((animframes & (1 << offsetAnimFrame)) || !animate) {
-        //if set by the xml file, a random offset between 0 and 'variations' is added to the sprite.
-        int randoffset = 0;
-        if(variations) {
-            randoffset = rando%variations;
-        }
+        int spriteoffset;
+		switch(offsettype){
+		case FOUR:
+		    spriteoffset = (b->ownerSegment->segState.DisplayedRotation + offsetcode) % 4;
+            break;
+		case VARIATIONS:
+            spriteoffset = rando%offsetcode;
+			break;
+		default:
+		    spriteoffset = 0;
+		}
 
         if(!b) {
             return;
         }
         //if the xml says that this is a blood sprite, and offset is set here for proper pooling. this over-rides the random offset.
         if(bloodsprite) {
-            randoffset = getBloodOffset(b);
+            spriteoffset = getBloodOffset(b);
         }
         if(!((water_direction < 0) || (water_direction == get_relative_water_direction(b)))) {
             goto draw_subsprite;
@@ -717,13 +729,13 @@ void c_sprite::assemble_world_offset(int x, int y, int z, int plateoffset, Tile 
         if(!((grasstype == -1) || (grasstype == b->grassmat))) {
             goto draw_subsprite;
         }
-        if(!((grass_growth == GRASS_GROWTH_ANY) ||
-                ((grass_growth == GRASS_GROWTH_NORMAL) &&
+        if(!((grassgrowth == GRASS_GROWTH_ANY) ||
+                ((grassgrowth == GRASS_GROWTH_NORMAL) &&
                  ((b->tileMaterial() == tiletype_material::GRASS_DARK) ||
                   (b->tileMaterial() == tiletype_material::GRASS_LIGHT))) ||
-                ((grass_growth == GRASS_GROWTH_DRY) &&
+                ((grassgrowth == GRASS_GROWTH_DRY) &&
                  (b->tileMaterial() == tiletype_material::GRASS_DRY)) ||
-                ((grass_growth == GRASS_GROWTH_DEAD) &&
+                ((grassgrowth == GRASS_GROWTH_DEAD) &&
                  (b->tileMaterial() == tiletype_material::GRASS_DEAD)))) {
             goto draw_subsprite;
         }
@@ -779,17 +791,17 @@ void c_sprite::assemble_world_offset(int x, int y, int z, int plateoffset, Tile 
 
         int sheetx, sheety;
         if(platelayout == TILEPLATE) {
-            sheetx = ((sheetindex+plateoffset+randoffset) % SHEET_OBJECTSWIDE) * spritewidth;
-            sheety = ((sheetindex+plateoffset+randoffset) / SHEET_OBJECTSWIDE) * spriteheight;
+            sheetx = ((sheetindex+plateoffset+spriteoffset) % SHEET_OBJECTSWIDE) * spritewidth;
+            sheety = ((sheetindex+plateoffset+spriteoffset) / SHEET_OBJECTSWIDE) * spriteheight;
         } else if(platelayout == RAMPBOTTOMPLATE) {
             sheetx = SPRITEWIDTH * b->rampindex;
-            sheety = ((TILETOPHEIGHT + FLOORHEIGHT + SPRITEHEIGHT) * (sheetindex+plateoffset+randoffset))+(TILETOPHEIGHT + FLOORHEIGHT);
+            sheety = ((TILETOPHEIGHT + FLOORHEIGHT + SPRITEHEIGHT) * (sheetindex+plateoffset+spriteoffset))+(TILETOPHEIGHT + FLOORHEIGHT);
         } else if(platelayout == RAMPTOPPLATE) {
             sheetx = SPRITEWIDTH * b->rampindex;
-            sheety = (TILETOPHEIGHT + FLOORHEIGHT + SPRITEHEIGHT) * (sheetindex+plateoffset+randoffset);
+            sheety = (TILETOPHEIGHT + FLOORHEIGHT + SPRITEHEIGHT) * (sheetindex+plateoffset+spriteoffset);
         } else {
-            sheetx = ((sheetindex+plateoffset+randoffset) % SHEET_OBJECTSWIDE) * spritewidth;
-            sheety = ((sheetindex+plateoffset+randoffset) / SHEET_OBJECTSWIDE) * spriteheight;
+            sheetx = ((sheetindex+plateoffset+spriteoffset) % SHEET_OBJECTSWIDE) * spritewidth;
+            sheety = ((sheetindex+plateoffset+spriteoffset) / SHEET_OBJECTSWIDE) * spriteheight;
         }
         ALLEGRO_COLOR shade_color = shadeAdventureMode(get_color(b), b->fog_of_war, b->designation.bits.outside);
         if(chop && ( halftile == HALFPLATECHOP)) {

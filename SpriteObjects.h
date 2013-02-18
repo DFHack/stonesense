@@ -21,11 +21,18 @@
 #define LIGHTYES 1
 #define LIGHTNO 2
 
-enum grass_growth {
+enum grass_growth : uint8_t {
     GRASS_GROWTH_ANY,
     GRASS_GROWTH_NORMAL,
     GRASS_GROWTH_DRY,
     GRASS_GROWTH_DEAD
+};
+
+enum offset_type : uint8_t {
+    NONE,
+    VARIATIONS, //random variations
+    //ANIMATION, (unused but planned)
+    FOUR //four cardinal directions
 };
 
 
@@ -42,13 +49,15 @@ private:
     int16_t offset_y;
     int16_t offset_user_x;
     int16_t offset_user_y;
-    uint8_t variations;
     ShadeBy shadeBy;
     std::vector<c_sprite> subsprites;
     ALLEGRO_COLOR shadecolor;
     ALLEGRO_COLOR namedcolor;
     char bodypart[128];
 	uint8_t pattern_index;
+
+    offset_type offsettype;
+    uint8_t offsetcode;
     char animframes;
 
     int snowmin;
@@ -61,7 +70,7 @@ private:
     int grassmin;
 
     int grasstype;
-    char grass_growth;
+    grass_growth grassgrowth;
 
     unsigned int waterMin : 3;
     unsigned int waterMax : 3;
