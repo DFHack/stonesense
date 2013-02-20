@@ -123,7 +123,7 @@
     <terrain value="667" />
     <!--vein ramp track NSEW-->
     <terrain value="668" />
-	<subsprite sheetIndex="0" variationtype="sixteen" file="RampTracks.png" />
+	<subsprite sheetIndex="0" variationtype="sixteen" file="Track_Ramps.png" />
   </wall>
   <!-- brick -->
   <wall sheetIndex="2" file="ramps.png" color="material">
@@ -157,7 +157,7 @@
     <terrain value="697" />
     <!--constructed ramp track NSEW-->
     <terrain value="698" />
-    <subsprite sheetIndex="0" variationtype="sixteen" file="RampTracks.png" />
+    <subsprite sheetIndex="0" variationtype="sixteen" file="Track_Ramps.png" />
   </wall>
   <wall sheetIndex="5" file="ramps.png">
     <!--ice ramp track N-->
@@ -190,7 +190,7 @@
     <terrain value="682" />
     <!--ice ramp track NSEW-->
     <terrain value="683" />
-    <subsprite sheetIndex="0" variationtype="sixteen" file="RampTracks.png" />
+    <subsprite sheetIndex="0" variationtype="sixteen" file="Track_Ramps.png" />
   </wall>
   <wall sheetIndex="5" file="ramps.png">
     <!--constructed ramp track N-->
@@ -223,7 +223,7 @@
     <terrain value="697" />
     <!--constructed ramp track NSEW-->
     <terrain value="698" />
-    <subsprite sheetIndex="0" variationtype="sixteen" file="RampTracks.png" />
+    <subsprite sheetIndex="0" variationtype="sixteen" file="Track_Ramps.png" />
     <material value="Ice" />
   </wall>
   <wall sheetIndex="4" file="ramps.png">
@@ -257,7 +257,7 @@
     <terrain value="697" />
     <!--constructed ramp track NSEW-->
     <terrain value="698" />
-    <subsprite sheetIndex="0" variationtype="sixteen" file="RampTracks.png" />
+    <subsprite sheetIndex="0" variationtype="sixteen" file="Track_Ramps.png" />
     <material value="GreenGlass" />
   </wall>
   <wall sheetIndex="3" file="ramps.png">
@@ -291,7 +291,7 @@
     <terrain value="697" />
     <!--constructed ramp track NSEW-->
     <terrain value="698" />
-    <subsprite sheetIndex="0" variationtype="sixteen" file="RampTracks.png" />
+    <subsprite sheetIndex="0" variationtype="sixteen" file="Track_Ramps.png" />
     <material value="ClearGlass" />
     <material value="CrystalGlass" />
   </wall>
@@ -326,7 +326,7 @@
     <terrain value="697" />
     <!--constructed ramp track NSEW-->
     <terrain value="698" />
-    <subsprite sheetIndex="0" variationtype="sixteen" file="RampTracks.png" />
+    <subsprite sheetIndex="0" variationtype="sixteen" file="Track_Ramps.png" />
     <material value="Wood" />
   </wall>
 </walls>
