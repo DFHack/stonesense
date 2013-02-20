@@ -1143,13 +1143,13 @@ ALLEGRO_COLOR c_sprite::get_color(void* tile)
         return namedcolor;
     case ShadeGrass:
         return lookupMaterialColor(WOOD, b->grassmat);
-    case ShadeBuilding:
-		if(pattern_index == -1)
-			return (b->building.info ? lookupMaterialColor(b->building.info->material) : al_map_rgb(255, 255, 255));
+	case ShadeBuilding:
 		if(b->building.constructed_mats.size() == 0)
 			return (b->building.info ? lookupMaterialColor(b->building.info->material) : al_map_rgb(255, 255, 255));
+		if(pattern_index == -1)
+			return(lookupMaterialColor(b->building.constructed_mats[b->building.constructed_mats.size()-1].matt, b->building.constructed_mats[b->building.constructed_mats.size()-1].dyematt));
 		return(lookupMaterialColor(b->building.constructed_mats[pattern_index%b->building.constructed_mats.size()].matt, b->building.constructed_mats[pattern_index%b->building.constructed_mats.size()].dyematt));
-    case ShadeLayer:
+	case ShadeLayer:
         return lookupMaterialColor(b->layerMaterial);
     case ShadeVein:
         return lookupMaterialColor(b->veinMaterial);

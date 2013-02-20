@@ -253,6 +253,8 @@ SS_Item ConvertItem(df::item * found_item, WorldSegment& segment){
 	Tempitem.matt.type = found_item->getActualMaterial();
 	Tempitem.matt.index = found_item->getActualMaterialIndex();
 
+	Tempitem.dyematt.type = -1;
+	Tempitem.dyematt.index = -1;
 	if(1) { //found_item->isDyed())
 		auto Constructed_Item = virtual_cast<df::item_constructed>(found_item);
 		if(Constructed_Item) {
