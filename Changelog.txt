@@ -1,3 +1,30 @@
+----==== 3.2 'Felsite', ? 2013 ====----
+* Many crash and bug fixes
+* Reworking of map-loading to take advantage of DFHack functions
+* Occlusion-culling of hidden tiles
+* Zoom feature and multiple zoom-level sprites
+* Better ground material type detection
+* Creatures without specified sprites display as their DF symbol rather than question mark
+* Support for creature equipment
+* Support for items on the ground
+* Support for item materials and item dyes
+* Support for multicolor patterns
+* Profession indicator icons and colored creature name text
+* Creature 'current job' text
+* Configurable key bindings
+* Multi-material building support
+* Visible well-buckets
+* Adventure-mode day/night cycles
+* More comprehensive liquid flow detection
+* Farm plots show crop status
+* Farm plots and stockpiles show actual extents
+* Support for non-square segments
+* Full-map screenshots fixed and now support non-square maps
+* Floor contaminants (blood/snow/etc.) displayed
+* Gas flows (misma/mist/dust/etc.) displayed
+* Support for sprite color specification by DF named colors from raw files
+* Support for tracks and other direction-dependant tiles
+
 ----==== 3.1 'Felsite', September 8th 2011 ====----
 * Major changes to DFHack, Stonesense is now run from DFHack console
 * Many speed optimizations
