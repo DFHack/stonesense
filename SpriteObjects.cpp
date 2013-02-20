@@ -26,6 +26,148 @@
 
 #define ALL_BORDERS 255
 
+uint8_t dir_to_16(DFHack::TileDirection in)
+{
+	if(in.north){
+		if(in.east){
+			if(in.south){
+				if(in.west){
+					return 15; //NESW
+				}
+				else{
+					return 11; //NES
+				}
+			}
+			else{
+				if(in.west){
+					return 14; //NEW
+				}
+				else{
+					return 7; //NE
+				}
+			}
+		}
+		else{
+			if(in.south){
+				if(in.west){
+					return 13; //NSW
+				}
+				else{
+					return 5; //NS
+				}
+			}
+			else{
+				if(in.west){
+					return 10; //NW
+				}
+				else{
+					return 1; //N
+				}
+			}
+		}
+	}
+	else{
+		if(in.east){
+			if(in.south){
+				if(in.west){
+					return 12; //ESW
+				}
+				else{
+					return 8; //ES
+				}
+			}
+			else{
+				if(in.west){
+					return 6; //EW
+				}
+				else{
+					return 2; //E
+				}
+			}
+		}
+		else{
+			if(in.south){
+				if(in.west){
+					return 9; //SW
+				}
+				else{
+					return 3; //S
+				}
+			}
+			else{
+				if(in.west){
+					return 4; //W
+				}
+				else{
+					return 0; //0
+				}
+			}
+		}
+	}
+	return 0;
+}
+
+uint8_t dir_to_4(DFHack::TileDirection in)
+{
+	uint8_t intermediate = dir_to_16(in);
+	switch(intermediate)
+	{
+	case 0:
+	case 2:
+	case 5:
+	case 8:
+	case 12:
+	case 15:
+		return 0;
+	case 3:
+	case 6:
+	case 9:
+	case 13:
+		return 1;
+	case 4:
+	case 10:
+	case 14:
+		return 2;
+	case 1:
+	case 7:
+	case 11:
+		return 3; 
+	}
+	return 0;
+}
+
+DFHack::TileDirection correct_dir_rotation(DFHack::TileDirection in, uint8_t rotation)
+{
+	uint8_t north,south,east,west;
+	north = in.north;
+	south = in.south;
+	east = in.east;
+	west = in.west;
+	switch(rotation){
+	case 0:
+		return in;
+	case 1:
+		in.north = west;
+		in.east = north;
+		in.south = east;
+		in.west = south;
+		break;
+	case 2:
+		in.north = south;
+		in.east = west;
+		in.south = north;
+		in.west = east;
+		break;
+	case 3:
+		in.north = east;
+		in.east = south;
+		in.south = west;
+		in.west = north;
+		break;
+	}
+	return in;
+}
+
 unsigned char get_water_direction( Tile *b )
 {
     //Fixme: add the new river ramps, possibly change to a switch statement
@@ -56,19 +198,19 @@ unsigned char get_water_direction( Tile *b )
     return 0;
 }
 
-unsigned char get_relative_water_direction( Tile *b )
+unsigned char get_relative_water_direction( Tile *b, uint8_t rotation)
 {
     int  dir = get_water_direction(b);
     if(dir == 0) {
         return dir;
     }
-    if(ssState.DisplayedRotation == 1) {
+    if(rotation == 1) {
         dir += 2;
     }
-    if(ssState.DisplayedRotation == 2) {
+    if(rotation == 2) {
         dir += 4;
     }
-    if(ssState.DisplayedRotation == 3) {
+    if(rotation == 3) {
         dir += 6;
     }
     if(dir > 8) {
@@ -323,8 +465,23 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
     //check for rotationally-dependant plates
     const char* spriteRotationStr = elemSprite->Attribute("rotation");
     if (spriteRotationStr != NULL && spriteRotationStr[0] != 0) {
-		offsettype = FOUR;
+		offsettype = ROTATION;
         offsetcode=atoi(spriteRotationStr);
+    } 
+
+	//check for plate patterns
+    const char* spriteVariationTypeStr = elemSprite->Attribute("variationtype");
+    if (spriteVariationTypeStr != NULL && spriteVariationTypeStr[0] != 0) {
+		if(strcmp(spriteVariationTypeStr, "four") == 0)
+			offsettype = FOUR;
+		else if(strcmp(spriteVariationTypeStr, "sixteen") == 0)
+			offsettype = SIXTEEN;
+		else if(strcmp(spriteVariationTypeStr, "random") == 0)
+			offsettype = VARIATIONS;
+		else if(strcmp(spriteVariationTypeStr, "animation") == 0)
+			offsettype = ANIMATION;
+		else if(strcmp(spriteVariationTypeStr, "rotation") == 0)
+			offsettype = ROTATION;
     } 
 
     const char* waterDirStr = elemSprite->Attribute("water_direction");
@@ -667,11 +824,20 @@ void c_sprite::assemble_world_offset(int x, int y, int z, int plateoffset, Tile 
     if ((animframes & (1 << offsetAnimFrame)) || !animate) {
         int spriteoffset;
 		switch(offsettype){
-		case FOUR:
+		case ROTATION:
 		    spriteoffset = (b->ownerSegment->segState.DisplayedRotation + offsetcode) % 4;
             break;
 		case VARIATIONS:
             spriteoffset = rando%offsetcode;
+			break;
+		case ANIMATION:
+			spriteoffset = ((randomanimation?rando:0) + currentAnimationFrame) % offsetcode;
+			break;
+		case SIXTEEN:
+			spriteoffset = dir_to_16(correct_dir_rotation(tileDirection(b->tileType), (offsetcode + ssState.DisplayedRotation) %4));
+			break;
+		case FOUR:
+			spriteoffset = dir_to_4(correct_dir_rotation(tileDirection(b->tileType), (offsetcode + ssState.DisplayedRotation) %4));
 			break;
 		default:
 		    spriteoffset = 0;
@@ -684,7 +850,7 @@ void c_sprite::assemble_world_offset(int x, int y, int z, int plateoffset, Tile 
         if(bloodsprite) {
             spriteoffset = getBloodOffset(b);
         }
-        if(!((water_direction < 0) || (water_direction == get_relative_water_direction(b)))) {
+        if(!((water_direction < 0) || (water_direction == get_relative_water_direction(b, ssState.DisplayedRotation)))) {
             goto draw_subsprite;
         }
         if(!( //these are all border conditions. this first section is a list of positive conditions. if at least one of the border conditions is met, the plate can be shown.
@@ -977,13 +1143,13 @@ ALLEGRO_COLOR c_sprite::get_color(void* tile)
         return namedcolor;
     case ShadeGrass:
         return lookupMaterialColor(WOOD, b->grassmat);
-    case ShadeBuilding:
-		if(pattern_index == -1)
-			return (b->building.info ? lookupMaterialColor(b->building.info->material) : al_map_rgb(255, 255, 255));
+	case ShadeBuilding:
 		if(b->building.constructed_mats.size() == 0)
 			return (b->building.info ? lookupMaterialColor(b->building.info->material) : al_map_rgb(255, 255, 255));
+		if(pattern_index == -1)
+			return(lookupMaterialColor(b->building.constructed_mats[b->building.constructed_mats.size()-1].matt, b->building.constructed_mats[b->building.constructed_mats.size()-1].dyematt));
 		return(lookupMaterialColor(b->building.constructed_mats[pattern_index%b->building.constructed_mats.size()].matt, b->building.constructed_mats[pattern_index%b->building.constructed_mats.size()].dyematt));
-    case ShadeLayer:
+	case ShadeLayer:
         return lookupMaterialColor(b->layerMaterial);
     case ShadeVein:
         return lookupMaterialColor(b->veinMaterial);
