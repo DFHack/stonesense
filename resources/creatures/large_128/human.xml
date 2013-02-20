@@ -52,8 +52,8 @@
 		<subsprite sheetIndex="126" zoom="2" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_LEATHER" color="equipment"/>
 		<subsprite sheetIndex="127" zoom="2" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_BREASTPLATE" color="equipment"/>
 		<subsprite sheetIndex="162" zoom="2" equipment_class="GLOVES" equipment_name="ITEM_GLOVES_GAUNTLETS" color="equipment"/>
-		<subsprite sheetIndex="170" zoom="2" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_ROBE" color="equipment"/>
-		<subsprite sheetIndex="171" zoom="2" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_CLOAK" color="equipment"/>
+		<subsprite sheetIndex="130" zoom="2" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_ROBE" color="equipment"/>
+		<subsprite sheetIndex="131" zoom="2" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_CLOAK" color="equipment"/>
 		  
 		<!--head goes here - on top of clothes but below hats-->
 		<subsprite sheetIndex="5" zoom="2" color="bodypart" bodypart="skin" />
@@ -73,34 +73,35 @@
 		<subsprite sheetIndex="180" zoom="2" equipment_class="HELM" equipment_name="ITEM_HELM_VEIL_FACE" color="equipment"/>
 		
 		<!--weapons-->
-		<subsprite file="dwarfm.png" sheetIndex="200" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_WHIP" color="equipment"/>
-		<subsprite file="dwarfm.png" sheetIndex="201" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_AXE_BATTLE" color="equipment"/>
-		<subsprite file="dwarfm.png" sheetIndex="202" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_HAMMER_WAR" color="equipment"/>
-		<subsprite file="dwarfm.png" sheetIndex="203" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_SWORD_SHORT" color="equipment"/>
-		<subsprite file="dwarfm.png" sheetIndex="204" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_SPEAR" color="equipment"/>
-		<subsprite file="dwarfm.png" sheetIndex="205" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_MACE" color="equipment"/>
-		<subsprite file="dwarfm.png" sheetIndex="206" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_CROSSBOW" color="equipment"/>
-		<subsprite file="dwarfm.png" sheetIndex="207" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_PICK" color="equipment"/>
-		<subsprite file="dwarfm.png" sheetIndex="208" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_BOW" color="equipment"/>
-		<subsprite file="dwarfm.png" sheetIndex="209" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_BLOWGUN" color="equipment"/>
-		<subsprite file="dwarfm.png" sheetIndex="204" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_PIKE" color="equipment"/>
-		<subsprite file="dwarfm.png" sheetIndex="210" offsety="-16" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_PIKE" color="equipment"/>
-		<subsprite file="dwarfm.png" sheetIndex="211" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_HALBERD" color="equipment"/>
-		<subsprite file="dwarfm.png" sheetIndex="220" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_SWORD_2H" color="equipment"/>
-		<subsprite file="dwarfm.png" sheetIndex="221" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_SWORD_LONG" color="equipment"/>
-		<subsprite file="dwarfm.png" sheetIndex="222" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_MAUL" color="equipment"/>
-		<subsprite file="dwarfm.png" sheetIndex="223" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_AXE_GREAT" color="equipment"/>
-		<subsprite file="dwarfm.png" sheetIndex="224" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_DAGGER_LARGE" color="equipment"/>
-		<subsprite file="dwarfm.png" sheetIndex="225" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_SCOURGE" color="equipment"/>
-		<subsprite file="dwarfm.png" sheetIndex="226" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_FLAIL" color="equipment"/>
-		<subsprite file="dwarfm.png" sheetIndex="227" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_MORNINGSTAR" color="equipment"/>
-		<subsprite file="dwarfm.png" sheetIndex="228" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_SCIMITAR" color="equipment"/>
-		<subsprite file="dwarfm.png" sheetIndex="229" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_AXE_TRAINING" color="equipment"/>
-		<subsprite file="dwarfm.png" sheetIndex="230" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_SWORD_SHORT_TRAINING" color="equipment"/>
-		<subsprite file="dwarfm.png" sheetIndex="231" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_SPEAR_TRAINING" color="equipment"/>
+		<subsprite file="weapons.png" sheetIndex="0" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_WHIP" color="equipment"/>
+		<subsprite file="weapons.png" sheetIndex="1" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_AXE_BATTLE" color="equipment"/>
+		<subsprite file="weapons.png" sheetIndex="2" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_HAMMER_WAR" color="equipment"/>
+		<subsprite file="weapons.png" sheetIndex="3" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_SWORD_SHORT" color="equipment"/>
+		<subsprite file="weapons.png" sheetIndex="4" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_SPEAR" color="equipment"/>
+		<subsprite file="weapons.png" sheetIndex="20" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_MACE" color="equipment"/>
+		<subsprite file="weapons.png" sheetIndex="22" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_PICK" color="equipment"/>
+		<subsprite file="weapons.png" sheetIndex="23" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_BOW" color="equipment"/>
+		<subsprite file="weapons.png" sheetIndex="24" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_BLOWGUN" color="equipment"/>
+		<subsprite file="weapons.png" sheetIndex="4" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_PIKE" color="equipment"/>
+		<subsprite file="weapons.png" sheetIndex="40" offsety="-16" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_PIKE" color="equipment"/>
+		<subsprite file="weapons.png" sheetIndex="41" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_HALBERD" color="equipment"/>
+		<subsprite file="weapons.png" sheetIndex="43" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_SWORD_LONG" color="equipment"/>
+		<subsprite file="weapons.png" sheetIndex="61" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_DAGGER_LARGE" color="equipment"/>
+		<subsprite file="weapons.png" sheetIndex="62" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_SCOURGE" color="equipment"/>
+		<subsprite file="weapons.png" sheetIndex="63" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_FLAIL" color="equipment"/>
+		<subsprite file="weapons.png" sheetIndex="64" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_MORNINGSTAR" color="equipment"/>
+		<subsprite file="weapons.png" sheetIndex="80" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_SCIMITAR" color="equipment"/>
+		<subsprite file="weapons.png" sheetIndex="81" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_AXE_TRAINING" color="equipment"/>
+		<subsprite file="weapons.png" sheetIndex="82" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_SWORD_SHORT_TRAINING" color="equipment"/>
+		<subsprite file="weapons.png" sheetIndex="83" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_SPEAR_TRAINING" color="equipment"/>
 		
-		<subsprite file="dwarfm.png" sheetIndex="163" zoom="2" equipment_class="SHIELD" equipment_name="ITEM_SHIELD_BUCKLER" color="equipment"/>
-		<subsprite file="dwarfm.png" sheetIndex="164" zoom="2" equipment_class="SHIELD" equipment_name="ITEM_SHIELD_SHIELD" color="equipment"/>
+		<subsprite file="weapons.png" sheetIndex="42" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_SWORD_2H" color="equipment"/>
+		<subsprite file="weapons.png" sheetIndex="44" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_MAUL" color="equipment"/>
+		<subsprite file="weapons.png" sheetIndex="60" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_AXE_GREAT" color="equipment"/>
+		<subsprite file="weapons.png" sheetIndex="21" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_CROSSBOW" color="equipment"/>
+		
+		<!--subsprite sheetIndex="163" zoom="2" equipment_class="SHIELD" equipment_name="ITEM_SHIELD_BUCKLER" color="equipment"/-->
+		<!--subsprite sheetIndex="164" zoom="2" equipment_class="SHIELD" equipment_name="ITEM_SHIELD_SHIELD" color="equipment"/-->
 	</variant>
 
 	<variant special="Military" sex="F" file="humanf.png" >
@@ -143,8 +144,8 @@
 		<subsprite sheetIndex="126" zoom="2" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_LEATHER" color="equipment"/>
 		<subsprite sheetIndex="127" zoom="2" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_BREASTPLATE" color="equipment"/>
 		<subsprite sheetIndex="162" zoom="2" equipment_class="GLOVES" equipment_name="ITEM_GLOVES_GAUNTLETS" color="equipment"/>
-		<subsprite sheetIndex="170" zoom="2" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_ROBE" color="equipment"/>
-		<subsprite sheetIndex="171" zoom="2" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_CLOAK" color="equipment"/>
+		<subsprite sheetIndex="130" zoom="2" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_ROBE" color="equipment"/>
+		<subsprite sheetIndex="131" zoom="2" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_CLOAK" color="equipment"/>
 		  
 		<!--head goes here - on top of clothes but below hats-->
 		<subsprite sheetIndex="5" zoom="2" color="bodypart" bodypart="skin" />
@@ -164,34 +165,35 @@
 		<subsprite sheetIndex="180" zoom="2" equipment_class="HELM" equipment_name="ITEM_HELM_VEIL_FACE" color="equipment"/>
 		
 		<!--weapons-->
-		<subsprite file="dwarfm.png" sheetIndex="200" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_WHIP" color="equipment"/>
-		<subsprite file="dwarfm.png" sheetIndex="201" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_AXE_BATTLE" color="equipment"/>
-		<subsprite file="dwarfm.png" sheetIndex="202" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_HAMMER_WAR" color="equipment"/>
-		<subsprite file="dwarfm.png" sheetIndex="203" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_SWORD_SHORT" color="equipment"/>
-		<subsprite file="dwarfm.png" sheetIndex="204" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_SPEAR" color="equipment"/>
-		<subsprite file="dwarfm.png" sheetIndex="205" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_MACE" color="equipment"/>
-		<subsprite file="dwarfm.png" sheetIndex="206" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_CROSSBOW" color="equipment"/>
-		<subsprite file="dwarfm.png" sheetIndex="207" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_PICK" color="equipment"/>
-		<subsprite file="dwarfm.png" sheetIndex="208" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_BOW" color="equipment"/>
-		<subsprite file="dwarfm.png" sheetIndex="209" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_BLOWGUN" color="equipment"/>
-		<subsprite file="dwarfm.png" sheetIndex="204" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_PIKE" color="equipment"/>
-		<subsprite file="dwarfm.png" sheetIndex="210" offsety="-16" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_PIKE" color="equipment"/>
-		<subsprite file="dwarfm.png" sheetIndex="211" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_HALBERD" color="equipment"/>
-		<subsprite file="dwarfm.png" sheetIndex="220" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_SWORD_2H" color="equipment"/>
-		<subsprite file="dwarfm.png" sheetIndex="221" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_SWORD_LONG" color="equipment"/>
-		<subsprite file="dwarfm.png" sheetIndex="222" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_MAUL" color="equipment"/>
-		<subsprite file="dwarfm.png" sheetIndex="223" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_AXE_GREAT" color="equipment"/>
-		<subsprite file="dwarfm.png" sheetIndex="224" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_DAGGER_LARGE" color="equipment"/>
-		<subsprite file="dwarfm.png" sheetIndex="225" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_SCOURGE" color="equipment"/>
-		<subsprite file="dwarfm.png" sheetIndex="226" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_FLAIL" color="equipment"/>
-		<subsprite file="dwarfm.png" sheetIndex="227" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_MORNINGSTAR" color="equipment"/>
-		<subsprite file="dwarfm.png" sheetIndex="228" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_SCIMITAR" color="equipment"/>
-		<subsprite file="dwarfm.png" sheetIndex="229" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_AXE_TRAINING" color="equipment"/>
-		<subsprite file="dwarfm.png" sheetIndex="230" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_SWORD_SHORT_TRAINING" color="equipment"/>
-		<subsprite file="dwarfm.png" sheetIndex="231" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_SPEAR_TRAINING" color="equipment"/>
+		<subsprite file="weapons.png" sheetIndex="0" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_WHIP" color="equipment"/>
+		<subsprite file="weapons.png" sheetIndex="1" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_AXE_BATTLE" color="equipment"/>
+		<subsprite file="weapons.png" sheetIndex="2" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_HAMMER_WAR" color="equipment"/>
+		<subsprite file="weapons.png" sheetIndex="3" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_SWORD_SHORT" color="equipment"/>
+		<subsprite file="weapons.png" sheetIndex="4" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_SPEAR" color="equipment"/>
+		<subsprite file="weapons.png" sheetIndex="20" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_MACE" color="equipment"/>
+		<subsprite file="weapons.png" sheetIndex="22" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_PICK" color="equipment"/>
+		<subsprite file="weapons.png" sheetIndex="23" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_BOW" color="equipment"/>
+		<subsprite file="weapons.png" sheetIndex="24" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_BLOWGUN" color="equipment"/>
+		<subsprite file="weapons.png" sheetIndex="4" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_PIKE" color="equipment"/>
+		<subsprite file="weapons.png" sheetIndex="40" offsety="-16" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_PIKE" color="equipment"/>
+		<subsprite file="weapons.png" sheetIndex="41" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_HALBERD" color="equipment"/>
+		<subsprite file="weapons.png" sheetIndex="43" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_SWORD_LONG" color="equipment"/>
+		<subsprite file="weapons.png" sheetIndex="61" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_DAGGER_LARGE" color="equipment"/>
+		<subsprite file="weapons.png" sheetIndex="62" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_SCOURGE" color="equipment"/>
+		<subsprite file="weapons.png" sheetIndex="63" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_FLAIL" color="equipment"/>
+		<subsprite file="weapons.png" sheetIndex="64" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_MORNINGSTAR" color="equipment"/>
+		<subsprite file="weapons.png" sheetIndex="80" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_SCIMITAR" color="equipment"/>
+		<subsprite file="weapons.png" sheetIndex="81" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_AXE_TRAINING" color="equipment"/>
+		<subsprite file="weapons.png" sheetIndex="82" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_SWORD_SHORT_TRAINING" color="equipment"/>
+		<subsprite file="weapons.png" sheetIndex="83" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_SPEAR_TRAINING" color="equipment"/>
 		
-		<subsprite file="dwarfm.png" sheetIndex="163" zoom="2" equipment_class="SHIELD" equipment_name="ITEM_SHIELD_BUCKLER" color="equipment"/>
-		<subsprite file="dwarfm.png" sheetIndex="164" zoom="2" equipment_class="SHIELD" equipment_name="ITEM_SHIELD_SHIELD" color="equipment"/>
+		<subsprite file="weapons.png" sheetIndex="42" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_SWORD_2H" color="equipment"/>
+		<subsprite file="weapons.png" sheetIndex="44" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_MAUL" color="equipment"/>
+		<subsprite file="weapons.png" sheetIndex="60" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_AXE_GREAT" color="equipment"/>
+		<subsprite file="weapons.png" sheetIndex="21" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_CROSSBOW" color="equipment"/>
+		
+		<!--subsprite sheetIndex="163" zoom="2" equipment_class="SHIELD" equipment_name="ITEM_SHIELD_BUCKLER" color="equipment"/-->
+		<!--subsprite sheetIndex="164" zoom="2" equipment_class="SHIELD" equipment_name="ITEM_SHIELD_SHIELD" color="equipment"/-->
 	</variant>
   
 	<variant special="Normal" sex="M" file="humanm.png" >
