@@ -166,12 +166,10 @@ void draw_borders(float x, float y, uint8_t borders)
 
 }
 
-void ScreenToPoint(int x,int y,int &x1, int &y1, int &z1)
+void ScreenToPoint(int x,int y,int &x1, int &y1, int &z1, int segSizeX, int segSizeY, int ScreenW, int ScreenH)
 {
-    if(ssConfig.track_screen_center) {
-        x-=ssState.ScreenW / 2;
-        y-=ssState.ScreenH / 2;
-    }
+    x-=ScreenW / 2;
+    y-=ScreenH / 2;
 
     y = y/ssConfig.scale;
     y += TILETOPHEIGHT*5/4;
@@ -179,39 +177,58 @@ void ScreenToPoint(int x,int y,int &x1, int &y1, int &z1)
     z1 = 0;
     y += z1*TILEHEIGHT;
     y = 2 * y / TILETOPHEIGHT;
+    y += (segSizeX/2) + (segSizeY/2);
     
     x = x/ssConfig.scale;
     x -= (TILEWIDTH/2)*(ssConfig.lift_segment_offscreen_x);
     x = 2 * x / TILEWIDTH;
+    x += (segSizeX/2) - (segSizeY/2);
 
     x1 = (x + y)/2;
     y1 = (y - x)/2;
 
 }
 
-void pointToScreen(int *inx, int *iny, int inz)
+void ScreenToPoint(int x,int y,int &x1, int &y1, int &z1)
 {
+    if(ssConfig.track_screen_center){
+        ScreenToPoint(x, y, x1, y1, z1, ssState.SegmentSize.x, ssState.SegmentSize.y, ssState.ScreenW, ssState.ScreenH);
+    } else {
+        ScreenToPoint(x, y, x1, y1, z1, 0, 0, 0, 0);
+    }
+}
+
+void pointToScreen(int *inx, int *iny, int inz, int segSizeX, int segSizeY, int ScreenW, int ScreenH){
     int z = inz-1;
 
     int x = *inx-*iny;
+    x-=(segSizeX/2) - (segSizeY/2);
     x = x * TILEWIDTH / 2;
     x += (TILEWIDTH/2)*ssConfig.lift_segment_offscreen_x;
     x *= ssConfig.scale;
 
     int y = *inx+*iny;
+    y-=(segSizeX/2) + (segSizeY/2);
     y = y*TILETOPHEIGHT / 2;
     y -= z*TILEHEIGHT;
     y -= TILETOPHEIGHT*5/4;
     y -= TILEHEIGHT*ssConfig.lift_segment_offscreen_y;
     y *= ssConfig.scale;
 
-    if(ssConfig.track_screen_center) {
-        x+=ssState.ScreenW / 2;
-        y+=ssState.ScreenH / 2;
-    }
+    x+=ScreenW / 2;
+    y+=ScreenH / 2;
 
     *inx=x;
     *iny=y;
+}
+
+void pointToScreen(int *inx, int *iny, int inz)
+{
+    if(ssConfig.track_screen_center){
+        pointToScreen(inx, iny, inz, ssState.SegmentSize.x, ssState.SegmentSize.y, ssState.ScreenW, ssState.ScreenH);
+    } else {
+        pointToScreen(inx, iny, inz, 0, 0, 0, 0);
+    }
 }
 
 int get_textf_width(const ALLEGRO_FONT *font, const char *format, ...)
