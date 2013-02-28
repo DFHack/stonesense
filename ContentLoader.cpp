@@ -18,6 +18,11 @@
 #include "df/itemdef_glovesst.h"
 #include "df/itemdef_pantsst.h"
 
+#include "df/creature_raw.h"
+#include "df/caste_raw.h"
+#include "df/tissue_style_raw.h"
+
+
 ContentLoader * contentLoader;
 
 ContentLoader::ContentLoader(void) { }
@@ -45,7 +50,7 @@ bool ContentLoader::Load()
     flushTerrainConfig(terrainWallConfigs);
     flushItemConfig(itemConfigs);
     colorConfigs.clear();
-    creatureConfigs.clear();
+    flushCreatureConfig();
     treeConfigs.clear();
     shrubConfigs.clear();
     flushImgFiles();
@@ -108,6 +113,7 @@ bool ContentLoader::Load()
             professionStrings.push_back(string(ENUM_KEY_STR(profession, i)));
         }
     }
+    gatherStyleIndices(&df::global::world->raws);
     /*
     if(classIdStrings.empty())
     {
@@ -676,6 +682,62 @@ void ContentLoader::flushCreatureConfig()
     }
     // make big enough to hold all creatures
     creatureConfigs.clear();
+    for ( int i = 0; i < style_indices.size();i++){
+        if(style_indices[i]){
+            for ( int j = 0; j < style_indices[i]->size();j++){
+                if(style_indices[i]->at(j)){
+                    style_indices[i]->at(j)->clear();
+                    delete style_indices[i]->at(j);
+                }
+            }
+            style_indices[i]->clear();
+            delete style_indices[i];
+        }
+    }
+    style_indices.clear();
+}
+
+void ContentLoader::gatherStyleIndices(df::world_raws * raws)
+{
+    for(int creatureIndex = 0; creatureIndex < raws->creatures.all.size(); creatureIndex++)
+    {
+        df::creature_raw * cre = raws->creatures.all[creatureIndex];
+        for(int casteIndex = 0; casteIndex < cre->caste.size(); casteIndex++)
+        {
+            df::caste_raw * cas = cre->caste[casteIndex];
+            for(int styleIndex = 0; styleIndex < cas->tissue_styles.size(); styleIndex++)
+            {
+                df::tissue_style_raw * sty = cas->tissue_styles[styleIndex];
+                hairtypes type = hairtypes_invalid;
+                if(sty->token == "HAIR")
+                    type = HAIR;
+                else if(sty->token == "BEARD")
+                    type = BEARD;
+                else if(sty->token == "MOUSTACHE")
+                    type = MOUSTACHE;
+                else if(sty->token == "SIDEBURNS")
+                    type = SIDEBURNS;
+                else LogError("Unknown hair type: %s", raws->creatures.all[creatureIndex]->caste[casteIndex]->tissue_styles[styleIndex]->token.c_str());
+                if(type != hairtypes_invalid)
+                {
+                    if(creatureIndex >= style_indices.size())
+                        style_indices.resize(creatureIndex+1, NULL);
+                    if(!style_indices.at(creatureIndex))
+                        style_indices.at(creatureIndex) = new vector<vector<int32_t>*>;
+                    vector<vector<int32_t>*>* creatureStyle = style_indices.at(creatureIndex);
+                    if(casteIndex >= creatureStyle->size())
+                        creatureStyle->resize(casteIndex+1, NULL);
+                    if(!creatureStyle->at(casteIndex))
+                        creatureStyle->at(casteIndex) = new vector<int32_t>;
+                    vector<int32_t>* casteStyle = creatureStyle->at(casteIndex);
+                    if(type >= casteStyle->size())
+                        casteStyle->resize(type+1, 0);
+                    casteStyle->at(type) = sty->id;
+                    LogVerbose("%s:%s : %d:%s\n", raws->creatures.all[creatureIndex]->creature_id.c_str(),raws->creatures.all[creatureIndex]->caste[casteIndex]->caste_id.c_str(), sty->id, sty->token.c_str());
+                }
+            }
+        }
+    }
 }
 
 ALLEGRO_COLOR lookupMaterialColor(DFHack::t_matglossPair matt, ALLEGRO_COLOR defaultColor)

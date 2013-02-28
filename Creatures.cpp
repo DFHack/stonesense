@@ -463,6 +463,23 @@ void copyCreature(df::unit * source, SS_Unit & furball)
     furball.nbcolors = source->appearance.colors.size();
     if(furball.nbcolors>MAX_COLORS)
         furball.nbcolors = MAX_COLORS;
+    // hair
+    for(int i = 0; i < hairtypes_end; i++){
+        furball.hairlength[i] = 0;
+        furball.hairstyle[i] = CLEAN_SHAVEN;
+    }
+    if(source->race < contentLoader->style_indices.size() && contentLoader->style_indices.at(source->race)){
+        if(source->caste < contentLoader->style_indices.at(source->race)->size() && contentLoader->style_indices.at(source->race)->at(source->caste)){
+            for(int i = 0; i < source->appearance.tissue_style_type.size(); i++){
+                for(int j = 0; j < contentLoader->style_indices.at(source->race)->at(source->caste)->size();j++){
+                    if(source->appearance.tissue_style_type[i] == contentLoader->style_indices.at(source->race)->at(source->caste)->at(j)){
+                        furball.hairlength[j] = source->appearance.tissue_length[i];
+                        furball.hairstyle[j] = (hairstyles)source->appearance.tissue_style[i];
+                    }
+                }
+            }
+        }
+    }
 
     for(uint32_t i = 0; i < furball.nbcolors; i++) {
         furball.color[i] = source->appearance.colors[i];

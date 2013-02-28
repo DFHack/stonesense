@@ -37,6 +37,10 @@ using namespace std;
 #include "df/itemdef_foodst.h"
 #include "df/descriptor_pattern.h"
 
+#include "df/creature_raw.h"
+#include "df/caste_raw.h"
+#include "df/tissue_style_raw.h"
+
 #define color_segmentoutline al_map_rgb(0,0,0)
 
 extern ALLEGRO_FONT *font;
@@ -540,23 +544,106 @@ void drawDebugCursorAndInfo(WorldSegment * segment)
 					draw_textf_border(font,
 						al_map_rgb_f(1.0,1.0,1.0), xx, yy, 0,
 						" %s:", contentLoader->Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].part.c_str());
-					xx += get_textf_width(font, " %s:", contentLoader->Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].part.c_str());
-					uint32_t cr_color = contentLoader->Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].colorlist[b->creature->color[j]];
-					if(cr_color < df::global::world->raws.language.patterns.size()) {
-						for(int patternin = 0; patternin < df::global::world->raws.language.patterns[cr_color]->colors.size(); patternin++){
-							uint16_t actual_color = df::global::world->raws.language.patterns[cr_color]->colors[patternin];
-							al_draw_filled_rectangle(xx, yy, xx+al_get_font_line_height(font), yy+al_get_font_line_height(font),
-								al_map_rgb_f(
-								contentLoader->Mats->color[actual_color].red,
-								contentLoader->Mats->color[actual_color].green,
-								contentLoader->Mats->color[actual_color].blue));
-							xx += al_get_font_line_height(font);
-						}
-					}
-				}
-			}
+                    xx += get_textf_width(font, " %s:", contentLoader->Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].part.c_str());
+                    uint32_t cr_color = contentLoader->Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].colorlist[b->creature->color[j]];
+                    if(cr_color < df::global::world->raws.language.patterns.size()) {
+                        for(int patternin = 0; patternin < df::global::world->raws.language.patterns[cr_color]->colors.size(); patternin++){
+                            uint16_t actual_color = df::global::world->raws.language.patterns[cr_color]->colors[patternin];
+                            al_draw_filled_rectangle(xx, yy, xx+al_get_font_line_height(font), yy+al_get_font_line_height(font),
+                                al_map_rgb_f(
+                                contentLoader->Mats->color[actual_color].red,
+                                contentLoader->Mats->color[actual_color].green,
+                                contentLoader->Mats->color[actual_color].blue));
+                            xx += al_get_font_line_height(font);
+                        }
+                    }
+                }
+            }
+            yy = (i++*al_get_font_line_height(font));
+            xx = 2;
+            draw_textf_border(font,
+                al_map_rgb_f(1.0,1.0,1.0), xx, yy, 0,
+                "hair lengths:");
+            xx += get_textf_width(font, "hair lengths:");
+            for(int j = 0; j < hairtypes_end; j++){
+                draw_textf_border(font,
+                    al_map_rgb_f(1.0,1.0,1.0), xx, yy, 0,
+                    "%d,", b->creature->hairlength[j]);
+                xx += get_textf_width(font, "%d,", b->creature->hairlength[j]);
+            }
+            yy = (i++*al_get_font_line_height(font));
+            xx = 2;
+            draw_textf_border(font,
+                al_map_rgb_f(1.0,1.0,1.0), xx, yy, 0,
+                "hair styles:");
+            xx += get_textf_width(font, "hair styles:");
+            for(int j = 0; j < hairtypes_end; j++){
+                switch( b->creature->hairstyle[j]){
+                case NEATLY_COMBED:
+                    draw_textf_border(font,
+                        al_map_rgb_f(1.0,1.0,1.0), xx, yy, 0,
+                        "NEATLY_COMBED-");
+                    xx += get_textf_width(font, "NEATLY_COMBED-");
+                    break;
+                case BRAIDED:
+                    draw_textf_border(font,
+                        al_map_rgb_f(1.0,1.0,1.0), xx, yy, 0,
+                        "BRAIDED-");
+                    xx += get_textf_width(font, "BRAIDED-");
+                    break;
+                case DOUBLE_BRAID:
+                    draw_textf_border(font,
+                        al_map_rgb_f(1.0,1.0,1.0), xx, yy, 0,
+                        "DOUBLE_BRAID-");
+                    xx += get_textf_width(font, "DOUBLE_BRAID-");
+                    break;
+                case PONY_TAILS:
+                    draw_textf_border(font,
+                        al_map_rgb_f(1.0,1.0,1.0), xx, yy, 0,
+                        "PONY_TAILS-");
+                    xx += get_textf_width(font, "PONY_TAILS-");
+                    break;
+                case CLEAN_SHAVEN:
+                    draw_textf_border(font,
+                        al_map_rgb_f(1.0,1.0,1.0), xx, yy, 0,
+                        "CLEAN_SHAVEN-");
+                    xx += get_textf_width(font, "CLEAN_SHAVEN-");
+                    break;
+                default:
+                    draw_textf_border(font,
+                        al_map_rgb_f(1.0,1.0,1.0), xx, yy, 0,
+                        "UNKNOWN-");
+                    xx += get_textf_width(font, "UNKNOWN-");
+                }
+                switch(j){
+                case HAIR:
+                    draw_textf_border(font,
+                        al_map_rgb_f(1.0,1.0,1.0), xx, yy, 0,
+                        "HAIR, ");
+                    xx += get_textf_width(font, "HAIR, ");
+                    break;
+                case BEARD:
+                    draw_textf_border(font,
+                        al_map_rgb_f(1.0,1.0,1.0), xx, yy, 0,
+                        "BEARD, ");
+                    xx += get_textf_width(font, "BEARD, ");
+                    break;
+                case MOUSTACHE:
+                    draw_textf_border(font,
+                        al_map_rgb_f(1.0,1.0,1.0), xx, yy, 0,
+                        "MOUSTACHE, ");
+                    xx += get_textf_width(font, "MOUSTACHE, ");
+                    break;
+                case SIDEBURNS:
+                    draw_textf_border(font,
+                        al_map_rgb_f(1.0,1.0,1.0), xx, yy, 0,
+                        "SIDEBURNS, ");
+                    xx += get_textf_width(font, "SIDEBURNS, ");
+                    break;
+                }
+            }   
         }
-        break;
+     break;
     default:
         draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0,
                           "Game Mode:%i, Control Mode:%i", contentLoader->gameMode.g_mode, contentLoader->gameMode.g_type);
