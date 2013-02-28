@@ -66,7 +66,7 @@
 		<subsprite sheetIndex="131" zoom="2" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_CLOAK" color="equipment"/>
 		
 		<!--head-->
-		<subsprite  sheetIndex="4" zoom="2" color="bodypart" bodypart="skin" />
+		<subsprite  sheetIndex="5" zoom="2" color="bodypart" bodypart="skin" />
 		  
 		<!--hair-->
 		<subsprite sheetIndex="3" zoom="2" color="bodypart" bodypart="hair" />
@@ -175,7 +175,7 @@
 		<subsprite sheetIndex="131" zoom="2" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_CLOAK" color="equipment"/>
 		
 		<!--head-->
-		<subsprite  sheetIndex="4" zoom="2" color="bodypart" bodypart="skin" />
+		<subsprite  sheetIndex="5" zoom="2" color="bodypart" bodypart="skin" />
 		  
 		<!--hair-->
 		<subsprite sheetIndex="3" zoom="2" color="bodypart" bodypart="hair" />
@@ -284,7 +284,7 @@
 		<subsprite sheetIndex="111" zoom="2" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_CLOAK" color="equipment"/>
 		
 		<!--head-->
-		<subsprite  sheetIndex="4" zoom="2" color="bodypart" bodypart="skin" />
+		<subsprite  sheetIndex="5" zoom="2" color="bodypart" bodypart="skin" />
 		  
 		<!--hair-->
 		<subsprite sheetIndex="3" zoom="2" color="bodypart" bodypart="hair" />
@@ -357,7 +357,7 @@
 		<subsprite sheetIndex="111" zoom="2" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_CLOAK" color="equipment"/>
 		
 		<!--head-->
-		<subsprite  sheetIndex="4" zoom="2" color="bodypart" bodypart="skin" />
+		<subsprite  sheetIndex="5" zoom="2" color="bodypart" bodypart="skin" />
 		  
 		<!--hair-->
 		<subsprite sheetIndex="3" zoom="2" color="bodypart" bodypart="hair" />
