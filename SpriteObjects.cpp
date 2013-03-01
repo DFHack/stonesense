@@ -346,6 +346,11 @@ void c_sprite::reset(void)
     halftile = HALFPLATECHOP;
     water_direction = -1;
 
+    hairtype = hairtypes_invalid;
+    hairmin = 0;
+    hairmax = -1;
+    hairstyle = hairstyles_invalid;
+
     openborders = ALL_BORDERS;
     wallborders = ALL_BORDERS;
     floorborders = ALL_BORDERS;
@@ -551,6 +556,55 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
         grassgrowth = GRASS_GROWTH_DRY;
     } else if( strcmp(GRASS_GROWTH_string, "dead") == 0) {
         grassgrowth = GRASS_GROWTH_DEAD;
+    }
+
+
+    //Hairtypes
+    const char* HAIR_TYPE_string = elemSprite->Attribute("hair_type");
+    if (HAIR_TYPE_string == NULL || HAIR_TYPE_string[0] == 0) {
+        hairtype = hairtypes_invalid;
+    } else if( strcmp(HAIR_TYPE_string, "any") == 0) {
+        hairtype = hairtypes_invalid;
+    } else if( strcmp(HAIR_TYPE_string, "hair") == 0) {
+        hairtype = HAIR;
+    } else if( strcmp(HAIR_TYPE_string, "beard") == 0) {
+        hairtype = BEARD;
+    } else if( strcmp(HAIR_TYPE_string, "moustache") == 0) {
+        hairtype = MOUSTACHE;
+    } else if( strcmp(HAIR_TYPE_string, "sideburns") == 0) {
+        hairtype = SIDEBURNS;
+    }
+
+    //Hairstyles
+    const char* HAIR_STYLE_string = elemSprite->Attribute("hair_style");
+    if (HAIR_STYLE_string == NULL || HAIR_STYLE_string[0] == 0) {
+        hairstyle = hairstyles_invalid;
+    } else if( strcmp(HAIR_STYLE_string, "any") == 0) {
+        hairstyle = hairstyles_invalid;
+    } else if( strcmp(HAIR_STYLE_string, "combed") == 0) {
+        hairstyle = NEATLY_COMBED;
+    } else if( strcmp(HAIR_STYLE_string, "braid") == 0) {
+        hairstyle = BRAIDED;
+    } else if( strcmp(HAIR_STYLE_string, "two_braid") == 0) {
+        hairstyle = DOUBLE_BRAID;
+    } else if( strcmp(HAIR_STYLE_string, "ponytails") == 0) {
+        hairstyle = PONY_TAILS;
+    } else if( strcmp(HAIR_STYLE_string, "unkempt") == 0) {
+        hairstyle = CLEAN_SHAVEN;
+    }
+
+    const char* HAIR_MIN_string = elemSprite->Attribute("hair_min");
+    if (HAIR_MIN_string == NULL || HAIR_MIN_string[0] == 0) {
+        hairmin = 0;
+    } else {
+        hairmin=atoi(HAIR_MIN_string);
+    }
+
+    const char* HAIR_MAX_string = elemSprite->Attribute("hair_max");
+    if (HAIR_MAX_string == NULL || HAIR_MAX_string[0] == 0) {
+        hairmax = -1;
+    } else {
+        hairmax=atoi(HAIR_MAX_string);
     }
 
     //do bodyparts
@@ -906,7 +960,7 @@ void c_sprite::assemble_world_offset(int x, int y, int z, int plateoffset, Tile 
             goto draw_subsprite;
         }
 
-        if(itemtype !=  INVALID_INDEX) { //fixme: we need to store basic types separately and use them.
+        if(itemtype !=  INVALID_INDEX) {
             if(!b->creature) {
                 goto draw_subsprite;
             }
@@ -938,11 +992,23 @@ void c_sprite::assemble_world_offset(int x, int y, int z, int plateoffset, Tile 
             }
         }
 
+        if(hairtype != hairtypes_invalid) {
+            if(hairmin > b->creature->hairlength[hairtype]) {
+                goto draw_subsprite;
+            }
+            if((hairmax >= 0) && (hairmax < b->creature->hairlength[hairtype])) {
+                goto draw_subsprite;
+            }
+            if(hairstyle != hairstyles_invalid && hairstyle !=b->creature->hairstyle[hairtype]) {
+                goto draw_subsprite;
+            }
+        }
+
 
         int32_t drawx = x;
         int32_t drawy = y;
         int32_t drawz = z; //- ownerSegment->sizez + 1;
-        
+
         b->ownerSegment->CorrectTileForSegmentOffset( drawx, drawy, drawz );
         b->ownerSegment->CorrectTileForSegmentRotation( drawx, drawy, drawz );
         int32_t viewx = drawx;
