@@ -52,7 +52,7 @@
     <material value="Wood" />
     <subsprite sheetIndex="18" mud_min="10" />
     <subsprite sheetIndex="0" variationtype="sixteen"
-    file="Track_Floors.png" />
+    file="Track_Floors_128.png" zoom="2" color="material" />
   </floor>
   <!-- construct -->
   <floor sheetIndex="36">
@@ -105,7 +105,7 @@
     <material value="GreenGlass" />
     <subsprite sheetIndex="18" mud_min="10" />
     <subsprite sheetIndex="0" variationtype="sixteen"
-    file="Track_Floors.png" />
+    file="Track_Floors_128.png" zoom="2" color="material" />
   </floor>
   <!-- construct -->
   <floor sheetIndex="35">
@@ -159,7 +159,7 @@
     <material value="CrystalGlass" />
     <subsprite sheetIndex="18" mud_min="10" />
     <subsprite sheetIndex="0" variationtype="sixteen"
-    file="Track_Floors.png" />
+    file="Track_Floors_128.png" zoom="2" color="material" />
   </floor>
   <floor sheetIndex="56">
     <!--constructed floor track-->
@@ -213,7 +213,7 @@
     </material>
     <subsprite sheetIndex="18" mud_min="10" />
     <subsprite sheetIndex="0" variationtype="sixteen"
-    file="Track_Floors.png" />
+    file="Track_Floors_128.png" zoom="2" color="material" />
   </floor>
   <!-- construct -->
   <floor sheetIndex="38" color="material">
@@ -293,7 +293,7 @@
     </material>
     <subsprite sheetIndex="18" mud_min="10" />
     <subsprite sheetIndex="0" variationtype="sixteen"
-    file="Track_Floors.png" />
+    file="Track_Floors_128.png" zoom="2" color="material" />
   </floor>
   <!-- construct -->
   <floor sheetIndex="1" color="material">
@@ -345,7 +345,7 @@
     <terrain value="698" />
     <subsprite sheetIndex="18" mud_min="10" />
     <subsprite sheetIndex="0" variationtype="sixteen"
-    file="Track_Floors.png" />
+    file="Track_Floors_128.png" zoom="2" color="material" />
   </floor>
   <!-- ice -->
   <floor sheetIndex="34">
@@ -397,7 +397,7 @@
     <terrain value="593" />
     <subsprite sheetIndex="18" mud_min="10" />
     <subsprite sheetIndex="0" variationtype="sixteen"
-    file="Track_Floors.png" />
+    file="Track_Floors_128.png" zoom="2" color="material" />
   </floor>
   <!-- sm stone -->
   <floor sheetIndex="20" color="material">
@@ -587,6 +587,6 @@
     <terrain value="668" />
     <subsprite sheetIndex="18" mud_min="10" />
     <subsprite sheetIndex="0" variationtype="sixteen"
-    file="Track_Floors.png" />
+    file="Track_Floors_128.png" zoom="2" color="material" />
   </floor>
 </floors>
