@@ -384,58 +384,10 @@ c_sprite::~c_sprite(void)
 {
 }
 
-void c_sprite::set_by_xml(TiXmlElement *elemSprite, int32_t inFile, int creatureID, int casteID)
-{
-    fileindex = inFile;
-    set_by_xml(elemSprite);
-	
-	//do bodyparts
-	const char* bodyPartStr = elemSprite->Attribute("bodypart");
-	//copy new, if found
-	if (bodyPartStr != NULL && bodyPartStr[0] != 0) {
-		t_creaturecaste & caste = contentLoader->Mats->raceEx[creatureID].castes[(casteID==INVALID_INDEX) ? 0 : casteID];
-		std::vector<t_colormodifier> & colormods = caste.ColorModifier;
-		for(int32_t j = 0; j<colormods.size() ; j++) {
-			if(colormods[j].part == bodyPartStr) {
-				caste_bodypart_index = j;
-				return;
-			}
-		}
-		LogError("Failed loading bodypart '%s' of creature '%s' with caste '%s' from xml.", 
-			bodyPartStr, contentLoader->Mats->raceEx[creatureID].id.c_str(), caste.id.c_str());
-	}
-
-    subsprites.clear();
-    //add subsprites, if any.
-    TiXmlElement* elemSubSprite = elemSprite->FirstChildElement("subsprite");
-    for(TiXmlElement* elemSubType = elemSprite->FirstChildElement("subsprite");
-            elemSubType;
-            elemSubType = elemSubType->NextSiblingElement("subsprite")) {
-        c_sprite subsprite;
-        subsprite.set_size(spritewidth, spriteheight);
-        subsprite.set_by_xml(elemSubType, fileindex, creatureID, casteID);
-        subsprite.set_offset(offset_x, offset_y);
-        subsprites.push_back(subsprite);
-    }
-}
-
 void c_sprite::set_by_xml(TiXmlElement *elemSprite, int32_t inFile)
 {
     fileindex = inFile;
     set_by_xml(elemSprite);
-
-    subsprites.clear();
-    //add subsprites, if any.
-    TiXmlElement* elemSubSprite = elemSprite->FirstChildElement("subsprite");
-    for(TiXmlElement* elemSubType = elemSprite->FirstChildElement("subsprite");
-            elemSubType;
-            elemSubType = elemSubType->NextSiblingElement("subsprite")) {
-        c_sprite subsprite;
-        subsprite.set_size(spritewidth, spriteheight);
-        subsprite.set_by_xml(elemSubType, fileindex);
-        subsprite.set_offset(offset_x, offset_y);
-        subsprites.push_back(subsprite);
-    }
 }
 
 void c_sprite::set_by_xml(TiXmlElement *elemSprite)
@@ -655,6 +607,15 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
         hairmax=atoi(HAIR_MAX_string);
     }
 
+    //do bodyparts
+    const char* bodyPartStr = elemSprite->Attribute("bodypart");
+    //clear old bodypart string
+    memset(bodypart, 0, sizeof(bodypart));
+    //copy new, if found
+    if (bodyPartStr != NULL && bodyPartStr[0] != 0) {
+        strcpy(bodypart, bodyPartStr);
+	}
+
 	//picking different patterns isn't really useful, but finding the colors within them is.
 	const char* spritePatternIndexStr = elemSprite->Attribute("pattern_index");
 	if (spritePatternIndexStr == NULL || spritePatternIndexStr[0] == 0) {
@@ -866,6 +827,19 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
     const char* spriteBloodStr = elemSprite->Attribute("blood_sprite");
     if (spriteBloodStr != NULL && spriteBloodStr[0] != 0) {
         bloodsprite=(atoi(spriteBloodStr) == 1);
+    }
+
+    subsprites.clear();
+    //add subsprites, if any.
+    TiXmlElement* elemSubSprite = elemSprite->FirstChildElement("subsprite");
+    for(TiXmlElement* elemSubType = elemSprite->FirstChildElement("subsprite");
+            elemSubType;
+            elemSubType = elemSubType->NextSiblingElement("subsprite")) {
+        c_sprite subsprite;
+        subsprite.set_size(spritewidth, spriteheight);
+        subsprite.set_by_xml(elemSubType, fileindex);
+        subsprite.set_offset(offset_x, offset_y);
+        subsprites.push_back(subsprite);
     }
 }
 
@@ -1259,35 +1233,37 @@ ALLEGRO_COLOR c_sprite::get_color(void* tile)
         return ssConfig.colors.getDfColor(lookupMaterialBack(b->veinMaterial.type, b->veinMaterial.index));
     case ShadeBodyPart:
         if(b->occ.bits.unit && b->creature) {
-			dayofLife = b->creature->birth_year*12*28 + b->creature->birth_time/1200;
-			if((!ssConfig.skipCreatureTypes) && (!ssConfig.skipCreatureTypesEx) && (!ssConfig.skipDescriptorColors)) {
-				t_creaturecaste & caste = contentLoader->Mats->raceEx[b->creature->race].castes[b->creature->caste];
-				std::vector<t_colormodifier> & colormods =caste.ColorModifier;
-				if(caste_bodypart_index != INVALID_INDEX && caste_bodypart_index < colormods.size()){
-					t_colormodifier & colormod = colormods[caste_bodypart_index];
-					if(colormod.colorlist.size() > b->creature->color[caste_bodypart_index]) {
-						uint32_t cr_color = colormod.colorlist.at(b->creature->color[caste_bodypart_index]);
-						if(cr_color < df::global::world->raws.language.patterns.size()) {
-							uint16_t actual_color = df::global::world->raws.language.patterns[cr_color]->colors[pattern_index%df::global::world->raws.language.patterns[cr_color]->colors.size()];
-							if(actual_color < contentLoader->Mats->color.size()){
-								if(colormod.startdate > 0) {
-									if((colormod.startdate <= dayofLife) &&
-										(colormod.enddate > dayofLife)) {
-											return al_map_rgb_f(
-												contentLoader->Mats->color[actual_color].red,
-												contentLoader->Mats->color[actual_color].green,
-												contentLoader->Mats->color[actual_color].blue);;
-									}
-								} else
-									return al_map_rgb_f(
-									contentLoader->Mats->color[actual_color].red,
-									contentLoader->Mats->color[actual_color].green,
-									contentLoader->Mats->color[actual_color].blue);
+            dayofLife = b->creature->birth_year*12*28 + b->creature->birth_time/1200;
+            if((!ssConfig.skipCreatureTypes) && (!ssConfig.skipCreatureTypesEx) && (!ssConfig.skipDescriptorColors)) {
+                t_creaturecaste & caste = contentLoader->Mats->raceEx[b->creature->race].castes[b->creature->caste];
+                std::vector<t_colormodifier> & colormods =caste.ColorModifier;
+                for(unsigned int j = 0; j<b->creature->nbcolors ; j++) {
+                    t_colormodifier & colormod = colormods[j];
+                    if(colormods[j].part == bodypart) {
+						if(colormods[j].colorlist.size() > b->creature->color[j]) {
+							uint32_t cr_color = colormod.colorlist.at(b->creature->color[j]);
+							if(cr_color < df::global::world->raws.language.patterns.size()) {
+								uint16_t actual_color = df::global::world->raws.language.patterns[cr_color]->colors[pattern_index%df::global::world->raws.language.patterns[cr_color]->colors.size()];
+								if(actual_color < contentLoader->Mats->color.size()){
+									if(colormod.startdate > 0) {
+										if((colormod.startdate <= dayofLife) &&
+											(colormod.enddate > dayofLife)) {
+												return al_map_rgb_f(
+													contentLoader->Mats->color[actual_color].red,
+													contentLoader->Mats->color[actual_color].green,
+													contentLoader->Mats->color[actual_color].blue);;
+										}
+									} else
+										return al_map_rgb_f(
+										contentLoader->Mats->color[actual_color].red,
+										contentLoader->Mats->color[actual_color].green,
+										contentLoader->Mats->color[actual_color].blue);
+								}
 							}
 						}
 					}
-				}
-			} else {
+                }
+            } else {
                 return al_map_rgb(255,255,255);
             }
         } else {
