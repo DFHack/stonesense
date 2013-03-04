@@ -56,6 +56,10 @@ private:
     ALLEGRO_COLOR shadecolor;
     ALLEGRO_COLOR namedcolor;
     char bodypart[128];
+    hairtypes hairtype;
+    int16_t hairmin;
+    int16_t hairmax;
+    hairstyles hairstyle;
 	uint8_t pattern_index;
 
     offset_type offsettype;

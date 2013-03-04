@@ -123,7 +123,7 @@
     <terrain value="667" />
     <!--vein ramp track NSEW-->
     <terrain value="668" />
-	<subsprite sheetIndex="0" variationtype="sixteen" file="Track_Ramps.png" />
+	<subsprite sheetIndex="0" variationtype="sixteen"file="Track_Ramps.png" />
   </wall>
   <!-- brick -->
   <wall sheetIndex="2" file="ramps.png" color="material">

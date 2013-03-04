@@ -24,6 +24,26 @@ enum ShadeBy {
     ShadeItem,
     ShadeEquip
 } ;
+
+enum hairstyles {
+    hairstyles_invalid = -1,
+    NEATLY_COMBED,
+    BRAIDED,
+    DOUBLE_BRAID,
+    PONY_TAILS,
+    CLEAN_SHAVEN,
+    hairstyles_end
+};
+
+enum hairtypes {
+    hairtypes_invalid = -1,
+    HAIR,
+    BEARD,
+    MOUSTACHE,
+    SIDEBURNS,
+    hairtypes_end
+};
+
 struct t_subSprite {
     int32_t sheetIndex;
     int32_t fileIndex;
@@ -300,6 +320,9 @@ struct SS_Unit{
     //t_soul defaultSoul;
     uint32_t nbcolors;
     uint32_t color[MAX_COLORS];
+
+    hairstyles hairstyle[hairtypes_end];
+    uint32_t hairlength[hairtypes_end];
 
     int32_t birth_year;
     uint32_t birth_time;

@@ -26,6 +26,8 @@ private:
     void flushCreatureConfig();
 
     bool translationComplete;
+
+    void gatherStyleIndices(df::world_raws * raws); 
 public:
     ContentLoader(void);
     ~ContentLoader(void);
@@ -45,6 +47,9 @@ public:
     vector<ItemConfiguration*> itemConfigs;
     FluidConfiguration lava[8];
     FluidConfiguration water[8];
+
+    //race.caste.hairtype.styletype
+    vector<vector<vector<int32_t>*>*> style_indices;
 
     vector<string> professionStrings;
     std::map <uint32_t, std::string> custom_workshop_types;

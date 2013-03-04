@@ -69,7 +69,10 @@
 		<subsprite  sheetIndex="5" zoom="2" color="bodypart" bodypart="skin" />
 		  
 		<!--hair-->
-		<subsprite sheetIndex="3" zoom="2" color="bodypart" bodypart="hair" />
+		<subsprite sheetIndex="3" zoom="2" color="bodypart" bodypart="hair"/>
+		<subsprite sheetIndex="6" zoom="2" color="bodypart" bodypart="hair" hair_type="beard" hair_style="combed"/>
+		<subsprite sheetIndex="7" zoom="2" color="bodypart" bodypart="hair" hair_type="beard" hair_style="braid"/>
+		<subsprite sheetIndex="8" zoom="2" color="bodypart" bodypart="hair" hair_type="beard" hair_style="two_braid"/>
 		
 		<!--eyes-->
 		<subsprite sheetIndex="4" zoom="2" />
@@ -183,7 +186,7 @@
 		<subsprite  sheetIndex="5" zoom="2" color="bodypart" bodypart="skin" />
 		  
 		<!--hair-->
-		<subsprite sheetIndex="3" zoom="2" color="bodypart" bodypart="hair" />
+		<subsprite sheetIndex="3" zoom="2" color="bodypart" bodypart="hair" hair_type="hair" hair_min="1" />
 		
 		<!--eyes-->
 		<subsprite sheetIndex="4" zoom="2" />
@@ -297,7 +300,10 @@
 		<subsprite  sheetIndex="5" zoom="2" color="bodypart" bodypart="skin" />
 		  
 		<!--hair-->
-		<subsprite sheetIndex="3" zoom="2" color="bodypart" bodypart="hair" />
+		<subsprite sheetIndex="3" zoom="2" color="bodypart" bodypart="hair"/>
+		<subsprite sheetIndex="6" zoom="2" color="bodypart" bodypart="hair" hair_type="beard" hair_style="combed"/>
+		<subsprite sheetIndex="7" zoom="2" color="bodypart" bodypart="hair" hair_type="beard" hair_style="braid"/>
+		<subsprite sheetIndex="8" zoom="2" color="bodypart" bodypart="hair" hair_type="beard" hair_style="two_braid"/>
 		
 		<!--eyes-->
 		<subsprite sheetIndex="4" zoom="2" />
@@ -370,7 +376,7 @@
 		<subsprite  sheetIndex="5" zoom="2" color="bodypart" bodypart="skin" />
 		  
 		<!--hair-->
-		<subsprite sheetIndex="3" zoom="2" color="bodypart" bodypart="hair" />
+		<subsprite sheetIndex="3" zoom="2" color="bodypart" bodypart="hair" hair_type="hair" hair_min="1" />
 		
 		<!--eyes-->
 		<subsprite sheetIndex="4" zoom="2" />
