@@ -245,7 +245,6 @@ df::tiletype_shape_basic GetBasicShape(string & shapeName)
 
 void DumpInfo(color_ostream & out, std::vector<std::string> & params)
 {
-    ContentLoader * contentLoader = new ContentLoader();
     string & p1 = params[0];
     if(p1 == "dumpitems") {
         out.print("dumping equippable item names to 'itemdump.txt'...\n");
@@ -267,5 +266,4 @@ void DumpInfo(color_ostream & out, std::vector<std::string> & params)
         out.printerr("invalid argument\n");
     }
 
-    free(contentLoader);
 }

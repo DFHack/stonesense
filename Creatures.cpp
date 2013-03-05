@@ -22,6 +22,10 @@
 #include "df/creature_raw.h"
 #include "df/caste_raw.h"
 
+#include "modules/Units.h"
+#include "df/historical_entity.h"
+#include "df/entity_position.h"
+
 //vector<t_matgloss> v_creatureNames;
 //vector<CreatureConfiguration> creatureTypes;
 
@@ -492,6 +496,12 @@ void copyCreature(df::unit * source, SS_Unit & furball)
         furball.current_job.jobType = unit_job->job_type;
         furball.current_job.jobId = unit_job->id;
     }
+
+    std::vector<Units::NoblePosition> np;
+    if(Units::getNoblePositions(&np, source)){
+        furball.profession = contentLoader->position_Indices[np[0].entity->id]->at(np[0].position->id);
+    }
+
 
     furball.inv = NULL;
 }

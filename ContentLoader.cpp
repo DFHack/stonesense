@@ -21,7 +21,21 @@
 #include "df/creature_raw.h"
 #include "df/caste_raw.h"
 #include "df/tissue_style_raw.h"
+#include "df/entity_position_raw.h"
+#include "df/entity_raw.h"
+#include "df/historical_entity.h"
+#include "df/entity_position.h"
 
+void DumpStringVector(const char* filename, vector<std::string> * input)
+{
+    FILE* fp = fopen(filename, "w");
+
+    // Run through until perfect match found or hit end.
+    for(int i = 0; i < input->size(); i++){
+        fprintf(fp, "%i:%s\n", i, input->at(i).c_str());
+    }
+    fclose(fp);
+}
 
 ContentLoader * contentLoader;
 
@@ -112,7 +126,87 @@ bool ContentLoader::Load()
             }
             professionStrings.push_back(string(ENUM_KEY_STR(profession, i)));
         }
+        for(int i = 0; i < df::global::world->entities.all.size(); i++){
+            df::historical_entity * currentity = df::global::world->entities.all[i];
+            if(!currentity) continue;
+            for(int j = 0; j < currentity->positions.own.size(); j++) {
+                df::entity_position * currentpos = currentity->positions.own[j];
+                if(!currentpos) continue;
+                int found = -1;
+                for(int k = 0; k < professionStrings.size(); k++){
+                    if( professionStrings[k] == currentpos->code){
+                        found = k;
+                        break;
+                    }
+                }
+                if(found < 0){
+                    professionStrings.push_back(currentpos->code);
+                    found = professionStrings.size()-1;
+                }
+                int ent_id = currentity->id;
+                int pos_id = currentpos->id;
+                if(ent_id  >= position_Indices.size())
+                    position_Indices.resize(ent_id+1, NULL);
+                if(!position_Indices[ent_id])
+                    position_Indices[ent_id] = new vector<int32_t>;
+                if(pos_id  >= position_Indices[ent_id]->size())
+                    position_Indices[ent_id]->resize(pos_id+1, NULL);
+                position_Indices[ent_id]->at(pos_id) = found;
+                //LogError("%d(%d):%s->%d(%d):%s = %d\n", i, currentity->id, currentity->entity_raw->code.c_str(), j,currentpos->id, currentpos->code.c_str(), found);
+            }
+            for(int j = 0; j < currentity->positions.site.size(); j++) {
+                df::entity_position * currentpos = currentity->positions.site[j];
+                if(!currentpos) continue;
+                int found = -1;
+                for(int k = 0; k < professionStrings.size(); k++){
+                    if( professionStrings[k] == currentpos->code){
+                        found = k;
+                        break;
+                    }
+                }
+                if(found < 0){
+                    professionStrings.push_back(currentpos->code);
+                    found = professionStrings.size()-1;
+                }
+                int ent_id = currentity->id;
+                int pos_id = currentpos->id;
+                if(ent_id  >= position_Indices.size())
+                    position_Indices.resize(ent_id+1, NULL);
+                if(!position_Indices[ent_id])
+                    position_Indices[ent_id] = new vector<int32_t>;
+                if(pos_id  >= position_Indices[ent_id]->size())
+                    position_Indices[ent_id]->resize(pos_id+1, NULL);
+                position_Indices[ent_id]->at(pos_id) = found;
+                //LogError("%d(%d):%s->%d(%d):%s = %d\n", i, currentity->id, currentity->entity_raw->code.c_str(), j,currentpos->id, currentpos->code.c_str(), found);
+            }
+            for(int j = 0; j < currentity->positions.conquered_site.size(); j++) {
+                df::entity_position * currentpos = currentity->positions.conquered_site[j];
+                if(!currentpos) continue;
+                int found = -1;
+                for(int k = 0; k < professionStrings.size(); k++){
+                    if( professionStrings[k] == currentpos->code){
+                        found = k;
+                        break;
+                    }
+                }
+                if(found < 0){
+                    professionStrings.push_back(currentpos->code);
+                    found = professionStrings.size()-1;
+                }
+                int ent_id = currentity->id;
+                int pos_id = currentpos->id;
+                if(ent_id  >= position_Indices.size())
+                    position_Indices.resize(ent_id+1, NULL);
+                if(!position_Indices[ent_id])
+                    position_Indices[ent_id] = new vector<int32_t>;
+                if(pos_id  >= position_Indices[ent_id]->size())
+                    position_Indices[ent_id]->resize(pos_id+1, NULL);
+                position_Indices[ent_id]->at(pos_id) = found;
+                //LogError("%d(%d):%s->%d(%d):%s = %d\n", i, currentity->id, currentity->entity_raw->code.c_str(), j,currentpos->id, currentpos->code.c_str(), found);
+            }
+        }
     }
+    //DumpStringVector("professiondump.txt", &professionStrings);
     gatherStyleIndices(&df::global::world->raws);
     /*
     if(classIdStrings.empty())

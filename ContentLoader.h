@@ -50,6 +50,7 @@ public:
 
     //race.caste.hairtype.styletype
     vector<vector<vector<int32_t>*>*> style_indices;
+    vector<vector<int32_t>*> position_Indices;
 
     vector<string> professionStrings;
     std::map <uint32_t, std::string> custom_workshop_types;

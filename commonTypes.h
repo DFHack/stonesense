@@ -297,7 +297,7 @@ struct SS_Unit{
     int16_t mood_skill;
     t_name artifact_name;
 
-    uint8_t profession;
+    uint16_t profession;
     std::string custom_profession;
 
     // enabled labors
