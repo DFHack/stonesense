@@ -1295,7 +1295,7 @@ ALLEGRO_COLOR c_sprite::get_color(void* tile)
         }
     case ShadeJob:
         if(b->occ.bits.unit && b->creature) {
-            return ssConfig.colors.getDfColor(getJobColor(b->creature->profession));
+            return ssConfig.colors.getDfColor(Units::getProfessionColor(b->creature->origin));
         } else {
             return al_map_rgb(255,255,255);
         }

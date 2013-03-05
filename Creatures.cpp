@@ -331,7 +331,7 @@ void DrawCreatureText(int drawx, int drawy, SS_Unit* creature )
     if( ssConfig.show_creature_names ) {
         ALLEGRO_COLOR textcol;
         if(ssConfig.show_creature_professions == 2) {
-            textcol = ssConfig.colors.getDfColor(DFHack::Units::getCasteProfessionColor(creature->race,creature->caste,(df::profession)creature->profession));
+            textcol = ssConfig.colors.getDfColor(DFHack::Units::getProfessionColor(creature->origin));
             //stupid hack to get legendary status of creatures
             if(creature->isLegend) {
                 ALLEGRO_COLOR altcol;
