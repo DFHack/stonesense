@@ -99,7 +99,12 @@
 		<subsprite file="weapons.png" sheetIndex="21" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_SWORD_SHORT_TRAINING" color="equipment"/>
 		<subsprite file="weapons.png" sheetIndex="22" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_SPEAR_TRAINING" color="equipment"/>
 		
-		<subsprite file="weapons.png" sheetIndex="27" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_DAGGER_LARGE" color="equipment"/>
+		<subsprite file="weapons.png" sheetIndex="7" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_DAGGER_LARGE" color="equipment"/>
+		<subsprite file="weapons.png" sheetIndex="23" zoom="2" equipment_class="TOOL" equipment_name="ITEM_TOOL_KNIFE_MEAT_CLEAVER" color="equipment"/>
+		<subsprite file="weapons.png" sheetIndex="24" zoom="2" equipment_class="TOOL" equipment_name="ITEM_TOOL_KNIFE_SLICING" color="equipment"/>
+		<subsprite file="weapons.png" sheetIndex="25" zoom="2" equipment_class="TOOL" equipment_name="ITEM_TOOL_KNIFE_BONING" color="equipment"/>
+		<subsprite file="weapons.png" sheetIndex="26" zoom="2" equipment_class="TOOL" equipment_name="ITEM_TOOL_KNIFE_CARVING" color="equipment"/>
+		<subsprite file="weapons.png" sheetIndex="27" zoom="2" equipment_class="TOOL" equipment_name="ITEM_TOOL_FORK_CARVING" color="equipment"/>
 		
 		<subsprite file="weapons.png" sheetIndex="40" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_WHIP" color="equipment"/>
 		<subsprite file="weapons.png" sheetIndex="41" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_SCOURGE" color="equipment"/>
@@ -208,7 +213,12 @@
 		<subsprite file="weapons.png" sheetIndex="21" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_SWORD_SHORT_TRAINING" color="equipment"/>
 		<subsprite file="weapons.png" sheetIndex="22" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_SPEAR_TRAINING" color="equipment"/>
 		
-		<subsprite file="weapons.png" sheetIndex="27" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_DAGGER_LARGE" color="equipment"/>
+		<subsprite file="weapons.png" sheetIndex="7" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_DAGGER_LARGE" color="equipment"/>
+		<subsprite file="weapons.png" sheetIndex="23" zoom="2" equipment_class="TOOL" equipment_name="ITEM_TOOL_KNIFE_MEAT_CLEAVER" color="equipment"/>
+		<subsprite file="weapons.png" sheetIndex="24" zoom="2" equipment_class="TOOL" equipment_name="ITEM_TOOL_KNIFE_SLICING" color="equipment"/>
+		<subsprite file="weapons.png" sheetIndex="25" zoom="2" equipment_class="TOOL" equipment_name="ITEM_TOOL_KNIFE_BONING" color="equipment"/>
+		<subsprite file="weapons.png" sheetIndex="26" zoom="2" equipment_class="TOOL" equipment_name="ITEM_TOOL_KNIFE_CARVING" color="equipment"/>
+		<subsprite file="weapons.png" sheetIndex="27" zoom="2" equipment_class="TOOL" equipment_name="ITEM_TOOL_FORK_CARVING" color="equipment"/>
 		
 		<subsprite file="weapons.png" sheetIndex="40" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_WHIP" color="equipment"/>
 		<subsprite file="weapons.png" sheetIndex="41" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_SCOURGE" color="equipment"/>

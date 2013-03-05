@@ -55,7 +55,7 @@ private:
     std::vector<c_sprite> subsprites;
     ALLEGRO_COLOR shadecolor;
     ALLEGRO_COLOR namedcolor;
-    char bodypart[128];
+	int32_t caste_bodypart_index;
     hairtypes hairtype;
     int16_t hairmin;
     int16_t hairmax;
@@ -134,6 +134,7 @@ public:
     }
     void assemble_world_offset(int x, int y, int z, int plateoffset, Tile * b, bool chop=false);
     void assemble_world_ramp_bottom(int x, int y, int z, bool chop = false);
+    void set_by_xml(TiXmlElement* elemSprite, int32_t fileindex, int32_t creatureID, int32_t casteID);
     void set_by_xml(TiXmlElement* elemSprite, int32_t fileindex);
     void set_by_xml(TiXmlElement* elemSprite);
     int32_t get_sheetindex(void) {
