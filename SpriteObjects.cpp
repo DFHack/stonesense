@@ -415,8 +415,8 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
     const char* scaleStr;
     scaleStr = elemSprite->Attribute("zoom");
     if (scaleStr != NULL && scaleStr[0] != 0) {
-        int scalev=atoi(scaleStr);
-        spritescale=std::pow(2.0f,(float)scalev);
+        float scalev=atof(scaleStr);
+        spritescale=std::pow(2.0f,scalev);
     }
     //load files, if any
     const char* filename = elemSprite->Attribute("file");
