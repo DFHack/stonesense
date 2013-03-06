@@ -47,7 +47,7 @@ int translateProfession(const char* currentProf)
             return j;
         }
     }
-    LogError("Unable to match profession '%s' to anything in-game\n", currentProf);
+    LogVerbose("Unable to match profession '%s' to anything in-game\n", currentProf);
     return INT_MAX; //if it is left at INVALID_INDEX, the condition is ignored entierly.
 }
 
