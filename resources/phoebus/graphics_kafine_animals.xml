@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<creatures>
+	<creature gameID="FISH_SUNFISH_OCEAN">
+		<variant file="kafine/animals.png" zoom="-1" sheetIndex="0" special="Normal" />
+		<variant file="kafine/animals.png" zoom="-1" sheetIndex="1" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="HORSESHOE_CRAB">
+		<variant file="kafine/animals.png" zoom="-1" sheetIndex="20" special="Normal" />
+		<variant file="kafine/animals.png" zoom="-1" sheetIndex="22" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_HORSESHOE_CRAB">
+		<variant file="kafine/animals.png" zoom="-1" sheetIndex="20" special="Normal" />
+		<variant file="kafine/animals.png" zoom="-1" sheetIndex="22" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="CRAB">
+		<variant file="kafine/animals.png" zoom="-1" sheetIndex="40" special="Normal" />
+		<variant file="kafine/animals.png" zoom="-1" sheetIndex="42" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_CRAB">
+		<variant file="kafine/animals.png" zoom="-1" sheetIndex="40" special="Normal" />
+		<variant file="kafine/animals.png" zoom="-1" sheetIndex="42" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="OCTOPUS">
+		<variant file="kafine/animals.png" zoom="-1" sheetIndex="60" special="Normal" />
+		<variant file="kafine/animals.png" zoom="-1" sheetIndex="62" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_OCTOPUS">
+		<variant file="kafine/animals.png" zoom="-1" sheetIndex="60" special="Normal" />
+		<variant file="kafine/animals.png" zoom="-1" sheetIndex="62" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="DESERT TORTOISE">
+		<variant file="kafine/animals.png" zoom="-1" sheetIndex="80" special="Normal" />
+		<variant file="kafine/animals.png" zoom="-1" sheetIndex="81" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_DESERT_TORTOISE">
+		<variant file="kafine/animals.png" zoom="-1" sheetIndex="82" special="Normal" />
+		<variant file="kafine/animals.png" zoom="-1" sheetIndex="81" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="CAVE_LOBSTER">
+		<variant file="kafine/animals.png" zoom="-1" sheetIndex="5" special="Normal" />
+		<variant file="kafine/animals.png" zoom="-1" sheetIndex="25" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="KAKAPO_MAN">
+		<variant file="kafine/animals.png" zoom="-1" sheetIndex="142" special="Normal" />
+		<variant file="kafine/animals.png" zoom="-1" sheetIndex="141" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="KESTREL_MAN">
+		<variant file="kafine/animals.png" zoom="-1" sheetIndex="162" special="Normal" />
+		<variant file="kafine/animals.png" zoom="-1" sheetIndex="161" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="MAGPIE_MAN">
+		<variant file="kafine/animals.png" zoom="-1" sheetIndex="182" special="Normal" />
+		<variant file="kafine/animals.png" zoom="-1" sheetIndex="181" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="CROW_MAN">
+		<variant file="kafine/animals.png" zoom="-1" sheetIndex="202" special="Normal" />
+		<variant file="kafine/animals.png" zoom="-1" sheetIndex="201" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="RAVEN_MAN">
+		<variant file="kafine/animals.png" zoom="-1" sheetIndex="222" special="Normal" />
+		<variant file="kafine/animals.png" zoom="-1" sheetIndex="221" profession="CHILD" special="Normal" />
+	</creature>
+</creatures>

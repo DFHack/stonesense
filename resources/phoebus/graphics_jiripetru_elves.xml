@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<creatures>
+	<creature gameID="ELF">
+		<variant file="jiripetru/elves.png" zoom="-1" sheetIndex="1" profession="CHILD" special="Normal" />
+		<variant file="jiripetru/elves.png" zoom="-1" sheetIndex="0" special="Normal" />
+		<variant file="jiripetru/elves.png" zoom="-1" sheetIndex="2" profession="DIPLOMAT" special="Normal" />
+		<variant file="jiripetru/elves.png" zoom="-1" sheetIndex="3" profession="CHAMPION" special="Normal" />
+		<variant file="jiripetru/elves.png" zoom="-1" sheetIndex="4" profession="DRUID" special="Normal" />
+		<variant file="jiripetru/elves.png" zoom="-1" sheetIndex="20" profession="TRADER" special="Normal" />
+		<variant file="jiripetru/elves.png" zoom="-1" sheetIndex="20" profession="MERCHANT" special="Normal" />
+		<variant file="jiripetru/elves.png" zoom="-1" sheetIndex="40" profession="WRESTLER" special="Normal" />
+		<variant file="jiripetru/elves.png" zoom="-1" sheetIndex="41" profession="SPEARMAN" special="Normal" />
+		<variant file="jiripetru/elves.png" zoom="-1" sheetIndex="42" profession="SWORDSMAN" special="Normal" />
+		<variant file="jiripetru/elves.png" zoom="-1" sheetIndex="43" profession="AXEMAN" special="Normal" />
+		<variant file="jiripetru/elves.png" zoom="-1" sheetIndex="44" profession="HAMMERMAN" special="Normal" />
+		<variant file="jiripetru/elves.png" zoom="-1" sheetIndex="45" profession="CROSSBOWMAN" special="Normal" />
+		<variant file="jiripetru/elves.png" zoom="-1" sheetIndex="46" profession="MACEMAN" special="Normal" />
+		<variant file="jiripetru/elves.png" zoom="-1" sheetIndex="47" profession="LASHER" special="Normal" />
+		<variant file="jiripetru/elves.png" zoom="-1" sheetIndex="48" profession="PIKEMAN" special="Normal" />
+		<variant file="jiripetru/elves.png" zoom="-1" sheetIndex="49" profession="BLOWGUNMAN" special="Normal" />
+		<variant file="jiripetru/elves.png" zoom="-1" sheetIndex="50" profession="BOWMAN" special="Normal" />
+		<variant file="jiripetru/elves.png" zoom="-1" sheetIndex="60" profession="WRESTLER" />
+		<variant file="jiripetru/elves.png" zoom="-1" sheetIndex="61" profession="SPEARMAN" />
+		<variant file="jiripetru/elves.png" zoom="-1" sheetIndex="62" profession="SWORDSMAN" />
+		<variant file="jiripetru/elves.png" zoom="-1" sheetIndex="63" profession="AXEMAN" />
+		<variant file="jiripetru/elves.png" zoom="-1" sheetIndex="64" profession="HAMMERMAN" />
+		<variant file="jiripetru/elves.png" zoom="-1" sheetIndex="65" profession="CROSSBOWMAN" />
+		<variant file="jiripetru/elves.png" zoom="-1" sheetIndex="66" profession="MACEMAN" />
+		<variant file="jiripetru/elves.png" zoom="-1" sheetIndex="67" profession="LASHER" />
+		<variant file="jiripetru/elves.png" zoom="-1" sheetIndex="68" profession="PIKEMAN" />
+		<variant file="jiripetru/elves.png" zoom="-1" sheetIndex="69" profession="BLOWGUNMAN" />
+		<variant file="jiripetru/elves.png" zoom="-1" sheetIndex="70" profession="BOWMAN" />
+		<variant file="jiripetru/elves.png" zoom="-1" sheetIndex="80" profession="MASTER_WRESTLER" special="Normal" />
+		<variant file="jiripetru/elves.png" zoom="-1" sheetIndex="81" profession="MASTER_SPEARMAN" special="Normal" />
+		<variant file="jiripetru/elves.png" zoom="-1" sheetIndex="82" profession="MASTER_SWORDSMAN" special="Normal" />
+		<variant file="jiripetru/elves.png" zoom="-1" sheetIndex="83" profession="MASTER_AXEMAN" special="Normal" />
+		<variant file="jiripetru/elves.png" zoom="-1" sheetIndex="84" profession="MASTER_HAMMERMAN" special="Normal" />
+		<variant file="jiripetru/elves.png" zoom="-1" sheetIndex="85" profession="MASTER_CROSSBOWMAN" special="Normal" />
+		<variant file="jiripetru/elves.png" zoom="-1" sheetIndex="86" profession="MASTER_MACEMAN" special="Normal" />
+		<variant file="jiripetru/elves.png" zoom="-1" sheetIndex="87" profession="MASTER_LASHER" special="Normal" />
+		<variant file="jiripetru/elves.png" zoom="-1" sheetIndex="88" profession="MASTER_PIKEMAN" special="Normal" />
+		<variant file="jiripetru/elves.png" zoom="-1" sheetIndex="89" profession="MASTER_BLOWGUNMAN" special="Normal" />
+		<variant file="jiripetru/elves.png" zoom="-1" sheetIndex="90" profession="MASTER_BOWMAN" special="Normal" />
+	</creature>
+</creatures>

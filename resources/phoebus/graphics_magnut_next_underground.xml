@@ -1,0 +1,115 @@
+<?xml version="1.0"?>
+<creatures>
+	<creature gameID="FLOATING_GUTS">
+		<variant file="magnut/next_underground.png" zoom="-1" sheetIndex="2" special="Normal" />
+	</creature>
+	<creature gameID="DRUNIAN">
+		<variant file="magnut/next_underground.png" zoom="-1" sheetIndex="3" special="Normal" />
+		<variant file="magnut/next_underground.png" zoom="-1" sheetIndex="4" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="CREEPING_EYE">
+		<variant file="magnut/next_underground.png" zoom="-1" sheetIndex="5" special="Normal" />
+	</creature>
+	<creature gameID="VORACIOUS_CAVE_CRAWLER">
+		<variant file="magnut/next_underground.png" zoom="-1" sheetIndex="20" special="Normal" />
+	</creature>
+	<creature gameID="BLIND_CAVE_OGRE">
+		<variant file="magnut/next_underground.png" zoom="-1" sheetIndex="21" special="Normal" />
+		<variant file="magnut/next_underground.png" zoom="-1" sheetIndex="22" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="CAP_HOPPER">
+		<variant file="magnut/next_underground.png" zoom="-1" sheetIndex="23" special="Normal" />
+	</creature>
+	<creature gameID="MAGMA_CRAB">
+		<variant file="magnut/next_underground.png" zoom="-1" sheetIndex="24" special="Normal" />
+	</creature>
+	<creature gameID="CRUNDLE">
+		<variant file="magnut/next_underground.png" zoom="-1" sheetIndex="25" special="Normal" />
+		<variant file="magnut/next_underground.png" zoom="-1" sheetIndex="40" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="HUNGRY_HEAD">
+		<variant file="magnut/next_underground.png" zoom="-1" sheetIndex="41" special="Normal" />
+	</creature>
+	<creature gameID="FLESH_BALL">
+		<variant file="magnut/next_underground.png" zoom="-1" sheetIndex="42" special="Normal" />
+	</creature>
+	<creature gameID="ELK_BIRD">
+		<variant file="magnut/next_underground.png" zoom="-1" sheetIndex="0" special="Normal" />
+		<variant file="magnut/next_underground.png" zoom="-1" sheetIndex="1" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="HELMET_SNAKE">
+		<variant file="magnut/next_underground.png" zoom="-1" sheetIndex="43" special="Normal" />
+	</creature>
+	<creature gameID="GREEN_DEVOURER">
+		<variant file="magnut/next_underground.png" zoom="-1" sheetIndex="44" special="Normal" />
+		<variant file="magnut/next_underground.png" zoom="-1" sheetIndex="45" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="RUTHERER">
+		<variant file="magnut/next_underground.png" zoom="-1" sheetIndex="60" special="Normal" />
+		<variant file="magnut/next_underground.png" zoom="-1" sheetIndex="61" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="CREEPY_CRAWLER">
+		<variant file="magnut/next_underground.png" zoom="-1" sheetIndex="62" special="Normal" />
+	</creature>
+	<creature gameID="DRALTHA">
+		<variant file="magnut/next_underground.png" zoom="-1" sheetIndex="63" special="Normal" />
+		<variant file="magnut/next_underground.png" zoom="-1" sheetIndex="64" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_EARTHWORM">
+		<variant file="magnut/next_underground.png" zoom="-1" sheetIndex="65" special="Normal" />
+	</creature>
+	<creature gameID="BLOOD_MAN">
+		<variant file="magnut/next_underground.png" zoom="-1" sheetIndex="80" special="Normal" />
+	</creature>
+	<creature gameID="BUGBAT">
+		<variant file="magnut/next_underground.png" zoom="-1" sheetIndex="81" special="Normal" />
+		<variant file="magnut/next_underground.png" zoom="-1" sheetIndex="82" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="MANERA">
+		<variant file="magnut/next_underground.png" zoom="-1" sheetIndex="83" special="Normal" />
+		<variant file="magnut/next_underground.png" zoom="-1" sheetIndex="84" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="MOLEMARIAN">
+		<variant file="magnut/next_underground.png" zoom="-1" sheetIndex="100" special="Normal" />
+		<variant file="magnut/next_underground.png" zoom="-1" sheetIndex="101" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="JABBERER">
+		<variant file="magnut/next_underground.png" zoom="-1" sheetIndex="102" special="Normal" />
+		<variant file="magnut/next_underground.png" zoom="-1" sheetIndex="103" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="POND_GRABBER">
+		<variant file="magnut/next_underground.png" zoom="-1" sheetIndex="104" special="Normal" />
+		<variant file="magnut/next_underground.png" zoom="-1" sheetIndex="105" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="BLIND_CAVE_BEAR">
+		<variant file="magnut/next_underground.png" zoom="-1" sheetIndex="120" special="Normal" />
+		<variant file="magnut/next_underground.png" zoom="-1" sheetIndex="121" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="CAVE_DRAGON">
+		<variant file="magnut/next_underground.png" zoom="-1" sheetIndex="122" special="Normal" />
+		<variant file="magnut/next_underground.png" zoom="-1" sheetIndex="123" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="REACHER">
+		<variant file="magnut/next_underground.png" zoom="-1" sheetIndex="124" special="Normal" />
+	</creature>
+	<creature gameID="ELEMENTMAN_GABBRO">
+		<variant file="magnut/next_underground.png" zoom="-1" sheetIndex="125" special="Normal" />
+	</creature>
+	<creature gameID="GORLAK">
+		<variant file="magnut/next_underground.png" zoom="-1" sheetIndex="140" special="Normal" />
+		<variant file="magnut/next_underground.png" zoom="-1" sheetIndex="141" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="CAVE_FLOATER">
+		<variant file="magnut/next_underground.png" zoom="-1" sheetIndex="142" special="Normal" />
+	</creature>
+	<creature gameID="PLUMP_HELMET_MAN">
+		<variant file="magnut/next_underground.png" zoom="-1" sheetIndex="143" special="Normal" />
+		<variant file="magnut/next_underground.png" zoom="-1" sheetIndex="144" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="CAVE_BLOB">
+		<variant file="magnut/next_underground.png" zoom="-1" sheetIndex="145" special="Normal" />
+	</creature>
+	<creature gameID="ELEMENTMAN_AMETHYST">
+		<variant file="magnut/next_underground.png" zoom="-1" sheetIndex="85" special="Normal" />
+	</creature>
+</creatures>

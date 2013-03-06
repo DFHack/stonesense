@@ -1,0 +1,197 @@
+<?xml version="1.0"?>
+<creatures>
+	<creature gameID="HUMAN">
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="1" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="2" profession="BABY" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="3" profession="CHILD" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="4" profession="DRUNK" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="8" profession="SLAVE" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="9" profession="PRISONER" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="10" profession="THIEF" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="11" profession="MASTER_THIEF" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="20" profession="BARON" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="21" profession="BARON_CONSORT" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="22" profession="COUNT" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="23" profession="COUNT_CONSORT" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="24" profession="DUKE" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="25" profession="DUKE_CONSORT" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="26" profession="MONARCH" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="29" profession="DRUID" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="30" profession="PRIEST" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="31" profession="HIGH_PRIEST" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="40" profession="MERCHANT" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="40" profession="TRADER" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="40" profession="SHOPKEEPER" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="41" profession="BROKER" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="41" profession="GUILDREP" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="42" profession="MERCHANTBARON" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="43" profession="MERCHANTPRINCE" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="44" profession="TAXCOLLECTOR" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="49" profession="PHILOSOPHER" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="50" profession="ADVISOR" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="51" profession="ALCHEMIST" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="60" profession="CAPTAIN_OF_THE_GUARD" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="60" profession="CAPTAIN" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="61" profession="GENERAL" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="62" profession="LIEUTENANT" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="63" profession="SHERIFF" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="64" profession="MILITIA_COMMANDER" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="65" profession="MILITIA_CAPTAIN" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="70" profession="DUNGEONMASTER" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="71" profession="EXECUTIONER" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="80" profession="MINER" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="87" profession="CLERK" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="88" profession="MAYOR" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="88" profession="LEADER" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="88" profession="ADMINISTRATOR" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="88" profession="FORCED_ADMINISTRATOR" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="89" profession="DIPLOMAT" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="90" profession="MANAGER" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="90" profession="BOOKKEEPER" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="91" profession="OUTPOSTLIAISON" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="91" profession="OUTPOST_LIAISON" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="100" profession="STONEWORKER" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="101" profession="ENGRAVER" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="102" profession="MASON" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="103" profession="ARCHITECT" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="107" profession="ENGINEER" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="108" profession="MECHANIC" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="109" profession="SIEGE_ENGINEER" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="110" profession="SIEGE_OPERATOR" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="111" profession="PUMP_OPERATOR" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="120" profession="WOODWORKER" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="121" profession="CARPENTER" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="122" profession="BOWYER" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="123" profession="WOODCUTTER" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="126" profession="CHIEF_MEDICAL_DWARF" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="127" profession="DOCTOR" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="128" profession="DIAGNOSER" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="129" profession="SURGEON" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="130" profession="BONE_SETTER" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="131" profession="SUTURER" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="140" profession="RANGER" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="141" profession="ANIMAL_CARETAKER" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="142" profession="ANIMAL_TRAINER" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="143" profession="HUNTER" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="144" profession="TRAPPER" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="145" profession="ANIMAL_DISSECTOR" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="148" profession="FISHERY_WORKER" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="149" profession="FISHERMAN" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="150" profession="FISH_DISSECTOR" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="151" profession="FISH_CLEANER" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="160" profession="METALSMITH" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="161" profession="FURNACE_OPERATOR" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="162" profession="WEAPONSMITH" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="163" profession="ARMORER" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="164" profession="BLACKSMITH" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="165" profession="METALCRAFTER" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="169" profession="JEWELER" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="170" profession="GEM_CUTTER" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="171" profession="GEM_SETTER" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="180" profession="CRAFTSMAN" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="181" profession="WOODCRAFTER" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="182" profession="STONECRAFTER" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="183" profession="LEATHERWORKER" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="184" profession="BONE_CARVER" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="185" profession="WEAVER" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="186" profession="CLOTHIER" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="187" profession="GLASSMAKER" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="188" profession="STRAND_EXTRACTOR" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="189" profession="GLAZER" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="190" profession="POTTER" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="191" profession="WAX_WORKER" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="200" profession="FARMER" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="201" profession="CHEESE_MAKER" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="202" profession="MILKER" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="203" profession="COOK" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="204" profession="THRESHER" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="205" profession="MILLER" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="206" profession="BUTCHER" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="207" profession="TANNER" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="208" profession="DYER" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="209" profession="PLANTER" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="210" profession="HERBALIST" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="211" profession="BREWER" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="220" profession="SOAP_MAKER" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="221" profession="POTASH_MAKER" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="222" profession="LYE_MAKER" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="223" profession="WOOD_BURNER" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="224" profession="SHEARER" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="225" profession="SPINNER" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="226" profession="PRESSER" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="227" profession="BEEKEEPER" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="240" profession="RECRUIT" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="241" profession="WRESTLER" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="242" profession="SPEARMAN" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="243" profession="SWORDSMAN" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="244" profession="AXEMAN" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="245" profession="HAMMERMAN" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="246" profession="CROSSBOWMAN" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="247" profession="MACEMAN" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="248" profession="LASHER" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="249" profession="PIKEMAN" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="250" profession="BLOWGUNMAN" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="251" profession="BOWMAN" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="260" profession="CHAMPION" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="261" profession="MASTER_WRESTLER" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="262" profession="MASTER_SPEARMAN" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="263" profession="MASTER_SWORDSMAN" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="264" profession="MASTER_AXEMAN" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="265" profession="MASTER_HAMMERMAN" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="266" profession="MASTER_CROSSBOWMAN" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="267" profession="MASTER_MACEMAN" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="268" profession="MASTER_LASHER" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="269" profession="MASTER_PIKEMAN" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="270" profession="MASTER_BLOWGUNMAN" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="271" profession="MASTER_BOWMAN" special="Normal" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="280" profession="RECRUIT" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="281" profession="WRESTLER" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="282" profession="SPEARMAN" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="283" profession="SWORDSMAN" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="284" profession="AXEMAN" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="285" profession="HAMMERMAN" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="286" profession="CROSSBOWMAN" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="287" profession="MACEMAN" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="288" profession="LASHER" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="289" profession="PIKEMAN" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="290" profession="BLOWGUNMAN" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="291" profession="BOWMAN" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="300" profession="CHAMPION" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="301" profession="MASTER_WRESTLER" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="302" profession="MASTER_SPEARMAN" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="303" profession="MASTER_SWORDSMAN" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="304" profession="MASTER_AXEMAN" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="305" profession="MASTER_HAMMERMAN" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="306" profession="MASTER_CROSSBOWMAN" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="307" profession="MASTER_MACEMAN" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="308" profession="MASTER_LASHER" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="309" profession="MASTER_PIKEMAN" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="310" profession="MASTER_BLOWGUNMAN" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="311" profession="MASTER_BOWMAN" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="320" profession="RECRUIT" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="321" profession="WRESTLER" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="322" profession="SPEARMAN" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="323" profession="SWORDSMAN" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="324" profession="AXEMAN" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="325" profession="HAMMERMAN" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="326" profession="CROSSBOWMAN" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="327" profession="MACEMAN" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="328" profession="LASHER" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="329" profession="PIKEMAN" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="330" profession="BLOWGUNMAN" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="331" profession="BOWMAN" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="340" profession="CHAMPION" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="341" profession="MASTER_WRESTLER" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="342" profession="MASTER_SPEARMAN" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="343" profession="MASTER_SWORDSMAN" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="344" profession="MASTER_AXEMAN" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="345" profession="MASTER_HAMMERMAN" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="346" profession="MASTER_CROSSBOWMAN" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="347" profession="MASTER_MACEMAN" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="348" profession="MASTER_LASHER" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="349" profession="MASTER_PIKEMAN" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="350" profession="MASTER_BLOWGUNMAN" />
+		<variant file="phoebus/humans.png" zoom="-1" sheetIndex="351" profession="MASTER_BOWMAN" />
+	</creature>
+</creatures>

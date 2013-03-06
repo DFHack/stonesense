@@ -1,0 +1,15 @@
+graphics_doren_crittermen.xml
+graphics_jiripetru_elves.xml
+graphics_kafine_animals.xml
+graphics_magnut_next_underground.xml
+graphics_nwkohaku_animals.xml
+graphics_nwkohaku_birds.xml
+graphics_nwkohaku_bugs.xml
+graphics_phoebus_animals.xml
+graphics_phoebus_dwarves.xml
+graphics_phoebus_goblins.xml
+graphics_phoebus_humanoids.xml
+graphics_phoebus_humans.xml
+graphics_phoebus_procedural.xml
+graphics_sphr_kobolds.xml
+graphics_sphr_monsters.xml
