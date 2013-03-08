@@ -143,7 +143,7 @@
 		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="13" profession="CHILD" special="Normal" />
 	</creature>
 	<creature gameID="KIWI_MAN">
-		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="320" special="Normal" />
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="19" special="Normal" />
 	</creature>
 	<creature gameID="BIRD_CROW">
 		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="32" special="Normal" />
@@ -154,7 +154,7 @@
 		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="33" profession="CHILD" special="Normal" />
 	</creature>
 	<creature gameID="CROW_MAN">
-		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="340" special="Normal" />
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="39" special="Normal" />
 	</creature>
 	<creature gameID="BIRD_CASSOWARY">
 		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="52" special="Normal" />
@@ -173,7 +173,7 @@
 		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="73" profession="CHILD" special="Normal" />
 	</creature>
 	<creature gameID="SNOWY_OWL_MAN">
-		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="380" special="Normal" />
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="79" special="Normal" />
 	</creature>
 	<creature gameID="BIRD_STORK_WHITE">
 		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="92" special="Normal" />
@@ -184,7 +184,7 @@
 		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="93" profession="CHILD" special="Normal" />
 	</creature>
 	<creature gameID="WHITE_STORK_MAN">
-		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="400" special="Normal" />
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="99" special="Normal" />
 	</creature>
 	<creature gameID="BIRD_OWL_BARN">
 		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="112" special="Normal" />
@@ -195,7 +195,7 @@
 		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="113" profession="CHILD" special="Normal" />
 	</creature>
 	<creature gameID="BARN_OWL_MAN">
-		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="420" special="Normal" />
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="119" special="Normal" />
 	</creature>
 	<creature gameID="BIRD_KAKAPO">
 		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="132" special="Normal" />
