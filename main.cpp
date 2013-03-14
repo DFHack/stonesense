@@ -389,7 +389,7 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
 	config.fogenable = true;
 	config.imageCacheSize = 4096;
 	config.fontsize = 10;
-	config.font = al_create_path("data/art/font.ttf");
+	config.font = al_create_path("../data/art/font.ttf");
 	config.creditScreen = true;
 	config.bloodcutoff = 100;
 	config.poolcutoff = 100;
