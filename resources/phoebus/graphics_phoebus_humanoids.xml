@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<creatures>
+	<creature gameID="AMPHIBIAN_MAN">
+		<variant file="phoebus/humanoids.png" zoom="-1" sheetIndex="0" special="Normal" />
+	</creature>
+	<creature gameID="BADGER MAN">
+		<variant file="phoebus/humanoids.png" zoom="-1" sheetIndex="2" special="Normal" />
+	</creature>
+	<creature gameID="ANT_MAN">
+		<variant file="phoebus/humanoids.png" zoom="-1" sheetIndex="20" special="Normal" />
+	</creature>
+	<creature gameID="CAPYBARA MAN">
+		<variant file="phoebus/humanoids.png" zoom="-1" sheetIndex="22" special="Normal" />
+	</creature>
+	<creature gameID="BAT_MAN">
+		<variant file="phoebus/humanoids.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="PANDA MAN">
+		<variant file="phoebus/humanoids.png" zoom="-1" sheetIndex="42" special="Normal" />
+	</creature>
+	<creature gameID="CAVE_FISH_MAN">
+		<variant file="phoebus/humanoids.png" zoom="-1" sheetIndex="60" special="Normal" />
+	</creature>
+	<creature gameID="MOOSE MAN">
+		<variant file="phoebus/humanoids.png" zoom="-1" sheetIndex="62" special="Normal" />
+	</creature>
+	<creature gameID="CAVE_SWALLOW_MAN">
+		<variant file="phoebus/humanoids.png" zoom="-1" sheetIndex="80" special="Normal" />
+		<variant file="phoebus/humanoids.png" zoom="-1" sheetIndex="81" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="LEECHMAN">
+		<variant file="phoebus/humanoids.png" zoom="-1" sheetIndex="100" special="Normal" />
+		<variant file="phoebus/humanoids.png" zoom="-1" sheetIndex="101" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="PENGUIN MAN">
+		<variant file="phoebus/humanoids.png" zoom="-1" sheetIndex="102" special="Normal" />
+	</creature>
+	<creature gameID="OLM_MAN">
+		<variant file="phoebus/humanoids.png" zoom="-1" sheetIndex="120" special="Normal" />
+		<variant file="phoebus/humanoids.png" zoom="-1" sheetIndex="121" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="RODENT MAN">
+		<variant file="phoebus/humanoids.png" zoom="-1" sheetIndex="122" special="Normal" />
+	</creature>
+	<creature gameID="REPTILE_MAN">
+		<variant file="phoebus/humanoids.png" zoom="-1" sheetIndex="140" special="Normal" />
+	</creature>
+	<creature gameID="SERPENT_MAN">
+		<variant file="phoebus/humanoids.png" zoom="-1" sheetIndex="160" special="Normal" />
+	</creature>
+	<creature gameID="SLUGMAN">
+		<variant file="phoebus/humanoids.png" zoom="-1" sheetIndex="180" special="Normal" />
+	</creature>
+	<creature gameID="SNAILMAN">
+		<variant file="phoebus/humanoids.png" zoom="-1" sheetIndex="200" special="Normal" />
+	</creature>
+	<creature gameID="TIGERMAN">
+		<variant file="phoebus/humanoids.png" zoom="-1" sheetIndex="220" special="Normal" />
+		<variant file="phoebus/humanoids.png" zoom="-1" sheetIndex="221" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="MERPERSON">
+		<variant file="phoebus/humanoids.png" zoom="-1" sheetIndex="240" special="Normal" />
+		<variant file="phoebus/humanoids.png" zoom="-1" sheetIndex="241" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="TROGLODYTE">
+		<variant file="phoebus/humanoids.png" zoom="-1" sheetIndex="260" special="Normal" />
+		<variant file="phoebus/humanoids.png" zoom="-1" sheetIndex="261" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="IMP_FIRE">
+		<variant file="phoebus/humanoids.png" zoom="-1" sheetIndex="280" special="Normal" />
+	</creature>
+	<creature gameID="ELEMENTMAN_FIRE">
+		<variant file="phoebus/humanoids.png" zoom="-1" sheetIndex="300" special="Normal" />
+	</creature>
+	<creature gameID="ELEMENTMAN_MAGMA">
+		<variant file="phoebus/humanoids.png" zoom="-1" sheetIndex="320" special="Normal" />
+	</creature>
+	<creature gameID="ELEMENTMAN_IRON">
+		<variant file="phoebus/humanoids.png" zoom="-1" sheetIndex="340" special="Normal" />
+	</creature>
+	<creature gameID="ELEMENTMAN_MUD">
+		<variant file="phoebus/humanoids.png" zoom="-1" sheetIndex="360" special="Normal" />
+	</creature>
+	<creature gameID="GNOME_MOUNTAIN">
+		<variant file="phoebus/humanoids.png" zoom="-1" sheetIndex="380" special="Normal" />
+		<variant file="phoebus/humanoids.png" zoom="-1" sheetIndex="381" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GNOME_DARK">
+		<variant file="phoebus/humanoids.png" zoom="-1" sheetIndex="400" special="Normal" />
+		<variant file="phoebus/humanoids.png" zoom="-1" sheetIndex="401" profession="CHILD" special="Normal" />
+	</creature>
+</creatures>

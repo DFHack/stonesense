@@ -39,5 +39,5 @@
 	<else>
 		<empty/>
 	</else>	
-	<!-- end generic block -->
+	<!-- end generic wall -->
 </include>

@@ -65,12 +65,13 @@ Default Value: "0"
 Description: This is used for giving random variation to sprites. If this number is more than 0, a random number between 0 and this number-1 is added to the sheetIndex. eg, if this attribute is 5 and sheetIndex is 21, then tiles will range from 21-25
 
 Attribute: color
-Valid Values: "none", "xml", "material", "layer", "vein", "building", "material_fore", "material_back", "layer_fore", "layer_back", "vein_fore", "vein_back", "bodypart", "profession", "blood"
+Valid Values: "none", "xml", "inorganic", "material", "layer", "vein", "building", "material_fore", "material_back", "layer_fore", "layer_back", "vein_fore", "vein_back", "bodypart", "profession", "blood"
 Default Value: "none"
 Description: Sets how this sprite is colored. 
 	"none" means the sprite is not colored
 	"xml" means the sprite color is specified using the red, green, and blue sprite attributes shown later.
-	"Material" means that the sprite will be colored according to the material of the sprite that shows up in DF. adding this to creatures results in chameleons.
+	"named" means that a later specified color_name, which references a COLOR from the DF raw files will be used.
+	"material" means that the sprite will be colored according to the material of the sprite that shows up in DF. adding this to creatures results in chameleons.
 	"layer" means that the sprite will be colored according to the main rock layer, which lies beneath all veins and constructions.
 	"vein" means that the sprite will be colored according to the mineral vein, which lies beneath constructions, but is above the layer.
 	"building" means that the sprite will be colored according to the building that is built on it. it's probably a bad idea to use this one outside of building sprites.
@@ -88,6 +89,11 @@ Attribute: red, green, blue, alpha
 Valid Values: "0"-"255"
 Default: "255"
 Description: sets the color to tint the sprite by manually. only valid if color="xml"
+
+Attribute: color_name
+Valid Values: names of a COLOR from the DF raw file "descriptor_color_standard.txt" (eg. "DARK_INDIGO"). only valid if color="named"
+Default: pure white (255, 255, 255)
+Description: gets the tinting color from the DF raws' color descriptions
 
 Attribute: halftile
 Valid Values: "chop", "yes", "no", "both"

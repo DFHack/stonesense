@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
-<blocks file="Nuglass_walls.png">
+<walls file="Nuglass_walls.png">
   <!-- construct -->
-  <block sheetIndex="0"
+  <wall sheetIndex="0"
 		border_wall_NOR="2468" 
 		border_open_NOR="0"
 		outline="0"
@@ -119,9 +119,9 @@
 		border_open_NOR="2468"
 		outline="0"
 		/>
- </block>
+ </wall>
   <!-- construct -->
-  <block sheetIndex="20"
+  <wall sheetIndex="20"
 		border_wall_NOR="2468" 
 		border_open_NOR="0"
 		outline="0"
@@ -239,9 +239,9 @@
 		border_open_NOR="2468"
 		outline="0"
 		/>
- </block>
+ </wall>
   <!-- construct -->
-  <block sheetIndex="40"
+  <wall sheetIndex="40"
 		border_wall_NOR="2468" 
 		border_open_NOR="0"
 		outline="0"
@@ -359,5 +359,5 @@
 		border_open_NOR="2468"
 		outline="0"
 		/>
- </block>
-</blocks>
+ </wall>
+</walls>

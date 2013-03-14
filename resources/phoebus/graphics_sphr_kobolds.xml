@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<creatures>
+	<creature gameID="KOBOLD">
+		<variant file="sphr/kobolds.png" zoom="-1" sheetIndex="1" special="Normal" />
+		<variant file="sphr/kobolds.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+		<variant file="sphr/kobolds.png" zoom="-1" sheetIndex="2" profession="CHILD" special="Normal" />
+		<variant file="sphr/kobolds.png" zoom="-1" sheetIndex="3" profession="THIEF" special="Normal" />
+		<variant file="sphr/kobolds.png" zoom="-1" sheetIndex="4" profession="MASTER_THIEF" special="Normal" />
+		<variant file="sphr/kobolds.png" zoom="-1" sheetIndex="20" profession="RECRUIT" special="Normal" />
+		<variant file="sphr/kobolds.png" zoom="-1" sheetIndex="21" profession="WRESTLER" special="Normal" />
+		<variant file="sphr/kobolds.png" zoom="-1" sheetIndex="22" profession="SPEARMAN" special="Normal" />
+		<variant file="sphr/kobolds.png" zoom="-1" sheetIndex="23" profession="SWORDSMAN" special="Normal" />
+		<variant file="sphr/kobolds.png" zoom="-1" sheetIndex="24" profession="BOWMAN" special="Normal" />
+		<variant file="sphr/kobolds.png" zoom="-1" sheetIndex="40" profession="CHAMPION" special="Normal" />
+		<variant file="sphr/kobolds.png" zoom="-1" sheetIndex="41" profession="MASTER_WRESTLER" special="Normal" />
+		<variant file="sphr/kobolds.png" zoom="-1" sheetIndex="42" profession="MASTER_SPEARMAN" special="Normal" />
+		<variant file="sphr/kobolds.png" zoom="-1" sheetIndex="43" profession="MASTER_SWORDSMAN" special="Normal" />
+		<variant file="sphr/kobolds.png" zoom="-1" sheetIndex="44" profession="MASTER_BOWMAN" special="Normal" />
+	</creature>
+</creatures>

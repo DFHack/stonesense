@@ -5,10 +5,9 @@ include_directories (${CMAKE_SOURCE_DIR})
 
 
 SET(PROJECT_SRCS
-    Block.cpp
-    BlockCondition.cpp
-    BlockFactory.cpp
-    BlockTree.cpp
+    Tile.cpp
+    TileCondition.cpp
+    TileTree.cpp
     BuildingConfiguration.cpp
     ColorConfiguration.cpp
     ConditionalSprite.cpp
@@ -18,19 +17,22 @@ SET(PROJECT_SRCS
     ContentLoader.cpp
     CreatureConfiguration.cpp
     Creatures.cpp
+    DumpInfo.cpp
     FluidConfiguration.cpp
     GUI.cpp
     GameBuildings.cpp
     GroundMaterialConfiguration.cpp
-	ItemConfiguration.cpp
+    ItemConfiguration.cpp
     MapLoading.cpp
-    Occlusion_Test.cpp
+    SegmentProcessing.cpp 
+    OcclusionTest.cpp
     SpriteColors.cpp
     SpriteMaps.cpp
     SpriteObjects.cpp
     UserInput.cpp
     WorldSegment.cpp
     VegetationConfiguration.cpp
+    Keybinds.cpp
     main.cpp
 )
 
@@ -39,10 +41,10 @@ IF(UNIX)
 	# Mac OS X
 		OPTION(STONESENSE_INTERNAL_DYLIB "Link with prebuilt internal allegro libs and headers." ON)
 		IF(STONESENSE_INTERNAL_DYLIB)
-			FILE(DOWNLOAD http://cloud.github.com/downloads/danaris/dfhack/allegro-507-osx-r2.tar.bz2
-						  ${stonesense_SOURCE_DIR}/allegro-507-osx-r2.tar.bz2
-						  EXPECTED_MD5 b82ccaf869e7c1e71bafc52ea294e961)
-			execute_process(COMMAND tar xf ${stonesense_SOURCE_DIR}/allegro-507-osx-r2.tar.bz2
+			FILE(DOWNLOAD http://cloud.github.com/downloads/danaris/dfhack/allegro-507-osx.tar.bz2
+						  ${stonesense_SOURCE_DIR}/allegro-507-osx.tar.bz2
+						  EXPECTED_MD5 10e8d3dacb01f3d58a9b7f6e5b428470)
+			execute_process(COMMAND tar xf ${stonesense_SOURCE_DIR}/allegro-507-osx.tar.bz2
 							WORKING_DIRECTORY ${stonesense_SOURCE_DIR})
 			SET(PROJECT_LIBS
 				${stonesense_SOURCE_DIR}/allegro-osx/lib/liballegro.5.0.7.dylib
@@ -74,7 +76,7 @@ IF(UNIX)
 	#linux
 		OPTION(STONESENSE_INTERNAL_SO "Link with prebuilt internal allegro libs and headers." ON)
 		IF(STONESENSE_INTERNAL_SO)
-			FILE(DOWNLOAD http://cloud.github.com/downloads/peterix/stonesense/allegro.tar.bz2
+			FILE(DOWNLOAD http://dethware.org/dfhack/download/allegro.tar.bz2
 						  ${stonesense_SOURCE_DIR}/allegro.tar.bz2
 						  EXPECTED_MD5 11ce22e71db4a0886eac3af220eef032)
 			execute_process(COMMAND tar xf ${stonesense_SOURCE_DIR}/allegro.tar.bz2
@@ -108,7 +110,7 @@ IF(UNIX)
 	ENDIF()
 # windows
 ELSE(UNIX)
-    FILE(DOWNLOAD http://cloud.github.com/downloads/peterix/stonesense/allegrow.tar.gz
+    FILE(DOWNLOAD http://dethware.org/dfhack/download/allegrow.tar.gz
                   ${stonesense_SOURCE_DIR}/allegrow.tar.gz
                   EXPECTED_MD5 5bf41454531ee9d847b6ddac122bbc51)
     execute_process(COMMAND ${CMAKE_COMMAND} -E tar xzf ${stonesense_SOURCE_DIR}/allegrow.tar.gz
@@ -149,9 +151,6 @@ ELSE(UNIX)
     )
 ENDIF(UNIX)
 DFHACK_PLUGIN(stonesense ${PROJECT_SRCS} LINK_LIBRARIES dfhack-tinyxml ${PROJECT_LIBS})
-if(APPLE)
-	add_custom_command(TARGET stonesense COMMAND ${stonesense_SOURCE_DIR}/fix-libs-stonesense.sh WORKING_DIRECTORY . COMMENT "Fixing library dependencies...")
-endif()
 #install resources into DF/stonesense
 install(DIRECTORY resources/
         DESTINATION "stonesense"

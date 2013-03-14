@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
-<blocks file="BuiltForts.png">
-	<block sprite="20" outline="0">
+<walls file="BuiltForts.png">
+	<wall sprite="20" outline="0">
 		<terrain value="494"/>
 		<material value="GreenGlass"/>
 		<subsprite sprite="81" outline="0" border_floor_OR="4" border_floor_NOR="268" border_wall_NOR="4" border_open_NOR="246" border_ramp_NOR="26"/>
@@ -44,8 +44,8 @@
 		<subsprite sprite="89" outline="0" border_floor_NOR="2468" border_wall_NOR="268" border_ramp_NOR="2468"/>
 		<subsprite sprite="89" outline="0" border_floor_NOR="2468" border_wall_NOR="248" border_ramp_NOR="2468"/>
 		<subsprite sprite="89" outline="0" border_floor_NOR="2468" border_wall_NOR="246" border_ramp_NOR="2468"/>
-	</block>
-	<block sprite="20" outline="0">
+	</wall>
+	<wall sprite="20" outline="0">
 		<terrain value="494"/>
 		<material value="ClearGlass"/>
 		<subsprite sprite="101" outline="0" border_floor_OR="4" border_floor_NOR="268" border_wall_NOR="4" border_open_NOR="246" border_ramp_NOR="26"/>
@@ -89,8 +89,8 @@
 		<subsprite sprite="109" outline="0" border_floor_NOR="2468" border_wall_NOR="268" border_ramp_NOR="2468"/>
 		<subsprite sprite="109" outline="0" border_floor_NOR="2468" border_wall_NOR="248" border_ramp_NOR="2468"/>
 		<subsprite sprite="109" outline="0" border_floor_NOR="2468" border_wall_NOR="246" border_ramp_NOR="2468"/>
-	</block>
-	<block sprite="20" outline="0">
+	</wall>
+	<wall sprite="20" outline="0">
 		<terrain value="494"/>
 		<material value="CrystalGlass"/>
 		<subsprite sprite="121" outline="0" border_floor_OR="4" border_floor_NOR="268" border_wall_NOR="4" border_open_NOR="246" border_ramp_NOR="26"/>
@@ -134,8 +134,8 @@
 		<subsprite sprite="129" outline="0" border_floor_NOR="2468" border_wall_NOR="268" border_ramp_NOR="2468"/>
 		<subsprite sprite="129" outline="0" border_floor_NOR="2468" border_wall_NOR="248" border_ramp_NOR="2468"/>
 		<subsprite sprite="129" outline="0" border_floor_NOR="2468" border_wall_NOR="246" border_ramp_NOR="2468"/>
-	</block>
-	<block sprite="20" outline="0">
+	</wall>
+	<wall sprite="20" outline="0">
 		<terrain value="326"/>
 		<subsprite sprite="21" outline="0" border_floor_OR="4" border_floor_NOR="268" border_wall_NOR="4" border_open_NOR="246" border_ramp_NOR="26"/>
 		<subsprite sprite="22" outline="0" border_floor_OR="6" border_floor_NOR="248" border_wall_NOR="6" border_open_NOR="468" border_ramp_NOR="48"/>
@@ -178,8 +178,8 @@
 		<subsprite sprite="29" outline="0" border_floor_NOR="2468" border_wall_NOR="268" border_ramp_NOR="2468"/>
 		<subsprite sprite="29" outline="0" border_floor_NOR="2468" border_wall_NOR="248" border_ramp_NOR="2468"/>
 		<subsprite sprite="29" outline="0" border_floor_NOR="2468" border_wall_NOR="246" border_ramp_NOR="2468"/>
-	</block>
-	<block sprite="20" outline="0">
+	</wall>
+	<wall sprite="20" outline="0">
 		<terrain value="494"/>
 		<material value="Stone">
 			<subtype value="OBSIDIAN" />
@@ -225,8 +225,8 @@
 		<subsprite sprite="29" outline="0" border_floor_NOR="2468" border_wall_NOR="268" border_ramp_NOR="2468"/>
 		<subsprite sprite="29" outline="0" border_floor_NOR="2468" border_wall_NOR="248" border_ramp_NOR="2468"/>
 		<subsprite sprite="29" outline="0" border_floor_NOR="2468" border_wall_NOR="246" border_ramp_NOR="2468"/>
-	</block>
-	<block sprite="20" outline="0">
+	</wall>
+	<wall sprite="20" outline="0">
 		<terrain value="494"/>
 		<material value="Ice"/>
 		<subsprite sprite="41" outline="0" border_floor_OR="4" border_floor_NOR="268" border_wall_NOR="4" border_open_NOR="246" border_ramp_NOR="26"/>
@@ -270,8 +270,8 @@
 		<subsprite sprite="49" outline="0" border_floor_NOR="2468" border_wall_NOR="268" border_ramp_NOR="2468"/>
 		<subsprite sprite="49" outline="0" border_floor_NOR="2468" border_wall_NOR="248" border_ramp_NOR="2468"/>
 		<subsprite sprite="49" outline="0" border_floor_NOR="2468" border_wall_NOR="246" border_ramp_NOR="2468"/>
-	</block>
-	<block sprite="0" outline="0">
+	</wall>
+	<wall sprite="0" outline="0">
 		<terrain value="494"/>
 		<form value="block" />
 		<material value="Inorganic" />
@@ -316,8 +316,8 @@
 		<subsprite sprite="9" color="material" outline="0" border_floor_NOR="2468" border_wall_NOR="268" border_ramp_NOR="2468"/>
 		<subsprite sprite="9" color="material" outline="0" border_floor_NOR="2468" border_wall_NOR="248" border_ramp_NOR="2468"/>
 		<subsprite sprite="9" color="material" outline="0" border_floor_NOR="2468" border_wall_NOR="246" border_ramp_NOR="2468"/>
-	</block>
-	<block sprite="0" outline="0">
+	</wall>
+	<wall sprite="0" outline="0">
 		<terrain value="494"/>
 		<form value="boulder" />
 		<material value="Inorganic" />
@@ -362,40 +362,40 @@
 		<subsprite sprite="69" color="material" outline="0" border_floor_NOR="2468" border_wall_NOR="268" border_ramp_NOR="2468"/>
 		<subsprite sprite="69" color="material" outline="0" border_floor_NOR="2468" border_wall_NOR="248" border_ramp_NOR="2468"/>
 		<subsprite sprite="69" color="material" outline="0" border_floor_NOR="2468" border_wall_NOR="246" border_ramp_NOR="2468"/>
-	</block>
-	<block sheetIndex="39">
+	</wall>
+	<wall sheetIndex="39">
 		<terrain value="36" />
 		<terrain value="38" />
-	</block>
-	<block sheetIndex="39">
+	</wall>
+	<wall sheetIndex="39">
 		<terrain value="515" />
 		<terrain value="517" />
 		<material value="Stone">
 			<subtype value="OBSIDIAN" />
 		</material>
-	</block>
-	<block sheetIndex="19" color="material">
+	</wall>
+	<wall sheetIndex="19" color="material">
 		<terrain value="515" />
 		<terrain value="517" />
-	</block>
-	<block sheetIndex="59">
+	</wall>
+	<wall sheetIndex="59">
 		<terrain value="515" />
 		<terrain value="517" />
 		<material value="Ice"/>
-	</block>
-	<block sheetIndex="99">
+	</wall>
+	<wall sheetIndex="99">
 		<terrain value="515" />
 		<terrain value="517" />
 		<material value="GreenGlass"/>
-	</block>
-	<block sheetIndex="119">
+	</wall>
+	<wall sheetIndex="119">
 		<terrain value="515" />
 		<terrain value="517" />
 		<material value="ClearGlass"/>
-	</block>
-	<block sheetIndex="139">
+	</wall>
+	<wall sheetIndex="139">
 		<terrain value="515" />
 		<terrain value="517" />
 		<material value="CrystalGlass"/>
-	</block>
-</blocks>
+	</wall>
+</walls>

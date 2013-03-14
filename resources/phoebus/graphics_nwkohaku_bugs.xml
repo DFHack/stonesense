@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<creatures>
+	<creature gameID="GIANT_MOSQUITO">
+		<variant file="nwkohaku/bugs.png" zoom="-1" sheetIndex="0" special="Normal" />
+		<variant file="nwkohaku/bugs.png" zoom="-1" sheetIndex="20" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="MOSQUITO">
+		<variant file="nwkohaku/bugs.png" zoom="-1" sheetIndex="20" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_DAMSELFLY">
+		<variant file="nwkohaku/bugs.png" zoom="-1" sheetIndex="1" special="Normal" />
+		<variant file="nwkohaku/bugs.png" zoom="-1" sheetIndex="21" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="DAMSELFLY">
+		<variant file="nwkohaku/bugs.png" zoom="-1" sheetIndex="21" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_MOTH">
+		<variant file="nwkohaku/bugs.png" zoom="-1" sheetIndex="2" special="Normal" />
+		<variant file="nwkohaku/bugs.png" zoom="-1" sheetIndex="22" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="MOTH">
+		<variant file="nwkohaku/bugs.png" zoom="-1" sheetIndex="22" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_GRASSHOPPER">
+		<variant file="nwkohaku/bugs.png" zoom="-1" sheetIndex="3" special="Normal" />
+		<variant file="nwkohaku/bugs.png" zoom="-1" sheetIndex="23" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GRASSHOPPER">
+		<variant file="nwkohaku/bugs.png" zoom="-1" sheetIndex="23" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_BARK_SCORPION">
+		<variant file="nwkohaku/bugs.png" zoom="-1" sheetIndex="4" special="Normal" />
+		<variant file="nwkohaku/bugs.png" zoom="-1" sheetIndex="24" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="BARK_SCORPION">
+		<variant file="nwkohaku/bugs.png" zoom="-1" sheetIndex="24" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_MANTIS">
+		<variant file="nwkohaku/bugs.png" zoom="-1" sheetIndex="5" special="Normal" />
+		<variant file="nwkohaku/bugs.png" zoom="-1" sheetIndex="25" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="MANTIS">
+		<variant file="nwkohaku/bugs.png" zoom="-1" sheetIndex="25" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_TICK">
+		<variant file="nwkohaku/bugs.png" zoom="-1" sheetIndex="6" special="Normal" />
+		<variant file="nwkohaku/bugs.png" zoom="-1" sheetIndex="26" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="TICK">
+		<variant file="nwkohaku/bugs.png" zoom="-1" sheetIndex="26" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_LOUSE">
+		<variant file="nwkohaku/bugs.png" zoom="-1" sheetIndex="7" special="Normal" />
+		<variant file="nwkohaku/bugs.png" zoom="-1" sheetIndex="27" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="LOUSE">
+		<variant file="nwkohaku/bugs.png" zoom="-1" sheetIndex="27" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_THRIPS">
+		<variant file="nwkohaku/bugs.png" zoom="-1" sheetIndex="8" special="Normal" />
+		<variant file="nwkohaku/bugs.png" zoom="-1" sheetIndex="28" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="THRIPS">
+		<variant file="nwkohaku/bugs.png" zoom="-1" sheetIndex="28" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_SLUG">
+		<variant file="nwkohaku/bugs.png" zoom="-1" sheetIndex="9" special="Normal" />
+		<variant file="nwkohaku/bugs.png" zoom="-1" sheetIndex="29" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="SLUG">
+		<variant file="nwkohaku/bugs.png" zoom="-1" sheetIndex="29" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_SNAIL">
+		<variant file="nwkohaku/bugs.png" zoom="-1" sheetIndex="10" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_MOON_SNAIL">
+		<variant file="nwkohaku/bugs.png" zoom="-1" sheetIndex="11" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_JUMPING_SPIDER">
+		<variant file="nwkohaku/bugs.png" zoom="-1" sheetIndex="12" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_BROWN_RECLUSE_SPIDER">
+		<variant file="nwkohaku/bugs.png" zoom="-1" sheetIndex="13" special="Normal" />
+	</creature>
+</creatures>

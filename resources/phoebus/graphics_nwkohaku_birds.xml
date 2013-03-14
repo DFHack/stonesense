@@ -1,0 +1,272 @@
+<?xml version="1.0"?>
+<creatures>
+	<creature gameID="BIRD_FALCON_PEREGRINE">
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="0" special="Normal" />
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="1" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT PEREGRINE FALCON">
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="0" special="Normal" />
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="1" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="BIRD_OSTRICH">
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="20" special="Normal" />
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="21" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="BIRD_OSTRICH_GIANT">
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="20" special="Normal" />
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="21" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="BIRD_RAVEN">
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="40" special="Normal" />
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_RAVEN">
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="40" special="Normal" />
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="BIRD_KEA">
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="60" special="Normal" />
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="61" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_KEA">
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="60" special="Normal" />
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="61" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="SPARROW">
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="80" special="Normal" />
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="81" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_SPARROW">
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="80" special="Normal" />
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="81" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="BIRD_LOON">
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="100" special="Normal" />
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="101" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_LOON">
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="100" special="Normal" />
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="101" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="LOON_MAN">
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="108" special="Normal" />
+	</creature>
+	<creature gameID="BIRD_PARAKEET">
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="120" special="Normal" />
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="121" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_PARAKEET">
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="120" special="Normal" />
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="121" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="BIRD_PARROT_GREY">
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="140" special="Normal" />
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="141" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_GREY_PARROT">
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="140" special="Normal" />
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="141" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="BIRD_SWAN">
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="160" special="Normal" />
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="161" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_SWAN">
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="160" special="Normal" />
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="161" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="BIRD_WREN">
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="180" special="Normal" />
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="181" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_WREN">
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="180" special="Normal" />
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="181" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="BIRD_EMU">
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="200" special="Normal" />
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="201" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_EMU">
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="200" special="Normal" />
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="201" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="BIRD_LOVEBIRD_PEACH-FACED">
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="220" special="Normal" />
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="221" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_PEACH-FACED_LOVEBIRD">
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="220" special="Normal" />
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="221" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="PEACH-FACED_LOVEBIRD_MAN">
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="228" special="Normal" />
+	</creature>
+	<creature gameID="BIRD_KESTREL">
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="240" special="Normal" />
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="241" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_KESTREL">
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="240" special="Normal" />
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="241" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="BIRD_OWL_GREAT_HORNED">
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="260" special="Normal" />
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="261" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_GREAT_HORNED_OWL">
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="260" special="Normal" />
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="261" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="BIRD_HORNBILL">
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="280" special="Normal" />
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="281" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_HORNBILL">
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="280" special="Normal" />
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="281" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="BIRD_BUSHTIT">
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="300" special="Normal" />
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="301" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_BUSHTIT">
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="300" special="Normal" />
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="301" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="BIRD_KIWI">
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="12" special="Normal" />
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="13" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="BIRD_KIWI_GIANT">
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="12" special="Normal" />
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="13" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="KIWI_MAN">
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="19" special="Normal" />
+	</creature>
+	<creature gameID="BIRD_CROW">
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="32" special="Normal" />
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="33" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_CROW">
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="32" special="Normal" />
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="33" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="CROW_MAN">
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="39" special="Normal" />
+	</creature>
+	<creature gameID="BIRD_CASSOWARY">
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="52" special="Normal" />
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="53" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_CASSOWARY">
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="52" special="Normal" />
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="53" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="BIRD_OWL_SNOWY">
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="72" special="Normal" />
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="73" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_SNOWY_OWL">
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="72" special="Normal" />
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="73" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="SNOWY_OWL_MAN">
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="79" special="Normal" />
+	</creature>
+	<creature gameID="BIRD_STORK_WHITE">
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="92" special="Normal" />
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="93" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_WHITE_STORK">
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="92" special="Normal" />
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="93" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="WHITE_STORK_MAN">
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="99" special="Normal" />
+	</creature>
+	<creature gameID="BIRD_OWL_BARN">
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="112" special="Normal" />
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="113" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_BARN_OWL">
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="112" special="Normal" />
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="113" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="BARN_OWL_MAN">
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="119" special="Normal" />
+	</creature>
+	<creature gameID="BIRD_KAKAPO">
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="132" special="Normal" />
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="133" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_KAKAPO">
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="132" special="Normal" />
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="133" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="BIRD_PUFFIN">
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="152" special="Normal" />
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="153" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_PUFFIN">
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="152" special="Normal" />
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="153" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="BIRD_LORIKEET">
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="172" special="Normal" />
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="173" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_LORIKEET">
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="172" special="Normal" />
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="173" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="BIRD_OSPREY">
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="192" special="Normal" />
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="193" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_OSPREY">
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="192" special="Normal" />
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="193" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="BIRD_COCKATIEL">
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="212" special="Normal" />
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="213" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_COCKATIEL">
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="212" special="Normal" />
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="213" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="BIRD_MAGPIE">
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="232" special="Normal" />
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="233" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_MAGPIE">
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="232" special="Normal" />
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="233" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="BIRD_ALBATROSS">
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="252" special="Normal" />
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="253" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_ALBATROSS">
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="252" special="Normal" />
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="253" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="BIRD_EAGLE">
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="272" special="Normal" />
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="273" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_EAGLE">
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="272" special="Normal" />
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="273" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="BIRD_LOVEBIRD_MASKED">
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="292" special="Normal" />
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="293" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_MASKED_LOVEBIRD">
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="292" special="Normal" />
+		<variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="293" profession="CHILD" special="Normal" />
+	</creature>
+</creatures>

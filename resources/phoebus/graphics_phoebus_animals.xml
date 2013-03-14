@@ -1,0 +1,506 @@
+<?xml version="1.0"?>
+<creatures>
+	<creature gameID="CAT">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="0" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="1" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="DOG">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="4" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="5" profession="CHILD" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="8" profession="TRAINED_HUNTER" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="9" profession="TRAINED_WAR" special="Normal" />
+	</creature>
+	<creature gameID="COW">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="20" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="21" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="CAMEL_1_HUMP">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="24" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="25" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="CAMEL_2_HUMP">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="28" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="25" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="MUSKOX">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="40" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="WATER_BUFFALO">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="44" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="45" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="YAK">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="44" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="45" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="HORSE">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="60" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="61" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="DONKEY">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="64" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="65" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="MULE">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="68" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="69" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="LLAMA">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="80" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="81" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="ALPACA">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="84" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="85" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIRAFFE">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="88" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="89" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="WOLF">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="100" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="101" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="WOLF_ICE">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="104" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="105" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="FOX">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="108" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="109" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="BEAR_GRIZZLY">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="120" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="121" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="BEAR_BLACK">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="124" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="125" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="BEAR_POLAR">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="128" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="129" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="PANDA">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="132" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="133" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="PANDA, GIGANTIC">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="132" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="133" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="RACCOON">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="140" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="141" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="MARMOT_HOARY">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="144" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="145" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GROUNDHOG">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="148" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="149" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="ELK">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="160" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="161" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="REINDEER">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="160" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="161" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="MOOSE">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="160" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="161" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="MOOSE, GIANT">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="160" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="161" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="DEER">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="164" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="165" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GAZELLE">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="168" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="169" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GOAT_MOUNTAIN">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="180" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="181" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GOAT">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="180" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="181" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="SHEEP">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="184" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="185" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="RABBIT">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="188" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="189" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="WARTHOG">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="200" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="201" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="PIG">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="204" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="205" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="CAVY">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="208" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="209" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="CAPYBARA">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="208" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="209" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="CAPYBARA, GIANT">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="208" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="209" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="BADGER">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="220" special="Normal" />
+	</creature>
+	<creature gameID="BADGER, GIANT">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="220" special="Normal" />
+	</creature>
+	<creature gameID="HONEY BADGER">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="221" special="Normal" />
+	</creature>
+	<creature gameID="GORILLA">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="12" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="13" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="ORANGUTAN">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="32" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="33" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="CHIMPANZEE">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="52" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="53" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="BONOBO">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="72" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="73" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="MACAQUE_RHESUS">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="92" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="93" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="MANDRILL">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="112" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="113" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIBBON_SIAMANG">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="172" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="173" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIBBON_WHITE_HANDED">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="192" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="193" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIBBON_BLACK_HANDED">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="212" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="213" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIBBON_GRAY">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="232" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="233" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIBBON_SILVERY">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="252" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="253" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIBBON_PILEATED">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="272" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="273" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIBBON_BILOU">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="292" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="293" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIBBON_WHITE_BROWED">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="312" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="313" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIBBON_BLACK_CRESTED">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="332" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="333" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="BIRD_CHICKEN">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="16" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="17" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="BIRD_DUCK">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="36" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="37" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="BIRD_GOOSE">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="56" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="57" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="BIRD_GUINEAFOWL">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="76" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="77" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="BIRD_PEAFOWL_BLUE">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="96" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="97" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="BIRD_TURKEY">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="116" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="117" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="BIRD_PENGUIN_LITTLE">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="276" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="277" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="BIRD_PENGUIN">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="296" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="277" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="BIRD_PENGUIN_EMPEROR">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="316" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="277" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="BIRD_PENGUIN_GIANT">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="336" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="277" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="BIRD_EAGLE_GIANT">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="396" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="397" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="BIRD_BUZZARD">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="416" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="397" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="BIRD_VULTURE">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="436" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="397" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="BIRD_ROC">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="456" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="397" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="BIRD_SWALLOW_CAVE_GIANT">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="516" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="517" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="BAT_GIANT">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="536" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="537" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="LION">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="240" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="241" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="LION_GIANT">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="244" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="245" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="TIGER">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="260" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="261" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="TIGER_GIANT">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="264" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="265" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="CHEETAH">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="280" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="281" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="CHEETAH_GIANT">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="284" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="285" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="LEOPARD">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="300" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="301" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="LEOPARD_GIANT">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="304" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="305" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="JAGUAR">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="320" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="321" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="JAGUAR_GIANT">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="324" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="325" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="COUGAR">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="340" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="341" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="RHINOCEROS">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="360" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="361" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="HIPPO">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="380" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="381" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="ELEPHANT">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="400" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="401" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="WALRUS">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="420" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="421" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="MOLE_DOG_NAKED">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="440" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="441" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="RAT_GIANT">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="460" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="462" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="RAT_LARGE">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="461" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="462" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="MOLE_GIANT">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="480" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="481" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="BEAK_DOG">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="500" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="501" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="PLATYPUS">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="520" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="521" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="PLATYPUS, GIANT">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="520" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="521" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="ALLIGATOR">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="384" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="385" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="CROCODILE_CAVE">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="404" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="405" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="CROCODILE_SALTWATER">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="424" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="425" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="OLM_GIANT">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="444" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="445" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="FISH_LAMPREY_SEA">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="445" special="Normal" />
+	</creature>
+	<creature gameID="TOAD_GIANT">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="464" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="465" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="SPIDER_CAVE_GIANT">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="388" special="Normal" />
+	</creature>
+	<creature gameID="SCORPION_DESERT_GIANT">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="408" special="Normal" />
+	</creature>
+	<creature gameID="FISH_GAR_LONGNOSE">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="392" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="393" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="FISH_SWORDFISH">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="392" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="393" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="FISH_CARP">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="412" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="413" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="FISH_TIGERFISH">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="432" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="433" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="FISH_COELACANTH">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="432" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="433" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="FISH_BARRACUDA_GREAT">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="432" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="433" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="FISH_PIKE">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="452" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="453" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="WHALE">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="472" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="473" profession="CHILD" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="474" special="Normal" />
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="475" special="Normal" />
+	</creature>
+	<creature gameID="SHARK_GREAT_WHITE">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="492" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="SHARK_FRILL">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="492" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="SHARK_SPINY_DOGFISH">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="492" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="SHARK_WOBBEGONG_SPOTTED">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="492" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="SHARK_WHALE">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="492" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="SHARK_BASKING">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="492" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="SHARK_NURSE">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="492" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="SHARK_MAKO_SHORTFIN">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="492" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="SHARK_MAKO_LONGFIN">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="492" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="SHARK_TIGER">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="492" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="SHARK_BULL">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="492" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="SHARK_REEF_BLACKTIP">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="492" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="SHARK_REEF_WHITETIP">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="492" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="SHARK_BLUE">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="492" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="SHARK_HAMMERHEAD">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="492" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="SHARK_ANGEL">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="492" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FISH_SKATE_COMMON">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="493" special="Normal" />
+	</creature>
+	<creature gameID="FISH_STINGRAY">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="493" special="Normal" />
+	</creature>
+	<creature gameID="FISH_RAY_MANTA">
+		<variant file="phoebus/animals.png" zoom="-1" sheetIndex="494" special="Normal" />
+	</creature>
+</creatures>

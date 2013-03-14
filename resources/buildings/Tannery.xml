@@ -4,7 +4,7 @@
 
 <building name="Tannery" game_type="Workshop" game_subtype="Tanners" file="workshop.png">
 
-	<!-- benches block -->
+	<!-- benches wall -->
 	<if> 
 		<and>
 			<BuildingOccupancy value="3" />	
@@ -17,7 +17,7 @@
 	<else>
 		<include file="wsUpperBorder.xml"/>
 	</else>
-	<!-- end benches block -->
+	<!-- end benches wall -->
 	
  
 	<!-- contents -->

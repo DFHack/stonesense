@@ -3,7 +3,7 @@
 
 
 <building name="" gameID=""> 
-	<!-- benches block -->
+	<!-- benches wall -->
 	<if> 
 		<!-- replace this with position index if required -->
 		<BuildingOccupancy value="3" />	
@@ -69,7 +69,7 @@
 		</not>
 		<sprite index = 241 />
 	</else>
-	<!-- end benches block -->
+	<!-- end benches wall -->
  
 	<!-- contents -->
 	
@@ -110,6 +110,6 @@
 	<else>
 		<empty/>
 	</else>	
-	<!-- end generic block -->
+	<!-- end generic wall -->
 	
 </building> 
