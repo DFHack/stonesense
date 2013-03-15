@@ -41,17 +41,17 @@ IF(UNIX)
 	# Mac OS X
 		OPTION(STONESENSE_INTERNAL_DYLIB "Link with prebuilt internal allegro libs and headers." ON)
 		IF(STONESENSE_INTERNAL_DYLIB)
-			FILE(DOWNLOAD http://cloud.github.com/downloads/danaris/dfhack/allegro-507-osx.tar.bz2
-						  ${stonesense_SOURCE_DIR}/allegro-507-osx.tar.bz2
-						  EXPECTED_MD5 10e8d3dacb01f3d58a9b7f6e5b428470)
-			execute_process(COMMAND tar xf ${stonesense_SOURCE_DIR}/allegro-507-osx.tar.bz2
+			FILE(DOWNLOAD http://topazgryphon.org/~tcollett/df/allegro-osx.tar.bz2
+						  ${stonesense_SOURCE_DIR}/allegro-osx.tar.bz2
+						  EXPECTED_MD5 5637cc4ab5dc90f29de7788cb07a6e9e)
+			execute_process(COMMAND tar xjf ${stonesense_SOURCE_DIR}/allegro-osx.tar.bz2
 							WORKING_DIRECTORY ${stonesense_SOURCE_DIR})
 			SET(PROJECT_LIBS
-				${stonesense_SOURCE_DIR}/allegro-osx/lib/liballegro.5.0.7.dylib
-				${stonesense_SOURCE_DIR}/allegro-osx/lib/liballegro_primitives.5.0.7.dylib
-				${stonesense_SOURCE_DIR}/allegro-osx/lib/liballegro_font.5.0.7.dylib
-				${stonesense_SOURCE_DIR}/allegro-osx/lib/liballegro_image.5.0.7.dylib
-				${stonesense_SOURCE_DIR}/allegro-osx/lib/liballegro_ttf.5.0.7.dylib
+				${stonesense_SOURCE_DIR}/allegro-osx/lib/liballegro.5.0.dylib
+				${stonesense_SOURCE_DIR}/allegro-osx/lib/liballegro_primitives.5.0.dylib
+				${stonesense_SOURCE_DIR}/allegro-osx/lib/liballegro_font.5.0.dylib
+				${stonesense_SOURCE_DIR}/allegro-osx/lib/liballegro_image.5.0.dylib
+				${stonesense_SOURCE_DIR}/allegro-osx/lib/liballegro_ttf.5.0.dylib
 				${PROJECT_LIBS}
 			)
 			include_directories (
@@ -151,6 +151,9 @@ ELSE(UNIX)
     )
 ENDIF(UNIX)
 DFHACK_PLUGIN(stonesense ${PROJECT_SRCS} LINK_LIBRARIES dfhack-tinyxml ${PROJECT_LIBS})
+IF(APPLE)
+	add_custom_command(TARGET stonesense POST_BUILD COMMAND ${stonesense_SOURCE_DIR}/fix-libs-stonesense.sh WORKING_DIRECTORY . COMMENT "Fixing Stonesense library dependencies...")
+ENDIF(APPLE)
 #install resources into DF/stonesense
 install(DIRECTORY resources/
         DESTINATION "stonesense"
