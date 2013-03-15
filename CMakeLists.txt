@@ -151,7 +151,9 @@ ELSE(UNIX)
     )
 ENDIF(UNIX)
 DFHACK_PLUGIN(stonesense ${PROJECT_SRCS} LINK_LIBRARIES dfhack-tinyxml ${PROJECT_LIBS})
-add_custom_command(TARGET stonesense POST_BUILD COMMAND ${stonesense_SOURCE_DIR}/fix-libs-stonesense.sh WORKING_DIRECTORY . COMMENT "Fixing Stonesense library dependencies...")
+IF(APPLE)
+	add_custom_command(TARGET stonesense POST_BUILD COMMAND ${stonesense_SOURCE_DIR}/fix-libs-stonesense.sh WORKING_DIRECTORY . COMMENT "Fixing Stonesense library dependencies...")
+ENDIF(APPLE)
 #install resources into DF/stonesense
 install(DIRECTORY resources/
         DESTINATION "stonesense"
