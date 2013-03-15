@@ -1,8 +1,5 @@
 #!/bin/bash
 
-DIR=`pwd`
-echo "Beginning Stonesense libfix running in $DIR...\n"
-
 install_name_tool -change liballegro.5.0.dylib @executable_path/stonesense/deplibs/liballegro.5.0.dylib stonesense.plug.so
 install_name_tool -change liballegro_primitives.5.0.dylib @executable_path/stonesense/deplibs/liballegro_primitives.5.0.dylib stonesense.plug.so
 install_name_tool -change liballegro_image.5.0.dylib @executable_path/stonesense/deplibs/liballegro_image.5.0.dylib stonesense.plug.so

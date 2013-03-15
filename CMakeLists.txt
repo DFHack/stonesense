@@ -40,15 +40,12 @@ IF(UNIX)
 	IF(APPLE)
 	# Mac OS X
 		OPTION(STONESENSE_INTERNAL_DYLIB "Link with prebuilt internal allegro libs and headers." ON)
-		execute_process(COMMAND echo "Building Stonesense on OS X" WORKING_DIRECTORY ${stonesense_SOURCE_DIR})
 		IF(STONESENSE_INTERNAL_DYLIB)
-			execute_process(COMMAND echo "Attempting download to ${stonesense_SOURCE_DIR}/allegro-osx.tar.bz2" WORKING_DIRECTORY ${stonesense_SOURCE_DIR})
 			FILE(DOWNLOAD http://topazgryphon.org/~tcollett/df/allegro-osx.tar.bz2
 						  ${stonesense_SOURCE_DIR}/allegro-osx.tar.bz2
 						  EXPECTED_MD5 5637cc4ab5dc90f29de7788cb07a6e9e)
 			execute_process(COMMAND tar xjf ${stonesense_SOURCE_DIR}/allegro-osx.tar.bz2
 							WORKING_DIRECTORY ${stonesense_SOURCE_DIR})
-			execute_process(COMMAND echo "Setting project libs" WORKING_DIRECTORY ${stonesense_SOURCE_DIR})
 			SET(PROJECT_LIBS
 				${stonesense_SOURCE_DIR}/allegro-osx/lib/liballegro.5.0.dylib
 				${stonesense_SOURCE_DIR}/allegro-osx/lib/liballegro_primitives.5.0.dylib
@@ -66,7 +63,6 @@ IF(UNIX)
 					PATTERN "CVS" EXCLUDE
 					PATTERN ".svn" EXCLUDE)
 		ELSE()
-			execute_process(COMMAND echo "Using external Allegro" WORKING_DIRECTORY ${stonesense_SOURCE_DIR})
 			SET(PROJECT_LIBS
 				allegro
 				allegro_primitives
