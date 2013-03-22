@@ -33,17 +33,17 @@
   <block sheetIndex="8" file="ramps.png" color = "material">
     <!-- soil -->
     <terrain value="241" />
-	<!-- murky pool -->
+    <!-- murky pool -->
     <terrain value="3" />
-	<!-- river -->
-	<terrain value="469" />
-	<terrain value="470" />
-	<terrain value="471" />
+    <!-- river -->
+    <terrain value="469" />
+    <terrain value="470" />
+    <terrain value="471" />
     <terrain value="472" />
-	<terrain value="473" />
-	<terrain value="474" />
-	<terrain value="475" />
-	<terrain value="476" />
+    <terrain value="473" />
+    <terrain value="474" />
+    <terrain value="475" />
+    <terrain value="476" />
   </block>
 
   <!-- stone -->
@@ -111,7 +111,7 @@
     <terrain value="363" />
     <terrain value="364" />
   </block>
-  <!-- sm ice -->
+  <!-- smoothed ice -->
   <block sheetIndex="6">
     <!-- pillar -->
     <terrain value="83" />
@@ -141,7 +141,7 @@
     <!-- wall -->
     <terrain value="265" />
   </block>
-  <!-- sm stone -->
+  <!-- smoothed stone -->
   <block sheetIndex="20" color="material">
     <!-- pillar -->
     <terrain value="79" />
@@ -258,13 +258,12 @@
     <terrain value="439" />
     <terrain value="440" />
   </block>
-    <!-- stone -->
-  <block sheetIndex="21" color="xml" red="255" green = "0" blue = "0">
   <!-- Semi molten rock -->
+  <block sheetIndex="21" color="xml" red="255" green = "0" blue = "0">
     <terrain value="263" />
 	<subsprite sheetIndex = "146" color="xml" red="32" green = "0" blue = "0"/>
   </block>
-  <!-- construct -->
+  <!-- constructed -->
   <block sheetIndex="22" color="material">
     <!-- pillar -->
     <terrain value="495" />
