@@ -20,7 +20,7 @@
           <not>
             <NeighbourIdentical dir="West" />
           </not>
-          <sprite index="367" />
+          <sprite index="367" color="building" />
         </if>
         <if>
           <not>
@@ -30,7 +30,7 @@
         </if>
       </if>
       <else>
-        <sprite index="369" />
+        <sprite index="369" color="building" />
         <if>
           <not>
             <NeighbourIdentical dir="North" />
