@@ -347,8 +347,60 @@
     <subsprite sheetIndex="0" variationtype="sixteen"
     file="Track_Floors.png" color="material" />
   </floor>
+  <!--constructed ice floor track-->
+  <floor sheetIndex="54">
+    <material value="Ice" />
+    <terrain value="594" />
+    <terrain value="595" />
+    <terrain value="596" />
+    <terrain value="597" />
+    <terrain value="598" />
+    <terrain value="599" />
+    <terrain value="600" />
+    <terrain value="601" />
+    <terrain value="602" />
+    <terrain value="603" />
+    <terrain value="604" />
+    <terrain value="605" />
+    <terrain value="606" />
+    <terrain value="607" />
+    <terrain value="608" />
+    <!--constructed ramp track N-->
+    <terrain value="684" />
+    <!--constructed ramp track S-->
+    <terrain value="685" />
+    <!--constructed ramp track E-->
+    <terrain value="686" />
+    <!--constructed ramp track W-->
+    <terrain value="687" />
+    <!--constructed ramp track NS-->
+    <terrain value="688" />
+    <!--constructed ramp track NE-->
+    <terrain value="689" />
+    <!--constructed ramp track NW-->
+    <terrain value="690" />
+    <!--constructed ramp track SE-->
+    <terrain value="691" />
+    <!--constructed ramp track SW-->
+    <terrain value="692" />
+    <!--constructed ramp track EW-->
+    <terrain value="693" />
+    <!--constructed ramp track NSE-->
+    <terrain value="694" />
+    <!--constructed ramp track NSW-->
+    <terrain value="695" />
+    <!--constructed ramp track NEW-->
+    <terrain value="696" />
+    <!--constructed ramp track SEW-->
+    <terrain value="697" />
+    <!--constructed ramp track NSEW-->
+    <terrain value="698" />
+    <subsprite sheetIndex="18" mud_min="10" />
+    <subsprite sheetIndex="0" variationtype="sixteen"
+    file="Track_Floors.png" color="material" />
+  </floor>
   <!-- ice -->
-  <floor sheetIndex="34">
+  <floor sheetIndex="53">
     <!--ice ramp track N-->
     <terrain value="669" />
     <!--ice ramp track S-->

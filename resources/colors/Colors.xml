@@ -17,7 +17,7 @@
   </color>
   <!--this is actually water-->
   <!--color red="76" green="133" blue="168"-->
-  <color red="198" green="226" blue="255">
+  <color red="183" green="228" blue="255"><!-- red="198" green="226" blue="255 -->
     <material value="Ice" />
   </color>
 </colors>

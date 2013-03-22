@@ -90,8 +90,8 @@
 		/>
   </floor>
   <!-- ice -->
-  <floor sheetIndex="34">
-    <!-- below stair -->
+  <floor sheetIndex="52">
+    <!-- below upward stair -->
     <terrain value="27" />
     <!-- below ramp -->
     <terrain value="245" />
@@ -266,8 +266,8 @@
 		mud_min="10"
 		/>
   </floor>
-  <!-- sm ice -->
-  <floor sheetIndex="34">
+  <!-- smoothed ice -->
+  <floor sheetIndex="53">
     <terrain value="47" />
     <!-- below pillar -->
     <terrain value="83" />
@@ -375,7 +375,7 @@
 		sheetIndex="18"
 		mud_min="10"
 		/>
-	<subsprite sheetIndex="75"
+    <subsprite sheetIndex="75"
 		variations="4" color="material"
 		/>
   </floor>
@@ -408,7 +408,7 @@
 		variations="4" color="material"
 		/>
   </floor>
-  <!-- constructed -->
+  <!-- construct -->
   <floor sheetIndex="1" color="material">
     <!-- floor -->
     <terrain value="493" />

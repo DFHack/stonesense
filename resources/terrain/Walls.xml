@@ -40,10 +40,10 @@
     <terrain value="470" />
     <terrain value="471" />
     <terrain value="472" />
-	<terrain value="473" />
-	<terrain value="474" />
-	<terrain value="475" />
-	<terrain value="476" />
+    <terrain value="473" />
+    <terrain value="474" />
+    <terrain value="475" />
+    <terrain value="476" />
   </wall>
 
   <!-- stone -->
@@ -103,8 +103,8 @@
     <terrain value="515" />
     <terrain value="517" />
   </wall>
-  <!-- ice -->
-  <wall sheetIndex="6">
+  <!-- natural ice -->
+  <wall sheetIndex="66">
     <!-- wall -->
     <terrain value="361" />
     <terrain value="362" />
@@ -112,7 +112,7 @@
     <terrain value="364" />
   </wall>
   <!-- smoothed ice -->
-  <wall sheetIndex="6">
+  <wall sheetIndex="65">
     <!-- pillar -->
     <terrain value="83" />
     <!-- sm wall -->
@@ -232,6 +232,7 @@
   </wall>
   <!-- stone -->
   <wall sheetIndex="21" color="material">
+  <!-- stone -->
     <!-- wall feat? -->
     <terrain value="176" />
     <terrain value="177" />
@@ -258,7 +259,6 @@
     <terrain value="439" />
     <terrain value="440" />
   </wall>
-  <!-- stone -->
   <!-- Semi molten rock -->
   <wall sheetIndex="21" color="xml" red="255" green = "0" blue = "0">
     <terrain value="263" />

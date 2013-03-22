@@ -159,7 +159,7 @@
     <terrain value="698" />
 	<subsprite sheetIndex="0" variationtype="sixteen" file="Track_Ramps.png" color="material" />
   </wall>
-  <wall sheetIndex="5" file="ramps.png">
+  <wall sheetIndex="10" file="ramps.png">
     <!--ice ramp track N-->
     <terrain value="669" />
     <!--ice ramp track S-->
@@ -192,7 +192,7 @@
     <terrain value="683" />
 	<subsprite sheetIndex="0" variationtype="sixteen" file="Track_Ramps.png" color="material" />
   </wall>
-  <wall sheetIndex="5" file="ramps.png">
+  <wall sheetIndex="11" file="ramps.png" color="material">
     <!--constructed ramp track N-->
     <terrain value="684" />
     <!--constructed ramp track S-->
