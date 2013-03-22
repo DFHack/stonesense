@@ -10,7 +10,7 @@
 
 // allegro also leaks stdint.h and some weird equivalent of it on windows. let's disable the copy leaked by dfhack.
 #define SKIP_DFHACK_STDINT
-#define DFHACK_WANT_TILETYPES
+#define DFHACK_WANT_PLATETYPES
 
 #include <DFHack.h>
 #include "Core.h"
@@ -33,9 +33,10 @@ using namespace df::enums;
 
 // allegro leaks X headers, undef some of it here:
 #undef TileShape
+#undef None
 
 #include "commonTypes.h"
-#include "Block.h"
+#include "Tile.h"
 #include <stdio.h>
 #include <stdarg.h>
 
@@ -50,45 +51,45 @@ using namespace df::enums;
 //#define CAVALIER
 
 // TILEWIDTH: total size of sprite left to right
-// TILEHEIGHT: floor part of sprite top to bottom
+// TILETOPHEIGHT: floor part of sprite top to bottom
 // WALLHEIGHT: height of a one pixel wide stripe of wall top to bottom
 //		== amount top of wall is raised from where the floor would be
-// FLOORHEIGHT: height of a one pixel stripe of the 'wall' of a floor tile
+// FLOORHEIGHT: height of a one pixel stripe of the 'wall' of a floor plate
 
 #ifdef CAVALIER
 #define TILEWIDTH 46
-#define TILEHEIGHT 46
+#define TILETOPHEIGHT 46
 #define WALLHEIGHT 24
 #define FLOORHEIGHT 6
 #endif
 
 #ifdef ISOMETRIC
 #define TILEWIDTH 32
-#define TILEHEIGHT 16
+#define TILETOPHEIGHT 16
 #define WALLHEIGHT 16
 #define FLOORHEIGHT 4
 #endif
 
 #ifdef DOUBLESIZE
 #define TILEWIDTH 64
-#define TILEHEIGHT 32
+#define TILETOPHEIGHT 32
 #define WALLHEIGHT 32
 #define FLOORHEIGHT 8
 #endif
 
 #define GFXMODE GFX_AUTODETECT_WINDOWED
-#define FULLSCREEN false 
+#define FULLSCREEN false
 #define RESOLUTION_WIDTH 800
 #define RESOLUTION_HEIGHT 600
-// Height of a one pixel stripe of the wall of an entire block,
-//		including wall and floor tile
-#define BLOCKHEIGHT (WALLHEIGHT + FLOORHEIGHT)
+// Height of a one pixel stripe of the wall of an entire tile,
+//		including wall and floor plate
+#define TILEHEIGHT (WALLHEIGHT + FLOORHEIGHT)
 // Width of area copied from an image file
-// may be different to tile dimensions to allow overlap later
+// may be different to plate dimensions to allow overlap later
 #define SPRITEWIDTH TILEWIDTH
 // Height of area copied from an image file
-// may be different to tile dimensions to allow overlap later
-#define SPRITEHEIGHT (TILEHEIGHT + WALLHEIGHT)
+// may be different to plate dimensions to allow overlap later
+#define SPRITEHEIGHT (TILETOPHEIGHT + WALLHEIGHT)
 #define WALL_CUTOFF_HEIGHT 15
 
 #define DEFAULT_SEGMENTSIZE 20
@@ -99,11 +100,11 @@ using namespace df::enums;
 #define SHEET_OBJECTSWIDE 20
 
 //do not alter, defined by DF
-#define CELLEDGESIZE 16
+#define BLOCKEDGESIZE 16
 
 #define COLOR_SEGMENTOUTLINE 0x112211
 
-#define BASE_SHADOW_TILE 160
+#define BASE_SHADOW_PLATE 160
 #define DEFAULT_SHADOW 4
 #define MAX_SHADOW 7
 
@@ -118,62 +119,62 @@ using namespace df::enums;
 // in ContentLoader/lookupMaterialType deals with
 #define MAX_MATGLOSS 24
 
-enum dirTypes{
-  eSimpleInvalid = -1,
-  eSimpleSingle,
-  //-----START: Do NOT rearrange these, they're used to autoinsert building borders
-  eSimpleN,
-  eSimpleW,
-  eSimpleS,
-  eSimpleE,
+enum dirTypes {
+    eSimpleInvalid = -1,
+    eSimpleSingle,
+    //-----START: Do NOT rearrange these, they're used to autoinsert building borders
+    eSimpleN,
+    eSimpleW,
+    eSimpleS,
+    eSimpleE,
 
-  eSimpleNnW,
-  eSimpleSnW,
-  eSimpleSnE,
-  eSimpleNnE,
-  //-----END
+    eSimpleNnW,
+    eSimpleSnW,
+    eSimpleSnE,
+    eSimpleNnE,
+    //-----END
 
-  eSimpleNnS,
-  eSimpleWnE,
+    eSimpleNnS,
+    eSimpleWnE,
 
-  eSimpleNnEnS,
-  eSimpleNnEnW,
-  eSimpleNnWnS,
-  eSimpleWnSnE,
+    eSimpleNnEnS,
+    eSimpleNnEnW,
+    eSimpleNnWnS,
+    eSimpleWnSnE,
 
-  eSimpleNnWnSnE
+    eSimpleNnWnSnE
 };
 
-enum dirRelative{
-  eLeft,
-  eDown,
-  eRight,
-  eUp,
-  eAbove,
-  eBelow,
+enum dirRelative {
+    eLeft,
+    eDown,
+    eRight,
+    eUp,
+    eAbove,
+    eBelow,
 
-  eUpLeft,
-  eUpRight,
-  eDownLeft,
-  eDownRight,
+    eUpLeft,
+    eUpRight,
+    eDownLeft,
+    eDownRight,
 };
 class SegmentWrap;
 
 
 
 //main.cpp
-void correctBlockForSegmetOffset(int32_t& x, int32_t& y, int32_t& z);
+void correctTileForDisplayedOffset(int32_t& x, int32_t& y, int32_t& z);
 
 void LogError(const char* msg, ...);
 void PrintMessage(const char* msg, ...);
 void LogVerbose(const char* msg, ...);
 void SetTitle(const char *format, ...);
 
-extern GameConfiguration config;
+extern GameConfiguration ssConfig;
+extern GameState ssState;
+extern FrameTimers ssTimers;
 
 extern uint32_t DebugInt1;
-extern uint32_t ClockedTime;
-extern uint32_t ClockedTime2;
 
 extern bool timeToReloadSegment;
 extern bool timeToReloadConfig;
@@ -186,24 +187,21 @@ extern bool animationFrameShown;
 // binary 00111111
 #define ALL_FRAMES 63
 
-#define TMR1_START (ClockedTime = clock())
-#define TMR1_STOP  (ClockedTime = clock() - ClockedTime)
-#define TMR2_START (ClockedTime2 = clock())
-#define TMR2_STOP  (ClockedTime2 = clock() - ClockedTime2)
-
 extern bool key[ALLEGRO_KEY_MAX];
 
-void correctBlockForRotation(int32_t& x, int32_t& y, int32_t& z, unsigned char rot);
-
 //from UserInput.cpp
-void doKeys();
-void doKeys(int key);
+void doMouse();
+void doKeys(int32_t key, uint32_t keymod);
+void doRepeatActions();
 void initAutoReload();
 void abortAutoReload();
 
+//Keybinds.cpp
+bool loadKeymapFile();
+bool getKeyStrings(int32_t keycode, std::string*& keyname, std::string*& actionname);
+
 //Config.cpp
 bool loadConfigFile();
-
 
 //xmlBuildingReader.cpp
 class BuildingConfiguration;
@@ -218,8 +216,7 @@ extern ALLEGRO_TIMER *reloadtimer;
 extern ALLEGRO_TIMER * animationtimer;
 extern ALLEGRO_MOUSE_STATE mouse;
 
-enum MAT_BASICS
-{
+enum MAT_BASICS {
     INVALID = -1,
     INORGANIC = 0,
     AMBER = 1,
@@ -249,6 +246,7 @@ enum MAT_BASICS
     BLOOD_5 = 43,
     BLOOD_6 = 44,
     BLOOD_NAMED = 242,
+	PLANT = 419,
     WOOD = 420,
     PLANTCLOTH = 421,
 };
@@ -261,5 +259,4 @@ enum MAT_BASICS
 
 extern int randomCube[RANDOM_CUBE][RANDOM_CUBE][RANDOM_CUBE];
 
-ALLEGRO_COLOR premultiply(ALLEGRO_COLOR input);
 using namespace std;

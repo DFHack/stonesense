@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
-<blocks file="blocks.png">
+<walls file="blocks.png">
   <!-- construct -->
-  <block sheetIndex="143" color="material">
+  <wall sheetIndex="143" color="material">
     <!-- pillar -->
     <terrain value="495" />
     <!-- wall -->
@@ -27,9 +27,9 @@
     <form value="block" />
     <material value="Inorganic" />
     <subsprite sheetIndex="145" />
-  </block>
+  </wall>
   <!-- construct -->
-  <block sheetIndex="144" color="material">
+  <wall sheetIndex="144" color="material">
     <!-- pillar -->
     <terrain value="495" />
     <!-- wall -->
@@ -55,8 +55,8 @@
     <form value="boulder" />
     <material value="Inorganic" />
     <subsprite sheetIndex="146" />
-  </block>
-</blocks>
+  </wall>
+</walls>
 <floors file="floors.png">
   <!-- construct -->
   <floor sheetIndex="48" color="material">

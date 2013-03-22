@@ -1,0 +1,127 @@
+<?xml version="1.0"?>
+<creatures>
+	<creature gameID="GREMLIN">
+		<variant file="sphr/monsters.png" zoom="-1" sheetIndex="0" profession="CHILD" special="Normal" />
+		<variant file="sphr/monsters.png" zoom="-1" sheetIndex="0" special="Normal" />
+	</creature>
+	<creature gameID="WIZARD">
+		<variant file="sphr/monsters.png" zoom="-1" sheetIndex="20" profession="CHILD" special="Normal" />
+		<variant file="sphr/monsters.png" zoom="-1" sheetIndex="20" special="Normal" />
+	</creature>
+	<creature gameID="TROLL">
+		<variant file="sphr/monsters.png" zoom="-1" sheetIndex="160" profession="CHILD" special="Normal" />
+		<variant file="sphr/monsters.png" zoom="-1" sheetIndex="160" special="Normal" />
+	</creature>
+	<creature gameID="OGRE">
+		<variant file="sphr/monsters.png" zoom="-1" sheetIndex="180" profession="CHILD" special="Normal" />
+		<variant file="sphr/monsters.png" zoom="-1" sheetIndex="180" special="Normal" />
+	</creature>
+	<creature gameID="UNICORN">
+		<variant file="sphr/monsters.png" zoom="-1" sheetIndex="201" profession="CHILD" special="Normal" />
+		<variant file="sphr/monsters.png" zoom="-1" sheetIndex="200" special="Normal" />
+	</creature>
+	<creature gameID="DRAGON">
+		<variant file="sphr/monsters.png" zoom="-1" sheetIndex="220" profession="CHILD" special="Normal" />
+		<variant file="sphr/monsters.png" zoom="-1" sheetIndex="220" special="Normal" />
+	</creature>
+	<creature gameID="TREANT">
+		<variant file="sphr/monsters.png" zoom="-1" sheetIndex="240" profession="CHILD" special="Normal" />
+		<variant file="sphr/monsters.png" zoom="-1" sheetIndex="240" special="Normal" />
+	</creature>
+	<creature gameID="SATYR">
+		<variant file="sphr/monsters.png" zoom="-1" sheetIndex="260" profession="CHILD" special="Normal" />
+		<variant file="sphr/monsters.png" zoom="-1" sheetIndex="260" special="Normal" />
+	</creature>
+	<creature gameID="DEMON">
+		<variant file="sphr/monsters.png" zoom="-1" sheetIndex="280" profession="CHILD" special="Normal" />
+		<variant file="sphr/monsters.png" zoom="-1" sheetIndex="280" special="Normal" />
+	</creature>
+	<creature gameID="SPIRIT_OF_FIRE">
+		<variant file="sphr/monsters.png" zoom="-1" sheetIndex="300" profession="CHILD" special="Normal" />
+		<variant file="sphr/monsters.png" zoom="-1" sheetIndex="300" special="Normal" />
+	</creature>
+	<creature gameID="FROG_DEMON">
+		<variant file="sphr/monsters.png" zoom="-1" sheetIndex="320" profession="CHILD" special="Normal" />
+		<variant file="sphr/monsters.png" zoom="-1" sheetIndex="320" special="Normal" />
+	</creature>
+	<creature gameID="TENTACLE_DEMON">
+		<variant file="sphr/monsters.png" zoom="-1" sheetIndex="340" profession="CHILD" special="Normal" />
+		<variant file="sphr/monsters.png" zoom="-1" sheetIndex="340" special="Normal" />
+	</creature>
+	<creature gameID="TITAN">
+		<variant file="sphr/monsters.png" zoom="-1" sheetIndex="361" profession="CHILD" special="Normal" />
+		<variant file="sphr/monsters.png" zoom="-1" sheetIndex="360" special="Normal" />
+	</creature>
+	<creature gameID="COLOSSUS_BRONZE">
+		<variant file="sphr/monsters.png" zoom="-1" sheetIndex="380" profession="CHILD" special="Normal" />
+		<variant file="sphr/monsters.png" zoom="-1" sheetIndex="380" special="Normal" />
+	</creature>
+	<creature gameID="GIANT">
+		<variant file="sphr/monsters.png" zoom="-1" sheetIndex="401" profession="CHILD" special="Normal" />
+		<variant file="sphr/monsters.png" zoom="-1" sheetIndex="400" special="Normal" />
+	</creature>
+	<creature gameID="CYCLOPS">
+		<variant file="sphr/monsters.png" zoom="-1" sheetIndex="421" profession="CHILD" special="Normal" />
+		<variant file="sphr/monsters.png" zoom="-1" sheetIndex="420" special="Normal" />
+	</creature>
+	<creature gameID="ETTIN">
+		<variant file="sphr/monsters.png" zoom="-1" sheetIndex="441" profession="CHILD" special="Normal" />
+		<variant file="sphr/monsters.png" zoom="-1" sheetIndex="440" special="Normal" />
+	</creature>
+	<creature gameID="MINOTAUR">
+		<variant file="sphr/monsters.png" zoom="-1" sheetIndex="460" profession="CHILD" special="Normal" />
+		<variant file="sphr/monsters.png" zoom="-1" sheetIndex="460" special="Normal" />
+	</creature>
+	<creature gameID="SASQUATCH">
+		<variant file="sphr/monsters.png" zoom="-1" sheetIndex="480" profession="CHILD" special="Normal" />
+		<variant file="sphr/monsters.png" zoom="-1" sheetIndex="480" special="Normal" />
+	</creature>
+	<creature gameID="BLIZZARD_MAN">
+		<variant file="sphr/monsters.png" zoom="-1" sheetIndex="500" profession="CHILD" special="Normal" />
+		<variant file="sphr/monsters.png" zoom="-1" sheetIndex="500" special="Normal" />
+	</creature>
+	<creature gameID="GRIMELING">
+		<variant file="sphr/monsters.png" zoom="-1" sheetIndex="560" profession="CHILD" special="Normal" />
+		<variant file="sphr/monsters.png" zoom="-1" sheetIndex="560" special="Normal" />
+	</creature>
+	<creature gameID="WEREWOLF">
+		<variant file="sphr/monsters.png" zoom="-1" sheetIndex="580" profession="CHILD" special="Normal" />
+		<variant file="sphr/monsters.png" zoom="-1" sheetIndex="580" special="Normal" />
+	</creature>
+	<creature gameID="BLENDEC_FOUL">
+		<variant file="sphr/monsters.png" zoom="-1" sheetIndex="600" profession="CHILD" special="Normal" />
+		<variant file="sphr/monsters.png" zoom="-1" sheetIndex="600" special="Normal" />
+	</creature>
+	<creature gameID="STRANGLER">
+		<variant file="sphr/monsters.png" zoom="-1" sheetIndex="620" profession="CHILD" special="Normal" />
+		<variant file="sphr/monsters.png" zoom="-1" sheetIndex="620" special="Normal" />
+	</creature>
+	<creature gameID="NIGHTWING">
+		<variant file="sphr/monsters.png" zoom="-1" sheetIndex="640" profession="CHILD" special="Normal" />
+		<variant file="sphr/monsters.png" zoom="-1" sheetIndex="640" special="Normal" />
+	</creature>
+	<creature gameID="HARPY">
+		<variant file="sphr/monsters.png" zoom="-1" sheetIndex="660" profession="CHILD" special="Normal" />
+		<variant file="sphr/monsters.png" zoom="-1" sheetIndex="660" special="Normal" />
+	</creature>
+	<creature gameID="HYDRA">
+		<variant file="sphr/monsters.png" zoom="-1" sheetIndex="680" profession="CHILD" special="Normal" />
+		<variant file="sphr/monsters.png" zoom="-1" sheetIndex="680" special="Normal" />
+	</creature>
+	<creature gameID="SEA_SERPENT">
+		<variant file="sphr/monsters.png" zoom="-1" sheetIndex="721" profession="CHILD" special="Normal" />
+		<variant file="sphr/monsters.png" zoom="-1" sheetIndex="720" special="Normal" />
+	</creature>
+	<creature gameID="SEA_MONSTER">
+		<variant file="sphr/monsters.png" zoom="-1" sheetIndex="740" profession="CHILD" special="Normal" />
+		<variant file="sphr/monsters.png" zoom="-1" sheetIndex="740" special="Normal" />
+	</creature>
+	<creature gameID="YETI">
+		<variant file="sphr/monsters.png" zoom="-1" sheetIndex="480" profession="CHILD" special="Normal" />
+		<variant file="sphr/monsters.png" zoom="-1" sheetIndex="480" special="Normal" />
+	</creature>
+	<creature gameID="FISH_CONGER_EEL">
+		<variant file="sphr/monsters.png" zoom="-1" sheetIndex="721" profession="CHILD" special="Normal" />
+		<variant file="sphr/monsters.png" zoom="-1" sheetIndex="721" special="Normal" />
+	</creature>
+</creatures>

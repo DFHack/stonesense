@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
-<blocks file="block_walls.png">
+<walls file="block_walls.png">
   <!-- construct -->
-  <block sheetIndex="0" color="material" halftile="no">
+  <walls sheetIndex="0" color="material" halftile="no">
     <form value="block" />
     <material value="Inorganic" />
     <!-- pillar -->
@@ -51,8 +51,8 @@
 		halftile="yes" 
 		tileborder="right"
 		/>
-  </block>
-</blocks>
+  </wall>
+</walls>
 <floors file="block_floors.png">
   <!-- construct -->
   <floor sheetIndex="0" color="material" halftile="no">

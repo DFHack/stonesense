@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<creatures>
+	<creature gameID="HYENA">
+		<variant file="nwkohaku/animals.png" zoom="-1" sheetIndex="0" special="Normal" />
+	</creature>
+	<creature gameID="DINGO">
+		<variant file="nwkohaku/animals.png" zoom="-1" sheetIndex="1" special="Normal" />
+	</creature>
+	<creature gameID="GILA_MONSTER">
+		<variant file="nwkohaku/animals.png" zoom="-1" sheetIndex="20" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_GILA_MONSTER">
+		<variant file="nwkohaku/animals.png" zoom="-1" sheetIndex="21" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_LEOPARD_GECKO">
+		<variant file="nwkohaku/animals.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+</creatures>

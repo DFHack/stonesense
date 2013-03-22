@@ -1,0 +1,1616 @@
+<?xml version="1.0"?>
+<creatures>
+	<creature gameID="FORGOTTEN_BEAST">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_0">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_1">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_2">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_3">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_4">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_5">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_6">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_7">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_8">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_9">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_10">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_11">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_12">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_13">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_14">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_15">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_16">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_17">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_18">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_19">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_20">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_21">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_22">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_23">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_24">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_25">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_26">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_27">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_28">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_29">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_30">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_31">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_32">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_33">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_34">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_35">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_36">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_37">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_38">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_39">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_40">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_41">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_42">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_43">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_44">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_45">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_46">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_47">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_48">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_49">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_50">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_51">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_52">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_53">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_54">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_55">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_56">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_57">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_58">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_59">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_60">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_61">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_62">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_63">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_64">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_65">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_66">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_67">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_68">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_69">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_70">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_71">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_72">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_73">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_74">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_75">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_76">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_77">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_78">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_79">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_80">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_81">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_82">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_83">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_84">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_85">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_86">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_87">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_88">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_89">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_90">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_91">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_92">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_93">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_94">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_95">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_96">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_97">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_98">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_99">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_100">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_101">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_102">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_103">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_104">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_105">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_106">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_107">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_108">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_109">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_110">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_111">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_112">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_113">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_114">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_115">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_116">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_117">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_118">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_119">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_120">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_121">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_122">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_123">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_124">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_125">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_126">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_127">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_128">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_129">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_130">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_131">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_132">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_133">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_134">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_135">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_136">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_137">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_138">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_139">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_140">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_141">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_142">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_143">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_144">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_145">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_146">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_147">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_148">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_149">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_150">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_151">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_152">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_153">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_154">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_155">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_156">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_157">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_158">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_159">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_160">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_161">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_162">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_163">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_164">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_165">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_166">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_167">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_168">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_169">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_170">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_171">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_172">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_173">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_174">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_175">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_176">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_177">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_178">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_179">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_180">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_181">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_182">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_183">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_184">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_185">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_186">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_187">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_188">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_189">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_190">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_191">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_192">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_193">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_194">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_195">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_196">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_197">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_198">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_199">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_200">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_201">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_202">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_203">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_204">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_205">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_206">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_207">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_208">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_209">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_210">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_211">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_212">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_213">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_214">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_215">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_216">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_217">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_218">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_219">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_220">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_221">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_222">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_223">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_224">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_225">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_226">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_227">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_228">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_229">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_230">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_231">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_232">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_233">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_234">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_235">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_236">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_237">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_238">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_239">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_240">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_241">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_242">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_243">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_244">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_245">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_246">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_247">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_248">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_249">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_250">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_251">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_252">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_253">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_254">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_255">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_256">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_257">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_258">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_259">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_260">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_261">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_262">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_263">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_264">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_265">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_266">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_267">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_268">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_269">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_270">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_271">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_272">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_273">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_274">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_275">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_276">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_277">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_278">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_279">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_280">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_281">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_282">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_283">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_284">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_285">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_286">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_287">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_288">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_289">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_290">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_291">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_292">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_293">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_294">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_295">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_296">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_297">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_298">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_299">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="FORGOTTEN_BEAST_300">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="0" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_0">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_1">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_2">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_3">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_4">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_5">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_6">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_7">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_8">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_9">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_10">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_11">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_12">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_13">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_14">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_15">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_16">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_17">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_18">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_19">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_20">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_21">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_22">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_23">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_24">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_25">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_26">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_27">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_28">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_29">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_30">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_31">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_32">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_33">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_34">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_35">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_36">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_37">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_38">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_39">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_40">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_41">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_42">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_43">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_44">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_45">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_46">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_47">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_48">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_49">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_50">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_51">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_52">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_53">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_54">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_55">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_56">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_57">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_58">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_59">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_60">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_61">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_62">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_63">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_64">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_65">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_66">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_67">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_68">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_69">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_70">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_71">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_72">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_73">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_74">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_75">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_76">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_77">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_78">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_79">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_80">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_81">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_82">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_83">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_84">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_85">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_86">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_87">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_88">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_89">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_90">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_91">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_92">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_93">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_94">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_95">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_96">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_97">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_98">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_99">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="DEMON_100">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="20" special="Normal" color="profession" />
+	</creature>
+	<creature gameID="TITAN_0">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_1">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_2">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_3">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_4">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_5">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_6">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_7">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_8">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_9">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_10">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_11">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_12">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_13">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_14">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_15">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_16">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_17">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_18">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_19">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_20">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_21">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_22">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_23">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_24">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_25">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_26">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_27">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_28">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_29">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_30">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_31">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_32">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_33">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_34">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_35">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_36">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_37">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_38">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_39">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_40">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_41">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_42">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_43">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_44">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_45">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_46">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_47">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_48">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_49">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_50">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_51">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_52">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_53">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_54">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_55">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_56">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_57">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_58">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_59">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_60">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_61">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_62">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_63">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_64">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_65">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_66">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_67">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_68">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_69">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_70">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_71">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_72">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_73">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_74">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_75">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_76">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_77">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_78">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_79">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_80">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_81">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_82">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_83">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_84">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_85">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_86">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_87">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_88">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_89">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_90">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_91">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_92">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_93">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_94">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_95">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_96">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_97">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_98">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_99">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+	<creature gameID="TITAN_100">
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+		<variant file="phoebus/procedural.png" zoom="-1" sheetIndex="40" special="Normal" />
+	</creature>
+</creatures>

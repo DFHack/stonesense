@@ -1,62 +1,62 @@
 #pragma once
 
-#include "BlockCondition.h"
+#include "TileCondition.h"
 
 // generic superclass
 class SpriteNode
 {
-	public:
-		SpriteNode(void){};
-		virtual ~SpriteNode(void){};
-	
-	// this returns true if the sprite matched, and also adds
-	// sprites to the block as required
-    virtual bool copyToBlock(Block* b)=0;
+public:
+    SpriteNode(void) {};
+    virtual ~SpriteNode(void) {};
+
+    // this returns true if the sprite matched, and also adds
+    // sprites to the tile as required
+    virtual bool copyToTile(Tile* b)=0;
     // adds a child if appropriate (vestigial in some cases)
-    virtual void addChild(SpriteNode* child){};	
+    virtual void addChild(SpriteNode* child) {};
 };
 
 // root nesting structure
-class RootBlock : public SpriteNode
+class RootTile : public SpriteNode
 {
-	vector<SpriteNode*> children;
-	  
-	public:
-		RootBlock(void);
-		~RootBlock(void); 
-	
-    bool copyToBlock(Block* b);
-    void addChild(SpriteNode* child);	
+    vector<SpriteNode*> children;
+
+public:
+    RootTile(void);
+    ~RootTile(void);
+
+    bool copyToTile(Tile* b);
+    void addChild(SpriteNode* child);
 };
 
 // nesting conditional structure
-class SpriteBlock : public ConditionalNode, public SpriteNode
+class SpriteTile : public ConditionalNode, public SpriteNode
 {
-	BlockCondition* conditions;
-	vector<SpriteNode*> children;
-	SpriteNode* elsenode;
-	  
-	public:
-		SpriteBlock(void);
-		~SpriteBlock(void);
-	
-    bool copyToBlock(Block* b);
-    bool addCondition(BlockCondition* cond);
+    TileCondition* conditions;
+    vector<SpriteNode*> children;
+    SpriteNode* elsenode;
+
+public:
+    SpriteTile(void);
+    ~SpriteTile(void);
+
+    bool copyToTile(Tile* b);
+    bool addCondition(TileCondition* cond);
     void addChild(SpriteNode* child);
-	void addElse(SpriteNode* child);
+    void addElse(SpriteNode* child);
 };
 
 // rotational conditional structure
-class RotationBlock : public ConditionalNode, public SpriteNode
+class RotationTile : public ConditionalNode, public SpriteNode
 {
-	vector<SpriteNode*> children;
-	  
-	public:
-		RotationBlock(void);
-		~RotationBlock(void);
-	
-    bool copyToBlock(Block* b);
-    bool addCondition(BlockCondition* cond);
+    vector<SpriteNode*> children;
+
+public:
+    RotationTile(void);
+    ~RotationTile(void);
+
+    bool copyToTile(Tile* b);
+    bool addCondition(TileCondition* cond);
     void addChild(SpriteNode* child);
 };
 
@@ -66,10 +66,10 @@ class SpriteElement : public SpriteNode
 private:
 
 public:
-  c_sprite sprite;
-  
-  SpriteElement(void);
-  ~SpriteElement(void){};
+    c_sprite sprite;
 
-  bool copyToBlock(Block* b);
+    SpriteElement(void);
+    ~SpriteElement(void) {};
+
+    bool copyToTile(Tile* b);
 };

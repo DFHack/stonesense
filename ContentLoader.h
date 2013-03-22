@@ -9,57 +9,64 @@
 #include "FluidConfiguration.h"
 #include "ItemConfiguration.h"
 
-class ContentLoader{
+class ContentLoader
+{
 private:
-	bool parseContentIndexFile( const char* filepath );
-	bool parseContentXMLFile( const char* filepath );
-	bool parseBuildingContent( TiXmlElement* elemRoot );
-	bool parseCreatureContent( TiXmlElement* elemRoot );
-	bool parseTerrainContent ( TiXmlElement* elemRoot );
-	bool parseTreeContent( TiXmlElement* elemRoot );
-	bool parseShrubContent( TiXmlElement* elemRoot );
-	bool parseColorContent( TiXmlElement* elemRoot );
-	bool parseFluidContent( TiXmlElement* elemRoot );
-	bool parseGrassContent( TiXmlElement* elemRoot );
-	bool parseItemContent( TiXmlElement* elemRoot );
-	void flushCreatureConfig();
+    bool parseContentIndexFile( const char* filepath );
+    bool parseContentXMLFile( const char* filepath );
+    bool parseBuildingContent( TiXmlElement* elemRoot );
+    bool parseCreatureContent( TiXmlElement* elemRoot );
+    bool parseTerrainContent ( TiXmlElement* elemRoot );
+    bool parseTreeContent( TiXmlElement* elemRoot );
+    bool parseShrubContent( TiXmlElement* elemRoot );
+    bool parseColorContent( TiXmlElement* elemRoot );
+    bool parseFluidContent( TiXmlElement* elemRoot );
+    bool parseGrassContent( TiXmlElement* elemRoot );
+    bool parseItemContent( TiXmlElement* elemRoot );
+    void flushCreatureConfig();
 
-	bool translationComplete;
+    bool translationComplete;
+
+    void gatherStyleIndices(df::world_raws * raws); 
 public:
-	ContentLoader(void);
-	~ContentLoader(void);
+    ContentLoader(void);
+    ~ContentLoader(void);
 
-	bool Load();
+    bool Load();
 
-	bool reload_configs();
+    bool reload_configs();
 
-	vector<BuildingConfiguration> buildingConfigs;
-	vector<vector<CreatureConfiguration>*> creatureConfigs;
-	vector<VegetationConfiguration> treeConfigs;
-	vector<VegetationConfiguration> shrubConfigs;
-	vector<VegetationConfiguration> grassConfigs;
-	vector<TerrainConfiguration*> terrainFloorConfigs;
-	vector<TerrainConfiguration*> terrainBlockConfigs;
-	vector<ColorConfiguration> colorConfigs;
-	vector<ItemConfiguration*> itemConfigs;
-	FluidConfiguration lava[8];
-	FluidConfiguration water[8];
+    vector<BuildingConfiguration> buildingConfigs;
+    vector<vector<CreatureConfiguration>*> creatureConfigs;
+    vector<VegetationConfiguration> treeConfigs;
+    vector<VegetationConfiguration> shrubConfigs;
+    vector<VegetationConfiguration> grassConfigs;
+    vector<TerrainConfiguration*> terrainFloorConfigs;
+    vector<TerrainConfiguration*> terrainWallConfigs;
+    vector<ColorConfiguration> colorConfigs;
+    vector<ItemConfiguration*> itemConfigs;
+    FluidConfiguration lava[8];
+    FluidConfiguration water[8];
 
-	vector<string> professionStrings;
-	std::map <uint32_t, std::string> custom_workshop_types;
-	DFHack::Materials * Mats;
-	std::vector<t_matgloss> organic;
+    //race.caste.hairtype.styletype
+    vector<vector<vector<int32_t>*>*> style_indices;
+    vector<vector<int32_t>*> position_Indices;
+
+    vector<string> professionStrings;
+    std::map <uint32_t, std::string> custom_workshop_types;
+    DFHack::Materials * Mats;
+    std::vector<t_matgloss> organic;
     std::vector<t_matglossInorganic> inorganic;
 
-	uint32_t currentTick;
-	uint32_t currentYear;
-	uint8_t currentMonth;
-	uint8_t currentDay;
-	uint8_t currentHour;
-	uint8_t currentTickRel;
-	t_gamemodes gameMode;
+    uint32_t currentTick;
+    uint32_t currentYear;
+    uint8_t currentMonth;
+    uint8_t currentDay;
+    uint8_t currentHour;
+    uint8_t currentTickRel;
+    t_gamemodes gameMode;
 
-	int obsidian;
+    int obsidian;
 };
 
 extern ContentLoader * contentLoader;
@@ -75,30 +82,28 @@ int lookupMaterialIndex(int matType, const char* strValue);
 template <typename T>
 int lookupIndexedType(const char* indexName, std::vector<T>& typeVector)
 {
-    if (indexName == NULL || indexName[0] == 0)
-    {
+    if (indexName == NULL || indexName[0] == 0) {
         return INVALID_INDEX;
     }
     uint32_t vsize = (uint32_t)typeVector.size();
-    for(uint32_t i=0; i < vsize; i++)
-    {
-        if (typeVector[i].id == indexName)
+    for(uint32_t i=0; i < vsize; i++) {
+        if (typeVector[i].id == indexName) {
             return i;
+        }
     }
     return INVALID_INDEX;
 }
 template <typename T>
 int lookupIndexedPonterType(const char* indexName, std::vector<T*>& typeVector)
 {
-    if (indexName == NULL || indexName[0] == 0)
-    {
+    if (indexName == NULL || indexName[0] == 0) {
         return INVALID_INDEX;
     }
     uint32_t vsize = (uint32_t)typeVector.size();
-    for(uint32_t i=0; i < vsize; i++)
-    {
-        if (typeVector[i]->id == indexName)
+    for(uint32_t i=0; i < vsize; i++) {
+        if (typeVector[i]->id == indexName) {
             return i;
+        }
     }
     return INVALID_INDEX;
 }
@@ -109,9 +114,9 @@ uint8_t lookupMaterialFore(int matType,int matIndex);
 uint8_t lookupMaterialBack(int matType,int matIndex);
 uint8_t lookupMaterialBright(int matType,int matIndex);
 const char *lookupTreeName(int matIndex);
-ALLEGRO_COLOR lookupMaterialColor(DFHack::t_matglossPair matt, DFHack::t_matglossPair dyematt);
-ALLEGRO_COLOR lookupMaterialColor(DFHack::t_matglossPair matt);
-ALLEGRO_COLOR lookupMaterialColor(int matType, int matIndex, int dyeType, int dyeIndex);
-ALLEGRO_COLOR lookupMaterialColor(int matType, int matIndex);
+ALLEGRO_COLOR lookupMaterialColor(DFHack::t_matglossPair matt, DFHack::t_matglossPair dyematt, ALLEGRO_COLOR defaultColor=al_map_rgb(255,255,255));
+ALLEGRO_COLOR lookupMaterialColor(DFHack::t_matglossPair matt, ALLEGRO_COLOR defaultColor=al_map_rgb(255,255,255));
+ALLEGRO_COLOR lookupMaterialColor(int matType, int matIndex, int dyeType, int dyeIndex, ALLEGRO_COLOR defaultColor=al_map_rgb(255,255,255));
+ALLEGRO_COLOR lookupMaterialColor(int matType, int matIndex, ALLEGRO_COLOR defaultColor=al_map_rgb(255,255,255));
 const char * lookupFormName(int formType);
 ShadeBy getShadeType(const char* Input);

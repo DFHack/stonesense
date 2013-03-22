@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <building name="Farmers Workshop"
 game_type="Workshop" game_subtype="Farmers" file="workshop.png">
-  <!-- benches block -->
+  <!-- benches wall -->
   <if>
     <!-- replace this with position index if required -->
     <BuildingOccupancy value="3" />
@@ -11,7 +11,7 @@ game_type="Workshop" game_subtype="Farmers" file="workshop.png">
   <else>
     <include file="wsUpperBorder.xml" />
   </else>
-  <!-- end benches block -->
+  <!-- end benches wall -->
   <!-- contents -->
   <if>
     <PositionIndex value="8" />

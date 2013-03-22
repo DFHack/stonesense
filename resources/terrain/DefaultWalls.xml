@@ -1,17 +1,17 @@
 <?xml version="1.0"?>
-<!-- fallbacks for blocks not defined elsewhere -->
-<blocks>
+<!-- fallbacks for walls not defined elsewhere -->
+<walls>
   <!-- fortifications -->
-  <block sheetIndex="201" color="material">
+  <wall sheetIndex="201" color="material">
     <terrain value="65" />
     <terrain value="326" />
     <terrain value="327" />
     <terrain value="360" />
     <terrain value="436" />
     <terrain value="494" />
-  </block>
+  </wall>
   <!-- ramps -->
-  <block sheetIndex="0" color="material">
+  <wall sheetIndex="0" color="material">
     <terrain value="233" />
     <terrain value="234" />
     <terrain value="235" />
@@ -23,9 +23,9 @@
     <terrain value="241" />
     <terrain value="245" />
     <terrain value="518" />
-  </block>
+  </wall>
   <!-- stairs -->
-  <block sheetIndex="202" color="material">
+  <wall sheetIndex="202" color="material">
     <!-- ice -->
     <terrain value="25" />
     <terrain value="27" />
@@ -52,9 +52,9 @@
     <!-- cons -->
     <terrain value="515" />
     <terrain value="517" />
-  </block>
+  </wall>
   <!-- walls -->
-  <block sheetIndex="200" color="material">
+  <wall sheetIndex="200" color="material">
     <!-- pillars -->
     <terrain value="79" />
     <terrain value="80" />
@@ -215,5 +215,5 @@
     <terrain value="512" />
     <terrain value="513" />
     <terrain value="514" />
-  </block>
-</blocks>
+  </wall>
+</walls>

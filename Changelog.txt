@@ -1,3 +1,35 @@
+----==== 3.2 'Felsite', ? 2013 ====----
+* Many crash and bug fixes
+* Reworking of map-loading to take advantage of DFHack functions
+* Occlusion-culling of hidden tiles
+* Zoom feature and multiple zoom-level sprites
+* Better ground material type detection
+* Creatures without specified sprites display as their DF symbol rather than question mark
+* Support for creature equipment
+* Support for items on the ground
+* Support for item materials and item dyes
+* Support for multicolor patterns
+* Profession indicator icons and colored creature name text
+* Creature 'current job' text
+* Configurable key bindings
+* Multi-material building support
+* Visible well-buckets
+* Adventure-mode day/night cycles
+* More comprehensive liquid flow detection
+* Farm plots show crop status
+* Farm plots and stockpiles show actual extents
+* Support for non-square segments
+* Full-map screenshots fixed and now support non-square maps
+* Floor contaminants (blood/snow/etc.) displayed
+* Gas flows (misma/mist/dust/etc.) displayed
+* Support for sprite color specification by DF named colors from raw files
+* Support for tracks and other direction-dependant tiles
+
+----==== 3.1 'Felsite', September 8th 2011 ====----
+* Major changes to DFHack, Stonesense is now run from DFHack console
+* Many speed optimizations
+* (list of features is incomplete)
+
 ----==== 2.3 'Slate', March 15rd 2011 ====----
 * DF31.21 compatible
 * Support for multi-threaded rendering
@@ -12,7 +44,7 @@
 * Added mood icons for creatures
 * Blood, vomit and other bodily fluids now show up
 * Vast improvments to configuration system
-* Improved block outlines to better see structures
+* Improved tile outlines to better see structures
 * Added tons of creatures from the Stonesense Content Repository
 * Fixed issue with creature name cases
 * Countless stability fixes
@@ -22,7 +54,7 @@
 * Snow piles in various heights
 * Now supports the Object Testing Arena
 * Dwarf and animal skin/hair colors
-* Constructions reflect if they're built with rough stone or blocks
+* Constructions reflect if they're built with rough stone or tiles
 * Transparent water and windows
 * Optional Day/Night mode
 * Colored materials
@@ -74,8 +106,8 @@
 * 56 buildings supported
 * All stone and soil types supported
 * Added sand
-* Option to fill screen with blocks
-* Option to show hidden blocks
+* Option to fill screen with tiles
+* Option to show hidden tiles
 * Adventure mode support
 * Added debug mode for modding
 * Customize buildings with config files
@@ -89,7 +121,7 @@
 * Added custom resolution and fullscreen mode
 * Added drawn borders to wall and floor edges
 * Added single layer view
-* Added black blocks to indicate hidden areas
+* Added black tiles to indicate hidden areas
 * Added auto-reload ability
 * Added alternative z-level navigation
 * Improved minimap

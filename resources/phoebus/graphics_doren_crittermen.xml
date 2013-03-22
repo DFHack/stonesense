@@ -1,0 +1,1335 @@
+<?xml version="1.0"?>
+<creatures>
+	<creature gameID="AARDVARK">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="0" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="0" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="AARDVARK_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="1" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="1" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="ADDER">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="2" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="2" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="ADDER_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="3" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="3" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="ALBATROSS_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="4" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="4" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="ALLIGATOR SNAPPING TURTLE">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="5" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="5" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="ANACONDA">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="6" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="6" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="ANACONDA_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="7" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="7" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="ARMADILLO">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="8" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="8" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="ARMADILLO MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="9" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="9" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="ARMADILLO, GIANT">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="10" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="10" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="AXOLOTL">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="11" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="11" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="AXOLOTL_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="12" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="12" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="AYE-AYE">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="13" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="13" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="AYE-AYE_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="14" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="14" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="BARK_SCORPION_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="15" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="15" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="BAT">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="16" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="16" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="BEAR_SLOTH">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="17" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="17" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="BEAVER">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="20" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="20" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="BEAVER_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="21" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="21" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="BEETLE">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="22" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="22" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="BIRD_BLUEJAY">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="23" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="23" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="BIRD_CARDINAL">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="24" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="24" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="BIRD_GRACKLE">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="25" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="25" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="BIRD_ORIOLE">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="26" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="26" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="BIRD_RW_BLACKBIRD">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="27" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="27" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="BIRD_SWALLOW_CAVE">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="28" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="28" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="BLACK_MAMBA">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="29" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="29" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="BLACK_MAMBA_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="30" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="30" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="BOBCAT">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="31" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="31" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="BOBCAT_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="32" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="32" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="BROWN_RECLUSE_SPIDER_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="33" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="33" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="BUMBLEBEE">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="34" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="34" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="BUSHMASTER">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="35" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="35" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="BUSHMASTER_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="36" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="36" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="BUSHTIT_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="37" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="37" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="BUTTERFLY_MONARCH">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="40" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="40" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="CAPUCHIN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="41" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="41" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="CAPUCHIN_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="42" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="42" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="CASSOWARY_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="43" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="43" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="CENTAUR">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="44" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="44" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="CHINCHILLA">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="45" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="45" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="CHINCHILLA_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="46" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="46" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="CHIPMUNK">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="47" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="47" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="COATI">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="48" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="48" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="COATI_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="49" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="49" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="COCKATIEL_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="50" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="50" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="COPPERHEAD_SNAKE">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="51" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="51" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="COPPERHEAD_SNAKE_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="52" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="52" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="COYOTE">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="53" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="53" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="COYOTE_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="54" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="54" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="CRAB_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="55" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="55" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="CUTTLEFISH">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="56" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="56" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="CUTTLEFISH_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="57" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="57" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="DAMSELFLY_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="60" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="60" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="DESERT_TORTOISE_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="61" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="61" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="DINGO_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="62" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="62" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="DRAGONFLY">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="63" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="63" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="EAGLE_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="64" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="64" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="ECHIDNA">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="65" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="65" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="ECHIDNA_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="66" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="66" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="ELEPHANT_SEAL">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="67" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="67" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="ELEPHANT_SEAL_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="68" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="68" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="EMU_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="69" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="69" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="FAIRY">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="70" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="70" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="FIREFLY">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="71" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="71" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="FISH_ANCHOVY">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="72" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="72" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="FISH_BLUEFISH">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="73" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="73" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="FISH_BULLHEAD_BLACK">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="74" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="74" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="FISH_BULLHEAD_BROWN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="75" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="75" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="FISH_BULLHEAD_YELLOW">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="76" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="76" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="FISH_CAVE">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="77" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="77" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="FISH_CHAR">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="80" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="80" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="FISH_CLOWNFISH">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="81" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="81" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="FISH_COD">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="82" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="82" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="FISH_FLOUNDER">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="83" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="83" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="FISH_GLASSEYE">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="84" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="84" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="FISH_GROUPER_GIANT">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="85" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="85" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="FISH_GUPPY">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="86" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="86" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="FISH_HAGFISH">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="87" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="87" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="FISH_HAKE">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="88" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="88" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="FISH_HALIBUT">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="89" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="89" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="FISH_HERRING">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="90" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="90" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="FISH_KNIFEFISH_BANDED">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="91" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="91" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="FISH_LAMPREY_BROOK">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="92" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="92" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="FISH_LOACH_CLOWN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="93" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="93" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="FISH_LUNGFISH">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="94" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="94" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="FISH_MACKEREL">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="95" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="95" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="FISH_MARLIN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="96" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="96" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="FISH_MILKFISH">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="97" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="97" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="FISH_MOLLY_SAILFIN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="100" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="100" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="FISH_OPAH">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="101" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="101" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="FISH_PERCH">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="102" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="102" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="FISH_PUFFER_WHITE_SPOTTED">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="103" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="103" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="FISH_RATFISH_SPOTTED">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="104" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="104" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="FISH_RAY_BAT">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="105" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="105" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="FISH_RAY_THORNBACK">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="106" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="106" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="FISH_SALMON">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="107" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="107" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="FISH_SEAHORSE">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="108" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="108" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="FISH_SHAD">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="109" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="109" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="FISH_SOLE">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="110" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="110" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="FISH_STURGEON">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="111" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="111" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="FISH_TROUT_RAINBOW">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="112" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="112" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="FISH_TROUT_STEELHEAD">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="113" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="113" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="FISH_TUNA_BLUEFIN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="114" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="114" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="FLY">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="115" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="115" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="FLY_ACORN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="116" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="116" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="FLYING_SQUIRREL_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="117" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="117" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="FOXSQUIRREL">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="120" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="120" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GECKO_LEOPARD">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="121" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="121" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT TORTOISE">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="122" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="122" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT TORTOISE MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="123" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="123" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_AARDVARK">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="124" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="124" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_ADDER">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="125" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="125" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_ANACONDA">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="126" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="126" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_AXOLOTL">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="127" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="127" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_AYE-AYE">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="128" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="128" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_BEAVER">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="129" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="129" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_BLACK_MAMBA">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="130" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="130" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_BOBCAT">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="131" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="131" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_BUSHMASTER">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="132" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="132" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_CAPUCHIN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="133" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="133" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_CHINCHILLA">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="134" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="134" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_COATI">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="135" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="135" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_COPPERHEAD_SNAKE">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="136" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="136" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_COYOTE">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="137" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="137" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_CUTTLEFISH">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="140" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="140" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_DINGO">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="141" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="141" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_ECHIDNA">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="142" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="142" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_ELEPHANT_SEAL">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="143" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="143" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_FLYING_SQUIRREL">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="144" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="144" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_GRAY_LANGUR">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="145" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="145" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_GREEN_TREE_FROG">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="146" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="146" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_HAMSTER">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="147" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="147" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_HARE">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="148" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="148" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_HARP_SEAL">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="149" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="149" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_HEDGEHOG">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="150" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="150" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_HYENA">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="151" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="151" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_IBEX">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="152" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="152" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_IMPALA">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="153" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="153" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_JACKAL">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="154" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="154" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_KANGAROO">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="155" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="155" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_KING_COBRA">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="156" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="156" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_KOALA">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="157" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="157" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_LEECH">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="160" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="160" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_LEOPARD_SEAL">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="161" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="161" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_LION_TAMARIN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="162" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="162" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_LYNX">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="163" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="163" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_MINK">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="164" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="164" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_MONGOOSE">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="165" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="165" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_MONITOR_LIZARD">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="166" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="166" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_NAUTILUS">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="167" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="167" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_OCELOT">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="168" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="168" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_OPOSSUM">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="169" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="169" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_ORCA">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="170" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="170" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_OTTER">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="171" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="171" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_PANGOLIN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="172" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="172" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_POND_TURTLE">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="173" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="173" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_PORCUPINE">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="174" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="174" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_PYTHON">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="175" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="175" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_RATTLESNAKE">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="176" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="176" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_SKUNK">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="177" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="177" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_KINGSNAKE">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="180" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="180" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_SLOTH">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="181" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="181" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_SLOTH_BEAR">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="182" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="182" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_SNAPPING_TURTLE">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="183" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="183" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_SPERM_WHALE">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="184" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="184" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_SPIDER_MONKEY">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="185" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="185" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_SPONGE">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="186" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="186" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_STOAT">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="187" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="187" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_TAPIR">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="188" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="188" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_WEASEL">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="189" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="189" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_WILD_BOAR">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="190" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="190" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_WOLVERINE">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="191" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="191" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIANT_WOMBAT">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="192" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="192" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIGANTIC SQUID">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="193" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="193" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GIGANTIC TORTOISE">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="194" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="194" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GILA_MONSTER_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="195" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="195" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GNAT_BLOOD">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="196" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="196" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GRASSHOPPER_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="197" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="197" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GRAY_LANGUR">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="200" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="200" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GRAY_LANGUR_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="201" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="201" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GREEN_TREE_FROG">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="202" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="202" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GREEN_TREE_FROG_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="203" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="203" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GREY_PARROT_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="204" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="204" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="HAMSTER">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="205" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="205" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="HAMSTER_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="206" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="206" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="HARE">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="207" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="207" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="HARE_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="208" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="208" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="HARP_SEAL">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="209" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="209" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="HARP_SEAL_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="210" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="210" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="HEDGEHOG">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="211" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="211" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="HEDGEHOG_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="212" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="212" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="HONEY_BEE">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="213" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="213" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="HORNBILL_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="214" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="214" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="HORSESHOE_CRAB_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="215" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="215" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="HYENA_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="216" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="216" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="IBEX">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="217" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="217" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="IBEX_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="220" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="220" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="IMPALA">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="221" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="221" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="IMPALA_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="222" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="222" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="JACKAL">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="223" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="223" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="JACKAL_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="224" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="224" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="JELLYFISH_SEA_NETTLE">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="225" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="225" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="JUMPING_SPIDER_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="226" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="226" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="KANGAROO">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="227" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="227" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="KANGAROO_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="228" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="228" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="KEA_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="229" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="229" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="KING_COBRA">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="230" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="230" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="KING_COBRA_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="231" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="231" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="KINGSNAKE">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="35" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="35" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="KINGSNAKE_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="36" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="36" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="KIWI MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="232" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="232" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="KOALA">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="233" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="233" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="KOALA_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="234" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="234" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="LEECH">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="235" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="235" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="LEECH_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="236" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="236" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="LEOPARD_GECKO_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="237" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="237" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="LEOPARD_SEAL">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="240" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="240" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="LEOPARD_SEAL_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="241" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="241" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="LION_TAMARIN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="242" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="242" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="LION_TAMARIN_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="243" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="243" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="LIZARD">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="244" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="244" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="LIZARD_RHINO_TWO_LEGGED">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="245" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="245" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="LOBSTER_CAVE">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="246" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="246" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="LORIKEET_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="247" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="247" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="LOUSE_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="248" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="248" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="LYNX">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="249" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="249" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="LYNX_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="250" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="250" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="MAGGOT_PURRING">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="251" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="251" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="MANTIS_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="252" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="252" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="MASKED_LOVEBIRD_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="253" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="253" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="MINK">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="254" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="254" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="MINK_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="255" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="255" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="MOGHOPPER">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="256" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="256" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="MONGOOSE">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="257" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="257" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="MONGOOSE_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="260" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="260" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="MONITOR_LIZARD">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="261" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="261" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="MONITOR_LIZARD_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="262" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="262" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="MOON_SNAIL">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="263" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="263" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="MOON_SNAIL_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="264" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="264" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="SNAIL">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="263" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="263" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="SNAIL_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="264" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="264" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="MOSQUITO_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="265" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="265" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="MOTH_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="266" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="266" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="MUSSEL">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="267" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="267" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="NARWHAL">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="268" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="268" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="NARWHAL MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="269" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="269" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="NARWHAL, GIANT">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="270" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="270" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="NAUTILUS">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="271" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="271" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="NAUTILUS_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="272" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="272" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="OCELOT">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="273" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="273" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="OCELOT_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="274" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="274" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="OCTOPUS_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="275" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="275" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="OLM">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="276" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="276" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="OPOSSUM">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="277" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="277" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="OPOSSUM_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="280" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="280" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="ORCA">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="281" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="281" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="ORCA_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="282" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="282" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="OSPREY_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="283" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="283" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="OSTRICH MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="284" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="284" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="OTTER_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="285" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="285" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="OYSTER">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="286" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="286" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="PANGOLIN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="287" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="287" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="PANGOLIN_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="288" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="288" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="PARAKEET_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="289" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="289" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="PEREGRINE FALCON MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="290" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="290" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="PIXIE">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="291" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="291" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="PLATYPUS MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="292" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="292" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="POND_TURTLE">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="293" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="293" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="POND_TURTLE_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="294" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="294" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="PORCUPINE">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="295" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="295" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="PORCUPINE_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="296" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="296" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="PUFFIN_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="297" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="297" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="PYTHON">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="300" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="300" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="PYTHON_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="301" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="301" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="RAT">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="302" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="302" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="RAT_DEMON">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="303" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="303" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="RATTLESNAKE">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="304" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="304" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="RATTLESNAKE_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="305" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="305" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="RED PANDA">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="306" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="306" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="RED PANDA MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="307" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="307" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="RED PANDA, GIANT">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="308" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="308" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="RIVER OTTER">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="309" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="309" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="ROACH_LARGE">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="310" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="310" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="SEA OTTER">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="311" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="311" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="SKUNK">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="312" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="312" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="SKUNK_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="313" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="313" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="SLOTH">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="314" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="314" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="SLOTH_BEAR_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="315" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="315" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="SLOTH_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="316" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="316" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="SLUG_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="317" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="317" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="SNAKE_FIRE">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="320" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="320" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="SNAPPING TURTLE">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="321" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="321" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="SNAPPING_TURTLE_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="322" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="322" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="SPARROW_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="323" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="323" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="SPERM_WHALE">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="324" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="324" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="SPERM_WHALE_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="325" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="325" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="SPIDER_BROWN_RECLUSE">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="326" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="326" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="SPIDER_CAVE">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="327" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="327" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="SPIDER_JUMPING">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="328" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="328" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="SPIDER_MONKEY">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="329" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="329" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="SPIDER_MONKEY_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="330" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="330" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="SPIDER_PHANTOM">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="331" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="331" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="SPONGE">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="332" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="332" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="SPONGE_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="333" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="333" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="SQUID">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="334" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="334" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="SQUID MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="335" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="335" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="SQUIRREL_FLYING">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="336" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="336" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="SQUIRREL_GRAY">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="337" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="337" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="SQUIRREL_RED">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="340" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="340" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="STOAT">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="341" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="341" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="STOAT_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="342" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="342" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="SWAN_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="343" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="343" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="TAPIR">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="344" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="344" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="TAPIR_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="345" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="345" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="TERMITE">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="346" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="346" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="THRIPS_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="347" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="347" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="TICK_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="348" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="348" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="TOAD">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="349" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="349" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="WAMBLER_FLUFFY">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="350" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="350" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="WEASEL">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="351" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="351" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="WEASEL_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="352" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="352" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="WILD_BOAR">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="353" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="353" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="WILD_BOAR_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="354" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="354" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="WOLVERINE">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="355" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="355" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="WOLVERINE_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="356" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="356" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="WOMBAT">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="357" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="357" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="WOMBAT_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="360" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="360" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="WORM">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="361" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="361" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="WORM_KNUCKLE">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="362" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="362" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="WREN_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="363" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="363" profession="CHILD" special="Normal" />
+	</creature>
+	<creature gameID="GREAT_HORNED_OWL_MAN">
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="364" special="Normal" />
+		<variant file="doren/crittermen.png" zoom="-1" sheetIndex="364" profession="CHILD" special="Normal" />
+	</creature>
+</creatures>

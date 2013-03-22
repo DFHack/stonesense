@@ -1,0 +1,224 @@
+INSTRUCTIONS:
+
+This document specifies the keys and associated actions stonesense 
+can recognize.  The syntax is: 
+	[<action name>:<action key 1>:<action key 2> ... ]
+If the closing brace is preceeded by an asterisk: 
+	[<stuff>*]
+then the keys specified will repeat each frame until released, 
+otherwise it will occur exactly once each time the character is
+registered.  
+
+It is possible to specify the same action on multiple lines, or 
+to leave action names out of the list completely.  
+
+Listing multiple actions on the same line is not supported.  
+Likewise listing the same key for multiple actions will result 
+in only the last action listed being the one taken when the key is 
+pressed.  Currently only keyboard events are supported; 
+stonesense's mouse events are all hardcoded.  
+
+A complete listing of valid actions and key values can be found at 
+the bottom of this file.  
+
+KEYBINDINGS:
+
+[ROTATE:KEYS_ENTER]
+[RELOAD_SEGMENT:KEY_R]
+[PAINT:KEY_D]
+[TOGGLE_STOCKS:KEY_I]
+[TOGGLE_ZONES:KEY_U]
+[TOGGLE_OCCLUSION:KEY_O]
+[TOGGLE_CREATURE_MOODS:KEY_M]
+[TOGGLE_CREATURE_PROFS:KEY_P]
+[TOGGLE_CREATURE_JOBS:KEY_J]
+[TOGGLE_CREATURE_NAMES:KEY_N]
+[CHOP_WALLS:KEY_C]
+[FOLLOW_DF:KEY_F]
+[RESET_VIEW_OFFSET:KEY_Z]
+[DECR_SEGMENT_Z:KEY_1]
+[INCR_SEGMENT_Z:KEY_2]
+[TOGGLE_SINGLE_LAYER:KEY_S]
+[TOGGLE_SHADE_HIDDEN_TILES:KEY_B]
+[TOGGLE_SHOW_HIDDEN_TILES:KEY_H]
+[TOGGLE_OSD:KEYF_2]
+[TOGGLE_KEYBINDS:KEYS_SLASH]
+[INCR_ZOOM:KEYS_FULLSTOP]
+[DECR_ZOOM:KEYS_COMMA]
+[SCREENSHOT:KEYF_5]
+[INCR_RELOAD_TIME:KEYPAD_PLUS]
+[DECR_RELOAD_TIME:KEYPAD_MINUS]
+[CREDITS:KEYF_9]
+
+[DECR_Y:KEYS_UP*]
+[INCR_Y:KEYS_DOWN*]
+[DECR_X:KEYS_LEFT*]
+[INCR_X:KEYS_RIGHT*]
+[DECR_Z:KEYS_PGDN:KEY_9]
+[INCR_Z:KEYS_PGUP:KEY_0]
+
+VALID ACTIONS:
+
+	Actions:					Explanation:
+	
+	NOOP						do nothing (default)
+    ROTATE						rotate the displayed map segment
+    RELOAD_SEGMENT				reload the segment (meaningless when auto-reload enabled)
+    PAINT						draw the loaded segment (meaningless when auto-reload enabled)
+    TOGGLE_STOCKS				toggle display of stockpiles
+    TOGGLE_ZONES				toggle display of activity zones
+    TOGGLE_OCCLUSION			toggle the occlusion culling
+    TOGGLE_CREATURE_MOODS		toggle display of creature mood icons
+    TOGGLE_CREATURE_PROFS		cycle through display of profession indicators (disabled/icons/colored names)
+    TOGGLE_CREATURE_JOBS		cycle through display of job indicators (disabled/icons/text descriptions)
+    TOGGLE_CREATURE_NAMES		toggle the display of creature names
+    CHOP_WALLS					cycle through wall sprite chopping options
+    FOLLOW_DF					toggle following the DF cursor
+    RESET_VIEW_OFFSET			toggle following the DF window
+    TOGGLE_SINGLE_LAYER			toggle single layer mode
+    TOGGLE_SHADE_HIDDEN_TILES	toggle shading hidden tiles
+    TOGGLE_SHOW_HIDDEN_TILES	toggle showing hidden tiles
+    TOGGLE_OSD					toggle the onscreen display (currently this is just minimal text info)
+    TOGGLE_KEYBINDS				toggle display of keybind information
+    INCR_ZOOM					increase the zoom
+    DECR_ZOOM					decrease the zoom
+    SCREENSHOT					take a screenshot (alt: volumetric screenshot / ctrl: megashot / shift+ctrl: full-depth megashot)
+    INCR_RELOAD_TIME			increase the reload timer
+    DECR_RELOAD_TIME			decrease the reload timer
+    CREDITS						show credits
+	
+    DECR_SEGMENT_X				decrease/increase the corresponding displayed segment size coordinate
+    INCR_SEGMENT_X
+    DECR_SEGMENT_Y
+    INCR_SEGMENT_Y
+    DECR_SEGMENT_Z
+    INCR_SEGMENT_Z
+
+    DECR_X						decrease/increase the corresponding segment position coordinate (alt: continue following DF / ctrl: DECR_SEGMENT_*)
+    INCR_X
+    DECR_Y
+    INCR_Y
+    DECR_Z
+    INCR_Z
+	
+VALID KEYS:
+
+    Key Names:  	Explanation:
+	
+    INVALID			nokey (default)
+
+    KEY_A			a
+    KEY_B			b
+    KEY_C			c
+    KEY_D			d
+    KEY_E			e
+    KEY_F			f
+    KEY_G			g
+    KEY_H			h
+    KEY_I			i
+    KEY_J			j
+    KEY_K			k
+    KEY_L			l
+    KEY_M			m
+    KEY_N			n
+    KEY_O			o
+    KEY_P			p
+    KEY_Q			q
+    KEY_R			r
+    KEY_S			s
+    KEY_T			t
+    KEY_U			u
+    KEY_V			v
+    KEY_W			w
+    KEY_X			x
+    KEY_Y			y
+    KEY_Z			z
+
+    KEY_0			0
+    KEY_1			1
+    KEY_2			2
+    KEY_3			3
+    KEY_4			4
+    KEY_5			5
+    KEY_6			6
+    KEY_7			7
+    KEY_8			8
+    KEY_9			9
+
+    KEYPAD_0		0 (keypad)
+    KEYPAD_1		1 (keypad)
+    KEYPAD_2		2 (keypad)
+    KEYPAD_3		3 (keypad)
+    KEYPAD_4		4 (keypad)
+    KEYPAD_5		5 (keypad)
+    KEYPAD_6		6 (keypad)
+    KEYPAD_7		7 (keypad)
+    KEYPAD_8		8 (keypad)
+    KEYPAD_9		8 (keypad)
+
+    KEYF_1			F1
+    KEYF_2			F2
+    KEYF_3			F3
+    KEYF_4			F4
+    KEYF_5			F5
+    KEYF_6			F6
+    KEYF_7			F7
+    KEYF_8			F8
+    KEYF_9			F9
+    KEYF_10			F10
+    KEYF_11			F11
+    KEYF_12			F12
+
+    KEYS_ESCAPE		escape key (overridden by hardcoded commands)
+    KEYS_TILDE		~
+    KEYS_MINUS		-
+    KEYS_EQUALS		=
+    KEYS_BACKSPACE	(backspace)
+    KEYS_TAB		(tab)
+    KEYS_OPENBRACE	[
+    KEYS_CLOSEBRACE	]
+    KEYS_ENTER		(enter)
+    KEYS_SEMICOLON	;
+    KEYS_QUOTE		''
+    KEYS_BACKSLASH	\
+    KEYS_BACKSLASH2 (only on german keyboards or something)
+    KEYS_COMMA		,
+    KEYS_FULLSTOP	.
+    KEYS_SLASH		/
+    KEYS_SPACE		(spacebar)
+
+    KEYS_INSERT		(insert)
+    KEYS_DELETE		(delete)
+    KEYS_HOME		(home)
+    KEYS_END		(end)
+    KEYS_PGUP		(page up)
+    KEYS_PGDN		(page down)
+    KEYS_LEFT		(left arrow)
+    KEYS_RIGHT		(right arrow)
+    KEYS_UP			(up arrow)
+    KEYS_DOWN		(down arrow)
+
+    KEYPAD_SLASH	/ (keypad)
+    KEYPAD_ASTERISK * (keypad)
+    KEYPAD_MINUS	- (keypad)
+    KEYPAD_PLUS	+ (keypad)
+    KEYPAD_DELETE	(keypad delete)
+    KEYPAD_ENTER	(keypad enter)
+
+    KEYS_PRINTSCREEN (print screen)
+    KEYS_PAUSE		(pause)
+
+    KEYS_ABNT_C1	(???)
+    KEYS_YEN		(???)
+    KEYS_KANA		(???)
+    KEYS_CONVERT	(???)
+    KEYS_NOCONVERT	(???)
+    KEYS_AT			(???)
+    KEYS_CIRCUMFLEX	(???)
+    KEYS_COLON2		(???)
+    KEYS_KANJI		(???)
+
+    KEYPAD_EQUALS	(MacOS X only)
+    KEYS_BACKQUOTE	(MacOS X only)
+    KEYS_SEMICOLON2	(MacOS X only)
+    KEYS_COMMAND	(MacOS X only)

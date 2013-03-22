@@ -2,101 +2,101 @@
 <include file="../workshop.png">
   <if>
     <MaterialType value="Wood" />
-    <sprite index="21" color="building" />
+    <sprite index="21" color="building" pattern_index="0" />
   </if>
   <else>
-    <MaterialType value="GreenGlass" />
+    <MaterialType value="GreenGlass" pattern_index="0" />
     <sprite index="24" />
   </else>
   <else>
     <or>
-      <MaterialType value="ClearGlass" />
-      <MaterialType value="CrystalGlass" />
+      <MaterialType value="ClearGlass" pattern_index="0" />
+      <MaterialType value="CrystalGlass" pattern_index="0" />
     </or>
     <sprite index="23" />
   </else>
   <else>
     <or>
-      <MaterialType value="Metal" subtype="IRON" />
-      <MaterialType value="Metal" subtype="GOLD" />
-      <MaterialType value="Metal" subtype="SILVER" />
-      <MaterialType value="Metal" subtype="COPPER" />
-      <MaterialType value="Metal" subtype="NICKEL" />
-      <MaterialType value="Metal" subtype="ZINC" />
-      <MaterialType value="Metal" subtype="BRONZE" />
-      <MaterialType value="Metal" subtype="BRASS" />
-      <MaterialType value="Metal" subtype="STEEL" />
-      <MaterialType value="Metal" subtype="PIG_IRON" />
-      <MaterialType value="Metal" subtype="PLATINUM" />
-      <MaterialType value="Metal" subtype="ELECTRUM" />
-      <MaterialType value="Metal" subtype="TIN" />
-      <MaterialType value="Metal" subtype="PEWTER_FINE" />
-      <MaterialType value="Metal" subtype="PEWTER_TRIFLE" />
-      <MaterialType value="Metal" subtype="PEWTER_LAY" />
-      <MaterialType value="Metal" subtype="LEAD" />
-      <MaterialType value="Metal" subtype="ALUMINUM" />
-      <MaterialType value="Metal" subtype="NICKEL_SILVER" />
-      <MaterialType value="Metal" subtype="BILLON" />
-      <MaterialType value="Metal" subtype="STERLING_SILVER" />
-      <MaterialType value="Metal" subtype="BLACK_BRONZE" />
-      <MaterialType value="Metal" subtype="ROSE_GOLD" />
-      <MaterialType value="Metal" subtype="BISMUTH" />
-      <MaterialType value="Metal" subtype="BISMUTH_BRONZE" />
-      <MaterialType value="Metal" subtype="ADAMANTINE" />
+      <MaterialType value="Metal" subtype="IRON" pattern_index="0" />
+      <MaterialType value="Metal" subtype="GOLD" pattern_index="0" />
+      <MaterialType value="Metal" subtype="SILVER" pattern_index="0" />
+      <MaterialType value="Metal" subtype="COPPER" pattern_index="0" />
+      <MaterialType value="Metal" subtype="NICKEL" pattern_index="0" />
+      <MaterialType value="Metal" subtype="ZINC" pattern_index="0" />
+      <MaterialType value="Metal" subtype="BRONZE" pattern_index="0" />
+      <MaterialType value="Metal" subtype="BRASS" pattern_index="0" />
+      <MaterialType value="Metal" subtype="STEEL" pattern_index="0" />
+      <MaterialType value="Metal" subtype="PIG_IRON" pattern_index="0" />
+      <MaterialType value="Metal" subtype="PLATINUM" pattern_index="0" />
+      <MaterialType value="Metal" subtype="ELECTRUM" pattern_index="0" />
+      <MaterialType value="Metal" subtype="TIN" pattern_index="0" />
+      <MaterialType value="Metal" subtype="PEWTER_FINE" pattern_index="0" />
+      <MaterialType value="Metal" subtype="PEWTER_TRIFLE" pattern_index="0" />
+      <MaterialType value="Metal" subtype="PEWTER_LAY" pattern_index="0" />
+      <MaterialType value="Metal" subtype="LEAD" pattern_index="0" />
+      <MaterialType value="Metal" subtype="ALUMINUM" pattern_index="0" />
+      <MaterialType value="Metal" subtype="NICKEL_SILVER" pattern_index="0" />
+      <MaterialType value="Metal" subtype="BILLON" pattern_index="0" />
+      <MaterialType value="Metal" subtype="STERLING_SILVER" pattern_index="0" />
+      <MaterialType value="Metal" subtype="BLACK_BRONZE" pattern_index="0" />
+      <MaterialType value="Metal" subtype="ROSE_GOLD" pattern_index="0" />
+      <MaterialType value="Metal" subtype="BISMUTH" pattern_index="0" />
+      <MaterialType value="Metal" subtype="BISMUTH_BRONZE" pattern_index="0" />
+      <MaterialType value="Metal" subtype="ADAMANTINE" pattern_index="0" />
     </or>
-    <sprite index="22" color="building" />
+    <sprite index="22" color="building" pattern_index="0" />
   </else>
   <else>
-    <sprite index="20" color="building" />
+    <sprite index="20" color="building" pattern_index="0" />
   </else>
   <if>
     <MaterialType value="Wood" />
-    <sprite index="141" color="building" />
+    <sprite index="141" color="building" pattern_index="0" />
   </if>
   <else>
-    <MaterialType value="GreenGlass" />
+    <MaterialType value="GreenGlass" pattern_index="0" />
     <sprite index="144" />
   </else>
   <else>
     <or>
-      <MaterialType value="ClearGlass" />
-      <MaterialType value="CrystalGlass" />
+      <MaterialType value="ClearGlass" pattern_index="0" />
+      <MaterialType value="CrystalGlass" pattern_index="0" />
     </or>
     <sprite index="143" />
   </else>
   <else>
     <or>
-      <MaterialType value="Metal" subtype="IRON" />
-      <MaterialType value="Metal" subtype="GOLD" />
-      <MaterialType value="Metal" subtype="SILVER" />
-      <MaterialType value="Metal" subtype="COPPER" />
-      <MaterialType value="Metal" subtype="NICKEL" />
-      <MaterialType value="Metal" subtype="ZINC" />
-      <MaterialType value="Metal" subtype="BRONZE" />
-      <MaterialType value="Metal" subtype="BRASS" />
-      <MaterialType value="Metal" subtype="STEEL" />
-      <MaterialType value="Metal" subtype="PIG_IRON" />
-      <MaterialType value="Metal" subtype="PLATINUM" />
-      <MaterialType value="Metal" subtype="ELECTRUM" />
-      <MaterialType value="Metal" subtype="TIN" />
-      <MaterialType value="Metal" subtype="PEWTER_FINE" />
-      <MaterialType value="Metal" subtype="PEWTER_TRIFLE" />
-      <MaterialType value="Metal" subtype="PEWTER_LAY" />
-      <MaterialType value="Metal" subtype="LEAD" />
-      <MaterialType value="Metal" subtype="ALUMINUM" />
-      <MaterialType value="Metal" subtype="NICKEL_SILVER" />
-      <MaterialType value="Metal" subtype="BILLON" />
-      <MaterialType value="Metal" subtype="STERLING_SILVER" />
-      <MaterialType value="Metal" subtype="BLACK_BRONZE" />
-      <MaterialType value="Metal" subtype="ROSE_GOLD" />
-      <MaterialType value="Metal" subtype="BISMUTH" />
-      <MaterialType value="Metal" subtype="BISMUTH_BRONZE" />
-      <MaterialType value="Metal" subtype="ADAMANTINE" />
+      <MaterialType value="Metal" subtype="IRON" pattern_index="0" />
+      <MaterialType value="Metal" subtype="GOLD" pattern_index="0" />
+      <MaterialType value="Metal" subtype="SILVER" pattern_index="0" />
+      <MaterialType value="Metal" subtype="COPPER" pattern_index="0" />
+      <MaterialType value="Metal" subtype="NICKEL" pattern_index="0" />
+      <MaterialType value="Metal" subtype="ZINC" pattern_index="0" />
+      <MaterialType value="Metal" subtype="BRONZE" pattern_index="0" />
+      <MaterialType value="Metal" subtype="BRASS" pattern_index="0" />
+      <MaterialType value="Metal" subtype="STEEL" pattern_index="0" />
+      <MaterialType value="Metal" subtype="PIG_IRON" pattern_index="0" />
+      <MaterialType value="Metal" subtype="PLATINUM" pattern_index="0" />
+      <MaterialType value="Metal" subtype="ELECTRUM" pattern_index="0" />
+      <MaterialType value="Metal" subtype="TIN" pattern_index="0" />
+      <MaterialType value="Metal" subtype="PEWTER_FINE" pattern_index="0" />
+      <MaterialType value="Metal" subtype="PEWTER_TRIFLE" pattern_index="0" />
+      <MaterialType value="Metal" subtype="PEWTER_LAY" pattern_index="0" />
+      <MaterialType value="Metal" subtype="LEAD" pattern_index="0" />
+      <MaterialType value="Metal" subtype="ALUMINUM" pattern_index="0" />
+      <MaterialType value="Metal" subtype="NICKEL_SILVER" pattern_index="0" />
+      <MaterialType value="Metal" subtype="BILLON" pattern_index="0" />
+      <MaterialType value="Metal" subtype="STERLING_SILVER" pattern_index="0" />
+      <MaterialType value="Metal" subtype="BLACK_BRONZE" pattern_index="0" />
+      <MaterialType value="Metal" subtype="ROSE_GOLD" pattern_index="0" />
+      <MaterialType value="Metal" subtype="BISMUTH" pattern_index="0" />
+      <MaterialType value="Metal" subtype="BISMUTH_BRONZE" pattern_index="0" />
+      <MaterialType value="Metal" subtype="ADAMANTINE" pattern_index="0" />
     </or>
-    <sprite index="142" color="building" />
+    <sprite index="142" color="building" pattern_index="0" />
   </else>
   <else>
-    <sprite index="140" color="building" />
+    <sprite index="140" color="building" pattern_index="0" />
   </else>
   <!-- borders -->
   <if>

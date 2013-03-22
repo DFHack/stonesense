@@ -1,18 +1,116 @@
-<?xml version="1.0" ?>
-
-
-
+<?xml version="1.0"?>
 <building name="Farm plot" game_type="FarmPlot">
-	<if>
-		<BuildingOccupancy value="2" />
-		<sprite index = 106 />
-	</if>
-	<else>
-		<BuildingOccupancy value="1" />
-		<sprite index = 321 />
-	</else>
-	<else>
-		<empty/>
-	</else>
-	
-</building> 
+  <if>
+    <and>
+      <BuildingSpecial value="0" />
+      <BuildingOccupancy value="2" />
+    </and>
+    <sprite index="106" />
+  </if>
+  <else>
+    <and>
+      <BuildingSpecial value="1" />
+      <BuildingOccupancy value="2" />
+    </and>
+    <sprite index="106" />
+    <sprite index="21" file="farm.png" />
+  </else>
+  <else>
+    <and>
+      <BuildingSpecial value="2" />
+      <BuildingOccupancy value="2" />
+    </and>
+    <sprite index="106" />
+    <if>
+      <MaterialType value="Plant" subtype="MUSHROOM_HELMET_PLUMP" pattern_index="0" />
+      <sprite index="0" file="farm.png" />
+    </if>
+    <else>
+      <MaterialType value="Plant" subtype="GRASS_TAIL_PIG" pattern_index="0" />
+      <sprite index="1" file="farm.png" />
+    </else>
+    <else>
+      <MaterialType value="Plant" subtype="GRASS_WHEAT_CAVE" pattern_index="0" />
+      <sprite index="2" file="farm.png" />
+    </else>
+    <else>
+      <MaterialType value="Plant" subtype="POD_SWEET" pattern_index="0" />
+      <sprite index="3" file="farm.png" />
+    </else>
+    <else>
+      <MaterialType value="Plant" subtype="BUSH_QUARRY" pattern_index="0" />
+      <sprite index="4" file="farm.png" />
+    </else>
+    <else>
+      <MaterialType value="Plant" subtype="ROOT_MUCK" pattern_index="0" />
+      <sprite index="5" file="farm.png" />
+    </else>
+    <else>
+      <MaterialType value="Plant" subtype="TUBER_BLOATED" pattern_index="0" />
+      <sprite index="6" file="farm.png" />
+    </else>
+    <else>
+      <MaterialType value="Plant" subtype="BULB_KOBOLD" pattern_index="0" />
+      <sprite index="7" file="farm.png" />
+    </else>
+    <else>
+      <MaterialType value="Plant" subtype="BERRIES_PRICKLE" pattern_index="0" />
+      <sprite index="8" file="farm.png" />
+    </else>
+    <else>
+      <MaterialType value="Plant" subtype="BERRIES_STRAW_WILD" pattern_index="0" />
+      <sprite index="9" file="farm.png" />
+    </else>
+    <else>
+      <MaterialType value="Plant" subtype="GRASS_LONGLAND" pattern_index="0" />
+      <sprite index="10" file="farm.png" />
+    </else>
+    <else>
+      <MaterialType value="Plant" subtype="HERB_VALLEY" pattern_index="0" />
+      <sprite index="11" file="farm.png" />
+    </else>
+    <else>
+      <MaterialType value="Plant" subtype="WEED_RAT" pattern_index="0" />
+      <sprite index="12" file="farm.png" />
+    </else>
+    <else>
+      <MaterialType value="Plant" subtype="BERRIES_FISHER" pattern_index="0" />
+      <sprite index="13" file="farm.png" />
+    </else>
+    <else>
+      <MaterialType value="Plant" subtype="REED_ROPE" pattern_index="0" />
+      <sprite index="14" file="farm.png" />
+    </else>
+    <else>
+      <MaterialType value="Plant" subtype="MUSHROOM_CUP_DIMPLE" pattern_index="0" />
+      <sprite index="15" file="farm.png" />
+    </else>
+    <else>
+      <MaterialType value="Plant" subtype="WEED_BLADE" pattern_index="0" />
+      <sprite index="16" file="farm.png" />
+    </else>
+    <else>
+      <MaterialType value="Plant" subtype="ROOT_HIDE" pattern_index="0" />
+      <sprite index="17" file="farm.png" />
+    </else>
+    <else>
+      <MaterialType value="Plant" subtype="SLIVER_BARB" pattern_index="0" />
+      <sprite index="18" file="farm.png" />
+    </else>
+    <else>
+      <MaterialType value="Plant" subtype="BERRY_SUN" pattern_index="0" />
+      <sprite index="19" file="farm.png" />
+    </else>
+    <else>
+      <MaterialType value="Plant" subtype="VINE_WHIP" pattern_index="0" />
+      <sprite index="20" file="farm.png" />
+    </else>
+  </else>
+  <else>
+    <BuildingOccupancy value="0" />
+    <sprite index="321" />
+  </else>
+  <else>
+    <empty />
+  </else>
+</building>

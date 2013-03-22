@@ -1,9 +1,9 @@
 #ifndef OCCLUSION_TEST_H
 #define OCCLUSION_TEST_H
 
-class Block;
+class Tile;
 
 void init_masks();
-void occlude_block(Block * b);
+void occlude_tile(Tile * b);
 
 #endif

@@ -28,8 +28,8 @@ Changes the fontfile to use.
 
 Lifts the segment up to the top off the screen, equivalent to a given
 number of z levels.
-Use this with a large segment size to get blocks covering the entire screen.
-[LIFTSEGMENT:12]
+Use this with a large segment size to get walls covering the entire screen.
+[LIFTSEGMENT:0]
 
 Follow DF window is on when Stonesense launches. (Toggle with 'f')
 [FOLLOW_DF_SCREEN:YES]
@@ -65,9 +65,6 @@ Background color. setting this the same as the fog color produces a nice effect.
 [BACK_GREEN:158]
 [BACK_BLUE:177]
 
-Sets weather Stonesense should use a day/night effect
-[NIGHT:NO]
-
 This value, in milliseconds, is how long Stonesense waits between
 reloading the map. If zero, the autoreload will be disabled until
 set with Numpad+. Note that this will only work if a DF map is
@@ -81,10 +78,18 @@ Amount of time, in milliseconds, before the animation swaps to the next frame.
 Now independant of map refresh.
 [ANIMATION_RATE:196]
 
+--Adventure Mode Settings--
+
+Sets weather Stonesense should use a day/night effect.
+[NIGHT:NO]
+
+Sets weather Stonesense should shade in the fog-of-war partially hidden tiles.
+[FOG_OF_WAR:YES]
+
 --Debug Mode--
 
 Sets Stonesense in debug mode. Adds additional information to displays.
-[DEBUGMODE:NO]
+[DEBUGMODE:YES]
 
 Set's the debug cursor to follow the cursor from DF when it is there.
 [FOLLOW_DF_CURSOR:YES]
@@ -108,6 +113,11 @@ if trying having issues with sprite configuration tweaking.
 
 --Troubleshooting--
 
+Thi is the number of draw operations that will be held at a time.  Holding draw operations allows 
+for those draws to be carried out efficiently if they have the same source.  May be tweaked for
+performance gains.  
+[BITMAP_HOLDS:4096]
+
 Stonesense will try to merge all loaded sprites into a single texture, for performance reasons.
 if your videocard has low memory, you may want to disable this.
 [CACHE_IMAGES:NO]
@@ -123,7 +133,7 @@ and possibly quickly fill up yout hard-drive.
 
 Set the preferred renderer. Valid values are SOFTWARE, OPENGL, DIRECTX, and ANY. SOFTWARE has the highest 
 compatibility, but is very slow.
-[RENDERER:ANY]
+[RENDERER:OPENGL]
 
 --Colors--
 

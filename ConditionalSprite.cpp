@@ -1,172 +1,163 @@
 #include "common.h"
 #include "ConditionalSprite.h"
-#include "Block.h"
+#include "Tile.h"
 #include "GameBuildings.h"
 #include "GUI.h"
 
-/* RootBlock */
+/* RootTile */
 
-RootBlock::RootBlock()
-	: SpriteNode()
+RootTile::RootTile()
+    : SpriteNode()
 {
-	//cout << "RootBlock +" << endl;
+    //cout << "RootTile +" << endl;
 }
 
-RootBlock::~RootBlock(void)
+RootTile::~RootTile(void)
 {
-	//cout << "RootBlock -" << endl;
-	uint32_t max = (uint32_t)children.size();
-	for(uint32_t i=0; i<max; i++)
-	{
-		delete(children[i]);
-	}
+    //cout << "RootTile -" << endl;
+    uint32_t max = (uint32_t)children.size();
+    for(uint32_t i=0; i<max; i++) {
+        delete(children[i]);
+    }
 }
 
-bool RootBlock::copyToBlock(Block* b)
+bool RootTile::copyToTile(Tile* b)
 {
-	bool haveMatch = false;
-	uint32_t max = (uint32_t)children.size();
-	
-	for(uint32_t i=0; i<max; i++)
-	{
-		if (children[i]->copyToBlock(b))
-		{
-			haveMatch = true;	
-		}
-	}
-	return haveMatch;
+    bool haveMatch = false;
+    uint32_t max = (uint32_t)children.size();
+
+    for(uint32_t i=0; i<max; i++) {
+        if (children[i]->copyToTile(b)) {
+            haveMatch = true;
+        }
+    }
+    return haveMatch;
 }
 
-void RootBlock::addChild(SpriteNode* child){
-	children.push_back(child);
+void RootTile::addChild(SpriteNode* child)
+{
+    children.push_back(child);
 }
 
-/* SpriteBlock */
+/* SpriteTile */
 
-SpriteBlock::SpriteBlock()
-	: ConditionalNode(), SpriteNode()
+SpriteTile::SpriteTile()
+    : ConditionalNode(), SpriteNode()
 {
-	//cout << "SpriteBlock +" << endl;
-	conditions = NULL;
-	elsenode = NULL;
+    //cout << "SpriteTile +" << endl;
+    conditions = NULL;
+    elsenode = NULL;
 }
 
-SpriteBlock::~SpriteBlock(void)
+SpriteTile::~SpriteTile(void)
 {
-	//cout << "SpriteBlock -" << endl;
-	delete(elsenode);
-	delete(conditions);
-	uint32_t max = (uint32_t)children.size();
-	for(uint32_t i=0; i<max; i++)
-	{
-		delete(children[i]);
-	}
+    //cout << "SpriteTile -" << endl;
+    delete(elsenode);
+    delete(conditions);
+    uint32_t max = (uint32_t)children.size();
+    for(uint32_t i=0; i<max; i++) {
+        delete(children[i]);
+    }
 };
 
-bool SpriteBlock::copyToBlock(Block* b)
+bool SpriteTile::copyToTile(Tile* b)
 {
-	bool condMatch = false;
-	if (conditions == NULL)
-	{
-		condMatch = true;	
-	}
-	else
-	{
-		condMatch = conditions->Matches( b );
-	}
-	
-	bool haveMatch=false;
-	if (condMatch)
-	{
-		uint32_t max = (uint32_t)children.size();
-		for(uint32_t i=0; i<max; i++)
-		{
-			if (children[i]->copyToBlock(b))
-			{
-				haveMatch = true;	
-			}
-		}
-	}
-	else if (elsenode != NULL)
-	{
-		haveMatch = elsenode->copyToBlock(b);
-	}
-	return haveMatch;
+    bool condMatch = false;
+    if (conditions == NULL) {
+        condMatch = true;
+    } else {
+        condMatch = conditions->Matches( b );
+    }
+
+    bool haveMatch=false;
+    if (condMatch) {
+        uint32_t max = (uint32_t)children.size();
+        for(uint32_t i=0; i<max; i++) {
+            if (children[i]->copyToTile(b)) {
+                haveMatch = true;
+            }
+        }
+    } else if (elsenode != NULL) {
+        haveMatch = elsenode->copyToTile(b);
+    }
+    return haveMatch;
 }
 
-bool SpriteBlock::addCondition(BlockCondition* cond){
-	if (conditions != NULL)
-	{
-		LogError("Too many condition elements for SpriteBlock\n");
-		return false;
-	}
-	conditions = cond;
-	return true;
-}
-
-void SpriteBlock::addChild(SpriteNode* child){
-	children.push_back(child);
-}
-
-void SpriteBlock::addElse(SpriteNode* child){
-	elsenode = child;
-}
-
-
-/* RotationBlock */
-
-RotationBlock::RotationBlock()
-	: ConditionalNode(), SpriteNode()
+bool SpriteTile::addCondition(TileCondition* cond)
 {
-	//cout << "SpriteBlock +" << endl;
+    if (conditions != NULL) {
+        LogError("Too many condition elements for SpriteTile\n");
+        return false;
+    }
+    conditions = cond;
+    return true;
 }
 
-RotationBlock::~RotationBlock(void)
+void SpriteTile::addChild(SpriteNode* child)
 {
-	//cout << "SpriteBlock -" << endl;
-	uint32_t max = (uint32_t)children.size();
-	for(uint32_t i=0; i<max; i++)
-	{
-		delete(children[i]);
-	}
+    children.push_back(child);
+}
+
+void SpriteTile::addElse(SpriteNode* child)
+{
+    elsenode = child;
+}
+
+
+/* RotationTile */
+
+RotationTile::RotationTile()
+    : ConditionalNode(), SpriteNode()
+{
+    //cout << "SpriteTile +" << endl;
+}
+
+RotationTile::~RotationTile(void)
+{
+    //cout << "SpriteTile -" << endl;
+    uint32_t max = (uint32_t)children.size();
+    for(uint32_t i=0; i<max; i++) {
+        delete(children[i]);
+    }
 };
 
-bool RotationBlock::copyToBlock(Block* b)
+bool RotationTile::copyToTile(Tile* b)
 {
-	int index = DisplayedRotation;
-	int max = (int)children.size();
-	if (max == 0)
-		return false;
-	while (index >= max)
-	{
-		index = index - max;
-	}
-	return children[index]->copyToBlock(b);
+    int index = ssState.DisplayedRotation;
+    int max = (int)children.size();
+    if (max == 0) {
+        return false;
+    }
+    while (index >= max) {
+        index = index - max;
+    }
+    return children[index]->copyToTile(b);
 }
 
-bool RotationBlock::addCondition(BlockCondition* cond){
-	LogError("Condition elements not permitted for RotationBlock\n");
-	return false;
+bool RotationTile::addCondition(TileCondition* cond)
+{
+    LogError("Condition elements not permitted for RotationTile\n");
+    return false;
 }
 
-void RotationBlock::addChild(SpriteNode* child){
-	children.push_back(child);
+void RotationTile::addChild(SpriteNode* child)
+{
+    children.push_back(child);
 }
 
 /* SpriteElement */
 
 SpriteElement::SpriteElement()
-	: SpriteNode()
+    : SpriteNode()
 {
-	//cout << "SpriteElement +" << endl;
-	sprite.set_sheetindex(-1);
+    //cout << "SpriteElement +" << endl;
+    sprite.set_sheetindex(-1);
 }
 
-bool SpriteElement::copyToBlock(Block* b)
+bool SpriteElement::copyToTile(Tile* b)
 {
-	if (sprite.get_sheetindex() > -1)
-	{
-		b->building.sprites.push_back(sprite);
-	}
-	return true;
+    if (sprite.get_sheetindex() > -1) {
+        b->building.sprites.push_back(sprite);
+    }
+    return true;
 }
