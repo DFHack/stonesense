@@ -76,10 +76,10 @@ IF(UNIX)
 	#linux
 		OPTION(STONESENSE_INTERNAL_SO "Link with prebuilt internal allegro libs and headers." ON)
 		IF(STONESENSE_INTERNAL_SO)
-			FILE(DOWNLOAD http://dethware.org/dfhack/download/allegro.tar.bz2
-						  ${stonesense_SOURCE_DIR}/allegro.tar.bz2
-						  EXPECTED_MD5 11ce22e71db4a0886eac3af220eef032)
-			execute_process(COMMAND tar xf ${stonesense_SOURCE_DIR}/allegro.tar.bz2
+			FILE(DOWNLOAD http://dethware.org/dfhack/download/allegro509.tar.bz2
+						  ${stonesense_SOURCE_DIR}/allegro509.tar.bz2
+						  EXPECTED_MD5 09e3ef4eb0a35ee8fef68aed0bc1458b)
+			execute_process(COMMAND tar xf ${stonesense_SOURCE_DIR}/allegro509.tar.bz2
 							WORKING_DIRECTORY ${stonesense_SOURCE_DIR})
 			SET(PROJECT_LIBS
 				${stonesense_SOURCE_DIR}/allegro/lib/liballegro.so.5.0
@@ -110,10 +110,10 @@ IF(UNIX)
 	ENDIF()
 # windows
 ELSE(UNIX)
-    FILE(DOWNLOAD http://dethware.org/dfhack/download/allegrow.tar.gz
-                  ${stonesense_SOURCE_DIR}/allegrow.tar.gz
-                  EXPECTED_MD5 5bf41454531ee9d847b6ddac122bbc51)
-    execute_process(COMMAND ${CMAKE_COMMAND} -E tar xzf ${stonesense_SOURCE_DIR}/allegrow.tar.gz
+    FILE(DOWNLOAD http://dethware.org/dfhack/download/allegrow509.tar.gz
+                  ${stonesense_SOURCE_DIR}/allegrow509.tar.gz
+                  EXPECTED_MD5 8303d7026eb7c59cac9b7e329f34b559)
+    execute_process(COMMAND ${CMAKE_COMMAND} -E tar xzf ${stonesense_SOURCE_DIR}/allegrow509.tar.gz
                     WORKING_DIRECTORY ${stonesense_SOURCE_DIR})
     ADD_DEFINITIONS("-DALLEGRO_STATICLINK")
     SET(PROJECT_LIBS
