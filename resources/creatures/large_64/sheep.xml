@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<creatures>
+
+ <creature gameID="SHEEP"  file="sheep.png" >
+  
+  <variant special="Normal" prof="CHILD" sheetIndex="40" zoom="1" color="bodypart" bodypart="skin" >
+  <subsprite sheetIndex="41" zoom="1" color="bodypart" bodypart="wool" /> 
+  <subsprite sheetIndex="42" zoom="1" /> 
+  <subsprite sheetIndex="43" zoom="1" color="xml" red="255" green="126" blue="0" /> 
+  </variant>
+  
+  <variant special="Normal" sex="F" sheetIndex="0" zoom="1" color="bodypart" bodypart="skin" >
+  <subsprite sheetIndex="1" zoom="1" color="bodypart" bodypart="wool" /> 
+  <subsprite sheetIndex="2" zoom="1" /> 
+  <subsprite sheetIndex="3" zoom="1" color="xml" red="255" green="126" blue="0" /> 
+  </variant>
+  
+  <variant special="Normal" sex="M" sheetIndex="0" zoom="1" color="bodypart" bodypart="skin" >
+  <subsprite sheetIndex="1" zoom="1" color="bodypart" bodypart="wool" /> 
+  <subsprite sheetIndex="22" zoom="1" color="xml" red="160" green="140" blue="130" /> 
+  <subsprite sheetIndex="3" zoom="1" color="xml" red="255" green="126" blue="0" /> 
+  </variant>
+  
+ </creature>
+ 
+</creatures>

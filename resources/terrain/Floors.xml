@@ -4,8 +4,8 @@
   <floor sheetIndex="4" color = "material">
     <!-- pool -->
     <terrain value="2" />
-	<!-- below pool ramp -->
-	<terrain value="3" />
+    <!-- below pool ramp -->
+    <terrain value="3" />
     <!-- waterfall -->
     <terrain value="89" />
     <!-- river src -->
@@ -19,15 +19,15 @@
     <terrain value="370" />
     <terrain value="371" />
     <terrain value="372" />
-	<!-- below river ramp -->
-	<terrain value="469" />
-	<terrain value="470" />
-	<terrain value="471" />
-	<terrain value="472" />
-	<terrain value="473" />
-	<terrain value="474" />
-	<terrain value="475" />
-	<terrain value="476" />
+    <!-- below river ramp -->
+    <terrain value="469" />
+    <terrain value="470" />
+    <terrain value="471" />
+    <terrain value="472" />
+    <terrain value="473" />
+    <terrain value="474" />
+    <terrain value="475" />
+    <terrain value="476" />
     <!-- stream -->
     <terrain value="373" />
     <terrain value="374" />
@@ -41,11 +41,12 @@
         <terrain value= 381 /> -->
   </floor>
   <!-- driftwood -->
-  <floor sheetIndex="3" color="material">
+  <floor sheetIndex="13" color="material">
     <terrain value="19" />
-    <subsprite sheetIndex="30" />
-	<subsprite 
-		sheetIndex="18"
+    <subsprite sheetIndex="66"
+		variations="4"
+		/>
+    <subsprite sheetIndex="18"
 		mud_min="10"
 		/>
   </floor>
@@ -89,8 +90,8 @@
 		/>
   </floor>
   <!-- ice -->
-  <floor sheetIndex="34">
-    <!-- below stair -->
+  <floor sheetIndex="52">
+    <!-- below upward stair -->
     <terrain value="27" />
     <!-- below ramp -->
     <terrain value="245" />
@@ -151,12 +152,11 @@
 		mud_min="10"
 		/>
   </floor>
+  <!-- fires -->
   <floor sheetIndex="46">
-    <!-- fires -->
     <terrain value="70" />
   </floor>
   <floor sheetIndex="47">
-    <!-- fires -->
     <terrain value="67" />
   </floor>
   <!-- hfspit -->
@@ -266,8 +266,8 @@
 		mud_min="10"
 		/>
   </floor>
-  <!-- sm ice -->
-  <floor sheetIndex="34">
+  <!-- smoothed ice -->
+  <floor sheetIndex="53">
     <terrain value="47" />
     <!-- below pillar -->
     <terrain value="83" />
@@ -352,8 +352,8 @@
 		mud_min="10"
 		/>
   </floor>
-   <floor sheetIndex="3" color="xml" red="255" green = "0" blue = "0">
-    <!-- Semi molten rock -->
+  <!-- Semi molten rock -->
+  <floor sheetIndex="3" color="xml" red="255" green = "0" blue = "0">
     <terrain value="263" />
 	<subsprite sheetIndex = "51" color="xml" red="32" green = "0" blue = "0"/>
 	<subsprite 
@@ -366,18 +366,21 @@
     <terrain value="264" />
   </floor>
   <!-- boulder -->
-  <floor sheetIndex="6" color="material">
+  <floor sheetIndex="3" color="material">
     <terrain value="402" />
     <terrain value="403" />
     <terrain value="404" />
     <terrain value="445" />
-	<subsprite 
+    <subsprite
 		sheetIndex="18"
 		mud_min="10"
 		/>
+    <subsprite sheetIndex="75"
+		variations="4" color="material"
+		/>
   </floor>
   <!-- pebbles -->
-  <floor sheetIndex="5" color="material">
+  <floor sheetIndex="3" color="material">
     <terrain value="405" />
     <terrain value="406" />
     <terrain value="407" />
@@ -397,9 +400,12 @@
     <terrain value="447" />
     <terrain value="448" />
     <terrain value="449" />
-	<subsprite 
+    <subsprite
 		sheetIndex="18"
 		mud_min="10"
+		/>
+    <subsprite sheetIndex="71"
+		variations="4" color="material"
 		/>
   </floor>
   <!-- construct -->

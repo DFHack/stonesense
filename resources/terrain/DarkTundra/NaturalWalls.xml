@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<walls file="Naturalblocks.png">
+<walls file="NaturalWalls.png">
 	<wall sprite="19">
 		<terrain value="265" />
 		<material value="Inorganic">

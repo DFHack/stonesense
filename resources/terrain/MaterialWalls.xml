@@ -27,11 +27,11 @@
     <!-- cons -->
     <terrain value="518" />
   </wall>
-  <wall sheetIndex="5" file="ramps.png">
+  <wall sheetIndex="10" file="ramps.png">
     <!-- ice -->
     <terrain value="245" />
   </wall>
-  <wall sheetIndex="5" file="ramps.png">
+  <wall sheetIndex="11" file="ramps.png" color="material">
     <!-- ice -->
     <terrain value="518" />
     <material value="Ice" />
@@ -52,14 +52,25 @@
     <terrain value="518" />
     <material value="Wood" />
   </wall>
-  <!-- stairs -->
+  <!-- stairs: wood -->
   <wall sheetIndex="162" color="material">
     <!-- cons -->
     <terrain value="515" />
     <terrain value="517" />
     <material value="Wood" />
   </wall>
-  <!-- construct -->
+  <!-- stairs: "natural" ice -->
+  <wall sheetIndex="166">
+    <terrain value="25" />
+    <terrain value="27" />
+  </wall>
+  <!-- stairs: constructed ice -->
+  <wall sheetIndex="166">
+    <terrain value="515" />
+    <terrain value="517" />
+    <material value="Ice" />
+  </wall>
+  <!-- constructed: Wood -->
   <wall sheetIndex="8" color="material">
     <!-- pillar -->
     <terrain value="495" />
@@ -85,7 +96,7 @@
     <terrain value="514" />
     <material value="Wood" />
   </wall>
-  <!-- construct -->
+  <!-- constructed: GreenGlass -->
   <wall sheetIndex="26">
     <!-- pillar -->
     <terrain value="495" />
@@ -111,7 +122,7 @@
     <terrain value="514" />
     <material value="GreenGlass" />
   </wall>
-  <!-- construct -->
+  <!-- constructed: Clear&CrystalGlass -->
   <wall sheetIndex="25">
     <!-- pillar -->
     <terrain value="495" />
@@ -138,7 +149,7 @@
     <material value="ClearGlass" />
     <material value="CrystalGlass" />
   </wall>
-  <!-- construct -->
+  <!-- constructed: RUTILE -->
   <wall sheetIndex="46">
     <!-- pillar -->
     <terrain value="495" />
@@ -166,7 +177,7 @@
       <subtype value="RUTILE" />
     </material>
   </wall>
-  <!-- construct -->
+  <!-- constructed: metalls -->
   <wall sheetIndex="7" color="material">
     <!-- pillar -->
     <terrain value="495" />
@@ -398,7 +409,8 @@
     </material>
   </wall>
   <!-- construct -->
-  <wall sheetIndex="6" outline="0">
+  <wall sheetIndex="67">
+    <material value="Ice" />
     <!-- pillar -->
     <terrain value="495" />
     <!-- wall -->
@@ -421,6 +433,5 @@
     <terrain value="512" />
     <terrain value="513" />
     <terrain value="514" />
-    <material value="Ice" />
   </wall>
 </walls>

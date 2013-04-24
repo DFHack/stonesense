@@ -33,17 +33,17 @@
   <wall sheetIndex="8" file="ramps.png" color = "material">
     <!-- soil -->
     <terrain value="241" />
-	<!-- murky pool -->
+    <!-- murky pool -->
     <terrain value="3" />
-	<!-- river -->
-	<terrain value="469" />
-	<terrain value="470" />
-	<terrain value="471" />
+    <!-- river -->
+    <terrain value="469" />
+    <terrain value="470" />
+    <terrain value="471" />
     <terrain value="472" />
-	<terrain value="473" />
-	<terrain value="474" />
-	<terrain value="475" />
-	<terrain value="476" />
+    <terrain value="473" />
+    <terrain value="474" />
+    <terrain value="475" />
+    <terrain value="476" />
   </wall>
 
   <!-- stone -->
@@ -103,16 +103,16 @@
     <terrain value="515" />
     <terrain value="517" />
   </wall>
-  <!-- ice -->
-  <wall sheetIndex="6">
+  <!-- natural ice -->
+  <wall sheetIndex="66">
     <!-- wall -->
     <terrain value="361" />
     <terrain value="362" />
     <terrain value="363" />
     <terrain value="364" />
   </wall>
-  <!-- sm ice -->
-  <wall sheetIndex="6">
+  <!-- smoothed ice -->
+  <wall sheetIndex="65">
     <!-- pillar -->
     <terrain value="83" />
     <!-- sm wall -->
@@ -141,7 +141,7 @@
     <!-- wall -->
     <terrain value="265" />
   </wall>
-  <!-- sm stone -->
+  <!-- smoothed stone -->
   <wall sheetIndex="20" color="material">
     <!-- pillar -->
     <terrain value="79" />
@@ -232,6 +232,7 @@
   </wall>
   <!-- stone -->
   <wall sheetIndex="21" color="material">
+  <!-- stone -->
     <!-- wall feat? -->
     <terrain value="176" />
     <terrain value="177" />
@@ -258,13 +259,12 @@
     <terrain value="439" />
     <terrain value="440" />
   </wall>
-    <!-- stone -->
-  <wall sheetIndex="21" color="xml" red="255" green = "0" blue = "0">
   <!-- Semi molten rock -->
+  <wall sheetIndex="21" color="xml" red="255" green = "0" blue = "0">
     <terrain value="263" />
 	<subsprite sheetIndex = "146" color="xml" red="32" green = "0" blue = "0"/>
   </wall>
-  <!-- construct -->
+  <!-- constructed -->
   <wall sheetIndex="22" color="material">
     <!-- pillar -->
     <terrain value="495" />

@@ -1,0 +1,115 @@
+<?xml version="1.0" ?>
+<creatures>
+<creature gameID="DWARF"  file="dwarf.png" >
+
+	<variant special="Military" sheetIndex="1" zoom="1" color="bodypart" bodypart="skin" > 
+		  
+		<!--rear pieces for shadowing between legs-->
+		<subsprite sheetIndex="148" zoom="1" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_CAPE" color="equipment"/>
+		<subsprite sheetIndex="151" zoom="1" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_CLOAK" color="equipment"/>
+		  
+		<subsprite  sheetIndex="1" zoom="1" color="bodypart" bodypart="skin" />
+		  
+		<!--all the body clothes-->
+		<subsprite sheetIndex="80" zoom="1" equipment_class="PANTS" equipment_name="ITEM_PANTS_THONG" color="equipment"/>
+		<subsprite sheetIndex="81" zoom="1" equipment_class="PANTS" equipment_name="ITEM_PANTS_LEGGINGS" color="equipment"/>
+		<subsprite sheetIndex="20" zoom="1" equipment_class="SHOES" equipment_name="ITEM_SHOES_SOCKS" color="equipment"/>
+		<subsprite sheetIndex="41" zoom="1" equipment_class="SHOES" equipment_name="ITEM_SHOES_CHAUSSE" color="equipment"/>
+		<subsprite sheetIndex="22" zoom="1" equipment_class="SHOES" equipment_name="ITEM_SHOES_SANDAL" color="equipment"/>
+		<subsprite sheetIndex="23" zoom="1" equipment_class="SHOES" equipment_name="ITEM_SHOES_SHOES" color="equipment"/>
+		<subsprite sheetIndex="24" zoom="1" equipment_class="SHOES" equipment_name="ITEM_SHOES_BOOTS_LOW" color="equipment"/>
+		<subsprite sheetIndex="45" zoom="1" equipment_class="SHOES" equipment_name="ITEM_SHOES_BOOTS" color="equipment"/>
+		<subsprite sheetIndex="82" zoom="1" equipment_class="PANTS" equipment_name="ITEM_PANTS_BRAIES" color="equipment"/>
+		<subsprite sheetIndex="83" zoom="1" equipment_class="PANTS" equipment_name="ITEM_PANTS_PANTS" color="equipment"/>
+		<subsprite sheetIndex="84" zoom="1" equipment_class="PANTS" equipment_name="ITEM_PANTS_LOINCLOTH" color="equipment"/>
+		<subsprite sheetIndex="65" zoom="1" equipment_class="PANTS" equipment_name="ITEM_PANTS_GREAVES" color="equipment"/>
+		<subsprite sheetIndex="86" zoom="1" equipment_class="PANTS" equipment_name="ITEM_PANTS_SKIRT_SHORT" color="equipment"/>
+		<subsprite sheetIndex="87" zoom="1" equipment_class="PANTS" equipment_name="ITEM_PANTS_SKIRT" color="equipment"/>
+		<subsprite sheetIndex="88" zoom="1" equipment_class="PANTS" equipment_name="ITEM_PANTS_SKIRT_LONG" color="equipment"/>
+		<subsprite sheetIndex="120" zoom="1" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_SHIRT" color="equipment"/>
+		<subsprite sheetIndex="121" zoom="1" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_VEST" color="equipment"/>
+		<subsprite sheetIndex="122" zoom="1" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_DRESS" color="equipment"/>
+		<subsprite sheetIndex="123" zoom="1" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_MAIL_SHIRT" color="equipment"/>
+		<subsprite sheetIndex="160" zoom="1" equipment_class="GLOVES" equipment_name="ITEM_GLOVES_GLOVES" color="equipment"/>
+		<subsprite sheetIndex="161" zoom="1" equipment_class="GLOVES" equipment_name="ITEM_GLOVES_MITTENS" color="equipment"/>
+		<subsprite sheetIndex="124" zoom="1" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_TUNIC" color="equipment"/>
+		<subsprite sheetIndex="125" zoom="1" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_TOGA" color="equipment"/>
+		<subsprite sheetIndex="126" zoom="1" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_LEATHER" color="equipment"/>
+		<subsprite sheetIndex="127" zoom="1" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_BREASTPLATE" color="equipment"/>
+		<subsprite sheetIndex="128" zoom="1" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_CAPE" color="equipment"/>
+		<subsprite sheetIndex="129" zoom="1" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_COAT" color="equipment"/>
+		<subsprite sheetIndex="162" zoom="1" equipment_class="GLOVES" equipment_name="ITEM_GLOVES_GAUNTLETS" color="equipment"/>
+		<subsprite sheetIndex="130" zoom="1" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_ROBE" color="equipment"/>
+		<subsprite sheetIndex="131" zoom="1" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_CLOAK" color="equipment"/>
+		  
+		<!--beard goes here - on top of clothes but below hats-->
+		<subsprite sheetIndex="2" zoom="1" color="bodypart" bodypart="hair" />
+		  
+		<!--subsprite sheetIndex="100" zoom="1" equipment_class="HELM" equipment_name="ITEM_HELM_VEIL_HEAD" color="equipment"/-->
+		<!--subsprite sheetIndex="101" zoom="1" equipment_class="HELM" equipment_name="ITEM_HELM_VEIL_FACE" color="equipment"/-->
+		<subsprite sheetIndex="182" zoom="1" equipment_class="HELM" equipment_name="ITEM_HELM_SCARF_HEAD" color="equipment"/>
+		<subsprite sheetIndex="183" zoom="1" equipment_class="HELM" equipment_name="ITEM_HELM_CAP" color="equipment"/>
+		<subsprite sheetIndex="184" zoom="1" equipment_class="HELM" equipment_name="ITEM_HELM_MASK" color="equipment"/>
+		<!--subsprite sheetIndex="107" zoom="1" equipment_class="HELM" equipment_name="ITEM_HELM_TURBAN" color="equipment"/-->
+		<subsprite sheetIndex="185" zoom="1" equipment_class="HELM" equipment_name="ITEM_HELM_HELM" color="equipment"/>
+		<subsprite sheetIndex="186" zoom="1" equipment_class="HELM" equipment_name="ITEM_HELM_HOOD" color="equipment"/>
+		  
+		<subsprite sheetIndex="3" zoom="1" />
+	</variant> 
+	 
+	<variant special="Normal" sheetIndex="0" zoom="1" color="bodypart" bodypart="skin" >
+		<!--rear pieces for shadowing between legs-->
+		<subsprite sheetIndex="148" zoom="1" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_CAPE" color="equipment"/>
+		<subsprite sheetIndex="151" zoom="1" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_CLOAK" color="equipment"/>
+		  
+		<subsprite  sheetIndex="0" zoom="1" color="bodypart" bodypart="skin" />
+		  
+		<!--all the body clothes-->
+		<subsprite sheetIndex="60" zoom="1" equipment_class="PANTS" equipment_name="ITEM_PANTS_THONG" color="equipment"/>
+		<subsprite sheetIndex="61" zoom="1" equipment_class="PANTS" equipment_name="ITEM_PANTS_LEGGINGS" color="equipment"/>
+		<subsprite sheetIndex="20" zoom="1" equipment_class="SHOES" equipment_name="ITEM_SHOES_SOCKS" color="equipment"/>
+		<subsprite sheetIndex="21" zoom="1" equipment_class="SHOES" equipment_name="ITEM_SHOES_CHAUSSE" color="equipment"/>
+		<subsprite sheetIndex="22" zoom="1" equipment_class="SHOES" equipment_name="ITEM_SHOES_SANDAL" color="equipment"/>
+		<subsprite sheetIndex="23" zoom="1" equipment_class="SHOES" equipment_name="ITEM_SHOES_SHOES" color="equipment"/>
+		<subsprite sheetIndex="24" zoom="1" equipment_class="SHOES" equipment_name="ITEM_SHOES_BOOTS_LOW" color="equipment"/>
+		<subsprite sheetIndex="25" zoom="1" equipment_class="SHOES" equipment_name="ITEM_SHOES_BOOTS" color="equipment"/>
+		<subsprite sheetIndex="62" zoom="1" equipment_class="PANTS" equipment_name="ITEM_PANTS_BRAIES" color="equipment"/>
+		<subsprite sheetIndex="63" zoom="1" equipment_class="PANTS" equipment_name="ITEM_PANTS_PANTS" color="equipment"/>
+		<subsprite sheetIndex="64" zoom="1" equipment_class="PANTS" equipment_name="ITEM_PANTS_LOINCLOTH" color="equipment"/>
+		<subsprite sheetIndex="65" zoom="1" equipment_class="PANTS" equipment_name="ITEM_PANTS_GREAVES" color="equipment"/>
+		<subsprite sheetIndex="66" zoom="1" equipment_class="PANTS" equipment_name="ITEM_PANTS_SKIRT_SHORT" color="equipment"/>
+		<subsprite sheetIndex="67" zoom="1" equipment_class="PANTS" equipment_name="ITEM_PANTS_SKIRT" color="equipment"/>
+		<subsprite sheetIndex="68" zoom="1" equipment_class="PANTS" equipment_name="ITEM_PANTS_SKIRT_LONG" color="equipment"/>
+		<subsprite sheetIndex="100" zoom="1" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_SHIRT" color="equipment"/>
+		<subsprite sheetIndex="101" zoom="1" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_VEST" color="equipment"/>
+		<subsprite sheetIndex="102" zoom="1" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_DRESS" color="equipment"/>
+		<subsprite sheetIndex="103" zoom="1" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_MAIL_SHIRT" color="equipment"/>
+		<subsprite sheetIndex="140" zoom="1" equipment_class="GLOVES" equipment_name="ITEM_GLOVES_GLOVES" color="equipment"/>
+		<subsprite sheetIndex="141" zoom="1" equipment_class="GLOVES" equipment_name="ITEM_GLOVES_MITTENS" color="equipment"/>
+		<subsprite sheetIndex="104" zoom="1" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_TUNIC" color="equipment"/>
+		<subsprite sheetIndex="105" zoom="1" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_TOGA" color="equipment"/>
+		<subsprite sheetIndex="106" zoom="1" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_LEATHER" color="equipment"/>
+		<subsprite sheetIndex="107" zoom="1" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_BREASTPLATE" color="equipment"/>
+		<subsprite sheetIndex="108" zoom="1" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_CAPE" color="equipment"/>
+		<subsprite sheetIndex="109" zoom="1" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_COAT" color="equipment"/>
+		<subsprite sheetIndex="142" zoom="1" equipment_class="GLOVES" equipment_name="ITEM_GLOVES_GAUNTLETS" color="equipment"/>
+		<subsprite sheetIndex="110" zoom="1" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_ROBE" color="equipment"/>
+		<subsprite sheetIndex="111" zoom="1" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_CLOAK" color="equipment"/>
+		  
+		<!--beard goes here - on top of clothes but below hats-->
+		<subsprite sheetIndex="2" zoom="1" color="bodypart" bodypart="hair" />
+		  
+		<!--subsprite sheetIndex="100" zoom="1" equipment_class="HELM" equipment_name="ITEM_HELM_VEIL_HEAD" color="equipment"/-->
+		<!--subsprite sheetIndex="101" zoom="1" equipment_class="HELM" equipment_name="ITEM_HELM_VEIL_FACE" color="equipment"/-->
+		<subsprite sheetIndex="182" zoom="1" equipment_class="HELM" equipment_name="ITEM_HELM_SCARF_HEAD" color="equipment"/>
+		<subsprite sheetIndex="183" zoom="1" equipment_class="HELM" equipment_name="ITEM_HELM_CAP" color="equipment"/>
+		<subsprite sheetIndex="184" zoom="1" equipment_class="HELM" equipment_name="ITEM_HELM_MASK" color="equipment"/>
+		<!--subsprite sheetIndex="107" zoom="1" equipment_class="HELM" equipment_name="ITEM_HELM_TURBAN" color="equipment"/-->
+		<subsprite sheetIndex="185" zoom="1" equipment_class="HELM" equipment_name="ITEM_HELM_HELM" color="equipment"/>
+		<subsprite sheetIndex="186" zoom="1" equipment_class="HELM" equipment_name="ITEM_HELM_HOOD" color="equipment"/>
+		  
+		<subsprite sheetIndex="3" zoom="1" />
+	</variant>
+  
+</creature>
+</creatures>

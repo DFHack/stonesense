@@ -7,7 +7,6 @@ creatures/index.txt
 buildings/index.txt
 vegetation/index.txt
 colors/index.txt
-Colors.xml
 Fluids/index.txt
 items/index.txt
 phoebus/index.txt
