@@ -754,6 +754,8 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
     const char* equipsindexstr = elemSprite->Attribute("equipment_name");
     if (equipsindexstr == NULL || equipsindexstr[0] == 0) {
         itemsubtype = 0;
+    } else if(equipsindexstr == "NONE") {
+        itemsubtype = INVALID_INDEX;
     } else {
         df::world_raws::T_itemdefs &defs = df::global::world->raws.itemdefs;
         switch(itemtype) {
@@ -990,32 +992,44 @@ void c_sprite::assemble_world_offset(int x, int y, int z, int plateoffset, Tile 
             if(!b->creature) {
                 goto draw_subsprite;
             }
-            if(!b->creature->inv) {
-                goto draw_subsprite;
-            }
-            if(b->creature->inv->item.empty()) {
-                goto draw_subsprite;
-            }
-            if(b->creature->inv->item.size() <= itemtype) {
-                goto draw_subsprite;
-            }
-            if(b->creature->inv->item[itemtype].empty()) {
-                goto draw_subsprite;
-            }
-            if(itemsubtype >= b->creature->inv->item[itemtype].size()) {
-                goto draw_subsprite;
-            }
-            if(pattern_index >= b->creature->inv->item[itemtype][itemsubtype].size()) {
-                goto draw_subsprite;
-            }
-            if(b->creature->inv->item[itemtype][itemsubtype][pattern_index].matt.type == INVALID_INDEX) {
-                goto draw_subsprite;
-            }
-            if(itemmat != INVALID_INDEX) {
-                if(b->creature->inv->item[itemtype][itemsubtype][pattern_index].matt.type != itemmat) {
-                    goto draw_subsprite;
-                }
-            }
+			if(itemsubtype >= 0) {
+			
+				if(!b->creature->inv) {
+					goto draw_subsprite;
+				}
+				if(b->creature->inv->item.empty()) {
+					goto draw_subsprite;
+				}
+				if(b->creature->inv->item.size() <= itemtype) {
+					goto draw_subsprite;
+				}
+				if(b->creature->inv->item[itemtype].empty()) {
+					goto draw_subsprite;
+				}
+				if(itemsubtype >= b->creature->inv->item[itemtype].size()) {
+					goto draw_subsprite;
+				}
+				if(pattern_index >= b->creature->inv->item[itemtype][itemsubtype].size()) {
+					goto draw_subsprite;
+				}
+				if(b->creature->inv->item[itemtype][itemsubtype][pattern_index].matt.type == INVALID_INDEX) {
+					goto draw_subsprite;
+				}
+				if(itemmat != INVALID_INDEX) {
+					if(b->creature->inv->item[itemtype][itemsubtype][pattern_index].matt.type != itemmat) {
+						goto draw_subsprite;
+					}
+				}
+				
+			} else {
+
+			if(b->creature->inv
+				&& ! (b->creature->inv->item.empty())
+				&& ! (b->creature->inv->item.size() <= itemtype) 
+				&& ! (b->creature->inv->item[itemtype].empty())) {
+					goto draw_subsprite;
+				}
+			}
         }
 
         if(hairtype != hairtypes_invalid) {
