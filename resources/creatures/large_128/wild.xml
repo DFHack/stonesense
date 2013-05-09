@@ -4,7 +4,7 @@
   <creature gameID="GOAT_MOUNTAIN" file="wild.png" >
 
     <variant special="Normal">
-      <subsprite sheetIndex="0" zoom="2" color="bodypart" bodypart="hair" >
+      <subsprite sheetIndex="0" zoom="2" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="1" zoom="2" />
     </variant>
 
@@ -14,7 +14,7 @@
   <creature gameID="GRAY_LANGUR"  file="wild.png" >
 
     <variant special="Normal">
-      <subsprite sheetIndex="20" zoom="2" color="bodypart" bodypart="skin" >
+      <subsprite sheetIndex="20" zoom="2" color="bodypart" bodypart="skin" />
       <subsprite sheetIndex="21" zoom="2" color="bodypart" bodypart="hair" />
       <subsprite sheetIndex="22" zoom="2" />
     </variant>
