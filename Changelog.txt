@@ -1,4 +1,6 @@
-----==== 3.2 'Felsite', ? 2013 ====----
+----==== 3.3 'Felsite', ? 2013 ====----
+
+----==== 3.2 'Felsite', March 18th 2013 ====----
 * Many crash and bug fixes
 * Reworking of map-loading to take advantage of DFHack functions
 * Occlusion-culling of hidden tiles
