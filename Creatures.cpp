@@ -469,7 +469,7 @@ void copyCreature(df::unit * source, SS_Unit & furball)
         furball.nbcolors = MAX_COLORS;
     // hair
     for(int i = 0; i < hairtypes_end; i++){
-        furball.hairlength[i] = 0;
+        furball.hairlength[i] = 1001;//default to long unkempt hair
         furball.hairstyle[i] = CLEAN_SHAVEN;
     }
     if(source->race < contentLoader->style_indices.size() && contentLoader->style_indices.at(source->race)){
