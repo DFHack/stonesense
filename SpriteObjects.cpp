@@ -1307,31 +1307,33 @@ ALLEGRO_COLOR c_sprite::get_color(void* tile)
         } else {
             return al_map_rgb(255,255,255);
         }
-    case ShadeJob:
-        if(b->occ.bits.unit && b->creature) {
-            return ssConfig.colors.getDfColor(Units::getProfessionColor(b->creature->origin));
-        } else {
-            return al_map_rgb(255,255,255);
-        }
     case ShadeBlood:
         return b->bloodcolor;
     case ShadeEquip:
-        if(itemsubtype >=0) {
-            //FIXME: need a way to get a material for generic types.
-            //errors here give pink.
-            if(itemtype == -1) {
-                return al_map_rgb(255, 0, 0);
-            }
-            if(b->creature->inv->item.size() <= itemtype) {
-                return al_map_rgb(0, 255, 0);
-            }
-            if(b->creature->inv->item[itemtype].size() <= itemsubtype) {
-                return al_map_rgb(255, 255, 0);
-            }
-            if(b->creature->inv->item[itemtype][itemsubtype].empty()) {
-                return al_map_rgb(0, 0, 255);
-            }
-            return lookupMaterialColor(b->creature->inv->item[itemtype][itemsubtype][pattern_index].matt, b->creature->inv->item[itemtype][itemsubtype][pattern_index].dyematt);
+		if(ssConfig.show_creature_professions != 3) {
+			if(itemsubtype >=0) {
+				//FIXME: need a way to get a material for generic types.
+				//errors here give pink.
+				if(itemtype == -1) {
+					return al_map_rgb(255, 0, 0);
+				}
+				if(b->creature->inv->item.size() <= itemtype) {
+					return al_map_rgb(0, 255, 0);
+				}
+				if(b->creature->inv->item[itemtype].size() <= itemsubtype) {
+					return al_map_rgb(255, 255, 0);
+				}
+				if(b->creature->inv->item[itemtype][itemsubtype].empty()) {
+					return al_map_rgb(0, 0, 255);
+				}
+				return lookupMaterialColor(b->creature->inv->item[itemtype][itemsubtype][pattern_index].matt, b->creature->inv->item[itemtype][itemsubtype][pattern_index].dyematt);
+			} else {
+				return al_map_rgb(255,255,255);
+			}
+		}
+    case ShadeJob:
+        if(b->occ.bits.unit && b->creature) {
+            return ssConfig.colors.getDfColor(Units::getProfessionColor(b->creature->origin));
         } else {
             return al_map_rgb(255,255,255);
         }

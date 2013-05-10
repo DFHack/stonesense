@@ -213,7 +213,7 @@ void action_togglecreaturemood(uint32_t keymod)
 void action_togglecreatureprof(uint32_t keymod)
 {
     ssConfig.show_creature_professions++;
-    ssConfig.show_creature_professions = ssConfig.show_creature_professions % 3;
+    ssConfig.show_creature_professions = ssConfig.show_creature_professions % 4;
     timeToReloadSegment = true;
 }
 
