@@ -29,11 +29,15 @@ Tile* WorldSegment::ResetTile(int32_t x, int32_t y, int32_t z, df::tiletype type
     }
 
     uint32_t index = lx + (ly * this->size.x) + ((lz) * this->size.x * this->size.y);
-    tiles[index].Reset(this, type);
-    tiles[index].x = x;
-    tiles[index].y = y;
-    tiles[index].z = z;
-    return &tiles[index];
+
+	Tile* tptr = & tiles[index];
+
+	Tile::InvalidateAndDestroy(tptr);
+	Tile::CleanCreateAndValidate(tptr,this,type);
+    tptr->x = x;
+    tptr->y = y;
+    tptr->z = z;
+    return tptr;
 }
 
 Tile* WorldSegment::getTile(int32_t x, int32_t y, int32_t z)

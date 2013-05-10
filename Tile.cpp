@@ -41,19 +41,8 @@ worn_item::worn_item()
     dyematt.type = -1;
 }
 
-Tile::Tile(WorldSegment* ownerSegment, df::tiletype type)
+Tile::Tile(WorldSegment* segment, df::tiletype type)
 {
-    Reset(ownerSegment, type);
-}
-
-/*
- * resets the state of the Tile, and validates it
- */
-void Tile::Reset(WorldSegment* segment, df::tiletype type)
-{
-    //clear out own memory
-    memset(this, 0, sizeof(Tile));// - sizeof(SS_Building) - sizeof(SS_Item) - sizeof(SS_Effect));
-
     //set all the nonzero values
     valid=true;
     visible = true;
@@ -79,9 +68,7 @@ void Tile::Reset(WorldSegment* segment, df::tiletype type)
     building.type = (building_type::building_type) BUILDINGTYPE_NA;
     //building.parent = NULL;
     //building.info = NULL;
-    building.sprites = vector<c_sprite>();
 }
-
 
 Tile::~Tile(void)
 {
@@ -114,14 +101,27 @@ bool Tile::Invalidate(){
  *  through the deconstructor
  * returns old validity value
  */
-bool Tile::InvalidateAndDestroy()
+bool Tile::InvalidateAndDestroy(Tile* dst)
 {
-    if(!valid) {
+    if(!dst->valid) {
         return false;
     }
-    this->~Tile();
-    valid=false;
+    dst->~Tile();
+    dst->valid=false;
     return true;
+}
+
+/** 
+ * creates a clean empty tile at the destination address
+ * returns old validity value
+ */
+bool Tile::CleanCreateAndValidate(Tile* dst, WorldSegment* segment, df::tiletype type)
+{
+	bool ret = dst->valid;
+	memset(dst, 0, sizeof(Tile));
+	new (dst) Tile(segment, type);
+	dst->valid = true;
+	return ret;
 }
 
 inline ALLEGRO_BITMAP* imageSheet(t_SpriteWithOffset sprite, ALLEGRO_BITMAP* defaultBmp)

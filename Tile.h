@@ -12,6 +12,13 @@ class Tile
 {
 private:
     bool valid;
+
+    //Functions start here.
+    
+	//do not directly call constructor or deconstructor, use CleanCreateAndValidate or InvalidateAndDestroy
+    Tile(WorldSegment* ownerSegment, df::tiletype type);
+    ~Tile(void);
+
 public:
     bool visible;
 
@@ -88,11 +95,6 @@ public:
 		uint8_t special;
     } building;
 
-    //Functions start here.
-    
-    Tile(WorldSegment* ownerSegment, df::tiletype type);
-    ~Tile(void);
-
     //tile information loading
     inline df::tiletype_shape_basic tileShapeBasic()
     {
@@ -114,7 +116,6 @@ public:
         return DFHack::tileMaterial(tileType);
     }
 
-    void Reset(WorldSegment* ownerSegment, df::tiletype type);
     //tile sprite assembly and drawing functions
     void AssembleTile();
     void Drawcreaturetext();
@@ -126,7 +127,8 @@ public:
 
     bool IsValid();
     bool Invalidate();
-    bool InvalidateAndDestroy();
+    static bool InvalidateAndDestroy(Tile*);
+	static bool CleanCreateAndValidate(Tile*, WorldSegment*, df::tiletype);
 };
 
 void createEffectSprites();

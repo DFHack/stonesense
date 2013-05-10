@@ -55,12 +55,10 @@ public:
     }
 
     ~WorldSegment() {
-        uint32_t num = getNumTiles();
-        for(uint32_t i = 0; i < num; i++) {
-            if(tiles[i].IsValid()) {
-                tiles[i].~Tile();
-            }
-        }
+		uint32_t num = getNumTiles();
+		for(uint32_t i = 0; i < num; i++) {
+			Tile::InvalidateAndDestroy(& tiles[i]);
+		}
         ClearBuildings();
         ClearUnits();
         free(tiles);
@@ -72,7 +70,7 @@ public:
         ClearUnits();
         todraw.clear();          
         for(uint32_t i = 0; i < getNumTiles(); i++) {
-            tiles[i].InvalidateAndDestroy();
+			Tile::InvalidateAndDestroy(& tiles[i]);
         }
 
         uint32_t newNumTiles = sizex * sizey * sizez;
