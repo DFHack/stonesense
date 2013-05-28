@@ -159,6 +159,9 @@
 		<subsprite sheetIndex="148" zoom="2" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_CAPE" color="equipment"/>
 		<subsprite sheetIndex="149" zoom="2" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_COAT" color="equipment"/>
 		<subsprite sheetIndex="150" zoom="2" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_TOGA" color="equipment"/>
+		
+		<!--hair-->
+		<subsprite sheetIndex="30" zoom="2" color="bodypart" bodypart="hair" hair_min="10" hair_max="200" hair_type="hair" hair_style="ponytails" />
 		  
 		<subsprite sheetIndex="21" zoom="2" color="bodypart" bodypart="skin" />
 		  
@@ -204,9 +207,6 @@
 		<subsprite sheetIndex="92" zoom="2" equipment_class="GLOVES" equipment_name="ITEM_GLOVES_GAUNTLETS" color="equipment" pattern_index="0"/>
 		<subsprite sheetIndex="95" zoom="2" equipment_class="GLOVES" equipment_name="ITEM_GLOVES_GAUNTLETS" color="equipment" pattern_index="1"/>
 		<subsprite sheetIndex="131" zoom="2" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_CLOAK" color="equipment"/>
-		
-		<!--hair-->
-		<subsprite sheetIndex="30" zoom="2" color="bodypart" bodypart="hair" hair_min="10" hair_max="200" hair_type="hair" hair_style="ponytails" />
 		
 		<!--head-->
 		<subsprite sheetIndex="2" zoom="2" color="bodypart" bodypart="skin" />
@@ -388,6 +388,9 @@
 		<subsprite sheetIndex="148" zoom="2" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_CAPE" color="equipment"/>
 		<subsprite sheetIndex="149" zoom="2" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_COAT" color="equipment"/>
 		<subsprite sheetIndex="150" zoom="2" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_TOGA" color="equipment"/>
+		
+		<!--hair-->
+		<subsprite sheetIndex="30" zoom="2" color="bodypart" bodypart="hair" hair_min="10" hair_max="200" hair_type="hair" hair_style="ponytails" />
 		  
 		<subsprite sheetIndex="1" zoom="2" color="bodypart" bodypart="skin" />
 		  
@@ -433,9 +436,6 @@
 		<subsprite sheetIndex="72" zoom="2" equipment_class="GLOVES" equipment_name="ITEM_GLOVES_GAUNTLETS" color="equipment" pattern_index="0"/>
 		<subsprite sheetIndex="75" zoom="2" equipment_class="GLOVES" equipment_name="ITEM_GLOVES_GAUNTLETS" color="equipment" pattern_index="1"/>
 		<subsprite sheetIndex="111" zoom="2" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_CLOAK" color="equipment"/>
-		
-		<!--hair-->
-		<subsprite sheetIndex="30" zoom="2" color="bodypart" bodypart="hair" hair_min="10" hair_max="200" hair_type="hair" hair_style="ponytails" />
 		
 		<!--head-->
 		<subsprite sheetIndex="2" zoom="2" color="bodypart" bodypart="skin" />
