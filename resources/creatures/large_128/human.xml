@@ -82,7 +82,7 @@
 		<subsprite sheetIndex="144" zoom="2" equipment_class="HELM" equipment_name="ITEM_HELM_MASK" color="equipment"/>
 		<subsprite sheetIndex="146" zoom="2" equipment_class="HELM" equipment_name="ITEM_HELM_HOOD" color="equipment"/>
 		<subsprite sheetIndex="145" zoom="2" equipment_class="HELM" equipment_name="ITEM_HELM_HELM" color="equipment"/>
-		<subsprite sheetIndex="142" zoom="2" equipment_class="HELM" equipment_name="ITEM_HELM_TURBAN" color="equipment"/>
+		<subsprite sheetIndex="141" zoom="2" equipment_class="HELM" equipment_name="ITEM_HELM_TURBAN" color="equipment"/>
 		
 		<!--weapons-->
 		<subsprite file="weapons.png" sheetIndex="0" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_PICK" color="equipment"/>
@@ -196,7 +196,7 @@
 		<subsprite sheetIndex="144" zoom="2" equipment_class="HELM" equipment_name="ITEM_HELM_MASK" color="equipment"/>
 		<subsprite sheetIndex="146" zoom="2" equipment_class="HELM" equipment_name="ITEM_HELM_HOOD" color="equipment"/>
 		<subsprite sheetIndex="145" zoom="2" equipment_class="HELM" equipment_name="ITEM_HELM_HELM" color="equipment"/>
-		<subsprite sheetIndex="142" zoom="2" equipment_class="HELM" equipment_name="ITEM_HELM_TURBAN" color="equipment"/>
+		<subsprite sheetIndex="141" zoom="2" equipment_class="HELM" equipment_name="ITEM_HELM_TURBAN" color="equipment"/>
 		
 		<!--weapons-->
 		<subsprite file="weapons.png" sheetIndex="0" zoom="2" equipment_class="WEAPON" equipment_name="ITEM_WEAPON_PICK" color="equipment"/>
@@ -310,7 +310,7 @@
 		<subsprite sheetIndex="144" zoom="2" equipment_class="HELM" equipment_name="ITEM_HELM_MASK" color="equipment"/>
 		<subsprite sheetIndex="146" zoom="2" equipment_class="HELM" equipment_name="ITEM_HELM_HOOD" color="equipment"/>
 		<subsprite sheetIndex="145" zoom="2" equipment_class="HELM" equipment_name="ITEM_HELM_HELM" color="equipment"/>
-		<subsprite sheetIndex="142" zoom="2" equipment_class="HELM" equipment_name="ITEM_HELM_TURBAN" color="equipment"/>
+		<subsprite sheetIndex="141" zoom="2" equipment_class="HELM" equipment_name="ITEM_HELM_TURBAN" color="equipment"/>
 	</variant>
 	
 	<variant special="Normal" sex="F" file="humanf.png" >
@@ -383,7 +383,7 @@
 		<subsprite sheetIndex="144" zoom="2" equipment_class="HELM" equipment_name="ITEM_HELM_MASK" color="equipment"/>
 		<subsprite sheetIndex="146" zoom="2" equipment_class="HELM" equipment_name="ITEM_HELM_HOOD" color="equipment"/>
 		<subsprite sheetIndex="145" zoom="2" equipment_class="HELM" equipment_name="ITEM_HELM_HELM" color="equipment"/>
-		<subsprite sheetIndex="142" zoom="2" equipment_class="HELM" equipment_name="ITEM_HELM_TURBAN" color="equipment"/>
+		<subsprite sheetIndex="141" zoom="2" equipment_class="HELM" equipment_name="ITEM_HELM_TURBAN" color="equipment"/>
 	</variant>
   
 </creature>
