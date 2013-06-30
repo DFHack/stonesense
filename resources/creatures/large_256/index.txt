@@ -5,3 +5,4 @@ wild.xml
 domestic.xml
 
 dwarf.xml
+human.xml

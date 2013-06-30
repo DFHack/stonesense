@@ -1,22 +1,22 @@
 <?xml version="1.0" ?>
 <creatures>
-<creature gameID="DWARF"  >
+<creature gameID="HUMAN"  >
 
 	<variant special="Ghost" prof="CHILD" file="child.png" >
 		<subsprite sheetIndex="155" zoom="3" color="xml" red="120" green="170" blue="225" alpha="200"/>
 		<subsprite sheetIndex="3" zoom="3" />
 	</variant>
 
-	<variant special="Ghost" sex="M" file="dwarfm.png" >
+	<variant special="Ghost" sex="M" file="humanm.png" >
 		<subsprite sheetIndex="155" zoom="3" color="xml" red="120" green="170" blue="225" alpha="200"/>
-		<subsprite sheetIndex="3" zoom="3" />
+		<subsprite sheetIndex="4" zoom="3" />
 	</variant>
 	
-	<variant special="Ghost" sex="F" file="dwarff.png" >
+	<variant special="Ghost" sex="F" file="humanf.png" >
 		<subsprite sheetIndex="155" zoom="3" color="xml" red="120" green="170" blue="225" alpha="200"/>
-		<subsprite sheetIndex="3" zoom="3" />
+		<subsprite sheetIndex="4" zoom="3" />
 	</variant>
-	
+
 	<variant prof="CHILD" sex="M" file="child.png" >
 		  
 		<!--rear pieces for shadowing between legs-->
@@ -187,7 +187,7 @@
 		<subsprite sheetIndex="141" zoom="3" equipment_class="HELM" equipment_name="ITEM_HELM_TURBAN" color="equipment"/>
 	</variant>
 
-	<variant special="Military" sex="M" file="dwarfm.png" >
+	<variant special="Military" sex="M" file="humanm.png" >
 		  
 		<!--rear pieces for shadowing between legs-->
 		<subsprite sheetIndex="151" zoom="3" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_CLOAK" color="equipment"/>
@@ -195,7 +195,7 @@
 		<subsprite sheetIndex="149" zoom="3" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_COAT" color="equipment"/>
 		<subsprite sheetIndex="150" zoom="3" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_TOGA" color="equipment"/>
 		  
-		<subsprite sheetIndex="21" zoom="3" color="bodypart" bodypart="skin" />
+		<subsprite  sheetIndex="2" zoom="3" color="bodypart" bodypart="skin" />
 		  
 		<!--all the body clothes-->
 		<subsprite sheetIndex="80" zoom="3" equipment_class="PANTS" equipment_name="ITEM_PANTS_THONG" color="equipment"/>
@@ -241,39 +241,13 @@
 		<subsprite sheetIndex="131" zoom="3" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_CLOAK" color="equipment"/>
 		
 		<!--head-->
-		<subsprite sheetIndex="2" zoom="3" color="bodypart" bodypart="skin" />
+		<subsprite  sheetIndex="5" zoom="3" color="bodypart" bodypart="skin" />
 		  
 		<!--hair-->
-		<subsprite sheetIndex="22" zoom="3" color="bodypart" bodypart="hair"/>
-		
-		<subsprite sheetIndex="4" zoom="3" color="bodypart" bodypart="hair" hair_min="10" equipment_class="HELM" equipment_name="NONE" hair_type="hair" hair_style="braid"/>
-		<subsprite sheetIndex="4" zoom="3" color="bodypart" bodypart="hair" hair_min="10" equipment_class="HELM" equipment_name="NONE" hair_type="hair" hair_style="ponytails" />
-		<subsprite sheetIndex="5" zoom="3" color="bodypart" bodypart="hair" hair_min="10" equipment_class="HELM" equipment_name="NONE" hair_type="hair" hair_style="two_braid"/>
-		<subsprite sheetIndex="6" zoom="3" color="bodypart" bodypart="hair" hair_min="200" equipment_class="HELM" equipment_name="NONE" hair_type="hair" hair_style="combed"/>
-		<subsprite sheetIndex="26" zoom="3" color="bodypart" bodypart="hair" hair_min="10" hair_max="200" equipment_class="HELM" equipment_name="NONE" hair_type="hair" hair_style="combed"/>
-		<subsprite sheetIndex="7" zoom="3" color="bodypart" bodypart="hair" hair_min="10" equipment_class="HELM" equipment_name="NONE" hair_type="hair" hair_style="unkempt"/>
-		
-		<subsprite sheetIndex="11" zoom="3" color="bodypart" bodypart="hair" hair_min="200" hair_type="sideburns" hair_style="braid"/>
-		<subsprite sheetIndex="31" zoom="3" color="bodypart" bodypart="hair" hair_min="10" hair_max="200" hair_type="sideburns" hair_style="braid"/>
-		<subsprite sheetIndex="12" zoom="3" color="bodypart" bodypart="hair" hair_min="200" hair_type="sideburns" hair_style="combed"/>
-		<subsprite sheetIndex="32" zoom="3" color="bodypart" bodypart="hair" hair_min="10" hair_max="200" hair_type="sideburns" hair_style="combed"/>
-		
-		<subsprite sheetIndex="10" zoom="3" color="bodypart" bodypart="hair" hair_min="200" hair_type="beard" hair_style="combed"/>
-		<subsprite sheetIndex="30" zoom="3" color="bodypart" bodypart="hair" hair_min="10" hair_max="200" hair_type="beard" hair_style="combed"/>
-		<subsprite sheetIndex="8" zoom="3" color="bodypart" bodypart="hair" hair_min="200" hair_type="beard" hair_style="braid"/>
-		<subsprite sheetIndex="28" zoom="3" color="bodypart" bodypart="hair" hair_min="10" hair_max="200" hair_type="beard" hair_style="braid"/>
-		<subsprite sheetIndex="9" zoom="3" color="bodypart" bodypart="hair" hair_min="200" hair_type="beard" hair_style="two_braid"/>
-		<subsprite sheetIndex="29" zoom="3" color="bodypart" bodypart="hair" hair_min="10" hair_max="200" hair_type="beard" hair_style="two_braid"/>
-		<subsprite sheetIndex="27" zoom="3" color="bodypart" bodypart="hair" hair_min="10" hair_type="beard" hair_style="unkempt"/>
-		
-		<subsprite sheetIndex="14" zoom="3" color="bodypart" bodypart="hair" hair_min="200" hair_type="moustache" hair_style="two_braid"/>
-		<subsprite sheetIndex="34" zoom="3" color="bodypart" bodypart="hair" hair_min="10" hair_max="200" hair_type="moustache" hair_style="two_braid"/>
-		<subsprite sheetIndex="13" zoom="3" color="bodypart" bodypart="hair" hair_min="200" hair_type="moustache" hair_style="combed"/>
-		<subsprite sheetIndex="33" zoom="3" color="bodypart" bodypart="hair" hair_min="10" hair_max="200" hair_type="moustache" hair_style="combed"/>
+		<subsprite sheetIndex="3" zoom="3" color="bodypart" bodypart="hair" />
 		
 		<!--eyes-->
-		<subsprite sheetIndex="3" zoom="3" />
-		<subsprite sheetIndex="23" color="bodypart" bodypart="eyes" pattern_index="2" zoom="3" />
+		<subsprite sheetIndex="4" zoom="3" />
 		  
 		<!--headwear-->
 		<subsprite sheetIndex="142" zoom="3" equipment_class="HELM" equipment_name="ITEM_HELM_SCARF_HEAD" color="equipment"/>
@@ -327,18 +301,15 @@
 		<subsprite file="weapons.png" sheetIndex="67" zoom="3" equipment_class="SHIELD" equipment_name="ITEM_SHIELD_SHIELD" color="equipment"/>
 	</variant> 
 	 
-	<variant special="Military" sex="F" file="dwarff.png" >
+	<variant special="Military" sex="F" file="humanf.png" >
 		  
 		<!--rear pieces for shadowing between legs-->
 		<subsprite sheetIndex="151" zoom="3" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_CLOAK" color="equipment"/>
 		<subsprite sheetIndex="148" zoom="3" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_CAPE" color="equipment"/>
 		<subsprite sheetIndex="149" zoom="3" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_COAT" color="equipment"/>
 		<subsprite sheetIndex="150" zoom="3" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_TOGA" color="equipment"/>
-		
-		<!--hair-->
-		<subsprite sheetIndex="30" zoom="3" color="bodypart" bodypart="hair" hair_min="10" hair_max="200" hair_type="hair" hair_style="ponytails" />
 		  
-		<subsprite sheetIndex="21" zoom="3" color="bodypart" bodypart="skin" />
+		<subsprite  sheetIndex="2" zoom="3" color="bodypart" bodypart="skin" />
 		  
 		<!--all the body clothes-->
 		<subsprite sheetIndex="80" zoom="3" equipment_class="PANTS" equipment_name="ITEM_PANTS_THONG" color="equipment"/>
@@ -384,26 +355,13 @@
 		<subsprite sheetIndex="131" zoom="3" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_CLOAK" color="equipment"/>
 		
 		<!--head-->
-		<subsprite sheetIndex="2" zoom="3" color="bodypart" bodypart="skin" />
+		<subsprite  sheetIndex="5" zoom="3" color="bodypart" bodypart="skin" />
 		  
 		<!--hair-->
-		<subsprite sheetIndex="22" zoom="3" color="bodypart" bodypart="hair"/>
-		
-		<subsprite sheetIndex="4" zoom="3" color="bodypart" bodypart="hair" hair_min="10" equipment_class="HELM" equipment_name="NONE" hair_type="hair" hair_style="braid"/>
-		<subsprite sheetIndex="8" zoom="3" color="bodypart" bodypart="hair" hair_min="200" hair_type="hair" hair_style="braid"/>
-		<subsprite sheetIndex="28" zoom="3" color="bodypart" bodypart="hair" hair_min="10" hair_max="200" hair_type="hair" hair_style="braid"/>
-		<subsprite sheetIndex="4" zoom="3" color="bodypart" bodypart="hair" hair_min="10" equipment_class="HELM" equipment_name="NONE" hair_type="hair" hair_style="ponytails" />
-		<subsprite sheetIndex="10" zoom="3" color="bodypart" bodypart="hair" hair_min="200" hair_type="hair" hair_style="ponytails" />
-		<subsprite sheetIndex="5" zoom="3" color="bodypart" bodypart="hair" hair_min="10" equipment_class="HELM" equipment_name="NONE" hair_type="hair" hair_style="two_braid"/>
-		<subsprite sheetIndex="9" zoom="3" color="bodypart" bodypart="hair" hair_min="200" hair_type="hair" hair_style="two_braid"/>
-		<subsprite sheetIndex="29" zoom="3" color="bodypart" bodypart="hair" hair_min="10" hair_max="200" hair_type="hair" hair_style="two_braid"/>
-		<subsprite sheetIndex="6" zoom="3" color="bodypart" bodypart="hair" hair_min="200" equipment_class="HELM" equipment_name="NONE" hair_type="hair" hair_style="combed"/>
-		<subsprite sheetIndex="26" zoom="3" color="bodypart" bodypart="hair" hair_min="10" hair_max="200" equipment_class="HELM" equipment_name="NONE" hair_type="hair" hair_style="combed"/>
-		<subsprite sheetIndex="7" zoom="3" color="bodypart" bodypart="hair" hair_min="10" equipment_class="HELM" equipment_name="NONE" hair_type="hair" hair_style="unkempt"/>
+		<subsprite sheetIndex="3" zoom="3" color="bodypart" bodypart="hair" />
 		
 		<!--eyes-->
-		<subsprite sheetIndex="3" zoom="3" />
-		<subsprite sheetIndex="23" color="bodypart" bodypart="eyes" pattern_index="2" zoom="3" />
+		<subsprite sheetIndex="4" zoom="3" />
 		  
 		<!--headwear-->
 		<subsprite sheetIndex="142" zoom="3" equipment_class="HELM" equipment_name="ITEM_HELM_SCARF_HEAD" color="equipment"/>
@@ -457,7 +415,7 @@
 		<subsprite file="weapons.png" sheetIndex="67" zoom="3" equipment_class="SHIELD" equipment_name="ITEM_SHIELD_SHIELD" color="equipment"/>
 	</variant> 
 	 
-	<variant special="Normal" sex="M" file="dwarfm.png" >
+	<variant special="Normal" sex="M" file="humanm.png" >
 		  
 		<!--rear pieces for shadowing between legs-->
 		<subsprite sheetIndex="151" zoom="3" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_CLOAK" color="equipment"/>
@@ -465,7 +423,7 @@
 		<subsprite sheetIndex="149" zoom="3" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_COAT" color="equipment"/>
 		<subsprite sheetIndex="150" zoom="3" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_TOGA" color="equipment"/>
 		  
-		<subsprite sheetIndex="1" zoom="3" color="bodypart" bodypart="skin" />
+		<subsprite  sheetIndex="1" zoom="3" color="bodypart" bodypart="skin" />
 		  
 		<!--all the body clothes-->
 		<subsprite sheetIndex="60" zoom="3" equipment_class="PANTS" equipment_name="ITEM_PANTS_THONG" color="equipment"/>
@@ -511,39 +469,13 @@
 		<subsprite sheetIndex="111" zoom="3" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_CLOAK" color="equipment"/>
 		
 		<!--head-->
-		<subsprite sheetIndex="2" zoom="3" color="bodypart" bodypart="skin" />
+		<subsprite  sheetIndex="5" zoom="3" color="bodypart" bodypart="skin" />
 		  
 		<!--hair-->
-		<subsprite sheetIndex="22" zoom="3" color="bodypart" bodypart="hair"/>
-		
-		<subsprite sheetIndex="4" zoom="3" color="bodypart" bodypart="hair" hair_min="10" equipment_class="HELM" equipment_name="NONE" hair_type="hair" hair_style="braid"/>
-		<subsprite sheetIndex="4" zoom="3" color="bodypart" bodypart="hair" hair_min="10" equipment_class="HELM" equipment_name="NONE" hair_type="hair" hair_style="ponytails" />
-		<subsprite sheetIndex="5" zoom="3" color="bodypart" bodypart="hair" hair_min="10" equipment_class="HELM" equipment_name="NONE" hair_type="hair" hair_style="two_braid"/>
-		<subsprite sheetIndex="6" zoom="3" color="bodypart" bodypart="hair" hair_min="200" equipment_class="HELM" equipment_name="NONE" hair_type="hair" hair_style="combed"/>
-		<subsprite sheetIndex="26" zoom="3" color="bodypart" bodypart="hair" hair_min="10" hair_max="200" equipment_class="HELM" equipment_name="NONE" hair_type="hair" hair_style="combed"/>
-		<subsprite sheetIndex="7" zoom="3" color="bodypart" bodypart="hair" hair_min="10" equipment_class="HELM" equipment_name="NONE" hair_type="hair" hair_style="unkempt"/>
-		
-		<subsprite sheetIndex="11" zoom="3" color="bodypart" bodypart="hair" hair_min="200" hair_type="sideburns" hair_style="braid"/>
-		<subsprite sheetIndex="31" zoom="3" color="bodypart" bodypart="hair" hair_min="10" hair_max="200" hair_type="sideburns" hair_style="braid"/>
-		<subsprite sheetIndex="12" zoom="3" color="bodypart" bodypart="hair" hair_min="200" hair_type="sideburns" hair_style="combed"/>
-		<subsprite sheetIndex="32" zoom="3" color="bodypart" bodypart="hair" hair_min="10" hair_max="200" hair_type="sideburns" hair_style="combed"/>
-		
-		<subsprite sheetIndex="10" zoom="3" color="bodypart" bodypart="hair" hair_min="200" hair_type="beard" hair_style="combed"/>
-		<subsprite sheetIndex="30" zoom="3" color="bodypart" bodypart="hair" hair_min="10" hair_max="200" hair_type="beard" hair_style="combed"/>
-		<subsprite sheetIndex="8" zoom="3" color="bodypart" bodypart="hair" hair_min="200" hair_type="beard" hair_style="braid"/>
-		<subsprite sheetIndex="28" zoom="3" color="bodypart" bodypart="hair" hair_min="10" hair_max="200" hair_type="beard" hair_style="braid"/>
-		<subsprite sheetIndex="9" zoom="3" color="bodypart" bodypart="hair" hair_min="200" hair_type="beard" hair_style="two_braid"/>
-		<subsprite sheetIndex="29" zoom="3" color="bodypart" bodypart="hair" hair_min="10" hair_max="200" hair_type="beard" hair_style="two_braid"/>
-		<subsprite sheetIndex="27" zoom="3" color="bodypart" bodypart="hair" hair_min="10" hair_type="beard" hair_style="unkempt"/>
-		
-		<subsprite sheetIndex="14" zoom="3" color="bodypart" bodypart="hair" hair_min="200" hair_type="moustache" hair_style="two_braid"/>
-		<subsprite sheetIndex="34" zoom="3" color="bodypart" bodypart="hair" hair_min="10" hair_max="200" hair_type="moustache" hair_style="two_braid"/>
-		<subsprite sheetIndex="13" zoom="3" color="bodypart" bodypart="hair" hair_min="200" hair_type="moustache" hair_style="combed"/>
-		<subsprite sheetIndex="33" zoom="3" color="bodypart" bodypart="hair" hair_min="10" hair_max="200" hair_type="moustache" hair_style="combed"/>
+		<subsprite sheetIndex="3" zoom="3" color="bodypart" bodypart="hair" />
 		
 		<!--eyes-->
-		<subsprite sheetIndex="3" zoom="3" />
-		<subsprite sheetIndex="23" color="bodypart" bodypart="eyes" pattern_index="2" zoom="3" />
+		<subsprite sheetIndex="4" zoom="3" />
 		  
 		<!--headwear-->
 		<subsprite sheetIndex="142" zoom="3" equipment_class="HELM" equipment_name="ITEM_HELM_SCARF_HEAD" color="equipment"/>
@@ -556,18 +488,15 @@
 		<subsprite sheetIndex="141" zoom="3" equipment_class="HELM" equipment_name="ITEM_HELM_TURBAN" color="equipment"/>
 	</variant>
 	
-	<variant special="Normal" sex="F" file="dwarff.png" >
+	<variant special="Normal" sex="F" file="humanf.png" >
 		  
 		<!--rear pieces for shadowing between legs-->
 		<subsprite sheetIndex="151" zoom="3" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_CLOAK" color="equipment"/>
 		<subsprite sheetIndex="148" zoom="3" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_CAPE" color="equipment"/>
 		<subsprite sheetIndex="149" zoom="3" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_COAT" color="equipment"/>
 		<subsprite sheetIndex="150" zoom="3" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_TOGA" color="equipment"/>
-		
-		<!--hair-->
-		<subsprite sheetIndex="30" zoom="3" color="bodypart" bodypart="hair" hair_min="10" hair_max="200" hair_type="hair" hair_style="ponytails" />
 		  
-		<subsprite sheetIndex="1" zoom="3" color="bodypart" bodypart="skin" />
+		<subsprite  sheetIndex="1" zoom="3" color="bodypart" bodypart="skin" />
 		  
 		<!--all the body clothes-->
 		<subsprite sheetIndex="60" zoom="3" equipment_class="PANTS" equipment_name="ITEM_PANTS_THONG" color="equipment"/>
@@ -613,26 +542,13 @@
 		<subsprite sheetIndex="111" zoom="3" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_CLOAK" color="equipment"/>
 		
 		<!--head-->
-		<subsprite sheetIndex="2" zoom="3" color="bodypart" bodypart="skin" />
+		<subsprite  sheetIndex="5" zoom="3" color="bodypart" bodypart="skin" />
 		  
 		<!--hair-->
-		<subsprite sheetIndex="22" zoom="3" color="bodypart" bodypart="hair"/>
-		
-		<subsprite sheetIndex="4" zoom="3" color="bodypart" bodypart="hair" hair_min="10" equipment_class="HELM" equipment_name="NONE" hair_type="hair" hair_style="braid"/>
-		<subsprite sheetIndex="8" zoom="3" color="bodypart" bodypart="hair" hair_min="200" hair_type="hair" hair_style="braid"/>
-		<subsprite sheetIndex="28" zoom="3" color="bodypart" bodypart="hair" hair_min="10" hair_max="200" hair_type="hair" hair_style="braid"/>
-		<subsprite sheetIndex="4" zoom="3" color="bodypart" bodypart="hair" hair_min="10" equipment_class="HELM" equipment_name="NONE" hair_type="hair" hair_style="ponytails" />
-		<subsprite sheetIndex="10" zoom="3" color="bodypart" bodypart="hair" hair_min="200" hair_type="hair" hair_style="ponytails" />
-		<subsprite sheetIndex="5" zoom="3" color="bodypart" bodypart="hair" hair_min="10" equipment_class="HELM" equipment_name="NONE" hair_type="hair" hair_style="two_braid"/>
-		<subsprite sheetIndex="9" zoom="3" color="bodypart" bodypart="hair" hair_min="200" hair_type="hair" hair_style="two_braid"/>
-		<subsprite sheetIndex="29" zoom="3" color="bodypart" bodypart="hair" hair_min="10" hair_max="200" hair_type="hair" hair_style="two_braid"/>
-		<subsprite sheetIndex="6" zoom="3" color="bodypart" bodypart="hair" hair_min="200" equipment_class="HELM" equipment_name="NONE" hair_type="hair" hair_style="combed"/>
-		<subsprite sheetIndex="26" zoom="3" color="bodypart" bodypart="hair" hair_min="10" hair_max="200" equipment_class="HELM" equipment_name="NONE" hair_type="hair" hair_style="combed"/>
-		<subsprite sheetIndex="7" zoom="3" color="bodypart" bodypart="hair" hair_min="10" equipment_class="HELM" equipment_name="NONE" hair_type="hair" hair_style="unkempt"/>
+		<subsprite sheetIndex="3" zoom="3" color="bodypart" bodypart="hair" />
 		
 		<!--eyes-->
-		<subsprite sheetIndex="3" zoom="3" />
-		<subsprite sheetIndex="23" color="bodypart" bodypart="eyes" pattern_index="2" zoom="3" />
+		<subsprite sheetIndex="4" zoom="3" />
 		  
 		<!--headwear-->
 		<subsprite sheetIndex="142" zoom="3" equipment_class="HELM" equipment_name="ITEM_HELM_SCARF_HEAD" color="equipment"/>
