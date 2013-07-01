@@ -224,30 +224,32 @@ void Tile::AssembleTile()
         return;
     }
 
-    ALLEGRO_COLOR plateBorderColor = al_map_rgb(85,85,85);
-    int rando = randomCube[x%RANDOM_CUBE][y%RANDOM_CUBE][z%RANDOM_CUBE];
+	ALLEGRO_COLOR plateBorderColor = al_map_rgb(85,85,85);
+	int rando = randomCube[x%RANDOM_CUBE][y%RANDOM_CUBE][z%RANDOM_CUBE];
 
 
-    //Draw Ramp Tops
-    if(tileType == tiletype::RampTop){
-        Tile * b = this->ownerSegment->getTile(this->x, this->y, this->z-1);
-        if(b && b->tileShapeBasic() == tiletype_shape_basic::Ramp) {
-            spriteobject = GetTileSpriteMap(b->tileType, b->material, b->consForm);
-            if (spriteobject->get_sheetindex() == UNCONFIGURED_INDEX) {
-                spriteobject->set_sheetindex(0);
-                spriteobject->set_fileindex(INVALID_INDEX);
-                spriteobject->set_defaultsheet(IMGRampSheet);
-            }
-            if (spriteobject->get_sheetindex() != INVALID_INDEX) {
-                spriteobject->set_size(SPRITEWIDTH, TILETOPHEIGHT);
-                spriteobject->set_plate_layout(RAMPTOPPLATE);
-                spriteobject->set_offset(0, WALLHEIGHT);
-                spriteobject->assemble_world_offset(x, y, z, 0, b);
-                spriteobject->set_offset(0, 0);
-            }
-            spriteobject->set_plate_layout(TILEPLATE);
-        }
-    }
+	//Draw Ramp Tops
+	if(tileType == tiletype::RampTop){
+		Tile * b = this->ownerSegment->getTile(this->x, this->y, this->z-1);
+		if ( b && b->building.type != BUILDINGTYPE_BLACKBOX && b->tileShapeBasic() == tiletype_shape_basic::Ramp ) {
+			spriteobject = GetTileSpriteMap(b->tileType, b->material, b->consForm);
+			if (spriteobject->get_sheetindex() == UNCONFIGURED_INDEX) {
+				spriteobject->set_sheetindex(0);
+				spriteobject->set_fileindex(INVALID_INDEX);
+				spriteobject->set_defaultsheet(IMGRampSheet);
+			}
+			if (spriteobject->get_sheetindex() != INVALID_INDEX) {
+				spriteobject->set_size(SPRITEWIDTH, TILETOPHEIGHT);
+				spriteobject->set_plate_layout(RAMPTOPPLATE);
+				spriteobject->set_offset(0, WALLHEIGHT);
+				spriteobject->assemble_world_offset(x, y, z, 0, b);
+				spriteobject->set_offset(0, 0);
+			}
+			spriteobject->set_plate_layout(TILEPLATE);
+		} else {
+			return;
+		}
+	}
 
     //Draw Floor
     if( tileShapeBasic()==tiletype_shape_basic::Floor ||
