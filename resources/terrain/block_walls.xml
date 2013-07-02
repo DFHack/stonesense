@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <walls file="block_walls.png">
   <!-- construct -->
-  <walls sheetIndex="0" color="material" halftile="no">
+  <wall sheetIndex="0" color="material" halftile="no">
     <form value="block" />
     <material value="Inorganic" />
     <!-- pillar -->
