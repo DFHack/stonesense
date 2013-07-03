@@ -1413,11 +1413,23 @@ void saveMegashot(bool tall)
 
         startx = -1;
         starty = -1;
-        incrx = parms.sizex-2;
-        incry = parms.sizey-2;
-        numx = (int)(ssState.RegionDim.x+3);
+        switch(ssState.DisplayedRotation){
+        case 0:
+        case 2:
+			incrx = parms.sizex-2;
+			incry = parms.sizey-2;
+			numx = (int)(ssState.RegionDim.x+3);
+			numy = (int)(ssState.RegionDim.y+3);
+            break;
+        case 1:
+        case 3:
+			incrx = parms.sizey-2;
+			incry = parms.sizex-2;
+			numx = (int)(ssState.RegionDim.y+3);
+			numy = (int)(ssState.RegionDim.x+3);
+            break;
+        }
         numx = numx/incrx + (numx%incrx==0 ? 0 : 1);
-        numy = (int)(ssState.RegionDim.y+3);
         numy = numy/incry + (numx%incry==0 ? 0 : 1);
         numz = tall ? ((ssState.RegionDim.z/(parms.sizez-1)) + 1) : 1;
 
