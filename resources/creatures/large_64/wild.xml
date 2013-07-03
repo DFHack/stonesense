@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<creatures>
+
+  <creature gameID="GOAT_MOUNTAIN" file="wild.png" >
+
+    <variant special="Normal">
+      <subsprite sheetIndex="0" zoom="1" color="bodypart" bodypart="hair" />
+      <subsprite sheetIndex="1" zoom="1" />
+    </variant>
+
+  </creature>
+
+
+  <creature gameID="GRAY_LANGUR"  file="wild.png" >
+
+    <variant special="Normal">
+      <subsprite sheetIndex="20" zoom="1" color="bodypart" bodypart="skin" />
+      <subsprite sheetIndex="21" zoom="1" color="bodypart" bodypart="hair" />
+      <subsprite sheetIndex="22" zoom="1" />
+    </variant>
+
+  </creature>
+
+</creatures>

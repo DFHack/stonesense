@@ -2,6 +2,11 @@
 <creatures>
 <creature gameID="HUMAN"  >
 
+	<variant special="Ghost" prof="BABY" file="child.png" >
+		<subsprite sheetIndex="155" zoom="3" color="xml" red="120" green="170" blue="225" alpha="200"/>
+		<subsprite sheetIndex="3" zoom="3" />
+	</variant>
+
 	<variant special="Ghost" prof="CHILD" file="child.png" >
 		<subsprite sheetIndex="155" zoom="3" color="xml" red="120" green="170" blue="225" alpha="200"/>
 		<subsprite sheetIndex="3" zoom="3" />
@@ -15,6 +20,13 @@
 	<variant special="Ghost" sex="F" file="humanf.png" >
 		<subsprite sheetIndex="155" zoom="3" color="xml" red="120" green="170" blue="225" alpha="200"/>
 		<subsprite sheetIndex="4" zoom="3" />
+	</variant>
+	
+	<variant prof="BABY" file="child.png" >
+		<subsprite sheetIndex="12" zoom="3" color="bodypart" bodypart="skin" />
+		<subsprite sheetIndex="13" zoom="3" color="bodypart" bodypart="skin" />
+		<subsprite sheetIndex="14" zoom="3" />
+		<subsprite sheetIndex="34" color="bodypart" bodypart="eyes" pattern_index="2" zoom="3" />
 	</variant>
 
 	<variant prof="CHILD" sex="M" file="child.png" >

@@ -1,0 +1,130 @@
+<?xml version="1.0" ?>
+<creatures>
+
+  <creature gameID="WATER_BUFFALO"  file="domestic.png" >
+
+    <variant special="Normal" prof="CHILD" > 
+	  <subsprite sheetIndex="4" zoom="1" color="bodypart" bodypart="skin" />
+      <subsprite sheetIndex="5" zoom="1" color="bodypart" bodypart="hair" />
+      <subsprite sheetIndex="6" zoom="1" />
+    </variant>
+
+    <variant special="Normal" caste="FEMALE" > 
+	  <subsprite sheetIndex="0" zoom="1" color="bodypart" bodypart="skin" />
+      <subsprite sheetIndex="1" zoom="1" color="bodypart" bodypart="hair" />
+      <subsprite sheetIndex="2" zoom="1" />
+    </variant>
+
+    <variant special="Normal" caste="MALE" > 
+	  <subsprite sheetIndex="0" zoom="1" color="bodypart" bodypart="skin" />
+      <subsprite sheetIndex="1" zoom="1" color="bodypart" bodypart="hair" />
+      <subsprite sheetIndex="3" zoom="1" />
+    </variant>
+
+  </creature>
+
+
+  <creature gameID="GOAT"  file="domestic.png" >
+
+    <variant special="Normal" prof="CHILD" > 
+	  <subsprite sheetIndex="25" zoom="1" color="bodypart" bodypart="hair" />
+      <subsprite sheetIndex="26" zoom="1" />
+    </variant>
+
+    <variant special="Normal" caste="FEMALE" > 
+	  <subsprite sheetIndex="20" zoom="1" color="bodypart" bodypart="hair" />
+      <subsprite sheetIndex="21" zoom="1" color="bodypart" bodypart="beard" />
+      <subsprite sheetIndex="22" zoom="1" />
+    </variant>
+
+    <variant special="Normal" caste="MALE" > 
+	  <subsprite sheetIndex="20" zoom="1" color="bodypart" bodypart="hair" />
+      <subsprite sheetIndex="23" zoom="1" color="bodypart" bodypart="beard" />
+      <subsprite sheetIndex="24" zoom="1" />
+    </variant>
+
+  </creature>
+
+
+  <creature gameID="SHEEP"  file="domestic.png" >
+
+    <variant special="Normal" prof="CHILD" > 
+	  <subsprite sheetIndex="44" zoom="1" color="bodypart" bodypart="skin" />
+      <subsprite sheetIndex="45" zoom="1" color="bodypart" bodypart="wool" />
+      <subsprite sheetIndex="46" zoom="1" />
+    </variant>
+
+    <variant special="Normal" caste="FEMALE" > 
+	  <subsprite sheetIndex="40" zoom="1" color="bodypart" bodypart="skin" />
+      <subsprite sheetIndex="41" zoom="1" color="bodypart" bodypart="wool" />
+      <subsprite sheetIndex="42" zoom="1" />
+    </variant>
+
+    <variant special="Normal" caste="MALE" > 
+	  <subsprite sheetIndex="40" zoom="1" color="bodypart" bodypart="skin" />
+      <subsprite sheetIndex="41" zoom="1" color="bodypart" bodypart="wool" />
+      <subsprite sheetIndex="43" zoom="1" />
+    </variant>
+
+  </creature>
+
+
+  <creature gameID="REINDEER"  file="domestic.png" >
+
+    <variant special="Normal" prof="CHILD" > 
+	  <subsprite sheetIndex="62" zoom="1" color="bodypart" bodypart="hair" />
+      <subsprite sheetIndex="63" zoom="1" />
+    </variant>
+
+    <variant special="Normal" > 
+	  <subsprite sheetIndex="60" zoom="1" color="bodypart" bodypart="hair" />
+      <subsprite sheetIndex="61" zoom="1" />
+    </variant>
+
+  </creature>
+
+
+  <creature gameID="PIG"  file="domestic.png" >
+
+    <variant special="Normal" prof="CHILD" sheetIndex="81" zoom="1" color="bodypart" bodypart="skin" />
+
+    <variant special="Normal" sheetIndex="80" zoom="1" color="bodypart" bodypart="skin" />
+
+  </creature>
+
+
+  <creature gameID="BIRD_CHICKEN"  file="domestic.png" >
+
+    <variant special="Normal" prof="CHILD" > 
+	  <subsprite sheetIndex="104" zoom="1" />
+      <subsprite sheetIndex="105" zoom="1" color="bodypart" bodypart="feathers" />
+    </variant>
+
+    <variant special="Normal" caste="FEMALE" > 
+	  <subsprite sheetIndex="100" zoom="1" />
+      <subsprite sheetIndex="101" zoom="1" color="bodypart" bodypart="feathers" />
+    </variant>
+
+    <variant special="Normal" caste="MALE" > 
+	  <subsprite sheetIndex="102" zoom="1" />
+      <subsprite sheetIndex="103" zoom="1" color="bodypart" bodypart="feathers" />
+    </variant>
+
+  </creature>
+
+
+  <creature gameID="BIRD_DUCK"  file="domestic.png" >
+
+    <variant special="Normal" prof="CHILD" > 
+	  <subsprite sheetIndex="104" zoom="1" />
+      <subsprite sheetIndex="105" zoom="1" color="bodypart" bodypart="feathers" />
+    </variant>
+
+    <variant special="Normal" > 
+	  <subsprite sheetIndex="120" zoom="1" />
+      <subsprite sheetIndex="121" zoom="1" color="bodypart" bodypart="feathers" />
+    </variant>
+
+  </creature>
+
+</creatures>
