@@ -127,7 +127,12 @@ void Overlay::Flip()
 	if(al_get_bitmap_width(back) != ssState.ScreenW
 		|| al_get_bitmap_height(back) != ssState.ScreenH){
 			al_destroy_bitmap(back);
+			int32_t flags = al_get_new_bitmap_flags();
+			if(al_get_current_display() != NULL){
+				al_set_new_bitmap_flags(al_get_bitmap_flags(al_get_backbuffer(al_get_current_display())));
+			}
 			back = al_create_bitmap(ssState.ScreenW, ssState.ScreenH);
+			al_set_new_bitmap_flags(flags);
 	}
 
 	al_set_target_bitmap(back);
@@ -169,10 +174,6 @@ void Overlay::render()
 
 		DFHack::DFSDL_Surface * sssurf = (DFHack::DFSDL_Surface *) SDL_CreateRGBSurfaceFrom( ((char*) front_data->data) + offset, 
 			al_get_bitmap_width(front), al_get_bitmap_height(front), 8*front_data->pixel_size, neg*front_data->pitch, 0, 0, 0, 0);
-
-		//if(al_get_bitmap_flags(front) & ALLEGRO_VIDEO_BITMAP){
-		//	sssurf->flags = sssurf->flags | SDL_HWSURFACE;//worth a shot
-		//}
 
 		DFSDL_Rect pos;
 		pos.x = fontx;

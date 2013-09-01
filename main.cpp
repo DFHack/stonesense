@@ -454,11 +454,6 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
         al_set_new_bitmap_flags(ALLEGRO_MIN_LINEAR|ALLEGRO_MIPMAP);
     }
 
-	if(ssConfig.overlay_mode){
-		overlay = new Overlay(df::global::enabler->renderer);
-		df::global::enabler->renderer = overlay;
-	}
-
 	display = al_create_display(ssState.ScreenW, ssState.ScreenH);
 	if (!display) {
 		out.printerr("al_create_display failed\n");
@@ -476,6 +471,11 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
         }
     }
     SetTitle("Stonesense");
+
+	if(ssConfig.overlay_mode){
+		overlay = new Overlay(df::global::enabler->renderer);
+		df::global::enabler->renderer = overlay;
+	}
 
     ALLEGRO_PATH * p = al_create_path("stonesense/stonesense.png");
     IMGIcon = load_bitmap_withWarning(al_path_cstr(p, ALLEGRO_NATIVE_PATH_SEP));
