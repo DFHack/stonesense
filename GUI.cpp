@@ -1043,7 +1043,6 @@ void paintboard()
         DrawMinimap(segment);
     }
     map_segment.unlockDraw();
-    al_flip_display();
 }
 
 

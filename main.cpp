@@ -248,7 +248,6 @@ void drawcredits()
     //"The program is in a very early alpha, we're only showcasing it to get ideas and feedback, so use it at your own risk."
     //al_draw_text(font, al_map_rgb(255, 255, 255), al_get_bitmap_width(al_get_backbuffer(al_get_current_display()))/2, al_get_bitmap_height(al_get_backbuffer(al_get_current_display()))-4*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "Press F9 to continue");
     // Make the backbuffer visible
-    al_flip_display();
 }
 
 /* main_loop:
@@ -268,14 +267,26 @@ static void main_loop(ALLEGRO_DISPLAY * display, Overlay * ovrlay, ALLEGRO_EVENT
 
             if(ssConfig.spriteIndexOverlay) {
                 DrawSpriteIndexOverlay(ssConfig.currentSpriteOverlay);
+				if(ssConfig.overlay_mode){
+					ovrlay->Flip();
+				} else {
+					al_flip_display();
+				}
             } else if(!Maps::IsValid()) {
 				drawcredits();
+				if(ssConfig.overlay_mode){
+					ovrlay->Flip();
+				} else {
+					al_flip_display();
+				}
 			} else if( timeToReloadSegment ) {
 				reloadDisplayedSegment();
 				al_clear_to_color(ssConfig.backcol);
 				paintboard();
 				if(ssConfig.overlay_mode){
 					ovrlay->Flip();
+				} else {
+					al_flip_display();
 				}
 				timeToReloadSegment = false;
 				animationFrameShown = true;
@@ -284,6 +295,8 @@ static void main_loop(ALLEGRO_DISPLAY * display, Overlay * ovrlay, ALLEGRO_EVENT
 				paintboard();
 				if(ssConfig.overlay_mode){
 					ovrlay->Flip();
+				} else {
+					al_flip_display();
 				}
 				animationFrameShown = true;
 			}
@@ -438,7 +451,7 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
     if(ssConfig.software) {
         al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP|ALLEGRO_ALPHA_TEST|ALLEGRO_MIN_LINEAR|ALLEGRO_MIPMAP);
     } else {
-        al_set_new_bitmap_flags(ALLEGRO_MIN_LINEAR);//|ALLEGRO_MIPMAP);
+        al_set_new_bitmap_flags(ALLEGRO_MIN_LINEAR|ALLEGRO_MIPMAP);
     }
 
 	if(ssConfig.overlay_mode){
