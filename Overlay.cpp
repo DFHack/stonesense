@@ -13,10 +13,6 @@ DFhackCExport void SDL_FreeSurface(vPtr surface);
 DFhackCExport int SDL_UpperBlit(DFHack::DFSDL_Surface* src, DFHack::DFSDL_Rect* srcrect, 
 								DFHack::DFSDL_Surface* dst, DFHack::DFSDL_Rect* dstrect);
 
-////sdl stuff, super sloppy to have it here but no way around it
-//#define SDL_SWSURFACE	0x00000000	/**< Surface is in system memory */
-//#define SDL_HWSURFACE	0x00000001	/**< Surface is in video memory */
-
 void Overlay::set_to_null() 
 {
 	screen = NULL;
@@ -108,14 +104,28 @@ void Overlay::Flip()
 
 	al_lock_mutex(front_mutex);
 	{
-		ALLEGRO_BITMAP * temp = front;
-		front = back;
-		back = temp;
+		al_unlock_bitmap(front);
+
+		if(al_get_bitmap_width(front) != ssState.ScreenW
+			|| al_get_bitmap_height(front) != ssState.ScreenH){
+				al_destroy_bitmap(front);
+				int32_t flags = al_get_new_bitmap_flags();
+				if(al_get_current_display() != NULL){
+					al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP | ALLEGRO_ALPHA_TEST 
+						| al_get_bitmap_flags(al_get_backbuffer(al_get_current_display())));
+				}
+				front = al_create_bitmap(ssState.ScreenW, ssState.ScreenH);
+				al_set_new_bitmap_flags(flags);
+		}
+		
+		al_set_target_bitmap(front);
+
+		al_draw_bitmap(back, 0, 0, 0);
 
 		front_data = al_lock_bitmap(front, 
 			al_get_bitmap_format(front), ALLEGRO_LOCK_READONLY);
-		al_unlock_bitmap(back);
 	}
+	front_updated = true;
 	al_unlock_mutex(front_mutex);
 
 	uint8_t mnu, map, tot;
@@ -152,6 +162,7 @@ void Overlay::update_all()
 { 
 	copy_to_inner();
 	parent->update_all();
+	front_updated = true;
 }
 
 void Overlay::render() 
@@ -160,9 +171,8 @@ void Overlay::render()
 	copy_to_inner();
 
 	al_lock_mutex(front_mutex);
-	if(front_data != NULL){
-		//PrintMessage("dat:%i w:%i h:%i d:%i p:%i\n", front_data->data, al_get_bitmap_width(front), al_get_bitmap_height(front), 8*front_data->pixel_size, front_data->pitch);
-
+	if(front_data != NULL && front_updated){
+		//allegro sometimes gives a negative pitch, which SDL doesn't understand, so take care of that case
 		int neg = 1;
 		int offset = 0;
 		if(front_data->pitch < 0){
@@ -170,8 +180,8 @@ void Overlay::render()
 			offset = (al_get_bitmap_height(front) - 1)*front_data->pitch;
 		}
 
+		//get the SDL surface information so we can do a blit
 		DFHack::DFSDL_Surface * dfsurf = (DFHack::DFSDL_Surface *) SDL_GetVideoSurface();
-
 		DFHack::DFSDL_Surface * sssurf = (DFHack::DFSDL_Surface *) SDL_CreateRGBSurfaceFrom( ((char*) front_data->data) + offset, 
 			al_get_bitmap_width(front), al_get_bitmap_height(front), 8*front_data->pixel_size, neg*front_data->pitch, 0, 0, 0, 0);
 
@@ -181,9 +191,11 @@ void Overlay::render()
 		pos.w = dfsurf->w;
 		pos.h = dfsurf->h;
 
+		//
 		SDL_UpperBlit(sssurf, NULL, dfsurf, &pos);
 		SDL_FreeSurface(sssurf);
 	}
+	front_updated = false;
 	al_unlock_mutex(front_mutex);
 
 	parent->render();

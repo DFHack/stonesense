@@ -14,10 +14,11 @@
 class Overlay : public df::renderer
 {
 private:
-
-
-	//not really needed, but good for sanity
+	//not really needed, but good for sanity; used to hold the size of the current df display's font
 	uint8_t fontx, fonty;
+
+	//used by the renderer to skip drawing from the overlay buffer if it wasn't updated
+	bool front_updated;
 
 	//need to lock front buffer because SDL and Allegro can't talk to negotiate ownership
     ALLEGRO_MUTEX * front_mutex;
