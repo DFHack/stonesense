@@ -132,6 +132,7 @@ public:
 
 
 struct GameConfiguration {
+	bool overlay_mode;
     bool show_zones;
     bool show_stockpiles;
     bool show_osd;
@@ -249,6 +250,7 @@ struct FrameTimers{
     float beautify_time;
     float assembly_time;
     float draw_time;
+	float overlay_time;
 
     clock_t prev_frame_time;
     float frame_total;

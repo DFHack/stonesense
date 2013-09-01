@@ -6,3 +6,4 @@ domestic.xml
 
 dwarf.xml
 human.xml
+elf.xml

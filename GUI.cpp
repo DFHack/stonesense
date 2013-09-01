@@ -975,11 +975,13 @@ void paintboard()
         map_segment.unlockDraw();
         return;
     }
+
     segment->DrawAllTiles();
+
     if (ssConfig.show_osd) {
         DrawCurrentLevelOutline(false);
     }
-    
+	
     //do the closing timer stuff
     clock_t donetime = clock();
     ssTimers.draw_time = (donetime - starttime)*0.1 + ssTimers.draw_time*0.9;
@@ -1009,10 +1011,11 @@ void paintboard()
             draw_textf_border(font, al_map_rgb(255,255,255), 10, 3*al_get_font_line_height(font), 0, "Map Read Time: %.2fms", ssTimers.read_time);
             draw_textf_border(font, al_map_rgb(255,255,255), 10, 4*al_get_font_line_height(font), 0, "Map Beautification Time: %.2fms", ssTimers.beautify_time);
             draw_textf_border(font, al_map_rgb(255,255,255), 10, 5*al_get_font_line_height(font), 0, "Tile Sprite Assembly Time: %.2fms", ssTimers.assembly_time);
+            draw_textf_border(font, al_map_rgb(255,255,255), 10, 6*al_get_font_line_height(font), 0, "DF Renderer Overlay Time: %.2fms", ssTimers.overlay_time);
             draw_textf_border(font, al_map_rgb(255,255,255), 10, 2*al_get_font_line_height(font), 0, "FPS: %.2f", 1000.0/ssTimers.frame_total);
-            draw_textf_border(font, al_map_rgb(255,255,255), 10, 6*al_get_font_line_height(font), 0, "Draw: %.2fms", ssTimers.draw_time);
-            draw_textf_border(font, al_map_rgb(255,255,255), 10, 7*al_get_font_line_height(font), 0, "D1: %i", DebugInt1);
-            draw_textf_border(font, al_map_rgb(255,255,255), 10, 8*al_get_font_line_height(font), 0, "%i/%i/%i, %i:%i", contentLoader->currentDay+1, contentLoader->currentMonth+1, contentLoader->currentYear, contentLoader->currentHour, (contentLoader->currentTickRel*60)/50);
+            draw_textf_border(font, al_map_rgb(255,255,255), 10, 7*al_get_font_line_height(font), 0, "Draw: %.2fms", ssTimers.draw_time);
+            draw_textf_border(font, al_map_rgb(255,255,255), 10, 8*al_get_font_line_height(font), 0, "D1: %i", DebugInt1);
+            draw_textf_border(font, al_map_rgb(255,255,255), 10, 9*al_get_font_line_height(font), 0, "%i/%i/%i, %i:%i", contentLoader->currentDay+1, contentLoader->currentMonth+1, contentLoader->currentYear, contentLoader->currentHour, (contentLoader->currentTickRel*60)/50);
             
             drawDebugCursorAndInfo(segment);
         }
