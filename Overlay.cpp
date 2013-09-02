@@ -13,6 +13,24 @@ DFhackCExport void SDL_FreeSurface(vPtr surface);
 DFhackCExport int SDL_UpperBlit(DFHack::DFSDL_Surface* src, DFHack::DFSDL_Rect* srcrect, 
 								DFHack::DFSDL_Surface* dst, DFHack::DFSDL_Rect* dstrect);
 
+void Overlay::ReadTileLocations()
+{
+	fontx = df::global::init->font.small_font_dispx;
+	fonty = df::global::init->font.small_font_dispy;
+
+	uint8_t mnu, map, tot;
+	Gui::getMenuWidth(mnu, map);
+	Gui::getWindowSize(width, height);
+	width = width - 2;
+	height = height - 2;
+	tot = mnu + map;
+	width = (map*width)/tot;
+	
+	DFHack::DFSDL_Surface * dfsurf = (DFHack::DFSDL_Surface *) SDL_GetVideoSurface();
+	offsetx = ((dfsurf->w) % fontx)/2;
+	offsety = ((dfsurf->h) % fonty)/2;
+}
+
 void Overlay::set_to_null() 
 {
 	screen = NULL;
@@ -63,16 +81,13 @@ void Overlay::copy_to_inner()
 
 Overlay::Overlay(renderer* parent) : parent(parent)
 {
-	fontx = df::global::init->font.small_font_dispx;
-	fonty = df::global::init->font.small_font_dispy;
-
-	//PrintMessage("stonesense overlaying DF window: sfdx:%i sfdy:%i lfdx:%i lfdy:%i\n",
-	//	df::global::init->font.small_font_dispx, df::global::init->font.small_font_dispy,
-	//	df::global::init->font.large_font_dispx, df::global::init->font.large_font_dispy);
+	{
+		CoreSuspender suspend;
+		ReadTileLocations();
+		copy_from_inner(); 
+	}
 
 	front_mutex = al_create_mutex();
-
-	copy_from_inner();
 
 	front = al_create_bitmap(0, 0);
 	back = al_create_bitmap(0, 0);
@@ -82,7 +97,10 @@ Overlay::Overlay(renderer* parent) : parent(parent)
 
 Overlay::~Overlay()
 {
-	df::global::enabler->renderer=parent;
+	{
+		CoreSuspender suspend;
+		df::global::enabler->renderer = parent;
+	}
 
 	al_destroy_mutex(front_mutex);
 
@@ -125,15 +143,11 @@ void Overlay::Flip()
 		front_data = al_lock_bitmap(front, 
 			al_get_bitmap_format(front), ALLEGRO_LOCK_READONLY);
 	}
+	ssState.ScreenW = fontx*width; 
+	ssState.ScreenH = fonty*height; 
 	front_updated = true;
 	al_unlock_mutex(front_mutex);
 
-	uint8_t mnu, map, tot;
-	Gui::getWindowSize(ssState.ScreenW, ssState.ScreenH);
-	Gui::getMenuWidth(mnu, map);
-	tot = mnu + map;
-	ssState.ScreenW = df::global::init->font.small_font_dispx*(((map*ssState.ScreenW)/tot) - 1);//TODO make this find the actual tile sizes 
-	ssState.ScreenH = df::global::init->font.small_font_dispy*(ssState.ScreenH - 2);
 	if(al_get_bitmap_width(back) != ssState.ScreenW
 		|| al_get_bitmap_height(back) != ssState.ScreenH){
 			al_destroy_bitmap(back);
@@ -167,34 +181,35 @@ void Overlay::update_all()
 
 void Overlay::render() 
 { 
-
 	copy_to_inner();
 
 	al_lock_mutex(front_mutex);
 	if(front_data != NULL && front_updated){
 		//allegro sometimes gives a negative pitch, which SDL doesn't understand, so take care of that case
 		int neg = 1;
-		int offset = 0;
+		int dataoffset = 0;
 		if(front_data->pitch < 0){
 			neg = -1;
-			offset = (al_get_bitmap_height(front) - 1)*front_data->pitch;
+			dataoffset = (al_get_bitmap_height(front) - 1)*front_data->pitch;
 		}
 
 		//get the SDL surface information so we can do a blit
 		DFHack::DFSDL_Surface * dfsurf = (DFHack::DFSDL_Surface *) SDL_GetVideoSurface();
-		DFHack::DFSDL_Surface * sssurf = (DFHack::DFSDL_Surface *) SDL_CreateRGBSurfaceFrom( ((char*) front_data->data) + offset, 
+		DFHack::DFSDL_Surface * sssurf = (DFHack::DFSDL_Surface *) SDL_CreateRGBSurfaceFrom( ((char*) front_data->data) + dataoffset, 
 			al_get_bitmap_width(front), al_get_bitmap_height(front), 8*front_data->pixel_size, neg*front_data->pitch, 0, 0, 0, 0);
 
 		DFSDL_Rect pos;
-		pos.x = fontx;
-		pos.y = fonty;
+		pos.x = fontx + offsetx;
+		pos.y = fonty + offsety;
 		pos.w = dfsurf->w;
 		pos.h = dfsurf->h;
 
-		//
+		//do the blit
 		SDL_UpperBlit(sssurf, NULL, dfsurf, &pos);
+
 		SDL_FreeSurface(sssurf);
 	}
+	ReadTileLocations();
 	front_updated = false;
 	al_unlock_mutex(front_mutex);
 

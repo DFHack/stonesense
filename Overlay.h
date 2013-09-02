@@ -14,8 +14,12 @@
 class Overlay : public df::renderer
 {
 private:
-	//not really needed, but good for sanity; used to hold the size of the current df display's font
+	//size of the current df display's font
 	uint8_t fontx, fonty;
+	//the pixel-offset of the first DF tile in the top-left corner of the screen
+	int32_t offsetx, offsety;
+	//the width and height in tiles of the current df display's view
+	int32_t width, height;
 
 	//used by the renderer to skip drawing from the overlay buffer if it wasn't updated
 	bool front_updated;
@@ -30,6 +34,9 @@ private:
 	ALLEGRO_LOCKED_REGION * front_data;
 
 	renderer * parent;
+
+	//helper method
+	void ReadTileLocations();
 
 	//df::renderer overrides
 	void set_to_null();
@@ -55,25 +62,3 @@ public:
 	void invalidateRect(int32_t x,int32_t y,int32_t w,int32_t h);
 	void invalidate();
 };
-
-//struct dwarmode_render_hook : df::viewscreen_dwarfmodest{
-//	typedef df::viewscreen_dwarfmodest interpose_base;
-//	DEFINE_VMETHOD_INTERPOSE(void,render,())
-//	{
-//		CoreSuspendClaimer suspend;
-//		INTERPOSE_NEXT(render)();
-//		//???
-//	}
-//};
-//IMPLEMENT_VMETHOD_INTERPOSE(dwarmode_render_hook, render);
-//
-//struct dungeon_render_hook : df::viewscreen_dungeonmodest{
-//	typedef df::viewscreen_dungeonmodest interpose_base;
-//	DEFINE_VMETHOD_INTERPOSE(void,render,())
-//	{
-//		CoreSuspendClaimer suspend;
-//		INTERPOSE_NEXT(render)();
-//		//???
-//	}
-//};
-//IMPLEMENT_VMETHOD_INTERPOSE(dungeon_render_hook, render);
