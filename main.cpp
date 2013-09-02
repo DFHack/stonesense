@@ -265,46 +265,59 @@ static void main_loop(ALLEGRO_DISPLAY * display, Overlay * ovrlay, ALLEGRO_EVENT
 
             al_rest(0);
 
-            if(ssConfig.spriteIndexOverlay) {
-                DrawSpriteIndexOverlay(ssConfig.currentSpriteOverlay);
-				if(ssConfig.overlay_mode){
-					ovrlay->Flip();
-				} else {
-					al_flip_display();
+			if(ssConfig.overlay_mode){
+				bool goodoverlay;
+				{
+					CoreSuspender suspend;
+					goodoverlay = Overlay::GoodViewscreen();
 				}
-            } else if(!Maps::IsValid()) {
-				drawcredits();
-				if(ssConfig.overlay_mode){
+				if(!goodoverlay) {
+					//do nothing; this isn't a view we can overlay
+				}if(ssConfig.spriteIndexOverlay) {
+					DrawSpriteIndexOverlay(ssConfig.currentSpriteOverlay);
 					ovrlay->Flip();
-				} else {
-					al_flip_display();
-				}
-			} else if( timeToReloadSegment ) {
-				reloadDisplayedSegment();
-				al_clear_to_color(ssConfig.backcol);
-				paintboard();
-				if(ssConfig.overlay_mode){
+				} else if(!Maps::IsValid()) {
+					drawcredits();
 					ovrlay->Flip();
-				} else {
-					al_flip_display();
-				}
-				timeToReloadSegment = false;
-				animationFrameShown = true;
-			} else if (animationFrameShown == false) {
-				al_clear_to_color(ssConfig.backcol);
-				paintboard();
-				if(ssConfig.overlay_mode){
+				} else if( timeToReloadSegment ) {
+					reloadDisplayedSegment();
+					al_clear_to_color(ssConfig.backcol);
+					paintboard();
 					ovrlay->Flip();
-				} else {
-					al_flip_display();
+					timeToReloadSegment = false;
+					animationFrameShown = true;
+				} else if (animationFrameShown == false) {
+					al_clear_to_color(ssConfig.backcol);
+					paintboard();
+					ovrlay->Flip();
+					animationFrameShown = true;
 				}
-				animationFrameShown = true;
+			} else {
+				if(ssConfig.spriteIndexOverlay) {
+					DrawSpriteIndexOverlay(ssConfig.currentSpriteOverlay);
+					al_flip_display();
+				} else if(!Maps::IsValid()) {
+					drawcredits();
+					al_flip_display();
+				} else if( timeToReloadSegment ) {
+					reloadDisplayedSegment();
+					al_clear_to_color(ssConfig.backcol);
+					paintboard();
+					al_flip_display();
+					timeToReloadSegment = false;
+					animationFrameShown = true;
+				} else if (animationFrameShown == false) {
+					al_clear_to_color(ssConfig.backcol);
+					paintboard();
+					al_flip_display();
+					animationFrameShown = true;
+				}
 			}
 			doMouse();
 			doRepeatActions();
 			redraw = false;
-        }
-        /* Take the next event out of the event queue, and store it in `event'. */
+		}
+		/* Take the next event out of the event queue, and store it in `event'. */
         bool in_time = 0;
         in_time = al_wait_for_event_timed(queue, &event, 1.0f);
 

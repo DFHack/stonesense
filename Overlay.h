@@ -34,7 +34,6 @@ private:
 
 	//reads tile information, used for resizing and positioning of the overlay
 	void ReadTileLocations();
-	bool GoodViewscreen();
 
 	//df::renderer overrides
 	void set_to_null();
@@ -46,6 +45,8 @@ public:
 	~Overlay();
 
 	void Flip();
+
+	static bool GoodViewscreen();
 
 	//df::renderer overrides
 	void update_tile(int32_t x, int32_t y);
