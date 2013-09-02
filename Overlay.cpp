@@ -21,10 +21,11 @@ void Overlay::ReadTileLocations()
 	uint8_t mnu, map, tot;
 	Gui::getMenuWidth(mnu, map);
 	Gui::getWindowSize(width, height);
-	width = width - 2;
-	height = height - 2;
-	tot = mnu + map;
-	width = (map*width)/tot;
+	height = height - 2; //account for vertical borders
+    if (mnu == 1) width -= 57; //Menu is open doubly wide
+    else if (mnu == 2 && map == 3) width -= 33; //Just the menu is open
+    else if (mnu == 2 && map == 2) width -= 26; //Just the area map is open
+    else width -= 2; //No menu or area map, just account for borders
 	
 	DFHack::DFSDL_Surface * dfsurf = (DFHack::DFSDL_Surface *) SDL_GetVideoSurface();
 	offsetx = ((dfsurf->w) % fontx)/2;
@@ -168,8 +169,11 @@ void Overlay::Flip()
 
 void Overlay::update_tile(int32_t x, int32_t y) 
 { 
-	copy_to_inner();
-	parent->update_tile(x,y);
+	//don't update tiles we are painting overtop of
+	if(x == 0 || x > width || y == 0 || y > height){
+		copy_to_inner();
+		parent->update_tile(x,y);
+	}
 }
 
 void Overlay::update_all() 
@@ -239,7 +243,9 @@ void Overlay::grid_resize(int32_t w, int32_t h)
 { 
 	copy_to_inner();
 	parent->grid_resize(w,h);
+	parent->update_all();
 	copy_from_inner();
+	front_updated = true;
 }
 
 bool Overlay::get_mouse_coords(int32_t* x, int32_t* y) 
