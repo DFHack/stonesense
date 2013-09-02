@@ -3,6 +3,9 @@
 
 #include "df/init.h"
 
+#include "df/viewscreen_dwarfmodest.h"
+#include "df/viewscreen_dungeonmodest.h"
+
 //no idea what I'm doing!
 DFhackCExport void * SDL_GetVideoSurface(void);
 DFhackCExport vPtr SDL_CreateRGBSurface(uint32_t flags, int width, int height, int depth,
@@ -21,15 +24,33 @@ void Overlay::ReadTileLocations()
 	uint8_t mnu, map, tot;
 	Gui::getMenuWidth(mnu, map);
 	Gui::getWindowSize(width, height);
+	
 	height = height - 2; //account for vertical borders
-    if (mnu == 1) width -= 57; //Menu is open doubly wide
-    else if (mnu == 2 && map == 3) width -= 33; //Just the menu is open
-    else if (mnu == 2 && map == 2) width -= 26; //Just the area map is open
-    else width -= 2; //No menu or area map, just account for borders
+
+    if (mnu == 1){ 
+		width -= 57; //Menu is open doubly wide
+	} else if (mnu == 2 && map == 3) {
+		width -= 33; //Just the menu is open
+	} else if (mnu == 2 && map == 2) {
+		width -= 26; //Just the area map is open
+	} else {
+		width = width - 2; //No menu or area map, just account for borders
+	}
 	
 	DFHack::DFSDL_Surface * dfsurf = (DFHack::DFSDL_Surface *) SDL_GetVideoSurface();
 	offsetx = ((dfsurf->w) % fontx)/2;
 	offsety = ((dfsurf->h) % fonty)/2;
+}
+
+bool Overlay::GoodViewscreen()
+{
+	df::viewscreen * vs = Gui::getCurViewscreen();
+	virtual_identity * id = virtual_identity::get(vs);
+	if(id == &df::viewscreen_dwarfmodest::_identity
+		|| id == &df::viewscreen_dungeonmodest::_identity){
+			return true;
+	}
+	return false;
 }
 
 void Overlay::set_to_null() 
@@ -188,33 +209,38 @@ void Overlay::render()
 	copy_to_inner();
 
 	al_lock_mutex(front_mutex);
-	if(front_data != NULL && front_updated){
-		//allegro sometimes gives a negative pitch, which SDL doesn't understand, so take care of that case
-		int neg = 1;
-		int dataoffset = 0;
-		if(front_data->pitch < 0){
-			neg = -1;
-			dataoffset = (al_get_bitmap_height(front) - 1)*front_data->pitch;
+	if(GoodViewscreen()){
+		if(front_data != NULL && front_updated){
+			//allegro sometimes gives a negative pitch, which SDL doesn't understand, so take care of that case
+			int neg = 1;
+			int dataoffset = 0;
+			if(front_data->pitch < 0){
+				neg = -1;
+				dataoffset = (al_get_bitmap_height(front) - 1)*front_data->pitch;
+			}
+
+			//get the SDL surface information so we can do a blit
+			DFHack::DFSDL_Surface * dfsurf = (DFHack::DFSDL_Surface *) SDL_GetVideoSurface();
+			DFHack::DFSDL_Surface * sssurf = (DFHack::DFSDL_Surface *) SDL_CreateRGBSurfaceFrom( ((char*) front_data->data) + dataoffset, 
+				al_get_bitmap_width(front), al_get_bitmap_height(front), 8*front_data->pixel_size, neg*front_data->pitch, 0, 0, 0, 0);
+
+			DFSDL_Rect pos;
+			pos.x = fontx + offsetx;
+			pos.y = fonty + offsety;
+			pos.w = dfsurf->w;
+			pos.h = dfsurf->h;
+
+			//do the blit
+			SDL_UpperBlit(sssurf, NULL, dfsurf, &pos);
+
+			SDL_FreeSurface(sssurf);
 		}
-
-		//get the SDL surface information so we can do a blit
-		DFHack::DFSDL_Surface * dfsurf = (DFHack::DFSDL_Surface *) SDL_GetVideoSurface();
-		DFHack::DFSDL_Surface * sssurf = (DFHack::DFSDL_Surface *) SDL_CreateRGBSurfaceFrom( ((char*) front_data->data) + dataoffset, 
-			al_get_bitmap_width(front), al_get_bitmap_height(front), 8*front_data->pixel_size, neg*front_data->pitch, 0, 0, 0, 0);
-
-		DFSDL_Rect pos;
-		pos.x = fontx + offsetx;
-		pos.y = fonty + offsety;
-		pos.w = dfsurf->w;
-		pos.h = dfsurf->h;
-
-		//do the blit
-		SDL_UpperBlit(sssurf, NULL, dfsurf, &pos);
-
-		SDL_FreeSurface(sssurf);
+		ReadTileLocations();
+		front_updated = false;
+	} else {
+		width = 0;
+		height = 0;
 	}
-	ReadTileLocations();
-	front_updated = false;
 	al_unlock_mutex(front_mutex);
 
 	parent->render();

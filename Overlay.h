@@ -6,9 +6,6 @@
 #include "df/enabler.h"
 #include "df/graphic.h"
 
-//#include "df/viewscreen_dwarfmodest.h"
-//#include "df/viewscreen_dungeonmodest.h"
-
 #include "common.h"
 
 class Overlay : public df::renderer
@@ -35,8 +32,9 @@ private:
 
 	renderer * parent;
 
-	//helper method
+	//reads tile information, used for resizing and positioning of the overlay
 	void ReadTileLocations();
+	bool GoodViewscreen();
 
 	//df::renderer overrides
 	void set_to_null();
