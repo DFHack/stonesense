@@ -138,15 +138,17 @@ void parseConfigLine( string line )
     if( line.find("[VERBOSE_LOGGING") != -1) {
         string result = parseStrFromLine( "VERBOSE_LOGGING", line );
         ssConfig.verbose_logging = (result == "YES");
-    }
-    if( line.find("[TRACK_CENTER") != -1) {
-        string result = parseStrFromLine( "TRACK_CENTER", line );
-        ssConfig.track_center = (result == "YES");
-    }
-    if( line.find("[FOLLOW_DF_SCREEN") != -1) {
-        string result = parseStrFromLine( "FOLLOW_DF_SCREEN", line );
-        ssConfig.follow_DFscreen = (result == "YES");
-    }
+	}
+	if( line.find("[TRACK_MODE") != -1) {
+		string result = parseStrFromLine( "TRACK_MODE", line );
+		if(result == "CENTER") {
+			ssConfig.track_mode = 1;
+		} else if (result == "WINDOW") {
+			ssConfig.track_mode = 2;
+		}  else if (result == "FOCUS") {
+			ssConfig.track_mode = 3;
+		} 
+	}
     if( line.find("[FOLLOW_DF_CURSOR") != -1) {
         string result = parseStrFromLine( "FOLLOW_DF_CURSOR", line );
         ssConfig.follow_DFcursor = (result == "YES");

@@ -1021,7 +1021,7 @@ void paintboard()
         }
         ssConfig.platecount = 0;
         int top = 0;
-        if(ssConfig.follow_DFscreen) {
+        if(ssConfig.track_mode != GameConfiguration::TRACKING_NONE) {
             top += al_get_font_line_height(font);
             draw_textf_border(font, al_map_rgb(255,255,255), ssState.ScreenW/2,top, ALLEGRO_ALIGN_CENTRE, "Locked on DF screen + (%d,%d,%d)",ssConfig.viewXoffset,ssConfig.viewYoffset,ssConfig.viewZoffset);
         }
@@ -1372,7 +1372,7 @@ void saveMegashot(bool tall)
 
     //now make them real big.
     ssConfig.show_osd = false;
-    ssConfig.follow_DFscreen = false;
+    ssConfig.track_mode = GameConfiguration::TRACKING_NONE;
     ssConfig.fogenable = false;
     ssConfig.track_screen_center = false;
 

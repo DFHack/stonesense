@@ -696,6 +696,11 @@ void FollowCurrentDFCenter()
     parms.z = newviewz + ssConfig.viewZoffset + 1;
 }
 
+void FollowCurrentDFFocus()
+{
+
+}
+
 //==============================Map Read Main===========================//
 /*
  * Here is where the main hub functions dispatch the read thread from, 
@@ -712,12 +717,14 @@ void read_segment( void *arg)
     WorldSegment* segment = NULL;
     {
         CoreSuspender suspend;
-        if (firstLoad || ssConfig.follow_DFscreen) {
+        if (firstLoad || ssConfig.track_mode != GameConfiguration::TRACKING_NONE) {
             firstLoad = 0;
-            if (ssConfig.track_center) {
+            if (ssConfig.track_mode == GameConfiguration::TRACKING_CENTER) {
                 FollowCurrentDFCenter();
-            } else {
+            } else if (ssConfig.track_mode == GameConfiguration::TRACKING_CENTER) {
                 FollowCurrentDFWindow();
+            } else if (ssConfig.track_mode == GameConfiguration::TRACKING_FOCUS) {
+                FollowCurrentDFFocus();
             }
         }
         segment = map_segment.getRead();
@@ -762,7 +769,7 @@ void reloadDisplayedSegment()
         timeToReloadConfig = false;
     }
 
-    if (firstLoad || ssConfig.follow_DFscreen) {
+    if (firstLoad || ssConfig.track_mode != GameConfiguration::TRACKING_NONE) {
         ssState.DisplayedSegment.x = parms.x;
         ssState.DisplayedSegment.y = parms.y;
         ssState.DisplayedSegment.z = parms.z;

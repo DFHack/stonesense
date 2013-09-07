@@ -92,7 +92,7 @@ void changeRelativeToRotation( int &inputx, int &inputy, int stepx, int stepy )
 void moveViewRelativeToRotation( int stepx, int stepy )
 {
 
-    if (ssConfig.follow_DFscreen) {
+    if (ssConfig.track_mode != GameConfiguration::TRACKING_NONE) {
         changeRelativeToRotation(ssConfig.viewXoffset, ssConfig.viewYoffset, stepx, stepy );
     }
     //if we're following the DF screen, we DO NOT bound the view, since we have a simple way to get back
@@ -133,7 +133,7 @@ void doMouse()
         last_mouse_z = mouse.z;
     }
     if( mouse.buttons & 2 ) {
-        ssConfig.follow_DFscreen = false;
+        ssConfig.track_mode = GameConfiguration::TRACKING_NONE;
         int x, y;
         x = mouse.x;
         y = mouse.y;
@@ -237,14 +237,17 @@ void action_togglefollowdfcursor(uint32_t keymod)
     if (keymod&ALLEGRO_KEYMOD_CTRL) {
         ssConfig.follow_DFcursor = !ssConfig.follow_DFcursor;
     } else {
-        ssConfig.follow_DFscreen = !ssConfig.follow_DFscreen;
+		ssConfig.track_mode++;
+		if(ssConfig.track_mode >= GameConfiguration::TRACKING_INVALID) {
+			ssConfig.track_mode = GameConfiguration::TRACKING_NONE;
+		}
     }
     timeToReloadSegment = true;
 }
 
-void action_togglefollowdfscreen(uint32_t keymod)
+void action_resetscreen(uint32_t keymod)
 {
-    if (ssConfig.follow_DFscreen) {
+    if (ssConfig.track_mode != GameConfiguration::TRACKING_NONE) {
         ssConfig.viewXoffset = 0;
         ssConfig.viewYoffset = 0;
         ssConfig.viewZoffset = 0;
@@ -405,7 +408,7 @@ void action_decrY(uint32_t keymod)
     }
     char stepsize = ((keymod&ALLEGRO_KEYMOD_SHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
     if (!(keymod&ALLEGRO_KEYMOD_ALT)) {
-        ssConfig.follow_DFscreen = false;
+        ssConfig.track_mode = GameConfiguration::TRACKING_NONE;
     }
     moveViewRelativeToRotation( 0, -stepsize );
     timeToReloadSegment = true;
@@ -419,7 +422,7 @@ void action_incrY(uint32_t keymod)
     }
     char stepsize = ((keymod&ALLEGRO_KEYMOD_SHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
     if (!(keymod&ALLEGRO_KEYMOD_ALT)) {
-        ssConfig.follow_DFscreen = false;
+        ssConfig.track_mode = GameConfiguration::TRACKING_NONE;
     }
     moveViewRelativeToRotation( 0, stepsize );
     timeToReloadSegment = true;
@@ -433,7 +436,7 @@ void action_decrX(uint32_t keymod)
     }
     char stepsize = ((keymod&ALLEGRO_KEYMOD_SHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
     if (!(keymod&ALLEGRO_KEYMOD_ALT)) {
-        ssConfig.follow_DFscreen = false;
+        ssConfig.track_mode = GameConfiguration::TRACKING_NONE;
     }
     moveViewRelativeToRotation( -stepsize, 0 );
     timeToReloadSegment = true;
@@ -447,7 +450,7 @@ void action_incrX(uint32_t keymod)
     }
     char stepsize = ((keymod&ALLEGRO_KEYMOD_SHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
     if (!(keymod&ALLEGRO_KEYMOD_ALT)) {
-        ssConfig.follow_DFscreen = false;
+        ssConfig.track_mode = GameConfiguration::TRACKING_NONE;
     }
     moveViewRelativeToRotation( stepsize, 0 );
     timeToReloadSegment = true;
@@ -461,9 +464,9 @@ void action_decrZ(uint32_t keymod)
     }
     char stepsize = ((keymod&ALLEGRO_KEYMOD_SHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
     if (!(keymod&ALLEGRO_KEYMOD_ALT)) {
-        ssConfig.follow_DFscreen = false;
+        ssConfig.track_mode = GameConfiguration::TRACKING_NONE;
     }
-    if (ssConfig.follow_DFscreen) {
+    if (ssConfig.track_mode != GameConfiguration::TRACKING_NONE) {
         ssConfig.viewZoffset -= stepsize;
     } else {
         ssState.DisplayedSegment.z -= stepsize;
@@ -482,9 +485,9 @@ void action_incrZ(uint32_t keymod)
     }
     char stepsize = ((keymod&ALLEGRO_KEYMOD_SHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
     if (!(keymod&ALLEGRO_KEYMOD_ALT)) {
-        ssConfig.follow_DFscreen = false;
+        ssConfig.track_mode = GameConfiguration::TRACKING_NONE;
     }
-    if (ssConfig.follow_DFscreen) {
+    if (ssConfig.track_mode != GameConfiguration::TRACKING_NONE) {
         ssConfig.viewZoffset += stepsize;
     } else {
         ssState.DisplayedSegment.z += stepsize;

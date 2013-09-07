@@ -171,13 +171,14 @@ struct GameConfiguration {
     int dfCursorZ;
     bool follow_DFcursor;
 	
-    bool follow_DFscreen;
-    uint8_t track_center;
+    uint8_t track_mode;
 	enum trackingmodes : uint8_t {
-		NONE,
-		CENTER,
-		WINDOW,
-		FOCUS
+		TRACKING_NONE,
+		TRACKING_CENTER,
+		TRACKING_WINDOW,
+		TRACKING_FOCUS, 
+
+		TRACKING_INVALID
 	};
 
     int bitmapHolds;

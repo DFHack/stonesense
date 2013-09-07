@@ -11,7 +11,7 @@ void action_togglecreatureprof(uint32_t keymod);
 void action_togglecreaturejob(uint32_t keymod);
 void action_chopwall(uint32_t keymod);
 void action_togglefollowdfcursor(uint32_t keymod);
-void action_togglefollowdfscreen(uint32_t keymod);
+void action_resetscreen(uint32_t keymod);
 void action_decrsegmentX(uint32_t keymod);
 void action_incrsegmentX(uint32_t keymod);
 void action_decrsegmentY(uint32_t keymod);
