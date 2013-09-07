@@ -31,11 +31,8 @@ number of z levels.
 Use this with a large segment size to get walls covering the entire screen.
 [LIFTSEGMENT:0]
 
-Follow DF window is on when Stonesense launches. (Toggle with 'f')
-[FOLLOW_DF_SCREEN:YES]
-
-Follow the center of the DF window, rather than scale to the edges.
-[TRACK_CENTER:YES]
+What to follow in the DF window.  Options are WINDOW CENTER FOCUS or NONE.
+[TRACK_MODE:CENTER]
 
 Sets an initial x/y/z offset for follow mode
 [FOLLOW_OFFSET_X:-15]

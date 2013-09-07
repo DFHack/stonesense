@@ -34,7 +34,7 @@ KEYBINDINGS:
 [TOGGLE_CREATURE_JOBS:KEY_J]
 [TOGGLE_CREATURE_NAMES:KEY_N]
 [CHOP_WALLS:KEY_C]
-[FOLLOW_DF:KEY_F]
+[CYCLE_TRACKING_MODE:KEY_F]
 [RESET_VIEW_OFFSET:KEY_Z]
 [DECR_SEGMENT_Z:KEY_1]
 [INCR_SEGMENT_Z:KEY_2]
@@ -73,8 +73,8 @@ VALID ACTIONS:
     TOGGLE_CREATURE_JOBS		cycle through display of job indicators (disabled/icons/text descriptions)
     TOGGLE_CREATURE_NAMES		toggle the display of creature names
     CHOP_WALLS					cycle through wall sprite chopping options
-    FOLLOW_DF					toggle following the DF cursor
-    RESET_VIEW_OFFSET			toggle following the DF window
+    CYCLE_TRACKING_MODE			cycle through modes for following DF
+    RESET_VIEW_OFFSET			reset the view offset
     TOGGLE_SINGLE_LAYER			toggle single layer mode
     TOGGLE_SHADE_HIDDEN_TILES	toggle shading hidden tiles
     TOGGLE_SHOW_HIDDEN_TILES	toggle showing hidden tiles
