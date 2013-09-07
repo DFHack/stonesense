@@ -147,11 +147,9 @@ struct GameConfiguration {
     bool load_ground_materials;
     bool hide_outer_tiles;
     bool debug_mode;
-    bool track_center;
     int lift_segment_offscreen_x;
     int lift_segment_offscreen_y;
     uint8_t truncate_walls;
-    bool follow_DFscreen;
     bool verbose_logging;
     int viewXoffset;
     int viewYoffset;
@@ -168,10 +166,19 @@ struct GameConfiguration {
     ALLEGRO_COLOR backcol;
     bool fogenable;
 
-    bool follow_DFcursor;
     int dfCursorX;
     int dfCursorY;
     int dfCursorZ;
+    bool follow_DFcursor;
+	
+    bool follow_DFscreen;
+    uint8_t track_center;
+	enum trackingmodes : uint8_t {
+		NONE,
+		CENTER,
+		WINDOW,
+		FOCUS
+	};
 
     int bitmapHolds;
 

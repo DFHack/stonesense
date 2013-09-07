@@ -20,6 +20,8 @@ private:
 
 	//used by the renderer to skip drawing from the overlay buffer if it wasn't updated
 	bool front_updated;
+	//keeps track of if the most recently visited viewscreen is one it makes sense to overlay
+	bool good_viewscreen;
 
 	//need to lock front buffer because SDL and Allegro can't talk to negotiate ownership
     ALLEGRO_MUTEX * front_mutex;
@@ -34,6 +36,8 @@ private:
 
 	//reads tile information, used for resizing and positioning of the overlay
 	void ReadTileLocations();
+	//updates good_viewscreen
+	void CheckViewscreen();
 
 	//df::renderer overrides
 	void set_to_null();
@@ -46,7 +50,7 @@ public:
 
 	void Flip();
 
-	static bool GoodViewscreen();
+	bool GoodViewscreen();
 
 	//df::renderer overrides
 	void update_tile(int32_t x, int32_t y);

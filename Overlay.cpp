@@ -42,15 +42,16 @@ void Overlay::ReadTileLocations()
 	offsety = ((dfsurf->h) % fonty)/2;
 }
 
-bool Overlay::GoodViewscreen()
+void Overlay::CheckViewscreen()
 {
 	df::viewscreen * vs = Gui::getCurViewscreen();
 	virtual_identity * id = virtual_identity::get(vs);
 	if(id == &df::viewscreen_dwarfmodest::_identity
 		|| id == &df::viewscreen_dungeonmodest::_identity){
-			return true;
+			good_viewscreen = true;
+	} else {
+		good_viewscreen = false;
 	}
-	return false;
 }
 
 void Overlay::set_to_null() 
@@ -188,6 +189,11 @@ void Overlay::Flip()
 	ssTimers.overlay_time = (donetime - starttime)*0.1 + ssTimers.overlay_time*0.9;
 }
 
+bool Overlay::GoodViewscreen()
+{
+	return good_viewscreen;
+}
+
 void Overlay::update_tile(int32_t x, int32_t y) 
 { 
 	//don't update tiles we are painting overtop of
@@ -207,9 +213,10 @@ void Overlay::update_all()
 void Overlay::render() 
 { 
 	copy_to_inner();
+	CheckViewscreen();
 
 	al_lock_mutex(front_mutex);
-	if(GoodViewscreen()){
+	if(good_viewscreen){
 		if(front_data != NULL && front_updated){
 			//allegro sometimes gives a negative pitch, which SDL doesn't understand, so take care of that case
 			int neg = 1;

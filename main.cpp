@@ -259,18 +259,14 @@ void drawcredits()
 */
 static void main_loop(ALLEGRO_DISPLAY * display, Overlay * ovrlay, ALLEGRO_EVENT_QUEUE *queue, ALLEGRO_THREAD * main_thread, DFHack::color_ostream & con)
 {
-    ALLEGRO_EVENT event;
-    while (!al_get_thread_should_stop(main_thread)) {
-        if (redraw && al_event_queue_is_empty(queue)) {
+	ALLEGRO_EVENT event;
+	while (!al_get_thread_should_stop(main_thread)) {
+		if (redraw && al_event_queue_is_empty(queue)) {
 
-            al_rest(0);
+			al_rest(0);
 
 			if(ssConfig.overlay_mode){
-				bool goodoverlay;
-				{
-					CoreSuspender suspend;
-					goodoverlay = Overlay::GoodViewscreen();
-				}
+				bool goodoverlay = ovrlay->GoodViewscreen();
 				if(!goodoverlay) {
 					//do nothing; this isn't a view we can overlay
 				}if(ssConfig.spriteIndexOverlay) {
@@ -410,7 +406,7 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
     ssConfig.show_osd = true;
     ssConfig.show_keybinds = false;
     ssConfig.show_intro = true;
-    ssConfig.track_center = false;
+    ssConfig.track_center = 0;
     ssConfig.track_screen_center = true;
     ssConfig.animation_step = 300;
     ssConfig.follow_DFscreen = false;
