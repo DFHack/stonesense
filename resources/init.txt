@@ -35,7 +35,7 @@ What to follow in the DF window.  Options are WINDOW CENTER FOCUS or NONE.
 [TRACK_MODE:CENTER]
 
 Sets an initial x/y/z offset for follow mode
-[FOLLOW_OFFSET_X:-15]
+[FOLLOW_OFFSET_X:0]
 [FOLLOW_OFFSET_Y:0]
 [FOLLOW_OFFSET_Z:0]
 

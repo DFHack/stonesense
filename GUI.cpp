@@ -395,11 +395,11 @@ void drawDebugCursorAndInfo(WorldSegment * segment)
 {
     using df::global::ui;
 
-    if((ssConfig.dfCursorX != -30000) && ssConfig.follow_DFcursor) {
-        int x = ssConfig.dfCursorX;
-        int y = ssConfig.dfCursorY;
-        int z = ssConfig.dfCursorZ;
-        correctTileForDisplayedOffset(x,y,z);
+    if((segment->segState.dfCursor.x != -30000) && ssConfig.follow_DFcursor) {
+        int x = segment->segState.dfCursor.x;
+        int y = segment->segState.dfCursor.y;
+        int z = segment->segState.dfCursor.z;
+		segment->CorrectTileForSegmentOffset(x,y,z);
         segment->CorrectTileForSegmentRotation( x, y, z );
         debugCursor.x = x;
         debugCursor.y = y;
@@ -1027,8 +1027,8 @@ void paintboard()
         }
         if(ssConfig.follow_DFcursor && ssConfig.debug_mode) {
             top += al_get_font_line_height(font);
-            if(ssConfig.dfCursorX != -30000) {
-                draw_textf_border(font, al_map_rgb(255,255,255), ssState.ScreenW/2,top, ALLEGRO_ALIGN_CENTRE, "Following DF Cursor at: %d,%d,%d", ssConfig.dfCursorX,ssConfig.dfCursorY,ssConfig.dfCursorZ);
+            if(segment->segState.dfCursor.x != -30000) {
+                draw_textf_border(font, al_map_rgb(255,255,255), ssState.ScreenW/2,top, ALLEGRO_ALIGN_CENTRE, "Following DF Cursor at: %d,%d,%d", segment->segState.dfCursor.x,segment->segState.dfCursor.y,segment->segState.dfCursor.z);
             }
         }
         if(ssConfig.single_layer_view) {

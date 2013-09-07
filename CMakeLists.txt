@@ -5,6 +5,7 @@ include_directories (${CMAKE_SOURCE_DIR})
 
 
 SET(PROJECT_SRCS
+    TrackingModes.cpp
     Overlay.cpp
     Tile.cpp
     TileCondition.cpp

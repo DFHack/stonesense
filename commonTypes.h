@@ -166,9 +166,6 @@ struct GameConfiguration {
     ALLEGRO_COLOR backcol;
     bool fogenable;
 
-    int dfCursorX;
-    int dfCursorY;
-    int dfCursorZ;
     bool follow_DFcursor;
 	
     uint8_t track_mode;
@@ -247,6 +244,9 @@ struct GameState{
     //the size of the next segment to load, and the map region
     Crd3D SegmentSize;
     Crd3D RegionDim;
+
+	//position of the cursor
+	Crd3D dfCursor;
 
     //the width and height of the stonesense window
     int ScreenW;

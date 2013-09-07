@@ -1,4 +1,5 @@
 #include "Overlay.h"
+#include "TrackingModes.h"
 #include "Hooks.h"
 
 #include "df/init.h"
@@ -21,21 +22,7 @@ void Overlay::ReadTileLocations()
 	fontx = df::global::init->font.small_font_dispx;
 	fonty = df::global::init->font.small_font_dispy;
 
-	uint8_t mnu, map, tot;
-	Gui::getMenuWidth(mnu, map);
-	Gui::getWindowSize(width, height);
-	
-	height = height - 2; //account for vertical borders
-
-    if (mnu == 1){ 
-		width -= 57; //Menu is open doubly wide
-	} else if (mnu == 2 && map == 3) {
-		width -= 33; //Just the menu is open
-	} else if (mnu == 2 && map == 2) {
-		width -= 26; //Just the area map is open
-	} else {
-		width = width - 2; //No menu or area map, just account for borders
-	}
+	actualWindowSize(width, height);
 	
 	DFHack::DFSDL_Surface * dfsurf = (DFHack::DFSDL_Surface *) SDL_GetVideoSurface();
 	offsetx = ((dfsurf->w) % fontx)/2;
@@ -106,6 +93,7 @@ Overlay::Overlay(renderer* parent) : parent(parent)
 {
 	{
 		CoreSuspender suspend;
+		CheckViewscreen();
 		ReadTileLocations();
 		copy_from_inner(); 
 	}
@@ -213,7 +201,6 @@ void Overlay::update_all()
 void Overlay::render() 
 { 
 	copy_to_inner();
-	CheckViewscreen();
 
 	al_lock_mutex(front_mutex);
 	if(good_viewscreen){
@@ -242,6 +229,7 @@ void Overlay::render()
 
 			SDL_FreeSurface(sssurf);
 		}
+		CheckViewscreen();
 		ReadTileLocations();
 		front_updated = false;
 	} else {

@@ -1,6 +1,7 @@
 #include "common.h"
-#include "GUI.h"
 #include "MapLoading.h"
+#include "GUI.h"
+#include "TrackingModes.h"
 #include "SegmentProcessing.h"
 #include "WorldSegment.h"
 #include "SpriteMaps.h"
@@ -510,12 +511,15 @@ void readMapSegment(WorldSegment* segment, int x, int y, int z, int sizex, int s
     //Read position of blocks
     uint32_t regionX, regionY, regionZ;
     Maps::getSize(regionX, regionY, regionZ);
-    //Store these
-    blockDimX *= BLOCKEDGESIZE;
-    blockDimY *= BLOCKEDGESIZE;
-    ssState.RegionDim.x = blockDimX;
-    ssState.RegionDim.y = blockDimY;
-    ssState.RegionDim.z = blockDimZ;
+	//Store these
+	blockDimX *= BLOCKEDGESIZE;
+	blockDimY *= BLOCKEDGESIZE;
+	ssState.RegionDim.x = blockDimX;
+	ssState.RegionDim.y = blockDimY;
+	ssState.RegionDim.z = blockDimZ;
+
+	//read cursor
+	Gui::getCursorCoords(ssState.dfCursor.x, ssState.dfCursor.y, ssState.dfCursor.z);
 
     //setup new world segment
     segment->Reset(x,y,z,sizex,sizey,sizez,false);
@@ -528,9 +532,6 @@ void readMapSegment(WorldSegment* segment, int x, int y, int z, int sizex, int s
 
     /*if(GroundMaterialNamesTranslatedFromGame == false)
     TranslateGroundMaterialNames();*/
-
-    //read cursor
-    Gui::getCursorCoords(ssConfig.dfCursorX, ssConfig.dfCursorY, ssConfig.dfCursorZ);
 
     // read constructions
     vector<df::construction> allConstructions;
@@ -635,72 +636,6 @@ void readMapSegment(WorldSegment* segment, int x, int y, int z, int sizex, int s
     ssTimers.read_time = (clock() - starttime)*0.1 + ssTimers.read_time*0.9;
 }
 
-//==================================Misc================================//
-/*
- * TODO: move this stuff to GUI or main or something - really doe not belong 
- *  here even a little.
- */
-
-void FollowCurrentDFWindow()
-{
-    int32_t newviewx;
-    int32_t newviewy;
-    int32_t viewsizex;
-    int32_t viewsizey;
-    int32_t newviewz;
-    int32_t mapx, mapy, mapz;
-    // we take the rectangle you'd get if you scrolled the DF view closely around
-    // map edges with a pen pierced through the center,
-    // compute the scaling factor between this rectangle and the map bounds and then scale
-    // the coords with this scaling factor
-    /**
-    +---+
-    |W+-++----------+
-    +-+-+---------+ |
-    | |         | |
-    | | inner   | |
-    | |   rect. | |
-    | |         | |
-    | |         | |--- map boundary
-    | +---------+ |
-    +-------------+  W - corrected view
-    */
-    Maps::getSize((uint32_t &)mapx, (uint32_t &)mapy, (uint32_t &)mapz);
-    mapx *= 16;
-    mapy *= 16;
-
-    Gui::getWindowSize(viewsizex,viewsizey);
-    float scalex = float (mapx) / float (mapx - viewsizex);
-    float scaley = float (mapy) / float (mapy - viewsizey);
-
-    Gui::getViewCoords(newviewx,newviewy,newviewz);
-    newviewx = newviewx + (viewsizex / 2) - mapx / 2;
-    newviewy = newviewy + (viewsizey / 2) - mapy / 2;
-
-    parms.x = float (newviewx) * scalex - (ssState.SegmentSize.x / 2) + ssConfig.viewXoffset + mapx / 2;
-    parms.y = float (newviewy) * scaley - (ssState.SegmentSize.y / 2) + ssConfig.viewYoffset + mapy / 2;
-    parms.z = newviewz + ssConfig.viewZoffset + 1;
-}
-
-void FollowCurrentDFCenter()
-{
-    int32_t newviewx;
-    int32_t newviewy;
-    int32_t viewsizex;
-    int32_t viewsizey;
-    int32_t newviewz;
-    Gui::getWindowSize(viewsizex,viewsizey);
-    Gui::getViewCoords(newviewx,newviewy,newviewz);
-    parms.x = newviewx + (viewsizex/2) - (ssState.SegmentSize.x / 2) + ssConfig.viewXoffset;
-    parms.y = newviewy + (viewsizey/2) - (ssState.SegmentSize.y / 2) + ssConfig.viewYoffset;
-    parms.z = newviewz + ssConfig.viewZoffset + 1;
-}
-
-void FollowCurrentDFFocus()
-{
-
-}
-
 //==============================Map Read Main===========================//
 /*
  * Here is where the main hub functions dispatch the read thread from, 
@@ -717,14 +652,15 @@ void read_segment( void *arg)
     WorldSegment* segment = NULL;
     {
         CoreSuspender suspend;
+		
         if (firstLoad || ssConfig.track_mode != GameConfiguration::TRACKING_NONE) {
             firstLoad = 0;
             if (ssConfig.track_mode == GameConfiguration::TRACKING_CENTER) {
-                FollowCurrentDFCenter();
+                followCurrentDFCenter();
             } else if (ssConfig.track_mode == GameConfiguration::TRACKING_WINDOW) {
-                FollowCurrentDFWindow();
+                followCurrentDFWindow();
             } else if (ssConfig.track_mode == GameConfiguration::TRACKING_FOCUS) {
-                FollowCurrentDFFocus();
+                followCurrentDFFocus();
             }
         }
         segment = map_segment.getRead();
@@ -737,6 +673,7 @@ void read_segment( void *arg)
 
         //putting these here to increase responsiveness of the UI and to make megashots work
         segment->segState.DisplayedSegment = ssState.DisplayedSegment;
+        segment->segState.dfCursor = ssState.dfCursor;
 
         segment->AssembleAllTiles();
 
