@@ -232,7 +232,7 @@ void action_chopwall(uint32_t keymod)
     timeToReloadSegment = true;
 }
 
-void action_togglefollowdfcursor(uint32_t keymod)
+void action_cycletrackingmode(uint32_t keymod)
 {
     if (keymod&ALLEGRO_KEYMOD_CTRL) {
         ssConfig.follow_DFcursor = !ssConfig.follow_DFcursor;

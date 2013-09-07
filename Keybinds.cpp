@@ -186,7 +186,7 @@ action_name_mapper actionnamemap[] = {
     {"TOGGLE_CREATURE_JOBS", action_togglecreaturejob},
     {"TOGGLE_CREATURE_NAMES", action_togglecreaturenames},
     {"CHOP_WALLS", action_chopwall},
-    {"FOLLOW_DF", action_togglefollowdfcursor},
+    {"CYCLE_TRACKING_MODE", action_cycletrackingmode},
     {"RESET_VIEW_OFFSET", action_resetscreen},
     {"TOGGLE_SINGLE_LAYER", action_togglesinglelayer},
     {"TOGGLE_SHADE_HIDDEN_TILES", action_toggleshadehidden},
