@@ -29,6 +29,9 @@ void Overlay::ReadTileLocations()
 	DFHack::DFSDL_Surface * dfsurf = (DFHack::DFSDL_Surface *) SDL_GetVideoSurface();
 	offsetx = ((dfsurf->w) % fontx)/2;
 	offsety = ((dfsurf->h) % fonty)/2;
+
+	ssState.ScreenW = fontx*width; 
+	ssState.ScreenH = fonty*height; 
 }
 
 void Overlay::CheckViewscreen()
@@ -101,7 +104,7 @@ Overlay::Overlay(renderer* parent) : parent(parent)
 	{
 		CoreSuspender suspend;
 		//parent->zoom(df::zoom_commands::zoom_reset);
-		CheckViewscreen();
+		good_viewscreen = false;
 		ReadTileLocations();
 		copy_from_inner(); 
 	}
@@ -146,7 +149,7 @@ void Overlay::Flip()
 {
     //do the starting timer stuff
     clock_t starttime = clock();
-
+	
 	al_lock_mutex(front_mutex);
 	{
 		al_unlock_bitmap(front);
@@ -169,8 +172,6 @@ void Overlay::Flip()
 		front_data = al_lock_bitmap(front, 
 			al_get_bitmap_format(front), ALLEGRO_LOCK_READONLY);
 	}
-	ssState.ScreenW = fontx*width; 
-	ssState.ScreenH = fonty*height; 
 	front_updated = true;
 	al_unlock_mutex(front_mutex);
 
@@ -219,6 +220,7 @@ void Overlay::render()
 
 	al_lock_mutex(front_mutex);
 	CheckViewscreen();
+	ReadTileLocations();
 	if(good_viewscreen){
 		if(front_data != NULL && front_updated){
 			//allegro sometimes gives a negative pitch, which SDL doesn't understand, so take care of that case
@@ -234,18 +236,23 @@ void Overlay::render()
 			DFHack::DFSDL_Surface * sssurf = (DFHack::DFSDL_Surface *) SDL_CreateRGBSurfaceFrom( ((char*) front_data->data) + dataoffset, 
 				al_get_bitmap_width(front), al_get_bitmap_height(front), 8*front_data->pixel_size, neg*front_data->pitch, 0, 0, 0, 0);
 
+			DFSDL_Rect src;
+			src.x = 0;
+			src.y = 0;
+			src.w = ssState.ScreenW;
+			src.h = ssState.ScreenH;
+
 			DFSDL_Rect pos;
 			pos.x = fontx + offsetx;
 			pos.y = fonty + offsety;
-			pos.w = dfsurf->w;
-			pos.h = dfsurf->h;
+			pos.w = 0;
+			pos.h = 0;
 
 			//do the blit
-			SDL_UpperBlit(sssurf, NULL, dfsurf, &pos);
+			SDL_UpperBlit(sssurf, &src, dfsurf, &pos);
 
 			SDL_FreeSurface(sssurf);
 		}
-		ReadTileLocations();
 		front_updated = false;
 	} else {
 		width = 0;
