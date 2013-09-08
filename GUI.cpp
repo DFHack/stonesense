@@ -1431,15 +1431,15 @@ void saveMegashot(bool tall)
         switch(ssState.Rotation){
         case 0:
         case 2:
-			incrx = ssState.Size.x-2;
-			incry = ssState.Size.y-2;
+			incrx = sizex;
+			incry = sizey;
 			numx = (int)(ssState.RegionDim.x+3);
 			numy = (int)(ssState.RegionDim.y+3);
             break;
         case 1:
         case 3:
-			incrx = ssState.Size.y-2;
-			incry = ssState.Size.x-2;
+			incrx = sizey;
+			incry = sizex;
 			numx = (int)(ssState.RegionDim.y+3);
 			numy = (int)(ssState.RegionDim.x+3);
             break;
@@ -1450,16 +1450,16 @@ void saveMegashot(bool tall)
 
 
         if(ssState.Rotation == 1 || ssState.Rotation == 2) {
-            starty = (int)ssState.RegionDim.y + 2 - incry;
-            ssState.Position.y = (int)ssState.RegionDim.y - incry - 1;
+            starty = (int)ssState.RegionDim.y - incry - 1;
+            ssState.Position.y = (int)ssState.RegionDim.y - incry + 1;
             incry = -incry;
         } else {
             ssState.Position.y = -1;
         }
 
         if(ssState.Rotation == 3 || ssState.Rotation == 2) {
-            startx = (int)ssState.RegionDim.x + 2 - incrx;
-            ssState.Position.x = (int)ssState.RegionDim.x - incrx - 1;
+            startx = (int)ssState.RegionDim.x - incrx - 1;
+            ssState.Position.x = (int)ssState.RegionDim.x - incrx + 1;
 			incrx = -incrx;
 		} else {
 			ssState.Position.x = -1;
