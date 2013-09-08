@@ -311,16 +311,47 @@ bool Overlay::get_mouse_coords(int32_t* x, int32_t* y)
 	//PrintMessage("in:(%i,%i)\n",*x,*y);
 	bool ret = parent->get_mouse_coords(x,y);
 	//PrintMessage("out:(%i,%i)\n",*x,*y); 
-	if(PaintingOverTileAt(*x,*y)){
+
+	//if we are painting over the tile, then we need to reroute through stonesense
+	if(ret && PaintingOverTileAt(*x,*y)){
 		int xpx, ypx, xpos, ypos, zpos;
 		SDL_GetMouseState(&xpx, &ypx);
 		xpx = xpx - offsetx;
 		ypx = ypx - offsety;
 		
+		//first figure out which tile in the segment it came from
         ScreenToPoint(xpx,ypx,xpos,ypos,zpos);
 
+		//then remove the segment rotation
+		correctForRotation(
+			xpos, ypos, 
+			(4 - ssState.Rotation) % 4,
+			ssState.Size.x, ssState.Size.y);
+
+		//add on the segment offset
+		xpos = xpos + ssState.Position.x;
+		ypos = ypos + ssState.Position.y;
+		//zpos = zpos + ssState.Position.z - 1;
+
+		//remove the offset of the df window
+		int dfviewx, dfviewy, dfviewz;
+		Gui::getViewCoords(dfviewx, dfviewy, dfviewz);
+		xpos = xpos - dfviewx;
+		ypos = ypos - dfviewy;
+		//zpos = zpos - dfviewz;
+
+		//check to see if this new loaction is within the area we are painting over
+		if(PaintingOverTileAt(xpos,ypos)) {
+			*x = xpos;
+			*y = ypos;
+			return true;
+		} else {
+			*x = -1;
+			*y = -1;
+			return false;
+		}
+
 	}
-	return ret;
 }
 
 bool Overlay::uses_opengl() 
