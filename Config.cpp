@@ -78,10 +78,10 @@ void parseConfigLine( string line )
         string result = parseStrFromLine( "WINDOWED", line );
         ssConfig.Fullscreen = (result == "NO");
     }
-    if( line.find("[Size_XY") != -1) {
-        int value = parseIntFromLine( "Size_XY", line );
+    if( line.find("[SEGMENTSIZE_XY") != -1) {
+        int value = parseIntFromLine( "SEGMENTSIZE_XY", line );
         if(value < 1) {
-            value = DEFAULT_Size;
+            value = DEFAULT_SIZE;
         }
         if(value > 100) {
             value = 100;
@@ -90,10 +90,10 @@ void parseConfigLine( string line )
         ssState.Size.x = value+2;
         ssState.Size.y = value+2;
     }
-    if( line.find("[Size_Z") != -1) {
-        int value = parseIntFromLine( "Size_Z", line );
+    if( line.find("[SEGMENTSIZE_Z") != -1) {
+        int value = parseIntFromLine( "SEGMENTSIZE_Z", line );
         if(value < 1) {
-            value = DEFAULT_Size_Z;
+            value = DEFAULT_SIZE_Z;
         }
         ssState.Size.z = value;
     }

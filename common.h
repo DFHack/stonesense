@@ -92,8 +92,8 @@ using namespace df::enums;
 #define SPRITEHEIGHT (TILETOPHEIGHT + WALLHEIGHT)
 #define WALL_CUTOFF_HEIGHT 15
 
-#define DEFAULT_Size 20
-#define DEFAULT_Size_Z  6
+#define DEFAULT_SIZE 20
+#define DEFAULT_SIZE_Z  6
 #define MAPNAVIGATIONSTEP 1
 #define MAPNAVIGATIONSTEPBIG 10
 
