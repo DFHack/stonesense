@@ -239,7 +239,7 @@ struct GameConfiguration {
 struct GameState{
     //properties of the currently viewed portion of the segment
     Crd3D Position;
-    int DisplayedRotation;
+    int Rotation;
     
     //the size of the next segment to load, and the map region
     Crd3D Size;

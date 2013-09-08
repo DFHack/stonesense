@@ -152,7 +152,7 @@ bool isTileOnVisibleEdgeOfSegment(WorldSegment* segment, Tile* b)
         return true;
     }
 
-    if (ssState.DisplayedRotation == 0 &&
+    if (ssState.Rotation == 0 &&
         (
         b->x == segment->segState.Position.x + segment->segState.Size.x - 2
         || b->y == segment->segState.Position.y + segment->segState.Size.y - 2
@@ -160,7 +160,7 @@ bool isTileOnVisibleEdgeOfSegment(WorldSegment* segment, Tile* b)
         || b->y == segment->segState.RegionDim.y - 1
         )) {
             return true;
-    } else if (ssState.DisplayedRotation == 1 &&
+    } else if (ssState.Rotation == 1 &&
         (
         b->x == segment->segState.Position.x + segment->segState.Size.y - 2
         || b->y == segment->segState.Position.y + 1
@@ -168,7 +168,7 @@ bool isTileOnVisibleEdgeOfSegment(WorldSegment* segment, Tile* b)
         || b->y == 0
         )) {
             return true;
-    } else if (ssState.DisplayedRotation == 2 &&
+    } else if (ssState.Rotation == 2 &&
         (
         b->x == segment->segState.Position.x + 1
         || b->y == segment->segState.Position.y + 1
@@ -176,7 +176,7 @@ bool isTileOnVisibleEdgeOfSegment(WorldSegment* segment, Tile* b)
         || b->y == 0
         )) {
             return true;
-    } else if (ssState.DisplayedRotation == 3 &&
+    } else if (ssState.Rotation == 3 &&
         (
         b->x == segment->segState.Position.x + 1
         || b->y == segment->segState.Position.y + segment->segState.Size.x - 2

@@ -1012,7 +1012,7 @@ void paintboard()
         al_hold_bitmap_drawing(false);
     } else if (ssConfig.show_osd) {
         al_hold_bitmap_drawing(true);
-        draw_textf_border(font, al_map_rgb(255,255,255), 10,al_get_font_line_height(font), 0, "%i,%i,%i, r%i, z%i", ssState.Position.x,ssState.Position.y,ssState.Position.z, ssState.DisplayedRotation, ssConfig.zoom);
+        draw_textf_border(font, al_map_rgb(255,255,255), 10,al_get_font_line_height(font), 0, "%i,%i,%i, r%i, z%i", ssState.Position.x,ssState.Position.y,ssState.Position.z, ssState.Rotation, ssConfig.zoom);
 
         if(ssConfig.debug_mode) {
             draw_textf_border(font, al_map_rgb(255,255,255), 10, 3*al_get_font_line_height(font), 0, "Map Read Time: %.2fms", ssTimers.read_time);
@@ -1404,7 +1404,7 @@ void saveMegashot(bool tall)
         //zero out the segment lift
         ssConfig.lift_segment_offscreen_y = 0;
         //realign the image if the region is rectangular
-        switch(ssState.DisplayedRotation){
+        switch(ssState.Rotation){
         case 0:
         case 2:
             ssConfig.lift_segment_offscreen_x = ssState.RegionDim.y;
@@ -1422,7 +1422,7 @@ void saveMegashot(bool tall)
 
         startx = -1;
         starty = -1;
-        switch(ssState.DisplayedRotation){
+        switch(ssState.Rotation){
         case 0:
         case 2:
 			incrx = ssState.Size.x-2;
@@ -1443,7 +1443,7 @@ void saveMegashot(bool tall)
         numz = tall ? ((ssState.RegionDim.z/(ssState.Size.z-1)) + 1) : 1;
 
 
-        if(ssState.DisplayedRotation == 1 || ssState.DisplayedRotation == 2) {
+        if(ssState.Rotation == 1 || ssState.Rotation == 2) {
             starty = (int)ssState.RegionDim.y + 2 - incry;
             ssState.Position.y = (int)ssState.RegionDim.y - incry - 1;
             incry = -incry;
@@ -1451,7 +1451,7 @@ void saveMegashot(bool tall)
             ssState.Position.y = -1;
         }
 
-        if(ssState.DisplayedRotation == 3 || ssState.DisplayedRotation == 2) {
+        if(ssState.Rotation == 3 || ssState.Rotation == 2) {
             startx = (int)ssState.RegionDim.x + 2 - incrx;
             ssState.Position.x = (int)ssState.RegionDim.x - incrx - 1;
             incrx = -incrx;

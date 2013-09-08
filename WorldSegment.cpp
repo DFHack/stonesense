@@ -197,15 +197,15 @@ void WorldSegment::CorrectTileForSegmentRotation(int32_t& x, int32_t& y, int32_t
     int32_t oldx = x;
     int32_t oldy = y;
 
-    if(segState.DisplayedRotation == 1) {
+    if(segState.Rotation == 1) {
         x = segState.Size.x - oldy -1;
         y = oldx;
     }
-    if(segState.DisplayedRotation == 2) {
+    if(segState.Rotation == 2) {
         x = segState.Size.x - oldx -1;
         y = segState.Size.y - oldy -1;
     }
-    if(segState.DisplayedRotation == 3) {
+    if(segState.Rotation == 3) {
         x = oldy;
         y = segState.Size.y - oldx -1;
     }

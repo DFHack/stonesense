@@ -551,7 +551,7 @@ void readMapSegment(WorldSegment* segment, GameState inState)
         }
     }
 
-    if(segment->segState.DisplayedRotation % 2) {
+    if(segment->segState.Rotation % 2) {
         int temp = inState.Size.x;
         inState.Size.x = inState.Size.y;
         inState.Size.y = temp;

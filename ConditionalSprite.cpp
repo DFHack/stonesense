@@ -123,7 +123,7 @@ RotationTile::~RotationTile(void)
 
 bool RotationTile::copyToTile(Tile* b)
 {
-    int index = ssState.DisplayedRotation;
+    int index = ssState.Rotation;
     int max = (int)children.size();
     if (max == 0) {
         return false;

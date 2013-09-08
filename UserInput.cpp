@@ -69,7 +69,7 @@ void abortAutoReload()
 
 void changeRelativeToRotation( int &inputx, int &inputy, int stepx, int stepy )
 {
-    switch(ssState.DisplayedRotation) {
+    switch(ssState.Rotation) {
     case 0:
         inputx += stepx;
         inputy += stepy;
@@ -171,8 +171,8 @@ void doMouse()
 
 void action_incrrotation(uint32_t keymod)
 {
-    ssState.DisplayedRotation++;
-    ssState.DisplayedRotation %= 4;
+    ssState.Rotation++;
+    ssState.Rotation %= 4;
     timeToReloadSegment = true;
 }
 

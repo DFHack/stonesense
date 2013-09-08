@@ -907,7 +907,7 @@ void c_sprite::assemble_world_offset(int x, int y, int z, int plateoffset, Tile 
         int spriteoffset;
 		switch(offsettype){
 		case ROTATION:
-		    spriteoffset = (b->ownerSegment->segState.DisplayedRotation + offsetcode) % 4;
+		    spriteoffset = (b->ownerSegment->segState.Rotation + offsetcode) % 4;
             break;
 		case VARIATIONS:
             spriteoffset = rando%offsetcode;
@@ -916,10 +916,10 @@ void c_sprite::assemble_world_offset(int x, int y, int z, int plateoffset, Tile 
 			spriteoffset = ((randomanimation?rando:0) + currentAnimationFrame) % offsetcode;
 			break;
 		case SIXTEEN:
-			spriteoffset = dir_to_16(correct_dir_rotation(tileDirection(b->tileType), (offsetcode + ssState.DisplayedRotation) %4));
+			spriteoffset = dir_to_16(correct_dir_rotation(tileDirection(b->tileType), (offsetcode + ssState.Rotation) %4));
 			break;
 		case FOUR:
-			spriteoffset = dir_to_4(correct_dir_rotation(tileDirection(b->tileType), (offsetcode + ssState.DisplayedRotation) %4));
+			spriteoffset = dir_to_4(correct_dir_rotation(tileDirection(b->tileType), (offsetcode + ssState.Rotation) %4));
 			break;
 		default:
 		    spriteoffset = 0;
@@ -932,7 +932,7 @@ void c_sprite::assemble_world_offset(int x, int y, int z, int plateoffset, Tile 
         if(bloodsprite) {
             spriteoffset = getBloodOffset(b);
         }
-        if(!((water_direction < 0) || (water_direction == get_relative_water_direction(b, ssState.DisplayedRotation)))) {
+        if(!((water_direction < 0) || (water_direction == get_relative_water_direction(b, ssState.Rotation)))) {
             goto draw_subsprite;
         }
         if(!( //these are all border conditions. this first section is a list of positive conditions. if at least one of the border conditions is met, the plate can be shown.
