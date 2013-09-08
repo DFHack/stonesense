@@ -1488,8 +1488,9 @@ void saveMegashot(bool tall)
 		}
 
 		//now actually loop through and draw the subsegments
+		int32_t startstartlifty = startlifty;
 		for(int k=0; k<numz; k++) {
-			//startlifty = startlifty - TILEHEIGHT*(numz-k)*(ssState.Size.z - 1);
+			startlifty = startstartlifty - TILEHEIGHT*(numz-k-1)*(ssState.Size.z - 1);
 			for(int i=0; i<numy; i++) {
 				ssConfig.lift_segment_offscreen_x = startliftx - (TILEWIDTH/2)*i*movexy;
 				ssConfig.lift_segment_offscreen_y = startlifty - (TILETOPHEIGHT/2)*i*moveyy;
