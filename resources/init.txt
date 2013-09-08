@@ -26,13 +26,11 @@ Changes the interface font size.
 Changes the fontfile to use.
 [FONT:DejaVuSans.ttf]
 
-Lifts the segment up to the top off the screen, equivalent to a given
-number of z levels.
-Use this with a large segment size to get walls covering the entire screen.
+Offsets the display by the given number of pixels.  Use to adjust display formatting.  
 [LIFTSEGMENT:0]
 
-What to follow in the DF window.  Options are WINDOW CENTER FOCUS or NONE.
-[TRACK_MODE:CENTER]
+What to follow in the DF window.  Options are WINDOW CENTER FOCUS or NONE.  Use (default) key 'f' to cycle.
+[TRACK_MODE:FOCUS]
 
 Sets an initial x/y/z offset for follow mode
 [FOLLOW_OFFSET_X:0]
