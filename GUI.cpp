@@ -398,24 +398,23 @@ void DrawCurrentLevelOutline(bool backPart)
     }
 }
 
-void drawDebugCursorAndInfo(WorldSegment * segment)
+void drawDebugCursor(WorldSegment * segment)
 {
-    using df::global::ui;
-
-    if((segment->segState.dfCursor.x != -30000) && ssConfig.follow_DFcursor) {
-        int x = segment->segState.dfCursor.x;
-        int y = segment->segState.dfCursor.y;
-        int z = segment->segState.dfCursor.z;
-		segment->CorrectTileForSegmentOffset(x,y,z);
-        segment->CorrectTileForSegmentRotation( x, y, z );
-        debugCursor.x = x;
-        debugCursor.y = y;
-        debugCursor.z = z;
-    } else {
-        debugCursor.z = 0;
-    }
-    Crd2D point = LocalTileToScreen(debugCursor.x, debugCursor.y, debugCursor.z);
-    int sheetx = SPRITEOBJECT_CURSOR % SHEET_OBJECTSWIDE;
+	if( (segment->segState.dfCursor.x != -30000 && ssConfig.follow_DFcursor)
+		|| (ssConfig.track_mode == GameConfiguration::TRACKING_FOCUS) ){
+			int x = segment->segState.dfCursor.x;
+			int y = segment->segState.dfCursor.y;
+			int z = segment->segState.dfCursor.z;
+			segment->CorrectTileForSegmentOffset(x,y,z);
+			segment->CorrectTileForSegmentRotation( x, y, z );
+			debugCursor.x = x;
+			debugCursor.y = y;
+			debugCursor.z = z;
+	} else {
+		debugCursor.z = 0;
+	}
+	Crd2D point = LocalTileToScreen(debugCursor.x, debugCursor.y, debugCursor.z);
+	int sheetx = SPRITEOBJECT_CURSOR % SHEET_OBJECTSWIDE;
     int sheety = SPRITEOBJECT_CURSOR / SHEET_OBJECTSWIDE;
     al_draw_tinted_scaled_bitmap(
         IMGObjectSheet,
@@ -429,6 +428,11 @@ void drawDebugCursorAndInfo(WorldSegment * segment)
         SPRITEWIDTH*ssConfig.scale,
         SPRITEHEIGHT*ssConfig.scale,
         0);
+}
+
+void drawDebugInfo(WorldSegment * segment)
+{
+	using df::global::ui;
 
     //get tile info
     Tile* b = segment->getTileLocal( debugCursor.x, debugCursor.y, debugCursor.z+segment->segState.Size.z-2);
@@ -1014,6 +1018,8 @@ void paintboard()
         al_hold_bitmap_drawing(true);
         draw_textf_border(font, al_map_rgb(255,255,255), 10,al_get_font_line_height(font), 0, "%i,%i,%i, r%i, z%i", ssState.Position.x,ssState.Position.y,ssState.Position.z, ssState.Rotation, ssConfig.zoom);
 
+		drawDebugCursor(segment);
+
         if(ssConfig.debug_mode) {
             draw_textf_border(font, al_map_rgb(255,255,255), 10, 3*al_get_font_line_height(font), 0, "Map Read Time: %.2fms", ssTimers.read_time);
             draw_textf_border(font, al_map_rgb(255,255,255), 10, 4*al_get_font_line_height(font), 0, "Map Beautification Time: %.2fms", ssTimers.beautify_time);
@@ -1024,7 +1030,7 @@ void paintboard()
             draw_textf_border(font, al_map_rgb(255,255,255), 10, 8*al_get_font_line_height(font), 0, "D1: %i", DebugInt1);
             draw_textf_border(font, al_map_rgb(255,255,255), 10, 9*al_get_font_line_height(font), 0, "%i/%i/%i, %i:%i", contentLoader->currentDay+1, contentLoader->currentMonth+1, contentLoader->currentYear, contentLoader->currentHour, (contentLoader->currentTickRel*60)/50);
             
-            drawDebugCursorAndInfo(segment);
+            drawDebugInfo(segment);
         }
         ssConfig.platecount = 0;
         int top = 0;
