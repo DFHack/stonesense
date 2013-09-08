@@ -270,7 +270,7 @@ void c_tile_tree::insert_sprites(WorldSegment *w, int x, int y, int z, Tile * pa
                     b->tileShapeBasic()==tiletype_shape_basic::Floor ||
                     b->tileShapeBasic()==tiletype_shape_basic::Wall ||
                     b->tileShapeBasic()==tiletype_shape_basic::Stair)) ||
-                ((z + i + 1) > w->pos.z + w->size.z)
+                ((z + i + 1) > w->segState.Position.z + w->segState.Size.z)
           ) {
             break;
         }

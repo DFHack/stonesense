@@ -19,7 +19,6 @@
 
 bool connected = 0;
 bool threadrunnng = 0;
-segParams parms;
 
 //==============================Map Read ==============================//
 /*
@@ -483,7 +482,7 @@ void readBlockToSegment(DFHack::Core& DF, WorldSegment& segment,
     }
 }
 
-void readMapSegment(WorldSegment* segment, int x, int y, int z, int sizex, int sizey, int sizez)
+void readMapSegment(WorldSegment* segment, GameState inState)
 {
     uint32_t index;
     DFHack::Core & DF = Core::getInstance();
@@ -501,7 +500,7 @@ void readMapSegment(WorldSegment* segment, int x, int y, int z, int sizex, int s
     }
 
     if(ssConfig.skipMaps || !Maps::IsValid()) {
-        segment->Reset(x,y,z + 1,sizex,sizey,sizez + 1,true);
+        segment->Reset(inState,true);
         return;
     }
 
@@ -522,7 +521,7 @@ void readMapSegment(WorldSegment* segment, int x, int y, int z, int sizex, int s
 	Gui::getCursorCoords(ssState.dfCursor.x, ssState.dfCursor.y, ssState.dfCursor.z);
 
     //setup new world segment
-    segment->Reset(x,y,z,sizex,sizey,sizez,false);
+    segment->Reset(inState,false);
 
     //read world wide buildings
     vector<Buildings::t_building> allBuildings;
@@ -553,13 +552,13 @@ void readMapSegment(WorldSegment* segment, int x, int y, int z, int sizex, int s
     }
 
     if(segment->segState.DisplayedRotation % 2) {
-        int temp = sizex;
-        sizex = sizey;
-        sizey = temp;
+        int temp = inState.Size.x;
+        inState.Size.x = inState.Size.y;
+        inState.Size.y = temp;
     }
 
     //figure out what blocks to read
-    int32_t firstTileToReadX = x;
+    int32_t firstTileToReadX = inState.Position.x;
     if( firstTileToReadX < 0 ) {
         firstTileToReadX = 0;
     }
@@ -571,22 +570,22 @@ void readMapSegment(WorldSegment* segment, int x, int y, int z, int sizex, int s
         LogError("Can't get region geology.\n");
     }
     
-    while(firstTileToReadX < x + sizex) {
+    while(firstTileToReadX < inState.Position.x + inState.Size.x) {
         int blockx = firstTileToReadX / BLOCKEDGESIZE;
         int32_t lastTileInBlockX = (blockx+1) * BLOCKEDGESIZE - 1;
-        int32_t lastTileToReadX = min<int32_t>(lastTileInBlockX, x+sizex-1);
+        int32_t lastTileToReadX = min<int32_t>(lastTileInBlockX, inState.Position.x + inState.Size.x-1);
 
-        int32_t firstTileToReadY = y;
+        int32_t firstTileToReadY = inState.Position.y;
         if( firstTileToReadY < 0 ) {
             firstTileToReadY = 0;
         }
 
-        while(firstTileToReadY < y + sizey) {
+        while(firstTileToReadY < inState.Position.y + inState.Size.y) {
             int blocky = firstTileToReadY / BLOCKEDGESIZE;
             int32_t lastTileInBlockY = (blocky+1) * BLOCKEDGESIZE - 1;
-            int32_t lastTileToReadY = min<uint32_t>(lastTileInBlockY, y+sizey-1);
+            int32_t lastTileToReadY = min<uint32_t>(lastTileInBlockY, inState.Position.y + inState.Size.y-1);
 
-            for(int lz=z-sizez; lz <= z; lz++) {
+            for(int lz=inState.Position.z - inState.Size.z; lz <= inState.Position.z; lz++) {
                 //load the tiles from this block to the map segment
                 readBlockToSegment(DF, *segment, blockx, blocky, lz,
                     firstTileToReadX, firstTileToReadY, 
@@ -664,7 +663,7 @@ void read_segment( void *arg)
             }
         }
         segment = map_segment.getRead();
-        readMapSegment(segment, parms.x, parms.y, parms.z,parms.sizex, parms.sizey, parms.sizez);
+        readMapSegment(segment, ssState);
         ssConfig.threadstarted = 0;
     }
 
@@ -672,7 +671,7 @@ void read_segment( void *arg)
         beautifySegment(segment);
 
         //putting these here to increase responsiveness of the UI and to make megashots work
-        segment->segState.DisplayedSegment = ssState.DisplayedSegment;
+        segment->segState.Position = ssState.Position;
         segment->segState.dfCursor = ssState.dfCursor;
 
         segment->AssembleAllTiles();
@@ -695,24 +694,17 @@ static void * threadedSegment(ALLEGRO_THREAD *read_thread, void *arg)
     return 0;
 }
 
-void reloadDisplayedSegment()
+void reloadPosition()
 {
     //create handle to dfHack API
     static bool firstLoad = 1;
 
     if (timeToReloadConfig) {
-        parms.thread_connect = 0;
         contentLoader->Load();
         timeToReloadConfig = false;
     }
 
-    if (firstLoad || ssConfig.track_mode != GameConfiguration::TRACKING_NONE) {
-        ssState.DisplayedSegment.x = parms.x;
-        ssState.DisplayedSegment.y = parms.y;
-        ssState.DisplayedSegment.z = parms.z;
-    }
-
-    int segmentHeight = ssConfig.single_layer_view ? 2 : ssState.SegmentSize.z;
+    int segmentHeight = ssConfig.single_layer_view ? 2 : ssState.Size.z;
     //load segment
     if(ssConfig.threading_enable) {
         if(!ssConfig.threadmade) {
@@ -720,13 +712,6 @@ void reloadDisplayedSegment()
             ssConfig.threadmade = 1;
         }
     }
-
-    parms.x = ssState.DisplayedSegment.x;
-    parms.y = ssState.DisplayedSegment.y;
-    parms.z = ssState.DisplayedSegment.z;
-    parms.sizex = ssState.SegmentSize.x;
-    parms.sizey = ssState.SegmentSize.y;
-    parms.sizez = segmentHeight;
 
     if(ssConfig.threading_enable) {
         al_start_thread(ssConfig.readThread);

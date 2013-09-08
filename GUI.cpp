@@ -196,7 +196,7 @@ void ScreenToPoint(int x,int y,int &x1, int &y1, int &z1, int segSizeX, int segS
 void ScreenToPoint(int x,int y,int &x1, int &y1, int &z1)
 {
     if(ssConfig.track_screen_center){
-        ScreenToPoint(x, y, x1, y1, z1, ssState.SegmentSize.x, ssState.SegmentSize.y, ssState.ScreenW, ssState.ScreenH);
+        ScreenToPoint(x, y, x1, y1, z1, ssState.Size.x, ssState.Size.y, ssState.ScreenW, ssState.ScreenH);
     } else {
         ScreenToPoint(x, y, x1, y1, z1, 0, 0, 0, 0);
     }
@@ -229,7 +229,7 @@ void pointToScreen(int *inx, int *iny, int inz, int segSizeX, int segSizeY, int 
 void pointToScreen(int *inx, int *iny, int inz)
 {
     if(ssConfig.track_screen_center){
-        pointToScreen(inx, iny, inz, ssState.SegmentSize.x, ssState.SegmentSize.y, ssState.ScreenW, ssState.ScreenH);
+        pointToScreen(inx, iny, inz, ssState.Size.x, ssState.Size.y, ssState.ScreenW, ssState.ScreenH);
     } else {
         pointToScreen(inx, iny, inz, 0, 0, 0, 0);
     }
@@ -312,6 +312,13 @@ void draw_ustr_border(const ALLEGRO_FONT *font, ALLEGRO_COLOR color, float x, fl
     al_draw_ustr(font, color, x, y, flags, ustr);
 }
 
+void correctTileForDisplayedOffset(int32_t& x, int32_t& y, int32_t& z)
+{
+    x -= ssState.Position.x;
+    y -= ssState.Position.y; //Position.y;
+    z -= ssState.Position.z - 1; // + viewedSegment->sizez - 2; // loading one above the top of the displayed segment for tile rules
+}
+
 /**
  * Corrects the coordinate (x,y) for rotation in a region of size (szx, szy).
  */
@@ -350,11 +357,11 @@ Crd2D LocalTileToScreen(int32_t x, int32_t y, int32_t z)
 
 void DrawCurrentLevelOutline(bool backPart)
 {
-    int x = ssState.DisplayedSegment.x+1;
-    int y = ssState.DisplayedSegment.y+1;
-    int z = ssState.DisplayedSegment.z;
-    int sizex = ssState.SegmentSize.x-2;
-    int sizey = ssState.SegmentSize.y-2;
+    int x = ssState.Position.x+1;
+    int y = ssState.Position.y+1;
+    int z = ssState.Position.z;
+    int sizex = ssState.Size.x-2;
+    int sizey = ssState.Size.y-2;
 
     if(ssConfig.hide_outer_tiles) {
         x++;
@@ -424,7 +431,7 @@ void drawDebugCursorAndInfo(WorldSegment * segment)
         0);
 
     //get tile info
-    Tile* b = segment->getTileLocal( debugCursor.x, debugCursor.y, debugCursor.z+segment->size.z-2);
+    Tile* b = segment->getTileLocal( debugCursor.x, debugCursor.y, debugCursor.z+segment->segState.Size.z-2);
     int i = 10;
     draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0, "Tile 0x%x", b);
 
@@ -870,10 +877,10 @@ void DrawMinimap(WorldSegment * segment)
     int mapheight = (int)(segment->segState.RegionDim.y * oneTileInPixels);
     al_draw_rectangle(posx, posy, posx+size, posy+mapheight, al_map_rgb(0,0,0),0);
     //current segment outline
-    int x = (size * (segment->pos.x+1)) / segment->segState.RegionDim.x;
-    int y = (mapheight * (segment->pos.y+1)) / segment->segState.RegionDim.y;
-    MiniMapSegmentWidth = (segment->size.x-2) * oneTileInPixels;
-    MiniMapSegmentHeight = (segment->size.y-2) * oneTileInPixels;
+    int x = (size * (segment->segState.Position.x+1)) / segment->segState.RegionDim.x;
+    int y = (mapheight * (segment->segState.Position.y+1)) / segment->segState.RegionDim.y;
+    MiniMapSegmentWidth = (segment->segState.Size.x-2) * oneTileInPixels;
+    MiniMapSegmentHeight = (segment->segState.Size.y-2) * oneTileInPixels;
     al_draw_rectangle(posx+x, posy+y, posx+x+MiniMapSegmentWidth, posy+y+MiniMapSegmentHeight,al_map_rgb(0,0,0),0);
     MiniMapTopLeftX = posx;
     MiniMapTopLeftY = posy;
@@ -1005,7 +1012,7 @@ void paintboard()
         al_hold_bitmap_drawing(false);
     } else if (ssConfig.show_osd) {
         al_hold_bitmap_drawing(true);
-        draw_textf_border(font, al_map_rgb(255,255,255), 10,al_get_font_line_height(font), 0, "%i,%i,%i, r%i, z%i", ssState.DisplayedSegment.x,ssState.DisplayedSegment.y,ssState.DisplayedSegment.z, ssState.DisplayedRotation, ssConfig.zoom);
+        draw_textf_border(font, al_map_rgb(255,255,255), 10,al_get_font_line_height(font), 0, "%i,%i,%i, r%i, z%i", ssState.Position.x,ssState.Position.y,ssState.Position.z, ssState.DisplayedRotation, ssConfig.zoom);
 
         if(ssConfig.debug_mode) {
             draw_textf_border(font, al_map_rgb(255,255,255), 10, 3*al_get_font_line_height(font), 0, "Map Read Time: %.2fms", ssTimers.read_time);
@@ -1381,7 +1388,7 @@ void saveMegashot(bool tall)
     if(tall) {
         ssState.ScreenH = ( ((ssState.RegionDim.x + ssState.RegionDim.y) * TILETOPHEIGHT / 2) + (ssState.RegionDim.z * TILEHEIGHT) )*ssConfig.scale;
     } else {
-        ssState.ScreenH = ( ((ssState.RegionDim.x + ssState.RegionDim.y) * TILETOPHEIGHT / 2) + ((ssState.SegmentSize.z - 1) * TILEHEIGHT) )*ssConfig.scale;
+        ssState.ScreenH = ( ((ssState.RegionDim.x + ssState.RegionDim.y) * TILETOPHEIGHT / 2) + ((ssState.Size.z - 1) * TILEHEIGHT) )*ssConfig.scale;
     }
 
     bigFile = al_create_bitmap(ssState.ScreenW, ssState.ScreenH);
@@ -1418,45 +1425,45 @@ void saveMegashot(bool tall)
         switch(ssState.DisplayedRotation){
         case 0:
         case 2:
-			incrx = parms.sizex-2;
-			incry = parms.sizey-2;
+			incrx = ssState.Size.x-2;
+			incry = ssState.Size.y-2;
 			numx = (int)(ssState.RegionDim.x+3);
 			numy = (int)(ssState.RegionDim.y+3);
             break;
         case 1:
         case 3:
-			incrx = parms.sizey-2;
-			incry = parms.sizex-2;
+			incrx = ssState.Size.y-2;
+			incry = ssState.Size.x-2;
 			numx = (int)(ssState.RegionDim.y+3);
 			numy = (int)(ssState.RegionDim.x+3);
             break;
         }
         numx = numx/incrx + (numx%incrx==0 ? 0 : 1);
         numy = numy/incry + (numx%incry==0 ? 0 : 1);
-        numz = tall ? ((ssState.RegionDim.z/(parms.sizez-1)) + 1) : 1;
+        numz = tall ? ((ssState.RegionDim.z/(ssState.Size.z-1)) + 1) : 1;
 
 
         if(ssState.DisplayedRotation == 1 || ssState.DisplayedRotation == 2) {
             starty = (int)ssState.RegionDim.y + 2 - incry;
-            ssState.DisplayedSegment.y = (int)ssState.RegionDim.y - incry - 1;
+            ssState.Position.y = (int)ssState.RegionDim.y - incry - 1;
             incry = -incry;
         } else {
-            ssState.DisplayedSegment.y = -1;
+            ssState.Position.y = -1;
         }
 
         if(ssState.DisplayedRotation == 3 || ssState.DisplayedRotation == 2) {
             startx = (int)ssState.RegionDim.x + 2 - incrx;
-            ssState.DisplayedSegment.x = (int)ssState.RegionDim.x - incrx - 1;
+            ssState.Position.x = (int)ssState.RegionDim.x - incrx - 1;
             incrx = -incrx;
         } else {
-            ssState.DisplayedSegment.x = -1;
+            ssState.Position.x = -1;
         }
         if(tall) {
-            ssState.DisplayedSegment.z = ssState.RegionDim.z;
+            ssState.Position.z = ssState.RegionDim.z;
         }
-        parms.x = startx;
-        parms.y = starty;
-        parms.z = tall ? 0 : parms.z;
+        ssState.Position.x = startx;
+        ssState.Position.y = starty;
+        ssState.Position.z = tall ? 0 : ssState.Position.z;
 
         //now actually loop through and draw the subsegments
         for(int k=0; k<numz; k++) {
@@ -1469,14 +1476,14 @@ void saveMegashot(bool tall)
                     segment->DrawAllTiles();
                     map_segment.unlockDraw();
 
-                    parms.x += incrx;
+                   ssState.Position.x += incrx;
                 }
-                parms.x = startx;
-                parms.y += incry;
+                ssState.Position.x = startx;
+                ssState.Position.y += incry;
             }
-            parms.x=startx;
-            parms.y=starty;
-            parms.z += parms.sizez - 1;
+            ssState.Position.x=startx;
+            ssState.Position.y=starty;
+            ssState.Position.z += ssState.Size.z - 1;
         }
 
 

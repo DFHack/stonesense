@@ -8,7 +8,7 @@
 #define  RESUME_DF ;
 #endif
 
-void reloadDisplayedSegment();
+void reloadPosition();
 
 void DisconnectFromDF();
 bool IsConnectedToDF();
@@ -19,16 +19,3 @@ extern const VersionInfo *dfMemoryInfo;
 
 struct SS_Item;
 SS_Item ConvertItem(df::item * found_item, WorldSegment& segment);
-
-struct segParams {
-    int x;
-    int y;
-    int z;
-    int sizex;
-    int sizey;
-    int sizez;
-    bool thread_connect;
-    bool is_connected;
-};
-
-extern segParams parms;

@@ -148,38 +148,38 @@ bool checkFloorBorderRequirement(WorldSegment* segment, int x, int y, int z, dir
 
 bool isTileOnVisibleEdgeOfSegment(WorldSegment* segment, Tile* b)
 {
-    if(b->z == segment->pos.z + segment->size.z - 2) {
+    if(b->z == segment->segState.Position.z + segment->segState.Size.z - 2) {
         return true;
     }
 
     if (ssState.DisplayedRotation == 0 &&
         (
-        b->x == segment->pos.x + segment->size.x - 2
-        || b->y == segment->pos.y + segment->size.y - 2
+        b->x == segment->segState.Position.x + segment->segState.Size.x - 2
+        || b->y == segment->segState.Position.y + segment->segState.Size.y - 2
         || b->x == segment->segState.RegionDim.x - 1
         || b->y == segment->segState.RegionDim.y - 1
         )) {
             return true;
     } else if (ssState.DisplayedRotation == 1 &&
         (
-        b->x == segment->pos.x + segment->size.y - 2
-        || b->y == segment->pos.y + 1
+        b->x == segment->segState.Position.x + segment->segState.Size.y - 2
+        || b->y == segment->segState.Position.y + 1
         || b->x == segment->segState.RegionDim.x - 1
         || b->y == 0
         )) {
             return true;
     } else if (ssState.DisplayedRotation == 2 &&
         (
-        b->x == segment->pos.x + 1
-        || b->y == segment->pos.y + 1
+        b->x == segment->segState.Position.x + 1
+        || b->y == segment->segState.Position.y + 1
         || b->x == 0
         || b->y == 0
         )) {
             return true;
     } else if (ssState.DisplayedRotation == 3 &&
         (
-        b->x == segment->pos.x + 1
-        || b->y == segment->pos.y + segment->size.x - 2
+        b->x == segment->segState.Position.x + 1
+        || b->y == segment->segState.Position.y + segment->segState.Size.x - 2
         || b->x == 0
         || b->y == segment->segState.RegionDim.y - 1
         )) {

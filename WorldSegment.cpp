@@ -4,6 +4,11 @@
 #include "ContentLoader.h"
 #include "Creatures.h"
 
+const GameState SegmentWrap::zeroState = 
+{
+	{0,0,0},0,{0,0,0},{0,0,0},{0,0,0},0,0
+};
+
 ALLEGRO_BITMAP * fog = 0;
 
 Tile* WorldSegment::ResetTile(int32_t x, int32_t y, int32_t z, df::tiletype type)
@@ -12,23 +17,23 @@ Tile* WorldSegment::ResetTile(int32_t x, int32_t y, int32_t z, df::tiletype type
     uint32_t ly = y;
     uint32_t lz = z;
     //make local
-    lx -= this->pos.x;
-    ly -= this->pos.y;
-    lz -= this->pos.z;
+    lx -= segState.Position.x;
+    ly -= segState.Position.y;
+    lz -= segState.Position.z;
 
     CorrectTileForSegmentRotation( (int32_t&)lx,(int32_t&)ly,(int32_t&)lz );
 
-    if((int)lx < 0 || lx >= (uint32_t)this->size.x) {
+    if((int)lx < 0 || lx >= (uint32_t)segState.Size.x) {
         return 0;
     }
-    if((int)ly < 0 || ly >= (uint32_t)this->size.y) {
+    if((int)ly < 0 || ly >= (uint32_t)segState.Size.y) {
         return 0;
     }
-    if((int)lz < 0 || lz >= (uint32_t)this->size.z) {
+    if((int)lz < 0 || lz >= (uint32_t)segState.Size.z) {
         return 0;
     }
 
-    uint32_t index = lx + (ly * this->size.x) + ((lz) * this->size.x * this->size.y);
+    uint32_t index = lx + (ly * segState.Size.x) + ((lz) * segState.Size.x * segState.Size.y);
 
 	Tile* tptr = & tiles[index];
 
@@ -46,9 +51,9 @@ Tile* WorldSegment::getTile(int32_t x, int32_t y, int32_t z)
     uint32_t ly = y;
     uint32_t lz = z;
     //make local
-    lx -= this->pos.x;
-    ly -= this->pos.y;
-    lz -= this->pos.z;
+    lx -= segState.Position.x;
+    ly -= segState.Position.y;
+    lz -= segState.Position.z;
 
     CorrectTileForSegmentRotation( (int32_t&)lx,(int32_t&)ly,(int32_t&)lz );
     return getTileLocal(lx, ly, lz);
@@ -60,9 +65,9 @@ Tile* WorldSegment::getTileRelativeTo(uint32_t x, uint32_t y, uint32_t z,  dirRe
     int32_t ly = y;
     int32_t lz = z;
     //make local
-    lx -= this->pos.x;
-    ly -= this->pos.y;
-    lz -= this->pos.z;
+    lx -= segState.Position.x;
+    ly -= segState.Position.y;
+    lz -= segState.Position.z;
 
     CorrectTileForSegmentRotation( (int32_t&)lx,(int32_t&)ly,(int32_t&)lz );
     switch (direction) {
@@ -111,9 +116,9 @@ Tile* WorldSegment::getTileRelativeTo(uint32_t x, uint32_t y, uint32_t z,  dirRe
     int32_t ly = y;
     int32_t lz = z;
     //make local
-    lx -= this->pos.x;
-    ly -= this->pos.y;
-    lz -= this->pos.z;
+    lx -= segState.Position.x;
+    ly -= segState.Position.y;
+    lz -= segState.Position.z;
     
     CorrectTileForSegmentRotation( (int32_t&)lx,(int32_t&)ly,(int32_t&)lz );
     switch (direction) {
@@ -158,17 +163,17 @@ Tile* WorldSegment::getTileRelativeTo(uint32_t x, uint32_t y, uint32_t z,  dirRe
 
 Tile* WorldSegment::getTileLocal(uint32_t x, uint32_t y, uint32_t z)
 {
-    if((int)x < 0 || x >= (uint32_t)this->size.x) {
+    if((int)x < 0 || x >= (uint32_t)segState.Size.x) {
         return 0;
     }
-    if((int)y < 0 || y >= (uint32_t)this->size.y) {
+    if((int)y < 0 || y >= (uint32_t)segState.Size.y) {
         return 0;
     }
-    if((int)z < 0 || z >= (uint32_t)this->size.z) {
+    if((int)z < 0 || z >= (uint32_t)segState.Size.z) {
         return 0;
     }
 
-    uint32_t index = x + (y * this->size.x) + ((z) * this->size.x * this->size.y);
+    uint32_t index = x + (y * segState.Size.x) + ((z) * segState.Size.x * segState.Size.y);
     return getTile(index);
 }
 
@@ -182,9 +187,9 @@ Tile* WorldSegment::getTile(uint32_t index)
 
 void WorldSegment::CorrectTileForSegmentOffset(int32_t& xin, int32_t& yin, int32_t& zin)
 {
-    xin -= segState.DisplayedSegment.x;
-    yin -= segState.DisplayedSegment.y; //DisplayedSegment.y;
-    zin -= segState.DisplayedSegment.z - 1; //need to remove the offset
+    xin -= segState.Position.x;
+    yin -= segState.Position.y; //Position.y;
+    zin -= segState.Position.z - 1; //need to remove the offset
 }
 
 void WorldSegment::CorrectTileForSegmentRotation(int32_t& x, int32_t& y, int32_t& z)
@@ -193,16 +198,16 @@ void WorldSegment::CorrectTileForSegmentRotation(int32_t& x, int32_t& y, int32_t
     int32_t oldy = y;
 
     if(segState.DisplayedRotation == 1) {
-        x = size.x - oldy -1;
+        x = segState.Size.x - oldy -1;
         y = oldx;
     }
     if(segState.DisplayedRotation == 2) {
-        x = size.x - oldx -1;
-        y = size.y - oldy -1;
+        x = segState.Size.x - oldx -1;
+        y = segState.Size.y - oldy -1;
     }
     if(segState.DisplayedRotation == 3) {
         x = oldy;
-        y = size.y - oldx -1;
+        y = segState.Size.y - oldx -1;
     }
 }
 
@@ -287,9 +292,9 @@ void WorldSegment::AssembleAllTiles()
     clock_t starttime = clock();
     
     // x,y,z print prices
-    int32_t vsxmax = size.x-1;
-    int32_t vsymax = size.y-1;
-    int32_t vszmax = size.z-1; // grabbing one tile +z more than we should for tile rules
+    int32_t vsxmax = segState.Size.x-1;
+    int32_t vsymax = segState.Size.y-1;
+    int32_t vszmax = segState.Size.z-1; // grabbing one tile +z more than we should for tile rules
     for(int32_t vsz=0; vsz < vszmax; vsz++) {
         //add the fog to the queue
         if(ssConfig.fogenable && fog) {
@@ -328,19 +333,19 @@ bool WorldSegment::CoordinateInsideSegment(uint32_t x, uint32_t y, uint32_t z)
     uint32_t ly = y;
     uint32_t lz = z;
     //make local
-    lx -= this->pos.x;
-    ly -= this->pos.y;
-    lz -= this->pos.z;
+    lx -= segState.Position.x;
+    ly -= segState.Position.y;
+    lz -= segState.Position.z;
 
     CorrectTileForSegmentRotation( (int32_t&)lx,(int32_t&)ly,(int32_t&)lz );
 
-    if((int)lx < 0 || lx >= (uint32_t)this->size.x) {
+    if((int)lx < 0 || lx >= (uint32_t)segState.Size.x) {
         return 0;
     }
-    if((int)ly < 0 || ly >= (uint32_t)this->size.y) {
+    if((int)ly < 0 || ly >= (uint32_t)segState.Size.y) {
         return 0;
     }
-    if((int)lz < 0 || lz >= (uint32_t)this->size.z) {
+    if((int)lz < 0 || lz >= (uint32_t)segState.Size.z) {
         return 0;
     }
 
@@ -353,19 +358,19 @@ bool WorldSegment::CoordinateInteriorSegment(uint32_t x, uint32_t y, uint32_t z,
     uint32_t ly = y;
     uint32_t lz = z;
     //make local
-    lx -= this->pos.x;
-    ly -= this->pos.y;
-    lz -= this->pos.z;
+    lx -= segState.Position.x;
+    ly -= segState.Position.y;
+    lz -= segState.Position.z;
 
     CorrectTileForSegmentRotation( (int32_t&)lx,(int32_t&)ly,(int32_t&)lz );
 
-    if((int)lx < 0  + shellthick|| lx >= (uint32_t)this->size.x - shellthick) {
+    if((int)lx < 0  + shellthick|| lx >= (uint32_t)segState.Size.x - shellthick) {
         return 0;
     }
-    if((int)ly < 0  + shellthick|| ly >= (uint32_t)this->size.y - shellthick) {
+    if((int)ly < 0  + shellthick|| ly >= (uint32_t)segState.Size.y - shellthick) {
         return 0;
     }
-    if((int)lz < 0 /*bottom is "interior"*/ || lz >= (uint32_t)this->size.z - shellthick) {
+    if((int)lz < 0 /*bottom is "interior"*/ || lz >= (uint32_t)segState.Size.z - shellthick) {
         return 0;
     }
     return true;

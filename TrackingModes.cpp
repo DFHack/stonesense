@@ -57,9 +57,9 @@ void followCurrentDFWindow()
     newviewx = newviewx + (viewsizex / 2) - mapx / 2;
     newviewy = newviewy + (viewsizey / 2) - mapy / 2;
 
-    parms.x = float (newviewx) * scalex - (ssState.SegmentSize.x / 2) + ssConfig.viewXoffset + mapx / 2;
-    parms.y = float (newviewy) * scaley - (ssState.SegmentSize.y / 2) + ssConfig.viewYoffset + mapy / 2;
-    parms.z = newviewz + ssConfig.viewZoffset + 1;
+    ssState.Position.x = float (newviewx) * scalex - (ssState.Size.x / 2) + ssConfig.viewXoffset + mapx / 2;
+    ssState.Position.y = float (newviewy) * scaley - (ssState.Size.y / 2) + ssConfig.viewYoffset + mapy / 2;
+    ssState.Position.z = newviewz + ssConfig.viewZoffset + 1;
 }
 
 void followCurrentDFCenter()
@@ -71,18 +71,18 @@ void followCurrentDFCenter()
     int32_t newviewz;
     actualWindowSize(viewsizex,viewsizey);
     Gui::getViewCoords(newviewx,newviewy,newviewz);
-    parms.x = newviewx + (viewsizex/2) - (ssState.SegmentSize.x / 2) + ssConfig.viewXoffset;
-    parms.y = newviewy + (viewsizey/2) - (ssState.SegmentSize.y / 2) + ssConfig.viewYoffset;
-    parms.z = newviewz + ssConfig.viewZoffset + 1;
+    ssState.Position.x = newviewx + (viewsizex/2) - (ssState.Size.x / 2) + ssConfig.viewXoffset;
+    ssState.Position.y = newviewy + (viewsizey/2) - (ssState.Size.y / 2) + ssConfig.viewYoffset;
+    ssState.Position.z = newviewz + ssConfig.viewZoffset + 1;
 }
 
 //eventually, this should be a sort of "smart-follow" which switches modes intelligently
 void followCurrentDFFocus()
 {
 	if(ssState.dfCursor.x != -30000) {
-		parms.x = ssState.dfCursor.x - (ssState.SegmentSize.x / 2) + ssConfig.viewXoffset;
-		parms.y = ssState.dfCursor.y - (ssState.SegmentSize.y / 2) + ssConfig.viewYoffset;
-		parms.z = ssState.dfCursor.z + ssConfig.viewZoffset + 1;
+		ssState.Position.x = ssState.dfCursor.x - (ssState.Size.x / 2) + ssConfig.viewXoffset;
+		ssState.Position.y = ssState.dfCursor.y - (ssState.Size.y / 2) + ssConfig.viewYoffset;
+		ssState.Position.z = ssState.dfCursor.z + ssConfig.viewZoffset + 1;
 	} else {
 		followCurrentDFCenter();
 	}

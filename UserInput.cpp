@@ -97,19 +97,19 @@ void moveViewRelativeToRotation( int stepx, int stepy )
     }
     //if we're following the DF screen, we DO NOT bound the view, since we have a simple way to get back
     else {
-        changeRelativeToRotation(ssState.DisplayedSegment.x, ssState.DisplayedSegment.y, stepx, stepy );
+        changeRelativeToRotation(ssState.Position.x, ssState.Position.y, stepx, stepy );
         //bound view to world
-        if((int)ssState.DisplayedSegment.x > (int)ssState.RegionDim.x -(int)ssState.SegmentSize.x/2) {
-            ssState.DisplayedSegment.x = ssState.RegionDim.x -ssState.SegmentSize.x/2;
+        if((int)ssState.Position.x > (int)ssState.RegionDim.x -(int)ssState.Size.x/2) {
+            ssState.Position.x = ssState.RegionDim.x -ssState.Size.x/2;
         }
-        if((int)ssState.DisplayedSegment.y > (int)ssState.RegionDim.y -(int)ssState.SegmentSize.y/2) {
-            ssState.DisplayedSegment.y = ssState.RegionDim.y -ssState.SegmentSize.y/2;
+        if((int)ssState.Position.y > (int)ssState.RegionDim.y -(int)ssState.Size.y/2) {
+            ssState.Position.y = ssState.RegionDim.y -ssState.Size.y/2;
         }
-        if((int)ssState.DisplayedSegment.x < -(int)ssState.SegmentSize.x/2) {
-            ssState.DisplayedSegment.x = -ssState.SegmentSize.x/2;
+        if((int)ssState.Position.x < -(int)ssState.Size.x/2) {
+            ssState.Position.x = -ssState.Size.x/2;
         }
-        if((int)ssState.DisplayedSegment.y < -(int)ssState.SegmentSize.y/2) {
-            ssState.DisplayedSegment.y = -ssState.SegmentSize.y/2;
+        if((int)ssState.Position.y < -(int)ssState.Size.y/2) {
+            ssState.Position.y = -ssState.Size.y/2;
         }
     }
 }
@@ -139,12 +139,12 @@ void doMouse()
         y = mouse.y;
         int tilex,tiley,tilez;
         ScreenToPoint(x,y,tilex,tiley,tilez);
-        int diffx = tilex - ssState.SegmentSize.x/2;
-        int diffy = tiley - ssState.SegmentSize.y/2;
+        int diffx = tilex - ssState.Size.x/2;
+        int diffy = tiley - ssState.Size.y/2;
         /*we use changeRelativeToRotation directly, and not through moveViewRelativeToRotation
         because we don't want to move the offset with the mouse. It just feels weird. */
         // changing to +1,+1 which moves the clicked point to one of the 4 surrounding the center of rotation
-        changeRelativeToRotation(ssState.DisplayedSegment.x, ssState.DisplayedSegment.y, diffx+1, diffy+1 );
+        changeRelativeToRotation(ssState.Position.x, ssState.Position.y, diffx+1, diffy+1 );
         //moveViewRelativeToRotation(diffx+1, diffy+1);
         timeToReloadSegment = true;
         //rest(50);
@@ -155,13 +155,13 @@ void doMouse()
         x = mouse.x;//pos >> 16;
         y = mouse.y; //pos & 0x0000ffff;
         if(x >= MiniMapTopLeftX && x <= MiniMapBottomRightX && y >= MiniMapTopLeftY && y <= MiniMapBottomRightY) { // in minimap
-            ssState.DisplayedSegment.x = (x-MiniMapTopLeftX-MiniMapSegmentWidth/2)/oneTileInPixels;
-            ssState.DisplayedSegment.y = (y-MiniMapTopLeftY-MiniMapSegmentHeight/2)/oneTileInPixels;
+            ssState.Position.x = (x-MiniMapTopLeftX-MiniMapSegmentWidth/2)/oneTileInPixels;
+            ssState.Position.y = (y-MiniMapTopLeftY-MiniMapSegmentHeight/2)/oneTileInPixels;
         } else {
             int tilex,tiley,tilez;
             ScreenToPoint(x,y,tilex,tiley,tilez);
-            int diffx = tilex - ssState.SegmentSize.x/2;
-            int diffy = tiley - ssState.SegmentSize.y/2;
+            int diffx = tilex - ssState.Size.x/2;
+            int diffy = tiley - ssState.Size.y/2;
             debugCursor.x = tilex;
             debugCursor.y = tiley;
         }
@@ -252,17 +252,17 @@ void action_resetscreen(uint32_t keymod)
         ssConfig.viewYoffset = 0;
         ssConfig.viewZoffset = 0;
     } else {
-        ssState.DisplayedSegment.x = (ssState.RegionDim.x -ssState.SegmentSize.x)/2;
-        ssState.DisplayedSegment.y = (ssState.RegionDim.y -ssState.SegmentSize.y)/2;
+        ssState.Position.x = (ssState.RegionDim.x -ssState.Size.x)/2;
+        ssState.Position.y = (ssState.RegionDim.y -ssState.Size.y)/2;
     }
 }
 
 void action_decrsegmentX(uint32_t keymod)
 {
     char stepsize = ((keymod&ALLEGRO_KEYMOD_SHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
-    ssState.SegmentSize.x -= stepsize;
-    if(ssState.SegmentSize.x <= 0) {
-        ssState.SegmentSize.x = 1;
+    ssState.Size.x -= stepsize;
+    if(ssState.Size.x <= 0) {
+        ssState.Size.x = 1;
     }
     timeToReloadSegment = true;
 }
@@ -270,7 +270,7 @@ void action_decrsegmentX(uint32_t keymod)
 void action_incrsegmentX(uint32_t keymod)
 {
     char stepsize = ((keymod&ALLEGRO_KEYMOD_SHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
-    ssState.SegmentSize.x += stepsize;
+    ssState.Size.x += stepsize;
     //add a limit?
     timeToReloadSegment = true;
 }
@@ -278,9 +278,9 @@ void action_incrsegmentX(uint32_t keymod)
 void action_decrsegmentY(uint32_t keymod)
 {
     char stepsize = ((keymod&ALLEGRO_KEYMOD_SHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
-    ssState.SegmentSize.y -= stepsize;
-    if(ssState.SegmentSize.y <= 0) {
-        ssState.SegmentSize.y = 1;
+    ssState.Size.y -= stepsize;
+    if(ssState.Size.y <= 0) {
+        ssState.Size.y = 1;
     }
     timeToReloadSegment = true;
 }
@@ -288,7 +288,7 @@ void action_decrsegmentY(uint32_t keymod)
 void action_incrsegmentY(uint32_t keymod)
 {
     char stepsize = ((keymod&ALLEGRO_KEYMOD_SHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
-    ssState.SegmentSize.y += stepsize;
+    ssState.Size.y += stepsize;
     //add a limit?
     timeToReloadSegment = true;
 }
@@ -296,9 +296,9 @@ void action_incrsegmentY(uint32_t keymod)
 void action_decrsegmentZ(uint32_t keymod)
 {
     char stepsize = ((keymod&ALLEGRO_KEYMOD_SHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
-    ssState.SegmentSize.z -= stepsize;
-    if(ssState.SegmentSize.z <= 0) {
-        ssState.SegmentSize.z = 1;
+    ssState.Size.z -= stepsize;
+    if(ssState.Size.z <= 0) {
+        ssState.Size.z = 1;
     }
     timeToReloadSegment = true;
 }
@@ -306,7 +306,7 @@ void action_decrsegmentZ(uint32_t keymod)
 void action_incrsegmentZ(uint32_t keymod)
 {
     char stepsize = ((keymod&ALLEGRO_KEYMOD_SHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
-    ssState.SegmentSize.z += stepsize;
+    ssState.Size.z += stepsize;
     //add a limit?
     timeToReloadSegment = true;
 }
@@ -469,10 +469,10 @@ void action_decrZ(uint32_t keymod)
     if (ssConfig.track_mode != GameConfiguration::TRACKING_NONE) {
         ssConfig.viewZoffset -= stepsize;
     } else {
-        ssState.DisplayedSegment.z -= stepsize;
+        ssState.Position.z -= stepsize;
     }
-    if(ssState.DisplayedSegment.z<1) {
-        ssState.DisplayedSegment.z = 1;
+    if(ssState.Position.z<1) {
+        ssState.Position.z = 1;
     }
     timeToReloadSegment = true;
 }
@@ -490,7 +490,7 @@ void action_incrZ(uint32_t keymod)
     if (ssConfig.track_mode != GameConfiguration::TRACKING_NONE) {
         ssConfig.viewZoffset += stepsize;
     } else {
-        ssState.DisplayedSegment.z += stepsize;
+        ssState.Position.z += stepsize;
     }
     timeToReloadSegment = true;
 }

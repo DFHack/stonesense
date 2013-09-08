@@ -78,24 +78,24 @@ void parseConfigLine( string line )
         string result = parseStrFromLine( "WINDOWED", line );
         ssConfig.Fullscreen = (result == "NO");
     }
-    if( line.find("[SEGMENTSIZE_XY") != -1) {
-        int value = parseIntFromLine( "SEGMENTSIZE_XY", line );
+    if( line.find("[Size_XY") != -1) {
+        int value = parseIntFromLine( "Size_XY", line );
         if(value < 1) {
-            value = DEFAULT_SEGMENTSIZE;
+            value = DEFAULT_Size;
         }
         if(value > 100) {
             value = 100;
         }
         //plus 2 to allow edge readings
-        ssState.SegmentSize.x = value+2;
-        ssState.SegmentSize.y = value+2;
+        ssState.Size.x = value+2;
+        ssState.Size.y = value+2;
     }
-    if( line.find("[SEGMENTSIZE_Z") != -1) {
-        int value = parseIntFromLine( "SEGMENTSIZE_Z", line );
+    if( line.find("[Size_Z") != -1) {
+        int value = parseIntFromLine( "Size_Z", line );
         if(value < 1) {
-            value = DEFAULT_SEGMENTSIZE_Z;
+            value = DEFAULT_Size_Z;
         }
-        ssState.SegmentSize.z = value;
+        ssState.Size.z = value;
     }
 
     if( line.find("[ALLCREATURES") != -1) {

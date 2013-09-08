@@ -34,9 +34,9 @@ void dumpSegment()
     al_lock_mutex(ssConfig.readMutex);
 
     //back up all the relevant values
-    Crd3D tempSize = ssState.SegmentSize;
-    int tempViewx = DisplayedSegment.x;
-    int tempViewy = DisplayedSegment.y;
+    Crd3D tempSize = ssState.Size;
+    int tempViewx = Position.x;
+    int tempViewy = Position.y;
     bool tempFollow = ssConfig.follow_DFscreen;
     int tempLift = ssConfig.lift_segment_offscreen_y;
     int currentFlags = al_get_new_bitmap_flags();
@@ -95,9 +95,9 @@ void dumpSegment()
     al_set_new_bitmap_flags(tempFlags);
 
     //restore everything that we changed.
-    ssState.SegmentSize = tempSize;
-    DisplayedSegment.x = tempViewx;
-    DisplayedSegment.y = tempViewy;
+    ssState.Size = tempSize;
+    Position.x = tempViewx;
+    Position.y = tempViewy;
     ssConfig.follow_DFscreen = tempFollow;
     ssConfig.lift_segment_offscreen_y = tempLift;
 

@@ -173,14 +173,14 @@ bool loadfont(DFHack::color_ostream & output)
 
 void benchmark()
 {
-    ssState.DisplayedSegment.x = ssState.DisplayedSegment.y = 0;
-    ssState.DisplayedSegment.x = 110;
-    ssState.DisplayedSegment.y = 110;
-    ssState.DisplayedSegment.z = 18;
+    ssState.Position.x = ssState.Position.y = 0;
+    ssState.Position.x = 110;
+    ssState.Position.y = 110;
+    ssState.Position.z = 18;
     uint32_t startTime = clock();
     int i = 20;
     while(i--) {
-        reloadDisplayedSegment();
+        reloadPosition();
     }
 
     FILE* fp = fopen("benchmark.txt", "w" );
@@ -269,7 +269,7 @@ static void main_loop(ALLEGRO_DISPLAY * display, Overlay * ovrlay, ALLEGRO_EVENT
 					drawcredits();
 					ovrlay->Flip();
 				} else if( timeToReloadSegment ) {
-					reloadDisplayedSegment();
+					reloadPosition();
 					al_clear_to_color(ssConfig.backcol);
 					paintboard();
 					ovrlay->Flip();
@@ -289,7 +289,7 @@ static void main_loop(ALLEGRO_DISPLAY * display, Overlay * ovrlay, ALLEGRO_EVENT
 					drawcredits();
 					al_flip_display();
 				} else if( timeToReloadSegment ) {
-					reloadDisplayedSegment();
+					reloadPosition();
 					al_clear_to_color(ssConfig.backcol);
 					paintboard();
 					al_flip_display();
@@ -401,9 +401,9 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
     ssConfig.Fullscreen = FULLSCREEN;
     ssState.ScreenH = RESOLUTION_HEIGHT;
     ssState.ScreenW = RESOLUTION_WIDTH;
-    ssState.SegmentSize.x = DEFAULT_SEGMENTSIZE;
-    ssState.SegmentSize.y = DEFAULT_SEGMENTSIZE;
-    ssState.SegmentSize.z = DEFAULT_SEGMENTSIZE_Z;
+    ssState.Size.x = DEFAULT_Size;
+    ssState.Size.y = DEFAULT_Size;
+    ssState.Size.z = DEFAULT_Size_Z;
     ssConfig.show_creature_names = true;
     ssConfig.show_osd = true;
     ssConfig.show_keybinds = false;
@@ -446,8 +446,8 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
         return NULL;
     }
     //set debug cursor
-    debugCursor.x = ssState.SegmentSize.x / 2;
-    debugCursor.y = ssState.SegmentSize.y / 2;
+    debugCursor.x = ssState.Size.x / 2;
+    debugCursor.y = ssState.Size.y / 2;
 
     uint32_t version = al_get_allegro_version();
     int major = version >> 24;
@@ -459,7 +459,8 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
 
 	al_set_new_display_flags(
 		(ssConfig.Fullscreen && !ssConfig.overlay_mode ? ALLEGRO_FULLSCREEN : ALLEGRO_WINDOWED)
-		|(ssConfig.overlay_mode ? ALLEGRO_RESIZABLE : ALLEGRO_MINIMIZED)
+		|(ssConfig.overlay_mode ? 0 : ALLEGRO_RESIZABLE)
+		|(ssConfig.overlay_mode ? ALLEGRO_MINIMIZED : 0)
 		|(ssConfig.opengl ? ALLEGRO_OPENGL : 0)
 		|(ssConfig.directX ? ALLEGRO_DIRECT3D_INTERNAL : 0));
 

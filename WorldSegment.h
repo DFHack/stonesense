@@ -37,20 +37,15 @@ public:
     bool loaded;
     bool processed;
     //these are the coordinates and size of the loaded segment
-    Crd3D pos;
-    Crd3D size;
     GameState segState;
-    WorldSegment(int x=0, int y=0, int z=0, int sizex=0, int sizey=0, int sizez=0) {
-        this->pos.x = x;
-        this->pos.y = y;
-        this->pos.z = z - sizez + 1;
-        this->size.x = sizex;
-        this->size.y = sizey;
-        this->size.z = sizez;
-        segState = ssState;
+    WorldSegment(GameState inState) {
+        segState = inState;
+		segState.Position.z = segState.Position.z - segState.Size.z + 1;
 
-        uint32_t memoryNeeded = sizex * sizey * sizez * sizeof(Tile);
-        tiles = (Tile*) malloc( memoryNeeded );
+        
+        uint32_t newNumTiles = inState.Size.x * inState.Size.y * inState.Size.z;
+        uint32_t memoryNeeded = newNumTiles * sizeof(Tile);
+		tiles = (Tile*) malloc( memoryNeeded );
         memset(tiles, 0, memoryNeeded);
     }
 
@@ -64,7 +59,7 @@ public:
         free(tiles);
     }
 
-    void Reset(int x=0, int y=0, int z=0, int sizex=0, int sizey=0, int sizez=0, bool hard=false) {
+    void Reset(GameState inState, bool hard=false) {
         //clear and free old data
         ClearBuildings();
         ClearUnits();
@@ -73,7 +68,7 @@ public:
 			Tile::InvalidateAndDestroy(& tiles[i]);
         }
 
-        uint32_t newNumTiles = sizex * sizey * sizez;
+        uint32_t newNumTiles = inState.Size.x * inState.Size.y * inState.Size.z;
         uint32_t memoryNeeded = newNumTiles * sizeof(Tile);
         //if this is a hard reset, or if the size doesn't match what is needed, get a new segment
         if(hard || newNumTiles != getNumTiles()) {
@@ -91,18 +86,12 @@ public:
             }
         }
 
-        this->pos.x = x;
-        this->pos.y = y;
-        this->pos.z = z - sizez + 1;
-        this->size.x = sizex;
-        this->size.y = sizey;
-        this->size.z = sizez;
-        segState = ssState;
-        
+        segState = inState;
+		segState.Position.z = segState.Position.z - segState.Size.z + 1;
     }
 
     inline uint32_t getNumTiles() {
-        return size.x * size.y * size.z;
+        return segState.Size.x * segState.Size.y * segState.Size.z;
     }
     
     Tile* ResetTile(int32_t x, int32_t y, int32_t z, df::tiletype type=tiletype::OpenSpace);
@@ -130,10 +119,12 @@ public:
 // FIXME: make nicer. one day. maybe.
 class SegmentWrap
 {
+private:
+	static const GameState zeroState;
 public:
     SegmentWrap() {
-        drawsegment = new WorldSegment();
-        readsegment = new WorldSegment();
+        drawsegment = new WorldSegment(zeroState);
+        readsegment = new WorldSegment(zeroState);
         drawmutex = al_create_mutex();
         readmutex = al_create_mutex();
     }
@@ -144,8 +135,8 @@ public:
         al_destroy_mutex(readmutex);
     }
     void shutdown(){
-        drawsegment->Reset();
-        readsegment->Reset();
+        drawsegment->Reset(zeroState);
+        readsegment->Reset(zeroState);
     }
     void lock() {
         al_lock_mutex(drawmutex);

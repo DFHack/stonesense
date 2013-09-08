@@ -295,7 +295,7 @@ void Tile::AssembleTile()
         if (spriteobject->get_sheetindex() != INVALID_INDEX) {
             spriteobject->set_size(SPRITEWIDTH, SPRITEHEIGHT);
             spriteobject->set_plate_layout(RAMPBOTTOMPLATE);
-            spriteobject->assemble_world_offset(x, y, z, 0, this, (chopThisTile && this->z == ownerSegment->pos.z + ownerSegment->size.z -2));
+            spriteobject->assemble_world_offset(x, y, z, 0, this, (chopThisTile && this->z == ownerSegment->segState.Position.z + ownerSegment->segState.Size.z -2));
         }
         spriteobject->set_plate_layout(TILEPLATE);
     }
@@ -413,7 +413,7 @@ void Tile::AssembleTile()
         if (spriteobject->get_sheetindex() == INVALID_INDEX ) {
             //skip
         } else {
-            spriteobject->assemble_world(x, y, z, this, (chopThisTile && this->z == ownerSegment->pos.z + ownerSegment->size.z -2));
+            spriteobject->assemble_world(x, y, z, this, (chopThisTile && this->z == ownerSegment->segState.Position.z + ownerSegment->segState.Size.z -2));
         }
     }
 
@@ -458,9 +458,9 @@ void Tile::AssembleTile()
         //if(waterlevel == 7) waterlevel--;
         uint32_t waterlevel = designation.bits.flow_size + (deepwater ? 1 : 0);
         if(designation.bits.liquid_type == 0) {
-            contentLoader->water[waterlevel-1].sprite.assemble_world(x, y, z, this, (chopThisTile && this->z == ownerSegment->pos.z + ownerSegment->size.z -2));
+            contentLoader->water[waterlevel-1].sprite.assemble_world(x, y, z, this, (chopThisTile && this->z == ownerSegment->segState.Position.z + ownerSegment->segState.Size.z -2));
         } else {
-            contentLoader->lava[waterlevel-1].sprite.assemble_world(x, y, z, this, (chopThisTile && this->z == ownerSegment->pos.z + ownerSegment->size.z -2));
+            contentLoader->lava[waterlevel-1].sprite.assemble_world(x, y, z, this, (chopThisTile && this->z == ownerSegment->segState.Position.z + ownerSegment->segState.Size.z -2));
         }
     }
 
