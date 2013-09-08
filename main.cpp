@@ -154,13 +154,6 @@ void SetTitle(const char *format, ...)
     al_ustr_free(buf);
 }
 
-void correctTileForDisplayedOffset(int32_t& x, int32_t& y, int32_t& z)
-{
-    x -= ssState.DisplayedSegment.x;
-    y -= ssState.DisplayedSegment.y; //DisplayedSegment.y;
-    z -= ssState.DisplayedSegment.z - 1; // + viewedSegment->sizez - 2; // loading one above the top of the displayed segment for tile rules
-}
-
 bool loadfont(DFHack::color_ostream & output)
 {
     ALLEGRO_PATH * p = al_create_path_for_directory("stonesense");
@@ -309,8 +302,11 @@ static void main_loop(ALLEGRO_DISPLAY * display, Overlay * ovrlay, ALLEGRO_EVENT
 					animationFrameShown = true;
 				}
 			}
-			doMouse();
-			doRepeatActions();
+			
+			if (!ssConfig.overlay_mode) {
+				doMouse();
+				doRepeatActions();
+			}
 			redraw = false;
 		}
 		/* Take the next event out of the event queue, and store it in `event'. */
@@ -329,6 +325,9 @@ static void main_loop(ALLEGRO_DISPLAY * display, Overlay * ovrlay, ALLEGRO_EVENT
         if(in_time) {
             switch (event.type) {
             case ALLEGRO_EVENT_DISPLAY_RESIZE:
+				if (ssConfig.overlay_mode) {
+					break;
+				}
                 if(!al_acknowledge_resize(event.display.source)) {
                     con.printerr("Failed to resize diplay");
                     return;
@@ -349,6 +348,9 @@ static void main_loop(ALLEGRO_DISPLAY * display, Overlay * ovrlay, ALLEGRO_EVENT
                 /* ALLEGRO_EVENT_KEY_DOWN - a keyboard key was pressed.
                 */
             case ALLEGRO_EVENT_KEY_CHAR:
+				if (ssConfig.overlay_mode) {
+					break;
+				}
                 if(event.keyboard.display != display) {
                     break;
                 } else if (event.keyboard.keycode == ALLEGRO_KEY_ESCAPE) {
@@ -454,12 +456,16 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
 	int release = version & 255;
 
 	out.print("Using allegro version %d.%d.%d r%d\n", major, minor, revision, release);
-	
-	int gfxMode = ssConfig.Fullscreen ? ALLEGRO_FULLSCREEN : ALLEGRO_WINDOWED;
-	al_set_new_display_flags(gfxMode|ALLEGRO_RESIZABLE|(ssConfig.opengl ? ALLEGRO_OPENGL : 0)|(ssConfig.directX ? ALLEGRO_DIRECT3D_INTERNAL : 0));
-    if(ssConfig.software) {
-        al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP|ALLEGRO_ALPHA_TEST|ALLEGRO_MIN_LINEAR|ALLEGRO_MIPMAP);
-    } else {
+
+	al_set_new_display_flags(
+		(ssConfig.Fullscreen && !ssConfig.overlay_mode ? ALLEGRO_FULLSCREEN : ALLEGRO_WINDOWED)
+		|(ssConfig.overlay_mode ? ALLEGRO_RESIZABLE : ALLEGRO_MINIMIZED)
+		|(ssConfig.opengl ? ALLEGRO_OPENGL : 0)
+		|(ssConfig.directX ? ALLEGRO_DIRECT3D_INTERNAL : 0));
+
+	if(ssConfig.software) {
+		al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP|ALLEGRO_ALPHA_TEST|ALLEGRO_MIN_LINEAR|ALLEGRO_MIPMAP);
+	} else {
         al_set_new_bitmap_flags(ALLEGRO_MIN_LINEAR|ALLEGRO_MIPMAP);
     }
 

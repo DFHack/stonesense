@@ -1,13 +1,14 @@
 #include "Overlay.h"
 #include "TrackingModes.h"
 #include "Hooks.h"
+#include "GUI.h"
 
 #include "df/init.h"
 
 #include "df/viewscreen_dwarfmodest.h"
 #include "df/viewscreen_dungeonmodest.h"
 
-//no idea what I'm doing!
+
 DFhackCExport void * SDL_GetVideoSurface(void);
 DFhackCExport vPtr SDL_CreateRGBSurface(uint32_t flags, int width, int height, int depth,
 										uint32_t Rmask, uint32_t Gmask, uint32_t Bmask, uint32_t Amask);
@@ -16,6 +17,7 @@ DFhackCExport vPtr SDL_CreateRGBSurfaceFrom(vPtr pixels, int width, int height, 
 DFhackCExport void SDL_FreeSurface(vPtr surface);
 DFhackCExport int SDL_UpperBlit(DFHack::DFSDL_Surface* src, DFHack::DFSDL_Rect* srcrect, 
 								DFHack::DFSDL_Surface* dst, DFHack::DFSDL_Rect* dstrect);
+DFhackCExport uint8_t SDL_GetMouseState(int *x, int *y);
 
 void Overlay::ReadTileLocations()
 {
@@ -39,6 +41,11 @@ void Overlay::CheckViewscreen()
 	} else {
 		good_viewscreen = false;
 	}
+}
+
+bool Overlay::PaintingOverTileAt(int32_t x, int32_t y)
+{
+	return x != 0 && x <= width && y != 0 && y <= height;
 }
 
 void Overlay::set_to_null() 
@@ -93,6 +100,7 @@ Overlay::Overlay(renderer* parent) : parent(parent)
 {
 	{
 		CoreSuspender suspend;
+		//parent->zoom(df::zoom_commands::zoom_reset);
 		CheckViewscreen();
 		ReadTileLocations();
 		copy_from_inner(); 
@@ -100,8 +108,16 @@ Overlay::Overlay(renderer* parent) : parent(parent)
 
 	front_mutex = al_create_mutex();
 
-	front = al_create_bitmap(0, 0);
-	back = al_create_bitmap(0, 0);
+	int32_t flags = al_get_new_bitmap_flags();
+	if(al_get_current_display() != NULL){
+		al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP | ALLEGRO_ALPHA_TEST);
+	}
+	front = al_create_bitmap(0,0);
+	if(al_get_current_display() != NULL){
+		al_set_new_bitmap_flags(al_get_bitmap_flags(al_get_backbuffer(al_get_current_display())));
+	}
+	back = al_create_bitmap(0,0);
+	al_set_new_bitmap_flags(flags);
 
 	Flip();
 };
@@ -140,8 +156,7 @@ void Overlay::Flip()
 				al_destroy_bitmap(front);
 				int32_t flags = al_get_new_bitmap_flags();
 				if(al_get_current_display() != NULL){
-					al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP | ALLEGRO_ALPHA_TEST 
-						| al_get_bitmap_flags(al_get_backbuffer(al_get_current_display())));
+					al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP | ALLEGRO_ALPHA_TEST);
 				}
 				front = al_create_bitmap(ssState.ScreenW, ssState.ScreenH);
 				al_set_new_bitmap_flags(flags);
@@ -185,7 +200,7 @@ bool Overlay::GoodViewscreen()
 void Overlay::update_tile(int32_t x, int32_t y) 
 { 
 	//don't update tiles we are painting overtop of
-	if(x == 0 || x > width || y == 0 || y > height){
+	if(!PaintingOverTileAt(x,y)){
 		copy_to_inner();
 		parent->update_tile(x,y);
 	}
@@ -203,6 +218,7 @@ void Overlay::render()
 	copy_to_inner();
 
 	al_lock_mutex(front_mutex);
+	CheckViewscreen();
 	if(good_viewscreen){
 		if(front_data != NULL && front_updated){
 			//allegro sometimes gives a negative pitch, which SDL doesn't understand, so take care of that case
@@ -229,7 +245,6 @@ void Overlay::render()
 
 			SDL_FreeSurface(sssurf);
 		}
-		CheckViewscreen();
 		ReadTileLocations();
 		front_updated = false;
 	} else {
@@ -245,12 +260,36 @@ void Overlay::set_fullscreen()
 { 
 	copy_to_inner();
 	parent->set_fullscreen();
+	copy_from_inner();
 }
 
 void Overlay::zoom(df::zoom_commands z) 
 { 
 	copy_to_inner();
-	parent->zoom(z);
+	parent->zoom(df::zoom_commands::zoom_reset);
+	//parent->zoom(z);
+	copy_from_inner();
+
+	//switch (z) {
+	//case df::zoom_commands::zoom_fullscreen:
+	//	//???
+	//	break;
+	//case df::zoom_commands::zoom_in:
+	//	ssConfig.zoom++;
+	//	ssConfig.scale = pow(2.0f, ssConfig.zoom);
+	//	break;
+	//case df::zoom_commands::zoom_out:
+	//	ssConfig.zoom--;
+	//	ssConfig.scale = pow(2.0f, ssConfig.zoom);
+	//	break;
+	//case df::zoom_commands::zoom_reset:
+	//	ssConfig.zoom = 5;
+	//	ssConfig.scale = pow(2.0f, ssConfig.zoom);
+	//	break;
+	//case df::zoom_commands::zoom_resetgrid:
+	//	//???
+	//	break;
+	//}
 }
 
 void Overlay::resize(int32_t w, int32_t h) 
@@ -264,32 +303,27 @@ void Overlay::grid_resize(int32_t w, int32_t h)
 { 
 	copy_to_inner();
 	parent->grid_resize(w,h);
-	parent->update_all();
 	copy_from_inner();
-	front_updated = true;
 }
 
 bool Overlay::get_mouse_coords(int32_t* x, int32_t* y) 
 { 
-	return parent->get_mouse_coords(x,y);
+	//PrintMessage("in:(%i,%i)\n",*x,*y);
+	bool ret = parent->get_mouse_coords(x,y);
+	//PrintMessage("out:(%i,%i)\n",*x,*y); 
+	if(PaintingOverTileAt(*x,*y)){
+		int xpx, ypx, xpos, ypos, zpos;
+		SDL_GetMouseState(&xpx, &ypx);
+		xpx = xpx - offsetx;
+		ypx = ypx - offsety;
+		
+        ScreenToPoint(xpx,ypx,xpos,ypos,zpos);
+
+	}
+	return ret;
 }
 
 bool Overlay::uses_opengl() 
 { 
 	return parent->uses_opengl();
-}
-
-void Overlay::invalidateRect(int32_t x,int32_t y,int32_t w,int32_t h)
-{
-	for(int i=x;i<x+w;i++)
-		for(int j=y;j<y+h;j++)
-		{
-			int index=i*df::global::gps->dimy + j;
-			screen_old[index*4]=screen[index*4]+1;
-		}
-}
-
-void Overlay::invalidate()
-{
-	invalidateRect(0,0,df::global::gps->dimx,df::global::gps->dimy);
 }

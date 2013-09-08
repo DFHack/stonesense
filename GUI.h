@@ -3,7 +3,8 @@
 #include "common.h"
 
 void ScreenToPoint(int x,int y,int &x1, int &y1, int &z1);
-void pointToScreen(int *inx, int *iny, int inz);
+void pointToScreen(int *inx, int *iny, int inz); 
+void correctTileForDisplayedOffset(int32_t&, int32_t&, int32_t&);
 void correctForRotation(int32_t& x, int32_t& y, unsigned char rot, int32_t szx, int32_t szy);
 Crd2D WorldTileToScreen(int32_t x, int32_t y, int32_t z);
 Crd2D LocalTileToScreen(int32_t x, int32_t y, int32_t z);

@@ -38,6 +38,8 @@ private:
 	void ReadTileLocations();
 	//updates good_viewscreen
 	void CheckViewscreen();
+	//determines if the given tile location is within the area we're painting over
+	bool PaintingOverTileAt(int32_t, int32_t);
 
 	//df::renderer overrides
 	void set_to_null();
@@ -62,6 +64,4 @@ public:
 	void grid_resize(int32_t w, int32_t h);
 	bool get_mouse_coords(int32_t* x, int32_t* y);
 	bool uses_opengl();
-	void invalidateRect(int32_t x,int32_t y,int32_t w,int32_t h);
-	void invalidate();
 };
