@@ -177,14 +177,14 @@ void ScreenToPoint(int x,int y,int &x1, int &y1, int &z1, int segSizeX, int segS
 
     y = y/ssConfig.scale;
     y += TILETOPHEIGHT*5/4;
-    y += TILEHEIGHT*ssConfig.lift_segment_offscreen_y;
+    y += ssConfig.lift_segment_offscreen_y;
     z1 = 0;
     y += z1*TILEHEIGHT;
     y = 2 * y / TILETOPHEIGHT;
     y += (segSizeX/2) + (segSizeY/2);
     
     x = x/ssConfig.scale;
-    x -= (TILEWIDTH/2)*(ssConfig.lift_segment_offscreen_x);
+    x -= ssConfig.lift_segment_offscreen_x;
     x = 2 * x / TILEWIDTH;
     x += (segSizeX/2) - (segSizeY/2);
 
@@ -208,7 +208,7 @@ void pointToScreen(int *inx, int *iny, int inz, int segSizeX, int segSizeY, int 
     int x = *inx-*iny;
     x-=(segSizeX/2) - (segSizeY/2);
     x = x * TILEWIDTH / 2;
-    x += (TILEWIDTH/2)*ssConfig.lift_segment_offscreen_x;
+    x += ssConfig.lift_segment_offscreen_x;
     x *= ssConfig.scale;
 
     int y = *inx+*iny;
@@ -216,7 +216,7 @@ void pointToScreen(int *inx, int *iny, int inz, int segSizeX, int segSizeY, int 
     y = y*TILETOPHEIGHT / 2;
     y -= z*TILEHEIGHT;
     y -= TILETOPHEIGHT*5/4;
-    y -= TILEHEIGHT*ssConfig.lift_segment_offscreen_y;
+    y -= ssConfig.lift_segment_offscreen_y;
     y *= ssConfig.scale;
 
     x+=ScreenW / 2;
@@ -1402,26 +1402,32 @@ void saveMegashot(bool tall)
         }
         
         //zero out the segment lift
-        ssConfig.lift_segment_offscreen_y = 0;
+		int startlifty, startliftx;
+		startlifty = 0;
         //realign the image if the region is rectangular
         switch(ssState.Rotation){
         case 0:
         case 2:
-            ssConfig.lift_segment_offscreen_x = ssState.RegionDim.y;
+            startliftx = (TILEWIDTH/2)*ssState.RegionDim.y;
             break;
         case 1:
         case 3:
-            ssConfig.lift_segment_offscreen_x = ssState.RegionDim.x;
+            startliftx = (TILEWIDTH/2)*ssState.RegionDim.x;
             break;
         }
+        ssConfig.lift_segment_offscreen_y = startlifty;
+        ssConfig.lift_segment_offscreen_x = startliftx;
 
         //here we deal with the rotations
         int startx, incrx, numx;
         int starty, incry, numy;
+		int sizex, sizey;
         int numz;
 
         startx = -1;
         starty = -1;
+		sizex = ssState.Size.x-2;
+		sizey = ssState.Size.y-2;
         switch(ssState.Rotation){
         case 0:
         case 2:
@@ -1454,37 +1460,58 @@ void saveMegashot(bool tall)
         if(ssState.Rotation == 3 || ssState.Rotation == 2) {
             startx = (int)ssState.RegionDim.x + 2 - incrx;
             ssState.Position.x = (int)ssState.RegionDim.x - incrx - 1;
-            incrx = -incrx;
-        } else {
-            ssState.Position.x = -1;
-        }
-        if(tall) {
-            ssState.Position.z = ssState.RegionDim.z;
-        }
-        ssState.Position.x = startx;
-        ssState.Position.y = starty;
-        ssState.Position.z = tall ? 0 : ssState.Position.z;
+			incrx = -incrx;
+		} else {
+			ssState.Position.x = -1;
+		}
+		if(tall) {
+			ssState.Position.z = ssState.RegionDim.z;
+		}
+		ssState.Position.x = startx;
+		ssState.Position.y = starty;
+		ssState.Position.z = tall ? 0 : ssState.Position.z;
 
-        //now actually loop through and draw the subsegments
-        for(int k=0; k<numz; k++) {
-            for(int i=0; i<numy; i++) {
-                for(int j=0; j<numx; j++) {
-                    //read and draw each individual segment
-                    read_segment(NULL);
-                    map_segment.lockDraw();
-                    WorldSegment * segment = map_segment.getDraw();
-                    segment->DrawAllTiles();
-                    map_segment.unlockDraw();
+		//set up the pixel-shifts
+		int32_t movexx, moveyx, movexy, moveyy;
+		if(ssState.Rotation == 1 || ssState.Rotation == 3) {
+			movexx = -sizey;
+			moveyx = sizey;
 
-                   ssState.Position.x += incrx;
-                }
-                ssState.Position.x = startx;
-                ssState.Position.y += incry;
-            }
-            ssState.Position.x=startx;
-            ssState.Position.y=starty;
-            ssState.Position.z += ssState.Size.z - 1;
-        }
+			movexy = -sizex;
+			moveyy = sizex;
+		} else {
+			movexx = sizex;
+			moveyx = sizex;
+
+			movexy = sizey;
+			moveyy = sizey;
+		}
+
+		//now actually loop through and draw the subsegments
+		for(int k=0; k<numz; k++) {
+			//startlifty = startlifty - TILEHEIGHT*(numz-k)*(ssState.Size.z - 1);
+			for(int i=0; i<numy; i++) {
+				ssConfig.lift_segment_offscreen_x = startliftx - (TILEWIDTH/2)*i*movexy;
+				ssConfig.lift_segment_offscreen_y = startlifty - (TILETOPHEIGHT/2)*i*moveyy;
+				for(int j=0; j<numx; j++) {
+					//read and draw each individual segment
+					read_segment(NULL);
+					map_segment.lockDraw();
+					WorldSegment * segment = map_segment.getDraw();
+					segment->DrawAllTiles();
+					map_segment.unlockDraw();
+
+					ssState.Position.x += incrx;
+					ssConfig.lift_segment_offscreen_x += (TILEWIDTH/2)*movexx;
+					ssConfig.lift_segment_offscreen_y -= (TILETOPHEIGHT/2)*moveyx;
+				}
+				ssState.Position.x = startx;
+				ssState.Position.y += incry;
+			}
+			ssState.Position.x=startx;
+			ssState.Position.y=starty;
+			ssState.Position.z += ssState.Size.z - 1;
+		}
 
 
         al_save_bitmap(filename, bigFile);
