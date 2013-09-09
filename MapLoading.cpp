@@ -517,9 +517,6 @@ void readMapSegment(WorldSegment* segment, GameState inState)
 	ssState.RegionDim.y = blockDimY;
 	ssState.RegionDim.z = blockDimZ;
 
-	//read cursor
-	Gui::getCursorCoords(ssState.dfCursor.x, ssState.dfCursor.y, ssState.dfCursor.z);
-
     //setup new world segment
     segment->Reset(inState,false);
 
@@ -649,9 +646,14 @@ void read_segment( void *arg)
     static bool firstLoad = 1;
     ssConfig.threadstarted = 1;
     WorldSegment* segment = NULL;
-    {
-        CoreSuspender suspend;
-		
+	{
+		CoreSuspender suspend;
+
+		//read cursor
+		if (ssConfig.follow_DFcursor) {
+			Gui::getCursorCoords(ssState.dfCursor.x, ssState.dfCursor.y, ssState.dfCursor.z);
+		}
+
         if (firstLoad || ssConfig.track_mode != GameConfiguration::TRACKING_NONE) {
             firstLoad = 0;
             if (ssConfig.track_mode == GameConfiguration::TRACKING_CENTER) {
@@ -660,6 +662,7 @@ void read_segment( void *arg)
                 followCurrentDFWindow();
             } else if (ssConfig.track_mode == GameConfiguration::TRACKING_FOCUS) {
                 followCurrentDFFocus();
+				ssConfig.follow_DFcursor = true;
             }
         }
         segment = map_segment.getRead();

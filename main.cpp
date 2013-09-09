@@ -445,9 +445,6 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
         stonesense_started = 0;
         return NULL;
     }
-    //set debug cursor
-    debugCursor.x = ssState.Size.x / 2;
-    debugCursor.y = ssState.Size.y / 2;
 
     uint32_t version = al_get_allegro_version();
     int major = version >> 24;

@@ -156,14 +156,27 @@ void doMouse()
         y = mouse.y; //pos & 0x0000ffff;
         if(x >= MiniMapTopLeftX && x <= MiniMapBottomRightX && y >= MiniMapTopLeftY && y <= MiniMapBottomRightY) { // in minimap
             ssState.Position.x = (x-MiniMapTopLeftX-MiniMapSegmentWidth/2)/oneTileInPixels;
-            ssState.Position.y = (y-MiniMapTopLeftY-MiniMapSegmentHeight/2)/oneTileInPixels;
-        } else {
-            int tilex,tiley,tilez;
-            ScreenToPoint(x,y,tilex,tiley,tilez);
-            int diffx = tilex - ssState.Size.x/2;
-            int diffy = tiley - ssState.Size.y/2;
-            debugCursor.x = tilex;
-            debugCursor.y = tiley;
+			ssState.Position.y = (y-MiniMapTopLeftY-MiniMapSegmentHeight/2)/oneTileInPixels;
+		} else {
+			int tilex,tiley,tilez;
+			
+			//get the point in the segment
+			ScreenToPoint(x,y,tilex,tiley,tilez);
+
+			//then remove the segment rotation
+			correctForRotation(
+				tilex, tiley, 
+				(4 - ssState.Rotation) % 4,
+				ssState.Size.x, ssState.Size.y);
+
+			//add on the segment offset
+			tilex = tilex + ssState.Position.x;
+			tiley = tiley + ssState.Position.y;
+			tilez = tilez + ssState.Position.z - 1;
+
+			ssState.dfCursor.x = tilex;
+			ssState.dfCursor.y = tiley;
+			ssState.dfCursor.z = tilez;
         }
         timeToReloadSegment = true;
     }

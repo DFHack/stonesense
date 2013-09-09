@@ -71,7 +71,6 @@ vector<ALLEGRO_BITMAP*> IMGFilelist;
 vector<string*> IMGFilenames;
 GLhandleARB tinter;
 GLhandleARB tinter_shader;
-Crd3D debugCursor;
 
 const char * get_item_subtype(item_type::item_type type, int subtype)
 {
@@ -400,20 +399,15 @@ void DrawCurrentLevelOutline(bool backPart)
 
 void drawDebugCursor(WorldSegment * segment)
 {
+	Crd3D cursor = segment->segState.dfCursor;
 	if( (segment->segState.dfCursor.x != -30000 && ssConfig.follow_DFcursor)
 		|| (ssConfig.track_mode == GameConfiguration::TRACKING_FOCUS) ){
-			int x = segment->segState.dfCursor.x;
-			int y = segment->segState.dfCursor.y;
-			int z = segment->segState.dfCursor.z;
-			segment->CorrectTileForSegmentOffset(x,y,z);
-			segment->CorrectTileForSegmentRotation( x, y, z );
-			debugCursor.x = x;
-			debugCursor.y = y;
-			debugCursor.z = z;
+			segment->CorrectTileForSegmentOffset(cursor.x, cursor.y, cursor.z);
+			segment->CorrectTileForSegmentRotation(cursor.x, cursor.y, cursor.z);
 	} else {
-		debugCursor.z = 0;
+		cursor.z = 0;
 	}
-	Crd2D point = LocalTileToScreen(debugCursor.x, debugCursor.y, debugCursor.z);
+	Crd2D point = LocalTileToScreen(cursor.x, cursor.y, cursor.z);
 	int sheetx = SPRITEOBJECT_CURSOR % SHEET_OBJECTSWIDE;
     int sheety = SPRITEOBJECT_CURSOR / SHEET_OBJECTSWIDE;
     al_draw_tinted_scaled_bitmap(
@@ -435,12 +429,15 @@ void drawDebugInfo(WorldSegment * segment)
 	using df::global::ui;
 
     //get tile info
-    Tile* b = segment->getTileLocal( debugCursor.x, debugCursor.y, debugCursor.z+segment->segState.Size.z-2);
+    Tile* b = segment->getTile( 
+		segment->segState.dfCursor.x, 
+		segment->segState.dfCursor.y, 
+		segment->segState.dfCursor.z + segment->segState.Size.z - 1);
     int i = 10;
     draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0, "Tile 0x%x", b);
 
     draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0,
-                      "Coord:(%i,%i,%i)", debugCursor.x, debugCursor.y, debugCursor.z);
+                      "Coord:(%i,%i,%i)", segment->segState.dfCursor.x, segment->segState.dfCursor.y, segment->segState.dfCursor.z);
 
     if(!b) {
         return;
