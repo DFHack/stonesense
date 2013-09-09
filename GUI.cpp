@@ -433,13 +433,15 @@ void drawDebugInfo(WorldSegment * segment)
 		segment->segState.dfCursor.x, 
 		segment->segState.dfCursor.y, 
 		segment->segState.dfCursor.z + segment->segState.Size.z - 1);
-    int i = 10;
-    draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0, "Tile 0x%x", b);
+	int i = 10;
+	if(b) {
+		draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0, "Tile 0x%x (%i,%i,%i)", b, b->x, b->y, b->z);
+	}
 
-    draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0,
-                      "Coord:(%i,%i,%i)", segment->segState.dfCursor.x, segment->segState.dfCursor.y, segment->segState.dfCursor.z);
+	draw_textf_border(font, al_map_rgb(255,255,255), 2, (i++*al_get_font_line_height(font)), 0,
+		"Coord:(%i,%i,%i)", segment->segState.dfCursor.x, segment->segState.dfCursor.y, segment->segState.dfCursor.z);
 
-    if(!b) {
+	if(!b) {
         return;
     }
     int ttype;
