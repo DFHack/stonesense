@@ -96,10 +96,12 @@ public:
     
     Tile* ResetTile(int32_t x, int32_t y, int32_t z, df::tiletype type=tiletype::OpenSpace);
     Tile* getTile(int32_t x, int32_t y, int32_t z);
-    Tile* getTileLocal(uint32_t x, uint32_t y, uint32_t z);
-    Tile* getTileRelativeTo(uint32_t x, uint32_t y, uint32_t z,  dirRelative direction);
-    Tile* getTileRelativeTo(uint32_t x, uint32_t y, uint32_t z,  dirRelative direction, int distance);
+    Tile* getTileLocal(int32_t x, int32_t y, int32_t z);
+    Tile* getTileRelativeTo(int32_t x, int32_t y, int32_t z,  dirRelative direction);
+    Tile* getTileRelativeTo(int32_t x, int32_t y, int32_t z,  dirRelative direction, int distance);
     Tile* getTile(uint32_t index);
+	bool ConvertToSegmentLocal(int32_t & x, int32_t & y, int32_t & z);
+	uint32_t ConvertLocalToIndex(int32_t x, int32_t y, int32_t z);
     void CorrectTileForSegmentOffset(int32_t& x, int32_t& y, int32_t& z);
     void CorrectTileForSegmentRotation(int32_t& x, int32_t& y, int32_t& z);
     //void addTile(Tile* b);
@@ -108,8 +110,8 @@ public:
     void AssembleSprite(draw_event d);
     void DrawAllTiles();
     //void drawPixels();
-    bool CoordinateInsideSegment(uint32_t x, uint32_t y, uint32_t z);
-    bool CoordinateInteriorSegment(uint32_t x, uint32_t y, uint32_t z, uint32_t shellthick);
+    bool CoordinateInsideSegment(int32_t x, int32_t y, int32_t z);
+    bool CoordinateInteriorSegment(int32_t x, int32_t y, int32_t z, uint32_t shellthick);
     void PushBuilding( Buildings::t_building * tempbuilding);
     void ClearBuildings();
     void PushUnit( SS_Unit * unit);

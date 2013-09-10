@@ -230,7 +230,7 @@ void Tile::AssembleTile()
 
 	//Draw Ramp Tops
 	if(tileType == tiletype::RampTop){
-		Tile * b = this->ownerSegment->getTile(this->x, this->y, this->z + ownerSegment->segState.Size.z - 2);
+		Tile * b = this->ownerSegment->getTile(this->x, this->y, this->z - 1);
 		if ( b && b->building.type != BUILDINGTYPE_BLACKBOX && b->tileShapeBasic() == tiletype_shape_basic::Ramp ) {
 			spriteobject = GetTileSpriteMap(b->tileType, b->material, b->consForm);
 			if (spriteobject->get_sheetindex() == UNCONFIGURED_INDEX) {

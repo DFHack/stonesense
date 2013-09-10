@@ -381,7 +381,9 @@ void readBlockToSegment(DFHack::Core& DF, WorldSegment& segment,
             if(!shouldBeIncluded){
                 continue;
             }
+
             Tile * b = segment.ResetTile(gx, gy, BlockZ, trueBlock->tiletype[lx][ly]);
+
             b->occ = trueBlock->occupancy[lx][ly];
             b->occ.bits.unit = false;//this will be set manually when we read the creatures vector
             b->designation = trueBlock->designation[lx][ly];
@@ -674,8 +676,8 @@ void read_segment( void *arg)
         beautifySegment(segment);
 
         //putting these here to increase responsiveness of the UI and to make megashots work
-        segment->segState.Position = ssState.Position;
-        segment->segState.dfCursor = ssState.dfCursor;
+        //segment->segState.Position = ssState.Position;
+        //segment->segState.dfCursor = ssState.dfCursor;
 
         segment->AssembleAllTiles();
 
