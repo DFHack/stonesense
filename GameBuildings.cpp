@@ -14,40 +14,6 @@
 #include "df/itemimprovement_threadst.h"
 
 using df::global::world;
-//vector<BuildingConfiguration> buildingTypes;
-//vector <string> v_buildingtypes;//should be empty for all buildings
-/*
-int TileNeighbourhoodType_simple(WorldSegment* segment, Tile* b, bool validationFuctionProc(Tile*) ){
-uint32_t x,y,z;
-x = b->x; y = b->y; z = b->z;
-
-bool n = validationFuctionProc( segment->getTile( x, y-1, z, true) );
-bool s = validationFuctionProc( segment->getTile( x, y+1, z, true) );
-bool e = validationFuctionProc( segment->getTile( x+1, y, z, true) );
-bool w = validationFuctionProc( segment->getTile( x-1, y, z, true) );
-//bool nw = validationFuctionProc( segment->getTile(, x-1, y-1, z) );
-//bool ne = validationFuctionProc( segment->getTile(, x+1, y-1, z) );
-//bool SW = validationFuctionProc( segment->getTile(, x-1, y+1, z) );
-//bool se = validationFuctionProc( segment->getTile(, x+1, y+1, z) );
-
-if(!n && !s && !w && !e) return eSimpleSingle;
-if( n && !s && !w && !e) return eSimpleN;
-if(!n && !s &&  w && !e) return eSimpleW;
-if(!n &&  s && !w && !e) return eSimpleS;
-if(!n && !s && !w &&  e) return eSimpleE;
-
-if( n &&  s && !w && !e) return eSimpleNnS;
-if(!n && !s &&  w &&  e) return eSimpleWnE;
-
-if( n && !s &&  w && !e) return eSimpleNnW;
-if(!n &&  s &&  w && !e) return eSimpleSnW;
-if(!n &&  s && !w &&  e) return eSimpleSnE;
-if( n && !s && !w &&  e) return eSimpleNnE;
-
-//....
-
-return eSimpleSingle;
-}*/
 
 bool tileHasBridge(Tile* b)
 {
