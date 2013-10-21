@@ -48,7 +48,7 @@ void Overlay::CheckViewscreen()
 
 bool Overlay::PaintingOverTileAt(int32_t x, int32_t y)
 {
-	return x != 0 && x <= width && y != 0 && y <= height;
+	return x > 0 && x <= width && y > 0 && y <= height;
 }
 
 void Overlay::set_to_null() 
@@ -348,6 +348,7 @@ bool Overlay::get_mouse_coords(int32_t* x, int32_t* y)
 		//zpos = zpos - dfviewz;
 
 		//check to see if this new loaction is within the area we are painting over
+		//since we don't want to accidentally click somewhere in the interface
 		if(PaintingOverTileAt(xpos,ypos)) {
 			*x = xpos;
 			*y = ypos;
@@ -357,8 +358,9 @@ bool Overlay::get_mouse_coords(int32_t* x, int32_t* y)
 			*y = -1;
 			return false;
 		}
-
 	}
+
+	return ret;
 }
 
 bool Overlay::uses_opengl() 
