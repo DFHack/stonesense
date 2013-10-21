@@ -654,6 +654,9 @@ void read_segment( void *arg)
 		//read cursor
 		if (ssConfig.follow_DFcursor) {
 			Gui::getCursorCoords(ssState.dfCursor.x, ssState.dfCursor.y, ssState.dfCursor.z);
+			ssState.dfSelection.x = df::global::selection_rect->start_x;
+			ssState.dfSelection.y = df::global::selection_rect->start_y;
+			ssState.dfSelection.z = df::global::selection_rect->start_z;
 		}
 
         if (firstLoad || ssConfig.track_mode != GameConfiguration::TRACKING_NONE) {

@@ -397,10 +397,37 @@ void DrawCurrentLevelOutline(bool backPart)
     }
 }
 
+void drawSelectionCursor(WorldSegment * segment)
+{
+	Crd3D selection = segment->segState.dfSelection;
+	if( (selection.x != -30000 && ssConfig.follow_DFcursor)
+		|| (ssConfig.track_mode == GameConfiguration::TRACKING_FOCUS) ){
+			segment->CorrectTileForSegmentOffset(selection.x, selection.y, selection.z);
+			segment->CorrectTileForSegmentRotation(selection.x, selection.y, selection.z);
+	} else {
+		return;
+	}
+	Crd2D point = LocalTileToScreen(selection.x, selection.y, selection.z);
+	int sheetx = SPRITEOBJECT_CURSOR % SHEET_OBJECTSWIDE;
+    int sheety = SPRITEOBJECT_CURSOR / SHEET_OBJECTSWIDE;
+    al_draw_tinted_scaled_bitmap(
+        IMGObjectSheet,
+        al_map_rgb(255,255,255),
+        sheetx * SPRITEWIDTH,
+        sheety * SPRITEHEIGHT,
+        SPRITEWIDTH,
+        SPRITEHEIGHT,
+        point.x-((SPRITEWIDTH/2)*ssConfig.scale),
+        point.y - (WALLHEIGHT)*ssConfig.scale,
+        SPRITEWIDTH*ssConfig.scale,
+        SPRITEHEIGHT*ssConfig.scale,
+        0);
+}
+
 void drawDebugCursor(WorldSegment * segment)
 {
 	Crd3D cursor = segment->segState.dfCursor;
-	if( (segment->segState.dfCursor.x != -30000 && ssConfig.follow_DFcursor)
+	if( (cursor.x != -30000 && ssConfig.follow_DFcursor)
 		|| (ssConfig.track_mode == GameConfiguration::TRACKING_FOCUS) ){
 			segment->CorrectTileForSegmentOffset(cursor.x, cursor.y, cursor.z);
 			segment->CorrectTileForSegmentRotation(cursor.x, cursor.y, cursor.z);
@@ -1016,6 +1043,8 @@ void paintboard()
     } else if (ssConfig.show_osd) {
         al_hold_bitmap_drawing(true);
         draw_textf_border(font, al_map_rgb(255,255,255), 10,al_get_font_line_height(font), 0, "%i,%i,%i, r%i, z%i", ssState.Position.x,ssState.Position.y,ssState.Position.z, ssState.Rotation, ssConfig.zoom);
+
+		drawSelectionCursor(segment);
 
 		drawDebugCursor(segment);
 
