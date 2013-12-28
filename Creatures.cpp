@@ -350,7 +350,9 @@ void DrawCreatureText(int drawx, int drawy, SS_Unit* creature )
         if (creature->name.nickname[0] && ssConfig.names_use_nick) {
             draw_textf_border(font, textcol, drawx, drawy-((WALLHEIGHT*ssConfig.scale)+al_get_font_line_height(font) + offsety), 0,
                               "%s", creature->name.nickname );
-        } else if (creature->name.first_name[0]) {
+        } 
+        else if (creature->name.first_name[0]) 
+        {
             char buffer[128];
             strncpy(buffer,creature->name.first_name,127);
             buffer[127]=0;	
@@ -359,10 +361,27 @@ void DrawCreatureText(int drawx, int drawy, SS_Unit* creature )
             draw_ustr_border(font, textcol, drawx, drawy-((WALLHEIGHT*ssConfig.scale)+al_get_font_line_height(font) + offsety), 0,
                 temp );
             al_ustr_free(temp);
-        } else if (ssConfig.names_use_species) {
+        }
+        else if (ssConfig.names_use_species) 
+        {
             if(!ssConfig.skipCreatureTypes)
-                draw_textf_border(font, textcol, drawx, drawy-((WALLHEIGHT*ssConfig.scale)+al_get_font_line_height(font) + offsety), 0,
-                                  "[%s]", contentLoader->Mats->race.at(creature->race).id.c_str());
+            {
+                char buffer[128];
+                strncpy(buffer,df::global::world->raws.creatures.all[creature->race]->caste[creature->caste]->caste_name[0].c_str(),127);
+                buffer[127]=0;	
+                ALLEGRO_USTR* temp = bufferToUstr(buffer, 128);
+                int32_t lastChar = ' ';
+                for(int i = 0; al_ustr_get(temp, i) > 0; i++)
+                {
+                    if(lastChar == ' ')
+                        al_ustr_set_chr(temp, i, charToUpper(al_ustr_get(temp, i)));
+                    lastChar = al_ustr_get(temp, i);
+
+                }
+                draw_ustr_border(font, textcol, drawx, drawy-((WALLHEIGHT*ssConfig.scale)+al_get_font_line_height(font) + offsety), 0,
+                temp);
+                al_ustr_free(temp);
+            }
         }
     }
 
