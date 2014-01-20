@@ -27,6 +27,7 @@ ALLEGRO_COLOR operator+(const ALLEGRO_COLOR &color1, const ALLEGRO_COLOR &color2
     return temp;
 }
 
+/*
 int getJobColor(unsigned char job)
 {
     switch (job) {
@@ -167,6 +168,7 @@ int getJobColor(unsigned char job)
     }
     return 3;
 }
+*/
 
 ALLEGRO_COLOR premultiply(ALLEGRO_COLOR input)
 {
@@ -239,38 +241,63 @@ ALLEGRO_COLOR getDayShade(int hour, int tick)
     return al_map_rgb(255,255,255);
 }
 
-ALLEGRO_COLOR blink(ALLEGRO_COLOR c1, ALLEGRO_COLOR c2) {
+ALLEGRO_COLOR blink(ALLEGRO_COLOR c1, ALLEGRO_COLOR c2) 
+{
     if((currentAnimationFrame>>2)&0x01) {
         return c2;
     } 
     return c1;
 }
 
-ALLEGRO_COLOR blinkTechnicolor() {
+ALLEGRO_COLOR blinkTechnicolor() 
+{
     switch(currentAnimationFrame & 0x07){
     case 0x00:
         //yellow;
-        return al_map_rgb(255,255,0);
+        return ssConfig.colors.getDfColor(dfColors::yellow);
     case 0x01:
         //blue
-        return al_map_rgb(0,0,255);
+        return ssConfig.colors.getDfColor(dfColors::blue);
     case 0x02:
         //red
-        return al_map_rgb(255,0,0);
+        return ssConfig.colors.getDfColor(dfColors::red);
     case 0x03:
-        //purple
-        return al_map_rgb(128,0,128);
+        //magenta
+        return ssConfig.colors.getDfColor(dfColors::magenta);
     case 0x04:
-        //orange
-        return al_map_rgb(255,165,0);
+        //lred
+        return ssConfig.colors.getDfColor(dfColors::lred);
     case 0x05:
         //green
-        return al_map_rgb(0,128,0);
+        return ssConfig.colors.getDfColor(dfColors::green);
     case 0x06:
-        //burgundy
-        return al_map_rgb(128,0,32);
+        //brown
+        return ssConfig.colors.getDfColor(dfColors::brown);
     default:
         //lime
-        return al_map_rgb(0,255,0);
+        return ssConfig.colors.getDfColor(dfColors::lgreen);
     }
+}
+
+// Meant to unify the different UI coloring techniques used.  
+ALLEGRO_COLOR uiColor(int32_t index)
+{
+	switch(index)
+	{
+	case 0:
+        //black;
+        return ssConfig.colors.getDfColor(dfColors::black);
+	case 1:
+        //white
+        return ssConfig.colors.getDfColor(dfColors::white);
+	case 2:
+        //yellow;
+        return ssConfig.colors.getDfColor(dfColors::yellow);
+	case 3:
+        //lime
+        return ssConfig.colors.getDfColor(dfColors::lgreen);
+    default:
+        //white
+        return ssConfig.colors.getDfColor(dfColors::white);
+	}
 }

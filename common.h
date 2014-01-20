@@ -98,6 +98,7 @@ using namespace df::enums;
 #define MAPNAVIGATIONSTEPBIG 10
 
 #define SHEET_OBJECTSWIDE 20
+#define LETTERS_OBJECTSWIDE 16
 
 //do not alter, defined by DF
 #define BLOCKEDGESIZE 16

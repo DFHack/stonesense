@@ -177,7 +177,42 @@ void Tile::AssembleSprite(ALLEGRO_BITMAP *bitmap, ALLEGRO_COLOR tint, float sx, 
     ownerSegment->AssembleSprite(d);
 }
 
-void Tile::AssembleTile()
+void Tile::GetDrawLocation(int32_t& drawx, int32_t& drawy)
+{
+    drawx = x;
+    drawy = y;
+    int32_t drawz = z;
+    
+    ownerSegment->CorrectTileForSegmentOffset( drawx, drawy, drawz);
+    ownerSegment->CorrectTileForSegmentRotation( drawx, drawy, drawz);
+    pointToScreen((int*)&drawx, (int*)&drawy, drawz);
+    drawx -= (TILEWIDTH>>1)*ssConfig.scale;
+}
+
+void Tile::AssembleTileInterface()
+{
+    if(!visible) {
+        return;
+    }
+
+	int32_t drawx = 0;
+	int32_t drawy = 0;
+	GetDrawLocation(drawx, drawy);
+
+	// Designations
+	if(ssConfig.show_designations)
+	{
+		AssembleDesignationMarker(drawx, drawy);
+	}
+    
+	// Creature Names / Info
+    if(occ.bits.unit && creature && (ssConfig.show_hidden_tiles || !designation.bits.hidden)) {
+        AssembleCreatureText(drawx, drawy, creature, ownerSegment);
+    }
+
+}
+
+void Tile::AssembleTile( void )
 {
 
     if(!visible) {
@@ -192,18 +227,14 @@ void Tile::AssembleTile()
     t_SpriteWithOffset sprite;
     c_sprite* spriteobject;
 
-    int32_t drawx = x;
-    int32_t drawy = y;
-    int32_t drawz = z;
-    
-    ownerSegment->CorrectTileForSegmentOffset( drawx, drawy, drawz);
-    ownerSegment->CorrectTileForSegmentRotation( drawx, drawy, drawz);
-    pointToScreen((int*)&drawx, (int*)&drawy, drawz);
-    drawx -= (TILEWIDTH>>1)*ssConfig.scale;
-    
+	int32_t drawx = 0;
+	int32_t drawy = 0;
+	GetDrawLocation(drawx, drawy);
+
     //TODO the following check should get incorporated into segment beautification
     if(((drawx + TILEWIDTH*ssConfig.scale) < 0) || (drawx > ssState.ScreenW) || ((drawy + (TILETOPHEIGHT + FLOORHEIGHT)*ssConfig.scale) < 0) || (drawy - WALLHEIGHT*ssConfig.scale > ssState.ScreenH)) {
-        return;
+		visible = FALSE;
+		return;
     }
 
     bool chopThisTile = 0;
@@ -545,40 +576,7 @@ void Tile::AssembleTile()
 
         }
     }
-    
-    if(occ.bits.unit && creature && (ssConfig.show_hidden_tiles || !designation.bits.hidden)) {
-        AssembleCreatureText(drawx, drawy, creature, ownerSegment);
-    }
 }
-
-//void Tile::DrawPixel(int drawx, int drawy)
-//{
-//    ALLEGRO_COLOR temp;
-//    if(
-//        tileShapeBasic==tiletype_shape_basic::Floor ||
-//        tileShapeBasic==tiletype_shape_basic::Wall ||
-//        tileShapeBasic==tiletype_shape_basic::Ramp ||
-//        tileShapeBasic==tiletype_shape_basic::Stair
-//    ) {
-//        al_put_pixel(drawx, drawy, lookupMaterialColor(this->material));
-//    }
-//    if(this->water.index) {
-//        if(this->water.type == 0) { //water
-//            al_draw_pixel(drawx, drawy, al_map_rgba_f(0.6f, 0.85f, 0.92f, (float)water.index / 7.0f));
-//        } else {
-//            al_draw_pixel(drawx, drawy, al_map_rgba_f(1.0f, 0.5f, 0.15f, (float)water.index / 7.0f));
-//        }
-//    }
-//    //Grass
-//    if(grasslevel > 0 && (
-//                (tileMaterial == tiletype_material::GRASS_DARK) ||
-//                (tileMaterial == tiletype_material::GRASS_DARK) ||
-//                (tileMaterial == tiletype_material::GRASS_DRY) ||
-//                (tileMaterial == tiletype_material::GRASS_DEAD))) {
-//        temp = lookupMaterialColor(WOOD, grassmat);
-//        al_draw_pixel(drawx, drawy, al_map_rgba_f(temp.r,temp.g, temp.b, (float)grasslevel/100.0f));
-//    }
-//}
 
 bool hasWall(Tile* b)
 {
@@ -661,6 +659,57 @@ void destroyEffectSprites()
     al_destroy_bitmap(sprite_oceanwave);
 }
 
+void Tile::AssembleDesignationMarker( int32_t drawx, int32_t drawy )
+{
+	uint8_t spritenum = 0;
+	switch(designation.bits.dig)
+	{
+	case tile_dig_designation::Default:
+		spritenum = '/';
+		break;
+	case tile_dig_designation::UpDownStair:
+		spritenum = 'X';
+		break;
+	case tile_dig_designation::Channel:
+		spritenum = 31;
+		break;
+	case tile_dig_designation::Ramp:
+		spritenum = 30;
+		break;
+	case tile_dig_designation::DownStair:
+		spritenum = '>';
+		break;
+	case tile_dig_designation::UpStair:
+		spritenum = '<';
+		break;
+	case tile_dig_designation::No:
+	default:
+		//if there is no dig designation, check for smoothing designations
+		switch(designation.bits.smooth)
+		{
+		case 1://smooth
+		case 2://engrave
+			spritenum = 206;
+			break;
+		default:
+		// by default we don't need to draw anything
+		return;
+		}
+	}
+
+	AssembleSprite(
+		IMGLetterSheet,
+		uiColor(2),
+		(spritenum % LETTERS_OBJECTSWIDE) * SPRITEWIDTH,
+		(spritenum / LETTERS_OBJECTSWIDE) * SPRITEHEIGHT,
+		SPRITEWIDTH,
+		SPRITEHEIGHT,
+		drawx,
+		drawy - (WALLHEIGHT)*ssConfig.scale,
+		SPRITEWIDTH*ssConfig.scale,
+		SPRITEHEIGHT*ssConfig.scale,
+		0);
+}
 
 void Tile::AssembleFloorBlood ( int32_t drawx, int32_t drawy )
 {

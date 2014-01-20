@@ -178,6 +178,7 @@ action_name_mapper actionnamemap[] = {
     {"ROTATE", action_incrrotation},
     {"RELOAD_SEGMENT", action_reloadsegment},
     {"PAINT", action_paintboard},
+    {"TOGGLE_DESIGNATIONS", action_toggledesignations},
     {"TOGGLE_STOCKS", action_togglestockpiles},
     {"TOGGLE_ZONES", action_togglezones},
     {"TOGGLE_OCCLUSION", action_toggleocclusion},

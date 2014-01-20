@@ -205,6 +205,12 @@ void action_togglestockpiles(uint32_t keymod)
     timeToReloadSegment = true;
 }
 
+void action_toggledesignations(uint32_t keymod)
+{
+    ssConfig.show_designations = !ssConfig.show_designations;
+    timeToReloadSegment = true;
+}
+
 void action_togglezones(uint32_t keymod)
 {
     ssConfig.show_zones = !ssConfig.show_zones;

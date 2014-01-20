@@ -117,9 +117,11 @@ public:
     }
 
     //tile sprite assembly and drawing functions
+	void GetDrawLocation(int32_t& drawx, int32_t& drawy);
+	void AssembleTileInterface();
     void AssembleTile();
-    void Drawcreaturetext();
     void AddRamptop();
+	void AssembleDesignationMarker( int32_t drawx, int32_t drawy );
     void AssembleFloorBlood ( int32_t drawx, int32_t drawy );
     void AssembleParticleCloud(int count, float centerX, float centerY, float rangeX, float rangeY, ALLEGRO_BITMAP *sprite, ALLEGRO_COLOR tint);
     void AssembleSpriteFromSheet(int spriteNum, ALLEGRO_BITMAP* spriteSheet, ALLEGRO_COLOR color, float x, float y, Tile * b=NULL, float in_scale=1.0f);

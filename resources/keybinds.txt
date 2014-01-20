@@ -25,7 +25,7 @@ KEYBINDINGS:
 
 [ROTATE:KEYS_ENTER]
 [RELOAD_SEGMENT:KEY_R]
-[PAINT:KEY_D]
+[TOGGLE_DESIGNATIONS:KEY_D]
 [TOGGLE_STOCKS:KEY_I]
 [TOGGLE_ZONES:KEY_U]
 [TOGGLE_OCCLUSION:KEY_O]
@@ -65,6 +65,7 @@ VALID ACTIONS:
     ROTATE						rotate the displayed map segment
     RELOAD_SEGMENT				reload the segment (meaningless when auto-reload enabled)
     PAINT						draw the loaded segment (meaningless when auto-reload enabled)
+    TOGGLE_DESIGNATIONS			toggle display of designations
     TOGGLE_STOCKS				toggle display of stockpiles
     TOGGLE_ZONES				toggle display of activity zones
     TOGGLE_OCCLUSION			toggle the occlusion culling

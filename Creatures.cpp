@@ -222,10 +222,9 @@ void AssembleCreature(int drawx, int drawy, SS_Unit* creature, Tile * b)
         if(raw->caste[creature->caste]->caste_tile != 1) {
             spritenum = raw->caste[creature->caste]->caste_tile;
         }
-        spritenum += (spritenum/16)*4;
         ALLEGRO_COLOR tilecolor = ssConfig.colors.getDfColor(DFHack::Units::getCasteProfessionColor(creature->race,creature->caste,(df::profession)creature->profession));
-        int sheetx = spritenum % SHEET_OBJECTSWIDE;
-        int sheety = spritenum / SHEET_OBJECTSWIDE;
+        int sheetx = spritenum % LETTERS_OBJECTSWIDE;
+        int sheety = spritenum / LETTERS_OBJECTSWIDE;
         b->AssembleSprite(
             IMGLetterSheet,
             premultiply(b ? shadeAdventureMode(tilecolor, b->fog_of_war, b->designation.bits.outside) : tilecolor),

@@ -343,6 +343,15 @@ void WorldSegment::AssembleAllTiles()
                 } 
             }
         }
+		//interface elements go on top of each layer
+        for(int32_t vsx=1; vsx < vsxmax; vsx++) {
+            for(int32_t vsy=1; vsy < vsymax; vsy++) {
+                Tile *b = getTileLocal(vsx,vsy,vsz);
+                if (b) {
+                    b->AssembleTileInterface();
+                } 
+            }
+        }
     }
 
     ssTimers.assembly_time = (clock() - starttime)*0.1 + ssTimers.assembly_time*0.9;

@@ -3,6 +3,7 @@
 void action_incrrotation(uint32_t keymod);
 void action_reloadsegment(uint32_t keymod);
 void action_paintboard(uint32_t keymod);
+void action_toggledesignations(uint32_t keymod);
 void action_togglestockpiles(uint32_t keymod);
 void action_togglezones(uint32_t keymod);
 void action_toggleocclusion(uint32_t keymod);

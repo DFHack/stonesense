@@ -135,6 +135,7 @@ struct GameConfiguration {
 	bool overlay_mode;
     bool show_zones;
     bool show_stockpiles;
+	bool show_designations;
     bool show_osd;
     bool show_keybinds;
     bool single_layer_view;

@@ -406,6 +406,7 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
     ssState.Size.z = DEFAULT_SIZE_Z;
     ssConfig.show_creature_names = true;
     ssConfig.show_osd = true;
+    ssConfig.show_designations = true;
     ssConfig.show_keybinds = false;
     ssConfig.show_intro = true;
     ssConfig.track_mode = 0;
