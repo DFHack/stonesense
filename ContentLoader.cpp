@@ -380,6 +380,8 @@ bool ContentLoader::parseContentXMLFile( const char* filepath )
             runningResult &= parseTerrainContent( elemRoot );
         } else if( elementType.compare( "walls" ) == 0 ) {
             runningResult &= parseTerrainContent( elemRoot );
+        } else if( elementType.compare( "designations" ) == 0 ) {
+            runningResult &= parseDesignationContent( elemRoot );
         } else if( elementType.compare( "shrubs" ) == 0 ) {
             runningResult &= parseShrubContent( elemRoot );
         } else if( elementType.compare( "trees" ) == 0 ) {
@@ -430,7 +432,12 @@ bool ContentLoader::parseGrassContent(TiXmlElement* elemRoot )
 
 bool ContentLoader::parseTerrainContent(TiXmlElement* elemRoot )
 {
-    return addSingleTerrainConfig( elemRoot );
+    return addSingleTerrainConfig( elemRoot, &terrainFloorConfigs, &terrainWallConfigs);
+}
+
+bool ContentLoader::parseDesignationContent(TiXmlElement* elemRoot )
+{
+    return addSingleTerrainConfig( elemRoot, &terrainFloorDesignationConfigs, &terrainWallDesignationConfigs );
 }
 
 bool ContentLoader::parseColorContent(TiXmlElement* elemRoot )

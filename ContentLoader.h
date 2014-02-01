@@ -17,6 +17,7 @@ private:
     bool parseBuildingContent( TiXmlElement* elemRoot );
     bool parseCreatureContent( TiXmlElement* elemRoot );
     bool parseTerrainContent ( TiXmlElement* elemRoot );
+    bool parseDesignationContent ( TiXmlElement* elemRoot );
     bool parseTreeContent( TiXmlElement* elemRoot );
     bool parseShrubContent( TiXmlElement* elemRoot );
     bool parseColorContent( TiXmlElement* elemRoot );
@@ -43,6 +44,8 @@ public:
     vector<VegetationConfiguration> grassConfigs;
     vector<TerrainConfiguration*> terrainFloorConfigs;
     vector<TerrainConfiguration*> terrainWallConfigs;
+    vector<TerrainConfiguration*> terrainFloorDesignationConfigs;
+    vector<TerrainConfiguration*> terrainWallDesignationConfigs;
     vector<ColorConfiguration> colorConfigs;
     vector<ItemConfiguration*> itemConfigs;
     FluidConfiguration lava[8];

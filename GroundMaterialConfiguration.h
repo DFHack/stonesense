@@ -28,7 +28,7 @@ public:
     ~TerrainConfiguration();
 };
 
-bool addSingleTerrainConfig( TiXmlElement* elemRoot);
+bool addSingleTerrainConfig( TiXmlElement* elemRoot, vector<TerrainConfiguration*>* floorConfigs, vector<TerrainConfiguration*>* wallConfigs);
 //void LoadGroundMaterialConfiguration( );
 //void TranslateGroundMaterialNames();
 

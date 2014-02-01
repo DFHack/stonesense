@@ -118,9 +118,12 @@ public:
 
     //tile sprite assembly and drawing functions
 	void GetDrawLocation(int32_t& drawx, int32_t& drawy);
-	void AssembleTileInterface();
-    void AssembleTile();
-    void AddRamptop();
+	void AssembleTileInterface( void );
+    void AssembleTile( void );
+	void AssembleWall( c_sprite* spriteobject, int32_t drawx, int32_t drawy, bool chop );
+	void AssembleFloor( c_sprite* spriteobject, int32_t drawx, int32_t drawy );
+	void AssembleRamp( c_sprite* spriteobject, int32_t drawx, int32_t drawy, bool chop);
+	void AssembleRamptop( c_sprite* spriteobject, int32_t drawx, int32_t drawy );
 	void AssembleDesignationMarker( int32_t drawx, int32_t drawy );
     void AssembleFloorBlood ( int32_t drawx, int32_t drawy );
     void AssembleParticleCloud(int count, float centerX, float centerY, float rangeX, float rangeY, ALLEGRO_BITMAP *sprite, ALLEGRO_COLOR tint);
