@@ -210,7 +210,7 @@ void parseWallFloorSpriteElement( TiXmlElement* elemWallFloorSprite, vector<Terr
     }
 }
 
-bool addSingleTerrainConfig( TiXmlElement* elemRoot, vector<TerrainConfiguration*>* floorConfigs, vector<TerrainConfiguration*>* wallConfigs)
+bool addSingleTerrainConfig( TiXmlElement* elemRoot)
 {
     int basefile = INVALID_INDEX;
     const char* filename = elemRoot->Attribute("file");
@@ -226,7 +226,7 @@ bool addSingleTerrainConfig( TiXmlElement* elemRoot, vector<TerrainConfiguration
         //parse floors
         TiXmlElement* elemFloor = elemRoot->FirstChildElement("floor");
         while( elemFloor ) {
-            parseWallFloorSpriteElement( elemFloor, *floorConfigs, basefile, true);
+            parseWallFloorSpriteElement( elemFloor, contentLoader->terrainFloorConfigs, basefile, true);
             elemFloor = elemFloor->NextSiblingElement("floor");
         }
     }
@@ -234,7 +234,7 @@ bool addSingleTerrainConfig( TiXmlElement* elemRoot, vector<TerrainConfiguration
         //parse walls
         TiXmlElement* elemWall = elemRoot->FirstChildElement("wall");
         while( elemWall ) {
-            parseWallFloorSpriteElement( elemWall, *wallConfigs, basefile, false);
+            parseWallFloorSpriteElement( elemWall, contentLoader->terrainWallConfigs, basefile, false);
             elemWall = elemWall->NextSiblingElement("wall");
         }
     }

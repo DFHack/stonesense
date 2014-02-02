@@ -84,19 +84,9 @@ c_sprite * GetFloorSpriteMap(int in, t_matglossPair material, uint16_t form)
     return GetTerrainSpriteMap(in, material, contentLoader->terrainFloorConfigs, form);
 }
 
-c_sprite * GetWallSpriteMap(int in, t_matglossPair material, uint16_t form)
+c_sprite * GetTileSpriteMap(int in, t_matglossPair material, uint16_t form)
 {
     return GetTerrainSpriteMap(in, material, contentLoader->terrainWallConfigs, form);
-}
-
-c_sprite * GetFloorDesignationSpriteMap(int in, t_matglossPair material, uint16_t form)
-{
-    return GetTerrainSpriteMap(in, material, contentLoader->terrainFloorDesignationConfigs, form);
-}
-
-c_sprite * GetWallDesignationSpriteMap(int in, t_matglossPair material, uint16_t form)
-{
-    return GetTerrainSpriteMap(in, material, contentLoader->terrainWallDesignationConfigs, form);
 }
 
 c_tile_tree * GetTreeVegetation( df::tiletype_shape shape, df::tiletype_special special, int index)

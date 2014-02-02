@@ -7,10 +7,7 @@
 #include "ContentLoader.h"
 #include "SpriteColors.h"
 #include "TileTypes.h"
-#include "Tile.h"
 #include "df/building_type.h"
-
-int randomCube[RANDOM_CUBE][RANDOM_CUBE][RANDOM_CUBE];
 
 ALLEGRO_BITMAP *sprite_miasma = 0;
 ALLEGRO_BITMAP *sprite_water = 0;
@@ -25,6 +22,8 @@ ALLEGRO_BITMAP *sprite_webing = 0;
 ALLEGRO_BITMAP *sprite_boiling = 0;
 ALLEGRO_BITMAP *sprite_oceanwave = 0;
 
+int randomCube[RANDOM_CUBE][RANDOM_CUBE][RANDOM_CUBE];
+
 void initRandomCube()
 {
     for(int i = 0; i < RANDOM_CUBE; i++)
@@ -32,38 +31,6 @@ void initRandomCube()
             for(int k = 0; k < RANDOM_CUBE; k++) {
                 randomCube[i][j][k] = rand();
             }
-}
-
-void createEffectSprites()
-{
-    sprite_miasma		= CreateSpriteFromSheet( 180, IMGObjectSheet);
-    sprite_water		= CreateSpriteFromSheet( 181, IMGObjectSheet);
-    sprite_water2		= CreateSpriteFromSheet( 182, IMGObjectSheet);
-    sprite_blood		= CreateSpriteFromSheet( 183, IMGObjectSheet);
-    sprite_dust			= CreateSpriteFromSheet( 182, IMGObjectSheet);
-    sprite_magma		= CreateSpriteFromSheet( 185, IMGObjectSheet);
-    sprite_smoke		= CreateSpriteFromSheet( 186, IMGObjectSheet);
-    sprite_dragonfire	= load_bitmap_withWarning("stonesense/Effect_flames.png");
-    sprite_fire			= CreateSpriteFromSheet( 188, IMGObjectSheet);
-    sprite_webing		= load_bitmap_withWarning("stonesense/Effect_web.png");
-    sprite_boiling		= CreateSpriteFromSheet( 190, IMGObjectSheet);
-    sprite_oceanwave	= CreateSpriteFromSheet( 191, IMGObjectSheet);
-}
-
-void destroyEffectSprites()
-{
-    al_destroy_bitmap(sprite_miasma);
-    al_destroy_bitmap(sprite_water);
-    al_destroy_bitmap(sprite_water2);
-    al_destroy_bitmap(sprite_blood);
-    al_destroy_bitmap(sprite_dust);
-    al_destroy_bitmap(sprite_magma);
-    al_destroy_bitmap(sprite_smoke);
-    al_destroy_bitmap(sprite_dragonfire);
-    al_destroy_bitmap(sprite_fire);
-    al_destroy_bitmap(sprite_webing);
-    al_destroy_bitmap(sprite_boiling);
-    al_destroy_bitmap(sprite_oceanwave);
 }
 
 worn_item::worn_item()
@@ -172,6 +139,17 @@ inline ALLEGRO_BITMAP* imageSheet(t_subSprite sprite, ALLEGRO_BITMAP* defaultBmp
         return defaultBmp;
     } else {
         return getImgFile(sprite.fileIndex);
+    }
+}
+
+void Tile::AssembleParticleCloud(int count, float centerX, float centerY, float rangeX, float rangeY, ALLEGRO_BITMAP *sprite, ALLEGRO_COLOR tint)
+{
+    for(int i = 0; i < count; i++) {
+        int width = al_get_bitmap_width(sprite);
+        int height = al_get_bitmap_height(sprite);
+        float drawx = centerX + ((((float)rand() / RAND_MAX) - 0.5) * rangeX * ssConfig.scale);
+        float drawy = centerY + ((((float)rand() / RAND_MAX) - 0.5) * rangeY * ssConfig.scale);
+        AssembleSprite(sprite, tint, 0, 0, width, height, drawx, drawy,width*ssConfig.scale, height*ssConfig.scale, 0);
     }
 }
 
@@ -285,21 +263,52 @@ void Tile::AssembleTile( void )
 	if(tileType == tiletype::RampTop){
 		Tile * b = this->ownerSegment->getTile(this->x, this->y, this->z - 1);
 		if ( b && b->building.type != BUILDINGTYPE_BLACKBOX && b->tileShapeBasic() == tiletype_shape_basic::Ramp ) {
-			spriteobject = GetWallSpriteMap(b->tileType, b->material, b->consForm);
-			AssembleRamptop(spriteobject, drawx, drawy);
+			spriteobject = GetTileSpriteMap(b->tileType, b->material, b->consForm);
+			if (spriteobject->get_sheetindex() == UNCONFIGURED_INDEX) {
+				spriteobject->set_sheetindex(0);
+				spriteobject->set_fileindex(INVALID_INDEX);
+				spriteobject->set_defaultsheet(IMGRampSheet);
+			}
+			if (spriteobject->get_sheetindex() != INVALID_INDEX) {
+				spriteobject->set_size(SPRITEWIDTH, TILETOPHEIGHT);
+				spriteobject->set_plate_layout(RAMPTOPPLATE);
+				spriteobject->set_offset(0, WALLHEIGHT);
+				spriteobject->assemble_world_offset(x, y, z, 0, b);
+				spriteobject->set_offset(0, 0);
+			}
+			spriteobject->set_plate_layout(TILEPLATE);
 		} else {
 			return;
 		}
 	}
 
-	//Draw Floor
-	if( tileShapeBasic()==tiletype_shape_basic::Floor ||
-		tileShapeBasic()==tiletype_shape_basic::Wall ||
-		tileShapeBasic()==tiletype_shape_basic::Ramp ||
-		tileShapeBasic()==tiletype_shape_basic::Stair) {
-			spriteobject = GetFloorSpriteMap(tileType, this->material, consForm);
-			AssembleFloor(spriteobject, drawx, drawy);
-	}
+    //Draw Floor
+    if( tileShapeBasic()==tiletype_shape_basic::Floor ||
+            tileShapeBasic()==tiletype_shape_basic::Wall ||
+            tileShapeBasic()==tiletype_shape_basic::Ramp ||
+            tileShapeBasic()==tiletype_shape_basic::Stair) {
+
+        //If plate has no floor, look for a Filler Floor from it's wall
+        if (tileShapeBasic()==tiletype_shape_basic::Floor) {
+            spriteobject = GetFloorSpriteMap(tileType, this->material, consForm);
+        } else if (tileShapeBasic()==tiletype_shape_basic::Wall) {
+            spriteobject = GetFloorSpriteMap(tileType, this->material, consForm);
+        } else if (tileShapeBasic()==tiletype_shape_basic::Ramp) {
+            spriteobject = GetFloorSpriteMap(tileType, this->material, consForm);
+        } else if (tileShapeBasic()==tiletype_shape_basic::Stair) {
+            spriteobject = GetFloorSpriteMap(tileType, this->material, consForm);
+        }
+        if(spriteobject->get_sheetindex() != INVALID_INDEX) {
+            if (spriteobject->get_sheetindex() == UNCONFIGURED_INDEX) {
+                spriteobject->set_sheetindex(SPRITEOBJECT_FLOOR_NA);
+                spriteobject->set_fileindex(INVALID_INDEX);
+                spriteobject->set_offset(0, WALLHEIGHT);
+                spriteobject->assemble_world(x, y, z, this);
+            } else {
+                spriteobject->assemble_world(x, y, z, this);
+            }
+        }
+    }
 
     //Floor Engravings
     if((tileShapeBasic()==tiletype_shape_basic::Floor) && engraving_character && engraving_flags.bits.floor) {
@@ -308,8 +317,18 @@ void Tile::AssembleTile( void )
 
     //Draw Ramp
     if(tileShapeBasic()==tiletype_shape_basic::Ramp) {
-		spriteobject = GetWallSpriteMap(tileType, material, consForm);
-		AssembleRamp(spriteobject, drawx, drawy, chopThisTile);
+        spriteobject = GetTileSpriteMap(tileType, material, consForm);
+        if (spriteobject->get_sheetindex() == UNCONFIGURED_INDEX) {
+            spriteobject->set_sheetindex(0);
+            spriteobject->set_fileindex(INVALID_INDEX);
+            spriteobject->set_defaultsheet(IMGRampSheet);
+        }
+        if (spriteobject->get_sheetindex() != INVALID_INDEX) {
+            spriteobject->set_size(SPRITEWIDTH, SPRITEHEIGHT);
+            spriteobject->set_plate_layout(RAMPBOTTOMPLATE);
+            spriteobject->assemble_world_offset(x, y, z, 0, this, (chopThisTile && this->z == ownerSegment->segState.Position.z + ownerSegment->segState.Size.z -2));
+        }
+        spriteobject->set_plate_layout(TILEPLATE);
     }
 
     if(snowlevel <= bloodlevel) {
@@ -396,7 +415,7 @@ void Tile::AssembleTile( void )
         }
 
         //up part
-        spriteobject = GetWallSpriteMap(tileType, material, consForm);
+        spriteobject = GetTileSpriteMap(tileType, material, consForm);
         if(spriteobject->get_sheetindex() != INVALID_INDEX && spriteobject->get_sheetindex() != UNCONFIGURED_INDEX) {
             if (mirrored) {
                 spriteobject->assemble_world_offset(x, y, z, 1, this);
@@ -405,13 +424,29 @@ void Tile::AssembleTile( void )
             }
         }
     }
-	
-	//draw wall
-	if(tileShapeBasic()==tiletype_shape_basic::Floor ||
-		tileShapeBasic()==tiletype_shape_basic::Wall) {
-			spriteobject = GetWallSpriteMap(tileType, material, consForm);
-			AssembleWall(spriteobject, drawx, drawy, chopThisTile);
-	}
+
+    if(tileShapeBasic()==tiletype_shape_basic::Floor ||
+            tileShapeBasic()==tiletype_shape_basic::Wall) {
+        //draw wall
+        spriteobject =  GetTileSpriteMap(tileType, material, consForm);
+        int spriteOffset = 0;
+        if (spriteobject->get_sheetindex() == UNCONFIGURED_INDEX) {
+            if(tileShapeBasic()==tiletype_shape_basic::Wall){
+                spriteobject->set_sheetindex(SPRITEOBJECT_WALL_NA);
+                spriteobject->set_fileindex(INVALID_INDEX);
+                spriteobject->set_plate_layout(TILEPLATE);
+                spriteobject->set_defaultsheet(IMGObjectSheet);
+            } else {
+                //unconfigured non-walls are not valid
+                spriteobject->set_sheetindex(INVALID_INDEX);
+            }
+        }
+        if (spriteobject->get_sheetindex() == INVALID_INDEX ) {
+            //skip
+        } else {
+            spriteobject->assemble_world(x, y, z, this, (chopThisTile && this->z == ownerSegment->segState.Position.z + ownerSegment->segState.Size.z -2));
+        }
+    }
 
     //Wall Engravings
     if((tileShapeBasic()==tiletype_shape_basic::Wall) && engraving_character) {
@@ -543,73 +578,85 @@ void Tile::AssembleTile( void )
     }
 }
 
-void Tile::AssembleWall( c_sprite* spriteobject, int32_t drawx, int32_t drawy, bool chop )
+bool hasWall(Tile* b)
 {
-	int spriteOffset = 0;
-	if (spriteobject->get_sheetindex() == UNCONFIGURED_INDEX) {
-		if(tileShapeBasic()==tiletype_shape_basic::Wall){
-			spriteobject->set_sheetindex(SPRITEOBJECT_WALL_NA);
-			spriteobject->set_fileindex(INVALID_INDEX);
-			spriteobject->set_plate_layout(TILEPLATE);
-			spriteobject->set_defaultsheet(IMGObjectSheet);
-		} else {
-			//unconfigured non-walls are not valid
-			spriteobject->set_sheetindex(INVALID_INDEX);
-		}
-	}
-	if (spriteobject->get_sheetindex() == INVALID_INDEX ) {
-		//skip
-	} else {
-		spriteobject->assemble_world(x, y, z, this, (chop && this->z == ownerSegment->segState.Position.z + ownerSegment->segState.Size.z -2));
-	}
+    if(!b) {
+        return false;
+    }
+    return b->tileShapeBasic()==tiletype_shape_basic::Wall;
 }
 
-void Tile::AssembleFloor( c_sprite* spriteobject, int32_t drawx, int32_t drawy )
+bool hasBuildingOfID(Tile* b, int ID)
 {
-	if(spriteobject->get_sheetindex() != INVALID_INDEX) {
-		if (spriteobject->get_sheetindex() == UNCONFIGURED_INDEX) {
-			spriteobject->set_sheetindex(SPRITEOBJECT_FLOOR_NA);
-			spriteobject->set_fileindex(INVALID_INDEX);
-			spriteobject->set_offset(0, WALLHEIGHT);
-			spriteobject->assemble_world(x, y, z, this);
-		} else {
-			spriteobject->assemble_world(x, y, z, this);
-		}
-	}
+    if(!b) {
+        return false;
+    }
+    return b->building.type == ID;
 }
 
-void Tile::AssembleRamp( c_sprite* spriteobject, int32_t drawx, int32_t drawy, bool chop )
+bool hasBuildingIdentity(Tile* b, Buildings::t_building* index, int buildingOcc)
 {
-	if (spriteobject->get_sheetindex() == UNCONFIGURED_INDEX) {
-		spriteobject->set_sheetindex(0);
-		spriteobject->set_fileindex(INVALID_INDEX);
-		spriteobject->set_defaultsheet(IMGRampSheet);
-	}
-	if (spriteobject->get_sheetindex() != INVALID_INDEX) {
-		spriteobject->set_size(SPRITEWIDTH, SPRITEHEIGHT);
-		spriteobject->set_plate_layout(RAMPBOTTOMPLATE);
-		spriteobject->assemble_world_offset(x, y, z, 0, this, 
-			(chop && this->z == ownerSegment->segState.Position.z + ownerSegment->segState.Size.z -2));
-	}
-	spriteobject->set_plate_layout(TILEPLATE);
+    if(!b) {
+        return false;
+    }
+    if (!(b->building.info == index)) {
+        return false;
+    }
+    return b->occ.bits.building == buildingOcc;
 }
 
-void Tile::AssembleRamptop( c_sprite* spriteobject, int32_t drawx, int32_t drawy )
-{			
-	if (spriteobject->get_sheetindex() == UNCONFIGURED_INDEX) {
-		spriteobject->set_sheetindex(0);
-		spriteobject->set_fileindex(INVALID_INDEX);
-		spriteobject->set_defaultsheet(IMGRampSheet);
-	}
-	if (spriteobject->get_sheetindex() != INVALID_INDEX) {
-		spriteobject->set_size(SPRITEWIDTH, TILETOPHEIGHT);
-		spriteobject->set_plate_layout(RAMPTOPPLATE);
-		spriteobject->set_offset(0, WALLHEIGHT);
-		spriteobject->assemble_world_offset(x, y, z, 0, 
-			(this->ownerSegment->getTile(this->x, this->y, this->z - 1)));
-		spriteobject->set_offset(0, 0);
-	}
-	spriteobject->set_plate_layout(TILEPLATE);
+bool hasBuildingOfIndex(Tile* b, Buildings::t_building* index)
+{
+    if(!b) {
+        return false;
+    }
+    return b->building.info == index;
+}
+
+bool wallShouldNotHaveBorders( int in )
+{
+    switch( in ) {
+    case 65: //stone fortification
+    case 436: //minstone fortification
+    case 326: //lavastone fortification
+    case 327: //featstone fortification
+    case 494: //constructed fortification
+        return true;
+        break;
+    };
+    return false;
+}
+
+void createEffectSprites()
+{
+    sprite_miasma		= CreateSpriteFromSheet( 180, IMGObjectSheet);
+    sprite_water		= CreateSpriteFromSheet( 181, IMGObjectSheet);
+    sprite_water2		= CreateSpriteFromSheet( 182, IMGObjectSheet);
+    sprite_blood		= CreateSpriteFromSheet( 183, IMGObjectSheet);
+    sprite_dust			= CreateSpriteFromSheet( 182, IMGObjectSheet);
+    sprite_magma		= CreateSpriteFromSheet( 185, IMGObjectSheet);
+    sprite_smoke		= CreateSpriteFromSheet( 186, IMGObjectSheet);
+    sprite_dragonfire	= load_bitmap_withWarning("stonesense/Effect_flames.png");
+    sprite_fire			= CreateSpriteFromSheet( 188, IMGObjectSheet);
+    sprite_webing		= load_bitmap_withWarning("stonesense/Effect_web.png");
+    sprite_boiling		= CreateSpriteFromSheet( 190, IMGObjectSheet);
+    sprite_oceanwave	= CreateSpriteFromSheet( 191, IMGObjectSheet);
+}
+
+void destroyEffectSprites()
+{
+    al_destroy_bitmap(sprite_miasma);
+    al_destroy_bitmap(sprite_water);
+    al_destroy_bitmap(sprite_water2);
+    al_destroy_bitmap(sprite_blood);
+    al_destroy_bitmap(sprite_dust);
+    al_destroy_bitmap(sprite_magma);
+    al_destroy_bitmap(sprite_smoke);
+    al_destroy_bitmap(sprite_dragonfire);
+    al_destroy_bitmap(sprite_fire);
+    al_destroy_bitmap(sprite_webing);
+    al_destroy_bitmap(sprite_boiling);
+    al_destroy_bitmap(sprite_oceanwave);
 }
 
 void Tile::AssembleDesignationMarker( int32_t drawx, int32_t drawy )
@@ -662,17 +709,6 @@ void Tile::AssembleDesignationMarker( int32_t drawx, int32_t drawy )
 		SPRITEWIDTH*ssConfig.scale,
 		SPRITEHEIGHT*ssConfig.scale,
 		0);
-}
-
-void Tile::AssembleParticleCloud(int count, float centerX, float centerY, float rangeX, float rangeY, ALLEGRO_BITMAP *sprite, ALLEGRO_COLOR tint)
-{
-    for(int i = 0; i < count; i++) {
-        int width = al_get_bitmap_width(sprite);
-        int height = al_get_bitmap_height(sprite);
-        float drawx = centerX + ((((float)rand() / RAND_MAX) - 0.5) * rangeX * ssConfig.scale);
-        float drawy = centerY + ((((float)rand() / RAND_MAX) - 0.5) * rangeY * ssConfig.scale);
-        AssembleSprite(sprite, tint, 0, 0, width, height, drawx, drawy,width*ssConfig.scale, height*ssConfig.scale, 0);
-    }
 }
 
 void Tile::AssembleFloorBlood ( int32_t drawx, int32_t drawy )
@@ -755,51 +791,3 @@ void Tile::AssembleFloorBlood ( int32_t drawx, int32_t drawy )
     }
 }
 
-bool hasWall(Tile* b)
-{
-    if(!b) {
-        return false;
-    }
-    return b->tileShapeBasic()==tiletype_shape_basic::Wall;
-}
-
-bool hasBuildingOfID(Tile* b, int ID)
-{
-    if(!b) {
-        return false;
-    }
-    return b->building.type == ID;
-}
-
-bool hasBuildingIdentity(Tile* b, Buildings::t_building* index, int buildingOcc)
-{
-    if(!b) {
-        return false;
-    }
-    if (!(b->building.info == index)) {
-        return false;
-    }
-    return b->occ.bits.building == buildingOcc;
-}
-
-bool hasBuildingOfIndex(Tile* b, Buildings::t_building* index)
-{
-    if(!b) {
-        return false;
-    }
-    return b->building.info == index;
-}
-
-bool wallShouldNotHaveBorders( int in )
-{
-    switch( in ) {
-    case 65: //stone fortification
-    case 436: //minstone fortification
-    case 326: //lavastone fortification
-    case 327: //featstone fortification
-    case 494: //constructed fortification
-        return true;
-        break;
-    };
-    return false;
-}
