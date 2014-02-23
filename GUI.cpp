@@ -54,6 +54,7 @@ double oneTileInPixels = 0;
 ALLEGRO_BITMAP* IMGObjectSheet;
 ALLEGRO_BITMAP* IMGCreatureSheet;
 ALLEGRO_BITMAP* IMGRampSheet;
+ALLEGRO_BITMAP* IMGDesignationSheet; 
 ALLEGRO_BITMAP* IMGStatusSheet;
 ALLEGRO_BITMAP* IMGProfSheet;
 ALLEGRO_BITMAP* IMGBloodSheet;
@@ -1109,6 +1110,9 @@ void loadGraphicsFromDisk()
     if(!load_from_path(p, "ramps.png", IMGRampSheet)) {
         return;
     }
+    if(!load_from_path(p, "designations.png", IMGDesignationSheet)) {
+        return;
+    }
     if(!load_from_path(p, "SSStatusIcons.png", IMGStatusSheet)) {
         return;
     }
@@ -1151,6 +1155,10 @@ void flushImgFiles()
     if(IMGRampSheet) {
         al_destroy_bitmap(IMGRampSheet);
         IMGRampSheet = 0;
+    }
+    if(IMGDesignationSheet) {
+        al_destroy_bitmap(IMGDesignationSheet);
+        IMGDesignationSheet = 0;
     }
     if(IMGStatusSheet) {
         al_destroy_bitmap(IMGStatusSheet);

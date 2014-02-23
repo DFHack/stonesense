@@ -665,22 +665,27 @@ void Tile::AssembleDesignationMarker( int32_t drawx, int32_t drawy )
 	switch(designation.bits.dig)
 	{
 	case tile_dig_designation::Default:
-		spritenum = '/';
-		break;
+		if( tileShapeBasic() == df::tiletype_shape_basic::Ramp ){
+			spritenum = 22;
+			break;
+		} else {
+			spritenum = 2;
+			break;
+		}
 	case tile_dig_designation::UpDownStair:
-		spritenum = 'X';
+		spritenum = 3;
 		break;
 	case tile_dig_designation::Channel:
-		spritenum = 31;
+		spritenum = 24;
 		break;
 	case tile_dig_designation::Ramp:
-		spritenum = 30;
+		spritenum = 4;
 		break;
 	case tile_dig_designation::DownStair:
-		spritenum = '>';
+		spritenum = 23;
 		break;
 	case tile_dig_designation::UpStair:
-		spritenum = '<';
+		spritenum = 3;
 		break;
 	case tile_dig_designation::No:
 	default:
@@ -688,20 +693,47 @@ void Tile::AssembleDesignationMarker( int32_t drawx, int32_t drawy )
 		switch(designation.bits.smooth)
 		{
 		case 1://smooth
+			if( tileShapeBasic() == df::tiletype_shape_basic::Floor ){
+				spritenum = 25;
+				break;
+			} else {
+				spritenum = 5;
+				break;
+			}
 		case 2://engrave
-			spritenum = 206;
-			break;
+			if( tileShapeBasic() == df::tiletype_shape_basic::Floor ){
+				spritenum = 26;//smooth a floor
+				break;
+			} else {
+				if( tileSpecial() == df::tiletype_special::SMOOTH ){
+					spritenum = 21;//carve fortifications
+					break;
+				} else {
+					spritenum = 6;//smooth a wall
+					break;
+				}
+			}
 		default:
-		// by default we don't need to draw anything
-		return;
+
+			if(occ.bits.carve_track_north){
+
+			} if(occ.bits.carve_track_south){
+
+			} if(occ.bits.carve_track_east){
+
+			} if(occ.bits.carve_track_west){
+
+			}
+			// by default we don't need to draw anything
+			return;
 		}
 	}
 
 	AssembleSprite(
-		IMGLetterSheet,
+		IMGDesignationSheet,
 		uiColor(2),
-		(spritenum % LETTERS_OBJECTSWIDE) * SPRITEWIDTH,
-		(spritenum / LETTERS_OBJECTSWIDE) * SPRITEHEIGHT,
+		(spritenum % SHEET_OBJECTSWIDE) * SPRITEWIDTH,
+		(spritenum / SHEET_OBJECTSWIDE) * SPRITEHEIGHT,
 		SPRITEWIDTH,
 		SPRITEHEIGHT,
 		drawx,

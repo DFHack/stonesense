@@ -263,7 +263,7 @@ inline void maskTile(WorldSegment * segment, Tile* b)
     if( b->designation.bits.hidden ) {
         if( isTileOnVisibleEdgeOfSegment(segment, b)
             || areNeighborsVisible(segment, b) ) {
-                b->building.type = (building_type::building_type) BUILDINGTYPE_BLACKBOX;
+                b->building.type = BUILDINGTYPE_BLACKBOX;
         } else {
             b->visible = false;
         }

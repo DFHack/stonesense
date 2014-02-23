@@ -3,6 +3,7 @@
 #include <string>
 
 #include "common.h"
+#include "GameBuildings.h"
 #include "BuildingConfiguration.h"
 #include "TileCondition.h"
 #include "tinyxml.h"
@@ -274,7 +275,7 @@ bool addSingleBuildingConfig( TiXmlElement* elemRoot,  vector<BuildingConfigurat
         contentError("<building> node must have name and game_type attributes",elemRoot);
         return false;
     }
-    building_type::building_type main_type = (building_type::building_type) INVALID_INDEX;
+    building_type::building_type main_type = BUILDINGTYPE_NA;
     int subtype = INVALID_INDEX;
     string game_type_s;
     FOR_ENUM_ITEMS(building_type,i) {
@@ -284,7 +285,7 @@ bool addSingleBuildingConfig( TiXmlElement* elemRoot,  vector<BuildingConfigurat
             break;
         }
     }
-    if(main_type == (building_type::building_type) INVALID_INDEX) {
+    if(main_type == BUILDINGTYPE_NA) {
         contentError("<building> unknown game_type value",elemRoot);
         return false;
     }
@@ -431,45 +432,3 @@ void flushBuildingConfig( vector<BuildingConfiguration>* knownBuildings )
     knownBuildings->clear();
 }
 
-
-
-/*
-bool LoadBuildingConfiguration( vector<BuildingConfiguration>* knownBuildings ){
-  string line;
-  ifstream myfile ("buildings/index.txt");
-  if (myfile.is_open() == false){
-    WriteErr("Unable to load building config index file!\n");
-    return false;
-  }
-
-
-  //img files are now unused
-  flushImgFiles();
-
-  while ( !myfile.eof() )
-  {
-    char filepath[50] = {0};
-    getline (myfile,line);
-
-    //some systems don't remove the \r char as a part of the line change:
-    if(line.size() > 0 &&  line[line.size() -1 ] == '\r' )
-      line.resize(line.size() -1);
-
-    if(line.size() > 0){
-      sprintf(filepath, "buildings/%s", line.c_str() );
-      WriteErr("Reading %s...\t\t", filepath);
-      bool result = addSingleConfig( filepath, knownBuildings );
-      if (result)
-      	WriteErr("ok\n");
-      else
-        WriteErr("Unable to load building config %s\n(Will ignore building and continue)\n", filepath);
-    }
-  }
-  myfile.close();
-
-  BuildingNamesTranslatedFromGame = false;
-
-  return true;
-}
-
-*/
