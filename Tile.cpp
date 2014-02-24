@@ -189,29 +189,6 @@ void Tile::GetDrawLocation(int32_t& drawx, int32_t& drawy)
     drawx -= (TILEWIDTH>>1)*ssConfig.scale;
 }
 
-void Tile::AssembleTileInterface()
-{
-    if(!visible) {
-        return;
-    }
-
-	int32_t drawx = 0;
-	int32_t drawy = 0;
-	GetDrawLocation(drawx, drawy);
-
-	// Designations
-	if(ssConfig.show_designations)
-	{
-		AssembleDesignationMarker(drawx, drawy);
-	}
-    
-	// Creature Names / Info
-    if(occ.bits.unit && creature && (ssConfig.show_hidden_tiles || !designation.bits.hidden)) {
-        AssembleCreatureText(drawx, drawy, creature, ownerSegment);
-    }
-
-}
-
 void Tile::AssembleTile( void )
 {
 
@@ -576,6 +553,11 @@ void Tile::AssembleTile( void )
 
         }
     }
+	
+	// Creature Names / Info
+    if(occ.bits.unit && creature && (ssConfig.show_hidden_tiles || !designation.bits.hidden)) {
+        AssembleCreatureText(drawx, drawy, creature, ownerSegment);
+    }
 }
 
 bool hasWall(Tile* b)
@@ -627,6 +609,21 @@ bool wallShouldNotHaveBorders( int in )
     return false;
 }
 
+bool containsDesignations( df::tile_designation des, df::tile_occupancy occ )
+{
+	if(des.bits.dig != df::tile_dig_designation::No) {
+		return true;
+	} else if(des.bits.smooth != 0) {
+		return true;
+	} else if(occ.bits.carve_track_east 
+		|| occ.bits.carve_track_north 
+		|| occ.bits.carve_track_south 
+		|| occ.bits.carve_track_west) {
+			return true;
+	}
+	return false;
+}
+
 void createEffectSprites()
 {
     sprite_miasma		= CreateSpriteFromSheet( 180, IMGObjectSheet);
@@ -657,90 +654,6 @@ void destroyEffectSprites()
     al_destroy_bitmap(sprite_webing);
     al_destroy_bitmap(sprite_boiling);
     al_destroy_bitmap(sprite_oceanwave);
-}
-
-void Tile::AssembleDesignationMarker( int32_t drawx, int32_t drawy )
-{
-	uint8_t spritenum = 0;
-	switch(designation.bits.dig)
-	{
-	case tile_dig_designation::Default:
-		if( tileShapeBasic() == df::tiletype_shape_basic::Ramp ){
-			spritenum = 22;
-			break;
-		} else {
-			spritenum = 2;
-			break;
-		}
-	case tile_dig_designation::UpDownStair:
-		spritenum = 3;
-		break;
-	case tile_dig_designation::Channel:
-		spritenum = 24;
-		break;
-	case tile_dig_designation::Ramp:
-		spritenum = 4;
-		break;
-	case tile_dig_designation::DownStair:
-		spritenum = 23;
-		break;
-	case tile_dig_designation::UpStair:
-		spritenum = 3;
-		break;
-	case tile_dig_designation::No:
-	default:
-		//if there is no dig designation, check for smoothing designations
-		switch(designation.bits.smooth)
-		{
-		case 1://smooth
-			if( tileShapeBasic() == df::tiletype_shape_basic::Floor ){
-				spritenum = 25;
-				break;
-			} else {
-				spritenum = 5;
-				break;
-			}
-		case 2://engrave
-			if( tileShapeBasic() == df::tiletype_shape_basic::Floor ){
-				spritenum = 26;//smooth a floor
-				break;
-			} else {
-				if( tileSpecial() == df::tiletype_special::SMOOTH ){
-					spritenum = 21;//carve fortifications
-					break;
-				} else {
-					spritenum = 6;//smooth a wall
-					break;
-				}
-			}
-		default:
-
-			if(occ.bits.carve_track_north){
-
-			} if(occ.bits.carve_track_south){
-
-			} if(occ.bits.carve_track_east){
-
-			} if(occ.bits.carve_track_west){
-
-			}
-			// by default we don't need to draw anything
-			return;
-		}
-	}
-
-	AssembleSprite(
-		IMGDesignationSheet,
-		uiColor(2),
-		(spritenum % SHEET_OBJECTSWIDE) * SPRITEWIDTH,
-		(spritenum / SHEET_OBJECTSWIDE) * SPRITEHEIGHT,
-		SPRITEWIDTH,
-		SPRITEHEIGHT,
-		drawx,
-		drawy - (WALLHEIGHT)*ssConfig.scale,
-		SPRITEWIDTH*ssConfig.scale,
-		SPRITEHEIGHT*ssConfig.scale,
-		0);
 }
 
 void Tile::AssembleFloorBlood ( int32_t drawx, int32_t drawy )

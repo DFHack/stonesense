@@ -320,7 +320,8 @@ void WorldSegment::AssembleAllTiles()
     for(int32_t vsz=0; vsz < vszmax; vsz++) {
         //add the fog to the queue
         if(ssConfig.fogenable && fog) {
-            draw_event d = {TintedScaledBitmap, 
+            draw_event d = {
+				TintedScaledBitmap, 
                 fog, 
                 al_map_rgb(255,255,255), 
                 0, 
@@ -340,15 +341,6 @@ void WorldSegment::AssembleAllTiles()
                 Tile *b = getTileLocal(vsx,vsy,vsz);
                 if (b) {
                     b->AssembleTile();
-                } 
-            }
-        }
-		//interface elements go on top of each layer
-        for(int32_t vsx=1; vsx < vsxmax; vsx++) {
-            for(int32_t vsy=1; vsy < vsymax; vsy++) {
-                Tile *b = getTileLocal(vsx,vsy,vsz);
-                if (b) {
-                    b->AssembleTileInterface();
                 } 
             }
         }

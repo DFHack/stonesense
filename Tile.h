@@ -118,7 +118,6 @@ public:
 
     //tile sprite assembly and drawing functions
 	void GetDrawLocation(int32_t& drawx, int32_t& drawy);
-	void AssembleTileInterface();
     void AssembleTile();
     void AddRamptop();
 	void AssembleDesignationMarker( int32_t drawx, int32_t drawy );
@@ -143,6 +142,7 @@ bool hasBuildingOfID(Tile* b, int ID);
 bool hasBuildingIdentity(Tile* b, Buildings::t_building* index, int buildingOcc);
 bool hasBuildingOfIndex(Tile* b, Buildings::t_building* index);
 bool wallShouldNotHaveBorders( int in );
+bool containsDesignations( df::tile_designation, df::tile_occupancy );
 
 inline bool IDisWall(int in)
 {

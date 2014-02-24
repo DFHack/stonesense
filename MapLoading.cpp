@@ -111,6 +111,112 @@ void readSpatterToTile(Tile * b, uint32_t lx, uint32_t ly,
 }
 
 /**
+ * Converts the tile to a type that indicates what designations are specified.  
+ * Also converts the material to the "DESIGNATION" material type when appropriate.  
+ */
+bool readDesignationsToTile( Tile * b, 
+							 df::tile_designation des,	
+							 df::tile_occupancy occ)
+{
+	df::tiletype_shape shape = df::tiletype_shape::WALL;
+	df::tiletype_material mat = df::tiletype_material::STONE; 
+	df::tiletype_variant var = df::tiletype_variant::NONE;
+	df::tiletype_special spc = df::tiletype_special::NONE;
+	TileDirection dir;
+
+	if(des.bits.dig != tile_dig_designation::No)
+	{
+		switch(des.bits.dig)
+		{
+		case tile_dig_designation::Default:
+			if( b->tileShapeBasic() == df::tiletype_shape_basic::Ramp ){
+				shape = df::tiletype_shape::FLOOR;
+			} else {
+				shape = df::tiletype_shape::WALL;
+			}
+			break;
+		case tile_dig_designation::UpDownStair:
+			shape = df::tiletype_shape::STAIR_UPDOWN;
+			break;
+		case tile_dig_designation::Channel:
+			shape = df::tiletype_shape::RAMP_TOP;
+			break;
+		case tile_dig_designation::Ramp:
+			shape = df::tiletype_shape::RAMP;
+			break;
+		case tile_dig_designation::DownStair:
+			shape = df::tiletype_shape::STAIR_DOWN;
+			break;
+		case tile_dig_designation::UpStair:
+			shape = df::tiletype_shape::STAIR_UP;
+			break;
+		default:
+			//do nothing
+			break;
+		}
+
+		b->material.type = DESIGNATION;
+		b->material.index = INVALID_INDEX;
+		b->tileType = findTileType(shape, mat, var, spc, dir);
+		return true;
+	}
+	
+	//if there is no dig designation, check for smoothing designations
+	if(des.bits.smooth != 0)
+	{
+		if( b->tileShapeBasic() == df::tiletype_shape_basic::Floor ){
+			shape = df::tiletype_shape::FLOOR;
+		} else {
+			shape = df::tiletype_shape::WALL;
+		}
+		spc = df::tiletype_special::SMOOTH;
+	if(des.bits.smooth == 2) {
+		// if the tile is being engraved, then fake the engraving flags
+		b->engraving_flags.bits.east = 1;
+		b->engraving_flags.bits.west = 1;
+		b->engraving_flags.bits.north = 1;
+		b->engraving_flags.bits.south = 1;
+		b->engraving_flags.bits.floor = 1;
+		b->engraving_character = '*';
+	}
+		b->material.type = DESIGNATION;
+		b->material.index = INVALID_INDEX;
+		b->tileType = findTileType(shape, mat, var, spc, dir);
+		return true;
+	}
+
+	bool hasTracks = false;
+	if(occ.bits.carve_track_north){
+		dir.north = 1;
+		hasTracks = true;
+	} if(occ.bits.carve_track_south){
+		dir.south = 1;
+		hasTracks = true;
+	} if(occ.bits.carve_track_east){
+		dir.east = 1;
+		hasTracks = true;
+	} if(occ.bits.carve_track_west){
+		dir.west = 1;
+		hasTracks = true;
+	}
+	if(hasTracks)
+	{
+		if( b->tileShapeBasic() == df::tiletype_shape_basic::Ramp ){
+			shape = df::tiletype_shape::RAMP;
+		} else {
+			shape = df::tiletype_shape::FLOOR;
+		}
+
+		b->material.type = DESIGNATION;
+		b->material.index = INVALID_INDEX;
+		b->tileType = findTileType(shape, mat, var, spc, dir);
+		return true;
+	}
+
+	return false;
+}
+
+/**
  * Identifies the correct material from the DF vectors, and stores it in the
  * stonesense tile. 
  */
@@ -378,16 +484,34 @@ void readBlockToSegment(DFHack::Core& DF, WorldSegment& segment,
                     shouldBeIncluded = true;
             }
 
+			//add back in any tiles that are constructions or designations
+			if( ssConfig.show_designations
+				&& containsDesignations(
+					trueBlock->designation[lx][ly], 
+					trueBlock->occupancy[lx][ly] ) ) {
+				shouldBeIncluded = true;
+			}
+
             if(!shouldBeIncluded){
                 continue;
             }
 
             Tile * b = segment.ResetTile(gx, gy, BlockZ, trueBlock->tiletype[lx][ly]);
-
+			
+			b->occ.bits.unit = false;//this will be set manually when we read the creatures vector
             b->occ = trueBlock->occupancy[lx][ly];
-            b->occ.bits.unit = false;//this will be set manually when we read the creatures vector
-            b->designation = trueBlock->designation[lx][ly];
-            b->fog_of_war = !b->designation.bits.pile;
+			b->designation = trueBlock->designation[lx][ly];
+
+			//if the tile has designations, read them and nothing else
+			if( ssConfig.show_designations 
+				&& readDesignationsToTile( 
+					b, trueBlock->designation[lx][ly], 
+					trueBlock->occupancy[lx][ly] ) ) {
+						continue;
+			}
+			
+			//set whether the tile is hidden
+			b->fog_of_war = !b->designation.bits.pile;
 
             //don't read detailed information for blackbox tiles
             if(!ssConfig.show_hidden_tiles

@@ -250,6 +250,11 @@ enum MAT_BASICS {
 	PLANT = 419,
     WOOD = 420,
     PLANTCLOTH = 421,
+
+	// filthy hacks to get interface stuff
+    DESIGNATION = 422,
+    CONSTRUCTION = 423,
+
 };
 
 #define NUM_FORMS 5

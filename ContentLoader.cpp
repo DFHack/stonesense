@@ -563,6 +563,10 @@ const char *lookupMaterialTypeName(int matType)
         return "Leather";
     case VOMIT:
         return "Vomit";
+    case DESIGNATION:
+        return "Designation";
+    case CONSTRUCTION:
+        return "Construction";
     default:
         return NULL;
     }
@@ -596,6 +600,10 @@ MAT_BASICS lookupMaterialType(const char* strValue)
         return LEATHER;
     } else if( strcmp(strValue, "Vomit") == 0) {
         return VOMIT;
+    } else if( strcmp(strValue, "Designation") == 0) {
+        return DESIGNATION;
+    } else if( strcmp(strValue, "Construction") == 0) {
+        return CONSTRUCTION;
     }
     //TODO this needs fixing on dfhack side
     return INVALID;
