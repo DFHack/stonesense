@@ -676,17 +676,20 @@ void optimizeSegment(WorldSegment * segment)
         }
 
         //try to mask away tiles that are flagged hidden
-        if(!ssConfig.show_hidden_tiles ) {
-            //unhide any liquids that are visible from above
-            unhideWaterFromAbove(segment, b);
-            if(ssConfig.shade_hidden_tiles) {
-                maskTile(segment, b);
-            } else if( b->designation.bits.hidden ) {
-                b->visible = false;
-            }
-        }
+		if(!ssConfig.show_hidden_tiles ) {
+			//unhide any liquids that are visible from above
+			unhideWaterFromAbove(segment, b);
+			if( ssConfig.show_designations 
+				&& containsDesignations(b->designation, b->occ) ) {
+					b->visible = true;
+			} else if( ssConfig.shade_hidden_tiles ) {
+				maskTile(segment, b);
+			} else if( b->designation.bits.hidden ) {
+				b->visible = false;
+			}
+		}
 
-        if(!b->visible) {
+		if(!b->visible) {
             continue;
         }
 
