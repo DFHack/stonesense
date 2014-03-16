@@ -2,6 +2,7 @@
 #include "WorldSegment.h"
 #include "SpriteMaps.h"
 #include "GameBuildings.h"
+#include "Constructions.h"
 #include "BuildingConfiguration.h"
 #include "ContentLoader.h"
 #include "GUI.h"
@@ -122,10 +123,12 @@ void MergeBuildingsToSegment(vector<Buildings::t_building>* buildings, WorldSegm
 					// still need to test for b, because of ramp/building overlap
 
 					//handle special case where zones and stockpiles overlap buildings, and try to replace them
-					if(b->building.type != BUILDINGTYPE_NA && copiedbuilding->type == df::enums::building_type::Civzone ) {
+					if(b->building.type != BUILDINGTYPE_NA && 
+						copiedbuilding->type == df::enums::building_type::Civzone ) {
 						continue;
 					}
-					if(b->building.type != BUILDINGTYPE_NA && copiedbuilding->type == df::enums::building_type::Stockpile ) {
+					if(b->building.type != BUILDINGTYPE_NA && 
+						copiedbuilding->type == df::enums::building_type::Stockpile ) {
 						continue;
 					}
 					b->building.type = copiedbuilding->type;
@@ -134,6 +137,7 @@ void MergeBuildingsToSegment(vector<Buildings::t_building>* buildings, WorldSegm
 
 					switch (b->building.type){
 					case df::enums::building_type::Well:
+						// copy down well information
 						if(copiedbuilding->z == z2)
 							b->building.special = 0;
 						else if(zz == copiedbuilding->z)
@@ -141,6 +145,13 @@ void MergeBuildingsToSegment(vector<Buildings::t_building>* buildings, WorldSegm
 						else if(zz == z2)
 							b->building.special = 2;
 						else b->building.special = 3;
+						break;
+					case df::enums::building_type::Construction:
+						// change tile type to display the construction
+						if(ssConfig.show_designations) {
+							readConstructionsToTile( b, copiedbuilding );
+							continue;
+						}
 						break;
 					default:
 						break;

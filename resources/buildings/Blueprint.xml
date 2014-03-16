@@ -3,5 +3,5 @@
 
 
 <building name="Construction Blueprint" game_type="Construction" >
-	<sprite index = 321 />
+	<sprite index = -1 />
 </building> 
