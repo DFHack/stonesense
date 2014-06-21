@@ -210,7 +210,7 @@ void Tile::AssembleTile( void )
 
     //TODO the following check should get incorporated into segment beautification
     if(((drawx + TILEWIDTH*ssConfig.scale) < 0) || (drawx > ssState.ScreenW) || ((drawy + (TILETOPHEIGHT + FLOORHEIGHT)*ssConfig.scale) < 0) || (drawy - WALLHEIGHT*ssConfig.scale > ssState.ScreenH)) {
-		visible = FALSE;
+		visible = false;
 		return;
     }
 
