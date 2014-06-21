@@ -4,20 +4,30 @@
 
 void actualWindowSize(int32_t & width, int32_t & height)
 {
-	uint8_t mnu, map, tot;
+	uint8_t mnu, map;
 	Gui::getMenuWidth(mnu, map);
 	Gui::getWindowSize(width, height);
+	if (!df::global::gamemode || *df::global::gamemode == game_mode::ADVENTURE)
+	{
+		height = height - 2; //Adventure mode has a 2 tile high status screen on the bottom.
+		//width = width; //But it uses the full screen width.
+	}
+	else
+	{
+		height = height - 2; //account for vertical borders
 
-	height = height - 2; //account for vertical borders
-
-	if (mnu == 1){ 
-		width -= 57; //Menu is open doubly wide
-	} else if (mnu == 2 && map == 3) {
-		width -= 33; //Just the menu is open
-	} else if (mnu == 2 && map == 2) {
-		width -= 26; //Just the area map is open
-	} else {
-		width = width - 2; //No menu or area map, just account for borders
+		if (mnu == 1){
+			width -= 57; //Menu is open doubly wide
+		}
+		else if (mnu == 2 && map == 3) {
+			width -= 33; //Just the menu is open
+		}
+		else if (mnu == 2 && map == 2) {
+			width -= 26; //Just the area map is open
+		}
+		else {
+			width = width - 2; //No menu or area map, just account for borders
+		}
 	}
 }
 

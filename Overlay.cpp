@@ -29,6 +29,12 @@ void Overlay::ReadTileLocations()
 	DFHack::DFSDL_Surface * dfsurf = (DFHack::DFSDL_Surface *) SDL_GetVideoSurface();
 	offsetx = ((dfsurf->w) % fontx)/2;
 	offsety = ((dfsurf->h) % fonty)/2;
+	if (!df::global::gamemode || *df::global::gamemode == game_mode::ADVENTURE)
+	{
+		//Adventure mode doesn't have a single-tile border around it.
+		offsetx = offsetx - fontx;
+		offsety = offsety - fonty;
+	}
 
 	ssState.ScreenW = fontx*width; 
 	ssState.ScreenH = fonty*height; 
@@ -48,7 +54,10 @@ void Overlay::CheckViewscreen()
 
 bool Overlay::PaintingOverTileAt(int32_t x, int32_t y)
 {
-	return x > 0 && x <= width && y > 0 && y <= height;
+	if (!df::global::gamemode || *df::global::gamemode == game_mode::ADVENTURE)
+		return x >= 0 && x <= width && y >= 0 && y <= height;
+	else
+		return x > 0 && x <= width && y > 0 && y <= height;
 }
 
 void Overlay::set_to_null() 

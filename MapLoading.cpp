@@ -118,6 +118,8 @@ bool readDesignationsToTile( Tile * b,
 							 df::tile_designation des,	
 							 df::tile_occupancy occ)
 {
+	if (!df::global::gamemode || *df::global::gamemode == game_mode::ADVENTURE)
+		return false; //Adventure mode doesn't use Dwarf mode designations.
 	df::tiletype_shape shape = df::tiletype_shape::WALL;
 	df::tiletype_material mat = df::tiletype_material::STONE; 
 	df::tiletype_variant var = df::tiletype_variant::NONE;

@@ -611,6 +611,8 @@ bool wallShouldNotHaveBorders( int in )
 
 bool containsDesignations( df::tile_designation des, df::tile_occupancy occ )
 {
+	if (!df::global::gamemode || *df::global::gamemode == game_mode::ADVENTURE)
+		return false;
 	if(des.bits.dig != df::tile_dig_designation::No) {
 		return true;
 	} else if(des.bits.smooth != 0) {
