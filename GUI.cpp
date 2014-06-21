@@ -41,6 +41,8 @@ using namespace std;
 #include "df/caste_raw.h"
 #include "df/tissue_style_raw.h"
 
+#include "df/viewscreen_dungeonmodest.h"
+#include "df/report.h"
 extern ALLEGRO_FONT *font;
 
 int MiniMapTopLeftX = 0;
@@ -309,6 +311,21 @@ void draw_ustr_border(const ALLEGRO_FONT *font, ALLEGRO_COLOR color, float x, fl
     al_draw_ustr(font, color, x, y, flags, ustr);
 }
 
+void draw_report_border(const ALLEGRO_FONT *font, float x, float y, int flags, const df::report * report)
+{
+	ALLEGRO_COLOR color = ssConfig.colors.getDfColor(report->color);
+	draw_text_border(font, color, x, y, flags, report->text.c_str());
+}
+
+void draw_announcements(const ALLEGRO_FONT *font, float x, float y, int flags, std::vector<df::report *> &announcements)
+{
+	for (int i = announcements.size() - 1; i >= 0 && announcements[i]->duration > 0; i--)
+	{
+		int offset = ((announcements.size() - 1) - i) * al_get_font_line_height(font);
+		draw_report_border(font, x, y - offset, flags, announcements[i]);
+	}
+}
+
 void correctTileForDisplayedOffset(int32_t& x, int32_t& y, int32_t& z)
 {
     x -= ssState.Position.x;
@@ -462,7 +479,20 @@ void drawDebugInfo(WorldSegment * segment)
 	if(b) {
 		draw_textf_border(font, uiColor(1), 2, (i++*al_get_font_line_height(font)), 0, "Tile 0x%x (%i,%i,%i)", b, b->x, b->y, b->z);
 	}
+	df::viewscreen * vs = Gui::getCurViewscreen();
+	auto advScreen = strict_virtual_cast<df::viewscreen_dungeonmodest>(vs);
+	if (advScreen)
+	{
+		draw_textf_border(font, uiColor(1), 2, (i++*al_get_font_line_height(font)), 0,
+			"Adventure viewscreen: [%d,%d,%d], announce_y=%d, announce_idx=%d, announce_more=%d",
+			advScreen->x, advScreen->y, advScreen->z, advScreen->announce_y, advScreen->announce_idx, advScreen->announce_more);
+		if (advScreen->announce_idx >= 0)
+		{
+			draw_report_border(font, 2, (i++*al_get_font_line_height(font)), 0,
+				df::global::world->status.announcements[advScreen->announce_idx]);
+		}
 
+	}
 	draw_textf_border(font, uiColor(1), 2, (i++*al_get_font_line_height(font)), 0,
 		"Coord:(%i,%i,%i)", segment->segState.dfCursor.x, segment->segState.dfCursor.y, segment->segState.dfCursor.z);
 
@@ -1046,6 +1076,8 @@ void paintboard()
 		drawSelectionCursor(segment);
 
 		drawDebugCursor(segment);
+		
+		draw_announcements(font, ssState.ScreenW / 2, ssState.ScreenH - 20, ALLEGRO_ALIGN_CENTRE, df::global::world->status.announcements);
 
         if(ssConfig.debug_mode) {
             draw_textf_border(font, uiColor(1), 10, 3*al_get_font_line_height(font), 0, "Map Read Time: %.2fms", ssTimers.read_time);
