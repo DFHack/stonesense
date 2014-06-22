@@ -570,12 +570,15 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
 //All this fun DFhack stuff I gotta do now.
 DFhackCExport command_result stonesense_command(color_ostream &out, std::vector<std::string> & params);
 
+DFHACK_PLUGIN_IS_ENABLED(enabled);//Is this enough?
+
 //set the plugin name/dfhack version
 DFHACK_PLUGIN("stonesense");
 
 //This is the init command. it includes input options.
 DFhackCExport command_result plugin_init ( color_ostream &out, std::vector <PluginCommand> &commands)
 {
+	enabled = true;
     commands.push_back(PluginCommand("stonesense","Start up the stonesense visualiser.",stonesense_command));
     commands.push_back(PluginCommand("ssense","Start up the stonesense visualiser.",stonesense_command));
     return CR_OK;
