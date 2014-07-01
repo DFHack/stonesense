@@ -425,13 +425,9 @@ void drawSelectionCursor(WorldSegment * segment)
 void drawDebugCursor(WorldSegment * segment)
 {
 	Crd3D cursor = segment->segState.dfCursor;
-	if( (cursor.x != -30000 && ssConfig.follow_DFcursor)
-		|| (ssConfig.track_mode == GameConfiguration::TRACKING_FOCUS) ){
-			segment->CorrectTileForSegmentOffset(cursor.x, cursor.y, cursor.z);
-			segment->CorrectTileForSegmentRotation(cursor.x, cursor.y, cursor.z);
-	} else {
-		cursor.z = 0;
-	}
+    segment->CorrectTileForSegmentOffset(cursor.x, cursor.y, cursor.z);
+    segment->CorrectTileForSegmentRotation(cursor.x, cursor.y, cursor.z);
+
 	Crd2D point = LocalTileToScreen(cursor.x, cursor.y, cursor.z);
 	int sheetx = SPRITEOBJECT_CURSOR % SHEET_OBJECTSWIDE;
     int sheety = SPRITEOBJECT_CURSOR / SHEET_OBJECTSWIDE;
