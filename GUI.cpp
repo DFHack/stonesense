@@ -167,7 +167,7 @@ void draw_borders(float x, float y, uint8_t borders)
 
 }
 
-void ScreenToPoint(int x,int y,int &x1, int &y1, int &z1, int segSizeX, int segSizeY, int ScreenW, int ScreenH)
+void ScreenToPoint(int x,int y,int &x1, int &y1, int &z1, int segSizeX, int segSizeY, int segSizeZ, int ScreenW, int ScreenH)
 {
     x-=ScreenW / 2;
     y-=ScreenH / 2;
@@ -175,7 +175,7 @@ void ScreenToPoint(int x,int y,int &x1, int &y1, int &z1, int segSizeX, int segS
     y = y/ssConfig.scale;
     y += TILETOPHEIGHT*5/4;
     y += ssConfig.lift_segment_offscreen_y;
-    z1 = 0;
+    z1 = segSizeZ-2;
     y += z1*TILEHEIGHT;
     y = 2 * y / TILETOPHEIGHT;
     y += (segSizeX/2) + (segSizeY/2);
@@ -193,9 +193,9 @@ void ScreenToPoint(int x,int y,int &x1, int &y1, int &z1, int segSizeX, int segS
 void ScreenToPoint(int x,int y,int &x1, int &y1, int &z1)
 {
     if(ssConfig.track_screen_center){
-        ScreenToPoint(x, y, x1, y1, z1, ssState.Size.x, ssState.Size.y, ssState.ScreenW, ssState.ScreenH);
+        ScreenToPoint(x, y, x1, y1, z1, ssState.Size.x, ssState.Size.y, ssState.Size.z, ssState.ScreenW, ssState.ScreenH);
     } else {
-        ScreenToPoint(x, y, x1, y1, z1, 0, 0, 0, 0);
+        ScreenToPoint(x, y, x1, y1, z1, 0, 0, ssState.Size.z, 0, 0);
     }
 }
 
