@@ -17,6 +17,8 @@ using namespace std;
 #include "Tile.h"
 #include "UserInput.h"
 
+#include "modules/Units.h"
+
 #include "df/ui.h"
 #include "df/building_actual.h"
 
@@ -42,6 +44,8 @@ using namespace std;
 #include "df/tissue_style_raw.h"
 
 #include "df/viewscreen_dungeonmodest.h"
+#include "df/viewscreen_dungeon_wrestlest.h"
+#include "df/ui_advmode.h"
 #include "df/report.h"
 extern ALLEGRO_FONT *font;
 
@@ -313,7 +317,7 @@ void draw_ustr_border(const ALLEGRO_FONT *font, ALLEGRO_COLOR color, float x, fl
 
 void draw_report_border(const ALLEGRO_FONT *font, float x, float y, int flags, const df::report * report)
 {
-	ALLEGRO_COLOR color = ssConfig.colors.getDfColor(report->color);
+	ALLEGRO_COLOR color = ssConfig.colors.getDfColor(report->color, ssConfig.useDfColors);
 	draw_text_border(font, color, x, y, flags, report->text.c_str());
 }
 
@@ -466,6 +470,37 @@ void drawDebugCursor(WorldSegment * segment)
         0);
 }
 
+void drawAdvmodeMenuTalk(const ALLEGRO_FONT *font, int x, int y)
+{
+    df::ui_advmode * menu = df::global::ui_advmode;
+    if (!menu)
+        return;
+    if (menu->talk_targets.size() == 0)
+        return;
+    int line = menu->talk_targets.size() + 3;
+    draw_textf_border(font, ssConfig.colors.getDfColor(dfColors::white, ssConfig.useDfColors), x, (y - (line*al_get_font_line_height(font))), 0,
+        "Who will you talk to?");
+    line -= 2;
+    for (int i = 0; i < menu->talk_targets.size(); i++)
+    {
+        ALLEGRO_COLOR color = ssConfig.colors.getDfColor(dfColors::lgray, ssConfig.useDfColors);
+        if (i == menu->talk_target_selection)
+            color = ssConfig.colors.getDfColor(dfColors::white, ssConfig.useDfColors);
+        df::unit * crete = Units::GetCreature(Units::FindIndexById(menu->talk_targets[i]->unit_id));
+        if (crete)
+        {
+            ALLEGRO_USTR * string = al_ustr_newf("%s, ", Units::getProfessionName(crete).c_str());
+            int8_t gender = df::global::world->raws.creatures.all[crete->race]->caste[crete->caste]->gender;
+            if (gender == 0)
+                al_ustr_append_chr(string, 0x2640);
+            else if (gender == 1)
+                al_ustr_append_chr(string, 0x2642);
+            draw_ustr_border(font, color, x + 5, (y - ((line - i)*al_get_font_line_height(font))), 0,
+                string);
+        }
+    }
+}
+
 void drawDebugInfo(WorldSegment * segment)
 {
 	using df::global::ui;
@@ -480,18 +515,14 @@ void drawDebugInfo(WorldSegment * segment)
 		draw_textf_border(font, uiColor(1), 2, (i++*al_get_font_line_height(font)), 0, "Tile 0x%x (%i,%i,%i)", b, b->x, b->y, b->z);
 	}
 	df::viewscreen * vs = Gui::getCurViewscreen();
-	auto advScreen = strict_virtual_cast<df::viewscreen_dungeonmodest>(vs);
-	if (advScreen)
+	if (auto advScreen = strict_virtual_cast<df::viewscreen_dungeonmodest>(vs))
 	{
-		draw_textf_border(font, uiColor(1), 2, (i++*al_get_font_line_height(font)), 0,
-			"Adventure viewscreen: [%d,%d,%d], announce_y=%d, announce_idx=%d, announce_more=%d",
-			advScreen->x, advScreen->y, advScreen->z, advScreen->announce_y, advScreen->announce_idx, advScreen->announce_more);
-		if (advScreen->announce_idx >= 0)
+		if (df::global::ui_advmode)
 		{
-			draw_report_border(font, 2, (i++*al_get_font_line_height(font)), 0,
-				df::global::world->status.announcements[advScreen->announce_idx]);
+			draw_textf_border(font, uiColor(1), 2, (i++*al_get_font_line_height(font)), 0,
+				"Current menu: %s",
+				df::enum_traits<df::ui_advmode_menu>::key_table[df::global::ui_advmode->menu]);
 		}
-
 	}
 	draw_textf_border(font, uiColor(1), 2, (i++*al_get_font_line_height(font)), 0,
 		"Coord:(%i,%i,%i)", segment->segState.dfCursor.x, segment->segState.dfCursor.y, segment->segState.dfCursor.z);
@@ -1078,6 +1109,7 @@ void paintboard()
 		drawDebugCursor(segment);
 		
 		draw_announcements(font, ssState.ScreenW / 2, ssState.ScreenH - 20, ALLEGRO_ALIGN_CENTRE, df::global::world->status.announcements);
+		drawAdvmodeMenuTalk(font, 5, ssState.ScreenH - 5);
 
         if(ssConfig.debug_mode) {
             draw_textf_border(font, uiColor(1), 10, 3*al_get_font_line_height(font), 0, "Map Read Time: %.2fms", ssTimers.read_time);

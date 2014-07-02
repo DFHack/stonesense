@@ -2,6 +2,8 @@
 
 #include "common.h"
 #include "SpriteColors.h"
+#include "df/enabler.h"
+
 
 enum ShadeBy {
     ShadeNone,
@@ -119,14 +121,18 @@ public:
     color & operator [] (color_name col) {
         return colors[col];
     }
-    ALLEGRO_COLOR getDfColor(int color) {
+    ALLEGRO_COLOR getDfColor(int color, bool useDfColors) {
         if(color < 0 || color >= 16) {
             return al_map_rgb(255,255,255);
         }
+		if (useDfColors)
+		{
+			return al_map_rgb_f(df::global::enabler->ccolor[color][0], df::global::enabler->ccolor[color][1], df::global::enabler->ccolor[color][2]);
+		}
         return colors[ (color_name) color].al;
     }
-    ALLEGRO_COLOR getDfColor(int color, int bright) {
-        return getDfColor(color+(bright*8));
+	ALLEGRO_COLOR getDfColor(int color, int bright, bool useDfColors) {
+		return getDfColor(color + (bright * 8), useDfColors);
     }
 };
 
@@ -184,6 +190,7 @@ struct GameConfiguration {
     bool saveImageCache;
     bool cache_images;
     int imageCacheSize;
+	bool useDfColors;
     dfColors colors;
     bool opengl;
     bool directX;

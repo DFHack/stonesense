@@ -1260,17 +1260,17 @@ ALLEGRO_COLOR c_sprite::get_color(void* tile)
     case ShadeVein:
         return lookupMaterialColor(b->veinMaterial);
     case ShadeMatFore:
-        return ssConfig.colors.getDfColor(lookupMaterialFore(b->material.type, b->material.index), lookupMaterialBright(b->material.type, b->material.index));
+		return ssConfig.colors.getDfColor(lookupMaterialFore(b->material.type, b->material.index), lookupMaterialBright(b->material.type, b->material.index), ssConfig.useDfColors);
     case ShadeMatBack:
-        return ssConfig.colors.getDfColor(lookupMaterialBack(b->material.type, b->material.index));
+		return ssConfig.colors.getDfColor(lookupMaterialBack(b->material.type, b->material.index), ssConfig.useDfColors);
     case ShadeLayerFore:
-        return ssConfig.colors.getDfColor(lookupMaterialFore(b->layerMaterial.type, b->layerMaterial.index), lookupMaterialBright(b->layerMaterial.type, b->layerMaterial.index));
+		return ssConfig.colors.getDfColor(lookupMaterialFore(b->layerMaterial.type, b->layerMaterial.index), lookupMaterialBright(b->layerMaterial.type, b->layerMaterial.index), ssConfig.useDfColors);
     case ShadeLayerBack:
-        return ssConfig.colors.getDfColor(lookupMaterialBack(b->layerMaterial.type, b->layerMaterial.index));
+		return ssConfig.colors.getDfColor(lookupMaterialBack(b->layerMaterial.type, b->layerMaterial.index), ssConfig.useDfColors);
     case ShadeVeinFore:
-        return ssConfig.colors.getDfColor(lookupMaterialFore(b->veinMaterial.type, b->veinMaterial.index), lookupMaterialBright(b->veinMaterial.type, b->veinMaterial.index));
+		return ssConfig.colors.getDfColor(lookupMaterialFore(b->veinMaterial.type, b->veinMaterial.index), lookupMaterialBright(b->veinMaterial.type, b->veinMaterial.index), ssConfig.useDfColors);
     case ShadeVeinBack:
-        return ssConfig.colors.getDfColor(lookupMaterialBack(b->veinMaterial.type, b->veinMaterial.index));
+		return ssConfig.colors.getDfColor(lookupMaterialBack(b->veinMaterial.type, b->veinMaterial.index), ssConfig.useDfColors);
     case ShadeBodyPart:
         if(b->occ.bits.unit && b->creature) {
 			dayofLife = b->creature->birth_year*12*28 + b->creature->birth_time/1200;
@@ -1333,7 +1333,7 @@ ALLEGRO_COLOR c_sprite::get_color(void* tile)
 		}
     case ShadeJob:
         if(b->occ.bits.unit && b->creature) {
-            return ssConfig.colors.getDfColor(Units::getProfessionColor(b->creature->origin));
+			return ssConfig.colors.getDfColor(Units::getProfessionColor(b->creature->origin), ssConfig.useDfColors);
         } else {
             return al_map_rgb(255,255,255);
         }

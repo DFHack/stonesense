@@ -45,11 +45,15 @@ int32_t charToUpper(int32_t c)
 ALLEGRO_USTR* bufferToUstr(const char* buffer, int length)
 {
     ALLEGRO_USTR* temp = al_ustr_new("");
-    for(int i = 0; i < length; i++) {
-        switch((unsigned char)buffer[i]) {
+    for (int i = 0; i < length; i++) {
+        switch ((unsigned char)buffer[i]) {
         case 0: {
-            i = length;
-            break;
+                    i = length;
+                    break;
+        }
+        case 1: {
+                    al_ustr_append_chr(temp, 0x263A);
+                    break;
         }
         case 128: {
             al_ustr_append_chr(temp, 0xC7);
@@ -222,7 +226,7 @@ void AssembleCreature(int drawx, int drawy, SS_Unit* creature, Tile * b)
         if(raw->caste[creature->caste]->caste_tile != 1) {
             spritenum = raw->caste[creature->caste]->caste_tile;
         }
-        ALLEGRO_COLOR tilecolor = ssConfig.colors.getDfColor(DFHack::Units::getCasteProfessionColor(creature->race,creature->caste,(df::profession)creature->profession));
+        ALLEGRO_COLOR tilecolor = ssConfig.colors.getDfColor(DFHack::Units::getCasteProfessionColor(creature->race,creature->caste,(df::profession)creature->profession), ssConfig.useDfColors);
         int sheetx = spritenum % LETTERS_OBJECTSWIDE;
         int sheety = spritenum / LETTERS_OBJECTSWIDE;
         b->AssembleSprite(
@@ -330,7 +334,7 @@ void DrawCreatureText(int drawx, int drawy, SS_Unit* creature )
     if( ssConfig.show_creature_names ) {
         ALLEGRO_COLOR textcol;
         if(ssConfig.show_creature_professions == 2) {
-            textcol = ssConfig.colors.getDfColor(DFHack::Units::getProfessionColor(creature->origin));
+			textcol = ssConfig.colors.getDfColor(DFHack::Units::getProfessionColor(creature->origin), ssConfig.useDfColors);
             //stupid hack to get legendary status of creatures
             if(creature->isLegend) {
                 ALLEGRO_COLOR altcol;

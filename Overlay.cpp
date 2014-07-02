@@ -7,6 +7,7 @@
 
 #include "df/viewscreen_dwarfmodest.h"
 #include "df/viewscreen_dungeonmodest.h"
+#include "df/ui_advmode.h"
 
 
 DFhackCExport void * SDL_GetVideoSurface(void);
@@ -37,17 +38,30 @@ void Overlay::ReadTileLocations()
 	}
 
 	ssState.ScreenW = fontx*width; 
-	ssState.ScreenH = fonty*height; 
+	ssState.ScreenH = fonty*height;
 }
 
 void Overlay::CheckViewscreen()
 {
 	df::viewscreen * vs = Gui::getCurViewscreen();
 	virtual_identity * id = virtual_identity::get(vs);
-	if(id == &df::viewscreen_dwarfmodest::_identity
-		|| id == &df::viewscreen_dungeonmodest::_identity){
+	if (id == &df::viewscreen_dwarfmodest::_identity)
+	{
+		good_viewscreen = true;
+	}
+	else if (id == &df::viewscreen_dungeonmodest::_identity)
+	{
+		if (!df::global::ui_advmode)
 			good_viewscreen = true;
-	} else {
+		else if (df::global::ui_advmode->menu == df::ui_advmode_menu::Default)
+			good_viewscreen = true;
+		else if (df::global::ui_advmode->menu == df::ui_advmode_menu::Talk)
+			good_viewscreen = true;
+		else
+			good_viewscreen = false;
+	}
+	else
+	{
 		good_viewscreen = false;
 	}
 }

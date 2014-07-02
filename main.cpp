@@ -431,6 +431,7 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
     contentLoader = new ContentLoader();
     ssConfig.zoom = 0;
     ssConfig.scale = 1.0f;
+	ssConfig.useDfColors = false;
     ssTimers.assembly_time = 1.0f;
     ssTimers.beautify_time = 1.0f;
     ssTimers.overlay_time = 1.0f;

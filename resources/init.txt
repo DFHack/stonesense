@@ -84,7 +84,7 @@ Sets weather Stonesense should shade in the fog-of-war partially hidden tiles.
 --Debug Mode--
 
 Sets Stonesense in debug mode. Adds additional information to displays.
-[DEBUGMODE:NO]
+[DEBUGMODE:YES]
 
 Set's the debug cursor to follow the cursor from DF when it is there.
 [FOLLOW_DF_CURSOR:YES]
@@ -133,6 +133,9 @@ compatibility, but is very slow.
 --Colors--
 
 Stonesense can use the colors from DF for various purposes. these are set here the same way as in DF
+
+However, if this is set to yes, these aren't used.
+[USE_DF_COLORS:YES]
 
 [BLACK_R:0]
 [BLACK_G:0]

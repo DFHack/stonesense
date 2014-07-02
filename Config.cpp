@@ -291,6 +291,10 @@ void parseConfigLine( string line )
         string result = parseStrFromLine( "FONT", line );
         ssConfig.font = al_create_path(result.c_str());
     }
+	if (line.find("[USE_DF_COLORS") != -1){
+		string result = parseStrFromLine("USE_DF_COLORS", line);
+		ssConfig.useDfColors = (result == "YES");
+	}
     if( line.find("[BLACK_R") != -1) {
         int value = parseIntFromLine( "BLACK_R", line);
         if(value > 255) {
