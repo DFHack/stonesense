@@ -167,13 +167,15 @@ void draw_borders(float x, float y, uint8_t borders)
 
 }
 
-void ScreenToPoint(int x,int y,int &x1, int &y1, int &z1, int segSizeX, int segSizeY, int segSizeZ, int ScreenW, int ScreenH)
+void ScreenToPoint(int inx,int iny,int &x1, int &y1, int &z1, int segSizeX, int segSizeY, int segSizeZ, int ScreenW, int ScreenH)
 {
-    x-=ScreenW / 2;
-    y-=ScreenH / 2;
+    float x=inx;
+    float y=iny;
+    x-=ScreenW / 2.0;
+    y-=ScreenH / 2.0;
 
     y = y/ssConfig.scale;
-    y += TILETOPHEIGHT*5/4;
+    y += TILETOPHEIGHT*5.0/4.0;
     y += ssConfig.lift_segment_offscreen_y;
     z1 = segSizeZ-2;
     y += z1*TILEHEIGHT;
