@@ -46,151 +46,206 @@ ALLEGRO_USTR* bufferToUstr(const char* buffer, int length)
 {
     ALLEGRO_USTR* temp = al_ustr_new("");
     for (int i = 0; i < length; i++) {
-        switch ((unsigned char)buffer[i]) {
-        case 0: {
-                    i = length;
-                    break;
-        }
-        case 1: {
-                    al_ustr_append_chr(temp, 0x263A);
-                    break;
-        }
-        case 128: {
+        switch ((unsigned char)buffer[i])
+        {
+        case 0:
+            i = length;
+            break;
+        case 1:
+            al_ustr_append_chr(temp, 0x263A);
+            break;
+        case 2:
+            al_ustr_append_chr(temp, 0x263B);
+            break;
+        case 3:
+            al_ustr_append_chr(temp, 0x2665);
+            break;
+        case 4:
+            al_ustr_append_chr(temp, 0x2666);
+            break;
+        case 5:
+            al_ustr_append_chr(temp, 0x2663);
+            break;
+        case 6:
+            al_ustr_append_chr(temp, 0x2660);
+            break;
+        case 7:
+            al_ustr_append_chr(temp, 0x2022);
+            break;
+        case 8:
+            al_ustr_append_chr(temp, 0x25D8);
+            break;
+        case 9:
+            al_ustr_append_chr(temp, 0x25CB);
+            break;
+        case 10:
+            al_ustr_append_chr(temp, 0x25D9);
+            break;
+        case 11:
+            al_ustr_append_chr(temp, 0x2642);
+            break;
+        case 12:
+            al_ustr_append_chr(temp, 0x2640);
+            break;
+        case 13:
+            al_ustr_append_chr(temp, 0x266A);
+            break;
+        case 14:
+            al_ustr_append_chr(temp, 0x266B);
+            break;
+        case 15:
+            al_ustr_append_chr(temp, 0x263C);
+            break;
+        case 16:
+            al_ustr_append_chr(temp, 0x25BA);
+            break;
+        case 17:
+            al_ustr_append_chr(temp, 0x25C4);
+            break;
+        case 18:
+            al_ustr_append_chr(temp, 0x2195);
+            break;
+        case 19:
+            al_ustr_append_chr(temp, 0x203C);
+            break;
+        case 20:
+            al_ustr_append_chr(temp, 0xB6);
+            break;
+        case 21:
+            al_ustr_append_chr(temp, 0xA7);
+            break;
+        case 22:
+            al_ustr_append_chr(temp, 0x25AC);
+            break;
+        case 23:
+            al_ustr_append_chr(temp, 0x21A8);
+            break;
+        case 24:
+            al_ustr_append_chr(temp, 0x2191);
+            break;
+        case 25:
+            al_ustr_append_chr(temp, 0x2193);
+            break;
+        case 26:
+            al_ustr_append_chr(temp, 0x2192);
+            break;
+        case 27:
+            al_ustr_append_chr(temp, 0x2190);
+            break;
+        case 28:
+            al_ustr_append_chr(temp, 0x221F);
+            break;
+        case 29:
+            al_ustr_append_chr(temp, 0x2194);
+            break;
+        case 30:
+            al_ustr_append_chr(temp, 0x25B2);
+            break;
+        case 31:
+            al_ustr_append_chr(temp, 0x25BC);
+            break;
+        case 128:
             al_ustr_append_chr(temp, 0xC7);
             break;
-        }
-        case 129: {
+        case 129:
             al_ustr_append_chr(temp, 0xFC);
             break;
-        }
-        case 130: {
+        case 130:
             al_ustr_append_chr(temp, 0xE9);
             break;
-        }
-        case 131: {
+        case 131:
             al_ustr_append_chr(temp, 0xE2);
             break;
-        }
-        case 132: {
+        case 132:
             al_ustr_append_chr(temp, 0xE4);
             break;
-        }
-        case 133: {
+        case 133:
             al_ustr_append_chr(temp, 0xE0);
             break;
-        }
-        case 134: {
+        case 134:
             al_ustr_append_chr(temp, 0xE5);
             break;
-        }
-        case 135: {
+        case 135:
             al_ustr_append_chr(temp, 0xE7);
             break;
-        }
-        case 136: {
+        case 136:
             al_ustr_append_chr(temp, 0xEA);
             break;
-        }
-        case 137: {
+        case 137:
             al_ustr_append_chr(temp, 0xEB);
             break;
-        }
-        case 138: {
+        case 138:
             al_ustr_append_chr(temp, 0xE8);
             break;
-        }
-        case 139: {
+        case 139:
             al_ustr_append_chr(temp, 0xEF);
             break;
-        }
-        case 140: {
+        case 140:
             al_ustr_append_chr(temp, 0xEE);
             break;
-        }
-        case 141: {
+        case 141:
             al_ustr_append_chr(temp, 0xC4);
             break;
-        }
-        case 142: {
+        case 142:
             al_ustr_append_chr(temp, 0xC5);
             break;
-        }
-        case 143: {
+        case 143:
             al_ustr_append_chr(temp, 0xC9);
             break;
-        }
-        case 144: {
+        case 144:
             al_ustr_append_chr(temp, 0xFC);
             break;
-        }
-        case 145: {
+        case 145:
             al_ustr_append_chr(temp, 0xE9);
             break;
-        }
-        case 146: {
+        case 146:
             al_ustr_append_chr(temp, 0xC6);
             break;
-        }
-        case 147: {
+        case 147:
             al_ustr_append_chr(temp, 0xF4);
             break;
-        }
-        case 148: {
+        case 148:
             al_ustr_append_chr(temp, 0xF6);
             break;
-        }
-        case 149: {
+        case 149:
             al_ustr_append_chr(temp, 0xF2);
             break;
-        }
-        case 150: {
+        case 150:
             al_ustr_append_chr(temp, 0xFB);
             break;
-        }
-        case 151: {
+        case 151:
             al_ustr_append_chr(temp, 0xF9);
             break;
-        }
-        case 152: {
+        case 152:
             al_ustr_append_chr(temp, 0xFF);
             break;
-        }
-        case 153: {
+        case 153:
             al_ustr_append_chr(temp, 0xD6);
             break;
-        }
-        case 154: {
+        case 154:
             al_ustr_append_chr(temp, 0xDC);
             break;
-        }
-        case 160: {
+        case 160:
             al_ustr_append_chr(temp, 0xE1);
             break;
-        }
-        case 161: {
+        case 161:
             al_ustr_append_chr(temp, 0xED);
             break;
-        }
-        case 162: {
+        case 162:
             al_ustr_append_chr(temp, 0xF3);
             break;
-        }
-        case 163: {
+        case 163:
             al_ustr_append_chr(temp, 0xFA);
             break;
-        }
-        case 164: {
+        case 164:
             al_ustr_append_chr(temp, 0xF1);
             break;
-        }
-        case 165: {
+        case 165:
             al_ustr_append_chr(temp, 0xD1);
             break;
-        }
-        default: {
+        default:
             al_ustr_append_chr(temp, buffer[i]);
             break;
-        }
         }
     }
     return temp;
