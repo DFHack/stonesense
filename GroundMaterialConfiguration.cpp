@@ -20,6 +20,7 @@ TerrainMaterialConfiguration::TerrainMaterialConfiguration()
 
 TerrainConfiguration::TerrainConfiguration()
 {
+    priority = -1;
     defaultSprite.resize(NUM_FORMS);
     for(int i = 0; i < NUM_FORMS; i++) {
         defaultSprite[i].set_fileindex(INVALID_INDEX);
@@ -68,7 +69,7 @@ void parseWallFloorSpriteElement( TiXmlElement* elemWallFloorSprite, vector<Terr
     sprite.set_needoutline(1);
     sprite.set_by_xml(elemWallFloorSprite, basefile);
 
-    vector<int> lookupKeys;
+    vector<pair<int, int>> lookupKeys;
 
     // look through terrain elements
     TiXmlElement* elemTerrain = elemWallFloorSprite->FirstChildElement("terrain");
@@ -78,20 +79,45 @@ void parseWallFloorSpriteElement( TiXmlElement* elemWallFloorSprite, vector<Terr
         //get a terrain type
         int targetElem=INVALID_INDEX;
         const char* gameIDstr = elemTerrain->Attribute("value");
-        if (gameIDstr == NULL || gameIDstr[0] == 0) {
-            contentError("Invalid or missing value attribute",elemTerrain);
-            continue;
+        if (!(gameIDstr == NULL || gameIDstr[0] == 0))
+        {
+            targetElem = atoi(gameIDstr);
         }
-        targetElem = atoi (gameIDstr);
-        //add it to the lookup vector
-        lookupKeys.push_back(targetElem);
-        if (configTable.size() <= (uint32_t)targetElem) {
-            //increase size if needed
-            configTable.resize(targetElem+1,NULL);
+        if (targetElem >= 0)
+        {
+            contentError("Use of depreciated terrain value. Use terrain token instead.", elemTerrain);
         }
-        if (configTable[targetElem]==NULL) {
-            // cleaned up in flushTerrainConfig
-            configTable[targetElem] = new TerrainConfiguration();
+        const char* gameTokenstr = elemTerrain->Attribute("token");
+        const char* gameShapestr = elemTerrain->Attribute("shape");
+        const char* gameSpecialstr = elemTerrain->Attribute("special");
+        const char* gameVariantstr = elemTerrain->Attribute("variant");
+        const char* gameMaterialstr = elemTerrain->Attribute("material");
+        int i = 0;
+        if (targetElem >= i)
+        {
+            i = targetElem;
+        }
+        for (int i = 0; i < contentLoader->tiletypeNameList.tiletype_list_size(); i++)
+        {
+            int matchness = INVALID_INDEX;
+            if (i == targetElem)
+                matchness = 0;
+            if (!(gameTokenstr == NULL || gameTokenstr[0] == 0))
+            if (contentLoader->tiletypeNameList.tiletype_list(i).name() == gameTokenstr)
+                matchness = 0;
+            if (matchness >= 0)
+            {
+                //add it to the lookup vector
+                lookupKeys.push_back(make_pair(i, matchness));
+                if (configTable.size() <= (uint32_t)i) {
+                    //increase size if needed
+                    configTable.resize(i + 1, NULL);
+                }
+                if (configTable[i] == NULL) {
+                    // cleaned up in flushTerrainConfig
+                    configTable[i] = new TerrainConfiguration();
+                }
+            }
         }
     }
 
@@ -129,13 +155,14 @@ void parseWallFloorSpriteElement( TiXmlElement* elemWallFloorSprite, vector<Terr
     if (elemMaterial == NULL) {
         // if none, set default terrain sprites for each terrain type
         for (int i=0 ; i < elems; i++ ) {
-            TerrainConfiguration *tConfig = configTable[lookupKeys[i]];
+            TerrainConfiguration *tConfig = configTable[lookupKeys[i].first];
             // if that was null we have *really* screwed up earlier
             // only update if not by previous configs
-            for( int i = 0; i < NUM_FORMS; i++) {
-                if(formToggle[i])
-                    if (tConfig->defaultSprite[i].get_sheetindex() == UNCONFIGURED_INDEX) {
-                        tConfig->defaultSprite[i] = sprite;
+            for( int j = 0; j < NUM_FORMS; j++) {
+                if(formToggle[j])
+                if (tConfig->priority == INVALID_INDEX || tConfig->priority > lookupKeys[i].second) {
+                        tConfig->defaultSprite[j] = sprite;
+                        tConfig->priority = lookupKeys[i].second;
                     }
             }
         }
@@ -153,7 +180,7 @@ void parseWallFloorSpriteElement( TiXmlElement* elemWallFloorSprite, vector<Terr
         if (elemSubtype == NULL) {
             // if none, set material default for each terrain type
             for (int i=0 ; i < elems; i++ ) {
-                TerrainConfiguration *tConfig = configTable[lookupKeys[i]];
+                TerrainConfiguration *tConfig = configTable[lookupKeys[i].first];
                 // if that was null we have *really* screwed up earlier
                 // create a new TerrainMaterialConfiguration if required
                 // make sure we have room for it first
@@ -165,11 +192,12 @@ void parseWallFloorSpriteElement( TiXmlElement* elemWallFloorSprite, vector<Terr
                 if (tConfig->terrainMaterials[elemIndex] == NULL) {
                     tConfig->terrainMaterials[elemIndex] = new TerrainMaterialConfiguration();
                 }
-                // only update if not set by earlier configs
-                for( int i = 0; i < NUM_FORMS; i++) {
-                    if(formToggle[i])
-                        if (tConfig->terrainMaterials[elemIndex]->defaultSprite[i].get_sheetindex() == UNCONFIGURED_INDEX) {
-                            tConfig->terrainMaterials[elemIndex]->defaultSprite[i] = sprite;
+                // only update if not set by earlier configs,
+                //FIXME: figure out how to manage priorities here.
+                for( int j = 0; j < NUM_FORMS; j++) {
+                    if(formToggle[j])
+                        if (tConfig->terrainMaterials[elemIndex]->defaultSprite[j].get_sheetindex() == UNCONFIGURED_INDEX) {
+                            tConfig->terrainMaterials[elemIndex]->defaultSprite[j] = sprite;
                         }
                 }
             }
@@ -184,7 +212,7 @@ void parseWallFloorSpriteElement( TiXmlElement* elemWallFloorSprite, vector<Terr
 
             // set subtype sprite for each terrain type
             for (int i=0 ; i < elems; i++ ) {
-                TerrainConfiguration *tConfig = configTable[lookupKeys[i]];
+                TerrainConfiguration *tConfig = configTable[lookupKeys[i].first];
                 //if that was null we have *really* screwed up earlier
                 //create a new TerrainMaterialConfiguration if required
                 //make sure we have room for it first

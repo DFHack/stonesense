@@ -46,7 +46,7 @@ const char* TiletypeShapeToString(RemoteFortressReader::TiletypeShape input)
     case RemoteFortressReader::BROOK_TOP:
         return "BROOK_TOP";
         break;
-    case RemoteFortressReader::TREE:
+    case RemoteFortressReader::TREE_SHAPE:
         return "TREE";
         break;
     case RemoteFortressReader::SAPLING:
@@ -57,6 +57,15 @@ const char* TiletypeShapeToString(RemoteFortressReader::TiletypeShape input)
         break;
     case RemoteFortressReader::ENDLESS_PIT:
         return "ENDLESS_PIT";
+        break;
+    case RemoteFortressReader::BRANCH:
+        return "BRANCH";
+        break;
+    case RemoteFortressReader::TRUNK_BRANCH:
+        return "TRUNK_BRANCH";
+        break;
+    case RemoteFortressReader::TWIG:
+        return "TWIG";
         break;
     default:
         return "?";
@@ -104,11 +113,16 @@ const char* TiletypeSpecialToString(RemoteFortressReader::TiletypeSpecial input)
     case RemoteFortressReader::TRACK:
         return "TRACK";
         break;
+    case RemoteFortressReader::SMOOTH_DEAD:
+        return "SMOOTH_DEAD";
+        break;
     default:
         return "?";
         break;
     }
 }
+
+
 
 const char* TiletypeMaterialToString(RemoteFortressReader::TiletypeMaterial input)
 {
@@ -183,11 +197,24 @@ const char* TiletypeMaterialToString(RemoteFortressReader::TiletypeMaterial inpu
     case RemoteFortressReader::RIVER:
         return "RIVER";
         break;
+    case RemoteFortressReader::ROOT:
+        return "ROOT";
+        break;
+    case RemoteFortressReader::TREE_MATERIAL:
+        return "TREE";
+        break;
+    case RemoteFortressReader::MUSHROOM:
+        return "MUSHROOM";
+        break;
+    case RemoteFortressReader::UNDERWORLD_GATE:
+        return "UNDERWORLD_GATE";
+        break;
     default:
         return "?";
         break;
     }
 }
+
 
 const char* TiletypeVariantToString(RemoteFortressReader::TiletypeVariant input)
 {
@@ -212,4 +239,57 @@ const char* TiletypeVariantToString(RemoteFortressReader::TiletypeVariant input)
         return "?";
         break;
     }
+}
+
+RemoteFortressReader::TiletypeShape StringToTiletypeShape(const char* input)
+{
+    if (input == NULL || input[0] == 0)
+    {
+        return RemoteFortressReader::NO_SHAPE;
+    }
+    for (int i = 0; i < RemoteFortressReader::TiletypeShape_ARRAYSIZE; i++)
+    {
+        if (strcmp(input, TiletypeShapeToString((RemoteFortressReader::TiletypeShape)i)) == 0)
+            return (RemoteFortressReader::TiletypeShape)i;
+    }
+    return RemoteFortressReader::NO_SHAPE;
+}
+RemoteFortressReader::TiletypeSpecial StringToTiletypeSpecial(const char* input)
+{
+    if (input == NULL || input[0] == 0)
+    {
+        return RemoteFortressReader::NO_SPECIAL;
+    }
+    for (int i = 0; i < RemoteFortressReader::TiletypeSpecial_ARRAYSIZE; i++)
+    {
+        if (strcmp(input, TiletypeSpecialToString((RemoteFortressReader::TiletypeSpecial)i)) == 0)
+            return (RemoteFortressReader::TiletypeSpecial)i;
+    }
+    return RemoteFortressReader::NO_SPECIAL;
+}
+RemoteFortressReader::TiletypeMaterial StringToTiletypeMaterial(const char* input)
+{
+    if (input == NULL || input[0] == 0)
+    {
+        return RemoteFortressReader::NO_MATERIAL;
+    }
+    for (int i = 0; i < RemoteFortressReader::TiletypeMaterial_ARRAYSIZE; i++)
+    {
+        if (strcmp(input, TiletypeMaterialToString((RemoteFortressReader::TiletypeMaterial)i)) == 0)
+            return (RemoteFortressReader::TiletypeMaterial)i;
+    }
+    return RemoteFortressReader::NO_MATERIAL;
+}
+RemoteFortressReader::TiletypeVariant StringToTiletypeVariant(const char* input)
+{
+    if (input == NULL || input[0] == 0)
+    {
+        return RemoteFortressReader::NO_VARIANT;
+    }
+    for (int i = 0; i < RemoteFortressReader::TiletypeVariant_ARRAYSIZE; i++)
+    {
+        if (strcmp(input, TiletypeVariantToString((RemoteFortressReader::TiletypeVariant)i)) == 0)
+            return (RemoteFortressReader::TiletypeVariant)i;
+    }
+    return RemoteFortressReader::NO_VARIANT;
 }

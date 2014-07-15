@@ -24,6 +24,7 @@ class TerrainConfiguration
 public:
     vector<TerrainMaterialConfiguration*> terrainMaterials;
     vector<c_sprite> defaultSprite;
+    int priority;
     TerrainConfiguration();
     ~TerrainConfiguration();
 };
