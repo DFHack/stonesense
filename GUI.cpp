@@ -472,33 +472,33 @@ void drawDebugCursor(WorldSegment * segment)
 
 void drawAdvmodeMenuTalk(const ALLEGRO_FONT *font, int x, int y)
 {
-    df::ui_advmode * menu = df::global::ui_advmode;
-    if (!menu)
-        return;
-    if (menu->talk_targets.size() == 0)
-        return;
-    int line = menu->talk_targets.size() + 3;
-    draw_textf_border(font, ssConfig.colors.getDfColor(dfColors::white, ssConfig.useDfColors), x, (y - (line*al_get_font_line_height(font))), 0,
-        "Who will you talk to?");
-    line -= 2;
-    for (int i = 0; i < menu->talk_targets.size(); i++)
-    {
-        ALLEGRO_COLOR color = ssConfig.colors.getDfColor(dfColors::lgray, ssConfig.useDfColors);
-        if (i == menu->talk_target_selection)
-            color = ssConfig.colors.getDfColor(dfColors::white, ssConfig.useDfColors);
-        df::unit * crete = Units::GetCreature(Units::FindIndexById(menu->talk_targets[i]->unit_id));
-        if (crete)
-        {
-            ALLEGRO_USTR * string = al_ustr_newf("%s, ", Units::getProfessionName(crete).c_str());
-            int8_t gender = df::global::world->raws.creatures.all[crete->race]->caste[crete->caste]->gender;
-            if (gender == 0)
-                al_ustr_append_chr(string, 0x2640);
-            else if (gender == 1)
-                al_ustr_append_chr(string, 0x2642);
-            draw_ustr_border(font, color, x + 5, (y - ((line - i)*al_get_font_line_height(font))), 0,
-                string);
-        }
-    }
+    //df::ui_advmode * menu = df::global::ui_advmode;
+    //if (!menu)
+    //    return;
+    //if (menu->talk_targets.size() == 0)
+    //    return;
+    //int line = menu->talk_targets.size() + 3;
+    //draw_textf_border(font, ssConfig.colors.getDfColor(dfColors::white, ssConfig.useDfColors), x, (y - (line*al_get_font_line_height(font))), 0,
+    //    "Who will you talk to?");
+    //line -= 2;
+    //for (int i = 0; i < menu->talk_targets.size(); i++)
+    //{
+    //    ALLEGRO_COLOR color = ssConfig.colors.getDfColor(dfColors::lgray, ssConfig.useDfColors);
+    //    if (i == menu->talk_target_selection)
+    //        color = ssConfig.colors.getDfColor(dfColors::white, ssConfig.useDfColors);
+    //    df::unit * crete = Units::GetCreature(Units::FindIndexById(menu->talk_targets[i]->unit_id));
+    //    if (crete)
+    //    {
+    //        ALLEGRO_USTR * string = al_ustr_newf("%s, ", Units::getProfessionName(crete).c_str());
+    //        int8_t gender = df::global::world->raws.creatures.all[crete->race]->caste[crete->caste]->gender;
+    //        if (gender == 0)
+    //            al_ustr_append_chr(string, 0x2640);
+    //        else if (gender == 1)
+    //            al_ustr_append_chr(string, 0x2642);
+    //        draw_ustr_border(font, color, x + 5, (y - ((line - i)*al_get_font_line_height(font))), 0,
+    //            string);
+    //    }
+    //}
 }
 
 void drawDebugInfo(WorldSegment * segment)

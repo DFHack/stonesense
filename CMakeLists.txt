@@ -35,6 +35,10 @@ SET(PROJECT_SRCS
     WorldSegment.cpp
     VegetationConfiguration.cpp
     Keybinds.cpp
+	EnumToString.cpp
+	MaterialMatcher.cpp
+	TiletypeMatcher.cpp
+	ConnectionState.cpp
     main.cpp
 )
 
@@ -152,7 +156,19 @@ ELSE(UNIX)
         ${stonesense_SOURCE_DIR}/allegrow/lib
     )
 ENDIF(UNIX)
+# Tell CMake the source won't be available until build time.
+SET_SOURCE_FILES_PROPERTIES(${CMAKE_CURRENT_SOURCE_DIR}/../proto/RemoteFortressReader.pb.cc PROPERTIES GENERATED 1)
+
+SET(PROJECT_SRCS ${PROJECT_SRCS} ${CMAKE_CURRENT_SOURCE_DIR}/../proto/RemoteFortressReader.pb.cc)
+
 DFHACK_PLUGIN(stonesense ${PROJECT_SRCS} LINK_LIBRARIES dfhack-tinyxml ${PROJECT_LIBS})
+
+# Make sure the source is generated before the executable builds.
+ADD_DEPENDENCIES(stonesense generate_proto)
+
+TARGET_LINK_LIBRARIES(stonesense protobuf-lite ${PROJECT_LIBS})
+
+
 IF(APPLE)
 	add_custom_command(TARGET stonesense POST_BUILD COMMAND ${stonesense_SOURCE_DIR}/fix-libs-stonesense.sh WORKING_DIRECTORY . COMMENT "Fixing Stonesense library dependencies...")
 ENDIF(APPLE)

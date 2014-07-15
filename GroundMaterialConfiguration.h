@@ -1,7 +1,7 @@
 #pragma once
 
 #include "tinyxml.h"
-#include <map>
+#include "MaterialMatcher.h"
 
 typedef struct OverridingMaterial {
     int gameID;

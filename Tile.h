@@ -161,5 +161,5 @@ inline bool IDhasOpaqueFloor(int in)
 
 inline bool IDhasOpaqueSides(int in)
 {
-    return (!FlowPassable( (tiletype::tiletype) in )) && in != tiletype::Tree;
+    return (!FlowPassable( (tiletype::tiletype) in ));
 }

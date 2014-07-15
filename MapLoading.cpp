@@ -548,24 +548,24 @@ void readBlockToSegment(DFHack::Core& DF, WorldSegment& segment,
         }
     }
 
-    //add trees and other vegetation
-    for(auto iter = trueBlock->plants.begin(); iter != trueBlock->plants.end(); iter++) {
-        df::plant * wheat = *iter;
-        assert(wheat != NULL);
-        Tile* b = segment.getTile( wheat->pos.x, wheat->pos.y, wheat->pos.z);
-        if(!b) {
-            b = segment.ResetTile(wheat->pos.x, wheat->pos.y, wheat->pos.z, tiletype::OpenSpace);
-            if(!b) {
-                continue;
-            }
-        }
-        if( b->tileShape() == tiletype_shape::TREE ||
-            b->tileShape() == tiletype_shape::SAPLING ||
-            b->tileShape() == tiletype_shape::SHRUB) {
-                b->tree.type = wheat->flags.whole;
-                b->tree.index = wheat->material;
-        }
-    }
+    ////add trees and other vegetation
+    //for(auto iter = trueBlock->plants.begin(); iter != trueBlock->plants.end(); iter++) {
+    //    df::plant * wheat = *iter;
+    //    assert(wheat != NULL);
+    //    Tile* b = segment.getTile( wheat->pos.x, wheat->pos.y, wheat->pos.z);
+    //    if(!b) {
+    //        b = segment.ResetTile(wheat->pos.x, wheat->pos.y, wheat->pos.z, tiletype::OpenSpace);
+    //        if(!b) {
+    //            continue;
+    //        }
+    //    }
+    //    if( b->tileShape() == tiletype_shape::TREE ||
+    //        b->tileShape() == tiletype_shape::SAPLING ||
+    //        b->tileShape() == tiletype_shape::SHRUB) {
+    //            b->tree.type = wheat->flags.whole;
+    //            b->tree.index = wheat->material;
+    //    }
+    //}
 
     //add items
     for(auto iter = trueBlock->items.begin(); iter != trueBlock->items.end(); iter++) {
