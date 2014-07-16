@@ -7,6 +7,12 @@
 #include "ContentLoader.h"
 #include "EnumToString.h"
 
+#define PRIORITY_SHAPE 8
+#define PRIORITY_SPECIAL 4
+#define PRIORITY_VARIANT 2
+#define PRIORITY_MATERIAL 1
+#define PRIORITY_TOTAL (PRIORITY_SHAPE+PRIORITY_SPECIAL+PRIORITY_VARIANT+PRIORITY_MATERIAL+1)
+
 TerrainMaterialConfiguration::TerrainMaterialConfiguration()
 {
     overridingMaterials.resize(NUM_FORMS);
@@ -110,10 +116,11 @@ void parseWallFloorSpriteElement(TiXmlElement* elemWallFloorSprite, vector<Terra
             contentError(buf, elemTerrain);
         }
         const char* gameTokenstr = elemTerrain->Attribute("token");
-        const char* gameShapestr = elemTerrain->Attribute("shape");
-        const char* gameSpecialstr = elemTerrain->Attribute("special");
-        const char* gameVariantstr = elemTerrain->Attribute("variant");
-        const char* gameMaterialstr = elemTerrain->Attribute("material");
+        RemoteFortressReader::TiletypeShape elemShape = StringToTiletypeShape(elemTerrain->Attribute("shape"));
+        RemoteFortressReader::TiletypeSpecial elemSpecial = StringToTiletypeSpecial(elemTerrain->Attribute("special"));
+        RemoteFortressReader::TiletypeMaterial elemVariant = StringToTiletypeMaterial(elemTerrain->Attribute("variant"));
+        RemoteFortressReader::TiletypeVariant elemMaterial = StringToTiletypeVariant(elemTerrain->Attribute("material"));
+
         int i = 0;
         if (targetElem >= i)
         {
@@ -125,8 +132,28 @@ void parseWallFloorSpriteElement(TiXmlElement* elemWallFloorSprite, vector<Terra
             if (i == targetElem)
                 matchness = 0;
             if (!(gameTokenstr == NULL || gameTokenstr[0] == 0))
-            if (contentLoader->tiletypeNameList.tiletype_list(i).name() == gameTokenstr)
-                matchness = 0;
+            {
+                if (contentLoader->tiletypeNameList.tiletype_list(i).name() == gameTokenstr)
+                    matchness = 0;
+            }
+            if (matchness != 0) //this means there's no exact match made.
+            {
+                int partialMatch = 0;
+                if (elemShape != RemoteFortressReader::NO_SHAPE
+                    && contentLoader->tiletypeNameList.tiletype_list(i).shape() == elemShape)
+                    partialMatch += PRIORITY_SHAPE;
+                if (elemSpecial != RemoteFortressReader::NO_SPECIAL
+                    && contentLoader->tiletypeNameList.tiletype_list(i).special() == elemSpecial)
+                    partialMatch += PRIORITY_SPECIAL;
+                if (elemVariant != RemoteFortressReader::NO_VARIANT
+                    && contentLoader->tiletypeNameList.tiletype_list(i).variant() == elemVariant)
+                    partialMatch += PRIORITY_VARIANT;
+                if (elemMaterial != RemoteFortressReader::NO_MATERIAL
+                    && contentLoader->tiletypeNameList.tiletype_list(i).material() == elemMaterial)
+                    partialMatch += PRIORITY_MATERIAL;
+                if (partialMatch > 0)
+                    matchness = PRIORITY_TOTAL - partialMatch;
+            }
             if (matchness >= 0)
             {
                 //add it to the lookup vector
