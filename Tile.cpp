@@ -738,3 +738,17 @@ void Tile::AssembleFloorBlood ( int32_t drawx, int32_t drawy )
     }
 }
 
+RemoteFortressReader::TiletypeShape Tile::tileShape()
+{
+    return contentLoader->tiletypeNameList.tiletype_list(tileType).shape();
+}
+
+RemoteFortressReader::TiletypeSpecial Tile::tileSpecial()
+{
+    return contentLoader->tiletypeNameList.tiletype_list(tileType).special();
+}
+
+RemoteFortressReader::TiletypeMaterial Tile::tileMaterial()
+{
+    return contentLoader->tiletypeNameList.tiletype_list(tileType).material();
+}

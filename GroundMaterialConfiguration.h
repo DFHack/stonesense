@@ -11,9 +11,9 @@ typedef struct OverridingMaterial {
 class TerrainMaterialConfiguration
 {
 public:
-    vector<c_sprite> defaultSprite;
+    std::vector<std::pair<c_sprite, int>> defaultSprite;
     int gameID;
-    vector<map<int,c_sprite> > overridingMaterials;
+    std::vector<std::map<int, std::pair<c_sprite, int>> > overridingMaterials;
 
     TerrainMaterialConfiguration();
     ~TerrainMaterialConfiguration() {}
@@ -22,9 +22,8 @@ public:
 class TerrainConfiguration
 {
 public:
-    vector<TerrainMaterialConfiguration*> terrainMaterials;
-    vector<c_sprite> defaultSprite;
-    int priority;
+    std::vector<TerrainMaterialConfiguration*> terrainMaterials;
+    std::vector<std::pair<c_sprite, int>> defaultSprite;
     TerrainConfiguration();
     ~TerrainConfiguration();
 };
@@ -36,5 +35,5 @@ bool addSingleTerrainConfig( TiXmlElement* elemRoot);
 //extern bool GroundMaterialNamesTranslatedFromGame;
 //extern vector<GroundMaterialConfiguration*> groundTypes;
 
-void flushTerrainConfig(vector<TerrainConfiguration*>& config);
+void flushTerrainConfig(std::vector<TerrainConfiguration*>& config);
 void DumpInorganicMaterialNamesToDisk();

@@ -30,4 +30,4 @@ public:
 };
 
 
-bool addCreaturesConfig( TiXmlElement* elemRoot, vector<vector<CreatureConfiguration>*>& knownCreatures );
+bool addCreaturesConfig(TiXmlElement* elemRoot, std::vector<std::vector<CreatureConfiguration>*>& knownCreatures);

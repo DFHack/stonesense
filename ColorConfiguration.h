@@ -15,7 +15,7 @@ public:
 class ColorConfiguration
 {
 public:
-    vector<ColorMaterialConfiguration> colorMaterials;
+    std::vector<ColorMaterialConfiguration> colorMaterials;
     ALLEGRO_COLOR color;
     bool colorSet;
     ColorConfiguration();
@@ -24,4 +24,4 @@ public:
 
 bool addSingleColorConfig( TiXmlElement* elemRoot);
 
-void flushColorConfig(vector<ColorConfiguration>& config);
+void flushColorConfig(std::vector<ColorConfiguration>& config);

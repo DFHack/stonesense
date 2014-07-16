@@ -11,7 +11,7 @@ public:
 class ItemConfiguration
 {
 public:
-    vector<ItemSubConfiguration*> subItems;
+    std::vector<ItemSubConfiguration*> subItems;
     c_sprite default_sprite;
 
     bool configured;
@@ -22,4 +22,4 @@ public:
 
 bool addSingleItemConfig( TiXmlElement* elemRoot);
 bool parseItemElement( TiXmlElement* elemRoot, int basefile);
-void flushItemConfig(vector<ItemConfiguration *> &config);
+void flushItemConfig(std::vector<ItemConfiguration *> &config);

@@ -9,8 +9,8 @@ class Tile;
 class c_tile_tree_twig
 {
     c_sprite own_sprite;
-    vector<c_sprite> westward_growth;
-    vector<c_sprite> eastward_growth;
+    std::vector<c_sprite> westward_growth;
+    std::vector<c_sprite> eastward_growth;
 public:
     c_tile_tree_twig(void);
     ~c_tile_tree_twig(void);
@@ -38,8 +38,8 @@ public:
 class c_tile_tree_branch
 {
     c_tile_tree_twig own_twig;
-    vector<c_tile_tree_twig> northward_growth;
-    vector<c_tile_tree_twig> southward_growth;
+    std::vector<c_tile_tree_twig> northward_growth;
+    std::vector<c_tile_tree_twig> southward_growth;
 public:
     c_tile_tree_branch(void);
     ~c_tile_tree_branch(void);
@@ -66,7 +66,7 @@ public:
 class c_tile_tree
 {
     c_tile_tree_branch own_branch;
-    vector<c_tile_tree_branch> upward_growth;
+    std::vector<c_tile_tree_branch> upward_growth;
 public:
     c_tile_tree(void);
     ~c_tile_tree(void);

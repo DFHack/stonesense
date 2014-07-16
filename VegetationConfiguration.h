@@ -16,5 +16,5 @@ public:
 };
 
 
-bool addSingleVegetationConfig( TiXmlElement* elemRoot,  vector<VegetationConfiguration>* vegetationConfigs, vector<t_matgloss>& plantNames );
-c_tile_tree * getVegetationTree(vector<VegetationConfiguration>& vegetationConfigs,int index,bool live,bool grown);
+bool addSingleVegetationConfig(TiXmlElement* elemRoot, std::vector<VegetationConfiguration>* vegetationConfigs, std::vector<t_matgloss>& plantNames);
+c_tile_tree * getVegetationTree(std::vector<VegetationConfiguration>& vegetationConfigs, int index, bool live, bool grown);

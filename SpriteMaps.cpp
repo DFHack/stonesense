@@ -38,45 +38,45 @@ c_sprite *  GetTerrainSpriteMap(int in, t_matglossPair material, vector<TerrainC
     }
     // check material sanity
     if (material.type<0 || material.type >= (int16_t)terrain->terrainMaterials.size()) {
-        if(terrain->defaultSprite[tempform].get_sheetindex() == UNCONFIGURED_INDEX) {
-            return &(terrain->defaultSprite[0]);
+        if(terrain->defaultSprite[tempform].first.get_sheetindex() == UNCONFIGURED_INDEX) {
+            return &(terrain->defaultSprite[0].first);
         } else {
-            return &(terrain->defaultSprite[tempform]);
+            return &(terrain->defaultSprite[tempform].first);
         }
     }
     // find mat config
     TerrainMaterialConfiguration* terrainMat = terrain->terrainMaterials[material.type];
     if (terrainMat == NULL) {
-        if(terrain->defaultSprite[tempform].get_sheetindex() == UNCONFIGURED_INDEX) {
-            return &(terrain->defaultSprite[0]);
+        if (terrain->defaultSprite[tempform].first.get_sheetindex() == UNCONFIGURED_INDEX) {
+            return &(terrain->defaultSprite[0].first);
         } else {
-            return &(terrain->defaultSprite[tempform]);
+            return &(terrain->defaultSprite[tempform].first);
         }
     }
     if(material.index == -1) {
-        if(terrainMat->defaultSprite[tempform].get_sheetindex() == UNCONFIGURED_INDEX) {
-            return &(terrainMat->defaultSprite[0]);
+        if (terrainMat->defaultSprite[tempform].first.get_sheetindex() == UNCONFIGURED_INDEX) {
+            return &(terrainMat->defaultSprite[0].first);
         } else {
-            return &(terrainMat->defaultSprite[tempform]);
+            return &(terrainMat->defaultSprite[tempform].first);
         }
     }
     // return subtype, type default or terrain default as available
     // do map lookup
-    map<int,c_sprite>::iterator it = terrainMat->overridingMaterials[tempform].find(material.index);
+    map<int,pair<c_sprite, int>>::iterator it = terrainMat->overridingMaterials[tempform].find(material.index);
     if (it != terrainMat->overridingMaterials[tempform].end()) {
-        return &(it->second);
+        return &(it->second.first);
     }
-    if (terrainMat->defaultSprite[tempform].get_sheetindex() != UNCONFIGURED_INDEX) {
-        return &(terrainMat->defaultSprite[tempform]);
+    if (terrainMat->defaultSprite[tempform].first.get_sheetindex() != UNCONFIGURED_INDEX) {
+        return &(terrainMat->defaultSprite[tempform].first);
     }
     it = terrainMat->overridingMaterials[0].find(material.index);
     if (it != terrainMat->overridingMaterials[0].end()) {
-        return &(it->second);
+        return &(it->second.first);
     }
-    if (terrainMat->defaultSprite[0].get_sheetindex() != UNCONFIGURED_INDEX) {
-        return &(terrainMat->defaultSprite[0]);
+    if (terrainMat->defaultSprite[0].first.get_sheetindex() != UNCONFIGURED_INDEX) {
+        return &(terrainMat->defaultSprite[0].first);
     }
-    return &(terrain->defaultSprite[0]);
+    return &(terrain->defaultSprite[0].first);
 }
 
 c_sprite * GetFloorSpriteMap(int in, t_matglossPair material, uint16_t form)
@@ -89,7 +89,7 @@ c_sprite * GetTileSpriteMap(int in, t_matglossPair material, uint16_t form)
     return GetTerrainSpriteMap(in, material, contentLoader->terrainWallConfigs, form);
 }
 
-c_tile_tree * GetTreeVegetation( df::tiletype_shape shape, df::tiletype_special special, int index)
+c_tile_tree * GetTreeVegetation(RemoteFortressReader::TiletypeShape shape, RemoteFortressReader::TiletypeSpecial special, int index)
 {
     static c_tile_tree * defaultTree = new c_tile_tree;
     int base_sprite = SPRITEOBJECT_BLUEPRINT;
@@ -97,8 +97,8 @@ c_tile_tree * GetTreeVegetation( df::tiletype_shape shape, df::tiletype_special 
     bool live=true;
     bool grown=true;
     switch(shape) {
-    case tiletype_shape::TREE:
-        if(special == tiletype_special::DEAD) {
+    case RemoteFortressReader::TiletypeShape::TREE_SHAPE:
+        if (special == RemoteFortressReader::TiletypeSpecial::DEAD) {
             base_sprite = SPRITEOBJECT_TREE_DEAD;
             graphicSet = &(contentLoader->treeConfigs);
             live = false;
@@ -107,8 +107,8 @@ c_tile_tree * GetTreeVegetation( df::tiletype_shape shape, df::tiletype_special 
             graphicSet = &(contentLoader->treeConfigs);
         }
         break;
-    case tiletype_shape::SAPLING:
-        if(special == tiletype_special::DEAD) {
+    case RemoteFortressReader::TiletypeShape::SAPLING:
+        if (special == RemoteFortressReader::TiletypeSpecial::DEAD) {
             base_sprite = SPRITEOBJECT_SAPLING_DEAD;
             live = false;
             grown = false;
@@ -119,8 +119,8 @@ c_tile_tree * GetTreeVegetation( df::tiletype_shape shape, df::tiletype_special 
             graphicSet = &(contentLoader->treeConfigs);
         }
         break;
-    case tiletype_shape::SHRUB:
-        if(special == tiletype_special::DEAD) {
+    case RemoteFortressReader::TiletypeShape::SHRUB:
+        if (special == RemoteFortressReader::TiletypeSpecial::DEAD) {
             base_sprite = SPRITEOBJECT_SHRUB_DEAD;
             live = false;
             graphicSet = &(contentLoader->shrubConfigs);

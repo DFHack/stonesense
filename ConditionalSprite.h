@@ -19,7 +19,7 @@ public:
 // root nesting structure
 class RootTile : public SpriteNode
 {
-    vector<SpriteNode*> children;
+    std::vector<SpriteNode*> children;
 
 public:
     RootTile(void);
@@ -33,7 +33,7 @@ public:
 class SpriteTile : public ConditionalNode, public SpriteNode
 {
     TileCondition* conditions;
-    vector<SpriteNode*> children;
+    std::vector<SpriteNode*> children;
     SpriteNode* elsenode;
 
 public:
@@ -49,7 +49,7 @@ public:
 // rotational conditional structure
 class RotationTile : public ConditionalNode, public SpriteNode
 {
-    vector<SpriteNode*> children;
+    std::vector<SpriteNode*> children;
 
 public:
     RotationTile(void);

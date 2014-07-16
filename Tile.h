@@ -4,6 +4,7 @@
 #include "SpriteObjects.h"
 #include "TileTypes.h"
 #include "df/item_type.h"
+#include "RemoteFortressReader.pb.h"
 #include <vector>
 
 class WorldSegment;
@@ -101,21 +102,9 @@ public:
         return DFHack::tileShapeBasic(DFHack::tileShape(tileType));
     }
 
-    inline df::tiletype_shape tileShape()
-    {
-        return DFHack::tileShape(tileType);
-    }
-
-    inline df::tiletype_special tileSpecial()
-    {
-        return DFHack::tileSpecial(tileType);
-    }
-
-    inline df::tiletype_material tileMaterial()
-    {
-        return DFHack::tileMaterial(tileType);
-    }
-
+    RemoteFortressReader::TiletypeShape tileShape();
+    RemoteFortressReader::TiletypeSpecial tileSpecial();
+    RemoteFortressReader::TiletypeMaterial tileMaterial();
     //tile sprite assembly and drawing functions
 	void GetDrawLocation(int32_t& drawx, int32_t& drawy);
     void AssembleTile();
