@@ -95,7 +95,7 @@ void parseWallFloorSpriteElement(TiXmlElement* elemWallFloorSprite, vector<Terra
         {
             char buf[500];
             if (targetElem < contentLoader->tiletypeNameList.tiletype_list_size())
-                sprintf(buf, "Use of deprecated terrain value \"%d\", use one of the following instead:\n token = \"%s\"\n%s%s%s%s%s%s%s%s%s%s%s%s\n in element",
+                sprintf(buf, "Use of deprecated terrain value \"%d\", use one of the following instead:\n <terrain token = \"%s\" />\n <terrain%s%s%s%s%s%s%s%s%s%s%s%s />\n in element",
                 targetElem,
                 contentLoader->tiletypeNameList.tiletype_list(targetElem).name().c_str(),
                 contentLoader->tiletypeNameList.tiletype_list(targetElem).shape() == RemoteFortressReader::NO_SHAPE ? "" : " shape = \"",
@@ -118,9 +118,9 @@ void parseWallFloorSpriteElement(TiXmlElement* elemWallFloorSprite, vector<Terra
         const char* gameTokenstr = elemTerrain->Attribute("token");
         RemoteFortressReader::TiletypeShape elemShape = StringToTiletypeShape(elemTerrain->Attribute("shape"));
         RemoteFortressReader::TiletypeSpecial elemSpecial = StringToTiletypeSpecial(elemTerrain->Attribute("special"));
-        RemoteFortressReader::TiletypeMaterial elemVariant = StringToTiletypeMaterial(elemTerrain->Attribute("variant"));
-        RemoteFortressReader::TiletypeVariant elemMaterial = StringToTiletypeVariant(elemTerrain->Attribute("material"));
-
+        RemoteFortressReader::TiletypeVariant elemVariant = StringToTiletypeVariant(elemTerrain->Attribute("variant"));
+        RemoteFortressReader::TiletypeMaterial elemMaterial = StringToTiletypeMaterial(elemTerrain->Attribute("material"));
+        
         int i = 0;
         if (targetElem >= i)
         {
@@ -128,33 +128,57 @@ void parseWallFloorSpriteElement(TiXmlElement* elemWallFloorSprite, vector<Terra
         }
         for (int i = 0; i < contentLoader->tiletypeNameList.tiletype_list_size(); i++)
         {
+            bool valid = true;
             int matchness = INVALID_INDEX;
-            if (i == targetElem)
-                matchness = 0;
+            if (targetElem >= 0)
+            {
+                if (i == targetElem)
+                    matchness = 0;
+                else
+                    valid = false;
+            }
             if (!(gameTokenstr == NULL || gameTokenstr[0] == 0))
             {
                 if (contentLoader->tiletypeNameList.tiletype_list(i).name() == gameTokenstr)
                     matchness = 0;
+                else
+                    valid = false;
             }
             if (matchness != 0) //this means there's no exact match made.
             {
                 int partialMatch = 0;
-                if (elemShape != RemoteFortressReader::NO_SHAPE
-                    && contentLoader->tiletypeNameList.tiletype_list(i).shape() == elemShape)
-                    partialMatch += PRIORITY_SHAPE;
-                if (elemSpecial != RemoteFortressReader::NO_SPECIAL
-                    && contentLoader->tiletypeNameList.tiletype_list(i).special() == elemSpecial)
-                    partialMatch += PRIORITY_SPECIAL;
-                if (elemVariant != RemoteFortressReader::NO_VARIANT
-                    && contentLoader->tiletypeNameList.tiletype_list(i).variant() == elemVariant)
-                    partialMatch += PRIORITY_VARIANT;
-                if (elemMaterial != RemoteFortressReader::NO_MATERIAL
-                    && contentLoader->tiletypeNameList.tiletype_list(i).material() == elemMaterial)
-                    partialMatch += PRIORITY_MATERIAL;
-                if (partialMatch > 0)
+                if (elemShape != RemoteFortressReader::NO_SHAPE)
+                {
+                    if (contentLoader->tiletypeNameList.tiletype_list(i).shape() == elemShape)
+                        partialMatch += PRIORITY_SHAPE;
+                    else
+                        valid = false;
+                }
+                if (elemSpecial != RemoteFortressReader::NO_SPECIAL)
+                {
+                    if (contentLoader->tiletypeNameList.tiletype_list(i).special() == elemSpecial)
+                        partialMatch += PRIORITY_SPECIAL;
+                    else
+                        valid = false;
+                }
+                if (elemVariant != RemoteFortressReader::NO_VARIANT)
+                {
+                    if (contentLoader->tiletypeNameList.tiletype_list(i).variant() == elemVariant)
+                        partialMatch += PRIORITY_VARIANT;
+                    else
+                        valid = false;
+                }
+                if (elemMaterial != RemoteFortressReader::NO_MATERIAL)
+                {
+                    if (contentLoader->tiletypeNameList.tiletype_list(i).material() == elemMaterial)
+                        partialMatch += PRIORITY_MATERIAL;
+                    else
+                        valid = false;
+                }
+                if (partialMatch > 0 && valid)
                     matchness = PRIORITY_TOTAL - partialMatch;
             }
-            if (matchness >= 0)
+            if (matchness >= 0 && valid)
             {
                 //add it to the lookup vector
                 lookupKeys.push_back(make_pair(i, matchness));
@@ -279,10 +303,10 @@ void parseWallFloorSpriteElement(TiXmlElement* elemWallFloorSprite, vector<Terra
                 // add to map (if not already present)
                 for (int j = 0; j < NUM_FORMS; j++) {
                     if (formToggle[j]) {
-                        if (tConfig->terrainMaterials[elemIndex]->overridingMaterials[j].count(subtypeId)) 
+                        if (tConfig->terrainMaterials[elemIndex]->overridingMaterials[j].count(subtypeId))
                         {
                             if (tConfig->terrainMaterials[elemIndex]->overridingMaterials[j][subtypeId].second > lookupKeys[i].second)
-                            tConfig->terrainMaterials[elemIndex]->overridingMaterials[j][subtypeId].first = sprite;
+                                tConfig->terrainMaterials[elemIndex]->overridingMaterials[j][subtypeId].first = sprite;
                             tConfig->terrainMaterials[elemIndex]->overridingMaterials[j][subtypeId].second = lookupKeys[i].second;
                         }
                         else
