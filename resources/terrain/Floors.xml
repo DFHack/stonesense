@@ -128,31 +128,11 @@
   </floor>
   <!-- smoothed ice -->
   <floor sheetIndex="53">
-    <terrain shape="47" />
+    <terrain shape="FLOOR" special="SMOOTH" material="FROZEN_LIQUID"/>
     <!-- below pillar -->
-    <terrain shape="83" />
+    <terrain shape="WALL" special="SMOOTH" material="FROZEN_LIQUID"/>
     <!-- fort -->
-    <terrain shape="360" />
-    <!-- sm wall -->
-    <terrain shape="450" />
-    <terrain shape="451" />
-    <terrain shape="452" />
-    <terrain shape="453" />
-    <terrain shape="454" />
-    <terrain shape="455" />
-    <terrain shape="456" />
-    <terrain shape="457" />
-    <terrain shape="458" />
-    <terrain shape="459" />
-    <terrain shape="460" />
-    <terrain shape="461" />
-    <terrain shape="462" />
-    <terrain shape="463" />
-    <terrain shape="464" />
-    <terrain shape="465" />
-    <terrain shape="466" />
-    <terrain shape="467" />
-    <terrain shape="468" />
+    <terrain shape="FORTIFICATION" material="FROZEN_LIQUID"/>
 	<subsprite 
 		sheetIndex="18"
 		mud_min="10"
@@ -161,52 +141,14 @@
   <!-- stone -->
   <floor sheetIndex="3" color="material">
     <!-- below stair -->
-	<terrain shape="38" />
-    <terrain shape="57" />
-    <terrain shape="60" />
-    <terrain shape="63" />
-    <!-- below wall -->
-    <terrain shape="176" />
-    <terrain shape="177" />
-    <terrain shape="178" />
-    <terrain shape="219" />
-    <!-- below ramp -->
-    <terrain shape="237" />
-    <terrain shape="238" />
-    <terrain shape="239" />
-    <terrain shape="240" />
+    <terrain shape="STAIR_UP" />
     <!-- wall -->
-    <terrain shape="332" />
-    <terrain shape="333" />
-    <terrain shape="334" />
-    <terrain shape="335" />
-    <terrain shape="328" />
-    <terrain shape="329" />
-    <terrain shape="330" />
-    <terrain shape="331" />
+    <!-- below wall -->
+    <terrain shape="WALL" />
+    <!-- below ramp -->
+    <terrain shape="RAMP" />
     <!-- floor -->
-    <terrain shape="336" />
-    <terrain shape="337" />
-    <terrain shape="338" />
-    <terrain shape="339" />
-    <terrain shape="344" />
-    <terrain shape="345" />
-    <terrain shape="346" />
-    <terrain shape="347" />
-    <terrain shape="340" />
-    <terrain shape="341" />
-    <terrain shape="342" />
-    <terrain shape="343" />
-    <!-- veinwall -->
-    <terrain shape="437" />
-    <terrain shape="438" />
-    <terrain shape="439" />
-    <terrain shape="440" />
-    <!-- veinfloor -->
-    <terrain shape="441" />
-    <terrain shape="442" />
-    <terrain shape="443" />
-    <terrain shape="444" />
+    <terrain shape="FLOOR" />
 	<subsprite 
 		sheetIndex="18"
 		mud_min="10"
@@ -214,7 +156,7 @@
   </floor>
   <!-- Semi molten rock -->
   <floor sheetIndex="3" color="xml" red="255" green = "0" blue = "0">
-    <terrain shape="263" />
+    <terrain token="SemiMoltenRock" />
 	<subsprite sheetIndex = "51" color="xml" red="32" green = "0" blue = "0"/>
 	<subsprite 
 		sheetIndex="18"
@@ -223,14 +165,11 @@
   </floor>
   <!-- magma flow -->
   <floor sheetIndex="31">
-    <terrain shape="264" />
+    <terrain token="MagmaFlow" />
   </floor>
   <!-- boulder -->
   <floor sheetIndex="3" color="material">
-    <terrain shape="402" />
-    <terrain shape="403" />
-    <terrain shape="404" />
-    <terrain shape="445" />
+    <terrain shape="BOULDER" />
     <subsprite
 		sheetIndex="18"
 		mud_min="10"
@@ -241,25 +180,7 @@
   </floor>
   <!-- pebbles -->
   <floor sheetIndex="3" color="material">
-    <terrain shape="405" />
-    <terrain shape="406" />
-    <terrain shape="407" />
-    <terrain shape="408" />
-    <!-- obs -->
-    <terrain shape="409" />
-    <terrain shape="410" />
-    <terrain shape="411" />
-    <terrain shape="412" />
-    <!-- feat -->
-    <terrain shape="413" />
-    <terrain shape="414" />
-    <terrain shape="415" />
-    <terrain shape="416" />
-    <!-- vein -->
-    <terrain shape="446" />
-    <terrain shape="447" />
-    <terrain shape="448" />
-    <terrain shape="449" />
+    <terrain shape="PEBBLES" />
     <subsprite
 		sheetIndex="18"
 		mud_min="10"
@@ -271,35 +192,7 @@
   <!-- construct -->
   <floor sheetIndex="1" color="material">
     <!-- floor -->
-    <terrain shape="493" />
-    <!-- fort -->
-    <terrain shape="494" />
-    <!-- pillar -->
-    <terrain shape="495" />
-    <!-- wall -->
-    <terrain shape="496" />
-    <terrain shape="497" />
-    <terrain shape="498" />
-    <terrain shape="499" />
-    <terrain shape="500" />
-    <terrain shape="501" />
-    <terrain shape="502" />
-    <terrain shape="503" />
-    <terrain shape="504" />
-    <terrain shape="505" />
-    <terrain shape="506" />
-    <terrain shape="507" />
-    <terrain shape="508" />
-    <terrain shape="509" />
-    <terrain shape="510" />
-    <terrain shape="511" />
-    <terrain shape="512" />
-    <terrain shape="513" />
-    <terrain shape="514" />
-    <!-- stair -->
-    <terrain shape="517" />
-    <!-- ramp -->
-    <terrain shape="518" />
+    <terrain material="CONSTRUCTION" />
 	<subsprite 
 		sheetIndex="18"
 		mud_min="10"

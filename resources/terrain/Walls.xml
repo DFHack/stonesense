@@ -78,7 +78,7 @@
 	</wall>
 	<!-- Semi molten rock -->
 	<wall sheetIndex="21" color="xml" red="255" green = "0" blue = "0">
-		<terrain value="263" />
+		<terrain token="SemiMoltenRock" />
 		<subsprite sheetIndex = "146" color="xml" red="32" green = "0" blue = "0"/>
 	</wall>
 	<!-- constructed -->
