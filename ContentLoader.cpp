@@ -99,8 +99,8 @@ bool ContentLoader::Load()
                 materialNameList.material_list(i).state_color().green(),
                 materialNameList.material_list(i).state_color().blue());
         }
+		fclose(fp);
     }
-    fclose(fp);
 
     remove("TiletypeList.csv");
     fp = fopen("TiletypeList.csv", "a");
@@ -117,8 +117,8 @@ bool ContentLoader::Load()
                 TiletypeVariantToString(tiletypeNameList.tiletype_list(i).variant())
                 );
         }
+		fclose(fp);
     }
-    fclose(fp);
 
     // This is an extra suspend/resume, but it only happens when reloading the config
     // ie not enough to worry about
