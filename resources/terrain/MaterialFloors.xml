@@ -265,6 +265,7 @@
   </floor>
   <!-- constructions: ICE -->
   <floor sheetIndex="54">
+    <material value="Ice" />
     <!-- floor -->
     <terrain token="ConstructedFloor" />
     <!-- stair -->
@@ -274,7 +275,7 @@
     <!-- fort -->
     <terrain token="ConstructedFortification" />
     <!-- pillar -->
-    <terrain shape="WALL" special="CONSTRUCTION"/>
+    <terrain shape="WALL" material="CONSTRUCTION"/>
     <subsprite
 		sheetIndex="18"
 		mud_min="10"
