@@ -3,204 +3,99 @@
   <!-- fortifications -->
   <wall sheetIndex="142" color="material">
     <!-- cons -->
-    <terrain value="494" />
+    <terrain token="ConstructedFortification" />
     <material value="Wood" />
   </wall>
   <wall sheetIndex="140" color="material">
     <!-- cons -->
-    <terrain value="494" />
+    <terrain token="ConstructedFortification" />
   </wall>
   <!-- ramps -->
   <!-- stone -->
   <wall sheetIndex="1" file="ramps.png" color="material">
     <!-- stone -->
-    <terrain value="237" />
+    <terrain token="StoneRamp" />
     <!-- obs -->
-    <terrain value="238" />
+    <terrain token="LavaRamp" />
     <!-- feat -->
-    <terrain value="239" />
+    <terrain token="FeatureRamp" />
     <!-- vein -->
-    <terrain value="240" />
+    <terrain token="MineralRamp" />
   </wall>
   <!-- brick -->
   <wall sheetIndex="2" file="ramps.png" color="material">
     <!-- cons -->
-    <terrain value="518" />
+    <terrain token="ConstructedRamp" />
   </wall>
   <wall sheetIndex="10" file="ramps.png">
     <!-- ice -->
-    <terrain value="245" />
+    <terrain token="FrozenRamp" />
   </wall>
   <wall sheetIndex="11" file="ramps.png" color="material">
     <!-- ice -->
-    <terrain value="518" />
+    <terrain token="ConstructedRamp" />
     <material value="Ice" />
   </wall>
   <wall sheetIndex="4" file="ramps.png">
     <!-- cons -->
-    <terrain value="518" />
+    <terrain token="ConstructedRamp" />
     <material value="GreenGlass" />
   </wall>
   <wall sheetIndex="3" file="ramps.png">
     <!-- cons -->
-    <terrain value="518" />
+    <terrain token="ConstructedRamp" />
     <material value="ClearGlass" />
     <material value="CrystalGlass" />
   </wall>
   <wall sheetIndex="6" file="ramps.png" color="material">
     <!-- cons -->
-    <terrain value="518" />
+    <terrain token="ConstructedRamp" />
     <material value="Wood" />
   </wall>
   <!-- stairs: wood -->
   <wall sheetIndex="162" color="material">
     <!-- cons -->
-    <terrain value="515" />
-    <terrain value="517" />
+    <terrain token = "ConstructedStairUD" />
+    <terrain token = "ConstructedStairU" />
     <material value="Wood" />
   </wall>
   <!-- stairs: "natural" ice -->
   <wall sheetIndex="166">
-    <terrain value="25" />
-    <terrain value="27" />
+    <terrain token="FrozenStairUD" />
+    <terrain token="FrozenStairU" />
   </wall>
   <!-- stairs: constructed ice -->
   <wall sheetIndex="166">
-    <terrain value="515" />
-    <terrain value="517" />
+    <terrain token = "ConstructedStairUD" />
+    <terrain token = "ConstructedStairU" />
     <material value="Ice" />
   </wall>
   <!-- constructed: Wood -->
   <wall sheetIndex="8" color="material">
-    <!-- pillar -->
-    <terrain value="495" />
-    <!-- wall -->
-    <terrain value="496" />
-    <terrain value="497" />
-    <terrain value="498" />
-    <terrain value="499" />
-    <terrain value="500" />
-    <terrain value="501" />
-    <terrain value="502" />
-    <terrain value="503" />
-    <terrain value="504" />
-    <terrain value="505" />
-    <terrain value="506" />
-    <terrain value="507" />
-    <terrain value="508" />
-    <terrain value="509" />
-    <terrain value="510" />
-    <terrain value="511" />
-    <terrain value="512" />
-    <terrain value="513" />
-    <terrain value="514" />
+    <terrain shape="WALL" special="CONSTRUCTION"/>
     <material value="Wood" />
   </wall>
   <!-- constructed: GreenGlass -->
   <wall sheetIndex="26">
-    <!-- pillar -->
-    <terrain value="495" />
-    <!-- wall -->
-    <terrain value="496" />
-    <terrain value="497" />
-    <terrain value="498" />
-    <terrain value="499" />
-    <terrain value="500" />
-    <terrain value="501" />
-    <terrain value="502" />
-    <terrain value="503" />
-    <terrain value="504" />
-    <terrain value="505" />
-    <terrain value="506" />
-    <terrain value="507" />
-    <terrain value="508" />
-    <terrain value="509" />
-    <terrain value="510" />
-    <terrain value="511" />
-    <terrain value="512" />
-    <terrain value="513" />
-    <terrain value="514" />
+    <terrain shape="WALL" special="CONSTRUCTION"/>
     <material value="GreenGlass" />
   </wall>
   <!-- constructed: Clear&CrystalGlass -->
   <wall sheetIndex="25">
-    <!-- pillar -->
-    <terrain value="495" />
-    <!-- wall -->
-    <terrain value="496" />
-    <terrain value="497" />
-    <terrain value="498" />
-    <terrain value="499" />
-    <terrain value="500" />
-    <terrain value="501" />
-    <terrain value="502" />
-    <terrain value="503" />
-    <terrain value="504" />
-    <terrain value="505" />
-    <terrain value="506" />
-    <terrain value="507" />
-    <terrain value="508" />
-    <terrain value="509" />
-    <terrain value="510" />
-    <terrain value="511" />
-    <terrain value="512" />
-    <terrain value="513" />
-    <terrain value="514" />
+    <terrain shape="WALL" special="CONSTRUCTION"/>
     <material value="ClearGlass" />
     <material value="CrystalGlass" />
   </wall>
   <!-- constructed: RUTILE -->
   <wall sheetIndex="46">
-    <!-- pillar -->
-    <terrain value="495" />
-    <!-- wall -->
-    <terrain value="496" />
-    <terrain value="497" />
-    <terrain value="498" />
-    <terrain value="499" />
-    <terrain value="500" />
-    <terrain value="501" />
-    <terrain value="502" />
-    <terrain value="503" />
-    <terrain value="504" />
-    <terrain value="505" />
-    <terrain value="506" />
-    <terrain value="507" />
-    <terrain value="508" />
-    <terrain value="509" />
-    <terrain value="510" />
-    <terrain value="511" />
-    <terrain value="512" />
-    <terrain value="513" />
-    <terrain value="514" />
+    <terrain shape="WALL" special="CONSTRUCTION"/>
     <material value="Stone">
       <subtype value="RUTILE" />
     </material>
   </wall>
   <!-- constructed: metalls -->
   <wall sheetIndex="7" color="material">
-    <!-- pillar -->
-    <terrain value="495" />
-    <!-- wall -->
-    <terrain value="496" />
-    <terrain value="497" />
-    <terrain value="498" />
-    <terrain value="499" />
-    <terrain value="500" />
-    <terrain value="501" />
-    <terrain value="502" />
-    <terrain value="503" />
-    <terrain value="504" />
-    <terrain value="505" />
-    <terrain value="506" />
-    <terrain value="507" />
-    <terrain value="508" />
-    <terrain value="509" />
-    <terrain value="510" />
-    <terrain value="511" />
-    <terrain value="512" />
-    <terrain value="513" />
-    <terrain value="514" />
+    <terrain shape="WALL" special="CONSTRUCTION"/>
     <material value="Metal">
       <subtype value="IRON" />
       <subtype value="GOLD" />
@@ -233,26 +128,26 @@
   <!-- damaged walls -->
   <wall sheetIndex="29" color="material">
     <!-- wall feat? -->
-    <terrain value="176" />
-    <terrain value="177" />
-    <terrain value="178" />
+    <terrain token="StoneWallWorn1" />
+    <terrain token="StoneWallWorn2" />
+    <terrain token="StoneWallWorn3" />
     <!-- wall feat? -->
-    <terrain value="332" />
-    <terrain value="333" />
-    <terrain value="334" />
+    <terrain token="FeatureWallWorn1" />
+    <terrain token="FeatureWallWorn2" />
+    <terrain token="FeatureWallWorn3" />
     <!-- vein wall -->
-    <terrain value="437" />
-    <terrain value="438" />
-    <terrain value="439" />
+    <terrain token="MineralWallWorn1" />
+    <terrain token="MineralWallWorn2" />
+    <terrain token="MineralWallWorn3" />
   </wall>
   <!-- gems -->
   <wall sheetIndex="31" color="material">
     <!-- wall feat? -->
-    <terrain value="219" />
+    <terrain token="StoneWall" />
     <!-- wall feat? -->
-    <terrain value="335" />
+    <terrain token="FeatureWall" />
     <!-- vein wall -->
-    <terrain value="440" />
+    <terrain token="MineralWall" />
     <material value="Stone">
       <subtype value="ONYX" />
       <subtype value="MORION" />
@@ -386,7 +281,7 @@
   <!-- soil -->
   <wall sheetIndex="10" color = "material">
     <!-- wall -->
-    <terrain value="265" />
+    <terrain token="SoilWall" />
     <material value="Stone">
       <subtype value="SAND_TAN" />
       <subtype value="SAND_YELLOW" />
@@ -399,7 +294,7 @@
   <!-- soil -->
   <wall sheetIndex="14" color="material">
     <!-- wall -->
-    <terrain value="265" />
+    <terrain token="SoilWall" />
     <material value="Stone">
       <subtype value="SILTY_CLAY" />
       <subtype value="PELAGIC_CLAY" />
@@ -412,26 +307,6 @@
   <wall sheetIndex="67">
     <material value="Ice" />
     <!-- pillar -->
-    <terrain value="495" />
-    <!-- wall -->
-    <terrain value="496" />
-    <terrain value="497" />
-    <terrain value="498" />
-    <terrain value="499" />
-    <terrain value="500" />
-    <terrain value="501" />
-    <terrain value="502" />
-    <terrain value="503" />
-    <terrain value="504" />
-    <terrain value="505" />
-    <terrain value="506" />
-    <terrain value="507" />
-    <terrain value="508" />
-    <terrain value="509" />
-    <terrain value="510" />
-    <terrain value="511" />
-    <terrain value="512" />
-    <terrain value="513" />
-    <terrain value="514" />
+    <terrain shape="WALL" special="CONSTRUCTION"/>
   </wall>
 </walls>

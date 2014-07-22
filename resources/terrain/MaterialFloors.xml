@@ -3,11 +3,11 @@
   <!-- construct (wood planks) -->
   <floor sheetIndex="10" color="material">
     <!-- floor -->
-    <terrain value="493" />
+    <terrain token="ConstructedFloor" />
     <!-- stair -->
-    <terrain value="517" />
+    <terrain token="ConstructedStairU" />
     <!-- ramp -->
-    <terrain value="518" />
+    <terrain token="ConstructedRamp" />
     <material value="Wood" />
 	<subsprite 
 		sheetIndex="18"
@@ -17,29 +17,9 @@
   <!-- construct (wood logs) -->
   <floor sheetIndex="22" color="material">
     <!-- fort -->
-    <terrain value="494" />
+    <terrain token="ConstructedFortification" />
     <!-- pillar -->
-    <terrain value="495" />
-    <!-- wall -->
-    <terrain value="496" />
-    <terrain value="497" />
-    <terrain value="498" />
-    <terrain value="499" />
-    <terrain value="500" />
-    <terrain value="501" />
-    <terrain value="502" />
-    <terrain value="503" />
-    <terrain value="504" />
-    <terrain value="505" />
-    <terrain value="506" />
-    <terrain value="507" />
-    <terrain value="508" />
-    <terrain value="509" />
-    <terrain value="510" />
-    <terrain value="511" />
-    <terrain value="512" />
-    <terrain value="513" />
-    <terrain value="514" />
+    <terrain shape="WALL" special="CONSTRUCTION"/>
     <material value="Wood" />
 	<subsprite 
 		sheetIndex="18"
@@ -49,35 +29,15 @@
   <!-- construct -->
   <floor sheetIndex="36">
     <!-- floor -->
-    <terrain value="493" />
+    <terrain token="ConstructedFloor" />
     <!-- stair -->
-    <terrain value="517" />
+    <terrain token="ConstructedStairU" />
     <!-- ramp -->
-    <terrain value="518" />
+    <terrain token="ConstructedRamp" />
     <!-- fort -->
-    <terrain value="494" />
+    <terrain token="ConstructedFortification" />
     <!-- pillar -->
-    <terrain value="495" />
-    <!-- wall -->
-    <terrain value="496" />
-    <terrain value="497" />
-    <terrain value="498" />
-    <terrain value="499" />
-    <terrain value="500" />
-    <terrain value="501" />
-    <terrain value="502" />
-    <terrain value="503" />
-    <terrain value="504" />
-    <terrain value="505" />
-    <terrain value="506" />
-    <terrain value="507" />
-    <terrain value="508" />
-    <terrain value="509" />
-    <terrain value="510" />
-    <terrain value="511" />
-    <terrain value="512" />
-    <terrain value="513" />
-    <terrain value="514" />
+    <terrain shape="WALL" special="CONSTRUCTION"/>
     <material value="GreenGlass" />
  	<subsprite 
 		sheetIndex="18"
@@ -87,35 +47,15 @@
   <!-- construct -->
   <floor sheetIndex="35">
     <!-- floor -->
-    <terrain value="493" />
+    <terrain token="ConstructedFloor" />
     <!-- stair -->
-    <terrain value="517" />
+    <terrain token="ConstructedStairU" />
     <!-- ramp -->
-    <terrain value="518" />
+    <terrain token="ConstructedRamp" />
     <!-- fort -->
-    <terrain value="494" />
+    <terrain token="ConstructedFortification" />
     <!-- pillar -->
-    <terrain value="495" />
-    <!-- wall -->
-    <terrain value="496" />
-    <terrain value="497" />
-    <terrain value="498" />
-    <terrain value="499" />
-    <terrain value="500" />
-    <terrain value="501" />
-    <terrain value="502" />
-    <terrain value="503" />
-    <terrain value="504" />
-    <terrain value="505" />
-    <terrain value="506" />
-    <terrain value="507" />
-    <terrain value="508" />
-    <terrain value="509" />
-    <terrain value="510" />
-    <terrain value="511" />
-    <terrain value="512" />
-    <terrain value="513" />
-    <terrain value="514" />
+    <terrain shape="WALL" special="CONSTRUCTION"/>
     <material value="ClearGlass" />
     <material value="CrystalGlass" />
 	<subsprite 
@@ -125,35 +65,15 @@
   </floor>
   <floor sheetIndex="56">
     <!-- floor -->
-    <terrain value="493" />
+    <terrain token="ConstructedFloor" />
     <!-- stair -->
-    <terrain value="517" />
+    <terrain token="ConstructedStairU" />
     <!-- ramp -->
-    <terrain value="518" />
+    <terrain token="ConstructedRamp" />
     <!-- fort -->
-    <terrain value="494" />
+    <terrain token="ConstructedFortification" />
     <!-- pillar -->
-    <terrain value="495" />
-    <!-- wall -->
-    <terrain value="496" />
-    <terrain value="497" />
-    <terrain value="498" />
-    <terrain value="499" />
-    <terrain value="500" />
-    <terrain value="501" />
-    <terrain value="502" />
-    <terrain value="503" />
-    <terrain value="504" />
-    <terrain value="505" />
-    <terrain value="506" />
-    <terrain value="507" />
-    <terrain value="508" />
-    <terrain value="509" />
-    <terrain value="510" />
-    <terrain value="511" />
-    <terrain value="512" />
-    <terrain value="513" />
-    <terrain value="514" />
+    <terrain shape="WALL" special="CONSTRUCTION"/>
     <material value="Stone">
       <subtype value="RUTILE" />
     </material>
@@ -165,35 +85,15 @@
   <!-- construct -->
   <floor sheetIndex="38" color = "material">
     <!-- floor -->
-    <terrain value="493" />
+    <terrain token="ConstructedFloor" />
     <!-- stair -->
-    <terrain value="517" />
+    <terrain token="ConstructedStairU" />
     <!-- ramp -->
-    <terrain value="518" />
+    <terrain token="ConstructedRamp" />
     <!-- fort -->
-    <terrain value="494" />
+    <terrain token="ConstructedFortification" />
     <!-- pillar -->
-    <terrain value="495" />
-    <!-- wall -->
-    <terrain value="496" />
-    <terrain value="497" />
-    <terrain value="498" />
-    <terrain value="499" />
-    <terrain value="500" />
-    <terrain value="501" />
-    <terrain value="502" />
-    <terrain value="503" />
-    <terrain value="504" />
-    <terrain value="505" />
-    <terrain value="506" />
-    <terrain value="507" />
-    <terrain value="508" />
-    <terrain value="509" />
-    <terrain value="510" />
-    <terrain value="511" />
-    <terrain value="512" />
-    <terrain value="513" />
-    <terrain value="514" />
+    <terrain shape="WALL" special="CONSTRUCTION"/>
     <material value="Metal">
       <subtype value="IRON" />
       <subtype value="GOLD" />
@@ -230,9 +130,9 @@
 
   <floor sheetIndex="23" color="material">
     <!-- Soil floors -->
-    <terrain value="353" />
+    <terrain token="SoilFloor2" />
     <!-- Wet Soil floors -->
-    <terrain value="357" />
+    <terrain token="SoilWetFloor2" />
     <material value="Stone">
       <subtype value="CLAY" />
       <subtype value="SILTY_CLAY" />
@@ -247,9 +147,9 @@
   </floor>
   <floor sheetIndex="24" color="material">
     <!-- Soil floors -->
-    <terrain value="355" />
+    <terrain token="SoilFloor4" />
     <!-- Wet Soil floors -->
-    <terrain value="359" />
+    <terrain token="SoilWetFloor4" />
     <material value="Stone">
       <subtype value="CLAY" />
       <subtype value="SILTY_CLAY" />
@@ -264,9 +164,9 @@
   </floor>
   <floor sheetIndex="25" color="material">
     <!-- Soil floors -->
-    <terrain value="354" />
+    <terrain token="SoilFloor3" />
     <!-- Wet Soil floors -->
-    <terrain value="358" />
+    <terrain token="SoilWetFloor3" />
     <material value="Stone">
       <subtype value="CLAY" />
       <subtype value="SILTY_CLAY" />
@@ -281,9 +181,9 @@
   </floor>
   <floor sheetIndex="26" color="material">
     <!-- Soil floors -->
-    <terrain value="352" />
+    <terrain token="SoilFloor1" />
     <!-- Wet Soil floors -->
-    <terrain value="356" />
+    <terrain token="SoilWetFloor1" />
     <material value="Stone">
       <subtype value="CLAY" />
       <subtype value="SILTY_CLAY" />
@@ -298,36 +198,21 @@
   </floor>
   <floor sheetIndex="4" color = "material">
     <!-- Dry grass -->
-    <terrain value="387" />
-    <terrain value="388" />
-    <terrain value="389" />
-    <terrain value="390" />
-    <terrain value="394" />
-    <terrain value="395" />
-    <terrain value="396" />
-    <terrain value="397" />
+    <terrain shape="FLOOR" material = "GRASS_DEAD"/>
+    <terrain shape="FLOOR" material = "GRASS_DRY"/>
     <!-- Dead Tree -->
-    <terrain value="391" />
+    <terrain token="TreeDead" />
     <!-- Dead sapling -->
-    <terrain value="392" />
+    <terrain token="SaplingDead" />
     <!-- Dead shrub -->
-    <terrain value="393" />
+    <terrain token="ShrubDead" />
 	<subsprite 
 		sheetIndex="18"
 		mud_min="10"
 		/>
   </floor>
   <floor sheetIndex="13" color = "material">
-    <!-- Soil floors -->
-    <terrain value="352" />
-    <terrain value="353" />
-    <terrain value="354" />
-    <terrain value="355" />
-    <!-- Wet Soil floors -->
-    <terrain value="356" />
-    <terrain value="357" />
-    <terrain value="358" />
-    <terrain value="359" />
+    <terrain shape="FLOOR" material = "SOIL"/>
     <material value="Stone">
       <subtype value="SAND_TAN" />
       <subtype value="SAND_YELLOW" />
@@ -342,20 +227,12 @@
 		/>
   </floor>
   <floor sheetIndex="4" color="material">
-    <!-- Grass on clay -->
-    <terrain value="348" />
-    <terrain value="349" />
-    <terrain value="350" />
-    <terrain value="351" />
-    <!-- Darker Grass on clay -->
-    <terrain value="398" />
-    <terrain value="399" />
-    <terrain value="400" />
-    <terrain value="401" />
+    <terrain shape="FLOOR" material = "GRASS_DARK"/>
+    <terrain shape="FLOOR" material = "GRASS_LIGHT"/>
     <!-- plants -->
-    <terrain value="231" />
-    <terrain value="34" />
-    <terrain value="24" />
+    <terrain token="Sapling" />
+    <terrain token="Shrub" />
+    <terrain token="Tree" />
     <material value="Stone">
       <subtype value="CLAY" />
       <subtype value="SILTY_CLAY" />
@@ -367,22 +244,15 @@
 		/>
   </floor>
   <floor sheetIndex="4" color="material">
-    <!-- Dry Grass on clay -->
-    <terrain value="387" />
-    <terrain value="388" />
-    <terrain value="389" />
-    <terrain value="390" />
-    <!-- Darker dry grass on clay -->
-    <terrain value="394" />
-    <terrain value="395" />
-    <terrain value="396" />
-    <terrain value="397" />
+    <!-- Dry grass -->
+    <terrain shape="FLOOR" material = "GRASS_DEAD"/>
+    <terrain shape="FLOOR" material = "GRASS_DRY"/>
     <!-- Dead Tree -->
-    <terrain value="391" />
+    <terrain token="TreeDead" />
     <!-- Dead sapling -->
-    <terrain value="392" />
+    <terrain token="SaplingDead" />
     <!-- Dead shrub -->
-    <terrain value="393" />
+    <terrain token="ShrubDead" />
     <material value="Stone">
       <subtype value="CLAY" />
       <subtype value="SILTY_CLAY" />
@@ -395,37 +265,16 @@
   </floor>
   <!-- constructions: ICE -->
   <floor sheetIndex="54">
-    <material value="Ice" />
     <!-- floor -->
-    <terrain value="493" />
+    <terrain token="ConstructedFloor" />
     <!-- stair -->
-    <terrain value="517" />
+    <terrain token="ConstructedStairU" />
     <!-- ramp -->
-    <terrain value="518" />
+    <terrain token="ConstructedRamp" />
     <!-- fort -->
-    <terrain value="494" />
+    <terrain token="ConstructedFortification" />
     <!-- pillar -->
-    <terrain value="495" />
-    <!-- wall -->
-    <terrain value="496" />
-    <terrain value="497" />
-    <terrain value="498" />
-    <terrain value="499" />
-    <terrain value="500" />
-    <terrain value="501" />
-    <terrain value="502" />
-    <terrain value="503" />
-    <terrain value="504" />
-    <terrain value="505" />
-    <terrain value="506" />
-    <terrain value="507" />
-    <terrain value="508" />
-    <terrain value="509" />
-    <terrain value="510" />
-    <terrain value="511" />
-    <terrain value="512" />
-    <terrain value="513" />
-    <terrain value="514" />
+    <terrain shape="WALL" special="CONSTRUCTION"/>
     <subsprite
 		sheetIndex="18"
 		mud_min="10"
