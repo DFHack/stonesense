@@ -31,55 +31,18 @@ int FuzzyCompare(std::string source, std::string target)
 {
     if (!match(source.c_str(), target.c_str()))
         return -1;
-    int similarity = 0;
+    int similarity = target.size() - source.size();
     for (int i = 0; i < source.size(); i++)
     {
-        if (source[i] != '*')
-            similarity++;
-    }
-    return target.size() - similarity;
-}
-
-template<class T>
-T MaterialMatcher<T>::get(DFHack::t_matglossPair matPair)
-{
-    if (matList.count(matPair))
-        return matList[matPair].item;
-    else return noMat;
-}
-
-template<class T>
-T MaterialMatcher<T>::get()
-{
-    return noMat;
-}
-
-template<class T>
-void MaterialMatcher<T>::set(T input)
-{
-    noMat = input;
-}
-
-template<class T>
-int MaterialMatcher<T>::set(T input, std::string token, google::protobuf::RepeatedPtrField< ::RemoteFortressReader::MaterialDefinition >* matTokenList)
-{
-    int count = 0;
-    for (int i = 0; i < matTokenList->size(); i++)
-    {
-        int match = FuzzyCompare(tokan, matTokenList->Get(i).id());
-        if (match < 0)
-            continue;
-        DFHack::t_matglossPair pair;
-        pair.index = matTokenList->Get(i).mat_pair().mat_index();
-        pair.type = matTokenList->Get(i).mat_pair().mat_index();
-        if (matList.count(pair))
+        switch (source[i])
         {
-            if (matList[pair].difference <= match) //dont't overwrite old ones that are equal.
-                continue;
+        case '*':
+            similarity += 2;
+            break;
+        case '?':
+            similarity += 1;
+            break;
         }
-        matList[pair].item = input;
-        matList[pair].difference = match;
-        count++;
     }
-    return 0;
+    return similarity;
 }
