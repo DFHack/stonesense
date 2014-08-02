@@ -52,6 +52,7 @@ ContentLoader::~ContentLoader(void)
     flushItemConfig(itemConfigs);
     flushCreatureConfig();
     colorConfigs.clear();
+    materialColorConfigs.clear();
 }
 
 bool ContentLoader::Load()
@@ -67,6 +68,7 @@ bool ContentLoader::Load()
     flushTerrainConfig(terrainWallConfigs);
     flushItemConfig(itemConfigs);
     colorConfigs.clear();
+    materialColorConfigs.clear();
     flushCreatureConfig();
     treeConfigs.clear();
     shrubConfigs.clear();
@@ -293,6 +295,7 @@ bool ContentLoader::reload_configs()
     flushTerrainConfig(terrainWallConfigs);
     flushItemConfig(itemConfigs);
     colorConfigs.clear();
+    materialColorConfigs.clear();
     creatureConfigs.clear();
     treeConfigs.clear();
     shrubConfigs.clear();
@@ -911,38 +914,46 @@ ALLEGRO_COLOR lookupMaterialColor(int matType, int matIndex, ALLEGRO_COLOR defau
 
 ALLEGRO_COLOR lookupMaterialColor(int matType, int matIndex, int dyeType, int dyeIndex, ALLEGRO_COLOR defaultColor)
 {
+    ALLEGRO_COLOR dyeColor = al_map_rgb(255,255,255);
+    MaterialInfo dye;
+    if (dyeType >= 0 && dyeIndex >= 0 && dye.decode(dyeType, dyeIndex))
+        dyeColor = al_map_rgb_f(
+        contentLoader->Mats->color[dye.material->powder_dye].red,
+        contentLoader->Mats->color[dye.material->powder_dye].green,
+        contentLoader->Mats->color[dye.material->powder_dye].blue);
+    t_matglossPair matPair;
+    matPair.index = matIndex;
+    matPair.type = matType;
+    if (ALLEGRO_COLOR * matResult = contentLoader->materialColorConfigs.get(matPair))
+    {
+        return *matResult * dyeColor;
+    }
     if (matType < 0) {
         //This should not normally happen, but if it does, we don't want crashes, so we'll return magic pink so show something's wrong.
-        return al_map_rgb(255, 0, 255);
+        return al_map_rgb(255, 0, 255) * dyeColor;
     }
     if (matType >= contentLoader->colorConfigs.size()) {
         //if it's more than the size of our colorconfigs, then just make a guess based off what DF tells us.
         goto DFColor;
     }
     if (matIndex < 0) {
-        return contentLoader->colorConfigs.at(matType).color;
+        return contentLoader->colorConfigs.at(matType).color * dyeColor;
     }
     if (matIndex >= contentLoader->colorConfigs.at(matType).colorMaterials.size()) {
         goto DFColor;
     }
     if (contentLoader->colorConfigs.at(matType).colorMaterials.at(matIndex).colorSet) {
-        return contentLoader->colorConfigs.at(matType).colorMaterials.at(matIndex).color;
+        return contentLoader->colorConfigs.at(matType).colorMaterials.at(matIndex).color * dyeColor;
     }
 DFColor:
-    MaterialInfo mat, dye;
+    MaterialInfo mat;
     if(mat.decode(matType, matIndex)) {
-        if(dyeType>=0 && dyeIndex>=0 && dye.decode(dyeType, dyeIndex))
-            return al_map_rgb_f(
-                       contentLoader->Mats->color[dye.material->powder_dye].red	* contentLoader->Mats->color[mat.material->state_color[0]].red,
-                       contentLoader->Mats->color[dye.material->powder_dye].green	* contentLoader->Mats->color[mat.material->state_color[0]].green,
-                       contentLoader->Mats->color[dye.material->powder_dye].blue	* contentLoader->Mats->color[mat.material->state_color[0]].blue);
-        else
             return al_map_rgb_f(
                        contentLoader->Mats->color[mat.material->state_color[0]].red,
                        contentLoader->Mats->color[mat.material->state_color[0]].green,
-                       contentLoader->Mats->color[mat.material->state_color[0]].blue);
+                       contentLoader->Mats->color[mat.material->state_color[0]].blue) * dyeColor;
     } 
-    return defaultColor;
+    return defaultColor * dyeColor;
 }
 
 ShadeBy getShadeType(const char* Input)

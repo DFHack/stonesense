@@ -45,6 +45,7 @@ public:
     std::vector<TerrainConfiguration*> terrainFloorConfigs;
     std::vector<TerrainConfiguration*> terrainWallConfigs;
     std::vector<ColorConfiguration> colorConfigs;
+    MaterialMatcher<ALLEGRO_COLOR> materialColorConfigs;
     std::vector<ItemConfiguration*> itemConfigs;
     FluidConfiguration lava[8];
     FluidConfiguration water[8];

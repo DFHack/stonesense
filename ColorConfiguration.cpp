@@ -19,7 +19,7 @@ ColorConfiguration::~ColorConfiguration()
     colorMaterials.clear();
 }
 
-void parseColorElement( TiXmlElement* elemColor, vector<ColorConfiguration> & configTable)
+void parseColorElement(TiXmlElement* elemColor, vector<ColorConfiguration> & configTable, MaterialMatcher<ALLEGRO_COLOR> & materialConfig)
 {
     const char* colorRedStr = elemColor->Attribute("red");
     if(colorRedStr == NULL || colorRedStr[0] == 0) {
@@ -51,10 +51,17 @@ void parseColorElement( TiXmlElement* elemColor, vector<ColorConfiguration> & co
         return;
     }
     for( ; elemMaterial; elemMaterial = elemMaterial->NextSiblingElement("material")) {
+        //first try to match with a material token
+        const char* elemToken = elemMaterial->Attribute("token");
+        if (elemToken && elemToken[0])
+        {
+            materialConfig.set(color, elemToken, contentLoader->materialNameList.mutable_material_list());
+            continue;
+        }
         // get material type
         int elemIndex = lookupMaterialType(elemMaterial->Attribute("value"));
         if (elemIndex == INVALID_INDEX) {
-            contentError("Invalid or missing value attribute",elemMaterial);
+            contentError("Invalid or missing value or token attribute",elemMaterial);
             continue;
         }
 
@@ -105,7 +112,7 @@ bool addSingleColorConfig( TiXmlElement* elemRoot)
         //parse colors
         TiXmlElement* elemColor = elemRoot->FirstChildElement("color");
         while( elemColor ) {
-            parseColorElement( elemColor, contentLoader->colorConfigs);
+            parseColorElement( elemColor, contentLoader->colorConfigs, contentLoader->materialColorConfigs);
             elemColor = elemColor->NextSiblingElement("color");
         }
     }

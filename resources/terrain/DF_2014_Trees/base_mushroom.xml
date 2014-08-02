@@ -1,0 +1,149 @@
+<?xml version="1.0" ?>
+
+<!--Basic shroom
+
+TreeCapRamp
+TreeCapPillar
+TreeCapWallN
+TreeCapWallS
+TreeCapWallE
+TreeCapWallW
+TreeCapWallNW
+TreeCapWallNE
+TreeCapWallSW
+TreeCapWallSE
+TreeCapFloor1
+TreeCapFloor2
+TreeCapFloor3
+TreeCapFloor4
+
+TreeDeadCapRamp
+TreeDeadCapPillar
+TreeDeadCapWallN
+TreeDeadCapWallS
+TreeDeadCapWallE
+TreeDeadCapWallW
+TreeDeadCapWallNW
+TreeDeadCapWallNE
+TreeDeadCapWallSW
+TreeDeadCapWallSE
+TreeDeadCapFloor1
+TreeDeadCapFloor2
+TreeDeadCapFloor3
+TreeDeadCapFloor4
+
+BurningTreeCapWall
+BurningTreeCapRamp
+BurningTreeCapFloor
+
+
+material="mushroom"
+-->
+
+<walls file="base_mushroom_walls.png">
+  <wall sheetIndex="0" color="material" outline="0">
+    <terrain token="TreeCapPillar" />
+  </wall>
+  <wall sheetIndex="20" color="material">
+    <terrain token="TreeCapWallN" />
+    <terrain token="TreeCapWallS" />
+    <terrain token="TreeCapWallE" />
+    <terrain token="TreeCapWallW" />
+    
+    <subsprite sheetIndex="1" variationtype="four" color="xml" red="171" green="55" blue="39" />
+    
+    <!--
+    <subsprite sheetIndex="21" border_ramp_NOR="4" border_wall_NOR="4" border_floor_NOR="286" border_open_NOR="286" />
+    <subsprite sheetIndex="22" border_floor_NOR="842" border_ramp_NOR="6" border_wall_NOR="6" border_open_NOR="842" />
+    <subsprite sheetIndex="23" border_floor_NOR="246" border_ramp_NOR="8" border_wall_NOR="8" border_open_NOR="246" />
+    <subsprite sheetIndex="24" border_floor_NOR="468" border_ramp_NOR="2" border_wall_NOR="2" border_open_NOR="468" />
+    
+    
+    <subsprite sheetIndex="20" border_open_NOR="12345678" border_floor_NOR="12345678" />
+    
+    -->
+  </wall>
+  
+  <wall sheetIndex="20" color="material">
+    <terrain token="TreeCapWallNW" />
+    <terrain token="TreeCapWallNE" />
+    <terrain token="TreeCapWallSW" />
+    <terrain token="TreeCapWallSE" />
+    
+    
+    <subsprite sheetIndex="5" variationtype="four" color="xml" red="171" green="55" blue="39" />
+     
+    <!--
+    <subsprite sheetIndex="25" border_floor_NOR="456" border_ramp_NOR="456" border_wall_NOR="456" border_open_NOR="128" />
+    <subsprite sheetIndex="26" border_floor_NOR="678" border_ramp_NOR="678" border_wall_NOR="678" border_open_NOR="234" />
+    <subsprite sheetIndex="27" border_floor_NOR="128" border_ramp_NOR="128" border_wall_NOR="128" border_open_NOR="456" />
+    <subsprite sheetIndex="28" border_floor_NOR="234" border_ramp_NOR="234" border_wall_NOR="234" border_open_NOR="678" />
+    
+    
+    <subsprite sheetIndex="20" border_open_NOR="12345678" border_floor_NOR="12345678" />
+    -->
+  </wall>
+  
+  <wall file="base_mushroom_ramps.png" sheetIndex="0" color="material">
+    <terrain token="TreeCapRamp" />
+    
+    <subsprite sheetIndex="1" color="xml" red="171" green="55" blue="39" />
+  </wall>
+</walls>
+
+<floors file="base_mushroom_floors.png" outline="0">
+
+  <floor sheetIndex="0" color="material">
+  
+    <terrain token="TreeCapPillar" />
+    
+    <subsprite sheetIndex="23" color="xml" red="171" green="55" blue="39"/>
+  </floor>
+
+  <floor sheetIndex="20" color="material">
+    
+    <terrain token="TreeCapFloor1"/>
+    <terrain token="TreeCapFloor2"/>
+    <terrain token="TreeCapFloor3"/>
+    <terrain token="TreeCapFloor4"/>
+
+    <terrain token="TreeCapRamp" />
+    
+    <subsprite sheetIndex="21" color="xml" red="171" green="55" blue="39"/>
+    
+    <subsprite sheetIndex="1" border_floor_NOR="4" border_ramp_NOR="4" border_wall_NOR="4" border_open_NOR="286" 
+    color="xml" red="171" green="55" blue="39"/>
+    <subsprite sheetIndex="2" border_floor_NOR="6" border_ramp_NOR="6" border_wall_NOR="6" border_open_NOR="842" 
+    color="xml" red="171" green="55" blue="39"/>
+    <subsprite sheetIndex="3" border_floor_NOR="8" border_ramp_NOR="8" border_wall_NOR="8" border_open_NOR="246" 
+    color="xml" red="171" green="55" blue="39"/>
+    <subsprite sheetIndex="4" border_floor_NOR="2" border_ramp_NOR="2" border_wall_NOR="2" border_open_NOR="468" 
+    color="xml" red="171" green="55" blue="39"/>
+    
+    <subsprite sheetIndex="5" border_floor_NOR="456" border_ramp_NOR="456" border_wall_NOR="456" border_open_NOR="128" color="xml" red="171" green="55" blue="39" />
+    <subsprite sheetIndex="6" border_floor_NOR="678" border_ramp_NOR="678" border_wall_NOR="678" border_open_NOR="234" color="xml" red="171" green="55" blue="39" />
+    <subsprite sheetIndex="7" border_floor_NOR="128" border_ramp_NOR="128" border_wall_NOR="128" border_open_NOR="456" color="xml" red="171" green="55" blue="39" />
+    <subsprite sheetIndex="8" border_floor_NOR="234" border_ramp_NOR="234" border_wall_NOR="234" border_open_NOR="678" color="xml" red="171" green="55" blue="39" />
+    
+  </floor>
+  
+  <floor sheetIndex="20" color="material">
+    <terrain token="TreeCapWallN" />
+    <terrain token="TreeCapWallS" />
+    <terrain token="TreeCapWallE" />
+    <terrain token="TreeCapWallW" />
+    
+    <subsprite sheetIndex="1" variationtype="four" color="xml" red="171" green="55" blue="39" />
+  </floor>
+  
+  <floor sheetIndex="20" color="material">    
+  
+    <terrain token="TreeCapWallNW" />
+    <terrain token="TreeCapWallNE" />
+    <terrain token="TreeCapWallSW" />
+    <terrain token="TreeCapWallSE" />
+    
+    <subsprite sheetIndex="5" variationtype="four" color="xml" red="171" green="55" blue="39" />
+
+  </floor>
+</floors>

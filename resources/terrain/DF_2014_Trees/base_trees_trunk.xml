@@ -1,0 +1,153 @@
+<?xml version="1.0"?>
+
+<!--Mystery tile types and others:
+
+TreeDeadTrunkPillar
+TreeDeadTrunkSloping
+TreeDeadTrunkN
+TreeDeadTrunkS
+TreeDeadTrunkE
+TreeDeadTrunkW
+TreeDeadTrunkNW
+TreeDeadTrunkNE
+TreeDeadTrunkSW
+TreeDeadTrunkSE
+TreeDeadTrunkBranchN
+TreeDeadTrunkBranchS
+TreeDeadTrunkBranchE
+TreeDeadTrunkBranchW
+TreeDeadBranchNS
+TreeDeadBranchEW
+TreeDeadBranchNW
+TreeDeadBranchNE
+TreeDeadBranchSW
+TreeDeadBranchSE
+TreeDeadBranchNSE
+TreeDeadBranchNSW
+TreeDeadBranchNEW
+TreeDeadBranchSEW
+TreeDeadBranchNSEW
+TreeDeadTrunkNSE
+TreeDeadTrunkNSW
+TreeDeadTrunkNEW
+TreeDeadTrunkSEW
+TreeDeadTrunkNS
+TreeDeadTrunkEW
+TreeDeadTrunkNSEW
+TreeDeadTrunkInterior
+
+SaplingDead
+ShrubDead
+
+BurningTreeTrunk
+BurningTreeBranches
+BurningTreeTwigs
+
+
+-->
+
+<!-- Basic Trunk -->
+<walls file="base_trunk_walls_grey.png">
+  <wall sheetIndex="0" variationtype="sixteen"  outline="0" color="material">
+    <terrain token="TreeTrunkPillar" />
+    <terrain token="TreeTrunkNE" />
+    <terrain token="TreeTrunkNW"  />
+    <terrain token="TreeTrunkSE" />
+    <terrain token="TreeTrunkSW" />
+    <terrain token="TreeTrunkNS" />
+    <terrain token="TreeTrunkEW"/>
+    <terrain token="TreeTrunkNSE"/>
+    <terrain token="TreeTrunkNSW"/>
+    <terrain token="TreeTrunkNEW"/>
+    <terrain token="TreeTrunkSEW" />
+    <terrain token="TreeTrunkNSEW" />
+    <terrain token="TreeTrunkInterior" />
+  </wall>
+  <wall sheetIndex="21" outline="0" variationtype="four" color="material">
+    <terrain token="TreeTrunkN"  />
+    <terrain token="TreeTrunkS"  />
+    <terrain token="TreeTrunkE"  />
+    <terrain token="TreeTrunkW"  />
+  </wall>
+  
+  
+  <wall sheetIndex="25" outline="0" variationtype="four" color="material">
+    <terrain token="TreeTrunkNE" />
+    <terrain token="TreeTrunkNW" />
+    <terrain token="TreeTrunkSE" />
+    <terrain token="TreeTrunkSW" />
+  </wall>
+
+  <wall file="base_trunk_ramp_grey.png" sheetIndex="0" outline="0" color="material">
+    <terrain token="TreeTrunkSloping" shape="ramp" />
+  </wall>
+ 
+
+</walls>
+
+<floors file="base_branches_grey.png">
+  <floor sheetIndex="0" variationtype="sixteen" outline="0" color="material">
+  
+  <subsprite file="tree_shadow.png" sheetIndex="1" offsety="16" />
+  <subsprite file="tree_shadow.png" sheetIndex="1" offsety="12" />
+  <subsprite file="tree_shadow.png" sheetIndex="1" offsety="8" />
+  <subsprite file="tree_shadow.png" sheetIndex="1" offsety="4" />
+  
+  <subsprite sheetIndex="0" variationtype="sixteen" outline="0" color="material" />
+  
+    <terrain token="TreeBranchNS" />
+    <terrain token="TreeBranchEW" />
+    <terrain token="TreeBranchNW" />
+    <terrain token="TreeBranchNE" />
+    <terrain token="TreeBranchSE" />
+    <terrain token="TreeBranchSW" />
+    <terrain token="TreeBranchNSW" />
+    <terrain token="TreeBranchNEW" />
+    <terrain token="TreeBranchNSE" />
+    <terrain token="TreeBranchSEW" />
+    <terrain token="TreeBranchNSEW" />
+  </floor>
+</floors>
+
+<floors file="base_trunk_floors_grey.png">
+  <floor sheetIndex="0" variationtype="sixteen" outline="0" color="material">
+
+
+    <terrain token="TreeTrunkPillar" />
+    <terrain token="TreeTrunkSW" />
+    <terrain token="TreeTrunkNW" />
+    <terrain token="TreeTrunkNE" />
+    <terrain token="TreeTrunkSE" />
+    <terrain token="TreeTrunkNS" />
+    <terrain token="TreeTrunkWE" />
+    <terrain token="TreeTrunkNSE" />
+    <terrain token="TreeTrunkSEW" />
+    <terrain token="TreeTrunkNSW" />
+    <terrain token="TreeTrunkNEW" />
+    <terrain token="TreeTrunkNSEW" />
+  </floor>
+  
+  <floor sheetIndex="16" color="material">
+    <terrain token="TreeTrunkInterior" />
+  </floor>
+  
+  <floor sheetIndex="20" variationtype="four" color="material">
+    <terrain token="TreeTrunkW" />
+    <terrain token="TreeTrunkN" />
+    <terrain token="TreeTrunkE" />
+    <terrain token="TreeTrunkS" />
+  </floor>
+  
+  <floor sheetIndex="25" variationtype="four" color="material">
+    <terrain token="TreeTrunkSW" />
+    <terrain token="TreeTrunkNW" />
+    <terrain token="TreeTrunkNE" />
+    <terrain token="TreeTrunkSE" />
+  </floor>
+  
+  <floor sheetIndex="0" variationtype="sixteen" outline="0" color="material">
+    <terrain token="TreeTrunkSloping" />
+    <subsprite sheetIndex="16" border_open_NOR="12345678" />
+  </floor>
+  
+</floors>
