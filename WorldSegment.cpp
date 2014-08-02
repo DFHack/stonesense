@@ -37,6 +37,7 @@ void WorldSegment::CorrectTileForSegmentRotation(int32_t& x, int32_t& y, int32_t
     }
 }
 
+//Converts a set of world coordinates into local coordinates, taking into account view rotation.
 bool WorldSegment::ConvertToSegmentLocal(int32_t & x, int32_t & y, int32_t & z)
 {
     int32_t lx = x;
@@ -49,6 +50,11 @@ bool WorldSegment::ConvertToSegmentLocal(int32_t & x, int32_t & y, int32_t & z)
 
     CorrectTileForSegmentRotation(lx, ly, lz);
 
+    //even if we return false, we still might want to use the new coords, maybe.
+    x = lx;
+    y = ly;
+    z = lz;
+
     if(lx < 0 || lx >= segState.Size.x) {
         return false;
     }
@@ -59,10 +65,6 @@ bool WorldSegment::ConvertToSegmentLocal(int32_t & x, int32_t & y, int32_t & z)
         return false;
     }
 
-	x = lx;
-	y = ly;
-	z = lz;
-
 	return true;
 }
 
@@ -71,6 +73,7 @@ uint32_t WorldSegment::ConvertLocalToIndex(int32_t x, int32_t y, int32_t z)
 	return (uint32_t) (x + (y + (z*segState.Size.y))*segState.Size.x );
 }
 
+//Returns a blank tile at the specified world coordinates.
 Tile* WorldSegment::ResetTile(int32_t x, int32_t y, int32_t z, df::tiletype type)
 {
     int32_t lx = x;
@@ -93,6 +96,7 @@ Tile* WorldSegment::ResetTile(int32_t x, int32_t y, int32_t z, df::tiletype type
     return tptr;
 }
 
+//Returns an existing tile at the specified world coordinates.
 Tile* WorldSegment::getTile(int32_t x, int32_t y, int32_t z)
 {
     int32_t lx = x;
@@ -367,6 +371,32 @@ bool WorldSegment::CoordinateInsideSegment(int32_t x, int32_t y, int32_t z)
         return 0;
     }
     if(lz < 0 || lz >= segState.Size.z) {
+        return 0;
+    }
+
+    return true;
+}
+
+bool WorldSegment::RangeInsideSegment(int32_t min_x, int32_t min_y, int32_t min_z, int32_t max_x, int32_t max_y, int32_t max_z)
+{
+    int32_t lnx = min_x;
+    int32_t lny = min_y;
+    int32_t lnz = min_z;
+    int32_t lxx = max_x;
+    int32_t lxy = max_y;
+    int32_t lxz = max_z;
+
+    ConvertToSegmentLocal(lnx, lny, lnz);
+    ConvertToSegmentLocal(lxx, lxy, lxz);
+
+
+    if (lxx < 0 || lnx >= segState.Size.x) {
+        return 0;
+    }
+    if (lxy < 0 || lny >= segState.Size.y) {
+        return 0;
+    }
+    if (lxz < 0 || lnz >= segState.Size.z) {
         return 0;
     }
 

@@ -112,6 +112,7 @@ public:
     void DrawAllTiles();
     //void drawPixels();
     bool CoordinateInsideSegment(int32_t x, int32_t y, int32_t z);
+    bool RangeInsideSegment(int32_t min_x, int32_t min_y, int32_t min_z, int32_t max_x, int32_t max_y, int32_t max_z);
     bool CoordinateInteriorSegment(int32_t x, int32_t y, int32_t z, uint32_t shellthick);
     void PushBuilding( Buildings::t_building * tempbuilding);
     void ClearBuildings();

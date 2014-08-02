@@ -16,6 +16,11 @@
 #include "df/itemimprovement.h"
 #include "df/itemimprovement_threadst.h"
 #include "df/item_threadst.h"
+#include "df/map_block_column.h"
+#include "df/plant_tree_info.h"
+#include "df/plant_tree_tile.h"
+
+#include "ConnectionState.h"
 
 bool connected = 0;
 bool threadrunnng = 0;
@@ -398,6 +403,29 @@ SS_Item ConvertItem(df::item * found_item, WorldSegment& segment){
 	return Tempitem;
 }
 
+/**
+* reads one 16x16 block pulled over RPC into stonesense tiles
+*/
+void readRemoteBlockToSegment(RemoteFortressReader::MapBlock &block, WorldSegment& segment)
+{
+    for (int xx = 0; xx < BLOCKEDGESIZE; xx++)
+    for (int yy = 0; yy < BLOCKEDGESIZE; yy++)
+    {
+        int32_t x = xx + block.map_x();
+        int32_t y = yy + block.map_y();
+        int32_t z = block.map_z();
+
+        int32_t index = xx + (yy * BLOCKEDGESIZE);
+
+        Tile * t = segment.getTile(x, y, z);
+        if (!t)
+            continue;
+        t->tileType = (tiletype::tiletype)block.tiles(index);
+        t->material.index = block.materials(index).mat_index();
+        t->material.type = block.materials(index).mat_type();
+    }
+}
+
 
 /**
 * reads one 16x16 map block into stonesense tiles
@@ -610,6 +638,127 @@ void readBlockToSegment(DFHack::Core& DF, WorldSegment& segment,
     }
 }
 
+void readBlockColumnToSegment(DFHack::Core& DF, WorldSegment& segment,
+    int BlockX, int BlockY)
+{
+    if (ssConfig.skipMaps) {
+        return;
+    }
+    //boundry check
+    int blockDimX, blockDimY, blockDimZ;
+    Maps::getSize((unsigned int &)blockDimX, (unsigned int &)blockDimY, (unsigned int &)blockDimZ);
+    if (BlockX < 0 || BlockX >= blockDimX ||
+        BlockY < 0 || BlockY >= blockDimY) {
+        return;
+    }
+
+    //read block data
+    df::map_block_column *trueColumn;
+    trueColumn = Maps::getBlockColumn(BlockX, BlockY);
+    if (!trueColumn) {
+        return;
+    }
+
+    for (int i = 0; i < trueColumn->plants.size(); i++)
+    {
+        df::plant * pp = trueColumn->plants[i];
+        // A plant without tree_info is single tile
+        if (!pp->tree_info)
+        {
+            if (!segment.CoordinateInsideSegment(pp->pos.x, pp->pos.y, pp->pos.z))
+                continue;
+            Tile * t = segment.getTile(pp->pos.x, pp->pos.y, pp->pos.z);
+            if (!t)
+                t = segment.ResetTile(pp->pos.x, pp->pos.y, pp->pos.z);
+            if (!t)
+                continue;
+            t->tree.type = pp->flags.whole;
+            t->tree.index = pp->material;
+            continue;
+        }
+
+        // tree_info contains vertical slices of the tree. This ensures there's a slice for our Z-level.
+        df::plant_tree_info * info = pp->tree_info;
+        if (!segment.RangeInsideSegment(
+            pp->pos.x - (pp->tree_info->dim_x / 2),
+            pp->pos.y - (pp->tree_info->dim_y / 2),
+            pp->pos.z - (pp->tree_info->roots_depth),
+            pp->pos.x + (pp->tree_info->dim_x / 2),
+            pp->pos.y + (pp->tree_info->dim_y / 2),
+            pp->pos.z + pp->tree_info->body_height - 1))
+            continue;
+
+        auto raw = df::plant_raw::find(pp->material);
+
+
+        for (int zz = 0; zz < info->body_height; zz++)
+        {
+            // Parse through a single horizontal slice of the tree.
+            for (int xx = 0; xx < info->dim_x; xx++)
+            for (int yy = 0; yy < info->dim_y; yy++)
+            {
+                // Any non-zero value here other than blocked means there's some sort of branch here.
+                // If the block is at or above the plant's base level, we use the body array
+                // otherwise we use the roots.
+                // TODO: verify that the tree bounds intersect the block.
+                df::plant_tree_tile tile = info->body[zz][xx + (yy*info->dim_x)];
+                if (tile.whole && !(tile.bits.blocked))
+                {
+                    df::coord pos = pp->pos;
+                    pos.x = pos.x - (info->dim_x / 2) + xx;
+                    pos.y = pos.y - (info->dim_y / 2) + yy;
+                    pos.z = pos.z + zz;
+                    if (!segment.CoordinateInsideSegment(pos.x, pos.y, pos.z))
+                        continue;
+                    Tile * t = segment.getTile(pos.x, pos.y, pos.z);
+                    if (!t)
+                        t = segment.ResetTile(pos.x, pos.y, pos.z);
+                    if (!t)
+                        continue;
+                    t->tree.type = pp->flags.whole;
+                    t->tree.index = pp->material;
+                    if (raw)
+                    {
+                        t->material.type = raw->material_defs.type_basic_mat;
+                        t->material.index = raw->material_defs.idx_basic_mat;
+                    }
+                }
+            }
+        }
+        for (int zz = 0; zz < info->roots_depth; zz++)
+        {
+            // Parse through a single horizontal slice of the tree.
+            for (int xx = 0; xx < info->dim_x; xx++)
+            for (int yy = 0; yy < info->dim_y; yy++)
+            {
+                // Any non-zero value here other than blocked means there's some sort of branch here.
+                // If the block is at or above the plant's base level, we use the body array
+                // otherwise we use the roots.
+                // TODO: verify that the tree bounds intersect the block.
+                df::plant_tree_tile tile = info->roots[zz][xx + (yy*info->dim_x)];
+                if (tile.whole && !(tile.bits.blocked))
+                {
+                    df::coord pos = pp->pos;
+                    pos.x = pos.x - (info->dim_x / 2) + xx;
+                    pos.y = pos.y - (info->dim_y / 2) + yy;
+                    pos.z = pos.z - 1 - zz;
+                    if (!segment.CoordinateInsideSegment(pos.x, pos.y, pos.z))
+                        continue;
+                    Tile * t = segment.getTile(pos.x, pos.y, pos.z);
+                    if (!t)
+                        t = segment.ResetTile(pos.x, pos.y, pos.z);
+                    if (!t)
+                        continue;
+                    t->tree.type = pp->flags.whole;
+                    t->tree.index = pp->material;
+                }
+            }
+        }
+    }
+
+}
+
+
 void readMapSegment(WorldSegment* segment, GameState inState)
 {
     uint32_t index;
@@ -684,36 +833,36 @@ void readMapSegment(WorldSegment* segment, GameState inState)
 
     //figure out what blocks to read
     int32_t firstTileToReadX = inState.Position.x;
-    if( firstTileToReadX < 0 ) {
+    if (firstTileToReadX < 0) {
         firstTileToReadX = 0;
     }
 
     // get region geology
     vector< vector <int16_t> > layers;
     vector<df::coord2d> geoidx;
-    if(!Maps::ReadGeology( &layers, &geoidx )) {
+    if (!Maps::ReadGeology(&layers, &geoidx)) {
         LogError("Can't get region geology.\n");
     }
-    
-    while(firstTileToReadX < inState.Position.x + inState.Size.x) {
+
+    while (firstTileToReadX < inState.Position.x + inState.Size.x) {
         int blockx = firstTileToReadX / BLOCKEDGESIZE;
-        int32_t lastTileInBlockX = (blockx+1) * BLOCKEDGESIZE - 1;
-        int32_t lastTileToReadX = min<int32_t>(lastTileInBlockX, inState.Position.x + inState.Size.x-1);
+        int32_t lastTileInBlockX = (blockx + 1) * BLOCKEDGESIZE - 1;
+        int32_t lastTileToReadX = min<int32_t>(lastTileInBlockX, inState.Position.x + inState.Size.x - 1);
 
         int32_t firstTileToReadY = inState.Position.y;
-        if( firstTileToReadY < 0 ) {
+        if (firstTileToReadY < 0) {
             firstTileToReadY = 0;
         }
 
-        while(firstTileToReadY < inState.Position.y + inState.Size.y) {
+        while (firstTileToReadY < inState.Position.y + inState.Size.y) {
             int blocky = firstTileToReadY / BLOCKEDGESIZE;
-            int32_t lastTileInBlockY = (blocky+1) * BLOCKEDGESIZE - 1;
-            int32_t lastTileToReadY = min<uint32_t>(lastTileInBlockY, inState.Position.y + inState.Size.y-1);
+            int32_t lastTileInBlockY = (blocky + 1) * BLOCKEDGESIZE - 1;
+            int32_t lastTileToReadY = min<uint32_t>(lastTileInBlockY, inState.Position.y + inState.Size.y - 1);
 
-            for(int lz=inState.Position.z - inState.Size.z; lz <= inState.Position.z; lz++) {
+            for (int lz = inState.Position.z - inState.Size.z; lz <= inState.Position.z; lz++) {
                 //load the tiles from this block to the map segment
                 readBlockToSegment(DF, *segment, blockx, blocky, lz,
-                    firstTileToReadX, firstTileToReadY, 
+                    firstTileToReadX, firstTileToReadY,
                     lastTileToReadX, lastTileToReadY, &layers);
 
             }
@@ -721,7 +870,57 @@ void readMapSegment(WorldSegment* segment, GameState inState)
         }
         firstTileToReadX = lastTileToReadX + 1;
     }
+    //figure out what blocks to read
+    firstTileToReadX = inState.Position.x;
+    if (firstTileToReadX < 0) {
+        firstTileToReadX = 0;
+    }
+    while (firstTileToReadX < inState.Position.x + inState.Size.x) {
+        int blockx = (firstTileToReadX / (BLOCKEDGESIZE * 3)) * 3;
+        int32_t lastTileInBlockX = ((blockx / 3) + 1) * (BLOCKEDGESIZE * 3) - 1;
+        int32_t lastTileToReadX = min<int32_t>(lastTileInBlockX, inState.Position.x + inState.Size.x - 1);
 
+        int32_t firstTileToReadY = inState.Position.y;
+        if (firstTileToReadY < 0) {
+            firstTileToReadY = 0;
+        }
+
+        while (firstTileToReadY < inState.Position.y + inState.Size.y) {
+            int blocky = (firstTileToReadY / (BLOCKEDGESIZE * 3)) * 3;
+            int32_t lastTileInBlockY = ((blocky / 3) + 1) * (BLOCKEDGESIZE * 3) - 1;
+            int32_t lastTileToReadY = min<uint32_t>(lastTileInBlockY, inState.Position.y + inState.Size.y - 1);
+
+            //read the plants
+            if (blockx % 3 == 0 && blocky % 3 == 0)
+                readBlockColumnToSegment(DF, *segment, blockx, blocky);
+
+            firstTileToReadY = lastTileToReadY + 1;
+        }
+        firstTileToReadX = lastTileToReadX + 1;
+    }
+
+    ////Fetch things through RPC. eventually everything should go here, but not yet.
+    //if (!connection_state)
+    //{
+    //    connection_state = new ConnectionState();
+    //    connection_state->Connect();
+    //}
+    //if (connection_state)
+    //{
+    //    connection_state->net_block_request.set_min_x(inState.Position.x / BLOCKEDGESIZE);
+    //    connection_state->net_block_request.set_min_y(inState.Position.y / BLOCKEDGESIZE);
+    //    connection_state->net_block_request.set_min_y(inState.Position.z - inState.Size.z);
+    //    connection_state->net_block_request.set_max_x((inState.Position.x + inState.Size.x) / BLOCKEDGESIZE);
+    //    connection_state->net_block_request.set_max_y((inState.Position.y + inState.Size.y) / BLOCKEDGESIZE);
+    //    connection_state->net_block_request.set_max_z(inState.Position.z+1);
+    //    connection_state->BlockListCall(&connection_state->net_block_request, &connection_state->net_block_list);
+    //    
+    //    for (int i = 0; i < connection_state->net_block_list.map_blocks_size(); i++)
+    //    {
+    //        readRemoteBlockToSegment(*connection_state->net_block_list.mutable_map_blocks(i), *segment);
+    //    }
+
+    //}
 
     //merge buildings with segment
     if(!ssConfig.skipBuildings) {
