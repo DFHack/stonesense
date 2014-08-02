@@ -673,7 +673,8 @@ const char *lookupMaterialName(int matType,int matIndex)
         } else {
             return NULL;
         }
-    } else if ((matType == WOOD) && (!ssConfig.skipOrganicMats)) {
+    }
+    else if (((matType == WOOD) || (matType == PLANT)) && (!ssConfig.skipOrganicMats)) {
         typeVector=&(contentLoader->organic);
     } else if ((matType == PLANTCLOTH) && (!ssConfig.skipOrganicMats)) {
         typeVector=&(contentLoader->organic);
