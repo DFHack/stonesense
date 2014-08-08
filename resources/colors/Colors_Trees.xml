@@ -1,0 +1,242 @@
+<colors>
+
+<!--plants standard.txt-->
+
+  <color red="89" green="93" blue="96">
+		<material token="PLANT:MANGROVE:STRUCTURAL"/>
+	</color>
+	<color red="110" green="210" blue="110">
+		<material token="PLANT:SAGUARO:STRUCTURAL"/>
+	</color>
+	<color red="157" green="104" blue="70">
+		<material token="PLANT:PINE:STRUCTURAL"/>
+	</color>
+	<color red="162" green="118" blue="116">
+		<material token="PLANT:CEDAR:STRUCTURAL"/>
+	</color>
+	<color red="139" green="116" blue="104">
+		<material token="PLANT:OAK:STRUCTURAL"/>
+	</color>
+	<color red="134" green="110" blue="94">
+		<material token="PLANT:MAHOGANY:STRUCTURAL"/>
+	</color>
+	<color red="160" green="150" blue="121">
+		<material token="PLANT:ACACIA:STRUCTURAL"/>
+	</color>
+	<color red="100" green="100" blue="90">
+		<material token="PLANT:KAPOK:STRUCTURAL"/>
+	</color>
+	<color red="136" green="121" blue="94">
+		<material token="PLANT:MAPLE:STRUCTURAL"/>
+	</color>
+	<color red="215" green="204" blue="178">
+		<material token="PLANT:WILLOW:STRUCTURAL"/>
+	</color>
+	
+	<color red="230" green="230" blue="230">
+		<material token="PLANT:TOWER_CAP:STRUCTURAL"/>
+	</color>
+	<color red="20" green="20" blue="20">
+		<material token="PLANT:BLACK_CAP:STRUCTURAL"/>
+	</color>
+	<color red="82" green="210" blue="243">
+		<material token="PLANT:NETHER_CAP:STRUCTURAL"/>
+	</color>
+	<color red="203" green="19" blue="19">
+		<material token="PLANT:GOBLIN_CAP:STRUCTURAL"/>
+	</color>
+	<color red="206" green="187" blue="51">
+		<material token="PLANT:FUNGIWOOD:STRUCTURAL"/>
+	</color>
+	<color red="119" green="59" blue="129">
+		<material token="PLANT:TUNNEL_TUBE:STRUCTURAL"/>
+	</color>
+	<color red="34" green="111" blue="126">
+		<material token="PLANT:SPORE_TREE:STRUCTURAL"/>
+	</color>
+	<color red="128" green="37" blue="39">
+		<material token="PLANT:BLOOD_THORN:STRUCTURAL"/>
+	</color>
+	
+	<color red="71" green="52" blue="97">
+		<material token="PLANT:GLUMPRONG:STRUCTURAL"/>
+	</color>
+	<color red="255" green="255" blue="255">
+		<material token="PLANT:FEATHER:STRUCTURAL"/>
+	</color>
+	<color red="172" green="109" blue="71">
+		<material token="PLANT:HIGHWOOD:STRUCTURAL"/>
+	</color>
+	
+	<color red="146" green="123" blue="107">
+		<material token="PLANT:LARCH:STRUCTURAL"/>
+	</color>
+	<color red="124" green="102" blue="87">
+		<material token="PLANT:CHESTNUT:STRUCTURAL"/>
+	</color>
+	<color red="121" green="107" blue="74">
+		<material token="PLANT:ALDER:STRUCTURAL"/>
+	</color>
+	<color red="255" green="255" blue="255">
+		<material token="PLANT:BIRCH:STRUCTURAL"/>
+	</color>
+	<color red="149" green="136" blue="117">
+		<material token="PLANT:ASH:STRUCTURAL"/>
+	</color>
+	<color red="133" green="155" blue="77">
+		<material token="PLANT:CANDLENUT:STRUCTURAL"/>
+	</color>
+	<color red="153" green="116" blue="77">
+		<material token="PLANT:MANGO:STRUCTURAL"/>
+	</color>
+	<color red="109" green="106" blue="92">
+		<material token="PLANT:RUBBER:STRUCTURAL"/>
+	</color>
+	<color red="106" green="88" blue="80">
+		<material token="PLANT:CACAO:STRUCTURAL"/>
+	</color>
+	<color red="165" green="116" blue="88">
+		<material token="PLANT:PALM:STRUCTURAL"/>
+	</color>
+	
+	<!-- NEW TREES - TROPICAL -->
+	
+	<color red="137" green="50" blue="35">
+		<material token="PLANT:ABACA:STRUCTURAL"/>
+	</color>
+	<color red="180" green="165" blue="65">
+		<material token="PLANT:BANANA:STRUCTURAL"/>
+	</color>
+	<color red="193" green="120" blue="83">
+		<material token="PLANT:CARAMBOLA:STRUCTURAL"/>
+	</color>
+	<color red="134" green="93" blue="66">
+		<material token="PLANT:CASHEW:STRUCTURAL"/>
+	</color>
+	<color red="151" green="120" blue="83">
+		<material token="PLANT:COFFEE:STRUCTURAL"/>
+	</color>
+	<color red="149" green="128" blue="94">
+		<material token="PLANT:DURIAN:STRUCTURAL"/>
+	</color>
+	<color red="141" green="123" blue="74">
+		<material token="PLANT:GUAVA:STRUCTURAL"/>
+	</color>
+	<color red="201" green="151" blue="106">
+		<material token="PLANT:PAPAYA:STRUCTURAL"/>
+	</color>
+	<color red="178" green="150" blue="125">
+		<material token="PLANT:PARADISE_NUT:STRUCTURAL"/>
+	</color>
+	<color red="169" green="105" blue="82">
+		<material token="PLANT:RAMBUTAN:STRUCTURAL"/>
+	</color>
+	<color red="106" green="80" blue="49">
+		<material token="PLANT:TEA:STRUCTURAL"/>
+	</color>
+	<color red="161" green="130" blue="92">
+		<material token="PLANT:AVOCADO:STRUCTURAL"/>
+	</color>
+	
+	<!-- NEW TREES - CITRUS -->
+	
+	<color red="104" green="97" blue="62">
+		<material token="PLANT:LIME:STRUCTURAL"/>
+	</color>
+	<color red="126" green="114" blue="72">
+		<material token="PLANT:POMELO:STRUCTURAL"/>
+	</color>
+	<color red="178" green="161" blue="123">
+		<material token="PLANT:CITRON:STRUCTURAL"/>
+	</color>
+	<color red="129" green="102" blue="65">
+		<material token="PLANT:ORANGE:STRUCTURAL"/>
+	</color>
+	<color red="124" green="98" blue="62">
+		<material token="PLANT:BITTER_ORANGE:STRUCTURAL"/>
+	</color>
+	<color red="104" green="78" blue="54">
+		<material token="PLANT:FINGER_LIME:STRUCTURAL"/>
+	</color>
+	<color red="104" green="102" blue="62">
+		<material token="PLANT:ROUND_LIME:STRUCTURAL"/>
+	</color>
+	<color red="121" green="104" blue="90">
+		<material token="PLANT:DESERT_LIME:STRUCTURAL"/>
+	</color>
+	<color red="149" green="111" blue="79">
+		<material token="PLANT:KUMQUAT:STRUCTURAL"/>
+	</color>
+	
+	<!--MEDITERANEAN -->
+	
+	<color red="153" green="117" blue="83">
+		<material token="PLANT:CUSTARD_APPLE:STRUCTURAL"/>
+	</color>
+	<color red="183" green="155" blue="77">
+		<material token="PLANT:DATE_PALM:STRUCTURAL"/>
+	</color>
+	<color red="134" green="111" blue="79">
+		<material token="PLANT:LYCHEE:STRUCTURAL"/>
+	</color>
+	<color red="131" green="109" blue="88">
+		<material token="PLANT:MACADAMIA:STRUCTURAL"/>
+	</color>
+	<color red="153" green="118" blue="83">
+		<material token="PLANT:OLIVE:STRUCTURAL"/>
+	</color>
+	<color red="131" green="121" blue="99">
+		<material token="PLANT:POMEGRANATE:STRUCTURAL"/>
+	</color>
+	
+	<!-- NEW TREES - TEMPERATE -->
+
+    <color red="119" green="100" blue="67">
+		<material token="PLANT:ALMOND:STRUCTURAL"/>
+	</color>
+    <color red="98" green="92" blue="80">
+		<material token="PLANT:APPLE:STRUCTURAL"/>
+	</color>
+	<color red="144" green="121" blue="81">
+		<material token="PLANT:APRICOT:STRUCTURAL"/>
+	</color>
+	<color red="124" green="121" blue="89">
+		<material token="PLANT:BAYBERRY:STRUCTURAL"/>
+	</color>
+	<color red="146" green="129" blue="105">
+		<material token="PLANT:CHERRY:STRUCTURAL"/>
+	</color>
+	<color red="108" green="105" blue="103">
+		<material token="PLANT:GINKGO:STRUCTURAL"/>
+	</color>
+	<color red="121" green="89" blue="69">
+		<material token="PLANT:HAZEL:STRUCTURAL"/>
+	</color>
+	<color red="141" green="108" blue="88">
+		<material token="PLANT:PEACH:STRUCTURAL"/>
+	</color>
+	<color red="92" green="81" blue="71">
+		<material token="PLANT:PEAR:STRUCTURAL"/>
+	</color>
+	<color red="161" green="126" blue="111">
+		<material token="PLANT:PECAN:STRUCTURAL"/>
+	</color>
+	<color red="136" green="99" blue="74">
+		<material token="PLANT:PERSIMMON:STRUCTURAL"/>
+	</color>
+	<color red="121" green="103" blue="81">
+		<material token="PLANT:PLUM:STRUCTURAL"/>
+	</color>
+	<color red="104" green="91" blue="62">
+		<material token="PLANT:SAND_PEAR:STRUCTURAL"/>
+	</color>
+	<color red="104" green="84" blue="63">
+		<material token="PLANT:WALNUT:STRUCTURAL"/>
+	</color>
+	
+	
+	
+	
+	
+	
+</colors>

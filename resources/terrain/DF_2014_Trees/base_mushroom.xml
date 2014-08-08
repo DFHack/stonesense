@@ -50,7 +50,7 @@ material="mushroom"
     <terrain token="TreeCapWallE" />
     <terrain token="TreeCapWallW" />
     
-    <subsprite sheetIndex="1" variationtype="four" color="xml" red="171" green="55" blue="39" />
+    <subsprite sheetIndex="1" variationtype="four" color="material" />
     
     <!--
     <subsprite sheetIndex="21" border_ramp_NOR="4" border_wall_NOR="4" border_floor_NOR="286" border_open_NOR="286" />
@@ -71,7 +71,7 @@ material="mushroom"
     <terrain token="TreeCapWallSE" />
     
     
-    <subsprite sheetIndex="5" variationtype="four" color="xml" red="171" green="55" blue="39" />
+    <subsprite sheetIndex="5" variationtype="four" color="material" />
      
     <!--
     <subsprite sheetIndex="25" border_floor_NOR="456" border_ramp_NOR="456" border_wall_NOR="456" border_open_NOR="128" />
@@ -87,7 +87,7 @@ material="mushroom"
   <wall file="base_mushroom_ramps.png" sheetIndex="0" color="material">
     <terrain token="TreeCapRamp" />
     
-    <subsprite sheetIndex="1" color="xml" red="171" green="55" blue="39" />
+    <subsprite sheetIndex="1" color="material" />
   </wall>
 </walls>
 
@@ -97,7 +97,7 @@ material="mushroom"
   
     <terrain token="TreeCapPillar" />
     
-    <subsprite sheetIndex="23" color="xml" red="171" green="55" blue="39"/>
+    <subsprite sheetIndex="23" color="material"/>
   </floor>
 
   <floor sheetIndex="20" color="material">
@@ -109,21 +109,21 @@ material="mushroom"
 
     <terrain token="TreeCapRamp" />
     
-    <subsprite sheetIndex="21" color="xml" red="171" green="55" blue="39"/>
+    <subsprite sheetIndex="21" color="material"/>
     
     <subsprite sheetIndex="1" border_floor_NOR="4" border_ramp_NOR="4" border_wall_NOR="4" border_open_NOR="286" 
-    color="xml" red="171" green="55" blue="39"/>
+    color="material"/>
     <subsprite sheetIndex="2" border_floor_NOR="6" border_ramp_NOR="6" border_wall_NOR="6" border_open_NOR="842" 
-    color="xml" red="171" green="55" blue="39"/>
+    color="material"/>
     <subsprite sheetIndex="3" border_floor_NOR="8" border_ramp_NOR="8" border_wall_NOR="8" border_open_NOR="246" 
-    color="xml" red="171" green="55" blue="39"/>
+    color="material"/>
     <subsprite sheetIndex="4" border_floor_NOR="2" border_ramp_NOR="2" border_wall_NOR="2" border_open_NOR="468" 
-    color="xml" red="171" green="55" blue="39"/>
+    color="material"/>
     
-    <subsprite sheetIndex="5" border_floor_NOR="456" border_ramp_NOR="456" border_wall_NOR="456" border_open_NOR="128" color="xml" red="171" green="55" blue="39" />
-    <subsprite sheetIndex="6" border_floor_NOR="678" border_ramp_NOR="678" border_wall_NOR="678" border_open_NOR="234" color="xml" red="171" green="55" blue="39" />
-    <subsprite sheetIndex="7" border_floor_NOR="128" border_ramp_NOR="128" border_wall_NOR="128" border_open_NOR="456" color="xml" red="171" green="55" blue="39" />
-    <subsprite sheetIndex="8" border_floor_NOR="234" border_ramp_NOR="234" border_wall_NOR="234" border_open_NOR="678" color="xml" red="171" green="55" blue="39" />
+    <subsprite sheetIndex="5" border_floor_NOR="456" border_ramp_NOR="456" border_wall_NOR="456" border_open_NOR="128" color="material" />
+    <subsprite sheetIndex="6" border_floor_NOR="678" border_ramp_NOR="678" border_wall_NOR="678" border_open_NOR="234" color="material" />
+    <subsprite sheetIndex="7" border_floor_NOR="128" border_ramp_NOR="128" border_wall_NOR="128" border_open_NOR="456" color="material" />
+    <subsprite sheetIndex="8" border_floor_NOR="234" border_ramp_NOR="234" border_wall_NOR="234" border_open_NOR="678" color="material" />
     
   </floor>
   
@@ -133,7 +133,7 @@ material="mushroom"
     <terrain token="TreeCapWallE" />
     <terrain token="TreeCapWallW" />
     
-    <subsprite sheetIndex="1" variationtype="four" color="xml" red="171" green="55" blue="39" />
+    <subsprite sheetIndex="1" variationtype="four" color="material" />
   </floor>
   
   <floor sheetIndex="20" color="material">    
@@ -143,7 +143,7 @@ material="mushroom"
     <terrain token="TreeCapWallSW" />
     <terrain token="TreeCapWallSE" />
     
-    <subsprite sheetIndex="5" variationtype="four" color="xml" red="171" green="55" blue="39" />
+    <subsprite sheetIndex="5" variationtype="four" color="material" />
 
   </floor>
 </floors>

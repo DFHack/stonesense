@@ -124,7 +124,9 @@ private:
     int itemtype;
     int itemsubtype;
     int itemmat;
+    ALLEGRO_COLOR growthColor;
 public:
+    void set_growthColor(ALLEGRO_COLOR color);
     c_sprite(void);
     ~c_sprite(void);
     //void draw_screen(int x, int y);

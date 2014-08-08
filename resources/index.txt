@@ -1,6 +1,7 @@
 # Remember: configs at the top of the list
 # get precedence over those below
 
+growths/index.txt
 grasses/index.txt
 terrain/index.txt
 creatures/index.txt

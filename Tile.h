@@ -4,6 +4,7 @@
 #include "SpriteObjects.h"
 #include "TileTypes.h"
 #include "df/item_type.h"
+#include "df/plant_tree_tile.h"
 #include "RemoteFortressReader.pb.h"
 #include <vector>
 
@@ -61,6 +62,7 @@ public:
 
     SS_Unit * creature;
     DFHack::t_matglossPair tree;
+    df::plant_tree_tile tree_tile;
 
     uint8_t mudlevel;
     uint8_t snowlevel;
@@ -101,6 +103,9 @@ public:
     {
         return DFHack::tileShapeBasic(DFHack::tileShape(tileType));
     }
+
+    void DrawGrowth(c_sprite * spriteobject, bool top);
+
 
     RemoteFortressReader::TiletypeShape tileShape();
     RemoteFortressReader::TiletypeSpecial tileSpecial();

@@ -4,6 +4,7 @@
 #include "ContentBuildingReader.h"
 #include "MapLoading.h"
 #include "ColorConfiguration.h"
+#include "TreeGrowthConfiguration.h"
 
 #include "tinyxml.h"
 #include "GUI.h"
@@ -53,6 +54,8 @@ ContentLoader::~ContentLoader(void)
     flushCreatureConfig();
     colorConfigs.clear();
     materialColorConfigs.clear();
+    growthTopConfigs.clear();
+    growthBottomConfigs.clear();
 }
 
 bool ContentLoader::Load()
@@ -69,6 +72,8 @@ bool ContentLoader::Load()
     flushItemConfig(itemConfigs);
     colorConfigs.clear();
     materialColorConfigs.clear();
+    growthTopConfigs.clear();
+    growthBottomConfigs.clear();
     flushCreatureConfig();
     treeConfigs.clear();
     shrubConfigs.clear();
@@ -81,6 +86,7 @@ bool ContentLoader::Load()
     if (connection_state)
     {
         connection_state->MaterialListCall(&(connection_state->empty_message), &materialNameList);
+        connection_state->GrowthListCall(&(connection_state->empty_message), &growthNameList);
         connection_state->TiletypeListCall(&(connection_state->empty_message), &tiletypeNameList);
         connection_state->Disconnect();
     }
@@ -88,10 +94,10 @@ bool ContentLoader::Load()
     remove("MatList.csv");
     FILE* fp = fopen("MatList.csv", "a");
     if (fp) {
-        fprintf(fp, "#,mat_type,mat_index,id,name,color\n");
+        fprintf(fp, "#;mat_type;mat_index;id;name;color\n");
         for (int i = 0; i < materialNameList.material_list_size(); i++)
         {
-            fprintf(fp, "%d,%d,%d,%s,%s,#%02X%02X%02X\n", 
+            fprintf(fp, "%d;%d;%d;%s;%s;#%02X%02X%02X\n",
                 i,
                 materialNameList.material_list(i).mat_pair().mat_type(),
                 materialNameList.material_list(i).mat_pair().mat_index(),
@@ -101,16 +107,34 @@ bool ContentLoader::Load()
                 materialNameList.material_list(i).state_color().green(),
                 materialNameList.material_list(i).state_color().blue());
         }
-		fclose(fp);
+        fclose(fp);
+    }
+    remove("GrowthList.csv");
+    fp = fopen("GrowthList.csv", "a");
+    if (fp) {
+        fprintf(fp, "#;mat_type;mat_index;id;name;color\n");
+        for (int i = 0; i < growthNameList.material_list_size(); i++)
+        {
+            fprintf(fp, "%d;%d;%d;%s;%s;#%02X%02X%02X\n",
+                i,
+                growthNameList.material_list(i).mat_pair().mat_type(),
+                growthNameList.material_list(i).mat_pair().mat_index(),
+                growthNameList.material_list(i).id().c_str(),
+                growthNameList.material_list(i).name().c_str(),
+                growthNameList.material_list(i).state_color().red(),
+                growthNameList.material_list(i).state_color().green(),
+                growthNameList.material_list(i).state_color().blue());
+        }
+        fclose(fp);
     }
 
     remove("TiletypeList.csv");
     fp = fopen("TiletypeList.csv", "a");
     if (fp) {
-        fprintf(fp, "id,name,shape,special,material,variant\n");
+        fprintf(fp, "id;name;shape;special;material;variant\n");
         for (int i = 0; i < tiletypeNameList.tiletype_list_size(); i++)
         {
-            fprintf(fp, "%d,%s,%s,%s,%s,%s\n",
+            fprintf(fp, "%d;%s;%s;%s;%s;%s\n",
                 tiletypeNameList.tiletype_list(i).id(),
                 tiletypeNameList.tiletype_list(i).name().c_str(),
                 TiletypeShapeToString(tiletypeNameList.tiletype_list(i).shape()),
@@ -296,6 +320,8 @@ bool ContentLoader::reload_configs()
     flushItemConfig(itemConfigs);
     colorConfigs.clear();
     materialColorConfigs.clear();
+    growthTopConfigs.clear();
+    growthBottomConfigs.clear();
     creatureConfigs.clear();
     treeConfigs.clear();
     shrubConfigs.clear();
@@ -446,7 +472,11 @@ bool ContentLoader::parseContentXMLFile( const char* filepath )
             runningResult &= parseFluidContent( elemRoot );
         } else if( elementType.compare( "items" ) == 0 ) {
             runningResult &= parseItemContent( elemRoot );
-        } else {
+        }
+        else if (elementType.compare("growths") == 0) {
+            runningResult &= parseGrowthContent(elemRoot);
+        }
+        else {
             contentError("Unrecognised root element",elemRoot);
         }
 
@@ -485,6 +515,11 @@ bool ContentLoader::parseGrassContent(TiXmlElement* elemRoot )
 bool ContentLoader::parseTerrainContent(TiXmlElement* elemRoot )
 {
     return addSingleTerrainConfig( elemRoot );
+}
+
+bool ContentLoader::parseGrowthContent(TiXmlElement* elemRoot)
+{
+    return addSingleGrowthConfig(elemRoot);
 }
 
 bool ContentLoader::parseColorContent(TiXmlElement* elemRoot )
@@ -1012,8 +1047,14 @@ ShadeBy getShadeType(const char* Input)
     if( strcmp(Input, "equipment") == 0) {
         return ShadeEquip;
     }
-    if( strcmp(Input, "item") == 0) {
+    if (strcmp(Input, "item") == 0) {
         return ShadeItem;
+    }
+    if (strcmp(Input, "wood") == 0) {
+        return ShadeWood;
+    }
+    if (strcmp(Input, "growth") == 0) {
+        return ShadeGrowth;
     }
     return ShadeNone;
 }

@@ -18,6 +18,7 @@ private:
     bool parseBuildingContent( TiXmlElement* elemRoot );
     bool parseCreatureContent( TiXmlElement* elemRoot );
     bool parseTerrainContent ( TiXmlElement* elemRoot );
+    bool parseGrowthContent(TiXmlElement* elemRoot);
     bool parseTreeContent( TiXmlElement* elemRoot );
     bool parseShrubContent( TiXmlElement* elemRoot );
     bool parseColorContent( TiXmlElement* elemRoot );
@@ -46,6 +47,8 @@ public:
     std::vector<TerrainConfiguration*> terrainWallConfigs;
     std::vector<ColorConfiguration> colorConfigs;
     MaterialMatcher<ALLEGRO_COLOR> materialColorConfigs;
+    MaterialMatcher<c_sprite> growthTopConfigs;
+    MaterialMatcher<c_sprite> growthBottomConfigs;
     std::vector<ItemConfiguration*> itemConfigs;
     FluidConfiguration lava[8];
     FluidConfiguration water[8];
@@ -55,6 +58,7 @@ public:
     std::vector<std::vector<int32_t>*> position_Indices;
 
     RemoteFortressReader::MaterialList materialNameList;
+    RemoteFortressReader::MaterialList growthNameList;
     RemoteFortressReader::TiletypeList tiletypeNameList;
     std::vector<std::string> professionStrings;
     std::map <uint32_t, std::string> custom_workshop_types;

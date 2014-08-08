@@ -47,6 +47,7 @@ using namespace std;
 #include "df/viewscreen_dungeon_wrestlest.h"
 #include "df/ui_advmode.h"
 #include "df/report.h"
+#include "allegro5/allegro_color.h"
 extern ALLEGRO_FONT *font;
 
 int MiniMapTopLeftX = 0;
@@ -532,7 +533,9 @@ void drawDebugInfo(WorldSegment * segment)
     }
     int ttype;
     const char* tform = NULL;
-    if (b->tileShapeBasic()==tiletype_shape_basic::Floor) {
+    draw_textf_border(font, uiColor(1), 2, (i++*al_get_font_line_height(font)), 0,
+        "Tile: %s", contentLoader->tiletypeNameList.tiletype_list(b->tileType).name().c_str());
+    if (b->tileShapeBasic() == tiletype_shape_basic::Floor) {
         ttype=b->tileType;
         tform="floor";
     } else if (b->tileShapeBasic()==tiletype_shape_basic::Wall) {
@@ -794,9 +797,21 @@ void drawDebugInfo(WorldSegment * segment)
         if(b->designation.bits.flow_size > 0 || b->tree.index != 0)
             draw_textf_border(font, uiColor(1), 2, (i++*al_get_font_line_height(font)), 0,
                               "tree:%i water:%i,%i", b->tree.index, b->designation.bits.liquid_type, b->designation.bits.flow_size);
-        if(b->tree.index != 0)
+        if (b->tree.index != 0)
+        {
             draw_textf_border(font, uiColor(1), 2, (i++*al_get_font_line_height(font)), 0,
-                              "tree name:%s type:%i", lookupTreeName(b->tree.index), b->tree.type);
+                "tree name:%s type:%i", lookupTreeName(b->tree.index), b->tree.type);
+            draw_textf_border(font, uiColor(1), 2, (i++*al_get_font_line_height(font)), 0,
+                "tree tile:%s%s%s%s%s%s%s", 
+                b->tree_tile.bits.trunk ? " trunk" : "",
+                b->tree_tile.bits.thick_branches_1 ? " thick_branches_1" : "",
+                b->tree_tile.bits.thick_branches_2 ? " thick_branches_2" : "",
+                b->tree_tile.bits.thick_branches_3 ? " thick_branches_3" : "",
+                b->tree_tile.bits.thick_branches_4 ? " thick_branches_4" : "",
+                b->tree_tile.bits.branches ? " branches" : "",
+                b->tree_tile.bits.twigs ? " twigs" : ""
+                );
+        }
         if(b->building.sprites.size() != 0)
             draw_textf_border(font, uiColor(1), 2, (i++*al_get_font_line_height(font)), 0,
                               "%i extra sprites.", b->building.sprites.size());
@@ -983,6 +998,19 @@ ALLEGRO_BITMAP * CreateSpriteFromSheet( int spriteNum, ALLEGRO_BITMAP* spriteShe
     int sheetx = spriteNum % SHEET_OBJECTSWIDE;
     int sheety = spriteNum / SHEET_OBJECTSWIDE;
     return al_create_sub_bitmap(spriteSheet, sheetx * SPRITEWIDTH, sheety * SPRITEHEIGHT, SPRITEWIDTH, SPRITEHEIGHT);
+}
+
+void DrawMaterialOverlay(int x, int y, int start, int count)
+{
+    int end = start + count;
+    if (end > contentLoader->materialNameList.material_list_size())
+        end = contentLoader->materialNameList.material_list_size();
+    ALLEGRO_BITMAP * target = al_get_target_bitmap();
+
+    for (int i = start; i < end; i++)
+    {
+        draw_textf_border(font, uiColor(1), x + 5, y*al_get_font_line_height(font), 0, "%s", contentLoader->materialNameList.material_list(i).id().c_str());
+    }
 }
 
 void DrawSpriteIndexOverlay(int imageIndex)
@@ -1622,4 +1650,30 @@ void saveMegashot(bool tall)
     al_set_new_bitmap_flags(tempflags);
 
     map_segment.unlockRead();
+}
+
+ALLEGRO_COLOR morph_color(ALLEGRO_COLOR source, ALLEGRO_COLOR reference, ALLEGRO_COLOR target)
+{
+    float sH, sS, sL, rH, rS, rL, tH, tS, tL;
+    al_color_rgb_to_hsv(source.r, source.g, source.b, &sH, &sS, &sL);
+    al_color_rgb_to_hsv(reference.r, reference.g, reference.b, &rH, &rS, &rL);
+    al_color_rgb_to_hsv(target.r, target.g, target.b, &tH, &tS, &tL);
+    
+    sH += tH - rH;
+    sS += tS - rS;
+    sL += tL - rL;
+    if (sH > 360.0f)
+        sH -= 360.0f;
+    if (sH < 0.0f)
+        sH += 360.0f;
+    if (sS > 1.0f)
+        sS = 1.0f;
+    if (sS < 0.0f)
+        sS = 0.0f;
+    if (sL > 1.0f)
+        sL = 1.0f;
+    if (sL < 0.0f)
+        sL = 0.0f;
+
+    return al_color_hsv(sH, sS, sL);
 }

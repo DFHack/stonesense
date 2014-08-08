@@ -619,7 +619,6 @@ DFhackCExport command_result stonesense_command(color_ostream &out, std::vector<
 		}
 	} 
 
-    stonesense_started = true;
     if(!al_is_system_installed()) {
         if (!al_init()) {
             out.printerr("Could not init Allegro.\n");
@@ -641,7 +640,8 @@ DFhackCExport command_result stonesense_command(color_ostream &out, std::vector<
         }
     }
 
-    stonesense_event_thread = al_create_thread(stonesense_thread, (void*) &out);
+    stonesense_started = true;
+    stonesense_event_thread = al_create_thread(stonesense_thread, (void*)&out);
     al_start_thread(stonesense_event_thread);
     return CR_OK;
 }

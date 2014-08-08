@@ -1243,8 +1243,17 @@ ALLEGRO_COLOR c_sprite::get_color(void* tile)
         return al_map_rgb(255, 255, 255);
     case ShadeXml:
         return shadecolor;
+    case ShadeWood:
+    {
+                      DFHack::t_matglossPair mat = b->material;
+                      if (mat.type == 419) //this is a dirty hack, but it works, at least in vanilla.
+                          mat.type = 420;
+                      return lookupMaterialColor(mat);
+    }
     case ShadeMat:
         return lookupMaterialColor(b->material);
+    case ShadeGrowth:
+        return growthColor;
     case ShadeNamed:
         return namedcolor;
     case ShadeGrass:
@@ -1343,4 +1352,13 @@ ALLEGRO_COLOR c_sprite::get_color(void* tile)
         return al_map_rgb(255, 255, 255);
     } ;
     return al_map_rgb(255, 255, 255);
+}
+
+void c_sprite::set_growthColor(ALLEGRO_COLOR color)
+{
+    growthColor = color;
+    for (int i = 0; i < subsprites.size(); i++)
+    {
+        subsprites[i].set_growthColor(color);
+    }
 }

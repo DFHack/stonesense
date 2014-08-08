@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<!-- Basic Trunk -->
+
+<!-- Mystery types:
+
+None as of now.
+
+-->
+
+<growths file="base_foliage_grey.png">
+
+	<growth sheetIndex="19" outline="0" color="material" layer="top">
+		<part token="*:LEAVES" />
+		<subsprite file="tree_shadow.png" sheetIndex="0" offsety="16" />
+		<subsprite file="tree_shadow.png" sheetIndex="0" offsety="12" />
+		<subsprite file="tree_shadow.png" sheetIndex="0" offsety="8" />
+		<subsprite file="tree_shadow.png" sheetIndex="0" offsety="4" />
+
+		<!--leaves-->
+		<subsprite sheetIndex="26" file="base_foliage_grey.png" color="growth" variations="2"/>
+		<subsprite sheetIndex="28" file="base_foliage_grey.png" color="growth" border_floor_NOR="8" border_wall_NOR="8" border_ramp_NOR="8"/>
+		<subsprite sheetIndex="29" file="base_foliage_grey.png" color="growth" border_floor_NOR="2" border_wall_NOR="2" border_ramp_NOR="2"/>
+		<subsprite sheetIndex="30" file="base_foliage_grey.png" color="growth" border_floor_NOR="4" border_wall_NOR="4" border_ramp_NOR="4"/>
+		<subsprite sheetIndex="31" file="base_foliage_grey.png" color="growth" border_floor_NOR="6" border_wall_NOR="6" border_ramp_NOR="6"/>
+
+	</growth>
+
+	<growth sheetIndex="12" variations="2" file="base_foliage.png" outline="0">
+		<terrain token="TreeBranchesSmooth" />
+		<terrain token="TreeDeadBranchesSmooth" />
+
+		<subsprite sheetIndex="14" border_floor_NOR="8" border_wall_NOR="8" border_ramp_NOR="8"/>
+		<subsprite sheetIndex="15" border_floor_NOR="2" border_wall_NOR="2" border_ramp_NOR="2"/>
+		<subsprite sheetIndex="16" border_floor_NOR="4" border_wall_NOR="4" border_ramp_NOR="4"/>
+		<subsprite sheetIndex="17" border_floor_NOR="6" border_wall_NOR="6" border_ramp_NOR="6"/>
+	</growth>
+
+	<growth sheetIndex="19" outline="0" color="material">
+		<terrain token="TreeTwigs" />
+		<terrain token="TreeDeadTwigs" />
+
+		<subsprite file="tree_shadow.png" sheetIndex="1" offsety="16" />
+		<subsprite file="tree_shadow.png" sheetIndex="1" offsety="12" />
+		<subsprite file="tree_shadow.png" sheetIndex="1" offsety="8" />
+		<subsprite file="tree_shadow.png" sheetIndex="1" offsety="4" />
+
+		<!--fruit
+  <subsprite sheetIndex="50" file="base_foliage.png" variations="2" offsety="4"/>
+  -->
+
+		<subsprite sheetIndex="0" variations="2" color="material" />
+		<subsprite sheetIndex="2" border_floor_NOR="8" border_wall_NOR="8" border_ramp_NOR="8" color="material"/>
+		<subsprite sheetIndex="3" border_floor_NOR="2" border_wall_NOR="2" border_ramp_NOR="2" color="material"/>
+		<subsprite sheetIndex="4" border_floor_NOR="4" border_wall_NOR="4" border_ramp_NOR="4" color="material"/>
+		<subsprite sheetIndex="5" border_floor_NOR="6" border_wall_NOR="6" border_ramp_NOR="6" color="material"/>
+
+		<!-- leaves -->
+		<subsprite sheetIndex="20" file="base_foliage.png" variations="2"/>
+		<subsprite sheetIndex="22" file="base_foliage.png" border_floor_NOR="8" border_wall_NOR="8" border_ramp_NOR="8"/>
+		<subsprite sheetIndex="23" file="base_foliage.png" border_floor_NOR="2" border_wall_NOR="2" border_ramp_NOR="2"/>
+		<subsprite sheetIndex="24" file="base_foliage.png" border_floor_NOR="4" border_wall_NOR="4" border_ramp_NOR="4"/>
+		<subsprite sheetIndex="25" file="base_foliage.png" border_floor_NOR="6" border_wall_NOR="6" border_ramp_NOR="6"/>
+		<!--snow-->
+		<subsprite snow_min="10" sheetIndex="70" file="base_foliage.png" variations="2"/>
+		<!--flowers
+  <subsprite sheetIndex="60" variations="2" file="base_foliage.png"/>
+  <subsprite sheetIndex="62" file="base_foliage.png" border_floor_NOR="8" border_wall_NOR="8" border_ramp_NOR="8" variations="2" />
+  <subsprite sheetIndex="64" file="base_foliage.png" border_floor_NOR="2" border_wall_NOR="2" border_ramp_NOR="2" variations="2" />
+  <subsprite sheetIndex="68" file="base_foliage.png" border_floor_NOR="4" border_wall_NOR="4" border_ramp_NOR="4" variations="2" />
+  <subsprite sheetIndex="70" file="base_foliage.png" border_floor_NOR="6" border_wall_NOR="6" border_ramp_NOR="6" variations="2" />-->
+	</growth>
+</growths>

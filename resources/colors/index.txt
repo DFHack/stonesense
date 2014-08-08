@@ -1,3 +1,6 @@
+Colors_Wood_New.xml
+Colors_Foliage.xml
+Colors_Trees.xml
 Colors_Wood.xml
 #Colors_grass_vherid.xml
 Colors_Grass.xml

@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<colors>
+	<color red="224" green="180" blue="105">
+		<material token="PLANT:CARAMBOLA:WOOD"/>
+	</color>
+	<color red="148" green="130" blue="97">
+		<material token="PLANT:CASHEW:WOOD"/>
+	</color>
+	<color red="198" green="170" blue="151">
+		<material token="PLANT:COFFEE:WOOD"/>
+	</color>
+	<color red="181" green="167" blue="148">
+		<material token="PLANT:DURIAN:WOOD"/>
+	</color>
+	<color red="204" green="153" blue="124">
+		<material token="PLANT:GUAVA:WOOD"/>
+	</color>
+	<color red="174" green="156" blue="122">
+		<material token="PLANT:PAPAYA:WOOD"/>
+	</color>
+	<color red="198" green="116" blue="70">
+		<material token="PLANT:PARADISE_NUT:WOOD"/>
+	</color>
+	<color red="210" green="111" blue="47">
+		<material token="PLANT:RAMBUTAN:WOOD"/>
+	</color>
+	<color red="174" green="153" blue="119">
+		<material token="PLANT:TEA:WOOD"/>
+	</color>
+	<color red="197" green="141" blue="71">
+		<material token="PLANT:APRICOT:WOOD"/>
+	</color>
+	<color red="165" green="110" blue="48">
+		<material token="PLANT:ALMOND:WOOD"/>
+	</color>
+	<color red="170" green="142" blue="112">
+		<material token="PLANT:HAZEL:WOOD"/>
+	</color>
+	<color red="122" green="89" blue="64">
+		<material token="PLANT:PEACH:WOOD"/>
+	</color>
+</colors>

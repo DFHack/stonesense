@@ -1,0 +1,626 @@
+<colors>
+
+<!--basic-->
+
+  <color red="80" green="220" blue="80">
+		<material token="PLANT:*:LEAF"/>
+	</color>
+	<color red="80" green="220" blue="80">
+		<material token="PLANT:*:BUDS"/>
+	</color>
+	<color red="243" green="174" blue="214">
+		<material token="PLANT:*:FLOWER"/>
+	</color>
+	<color red="174" green="243" blue="197">
+		<material token="PLANT:*:POLLEN_CATKINS"/>
+	</color>
+	<color red="201" green="168" blue="151">
+		<material token="PLANT:*:SEED_CATKINS"/>
+	</color>
+	<color red="255" green="251" blue="192">
+		<material token="PLANT:*:POLLEN_CONE"/>
+	</color>
+	<color red="165" green="116" blue="88">
+		<material token="PLANT:*:SPATHES"/>
+	</color>
+	<color red="255" green="0" blue="0">
+		<material token="PLANT:*:FRUIT"/>
+	</color>
+	<color red="80" green="220" blue="80">
+		<material token="PLANT:*:PODS"/>
+	</color>
+	<color red="74" green="46" blue="31">
+		<material token="PLANT:*:SEED"/>
+	</color>
+	<color red="97" green="60" blue="41">
+		<material token="PLANT:*:SEED_CONE"/>
+	</color>
+	<color red="223" green="176" blue="128">
+		<material token="PLANT:*:NUT"/>
+	</color>
+	
+	<!--Plants_Standard.txt-->
+	<color red="53" green="171" blue="69">
+		<material token="PLANT:MANGROVE:LEAF"/>
+	</color>
+	<color red="252" green="255" blue="201">
+		<material token="PLANT:MANGROVE:FLOWER"/>
+	</color>
+	<color red="255" green="85" blue="85">
+		<material token="PLANT:MANGROVE:FRUIT"/>
+	</color>
+	<color red="248" green="247" blue="212">
+		<material token="PLANT:SAGUARO:FLOWER"/>
+	</color>
+	<color red="235" green="33" blue="7">
+		<material token="PLANT:SAGUARO:FRUIT"/>
+	</color>
+	<color red="13" green="90" blue="51">
+		<material token="PLANT:PINE:NEEDLE"/><!--pines... don't have leaves, but cedars do???-->
+	</color>
+	<color red="243" green="218" blue="127">
+		<material token="PLANT:PINE:POLLEN_CONE"/>
+	</color>
+	<color red="106" green="70" blue="47">
+		<material token="PLANT:PINE:SEED_CONE"/>
+	</color>
+	<color red="80" green="220" blue="80">
+		<material token="PLANT:CEDAR:LEAF"/>
+	</color>
+	<color red="243" green="193" blue="171">
+		<material token="PLANT:CEDAR:POLLEN_CONE"/>
+	</color>
+	<color red="79" green="42" blue="41">
+		<material token="PLANT:CEDAR:SEED_CONE"/>
+	</color>
+	<color red="72" green="172" blue="41">
+		<material token="PLANT:OAK:LEAF"/>
+	</color>
+	<color red="160" green="235" blue="60">
+		<material token="PLANT:OAK:FLOWER"/>
+	</color>
+	<color red="139" green="117" blue="78">
+		<material token="PLANT:OAK:NUT"/>
+	</color>
+	<color red="119" green="180" blue="82">
+		<material token="PLANT:MAHOGANY:LEAF"/>
+	</color>
+	<color red="238" green="255" blue="181">
+		<material token="PLANT:MAHOGANY:FLOWER"/>
+	</color>
+	<color red="146" green="88" blue="71">
+		<material token="PLANT:MAHOGANY:FRUIT"/>
+	</color>
+	<color red="153" green="199" blue="109">
+		<material token="PLANT:ACACIA:LEAF"/>
+	</color>
+	<color red="249" green="245" blue="189">
+		<material token="PLANT:ACACIA:FLOWER"/>
+	</color>
+	<color red="157" green="122" blue="107">
+		<material token="PLANT:ACACIA:POD"/>
+	</color>
+	<color red="114" green="204" blue="72">
+		<material token="PLANT:KAPOK:LEAF"/>
+	</color>
+	<color red="248" green="247" blue="245">
+		<material token="PLANT:KAPOK:FLOWER"/>
+	</color>
+	<color red="213" green="211" blue="188">
+		<material token="PLANT:KAPOK:FRUIT"/>
+	</color>
+	<color red="80" green="220" blue="80">
+		<material token="PLANT:MAPLE:LEAF"/>
+	</color>
+	<color red="108" green="198" blue="78">
+		<material token="PLANT:MAPLE:FLOWER"/>
+	</color>
+	<color red="215" green="204" blue="178">
+		<material token="PLANT:MAPLE:FRUIT"/>
+	</color>
+	<color red="68" green="148" blue="73">
+		<material token="PLANT:WILLOW:LEAF"/>
+	</color>
+	<color red="234" green="188" blue="160">
+		<material token="PLANT:WILLOW:POLLEN_CATKINS"/>
+	</color>
+	<color red="198" green="175" blue="119">
+		<material token="PLANT:WILLOW:SEED_CATKINS"/>
+		<material token="PLANT:WILLOW:FRUIT"/>
+	</color>
+	
+	
+	<color red="182" green="233" blue="200">
+		<material token="PLANT:FEATHER:FEATHER"/>
+	</color>
+	<color red="233" green="213" blue="185">
+		<material token="PLANT:FEATHER:EGG"/>
+	</color>
+	<color red="13" green="114" blue="45">
+		<material token="PLANT:HIGHWOOD:LEAF"/>
+	</color>
+	<color red="174" green="237" blue="237">
+		<material token="PLANT:HIGHWOOD:FLOWER"/>
+	</color>
+	
+	<color red="38" green="178" blue="82">
+		<material token="PLANT:LARCH:NEEDLE"/>
+	</color>
+	<color red="233" green="177" blue="122">
+		<material token="PLANT:LARCH:SEED_CONE"/>
+	</color>
+	<color red="141" green="108" blue="74">
+		<material token="PLANT:LARCH:POLLEN_CONE"/>
+	</color>
+	<color red="53" green="176" blue="58">
+		<material token="PLANT:CHESTNUT:LEAF"/>
+	</color>
+	<color red="230" green="230" blue="121">
+		<material token="PLANT:CHESTNUT:POLLEN_CATKINS"/>
+	</color>
+	<color red="230" green="230" blue="121">
+		<material token="PLANT:CHESTNUT:SEED_CATKINS"/>
+	</color>
+	<color red="97" green="186" blue="101">
+		<material token="PLANT:CHESTNUT:NUT"/>
+	</color>
+	<color red="40" green="134" blue="50">
+		<material token="PLANT:ALDER:LEAF"/>
+	</color>
+	<color red="202" green="230" blue="147">
+		<material token="PLANT:ALDER:POLLEN_CATKINS"/>
+	</color>
+	<color red="202" green="230" blue="147">
+		<material token="PLANT:ALDER:SEED_CATKINS"/>
+	</color>
+	<color red="84" green="73" blue="50">
+		<material token="PLANT:ALDER:CONE"/>
+	</color>
+	<color red="36" green="102" blue="43">
+		<material token="PLANT:BIRCH:LEAF"/>
+	</color>
+	<color red="96" green="183" blue="67">
+		<material token="PLANT:BIRCH:POLLEN_CATKINS"/>
+	</color>
+	<color red="97" green="87" blue="68">
+		<material token="PLANT:BIRCH:SEED_CATKINS"/>
+	</color>
+	<color red="50" green="158" blue="43">
+		<material token="PLANT:ASH:LEAF"/>
+	</color>
+	<color red="233" green="226" blue="212">
+		<material token="PLANT:ASH:FLOWER"/>
+	</color>
+	<color red="201" green="183" blue="157">
+		<material token="PLANT:ASH:FRUIT"/>
+	</color>
+	<color red="96" green="180" blue="61">
+		<material token="PLANT:CANDLENUT:LEAF"/>
+	</color>
+	<color red="238" green="236" blue="222">
+		<material token="PLANT:CANDLENUT:FLOWER"/>
+	</color>
+	<color red="110" green="163" blue="87">
+		<material token="PLANT:CANDLENUT:NUT"/>
+	</color>
+	<color red="78" green="149" blue="45">
+		<material token="PLANT:MANGO:LEAF"/>
+	</color>
+	<color red="228" green="70" blue="42">
+		<material token="PLANT:MANGO:FLOWER"/>
+	</color>
+	<color red="228" green="139" blue="42">
+		<material token="PLANT:MANGO:FRUIT"/>
+	</color>
+	<color red="101" green="193" blue="77">
+		<material token="PLANT:RUBBER:LEAF"/>
+	</color>
+	<color red="72" green="131" blue="27">
+		<material token="PLANT:CACAO:LEAF"/>
+	</color>
+	<color red="238" green="236" blue="222">
+		<material token="PLANT:CACAO:FLOWER"/>
+	</color>
+	<color red="111" green="44" blue="32">
+		<material token="PLANT:CACAO:FRUIT"/>
+	</color>
+	<color red="147" green="233" blue="108">
+		<material token="PLANT:PALM:LEAF"/>
+	</color>
+	<color red="218" green="173" blue="148">
+		<material token="PLANT:PALM:SPATHES"/>
+	</color>
+	<color red="102" green="81" blue="69">
+		<material token="PLANT:PALM:FRUIT"/>
+	</color>
+	
+	<!--new trees - tropical -->
+	
+	<color red="133" green="220" blue="98">
+		<material token="PLANT:ABACA:LEAF"/>
+	</color>
+	<color red="204" green="91" blue="91">
+		<material token="PLANT:ABACA:FLOWER"/>
+	</color>
+	<color red="254" green="217" blue="184">
+		<material token="PLANT:ABACA:FRUIT"/>
+	</color>
+	<color red="109" green="205" blue="92">
+		<material token="PLANT:BANANA:LEAF"/>
+	</color>
+	<color red="178" green="66" blue="101">
+		<material token="PLANT:BANANA:FLOWER"/>
+	</color>
+	<color red="217" green="164" blue="31">
+		<material token="PLANT:BANANA:FRUIT"/>
+	</color>
+	<color red="85" green="168" blue="70">
+		<material token="PLANT:CARAMBOLA:LEAF"/>
+	</color>
+	<color red="243" green="59" blue="180">
+		<material token="PLANT:CARAMBOLA:FLOWER"/>
+	</color>
+	<color red="233" green="215" blue="88">
+		<material token="PLANT:CARAMBOLA:FRUIT"/>
+	</color>
+	<color red="85" green="168" blue="97">
+		<material token="PLANT:CASHEW:LEAF"/>
+	</color>
+	<color red="230" green="65" blue="37">
+		<material token="PLANT:CASHEW:FLOWER"/>
+	</color>
+	<color red="193" green="65" blue="37">
+		<material token="PLANT:CASHEW:FRUIT"/>
+	</color>
+	<color red="161" green="64" blue="46">
+		<material token="PLANT:CASHEW:SEED"/>
+	</color>
+	<color red="111" green="176" blue="70">
+		<material token="PLANT:COFFEE:LEAF"/>
+	</color>
+	<color red="254" green="254" blue="254">
+		<material token="PLANT:COFFEE:FLOWER"/>
+	</color>
+	<color red="230" green="58" blue="29">
+		<material token="PLANT:COFFEE:FRUIT"/>
+	</color>
+	<color red="171" green="173" blue="138">
+		<material token="PLANT:COFFEE:SEED"/>
+	</color>
+	<color red="75" green="149" blue="86">
+		<material token="PLANT:DURIAN:LEAF"/>
+	</color>
+	<color red="255" green="245" blue="240">
+		<material token="PLANT:DURIAN:FLOWER"/>
+	</color>
+	<color red="149" green="156" blue="49">
+		<material token="PLANT:DURIAN:FRUIT"/>
+	</color>
+	<color red="88" green="176" blue="101">
+		<material token="PLANT:GUAVA:LEAF"/>
+	</color>
+	<color red="239" green="233" blue="213">
+		<material token="PLANT:GUAVA:FLOWER"/>
+	</color>
+	<color red="160" green="204" blue="69">
+		<material token="PLANT:GUAVA:FRUIT"/>
+	</color>
+	<color red="132" green="196" blue="113">
+		<material token="PLANT:PAPAYA:LEAF"/>
+	</color>
+	<color red="254" green="239" blue="244">
+		<material token="PLANT:PAPAYA:FLOWER"/>
+	</color>
+	<color red="233" green="218" blue="113">
+		<material token="PLANT:PAPAYA:FRUIT"/>
+	</color>
+	<color red="119" green="22" blue="113">
+		<material token="PLANT:PARADISE_NUT:LEAF"/>
+	</color>
+	<color red="239" green="243" blue="245">
+		<material token="PLANT:PARADISE_NUT:FLOWER"/>
+	</color>
+	<color red="161" green="105" blue="73">
+		<material token="PLANT:PARADISE_NUT:FRUIT"/>
+		<material token="PLANT:PARADISE_NUT:SEED"/>
+	</color>
+	<color red="139" green="205" blue="92">
+		<material token="PLANT:RAMBUTAN:LEAF"/>
+	</color>
+	<color red="199" green="255" blue="114">
+		<material token="PLANT:RAMBUTAN:FLOWER"/>
+	</color>
+	<color red="193" green="65" blue="87">
+		<material token="PLANT:RAMBUTAN:FRUIT"/>
+	</color>
+	<color red="44" green="129" blue="49">
+		<material token="PLANT:TEA:LEAF"/>
+	</color>
+	<color red="254" green="240" blue="239">
+		<material token="PLANT:TEA:FLOWER"/>
+	</color>
+	<color red="181" green="75" blue="0">
+		<material token="PLANT:TEA:FRUIT"/>
+	</color>
+	<color red="81" green="191" blue="85">
+		<material token="PLANT:AVOCADO:LEAF"/>
+	</color>
+	<color red="229" green="240" blue="170">
+		<material token="PLANT:AVOCADO:FLOWER"/>
+	</color>
+	<color red="44" green="102" blue="49">
+		<material token="PLANT:AVOCADO:FRUIT"/>
+	</color>
+	<color red="180" green="169" blue="93">
+		<material token="PLANT:AVOCADO:SEED"/>
+	</color>
+	
+	<!-- new trees - citrus-->
+	
+	<color red="74" green="149" blue="91">
+		<material token="PLANT:LIME:LEAF"/>
+	</color>
+	<color red="219" green="235" blue="215">
+		<material token="PLANT:LIME:FLOWER"/>
+	</color>
+	<color red="113" green="218" blue="85">
+		<material token="PLANT:LIME:FRUIT"/>
+	</color>
+	<color red="74" green="193" blue="91">
+		<material token="PLANT:POMELO:LEAF"/>
+	</color>
+	<color red="255" green="253" blue="245">
+		<material token="PLANT:POMELO:FLOWER"/>
+	</color>
+	<color red="230" green="229" blue="91">
+		<material token="PLANT:POMELO:FRUIT"/>
+	</color>
+	<color red="46" green="124" blue="63">
+		<material token="PLANT:CITRON:LEAF"/>
+	</color>
+	<color red="255" green="255" blue="223">
+		<material token="PLANT:CITRON:FLOWER"/>
+	</color>
+	<color red="255" green="255" blue="91">
+		<material token="PLANT:CITRON:FRUIT"/>
+	</color>
+	<color red="34" green="111" blue="48">
+		<material token="PLANT:ORANGE:LEAF"/>
+	</color>
+	<color red="254" green="245" blue="229">
+		<material token="PLANT:ORANGE:FLOWER"/>
+	</color>
+	<color red="254" green="116" blue="23">
+		<material token="PLANT:ORANGE:FRUIT"/>
+	</color>
+	<color red="46" green="151" blue="65">
+		<material token="PLANT:BITTER_ORANGE:LEAF"/>
+	</color>
+	<color red="245" green="254" blue="229">
+		<material token="PLANT:BITTER_ORANGE:FLOWER"/>
+	</color>
+	<color red="254" green="164" blue="0">
+		<material token="PLANT:BITTER_ORANGE:FRUIT"/>
+	</color>
+	<color red="81" green="178" blue="97">
+		<material token="PLANT:FINGER_LIME:LEAF"/>
+	</color>
+	<color red="234" green="245" blue="228">
+		<material token="PLANT:FINGER_LIME:FLOWER"/>
+	</color>
+	<color red="113" green="166" blue="85">
+		<material token="PLANT:FINGER_LIME:FRUIT"/>
+	</color>
+	<color red="65" green="131" blue="80">
+		<material token="PLANT:ROUND_LIME:LEAF"/>
+	</color>
+	<color red="225" green="255" blue="226">
+		<material token="PLANT:ROUND_LIME:FLOWER"/>
+	</color>
+	<color red="74" green="191" blue="79">
+		<material token="PLANT:ROUND_LIME:FRUIT"/>
+	</color>
+	<color red="65" green="153" blue="62">
+		<material token="PLANT:DESER_LIME:LEAF"/>
+	</color>
+	<color red="227" green="255" blue="205">
+		<material token="PLANT:DESERT_LIME:FLOWER"/>
+	</color>
+	<color red="136" green="210" blue="79">
+		<material token="PLANT:DESERT_LIME:FRUIT"/>
+	</color>
+	<color red="87" green="153" blue="85">
+		<material token="PLANT:KUMQUAT:LEAF"/>
+	</color>
+	<color red="254" green="240" blue="219">
+		<material token="PLANT:KUMQUAT:FLOWER"/>
+	</color>
+	<color red="254" green="177" blue="69">
+		<material token="PLANT:KUMQUAT:FRUIT"/>
+	</color>
+	
+	<!-- NEW TREES MEDITERRANEAN -->
+	
+	<color red="64" green="178" blue="68">
+		<material token="PLANT:CUSTARD_APPLE:LEAF"/>
+	</color>
+	<color red="230" green="230" blue="165">
+		<material token="PLANT:CUSTARD_APPLE:FLOWER"/>
+	</color>
+	<color red="145" green="220" blue="148">
+		<material token="PLANT:CUSTARD_APPLE:FRUIT"/>
+	</color>
+	<color red="118" green="198" blue="92">
+		<material token="PLANT:DATE_PALM:LEAF"/>
+	</color>
+	<color red="250" green="221" blue="175">
+		<material token="PLANT:DATE_PALM:FLOWER"/>
+	</color>
+	<color red="156" green="78" blue="71">
+		<material token="PLANT:DATE_PALM:FRUIT"/>
+	</color>
+	<color red="109" green="186" blue="77">
+		<material token="PLANT:LYCHEE:LEAF"/>
+	</color>
+	<color red="197" green="238" blue="180">
+		<material token="PLANT:LYCHEE:FLOWER"/>
+	</color>
+	<color red="218" green="57" blue="88">
+		<material token="PLANT:LYCHEE:FRUIT"/>
+	</color>
+	<color red="59" green="173" blue="85">
+		<material token="PLANT:MACADAMIA:LEAF"/>
+	</color>
+	<color red="197" green="255" blue="178">
+		<material token="PLANT:MACADAMIA:FLOWER"/>
+	</color>
+	<color red="73" green="213" blue="92">
+		<material token="PLANT:MACADAMIA:FRUIT"/>
+	</color>
+	<color red="104" green="78" blue="54">
+		<material token="PLANT:MACADAMIA:NUT"/>
+	</color>
+	<color red="84" green="109" blue="71">
+		<material token="PLANT:OLIVE:LEAF"/>
+	</color>
+	<color red="246" green="255" blue="223">
+		<material token="PLANT:OLIVE:FLOWER"/>
+	</color>
+	<color red="96" green="134" blue="77">
+		<material token="PLANT:OLIVE:FRUIT"/>
+	</color>
+	<color red="79" green="186" blue="77">
+		<material token="PLANT:POMEGRANATE:LEAF"/>
+	</color>
+	<color red="255" green="87" blue="52">
+		<material token="PLANT:POMEGRANATE:FLOWER"/>
+	</color>
+	<color red="208" green="52" blue="52">
+		<material token="PLANT:POMEGRANATE:FRUIT"/>
+	</color>
+	
+	<!-- new trees - TEMPERATE -->
+	<color red="64" green="178" blue="68">
+		<material token="PLANT:ALMOND:LEAF"/>
+	</color>
+	<color red="255" green="123" blue="218">
+		<material token="PLANT:ALMOND:FLOWER"/>
+	</color>
+	<color red="121" green="213" blue="98">
+		<material token="PLANT:ALMOND:FRUIT"/>
+	</color>
+	<color red="58" green="167" blue="47">
+		<material token="PLANT:APPLE:LEAF"/>
+	</color>
+	<color red="255" green="213" blue="209">
+		<material token="PLANT:APPLE:FLOWER"/>
+	</color>
+	<color red="169" green="30" blue="11">
+		<material token="PLANT:APPLE:FRUIT"/>
+	</color>
+	<color red="82" green="188" blue="71">
+		<material token="PLANT:APRICOT:LEAF"/>
+	</color>
+	<color red="248" green="228" blue="212">
+		<material token="PLANT:APRICOT:FLOWER"/>
+	</color>
+	<color red="248" green="173" blue="71">
+		<material token="PLANT:APRICOT:FRUIT"/>
+	</color>
+	<color red="36" green="104" blue="45">
+		<material token="PLANT:BAYBERRY:LEAF"/>
+	</color>
+	<color red="208" green="52" blue="79">
+		<material token="PLANT:BAYBERRY:FRUIT"/>
+	</color>
+	<color red="45" green="87" blue="37">
+		<material token="PLANT:CHERRY:LEAF"/>
+	</color>
+	<color red="255" green="230" blue="242">
+		<material token="PLANT:CHERRY:FLOWER"/>
+	</color>
+	<color red="134" green="36" blue="32">
+		<material token="PLANT:CHERRY:FRUIT"/>
+	</color>
+	<color red="44" green="218" blue="52">
+		<material token="PLANT:GINKGO:LEAF"/>
+	</color>
+	<color red="134" green="228" blue="138">
+		<material token="PLANT:GINKGO:POLLEN_CATKINS"/>
+	</color>
+	<color red="228" green="216" blue="134">
+		<material token="PLANT:GINKGO:FRUIT"/>
+	</color>
+	<color red="74" green="178" blue="79">
+		<material token="PLANT:HAZEL:LEAF"/>
+	</color>
+	<color red="238" green="230" blue="194">
+		<material token="PLANT:HAZEL:POLLEN_CATKINS"/>
+	</color>
+	<color red="134" green="103" blue="56">
+		<material token="PLANT:HAZEL:NUT"/>
+	</color>
+	<color red="43" green="156" blue="97">
+		<material token="PLANT:PEACH:LEAF"/>
+	</color>
+	<color red="255" green="176" blue="194">
+		<material token="PLANT:PEACH:FLOWER"/>
+	</color>
+	<color red="250" green="156" blue="97">
+		<material token="PLANT:PEACH:FRUIT"/>
+	</color>
+	<color red="47" green="139" blue="38">
+		<material token="PLANT:PEAR:LEAF"/>
+	</color>
+	<color red="255" green="255" blue="233">
+		<material token="PLANT:PEAR:FLOWER"/>
+	</color>
+	<color red="151" green="215" blue="144">
+		<material token="PLANT:PEAR:FRUIT"/>
+	</color>
+	<color red="41" green="94" blue="64">
+		<material token="PLANT:PECAN:LEAF"/>
+	</color>
+	<color red="126" green="73" blue="50">
+		<material token="PLANT:PECAN:NUT"/>
+	</color>
+	<color red="5" green="106" blue="42">
+		<material token="PLANT:PERSIMMON:LEAF"/>
+	</color>
+	<color red="208" green="238" blue="166">
+		<material token="PLANT:PERSIMMON:FLOWER"/>
+	</color>
+	<color red="255" green="106" blue="42">
+		<material token="PLANT:PERSIMMON:FRUIT"/>
+	</color>
+	<color red="43" green="126" blue="64">
+		<material token="PLANT:PLUM:LEAF"/>
+	</color>
+	<color red="255" green="205" blue="217">
+		<material token="PLANT:PLUM:FLOWER"/>
+	</color>
+	<color red="146" green="71" blue="145">
+		<material token="PLANT:PLUM:FRUIT"/>
+	</color>
+	<color red="77" green="136" blue="38">
+		<material token="PLANT:SAND_PEAR:LEAF"/>
+	</color>
+	<color red="255" green="255" blue="233">
+		<material token="PLANT:SAND_PEAR:FLOWER"/>
+	</color>
+	<color red="104" green="171" blue="38">
+		<material token="PLANT:SAND_PEAR:FRUIT"/>
+	</color>
+	<color red="88" green="186" blue="52">
+		<material token="PLANT:WALNUT:LEAF"/>
+	</color>
+	<color red="255" green="255" blue="134">
+		<material token="PLANT:WALNUT:FLOWER"/>
+	</color>
+	<color red="165" green="208" blue="121">
+		<material token="PLANT:WALNUT:POLLEN_CATKINS"/>
+	</color>
+	<color red="181" green="147" blue="109">
+		<material token="PLANT:WALNUT:NUT"/>
+	</color>
+</colors>

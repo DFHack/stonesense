@@ -1,9 +1,6 @@
 <?xml version="1.0"?>
 <colors>
 	
-	<color red="112" green="93" blue="75">
-		<material token="PLANT:OAK:STRUCTURAL"/>
-	</color>
 	<color red="79" green="205" blue="88">
 		<material value="GreenGlass" />
 	</color>

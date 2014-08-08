@@ -48,7 +48,8 @@ BurningTreeTwigs
 
 <!-- Basic Trunk -->
 <walls file="base_trunk_walls_grey.png">
-  <wall sheetIndex="0" variationtype="sixteen"  outline="0" color="material">
+  <wall sheetIndex="0" variationtype="sixteen"  outline="0" color="wood">
+  
     <terrain token="TreeTrunkPillar" />
     <terrain token="TreeTrunkNE" />
     <terrain token="TreeTrunkNW"  />
@@ -62,24 +63,46 @@ BurningTreeTwigs
     <terrain token="TreeTrunkSEW" />
     <terrain token="TreeTrunkNSEW" />
     <terrain token="TreeTrunkInterior" />
+    <subsprite sheetIndex="40" variationtype="sixteen"  outline="0" color="material" />
   </wall>
-  <wall sheetIndex="21" outline="0" variationtype="four" color="material">
+  
+  <wall sheetIndex="0" color="wood">
+    <terrain token="TreeTrunkPillar" />
+    <subsprite sheetIndex="40" outline="0" color="material" />
+    
+    <subsprite sheetIndex="3"  outline="0" color="wood" border_ramp_OR="2"/>
+    <subsprite sheetIndex="43" outline="0" color="material" border_ramp_OR="2"/>
+    <subsprite sheetIndex="4"  outline="0" color="wood" border_ramp_OR="4"/>
+    <subsprite sheetIndex="44" outline="0" color="material" border_ramp_OR="4"/>
+    <subsprite sheetIndex="1"  outline="0" color="wood" border_ramp_OR="6"/>
+    <subsprite sheetIndex="41" outline="0" color="material" border_ramp_OR="6"/>
+    <subsprite sheetIndex="2"  outline="0" color="wood" border_ramp_OR="8"/>
+    <subsprite sheetIndex="42" outline="0" color="material" border_ramp_OR="8"/>
+  </wall>
+  
+  <wall sheetIndex="21" outline="0" variationtype="four" color="wood">
     <terrain token="TreeTrunkN"  />
     <terrain token="TreeTrunkS"  />
     <terrain token="TreeTrunkE"  />
     <terrain token="TreeTrunkW"  />
+    <!--<subsprite sheetIndex="61" variationtype="four"  outline="0" color="material" />-->
+    <subsprite sheetIndex="61" variationtype="four"  outline="0" color="material" />
   </wall>
   
   
-  <wall sheetIndex="25" outline="0" variationtype="four" color="material">
+  <wall sheetIndex="25" outline="0" variationtype="four" color="wood">
     <terrain token="TreeTrunkNE" />
     <terrain token="TreeTrunkNW" />
     <terrain token="TreeTrunkSE" />
     <terrain token="TreeTrunkSW" />
+    <!--<subsprite sheetIndex="65" variationtype="four"  outline="0" color="material" />-->
+    <subsprite sheetIndex="65" variationtype="four"  outline="0" color="material" />
+    
   </wall>
 
-  <wall file="base_trunk_ramp_grey.png" sheetIndex="0" outline="0" color="material">
-    <terrain token="TreeTrunkSloping" shape="ramp" />
+  <wall file="base_trunk_ramp_grey.png" sheetIndex="0" outline="0" color="wood">
+   <terrain token="TreeTrunkSloping" shape="ramp" />
+    <subsprite sheetIndex="1" file="base_trunk_ramp_grey.png" outline="0" color="material" />
   </wall>
  
 
@@ -87,13 +110,6 @@ BurningTreeTwigs
 
 <floors file="base_branches_grey.png">
   <floor sheetIndex="0" variationtype="sixteen" outline="0" color="material">
-  
-  <subsprite file="tree_shadow.png" sheetIndex="1" offsety="16" />
-  <subsprite file="tree_shadow.png" sheetIndex="1" offsety="12" />
-  <subsprite file="tree_shadow.png" sheetIndex="1" offsety="8" />
-  <subsprite file="tree_shadow.png" sheetIndex="1" offsety="4" />
-  
-  <subsprite sheetIndex="0" variationtype="sixteen" outline="0" color="material" />
   
     <terrain token="TreeBranchNS" />
     <terrain token="TreeBranchEW" />
@@ -110,8 +126,8 @@ BurningTreeTwigs
 </floors>
 
 <floors file="base_trunk_floors_grey.png">
-  <floor sheetIndex="0" variationtype="sixteen" outline="0" color="material">
-
+  <floor sheetIndex="0" variationtype="sixteen" outline="0" color="wood">
+  
 
     <terrain token="TreeTrunkPillar" />
     <terrain token="TreeTrunkSW" />
@@ -125,29 +141,34 @@ BurningTreeTwigs
     <terrain token="TreeTrunkNSW" />
     <terrain token="TreeTrunkNEW" />
     <terrain token="TreeTrunkNSEW" />
+    <subsprite sheetIndex="40" variationtype="sixteen"  outline="0" color="material" />
   </floor>
   
-  <floor sheetIndex="16" color="material">
+  <floor sheetIndex="16" color="wood">
     <terrain token="TreeTrunkInterior" />
   </floor>
   
-  <floor sheetIndex="20" variationtype="four" color="material">
-    <terrain token="TreeTrunkW" />
+  <floor sheetIndex="20" variationtype="four" color="wood">
+   <terrain token="TreeTrunkW" />
     <terrain token="TreeTrunkN" />
     <terrain token="TreeTrunkE" />
     <terrain token="TreeTrunkS" />
+    <subsprite sheetIndex="60" variationtype="four"  outline="0" color="material" />
   </floor>
   
-  <floor sheetIndex="25" variationtype="four" color="material">
-    <terrain token="TreeTrunkSW" />
+  <floor sheetIndex="25" variationtype="four" color="wood">
+   <terrain token="TreeTrunkSW" />
     <terrain token="TreeTrunkNW" />
     <terrain token="TreeTrunkNE" />
     <terrain token="TreeTrunkSE" />
+    <subsprite sheetIndex="65" variationtype="four"  outline="0" color="material" />
   </floor>
   
-  <floor sheetIndex="0" variationtype="sixteen" outline="0" color="material">
+  <floor sheetIndex="0" variationtype="sixteen" outline="0" color="wood">
     <terrain token="TreeTrunkSloping" />
+    <subsprite sheetIndex="40" outline="0" color="material" />
     <subsprite sheetIndex="16" border_open_NOR="12345678" />
+    <subsprite sheetIndex="40" variationtype="sixteen" outline="0" color="material" />
   </floor>
   
 </floors>

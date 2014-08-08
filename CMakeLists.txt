@@ -31,6 +31,7 @@ SET(PROJECT_SRCS
     SpriteColors.cpp
     SpriteMaps.cpp
     SpriteObjects.cpp
+	TreeGrowthConfiguration.cpp
     UserInput.cpp
     WorldSegment.cpp
     VegetationConfiguration.cpp
@@ -138,6 +139,7 @@ ELSE(UNIX)
         allegro_font-static.lib
         allegro_image-static.lib
         allegro_ttf-static.lib
+		allegro_color-static.lib
         freetype-static.lib
         winmm.lib
         psapi.lib

@@ -491,7 +491,8 @@ void readBlockToSegment(DFHack::Core& DF, WorldSegment& segment,
             //open terrain needs to be included to make blackboxes if 
             // we are shading but not showing hidden tiles
             if(isOpenTerrain(trueBlock->tiletype[lx][ly]) 
-                && trueBlock->tiletype[lx][ly] != tiletype::RampTop) {
+                && trueBlock->tiletype[lx][ly] != tiletype::RampTop
+                && tileShape(trueBlock->tiletype[lx][ly]) != tiletype_shape::TWIG) {
                     if(!ssConfig.show_hidden_tiles 
                         && ssConfig.shade_hidden_tiles 
                         && trueBlock->designation[lx][ly].bits.hidden) {
@@ -717,6 +718,7 @@ void readBlockColumnToSegment(DFHack::Core& DF, WorldSegment& segment,
                         continue;
                     t->tree.type = pp->flags.whole;
                     t->tree.index = pp->material;
+                    t->tree_tile = tile;
                     if (raw)
                     {
                         t->material.type = raw->material_defs.type_basic_mat;

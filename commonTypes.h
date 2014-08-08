@@ -24,7 +24,9 @@ enum ShadeBy {
     ShadeBuilding,
     ShadeGrass,
     ShadeItem,
-    ShadeEquip
+    ShadeEquip,
+    ShadeWood,
+    ShadeGrowth
 } ;
 
 enum hairstyles {

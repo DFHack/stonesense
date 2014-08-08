@@ -7,6 +7,7 @@ ConnectionState::ConnectionState() {
     is_connected = network_client->connect();
     if (!is_connected) return;
     MaterialListCall.bind(network_client, "GetMaterialList", "RemoteFortressReader");
+    GrowthListCall.bind(network_client, "GetGrowthList", "RemoteFortressReader");
     BlockListCall.bind(network_client, "GetBlockList", "RemoteFortressReader");
     HashCheckCall.bind(network_client, "CheckHashes", "RemoteFortressReader");
     TiletypeListCall.bind(network_client, "GetTiletypeList", "RemoteFortressReader");
