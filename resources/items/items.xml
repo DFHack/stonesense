@@ -56,6 +56,7 @@
 	<item game_type="PLANT" sheetIndex="44" />
 	<item game_type="SKIN_TANNED" sheetIndex="19" />
 	<item game_type="LEAVES" sheetIndex="77" />
+	<item game_type="PLANT_GROWTH" sheetIndex="77" />
 	<item game_type="THREAD" sheetIndex="37" color="item" />
 	<item game_type="CLOTH" sheetIndex="36" color="item" />
 	<item game_type="TOTEM" sheetIndex="30" />

@@ -636,7 +636,8 @@ void addSegmentExtras(WorldSegment * segment)
         //populate trees
         if(b->tree.index) {
             c_tile_tree * Tree = GetTreeVegetation(b->tileShape(), b->tileSpecial(), b->tree.index );
-            Tree->insert_sprites(segment, b->x, b->y, b->z, b);
+            if (Tree)
+                Tree->insert_sprites(segment, b->x, b->y, b->z, b);
         }
 
         //setup building sprites

@@ -56,7 +56,7 @@ bool parseItemElement( TiXmlElement* elemRoot, int basefile)
         }
     }
     if(main_type == (item_type::item_type) INVALID_INDEX) {
-        contentError("<item> unknown game_type value",elemRoot);
+        contentWarning("<item> unknown game_type value",elemRoot);
         return false;
     }
 

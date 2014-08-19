@@ -91,7 +91,6 @@ c_sprite * GetTileSpriteMap(int in, t_matglossPair material, uint16_t form)
 
 c_tile_tree * GetTreeVegetation(RemoteFortressReader::TiletypeShape shape, RemoteFortressReader::TiletypeSpecial special, int index)
 {
-    static c_tile_tree * defaultTree = new c_tile_tree;
     int base_sprite = SPRITEOBJECT_BLUEPRINT;
     vector<VegetationConfiguration>* graphicSet;
     bool live=true;
@@ -130,8 +129,7 @@ c_tile_tree * GetTreeVegetation(RemoteFortressReader::TiletypeShape shape, Remot
         }
         break;
     default:
-        defaultTree->set_sheetindex(SPRITEOBJECT_BLANK);
-        return defaultTree;
+        return null;
     }
 
     c_tile_tree * configuredTree = getVegetationTree(*graphicSet,index,live,grown);

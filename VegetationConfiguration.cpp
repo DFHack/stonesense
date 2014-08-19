@@ -42,7 +42,7 @@ bool addSingleVegetationConfig( TiXmlElement* elemRoot,  vector<VegetationConfig
         if (idstr && idstr[0]) {
             gameID = lookupIndexedType(idstr,plantNames);
             if (gameID == INVALID_INDEX) {
-                contentError("No matching plant type",elemTree);
+                contentWarning("No matching plant type",elemTree);
                 continue;
             }
         }

@@ -410,7 +410,7 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
     ssConfig.show_keybinds = false;
     ssConfig.show_intro = true;
     ssConfig.track_mode = 0;
-    ssConfig.track_screen_center = true;
+    ssConfig.track_screen_center = false;
     ssConfig.animation_step = 300;
 	ssConfig.track_mode = GameConfiguration::TRACKING_NONE;
     timeToReloadConfig = true;
@@ -498,6 +498,7 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
     al_destroy_path(p);
     if(!IMGIcon) {
         al_destroy_display(display);
+		display = 0;
         stonesense_started = 0;
         return NULL;
     }
@@ -545,6 +546,7 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
 
     // window is destroyed.
     al_destroy_display(display);
+	display = 0;
 	delete(overlay);
 	overlay = NULL;
 
