@@ -207,8 +207,8 @@ void ScreenToPoint(int x,int y,int &x1, int &y1, int &z1)
 }
 
 void pointToScreen(int *inx, int *iny, int inz, int segSizeX, int segSizeY, int ScreenW, int ScreenH){
-    int z = inz-1;
-
+    int z = inz + 1 - ssState.Size.z;
+    
     int x = *inx-*iny;
     x-=(segSizeX/2) - (segSizeY/2);
     x = x * TILEWIDTH / 2;
@@ -331,6 +331,39 @@ void draw_announcements(const ALLEGRO_FONT *font, float x, float y, int flags, s
 	}
 }
 
+void draw_loading_message(const char *format, ...)
+{
+    al_clear_to_color(uiColor(0));
+    ALLEGRO_COLOR color = uiColor(1);
+
+    int flags = ALLEGRO_ALIGN_CENTRE;
+
+    int x = al_get_bitmap_width(al_get_target_bitmap()) / 2;
+    int y = al_get_bitmap_height(al_get_target_bitmap()) / 2;
+
+    ALLEGRO_USTR *buf;
+    va_list arglist;
+    const char *s;
+
+    /* Fast path for common case. */
+    if (0 == strcmp(format, "%s")) {
+        va_start(arglist, format);
+        s = va_arg(arglist, const char *);
+        draw_text_border(font, color, x, y, flags, s);
+        va_end(arglist);
+    }
+    else
+    {
+        va_start(arglist, format);
+        buf = al_ustr_new("");
+        al_ustr_vappendf(buf, format, arglist);
+        va_end(arglist);
+        draw_ustr_border(font, color, x, y, flags, buf);
+        al_ustr_free(buf);
+    }
+    al_flip_display();
+}
+
 void correctTileForDisplayedOffset(int32_t& x, int32_t& y, int32_t& z)
 {
     x -= ssState.Position.x;
@@ -378,7 +411,7 @@ void DrawCurrentLevelOutline(bool backPart)
 {
     int x = ssState.Position.x+1;
     int y = ssState.Position.y+1;
-    int z = ssState.Position.z;
+    int z = ssState.Position.z + ssState.Size.z - 1;
     int sizex = ssState.Size.x-2;
     int sizey = ssState.Size.y-2;
 

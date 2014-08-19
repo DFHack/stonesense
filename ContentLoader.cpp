@@ -91,6 +91,7 @@ bool ContentLoader::Load()
         connection_state->Disconnect();
     }
 
+    draw_loading_message("Reading Material Names");
     remove("MatList.csv");
     FILE* fp = fopen("MatList.csv", "a");
     if (fp) {
@@ -109,6 +110,7 @@ bool ContentLoader::Load()
         }
         fclose(fp);
     }
+    draw_loading_message("Reading Growth Names");
     remove("GrowthList.csv");
     fp = fopen("GrowthList.csv", "a");
     if (fp) {
@@ -128,6 +130,7 @@ bool ContentLoader::Load()
         fclose(fp);
     }
 
+    draw_loading_message("Reading TileType Names");
     remove("TiletypeList.csv");
     fp = fopen("TiletypeList.csv", "a");
     if (fp) {
@@ -159,7 +162,8 @@ bool ContentLoader::Load()
     } catch(exception &e) {
         LogError("DFhack exeption: %s\n", e.what());
     }
-    if(!ssConfig.skipCreatureTypes) {
+    draw_loading_message("Reading Creature Names");
+    if (!ssConfig.skipCreatureTypes) {
         try {
             Mats->ReadCreatureTypes();
         } catch(exception &e) {
@@ -175,7 +179,8 @@ bool ContentLoader::Load()
             ssConfig.skipCreatureTypesEx = true;
         }
     }
-    if(!ssConfig.skipDescriptorColors) {
+    draw_loading_message("Reading Color Descriptors");
+    if (!ssConfig.skipDescriptorColors) {
         try {
             Mats->ReadDescriptorColors();
         } catch(exception &e) {
@@ -183,19 +188,24 @@ bool ContentLoader::Load()
             ssConfig.skipDescriptorColors = true;
         }
     }
-    if(!ssConfig.skipInorganicMats) {
+    draw_loading_message("Reading Inorganic Materials");
+    if (!ssConfig.skipInorganicMats) {
         if(!Mats->CopyInorganicMaterials(this->inorganic)) {
             LogError("Missing inorganic materials!\n");
             ssConfig.skipInorganicMats = true;
         }
     }
-    if(!ssConfig.skipOrganicMats) {
+    draw_loading_message("Reading Organic Materials");
+    if (!ssConfig.skipOrganicMats) {
         if(!Mats->CopyOrganicMaterials(this->organic)) {
             LogError("Missing organic materials!\n");
             ssConfig.skipOrganicMats = true;
         }
     }
+    draw_loading_message("Reading Custom Workshop Types");
     Buildings::ReadCustomWorkshopTypes(custom_workshop_types);
+    draw_loading_message("Reading Professions");
+
     if(professionStrings.empty()) {
         FOR_ENUM_ITEMS(profession, i) {
             if(i<0) {
@@ -284,6 +294,7 @@ bool ContentLoader::Load()
         }
     }
     //DumpStringVector("professiondump.txt", &professionStrings);
+    draw_loading_message("Reading Hairstyles");
     gatherStyleIndices(&df::global::world->raws);
     /*
     if(classIdStrings.empty())
@@ -451,26 +462,36 @@ bool ContentLoader::parseContentXMLFile( const char* filepath )
     bool runningResult = true;
     elemRoot = hDoc.FirstChildElement().Element();
     while( elemRoot ) {
+        draw_loading_message("Loading %s", getDocument(elemRoot));
         string elementType = elemRoot->Value();
         if( elementType.compare( "building" ) == 0 ) {
             runningResult &= parseBuildingContent( elemRoot );
-        } else if( elementType.compare( "creatures" ) == 0 ) {
+        }
+        else if( elementType.compare( "creatures" ) == 0 ) {
             runningResult &= parseCreatureContent( elemRoot );
-        } else if( elementType.compare( "floors" ) == 0 ) {
+        }
+        else if( elementType.compare( "floors" ) == 0 ) {
             runningResult &= parseTerrainContent( elemRoot );
-        } else if( elementType.compare( "walls" ) == 0 ) {
+        }
+        else if( elementType.compare( "walls" ) == 0 ) {
             runningResult &= parseTerrainContent( elemRoot );
-        } else if( elementType.compare( "shrubs" ) == 0 ) {
+        }
+        else if( elementType.compare( "shrubs" ) == 0 ) {
             runningResult &= parseShrubContent( elemRoot );
-        } else if( elementType.compare( "trees" ) == 0 ) {
+        }
+        else if( elementType.compare( "trees" ) == 0 ) {
             runningResult &= parseTreeContent( elemRoot );
-        } else if( elementType.compare( "grasses" ) == 0 ) {
+        }
+        else if( elementType.compare( "grasses" ) == 0 ) {
             runningResult &= parseGrassContent( elemRoot );
-        } else if( elementType.compare( "colors" ) == 0 ) {
+        }
+        else if( elementType.compare( "colors" ) == 0 ) {
             runningResult &= parseColorContent( elemRoot );
-        } else if( elementType.compare( "fluids" ) == 0 ) {
+        }
+        else if( elementType.compare( "fluids" ) == 0 ) {
             runningResult &= parseFluidContent( elemRoot );
-        } else if( elementType.compare( "items" ) == 0 ) {
+        }
+        else if( elementType.compare( "items" ) == 0 ) {
             runningResult &= parseItemContent( elemRoot );
         }
         else if (elementType.compare("growths") == 0) {

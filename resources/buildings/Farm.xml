@@ -62,6 +62,10 @@
       <sprite index="9" file="farm.png" />
     </else>
     <else>
+      <MaterialType value="Plant" subtype="BERRIES_STRAW" pattern_index="0" />
+      <sprite index="9" file="farm.png" />
+    </else>
+    <else>
       <MaterialType value="Plant" subtype="GRASS_LONGLAND" pattern_index="0" />
       <sprite index="10" file="farm.png" />
     </else>

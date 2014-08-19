@@ -29,6 +29,8 @@ void saveMegashot(bool tall);
 void dumpSegment();
 void saveImage(ALLEGRO_BITMAP* image);
 
+void draw_loading_message(const char *format, ...);
+
 extern int MiniMapTopLeftX;
 extern int MiniMapTopLeftY;
 extern int MiniMapBottomRightX;

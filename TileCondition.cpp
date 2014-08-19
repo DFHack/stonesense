@@ -129,7 +129,7 @@ MaterialTypeCondition::MaterialTypeCondition(const char* strValue, const char* s
 	}
     subtype = lookupMaterialIndex( value, strSubtype);
     if (subtype == INVALID_INDEX) {
-        LogError("Material subtype not found in MaterialTypeCondition: %s\n", strSubtype);
+        LogVerbose("Material subtype not found in MaterialTypeCondition: %s\n", strSubtype);
         //make material never match;
         value = INVALID_INDEX;
     }
