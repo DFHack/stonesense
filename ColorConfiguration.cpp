@@ -32,14 +32,20 @@ void parseColorElement(TiXmlElement* elemColor, vector<ColorConfiguration> & con
         return; //nothing to work with
     }
     const char* colorBlueStr = elemColor->Attribute("blue");
-    if(colorBlueStr == NULL || colorBlueStr[0] == 0) {
-        contentError("Invalid or missing color attribute",elemColor);
+    if (colorBlueStr == NULL || colorBlueStr[0] == 0) {
+        contentError("Invalid or missing color attribute", elemColor);
         return; //nothing to work with
     }
+    int alpha = 255;
+    const char* colorAlphaStr = elemColor->Attribute("alpha");
+    if (colorAlphaStr != NULL && colorAlphaStr[0] != 0) {
+        alpha = atoi(colorAlphaStr);
+    }
+
     int red = atoi(colorRedStr);
     int green = atoi(colorGreenStr);
     int blue = atoi(colorBlueStr);
-    ALLEGRO_COLOR color = al_map_rgb(red, green, blue);
+    ALLEGRO_COLOR color = al_map_rgba(red, green, blue, alpha);
 
 
 

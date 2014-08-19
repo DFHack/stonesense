@@ -16,10 +16,10 @@
 	<color red="127" green="196" blue="28">
 		<material value="Vomit" />
 	</color>
-	<color red="255" green="200" blue="25">
+	<color red="255" green="200" blue="25" alpha="128">
 		<material value="Designation" />
 	</color>
-	<color red="180" green="20" blue="180">
+	<color red="180" green="20" blue="180" alpha="128">
 		<material value="Construction" />
 	</color>
 	<!--this is actually water-->
