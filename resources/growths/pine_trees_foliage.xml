@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!-- Basic Trunk -->
+
+<!-- Mystery types:
+
+None as of now.
+
+-->
+
+<growths file="pine_foliage_grey.png">
+
+	<growth sheetIndex="8" outline="0" layer="top">
+		<part token="PINE:LEAVES" />
+		<subsprite file="tree_shadow.png" sheetIndex="0" offsety="16" />
+		<subsprite file="tree_shadow.png" sheetIndex="0" offsety="12" />
+		<subsprite file="tree_shadow.png" sheetIndex="0" offsety="8" />
+		<subsprite file="tree_shadow.png" sheetIndex="0" offsety="4" />
+
+
+        <!--twigs
+		<subsprite sheetIndex="0" color="growth" border_floor_OR="3" border_floor_NOR="0678" border_wall_NOR="0678" border_ramp_NOR="0678"/>
+		<subsprite sheetIndex="1" color="growth" border_floor_OR="1" border_floor_NOR="0456" border_wall_NOR="0456" border_ramp_NOR="0456"/>
+		<subsprite sheetIndex="2" color="growth" border_floor_OR="7" border_floor_NOR="0234" border_wall_NOR="0234" border_ramp_NOR="0234"/>
+		<subsprite sheetIndex="3" color="growth" border_floor_OR="5" border_floor_NOR="0812" border_wall_NOR="0812" border_ramp_NOR="0812"/>
+		<subsprite sheetIndex="4" color="growth" border_floor_OR="345" border_floor_NOR="08" border_wall_NOR="08" border_ramp_NOR="08"/>
+		<subsprite sheetIndex="5" color="growth" border_floor_OR="123" border_floor_NOR="06" border_wall_NOR="06" border_ramp_NOR="06"/>
+		<subsprite sheetIndex="6" color="growth" border_floor_OR="781" border_floor_NOR="04" border_wall_NOR="04" border_ramp_NOR="04"/>
+		<subsprite sheetIndex="7" color="growth" border_floor_OR="567" border_floor_NOR="02" border_wall_NOR="02" border_ramp_NOR="02"/>
+		-->
+		<!--leaves-->
+		<subsprite sheetIndex="8" color="growth" border_floor_OR="0" variations="2"/>
+		<subsprite sheetIndex="10" color="growth" border_floor_OR="0" border_floor_NOR="8" border_wall_NOR="8" border_ramp_NOR="8"/>
+		<subsprite sheetIndex="11" color="growth" border_floor_OR="0" border_floor_NOR="2" border_wall_NOR="2" border_ramp_NOR="2"/>
+		<subsprite sheetIndex="12" color="growth" border_floor_OR="0" border_floor_NOR="4" border_wall_NOR="4" border_ramp_NOR="4"/>
+		<subsprite sheetIndex="13" color="growth" border_floor_OR="0" border_floor_NOR="6" border_wall_NOR="6" border_ramp_NOR="6"/>
+		
+		<subsprite sheetIndex="28" variations="2"/>
+		<subsprite sheetIndex="30" border_floor_NOR="8" border_wall_NOR="8" border_ramp_NOR="8"/>
+		<subsprite sheetIndex="31" border_floor_NOR="2" border_wall_NOR="2" border_ramp_NOR="2"/>
+		<subsprite sheetIndex="32" border_floor_NOR="4" border_wall_NOR="4" border_ramp_NOR="4"/>
+		<subsprite sheetIndex="33" border_floor_NOR="6" border_wall_NOR="6" border_ramp_NOR="6"/>
+
+	</growth>
+
+
+</growths>

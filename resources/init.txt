@@ -128,7 +128,7 @@ and possibly quickly fill up yout hard-drive.
 
 Set the preferred renderer. Valid values are SOFTWARE, OPENGL, DIRECTX, and ANY. SOFTWARE has the highest 
 compatibility, but is very slow.
-[RENDERER:OPENGL]
+[RENDERER:ANY]
 
 --Colors--
 
