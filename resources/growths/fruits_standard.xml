@@ -1,0 +1,144 @@
+<growths file="fruits_standard_px.png">
+
+    <growth sheetIndex="0" variations="4" layer="top" >
+    <part token="MANGROVE:FLOWERS:*" />
+    </growth>
+    <growth sheetIndex="5" variations="2" layer="top" >
+    <part token="MANGROVE:FRUIT:*" />
+    </growth>
+    
+    <growth sheetIndex="20" variations="2" layer="top" >
+    <part token="SAGUARO:FLOWERS:*" />
+    </growth>
+    <growth sheetIndex="25" variations="2" layer="top" >
+    <part token="SAGUARO:FRUIT:*" />
+    </growth>
+    
+    <growth sheetIndex="40" variations="2" offsety="4" layer="bottom" >
+    <part token="PINE:POLLEN_CONE:*" />
+    <part token="*:POLLEN_CONE:*" />
+    </growth>
+    <growth sheetIndex="45" variations="2" offsety="4" layer="bottom" >
+    <part token="PINE:SEED_CONE:*" />
+    <part token="*:SEED_CONE:*" />
+    </growth>
+    
+    <growth sheetIndex="60" variations="4" layer="top" >
+    <part token="CEDAR:POLLEN_CONE:*" />
+    </growth>
+    <growth sheetIndex="65" variations="2" layer="top" >
+    <part token="CEDAR:SEED_CONE:*" />
+    </growth>
+    
+    <!--<growth sheetIndex="80" variations="2" offsety="4" layer="bottom" >
+    <part token="OAK:FLOWER:*" />
+    </growth>
+    <growth sheetIndex="85" variations="2" offsety="4" layer="bottom" >
+    <part token="OAK:NUT:*" />
+    </growth>-->
+    
+    <growth sheetIndex="100" variations="4" layer="top" >
+    <part token="MAHOGANY:FLOWERS:*" />
+    </growth>
+    <growth sheetIndex="105" variations="2" offsety="4" layer="bottom" >
+    <part token="MAHOGANY:FRUIT:*" />
+    </growth>
+    
+    <growth sheetIndex="120" variations="4" layer="top" >
+    <part token="ACACIA:FLOWERS:*" />
+    </growth>
+    <growth sheetIndex="125" variations="2" offsety="4" layer="bottom" >
+    <part token="ACACIA:FRUIT:*" />
+    </growth>
+    
+    <growth sheetIndex="140" variations="4" layer="top" >
+    <part token="KAPOK:FLOWERS:*" />
+    </growth>
+    <growth sheetIndex="145" variations="2" offsety="4" layer="bottom" >
+    <part token="KAPOK:FRUIT:*" />
+    </growth>
+    
+    <growth sheetIndex="160" variations="4" offsety="4" layer="bottom" >
+    <part token="MAPLE:FLOWERS:*" />
+    </growth>
+    <growth sheetIndex="165" variations="2" offsety="4" layer="bottom" >
+    <part token="MAPLE:FRUIT:*" />
+    </growth>
+    
+    <growth sheetIndex="185" variations="2" offsety="4" layer="bottom" >
+    <part token="FEATHER:EGGS:*" />
+    </growth>
+    
+    <growth sheetIndex="200" variations="2" layer="top" >
+    <part token="HIGHWOOD:FLOWERS:*" />
+    </growth>
+    
+    <growth sheetIndex="220" variations="2" layer="top" >
+    <part token="LARCH:POLLEN_CONE:*" />
+    </growth>
+    <growth sheetIndex="225" variations="2" layer="top" >
+    <part token="LARCH:SEED_CONE:*" />
+    </growth>
+    
+    <growth sheetIndex="240" variations="2" offsety="4" layer="bottom" >
+    <part token="CHESTNUT:POLLEN_CATKINS:*" />
+    </growth>
+    <growth sheetIndex="242" variations="2" offsety="4" layer="bottom" >
+    <part token="CHESTNUT:SEED_CATKINS:*" />
+    </growth>
+    <growth sheetIndex="245" variations="2" offsety="4" layer="bottom" >
+    <part token="CHESTNUT:NUT:*" />
+    </growth>
+    
+    <growth sheetIndex="260" variations="2" offsety="4" layer="bottom" >
+    <part token="ALDER:POLLEN_CATKINS:*" />
+    </growth>
+    <growth sheetIndex="262" variations="2" offsety="4" layer="bottom" >
+    <part token="ALDER:SEED_CATKINS:*" />
+    </growth>
+    <growth sheetIndex="265" variations="2" layer="top" >
+    <part token="ALDER:CONE:*" />
+    </growth>
+    
+    <growth sheetIndex="280" variations="4" offsety="4" layer="bottom" >
+    <part token="BIRCH:POLLEN_CATKINS:*" />
+    </growth>
+    <growth sheetIndex="285" variations="2" offsety="4" layer="bottom" >
+    <part token="BIRCH:SEED_CATKINS:*" />
+    </growth>
+    
+    <growth sheetIndex="300" variations="2" offsety="4" layer="bottom" >
+    <part token="ASH:POLLEN_CATKINS:*" />
+    </growth>
+    <growth sheetIndex="303" variations="2" offsety="4" layer="bottom" >
+    <part token="ASH:SEED_CATKINS:*" />
+    </growth>
+    <growth sheetIndex="305" variations="2" layer="top" >
+    <part token="ASH:CONE:*" />
+    </growth>
+    
+    <growth sheetIndex="320" variations="4" layer="top" >
+    <part token="CANDLENUT:FLOWERS:*" />
+    </growth>
+    <growth sheetIndex="325" variations="2" offsety="4" layer="bottom" >
+    <part token="CANDLENUT:NUT:*" />
+    </growth>
+    
+    <growth sheetIndex="340" variations="4" layer="top" >
+    <part token="MANGO:FLOWERS:*" />
+    </growth>
+    <growth sheetIndex="345" variations="2" offsety="4" layer="bottom" >
+    <part token="MANGO:FRUIT:*" />
+    </growth>
+    
+    <growth sheetIndex="380" variations="4" layer="top" >
+    <part token="CACAO:FLOWERS:*" />
+    </growth>
+    <growth sheetIndex="385" variations="2" offsety="4" layer="bottom" >
+    <part token="CACAO:FRUIT:*" />
+    </growth>
+    
+    <growth sheetIndex="405" variations="2" offsety="4" layer="bottom" >
+    <part token="PALM:FRUIT:*" />
+    </growth>
+</growths>

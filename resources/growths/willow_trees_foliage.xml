@@ -7,10 +7,10 @@ None as of now.
 
 -->
 
-<growths file="willow_foliage_px_grey.png">
+<growths file="willow_foliage_px.png">
 
 	<growth sheetIndex="19" outline="0" layer="top">
-		<part token="WILLOW:LEAVES" />
+		<part token="WILLOW:LEAVES:*" />
 		<subsprite file="tree_shadow.png" sheetIndex="0" offsety="16" />
 		<subsprite file="tree_shadow.png" sheetIndex="0" offsety="12" />
 		<subsprite file="tree_shadow.png" sheetIndex="0" offsety="8" />
@@ -31,12 +31,12 @@ None as of now.
 
 	</growth>
 
-    <growth sheetIndex="50" file="willow_foliage_px_grey.png" color="growth" variations="2" offsety="4" layer="bottom" >
-    <part token="WILLOW:FRUIT" />
+    <growth sheetIndex="50" file="willow_foliage_px.png" color="growth" variations="2" offsety="4" layer="bottom" >
+    <part token="WILLOW:FRUIT:*" />
     </growth>
     
-    <growth sheetIndex="40" file="willow_foliage_px_grey.png" color="growth" variations="4" offsety="4" layer="bottom" >
-    <part token="WILLOW:POLLEN_CATKINS" />
+    <growth sheetIndex="40" file="willow_foliage_px.png" color="growth" variations="4" offsety="4" layer="bottom" >
+    <part token="WILLOW:POLLEN_CATKINS:*" />
     </growth>
 
 </growths>

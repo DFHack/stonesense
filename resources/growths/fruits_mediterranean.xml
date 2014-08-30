@@ -1,0 +1,27 @@
+<growths file="fruits_mediterranean_px.png">
+
+    <growth sheetIndex="5" variations="2" offsety="4" layer="bottom" >
+    <part token="CUSTARD_APPLE:FRUIT:*" />
+    </growth>
+    
+    <growth sheetIndex="25" variations="2" offsety="4" layer="bottom" >
+    <part token="DATE_PALM:FRUIT:*" />
+    </growth>
+    
+    <growth sheetIndex="45" variations="2" offsety="4" layer="bottom" >
+    <part token="LYCHEE:FRUIT:*" />
+    </growth>
+    
+    <growth sheetIndex="65" variations="2" offsety="4" layer="top" >
+    <part token="MACADAMIA:FRUIT:*" />
+    </growth>
+    
+    <growth sheetIndex="85" variations="2" offsety="4" layer="bottom" >
+    <part token="OLIVE:FRUIT:*" />
+    </growth>
+    
+    <growth sheetIndex="105" variations="2" offsety="4" layer="bottom" >
+    <part token="POMEGRENATE:FRUIT:*" />
+    </growth>
+
+</growths>

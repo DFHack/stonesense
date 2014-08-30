@@ -1,0 +1,58 @@
+<growths file="fruits_temperate_px.png">
+
+    <growth sheetIndex="5" variations="2" offsety="4" layer="bottom" >
+    <part token="ALMOND:FRUIT:*" />
+    </growth>
+    
+    <!--<growth sheetIndex="25" variations="2" offsety="4" layer="bottom" >
+    <part token="APPLE:FRUIT:*" />
+    </growth>-->
+    
+    <growth sheetIndex="45" variations="2" offsety="4" layer="bottom" >
+    <part token="APRICOT:FRUIT:*" />
+    </growth>
+    
+    <growth sheetIndex="65" variations="2" offsety="4" layer="top" >
+    <part token="BAYBERRY:FRUIT:*" />
+    </growth>
+    
+    <growth sheetIndex="85" variations="2" offsety="4" layer="bottom" >
+    <part token="CHERRY:FRUIT:*" />
+    </growth>
+    
+    <growth sheetIndex="105" variations="2" offsety="4" layer="bottom" >
+    <part token="GINKGO:FRUIT:*" />
+    </growth>
+    
+    <growth sheetIndex="125" variations="2" offsety="4" layer="bottom" >
+    <part token="HAZEL:FRUIT:*" />
+    </growth>
+    
+    <growth sheetIndex="145" variations="2" offsety="4" layer="bottom" >
+    <part token="PEACH:FRUIT:*" />
+    </growth>
+    
+    <growth sheetIndex="165" variations="2" offsety="4" layer="bottom" >
+    <part token="PEAR:FRUIT:*" />
+    </growth>
+    
+    <growth sheetIndex="185" variations="2" offsety="4" layer="bottom" >
+    <part token="PECAN:FRUIT:*" />
+    </growth>
+    
+    <growth sheetIndex="205" variations="2" offsety="4" layer="bottom" >
+    <part token="PERSIMMON:FRUIT:*" />
+    </growth>
+    
+    <growth sheetIndex="225" variations="2" offsety="4" layer="bottom" >
+    <part token="PLUM:FRUIT:*" />
+    </growth>
+    
+    <growth sheetIndex="245" variations="2" offsety="8" layer="bottom" >
+    <part token="SAND_PEAR:FRUIT:*" />
+    </growth>
+    
+    <growth sheetIndex="265" variations="2" offsety="8" layer="top" >
+    <part token="WALNUT:FRUIT:*" />
+    </growth>
+</growths>

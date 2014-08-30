@@ -24,6 +24,19 @@ ALLEGRO_BITMAP *sprite_webing = 0;
 ALLEGRO_BITMAP *sprite_boiling = 0;
 ALLEGRO_BITMAP *sprite_oceanwave = 0;
 
+enum growth_locations
+{
+    LOCATION_NONE = -1,
+    LOCATION_TWIGS = 0,
+    LOCATION_LIGHT_BRANCHES,
+    LOCATION_HEAVY_BRANCHES,
+    LOCATION_TRUNK,
+    LOCATION_ROOTS,
+    LOCATION_CAP,
+    LOCATION_SAPLING,
+    LOCATION_SHRUB
+};
+
 int randomCube[RANDOM_CUBE][RANDOM_CUBE][RANDOM_CUBE];
 
 void initRandomCube()
@@ -209,52 +222,60 @@ void Tile::DrawGrowth(c_sprite * spriteobject, bool top=true)
                 continue;
             if (growth->timing_2 >= 0 && growth->timing_2 < time)
                 continue;
-            if ((growth->locations.bits.cap && tileMaterial() == RemoteFortressReader::MUSHROOM)
-                || (growth->locations.bits.heavy_branches && (tileSpecial() == RemoteFortressReader::BRANCH && tileType != df::tiletype::TreeBranches))
-                || (growth->locations.bits.light_branches && tileType == df::tiletype::TreeBranches)
-                || (growth->locations.bits.roots && tileMaterial() == RemoteFortressReader::ROOT)
-                || (growth->locations.bits.sapling && tileMaterial() == RemoteFortressReader::SAPLING)
-                || (growth->locations.bits.trunk && tileShape() == RemoteFortressReader::WALL)
-                || (growth->locations.bits.twigs && tileShape() == RemoteFortressReader::TWIG))
+            growth_locations loca = LOCATION_NONE;
+            if (growth->locations.bits.cap && tileMaterial() == RemoteFortressReader::MUSHROOM)
+                loca = LOCATION_CAP;
+            if (growth->locations.bits.heavy_branches && (tileSpecial() == RemoteFortressReader::BRANCH && tileType != df::tiletype::TreeBranches))
+                loca = LOCATION_HEAVY_BRANCHES;
+            if (growth->locations.bits.roots && tileMaterial() == RemoteFortressReader::ROOT)
+                loca = LOCATION_ROOTS;
+            if (growth->locations.bits.light_branches && tileType == df::tiletype::TreeBranches)
+                loca = LOCATION_LIGHT_BRANCHES;
+            if (growth->locations.bits.sapling && tileMaterial() == RemoteFortressReader::SAPLING)
+                loca = LOCATION_SAPLING;
+            if (growth->locations.bits.trunk && tileShape() == RemoteFortressReader::WALL)
+                loca = LOCATION_TRUNK;
+            if (growth->locations.bits.twigs && tileShape() == RemoteFortressReader::TWIG)
+                loca = LOCATION_TWIGS;
+
+            if (loca == LOCATION_NONE)
+                continue;
+
+            DFHack::t_matglossPair fakeMat;
+            fakeMat.index = tree.index;
+            fakeMat.type = i * 10 + loca;
+            if (top)
+                spriteobject = contentLoader->growthTopConfigs.get(fakeMat);
+            else
+                spriteobject = contentLoader->growthBottomConfigs.get(fakeMat);
+
+            if (spriteobject)
             {
-
-                DFHack::t_matglossPair fakeMat;
-                fakeMat.index = tree.index;
-                fakeMat.type = i;
-                if (top)
-                    spriteobject = contentLoader->growthTopConfigs.get(fakeMat);
-                else
-                    spriteobject = contentLoader->growthBottomConfigs.get(fakeMat);
-
-                if (spriteobject)
+                DFHack::t_matglossPair growthMat;
+                growthMat.index = growth->mat_index;
+                growthMat.type = growth->mat_type;
+                ALLEGRO_COLOR growCol = lookupMaterialColor(growthMat);
+                if (growth->prints.size() > 1)
                 {
-                    DFHack::t_matglossPair growthMat;
-                    growthMat.index = growth->mat_index;
-                    growthMat.type = growth->mat_type;
-                    ALLEGRO_COLOR growCol = lookupMaterialColor(growthMat);
-                    if (growth->prints.size() > 1)
+                    df::plant_growth_print * basePrint = growth->prints[0];
+                    df::plant_growth_print * currentPrint = basePrint;
+                    for (int k = 0; k < growth->prints.size(); k++)
                     {
-                        df::plant_growth_print * basePrint = growth->prints[0];
-                        df::plant_growth_print * currentPrint = basePrint;
-                        for (int k = 0; k < growth->prints.size(); k++)
-                        {
-                            if (growth->prints[k]->timing_start >= 0 && growth->prints[k]->timing_start > time)
-                                continue;
-                            if (growth->prints[k]->timing_end >= 0 && growth->prints[k]->timing_end < time)
-                                continue;
-                            currentPrint = growth->prints[k];
-                        }
-                        growCol = morph_color(growCol,
-                            ssConfig.colors.getDfColor(basePrint->color[0], basePrint->color[2], ssConfig.useDfColors),
-                            ssConfig.colors.getDfColor(currentPrint->color[0], currentPrint->color[2], ssConfig.useDfColors));
+                        if (growth->prints[k]->timing_start >= 0 && growth->prints[k]->timing_start > time)
+                            continue;
+                        if (growth->prints[k]->timing_end >= 0 && growth->prints[k]->timing_end < time)
+                            continue;
+                        currentPrint = growth->prints[k];
                     }
-                    spriteobject->set_growthColor(growCol);
-                    spriteobject->assemble_world(x, y, z, this);
+                    growCol = morph_color(growCol,
+                        ssConfig.colors.getDfColor(basePrint->color[0], basePrint->color[2], ssConfig.useDfColors),
+                        ssConfig.colors.getDfColor(currentPrint->color[0], currentPrint->color[2], ssConfig.useDfColors));
                 }
+                spriteobject->set_growthColor(growCol);
+                spriteobject->assemble_world(x, y, z, this);
             }
         }
     }
-
 }
 
 void Tile::AssembleTile( void )

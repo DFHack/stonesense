@@ -1,0 +1,51 @@
+<growths file="fruits_tropical_px.png">
+
+    <!-- can't figure out what this looks like
+    <growth sheetIndex="5" variations="2" offsety="4" layer="bottom" >
+    <part token="ABACA:FRUIT:*" />
+    </growth>-->
+    
+    <growth sheetIndex="25" variations="2" offsety="4" layer="bottom" >
+    <part token="BANANA:FRUIT:*" />
+    </growth>
+    
+    <growth sheetIndex="45" variations="2" offsety="4" layer="bottom" >
+    <part token="CARAMBOLA:FRUIT:*" />
+    </growth>
+    
+    <growth sheetIndex="65" variations="2" offsety="4" layer="bottom" >
+    <part token="CASHEW:FRUIT:*" />
+    </growth>
+    
+    <growth sheetIndex="85" variations="2" offsety="4" layer="top" >
+    <part token="COFFEE:FRUIT:*" />
+    </growth>
+    
+    <growth sheetIndex="105" variations="2" offsety="4" layer="bottom" >
+    <part token="DURIAN:FRUIT:*" />
+    </growth>
+    
+    <growth sheetIndex="125" variations="2" offsety="4" layer="bottom" >
+    <part token="GUAVA:FRUIT:*" />
+    </growth>
+    
+    <growth sheetIndex="145" variations="2" offsety="4" layer="bottom" >
+    <part token="PAPAYA:FRUIT:*" />
+    </growth>
+    
+    <growth sheetIndex="165" variations="2" offsety="4" layer="bottom" >
+    <part token="PARADISE_NUT:FRUIT:*" />
+    </growth>
+    
+    <growth sheetIndex="185" variations="2" offsety="4" layer="bottom" >
+    <part token="RAMBUTAN:FRUIT:*" />
+    </growth>
+    
+    <growth sheetIndex="205" variations="2" offsety="4" layer="top" >
+    <part token="TEA:FRUIT:*" />
+    </growth>
+    
+    <growth sheetIndex="225" variations="2" offsety="4" layer="bottom" >
+    <part token="AVOCADO:FRUIT:*" />
+    </growth>
+</growths>

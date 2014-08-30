@@ -10,7 +10,7 @@ None as of now.
 <growths file="oak_foliage_px_grey.png">
 
 	<growth sheetIndex="19" outline="0" layer="top">
-		<part token="OAK:LEAVES" />
+		<part token="OAK:LEAVES:*" />
 		<subsprite file="tree_shadow.png" sheetIndex="0" offsety="16" />
 		<subsprite file="tree_shadow.png" sheetIndex="0" offsety="12" />
 		<subsprite file="tree_shadow.png" sheetIndex="0" offsety="8" />
@@ -32,13 +32,13 @@ None as of now.
 	</growth>
     
     <growth sheetIndex="-1" layer="top" >
-    <part token="OAK:FLOWERS" />
-    <part token="*:POLLEN_CATKINS" />
+    <part token="OAK:FLOWERS:*" />
+    <part token="*:POLLEN_CATKINS:*" />
     </growth>
     
     <growth sheetIndex="40" file="oak_foliage_px_grey.png" color="growth" variations="4" offsety="8" layer="bottom" >
-    <part token="OAK:FLOWERS" />
-    <part token="*:POLLEN_CATKINS" />
+    <part token="OAK:FLOWERS:*" />
+    <part token="*:POLLEN_CATKINS:*" />
     </growth>
     <!--
     <growth sheetIndex="50" file="oak_foliage_px_grey.png" color="growth" variations="2" offsety="8" layer="bottom" >

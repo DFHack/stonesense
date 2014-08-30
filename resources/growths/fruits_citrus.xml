@@ -1,0 +1,38 @@
+<growths file="fruits_citrus_px.png">
+
+    <growth sheetIndex="0" variations="2" offsety="4" layer="bottom" >
+    <part token="LIME:FRUIT:*" />
+    </growth>
+    
+    <growth sheetIndex="20" variations="2" offsety="4" layer="bottom" >
+    <part token="POMELO:FRUIT:*" />
+    </growth>
+    
+    <growth sheetIndex="40" variations="2" offsety="4" layer="bottom" >
+    <part token="CITRON:FRUIT:*" />
+    </growth>
+    
+    <growth sheetIndex="60" variations="2" offsety="4" layer="bottom" >
+    <part token="ORANGE:FRUIT:*" />
+    </growth>
+    
+    <growth sheetIndex="80" variations="2" offsety="4" layer="bottom" >
+    <part token="BITTER_ORANGE:FRUIT:*" />
+    </growth>
+    
+    <growth sheetIndex="100" variations="2" offsety="4" layer="bottom" >
+    <part token="FINGER_LIME:FRUIT:*" />
+    </growth>
+    
+    <growth sheetIndex="120" variations="2" offsety="4" layer="bottom" >
+    <part token="ROUND_LIME:FRUIT:*" />
+    </growth>
+    
+    <growth sheetIndex="140" variations="2" offsety="4" layer="bottom" >
+    <part token="DESSERT_LIME:FRUIT:*" />
+    </growth>
+    
+    <growth sheetIndex="160" variations="2" offsety="4" layer="bottom" >
+    <part token="KUMQUAT:FRUIT:*" />
+    </growth>
+</growths>

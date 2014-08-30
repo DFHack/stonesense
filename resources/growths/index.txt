@@ -1,1 +1,13 @@
+fruits_tropical.xml
+fruits_citrus.xml
+fruits_mediterranean.xml
+fruits_temperate.xml
+
+apple_trees_foliage.xml
+gingko_trees_foliage.xml
+oak_trees_foliage.xml
+pine_trees_foliage.xml
+willow_trees_foliage.xml
+
+fruits_standard.xml
 base_trees_foliage.xml
