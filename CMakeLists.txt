@@ -112,6 +112,7 @@ IF(UNIX)
 				allegro_font
 				allegro_image
 				allegro_ttf
+				allegro_color
 				${PROJECT_LIBS}
 			)
 		ENDIF()
