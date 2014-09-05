@@ -324,7 +324,7 @@ void Tile::AssembleTile( void )
 	ALLEGRO_COLOR plateBorderColor = al_map_rgb(85,85,85);
 	int rando = randomCube[x%RANDOM_CUBE][y%RANDOM_CUBE][z%RANDOM_CUBE];
 
-    DrawGrowth(spriteobject, true);
+    DrawGrowth(spriteobject, false);
 
 
 	//Draw Ramp Tops

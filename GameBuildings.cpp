@@ -11,6 +11,7 @@
 #include "df/buildings_other_id.h"
 #include "df/building_wellst.h"
 #include "df/item_constructed.h"
+#include "df/item_slabst.h"
 #include "df/itemimprovement.h"
 #include "df/itemimprovement_threadst.h"
 
@@ -86,129 +87,140 @@ void ReadBuildings(DFHack::Core& DF, vector<Buildings::t_building>* buildingHold
 void MergeBuildingsToSegment(vector<Buildings::t_building>* buildings, WorldSegment* segment)
 {
     uint32_t numBuildings = (uint32_t)buildings->size();
-	for(uint32_t i=0; i < numBuildings; i++) {
-		Buildings::t_building* copiedbuilding = new Buildings::t_building();
+    for (uint32_t i = 0; i < numBuildings; i++) {
+        Buildings::t_building* copiedbuilding = new Buildings::t_building();
         memcpy(copiedbuilding, &((*buildings)[i]), sizeof(Buildings::t_building));
         segment->PushBuilding(copiedbuilding);
 
-		//int bheight = tempbuilding.y2 - tempbuilding.y1;
-		for(uint32_t yy = copiedbuilding->y1; yy <= copiedbuilding->y2; yy++) {
-			for(uint32_t xx = copiedbuilding->x1; xx <= copiedbuilding->x2; xx++) {
-				int z2 = copiedbuilding->z;
-				//if it's a well, add the bucket status.
-				if(copiedbuilding->type == df::enums::building_type::Well) {
-					auto well_building = virtual_cast<df::building_wellst>(copiedbuilding->origin);
-					if(well_building)
-						z2 = well_building->bucket_z;
-				}
+        //int bheight = tempbuilding.y2 - tempbuilding.y1;
+        for (uint32_t yy = copiedbuilding->y1; yy <= copiedbuilding->y2; yy++) {
+            for (uint32_t xx = copiedbuilding->x1; xx <= copiedbuilding->x2; xx++) {
+                int z2 = copiedbuilding->z;
+                //if it's a well, add the bucket status.
+                if (copiedbuilding->type == df::enums::building_type::Well) {
+                    auto well_building = virtual_cast<df::building_wellst>(copiedbuilding->origin);
+                    if (well_building)
+                        z2 = well_building->bucket_z;
+                }
 
-				for(uint32_t zz = copiedbuilding->z; zz >= z2; zz--) {
-					if(copiedbuilding->type == df::enums::building_type::Civzone ||
-						copiedbuilding->type == df::enums::building_type::Stockpile ||
-						copiedbuilding->type == df::enums::building_type::FarmPlot) {
-							df::coord2d t;
-							t.x = xx;
-							t.y = yy;
-							if(!Buildings::containsTile(copiedbuilding->origin,t))
-								continue;
-					}
-					Tile* b = segment->getTile( xx, yy, zz);
-					if(!b) {
-						b = segment->ResetTile(xx, yy, zz, tiletype::OpenSpace);
-						if(!b) {
-							continue;
-						}
-					}
-					//want hashtable :(
-					// still need to test for b, because of ramp/building overlap
+                for (uint32_t zz = copiedbuilding->z; zz >= z2; zz--) {
+                    if (copiedbuilding->type == df::enums::building_type::Civzone ||
+                        copiedbuilding->type == df::enums::building_type::Stockpile ||
+                        copiedbuilding->type == df::enums::building_type::FarmPlot) {
+                        df::coord2d t;
+                        t.x = xx;
+                        t.y = yy;
+                        if (!Buildings::containsTile(copiedbuilding->origin, t))
+                            continue;
+                    }
+                    Tile* b = segment->getTile(xx, yy, zz);
+                    if (!b) {
+                        b = segment->ResetTile(xx, yy, zz, tiletype::OpenSpace);
+                        if (!b) {
+                            continue;
+                        }
+                    }
+                    //want hashtable :(
+                    // still need to test for b, because of ramp/building overlap
 
-					//handle special case where zones and stockpiles overlap buildings, and try to replace them
-					if(b->building.type != BUILDINGTYPE_NA && 
-						copiedbuilding->type == df::enums::building_type::Civzone ) {
-						continue;
-					}
-					if(b->building.type != BUILDINGTYPE_NA && 
-						copiedbuilding->type == df::enums::building_type::Stockpile ) {
-						continue;
-					}
-					b->building.type = copiedbuilding->type;
-					b->building.info = copiedbuilding;
-					b->building.special = 0;
+                    //handle special case where zones and stockpiles overlap buildings, and try to replace them
+                    if (b->building.type != BUILDINGTYPE_NA &&
+                        copiedbuilding->type == df::enums::building_type::Civzone) {
+                        continue;
+                    }
+                    if (b->building.type != BUILDINGTYPE_NA &&
+                        copiedbuilding->type == df::enums::building_type::Stockpile) {
+                        continue;
+                    }
+                    b->building.type = copiedbuilding->type;
+                    b->building.info = copiedbuilding;
+                    b->building.special = 0;
 
-					switch (b->building.type){
-					case df::enums::building_type::Well:
-						// copy down well information
-						if(copiedbuilding->z == z2)
-							b->building.special = 0;
-						else if(zz == copiedbuilding->z)
-							b->building.special = 1;
-						else if(zz == z2)
-							b->building.special = 2;
-						else b->building.special = 3;
-						break;
-					case df::enums::building_type::Construction:
-						// change tile type to display the construction
-						if(ssConfig.show_designations) {
-							readConstructionsToTile( b, copiedbuilding );
-							continue;
-						}
-						break;
-					default:
-						break;
-					}
+                    switch (b->building.type){
+                    case df::enums::building_type::Well:
+                        // copy down well information
+                        if (copiedbuilding->z == z2)
+                            b->building.special = 0;
+                        else if (zz == copiedbuilding->z)
+                            b->building.special = 1;
+                        else if (zz == z2)
+                            b->building.special = 2;
+                        else b->building.special = 3;
+                        break;
+                    case df::enums::building_type::Slab:
+                    {
+                        auto Actual_building = virtual_cast<df::building_actual>(b->building.info->origin);
+                        if (Actual_building && Actual_building->contained_items.size())
+                        {
+                            auto slab = virtual_cast<df::item_slabst>(Actual_building->contained_items[0]->item);
+                            if (slab)
+                                b->building.special = slab->engraving_type;
+                        }
+                    }
+                        break;
+                    case df::enums::building_type::Construction:
+                        // change tile type to display the construction
+                        if (ssConfig.show_designations) {
+                            readConstructionsToTile(b, copiedbuilding);
+                            continue;
+                        }
+                        break;
+                    default:
+                        break;
+                    }
 
-					//add building components.
-					auto Actual_building = virtual_cast<df::building_actual>(b->building.info->origin);
-					if(Actual_building){
-						for(int index = 0; index < Actual_building->contained_items.size(); index++) {
-							if(Actual_building->contained_items[index]->use_mode != 2)
-								break;
-							worn_item item_matt;
-							
-							df::item * item = Actual_building->contained_items[index]->item;
+                    //add building components.
+                    auto Actual_building = virtual_cast<df::building_actual>(b->building.info->origin);
+                    if (Actual_building){
+                        for (int index = 0; index < Actual_building->contained_items.size(); index++) {
+                            if (Actual_building->contained_items[index]->use_mode != 2)
+                                break;
+                            worn_item item_matt;
 
-							if(b->building.type == df::enums::building_type::FarmPlot) {
-								if(item->pos.x == xx && item->pos.y == yy && item->pos.z == zz) {
-									if(item->getType() == df::enums::item_type::SEEDS) {
-										b->building.special = 1;
-									}
-									else if(item->getType() == df::enums::item_type::PLANT) {
-										b->building.special = 2;
-									}
-								}
-								else continue;
-							}
+                            df::item * item = Actual_building->contained_items[index]->item;
 
-							item_matt.matt.type = item->getActualMaterial();
-							item_matt.matt.index = item->getActualMaterialIndex();
+                            if (b->building.type == df::enums::building_type::FarmPlot) {
+                                if (item->pos.x == xx && item->pos.y == yy && item->pos.z == zz) {
+                                    if (item->getType() == df::enums::item_type::SEEDS) {
+                                        b->building.special = 1;
+                                    }
+                                    else if (item->getType() == df::enums::item_type::PLANT) {
+                                        b->building.special = 2;
+                                    }
+                                }
+                                else continue;
+                            }
 
-							if(item->isDyed()) {
-								auto Constructed_Item = virtual_cast<df::item_constructed>(item);
-								if(Constructed_Item) {
-									for(int idex = 0; idex < Constructed_Item->improvements.size(); idex++) {
-										if(!Constructed_Item->improvements[idex]) {
-											continue;
-										}
-										if(Constructed_Item->improvements[idex]->getType() != improvement_type::THREAD) {
-											continue;
-										}
-										auto Improvement_Thread = virtual_cast<df::itemimprovement_threadst>(Constructed_Item->improvements[idex]);
-										if(!Improvement_Thread) {
-											continue;
-										}
-										item_matt.dyematt.type = Improvement_Thread->dye.mat_type;
-										item_matt.dyematt.index = Improvement_Thread->dye.mat_index;
-									}
-								}
-							}
+                            item_matt.matt.type = item->getActualMaterial();
+                            item_matt.matt.index = item->getActualMaterialIndex();
 
-							b->building.constructed_mats.push_back(item_matt);
-						}
-					}
-				}
-			}
-		}
-	}
+                            if (item->isDyed()) {
+                                auto Constructed_Item = virtual_cast<df::item_constructed>(item);
+                                if (Constructed_Item) {
+                                    for (int idex = 0; idex < Constructed_Item->improvements.size(); idex++) {
+                                        if (!Constructed_Item->improvements[idex]) {
+                                            continue;
+                                        }
+                                        if (Constructed_Item->improvements[idex]->getType() != improvement_type::THREAD) {
+                                            continue;
+                                        }
+                                        auto Improvement_Thread = virtual_cast<df::itemimprovement_threadst>(Constructed_Item->improvements[idex]);
+                                        if (!Improvement_Thread) {
+                                            continue;
+                                        }
+                                        item_matt.dyematt.type = Improvement_Thread->dye.mat_type;
+                                        item_matt.dyematt.index = Improvement_Thread->dye.mat_index;
+                                    }
+                                }
+                            }
+
+                            b->building.constructed_mats.push_back(item_matt);
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 
