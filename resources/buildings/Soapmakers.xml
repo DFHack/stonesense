@@ -53,7 +53,8 @@
 			<HaveFloor />
 			<PositionIndex value=0 />
 		</and>
-		<sprite index = 202 />
+		<sprite index = 222 color="building" pattern_index="1" />
+		<sprite index = 223 />
 	</else>
 	
 	<if>

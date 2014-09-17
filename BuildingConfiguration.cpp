@@ -5,13 +5,12 @@
 
 bool BuildingNamesTranslatedFromGame = false;
 
-BuildingConfiguration::BuildingConfiguration(string name, int game_type, int game_subtype, std::string str_custom)
+BuildingConfiguration::BuildingConfiguration(string name, int game_type, int game_subtype, int32_t custom)
 {
     this->name = name;
     this->game_type = game_type;
     this->game_subtype = game_subtype;
-    this->game_custom = -1;
-    this->str_custom = str_custom;
+    this->game_custom = custom;
     this->width = this->height = 1;
     this->canBeFloating = false;
     this->canBeAnySize = false;
@@ -23,7 +22,6 @@ BuildingConfiguration::BuildingConfiguration()
     this->game_type = -1;
     this->game_subtype = -1;
     this->game_custom = -1;
-    this->str_custom = str_custom;
     this->width = this->height = 1;
     this->canBeFloating = false;
     this->canBeAnySize = false;
