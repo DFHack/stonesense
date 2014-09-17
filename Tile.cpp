@@ -291,7 +291,7 @@ void Tile::AssembleTile( void )
 
     bool defaultSnow = 1;
     t_SpriteWithOffset sprite;
-    c_sprite* spriteobject;
+    c_sprite* spriteobject = 0;
 
 	int32_t drawx = 0;
 	int32_t drawy = 0;

@@ -9,6 +9,8 @@
 #include "tinyxml.h"
 #include "GUI.h"
 #include "ContentLoader.h"
+#include "df/world_raws.h"
+#include "df/building_def.h"
 
 int parseConditionNode(ConditionalNode* node, TiXmlElement* elemCondition, bool silent);
 bool parseSpriteNode(SpriteNode* node, TiXmlElement* elemParent);
@@ -396,13 +398,24 @@ bool addSingleBuildingConfig( TiXmlElement* elemRoot,  vector<BuildingConfigurat
         break;
     }
     }
-    string custom;
+    int32_t custom = -1;
     // needs custom building spec, doesn't have a string... FAIL
-    if (needs_custom && !strGameCustom) {
+    if (needs_custom && (strGameCustom == 0 || strGameCustom[0] == 0)) {
         contentError("<building> game_custom attribute is required, but missng.",elemRoot);
         return false;
-    } else if (strGameCustom) {
-        custom = strGameCustom;
+    }
+    else if (strGameCustom && strGameCustom[0])
+    {
+        for (int i = 0; i < df::global::world->raws.buildings.all.size(); i++)
+        {
+            if (strcmp(strGameCustom, df::global::world->raws.buildings.all[i]->code.c_str()) == 0)
+                custom = i;
+        }
+        if (custom == -1)
+        {
+            contentWarning("<building> game_custom attribute is invalid", elemRoot);
+            return false;
+        }
     }
     BuildingConfiguration building(strName, main_type, subtype, custom );
     RootTile* spriteroot = new RootTile();
