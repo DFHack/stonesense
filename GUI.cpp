@@ -174,15 +174,17 @@ void draw_borders(float x, float y, uint8_t borders)
 
 }
 
-void ScreenToPoint(int x,int y,int &x1, int &y1, int &z1, int segSizeX, int segSizeY, int ScreenW, int ScreenH)
+void ScreenToPoint(int inx,int iny,int &x1, int &y1, int &z1, int segSizeX, int segSizeY, int segSizeZ, int ScreenW, int ScreenH)
 {
-    x-=ScreenW / 2;
-    y-=ScreenH / 2;
+    float x=inx;
+    float y=iny;
+    x-=ScreenW / 2.0;
+    y-=ScreenH / 2.0;
 
     y = y/ssConfig.scale;
-    y += TILETOPHEIGHT*5/4;
+    y += TILETOPHEIGHT*5.0/4.0;
     y += ssConfig.lift_segment_offscreen_y;
-    z1 = 0;
+    z1 = segSizeZ-2;
     y += z1*TILEHEIGHT;
     y = 2 * y / TILETOPHEIGHT;
     y += (segSizeX/2) + (segSizeY/2);
@@ -200,9 +202,9 @@ void ScreenToPoint(int x,int y,int &x1, int &y1, int &z1, int segSizeX, int segS
 void ScreenToPoint(int x,int y,int &x1, int &y1, int &z1)
 {
     if(ssConfig.track_screen_center){
-        ScreenToPoint(x, y, x1, y1, z1, ssState.Size.x, ssState.Size.y, ssState.ScreenW, ssState.ScreenH);
+        ScreenToPoint(x, y, x1, y1, z1, ssState.Size.x, ssState.Size.y, ssState.Size.z, ssState.ScreenW, ssState.ScreenH);
     } else {
-        ScreenToPoint(x, y, x1, y1, z1, 0, 0, 0, 0);
+        ScreenToPoint(x, y, x1, y1, z1, 0, 0, ssState.Size.z, 0, 0);
     }
 }
 
@@ -480,13 +482,9 @@ void drawSelectionCursor(WorldSegment * segment)
 void drawDebugCursor(WorldSegment * segment)
 {
 	Crd3D cursor = segment->segState.dfCursor;
-	if( (cursor.x != -30000 && ssConfig.follow_DFcursor)
-		|| (ssConfig.track_mode == GameConfiguration::TRACKING_FOCUS) ){
-			segment->CorrectTileForSegmentOffset(cursor.x, cursor.y, cursor.z);
-			segment->CorrectTileForSegmentRotation(cursor.x, cursor.y, cursor.z);
-	} else {
-		cursor.z = 0;
-	}
+    segment->CorrectTileForSegmentOffset(cursor.x, cursor.y, cursor.z);
+    segment->CorrectTileForSegmentRotation(cursor.x, cursor.y, cursor.z);
+
 	Crd2D point = LocalTileToScreen(cursor.x, cursor.y, cursor.z);
 	int sheetx = SPRITEOBJECT_CURSOR % SHEET_OBJECTSWIDE;
     int sheety = SPRITEOBJECT_CURSOR / SHEET_OBJECTSWIDE;
