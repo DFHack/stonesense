@@ -581,7 +581,14 @@ DFHACK_PLUGIN("stonesense");
 //This is the init command. it includes input options.
 DFhackCExport command_result plugin_init ( color_ostream &out, std::vector <PluginCommand> &commands)
 {
-	enabled = true;
+#ifdef _DARWIN
+    if (!df::global::init->display.flag.is_set(init_display_flags::RENDER_2D))
+    {
+	out.printerr("stonesense: Only PRINT_MODE:2D is supported on OS X\n");
+	return CR_FAILURE;
+    }
+#endif
+    enabled = true;
     commands.push_back(PluginCommand("stonesense","Start up the stonesense visualiser.",stonesense_command));
     commands.push_back(PluginCommand("ssense","Start up the stonesense visualiser.",stonesense_command));
     return CR_OK;
