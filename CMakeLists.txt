@@ -50,13 +50,14 @@ IF(UNIX)
 		IF(STONESENSE_INTERNAL_DYLIB)
 			FILE(DOWNLOAD http://topazgryphon.org/~tcollett/df/allegro-osx.tar.bz2
 						  ${stonesense_SOURCE_DIR}/allegro-osx.tar.bz2
-						  EXPECTED_MD5 5637cc4ab5dc90f29de7788cb07a6e9e)
+						  EXPECTED_MD5 9f41ef3f3be8094100316ecbda1c607c)
 			execute_process(COMMAND tar xjf ${stonesense_SOURCE_DIR}/allegro-osx.tar.bz2
 							WORKING_DIRECTORY ${stonesense_SOURCE_DIR})
 			SET(PROJECT_LIBS
 				${stonesense_SOURCE_DIR}/allegro-osx/lib/liballegro.5.0.dylib
 				${stonesense_SOURCE_DIR}/allegro-osx/lib/liballegro_primitives.5.0.dylib
 				${stonesense_SOURCE_DIR}/allegro-osx/lib/liballegro_font.5.0.dylib
+				${stonesense_SOURCE_DIR}/allegro-osx/lib/liballegro_color.5.0.dylib
 				${stonesense_SOURCE_DIR}/allegro-osx/lib/liballegro_image.5.0.dylib
 				${stonesense_SOURCE_DIR}/allegro-osx/lib/liballegro_ttf.5.0.dylib
 				${PROJECT_LIBS}
@@ -74,6 +75,7 @@ IF(UNIX)
 				allegro
 				allegro_primitives
 				allegro_font
+				allegro_color
 				allegro_image
 				allegro_ttf
 				${PROJECT_LIBS}
