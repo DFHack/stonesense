@@ -310,20 +310,20 @@ void DrawCreatureText(int drawx, int drawy, SS_Unit* creature )
 
     //if(ssConfig.show_creature_happiness)
     if(ssConfig.show_creature_moods && df::creature_raw::find(creature->race)->caste[creature->caste]->flags.is_set(caste_raw_flags::CAN_SPEAK)) {
-        if(creature->happiness == 0) {
-            statusIcons.push_back(6);
-        } else if(creature->happiness >= 1 && creature->happiness <= 25) {
-            statusIcons.push_back(5);
-        } else if(creature->happiness >= 26 && creature->happiness <= 50) {
-            statusIcons.push_back(4);
-        } else if(creature->happiness >= 51 && creature->happiness <= 75) {
-            statusIcons.push_back(3);
-        } else if(creature->happiness >= 76 && creature->happiness <= 125) {
-            statusIcons.push_back(2);
-        } else if(creature->happiness >= 126 && creature->happiness <= 150) {
-            statusIcons.push_back(1);
-        } else if(creature->happiness >= 151) {
+        if(creature->stress_level == 0) {
             statusIcons.push_back(0);
+        } else if(creature->stress_level >= 1 && creature->stress_level <= 30000) {
+            statusIcons.push_back(1);
+        } else if(creature->stress_level >= 30001 && creature->stress_level <= 60000) {
+            statusIcons.push_back(2);
+        } else if(creature->stress_level >= 60001 && creature->stress_level <= 100000) {
+            statusIcons.push_back(3);
+        } else if(creature->stress_level >= 100001 && creature->stress_level <= 250000) {
+            statusIcons.push_back(4);
+        } else if(creature->stress_level >= 250001 && creature->stress_level <= 500000) {
+            statusIcons.push_back(5);
+        } else if(creature->stress_level >= 500001) {
+            statusIcons.push_back(6);
         }
 
         if(creature->mood == 0) {
@@ -524,8 +524,8 @@ void copyCreature(df::unit * source, SS_Unit & furball)
     furball.profession = source->profession;
     //figure out legendary status
     furball.isLegend = hasLegendarySkill(source);
-    // happiness
-    furball.happiness = source->status.happiness;
+    // stress level
+    furball.stress_level = source->status.current_soul->personality.stress_level;
     // physical attributes
     memcpy(&furball.strength, source->body.physical_attrs, sizeof(source->body.physical_attrs));
 

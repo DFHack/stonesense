@@ -326,7 +326,7 @@ struct SS_Unit{
     uint8_t labors[NUM_CREATURE_LABORS];
     DFHack::Units::t_job current_job;
 
-    uint32_t happiness;
+    uint32_t stress_level;
     uint32_t id;
     t_attrib strength;
     t_attrib agility;
