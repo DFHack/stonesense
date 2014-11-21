@@ -169,6 +169,9 @@ void doMouse()
 				(4 - ssState.Rotation) % 4,
 				ssState.Size.x, ssState.Size.y);
 
+			//Convert to zero as top layer convention
+			tilez = tilez - (ssState.Size.z-2);
+
 			//add on the segment offset
 			tilex = tilex + ssState.Position.x;
 			tiley = tiley + ssState.Position.y;

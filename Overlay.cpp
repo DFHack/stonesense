@@ -36,8 +36,8 @@ void Overlay::ReadTileLocations()
 	actualWindowSize(width, height);
 	
 	DFHack::DFSDL_Surface * dfsurf = (DFHack::DFSDL_Surface *) SDL_GetVideoSurface();
-	offsetx = ((dfsurf->w) % fontx)/2;
-	offsety = ((dfsurf->h) % fonty)/2;
+	offsetx = fontx+((dfsurf->w) % fontx)/2;
+	offsety = fontx+((dfsurf->h) % fonty)/2;
 	if (!df::global::gamemode || *df::global::gamemode == game_mode::ADVENTURE)
 	{
 		//Adventure mode doesn't have a single-tile border around it.
@@ -274,8 +274,8 @@ void Overlay::render()
 			src.h = ssState.ScreenH;
 
 			DFSDL_Rect pos;
-			pos.x = fontx + offsetx;
-			pos.y = fonty + offsety;
+			pos.x = offsetx;
+			pos.y = offsety;
 			pos.w = 0;
 			pos.h = 0;
 
@@ -374,9 +374,16 @@ bool Overlay::get_mouse_coords(int32_t* x, int32_t* y)
 		//remove the offset of the df window
 		int dfviewx, dfviewy, dfviewz;
 		Gui::getViewCoords(dfviewx, dfviewy, dfviewz);
-		xpos = xpos - dfviewx;
-		ypos = ypos - dfviewy;
+		xpos = xpos - dfviewx + 1;
+		ypos = ypos - dfviewy + 1;
 		//zpos = zpos - dfviewz;
+
+        if (!df::global::gamemode || *df::global::gamemode == game_mode::ADVENTURE)
+        {
+            //Adventure mode doesn't have a single-tile border around it.
+            xpos = xpos - 1;
+            ypos = ypos - 1;
+        }
 
 		//check to see if this new loaction is within the area we are painting over
 		//since we don't want to accidentally click somewhere in the interface
