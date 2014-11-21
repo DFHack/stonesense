@@ -96,6 +96,7 @@ IF(UNIX)
 				${stonesense_SOURCE_DIR}/allegro/lib/liballegro_font.so.5.0
 				${stonesense_SOURCE_DIR}/allegro/lib/liballegro_image.so.5.0
 				${stonesense_SOURCE_DIR}/allegro/lib/liballegro_ttf.so.5.0
+				${stonesense_SOURCE_DIR}/allegro/lib/liballegro_color.so.5.0
 				${PROJECT_LIBS}
 			)
 			include_directories (
@@ -113,6 +114,7 @@ IF(UNIX)
 				allegro_font
 				allegro_image
 				allegro_ttf
+				allegro_color
 				${PROJECT_LIBS}
 			)
 		ENDIF()
