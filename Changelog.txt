@@ -1,4 +1,6 @@
-----==== 3.3 'Felsite', ? 2013 ====----
+Subsequent releases of Stonesense have been distributed with DFHack, and are named accordingly - eg: "Stonesense for DFHack 40.08-r1".
+
+There is no formal changelog for these releases; you can check the DFHack NEWS page or the Stonesense commit log.
 
 ----==== 3.2 'Felsite', March 18th 2013 ====----
 * Many crash and bug fixes
@@ -45,7 +47,7 @@
 * DF31.01 to .12 compatible
 * Added mood icons for creatures
 * Blood, vomit and other bodily fluids now show up
-* Vast improvments to configuration system
+* Vast improvements to configuration system
 * Improved tile outlines to better see structures
 * Added tons of creatures from the Stonesense Content Repository
 * Fixed issue with creature name cases
@@ -63,7 +65,7 @@
 * Properly displays dwarven characters
 * Added beefmoo's domestic animals
 * Allegro 4.9 accelerated graphics
-* DirectX, OpenGL or software renderding supported
+* DirectX, OpenGL or software rendering supported
 * Colorable ramps for all materials
 * Resizable window
 * Full-map screenshot now working properly, and fast
@@ -75,13 +77,13 @@
 * All sprite configs can load alternative image files
 * All sprite configs can be loaded from multiple xml files
 * More options for creature configuration, including animations
-* Tweaks to allow directory based drop-in spritepacks
+* Tweaks to allow directory based drop-in sprite packs
 * Drop down shadows for creatures
 * More bugfixes
 * Better handling for tiles at top of map.
 * Logo added
 * Ramp selection algorithm improved
-* Config for initial state of some on-the-fly toggleable settings
+* Config for initial state of some on-the-fly toggle-able settings
 
 ----==== Alpha release 4, Nov 23rd 2009 ====----
 * Display can be rotated in 90 degree increments
@@ -96,8 +98,8 @@
 * Some onscreen creature information (names only for now)
 * Better sanitization of input data should reduce problems with strange maps
 * Inevitable bugfixes
-* Some UI and Configurisation additions
-* Floors have thickness to make free standing structures more sensible looking and reduce escher problem
+* Some UI and configuration additions
+* Floors have thickness to make free standing structures more sensible looking and reduce Escher problem
 * Many many more sprites: buildings, plants, creatures & terrain
 * Improved building configuration: more options, nested conditions, boolean logic, multiple image files, include files
 

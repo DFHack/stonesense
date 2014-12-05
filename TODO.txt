@@ -1,20 +1,11 @@
-Feel free to drop ideas of stuff to work on and think about here.  
+Ideas should be posted to the GitHub issue tracker, https://github.com/DFHack/stonesense/issues
 
-Latest Update: 2012/12/05
+Last Update: December 2012
 
--==Bugs==-
-Crashers with odd materials etc
-Crashers with saving/loading
+IDEAS:  
 
--==For Later Versions==-
 Add the ability to handle color patterns on creatures.
 Add the ability to distinguish which hand/foot equipment is equipped on.  
-Add configurable key bindings.
-Height indicators for floating/flying stuff?
 Add the allegro shader module and figure out ways to take advantage of it (fog? weather? dynamic lighting?).
 Figure out a way to use sockets to make our own cache of the map?
-
--==Distant Goals==-
-Let the user control DF through the stonesense window?
-Add some way to put the stonesense display inside the DF window?
-Make some DFHack tools available through the stonesense interface (probe? prospector?)
+Make some DFHack tools available through the Stonesense interface (probe? prospector?)
