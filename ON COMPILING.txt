@@ -1,3 +1,0 @@
-Stonesense cannot be compiled on it's own. It MUST be compiled together with DFHack.
-Please see the DFHack documentation for instructions on how to compile it.
-

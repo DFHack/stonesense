@@ -43,7 +43,7 @@ Shows building graphics for zones. (Toggle with 'i')
 Shows building graphics for stockpiles. (Toggle with 'u')
 [SHOW_STOCKPILES:YES]
 
-Sets weather screenshots should have transparent backgrounds
+Sets whether screenshots should have transparent backgrounds
 [TRANSPARENT_SCREENSHOTS:NO]
 
 Fog color, and alpha at the bottom z-level.
@@ -70,12 +70,12 @@ Amount to change the auto reload time with each press of Numpad+/-
 [AUTO_RELOAD_STEP:50]
 
 Amount of time, in milliseconds, before the animation swaps to the next frame.
-Now independant of map refresh.
+Now independent of map refresh.
 [ANIMATION_RATE:196]
 
 --Adventure Mode Settings--
 
-Sets weather Stonesense should use a day/night effect.
+Sets whether Stonesense should use a day/night effect.
 [NIGHT:NO]
 
 Sets weather Stonesense should shade in the fog-of-war partially hidden tiles.
@@ -84,9 +84,9 @@ Sets weather Stonesense should shade in the fog-of-war partially hidden tiles.
 --Debug Mode--
 
 Sets Stonesense in debug mode. Adds additional information to displays.
-[DEBUGMODE:YES]
+[DEBUGMODE:NO]
 
-Set's the debug cursor to follow the cursor from DF when it is there.
+Sets the debug cursor to follow the cursor from DF when it is there.
 [FOLLOW_DF_CURSOR:YES]
 
 Shows creatures names floating above their sprites. (Toggle with 'n')
@@ -108,7 +108,7 @@ if trying having issues with sprite configuration tweaking.
 
 --Troubleshooting--
 
-Thi is the number of draw operations that will be held at a time.  Holding draw operations allows 
+This is the number of draw operations that will be held at a time.  Holding draw operations allows 
 for those draws to be carried out efficiently if they have the same source.  May be tweaked for
 performance gains.  
 [BITMAP_HOLDS:4096]
@@ -117,7 +117,7 @@ Stonesense will try to merge all loaded sprites into a single texture, for perfo
 if your videocard has low memory, you may want to disable this.
 [CACHE_IMAGES:NO]
 
-This set's the preferred size of the internal image cache. If your videocard does not support it, 
+This sets the preferred size of the internal image cache. If your videocard does not support it, 
 a smaller size is used.
 [IMAGE_CACHE_SIZE:4096]
 
@@ -132,10 +132,10 @@ compatibility, but is very slow.
 
 --Colors--
 
-Stonesense can use the colors from DF for various purposes. these are set here the same way as in DF
+Stonesense can use the colors from DF for various purposes. 
+[USE_DF_COLORS:NO]
 
-However, if this is set to yes, these aren't used.
-[USE_DF_COLORS:YES]
+If USE_DF_COLORS is NO, the colors below are used instead.
 
 [BLACK_R:0]
 [BLACK_G:0]
@@ -185,6 +185,3 @@ However, if this is set to yes, these aren't used.
 [WHITE_R:255]
 [WHITE_G:255]
 [WHITE_B:255]
-
-
-Source: http://df.magmawiki.com/index.php/Color_scheme#ixzz0nnC90qXc
