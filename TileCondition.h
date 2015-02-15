@@ -66,7 +66,7 @@ public:
 
     int value;
     int subtype;
-	int item_index;
+    int item_index;
     bool Matches(Tile* b);
 };
 

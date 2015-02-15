@@ -57,8 +57,8 @@ inline bool isTileHighRampTop(uint32_t x, uint32_t y, uint32_t z, WorldSegment* 
     if(!tile) {
         return false;
     }
-    if(tile->tileShapeBasic()!=tiletype_shape_basic::Floor 
-        && tile->tileShapeBasic()!=tiletype_shape_basic::Ramp 
+    if(tile->tileShapeBasic()!=tiletype_shape_basic::Floor
+        && tile->tileShapeBasic()!=tiletype_shape_basic::Ramp
         && tile->tileShapeBasic()!=tiletype_shape_basic::Stair) {
             return false;
     }
@@ -133,9 +133,9 @@ uint8_t CalculateRampType(uint32_t x, uint32_t y, uint32_t z, WorldSegment* segm
 bool checkFloorBorderRequirement(WorldSegment* segment, int x, int y, int z, dirRelative offset)
 {
     Tile* bHigh = segment->getTileRelativeTo(x, y, z, offset);
-    if (bHigh && 
-        (bHigh->tileShapeBasic()==tiletype_shape_basic::Floor 
-        || bHigh->tileShapeBasic()==tiletype_shape_basic::Ramp 
+    if (bHigh &&
+        (bHigh->tileShapeBasic()==tiletype_shape_basic::Floor
+        || bHigh->tileShapeBasic()==tiletype_shape_basic::Ramp
         || bHigh->tileShapeBasic()==tiletype_shape_basic::Wall)) {
             return false;
     }
@@ -677,24 +677,24 @@ void optimizeSegment(WorldSegment * segment)
         }
 
         //try to mask away tiles that are flagged hidden
-		if(!ssConfig.show_hidden_tiles ) {
-			//unhide any liquids that are visible from above
-			unhideWaterFromAbove(segment, b);
-			if( ssConfig.show_designations 
-				&& containsDesignations(b->designation, b->occ) ) {
-					b->visible = true;
-			} else if( ssConfig.shade_hidden_tiles ) {
-				maskTile(segment, b);
-			} else if( b->designation.bits.hidden ) {
-				b->visible = false;
-			}
-		}
+        if(!ssConfig.show_hidden_tiles ) {
+            //unhide any liquids that are visible from above
+            unhideWaterFromAbove(segment, b);
+            if( ssConfig.show_designations
+                && containsDesignations(b->designation, b->occ) ) {
+                    b->visible = true;
+            } else if( ssConfig.shade_hidden_tiles ) {
+                maskTile(segment, b);
+            } else if( b->designation.bits.hidden ) {
+                b->visible = false;
+            }
+        }
 
-		if(!b->visible) {
+        if(!b->visible) {
             continue;
         }
 
-        if( !isTileOnVisibleEdgeOfSegment(segment, b) 
+        if( !isTileOnVisibleEdgeOfSegment(segment, b)
             && (b->tileType!=tiletype::OpenSpace
             || b->designation.bits.flow_size
             || (b->occ.bits.unit && b->creature)

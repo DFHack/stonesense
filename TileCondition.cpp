@@ -113,7 +113,7 @@ MaterialTypeCondition::MaterialTypeCondition(const char* strValue, const char* s
     // is there a better way to handle this?
     // seems non-extensible
     subtype = INVALID_INDEX;
-	item_index = INVALID_INDEX;
+    item_index = INVALID_INDEX;
     value = lookupMaterialType(strValue);
     if (value == INVALID_INDEX) {
         return;
@@ -124,9 +124,9 @@ MaterialTypeCondition::MaterialTypeCondition(const char* strValue, const char* s
     if (strPattern_index == NULL || strPattern_index[0] == 0) {
         item_index = INVALID_INDEX;
     }
-	else{
-		item_index = atoi(strPattern_index);
-	}
+    else{
+        item_index = atoi(strPattern_index);
+    }
     subtype = lookupMaterialIndex( value, strSubtype);
     if (subtype == INVALID_INDEX) {
         LogVerbose("Material subtype not found in MaterialTypeCondition: %s\n", strSubtype);
@@ -137,28 +137,28 @@ MaterialTypeCondition::MaterialTypeCondition(const char* strValue, const char* s
 
 bool MaterialTypeCondition::Matches(Tile* b)
 {
-	if(!b->building.info) {
-		return false;
-	}
-	if(item_index == -1)
-	{
-		if (b->building.info->material.type != this->value) {
-			return false;
-		}
-		if (this->subtype == INVALID_INDEX) {
-			return true;
-		}
-		return b->building.info->material.index == this->subtype;
-	}
-	else {
-		if (b->building.constructed_mats[item_index%b->building.constructed_mats.size()].matt.type != this->value) {
-			return false;
-		}
-		if (this->subtype == INVALID_INDEX) {
-			return true;
-		}
-		return b->building.constructed_mats[item_index%b->building.constructed_mats.size()].matt.index == this->subtype;
-	}
+    if(!b->building.info) {
+        return false;
+    }
+    if(item_index == -1)
+    {
+        if (b->building.info->material.type != this->value) {
+            return false;
+        }
+        if (this->subtype == INVALID_INDEX) {
+            return true;
+        }
+        return b->building.info->material.index == this->subtype;
+    }
+    else {
+        if (b->building.constructed_mats[item_index%b->building.constructed_mats.size()].matt.type != this->value) {
+            return false;
+        }
+        if (this->subtype == INVALID_INDEX) {
+            return true;
+        }
+        return b->building.constructed_mats[item_index%b->building.constructed_mats.size()].matt.index == this->subtype;
+    }
 }
 
 
@@ -193,7 +193,7 @@ BuildingSpecialCondition::BuildingSpecialCondition(const char* strValue)
 
 bool BuildingSpecialCondition::Matches(Tile* b)
 {
-	return b->building.special == this->value;
+    return b->building.special == this->value;
 }
 
 NeighbourSameBuildingCondition::NeighbourSameBuildingCondition(const char* strDir)

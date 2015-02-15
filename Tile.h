@@ -16,8 +16,8 @@ private:
     bool valid;
 
     //Functions start here.
-    
-	//do not directly call constructor or deconstructor, use CleanCreateAndValidate or InvalidateAndDestroy
+
+    //do not directly call constructor or deconstructor, use CleanCreateAndValidate or InvalidateAndDestroy
     Tile(WorldSegment* ownerSegment, df::tiletype type);
     ~Tile(void);
 
@@ -54,8 +54,8 @@ public:
 
     //DFHack::t_matglossPair water;//contained in designation
     bool deepwater;
-    
-	df::tile_liquid_flow_dir flow_direction;
+
+    df::tile_liquid_flow_dir flow_direction;
 
     DFHack::t_designation designation;
     DFHack::t_occupancy occ;
@@ -87,15 +87,15 @@ public:
         df::flow_type type;
     } tileeffect;
 
-	SS_Item Item;
+    SS_Item Item;
 
     struct SS_Building {
         DFHack::Buildings::t_building* info;
         df::building_type type;
         std::vector<c_sprite> sprites;
         Tile* parent;
-		std::vector<worn_item> constructed_mats;
-		uint8_t special;
+        std::vector<worn_item> constructed_mats;
+        uint8_t special;
     } building;
 
     //tile information loading
@@ -111,10 +111,10 @@ public:
     RemoteFortressReader::TiletypeSpecial tileSpecial();
     RemoteFortressReader::TiletypeMaterial tileMaterial();
     //tile sprite assembly and drawing functions
-	void GetDrawLocation(int32_t& drawx, int32_t& drawy);
+    void GetDrawLocation(int32_t& drawx, int32_t& drawy);
     void AssembleTile();
     void AddRamptop();
-	void AssembleDesignationMarker( int32_t drawx, int32_t drawy );
+    void AssembleDesignationMarker( int32_t drawx, int32_t drawy );
     void AssembleFloorBlood ( int32_t drawx, int32_t drawy );
     void AssembleParticleCloud(int count, float centerX, float centerY, float rangeX, float rangeY, ALLEGRO_BITMAP *sprite, ALLEGRO_COLOR tint);
     void AssembleSpriteFromSheet(int spriteNum, ALLEGRO_BITMAP* spriteSheet, ALLEGRO_COLOR color, float x, float y, Tile * b=NULL, float in_scale=1.0f);
@@ -123,7 +123,7 @@ public:
     bool IsValid();
     bool Invalidate();
     static bool InvalidateAndDestroy(Tile*);
-	static bool CleanCreateAndValidate(Tile*, WorldSegment*, df::tiletype);
+    static bool CleanCreateAndValidate(Tile*, WorldSegment*, df::tiletype);
 };
 
 void createEffectSprites();

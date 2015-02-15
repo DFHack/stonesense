@@ -120,7 +120,7 @@ void parseWallFloorSpriteElement(TiXmlElement* elemWallFloorSprite, vector<Terra
         RemoteFortressReader::TiletypeSpecial elemSpecial = StringToTiletypeSpecial(elemTerrain->Attribute("special"));
         RemoteFortressReader::TiletypeVariant elemVariant = StringToTiletypeVariant(elemTerrain->Attribute("variant"));
         RemoteFortressReader::TiletypeMaterial elemMaterial = StringToTiletypeMaterial(elemTerrain->Attribute("material"));
-        
+
         int i = 0;
         if (targetElem >= i)
         {

@@ -4,9 +4,9 @@
 #include "ContentLoader.h"
 #include "Creatures.h"
 
-const GameState SegmentWrap::zeroState = 
+const GameState SegmentWrap::zeroState =
 {
-	{0,0,0},0,{0,0,0},{0,0,0},{0,0,0},0,0
+    {0,0,0},0,{0,0,0},{0,0,0},{0,0,0},0,0
 };
 
 ALLEGRO_BITMAP * fog = 0;
@@ -65,12 +65,12 @@ bool WorldSegment::ConvertToSegmentLocal(int32_t & x, int32_t & y, int32_t & z)
         return false;
     }
 
-	return true;
+    return true;
 }
 
 uint32_t WorldSegment::ConvertLocalToIndex(int32_t x, int32_t y, int32_t z)
 {
-	return (uint32_t) (x + (y + (z*segState.Size.y))*segState.Size.x );
+    return (uint32_t) (x + (y + (z*segState.Size.y))*segState.Size.x );
 }
 
 //Returns a blank tile at the specified world coordinates.
@@ -79,17 +79,17 @@ Tile* WorldSegment::ResetTile(int32_t x, int32_t y, int32_t z, df::tiletype type
     int32_t lx = x;
     int32_t ly = y;
     int32_t lz = z;
-    
-	if(!ConvertToSegmentLocal(lx, ly, lz)){
-		return NULL;
-	}
+
+    if(!ConvertToSegmentLocal(lx, ly, lz)){
+        return NULL;
+    }
 
     uint32_t index = ConvertLocalToIndex(lx, ly, lz);
 
-	Tile* tptr = &(tiles[index]);
+    Tile* tptr = &(tiles[index]);
 
-	Tile::InvalidateAndDestroy(tptr);
-	Tile::CleanCreateAndValidate(tptr,this,type);
+    Tile::InvalidateAndDestroy(tptr);
+    Tile::CleanCreateAndValidate(tptr,this,type);
     tptr->x = x;
     tptr->y = y;
     tptr->z = z;
@@ -102,10 +102,10 @@ Tile* WorldSegment::getTile(int32_t x, int32_t y, int32_t z)
     int32_t lx = x;
     int32_t ly = y;
     int32_t lz = z;
-    
-	if(!ConvertToSegmentLocal(lx, ly, lz)){
-		return NULL;
-	}
+
+    if(!ConvertToSegmentLocal(lx, ly, lz)){
+        return NULL;
+    }
 
     uint32_t index = ConvertLocalToIndex(lx, ly, lz);
 
@@ -117,10 +117,10 @@ Tile* WorldSegment::getTileRelativeTo(int32_t x, int32_t y, int32_t z,  dirRelat
     int32_t lx = x;
     int32_t ly = y;
     int32_t lz = z;
-    
-	if(!ConvertToSegmentLocal(lx, ly, lz)){
-		return NULL;
-	}
+
+    if(!ConvertToSegmentLocal(lx, ly, lz)){
+        return NULL;
+    }
 
     switch (direction) {
     case eUp:
@@ -158,7 +158,7 @@ Tile* WorldSegment::getTileRelativeTo(int32_t x, int32_t y, int32_t z,  dirRelat
         lx++;
         break;
     }
-    
+
     return getTileLocal(lx, ly, lz);
 }
 
@@ -167,10 +167,10 @@ Tile* WorldSegment::getTileRelativeTo(int32_t x, int32_t y, int32_t z,  dirRelat
     int32_t lx = x;
     int32_t ly = y;
     int32_t lz = z;
-    
-	if(!ConvertToSegmentLocal(lx, ly, lz)){
-		return NULL;
-	}
+
+    if(!ConvertToSegmentLocal(lx, ly, lz)){
+        return NULL;
+    }
 
     switch (direction) {
     case eUp:
@@ -223,7 +223,7 @@ Tile* WorldSegment::getTileLocal(int32_t x, int32_t y, int32_t z)
     if(z < 0 || z >= segState.Size.z) {
         return 0;
     }
-	
+
     uint32_t index = ConvertLocalToIndex(x, y, z);
 
     return getTile(index);
@@ -305,18 +305,18 @@ void WorldSegment::DrawAllTiles()
 }
 
 /**
- * Assembles sprites for all tiles in the segment.  
+ * Assembles sprites for all tiles in the segment.
  * The draw order used draws tiles on a per-block basis, so blocks
- * in the back are drawn before blocks in the front.  
+ * in the back are drawn before blocks in the front.
  */
 void WorldSegment::AssembleAllTiles()
 {
     if(!loaded) {
         return;
     }
-    
+
     clock_t starttime = clock();
-    
+
     // x,y,z print prices
     int32_t vsxmax = segState.Size.x-1;
     int32_t vsymax = segState.Size.y-1;
@@ -325,17 +325,17 @@ void WorldSegment::AssembleAllTiles()
         //add the fog to the queue
         if(ssConfig.fogenable && fog) {
             draw_event d = {
-				TintedScaledBitmap, 
-                fog, 
-                al_map_rgb(255,255,255), 
-                0, 
-                0, 
-                (float)ssState.ScreenW, 
-                (float)ssState.ScreenH, 
-                0, 
-                0, 
-                (float)ssState.ScreenW, 
-                (float)ssState.ScreenH, 
+                TintedScaledBitmap,
+                fog,
+                al_map_rgb(255,255,255),
+                0,
+                0,
+                (float)ssState.ScreenW,
+                (float)ssState.ScreenH,
+                0,
+                0,
+                (float)ssState.ScreenW,
+                (float)ssState.ScreenH,
                 0};
             AssembleSprite(d);
         }
@@ -345,7 +345,7 @@ void WorldSegment::AssembleAllTiles()
                 Tile *b = getTileLocal(vsx,vsy,vsz);
                 if (b) {
                     b->AssembleTile();
-                } 
+                }
             }
         }
     }
@@ -359,10 +359,10 @@ bool WorldSegment::CoordinateInsideSegment(int32_t x, int32_t y, int32_t z)
     int32_t lx = x;
     int32_t ly = y;
     int32_t lz = z;
-    
-	if(!ConvertToSegmentLocal(lx, ly, lz)){
-		return NULL;
-	}
+
+    if(!ConvertToSegmentLocal(lx, ly, lz)){
+        return NULL;
+    }
 
     if(lx < 0 || lx >= segState.Size.x) {
         return 0;
@@ -408,10 +408,10 @@ bool WorldSegment::CoordinateInteriorSegment(int32_t x, int32_t y, int32_t z, ui
     int32_t lx = x;
     int32_t ly = y;
     int32_t lz = z;
-    
-	if(!ConvertToSegmentLocal(lx, ly, lz)){
-		return NULL;
-	}
+
+    if(!ConvertToSegmentLocal(lx, ly, lz)){
+        return NULL;
+    }
 
     if(lx < 0  + shellthick|| lx >= segState.Size.x - shellthick) {
         return 0;
