@@ -94,7 +94,7 @@ void LogError(const char* msg, ...)
     if(fp) {
         vfprintf( fp, msg, arglist );
     }
-//	Core::printerr(msg, arglist);
+//    Core::printerr(msg, arglist);
     va_end(arglist);
     fclose(fp);
 }
@@ -124,7 +124,7 @@ void LogVerbose(const char* msg, ...)
     if(fp) {
         vfprintf( fp, msg, arglist );
     }
-//	Core::printerr(msg, arglist);
+//    Core::printerr(msg, arglist);
     va_end(arglist);
     fclose(fp);
 }
@@ -252,64 +252,64 @@ void drawcredits()
 */
 static void main_loop(ALLEGRO_DISPLAY * display, Overlay * ovrlay, ALLEGRO_EVENT_QUEUE *queue, ALLEGRO_THREAD * main_thread, DFHack::color_ostream & con)
 {
-	ALLEGRO_EVENT event;
-	while (!al_get_thread_should_stop(main_thread)) {
-		if (redraw && al_event_queue_is_empty(queue)) {
+    ALLEGRO_EVENT event;
+    while (!al_get_thread_should_stop(main_thread)) {
+        if (redraw && al_event_queue_is_empty(queue)) {
 
-			al_rest(0);
+            al_rest(0);
 
-			if(ssConfig.overlay_mode){
-				bool goodoverlay = ovrlay->GoodViewscreen();
-				if(!goodoverlay) {
-					//do nothing; this isn't a view we can overlay
-				}if(ssConfig.spriteIndexOverlay) {
-					DrawSpriteIndexOverlay(ssConfig.currentSpriteOverlay);
-					ovrlay->Flip();
-				} else if(!Maps::IsValid()) {
-					drawcredits();
-					ovrlay->Flip();
-				} else if( timeToReloadSegment ) {
-					reloadPosition();
-					al_clear_to_color(ssConfig.backcol);
-					paintboard();
-					ovrlay->Flip();
-					timeToReloadSegment = false;
-					animationFrameShown = true;
-				} else if (animationFrameShown == false) {
-					al_clear_to_color(ssConfig.backcol);
-					paintboard();
-					ovrlay->Flip();
-					animationFrameShown = true;
-				}
-			} else {
-				if(ssConfig.spriteIndexOverlay) {
-					DrawSpriteIndexOverlay(ssConfig.currentSpriteOverlay);
-					al_flip_display();
-				} else if(!Maps::IsValid()) {
-					drawcredits();
-					al_flip_display();
-				} else if( timeToReloadSegment ) {
-					reloadPosition();
-					al_clear_to_color(ssConfig.backcol);
-					paintboard();
-					al_flip_display();
-					timeToReloadSegment = false;
-					animationFrameShown = true;
-				} else if (animationFrameShown == false) {
-					al_clear_to_color(ssConfig.backcol);
-					paintboard();
-					al_flip_display();
-					animationFrameShown = true;
-				}
-			}
-			
-			if (!ssConfig.overlay_mode) {
-				doMouse();
-				doRepeatActions();
-			}
-			redraw = false;
-		}
-		/* Take the next event out of the event queue, and store it in `event'. */
+            if(ssConfig.overlay_mode){
+                bool goodoverlay = ovrlay->GoodViewscreen();
+                if(!goodoverlay) {
+                    //do nothing; this isn't a view we can overlay
+                }if(ssConfig.spriteIndexOverlay) {
+                    DrawSpriteIndexOverlay(ssConfig.currentSpriteOverlay);
+                    ovrlay->Flip();
+                } else if(!Maps::IsValid()) {
+                    drawcredits();
+                    ovrlay->Flip();
+                } else if( timeToReloadSegment ) {
+                    reloadPosition();
+                    al_clear_to_color(ssConfig.backcol);
+                    paintboard();
+                    ovrlay->Flip();
+                    timeToReloadSegment = false;
+                    animationFrameShown = true;
+                } else if (animationFrameShown == false) {
+                    al_clear_to_color(ssConfig.backcol);
+                    paintboard();
+                    ovrlay->Flip();
+                    animationFrameShown = true;
+                }
+            } else {
+                if(ssConfig.spriteIndexOverlay) {
+                    DrawSpriteIndexOverlay(ssConfig.currentSpriteOverlay);
+                    al_flip_display();
+                } else if(!Maps::IsValid()) {
+                    drawcredits();
+                    al_flip_display();
+                } else if( timeToReloadSegment ) {
+                    reloadPosition();
+                    al_clear_to_color(ssConfig.backcol);
+                    paintboard();
+                    al_flip_display();
+                    timeToReloadSegment = false;
+                    animationFrameShown = true;
+                } else if (animationFrameShown == false) {
+                    al_clear_to_color(ssConfig.backcol);
+                    paintboard();
+                    al_flip_display();
+                    animationFrameShown = true;
+                }
+            }
+
+            if (!ssConfig.overlay_mode) {
+                doMouse();
+                doRepeatActions();
+            }
+            redraw = false;
+        }
+        /* Take the next event out of the event queue, and store it in `event'. */
         bool in_time = 0;
         in_time = al_wait_for_event_timed(queue, &event, 1.0f);
 
@@ -325,9 +325,9 @@ static void main_loop(ALLEGRO_DISPLAY * display, Overlay * ovrlay, ALLEGRO_EVENT
         if(in_time) {
             switch (event.type) {
             case ALLEGRO_EVENT_DISPLAY_RESIZE:
-				if (ssConfig.overlay_mode) {
-					break;
-				}
+                if (ssConfig.overlay_mode) {
+                    break;
+                }
                 if(!al_acknowledge_resize(event.display.source)) {
                     con.printerr("Failed to resize diplay");
                     return;
@@ -348,9 +348,9 @@ static void main_loop(ALLEGRO_DISPLAY * display, Overlay * ovrlay, ALLEGRO_EVENT
                 /* ALLEGRO_EVENT_KEY_DOWN - a keyboard key was pressed.
                 */
             case ALLEGRO_EVENT_KEY_CHAR:
-				if (ssConfig.overlay_mode) {
-					break;
-				}
+                if (ssConfig.overlay_mode) {
+                    break;
+                }
                 if(event.keyboard.display != display) {
                     break;
                 } else if (event.keyboard.keycode == ALLEGRO_KEY_ESCAPE) {
@@ -412,7 +412,7 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
     ssConfig.track_mode = 0;
     ssConfig.track_screen_center = true;
     ssConfig.animation_step = 300;
-	ssConfig.track_mode = GameConfiguration::TRACKING_NONE;
+    ssConfig.track_mode = GameConfiguration::TRACKING_NONE;
     timeToReloadConfig = true;
     ssConfig.fogcol = al_map_rgba(255, 255, 255, 255);
     ssConfig.backcol = al_map_rgb(95, 95, 160);
@@ -431,7 +431,7 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
     contentLoader = new ContentLoader();
     ssConfig.zoom = 0;
     ssConfig.scale = 1.0f;
-	ssConfig.useDfColors = false;
+    ssConfig.useDfColors = false;
     ssTimers.assembly_time = 1.0f;
     ssTimers.beautify_time = 1.0f;
     ssTimers.overlay_time = 1.0f;
@@ -452,26 +452,26 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
     int major = version >> 24;
     int minor = (version >> 16) & 255;
     int revision = (version >> 8) & 255;
-	int release = version & 255;
+    int release = version & 255;
 
-	out.print("Using allegro version %d.%d.%d r%d\n", major, minor, revision, release);
+    out.print("Using allegro version %d.%d.%d r%d\n", major, minor, revision, release);
 
-	al_set_new_display_flags(
-		(ssConfig.Fullscreen && !ssConfig.overlay_mode ? ALLEGRO_FULLSCREEN : ALLEGRO_WINDOWED)
-		|(ssConfig.overlay_mode ? 0 : ALLEGRO_RESIZABLE)
-		|(ssConfig.overlay_mode ? ALLEGRO_MINIMIZED : 0)
-		|(ssConfig.opengl ? ALLEGRO_OPENGL : 0)
-		|(ssConfig.directX ? ALLEGRO_DIRECT3D_INTERNAL : 0));
+    al_set_new_display_flags(
+        (ssConfig.Fullscreen && !ssConfig.overlay_mode ? ALLEGRO_FULLSCREEN : ALLEGRO_WINDOWED)
+        |(ssConfig.overlay_mode ? 0 : ALLEGRO_RESIZABLE)
+        |(ssConfig.overlay_mode ? ALLEGRO_MINIMIZED : 0)
+        |(ssConfig.opengl ? ALLEGRO_OPENGL : 0)
+        |(ssConfig.directX ? ALLEGRO_DIRECT3D_INTERNAL : 0));
 
-	if(ssConfig.software) {
-		al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP|ALLEGRO_ALPHA_TEST|ALLEGRO_MIN_LINEAR|ALLEGRO_MIPMAP);
-	} else {
+    if(ssConfig.software) {
+        al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP|ALLEGRO_ALPHA_TEST|ALLEGRO_MIN_LINEAR|ALLEGRO_MIPMAP);
+    } else {
         al_set_new_bitmap_flags(ALLEGRO_MIN_LINEAR|ALLEGRO_MIPMAP);
     }
 
-	display = al_create_display(ssState.ScreenW, ssState.ScreenH);
-	if (!display) {
-		out.printerr("al_create_display failed\n");
+    display = al_create_display(ssState.ScreenW, ssState.ScreenH);
+    if (!display) {
+        out.printerr("al_create_display failed\n");
         stonesense_started = 0;
         return NULL;
     }
@@ -486,19 +486,19 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
         }
     }
     SetTitle("Stonesense");
-	drawcredits();
+    drawcredits();
 
-	if(ssConfig.overlay_mode){
-		overlay = new Overlay(df::global::enabler->renderer);
-		df::global::enabler->renderer = overlay;
-	}
+    if(ssConfig.overlay_mode){
+        overlay = new Overlay(df::global::enabler->renderer);
+        df::global::enabler->renderer = overlay;
+    }
 
     ALLEGRO_PATH * p = al_create_path("stonesense/stonesense.png");
     IMGIcon = load_bitmap_withWarning(al_path_cstr(p, ALLEGRO_NATIVE_PATH_SEP));
     al_destroy_path(p);
     if(!IMGIcon) {
         al_destroy_display(display);
-		display = 0;
+        display = 0;
         stonesense_started = 0;
         return NULL;
     }
@@ -546,9 +546,9 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
 
     // window is destroyed.
     al_destroy_display(display);
-	display = 0;
-	delete(overlay);
-	overlay = NULL;
+    display = 0;
+    delete(overlay);
+    overlay = NULL;
 
     if(ssConfig.threadmade) {
         al_broadcast_cond(ssConfig.readCond);
@@ -584,8 +584,8 @@ DFhackCExport command_result plugin_init ( color_ostream &out, std::vector <Plug
 #ifdef _DARWIN
     if (!df::global::init->display.flag.is_set(init_display_flags::RENDER_2D))
     {
-	out.printerr("stonesense: Only PRINT_MODE:2D is supported on OS X\n");
-	return CR_FAILURE;
+    out.printerr("stonesense: Only PRINT_MODE:2D is supported on OS X\n");
+    return CR_FAILURE;
     }
 #endif
     enabled = true;
@@ -614,19 +614,19 @@ DFhackCExport command_result plugin_shutdown ( color_ostream &out )
 DFhackCExport command_result stonesense_command(color_ostream &out, std::vector<std::string> & params)
 {
     if(stonesense_started) {
-		out.print("Stonesense already running.\n");
-		return CR_OK;
-	}
+        out.print("Stonesense already running.\n");
+        return CR_OK;
+    }
 
-	ssConfig.overlay_mode = false;
-	if(params.size() > 0 ) {
-		if(params[0] == "overlay"){
-			ssConfig.overlay_mode = true;
-		} else {
-			DumpInfo(out, params);
-			return CR_OK;
-		}
-	} 
+    ssConfig.overlay_mode = false;
+    if(params.size() > 0 ) {
+        if(params[0] == "overlay"){
+            ssConfig.overlay_mode = true;
+        } else {
+            DumpInfo(out, params);
+            return CR_OK;
+        }
+    }
 
     if(!al_is_system_installed()) {
         if (!al_init()) {

@@ -79,7 +79,7 @@ Tile::Tile(WorldSegment* segment, df::tiletype type)
     Item.matt.index= INVALID_INDEX;
     Item.dyematt.type= INVALID_INDEX;
     Item.dyematt.index= INVALID_INDEX;
-    
+
     building.type = (building_type::building_type) BUILDINGTYPE_NA;
     //building.parent = NULL;
     //building.info = NULL;
@@ -112,7 +112,7 @@ bool Tile::Invalidate(){
 }
 
 /**
- * invalidates this Tile, and frees memory of any member objects 
+ * invalidates this Tile, and frees memory of any member objects
  *  through the deconstructor
  * returns old validity value
  */
@@ -126,17 +126,17 @@ bool Tile::InvalidateAndDestroy(Tile* dst)
     return true;
 }
 
-/** 
+/**
  * creates a clean empty tile at the destination address
  * returns old validity value
  */
 bool Tile::CleanCreateAndValidate(Tile* dst, WorldSegment* segment, df::tiletype type)
 {
-	bool ret = dst->valid;
-	memset(dst, 0, sizeof(Tile));
-	new (dst) Tile(segment, type);
-	dst->valid = true;
-	return ret;
+    bool ret = dst->valid;
+    memset(dst, 0, sizeof(Tile));
+    new (dst) Tile(segment, type);
+    dst->valid = true;
+    return ret;
 }
 
 inline ALLEGRO_BITMAP* imageSheet(t_SpriteWithOffset sprite, ALLEGRO_BITMAP* defaultBmp)
@@ -197,7 +197,7 @@ void Tile::GetDrawLocation(int32_t& drawx, int32_t& drawy)
     drawx = x;
     drawy = y;
     int32_t drawz = z;
-    
+
     ownerSegment->CorrectTileForSegmentOffset( drawx, drawy, drawz);
     ownerSegment->CorrectTileForSegmentRotation( drawx, drawy, drawz);
     pointToScreen((int*)&drawx, (int*)&drawy, drawz);
@@ -293,14 +293,14 @@ void Tile::AssembleTile( void )
     t_SpriteWithOffset sprite;
     c_sprite* spriteobject = 0;
 
-	int32_t drawx = 0;
-	int32_t drawy = 0;
-	GetDrawLocation(drawx, drawy);
+    int32_t drawx = 0;
+    int32_t drawy = 0;
+    GetDrawLocation(drawx, drawy);
 
     //TODO the following check should get incorporated into segment beautification
     if(((drawx + TILEWIDTH*ssConfig.scale) < 0) || (drawx > ssState.ScreenW) || ((drawy + (TILETOPHEIGHT + FLOORHEIGHT)*ssConfig.scale) < 0) || (drawy - WALLHEIGHT*ssConfig.scale > ssState.ScreenH)) {
-		visible = false;
-		return;
+        visible = false;
+        return;
     }
 
     bool chopThisTile = 0;
@@ -321,34 +321,34 @@ void Tile::AssembleTile( void )
         return;
     }
 
-	ALLEGRO_COLOR plateBorderColor = al_map_rgb(85,85,85);
-	int rando = randomCube[x%RANDOM_CUBE][y%RANDOM_CUBE][z%RANDOM_CUBE];
+    ALLEGRO_COLOR plateBorderColor = al_map_rgb(85,85,85);
+    int rando = randomCube[x%RANDOM_CUBE][y%RANDOM_CUBE][z%RANDOM_CUBE];
 
     DrawGrowth(spriteobject, false);
 
 
-	//Draw Ramp Tops
-	if(tileType == tiletype::RampTop){
-		Tile * b = this->ownerSegment->getTile(this->x, this->y, this->z - 1);
-		if ( b && b->building.type != BUILDINGTYPE_BLACKBOX && b->tileShapeBasic() == tiletype_shape_basic::Ramp ) {
-			spriteobject = GetTileSpriteMap(b->tileType, b->material, b->consForm);
-			if (spriteobject->get_sheetindex() == UNCONFIGURED_INDEX) {
-				spriteobject->set_sheetindex(0);
-				spriteobject->set_fileindex(INVALID_INDEX);
-				spriteobject->set_defaultsheet(IMGRampSheet);
-			}
-			if (spriteobject->get_sheetindex() != INVALID_INDEX) {
-				spriteobject->set_size(SPRITEWIDTH, TILETOPHEIGHT);
-				spriteobject->set_plate_layout(RAMPTOPPLATE);
-				spriteobject->set_offset(0, WALLHEIGHT);
-				spriteobject->assemble_world_offset(x, y, z, 0, b);
-				spriteobject->set_offset(0, 0);
-			}
-			spriteobject->set_plate_layout(TILEPLATE);
-		} else {
-			return;
-		}
-	}
+    //Draw Ramp Tops
+    if(tileType == tiletype::RampTop){
+        Tile * b = this->ownerSegment->getTile(this->x, this->y, this->z - 1);
+        if ( b && b->building.type != BUILDINGTYPE_BLACKBOX && b->tileShapeBasic() == tiletype_shape_basic::Ramp ) {
+            spriteobject = GetTileSpriteMap(b->tileType, b->material, b->consForm);
+            if (spriteobject->get_sheetindex() == UNCONFIGURED_INDEX) {
+                spriteobject->set_sheetindex(0);
+                spriteobject->set_fileindex(INVALID_INDEX);
+                spriteobject->set_defaultsheet(IMGRampSheet);
+            }
+            if (spriteobject->get_sheetindex() != INVALID_INDEX) {
+                spriteobject->set_size(SPRITEWIDTH, TILETOPHEIGHT);
+                spriteobject->set_plate_layout(RAMPTOPPLATE);
+                spriteobject->set_offset(0, WALLHEIGHT);
+                spriteobject->assemble_world_offset(x, y, z, 0, b);
+                spriteobject->set_offset(0, 0);
+            }
+            spriteobject->set_plate_layout(TILEPLATE);
+        } else {
+            return;
+        }
+    }
 
     //Draw Floor
     if( tileShapeBasic()==tiletype_shape_basic::Floor ||
@@ -405,9 +405,9 @@ void Tile::AssembleTile( void )
     }
 
     //first part of snow
-    if(tileShapeBasic()!=tiletype_shape_basic::Ramp 
-        && tileShapeBasic()!=tiletype_shape_basic::Wall 
-        && tileShapeBasic()!=tiletype_shape_basic::Stair 
+    if(tileShapeBasic()!=tiletype_shape_basic::Ramp
+        && tileShapeBasic()!=tiletype_shape_basic::Wall
+        && tileShapeBasic()!=tiletype_shape_basic::Stair
         && defaultSnow
         && snowlevel>bloodlevel) {
         if(snowlevel > 75) {
@@ -423,10 +423,10 @@ void Tile::AssembleTile( void )
 
     ////vegetation
     //if(tree.index > 0 || tree.type > 0){
-    //	c_sprite * vegetationsprite = 0;
-    //	vegetationsprite = GetSpriteVegetation( (TileClass) getVegetationType( this->floorType ), tree.index );
-    //	if(vegetationsprite)
-    //		vegetationsprite->assemble_world(x, y, z);
+    //    c_sprite * vegetationsprite = 0;
+    //    vegetationsprite = GetSpriteVegetation( (TileClass) getVegetationType( this->floorType ), tree.index );
+    //    if(vegetationsprite)
+    //        vegetationsprite->assemble_world(x, y, z);
     //}
 
     //items
@@ -570,8 +570,8 @@ void Tile::AssembleTile( void )
     }
 
     //second part of snow
-    if(tileShapeBasic()!=tiletype_shape_basic::Wall 
-        && tileShapeBasic()!=tiletype_shape_basic::Stair 
+    if(tileShapeBasic()!=tiletype_shape_basic::Wall
+        && tileShapeBasic()!=tiletype_shape_basic::Stair
         && defaultSnow
         && snowlevel>bloodlevel) {
         if(snowlevel > 75) {
@@ -636,7 +636,7 @@ void Tile::AssembleTile( void )
             break;
         case df::flow_type::SeaFoam:
             tint.a*=tileeffect.density/100.0f;
-            AssembleSprite(sprite_oceanwave, tint, 0, 0, al_get_bitmap_width(sprite_oceanwave), al_get_bitmap_height(sprite_oceanwave), 
+            AssembleSprite(sprite_oceanwave, tint, 0, 0, al_get_bitmap_width(sprite_oceanwave), al_get_bitmap_height(sprite_oceanwave),
                 drawx, drawy - (WALLHEIGHT)*ssConfig.scale, SPRITEWIDTH*ssConfig.scale, SPRITEHEIGHT*ssConfig.scale, 0);
             break;
         case df::flow_type::OceanWave:
@@ -645,8 +645,8 @@ void Tile::AssembleTile( void )
 
         }
     }
-	
-	// Creature Names / Info
+
+    // Creature Names / Info
     if(occ.bits.unit && creature && (ssConfig.show_hidden_tiles || !designation.bits.hidden)) {
         AssembleCreatureText(drawx, drawy, creature, ownerSegment);
     }
@@ -703,35 +703,35 @@ bool wallShouldNotHaveBorders( int in )
 
 bool containsDesignations( df::tile_designation des, df::tile_occupancy occ )
 {
-	if (!df::global::gamemode || *df::global::gamemode == game_mode::ADVENTURE)
-		return false;
-	if(des.bits.dig != df::tile_dig_designation::No) {
-		return true;
-	} else if(des.bits.smooth != 0) {
-		return true;
-	} else if(occ.bits.carve_track_east 
-		|| occ.bits.carve_track_north 
-		|| occ.bits.carve_track_south 
-		|| occ.bits.carve_track_west) {
-			return true;
-	}
-	return false;
+    if (!df::global::gamemode || *df::global::gamemode == game_mode::ADVENTURE)
+        return false;
+    if(des.bits.dig != df::tile_dig_designation::No) {
+        return true;
+    } else if(des.bits.smooth != 0) {
+        return true;
+    } else if(occ.bits.carve_track_east
+        || occ.bits.carve_track_north
+        || occ.bits.carve_track_south
+        || occ.bits.carve_track_west) {
+            return true;
+    }
+    return false;
 }
 
 void createEffectSprites()
 {
-    sprite_miasma		= CreateSpriteFromSheet( 180, IMGObjectSheet);
-    sprite_water		= CreateSpriteFromSheet( 181, IMGObjectSheet);
-    sprite_water2		= CreateSpriteFromSheet( 182, IMGObjectSheet);
-    sprite_blood		= CreateSpriteFromSheet( 183, IMGObjectSheet);
-    sprite_dust			= CreateSpriteFromSheet( 182, IMGObjectSheet);
-    sprite_magma		= CreateSpriteFromSheet( 185, IMGObjectSheet);
-    sprite_smoke		= CreateSpriteFromSheet( 186, IMGObjectSheet);
-    sprite_dragonfire	= load_bitmap_withWarning("stonesense/Effect_flames.png");
-    sprite_fire			= CreateSpriteFromSheet( 188, IMGObjectSheet);
-    sprite_webing		= load_bitmap_withWarning("stonesense/Effect_web.png");
-    sprite_boiling		= CreateSpriteFromSheet( 190, IMGObjectSheet);
-    sprite_oceanwave	= CreateSpriteFromSheet( 191, IMGObjectSheet);
+    sprite_miasma        = CreateSpriteFromSheet( 180, IMGObjectSheet);
+    sprite_water        = CreateSpriteFromSheet( 181, IMGObjectSheet);
+    sprite_water2        = CreateSpriteFromSheet( 182, IMGObjectSheet);
+    sprite_blood        = CreateSpriteFromSheet( 183, IMGObjectSheet);
+    sprite_dust            = CreateSpriteFromSheet( 182, IMGObjectSheet);
+    sprite_magma        = CreateSpriteFromSheet( 185, IMGObjectSheet);
+    sprite_smoke        = CreateSpriteFromSheet( 186, IMGObjectSheet);
+    sprite_dragonfire    = load_bitmap_withWarning("stonesense/Effect_flames.png");
+    sprite_fire            = CreateSpriteFromSheet( 188, IMGObjectSheet);
+    sprite_webing        = load_bitmap_withWarning("stonesense/Effect_web.png");
+    sprite_boiling        = CreateSpriteFromSheet( 190, IMGObjectSheet);
+    sprite_oceanwave    = CreateSpriteFromSheet( 191, IMGObjectSheet);
 }
 
 void destroyEffectSprites()
@@ -803,7 +803,7 @@ void Tile::AssembleFloorBlood ( int32_t drawx, int32_t drawy )
         int sheetOffsetX = TILEWIDTH * (sprite.sheetIndex % SHEET_OBJECTSWIDE),
             sheetOffsetY = 0;
 
-        AssembleSprite( 
+        AssembleSprite(
             IMGBloodSheet,
             premultiply(bloodcolor),
             sheetOffsetX,

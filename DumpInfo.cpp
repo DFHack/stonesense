@@ -57,15 +57,15 @@ void dumpSegment()
     int index = 1;
     //search for the first screenshot# that does not exist already
     while(true){
-    	sprintf(filename, "screenshot%i.png", index);
+        sprintf(filename, "screenshot%i.png", index);
 
-    	fp = fopen(filename, "r");
-    	if( fp != 0)
-    		fclose(fp);
-    	else
-    		//file does not exist, so exit loop
-    		break;
-    	index++;
+        fp = fopen(filename, "r");
+        if( fp != 0)
+            fclose(fp);
+        else
+            //file does not exist, so exit loop
+            break;
+        index++;
     };
     int tempFlags = al_get_new_bitmap_flags();
     al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP);
@@ -73,9 +73,9 @@ void dumpSegment()
     ALLEGRO_BITMAP * volume = al_create_bitmap(segment->sizex, (segment->sizez * segment->sizey));
     if(!volume)
     {
-    	DFConsole->printerr("Failed to create volumetric image.");
-    	al_set_new_bitmap_flags(tempFlags);
-    	return;
+        DFConsole->printerr("Failed to create volumetric image.");
+        al_set_new_bitmap_flags(tempFlags);
+        return;
     }
 
     ALLEGRO_BITMAP * backup = al_get_target_bitmap();
@@ -106,48 +106,48 @@ void dumpSegment()
 }
 
 //void DumpMaterialNamesToDisk(vector<t_matgloss> material, const char* filename){
-//	FILE* fp = fopen(filename, "w");
-//	if(!fp) return;
-//	for(uint32_t j=0; j < material.size(); j++){
-//		fprintf(fp, "%i:%s\n",j, material[j].id.c_str());
-//	}
-//	fclose(fp);
+//    FILE* fp = fopen(filename, "w");
+//    if(!fp) return;
+//    for(uint32_t j=0; j < material.size(); j++){
+//        fprintf(fp, "%i:%s\n",j, material[j].id.c_str());
+//    }
+//    fclose(fp);
 //}
 //
 //void DumpPrefessionNamesToDisk(vector<string> material, const char* filename){
-//	FILE* fp = fopen(filename, "w");
-//	if(!fp) return;
-//	for(uint32_t j=0; j < material.size(); j++){
-//		fprintf(fp, "%i:%s\n",j, material[j].c_str());
-//	}
-//	fclose(fp);
+//    FILE* fp = fopen(filename, "w");
+//    if(!fp) return;
+//    for(uint32_t j=0; j < material.size(); j++){
+//        fprintf(fp, "%i:%s\n",j, material[j].c_str());
+//    }
+//    fclose(fp);
 //}
 //
 //void DumpInorganicNamesToDisk(vector<t_matglossInorganic> material, const char* filename){
-//	FILE* fp = fopen(filename, "w");
-//	if(!fp) return;
-//	for(uint32_t j=0; j < material.size(); j++){
-//		fprintf(fp, "%i:%s\n",j, material[j].id.c_str());
-//	}
-//	fclose(fp);
+//    FILE* fp = fopen(filename, "w");
+//    if(!fp) return;
+//    for(uint32_t j=0; j < material.size(); j++){
+//        fprintf(fp, "%i:%s\n",j, material[j].id.c_str());
+//    }
+//    fclose(fp);
 //}
 //
 //void DumpCreatureNamesToDisk(){
-//	/*FILE* fp = fopen("dump.txt", "w");
-//	if(!fp) return;
-//	for(uint32_t j=0; j < v_creatureNames.size(); j++){
-//	fprintf(fp, "%i:%s\n",j, v_creatureNames[j].id);
-//	}
-//	fclose(fp);*/
+//    /*FILE* fp = fopen("dump.txt", "w");
+//    if(!fp) return;
+//    for(uint32_t j=0; j < v_creatureNames.size(); j++){
+//    fprintf(fp, "%i:%s\n",j, v_creatureNames[j].id);
+//    }
+//    fclose(fp);*/
 //}
 //void DumpProfessionsToDisk(){
-//	FILE* fp = fopen("dump.txt", "w");
-//	if(!fp) return;
-//	string proffStr;
-//	for(int j=0; (proffStr = contentLoader->professionStrings[j]) != "" ; j++){
-//		fprintf(fp, "%i:%s\n",j, proffStr.c_str());
-//	}
-//	fclose(fp);
+//    FILE* fp = fopen("dump.txt", "w");
+//    if(!fp) return;
+//    string proffStr;
+//    for(int j=0; (proffStr = contentLoader->professionStrings[j]) != "" ; j++){
+//        fprintf(fp, "%i:%s\n",j, proffStr.c_str());
+//    }
+//    fclose(fp);
 //}
 
 void DumpItemNamesToDisk(const char* filename)

@@ -28,173 +28,173 @@
 
 uint8_t dir_to_16(DFHack::TileDirection in)
 {
-	if(in.north){
-		if(in.east){
-			if(in.south){
-				if(in.west){
-					return 15; //NESW
-				}
-				else{
-					return 11; //NES
-				}
-			}
-			else{
-				if(in.west){
-					return 14; //NEW
-				}
-				else{
-					return 7; //NE
-				}
-			}
-		}
-		else{
-			if(in.south){
-				if(in.west){
-					return 13; //NSW
-				}
-				else{
-					return 5; //NS
-				}
-			}
-			else{
-				if(in.west){
-					return 10; //NW
-				}
-				else{
-					return 1; //N
-				}
-			}
-		}
-	}
-	else{
-		if(in.east){
-			if(in.south){
-				if(in.west){
-					return 12; //ESW
-				}
-				else{
-					return 8; //ES
-				}
-			}
-			else{
-				if(in.west){
-					return 6; //EW
-				}
-				else{
-					return 2; //E
-				}
-			}
-		}
-		else{
-			if(in.south){
-				if(in.west){
-					return 9; //SW
-				}
-				else{
-					return 3; //S
-				}
-			}
-			else{
-				if(in.west){
-					return 4; //W
-				}
-				else{
-					return 0; //0
-				}
-			}
-		}
-	}
-	return 0;
+    if(in.north){
+        if(in.east){
+            if(in.south){
+                if(in.west){
+                    return 15; //NESW
+                }
+                else{
+                    return 11; //NES
+                }
+            }
+            else{
+                if(in.west){
+                    return 14; //NEW
+                }
+                else{
+                    return 7; //NE
+                }
+            }
+        }
+        else{
+            if(in.south){
+                if(in.west){
+                    return 13; //NSW
+                }
+                else{
+                    return 5; //NS
+                }
+            }
+            else{
+                if(in.west){
+                    return 10; //NW
+                }
+                else{
+                    return 1; //N
+                }
+            }
+        }
+    }
+    else{
+        if(in.east){
+            if(in.south){
+                if(in.west){
+                    return 12; //ESW
+                }
+                else{
+                    return 8; //ES
+                }
+            }
+            else{
+                if(in.west){
+                    return 6; //EW
+                }
+                else{
+                    return 2; //E
+                }
+            }
+        }
+        else{
+            if(in.south){
+                if(in.west){
+                    return 9; //SW
+                }
+                else{
+                    return 3; //S
+                }
+            }
+            else{
+                if(in.west){
+                    return 4; //W
+                }
+                else{
+                    return 0; //0
+                }
+            }
+        }
+    }
+    return 0;
 }
 
 uint8_t dir_to_4(DFHack::TileDirection in)
 {
-	uint8_t intermediate = dir_to_16(in);
-	switch(intermediate)
-	{
-	case 0:
-	case 2:
-	case 5:
-	case 8:
-	case 12:
-	case 15:
-		return 0;
-	case 3:
-	case 6:
-	case 9:
-	case 13:
-		return 1;
-	case 4:
-	case 10:
-	case 14:
-		return 2;
-	case 1:
-	case 7:
-	case 11:
-		return 3; 
-	}
-	return 0;
+    uint8_t intermediate = dir_to_16(in);
+    switch(intermediate)
+    {
+    case 0:
+    case 2:
+    case 5:
+    case 8:
+    case 12:
+    case 15:
+        return 0;
+    case 3:
+    case 6:
+    case 9:
+    case 13:
+        return 1;
+    case 4:
+    case 10:
+    case 14:
+        return 2;
+    case 1:
+    case 7:
+    case 11:
+        return 3;
+    }
+    return 0;
 }
 
 DFHack::TileDirection correct_dir_rotation(DFHack::TileDirection in, uint8_t rotation)
 {
-	uint8_t north,south,east,west;
-	north = in.north;
-	south = in.south;
-	east = in.east;
-	west = in.west;
-	switch(rotation){
-	case 0:
-		return in;
-	case 1:
-		in.north = west;
-		in.east = north;
-		in.south = east;
-		in.west = south;
-		break;
-	case 2:
-		in.north = south;
-		in.east = west;
-		in.south = north;
-		in.west = east;
-		break;
-	case 3:
-		in.north = east;
-		in.east = south;
-		in.south = west;
-		in.west = north;
-		break;
-	}
-	return in;
+    uint8_t north,south,east,west;
+    north = in.north;
+    south = in.south;
+    east = in.east;
+    west = in.west;
+    switch(rotation){
+    case 0:
+        return in;
+    case 1:
+        in.north = west;
+        in.east = north;
+        in.south = east;
+        in.west = south;
+        break;
+    case 2:
+        in.north = south;
+        in.east = west;
+        in.south = north;
+        in.west = east;
+        break;
+    case 3:
+        in.north = east;
+        in.east = south;
+        in.south = west;
+        in.west = north;
+        break;
+    }
+    return in;
 }
 
 unsigned char get_water_direction( Tile *b )
 {
     //Fixme: add the new river ramps, possibly change to a switch statement
-	using namespace df::enums::tile_liquid_flow_dir;
-	switch(b->flow_direction)
-	{
-	case none:
-		return 0;
-	case northwest:
-		return 1;
-	case north:
-		return 2;
-	case northeast:
-		return 3;
-	case east:
-		return 4;
-	case southeast:
-		return 5;
-	case south:
-		return 6;
-	case southwest:
-		return 7;
-	case west:
-		return 8;
-	default:
-		return 0;
-	}
+    using namespace df::enums::tile_liquid_flow_dir;
+    switch(b->flow_direction)
+    {
+    case none:
+        return 0;
+    case northwest:
+        return 1;
+    case north:
+        return 2;
+    case northeast:
+        return 3;
+    case east:
+        return 4;
+    case southeast:
+        return 5;
+    case south:
+        return 6;
+    case southwest:
+        return 7;
+    case west:
+        return 8;
+    default:
+        return 0;
+    }
     return 0;
 }
 
@@ -323,7 +323,7 @@ void c_sprite::reset(void)
     offset_y = 0;
     offset_user_x = 0;
     offset_user_y = 0;
-	offsettype = NONE;
+    offsettype = NONE;
     offsetcode = 0;
     animframes = ALL_FRAMES;
     shadecolor = al_map_rgb(255,255,255);
@@ -372,7 +372,7 @@ void c_sprite::reset(void)
     itemtype= -1;
     itemsubtype=-1;
     light=LIGHTANY;
-	pattern_index=0;
+    pattern_index=0;
     {
         for(int i = 0; i < subsprites.size(); i++) {
             subsprites[i].reset();
@@ -388,22 +388,22 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite, int32_t inFile, int creature
 {
     fileindex = inFile;
     set_by_xml(elemSprite);
-	
-	//do bodyparts
-	const char* bodyPartStr = elemSprite->Attribute("bodypart");
-	//copy new, if found
-	if (bodyPartStr != NULL && bodyPartStr[0] != 0) {
-		t_creaturecaste & caste = contentLoader->Mats->raceEx[creatureID].castes[(casteID==INVALID_INDEX) ? 0 : casteID];
-		std::vector<t_colormodifier> & colormods = caste.ColorModifier;
-		for(int32_t j = 0; j<colormods.size() ; j++) {
-			if(colormods[j].part == bodyPartStr) {
-				caste_bodypart_index = j;
-				return;
-			}
-		}
-		LogError("Failed loading bodypart '%s' of creature '%s' with caste '%s' from xml.", 
-			bodyPartStr, contentLoader->Mats->raceEx[creatureID].id.c_str(), caste.id.c_str());
-	}
+
+    //do bodyparts
+    const char* bodyPartStr = elemSprite->Attribute("bodypart");
+    //copy new, if found
+    if (bodyPartStr != NULL && bodyPartStr[0] != 0) {
+        t_creaturecaste & caste = contentLoader->Mats->raceEx[creatureID].castes[(casteID==INVALID_INDEX) ? 0 : casteID];
+        std::vector<t_colormodifier> & colormods = caste.ColorModifier;
+        for(int32_t j = 0; j<colormods.size() ; j++) {
+            if(colormods[j].part == bodyPartStr) {
+                caste_bodypart_index = j;
+                return;
+            }
+        }
+        LogError("Failed loading bodypart '%s' of creature '%s' with caste '%s' from xml.",
+            bodyPartStr, contentLoader->Mats->raceEx[creatureID].id.c_str(), caste.id.c_str());
+    }
 
     subsprites.clear();
     //add subsprites, if any.
@@ -511,31 +511,31 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
     //check for randomised plates
     const char* spriteVariationsStr = elemSprite->Attribute("variations");
     if (spriteVariationsStr != NULL && spriteVariationsStr[0] != 0) {
-		offsettype = VARIATIONS;
+        offsettype = VARIATIONS;
         offsetcode=atoi(spriteVariationsStr);
-    } 
-	
+    }
+
     //check for rotationally-dependant plates
     const char* spriteRotationStr = elemSprite->Attribute("rotation");
     if (spriteRotationStr != NULL && spriteRotationStr[0] != 0) {
-		offsettype = ROTATION;
+        offsettype = ROTATION;
         offsetcode=atoi(spriteRotationStr);
-    } 
+    }
 
-	//check for plate patterns
+    //check for plate patterns
     const char* spriteVariationTypeStr = elemSprite->Attribute("variationtype");
     if (spriteVariationTypeStr != NULL && spriteVariationTypeStr[0] != 0) {
-		if(strcmp(spriteVariationTypeStr, "four") == 0)
-			offsettype = FOUR;
-		else if(strcmp(spriteVariationTypeStr, "sixteen") == 0)
-			offsettype = SIXTEEN;
-		else if(strcmp(spriteVariationTypeStr, "random") == 0)
-			offsettype = VARIATIONS;
-		else if(strcmp(spriteVariationTypeStr, "animation") == 0)
-			offsettype = ANIMATION;
-		else if(strcmp(spriteVariationTypeStr, "rotation") == 0)
-			offsettype = ROTATION;
-    } 
+        if(strcmp(spriteVariationTypeStr, "four") == 0)
+            offsettype = FOUR;
+        else if(strcmp(spriteVariationTypeStr, "sixteen") == 0)
+            offsettype = SIXTEEN;
+        else if(strcmp(spriteVariationTypeStr, "random") == 0)
+            offsettype = VARIATIONS;
+        else if(strcmp(spriteVariationTypeStr, "animation") == 0)
+            offsettype = ANIMATION;
+        else if(strcmp(spriteVariationTypeStr, "rotation") == 0)
+            offsettype = ROTATION;
+    }
 
     const char* waterDirStr = elemSprite->Attribute("water_direction");
     if (waterDirStr == NULL || waterDirStr[0] == 0) {
@@ -655,16 +655,16 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
         hairmax=atoi(HAIR_MAX_string);
     }
 
-	//picking different patterns isn't really useful, but finding the colors within them is.
-	const char* spritePatternIndexStr = elemSprite->Attribute("pattern_index");
-	if (spritePatternIndexStr == NULL || spritePatternIndexStr[0] == 0) {
-		//if it's a building sprite, the default pattern index needs to be -1. otherwise 0 is fine.
-		if(shadeBy == ShadeBuilding)
-			pattern_index = -1;
-		else pattern_index = 0;
-	} else {
-		pattern_index=atoi(spritePatternIndexStr);
-	}
+    //picking different patterns isn't really useful, but finding the colors within them is.
+    const char* spritePatternIndexStr = elemSprite->Attribute("pattern_index");
+    if (spritePatternIndexStr == NULL || spritePatternIndexStr[0] == 0) {
+        //if it's a building sprite, the default pattern index needs to be -1. otherwise 0 is fine.
+        if(shadeBy == ShadeBuilding)
+            pattern_index = -1;
+        else pattern_index = 0;
+    } else {
+        pattern_index=atoi(spritePatternIndexStr);
+    }
 
     uint8_t red, green, blue, alpha;
     //do custom colors
@@ -694,7 +694,7 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
     }
     shadecolor = al_map_rgba(red, green, blue, alpha);
 
-    //do references to predefined named colors 
+    //do references to predefined named colors
     const char* namedColorStr = elemSprite->Attribute("color_name");
     if (namedColorStr == NULL || namedColorStr[0] == 0) {
         namedcolor=al_map_rgb(255, 255, 255);
@@ -759,48 +759,48 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
     } else {
         df::world_raws::T_itemdefs &defs = df::global::world->raws.itemdefs;
         switch(itemtype) {
-		case item_type::WEAPON:
-			itemsubtype = lookupIndexedPonterType(equipsindexstr, defs.weapons);
-			break;
-		case item_type::TRAPCOMP:
-			itemsubtype = lookupIndexedPonterType(equipsindexstr, defs.trapcomps);
-			break;
-		case item_type::TOY:
-			itemsubtype = lookupIndexedPonterType(equipsindexstr, defs.toys);
-			break;
-		case item_type::TOOL:
-			itemsubtype = lookupIndexedPonterType(equipsindexstr, defs.tools);
-			break;
-		case item_type::INSTRUMENT:
-			itemsubtype = lookupIndexedPonterType(equipsindexstr, defs.instruments);
-			break;
-		case item_type::ARMOR:
-			itemsubtype = lookupIndexedPonterType(equipsindexstr, defs.armor);
-			break;
-		case item_type::AMMO:
-			itemsubtype = lookupIndexedPonterType(equipsindexstr, defs.ammo);
-			break;
-		case item_type::SIEGEAMMO:
-			itemsubtype = lookupIndexedPonterType(equipsindexstr, defs.siege_ammo);
-			break;
-		case item_type::GLOVES:
-			itemsubtype = lookupIndexedPonterType(equipsindexstr, defs.gloves);
-			break;
-		case item_type::SHOES:
-			itemsubtype = lookupIndexedPonterType(equipsindexstr, defs.shoes);
-			break;
-		case item_type::SHIELD:
-			itemsubtype = lookupIndexedPonterType(equipsindexstr, defs.shields);
-			break;
-		case item_type::HELM:
-			itemsubtype = lookupIndexedPonterType(equipsindexstr, defs.helms);
-			break;
-		case item_type::PANTS:
-			itemsubtype = lookupIndexedPonterType(equipsindexstr, defs.pants);
-			break;
-		case item_type::FOOD:
-			itemsubtype = lookupIndexedPonterType(equipsindexstr, defs.food);
-			break;
+        case item_type::WEAPON:
+            itemsubtype = lookupIndexedPonterType(equipsindexstr, defs.weapons);
+            break;
+        case item_type::TRAPCOMP:
+            itemsubtype = lookupIndexedPonterType(equipsindexstr, defs.trapcomps);
+            break;
+        case item_type::TOY:
+            itemsubtype = lookupIndexedPonterType(equipsindexstr, defs.toys);
+            break;
+        case item_type::TOOL:
+            itemsubtype = lookupIndexedPonterType(equipsindexstr, defs.tools);
+            break;
+        case item_type::INSTRUMENT:
+            itemsubtype = lookupIndexedPonterType(equipsindexstr, defs.instruments);
+            break;
+        case item_type::ARMOR:
+            itemsubtype = lookupIndexedPonterType(equipsindexstr, defs.armor);
+            break;
+        case item_type::AMMO:
+            itemsubtype = lookupIndexedPonterType(equipsindexstr, defs.ammo);
+            break;
+        case item_type::SIEGEAMMO:
+            itemsubtype = lookupIndexedPonterType(equipsindexstr, defs.siege_ammo);
+            break;
+        case item_type::GLOVES:
+            itemsubtype = lookupIndexedPonterType(equipsindexstr, defs.gloves);
+            break;
+        case item_type::SHOES:
+            itemsubtype = lookupIndexedPonterType(equipsindexstr, defs.shoes);
+            break;
+        case item_type::SHIELD:
+            itemsubtype = lookupIndexedPonterType(equipsindexstr, defs.shields);
+            break;
+        case item_type::HELM:
+            itemsubtype = lookupIndexedPonterType(equipsindexstr, defs.helms);
+            break;
+        case item_type::PANTS:
+            itemsubtype = lookupIndexedPonterType(equipsindexstr, defs.pants);
+            break;
+        case item_type::FOOD:
+            itemsubtype = lookupIndexedPonterType(equipsindexstr, defs.food);
+            break;
         default:
             itemsubtype = 0;
         }
@@ -905,25 +905,25 @@ void c_sprite::assemble_world_offset(int x, int y, int z, int plateoffset, Tile 
 
     if ((animframes & (1 << offsetAnimFrame)) || !animate) {
         int spriteoffset;
-		switch(offsettype){
-		case ROTATION:
-		    spriteoffset = (b->ownerSegment->segState.Rotation + offsetcode) % 4;
+        switch(offsettype){
+        case ROTATION:
+            spriteoffset = (b->ownerSegment->segState.Rotation + offsetcode) % 4;
             break;
-		case VARIATIONS:
+        case VARIATIONS:
             spriteoffset = rando%offsetcode;
-			break;
-		case ANIMATION:
-			spriteoffset = ((randomanimation?rando:0) + currentAnimationFrame) % offsetcode;
-			break;
-		case SIXTEEN:
-			spriteoffset = dir_to_16(correct_dir_rotation(tileDirection(b->tileType), (offsetcode + ssState.Rotation) %4));
-			break;
-		case FOUR:
-			spriteoffset = dir_to_4(correct_dir_rotation(tileDirection(b->tileType), (offsetcode + ssState.Rotation) %4));
-			break;
-		default:
-		    spriteoffset = 0;
-		}
+            break;
+        case ANIMATION:
+            spriteoffset = ((randomanimation?rando:0) + currentAnimationFrame) % offsetcode;
+            break;
+        case SIXTEEN:
+            spriteoffset = dir_to_16(correct_dir_rotation(tileDirection(b->tileType), (offsetcode + ssState.Rotation) %4));
+            break;
+        case FOUR:
+            spriteoffset = dir_to_4(correct_dir_rotation(tileDirection(b->tileType), (offsetcode + ssState.Rotation) %4));
+            break;
+        default:
+            spriteoffset = 0;
+        }
 
         if(!b) {
             return;
@@ -958,7 +958,7 @@ void c_sprite::assemble_world_offset(int x, int y, int z, int plateoffset, Tile 
             goto draw_subsprite;
         }
         int foo = 0;
-        if(!(snowmin <= b->snowlevel &&	(snowmax == -1 || snowmax >= b->snowlevel))) {
+        if(!(snowmin <= b->snowlevel &&    (snowmax == -1 || snowmax >= b->snowlevel))) {
             goto draw_subsprite;
         }
         if (!(bloodmin <= b->bloodlevel && (bloodmax == -1 || bloodmax >= b->bloodlevel))) {
@@ -992,44 +992,44 @@ void c_sprite::assemble_world_offset(int x, int y, int z, int plateoffset, Tile 
             if(!b->creature) {
                 goto draw_subsprite;
             }
-			if(itemsubtype >= 0) {
-			
-				if(!b->creature->inv) {
-					goto draw_subsprite;
-				}
-				if(b->creature->inv->item.empty()) {
-					goto draw_subsprite;
-				}
-				if(b->creature->inv->item.size() <= itemtype) {
-					goto draw_subsprite;
-				}
-				if(b->creature->inv->item[itemtype].empty()) {
-					goto draw_subsprite;
-				}
-				if(itemsubtype >= b->creature->inv->item[itemtype].size()) {
-					goto draw_subsprite;
-				}
-				if(pattern_index >= b->creature->inv->item[itemtype][itemsubtype].size()) {
-					goto draw_subsprite;
-				}
-				if(b->creature->inv->item[itemtype][itemsubtype][pattern_index].matt.type == INVALID_INDEX) {
-					goto draw_subsprite;
-				}
-				if(itemmat != INVALID_INDEX) {
-					if(b->creature->inv->item[itemtype][itemsubtype][pattern_index].matt.type != itemmat) {
-						goto draw_subsprite;
-					}
-				}
-				
-			} else {
+            if(itemsubtype >= 0) {
 
-			if(b->creature->inv
-				&& ! (b->creature->inv->item.empty())
-				&& ! (b->creature->inv->item.size() <= itemtype) 
-				&& ! (b->creature->inv->item[itemtype].empty())) {
-					goto draw_subsprite;
-				}
-			}
+                if(!b->creature->inv) {
+                    goto draw_subsprite;
+                }
+                if(b->creature->inv->item.empty()) {
+                    goto draw_subsprite;
+                }
+                if(b->creature->inv->item.size() <= itemtype) {
+                    goto draw_subsprite;
+                }
+                if(b->creature->inv->item[itemtype].empty()) {
+                    goto draw_subsprite;
+                }
+                if(itemsubtype >= b->creature->inv->item[itemtype].size()) {
+                    goto draw_subsprite;
+                }
+                if(pattern_index >= b->creature->inv->item[itemtype][itemsubtype].size()) {
+                    goto draw_subsprite;
+                }
+                if(b->creature->inv->item[itemtype][itemsubtype][pattern_index].matt.type == INVALID_INDEX) {
+                    goto draw_subsprite;
+                }
+                if(itemmat != INVALID_INDEX) {
+                    if(b->creature->inv->item[itemtype][itemsubtype][pattern_index].matt.type != itemmat) {
+                        goto draw_subsprite;
+                    }
+                }
+
+            } else {
+
+            if(b->creature->inv
+                && ! (b->creature->inv->item.empty())
+                && ! (b->creature->inv->item.size() <= itemtype)
+                && ! (b->creature->inv->item[itemtype].empty())) {
+                    goto draw_subsprite;
+                }
+            }
         }
 
         if(hairtype != hairtypes_invalid) {
@@ -1113,11 +1113,11 @@ void c_sprite::assemble_world_offset(int x, int y, int z, int plateoffset, Tile 
                     al_map_rgb(255,255,255),
                     TILEWIDTH * SPRITEFLOOR_CUTOFF,
                     0,
-                    SPRITEWIDTH, 
                     SPRITEWIDTH,
-                    drawx+offset_x, 
+                    SPRITEWIDTH,
+                    drawx+offset_x,
                     (drawy+offset_y-(((SPRITEHEIGHT-WALL_CUTOFF_HEIGHT)/2)*ssConfig.scale)),
-                    SPRITEWIDTH*ssConfig.scale, SPRITEWIDTH*ssConfig.scale, 
+                    SPRITEWIDTH*ssConfig.scale, SPRITEWIDTH*ssConfig.scale,
                     0);
             }
         } else if ((chop && (halftile == HALFPLATEYES)) || (!chop && (halftile == HALFPLATENO)) || (!chop && (halftile == HALFPLATECHOP)) || (halftile == HALFPLATEBOTH)) {
@@ -1258,59 +1258,59 @@ ALLEGRO_COLOR c_sprite::get_color(void* tile)
         return namedcolor;
     case ShadeGrass:
         return lookupMaterialColor(WOOD, b->grassmat);
-	case ShadeBuilding:
-		if(b->building.constructed_mats.size() == 0)
-			return (b->building.info ? lookupMaterialColor(b->building.info->material) : al_map_rgb(255, 255, 255));
-		if(pattern_index == -1)
-			return(lookupMaterialColor(b->building.constructed_mats[b->building.constructed_mats.size()-1].matt, b->building.constructed_mats[b->building.constructed_mats.size()-1].dyematt));
-		return(lookupMaterialColor(b->building.constructed_mats[pattern_index%b->building.constructed_mats.size()].matt, b->building.constructed_mats[pattern_index%b->building.constructed_mats.size()].dyematt));
-	case ShadeLayer:
+    case ShadeBuilding:
+        if(b->building.constructed_mats.size() == 0)
+            return (b->building.info ? lookupMaterialColor(b->building.info->material) : al_map_rgb(255, 255, 255));
+        if(pattern_index == -1)
+            return(lookupMaterialColor(b->building.constructed_mats[b->building.constructed_mats.size()-1].matt, b->building.constructed_mats[b->building.constructed_mats.size()-1].dyematt));
+        return(lookupMaterialColor(b->building.constructed_mats[pattern_index%b->building.constructed_mats.size()].matt, b->building.constructed_mats[pattern_index%b->building.constructed_mats.size()].dyematt));
+    case ShadeLayer:
         return lookupMaterialColor(b->layerMaterial);
     case ShadeVein:
         return lookupMaterialColor(b->veinMaterial);
     case ShadeMatFore:
-		return ssConfig.colors.getDfColor(lookupMaterialFore(b->material.type, b->material.index), lookupMaterialBright(b->material.type, b->material.index), ssConfig.useDfColors);
+        return ssConfig.colors.getDfColor(lookupMaterialFore(b->material.type, b->material.index), lookupMaterialBright(b->material.type, b->material.index), ssConfig.useDfColors);
     case ShadeMatBack:
-		return ssConfig.colors.getDfColor(lookupMaterialBack(b->material.type, b->material.index), ssConfig.useDfColors);
+        return ssConfig.colors.getDfColor(lookupMaterialBack(b->material.type, b->material.index), ssConfig.useDfColors);
     case ShadeLayerFore:
-		return ssConfig.colors.getDfColor(lookupMaterialFore(b->layerMaterial.type, b->layerMaterial.index), lookupMaterialBright(b->layerMaterial.type, b->layerMaterial.index), ssConfig.useDfColors);
+        return ssConfig.colors.getDfColor(lookupMaterialFore(b->layerMaterial.type, b->layerMaterial.index), lookupMaterialBright(b->layerMaterial.type, b->layerMaterial.index), ssConfig.useDfColors);
     case ShadeLayerBack:
-		return ssConfig.colors.getDfColor(lookupMaterialBack(b->layerMaterial.type, b->layerMaterial.index), ssConfig.useDfColors);
+        return ssConfig.colors.getDfColor(lookupMaterialBack(b->layerMaterial.type, b->layerMaterial.index), ssConfig.useDfColors);
     case ShadeVeinFore:
-		return ssConfig.colors.getDfColor(lookupMaterialFore(b->veinMaterial.type, b->veinMaterial.index), lookupMaterialBright(b->veinMaterial.type, b->veinMaterial.index), ssConfig.useDfColors);
+        return ssConfig.colors.getDfColor(lookupMaterialFore(b->veinMaterial.type, b->veinMaterial.index), lookupMaterialBright(b->veinMaterial.type, b->veinMaterial.index), ssConfig.useDfColors);
     case ShadeVeinBack:
-		return ssConfig.colors.getDfColor(lookupMaterialBack(b->veinMaterial.type, b->veinMaterial.index), ssConfig.useDfColors);
+        return ssConfig.colors.getDfColor(lookupMaterialBack(b->veinMaterial.type, b->veinMaterial.index), ssConfig.useDfColors);
     case ShadeBodyPart:
         if(b->occ.bits.unit && b->creature) {
-			dayofLife = b->creature->birth_year*12*28 + b->creature->birth_time/1200;
-			if((!ssConfig.skipCreatureTypes) && (!ssConfig.skipCreatureTypesEx) && (!ssConfig.skipDescriptorColors)) {
-				t_creaturecaste & caste = contentLoader->Mats->raceEx[b->creature->race].castes[b->creature->caste];
-				std::vector<t_colormodifier> & colormods =caste.ColorModifier;
-				if(caste_bodypart_index != INVALID_INDEX && caste_bodypart_index < colormods.size()){
-					t_colormodifier & colormod = colormods[caste_bodypart_index];
-					if(colormod.colorlist.size() > b->creature->color[caste_bodypart_index]) {
-						uint32_t cr_color = colormod.colorlist.at(b->creature->color[caste_bodypart_index]);
-						if(cr_color < df::global::world->raws.language.patterns.size()) {
-							uint16_t actual_color = df::global::world->raws.language.patterns[cr_color]->colors[pattern_index%df::global::world->raws.language.patterns[cr_color]->colors.size()];
-							if(actual_color < contentLoader->Mats->color.size()){
-								if(colormod.startdate > 0) {
-									if((colormod.startdate <= dayofLife) &&
-										(colormod.enddate > dayofLife)) {
-											return al_map_rgb_f(
-												contentLoader->Mats->color[actual_color].red,
-												contentLoader->Mats->color[actual_color].green,
-												contentLoader->Mats->color[actual_color].blue);;
-									}
-								} else
-									return al_map_rgb_f(
-									contentLoader->Mats->color[actual_color].red,
-									contentLoader->Mats->color[actual_color].green,
-									contentLoader->Mats->color[actual_color].blue);
-							}
-						}
-					}
-				}
-			} else {
+            dayofLife = b->creature->birth_year*12*28 + b->creature->birth_time/1200;
+            if((!ssConfig.skipCreatureTypes) && (!ssConfig.skipCreatureTypesEx) && (!ssConfig.skipDescriptorColors)) {
+                t_creaturecaste & caste = contentLoader->Mats->raceEx[b->creature->race].castes[b->creature->caste];
+                std::vector<t_colormodifier> & colormods =caste.ColorModifier;
+                if(caste_bodypart_index != INVALID_INDEX && caste_bodypart_index < colormods.size()){
+                    t_colormodifier & colormod = colormods[caste_bodypart_index];
+                    if(colormod.colorlist.size() > b->creature->color[caste_bodypart_index]) {
+                        uint32_t cr_color = colormod.colorlist.at(b->creature->color[caste_bodypart_index]);
+                        if(cr_color < df::global::world->raws.language.patterns.size()) {
+                            uint16_t actual_color = df::global::world->raws.language.patterns[cr_color]->colors[pattern_index%df::global::world->raws.language.patterns[cr_color]->colors.size()];
+                            if(actual_color < contentLoader->Mats->color.size()){
+                                if(colormod.startdate > 0) {
+                                    if((colormod.startdate <= dayofLife) &&
+                                        (colormod.enddate > dayofLife)) {
+                                            return al_map_rgb_f(
+                                                contentLoader->Mats->color[actual_color].red,
+                                                contentLoader->Mats->color[actual_color].green,
+                                                contentLoader->Mats->color[actual_color].blue);;
+                                    }
+                                } else
+                                    return al_map_rgb_f(
+                                    contentLoader->Mats->color[actual_color].red,
+                                    contentLoader->Mats->color[actual_color].green,
+                                    contentLoader->Mats->color[actual_color].blue);
+                            }
+                        }
+                    }
+                }
+            } else {
                 return al_map_rgb(255,255,255);
             }
         } else {
@@ -1319,30 +1319,30 @@ ALLEGRO_COLOR c_sprite::get_color(void* tile)
     case ShadeBlood:
         return b->bloodcolor;
     case ShadeEquip:
-		if(ssConfig.show_creature_professions != 3) {
-			if(itemsubtype >=0) {
-				//FIXME: need a way to get a material for generic types.
-				//errors here give pink.
-				if(itemtype == -1) {
-					return al_map_rgb(255, 0, 0);
-				}
-				if(b->creature->inv->item.size() <= itemtype) {
-					return al_map_rgb(0, 255, 0);
-				}
-				if(b->creature->inv->item[itemtype].size() <= itemsubtype) {
-					return al_map_rgb(255, 255, 0);
-				}
-				if(b->creature->inv->item[itemtype][itemsubtype].empty()) {
-					return al_map_rgb(0, 0, 255);
-				}
-				return lookupMaterialColor(b->creature->inv->item[itemtype][itemsubtype][pattern_index].matt, b->creature->inv->item[itemtype][itemsubtype][pattern_index].dyematt);
-			} else {
-				return al_map_rgb(255,255,255);
-			}
-		}
+        if(ssConfig.show_creature_professions != 3) {
+            if(itemsubtype >=0) {
+                //FIXME: need a way to get a material for generic types.
+                //errors here give pink.
+                if(itemtype == -1) {
+                    return al_map_rgb(255, 0, 0);
+                }
+                if(b->creature->inv->item.size() <= itemtype) {
+                    return al_map_rgb(0, 255, 0);
+                }
+                if(b->creature->inv->item[itemtype].size() <= itemsubtype) {
+                    return al_map_rgb(255, 255, 0);
+                }
+                if(b->creature->inv->item[itemtype][itemsubtype].empty()) {
+                    return al_map_rgb(0, 0, 255);
+                }
+                return lookupMaterialColor(b->creature->inv->item[itemtype][itemsubtype][pattern_index].matt, b->creature->inv->item[itemtype][itemsubtype][pattern_index].dyematt);
+            } else {
+                return al_map_rgb(255,255,255);
+            }
+        }
     case ShadeJob:
         if(b->occ.bits.unit && b->creature) {
-			return ssConfig.colors.getDfColor(Units::getProfessionColor(b->creature->origin), ssConfig.useDfColors);
+            return ssConfig.colors.getDfColor(Units::getProfessionColor(b->creature->origin), ssConfig.useDfColors);
         } else {
             return al_map_rgb(255,255,255);
         }

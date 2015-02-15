@@ -20,12 +20,12 @@ bitset<2*S_SPRITE_HEIGHT> floor_mask_left;
 bitset<2*S_SPRITE_HEIGHT> floor_mask_right;
 
 inline bool hasOpaqueSides(Tile * b){
-    return IDhasOpaqueSides(b->tileType) 
+    return IDhasOpaqueSides(b->tileType)
         || ( b->designation.bits.hidden && (ssConfig.shade_hidden_tiles && !ssConfig.show_hidden_tiles) );
 }
 
 inline bool hasOpaqueFloor(Tile * b){
-    return IDhasOpaqueFloor(b->tileType) 
+    return IDhasOpaqueFloor(b->tileType)
         || ( b->designation.bits.hidden && (ssConfig.shade_hidden_tiles && !ssConfig.show_hidden_tiles) );
 }
 

@@ -146,7 +146,7 @@ bool ContentLoader::Load()
                 TiletypeVariantToString(tiletypeNameList.tiletype_list(i).variant())
                 );
         }
-		fclose(fp);
+        fclose(fp);
     }
 
     // This is an extra suspend/resume, but it only happens when reloading the config
@@ -299,15 +299,15 @@ bool ContentLoader::Load()
     /*
     if(classIdStrings.empty())
     {
-    	for(int i = 0; ; i++)
-    	{
-    		string temp;
-    		if(!MemInfo->resolveClassIDToClassname(i, temp))
-    		{
-    			break;
-    		}
-    		classIdStrings.push_back(temp);
-    	}
+        for(int i = 0; ; i++)
+        {
+            string temp;
+            if(!MemInfo->resolveClassIDToClassname(i, temp))
+            {
+                break;
+            }
+            classIdStrings.push_back(temp);
+        }
     }
     */
 
@@ -793,15 +793,15 @@ uint8_t lookupMaterialFore(int matType,int matIndex)
     //// for appropriate elements, look up subtype
     //if (matType == Mat_Wood)
     //{
-    //	typeVector=&(contentLoader.woodNameStrings);
+    //    typeVector=&(contentLoader.woodNameStrings);
     //}
     //else if (matType == 0)
     //{
-    //	typeVector=&(contentLoader.stoneNameStrings);
+    //    typeVector=&(contentLoader.stoneNameStrings);
     //}
     //else if (matType == Mat_Metal)
     //{
-    //	typeVector=&(contentLoader.metalNameStrings);
+    //    typeVector=&(contentLoader.metalNameStrings);
     //}
     //else
     //{
@@ -823,15 +823,15 @@ uint8_t lookupMaterialBack(int matType,int matIndex)
     //// for appropriate elements, look up subtype
     //if (matType == Mat_Wood)
     //{
-    //	typeVector=&(contentLoader.woodNameStrings);
+    //    typeVector=&(contentLoader.woodNameStrings);
     //}
     //else if (matType == 0)
     //{
-    //	typeVector=&(contentLoader.stoneNameStrings);
+    //    typeVector=&(contentLoader.stoneNameStrings);
     //}
     //else if (matType == Mat_Metal)
     //{
-    //	typeVector=&(contentLoader.metalNameStrings);
+    //    typeVector=&(contentLoader.metalNameStrings);
     //}
     //else
     //{
@@ -853,15 +853,15 @@ uint8_t lookupMaterialBright(int matType,int matIndex)
     //// for appropriate elements, look up subtype
     //if (matType == Mat_Wood)
     //{
-    //	typeVector=&(contentLoader.woodNameStrings);
+    //    typeVector=&(contentLoader.woodNameStrings);
     //}
     //else if (matType == 0)
     //{
-    //	typeVector=&(contentLoader.stoneNameStrings);
+    //    typeVector=&(contentLoader.stoneNameStrings);
     //}
     //else if (matType == Mat_Metal)
     //{
-    //	typeVector=&(contentLoader.metalNameStrings);
+    //    typeVector=&(contentLoader.metalNameStrings);
     //}
     //else
     //{
@@ -1008,7 +1008,7 @@ DFColor:
                        contentLoader->Mats->color[mat.material->state_color[0]].red,
                        contentLoader->Mats->color[mat.material->state_color[0]].green,
                        contentLoader->Mats->color[mat.material->state_color[0]].blue) * dyeColor;
-    } 
+    }
     return defaultColor * dyeColor;
 }
 

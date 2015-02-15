@@ -348,14 +348,14 @@ void DrawCreatureText(int drawx, int drawy, SS_Unit* creature )
             statusIcons.push_back(17);
         }
     }
-    
+
     unsigned int offsety = 0;
 
     if(ssConfig.show_creature_jobs && creature->current_job.active) {
         df::job_type jtype = (df::job_type) creature->current_job.jobType;
 
         const char* jname = ENUM_ATTR(job_type,caption,jtype);
-        
+
         //CAN'T DO THIS UNTIL DFHack t_job IMPORTS MATERIAL TYPE???
         //df::job_skill jskill = ENUM_ATTR(job_type,skill,jtype);
         //if(jskill == job_skill::NONE){
@@ -378,7 +378,7 @@ void DrawCreatureText(int drawx, int drawy, SS_Unit* creature )
         //}
 
         //go all kinds of crazy if it is a strange mood
-        ALLEGRO_COLOR textcol = ENUM_ATTR(job_type,type,jtype) == df::job_type_class::StrangeMood 
+        ALLEGRO_COLOR textcol = ENUM_ATTR(job_type,type,jtype) == df::job_type_class::StrangeMood
             ? blinkTechnicolor() : al_map_rgb(255,255,255);
         draw_textf_border(font, textcol, drawx, drawy-((WALLHEIGHT*ssConfig.scale)+al_get_font_line_height(font) + offsety), 0,
             "%s", jname );
@@ -389,7 +389,7 @@ void DrawCreatureText(int drawx, int drawy, SS_Unit* creature )
     if( ssConfig.show_creature_names ) {
         ALLEGRO_COLOR textcol;
         if(ssConfig.show_creature_professions == 2) {
-			textcol = ssConfig.colors.getDfColor(DFHack::Units::getProfessionColor(creature->origin), ssConfig.useDfColors);
+            textcol = ssConfig.colors.getDfColor(DFHack::Units::getProfessionColor(creature->origin), ssConfig.useDfColors);
             //stupid hack to get legendary status of creatures
             if(creature->isLegend) {
                 ALLEGRO_COLOR altcol;
@@ -408,25 +408,25 @@ void DrawCreatureText(int drawx, int drawy, SS_Unit* creature )
         if (creature->name.nickname[0] && ssConfig.names_use_nick) {
             draw_textf_border(font, textcol, drawx, drawy-((WALLHEIGHT*ssConfig.scale)+al_get_font_line_height(font) + offsety), 0,
                               "%s", creature->name.nickname );
-        } 
-        else if (creature->name.first_name[0]) 
+        }
+        else if (creature->name.first_name[0])
         {
             char buffer[128];
             strncpy(buffer,creature->name.first_name,127);
-            buffer[127]=0;	
+            buffer[127]=0;
             ALLEGRO_USTR* temp = bufferToUstr(buffer, 128);
             al_ustr_set_chr(temp, 0, charToUpper(al_ustr_get(temp, 0)));
             draw_ustr_border(font, textcol, drawx, drawy-((WALLHEIGHT*ssConfig.scale)+al_get_font_line_height(font) + offsety), 0,
                 temp );
             al_ustr_free(temp);
         }
-        else if (ssConfig.names_use_species) 
+        else if (ssConfig.names_use_species)
         {
             if(!ssConfig.skipCreatureTypes)
             {
                 char buffer[128];
                 strncpy(buffer,df::global::world->raws.creatures.all[creature->race]->caste[creature->caste]->caste_name[0].c_str(),127);
-                buffer[127]=0;	
+                buffer[127]=0;
                 ALLEGRO_USTR* temp = bufferToUstr(buffer, 128);
                 int32_t lastChar = ' ';
                 for(int i = 0; al_ustr_get(temp, i) > 0; i++)
@@ -493,7 +493,7 @@ bool hasLegendarySkill(df::unit * source){
 
 /**
  * Makes a copy of a DF creature for stonesense to use.
- * 
+ *
  * If somebody feels like maintaining the DFHack version,
  * then we won't need to have our own written here >:(
  */
@@ -531,7 +531,7 @@ void copyCreature(df::unit * source, SS_Unit & furball)
 
     // mood stuff
     furball.mood = source->mood;
-    furball.mood_skill = source->job.mood_skill; 
+    furball.mood_skill = source->job.mood_skill;
     Translation::readName(furball.artifact_name, &source->status.artifact_name);
 
     // labors
@@ -593,7 +593,7 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
         return;
     }
 
-    df::unit *unit_ptr = 0; 
+    df::unit *unit_ptr = 0;
     for(uint32_t index=0; index<world->units.active.size(); index++) {
         unit_ptr = world->units.active[index];
 

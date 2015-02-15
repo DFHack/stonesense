@@ -3,7 +3,7 @@
 #include "commonTypes.h"
 #include "CreatureConfiguration.h"
 
-#define	SPRITECRE_NA 0;
+#define    SPRITECRE_NA 0;
 
 class Tile;
 

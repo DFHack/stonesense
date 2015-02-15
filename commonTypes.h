@@ -127,23 +127,23 @@ public:
         if(color < 0 || color >= 16) {
             return al_map_rgb(255,255,255);
         }
-		if (useDfColors)
-		{
-			return al_map_rgb_f(df::global::enabler->ccolor[color][0], df::global::enabler->ccolor[color][1], df::global::enabler->ccolor[color][2]);
-		}
+        if (useDfColors)
+        {
+            return al_map_rgb_f(df::global::enabler->ccolor[color][0], df::global::enabler->ccolor[color][1], df::global::enabler->ccolor[color][2]);
+        }
         return colors[ (color_name) color].al;
     }
-	ALLEGRO_COLOR getDfColor(int color, int bright, bool useDfColors) {
-		return getDfColor(color + (bright * 8), useDfColors);
+    ALLEGRO_COLOR getDfColor(int color, int bright, bool useDfColors) {
+        return getDfColor(color + (bright * 8), useDfColors);
     }
 };
 
 
 struct GameConfiguration {
-	bool overlay_mode;
+    bool overlay_mode;
     bool show_zones;
     bool show_stockpiles;
-	bool show_designations;
+    bool show_designations;
     bool show_osd;
     bool show_keybinds;
     bool single_layer_view;
@@ -176,23 +176,23 @@ struct GameConfiguration {
     bool fogenable;
 
     bool follow_DFcursor;
-	
-    uint8_t track_mode;
-	enum trackingmodes : uint8_t {
-		TRACKING_NONE,
-		TRACKING_CENTER,
-		TRACKING_WINDOW,
-		TRACKING_FOCUS, 
 
-		TRACKING_INVALID
-	};
+    uint8_t track_mode;
+    enum trackingmodes : uint8_t {
+        TRACKING_NONE,
+        TRACKING_CENTER,
+        TRACKING_WINDOW,
+        TRACKING_FOCUS,
+
+        TRACKING_INVALID
+    };
 
     int bitmapHolds;
 
     bool saveImageCache;
     bool cache_images;
     int imageCacheSize;
-	bool useDfColors;
+    bool useDfColors;
     dfColors colors;
     bool opengl;
     bool directX;
@@ -250,15 +250,15 @@ struct GameState{
     //properties of the currently viewed portion of the segment
     Crd3D Position;
     int Rotation;
-    
+
     //the size of the next segment to load, and the map region
     Crd3D Size;
     Crd3D RegionDim;
 
-	//position of the cursor
-	Crd3D dfCursor;
-	//position of the selection cursor
-	Crd3D dfSelection;
+    //position of the cursor
+    Crd3D dfCursor;
+    //position of the selection cursor
+    Crd3D dfSelection;
 
     //the width and height of the stonesense window
     int ScreenW;
@@ -270,7 +270,7 @@ struct FrameTimers{
     float beautify_time;
     float assembly_time;
     float draw_time;
-	float overlay_time;
+    float overlay_time;
 
     clock_t prev_frame_time;
     float frame_total;

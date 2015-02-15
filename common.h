@@ -53,7 +53,7 @@ using namespace df::enums;
 // TILEWIDTH: total size of sprite left to right
 // TILETOPHEIGHT: floor part of sprite top to bottom
 // WALLHEIGHT: height of a one pixel wide stripe of wall top to bottom
-//		== amount top of wall is raised from where the floor would be
+//        == amount top of wall is raised from where the floor would be
 // FLOORHEIGHT: height of a one pixel stripe of the 'wall' of a floor plate
 
 #ifdef CAVALIER
@@ -82,7 +82,7 @@ using namespace df::enums;
 #define RESOLUTION_WIDTH 800
 #define RESOLUTION_HEIGHT 600
 // Height of a one pixel stripe of the wall of an entire tile,
-//		including wall and floor plate
+//        including wall and floor plate
 #define TILEHEIGHT (WALLHEIGHT + FLOORHEIGHT)
 // Width of area copied from an image file
 // may be different to plate dimensions to allow overlap later
@@ -247,11 +247,11 @@ enum MAT_BASICS {
     BLOOD_5 = 43,
     BLOOD_6 = 44,
     BLOOD_NAMED = 242,
-	PLANT = 419,
+    PLANT = 419,
     WOOD = 420,
     PLANTCLOTH = 421,
 
-	// filthy hacks to get interface stuff
+    // filthy hacks to get interface stuff
     DESIGNATION = 422,
     CONSTRUCTION = 423,
 

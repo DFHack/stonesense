@@ -27,15 +27,15 @@ bool threadrunnng = 0;
 
 //==============================Map Read ==============================//
 /*
- * This is the first-stage map reading section.  This deals with reading 
- * from the DF map, and storing what is needed for us to draw things.  
+ * This is the first-stage map reading section.  This deals with reading
+ * from the DF map, and storing what is needed for us to draw things.
  */
 
 /**
- * Reads the spatter types and colors from the DF vector 'splatter' at local 
+ * Reads the spatter types and colors from the DF vector 'splatter' at local
  *  position 'lx','ly' into the stonesense Tile 'b'.
  */
-void readSpatterToTile(Tile * b, uint32_t lx, uint32_t ly, 
+void readSpatterToTile(Tile * b, uint32_t lx, uint32_t ly,
     const vector <df::block_square_event_material_spatterst * > & splatter)
 {
     b->mudlevel = 0;
@@ -61,7 +61,7 @@ void readSpatterToTile(Tile * b, uint32_t lx, uint32_t ly,
                 break;
             case ICE:
                 //ice and snow are white (default), water is blue
-                if(splatter[i]->mat_state != df::matter_state::Powder 
+                if(splatter[i]->mat_state != df::matter_state::Powder
                     && splatter[i]->mat_state != df::matter_state::Solid ) {
                         tempBlood = lookupMaterialColor(splatter[i]->mat_type, -1);
                 }
@@ -102,7 +102,7 @@ void readSpatterToTile(Tile * b, uint32_t lx, uint32_t ly,
             if(snow > blood) {
                 b->bloodcolor = al_map_rgb(red/total, green/total, blue/total);
             } else {
-                b->bloodcolor = al_map_rgba(red/total, green/total, blue/total, 
+                b->bloodcolor = al_map_rgba(red/total, green/total, blue/total,
                     (total > ssConfig.bloodcutoff) ? 255 : total*255/ssConfig.bloodcutoff);
             }
             b->snowlevel = snow>UCHAR_MAX ? UCHAR_MAX : snow;
@@ -116,121 +116,121 @@ void readSpatterToTile(Tile * b, uint32_t lx, uint32_t ly,
 }
 
 /**
- * Converts the tile to a type that indicates what designations are specified.  
- * Also converts the material to the "DESIGNATION" material type when appropriate.  
+ * Converts the tile to a type that indicates what designations are specified.
+ * Also converts the material to the "DESIGNATION" material type when appropriate.
  */
-bool readDesignationsToTile( Tile * b, 
-							 df::tile_designation des,	
-							 df::tile_occupancy occ)
+bool readDesignationsToTile( Tile * b,
+                             df::tile_designation des,
+                             df::tile_occupancy occ)
 {
-	if (!df::global::gamemode || *df::global::gamemode == game_mode::ADVENTURE)
-		return false; //Adventure mode doesn't use Dwarf mode designations.
-	df::tiletype_shape shape = df::tiletype_shape::WALL;
-	df::tiletype_material mat = df::tiletype_material::STONE; 
-	df::tiletype_variant var = df::tiletype_variant::NONE;
-	df::tiletype_special spc = df::tiletype_special::NONE;
-	TileDirection dir;
+    if (!df::global::gamemode || *df::global::gamemode == game_mode::ADVENTURE)
+        return false; //Adventure mode doesn't use Dwarf mode designations.
+    df::tiletype_shape shape = df::tiletype_shape::WALL;
+    df::tiletype_material mat = df::tiletype_material::STONE;
+    df::tiletype_variant var = df::tiletype_variant::NONE;
+    df::tiletype_special spc = df::tiletype_special::NONE;
+    TileDirection dir;
 
-	if(des.bits.dig != tile_dig_designation::No)
-	{
-		switch(des.bits.dig)
-		{
-		case tile_dig_designation::Default:
-			if( b->tileShapeBasic() == df::tiletype_shape_basic::Ramp ){
-				shape = df::tiletype_shape::FLOOR;
-			} else {
-				shape = df::tiletype_shape::WALL;
-			}
-			break;
-		case tile_dig_designation::UpDownStair:
-			shape = df::tiletype_shape::STAIR_UPDOWN;
-			break;
-		case tile_dig_designation::Channel:
-			shape = df::tiletype_shape::RAMP_TOP;
-			break;
-		case tile_dig_designation::Ramp:
-			shape = df::tiletype_shape::RAMP;
-			break;
-		case tile_dig_designation::DownStair:
-			shape = df::tiletype_shape::STAIR_DOWN;
-			break;
-		case tile_dig_designation::UpStair:
-			shape = df::tiletype_shape::STAIR_UP;
-			break;
-		default:
-			//do nothing
-			break;
-		}
+    if(des.bits.dig != tile_dig_designation::No)
+    {
+        switch(des.bits.dig)
+        {
+        case tile_dig_designation::Default:
+            if( b->tileShapeBasic() == df::tiletype_shape_basic::Ramp ){
+                shape = df::tiletype_shape::FLOOR;
+            } else {
+                shape = df::tiletype_shape::WALL;
+            }
+            break;
+        case tile_dig_designation::UpDownStair:
+            shape = df::tiletype_shape::STAIR_UPDOWN;
+            break;
+        case tile_dig_designation::Channel:
+            shape = df::tiletype_shape::RAMP_TOP;
+            break;
+        case tile_dig_designation::Ramp:
+            shape = df::tiletype_shape::RAMP;
+            break;
+        case tile_dig_designation::DownStair:
+            shape = df::tiletype_shape::STAIR_DOWN;
+            break;
+        case tile_dig_designation::UpStair:
+            shape = df::tiletype_shape::STAIR_UP;
+            break;
+        default:
+            //do nothing
+            break;
+        }
 
-		b->material.type = DESIGNATION;
-		b->material.index = INVALID_INDEX;
-		b->tileType = findTileType(shape, mat, var, spc, dir);
-		return true;
-	}
-	
-	//if there is no dig designation, check for smoothing designations
-	if(des.bits.smooth != 0)
-	{
-		if( b->tileShapeBasic() == df::tiletype_shape_basic::Floor ){
-			shape = df::tiletype_shape::FLOOR;
-		} else {
-			shape = df::tiletype_shape::WALL;
-		}
-		spc = df::tiletype_special::SMOOTH;
-	if(des.bits.smooth == 2) {
-		// if the tile is being engraved, then fake the engraving flags
-		b->engraving_flags.bits.east = 1;
-		b->engraving_flags.bits.west = 1;
-		b->engraving_flags.bits.north = 1;
-		b->engraving_flags.bits.south = 1;
-		b->engraving_flags.bits.floor = 1;
-		b->engraving_character = '*';
-	}
-		b->material.type = DESIGNATION;
-		b->material.index = INVALID_INDEX;
-		b->tileType = findTileType(shape, mat, var, spc, dir);
-		return true;
-	}
+        b->material.type = DESIGNATION;
+        b->material.index = INVALID_INDEX;
+        b->tileType = findTileType(shape, mat, var, spc, dir);
+        return true;
+    }
 
-	bool hasTracks = false;
-	if(occ.bits.carve_track_north){
-		dir.north = 1;
-		hasTracks = true;
-	} if(occ.bits.carve_track_south){
-		dir.south = 1;
-		hasTracks = true;
-	} if(occ.bits.carve_track_east){
-		dir.east = 1;
-		hasTracks = true;
-	} if(occ.bits.carve_track_west){
-		dir.west = 1;
-		hasTracks = true;
-	}
-	if(hasTracks)
-	{
-		if( b->tileShapeBasic() == df::tiletype_shape_basic::Ramp ){
-			shape = df::tiletype_shape::RAMP;
-		} else {
-			shape = df::tiletype_shape::FLOOR;
-		}
+    //if there is no dig designation, check for smoothing designations
+    if(des.bits.smooth != 0)
+    {
+        if( b->tileShapeBasic() == df::tiletype_shape_basic::Floor ){
+            shape = df::tiletype_shape::FLOOR;
+        } else {
+            shape = df::tiletype_shape::WALL;
+        }
+        spc = df::tiletype_special::SMOOTH;
+    if(des.bits.smooth == 2) {
+        // if the tile is being engraved, then fake the engraving flags
+        b->engraving_flags.bits.east = 1;
+        b->engraving_flags.bits.west = 1;
+        b->engraving_flags.bits.north = 1;
+        b->engraving_flags.bits.south = 1;
+        b->engraving_flags.bits.floor = 1;
+        b->engraving_character = '*';
+    }
+        b->material.type = DESIGNATION;
+        b->material.index = INVALID_INDEX;
+        b->tileType = findTileType(shape, mat, var, spc, dir);
+        return true;
+    }
 
-		b->material.type = DESIGNATION;
-		b->material.index = INVALID_INDEX;
-		b->tileType = findTileType(shape, mat, var, spc, dir);
-		return true;
-	}
+    bool hasTracks = false;
+    if(occ.bits.carve_track_north){
+        dir.north = 1;
+        hasTracks = true;
+    } if(occ.bits.carve_track_south){
+        dir.south = 1;
+        hasTracks = true;
+    } if(occ.bits.carve_track_east){
+        dir.east = 1;
+        hasTracks = true;
+    } if(occ.bits.carve_track_west){
+        dir.west = 1;
+        hasTracks = true;
+    }
+    if(hasTracks)
+    {
+        if( b->tileShapeBasic() == df::tiletype_shape_basic::Ramp ){
+            shape = df::tiletype_shape::RAMP;
+        } else {
+            shape = df::tiletype_shape::FLOOR;
+        }
 
-	return false;
+        b->material.type = DESIGNATION;
+        b->material.index = INVALID_INDEX;
+        b->tileType = findTileType(shape, mat, var, spc, dir);
+        return true;
+    }
+
+    return false;
 }
 
 /**
  * Identifies the correct material from the DF vectors, and stores it in the
- * stonesense tile. 
+ * stonesense tile.
  */
 //TODO get cavein-sand to work somehow?
-void readMaterialToTile( Tile * b, uint32_t lx, uint32_t ly, 
-    df::map_block * trueBlock, 
-    const t_feature & local, const t_feature & global, 
+void readMaterialToTile( Tile * b, uint32_t lx, uint32_t ly,
+    df::map_block * trueBlock,
+    const t_feature & local, const t_feature & global,
     const vector <df::block_square_event_mineralst * > & veins,
     vector< vector <int16_t> >* allLayers)
 {
@@ -251,8 +251,8 @@ void readMaterialToTile( Tile * b, uint32_t lx, uint32_t ly,
     bool soilTile = false;//is this tile a match for soil materials?
     bool soilMat = false;//is the material a soil?
     soilTile = b->tileMaterial() == tiletype_material::SOIL
-        || (b->mudlevel == 0 
-        && (b->tileMaterial() == tiletype_material::PLANT 
+        || (b->mudlevel == 0
+        && (b->tileMaterial() == tiletype_material::PLANT
         || b->tileMaterial() == tiletype_material::GRASS_LIGHT
         || b->tileMaterial() == tiletype_material::GRASS_DARK
         || b->tileMaterial() == tiletype_material::GRASS_DRY
@@ -324,7 +324,7 @@ void readMaterialToTile( Tile * b, uint32_t lx, uint32_t ly,
     b->material.type = INORGANIC;
     if(soilTile) {
         b->material.index = b->layerMaterial.index;
-    } else { 
+    } else {
         b->material.index = b->veinMaterial.index;
     }
 
@@ -359,48 +359,48 @@ void readMaterialToTile( Tile * b, uint32_t lx, uint32_t ly,
 }
 
 SS_Item ConvertItem(df::item * found_item, WorldSegment& segment){
-	SS_Item Tempitem;
-	Tempitem.item.type = found_item->getType(); //itemtype
-	Tempitem.item.index = found_item->getSubtype(); //item subtype
+    SS_Item Tempitem;
+    Tempitem.item.type = found_item->getType(); //itemtype
+    Tempitem.item.index = found_item->getSubtype(); //item subtype
 
-	Tempitem.matt.type = found_item->getActualMaterial();
-	Tempitem.matt.index = found_item->getActualMaterialIndex();
+    Tempitem.matt.type = found_item->getActualMaterial();
+    Tempitem.matt.index = found_item->getActualMaterialIndex();
 
-	Tempitem.dyematt.type = -1;
-	Tempitem.dyematt.index = -1;
-	if(1) { //found_item->isDyed())
-		auto Constructed_Item = virtual_cast<df::item_constructed>(found_item);
-		if(Constructed_Item) {
-			for(int idex = 0; idex < Constructed_Item->improvements.size(); idex++) {
-				if(!Constructed_Item->improvements[idex]) {
-					continue;
-				}
-				if(Constructed_Item->improvements[idex]->getType() != improvement_type::THREAD) {
-					continue;
-				}
-				auto Improvement_Thread = virtual_cast<df::itemimprovement_threadst>(Constructed_Item->improvements[idex]);
-				if(!Improvement_Thread) {
-					continue;
-				}
-				if (Improvement_Thread->dye.mat_type < 0) {
-					break;
-				}
-				Tempitem.dyematt.type = Improvement_Thread->dye.mat_type;
-				Tempitem.dyematt.index = Improvement_Thread->dye.mat_index;
-			}
-		} else if (found_item->getType() == item_type::THREAD) {
-			auto Thread_Item = virtual_cast<df::item_threadst>(found_item);
-			if(!Thread_Item) {
-				return Tempitem;
-			}
-			if (Thread_Item->dye_mat_type < 0) {
-				return Tempitem;
-			}
-			Tempitem.dyematt.type = Thread_Item->dye_mat_type;
-			Tempitem.dyematt.index = Thread_Item->dye_mat_index;
-		}
-	}
-	return Tempitem;
+    Tempitem.dyematt.type = -1;
+    Tempitem.dyematt.index = -1;
+    if(1) { //found_item->isDyed())
+        auto Constructed_Item = virtual_cast<df::item_constructed>(found_item);
+        if(Constructed_Item) {
+            for(int idex = 0; idex < Constructed_Item->improvements.size(); idex++) {
+                if(!Constructed_Item->improvements[idex]) {
+                    continue;
+                }
+                if(Constructed_Item->improvements[idex]->getType() != improvement_type::THREAD) {
+                    continue;
+                }
+                auto Improvement_Thread = virtual_cast<df::itemimprovement_threadst>(Constructed_Item->improvements[idex]);
+                if(!Improvement_Thread) {
+                    continue;
+                }
+                if (Improvement_Thread->dye.mat_type < 0) {
+                    break;
+                }
+                Tempitem.dyematt.type = Improvement_Thread->dye.mat_type;
+                Tempitem.dyematt.index = Improvement_Thread->dye.mat_index;
+            }
+        } else if (found_item->getType() == item_type::THREAD) {
+            auto Thread_Item = virtual_cast<df::item_threadst>(found_item);
+            if(!Thread_Item) {
+                return Tempitem;
+            }
+            if (Thread_Item->dye_mat_type < 0) {
+                return Tempitem;
+            }
+            Tempitem.dyematt.type = Thread_Item->dye_mat_type;
+            Tempitem.dyematt.index = Thread_Item->dye_mat_index;
+        }
+    }
+    return Tempitem;
 }
 
 /**
@@ -431,7 +431,7 @@ void readRemoteBlockToSegment(RemoteFortressReader::MapBlock &block, WorldSegmen
 * reads one 16x16 map block into stonesense tiles
 * attempts to only read as much information as is necessary to do the tile optimization
 */
-void readBlockToSegment(DFHack::Core& DF, WorldSegment& segment, 
+void readBlockToSegment(DFHack::Core& DF, WorldSegment& segment,
     int BlockX, int BlockY, int BlockZ,
     uint32_t BoundrySX, uint32_t BoundrySY,
     uint32_t BoundryEX, uint32_t BoundryEY,
@@ -460,7 +460,7 @@ void readBlockToSegment(DFHack::Core& DF, WorldSegment& segment,
     trueBlock = Maps::getBlock(BlockX, BlockY, BlockZ);
     if(!trueBlock) {
         return;
-    }        
+    }
     //read the map features
     t_feature local, global;
     Maps::ReadFeatures(BlockX,BlockY,BlockZ,&local,&global);
@@ -476,7 +476,7 @@ void readBlockToSegment(DFHack::Core& DF, WorldSegment& segment,
         &ices,
         &splatter,
         &grass,
-        &worldconstructions);    
+        &worldconstructions);
     //parse block
     for(uint32_t ly = BoundrySY; ly <= BoundryEY; ly++) {
         for(uint32_t lx = BoundrySX; lx <= BoundryEX; lx++) {
@@ -488,13 +488,13 @@ void readBlockToSegment(DFHack::Core& DF, WorldSegment& segment,
 
             bool shouldBeIncluded = true;
 
-            //open terrain needs to be included to make blackboxes if 
+            //open terrain needs to be included to make blackboxes if
             // we are shading but not showing hidden tiles
-            if(isOpenTerrain(trueBlock->tiletype[lx][ly]) 
+            if(isOpenTerrain(trueBlock->tiletype[lx][ly])
                 && trueBlock->tiletype[lx][ly] != tiletype::RampTop
                 && tileShape(trueBlock->tiletype[lx][ly]) != tiletype_shape::TWIG) {
-                    if(!ssConfig.show_hidden_tiles 
-                        && ssConfig.shade_hidden_tiles 
+                    if(!ssConfig.show_hidden_tiles
+                        && ssConfig.shade_hidden_tiles
                         && trueBlock->designation[lx][ly].bits.hidden) {
                             shouldBeIncluded = true;
                     } else {
@@ -515,34 +515,34 @@ void readBlockToSegment(DFHack::Core& DF, WorldSegment& segment,
                     shouldBeIncluded = true;
             }
 
-			//add back in any tiles that are constructions or designations
-			if( ssConfig.show_designations
-				&& containsDesignations(
-					trueBlock->designation[lx][ly], 
-					trueBlock->occupancy[lx][ly] ) ) {
-				shouldBeIncluded = true;
-			}
+            //add back in any tiles that are constructions or designations
+            if( ssConfig.show_designations
+                && containsDesignations(
+                    trueBlock->designation[lx][ly],
+                    trueBlock->occupancy[lx][ly] ) ) {
+                shouldBeIncluded = true;
+            }
 
             if(!shouldBeIncluded){
                 continue;
             }
 
             Tile * b = segment.ResetTile(gx, gy, BlockZ, trueBlock->tiletype[lx][ly]);
-			
-			b->occ.bits.unit = false;//this will be set manually when we read the creatures vector
-            b->occ = trueBlock->occupancy[lx][ly];
-			b->designation = trueBlock->designation[lx][ly];
 
-			//if the tile has designations, read them and nothing else
-			if( ssConfig.show_designations 
-				&& readDesignationsToTile( 
-					b, trueBlock->designation[lx][ly], 
-					trueBlock->occupancy[lx][ly] ) ) {
-						continue;
-			}
-			
-			//set whether the tile is hidden
-			b->fog_of_war = !b->designation.bits.pile;
+            b->occ.bits.unit = false;//this will be set manually when we read the creatures vector
+            b->occ = trueBlock->occupancy[lx][ly];
+            b->designation = trueBlock->designation[lx][ly];
+
+            //if the tile has designations, read them and nothing else
+            if( ssConfig.show_designations
+                && readDesignationsToTile(
+                    b, trueBlock->designation[lx][ly],
+                    trueBlock->occupancy[lx][ly] ) ) {
+                        continue;
+            }
+
+            //set whether the tile is hidden
+            b->fog_of_war = !b->designation.bits.pile;
 
             //don't read detailed information for blackbox tiles
             if(!ssConfig.show_hidden_tiles
@@ -566,11 +566,11 @@ void readBlockToSegment(DFHack::Core& DF, WorldSegment& segment,
                 }
             }
 
-			//read the water flows and direction.
-			b->flow_direction = trueBlock->liquid_flow[lx][ly].bits.perm_flow_dir;
+            //read the water flows and direction.
+            b->flow_direction = trueBlock->liquid_flow[lx][ly].bits.perm_flow_dir;
 
             //read the tile spatter
-            readSpatterToTile(b, lx, ly, splatter); 
+            readSpatterToTile(b, lx, ly, splatter);
 
             //read the tile material
             readMaterialToTile(b, lx, ly, trueBlock, local, global, veins, allLayers);
@@ -598,20 +598,20 @@ void readBlockToSegment(DFHack::Core& DF, WorldSegment& segment,
 
     //add items
     for(auto iter = trueBlock->items.begin(); iter != trueBlock->items.end(); iter++) {
-		int32_t item_index = *iter;
-		df::item * found_item = df::item::find(item_index);
-		if(!found_item) {
-			continue;
-		}
-		Tile* b = segment.getTile( found_item->pos.x, found_item->pos.y, found_item->pos.z);
-		if(!b) {
-			b = segment.ResetTile(found_item->pos.x, found_item->pos.y, found_item->pos.z, tiletype::OpenSpace);
-			if(!b) {
-				continue;
-			}
-		}
-		b->Item = ConvertItem(found_item, segment);
-	}
+        int32_t item_index = *iter;
+        df::item * found_item = df::item::find(item_index);
+        if(!found_item) {
+            continue;
+        }
+        Tile* b = segment.getTile( found_item->pos.x, found_item->pos.y, found_item->pos.z);
+        if(!b) {
+            b = segment.ResetTile(found_item->pos.x, found_item->pos.y, found_item->pos.z, tiletype::OpenSpace);
+            if(!b) {
+                continue;
+            }
+        }
+        b->Item = ConvertItem(found_item, segment);
+    }
 
 
     //add effects
@@ -628,14 +628,14 @@ void readBlockToSegment(DFHack::Core& DF, WorldSegment& segment,
                     continue;
                 }
             }
-            if(eff->density > b->tileeffect.density 
+            if(eff->density > b->tileeffect.density
                 || b->tileeffect.type == (df::flow_type) INVALID_INDEX) {
                     b->tileeffect.type = eff->type;
                     b->tileeffect.density = eff->density;
                     b->tileeffect.matt.index = eff->mat_index;
                     b->tileeffect.matt.type = eff->mat_type;
             }
-        } 
+        }
     }
 }
 
@@ -789,12 +789,12 @@ void readMapSegment(WorldSegment* segment, GameState inState)
     //Read position of blocks
     uint32_t regionX, regionY, regionZ;
     Maps::getSize(regionX, regionY, regionZ);
-	//Store these
-	blockDimX *= BLOCKEDGESIZE;
-	blockDimY *= BLOCKEDGESIZE;
-	ssState.RegionDim.x = blockDimX;
-	ssState.RegionDim.y = blockDimY;
-	ssState.RegionDim.z = blockDimZ;
+    //Store these
+    blockDimX *= BLOCKEDGESIZE;
+    blockDimY *= BLOCKEDGESIZE;
+    ssState.RegionDim.x = blockDimX;
+    ssState.RegionDim.y = blockDimY;
+    ssState.RegionDim.z = blockDimZ;
 
     //setup new world segment
     segment->Reset(inState,false);
@@ -916,7 +916,7 @@ void readMapSegment(WorldSegment* segment, GameState inState)
     //    connection_state->net_block_request.set_max_y((inState.Position.y + inState.Size.y) / BLOCKEDGESIZE);
     //    connection_state->net_block_request.set_max_z(inState.Position.z+1);
     //    connection_state->BlockListCall(&connection_state->net_block_request, &connection_state->net_block_list);
-    //    
+    //
     //    for (int i = 0; i < connection_state->net_block_list.map_blocks_size(); i++)
     //    {
     //        readRemoteBlockToSegment(*connection_state->net_block_list.mutable_map_blocks(i), *segment);
@@ -963,8 +963,8 @@ void readMapSegment(WorldSegment* segment, GameState inState)
 
 //==============================Map Read Main===========================//
 /*
- * Here is where the main hub functions dispatch the read thread from, 
- *  as well as the read thread's entry point.  
+ * Here is where the main hub functions dispatch the read thread from,
+ *  as well as the read thread's entry point.
  */
 
 void read_segment( void *arg)
@@ -975,16 +975,16 @@ void read_segment( void *arg)
     static bool firstLoad = 1;
     ssConfig.threadstarted = 1;
     WorldSegment* segment = NULL;
-	{
-		CoreSuspender suspend;
+    {
+        CoreSuspender suspend;
 
-		//read cursor
-		if (ssConfig.follow_DFcursor) {
-			Gui::getCursorCoords(ssState.dfCursor.x, ssState.dfCursor.y, ssState.dfCursor.z);
-			ssState.dfSelection.x = df::global::selection_rect->start_x;
-			ssState.dfSelection.y = df::global::selection_rect->start_y;
-			ssState.dfSelection.z = df::global::selection_rect->start_z;
-		}
+        //read cursor
+        if (ssConfig.follow_DFcursor) {
+            Gui::getCursorCoords(ssState.dfCursor.x, ssState.dfCursor.y, ssState.dfCursor.z);
+            ssState.dfSelection.x = df::global::selection_rect->start_x;
+            ssState.dfSelection.y = df::global::selection_rect->start_y;
+            ssState.dfSelection.z = df::global::selection_rect->start_z;
+        }
 
         if (firstLoad || ssConfig.track_mode != GameConfiguration::TRACKING_NONE) {
             firstLoad = 0;
@@ -994,7 +994,7 @@ void read_segment( void *arg)
                 followCurrentDFWindow();
             } else if (ssConfig.track_mode == GameConfiguration::TRACKING_FOCUS) {
                 followCurrentDFFocus();
-				ssConfig.follow_DFcursor = true;
+                ssConfig.follow_DFcursor = true;
             }
         }
         segment = map_segment.getRead();

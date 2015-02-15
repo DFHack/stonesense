@@ -138,17 +138,17 @@ void parseConfigLine( string line )
     if( line.find("[VERBOSE_LOGGING") != -1) {
         string result = parseStrFromLine( "VERBOSE_LOGGING", line );
         ssConfig.verbose_logging = (result == "YES");
-	}
-	if( line.find("[TRACK_MODE") != -1) {
-		string result = parseStrFromLine( "TRACK_MODE", line );
-		if(result == "CENTER") {
-			ssConfig.track_mode = 1;
-		} else if (result == "WINDOW") {
-			ssConfig.track_mode = 2;
-		}  else if (result == "FOCUS") {
-			ssConfig.track_mode = 3;
-		} 
-	}
+    }
+    if( line.find("[TRACK_MODE") != -1) {
+        string result = parseStrFromLine( "TRACK_MODE", line );
+        if(result == "CENTER") {
+            ssConfig.track_mode = 1;
+        } else if (result == "WINDOW") {
+            ssConfig.track_mode = 2;
+        }  else if (result == "FOCUS") {
+            ssConfig.track_mode = 3;
+        }
+    }
     if( line.find("[FOLLOW_DF_CURSOR") != -1) {
         string result = parseStrFromLine( "FOLLOW_DF_CURSOR", line );
         ssConfig.follow_DFcursor = (result == "YES");
@@ -291,10 +291,10 @@ void parseConfigLine( string line )
         string result = parseStrFromLine( "FONT", line );
         ssConfig.font = al_create_path(result.c_str());
     }
-	if (line.find("[USE_DF_COLORS") != -1){
-		string result = parseStrFromLine("USE_DF_COLORS", line);
-		ssConfig.useDfColors = (result == "YES");
-	}
+    if (line.find("[USE_DF_COLORS") != -1){
+        string result = parseStrFromLine("USE_DF_COLORS", line);
+        ssConfig.useDfColors = (result == "YES");
+    }
     if( line.find("[BLACK_R") != -1) {
         int value = parseIntFromLine( "BLACK_R", line);
         if(value > 255) {

@@ -29,7 +29,7 @@ private:
 
     bool translationComplete;
 
-    void gatherStyleIndices(df::world_raws * raws); 
+    void gatherStyleIndices(df::world_raws * raws);
 public:
     ContentLoader(void);
     ~ContentLoader(void);

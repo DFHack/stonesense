@@ -117,10 +117,10 @@ string keynames[] = {
     "KEYS_COLON2",
     "KEYS_KANJI",
 
-    "KEYPAD_EQUALS",	/* MacOS X */
-    "KEYS_BACKQUOTE",	/* MacOS X */
-    "KEYS_SEMICOLON2",	/* MacOS X */
-    "KEYS_COMMAND"	/* MacOS X */
+    "KEYPAD_EQUALS",    /* MacOS X */
+    "KEYS_BACKQUOTE",    /* MacOS X */
+    "KEYS_SEMICOLON2",    /* MacOS X */
+    "KEYS_COMMAND"    /* MacOS X */
 
     //KEY_UNKNOWN
 };
@@ -200,7 +200,7 @@ action_name_mapper actionnamemap[] = {
     {"INCR_RELOAD_TIME", action_incrreloadtime},
     {"DECR_RELOAD_TIME", action_decrreloadtime},
     {"CREDITS", action_credits},
-    
+
     {"DECR_SEGMENT_X", action_decrsegmentX},
     {"INCR_SEGMENT_X", action_incrsegmentX},
     {"DECR_SEGMENT_Y", action_decrsegmentY},
@@ -224,7 +224,7 @@ void (*actionkeymap[ALLEGRO_KEY_UNKNOWN])(uint32_t);
 bool actionrepeatmap[ALLEGRO_KEY_UNKNOWN];
 
 void parseKeymapLine( string line )
-{    
+{
     if(line.empty()) {
         return;
     }
@@ -242,7 +242,7 @@ void parseKeymapLine( string line )
     if( c != ']' ) {
         return;
     }
-    
+
     //second-last character should tell us if this is a repeating action
     c = line[ line.length() -2 ];
 
@@ -267,7 +267,7 @@ void parseKeymapLine( string line )
     }
 }
 
-bool loadKeymapFile(){    
+bool loadKeymapFile(){
     string line;
     ALLEGRO_PATH * p =al_create_path("stonesense/keybinds.txt");
     const char * path = al_path_cstr(p,ALLEGRO_NATIVE_PATH_SEP);
@@ -294,7 +294,7 @@ bool loadKeymapFile(){
     return true;
 }
 
-bool isRepeatable(int32_t keycode) 
+bool isRepeatable(int32_t keycode)
 {
     return actionrepeatmap[keycode];
 }

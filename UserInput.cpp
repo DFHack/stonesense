@@ -15,7 +15,7 @@ extern ALLEGRO_TIMER * reloadtimer;
 
 /**
  * Returns a keymod bitflag consistent with allegro keycodes for the CTRL, ALT, and SHIFT keys
- * from a given keyboard state.  
+ * from a given keyboard state.
  */
 int32_t getKeyMods(ALLEGRO_KEYBOARD_STATE * keyboardstate){
     int32_t keymod = 0;
@@ -120,7 +120,7 @@ void doMouse()
     al_get_mouse_state(&mouse);
     al_get_keyboard_state(&keyboard);
     int32_t keymod = getKeyMods(&keyboard);
-    
+
     char stepsize = ((keymod&ALLEGRO_KEYMOD_SHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
     //mouse_callback = mouseProc;
     static int last_mouse_z;
@@ -156,30 +156,30 @@ void doMouse()
         y = mouse.y; //pos & 0x0000ffff;
         if(x >= MiniMapTopLeftX && x <= MiniMapBottomRightX && y >= MiniMapTopLeftY && y <= MiniMapBottomRightY) { // in minimap
             ssState.Position.x = (x-MiniMapTopLeftX-MiniMapSegmentWidth/2)/oneTileInPixels;
-			ssState.Position.y = (y-MiniMapTopLeftY-MiniMapSegmentHeight/2)/oneTileInPixels;
-		} else {
-			int tilex,tiley,tilez;
-			
-			//get the point in the segment
-			ScreenToPoint(x,y,tilex,tiley,tilez);
+            ssState.Position.y = (y-MiniMapTopLeftY-MiniMapSegmentHeight/2)/oneTileInPixels;
+        } else {
+            int tilex,tiley,tilez;
 
-			//then remove the segment rotation
-			correctForRotation(
-				tilex, tiley, 
-				(4 - ssState.Rotation) % 4,
-				ssState.Size.x, ssState.Size.y);
+            //get the point in the segment
+            ScreenToPoint(x,y,tilex,tiley,tilez);
 
-			//Convert to zero as top layer convention
-			tilez = tilez - (ssState.Size.z-2);
+            //then remove the segment rotation
+            correctForRotation(
+                tilex, tiley,
+                (4 - ssState.Rotation) % 4,
+                ssState.Size.x, ssState.Size.y);
 
-			//add on the segment offset
-			tilex = tilex + ssState.Position.x;
-			tiley = tiley + ssState.Position.y;
-			tilez = tilez + ssState.Position.z - 1;
+            //Convert to zero as top layer convention
+            tilez = tilez - (ssState.Size.z-2);
 
-			ssState.dfCursor.x = tilex;
-			ssState.dfCursor.y = tiley;
-			ssState.dfCursor.z = tilez;
+            //add on the segment offset
+            tilex = tilex + ssState.Position.x;
+            tiley = tiley + ssState.Position.y;
+            tilez = tilez + ssState.Position.z - 1;
+
+            ssState.dfCursor.x = tilex;
+            ssState.dfCursor.y = tiley;
+            ssState.dfCursor.z = tilez;
         }
         timeToReloadSegment = true;
     }
@@ -259,10 +259,10 @@ void action_cycletrackingmode(uint32_t keymod)
     if (keymod&ALLEGRO_KEYMOD_CTRL) {
         ssConfig.follow_DFcursor = !ssConfig.follow_DFcursor;
     } else {
-		ssConfig.track_mode++;
-		if(ssConfig.track_mode >= GameConfiguration::TRACKING_INVALID) {
-			ssConfig.track_mode = GameConfiguration::TRACKING_NONE;
-		}
+        ssConfig.track_mode++;
+        if(ssConfig.track_mode >= GameConfiguration::TRACKING_INVALID) {
+            ssConfig.track_mode = GameConfiguration::TRACKING_NONE;
+        }
     }
     timeToReloadSegment = true;
 }
@@ -402,7 +402,7 @@ void action_incrreloadtime(uint32_t keymod)
 }
 
 void action_decrreloadtime(uint32_t keymod)
-{ 
+{
     if(ssConfig.automatic_reload_time) {
         if(ssConfig.automatic_reload_time > 0) {
             ssConfig.automatic_reload_time -= ssConfig.automatic_reload_step;
@@ -418,7 +418,7 @@ void action_decrreloadtime(uint32_t keymod)
 }
 
 void action_credits(uint32_t keymod)
-{ 
+{
     ssConfig.creditScreen = false;
 }
 
@@ -479,7 +479,7 @@ void action_incrX(uint32_t keymod)
 }
 
 void action_decrZ(uint32_t keymod)
-{ 
+{
     if(keymod&ALLEGRO_KEYMOD_CTRL){
         action_decrsegmentZ(keymod);
         return;
@@ -500,7 +500,7 @@ void action_decrZ(uint32_t keymod)
 }
 
 void action_incrZ(uint32_t keymod)
-{ 
+{
     if(keymod&ALLEGRO_KEYMOD_CTRL){
         action_incrsegmentZ(keymod);
         return;
