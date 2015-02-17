@@ -63,7 +63,7 @@ void Overlay::CheckViewscreen()
             good_viewscreen = true;
         else if (df::global::ui_advmode->menu == df::ui_advmode_menu::Default)
             good_viewscreen = true;
-        else if (df::global::ui_advmode->menu == df::ui_advmode_menu::Talk)
+        else if (df::global::ui_advmode->menu == df::ui_advmode_menu::ConversationAddress)
             good_viewscreen = true;
         else
             good_viewscreen = false;
