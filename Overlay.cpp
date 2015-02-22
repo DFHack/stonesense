@@ -9,14 +9,6 @@
 #include "df/viewscreen_dungeonmodest.h"
 #include "df/ui_advmode.h"
 
-#ifdef _DARWIN
-#define SDL_GetVideoSurface DFH_SDL_GetVideoSurface
-#define SDL_CreateRGBSurface DFH_SDL_CreateRGBSurface
-#define SDL_CreateRGBSurfaceFrom DFH_SDL_CreateRGBSurfaceFrom
-#define SDL_FreeSurface DFH_SDL_FreeSurface
-#define SDL_UpperBlit DFH_SDL_UpperBlit
-#define SDL_GetMouseState DFH_SDL_GetMouseState
-#else
 DFhackCExport void * SDL_GetVideoSurface(void);
 DFhackCExport vPtr SDL_CreateRGBSurface(uint32_t flags, int width, int height, int depth,
                                         uint32_t Rmask, uint32_t Gmask, uint32_t Bmask, uint32_t Amask);
@@ -26,7 +18,6 @@ DFhackCExport void SDL_FreeSurface(vPtr surface);
 DFhackCExport int SDL_UpperBlit(DFHack::DFSDL_Surface* src, DFHack::DFSDL_Rect* srcrect,
                                 DFHack::DFSDL_Surface* dst, DFHack::DFSDL_Rect* dstrect);
 DFhackCExport uint8_t SDL_GetMouseState(int *x, int *y);
-#endif
 
 void Overlay::ReadTileLocations()
 {
