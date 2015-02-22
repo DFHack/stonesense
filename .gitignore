@@ -1,5 +1,6 @@
 allegro
 allegrow
+allegro-osx
 *.db
 *.tar.gz
 *.tar.bz2
