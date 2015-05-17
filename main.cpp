@@ -28,6 +28,11 @@ using namespace std;
 extern void *allegro_icon;
 #endif
 
+//set the plugin name/dfhack version
+DFHACK_PLUGIN("stonesense");
+DFHACK_PLUGIN_IS_ENABLED(enabled);
+REQUIRE_GLOBAL(init);
+
 bool stonesense_started = 0;
 
 uint32_t DebugInt1;
@@ -573,21 +578,9 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
 //All this fun DFhack stuff I gotta do now.
 DFhackCExport command_result stonesense_command(color_ostream &out, std::vector<std::string> & params);
 
-DFHACK_PLUGIN_IS_ENABLED(enabled);//Is this enough?
-
-//set the plugin name/dfhack version
-DFHACK_PLUGIN("stonesense");
-
 //This is the init command. it includes input options.
 DFhackCExport command_result plugin_init ( color_ostream &out, std::vector <PluginCommand> &commands)
 {
-#ifdef _DARWIN
-    if (!df::global::init->display.flag.is_set(init_display_flags::RENDER_2D))
-    {
-    out.printerr("stonesense: Only PRINT_MODE:2D is supported on OS X\n");
-    return CR_FAILURE;
-    }
-#endif
     enabled = true;
     commands.push_back(PluginCommand("stonesense","Start up the stonesense visualiser.",stonesense_command));
     commands.push_back(PluginCommand("ssense","Start up the stonesense visualiser.",stonesense_command));
@@ -613,11 +606,18 @@ DFhackCExport command_result plugin_shutdown ( color_ostream &out )
 //and the actual stonesense command. Maybe.
 DFhackCExport command_result stonesense_command(color_ostream &out, std::vector<std::string> & params)
 {
+#ifdef _DARWIN
+    if (!init->display.flag.is_set(init_display_flags::RENDER_2D))
+    {
+        out.printerr("The current print mode is not suported\n"
+            "Change PRINT_MODE in init.txt to 2D or a similar choice\n");
+        return CR_FAILURE;
+    }
+#endif
     if(stonesense_started) {
         out.print("Stonesense already running.\n");
         return CR_OK;
     }
-
     ssConfig.overlay_mode = false;
     if(params.size() > 0 ) {
         if(params[0] == "overlay"){
