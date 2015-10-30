@@ -3,8 +3,6 @@
 
 using namespace std;
 
-#pragma once
-
 #include "common.h"
 #include "Tile.h"
 #include "GUI.h"
