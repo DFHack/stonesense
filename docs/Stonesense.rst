@@ -1,6 +1,6 @@
 :orphan:
 
-.. stonesense:
+.. _stonesense:
 
 ##########
 Stonesense
