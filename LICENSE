@@ -1,34 +1,32 @@
-----------------------------------------------------------------------
-Section 1: License of Stonesense 
+LICENSES
+========
 
-Subsection A: Stonesense Code
+Stonesense code and documentation is under the copyright of the authors -
+Japa, Caldfir, Peterix, Jonask, Solifuge and Kaypy on Bay12 forums,
+plus anyone in the Git history.
 
-The following shall apply to all textual or compiled program 
-components, data libraries, or documentation provided, which
-are not explicitly documented in subsequent sections of this document:
+It is distributed under the Zlib license (below), like DFHack.
+For historical reasons, you may also use the code under any
+version of the GNU General Public License, or under any version
+of the Perl Artistic License.
 
-https://github.com/peterix/stonesense (contact: peterix@gmail.com)
-These components are subject to dual licensing under the 
-"Artistic Licence" and GPL:
+https://www.gnu.org/licenses/gpl
 http://dev.perl.org/licenses/artistic.html
-http://dev.perl.org/licenses/gpl1.html
 
-Subsection B: Stonesense Artwork
 
-The following shall apply to all images and audio provided, which 
-are not explicitly documented in subsequent sections of this document:
+Artwork (images and audio) remains copyright by their respective
+creators; they are licensed for use with Stonesense but require
+permission for other uses.
 
-https://github.com/peterix/stonesense (contact: peterix@gmail.com)
-All artwork is copyright by their respective creators.  
 
-----------------------------------------------------------------------
-Section 2: Allegro 5
+Stonesense makes use of the Allegro 5 graphics libraries,
+which also uses the Zlib license (below).  Allegro is
+"Copyright © 2008-2010 the Allegro 5 Development Team"
 
-Stonesense makes use of the Allegro 5 graphics libraries.  A copy of
-the applicable license to those libraries is provided here for 
-convenience:
 
-Copyright © 2008-2010 the Allegro 5 Development Team
+
+Full text of the Zlib license:
+==============================
 
 This software is provided 'as-is', without any express or implied
 warranty. In no event will the authors be held liable for any
@@ -48,7 +46,3 @@ must not be misrepresented as being the original software.
 
 3. This notice may not be removed or altered from any source
 distribution.
-
-
-
-
