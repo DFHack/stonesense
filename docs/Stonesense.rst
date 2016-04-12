@@ -61,7 +61,9 @@ Stonesense debug cursor will follow the DF cursor when the latter exists.
 
 You can take screenshots with :kbd:`F5`, larger screenshots with
 :kbd:`Ctrl`:kbd:`F5`, and screenshot the whole map at full resolution with
-:kbd:`Ctrl`:kbd:`Shift`:kbd:`F5`.  The latter two require a decent graphics card.
+:kbd:`Ctrl`:kbd:`Shift`:kbd:`F5`.  Screenshots are saved to the DF directory.
+Note that feedback is printed to the DFHack console, and you may need
+to zoom out before taking very large screenshots.
 
 See :download:`../resources/keybinds.txt` to learn or set keybindings,
 including zooming, changing the dimensions of the rendered area, toggling
