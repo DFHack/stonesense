@@ -16,16 +16,6 @@ be intended for use by people not interested in development.
 
 #include "tinyxml.h"
 
-//#include "df/world_raws.h"
-#include "df/itemdef.h"
-#include "df/itemdef_weaponst.h"
-#include "df/itemdef_armorst.h"
-#include "df/itemdef_shoesst.h"
-#include "df/itemdef_shieldst.h"
-#include "df/itemdef_helmst.h"
-#include "df/itemdef_glovesst.h"
-#include "df/itemdef_pantsst.h"
-
 //FIXME: filled with black magic
 void dumpSegment()
 {

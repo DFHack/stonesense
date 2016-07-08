@@ -9,24 +9,6 @@
 #include "tinyxml.h"
 #include "GUI.h"
 
-#include "df/world_raws.h"
-#include "df/itemdef.h"
-#include "df/itemdef_weaponst.h"
-#include "df/itemdef_armorst.h"
-#include "df/itemdef_shoesst.h"
-#include "df/itemdef_shieldst.h"
-#include "df/itemdef_helmst.h"
-#include "df/itemdef_glovesst.h"
-#include "df/itemdef_pantsst.h"
-
-#include "df/creature_raw.h"
-#include "df/caste_raw.h"
-#include "df/tissue_style_raw.h"
-#include "df/entity_position_raw.h"
-#include "df/entity_raw.h"
-#include "df/historical_entity.h"
-#include "df/entity_position.h"
-
 #include "ConnectionState.h"
 #include "EnumToString.h"
 
@@ -623,12 +605,6 @@ int lookupMaterialIndex(int matType, const char* strValue)
     }
 }
 
-#include "df/siegeengine_type.h"
-#include "df/workshop_type.h"
-#include "df/trap_type.h"
-#include "df/shop_type.h"
-#include "df/construction_type.h"
-#include "df/furnace_type.h"
 
 const char *lookupBuildingSubtype(int main_type, int i)
 {

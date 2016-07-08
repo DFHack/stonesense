@@ -9,8 +9,6 @@
 #include "tinyxml.h"
 #include "GUI.h"
 #include "ContentLoader.h"
-#include "df/world_raws.h"
-#include "df/building_def.h"
 
 int parseConditionNode(ConditionalNode* node, TiXmlElement* elemCondition, bool silent);
 bool parseSpriteNode(SpriteNode* node, TiXmlElement* elemParent);

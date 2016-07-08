@@ -9,16 +9,6 @@
 #include "GameBuildings.h"
 #include "Creatures.h"
 #include "ContentLoader.h"
-#include <df/flow_info.h>
-#include <df/plant.h>
-#include <df/flow_info.h>
-#include "df/item_constructed.h"
-#include "df/itemimprovement.h"
-#include "df/itemimprovement_threadst.h"
-#include "df/item_threadst.h"
-#include "df/map_block_column.h"
-#include "df/plant_tree_info.h"
-#include "df/plant_tree_tile.h"
 
 #include "ConnectionState.h"
 

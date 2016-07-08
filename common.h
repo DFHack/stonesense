@@ -8,19 +8,6 @@
 #include <map>
 #include <stdint.h>
 
-// allegro also leaks stdint.h and some weird equivalent of it on windows. let's disable the copy leaked by dfhack.
-#define SKIP_DFHACK_STDINT
-#define DFHACK_WANT_PLATETYPES
-
-#include <DFHack.h>
-#include "Core.h"
-#include <Console.h>
-#include <Export.h>
-#include <PluginManager.h>
-using namespace DFHack;
-using namespace df::enums;
-
-#define ALLEGRO_NO_MAGIC_MAIN //This is a DLL file. we got no main function.
 #define ALLEGRO_HAVE_STDINT_H
 
 #include <allegro5/allegro.h>

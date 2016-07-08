@@ -7,9 +7,6 @@
 #include "ContentLoader.h"
 #include "SpriteColors.h"
 #include "TileTypes.h"
-#include "df/building_type.h"
-#include "df/plant_growth.h"
-#include "df/plant_growth_print.h"
 
 ALLEGRO_BITMAP *sprite_miasma = 0;
 ALLEGRO_BITMAP *sprite_water = 0;

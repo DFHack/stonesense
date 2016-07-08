@@ -6,25 +6,6 @@
 #include "GUI.h"
 #include "Tile.h"
 #include "SpriteColors.h"
-#include "DataDefs.h"
-#include "df/world.h"
-#include "df/unit.h"
-#include "df/unit_soul.h"
-#include "df/unit_skill.h"
-#include "df/job.h"
-#include "df/unit_inventory_item.h"
-#include "df/item_constructed.h"
-#include "df/itemimprovement.h"
-#include "df/itemimprovement_threadst.h"
-
-#include "df/profession.h"
-
-#include "df/creature_raw.h"
-#include "df/caste_raw.h"
-
-#include "modules/Units.h"
-#include "df/historical_entity.h"
-#include "df/entity_position.h"
 
 //vector<t_matgloss> v_creatureNames;
 //vector<CreatureConfiguration> creatureTypes;

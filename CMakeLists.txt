@@ -173,12 +173,12 @@ SET_SOURCE_FILES_PROPERTIES(${CMAKE_CURRENT_SOURCE_DIR}/../proto/RemoteFortressR
 
 SET(PROJECT_SRCS ${PROJECT_SRCS} ${CMAKE_CURRENT_SOURCE_DIR}/../proto/RemoteFortressReader.pb.cc)
 
-DFHACK_PLUGIN(stonesense ${PROJECT_SRCS} LINK_LIBRARIES dfhack-tinyxml ${PROJECT_LIBS})
+ADD_EXECUTABLE(stonesense ${PROJECT_SRCS})
 
 # Make sure the source is generated before the executable builds.
 ADD_DEPENDENCIES(stonesense generate_proto)
 
-TARGET_LINK_LIBRARIES(stonesense protobuf-lite ${PROJECT_LIBS})
+TARGET_LINK_LIBRARIES(stonesense protobuf-lite dfhack-tinyxml dfhack-client ${PROJECT_LIBS})
 
 
 IF(APPLE)

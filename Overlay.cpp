@@ -3,12 +3,6 @@
 #include "Hooks.h"
 #include "GUI.h"
 
-#include "df/init.h"
-
-#include "df/viewscreen_dwarfmodest.h"
-#include "df/viewscreen_dungeonmodest.h"
-#include "df/ui_advmode.h"
-
 DFhackCExport void * SDL_GetVideoSurface(void);
 DFhackCExport vPtr SDL_CreateRGBSurface(uint32_t flags, int width, int height, int depth,
                                         uint32_t Rmask, uint32_t Gmask, uint32_t Bmask, uint32_t Amask);
