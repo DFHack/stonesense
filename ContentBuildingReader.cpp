@@ -257,13 +257,6 @@ bool parseSpriteNode(SpriteNode* node, TiXmlElement* elemParent)
     return true;
 }
 
-#include "df/siegeengine_type.h"
-#include "df/workshop_type.h"
-#include "df/trap_type.h"
-#include "df/shop_type.h"
-#include "df/construction_type.h"
-#include "df/furnace_type.h"
-
 bool addSingleBuildingConfig( TiXmlElement* elemRoot,  vector<BuildingConfiguration>* knownBuildings )
 {
     const char* strName = elemRoot->Attribute("name");
