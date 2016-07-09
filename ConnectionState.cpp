@@ -39,3 +39,23 @@ void ConnectionState::Disconnect()
 }
 
 ConnectionState *connection_state = NULL;
+
+template<typename In, typename Out>
+DFHack::RemoteFunction<In, Out>* ConnectionState::CreateAndBind(DFHack::RemoteClient client, std::string name, std::string proto)
+{
+	DFHack::RemoteFunction<In, Out>* output = new DFHack::RemoteFunction<In, Out>();
+	if (output->bind(client, name, proto))
+		return output;
+	else
+		return NULL;
+}
+
+template<typename In>
+DFHack::RemoteFunction<In>* ConnectionState::CreateAndBind(DFHack::RemoteClient client, std::string name, std::string proto)
+{
+	DFHack::RemoteFunction<In>* output = new DFHack::RemoteFunction<In, Out>();
+	if (output->bind(client, name, proto))
+		return output;
+	else
+		return NULL;
+}

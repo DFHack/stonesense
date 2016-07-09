@@ -24,6 +24,12 @@ public:
 
     static void Connect();
     static void Disconnect();
+
+	template<typename In, typename Out = dfproto::EmptyMessage>
+	DFHack::RemoteFunction<In, Out>* CreateAndBind<In, Out>(DFHack::RemoteClient client, std::string name, std::string proto = "");
+
+	template<typename In>
+	DFHack::RemoteFunction<In>* CreateAndBind<In>(DFHack::RemoteClient client, std::string name, std::string proto = "");
 };
 
 extern ConnectionState *connection_state;
