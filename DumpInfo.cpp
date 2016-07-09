@@ -142,118 +142,118 @@ void dumpSegment()
 
 void DumpItemNamesToDisk(const char* filename)
 {
-    df::world_raws::T_itemdefs &defs = df::global::world->raws.itemdefs;
-    FILE* fp = fopen(filename, "w");
-    if(!fp) {
-        return;
-    }
-    fprintf(fp, "WEAPON:\n");
-    for(uint32_t j=0; j < defs.weapons.size(); j++) {
-        fprintf(fp, "%i:%s\n",j, defs.weapons[j]->id.c_str());
-    }
-    fprintf(fp, "ARMOR:\n");
-    for(uint32_t j=0; j < defs.armor.size(); j++) {
-        fprintf(fp, "%i:%s\n",j, defs.armor[j]->id.c_str());
-    }
-    fprintf(fp, "SHOES:\n");
-    for(uint32_t j=0; j < defs.shoes.size(); j++) {
-        fprintf(fp, "%i:%s\n",j, defs.shoes[j]->id.c_str());
-    }
-    fprintf(fp, "SHIELD:\n");
-    for(uint32_t j=0; j < defs.shields.size(); j++) {
-        fprintf(fp, "%i:%s\n",j, defs.shields[j]->id.c_str());
-    }
-    fprintf(fp, "HELM:\n");
-    for(uint32_t j=0; j < defs.helms.size(); j++) {
-        fprintf(fp, "%i:%s\n",j, defs.helms[j]->id.c_str());
-    }
-    fprintf(fp, "GLOVES:\n");
-    for(uint32_t j=0; j < defs.gloves.size(); j++) {
-        fprintf(fp, "%i:%s\n",j, defs.gloves[j]->id.c_str());
-    }
-    fprintf(fp, "PANTS:\n");
-    for(uint32_t j=0; j < defs.pants.size(); j++) {
-        fprintf(fp, "%i:%s\n",j, defs.pants[j]->id.c_str());
-    }
-    fclose(fp);
+    //df::world_raws::T_itemdefs &defs = df::global::world->raws.itemdefs;
+    //FILE* fp = fopen(filename, "w");
+    //if(!fp) {
+    //    return;
+    //}
+    //fprintf(fp, "WEAPON:\n");
+    //for(uint32_t j=0; j < defs.weapons.size(); j++) {
+    //    fprintf(fp, "%i:%s\n",j, defs.weapons[j]->id.c_str());
+    //}
+    //fprintf(fp, "ARMOR:\n");
+    //for(uint32_t j=0; j < defs.armor.size(); j++) {
+    //    fprintf(fp, "%i:%s\n",j, defs.armor[j]->id.c_str());
+    //}
+    //fprintf(fp, "SHOES:\n");
+    //for(uint32_t j=0; j < defs.shoes.size(); j++) {
+    //    fprintf(fp, "%i:%s\n",j, defs.shoes[j]->id.c_str());
+    //}
+    //fprintf(fp, "SHIELD:\n");
+    //for(uint32_t j=0; j < defs.shields.size(); j++) {
+    //    fprintf(fp, "%i:%s\n",j, defs.shields[j]->id.c_str());
+    //}
+    //fprintf(fp, "HELM:\n");
+    //for(uint32_t j=0; j < defs.helms.size(); j++) {
+    //    fprintf(fp, "%i:%s\n",j, defs.helms[j]->id.c_str());
+    //}
+    //fprintf(fp, "GLOVES:\n");
+    //for(uint32_t j=0; j < defs.gloves.size(); j++) {
+    //    fprintf(fp, "%i:%s\n",j, defs.gloves[j]->id.c_str());
+    //}
+    //fprintf(fp, "PANTS:\n");
+    //for(uint32_t j=0; j < defs.pants.size(); j++) {
+    //    fprintf(fp, "%i:%s\n",j, defs.pants[j]->id.c_str());
+    //}
+    //fclose(fp);
 }
 
-void DumpTileTypes(const char* filename)
+//void DumpTileTypes(const char* filename)
+//{
+//    FILE* fp = fopen(filename, "w");
+//
+//    int j = 0;
+//    const char * name;
+//    // Run through until perfect match found or hit end.
+//    FOR_ENUM_ITEMS(tiletype, tt) {
+//        name = tileName(tt);
+//        fprintf(fp, "%i:%s\n", j, name);
+//        j++;
+//    }
+//    fclose(fp);
+//}
+
+//void GenerateTerrainXml(const char* filename, string & type, df::tiletype_shape_basic shape)
+//{
+//    FILE* fp = fopen(filename, "w");
+//
+//    int j = 0;
+//    const char * name;
+//    fprintf(fp, "<!--%s-->\n", type.c_str());
+//    FOR_ENUM_ITEMS(tiletype, tt) {
+//        if(tileShapeBasic(tileShape(tt)) == shape) {
+//            name = tileName(tt);
+//            fprintf(fp, "\t<!--%s--> \n\t<terrain value=%i/> \n", name, j);
+//        }
+//        j++;
+//    }
+//    fclose(fp);
+//}
+
+//df::tiletype_shape_basic GetBasicShape(string & shapeName)
+//{
+//    if(shapeName == "None") {
+//        return tiletype_shape_basic::None;
+//    }
+//    if(shapeName == "Open") {
+//        return tiletype_shape_basic::Open;
+//    }
+//    if(shapeName == "Floor") {
+//        return tiletype_shape_basic::Floor;
+//    }
+//    if(shapeName == "Wall") {
+//        return tiletype_shape_basic::Wall;
+//    }
+//    if(shapeName == "Ramp") {
+//        return tiletype_shape_basic::Ramp;
+//    }
+//    if(shapeName == "Stair") {
+//        return tiletype_shape_basic::Stair;
+//    }
+//    return tiletype_shape_basic::None;
+//}
+
+void DumpInfo(int argc, char **argv)
 {
-    FILE* fp = fopen(filename, "w");
-
-    int j = 0;
-    const char * name;
-    // Run through until perfect match found or hit end.
-    FOR_ENUM_ITEMS(tiletype, tt) {
-        name = tileName(tt);
-        fprintf(fp, "%i:%s\n", j, name);
-        j++;
-    }
-    fclose(fp);
-}
-
-void GenerateTerrainXml(const char* filename, string & type, df::tiletype_shape_basic shape)
-{
-    FILE* fp = fopen(filename, "w");
-
-    int j = 0;
-    const char * name;
-    fprintf(fp, "<!--%s-->\n", type.c_str());
-    FOR_ENUM_ITEMS(tiletype, tt) {
-        if(tileShapeBasic(tileShape(tt)) == shape) {
-            name = tileName(tt);
-            fprintf(fp, "\t<!--%s--> \n\t<terrain value=%i/> \n", name, j);
-        }
-        j++;
-    }
-    fclose(fp);
-}
-
-df::tiletype_shape_basic GetBasicShape(string & shapeName)
-{
-    if(shapeName == "None") {
-        return tiletype_shape_basic::None;
-    }
-    if(shapeName == "Open") {
-        return tiletype_shape_basic::Open;
-    }
-    if(shapeName == "Floor") {
-        return tiletype_shape_basic::Floor;
-    }
-    if(shapeName == "Wall") {
-        return tiletype_shape_basic::Wall;
-    }
-    if(shapeName == "Ramp") {
-        return tiletype_shape_basic::Ramp;
-    }
-    if(shapeName == "Stair") {
-        return tiletype_shape_basic::Stair;
-    }
-    return tiletype_shape_basic::None;
-}
-
-void DumpInfo(color_ostream & out, std::vector<std::string> & params)
-{
-    string & p1 = params[0];
-    if(p1 == "dumpitems") {
-        out.print("dumping equippable item names to 'itemdump.txt'...\n");
-        DumpItemNamesToDisk("itemdump.txt");
-        out.print("...done\n");
-    } else if(p1 == "dumptiles") {
-        out.print("dumping equippable item names to 'tiledump.txt'...\n");
-        DumpTileTypes("tiledump.txt");
-        out.print("...done\n");
-    } else if(p1 == "genterrain") {
-        if(params.size() > 1) {
-            out.print("generating 'terrain.xml'...\n");
-            GenerateTerrainXml("terrain.xml", params[1], GetBasicShape(params[1]));
-            out.print("...done\n");
-        } else {
-            out.printerr("invalid argument\n");
-        }
-    } else {
-        out.printerr("invalid argument\n");
-    }
+    //string & p1 = params[0];
+    //if(p1 == "dumpitems") {
+    //    out.print("dumping equippable item names to 'itemdump.txt'...\n");
+    //    DumpItemNamesToDisk("itemdump.txt");
+    //    out.print("...done\n");
+    //} else if(p1 == "dumptiles") {
+    //    out.print("dumping equippable item names to 'tiledump.txt'...\n");
+    //    DumpTileTypes("tiledump.txt");
+    //    out.print("...done\n");
+    //} else if(p1 == "genterrain") {
+    //    if(params.size() > 1) {
+    //        out.print("generating 'terrain.xml'...\n");
+    //        GenerateTerrainXml("terrain.xml", params[1], GetBasicShape(params[1]));
+    //        out.print("...done\n");
+    //    } else {
+    //        out.printerr("invalid argument\n");
+    //    }
+    //} else {
+    //    out.printerr("invalid argument\n");
+    //}
 
 }

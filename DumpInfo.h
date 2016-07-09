@@ -1,1 +1,1 @@
-void DumpInfo(color_ostream & out, std::vector<std::string> & params);
+void DumpInfo(int argc, char **argv);
