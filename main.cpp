@@ -5,7 +5,7 @@
 using namespace std;
 
 #include "common.h"
-#include "Overlay.h"
+//#include "Overlay.h"
 #include "Tile.h"
 #include "GUI.h"
 //#include "SpriteMaps.h"
@@ -19,6 +19,8 @@ using namespace std;
 #include "ContentLoader.h"
 #include "OcclusionTest.h"
 
+#include "RemoteClient.h"
+
 #define WIDTH        640
 #define HEIGHT       480
 #define SIZE_LOG     50
@@ -28,10 +30,7 @@ using namespace std;
 extern void *allegro_icon;
 #endif
 
-//set the plugin name/dfhack version
-DFHACK_PLUGIN("stonesense");
-DFHACK_PLUGIN_IS_ENABLED(enabled);
-REQUIRE_GLOBAL(init);
+using namespace DFHack;
 
 bool stonesense_started = 0;
 
@@ -49,11 +48,11 @@ char currentAnimationFrame;
 uint32_t currentFrameLong;
 bool animationFrameShown;
 
-vector<t_matgloss> v_stonetypes;
+//vector<t_matgloss> v_stonetypes;
 
 ALLEGRO_FONT * font;
 
-Overlay * overlay;
+//Overlay * overlay;
 ALLEGRO_DISPLAY * display;
 ALLEGRO_KEYBOARD_STATE keyboard;
 
@@ -94,7 +93,7 @@ void LogError(const char* msg, ...)
     va_start(arglist, msg);
     char buf[512] = {0};
     vsprintf(buf, msg, arglist);
-    Core::printerr(buf);
+	cout << buf << endl;
     FILE* fp = fopen( "Stonesense.log", "a");
     if(fp) {
         vfprintf( fp, msg, arglist );
@@ -111,8 +110,8 @@ void PrintMessage(const char* msg, ...)
     va_start(arglist, msg);
     char buf[512] = {0};
     vsprintf(buf, msg, arglist);
-    Core::print(buf);
-    va_end(arglist);
+	cout << buf << endl;
+	va_end(arglist);
 }
 
 void LogVerbose(const char* msg, ...)
@@ -124,8 +123,8 @@ void LogVerbose(const char* msg, ...)
     va_start(arglist, msg);
     char buf[512] = {0};
     vsprintf(buf, msg, arglist);
-    Core::printerr(buf);
-    FILE* fp = fopen( "Stonesense.log", "a");
+	cout << buf << endl;
+	FILE* fp = fopen( "Stonesense.log", "a");
     if(fp) {
         vfprintf( fp, msg, arglist );
     }
@@ -389,11 +388,41 @@ static void main_loop(ALLEGRO_DISPLAY * display, Overlay * ovrlay, ALLEGRO_EVENT
     }
 }
 
-//replacement for main()
-static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
+int main(int argc, char **argv)
 {
-    color_ostream_proxy out(Core::getInstance().getConsole());
-    out.print("Stonesense launched\n");
+	ssConfig.overlay_mode = false;
+	if (argc > 1) {
+		if (argv[1] == "overlay") {
+			ssConfig.overlay_mode = true;
+		}
+		else {
+			DumpInfo(out, params);
+			return CR_OK;
+		}
+	}
+
+	if (!al_is_system_installed()) {
+		if (!al_init()) {
+			out.printerr("Could not init Allegro.\n");
+			return CR_FAILURE;
+		}
+
+		if (!al_init_image_addon()) {
+			out.printerr("al_init_image_addon failed. \n");
+			return CR_FAILURE;
+		}
+		if (!al_init_primitives_addon()) {
+			out.printerr("al_init_primitives_addon failed. \n");
+			return CR_FAILURE;
+		}
+		al_init_font_addon();
+		if (!al_init_ttf_addon()) {
+			out.printerr("al_init_ttf_addon failed. \n");
+			return CR_FAILURE;
+		}
+	}
+
+    cout << "Stonesense launched\n";
 
     ssConfig.debug_mode = false;
     ssConfig.hide_outer_tiles = false;
@@ -493,10 +522,10 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
     SetTitle("Stonesense");
     drawcredits();
 
-    if(ssConfig.overlay_mode){
-        overlay = new Overlay(df::global::enabler->renderer);
-        df::global::enabler->renderer = overlay;
-    }
+	//if (ssConfig.overlay_mode) {
+	//	overlay = new Overlay(df::global::enabler->renderer);
+	//	df::global::enabler->renderer = overlay;
+	//}
 
     ALLEGRO_PATH * p = al_create_path("stonesense/stonesense.png");
     IMGIcon = load_bitmap_withWarning(al_path_cstr(p, ALLEGRO_NATIVE_PATH_SEP));
@@ -575,82 +604,4 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
     return NULL;
 }
 
-//All this fun DFhack stuff I gotta do now.
-DFhackCExport command_result stonesense_command(color_ostream &out, std::vector<std::string> & params);
 
-//This is the init command. it includes input options.
-DFhackCExport command_result plugin_init ( color_ostream &out, std::vector <PluginCommand> &commands)
-{
-    enabled = true;
-    commands.push_back(PluginCommand("stonesense","Start up the stonesense visualiser.",stonesense_command));
-    commands.push_back(PluginCommand("ssense","Start up the stonesense visualiser.",stonesense_command));
-    return CR_OK;
-}
-
-//this command is called every frame DF.
-DFhackCExport command_result plugin_onupdate ( color_ostream &out )
-{
-    return CR_OK;
-}
-
-//And the shutdown command.
-DFhackCExport command_result plugin_shutdown ( color_ostream &out )
-{
-    if(stonesense_event_thread) {
-        al_join_thread(stonesense_event_thread, NULL);
-    }
-    al_uninstall_system();
-    return CR_OK;
-}
-
-//and the actual stonesense command. Maybe.
-DFhackCExport command_result stonesense_command(color_ostream &out, std::vector<std::string> & params)
-{
-#ifdef _DARWIN
-    if (!init->display.flag.is_set(init_display_flags::RENDER_2D))
-    {
-        out.printerr("The current print mode is not suported\n"
-            "Change PRINT_MODE in init.txt to 2D or a similar choice\n");
-        return CR_FAILURE;
-    }
-#endif
-    if(stonesense_started) {
-        out.print("Stonesense already running.\n");
-        return CR_OK;
-    }
-    ssConfig.overlay_mode = false;
-    if(params.size() > 0 ) {
-        if(params[0] == "overlay"){
-            ssConfig.overlay_mode = true;
-        } else {
-            DumpInfo(out, params);
-            return CR_OK;
-        }
-    }
-
-    if(!al_is_system_installed()) {
-        if (!al_init()) {
-            out.printerr("Could not init Allegro.\n");
-            return CR_FAILURE;
-        }
-
-        if (!al_init_image_addon()) {
-            out.printerr("al_init_image_addon failed. \n");
-            return CR_FAILURE;
-        }
-        if (!al_init_primitives_addon()) {
-            out.printerr("al_init_primitives_addon failed. \n");
-            return CR_FAILURE;
-        }
-        al_init_font_addon();
-        if (!al_init_ttf_addon()) {
-            out.printerr("al_init_ttf_addon failed. \n");
-            return CR_FAILURE;
-        }
-    }
-
-    stonesense_started = true;
-    stonesense_event_thread = al_create_thread(stonesense_thread, (void*)&out);
-    al_start_thread(stonesense_event_thread);
-    return CR_OK;
-}

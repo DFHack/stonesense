@@ -2,7 +2,6 @@
 
 #include "common.h"
 #include "SpriteColors.h"
-#include "df/enabler.h"
 
 
 enum ShadeBy {

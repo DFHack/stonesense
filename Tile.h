@@ -3,8 +3,6 @@
 #include "common.h"
 #include "SpriteObjects.h"
 #include "TileTypes.h"
-#include "df/item_type.h"
-#include "df/plant_tree_tile.h"
 #include "RemoteFortressReader.pb.h"
 #include <vector>
 

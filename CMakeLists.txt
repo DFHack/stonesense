@@ -11,7 +11,7 @@ include_directories (${CMAKE_SOURCE_DIR})
 
 SET(PROJECT_SRCS
     TrackingModes.cpp
-    Overlay.cpp
+#    Overlay.cpp
     Tile.cpp
     TileCondition.cpp
     TileTree.cpp
@@ -46,6 +46,46 @@ SET(PROJECT_SRCS
     TiletypeMatcher.cpp
     ConnectionState.cpp
     main.cpp
+)
+
+SET(PROJECT_HEADERS
+    BuildingConfiguration.h
+    ColorConfiguration.h
+    common.h
+    commonTypes.h
+    ConditionalSprite.h
+    Config.h
+    ConnectionState.h
+    Constructions.h
+    ContentBuildingReader.h
+    ContentLoader.h
+    CreatureConfiguration.h
+    Creatures.h
+    DumpInfo.h
+    EnumToString.h
+    FluidConfiguration.h
+    GameBuildings.h
+    GroundMaterialConfiguration.h
+    GUI.h
+    ItemConfiguration.h
+    MapLoading.h
+    MaterialMatcher.h
+    OcclusionTest.h
+#    Overlay.h
+    SegmentProcessing.h
+    SpriteColors.h
+    SpriteMaps.h
+    SpriteObjects.h
+    Tile.h
+    TileCondition.h
+    TileDirection.h
+    TileTree.h
+    TiletypeMatcher.h
+    TrackingModes.h
+    TreeGrowthConfiguration.h
+    UserInput.h
+    VegetationConfiguration.h
+    WorldSegment.h
 )
 
 IF(UNIX)
@@ -159,6 +199,7 @@ ELSE(UNIX)
         shlwapi.lib
         $(NOINHERIT)
        )
+    SET(PROJECT_SRCS ${PROJECT_SRCS} res.rc)
     include_directories (
         ${include_directories}
         ${stonesense_SOURCE_DIR}/allegrow/include
@@ -173,7 +214,7 @@ SET_SOURCE_FILES_PROPERTIES(${CMAKE_CURRENT_SOURCE_DIR}/../proto/RemoteFortressR
 
 SET(PROJECT_SRCS ${PROJECT_SRCS} ${CMAKE_CURRENT_SOURCE_DIR}/../proto/RemoteFortressReader.pb.cc)
 
-ADD_EXECUTABLE(stonesense ${PROJECT_SRCS})
+ADD_EXECUTABLE(stonesense ${PROJECT_SRCS} ${PROJECT_HEADERS})
 
 # Make sure the source is generated before the executable builds.
 ADD_DEPENDENCIES(stonesense generate_proto)

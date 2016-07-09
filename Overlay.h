@@ -2,9 +2,6 @@
 
 #include "Core.h"
 #include <VTableInterpose.h>
-#include "df/renderer.h"
-#include "df/enabler.h"
-#include "df/graphic.h"
 
 #include "common.h"
 
