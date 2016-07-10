@@ -32,7 +32,7 @@ private:
     std::vector<draw_event> todraw;
 
     std::vector<SS_Unit*> units;
-    std::vector<Buildings::t_building*> buildings;
+    std::vector<RemoteFortressReader::BuildingDefinition*> buildings;
 
 public:
     bool loaded;
@@ -95,7 +95,7 @@ public:
         return segState.Size.x * segState.Size.y * segState.Size.z;
     }
 
-    Tile* ResetTile(int32_t x, int32_t y, int32_t z, df::tiletype type=tiletype::OpenSpace);
+    Tile* ResetTile(int32_t x, int32_t y, int32_t z, df::tiletype type=df::enums::tiletype::OpenSpace);
     Tile* getTile(int32_t x, int32_t y, int32_t z);
     Tile* getTileLocal(int32_t x, int32_t y, int32_t z);
     Tile* getTileRelativeTo(int32_t x, int32_t y, int32_t z,  dirRelative direction);
@@ -106,18 +106,17 @@ public:
     void CorrectTileForSegmentOffset(int32_t& x, int32_t& y, int32_t& z);
     void CorrectTileForSegmentRotation(int32_t& x, int32_t& y, int32_t& z);
     //void addTile(Tile* b);
-    void AssembleBlockTiles(int32_t firstX, int32_t firstY, int32_t lastX, int32_t lastY, int32_t incrx, int32_t incry, int32_t z);
     void AssembleAllTiles();
     void AssembleSprite(draw_event d);
     void DrawAllTiles();
     //void drawPixels();
-    bool CoordinateInsideSegment(int32_t x, int32_t y, int32_t z);
-    bool RangeInsideSegment(int32_t min_x, int32_t min_y, int32_t min_z, int32_t max_x, int32_t max_y, int32_t max_z);
-    bool CoordinateInteriorSegment(int32_t x, int32_t y, int32_t z, uint32_t shellthick);
-    void PushBuilding( Buildings::t_building * tempbuilding);
-    void ClearBuildings();
-    void PushUnit( SS_Unit * unit);
-    void ClearUnits();
+	bool CoordinateInsideSegment(int32_t x, int32_t y, int32_t z);
+	bool RangeInsideSegment(int32_t min_x, int32_t min_y, int32_t min_z, int32_t max_x, int32_t max_y, int32_t max_z);
+	bool CoordinateInteriorSegment(int32_t x, int32_t y, int32_t z, uint32_t shellthick);
+	void PushBuilding(RemoteFortressReader::BuildingDefinition * tempbuilding);
+	void ClearBuildings();
+	void PushUnit(SS_Unit * unit);
+	void ClearUnits();
 };
 
 // FIXME: make nicer. one day. maybe.

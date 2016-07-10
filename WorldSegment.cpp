@@ -430,7 +430,7 @@ void WorldSegment::AssembleSprite(draw_event d)
     todraw.push_back(d);
 }
 
-void WorldSegment::PushBuilding( Buildings::t_building * building)
+void WorldSegment::PushBuilding(RemoteFortressReader::BuildingDefinition* building)
 {
     buildings.push_back(building);
 }

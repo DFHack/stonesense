@@ -25,7 +25,7 @@ bool threadrunnng = 0;
  * Reads the spatter types and colors from the DF vector 'splatter' at local
  *  position 'lx','ly' into the stonesense Tile 'b'.
  */
-void readSpatterToTile(Tile * b, uint32_t lx, uint32_t ly,
+/*void readSpatterToTile(Tile * b, uint32_t lx, uint32_t ly,
     const vector <df::block_square_event_material_spatterst * > & splatter)
 {
     b->mudlevel = 0;
@@ -103,13 +103,13 @@ void readSpatterToTile(Tile * b, uint32_t lx, uint32_t ly,
     } else {
         b->bloodcolor = al_map_rgb(150, 0, 24);
     }
-}
+}*/
 
 /**
  * Converts the tile to a type that indicates what designations are specified.
  * Also converts the material to the "DESIGNATION" material type when appropriate.
  */
-bool readDesignationsToTile( Tile * b,
+/*bool readDesignationsToTile( Tile * b,
                              df::tile_designation des,
                              df::tile_occupancy occ)
 {
@@ -211,14 +211,14 @@ bool readDesignationsToTile( Tile * b,
     }
 
     return false;
-}
+}*/
 
 /**
  * Identifies the correct material from the DF vectors, and stores it in the
  * stonesense tile.
  */
 //TODO get cavein-sand to work somehow?
-void readMaterialToTile( Tile * b, uint32_t lx, uint32_t ly,
+/*void readMaterialToTile( Tile * b, uint32_t lx, uint32_t ly,
     df::map_block * trueBlock,
     const t_feature & local, const t_feature & global,
     const vector <df::block_square_event_mineralst * > & veins,
@@ -346,9 +346,9 @@ void readMaterialToTile( Tile * b, uint32_t lx, uint32_t ly,
         b->material.type = INORGANIC;
         b->material.index = contentLoader->obsidian;
     }
-}
+}*/
 
-SS_Item ConvertItem(df::item * found_item, WorldSegment& segment){
+/*SS_Item ConvertItem(df::item * found_item, WorldSegment& segment){
     SS_Item Tempitem;
     Tempitem.item.type = found_item->getType(); //itemtype
     Tempitem.item.index = found_item->getSubtype(); //item subtype
@@ -391,7 +391,7 @@ SS_Item ConvertItem(df::item * found_item, WorldSegment& segment){
         }
     }
     return Tempitem;
-}
+}*/
 
 /**
 * reads one 16x16 block pulled over RPC into stonesense tiles
@@ -410,7 +410,7 @@ void readRemoteBlockToSegment(RemoteFortressReader::MapBlock &block, WorldSegmen
         Tile * t = segment.getTile(x, y, z);
         if (!t)
             continue;
-        t->tileType = (tiletype::tiletype)block.tiles(index);
+        t->tileType = (df::enums::tiletype::tiletype)block.tiles(index);
         t->material.index = block.materials(index).mat_index();
         t->material.type = block.materials(index).mat_type();
     }
@@ -421,7 +421,7 @@ void readRemoteBlockToSegment(RemoteFortressReader::MapBlock &block, WorldSegmen
 * reads one 16x16 map block into stonesense tiles
 * attempts to only read as much information as is necessary to do the tile optimization
 */
-void readBlockToSegment(DFHack::Core& DF, WorldSegment& segment,
+/*void readBlockToSegment(DFHack::Core& DF, WorldSegment& segment,
     int BlockX, int BlockY, int BlockZ,
     uint32_t BoundrySX, uint32_t BoundrySY,
     uint32_t BoundryEX, uint32_t BoundryEY,
@@ -627,9 +627,9 @@ void readBlockToSegment(DFHack::Core& DF, WorldSegment& segment,
             }
         }
     }
-}
+}*/
 
-void readBlockColumnToSegment(DFHack::Core& DF, WorldSegment& segment,
+/*void readBlockColumnToSegment(DFHack::Core& DF, WorldSegment& segment,
     int BlockX, int BlockY)
 {
     if (ssConfig.skipMaps) {
@@ -748,10 +748,10 @@ void readBlockColumnToSegment(DFHack::Core& DF, WorldSegment& segment,
         }
     }
 
-}
+}*/
 
 
-void readMapSegment(WorldSegment* segment, GameState inState)
+/*void readMapSegment(WorldSegment* segment, GameState inState)
 {
     uint32_t index;
     DFHack::Core & DF = Core::getInstance();
@@ -795,8 +795,8 @@ void readMapSegment(WorldSegment* segment, GameState inState)
         ReadBuildings(DF, &allBuildings);
     }
 
-    /*if(GroundMaterialNamesTranslatedFromGame == false)
-    TranslateGroundMaterialNames();*/
+    //if(GroundMaterialNamesTranslatedFromGame == false)
+    //TranslateGroundMaterialNames();
 
     // read constructions
     vector<df::construction> allConstructions;
@@ -949,7 +949,7 @@ void readMapSegment(WorldSegment* segment, GameState inState)
     segment->loaded = 1;
     segment->processed = 0;
     ssTimers.read_time = (clock() - starttime)*0.1 + ssTimers.read_time*0.9;
-}
+}*/
 
 //==============================Map Read Main===========================//
 /*
@@ -957,7 +957,7 @@ void readMapSegment(WorldSegment* segment, GameState inState)
  *  as well as the read thread's entry point.
  */
 
-void read_segment( void *arg)
+/*void read_segment( void *arg)
 {
     if(!Maps::IsValid()) {
         return;
@@ -1006,7 +1006,7 @@ void read_segment( void *arg)
         map_segment.swap();
         map_segment.unlockDraw();
     }
-}
+}*/
 
 static void * threadedSegment(ALLEGRO_THREAD *read_thread, void *arg)
 {

@@ -47,7 +47,10 @@ DFHack::RemoteFunction<In, Out>* ConnectionState::CreateAndBind(DFHack::RemoteCl
 	if (output->bind(client, name, proto))
 		return output;
 	else
+	{
+		delete output;
 		return NULL;
+	}
 }
 
 template<typename In>
@@ -57,5 +60,8 @@ DFHack::RemoteFunction<In>* ConnectionState::CreateAndBind(DFHack::RemoteClient 
 	if (output->bind(client, name, proto))
 		return output;
 	else
+	{
+		delete output;
 		return NULL;
+	}
 }

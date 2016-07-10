@@ -25,6 +25,7 @@ SET(PROJECT_SRCS
     CreatureConfiguration.cpp
     Creatures.cpp
     DumpInfo.cpp
+    DFConnection.cpp
     FluidConfiguration.cpp
     GUI.cpp
     GameBuildings.cpp
@@ -61,6 +62,7 @@ SET(PROJECT_HEADERS
     ContentLoader.h
     CreatureConfiguration.h
     Creatures.h
+    DFConnection.h
     DumpInfo.h
     EnumToString.h
     FluidConfiguration.h
