@@ -537,9 +537,9 @@ void copyCreature(df::unit * source, SS_Unit & furball)
     // labors
     memcpy(&furball.labors, &source->status.labors, sizeof(furball.labors));
 
-    furball.birth_year = source->relations.birth_year;
-    furball.birth_time = source->relations.birth_time;
-    furball.pregnancy_timer = source->relations.pregnancy_timer;
+    furball.birth_year = source->birth_year;
+    furball.birth_time = source->birth_time;
+    furball.pregnancy_timer = source->pregnancy_timer;
     // appearance
     furball.nbcolors = source->appearance.colors.size();
     if(furball.nbcolors>MAX_COLORS)
