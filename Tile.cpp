@@ -10,6 +10,7 @@
 #include "df/building_type.h"
 #include "df/plant_growth.h"
 #include "df/plant_growth_print.h"
+#include "df/world.h"
 
 ALLEGRO_BITMAP *sprite_miasma = 0;
 ALLEGRO_BITMAP *sprite_water = 0;

@@ -14,6 +14,7 @@
 #include "df/item_slabst.h"
 #include "df/itemimprovement.h"
 #include "df/itemimprovement_threadst.h"
+#include "df/world.h"
 
 using df::global::world;
 

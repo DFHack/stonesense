@@ -19,6 +19,7 @@ using namespace std;
 
 #include "df/ui.h"
 #include "df/building_actual.h"
+#include "df/world.h"
 
 #include "df/itemdef.h"
 #include "df/itemdef_weaponst.h"
@@ -45,6 +46,7 @@ using namespace std;
 #include "df/viewscreen_dungeon_wrestlest.h"
 #include "df/ui_advmode.h"
 #include "df/report.h"
+
 #include "allegro5/allegro_color.h"
 extern ALLEGRO_FONT *font;
 

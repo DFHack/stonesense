@@ -10,6 +10,10 @@
 #include "ItemConfiguration.h"
 #include "common.h"
 
+namespace df {
+    struct world_raws;
+}
+
 class ContentLoader
 {
 private:

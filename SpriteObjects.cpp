@@ -1,3 +1,5 @@
+#include <cmath>
+
 #include "common.h"
 #include "SpriteObjects.h"
 #include "GUI.h"
@@ -5,24 +7,24 @@
 #include "WorldSegment.h"
 #include "SpriteColors.h"
 #include "SpriteMaps.h"
-#include <cmath>
 
-#include "df/world_raws.h"
-#include "df/itemdef_weaponst.h"
-#include "df/itemdef_trapcompst.h"
-#include "df/itemdef_toyst.h"
-#include "df/itemdef_toolst.h"
-#include "df/itemdef_instrumentst.h"
-#include "df/itemdef_armorst.h"
-#include "df/itemdef_ammost.h"
-#include "df/itemdef_siegeammost.h"
-#include "df/itemdef_shoesst.h"
-#include "df/itemdef_shieldst.h"
-#include "df/itemdef_helmst.h"
-#include "df/itemdef_glovesst.h"
-#include "df/itemdef_pantsst.h"
-#include "df/itemdef_foodst.h"
 #include "df/descriptor_pattern.h"
+#include "df/itemdef_ammost.h"
+#include "df/itemdef_armorst.h"
+#include "df/itemdef_foodst.h"
+#include "df/itemdef_glovesst.h"
+#include "df/itemdef_helmst.h"
+#include "df/itemdef_instrumentst.h"
+#include "df/itemdef_pantsst.h"
+#include "df/itemdef_shieldst.h"
+#include "df/itemdef_shoesst.h"
+#include "df/itemdef_siegeammost.h"
+#include "df/itemdef_toolst.h"
+#include "df/itemdef_toyst.h"
+#include "df/itemdef_trapcompst.h"
+#include "df/itemdef_weaponst.h"
+#include "df/world.h"
+#include "df/world_raws.h"
 
 #define ALL_BORDERS 255
 
