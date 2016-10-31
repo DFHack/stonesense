@@ -127,10 +127,15 @@ IF(UNIX)
     ENDIF()
 # windows
 ELSE(UNIX)
-    FILE(DOWNLOAD http://dethware.org/dfhack/download/allegrow509b.tar.gz
-                  ${stonesense_SOURCE_DIR}/allegrow509b.tar.gz
-                  EXPECTED_MD5 55b7e37ece699f02192346883ba38677)
-    execute_process(COMMAND ${CMAKE_COMMAND} -E tar xzf ${stonesense_SOURCE_DIR}/allegrow509b.tar.gz
+    FILE(DOWNLOAD http://download.gna.org/allegro/allegro-unstable-bin/5.1.12/allegro-msvc2015-x64-5.1.12.zip
+                  ${stonesense_SOURCE_DIR}/allegro-msvc2015-x64-5.1.12.zip
+                  EXPECTED_MD5 3abb0bd88251efde001a8b65fdf17683)
+    execute_process(COMMAND ${CMAKE_COMMAND} -E tar xzf ${stonesense_SOURCE_DIR}/allegro-msvc2015-x64-5.1.12.zip
+                    WORKING_DIRECTORY ${stonesense_SOURCE_DIR})
+    FILE(DOWNLOAD http://download.gna.org/allegro/allegro-deps/1.2.0/allegro_deps-msvc2015-x64-1.2.0.zip
+                  ${stonesense_SOURCE_DIR}/allegro_deps-msvc2015-x64-1.2.0.zip
+                  EXPECTED_MD5 eb8d0f4569b84c36bef3733b40b00c72)
+    execute_process(COMMAND ${CMAKE_COMMAND} -E tar xzf ${stonesense_SOURCE_DIR}/allegro_deps-msvc2015-x64-1.2.0.zip
                     WORKING_DIRECTORY ${stonesense_SOURCE_DIR})
     ADD_DEFINITIONS("-DALLEGRO_STATICLINK")
     SET(PROJECT_LIBS
@@ -150,7 +155,10 @@ ELSE(UNIX)
         allegro_image-static.lib
         allegro_ttf-static.lib
         allegro_color-static.lib
-        freetype-static.lib
+        freetype.lib
+        libpng16.lib
+        jpeg.lib
+        zlib.lib
         winmm.lib
         psapi.lib
         opengl32.lib
@@ -161,11 +169,13 @@ ELSE(UNIX)
        )
     include_directories (
         ${include_directories}
-        ${stonesense_SOURCE_DIR}/allegrow/include
+        ${stonesense_SOURCE_DIR}/allegro/include
+        ${stonesense_SOURCE_DIR}/allegro_deps/include
     )
     LINK_DIRECTORIES(
         ${LINK_DIRECTORIES}
-        ${stonesense_SOURCE_DIR}/allegrow/lib
+        ${stonesense_SOURCE_DIR}/allegro/lib
+        ${stonesense_SOURCE_DIR}/allegro_deps/lib
     )
 ENDIF(UNIX)
 # Tell CMake the source won't be available until build time.

@@ -6,3 +6,5 @@ allegro-*/
 *.tar.gz
 *.tar.bz2
 *~
+allegro-msvc2015-x64-5.1.12.zip
+allegro_deps-msvc2015-x64-1.2.0.zip
