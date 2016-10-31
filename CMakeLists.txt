@@ -127,28 +127,29 @@ IF(UNIX)
     ENDIF()
 # windows
 ELSE(UNIX)
+    SET(ALLEGRO_DOWNLOAD_DIR ${stonesense_SOURCE_DIR}/win${DFHACK_BUILD_ARCH})
     IF(DFHACK_BUILD_64)
-        FILE(DOWNLOAD http://download.gna.org/allegro/allegro-unstable-bin/5.1.12/allegro-msvc2015-x64-5.1.12.zip
-                      ${stonesense_SOURCE_DIR}/allegro-msvc2015-x64-5.1.12.zip
-                      EXPECTED_MD5 3abb0bd88251efde001a8b65fdf17683)
-        execute_process(COMMAND ${CMAKE_COMMAND} -E tar xzf ${stonesense_SOURCE_DIR}/allegro-msvc2015-x64-5.1.12.zip
-                        WORKING_DIRECTORY ${stonesense_SOURCE_DIR})
-        FILE(DOWNLOAD http://download.gna.org/allegro/allegro-deps/1.2.0/allegro_deps-msvc2015-x64-1.2.0.zip
-                      ${stonesense_SOURCE_DIR}/allegro_deps-msvc2015-x64-1.2.0.zip
-                      EXPECTED_MD5 eb8d0f4569b84c36bef3733b40b00c72)
-        execute_process(COMMAND ${CMAKE_COMMAND} -E tar xzf ${stonesense_SOURCE_DIR}/allegro_deps-msvc2015-x64-1.2.0.zip
-                        WORKING_DIRECTORY ${stonesense_SOURCE_DIR})
+        download_file("http://download.gna.org/allegro/allegro-unstable-bin/5.1.12/allegro-msvc2015-x64-5.1.12.zip"
+                      ${ALLEGRO_DOWNLOAD_DIR}/allegro-msvc2015-x64-5.1.12.zip
+                      "3abb0bd88251efde001a8b65fdf17683")
+        execute_process(COMMAND ${CMAKE_COMMAND} -E tar xzf ${ALLEGRO_DOWNLOAD_DIR}/allegro-msvc2015-x64-5.1.12.zip
+                        WORKING_DIRECTORY ${ALLEGRO_DOWNLOAD_DIR})
+        download_file("http://download.gna.org/allegro/allegro-deps/1.2.0/allegro_deps-msvc2015-x64-1.2.0.zip"
+                      ${ALLEGRO_DOWNLOAD_DIR}/allegro_deps-msvc2015-x64-1.2.0.zip
+                      "eb8d0f4569b84c36bef3733b40b00c72")
+        execute_process(COMMAND ${CMAKE_COMMAND} -E tar xzf ${ALLEGRO_DOWNLOAD_DIR}/allegro_deps-msvc2015-x64-1.2.0.zip
+                        WORKING_DIRECTORY ${ALLEGRO_DOWNLOAD_DIR})
     ELSE()
-        FILE(DOWNLOAD http://download.gna.org/allegro/allegro-unstable-bin/5.1.12/allegro-msvc2015-x86-5.1.12.zip
-                      ${stonesense_SOURCE_DIR}/allegro-msvc2015-x86-5.1.12.zip
-                      EXPECTED_MD5 86e6aeea828743107dc1f3a3d562e53d)
-        execute_process(COMMAND ${CMAKE_COMMAND} -E tar xzf ${stonesense_SOURCE_DIR}/allegro-msvc2015-x86-5.1.12.zip
-                        WORKING_DIRECTORY ${stonesense_SOURCE_DIR})
-        FILE(DOWNLOAD http://download.gna.org/allegro/allegro-deps/1.2.0/allegro_deps-msvc2015-x86-1.2.0.zip
-                      ${stonesense_SOURCE_DIR}/allegro_deps-msvc2015-x86-1.2.0.zip
-                      EXPECTED_MD5 be096bfef256cb113e25dbb2eb7fd410)
-        execute_process(COMMAND ${CMAKE_COMMAND} -E tar xzf ${stonesense_SOURCE_DIR}/allegro_deps-msvc2015-x86-1.2.0.zip
-                        WORKING_DIRECTORY ${stonesense_SOURCE_DIR})
+        download_file("http://download.gna.org/allegro/allegro-unstable-bin/5.1.12/allegro-msvc2015-x86-5.1.12.zip"
+                      ${ALLEGRO_DOWNLOAD_DIR}/allegro-msvc2015-x86-5.1.12.zip
+                      "86e6aeea828743107dc1f3a3d562e53d")
+        execute_process(COMMAND ${CMAKE_COMMAND} -E tar xzf ${ALLEGRO_DOWNLOAD_DIR}/allegro-msvc2015-x86-5.1.12.zip
+                        WORKING_DIRECTORY ${ALLEGRO_DOWNLOAD_DIR})
+        download_file("http://download.gna.org/allegro/allegro-deps/1.2.0/allegro_deps-msvc2015-x86-1.2.0.zip"
+                      ${ALLEGRO_DOWNLOAD_DIR}/allegro_deps-msvc2015-x86-1.2.0.zip
+                      "be096bfef256cb113e25dbb2eb7fd410")
+        execute_process(COMMAND ${CMAKE_COMMAND} -E tar xzf ${ALLEGRO_DOWNLOAD_DIR}/allegro_deps-msvc2015-x86-1.2.0.zip
+                        WORKING_DIRECTORY ${ALLEGRO_DOWNLOAD_DIR})
     ENDIF()
     ADD_DEFINITIONS("-DALLEGRO_STATICLINK")
     SET(PROJECT_LIBS
@@ -182,13 +183,13 @@ ELSE(UNIX)
        )
     include_directories (
         ${include_directories}
-        ${stonesense_SOURCE_DIR}/allegro/include
-        ${stonesense_SOURCE_DIR}/allegro_deps/include
+        ${stonesense_SOURCE_DIR}/win${DFHACK_BUILD_ARCH}/allegro/include
+        ${stonesense_SOURCE_DIR}/win${DFHACK_BUILD_ARCH}/allegro_deps/include
     )
     LINK_DIRECTORIES(
         ${LINK_DIRECTORIES}
-        ${stonesense_SOURCE_DIR}/allegro/lib
-        ${stonesense_SOURCE_DIR}/allegro_deps/lib
+        ${stonesense_SOURCE_DIR}/win${DFHACK_BUILD_ARCH}/allegro/lib
+        ${stonesense_SOURCE_DIR}/win${DFHACK_BUILD_ARCH}/allegro_deps/lib
     )
 ENDIF(UNIX)
 # Tell CMake the source won't be available until build time.
