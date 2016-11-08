@@ -48,6 +48,11 @@ SET(PROJECT_SRCS
     main.cpp
 )
 
+#proto files to include.
+SET(PROJECT_PROTO
+	../../proto/RemoteFortressReader
+)
+
 IF(UNIX)
     IF(APPLE)
     # Mac OS X
@@ -192,12 +197,8 @@ ELSE(UNIX)
         ${stonesense_SOURCE_DIR}/win${DFHACK_BUILD_ARCH}/allegro_deps/lib
     )
 ENDIF(UNIX)
-# Tell CMake the source won't be available until build time.
-SET_SOURCE_FILES_PROPERTIES(${CMAKE_CURRENT_SOURCE_DIR}/../proto/RemoteFortressReader.pb.cc PROPERTIES GENERATED 1)
 
-SET(PROJECT_SRCS ${PROJECT_SRCS} ${CMAKE_CURRENT_SOURCE_DIR}/../proto/RemoteFortressReader.pb.cc)
-
-DFHACK_PLUGIN(stonesense ${PROJECT_SRCS} LINK_LIBRARIES ${DFHACK_TINYXML} ${PROJECT_LIBS})
+DFHACK_PLUGIN(stonesense ${PROJECT_SRCS} LINK_LIBRARIES ${DFHACK_TINYXML} ${PROJECT_LIBS} PROTOBUFS ${PROJECT_PROTO})
 
 # Make sure the source is generated before the executable builds.
 ADD_DEPENDENCIES(stonesense generate_proto)
