@@ -58,26 +58,35 @@ IF(UNIX)
     # Mac OS X
         OPTION(STONESENSE_INTERNAL_DYLIB "Link with prebuilt internal allegro libs and headers." ON)
         IF(STONESENSE_INTERNAL_DYLIB)
-            FILE(DOWNLOAD http://topazgryphon.org/~tcollett/df/allegro-5.0.11-osx.tar.bz2
-                          ${stonesense_SOURCE_DIR}/allegro-5.0.11-osx.tar.bz2
-                          EXPECTED_MD5 c531eb16f2530e1168116fcbce7644df)
-            execute_process(COMMAND tar xjf ${stonesense_SOURCE_DIR}/allegro-5.0.11-osx.tar.bz2
-                            WORKING_DIRECTORY ${stonesense_SOURCE_DIR})
+            set(ALLEGRO_DOWNLOAD_DIR ${stonesense_SOURCE_DIR}/allegro/osx${DFHACK_BUILD_ARCH})
+            if("${DFHACK_BUILD_ARCH}" STREQUAL "64")
+                set(ALLEGRO_DOWNLOAD_FILE "osx64-allegro-5.2.2.tar.bz2")
+                download_file(URL
+                    "${ALLEGRO_DOWNLOAD_DIR}/${ALLEGRO_DOWNLOAD_FILE}"
+                    "306e8981bf67cf8b3f9ac0b26003869e")
+            else()
+                set(ALLEGRO_DOWNLOAD_FILE "osx32-allegro-5.0.11.tar.bz2")
+                download_file("http://topazgryphon.org/~tcollett/df/allegro-5.0.11-osx.tar.bz2"
+                    "${ALLEGRO_DOWNLOAD_DIR}/${ALLEGRO_DOWNLOAD_FILE}"
+                    "c531eb16f2530e1168116fcbce7644df")
+            endif()
+            execute_process(COMMAND tar xjf "${ALLEGRO_DOWNLOAD_DIR}/${ALLEGRO_DOWNLOAD_FILE}" --strip-components=1
+                            WORKING_DIRECTORY ${ALLEGRO_DOWNLOAD_DIR})
             SET(PROJECT_LIBS
-                ${stonesense_SOURCE_DIR}/allegro-osx/lib/liballegro.5.0.dylib
-                ${stonesense_SOURCE_DIR}/allegro-osx/lib/liballegro_primitives.5.0.dylib
-                ${stonesense_SOURCE_DIR}/allegro-osx/lib/liballegro_font.5.0.dylib
-                ${stonesense_SOURCE_DIR}/allegro-osx/lib/liballegro_color.5.0.dylib
-                ${stonesense_SOURCE_DIR}/allegro-osx/lib/liballegro_image.5.0.dylib
-                ${stonesense_SOURCE_DIR}/allegro-osx/lib/liballegro_ttf.5.0.dylib
+                ${ALLEGRO_DOWNLOAD_DIR}/lib/liballegro.dylib
+                ${ALLEGRO_DOWNLOAD_DIR}/lib/liballegro_primitives.dylib
+                ${ALLEGRO_DOWNLOAD_DIR}/lib/liballegro_font.dylib
+                ${ALLEGRO_DOWNLOAD_DIR}/lib/liballegro_color.dylib
+                ${ALLEGRO_DOWNLOAD_DIR}/lib/liballegro_image.dylib
+                ${ALLEGRO_DOWNLOAD_DIR}/lib/liballegro_ttf.dylib
                 ${PROJECT_LIBS}
             )
             include_directories (
                 ${include_directories}
-                ${stonesense_SOURCE_DIR}/allegro-osx/include
-                ${stonesense_SOURCE_DIR}/allegro-osx/lib/Headers
+                ${ALLEGRO_DOWNLOAD_DIR}/include
+                ${ALLEGRO_DOWNLOAD_DIR}/lib/Headers
             )
-            install(DIRECTORY allegro-osx/lib/
+            install(DIRECTORY ${ALLEGRO_DOWNLOAD_DIR}/lib/
                     DESTINATION "hack/libs"
                     PATTERN "CVS" EXCLUDE
                     PATTERN ".svn" EXCLUDE)
