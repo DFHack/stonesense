@@ -61,12 +61,12 @@ IF(UNIX)
             set(ALLEGRO_DOWNLOAD_DIR ${stonesense_SOURCE_DIR}/allegro/osx${DFHACK_BUILD_ARCH})
             if("${DFHACK_BUILD_ARCH}" STREQUAL "64")
                 set(ALLEGRO_DOWNLOAD_FILE "osx64-allegro-5.2.2.tar.bz2")
-                download_file(URL
+                download_file("https://github.com/DFHack/dfhack-bin/releases/download/0.43.05/osx64-allegro-5.2.2.tar.bz2"
                     "${ALLEGRO_DOWNLOAD_DIR}/${ALLEGRO_DOWNLOAD_FILE}"
                     "306e8981bf67cf8b3f9ac0b26003869e")
             else()
                 set(ALLEGRO_DOWNLOAD_FILE "osx32-allegro-5.0.11.tar.bz2")
-                download_file("http://topazgryphon.org/~tcollett/df/allegro-5.0.11-osx.tar.bz2"
+                download_file("https://github.com/DFHack/dfhack-bin/releases/download/0.43.05/osx32-allegro-5.0.11.tar.bz2"
                     "${ALLEGRO_DOWNLOAD_DIR}/${ALLEGRO_DOWNLOAD_FILE}"
                     "c531eb16f2530e1168116fcbce7644df")
             endif()
@@ -105,23 +105,32 @@ IF(UNIX)
     #linux
         OPTION(STONESENSE_INTERNAL_SO "Link with prebuilt internal allegro libs and headers." ON)
         IF(STONESENSE_INTERNAL_SO)
-            FILE(DOWNLOAD http://dethware.org/dfhack/download/allegro509b.tar.bz2
-                          ${stonesense_SOURCE_DIR}/allegro509b.tar.bz2
-                          EXPECTED_MD5 74ead5d95a83a03a301cdc76fa0a3df8)
-            execute_process(COMMAND tar xf ${stonesense_SOURCE_DIR}/allegro509b.tar.bz2
-                            WORKING_DIRECTORY ${stonesense_SOURCE_DIR})
+            set(ALLEGRO_DOWNLOAD_DIR ${stonesense_SOURCE_DIR}/allegro/linux${DFHACK_BUILD_ARCH})
+            if("${DFHACK_BUILD_ARCH}" STREQUAL "64")
+                set(ALLEGRO_DOWNLOAD_FILE "linux64-allegro5010.tar.gz")
+                download_file("https://github.com/DFHack/dfhack-bin/releases/download/0.43.05/linux64-allegro5010.tar.gz"
+                    "${ALLEGRO_DOWNLOAD_DIR}/${ALLEGRO_DOWNLOAD_FILE}"
+                    "343f44224ee61508b89b11adb35a4dd9")
+            else()
+                set(ALLEGRO_DOWNLOAD_FILE "linux32-allegro509b.tar.bz2")
+                download_file("https://github.com/DFHack/dfhack-bin/releases/download/0.43.05/linux32-allegro509b.tar.bz2"
+                    "${ALLEGRO_DOWNLOAD_DIR}/${ALLEGRO_DOWNLOAD_FILE}"
+                    "74ead5d95a83a03a301cdc76fa0a3df8")
+            endif()
+            execute_process(COMMAND tar xf "${ALLEGRO_DOWNLOAD_DIR}/${ALLEGRO_DOWNLOAD_FILE}" --strip-components=1
+                            WORKING_DIRECTORY ${ALLEGRO_DOWNLOAD_DIR})
             SET(PROJECT_LIBS
-                ${stonesense_SOURCE_DIR}/allegro/lib/liballegro.so.5.0
-                ${stonesense_SOURCE_DIR}/allegro/lib/liballegro_primitives.so.5.0
-                ${stonesense_SOURCE_DIR}/allegro/lib/liballegro_font.so.5.0
-                ${stonesense_SOURCE_DIR}/allegro/lib/liballegro_image.so.5.0
-                ${stonesense_SOURCE_DIR}/allegro/lib/liballegro_ttf.so.5.0
-                ${stonesense_SOURCE_DIR}/allegro/lib/liballegro_color.so.5.0
+                ${ALLEGRO_DOWNLOAD_DIR}/lib/liballegro.so.5.0
+                ${ALLEGRO_DOWNLOAD_DIR}/lib/liballegro_primitives.so.5.0
+                ${ALLEGRO_DOWNLOAD_DIR}/lib/liballegro_font.so.5.0
+                ${ALLEGRO_DOWNLOAD_DIR}/lib/liballegro_image.so.5.0
+                ${ALLEGRO_DOWNLOAD_DIR}/lib/liballegro_ttf.so.5.0
+                ${ALLEGRO_DOWNLOAD_DIR}/lib/liballegro_color.so.5.0
                 ${PROJECT_LIBS}
             )
             include_directories (
                 ${include_directories}
-                ${stonesense_SOURCE_DIR}/allegro/include
+                ${ALLEGRO_DOWNLOAD_DIR}/include
             )
             install(DIRECTORY allegro/lib/
                     DESTINATION "hack/libs"
