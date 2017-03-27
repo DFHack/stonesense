@@ -132,7 +132,7 @@ IF(UNIX)
                 ${include_directories}
                 ${ALLEGRO_DOWNLOAD_DIR}/include
             )
-            install(DIRECTORY allegro/lib/
+            install(DIRECTORY ${ALLEGRO_DOWNLOAD_DIR}/lib/
                     DESTINATION "hack/libs"
                     PATTERN "CVS" EXCLUDE
                     PATTERN ".svn" EXCLUDE)
