@@ -1,4 +1,4 @@
-#Welcome to Stonesense
+# Welcome to Stonesense
 
 [![Documentation](https://readthedocs.org/projects/dfhack/badge)]
 (https://dfhack.readthedocs.org)
