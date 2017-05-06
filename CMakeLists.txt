@@ -72,6 +72,17 @@ IF(UNIX)
             endif()
             execute_process(COMMAND tar xjf "${ALLEGRO_DOWNLOAD_DIR}/${ALLEGRO_DOWNLOAD_FILE}" --strip-components=1
                             WORKING_DIRECTORY ${ALLEGRO_DOWNLOAD_DIR})
+
+            # Download freetype only on x64
+            if("${DFHACK_BUILD_ARCH}" STREQUAL "64")
+                download_file_unzip("https://github.com/DFHack/dfhack-bin/releases/download/0.43.05/osx64-libfreetype.6.dylib.gz"
+                    "gz"
+                    ${ALLEGRO_DOWNLOAD_DIR}/lib/libfreetype.6.dylib.gz
+                    "f4c4005a53a353802492ab1a76f188b6"
+                    ${ALLEGRO_DOWNLOAD_DIR}/lib/libfreetype.6.dylib
+                    "f593477141d6f10c510dca7dbc10dab8")
+            endif()
+
             SET(PROJECT_LIBS
                 ${ALLEGRO_DOWNLOAD_DIR}/lib/liballegro.dylib
                 ${ALLEGRO_DOWNLOAD_DIR}/lib/liballegro_primitives.dylib
