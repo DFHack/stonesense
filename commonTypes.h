@@ -4,6 +4,8 @@
 #include "SpriteColors.h"
 #include "df/enabler.h"
 
+// TODO: remove
+#define NUM_CREATURE_LABORS 96
 
 enum ShadeBy {
     ShadeNone,
@@ -324,7 +326,11 @@ struct SS_Unit{
 
     // enabled labors
     uint8_t labors[NUM_CREATURE_LABORS];
-    DFHack::Units::t_job current_job;
+    struct {
+        bool active;
+        uint32_t jobId;
+        uint8_t jobType;
+    } current_job;
 
     uint32_t stress_level;
     uint32_t id;
@@ -341,7 +347,7 @@ struct SS_Unit{
     //bool has_default_soul;
     //t_soul defaultSoul;
     uint32_t nbcolors;
-    uint32_t color[MAX_COLORS];
+    uint32_t color[DFHack::Units::MAX_COLORS];
 
     hairstyles hairstyle[hairtypes_end];
     uint32_t hairlength[hairtypes_end];
