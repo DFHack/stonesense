@@ -34,6 +34,7 @@ using namespace df::enums;
 // allegro leaks X headers, undef some of it here:
 #undef TileShape
 #undef None
+#undef Status
 
 #include "commonTypes.h"
 #include "Tile.h"
