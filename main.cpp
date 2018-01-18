@@ -445,8 +445,10 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
     ssTimers.prev_frame_time = clock();
     ssTimers.frame_total = 1.0f;
     initRandomCube();
-    loadConfigFile();
-    loadKeymapFile();
+    if (!loadConfigFile() || !loadKeymapFile()) {
+        stonesense_started = 0;
+        return NULL;
+    }
     init_masks();
     if(!loadfont(out)) {
         stonesense_started = 0;
