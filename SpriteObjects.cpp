@@ -1292,8 +1292,8 @@ ALLEGRO_COLOR c_sprite::get_color(void* tile)
                     t_colormodifier & colormod = colormods[caste_bodypart_index];
                     if(colormod.colorlist.size() > b->creature->color[caste_bodypart_index]) {
                         uint32_t cr_color = colormod.colorlist.at(b->creature->color[caste_bodypart_index]);
-                        if(cr_color < df::global::world->raws.language.patterns.size()) {
-                            uint16_t actual_color = df::global::world->raws.language.patterns[cr_color]->colors[pattern_index%df::global::world->raws.language.patterns[cr_color]->colors.size()];
+                        if(cr_color < df::global::world->raws.descriptors.patterns.size()) {
+                            uint16_t actual_color = df::global::world->raws.descriptors.patterns[cr_color]->colors[pattern_index%df::global::world->raws.descriptors.patterns[cr_color]->colors.size()];
                             if(actual_color < contentLoader->Mats->color.size()){
                                 if(colormod.startdate > 0) {
                                     if((colormod.startdate <= dayofLife) &&
