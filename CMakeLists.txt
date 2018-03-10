@@ -47,7 +47,6 @@ SET(PROJECT_SRCS
 #proto files to include.
 SET(PROJECT_PROTO
 	../../proto/RemoteFortressReader
-	../../proto/ItemdefInstrument
 )
 
 IF(UNIX)

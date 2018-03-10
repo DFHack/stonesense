@@ -676,9 +676,9 @@ void drawDebugInfo(WorldSegment * segment)
                         " %s:", contentLoader->Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].part.c_str());
                     xx += get_textf_width(font, " %s:", contentLoader->Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].part.c_str());
                     uint32_t cr_color = contentLoader->Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].colorlist[b->creature->color[j]];
-                    if(cr_color < df::global::world->raws.language.patterns.size()) {
-                        for(int patternin = 0; patternin < df::global::world->raws.language.patterns[cr_color]->colors.size(); patternin++){
-                            uint16_t actual_color = df::global::world->raws.language.patterns[cr_color]->colors[patternin];
+                    if(cr_color < df::global::world->raws.descriptors.patterns.size()) {
+                        for(int patternin = 0; patternin < df::global::world->raws.descriptors.patterns[cr_color]->colors.size(); patternin++){
+                            uint16_t actual_color = df::global::world->raws.descriptors.patterns[cr_color]->colors[patternin];
                             al_draw_filled_rectangle(xx, yy, xx+al_get_font_line_height(font), yy+al_get_font_line_height(font),
                                 al_map_rgb_f(
                                 contentLoader->Mats->color[actual_color].red,
