@@ -66,7 +66,7 @@ void ReadBuildings(DFHack::Core& DF, vector<Buildings::t_building>* buildingHold
     Buildings::t_building tempbuilding;
     df::buildings_other_id types = df::buildings_other_id::IN_PLAY;
 
-    for (int i = 0; i < world->buildings.other[types].size(); i++) {
+    for (size_t i = 0; i < world->buildings.other[types].size(); i++) {
         Core & c = Core::getInstance();
         df::building *bld = world->buildings.other[types][i];
         tempbuilding.x1 = bld->x1;
@@ -96,7 +96,7 @@ void MergeBuildingsToSegment(vector<Buildings::t_building>* buildings, WorldSegm
         //int bheight = tempbuilding.y2 - tempbuilding.y1;
         for (uint32_t yy = copiedbuilding->y1; yy <= copiedbuilding->y2; yy++) {
             for (uint32_t xx = copiedbuilding->x1; xx <= copiedbuilding->x2; xx++) {
-                int z2 = copiedbuilding->z;
+                uint32_t z2 = copiedbuilding->z;
                 //if it's a well, add the bucket status.
                 if (copiedbuilding->type == df::enums::building_type::Well) {
                     auto well_building = virtual_cast<df::building_wellst>(copiedbuilding->origin);
@@ -173,7 +173,7 @@ void MergeBuildingsToSegment(vector<Buildings::t_building>* buildings, WorldSegm
                     //add building components.
                     auto Actual_building = virtual_cast<df::building_actual>(b->building.info->origin);
                     if (Actual_building){
-                        for (int index = 0; index < Actual_building->contained_items.size(); index++) {
+                        for (size_t index = 0; index < Actual_building->contained_items.size(); index++) {
                             if (Actual_building->contained_items[index]->use_mode != 2)
                                 break;
                             worn_item item_matt;
@@ -181,7 +181,7 @@ void MergeBuildingsToSegment(vector<Buildings::t_building>* buildings, WorldSegm
                             df::item * item = Actual_building->contained_items[index]->item;
 
                             if (b->building.type == df::enums::building_type::FarmPlot) {
-                                if (item->pos.x == xx && item->pos.y == yy && item->pos.z == zz) {
+                                if (item->pos.x == int32_t(xx) && item->pos.y == int32_t(yy) && item->pos.z == int32_t(zz)) {
                                     if (item->getType() == df::enums::item_type::SEEDS) {
                                         b->building.special = 1;
                                     }
@@ -198,7 +198,7 @@ void MergeBuildingsToSegment(vector<Buildings::t_building>* buildings, WorldSegm
                             if (item->isDyed()) {
                                 auto Constructed_Item = virtual_cast<df::item_constructed>(item);
                                 if (Constructed_Item) {
-                                    for (int idex = 0; idex < Constructed_Item->improvements.size(); idex++) {
+                                    for (size_t idex = 0; idex < Constructed_Item->improvements.size(); idex++) {
                                         if (!Constructed_Item->improvements[idex]) {
                                             continue;
                                         }

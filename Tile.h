@@ -135,7 +135,7 @@ void initRandomCube();
 //find a better place for these
 bool hasWall(Tile* b);
 bool hasBuildingOfID(Tile* b, int ID);
-bool hasBuildingIdentity(Tile* b, Buildings::t_building* index, int buildingOcc);
+bool hasBuildingIdentity(Tile* b, Buildings::t_building* index, df::tile_building_occ buildingOcc);
 bool hasBuildingOfIndex(Tile* b, Buildings::t_building* index);
 bool wallShouldNotHaveBorders( int in );
 bool containsDesignations( df::tile_designation, df::tile_occupancy );

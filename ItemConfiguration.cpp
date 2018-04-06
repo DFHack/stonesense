@@ -92,7 +92,7 @@ bool parseItemElement( TiXmlElement* elemRoot, int basefile)
             contentLoader->itemConfigs[main_type]->default_sprite = sprite;
         }
     } else {
-        if(contentLoader->itemConfigs[main_type]->subItems.size() <= subtype) {
+        if(contentLoader->itemConfigs[main_type]->subItems.size() <= size_t(subtype)) {
             contentLoader->itemConfigs[main_type]->subItems.resize(subtype+1, NULL);
         }
         if(!contentLoader->itemConfigs[main_type]->subItems[subtype]) {

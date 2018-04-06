@@ -266,7 +266,7 @@ void WorldSegment::DrawAllTiles()
 
     if(todraw.size()>0) {
         al_hold_bitmap_drawing(true);
-        for(int i=0; i<todraw.size(); i++) {
+        for(size_t i=0; i<todraw.size(); i++) {
             if(i%ssConfig.bitmapHolds==0) {
                 al_hold_bitmap_drawing(false);
                 al_hold_bitmap_drawing(true);
@@ -413,13 +413,13 @@ bool WorldSegment::CoordinateInteriorSegment(int32_t x, int32_t y, int32_t z, ui
         return NULL;
     }
 
-    if(lx < 0  + shellthick|| lx >= segState.Size.x - shellthick) {
+    if(lx < 0  + int32_t(shellthick) || lx >= int32_t(segState.Size.x - shellthick)) {
         return 0;
     }
-    if(ly < 0  + shellthick|| ly >= segState.Size.y - shellthick) {
+    if(ly < 0  + int32_t(shellthick) || ly >= int32_t(segState.Size.y - shellthick)) {
         return 0;
     }
-    if(lz < 0 /*bottom is "interior"*/ || lz >= segState.Size.z - shellthick) {
+    if(lz < 0 /*bottom is "interior"*/ || lz >= int32_t(segState.Size.z - shellthick)) {
         return 0;
     }
     return true;
@@ -437,7 +437,7 @@ void WorldSegment::PushBuilding( Buildings::t_building * building)
 
 void WorldSegment::ClearBuildings()
 {
-    for(int i=0; i<buildings.size(); i++){
+    for(size_t i=0; i<buildings.size(); i++){
         delete(buildings[i]);
         buildings[i] = NULL;
     }
@@ -451,7 +451,7 @@ void WorldSegment::PushUnit( SS_Unit * unit)
 
 void WorldSegment::ClearUnits()
 {
-    for(int i=0; i<units.size(); i++){
+    for(size_t i=0; i<units.size(); i++){
         if(units[i]){
             delete(units[i]->inv);
             delete(units[i]);

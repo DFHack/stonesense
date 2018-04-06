@@ -32,7 +32,7 @@ int FuzzyCompare(std::string source, std::string target)
     if (!match(source.c_str(), target.c_str()))
         return -1;
     int similarity = target.size() - source.size();
-    for (int i = 0; i < source.size(); i++)
+    for (size_t i = 0; i < source.size(); i++)
     {
         switch (source[i])
         {

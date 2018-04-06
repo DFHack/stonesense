@@ -247,9 +247,9 @@ void parseKeymapLine( string line )
     c = line[ line.length() -2 ];
 
     for(int i=0; actionnamemap[i].func != action_invalid; i++) {
-        if(line.find(actionnamemap[i].name)!=-1) {
+        if(line.find(actionnamemap[i].name)!=string::npos) {
             for(int j=0; j<ALLEGRO_KEY_UNKNOWN; j++){
-                if(line.find(keynames[j])!=-1) {
+                if(line.find(keynames[j])!=string::npos) {
                     actionkeymap[j] = actionnamemap[i].func;
                     if( c == '*' ) {
                         actionrepeatmap[j] = true;

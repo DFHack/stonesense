@@ -35,8 +35,8 @@ void DumpStringVector(const char* filename, vector<std::string> * input)
     FILE* fp = fopen(filename, "w");
 
     // Run through until perfect match found or hit end.
-    for(int i = 0; i < input->size(); i++){
-        fprintf(fp, "%i:%s\n", i, input->at(i).c_str());
+    for(size_t i = 0; i < input->size(); i++){
+        fprintf(fp, "%i:%s\n", int(i), input->at(i).c_str());
     }
     fclose(fp);
 }
@@ -213,14 +213,14 @@ bool ContentLoader::Load()
             }
             professionStrings.push_back(string(ENUM_KEY_STR(profession, i)));
         }
-        for(int i = 0; i < df::global::world->entities.all.size(); i++){
+        for(size_t i = 0; i < df::global::world->entities.all.size(); i++){
             df::historical_entity * currentity = df::global::world->entities.all[i];
             if(!currentity) continue;
-            for(int j = 0; j < currentity->positions.own.size(); j++) {
+            for(size_t j = 0; j < currentity->positions.own.size(); j++) {
                 df::entity_position * currentpos = currentity->positions.own[j];
                 if(!currentpos) continue;
                 int found = -1;
-                for(int k = 0; k < professionStrings.size(); k++){
+                for(size_t k = 0; k < professionStrings.size(); k++){
                     if( professionStrings[k] == currentpos->code){
                         found = k;
                         break;
@@ -232,20 +232,20 @@ bool ContentLoader::Load()
                 }
                 int ent_id = currentity->id;
                 int pos_id = currentpos->id;
-                if(ent_id  >= position_Indices.size())
+                if(size_t(ent_id)  >= position_Indices.size())
                     position_Indices.resize(ent_id+1, NULL);
                 if(!position_Indices[ent_id])
                     position_Indices[ent_id] = new vector<int32_t>;
-                if(pos_id  >= position_Indices[ent_id]->size())
-                    position_Indices[ent_id]->resize(pos_id+1, NULL);
+                if(size_t(pos_id)  >= position_Indices[ent_id]->size())
+                    position_Indices[ent_id]->resize(pos_id+1, -1);
                 position_Indices[ent_id]->at(pos_id) = found;
                 //LogError("%d(%d):%s->%d(%d):%s = %d\n", i, currentity->id, currentity->entity_raw->code.c_str(), j,currentpos->id, currentpos->code.c_str(), found);
             }
-            for(int j = 0; j < currentity->positions.site.size(); j++) {
+            for(size_t j = 0; j < currentity->positions.site.size(); j++) {
                 df::entity_position * currentpos = currentity->positions.site[j];
                 if(!currentpos) continue;
                 int found = -1;
-                for(int k = 0; k < professionStrings.size(); k++){
+                for(size_t k = 0; k < professionStrings.size(); k++){
                     if( professionStrings[k] == currentpos->code){
                         found = k;
                         break;
@@ -257,20 +257,20 @@ bool ContentLoader::Load()
                 }
                 int ent_id = currentity->id;
                 int pos_id = currentpos->id;
-                if(ent_id  >= position_Indices.size())
+                if(size_t(ent_id)  >= position_Indices.size())
                     position_Indices.resize(ent_id+1, NULL);
                 if(!position_Indices[ent_id])
                     position_Indices[ent_id] = new vector<int32_t>;
-                if(pos_id  >= position_Indices[ent_id]->size())
-                    position_Indices[ent_id]->resize(pos_id+1, NULL);
+                if(size_t(pos_id)  >= position_Indices[ent_id]->size())
+                    position_Indices[ent_id]->resize(pos_id+1, -1);
                 position_Indices[ent_id]->at(pos_id) = found;
                 //LogError("%d(%d):%s->%d(%d):%s = %d\n", i, currentity->id, currentity->entity_raw->code.c_str(), j,currentpos->id, currentpos->code.c_str(), found);
             }
-            for(int j = 0; j < currentity->positions.conquered_site.size(); j++) {
+            for(size_t j = 0; j < currentity->positions.conquered_site.size(); j++) {
                 df::entity_position * currentpos = currentity->positions.conquered_site[j];
                 if(!currentpos) continue;
                 int found = -1;
-                for(int k = 0; k < professionStrings.size(); k++){
+                for(size_t k = 0; k < professionStrings.size(); k++){
                     if( professionStrings[k] == currentpos->code){
                         found = k;
                         break;
@@ -282,12 +282,12 @@ bool ContentLoader::Load()
                 }
                 int ent_id = currentity->id;
                 int pos_id = currentpos->id;
-                if(ent_id  >= position_Indices.size())
+                if(size_t(ent_id)  >= position_Indices.size())
                     position_Indices.resize(ent_id+1, NULL);
                 if(!position_Indices[ent_id])
                     position_Indices[ent_id] = new vector<int32_t>;
-                if(pos_id  >= position_Indices[ent_id]->size())
-                    position_Indices[ent_id]->resize(pos_id+1, NULL);
+                if(size_t(pos_id)  >= position_Indices[ent_id]->size())
+                    position_Indices[ent_id]->resize(pos_id+1, -1);
                 position_Indices[ent_id]->at(pos_id) = found;
                 //LogError("%d(%d):%s->%d(%d):%s = %d\n", i, currentity->id, currentity->entity_raw->code.c_str(), j,currentpos->id, currentpos->code.c_str(), found);
             }
@@ -727,7 +727,7 @@ const char *lookupMaterialName(int matType,int matIndex)
     vector<t_matgloss>* typeVector;
     // for appropriate elements, look up subtype
     if ((matType == INORGANIC) && (!ssConfig.skipInorganicMats)) {
-        if(matIndex < contentLoader->inorganic.size()) {
+        if(size_t(matIndex) < contentLoader->inorganic.size()) {
             return contentLoader->inorganic[matIndex].id.c_str();
         } else {
             return NULL;
@@ -740,12 +740,14 @@ const char *lookupMaterialName(int matType,int matIndex)
     } else if (matType == LEATHER) {
         if(!ssConfig.skipCreatureTypes) {
             typeVector=&(contentLoader->Mats->race);
+        } else {
+            return NULL;
         }
     } else {
         //maybe allow some more in later
         return NULL;
     }
-    if (matIndex >= typeVector->size()) {
+    if (size_t(matIndex) >= typeVector->size()) {
         return NULL;
     }
     return (*typeVector)[matIndex].id.c_str();
@@ -762,7 +764,7 @@ const char *lookupTreeName(int matIndex)
     vector<t_matgloss>* typeVector;
     // for appropriate elements, look up subtype
     typeVector=&(contentLoader->organic);
-    if (matIndex >= typeVector->size()) {
+    if (size_t(matIndex) >= typeVector->size()) {
         return NULL;
     }
     return (*typeVector)[matIndex].id.c_str();
@@ -808,7 +810,7 @@ uint8_t lookupMaterialFore(int matType,int matIndex)
     //maybe allow some more in later
     return 0;
     //}
-    if (matIndex >= typeVector->size()) {
+    if (size_t(matIndex) >= typeVector->size()) {
         return 0;
     }
     return (*typeVector)[matIndex].fore;
@@ -838,7 +840,7 @@ uint8_t lookupMaterialBack(int matType,int matIndex)
     //maybe allow some more in later
     return 0;
     //}
-    if (matIndex >= typeVector->size()) {
+    if (size_t(matIndex) >= typeVector->size()) {
         return 0;
     }
     return (*typeVector)[matIndex].back;
@@ -868,7 +870,7 @@ uint8_t lookupMaterialBright(int matType,int matIndex)
     //maybe allow some more in later
     return 0;
     //}
-    if (matIndex >= typeVector->size()) {
+    if (size_t(matIndex) >= typeVector->size()) {
         return 0;
     }
     return (*typeVector)[matIndex].bright;
@@ -887,17 +889,14 @@ int loadConfigImgFile(const char* filename, TiXmlElement* referrer)
 
 void ContentLoader::flushCreatureConfig()
 {
-    uint32_t num = (uint32_t)creatureConfigs.size();
-    for ( int i = 0 ; i < num; i++ ) {
-        if (creatureConfigs[i]) {
-            delete creatureConfigs[i];
-        }
+    for ( auto cc : creatureConfigs ) {
+        delete cc;
     }
     // make big enough to hold all creatures
     creatureConfigs.clear();
-    for ( int i = 0; i < style_indices.size();i++){
+    for ( size_t i = 0; i < style_indices.size();i++){
         if(style_indices[i]){
-            for ( int j = 0; j < style_indices[i]->size();j++){
+            for ( size_t j = 0; j < style_indices[i]->size();j++){
                 if(style_indices[i]->at(j)){
                     style_indices[i]->at(j)->clear();
                     delete style_indices[i]->at(j);
@@ -912,13 +911,13 @@ void ContentLoader::flushCreatureConfig()
 
 void ContentLoader::gatherStyleIndices(df::world_raws * raws)
 {
-    for(int creatureIndex = 0; creatureIndex < raws->creatures.all.size(); creatureIndex++)
+    for(size_t creatureIndex = 0; creatureIndex < raws->creatures.all.size(); creatureIndex++)
     {
         df::creature_raw * cre = raws->creatures.all[creatureIndex];
-        for(int casteIndex = 0; casteIndex < cre->caste.size(); casteIndex++)
+        for(size_t casteIndex = 0; casteIndex < cre->caste.size(); casteIndex++)
         {
             df::caste_raw * cas = cre->caste[casteIndex];
-            for(int styleIndex = 0; styleIndex < cas->tissue_styles.size(); styleIndex++)
+            for(size_t styleIndex = 0; styleIndex < cas->tissue_styles.size(); styleIndex++)
             {
                 df::tissue_style_raw * sty = cas->tissue_styles[styleIndex];
                 hairtypes type = hairtypes_invalid;
@@ -943,7 +942,7 @@ void ContentLoader::gatherStyleIndices(df::world_raws * raws)
                     if(!creatureStyle->at(casteIndex))
                         creatureStyle->at(casteIndex) = new vector<int32_t>;
                     vector<int32_t>* casteStyle = creatureStyle->at(casteIndex);
-                    if(type >= casteStyle->size())
+                    if(size_t(type) >= casteStyle->size())
                         casteStyle->resize(type+1, 0);
                     casteStyle->at(type) = sty->id;
                     LogVerbose("%s:%s : %d:%s\n", raws->creatures.all[creatureIndex]->creature_id.c_str(),raws->creatures.all[creatureIndex]->caste[casteIndex]->caste_id.c_str(), sty->id, sty->token.c_str());
@@ -988,14 +987,14 @@ ALLEGRO_COLOR lookupMaterialColor(int matType, int matIndex, int dyeType, int dy
         //This should not normally happen, but if it does, we don't want crashes, so we'll return magic pink so show something's wrong.
         return al_map_rgb(255, 0, 255) * dyeColor;
     }
-    if (matType >= contentLoader->colorConfigs.size()) {
+    if (size_t(matType) >= contentLoader->colorConfigs.size()) {
         //if it's more than the size of our colorconfigs, then just make a guess based off what DF tells us.
         goto DFColor;
     }
     if (matIndex < 0) {
         return contentLoader->colorConfigs.at(matType).color * dyeColor;
     }
-    if (matIndex >= contentLoader->colorConfigs.at(matType).colorMaterials.size()) {
+    if (size_t(matIndex) >= contentLoader->colorConfigs.at(matType).colorMaterials.size()) {
         goto DFColor;
     }
     if (contentLoader->colorConfigs.at(matType).colorMaterials.at(matIndex).colorSet) {

@@ -578,6 +578,8 @@ void drawDebugInfo(WorldSegment * segment)
     } else if (b->tileShapeBasic()==tiletype_shape_basic::Stair) {
         ttype=b->tileType;
         tform="stair";
+    } else {
+        ttype=-1;
     }
 
     switch(ui->main.mode) {
@@ -594,7 +596,7 @@ void drawDebugInfo(WorldSegment * segment)
             draw_textf_border(font, uiColor(1), 2, (i++*al_get_font_line_height(font)), 0,
                               "%s",
                               BuildingName.c_str());
-            for(int index = 0; index < Actual_building->contained_items.size(); index++) {
+            for(size_t index = 0; index < Actual_building->contained_items.size(); index++) {
                 MaterialInfo mat;
                 mat.decode(Actual_building->contained_items[index]->item->getMaterial(), Actual_building->contained_items[index]->item->getMaterialIndex());
                 char stacknum[8] = {0};
@@ -623,20 +625,20 @@ void drawDebugInfo(WorldSegment * segment)
 
         //Inventories!
         if(b->creature && b->creature->inv) {
-            for(int item_type_idex = 0; item_type_idex < b->creature->inv->item.size(); item_type_idex++) {
+            for(size_t item_type_idex = 0; item_type_idex < b->creature->inv->item.size(); item_type_idex++) {
                 if(b->creature->inv->item[item_type_idex].empty()) {
                     continue;
                 }
                 draw_textf_border(font, uiColor(1), 2, (i++*al_get_font_line_height(font)), 0,
                     "%s:", ENUM_KEY_STR(item_type, (item_type::item_type)item_type_idex).c_str());
-                for(int ind = 0; ind < b->creature->inv->item[item_type_idex].size(); ind++) {
+                for(size_t ind = 0; ind < b->creature->inv->item[item_type_idex].size(); ind++) {
                     if(b->creature->inv->item[item_type_idex][ind].empty()) {
                         continue;
                     }
                     draw_textf_border(font, uiColor(1), 2, (i++*al_get_font_line_height(font)), 0,
                         "    %s",
                         get_item_subtype((item_type::item_type)item_type_idex,ind));
-                    for(int layerindex = 0; layerindex < b->creature->inv->item[item_type_idex][ind].size(); layerindex++)
+                    for(size_t layerindex = 0; layerindex < b->creature->inv->item[item_type_idex][ind].size(); layerindex++)
                     {
                         if(b->creature->inv->item[item_type_idex][ind][layerindex].matt.type < 0) {
                             continue;
@@ -677,7 +679,7 @@ void drawDebugInfo(WorldSegment * segment)
                     xx += get_textf_width(font, " %s:", contentLoader->Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].part.c_str());
                     uint32_t cr_color = contentLoader->Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].colorlist[b->creature->color[j]];
                     if(cr_color < df::global::world->raws.descriptors.patterns.size()) {
-                        for(int patternin = 0; patternin < df::global::world->raws.descriptors.patterns[cr_color]->colors.size(); patternin++){
+                        for(size_t patternin = 0; patternin < df::global::world->raws.descriptors.patterns[cr_color]->colors.size(); patternin++){
                             uint16_t actual_color = df::global::world->raws.descriptors.patterns[cr_color]->colors[patternin];
                             al_draw_filled_rectangle(xx, yy, xx+al_get_font_line_height(font), yy+al_get_font_line_height(font),
                                 al_map_rgb_f(
@@ -863,7 +865,7 @@ void drawDebugInfo(WorldSegment * segment)
                               b->building.info->material.type,b->building.info->material.index,
                               b->occ.bits.building,
                               b->building.special);
-            for(int index = 0; index < b->building.constructed_mats.size(); index++) {
+            for(size_t index = 0; index < b->building.constructed_mats.size(); index++) {
             const char* partMatName = lookupMaterialTypeName(b->building.constructed_mats[index].matt.type);
             const char* partSubMatName = lookupMaterialName(b->building.constructed_mats[index].matt.type, b->building.constructed_mats[index].matt.index);
             draw_textf_border(font, uiColor(1), 2, (i++*al_get_font_line_height(font)), 0,
@@ -986,6 +988,9 @@ void drawDebugInfo(WorldSegment * segment)
             draw_textf_border(font, uiColor(1), 2, (i++*al_get_font_line_height(font)), 0,
                 "SeaFoam: %d, Material:%s%s%s",
                 b->tileeffect.density, matName?matName:"Unknown",subMatName?"/":"",subMatName?subMatName:"");
+            break;
+        case df::flow_type::ItemCloud:
+            // TODO
             break;
         }
         break;
@@ -1446,12 +1451,12 @@ void saveScreenshot()
     al_clear_to_color(ssConfig.backcol);
     paintboard();
     //get filename
-    char filename[20] = {0};
+    char filename[25] = {0};
     FILE* fp;
     int index = 1;
     //search for the first screenshot# that does not exist already
     while(true) {
-        sprintf(filename, "screenshot%i.png", index);
+        snprintf(filename, sizeof(filename), "screenshot%i.png", index);
 
         fp = fopen(filename, "r");
         if( fp != 0) {
@@ -1481,7 +1486,7 @@ void saveScreenshot()
 void saveImage(ALLEGRO_BITMAP* image)
 {
     //get filename
-    char filename[20] = {0};
+    char filename[25] = {0};
     FILE* fp;
     int index = 1;
     //search for the first screenshot# that does not exist already
@@ -1507,12 +1512,12 @@ void saveMegashot(bool tall)
 
     draw_textf_border(font, uiColor(1), ssState.ScreenW/2, ssState.ScreenH/2, ALLEGRO_ALIGN_CENTRE, "saving large screenshot...");
     al_flip_display();
-    char filename[20] = {0};
+    char filename[32] = {0};
     FILE* fp;
     int index = 1;
     //search for the first screenshot# that does not exist already
     while(true) {
-        sprintf(filename, "screenshot%i.png", index);
+        snprintf(filename, sizeof(filename), "screenshot%i.png", index);
         fp = fopen(filename, "r");
         if( fp != 0) {
             fclose(fp);
@@ -1557,15 +1562,13 @@ void saveMegashot(bool tall)
         int startlifty, startliftx;
         startlifty = 0;
         //realign the image if the region is rectangular
-        switch(ssState.Rotation){
-        case 0:
-        case 2:
+        if ((ssState.Rotation & 1) == 0)
+        {
             startliftx = (TILEWIDTH/2)*ssState.RegionDim.y;
-            break;
-        case 1:
-        case 3:
+        }
+        else
+        {
             startliftx = (TILEWIDTH/2)*ssState.RegionDim.x;
-            break;
         }
         ssConfig.lift_segment_offscreen_y = startlifty;
         ssConfig.lift_segment_offscreen_x = startliftx;
@@ -1580,21 +1583,19 @@ void saveMegashot(bool tall)
         starty = -1;
         sizex = ssState.Size.x-2;
         sizey = ssState.Size.y-2;
-        switch(ssState.Rotation){
-        case 0:
-        case 2:
+        if ((ssState.Rotation & 1) == 0)
+        {
             incrx = sizex;
             incry = sizey;
             numx = (int)(ssState.RegionDim.x+3);
             numy = (int)(ssState.RegionDim.y+3);
-            break;
-        case 1:
-        case 3:
+        }
+        else
+        {
             incrx = sizey;
             incry = sizex;
             numx = (int)(ssState.RegionDim.y+3);
             numy = (int)(ssState.RegionDim.x+3);
-            break;
         }
         numx = numx/incrx + (numx%incrx==0 ? 0 : 1);
         numy = numy/incry + (numx%incry==0 ? 0 : 1);

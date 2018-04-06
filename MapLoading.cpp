@@ -52,7 +52,7 @@ void readSpatterToTile(Tile * b, uint32_t lx, uint32_t ly,
         long blue=0;
         long blood=0;
         long snow=0;
-        for(int i = 0; i < splatter.size(); i++) {
+        for(size_t i = 0; i < splatter.size(); i++) {
             if(!splatter[i]->amount[lx][ly]) {
                 continue;
             }
@@ -255,14 +255,14 @@ void readMaterialToTile( Tile * b, uint32_t lx, uint32_t ly,
 
     bool soilTile = false;//is this tile a match for soil materials?
     bool soilMat = false;//is the material a soil?
-    soilTile = b->tileMaterial() == tiletype_material::SOIL
+    soilTile = b->tileMaterial() == RemoteFortressReader::SOIL
         || (b->mudlevel == 0
-        && (b->tileMaterial() == tiletype_material::PLANT
-        || b->tileMaterial() == tiletype_material::GRASS_LIGHT
-        || b->tileMaterial() == tiletype_material::GRASS_DARK
-        || b->tileMaterial() == tiletype_material::GRASS_DRY
-        || b->tileMaterial() == tiletype_material::GRASS_DEAD));
-    if(b->tileMaterial() == tiletype_material::STONE || soilTile) {
+        && (b->tileMaterial() == RemoteFortressReader::PLANT
+        || b->tileMaterial() == RemoteFortressReader::GRASS_LIGHT
+        || b->tileMaterial() == RemoteFortressReader::GRASS_DARK
+        || b->tileMaterial() == RemoteFortressReader::GRASS_DRY
+        || b->tileMaterial() == RemoteFortressReader::GRASS_DEAD));
+    if(b->tileMaterial() == RemoteFortressReader::STONE || soilTile) {
 
         df::inorganic_raw * rawMat = df::inorganic_raw::find(rockIndex);
         if(rawMat) {
@@ -357,7 +357,7 @@ void readMaterialToTile( Tile * b, uint32_t lx, uint32_t ly,
         }
     }
 
-    if(b->tileMaterial() == tiletype_material::LAVA_STONE) {
+    if(b->tileMaterial() == RemoteFortressReader::LAVA_STONE) {
         b->material.type = INORGANIC;
         b->material.index = contentLoader->obsidian;
     }
@@ -376,7 +376,7 @@ SS_Item ConvertItem(df::item * found_item, WorldSegment& segment){
     if(1) { //found_item->isDyed())
         auto Constructed_Item = virtual_cast<df::item_constructed>(found_item);
         if(Constructed_Item) {
-            for(int idex = 0; idex < Constructed_Item->improvements.size(); idex++) {
+            for(size_t idex = 0; idex < Constructed_Item->improvements.size(); idex++) {
                 if(!Constructed_Item->improvements[idex]) {
                     continue;
                 }
@@ -562,7 +562,7 @@ void readBlockToSegment(DFHack::Core& DF, WorldSegment& segment,
             b->grassmat = -1;
             //b->grasslevels.clear();
             //b->grassmats.clear();
-            for(int i = 0; i < grass.size(); i++) {
+            for(size_t i = 0; i < grass.size(); i++) {
                 if(grass[i]->amount[lx][ly] > 0 && b->grasslevel == 0) { //b->grasslevel)
                     b->grasslevel = grass[i]->amount[lx][ly];
                     b->grassmat = grass[i]->plant_index;
@@ -665,7 +665,7 @@ void readBlockColumnToSegment(DFHack::Core& DF, WorldSegment& segment,
         return;
     }
 
-    for (int i = 0; i < trueColumn->plants.size(); i++)
+    for (size_t i = 0; i < trueColumn->plants.size(); i++)
     {
         df::plant * pp = trueColumn->plants[i];
         // A plant without tree_info is single tile
@@ -1036,9 +1036,6 @@ static void * threadedSegment(ALLEGRO_THREAD *read_thread, void *arg)
 
 void reloadPosition()
 {
-    //create handle to dfHack API
-    static bool firstLoad = 1;
-
     if (timeToReloadConfig) {
         contentLoader->Load();
         timeToReloadConfig = false;
@@ -1058,6 +1055,4 @@ void reloadPosition()
     } else {
         read_segment(NULL);
     }
-
-    firstLoad = 0;
 }

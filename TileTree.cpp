@@ -111,14 +111,14 @@ void c_tile_tree_twig::add_sprite(int x, c_sprite sprite)
     } else if(x > 0) {
         //c_sprite detaultSprite;
         //detaultSprite.set_sheetindex(-1);
-        if(eastward_growth.size() < x) {
+        if(eastward_growth.size() < size_t(x)) {
             eastward_growth.resize(x);
         }
         eastward_growth[x-1] = sprite;
     } else if(x < 0) {
         //c_sprite detaultSprite;
         //detaultSprite.set_sheetindex(-1);
-        if(westward_growth.size() < abs(x)) {
+        if(westward_growth.size() < size_t(abs(x))) {
             westward_growth.resize(abs(x));
         }
         westward_growth[abs(x)-1] = sprite;
@@ -147,12 +147,12 @@ void c_tile_tree_branch::add_sprite(int x, int y, c_sprite sprite)
     if(y == 0) {
         own_twig.add_sprite(x, sprite);
     } else if(y > 0) {
-        if(northward_growth.size() < y) {
+        if(northward_growth.size() < size_t(y)) {
             northward_growth.resize(y);
         }
         northward_growth[y-1].add_sprite(x, sprite);
     } else if(y < 0) {
-        if(southward_growth.size() < abs(y)) {
+        if(southward_growth.size() < size_t(abs(y))) {
             southward_growth.resize(abs(y));
         }
         southward_growth[abs(y)-1].add_sprite(x, sprite);
@@ -164,14 +164,14 @@ void c_tile_tree_branch::insert_sprites(WorldSegment *w, int x, int y, int z, Ti
     own_twig.insert_sprites(w, x, y, z, parent);
     switch(ssState.Rotation) {
     case 0:
-        for(int i = 0; i < southward_growth.size(); i++) {
+        for(size_t i = 0; i < southward_growth.size(); i++) {
             Tile * b = w->getTile(x, y + i + 1, z);
             if(b && (b->tileShapeBasic()==tiletype_shape_basic::Wall || b->tileShapeBasic()==tiletype_shape_basic::Stair)) {
                 break;
             }
             southward_growth[i].insert_sprites(w, x, y + i + 1, z, parent);
         }
-        for(int i = 0; i < northward_growth.size(); i++) {
+        for(size_t i = 0; i < northward_growth.size(); i++) {
             Tile * b = w->getTile(x, y - i - 1, z);
             if(b && (b->tileShapeBasic()==tiletype_shape_basic::Wall || b->tileShapeBasic()==tiletype_shape_basic::Stair)) {
                 break;
@@ -180,14 +180,14 @@ void c_tile_tree_branch::insert_sprites(WorldSegment *w, int x, int y, int z, Ti
         }
         break;
     case 1:
-        for(int i = 0; i < southward_growth.size(); i++) {
+        for(size_t i = 0; i < southward_growth.size(); i++) {
             Tile * b = w->getTile(x + i + 1, y , z);
             if(b && (b->tileShapeBasic()==tiletype_shape_basic::Wall || b->tileShapeBasic()==tiletype_shape_basic::Stair)) {
                 break;
             }
             southward_growth[i].insert_sprites(w, x + i + 1, y , z, parent);
         }
-        for(int i = 0; i < northward_growth.size(); i++) {
+        for(size_t i = 0; i < northward_growth.size(); i++) {
             Tile * b = w->getTile(x - i - 1, y , z);
             if(b && (b->tileShapeBasic()==tiletype_shape_basic::Wall || b->tileShapeBasic()==tiletype_shape_basic::Stair)) {
                 break;
@@ -196,14 +196,14 @@ void c_tile_tree_branch::insert_sprites(WorldSegment *w, int x, int y, int z, Ti
         }
         break;
     case 2:
-        for(int i = 0; i < southward_growth.size(); i++) {
+        for(size_t i = 0; i < southward_growth.size(); i++) {
             Tile * b = w->getTile(x, y - i - 1, z);
             if(b && (b->tileShapeBasic()==tiletype_shape_basic::Wall || b->tileShapeBasic()==tiletype_shape_basic::Stair)) {
                 break;
             }
             southward_growth[i].insert_sprites(w, x, y - i - 1, z, parent);
         }
-        for(int i = 0; i < northward_growth.size(); i++) {
+        for(size_t i = 0; i < northward_growth.size(); i++) {
             Tile * b = w->getTile(x, y + i + 1, z);
             if(b && (b->tileShapeBasic()==tiletype_shape_basic::Wall || b->tileShapeBasic()==tiletype_shape_basic::Stair)) {
                 break;
@@ -212,14 +212,14 @@ void c_tile_tree_branch::insert_sprites(WorldSegment *w, int x, int y, int z, Ti
         }
         break;
     case 3:
-        for(int i = 0; i < southward_growth.size(); i++) {
+        for(size_t i = 0; i < southward_growth.size(); i++) {
             Tile * b = w->getTile(x - i - 1, y , z);
             if(b && (b->tileShapeBasic()==tiletype_shape_basic::Wall || b->tileShapeBasic()==tiletype_shape_basic::Stair)) {
                 break;
             }
             southward_growth[i].insert_sprites(w, x - i - 1, y , z, parent);
         }
-        for(int i = 0; i < northward_growth.size(); i++) {
+        for(size_t i = 0; i < northward_growth.size(); i++) {
             Tile * b = w->getTile(x + i + 1, y , z);
             if(b && (b->tileShapeBasic()==tiletype_shape_basic::Wall || b->tileShapeBasic()==tiletype_shape_basic::Stair)) {
                 break;
@@ -242,7 +242,6 @@ void c_tile_tree_branch::reset()
 
 c_tile_tree::c_tile_tree()
 {
-    upward_growth;
 }
 
 c_tile_tree::~c_tile_tree()
@@ -254,7 +253,7 @@ void c_tile_tree::add_sprite(int x, int y, int z, c_sprite sprite)
     if(z == 0) {
         own_branch.add_sprite(x, y, sprite);
     } else if(z > 0) {
-        if(upward_growth.size() < z) {
+        if(upward_growth.size() < size_t(z)) {
             upward_growth.resize(z);
         }
         upward_growth[z-1].add_sprite(x, y, sprite);
@@ -264,13 +263,13 @@ void c_tile_tree::add_sprite(int x, int y, int z, c_sprite sprite)
 void c_tile_tree::insert_sprites(WorldSegment *w, int x, int y, int z, Tile * parent)
 {
     own_branch.insert_sprites(w, x, y, z, parent);
-    for(int i = 0; i < upward_growth.size(); i++) {
+    for(size_t i = 0; i < upward_growth.size(); i++) {
         Tile * b = w->getTile(x, y, z + i + 1);
         if((b && (
                     b->tileShapeBasic()==tiletype_shape_basic::Floor ||
                     b->tileShapeBasic()==tiletype_shape_basic::Wall ||
                     b->tileShapeBasic()==tiletype_shape_basic::Stair)) ||
-                ((z + i + 1) > w->segState.Position.z + w->segState.Size.z)
+                (int(z + i + 1) > w->segState.Position.z + w->segState.Size.z)
           ) {
             break;
         }

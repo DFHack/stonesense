@@ -446,7 +446,7 @@ void DrawCreatureText(int drawx, int drawy, SS_Unit* creature )
     offsety += ssConfig.show_creature_names ? al_get_font_line_height(font) : 0;
 
     if(statusIcons.size()) {
-        for(int i = 0; i < statusIcons.size(); i++) {
+        for(size_t i = 0; i < statusIcons.size(); i++) {
             unsigned int sheetx = 16 * (statusIcons[i] % 7);
             unsigned int sheety = 16 * (statusIcons[i] / 7);
             al_draw_bitmap_region(IMGStatusSheet, sheetx, sheety, 16, 16, drawx - (statusIcons.size()*8) + (16*i) + (SPRITEWIDTH*ssConfig.scale/2), drawy - (16 + WALLHEIGHT*ssConfig.scale + offsety), 0);
@@ -482,7 +482,7 @@ bool hasLegendarySkill(df::unit * source){
     if(soul->skills.size() <= 0) {
         return false;
     }
-    for(int i=0; i<soul->skills.size(); i++) {
+    for(size_t i=0; i<soul->skills.size(); i++) {
         if(soul->skills[i] && soul->skills[i]->rating >= df::skill_rating::Legendary) {
             return true;
         }
@@ -549,10 +549,10 @@ void copyCreature(df::unit * source, SS_Unit & furball)
         furball.hairlength[i] = 1001;//default to long unkempt hair
         furball.hairstyle[i] = CLEAN_SHAVEN;
     }
-    if(source->race < contentLoader->style_indices.size() && contentLoader->style_indices.at(source->race)){
-        if(source->caste < contentLoader->style_indices.at(source->race)->size() && contentLoader->style_indices.at(source->race)->at(source->caste)){
-            for(int i = 0; i < source->appearance.tissue_style_type.size(); i++){
-                for(int j = 0; j < contentLoader->style_indices.at(source->race)->at(source->caste)->size();j++){
+    if(size_t(source->race) < contentLoader->style_indices.size() && contentLoader->style_indices.at(source->race)){
+        if(size_t(source->caste) < contentLoader->style_indices.at(source->race)->size() && contentLoader->style_indices.at(source->race)->at(source->caste)){
+            for(size_t i = 0; i < source->appearance.tissue_style_type.size(); i++){
+                for(size_t j = 0; j < contentLoader->style_indices.at(source->race)->at(source->caste)->size();j++){
                     if(source->appearance.tissue_style_type[i] == contentLoader->style_indices.at(source->race)->at(source->caste)->at(j)){
                         furball.hairlength[j] = source->appearance.tissue_length[i];
                         furball.hairstyle[j] = (hairstyles)source->appearance.tissue_style[i];
@@ -671,7 +671,7 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
             if(item->isDyed()) {
                 auto Constructed_Item = virtual_cast<df::item_constructed>(item);
                 if(Constructed_Item) {
-                    for(int idex = 0; idex < Constructed_Item->improvements.size(); idex++) {
+                    for(size_t idex = 0; idex < Constructed_Item->improvements.size(); idex++) {
                         if(!Constructed_Item->improvements[idex]) {
                             continue;
                         }
@@ -692,10 +692,10 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
             if(!tempcreature->inv) {
                 tempcreature->inv = new(unit_inventory);
             }
-            if(tempcreature->inv->item.size() <= type) {
+            if(tempcreature->inv->item.size() <= size_t(type)) {
                 tempcreature->inv->item.resize(type+1);
             }
-            if(tempcreature->inv->item[type].size() <= subtype) {
+            if(tempcreature->inv->item[type].size() <= size_t(subtype)) {
                 tempcreature->inv->item[type].resize(subtype+1);
             }
             tempcreature->inv->item[type][subtype].push_back(equipment);

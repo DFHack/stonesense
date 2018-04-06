@@ -408,7 +408,7 @@ bool addSingleBuildingConfig( TiXmlElement* elemRoot,  vector<BuildingConfigurat
     }
     else if (strGameCustom && strGameCustom[0])
     {
-        for (int i = 0; i < df::global::world->raws.buildings.all.size(); i++)
+        for (size_t i = 0; i < df::global::world->raws.buildings.all.size(); i++)
         {
             if (strcmp(strGameCustom, df::global::world->raws.buildings.all[i]->code.c_str()) == 0)
                 custom = i;

@@ -1,7 +1,4 @@
 #pragma once
-#pragma warning( disable : 4312 ) //64-bit portability issue
-#pragma warning( disable : 4996 ) //'deprecated' function warning
-#pragma warning( disable : 4251 ) //'identifier' : class 'type' needs to have dll-interface to be used by clients of class 'type2'
 
 #include <assert.h>
 #include <vector>
