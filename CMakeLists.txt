@@ -237,6 +237,10 @@ ADD_DEPENDENCIES(stonesense generate_proto)
 
 TARGET_LINK_LIBRARIES(stonesense protobuf-lite ${PROJECT_LIBS})
 
+IF(MSVC)
+    # Ignore unhelpful warnings about debug symbols being missing.
+    SET_TARGET_PROPERTIES(stonesense PROPERTIES LINK_FLAGS "/ignore:4098 /ignore:4099")
+ENDIF(MSVC)
 
 IF(APPLE)
     add_custom_command(TARGET stonesense POST_BUILD COMMAND ${stonesense_SOURCE_DIR}/fix-libs-stonesense.sh WORKING_DIRECTORY . COMMENT "Fixing Stonesense library dependencies...")
