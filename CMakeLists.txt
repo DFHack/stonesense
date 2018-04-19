@@ -58,12 +58,12 @@ IF(UNIX)
             set(ALLEGRO_DOWNLOAD_DIR ${stonesense_SOURCE_DIR}/allegro/osx${DFHACK_BUILD_ARCH})
             if("${DFHACK_BUILD_ARCH}" STREQUAL "64")
                 set(ALLEGRO_DOWNLOAD_FILE "osx64-allegro-5.2.2.tar.bz2")
-                download_file("https://github.com/DFHack/dfhack-bin/releases/download/0.43.05/osx64-allegro-5.2.2.tar.bz2"
+                download_file("https://github.com/DFHack/dfhack-bin/releases/download/0.44.09/osx64-allegro-5.2.2.tar.bz2"
                     "${ALLEGRO_DOWNLOAD_DIR}/${ALLEGRO_DOWNLOAD_FILE}"
                     "306e8981bf67cf8b3f9ac0b26003869e")
             else()
                 set(ALLEGRO_DOWNLOAD_FILE "osx32-allegro-5.0.11.tar.bz2")
-                download_file("https://github.com/DFHack/dfhack-bin/releases/download/0.43.05/osx32-allegro-5.0.11.tar.bz2"
+                download_file("https://github.com/DFHack/dfhack-bin/releases/download/0.44.09/osx32-allegro-5.0.11.tar.bz2"
                     "${ALLEGRO_DOWNLOAD_DIR}/${ALLEGRO_DOWNLOAD_FILE}"
                     "c531eb16f2530e1168116fcbce7644df")
             endif()
@@ -72,7 +72,7 @@ IF(UNIX)
 
             # Download freetype only on x64
             if("${DFHACK_BUILD_ARCH}" STREQUAL "64")
-                download_file_unzip("https://github.com/DFHack/dfhack-bin/releases/download/0.43.05/osx64-libfreetype.6.dylib.gz"
+                download_file_unzip("https://github.com/DFHack/dfhack-bin/releases/download/0.44.09/osx64-libfreetype.6.dylib.gz"
                     "gz"
                     ${ALLEGRO_DOWNLOAD_DIR}/lib/libfreetype.6.dylib.gz
                     "f4c4005a53a353802492ab1a76f188b6"
@@ -116,12 +116,12 @@ IF(UNIX)
             set(ALLEGRO_DOWNLOAD_DIR ${stonesense_SOURCE_DIR}/allegro/linux${DFHACK_BUILD_ARCH})
             if("${DFHACK_BUILD_ARCH}" STREQUAL "64")
                 set(ALLEGRO_DOWNLOAD_FILE "linux64-allegro5010.tar.gz")
-                download_file("https://github.com/DFHack/dfhack-bin/releases/download/0.43.05/linux64-allegro5010.tar.gz"
+                download_file("https://github.com/DFHack/dfhack-bin/releases/download/0.44.09/linux64-allegro5010.tar.gz"
                     "${ALLEGRO_DOWNLOAD_DIR}/${ALLEGRO_DOWNLOAD_FILE}"
                     "343f44224ee61508b89b11adb35a4dd9")
             else()
                 set(ALLEGRO_DOWNLOAD_FILE "linux32-allegro509b.tar.bz2")
-                download_file("https://github.com/DFHack/dfhack-bin/releases/download/0.43.05/linux32-allegro509b.tar.bz2"
+                download_file("https://github.com/DFHack/dfhack-bin/releases/download/0.44.09/linux32-allegro509b.tar.bz2"
                     "${ALLEGRO_DOWNLOAD_DIR}/${ALLEGRO_DOWNLOAD_FILE}"
                     "74ead5d95a83a03a301cdc76fa0a3df8")
             endif()
@@ -160,23 +160,23 @@ IF(UNIX)
 ELSE(UNIX)
     SET(ALLEGRO_DOWNLOAD_DIR ${stonesense_SOURCE_DIR}/win${DFHACK_BUILD_ARCH})
     IF(DFHACK_BUILD_64)
-        download_file("https://github.com/DFHack/dfhack-bin/releases/download/0.43.05/win64-allegro-msvc2015-x64-5.1.12.zip"
+        download_file("https://github.com/DFHack/dfhack-bin/releases/download/0.44.09/win64-allegro-msvc2015-x64-5.1.12.zip"
                       ${ALLEGRO_DOWNLOAD_DIR}/allegro-msvc2015-x64-5.1.12.zip
                       "3abb0bd88251efde001a8b65fdf17683")
         execute_process(COMMAND ${CMAKE_COMMAND} -E tar xzf ${ALLEGRO_DOWNLOAD_DIR}/allegro-msvc2015-x64-5.1.12.zip
                         WORKING_DIRECTORY ${ALLEGRO_DOWNLOAD_DIR})
-        download_file("https://github.com/DFHack/dfhack-bin/releases/download/0.43.05/win64-allegro_deps-msvc2015-x64-1.2.0.zip"
+        download_file("https://github.com/DFHack/dfhack-bin/releases/download/0.44.09/win64-allegro_deps-msvc2015-x64-1.2.0.zip"
                       ${ALLEGRO_DOWNLOAD_DIR}/allegro_deps-msvc2015-x64-1.2.0.zip
                       "eb8d0f4569b84c36bef3733b40b00c72")
         execute_process(COMMAND ${CMAKE_COMMAND} -E tar xzf ${ALLEGRO_DOWNLOAD_DIR}/allegro_deps-msvc2015-x64-1.2.0.zip
                         WORKING_DIRECTORY ${ALLEGRO_DOWNLOAD_DIR})
     ELSE()
-        download_file("https://github.com/DFHack/dfhack-bin/releases/download/0.43.05/win32-allegro-msvc2015-x86-5.1.12.zip"
+        download_file("https://github.com/DFHack/dfhack-bin/releases/download/0.44.09/win32-allegro-msvc2015-x86-5.1.12.zip"
                       ${ALLEGRO_DOWNLOAD_DIR}/allegro-msvc2015-x86-5.1.12.zip
                       "86e6aeea828743107dc1f3a3d562e53d")
         execute_process(COMMAND ${CMAKE_COMMAND} -E tar xzf ${ALLEGRO_DOWNLOAD_DIR}/allegro-msvc2015-x86-5.1.12.zip
                         WORKING_DIRECTORY ${ALLEGRO_DOWNLOAD_DIR})
-        download_file("https://github.com/DFHack/dfhack-bin/releases/download/0.43.05/win32-allegro_deps-msvc2015-x86-1.2.0.zip"
+        download_file("https://github.com/DFHack/dfhack-bin/releases/download/0.44.09/win32-allegro_deps-msvc2015-x86-1.2.0.zip"
                       ${ALLEGRO_DOWNLOAD_DIR}/allegro_deps-msvc2015-x86-1.2.0.zip
                       "be096bfef256cb113e25dbb2eb7fd410")
         execute_process(COMMAND ${CMAKE_COMMAND} -E tar xzf ${ALLEGRO_DOWNLOAD_DIR}/allegro_deps-msvc2015-x86-1.2.0.zip
