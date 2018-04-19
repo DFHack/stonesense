@@ -213,7 +213,7 @@ void Tile::DrawGrowth(c_sprite * spriteobject, bool top=true)
         || tileMaterial() == RemoteFortressReader::MUSHROOM)
     {
         df::plant_raw* plantRaw = df::global::world->raws.plants.all[tree.index];
-        for (int i = 0; i < plantRaw->growths.size(); i++)
+        for (size_t i = 0; i < plantRaw->growths.size(); i++)
         {
             df::plant_growth * growth = plantRaw->growths[i];
             if (!growth->locations.whole)
@@ -226,13 +226,13 @@ void Tile::DrawGrowth(c_sprite * spriteobject, bool top=true)
             growth_locations loca = LOCATION_NONE;
             if (growth->locations.bits.cap && tileMaterial() == RemoteFortressReader::MUSHROOM)
                 loca = LOCATION_CAP;
-            if (growth->locations.bits.heavy_branches && (tileSpecial() == RemoteFortressReader::BRANCH && tileType != df::tiletype::TreeBranches))
+            if (growth->locations.bits.heavy_branches && (tileShape() == RemoteFortressReader::BRANCH && tileType != df::tiletype::TreeBranches))
                 loca = LOCATION_HEAVY_BRANCHES;
             if (growth->locations.bits.roots && tileMaterial() == RemoteFortressReader::ROOT)
                 loca = LOCATION_ROOTS;
             if (growth->locations.bits.light_branches && tileType == df::tiletype::TreeBranches)
                 loca = LOCATION_LIGHT_BRANCHES;
-            if (growth->locations.bits.sapling && tileMaterial() == RemoteFortressReader::SAPLING)
+            if (growth->locations.bits.sapling && tileShape() == RemoteFortressReader::SAPLING)
                 loca = LOCATION_SAPLING;
             if (growth->locations.bits.trunk && tileShape() == RemoteFortressReader::WALL)
                 loca = LOCATION_TRUNK;
@@ -260,7 +260,7 @@ void Tile::DrawGrowth(c_sprite * spriteobject, bool top=true)
                 {
                     df::plant_growth_print * basePrint = growth->prints[0];
                     df::plant_growth_print * currentPrint = basePrint;
-                    for (int k = 0; k < growth->prints.size(); k++)
+                    for (size_t k = 0; k < growth->prints.size(); k++)
                     {
                         if (growth->prints[k]->timing_start >= 0 && growth->prints[k]->timing_start > time)
                             continue;
@@ -322,7 +322,6 @@ void Tile::AssembleTile( void )
         return;
     }
 
-    ALLEGRO_COLOR plateBorderColor = al_map_rgb(85,85,85);
     int rando = randomCube[x%RANDOM_CUBE][y%RANDOM_CUBE][z%RANDOM_CUBE];
 
     DrawGrowth(spriteobject, false);
@@ -396,7 +395,7 @@ void Tile::AssembleTile( void )
         if (spriteobject->get_sheetindex() != INVALID_INDEX) {
             spriteobject->set_size(SPRITEWIDTH, SPRITEHEIGHT);
             spriteobject->set_plate_layout(RAMPBOTTOMPLATE);
-            spriteobject->assemble_world_offset(x, y, z, 0, this, (chopThisTile && this->z == ownerSegment->segState.Position.z + ownerSegment->segState.Size.z -2));
+            spriteobject->assemble_world_offset(x, y, z, 0, this, (chopThisTile && int(this->z) == ownerSegment->segState.Position.z + ownerSegment->segState.Size.z -2));
         }
         spriteobject->set_plate_layout(TILEPLATE);
     }
@@ -434,7 +433,7 @@ void Tile::AssembleTile( void )
     if(Item.item.type >= 0) {
         if(
             contentLoader->itemConfigs[Item.item.type] &&
-            (Item.item.index < contentLoader->itemConfigs[Item.item.type]->subItems.size()) &&
+            (size_t(Item.item.index) < contentLoader->itemConfigs[Item.item.type]->subItems.size()) &&
             contentLoader->itemConfigs[Item.item.type]->subItems[Item.item.index]) {
             contentLoader->itemConfigs[Item.item.type]->subItems[Item.item.index]->sprite.assemble_world(x, y, z, this);
         } else if (
@@ -514,7 +513,7 @@ void Tile::AssembleTile( void )
         if (spriteobject->get_sheetindex() == INVALID_INDEX ) {
             //skip
         } else {
-            spriteobject->assemble_world(x, y, z, this, (chopThisTile && this->z == ownerSegment->segState.Position.z + ownerSegment->segState.Size.z -2));
+            spriteobject->assemble_world(x, y, z, this, (chopThisTile && int(this->z) == ownerSegment->segState.Position.z + ownerSegment->segState.Size.z -2));
         }
     }
 
@@ -559,9 +558,9 @@ void Tile::AssembleTile( void )
         //if(waterlevel == 7) waterlevel--;
         uint32_t waterlevel = designation.bits.flow_size + (deepwater ? 1 : 0);
         if(designation.bits.liquid_type == 0) {
-            contentLoader->water[waterlevel-1].sprite.assemble_world(x, y, z, this, (chopThisTile && this->z == ownerSegment->segState.Position.z + ownerSegment->segState.Size.z -2));
+            contentLoader->water[waterlevel-1].sprite.assemble_world(x, y, z, this, (chopThisTile && int(this->z) == ownerSegment->segState.Position.z + ownerSegment->segState.Size.z -2));
         } else {
-            contentLoader->lava[waterlevel-1].sprite.assemble_world(x, y, z, this, (chopThisTile && this->z == ownerSegment->segState.Position.z + ownerSegment->segState.Size.z -2));
+            contentLoader->lava[waterlevel-1].sprite.assemble_world(x, y, z, this, (chopThisTile && int(this->z) == ownerSegment->segState.Position.z + ownerSegment->segState.Size.z -2));
         }
     }
 
@@ -643,6 +642,9 @@ void Tile::AssembleTile( void )
         case df::flow_type::OceanWave:
             AssembleParticleCloud(tileeffect.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_water, tint);
             break;
+        case df::flow_type::ItemCloud:
+            // TODO
+            break;
 
         }
     }
@@ -669,7 +671,7 @@ bool hasBuildingOfID(Tile* b, int ID)
     return b->building.type == ID;
 }
 
-bool hasBuildingIdentity(Tile* b, Buildings::t_building* index, int buildingOcc)
+bool hasBuildingIdentity(Tile* b, Buildings::t_building* index, df::tile_building_occ buildingOcc)
 {
     if(!b) {
         return false;

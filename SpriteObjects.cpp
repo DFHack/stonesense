@@ -329,7 +329,6 @@ void c_sprite::reset(void)
     offsetcode = 0;
     animframes = ALL_FRAMES;
     shadecolor = al_map_rgb(255,255,255);
-    subsprites;
     snowmin = 0;
     snowmax = -1;
     bloodmin = 0;
@@ -376,7 +375,7 @@ void c_sprite::reset(void)
     light=LIGHTANY;
     pattern_index=0;
     {
-        for(int i = 0; i < subsprites.size(); i++) {
+        for(size_t i = 0; i < subsprites.size(); i++) {
             subsprites[i].reset();
         }
     }
@@ -397,7 +396,7 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite, int32_t inFile, int creature
     if (bodyPartStr != NULL && bodyPartStr[0] != 0) {
         t_creaturecaste & caste = contentLoader->Mats->raceEx[creatureID].castes[(casteID==INVALID_INDEX) ? 0 : casteID];
         std::vector<t_colormodifier> & colormods = caste.ColorModifier;
-        for(int32_t j = 0; j<colormods.size() ; j++) {
+        for(size_t j = 0; j<colormods.size() ; j++) {
             if(colormods[j].part == bodyPartStr) {
                 caste_bodypart_index = j;
                 return;
@@ -756,7 +755,7 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
     const char* equipsindexstr = elemSprite->Attribute("equipment_name");
     if (equipsindexstr == NULL || equipsindexstr[0] == 0) {
         itemsubtype = 0;
-    } else if(equipsindexstr == "NONE") {
+    } else if(!strcmp(equipsindexstr, "NONE")) {
         itemsubtype = INVALID_INDEX;
     } else {
         df::world_raws::T_itemdefs &defs = df::global::world->raws.itemdefs;
@@ -976,17 +975,17 @@ void c_sprite::assemble_world_offset(int x, int y, int z, int plateoffset, Tile 
         if(!((light==LIGHTANY) || ((light==LIGHTYES) && b->designation.bits.outside) || ((light==LIGHTNO) && !(b->designation.bits.outside)))) {
             goto draw_subsprite;
         }
-        if(!((grasstype == -1) || (grasstype == b->grassmat))) {
+        if(!((grasstype == -1) || (size_t(grasstype) == b->grassmat))) {
             goto draw_subsprite;
         }
         if(!((grassgrowth == GRASS_GROWTH_ANY) ||
                 ((grassgrowth == GRASS_GROWTH_NORMAL) &&
-                 ((b->tileMaterial() == tiletype_material::GRASS_DARK) ||
-                  (b->tileMaterial() == tiletype_material::GRASS_LIGHT))) ||
+                 ((b->tileMaterial() == RemoteFortressReader::GRASS_DARK) ||
+                  (b->tileMaterial() == RemoteFortressReader::GRASS_LIGHT))) ||
                 ((grassgrowth == GRASS_GROWTH_DRY) &&
-                 (b->tileMaterial() == tiletype_material::GRASS_DRY)) ||
+                 (b->tileMaterial() == RemoteFortressReader::GRASS_DRY)) ||
                 ((grassgrowth == GRASS_GROWTH_DEAD) &&
-                 (b->tileMaterial() == tiletype_material::GRASS_DEAD)))) {
+                 (b->tileMaterial() == RemoteFortressReader::GRASS_DEAD)))) {
             goto draw_subsprite;
         }
 
@@ -1002,16 +1001,16 @@ void c_sprite::assemble_world_offset(int x, int y, int z, int plateoffset, Tile 
                 if(b->creature->inv->item.empty()) {
                     goto draw_subsprite;
                 }
-                if(b->creature->inv->item.size() <= itemtype) {
+                if(b->creature->inv->item.size() <= size_t(itemtype)) {
                     goto draw_subsprite;
                 }
                 if(b->creature->inv->item[itemtype].empty()) {
                     goto draw_subsprite;
                 }
-                if(itemsubtype >= b->creature->inv->item[itemtype].size()) {
+                if(size_t(itemsubtype) >= b->creature->inv->item[itemtype].size()) {
                     goto draw_subsprite;
                 }
-                if(pattern_index >= b->creature->inv->item[itemtype][itemsubtype].size()) {
+                if(size_t(pattern_index) >= b->creature->inv->item[itemtype][itemsubtype].size()) {
                     goto draw_subsprite;
                 }
                 if(b->creature->inv->item[itemtype][itemsubtype][pattern_index].matt.type == INVALID_INDEX) {
@@ -1027,7 +1026,7 @@ void c_sprite::assemble_world_offset(int x, int y, int z, int plateoffset, Tile 
 
             if(b->creature->inv
                 && ! (b->creature->inv->item.empty())
-                && ! (b->creature->inv->item.size() <= itemtype)
+                && ! (b->creature->inv->item.size() <= size_t(itemtype))
                 && ! (b->creature->inv->item[itemtype].empty())) {
                     goto draw_subsprite;
                 }
@@ -1035,13 +1034,13 @@ void c_sprite::assemble_world_offset(int x, int y, int z, int plateoffset, Tile 
         }
 
         if(hairtype != hairtypes_invalid) {
-            if(hairmin > b->creature->hairlength[hairtype]) {
+            if(hairmin > int(b->creature->hairlength[hairtype])) {
                 goto draw_subsprite;
             }
-            if((hairmax >= 0) && (hairmax < b->creature->hairlength[hairtype])) {
+            if((hairmax >= 0) && (hairmax < int(b->creature->hairlength[hairtype]))) {
                 goto draw_subsprite;
             }
-            if(hairstyle != hairstyles_invalid && hairstyle !=b->creature->hairstyle[hairtype]) {
+            if(hairstyle != hairstyles_invalid && hairstyle != b->creature->hairstyle[hairtype]) {
                 goto draw_subsprite;
             }
         }
@@ -1198,7 +1197,7 @@ void c_sprite::assemble_world_offset(int x, int y, int z, int plateoffset, Tile 
     }
 draw_subsprite:
     if(!subsprites.empty()) {
-        for(int i = 0; i < subsprites.size(); i++) {
+        for(size_t i = 0; i < subsprites.size(); i++) {
             subsprites.at(i).assemble_world_offset(x, y, z, plateoffset, b, chop);
         }
     }
@@ -1209,7 +1208,7 @@ void c_sprite::set_size(uint8_t x, uint8_t y)
     spritewidth = x;
     spriteheight = y;
     if(!subsprites.empty()) {
-        for(int i = 0; i < subsprites.size(); i++) {
+        for(size_t i = 0; i < subsprites.size(); i++) {
             subsprites[i].set_size(spritewidth, spriteheight);
         }
     }
@@ -1220,7 +1219,7 @@ void c_sprite::set_offset(int16_t offx, int16_t offy)
     offset_x = offx;
     offset_y = offy;
     if(!subsprites.empty()) {
-        for(int i = 0; i < subsprites.size(); i++) {
+        for(size_t i = 0; i < subsprites.size(); i++) {
             subsprites[i].set_offset(offset_x, offset_y);
         }
     }
@@ -1230,7 +1229,7 @@ void c_sprite::set_plate_layout(uint8_t layout)
 {
     platelayout = layout;
     if(!subsprites.empty()) {
-        for(int i = 0; i < subsprites.size(); i++) {
+        for(size_t i = 0; i < subsprites.size(); i++) {
             subsprites[i].set_plate_layout(layout);
         }
     }
@@ -1288,7 +1287,7 @@ ALLEGRO_COLOR c_sprite::get_color(void* tile)
             if((!ssConfig.skipCreatureTypes) && (!ssConfig.skipCreatureTypesEx) && (!ssConfig.skipDescriptorColors)) {
                 t_creaturecaste & caste = contentLoader->Mats->raceEx[b->creature->race].castes[b->creature->caste];
                 std::vector<t_colormodifier> & colormods =caste.ColorModifier;
-                if(caste_bodypart_index != INVALID_INDEX && caste_bodypart_index < colormods.size()){
+                if(caste_bodypart_index != INVALID_INDEX && size_t(caste_bodypart_index) < colormods.size()){
                     t_colormodifier & colormod = colormods[caste_bodypart_index];
                     if(colormod.colorlist.size() > b->creature->color[caste_bodypart_index]) {
                         uint32_t cr_color = colormod.colorlist.at(b->creature->color[caste_bodypart_index]);
@@ -1328,10 +1327,10 @@ ALLEGRO_COLOR c_sprite::get_color(void* tile)
                 if(itemtype == -1) {
                     return al_map_rgb(255, 0, 0);
                 }
-                if(b->creature->inv->item.size() <= itemtype) {
+                if(b->creature->inv->item.size() <= size_t(itemtype)) {
                     return al_map_rgb(0, 255, 0);
                 }
-                if(b->creature->inv->item[itemtype].size() <= itemsubtype) {
+                if(b->creature->inv->item[itemtype].size() <= size_t(itemsubtype)) {
                     return al_map_rgb(255, 255, 0);
                 }
                 if(b->creature->inv->item[itemtype][itemsubtype].empty()) {
@@ -1359,7 +1358,7 @@ ALLEGRO_COLOR c_sprite::get_color(void* tile)
 void c_sprite::set_growthColor(ALLEGRO_COLOR color)
 {
     growthColor = color;
-    for (int i = 0; i < subsprites.size(); i++)
+    for (size_t i = 0; i < subsprites.size(); i++)
     {
         subsprites[i].set_growthColor(color);
     }

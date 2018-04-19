@@ -87,7 +87,7 @@ public:
     BuildingOccupancyCondition(const char* strValue);
     ~BuildingOccupancyCondition(void) {};
 
-    int value;
+    df::tile_building_occ value;
     bool Matches(Tile* b);
 };
 

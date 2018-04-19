@@ -46,9 +46,15 @@ SET(PROJECT_SRCS
 
 #proto files to include.
 SET(PROJECT_PROTO
-	../../proto/RemoteFortressReader
-    ../../proto/ItemdefInstrument
+    ${CMAKE_CURRENT_SOURCE_DIR}/../proto/RemoteFortressReader.pb.cc
+    ${CMAKE_CURRENT_SOURCE_DIR}/../proto/ItemdefInstrument.pb.cc
 )
+
+SET_SOURCE_FILES_PROPERTIES( ${PROJECT_HDRS} PROPERTIES HEADER_FILE_ONLY TRUE)
+SET_SOURCE_FILES_PROPERTIES( ${PROJECT_PROTO} PROPERTIES GENERATED TRUE)
+
+# mash them together (headers are marked as headers and nothing will try to compile them)
+LIST(APPEND PROJECT_SRCS ${PROJECT_HDRS};${PROJECT_PROTO})
 
 IF(UNIX)
     IF(APPLE)
@@ -224,13 +230,17 @@ ELSE(UNIX)
     )
 ENDIF(UNIX)
 
-DFHACK_PLUGIN(stonesense ${PROJECT_SRCS} LINK_LIBRARIES ${DFHACK_TINYXML} ${PROJECT_LIBS} PROTOBUFS ${PROJECT_PROTO})
+DFHACK_PLUGIN(stonesense ${PROJECT_SRCS} LINK_LIBRARIES ${DFHACK_TINYXML} ${PROJECT_LIBS} COMPILE_FLAGS_MSVC "/FI\"Export.h\" /wd4312 /wd4996 /wd4251" COMPILE_FLAGS_GCC "-include Export.h -Wno-misleading-indentation")
 
 # Make sure the source is generated before the executable builds.
 ADD_DEPENDENCIES(stonesense generate_proto)
 
 TARGET_LINK_LIBRARIES(stonesense protobuf-lite ${PROJECT_LIBS})
 
+IF(MSVC)
+    # Ignore unhelpful warnings about debug symbols being missing.
+    SET_TARGET_PROPERTIES(stonesense PROPERTIES LINK_FLAGS "/ignore:4098 /ignore:4099")
+ENDIF(MSVC)
 
 IF(APPLE)
     add_custom_command(TARGET stonesense POST_BUILD COMMAND ${stonesense_SOURCE_DIR}/fix-libs-stonesense.sh WORKING_DIRECTORY . COMMENT "Fixing Stonesense library dependencies...")

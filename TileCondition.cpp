@@ -177,7 +177,7 @@ bool AnimationFrameCondition::Matches(Tile* b)
 BuildingOccupancyCondition::BuildingOccupancyCondition(const char* strValue)
     : TileCondition()
 {
-    this->value = atoi( strValue );
+    this->value = df::tile_building_occ( atoi( strValue ) );
 }
 
 bool BuildingOccupancyCondition::Matches(Tile* b)
@@ -242,7 +242,7 @@ NeighbourIdenticalCondition::NeighbourIdenticalCondition(const char* strDir)
 bool NeighbourIdenticalCondition::Matches(Tile* b)
 {
     Buildings::t_building* tilesBuildingIndex = b->building.info;
-    int tilesBuildingOcc = b->occ.bits.building;
+    df::tile_building_occ tilesBuildingOcc = b->occ.bits.building;
 
     bool n = hasBuildingIdentity( b->ownerSegment->getTileRelativeTo( b->x, b->y, b->z, eUp ), tilesBuildingIndex, tilesBuildingOcc );
     bool s = hasBuildingIdentity( b->ownerSegment->getTileRelativeTo( b->x, b->y, b->z, eDown ), tilesBuildingIndex, tilesBuildingOcc );

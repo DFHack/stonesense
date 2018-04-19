@@ -182,7 +182,7 @@ ALLEGRO_COLOR premultiply(ALLEGRO_COLOR input)
 
 ALLEGRO_COLOR shadeAdventureMode(ALLEGRO_COLOR color, bool foggy, bool outside)
 {
-    if(!contentLoader->gameMode.g_mode == GAMEMODE_ADVENTURE) {
+    if(contentLoader->gameMode.g_mode != GAMEMODE_ADVENTURE) {
         return color;
     }
 
