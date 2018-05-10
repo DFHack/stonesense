@@ -159,6 +159,7 @@ IF(UNIX)
                 allegro_image
                 allegro_ttf
                 allegro_color
+                SDL
                 ${PROJECT_LIBS}
             )
         ENDIF()
