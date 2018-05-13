@@ -232,7 +232,14 @@ ELSE(UNIX)
     )
 ENDIF(UNIX)
 
-DFHACK_PLUGIN(stonesense ${PROJECT_SRCS} LINK_LIBRARIES ${DFHACK_TINYXML} ${PROJECT_LIBS} COMPILE_FLAGS_MSVC "/FI\"Export.h\" /wd4312 /wd4996 /wd4251" COMPILE_FLAGS_GCC "-include Export.h -Wno-misleading-indentation")
+execute_process(COMMAND ${CMAKE_CXX_COMPILER} -dumpversion OUTPUT_VARIABLE GCC_VERSION)
+string(STRIP ${GCC_VERSION} GCC_VERSION)
+set(STONESENSE_GCC_FLAGS "")
+if("${GCC_VERSION}" VERSION_GREATER 6.0)
+    set(STONESENSE_GCC_FLAGS "${STONESENSE_GCC_FLAGS} -Wno-misleading-indentation")
+endif()
+
+DFHACK_PLUGIN(stonesense ${PROJECT_SRCS} LINK_LIBRARIES ${DFHACK_TINYXML} ${PROJECT_LIBS} COMPILE_FLAGS_MSVC "/FI\"Export.h\" /wd4312 /wd4996 /wd4251" COMPILE_FLAGS_GCC "-include Export.h ${STONESENSE_GCC_FLAGS}")
 
 # Make sure the source is generated before the executable builds.
 ADD_DEPENDENCIES(stonesense generate_proto)

@@ -42,7 +42,7 @@ int getDirectionFromString(const char* strDir)
 
 int getBuildingFromString(const char* strType)
 {
-    df::building_type item;
+    df::building_type item = df::building_type::NONE;
     if (find_enum_item(&item, strType)) {
         return (int)item;
     }
