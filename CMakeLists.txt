@@ -218,7 +218,6 @@ ELSE(UNIX)
         glu32.lib
         gdiplus.lib
         shlwapi.lib
-        $(NOINHERIT)
        )
     include_directories (
         ${include_directories}
