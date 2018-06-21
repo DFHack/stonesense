@@ -94,7 +94,7 @@ void LogError(const char* msg, ...)
     va_start(arglist, msg);
     char buf[512] = {0};
     vsprintf(buf, msg, arglist);
-    Core::printerr(buf);
+    Core::printerr("%s", buf);
     FILE* fp = fopen( "Stonesense.log", "a");
     if(fp) {
         vfprintf( fp, msg, arglist );
@@ -111,7 +111,7 @@ void PrintMessage(const char* msg, ...)
     va_start(arglist, msg);
     char buf[512] = {0};
     vsprintf(buf, msg, arglist);
-    Core::print(buf);
+    Core::print("%s", buf);
     va_end(arglist);
 }
 
@@ -124,7 +124,7 @@ void LogVerbose(const char* msg, ...)
     va_start(arglist, msg);
     char buf[512] = {0};
     vsprintf(buf, msg, arglist);
-    Core::printerr(buf);
+    Core::printerr("%s", buf);
     FILE* fp = fopen( "Stonesense.log", "a");
     if(fp) {
         vfprintf( fp, msg, arglist );
