@@ -14,8 +14,6 @@
 #include <Console.h>
 #include <Export.h>
 #include <PluginManager.h>
-using namespace DFHack;
-using namespace df::enums;
 
 #define ALLEGRO_NO_MAGIC_MAIN //This is a DLL file. we got no main function.
 #define ALLEGRO_HAVE_STDINT_H
@@ -32,6 +30,8 @@ using namespace df::enums;
 #undef TileShape
 #undef None
 #undef Status
+using namespace DFHack;
+using namespace df::enums;
 
 #include "commonTypes.h"
 #include "Tile.h"
