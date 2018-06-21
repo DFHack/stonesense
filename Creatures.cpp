@@ -257,7 +257,7 @@ bool IsCreatureVisible( df::unit* c )
         return true;
     }
 
-    if( c->flags1.bits.dead ) {
+    if( c->flags1.bits.inactive ) {
         return false;
     }
     if( c->flags1.bits.caged ) {
@@ -828,9 +828,6 @@ void generateCreatureDebugString( SS_Unit* c, char* strbuffer)
     if(c->flags1.bits.coward) {
         strcat(strbuffer, "coward ");
     }
-    if(c->flags1.bits.dead) {
-        strcat(strbuffer, "Dead ");
-    }
     if(c->flags1.bits.diplomat) {
         strcat(strbuffer, "Diplomat ");
     }
@@ -892,6 +889,9 @@ void generateCreatureDebugString( SS_Unit* c, char* strbuffer)
         strcat(strbuffer, "Zombie ");
     }
 
+    if(c->flags2.bits.killed) {
+        strcat(strbuffer, "Dead ");
+    }
     if(c->flags2.bits.slaughter) {
         strcat(strbuffer, "ReadyToSlaughter ");
     }
