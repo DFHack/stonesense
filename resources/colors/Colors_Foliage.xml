@@ -421,7 +421,7 @@
 		<material token="PLANT:ROUND_LIME:FRUIT"/>
 	</color>
 	<color red="65" green="153" blue="62">
-		<material token="PLANT:DESER_LIME:LEAF"/>
+		<material token="PLANT:DESERT_LIME:LEAF"/>
 	</color>
 	<color red="227" green="255" blue="205">
 		<material token="PLANT:DESERT_LIME:FLOWER"/>
