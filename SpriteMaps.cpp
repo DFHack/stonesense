@@ -6,6 +6,10 @@
 #include "TileTree.h"
 #include "TileTypes.h"
 
+using namespace std;
+using namespace DFHack;
+using namespace df::enums;
+
 c_sprite *  GetTerrainSpriteMap(int in, t_matglossPair material, vector<TerrainConfiguration*>& configTable, uint16_t form)
 {
     int tempform;

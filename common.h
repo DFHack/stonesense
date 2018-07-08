@@ -14,8 +14,6 @@
 #include <Console.h>
 #include <Export.h>
 #include <PluginManager.h>
-using namespace DFHack;
-using namespace df::enums;
 
 #define ALLEGRO_NO_MAGIC_MAIN //This is a DLL file. we got no main function.
 #define ALLEGRO_HAVE_STDINT_H
@@ -262,5 +260,3 @@ enum MAT_BASICS {
 #define FORM_LOG 4
 
 extern int randomCube[RANDOM_CUBE][RANDOM_CUBE][RANDOM_CUBE];
-
-using namespace std;

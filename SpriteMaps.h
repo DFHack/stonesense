@@ -65,7 +65,7 @@ enum TileIDs {
 
 // returns appropriate t_SpriteWithOffset,
 // or one with sheetIndex == INVALID_INDEX if none found
-c_sprite * GetTileSpriteMap(int in, t_matglossPair material, uint16_t form);
-c_sprite * GetFloorSpriteMap(int in, t_matglossPair material, uint16_t form);
+c_sprite * GetTileSpriteMap(int in, DFHack::t_matglossPair material, uint16_t form);
+c_sprite * GetFloorSpriteMap(int in, DFHack::t_matglossPair material, uint16_t form);
 c_tile_tree * GetTreeVegetation(RemoteFortressReader::TiletypeShape shape, RemoteFortressReader::TiletypeSpecial special, int index);
 

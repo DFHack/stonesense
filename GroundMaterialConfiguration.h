@@ -29,11 +29,6 @@ public:
 };
 
 bool addSingleTerrainConfig( TiXmlElement* elemRoot);
-//void LoadGroundMaterialConfiguration( );
-//void TranslateGroundMaterialNames();
-
-//extern bool GroundMaterialNamesTranslatedFromGame;
-//extern vector<GroundMaterialConfiguration*> groundTypes;
 
 void flushTerrainConfig(std::vector<TerrainConfiguration*>& config);
 void DumpInorganicMaterialNamesToDisk();

@@ -4,9 +4,9 @@
 #define KEYMOD_NONE 0
 
 struct action_name_mapper {
-    string name;
+    std::string name;
     void (*func)(uint32_t);
 };
 
-string parseStrFromLine( string keyword, string line );
-int parseIntFromLine( string keyword, string line );
+std::string parseStrFromLine( std::string keyword, std::string line );
+int parseIntFromLine( std::string keyword, std::string line );

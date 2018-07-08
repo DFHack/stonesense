@@ -7,6 +7,10 @@
 #include "ContentLoader.h"
 #include "EnumToString.h"
 
+using namespace std;
+using namespace DFHack;
+using namespace df::enums;
+
 #define PRIORITY_SHAPE 8
 #define PRIORITY_SPECIAL 4
 #define PRIORITY_VARIANT 2

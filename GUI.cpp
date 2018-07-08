@@ -1,8 +1,6 @@
 ﻿#include <assert.h>
 #include <vector>
 
-using namespace std;
-
 #include "common.h"
 #include "Tile.h"
 #include "GUI.h"
@@ -48,6 +46,11 @@ using namespace std;
 #include "df/report.h"
 
 #include "allegro5/allegro_color.h"
+
+using namespace std;
+using namespace DFHack;
+using namespace df::enums;
+
 extern ALLEGRO_FONT *font;
 
 int MiniMapTopLeftX = 0;

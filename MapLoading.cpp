@@ -27,6 +27,10 @@
 
 #include "ConnectionState.h"
 
+using namespace std;
+using namespace DFHack;
+using namespace df::enums;
+
 bool connected = 0;
 bool threadrunnng = 0;
 

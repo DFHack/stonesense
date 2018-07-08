@@ -7,6 +7,10 @@
 
 #include "tinyxml.h"
 
+using namespace std;
+using namespace DFHack;
+using namespace df::enums;
+
 
 CreatureConfiguration::CreatureConfiguration(int professionID, const char* professionStr, uint8_t sex, int incaste, enumCreatureSpecialCases special, c_sprite &sprite, int shadow)
 {

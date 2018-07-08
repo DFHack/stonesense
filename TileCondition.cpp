@@ -4,6 +4,10 @@
 #include "ContentLoader.h"
 #include <iostream>
 
+using namespace std;
+using namespace DFHack;
+using namespace df::enums;
+
 int getDirectionFromString(const char* strDir)
 {
     if (strDir == NULL) {

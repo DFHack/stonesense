@@ -1,6 +1,10 @@
 #include "FluidConfiguration.h"
 #include "ContentLoader.h"
 
+using namespace std;
+using namespace DFHack;
+using namespace df::enums;
+
 FluidConfiguration::FluidConfiguration()
 {
     fluidset = 0;

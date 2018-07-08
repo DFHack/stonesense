@@ -6,6 +6,8 @@
 #include "Config.h"
 
 using namespace std;
+using namespace DFHack;
+using namespace df::enums;
 
 string parseStrFromLine( string keyword, string line )
 {

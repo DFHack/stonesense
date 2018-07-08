@@ -3,6 +3,10 @@
 #include "Constructions.h"
 #include "WorldSegment.h"
 
+using namespace std;
+using namespace DFHack;
+using namespace df::enums;
+
 void changeConstructionMaterials(WorldSegment* segment, vector<df::construction>* allConstructions)
 {
     //find construction

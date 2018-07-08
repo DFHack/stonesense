@@ -2,6 +2,10 @@
 #include "ContentLoader.h"
 #include <set>
 
+using namespace std;
+using namespace DFHack;
+using namespace df::enums;
+
 ColorMaterialConfiguration::ColorMaterialConfiguration()
 {
     color = al_map_rgb(255,255,255);

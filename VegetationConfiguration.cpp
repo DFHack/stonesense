@@ -8,6 +8,10 @@
 
 #include "tinyxml.h"
 
+using namespace std;
+using namespace DFHack;
+using namespace df::enums;
+
 
 VegetationConfiguration::VegetationConfiguration(int gameID, c_tile_tree &tree, bool live, bool grown)
 {

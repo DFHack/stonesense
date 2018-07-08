@@ -1,6 +1,8 @@
 #include "ConnectionState.h"
 #include <iostream>
 
+using namespace std;
+
 ConnectionState::ConnectionState() {
     df_network_out = new DFHack::color_ostream_wrapper(std::cout);
     network_client = new DFHack::RemoteClient(df_network_out);

@@ -3,6 +3,10 @@
 #include "GameBuildings.h"
 #include "ContentLoader.h"
 
+using namespace std;
+using namespace DFHack;
+using namespace df::enums;
+
 bool BuildingNamesTranslatedFromGame = false;
 
 BuildingConfiguration::BuildingConfiguration(string name, int game_type, int game_subtype, int32_t custom)

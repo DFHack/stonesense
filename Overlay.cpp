@@ -9,6 +9,10 @@
 #include "df/viewscreen_dungeonmodest.h"
 #include "df/ui_advmode.h"
 
+using namespace std;
+using namespace DFHack;
+using namespace df::enums;
+
 DFhackCExport void * SDL_GetVideoSurface(void);
 DFhackCExport vPtr SDL_CreateRGBSurface(uint32_t flags, int width, int height, int depth,
                                         uint32_t Rmask, uint32_t Gmask, uint32_t Bmask, uint32_t Amask);

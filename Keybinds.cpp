@@ -2,6 +2,10 @@
 #include "Config.h"
 #include "UserInput.h"
 
+using namespace std;
+using namespace DFHack;
+using namespace df::enums;
+
 //should match allegrow/keycodes.h
 string keynames[] = {
     "INVALID",

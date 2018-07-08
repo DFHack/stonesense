@@ -2,8 +2,6 @@
 #include <vector>
 #include <list>
 
-using namespace std;
-
 #include "common.h"
 #include "Overlay.h"
 #include "Tile.h"
@@ -18,6 +16,10 @@ using namespace std;
 #include "GroundMaterialConfiguration.h"
 #include "ContentLoader.h"
 #include "OcclusionTest.h"
+
+using namespace std;
+using namespace DFHack;
+using namespace df::enums;
 
 #define WIDTH        640
 #define HEIGHT       480

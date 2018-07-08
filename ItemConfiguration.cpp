@@ -4,6 +4,10 @@
 #include "GUI.h"
 #include "ContentLoader.h"
 
+using namespace std;
+using namespace DFHack;
+using namespace df::enums;
+
 ItemConfiguration::ItemConfiguration()
 {
     configured=0;

@@ -14,6 +14,10 @@
 #include "df/world.h"
 #include "df/world_raws.h"
 
+using namespace std;
+using namespace DFHack;
+using namespace df::enums;
+
 int parseConditionNode(ConditionalNode* node, TiXmlElement* elemCondition, bool silent);
 bool parseSpriteNode(SpriteNode* node, TiXmlElement* elemParent);
 bool includeFile(SpriteNode* node, TiXmlElement* includeNode, SpriteTile* &oldSibling);

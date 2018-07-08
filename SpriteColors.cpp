@@ -7,6 +7,10 @@
 #include "WorldSegment.h"
 #include "ContentLoader.h"
 
+using namespace std;
+using namespace DFHack;
+using namespace df::enums;
+
 ALLEGRO_COLOR operator*(const ALLEGRO_COLOR &color1, const ALLEGRO_COLOR &color2)
 {
     ALLEGRO_COLOR temp;

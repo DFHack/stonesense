@@ -16,6 +16,9 @@
 #include "df/itemimprovement_threadst.h"
 #include "df/world.h"
 
+using namespace std;
+using namespace DFHack;
+using namespace df::enums;
 using df::global::world;
 
 bool tileHasBridge(Tile* b)

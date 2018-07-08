@@ -315,11 +315,11 @@ struct SS_Unit{
     df::unit_flags2 flags2;
     df::unit_flags3 flags3;
 
-    t_name name;
+    DFHack::t_name name;
 
     int16_t mood;
     int16_t mood_skill;
-    t_name artifact_name;
+    DFHack::t_name artifact_name;
 
     uint16_t profession;
     std::string custom_profession;
@@ -334,12 +334,12 @@ struct SS_Unit{
 
     uint32_t stress_level;
     uint32_t id;
-    t_attrib strength;
-    t_attrib agility;
-    t_attrib toughness;
-    t_attrib endurance;
-    t_attrib recuperation;
-    t_attrib disease_resistance;
+    DFHack::t_attrib strength;
+    DFHack::t_attrib agility;
+    DFHack::t_attrib toughness;
+    DFHack::t_attrib endurance;
+    DFHack::t_attrib recuperation;
+    DFHack::t_attrib disease_resistance;
     int32_t squad_leader_id;
     uint8_t sex;
     uint16_t caste;

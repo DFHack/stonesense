@@ -30,6 +30,10 @@
 #include "ConnectionState.h"
 #include "EnumToString.h"
 
+using namespace std;
+using namespace DFHack;
+using namespace df::enums;
+
 void DumpStringVector(const char* filename, vector<std::string> * input)
 {
     FILE* fp = fopen(filename, "w");

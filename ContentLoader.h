@@ -67,8 +67,8 @@ public:
     std::vector<std::string> professionStrings;
     std::map <uint32_t, std::string> custom_workshop_types;
     DFHack::Materials * Mats;
-    std::vector<t_matgloss> organic;
-    std::vector<t_matglossInorganic> inorganic;
+    std::vector<DFHack::t_matgloss> organic;
+    std::vector<DFHack::t_matglossInorganic> inorganic;
 
     uint32_t currentTick;
     uint32_t currentYear;
@@ -76,7 +76,7 @@ public:
     uint8_t currentDay;
     uint8_t currentHour;
     uint8_t currentTickRel;
-    t_gamemodes gameMode;
+    DFHack::t_gamemodes gameMode;
 
     int obsidian;
 };

@@ -135,27 +135,27 @@ void initRandomCube();
 //find a better place for these
 bool hasWall(Tile* b);
 bool hasBuildingOfID(Tile* b, int ID);
-bool hasBuildingIdentity(Tile* b, Buildings::t_building* index, df::tile_building_occ buildingOcc);
-bool hasBuildingOfIndex(Tile* b, Buildings::t_building* index);
+bool hasBuildingIdentity(Tile* b, DFHack::Buildings::t_building* index, df::tile_building_occ buildingOcc);
+bool hasBuildingOfIndex(Tile* b, DFHack::Buildings::t_building* index);
 bool wallShouldNotHaveBorders( int in );
 bool containsDesignations( df::tile_designation, df::tile_occupancy );
 
 inline bool IDisWall(int in)
 {
-    return isWallTerrain( (tiletype::tiletype) in );
+    return DFHack::isWallTerrain( (DFHack::tiletype::tiletype) in );
 }
 
 inline bool IDisFloor(int in)
 {
-    return isFloorTerrain( (tiletype::tiletype) in );
+    return DFHack::isFloorTerrain( (DFHack::tiletype::tiletype) in );
 }
 
 inline bool IDhasOpaqueFloor(int in)
 {
-    return !FlowPassableDown( (tiletype::tiletype) in );
+    return !DFHack::FlowPassableDown( (DFHack::tiletype::tiletype) in );
 }
 
 inline bool IDhasOpaqueSides(int in)
 {
-    return (!FlowPassable( (tiletype::tiletype) in ));
+    return (!DFHack::FlowPassable( (DFHack::tiletype::tiletype) in ));
 }

@@ -27,6 +27,10 @@ be intended for use by people not interested in development.
 #include "df/world.h"
 #include "df/world_raws.h"
 
+using namespace std;
+using namespace DFHack;
+using namespace df::enums;
+
 //FIXME: filled with black magic
 void dumpSegment()
 {

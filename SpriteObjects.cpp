@@ -28,6 +28,10 @@
 
 #define ALL_BORDERS 255
 
+using namespace std;
+using namespace DFHack;
+using namespace df::enums;
+
 uint8_t dir_to_16(DFHack::TileDirection in)
 {
     if(in.north){

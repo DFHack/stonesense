@@ -4,6 +4,10 @@
 #include "GameBuildings.h"
 #include "GUI.h"
 
+using namespace std;
+using namespace DFHack;
+using namespace df::enums;
+
 /* RootTile */
 
 RootTile::RootTile()

@@ -12,6 +12,10 @@
 #include "df/plant_growth_print.h"
 #include "df/world.h"
 
+using namespace std;
+using namespace DFHack;
+using namespace df::enums;
+
 ALLEGRO_BITMAP *sprite_miasma = 0;
 ALLEGRO_BITMAP *sprite_water = 0;
 ALLEGRO_BITMAP *sprite_water2 = 0;

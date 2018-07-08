@@ -2,6 +2,10 @@
 #include "TrackingModes.h"
 #include "MapLoading.h"
 
+using namespace std;
+using namespace DFHack;
+using namespace df::enums;
+
 void actualWindowSize(int32_t & width, int32_t & height)
 {
     uint8_t mnu, map;

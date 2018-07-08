@@ -26,6 +26,10 @@
 #include "df/historical_entity.h"
 #include "df/entity_position.h"
 
+using namespace std;
+using namespace DFHack;
+using namespace df::enums;
+
 //vector<t_matgloss> v_creatureNames;
 //vector<CreatureConfiguration> creatureTypes;
 

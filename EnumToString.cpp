@@ -1,5 +1,7 @@
 #include "EnumToString.h"
 
+using namespace std;
+
 const char* TiletypeShapeToString(RemoteFortressReader::TiletypeShape input)
 {
     switch (input)

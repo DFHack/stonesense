@@ -4,6 +4,10 @@
 #include "WorldSegment.h"
 #include "GUI.h"
 
+using namespace std;
+using namespace DFHack;
+using namespace df::enums;
+
 #define SCALE_FACTOR 4
 
 #define S_PLATE_HEIGHT 4
