@@ -30,6 +30,8 @@
 #undef TileShape
 #undef None
 #undef Status
+using namespace DFHack;
+using namespace df::enums;
 
 #include "commonTypes.h"
 #include "Tile.h"
