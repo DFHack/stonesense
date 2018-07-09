@@ -19,10 +19,6 @@ RootTile::RootTile()
 RootTile::~RootTile(void)
 {
     //cout << "RootTile -" << endl;
-    uint32_t max = (uint32_t)children.size();
-    for(uint32_t i=0; i<max; i++) {
-        delete(children[i]);
-    }
 }
 
 bool RootTile::copyToTile(Tile* b)
@@ -38,9 +34,9 @@ bool RootTile::copyToTile(Tile* b)
     return haveMatch;
 }
 
-void RootTile::addChild(SpriteNode* child)
+void RootTile::addChild(std::unique_ptr<SpriteNode> child)
 {
-    children.push_back(child);
+    children.push_back(std::move(child));
 }
 
 /* SpriteTile */
@@ -49,25 +45,17 @@ SpriteTile::SpriteTile()
     : ConditionalNode(), SpriteNode()
 {
     //cout << "SpriteTile +" << endl;
-    conditions = NULL;
-    elsenode = NULL;
 }
 
 SpriteTile::~SpriteTile(void)
 {
     //cout << "SpriteTile -" << endl;
-    delete(elsenode);
-    delete(conditions);
-    uint32_t max = (uint32_t)children.size();
-    for(uint32_t i=0; i<max; i++) {
-        delete(children[i]);
-    }
 };
 
 bool SpriteTile::copyToTile(Tile* b)
 {
     bool condMatch = false;
-    if (conditions == NULL) {
+    if (conditions == nullptr) {
         condMatch = true;
     } else {
         condMatch = conditions->Matches( b );
@@ -81,30 +69,30 @@ bool SpriteTile::copyToTile(Tile* b)
                 haveMatch = true;
             }
         }
-    } else if (elsenode != NULL) {
+    } else if (elsenode != nullptr) {
         haveMatch = elsenode->copyToTile(b);
     }
     return haveMatch;
 }
 
-bool SpriteTile::addCondition(TileCondition* cond)
+bool SpriteTile::addCondition(std::unique_ptr<TileCondition> cond)
 {
-    if (conditions != NULL) {
+    if (conditions != nullptr) {
         LogError("Too many condition elements for SpriteTile\n");
         return false;
     }
-    conditions = cond;
+    conditions = std::move(cond);
     return true;
 }
 
-void SpriteTile::addChild(SpriteNode* child)
+void SpriteTile::addChild(std::unique_ptr<SpriteNode> child)
 {
-    children.push_back(child);
+    children.push_back(std::move(child));
 }
 
-void SpriteTile::addElse(SpriteNode* child)
+void SpriteTile::addElse(std::unique_ptr<SpriteNode> child)
 {
-    elsenode = child;
+    elsenode = std::move(child);
 }
 
 
@@ -119,10 +107,6 @@ RotationTile::RotationTile()
 RotationTile::~RotationTile(void)
 {
     //cout << "SpriteTile -" << endl;
-    uint32_t max = (uint32_t)children.size();
-    for(uint32_t i=0; i<max; i++) {
-        delete(children[i]);
-    }
 };
 
 bool RotationTile::copyToTile(Tile* b)
@@ -138,15 +122,15 @@ bool RotationTile::copyToTile(Tile* b)
     return children[index]->copyToTile(b);
 }
 
-bool RotationTile::addCondition(TileCondition* cond)
+bool RotationTile::addCondition(std::unique_ptr<TileCondition> cond)
 {
     LogError("Condition elements not permitted for RotationTile\n");
     return false;
 }
 
-void RotationTile::addChild(SpriteNode* child)
+void RotationTile::addChild(std::unique_ptr<SpriteNode> child)
 {
-    children.push_back(child);
+    children.push_back(std::move(child));
 }
 
 /* SpriteElement */
