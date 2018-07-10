@@ -1,4 +1,3 @@
 #pragma once
 
-bool addSingleBuildingConfig( TiXmlElement* elemRoot,  std::vector<BuildingConfiguration>* knownBuildings );
-void flushBuildingConfig( std::vector<BuildingConfiguration>* knownBuildings );
+bool addSingleBuildingConfig( TiXmlElement* elemRoot,  std::vector<std::unique_ptr<BuildingConfiguration>>* knownBuildings );

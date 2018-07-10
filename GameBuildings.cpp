@@ -237,7 +237,7 @@ void loadBuildingSprites ( Tile* b)
     }
     BuildingConfiguration* generic = NULL, *specific = NULL, *custom = NULL;
     for(auto iter = contentLoader->buildingConfigs.begin(); iter < contentLoader->buildingConfigs.end(); iter++) {
-        BuildingConfiguration & conf = *iter;
+        BuildingConfiguration & conf = **iter;
         if(b->building.type == conf.game_type) {
             generic = &conf;
             if(b->building.info && b->building.info->subtype == conf.game_subtype) {

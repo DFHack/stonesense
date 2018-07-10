@@ -51,7 +51,7 @@ ContentLoader::ContentLoader(void) { }
 ContentLoader::~ContentLoader(void)
 {
     //flush content on exit
-    flushBuildingConfig(&buildingConfigs);
+    buildingConfigs.clear();
     flushTerrainConfig(terrainFloorConfigs);
     flushTerrainConfig(terrainWallConfigs);
     flushItemConfig(itemConfigs);
@@ -70,7 +70,7 @@ bool ContentLoader::Load()
     ALLEGRO_ALIGN_CENTRE, "Loading...");
     al_flip_display();*/
     //flush old config
-    flushBuildingConfig(&buildingConfigs);
+    buildingConfigs.clear();
     flushTerrainConfig(terrainFloorConfigs);
     flushTerrainConfig(terrainWallConfigs);
     flushItemConfig(itemConfigs);
@@ -329,7 +329,7 @@ bool ContentLoader::Load()
 
 bool ContentLoader::reload_configs()
 {
-    flushBuildingConfig(&buildingConfigs);
+    buildingConfigs.clear();
     flushTerrainConfig(terrainFloorConfigs);
     flushTerrainConfig(terrainWallConfigs);
     flushItemConfig(itemConfigs);

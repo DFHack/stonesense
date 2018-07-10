@@ -18,8 +18,9 @@ BuildingConfiguration::BuildingConfiguration(string name, int game_type, int gam
     this->width = this->height = 1;
     this->canBeFloating = false;
     this->canBeAnySize = false;
-    this->sprites = NULL;
+    this->sprites = nullptr;
 }
+
 BuildingConfiguration::BuildingConfiguration()
 {
     this->name = "";
@@ -29,8 +30,9 @@ BuildingConfiguration::BuildingConfiguration()
     this->width = this->height = 1;
     this->canBeFloating = false;
     this->canBeAnySize = false;
-    this->sprites = NULL;
+    this->sprites = nullptr;
 }
+
 BuildingConfiguration::~BuildingConfiguration(void)
 {
     //cant delete bc.sprites here- screws up BCs copy semantics

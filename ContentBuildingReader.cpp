@@ -272,7 +272,7 @@ bool parseSpriteNode(SpriteNode* node, TiXmlElement* elemParent)
 #include "df/construction_type.h"
 #include "df/furnace_type.h"
 
-bool addSingleBuildingConfig( TiXmlElement* elemRoot,  vector<BuildingConfiguration>* knownBuildings )
+bool addSingleBuildingConfig( TiXmlElement* elemRoot,  vector<std::unique_ptr<BuildingConfiguration>>* knownBuildings )
 {
     const char* strName = elemRoot->Attribute("name");
     const char* strGameID = elemRoot->Attribute("game_type");
@@ -423,31 +423,15 @@ bool addSingleBuildingConfig( TiXmlElement* elemRoot,  vector<BuildingConfigurat
             return false;
         }
     }
-    BuildingConfiguration building(strName, main_type, subtype, custom );
-    RootTile* spriteroot = new RootTile();
-    if (!parseSpriteNode(spriteroot,elemRoot)) {
-        delete(spriteroot);
+    auto building = dts::make_unique<BuildingConfiguration>(strName, main_type, subtype, custom );
+    auto spriteroot = dts::make_unique<RootTile>();
+    if (!parseSpriteNode(spriteroot.get(), elemRoot)) {
         contentError("<building> Failed while parsing sprite node",elemRoot);
         return false;
     }
-    building.sprites = spriteroot;
+    building->sprites = std::move(spriteroot);
 
     //add a copy of 'building' to known buildings
-    knownBuildings->push_back( building );
+    knownBuildings->push_back( std::move(building) );
     return true;
 }
-
-void flushBuildingConfig( vector<BuildingConfiguration>* knownBuildings )
-{
-    // clean up building data trees before deleting them
-    // a nasty cludge that only works cause knownbuildings
-    // isnt modified anywhere else
-    // TODO: look into smart pointers or something
-    uint32_t numBuildings = (uint32_t)knownBuildings->size();
-    for(uint32_t i = 0; i < numBuildings; i++) {
-        delete(knownBuildings->at(i).sprites);
-        //should set to null, but we will nuke the lot in a second
-    }
-    knownBuildings->clear();
-}
-
