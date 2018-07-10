@@ -44,9 +44,9 @@ public:
 
     std::vector<std::unique_ptr<BuildingConfiguration>> buildingConfigs;
     std::vector<std::vector<CreatureConfiguration>*> creatureConfigs;
-    std::vector<VegetationConfiguration> treeConfigs;
-    std::vector<VegetationConfiguration> shrubConfigs;
-    std::vector<VegetationConfiguration> grassConfigs;
+    std::vector<std::unique_ptr<VegetationConfiguration>> treeConfigs;
+    std::vector<std::unique_ptr<VegetationConfiguration>> shrubConfigs;
+    std::vector<std::unique_ptr<VegetationConfiguration>> grassConfigs;
     std::vector<std::unique_ptr<TerrainConfiguration>> terrainFloorConfigs;
     std::vector<std::unique_ptr<TerrainConfiguration>> terrainWallConfigs;
     std::vector<ColorConfiguration> colorConfigs;

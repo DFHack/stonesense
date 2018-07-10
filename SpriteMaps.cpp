@@ -96,7 +96,7 @@ c_sprite * GetTileSpriteMap(int in, t_matglossPair material, uint16_t form)
 c_tile_tree * GetTreeVegetation(RemoteFortressReader::TiletypeShape shape, RemoteFortressReader::TiletypeSpecial special, int index)
 {
     int base_sprite = SPRITEOBJECT_BLUEPRINT;
-    vector<VegetationConfiguration>* graphicSet;
+    vector<std::unique_ptr<VegetationConfiguration>>* graphicSet;
     bool live=true;
     bool grown=true;
     switch(shape) {

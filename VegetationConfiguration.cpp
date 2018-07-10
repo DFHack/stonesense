@@ -26,7 +26,7 @@ VegetationConfiguration::~VegetationConfiguration(void)
 {
 }
 
-bool addSingleVegetationConfig( TiXmlElement* elemRoot,  vector<VegetationConfiguration>* vegetationConfigs, vector<t_matgloss>& plantNames )
+bool addSingleVegetationConfig( TiXmlElement* elemRoot,  vector<std::unique_ptr<VegetationConfiguration>>* vegetationConfigs, vector<t_matgloss>& plantNames )
 {
     int basefile = -1;
 
@@ -56,19 +56,18 @@ bool addSingleVegetationConfig( TiXmlElement* elemRoot,  vector<VegetationConfig
         bool sapling = (saplingstr && saplingstr[0]);
         c_tile_tree tree;
         tree.set_by_xml(elemTree, basefile);
-        VegetationConfiguration vegetationConfiguration(gameID, tree, !dead, !sapling);
+        auto vegetationConfiguration = dts::make_unique<VegetationConfiguration>(gameID, tree, !dead, !sapling);
         //add a copy to known creatures
-        vegetationConfigs->push_back( vegetationConfiguration );
+        vegetationConfigs->push_back( std::move(vegetationConfiguration) );
     }
 
     return true;
 }
 
-c_tile_tree * getVegetationTree(vector<VegetationConfiguration>& vegetationConfigs,int index,bool live,bool grown)
+c_tile_tree * getVegetationTree(vector<std::unique_ptr<VegetationConfiguration>>& vegetationConfigs,int index,bool live,bool grown)
 {
     int vcmax = (int)vegetationConfigs.size();
-    for (int i=0; i<vcmax; i++) {
-        VegetationConfiguration* current = &(vegetationConfigs[i]);
+    for (const auto& current : vegetationConfigs) {
         if (current->gameID != INVALID_INDEX && current->gameID != index) {
             continue;
         }

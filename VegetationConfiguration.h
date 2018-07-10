@@ -16,5 +16,5 @@ public:
 };
 
 
-bool addSingleVegetationConfig(TiXmlElement* elemRoot, std::vector<VegetationConfiguration>* vegetationConfigs, std::vector<DFHack::t_matgloss>& plantNames);
-c_tile_tree * getVegetationTree(std::vector<VegetationConfiguration>& vegetationConfigs, int index, bool live, bool grown);
+bool addSingleVegetationConfig(TiXmlElement* elemRoot, std::vector<std::unique_ptr<VegetationConfiguration>>* vegetationConfigs, std::vector<DFHack::t_matgloss>& plantNames);
+c_tile_tree * getVegetationTree(std::vector<std::unique_ptr<VegetationConfiguration>>& vegetationConfigs, int index, bool live, bool grown);
