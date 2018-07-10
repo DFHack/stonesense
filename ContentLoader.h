@@ -43,7 +43,7 @@ public:
     bool reload_configs();
 
     std::vector<std::unique_ptr<BuildingConfiguration>> buildingConfigs;
-    std::vector<std::vector<CreatureConfiguration>*> creatureConfigs;
+    std::vector<std::unique_ptr<std::vector<CreatureConfiguration>>> creatureConfigs;
     std::vector<std::unique_ptr<VegetationConfiguration>> treeConfigs;
     std::vector<std::unique_ptr<VegetationConfiguration>> shrubConfigs;
     std::vector<std::unique_ptr<VegetationConfiguration>> grassConfigs;

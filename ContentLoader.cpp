@@ -893,9 +893,6 @@ int loadConfigImgFile(const char* filename, TiXmlElement* referrer)
 
 void ContentLoader::flushCreatureConfig()
 {
-    for ( auto cc : creatureConfigs ) {
-        delete cc;
-    }
     // make big enough to hold all creatures
     creatureConfigs.clear();
     for ( size_t i = 0; i < style_indices.size();i++){

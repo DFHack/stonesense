@@ -715,14 +715,13 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
 CreatureConfiguration *GetCreatureConfig( SS_Unit* c )
 {
     //find list for creature type
-    vector<CreatureConfiguration>* creatureData;
     uint32_t num = (uint32_t)contentLoader->creatureConfigs.size();
     if (c->race >= num) {
-        return NULL;
+        return nullptr;
     }
-    creatureData = contentLoader->creatureConfigs[c->race];
-    if (creatureData == NULL) {
-        return NULL;
+    std::unique_ptr<vector<CreatureConfiguration>>& creatureData = contentLoader->creatureConfigs[c->race];
+    if (creatureData == nullptr) {
+        return nullptr;
     }
     int rando = randomCube[c->x%RANDOM_CUBE][c->y%RANDOM_CUBE][c->z%RANDOM_CUBE];
     int offsetAnimFrame = (currentAnimationFrame + rando) % MAX_ANIMFRAME;
