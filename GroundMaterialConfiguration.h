@@ -30,5 +30,5 @@ public:
 
 bool addSingleTerrainConfig( TiXmlElement* elemRoot);
 
-void flushTerrainConfig(std::vector<TerrainConfiguration*>& config);
+void flushTerrainConfig(std::vector<std::unique_ptr<TerrainConfiguration>>& config);
 void DumpInorganicMaterialNamesToDisk();

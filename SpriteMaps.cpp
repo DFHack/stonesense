@@ -10,7 +10,7 @@ using namespace std;
 using namespace DFHack;
 using namespace df::enums;
 
-c_sprite *  GetTerrainSpriteMap(int in, t_matglossPair material, vector<TerrainConfiguration*>& configTable, uint16_t form)
+c_sprite *  GetTerrainSpriteMap(int in, t_matglossPair material, vector<std::unique_ptr<TerrainConfiguration>>& configTable, uint16_t form)
 {
     int tempform;
     if(form == item_type::BAR) {
@@ -36,8 +36,8 @@ c_sprite *  GetTerrainSpriteMap(int in, t_matglossPair material, vector<TerrainC
         return defaultSprite;
     }
     // find a matching terrainConfig
-    TerrainConfiguration* terrain = configTable[in];
-    if (terrain == NULL) {
+    TerrainConfiguration* terrain = configTable[in].get();
+    if (terrain == nullptr) {
         return defaultSprite;
     }
     // check material sanity

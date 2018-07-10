@@ -63,7 +63,7 @@ void DumpInorganicMaterialNamesToDisk()
     fclose(fp);
 }
 
-void parseWallFloorSpriteElement(TiXmlElement* elemWallFloorSprite, vector<TerrainConfiguration*>& configTable, int basefile, bool floor)
+void parseWallFloorSpriteElement(TiXmlElement* elemWallFloorSprite, vector<std::unique_ptr<TerrainConfiguration>>& configTable, int basefile, bool floor)
 {
     const char* spriteSheetIndexStr = elemWallFloorSprite->Attribute("sheetIndex");
     const char* spriteSpriteStr = elemWallFloorSprite->Attribute("sprite");
@@ -186,13 +186,13 @@ void parseWallFloorSpriteElement(TiXmlElement* elemWallFloorSprite, vector<Terra
             {
                 //add it to the lookup vector
                 lookupKeys.push_back(make_pair(i, matchness));
-                if (configTable.size() <= (uint32_t)i) {
-                    //increase size if needed
-                    configTable.resize(i + 1, NULL);
+                //increase size if needed
+                while (configTable.size() <= (uint32_t)i) {
+                    configTable.push_back(nullptr);
                 }
-                if (configTable[i] == NULL) {
-                    // cleaned up in flushTerrainConfig
-                    configTable[i] = new TerrainConfiguration();
+
+                if (configTable[i] == nullptr) {
+                    configTable[i] = dts::make_unique<TerrainConfiguration>();
                 }
             }
         }
@@ -232,7 +232,7 @@ void parseWallFloorSpriteElement(TiXmlElement* elemWallFloorSprite, vector<Terra
     if (elemMaterial == NULL) {
         // if none, set default terrain sprites for each terrain type
         for (int i = 0; i < elems; i++) {
-            TerrainConfiguration *tConfig = configTable[lookupKeys[i].first];
+            TerrainConfiguration *tConfig = configTable[lookupKeys[i].first].get();
             // if that was null we have *really* screwed up earlier
             // only update if not by previous configs
             for (int j = 0; j < NUM_FORMS; j++) {
@@ -257,7 +257,7 @@ void parseWallFloorSpriteElement(TiXmlElement* elemWallFloorSprite, vector<Terra
         if (elemSubtype == NULL) {
             // if none, set material default for each terrain type
             for (int i = 0; i < elems; i++) {
-                TerrainConfiguration *tConfig = configTable[lookupKeys[i].first];
+                TerrainConfiguration *tConfig = configTable[lookupKeys[i].first].get();
                 // if that was null we have *really* screwed up earlier
                 // create a new TerrainMaterialConfiguration if required
                 // make sure we have room for it first
@@ -292,7 +292,7 @@ void parseWallFloorSpriteElement(TiXmlElement* elemWallFloorSprite, vector<Terra
 
             // set subtype sprite for each terrain type
             for (int i = 0; i < elems; i++) {
-                TerrainConfiguration *tConfig = configTable[lookupKeys[i].first];
+                TerrainConfiguration *tConfig = configTable[lookupKeys[i].first].get();
                 //if that was null we have *really* screwed up earlier
                 //create a new TerrainMaterialConfiguration if required
                 //make sure we have room for it first
@@ -356,18 +356,15 @@ bool addSingleTerrainConfig(TiXmlElement* elemRoot)
     return true;
 }
 
-void flushTerrainConfig(vector<TerrainConfiguration*>& config)
+void flushTerrainConfig(vector<std::unique_ptr<TerrainConfiguration>>& config)
 {
     uint32_t currentsize = (uint32_t)config.size();
-    for (uint32_t i = 0; i < currentsize; i++) {
-        if (config[i] != NULL) {
-            delete(config[i]);
-        }
-    }
-
     config.clear();
     if (currentsize < MAX_BASE_TERRAIN + FAKE_TERRAIN_COUNT) {
         currentsize = MAX_BASE_TERRAIN + FAKE_TERRAIN_COUNT;
     }
-    config.resize(currentsize, NULL);
+
+    while (config.size() < currentsize) {
+        config.push_back(nullptr);
+    }
 }

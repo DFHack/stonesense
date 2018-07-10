@@ -47,8 +47,8 @@ public:
     std::vector<VegetationConfiguration> treeConfigs;
     std::vector<VegetationConfiguration> shrubConfigs;
     std::vector<VegetationConfiguration> grassConfigs;
-    std::vector<TerrainConfiguration*> terrainFloorConfigs;
-    std::vector<TerrainConfiguration*> terrainWallConfigs;
+    std::vector<std::unique_ptr<TerrainConfiguration>> terrainFloorConfigs;
+    std::vector<std::unique_ptr<TerrainConfiguration>> terrainWallConfigs;
     std::vector<ColorConfiguration> colorConfigs;
     MaterialMatcher<ALLEGRO_COLOR> materialColorConfigs;
     MaterialMatcher<c_sprite> growthTopConfigs;
