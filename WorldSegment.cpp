@@ -457,7 +457,6 @@ void WorldSegment::ClearUnits()
 {
     for(size_t i=0; i<units.size(); i++){
         if(units[i]){
-            delete(units[i]->inv);
             delete(units[i]);
             units[i] = NULL;
         }

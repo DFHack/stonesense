@@ -4,6 +4,7 @@
 #include "CreatureConfiguration.h"
 #include "ContentLoader.h"
 #include "GUI.h"
+#include "MiscUtils.h"
 #include "Tile.h"
 #include "SpriteColors.h"
 #include "DataDefs.h"
@@ -694,7 +695,7 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
 
             //FIXME: this could be made nicer. Somehow
             if(!tempcreature->inv) {
-                tempcreature->inv = new(unit_inventory);
+                tempcreature->inv = dts::make_unique<unit_inventory>();
             }
             if(tempcreature->inv->item.size() <= size_t(type)) {
                 tempcreature->inv->item.resize(type+1);

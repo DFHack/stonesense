@@ -356,5 +356,5 @@ struct SS_Unit{
     uint32_t birth_time;
 
     bool isLegend;
-    unit_inventory * inv;
+    std::unique_ptr<unit_inventory> inv;
 };
