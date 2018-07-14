@@ -3,6 +3,7 @@
 #include "tinyxml.h"
 #include "GUI.h"
 #include "ContentLoader.h"
+#include "MiscUtils.h"
 
 using namespace std;
 using namespace DFHack;
@@ -11,13 +12,6 @@ using namespace df::enums;
 ItemConfiguration::ItemConfiguration()
 {
     configured=0;
-}
-
-
-
-ItemConfiguration::~ItemConfiguration()
-{
-    subItems.clear();
 }
 
 bool addSingleItemConfig( TiXmlElement* elemRoot)
@@ -86,8 +80,8 @@ bool parseItemElement( TiXmlElement* elemRoot, int basefile)
 
     sprite.set_by_xml(elemRoot, basefile);
 
-    if(contentLoader->itemConfigs[main_type] == NULL) {
-        contentLoader->itemConfigs[main_type] = new ItemConfiguration;
+    if(contentLoader->itemConfigs[main_type] == nullptr) {
+        contentLoader->itemConfigs[main_type] = dts::make_unique<ItemConfiguration>();
     }
     //check for an existing item there.
     if(subtype == INVALID_INDEX) {
@@ -96,11 +90,11 @@ bool parseItemElement( TiXmlElement* elemRoot, int basefile)
             contentLoader->itemConfigs[main_type]->default_sprite = sprite;
         }
     } else {
-        if(contentLoader->itemConfigs[main_type]->subItems.size() <= size_t(subtype)) {
-            contentLoader->itemConfigs[main_type]->subItems.resize(subtype+1, NULL);
+        while(contentLoader->itemConfigs[main_type]->subItems.size() <= size_t(subtype)) {
+            contentLoader->itemConfigs[main_type]->subItems.push_back(nullptr);
         }
         if(!contentLoader->itemConfigs[main_type]->subItems[subtype]) {
-            contentLoader->itemConfigs[main_type]->subItems[subtype] = new ItemSubConfiguration;
+            contentLoader->itemConfigs[main_type]->subItems[subtype] = dts::make_unique<ItemSubConfiguration>();
             contentLoader->itemConfigs[main_type]->subItems[subtype]->sprite = sprite;
         }
     }
@@ -108,18 +102,15 @@ bool parseItemElement( TiXmlElement* elemRoot, int basefile)
 }
 
 
-void flushItemConfig(vector<ItemConfiguration *> &config)
+void flushItemConfig(vector<std::unique_ptr<ItemConfiguration>> &config)
 {
     uint32_t currentsize = (uint32_t)config.size();
-    for (uint32_t i=0; i<currentsize; i++) {
-        if (config[i] != NULL) {
-            delete(config[i]);
-        }
-    }
-
-    config.clear();
     if (currentsize < ENUM_LAST_ITEM(item_type)) {
         currentsize = ENUM_LAST_ITEM(item_type);
     }
-    config.resize(currentsize,NULL);
+
+    config.clear();
+    while (currentsize < config.size()) {
+        config.push_back(nullptr);
+    }
 }

@@ -53,7 +53,7 @@ public:
     MaterialMatcher<ALLEGRO_COLOR> materialColorConfigs;
     MaterialMatcher<c_sprite> growthTopConfigs;
     MaterialMatcher<c_sprite> growthBottomConfigs;
-    std::vector<ItemConfiguration*> itemConfigs;
+    std::vector<std::unique_ptr<ItemConfiguration>> itemConfigs;
     FluidConfiguration lava[8];
     FluidConfiguration water[8];
 
