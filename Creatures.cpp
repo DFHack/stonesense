@@ -621,7 +621,7 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
         }
 
         // make a copy of some creature data
-        SS_Unit * tempcreature = new SS_Unit();
+        auto tempcreature = dts::make_unique<SS_Unit>();
         copyCreature(unit_ptr,*tempcreature);
 
         // add shadow to nearest floor tile
@@ -634,7 +634,7 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
                 floor_tile->tileShapeBasic()==tiletype_shape_basic::Wall  ||
                 floor_tile->tileShapeBasic()==tiletype_shape_basic::Ramp) {
                     // todo figure out appropriate shadow size
-                    uint8_t tempShadow = GetCreatureShadowMap( tempcreature );
+                    uint8_t tempShadow = GetCreatureShadowMap( tempcreature.get() );
                     if (floor_tile->shadow < tempShadow) {
                         floor_tile->shadow=tempShadow;
                     }
@@ -707,8 +707,8 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
         }
 
         b->occ.bits.unit = true;
-        b->creature = tempcreature;
-        segment->PushUnit(tempcreature);
+        b->creature = tempcreature.get();
+        segment->PushUnit(std::move(tempcreature));
     }
 }
 

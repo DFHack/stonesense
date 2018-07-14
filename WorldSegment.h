@@ -31,8 +31,8 @@ private:
     Tile* tiles;
     std::vector<draw_event> todraw;
 
-    std::vector<SS_Unit*> units;
-    std::vector<DFHack::Buildings::t_building*> buildings;
+    std::vector<std::unique_ptr<SS_Unit>> units;
+    std::vector<std::unique_ptr<DFHack::Buildings::t_building>> buildings;
 
 public:
     bool loaded;
@@ -114,9 +114,9 @@ public:
     bool CoordinateInsideSegment(int32_t x, int32_t y, int32_t z);
     bool RangeInsideSegment(int32_t min_x, int32_t min_y, int32_t min_z, int32_t max_x, int32_t max_y, int32_t max_z);
     bool CoordinateInteriorSegment(int32_t x, int32_t y, int32_t z, uint32_t shellthick);
-    void PushBuilding( DFHack::Buildings::t_building * tempbuilding);
+    void PushBuilding( std::unique_ptr<DFHack::Buildings::t_building> tempbuilding);
     void ClearBuildings();
-    void PushUnit( SS_Unit * unit);
+    void PushUnit( std::unique_ptr<SS_Unit> unit);
     void ClearUnits();
 };
 
