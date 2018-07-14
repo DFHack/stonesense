@@ -127,14 +127,12 @@ private:
     static const GameState zeroState;
 public:
     SegmentWrap() {
-        drawsegment = new WorldSegment(zeroState);
-        readsegment = new WorldSegment(zeroState);
+        drawsegment = dts::make_unique<WorldSegment>(zeroState);
+        readsegment = dts::make_unique<WorldSegment>(zeroState);
         drawmutex = al_create_mutex();
         readmutex = al_create_mutex();
     }
     ~SegmentWrap() {
-        delete drawsegment;
-        delete readsegment;
         al_destroy_mutex(drawmutex);
         al_destroy_mutex(readmutex);
     }
@@ -163,21 +161,19 @@ public:
         al_unlock_mutex(readmutex);
     }
     void swap() {
-        WorldSegment * temp = drawsegment;
-        drawsegment = readsegment;
-        readsegment = temp;
+        drawsegment.swap(readsegment);
     }
     WorldSegment * getRead() {
-        return readsegment;
+        return readsegment.get();
     }
     WorldSegment * getDraw() {
-        return drawsegment;
+        return drawsegment.get();
     }
 private:
     ALLEGRO_MUTEX * drawmutex;
     ALLEGRO_MUTEX * readmutex;
-    WorldSegment * drawsegment;
-    WorldSegment * readsegment;
+    std::unique_ptr<WorldSegment> drawsegment;
+    std::unique_ptr<WorldSegment> readsegment;
 };
 
 extern SegmentWrap map_segment;
