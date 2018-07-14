@@ -6,6 +6,7 @@
 #include "GUI.h"
 #include "ContentLoader.h"
 #include "EnumToString.h"
+#include "MiscUtils.h"
 
 using namespace std;
 using namespace DFHack;
@@ -39,16 +40,6 @@ TerrainConfiguration::TerrainConfiguration()
         defaultSprite[i].second = INVALID_INDEX;
     }
     //dont really care about the rest of the sprite right now.
-}
-
-TerrainConfiguration::~TerrainConfiguration()
-{
-    uint32_t currentsize = (uint32_t)terrainMaterials.size();
-    for (uint32_t i = 0; i < currentsize; i++) {
-        if (terrainMaterials[i] != NULL) {
-            delete(terrainMaterials[i]);
-        }
-    }
 }
 
 void DumpInorganicMaterialNamesToDisk()
@@ -261,13 +252,13 @@ void parseWallFloorSpriteElement(TiXmlElement* elemWallFloorSprite, vector<std::
                 // if that was null we have *really* screwed up earlier
                 // create a new TerrainMaterialConfiguration if required
                 // make sure we have room for it first
-                if (tConfig->terrainMaterials.size() <= (uint32_t)elemIndex) {
+                while (tConfig->terrainMaterials.size() <= (uint32_t)elemIndex) {
                     // dont make a full size vector in advance- most of the time
                     // we will only need the first few
-                    tConfig->terrainMaterials.resize(elemIndex + 1, NULL);
+                    tConfig->terrainMaterials.push_back(nullptr);
                 }
-                if (tConfig->terrainMaterials[elemIndex] == NULL) {
-                    tConfig->terrainMaterials[elemIndex] = new TerrainMaterialConfiguration();
+                if (tConfig->terrainMaterials[elemIndex] == nullptr) {
+                    tConfig->terrainMaterials[elemIndex] = dts::make_unique<TerrainMaterialConfiguration>();
                 }
                 // only update if not set by earlier configs,
                 //FIXME: figure out how to manage priorities here.
@@ -296,13 +287,13 @@ void parseWallFloorSpriteElement(TiXmlElement* elemWallFloorSprite, vector<std::
                 //if that was null we have *really* screwed up earlier
                 //create a new TerrainMaterialConfiguration if required
                 //make sure we have room for it first
-                if (tConfig->terrainMaterials.size() <= (uint32_t)elemIndex) {
+                while (tConfig->terrainMaterials.size() <= (uint32_t)elemIndex) {
                     //dont make a full size vector in advance- we wont need it except
                     //for those who insist on Soap Fortresses
-                    tConfig->terrainMaterials.resize(elemIndex + 1, NULL);
+                    tConfig->terrainMaterials.push_back(nullptr);
                 }
-                if (tConfig->terrainMaterials[elemIndex] == NULL) {
-                    tConfig->terrainMaterials[elemIndex] = new TerrainMaterialConfiguration();
+                if (tConfig->terrainMaterials[elemIndex] == nullptr) {
+                    tConfig->terrainMaterials[elemIndex] = dts::make_unique<TerrainMaterialConfiguration>();
                 }
                 // add to map (if not already present)
                 for (int j = 0; j < NUM_FORMS; j++) {
