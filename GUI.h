@@ -51,7 +51,7 @@ extern ALLEGRO_BITMAP* IMGEngLeftSheet;
 extern ALLEGRO_BITMAP* IMGEngRightSheet;
 extern ALLEGRO_BITMAP* IMGLetterSheet;
 
-extern std::vector<std::string*> IMGFilenames;
+extern std::vector<std::unique_ptr<std::string>> IMGFilenames;
 
 void swapSegments(void);
 

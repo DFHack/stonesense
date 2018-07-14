@@ -7,6 +7,7 @@
 #include "WorldSegment.h"
 #include "SpriteMaps.h"
 #include "MapLoading.h"
+#include "MiscUtils.h"
 #include "GameBuildings.h"
 #include "Creatures.h"
 #include "ContentLoader.h"
@@ -76,7 +77,7 @@ ALLEGRO_BITMAP* buffer = 0;
 ALLEGRO_BITMAP* bigFile = 0;
 vector<ALLEGRO_BITMAP*> IMGCache;
 vector<ALLEGRO_BITMAP*> IMGFilelist;
-vector<string*> IMGFilenames;
+vector<std::unique_ptr<string>> IMGFilenames;
 GLhandleARB tinter;
 GLhandleARB tinter_shader;
 
@@ -1308,8 +1309,6 @@ void flushImgFiles()
     assert( numFiles == IMGFilenames.size());
     for(uint32_t i = 0; i < numFiles; i++) {
         al_destroy_bitmap(IMGFilelist[i]);
-        //should be same length, I hope
-        delete(IMGFilenames[i]);
     }
     uint32_t caches = (uint32_t)IMGCache.size();
     for(uint32_t i = 0; i < caches; i++) {
@@ -1423,7 +1422,7 @@ int loadImgFile(const char* filename)
         }
         al_destroy_bitmap(tempfile);
         al_set_target_bitmap(al_get_backbuffer(al_get_current_display()));
-        IMGFilenames.push_back(new string(filename));
+        IMGFilenames.push_back(dts::make_unique<string>(filename));
         al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst);
         if(ssConfig.saveImageCache) {
             saveImage(IMGCache[currentCache]);
@@ -1443,7 +1442,7 @@ int loadImgFile(const char* filename)
             return -1;
         }
         IMGFilelist.push_back(temp);
-        IMGFilenames.push_back(new string(filename));
+        IMGFilenames.push_back(dts::make_unique<string>(filename));
         LogVerbose("New image: %s\n",filename);
         return (int)IMGFilelist.size() - 1;
     }
