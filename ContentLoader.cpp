@@ -84,9 +84,7 @@ bool ContentLoader::Load()
     flushImgFiles();
 
     //pull all the material names through the RPC stuff. Mostly a test at this point.
-    if (!connection_state)
-        connection_state = new ConnectionState();
-    connection_state->Connect();
+    auto connection_state = ConnectionState::Connect();
     if (connection_state)
     {
         connection_state->MaterialListCall(&(connection_state->empty_message), &materialNameList);

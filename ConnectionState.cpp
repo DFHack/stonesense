@@ -1,43 +1,42 @@
 #include "ConnectionState.h"
+
 #include <iostream>
+
+#include "MiscUtils.h"
 
 using namespace std;
 
 ConnectionState::ConnectionState() {
-    df_network_out = new DFHack::color_ostream_wrapper(std::cout);
-    network_client = new DFHack::RemoteClient(df_network_out);
+    df_network_out = dts::make_unique<DFHack::color_ostream_wrapper>(std::cout);
+    network_client = dts::make_unique<DFHack::RemoteClient>(df_network_out.get());
     is_connected = network_client->connect();
     if (!is_connected) return;
-    MaterialListCall.bind(network_client, "GetMaterialList", "RemoteFortressReader");
-    GrowthListCall.bind(network_client, "GetGrowthList", "RemoteFortressReader");
-    BlockListCall.bind(network_client, "GetBlockList", "RemoteFortressReader");
-    HashCheckCall.bind(network_client, "CheckHashes", "RemoteFortressReader");
-    TiletypeListCall.bind(network_client, "GetTiletypeList", "RemoteFortressReader");
+
+    MaterialListCall.bind(network_client.get(), "GetMaterialList", "RemoteFortressReader");
+    GrowthListCall.bind(network_client.get(), "GetGrowthList", "RemoteFortressReader");
+    BlockListCall.bind(network_client.get(), "GetBlockList", "RemoteFortressReader");
+    HashCheckCall.bind(network_client.get(), "CheckHashes", "RemoteFortressReader");
+    TiletypeListCall.bind(network_client.get(), "GetTiletypeList", "RemoteFortressReader");
 }
 
 ConnectionState::~ConnectionState() {
     network_client->disconnect();
-    delete network_client;
-    delete df_network_out;
 }
 
-void ConnectionState::Connect()
+ConnectionState* ConnectionState::Connect()
 {
-    connection_state = new ConnectionState;
+    connection_state = dts::make_unique<ConnectionState>();
     if (!connection_state->is_connected)
     {
-        delete connection_state;
-        connection_state = NULL;
+        connection_state.reset();
     }
+
+    return connection_state.get();
 }
 
 void ConnectionState::Disconnect()
 {
-    if (connection_state)
-    {
-        delete connection_state;
-        connection_state = NULL;
-    }
+    connection_state.reset();
 }
 
-ConnectionState *connection_state = NULL;
+std::unique_ptr<ConnectionState> ConnectionState::connection_state;
