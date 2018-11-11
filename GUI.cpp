@@ -840,10 +840,10 @@ void drawDebugInfo(WorldSegment * segment)
             draw_textf_border(font, uiColor(1), 2, (i++*al_get_font_line_height(font)), 0,
                 "tree tile:%s%s%s%s%s%s%s",
                 b->tree_tile.bits.trunk ? " trunk" : "",
-                b->tree_tile.bits.thick_branches_1 ? " >" : "",
-                b->tree_tile.bits.thick_branches_2 ? " v" : "",
-                b->tree_tile.bits.thick_branches_3 ? " <" : "",
-                b->tree_tile.bits.thick_branches_4 ? " ^" : "",
+                b->tree_tile.bits.connection_east ? " >" : "",
+                b->tree_tile.bits.connection_south ? " v" : "",
+                b->tree_tile.bits.connection_west ? " <" : "",
+                b->tree_tile.bits.connection_north ? " ^" : "",
                 b->tree_tile.bits.branches ? " branches" : "",
                 b->tree_tile.bits.twigs ? " twigs" : ""
                 );
