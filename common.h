@@ -26,6 +26,8 @@
 #include <allegro5/allegro_opengl.h>
 #include <allegro5/utf8.h>
 
+#include <GL/glext.h>
+
 // allegro leaks X headers, undef some of it here:
 #undef TileShape
 #undef None
