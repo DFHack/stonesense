@@ -529,7 +529,7 @@ void copyCreature(df::unit * source, SS_Unit & furball)
     //figure out legendary status
     furball.isLegend = hasLegendarySkill(source);
     // stress level
-    furball.stress_level = source->status.current_soul->personality.stress_level;
+    furball.stress_level = source->status.current_soul ? source->status.current_soul->personality.stress_level : 0;
     // physical attributes
     memcpy(&furball.strength, source->body.physical_attrs, sizeof(source->body.physical_attrs));
 
