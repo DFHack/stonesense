@@ -3,6 +3,7 @@
 #include <assert.h>
 #include <vector>
 #include <map>
+#include <memory>
 #include <stdint.h>
 
 // allegro also leaks stdint.h and some weird equivalent of it on windows. let's disable the copy leaked by dfhack.

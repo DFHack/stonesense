@@ -1,5 +1,6 @@
-
+#include <memory>
 #include <stdint.h>
+
 #include "RemoteFortressReader.pb.h"
 #include "RemoteClient.h"
 
