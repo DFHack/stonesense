@@ -1,4 +1,7 @@
 #pragma once
+
+#include <memory>
+
 #include "common.h"
 #include "Tile.h"
 
@@ -18,8 +21,8 @@ enum TileConditionTypes {
 class TileCondition
 {
 public:
-    TileCondition() {};
-    virtual ~TileCondition(void) {};
+    TileCondition() = default;
+    virtual ~TileCondition() = default;
 
     virtual bool Matches(Tile* b) = 0;
 };
@@ -27,11 +30,11 @@ public:
 class ConditionalNode
 {
 public:
-    ConditionalNode() {};
-    virtual ~ConditionalNode(void) {};
+    ConditionalNode() = default;
+    virtual ~ConditionalNode() = default;
 
     //false on failure
-    virtual bool addCondition(TileCondition* cond) = 0;
+    virtual bool addCondition(std::unique_ptr<TileCondition> cond) = 0;
 };
 
 //TODO: sort these (alpha order?)
@@ -40,7 +43,7 @@ class NeighbourWallCondition : public TileCondition
 {
 public:
     NeighbourWallCondition(const char* strValue);
-    ~NeighbourWallCondition(void) {};
+    ~NeighbourWallCondition() = default;
 
     int value;
     bool Matches(Tile* b);
@@ -51,7 +54,7 @@ class PositionIndexCondition : public TileCondition
 {
 public:
     PositionIndexCondition(const char* strValue);
-    ~PositionIndexCondition(void) {};
+    ~PositionIndexCondition() = default;
 
     int value;
     bool Matches(Tile* b);
@@ -62,7 +65,7 @@ class MaterialTypeCondition : public TileCondition
 {
 public:
     MaterialTypeCondition(const char* strValue, const char* strSubtype, const char* item_index);
-    ~MaterialTypeCondition(void) {};
+    ~MaterialTypeCondition() = default;
 
     int value;
     int subtype;
@@ -74,7 +77,7 @@ class AnimationFrameCondition : public TileCondition
 {
 public:
     AnimationFrameCondition(const char* strValue);
-    ~AnimationFrameCondition(void) {};
+    ~AnimationFrameCondition() = default;
 
     int value;
     bool Matches(Tile* b);
@@ -85,7 +88,7 @@ class BuildingOccupancyCondition : public TileCondition
 {
 public:
     BuildingOccupancyCondition(const char* strValue);
-    ~BuildingOccupancyCondition(void) {};
+    ~BuildingOccupancyCondition() = default;
 
     df::tile_building_occ value;
     bool Matches(Tile* b);
@@ -96,7 +99,7 @@ class NeighbourSameBuildingCondition : public TileCondition
 {
 public:
     NeighbourSameBuildingCondition(const char* strValue);
-    ~NeighbourSameBuildingCondition(void) {};
+    ~NeighbourSameBuildingCondition() = default;
 
     int value;
     bool Matches(Tile* b);
@@ -106,7 +109,7 @@ class BuildingSpecialCondition : public TileCondition
 {
 public:
     BuildingSpecialCondition(const char* strValue);
-    ~BuildingSpecialCondition(void) {};
+    ~BuildingSpecialCondition() = default;
 
     int value;
     bool Matches(Tile* b);
@@ -116,7 +119,7 @@ class NeighbourIdenticalCondition : public TileCondition
 {
 public:
     NeighbourIdenticalCondition(const char* strValue);
-    ~NeighbourIdenticalCondition(void) {};
+    ~NeighbourIdenticalCondition() = default;
 
     int value;
     bool Matches(Tile* b);
@@ -127,7 +130,7 @@ class NeighbourOfTypeCondition : public TileCondition
 {
 public:
     NeighbourOfTypeCondition(const char* strDir, const char* strValue);
-    ~NeighbourOfTypeCondition(void) {};
+    ~NeighbourOfTypeCondition() = default;
 
     int value;
     int direction;
@@ -138,7 +141,7 @@ class NeighbourSameTypeCondition : public TileCondition
 {
 public:
     NeighbourSameTypeCondition(const char* strDir);
-    ~NeighbourSameTypeCondition(void) {};
+    ~NeighbourSameTypeCondition() = default;
 
     int direction;
     bool Matches(Tile* b);
@@ -147,32 +150,32 @@ public:
 class AndConditionalNode : public TileCondition, public ConditionalNode
 {
 public:
-    AndConditionalNode() {};
-    ~AndConditionalNode(void);
+    AndConditionalNode() = default;
+    ~AndConditionalNode() = default;
 
-    std::vector<TileCondition*> children;
+    std::vector<std::unique_ptr<TileCondition>> children;
 
     bool Matches(Tile* b);
-    bool addCondition(TileCondition* cond);
+    bool addCondition(std::unique_ptr<TileCondition> cond);
 };
 
 class OrConditionalNode : public TileCondition, public ConditionalNode
 {
 public:
-    OrConditionalNode() {};
-    ~OrConditionalNode(void);
+    OrConditionalNode() = default;
+    ~OrConditionalNode() = default;
 
-    std::vector<TileCondition*> children;
+    std::vector<std::unique_ptr<TileCondition>> children;
 
     bool Matches(Tile* b);
-    bool addCondition(TileCondition* cond);
+    bool addCondition(std::unique_ptr<TileCondition> cond);
 };
 
 class AlwaysCondition : public TileCondition
 {
 public:
-    AlwaysCondition() {};
-    ~AlwaysCondition(void) {};
+    AlwaysCondition() = default;
+    ~AlwaysCondition() = default;
 
     bool Matches(Tile* b);
 };
@@ -180,8 +183,8 @@ public:
 class NeverCondition : public TileCondition
 {
 public:
-    NeverCondition() {};
-    ~NeverCondition(void) {};
+    NeverCondition() = default;
+    ~NeverCondition(void) = default;
 
     bool Matches(Tile* b);
 };
@@ -189,19 +192,19 @@ public:
 class NotConditionalNode : public TileCondition, public ConditionalNode
 {
 public:
-    NotConditionalNode();
-    ~NotConditionalNode(void);
-    TileCondition* childcond;
+    NotConditionalNode() = default;
+    ~NotConditionalNode() = default;
+    std::unique_ptr<TileCondition> childcond;
 
     bool Matches(Tile* b);
-    bool addCondition(TileCondition* cond);
+    bool addCondition(std::unique_ptr<TileCondition> cond);
 };
 
 class HaveFloorCondition : public TileCondition
 {
 public:
-    HaveFloorCondition() {};
-    ~HaveFloorCondition(void) {};
+    HaveFloorCondition() = default;
+    ~HaveFloorCondition() = default;
 
     bool Matches(Tile* b);
 };
@@ -210,7 +213,7 @@ class FluidBelowCondition : public TileCondition
 {
 public:
     FluidBelowCondition(const char* strValue);
-    ~FluidBelowCondition(void) {};
+    ~FluidBelowCondition() = default;
 
     int value;
     bool Matches(Tile* b);

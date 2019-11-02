@@ -55,28 +55,28 @@ int translateProfession(const char* currentProf)
     return INT_MAX; //if it is left at INVALID_INDEX, the condition is ignored entierly.
 }
 
-void pushCreatureConfig( vector<vector<CreatureConfiguration>*>& knownCreatures, unsigned int gameID, CreatureConfiguration& cre)
+void pushCreatureConfig( vector<std::unique_ptr<vector<CreatureConfiguration>>>& knownCreatures, unsigned int gameID, CreatureConfiguration& cre)
 {
     if(!ssConfig.skipCreatureTypes) {
-        vector<CreatureConfiguration>* creatureList;
         if (knownCreatures.size() <= gameID) {
             //resize using hint from creature name list
-            unsigned int newsize = gameID +1;
+            unsigned int newsize = gameID + 1;
             if (newsize <= contentLoader->Mats->race.size()) {
                 newsize = contentLoader->Mats->race.size() + 1;
             }
-            knownCreatures.resize(newsize);
+            while (knownCreatures.size() < newsize) {
+                knownCreatures.push_back(nullptr);
+            }
         }
-        creatureList = knownCreatures[gameID];
-        if (creatureList == NULL) {
-            creatureList = new vector<CreatureConfiguration>();
-            knownCreatures[gameID]=creatureList;
+        auto& creatureList = knownCreatures[gameID];
+        if (creatureList == nullptr) {
+            creatureList = dts::make_unique<vector<CreatureConfiguration>>();
         }
         creatureList->push_back(cre);
     }
 }
 
-bool addSingleCreatureConfig( TiXmlElement* elemCreature, vector<vector<CreatureConfiguration>*>& knownCreatures, int basefile )
+bool addSingleCreatureConfig( TiXmlElement* elemCreature, vector<std::unique_ptr<vector<CreatureConfiguration>>>& knownCreatures, int basefile )
 {
     if(ssConfig.skipCreatureTypes) {
         return false;
@@ -184,7 +184,7 @@ bool addSingleCreatureConfig( TiXmlElement* elemCreature, vector<vector<Creature
     return true;
 }
 
-bool addCreaturesConfig( TiXmlElement* elemRoot, vector<vector<CreatureConfiguration>*>& knownCreatures )
+bool addCreaturesConfig( TiXmlElement* elemRoot, vector<std::unique_ptr<vector<CreatureConfiguration>>>& knownCreatures )
 {
     int basefile = -1;
     const char* filename = elemRoot->Attribute("file");

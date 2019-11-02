@@ -6,6 +6,7 @@
 #include "GUI.h"
 #include "ContentLoader.h"
 #include "EnumToString.h"
+#include "MiscUtils.h"
 
 using namespace std;
 using namespace DFHack;
@@ -41,16 +42,6 @@ TerrainConfiguration::TerrainConfiguration()
     //dont really care about the rest of the sprite right now.
 }
 
-TerrainConfiguration::~TerrainConfiguration()
-{
-    uint32_t currentsize = (uint32_t)terrainMaterials.size();
-    for (uint32_t i = 0; i < currentsize; i++) {
-        if (terrainMaterials[i] != NULL) {
-            delete(terrainMaterials[i]);
-        }
-    }
-}
-
 void DumpInorganicMaterialNamesToDisk()
 {
     FILE* fp = fopen("dump.txt", "w");
@@ -63,7 +54,7 @@ void DumpInorganicMaterialNamesToDisk()
     fclose(fp);
 }
 
-void parseWallFloorSpriteElement(TiXmlElement* elemWallFloorSprite, vector<TerrainConfiguration*>& configTable, int basefile, bool floor)
+void parseWallFloorSpriteElement(TiXmlElement* elemWallFloorSprite, vector<std::unique_ptr<TerrainConfiguration>>& configTable, int basefile, bool floor)
 {
     const char* spriteSheetIndexStr = elemWallFloorSprite->Attribute("sheetIndex");
     const char* spriteSpriteStr = elemWallFloorSprite->Attribute("sprite");
@@ -186,13 +177,13 @@ void parseWallFloorSpriteElement(TiXmlElement* elemWallFloorSprite, vector<Terra
             {
                 //add it to the lookup vector
                 lookupKeys.push_back(make_pair(i, matchness));
-                if (configTable.size() <= (uint32_t)i) {
-                    //increase size if needed
-                    configTable.resize(i + 1, NULL);
+                //increase size if needed
+                while (configTable.size() <= (uint32_t)i) {
+                    configTable.push_back(nullptr);
                 }
-                if (configTable[i] == NULL) {
-                    // cleaned up in flushTerrainConfig
-                    configTable[i] = new TerrainConfiguration();
+
+                if (configTable[i] == nullptr) {
+                    configTable[i] = dts::make_unique<TerrainConfiguration>();
                 }
             }
         }
@@ -232,7 +223,7 @@ void parseWallFloorSpriteElement(TiXmlElement* elemWallFloorSprite, vector<Terra
     if (elemMaterial == NULL) {
         // if none, set default terrain sprites for each terrain type
         for (int i = 0; i < elems; i++) {
-            TerrainConfiguration *tConfig = configTable[lookupKeys[i].first];
+            TerrainConfiguration *tConfig = configTable[lookupKeys[i].first].get();
             // if that was null we have *really* screwed up earlier
             // only update if not by previous configs
             for (int j = 0; j < NUM_FORMS; j++) {
@@ -257,17 +248,17 @@ void parseWallFloorSpriteElement(TiXmlElement* elemWallFloorSprite, vector<Terra
         if (elemSubtype == NULL) {
             // if none, set material default for each terrain type
             for (int i = 0; i < elems; i++) {
-                TerrainConfiguration *tConfig = configTable[lookupKeys[i].first];
+                TerrainConfiguration *tConfig = configTable[lookupKeys[i].first].get();
                 // if that was null we have *really* screwed up earlier
                 // create a new TerrainMaterialConfiguration if required
                 // make sure we have room for it first
-                if (tConfig->terrainMaterials.size() <= (uint32_t)elemIndex) {
+                while (tConfig->terrainMaterials.size() <= (uint32_t)elemIndex) {
                     // dont make a full size vector in advance- most of the time
                     // we will only need the first few
-                    tConfig->terrainMaterials.resize(elemIndex + 1, NULL);
+                    tConfig->terrainMaterials.push_back(nullptr);
                 }
-                if (tConfig->terrainMaterials[elemIndex] == NULL) {
-                    tConfig->terrainMaterials[elemIndex] = new TerrainMaterialConfiguration();
+                if (tConfig->terrainMaterials[elemIndex] == nullptr) {
+                    tConfig->terrainMaterials[elemIndex] = dts::make_unique<TerrainMaterialConfiguration>();
                 }
                 // only update if not set by earlier configs,
                 //FIXME: figure out how to manage priorities here.
@@ -292,17 +283,17 @@ void parseWallFloorSpriteElement(TiXmlElement* elemWallFloorSprite, vector<Terra
 
             // set subtype sprite for each terrain type
             for (int i = 0; i < elems; i++) {
-                TerrainConfiguration *tConfig = configTable[lookupKeys[i].first];
+                TerrainConfiguration *tConfig = configTable[lookupKeys[i].first].get();
                 //if that was null we have *really* screwed up earlier
                 //create a new TerrainMaterialConfiguration if required
                 //make sure we have room for it first
-                if (tConfig->terrainMaterials.size() <= (uint32_t)elemIndex) {
+                while (tConfig->terrainMaterials.size() <= (uint32_t)elemIndex) {
                     //dont make a full size vector in advance- we wont need it except
                     //for those who insist on Soap Fortresses
-                    tConfig->terrainMaterials.resize(elemIndex + 1, NULL);
+                    tConfig->terrainMaterials.push_back(nullptr);
                 }
-                if (tConfig->terrainMaterials[elemIndex] == NULL) {
-                    tConfig->terrainMaterials[elemIndex] = new TerrainMaterialConfiguration();
+                if (tConfig->terrainMaterials[elemIndex] == nullptr) {
+                    tConfig->terrainMaterials[elemIndex] = dts::make_unique<TerrainMaterialConfiguration>();
                 }
                 // add to map (if not already present)
                 for (int j = 0; j < NUM_FORMS; j++) {
@@ -356,18 +347,15 @@ bool addSingleTerrainConfig(TiXmlElement* elemRoot)
     return true;
 }
 
-void flushTerrainConfig(vector<TerrainConfiguration*>& config)
+void flushTerrainConfig(vector<std::unique_ptr<TerrainConfiguration>>& config)
 {
     uint32_t currentsize = (uint32_t)config.size();
-    for (uint32_t i = 0; i < currentsize; i++) {
-        if (config[i] != NULL) {
-            delete(config[i]);
-        }
-    }
-
     config.clear();
     if (currentsize < MAX_BASE_TERRAIN + FAKE_TERRAIN_COUNT) {
         currentsize = MAX_BASE_TERRAIN + FAKE_TERRAIN_COUNT;
     }
-    config.resize(currentsize, NULL);
+
+    while (config.size() < currentsize) {
+        config.push_back(nullptr);
+    }
 }

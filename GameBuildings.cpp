@@ -7,6 +7,7 @@
 #include "ContentLoader.h"
 #include "GUI.h"
 #include "MapLoading.h"
+#include "MiscUtils.h"
 
 #include "df/buildings_other_id.h"
 #include "df/building_wellst.h"
@@ -92,9 +93,10 @@ void MergeBuildingsToSegment(vector<Buildings::t_building>* buildings, WorldSegm
 {
     uint32_t numBuildings = (uint32_t)buildings->size();
     for (uint32_t i = 0; i < numBuildings; i++) {
-        Buildings::t_building* copiedbuilding = new Buildings::t_building();
+        auto building_ptr = dts::make_unique<Buildings::t_building>();
+        auto copiedbuilding = building_ptr.get();
         memcpy(copiedbuilding, &((*buildings)[i]), sizeof(Buildings::t_building));
-        segment->PushBuilding(copiedbuilding);
+        segment->PushBuilding(std::move(building_ptr));
 
         //int bheight = tempbuilding.y2 - tempbuilding.y1;
         for (uint32_t yy = copiedbuilding->y1; yy <= copiedbuilding->y2; yy++) {
@@ -237,7 +239,7 @@ void loadBuildingSprites ( Tile* b)
     }
     BuildingConfiguration* generic = NULL, *specific = NULL, *custom = NULL;
     for(auto iter = contentLoader->buildingConfigs.begin(); iter < contentLoader->buildingConfigs.end(); iter++) {
-        BuildingConfiguration & conf = *iter;
+        BuildingConfiguration & conf = **iter;
         if(b->building.type == conf.game_type) {
             generic = &conf;
             if(b->building.info && b->building.info->subtype == conf.game_subtype) {

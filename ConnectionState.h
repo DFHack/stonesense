@@ -16,14 +16,16 @@ public:
     DFHack::RemoteFunction<RemoteFortressReader::BlockRequest, RemoteFortressReader::BlockList> BlockListCall;
     DFHack::RemoteFunction<dfproto::EmptyMessage> HashCheckCall;
     DFHack::RemoteFunction<dfproto::EmptyMessage, RemoteFortressReader::TiletypeList> TiletypeListCall;
-    DFHack::color_ostream * df_network_out;
-    DFHack::RemoteClient * network_client;
 
     ConnectionState();
     ~ConnectionState();
 
-    static void Connect();
+    static ConnectionState* Connect();
     static void Disconnect();
-};
 
-extern ConnectionState *connection_state;
+private:
+    std::unique_ptr<DFHack::color_ostream> df_network_out;
+    std::unique_ptr<DFHack::RemoteClient> network_client;
+
+    static std::unique_ptr<ConnectionState> connection_state;
+};

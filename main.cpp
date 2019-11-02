@@ -55,7 +55,7 @@ vector<t_matgloss> v_stonetypes;
 
 ALLEGRO_FONT * font;
 
-Overlay * overlay;
+std::unique_ptr<Overlay> overlay;
 ALLEGRO_DISPLAY * display;
 ALLEGRO_KEYBOARD_STATE keyboard;
 
@@ -498,8 +498,8 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
     drawcredits();
 
     if(ssConfig.overlay_mode){
-        overlay = new Overlay(df::global::enabler->renderer);
-        df::global::enabler->renderer = overlay;
+        overlay = dts::make_unique<Overlay>(df::global::enabler->renderer);
+        df::global::enabler->renderer = overlay.get();
     }
 
     ALLEGRO_PATH * p = al_create_path("stonesense/stonesense.png");
@@ -551,13 +551,12 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
 
     timeToReloadSegment = false;
     // enter event loop here:
-    main_loop(display, overlay, queue, main_thread, out);
+    main_loop(display, overlay.get(), queue, main_thread, out);
 
     // window is destroyed.
     al_destroy_display(display);
     display = 0;
-    delete(overlay);
-    overlay = NULL;
+    overlay.reset();
 
     if(ssConfig.threadmade) {
         al_broadcast_cond(ssConfig.readCond);

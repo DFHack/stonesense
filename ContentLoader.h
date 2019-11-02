@@ -42,18 +42,18 @@ public:
 
     bool reload_configs();
 
-    std::vector<BuildingConfiguration> buildingConfigs;
-    std::vector<std::vector<CreatureConfiguration>*> creatureConfigs;
-    std::vector<VegetationConfiguration> treeConfigs;
-    std::vector<VegetationConfiguration> shrubConfigs;
-    std::vector<VegetationConfiguration> grassConfigs;
-    std::vector<TerrainConfiguration*> terrainFloorConfigs;
-    std::vector<TerrainConfiguration*> terrainWallConfigs;
+    std::vector<std::unique_ptr<BuildingConfiguration>> buildingConfigs;
+    std::vector<std::unique_ptr<std::vector<CreatureConfiguration>>> creatureConfigs;
+    std::vector<std::unique_ptr<VegetationConfiguration>> treeConfigs;
+    std::vector<std::unique_ptr<VegetationConfiguration>> shrubConfigs;
+    std::vector<std::unique_ptr<VegetationConfiguration>> grassConfigs;
+    std::vector<std::unique_ptr<TerrainConfiguration>> terrainFloorConfigs;
+    std::vector<std::unique_ptr<TerrainConfiguration>> terrainWallConfigs;
     std::vector<ColorConfiguration> colorConfigs;
     MaterialMatcher<ALLEGRO_COLOR> materialColorConfigs;
     MaterialMatcher<c_sprite> growthTopConfigs;
     MaterialMatcher<c_sprite> growthBottomConfigs;
-    std::vector<ItemConfiguration*> itemConfigs;
+    std::vector<std::unique_ptr<ItemConfiguration>> itemConfigs;
     FluidConfiguration lava[8];
     FluidConfiguration water[8];
 

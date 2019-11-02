@@ -109,8 +109,6 @@ bool PositionIndexCondition::Matches(Tile* b)
 }
 
 
-
-
 MaterialTypeCondition::MaterialTypeCondition(const char* strValue, const char* strSubtype, const char* strPattern_index)
     : TileCondition()
 {
@@ -236,7 +234,6 @@ bool NeighbourSameBuildingCondition::Matches(Tile* b)
 }
 
 
-
 NeighbourIdenticalCondition::NeighbourIdenticalCondition(const char* strDir)
     : TileCondition()
 {
@@ -343,13 +340,6 @@ bool NeighbourSameTypeCondition::Matches(Tile* b)
     return false;
 }
 
-AndConditionalNode::~AndConditionalNode(void)
-{
-    uint32_t max = (int)children.size();
-    for(uint32_t i=0; i<max; i++) {
-        delete(children[i]);
-    }
-}
 
 bool AndConditionalNode::Matches(Tile* b)
 {
@@ -361,19 +351,12 @@ bool AndConditionalNode::Matches(Tile* b)
     }
     return true;
 }
-bool AndConditionalNode::addCondition(TileCondition* cond)
+bool AndConditionalNode::addCondition(std::unique_ptr<TileCondition> cond)
 {
-    children.push_back(cond);
+    children.push_back(std::move(cond));
     return true;
 }
 
-OrConditionalNode::~OrConditionalNode(void)
-{
-    uint32_t max = (int)children.size();
-    for(uint32_t i=0; i<max; i++) {
-        delete(children[i]);
-    }
-}
 
 bool OrConditionalNode::Matches(Tile* b)
 {
@@ -385,9 +368,9 @@ bool OrConditionalNode::Matches(Tile* b)
     }
     return false;
 }
-bool OrConditionalNode::addCondition(TileCondition* cond)
+bool OrConditionalNode::addCondition(std::unique_ptr<TileCondition> cond)
 {
-    children.push_back(cond);
+    children.push_back(std::move(cond));
     return true;
 }
 
@@ -400,15 +383,6 @@ bool NeverCondition::Matches(Tile* b)
     return false;
 }
 
-NotConditionalNode::NotConditionalNode(void)
-{
-    childcond = NULL;
-}
-
-NotConditionalNode::~NotConditionalNode(void)
-{
-    delete(childcond);
-}
 
 bool NotConditionalNode::Matches(Tile* b)
 {
@@ -417,13 +391,14 @@ bool NotConditionalNode::Matches(Tile* b)
     }
     return !childcond->Matches( b );
 }
-bool NotConditionalNode::addCondition(TileCondition* cond)
+
+bool NotConditionalNode::addCondition(std::unique_ptr<TileCondition> cond)
 {
     if (childcond != NULL) {
         LogError("Too many condition elements for NotConditionalNode\n");
         return false;
     }
-    childcond = cond;
+    childcond = std::move(cond);
     return true;
 }
 

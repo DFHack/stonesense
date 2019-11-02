@@ -13,7 +13,7 @@ public:
     std::string name;
     bool canBeFloating;
     bool canBeAnySize;
-    SpriteNode* sprites;
+    std::unique_ptr<SpriteNode> sprites;
 
     BuildingConfiguration(std::string name, int game_type, int game_subtype, int32_t game_custom);
     BuildingConfiguration();

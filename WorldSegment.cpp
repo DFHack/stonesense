@@ -434,33 +434,22 @@ void WorldSegment::AssembleSprite(draw_event d)
     todraw.push_back(d);
 }
 
-void WorldSegment::PushBuilding( Buildings::t_building * building)
+void WorldSegment::PushBuilding( std::unique_ptr<Buildings::t_building> building)
 {
-    buildings.push_back(building);
+    buildings.push_back(std::move(building));
 }
 
 void WorldSegment::ClearBuildings()
 {
-    for(size_t i=0; i<buildings.size(); i++){
-        delete(buildings[i]);
-        buildings[i] = NULL;
-    }
     buildings.clear();
 }
 
-void WorldSegment::PushUnit( SS_Unit * unit)
+void WorldSegment::PushUnit( std::unique_ptr<SS_Unit> unit)
 {
-    units.push_back(unit);
+    units.push_back(std::move(unit));
 }
 
 void WorldSegment::ClearUnits()
 {
-    for(size_t i=0; i<units.size(); i++){
-        if(units[i]){
-            delete(units[i]->inv);
-            delete(units[i]);
-            units[i] = NULL;
-        }
-    }
     units.clear();
 }

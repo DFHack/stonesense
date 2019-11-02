@@ -4,6 +4,7 @@
 #include "CreatureConfiguration.h"
 #include "ContentLoader.h"
 #include "GUI.h"
+#include "MiscUtils.h"
 #include "Tile.h"
 #include "SpriteColors.h"
 #include "DataDefs.h"
@@ -620,7 +621,7 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
         }
 
         // make a copy of some creature data
-        SS_Unit * tempcreature = new SS_Unit();
+        auto tempcreature = dts::make_unique<SS_Unit>();
         copyCreature(unit_ptr,*tempcreature);
 
         // add shadow to nearest floor tile
@@ -633,7 +634,7 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
                 floor_tile->tileShapeBasic()==tiletype_shape_basic::Wall  ||
                 floor_tile->tileShapeBasic()==tiletype_shape_basic::Ramp) {
                     // todo figure out appropriate shadow size
-                    uint8_t tempShadow = GetCreatureShadowMap( tempcreature );
+                    uint8_t tempShadow = GetCreatureShadowMap( tempcreature.get() );
                     if (floor_tile->shadow < tempShadow) {
                         floor_tile->shadow=tempShadow;
                     }
@@ -694,7 +695,7 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
 
             //FIXME: this could be made nicer. Somehow
             if(!tempcreature->inv) {
-                tempcreature->inv = new(unit_inventory);
+                tempcreature->inv = dts::make_unique<unit_inventory>();
             }
             if(tempcreature->inv->item.size() <= size_t(type)) {
                 tempcreature->inv->item.resize(type+1);
@@ -706,8 +707,8 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
         }
 
         b->occ.bits.unit = true;
-        b->creature = tempcreature;
-        segment->PushUnit(tempcreature);
+        b->creature = tempcreature.get();
+        segment->PushUnit(std::move(tempcreature));
     }
 }
 
@@ -715,14 +716,13 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
 CreatureConfiguration *GetCreatureConfig( SS_Unit* c )
 {
     //find list for creature type
-    vector<CreatureConfiguration>* creatureData;
     uint32_t num = (uint32_t)contentLoader->creatureConfigs.size();
     if (c->race >= num) {
-        return NULL;
+        return nullptr;
     }
-    creatureData = contentLoader->creatureConfigs[c->race];
-    if (creatureData == NULL) {
-        return NULL;
+    std::unique_ptr<vector<CreatureConfiguration>>& creatureData = contentLoader->creatureConfigs[c->race];
+    if (creatureData == nullptr) {
+        return nullptr;
     }
     int rando = randomCube[c->x%RANDOM_CUBE][c->y%RANDOM_CUBE][c->z%RANDOM_CUBE];
     int offsetAnimFrame = (currentAnimationFrame + rando) % MAX_ANIMFRAME;

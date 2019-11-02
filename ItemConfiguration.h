@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+
 #include "SpriteObjects.h"
 
 class ItemSubConfiguration
@@ -11,15 +13,14 @@ public:
 class ItemConfiguration
 {
 public:
-    std::vector<ItemSubConfiguration*> subItems;
+    std::vector<std::unique_ptr<ItemSubConfiguration>> subItems;
     c_sprite default_sprite;
 
     bool configured;
 
     ItemConfiguration();
-    ~ItemConfiguration();
 };
 
 bool addSingleItemConfig( TiXmlElement* elemRoot);
 bool parseItemElement( TiXmlElement* elemRoot, int basefile);
-void flushItemConfig(std::vector<ItemConfiguration *> &config);
+void flushItemConfig(std::vector<std::unique_ptr<ItemConfiguration>> &config);

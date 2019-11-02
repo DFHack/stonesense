@@ -31,8 +31,8 @@ private:
     Tile* tiles;
     std::vector<draw_event> todraw;
 
-    std::vector<SS_Unit*> units;
-    std::vector<DFHack::Buildings::t_building*> buildings;
+    std::vector<std::unique_ptr<SS_Unit>> units;
+    std::vector<std::unique_ptr<DFHack::Buildings::t_building>> buildings;
 
 public:
     bool loaded;
@@ -114,9 +114,9 @@ public:
     bool CoordinateInsideSegment(int32_t x, int32_t y, int32_t z);
     bool RangeInsideSegment(int32_t min_x, int32_t min_y, int32_t min_z, int32_t max_x, int32_t max_y, int32_t max_z);
     bool CoordinateInteriorSegment(int32_t x, int32_t y, int32_t z, uint32_t shellthick);
-    void PushBuilding( DFHack::Buildings::t_building * tempbuilding);
+    void PushBuilding( std::unique_ptr<DFHack::Buildings::t_building> tempbuilding);
     void ClearBuildings();
-    void PushUnit( SS_Unit * unit);
+    void PushUnit( std::unique_ptr<SS_Unit> unit);
     void ClearUnits();
 };
 
@@ -127,14 +127,12 @@ private:
     static const GameState zeroState;
 public:
     SegmentWrap() {
-        drawsegment = new WorldSegment(zeroState);
-        readsegment = new WorldSegment(zeroState);
+        drawsegment = dts::make_unique<WorldSegment>(zeroState);
+        readsegment = dts::make_unique<WorldSegment>(zeroState);
         drawmutex = al_create_mutex();
         readmutex = al_create_mutex();
     }
     ~SegmentWrap() {
-        delete drawsegment;
-        delete readsegment;
         al_destroy_mutex(drawmutex);
         al_destroy_mutex(readmutex);
     }
@@ -163,21 +161,19 @@ public:
         al_unlock_mutex(readmutex);
     }
     void swap() {
-        WorldSegment * temp = drawsegment;
-        drawsegment = readsegment;
-        readsegment = temp;
+        drawsegment.swap(readsegment);
     }
     WorldSegment * getRead() {
-        return readsegment;
+        return readsegment.get();
     }
     WorldSegment * getDraw() {
-        return drawsegment;
+        return drawsegment.get();
     }
 private:
     ALLEGRO_MUTEX * drawmutex;
     ALLEGRO_MUTEX * readmutex;
-    WorldSegment * drawsegment;
-    WorldSegment * readsegment;
+    std::unique_ptr<WorldSegment> drawsegment;
+    std::unique_ptr<WorldSegment> readsegment;
 };
 
 extern SegmentWrap map_segment;

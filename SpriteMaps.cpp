@@ -10,7 +10,7 @@ using namespace std;
 using namespace DFHack;
 using namespace df::enums;
 
-c_sprite *  GetTerrainSpriteMap(int in, t_matglossPair material, vector<TerrainConfiguration*>& configTable, uint16_t form)
+c_sprite *  GetTerrainSpriteMap(int in, t_matglossPair material, vector<std::unique_ptr<TerrainConfiguration>>& configTable, uint16_t form)
 {
     int tempform;
     if(form == item_type::BAR) {
@@ -36,8 +36,8 @@ c_sprite *  GetTerrainSpriteMap(int in, t_matglossPair material, vector<TerrainC
         return defaultSprite;
     }
     // find a matching terrainConfig
-    TerrainConfiguration* terrain = configTable[in];
-    if (terrain == NULL) {
+    TerrainConfiguration* terrain = configTable[in].get();
+    if (terrain == nullptr) {
         return defaultSprite;
     }
     // check material sanity
@@ -49,8 +49,8 @@ c_sprite *  GetTerrainSpriteMap(int in, t_matglossPair material, vector<TerrainC
         }
     }
     // find mat config
-    TerrainMaterialConfiguration* terrainMat = terrain->terrainMaterials[material.type];
-    if (terrainMat == NULL) {
+    TerrainMaterialConfiguration* terrainMat = terrain->terrainMaterials[material.type].get();
+    if (terrainMat == nullptr) {
         if (terrain->defaultSprite[tempform].first.get_sheetindex() == UNCONFIGURED_INDEX) {
             return &(terrain->defaultSprite[0].first);
         } else {
@@ -96,7 +96,7 @@ c_sprite * GetTileSpriteMap(int in, t_matglossPair material, uint16_t form)
 c_tile_tree * GetTreeVegetation(RemoteFortressReader::TiletypeShape shape, RemoteFortressReader::TiletypeSpecial special, int index)
 {
     int base_sprite = SPRITEOBJECT_BLUEPRINT;
-    vector<VegetationConfiguration>* graphicSet;
+    vector<std::unique_ptr<VegetationConfiguration>>* graphicSet;
     bool live=true;
     bool grown=true;
     switch(shape) {

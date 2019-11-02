@@ -51,7 +51,7 @@ ContentLoader::ContentLoader(void) { }
 ContentLoader::~ContentLoader(void)
 {
     //flush content on exit
-    flushBuildingConfig(&buildingConfigs);
+    buildingConfigs.clear();
     flushTerrainConfig(terrainFloorConfigs);
     flushTerrainConfig(terrainWallConfigs);
     flushItemConfig(itemConfigs);
@@ -70,7 +70,7 @@ bool ContentLoader::Load()
     ALLEGRO_ALIGN_CENTRE, "Loading...");
     al_flip_display();*/
     //flush old config
-    flushBuildingConfig(&buildingConfigs);
+    buildingConfigs.clear();
     flushTerrainConfig(terrainFloorConfigs);
     flushTerrainConfig(terrainWallConfigs);
     flushItemConfig(itemConfigs);
@@ -84,9 +84,7 @@ bool ContentLoader::Load()
     flushImgFiles();
 
     //pull all the material names through the RPC stuff. Mostly a test at this point.
-    if (!connection_state)
-        connection_state = new ConnectionState();
-    connection_state->Connect();
+    auto connection_state = ConnectionState::Connect();
     if (connection_state)
     {
         connection_state->MaterialListCall(&(connection_state->empty_message), &materialNameList);
@@ -329,7 +327,7 @@ bool ContentLoader::Load()
 
 bool ContentLoader::reload_configs()
 {
-    flushBuildingConfig(&buildingConfigs);
+    buildingConfigs.clear();
     flushTerrainConfig(terrainFloorConfigs);
     flushTerrainConfig(terrainWallConfigs);
     flushItemConfig(itemConfigs);
@@ -893,9 +891,6 @@ int loadConfigImgFile(const char* filename, TiXmlElement* referrer)
 
 void ContentLoader::flushCreatureConfig()
 {
-    for ( auto cc : creatureConfigs ) {
-        delete cc;
-    }
     // make big enough to hold all creatures
     creatureConfigs.clear();
     for ( size_t i = 0; i < style_indices.size();i++){

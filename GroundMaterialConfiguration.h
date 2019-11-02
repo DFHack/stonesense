@@ -16,19 +16,17 @@ public:
     std::vector<std::map<int, std::pair<c_sprite, int>> > overridingMaterials;
 
     TerrainMaterialConfiguration();
-    ~TerrainMaterialConfiguration() {}
 };
 
 class TerrainConfiguration
 {
 public:
-    std::vector<TerrainMaterialConfiguration*> terrainMaterials;
+    std::vector<std::unique_ptr<TerrainMaterialConfiguration>> terrainMaterials;
     std::vector<std::pair<c_sprite, int>> defaultSprite;
     TerrainConfiguration();
-    ~TerrainConfiguration();
 };
 
 bool addSingleTerrainConfig( TiXmlElement* elemRoot);
 
-void flushTerrainConfig(std::vector<TerrainConfiguration*>& config);
+void flushTerrainConfig(std::vector<std::unique_ptr<TerrainConfiguration>>& config);
 void DumpInorganicMaterialNamesToDisk();
