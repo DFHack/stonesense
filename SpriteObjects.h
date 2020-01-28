@@ -60,7 +60,7 @@ private:
     int16_t hairmin;
     int16_t hairmax;
     hairstyles hairstyle;
-    uint8_t pattern_index;
+    int16_t pattern_index;
 
     offset_type offsettype;
     uint8_t offsetcode;

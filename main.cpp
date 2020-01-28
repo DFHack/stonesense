@@ -352,6 +352,7 @@ static void main_loop(ALLEGRO_DISPLAY * display, Overlay * ovrlay, ALLEGRO_EVENT
                     PrintMessage("backbuffer w, h: %d, %d\n", w, h);
                 }
 #endif
+                break;
                 /* ALLEGRO_EVENT_KEY_DOWN - a keyboard key was pressed.
                 */
             case ALLEGRO_EVENT_KEY_CHAR:

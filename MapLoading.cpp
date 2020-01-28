@@ -89,19 +89,18 @@ void readSpatterToTile(Tile * b, uint32_t lx, uint32_t ly,
             }
 
             //use the state information to determine if we should be incrementing the snow or the blood
-            int16_t state = splatter[i]->mat_state;
-            state = splatter[i]->mat_type == MUD ? INVALID_INDEX : state;
+            auto state = df::matter_state(splatter[i]->mat_state);
             state = splatter[i]->mat_type == VOMIT ? df::matter_state::Paste : state; //change vomit from dust to paste - gross
             switch(state) {
-            case INVALID_INDEX:
-                b->mudlevel = level;
-                break;
             case df::matter_state::Powder:
             case df::matter_state::Solid:
                 snow += level;
                 break;
             default:
-                blood += level;
+                if (splatter[i]->mat_type == MUD)
+                    b->mudlevel = level;
+                else
+                    blood += level;
             }
         }
         blood = blood<0 ? 0-blood : blood;

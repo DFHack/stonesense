@@ -13,13 +13,12 @@ using namespace DFHack;
 using namespace df::enums;
 
 
-VegetationConfiguration::VegetationConfiguration(int gameID, c_tile_tree &tree, bool live, bool grown)
+VegetationConfiguration::VegetationConfiguration(int gameID, c_tile_tree &tree, bool live, bool grown) :
+    gameID(gameID),
+    live(live),
+    grown(grown),
+    tree(tree)
 {
-    memset(this, 0, sizeof(VegetationConfiguration) );
-    this->tree = tree;
-    this->gameID = gameID;
-    this->live = live;
-    this->grown = grown;
 }
 
 VegetationConfiguration::~VegetationConfiguration(void)

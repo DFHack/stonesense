@@ -532,15 +532,17 @@ void copyCreature(df::unit * source, SS_Unit & furball)
     // stress level
     furball.stress_level = source->status.current_soul ? source->status.current_soul->personality.stress_level : 0;
     // physical attributes
-    memcpy(&furball.strength, source->body.physical_attrs, sizeof(source->body.physical_attrs));
+    furball.strength = source->body.physical_attrs[physical_attribute_type::STRENGTH];
+    furball.agility = source->body.physical_attrs[physical_attribute_type::AGILITY];
+    furball.toughness = source->body.physical_attrs[physical_attribute_type::TOUGHNESS];
+    furball.endurance = source->body.physical_attrs[physical_attribute_type::ENDURANCE];
+    furball.recuperation = source->body.physical_attrs[physical_attribute_type::RECUPERATION];
+    furball.disease_resistance = source->body.physical_attrs[physical_attribute_type::DISEASE_RESISTANCE];
 
     // mood stuff
     furball.mood = source->mood;
     furball.mood_skill = source->job.mood_skill;
     Translation::readName(furball.artifact_name, &source->status.artifact_name);
-
-    // labors
-    memcpy(&furball.labors, &source->status.labors, sizeof(furball.labors));
 
     furball.birth_year = source->birth_year;
     furball.birth_time = source->birth_time;

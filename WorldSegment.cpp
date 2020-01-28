@@ -235,7 +235,7 @@ Tile* WorldSegment::getTileLocal(int32_t x, int32_t y, int32_t z)
 
 Tile* WorldSegment::getTile(uint32_t index)
 {
-    if(index < 0 || index>=getNumTiles() ) {
+    if(index>=getNumTiles() ) {
         return NULL;
     }
     return tiles[index].IsValid() ? &(tiles[index]) : NULL;

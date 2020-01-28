@@ -17,13 +17,15 @@ class Tile
 private:
     bool valid;
 
-    //Functions start here.
+    // Functions start here.
 
-    //do not directly call constructor or deconstructor, use CleanCreateAndValidate or InvalidateAndDestroy
+    // use CleanCreateAndValidate or InvalidateAndDestroy
     Tile(WorldSegment* ownerSegment, df::tiletype type);
-    ~Tile(void);
 
 public:
+    Tile();
+    ~Tile();
+
     bool visible;
 
     WorldSegment* ownerSegment;

@@ -12,23 +12,18 @@ using namespace DFHack;
 using namespace df::enums;
 
 
-CreatureConfiguration::CreatureConfiguration(int professionID, const char* professionStr, uint8_t sex, int incaste, enumCreatureSpecialCases special, c_sprite &sprite, int shadow)
+CreatureConfiguration::CreatureConfiguration(int professionID, const char* professionStr, uint8_t sex, int incaste, enumCreatureSpecialCases special, c_sprite &sprite, int shadow) :
+    professionstr(),
+    professionID(professionID),
+    sprite(sprite),
+    shadow(shadow),
+    special(special),
+    sex(sex),
+    caste(incaste)
 {
-    memset(this, 0, sizeof(CreatureConfiguration) );
-    this->sprite = sprite;
-    this->professionID = professionID;
-    this->sex = sex;
-    this->shadow = shadow;
-    this->special = special;
-    this->caste = incaste;
-
-    if(professionStr) {
-        int len = (int) strlen(professionStr);
-        if(len > CREATURESTRLENGTH) {
-            len = CREATURESTRLENGTH;
-        }
-        memcpy(this->professionstr, professionStr, len);
-        this->professionstr[CREATURESTRLENGTH-1]=0;
+    if (professionStr) {
+        strncpy(this->professionstr, professionStr, CREATURESTRLENGTH - 1);
+        this->professionstr[CREATURESTRLENGTH - 1] = 0;
     }
 }
 
@@ -94,7 +89,7 @@ bool addSingleCreatureConfig( TiXmlElement* elemCreature, vector<std::unique_ptr
     if (shadowStr != NULL && shadowStr[0] != 0) {
         baseShadow = atoi( shadowStr );
     }
-    if (baseShadow < 0 || baseShadow > MAX_SHADOW) {
+    if (baseShadow > MAX_SHADOW) {
         baseShadow = DEFAULT_SHADOW;
     }
     const char* filename = elemCreature->Attribute("file");

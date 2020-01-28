@@ -1321,6 +1321,7 @@ ALLEGRO_COLOR c_sprite::get_color(void* tile)
         } else {
             return al_map_rgb(255,255,255);
         }
+        break;
     case ShadeBlood:
         return b->bloodcolor;
     case ShadeEquip:
@@ -1345,6 +1346,7 @@ ALLEGRO_COLOR c_sprite::get_color(void* tile)
                 return al_map_rgb(255,255,255);
             }
         }
+        break;
     case ShadeJob:
         if(b->occ.bits.unit && b->creature) {
             return ssConfig.colors.getDfColor(Units::getProfessionColor(b->creature->origin), ssConfig.useDfColors);
@@ -1354,8 +1356,8 @@ ALLEGRO_COLOR c_sprite::get_color(void* tile)
     case ShadeItem:
         return lookupMaterialColor(b->Item.matt, b->Item.dyematt);
     default:
-        return al_map_rgb(255, 255, 255);
-    } ;
+        break;
+    }
     return al_map_rgb(255, 255, 255);
 }
 

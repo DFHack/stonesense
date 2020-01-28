@@ -4,9 +4,6 @@
 #include "SpriteColors.h"
 #include "df/enabler.h"
 
-// TODO: remove
-#define NUM_CREATURE_LABORS 96
-
 enum ShadeBy {
     ShadeNone,
     ShadeXml,
@@ -324,8 +321,6 @@ struct SS_Unit{
     uint16_t profession;
     std::string custom_profession;
 
-    // enabled labors
-    uint8_t labors[NUM_CREATURE_LABORS];
     struct {
         bool active;
         uint32_t jobId;
@@ -334,12 +329,12 @@ struct SS_Unit{
 
     uint32_t stress_level;
     uint32_t id;
-    DFHack::t_attrib strength;
-    DFHack::t_attrib agility;
-    DFHack::t_attrib toughness;
-    DFHack::t_attrib endurance;
-    DFHack::t_attrib recuperation;
-    DFHack::t_attrib disease_resistance;
+    df::unit_attribute strength;
+    df::unit_attribute agility;
+    df::unit_attribute toughness;
+    df::unit_attribute endurance;
+    df::unit_attribute recuperation;
+    df::unit_attribute disease_resistance;
     int32_t squad_leader_id;
     uint8_t sex;
     uint16_t caste;

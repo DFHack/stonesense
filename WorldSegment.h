@@ -46,8 +46,7 @@ public:
 
         uint32_t newNumTiles = inState.Size.x * inState.Size.y * inState.Size.z;
         uint32_t memoryNeeded = newNumTiles * sizeof(Tile);
-        tiles = (Tile*) malloc( memoryNeeded );
-        memset(tiles, 0, memoryNeeded);
+        tiles = new Tile[newNumTiles];
     }
 
     ~WorldSegment() {
@@ -57,7 +56,7 @@ public:
         }
         ClearBuildings();
         ClearUnits();
-        free(tiles);
+        delete[] tiles;
     }
 
     void Reset(GameState inState, bool hard=false) {
@@ -73,18 +72,8 @@ public:
         uint32_t memoryNeeded = newNumTiles * sizeof(Tile);
         //if this is a hard reset, or if the size doesn't match what is needed, get a new segment
         if(hard || newNumTiles != getNumTiles()) {
-            free(tiles);
-            tiles = (Tile*) malloc( memoryNeeded );
-
-            //on a hard reset, zero out the entire array
-            if(hard) {
-                memset(tiles, 0, memoryNeeded);
-            //otherwise, just invalidate the entire set of tiles
-            } else {
-                for(uint32_t i = 0; i < newNumTiles; i++) {
-                    tiles[i].Invalidate();
-                }
-            }
+            delete[] tiles;
+            tiles = new Tile[newNumTiles];
         }
 
         segState = inState;

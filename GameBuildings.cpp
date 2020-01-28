@@ -95,7 +95,7 @@ void MergeBuildingsToSegment(vector<Buildings::t_building>* buildings, WorldSegm
     for (uint32_t i = 0; i < numBuildings; i++) {
         auto building_ptr = dts::make_unique<Buildings::t_building>();
         auto copiedbuilding = building_ptr.get();
-        memcpy(copiedbuilding, &((*buildings)[i]), sizeof(Buildings::t_building));
+        *copiedbuilding = buildings->at(i);
         segment->PushBuilding(std::move(building_ptr));
 
         //int bheight = tempbuilding.y2 - tempbuilding.y1;
