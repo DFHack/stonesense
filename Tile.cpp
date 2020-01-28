@@ -114,13 +114,13 @@ Tile::Tile()
     mudlevel = 0;
     snowlevel = 0;
     bloodlevel = 0;
-    ALLEGRO_COLOR bloodcolor;
+    bloodcolor = al_map_rgba(0,0,0,0);
 
     grasslevel = 0;
     grassmat = 0;
 
     engraving_character = 0;
-    df::engraving_flags engraving_flags;
+    engraving_flags.whole = 0;
     engraving_quality = 0;
 
     consForm = 0;
