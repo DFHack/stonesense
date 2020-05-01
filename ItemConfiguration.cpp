@@ -104,13 +104,11 @@ bool parseItemElement( TiXmlElement* elemRoot, int basefile)
 
 void flushItemConfig(vector<std::unique_ptr<ItemConfiguration>> &config)
 {
-    uint32_t currentsize = (uint32_t)config.size();
-    if (currentsize < ENUM_LAST_ITEM(item_type)) {
-        currentsize = ENUM_LAST_ITEM(item_type);
-    }
+    if (config.size() != (ENUM_LAST_ITEM(item_type) + 1))
+        config.resize(ENUM_LAST_ITEM(item_type) + 1);
 
-    config.clear();
-    while (currentsize < config.size()) {
-        config.push_back(nullptr);
+    for (size_t i = 0; i < config.size(); i++)
+    {
+        config[i] = nullptr;
     }
 }
