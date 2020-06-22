@@ -65,6 +65,7 @@ ALLEGRO_TIMER * animationtimer;
 ALLEGRO_EVENT event;
 
 ALLEGRO_BITMAP* IMGIcon;
+ALLEGRO_BITMAP* SplashImage = NULL;
 
 int mouse_x, mouse_y, mouse_z;
 unsigned int mouse_b;
@@ -214,39 +215,41 @@ void animUpdateProc()
 
 void drawcredits()
 {
-    static ALLEGRO_BITMAP* SplashImage = NULL; // BUG: leaks the image
-    al_clear_to_color(al_map_rgb(0,0,0));
-    //centred splash image
+    auto color_black = al_map_rgb(0, 0, 0);
+    auto color_yellow = al_map_rgb(255, 255, 0);
+    auto color_white = al_map_rgb(255, 255, 255);
+
+    auto backbuffer = al_get_backbuffer(al_get_current_display());
+    auto centerx = al_get_bitmap_width(backbuffer) / 2;
+    auto bottomy = al_get_bitmap_height(backbuffer);
+    auto centery = bottomy / 2;
+    auto lineheight = al_get_font_line_height(font);
+
+    al_clear_to_color(color_black);
+
+    if (SplashImage)
     {
-        if(!SplashImage) {
-            ALLEGRO_PATH * p = al_create_path("stonesense/splash.png");
-            SplashImage = load_bitmap_withWarning(al_path_cstr(p, ALLEGRO_NATIVE_PATH_SEP));
-            al_destroy_path(p);
-        }
-        if(!SplashImage) {
-            return;
-        }
-        al_draw_bitmap_region(SplashImage, 0, 0,
-                              al_get_bitmap_width(SplashImage), al_get_bitmap_height(SplashImage),
-                              (al_get_bitmap_width(al_get_backbuffer(al_get_current_display())) - al_get_bitmap_width(SplashImage))/2,
-                              (al_get_bitmap_height(al_get_backbuffer(al_get_current_display())) - al_get_bitmap_height(SplashImage))/2, 0);
+        auto splash_width = al_get_bitmap_width(SplashImage);
+        auto splash_height = al_get_bitmap_height(SplashImage);
+        al_draw_bitmap_region(SplashImage, 0, 0, splash_width, splash_height, centerx - splash_width / 2, centery - splash_height / 2, 0);
     }
-    al_draw_text(font, al_map_rgb(255, 255, 0), al_get_bitmap_width(al_get_backbuffer(al_get_current_display()))/2, 5*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "Welcome to Stonesense Felsite!");
-    al_draw_text(font, al_map_rgb(255, 255, 255), al_get_bitmap_width(al_get_backbuffer(al_get_current_display()))/2, 6*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "Stonesense is an isometric viewer for Dwarf Fortress.");
 
-    al_draw_text(font, al_map_rgb(255, 255, 255), al_get_bitmap_width(al_get_backbuffer(al_get_current_display()))/2, 8*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "Programming: Jonas Ask, Kris Parker, Japa Illo, Tim Aitken, and peterix");
-    al_draw_text(font, al_map_rgb(255, 255, 255), al_get_bitmap_width(al_get_backbuffer(al_get_current_display()))/2, 9*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "Lead graphics designer, Dale Holdampf");
+    al_draw_text(font, color_yellow, centerx, 5*lineheight, ALLEGRO_ALIGN_CENTRE, "Welcome to Stonesense Felsite!");
+    al_draw_text(font, color_white, centerx, 6*lineheight, ALLEGRO_ALIGN_CENTRE, "Stonesense is an isometric viewer for Dwarf Fortress.");
 
-    al_draw_text(font, al_map_rgb(255, 255, 255), al_get_bitmap_width(al_get_backbuffer(al_get_current_display()))/2, al_get_bitmap_height(al_get_backbuffer(al_get_current_display()))-13*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "Contributors:");
-    al_draw_text(font, al_map_rgb(255, 255, 255), al_get_bitmap_width(al_get_backbuffer(al_get_current_display()))/2, al_get_bitmap_height(al_get_backbuffer(al_get_current_display()))-12*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "7c Nickel, BatCountry, Belal, Belannaer, DeKaFu, Dante, Deon, dyze,");
-    al_draw_text(font, al_map_rgb(255, 255, 255), al_get_bitmap_width(al_get_backbuffer(al_get_current_display()))/2, al_get_bitmap_height(al_get_backbuffer(al_get_current_display()))-11*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "Errol, fifth angel, frumpton, IDreamOfGiniCoeff, Impaler, ");
-    al_draw_text(font, al_map_rgb(255, 255, 255), al_get_bitmap_width(al_get_backbuffer(al_get_current_display()))/2, al_get_bitmap_height(al_get_backbuffer(al_get_current_display()))-10*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "Japa, jarathor, Jiri Petru, Jordix, Lord Nightmare, McMe, Mike Mayday, Nexii ");
-    al_draw_text(font, al_map_rgb(255, 255, 255), al_get_bitmap_width(al_get_backbuffer(al_get_current_display()))/2, al_get_bitmap_height(al_get_backbuffer(al_get_current_display()))-9*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "Malthus, peterix, Seuss, soup, Talvara, winner, Xandrin.");
+    al_draw_text(font, color_white, centerx, 8*lineheight, ALLEGRO_ALIGN_CENTRE, "Programming: Jonas Ask, Kris Parker, Japa Illo, Tim Aitken, and peterix");
+    al_draw_text(font, color_white, centerx, 9*lineheight, ALLEGRO_ALIGN_CENTRE, "Lead graphics designer, Dale Holdampf");
 
-    al_draw_text(font, al_map_rgb(255, 255, 255), al_get_bitmap_width(al_get_backbuffer(al_get_current_display()))/2, al_get_bitmap_height(al_get_backbuffer(al_get_current_display()))-7*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "With special thanks to peterix for making dfHack");
+    al_draw_text(font, color_white, centerx, bottomy-13*lineheight, ALLEGRO_ALIGN_CENTRE, "Contributors:");
+    al_draw_text(font, color_white, centerx, bottomy-12*lineheight, ALLEGRO_ALIGN_CENTRE, "7c Nickel, BatCountry, Belal, Belannaer, DeKaFu, Dante, Deon, dyze,");
+    al_draw_text(font, color_white, centerx, bottomy-11*lineheight, ALLEGRO_ALIGN_CENTRE, "Errol, fifth angel, frumpton, IDreamOfGiniCoeff, Impaler, ");
+    al_draw_text(font, color_white, centerx, bottomy-10*lineheight, ALLEGRO_ALIGN_CENTRE, "Japa, jarathor, Jiri Petru, Jordix, Lord Nightmare, McMe, Mike Mayday, Nexii ");
+    al_draw_text(font, color_white, centerx, bottomy-9*lineheight, ALLEGRO_ALIGN_CENTRE, "Malthus, peterix, Seuss, soup, Talvara, winner, Xandrin.");
+
+    al_draw_text(font, color_white, centerx, bottomy-7*lineheight, ALLEGRO_ALIGN_CENTRE, "With special thanks to peterix for making dfHack");
 
     //"The program is in a very early alpha, we're only showcasing it to get ideas and feedback, so use it at your own risk."
-    //al_draw_text(font, al_map_rgb(255, 255, 255), al_get_bitmap_width(al_get_backbuffer(al_get_current_display()))/2, al_get_bitmap_height(al_get_backbuffer(al_get_current_display()))-4*al_get_font_line_height(font), ALLEGRO_ALIGN_CENTRE, "Press F9 to continue");
+    //al_draw_text(font, color_white, centerx, bottomy-4*lineheight, ALLEGRO_ALIGN_CENTRE, "Press F9 to continue");
     // Make the backbuffer visible
 }
 
@@ -521,6 +524,12 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
         out.printerr("al_create_event_queue failed\n");
         stonesense_started = 0;
         return NULL;
+    }
+
+    {
+        ALLEGRO_PATH * p = al_create_path("stonesense/splash.png");
+        SplashImage = load_bitmap_withWarning(al_path_cstr(p, ALLEGRO_NATIVE_PATH_SEP));
+        al_destroy_path(p);
     }
 
     loadGraphicsFromDisk();
