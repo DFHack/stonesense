@@ -729,8 +729,8 @@ void readBlockColumnToSegment(DFHack::Core& DF, WorldSegment& segment,
                     t->tree_tile = tile;
                     if (raw)
                     {
-                        t->material.type = raw->material_defs.type_basic_mat;
-                        t->material.index = raw->material_defs.idx_basic_mat;
+                        t->material.type = raw->material_defs.type[plant_material_def::basic_mat];
+                        t->material.index = raw->material_defs.idx[plant_material_def::basic_mat];
                     }
                 }
             }
