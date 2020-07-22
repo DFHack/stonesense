@@ -81,5 +81,5 @@ If Stonesense gives an error saying that it can't load
 detail sprites used. Either open :file:`creatures/init.txt` and remove the
 line containing that folder, or :dffd:`use these smaller sprites <6096>`.
 
-Stonesense requires working graphics acceleration, and we recomend
+Stonesense requires working graphics acceleration, and we recommend
 at least a dual core CPU to avoid slowing down your game of DF.
