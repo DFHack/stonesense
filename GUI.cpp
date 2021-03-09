@@ -325,7 +325,7 @@ void draw_ustr_border(const ALLEGRO_FONT *font, ALLEGRO_COLOR color, float x, fl
 void draw_report_border(const ALLEGRO_FONT *font, float x, float y, int flags, const df::report * report)
 {
     ALLEGRO_COLOR color = ssConfig.colors.getDfColor(report->color, ssConfig.useDfColors);
-    draw_text_border(font, color, x, y, flags, report->text.c_str());
+    draw_text_border(font, color, x, y, flags, DF2UTF(report->text).c_str());
 }
 
 void draw_announcements(const ALLEGRO_FONT *font, float x, float y, int flags, std::vector<df::report *> &announcements)
