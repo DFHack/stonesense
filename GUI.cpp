@@ -1106,6 +1106,8 @@ void DoSpriteIndexOverlay()
 
 void paintboard()
 {
+    CoreSuspender suspend;
+
     //do the starting timer stuff
     clock_t starttime = clock();
 
