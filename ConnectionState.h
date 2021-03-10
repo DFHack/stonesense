@@ -12,7 +12,6 @@ public:
     RemoteFortressReader::BlockRequest net_block_request;
     dfproto::EmptyMessage empty_message;
     DFHack::RemoteFunction<dfproto::EmptyMessage, RemoteFortressReader::MaterialList> MaterialListCall;
-    DFHack::RemoteFunction<dfproto::EmptyMessage, RemoteFortressReader::MaterialList> GrowthListCall;
     DFHack::RemoteFunction<RemoteFortressReader::BlockRequest, RemoteFortressReader::BlockList> BlockListCall;
 
     ConnectionState();

@@ -13,7 +13,6 @@ ConnectionState::ConnectionState() {
     if (!is_connected) return;
 
     MaterialListCall.bind(network_client.get(), "GetMaterialList", "RemoteFortressReader");
-    GrowthListCall.bind(network_client.get(), "GetGrowthList", "RemoteFortressReader");
     BlockListCall.bind(network_client.get(), "GetBlockList", "RemoteFortressReader");
 }
 

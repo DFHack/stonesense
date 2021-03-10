@@ -88,7 +88,6 @@ bool ContentLoader::Load()
     if (connection_state)
     {
         connection_state->MaterialListCall(&(connection_state->empty_message), &materialNameList);
-        connection_state->GrowthListCall(&(connection_state->empty_message), &growthNameList);
         connection_state->Disconnect();
     }
 
@@ -108,25 +107,6 @@ bool ContentLoader::Load()
                 materialNameList.material_list(i).state_color().red(),
                 materialNameList.material_list(i).state_color().green(),
                 materialNameList.material_list(i).state_color().blue());
-        }
-        fclose(fp);
-    }
-    draw_loading_message("Reading Growth Names");
-    remove("GrowthList.csv");
-    fp = fopen("GrowthList.csv", "a");
-    if (fp) {
-        fprintf(fp, "#;mat_type;mat_index;id;name;color\n");
-        for (int i = 0; i < growthNameList.material_list_size(); i++)
-        {
-            fprintf(fp, "%d;%d;%d;%s;%s;#%02X%02X%02X\n",
-                i,
-                growthNameList.material_list(i).mat_pair().mat_type(),
-                growthNameList.material_list(i).mat_pair().mat_index(),
-                growthNameList.material_list(i).id().c_str(),
-                growthNameList.material_list(i).name().c_str(),
-                growthNameList.material_list(i).state_color().red(),
-                growthNameList.material_list(i).state_color().green(),
-                growthNameList.material_list(i).state_color().blue());
         }
         fclose(fp);
     }

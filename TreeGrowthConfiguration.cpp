@@ -38,9 +38,9 @@ void parseGrowthElement(TiXmlElement* elemGrowthSprite, MaterialMatcher<c_sprite
         if (elemToken && elemToken[0])
         {
             if (bottomLayer)
-                growthBottomConfigs.set(sprite, elemToken, contentLoader->growthNameList.mutable_material_list());
+                growthBottomConfigs.set_growth(sprite, elemToken);
             else
-                growthTopConfigs.set(sprite, elemToken, contentLoader->growthNameList.mutable_material_list());
+                growthTopConfigs.set_growth(sprite, elemToken);
 
         }
     }
