@@ -279,7 +279,7 @@ void AssembleCreature(int drawx, int drawy, SS_Unit* creature, Tile * b)
 {
     c_sprite * sprite = GetCreatureSpriteMap( creature );
     if(sprite) {
-        sprite->assemble_world(creature->x,creature->y, creature->z, b);
+        sprite->assemble_world(creature->origin->pos.x,creature->origin->pos.y, creature->origin->pos.z, b);
     } else {
         df::creature_raw *raw = df::global::world->raws.creatures.all[creature->origin->race];
         int spritenum = raw->creature_tile;
@@ -509,11 +509,6 @@ void copyCreature(df::unit * source, SS_Unit & furball)
 
     //read creature from memory
 
-    // basic stuff
-    furball.x = source->pos.x;
-    furball.y = source->pos.y;
-    furball.z = source->pos.z;
-    furball.civ = source->civ_id;
     // custom profession
     furball.custom_profession = source->custom_profession;
     // profession
@@ -602,8 +597,8 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
         copyCreature(unit_ptr,*tempcreature);
 
         // add shadow to nearest floor tile
-        for (int bz = tempcreature->z; bz>=0; bz--) {
-            Tile * floor_tile = segment->getTile (tempcreature->x, tempcreature->y, bz );
+        for (int bz = tempcreature->origin->pos.z; bz>=0; bz--) {
+            Tile * floor_tile = segment->getTile (tempcreature->origin->pos.x, tempcreature->origin->pos.y, bz );
             if (!floor_tile) {
                 continue;
             }
@@ -701,7 +696,7 @@ CreatureConfiguration *GetCreatureConfig( SS_Unit* c )
     if (creatureData == nullptr) {
         return nullptr;
     }
-    int rando = randomCube[c->x%RANDOM_CUBE][c->y%RANDOM_CUBE][c->z%RANDOM_CUBE];
+    int rando = randomCube[c->origin->pos.x%RANDOM_CUBE][c->origin->pos.y%RANDOM_CUBE][c->origin->pos.z%RANDOM_CUBE];
     int offsetAnimFrame = (currentAnimationFrame + rando) % MAX_ANIMFRAME;
 
     num = (uint32_t)creatureData->size();
