@@ -299,13 +299,6 @@ struct SS_Unit{
     uint16_t profession;
     std::string custom_profession;
 
-    uint32_t stress_level;
-    df::unit_attribute strength;
-    df::unit_attribute agility;
-    df::unit_attribute toughness;
-    df::unit_attribute endurance;
-    df::unit_attribute recuperation;
-    df::unit_attribute disease_resistance;
     int32_t squad_leader_id;
     uint32_t nbcolors;
     uint32_t color[DFHack::Units::MAX_COLORS];

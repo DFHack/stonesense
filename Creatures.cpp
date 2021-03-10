@@ -315,19 +315,20 @@ void DrawCreatureText(int drawx, int drawy, SS_Unit* creature )
 
     //if(ssConfig.show_creature_happiness)
     if(ssConfig.show_creature_moods && df::creature_raw::find(creature->origin->race)->caste[creature->origin->caste]->flags.is_set(caste_raw_flags::CAN_SPEAK)) {
-        if(creature->stress_level <= 0) {
+        auto stress_level = creature->origin->status.current_soul ? creature->origin->status.current_soul->personality.stress_level : 0;
+        if(stress_level <= 0) {
             statusIcons.push_back(0);
-        } else if(creature->stress_level >= 1 && creature->stress_level <= 30000) {
+        } else if(stress_level <= 30000) {
             statusIcons.push_back(1);
-        } else if(creature->stress_level >= 30001 && creature->stress_level <= 60000) {
+        } else if(stress_level <= 60000) {
             statusIcons.push_back(2);
-        } else if(creature->stress_level >= 60001 && creature->stress_level <= 100000) {
+        } else if(stress_level <= 100000) {
             statusIcons.push_back(3);
-        } else if(creature->stress_level >= 100001 && creature->stress_level <= 250000) {
+        } else if(stress_level <= 250000) {
             statusIcons.push_back(4);
-        } else if(creature->stress_level >= 250001 && creature->stress_level <= 500000) {
+        } else if(stress_level <= 500000) {
             statusIcons.push_back(5);
-        } else if(creature->stress_level >= 500001) {
+        } else {
             statusIcons.push_back(6);
         }
 
@@ -515,15 +516,6 @@ void copyCreature(df::unit * source, SS_Unit & furball)
     furball.profession = source->profession;
     //figure out legendary status
     furball.isLegend = hasLegendarySkill(source);
-    // stress level
-    furball.stress_level = source->status.current_soul ? source->status.current_soul->personality.stress_level : 0;
-    // physical attributes
-    furball.strength = source->body.physical_attrs[physical_attribute_type::STRENGTH];
-    furball.agility = source->body.physical_attrs[physical_attribute_type::AGILITY];
-    furball.toughness = source->body.physical_attrs[physical_attribute_type::TOUGHNESS];
-    furball.endurance = source->body.physical_attrs[physical_attribute_type::ENDURANCE];
-    furball.recuperation = source->body.physical_attrs[physical_attribute_type::RECUPERATION];
-    furball.disease_resistance = source->body.physical_attrs[physical_attribute_type::DISEASE_RESISTANCE];
 
     // appearance
     furball.nbcolors = source->appearance.colors.size();
