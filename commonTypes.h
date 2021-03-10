@@ -303,12 +303,6 @@ struct SS_Unit{
     uint16_t profession;
     std::string custom_profession;
 
-    struct {
-        bool active;
-        uint32_t jobId;
-        uint8_t jobType;
-    } current_job;
-
     uint32_t stress_level;
     df::unit_attribute strength;
     df::unit_attribute agility;

@@ -347,17 +347,17 @@ void DrawCreatureText(int drawx, int drawy, SS_Unit* creature )
             statusIcons.push_back(18);
         }
 
-        if(creature->current_job.active && creature->current_job.jobType == 21) {
+        if(creature->origin->job.current_job && creature->origin->job.current_job->job_type == job_type::Sleep) {
             statusIcons.push_back(16);
-        } else if(creature->current_job.active && creature->current_job.jobType == 52) {
+        } else if(creature->origin->job.current_job && creature->origin->job.current_job->job_type == job_type::Rest) {
             statusIcons.push_back(17);
         }
     }
 
     unsigned int offsety = 0;
 
-    if(ssConfig.show_creature_jobs && creature->current_job.active) {
-        df::job_type jtype = (df::job_type) creature->current_job.jobType;
+    if(ssConfig.show_creature_jobs && creature->origin->job.current_job) {
+        df::job_type jtype = creature->origin->job.current_job->job_type;
 
         const char* jname = ENUM_ATTR(job_type,caption,jtype);
 
@@ -389,7 +389,7 @@ void DrawCreatureText(int drawx, int drawy, SS_Unit* creature )
             "%s", jname );
     }
 
-    offsety += (ssConfig.show_creature_jobs&&creature->current_job.active) ? al_get_font_line_height(font) : 0;
+    offsety += (ssConfig.show_creature_jobs&&creature->origin->job.current_job) ? al_get_font_line_height(font) : 0;
 
     if( ssConfig.show_creature_names ) {
         ALLEGRO_COLOR textcol;
@@ -554,14 +554,6 @@ void copyCreature(df::unit * source, SS_Unit & furball)
 
     for(uint32_t i = 0; i < furball.nbcolors; i++) {
         furball.color[i] = source->appearance.colors[i];
-    }
-    df::job* unit_job = source->job.current_job;
-    if(unit_job == NULL) {
-        furball.current_job.active = false;
-    } else {
-        furball.current_job.active = true;
-        furball.current_job.jobType = unit_job->job_type;
-        furball.current_job.jobId = unit_job->id;
     }
 
     std::vector<Units::NoblePosition> np;
