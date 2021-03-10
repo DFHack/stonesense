@@ -45,16 +45,50 @@ SET(PROJECT_SRCS
 )
 
 #proto files to include.
-SET(PROJECT_PROTO
-    ${CMAKE_CURRENT_SOURCE_DIR}/../proto/RemoteFortressReader.pb.cc
-    ${CMAKE_CURRENT_SOURCE_DIR}/../proto/ItemdefInstrument.pb.cc
+SET(PROJECT_HDRS
+    BuildingConfiguration.h
+    ColorConfiguration.h
+    common.h
+    commonTypes.h
+    ConditionalSprite.h
+    Config.h
+    ConnectionState.h
+    Constructions.h
+    ContentBuildingReader.h
+    ContentLoader.h
+    CreatureConfiguration.h
+    Creatures.h
+    DumpInfo.h
+    EnumToString.h
+    FluidConfiguration.h
+    GameBuildings.h
+    GroundMaterialConfiguration.h
+    GUI.h
+    ItemConfiguration.h
+    MapLoading.h
+    MaterialMatcher.h
+    OcclusionTest.h
+    Overlay.h
+    SegmentProcessing.h
+    SpriteColors.h
+    SpriteMaps.h
+    SpriteObjects.h
+    Tile.h
+    TileCondition.h
+    TileDirection.h
+    TileTree.h
+    TiletypeMatcher.h
+    TrackingModes.h
+    TreeGrowthConfiguration.h
+    UserInput.h
+    VegetationConfiguration.h
+    WorldSegment.h
 )
 
 SET_SOURCE_FILES_PROPERTIES( ${PROJECT_HDRS} PROPERTIES HEADER_FILE_ONLY TRUE)
-SET_SOURCE_FILES_PROPERTIES( ${PROJECT_PROTO} PROPERTIES GENERATED TRUE)
 
 # mash them together (headers are marked as headers and nothing will try to compile them)
-LIST(APPEND PROJECT_SRCS ${PROJECT_HDRS};${PROJECT_PROTO})
+LIST(APPEND PROJECT_SRCS ${PROJECT_HDRS})
 
 IF(UNIX)
     IF(APPLE)
@@ -237,11 +271,6 @@ if(UNIX AND "${CMAKE_CXX_COMPILER_VERSION}" VERSION_GREATER 6.0)
 endif()
 
 DFHACK_PLUGIN(stonesense ${PROJECT_SRCS} LINK_LIBRARIES ${DFHACK_TINYXML} ${PROJECT_LIBS} COMPILE_FLAGS_MSVC "/FI\"Export.h\" /wd4312 /wd4996 /wd4251" COMPILE_FLAGS_GCC "-include Export.h ${STONESENSE_GCC_FLAGS}")
-
-# Make sure the source is generated before the executable builds.
-ADD_DEPENDENCIES(stonesense generate_proto)
-
-TARGET_LINK_LIBRARIES(stonesense protobuf-lite ${PROJECT_LIBS})
 
 IF(MSVC)
     # Ignore unhelpful warnings about debug symbols being missing.

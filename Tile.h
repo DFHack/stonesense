@@ -7,7 +7,6 @@
 #include "df/plant_tree_tile.h"
 #include "df/tile_liquid_flow_dir.h"
 #include "df/tile_occupancy.h"
-#include "RemoteFortressReader.pb.h"
 #include <vector>
 
 class WorldSegment;

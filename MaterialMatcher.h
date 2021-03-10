@@ -1,6 +1,5 @@
 #pragma once
 
-#include "RemoteFortressReader.pb.h"
 #include "Types.h"
 #include <map>
 #include <string>

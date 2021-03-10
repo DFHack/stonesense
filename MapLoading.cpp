@@ -411,29 +411,6 @@ SS_Item ConvertItem(df::item * found_item, WorldSegment& segment){
     return Tempitem;
 }
 
-/**
-* reads one 16x16 block pulled over RPC into stonesense tiles
-*/
-void readRemoteBlockToSegment(RemoteFortressReader::MapBlock &block, WorldSegment& segment)
-{
-    for (int xx = 0; xx < BLOCKEDGESIZE; xx++)
-    for (int yy = 0; yy < BLOCKEDGESIZE; yy++)
-    {
-        int32_t x = xx + block.map_x();
-        int32_t y = yy + block.map_y();
-        int32_t z = block.map_z();
-
-        int32_t index = xx + (yy * BLOCKEDGESIZE);
-
-        Tile * t = segment.getTile(x, y, z);
-        if (!t)
-            continue;
-        t->tileType = (tiletype::tiletype)block.tiles(index);
-        t->material.index = block.materials(index).mat_index();
-        t->material.type = block.materials(index).mat_type();
-    }
-}
-
 
 /**
 * reads one 16x16 map block into stonesense tiles
@@ -908,29 +885,6 @@ void readMapSegment(WorldSegment* segment, GameState inState)
         }
         firstTileToReadX = lastTileToReadX + 1;
     }
-
-    ////Fetch things through RPC. eventually everything should go here, but not yet.
-    //if (!connection_state)
-    //{
-    //    connection_state = new ConnectionState();
-    //    connection_state->Connect();
-    //}
-    //if (connection_state)
-    //{
-    //    connection_state->net_block_request.set_min_x(inState.Position.x / BLOCKEDGESIZE);
-    //    connection_state->net_block_request.set_min_y(inState.Position.y / BLOCKEDGESIZE);
-    //    connection_state->net_block_request.set_min_y(inState.Position.z - inState.Size.z);
-    //    connection_state->net_block_request.set_max_x((inState.Position.x + inState.Size.x) / BLOCKEDGESIZE);
-    //    connection_state->net_block_request.set_max_y((inState.Position.y + inState.Size.y) / BLOCKEDGESIZE);
-    //    connection_state->net_block_request.set_max_z(inState.Position.z+1);
-    //    connection_state->BlockListCall(&connection_state->net_block_request, &connection_state->net_block_list);
-    //
-    //    for (int i = 0; i < connection_state->net_block_list.map_blocks_size(); i++)
-    //    {
-    //        readRemoteBlockToSegment(*connection_state->net_block_list.mutable_map_blocks(i), *segment);
-    //    }
-
-    //}
 
     //merge buildings with segment
     if(!ssConfig.skipBuildings) {

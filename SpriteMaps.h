@@ -3,7 +3,6 @@
 #include "common.h"
 #include "SpriteObjects.h"
 #include "TileTree.h"
-#include "RemoteFortressReader.pb.h"
 
 enum enumFloorSprites {
     SPRITEFLOOR_NA = 0,
