@@ -331,19 +331,19 @@ void DrawCreatureText(int drawx, int drawy, SS_Unit* creature )
             statusIcons.push_back(6);
         }
 
-        if(creature->mood == 0) {
+        if(creature->origin->mood == mood_type::Fey) {
             statusIcons.push_back(19);
-        } else if(creature->mood == 1) {
+        } else if(creature->origin->mood == mood_type::Secretive) {
             statusIcons.push_back(19);
-        } else if(creature->mood == 2) {
+        } else if(creature->origin->mood == mood_type::Possessed) {
             statusIcons.push_back(21);
-        } else if(creature->mood == 3) {
+        } else if(creature->origin->mood == mood_type::Macabre) {
             statusIcons.push_back(19);
-        } else if(creature->mood == 4) {
+        } else if(creature->origin->mood == mood_type::Fell) {
             statusIcons.push_back(19);
-        } else if(creature->mood == 5) {
+        } else if(creature->origin->mood == mood_type::Melancholy) {
             statusIcons.push_back(18);
-        } else if(creature->mood == 6) {
+        } else if(creature->origin->mood == mood_type::Raving) {
             statusIcons.push_back(18);
         }
 
@@ -530,14 +530,6 @@ void copyCreature(df::unit * source, SS_Unit & furball)
     furball.recuperation = source->body.physical_attrs[physical_attribute_type::RECUPERATION];
     furball.disease_resistance = source->body.physical_attrs[physical_attribute_type::DISEASE_RESISTANCE];
 
-    // mood stuff
-    furball.mood = source->mood;
-    furball.mood_skill = source->job.mood_skill;
-    Translation::readName(furball.artifact_name, &source->status.artifact_name);
-
-    furball.birth_year = source->birth_year;
-    furball.birth_time = source->birth_time;
-    furball.pregnancy_timer = source->pregnancy_timer;
     // appearance
     furball.nbcolors = source->appearance.colors.size();
     if(furball.nbcolors > DFHack::Units::MAX_COLORS)

@@ -300,10 +300,6 @@ struct SS_Unit{
     uint16_t z;
     int32_t civ;
 
-    int16_t mood;
-    int16_t mood_skill;
-    DFHack::t_name artifact_name;
-
     uint16_t profession;
     std::string custom_profession;
 
@@ -321,17 +317,11 @@ struct SS_Unit{
     df::unit_attribute recuperation;
     df::unit_attribute disease_resistance;
     int32_t squad_leader_id;
-    uint32_t pregnancy_timer; //Countdown timer to giving birth
-    //bool has_default_soul;
-    //t_soul defaultSoul;
     uint32_t nbcolors;
     uint32_t color[DFHack::Units::MAX_COLORS];
 
     hairstyles hairstyle[hairtypes_end];
     uint32_t hairlength[hairtypes_end];
-
-    int32_t birth_year;
-    uint32_t birth_time;
 
     bool isLegend;
     std::unique_ptr<unit_inventory> inv;
