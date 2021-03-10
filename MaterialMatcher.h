@@ -4,6 +4,8 @@
 #include <map>
 #include <string>
 
+#include "modules/Materials.h"
+
 #include "df/builtin_mats.h"
 #include "df/creature_raw.h"
 #include "df/plant_growth.h"
@@ -61,6 +63,7 @@ T* MaterialMatcher<T>::get(DFHack::t_matglossPair matPair)
 template<class T>
 void MaterialMatcher<T>::set_material(T input, std::string token)
 {
+    using DFHack::MaterialInfo;
     using df::global::world;
     MaterialInfo mat;
     for (size_t i = 0; i < world->raws.inorganics.size(); i++)

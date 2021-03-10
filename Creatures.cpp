@@ -23,6 +23,7 @@
 #include "df/creature_raw.h"
 #include "df/caste_raw.h"
 
+#include "modules/Job.h"
 #include "modules/Units.h"
 #include "df/historical_entity.h"
 #include "df/entity_position.h"
@@ -358,9 +359,7 @@ void DrawCreatureText(int drawx, int drawy, SS_Unit* creature )
     unsigned int offsety = 0;
 
     if(ssConfig.show_creature_jobs && creature->origin->job.current_job) {
-        df::job_type jtype = creature->origin->job.current_job->job_type;
-
-        const char* jname = ENUM_ATTR(job_type,caption,jtype);
+        std::string jname = DF2UTF(Job::getName(creature->origin->job.current_job));
 
         //CAN'T DO THIS UNTIL DFHack t_job IMPORTS MATERIAL TYPE???
         //df::job_skill jskill = ENUM_ATTR(job_type,skill,jtype);
@@ -384,10 +383,10 @@ void DrawCreatureText(int drawx, int drawy, SS_Unit* creature )
         //}
 
         //go all kinds of crazy if it is a strange mood
-        ALLEGRO_COLOR textcol = ENUM_ATTR(job_type,type,jtype) == df::job_type_class::StrangeMood
+        ALLEGRO_COLOR textcol = ENUM_ATTR(job_type,type, creature->origin->job.current_job->job_type) == df::job_type_class::StrangeMood
             ? blinkTechnicolor() : al_map_rgb(255,255,255);
         draw_textf_border(font, textcol, drawx, drawy-((WALLHEIGHT*ssConfig.scale)+al_get_font_line_height(font) + offsety), 0,
-            "%s", jname );
+            "%s", jname.c_str() );
     }
 
     offsety += (ssConfig.show_creature_jobs&&creature->origin->job.current_job) ? al_get_font_line_height(font) : 0;
