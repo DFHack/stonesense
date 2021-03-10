@@ -1040,19 +1040,6 @@ ALLEGRO_BITMAP * CreateSpriteFromSheet( int spriteNum, ALLEGRO_BITMAP* spriteShe
     return al_create_sub_bitmap(spriteSheet, sheetx * SPRITEWIDTH, sheety * SPRITEHEIGHT, SPRITEWIDTH, SPRITEHEIGHT);
 }
 
-void DrawMaterialOverlay(int x, int y, int start, int count)
-{
-    int end = start + count;
-    if (end > contentLoader->materialNameList.material_list_size())
-        end = contentLoader->materialNameList.material_list_size();
-    ALLEGRO_BITMAP * target = al_get_target_bitmap();
-
-    for (int i = start; i < end; i++)
-    {
-        draw_textf_border(font, uiColor(1), x + 5, y*al_get_font_line_height(font), 0, "%s", contentLoader->materialNameList.material_list(i).id().c_str());
-    }
-}
-
 void DrawSpriteIndexOverlay(int imageIndex)
 {
     ALLEGRO_BITMAP* currentImage;

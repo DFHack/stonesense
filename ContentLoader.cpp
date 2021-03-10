@@ -83,34 +83,6 @@ bool ContentLoader::Load()
     shrubConfigs.clear();
     flushImgFiles();
 
-    //pull all the material names through the RPC stuff. Mostly a test at this point.
-    auto connection_state = ConnectionState::Connect();
-    if (connection_state)
-    {
-        connection_state->MaterialListCall(&(connection_state->empty_message), &materialNameList);
-        connection_state->Disconnect();
-    }
-
-    draw_loading_message("Reading Material Names");
-    remove("MatList.csv");
-    FILE* fp = fopen("MatList.csv", "a");
-    if (fp) {
-        fprintf(fp, "#;mat_type;mat_index;id;name;color\n");
-        for (int i = 0; i < materialNameList.material_list_size(); i++)
-        {
-            fprintf(fp, "%d;%d;%d;%s;%s;#%02X%02X%02X\n",
-                i,
-                materialNameList.material_list(i).mat_pair().mat_type(),
-                materialNameList.material_list(i).mat_pair().mat_index(),
-                materialNameList.material_list(i).id().c_str(),
-                materialNameList.material_list(i).name().c_str(),
-                materialNameList.material_list(i).state_color().red(),
-                materialNameList.material_list(i).state_color().green(),
-                materialNameList.material_list(i).state_color().blue());
-        }
-        fclose(fp);
-    }
-
     // This is an extra suspend/resume, but it only happens when reloading the config
     // ie not enough to worry about
     //DF.Suspend();

@@ -5,6 +5,8 @@
 #include <map>
 #include <string>
 
+#include "df/builtin_mats.h"
+#include "df/creature_raw.h"
 #include "df/plant_growth.h"
 #include "df/plant_raw.h"
 #include "df/world.h"
@@ -19,9 +21,10 @@ private:
         int difference;
     };
     std::map<DFHack::t_matglossPair, MaterialMatch> matList;
+    void check_match(T input, std::string token, std::string id, int16_t type, int32_t index);
 public:
     T* get(DFHack::t_matglossPair);
-    int set(T input, std::string token, google::protobuf::RepeatedPtrField< ::RemoteFortressReader::MaterialDefinition >* matTokenList);
+    void set_material(T input, std::string token);
     void set_growth(T input, std::string token);
 
     //Wipes the slate clean
@@ -34,6 +37,21 @@ int FuzzyCompare(std::string source, std::string target);
 //--------------------------------------------------------
 
 template<class T>
+void MaterialMatcher<T>::check_match(T input, std::string token, std::string id, int16_t type, int32_t index)
+{
+    DFHack::t_matglossPair pair;
+    pair.type = type;
+    pair.index = index;
+
+    int match = FuzzyCompare(token, id);
+    if (match >= 0 && (!matList.count(pair) || matList.at(pair).difference > match))
+    {
+        matList[pair].item = input;
+        matList[pair].difference = match;
+    }
+}
+
+template<class T>
 T* MaterialMatcher<T>::get(DFHack::t_matglossPair matPair)
 {
     if (matList.count(matPair))
@@ -42,27 +60,44 @@ T* MaterialMatcher<T>::get(DFHack::t_matglossPair matPair)
 }
 
 template<class T>
-int MaterialMatcher<T>::set(T input, std::string token, google::protobuf::RepeatedPtrField< ::RemoteFortressReader::MaterialDefinition >* matTokenList)
+void MaterialMatcher<T>::set_material(T input, std::string token)
 {
-    int count = 0;
-    for (int i = 0; i < matTokenList->size(); i++)
+    using df::global::world;
+    MaterialInfo mat;
+    for (size_t i = 0; i < world->raws.inorganics.size(); i++)
     {
-        int match = FuzzyCompare(token, matTokenList->Get(i).id());
-        if (match < 0)
-            continue;
-        DFHack::t_matglossPair pair;
-        pair.index = matTokenList->Get(i).mat_pair().mat_index();
-        pair.type = matTokenList->Get(i).mat_pair().mat_type();
-        if (matList.count(pair))
-        {
-            if (matList[pair].difference <= match) //dont't overwrite old ones that are equal.
-                continue;
-        }
-        matList[pair].item = input;
-        matList[pair].difference = match;
-        count++;
+        mat.decode(0, i);
+        check_match(input, token, mat.getToken(), 0, i);
     }
-    return 0;
+    FOR_ENUM_ITEMS(builtin_mats, i)
+    {
+        int k = -1;
+        if (i == builtin_mats::COAL)
+            k = 1;
+        for (int j = -1; j <= k; j++)
+        {
+            mat.decode(i, j);
+            check_match(input, token, mat.getToken(), i, j);
+        }
+    }
+    for (size_t i = 0; i < world->raws.creatures.all.size(); i++)
+    {
+        auto creature = world->raws.creatures.all.at(i);
+        for (size_t j = 0; j < creature->material.size(); j++)
+        {
+            mat.decode(j + MaterialInfo::CREATURE_BASE, i);
+            check_match(input, token, mat.getToken(), j + MaterialInfo::CREATURE_BASE, i);
+        }
+    }
+    for (size_t i = 0; i < world->raws.plants.all.size(); i++)
+    {
+        auto plant = world->raws.plants.all.at(i);
+        for (size_t j = 0; j < plant->material.size(); j++)
+        {
+            mat.decode(j + MaterialInfo::PLANT_BASE, i);
+            check_match(input, token, mat.getToken(), j + MaterialInfo::PLANT_BASE, i);
+        }
+    }
 }
 
 template<class T>
@@ -86,16 +121,8 @@ void MaterialMatcher<T>::set_growth(T input, std::string token)
         auto pp = world->raws.plants.all.at(i);
         if (!pp)
             continue;
-        DFHack::t_matglossPair pair;
-        pair.type = -1;
-        pair.index = int32_t(i);
 
-        int match = FuzzyCompare(token, pp->id + ":BASE");
-        if (match >= 0 && (!matList.count(pair) || matList.at(pair).difference > match))
-        {
-            matList[pair].item = input;
-            matList[pair].difference = match;
-        }
+        check_match(input, token, pp->id + ":BASE", -1, int32_t(i));
 
         for (size_t g = 0; g < pp->growths.size(); g++)
         {
@@ -104,14 +131,7 @@ void MaterialMatcher<T>::set_growth(T input, std::string token)
                 continue;
             for (int l = 0; l < (sizeof(growth_locations) / sizeof(growth_locations[0])); l++)
             {
-                pair.type = g * 10 + l;
-
-                match = FuzzyCompare(token, pp->id + ":" + growth->id + ":" + growth_locations[l]);
-                if (match >= 0 && (!matList.count(pair) || matList.at(pair).difference > match))
-                {
-                    matList[pair].item = input;
-                    matList[pair].difference = match;
-                }
+                check_match(input, token, pp->id + ":" + growth->id + ":" + growth_locations[l], g * 10 + l, int32_t(i));
             }
         }
     }

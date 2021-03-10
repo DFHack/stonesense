@@ -12,7 +12,6 @@ ConnectionState::ConnectionState() {
     is_connected = network_client->connect();
     if (!is_connected) return;
 
-    MaterialListCall.bind(network_client.get(), "GetMaterialList", "RemoteFortressReader");
     BlockListCall.bind(network_client.get(), "GetBlockList", "RemoteFortressReader");
 }
 

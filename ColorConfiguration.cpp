@@ -65,7 +65,7 @@ void parseColorElement(TiXmlElement* elemColor, vector<ColorConfiguration> & con
         const char* elemToken = elemMaterial->Attribute("token");
         if (elemToken && elemToken[0])
         {
-            materialConfig.set(color, elemToken, contentLoader->materialNameList.mutable_material_list());
+            materialConfig.set_material(color, elemToken);
             continue;
         }
         // get material type

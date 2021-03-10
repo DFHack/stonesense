@@ -61,7 +61,6 @@ public:
     std::vector<std::vector<std::vector<int32_t>*>*> style_indices;
     std::vector<std::vector<int32_t>*> position_Indices;
 
-    RemoteFortressReader::MaterialList materialNameList;
     std::vector<std::string> professionStrings;
     std::map <uint32_t, std::string> custom_workshop_types;
     DFHack::Materials * Mats;
