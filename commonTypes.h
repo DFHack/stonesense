@@ -312,8 +312,6 @@ struct SS_Unit{
     df::unit_flags2 flags2;
     df::unit_flags3 flags3;
 
-    DFHack::t_name name;
-
     int16_t mood;
     int16_t mood_skill;
     DFHack::t_name artifact_name;

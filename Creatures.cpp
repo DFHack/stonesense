@@ -410,14 +410,14 @@ void DrawCreatureText(int drawx, int drawy, SS_Unit* creature )
             textcol = al_map_rgb(255,255,255);
         }
 
-        if (creature->name.nickname[0] && ssConfig.names_use_nick) {
+        if (!creature->origin->name.nickname.empty() && ssConfig.names_use_nick) {
             draw_textf_border(font, textcol, drawx, drawy-((WALLHEIGHT*ssConfig.scale)+al_get_font_line_height(font) + offsety), 0,
-                              "%s", creature->name.nickname );
+                              "%s", DF2UTF(creature->origin->name.nickname).c_str());
         }
-        else if (creature->name.first_name[0])
+        else if (!creature->origin->name.first_name.empty())
         {
             char buffer[128];
-            strncpy(buffer,creature->name.first_name,127);
+            strncpy(buffer,creature->origin->name.first_name.c_str(),127);
             buffer[127]=0;
             ALLEGRO_USTR* temp = bufferToUstr(buffer, 128);
             al_ustr_set_chr(temp, 0, charToUpper(al_ustr_get(temp, 0)));
@@ -508,8 +508,6 @@ void copyCreature(df::unit * source, SS_Unit & furball)
     furball.origin = source;
 
     //read creature from memory
-    // name
-    Translation::readName(furball.name, &source->name);
 
     // basic stuff
     furball.id = source->id;
