@@ -74,7 +74,7 @@ void MaterialMatcher<T>::set_material(T input, std::string token)
     FOR_ENUM_ITEMS(builtin_mats, i)
     {
         int k = -1;
-        if (i == builtin_mats::COAL)
+        if (i == df::builtin_mats::COAL)
             k = 1;
         for (int j = -1; j <= k; j++)
         {
@@ -131,7 +131,7 @@ void MaterialMatcher<T>::set_growth(T input, std::string token)
             auto growth = pp->growths[g];
             if (!growth)
                 continue;
-            for (int l = 0; l < (sizeof(growth_locations) / sizeof(growth_locations[0])); l++)
+            for (int l = 0; l < int(sizeof(growth_locations) / sizeof(growth_locations[0])); l++)
             {
                 check_match(input, token, pp->id + ":" + growth->id + ":" + growth_locations[l], g * 10 + l, int32_t(i));
             }

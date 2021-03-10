@@ -680,7 +680,7 @@ CreatureConfiguration *GetCreatureConfig( SS_Unit* c )
 {
     //find list for creature type
     uint32_t num = (uint32_t)contentLoader->creatureConfigs.size();
-    if (c->origin->race >= num) {
+    if (uint32_t(c->origin->race) >= num) {
         return nullptr;
     }
     std::unique_ptr<vector<CreatureConfiguration>>& creatureData = contentLoader->creatureConfigs[c->origin->race];
