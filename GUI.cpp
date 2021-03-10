@@ -569,7 +569,7 @@ void drawDebugInfo(WorldSegment * segment)
     int ttype;
     const char* tform = NULL;
     draw_textf_border(font, uiColor(1), 2, (i++*al_get_font_line_height(font)), 0,
-        "Tile: %s", contentLoader->tiletypeNameList.tiletype_list(b->tileType).name().c_str());
+        "Tile: %s", enum_item_key_str(b->tileType));
     if (b->tileShapeBasic() == tiletype_shape_basic::Floor) {
         ttype=b->tileType;
         tform="floor";

@@ -449,103 +449,103 @@ void arrangeTileBorders(WorldSegment * segment, Tile* b)
 
                 b->upstairborders = 0;
                 b->downstairborders = 0;
-                if(dir1) if(dir1->tileShape() == RemoteFortressReader::STAIR_UP) {
+                if(dir1) if(dir1->tileShape() == tiletype_shape::STAIR_UP) {
                     b->upstairborders |= 1;
                 }
-                if(dir2) if(dir2->tileShape() == RemoteFortressReader::STAIR_UP) {
+                if(dir2) if(dir2->tileShape() == tiletype_shape::STAIR_UP) {
                     b->upstairborders |= 2;
                 }
-                if(dir3) if(dir3->tileShape() == RemoteFortressReader::STAIR_UP) {
+                if(dir3) if(dir3->tileShape() == tiletype_shape::STAIR_UP) {
                     b->upstairborders |= 4;
                 }
-                if(dir4) if(dir4->tileShape() == RemoteFortressReader::STAIR_UP) {
+                if(dir4) if(dir4->tileShape() == tiletype_shape::STAIR_UP) {
                     b->upstairborders |= 8;
                 }
-                if(dir5) if(dir5->tileShape() == RemoteFortressReader::STAIR_UP) {
+                if(dir5) if(dir5->tileShape() == tiletype_shape::STAIR_UP) {
                     b->upstairborders |= 16;
                 }
-                if(dir6) if(dir6->tileShape() == RemoteFortressReader::STAIR_UP) {
+                if(dir6) if(dir6->tileShape() == tiletype_shape::STAIR_UP) {
                     b->upstairborders |= 32;
                 }
-                if(dir7) if(dir7->tileShape() == RemoteFortressReader::STAIR_UP) {
+                if(dir7) if(dir7->tileShape() == tiletype_shape::STAIR_UP) {
                     b->upstairborders |= 64;
                 }
-                if(dir8) if(dir8->tileShape() == RemoteFortressReader::STAIR_UP) {
+                if(dir8) if(dir8->tileShape() == tiletype_shape::STAIR_UP) {
                     b->upstairborders |= 128;
                 }
 
-                if(dir1) if(dir1->tileShape() == RemoteFortressReader::STAIR_UPDOWN) {
+                if(dir1) if(dir1->tileShape() == tiletype_shape::STAIR_UPDOWN) {
                     b->upstairborders |= 1;
                 }
-                if(dir2) if(dir2->tileShape() == RemoteFortressReader::STAIR_UPDOWN) {
+                if(dir2) if(dir2->tileShape() == tiletype_shape::STAIR_UPDOWN) {
                     b->upstairborders |= 2;
                 }
-                if(dir3) if(dir3->tileShape() == RemoteFortressReader::STAIR_UPDOWN) {
+                if(dir3) if(dir3->tileShape() == tiletype_shape::STAIR_UPDOWN) {
                     b->upstairborders |= 4;
                 }
-                if(dir4) if(dir4->tileShape() == RemoteFortressReader::STAIR_UPDOWN) {
+                if(dir4) if(dir4->tileShape() == tiletype_shape::STAIR_UPDOWN) {
                     b->upstairborders |= 8;
                 }
-                if(dir5) if(dir5->tileShape() == RemoteFortressReader::STAIR_UPDOWN) {
+                if(dir5) if(dir5->tileShape() == tiletype_shape::STAIR_UPDOWN) {
                     b->upstairborders |= 16;
                 }
-                if(dir6) if(dir6->tileShape() == RemoteFortressReader::STAIR_UPDOWN) {
+                if(dir6) if(dir6->tileShape() == tiletype_shape::STAIR_UPDOWN) {
                     b->upstairborders |= 32;
                 }
-                if(dir7) if(dir7->tileShape() == RemoteFortressReader::STAIR_UPDOWN) {
+                if(dir7) if(dir7->tileShape() == tiletype_shape::STAIR_UPDOWN) {
                     b->upstairborders |= 64;
                 }
-                if(dir8) if(dir8->tileShape() == RemoteFortressReader::STAIR_UPDOWN) {
+                if(dir8) if(dir8->tileShape() == tiletype_shape::STAIR_UPDOWN) {
                     b->upstairborders |= 128;
                 }
 
-                if(dir1) if(dir1->tileShape() == RemoteFortressReader::STAIR_UPDOWN) {
+                if(dir1) if(dir1->tileShape() == tiletype_shape::STAIR_UPDOWN) {
                     b->downstairborders |= 1;
                 }
-                if(dir2) if(dir2->tileShape() == RemoteFortressReader::STAIR_UPDOWN) {
+                if(dir2) if(dir2->tileShape() == tiletype_shape::STAIR_UPDOWN) {
                     b->downstairborders |= 2;
                 }
-                if(dir3) if(dir3->tileShape() == RemoteFortressReader::STAIR_UPDOWN) {
+                if(dir3) if(dir3->tileShape() == tiletype_shape::STAIR_UPDOWN) {
                     b->downstairborders |= 4;
                 }
-                if(dir4) if(dir4->tileShape() == RemoteFortressReader::STAIR_UPDOWN) {
+                if(dir4) if(dir4->tileShape() == tiletype_shape::STAIR_UPDOWN) {
                     b->downstairborders |= 8;
                 }
-                if(dir5) if(dir5->tileShape() == RemoteFortressReader::STAIR_UPDOWN) {
+                if(dir5) if(dir5->tileShape() == tiletype_shape::STAIR_UPDOWN) {
                     b->downstairborders |= 16;
                 }
-                if(dir6) if(dir6->tileShape() == RemoteFortressReader::STAIR_UPDOWN) {
+                if(dir6) if(dir6->tileShape() == tiletype_shape::STAIR_UPDOWN) {
                     b->downstairborders |= 32;
                 }
-                if(dir7) if(dir7->tileShape() == RemoteFortressReader::STAIR_UPDOWN) {
+                if(dir7) if(dir7->tileShape() == tiletype_shape::STAIR_UPDOWN) {
                     b->downstairborders |= 64;
                 }
-                if(dir8) if(dir8->tileShape() == RemoteFortressReader::STAIR_UPDOWN) {
+                if(dir8) if(dir8->tileShape() == tiletype_shape::STAIR_UPDOWN) {
                     b->downstairborders |= 128;
                 }
 
-                if(dir1) if(dir1->tileShape() == RemoteFortressReader::STAIR_DOWN) {
+                if(dir1) if(dir1->tileShape() == tiletype_shape::STAIR_DOWN) {
                     b->downstairborders |= 1;
                 }
-                if(dir2) if(dir2->tileShape() == RemoteFortressReader::STAIR_DOWN) {
+                if(dir2) if(dir2->tileShape() == tiletype_shape::STAIR_DOWN) {
                     b->downstairborders |= 2;
                 }
-                if(dir3) if(dir3->tileShape() == RemoteFortressReader::STAIR_DOWN) {
+                if(dir3) if(dir3->tileShape() == tiletype_shape::STAIR_DOWN) {
                     b->downstairborders |= 4;
                 }
-                if(dir4) if(dir4->tileShape() == RemoteFortressReader::STAIR_DOWN) {
+                if(dir4) if(dir4->tileShape() == tiletype_shape::STAIR_DOWN) {
                     b->downstairborders |= 8;
                 }
-                if(dir5) if(dir5->tileShape() == RemoteFortressReader::STAIR_DOWN) {
+                if(dir5) if(dir5->tileShape() == tiletype_shape::STAIR_DOWN) {
                     b->downstairborders |= 16;
                 }
-                if(dir6) if(dir6->tileShape() == RemoteFortressReader::STAIR_DOWN) {
+                if(dir6) if(dir6->tileShape() == tiletype_shape::STAIR_DOWN) {
                     b->downstairborders |= 32;
                 }
-                if(dir7) if(dir7->tileShape() == RemoteFortressReader::STAIR_DOWN) {
+                if(dir7) if(dir7->tileShape() == tiletype_shape::STAIR_DOWN) {
                     b->downstairborders |= 64;
                 }
-                if(dir8) if(dir8->tileShape() == RemoteFortressReader::STAIR_DOWN) {
+                if(dir8) if(dir8->tileShape() == tiletype_shape::STAIR_DOWN) {
                     b->downstairborders |= 128;
                 }
 
@@ -626,10 +626,10 @@ void addSegmentExtras(WorldSegment * segment)
 
         //Grass
         if(b->grasslevel > 0 && (
-            (b->tileMaterial() == RemoteFortressReader::GRASS_LIGHT) ||
-            (b->tileMaterial() == RemoteFortressReader::GRASS_DARK) ||
-            (b->tileMaterial() == RemoteFortressReader::GRASS_DEAD) ||
-            (b->tileMaterial() == RemoteFortressReader::GRASS_DRY))) {
+            (b->tileMaterial() == tiletype_material::GRASS_LIGHT) ||
+            (b->tileMaterial() == tiletype_material::GRASS_DARK) ||
+            (b->tileMaterial() == tiletype_material::GRASS_DEAD) ||
+            (b->tileMaterial() == tiletype_material::GRASS_DRY))) {
                 c_tile_tree * vegetationsprite = 0;
                 vegetationsprite = getVegetationTree(contentLoader->grassConfigs,b->grassmat,true,true);
                 if(vegetationsprite) {

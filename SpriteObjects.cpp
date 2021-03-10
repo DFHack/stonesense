@@ -984,12 +984,12 @@ void c_sprite::assemble_world_offset(int x, int y, int z, int plateoffset, Tile 
         }
         if(!((grassgrowth == GRASS_GROWTH_ANY) ||
                 ((grassgrowth == GRASS_GROWTH_NORMAL) &&
-                 ((b->tileMaterial() == RemoteFortressReader::GRASS_DARK) ||
-                  (b->tileMaterial() == RemoteFortressReader::GRASS_LIGHT))) ||
+                 ((b->tileMaterial() == tiletype_material::GRASS_DARK) ||
+                  (b->tileMaterial() == tiletype_material::GRASS_LIGHT))) ||
                 ((grassgrowth == GRASS_GROWTH_DRY) &&
-                 (b->tileMaterial() == RemoteFortressReader::GRASS_DRY)) ||
+                 (b->tileMaterial() == tiletype_material::GRASS_DRY)) ||
                 ((grassgrowth == GRASS_GROWTH_DEAD) &&
-                 (b->tileMaterial() == RemoteFortressReader::GRASS_DEAD)))) {
+                 (b->tileMaterial() == tiletype_material::GRASS_DEAD)))) {
             goto draw_subsprite;
         }
 

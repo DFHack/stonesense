@@ -1,14 +1,14 @@
 #pragma once
 
-#include "RemoteFortressReader.pb.h"
+#include "df/tiletype.h"
 
-const char* TiletypeShapeToString(RemoteFortressReader::TiletypeShape input);
-const char* TiletypeSpecialToString(RemoteFortressReader::TiletypeSpecial input);
-const char* TiletypeMaterialToString(RemoteFortressReader::TiletypeMaterial input);
-const char* TiletypeVariantToString(RemoteFortressReader::TiletypeVariant input);
+const char* TiletypeShapeToString(df::tiletype_shape input);
+const char* TiletypeSpecialToString(df::tiletype_special input);
+const char* TiletypeMaterialToString(df::tiletype_material input);
+const char* TiletypeVariantToString(df::tiletype_variant input);
 
-RemoteFortressReader::TiletypeShape StringToTiletypeShape(const char* input);
-RemoteFortressReader::TiletypeSpecial StringToTiletypeSpecial(const char* input);
-RemoteFortressReader::TiletypeMaterial StringToTiletypeMaterial(const char* input);
-RemoteFortressReader::TiletypeVariant StringToTiletypeVariant(const char* input);
+df::tiletype_shape StringToTiletypeShape(const char* input);
+df::tiletype_special StringToTiletypeSpecial(const char* input);
+df::tiletype_material StringToTiletypeMaterial(const char* input);
+df::tiletype_variant StringToTiletypeVariant(const char* input);
 

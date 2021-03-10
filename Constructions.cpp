@@ -23,7 +23,7 @@ void changeConstructionMaterials(WorldSegment* segment, vector<df::construction>
         if( !b ) {
             continue;
         }
-        if (b->tileMaterial() != RemoteFortressReader::CONSTRUCTION)
+        if (b->tileMaterial() != tiletype_material::CONSTRUCTION)
             continue;
         //don't assign invalid material indexes
         //if(construct->mat_idx != -1){

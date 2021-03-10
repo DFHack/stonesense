@@ -80,48 +80,49 @@ void parseWallFloorSpriteElement(TiXmlElement* elemWallFloorSprite, vector<std::
         elemTerrain;
         elemTerrain = elemTerrain->NextSiblingElement("terrain")) {
         //get a terrain type
-        int targetElem = INVALID_INDEX;
+        df::tiletype targetElem = df::tiletype(INVALID_INDEX);
         const char* gameIDstr = elemTerrain->Attribute("value");
         if (!(gameIDstr == NULL || gameIDstr[0] == 0))
         {
-            targetElem = atoi(gameIDstr);
+            targetElem = df::tiletype(atoi(gameIDstr));
         }
         if (targetElem >= 0)
         {
             char buf[500];
-            if (targetElem < contentLoader->tiletypeNameList.tiletype_list_size())
+            if (is_valid_enum_item(targetElem))
+            {
+                auto shape = ENUM_ATTR(tiletype, shape, targetElem);
+                auto special = ENUM_ATTR(tiletype, special, targetElem);
+                auto variant = ENUM_ATTR(tiletype, variant, targetElem);
+                auto material = ENUM_ATTR(tiletype, material, targetElem);
                 sprintf(buf, "Use of deprecated terrain value \"%d\", use one of the following instead:\n <terrain token = \"%s\" />\n <terrain%s%s%s%s%s%s%s%s%s%s%s%s />\n in element",
                 targetElem,
-                contentLoader->tiletypeNameList.tiletype_list(targetElem).name().c_str(),
-                contentLoader->tiletypeNameList.tiletype_list(targetElem).shape() == RemoteFortressReader::NO_SHAPE ? "" : " shape = \"",
-                contentLoader->tiletypeNameList.tiletype_list(targetElem).shape() == RemoteFortressReader::NO_SHAPE ? "" : TiletypeShapeToString(contentLoader->tiletypeNameList.tiletype_list(targetElem).shape()),
-                contentLoader->tiletypeNameList.tiletype_list(targetElem).shape() == RemoteFortressReader::NO_SHAPE ? "" : "\"",
-                contentLoader->tiletypeNameList.tiletype_list(targetElem).special() == RemoteFortressReader::NO_SPECIAL ? "" : " special = \"",
-                contentLoader->tiletypeNameList.tiletype_list(targetElem).special() == RemoteFortressReader::NO_SPECIAL ? "" : TiletypeSpecialToString(contentLoader->tiletypeNameList.tiletype_list(targetElem).special()),
-                contentLoader->tiletypeNameList.tiletype_list(targetElem).special() == RemoteFortressReader::NO_SPECIAL ? "" : "\"",
-                contentLoader->tiletypeNameList.tiletype_list(targetElem).variant() == RemoteFortressReader::NO_VARIANT ? "" : " variant = \"",
-                contentLoader->tiletypeNameList.tiletype_list(targetElem).variant() == RemoteFortressReader::NO_VARIANT ? "" : TiletypeVariantToString(contentLoader->tiletypeNameList.tiletype_list(targetElem).variant()),
-                contentLoader->tiletypeNameList.tiletype_list(targetElem).variant() == RemoteFortressReader::NO_VARIANT ? "" : "\"",
-                contentLoader->tiletypeNameList.tiletype_list(targetElem).material() == RemoteFortressReader::NO_MATERIAL ? "" : " material = \"",
-                contentLoader->tiletypeNameList.tiletype_list(targetElem).material() == RemoteFortressReader::NO_MATERIAL ? "" : TiletypeMaterialToString(contentLoader->tiletypeNameList.tiletype_list(targetElem).material()),
-                contentLoader->tiletypeNameList.tiletype_list(targetElem).material() == RemoteFortressReader::NO_MATERIAL ? "" : "\""
+                enum_item_key_str(targetElem),
+                shape == tiletype_shape::NONE ? "" : " shape = \"",
+                shape == tiletype_shape::NONE ? "" : enum_item_key_str(shape),
+                shape == tiletype_shape::NONE ? "" : "\"",
+                special == tiletype_special::NONE ? "" : " special = \"",
+                special == tiletype_special::NONE ? "" : enum_item_key_str(special),
+                special == tiletype_special::NONE ? "" : "\"",
+                variant == tiletype_variant::NONE ? "" : " variant = \"",
+                variant == tiletype_variant::NONE ? "" : enum_item_key_str(variant),
+                variant == tiletype_variant::NONE ? "" : "\"",
+                material == tiletype_material::NONE ? "" : " material = \"",
+                material == tiletype_material::NONE ? "" : enum_item_key_str(material),
+                material == tiletype_material::NONE ? "" : "\""
                 );
+            }
             else
                 sprintf(buf, "Terrain value \"%d\" is invalid", targetElem);
             contentError(buf, elemTerrain);
         }
         const char* gameTokenstr = elemTerrain->Attribute("token");
-        RemoteFortressReader::TiletypeShape elemShape = StringToTiletypeShape(elemTerrain->Attribute("shape"));
-        RemoteFortressReader::TiletypeSpecial elemSpecial = StringToTiletypeSpecial(elemTerrain->Attribute("special"));
-        RemoteFortressReader::TiletypeVariant elemVariant = StringToTiletypeVariant(elemTerrain->Attribute("variant"));
-        RemoteFortressReader::TiletypeMaterial elemMaterial = StringToTiletypeMaterial(elemTerrain->Attribute("material"));
+        df::tiletype_shape elemShape = StringToTiletypeShape(elemTerrain->Attribute("shape"));
+        df::tiletype_special elemSpecial = StringToTiletypeSpecial(elemTerrain->Attribute("special"));
+        df::tiletype_variant elemVariant = StringToTiletypeVariant(elemTerrain->Attribute("variant"));
+        df::tiletype_material elemMaterial = StringToTiletypeMaterial(elemTerrain->Attribute("material"));
 
-        int i = 0;
-        if (targetElem >= i)
-        {
-            i = targetElem;
-        }
-        for (int i = 0; i < contentLoader->tiletypeNameList.tiletype_list_size(); i++)
+        FOR_ENUM_ITEMS(tiletype, i)
         {
             bool valid = true;
             int matchness = INVALID_INDEX;
@@ -134,7 +135,7 @@ void parseWallFloorSpriteElement(TiXmlElement* elemWallFloorSprite, vector<std::
             }
             if (!(gameTokenstr == NULL || gameTokenstr[0] == 0))
             {
-                if (contentLoader->tiletypeNameList.tiletype_list(i).name() == gameTokenstr)
+                if (enum_item_key(i) == gameTokenstr)
                     matchness = 0;
                 else
                     valid = false;
@@ -142,30 +143,30 @@ void parseWallFloorSpriteElement(TiXmlElement* elemWallFloorSprite, vector<std::
             if (matchness != 0) //this means there's no exact match made.
             {
                 int partialMatch = 0;
-                if (elemShape != RemoteFortressReader::NO_SHAPE)
+                if (elemShape != tiletype_shape::NONE)
                 {
-                    if (contentLoader->tiletypeNameList.tiletype_list(i).shape() == elemShape)
+                    if (ENUM_ATTR(tiletype, shape, i) == elemShape)
                         partialMatch += PRIORITY_SHAPE;
                     else
                         valid = false;
                 }
-                if (elemSpecial != RemoteFortressReader::NO_SPECIAL)
+                if (elemSpecial != tiletype_special::NONE)
                 {
-                    if (contentLoader->tiletypeNameList.tiletype_list(i).special() == elemSpecial)
+                    if (ENUM_ATTR(tiletype, special, i) == elemSpecial)
                         partialMatch += PRIORITY_SPECIAL;
                     else
                         valid = false;
                 }
-                if (elemVariant != RemoteFortressReader::NO_VARIANT)
+                if (elemVariant != tiletype_variant::NONE)
                 {
-                    if (contentLoader->tiletypeNameList.tiletype_list(i).variant() == elemVariant)
+                    if (ENUM_ATTR(tiletype, variant, i) == elemVariant)
                         partialMatch += PRIORITY_VARIANT;
                     else
                         valid = false;
                 }
-                if (elemMaterial != RemoteFortressReader::NO_MATERIAL)
+                if (elemMaterial != tiletype_material::NONE)
                 {
-                    if (contentLoader->tiletypeNameList.tiletype_list(i).material() == elemMaterial)
+                    if (ENUM_ATTR(tiletype, material, i) == elemMaterial)
                         partialMatch += PRIORITY_MATERIAL;
                     else
                         valid = false;

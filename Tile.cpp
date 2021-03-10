@@ -296,9 +296,9 @@ void Tile::GetDrawLocation(int32_t& drawx, int32_t& drawy)
 void Tile::DrawGrowth(c_sprite * spriteobject, bool top=true)
 {
     //Draw Growths that appear over branches
-    if (tileMaterial() == RemoteFortressReader::ROOT
-        || tileMaterial() == RemoteFortressReader::TREE_MATERIAL
-        || tileMaterial() == RemoteFortressReader::MUSHROOM)
+    if (tileMaterial() == tiletype_material::ROOT
+        || tileMaterial() == tiletype_material::TREE
+        || tileMaterial() == tiletype_material::MUSHROOM)
     {
         df::plant_raw* plantRaw = df::global::world->raws.plants.all[tree.index];
         for (size_t i = 0; i < plantRaw->growths.size(); i++)
@@ -312,19 +312,19 @@ void Tile::DrawGrowth(c_sprite * spriteobject, bool top=true)
             if (growth->timing_2 >= 0 && growth->timing_2 < time)
                 continue;
             growth_locations loca = LOCATION_NONE;
-            if (growth->locations.bits.cap && tileMaterial() == RemoteFortressReader::MUSHROOM)
+            if (growth->locations.bits.cap && tileMaterial() == tiletype_material::MUSHROOM)
                 loca = LOCATION_CAP;
-            if (growth->locations.bits.heavy_branches && (tileShape() == RemoteFortressReader::BRANCH && tileType != df::tiletype::TreeBranches))
+            if (growth->locations.bits.heavy_branches && (tileShape() == tiletype_shape::BRANCH && tileType != df::tiletype::TreeBranches))
                 loca = LOCATION_HEAVY_BRANCHES;
-            if (growth->locations.bits.roots && tileMaterial() == RemoteFortressReader::ROOT)
+            if (growth->locations.bits.roots && tileMaterial() == tiletype_material::ROOT)
                 loca = LOCATION_ROOTS;
             if (growth->locations.bits.light_branches && tileType == df::tiletype::TreeBranches)
                 loca = LOCATION_LIGHT_BRANCHES;
-            if (growth->locations.bits.sapling && tileShape() == RemoteFortressReader::SAPLING)
+            if (growth->locations.bits.sapling && tileShape() == tiletype_shape::SAPLING)
                 loca = LOCATION_SAPLING;
-            if (growth->locations.bits.trunk && tileShape() == RemoteFortressReader::WALL)
+            if (growth->locations.bits.trunk && tileShape() == tiletype_shape::WALL)
                 loca = LOCATION_TRUNK;
-            if (growth->locations.bits.twigs && tileShape() == RemoteFortressReader::TWIG)
+            if (growth->locations.bits.twigs && tileShape() == tiletype_shape::TWIG)
                 loca = LOCATION_TWIGS;
 
             if (loca == LOCATION_NONE)
@@ -443,10 +443,10 @@ void Tile::AssembleTile( void )
             tileShapeBasic()==tiletype_shape_basic::Wall ||
             tileShapeBasic()==tiletype_shape_basic::Ramp ||
             tileShapeBasic()==tiletype_shape_basic::Stair ||
-            tileShape()==RemoteFortressReader::TWIG) {
+            tileShape()==tiletype_shape::TWIG) {
 
         //If plate has no floor, look for a Filler Floor from it's wall
-        if (tileShapeBasic() == tiletype_shape_basic::Floor || tileShape() == RemoteFortressReader::TWIG) {
+        if (tileShapeBasic() == tiletype_shape_basic::Floor || tileShape() == tiletype_shape::TWIG) {
             spriteobject = GetFloorSpriteMap(tileType, this->material, consForm);
         } else if (tileShapeBasic()==tiletype_shape_basic::Wall) {
             spriteobject = GetFloorSpriteMap(tileType, this->material, consForm);
@@ -921,17 +921,17 @@ void Tile::AssembleFloorBlood ( int32_t drawx, int32_t drawy )
     }
 }
 
-RemoteFortressReader::TiletypeShape Tile::tileShape()
+df::tiletype_shape Tile::tileShape()
 {
-    return contentLoader->tiletypeNameList.tiletype_list(tileType).shape();
+    return ENUM_ATTR(tiletype, shape, tileType);
 }
 
-RemoteFortressReader::TiletypeSpecial Tile::tileSpecial()
+df::tiletype_special Tile::tileSpecial()
 {
-    return contentLoader->tiletypeNameList.tiletype_list(tileType).special();
+    return ENUM_ATTR(tiletype, special, tileType);
 }
 
-RemoteFortressReader::TiletypeMaterial Tile::tileMaterial()
+df::tiletype_material Tile::tileMaterial()
 {
-    return contentLoader->tiletypeNameList.tiletype_list(tileType).material();
+    return ENUM_ATTR(tiletype, material, tileType);
 }

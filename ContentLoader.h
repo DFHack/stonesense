@@ -63,7 +63,6 @@ public:
 
     RemoteFortressReader::MaterialList materialNameList;
     RemoteFortressReader::MaterialList growthNameList;
-    RemoteFortressReader::TiletypeList tiletypeNameList;
     std::vector<std::string> professionStrings;
     std::map <uint32_t, std::string> custom_workshop_types;
     DFHack::Materials * Mats;

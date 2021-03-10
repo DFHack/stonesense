@@ -111,9 +111,9 @@ public:
     void DrawGrowth(c_sprite * spriteobject, bool top);
 
 
-    RemoteFortressReader::TiletypeShape tileShape();
-    RemoteFortressReader::TiletypeSpecial tileSpecial();
-    RemoteFortressReader::TiletypeMaterial tileMaterial();
+    df::tiletype_shape tileShape();
+    df::tiletype_special tileSpecial();
+    df::tiletype_material tileMaterial();
     //tile sprite assembly and drawing functions
     void GetDrawLocation(int32_t& drawx, int32_t& drawy);
     void AssembleTile();

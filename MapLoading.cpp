@@ -258,14 +258,14 @@ void readMaterialToTile( Tile * b, uint32_t lx, uint32_t ly,
 
     bool soilTile = false;//is this tile a match for soil materials?
     bool soilMat = false;//is the material a soil?
-    soilTile = b->tileMaterial() == RemoteFortressReader::SOIL
+    soilTile = b->tileMaterial() == tiletype_material::SOIL
         || (b->mudlevel == 0
-        && (b->tileMaterial() == RemoteFortressReader::PLANT
-        || b->tileMaterial() == RemoteFortressReader::GRASS_LIGHT
-        || b->tileMaterial() == RemoteFortressReader::GRASS_DARK
-        || b->tileMaterial() == RemoteFortressReader::GRASS_DRY
-        || b->tileMaterial() == RemoteFortressReader::GRASS_DEAD));
-    if(b->tileMaterial() == RemoteFortressReader::STONE || soilTile) {
+        && (b->tileMaterial() == tiletype_material::PLANT
+        || b->tileMaterial() == tiletype_material::GRASS_LIGHT
+        || b->tileMaterial() == tiletype_material::GRASS_DARK
+        || b->tileMaterial() == tiletype_material::GRASS_DRY
+        || b->tileMaterial() == tiletype_material::GRASS_DEAD));
+    if(b->tileMaterial() == tiletype_material::STONE || soilTile) {
 
         df::inorganic_raw * rawMat = df::inorganic_raw::find(rockIndex);
         if(rawMat) {
@@ -360,7 +360,7 @@ void readMaterialToTile( Tile * b, uint32_t lx, uint32_t ly,
         }
     }
 
-    if(b->tileMaterial() == RemoteFortressReader::LAVA_STONE) {
+    if(b->tileMaterial() == tiletype_material::LAVA_STONE) {
         b->material.type = INORGANIC;
         b->material.index = contentLoader->obsidian;
     }

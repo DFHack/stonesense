@@ -89,7 +89,6 @@ bool ContentLoader::Load()
     {
         connection_state->MaterialListCall(&(connection_state->empty_message), &materialNameList);
         connection_state->GrowthListCall(&(connection_state->empty_message), &growthNameList);
-        connection_state->TiletypeListCall(&(connection_state->empty_message), &tiletypeNameList);
         connection_state->Disconnect();
     }
 
@@ -128,25 +127,6 @@ bool ContentLoader::Load()
                 growthNameList.material_list(i).state_color().red(),
                 growthNameList.material_list(i).state_color().green(),
                 growthNameList.material_list(i).state_color().blue());
-        }
-        fclose(fp);
-    }
-
-    draw_loading_message("Reading TileType Names");
-    remove("TiletypeList.csv");
-    fp = fopen("TiletypeList.csv", "a");
-    if (fp) {
-        fprintf(fp, "id;name;shape;special;material;variant\n");
-        for (int i = 0; i < tiletypeNameList.tiletype_list_size(); i++)
-        {
-            fprintf(fp, "%d;%s;%s;%s;%s;%s\n",
-                tiletypeNameList.tiletype_list(i).id(),
-                tiletypeNameList.tiletype_list(i).name().c_str(),
-                TiletypeShapeToString(tiletypeNameList.tiletype_list(i).shape()),
-                TiletypeSpecialToString(tiletypeNameList.tiletype_list(i).special()),
-                TiletypeMaterialToString(tiletypeNameList.tiletype_list(i).material()),
-                TiletypeVariantToString(tiletypeNameList.tiletype_list(i).variant())
-                );
         }
         fclose(fp);
     }

@@ -93,15 +93,15 @@ c_sprite * GetTileSpriteMap(int in, t_matglossPair material, uint16_t form)
     return GetTerrainSpriteMap(in, material, contentLoader->terrainWallConfigs, form);
 }
 
-c_tile_tree * GetTreeVegetation(RemoteFortressReader::TiletypeShape shape, RemoteFortressReader::TiletypeSpecial special, int index)
+c_tile_tree * GetTreeVegetation(df::tiletype_shape shape, df::tiletype_special special, int index)
 {
     int base_sprite = SPRITEOBJECT_BLUEPRINT;
     vector<std::unique_ptr<VegetationConfiguration>>* graphicSet;
     bool live=true;
     bool grown=true;
     switch(shape) {
-    case RemoteFortressReader::TiletypeShape::TREE_SHAPE:
-        if (special == RemoteFortressReader::TiletypeSpecial::DEAD) {
+    case tiletype_shape::TRUNK_BRANCH:
+        if (special == tiletype_special::DEAD) {
             base_sprite = SPRITEOBJECT_TREE_DEAD;
             graphicSet = &(contentLoader->treeConfigs);
             live = false;
@@ -110,8 +110,8 @@ c_tile_tree * GetTreeVegetation(RemoteFortressReader::TiletypeShape shape, Remot
             graphicSet = &(contentLoader->treeConfigs);
         }
         break;
-    case RemoteFortressReader::TiletypeShape::SAPLING:
-        if (special == RemoteFortressReader::TiletypeSpecial::DEAD) {
+    case tiletype_shape::SAPLING:
+        if (special == tiletype_special::DEAD) {
             base_sprite = SPRITEOBJECT_SAPLING_DEAD;
             live = false;
             grown = false;
@@ -122,8 +122,8 @@ c_tile_tree * GetTreeVegetation(RemoteFortressReader::TiletypeShape shape, Remot
             graphicSet = &(contentLoader->treeConfigs);
         }
         break;
-    case RemoteFortressReader::TiletypeShape::SHRUB:
-        if (special == RemoteFortressReader::TiletypeSpecial::DEAD) {
+    case tiletype_shape::SHRUB:
+        if (special == tiletype_special::DEAD) {
             base_sprite = SPRITEOBJECT_SHRUB_DEAD;
             live = false;
             graphicSet = &(contentLoader->shrubConfigs);
