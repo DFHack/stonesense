@@ -1289,7 +1289,7 @@ ALLEGRO_COLOR c_sprite::get_color(void* tile)
         if(b->occ.bits.unit && b->creature) {
             dayofLife = b->creature->birth_year*12*28 + b->creature->birth_time/1200;
             if((!ssConfig.skipCreatureTypes) && (!ssConfig.skipCreatureTypesEx) && (!ssConfig.skipDescriptorColors)) {
-                t_creaturecaste & caste = contentLoader->Mats->raceEx[b->creature->race].castes[b->creature->caste];
+                t_creaturecaste & caste = contentLoader->Mats->raceEx[b->creature->origin->race].castes[b->creature->origin->caste];
                 std::vector<t_colormodifier> & colormods =caste.ColorModifier;
                 if(caste_bodypart_index != INVALID_INDEX && size_t(caste_bodypart_index) < colormods.size()){
                     t_colormodifier & colormod = colormods[caste_bodypart_index];

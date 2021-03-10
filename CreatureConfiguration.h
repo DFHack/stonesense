@@ -1,6 +1,7 @@
 #pragma once
 #include "tinyxml.h"
 #include "SpriteObjects.h"
+#include "df/pronoun_type.h"
 
 #define CREATURESTRLENGTH 50
 
@@ -21,11 +22,11 @@ public:
     c_sprite sprite;
     int shadow;
     enumCreatureSpecialCases special;
-    uint8_t sex;
+    df::pronoun_type sex;
     int caste;
 
     CreatureConfiguration() {}
-    CreatureConfiguration(int professionID, const char* professionStr, uint8_t sex, int caste, enumCreatureSpecialCases special, c_sprite &sprite, int shadow);
+    CreatureConfiguration(int professionID, const char* professionStr, df::pronoun_type sex, int caste, enumCreatureSpecialCases special, c_sprite &sprite, int shadow);
     ~CreatureConfiguration(void);
 };
 

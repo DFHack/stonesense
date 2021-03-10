@@ -281,12 +281,12 @@ void AssembleCreature(int drawx, int drawy, SS_Unit* creature, Tile * b)
     if(sprite) {
         sprite->assemble_world(creature->x,creature->y, creature->z, b);
     } else {
-        df::creature_raw *raw = df::global::world->raws.creatures.all[creature->race];
+        df::creature_raw *raw = df::global::world->raws.creatures.all[creature->origin->race];
         int spritenum = raw->creature_tile;
-        if(raw->caste[creature->caste]->caste_tile != 1) {
-            spritenum = raw->caste[creature->caste]->caste_tile;
+        if(raw->caste[creature->origin->caste]->caste_tile != 1) {
+            spritenum = raw->caste[creature->origin->caste]->caste_tile;
         }
-        ALLEGRO_COLOR tilecolor = ssConfig.colors.getDfColor(DFHack::Units::getCasteProfessionColor(creature->race,creature->caste,(df::profession)creature->profession), ssConfig.useDfColors);
+        ALLEGRO_COLOR tilecolor = ssConfig.colors.getDfColor(DFHack::Units::getCasteProfessionColor(creature->origin->race,creature->origin->caste,(df::profession)creature->profession), ssConfig.useDfColors);
         int sheetx = spritenum % LETTERS_OBJECTSWIDE;
         int sheety = spritenum / LETTERS_OBJECTSWIDE;
         b->AssembleSprite(
@@ -314,7 +314,7 @@ void DrawCreatureText(int drawx, int drawy, SS_Unit* creature )
     vector<int> statusIcons;
 
     //if(ssConfig.show_creature_happiness)
-    if(ssConfig.show_creature_moods && df::creature_raw::find(creature->race)->caste[creature->caste]->flags.is_set(caste_raw_flags::CAN_SPEAK)) {
+    if(ssConfig.show_creature_moods && df::creature_raw::find(creature->origin->race)->caste[creature->origin->caste]->flags.is_set(caste_raw_flags::CAN_SPEAK)) {
         if(creature->stress_level <= 0) {
             statusIcons.push_back(0);
         } else if(creature->stress_level >= 1 && creature->stress_level <= 30000) {
@@ -430,7 +430,7 @@ void DrawCreatureText(int drawx, int drawy, SS_Unit* creature )
             if(!ssConfig.skipCreatureTypes)
             {
                 char buffer[128];
-                strncpy(buffer,df::global::world->raws.creatures.all[creature->race]->caste[creature->caste]->caste_name[0].c_str(),127);
+                strncpy(buffer,df::global::world->raws.creatures.all[creature->origin->race]->caste[creature->origin->caste]->caste_name[0].c_str(),127);
                 buffer[127]=0;
                 ALLEGRO_USTR* temp = bufferToUstr(buffer, 128);
                 int32_t lastChar = ' ';
@@ -514,10 +514,7 @@ void copyCreature(df::unit * source, SS_Unit & furball)
     furball.x = source->pos.x;
     furball.y = source->pos.y;
     furball.z = source->pos.z;
-    furball.race = source->race;
     furball.civ = source->civ_id;
-    furball.sex = source->sex;
-    furball.caste = source->caste;
     furball.flags1.whole = source->flags1.whole;
     furball.flags2.whole = source->flags2.whole;
     furball.flags3.whole = source->flags3.whole;
@@ -717,10 +714,10 @@ CreatureConfiguration *GetCreatureConfig( SS_Unit* c )
 {
     //find list for creature type
     uint32_t num = (uint32_t)contentLoader->creatureConfigs.size();
-    if (c->race >= num) {
+    if (c->origin->race >= num) {
         return nullptr;
     }
-    std::unique_ptr<vector<CreatureConfiguration>>& creatureData = contentLoader->creatureConfigs[c->race];
+    std::unique_ptr<vector<CreatureConfiguration>>& creatureData = contentLoader->creatureConfigs[c->origin->race];
     if (creatureData == nullptr) {
         return nullptr;
     }
@@ -740,9 +737,9 @@ CreatureConfiguration *GetCreatureConfig( SS_Unit* c )
         }
 
         bool creatureMatchesSex = true;
-        if( testConfig->sex != 0 ) {
+        if( testConfig->sex != pronoun_type::it ) {
             creatureMatchesSex =
-                (c->sex == testConfig->sex-1);
+                (c->origin->sex == testConfig->sex);
         }
         if(!creatureMatchesSex) {
             continue;
@@ -750,7 +747,7 @@ CreatureConfiguration *GetCreatureConfig( SS_Unit* c )
 
         bool creatureMatchesCaste = true;
         if( testConfig->caste != INVALID_INDEX ) {
-            creatureMatchesCaste = testConfig->caste == c->caste;
+            creatureMatchesCaste = testConfig->caste == c->origin->caste;
         }
         if(!creatureMatchesCaste) {
             continue;

@@ -12,7 +12,7 @@ using namespace DFHack;
 using namespace df::enums;
 
 
-CreatureConfiguration::CreatureConfiguration(int professionID, const char* professionStr, uint8_t sex, int incaste, enumCreatureSpecialCases special, c_sprite &sprite, int shadow) :
+CreatureConfiguration::CreatureConfiguration(int professionID, const char* professionStr, df::pronoun_type sex, int incaste, enumCreatureSpecialCases special, c_sprite &sprite, int shadow) :
     professionstr(),
     professionID(professionID),
     sprite(sprite),
@@ -118,13 +118,13 @@ bool addSingleCreatureConfig( TiXmlElement* elemCreature, vector<std::unique_ptr
         }
 
         const char* sexstr = elemVariant->Attribute("sex");
-        uint8_t cresex = 0;
+        df::pronoun_type cresex = pronoun_type::it;
         if(sexstr) {
             if(strcmp( sexstr, "M" ) == 0) {
-                cresex = 2;
+                cresex = pronoun_type::he;
             }
             if(strcmp( sexstr, "F" ) == 0) {
-                cresex = 1;
+                cresex = pronoun_type::she;
             }
         }
         int caste = -1;
@@ -172,7 +172,7 @@ bool addSingleCreatureConfig( TiXmlElement* elemCreature, vector<std::unique_ptr
     sheetIndexStr = elemCreature->Attribute("sheetIndex");
     if (sheetIndexStr) {
         sprite.set_by_xml(elemCreature, basefile);
-        CreatureConfiguration cre( INVALID_INDEX, NULL, eCreatureSex_NA, INVALID_INDEX, eCSC_Any, sprite, baseShadow);
+        CreatureConfiguration cre( INVALID_INDEX, NULL, pronoun_type::it, INVALID_INDEX, eCSC_Any, sprite, baseShadow);
         //add a copy to known creatures
         pushCreatureConfig(knownCreatures, gameID, cre);
     }

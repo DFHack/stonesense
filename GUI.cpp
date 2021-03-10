@@ -623,8 +623,8 @@ void drawDebugInfo(WorldSegment * segment)
         }
         draw_textf_border(font, uiColor(1), 2, (i++*al_get_font_line_height(font)), 0,
                           "Creature:%s(%i) Caste:%s(%i) Job:%s",
-                          contentLoader->Mats->race.at(b->creature->race).id.c_str(), b->creature->race,
-                          contentLoader->Mats->raceEx.at(b->creature->race).castes.at(b->creature->caste).id.c_str(), b->creature->caste,
+                          contentLoader->Mats->race.at(b->creature->origin->race).id.c_str(), b->creature->origin->race,
+                          contentLoader->Mats->raceEx.at(b->creature->origin->race).castes.at(b->creature->origin->caste).id.c_str(), b->creature->origin->caste,
                           contentLoader->professionStrings.at(b->creature->profession).c_str());
 
         //Inventories!
@@ -676,12 +676,12 @@ void drawDebugInfo(WorldSegment * segment)
             int yy = (i++*al_get_font_line_height(font));
             int xx = 2;
             for(unsigned int j = 0; j<b->creature->nbcolors ; j++) {
-                if(b->creature->color[j] < contentLoader->Mats->raceEx.at(b->creature->race).castes.at(b->creature->caste).ColorModifier[j].colorlist.size()) {
+                if(b->creature->color[j] < contentLoader->Mats->raceEx.at(b->creature->origin->race).castes.at(b->creature->origin->caste).ColorModifier[j].colorlist.size()) {
                     draw_textf_border(font,
                         uiColor(1), xx, yy, 0,
-                        " %s:", contentLoader->Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].part.c_str());
-                    xx += get_textf_width(font, " %s:", contentLoader->Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].part.c_str());
-                    uint32_t cr_color = contentLoader->Mats->raceEx[b->creature->race].castes[b->creature->caste].ColorModifier[j].colorlist[b->creature->color[j]];
+                        " %s:", contentLoader->Mats->raceEx[b->creature->origin->race].castes[b->creature->origin->caste].ColorModifier[j].part.c_str());
+                    xx += get_textf_width(font, " %s:", contentLoader->Mats->raceEx[b->creature->origin->race].castes[b->creature->origin->caste].ColorModifier[j].part.c_str());
+                    uint32_t cr_color = contentLoader->Mats->raceEx[b->creature->origin->race].castes[b->creature->origin->caste].ColorModifier[j].colorlist[b->creature->color[j]];
                     if(cr_color < df::global::world->raws.descriptors.patterns.size()) {
                         for(size_t patternin = 0; patternin < df::global::world->raws.descriptors.patterns[cr_color]->colors.size(); patternin++){
                             uint16_t actual_color = df::global::world->raws.descriptors.patterns[cr_color]->colors[patternin];

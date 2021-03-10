@@ -275,13 +275,6 @@ struct FrameTimers{
     float frame_total;
 };
 
-
-enum enumCreatureSex {
-    eCreatureSex_NA,
-    eCreatureSex_Male,
-    eCreatureSex_Female
-};
-
 struct SS_Item {
     DFHack::t_matglossPair item;
     DFHack::t_matglossPair matt;
@@ -305,7 +298,6 @@ struct SS_Unit{
     uint16_t x;
     uint16_t y;
     uint16_t z;
-    uint32_t race;
     int32_t civ;
 
     df::unit_flags1 flags1;
@@ -334,8 +326,6 @@ struct SS_Unit{
     df::unit_attribute recuperation;
     df::unit_attribute disease_resistance;
     int32_t squad_leader_id;
-    uint8_t sex;
-    uint16_t caste;
     uint32_t pregnancy_timer; //Countdown timer to giving birth
     //bool has_default_soul;
     //t_soul defaultSoul;
