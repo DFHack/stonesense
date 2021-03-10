@@ -510,14 +510,10 @@ void copyCreature(df::unit * source, SS_Unit & furball)
     //read creature from memory
 
     // basic stuff
-    furball.id = source->id;
     furball.x = source->pos.x;
     furball.y = source->pos.y;
     furball.z = source->pos.z;
     furball.civ = source->civ_id;
-    furball.flags1.whole = source->flags1.whole;
-    furball.flags2.whole = source->flags2.whole;
-    furball.flags3.whole = source->flags3.whole;
     // custom profession
     furball.custom_profession = source->custom_profession;
     // profession
@@ -755,13 +751,13 @@ CreatureConfiguration *GetCreatureConfig( SS_Unit* c )
 
         bool creatureMatchesSpecial = true;
         if (testConfig->special != eCSC_Any) {
-            if (testConfig->special == eCSC_Zombie && !c->flags1.bits.zombie) {
+            if (testConfig->special == eCSC_Zombie && !c->origin->flags1.bits.zombie) {
                 creatureMatchesSpecial = false;
             }
-            if (testConfig->special == eCSC_Skeleton && !c->flags1.bits.skeleton) {
+            if (testConfig->special == eCSC_Skeleton && !c->origin->flags1.bits.skeleton) {
                 creatureMatchesSpecial = false;
             }
-            if (testConfig->special == eCSC_Ghost && !c->flags3.bits.ghostly) {
+            if (testConfig->special == eCSC_Ghost && !c->origin->flags3.bits.ghostly) {
                 creatureMatchesSpecial = false;
             }
             if (testConfig->special == eCSC_Military) {
@@ -770,7 +766,7 @@ CreatureConfiguration *GetCreatureConfig( SS_Unit* c )
                     creatureMatchesSpecial = false;
                 }
             }
-            if (testConfig->special == eCSC_Normal && (c->flags1.bits.zombie || c->flags1.bits.skeleton)) {
+            if (testConfig->special == eCSC_Normal && (c->origin->flags1.bits.zombie || c->origin->flags1.bits.skeleton)) {
                 creatureMatchesSpecial = false;
             }
         }
@@ -817,103 +813,103 @@ uint8_t GetCreatureShadowMap( SS_Unit* c )
 
 void generateCreatureDebugString( SS_Unit* c, char* strbuffer)
 {
-    if(c->flags1.bits.active_invader) {
+    if(c->origin->flags1.bits.active_invader) {
         strcat(strbuffer, "activeInvader ");
     }
-    if(c->flags1.bits.caged) {
+    if(c->origin->flags1.bits.caged) {
         strcat(strbuffer, "Caged ");
     }
-    if(c->flags1.bits.chained) {
+    if(c->origin->flags1.bits.chained) {
         strcat(strbuffer, "chained ");
     }
-    if(c->flags1.bits.coward) {
+    if(c->origin->flags1.bits.coward) {
         strcat(strbuffer, "coward ");
     }
-    if(c->flags1.bits.diplomat) {
+    if(c->origin->flags1.bits.diplomat) {
         strcat(strbuffer, "Diplomat ");
     }
-    if(c->flags1.bits.drowning) {
+    if(c->origin->flags1.bits.drowning) {
         strcat(strbuffer, "drowning ");
     }
-    if(c->flags1.bits.forest) {
+    if(c->origin->flags1.bits.forest) {
         strcat(strbuffer, "lostLeaving ");
     }
-    if(c->flags1.bits.fortress_guard) {
+    if(c->origin->flags1.bits.fortress_guard) {
         strcat(strbuffer, "FortGuard ");
     }
-    if(c->flags1.bits.had_mood) {
+    if(c->origin->flags1.bits.had_mood) {
         strcat(strbuffer, "HadMood ");
     }
-    if(c->flags1.bits.has_mood) {
+    if(c->origin->flags1.bits.has_mood) {
         strcat(strbuffer, "Mood ");
     }
-    if(c->flags1.bits.hidden_ambusher) {
+    if(c->origin->flags1.bits.hidden_ambusher) {
         strcat(strbuffer, "hiddenAmbush ");
     }
-    if(c->flags1.bits.hidden_in_ambush) {
+    if(c->origin->flags1.bits.hidden_in_ambush) {
         strcat(strbuffer, "hiddenInAmbush ");
     }
-    if(c->flags1.bits.important_historical_figure) {
+    if(c->origin->flags1.bits.important_historical_figure) {
         strcat(strbuffer, "Historical ");
     }
-    if(c->flags1.bits.incoming) {
+    if(c->origin->flags1.bits.incoming) {
         strcat(strbuffer, "Incoming ");
     }
-    if(c->flags1.bits.invades) {
+    if(c->origin->flags1.bits.invades) {
         strcat(strbuffer, "invading ");
     }
-    if(c->flags1.bits.marauder) {
+    if(c->origin->flags1.bits.marauder) {
         strcat(strbuffer, "marauder ");
     }
-    if(c->flags1.bits.merchant) {
+    if(c->origin->flags1.bits.merchant) {
         strcat(strbuffer, "merchant ");
     }
-    if(c->flags1.bits.on_ground) {
+    if(c->origin->flags1.bits.on_ground) {
         strcat(strbuffer, "onGround ");
     }
-    if(c->flags1.bits.projectile) {
+    if(c->origin->flags1.bits.projectile) {
         strcat(strbuffer, "projectile ");
     }
-    if(c->flags1.bits.ridden) {
+    if(c->origin->flags1.bits.ridden) {
         strcat(strbuffer, "ridden ");
     }
-    if(c->flags1.bits.royal_guard) {
+    if(c->origin->flags1.bits.royal_guard) {
         strcat(strbuffer, "RoyGuard ");
     }
-    if(c->flags1.bits.skeleton) {
+    if(c->origin->flags1.bits.skeleton) {
         strcat(strbuffer, "Skeleton ");
     }
-    if(c->flags1.bits.tame) {
+    if(c->origin->flags1.bits.tame) {
         strcat(strbuffer, "Tame ");
     }
-    if(c->flags1.bits.zombie) {
+    if(c->origin->flags1.bits.zombie) {
         strcat(strbuffer, "Zombie ");
     }
 
-    if(c->flags2.bits.killed) {
+    if(c->origin->flags2.bits.killed) {
         strcat(strbuffer, "Dead ");
     }
-    if(c->flags2.bits.slaughter) {
+    if(c->origin->flags2.bits.slaughter) {
         strcat(strbuffer, "ReadyToSlaughter ");
     }
-    if(c->flags2.bits.resident) {
+    if(c->origin->flags2.bits.resident) {
         strcat(strbuffer, "Resident ");
     }
-    if(c->flags2.bits.sparring) {
+    if(c->origin->flags2.bits.sparring) {
         strcat(strbuffer, "Sparring ");
     }
-    if(c->flags2.bits.swimming) {
+    if(c->origin->flags2.bits.swimming) {
         strcat(strbuffer, "Swimming ");
     }
-    if(c->flags2.bits.underworld) {
+    if(c->origin->flags2.bits.underworld) {
         strcat(strbuffer, "Underworld ");
     }
 
-    //if(c->flags1.bits.can_swap)
+    //if(c->origin->flags1.bits.can_swap)
     //  strcat(strbuffer, "canSwap ");
-    //if(c->flags1.bits.check_flows)
+    //if(c->origin->flags1.bits.check_flows)
     //  strcat(strbuffer, "checFlows ");
-    //if(c->flags1.bits.invader_origin)
+    //if(c->origin->flags1.bits.invader_origin)
     //  strcat(strbuffer, "invader_origin ");
 
 }

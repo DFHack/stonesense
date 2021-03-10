@@ -300,10 +300,6 @@ struct SS_Unit{
     uint16_t z;
     int32_t civ;
 
-    df::unit_flags1 flags1;
-    df::unit_flags2 flags2;
-    df::unit_flags3 flags3;
-
     int16_t mood;
     int16_t mood_skill;
     DFHack::t_name artifact_name;
@@ -318,7 +314,6 @@ struct SS_Unit{
     } current_job;
 
     uint32_t stress_level;
-    uint32_t id;
     df::unit_attribute strength;
     df::unit_attribute agility;
     df::unit_attribute toughness;
