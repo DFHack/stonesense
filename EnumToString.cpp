@@ -26,7 +26,7 @@ const char* TiletypeVariantToString(df::tiletype_variant input)
 
 df::tiletype_shape StringToTiletypeShape(const char* input)
 {
-    df::tiletype_shape t;
+    df::tiletype_shape t{};
     if (input && find_enum_item(&t, input))
     {
         return t;
@@ -35,7 +35,7 @@ df::tiletype_shape StringToTiletypeShape(const char* input)
 }
 df::tiletype_special StringToTiletypeSpecial(const char* input)
 {
-    df::tiletype_special t;
+    df::tiletype_special t{};
     if (input && find_enum_item(&t, input))
     {
         return t;
@@ -44,7 +44,7 @@ df::tiletype_special StringToTiletypeSpecial(const char* input)
 }
 df::tiletype_material StringToTiletypeMaterial(const char* input)
 {
-    df::tiletype_material t;
+    df::tiletype_material t{};
     if (input && find_enum_item(&t, input))
     {
         return t;
@@ -53,7 +53,7 @@ df::tiletype_material StringToTiletypeMaterial(const char* input)
 }
 df::tiletype_variant StringToTiletypeVariant(const char* input)
 {
-    df::tiletype_variant t;
+    df::tiletype_variant t{};
     if (input && find_enum_item(&t, input))
     {
         return t;
