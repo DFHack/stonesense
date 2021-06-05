@@ -127,6 +127,8 @@ public:
     bool Invalidate();
     static bool InvalidateAndDestroy(Tile*);
     static bool CleanCreateAndValidate(Tile*, WorldSegment*, df::tiletype);
+
+    friend class WorldSegment;
 };
 
 void createEffectSprites();

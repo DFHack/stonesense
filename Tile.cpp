@@ -61,89 +61,7 @@ worn_item::worn_item()
     dyematt.type = -1;
 }
 
-Tile::Tile()
-{
-    // zero out everything
-    valid = false;
-    visible = false;
-
-    ownerSegment = nullptr;
-
-    x = 0;
-    y = 0;
-    z = 0;
-    tileType = tiletype::Void;
-    material.type = 0;
-    material.index = 0;
-    layerMaterial.type = 0;
-    layerMaterial.index = 0;
-    veinMaterial.type = 0;
-    veinMaterial.index = 0;
-    hasVein = false;
-
-    depthBorderNorth = false;
-    depthBorderWest = false;
-    depthBorderDown = false;
-
-    shadow = 0;
-
-    wallborders = 0;
-    floorborders = 0;
-    openborders = 0;
-    rampborders = 0;
-    upstairborders = 0;
-    downstairborders = 0;
-    lightborders = 0;
-
-    fog_of_war = false;
-
-    rampindex = 0;
-
-    deepwater = 0;
-
-    flow_direction = tile_liquid_flow_dir::none;
-
-    designation.whole = 0;
-    occ.whole = 0;
-
-    creature = nullptr;
-    tree.type = 0;
-    tree.index = 0;
-    tree_tile.whole = 0;
-
-    mudlevel = 0;
-    snowlevel = 0;
-    bloodlevel = 0;
-    bloodcolor = al_map_rgba(0,0,0,0);
-
-    grasslevel = 0;
-    grassmat = 0;
-
-    engraving_character = 0;
-    engraving_flags.whole = 0;
-    engraving_quality = 0;
-
-    consForm = 0;
-
-    obscuringCreature = false;
-    obscuringBuilding = false;
-
-    tileeffect.matt.type = 0;
-    tileeffect.matt.index = 0;
-    tileeffect.density = 0;
-    tileeffect.type = flow_type::Miasma;
-
-    memset(&Item, 0, sizeof(Item));
-
-    building.info = nullptr;
-    building.type = building_type::Chair;
-    building.sprites.clear();
-    building.parent = nullptr;
-    building.constructed_mats.clear();
-    building.special = 0;
-}
-
-Tile::Tile(WorldSegment* segment, df::tiletype type) : Tile()
+Tile::Tile(WorldSegment* segment, df::tiletype type)
 {
     //set all the nonzero values
     valid=true;
@@ -187,18 +105,6 @@ bool Tile::IsValid()
 }
 
 /**
- * invalidates this Tile
- * returns old validity value
- */
-bool Tile::Invalidate(){
-    if(!valid) {
-        return false;
-    }
-    valid=false;
-    return true;
-}
-
-/**
  * invalidates this Tile, and frees memory of any member objects
  *  through the deconstructor
  * returns old validity value
@@ -223,6 +129,7 @@ bool Tile::CleanCreateAndValidate(Tile* dst, WorldSegment* segment, df::tiletype
     if (wasValid) {
         dst->~Tile();
     }
+    memset(dst, 0, sizeof(Tile));
     new (dst) Tile(segment, type);
     dst->valid = true;
     return wasValid;
