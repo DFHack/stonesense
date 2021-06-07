@@ -92,11 +92,7 @@ Tile* WorldSegment::ResetTile(int32_t x, int32_t y, int32_t z, df::tiletype type
 
     Tile* tptr = &(tiles[index]);
 
-    Tile::InvalidateAndDestroy(tptr);
-    Tile::CleanCreateAndValidate(tptr,this,type);
-    tptr->x = x;
-    tptr->y = y;
-    tptr->z = z;
+    tptr->Attach(this, type, x, y, z);
     return tptr;
 }
 

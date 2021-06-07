@@ -61,78 +61,101 @@ worn_item::worn_item()
     dyematt.type = -1;
 }
 
-Tile::Tile(WorldSegment* segment, df::tiletype type)
+Tile::Tile()
 {
-    //set all the nonzero values
-    valid=true;
-    visible = true;
+    valid = visible = false;
 
-    tileType = type;
+    ownerSegment = NULL;
+    creature = NULL;
+    building.info = NULL;
+    building.parent = NULL;
+}
+
+// Clear all pointers and empty all vectors
+void Tile::Reset()
+{
+    valid = visible = false;
+
+    ownerSegment = NULL;
+    creature = NULL;
+    building.info = NULL;
+    building.parent = NULL;
+
+    building.sprites.clear();
+    building.constructed_mats.clear();
+
+    tileType = df::tiletype::Void;
+    x = y = z = -30000;
+}
+
+void Tile::Attach(WorldSegment* segment, df::tiletype type, int32_t _x, int32_t _y, int32_t _z)
+{
+    const DFHack::t_matglossPair NO_MATGLOSS = { INVALID_INDEX, INVALID_INDEX };
+
+    if (valid)
+        Reset();
+
+    valid = visible = true;
+
     ownerSegment = segment;
 
-    material.type = INVALID_INDEX;
-    material.index = INVALID_INDEX;
+    x = _x;
+    y = _y;
+    z = _z;
 
+    tileType = type;
+
+    material = NO_MATGLOSS;
+    layerMaterial = NO_MATGLOSS;
+    veinMaterial = NO_MATGLOSS;
+    hasVein = false;
+
+    depthBorderNorth = depthBorderWest = depthBorderDown = false;
+
+    shadow = 0;
+
+    wallborders = floorborders = rampborders = upstairborders = downstairborders = 0;
     openborders = 255;
     lightborders = 255;
 
+    fog_of_war = false;
+
+    rampindex = 0;
+
+    deepwater = false;
+
+    flow_direction = df::tile_liquid_flow_dir::none;
+
+    designation.whole = 0;
+    occ.whole = 0;
+
+    tree = NO_MATGLOSS;
+    tree_tile.whole = 0;
+
+    mudlevel = snowlevel = bloodlevel = 0;
+    bloodcolor = al_map_rgba(0,0,0,0);
+
+    grasslevel = 0;
+    grassmat = INVALID_INDEX;
+
+    engraving_character = 0;
+    engraving_flags.whole = 0;
+    engraving_quality = 0;
+
+    consForm = 0;
+
+    obscuringCreature = obscuringBuilding = false;
+
+    tileeffect.matt = NO_MATGLOSS;
+    tileeffect.density = 0;
     tileeffect.type = (df::flow_type) INVALID_INDEX;
 
-    Item.item.type = INVALID_INDEX;
-    Item.item.index= INVALID_INDEX;
-    Item.matt.type= INVALID_INDEX;
-    Item.matt.index= INVALID_INDEX;
-    Item.dyematt.type= INVALID_INDEX;
-    Item.dyematt.index= INVALID_INDEX;
+    Item.item = NO_MATGLOSS;
+    Item.matt = NO_MATGLOSS;
+    Item.dyematt = NO_MATGLOSS;
 
-    building.type = (building_type::building_type) BUILDINGTYPE_NA;
-    //building.parent = NULL;
-    //building.info = NULL;
-}
-
-Tile::~Tile(void)
-{
-    building.info = NULL;
-}
-
-/**
- * returns the validity of this Tile
- * Tiles that are not valid have undefined behavior
- */
-bool Tile::IsValid()
-{
-    return valid;
-}
-
-/**
- * invalidates this Tile, and frees memory of any member objects
- *  through the deconstructor
- * returns old validity value
- */
-bool Tile::InvalidateAndDestroy(Tile* dst)
-{
-    if(!dst->valid) {
-        return false;
-    }
-    dst->~Tile();
-    dst->valid=false;
-    return true;
-}
-
-/**
- * creates a clean empty tile at the destination address
- * returns old validity value
- */
-bool Tile::CleanCreateAndValidate(Tile* dst, WorldSegment* segment, df::tiletype type)
-{
-    bool wasValid = dst->valid;
-    if (wasValid) {
-        dst->~Tile();
-    }
-    memset(dst, 0, sizeof(Tile));
-    new (dst) Tile(segment, type);
-    dst->valid = true;
-    return wasValid;
+    building.type = df::building_type::NONE;
+    building.special = 0;
 }
 
 inline ALLEGRO_BITMAP* imageSheet(t_SpriteWithOffset sprite, ALLEGRO_BITMAP* defaultBmp)

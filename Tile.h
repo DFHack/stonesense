@@ -16,14 +16,12 @@ class Tile
 private:
     bool valid;
 
-    // Functions start here.
-
-    // use CleanCreateAndValidate or InvalidateAndDestroy
-    Tile(WorldSegment* ownerSegment, df::tiletype type);
-
 public:
     Tile();
-    ~Tile();
+
+    bool IsValid() { return valid; }
+    void Reset();
+    void Attach(WorldSegment*, df::tiletype, int32_t, int32_t, int32_t);
 
     bool visible;
 
@@ -122,13 +120,6 @@ public:
     void AssembleParticleCloud(int count, float centerX, float centerY, float rangeX, float rangeY, ALLEGRO_BITMAP *sprite, ALLEGRO_COLOR tint);
     void AssembleSpriteFromSheet(int spriteNum, ALLEGRO_BITMAP* spriteSheet, ALLEGRO_COLOR color, float x, float y, Tile * b=NULL, float in_scale=1.0f);
     void AssembleSprite(ALLEGRO_BITMAP *bitmap, ALLEGRO_COLOR tint, float sx, float sy, float sw, float sh, float dx, float dy, float dw, float dh, int flags);
-
-    bool IsValid();
-    bool Invalidate();
-    static bool InvalidateAndDestroy(Tile*);
-    static bool CleanCreateAndValidate(Tile*, WorldSegment*, df::tiletype);
-
-    friend class WorldSegment;
 };
 
 void createEffectSprites();
