@@ -129,7 +129,8 @@ void Tile::Attach(WorldSegment* segment, df::tiletype type, int32_t _x, int32_t 
     designation.whole = 0;
     occ.whole = 0;
 
-    tree = NO_MATGLOSS;
+    tree.type = 0; // this field actually holds df::plant_flags, not a material type
+    tree.index = INVALID_INDEX;
     tree_tile.whole = 0;
 
     mudlevel = snowlevel = bloodlevel = 0;
@@ -230,6 +231,9 @@ void Tile::DrawGrowth(c_sprite * spriteobject, bool top=true)
         || tileMaterial() == tiletype_material::TREE
         || tileMaterial() == tiletype_material::MUSHROOM)
     {
+        // Don't try to render a growth if there's no tree associated with it yet
+        if (tree.index == INVALID_INDEX)
+            return;
         df::plant_raw* plantRaw = df::global::world->raws.plants.all[tree.index];
         for (size_t i = 0; i < plantRaw->growths.size(); i++)
         {
