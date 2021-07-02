@@ -43,24 +43,15 @@ public:
         segState = inState;
         segState.Position.z = segState.Position.z - segState.Size.z + 1;
 
-
         uint32_t newNumTiles = inState.Size.x * inState.Size.y * inState.Size.z;
-        uint32_t memoryNeeded = newNumTiles * sizeof(Tile);
-        tiles = (Tile *)new char[memoryNeeded];
-        //memset(tiles, 0, memoryNeeded);
-        for(uint32_t i = 0; i < newNumTiles; i++) {
-            tiles[i].valid = false;
-        }
+        tiles = new Tile[newNumTiles]();
     }
 
     ~WorldSegment() {
-        uint32_t num = getNumTiles();
-        for(uint32_t i = 0; i < num; i++) {
-            Tile::InvalidateAndDestroy(& tiles[i]);
-        }
+        delete[] tiles;
+        tiles = NULL;
         ClearBuildings();
         ClearUnits();
-        delete[] (char *)tiles;
     }
 
     void Reset(GameState inState, bool hard=false) {
@@ -68,20 +59,18 @@ public:
         ClearBuildings();
         ClearUnits();
         todraw.clear();
-        for(uint32_t i = 0; i < getNumTiles(); i++) {
-            Tile::InvalidateAndDestroy(& tiles[i]);
-        }
 
         uint32_t newNumTiles = inState.Size.x * inState.Size.y * inState.Size.z;
-        uint32_t memoryNeeded = newNumTiles * sizeof(Tile);
         //if this is a hard reset, or if the size doesn't match what is needed, get a new segment
         if(hard || newNumTiles != getNumTiles()) {
-            delete[] (char *)tiles;
-            tiles = (Tile *)new char[memoryNeeded];
-            for(uint32_t i = 0; i < newNumTiles; i++) {
-                tiles[i].valid = false;
+            delete[] tiles;
+            tiles = new Tile[newNumTiles]();
+        }
+        else {
+            // Otherwise, reset all existing tiles to their initial state
+            for(uint32_t i = 0; i < getNumTiles(); i++) {
+                tiles[i].Reset();
             }
-            //memset(tiles, 0, memoryNeeded);
         }
 
         segState = inState;
