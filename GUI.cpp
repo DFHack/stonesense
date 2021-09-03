@@ -1249,7 +1249,7 @@ void loadGraphicsFromDisk()
     if(!load_from_path(p, "engravings_right.png", IMGEngRightSheet)) {
         return;
     }
-    if(!load_from_path(p, "Sir_Henry's_32x32.png", IMGLetterSheet)) {
+    if(!load_from_path(p, "Sir_Henry_s_32x32.png", IMGLetterSheet)) {
         return;
     }
     al_destroy_path(p);
