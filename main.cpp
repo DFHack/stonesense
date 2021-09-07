@@ -25,11 +25,6 @@ using namespace df::enums;
 #define HEIGHT       480
 #define SIZE_LOG     50
 
-#ifdef LINUX_BUILD
-#include "stonesense.xpm"
-extern void *allegro_icon;
-#endif
-
 //set the plugin name/dfhack version
 DFHACK_PLUGIN("stonesense");
 DFHACK_PLUGIN_IS_ENABLED(enabled);

@@ -412,7 +412,6 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite, int32_t inFile, int creature
 
     subsprites.clear();
     //add subsprites, if any.
-    TiXmlElement* elemSubSprite = elemSprite->FirstChildElement("subsprite");
     for(TiXmlElement* elemSubType = elemSprite->FirstChildElement("subsprite");
             elemSubType;
             elemSubType = elemSubType->NextSiblingElement("subsprite")) {
@@ -431,7 +430,6 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite, int32_t inFile)
 
     subsprites.clear();
     //add subsprites, if any.
-    TiXmlElement* elemSubSprite = elemSprite->FirstChildElement("subsprite");
     for(TiXmlElement* elemSubType = elemSprite->FirstChildElement("subsprite");
             elemSubType;
             elemSubType = elemSubType->NextSiblingElement("subsprite")) {
@@ -962,7 +960,6 @@ void c_sprite::assemble_world_offset(int x, int y, int z, int plateoffset, Tile 
         ) {
             goto draw_subsprite;
         }
-        int foo = 0;
         if(!(snowmin <= b->snowlevel &&    (snowmax == -1 || snowmax >= b->snowlevel))) {
             goto draw_subsprite;
         }
@@ -1056,9 +1053,6 @@ void c_sprite::assemble_world_offset(int x, int y, int z, int plateoffset, Tile 
 
         b->ownerSegment->CorrectTileForSegmentOffset( drawx, drawy, drawz );
         b->ownerSegment->CorrectTileForSegmentRotation( drawx, drawy, drawz );
-        int32_t viewx = drawx;
-        int32_t viewy = drawy;
-        int32_t viewz = drawz;
         pointToScreen((int*)&drawx, (int*)&drawy, drawz);
         drawx -= (TILEWIDTH>>1)*ssConfig.scale;
 

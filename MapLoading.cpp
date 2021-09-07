@@ -998,7 +998,6 @@ void reloadPosition()
         timeToReloadConfig = false;
     }
 
-    int segmentHeight = ssConfig.single_layer_view ? 2 : ssState.Size.z;
     //load segment
     if(ssConfig.threading_enable) {
         if(!ssConfig.threadmade) {
