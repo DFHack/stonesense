@@ -551,7 +551,7 @@ void drawDebugInfo(WorldSegment * segment)
         draw_textf_border(font, uiColor(1), 2, (i++*al_get_font_line_height(font)), 0, "Tile 0x%x (%i,%i,%i)", b, b->x, b->y, b->z);
     }
     df::viewscreen * vs = Gui::getCurViewscreen();
-    if (auto advScreen = strict_virtual_cast<df::viewscreen_dungeonmodest>(vs))
+    if (strict_virtual_cast<df::viewscreen_dungeonmodest>(vs))
     {
         if (df::global::ui_advmode)
         {
@@ -1343,7 +1343,6 @@ int loadImgFile(const char* filename)
         }
         int op, src, dst, alpha_op, alpha_src, alpha_dst;
         al_get_separate_blender(&op, &src, &dst, &alpha_op, &alpha_src, &alpha_dst);
-        ALLEGRO_BITMAP* currentTarget = al_get_target_bitmap();
         uint32_t numFiles = (uint32_t)IMGFilelist.size();
         for(uint32_t i = 0; i < numFiles; i++) {
             if (strcmp(filename, IMGFilenames[i]->c_str()) == 0) {

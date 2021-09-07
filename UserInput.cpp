@@ -125,7 +125,7 @@ void doMouse()
     al_get_keyboard_state(&keyboard);
     int32_t keymod = getKeyMods(&keyboard);
 
-    char stepsize = ((keymod&ALLEGRO_KEYMOD_SHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
+    // char stepsize = ((keymod&ALLEGRO_KEYMOD_SHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
     //mouse_callback = mouseProc;
     static int last_mouse_z;
     if(mouse.z < last_mouse_z) {

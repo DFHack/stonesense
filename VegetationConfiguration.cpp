@@ -65,7 +65,6 @@ bool addSingleVegetationConfig( TiXmlElement* elemRoot,  vector<std::unique_ptr<
 
 c_tile_tree * getVegetationTree(vector<std::unique_ptr<VegetationConfiguration>>& vegetationConfigs,int index,bool live,bool grown)
 {
-    int vcmax = (int)vegetationConfigs.size();
     for (const auto& current : vegetationConfigs) {
         if (current->gameID != INVALID_INDEX && current->gameID != index) {
             continue;

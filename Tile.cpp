@@ -520,7 +520,6 @@ void Tile::AssembleTile( void )
             tileShapeBasic()==tiletype_shape_basic::Wall) {
         //draw wall
         spriteobject =  GetTileSpriteMap(tileType, material, consForm);
-        int spriteOffset = 0;
         if (spriteobject->get_sheetindex() == UNCONFIGURED_INDEX) {
             if(tileShapeBasic()==tiletype_shape_basic::Wall){
                 spriteobject->set_sheetindex(SPRITEOBJECT_WALL_NA);

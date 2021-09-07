@@ -629,7 +629,6 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
             if(subtype < 0) subtype = 0;
 
             item_type::item_type type = item->getType();
-            int8_t armor = item->getEffectiveArmorLevel();
 
             worn_item equipment;
 

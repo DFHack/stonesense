@@ -75,7 +75,6 @@ void parseWallFloorSpriteElement(TiXmlElement* elemWallFloorSprite, vector<std::
     vector<pair<int, int>> lookupKeys;
 
     // look through terrain elements
-    TiXmlElement* elemTerrain = elemWallFloorSprite->FirstChildElement("terrain");
     for (TiXmlElement* elemTerrain = elemWallFloorSprite->FirstChildElement("terrain");
         elemTerrain;
         elemTerrain = elemTerrain->NextSiblingElement("terrain")) {

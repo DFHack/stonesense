@@ -71,7 +71,6 @@ void ReadBuildings(DFHack::Core& DF, vector<Buildings::t_building>* buildingHold
     df::buildings_other_id types = df::buildings_other_id::IN_PLAY;
 
     for (size_t i = 0; i < world->buildings.other[types].size(); i++) {
-        Core & c = Core::getInstance();
         df::building *bld = world->buildings.other[types][i];
         tempbuilding.x1 = bld->x1;
         tempbuilding.x2 = bld->x2;
