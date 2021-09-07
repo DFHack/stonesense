@@ -254,7 +254,7 @@ bool ContentLoader::Load()
     al_destroy_path(p);
     translationComplete = false;
 
-    return true;
+    return overallResult;
 }
 
 bool ContentLoader::reload_configs()
