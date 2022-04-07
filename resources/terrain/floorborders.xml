@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<floors file="bordertest.png">&gt; 
+<floors file="bordertest.png">&gt;
 <!-- construct -->
 <floor sheetIndex="0" color="material">
     <!-- floor -->

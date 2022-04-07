@@ -6,7 +6,7 @@ Sets the width and height of the application in pixels.
 [WIDTH:800]
 [HEIGHT:600]
 
-To launch the application in windowed mode, set this to YES. 
+To launch the application in windowed mode, set this to YES.
 Setting it to NO makes the program attempt to launch fullscreen mode,
 using WIDTH and HEIGHT for resolution. Try and use resolutions compatible
 with your drivers, or the program will still load in window mode.
@@ -26,7 +26,7 @@ Changes the interface font size.
 Changes the fontfile to use.
 [FONT:DejaVuSans.ttf]
 
-Offsets the display by the given number of pixels.  Use to adjust display formatting.  
+Offsets the display by the given number of pixels.  Use to adjust display formatting.
 [LIFTSEGMENT:0]
 
 What to follow in the DF window.  Options are WINDOW CENTER FOCUS or NONE.  Use (default) key 'f' to cycle.
@@ -108,31 +108,31 @@ if trying having issues with sprite configuration tweaking.
 
 --Troubleshooting--
 
-This is the number of draw operations that will be held at a time.  Holding draw operations allows 
+This is the number of draw operations that will be held at a time.  Holding draw operations allows
 for those draws to be carried out efficiently if they have the same source.  May be tweaked for
-performance gains.  
+performance gains.
 [BITMAP_HOLDS:4096]
 
 Stonesense will try to merge all loaded sprites into a single texture, for performance reasons.
 if your videocard has low memory, you may want to disable this.
 [CACHE_IMAGES:NO]
 
-This sets the preferred size of the internal image cache. If your videocard does not support it, 
+This sets the preferred size of the internal image cache. If your videocard does not support it,
 a smaller size is used.
 [IMAGE_CACHE_SIZE:4096]
 
 If this is set to YES, Stonesense will save a copy of the image cache each time something is added to it.
-Dot NOT turn this on unless something is going very wonky. this will slow loading times considerably, 
+Dot NOT turn this on unless something is going very wonky. this will slow loading times considerably,
 and possibly quickly fill up yout hard-drive.
 [LOG_IMAGECACHE:NO]
 
-Set the preferred renderer. Valid values are SOFTWARE, OPENGL, DIRECTX, and ANY. SOFTWARE has the highest 
+Set the preferred renderer. Valid values are SOFTWARE, OPENGL, DIRECTX, and ANY. SOFTWARE has the highest
 compatibility, but is very slow.
 [RENDERER:ANY]
 
 --Colors--
 
-Stonesense can use the colors from DF for various purposes. 
+Stonesense can use the colors from DF for various purposes.
 [USE_DF_COLORS:NO]
 
 If USE_DF_COLORS is NO, the colors below are used instead.

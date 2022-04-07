@@ -53,10 +53,10 @@ material="mushroom"
     <subsprite sheetIndex="22" border_floor_NOR="842" border_ramp_NOR="6" border_wall_NOR="6" border_open_NOR="842" />
     <subsprite sheetIndex="23" border_floor_NOR="246" border_ramp_NOR="8" border_wall_NOR="8" border_open_NOR="246" />
     <subsprite sheetIndex="24" border_floor_NOR="468" border_ramp_NOR="2" border_wall_NOR="2" border_open_NOR="468" />
-    
-    
+
+
     <subsprite sheetIndex="20" border_open_NOR="12345678" border_floor_NOR="12345678" />
-    
+
     -->
     </wall>
     <wall sheetIndex="20" color="material">
@@ -70,8 +70,8 @@ material="mushroom"
     <subsprite sheetIndex="26" border_floor_NOR="678" border_ramp_NOR="678" border_wall_NOR="678" border_open_NOR="234" />
     <subsprite sheetIndex="27" border_floor_NOR="128" border_ramp_NOR="128" border_wall_NOR="128" border_open_NOR="456" />
     <subsprite sheetIndex="28" border_floor_NOR="234" border_ramp_NOR="234" border_wall_NOR="234" border_open_NOR="678" />
-    
-    
+
+
     <subsprite sheetIndex="20" border_open_NOR="12345678" border_floor_NOR="12345678" />
     -->
     </wall>
