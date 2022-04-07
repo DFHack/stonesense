@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
-<floors file="bordertest.png">>
-  <!-- construct -->
-  <floor sheetIndex="0" color="material">
+<floors file="bordertest.png">&gt; 
+<!-- construct -->
+<floor sheetIndex="0" color="material">
     <!-- floor -->
     <terrain value="493" />
     <!-- stair -->
@@ -32,112 +32,16 @@
     <terrain value="512" />
     <terrain value="513" />
     <terrain value="514" />
-	<subsprite 
-		sheetIndex="1" 
-		needopen="1"
-		needfloor="0"
-		needwall="1"
-		needramp="1"
-		neednotopen="0"
-		neednotwall="0"
-		neednotfloor="82"
-		/>
-	<subsprite 
-		sheetIndex="2" 
-		needopen="2"
-		needfloor="0"
-		needwall="2"
-		needramp="2"
-		/>
-	<subsprite 
-		sheetIndex="3" 
-		needopen="3"
-		needfloor="0"
-		needwall="3"
-		needramp="3"
-		neednotopen="0"
-		neednotwall="0"
-		neednotfloor="24"
-		/>
-	<subsprite 
-		sheetIndex="4" 
-		needopen="4"
-		needfloor="0"
-		needwall="4"
-		needramp="4"
-		/>
-	<subsprite 
-		sheetIndex="5" 
-		needopen="5"
-		needfloor="0"
-		needwall="5"
-		needramp="5"
-		neednotopen="0"
-		neednotwall="0"
-		neednotfloor="46"
-		/>
-	<subsprite 
-		sheetIndex="6" 
-		needopen="6"
-		needfloor="0"
-		needwall="6"
-		needramp="6"
-		/>
-	<subsprite 
-		sheetIndex="7" 
-		needopen="7"
-		needfloor="0"
-		needwall="7"
-		needramp="7"
-		neednotopen="0"
-		neednotwall="0"
-		neednotfloor="68"
-		/>
-	<subsprite 
-		sheetIndex="8" 
-		needopen="8"
-		needfloor="0"
-		needwall="8"
-		needramp="8"
-		/>
-	<subsprite 
-		sheetIndex="1" 
-		needopen="1"
-		needfloor="82"
-		needwall="1"
-		needramp="1"
-		neednotopen="82"
-		neednotwall="82"
-		neednotfloor="1"
-		/>
-	<subsprite 
-		sheetIndex="3" 
-		needopen="3"
-		needfloor="24"
-		needwall="3"
-		neednotopen="24"
-		neednotwall="24"
-		neednotfloor="3"
-		/>
-	<subsprite 
-		sheetIndex="5" 
-		needopen="5"
-		needfloor="46"
-		needwall="5"
-		needramp="5"
-		neednotopen="46"
-		neednotwall="46"
-		neednotfloor="5"
-		/>
-	<subsprite 
-		sheetIndex="7" 
-		needopen="7"
-		needfloor="68"
-		needwall="7"
-		needramp="7"
-		neednotopen="68"
-		neednotwall="68"
-		neednotfloor="7"
-		/>
-	</floor>
-</floors>
+    <subsprite sheetIndex="1" needopen="1" needfloor="0" needwall="1" needramp="1" neednotopen="0" neednotwall="0" neednotfloor="82" />
+    <subsprite sheetIndex="2" needopen="2" needfloor="0" needwall="2" needramp="2" />
+    <subsprite sheetIndex="3" needopen="3" needfloor="0" needwall="3" needramp="3" neednotopen="0" neednotwall="0" neednotfloor="24" />
+    <subsprite sheetIndex="4" needopen="4" needfloor="0" needwall="4" needramp="4" />
+    <subsprite sheetIndex="5" needopen="5" needfloor="0" needwall="5" needramp="5" neednotopen="0" neednotwall="0" neednotfloor="46" />
+    <subsprite sheetIndex="6" needopen="6" needfloor="0" needwall="6" needramp="6" />
+    <subsprite sheetIndex="7" needopen="7" needfloor="0" needwall="7" needramp="7" neednotopen="0" neednotwall="0" neednotfloor="68" />
+    <subsprite sheetIndex="8" needopen="8" needfloor="0" needwall="8" needramp="8" />
+    <subsprite sheetIndex="1" needopen="1" needfloor="82" needwall="1" needramp="1" neednotopen="82" neednotwall="82" neednotfloor="1" />
+    <subsprite sheetIndex="3" needopen="3" needfloor="24" needwall="3" neednotopen="24" neednotwall="24" neednotfloor="3" />
+    <subsprite sheetIndex="5" needopen="5" needfloor="46" needwall="5" needramp="5" neednotopen="46" neednotwall="46" neednotfloor="5" />
+    <subsprite sheetIndex="7" needopen="7" needfloor="68" needwall="7" needramp="7" neednotopen="68" neednotwall="68" neednotfloor="7" />
+</floor></floors>

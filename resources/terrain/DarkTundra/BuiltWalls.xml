@@ -1,664 +1,662 @@
-<?xml version="1.0" ?>
+<?xml version="1.0"?>
 <walls file="Builtblocks.png">
-	<wall sprite="100">
-		<terrain value="495" />
-		<terrain value="496" />
-		<terrain value="497" />
-		<terrain value="498" />
-		<terrain value="499" />
-		<terrain value="500" />
-		<terrain value="501" />
-		<terrain value="502" />
-		<terrain value="503" />
-		<terrain value="504" />
-		<terrain value="505" />
-		<terrain value="506" />
-		<terrain value="507" />
-		<terrain value="508" />
-		<terrain value="509" />
-		<terrain value="510" />
-		<terrain value="511" />
-		<terrain value="512" />
-		<terrain value="513" />
-		<terrain value="514" />
-		<material value="GreenGlass" />
-		<subsprite sprite="228" color="material" outline="0" border_open_NOR="2468" border_floor_NOR="2468"/>
-		<subsprite sprite="229" color="material" outline="0" border_open_NOR="246" border_floor_NOR="246" border_wall_NOR="8"/>
-		<subsprite sprite="230" color="material" outline="0" border_open_NOR="468" border_floor_NOR="468" border_wall_NOR="2"/>
-		<subsprite sprite="231" color="material" outline="0" border_open_NOR="248" border_floor_NOR="248" border_wall_NOR="6"/>
-		<subsprite sprite="232" color="material" outline="0" border_open_NOR="268" border_floor_NOR="268" border_wall_NOR="4"/>
-		<subsprite sprite="233" color="material" outline="0" border_open_NOR="46" border_floor_NOR="46" border_wall_NOR="28"/>
-		<subsprite sprite="234" color="material" outline="0" border_open_NOR="24" border_floor_NOR="24" border_wall_NOR="68"/>
-		<subsprite sprite="235" color="material" outline="0" border_open_NOR="28" border_floor_NOR="28" border_wall_NOR="46"/>
-		<subsprite sprite="236" color="material" outline="0" border_open_NOR="68" border_floor_NOR="68" border_wall_NOR="24"/>
-		<subsprite sprite="237" color="material" outline="0" border_open_NOR="26" border_floor_NOR="26" border_wall_NOR="48"/>
-		<subsprite sprite="238" color="material" outline="0" border_open_NOR="48" border_floor_NOR="48" border_wall_NOR="26"/>
-		<subsprite sprite="239" color="material" outline="0" border_open_NOR="2" border_floor_NOR="2" border_wall_NOR="468"/>
-		<subsprite sprite="239" color="material" outline="0" border_open_NOR="4" border_floor_NOR="4" border_wall_NOR="268"/>
-		<subsprite sprite="239" color="material" outline="0" border_open_NOR="6" border_floor_NOR="6" border_wall_NOR="248"/>
-		<subsprite sprite="239" color="material" outline="0" border_open_NOR="8" border_floor_NOR="8" border_wall_NOR="246"/>
-		<subsprite sprite="239" color="material" outline="0" border_wall_NOR="2468"/>
-	</wall>
-	<wall sprite="100">
-		<terrain value="495" />
-		<terrain value="496" />
-		<terrain value="497" />
-		<terrain value="498" />
-		<terrain value="499" />
-		<terrain value="500" />
-		<terrain value="501" />
-		<terrain value="502" />
-		<terrain value="503" />
-		<terrain value="504" />
-		<terrain value="505" />
-		<terrain value="506" />
-		<terrain value="507" />
-		<terrain value="508" />
-		<terrain value="509" />
-		<terrain value="510" />
-		<terrain value="511" />
-		<terrain value="512" />
-		<terrain value="513" />
-		<terrain value="514" />
-		<material value="ClearGlass" />
-		<subsprite sprite="248" color="material" outline="0" border_open_NOR="2468" border_floor_NOR="2468"/>
-		<subsprite sprite="249" color="material" outline="0" border_open_NOR="246" border_floor_NOR="246" border_wall_NOR="8"/>
-		<subsprite sprite="250" color="material" outline="0" border_open_NOR="468" border_floor_NOR="468" border_wall_NOR="2"/>
-		<subsprite sprite="251" color="material" outline="0" border_open_NOR="248" border_floor_NOR="248" border_wall_NOR="6"/>
-		<subsprite sprite="252" color="material" outline="0" border_open_NOR="268" border_floor_NOR="268" border_wall_NOR="4"/>
-		<subsprite sprite="253" color="material" outline="0" border_open_NOR="46" border_floor_NOR="46" border_wall_NOR="28"/>
-		<subsprite sprite="254" color="material" outline="0" border_open_NOR="24" border_floor_NOR="24" border_wall_NOR="68"/>
-		<subsprite sprite="255" color="material" outline="0" border_open_NOR="28" border_floor_NOR="28" border_wall_NOR="46"/>
-		<subsprite sprite="256" color="material" outline="0" border_open_NOR="68" border_floor_NOR="68" border_wall_NOR="24"/>
-		<subsprite sprite="257" color="material" outline="0" border_open_NOR="26" border_floor_NOR="26" border_wall_NOR="48"/>
-		<subsprite sprite="258" color="material" outline="0" border_open_NOR="48" border_floor_NOR="48" border_wall_NOR="26"/>
-		<subsprite sprite="259" color="material" outline="0" border_open_NOR="2" border_floor_NOR="2" border_wall_NOR="468"/>
-		<subsprite sprite="259" color="material" outline="0" border_open_NOR="4" border_floor_NOR="4" border_wall_NOR="268"/>
-		<subsprite sprite="259" color="material" outline="0" border_open_NOR="6" border_floor_NOR="6" border_wall_NOR="248"/>
-		<subsprite sprite="259" color="material" outline="0" border_open_NOR="8" border_floor_NOR="8" border_wall_NOR="246"/>
-		<subsprite sprite="259" color="material" outline="0" border_wall_NOR="2468"/>
-	</wall>
-	<wall sprite="100">
-		<terrain value="495" />
-		<terrain value="496" />
-		<terrain value="497" />
-		<terrain value="498" />
-		<terrain value="499" />
-		<terrain value="500" />
-		<terrain value="501" />
-		<terrain value="502" />
-		<terrain value="503" />
-		<terrain value="504" />
-		<terrain value="505" />
-		<terrain value="506" />
-		<terrain value="507" />
-		<terrain value="508" />
-		<terrain value="509" />
-		<terrain value="510" />
-		<terrain value="511" />
-		<terrain value="512" />
-		<terrain value="513" />
-		<terrain value="514" />
-		<material value="CrystalGlass" />
-		<subsprite sprite="268" color="material" outline="0" border_open_NOR="2468" border_floor_NOR="2468"/>
-		<subsprite sprite="269" color="material" outline="0" border_open_NOR="246" border_floor_NOR="246" border_wall_NOR="8"/>
-		<subsprite sprite="270" color="material" outline="0" border_open_NOR="468" border_floor_NOR="468" border_wall_NOR="2"/>
-		<subsprite sprite="271" color="material" outline="0" border_open_NOR="248" border_floor_NOR="248" border_wall_NOR="6"/>
-		<subsprite sprite="272" color="material" outline="0" border_open_NOR="268" border_floor_NOR="268" border_wall_NOR="4"/>
-		<subsprite sprite="273" color="material" outline="0" border_open_NOR="46" border_floor_NOR="46" border_wall_NOR="28"/>
-		<subsprite sprite="274" color="material" outline="0" border_open_NOR="24" border_floor_NOR="24" border_wall_NOR="68"/>
-		<subsprite sprite="275" color="material" outline="0" border_open_NOR="28" border_floor_NOR="28" border_wall_NOR="46"/>
-		<subsprite sprite="276" color="material" outline="0" border_open_NOR="68" border_floor_NOR="68" border_wall_NOR="24"/>
-		<subsprite sprite="277" color="material" outline="0" border_open_NOR="26" border_floor_NOR="26" border_wall_NOR="48"/>
-		<subsprite sprite="278" color="material" outline="0" border_open_NOR="48" border_floor_NOR="48" border_wall_NOR="26"/>
-		<subsprite sprite="279" color="material" outline="0" border_open_NOR="2" border_floor_NOR="2" border_wall_NOR="468"/>
-		<subsprite sprite="279" color="material" outline="0" border_open_NOR="4" border_floor_NOR="4" border_wall_NOR="268"/>
-		<subsprite sprite="279" color="material" outline="0" border_open_NOR="6" border_floor_NOR="6" border_wall_NOR="248"/>
-		<subsprite sprite="279" color="material" outline="0" border_open_NOR="8" border_floor_NOR="8" border_wall_NOR="246"/>
-		<subsprite sprite="279" color="material" outline="0" border_wall_NOR="2468"/>
-	</wall>
-	<wall sprite="100">
-		<terrain value="495" />
-		<terrain value="496" />
-		<terrain value="497" />
-		<terrain value="498" />
-		<terrain value="499" />
-		<terrain value="500" />
-		<terrain value="501" />
-		<terrain value="502" />
-		<terrain value="503" />
-		<terrain value="504" />
-		<terrain value="505" />
-		<terrain value="506" />
-		<terrain value="507" />
-		<terrain value="508" />
-		<terrain value="509" />
-		<terrain value="510" />
-		<terrain value="511" />
-		<terrain value="512" />
-		<terrain value="513" />
-		<terrain value="514" />
-		<material value="Wood" />
-		<subsprite sprite="208" color="material" outline="0" border_open_NOR="2468" border_floor_NOR="2468"/>
-		<subsprite sprite="209" color="material" outline="0" border_open_NOR="246" border_floor_NOR="246" border_wall_NOR="8"/>
-		<subsprite sprite="210" color="material" outline="0" border_open_NOR="468" border_floor_NOR="468" border_wall_NOR="2"/>
-		<subsprite sprite="211" color="material" outline="0" border_open_NOR="248" border_floor_NOR="248" border_wall_NOR="6"/>
-		<subsprite sprite="212" color="material" outline="0" border_open_NOR="268" border_floor_NOR="268" border_wall_NOR="4"/>
-		<subsprite sprite="213" color="material" outline="0" border_open_NOR="46" border_floor_NOR="46" border_wall_NOR="28"/>
-		<subsprite sprite="214" color="material" outline="0" border_open_NOR="24" border_floor_NOR="24" border_wall_NOR="68"/>
-		<subsprite sprite="215" color="material" outline="0" border_open_NOR="28" border_floor_NOR="28" border_wall_NOR="46"/>
-		<subsprite sprite="216" color="material" outline="0" border_open_NOR="68" border_floor_NOR="68" border_wall_NOR="24"/>
-		<subsprite sprite="217" color="material" outline="0" border_open_NOR="26" border_floor_NOR="26" border_wall_NOR="48"/>
-		<subsprite sprite="218" color="material" outline="0" border_open_NOR="48" border_floor_NOR="48" border_wall_NOR="26"/>
-		<subsprite sprite="219" color="material" outline="0" border_open_NOR="2" border_floor_NOR="2" border_wall_NOR="468"/>
-		<subsprite sprite="219" color="material" outline="0" border_open_NOR="4" border_floor_NOR="4" border_wall_NOR="268"/>
-		<subsprite sprite="219" color="material" outline="0" border_open_NOR="6" border_floor_NOR="6" border_wall_NOR="248"/>
-		<subsprite sprite="219" color="material" outline="0" border_open_NOR="8" border_floor_NOR="8" border_wall_NOR="246"/>
-		<subsprite sprite="219" color="material" outline="0" border_wall_NOR="2468"/>
-	</wall>
-	<wall sprite="100">
-		<terrain value="450" />
-		<terrain value="451" />
-		<terrain value="452" />
-		<terrain value="453" />
-		<terrain value="454" />
-		<terrain value="455" />
-		<terrain value="456" />
-		<terrain value="457" />
-		<terrain value="458" />
-		<terrain value="459" />
-		<terrain value="450" />
-		<terrain value="461" />
-		<terrain value="462" />
-		<terrain value="463" />
-		<terrain value="464" />
-		<terrain value="465" />
-		<terrain value="466" />
-		<terrain value="467" />
-		<terrain value="468" />
-		<material value="Ice" />
-		<subsprite sprite="140" outline="1" border_open_NOR="2468" border_floor_NOR="2468"/>
-		<subsprite sprite="140" outline="1" border_open_NOR="246" border_floor_NOR="246" border_wall_NOR="8"/>
-		<subsprite sprite="140" outline="1" border_open_NOR="468" border_floor_NOR="468" border_wall_NOR="2"/>
-		<subsprite sprite="140" outline="1" border_open_NOR="248" border_floor_NOR="248" border_wall_NOR="6"/>
-		<subsprite sprite="140" outline="1" border_open_NOR="268" border_floor_NOR="268" border_wall_NOR="4"/>
-		<subsprite sprite="141" outline="0" border_open_NOR="46" border_floor_NOR="46" border_wall_NOR="28"/>
-		<subsprite sprite="144" outline="0" border_open_NOR="24" border_floor_NOR="24" border_wall_NOR="68"/>
-		<subsprite sprite="143" outline="0" border_open_NOR="28" border_floor_NOR="28" border_wall_NOR="46"/>
-		<subsprite sprite="142" outline="0" border_open_NOR="68" border_floor_NOR="68" border_wall_NOR="24"/>
-		<subsprite sprite="140" outline="1" border_open_NOR="26" border_floor_NOR="26" border_wall_NOR="48"/>
-		<subsprite sprite="140" outline="1" border_open_NOR="48" border_floor_NOR="48" border_wall_NOR="26"/>
-		<subsprite sprite="140" outline="1" border_open_NOR="2" border_floor_NOR="2" border_wall_NOR="468"/>
-		<subsprite sprite="140" outline="1" border_open_NOR="4" border_floor_NOR="4" border_wall_NOR="268"/>
-		<subsprite sprite="140" outline="1" border_open_NOR="6" border_floor_NOR="6" border_wall_NOR="248"/>
-		<subsprite sprite="140" outline="1" border_open_NOR="8" border_floor_NOR="8" border_wall_NOR="246"/>
-		<subsprite sprite="140" outline="1" border_wall_NOR="2468"/>
-	</wall>
-	<wall sprite="100">
-		<terrain value="495" />
-		<terrain value="496" />
-		<terrain value="497" />
-		<terrain value="498" />
-		<terrain value="499" />
-		<terrain value="500" />
-		<terrain value="501" />
-		<terrain value="502" />
-		<terrain value="503" />
-		<terrain value="504" />
-		<terrain value="505" />
-		<terrain value="506" />
-		<terrain value="507" />
-		<terrain value="508" />
-		<terrain value="509" />
-		<terrain value="510" />
-		<terrain value="511" />
-		<terrain value="512" />
-		<terrain value="513" />
-		<terrain value="514" />
-		<material value="Ice" />
-		<subsprite sprite="145" outline="1" border_open_NOR="2468" border_floor_NOR="2468"/>
-		<subsprite sprite="145" outline="1" border_open_NOR="246" border_floor_NOR="246" border_wall_NOR="8"/>
-		<subsprite sprite="145" outline="1" border_open_NOR="468" border_floor_NOR="468" border_wall_NOR="2"/>
-		<subsprite sprite="145" outline="1" border_open_NOR="248" border_floor_NOR="248" border_wall_NOR="6"/>
-		<subsprite sprite="145" outline="1" border_open_NOR="268" border_floor_NOR="268" border_wall_NOR="4"/>
-		<subsprite sprite="146" outline="0" border_open_NOR="46" border_floor_NOR="46" border_wall_NOR="28"/>
-		<subsprite sprite="149" outline="0" border_open_NOR="24" border_floor_NOR="24" border_wall_NOR="68"/>
-		<subsprite sprite="148" outline="0" border_open_NOR="28" border_floor_NOR="28" border_wall_NOR="46"/>
-		<subsprite sprite="147" outline="0" border_open_NOR="68" border_floor_NOR="68" border_wall_NOR="24"/>
-		<subsprite sprite="145" outline="1" border_open_NOR="26" border_floor_NOR="26" border_wall_NOR="48"/>
-		<subsprite sprite="145" outline="1" border_open_NOR="48" border_floor_NOR="48" border_wall_NOR="26"/>
-		<subsprite sprite="145" outline="1" border_open_NOR="2" border_floor_NOR="2" border_wall_NOR="468"/>
-		<subsprite sprite="145" outline="1" border_open_NOR="4" border_floor_NOR="4" border_wall_NOR="268"/>
-		<subsprite sprite="145" outline="1" border_open_NOR="6" border_floor_NOR="6" border_wall_NOR="248"/>
-		<subsprite sprite="145" outline="1" border_open_NOR="8" border_floor_NOR="8" border_wall_NOR="246"/>
-		<subsprite sprite="145" outline="1" border_wall_NOR="2468"/>
-	</wall>
-	<wall sprite="100" outline="0">
-		<terrain value="269"/>
-		<terrain value="270"/>
-		<terrain value="271"/>
-		<terrain value="272"/>
-		<terrain value="273"/>
-		<terrain value="274"/>
-		<terrain value="275"/>
-		<terrain value="276"/>
-		<terrain value="277"/>
-		<terrain value="278"/>
-		<terrain value="279"/>
-		<terrain value="280"/>
-		<terrain value="281"/>
-		<terrain value="282"/>
-		<terrain value="283"/>
-		<terrain value="284"/>
-		<terrain value="285"/>
-		<terrain value="286"/>
-		<terrain value="287"/>
-		<terrain value="80"/>
-		<subsprite sprite="128" outline="0" border_open_NOR="2468" border_floor_NOR="2468"/>
-		<subsprite sprite="129" outline="0" border_open_NOR="246" border_floor_NOR="246" border_wall_NOR="8"/>
-		<subsprite sprite="130" outline="0" border_open_NOR="468" border_floor_NOR="468" border_wall_NOR="2"/>
-		<subsprite sprite="131" outline="0" border_open_NOR="248" border_floor_NOR="248" border_wall_NOR="6"/>
-		<subsprite sprite="132" outline="0" border_open_NOR="268" border_floor_NOR="268" border_wall_NOR="4"/>
-		<subsprite sprite="133" outline="0" border_open_NOR="46" border_floor_NOR="46" border_wall_NOR="28"/>
-		<subsprite sprite="134" outline="0" border_open_NOR="24" border_floor_NOR="24" border_wall_NOR="68"/>
-		<subsprite sprite="135" outline="0" border_open_NOR="28" border_floor_NOR="28" border_wall_NOR="46"/>
-		<subsprite sprite="136" outline="0" border_open_NOR="68" border_floor_NOR="68" border_wall_NOR="24"/>
-		<subsprite sprite="137" outline="0" border_open_NOR="26" border_floor_NOR="26" border_wall_NOR="48"/>
-		<subsprite sprite="138" outline="0" border_open_NOR="48" border_floor_NOR="48" border_wall_NOR="26"/>
-		<subsprite sprite="139" outline="0" border_open_NOR="2" border_floor_NOR="2" border_wall_NOR="468"/>
-		<subsprite sprite="139" outline="0" border_open_NOR="4" border_floor_NOR="4" border_wall_NOR="268"/>
-		<subsprite sprite="139" outline="0" border_open_NOR="6" border_floor_NOR="6" border_wall_NOR="248"/>
-		<subsprite sprite="139" outline="0" border_open_NOR="8" border_floor_NOR="8" border_wall_NOR="246"/>
-		<subsprite sprite="139" outline="0" border_wall_NOR="2468"/>
-	</wall>
-	<wall sprite="100" outline="0">
-		<terrain value="417"/>
-		<terrain value="418"/>
-		<terrain value="419"/>
-		<terrain value="420"/>
-		<terrain value="421"/>
-		<terrain value="422"/>
-		<terrain value="423"/>
-		<terrain value="424"/>
-		<terrain value="425"/>
-		<terrain value="426"/>
-		<terrain value="427"/>
-		<terrain value="428"/>
-		<terrain value="429"/>
-		<terrain value="430"/>
-		<terrain value="431"/>
-		<terrain value="432"/>
-		<terrain value="433"/>
-		<terrain value="434"/>
-		<terrain value="435"/>
-		<terrain value="82"/>
-		<subsprite sprite="8" color="layer" outline="0" border_open_NOR="2468" border_floor_NOR="2468"/>
-		<subsprite sprite="28" color="vein" outline="0" border_open_NOR="2468" border_floor_NOR="2468"/>
-		<subsprite sprite="9" color="layer" outline="0" border_open_NOR="246" border_floor_NOR="246" border_wall_NOR="8"/>
-		<subsprite sprite="29" color="vein" outline="0" border_open_NOR="246" border_floor_NOR="246" border_wall_NOR="8"/>
-		<subsprite sprite="10" color="layer" outline="0" border_open_NOR="468" border_floor_NOR="468" border_wall_NOR="2"/>
-		<subsprite sprite="30" color="vein" outline="0" border_open_NOR="468" border_floor_NOR="468" border_wall_NOR="2"/>
-		<subsprite sprite="11" color="layer" outline="0" border_open_NOR="248" border_floor_NOR="248" border_wall_NOR="6"/>
-		<subsprite sprite="31" color="vein" outline="0" border_open_NOR="248" border_floor_NOR="248" border_wall_NOR="6"/>
-		<subsprite sprite="12" color="layer" outline="0" border_open_NOR="268" border_floor_NOR="268" border_wall_NOR="4"/>
-		<subsprite sprite="32" color="vein" outline="0" border_open_NOR="268" border_floor_NOR="268" border_wall_NOR="4"/>
-		<subsprite sprite="13" color="layer" outline="0" border_open_NOR="46" border_floor_NOR="46" border_wall_NOR="28"/>
-		<subsprite sprite="33" color="vein" outline="0" border_open_NOR="46" border_floor_NOR="46" border_wall_NOR="28"/>
-		<subsprite sprite="14" color="layer" outline="0" border_open_NOR="24" border_floor_NOR="24" border_wall_NOR="68"/>
-		<subsprite sprite="34" color="vein" outline="0" border_open_NOR="24" border_floor_NOR="24" border_wall_NOR="68"/>
-		<subsprite sprite="15" color="layer" outline="0" border_open_NOR="28" border_floor_NOR="28" border_wall_NOR="46"/>
-		<subsprite sprite="35" color="vein" outline="0" border_open_NOR="28" border_floor_NOR="28" border_wall_NOR="46"/>
-		<subsprite sprite="16" color="layer" outline="0" border_open_NOR="68" border_floor_NOR="68" border_wall_NOR="24"/>
-		<subsprite sprite="36" color="vein" outline="0" border_open_NOR="68" border_floor_NOR="68" border_wall_NOR="24"/>
-		<subsprite sprite="17" color="layer" outline="0" border_open_NOR="26" border_floor_NOR="26" border_wall_NOR="48"/>
-		<subsprite sprite="37" color="vein" outline="0" border_open_NOR="26" border_floor_NOR="26" border_wall_NOR="48"/>
-		<subsprite sprite="18" color="layer" outline="0" border_open_NOR="48" border_floor_NOR="48" border_wall_NOR="26"/>
-		<subsprite sprite="38" color="vein" outline="0" border_open_NOR="48" border_floor_NOR="48" border_wall_NOR="26"/>
-		<subsprite sprite="19" color="layer" outline="0" border_open_NOR="2" border_floor_NOR="2" border_wall_NOR="468"/>
-		<subsprite sprite="39" color="vein" outline="0" border_open_NOR="2" border_floor_NOR="2" border_wall_NOR="468"/>
-		<subsprite sprite="19" color="layer" outline="0" border_open_NOR="4" border_floor_NOR="4" border_wall_NOR="268"/>
-		<subsprite sprite="39" color="vein" outline="0" border_open_NOR="4" border_floor_NOR="4" border_wall_NOR="268"/>
-		<subsprite sprite="19" color="layer" outline="0" border_open_NOR="6" border_floor_NOR="6" border_wall_NOR="248"/>
-		<subsprite sprite="39" color="vein" outline="0" border_open_NOR="6" border_floor_NOR="6" border_wall_NOR="248"/>
-		<subsprite sprite="19" color="layer" outline="0" border_open_NOR="8" border_floor_NOR="8" border_wall_NOR="246"/>
-		<subsprite sprite="39" color="vein" outline="0" border_open_NOR="8" border_floor_NOR="8" border_wall_NOR="246"/>
-		<subsprite sprite="19" color="layer" outline="0" border_wall_NOR="2468"/>
-		<subsprite sprite="39" color="vein" outline="0" border_wall_NOR="2468"/>
-	</wall>
-	<wall sprite="100">
-		<terrain value= 417 />
-		<terrain value= 418 />
-		<terrain value= 419 />
-		<terrain value= 420 />
-		<terrain value= 421 />
-		<terrain value= 422 />
-		<terrain value= 423 />
-		<terrain value= 424 />
-		<terrain value= 425 />
-		<terrain value= 426 />
-		<terrain value= 427 />
-		<terrain value= 428 />
-		<terrain value= 429 />
-		<terrain value= 430 />
-		<terrain value= 431 />
-		<terrain value= 432 />
-		<terrain value= 433 />
-		<terrain value= 434 />
-		<terrain value= 435 />
-		<terrain value= 82 />
-		<subsprite sprite="8" color="layer" outline="0" border_open_NOR="2468" border_floor_NOR="2468"/>
-		<subsprite sprite="68" color="vein" outline="0" border_open_NOR="2468" border_floor_NOR="2468"/>
-		<subsprite sprite="48" color="none" outline="0" border_open_NOR="2468" border_floor_NOR="2468"/>
-		<subsprite sprite="9" color="layer" outline="0" border_open_NOR="246" border_floor_NOR="246" border_wall_NOR="8"/>
-		<subsprite sprite="69" color="vein" outline="0" border_open_NOR="246" border_floor_NOR="246" border_wall_NOR="8"/>
-		<subsprite sprite="49" color="none" outline="0" border_open_NOR="246" border_floor_NOR="246" border_wall_NOR="8"/>
-		<subsprite sprite="10" color="layer" outline="0" border_open_NOR="468" border_floor_NOR="468" border_wall_NOR="2"/>
-		<subsprite sprite="70" color="vein" outline="0" border_open_NOR="468" border_floor_NOR="468" border_wall_NOR="2"/>
-		<subsprite sprite="50" color="none" outline="0" border_open_NOR="468" border_floor_NOR="468" border_wall_NOR="2"/>
-		<subsprite sprite="11" color="layer" outline="0" border_open_NOR="248" border_floor_NOR="248" border_wall_NOR="6"/>
-		<subsprite sprite="71" color="vein" outline="0" border_open_NOR="248" border_floor_NOR="248" border_wall_NOR="6"/>
-		<subsprite sprite="51" color="none" outline="0" border_open_NOR="248" border_floor_NOR="248" border_wall_NOR="6"/>
-		<subsprite sprite="12" color="layer" outline="0" border_open_NOR="268" border_floor_NOR="268" border_wall_NOR="4"/>
-		<subsprite sprite="72" color="vein" outline="0" border_open_NOR="268" border_floor_NOR="268" border_wall_NOR="4"/>
-		<subsprite sprite="52" color="none" outline="0" border_open_NOR="268" border_floor_NOR="268" border_wall_NOR="4"/>
-		<subsprite sprite="13" color="layer" outline="0" border_open_NOR="46" border_floor_NOR="46" border_wall_NOR="28"/>
-		<subsprite sprite="73" color="vein" outline="0" border_open_NOR="46" border_floor_NOR="46" border_wall_NOR="28"/>
-		<subsprite sprite="53" color="none" outline="0" border_open_NOR="46" border_floor_NOR="46" border_wall_NOR="28"/>
-		<subsprite sprite="14" color="layer" outline="0" border_open_NOR="24" border_floor_NOR="24" border_wall_NOR="68"/>
-		<subsprite sprite="74" color="vein" outline="0" border_open_NOR="24" border_floor_NOR="24" border_wall_NOR="68"/>
-		<subsprite sprite="54" color="none" outline="0" border_open_NOR="24" border_floor_NOR="24" border_wall_NOR="68"/>
-		<subsprite sprite="15" color="layer" outline="0" border_open_NOR="28" border_floor_NOR="28" border_wall_NOR="46"/>
-		<subsprite sprite="75" color="vein" outline="0" border_open_NOR="28" border_floor_NOR="28" border_wall_NOR="46"/>
-		<subsprite sprite="55" color="none" outline="0" border_open_NOR="28" border_floor_NOR="28" border_wall_NOR="46"/>
-		<subsprite sprite="16" color="layer" outline="0" border_open_NOR="68" border_floor_NOR="68" border_wall_NOR="24"/>
-		<subsprite sprite="76" color="vein" outline="0" border_open_NOR="68" border_floor_NOR="68" border_wall_NOR="24"/>
-		<subsprite sprite="56" color="none" outline="0" border_open_NOR="68" border_floor_NOR="68" border_wall_NOR="24"/>
-		<subsprite sprite="17" color="layer" outline="0" border_open_NOR="26" border_floor_NOR="26" border_wall_NOR="48"/>
-		<subsprite sprite="77" color="vein" outline="0" border_open_NOR="26" border_floor_NOR="26" border_wall_NOR="48"/>
-		<subsprite sprite="57" color="none" outline="0" border_open_NOR="26" border_floor_NOR="26" border_wall_NOR="48"/>
-		<subsprite sprite="18" color="layer" outline="0" border_open_NOR="48" border_floor_NOR="48" border_wall_NOR="26"/>
-		<subsprite sprite="78" color="vein" outline="0" border_open_NOR="48" border_floor_NOR="48" border_wall_NOR="26"/>
-		<subsprite sprite="58" color="none" outline="0" border_open_NOR="48" border_floor_NOR="48" border_wall_NOR="26"/>
-		<subsprite sprite="19" color="layer" outline="0" border_open_NOR="2" border_floor_NOR="2" border_wall_NOR="468"/>
-		<subsprite sprite="79" color="vein" outline="0" border_open_NOR="2" border_floor_NOR="2" border_wall_NOR="468"/>
-		<subsprite sprite="59" color="none" outline="0" border_open_NOR="2" border_floor_NOR="2" border_wall_NOR="468"/>
-		<subsprite sprite="19" color="layer" outline="0" border_open_NOR="4" border_floor_NOR="4" border_wall_NOR="268"/>
-		<subsprite sprite="79" color="vein" outline="0" border_open_NOR="4" border_floor_NOR="4" border_wall_NOR="268"/>
-		<subsprite sprite="59" color="none" outline="0" border_open_NOR="4" border_floor_NOR="4" border_wall_NOR="268"/>
-		<subsprite sprite="19" color="layer" outline="0" border_open_NOR="6" border_floor_NOR="6" border_wall_NOR="248"/>
-		<subsprite sprite="79" color="vein" outline="0" border_open_NOR="6" border_floor_NOR="6" border_wall_NOR="248"/>
-		<subsprite sprite="59" color="none" outline="0" border_open_NOR="6" border_floor_NOR="6" border_wall_NOR="248"/>
-		<subsprite sprite="19" color="layer" outline="0" border_open_NOR="8" border_floor_NOR="8" border_wall_NOR="246"/>
-		<subsprite sprite="79" color="vein" outline="0" border_open_NOR="8" border_floor_NOR="8" border_wall_NOR="246"/>
-		<subsprite sprite="59" color="none" outline="0" border_open_NOR="8" border_floor_NOR="8" border_wall_NOR="246"/>
-		<subsprite sprite="19" color="layer" outline="0" border_wall_NOR="2468"/>
-		<subsprite sprite="79" color="vein" outline="0" border_wall_NOR="2468"/>
-		<subsprite sprite="59" color="none" outline="0" border_wall_NOR="2468"/>
-		<material value="Stone">
-			<subtype value="ONYX" />
-			<subtype value="MORION" />
-			<subtype value="SCHORL" />
-			<subtype value="LACE AGATE" />
-			<subtype value="BLUE JADE" />
-			<subtype value="LAPIS LAZULI" />
-			<subtype value="PRASE" />
-			<subtype value="PRASE OPAL" />
-			<subtype value="BLOODSTONE" />
-			<subtype value="MOSS AGATE" />
-			<subtype value="MOSS OPAL" />
-			<subtype value="VARISCITE" />
-			<subtype value="CHRYSOPRASE" />
-			<subtype value="CHRYSOCOLLA" />
-			<subtype value="SARD" />
-			<subtype value="CARNELIAN" />
-			<subtype value="BANDED AGATE" />
-			<subtype value="SARDONYX" />
-			<subtype value="CHERRY OPAL" />
-			<subtype value="PINK JADE" />
-			<subtype value="TUBE AGATE" />
-			<subtype value="FIRE AGATE" />
-			<subtype value="PLUME AGATE" />
-			<subtype value="BROWN JASPER" />
-			<subtype value="PICTURE JASPER" />
-			<subtype value="SMOKY QUARTZ" />
-			<subtype value="WAX OPAL" />
-			<subtype value="WOOD OPAL" />
-			<subtype value="AMBER OPAL" />
-			<subtype value="GOLD OPAL" />
-			<subtype value="CITRINE" />
-			<subtype value="YELLOW JASPER" />
-			<subtype value="TIGEREYE" />
-			<subtype value="TIGER IRON" />
-			<subtype value="SUNSTONE" />
-			<subtype value="RESIN OPAL" />
-			<subtype value="PYRITE" />
-			<subtype value="CLEAR TOURMALINE" />
-			<subtype value="GRAY CHALCEDONY" />
-			<subtype value="DENDRITIC AGATE" />
-			<subtype value="SHELL OPAL" />
-			<subtype value="BONE OPAL" />
-			<subtype value="WHITE CHALCEDONY" />
-			<subtype value="FORTIFICATION AGATE" />
-			<subtype value="MILK QUARTZ" />
-			<subtype value="MOONSTONE" />
-			<subtype value="WHITE JADE" />
-			<subtype value="JASPER OPAL" />
-			<subtype value="PINEAPPLE OPAL" />
-			<subtype value="ONYX OPAL" />
-			<subtype value="MILK OPAL" />
-			<subtype value="PIPE OPAL" />
-			<subtype value="AVENTURINE" />
-			<subtype value="TURQUOISE" />
-			<subtype value="QUARTZ_ROSE" />
-			<subtype value="CRYSTAL_ROCK" />
-			<subtype value="BLACK ZIRCON" />
-			<subtype value="BLACK PYROPE" />
-			<subtype value="MELANITE" />
-			<subtype value="INDIGO TOURMALINE" />
-			<subtype value="BLUE GARNET" />
-			<subtype value="TSAVORITE" />
-			<subtype value="GREEN TOURMALINE" />
-			<subtype value="DEMANTOID" />
-			<subtype value="GREEN ZIRCON" />
-			<subtype value="GREEN JADE" />
-			<subtype value="HELIODOR" />
-			<subtype value="PERIDOT" />
-			<subtype value="RED ZIRCON" />
-			<subtype value="RED TOURMALINE" />
-			<subtype value="RED PYROPE" />
-			<subtype value="ALMANDINE" />
-			<subtype value="RED GROSSULAR" />
-			<subtype value="PINK TOURMALINE" />
-			<subtype value="RED BERYL" />
-			<subtype value="FIRE OPAL" />
-			<subtype value="RHODOLITE" />
-			<subtype value="SPINEL_PURPLE" />
-			<subtype value="ALEXANDRITE" />
-			<subtype value="TANZANITE" />
-			<subtype value="MORGANITE" />
-			<subtype value="VIOLET SPESSARTINE" />
-			<subtype value="PINK GARNET" />
-			<subtype value="KUNZITE" />
-			<subtype value="CINNAMON GROSSULAR" />
-			<subtype value="HONEY YELLOW BERYL" />
-			<subtype value="JELLY OPAL" />
-			<subtype value="BROWN ZIRCON" />
-			<subtype value="YELLOW ZIRCON" />
-			<subtype value="GOLDEN BERYL" />
-			<subtype value="YELLOW SPESSARTINE" />
-			<subtype value="TOPAZ" />
-			<subtype value="TOPAZOLITE" />
-			<subtype value="YELLOW GROSSULAR" />
-			<subtype value="RUBICELLE" />
-			<subtype value="CLEAR GARNET" />
-			<subtype value="GOSHENITE" />
-			<subtype value="CAT'S EYE" />
-			<subtype value="CLEAR ZIRCON" />
-			<subtype value="AMETHYST" />
-			<subtype value="AQUAMARINE" />
-			<subtype value="SPINEL_RED" />
-			<subtype value="CHRYSOBERYL" />
-			<subtype value="OPAL_PFIRE" />
-			<subtype value="OPAL_REDFLASH" />
-			<subtype value="OPAL_BLACK" />
-			<subtype value="OPAL_WHITE" />
-			<subtype value="OPAL_CRYSTAL" />
-			<subtype value="OPAL_CLARO" />
-			<subtype value="OPAL_LEVIN" />
-			<subtype value="OPAL_HARLEQUIN" />
-			<subtype value="OPAL_PINFIRE" />
-			<subtype value="OPAL_BANDFIRE" />
-			<subtype value="DIAMOND_LY" />
-			<subtype value="DIAMOND_FY" />
-			<subtype value="EMERALD" />
-			<subtype value="RUBY" />
-			<subtype value="SAPPHIRE" />
-			<subtype value="DIAMOND_CLEAR" />
-			<subtype value="DIAMOND_RED" />
-			<subtype value="DIAMOND_GREEN" />
-			<subtype value="DIAMOND_BLUE" />
-			<subtype value="DIAMOND_YELLOW" />
-			<subtype value="DIAMOND_BLACK" />
-			<subtype value="SAPPHIRE_STAR" />
-			<subtype value="RUBY_STAR" />
-		</material>
-	</wall>
-	<wall sprite="100" outline="0">
-		<terrain value="288"/>
-		<terrain value="289"/>
-		<terrain value="290"/>
-		<terrain value="291"/>
-		<terrain value="292"/>
-		<terrain value="293"/>
-		<terrain value="294"/>
-		<terrain value="295"/>
-		<terrain value="296"/>
-		<terrain value="297"/>
-		<terrain value="298"/>
-		<terrain value="299"/>
-		<terrain value="300"/>
-		<terrain value="301"/>
-		<terrain value="302"/>
-		<terrain value="303"/>
-		<terrain value="304"/>
-		<terrain value="305"/>
-		<terrain value="306"/>
-		<terrain value="307"/>
-		<terrain value="308"/>
-		<terrain value="309"/>
-		<terrain value="310"/>
-		<terrain value="311"/>
-		<terrain value="312"/>
-		<terrain value="313"/>
-		<terrain value="314"/>
-		<terrain value="315"/>
-		<terrain value="316"/>
-		<terrain value="317"/>
-		<terrain value="318"/>
-		<terrain value="319"/>
-		<terrain value="320"/>
-		<terrain value="321"/>
-		<terrain value="322"/>
-		<terrain value="323"/>
-		<terrain value="324"/>
-		<terrain value="325"/>
-		<subsprite sprite="8" color="material" outline="0" border_open_NOR="2468" border_floor_NOR="2468"/>
-		<subsprite sprite="9" color="material" outline="0" border_open_NOR="246" border_floor_NOR="246" border_wall_NOR="8"/>
-		<subsprite sprite="10" color="material" outline="0" border_open_NOR="468" border_floor_NOR="468" border_wall_NOR="2"/>
-		<subsprite sprite="11" color="material" outline="0" border_open_NOR="248" border_floor_NOR="248" border_wall_NOR="6"/>
-		<subsprite sprite="12" color="material" outline="0" border_open_NOR="268" border_floor_NOR="268" border_wall_NOR="4"/>
-		<subsprite sprite="13" color="material" outline="0" border_open_NOR="46" border_floor_NOR="46" border_wall_NOR="28"/>
-		<subsprite sprite="14" color="material" outline="0" border_open_NOR="24" border_floor_NOR="24" border_wall_NOR="68"/>
-		<subsprite sprite="15" color="material" outline="0" border_open_NOR="28" border_floor_NOR="28" border_wall_NOR="46"/>
-		<subsprite sprite="16" color="material" outline="0" border_open_NOR="68" border_floor_NOR="68" border_wall_NOR="24"/>
-		<subsprite sprite="17" color="material" outline="0" border_open_NOR="26" border_floor_NOR="26" border_wall_NOR="48"/>
-		<subsprite sprite="18" color="material" outline="0" border_open_NOR="48" border_floor_NOR="48" border_wall_NOR="26"/>
-		<subsprite sprite="19" color="material" outline="0" border_open_NOR="2" border_floor_NOR="2" border_wall_NOR="468"/>
-		<subsprite sprite="19" color="material" outline="0" border_open_NOR="4" border_floor_NOR="4" border_wall_NOR="268"/>
-		<subsprite sprite="19" color="material" outline="0" border_open_NOR="6" border_floor_NOR="6" border_wall_NOR="248"/>
-		<subsprite sprite="19" color="material" outline="0" border_open_NOR="8" border_floor_NOR="8" border_wall_NOR="246"/>
-		<subsprite sprite="19" color="material" outline="0" border_wall_NOR="2468"/>
-	</wall>
-	<wall sprite="100" outline="0">
-		<terrain value="495"/>
-		<terrain value="496"/>
-		<terrain value="497"/>
-		<terrain value="498"/>
-		<terrain value="499"/>
-		<terrain value="500"/>
-		<terrain value="501"/>
-		<terrain value="502"/>
-		<terrain value="503"/>
-		<terrain value="504"/>
-		<terrain value="505"/>
-		<terrain value="506"/>
-		<terrain value="507"/>
-		<terrain value="508"/>
-		<terrain value="509"/>
-		<terrain value="510"/>
-		<terrain value="511"/>
-		<terrain value="512"/>
-		<terrain value="513"/>
-		<terrain value="514"/>
-		<subsprite sprite="88" color="material" outline="0" border_open_NOR="2468" border_floor_NOR="2468"/>
-		<subsprite sprite="89" color="material" outline="0" border_open_NOR="246" border_floor_NOR="246" border_wall_NOR="8"/>
-		<subsprite sprite="90" color="material" outline="0" border_open_NOR="468" border_floor_NOR="468" border_wall_NOR="2"/>
-		<subsprite sprite="91" color="material" outline="0" border_open_NOR="248" border_floor_NOR="248" border_wall_NOR="6"/>
-		<subsprite sprite="92" color="material" outline="0" border_open_NOR="268" border_floor_NOR="268" border_wall_NOR="4"/>
-		<subsprite sprite="93" color="material" outline="0" border_open_NOR="46" border_floor_NOR="46" border_wall_NOR="28"/>
-		<subsprite sprite="94" color="material" outline="0" border_open_NOR="24" border_floor_NOR="24" border_wall_NOR="68"/>
-		<subsprite sprite="95" color="material" outline="0" border_open_NOR="28" border_floor_NOR="28" border_wall_NOR="46"/>
-		<subsprite sprite="96" color="material" outline="0" border_open_NOR="68" border_floor_NOR="68" border_wall_NOR="24"/>
-		<subsprite sprite="97" color="material" outline="0" border_open_NOR="26" border_floor_NOR="26" border_wall_NOR="48"/>
-		<subsprite sprite="98" color="material" outline="0" border_open_NOR="48" border_floor_NOR="48" border_wall_NOR="26"/>
-		<subsprite sprite="99" color="material" outline="0" border_open_NOR="2" border_floor_NOR="2" border_wall_NOR="468"/>
-		<subsprite sprite="99" color="material" outline="0" border_open_NOR="4" border_floor_NOR="4" border_wall_NOR="268"/>
-		<subsprite sprite="99" color="material" outline="0" border_open_NOR="6" border_floor_NOR="6" border_wall_NOR="248"/>
-		<subsprite sprite="99" color="material" outline="0" border_open_NOR="8" border_floor_NOR="8" border_wall_NOR="246"/>
-		<subsprite sprite="99" color="material" outline="0" border_wall_NOR="2468"/>
-		<form value="boulder" />
-		
-		<material value="Inorganic" />
-	</wall>
-	<wall sprite="100" outline="0">
-		<terrain value="495"/>
-		<terrain value="496"/>
-		<terrain value="497"/>
-		<terrain value="498"/>
-		<terrain value="499"/>
-		<terrain value="500"/>
-		<terrain value="501"/>
-		<terrain value="502"/>
-		<terrain value="503"/>
-		<terrain value="504"/>
-		<terrain value="505"/>
-		<terrain value="506"/>
-		<terrain value="507"/>
-		<terrain value="508"/>
-		<terrain value="509"/>
-		<terrain value="510"/>
-		<terrain value="511"/>
-		<terrain value="512"/>
-		<terrain value="513"/>
-		<terrain value="514"/>
-		<subsprite sprite="168" color="material" outline="0" border_open_NOR="2468" border_floor_NOR="2468"/>
-		<subsprite sprite="169" color="material" outline="0" border_open_NOR="246" border_floor_NOR="246" border_wall_NOR="8"/>
-		<subsprite sprite="170" color="material" outline="0" border_open_NOR="468" border_floor_NOR="468" border_wall_NOR="2"/>
-		<subsprite sprite="171" color="material" outline="0" border_open_NOR="248" border_floor_NOR="248" border_wall_NOR="6"/>
-		<subsprite sprite="172" color="material" outline="0" border_open_NOR="268" border_floor_NOR="268" border_wall_NOR="4"/>
-		<subsprite sprite="173" color="material" outline="0" border_open_NOR="46" border_floor_NOR="46" border_wall_NOR="28"/>
-		<subsprite sprite="174" color="material" outline="0" border_open_NOR="24" border_floor_NOR="24" border_wall_NOR="68"/>
-		<subsprite sprite="175" color="material" outline="0" border_open_NOR="28" border_floor_NOR="28" border_wall_NOR="46"/>
-		<subsprite sprite="176" color="material" outline="0" border_open_NOR="68" border_floor_NOR="68" border_wall_NOR="24"/>
-		<subsprite sprite="177" color="material" outline="0" border_open_NOR="26" border_floor_NOR="26" border_wall_NOR="48"/>
-		<subsprite sprite="178" color="material" outline="0" border_open_NOR="48" border_floor_NOR="48" border_wall_NOR="26"/>
-		<subsprite sprite="179" color="material" outline="0" border_open_NOR="2" border_floor_NOR="2" border_wall_NOR="468"/>
-		<subsprite sprite="179" color="material" outline="0" border_open_NOR="4" border_floor_NOR="4" border_wall_NOR="268"/>
-		<subsprite sprite="179" color="material" outline="0" border_open_NOR="6" border_floor_NOR="6" border_wall_NOR="248"/>
-		<subsprite sprite="179" color="material" outline="0" border_open_NOR="8" border_floor_NOR="8" border_wall_NOR="246"/>
-		<subsprite sprite="179" color="material" outline="0" border_wall_NOR="2468"/>
-		<form value="block" />
-		
-		<material value="Inorganic" />
-	</wall>
+    <wall sprite="100">
+        <terrain value="495" />
+        <terrain value="496" />
+        <terrain value="497" />
+        <terrain value="498" />
+        <terrain value="499" />
+        <terrain value="500" />
+        <terrain value="501" />
+        <terrain value="502" />
+        <terrain value="503" />
+        <terrain value="504" />
+        <terrain value="505" />
+        <terrain value="506" />
+        <terrain value="507" />
+        <terrain value="508" />
+        <terrain value="509" />
+        <terrain value="510" />
+        <terrain value="511" />
+        <terrain value="512" />
+        <terrain value="513" />
+        <terrain value="514" />
+        <material value="GreenGlass" />
+        <subsprite sprite="228" color="material" outline="0" border_open_NOR="2468" border_floor_NOR="2468" />
+        <subsprite sprite="229" color="material" outline="0" border_open_NOR="246" border_floor_NOR="246" border_wall_NOR="8" />
+        <subsprite sprite="230" color="material" outline="0" border_open_NOR="468" border_floor_NOR="468" border_wall_NOR="2" />
+        <subsprite sprite="231" color="material" outline="0" border_open_NOR="248" border_floor_NOR="248" border_wall_NOR="6" />
+        <subsprite sprite="232" color="material" outline="0" border_open_NOR="268" border_floor_NOR="268" border_wall_NOR="4" />
+        <subsprite sprite="233" color="material" outline="0" border_open_NOR="46" border_floor_NOR="46" border_wall_NOR="28" />
+        <subsprite sprite="234" color="material" outline="0" border_open_NOR="24" border_floor_NOR="24" border_wall_NOR="68" />
+        <subsprite sprite="235" color="material" outline="0" border_open_NOR="28" border_floor_NOR="28" border_wall_NOR="46" />
+        <subsprite sprite="236" color="material" outline="0" border_open_NOR="68" border_floor_NOR="68" border_wall_NOR="24" />
+        <subsprite sprite="237" color="material" outline="0" border_open_NOR="26" border_floor_NOR="26" border_wall_NOR="48" />
+        <subsprite sprite="238" color="material" outline="0" border_open_NOR="48" border_floor_NOR="48" border_wall_NOR="26" />
+        <subsprite sprite="239" color="material" outline="0" border_open_NOR="2" border_floor_NOR="2" border_wall_NOR="468" />
+        <subsprite sprite="239" color="material" outline="0" border_open_NOR="4" border_floor_NOR="4" border_wall_NOR="268" />
+        <subsprite sprite="239" color="material" outline="0" border_open_NOR="6" border_floor_NOR="6" border_wall_NOR="248" />
+        <subsprite sprite="239" color="material" outline="0" border_open_NOR="8" border_floor_NOR="8" border_wall_NOR="246" />
+        <subsprite sprite="239" color="material" outline="0" border_wall_NOR="2468" />
+    </wall>
+    <wall sprite="100">
+        <terrain value="495" />
+        <terrain value="496" />
+        <terrain value="497" />
+        <terrain value="498" />
+        <terrain value="499" />
+        <terrain value="500" />
+        <terrain value="501" />
+        <terrain value="502" />
+        <terrain value="503" />
+        <terrain value="504" />
+        <terrain value="505" />
+        <terrain value="506" />
+        <terrain value="507" />
+        <terrain value="508" />
+        <terrain value="509" />
+        <terrain value="510" />
+        <terrain value="511" />
+        <terrain value="512" />
+        <terrain value="513" />
+        <terrain value="514" />
+        <material value="ClearGlass" />
+        <subsprite sprite="248" color="material" outline="0" border_open_NOR="2468" border_floor_NOR="2468" />
+        <subsprite sprite="249" color="material" outline="0" border_open_NOR="246" border_floor_NOR="246" border_wall_NOR="8" />
+        <subsprite sprite="250" color="material" outline="0" border_open_NOR="468" border_floor_NOR="468" border_wall_NOR="2" />
+        <subsprite sprite="251" color="material" outline="0" border_open_NOR="248" border_floor_NOR="248" border_wall_NOR="6" />
+        <subsprite sprite="252" color="material" outline="0" border_open_NOR="268" border_floor_NOR="268" border_wall_NOR="4" />
+        <subsprite sprite="253" color="material" outline="0" border_open_NOR="46" border_floor_NOR="46" border_wall_NOR="28" />
+        <subsprite sprite="254" color="material" outline="0" border_open_NOR="24" border_floor_NOR="24" border_wall_NOR="68" />
+        <subsprite sprite="255" color="material" outline="0" border_open_NOR="28" border_floor_NOR="28" border_wall_NOR="46" />
+        <subsprite sprite="256" color="material" outline="0" border_open_NOR="68" border_floor_NOR="68" border_wall_NOR="24" />
+        <subsprite sprite="257" color="material" outline="0" border_open_NOR="26" border_floor_NOR="26" border_wall_NOR="48" />
+        <subsprite sprite="258" color="material" outline="0" border_open_NOR="48" border_floor_NOR="48" border_wall_NOR="26" />
+        <subsprite sprite="259" color="material" outline="0" border_open_NOR="2" border_floor_NOR="2" border_wall_NOR="468" />
+        <subsprite sprite="259" color="material" outline="0" border_open_NOR="4" border_floor_NOR="4" border_wall_NOR="268" />
+        <subsprite sprite="259" color="material" outline="0" border_open_NOR="6" border_floor_NOR="6" border_wall_NOR="248" />
+        <subsprite sprite="259" color="material" outline="0" border_open_NOR="8" border_floor_NOR="8" border_wall_NOR="246" />
+        <subsprite sprite="259" color="material" outline="0" border_wall_NOR="2468" />
+    </wall>
+    <wall sprite="100">
+        <terrain value="495" />
+        <terrain value="496" />
+        <terrain value="497" />
+        <terrain value="498" />
+        <terrain value="499" />
+        <terrain value="500" />
+        <terrain value="501" />
+        <terrain value="502" />
+        <terrain value="503" />
+        <terrain value="504" />
+        <terrain value="505" />
+        <terrain value="506" />
+        <terrain value="507" />
+        <terrain value="508" />
+        <terrain value="509" />
+        <terrain value="510" />
+        <terrain value="511" />
+        <terrain value="512" />
+        <terrain value="513" />
+        <terrain value="514" />
+        <material value="CrystalGlass" />
+        <subsprite sprite="268" color="material" outline="0" border_open_NOR="2468" border_floor_NOR="2468" />
+        <subsprite sprite="269" color="material" outline="0" border_open_NOR="246" border_floor_NOR="246" border_wall_NOR="8" />
+        <subsprite sprite="270" color="material" outline="0" border_open_NOR="468" border_floor_NOR="468" border_wall_NOR="2" />
+        <subsprite sprite="271" color="material" outline="0" border_open_NOR="248" border_floor_NOR="248" border_wall_NOR="6" />
+        <subsprite sprite="272" color="material" outline="0" border_open_NOR="268" border_floor_NOR="268" border_wall_NOR="4" />
+        <subsprite sprite="273" color="material" outline="0" border_open_NOR="46" border_floor_NOR="46" border_wall_NOR="28" />
+        <subsprite sprite="274" color="material" outline="0" border_open_NOR="24" border_floor_NOR="24" border_wall_NOR="68" />
+        <subsprite sprite="275" color="material" outline="0" border_open_NOR="28" border_floor_NOR="28" border_wall_NOR="46" />
+        <subsprite sprite="276" color="material" outline="0" border_open_NOR="68" border_floor_NOR="68" border_wall_NOR="24" />
+        <subsprite sprite="277" color="material" outline="0" border_open_NOR="26" border_floor_NOR="26" border_wall_NOR="48" />
+        <subsprite sprite="278" color="material" outline="0" border_open_NOR="48" border_floor_NOR="48" border_wall_NOR="26" />
+        <subsprite sprite="279" color="material" outline="0" border_open_NOR="2" border_floor_NOR="2" border_wall_NOR="468" />
+        <subsprite sprite="279" color="material" outline="0" border_open_NOR="4" border_floor_NOR="4" border_wall_NOR="268" />
+        <subsprite sprite="279" color="material" outline="0" border_open_NOR="6" border_floor_NOR="6" border_wall_NOR="248" />
+        <subsprite sprite="279" color="material" outline="0" border_open_NOR="8" border_floor_NOR="8" border_wall_NOR="246" />
+        <subsprite sprite="279" color="material" outline="0" border_wall_NOR="2468" />
+    </wall>
+    <wall sprite="100">
+        <terrain value="495" />
+        <terrain value="496" />
+        <terrain value="497" />
+        <terrain value="498" />
+        <terrain value="499" />
+        <terrain value="500" />
+        <terrain value="501" />
+        <terrain value="502" />
+        <terrain value="503" />
+        <terrain value="504" />
+        <terrain value="505" />
+        <terrain value="506" />
+        <terrain value="507" />
+        <terrain value="508" />
+        <terrain value="509" />
+        <terrain value="510" />
+        <terrain value="511" />
+        <terrain value="512" />
+        <terrain value="513" />
+        <terrain value="514" />
+        <material value="Wood" />
+        <subsprite sprite="208" color="material" outline="0" border_open_NOR="2468" border_floor_NOR="2468" />
+        <subsprite sprite="209" color="material" outline="0" border_open_NOR="246" border_floor_NOR="246" border_wall_NOR="8" />
+        <subsprite sprite="210" color="material" outline="0" border_open_NOR="468" border_floor_NOR="468" border_wall_NOR="2" />
+        <subsprite sprite="211" color="material" outline="0" border_open_NOR="248" border_floor_NOR="248" border_wall_NOR="6" />
+        <subsprite sprite="212" color="material" outline="0" border_open_NOR="268" border_floor_NOR="268" border_wall_NOR="4" />
+        <subsprite sprite="213" color="material" outline="0" border_open_NOR="46" border_floor_NOR="46" border_wall_NOR="28" />
+        <subsprite sprite="214" color="material" outline="0" border_open_NOR="24" border_floor_NOR="24" border_wall_NOR="68" />
+        <subsprite sprite="215" color="material" outline="0" border_open_NOR="28" border_floor_NOR="28" border_wall_NOR="46" />
+        <subsprite sprite="216" color="material" outline="0" border_open_NOR="68" border_floor_NOR="68" border_wall_NOR="24" />
+        <subsprite sprite="217" color="material" outline="0" border_open_NOR="26" border_floor_NOR="26" border_wall_NOR="48" />
+        <subsprite sprite="218" color="material" outline="0" border_open_NOR="48" border_floor_NOR="48" border_wall_NOR="26" />
+        <subsprite sprite="219" color="material" outline="0" border_open_NOR="2" border_floor_NOR="2" border_wall_NOR="468" />
+        <subsprite sprite="219" color="material" outline="0" border_open_NOR="4" border_floor_NOR="4" border_wall_NOR="268" />
+        <subsprite sprite="219" color="material" outline="0" border_open_NOR="6" border_floor_NOR="6" border_wall_NOR="248" />
+        <subsprite sprite="219" color="material" outline="0" border_open_NOR="8" border_floor_NOR="8" border_wall_NOR="246" />
+        <subsprite sprite="219" color="material" outline="0" border_wall_NOR="2468" />
+    </wall>
+    <wall sprite="100">
+        <terrain value="450" />
+        <terrain value="451" />
+        <terrain value="452" />
+        <terrain value="453" />
+        <terrain value="454" />
+        <terrain value="455" />
+        <terrain value="456" />
+        <terrain value="457" />
+        <terrain value="458" />
+        <terrain value="459" />
+        <terrain value="450" />
+        <terrain value="461" />
+        <terrain value="462" />
+        <terrain value="463" />
+        <terrain value="464" />
+        <terrain value="465" />
+        <terrain value="466" />
+        <terrain value="467" />
+        <terrain value="468" />
+        <material value="Ice" />
+        <subsprite sprite="140" outline="1" border_open_NOR="2468" border_floor_NOR="2468" />
+        <subsprite sprite="140" outline="1" border_open_NOR="246" border_floor_NOR="246" border_wall_NOR="8" />
+        <subsprite sprite="140" outline="1" border_open_NOR="468" border_floor_NOR="468" border_wall_NOR="2" />
+        <subsprite sprite="140" outline="1" border_open_NOR="248" border_floor_NOR="248" border_wall_NOR="6" />
+        <subsprite sprite="140" outline="1" border_open_NOR="268" border_floor_NOR="268" border_wall_NOR="4" />
+        <subsprite sprite="141" outline="0" border_open_NOR="46" border_floor_NOR="46" border_wall_NOR="28" />
+        <subsprite sprite="144" outline="0" border_open_NOR="24" border_floor_NOR="24" border_wall_NOR="68" />
+        <subsprite sprite="143" outline="0" border_open_NOR="28" border_floor_NOR="28" border_wall_NOR="46" />
+        <subsprite sprite="142" outline="0" border_open_NOR="68" border_floor_NOR="68" border_wall_NOR="24" />
+        <subsprite sprite="140" outline="1" border_open_NOR="26" border_floor_NOR="26" border_wall_NOR="48" />
+        <subsprite sprite="140" outline="1" border_open_NOR="48" border_floor_NOR="48" border_wall_NOR="26" />
+        <subsprite sprite="140" outline="1" border_open_NOR="2" border_floor_NOR="2" border_wall_NOR="468" />
+        <subsprite sprite="140" outline="1" border_open_NOR="4" border_floor_NOR="4" border_wall_NOR="268" />
+        <subsprite sprite="140" outline="1" border_open_NOR="6" border_floor_NOR="6" border_wall_NOR="248" />
+        <subsprite sprite="140" outline="1" border_open_NOR="8" border_floor_NOR="8" border_wall_NOR="246" />
+        <subsprite sprite="140" outline="1" border_wall_NOR="2468" />
+    </wall>
+    <wall sprite="100">
+        <terrain value="495" />
+        <terrain value="496" />
+        <terrain value="497" />
+        <terrain value="498" />
+        <terrain value="499" />
+        <terrain value="500" />
+        <terrain value="501" />
+        <terrain value="502" />
+        <terrain value="503" />
+        <terrain value="504" />
+        <terrain value="505" />
+        <terrain value="506" />
+        <terrain value="507" />
+        <terrain value="508" />
+        <terrain value="509" />
+        <terrain value="510" />
+        <terrain value="511" />
+        <terrain value="512" />
+        <terrain value="513" />
+        <terrain value="514" />
+        <material value="Ice" />
+        <subsprite sprite="145" outline="1" border_open_NOR="2468" border_floor_NOR="2468" />
+        <subsprite sprite="145" outline="1" border_open_NOR="246" border_floor_NOR="246" border_wall_NOR="8" />
+        <subsprite sprite="145" outline="1" border_open_NOR="468" border_floor_NOR="468" border_wall_NOR="2" />
+        <subsprite sprite="145" outline="1" border_open_NOR="248" border_floor_NOR="248" border_wall_NOR="6" />
+        <subsprite sprite="145" outline="1" border_open_NOR="268" border_floor_NOR="268" border_wall_NOR="4" />
+        <subsprite sprite="146" outline="0" border_open_NOR="46" border_floor_NOR="46" border_wall_NOR="28" />
+        <subsprite sprite="149" outline="0" border_open_NOR="24" border_floor_NOR="24" border_wall_NOR="68" />
+        <subsprite sprite="148" outline="0" border_open_NOR="28" border_floor_NOR="28" border_wall_NOR="46" />
+        <subsprite sprite="147" outline="0" border_open_NOR="68" border_floor_NOR="68" border_wall_NOR="24" />
+        <subsprite sprite="145" outline="1" border_open_NOR="26" border_floor_NOR="26" border_wall_NOR="48" />
+        <subsprite sprite="145" outline="1" border_open_NOR="48" border_floor_NOR="48" border_wall_NOR="26" />
+        <subsprite sprite="145" outline="1" border_open_NOR="2" border_floor_NOR="2" border_wall_NOR="468" />
+        <subsprite sprite="145" outline="1" border_open_NOR="4" border_floor_NOR="4" border_wall_NOR="268" />
+        <subsprite sprite="145" outline="1" border_open_NOR="6" border_floor_NOR="6" border_wall_NOR="248" />
+        <subsprite sprite="145" outline="1" border_open_NOR="8" border_floor_NOR="8" border_wall_NOR="246" />
+        <subsprite sprite="145" outline="1" border_wall_NOR="2468" />
+    </wall>
+    <wall sprite="100" outline="0">
+        <terrain value="269" />
+        <terrain value="270" />
+        <terrain value="271" />
+        <terrain value="272" />
+        <terrain value="273" />
+        <terrain value="274" />
+        <terrain value="275" />
+        <terrain value="276" />
+        <terrain value="277" />
+        <terrain value="278" />
+        <terrain value="279" />
+        <terrain value="280" />
+        <terrain value="281" />
+        <terrain value="282" />
+        <terrain value="283" />
+        <terrain value="284" />
+        <terrain value="285" />
+        <terrain value="286" />
+        <terrain value="287" />
+        <terrain value="80" />
+        <subsprite sprite="128" outline="0" border_open_NOR="2468" border_floor_NOR="2468" />
+        <subsprite sprite="129" outline="0" border_open_NOR="246" border_floor_NOR="246" border_wall_NOR="8" />
+        <subsprite sprite="130" outline="0" border_open_NOR="468" border_floor_NOR="468" border_wall_NOR="2" />
+        <subsprite sprite="131" outline="0" border_open_NOR="248" border_floor_NOR="248" border_wall_NOR="6" />
+        <subsprite sprite="132" outline="0" border_open_NOR="268" border_floor_NOR="268" border_wall_NOR="4" />
+        <subsprite sprite="133" outline="0" border_open_NOR="46" border_floor_NOR="46" border_wall_NOR="28" />
+        <subsprite sprite="134" outline="0" border_open_NOR="24" border_floor_NOR="24" border_wall_NOR="68" />
+        <subsprite sprite="135" outline="0" border_open_NOR="28" border_floor_NOR="28" border_wall_NOR="46" />
+        <subsprite sprite="136" outline="0" border_open_NOR="68" border_floor_NOR="68" border_wall_NOR="24" />
+        <subsprite sprite="137" outline="0" border_open_NOR="26" border_floor_NOR="26" border_wall_NOR="48" />
+        <subsprite sprite="138" outline="0" border_open_NOR="48" border_floor_NOR="48" border_wall_NOR="26" />
+        <subsprite sprite="139" outline="0" border_open_NOR="2" border_floor_NOR="2" border_wall_NOR="468" />
+        <subsprite sprite="139" outline="0" border_open_NOR="4" border_floor_NOR="4" border_wall_NOR="268" />
+        <subsprite sprite="139" outline="0" border_open_NOR="6" border_floor_NOR="6" border_wall_NOR="248" />
+        <subsprite sprite="139" outline="0" border_open_NOR="8" border_floor_NOR="8" border_wall_NOR="246" />
+        <subsprite sprite="139" outline="0" border_wall_NOR="2468" />
+    </wall>
+    <wall sprite="100" outline="0">
+        <terrain value="417" />
+        <terrain value="418" />
+        <terrain value="419" />
+        <terrain value="420" />
+        <terrain value="421" />
+        <terrain value="422" />
+        <terrain value="423" />
+        <terrain value="424" />
+        <terrain value="425" />
+        <terrain value="426" />
+        <terrain value="427" />
+        <terrain value="428" />
+        <terrain value="429" />
+        <terrain value="430" />
+        <terrain value="431" />
+        <terrain value="432" />
+        <terrain value="433" />
+        <terrain value="434" />
+        <terrain value="435" />
+        <terrain value="82" />
+        <subsprite sprite="8" color="layer" outline="0" border_open_NOR="2468" border_floor_NOR="2468" />
+        <subsprite sprite="28" color="vein" outline="0" border_open_NOR="2468" border_floor_NOR="2468" />
+        <subsprite sprite="9" color="layer" outline="0" border_open_NOR="246" border_floor_NOR="246" border_wall_NOR="8" />
+        <subsprite sprite="29" color="vein" outline="0" border_open_NOR="246" border_floor_NOR="246" border_wall_NOR="8" />
+        <subsprite sprite="10" color="layer" outline="0" border_open_NOR="468" border_floor_NOR="468" border_wall_NOR="2" />
+        <subsprite sprite="30" color="vein" outline="0" border_open_NOR="468" border_floor_NOR="468" border_wall_NOR="2" />
+        <subsprite sprite="11" color="layer" outline="0" border_open_NOR="248" border_floor_NOR="248" border_wall_NOR="6" />
+        <subsprite sprite="31" color="vein" outline="0" border_open_NOR="248" border_floor_NOR="248" border_wall_NOR="6" />
+        <subsprite sprite="12" color="layer" outline="0" border_open_NOR="268" border_floor_NOR="268" border_wall_NOR="4" />
+        <subsprite sprite="32" color="vein" outline="0" border_open_NOR="268" border_floor_NOR="268" border_wall_NOR="4" />
+        <subsprite sprite="13" color="layer" outline="0" border_open_NOR="46" border_floor_NOR="46" border_wall_NOR="28" />
+        <subsprite sprite="33" color="vein" outline="0" border_open_NOR="46" border_floor_NOR="46" border_wall_NOR="28" />
+        <subsprite sprite="14" color="layer" outline="0" border_open_NOR="24" border_floor_NOR="24" border_wall_NOR="68" />
+        <subsprite sprite="34" color="vein" outline="0" border_open_NOR="24" border_floor_NOR="24" border_wall_NOR="68" />
+        <subsprite sprite="15" color="layer" outline="0" border_open_NOR="28" border_floor_NOR="28" border_wall_NOR="46" />
+        <subsprite sprite="35" color="vein" outline="0" border_open_NOR="28" border_floor_NOR="28" border_wall_NOR="46" />
+        <subsprite sprite="16" color="layer" outline="0" border_open_NOR="68" border_floor_NOR="68" border_wall_NOR="24" />
+        <subsprite sprite="36" color="vein" outline="0" border_open_NOR="68" border_floor_NOR="68" border_wall_NOR="24" />
+        <subsprite sprite="17" color="layer" outline="0" border_open_NOR="26" border_floor_NOR="26" border_wall_NOR="48" />
+        <subsprite sprite="37" color="vein" outline="0" border_open_NOR="26" border_floor_NOR="26" border_wall_NOR="48" />
+        <subsprite sprite="18" color="layer" outline="0" border_open_NOR="48" border_floor_NOR="48" border_wall_NOR="26" />
+        <subsprite sprite="38" color="vein" outline="0" border_open_NOR="48" border_floor_NOR="48" border_wall_NOR="26" />
+        <subsprite sprite="19" color="layer" outline="0" border_open_NOR="2" border_floor_NOR="2" border_wall_NOR="468" />
+        <subsprite sprite="39" color="vein" outline="0" border_open_NOR="2" border_floor_NOR="2" border_wall_NOR="468" />
+        <subsprite sprite="19" color="layer" outline="0" border_open_NOR="4" border_floor_NOR="4" border_wall_NOR="268" />
+        <subsprite sprite="39" color="vein" outline="0" border_open_NOR="4" border_floor_NOR="4" border_wall_NOR="268" />
+        <subsprite sprite="19" color="layer" outline="0" border_open_NOR="6" border_floor_NOR="6" border_wall_NOR="248" />
+        <subsprite sprite="39" color="vein" outline="0" border_open_NOR="6" border_floor_NOR="6" border_wall_NOR="248" />
+        <subsprite sprite="19" color="layer" outline="0" border_open_NOR="8" border_floor_NOR="8" border_wall_NOR="246" />
+        <subsprite sprite="39" color="vein" outline="0" border_open_NOR="8" border_floor_NOR="8" border_wall_NOR="246" />
+        <subsprite sprite="19" color="layer" outline="0" border_wall_NOR="2468" />
+        <subsprite sprite="39" color="vein" outline="0" border_wall_NOR="2468" />
+    </wall>
+    <wall sprite="100">
+        <terrain value="417" />
+        <terrain value="418" />
+        <terrain value="419" />
+        <terrain value="420" />
+        <terrain value="421" />
+        <terrain value="422" />
+        <terrain value="423" />
+        <terrain value="424" />
+        <terrain value="425" />
+        <terrain value="426" />
+        <terrain value="427" />
+        <terrain value="428" />
+        <terrain value="429" />
+        <terrain value="430" />
+        <terrain value="431" />
+        <terrain value="432" />
+        <terrain value="433" />
+        <terrain value="434" />
+        <terrain value="435" />
+        <terrain value="82" />
+        <subsprite sprite="8" color="layer" outline="0" border_open_NOR="2468" border_floor_NOR="2468" />
+        <subsprite sprite="68" color="vein" outline="0" border_open_NOR="2468" border_floor_NOR="2468" />
+        <subsprite sprite="48" color="none" outline="0" border_open_NOR="2468" border_floor_NOR="2468" />
+        <subsprite sprite="9" color="layer" outline="0" border_open_NOR="246" border_floor_NOR="246" border_wall_NOR="8" />
+        <subsprite sprite="69" color="vein" outline="0" border_open_NOR="246" border_floor_NOR="246" border_wall_NOR="8" />
+        <subsprite sprite="49" color="none" outline="0" border_open_NOR="246" border_floor_NOR="246" border_wall_NOR="8" />
+        <subsprite sprite="10" color="layer" outline="0" border_open_NOR="468" border_floor_NOR="468" border_wall_NOR="2" />
+        <subsprite sprite="70" color="vein" outline="0" border_open_NOR="468" border_floor_NOR="468" border_wall_NOR="2" />
+        <subsprite sprite="50" color="none" outline="0" border_open_NOR="468" border_floor_NOR="468" border_wall_NOR="2" />
+        <subsprite sprite="11" color="layer" outline="0" border_open_NOR="248" border_floor_NOR="248" border_wall_NOR="6" />
+        <subsprite sprite="71" color="vein" outline="0" border_open_NOR="248" border_floor_NOR="248" border_wall_NOR="6" />
+        <subsprite sprite="51" color="none" outline="0" border_open_NOR="248" border_floor_NOR="248" border_wall_NOR="6" />
+        <subsprite sprite="12" color="layer" outline="0" border_open_NOR="268" border_floor_NOR="268" border_wall_NOR="4" />
+        <subsprite sprite="72" color="vein" outline="0" border_open_NOR="268" border_floor_NOR="268" border_wall_NOR="4" />
+        <subsprite sprite="52" color="none" outline="0" border_open_NOR="268" border_floor_NOR="268" border_wall_NOR="4" />
+        <subsprite sprite="13" color="layer" outline="0" border_open_NOR="46" border_floor_NOR="46" border_wall_NOR="28" />
+        <subsprite sprite="73" color="vein" outline="0" border_open_NOR="46" border_floor_NOR="46" border_wall_NOR="28" />
+        <subsprite sprite="53" color="none" outline="0" border_open_NOR="46" border_floor_NOR="46" border_wall_NOR="28" />
+        <subsprite sprite="14" color="layer" outline="0" border_open_NOR="24" border_floor_NOR="24" border_wall_NOR="68" />
+        <subsprite sprite="74" color="vein" outline="0" border_open_NOR="24" border_floor_NOR="24" border_wall_NOR="68" />
+        <subsprite sprite="54" color="none" outline="0" border_open_NOR="24" border_floor_NOR="24" border_wall_NOR="68" />
+        <subsprite sprite="15" color="layer" outline="0" border_open_NOR="28" border_floor_NOR="28" border_wall_NOR="46" />
+        <subsprite sprite="75" color="vein" outline="0" border_open_NOR="28" border_floor_NOR="28" border_wall_NOR="46" />
+        <subsprite sprite="55" color="none" outline="0" border_open_NOR="28" border_floor_NOR="28" border_wall_NOR="46" />
+        <subsprite sprite="16" color="layer" outline="0" border_open_NOR="68" border_floor_NOR="68" border_wall_NOR="24" />
+        <subsprite sprite="76" color="vein" outline="0" border_open_NOR="68" border_floor_NOR="68" border_wall_NOR="24" />
+        <subsprite sprite="56" color="none" outline="0" border_open_NOR="68" border_floor_NOR="68" border_wall_NOR="24" />
+        <subsprite sprite="17" color="layer" outline="0" border_open_NOR="26" border_floor_NOR="26" border_wall_NOR="48" />
+        <subsprite sprite="77" color="vein" outline="0" border_open_NOR="26" border_floor_NOR="26" border_wall_NOR="48" />
+        <subsprite sprite="57" color="none" outline="0" border_open_NOR="26" border_floor_NOR="26" border_wall_NOR="48" />
+        <subsprite sprite="18" color="layer" outline="0" border_open_NOR="48" border_floor_NOR="48" border_wall_NOR="26" />
+        <subsprite sprite="78" color="vein" outline="0" border_open_NOR="48" border_floor_NOR="48" border_wall_NOR="26" />
+        <subsprite sprite="58" color="none" outline="0" border_open_NOR="48" border_floor_NOR="48" border_wall_NOR="26" />
+        <subsprite sprite="19" color="layer" outline="0" border_open_NOR="2" border_floor_NOR="2" border_wall_NOR="468" />
+        <subsprite sprite="79" color="vein" outline="0" border_open_NOR="2" border_floor_NOR="2" border_wall_NOR="468" />
+        <subsprite sprite="59" color="none" outline="0" border_open_NOR="2" border_floor_NOR="2" border_wall_NOR="468" />
+        <subsprite sprite="19" color="layer" outline="0" border_open_NOR="4" border_floor_NOR="4" border_wall_NOR="268" />
+        <subsprite sprite="79" color="vein" outline="0" border_open_NOR="4" border_floor_NOR="4" border_wall_NOR="268" />
+        <subsprite sprite="59" color="none" outline="0" border_open_NOR="4" border_floor_NOR="4" border_wall_NOR="268" />
+        <subsprite sprite="19" color="layer" outline="0" border_open_NOR="6" border_floor_NOR="6" border_wall_NOR="248" />
+        <subsprite sprite="79" color="vein" outline="0" border_open_NOR="6" border_floor_NOR="6" border_wall_NOR="248" />
+        <subsprite sprite="59" color="none" outline="0" border_open_NOR="6" border_floor_NOR="6" border_wall_NOR="248" />
+        <subsprite sprite="19" color="layer" outline="0" border_open_NOR="8" border_floor_NOR="8" border_wall_NOR="246" />
+        <subsprite sprite="79" color="vein" outline="0" border_open_NOR="8" border_floor_NOR="8" border_wall_NOR="246" />
+        <subsprite sprite="59" color="none" outline="0" border_open_NOR="8" border_floor_NOR="8" border_wall_NOR="246" />
+        <subsprite sprite="19" color="layer" outline="0" border_wall_NOR="2468" />
+        <subsprite sprite="79" color="vein" outline="0" border_wall_NOR="2468" />
+        <subsprite sprite="59" color="none" outline="0" border_wall_NOR="2468" />
+        <material value="Stone">
+            <subtype value="ONYX" />
+            <subtype value="MORION" />
+            <subtype value="SCHORL" />
+            <subtype value="LACE AGATE" />
+            <subtype value="BLUE JADE" />
+            <subtype value="LAPIS LAZULI" />
+            <subtype value="PRASE" />
+            <subtype value="PRASE OPAL" />
+            <subtype value="BLOODSTONE" />
+            <subtype value="MOSS AGATE" />
+            <subtype value="MOSS OPAL" />
+            <subtype value="VARISCITE" />
+            <subtype value="CHRYSOPRASE" />
+            <subtype value="CHRYSOCOLLA" />
+            <subtype value="SARD" />
+            <subtype value="CARNELIAN" />
+            <subtype value="BANDED AGATE" />
+            <subtype value="SARDONYX" />
+            <subtype value="CHERRY OPAL" />
+            <subtype value="PINK JADE" />
+            <subtype value="TUBE AGATE" />
+            <subtype value="FIRE AGATE" />
+            <subtype value="PLUME AGATE" />
+            <subtype value="BROWN JASPER" />
+            <subtype value="PICTURE JASPER" />
+            <subtype value="SMOKY QUARTZ" />
+            <subtype value="WAX OPAL" />
+            <subtype value="WOOD OPAL" />
+            <subtype value="AMBER OPAL" />
+            <subtype value="GOLD OPAL" />
+            <subtype value="CITRINE" />
+            <subtype value="YELLOW JASPER" />
+            <subtype value="TIGEREYE" />
+            <subtype value="TIGER IRON" />
+            <subtype value="SUNSTONE" />
+            <subtype value="RESIN OPAL" />
+            <subtype value="PYRITE" />
+            <subtype value="CLEAR TOURMALINE" />
+            <subtype value="GRAY CHALCEDONY" />
+            <subtype value="DENDRITIC AGATE" />
+            <subtype value="SHELL OPAL" />
+            <subtype value="BONE OPAL" />
+            <subtype value="WHITE CHALCEDONY" />
+            <subtype value="FORTIFICATION AGATE" />
+            <subtype value="MILK QUARTZ" />
+            <subtype value="MOONSTONE" />
+            <subtype value="WHITE JADE" />
+            <subtype value="JASPER OPAL" />
+            <subtype value="PINEAPPLE OPAL" />
+            <subtype value="ONYX OPAL" />
+            <subtype value="MILK OPAL" />
+            <subtype value="PIPE OPAL" />
+            <subtype value="AVENTURINE" />
+            <subtype value="TURQUOISE" />
+            <subtype value="QUARTZ_ROSE" />
+            <subtype value="CRYSTAL_ROCK" />
+            <subtype value="BLACK ZIRCON" />
+            <subtype value="BLACK PYROPE" />
+            <subtype value="MELANITE" />
+            <subtype value="INDIGO TOURMALINE" />
+            <subtype value="BLUE GARNET" />
+            <subtype value="TSAVORITE" />
+            <subtype value="GREEN TOURMALINE" />
+            <subtype value="DEMANTOID" />
+            <subtype value="GREEN ZIRCON" />
+            <subtype value="GREEN JADE" />
+            <subtype value="HELIODOR" />
+            <subtype value="PERIDOT" />
+            <subtype value="RED ZIRCON" />
+            <subtype value="RED TOURMALINE" />
+            <subtype value="RED PYROPE" />
+            <subtype value="ALMANDINE" />
+            <subtype value="RED GROSSULAR" />
+            <subtype value="PINK TOURMALINE" />
+            <subtype value="RED BERYL" />
+            <subtype value="FIRE OPAL" />
+            <subtype value="RHODOLITE" />
+            <subtype value="SPINEL_PURPLE" />
+            <subtype value="ALEXANDRITE" />
+            <subtype value="TANZANITE" />
+            <subtype value="MORGANITE" />
+            <subtype value="VIOLET SPESSARTINE" />
+            <subtype value="PINK GARNET" />
+            <subtype value="KUNZITE" />
+            <subtype value="CINNAMON GROSSULAR" />
+            <subtype value="HONEY YELLOW BERYL" />
+            <subtype value="JELLY OPAL" />
+            <subtype value="BROWN ZIRCON" />
+            <subtype value="YELLOW ZIRCON" />
+            <subtype value="GOLDEN BERYL" />
+            <subtype value="YELLOW SPESSARTINE" />
+            <subtype value="TOPAZ" />
+            <subtype value="TOPAZOLITE" />
+            <subtype value="YELLOW GROSSULAR" />
+            <subtype value="RUBICELLE" />
+            <subtype value="CLEAR GARNET" />
+            <subtype value="GOSHENITE" />
+            <subtype value="CAT'S EYE" />
+            <subtype value="CLEAR ZIRCON" />
+            <subtype value="AMETHYST" />
+            <subtype value="AQUAMARINE" />
+            <subtype value="SPINEL_RED" />
+            <subtype value="CHRYSOBERYL" />
+            <subtype value="OPAL_PFIRE" />
+            <subtype value="OPAL_REDFLASH" />
+            <subtype value="OPAL_BLACK" />
+            <subtype value="OPAL_WHITE" />
+            <subtype value="OPAL_CRYSTAL" />
+            <subtype value="OPAL_CLARO" />
+            <subtype value="OPAL_LEVIN" />
+            <subtype value="OPAL_HARLEQUIN" />
+            <subtype value="OPAL_PINFIRE" />
+            <subtype value="OPAL_BANDFIRE" />
+            <subtype value="DIAMOND_LY" />
+            <subtype value="DIAMOND_FY" />
+            <subtype value="EMERALD" />
+            <subtype value="RUBY" />
+            <subtype value="SAPPHIRE" />
+            <subtype value="DIAMOND_CLEAR" />
+            <subtype value="DIAMOND_RED" />
+            <subtype value="DIAMOND_GREEN" />
+            <subtype value="DIAMOND_BLUE" />
+            <subtype value="DIAMOND_YELLOW" />
+            <subtype value="DIAMOND_BLACK" />
+            <subtype value="SAPPHIRE_STAR" />
+            <subtype value="RUBY_STAR" />
+        </material>
+    </wall>
+    <wall sprite="100" outline="0">
+        <terrain value="288" />
+        <terrain value="289" />
+        <terrain value="290" />
+        <terrain value="291" />
+        <terrain value="292" />
+        <terrain value="293" />
+        <terrain value="294" />
+        <terrain value="295" />
+        <terrain value="296" />
+        <terrain value="297" />
+        <terrain value="298" />
+        <terrain value="299" />
+        <terrain value="300" />
+        <terrain value="301" />
+        <terrain value="302" />
+        <terrain value="303" />
+        <terrain value="304" />
+        <terrain value="305" />
+        <terrain value="306" />
+        <terrain value="307" />
+        <terrain value="308" />
+        <terrain value="309" />
+        <terrain value="310" />
+        <terrain value="311" />
+        <terrain value="312" />
+        <terrain value="313" />
+        <terrain value="314" />
+        <terrain value="315" />
+        <terrain value="316" />
+        <terrain value="317" />
+        <terrain value="318" />
+        <terrain value="319" />
+        <terrain value="320" />
+        <terrain value="321" />
+        <terrain value="322" />
+        <terrain value="323" />
+        <terrain value="324" />
+        <terrain value="325" />
+        <subsprite sprite="8" color="material" outline="0" border_open_NOR="2468" border_floor_NOR="2468" />
+        <subsprite sprite="9" color="material" outline="0" border_open_NOR="246" border_floor_NOR="246" border_wall_NOR="8" />
+        <subsprite sprite="10" color="material" outline="0" border_open_NOR="468" border_floor_NOR="468" border_wall_NOR="2" />
+        <subsprite sprite="11" color="material" outline="0" border_open_NOR="248" border_floor_NOR="248" border_wall_NOR="6" />
+        <subsprite sprite="12" color="material" outline="0" border_open_NOR="268" border_floor_NOR="268" border_wall_NOR="4" />
+        <subsprite sprite="13" color="material" outline="0" border_open_NOR="46" border_floor_NOR="46" border_wall_NOR="28" />
+        <subsprite sprite="14" color="material" outline="0" border_open_NOR="24" border_floor_NOR="24" border_wall_NOR="68" />
+        <subsprite sprite="15" color="material" outline="0" border_open_NOR="28" border_floor_NOR="28" border_wall_NOR="46" />
+        <subsprite sprite="16" color="material" outline="0" border_open_NOR="68" border_floor_NOR="68" border_wall_NOR="24" />
+        <subsprite sprite="17" color="material" outline="0" border_open_NOR="26" border_floor_NOR="26" border_wall_NOR="48" />
+        <subsprite sprite="18" color="material" outline="0" border_open_NOR="48" border_floor_NOR="48" border_wall_NOR="26" />
+        <subsprite sprite="19" color="material" outline="0" border_open_NOR="2" border_floor_NOR="2" border_wall_NOR="468" />
+        <subsprite sprite="19" color="material" outline="0" border_open_NOR="4" border_floor_NOR="4" border_wall_NOR="268" />
+        <subsprite sprite="19" color="material" outline="0" border_open_NOR="6" border_floor_NOR="6" border_wall_NOR="248" />
+        <subsprite sprite="19" color="material" outline="0" border_open_NOR="8" border_floor_NOR="8" border_wall_NOR="246" />
+        <subsprite sprite="19" color="material" outline="0" border_wall_NOR="2468" />
+    </wall>
+    <wall sprite="100" outline="0">
+        <terrain value="495" />
+        <terrain value="496" />
+        <terrain value="497" />
+        <terrain value="498" />
+        <terrain value="499" />
+        <terrain value="500" />
+        <terrain value="501" />
+        <terrain value="502" />
+        <terrain value="503" />
+        <terrain value="504" />
+        <terrain value="505" />
+        <terrain value="506" />
+        <terrain value="507" />
+        <terrain value="508" />
+        <terrain value="509" />
+        <terrain value="510" />
+        <terrain value="511" />
+        <terrain value="512" />
+        <terrain value="513" />
+        <terrain value="514" />
+        <subsprite sprite="88" color="material" outline="0" border_open_NOR="2468" border_floor_NOR="2468" />
+        <subsprite sprite="89" color="material" outline="0" border_open_NOR="246" border_floor_NOR="246" border_wall_NOR="8" />
+        <subsprite sprite="90" color="material" outline="0" border_open_NOR="468" border_floor_NOR="468" border_wall_NOR="2" />
+        <subsprite sprite="91" color="material" outline="0" border_open_NOR="248" border_floor_NOR="248" border_wall_NOR="6" />
+        <subsprite sprite="92" color="material" outline="0" border_open_NOR="268" border_floor_NOR="268" border_wall_NOR="4" />
+        <subsprite sprite="93" color="material" outline="0" border_open_NOR="46" border_floor_NOR="46" border_wall_NOR="28" />
+        <subsprite sprite="94" color="material" outline="0" border_open_NOR="24" border_floor_NOR="24" border_wall_NOR="68" />
+        <subsprite sprite="95" color="material" outline="0" border_open_NOR="28" border_floor_NOR="28" border_wall_NOR="46" />
+        <subsprite sprite="96" color="material" outline="0" border_open_NOR="68" border_floor_NOR="68" border_wall_NOR="24" />
+        <subsprite sprite="97" color="material" outline="0" border_open_NOR="26" border_floor_NOR="26" border_wall_NOR="48" />
+        <subsprite sprite="98" color="material" outline="0" border_open_NOR="48" border_floor_NOR="48" border_wall_NOR="26" />
+        <subsprite sprite="99" color="material" outline="0" border_open_NOR="2" border_floor_NOR="2" border_wall_NOR="468" />
+        <subsprite sprite="99" color="material" outline="0" border_open_NOR="4" border_floor_NOR="4" border_wall_NOR="268" />
+        <subsprite sprite="99" color="material" outline="0" border_open_NOR="6" border_floor_NOR="6" border_wall_NOR="248" />
+        <subsprite sprite="99" color="material" outline="0" border_open_NOR="8" border_floor_NOR="8" border_wall_NOR="246" />
+        <subsprite sprite="99" color="material" outline="0" border_wall_NOR="2468" />
+        <form value="boulder" />
+        <material value="Inorganic" />
+    </wall>
+    <wall sprite="100" outline="0">
+        <terrain value="495" />
+        <terrain value="496" />
+        <terrain value="497" />
+        <terrain value="498" />
+        <terrain value="499" />
+        <terrain value="500" />
+        <terrain value="501" />
+        <terrain value="502" />
+        <terrain value="503" />
+        <terrain value="504" />
+        <terrain value="505" />
+        <terrain value="506" />
+        <terrain value="507" />
+        <terrain value="508" />
+        <terrain value="509" />
+        <terrain value="510" />
+        <terrain value="511" />
+        <terrain value="512" />
+        <terrain value="513" />
+        <terrain value="514" />
+        <subsprite sprite="168" color="material" outline="0" border_open_NOR="2468" border_floor_NOR="2468" />
+        <subsprite sprite="169" color="material" outline="0" border_open_NOR="246" border_floor_NOR="246" border_wall_NOR="8" />
+        <subsprite sprite="170" color="material" outline="0" border_open_NOR="468" border_floor_NOR="468" border_wall_NOR="2" />
+        <subsprite sprite="171" color="material" outline="0" border_open_NOR="248" border_floor_NOR="248" border_wall_NOR="6" />
+        <subsprite sprite="172" color="material" outline="0" border_open_NOR="268" border_floor_NOR="268" border_wall_NOR="4" />
+        <subsprite sprite="173" color="material" outline="0" border_open_NOR="46" border_floor_NOR="46" border_wall_NOR="28" />
+        <subsprite sprite="174" color="material" outline="0" border_open_NOR="24" border_floor_NOR="24" border_wall_NOR="68" />
+        <subsprite sprite="175" color="material" outline="0" border_open_NOR="28" border_floor_NOR="28" border_wall_NOR="46" />
+        <subsprite sprite="176" color="material" outline="0" border_open_NOR="68" border_floor_NOR="68" border_wall_NOR="24" />
+        <subsprite sprite="177" color="material" outline="0" border_open_NOR="26" border_floor_NOR="26" border_wall_NOR="48" />
+        <subsprite sprite="178" color="material" outline="0" border_open_NOR="48" border_floor_NOR="48" border_wall_NOR="26" />
+        <subsprite sprite="179" color="material" outline="0" border_open_NOR="2" border_floor_NOR="2" border_wall_NOR="468" />
+        <subsprite sprite="179" color="material" outline="0" border_open_NOR="4" border_floor_NOR="4" border_wall_NOR="268" />
+        <subsprite sprite="179" color="material" outline="0" border_open_NOR="6" border_floor_NOR="6" border_wall_NOR="248" />
+        <subsprite sprite="179" color="material" outline="0" border_open_NOR="8" border_floor_NOR="8" border_wall_NOR="246" />
+        <subsprite sprite="179" color="material" outline="0" border_wall_NOR="2468" />
+        <form value="block" />
+        <material value="Inorganic" />
+    </wall>
 </walls>

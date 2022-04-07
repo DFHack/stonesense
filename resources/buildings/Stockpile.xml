@@ -1,11 +1,10 @@
-<?xml version="1.0" ?>
-
+<?xml version="1.0"?>
 <building name="Stockpile" game_type="Stockpile">
-	<if>
-		<BuildingOccupancy value="2" />
-		<sprite index = 322 />
-	</if>
-	<else>
-		<empty/>
-	</else>
-</building> 
+    <if>
+        <BuildingOccupancy value="2" />
+        <sprite index="322" />
+    </if>
+    <else>
+        <empty />
+    </else>
+</building>

@@ -1,16 +1,15 @@
-<?xml version="1.0" ?>
-
-<building name="Grate" game_type="GrateWall" > 
-	<if>
-		<or>
-			<NeighbourWall dir="North" />
-			<NeighbourWall dir="South" />
-			<NeighbourSameType dir="North" />
-			<NeighbourSameType dir="South" />
-		</or>
-		<sprite index="352" color="building" />	
-	</if>
-	<else>
-		<sprite index="351" color="building" />
-	</else>
-</building> 
+<?xml version="1.0"?>
+<building name="Grate" game_type="GrateWall">
+    <if>
+        <or>
+            <NeighbourWall dir="North" />
+            <NeighbourWall dir="South" />
+            <NeighbourSameType dir="North" />
+            <NeighbourSameType dir="South" />
+        </or>
+        <sprite index="352" color="building" />
+    </if>
+    <else>
+        <sprite index="351" color="building" />
+    </else>
+</building>

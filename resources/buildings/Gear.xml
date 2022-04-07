@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <building name="Gear Assembly" game_type="GearAssembly" file="mechanics.png">
-  <include file="sBlueprint.xml" />
-  <else>
-    <sprite index="0" frames="024" color="xml" red="210" green="135" blue="80"/>
-    <sprite index="1" frames="135" color="xml" red="210" green="135" blue="80"/>
-    <sprite index="8" frames="024" color="building" />
-    <sprite index="9" frames="135" color="building" />
-  </else>
+    <include file="sBlueprint.xml" />
+    <else>
+        <sprite index="0" frames="024" color="xml" red="210" green="135" blue="80" />
+        <sprite index="1" frames="135" color="xml" red="210" green="135" blue="80" />
+        <sprite index="8" frames="024" color="building" />
+        <sprite index="9" frames="135" color="building" />
+    </else>
 </building>

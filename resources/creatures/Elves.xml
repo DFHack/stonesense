@@ -1,77 +1,66 @@
-<?xml version="1.0" ?>
-
+<?xml version="1.0"?>
 <creatures>
-<creature gameID="ELF" 		sheetIndex = 0 file="elves.png">
-	<variant prof="TRADER" sex="M" sheetIndex = 2/>
-	<variant prof="MERCHANT" sex="M" sheetIndex = 2/>
-	<variant prof="HERBALIST" sex="M" sheetIndex = 4/>
-	<variant prof="CLOTHIER" sex="M" sheetIndex = 6/>
-	<variant prof="WEAVER" sex="M" sheetIndex = 8/>
-	<variant prof="WOODWORKER" sex="M" sheetIndex = 10/>
-	<variant prof="WOODCRAFTER" sex="M" sheetIndex = 10/>
-	<variant prof="BOWYER" sex="M" sheetIndex = 10/>
-	<variant prof="ANIMAL_CARETAKER" sex="M" sheetIndex = 12/>
-	<variant prof="RANGER" sex="M" sheetIndex = 12/>
-	<variant prof="TRAPPER" sex="M" sheetIndex = 12/>
-	<variant prof="HUNTER" sex="M" sheetIndex = 12/>
-
-	<variant prof="WRESTLER" sex="M" sheetIndex = 20/>
-	<variant prof="AXEMAN" sex="M" sheetIndex = 28/>
-	<variant prof="HAMMERMAN" sex="M" sheetIndex = 28/>
-	<variant prof="MACEMAN" sex="M" sheetIndex = 26/>
-	<variant prof="BOWMAN" sex="M" sheetIndex = 32/>
-	<variant prof="CROSSBOWMAN" sex="M" sheetIndex = 34/>
-	<variant prof="SPEARMAN" sex="M" sheetIndex = 24/>
-	<variant prof="SWORDSMAN" sex="M" sheetIndex = 22/>
-	<variant prof="BLOWGUNMAN" sex="M" sheetIndex = 36/>
-
-
-	<variant prof="MASTER_WRESTLER" sex="M" sheetIndex = 20/>
-	<variant prof="MASTER_AXEMAN" sex="M" sheetIndex = 28/>
-	<variant prof="MASTER_HAMMERMAN" sex="M" sheetIndex = 28/>
-	<variant prof="MASTER_MACEMAN" sex="M" sheetIndex = 24/>
-	<variant prof="MASTER_BOWMAN" sex="M" sheetIndex = 32/>	
-	<variant prof="MASTER_CROSSBOWMAN" sex="M" sheetIndex = 34/>
-	<variant prof="MASTER_SPEARMAN" sex="M" sheetIndex = 24/>
-	<variant prof="MASTER_SWORDSMAN" sex="M" sheetIndex = 22/>
-	<variant prof="MASTER_BLOWGUNMAN" sex="M" sheetIndex = 36/>
-
-	<variant prof="TRADER" sex="F" sheetIndex = 3/>
-	<variant prof="MERCHANT" sex="F" sheetIndex = 3/>
-	<variant prof="HERBALIST" sex="F" sheetIndex = 5/>
-	<variant prof="CLOTHIER" sex="F" sheetIndex = 7/>
-	<variant prof="WEAVER" sex="F" sheetIndex = 9/>
-	<variant prof="WOODWORKER" sex="F" sheetIndex = 11/>
-	<variant prof="WOODCRAFTER" sex="F" sheetIndex = 11/>
-	<variant prof="BOWYER" sex="F" sheetIndex = 11/>
-	<variant prof="ANIMAL_CARETAKER" sex="F" sheetIndex = 13/>
-	<variant prof="RANGER" sex="F" sheetIndex = 13/>
-	<variant prof="TRAPPER" sex="F" sheetIndex = 13/>
-	<variant prof="HUNTER" sex="F" sheetIndex = 13/>
-
-	<variant prof="WRESTLER" sex="F" sheetIndex = 21/>
-	<variant prof="AXEMAN" sex="F" sheetIndex = 29/>
-	<variant prof="HAMMERMAN" sex="F" sheetIndex = 29/>
-	<variant prof="MACEMAN" sex="F" sheetIndex = 3/>
-	<variant prof="BOWMAN" sex="F" sheetIndex = 33/>
-	<variant prof="CROSSBOWMAN" sex="F" sheetIndex = 35/>
-	<variant prof="SPEARMAN" sex="F" sheetIndex = 25/>
-	<variant prof="SWORDSMAN" sex="F" sheetIndex = 23/>
-	<variant prof="BLOWGUNMAN" sex="F" sheetIndex = 37/>
-	
-
-	<variant prof="MASTER_WRESTLER" sex="F" sheetIndex = 21/>
-	<variant prof="MASTER_AXEMAN" sex="F" sheetIndex = 29/>
-	<variant prof="MASTER_HAMMERMAN" sex="F" sheetIndex = 29/>
-	<variant prof="MASTER_MACEMAN" sex="F" sheetIndex = 25/>
-	<variant prof="MASTER_BOWMAN" sex="F" sheetIndex = 33/>	
-	<variant prof="MASTER_CROSSBOWMAN" sex="F" sheetIndex = 35/>
-	<variant prof="MASTER_SPEARMAN" sex="F" sheetIndex = 25/>
-	<variant prof="MASTER_SWORDSMAN" sex="F" sheetIndex = 23/>
-	<variant prof="MASTER_BLOWGUNMAN" sex="F" sheetIndex = 37/>	
-
-	<variant sex="F" sheetIndex = 1/>
-</creature>
-
-
+    <creature gameID="ELF" sheetIndex="0" file="elves.png">
+        <variant prof="TRADER" sex="M" sheetIndex="2" />
+        <variant prof="MERCHANT" sex="M" sheetIndex="2" />
+        <variant prof="HERBALIST" sex="M" sheetIndex="4" />
+        <variant prof="CLOTHIER" sex="M" sheetIndex="6" />
+        <variant prof="WEAVER" sex="M" sheetIndex="8" />
+        <variant prof="WOODWORKER" sex="M" sheetIndex="10" />
+        <variant prof="WOODCRAFTER" sex="M" sheetIndex="10" />
+        <variant prof="BOWYER" sex="M" sheetIndex="10" />
+        <variant prof="ANIMAL_CARETAKER" sex="M" sheetIndex="12" />
+        <variant prof="RANGER" sex="M" sheetIndex="12" />
+        <variant prof="TRAPPER" sex="M" sheetIndex="12" />
+        <variant prof="HUNTER" sex="M" sheetIndex="12" />
+        <variant prof="WRESTLER" sex="M" sheetIndex="20" />
+        <variant prof="AXEMAN" sex="M" sheetIndex="28" />
+        <variant prof="HAMMERMAN" sex="M" sheetIndex="28" />
+        <variant prof="MACEMAN" sex="M" sheetIndex="26" />
+        <variant prof="BOWMAN" sex="M" sheetIndex="32" />
+        <variant prof="CROSSBOWMAN" sex="M" sheetIndex="34" />
+        <variant prof="SPEARMAN" sex="M" sheetIndex="24" />
+        <variant prof="SWORDSMAN" sex="M" sheetIndex="22" />
+        <variant prof="BLOWGUNMAN" sex="M" sheetIndex="36" />
+        <variant prof="MASTER_WRESTLER" sex="M" sheetIndex="20" />
+        <variant prof="MASTER_AXEMAN" sex="M" sheetIndex="28" />
+        <variant prof="MASTER_HAMMERMAN" sex="M" sheetIndex="28" />
+        <variant prof="MASTER_MACEMAN" sex="M" sheetIndex="24" />
+        <variant prof="MASTER_BOWMAN" sex="M" sheetIndex="32" />
+        <variant prof="MASTER_CROSSBOWMAN" sex="M" sheetIndex="34" />
+        <variant prof="MASTER_SPEARMAN" sex="M" sheetIndex="24" />
+        <variant prof="MASTER_SWORDSMAN" sex="M" sheetIndex="22" />
+        <variant prof="MASTER_BLOWGUNMAN" sex="M" sheetIndex="36" />
+        <variant prof="TRADER" sex="F" sheetIndex="3" />
+        <variant prof="MERCHANT" sex="F" sheetIndex="3" />
+        <variant prof="HERBALIST" sex="F" sheetIndex="5" />
+        <variant prof="CLOTHIER" sex="F" sheetIndex="7" />
+        <variant prof="WEAVER" sex="F" sheetIndex="9" />
+        <variant prof="WOODWORKER" sex="F" sheetIndex="11" />
+        <variant prof="WOODCRAFTER" sex="F" sheetIndex="11" />
+        <variant prof="BOWYER" sex="F" sheetIndex="11" />
+        <variant prof="ANIMAL_CARETAKER" sex="F" sheetIndex="13" />
+        <variant prof="RANGER" sex="F" sheetIndex="13" />
+        <variant prof="TRAPPER" sex="F" sheetIndex="13" />
+        <variant prof="HUNTER" sex="F" sheetIndex="13" />
+        <variant prof="WRESTLER" sex="F" sheetIndex="21" />
+        <variant prof="AXEMAN" sex="F" sheetIndex="29" />
+        <variant prof="HAMMERMAN" sex="F" sheetIndex="29" />
+        <variant prof="MACEMAN" sex="F" sheetIndex="3" />
+        <variant prof="BOWMAN" sex="F" sheetIndex="33" />
+        <variant prof="CROSSBOWMAN" sex="F" sheetIndex="35" />
+        <variant prof="SPEARMAN" sex="F" sheetIndex="25" />
+        <variant prof="SWORDSMAN" sex="F" sheetIndex="23" />
+        <variant prof="BLOWGUNMAN" sex="F" sheetIndex="37" />
+        <variant prof="MASTER_WRESTLER" sex="F" sheetIndex="21" />
+        <variant prof="MASTER_AXEMAN" sex="F" sheetIndex="29" />
+        <variant prof="MASTER_HAMMERMAN" sex="F" sheetIndex="29" />
+        <variant prof="MASTER_MACEMAN" sex="F" sheetIndex="25" />
+        <variant prof="MASTER_BOWMAN" sex="F" sheetIndex="33" />
+        <variant prof="MASTER_CROSSBOWMAN" sex="F" sheetIndex="35" />
+        <variant prof="MASTER_SPEARMAN" sex="F" sheetIndex="25" />
+        <variant prof="MASTER_SWORDSMAN" sex="F" sheetIndex="23" />
+        <variant prof="MASTER_BLOWGUNMAN" sex="F" sheetIndex="37" />
+        <variant sex="F" sheetIndex="1" />
+    </creature>
 </creatures>

@@ -1,57 +1,41 @@
 <?xml version="1.0"?>
-<building name="Nestbox" game_type="NestBox" >
-  <sprite index="0" file="caravan_1.png" color="building" />
-  <sprite index="1" file="caravan_1.png" />
+<building name="Nestbox" game_type="NestBox">
+    <sprite index="0" file="caravan_1.png" color="building" />
+    <sprite index="1" file="caravan_1.png" />
 </building>
-<building name="Bee Hive" game_type="Hive" >
-  <if>
-    <MaterialType value="Wood" />
-    <sprite index="2" file="caravan_1.png" color="building" />
-    <sprite index="5" file="caravan_1.png" frames="012"
-    random_anim_offset="1" />
-    <sprite index="6" file="caravan_1.png" frames="3"
-    random_anim_offset="1" />
-    <sprite index="7" file="caravan_1.png" frames="4"
-    random_anim_offset="1" />
-    <sprite index="8" file="caravan_1.png" frames="5"
-    random_anim_offset="1" />
-  </if>
-  <else>
-    <MaterialType value="Stone" />
-    <sprite index="4" file="caravan_1.png" color="building" />
-    <sprite index="5" file="caravan_1.png" frames="012"
-    random_anim_offset="1" />
-    <sprite index="6" file="caravan_1.png" frames="3"
-    random_anim_offset="1" />
-    <sprite index="7" file="caravan_1.png" frames="4"
-    random_anim_offset="1" />
-    <sprite index="8" file="caravan_1.png" frames="5"
-    random_anim_offset="1" />
-  </else>
-  <else>
-    <MaterialType value="Clay" />
-    <sprite index="4" file="caravan_1.png" color="building" />
-    <sprite index="5" file="caravan_1.png" frames="012"
-    random_anim_offset="1" />
-    <sprite index="6" file="caravan_1.png" frames="3"
-    random_anim_offset="1" />
-    <sprite index="7" file="caravan_1.png" frames="4"
-    random_anim_offset="1" />
-    <sprite index="8" file="caravan_1.png" frames="5"
-    random_anim_offset="1" />
-  </else>
-  <else>
-    <sprite index="3" file="caravan_1.png" color="building" />
-    <sprite index="5" file="caravan_1.png" frames="012"
-    random_anim_offset="1" />
-    <sprite index="6" file="caravan_1.png" frames="3"
-    random_anim_offset="1" />
-    <sprite index="7" file="caravan_1.png" frames="4"
-    random_anim_offset="1" />
-    <sprite index="8" file="caravan_1.png" frames="5"
-    random_anim_offset="1" />
-  </else>
+<building name="Bee Hive" game_type="Hive">
+    <if>
+        <MaterialType value="Wood" />
+        <sprite index="2" file="caravan_1.png" color="building" />
+        <sprite index="5" file="caravan_1.png" frames="012" random_anim_offset="1" />
+        <sprite index="6" file="caravan_1.png" frames="3" random_anim_offset="1" />
+        <sprite index="7" file="caravan_1.png" frames="4" random_anim_offset="1" />
+        <sprite index="8" file="caravan_1.png" frames="5" random_anim_offset="1" />
+    </if>
+    <else>
+        <MaterialType value="Stone" />
+        <sprite index="4" file="caravan_1.png" color="building" />
+        <sprite index="5" file="caravan_1.png" frames="012" random_anim_offset="1" />
+        <sprite index="6" file="caravan_1.png" frames="3" random_anim_offset="1" />
+        <sprite index="7" file="caravan_1.png" frames="4" random_anim_offset="1" />
+        <sprite index="8" file="caravan_1.png" frames="5" random_anim_offset="1" />
+    </else>
+    <else>
+        <MaterialType value="Clay" />
+        <sprite index="4" file="caravan_1.png" color="building" />
+        <sprite index="5" file="caravan_1.png" frames="012" random_anim_offset="1" />
+        <sprite index="6" file="caravan_1.png" frames="3" random_anim_offset="1" />
+        <sprite index="7" file="caravan_1.png" frames="4" random_anim_offset="1" />
+        <sprite index="8" file="caravan_1.png" frames="5" random_anim_offset="1" />
+    </else>
+    <else>
+        <sprite index="3" file="caravan_1.png" color="building" />
+        <sprite index="5" file="caravan_1.png" frames="012" random_anim_offset="1" />
+        <sprite index="6" file="caravan_1.png" frames="3" random_anim_offset="1" />
+        <sprite index="7" file="caravan_1.png" frames="4" random_anim_offset="1" />
+        <sprite index="8" file="caravan_1.png" frames="5" random_anim_offset="1" />
+    </else>
 </building>
-<building name="Slab" game_type="Slab" >
-  <sprite index="22" file="caravan_1.png" color="building" />
+<building name="Slab" game_type="Slab">
+    <sprite index="22" file="caravan_1.png" color="building" />
 </building>

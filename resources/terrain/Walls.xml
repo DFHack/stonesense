@@ -1,37 +1,37 @@
 <?xml version="1.0"?>
 <walls file="blocks.png">
-	<!-- fortifications -->
-	<wall sheetIndex="141" color="material">
-		<terrain shape="FORTIFICATION" />
-	</wall>
-	<!-- ramps -->
-	<!-- grass -->
-	<wall sheetIndex="8" file="ramps.png" color = "material">
-		<!-- grass -->
-		<terrain token="GrassLightRamp" />
-		<terrain token="GrassDarkRamp" />
-		<subsprite sheetIndex="7" file="ramps.png" color = "grass" grass_min="1"/>
-	</wall>
-	<wall sheetIndex="8" file="ramps.png" color = "material">
-		<!-- dry -->
-		<terrain token="GrassDryRamp" />
-		<!-- dead -->
-		<terrain token="GrassDeadRamp" />
-		<subsprite sheetIndex="9" file="ramps.png" />
-	</wall>
-	<wall sheetIndex="8" file="ramps.png" color = "material">
-		<!-- soil -->
-		<terrain shape="RAMP" material="SOIL"/>
-		<!-- murky pool -->
-		<terrain shape="RAMP" material="POOL"/>
-		<!-- river -->
-		<terrain shape="RAMP" material="RIVER"/>
-	</wall>
-	<!-- default -->
-	<wall sheetIndex="1" file="ramps.png" color="material">
-		<terrain shape="RAMP"/>
-	</wall>
-	<!-- else fall through to default - ->
+    <!-- fortifications -->
+    <wall sheetIndex="141" color="material">
+        <terrain shape="FORTIFICATION" />
+    </wall>
+    <!-- ramps -->
+    <!-- grass -->
+    <wall sheetIndex="8" file="ramps.png" color="material">
+        <!-- grass -->
+        <terrain token="GrassLightRamp" />
+        <terrain token="GrassDarkRamp" />
+        <subsprite sheetIndex="7" file="ramps.png" color="grass" grass_min="1" />
+    </wall>
+    <wall sheetIndex="8" file="ramps.png" color="material">
+        <!-- dry -->
+        <terrain token="GrassDryRamp" />
+        <!-- dead -->
+        <terrain token="GrassDeadRamp" />
+        <subsprite sheetIndex="9" file="ramps.png" />
+    </wall>
+    <wall sheetIndex="8" file="ramps.png" color="material">
+        <!-- soil -->
+        <terrain shape="RAMP" material="SOIL" />
+        <!-- murky pool -->
+        <terrain shape="RAMP" material="POOL" />
+        <!-- river -->
+        <terrain shape="RAMP" material="RIVER" />
+    </wall>
+    <!-- default -->
+    <wall sheetIndex="1" file="ramps.png" color="material">
+        <terrain shape="RAMP" />
+    </wall>
+    <!-- else fall through to default - ->
 <wall>
         <!== stone - ->
         <terrain value="237"/>
@@ -46,43 +46,43 @@
         <!== cons - ->
         <terrain value="518"/>
 </wall> -->
-	<!-- stairs -->
-	<wall sheetIndex="160" color="material">
-		<terrain shape="STAIR_UPDOWN"/>
-		<terrain shape="STAIR_UP"/>
-	</wall>
-	<!-- natural ice -->
-	<wall sheetIndex="66">
-		<!-- wall -->
-		<terrain shape="WALL" material="FROZEN_LIQUID"/>
-	</wall>
-	<!-- smoothed ice -->
-	<wall sheetIndex="65">
-		<!-- sm wall -->
-		<terrain shape="WALL" special="SMOOTH" material="FROZEN_LIQUID"/>
-	</wall>
-	<!-- soil -->
-	<wall sheetIndex="5" color = "material">
-		<!-- wall -->
-		<terrain shape="WALL" material="SOIL"/>
-	</wall>
-	<!-- smoothed stone -->
-	<wall sheetIndex="20" color="material">
-		<!-- pillar -->
-		<terrain shape="WALL" special="SMOOTH"/>
-	</wall>
-	<!-- stone -->
-	<wall sheetIndex="21" color="material">
-		<!-- stone -->
-		<terrain shape="WALL"/>
-	</wall>
-	<!-- Semi molten rock -->
-	<wall sheetIndex="21" color="xml" red="255" green = "0" blue = "0">
-		<terrain token="SemiMoltenRock" />
-		<subsprite sheetIndex = "146" color="xml" red="32" green = "0" blue = "0"/>
-	</wall>
-	<!-- constructed -->
-	<wall sheetIndex="22" color="material">
-		<terrain shape="WALL" material="CONSTRUCTION"/>
-	</wall>
+    <!-- stairs -->
+    <wall sheetIndex="160" color="material">
+        <terrain shape="STAIR_UPDOWN" />
+        <terrain shape="STAIR_UP" />
+    </wall>
+    <!-- natural ice -->
+    <wall sheetIndex="66">
+        <!-- wall -->
+        <terrain shape="WALL" material="FROZEN_LIQUID" />
+    </wall>
+    <!-- smoothed ice -->
+    <wall sheetIndex="65">
+        <!-- sm wall -->
+        <terrain shape="WALL" special="SMOOTH" material="FROZEN_LIQUID" />
+    </wall>
+    <!-- soil -->
+    <wall sheetIndex="5" color="material">
+        <!-- wall -->
+        <terrain shape="WALL" material="SOIL" />
+    </wall>
+    <!-- smoothed stone -->
+    <wall sheetIndex="20" color="material">
+        <!-- pillar -->
+        <terrain shape="WALL" special="SMOOTH" />
+    </wall>
+    <!-- stone -->
+    <wall sheetIndex="21" color="material">
+        <!-- stone -->
+        <terrain shape="WALL" />
+    </wall>
+    <!-- Semi molten rock -->
+    <wall sheetIndex="21" color="xml" red="255" green="0" blue="0">
+        <terrain token="SemiMoltenRock" />
+        <subsprite sheetIndex="146" color="xml" red="32" green="0" blue="0" />
+    </wall>
+    <!-- constructed -->
+    <wall sheetIndex="22" color="material">
+        <terrain shape="WALL" material="CONSTRUCTION" />
+    </wall>
 </walls>

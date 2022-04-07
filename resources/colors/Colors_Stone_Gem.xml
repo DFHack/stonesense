@@ -1,195 +1,195 @@
 <?xml version="1.0"?>
 <colors>
-  <!-- [DISPLAY_COLOR:1:7:0] -->
-  <color red="45" green="136" blue="222">
-    <material value="Inorganic">
-      <subtype value="INDIGO TOURMALINE" />
-      <subtype value="BLUE GARNET" />
-      <subtype value="SAPPHIRE" />
-      <subtype value="DIAMOND_BLUE" />
-    </material>
-  </color>
-  <!-- [DISPLAY_COLOR:2:7:0] -->
-  <color red="32" green="143" blue="27">
-    <material value="Inorganic">
-      <subtype value="PRASE" />
-      <subtype value="PRASE OPAL" />
-      <subtype value="MOSS AGATE" />
-      <subtype value="MOSS OPAL" />
-      <subtype value="VARISCITE" />
-      <subtype value="AVENTURINE" />
-      <subtype value="TSAVORITE" />
-      <subtype value="GREEN TOURMALINE" />
-      <subtype value="DEMANTOID" />
-      <subtype value="GREEN ZIRCON" />
-      <subtype value="EMERALD" />
-      <subtype value="DIAMOND_GREEN" />
-    </material>
-  </color>
-  <!-- [DISPLAY_COLOR:4:7:0] -->
-  <color red="170" green="8" blue="8">
-    <material value="Inorganic">
-      <subtype value="BLOODSTONE" />
-      <subtype value="SARD" />
-      <subtype value="CARNELIAN" />
-      <subtype value="BANDED AGATE" />
-      <subtype value="SARDONYX" />
-      <subtype value="CHERRY OPAL" />
-      <subtype value="RED ZIRCON" />
-      <subtype value="RED TOURMALINE" />
-      <subtype value="RED PYROPE" />
-      <subtype value="ALMANDINE" />
-      <subtype value="RED GROSSULAR" />
-      <subtype value="SPINEL_RED" />
-      <subtype value="RUBY" />
-      <subtype value="DIAMOND_RED" />
-    </material>
-  </color>
-  <!-- [DISPLAY_COLOR:5:7:0] -->
-  <color red="255" green="128" blue="255">
-    <material value="Inorganic">
-      <subtype value="LAVENDER JADE" />
-      <subtype value="RHODOLITE" />
-      <subtype value="SPINEL_PURPLE" />
-    </material>
-  </color>
-  <!-- [DISPLAY_COLOR:6:7:0] -->
-  <color red="120" green="94" blue="47">
-    <material value="Inorganic">
-      <subtype value="TUBE AGATE" />
-      <subtype value="FIRE AGATE" />
-      <subtype value="PLUME AGATE" />
-      <subtype value="BROWN JASPER" />
-      <subtype value="PICTURE JASPER" />
-      <subtype value="SMOKY QUARTZ" />
-      <subtype value="WAX OPAL" />
-      <subtype value="WOOD OPAL" />
-      <subtype value="AMBER OPAL" />
-      <subtype value="CINNAMON GROSSULAR" />
-      <subtype value="HONEY YELLOW BERYL" />
-      <subtype value="JELLY OPAL" />
-      <subtype value="BROWN ZIRCON" />
-      <subtype value="DIAMOND_FY" />
-    </material>
-  </color>
-  <!-- [DISPLAY_COLOR:0:7:1] -->
-  <color red="120" green="120" blue="120">
-    <material value="Inorganic">
-      <subtype value="ONYX" />
-      <subtype value="MORION" />
-      <subtype value="SCHORL" />
-      <subtype value="BLACK ZIRCON" />
-      <subtype value="BLACK PYROPE" />
-      <subtype value="MELANITE" />
-      <subtype value="OPAL_BLACK" />
-      <subtype value="DIAMOND_BLACK" />
-    </material>
-  </color>
-  <!-- [DISPLAY_COLOR:1:7:1] -->
-  <color red="145" green="202" blue="255">
-    <material value="Inorganic">
-      <subtype value="LACE AGATE" />
-      <subtype value="BLUE JADE" />
-      <subtype value="LAPIS LAZULI" />
-      <subtype value="OPAL_CLARO" />
-      <subtype value="SAPPHIRE_STAR" />
-    </material>
-  </color>
-  <!-- [DISPLAY_COLOR:2:7:1] -->
-  <color red="66" green="232" blue="40">
-    <material value="Inorganic">
-      <subtype value="CHRYSOPRASE" />
-      <subtype value="GREEN JADE" />
-      <subtype value="HELIODOR" />
-      <subtype value="PERIDOT" />
-      <subtype value="CHRYSOBERYL" />
-    </material>
-  </color>
-  <!-- [DISPLAY_COLOR:3:7:1] -->
-  <color red="128" green="223" blue="215">
-    <material value="Inorganic">
-      <subtype value="CHRYSOCOLLA" />
-      <subtype value="TURQUOISE" />
-      <subtype value="AQUAMARINE" />
-    </material>
-  </color>
-  <!-- [DISPLAY_COLOR:4:7:1] -->
-  <color red="255" green="0" blue="0">
-    <material value="Inorganic">
-      <subtype value="QUARTZ_ROSE" />
-      <subtype value="PINK TOURMALINE" />
-      <subtype value="RED BERYL" />
-      <subtype value="FIRE OPAL" />
-      <subtype value="OPAL_PFIRE" />
-      <subtype value="OPAL_REDFLASH" />
-      <subtype value="RUBY_STAR" />
-    </material>
-  </color>
-  <!-- [DISPLAY_COLOR:5:7:1] -->
-  <color red="255" green="84" blue="250">
-    <material value="Inorganic">
-      <subtype value="PINK JADE" />
-      <subtype value="ALEXANDRITE" />
-      <subtype value="TANZANITE" />
-      <subtype value="MORGANITE" />
-      <subtype value="VIOLET SPESSARTINE" />
-      <subtype value="PINK GARNET" />
-      <subtype value="KUNZITE" />
-      <subtype value="AMETHYST" />
-    </material>
-  </color>
-  <!-- [DISPLAY_COLOR:6:7:1] -->
-  <color red="255" green="234" blue="45">
-    <material value="Inorganic">
-      <subtype value="GOLD OPAL" />
-      <subtype value="CITRINE" />
-      <subtype value="YELLOW JASPER" />
-      <subtype value="TIGEREYE" />
-      <subtype value="TIGER IRON" />
-      <subtype value="SUNSTONE" />
-      <subtype value="RESIN OPAL" />
-      <subtype value="PYRITE" />
-      <subtype value="YELLOW ZIRCON" />
-      <subtype value="GOLDEN BERYL" />
-      <subtype value="YELLOW SPESSARTINE" />
-      <subtype value="TOPAZ" />
-      <subtype value="TOPAZOLITE" />
-      <subtype value="YELLOW GROSSULAR" />
-      <subtype value="RUBICELLE" />
-      <subtype value="OPAL_LEVIN" />
-      <subtype value="DIAMOND_YELLOW" />
-    </material>
-  </color>
-  <!-- [DISPLAY_COLOR:7:7:1] -->
-  <color red="255" green="255" blue="255">
-    <material value="Inorganic">
-      <subtype value="CLEAR TOURMALINE" />
-      <subtype value="GRAY CHALCEDONY" />
-      <subtype value="DENDRITIC AGATE" />
-      <subtype value="SHELL OPAL" />
-      <subtype value="BONE OPAL" />
-      <subtype value="WHITE CHALCEDONY" />
-      <subtype value="FORTIFICATION AGATE" />
-      <subtype value="MILK QUARTZ" />
-      <subtype value="MOONSTONE" />
-      <subtype value="WHITE JADE" />
-      <subtype value="JASPER OPAL" />
-      <subtype value="PINEAPPLE OPAL" />
-      <subtype value="ONYX OPAL" />
-      <subtype value="MILK OPAL" />
-      <subtype value="PIPE OPAL" />
-      <subtype value="CRYSTAL_ROCK" />
-      <subtype value="CLEAR GARNET" />
-      <subtype value="GOSHENITE" />
-      <subtype value="CAT'S EYE" />
-      <subtype value="CLEAR ZIRCON" />
-      <subtype value="OPAL_WHITE" />
-      <subtype value="OPAL_CRYSTAL" />
-      <subtype value="OPAL_HARLEQUIN" />
-      <subtype value="OPAL_PINFIRE" />
-      <subtype value="OPAL_BANDFIRE" />
-      <subtype value="DIAMOND_LY" />
-      <subtype value="DIAMOND_CLEAR" />
-    </material>
-  </color>
+    <!-- [DISPLAY_COLOR:1:7:0] -->
+    <color red="45" green="136" blue="222">
+        <material value="Inorganic">
+            <subtype value="INDIGO TOURMALINE" />
+            <subtype value="BLUE GARNET" />
+            <subtype value="SAPPHIRE" />
+            <subtype value="DIAMOND_BLUE" />
+        </material>
+    </color>
+    <!-- [DISPLAY_COLOR:2:7:0] -->
+    <color red="32" green="143" blue="27">
+        <material value="Inorganic">
+            <subtype value="PRASE" />
+            <subtype value="PRASE OPAL" />
+            <subtype value="MOSS AGATE" />
+            <subtype value="MOSS OPAL" />
+            <subtype value="VARISCITE" />
+            <subtype value="AVENTURINE" />
+            <subtype value="TSAVORITE" />
+            <subtype value="GREEN TOURMALINE" />
+            <subtype value="DEMANTOID" />
+            <subtype value="GREEN ZIRCON" />
+            <subtype value="EMERALD" />
+            <subtype value="DIAMOND_GREEN" />
+        </material>
+    </color>
+    <!-- [DISPLAY_COLOR:4:7:0] -->
+    <color red="170" green="8" blue="8">
+        <material value="Inorganic">
+            <subtype value="BLOODSTONE" />
+            <subtype value="SARD" />
+            <subtype value="CARNELIAN" />
+            <subtype value="BANDED AGATE" />
+            <subtype value="SARDONYX" />
+            <subtype value="CHERRY OPAL" />
+            <subtype value="RED ZIRCON" />
+            <subtype value="RED TOURMALINE" />
+            <subtype value="RED PYROPE" />
+            <subtype value="ALMANDINE" />
+            <subtype value="RED GROSSULAR" />
+            <subtype value="SPINEL_RED" />
+            <subtype value="RUBY" />
+            <subtype value="DIAMOND_RED" />
+        </material>
+    </color>
+    <!-- [DISPLAY_COLOR:5:7:0] -->
+    <color red="255" green="128" blue="255">
+        <material value="Inorganic">
+            <subtype value="LAVENDER JADE" />
+            <subtype value="RHODOLITE" />
+            <subtype value="SPINEL_PURPLE" />
+        </material>
+    </color>
+    <!-- [DISPLAY_COLOR:6:7:0] -->
+    <color red="120" green="94" blue="47">
+        <material value="Inorganic">
+            <subtype value="TUBE AGATE" />
+            <subtype value="FIRE AGATE" />
+            <subtype value="PLUME AGATE" />
+            <subtype value="BROWN JASPER" />
+            <subtype value="PICTURE JASPER" />
+            <subtype value="SMOKY QUARTZ" />
+            <subtype value="WAX OPAL" />
+            <subtype value="WOOD OPAL" />
+            <subtype value="AMBER OPAL" />
+            <subtype value="CINNAMON GROSSULAR" />
+            <subtype value="HONEY YELLOW BERYL" />
+            <subtype value="JELLY OPAL" />
+            <subtype value="BROWN ZIRCON" />
+            <subtype value="DIAMOND_FY" />
+        </material>
+    </color>
+    <!-- [DISPLAY_COLOR:0:7:1] -->
+    <color red="120" green="120" blue="120">
+        <material value="Inorganic">
+            <subtype value="ONYX" />
+            <subtype value="MORION" />
+            <subtype value="SCHORL" />
+            <subtype value="BLACK ZIRCON" />
+            <subtype value="BLACK PYROPE" />
+            <subtype value="MELANITE" />
+            <subtype value="OPAL_BLACK" />
+            <subtype value="DIAMOND_BLACK" />
+        </material>
+    </color>
+    <!-- [DISPLAY_COLOR:1:7:1] -->
+    <color red="145" green="202" blue="255">
+        <material value="Inorganic">
+            <subtype value="LACE AGATE" />
+            <subtype value="BLUE JADE" />
+            <subtype value="LAPIS LAZULI" />
+            <subtype value="OPAL_CLARO" />
+            <subtype value="SAPPHIRE_STAR" />
+        </material>
+    </color>
+    <!-- [DISPLAY_COLOR:2:7:1] -->
+    <color red="66" green="232" blue="40">
+        <material value="Inorganic">
+            <subtype value="CHRYSOPRASE" />
+            <subtype value="GREEN JADE" />
+            <subtype value="HELIODOR" />
+            <subtype value="PERIDOT" />
+            <subtype value="CHRYSOBERYL" />
+        </material>
+    </color>
+    <!-- [DISPLAY_COLOR:3:7:1] -->
+    <color red="128" green="223" blue="215">
+        <material value="Inorganic">
+            <subtype value="CHRYSOCOLLA" />
+            <subtype value="TURQUOISE" />
+            <subtype value="AQUAMARINE" />
+        </material>
+    </color>
+    <!-- [DISPLAY_COLOR:4:7:1] -->
+    <color red="255" green="0" blue="0">
+        <material value="Inorganic">
+            <subtype value="QUARTZ_ROSE" />
+            <subtype value="PINK TOURMALINE" />
+            <subtype value="RED BERYL" />
+            <subtype value="FIRE OPAL" />
+            <subtype value="OPAL_PFIRE" />
+            <subtype value="OPAL_REDFLASH" />
+            <subtype value="RUBY_STAR" />
+        </material>
+    </color>
+    <!-- [DISPLAY_COLOR:5:7:1] -->
+    <color red="255" green="84" blue="250">
+        <material value="Inorganic">
+            <subtype value="PINK JADE" />
+            <subtype value="ALEXANDRITE" />
+            <subtype value="TANZANITE" />
+            <subtype value="MORGANITE" />
+            <subtype value="VIOLET SPESSARTINE" />
+            <subtype value="PINK GARNET" />
+            <subtype value="KUNZITE" />
+            <subtype value="AMETHYST" />
+        </material>
+    </color>
+    <!-- [DISPLAY_COLOR:6:7:1] -->
+    <color red="255" green="234" blue="45">
+        <material value="Inorganic">
+            <subtype value="GOLD OPAL" />
+            <subtype value="CITRINE" />
+            <subtype value="YELLOW JASPER" />
+            <subtype value="TIGEREYE" />
+            <subtype value="TIGER IRON" />
+            <subtype value="SUNSTONE" />
+            <subtype value="RESIN OPAL" />
+            <subtype value="PYRITE" />
+            <subtype value="YELLOW ZIRCON" />
+            <subtype value="GOLDEN BERYL" />
+            <subtype value="YELLOW SPESSARTINE" />
+            <subtype value="TOPAZ" />
+            <subtype value="TOPAZOLITE" />
+            <subtype value="YELLOW GROSSULAR" />
+            <subtype value="RUBICELLE" />
+            <subtype value="OPAL_LEVIN" />
+            <subtype value="DIAMOND_YELLOW" />
+        </material>
+    </color>
+    <!-- [DISPLAY_COLOR:7:7:1] -->
+    <color red="255" green="255" blue="255">
+        <material value="Inorganic">
+            <subtype value="CLEAR TOURMALINE" />
+            <subtype value="GRAY CHALCEDONY" />
+            <subtype value="DENDRITIC AGATE" />
+            <subtype value="SHELL OPAL" />
+            <subtype value="BONE OPAL" />
+            <subtype value="WHITE CHALCEDONY" />
+            <subtype value="FORTIFICATION AGATE" />
+            <subtype value="MILK QUARTZ" />
+            <subtype value="MOONSTONE" />
+            <subtype value="WHITE JADE" />
+            <subtype value="JASPER OPAL" />
+            <subtype value="PINEAPPLE OPAL" />
+            <subtype value="ONYX OPAL" />
+            <subtype value="MILK OPAL" />
+            <subtype value="PIPE OPAL" />
+            <subtype value="CRYSTAL_ROCK" />
+            <subtype value="CLEAR GARNET" />
+            <subtype value="GOSHENITE" />
+            <subtype value="CAT'S EYE" />
+            <subtype value="CLEAR ZIRCON" />
+            <subtype value="OPAL_WHITE" />
+            <subtype value="OPAL_CRYSTAL" />
+            <subtype value="OPAL_HARLEQUIN" />
+            <subtype value="OPAL_PINFIRE" />
+            <subtype value="OPAL_BANDFIRE" />
+            <subtype value="DIAMOND_LY" />
+            <subtype value="DIAMOND_CLEAR" />
+        </material>
+    </color>
 </colors>

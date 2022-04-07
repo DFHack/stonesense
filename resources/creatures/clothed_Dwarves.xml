@@ -1,27 +1,25 @@
 <?xml version="1.0"?>
 <creatures>
-  <creature gameID="DWARF" sheetIndex="40" file="color_dwarves.png" color="bodypart" bodypart="skin" >
-    <subsprite sheetIndex="43" color="bodypart" bodypart="hair" />
-    <subsprite sheetIndex="44" />
-	<subsprite sheetIndex="45" />
-	
-    <variant prof="CHILD" sheetIndex="80">
-      <subsprite sheetIndex="81" color="bodypart" bodypart="hair" />
-      <subsprite sheetIndex="82" color="bodypart" bodypart="skin" />
-    </variant>
-    <variant prof="BABY" sheetIndex="60">
-      <subsprite sheetIndex="61" color="bodypart" bodypart="hair" />
-      <subsprite sheetIndex="62" color="bodypart" bodypart="skin" />
-    </variant>
-
-    <variant caste="FEMALE" sheetIndex="0" color="bodypart" bodypart="skin" >
-      <subsprite sheetIndex="3" color="bodypart" bodypart="hair" />
-      <subsprite sheetIndex="4" />
-      <subsprite sheetIndex="86" equipment_class="HELM" equipment_name="ITEM_HELM_CAP" color="equipment"/>
-	  <subsprite sheetIndex="87" equipment_class="SHOES" equipment_name="ITEM_SHOES_SHOES" color="equipment"/>
-	  <subsprite sheetIndex="89" equipment_class="PANTS" equipment_name="ITEM_PANTS_SKIRT" color="equipment"/>
-	  <subsprite sheetIndex="89" equipment_class="PANTS" equipment_name="ITEM_PANTS_PANTS" color="equipment"/>
-	  <subsprite sheetIndex="88" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_MAIL_SHIRT" color="equipment"/>
-    </variant>
-  </creature>
+    <creature gameID="DWARF" sheetIndex="40" file="color_dwarves.png" color="bodypart" bodypart="skin">
+        <subsprite sheetIndex="43" color="bodypart" bodypart="hair" />
+        <subsprite sheetIndex="44" />
+        <subsprite sheetIndex="45" />
+        <variant prof="CHILD" sheetIndex="80">
+            <subsprite sheetIndex="81" color="bodypart" bodypart="hair" />
+            <subsprite sheetIndex="82" color="bodypart" bodypart="skin" />
+        </variant>
+        <variant prof="BABY" sheetIndex="60">
+            <subsprite sheetIndex="61" color="bodypart" bodypart="hair" />
+            <subsprite sheetIndex="62" color="bodypart" bodypart="skin" />
+        </variant>
+        <variant caste="FEMALE" sheetIndex="0" color="bodypart" bodypart="skin">
+            <subsprite sheetIndex="3" color="bodypart" bodypart="hair" />
+            <subsprite sheetIndex="4" />
+            <subsprite sheetIndex="86" equipment_class="HELM" equipment_name="ITEM_HELM_CAP" color="equipment" />
+            <subsprite sheetIndex="87" equipment_class="SHOES" equipment_name="ITEM_SHOES_SHOES" color="equipment" />
+            <subsprite sheetIndex="89" equipment_class="PANTS" equipment_name="ITEM_PANTS_SKIRT" color="equipment" />
+            <subsprite sheetIndex="89" equipment_class="PANTS" equipment_name="ITEM_PANTS_PANTS" color="equipment" />
+            <subsprite sheetIndex="88" equipment_class="ARMOR" equipment_name="ITEM_ARMOR_MAIL_SHIRT" color="equipment" />
+        </variant>
+    </creature>
 </creatures>

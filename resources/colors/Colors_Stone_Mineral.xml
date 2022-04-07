@@ -1,293 +1,293 @@
 <?xml version="1.0"?>
 <colors>
-  <color red="222" green="182" blue="182">
-    <material value="Inorganic">
-      <subtype value="HEMATITE" />
-    </material>
-  </color>
-  <color red="206" green="148" blue="66">
-    <material value="Inorganic">
-      <subtype value="LIMONITE" />
-    </material>
-  </color>
-  <color red="99" green="199" blue="75">
-    <material value="Inorganic">
-      <subtype value="GARNIERITE" />
-    </material>
-  </color>
-  <color red="230" green="210" blue="147">
-    <material value="Inorganic">
-      <subtype value="NATIVE_GOLD" />
-    </material>
-  </color>
-  <color red="227" green="234" blue="227">
-    <material value="Inorganic">
-      <subtype value="NATIVE_SILVER" />
-    </material>
-  </color>
-  <color red="236" green="185" blue="164">
-    <material value="Inorganic">
-      <subtype value="NATIVE_COPPER" />
-    </material>
-  </color>
-  <color red="124" green="234" blue="163">
-    <material value="Inorganic">
-      <subtype value="MALACHITE" />
-    </material>
-  </color>
-  <color red="190" green="190" blue="190">
-    <material value="Inorganic">
-      <subtype value="GALENA" />
-    </material>
-  </color>
-  <color red="232" green="214" blue="210">
-    <material value="Inorganic">
-      <subtype value="SPHALERITE" />
-    </material>
-  </color>
-  <color red="98" green="112" blue="112">
-    <material value="Inorganic">
-      <subtype value="CASSITERITE" />
-    </material>
-  </color>
-  <color red="64" green="67" blue="56">
-    <material value="Inorganic">
-      <subtype value="COAL_BITUMINOUS" />
-    </material>
-  </color>
-  <color red="60" green="59" blue="55">
-    <material value="Inorganic">
-      <subtype value="LIGNITE" />
-    </material>
-  </color>
-  <color red="228" green="217" blue="197">
-    <material value="Inorganic">
-      <subtype value="NATIVE_PLATINUM" />
-    </material>
-  </color>
-  <color red="226" green="93" blue="60">
-    <material value="Inorganic">
-      <subtype value="CINNABAR" />
-    </material>
-  </color>
-  <color red="51" green="102" blue="205">
-    <material value="Inorganic">
-      <subtype value="COBALTITE" />
-    </material>
-  </color>
-  <color red="240" green="224" blue="175">
-    <material value="Inorganic">
-      <subtype value="TETRAHEDRITE" />
-    </material>
-  </color>
-  <color red="220" green="204" blue="179">
-    <material value="Inorganic">
-      <subtype value="HORN_SILVER" />
-    </material>
-  </color>
-  <color red="249" green="218" blue="198">
-    <material value="Inorganic">
-      <subtype value="GYPSUM" />
-    </material>
-  </color>
-  <color red="232" green="231" blue="210">
-    <material value="Inorganic">
-      <subtype value="TALC" />
-    </material>
-  </color>
-  <color red="40" green="29" blue="59">
-    <material value="Inorganic">
-      <subtype value="JET" />
-    </material>
-  </color>
-  <color red="173" green="144" blue="146">
-    <material value="Inorganic">
-      <subtype value="PUDDINGSTONE" />
-    </material>
-  </color>
-  <color red="186" green="132" blue="108">
-    <material value="Inorganic">
-      <subtype value="PETRIFIED_WOOD" />
-    </material>
-  </color>
-  <color red="149" green="148" blue="146">
-    <material value="Inorganic">
-      <subtype value="GRAPHITE" />
-    </material>
-  </color>
-  <color red="215" green="193" blue="156">
-    <material value="Inorganic">
-      <subtype value="BRIMSTONE" />
-    </material>
-  </color>
-  <color red="0" green="0" blue="128">
-    <material value="Inorganic">
-      <subtype value="KIMBERLITE" />
-    </material>
-  </color>
-  <color red="189" green="161" blue="139">
-    <material value="Inorganic">
-      <subtype value="BISMUTHINITE" />
-    </material>
-  </color>
-  <color red="142" green="14" blue="29">
-    <material value="Inorganic">
-      <subtype value="REALGAR" />
-    </material>
-  </color>
-  <color red="255" green="198" blue="100">
-    <material value="Inorganic">
-      <subtype value="ORPIMENT" />
-    </material>
-  </color>
-  <color red="164" green="168" blue="177">
-    <material value="Inorganic">
-      <subtype value="STIBNITE" />
-    </material>
-  </color>
-  <color red="193" green="188" blue="158">
-    <material value="Inorganic">
-      <subtype value="MARCASITE" />
-    </material>
-  </color>
-  <color red="255" green="174" blue="133">
-    <material value="Inorganic">
-      <subtype value="SYLVITE" />
-    </material>
-  </color>
-  <color red="156" green="151" blue="145">
-    <material value="Inorganic">
-      <subtype value="CRYOLITE" />
-    </material>
-  </color>
-  <color red="133" green="184" blue="66">
-    <material value="Inorganic">
-      <subtype value="PERICLASE" />
-    </material>
-  </color>
-  <color red="125" green="133" blue="136">
-    <material value="Inorganic">
-      <subtype value="ILMENITE" />
-    </material>
-  </color>
-  <color red="145" green="105" blue="106">
-    <material value="Inorganic">
-      <subtype value="RUTILE" />
-    </material>
-  </color>
-  <color red="173" green="179" blue="193">
-    <material value="Inorganic">
-      <subtype value="MAGNETITE" />
-    </material>
-  </color>
-  <color red="99" green="103" blue="104">
-    <material value="Inorganic">
-      <subtype value="CHROMITE" />
-    </material>
-  </color>
-  <color red="41" green="49" blue="68">
-    <material value="Inorganic">
-      <subtype value="PYROLUSITE" />
-    </material>
-  </color>
-  <color red="156" green="134" blue="74">
-    <material value="Inorganic">
-      <subtype value="PITCHBLENDE" />
-    </material>
-  </color>
-  <color red="197" green="111" blue="86">
-    <material value="Inorganic">
-      <subtype value="BAUXITE" />
-    </material>
-  </color>
-  <color red="212" green="212" blue="214">
-    <material value="Inorganic">
-      <subtype value="NATIVE_ALUMINUM" />
-    </material>
-  </color>
-  <color red="255" green="255" blue="255">
-    <material value="Inorganic">
-      <subtype value="BORAX" />
-    </material>
-  </color>
-  <color red="183" green="225" blue="34">
-    <material value="Inorganic">
-      <subtype value="OLIVINE" />
-    </material>
-  </color>
-  <color red="96" green="106" blue="81">
-    <material value="Inorganic">
-      <subtype value="HORNBLENDE" />
-    </material>
-  </color>
-  <color red="206" green="170" blue="169">
-    <material value="Inorganic">
-      <subtype value="KAOLINITE" />
-    </material>
-  </color>
-  <color red="137" green="139" blue="74">
-    <material value="Inorganic">
-      <subtype value="SERPENTINE" />
-    </material>
-  </color>
-  <color red="248" green="487" blue="133">
-    <material value="Inorganic">
-      <subtype value="ORTHOCLASE" />
-    </material>
-  </color>
-  <color red="69" green="173" blue="208">
-    <material value="Inorganic">
-      <subtype value="MICROCLINE" />
-    </material>
-  </color>
-  <color red="213" green="201" blue="188">
-    <material value="Inorganic">
-      <subtype value="MICA" />
-    </material>
-  </color>
-  <color red="175" green="204" blue="208">
-    <material value="Inorganic">
-      <subtype value="CALCITE" />
-    </material>
-  </color>
-  <color red="248" green="244" blue="233">
-    <material value="Inorganic">
-      <subtype value="SALTPETER" />
-    </material>
-  </color>
-  <color red="251" green="209" blue="133">
-    <material value="Inorganic">
-      <subtype value="ALABASTER" />
-    </material>
-  </color>
-  <color red="217" green="219" blue="206">
-    <material value="Inorganic">
-      <subtype value="SELENITE" />
-    </material>
-  </color>
-  <color red="229" green="233" blue="236">
-    <material value="Inorganic">
-      <subtype value="SATINSPAR" />
-    </material>
-  </color>
-  <color red="221" green="201" blue="212">
-    <material value="Inorganic">
-      <subtype value="ANHYDRITE" />
-    </material>
-  </color>
-  <color red="253" green="219" blue="139">
-    <material value="Inorganic">
-      <subtype value="ALUNITE" />
-    </material>
-  </color>
-  <color red="101" green="235" blue="236">
-    <material value="Inorganic">
-      <subtype value="RAW_ADAMANTINE" />
-    </material>
-  </color>
-  <color red="32" green="32" blue="32">
-    <material value="Inorganic">
-      <subtype value="SLADE" />
-    </material>
-  </color>
+    <color red="222" green="182" blue="182">
+        <material value="Inorganic">
+            <subtype value="HEMATITE" />
+        </material>
+    </color>
+    <color red="206" green="148" blue="66">
+        <material value="Inorganic">
+            <subtype value="LIMONITE" />
+        </material>
+    </color>
+    <color red="99" green="199" blue="75">
+        <material value="Inorganic">
+            <subtype value="GARNIERITE" />
+        </material>
+    </color>
+    <color red="230" green="210" blue="147">
+        <material value="Inorganic">
+            <subtype value="NATIVE_GOLD" />
+        </material>
+    </color>
+    <color red="227" green="234" blue="227">
+        <material value="Inorganic">
+            <subtype value="NATIVE_SILVER" />
+        </material>
+    </color>
+    <color red="236" green="185" blue="164">
+        <material value="Inorganic">
+            <subtype value="NATIVE_COPPER" />
+        </material>
+    </color>
+    <color red="124" green="234" blue="163">
+        <material value="Inorganic">
+            <subtype value="MALACHITE" />
+        </material>
+    </color>
+    <color red="190" green="190" blue="190">
+        <material value="Inorganic">
+            <subtype value="GALENA" />
+        </material>
+    </color>
+    <color red="232" green="214" blue="210">
+        <material value="Inorganic">
+            <subtype value="SPHALERITE" />
+        </material>
+    </color>
+    <color red="98" green="112" blue="112">
+        <material value="Inorganic">
+            <subtype value="CASSITERITE" />
+        </material>
+    </color>
+    <color red="64" green="67" blue="56">
+        <material value="Inorganic">
+            <subtype value="COAL_BITUMINOUS" />
+        </material>
+    </color>
+    <color red="60" green="59" blue="55">
+        <material value="Inorganic">
+            <subtype value="LIGNITE" />
+        </material>
+    </color>
+    <color red="228" green="217" blue="197">
+        <material value="Inorganic">
+            <subtype value="NATIVE_PLATINUM" />
+        </material>
+    </color>
+    <color red="226" green="93" blue="60">
+        <material value="Inorganic">
+            <subtype value="CINNABAR" />
+        </material>
+    </color>
+    <color red="51" green="102" blue="205">
+        <material value="Inorganic">
+            <subtype value="COBALTITE" />
+        </material>
+    </color>
+    <color red="240" green="224" blue="175">
+        <material value="Inorganic">
+            <subtype value="TETRAHEDRITE" />
+        </material>
+    </color>
+    <color red="220" green="204" blue="179">
+        <material value="Inorganic">
+            <subtype value="HORN_SILVER" />
+        </material>
+    </color>
+    <color red="249" green="218" blue="198">
+        <material value="Inorganic">
+            <subtype value="GYPSUM" />
+        </material>
+    </color>
+    <color red="232" green="231" blue="210">
+        <material value="Inorganic">
+            <subtype value="TALC" />
+        </material>
+    </color>
+    <color red="40" green="29" blue="59">
+        <material value="Inorganic">
+            <subtype value="JET" />
+        </material>
+    </color>
+    <color red="173" green="144" blue="146">
+        <material value="Inorganic">
+            <subtype value="PUDDINGSTONE" />
+        </material>
+    </color>
+    <color red="186" green="132" blue="108">
+        <material value="Inorganic">
+            <subtype value="PETRIFIED_WOOD" />
+        </material>
+    </color>
+    <color red="149" green="148" blue="146">
+        <material value="Inorganic">
+            <subtype value="GRAPHITE" />
+        </material>
+    </color>
+    <color red="215" green="193" blue="156">
+        <material value="Inorganic">
+            <subtype value="BRIMSTONE" />
+        </material>
+    </color>
+    <color red="0" green="0" blue="128">
+        <material value="Inorganic">
+            <subtype value="KIMBERLITE" />
+        </material>
+    </color>
+    <color red="189" green="161" blue="139">
+        <material value="Inorganic">
+            <subtype value="BISMUTHINITE" />
+        </material>
+    </color>
+    <color red="142" green="14" blue="29">
+        <material value="Inorganic">
+            <subtype value="REALGAR" />
+        </material>
+    </color>
+    <color red="255" green="198" blue="100">
+        <material value="Inorganic">
+            <subtype value="ORPIMENT" />
+        </material>
+    </color>
+    <color red="164" green="168" blue="177">
+        <material value="Inorganic">
+            <subtype value="STIBNITE" />
+        </material>
+    </color>
+    <color red="193" green="188" blue="158">
+        <material value="Inorganic">
+            <subtype value="MARCASITE" />
+        </material>
+    </color>
+    <color red="255" green="174" blue="133">
+        <material value="Inorganic">
+            <subtype value="SYLVITE" />
+        </material>
+    </color>
+    <color red="156" green="151" blue="145">
+        <material value="Inorganic">
+            <subtype value="CRYOLITE" />
+        </material>
+    </color>
+    <color red="133" green="184" blue="66">
+        <material value="Inorganic">
+            <subtype value="PERICLASE" />
+        </material>
+    </color>
+    <color red="125" green="133" blue="136">
+        <material value="Inorganic">
+            <subtype value="ILMENITE" />
+        </material>
+    </color>
+    <color red="145" green="105" blue="106">
+        <material value="Inorganic">
+            <subtype value="RUTILE" />
+        </material>
+    </color>
+    <color red="173" green="179" blue="193">
+        <material value="Inorganic">
+            <subtype value="MAGNETITE" />
+        </material>
+    </color>
+    <color red="99" green="103" blue="104">
+        <material value="Inorganic">
+            <subtype value="CHROMITE" />
+        </material>
+    </color>
+    <color red="41" green="49" blue="68">
+        <material value="Inorganic">
+            <subtype value="PYROLUSITE" />
+        </material>
+    </color>
+    <color red="156" green="134" blue="74">
+        <material value="Inorganic">
+            <subtype value="PITCHBLENDE" />
+        </material>
+    </color>
+    <color red="197" green="111" blue="86">
+        <material value="Inorganic">
+            <subtype value="BAUXITE" />
+        </material>
+    </color>
+    <color red="212" green="212" blue="214">
+        <material value="Inorganic">
+            <subtype value="NATIVE_ALUMINUM" />
+        </material>
+    </color>
+    <color red="255" green="255" blue="255">
+        <material value="Inorganic">
+            <subtype value="BORAX" />
+        </material>
+    </color>
+    <color red="183" green="225" blue="34">
+        <material value="Inorganic">
+            <subtype value="OLIVINE" />
+        </material>
+    </color>
+    <color red="96" green="106" blue="81">
+        <material value="Inorganic">
+            <subtype value="HORNBLENDE" />
+        </material>
+    </color>
+    <color red="206" green="170" blue="169">
+        <material value="Inorganic">
+            <subtype value="KAOLINITE" />
+        </material>
+    </color>
+    <color red="137" green="139" blue="74">
+        <material value="Inorganic">
+            <subtype value="SERPENTINE" />
+        </material>
+    </color>
+    <color red="248" green="487" blue="133">
+        <material value="Inorganic">
+            <subtype value="ORTHOCLASE" />
+        </material>
+    </color>
+    <color red="69" green="173" blue="208">
+        <material value="Inorganic">
+            <subtype value="MICROCLINE" />
+        </material>
+    </color>
+    <color red="213" green="201" blue="188">
+        <material value="Inorganic">
+            <subtype value="MICA" />
+        </material>
+    </color>
+    <color red="175" green="204" blue="208">
+        <material value="Inorganic">
+            <subtype value="CALCITE" />
+        </material>
+    </color>
+    <color red="248" green="244" blue="233">
+        <material value="Inorganic">
+            <subtype value="SALTPETER" />
+        </material>
+    </color>
+    <color red="251" green="209" blue="133">
+        <material value="Inorganic">
+            <subtype value="ALABASTER" />
+        </material>
+    </color>
+    <color red="217" green="219" blue="206">
+        <material value="Inorganic">
+            <subtype value="SELENITE" />
+        </material>
+    </color>
+    <color red="229" green="233" blue="236">
+        <material value="Inorganic">
+            <subtype value="SATINSPAR" />
+        </material>
+    </color>
+    <color red="221" green="201" blue="212">
+        <material value="Inorganic">
+            <subtype value="ANHYDRITE" />
+        </material>
+    </color>
+    <color red="253" green="219" blue="139">
+        <material value="Inorganic">
+            <subtype value="ALUNITE" />
+        </material>
+    </color>
+    <color red="101" green="235" blue="236">
+        <material value="Inorganic">
+            <subtype value="RAW_ADAMANTINE" />
+        </material>
+    </color>
+    <color red="32" green="32" blue="32">
+        <material value="Inorganic">
+            <subtype value="SLADE" />
+        </material>
+    </color>
 </colors>

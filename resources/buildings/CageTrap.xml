@@ -1,5 +1,4 @@
-<?xml version="1.0" ?>
-
+<?xml version="1.0"?>
 <building name="Trap" game_type="Trap" game_subtype="CageTrap">
-		<sprite index="357" />
-</building> 
+    <sprite index="357" />
+</building>

@@ -1,9 +1,4 @@
-<?xml version="1.0" ?>
-
-
-
-<building name="Grate" game_type="BarsVertical" > 
-
-		<sprite index = 307 />
-
-</building> 
+<?xml version="1.0"?>
+<building name="Grate" game_type="BarsVertical">
+    <sprite index="307" />
+</building>
