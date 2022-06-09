@@ -1441,7 +1441,7 @@ void saveScreenshot()
     al_clear_to_color(ssConfig.backcol);
     paintboard();
     //get filename
-    char filename[25] = {0};
+    char filename[32] = {0};
     FILE* fp;
     int index = 1;
     //search for the first screenshot# that does not exist already
