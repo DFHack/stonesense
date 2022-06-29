@@ -13,6 +13,7 @@
 #include "df/block_square_event_grassst.h"
 #include "df/block_square_event_material_spatterst.h"
 #include "df/block_square_event_mineralst.h"
+#include "df/engraving.h"
 #include "df/flow_info.h"
 #include "df/flow_info.h"
 #include "df/item_constructed.h"
@@ -894,12 +895,12 @@ void readMapSegment(WorldSegment* segment, GameState inState)
     //translate constructions
     changeConstructionMaterials(segment, &allConstructions);
 
-    uint32_t numengravings = Engravings::getCount();
+    uint32_t numengravings = df::global::world->engravings.size();
     df::engraving * engraved;
     index = 0;
     Tile * b = 0;
     while(index < numengravings) {
-        engraved = Engravings::getEngraving(index);
+        engraved = df::global::world->engravings[index];
         df::coord pos = engraved->pos;
         if(segment->CoordinateInsideSegment(pos.x, pos.y, pos.z)) {
             b = segment->getTile(pos.x, pos.y, pos.z);
