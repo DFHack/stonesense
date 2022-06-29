@@ -799,12 +799,12 @@ void readMapSegment(WorldSegment* segment, GameState inState)
     uint32_t numconstructions = 0;
 
     if(!ssConfig.skipConstructions) {
-        numconstructions = Constructions::getCount();
+        numconstructions = df::global::world->constructions.size();
         if (numconstructions) {
             df::construction tempcon;
             index = 0;
             while(index < numconstructions) {
-                tempcon = *Constructions::getConstruction(index);
+                tempcon = *df::global::world->constructions[index];
                 if(segment->CoordinateInsideSegment(tempcon.pos.x, tempcon.pos.y, tempcon.pos.z)) {
                     allConstructions.push_back(tempcon);
                 }
