@@ -594,13 +594,13 @@ void drawDebugInfo(WorldSegment * segment)
                 break;
             }
             CoreSuspender csusp;
-            Actual_building->contained_items.size(); //Item array.
+            const size_t num_items = Actual_building->contained_items.size(); //Item array.
             std::string BuildingName;
             Actual_building->getName(&BuildingName);
             draw_textf_border(font, uiColor(1), 2, (i++*al_get_font_line_height(font)), 0,
                               "%s",
                               BuildingName.c_str());
-            for(size_t index = 0; index < Actual_building->contained_items.size(); index++) {
+            for(size_t index = 0; index < num_items; index++) {
                 MaterialInfo mat;
                 mat.decode(Actual_building->contained_items[index]->item->getMaterial(), Actual_building->contained_items[index]->item->getMaterialIndex());
                 char stacknum[8] = {0};
