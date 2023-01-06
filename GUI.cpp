@@ -1,4 +1,4 @@
-﻿#include <assert.h>
+#include <assert.h>
 #include <vector>
 
 #include "common.h"
@@ -16,7 +16,7 @@
 
 #include "modules/Units.h"
 
-#include "df/ui.h"
+#include "df/plotinfost.h"
 #include "df/building_actual.h"
 #include "df/world.h"
 
@@ -43,7 +43,7 @@
 
 #include "df/viewscreen_dungeonmodest.h"
 #include "df/viewscreen_dungeon_wrestlest.h"
-#include "df/ui_advmode.h"
+#include "df/adventurest.h"
 #include "df/report.h"
 
 #include "allegro5/allegro_color.h"
@@ -508,7 +508,7 @@ void drawDebugCursor(WorldSegment * segment)
 
 void drawAdvmodeMenuTalk(const ALLEGRO_FONT *font, int x, int y)
 {
-    //df::ui_advmode * menu = df::global::ui_advmode;
+    //df::adventure * menu = df::global::adventure;
     //if (!menu)
     //    return;
     //if (menu->talk_targets.size() == 0)
@@ -539,7 +539,7 @@ void drawAdvmodeMenuTalk(const ALLEGRO_FONT *font, int x, int y)
 
 void drawDebugInfo(WorldSegment * segment)
 {
-    using df::global::ui;
+    using df::global::plotinfo;
 
     //get tile info
     Tile* b = segment->getTile(
@@ -553,11 +553,11 @@ void drawDebugInfo(WorldSegment * segment)
     df::viewscreen * vs = Gui::getCurViewscreen();
     if (strict_virtual_cast<df::viewscreen_dungeonmodest>(vs))
     {
-        if (df::global::ui_advmode)
+        if (df::global::adventure)
         {
             draw_textf_border(font, uiColor(1), 2, (i++*al_get_font_line_height(font)), 0,
                 "Current menu: %s",
-                df::enum_traits<df::ui_advmode_menu>::key_table[df::global::ui_advmode->menu]);
+                df::enum_traits<df::ui_advmode_menu>::key_table[df::global::adventure->menu]);
         }
     }
     draw_textf_border(font, uiColor(1), 2, (i++*al_get_font_line_height(font)), 0,
@@ -586,7 +586,7 @@ void drawDebugInfo(WorldSegment * segment)
         ttype=-1;
     }
 
-    switch(ui->main.mode) {
+    switch(plotinfo->main.mode) {
     case ui_sidebar_mode::BuildingItems:
         if(b->building.info && b->building.type != BUILDINGTYPE_NA && b->building.type != BUILDINGTYPE_BLACKBOX && b->building.type != BUILDINGTYPE_TREE) {
             auto Actual_building = virtual_cast<df::building_actual>(b->building.info->origin);

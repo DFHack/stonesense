@@ -7,7 +7,7 @@
 
 #include "df/viewscreen_dwarfmodest.h"
 #include "df/viewscreen_dungeonmodest.h"
-#include "df/ui_advmode.h"
+#include "df/adventurest.h"
 
 using namespace std;
 using namespace DFHack;
@@ -54,11 +54,11 @@ void Overlay::CheckViewscreen()
     }
     else if (id == &df::viewscreen_dungeonmodest::_identity)
     {
-        if (!df::global::ui_advmode)
+        if (!df::global::adventure)
             good_viewscreen = true;
-        else if (df::global::ui_advmode->menu == df::ui_advmode_menu::Default)
+        else if (df::global::adventure->menu == df::ui_advmode_menu::Default)
             good_viewscreen = true;
-        else if (df::global::ui_advmode->menu == df::ui_advmode_menu::ConversationAddress)
+        else if (df::global::adventure->menu == df::ui_advmode_menu::ConversationAddress)
             good_viewscreen = true;
         else
             good_viewscreen = false;
