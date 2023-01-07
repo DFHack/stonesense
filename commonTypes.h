@@ -3,6 +3,7 @@
 #include "common.h"
 #include "SpriteColors.h"
 #include "df/enabler.h"
+#include "df/graphic.h"
 
 enum ShadeBy {
     ShadeNone,
@@ -128,7 +129,7 @@ public:
         }
         if (useDfColors)
         {
-            return al_map_rgb_f(df::global::enabler->ccolor[color][0], df::global::enabler->ccolor[color][1], df::global::enabler->ccolor[color][2]);
+            return al_map_rgb_f(df::global::gps->ccolor[color][0], df::global::gps->ccolor[color][1], df::global::gps->ccolor[color][2]);
         }
         return colors[ (color_name) color].al;
     }

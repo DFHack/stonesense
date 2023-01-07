@@ -6,7 +6,7 @@
 #include "df/init.h"
 
 #include "df/viewscreen_dwarfmodest.h"
-#include "df/viewscreen_dungeonmodest.h"
+//#include "df/viewscreen_dungeonmodest.h"
 #include "df/adventurest.h"
 
 using namespace std;
@@ -52,6 +52,7 @@ void Overlay::CheckViewscreen()
     {
         good_viewscreen = true;
     }
+    /* FIXME when adventure is back.
     else if (id == &df::viewscreen_dungeonmodest::_identity)
     {
         if (!df::global::adventure)
@@ -63,6 +64,7 @@ void Overlay::CheckViewscreen()
         else
             good_viewscreen = false;
     }
+    */
     else
     {
         good_viewscreen = false;
@@ -79,6 +81,7 @@ bool Overlay::PaintingOverTileAt(int32_t x, int32_t y)
 
 void Overlay::set_to_null()
 {
+    /*
     screen = NULL;
     screentexpos = NULL;
     screentexpos_addcolor = NULL;
@@ -91,10 +94,12 @@ void Overlay::set_to_null()
     screentexpos_grayscale_old = NULL;
     screentexpos_cf_old = NULL;
     screentexpos_cbr_old = NULL;
+    */
 }
 
 void Overlay::copy_from_inner()
 {
+    /*
     screen = parent->screen;
     screentexpos = parent->screentexpos;
     screentexpos_addcolor = parent->screentexpos_addcolor;
@@ -107,10 +112,12 @@ void Overlay::copy_from_inner()
     screentexpos_grayscale_old = parent->screentexpos_grayscale_old;
     screentexpos_cf_old = parent->screentexpos_cf_old;
     screentexpos_cbr_old = parent->screentexpos_cbr_old;
+    */
 }
 
 void Overlay::copy_to_inner()
 {
+    /*
     parent->screen = screen;
     parent->screentexpos = screentexpos;
     parent->screentexpos_addcolor = screentexpos_addcolor;
@@ -123,6 +130,7 @@ void Overlay::copy_to_inner()
     parent->screentexpos_grayscale_old = screentexpos_grayscale_old;
     parent->screentexpos_cf_old = screentexpos_cf_old;
     parent->screentexpos_cbr_old = screentexpos_cbr_old;
+    */
 }
 
 Overlay::Overlay(renderer* parent) : parent(parent)
@@ -341,6 +349,7 @@ void Overlay::grid_resize(int32_t w, int32_t h)
 
 bool Overlay::get_mouse_coords(int32_t* x, int32_t* y)
 {
+    /*FIXME: Find a new replacement for the overlay mode.
     //PrintMessage("in:(%i,%i)\n",*x,*y);
     bool ret = parent->get_mouse_coords(x,y);
     //PrintMessage("out:(%i,%i)\n",*x,*y);
@@ -394,6 +403,8 @@ bool Overlay::get_mouse_coords(int32_t* x, int32_t* y)
     }
 
     return ret;
+    */
+    return false;
 }
 
 bool Overlay::uses_opengl()

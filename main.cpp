@@ -50,7 +50,9 @@ vector<t_matgloss> v_stonetypes;
 
 ALLEGRO_FONT * font;
 
+/*FIXME: Find a new replacement for the overlay mode.
 std::unique_ptr<Overlay> overlay;
+*/
 ALLEGRO_DISPLAY * display;
 ALLEGRO_KEYBOARD_STATE keyboard;
 
@@ -255,7 +257,7 @@ void drawcredits()
 *  little CPU time.  See main() to see how the event sources and event queue
 *  are set up.
 */
-static void main_loop(ALLEGRO_DISPLAY * display, Overlay * ovrlay, ALLEGRO_EVENT_QUEUE *queue, ALLEGRO_THREAD * main_thread, DFHack::color_ostream & con)
+static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALLEGRO_THREAD * main_thread, DFHack::color_ostream & con)
 {
     ALLEGRO_EVENT event;
     while (!al_get_thread_should_stop(main_thread)) {
@@ -263,44 +265,54 @@ static void main_loop(ALLEGRO_DISPLAY * display, Overlay * ovrlay, ALLEGRO_EVENT
 
             al_rest(0);
 
-            if(ssConfig.overlay_mode){
+            /*FIXME: Find a new replacement for the overlay mode.
+            if (ssConfig.overlay_mode)
+            {
                 bool goodoverlay = ovrlay->GoodViewscreen();
-                if(!goodoverlay) {
+                if (!goodoverlay) {
                     //do nothing; this isn't a view we can overlay
-                }if(ssConfig.spriteIndexOverlay) {
+                }if (ssConfig.spriteIndexOverlay) {
                     DrawSpriteIndexOverlay(ssConfig.currentSpriteOverlay);
                     ovrlay->Flip();
-                } else if(!Maps::IsValid()) {
+                }
+                else if (!Maps::IsValid()) {
                     drawcredits();
                     ovrlay->Flip();
-                } else if( timeToReloadSegment ) {
+                }
+                else if (timeToReloadSegment) {
                     reloadPosition();
                     al_clear_to_color(ssConfig.backcol);
                     paintboard();
                     ovrlay->Flip();
                     timeToReloadSegment = false;
                     animationFrameShown = true;
-                } else if (animationFrameShown == false) {
+                }
+                else if (animationFrameShown == false) {
                     al_clear_to_color(ssConfig.backcol);
                     paintboard();
                     ovrlay->Flip();
                     animationFrameShown = true;
                 }
-            } else {
-                if(ssConfig.spriteIndexOverlay) {
+            }
+            else */
+            {
+                if (ssConfig.spriteIndexOverlay) {
                     DrawSpriteIndexOverlay(ssConfig.currentSpriteOverlay);
                     al_flip_display();
-                } else if(!Maps::IsValid()) {
+                }
+                else if (!Maps::IsValid()) {
                     drawcredits();
                     al_flip_display();
-                } else if( timeToReloadSegment ) {
+                }
+                else if (timeToReloadSegment) {
                     reloadPosition();
                     al_clear_to_color(ssConfig.backcol);
                     paintboard();
                     al_flip_display();
                     timeToReloadSegment = false;
                     animationFrameShown = true;
-                } else if (animationFrameShown == false) {
+                }
+                else if (animationFrameShown == false) {
                     al_clear_to_color(ssConfig.backcol);
                     paintboard();
                     al_flip_display();
@@ -496,10 +508,12 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
     SetTitle("Stonesense");
     drawcredits();
 
-    if(ssConfig.overlay_mode){
+    /*FIXME: Find a new replacement for the overlay mode.
+        if(ssConfig.overlay_mode){
         overlay = dts::make_unique<Overlay>(df::global::enabler->renderer);
         df::global::enabler->renderer = overlay.get();
     }
+    */
 
     ALLEGRO_PATH * p = al_create_path("stonesense/stonesense.png");
     IMGIcon = load_bitmap_withWarning(al_path_cstr(p, ALLEGRO_NATIVE_PATH_SEP));
@@ -556,12 +570,14 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
 
     timeToReloadSegment = false;
     // enter event loop here:
-    main_loop(display, overlay.get(), queue, main_thread, out);
+    main_loop(display, queue, main_thread, out);
 
     // window is destroyed.
     al_destroy_display(display);
     display = 0;
+    /*FIXME: Find a new replacement for the overlay mode.
     overlay.reset();
+    */
 
     if(ssConfig.threadmade) {
         al_broadcast_cond(ssConfig.readCond);

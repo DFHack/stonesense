@@ -8,9 +8,13 @@ using namespace df::enums;
 
 void actualWindowSize(int32_t & width, int32_t & height)
 {
+    /*FIXME: Figure out how to find the actual center of the view now that the map view is detached from the menus.*/
+    /*
     uint8_t mnu, map;
     Gui::getMenuWidth(mnu, map);
+    */
     Gui::getWindowSize(width, height);
+    /*
     if (!df::global::gamemode || *df::global::gamemode == game_mode::ADVENTURE)
     {
         height = height - 2; //Adventure mode has a 2 tile high status screen on the bottom.
@@ -33,6 +37,7 @@ void actualWindowSize(int32_t & width, int32_t & height)
             width = width - 2; //No menu or area map, just account for borders
         }
     }
+    */
 }
 
 void followCurrentDFWindow()
