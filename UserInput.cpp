@@ -260,11 +260,12 @@ void action_chopwall(uint32_t keymod)
 
 void action_cycletrackingmode(uint32_t keymod)
 {
-    if (keymod&ALLEGRO_KEYMOD_CTRL) {
+    if (keymod & ALLEGRO_KEYMOD_CTRL) {
         ssConfig.follow_DFcursor = !ssConfig.follow_DFcursor;
-    } else {
-        ssConfig.track_mode++;
-        if(ssConfig.track_mode >= GameConfiguration::TRACKING_INVALID) {
+    }
+    else {
+        ssConfig.track_mode = (GameConfiguration::trackingmode)(ssConfig.track_mode + 1);
+        if (ssConfig.track_mode >= GameConfiguration::TRACKING_INVALID) {
             ssConfig.track_mode = GameConfiguration::TRACKING_NONE;
         }
     }

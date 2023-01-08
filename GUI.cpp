@@ -800,9 +800,12 @@ void drawDebugInfo(WorldSegment * segment)
         if (tform != NULL && b->material.type != INVALID_INDEX && b->material.index != INVALID_INDEX) {
             MaterialInfo mat;
             mat.decode(b->material.type, b->material.index);
-            ALLEGRO_COLOR color = al_map_rgb_f(contentLoader->Mats->color[mat.material->state_color[0]].red, contentLoader->Mats->color[mat.material->state_color[0]].green, contentLoader->Mats->color[mat.material->state_color[0]].blue);
-            draw_textf_border(font, color, 2, (i++*al_get_font_line_height(font)), 0,
-                              "%s", mat.material->state_name[0].c_str());
+            if (mat.isValid())
+            {
+                ALLEGRO_COLOR color = al_map_rgb_f(contentLoader->Mats->color[mat.material->state_color[0]].red, contentLoader->Mats->color[mat.material->state_color[0]].green, contentLoader->Mats->color[mat.material->state_color[0]].blue);
+                draw_textf_border(font, color, 2, (i++ * al_get_font_line_height(font)), 0,
+                    "%s", mat.material->state_name[0].c_str());
+            }
         }    //if (tform != NULL)
         //{
         //    draw_textf_border(font, 2, (i++*al_get_font_line_height(font)), 0,

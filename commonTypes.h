@@ -177,14 +177,14 @@ struct GameConfiguration {
 
     bool follow_DFcursor;
 
-    uint8_t track_mode;
-    enum trackingmodes : uint8_t {
+    enum trackingmode : uint8_t {
         TRACKING_NONE,
         TRACKING_CENTER,
         TRACKING_FOCUS,
 
         TRACKING_INVALID
     };
+    trackingmode track_mode;
 
     int bitmapHolds;
 
