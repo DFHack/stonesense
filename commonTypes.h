@@ -181,7 +181,6 @@ struct GameConfiguration {
     enum trackingmodes : uint8_t {
         TRACKING_NONE,
         TRACKING_CENTER,
-        TRACKING_WINDOW,
         TRACKING_FOCUS,
 
         TRACKING_INVALID

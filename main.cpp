@@ -427,10 +427,9 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
     ssConfig.show_designations = true;
     ssConfig.show_keybinds = false;
     ssConfig.show_intro = true;
-    ssConfig.track_mode = 0;
     ssConfig.track_screen_center = true;
     ssConfig.animation_step = 300;
-    ssConfig.track_mode = GameConfiguration::TRACKING_NONE;
+    ssConfig.track_mode = GameConfiguration::TRACKING_CENTER;
     timeToReloadConfig = true;
     ssConfig.fogcol = al_map_rgba(255, 255, 255, 255);
     ssConfig.backcol = al_map_rgb(95, 95, 160);

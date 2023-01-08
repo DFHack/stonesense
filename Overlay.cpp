@@ -25,23 +25,23 @@ DFhackCExport uint8_t SDL_GetMouseState(int *x, int *y);
 
 void Overlay::ReadTileLocations()
 {
-    fontx = df::global::init->font.small_font_dispx;
-    fonty = df::global::init->font.small_font_dispy;
+    //fontx = df::global::init->font.small_font_dispx;
+    //fonty = df::global::init->font.small_font_dispy;
 
-    actualWindowSize(width, height);
+    //actualWindowSize(width, height);
 
-    DFHack::DFSDL_Surface * dfsurf = (DFHack::DFSDL_Surface *) SDL_GetVideoSurface();
-    offsetx = fontx+((dfsurf->w) % fontx)/2;
-    offsety = fontx+((dfsurf->h) % fonty)/2;
-    if (!df::global::gamemode || *df::global::gamemode == game_mode::ADVENTURE)
-    {
-        //Adventure mode doesn't have a single-tile border around it.
-        offsetx = offsetx - fontx;
-        offsety = offsety - fonty;
-    }
+    //DFHack::DFSDL_Surface * dfsurf = (DFHack::DFSDL_Surface *) SDL_GetVideoSurface();
+    //offsetx = fontx+((dfsurf->w) % fontx)/2;
+    //offsety = fontx+((dfsurf->h) % fonty)/2;
+    //if (!df::global::gamemode || *df::global::gamemode == game_mode::ADVENTURE)
+    //{
+    //    //Adventure mode doesn't have a single-tile border around it.
+    //    offsetx = offsetx - fontx;
+    //    offsety = offsety - fonty;
+    //}
 
-    ssState.ScreenW = fontx*width;
-    ssState.ScreenH = fonty*height;
+    //ssState.ScreenW = fontx*width;
+    //ssState.ScreenH = fonty*height;
 }
 
 void Overlay::CheckViewscreen()
