@@ -552,8 +552,8 @@ void drawDebugInfo(WorldSegment * segment)
     if(b) {
         draw_textf_border(font, uiColor(1), 2, (i++*al_get_font_line_height(font)), 0, "Tile 0x%x (%i,%i,%i)", b, b->x, b->y, b->z);
     }
-    df::viewscreen * vs = Gui::getCurViewscreen();
     /*FIXME when adventure mode returns.
+    df::viewscreen * vs = Gui::getCurViewscreen();
     if (strict_virtual_cast<df::viewscreen_dungeonmodest>(vs))
     {
         if (df::global::adventure)
