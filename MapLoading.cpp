@@ -953,8 +953,6 @@ void read_segment( void *arg)
             firstLoad = 0;
             if (ssConfig.track_mode == GameConfiguration::TRACKING_CENTER) {
                 followCurrentDFCenter();
-            } else if (ssConfig.track_mode == GameConfiguration::TRACKING_WINDOW) {
-                followCurrentDFWindow();
             } else if (ssConfig.track_mode == GameConfiguration::TRACKING_FOCUS) {
                 followCurrentDFFocus();
                 ssConfig.follow_DFcursor = true;

@@ -29,7 +29,7 @@ Changes the fontfile to use.
 Offsets the display by the given number of pixels.  Use to adjust display formatting.  
 [LIFTSEGMENT:0]
 
-What to follow in the DF window.  Options are WINDOW CENTER FOCUS or NONE.  Use (default) key 'f' to cycle.
+What to follow in the DF window.  Options are CENTER FOCUS or NONE.  Use (default) key 'f' to cycle.
 [TRACK_MODE:FOCUS]
 
 Sets an initial x/y/z offset for follow mode

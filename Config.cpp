@@ -144,11 +144,11 @@ void parseConfigLine( string line )
     if( line.find("[TRACK_MODE") != string::npos) {
         string result = parseStrFromLine( "TRACK_MODE", line );
         if(result == "CENTER") {
-            ssConfig.track_mode = 1;
-        } else if (result == "WINDOW") {
-            ssConfig.track_mode = 2;
+            ssConfig.track_mode = GameConfiguration::TRACKING_CENTER;
+        } else if (result == "NONE") {
+            ssConfig.track_mode = GameConfiguration::TRACKING_NONE;
         }  else if (result == "FOCUS") {
-            ssConfig.track_mode = 3;
+            ssConfig.track_mode = GameConfiguration::TRACKING_FOCUS;
         }
     }
     if( line.find("[FOLLOW_DF_CURSOR") != string::npos) {

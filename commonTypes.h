@@ -3,6 +3,7 @@
 #include "common.h"
 #include "SpriteColors.h"
 #include "df/enabler.h"
+#include "df/graphic.h"
 
 enum ShadeBy {
     ShadeNone,
@@ -128,7 +129,7 @@ public:
         }
         if (useDfColors)
         {
-            return al_map_rgb_f(df::global::enabler->ccolor[color][0], df::global::enabler->ccolor[color][1], df::global::enabler->ccolor[color][2]);
+            return al_map_rgb_f(df::global::gps->ccolor[color][0], df::global::gps->ccolor[color][1], df::global::gps->ccolor[color][2]);
         }
         return colors[ (color_name) color].al;
     }
@@ -176,15 +177,14 @@ struct GameConfiguration {
 
     bool follow_DFcursor;
 
-    uint8_t track_mode;
-    enum trackingmodes : uint8_t {
+    enum trackingmode : uint8_t {
         TRACKING_NONE,
         TRACKING_CENTER,
-        TRACKING_WINDOW,
         TRACKING_FOCUS,
 
         TRACKING_INVALID
     };
+    trackingmode track_mode;
 
     int bitmapHolds;
 
