@@ -316,7 +316,7 @@ void DrawCreatureText(int drawx, int drawy, SS_Unit* creature )
 
     //if(ssConfig.show_creature_happiness)
     if(ssConfig.show_creature_moods && df::creature_raw::find(creature->origin->race)->caste[creature->origin->caste]->flags.is_set(caste_raw_flags::CAN_SPEAK)) {
-        auto stress_level = creature->origin->status.current_soul ? creature->origin->status.current_soul->personality.stress_level : 0;
+        auto stress_level = creature->origin->status.current_soul ? creature->origin->status.current_soul->personality.stress : 0;
         if(stress_level <= 0) {
             statusIcons.push_back(0);
         } else if(stress_level <= 30000) {
