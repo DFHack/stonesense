@@ -151,6 +151,10 @@ void parseConfigLine( string line )
             ssConfig.track_mode = GameConfiguration::TRACKING_FOCUS;
         }
     }
+    if( line.find("[INVERT_MOUSE_Z") != string::npos) {
+        string result = parseStrFromLine( "INVERT_MOUSE_Z", line );
+        ssConfig.invert_mouse_z = (result == "YES");
+    }
     if( line.find("[FOLLOW_DF_CURSOR") != string::npos) {
         string result = parseStrFromLine( "FOLLOW_DF_CURSOR", line );
         ssConfig.follow_DFcursor = (result == "YES");

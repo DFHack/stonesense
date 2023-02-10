@@ -186,6 +186,8 @@ struct GameConfiguration {
     };
     trackingmode track_mode;
 
+    bool invert_mouse_z;
+
     int bitmapHolds;
 
     bool saveImageCache;
