@@ -3,6 +3,8 @@
 #include "Hooks.h"
 #include "GUI.h"
 
+#include "modules/DFSDL.h"
+
 #include "df/init.h"
 
 #include "df/viewscreen_dwarfmodest.h"
@@ -12,16 +14,6 @@
 using namespace std;
 using namespace DFHack;
 using namespace df::enums;
-
-DFhackCExport void * SDL_GetVideoSurface(void);
-DFhackCExport vPtr SDL_CreateRGBSurface(uint32_t flags, int width, int height, int depth,
-                                        uint32_t Rmask, uint32_t Gmask, uint32_t Bmask, uint32_t Amask);
-DFhackCExport vPtr SDL_CreateRGBSurfaceFrom(vPtr pixels, int width, int height, int depth, int pitch,
-                                         uint32_t Rmask, uint32_t Gmask, uint32_t Bmask, uint32_t Amask);
-DFhackCExport void SDL_FreeSurface(vPtr surface);
-DFhackCExport int SDL_UpperBlit(DFHack::DFSDL_Surface* src, DFHack::DFSDL_Rect* srcrect,
-                                DFHack::DFSDL_Surface* dst, DFHack::DFSDL_Rect* dstrect);
-DFhackCExport uint8_t SDL_GetMouseState(int *x, int *y);
 
 void Overlay::ReadTileLocations()
 {
@@ -266,8 +258,8 @@ void Overlay::render()
             }
 
             //get the SDL surface information so we can do a blit
-            DFHack::DFSDL_Surface * dfsurf = (DFHack::DFSDL_Surface *) SDL_GetVideoSurface();
-            DFHack::DFSDL_Surface * sssurf = (DFHack::DFSDL_Surface *) SDL_CreateRGBSurfaceFrom( ((char*) front_data->data) + dataoffset,
+            DFHack::DFSDL_Surface * dfsurf = (DFHack::DFSDL_Surface *) DFHack::DFSDL::DFSDL_GetVideoSurface();
+            DFHack::DFSDL_Surface * sssurf = (DFHack::DFSDL_Surface *) DFHack::DFSDL::DFSDL_CreateRGBSurfaceFrom( ((char*) front_data->data) + dataoffset,
                 al_get_bitmap_width(front), al_get_bitmap_height(front), 8*front_data->pixel_size, neg*front_data->pitch, 0, 0, 0, 0);
 
             DFSDL_Rect src;
@@ -283,9 +275,9 @@ void Overlay::render()
             pos.h = 0;
 
             //do the blit
-            SDL_UpperBlit(sssurf, &src, dfsurf, &pos);
+            DFHack::DFSDL::DFSDL_UpperBlit(sssurf, &src, dfsurf, &pos);
 
-            SDL_FreeSurface(sssurf);
+            DFHack::DFSDL::DFSDL_FreeSurface(sssurf);
         }
         front_updated = false;
     } else {
