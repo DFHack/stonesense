@@ -23,6 +23,7 @@
 #include "df/map_block.h"
 #include "df/map_block_column.h"
 #include "df/plant.h"
+#include "df/plant_root_tile.h"
 #include "df/plant_tree_info.h"
 #include "df/plant_tree_tile.h"
 
@@ -723,7 +724,7 @@ void readBlockColumnToSegment(DFHack::Core& DF, WorldSegment& segment,
                 // If the block is at or above the plant's base level, we use the body array
                 // otherwise we use the roots.
                 // TODO: verify that the tree bounds intersect the block.
-                df::plant_tree_tile tile = info->roots[zz][xx + (yy*info->dim_x)];
+                df::plant_root_tile tile = info->roots[zz][xx + (yy * info->dim_x)];
                 if (tile.whole && !(tile.bits.blocked))
                 {
                     df::coord pos = pp->pos;
