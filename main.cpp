@@ -3,7 +3,7 @@
 #include <list>
 
 #include "common.h"
-#include "Overlay.h"
+//#include "Overlay.h"
 #include "Tile.h"
 #include "GUI.h"
 //#include "SpriteMaps.h"

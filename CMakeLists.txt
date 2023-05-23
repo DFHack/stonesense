@@ -7,7 +7,7 @@ include_directories (${CMAKE_SOURCE_DIR})
 
 SET(PROJECT_SRCS
     TrackingModes.cpp
-    Overlay.cpp
+    #Overlay.cpp
     Tile.cpp
     TileCondition.cpp
     TileTree.cpp
@@ -68,7 +68,7 @@ SET(PROJECT_HDRS
     MapLoading.h
     MaterialMatcher.h
     OcclusionTest.h
-    Overlay.h
+    #Overlay.h
     SegmentProcessing.h
     SpriteColors.h
     SpriteMaps.h
