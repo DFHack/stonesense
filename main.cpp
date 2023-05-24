@@ -629,6 +629,7 @@ DFhackCExport command_result plugin_shutdown ( color_ostream &out )
 //and the actual stonesense command. Maybe.
 DFhackCExport command_result stonesense_command(color_ostream &out, std::vector<std::string> & params)
 {
+/*
     if (!init->display.flag.is_set(init_display_flags::RENDER_2D) &&
         !params.empty() && params[0] == "overlay")
     {
@@ -644,6 +645,7 @@ DFhackCExport command_result stonesense_command(color_ostream &out, std::vector<
         return CR_FAILURE;
     }
 #endif
+*/
     if(stonesense_started) {
         out.print("Stonesense already running.\n");
         return CR_OK;
@@ -651,7 +653,7 @@ DFhackCExport command_result stonesense_command(color_ostream &out, std::vector<
     ssConfig.overlay_mode = false;
     if(params.size() > 0 ) {
         if(params[0] == "overlay"){
-            ssConfig.overlay_mode = true;
+            //ssConfig.overlay_mode = true;
         } else {
             DumpInfo(out, params);
             return CR_OK;
