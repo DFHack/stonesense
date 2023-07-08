@@ -40,63 +40,63 @@ int parseConditionNode(ConditionalNode* node, TiXmlElement* elemCondition, bool 
     const char* strType = elemCondition->Value();
     std::unique_ptr<TileCondition> cond;
     if( strcmp(strType, "NeighbourWall") == 0) {
-        cond = dts::make_unique<NeighbourWallCondition>( elemCondition->Attribute("dir") );
+        cond = std::make_unique<NeighbourWallCondition>( elemCondition->Attribute("dir") );
     }
 
     else if( strcmp(strType, "PositionIndex") == 0) {
-        cond = dts::make_unique<PositionIndexCondition>( elemCondition->Attribute("value") );
+        cond = std::make_unique<PositionIndexCondition>( elemCondition->Attribute("value") );
     }
 
     else if( strcmp(strType, "MaterialType") == 0) {
-        cond = dts::make_unique<MaterialTypeCondition>( elemCondition->Attribute("value") , elemCondition->Attribute("subtype"), elemCondition->Attribute("pattern_index"));
+        cond = std::make_unique<MaterialTypeCondition>( elemCondition->Attribute("value") , elemCondition->Attribute("subtype"), elemCondition->Attribute("pattern_index"));
     }
 
     else if( strcmp(strType, "always") == 0) {
-        cond = dts::make_unique<AlwaysCondition>();
+        cond = std::make_unique<AlwaysCondition>();
     }
 
     else if( strcmp(strType, "never") == 0) {
-        cond = dts::make_unique<NeverCondition>();
+        cond = std::make_unique<NeverCondition>();
     }
 
     else if( strcmp(strType, "BuildingOccupancy") == 0) {
-        cond = dts::make_unique<BuildingOccupancyCondition>( elemCondition->Attribute("value") );
+        cond = std::make_unique<BuildingOccupancyCondition>( elemCondition->Attribute("value") );
     }
 
     else if( strcmp(strType, "BuildingSpecial") == 0) {
-        cond = dts::make_unique<BuildingSpecialCondition>( elemCondition->Attribute("value") );
+        cond = std::make_unique<BuildingSpecialCondition>( elemCondition->Attribute("value") );
     }
 
     else if( strcmp(strType, "NeighbourSameBuilding") == 0) {
-        cond = dts::make_unique<NeighbourSameBuildingCondition>( elemCondition->Attribute("dir") );
+        cond = std::make_unique<NeighbourSameBuildingCondition>( elemCondition->Attribute("dir") );
     }
 
     else if( strcmp(strType, "NeighbourSameType") == 0) {
-        cond = dts::make_unique<NeighbourSameTypeCondition>( elemCondition->Attribute("dir") );
+        cond = std::make_unique<NeighbourSameTypeCondition>( elemCondition->Attribute("dir") );
     }
 
     else if( strcmp(strType, "NeighbourOfType") == 0) {
-        cond = dts::make_unique<NeighbourOfTypeCondition>( elemCondition->Attribute("dir") , elemCondition->Attribute("value") );
+        cond = std::make_unique<NeighbourOfTypeCondition>( elemCondition->Attribute("dir") , elemCondition->Attribute("value") );
     }
 
     else if( strcmp(strType, "NeighbourIdentical") == 0) {
-        cond = dts::make_unique<NeighbourIdenticalCondition>( elemCondition->Attribute("dir") );
+        cond = std::make_unique<NeighbourIdenticalCondition>( elemCondition->Attribute("dir") );
     }
 
     else if( strcmp(strType, "AnimationFrame") == 0) {
-        cond = dts::make_unique<AnimationFrameCondition>( elemCondition->Attribute("value") );
+        cond = std::make_unique<AnimationFrameCondition>( elemCondition->Attribute("value") );
     }
 
     else if( strcmp(strType, "FluidBelow") == 0) {
-        cond = dts::make_unique<FluidBelowCondition>( elemCondition->Attribute("value") );
+        cond = std::make_unique<FluidBelowCondition>( elemCondition->Attribute("value") );
     }
 
     else if( strcmp(strType, "HaveFloor") == 0) {
-        cond = dts::make_unique<HaveFloorCondition>();
+        cond = std::make_unique<HaveFloorCondition>();
     }
 
     else if( strcmp(strType, "and") == 0) {
-        auto andNode = dts::make_unique<AndConditionalNode>();
+        auto andNode = std::make_unique<AndConditionalNode>();
         if (!parseRecursiveNodes(andNode.get(), elemCondition)) {
             return 0;
         }
@@ -104,7 +104,7 @@ int parseConditionNode(ConditionalNode* node, TiXmlElement* elemCondition, bool 
     }
 
     else if( strcmp(strType, "or") == 0) {
-        auto orNode = dts::make_unique<OrConditionalNode>();
+        auto orNode = std::make_unique<OrConditionalNode>();
         if (!parseRecursiveNodes(orNode.get(), elemCondition)) {
             return 0;
         }
@@ -112,7 +112,7 @@ int parseConditionNode(ConditionalNode* node, TiXmlElement* elemCondition, bool 
     }
 
     else if( strcmp(strType, "not") == 0) {
-        auto notNode = dts::make_unique<NotConditionalNode>();
+        auto notNode = std::make_unique<NotConditionalNode>();
         if (!parseRecursiveNodes(notNode.get(), elemCondition)) {
             return 0;
         }
@@ -140,7 +140,7 @@ inline bool readNode(SpriteNode* node, TiXmlElement* elemNode, TiXmlElement* ele
             elemNode->SetAttribute("file", elemParent->Attribute("file"));
         }
 
-        auto tile = dts::make_unique<SpriteTile>();
+        auto tile = std::make_unique<SpriteTile>();
         if (!parseSpriteNode(tile.get(),elemNode)) {
             return false;
         }
@@ -161,7 +161,7 @@ inline bool readNode(SpriteNode* node, TiXmlElement* elemNode, TiXmlElement* ele
             elemNode->SetAttribute("file",elemParent->Attribute("file"));
         }
 
-        auto tile = dts::make_unique<RotationTile>();
+        auto tile = std::make_unique<RotationTile>();
         if (!parseSpriteNode(tile.get(),elemNode)) {
             return false;
         } else {
@@ -177,7 +177,7 @@ inline bool readNode(SpriteNode* node, TiXmlElement* elemNode, TiXmlElement* ele
                 return false;
             }
         }
-        auto sprite = dts::make_unique<SpriteElement>();
+        auto sprite = std::make_unique<SpriteElement>();
         sprite->sprite.set_by_xml(elemNode, fileindex);
         node->addChild(std::move(sprite));
     } else if (strcmp(strType, "include") == 0) {
@@ -423,8 +423,8 @@ bool addSingleBuildingConfig( TiXmlElement* elemRoot,  vector<std::unique_ptr<Bu
             return false;
         }
     }
-    auto building = dts::make_unique<BuildingConfiguration>(strName, main_type, subtype, custom );
-    auto spriteroot = dts::make_unique<RootTile>();
+    auto building = std::make_unique<BuildingConfiguration>(strName, main_type, subtype, custom );
+    auto spriteroot = std::make_unique<RootTile>();
     if (!parseSpriteNode(spriteroot.get(), elemRoot)) {
         contentError("<building> Failed while parsing sprite node",elemRoot);
         return false;

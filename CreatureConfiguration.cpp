@@ -65,7 +65,7 @@ void pushCreatureConfig( vector<std::unique_ptr<vector<CreatureConfiguration>>>&
         }
         auto& creatureList = knownCreatures[gameID];
         if (creatureList == nullptr) {
-            creatureList = dts::make_unique<vector<CreatureConfiguration>>();
+            creatureList = std::make_unique<vector<CreatureConfiguration>>();
         }
         creatureList->push_back(cre);
     }

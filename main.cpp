@@ -509,7 +509,7 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
 
     /*FIXME: Find a new replacement for the overlay mode.
         if(ssConfig.overlay_mode){
-        overlay = dts::make_unique<Overlay>(df::global::enabler->renderer);
+        overlay = std::make_unique<Overlay>(df::global::enabler->renderer);
         df::global::enabler->renderer = overlay.get();
     }
     */

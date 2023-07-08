@@ -81,7 +81,7 @@ bool parseItemElement( TiXmlElement* elemRoot, int basefile)
     sprite.set_by_xml(elemRoot, basefile);
 
     if(contentLoader->itemConfigs[main_type] == nullptr) {
-        contentLoader->itemConfigs[main_type] = dts::make_unique<ItemConfiguration>();
+        contentLoader->itemConfigs[main_type] = std::make_unique<ItemConfiguration>();
     }
     //check for an existing item there.
     if(subtype == INVALID_INDEX) {
@@ -94,7 +94,7 @@ bool parseItemElement( TiXmlElement* elemRoot, int basefile)
             contentLoader->itemConfigs[main_type]->subItems.push_back(nullptr);
         }
         if(!contentLoader->itemConfigs[main_type]->subItems[subtype]) {
-            contentLoader->itemConfigs[main_type]->subItems[subtype] = dts::make_unique<ItemSubConfiguration>();
+            contentLoader->itemConfigs[main_type]->subItems[subtype] = std::make_unique<ItemSubConfiguration>();
             contentLoader->itemConfigs[main_type]->subItems[subtype]->sprite = sprite;
         }
     }
