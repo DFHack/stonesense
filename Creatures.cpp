@@ -584,7 +584,7 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
         }
 
         // make a copy of some creature data
-        auto tempcreature = dts::make_unique<SS_Unit>();
+        auto tempcreature = std::make_unique<SS_Unit>();
         copyCreature(unit_ptr,*tempcreature);
 
         // add shadow to nearest floor tile
@@ -657,7 +657,7 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
 
             //FIXME: this could be made nicer. Somehow
             if(!tempcreature->inv) {
-                tempcreature->inv = dts::make_unique<unit_inventory>();
+                tempcreature->inv = std::make_unique<unit_inventory>();
             }
             if(tempcreature->inv->item.size() <= size_t(type)) {
                 tempcreature->inv->item.resize(type+1);

@@ -183,7 +183,7 @@ void parseWallFloorSpriteElement(TiXmlElement* elemWallFloorSprite, vector<std::
                 }
 
                 if (configTable[i] == nullptr) {
-                    configTable[i] = dts::make_unique<TerrainConfiguration>();
+                    configTable[i] = std::make_unique<TerrainConfiguration>();
                 }
             }
         }
@@ -258,7 +258,7 @@ void parseWallFloorSpriteElement(TiXmlElement* elemWallFloorSprite, vector<std::
                     tConfig->terrainMaterials.push_back(nullptr);
                 }
                 if (tConfig->terrainMaterials[elemIndex] == nullptr) {
-                    tConfig->terrainMaterials[elemIndex] = dts::make_unique<TerrainMaterialConfiguration>();
+                    tConfig->terrainMaterials[elemIndex] = std::make_unique<TerrainMaterialConfiguration>();
                 }
                 // only update if not set by earlier configs,
                 //FIXME: figure out how to manage priorities here.
@@ -293,7 +293,7 @@ void parseWallFloorSpriteElement(TiXmlElement* elemWallFloorSprite, vector<std::
                     tConfig->terrainMaterials.push_back(nullptr);
                 }
                 if (tConfig->terrainMaterials[elemIndex] == nullptr) {
-                    tConfig->terrainMaterials[elemIndex] = dts::make_unique<TerrainMaterialConfiguration>();
+                    tConfig->terrainMaterials[elemIndex] = std::make_unique<TerrainMaterialConfiguration>();
                 }
                 // add to map (if not already present)
                 for (int j = 0; j < NUM_FORMS; j++) {

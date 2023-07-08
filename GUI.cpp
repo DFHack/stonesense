@@ -1418,7 +1418,7 @@ int loadImgFile(const char* filename)
         }
         al_destroy_bitmap(tempfile);
         al_set_target_bitmap(al_get_backbuffer(al_get_current_display()));
-        IMGFilenames.push_back(dts::make_unique<string>(filename));
+        IMGFilenames.push_back(std::make_unique<string>(filename));
         al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst);
         if(ssConfig.saveImageCache) {
             saveImage(IMGCache[currentCache]);
@@ -1438,7 +1438,7 @@ int loadImgFile(const char* filename)
             return -1;
         }
         IMGFilelist.push_back(temp);
-        IMGFilenames.push_back(dts::make_unique<string>(filename));
+        IMGFilenames.push_back(std::make_unique<string>(filename));
         LogVerbose("New image: %s\n",filename);
         return (int)IMGFilelist.size() - 1;
     }

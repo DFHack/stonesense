@@ -55,7 +55,7 @@ bool addSingleVegetationConfig( TiXmlElement* elemRoot,  vector<std::unique_ptr<
         bool sapling = (saplingstr && saplingstr[0]);
         c_tile_tree tree;
         tree.set_by_xml(elemTree, basefile);
-        auto vegetationConfiguration = dts::make_unique<VegetationConfiguration>(gameID, tree, !dead, !sapling);
+        auto vegetationConfiguration = std::make_unique<VegetationConfiguration>(gameID, tree, !dead, !sapling);
         //add a copy to known creatures
         vegetationConfigs->push_back( std::move(vegetationConfiguration) );
     }
