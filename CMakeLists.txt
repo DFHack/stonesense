@@ -174,7 +174,6 @@ IF(UNIX)
                 ${ALLEGRO_DOWNLOAD_DIR}/lib/liballegro_image.so.5.0
                 ${ALLEGRO_DOWNLOAD_DIR}/lib/liballegro_ttf.so.5.0
                 ${ALLEGRO_DOWNLOAD_DIR}/lib/liballegro_color.so.5.0
-                SDL
                 ${PROJECT_LIBS}
             )
             include_directories (
@@ -193,7 +192,6 @@ IF(UNIX)
                 allegro_image
                 allegro_ttf
                 allegro_color
-                SDL
                 ${PROJECT_LIBS}
             )
         ENDIF()
