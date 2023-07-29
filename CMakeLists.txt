@@ -134,10 +134,12 @@ IF(UNIX)
                 ${ALLEGRO_DOWNLOAD_DIR}/include
                 ${ALLEGRO_DOWNLOAD_DIR}/lib/Headers
             )
-            install(DIRECTORY ${ALLEGRO_DOWNLOAD_DIR}/lib/
-                    DESTINATION "hack/libs"
-                    PATTERN "CVS" EXCLUDE
-                    PATTERN ".svn" EXCLUDE)
+            if(BUILD_PLUGINS)
+                install(DIRECTORY ${ALLEGRO_DOWNLOAD_DIR}/lib/
+                        DESTINATION "hack/libs"
+                        PATTERN "CVS" EXCLUDE
+                        PATTERN ".svn" EXCLUDE)
+            endif()
         ELSE()
             SET(PROJECT_LIBS
                 allegro
@@ -180,10 +182,12 @@ IF(UNIX)
                 ${include_directories}
                 ${ALLEGRO_DOWNLOAD_DIR}/include
             )
-            install(DIRECTORY ${ALLEGRO_DOWNLOAD_DIR}/lib/
-                    DESTINATION "hack/libs"
-                    PATTERN "CVS" EXCLUDE
-                    PATTERN ".svn" EXCLUDE)
+            if(BUILD_PLUGINS)
+                install(DIRECTORY ${ALLEGRO_DOWNLOAD_DIR}/lib/
+                        DESTINATION "hack/libs"
+                        PATTERN "CVS" EXCLUDE
+                        PATTERN ".svn" EXCLUDE)
+            endif()
         ELSE()
             SET(PROJECT_LIBS
                 allegro
