@@ -278,10 +278,9 @@ ENDIF(MSVC)
 IF(APPLE)
     add_custom_command(TARGET stonesense POST_BUILD COMMAND ${stonesense_SOURCE_DIR}/fix-libs-stonesense.sh WORKING_DIRECTORY . COMMENT "Fixing Stonesense library dependencies...")
 ENDIF(APPLE)
-#install resources into DF/stonesense
-install(DIRECTORY resources/
-        DESTINATION "stonesense"
-        PATTERN "CVS" EXCLUDE
-        PATTERN ".svn" EXCLUDE)
-# install readme
-install(FILES README.md DESTINATION stonesense)
+
+if(INSTALL_DATA_FILES)
+    #install resources and readme into DF/stonesense
+    install(DIRECTORY resources DESTINATION stonesense)
+    install(FILES README.md DESTINATION stonesense)
+endif()
