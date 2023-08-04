@@ -136,9 +136,7 @@ IF(UNIX)
             )
             if(BUILD_PLUGINS)
                 install(DIRECTORY ${ALLEGRO_DOWNLOAD_DIR}/lib/
-                        DESTINATION "hack/libs"
-                        PATTERN "CVS" EXCLUDE
-                        PATTERN ".svn" EXCLUDE)
+                        DESTINATION ${DFHACK_LIBRARY_DESTINATION})
             endif()
         ELSE()
             SET(PROJECT_LIBS
@@ -184,9 +182,7 @@ IF(UNIX)
             )
             if(BUILD_PLUGINS)
                 install(DIRECTORY ${ALLEGRO_DOWNLOAD_DIR}/lib/
-                        DESTINATION "hack/libs"
-                        PATTERN "CVS" EXCLUDE
-                        PATTERN ".svn" EXCLUDE)
+                        DESTINATION ${DFHACK_LIBRARY_DESTINATION})
             endif()
         ELSE()
             SET(PROJECT_LIBS
