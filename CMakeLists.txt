@@ -167,6 +167,8 @@ IF(UNIX)
             endif()
             execute_process(COMMAND tar xf "${ALLEGRO_DOWNLOAD_DIR}/${ALLEGRO_DOWNLOAD_FILE}" --strip-components=1
                             WORKING_DIRECTORY ${ALLEGRO_DOWNLOAD_DIR})
+            execute_process(COMMAND patchelf --force-rpath --set-rpath hack liballegro_image.so.5.0.10
+                            WORKING_DIRECTORY ${ALLEGRO_DOWNLOAD_DIR}/lib)
             SET(PROJECT_LIBS
                 ${ALLEGRO_DOWNLOAD_DIR}/lib/liballegro.so.5.0
                 ${ALLEGRO_DOWNLOAD_DIR}/lib/liballegro_primitives.so.5.0
