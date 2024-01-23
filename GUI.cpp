@@ -1508,7 +1508,8 @@ void saveMegashot(bool tall)
 {
     map_segment.lockRead();
 
-    draw_textf_border(font, uiColor(1), ssState.ScreenW/2, ssState.ScreenH/2, ALLEGRO_ALIGN_CENTRE, "saving large screenshot...");
+    // draw_textf_border(font, uiColor(1), ssState.ScreenW/2, ssState.ScreenH/2, ALLEGRO_ALIGN_CENTRE, "saving large screenshot...");
+    draw_textf_border(font, uiColor(1), ssState.ScreenW/2, ssState.ScreenH/2, ALLEGRO_ALIGN_CENTRE, "saving large screenshot... Stonesense will become unresponsive after this process completes. Please close and re-open Stonesense.");
     al_flip_display();
     char filename[32] = {0};
     FILE* fp;
@@ -1526,7 +1527,7 @@ void saveMegashot(bool tall)
         }
         index++;
     };
-    int timer = clock();
+    // int timer = clock();
     //back up all the relevant values
     GameConfiguration tempConfig = ssConfig;
     GameState tempState = ssState;
@@ -1667,13 +1668,14 @@ void saveMegashot(bool tall)
 
 
         al_save_bitmap(filename, bigFile);
-        al_set_target_bitmap(al_get_backbuffer(al_get_current_display()));
-        timer = clock() - timer;
-        PrintMessage("\ttime for screenshot %ims\n", timer);
+        // al_set_target_bitmap(al_get_backbuffer(al_get_current_display()));
+        // timer = clock() - timer;
+        // PrintMessage("\tcreating screenshot took %ims\n", timer);
+        PrintMessage("\tlarge screenshot complete\n");
     } else {
         LogError("failed to take large screenshot; try zooming out\n");
     }
-    al_destroy_bitmap(bigFile);
+    // al_destroy_bitmap(bigFile);
     //restore everything that we changed.
     ssConfig = tempConfig;
     ssState = tempState;
