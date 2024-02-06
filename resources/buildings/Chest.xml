@@ -1,30 +1,30 @@
 <?xml version="1.0"?>
-
-<building name="Chest" game_type="Box" >
-  <if>
-    <MaterialType value="GreenGlass" />
-    <sprite index="69" />
-  </if>
-  <else><!-- ClearGlass or CrystalGlass -->
-	<or>
-		<MaterialType value="ClearGlass" />
-		<MaterialType value="CrystalGlass" />
-	</or>
-	<sprite index="70" />
-  </else>
-  <else>
-	<or>
-		<MaterialType value="Leather" />
-		<MaterialType value="Silk" />
-		<MaterialType value="PlantCloth" />
-	</or>
-	<sprite index="91" />
-  </else>
-  <else>
-	<MaterialType value="Wood" />
-	<sprite index="89" color="building" />
-  </else>
-  <else>
-	<sprite index="90" color="building" />
-  </else>
+<building name="Chest" game_type="Box">
+    <if>
+        <MaterialType value="GreenGlass" />
+        <sprite index="69" />
+    </if>
+    <else>
+        <!-- ClearGlass or CrystalGlass -->
+        <or>
+            <MaterialType value="ClearGlass" />
+            <MaterialType value="CrystalGlass" />
+        </or>
+        <sprite index="70" />
+    </else>
+    <else>
+        <or>
+            <MaterialType value="Leather" />
+            <MaterialType value="Silk" />
+            <MaterialType value="PlantCloth" />
+        </or>
+        <sprite index="91" />
+    </else>
+    <else>
+        <MaterialType value="Wood" />
+        <sprite index="89" color="building" />
+    </else>
+    <else>
+        <sprite index="90" color="building" />
+    </else>
 </building>

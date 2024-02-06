@@ -1,220 +1,219 @@
 <?xml version="1.0"?>
 <building name="Door" game_type="Door" file="DoorsAndFloodgates.png">
-  <if>
-    <!-- if there is wall at north or south -->
-    <or>
-      <NeighbourWall dir="North" />
-      <NeighbourWall dir="South" />
-    </or>
     <if>
-      <!-- material is wood -->
-      <MaterialType value="Wood" />
-      <sprite index="3" color="building" />
-      <if>
-        <!-- at south is other door then need to turn a handle -->
-        <NeighbourSameType dir="South" />
-        <sprite index="43" />
-      </if>
-      <else>
-        <sprite index="23" />
-      </else>
+        <!-- if there is wall at north or south -->
+        <or>
+            <NeighbourWall dir="North" />
+            <NeighbourWall dir="South" />
+        </or>
+        <if>
+            <!-- material is wood -->
+            <MaterialType value="Wood" />
+            <sprite index="3" color="building" />
+            <if>
+                <!-- at south is other door then need to turn a handle -->
+                <NeighbourSameType dir="South" />
+                <sprite index="43" />
+            </if>
+            <else>
+                <sprite index="23" />
+            </else>
+        </if>
+        <else>
+            <!-- material is any kind of metall -->
+            <or>
+                <MaterialType value="Inorganic" subtype="IRON" />
+                <MaterialType value="Inorganic" subtype="GOLD" />
+                <MaterialType value="Inorganic" subtype="SILVER" />
+                <MaterialType value="Inorganic" subtype="COPPER" />
+                <MaterialType value="Inorganic" subtype="NICKEL" />
+                <MaterialType value="Inorganic" subtype="ZINC" />
+                <MaterialType value="Inorganic" subtype="BRONZE" />
+                <MaterialType value="Inorganic" subtype="BRASS" />
+                <MaterialType value="Inorganic" subtype="STEEL" />
+                <MaterialType value="Inorganic" subtype="PIG_IRON" />
+                <MaterialType value="Inorganic" subtype="PLATINUM" />
+                <MaterialType value="Inorganic" subtype="ELECTRUM" />
+                <MaterialType value="Inorganic" subtype="TIN" />
+                <MaterialType value="Inorganic" subtype="PEWTER_FINE" />
+                <MaterialType value="Inorganic" subtype="PEWTER_TRIFLE" />
+                <MaterialType value="Inorganic" subtype="PEWTER_LAY" />
+                <MaterialType value="Inorganic" subtype="LEAD" />
+                <MaterialType value="Inorganic" subtype="ALUMINUM" />
+                <MaterialType value="Inorganic" subtype="NICKEL_SILVER" />
+                <MaterialType value="Inorganic" subtype="BILLON" />
+                <MaterialType value="Inorganic" subtype="STERLING_SILVER" />
+                <MaterialType value="Inorganic" subtype="BLACK_BRONZE" />
+                <MaterialType value="Inorganic" subtype="ROSE_GOLD" />
+                <MaterialType value="Inorganic" subtype="BISMUTH" />
+                <MaterialType value="Inorganic" subtype="BISMUTH_BRONZE" />
+                <MaterialType value="Inorganic" subtype="ADAMANTINE" />
+            </or>
+            <sprite index="5" color="building" />
+            <if>
+                <!-- if at south is other door then need to turn a handle -->
+                <NeighbourSameType dir="South" />
+                <sprite index="45" color="building" />
+            </if>
+            <else>
+                <sprite index="25" color="building" />
+            </else>
+        </else>
+        <else>
+            <!-- material is clear glass -->
+            <MaterialType value="ClearGlass" />
+            <sprite index="7" />
+            <if>
+                <!-- at south is other door then need to turn a handle -->
+                <NeighbourSameType dir="South" />
+                <sprite index="47" />
+            </if>
+            <else>
+                <sprite index="27" />
+            </else>
+        </else>
+        <else>
+            <!-- material is green glass -->
+            <MaterialType value="GreenGlass" />
+            <sprite index="9" />
+            <if>
+                <!-- at south is other door then need to turn a handle -->
+                <NeighbourSameType dir="South" />
+                <sprite index="49" />
+            </if>
+            <else>
+                <sprite index="29" />
+            </else>
+        </else>
+        <else>
+            <!-- material is crystal glass -->
+            <MaterialType value="CrystalGlass" />
+            <sprite index="11" />
+            <if>
+                <!-- at south is other door then need to turn a handle -->
+                <NeighbourSameType dir="South" />
+                <sprite index="51" />
+            </if>
+            <else>
+                <sprite index="31" />
+            </else>
+        </else>
+        <else>
+            <!-- material isn't wood, any kind of metall or glass -->
+            <sprite index="1" color="building" />
+            <if>
+                <!-- at south is other door then still need to turn a handle -->
+                <NeighbourSameType dir="South" />
+                <sprite index="41" color="building" />
+            </if>
+            <else>
+                <sprite index="21" color="building" />
+            </else>
+        </else>
     </if>
+    <!-- if there is no wall at north or south -->
     <else>
-      <!-- material is any kind of metall -->
-      <or>
-        <MaterialType value="Inorganic" subtype="IRON" />
-        <MaterialType value="Inorganic" subtype="GOLD" />
-        <MaterialType value="Inorganic" subtype="SILVER" />
-        <MaterialType value="Inorganic" subtype="COPPER" />
-        <MaterialType value="Inorganic" subtype="NICKEL" />
-        <MaterialType value="Inorganic" subtype="ZINC" />
-        <MaterialType value="Inorganic" subtype="BRONZE" />
-        <MaterialType value="Inorganic" subtype="BRASS" />
-        <MaterialType value="Inorganic" subtype="STEEL" />
-        <MaterialType value="Inorganic" subtype="PIG_IRON" />
-        <MaterialType value="Inorganic" subtype="PLATINUM" />
-        <MaterialType value="Inorganic" subtype="ELECTRUM" />
-        <MaterialType value="Inorganic" subtype="TIN" />
-        <MaterialType value="Inorganic" subtype="PEWTER_FINE" />
-        <MaterialType value="Inorganic" subtype="PEWTER_TRIFLE" />
-        <MaterialType value="Inorganic" subtype="PEWTER_LAY" />
-        <MaterialType value="Inorganic" subtype="LEAD" />
-        <MaterialType value="Inorganic" subtype="ALUMINUM" />
-        <MaterialType value="Inorganic" subtype="NICKEL_SILVER" />
-        <MaterialType value="Inorganic" subtype="BILLON" />
-        <MaterialType value="Inorganic"
-        subtype="STERLING_SILVER" />
-        <MaterialType value="Inorganic" subtype="BLACK_BRONZE" />
-        <MaterialType value="Inorganic" subtype="ROSE_GOLD" />
-        <MaterialType value="Inorganic" subtype="BISMUTH" />
-        <MaterialType value="Inorganic" subtype="BISMUTH_BRONZE" />
-        <MaterialType value="Inorganic" subtype="ADAMANTINE" />
-      </or>
-      <sprite index="5" color="building" />
-      <if>
-        <!-- if at south is other door then need to turn a handle -->
-        <NeighbourSameType dir="South" />
-        <sprite index="45" color="building" />
-      </if>
-      <else>
-        <sprite index="25" color="building" />
-      </else>
+        <!-- material is wood -->
+        <MaterialType value="Wood" />
+        <sprite index="2" color="building" />
+        <if>
+            <!-- at west is other door then need to turn a handle -->
+            <NeighbourSameType dir="West" />
+            <sprite index="42" />
+        </if>
+        <else>
+            <sprite index="22" />
+        </else>
     </else>
     <else>
-      <!-- material is clear glass -->
-      <MaterialType value="ClearGlass" />
-      <sprite index="7" />
-      <if>
-        <!-- at south is other door then need to turn a handle -->
-        <NeighbourSameType dir="South" />
-        <sprite index="47" />
-      </if>
-      <else>
-        <sprite index="27" />
-      </else>
+        <!-- material is any kind of metall -->
+        <or>
+            <MaterialType value="Inorganic" subtype="IRON" />
+            <MaterialType value="Inorganic" subtype="GOLD" />
+            <MaterialType value="Inorganic" subtype="SILVER" />
+            <MaterialType value="Inorganic" subtype="COPPER" />
+            <MaterialType value="Inorganic" subtype="NICKEL" />
+            <MaterialType value="Inorganic" subtype="ZINC" />
+            <MaterialType value="Inorganic" subtype="BRONZE" />
+            <MaterialType value="Inorganic" subtype="BRASS" />
+            <MaterialType value="Inorganic" subtype="STEEL" />
+            <MaterialType value="Inorganic" subtype="PIG_IRON" />
+            <MaterialType value="Inorganic" subtype="PLATINUM" />
+            <MaterialType value="Inorganic" subtype="ELECTRUM" />
+            <MaterialType value="Inorganic" subtype="TIN" />
+            <MaterialType value="Inorganic" subtype="PEWTER_FINE" />
+            <MaterialType value="Inorganic" subtype="PEWTER_TRIFLE" />
+            <MaterialType value="Inorganic" subtype="PEWTER_LAY" />
+            <MaterialType value="Inorganic" subtype="LEAD" />
+            <MaterialType value="Inorganic" subtype="ALUMINUM" />
+            <MaterialType value="Inorganic" subtype="NICKEL_SILVER" />
+            <MaterialType value="Inorganic" subtype="BILLON" />
+            <MaterialType value="Inorganic" subtype="STERLING_SILVER" />
+            <MaterialType value="Inorganic" subtype="BLACK_BRONZE" />
+            <MaterialType value="Inorganic" subtype="ROSE_GOLD" />
+            <MaterialType value="Inorganic" subtype="BISMUTH" />
+            <MaterialType value="Inorganic" subtype="BISMUTH_BRONZE" />
+            <MaterialType value="Inorganic" subtype="ADAMANTINE" />
+        </or>
+        <sprite index="4" color="building" />
+        <if>
+            <!-- at west is other door then need to turn a handle -->
+            <NeighbourSameType dir="West" />
+            <sprite index="44" color="building" />
+        </if>
+        <else>
+            <sprite index="24" color="building" />
+        </else>
     </else>
     <else>
-      <!-- material is green glass -->
-      <MaterialType value="GreenGlass" />
-      <sprite index="9" />
-      <if>
-        <!-- at south is other door then need to turn a handle -->
-        <NeighbourSameType dir="South" />
-        <sprite index="49" />
-      </if>
-      <else>
-        <sprite index="29" />
-      </else>
+        <!-- material is clear glass -->
+        <MaterialType value="ClearGlass" />
+        <sprite index="6" />
+        <if>
+            <!-- at west is other door then need to turn a handle -->
+            <NeighbourSameType dir="West" />
+            <sprite index="46" />
+        </if>
+        <else>
+            <sprite index="26" />
+        </else>
     </else>
     <else>
-      <!-- material is crystal glass -->
-      <MaterialType value="CrystalGlass" />
-      <sprite index="11" />
-      <if>
-        <!-- at south is other door then need to turn a handle -->
-        <NeighbourSameType dir="South" />
-        <sprite index="51" />
-      </if>
-      <else>
-        <sprite index="31" />
-      </else>
+        <!-- material is green glass -->
+        <MaterialType value="GreenGlass" />
+        <sprite index="8" />
+        <if>
+            <!-- at west is other door then need to turn a handle -->
+            <NeighbourSameType dir="West" />
+            <sprite index="48" />
+        </if>
+        <else>
+            <sprite index="28" />
+        </else>
     </else>
     <else>
-      <!-- material isn't wood, any kind of metall or glass -->
-      <sprite index="1" color="building" />
-      <if>
-        <!-- at south is other door then still need to turn a handle -->
-        <NeighbourSameType dir="South" />
-        <sprite index="41" color="building" />
-      </if>
-      <else>
-        <sprite index="21" color="building" />
-      </else>
+        <!-- material is crystal glass -->
+        <MaterialType value="CrystalGlass" />
+        <sprite index="10" />
+        <if>
+            <!-- at west is other door then need to turn a handle -->
+            <NeighbourSameType dir="West" />
+            <sprite index="50" />
+        </if>
+        <else>
+            <sprite index="30" />
+        </else>
     </else>
-  </if>
-  <!-- if there is no wall at north or south -->
-  <else>
-    <!-- material is wood -->
-    <MaterialType value="Wood" />
-    <sprite index="2" color="building" />
-    <if>
-      <!-- at west is other door then need to turn a handle -->
-      <NeighbourSameType dir="West" />
-      <sprite index="42" />
-    </if>
     <else>
-      <sprite index="22" />
+        <!-- material isn't wood, any kind of metall or glass -->
+        <sprite index="0" color="building" />
+        <if>
+            <!-- at west is other door then still need to turn a handle -->
+            <NeighbourSameType dir="West" />
+            <sprite index="40" color="building" />
+        </if>
+        <else>
+            <sprite index="20" color="building" />
+        </else>
     </else>
-  </else>
-  <else>
-    <!-- material is any kind of metall -->
-    <or>
-      <MaterialType value="Inorganic" subtype="IRON" />
-      <MaterialType value="Inorganic" subtype="GOLD" />
-      <MaterialType value="Inorganic" subtype="SILVER" />
-      <MaterialType value="Inorganic" subtype="COPPER" />
-      <MaterialType value="Inorganic" subtype="NICKEL" />
-      <MaterialType value="Inorganic" subtype="ZINC" />
-      <MaterialType value="Inorganic" subtype="BRONZE" />
-      <MaterialType value="Inorganic" subtype="BRASS" />
-      <MaterialType value="Inorganic" subtype="STEEL" />
-      <MaterialType value="Inorganic" subtype="PIG_IRON" />
-      <MaterialType value="Inorganic" subtype="PLATINUM" />
-      <MaterialType value="Inorganic" subtype="ELECTRUM" />
-      <MaterialType value="Inorganic" subtype="TIN" />
-      <MaterialType value="Inorganic" subtype="PEWTER_FINE" />
-      <MaterialType value="Inorganic" subtype="PEWTER_TRIFLE" />
-      <MaterialType value="Inorganic" subtype="PEWTER_LAY" />
-      <MaterialType value="Inorganic" subtype="LEAD" />
-      <MaterialType value="Inorganic" subtype="ALUMINUM" />
-      <MaterialType value="Inorganic" subtype="NICKEL_SILVER" />
-      <MaterialType value="Inorganic" subtype="BILLON" />
-      <MaterialType value="Inorganic" subtype="STERLING_SILVER" />
-      <MaterialType value="Inorganic" subtype="BLACK_BRONZE" />
-      <MaterialType value="Inorganic" subtype="ROSE_GOLD" />
-      <MaterialType value="Inorganic" subtype="BISMUTH" />
-      <MaterialType value="Inorganic" subtype="BISMUTH_BRONZE" />
-      <MaterialType value="Inorganic" subtype="ADAMANTINE" />
-    </or>
-    <sprite index="4" color="building" />
-    <if>
-      <!-- at west is other door then need to turn a handle -->
-      <NeighbourSameType dir="West" />
-      <sprite index="44" color="building" />
-    </if>
-    <else>
-      <sprite index="24" color="building" />
-    </else>
-  </else>
-  <else>
-    <!-- material is clear glass -->
-    <MaterialType value="ClearGlass" />
-    <sprite index="6" />
-    <if>
-      <!-- at west is other door then need to turn a handle -->
-      <NeighbourSameType dir="West" />
-      <sprite index="46" />
-    </if>
-    <else>
-      <sprite index="26" />
-    </else>
-  </else>
-  <else>
-    <!-- material is green glass -->
-    <MaterialType value="GreenGlass" />
-    <sprite index="8" />
-    <if>
-      <!-- at west is other door then need to turn a handle -->
-      <NeighbourSameType dir="West" />
-      <sprite index="48" />
-    </if>
-    <else>
-      <sprite index="28" />
-    </else>
-  </else>
-  <else>
-    <!-- material is crystal glass -->
-    <MaterialType value="CrystalGlass" />
-    <sprite index="10" />
-    <if>
-      <!-- at west is other door then need to turn a handle -->
-      <NeighbourSameType dir="West" />
-      <sprite index="50" />
-    </if>
-    <else>
-      <sprite index="30" />
-    </else>
-  </else>
-  <else>
-    <!-- material isn't wood, any kind of metall or glass -->
-    <sprite index="0" color="building" />
-    <if>
-      <!-- at west is other door then still need to turn a handle -->
-      <NeighbourSameType dir="West" />
-      <sprite index="40" color="building" />
-    </if>
-    <else>
-      <sprite index="20" color="building" />
-    </else>
-  </else>
 </building>

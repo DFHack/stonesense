@@ -143,4 +143,3 @@ c_tile_tree * GetTreeVegetation(df::tiletype_shape shape, df::tiletype_special s
     }
     return configuredTree;
 }
-

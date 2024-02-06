@@ -1,31 +1,30 @@
 <?xml version="1.0"?>
 <colors>
-	
-	<color red="79" green="205" blue="88">
-		<material value="GreenGlass" />
-	</color>
-	<color red="170" green="205" blue="205">
-		<material value="ClearGlass" />
-	</color>
-	<color red="195" green="205" blue="210">
-		<material value="CrystalGlass" />
-	</color>
-	<color red="255" green="255" blue="255">
-		<material value="Inorganic" />
-	</color>
-	<color red="127" green="196" blue="28">
-		<material value="Vomit" />
-	</color>
-	<color red="255" green="200" blue="25" alpha="128">
-		<material value="Designation" />
-	</color>
-	<color red="180" green="20" blue="180" alpha="128">
-		<material value="Construction" />
-	</color>
-	<!--this is actually water-->
-	<!--color red="76" green="133" blue="168"-->
-	<color red="183" green="228" blue="255">
-		<!-- red="198" green="226" blue="255 -->
-		<material value="Ice" />
-	</color>
+    <color red="79" green="205" blue="88">
+        <material value="GreenGlass" />
+    </color>
+    <color red="170" green="205" blue="205">
+        <material value="ClearGlass" />
+    </color>
+    <color red="195" green="205" blue="210">
+        <material value="CrystalGlass" />
+    </color>
+    <color red="255" green="255" blue="255">
+        <material value="Inorganic" />
+    </color>
+    <color red="127" green="196" blue="28">
+        <material value="Vomit" />
+    </color>
+    <color red="255" green="200" blue="25" alpha="128">
+        <material value="Designation" />
+    </color>
+    <color red="180" green="20" blue="180" alpha="128">
+        <material value="Construction" />
+    </color>
+    <!--this is actually water-->
+    <!--color red="76" green="133" blue="168"-->
+    <color red="183" green="228" blue="255">
+        <!-- red="198" green="226" blue="255 -->
+        <material value="Ice" />
+    </color>
 </colors>

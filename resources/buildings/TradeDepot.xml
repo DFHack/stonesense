@@ -1,34 +1,30 @@
-<?xml version="1.0" ?>
-
-
-
-<building name="Trade Depot" game_type="TradeDepot" >
-	
-	<if>
-		<not><BuildingOccupancy value="1" /></not>
-		<sprite file="" index = 140 color = building >
-			<subsprite blood_min="1" sheetIndex="0" blood_sprite="1" color="blood" file = "bgibs.png"/>
-			<subsprite blood_min="1" sheetIndex="20" blood_sprite="1" file = "bgibs.png"/>
-		</sprite>
-	</if>
-	
-	<include file="wsUpperBorder.xml"/>
-
-	<if>
-		<and>
-			<not><BuildingOccupancy value="1" /></not>
-			<or>
-				<PositionIndex value=0 />
-				<PositionIndex value=4 />
-				<PositionIndex value=12 />
-				<PositionIndex value=20 />
-				<PositionIndex value=24 />
-			</or>
-		</and>
-		<sprite file="" index = 141 color = building />
-	</if>		
-		
-	<include file="ws5x5Blueprint.xml"/>
-	<include file="wsLowerBorder.xml"/>
-	
-</building> 
+<?xml version="1.0"?>
+<building name="Trade Depot" game_type="TradeDepot">
+    <if>
+        <not>
+            <BuildingOccupancy value="1" />
+        </not>
+        <sprite file="" index="140" color="building">
+            <subsprite blood_min="1" sheetIndex="0" blood_sprite="1" color="blood" file="bgibs.png" />
+            <subsprite blood_min="1" sheetIndex="20" blood_sprite="1" file="bgibs.png" />
+        </sprite>
+    </if>
+    <include file="wsUpperBorder.xml" />
+    <if>
+        <and>
+            <not>
+                <BuildingOccupancy value="1" />
+            </not>
+            <or>
+                <PositionIndex value="0" />
+                <PositionIndex value="4" />
+                <PositionIndex value="12" />
+                <PositionIndex value="20" />
+                <PositionIndex value="24" />
+            </or>
+        </and>
+        <sprite file="" index="141" color="building" />
+    </if>
+    <include file="ws5x5Blueprint.xml" />
+    <include file="wsLowerBorder.xml" />
+</building>

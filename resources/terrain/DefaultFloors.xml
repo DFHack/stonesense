@@ -1,35 +1,28 @@
-<?xml version="1.0" ?>
-
+<?xml version="1.0"?>
 <!-- this is a fallback catch-all for any floors not defined elsewhere -->
-
 <floors>
-
-<!-- default floor -->
-<floor sheetIndex = 3 color = material >
-	<terrain shape="FLOOR"/>
-	<terrain shape="BOULDER"/>
-	<terrain shape="PEBBLES"/>
-	<terrain shape="WALL"/>
-	<terrain shape="FORTIFICATION"/>
-	<terrain shape="STAIR_UP"/>
-	<terrain shape="RAMP"/>
-	<terrain shape="BROOK_BED"/>
-	<terrain shape="TREE"/>
-	<terrain shape="SAPLING"/>
-	<terrain shape="SHRUB"/>
-	<terrain shape="BRANCH"/>
-	<terrain shape="TRUNK_BRANCH"/>
-	<terrain shape="TWIG"/>
-</floor>
-
-<!-- explicitly blank brook top, downward stairs -->
-<floor sheetIndex = -1>
-	<terrain shape="BROOK_TOP"/>
-	<terrain shape="STAIR_DOWN"/>
-	<terrain shape="STAIR_UPDOWN"/>
-	<terrain shape="RAMP_TOP"/>
-</floor>
-
+    <!-- default floor -->
+    <floor sheetIndex="3" color="material">
+        <terrain shape="FLOOR" />
+        <terrain shape="BOULDER" />
+        <terrain shape="PEBBLES" />
+        <terrain shape="WALL" />
+        <terrain shape="FORTIFICATION" />
+        <terrain shape="STAIR_UP" />
+        <terrain shape="RAMP" />
+        <terrain shape="BROOK_BED" />
+        <terrain shape="TREE" />
+        <terrain shape="SAPLING" />
+        <terrain shape="SHRUB" />
+        <terrain shape="BRANCH" />
+        <terrain shape="TRUNK_BRANCH" />
+        <terrain shape="TWIG" />
+    </floor>
+    <!-- explicitly blank brook top, downward stairs -->
+    <floor sheetIndex="-1">
+        <terrain shape="BROOK_TOP" />
+        <terrain shape="STAIR_DOWN" />
+        <terrain shape="STAIR_UPDOWN" />
+        <terrain shape="RAMP_TOP" />
+    </floor>
 </floors>
-
-
