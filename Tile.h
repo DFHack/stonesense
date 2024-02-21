@@ -6,6 +6,7 @@
 #include "df/engraving_flags.h"
 #include "df/item_type.h"
 #include "df/plant_tree_tile.h"
+#include "df/tile_designation.h"
 #include "df/tile_liquid_flow_dir.h"
 #include "df/tile_occupancy.h"
 #include <vector>

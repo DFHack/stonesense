@@ -36,6 +36,7 @@
 #include "df/itemdef_pantsst.h"
 #include "df/itemdef_foodst.h"
 #include "df/descriptor_pattern.h"
+#include "df/material.h"
 
 #include "df/creature_raw.h"
 #include "df/caste_raw.h"

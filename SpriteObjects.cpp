@@ -23,6 +23,8 @@
 #include "df/itemdef_toyst.h"
 #include "df/itemdef_trapcompst.h"
 #include "df/itemdef_weaponst.h"
+#include "df/material.h"
+#include "df/unit.h"
 #include "df/world.h"
 #include "df/world_raws.h"
 
