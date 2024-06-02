@@ -856,7 +856,7 @@ void drawDebugInfo(WorldSegment * segment)
                 (branches_dir & 0x4) ? " <" : "",
                 (branches_dir & 0x8) ? " ^" : "",
                 b->tree_tile.bits.branches ? " branches" : "",
-                b->tree_tile.bits.twigs ? " twigs" : ""
+                b->tree_tile.bits.leaves ? " leaves" : ""
                 );
         }
         if(b->building.sprites.size() != 0)
