@@ -662,7 +662,7 @@ void readBlockColumnToSegment(DFHack::Core& DF, WorldSegment& segment,
                 t = segment.ResetTile(pp->pos.x, pp->pos.y, pp->pos.z);
             if (!t)
                 continue;
-            t->tree.type = pp->flags.whole;
+            t->tree.type = pp->type;
             t->tree.index = pp->material;
             continue;
         }
@@ -705,7 +705,7 @@ void readBlockColumnToSegment(DFHack::Core& DF, WorldSegment& segment,
                         t = segment.ResetTile(pos.x, pos.y, pos.z);
                     if (!t)
                         continue;
-                    t->tree.type = pp->flags.whole;
+                    t->tree.type = pp->type;
                     t->tree.index = pp->material;
                     t->tree_tile = tile;
                     if (raw)
@@ -740,7 +740,7 @@ void readBlockColumnToSegment(DFHack::Core& DF, WorldSegment& segment,
                         t = segment.ResetTile(pos.x, pos.y, pos.z);
                     if (!t)
                         continue;
-                    t->tree.type = pp->flags.whole;
+                    t->tree.type = pp->type;
                     t->tree.index = pp->material;
                 }
             }
