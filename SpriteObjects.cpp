@@ -182,7 +182,7 @@ unsigned char get_water_direction( Tile *b )
     using namespace df::enums::tile_liquid_flow_dir;
     switch(b->flow_direction)
     {
-    case none:
+    case inactive:
         return 0;
     case northwest:
         return 1;
