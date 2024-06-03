@@ -124,7 +124,7 @@ void Tile::Attach(WorldSegment* segment, df::tiletype type, int32_t _x, int32_t 
 
     deepwater = false;
 
-    flow_direction = df::tile_liquid_flow_dir::none;
+    flow_direction = df::tile_liquid_flow_dir::inactive;
 
     designation.whole = 0;
     occ.whole = 0;
