@@ -720,12 +720,6 @@ CreatureConfiguration *GetCreatureConfig( SS_Unit* c )
 
         bool creatureMatchesSpecial = true;
         if (testConfig->special != eCSC_Any) {
-            if (testConfig->special == eCSC_Zombie && !c->origin->flags1.bits.zombie) {
-                creatureMatchesSpecial = false;
-            }
-            if (testConfig->special == eCSC_Skeleton && !c->origin->flags1.bits.skeleton) {
-                creatureMatchesSpecial = false;
-            }
             if (testConfig->special == eCSC_Ghost && !c->origin->flags3.bits.ghostly) {
                 creatureMatchesSpecial = false;
             }
@@ -734,9 +728,6 @@ CreatureConfiguration *GetCreatureConfig( SS_Unit* c )
                 if(!ENUM_ATTR(profession,military,profession)) {
                     creatureMatchesSpecial = false;
                 }
-            }
-            if (testConfig->special == eCSC_Normal && (c->origin->flags1.bits.zombie || c->origin->flags1.bits.skeleton)) {
-                creatureMatchesSpecial = false;
             }
         }
         if(!creatureMatchesSpecial) {
@@ -803,9 +794,6 @@ void generateCreatureDebugString( SS_Unit* c, char* strbuffer)
     if(c->origin->flags1.bits.forest) {
         strcat(strbuffer, "lostLeaving ");
     }
-    if(c->origin->flags1.bits.fortress_guard) {
-        strcat(strbuffer, "FortGuard ");
-    }
     if(c->origin->flags1.bits.had_mood) {
         strcat(strbuffer, "HadMood ");
     }
@@ -842,17 +830,8 @@ void generateCreatureDebugString( SS_Unit* c, char* strbuffer)
     if(c->origin->flags1.bits.ridden) {
         strcat(strbuffer, "ridden ");
     }
-    if(c->origin->flags1.bits.royal_guard) {
-        strcat(strbuffer, "RoyGuard ");
-    }
-    if(c->origin->flags1.bits.skeleton) {
-        strcat(strbuffer, "Skeleton ");
-    }
     if(c->origin->flags1.bits.tame) {
         strcat(strbuffer, "Tame ");
-    }
-    if(c->origin->flags1.bits.zombie) {
-        strcat(strbuffer, "Zombie ");
     }
 
     if(c->origin->flags2.bits.killed) {

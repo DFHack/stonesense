@@ -138,12 +138,6 @@ bool addSingleCreatureConfig( TiXmlElement* elemCreature, vector<std::unique_ptr
             if(strcmp( specstr, "Normal" ) == 0) {
                 crespec = eCSC_Normal;
             }
-            if(strcmp( specstr, "Zombie" ) == 0) {
-                crespec = eCSC_Zombie;
-            }
-            if(strcmp( specstr, "Skeleton" ) == 0) {
-                crespec = eCSC_Skeleton;
-            }
             if(strcmp( specstr, "Ghost" ) == 0) {
                 crespec = eCSC_Ghost;
             }
