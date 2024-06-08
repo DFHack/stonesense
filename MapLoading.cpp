@@ -802,12 +802,12 @@ void readMapSegment(WorldSegment* segment, GameState inState)
     uint32_t numconstructions = 0;
 
     if(!ssConfig.skipConstructions) {
-        numconstructions = df::global::world->constructions.size();
+        numconstructions = df::global::world->event.constructions.size();
         if (numconstructions) {
             df::construction tempcon;
             index = 0;
             while(index < numconstructions) {
-                tempcon = *df::global::world->constructions[index];
+                tempcon = *df::global::world->event.constructions[index];
                 if(segment->CoordinateInsideSegment(tempcon.pos.x, tempcon.pos.y, tempcon.pos.z)) {
                     allConstructions.push_back(tempcon);
                 }
@@ -898,12 +898,12 @@ void readMapSegment(WorldSegment* segment, GameState inState)
     //translate constructions
     changeConstructionMaterials(segment, &allConstructions);
 
-    uint32_t numengravings = df::global::world->engravings.size();
+    uint32_t numengravings = df::global::world->event.engravings.size();
     df::engraving * engraved;
     index = 0;
     Tile * b = 0;
     while(index < numengravings) {
-        engraved = df::global::world->engravings[index];
+        engraved = df::global::world->event.engravings[index];
         df::coord pos = engraved->pos;
         if(segment->CoordinateInsideSegment(pos.x, pos.y, pos.z)) {
             b = segment->getTile(pos.x, pos.y, pos.z);
