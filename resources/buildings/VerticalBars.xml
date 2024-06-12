@@ -1,226 +1,222 @@
-<?xml version="1.0" ?>
-
-<building name="Vertical Bars" game_type="BarsVertical" file="VerticalBars.png"> 
-
-	<!-- straight or end pieces -->
-	<if>
-		<and>
-			<or>
-				<NeighbourSameType dir="North" />
-				<NeighbourSameType dir="South" />
-				<NeighbourWall dir="North" />
-				<NeighbourWall dir="South" />
-			</or>
-			<not>
-				<or>
-					<NeighbourSameType dir="East" />
-					<NeighbourSameType dir="West" />
-					<NeighbourWall dir="East" />
-					<NeighbourWall dir="West" />
-				</or>
-			</not>
-		</and>
-		<sprite index="0" color="building" />
-	</if>	
-	<else>
-		<and>
-			<or>
-				<NeighbourSameType dir="East" />
-				<NeighbourSameType dir="West" />
-				<NeighbourWall dir="East" />
-				<NeighbourWall dir="West" />
-			</or>
-			<not>
-				<or>
-					<NeighbourSameType dir="North" />
-					<NeighbourSameType dir="South" />
-					<NeighbourWall dir="North" />
-					<NeighbourWall dir="South" />
-				</or>
-			</not>
-		</and>
-		<sprite index="1"  color="building" />
-	</else>
-	
-	<!-- Center piece -->
-	<else>
-		<and>
-			<or>
-				<NeighbourSameType dir="East" />
-				<NeighbourWall dir="East" />
-			</or>
-			<or>
-				<NeighbourSameType dir="West" />
-				<NeighbourWall dir="West" />
-			</or>
-			<or>
-				<NeighbourSameType dir="North" />
-				<NeighbourWall dir="North" />
-			</or>			
-			<or>
-				<NeighbourSameType dir="South" />
-				<NeighbourWall dir="South" />
-			</or>
-		</and>
-		<sprite index="2"  color="building" />
-	</else>
-	
-	<!-- Corners piece -->
-	<else>
-		<and>
-			<or>
-				<NeighbourSameType dir="South" />
-				<NeighbourSameType dir="East" />
-				<NeighbourWall dir="South" />
-				<NeighbourWall dir="East" />
-			</or>
-			<not>
-				<or>
-					<NeighbourSameType dir="West" />
-					<NeighbourSameType dir="North" />
-					<NeighbourWall dir="West" />
-					<NeighbourWall dir="North" />
-				</or>
-			</not>
-		</and>
-		<sprite index="3" color="building" />
-	</else>	
-		<else>
-		<and>
-			<or>
-				<NeighbourSameType dir="South" />
-				<NeighbourSameType dir="West" />
-				<NeighbourWall dir="South" />
-				<NeighbourWall dir="West" />
-			</or>
-			<not>
-				<or>
-					<NeighbourSameType dir="East" />
-					<NeighbourSameType dir="North" />
-					<NeighbourWall dir="East" />
-					<NeighbourWall dir="North" />
-				</or>
-			</not>
-		</and>
-		<sprite index="4" color="building" />
-	</else>	
-	<else>
-		<and>
-			<or>
-				<NeighbourSameType dir="North" />
-				<NeighbourSameType dir="West" />
-				<NeighbourWall dir="North" />
-				<NeighbourWall dir="West" />
-			</or>
-			<not>
-				<or>
-					<NeighbourSameType dir="East" />
-					<NeighbourSameType dir="South" />
-					<NeighbourWall dir="East" />
-					<NeighbourWall dir="South" />
-				</or>
-			</not>
-		</and>
-		<sprite index="5" color="building" />
-	</else>
-	<else>
-		<and>
-			<or>
-				<NeighbourSameType dir="North" />
-				<NeighbourSameType dir="East" />
-				<NeighbourWall dir="North" />
-				<NeighbourWall dir="East" />
-			</or>
-			<not>
-				<or>
-					<NeighbourSameType dir="West" />
-					<NeighbourSameType dir="South" />
-					<NeighbourWall dir="West" />
-					<NeighbourWall dir="South" />
-				</or>
-			</not>
-		</and>
-		<sprite index="6" color="building" />
-	</else>
-	<!-- T-Sections -->
-	<else>
-		<and>
-			<or>
-				<NeighbourSameType dir="South" />
-				<NeighbourSameType dir="West" />
-				<NeighbourSameType dir="East" />
-				<NeighbourWall dir="South" />
-				<NeighbourWall dir="West" />
-				<NeighbourWall dir="East" />
-			</or>
-			<not>
-				<or>
-					<NeighbourSameType dir="North" />
-					<NeighbourWall dir="North" />
-				</or>
-			</not>
-		</and>
-		<sprite index="7" color="building" />
-	</else>	
-	<else>
-		<and>
-			<or>
-				<NeighbourSameType dir="North" />
-				<NeighbourSameType dir="West" />
-				<NeighbourSameType dir="East" />
-				<NeighbourWall dir="North" />
-				<NeighbourWall dir="West" />
-				<NeighbourWall dir="East" />
-			</or>
-			<not>
-				<or>
-					<NeighbourSameType dir="South" />
-					<NeighbourWall dir="South" />
-				</or>
-			</not>
-		</and>
-		<sprite index="8" color="building" />
-	</else>
-	<else>
-		<and>
-			<or>
-				<NeighbourSameType dir="North" />
-				<NeighbourSameType dir="East" />
-				<NeighbourSameType dir="South" />
-				<NeighbourWall dir="North" />
-				<NeighbourWall dir="East" />
-				<NeighbourWall dir="South" />
-			</or>
-			<not>
-				<or>
-					<NeighbourSameType dir="West" />
-					<NeighbourWall dir="West" />
-				</or>
-			</not>
-		</and>
-		<sprite index="9" color="building" />
-	</else>
-	<else>
-		<and>
-			<or>
-				<NeighbourSameType dir="West" />
-				<NeighbourSameType dir="North" />
-				<NeighbourSameType dir="South" />
-				<NeighbourWall dir="West" />
-				<NeighbourWall dir="North" />
-				<NeighbourWall dir="South" />				
-			</or>
-			<not>
-				<or>
-				<NeighbourSameType dir="East" />
-				<NeighbourWall dir="East" />
-				</or>
-			</not>
-		</and>
-		<sprite index="10" color="building" />
-	</else>
-	<!-- default -->
-	<else>
-		<sprite index="0" color="building" />
-	</else>
-</building> 
+<?xml version="1.0"?>
+<building name="Vertical Bars" game_type="BarsVertical" file="VerticalBars.png">
+    <!-- straight or end pieces -->
+    <if>
+        <and>
+            <or>
+                <NeighbourSameType dir="North" />
+                <NeighbourSameType dir="South" />
+                <NeighbourWall dir="North" />
+                <NeighbourWall dir="South" />
+            </or>
+            <not>
+                <or>
+                    <NeighbourSameType dir="East" />
+                    <NeighbourSameType dir="West" />
+                    <NeighbourWall dir="East" />
+                    <NeighbourWall dir="West" />
+                </or>
+            </not>
+        </and>
+        <sprite index="0" color="building" />
+    </if>
+    <else>
+        <and>
+            <or>
+                <NeighbourSameType dir="East" />
+                <NeighbourSameType dir="West" />
+                <NeighbourWall dir="East" />
+                <NeighbourWall dir="West" />
+            </or>
+            <not>
+                <or>
+                    <NeighbourSameType dir="North" />
+                    <NeighbourSameType dir="South" />
+                    <NeighbourWall dir="North" />
+                    <NeighbourWall dir="South" />
+                </or>
+            </not>
+        </and>
+        <sprite index="1" color="building" />
+    </else>
+    <!-- Center piece -->
+    <else>
+        <and>
+            <or>
+                <NeighbourSameType dir="East" />
+                <NeighbourWall dir="East" />
+            </or>
+            <or>
+                <NeighbourSameType dir="West" />
+                <NeighbourWall dir="West" />
+            </or>
+            <or>
+                <NeighbourSameType dir="North" />
+                <NeighbourWall dir="North" />
+            </or>
+            <or>
+                <NeighbourSameType dir="South" />
+                <NeighbourWall dir="South" />
+            </or>
+        </and>
+        <sprite index="2" color="building" />
+    </else>
+    <!-- Corners piece -->
+    <else>
+        <and>
+            <or>
+                <NeighbourSameType dir="South" />
+                <NeighbourSameType dir="East" />
+                <NeighbourWall dir="South" />
+                <NeighbourWall dir="East" />
+            </or>
+            <not>
+                <or>
+                    <NeighbourSameType dir="West" />
+                    <NeighbourSameType dir="North" />
+                    <NeighbourWall dir="West" />
+                    <NeighbourWall dir="North" />
+                </or>
+            </not>
+        </and>
+        <sprite index="3" color="building" />
+    </else>
+    <else>
+        <and>
+            <or>
+                <NeighbourSameType dir="South" />
+                <NeighbourSameType dir="West" />
+                <NeighbourWall dir="South" />
+                <NeighbourWall dir="West" />
+            </or>
+            <not>
+                <or>
+                    <NeighbourSameType dir="East" />
+                    <NeighbourSameType dir="North" />
+                    <NeighbourWall dir="East" />
+                    <NeighbourWall dir="North" />
+                </or>
+            </not>
+        </and>
+        <sprite index="4" color="building" />
+    </else>
+    <else>
+        <and>
+            <or>
+                <NeighbourSameType dir="North" />
+                <NeighbourSameType dir="West" />
+                <NeighbourWall dir="North" />
+                <NeighbourWall dir="West" />
+            </or>
+            <not>
+                <or>
+                    <NeighbourSameType dir="East" />
+                    <NeighbourSameType dir="South" />
+                    <NeighbourWall dir="East" />
+                    <NeighbourWall dir="South" />
+                </or>
+            </not>
+        </and>
+        <sprite index="5" color="building" />
+    </else>
+    <else>
+        <and>
+            <or>
+                <NeighbourSameType dir="North" />
+                <NeighbourSameType dir="East" />
+                <NeighbourWall dir="North" />
+                <NeighbourWall dir="East" />
+            </or>
+            <not>
+                <or>
+                    <NeighbourSameType dir="West" />
+                    <NeighbourSameType dir="South" />
+                    <NeighbourWall dir="West" />
+                    <NeighbourWall dir="South" />
+                </or>
+            </not>
+        </and>
+        <sprite index="6" color="building" />
+    </else>
+    <!-- T-Sections -->
+    <else>
+        <and>
+            <or>
+                <NeighbourSameType dir="South" />
+                <NeighbourSameType dir="West" />
+                <NeighbourSameType dir="East" />
+                <NeighbourWall dir="South" />
+                <NeighbourWall dir="West" />
+                <NeighbourWall dir="East" />
+            </or>
+            <not>
+                <or>
+                    <NeighbourSameType dir="North" />
+                    <NeighbourWall dir="North" />
+                </or>
+            </not>
+        </and>
+        <sprite index="7" color="building" />
+    </else>
+    <else>
+        <and>
+            <or>
+                <NeighbourSameType dir="North" />
+                <NeighbourSameType dir="West" />
+                <NeighbourSameType dir="East" />
+                <NeighbourWall dir="North" />
+                <NeighbourWall dir="West" />
+                <NeighbourWall dir="East" />
+            </or>
+            <not>
+                <or>
+                    <NeighbourSameType dir="South" />
+                    <NeighbourWall dir="South" />
+                </or>
+            </not>
+        </and>
+        <sprite index="8" color="building" />
+    </else>
+    <else>
+        <and>
+            <or>
+                <NeighbourSameType dir="North" />
+                <NeighbourSameType dir="East" />
+                <NeighbourSameType dir="South" />
+                <NeighbourWall dir="North" />
+                <NeighbourWall dir="East" />
+                <NeighbourWall dir="South" />
+            </or>
+            <not>
+                <or>
+                    <NeighbourSameType dir="West" />
+                    <NeighbourWall dir="West" />
+                </or>
+            </not>
+        </and>
+        <sprite index="9" color="building" />
+    </else>
+    <else>
+        <and>
+            <or>
+                <NeighbourSameType dir="West" />
+                <NeighbourSameType dir="North" />
+                <NeighbourSameType dir="South" />
+                <NeighbourWall dir="West" />
+                <NeighbourWall dir="North" />
+                <NeighbourWall dir="South" />
+            </or>
+            <not>
+                <or>
+                    <NeighbourSameType dir="East" />
+                    <NeighbourWall dir="East" />
+                </or>
+            </not>
+        </and>
+        <sprite index="10" color="building" />
+    </else>
+    <!-- default -->
+    <else>
+        <sprite index="0" color="building" />
+    </else>
+</building>

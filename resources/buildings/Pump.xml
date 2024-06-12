@@ -1,84 +1,81 @@
-<?xml version="1.0" ?>
-
-
-
+<?xml version="1.0"?>
 <building name="Pump" game_type="ScrewPump" file="mechanics.png">
-	<include file="sBlueprint.xml" />
-	<else>
-		<BuildingOccupancy value="6" />
-		<if>
-			<NeighbourSameBuilding dir="South"/>
-			<sprite index = 147 >
-				<subsprite index = 167 color="building" pattern_index="0"/>
-				<subsprite index = 187 color="building" pattern_index="1"/>
-				<subsprite index = 207 color="building" pattern_index="2"/>
-			</sprite>
-		</if>
-		<else>
-			<NeighbourSameBuilding dir="East"/>
-			<sprite index = 148 >
-				<subsprite index = 168 color="building" pattern_index="0"/>
-				<subsprite index = 188 color="building" pattern_index="1"/>
-				<subsprite index = 208 color="building" pattern_index="2"/>
-			</sprite>
-		</else>
-		<else>
-			<NeighbourSameBuilding dir="North"/>
-			<sprite index = 140 >
-				<subsprite index = 160 color="building" pattern_index="0"/>
-				<subsprite index = 180 color="building" pattern_index="1"/>
-				<subsprite index = 200 color="building" pattern_index="2"/>
-			</sprite>
-			<sprite index = 142 offsety=-18 >
-				<subsprite index = 162 offsety=-18 color="building" pattern_index="0"/>
-				<subsprite index = 182 offsety=-18 color="building" pattern_index="1"/>
-				<subsprite index = 202 offsety=-18 color="building" pattern_index="2"/>
-			</sprite>
-		</else>
-		<else>
-			<NeighbourSameBuilding dir="West"/>
-			<sprite index = 145 >
-				<subsprite index = 165 color="building" pattern_index="0"/>
-				<subsprite index = 185 color="building" pattern_index="1"/>
-				<subsprite index = 205 color="building" pattern_index="2"/>
-			</sprite>
-			<sprite index = 143 offsety=-18 >
-				<subsprite index = 163 offsety=-18 color="building" pattern_index="0"/>
-				<subsprite index = 183 offsety=-18 color="building" pattern_index="1"/>
-				<subsprite index = 203 offsety=-18 color="building" pattern_index="2"/>
-			</sprite>
-		</else>
-	</else>
-	<else>
-		<NeighbourSameBuilding dir="South"/>
-		<sprite index = 141 >
-			<subsprite index = 161 color="building" pattern_index="0"/>
-			<subsprite index = 181 color="building" pattern_index="1"/>
-			<subsprite index = 201 color="building" pattern_index="2"/>
-		</sprite>
-	</else>
-	<else>
-		<NeighbourSameBuilding dir="East"/>
-		<sprite index = 144 >
-			<subsprite index = 164 color="building" pattern_index="0"/>
-			<subsprite index = 184 color="building" pattern_index="1"/>
-			<subsprite index = 204 color="building" pattern_index="2"/>
-		</sprite>
-	</else>
-	<else>
-		<NeighbourSameBuilding dir="North"/>
-		<sprite index = 146 >
-			<subsprite index = 166 color="building" pattern_index="0"/>
-			<subsprite index = 186 color="building" pattern_index="1"/>
-			<subsprite index = 206 color="building" pattern_index="2"/>
-		</sprite>
-	</else>
-	<else>
-		<NeighbourSameBuilding dir="West"/>
-		<sprite index = 149 >
-			<subsprite index = 169 color="building" pattern_index="0"/>
-			<subsprite index = 189 color="building" pattern_index="1"/>
-			<subsprite index = 209 color="building" pattern_index="2"/>
-		</sprite>
-	</else>
-</building> 
+    <include file="sBlueprint.xml" />
+    <else>
+        <BuildingOccupancy value="6" />
+        <if>
+            <NeighbourSameBuilding dir="South" />
+            <sprite index="147">
+                <subsprite index="167" color="building" pattern_index="0" />
+                <subsprite index="187" color="building" pattern_index="1" />
+                <subsprite index="207" color="building" pattern_index="2" />
+            </sprite>
+        </if>
+        <else>
+            <NeighbourSameBuilding dir="East" />
+            <sprite index="148">
+                <subsprite index="168" color="building" pattern_index="0" />
+                <subsprite index="188" color="building" pattern_index="1" />
+                <subsprite index="208" color="building" pattern_index="2" />
+            </sprite>
+        </else>
+        <else>
+            <NeighbourSameBuilding dir="North" />
+            <sprite index="140">
+                <subsprite index="160" color="building" pattern_index="0" />
+                <subsprite index="180" color="building" pattern_index="1" />
+                <subsprite index="200" color="building" pattern_index="2" />
+            </sprite>
+            <sprite index="142" offsety="-18">
+                <subsprite index="162" offsety="-18" color="building" pattern_index="0" />
+                <subsprite index="182" offsety="-18" color="building" pattern_index="1" />
+                <subsprite index="202" offsety="-18" color="building" pattern_index="2" />
+            </sprite>
+        </else>
+        <else>
+            <NeighbourSameBuilding dir="West" />
+            <sprite index="145">
+                <subsprite index="165" color="building" pattern_index="0" />
+                <subsprite index="185" color="building" pattern_index="1" />
+                <subsprite index="205" color="building" pattern_index="2" />
+            </sprite>
+            <sprite index="143" offsety="-18">
+                <subsprite index="163" offsety="-18" color="building" pattern_index="0" />
+                <subsprite index="183" offsety="-18" color="building" pattern_index="1" />
+                <subsprite index="203" offsety="-18" color="building" pattern_index="2" />
+            </sprite>
+        </else>
+    </else>
+    <else>
+        <NeighbourSameBuilding dir="South" />
+        <sprite index="141">
+            <subsprite index="161" color="building" pattern_index="0" />
+            <subsprite index="181" color="building" pattern_index="1" />
+            <subsprite index="201" color="building" pattern_index="2" />
+        </sprite>
+    </else>
+    <else>
+        <NeighbourSameBuilding dir="East" />
+        <sprite index="144">
+            <subsprite index="164" color="building" pattern_index="0" />
+            <subsprite index="184" color="building" pattern_index="1" />
+            <subsprite index="204" color="building" pattern_index="2" />
+        </sprite>
+    </else>
+    <else>
+        <NeighbourSameBuilding dir="North" />
+        <sprite index="146">
+            <subsprite index="166" color="building" pattern_index="0" />
+            <subsprite index="186" color="building" pattern_index="1" />
+            <subsprite index="206" color="building" pattern_index="2" />
+        </sprite>
+    </else>
+    <else>
+        <NeighbourSameBuilding dir="West" />
+        <sprite index="149">
+            <subsprite index="169" color="building" pattern_index="0" />
+            <subsprite index="189" color="building" pattern_index="1" />
+            <subsprite index="209" color="building" pattern_index="2" />
+        </sprite>
+    </else>
+</building>

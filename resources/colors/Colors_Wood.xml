@@ -1,158 +1,158 @@
 <?xml version="1.0"?>
 <colors>
-  <color red="187" green="143" blue="116">
-    <material value="Wood">
-      <subtype value="MANGROVE" />
-    </material>
-  </color>
-  <color red="234" green="231" blue="213">
-    <material value="Wood">
-      <subtype value="SAGUARO" />
-    </material>
-  </color>
-  <color red="240" green="208" blue="159">
-    <material value="Wood">
-      <subtype value="PINE" />
-    </material>
-  </color>
-  <color red="157" green="104" blue="62">
-    <material value="Wood">
-      <subtype value="CEDAR" />
-    </material>
-  </color>
-  <color red="187" green="143" blue="108">
-    <material value="Wood">
-      <subtype value="OAK" />
-    </material>
-  </color>
-  <color red="127" green="62" blue="40">
-    <material value="Wood">
-      <subtype value="MAHOGANY" />
-    </material>
-  </color>
-  <color red="191" green="108" blue="58">
-    <material value="Wood">
-      <subtype value="ACACIA" />
-    </material>
-  </color>
-  <color red="222" green="204" blue="158">
-    <material value="Wood">
-      <subtype value="KAPOK" />
-    </material>
-  </color>
-  <color red="252" green="236" blue="216">
-    <material value="Wood">
-      <subtype value="MAPLE" />
-    </material>
-  </color>
-  <color red="210" green="135" blue="80">
-    <material value="Wood">
-      <subtype value="WILLOW" />
-    </material>
-  </color>
-  <color red="240" green="236" blue="221">
-    <material value="Wood">
-      <subtype value="TOWER_CAP" />
-    </material>
-  </color>
-  <color red="49" green="48" blue="44">
-    <material value="Wood">
-      <subtype value="BLACK_CAP" />
-    </material>
-  </color>
-  <color red="147" green="67" blue="185">
-    <material value="Wood">
-      <subtype value="NETHER_CAP" />
-    </material>
-  </color>
-  <color red="206" green="94" blue="72">
-    <material value="Wood">
-      <subtype value="GOBLIN_CAP" />
-    </material>
-  </color>
-  <color red="251" green="220" blue="13">
-    <material value="Wood">
-      <subtype value="FUNGIWOOD" />
-    </material>
-  </color>
-  <color red="246" green="180" blue="242">
-    <material value="Wood">
-      <subtype value="TUNNEL_TUBE" />
-    </material>
-  </color>
-  <color red="180" green="242" blue="240">
-    <material value="Wood">
-      <subtype value="SPORE_TREE" />
-    </material>
-  </color>
-  <color red="192" green="7" blue="7">
-    <material value="Wood">
-      <subtype value="BLOOD_THORN" />
-    </material>
-  </color>
-  <color red="86" green="50" blue="104">
-    <material value="Wood">
-      <subtype value="GLUMPRONG" />
-    </material>
-  </color>
-  <color red="251" green="244" blue="239">
-    <material value="Wood">
-      <subtype value="FEATHER" />
-    </material>
-  </color>
-  <color red="221" green="218" blue="212">
-    <material value="Wood">
-      <subtype value="HIGHWOOD" />
-    </material>
-  </color>
-  <color red="202" green="145" blue="92">
-    <material value="Wood">
-      <subtype value="LARCH" />
-    </material>
-  </color>
-  <color red="161" green="103" blue="63">
-    <material value="Wood">
-      <subtype value="CHESTNUT" />
-    </material>
-  </color>
-  <color red="115" green="65" blue="45">
-    <material value="Wood">
-      <subtype value="ALDER" />
-    </material>
-  </color>
-  <color red="244" green="201" blue="156">
-    <material value="Wood">
-      <subtype value="BIRCH" />
-    </material>
-  </color>
-  <color red="250" green="197" blue="147">
-    <material value="Wood">
-      <subtype value="ASH" />
-    </material>
-  </color>
-  <color red="245" green="217" blue="169">
-    <material value="Wood">
-      <subtype value="CANDLENUT" />
-    </material>
-  </color>
-  <color red="192" green="168" blue="132">
-    <material value="Wood">
-      <subtype value="MANGO" />
-    </material>
-  </color>
-  <color red="244" green="214" blue="152">
-    <material value="Wood">
-      <subtype value="RUBBER" />
-    </material>
-  </color>
-  <color red="75" green="24" blue="21">
-    <material value="Wood">
-      <subtype value="CACAO" />
-    </material>
-  </color>
-  <color red="133" green="107" blue="90">
-    <material value="Wood">
-      <subtype value="PALM" />
-    </material>
-  </color>
+    <color red="187" green="143" blue="116">
+        <material value="Wood">
+            <subtype value="MANGROVE" />
+        </material>
+    </color>
+    <color red="234" green="231" blue="213">
+        <material value="Wood">
+            <subtype value="SAGUARO" />
+        </material>
+    </color>
+    <color red="240" green="208" blue="159">
+        <material value="Wood">
+            <subtype value="PINE" />
+        </material>
+    </color>
+    <color red="157" green="104" blue="62">
+        <material value="Wood">
+            <subtype value="CEDAR" />
+        </material>
+    </color>
+    <color red="187" green="143" blue="108">
+        <material value="Wood">
+            <subtype value="OAK" />
+        </material>
+    </color>
+    <color red="127" green="62" blue="40">
+        <material value="Wood">
+            <subtype value="MAHOGANY" />
+        </material>
+    </color>
+    <color red="191" green="108" blue="58">
+        <material value="Wood">
+            <subtype value="ACACIA" />
+        </material>
+    </color>
+    <color red="222" green="204" blue="158">
+        <material value="Wood">
+            <subtype value="KAPOK" />
+        </material>
+    </color>
+    <color red="252" green="236" blue="216">
+        <material value="Wood">
+            <subtype value="MAPLE" />
+        </material>
+    </color>
+    <color red="210" green="135" blue="80">
+        <material value="Wood">
+            <subtype value="WILLOW" />
+        </material>
+    </color>
+    <color red="240" green="236" blue="221">
+        <material value="Wood">
+            <subtype value="TOWER_CAP" />
+        </material>
+    </color>
+    <color red="49" green="48" blue="44">
+        <material value="Wood">
+            <subtype value="BLACK_CAP" />
+        </material>
+    </color>
+    <color red="147" green="67" blue="185">
+        <material value="Wood">
+            <subtype value="NETHER_CAP" />
+        </material>
+    </color>
+    <color red="206" green="94" blue="72">
+        <material value="Wood">
+            <subtype value="GOBLIN_CAP" />
+        </material>
+    </color>
+    <color red="251" green="220" blue="13">
+        <material value="Wood">
+            <subtype value="FUNGIWOOD" />
+        </material>
+    </color>
+    <color red="246" green="180" blue="242">
+        <material value="Wood">
+            <subtype value="TUNNEL_TUBE" />
+        </material>
+    </color>
+    <color red="180" green="242" blue="240">
+        <material value="Wood">
+            <subtype value="SPORE_TREE" />
+        </material>
+    </color>
+    <color red="192" green="7" blue="7">
+        <material value="Wood">
+            <subtype value="BLOOD_THORN" />
+        </material>
+    </color>
+    <color red="86" green="50" blue="104">
+        <material value="Wood">
+            <subtype value="GLUMPRONG" />
+        </material>
+    </color>
+    <color red="251" green="244" blue="239">
+        <material value="Wood">
+            <subtype value="FEATHER" />
+        </material>
+    </color>
+    <color red="221" green="218" blue="212">
+        <material value="Wood">
+            <subtype value="HIGHWOOD" />
+        </material>
+    </color>
+    <color red="202" green="145" blue="92">
+        <material value="Wood">
+            <subtype value="LARCH" />
+        </material>
+    </color>
+    <color red="161" green="103" blue="63">
+        <material value="Wood">
+            <subtype value="CHESTNUT" />
+        </material>
+    </color>
+    <color red="115" green="65" blue="45">
+        <material value="Wood">
+            <subtype value="ALDER" />
+        </material>
+    </color>
+    <color red="244" green="201" blue="156">
+        <material value="Wood">
+            <subtype value="BIRCH" />
+        </material>
+    </color>
+    <color red="250" green="197" blue="147">
+        <material value="Wood">
+            <subtype value="ASH" />
+        </material>
+    </color>
+    <color red="245" green="217" blue="169">
+        <material value="Wood">
+            <subtype value="CANDLENUT" />
+        </material>
+    </color>
+    <color red="192" green="168" blue="132">
+        <material value="Wood">
+            <subtype value="MANGO" />
+        </material>
+    </color>
+    <color red="244" green="214" blue="152">
+        <material value="Wood">
+            <subtype value="RUBBER" />
+        </material>
+    </color>
+    <color red="75" green="24" blue="21">
+        <material value="Wood">
+            <subtype value="CACAO" />
+        </material>
+    </color>
+    <color red="133" green="107" blue="90">
+        <material value="Wood">
+            <subtype value="PALM" />
+        </material>
+    </color>
 </colors>

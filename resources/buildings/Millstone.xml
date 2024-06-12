@@ -1,7 +1,4 @@
-<?xml version="1.0" ?>
-
-
-
-<building name="Millstone" game_type="Workshop" game_subtype="Millstone"> 
-	<sprite index = "306" />
-</building> 
+<?xml version="1.0"?>
+<building name="Millstone" game_type="Workshop" game_subtype="Millstone">
+    <sprite index="306" />
+</building>

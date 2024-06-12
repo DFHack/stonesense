@@ -67,4 +67,3 @@ enum TileIDs {
 c_sprite * GetTileSpriteMap(int in, DFHack::t_matglossPair material, uint16_t form);
 c_sprite * GetFloorSpriteMap(int in, DFHack::t_matglossPair material, uint16_t form);
 c_tile_tree * GetTreeVegetation(df::tiletype_shape shape, df::tiletype_special special, int index);
-

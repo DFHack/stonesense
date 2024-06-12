@@ -1,26 +1,19 @@
-<?xml version="1.0" ?>
+<?xml version="1.0"?>
 <creatures>
- <creature gameID="CRUNDLE"  file="crundle.png" >
-  
-  <variant special="Normal" sex="F">
-  <subsprite sheetIndex="0" zoom="2" color="bodypart" bodypart="scales" />
-  <subsprite sheetIndex="1" zoom="2" /> 
-  </variant>
-  
-  <variant special="Normal" sex="M">
-  <subsprite sheetIndex="0" zoom="2" color="bodypart" bodypart="scales" />
-  <subsprite sheetIndex="21" zoom="2" /> 
-  </variant>
-  
-  </creature>
-  
- <creature gameID="IMP_FIRE"  file="crundle.png" >
-  
-  <variant special="Normal">
-  <subsprite sheetIndex="40" zoom="2" color="bodypart" bodypart="skin" />
-  <subsprite sheetIndex="41" zoom="2" /> 
-  </variant>
-  
-  </creature>
-  
+    <creature gameID="CRUNDLE" file="crundle.png">
+        <variant special="Normal" sex="F">
+            <subsprite sheetIndex="0" zoom="2" color="bodypart" bodypart="scales" />
+            <subsprite sheetIndex="1" zoom="2" />
+        </variant>
+        <variant special="Normal" sex="M">
+            <subsprite sheetIndex="0" zoom="2" color="bodypart" bodypart="scales" />
+            <subsprite sheetIndex="21" zoom="2" />
+        </variant>
+    </creature>
+    <creature gameID="IMP_FIRE" file="crundle.png">
+        <variant special="Normal">
+            <subsprite sheetIndex="40" zoom="2" color="bodypart" bodypart="skin" />
+            <subsprite sheetIndex="41" zoom="2" />
+        </variant>
+    </creature>
 </creatures>
