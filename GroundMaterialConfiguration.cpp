@@ -79,24 +79,34 @@ void parseWallFloorSpriteElement(TiXmlElement* elemWallFloorSprite, vector<std::
         elemTerrain;
         elemTerrain = elemTerrain->NextSiblingElement("terrain")) {
         //get a terrain type
-        df::tiletype targetElem = df::tiletype(INVALID_INDEX);
+        //
+        // NOTE(myk002): targetElem was changed from df::tiletype to an int because the underlying type of df::tiltype changed
+        // from signed to unsigned as we canonicalized DFHack xml structures against DF headers. This caused issues in this
+        // code because:
+        // - negative values (like INVALID_INDEX) are given special meaning
+        // - the code here (and elsewhere in stonesense) depends on signed comparisons
+        // - the value of int matchedness (below) is assigned to a tiletype field (though I can't determine why this is desired)
+        //
+        // a proper fix would take a fair bit of rearchitecting throughout stonesense
+        int targetElem = INVALID_INDEX;
         const char* gameIDstr = elemTerrain->Attribute("value");
         if (!(gameIDstr == NULL || gameIDstr[0] == 0))
         {
-            targetElem = df::tiletype(atoi(gameIDstr));
+            targetElem = atoi(gameIDstr);
         }
         if (targetElem >= 0)
         {
             char buf[500];
-            if (is_valid_enum_item(targetElem))
+            if (is_valid_enum_item((df::tiletype)targetElem))
             {
-                auto shape = ENUM_ATTR(tiletype, shape, targetElem);
-                auto special = ENUM_ATTR(tiletype, special, targetElem);
-                auto variant = ENUM_ATTR(tiletype, variant, targetElem);
-                auto material = ENUM_ATTR(tiletype, material, targetElem);
+                df::tiletype tt = (df::tiletype)targetElem;
+                auto shape = ENUM_ATTR(tiletype, shape, tt);
+                auto special = ENUM_ATTR(tiletype, special, tt);
+                auto variant = ENUM_ATTR(tiletype, variant, tt);
+                auto material = ENUM_ATTR(tiletype, material, tt);
                 sprintf(buf, "Use of deprecated terrain value \"%d\", use one of the following instead:\n <terrain token = \"%s\" />\n <terrain%s%s%s%s%s%s%s%s%s%s%s%s />\n in element",
                 targetElem,
-                enum_item_key_str(targetElem),
+                enum_item_key_str(tt),
                 shape == tiletype_shape::NONE ? "" : " shape = \"",
                 shape == tiletype_shape::NONE ? "" : enum_item_key_str(shape),
                 shape == tiletype_shape::NONE ? "" : "\"",
