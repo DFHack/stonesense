@@ -518,8 +518,8 @@ void copyCreature(df::unit * source, SS_Unit & furball)
 
     // appearance
     furball.nbcolors = source->appearance.colors.size();
-    if(furball.nbcolors > DFHack::Units::MAX_COLORS)
-        furball.nbcolors = DFHack::Units::MAX_COLORS;
+    if(furball.nbcolors > 15) // Was using DFHack::Units::MAX_COLORS for no apparent reason; TODO: Use a better number?
+        furball.nbcolors = 15;
     // hair
     for(int i = 0; i < hairtypes_end; i++){
         furball.hairlength[i] = 1001;//default to long unkempt hair
