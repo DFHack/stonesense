@@ -303,7 +303,7 @@ struct SS_Unit{
 
     int32_t squad_leader_id;
     uint32_t nbcolors;
-    uint32_t color[DFHack::Units::MAX_COLORS];
+    uint32_t color[15]; // Was using DFHack::Units::MAX_COLORS for no apparent reason; TODO: Use a better number?
 
     hairstyles hairstyle[hairtypes_end];
     uint32_t hairlength[hairtypes_end];
