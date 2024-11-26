@@ -1,7 +1,4 @@
-<?xml version="1.0" ?>
-
-
-
-<building name="Weapon Rack" game_type="Weaponrack"> 
-		<sprite index = 93 />
-</building> 
+<?xml version="1.0"?>
+<building name="Weapon Rack" game_type="Weaponrack">
+    <sprite index="93" />
+</building>

@@ -3,11 +3,11 @@ All tiles in stonesense use a single system to define them, using XML tags and a
 All sprites have the following format:
 
 <tag attribute1="value1" attribute2="value2" ... >
-	<subtag attribute="val"/>
-	...
+    <subtag attribute="val"/>
+    ...
 </tag>
 
-where 'tag' is the identifier for the type of sprite in question, attribute is one of the many possible sprite attributes, and val is a value for that attribute. 
+where 'tag' is the identifier for the type of sprite in question, attribute is one of the many possible sprite attributes, and val is a value for that attribute.
 
 This is a list of possible sprite attributes, and associated values.
 
@@ -38,21 +38,21 @@ Description: this is a list of adjascent tiles, at least one of which must be em
               /\
              /  \
             /    \
-           /\ 1  /\                  
-          /  \  /  \                   
-         / 8  \/ 2  \                  
-        /\    /\    /\                
-       /  \  /  \  /  \                
-      / 7  \/    \/ 3  \               
-      \    /\    /\    /               
-       \  /  \  /  \  /                
-        \/ 6  \/ 4  \/                 
-         \    /\    /                  
-          \  /  \  /                   
-           \/ 5  \/                    
-            \    /                     
-             \  /                      
-              \/                       
+           /\ 1  /\
+          /  \  /  \
+         / 8  \/ 2  \
+        /\    /\    /\
+       /  \  /  \  /  \
+      / 7  \/    \/ 3  \
+      \    /\    /\    /
+       \  /  \  /  \  /
+        \/ 6  \/ 4  \/
+         \    /\    /
+          \  /  \  /
+           \/ 5  \/
+            \    /
+             \  /
+              \/
 
 Attribute: border_open_NOR, border_floor_NOR, border_wall_NOR, border_ramp_NOR, border_upstair_NOR, border_downstair_NOR
 Valid Values: any combination of the numbers 0-8
@@ -67,19 +67,19 @@ Description: This is used for giving random variation to sprites. If this number
 Attribute: color
 Valid Values: "none", "xml", "inorganic", "material", "layer", "vein", "building", "material_fore", "material_back", "layer_fore", "layer_back", "vein_fore", "vein_back", "bodypart", "profession", "blood"
 Default Value: "none"
-Description: Sets how this sprite is colored. 
-	"none" means the sprite is not colored
-	"xml" means the sprite color is specified using the red, green, and blue sprite attributes shown later.
-	"named" means that a later specified color_name, which references a COLOR from the DF raw files will be used.
-	"material" means that the sprite will be colored according to the material of the sprite that shows up in DF. adding this to creatures results in chameleons.
-	"layer" means that the sprite will be colored according to the main rock layer, which lies beneath all veins and constructions.
-	"vein" means that the sprite will be colored according to the mineral vein, which lies beneath constructions, but is above the layer.
-	"building" means that the sprite will be colored according to the building that is built on it. it's probably a bad idea to use this one outside of building sprites.
-	"material_fore", "material_back", "layer_fore", "layer_back", "vein_fore", and "vein_back" are currently waiting for DFhack to update it's features. they may or may not work.
-	"bodypart" meanst that this sprite is colored according to a creature's body part, specified later. adding this to a landscape sprite will result in the sprite being colored only when a creature is on it.
-	"profession" means that the sprite will be colored according to the creature's profesion.
-	"blood" means that the sprite will be colored according to whatever blood is splattered onto it.
-	
+Description: Sets how this sprite is colored.
+    "none" means the sprite is not colored
+    "xml" means the sprite color is specified using the red, green, and blue sprite attributes shown later.
+    "named" means that a later specified color_name, which references a COLOR from the DF raw files will be used.
+    "material" means that the sprite will be colored according to the material of the sprite that shows up in DF. adding this to creatures results in chameleons.
+    "layer" means that the sprite will be colored according to the main rock layer, which lies beneath all veins and constructions.
+    "vein" means that the sprite will be colored according to the mineral vein, which lies beneath constructions, but is above the layer.
+    "building" means that the sprite will be colored according to the building that is built on it. it's probably a bad idea to use this one outside of building sprites.
+    "material_fore", "material_back", "layer_fore", "layer_back", "vein_fore", and "vein_back" are currently waiting for DFhack to update it's features. they may or may not work.
+    "bodypart" meanst that this sprite is colored according to a creature's body part, specified later. adding this to a landscape sprite will result in the sprite being colored only when a creature is on it.
+    "profession" means that the sprite will be colored according to the creature's profesion.
+    "blood" means that the sprite will be colored according to whatever blood is splattered onto it.
+
 Attribute: bodypart
 Valid Values: any valid body part
 Default Value: none
@@ -99,10 +99,10 @@ Attribute: halftile
 Valid Values: "chop", "yes", "no", "both"
 Default Value: "chop"
 Description: tiles can be chopped in half to reveal what's behind them.
-	"chop" means that the built-in auto-chopping method is used.
-	"yes" means that this sprite is considered a half sprite, and will only show up when the tile is chopped in half.
-	"no" means that this is a full sprite, and will be hidden when the tile is chopped.
-	"both" means that the sprite will always be shown, regardless of the tile state.
+    "chop" means that the built-in auto-chopping method is used.
+    "yes" means that this sprite is considered a half sprite, and will only show up when the tile is chopped in half.
+    "no" means that this is a full sprite, and will be hidden when the tile is chopped.
+    "both" means that the sprite will always be shown, regardless of the tile state.
 
 Attribute: tileborder
 Valid Values: "none", "left", "right", "bottom"
@@ -156,7 +156,7 @@ Description: if this is set to 0, then the tile will not get the anti-escher out
 Attribute: blood_sprite
 Valid Values: "0", "1"
 Default Value: "0"
-Description: if this is set to 1, then the tile will be offset according to the surrounding blood. 
+Description: if this is set to 1, then the tile will be offset according to the surrounding blood.
 Useful for adding blood pools. This over-rides 'variations' so they cannot be used together.
 
 Additional sprites can be layered on top using the subsprite tag, like so:
@@ -167,10 +167,10 @@ Default Value: "0"
 Description: Sets the scale of the sprite, in the form of 2^x. this means 0 is normal sized, -1 is half sized, 1 is double, 2 is quadruple, etc.
 
 <floors>
-	<floor sheetindex="1">
-		blah blah
-		<subsprite sheetIndex="2" color="material"/>
-	</floor>
+    <floor sheetindex="1">
+        blah blah
+        <subsprite sheetIndex="2" color="material"/>
+    </floor>
 </floors>
 
 you can add as many subsprites as you need.

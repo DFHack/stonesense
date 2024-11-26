@@ -1,401 +1,401 @@
-<?xml version="1.0" ?>
+<?xml version="1.0"?>
 <walls file="BuiltForts.png">
-	<wall sprite="20" outline="0">
-		<terrain value="494"/>
-		<material value="GreenGlass"/>
-		<subsprite sprite="81" outline="0" border_floor_OR="4" border_floor_NOR="268" border_wall_NOR="4" border_open_NOR="246" border_ramp_NOR="26"/>
-		<subsprite sprite="82" outline="0" border_floor_OR="6" border_floor_NOR="248" border_wall_NOR="6" border_open_NOR="468" border_ramp_NOR="48"/>
-		<subsprite sprite="83" outline="0" border_floor_OR="8" border_floor_NOR="246" border_wall_NOR="8" border_open_NOR="268" border_ramp_NOR="26"/>
-		<subsprite sprite="84" outline="0" border_floor_OR="2" border_floor_NOR="468" border_wall_NOR="2" border_open_NOR="248" border_ramp_NOR="48"/>
-		<subsprite sprite="85" outline="0" border_floor_OR="1" border_floor_NOR="2345678" border_wall_NOR="1" border_open_NOR="28" border_ramp_NOR="28"/>
-		<subsprite sprite="86" outline="0" border_floor_OR="3" border_floor_NOR="1245678" border_wall_NOR="3" border_open_NOR="24" border_ramp_NOR="24"/>
-		<subsprite sprite="87" outline="0" border_floor_OR="5" border_floor_NOR="1234678" border_wall_NOR="5" border_open_NOR="46" border_ramp_NOR="46"/>
-		<subsprite sprite="88" outline="0" border_floor_OR="7" border_floor_NOR="1234568" border_wall_NOR="7" border_open_NOR="68" border_ramp_NOR="68"/>
-		<subsprite sprite="89" outline="0" border_wall_NOR="2468"/>
-		<subsprite sprite="89" outline="0" border_floor_NOR="2468" border_open_NOR="135"/>
-		<subsprite sprite="89" outline="0" border_floor_NOR="2468" border_open_NOR="357"/>
-		<subsprite sprite="89" outline="0" border_floor_NOR="2468" border_open_NOR="157"/>
-		<subsprite sprite="89" outline="0" border_floor_NOR="2468" border_open_NOR="137"/>
-		<subsprite sprite="89" outline="0" border_floor_NOR="2468" border_open_NOR="26" border_wall_NOR="48"/>
-		<subsprite sprite="89" outline="0" border_floor_NOR="2468" border_open_NOR="48" border_wall_NOR="26"/>
-		<subsprite sprite="89" outline="0" border_wall_NOR="26" border_open_NOR="26" border_floor_NOR="48"/>
-		<subsprite sprite="89" outline="0" border_wall_NOR="48" border_open_NOR="48" border_floor_NOR="26"/>
-		<subsprite sprite="89" outline="0" border_wall_NOR="246" border_open_NOR="246" border_floor_NOR="8"/>
-		<subsprite sprite="89" outline="0" border_wall_NOR="468" border_open_NOR="468" border_floor_NOR="2"/>
-		<subsprite sprite="89" outline="0" border_wall_NOR="268" border_open_NOR="268" border_floor_NOR="4"/>
-		<subsprite sprite="89" outline="0" border_wall_NOR="248" border_open_NOR="248" border_floor_NOR="6"/>
-		<subsprite sprite="85" outline="0" border_wall_NOR="134567" border_open_NOR="128" border_floor_NOR="28" border_open_OR="4"/>
-		<subsprite sprite="85" outline="0" border_wall_NOR="134567" border_open_NOR="128" border_floor_NOR="28" border_open_OR="6"/>
-		<subsprite sprite="86" outline="0" border_wall_NOR="135678" border_open_NOR="234" border_floor_NOR="24" border_open_OR="8"/>
-		<subsprite sprite="86" outline="0" border_wall_NOR="135678" border_open_NOR="234" border_floor_NOR="24" border_open_OR="6"/>
-		<subsprite sprite="87" outline="0" border_wall_NOR="123578" border_open_NOR="456" border_floor_NOR="46" border_open_OR="8"/>
-		<subsprite sprite="87" outline="0" border_wall_NOR="123578" border_open_NOR="456" border_floor_NOR="46" border_open_OR="2"/>
-		<subsprite sprite="88" outline="0" border_wall_NOR="123457" border_open_NOR="678" border_floor_NOR="68" border_open_OR="4"/>
-		<subsprite sprite="88" outline="0" border_wall_NOR="123457" border_open_NOR="678" border_floor_NOR="68" border_open_OR="2"/>
-		<subsprite sprite="85" outline="0" border_floor_NOR="128" border_wall_NOR="146" border_open_NOR="2468" border_ramp_NOR="28"/>
-		<subsprite sprite="86" outline="0" border_floor_NOR="234" border_wall_NOR="368" border_open_NOR="2468" border_ramp_NOR="24"/>
-		<subsprite sprite="87" outline="0" border_floor_NOR="456" border_wall_NOR="258" border_open_NOR="2468" border_ramp_NOR="46"/>
-		<subsprite sprite="88" outline="0" border_floor_NOR="678" border_wall_NOR="247" border_open_NOR="2468" border_ramp_NOR="68"/>
-		<subsprite sprite="89" outline="0" border_floor_NOR="2468" border_wall_NOR="2" border_open_NOR="468"/>
-		<subsprite sprite="89" outline="0" border_floor_NOR="2468" border_wall_NOR="4" border_open_NOR="268"/>
-		<subsprite sprite="89" outline="0" border_floor_NOR="2468" border_wall_NOR="6" border_open_NOR="248"/>
-		<subsprite sprite="89" outline="0" border_floor_NOR="2468" border_wall_NOR="8" border_open_NOR="246"/>
-		<subsprite sprite="89" outline="0" border_floor_NOR="2468" border_wall_NOR="468" border_ramp_NOR="2468"/>
-		<subsprite sprite="89" outline="0" border_floor_NOR="2468" border_wall_NOR="268" border_ramp_NOR="2468"/>
-		<subsprite sprite="89" outline="0" border_floor_NOR="2468" border_wall_NOR="248" border_ramp_NOR="2468"/>
-		<subsprite sprite="89" outline="0" border_floor_NOR="2468" border_wall_NOR="246" border_ramp_NOR="2468"/>
-	</wall>
-	<wall sprite="20" outline="0">
-		<terrain value="494"/>
-		<material value="ClearGlass"/>
-		<subsprite sprite="101" outline="0" border_floor_OR="4" border_floor_NOR="268" border_wall_NOR="4" border_open_NOR="246" border_ramp_NOR="26"/>
-		<subsprite sprite="102" outline="0" border_floor_OR="6" border_floor_NOR="248" border_wall_NOR="6" border_open_NOR="468" border_ramp_NOR="48"/>
-		<subsprite sprite="103" outline="0" border_floor_OR="8" border_floor_NOR="246" border_wall_NOR="8" border_open_NOR="268" border_ramp_NOR="26"/>
-		<subsprite sprite="104" outline="0" border_floor_OR="2" border_floor_NOR="468" border_wall_NOR="2" border_open_NOR="248" border_ramp_NOR="48"/>
-		<subsprite sprite="105" outline="0" border_floor_OR="1" border_floor_NOR="2345678" border_wall_NOR="1" border_open_NOR="28" border_ramp_NOR="28"/>
-		<subsprite sprite="106" outline="0" border_floor_OR="3" border_floor_NOR="1245678" border_wall_NOR="3" border_open_NOR="24" border_ramp_NOR="24"/>
-		<subsprite sprite="107" outline="0" border_floor_OR="5" border_floor_NOR="1234678" border_wall_NOR="5" border_open_NOR="46" border_ramp_NOR="46"/>
-		<subsprite sprite="108" outline="0" border_floor_OR="7" border_floor_NOR="1234568" border_wall_NOR="7" border_open_NOR="68" border_ramp_NOR="68"/>
-		<subsprite sprite="109" outline="0" border_wall_NOR="2468"/>
-		<subsprite sprite="109" outline="0" border_floor_NOR="2468" border_open_NOR="135"/>
-		<subsprite sprite="109" outline="0" border_floor_NOR="2468" border_open_NOR="357"/>
-		<subsprite sprite="109" outline="0" border_floor_NOR="2468" border_open_NOR="157"/>
-		<subsprite sprite="109" outline="0" border_floor_NOR="2468" border_open_NOR="137"/>
-		<subsprite sprite="109" outline="0" border_floor_NOR="2468" border_open_NOR="26" border_wall_NOR="48"/>
-		<subsprite sprite="109" outline="0" border_floor_NOR="2468" border_open_NOR="48" border_wall_NOR="26"/>
-		<subsprite sprite="109" outline="0" border_wall_NOR="26" border_open_NOR="26" border_floor_NOR="48"/>
-		<subsprite sprite="109" outline="0" border_wall_NOR="48" border_open_NOR="48" border_floor_NOR="26"/>
-		<subsprite sprite="109" outline="0" border_wall_NOR="246" border_open_NOR="246" border_floor_NOR="8"/>
-		<subsprite sprite="109" outline="0" border_wall_NOR="468" border_open_NOR="468" border_floor_NOR="2"/>
-		<subsprite sprite="109" outline="0" border_wall_NOR="268" border_open_NOR="268" border_floor_NOR="4"/>
-		<subsprite sprite="109" outline="0" border_wall_NOR="248" border_open_NOR="248" border_floor_NOR="6"/>
-		<subsprite sprite="105" outline="0" border_wall_NOR="134567" border_open_NOR="128" border_floor_NOR="28" border_open_OR="4"/>
-		<subsprite sprite="105" outline="0" border_wall_NOR="134567" border_open_NOR="128" border_floor_NOR="28" border_open_OR="6"/>
-		<subsprite sprite="106" outline="0" border_wall_NOR="135678" border_open_NOR="234" border_floor_NOR="24" border_open_OR="8"/>
-		<subsprite sprite="106" outline="0" border_wall_NOR="135678" border_open_NOR="234" border_floor_NOR="24" border_open_OR="6"/>
-		<subsprite sprite="107" outline="0" border_wall_NOR="123578" border_open_NOR="456" border_floor_NOR="46" border_open_OR="8"/>
-		<subsprite sprite="107" outline="0" border_wall_NOR="123578" border_open_NOR="456" border_floor_NOR="46" border_open_OR="2"/>
-		<subsprite sprite="108" outline="0" border_wall_NOR="123457" border_open_NOR="678" border_floor_NOR="68" border_open_OR="4"/>
-		<subsprite sprite="108" outline="0" border_wall_NOR="123457" border_open_NOR="678" border_floor_NOR="68" border_open_OR="2"/>
-		<subsprite sprite="105" outline="0" border_floor_NOR="128" border_wall_NOR="146" border_open_NOR="2468" border_ramp_NOR="28"/>
-		<subsprite sprite="106" outline="0" border_floor_NOR="234" border_wall_NOR="368" border_open_NOR="2468" border_ramp_NOR="24"/>
-		<subsprite sprite="107" outline="0" border_floor_NOR="456" border_wall_NOR="258" border_open_NOR="2468" border_ramp_NOR="46"/>
-		<subsprite sprite="108" outline="0" border_floor_NOR="678" border_wall_NOR="247" border_open_NOR="2468" border_ramp_NOR="68"/>
-		<subsprite sprite="109" outline="0" border_floor_NOR="2468" border_wall_NOR="2" border_open_NOR="468"/>
-		<subsprite sprite="109" outline="0" border_floor_NOR="2468" border_wall_NOR="4" border_open_NOR="268"/>
-		<subsprite sprite="109" outline="0" border_floor_NOR="2468" border_wall_NOR="6" border_open_NOR="248"/>
-		<subsprite sprite="109" outline="0" border_floor_NOR="2468" border_wall_NOR="8" border_open_NOR="246"/>
-		<subsprite sprite="109" outline="0" border_floor_NOR="2468" border_wall_NOR="468" border_ramp_NOR="2468"/>
-		<subsprite sprite="109" outline="0" border_floor_NOR="2468" border_wall_NOR="268" border_ramp_NOR="2468"/>
-		<subsprite sprite="109" outline="0" border_floor_NOR="2468" border_wall_NOR="248" border_ramp_NOR="2468"/>
-		<subsprite sprite="109" outline="0" border_floor_NOR="2468" border_wall_NOR="246" border_ramp_NOR="2468"/>
-	</wall>
-	<wall sprite="20" outline="0">
-		<terrain value="494"/>
-		<material value="CrystalGlass"/>
-		<subsprite sprite="121" outline="0" border_floor_OR="4" border_floor_NOR="268" border_wall_NOR="4" border_open_NOR="246" border_ramp_NOR="26"/>
-		<subsprite sprite="122" outline="0" border_floor_OR="6" border_floor_NOR="248" border_wall_NOR="6" border_open_NOR="468" border_ramp_NOR="48"/>
-		<subsprite sprite="123" outline="0" border_floor_OR="8" border_floor_NOR="246" border_wall_NOR="8" border_open_NOR="268" border_ramp_NOR="26"/>
-		<subsprite sprite="124" outline="0" border_floor_OR="2" border_floor_NOR="468" border_wall_NOR="2" border_open_NOR="248" border_ramp_NOR="48"/>
-		<subsprite sprite="125" outline="0" border_floor_OR="1" border_floor_NOR="2345678" border_wall_NOR="1" border_open_NOR="28" border_ramp_NOR="28"/>
-		<subsprite sprite="126" outline="0" border_floor_OR="3" border_floor_NOR="1245678" border_wall_NOR="3" border_open_NOR="24" border_ramp_NOR="24"/>
-		<subsprite sprite="127" outline="0" border_floor_OR="5" border_floor_NOR="1234678" border_wall_NOR="5" border_open_NOR="46" border_ramp_NOR="46"/>
-		<subsprite sprite="128" outline="0" border_floor_OR="7" border_floor_NOR="1234568" border_wall_NOR="7" border_open_NOR="68" border_ramp_NOR="68"/>
-		<subsprite sprite="129" outline="0" border_wall_NOR="2468"/>
-		<subsprite sprite="129" outline="0" border_floor_NOR="2468" border_open_NOR="135"/>
-		<subsprite sprite="129" outline="0" border_floor_NOR="2468" border_open_NOR="357"/>
-		<subsprite sprite="129" outline="0" border_floor_NOR="2468" border_open_NOR="157"/>
-		<subsprite sprite="129" outline="0" border_floor_NOR="2468" border_open_NOR="137"/>
-		<subsprite sprite="129" outline="0" border_floor_NOR="2468" border_open_NOR="26" border_wall_NOR="48"/>
-		<subsprite sprite="129" outline="0" border_floor_NOR="2468" border_open_NOR="48" border_wall_NOR="26"/>
-		<subsprite sprite="129" outline="0" border_wall_NOR="26" border_open_NOR="26" border_floor_NOR="48"/>
-		<subsprite sprite="129" outline="0" border_wall_NOR="48" border_open_NOR="48" border_floor_NOR="26"/>
-		<subsprite sprite="129" outline="0" border_wall_NOR="246" border_open_NOR="246" border_floor_NOR="8"/>
-		<subsprite sprite="129" outline="0" border_wall_NOR="468" border_open_NOR="468" border_floor_NOR="2"/>
-		<subsprite sprite="129" outline="0" border_wall_NOR="268" border_open_NOR="268" border_floor_NOR="4"/>
-		<subsprite sprite="129" outline="0" border_wall_NOR="248" border_open_NOR="248" border_floor_NOR="6"/>
-		<subsprite sprite="125" outline="0" border_wall_NOR="134567" border_open_NOR="128" border_floor_NOR="28" border_open_OR="4"/>
-		<subsprite sprite="125" outline="0" border_wall_NOR="134567" border_open_NOR="128" border_floor_NOR="28" border_open_OR="6"/>
-		<subsprite sprite="126" outline="0" border_wall_NOR="135678" border_open_NOR="234" border_floor_NOR="24" border_open_OR="8"/>
-		<subsprite sprite="126" outline="0" border_wall_NOR="135678" border_open_NOR="234" border_floor_NOR="24" border_open_OR="6"/>
-		<subsprite sprite="127" outline="0" border_wall_NOR="123578" border_open_NOR="456" border_floor_NOR="46" border_open_OR="8"/>
-		<subsprite sprite="127" outline="0" border_wall_NOR="123578" border_open_NOR="456" border_floor_NOR="46" border_open_OR="2"/>
-		<subsprite sprite="128" outline="0" border_wall_NOR="123457" border_open_NOR="678" border_floor_NOR="68" border_open_OR="4"/>
-		<subsprite sprite="128" outline="0" border_wall_NOR="123457" border_open_NOR="678" border_floor_NOR="68" border_open_OR="2"/>
-		<subsprite sprite="125" outline="0" border_floor_NOR="128" border_wall_NOR="146" border_open_NOR="2468" border_ramp_NOR="28"/>
-		<subsprite sprite="126" outline="0" border_floor_NOR="234" border_wall_NOR="368" border_open_NOR="2468" border_ramp_NOR="24"/>
-		<subsprite sprite="127" outline="0" border_floor_NOR="456" border_wall_NOR="258" border_open_NOR="2468" border_ramp_NOR="46"/>
-		<subsprite sprite="128" outline="0" border_floor_NOR="678" border_wall_NOR="247" border_open_NOR="2468" border_ramp_NOR="68"/>
-		<subsprite sprite="129" outline="0" border_floor_NOR="2468" border_wall_NOR="2" border_open_NOR="468"/>
-		<subsprite sprite="129" outline="0" border_floor_NOR="2468" border_wall_NOR="4" border_open_NOR="268"/>
-		<subsprite sprite="129" outline="0" border_floor_NOR="2468" border_wall_NOR="6" border_open_NOR="248"/>
-		<subsprite sprite="129" outline="0" border_floor_NOR="2468" border_wall_NOR="8" border_open_NOR="246"/>
-		<subsprite sprite="129" outline="0" border_floor_NOR="2468" border_wall_NOR="468" border_ramp_NOR="2468"/>
-		<subsprite sprite="129" outline="0" border_floor_NOR="2468" border_wall_NOR="268" border_ramp_NOR="2468"/>
-		<subsprite sprite="129" outline="0" border_floor_NOR="2468" border_wall_NOR="248" border_ramp_NOR="2468"/>
-		<subsprite sprite="129" outline="0" border_floor_NOR="2468" border_wall_NOR="246" border_ramp_NOR="2468"/>
-	</wall>
-	<wall sprite="20" outline="0">
-		<terrain value="326"/>
-		<subsprite sprite="21" outline="0" border_floor_OR="4" border_floor_NOR="268" border_wall_NOR="4" border_open_NOR="246" border_ramp_NOR="26"/>
-		<subsprite sprite="22" outline="0" border_floor_OR="6" border_floor_NOR="248" border_wall_NOR="6" border_open_NOR="468" border_ramp_NOR="48"/>
-		<subsprite sprite="23" outline="0" border_floor_OR="8" border_floor_NOR="246" border_wall_NOR="8" border_open_NOR="268" border_ramp_NOR="26"/>
-		<subsprite sprite="24" outline="0" border_floor_OR="2" border_floor_NOR="468" border_wall_NOR="2" border_open_NOR="248" border_ramp_NOR="48"/>
-		<subsprite sprite="25" outline="0" border_floor_OR="1" border_floor_NOR="2345678" border_wall_NOR="1" border_open_NOR="28" border_ramp_NOR="28"/>
-		<subsprite sprite="26" outline="0" border_floor_OR="3" border_floor_NOR="1245678" border_wall_NOR="3" border_open_NOR="24" border_ramp_NOR="24"/>
-		<subsprite sprite="27" outline="0" border_floor_OR="5" border_floor_NOR="1234678" border_wall_NOR="5" border_open_NOR="46" border_ramp_NOR="46"/>
-		<subsprite sprite="28" outline="0" border_floor_OR="7" border_floor_NOR="1234568" border_wall_NOR="7" border_open_NOR="68" border_ramp_NOR="68"/>
-		<subsprite sprite="29" outline="0" border_wall_NOR="2468"/>
-		<subsprite sprite="29" outline="0" border_floor_NOR="2468" border_open_NOR="135"/>
-		<subsprite sprite="29" outline="0" border_floor_NOR="2468" border_open_NOR="357"/>
-		<subsprite sprite="29" outline="0" border_floor_NOR="2468" border_open_NOR="157"/>
-		<subsprite sprite="29" outline="0" border_floor_NOR="2468" border_open_NOR="137"/>
-		<subsprite sprite="29" outline="0" border_floor_NOR="2468" border_open_NOR="26" border_wall_NOR="48"/>
-		<subsprite sprite="29" outline="0" border_floor_NOR="2468" border_open_NOR="48" border_wall_NOR="26"/>
-		<subsprite sprite="29" outline="0" border_wall_NOR="26" border_open_NOR="26" border_floor_NOR="48"/>
-		<subsprite sprite="29" outline="0" border_wall_NOR="48" border_open_NOR="48" border_floor_NOR="26"/>
-		<subsprite sprite="29" outline="0" border_wall_NOR="246" border_open_NOR="246" border_floor_NOR="8"/>
-		<subsprite sprite="29" outline="0" border_wall_NOR="468" border_open_NOR="468" border_floor_NOR="2"/>
-		<subsprite sprite="29" outline="0" border_wall_NOR="268" border_open_NOR="268" border_floor_NOR="4"/>
-		<subsprite sprite="29" outline="0" border_wall_NOR="248" border_open_NOR="248" border_floor_NOR="6"/>
-		<subsprite sprite="25" outline="0" border_wall_NOR="134567" border_open_NOR="128" border_floor_NOR="28" border_open_OR="4"/>
-		<subsprite sprite="25" outline="0" border_wall_NOR="134567" border_open_NOR="128" border_floor_NOR="28" border_open_OR="6"/>
-		<subsprite sprite="26" outline="0" border_wall_NOR="135678" border_open_NOR="234" border_floor_NOR="24" border_open_OR="8"/>
-		<subsprite sprite="26" outline="0" border_wall_NOR="135678" border_open_NOR="234" border_floor_NOR="24" border_open_OR="6"/>
-		<subsprite sprite="27" outline="0" border_wall_NOR="123578" border_open_NOR="456" border_floor_NOR="46" border_open_OR="8"/>
-		<subsprite sprite="27" outline="0" border_wall_NOR="123578" border_open_NOR="456" border_floor_NOR="46" border_open_OR="2"/>
-		<subsprite sprite="28" outline="0" border_wall_NOR="123457" border_open_NOR="678" border_floor_NOR="68" border_open_OR="4"/>
-		<subsprite sprite="28" outline="0" border_wall_NOR="123457" border_open_NOR="678" border_floor_NOR="68" border_open_OR="2"/>
-		<subsprite sprite="30" outline="0" border_floor_NOR="128" border_wall_NOR="146" border_open_NOR="2468" border_ramp_NOR="28"/>
-		<subsprite sprite="31" outline="0" border_floor_NOR="234" border_wall_NOR="368" border_open_NOR="2468" border_ramp_NOR="24"/>
-		<subsprite sprite="32" outline="0" border_floor_NOR="456" border_wall_NOR="258" border_open_NOR="2468" border_ramp_NOR="46"/>
-		<subsprite sprite="33" outline="0" border_floor_NOR="678" border_wall_NOR="247" border_open_NOR="2468" border_ramp_NOR="68"/>
-		<subsprite sprite="29" outline="0" border_floor_NOR="2468" border_wall_NOR="2" border_open_NOR="468"/>
-		<subsprite sprite="29" outline="0" border_floor_NOR="2468" border_wall_NOR="4" border_open_NOR="268"/>
-		<subsprite sprite="29" outline="0" border_floor_NOR="2468" border_wall_NOR="6" border_open_NOR="248"/>
-		<subsprite sprite="29" outline="0" border_floor_NOR="2468" border_wall_NOR="8" border_open_NOR="246"/>
-		<subsprite sprite="29" outline="0" border_floor_NOR="2468" border_wall_NOR="468" border_ramp_NOR="2468"/>
-		<subsprite sprite="29" outline="0" border_floor_NOR="2468" border_wall_NOR="268" border_ramp_NOR="2468"/>
-		<subsprite sprite="29" outline="0" border_floor_NOR="2468" border_wall_NOR="248" border_ramp_NOR="2468"/>
-		<subsprite sprite="29" outline="0" border_floor_NOR="2468" border_wall_NOR="246" border_ramp_NOR="2468"/>
-	</wall>
-	<wall sprite="20" outline="0">
-		<terrain value="494"/>
-		<material value="Stone">
-			<subtype value="OBSIDIAN" />
-		</material>
-		<subsprite sprite="21" outline="0" border_floor_OR="4" border_floor_NOR="268" border_wall_NOR="4" border_open_NOR="246" border_ramp_NOR="26"/>
-		<subsprite sprite="22" outline="0" border_floor_OR="6" border_floor_NOR="248" border_wall_NOR="6" border_open_NOR="468" border_ramp_NOR="48"/>
-		<subsprite sprite="23" outline="0" border_floor_OR="8" border_floor_NOR="246" border_wall_NOR="8" border_open_NOR="268" border_ramp_NOR="26"/>
-		<subsprite sprite="24" outline="0" border_floor_OR="2" border_floor_NOR="468" border_wall_NOR="2" border_open_NOR="248" border_ramp_NOR="48"/>
-		<subsprite sprite="25" outline="0" border_floor_OR="1" border_floor_NOR="2345678" border_wall_NOR="1" border_open_NOR="28" border_ramp_NOR="28"/>
-		<subsprite sprite="26" outline="0" border_floor_OR="3" border_floor_NOR="1245678" border_wall_NOR="3" border_open_NOR="24" border_ramp_NOR="24"/>
-		<subsprite sprite="27" outline="0" border_floor_OR="5" border_floor_NOR="1234678" border_wall_NOR="5" border_open_NOR="46" border_ramp_NOR="46"/>
-		<subsprite sprite="28" outline="0" border_floor_OR="7" border_floor_NOR="1234568" border_wall_NOR="7" border_open_NOR="68" border_ramp_NOR="68"/>
-		<subsprite sprite="29" outline="0" border_wall_NOR="2468"/>
-		<subsprite sprite="29" outline="0" border_floor_NOR="2468" border_open_NOR="135"/>
-		<subsprite sprite="29" outline="0" border_floor_NOR="2468" border_open_NOR="357"/>
-		<subsprite sprite="29" outline="0" border_floor_NOR="2468" border_open_NOR="157"/>
-		<subsprite sprite="29" outline="0" border_floor_NOR="2468" border_open_NOR="137"/>
-		<subsprite sprite="29" outline="0" border_floor_NOR="2468" border_open_NOR="26" border_wall_NOR="48"/>
-		<subsprite sprite="29" outline="0" border_floor_NOR="2468" border_open_NOR="48" border_wall_NOR="26"/>
-		<subsprite sprite="29" outline="0" border_wall_NOR="26" border_open_NOR="26" border_floor_NOR="48"/>
-		<subsprite sprite="29" outline="0" border_wall_NOR="48" border_open_NOR="48" border_floor_NOR="26"/>
-		<subsprite sprite="29" outline="0" border_wall_NOR="246" border_open_NOR="246" border_floor_NOR="8"/>
-		<subsprite sprite="29" outline="0" border_wall_NOR="468" border_open_NOR="468" border_floor_NOR="2"/>
-		<subsprite sprite="29" outline="0" border_wall_NOR="268" border_open_NOR="268" border_floor_NOR="4"/>
-		<subsprite sprite="29" outline="0" border_wall_NOR="248" border_open_NOR="248" border_floor_NOR="6"/>
-		<subsprite sprite="25" outline="0" border_wall_NOR="134567" border_open_NOR="128" border_floor_NOR="28" border_open_OR="4"/>
-		<subsprite sprite="25" outline="0" border_wall_NOR="134567" border_open_NOR="128" border_floor_NOR="28" border_open_OR="6"/>
-		<subsprite sprite="26" outline="0" border_wall_NOR="135678" border_open_NOR="234" border_floor_NOR="24" border_open_OR="8"/>
-		<subsprite sprite="26" outline="0" border_wall_NOR="135678" border_open_NOR="234" border_floor_NOR="24" border_open_OR="6"/>
-		<subsprite sprite="27" outline="0" border_wall_NOR="123578" border_open_NOR="456" border_floor_NOR="46" border_open_OR="8"/>
-		<subsprite sprite="27" outline="0" border_wall_NOR="123578" border_open_NOR="456" border_floor_NOR="46" border_open_OR="2"/>
-		<subsprite sprite="28" outline="0" border_wall_NOR="123457" border_open_NOR="678" border_floor_NOR="68" border_open_OR="4"/>
-		<subsprite sprite="28" outline="0" border_wall_NOR="123457" border_open_NOR="678" border_floor_NOR="68" border_open_OR="2"/>
-		<subsprite sprite="30" outline="0" border_floor_NOR="128" border_wall_NOR="146" border_open_NOR="2468" border_ramp_NOR="28"/>
-		<subsprite sprite="31" outline="0" border_floor_NOR="234" border_wall_NOR="368" border_open_NOR="2468" border_ramp_NOR="24"/>
-		<subsprite sprite="32" outline="0" border_floor_NOR="456" border_wall_NOR="258" border_open_NOR="2468" border_ramp_NOR="46"/>
-		<subsprite sprite="33" outline="0" border_floor_NOR="678" border_wall_NOR="247" border_open_NOR="2468" border_ramp_NOR="68"/>
-		<subsprite sprite="29" outline="0" border_floor_NOR="2468" border_wall_NOR="2" border_open_NOR="468"/>
-		<subsprite sprite="29" outline="0" border_floor_NOR="2468" border_wall_NOR="4" border_open_NOR="268"/>
-		<subsprite sprite="29" outline="0" border_floor_NOR="2468" border_wall_NOR="6" border_open_NOR="248"/>
-		<subsprite sprite="29" outline="0" border_floor_NOR="2468" border_wall_NOR="8" border_open_NOR="246"/>
-		<subsprite sprite="29" outline="0" border_floor_NOR="2468" border_wall_NOR="468" border_ramp_NOR="2468"/>
-		<subsprite sprite="29" outline="0" border_floor_NOR="2468" border_wall_NOR="268" border_ramp_NOR="2468"/>
-		<subsprite sprite="29" outline="0" border_floor_NOR="2468" border_wall_NOR="248" border_ramp_NOR="2468"/>
-		<subsprite sprite="29" outline="0" border_floor_NOR="2468" border_wall_NOR="246" border_ramp_NOR="2468"/>
-	</wall>
-	<wall sprite="20" outline="0">
-		<terrain value="494"/>
-		<material value="Ice"/>
-		<subsprite sprite="41" outline="0" border_floor_OR="4" border_floor_NOR="268" border_wall_NOR="4" border_open_NOR="246" border_ramp_NOR="26"/>
-		<subsprite sprite="42" outline="0" border_floor_OR="6" border_floor_NOR="248" border_wall_NOR="6" border_open_NOR="468" border_ramp_NOR="48"/>
-		<subsprite sprite="43" outline="0" border_floor_OR="8" border_floor_NOR="246" border_wall_NOR="8" border_open_NOR="268" border_ramp_NOR="26"/>
-		<subsprite sprite="44" outline="0" border_floor_OR="2" border_floor_NOR="468" border_wall_NOR="2" border_open_NOR="248" border_ramp_NOR="48"/>
-		<subsprite sprite="45" outline="0" border_floor_OR="1" border_floor_NOR="2345678" border_wall_NOR="1" border_open_NOR="28" border_ramp_NOR="28"/>
-		<subsprite sprite="46" outline="0" border_floor_OR="3" border_floor_NOR="1245678" border_wall_NOR="3" border_open_NOR="24" border_ramp_NOR="24"/>
-		<subsprite sprite="47" outline="0" border_floor_OR="5" border_floor_NOR="1234678" border_wall_NOR="5" border_open_NOR="46" border_ramp_NOR="46"/>
-		<subsprite sprite="48" outline="0" border_floor_OR="7" border_floor_NOR="1234568" border_wall_NOR="7" border_open_NOR="68" border_ramp_NOR="68"/>
-		<subsprite sprite="49" outline="0" border_wall_NOR="2468"/>
-		<subsprite sprite="49" outline="0" border_floor_NOR="2468" border_open_NOR="135"/>
-		<subsprite sprite="49" outline="0" border_floor_NOR="2468" border_open_NOR="357"/>
-		<subsprite sprite="49" outline="0" border_floor_NOR="2468" border_open_NOR="157"/>
-		<subsprite sprite="49" outline="0" border_floor_NOR="2468" border_open_NOR="137"/>
-		<subsprite sprite="49" outline="0" border_floor_NOR="2468" border_open_NOR="26" border_wall_NOR="48"/>
-		<subsprite sprite="49" outline="0" border_floor_NOR="2468" border_open_NOR="48" border_wall_NOR="26"/>
-		<subsprite sprite="49" outline="0" border_wall_NOR="26" border_open_NOR="26" border_floor_NOR="48"/>
-		<subsprite sprite="49" outline="0" border_wall_NOR="48" border_open_NOR="48" border_floor_NOR="26"/>
-		<subsprite sprite="49" outline="0" border_wall_NOR="246" border_open_NOR="246" border_floor_NOR="8"/>
-		<subsprite sprite="49" outline="0" border_wall_NOR="468" border_open_NOR="468" border_floor_NOR="2"/>
-		<subsprite sprite="49" outline="0" border_wall_NOR="268" border_open_NOR="268" border_floor_NOR="4"/>
-		<subsprite sprite="49" outline="0" border_wall_NOR="248" border_open_NOR="248" border_floor_NOR="6"/>
-		<subsprite sprite="45" outline="0" border_wall_NOR="134567" border_open_NOR="128" border_floor_NOR="28" border_open_OR="4"/>
-		<subsprite sprite="45" outline="0" border_wall_NOR="134567" border_open_NOR="128" border_floor_NOR="28" border_open_OR="6"/>
-		<subsprite sprite="46" outline="0" border_wall_NOR="135678" border_open_NOR="234" border_floor_NOR="24" border_open_OR="8"/>
-		<subsprite sprite="46" outline="0" border_wall_NOR="135678" border_open_NOR="234" border_floor_NOR="24" border_open_OR="6"/>
-		<subsprite sprite="47" outline="0" border_wall_NOR="123578" border_open_NOR="456" border_floor_NOR="46" border_open_OR="8"/>
-		<subsprite sprite="47" outline="0" border_wall_NOR="123578" border_open_NOR="456" border_floor_NOR="46" border_open_OR="2"/>
-		<subsprite sprite="48" outline="0" border_wall_NOR="123457" border_open_NOR="678" border_floor_NOR="68" border_open_OR="4"/>
-		<subsprite sprite="48" outline="0" border_wall_NOR="123457" border_open_NOR="678" border_floor_NOR="68" border_open_OR="2"/>
-		<subsprite sprite="45" outline="0" border_floor_NOR="128" border_wall_NOR="146" border_open_NOR="2468" border_ramp_NOR="28"/>
-		<subsprite sprite="46" outline="0" border_floor_NOR="234" border_wall_NOR="368" border_open_NOR="2468" border_ramp_NOR="24"/>
-		<subsprite sprite="47" outline="0" border_floor_NOR="456" border_wall_NOR="258" border_open_NOR="2468" border_ramp_NOR="46"/>
-		<subsprite sprite="48" outline="0" border_floor_NOR="678" border_wall_NOR="247" border_open_NOR="2468" border_ramp_NOR="68"/>
-		<subsprite sprite="49" outline="0" border_floor_NOR="2468" border_wall_NOR="2" border_open_NOR="468"/>
-		<subsprite sprite="49" outline="0" border_floor_NOR="2468" border_wall_NOR="4" border_open_NOR="268"/>
-		<subsprite sprite="49" outline="0" border_floor_NOR="2468" border_wall_NOR="6" border_open_NOR="248"/>
-		<subsprite sprite="49" outline="0" border_floor_NOR="2468" border_wall_NOR="8" border_open_NOR="246"/>
-		<subsprite sprite="49" outline="0" border_floor_NOR="2468" border_wall_NOR="468" border_ramp_NOR="2468"/>
-		<subsprite sprite="49" outline="0" border_floor_NOR="2468" border_wall_NOR="268" border_ramp_NOR="2468"/>
-		<subsprite sprite="49" outline="0" border_floor_NOR="2468" border_wall_NOR="248" border_ramp_NOR="2468"/>
-		<subsprite sprite="49" outline="0" border_floor_NOR="2468" border_wall_NOR="246" border_ramp_NOR="2468"/>
-	</wall>
-	<wall sprite="0" outline="0">
-		<terrain value="494"/>
-		<form value="block" />
-		<material value="Inorganic" />
-		<subsprite sprite="1" color="material" outline="0" border_floor_OR="4" border_floor_NOR="268" border_wall_NOR="4" border_open_NOR="246" border_ramp_NOR="26"/>
-		<subsprite sprite="2" color="material" outline="0" border_floor_OR="6" border_floor_NOR="248" border_wall_NOR="6" border_open_NOR="468" border_ramp_NOR="48"/>
-		<subsprite sprite="3" color="material" outline="0" border_floor_OR="8" border_floor_NOR="246" border_wall_NOR="8" border_open_NOR="268" border_ramp_NOR="26"/>
-		<subsprite sprite="4" color="material" outline="0" border_floor_OR="2" border_floor_NOR="468" border_wall_NOR="2" border_open_NOR="248" border_ramp_NOR="48"/>
-		<subsprite sprite="5" color="material" outline="0" border_floor_OR="1" border_floor_NOR="2345678" border_wall_NOR="1" border_open_NOR="28" border_ramp_NOR="28"/>
-		<subsprite sprite="6" color="material" outline="0" border_floor_OR="3" border_floor_NOR="1245678" border_wall_NOR="3" border_open_NOR="24" border_ramp_NOR="24"/>
-		<subsprite sprite="7" color="material" outline="0" border_floor_OR="5" border_floor_NOR="1234678" border_wall_NOR="5" border_open_NOR="46" border_ramp_NOR="46"/>
-		<subsprite sprite="8" color="material" outline="0" border_floor_OR="7" border_floor_NOR="1234568" border_wall_NOR="7" border_open_NOR="68" border_ramp_NOR="68"/>
-		<subsprite sprite="9" color="material" outline="0" border_wall_NOR="2468"/>
-		<subsprite sprite="9" color="material" outline="0" border_floor_NOR="2468" border_open_NOR="135"/>
-		<subsprite sprite="9" color="material" outline="0" border_floor_NOR="2468" border_open_NOR="357"/>
-		<subsprite sprite="9" color="material" outline="0" border_floor_NOR="2468" border_open_NOR="157"/>
-		<subsprite sprite="9" color="material" outline="0" border_floor_NOR="2468" border_open_NOR="137"/>
-		<subsprite sprite="9" color="material" outline="0" border_floor_NOR="2468" border_open_NOR="26" border_wall_NOR="48"/>
-		<subsprite sprite="9" color="material" outline="0" border_floor_NOR="2468" border_open_NOR="48" border_wall_NOR="26"/>
-		<subsprite sprite="9" color="material" outline="0" border_wall_NOR="26" border_open_NOR="26" border_floor_NOR="48"/>
-		<subsprite sprite="9" color="material" outline="0" border_wall_NOR="48" border_open_NOR="48" border_floor_NOR="26"/>
-		<subsprite sprite="9" color="material" outline="0" border_wall_NOR="246" border_open_NOR="246" border_floor_NOR="8"/>
-		<subsprite sprite="9" color="material" outline="0" border_wall_NOR="468" border_open_NOR="468" border_floor_NOR="2"/>
-		<subsprite sprite="9" color="material" outline="0" border_wall_NOR="268" border_open_NOR="268" border_floor_NOR="4"/>
-		<subsprite sprite="9" color="material" outline="0" border_wall_NOR="248" border_open_NOR="248" border_floor_NOR="6"/>
-		<subsprite sprite="5" color="material" outline="0" border_wall_NOR="134567" border_open_NOR="128" border_floor_NOR="28" border_open_OR="4"/>
-		<subsprite sprite="5" color="material" outline="0" border_wall_NOR="134567" border_open_NOR="128" border_floor_NOR="28" border_open_OR="6"/>
-		<subsprite sprite="6" color="material" outline="0" border_wall_NOR="135678" border_open_NOR="234" border_floor_NOR="24" border_open_OR="8"/>
-		<subsprite sprite="6" color="material" outline="0" border_wall_NOR="135678" border_open_NOR="234" border_floor_NOR="24" border_open_OR="6"/>
-		<subsprite sprite="7" color="material" outline="0" border_wall_NOR="123578" border_open_NOR="456" border_floor_NOR="46" border_open_OR="8"/>
-		<subsprite sprite="7" color="material" outline="0" border_wall_NOR="123578" border_open_NOR="456" border_floor_NOR="46" border_open_OR="2"/>
-		<subsprite sprite="8" color="material" outline="0" border_wall_NOR="123457" border_open_NOR="678" border_floor_NOR="68" border_open_OR="4"/>
-		<subsprite sprite="8" color="material" outline="0" border_wall_NOR="123457" border_open_NOR="678" border_floor_NOR="68" border_open_OR="2"/>
-		<subsprite sprite="5" color="material" outline="0" border_floor_NOR="128" border_wall_NOR="146" border_open_NOR="2468" border_ramp_NOR="28"/>
-		<subsprite sprite="6" color="material" outline="0" border_floor_NOR="234" border_wall_NOR="368" border_open_NOR="2468" border_ramp_NOR="24"/>
-		<subsprite sprite="7" color="material" outline="0" border_floor_NOR="456" border_wall_NOR="258" border_open_NOR="2468" border_ramp_NOR="46"/>
-		<subsprite sprite="8" color="material" outline="0" border_floor_NOR="678" border_wall_NOR="247" border_open_NOR="2468" border_ramp_NOR="68"/>
-		<subsprite sprite="9" color="material" outline="0" border_floor_NOR="2468" border_wall_NOR="2" border_open_NOR="468"/>
-		<subsprite sprite="9" color="material" outline="0" border_floor_NOR="2468" border_wall_NOR="4" border_open_NOR="268"/>
-		<subsprite sprite="9" color="material" outline="0" border_floor_NOR="2468" border_wall_NOR="6" border_open_NOR="248"/>
-		<subsprite sprite="9" color="material" outline="0" border_floor_NOR="2468" border_wall_NOR="8" border_open_NOR="246"/>
-		<subsprite sprite="9" color="material" outline="0" border_floor_NOR="2468" border_wall_NOR="468" border_ramp_NOR="2468"/>
-		<subsprite sprite="9" color="material" outline="0" border_floor_NOR="2468" border_wall_NOR="268" border_ramp_NOR="2468"/>
-		<subsprite sprite="9" color="material" outline="0" border_floor_NOR="2468" border_wall_NOR="248" border_ramp_NOR="2468"/>
-		<subsprite sprite="9" color="material" outline="0" border_floor_NOR="2468" border_wall_NOR="246" border_ramp_NOR="2468"/>
-	</wall>
-	<wall sprite="0" outline="0">
-		<terrain value="494"/>
-		<form value="boulder" />
-		<material value="Inorganic" />
-		<subsprite sprite="61" color="material" outline="0" border_floor_OR="4" border_floor_NOR="268" border_wall_NOR="4" border_open_NOR="246" border_ramp_NOR="26"/>
-		<subsprite sprite="62" color="material" outline="0" border_floor_OR="6" border_floor_NOR="248" border_wall_NOR="6" border_open_NOR="468" border_ramp_NOR="48"/>
-		<subsprite sprite="63" color="material" outline="0" border_floor_OR="8" border_floor_NOR="246" border_wall_NOR="8" border_open_NOR="268" border_ramp_NOR="26"/>
-		<subsprite sprite="64" color="material" outline="0" border_floor_OR="2" border_floor_NOR="468" border_wall_NOR="2" border_open_NOR="248" border_ramp_NOR="48"/>
-		<subsprite sprite="65" color="material" outline="0" border_floor_OR="1" border_floor_NOR="2345678" border_wall_NOR="1" border_open_NOR="28" border_ramp_NOR="28"/>
-		<subsprite sprite="66" color="material" outline="0" border_floor_OR="3" border_floor_NOR="1245678" border_wall_NOR="3" border_open_NOR="24" border_ramp_NOR="24"/>
-		<subsprite sprite="67" color="material" outline="0" border_floor_OR="5" border_floor_NOR="1234678" border_wall_NOR="5" border_open_NOR="46" border_ramp_NOR="46"/>
-		<subsprite sprite="68" color="material" outline="0" border_floor_OR="7" border_floor_NOR="1234568" border_wall_NOR="7" border_open_NOR="68" border_ramp_NOR="68"/>
-		<subsprite sprite="69" color="material" outline="0" border_wall_NOR="2468"/>
-		<subsprite sprite="69" color="material" outline="0" border_floor_NOR="2468" border_open_NOR="135"/>
-		<subsprite sprite="69" color="material" outline="0" border_floor_NOR="2468" border_open_NOR="357"/>
-		<subsprite sprite="69" color="material" outline="0" border_floor_NOR="2468" border_open_NOR="157"/>
-		<subsprite sprite="69" color="material" outline="0" border_floor_NOR="2468" border_open_NOR="137"/>
-		<subsprite sprite="69" color="material" outline="0" border_floor_NOR="2468" border_open_NOR="26" border_wall_NOR="48"/>
-		<subsprite sprite="69" color="material" outline="0" border_floor_NOR="2468" border_open_NOR="48" border_wall_NOR="26"/>
-		<subsprite sprite="69" color="material" outline="0" border_wall_NOR="26" border_open_NOR="26" border_floor_NOR="48"/>
-		<subsprite sprite="69" color="material" outline="0" border_wall_NOR="48" border_open_NOR="48" border_floor_NOR="26"/>
-		<subsprite sprite="69" color="material" outline="0" border_wall_NOR="246" border_open_NOR="246" border_floor_NOR="8"/>
-		<subsprite sprite="69" color="material" outline="0" border_wall_NOR="468" border_open_NOR="468" border_floor_NOR="2"/>
-		<subsprite sprite="69" color="material" outline="0" border_wall_NOR="268" border_open_NOR="268" border_floor_NOR="4"/>
-		<subsprite sprite="69" color="material" outline="0" border_wall_NOR="248" border_open_NOR="248" border_floor_NOR="6"/>
-		<subsprite sprite="65" color="material" outline="0" border_wall_NOR="134567" border_open_NOR="128" border_floor_NOR="28" border_open_OR="4"/>
-		<subsprite sprite="65" color="material" outline="0" border_wall_NOR="134567" border_open_NOR="128" border_floor_NOR="28" border_open_OR="6"/>
-		<subsprite sprite="66" color="material" outline="0" border_wall_NOR="135678" border_open_NOR="234" border_floor_NOR="24" border_open_OR="8"/>
-		<subsprite sprite="66" color="material" outline="0" border_wall_NOR="135678" border_open_NOR="234" border_floor_NOR="24" border_open_OR="6"/>
-		<subsprite sprite="67" color="material" outline="0" border_wall_NOR="123578" border_open_NOR="456" border_floor_NOR="46" border_open_OR="8"/>
-		<subsprite sprite="67" color="material" outline="0" border_wall_NOR="123578" border_open_NOR="456" border_floor_NOR="46" border_open_OR="2"/>
-		<subsprite sprite="68" color="material" outline="0" border_wall_NOR="123457" border_open_NOR="678" border_floor_NOR="68" border_open_OR="4"/>
-		<subsprite sprite="68" color="material" outline="0" border_wall_NOR="123457" border_open_NOR="678" border_floor_NOR="68" border_open_OR="2"/>
-		<subsprite sprite="65" color="material" outline="0" border_floor_NOR="128" border_wall_NOR="146" border_open_NOR="2468" border_ramp_NOR="28"/>
-		<subsprite sprite="66" color="material" outline="0" border_floor_NOR="234" border_wall_NOR="368" border_open_NOR="2468" border_ramp_NOR="24"/>
-		<subsprite sprite="67" color="material" outline="0" border_floor_NOR="456" border_wall_NOR="258" border_open_NOR="2468" border_ramp_NOR="46"/>
-		<subsprite sprite="68" color="material" outline="0" border_floor_NOR="678" border_wall_NOR="247" border_open_NOR="2468" border_ramp_NOR="68"/>
-		<subsprite sprite="69" color="material" outline="0" border_floor_NOR="2468" border_wall_NOR="2" border_open_NOR="468"/>
-		<subsprite sprite="69" color="material" outline="0" border_floor_NOR="2468" border_wall_NOR="4" border_open_NOR="268"/>
-		<subsprite sprite="69" color="material" outline="0" border_floor_NOR="2468" border_wall_NOR="6" border_open_NOR="248"/>
-		<subsprite sprite="69" color="material" outline="0" border_floor_NOR="2468" border_wall_NOR="8" border_open_NOR="246"/>
-		<subsprite sprite="69" color="material" outline="0" border_floor_NOR="2468" border_wall_NOR="468" border_ramp_NOR="2468"/>
-		<subsprite sprite="69" color="material" outline="0" border_floor_NOR="2468" border_wall_NOR="268" border_ramp_NOR="2468"/>
-		<subsprite sprite="69" color="material" outline="0" border_floor_NOR="2468" border_wall_NOR="248" border_ramp_NOR="2468"/>
-		<subsprite sprite="69" color="material" outline="0" border_floor_NOR="2468" border_wall_NOR="246" border_ramp_NOR="2468"/>
-	</wall>
-	<wall sheetIndex="39">
-		<terrain value="36" />
-		<terrain value="38" />
-	</wall>
-	<wall sheetIndex="39">
-		<terrain value="515" />
-		<terrain value="517" />
-		<material value="Stone">
-			<subtype value="OBSIDIAN" />
-		</material>
-	</wall>
-	<wall sheetIndex="19" color="material">
-		<terrain value="515" />
-		<terrain value="517" />
-	</wall>
-	<wall sheetIndex="59">
-		<terrain value="515" />
-		<terrain value="517" />
-		<material value="Ice"/>
-	</wall>
-	<wall sheetIndex="99">
-		<terrain value="515" />
-		<terrain value="517" />
-		<material value="GreenGlass"/>
-	</wall>
-	<wall sheetIndex="119">
-		<terrain value="515" />
-		<terrain value="517" />
-		<material value="ClearGlass"/>
-	</wall>
-	<wall sheetIndex="139">
-		<terrain value="515" />
-		<terrain value="517" />
-		<material value="CrystalGlass"/>
-	</wall>
+    <wall sprite="20" outline="0">
+        <terrain value="494" />
+        <material value="GreenGlass" />
+        <subsprite sprite="81" outline="0" border_floor_OR="4" border_floor_NOR="268" border_wall_NOR="4" border_open_NOR="246" border_ramp_NOR="26" />
+        <subsprite sprite="82" outline="0" border_floor_OR="6" border_floor_NOR="248" border_wall_NOR="6" border_open_NOR="468" border_ramp_NOR="48" />
+        <subsprite sprite="83" outline="0" border_floor_OR="8" border_floor_NOR="246" border_wall_NOR="8" border_open_NOR="268" border_ramp_NOR="26" />
+        <subsprite sprite="84" outline="0" border_floor_OR="2" border_floor_NOR="468" border_wall_NOR="2" border_open_NOR="248" border_ramp_NOR="48" />
+        <subsprite sprite="85" outline="0" border_floor_OR="1" border_floor_NOR="2345678" border_wall_NOR="1" border_open_NOR="28" border_ramp_NOR="28" />
+        <subsprite sprite="86" outline="0" border_floor_OR="3" border_floor_NOR="1245678" border_wall_NOR="3" border_open_NOR="24" border_ramp_NOR="24" />
+        <subsprite sprite="87" outline="0" border_floor_OR="5" border_floor_NOR="1234678" border_wall_NOR="5" border_open_NOR="46" border_ramp_NOR="46" />
+        <subsprite sprite="88" outline="0" border_floor_OR="7" border_floor_NOR="1234568" border_wall_NOR="7" border_open_NOR="68" border_ramp_NOR="68" />
+        <subsprite sprite="89" outline="0" border_wall_NOR="2468" />
+        <subsprite sprite="89" outline="0" border_floor_NOR="2468" border_open_NOR="135" />
+        <subsprite sprite="89" outline="0" border_floor_NOR="2468" border_open_NOR="357" />
+        <subsprite sprite="89" outline="0" border_floor_NOR="2468" border_open_NOR="157" />
+        <subsprite sprite="89" outline="0" border_floor_NOR="2468" border_open_NOR="137" />
+        <subsprite sprite="89" outline="0" border_floor_NOR="2468" border_open_NOR="26" border_wall_NOR="48" />
+        <subsprite sprite="89" outline="0" border_floor_NOR="2468" border_open_NOR="48" border_wall_NOR="26" />
+        <subsprite sprite="89" outline="0" border_wall_NOR="26" border_open_NOR="26" border_floor_NOR="48" />
+        <subsprite sprite="89" outline="0" border_wall_NOR="48" border_open_NOR="48" border_floor_NOR="26" />
+        <subsprite sprite="89" outline="0" border_wall_NOR="246" border_open_NOR="246" border_floor_NOR="8" />
+        <subsprite sprite="89" outline="0" border_wall_NOR="468" border_open_NOR="468" border_floor_NOR="2" />
+        <subsprite sprite="89" outline="0" border_wall_NOR="268" border_open_NOR="268" border_floor_NOR="4" />
+        <subsprite sprite="89" outline="0" border_wall_NOR="248" border_open_NOR="248" border_floor_NOR="6" />
+        <subsprite sprite="85" outline="0" border_wall_NOR="134567" border_open_NOR="128" border_floor_NOR="28" border_open_OR="4" />
+        <subsprite sprite="85" outline="0" border_wall_NOR="134567" border_open_NOR="128" border_floor_NOR="28" border_open_OR="6" />
+        <subsprite sprite="86" outline="0" border_wall_NOR="135678" border_open_NOR="234" border_floor_NOR="24" border_open_OR="8" />
+        <subsprite sprite="86" outline="0" border_wall_NOR="135678" border_open_NOR="234" border_floor_NOR="24" border_open_OR="6" />
+        <subsprite sprite="87" outline="0" border_wall_NOR="123578" border_open_NOR="456" border_floor_NOR="46" border_open_OR="8" />
+        <subsprite sprite="87" outline="0" border_wall_NOR="123578" border_open_NOR="456" border_floor_NOR="46" border_open_OR="2" />
+        <subsprite sprite="88" outline="0" border_wall_NOR="123457" border_open_NOR="678" border_floor_NOR="68" border_open_OR="4" />
+        <subsprite sprite="88" outline="0" border_wall_NOR="123457" border_open_NOR="678" border_floor_NOR="68" border_open_OR="2" />
+        <subsprite sprite="85" outline="0" border_floor_NOR="128" border_wall_NOR="146" border_open_NOR="2468" border_ramp_NOR="28" />
+        <subsprite sprite="86" outline="0" border_floor_NOR="234" border_wall_NOR="368" border_open_NOR="2468" border_ramp_NOR="24" />
+        <subsprite sprite="87" outline="0" border_floor_NOR="456" border_wall_NOR="258" border_open_NOR="2468" border_ramp_NOR="46" />
+        <subsprite sprite="88" outline="0" border_floor_NOR="678" border_wall_NOR="247" border_open_NOR="2468" border_ramp_NOR="68" />
+        <subsprite sprite="89" outline="0" border_floor_NOR="2468" border_wall_NOR="2" border_open_NOR="468" />
+        <subsprite sprite="89" outline="0" border_floor_NOR="2468" border_wall_NOR="4" border_open_NOR="268" />
+        <subsprite sprite="89" outline="0" border_floor_NOR="2468" border_wall_NOR="6" border_open_NOR="248" />
+        <subsprite sprite="89" outline="0" border_floor_NOR="2468" border_wall_NOR="8" border_open_NOR="246" />
+        <subsprite sprite="89" outline="0" border_floor_NOR="2468" border_wall_NOR="468" border_ramp_NOR="2468" />
+        <subsprite sprite="89" outline="0" border_floor_NOR="2468" border_wall_NOR="268" border_ramp_NOR="2468" />
+        <subsprite sprite="89" outline="0" border_floor_NOR="2468" border_wall_NOR="248" border_ramp_NOR="2468" />
+        <subsprite sprite="89" outline="0" border_floor_NOR="2468" border_wall_NOR="246" border_ramp_NOR="2468" />
+    </wall>
+    <wall sprite="20" outline="0">
+        <terrain value="494" />
+        <material value="ClearGlass" />
+        <subsprite sprite="101" outline="0" border_floor_OR="4" border_floor_NOR="268" border_wall_NOR="4" border_open_NOR="246" border_ramp_NOR="26" />
+        <subsprite sprite="102" outline="0" border_floor_OR="6" border_floor_NOR="248" border_wall_NOR="6" border_open_NOR="468" border_ramp_NOR="48" />
+        <subsprite sprite="103" outline="0" border_floor_OR="8" border_floor_NOR="246" border_wall_NOR="8" border_open_NOR="268" border_ramp_NOR="26" />
+        <subsprite sprite="104" outline="0" border_floor_OR="2" border_floor_NOR="468" border_wall_NOR="2" border_open_NOR="248" border_ramp_NOR="48" />
+        <subsprite sprite="105" outline="0" border_floor_OR="1" border_floor_NOR="2345678" border_wall_NOR="1" border_open_NOR="28" border_ramp_NOR="28" />
+        <subsprite sprite="106" outline="0" border_floor_OR="3" border_floor_NOR="1245678" border_wall_NOR="3" border_open_NOR="24" border_ramp_NOR="24" />
+        <subsprite sprite="107" outline="0" border_floor_OR="5" border_floor_NOR="1234678" border_wall_NOR="5" border_open_NOR="46" border_ramp_NOR="46" />
+        <subsprite sprite="108" outline="0" border_floor_OR="7" border_floor_NOR="1234568" border_wall_NOR="7" border_open_NOR="68" border_ramp_NOR="68" />
+        <subsprite sprite="109" outline="0" border_wall_NOR="2468" />
+        <subsprite sprite="109" outline="0" border_floor_NOR="2468" border_open_NOR="135" />
+        <subsprite sprite="109" outline="0" border_floor_NOR="2468" border_open_NOR="357" />
+        <subsprite sprite="109" outline="0" border_floor_NOR="2468" border_open_NOR="157" />
+        <subsprite sprite="109" outline="0" border_floor_NOR="2468" border_open_NOR="137" />
+        <subsprite sprite="109" outline="0" border_floor_NOR="2468" border_open_NOR="26" border_wall_NOR="48" />
+        <subsprite sprite="109" outline="0" border_floor_NOR="2468" border_open_NOR="48" border_wall_NOR="26" />
+        <subsprite sprite="109" outline="0" border_wall_NOR="26" border_open_NOR="26" border_floor_NOR="48" />
+        <subsprite sprite="109" outline="0" border_wall_NOR="48" border_open_NOR="48" border_floor_NOR="26" />
+        <subsprite sprite="109" outline="0" border_wall_NOR="246" border_open_NOR="246" border_floor_NOR="8" />
+        <subsprite sprite="109" outline="0" border_wall_NOR="468" border_open_NOR="468" border_floor_NOR="2" />
+        <subsprite sprite="109" outline="0" border_wall_NOR="268" border_open_NOR="268" border_floor_NOR="4" />
+        <subsprite sprite="109" outline="0" border_wall_NOR="248" border_open_NOR="248" border_floor_NOR="6" />
+        <subsprite sprite="105" outline="0" border_wall_NOR="134567" border_open_NOR="128" border_floor_NOR="28" border_open_OR="4" />
+        <subsprite sprite="105" outline="0" border_wall_NOR="134567" border_open_NOR="128" border_floor_NOR="28" border_open_OR="6" />
+        <subsprite sprite="106" outline="0" border_wall_NOR="135678" border_open_NOR="234" border_floor_NOR="24" border_open_OR="8" />
+        <subsprite sprite="106" outline="0" border_wall_NOR="135678" border_open_NOR="234" border_floor_NOR="24" border_open_OR="6" />
+        <subsprite sprite="107" outline="0" border_wall_NOR="123578" border_open_NOR="456" border_floor_NOR="46" border_open_OR="8" />
+        <subsprite sprite="107" outline="0" border_wall_NOR="123578" border_open_NOR="456" border_floor_NOR="46" border_open_OR="2" />
+        <subsprite sprite="108" outline="0" border_wall_NOR="123457" border_open_NOR="678" border_floor_NOR="68" border_open_OR="4" />
+        <subsprite sprite="108" outline="0" border_wall_NOR="123457" border_open_NOR="678" border_floor_NOR="68" border_open_OR="2" />
+        <subsprite sprite="105" outline="0" border_floor_NOR="128" border_wall_NOR="146" border_open_NOR="2468" border_ramp_NOR="28" />
+        <subsprite sprite="106" outline="0" border_floor_NOR="234" border_wall_NOR="368" border_open_NOR="2468" border_ramp_NOR="24" />
+        <subsprite sprite="107" outline="0" border_floor_NOR="456" border_wall_NOR="258" border_open_NOR="2468" border_ramp_NOR="46" />
+        <subsprite sprite="108" outline="0" border_floor_NOR="678" border_wall_NOR="247" border_open_NOR="2468" border_ramp_NOR="68" />
+        <subsprite sprite="109" outline="0" border_floor_NOR="2468" border_wall_NOR="2" border_open_NOR="468" />
+        <subsprite sprite="109" outline="0" border_floor_NOR="2468" border_wall_NOR="4" border_open_NOR="268" />
+        <subsprite sprite="109" outline="0" border_floor_NOR="2468" border_wall_NOR="6" border_open_NOR="248" />
+        <subsprite sprite="109" outline="0" border_floor_NOR="2468" border_wall_NOR="8" border_open_NOR="246" />
+        <subsprite sprite="109" outline="0" border_floor_NOR="2468" border_wall_NOR="468" border_ramp_NOR="2468" />
+        <subsprite sprite="109" outline="0" border_floor_NOR="2468" border_wall_NOR="268" border_ramp_NOR="2468" />
+        <subsprite sprite="109" outline="0" border_floor_NOR="2468" border_wall_NOR="248" border_ramp_NOR="2468" />
+        <subsprite sprite="109" outline="0" border_floor_NOR="2468" border_wall_NOR="246" border_ramp_NOR="2468" />
+    </wall>
+    <wall sprite="20" outline="0">
+        <terrain value="494" />
+        <material value="CrystalGlass" />
+        <subsprite sprite="121" outline="0" border_floor_OR="4" border_floor_NOR="268" border_wall_NOR="4" border_open_NOR="246" border_ramp_NOR="26" />
+        <subsprite sprite="122" outline="0" border_floor_OR="6" border_floor_NOR="248" border_wall_NOR="6" border_open_NOR="468" border_ramp_NOR="48" />
+        <subsprite sprite="123" outline="0" border_floor_OR="8" border_floor_NOR="246" border_wall_NOR="8" border_open_NOR="268" border_ramp_NOR="26" />
+        <subsprite sprite="124" outline="0" border_floor_OR="2" border_floor_NOR="468" border_wall_NOR="2" border_open_NOR="248" border_ramp_NOR="48" />
+        <subsprite sprite="125" outline="0" border_floor_OR="1" border_floor_NOR="2345678" border_wall_NOR="1" border_open_NOR="28" border_ramp_NOR="28" />
+        <subsprite sprite="126" outline="0" border_floor_OR="3" border_floor_NOR="1245678" border_wall_NOR="3" border_open_NOR="24" border_ramp_NOR="24" />
+        <subsprite sprite="127" outline="0" border_floor_OR="5" border_floor_NOR="1234678" border_wall_NOR="5" border_open_NOR="46" border_ramp_NOR="46" />
+        <subsprite sprite="128" outline="0" border_floor_OR="7" border_floor_NOR="1234568" border_wall_NOR="7" border_open_NOR="68" border_ramp_NOR="68" />
+        <subsprite sprite="129" outline="0" border_wall_NOR="2468" />
+        <subsprite sprite="129" outline="0" border_floor_NOR="2468" border_open_NOR="135" />
+        <subsprite sprite="129" outline="0" border_floor_NOR="2468" border_open_NOR="357" />
+        <subsprite sprite="129" outline="0" border_floor_NOR="2468" border_open_NOR="157" />
+        <subsprite sprite="129" outline="0" border_floor_NOR="2468" border_open_NOR="137" />
+        <subsprite sprite="129" outline="0" border_floor_NOR="2468" border_open_NOR="26" border_wall_NOR="48" />
+        <subsprite sprite="129" outline="0" border_floor_NOR="2468" border_open_NOR="48" border_wall_NOR="26" />
+        <subsprite sprite="129" outline="0" border_wall_NOR="26" border_open_NOR="26" border_floor_NOR="48" />
+        <subsprite sprite="129" outline="0" border_wall_NOR="48" border_open_NOR="48" border_floor_NOR="26" />
+        <subsprite sprite="129" outline="0" border_wall_NOR="246" border_open_NOR="246" border_floor_NOR="8" />
+        <subsprite sprite="129" outline="0" border_wall_NOR="468" border_open_NOR="468" border_floor_NOR="2" />
+        <subsprite sprite="129" outline="0" border_wall_NOR="268" border_open_NOR="268" border_floor_NOR="4" />
+        <subsprite sprite="129" outline="0" border_wall_NOR="248" border_open_NOR="248" border_floor_NOR="6" />
+        <subsprite sprite="125" outline="0" border_wall_NOR="134567" border_open_NOR="128" border_floor_NOR="28" border_open_OR="4" />
+        <subsprite sprite="125" outline="0" border_wall_NOR="134567" border_open_NOR="128" border_floor_NOR="28" border_open_OR="6" />
+        <subsprite sprite="126" outline="0" border_wall_NOR="135678" border_open_NOR="234" border_floor_NOR="24" border_open_OR="8" />
+        <subsprite sprite="126" outline="0" border_wall_NOR="135678" border_open_NOR="234" border_floor_NOR="24" border_open_OR="6" />
+        <subsprite sprite="127" outline="0" border_wall_NOR="123578" border_open_NOR="456" border_floor_NOR="46" border_open_OR="8" />
+        <subsprite sprite="127" outline="0" border_wall_NOR="123578" border_open_NOR="456" border_floor_NOR="46" border_open_OR="2" />
+        <subsprite sprite="128" outline="0" border_wall_NOR="123457" border_open_NOR="678" border_floor_NOR="68" border_open_OR="4" />
+        <subsprite sprite="128" outline="0" border_wall_NOR="123457" border_open_NOR="678" border_floor_NOR="68" border_open_OR="2" />
+        <subsprite sprite="125" outline="0" border_floor_NOR="128" border_wall_NOR="146" border_open_NOR="2468" border_ramp_NOR="28" />
+        <subsprite sprite="126" outline="0" border_floor_NOR="234" border_wall_NOR="368" border_open_NOR="2468" border_ramp_NOR="24" />
+        <subsprite sprite="127" outline="0" border_floor_NOR="456" border_wall_NOR="258" border_open_NOR="2468" border_ramp_NOR="46" />
+        <subsprite sprite="128" outline="0" border_floor_NOR="678" border_wall_NOR="247" border_open_NOR="2468" border_ramp_NOR="68" />
+        <subsprite sprite="129" outline="0" border_floor_NOR="2468" border_wall_NOR="2" border_open_NOR="468" />
+        <subsprite sprite="129" outline="0" border_floor_NOR="2468" border_wall_NOR="4" border_open_NOR="268" />
+        <subsprite sprite="129" outline="0" border_floor_NOR="2468" border_wall_NOR="6" border_open_NOR="248" />
+        <subsprite sprite="129" outline="0" border_floor_NOR="2468" border_wall_NOR="8" border_open_NOR="246" />
+        <subsprite sprite="129" outline="0" border_floor_NOR="2468" border_wall_NOR="468" border_ramp_NOR="2468" />
+        <subsprite sprite="129" outline="0" border_floor_NOR="2468" border_wall_NOR="268" border_ramp_NOR="2468" />
+        <subsprite sprite="129" outline="0" border_floor_NOR="2468" border_wall_NOR="248" border_ramp_NOR="2468" />
+        <subsprite sprite="129" outline="0" border_floor_NOR="2468" border_wall_NOR="246" border_ramp_NOR="2468" />
+    </wall>
+    <wall sprite="20" outline="0">
+        <terrain value="326" />
+        <subsprite sprite="21" outline="0" border_floor_OR="4" border_floor_NOR="268" border_wall_NOR="4" border_open_NOR="246" border_ramp_NOR="26" />
+        <subsprite sprite="22" outline="0" border_floor_OR="6" border_floor_NOR="248" border_wall_NOR="6" border_open_NOR="468" border_ramp_NOR="48" />
+        <subsprite sprite="23" outline="0" border_floor_OR="8" border_floor_NOR="246" border_wall_NOR="8" border_open_NOR="268" border_ramp_NOR="26" />
+        <subsprite sprite="24" outline="0" border_floor_OR="2" border_floor_NOR="468" border_wall_NOR="2" border_open_NOR="248" border_ramp_NOR="48" />
+        <subsprite sprite="25" outline="0" border_floor_OR="1" border_floor_NOR="2345678" border_wall_NOR="1" border_open_NOR="28" border_ramp_NOR="28" />
+        <subsprite sprite="26" outline="0" border_floor_OR="3" border_floor_NOR="1245678" border_wall_NOR="3" border_open_NOR="24" border_ramp_NOR="24" />
+        <subsprite sprite="27" outline="0" border_floor_OR="5" border_floor_NOR="1234678" border_wall_NOR="5" border_open_NOR="46" border_ramp_NOR="46" />
+        <subsprite sprite="28" outline="0" border_floor_OR="7" border_floor_NOR="1234568" border_wall_NOR="7" border_open_NOR="68" border_ramp_NOR="68" />
+        <subsprite sprite="29" outline="0" border_wall_NOR="2468" />
+        <subsprite sprite="29" outline="0" border_floor_NOR="2468" border_open_NOR="135" />
+        <subsprite sprite="29" outline="0" border_floor_NOR="2468" border_open_NOR="357" />
+        <subsprite sprite="29" outline="0" border_floor_NOR="2468" border_open_NOR="157" />
+        <subsprite sprite="29" outline="0" border_floor_NOR="2468" border_open_NOR="137" />
+        <subsprite sprite="29" outline="0" border_floor_NOR="2468" border_open_NOR="26" border_wall_NOR="48" />
+        <subsprite sprite="29" outline="0" border_floor_NOR="2468" border_open_NOR="48" border_wall_NOR="26" />
+        <subsprite sprite="29" outline="0" border_wall_NOR="26" border_open_NOR="26" border_floor_NOR="48" />
+        <subsprite sprite="29" outline="0" border_wall_NOR="48" border_open_NOR="48" border_floor_NOR="26" />
+        <subsprite sprite="29" outline="0" border_wall_NOR="246" border_open_NOR="246" border_floor_NOR="8" />
+        <subsprite sprite="29" outline="0" border_wall_NOR="468" border_open_NOR="468" border_floor_NOR="2" />
+        <subsprite sprite="29" outline="0" border_wall_NOR="268" border_open_NOR="268" border_floor_NOR="4" />
+        <subsprite sprite="29" outline="0" border_wall_NOR="248" border_open_NOR="248" border_floor_NOR="6" />
+        <subsprite sprite="25" outline="0" border_wall_NOR="134567" border_open_NOR="128" border_floor_NOR="28" border_open_OR="4" />
+        <subsprite sprite="25" outline="0" border_wall_NOR="134567" border_open_NOR="128" border_floor_NOR="28" border_open_OR="6" />
+        <subsprite sprite="26" outline="0" border_wall_NOR="135678" border_open_NOR="234" border_floor_NOR="24" border_open_OR="8" />
+        <subsprite sprite="26" outline="0" border_wall_NOR="135678" border_open_NOR="234" border_floor_NOR="24" border_open_OR="6" />
+        <subsprite sprite="27" outline="0" border_wall_NOR="123578" border_open_NOR="456" border_floor_NOR="46" border_open_OR="8" />
+        <subsprite sprite="27" outline="0" border_wall_NOR="123578" border_open_NOR="456" border_floor_NOR="46" border_open_OR="2" />
+        <subsprite sprite="28" outline="0" border_wall_NOR="123457" border_open_NOR="678" border_floor_NOR="68" border_open_OR="4" />
+        <subsprite sprite="28" outline="0" border_wall_NOR="123457" border_open_NOR="678" border_floor_NOR="68" border_open_OR="2" />
+        <subsprite sprite="30" outline="0" border_floor_NOR="128" border_wall_NOR="146" border_open_NOR="2468" border_ramp_NOR="28" />
+        <subsprite sprite="31" outline="0" border_floor_NOR="234" border_wall_NOR="368" border_open_NOR="2468" border_ramp_NOR="24" />
+        <subsprite sprite="32" outline="0" border_floor_NOR="456" border_wall_NOR="258" border_open_NOR="2468" border_ramp_NOR="46" />
+        <subsprite sprite="33" outline="0" border_floor_NOR="678" border_wall_NOR="247" border_open_NOR="2468" border_ramp_NOR="68" />
+        <subsprite sprite="29" outline="0" border_floor_NOR="2468" border_wall_NOR="2" border_open_NOR="468" />
+        <subsprite sprite="29" outline="0" border_floor_NOR="2468" border_wall_NOR="4" border_open_NOR="268" />
+        <subsprite sprite="29" outline="0" border_floor_NOR="2468" border_wall_NOR="6" border_open_NOR="248" />
+        <subsprite sprite="29" outline="0" border_floor_NOR="2468" border_wall_NOR="8" border_open_NOR="246" />
+        <subsprite sprite="29" outline="0" border_floor_NOR="2468" border_wall_NOR="468" border_ramp_NOR="2468" />
+        <subsprite sprite="29" outline="0" border_floor_NOR="2468" border_wall_NOR="268" border_ramp_NOR="2468" />
+        <subsprite sprite="29" outline="0" border_floor_NOR="2468" border_wall_NOR="248" border_ramp_NOR="2468" />
+        <subsprite sprite="29" outline="0" border_floor_NOR="2468" border_wall_NOR="246" border_ramp_NOR="2468" />
+    </wall>
+    <wall sprite="20" outline="0">
+        <terrain value="494" />
+        <material value="Stone">
+            <subtype value="OBSIDIAN" />
+        </material>
+        <subsprite sprite="21" outline="0" border_floor_OR="4" border_floor_NOR="268" border_wall_NOR="4" border_open_NOR="246" border_ramp_NOR="26" />
+        <subsprite sprite="22" outline="0" border_floor_OR="6" border_floor_NOR="248" border_wall_NOR="6" border_open_NOR="468" border_ramp_NOR="48" />
+        <subsprite sprite="23" outline="0" border_floor_OR="8" border_floor_NOR="246" border_wall_NOR="8" border_open_NOR="268" border_ramp_NOR="26" />
+        <subsprite sprite="24" outline="0" border_floor_OR="2" border_floor_NOR="468" border_wall_NOR="2" border_open_NOR="248" border_ramp_NOR="48" />
+        <subsprite sprite="25" outline="0" border_floor_OR="1" border_floor_NOR="2345678" border_wall_NOR="1" border_open_NOR="28" border_ramp_NOR="28" />
+        <subsprite sprite="26" outline="0" border_floor_OR="3" border_floor_NOR="1245678" border_wall_NOR="3" border_open_NOR="24" border_ramp_NOR="24" />
+        <subsprite sprite="27" outline="0" border_floor_OR="5" border_floor_NOR="1234678" border_wall_NOR="5" border_open_NOR="46" border_ramp_NOR="46" />
+        <subsprite sprite="28" outline="0" border_floor_OR="7" border_floor_NOR="1234568" border_wall_NOR="7" border_open_NOR="68" border_ramp_NOR="68" />
+        <subsprite sprite="29" outline="0" border_wall_NOR="2468" />
+        <subsprite sprite="29" outline="0" border_floor_NOR="2468" border_open_NOR="135" />
+        <subsprite sprite="29" outline="0" border_floor_NOR="2468" border_open_NOR="357" />
+        <subsprite sprite="29" outline="0" border_floor_NOR="2468" border_open_NOR="157" />
+        <subsprite sprite="29" outline="0" border_floor_NOR="2468" border_open_NOR="137" />
+        <subsprite sprite="29" outline="0" border_floor_NOR="2468" border_open_NOR="26" border_wall_NOR="48" />
+        <subsprite sprite="29" outline="0" border_floor_NOR="2468" border_open_NOR="48" border_wall_NOR="26" />
+        <subsprite sprite="29" outline="0" border_wall_NOR="26" border_open_NOR="26" border_floor_NOR="48" />
+        <subsprite sprite="29" outline="0" border_wall_NOR="48" border_open_NOR="48" border_floor_NOR="26" />
+        <subsprite sprite="29" outline="0" border_wall_NOR="246" border_open_NOR="246" border_floor_NOR="8" />
+        <subsprite sprite="29" outline="0" border_wall_NOR="468" border_open_NOR="468" border_floor_NOR="2" />
+        <subsprite sprite="29" outline="0" border_wall_NOR="268" border_open_NOR="268" border_floor_NOR="4" />
+        <subsprite sprite="29" outline="0" border_wall_NOR="248" border_open_NOR="248" border_floor_NOR="6" />
+        <subsprite sprite="25" outline="0" border_wall_NOR="134567" border_open_NOR="128" border_floor_NOR="28" border_open_OR="4" />
+        <subsprite sprite="25" outline="0" border_wall_NOR="134567" border_open_NOR="128" border_floor_NOR="28" border_open_OR="6" />
+        <subsprite sprite="26" outline="0" border_wall_NOR="135678" border_open_NOR="234" border_floor_NOR="24" border_open_OR="8" />
+        <subsprite sprite="26" outline="0" border_wall_NOR="135678" border_open_NOR="234" border_floor_NOR="24" border_open_OR="6" />
+        <subsprite sprite="27" outline="0" border_wall_NOR="123578" border_open_NOR="456" border_floor_NOR="46" border_open_OR="8" />
+        <subsprite sprite="27" outline="0" border_wall_NOR="123578" border_open_NOR="456" border_floor_NOR="46" border_open_OR="2" />
+        <subsprite sprite="28" outline="0" border_wall_NOR="123457" border_open_NOR="678" border_floor_NOR="68" border_open_OR="4" />
+        <subsprite sprite="28" outline="0" border_wall_NOR="123457" border_open_NOR="678" border_floor_NOR="68" border_open_OR="2" />
+        <subsprite sprite="30" outline="0" border_floor_NOR="128" border_wall_NOR="146" border_open_NOR="2468" border_ramp_NOR="28" />
+        <subsprite sprite="31" outline="0" border_floor_NOR="234" border_wall_NOR="368" border_open_NOR="2468" border_ramp_NOR="24" />
+        <subsprite sprite="32" outline="0" border_floor_NOR="456" border_wall_NOR="258" border_open_NOR="2468" border_ramp_NOR="46" />
+        <subsprite sprite="33" outline="0" border_floor_NOR="678" border_wall_NOR="247" border_open_NOR="2468" border_ramp_NOR="68" />
+        <subsprite sprite="29" outline="0" border_floor_NOR="2468" border_wall_NOR="2" border_open_NOR="468" />
+        <subsprite sprite="29" outline="0" border_floor_NOR="2468" border_wall_NOR="4" border_open_NOR="268" />
+        <subsprite sprite="29" outline="0" border_floor_NOR="2468" border_wall_NOR="6" border_open_NOR="248" />
+        <subsprite sprite="29" outline="0" border_floor_NOR="2468" border_wall_NOR="8" border_open_NOR="246" />
+        <subsprite sprite="29" outline="0" border_floor_NOR="2468" border_wall_NOR="468" border_ramp_NOR="2468" />
+        <subsprite sprite="29" outline="0" border_floor_NOR="2468" border_wall_NOR="268" border_ramp_NOR="2468" />
+        <subsprite sprite="29" outline="0" border_floor_NOR="2468" border_wall_NOR="248" border_ramp_NOR="2468" />
+        <subsprite sprite="29" outline="0" border_floor_NOR="2468" border_wall_NOR="246" border_ramp_NOR="2468" />
+    </wall>
+    <wall sprite="20" outline="0">
+        <terrain value="494" />
+        <material value="Ice" />
+        <subsprite sprite="41" outline="0" border_floor_OR="4" border_floor_NOR="268" border_wall_NOR="4" border_open_NOR="246" border_ramp_NOR="26" />
+        <subsprite sprite="42" outline="0" border_floor_OR="6" border_floor_NOR="248" border_wall_NOR="6" border_open_NOR="468" border_ramp_NOR="48" />
+        <subsprite sprite="43" outline="0" border_floor_OR="8" border_floor_NOR="246" border_wall_NOR="8" border_open_NOR="268" border_ramp_NOR="26" />
+        <subsprite sprite="44" outline="0" border_floor_OR="2" border_floor_NOR="468" border_wall_NOR="2" border_open_NOR="248" border_ramp_NOR="48" />
+        <subsprite sprite="45" outline="0" border_floor_OR="1" border_floor_NOR="2345678" border_wall_NOR="1" border_open_NOR="28" border_ramp_NOR="28" />
+        <subsprite sprite="46" outline="0" border_floor_OR="3" border_floor_NOR="1245678" border_wall_NOR="3" border_open_NOR="24" border_ramp_NOR="24" />
+        <subsprite sprite="47" outline="0" border_floor_OR="5" border_floor_NOR="1234678" border_wall_NOR="5" border_open_NOR="46" border_ramp_NOR="46" />
+        <subsprite sprite="48" outline="0" border_floor_OR="7" border_floor_NOR="1234568" border_wall_NOR="7" border_open_NOR="68" border_ramp_NOR="68" />
+        <subsprite sprite="49" outline="0" border_wall_NOR="2468" />
+        <subsprite sprite="49" outline="0" border_floor_NOR="2468" border_open_NOR="135" />
+        <subsprite sprite="49" outline="0" border_floor_NOR="2468" border_open_NOR="357" />
+        <subsprite sprite="49" outline="0" border_floor_NOR="2468" border_open_NOR="157" />
+        <subsprite sprite="49" outline="0" border_floor_NOR="2468" border_open_NOR="137" />
+        <subsprite sprite="49" outline="0" border_floor_NOR="2468" border_open_NOR="26" border_wall_NOR="48" />
+        <subsprite sprite="49" outline="0" border_floor_NOR="2468" border_open_NOR="48" border_wall_NOR="26" />
+        <subsprite sprite="49" outline="0" border_wall_NOR="26" border_open_NOR="26" border_floor_NOR="48" />
+        <subsprite sprite="49" outline="0" border_wall_NOR="48" border_open_NOR="48" border_floor_NOR="26" />
+        <subsprite sprite="49" outline="0" border_wall_NOR="246" border_open_NOR="246" border_floor_NOR="8" />
+        <subsprite sprite="49" outline="0" border_wall_NOR="468" border_open_NOR="468" border_floor_NOR="2" />
+        <subsprite sprite="49" outline="0" border_wall_NOR="268" border_open_NOR="268" border_floor_NOR="4" />
+        <subsprite sprite="49" outline="0" border_wall_NOR="248" border_open_NOR="248" border_floor_NOR="6" />
+        <subsprite sprite="45" outline="0" border_wall_NOR="134567" border_open_NOR="128" border_floor_NOR="28" border_open_OR="4" />
+        <subsprite sprite="45" outline="0" border_wall_NOR="134567" border_open_NOR="128" border_floor_NOR="28" border_open_OR="6" />
+        <subsprite sprite="46" outline="0" border_wall_NOR="135678" border_open_NOR="234" border_floor_NOR="24" border_open_OR="8" />
+        <subsprite sprite="46" outline="0" border_wall_NOR="135678" border_open_NOR="234" border_floor_NOR="24" border_open_OR="6" />
+        <subsprite sprite="47" outline="0" border_wall_NOR="123578" border_open_NOR="456" border_floor_NOR="46" border_open_OR="8" />
+        <subsprite sprite="47" outline="0" border_wall_NOR="123578" border_open_NOR="456" border_floor_NOR="46" border_open_OR="2" />
+        <subsprite sprite="48" outline="0" border_wall_NOR="123457" border_open_NOR="678" border_floor_NOR="68" border_open_OR="4" />
+        <subsprite sprite="48" outline="0" border_wall_NOR="123457" border_open_NOR="678" border_floor_NOR="68" border_open_OR="2" />
+        <subsprite sprite="45" outline="0" border_floor_NOR="128" border_wall_NOR="146" border_open_NOR="2468" border_ramp_NOR="28" />
+        <subsprite sprite="46" outline="0" border_floor_NOR="234" border_wall_NOR="368" border_open_NOR="2468" border_ramp_NOR="24" />
+        <subsprite sprite="47" outline="0" border_floor_NOR="456" border_wall_NOR="258" border_open_NOR="2468" border_ramp_NOR="46" />
+        <subsprite sprite="48" outline="0" border_floor_NOR="678" border_wall_NOR="247" border_open_NOR="2468" border_ramp_NOR="68" />
+        <subsprite sprite="49" outline="0" border_floor_NOR="2468" border_wall_NOR="2" border_open_NOR="468" />
+        <subsprite sprite="49" outline="0" border_floor_NOR="2468" border_wall_NOR="4" border_open_NOR="268" />
+        <subsprite sprite="49" outline="0" border_floor_NOR="2468" border_wall_NOR="6" border_open_NOR="248" />
+        <subsprite sprite="49" outline="0" border_floor_NOR="2468" border_wall_NOR="8" border_open_NOR="246" />
+        <subsprite sprite="49" outline="0" border_floor_NOR="2468" border_wall_NOR="468" border_ramp_NOR="2468" />
+        <subsprite sprite="49" outline="0" border_floor_NOR="2468" border_wall_NOR="268" border_ramp_NOR="2468" />
+        <subsprite sprite="49" outline="0" border_floor_NOR="2468" border_wall_NOR="248" border_ramp_NOR="2468" />
+        <subsprite sprite="49" outline="0" border_floor_NOR="2468" border_wall_NOR="246" border_ramp_NOR="2468" />
+    </wall>
+    <wall sprite="0" outline="0">
+        <terrain value="494" />
+        <form value="block" />
+        <material value="Inorganic" />
+        <subsprite sprite="1" color="material" outline="0" border_floor_OR="4" border_floor_NOR="268" border_wall_NOR="4" border_open_NOR="246" border_ramp_NOR="26" />
+        <subsprite sprite="2" color="material" outline="0" border_floor_OR="6" border_floor_NOR="248" border_wall_NOR="6" border_open_NOR="468" border_ramp_NOR="48" />
+        <subsprite sprite="3" color="material" outline="0" border_floor_OR="8" border_floor_NOR="246" border_wall_NOR="8" border_open_NOR="268" border_ramp_NOR="26" />
+        <subsprite sprite="4" color="material" outline="0" border_floor_OR="2" border_floor_NOR="468" border_wall_NOR="2" border_open_NOR="248" border_ramp_NOR="48" />
+        <subsprite sprite="5" color="material" outline="0" border_floor_OR="1" border_floor_NOR="2345678" border_wall_NOR="1" border_open_NOR="28" border_ramp_NOR="28" />
+        <subsprite sprite="6" color="material" outline="0" border_floor_OR="3" border_floor_NOR="1245678" border_wall_NOR="3" border_open_NOR="24" border_ramp_NOR="24" />
+        <subsprite sprite="7" color="material" outline="0" border_floor_OR="5" border_floor_NOR="1234678" border_wall_NOR="5" border_open_NOR="46" border_ramp_NOR="46" />
+        <subsprite sprite="8" color="material" outline="0" border_floor_OR="7" border_floor_NOR="1234568" border_wall_NOR="7" border_open_NOR="68" border_ramp_NOR="68" />
+        <subsprite sprite="9" color="material" outline="0" border_wall_NOR="2468" />
+        <subsprite sprite="9" color="material" outline="0" border_floor_NOR="2468" border_open_NOR="135" />
+        <subsprite sprite="9" color="material" outline="0" border_floor_NOR="2468" border_open_NOR="357" />
+        <subsprite sprite="9" color="material" outline="0" border_floor_NOR="2468" border_open_NOR="157" />
+        <subsprite sprite="9" color="material" outline="0" border_floor_NOR="2468" border_open_NOR="137" />
+        <subsprite sprite="9" color="material" outline="0" border_floor_NOR="2468" border_open_NOR="26" border_wall_NOR="48" />
+        <subsprite sprite="9" color="material" outline="0" border_floor_NOR="2468" border_open_NOR="48" border_wall_NOR="26" />
+        <subsprite sprite="9" color="material" outline="0" border_wall_NOR="26" border_open_NOR="26" border_floor_NOR="48" />
+        <subsprite sprite="9" color="material" outline="0" border_wall_NOR="48" border_open_NOR="48" border_floor_NOR="26" />
+        <subsprite sprite="9" color="material" outline="0" border_wall_NOR="246" border_open_NOR="246" border_floor_NOR="8" />
+        <subsprite sprite="9" color="material" outline="0" border_wall_NOR="468" border_open_NOR="468" border_floor_NOR="2" />
+        <subsprite sprite="9" color="material" outline="0" border_wall_NOR="268" border_open_NOR="268" border_floor_NOR="4" />
+        <subsprite sprite="9" color="material" outline="0" border_wall_NOR="248" border_open_NOR="248" border_floor_NOR="6" />
+        <subsprite sprite="5" color="material" outline="0" border_wall_NOR="134567" border_open_NOR="128" border_floor_NOR="28" border_open_OR="4" />
+        <subsprite sprite="5" color="material" outline="0" border_wall_NOR="134567" border_open_NOR="128" border_floor_NOR="28" border_open_OR="6" />
+        <subsprite sprite="6" color="material" outline="0" border_wall_NOR="135678" border_open_NOR="234" border_floor_NOR="24" border_open_OR="8" />
+        <subsprite sprite="6" color="material" outline="0" border_wall_NOR="135678" border_open_NOR="234" border_floor_NOR="24" border_open_OR="6" />
+        <subsprite sprite="7" color="material" outline="0" border_wall_NOR="123578" border_open_NOR="456" border_floor_NOR="46" border_open_OR="8" />
+        <subsprite sprite="7" color="material" outline="0" border_wall_NOR="123578" border_open_NOR="456" border_floor_NOR="46" border_open_OR="2" />
+        <subsprite sprite="8" color="material" outline="0" border_wall_NOR="123457" border_open_NOR="678" border_floor_NOR="68" border_open_OR="4" />
+        <subsprite sprite="8" color="material" outline="0" border_wall_NOR="123457" border_open_NOR="678" border_floor_NOR="68" border_open_OR="2" />
+        <subsprite sprite="5" color="material" outline="0" border_floor_NOR="128" border_wall_NOR="146" border_open_NOR="2468" border_ramp_NOR="28" />
+        <subsprite sprite="6" color="material" outline="0" border_floor_NOR="234" border_wall_NOR="368" border_open_NOR="2468" border_ramp_NOR="24" />
+        <subsprite sprite="7" color="material" outline="0" border_floor_NOR="456" border_wall_NOR="258" border_open_NOR="2468" border_ramp_NOR="46" />
+        <subsprite sprite="8" color="material" outline="0" border_floor_NOR="678" border_wall_NOR="247" border_open_NOR="2468" border_ramp_NOR="68" />
+        <subsprite sprite="9" color="material" outline="0" border_floor_NOR="2468" border_wall_NOR="2" border_open_NOR="468" />
+        <subsprite sprite="9" color="material" outline="0" border_floor_NOR="2468" border_wall_NOR="4" border_open_NOR="268" />
+        <subsprite sprite="9" color="material" outline="0" border_floor_NOR="2468" border_wall_NOR="6" border_open_NOR="248" />
+        <subsprite sprite="9" color="material" outline="0" border_floor_NOR="2468" border_wall_NOR="8" border_open_NOR="246" />
+        <subsprite sprite="9" color="material" outline="0" border_floor_NOR="2468" border_wall_NOR="468" border_ramp_NOR="2468" />
+        <subsprite sprite="9" color="material" outline="0" border_floor_NOR="2468" border_wall_NOR="268" border_ramp_NOR="2468" />
+        <subsprite sprite="9" color="material" outline="0" border_floor_NOR="2468" border_wall_NOR="248" border_ramp_NOR="2468" />
+        <subsprite sprite="9" color="material" outline="0" border_floor_NOR="2468" border_wall_NOR="246" border_ramp_NOR="2468" />
+    </wall>
+    <wall sprite="0" outline="0">
+        <terrain value="494" />
+        <form value="boulder" />
+        <material value="Inorganic" />
+        <subsprite sprite="61" color="material" outline="0" border_floor_OR="4" border_floor_NOR="268" border_wall_NOR="4" border_open_NOR="246" border_ramp_NOR="26" />
+        <subsprite sprite="62" color="material" outline="0" border_floor_OR="6" border_floor_NOR="248" border_wall_NOR="6" border_open_NOR="468" border_ramp_NOR="48" />
+        <subsprite sprite="63" color="material" outline="0" border_floor_OR="8" border_floor_NOR="246" border_wall_NOR="8" border_open_NOR="268" border_ramp_NOR="26" />
+        <subsprite sprite="64" color="material" outline="0" border_floor_OR="2" border_floor_NOR="468" border_wall_NOR="2" border_open_NOR="248" border_ramp_NOR="48" />
+        <subsprite sprite="65" color="material" outline="0" border_floor_OR="1" border_floor_NOR="2345678" border_wall_NOR="1" border_open_NOR="28" border_ramp_NOR="28" />
+        <subsprite sprite="66" color="material" outline="0" border_floor_OR="3" border_floor_NOR="1245678" border_wall_NOR="3" border_open_NOR="24" border_ramp_NOR="24" />
+        <subsprite sprite="67" color="material" outline="0" border_floor_OR="5" border_floor_NOR="1234678" border_wall_NOR="5" border_open_NOR="46" border_ramp_NOR="46" />
+        <subsprite sprite="68" color="material" outline="0" border_floor_OR="7" border_floor_NOR="1234568" border_wall_NOR="7" border_open_NOR="68" border_ramp_NOR="68" />
+        <subsprite sprite="69" color="material" outline="0" border_wall_NOR="2468" />
+        <subsprite sprite="69" color="material" outline="0" border_floor_NOR="2468" border_open_NOR="135" />
+        <subsprite sprite="69" color="material" outline="0" border_floor_NOR="2468" border_open_NOR="357" />
+        <subsprite sprite="69" color="material" outline="0" border_floor_NOR="2468" border_open_NOR="157" />
+        <subsprite sprite="69" color="material" outline="0" border_floor_NOR="2468" border_open_NOR="137" />
+        <subsprite sprite="69" color="material" outline="0" border_floor_NOR="2468" border_open_NOR="26" border_wall_NOR="48" />
+        <subsprite sprite="69" color="material" outline="0" border_floor_NOR="2468" border_open_NOR="48" border_wall_NOR="26" />
+        <subsprite sprite="69" color="material" outline="0" border_wall_NOR="26" border_open_NOR="26" border_floor_NOR="48" />
+        <subsprite sprite="69" color="material" outline="0" border_wall_NOR="48" border_open_NOR="48" border_floor_NOR="26" />
+        <subsprite sprite="69" color="material" outline="0" border_wall_NOR="246" border_open_NOR="246" border_floor_NOR="8" />
+        <subsprite sprite="69" color="material" outline="0" border_wall_NOR="468" border_open_NOR="468" border_floor_NOR="2" />
+        <subsprite sprite="69" color="material" outline="0" border_wall_NOR="268" border_open_NOR="268" border_floor_NOR="4" />
+        <subsprite sprite="69" color="material" outline="0" border_wall_NOR="248" border_open_NOR="248" border_floor_NOR="6" />
+        <subsprite sprite="65" color="material" outline="0" border_wall_NOR="134567" border_open_NOR="128" border_floor_NOR="28" border_open_OR="4" />
+        <subsprite sprite="65" color="material" outline="0" border_wall_NOR="134567" border_open_NOR="128" border_floor_NOR="28" border_open_OR="6" />
+        <subsprite sprite="66" color="material" outline="0" border_wall_NOR="135678" border_open_NOR="234" border_floor_NOR="24" border_open_OR="8" />
+        <subsprite sprite="66" color="material" outline="0" border_wall_NOR="135678" border_open_NOR="234" border_floor_NOR="24" border_open_OR="6" />
+        <subsprite sprite="67" color="material" outline="0" border_wall_NOR="123578" border_open_NOR="456" border_floor_NOR="46" border_open_OR="8" />
+        <subsprite sprite="67" color="material" outline="0" border_wall_NOR="123578" border_open_NOR="456" border_floor_NOR="46" border_open_OR="2" />
+        <subsprite sprite="68" color="material" outline="0" border_wall_NOR="123457" border_open_NOR="678" border_floor_NOR="68" border_open_OR="4" />
+        <subsprite sprite="68" color="material" outline="0" border_wall_NOR="123457" border_open_NOR="678" border_floor_NOR="68" border_open_OR="2" />
+        <subsprite sprite="65" color="material" outline="0" border_floor_NOR="128" border_wall_NOR="146" border_open_NOR="2468" border_ramp_NOR="28" />
+        <subsprite sprite="66" color="material" outline="0" border_floor_NOR="234" border_wall_NOR="368" border_open_NOR="2468" border_ramp_NOR="24" />
+        <subsprite sprite="67" color="material" outline="0" border_floor_NOR="456" border_wall_NOR="258" border_open_NOR="2468" border_ramp_NOR="46" />
+        <subsprite sprite="68" color="material" outline="0" border_floor_NOR="678" border_wall_NOR="247" border_open_NOR="2468" border_ramp_NOR="68" />
+        <subsprite sprite="69" color="material" outline="0" border_floor_NOR="2468" border_wall_NOR="2" border_open_NOR="468" />
+        <subsprite sprite="69" color="material" outline="0" border_floor_NOR="2468" border_wall_NOR="4" border_open_NOR="268" />
+        <subsprite sprite="69" color="material" outline="0" border_floor_NOR="2468" border_wall_NOR="6" border_open_NOR="248" />
+        <subsprite sprite="69" color="material" outline="0" border_floor_NOR="2468" border_wall_NOR="8" border_open_NOR="246" />
+        <subsprite sprite="69" color="material" outline="0" border_floor_NOR="2468" border_wall_NOR="468" border_ramp_NOR="2468" />
+        <subsprite sprite="69" color="material" outline="0" border_floor_NOR="2468" border_wall_NOR="268" border_ramp_NOR="2468" />
+        <subsprite sprite="69" color="material" outline="0" border_floor_NOR="2468" border_wall_NOR="248" border_ramp_NOR="2468" />
+        <subsprite sprite="69" color="material" outline="0" border_floor_NOR="2468" border_wall_NOR="246" border_ramp_NOR="2468" />
+    </wall>
+    <wall sheetIndex="39">
+        <terrain value="36" />
+        <terrain value="38" />
+    </wall>
+    <wall sheetIndex="39">
+        <terrain value="515" />
+        <terrain value="517" />
+        <material value="Stone">
+            <subtype value="OBSIDIAN" />
+        </material>
+    </wall>
+    <wall sheetIndex="19" color="material">
+        <terrain value="515" />
+        <terrain value="517" />
+    </wall>
+    <wall sheetIndex="59">
+        <terrain value="515" />
+        <terrain value="517" />
+        <material value="Ice" />
+    </wall>
+    <wall sheetIndex="99">
+        <terrain value="515" />
+        <terrain value="517" />
+        <material value="GreenGlass" />
+    </wall>
+    <wall sheetIndex="119">
+        <terrain value="515" />
+        <terrain value="517" />
+        <material value="ClearGlass" />
+    </wall>
+    <wall sheetIndex="139">
+        <terrain value="515" />
+        <terrain value="517" />
+        <material value="CrystalGlass" />
+    </wall>
 </walls>

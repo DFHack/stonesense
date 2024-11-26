@@ -1,284 +1,238 @@
 <?xml version="1.0"?>
 <floors file="floors.png">
-  <!-- construct (wood planks) -->
-  <floor sheetIndex="10" color="material">
-    <!-- floor -->
-    <terrain token="ConstructedFloor" />
-    <!-- stair -->
-    <terrain token="ConstructedStairU" />
-    <!-- ramp -->
-    <terrain token="ConstructedRamp" />
-    <material value="Wood" />
-	<subsprite 
-		sheetIndex="18"
-		mud_min="10"
-		/>
-  </floor>
-  <!-- construct (wood logs) -->
-  <floor sheetIndex="22" color="material">
-    <!-- fort -->
-    <terrain token="ConstructedFortification" />
-    <!-- pillar -->
-    <terrain shape="WALL" special="CONSTRUCTION"/>
-    <material value="Wood" />
-	<subsprite 
-		sheetIndex="18"
-		mud_min="10"
-		/>
-  </floor>
-  <!-- construct -->
-  <floor sheetIndex="36">
-    <!-- floor -->
-    <terrain token="ConstructedFloor" />
-    <!-- stair -->
-    <terrain token="ConstructedStairU" />
-    <!-- ramp -->
-    <terrain token="ConstructedRamp" />
-    <!-- fort -->
-    <terrain token="ConstructedFortification" />
-    <!-- pillar -->
-    <terrain shape="WALL" special="CONSTRUCTION"/>
-    <material value="GreenGlass" />
- 	<subsprite 
-		sheetIndex="18"
-		mud_min="10"
-		/>
- </floor>
-  <!-- construct -->
-  <floor sheetIndex="35">
-    <!-- floor -->
-    <terrain token="ConstructedFloor" />
-    <!-- stair -->
-    <terrain token="ConstructedStairU" />
-    <!-- ramp -->
-    <terrain token="ConstructedRamp" />
-    <!-- fort -->
-    <terrain token="ConstructedFortification" />
-    <!-- pillar -->
-    <terrain shape="WALL" special="CONSTRUCTION"/>
-    <material value="ClearGlass" />
-    <material value="CrystalGlass" />
-	<subsprite 
-		sheetIndex="18"
-		mud_min="10"
-		/>
-  </floor>
-  <floor sheetIndex="56">
-    <!-- floor -->
-    <terrain token="ConstructedFloor" />
-    <!-- stair -->
-    <terrain token="ConstructedStairU" />
-    <!-- ramp -->
-    <terrain token="ConstructedRamp" />
-    <!-- fort -->
-    <terrain token="ConstructedFortification" />
-    <!-- pillar -->
-    <terrain shape="WALL" special="CONSTRUCTION"/>
-    <material value="Stone">
-      <subtype value="RUTILE" />
-    </material>
-	<subsprite 
-		sheetIndex="18"
-		mud_min="10"
-		/>
-  </floor>
-  <!-- construct -->
-  <floor sheetIndex="38" color = "material">
-    <!-- floor -->
-    <terrain token="ConstructedFloor" />
-    <!-- stair -->
-    <terrain token="ConstructedStairU" />
-    <!-- ramp -->
-    <terrain token="ConstructedRamp" />
-    <!-- fort -->
-    <terrain token="ConstructedFortification" />
-    <!-- pillar -->
-    <terrain shape="WALL" special="CONSTRUCTION"/>
-    <material value="Metal">
-      <subtype value="IRON" />
-      <subtype value="GOLD" />
-      <subtype value="SILVER" />
-      <subtype value="COPPER" />
-      <subtype value="NICKEL" />
-      <subtype value="ZINC" />
-      <subtype value="BRONZE" />
-      <subtype value="BRASS" />
-      <subtype value="STEEL" />
-      <subtype value="PIG_IRON" />
-      <subtype value="PLATINUM" />
-      <subtype value="ELECTRUM" />
-      <subtype value="TIN" />
-      <subtype value="PEWTER_FINE" />
-      <subtype value="PEWTER_TRIFLE" />
-      <subtype value="PEWTER_LAY" />
-      <subtype value="LEAD" />
-      <subtype value="ALUMINUM" />
-      <subtype value="NICKEL_SILVER" />
-      <subtype value="BILLON" />
-      <subtype value="STERLING_SILVER" />
-      <subtype value="BLACK_BRONZE" />
-      <subtype value="ROSE_GOLD" />
-      <subtype value="BISMUTH" />
-      <subtype value="BISMUTH_BRONZE" />
-      <subtype value="ADAMANTINE" />
-    </material>
-	<subsprite 
-		sheetIndex="18"
-		mud_min="10"
-		/>
-  </floor>
-
-  <floor sheetIndex="23" color="material">
-    <!-- Soil floors -->
-    <terrain token="SoilFloor2" />
-    <!-- Wet Soil floors -->
-    <terrain token="SoilWetFloor2" />
-    <material value="Stone">
-      <subtype value="CLAY" />
-      <subtype value="SILTY_CLAY" />
-      <subtype value="CLAY_LOAM" />
-      <subtype value="PELAGIC_CLAY" />
-      <subtype value="SANDY_CLAY" />
-    </material>
-	<subsprite 
-		sheetIndex="18"
-		mud_min="10"
-		/>
-  </floor>
-  <floor sheetIndex="24" color="material">
-    <!-- Soil floors -->
-    <terrain token="SoilFloor4" />
-    <!-- Wet Soil floors -->
-    <terrain token="SoilWetFloor4" />
-    <material value="Stone">
-      <subtype value="CLAY" />
-      <subtype value="SILTY_CLAY" />
-      <subtype value="CLAY_LOAM" />
-      <subtype value="PELAGIC_CLAY" />
-      <subtype value="SANDY_CLAY" />
-    </material>
-	<subsprite 
-		sheetIndex="18"
-		mud_min="10"
-		/>
-  </floor>
-  <floor sheetIndex="25" color="material">
-    <!-- Soil floors -->
-    <terrain token="SoilFloor3" />
-    <!-- Wet Soil floors -->
-    <terrain token="SoilWetFloor3" />
-    <material value="Stone">
-      <subtype value="CLAY" />
-      <subtype value="SILTY_CLAY" />
-      <subtype value="CLAY_LOAM" />
-      <subtype value="PELAGIC_CLAY" />
-      <subtype value="SANDY_CLAY" />
-    </material>
-	<subsprite 
-		sheetIndex="18"
-		mud_min="10"
-		/>
-  </floor>
-  <floor sheetIndex="26" color="material">
-    <!-- Soil floors -->
-    <terrain token="SoilFloor1" />
-    <!-- Wet Soil floors -->
-    <terrain token="SoilWetFloor1" />
-    <material value="Stone">
-      <subtype value="CLAY" />
-      <subtype value="SILTY_CLAY" />
-      <subtype value="CLAY_LOAM" />
-      <subtype value="PELAGIC_CLAY" />
-      <subtype value="SANDY_CLAY" />
-    </material>
-	<subsprite 
-		sheetIndex="18"
-		mud_min="10"
-		/>
-  </floor>
-  <floor sheetIndex="4" color = "material">
-    <!-- Dry grass -->
-    <terrain shape="FLOOR" material = "GRASS_DEAD"/>
-    <terrain shape="FLOOR" material = "GRASS_DRY"/>
-    <!-- Dead Tree -->
-    <terrain token="TreeDead" />
-    <!-- Dead sapling -->
-    <terrain token="SaplingDead" />
-    <!-- Dead shrub -->
-    <terrain token="ShrubDead" />
-	<subsprite 
-		sheetIndex="18"
-		mud_min="10"
-		/>
-  </floor>
-  <floor sheetIndex="13" color = "material">
-    <terrain shape="FLOOR" material = "SOIL"/>
-    <material value="Stone">
-      <subtype value="SAND_TAN" />
-      <subtype value="SAND_YELLOW" />
-      <subtype value="SAND_RED" />
-      <subtype value="SILT" />
-      <subtype value="SAND_BLACK" />
-      <subtype value="SAND_WHITE" />
-    </material>
-	<subsprite 
-		sheetIndex="18"
-		mud_min="10"
-		/>
-  </floor>
-  <floor sheetIndex="4" color="material">
-    <terrain shape="FLOOR" material = "GRASS_DARK"/>
-    <terrain shape="FLOOR" material = "GRASS_LIGHT"/>
-    <!-- plants -->
-    <terrain token="Sapling" />
-    <terrain token="Shrub" />
-    <terrain token="Tree" />
-    <material value="Stone">
-      <subtype value="CLAY" />
-      <subtype value="SILTY_CLAY" />
-      <subtype value="CLAY_LOAM" />
-    </material>
-	<subsprite 
-		sheetIndex="18"
-		mud_min="10"
-		/>
-  </floor>
-  <floor sheetIndex="4" color="material">
-    <!-- Dry grass -->
-    <terrain shape="FLOOR" material = "GRASS_DEAD"/>
-    <terrain shape="FLOOR" material = "GRASS_DRY"/>
-    <!-- Dead Tree -->
-    <terrain token="TreeDead" />
-    <!-- Dead sapling -->
-    <terrain token="SaplingDead" />
-    <!-- Dead shrub -->
-    <terrain token="ShrubDead" />
-    <material value="Stone">
-      <subtype value="CLAY" />
-      <subtype value="SILTY_CLAY" />
-      <subtype value="CLAY_LOAM" />
-    </material>
-    <subsprite
-		sheetIndex="18"
-		mud_min="10"
-		/>
-  </floor>
-  <!-- constructions: ICE -->
-  <floor sheetIndex="54">
-    <material value="Ice" />
-    <!-- floor -->
-    <terrain token="ConstructedFloor" />
-    <!-- stair -->
-    <terrain token="ConstructedStairU" />
-    <!-- ramp -->
-    <terrain token="ConstructedRamp" />
-    <!-- fort -->
-    <terrain token="ConstructedFortification" />
-    <!-- pillar -->
-    <terrain shape="WALL" material="CONSTRUCTION"/>
-    <subsprite
-		sheetIndex="18"
-		mud_min="10"
-		/>
-  </floor>
+    <!-- construct (wood planks) -->
+    <floor sheetIndex="10" color="material">
+        <!-- floor -->
+        <terrain token="ConstructedFloor" />
+        <!-- stair -->
+        <terrain token="ConstructedStairU" />
+        <!-- ramp -->
+        <terrain token="ConstructedRamp" />
+        <material value="Wood" />
+        <subsprite sheetIndex="18" mud_min="10" />
+    </floor>
+    <!-- construct (wood logs) -->
+    <floor sheetIndex="22" color="material">
+        <!-- fort -->
+        <terrain token="ConstructedFortification" />
+        <!-- pillar -->
+        <terrain shape="WALL" special="CONSTRUCTION" />
+        <material value="Wood" />
+        <subsprite sheetIndex="18" mud_min="10" />
+    </floor>
+    <!-- construct -->
+    <floor sheetIndex="36">
+        <!-- floor -->
+        <terrain token="ConstructedFloor" />
+        <!-- stair -->
+        <terrain token="ConstructedStairU" />
+        <!-- ramp -->
+        <terrain token="ConstructedRamp" />
+        <!-- fort -->
+        <terrain token="ConstructedFortification" />
+        <!-- pillar -->
+        <terrain shape="WALL" special="CONSTRUCTION" />
+        <material value="GreenGlass" />
+        <subsprite sheetIndex="18" mud_min="10" />
+    </floor>
+    <!-- construct -->
+    <floor sheetIndex="35">
+        <!-- floor -->
+        <terrain token="ConstructedFloor" />
+        <!-- stair -->
+        <terrain token="ConstructedStairU" />
+        <!-- ramp -->
+        <terrain token="ConstructedRamp" />
+        <!-- fort -->
+        <terrain token="ConstructedFortification" />
+        <!-- pillar -->
+        <terrain shape="WALL" special="CONSTRUCTION" />
+        <material value="ClearGlass" />
+        <material value="CrystalGlass" />
+        <subsprite sheetIndex="18" mud_min="10" />
+    </floor>
+    <floor sheetIndex="56">
+        <!-- floor -->
+        <terrain token="ConstructedFloor" />
+        <!-- stair -->
+        <terrain token="ConstructedStairU" />
+        <!-- ramp -->
+        <terrain token="ConstructedRamp" />
+        <!-- fort -->
+        <terrain token="ConstructedFortification" />
+        <!-- pillar -->
+        <terrain shape="WALL" special="CONSTRUCTION" />
+        <material value="Stone">
+            <subtype value="RUTILE" />
+        </material>
+        <subsprite sheetIndex="18" mud_min="10" />
+    </floor>
+    <!-- construct -->
+    <floor sheetIndex="38" color="material">
+        <!-- floor -->
+        <terrain token="ConstructedFloor" />
+        <!-- stair -->
+        <terrain token="ConstructedStairU" />
+        <!-- ramp -->
+        <terrain token="ConstructedRamp" />
+        <!-- fort -->
+        <terrain token="ConstructedFortification" />
+        <!-- pillar -->
+        <terrain shape="WALL" special="CONSTRUCTION" />
+        <material value="Metal">
+            <subtype value="IRON" />
+            <subtype value="GOLD" />
+            <subtype value="SILVER" />
+            <subtype value="COPPER" />
+            <subtype value="NICKEL" />
+            <subtype value="ZINC" />
+            <subtype value="BRONZE" />
+            <subtype value="BRASS" />
+            <subtype value="STEEL" />
+            <subtype value="PIG_IRON" />
+            <subtype value="PLATINUM" />
+            <subtype value="ELECTRUM" />
+            <subtype value="TIN" />
+            <subtype value="PEWTER_FINE" />
+            <subtype value="PEWTER_TRIFLE" />
+            <subtype value="PEWTER_LAY" />
+            <subtype value="LEAD" />
+            <subtype value="ALUMINUM" />
+            <subtype value="NICKEL_SILVER" />
+            <subtype value="BILLON" />
+            <subtype value="STERLING_SILVER" />
+            <subtype value="BLACK_BRONZE" />
+            <subtype value="ROSE_GOLD" />
+            <subtype value="BISMUTH" />
+            <subtype value="BISMUTH_BRONZE" />
+            <subtype value="ADAMANTINE" />
+        </material>
+        <subsprite sheetIndex="18" mud_min="10" />
+    </floor>
+    <floor sheetIndex="23" color="material">
+        <!-- Soil floors -->
+        <terrain token="SoilFloor2" />
+        <!-- Wet Soil floors -->
+        <terrain token="SoilWetFloor2" />
+        <material value="Stone">
+            <subtype value="CLAY" />
+            <subtype value="SILTY_CLAY" />
+            <subtype value="CLAY_LOAM" />
+            <subtype value="PELAGIC_CLAY" />
+            <subtype value="SANDY_CLAY" />
+        </material>
+        <subsprite sheetIndex="18" mud_min="10" />
+    </floor>
+    <floor sheetIndex="24" color="material">
+        <!-- Soil floors -->
+        <terrain token="SoilFloor4" />
+        <!-- Wet Soil floors -->
+        <terrain token="SoilWetFloor4" />
+        <material value="Stone">
+            <subtype value="CLAY" />
+            <subtype value="SILTY_CLAY" />
+            <subtype value="CLAY_LOAM" />
+            <subtype value="PELAGIC_CLAY" />
+            <subtype value="SANDY_CLAY" />
+        </material>
+        <subsprite sheetIndex="18" mud_min="10" />
+    </floor>
+    <floor sheetIndex="25" color="material">
+        <!-- Soil floors -->
+        <terrain token="SoilFloor3" />
+        <!-- Wet Soil floors -->
+        <terrain token="SoilWetFloor3" />
+        <material value="Stone">
+            <subtype value="CLAY" />
+            <subtype value="SILTY_CLAY" />
+            <subtype value="CLAY_LOAM" />
+            <subtype value="PELAGIC_CLAY" />
+            <subtype value="SANDY_CLAY" />
+        </material>
+        <subsprite sheetIndex="18" mud_min="10" />
+    </floor>
+    <floor sheetIndex="26" color="material">
+        <!-- Soil floors -->
+        <terrain token="SoilFloor1" />
+        <!-- Wet Soil floors -->
+        <terrain token="SoilWetFloor1" />
+        <material value="Stone">
+            <subtype value="CLAY" />
+            <subtype value="SILTY_CLAY" />
+            <subtype value="CLAY_LOAM" />
+            <subtype value="PELAGIC_CLAY" />
+            <subtype value="SANDY_CLAY" />
+        </material>
+        <subsprite sheetIndex="18" mud_min="10" />
+    </floor>
+    <floor sheetIndex="4" color="material">
+        <!-- Dry grass -->
+        <terrain shape="FLOOR" material="GRASS_DEAD" />
+        <terrain shape="FLOOR" material="GRASS_DRY" />
+        <!-- Dead Tree -->
+        <terrain token="TreeDead" />
+        <!-- Dead sapling -->
+        <terrain token="SaplingDead" />
+        <!-- Dead shrub -->
+        <terrain token="ShrubDead" />
+        <subsprite sheetIndex="18" mud_min="10" />
+    </floor>
+    <floor sheetIndex="13" color="material">
+        <terrain shape="FLOOR" material="SOIL" />
+        <material value="Stone">
+            <subtype value="SAND_TAN" />
+            <subtype value="SAND_YELLOW" />
+            <subtype value="SAND_RED" />
+            <subtype value="SILT" />
+            <subtype value="SAND_BLACK" />
+            <subtype value="SAND_WHITE" />
+        </material>
+        <subsprite sheetIndex="18" mud_min="10" />
+    </floor>
+    <floor sheetIndex="4" color="material">
+        <terrain shape="FLOOR" material="GRASS_DARK" />
+        <terrain shape="FLOOR" material="GRASS_LIGHT" />
+        <!-- plants -->
+        <terrain token="Sapling" />
+        <terrain token="Shrub" />
+        <terrain token="Tree" />
+        <material value="Stone">
+            <subtype value="CLAY" />
+            <subtype value="SILTY_CLAY" />
+            <subtype value="CLAY_LOAM" />
+        </material>
+        <subsprite sheetIndex="18" mud_min="10" />
+    </floor>
+    <floor sheetIndex="4" color="material">
+        <!-- Dry grass -->
+        <terrain shape="FLOOR" material="GRASS_DEAD" />
+        <terrain shape="FLOOR" material="GRASS_DRY" />
+        <!-- Dead Tree -->
+        <terrain token="TreeDead" />
+        <!-- Dead sapling -->
+        <terrain token="SaplingDead" />
+        <!-- Dead shrub -->
+        <terrain token="ShrubDead" />
+        <material value="Stone">
+            <subtype value="CLAY" />
+            <subtype value="SILTY_CLAY" />
+            <subtype value="CLAY_LOAM" />
+        </material>
+        <subsprite sheetIndex="18" mud_min="10" />
+    </floor>
+    <!-- constructions: ICE -->
+    <floor sheetIndex="54">
+        <material value="Ice" />
+        <!-- floor -->
+        <terrain token="ConstructedFloor" />
+        <!-- stair -->
+        <terrain token="ConstructedStairU" />
+        <!-- ramp -->
+        <terrain token="ConstructedRamp" />
+        <!-- fort -->
+        <terrain token="ConstructedFortification" />
+        <!-- pillar -->
+        <terrain shape="WALL" material="CONSTRUCTION" />
+        <subsprite sheetIndex="18" mud_min="10" />
+    </floor>
 </floors>
