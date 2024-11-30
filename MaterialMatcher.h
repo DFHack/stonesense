@@ -4,6 +4,7 @@
 #include <map>
 #include <string>
 
+#include "MiscUtils.h"
 #include "modules/Materials.h"
 
 #include "df/builtin_mats.h"
