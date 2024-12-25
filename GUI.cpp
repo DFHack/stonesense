@@ -333,7 +333,8 @@ void draw_report_border(const ALLEGRO_FONT *font, float x, float y, int flags, c
 
 void draw_announcements(const ALLEGRO_FONT *font, float x, float y, int flags, std::vector<df::report *> &announcements)
 {
-    for (int i = announcements.size() - 1; i >= 0 && announcements[i]->duration > 0; i--)
+    int maxAnnouncements = 10;
+    for (int i = announcements.size() - 1; i >= (announcements.size() - maxAnnouncements) && announcements[i]->duration > 0; i--)
     {
         int offset = ((announcements.size() - 1) - i) * al_get_font_line_height(font);
         draw_report_border(font, x, y - offset, flags, announcements[i]);
@@ -1175,7 +1176,7 @@ void paintboard()
 
         drawDebugCursor(segment);
 
-        draw_announcements(font, ssState.ScreenW / 2, ssState.ScreenH - 20, ALLEGRO_ALIGN_CENTRE, df::global::world->status.announcements);
+        draw_announcements(font, ssState.ScreenW, ssState.ScreenH - 20, ALLEGRO_ALIGN_RIGHT, df::global::world->status.announcements);
         drawAdvmodeMenuTalk(font, 5, ssState.ScreenH - 5);
 
         if(ssConfig.debug_mode) {
