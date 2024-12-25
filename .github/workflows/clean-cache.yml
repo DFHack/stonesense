@@ -1,0 +1,11 @@
+name: Clean up PR caches
+
+on:
+  pull_request_target:
+    types:
+      - closed
+
+jobs:
+  cleanup:
+    uses: DFHack/dfhack/.github/workflows/clean-cache.yml@develop
+    secrets: inherit

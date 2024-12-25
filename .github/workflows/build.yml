@@ -1,0 +1,26 @@
+name: Build
+
+on: [push, pull_request]
+
+jobs:
+  package-win64:
+    name: Windows
+    uses: DFHack/dfhack/.github/workflows/build-windows.yml@develop
+    with:
+      stonesense_repo: ${{ github.repository }}
+      stonesense_ref: ${{ github.ref }}
+      artifact-name: dfhack-windows64-build
+      cache-id: test
+      stonesense: true
+    secrets: inherit
+
+  package-linux:
+    name: Linux
+    uses: DFHack/dfhack/.github/workflows/build-linux.yml@develop
+    with:
+      stonesense_repo: ${{ github.repository }}
+      stonesense_ref: ${{ github.ref }}
+      artifact-name: dfhack-linux64-build
+      cache-id: test
+      stonesense: true
+    secrets: inherit
