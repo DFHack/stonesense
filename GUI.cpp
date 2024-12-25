@@ -1,4 +1,5 @@
 #include <assert.h>
+#include <algorithm>
 #include <vector>
 
 #include "common.h"
