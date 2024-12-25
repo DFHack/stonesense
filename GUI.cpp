@@ -1,3 +1,7 @@
+#ifndef LINUX_BUILD
+#   define NOMINMAX
+#endif
+
 #include <assert.h>
 #include <algorithm>
 #include <vector>
