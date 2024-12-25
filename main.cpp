@@ -94,12 +94,12 @@ void LogError(const char* msg, ...)
     va_start(arglist, msg);
     char buf[512] = {0};
     vsprintf(buf, msg, arglist);
-    Core::printerr("%s", buf);
+    //Core::printerr("%s", buf);
     FILE* fp = fopen( "Stonesense.log", "a");
     if(fp) {
         vfprintf( fp, msg, arglist );
     }
-//    Core::printerr(msg, arglist);
+    Core::printerr(msg, arglist);
     va_end(arglist);
     fclose(fp);
 }
@@ -124,12 +124,12 @@ void LogVerbose(const char* msg, ...)
     va_start(arglist, msg);
     char buf[512] = {0};
     vsprintf(buf, msg, arglist);
-    Core::printerr("%s", buf);
+    //Core::printerr("%s", buf);
     FILE* fp = fopen( "Stonesense.log", "a");
     if(fp) {
         vfprintf( fp, msg, arglist );
     }
-//    Core::printerr(msg, arglist);
+    Core::printerr(msg, arglist);
     va_end(arglist);
     fclose(fp);
 }
@@ -424,6 +424,7 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
     ssState.Size.z = DEFAULT_SIZE_Z;
     ssConfig.show_creature_names = true;
     ssConfig.show_osd = true;
+    ssConfig.maxAnnouncementsShown = 10;
     ssConfig.show_designations = true;
     ssConfig.show_keybinds = false;
     ssConfig.show_intro = true;

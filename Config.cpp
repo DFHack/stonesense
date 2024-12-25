@@ -171,9 +171,13 @@ void parseConfigLine( string line )
         string result = parseStrFromLine( "NAMES_USE_SPECIES", line );
         ssConfig.names_use_species = (result == "YES");
     }
-    if( line.find("[SHOW_OSD") != string::npos) {
-        string result = parseStrFromLine( "SHOW_OSD", line );
+    if (line.find("[SHOW_OSD") != string::npos) {
+        string result = parseStrFromLine("SHOW_OSD", line);
         ssConfig.show_osd = (result == "YES");
+    }
+    if (line.find("[MAX_ANNOUNCEMENTS") != string::npos) {
+        int value = parseIntFromLine("MAX_ANNOUNCEMENTS", line);
+        ssConfig.show_osd = value;
     }
     if( line.find("[CACHE_IMAGES") != string::npos) {
         string result = parseStrFromLine( "CACHE_IMAGES", line );

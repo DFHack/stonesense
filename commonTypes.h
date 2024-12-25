@@ -145,6 +145,7 @@ struct GameConfiguration {
     bool show_stockpiles;
     bool show_designations;
     bool show_osd;
+    int maxAnnouncementsShown;
     bool show_keybinds;
     bool single_layer_view;
     bool shade_hidden_tiles;
