@@ -1,46 +1,35 @@
 <?xml version="1.0"?>
 <!-- Basic Trunk -->
-
 <!-- Mystery types:
 
 None as of now.
 
 -->
-
 <growths file="apple_foliage_px_grey.png">
-
-	<growth sheetIndex="19" outline="0" layer="top">
-		<part token="APPLE:LEAVES:*" />
-		<part token="PEAR:LEAVES:*" />
-		<part token="SAND_PEAR:LEAVES:*" />
-		<subsprite file="tree_shadow.png" sheetIndex="0" offsety="16" />
-		<subsprite file="tree_shadow.png" sheetIndex="0" offsety="12" />
-		<subsprite file="tree_shadow.png" sheetIndex="0" offsety="8" />
-		<subsprite file="tree_shadow.png" sheetIndex="0" offsety="4" />
-
-		<!--leaves-->
-		<subsprite sheetIndex="6" color="growth" variations="2"/>
-		<subsprite sheetIndex="8" color="growth" border_floor_NOR="8" border_wall_NOR="8" border_ramp_NOR="8"/>
-		<subsprite sheetIndex="9" color="growth" border_floor_NOR="2" border_wall_NOR="2" border_ramp_NOR="2"/>
-		<subsprite sheetIndex="10" color="growth" border_floor_NOR="4" border_wall_NOR="4" border_ramp_NOR="4"/>
-		<subsprite sheetIndex="11" color="growth" border_floor_NOR="6" border_wall_NOR="6" border_ramp_NOR="6"/>
-		
-		<subsprite sheetIndex="26" variations="2"/>
-		<subsprite sheetIndex="28" border_floor_NOR="8" border_wall_NOR="8" border_ramp_NOR="8"/>
-		<subsprite sheetIndex="29" border_floor_NOR="2" border_wall_NOR="2" border_ramp_NOR="2"/>
-		<subsprite sheetIndex="30" border_floor_NOR="4" border_wall_NOR="4" border_ramp_NOR="4"/>
-		<subsprite sheetIndex="31" border_floor_NOR="6" border_wall_NOR="6" border_ramp_NOR="6"/>
-
-	</growth>
-
-    <growth sheetIndex="50" file="apple_foliage_px_grey.png" variations="2" offsety="4" layer="bottom" >
-    <part token="APPLE:FRUIT:*" />
+    <growth sheetIndex="19" outline="0" layer="top">
+        <part token="APPLE:LEAVES:*" />
+        <part token="PEAR:LEAVES:*" />
+        <part token="SAND_PEAR:LEAVES:*" />
+        <subsprite file="tree_shadow.png" sheetIndex="0" offsety="16" />
+        <subsprite file="tree_shadow.png" sheetIndex="0" offsety="12" />
+        <subsprite file="tree_shadow.png" sheetIndex="0" offsety="8" />
+        <subsprite file="tree_shadow.png" sheetIndex="0" offsety="4" />
+        <!--leaves-->
+        <subsprite sheetIndex="6" color="growth" variations="2" />
+        <subsprite sheetIndex="8" color="growth" border_floor_NOR="8" border_wall_NOR="8" border_ramp_NOR="8" />
+        <subsprite sheetIndex="9" color="growth" border_floor_NOR="2" border_wall_NOR="2" border_ramp_NOR="2" />
+        <subsprite sheetIndex="10" color="growth" border_floor_NOR="4" border_wall_NOR="4" border_ramp_NOR="4" />
+        <subsprite sheetIndex="11" color="growth" border_floor_NOR="6" border_wall_NOR="6" border_ramp_NOR="6" />
+        <subsprite sheetIndex="26" variations="2" />
+        <subsprite sheetIndex="28" border_floor_NOR="8" border_wall_NOR="8" border_ramp_NOR="8" />
+        <subsprite sheetIndex="29" border_floor_NOR="2" border_wall_NOR="2" border_ramp_NOR="2" />
+        <subsprite sheetIndex="30" border_floor_NOR="4" border_wall_NOR="4" border_ramp_NOR="4" />
+        <subsprite sheetIndex="31" border_floor_NOR="6" border_wall_NOR="6" border_ramp_NOR="6" />
     </growth>
-    
-    <growth sheetIndex="40" file="apple_foliage_px_grey.png" variations="4" layer="top" >
-    <part token="APPLE:FLOWERS:*" />
+    <growth sheetIndex="50" file="apple_foliage_px_grey.png" variations="2" offsety="4" layer="bottom">
+        <part token="APPLE:FRUIT:*" />
     </growth>
-
-
-	
+    <growth sheetIndex="40" file="apple_foliage_px_grey.png" variations="4" layer="top">
+        <part token="APPLE:FLOWERS:*" />
+    </growth>
 </growths>

@@ -15,9 +15,3 @@ Source: "init.txt"; DestDir: "{app}"
 Source: "README.txt"; DestDir: "{app}"; Flags: isreadme
 Source: "*.xml"; DestDir: "{app}"; Flags: recursesubdirs
 Source: "index.txt"; DestDir: "{app}"; Flags: recursesubdirs
-
-
-
-
-
-

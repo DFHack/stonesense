@@ -1,75 +1,69 @@
-<?xml version="1.0" ?>
-
-
-
+<?xml version="1.0"?>
 <building name="Horizontal Axle" game_type="AxleHorizontal" file="mechanics.png">
-
-	<include file="sBlueprint.xml" />
-
-	<!-- can be sure we have it right if the building is long -->
-	<else>
-		<or>
-			<NeighbourSameBuilding dir="West"/>
-			<NeighbourSameBuilding dir="East"/>
-		</or>
-		<sprite index = 6 frame="024" color = "building" />
-		<sprite index = 7 frame="135" color = "building" />
-		<sprite index = 14 frame="024" />
-		<sprite index = 15 frame="135" />
-	</else>
-	<else>
-		<or>
-			<NeighbourSameBuilding dir="North"/>
-			<NeighbourSameBuilding dir="South"/>
-		</or>
-		<sprite index = 4 frame="024" color = "building" />
-		<sprite index = 5 frame="135" color = "building" />
-		<sprite index = 12 frame="024" />
-		<sprite index = 13 frame="135" />
-	</else>
-	<!-- look for gears preferentially -->
-	<else>
-		<or>
-			<NeighbourOfType dir="East" value="GearAssembly"/>
-			<NeighbourOfType dir="West" value="GearAssembly"/>
-		</or>
-		<sprite index = 6 frame="024" color = "building" />
-		<sprite index = 7 frame="135" color = "building" />
-		<sprite index = 14 frame="024" />
-		<sprite index = 15 frame="135" />
-	</else>
-	<else>
-		<or>
-			<NeighbourOfType dir="North" value="GearAssembly"/>
-			<NeighbourOfType dir="South" value="GearAssembly"/>
-		</or>
-		<sprite index = 4 frame="024" color = "building" />
-		<sprite index = 5 frame="135" color = "building" />
-		<sprite index = 12 frame="024" />
-		<sprite index = 13 frame="135" />
-	</else>
-	<!-- any other hints -->
-	<else>
-		<or>
-			<NeighbourOfType dir="East" value="WaterWheel"/>
-			<NeighbourOfType dir="West" value="WaterWheel"/>
-			<NeighbourOfType dir="East" value="ScrewPump"/>
-			<NeighbourOfType dir="West" value="ScrewPump"/>
-			<NeighbourOfType dir="East" value="Millstone"/>
-			<NeighbourOfType dir="West" value="Millstone"/>
-			<NeighbourOfType dir="East" value="AxleHorizontal"/>
-			<NeighbourOfType dir="West" value="AxleHorizontal"/>
-		</or>
-		<sprite index = 6 frame="024" color = "building" />
-		<sprite index = 7 frame="135" color = "building" />
-		<sprite index = 14 frame="024" />
-		<sprite index = 15 frame="135" />
-	</else>	
-	<else>
-		<sprite index = 4 frame="024" color = "building" />
-		<sprite index = 5 frame="135" color = "building" />
-		<sprite index = 12 frame="024" />
-		<sprite index = 13 frame="135" />
-	</else>
-		
-</building> 
+    <include file="sBlueprint.xml" />
+    <!-- can be sure we have it right if the building is long -->
+    <else>
+        <or>
+            <NeighbourSameBuilding dir="West" />
+            <NeighbourSameBuilding dir="East" />
+        </or>
+        <sprite index="6" frame="024" color="building" />
+        <sprite index="7" frame="135" color="building" />
+        <sprite index="14" frame="024" />
+        <sprite index="15" frame="135" />
+    </else>
+    <else>
+        <or>
+            <NeighbourSameBuilding dir="North" />
+            <NeighbourSameBuilding dir="South" />
+        </or>
+        <sprite index="4" frame="024" color="building" />
+        <sprite index="5" frame="135" color="building" />
+        <sprite index="12" frame="024" />
+        <sprite index="13" frame="135" />
+    </else>
+    <!-- look for gears preferentially -->
+    <else>
+        <or>
+            <NeighbourOfType dir="East" value="GearAssembly" />
+            <NeighbourOfType dir="West" value="GearAssembly" />
+        </or>
+        <sprite index="6" frame="024" color="building" />
+        <sprite index="7" frame="135" color="building" />
+        <sprite index="14" frame="024" />
+        <sprite index="15" frame="135" />
+    </else>
+    <else>
+        <or>
+            <NeighbourOfType dir="North" value="GearAssembly" />
+            <NeighbourOfType dir="South" value="GearAssembly" />
+        </or>
+        <sprite index="4" frame="024" color="building" />
+        <sprite index="5" frame="135" color="building" />
+        <sprite index="12" frame="024" />
+        <sprite index="13" frame="135" />
+    </else>
+    <!-- any other hints -->
+    <else>
+        <or>
+            <NeighbourOfType dir="East" value="WaterWheel" />
+            <NeighbourOfType dir="West" value="WaterWheel" />
+            <NeighbourOfType dir="East" value="ScrewPump" />
+            <NeighbourOfType dir="West" value="ScrewPump" />
+            <NeighbourOfType dir="East" value="Millstone" />
+            <NeighbourOfType dir="West" value="Millstone" />
+            <NeighbourOfType dir="East" value="AxleHorizontal" />
+            <NeighbourOfType dir="West" value="AxleHorizontal" />
+        </or>
+        <sprite index="6" frame="024" color="building" />
+        <sprite index="7" frame="135" color="building" />
+        <sprite index="14" frame="024" />
+        <sprite index="15" frame="135" />
+    </else>
+    <else>
+        <sprite index="4" frame="024" color="building" />
+        <sprite index="5" frame="135" color="building" />
+        <sprite index="12" frame="024" />
+        <sprite index="13" frame="135" />
+    </else>
+</building>

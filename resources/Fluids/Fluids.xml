@@ -1,53 +1,49 @@
 <fluids>
-	<fluid type="water" level = "1" sheetIndex = "127" halftile="both" color = "xml" red = "150" green = "237" blue = "224">
-		<subsprite sheetIndex = "127" color = "blood" halftile="both"/>
-	</fluid>
-	<fluid type="water" level = "2" sheetIndex = "128" halftile="both" color = "xml" red = "150" green = "237" blue = "224">
-		<subsprite sheetIndex = "128" color = "blood" halftile="both"/>
-	</fluid>
-	<fluid type="water" level = "3" sheetIndex = "129" halftile="both" color = "xml" red = "150" green = "237" blue = "224">
-		<subsprite sheetIndex = "129" color = "blood" halftile="both"/>
-	</fluid>
-	<fluid type="water" level = "4" sheetIndex = "130" halftile="both" color = "xml" red = "150" green = "237" blue = "224">
-		<subsprite sheetIndex = "130" color = "blood" halftile="both"/>
-	</fluid>
-	<fluid type="water" level = "5" sheetIndex = "131" halftile="no" color = "xml" red = "150" green = "237" blue = "224">
-		<subsprite sheetIndex = "131" halftile="no" color = "blood"/>
-		<subsprite sheetIndex = "130" halftile="yes" color = "xml" red = "150" green = "237" blue = "224"/>
-		<subsprite sheetIndex = "130" halftile="yes" color = "blood"/>
-	</fluid>
-	<fluid type="water" level = "6" sheetIndex = "132" halftile="no" color = "xml" red = "150" green = "237" blue = "224">
-		<subsprite sheetIndex = "132" halftile="no" color = "blood"/>
-        <subsprite sheetIndex = "130" halftile="yes" color = "xml" red = "150" green = "237" blue = "224"/>
-		<subsprite sheetIndex = "130" halftile="yes" color = "blood"/>
-	</fluid>
-	<fluid type="water" level = "7" sheetIndex = "133" halftile="no" color = "xml" red = "150" green = "237" blue = "224">
-		<subsprite sheetIndex = "133" halftile="no" color = "blood"/>
-        <subsprite sheetIndex = "130" halftile="yes" color = "xml" red = "150" green = "237" blue = "224"/>
-		<subsprite sheetIndex = "130" halftile="yes" color = "blood"/>
-	</fluid>
-	<fluid type="water" level = "8" sheetIndex = "134" halftile="no" color = "xml" red = "150" green = "237" blue = "224">
-		<subsprite sheetIndex = "134" halftile="no" color = "blood"/>
-        <subsprite sheetIndex = "130" halftile="yes" color = "xml" red = "150" green = "237" blue = "224"/>
-		<subsprite sheetIndex = "130" halftile="yes" color = "blood"/>
-	</fluid>
-	
-	<fluid type="lava" level = "1" sheetIndex = "120" halftile="both">
-	</fluid>
-	<fluid type="lava" level = "2" sheetIndex = "121" halftile="both">
-	</fluid>
-	<fluid type="lava" level = "3" sheetIndex = "122" halftile="both">
-	</fluid>
-	<fluid type="lava" level = "4" sheetIndex = "123" halftile="no">
-                <subsprite sheetIndex = "122" halftile="yes"/>
-	</fluid>
-	<fluid type="lava" level = "5" sheetIndex = "124" halftile="no">
-                <subsprite sheetIndex = "122" halftile="yes"/>
-	</fluid>
-	<fluid type="lava" level = "6" sheetIndex = "125" halftile="no">
-                <subsprite sheetIndex = "122" halftile="yes"/>
-	</fluid>
-	<fluid type="lava" level = "7" sheetIndex = "126" halftile="no">
-                <subsprite sheetIndex = "122" halftile="yes"/>
-	</fluid>
+    <fluid type="water" level="1" sheetIndex="127" halftile="both" color="xml" red="150" green="237" blue="224">
+        <subsprite sheetIndex="127" color="blood" halftile="both" />
+    </fluid>
+    <fluid type="water" level="2" sheetIndex="128" halftile="both" color="xml" red="150" green="237" blue="224">
+        <subsprite sheetIndex="128" color="blood" halftile="both" />
+    </fluid>
+    <fluid type="water" level="3" sheetIndex="129" halftile="both" color="xml" red="150" green="237" blue="224">
+        <subsprite sheetIndex="129" color="blood" halftile="both" />
+    </fluid>
+    <fluid type="water" level="4" sheetIndex="130" halftile="both" color="xml" red="150" green="237" blue="224">
+        <subsprite sheetIndex="130" color="blood" halftile="both" />
+    </fluid>
+    <fluid type="water" level="5" sheetIndex="131" halftile="no" color="xml" red="150" green="237" blue="224">
+        <subsprite sheetIndex="131" halftile="no" color="blood" />
+        <subsprite sheetIndex="130" halftile="yes" color="xml" red="150" green="237" blue="224" />
+        <subsprite sheetIndex="130" halftile="yes" color="blood" />
+    </fluid>
+    <fluid type="water" level="6" sheetIndex="132" halftile="no" color="xml" red="150" green="237" blue="224">
+        <subsprite sheetIndex="132" halftile="no" color="blood" />
+        <subsprite sheetIndex="130" halftile="yes" color="xml" red="150" green="237" blue="224" />
+        <subsprite sheetIndex="130" halftile="yes" color="blood" />
+    </fluid>
+    <fluid type="water" level="7" sheetIndex="133" halftile="no" color="xml" red="150" green="237" blue="224">
+        <subsprite sheetIndex="133" halftile="no" color="blood" />
+        <subsprite sheetIndex="130" halftile="yes" color="xml" red="150" green="237" blue="224" />
+        <subsprite sheetIndex="130" halftile="yes" color="blood" />
+    </fluid>
+    <fluid type="water" level="8" sheetIndex="134" halftile="no" color="xml" red="150" green="237" blue="224">
+        <subsprite sheetIndex="134" halftile="no" color="blood" />
+        <subsprite sheetIndex="130" halftile="yes" color="xml" red="150" green="237" blue="224" />
+        <subsprite sheetIndex="130" halftile="yes" color="blood" />
+    </fluid>
+    <fluid type="lava" level="1" sheetIndex="120" halftile="both"></fluid>
+    <fluid type="lava" level="2" sheetIndex="121" halftile="both"></fluid>
+    <fluid type="lava" level="3" sheetIndex="122" halftile="both"></fluid>
+    <fluid type="lava" level="4" sheetIndex="123" halftile="no">
+        <subsprite sheetIndex="122" halftile="yes" />
+    </fluid>
+    <fluid type="lava" level="5" sheetIndex="124" halftile="no">
+        <subsprite sheetIndex="122" halftile="yes" />
+    </fluid>
+    <fluid type="lava" level="6" sheetIndex="125" halftile="no">
+        <subsprite sheetIndex="122" halftile="yes" />
+    </fluid>
+    <fluid type="lava" level="7" sheetIndex="126" halftile="no">
+        <subsprite sheetIndex="122" halftile="yes" />
+    </fluid>
 </fluids>

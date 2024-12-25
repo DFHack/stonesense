@@ -11,4 +11,3 @@ df::tiletype_shape StringToTiletypeShape(const char* input);
 df::tiletype_special StringToTiletypeSpecial(const char* input);
 df::tiletype_material StringToTiletypeMaterial(const char* input);
 df::tiletype_variant StringToTiletypeVariant(const char* input);
-

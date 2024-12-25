@@ -1,7 +1,4 @@
-<?xml version="1.0" ?>
-
-
-
-<building name="Statue" game_type="Statue" > 
-		<sprite index = 86 color = building />
-</building> 
+<?xml version="1.0"?>
+<building name="Statue" game_type="Statue">
+    <sprite index="86" color="building" />
+</building>

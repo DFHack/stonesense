@@ -1,21 +1,21 @@
 <?xml version="1.0"?>
 <!-- fallbacks for walls not defined elsewhere -->
 <walls>
-  <!-- fortifications -->
-  <wall sheetIndex="201" color="material">
-    <terrain shape="FORTIFICATION" />
-  </wall>
-  <!-- ramps -->
-  <wall sheetIndex="0" color="material">
-    <terrain shape="RAMP" />
-  </wall>
-  <!-- stairs -->
-  <wall sheetIndex="202" color="material">
-    <terrain shape="STAIR_UP" />
-    <terrain shape="STAIR_UPDOWN" />
-  </wall>
-  <!-- walls -->
-  <wall sheetIndex="200" color="material">
-    <terrain shape="WALL" />
-  </wall>
+    <!-- fortifications -->
+    <wall sheetIndex="201" color="material">
+        <terrain shape="FORTIFICATION" />
+    </wall>
+    <!-- ramps -->
+    <wall sheetIndex="0" color="material">
+        <terrain shape="RAMP" />
+    </wall>
+    <!-- stairs -->
+    <wall sheetIndex="202" color="material">
+        <terrain shape="STAIR_UP" />
+        <terrain shape="STAIR_UPDOWN" />
+    </wall>
+    <!-- walls -->
+    <wall sheetIndex="200" color="material">
+        <terrain shape="WALL" />
+    </wall>
 </walls>

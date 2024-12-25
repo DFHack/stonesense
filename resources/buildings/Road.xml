@@ -1,14 +1,7 @@
-<?xml version="1.0" ?>
-
-
-
-<building name="Paved Road" game_type="RoadPaved"> 
-	
-
-		<sprite index = "140" color = building >
-			<subsprite blood_min="1" sheetIndex="0" blood_sprite="1" color="blood" file = "bgibs.png"/>
-			<subsprite blood_min="1" sheetIndex="20" blood_sprite="1" file = "bgibs.png"/>
-		</sprite>
-
-	
-</building> 
+<?xml version="1.0"?>
+<building name="Paved Road" game_type="RoadPaved">
+    <sprite index="140" color="building">
+        <subsprite blood_min="1" sheetIndex="0" blood_sprite="1" color="blood" file="bgibs.png" />
+        <subsprite blood_min="1" sheetIndex="20" blood_sprite="1" file="bgibs.png" />
+    </sprite>
+</building>

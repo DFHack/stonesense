@@ -1,140 +1,131 @@
 <?xml version="1.0"?>
 <building name="Wagon" game_type="Wagon">
-  <if>
-    <PositionIndex value="0" />
-    <rotate>
-      <sprite index="340" color="building" />
-      <if>
-        <always />
-        <sprite index="345" color="building" />
-        <sprite index="350" offsetx="-2" offsety="0"
-        color="building" />
-      </if>
-      <if>
-        <always />
-        <sprite index="348" color="building" />
-        <sprite index="349" offsetx="-9" offsety="-6"
-        color="building" />
-        <sprite index="350" offsetx="8" offsety="-6"
-        color="building" />
-      </if>
-      <sprite index="343" color="building" />
-    </rotate>
-  </if>
-  <else>
-    <PositionIndex value="1" />
-    <rotate>
-      <sprite index="342" color="building" />
-      <sprite index="347" color="building" />
-      <if>
-        <always />
-        <sprite index="346" color="building" />
-        <sprite index="349" offsetx="-9" offsety="-6"
-        color="building" />
-      </if>
-      <sprite index="341" color="building" />
-    </rotate>
-  </else>
-  <else>
-    <PositionIndex value="2" />
-    <rotate>
-      <if>
-        <always />
-        <sprite index="345" color="building" />
-        <sprite index="350" offsetx="-2" offsety="0"
-        color="building" />
-      </if>
-      <if>
-        <always />
-        <sprite index="348" color="building" />
-        <sprite index="349" offsetx="-9" offsety="-6"
-        color="building" />
-        <sprite index="350" offsetx="8" offsety="-6"
-        color="building" />
-      </if>
-      <sprite index="343" color="building" />
-      <sprite index="340" color="building" />
-    </rotate>
-  </else>
-  <else>
-    <PositionIndex value="3" />
-    <rotate>
-      <sprite index="341" color="building" />
-      <sprite index="342" color="building" />
-      <sprite index="347" color="building" />
-      <if>
-        <always />
-        <sprite index="346" color="building" />
-        <sprite index="349" offsetx="-9" offsety="-6"
-        color="building" />
-      </if>
-    </rotate>
-  </else>
-  <else>
-    <PositionIndex value="4" />
-    <sprite index="344" color="building" />
-  </else>
-  <else>
-    <PositionIndex value="5" />
-    <rotate>
-      <sprite index="347" color="building" />
-      <if>
-        <always />
-        <sprite index="346" color="building" />
-        <sprite index="349" offsetx="-9" offsety="-6"
-        color="building" />
-      </if>
-      <sprite index="341" color="building" />
-      <sprite index="342" color="building" />
-    </rotate>
-  </else>
-  <else>
-    <PositionIndex value="6" />
-    <rotate>
-      <sprite index="343" color="building" />
-      <sprite index="340" color="building" />
-      <if>
-        <always />
-        <sprite index="345" color="building" />
-        <sprite index="350" offsetx="-2" offsety="0" color="building" />
-      </if>
-      <if>
-        <always />
-        <sprite index="348" color="building" />
-        <sprite index="349" offsetx="-9" offsety="-6" color="building" />
-        <sprite index="350" offsetx="8" offsety="-6" color="building" />
-      </if>
-    </rotate>
-  </else>
-  <else>
-    <PositionIndex value="7" />
-    <rotate>
-      <if>
-        <always />
-        <sprite index="346" color="building" />
-        <sprite index="349" offsetx="-9" offsety="-6" color="building" />
-      </if>
-      <sprite index="341" color="building" />
-      <sprite index="342" color="building" />
-      <sprite index="347" color="building" />
-    </rotate>
-  </else>
-  <else>
-    <PositionIndex value="8" />
-    <rotate>
-      <if>
-        <always />
-        <sprite index="348" color="building" />
-        <sprite index="349" offsetx="-9" offsety="-6" color="building" />
-        <sprite index="350" offsetx="8" offsety="-6" color="building" />
-      </if>
-      <sprite index="343" color="building" />
-      <sprite index="340" color="building" />
-      <if>
-        <always />
-        <sprite index="345" color="building" />
-        <sprite index="350" offsetx="-2" offsety="0" color="building" />
-      </if>
-    </rotate>
-  </else>
+    <if>
+        <PositionIndex value="0" />
+        <rotate>
+            <sprite index="340" color="building" />
+            <if>
+                <always />
+                <sprite index="345" color="building" />
+                <sprite index="350" offsetx="-2" offsety="0" color="building" />
+            </if>
+            <if>
+                <always />
+                <sprite index="348" color="building" />
+                <sprite index="349" offsetx="-9" offsety="-6" color="building" />
+                <sprite index="350" offsetx="8" offsety="-6" color="building" />
+            </if>
+            <sprite index="343" color="building" />
+        </rotate>
+    </if>
+    <else>
+        <PositionIndex value="1" />
+        <rotate>
+            <sprite index="342" color="building" />
+            <sprite index="347" color="building" />
+            <if>
+                <always />
+                <sprite index="346" color="building" />
+                <sprite index="349" offsetx="-9" offsety="-6" color="building" />
+            </if>
+            <sprite index="341" color="building" />
+        </rotate>
+    </else>
+    <else>
+        <PositionIndex value="2" />
+        <rotate>
+            <if>
+                <always />
+                <sprite index="345" color="building" />
+                <sprite index="350" offsetx="-2" offsety="0" color="building" />
+            </if>
+            <if>
+                <always />
+                <sprite index="348" color="building" />
+                <sprite index="349" offsetx="-9" offsety="-6" color="building" />
+                <sprite index="350" offsetx="8" offsety="-6" color="building" />
+            </if>
+            <sprite index="343" color="building" />
+            <sprite index="340" color="building" />
+        </rotate>
+    </else>
+    <else>
+        <PositionIndex value="3" />
+        <rotate>
+            <sprite index="341" color="building" />
+            <sprite index="342" color="building" />
+            <sprite index="347" color="building" />
+            <if>
+                <always />
+                <sprite index="346" color="building" />
+                <sprite index="349" offsetx="-9" offsety="-6" color="building" />
+            </if>
+        </rotate>
+    </else>
+    <else>
+        <PositionIndex value="4" />
+        <sprite index="344" color="building" />
+    </else>
+    <else>
+        <PositionIndex value="5" />
+        <rotate>
+            <sprite index="347" color="building" />
+            <if>
+                <always />
+                <sprite index="346" color="building" />
+                <sprite index="349" offsetx="-9" offsety="-6" color="building" />
+            </if>
+            <sprite index="341" color="building" />
+            <sprite index="342" color="building" />
+        </rotate>
+    </else>
+    <else>
+        <PositionIndex value="6" />
+        <rotate>
+            <sprite index="343" color="building" />
+            <sprite index="340" color="building" />
+            <if>
+                <always />
+                <sprite index="345" color="building" />
+                <sprite index="350" offsetx="-2" offsety="0" color="building" />
+            </if>
+            <if>
+                <always />
+                <sprite index="348" color="building" />
+                <sprite index="349" offsetx="-9" offsety="-6" color="building" />
+                <sprite index="350" offsetx="8" offsety="-6" color="building" />
+            </if>
+        </rotate>
+    </else>
+    <else>
+        <PositionIndex value="7" />
+        <rotate>
+            <if>
+                <always />
+                <sprite index="346" color="building" />
+                <sprite index="349" offsetx="-9" offsety="-6" color="building" />
+            </if>
+            <sprite index="341" color="building" />
+            <sprite index="342" color="building" />
+            <sprite index="347" color="building" />
+        </rotate>
+    </else>
+    <else>
+        <PositionIndex value="8" />
+        <rotate>
+            <if>
+                <always />
+                <sprite index="348" color="building" />
+                <sprite index="349" offsetx="-9" offsety="-6" color="building" />
+                <sprite index="350" offsetx="8" offsety="-6" color="building" />
+            </if>
+            <sprite index="343" color="building" />
+            <sprite index="340" color="building" />
+            <if>
+                <always />
+                <sprite index="345" color="building" />
+                <sprite index="350" offsetx="-2" offsety="0" color="building" />
+            </if>
+        </rotate>
+    </else>
 </building>

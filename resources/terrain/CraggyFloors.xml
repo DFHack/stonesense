@@ -1,48 +1,43 @@
-<?xml version="1.0" ?>
-
-<floors file="craggyfloors.png"> 
-
-<!-- stone -->
-<floor sheetIndex= 0 variations = 4 color = layer outline=0>
-	<!-- below stair -->
-	<terrain value= 57 />
-	<terrain value= 60 />
-	<terrain value= 63 />
-	<!-- below wall -->
-	<terrain value= 176 />
-	<terrain value= 177 />
-	<terrain value= 178 />
-	<terrain value= 219 />
-	<!-- below ramp -->
-	<terrain value= 237 />
-	<terrain value= 239 />
-	<terrain value= 240 />
-	<!-- wall -->
-	<terrain value= 332 />
-	<terrain value= 333 />
-	<terrain value= 334 />
-	<terrain value= 335 />	
-	<!-- floor -->
-	<terrain value= 336 />
-	<terrain value= 337 />
-	<terrain value= 338 />
-	<terrain value= 339 />
-	<terrain value= 344 />
-	<terrain value= 345 />
-	<terrain value= 346 />
-	<terrain value= 347 />
-
-	<!-- veinwall -->
-	<terrain value= 437 />
-	<terrain value= 438 />
-	<terrain value= 439 />
-	<terrain value= 440 />
-	<!-- veinfloor -->
-	<terrain value= 441 />
-	<terrain value= 442 />
-	<terrain value= 443 />
-	<terrain value= 444 />
-</floor>
+<?xml version="1.0"?>
+<floors file="craggyfloors.png">
+    <!-- stone -->
+    <floor sheetIndex="0" variations="4" color="layer" outline="0">
+        <!-- below stair -->
+        <terrain value="57" />
+        <terrain value="60" />
+        <terrain value="63" />
+        <!-- below wall -->
+        <terrain value="176" />
+        <terrain value="177" />
+        <terrain value="178" />
+        <terrain value="219" />
+        <!-- below ramp -->
+        <terrain value="237" />
+        <terrain value="239" />
+        <terrain value="240" />
+        <!-- wall -->
+        <terrain value="332" />
+        <terrain value="333" />
+        <terrain value="334" />
+        <terrain value="335" />
+        <!-- floor -->
+        <terrain value="336" />
+        <terrain value="337" />
+        <terrain value="338" />
+        <terrain value="339" />
+        <terrain value="344" />
+        <terrain value="345" />
+        <terrain value="346" />
+        <terrain value="347" />
+        <!-- veinwall -->
+        <terrain value="437" />
+        <terrain value="438" />
+        <terrain value="439" />
+        <terrain value="440" />
+        <!-- veinfloor -->
+        <terrain value="441" />
+        <terrain value="442" />
+        <terrain value="443" />
+        <terrain value="444" />
+    </floor>
 </floors>
-
-

@@ -1,201 +1,163 @@
 <?xml version="1.0"?>
 <floors file="floors.png">
-  <!-- watery -->
-  <floor sheetIndex="4" color = "material">
-    <!-- pool -->
-    <terrain shape="FLOOR" material="POOL"/>
-    <!-- below pool ramp -->
-    <terrain shape="RAMP" material="POOL"/>
-    <!-- waterfall -->
-    <!-- river src -->
-    <!-- river -->
-    <terrain shape="FLOOR" material="RIVER"/>
-    <!-- below river ramp -->
-    <terrain shape="RAMP" material="RIVER"/>
-    <!-- stream -->
-    <terrain shape="FLOOR" material="BROOK"/>
-    <!-- stream top
+    <!-- watery -->
+    <floor sheetIndex="4" color="material">
+        <!-- pool -->
+        <terrain shape="FLOOR" material="POOL" />
+        <!-- below pool ramp -->
+        <terrain shape="RAMP" material="POOL" />
+        <!-- waterfall -->
+        <!-- river src -->
+        <!-- river -->
+        <terrain shape="FLOOR" material="RIVER" />
+        <!-- below river ramp -->
+        <terrain shape="RAMP" material="RIVER" />
+        <!-- stream -->
+        <terrain shape="FLOOR" material="BROOK" />
+        <!-- stream top
         <terrain shape= 381 /> -->
-  </floor>
-  <!-- driftwood -->
-  <floor sheetIndex="13" color="material">
-    <terrain shape="FLOOR" material="DRIFTWOOD"/>
-    <subsprite sheetIndex="66"
-		variations="4"
-		/>
-    <subsprite sheetIndex="18"
-		mud_min="10"
-		/>
-  </floor>
-  <!-- vegetation -->
-  <floor sheetIndex="2">
-    <!-- tree -->
-     <!-- dead tree -->
-   <terrain shape="TREE"/>
-    <!-- shrub -->
-    <!-- dead shrub -->
-    <terrain shape="SHRUB"/>
-    <!-- sapling -->
-    <!-- dead sapling -->
-    <terrain shape="SAPLING"/>
-    <!-- grass -->
-    <terrain shape="FLOOR" material="GRASS_LIGHT"/>
-    <!-- dry grass -->
-    <terrain shape="FLOOR" material="GRASS_DRY"/>
-    <!-- dead grass -->
-    <terrain shape="FLOOR" material="GRASS_DEAD"/>
-    <!-- grass -->
-    <terrain shape="FLOOR" material="GRASS_DARK"/>
-	<subsprite 
-		sheetIndex="18"
-		mud_min="10"
-		/>
-  </floor>
-  <!-- ice -->
-  <floor sheetIndex="52">
-    <!-- below upward stair -->
-    <terrain shape="STAIR_UP" material="FROZEN_LIQUID"/>
-    <!-- below ramp -->
-    <terrain shape="RAMP" material="FROZEN_LIQUID"/>
-    <!-- floor -->
-    <terrain shape="FLOOR" material="FROZEN_LIQUID"/>
-    <!-- wall -->
-    <terrain shape="WALL" material="FROZEN_LIQUID"/>
-	<subsprite 
-		sheetIndex="18"
-		mud_min="10"
-		/>
-  </floor>
-  <!-- gaps -->
-  <floor sheetIndex="32">
-    <!-- chasm -->
-    <terrain shape="ENDLESS_PIT" />
-  </floor>
-  <!-- soil -->
-  <floor sheetIndex="4" color = "material">
-    <!-- below stair -->
-    <terrain shape="STAIR_UP" material="SOIL"/>
-    <!-- below grass stair -->
-    <terrain shape="STAIR_UP" material="GRASS_LIGHT"/>
-    <terrain shape="STAIR_UP" material="GRASS_DARK"/>
-    <!-- below grass ramp -->
-    <terrain shape="RAMP" material="GRASS_LIGHT"/>
-    <terrain shape="RAMP" material="GRASS_DRY"/>
-    <terrain shape="RAMP" material="GRASS_DEAD"/>
-    <terrain shape="RAMP" material="GRASS_DARK"/>
-    <!-- below ramp -->
-    <terrain shape="RAMP" material="SOIL"/>
-    <!-- ashes -->
-    <terrain shape="FLOOR" material="ASHES"/>
+    </floor>
+    <!-- driftwood -->
+    <floor sheetIndex="13" color="material">
+        <terrain shape="FLOOR" material="DRIFTWOOD" />
+        <subsprite sheetIndex="66" variations="4" />
+        <subsprite sheetIndex="18" mud_min="10" />
+    </floor>
+    <!-- vegetation -->
+    <floor sheetIndex="2">
+        <!-- tree -->
+        <!-- dead tree -->
+        <terrain shape="TREE" />
+        <!-- shrub -->
+        <!-- dead shrub -->
+        <terrain shape="SHRUB" />
+        <!-- sapling -->
+        <!-- dead sapling -->
+        <terrain shape="SAPLING" />
+        <!-- grass -->
+        <terrain shape="FLOOR" material="GRASS_LIGHT" />
+        <!-- dry grass -->
+        <terrain shape="FLOOR" material="GRASS_DRY" />
+        <!-- dead grass -->
+        <terrain shape="FLOOR" material="GRASS_DEAD" />
+        <!-- grass -->
+        <terrain shape="FLOOR" material="GRASS_DARK" />
+        <subsprite sheetIndex="18" mud_min="10" />
+    </floor>
+    <!-- ice -->
+    <floor sheetIndex="52">
+        <!-- below upward stair -->
+        <terrain shape="STAIR_UP" material="FROZEN_LIQUID" />
+        <!-- below ramp -->
+        <terrain shape="RAMP" material="FROZEN_LIQUID" />
+        <!-- floor -->
+        <terrain shape="FLOOR" material="FROZEN_LIQUID" />
+        <!-- wall -->
+        <terrain shape="WALL" material="FROZEN_LIQUID" />
+        <subsprite sheetIndex="18" mud_min="10" />
+    </floor>
+    <!-- gaps -->
+    <floor sheetIndex="32">
+        <!-- chasm -->
+        <terrain shape="ENDLESS_PIT" />
+    </floor>
     <!-- soil -->
-    <!-- wet soil -->
-    <!-- furrowed -->
-    <terrain shape="FLOOR" material="SOIL"/>
-    <!-- wall -->
-    <terrain shape="WALL" material="SOIL"/>
-	<subsprite 
-		sheetIndex="18"
-		mud_min="10"
-		/>
-  </floor>
-  <!-- fires -->
-  <floor sheetIndex="46">
-    <terrain token="Fire" />
-  </floor>
-  <floor sheetIndex="47">
-    <terrain token="Campfire" />
-  </floor>
-  <!-- hfspit -->
-  <floor sheetIndex="33">
-    <terrain token="EeriePit" />
-  </floor>
-  <!-- sm stone -->
-  <floor sheetIndex="20" color="material">
-    <!-- floor -->
-    <terrain shape="FLOOR" special="SMOOTH"/>
-    <!-- below fort -->
-    <terrain shape="FORTIFICATION"/>
-    <!-- below pillar -->
-    <terrain shape="WALL" special="SMOOTH"/>
-    <!-- feat wall -->
-    <!-- stone wall -->
-    <!-- vein wall -->
-    <!-- obs wall -->
-	<subsprite 
-		sheetIndex="18"
-		mud_min="10"
-		/>
-  </floor>
-  <!-- smoothed ice -->
-  <floor sheetIndex="53">
-    <terrain shape="FLOOR" special="SMOOTH" material="FROZEN_LIQUID"/>
-    <!-- below pillar -->
-    <terrain shape="WALL" special="SMOOTH" material="FROZEN_LIQUID"/>
-    <!-- fort -->
-    <terrain shape="FORTIFICATION" material="FROZEN_LIQUID"/>
-	<subsprite 
-		sheetIndex="18"
-		mud_min="10"
-		/>
-  </floor>
-  <!-- stone -->
-  <floor sheetIndex="3" color="material">
-    <!-- below stair -->
-    <terrain shape="STAIR_UP" />
-    <!-- wall -->
-    <!-- below wall -->
-    <terrain shape="WALL" />
-    <!-- below ramp -->
-    <terrain shape="RAMP" />
-    <!-- floor -->
-    <terrain shape="FLOOR" />
-	<subsprite 
-		sheetIndex="18"
-		mud_min="10"
-		/>
-  </floor>
-  <!-- Semi molten rock -->
-  <floor sheetIndex="3" color="xml" red="255" green = "0" blue = "0">
-    <terrain token="SemiMoltenRock" />
-	<subsprite sheetIndex = "51" color="xml" red="32" green = "0" blue = "0"/>
-	<subsprite 
-		sheetIndex="18"
-		mud_min="10"
-		/>
-  </floor>
-  <!-- magma flow -->
-  <floor sheetIndex="31">
-    <terrain token="MagmaFlow" />
-  </floor>
-  <!-- boulder -->
-  <floor sheetIndex="3" color="material">
-    <terrain shape="BOULDER" />
-    <subsprite
-		sheetIndex="18"
-		mud_min="10"
-		/>
-    <subsprite sheetIndex="75"
-		variations="4" color="material"
-		/>
-  </floor>
-  <!-- pebbles -->
-  <floor sheetIndex="3" color="material">
-    <terrain shape="PEBBLES" />
-    <subsprite
-		sheetIndex="18"
-		mud_min="10"
-		/>
-    <subsprite sheetIndex="71"
-		variations="4" color="material"
-		/>
-  </floor>
-  <!-- construct -->
-  <floor sheetIndex="1" color="material">
-    <!-- floor -->
-    <terrain material="CONSTRUCTION" />
-	<subsprite 
-		sheetIndex="18"
-		mud_min="10"
-		/>
-  </floor>
+    <floor sheetIndex="4" color="material">
+        <!-- below stair -->
+        <terrain shape="STAIR_UP" material="SOIL" />
+        <!-- below grass stair -->
+        <terrain shape="STAIR_UP" material="GRASS_LIGHT" />
+        <terrain shape="STAIR_UP" material="GRASS_DARK" />
+        <!-- below grass ramp -->
+        <terrain shape="RAMP" material="GRASS_LIGHT" />
+        <terrain shape="RAMP" material="GRASS_DRY" />
+        <terrain shape="RAMP" material="GRASS_DEAD" />
+        <terrain shape="RAMP" material="GRASS_DARK" />
+        <!-- below ramp -->
+        <terrain shape="RAMP" material="SOIL" />
+        <!-- ashes -->
+        <terrain shape="FLOOR" material="ASHES" />
+        <!-- soil -->
+        <!-- wet soil -->
+        <!-- furrowed -->
+        <terrain shape="FLOOR" material="SOIL" />
+        <!-- wall -->
+        <terrain shape="WALL" material="SOIL" />
+        <subsprite sheetIndex="18" mud_min="10" />
+    </floor>
+    <!-- fires -->
+    <floor sheetIndex="46">
+        <terrain token="Fire" />
+    </floor>
+    <floor sheetIndex="47">
+        <terrain token="Campfire" />
+    </floor>
+    <!-- hfspit -->
+    <floor sheetIndex="33">
+        <terrain token="EeriePit" />
+    </floor>
+    <!-- sm stone -->
+    <floor sheetIndex="20" color="material">
+        <!-- floor -->
+        <terrain shape="FLOOR" special="SMOOTH" />
+        <!-- below fort -->
+        <terrain shape="FORTIFICATION" />
+        <!-- below pillar -->
+        <terrain shape="WALL" special="SMOOTH" />
+        <!-- feat wall -->
+        <!-- stone wall -->
+        <!-- vein wall -->
+        <!-- obs wall -->
+        <subsprite sheetIndex="18" mud_min="10" />
+    </floor>
+    <!-- smoothed ice -->
+    <floor sheetIndex="53">
+        <terrain shape="FLOOR" special="SMOOTH" material="FROZEN_LIQUID" />
+        <!-- below pillar -->
+        <terrain shape="WALL" special="SMOOTH" material="FROZEN_LIQUID" />
+        <!-- fort -->
+        <terrain shape="FORTIFICATION" material="FROZEN_LIQUID" />
+        <subsprite sheetIndex="18" mud_min="10" />
+    </floor>
+    <!-- stone -->
+    <floor sheetIndex="3" color="material">
+        <!-- below stair -->
+        <terrain shape="STAIR_UP" />
+        <!-- wall -->
+        <!-- below wall -->
+        <terrain shape="WALL" />
+        <!-- below ramp -->
+        <terrain shape="RAMP" />
+        <!-- floor -->
+        <terrain shape="FLOOR" />
+        <subsprite sheetIndex="18" mud_min="10" />
+    </floor>
+    <!-- Semi molten rock -->
+    <floor sheetIndex="3" color="xml" red="255" green="0" blue="0">
+        <terrain token="SemiMoltenRock" />
+        <subsprite sheetIndex="51" color="xml" red="32" green="0" blue="0" />
+        <subsprite sheetIndex="18" mud_min="10" />
+    </floor>
+    <!-- magma flow -->
+    <floor sheetIndex="31">
+        <terrain token="MagmaFlow" />
+    </floor>
+    <!-- boulder -->
+    <floor sheetIndex="3" color="material">
+        <terrain shape="BOULDER" />
+        <subsprite sheetIndex="18" mud_min="10" />
+        <subsprite sheetIndex="75" variations="4" color="material" />
+    </floor>
+    <!-- pebbles -->
+    <floor sheetIndex="3" color="material">
+        <terrain shape="PEBBLES" />
+        <subsprite sheetIndex="18" mud_min="10" />
+        <subsprite sheetIndex="71" variations="4" color="material" />
+    </floor>
+    <!-- construct -->
+    <floor sheetIndex="1" color="material">
+        <!-- floor -->
+        <terrain material="CONSTRUCTION" />
+        <subsprite sheetIndex="18" mud_min="10" />
+    </floor>
 </floors>

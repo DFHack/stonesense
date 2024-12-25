@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <creatures>
-  <creature gameID="GOBLIN" sheetIndex="0" file="gobbos.png" color="bodypart" bodypart="skin">
-    <subsprite sheetIndex="1" color="bodypart" bodypart="hair" />
-    <subsprite sheetIndex="2" />
-    <subsprite sheetIndex="3" color="profession" />
-    <variant sex="F" sheetIndex="4" color="bodypart" bodypart="skin">
-      <subsprite sheetIndex="5" color="bodypart" bodypart="hair" />
-      <subsprite sheetIndex="6" />
-      <subsprite sheetIndex="7" color="profession" />
-    </variant>
-  </creature>
+    <creature gameID="GOBLIN" sheetIndex="0" file="gobbos.png" color="bodypart" bodypart="skin">
+        <subsprite sheetIndex="1" color="bodypart" bodypart="hair" />
+        <subsprite sheetIndex="2" />
+        <subsprite sheetIndex="3" color="profession" />
+        <variant sex="F" sheetIndex="4" color="bodypart" bodypart="skin">
+            <subsprite sheetIndex="5" color="bodypart" bodypart="hair" />
+            <subsprite sheetIndex="6" />
+            <subsprite sheetIndex="7" color="profession" />
+        </variant>
+    </creature>
 </creatures>

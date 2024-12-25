@@ -1,312 +1,312 @@
 <?xml version="1.0"?>
 <walls file="blocks.png">
-  <!-- fortifications -->
-  <wall sheetIndex="142" color="material">
-    <!-- cons -->
-    <terrain token="ConstructedFortification" />
-    <material value="Wood" />
-  </wall>
-  <wall sheetIndex="140" color="material">
-    <!-- cons -->
-    <terrain token="ConstructedFortification" />
-  </wall>
-  <!-- ramps -->
-  <!-- stone -->
-  <wall sheetIndex="1" file="ramps.png" color="material">
+    <!-- fortifications -->
+    <wall sheetIndex="142" color="material">
+        <!-- cons -->
+        <terrain token="ConstructedFortification" />
+        <material value="Wood" />
+    </wall>
+    <wall sheetIndex="140" color="material">
+        <!-- cons -->
+        <terrain token="ConstructedFortification" />
+    </wall>
+    <!-- ramps -->
     <!-- stone -->
-    <terrain token="StoneRamp" />
-    <!-- obs -->
-    <terrain token="LavaRamp" />
-    <!-- feat -->
-    <terrain token="FeatureRamp" />
-    <!-- vein -->
-    <terrain token="MineralRamp" />
-  </wall>
-  <!-- brick -->
-  <wall sheetIndex="2" file="ramps.png" color="material">
-    <!-- cons -->
-    <terrain token="ConstructedRamp" />
-  </wall>
-  <wall sheetIndex="10" file="ramps.png">
-    <!-- ice -->
-    <terrain token="FrozenRamp" />
-  </wall>
-  <wall sheetIndex="11" file="ramps.png" color="material">
-    <!-- ice -->
-    <terrain token="ConstructedRamp" />
-    <material value="Ice" />
-  </wall>
-  <wall sheetIndex="4" file="ramps.png">
-    <!-- cons -->
-    <terrain token="ConstructedRamp" />
-    <material value="GreenGlass" />
-  </wall>
-  <wall sheetIndex="3" file="ramps.png">
-    <!-- cons -->
-    <terrain token="ConstructedRamp" />
-    <material value="ClearGlass" />
-    <material value="CrystalGlass" />
-  </wall>
-  <wall sheetIndex="6" file="ramps.png" color="material">
-    <!-- cons -->
-    <terrain token="ConstructedRamp" />
-    <material value="Wood" />
-  </wall>
-  <!-- stairs: wood -->
-  <wall sheetIndex="162" color="material">
-    <!-- cons -->
-    <terrain token = "ConstructedStairUD" />
-    <terrain token = "ConstructedStairU" />
-    <material value="Wood" />
-  </wall>
-  <!-- stairs: "natural" ice -->
-  <wall sheetIndex="166">
-    <terrain token="FrozenStairUD" />
-    <terrain token="FrozenStairU" />
-  </wall>
-  <!-- stairs: constructed ice -->
-  <wall sheetIndex="166">
-    <terrain token = "ConstructedStairUD" />
-    <terrain token = "ConstructedStairU" />
-    <material value="Ice" />
-  </wall>
-  <!-- constructed: Wood -->
-  <wall sheetIndex="8" color="material">
-    <terrain shape="WALL" special="CONSTRUCTION"/>
-    <material value="Wood" />
-  </wall>
-  <!-- constructed: GreenGlass -->
-  <wall sheetIndex="26">
-    <terrain shape="WALL" special="CONSTRUCTION"/>
-    <material value="GreenGlass" />
-  </wall>
-  <!-- constructed: Clear&CrystalGlass -->
-  <wall sheetIndex="25">
-    <terrain shape="WALL" special="CONSTRUCTION"/>
-    <material value="ClearGlass" />
-    <material value="CrystalGlass" />
-  </wall>
-  <!-- constructed: RUTILE -->
-  <wall sheetIndex="46">
-    <terrain shape="WALL" special="CONSTRUCTION"/>
-    <material value="Stone">
-      <subtype value="RUTILE" />
-    </material>
-  </wall>
-  <!-- constructed: metalls -->
-  <wall sheetIndex="7" color="material">
-    <terrain shape="WALL" special="CONSTRUCTION"/>
-    <material value="Metal">
-      <subtype value="IRON" />
-      <subtype value="GOLD" />
-      <subtype value="SILVER" />
-      <subtype value="COPPER" />
-      <subtype value="NICKEL" />
-      <subtype value="ZINC" />
-      <subtype value="BRONZE" />
-      <subtype value="BRASS" />
-      <subtype value="STEEL" />
-      <subtype value="PIG_IRON" />
-      <subtype value="PLATINUM" />
-      <subtype value="ELECTRUM" />
-      <subtype value="TIN" />
-      <subtype value="PEWTER_FINE" />
-      <subtype value="PEWTER_TRIFLE" />
-      <subtype value="PEWTER_LAY" />
-      <subtype value="LEAD" />
-      <subtype value="ALUMINUM" />
-      <subtype value="NICKEL_SILVER" />
-      <subtype value="BILLON" />
-      <subtype value="STERLING_SILVER" />
-      <subtype value="BLACK_BRONZE" />
-      <subtype value="ROSE_GOLD" />
-      <subtype value="BISMUTH" />
-      <subtype value="BISMUTH_BRONZE" />
-      <subtype value="ADAMANTINE" />
-    </material>
-  </wall>
-  <!-- damaged walls -->
-  <wall sheetIndex="29" color="material">
-    <!-- wall feat? -->
-    <terrain token="StoneWallWorn1" />
-    <terrain token="StoneWallWorn2" />
-    <terrain token="StoneWallWorn3" />
-    <!-- wall feat? -->
-    <terrain token="FeatureWallWorn1" />
-    <terrain token="FeatureWallWorn2" />
-    <terrain token="FeatureWallWorn3" />
-    <!-- vein wall -->
-    <terrain token="MineralWallWorn1" />
-    <terrain token="MineralWallWorn2" />
-    <terrain token="MineralWallWorn3" />
-  </wall>
-  <!-- gems -->
-  <wall sheetIndex="31" color="material">
-    <!-- wall feat? -->
-    <terrain token="StoneWall" />
-    <!-- wall feat? -->
-    <terrain token="FeatureWall" />
-    <!-- vein wall -->
-    <terrain token="MineralWall" />
-    <material value="Stone">
-      <subtype value="ONYX" />
-      <subtype value="MORION" />
-      <subtype value="SCHORL" />
-      <subtype value="LACE AGATE" />
-      <subtype value="BLUE JADE" />
-      <subtype value="LAPIS LAZULI" />
-      <subtype value="PRASE" />
-      <subtype value="PRASE OPAL" />
-      <subtype value="BLOODSTONE" />
-      <subtype value="MOSS AGATE" />
-      <subtype value="MOSS OPAL" />
-      <subtype value="VARISCITE" />
-      <subtype value="CHRYSOPRASE" />
-      <subtype value="CHRYSOCOLLA" />
-      <subtype value="SARD" />
-      <subtype value="CARNELIAN" />
-      <subtype value="BANDED AGATE" />
-      <subtype value="SARDONYX" />
-      <subtype value="CHERRY OPAL" />
-      <subtype value="PINK JADE" />
-      <subtype value="TUBE AGATE" />
-      <subtype value="FIRE AGATE" />
-      <subtype value="PLUME AGATE" />
-      <subtype value="BROWN JASPER" />
-      <subtype value="PICTURE JASPER" />
-      <subtype value="SMOKY QUARTZ" />
-      <subtype value="WAX OPAL" />
-      <subtype value="WOOD OPAL" />
-      <subtype value="AMBER OPAL" />
-      <subtype value="GOLD OPAL" />
-      <subtype value="CITRINE" />
-      <subtype value="YELLOW JASPER" />
-      <subtype value="TIGEREYE" />
-      <subtype value="TIGER IRON" />
-      <subtype value="SUNSTONE" />
-      <subtype value="RESIN OPAL" />
-      <subtype value="PYRITE" />
-      <subtype value="CLEAR TOURMALINE" />
-      <subtype value="GRAY CHALCEDONY" />
-      <subtype value="DENDRITIC AGATE" />
-      <subtype value="SHELL OPAL" />
-      <subtype value="BONE OPAL" />
-      <subtype value="WHITE CHALCEDONY" />
-      <subtype value="FORTIFICATION AGATE" />
-      <subtype value="MILK QUARTZ" />
-      <subtype value="MOONSTONE" />
-      <subtype value="WHITE JADE" />
-      <subtype value="JASPER OPAL" />
-      <subtype value="PINEAPPLE OPAL" />
-      <subtype value="ONYX OPAL" />
-      <subtype value="MILK OPAL" />
-      <subtype value="PIPE OPAL" />
-      <subtype value="AVENTURINE" />
-      <subtype value="TURQUOISE" />
-      <subtype value="QUARTZ_ROSE" />
-      <subtype value="CRYSTAL_ROCK" />
-      <subtype value="BLACK ZIRCON" />
-      <subtype value="BLACK PYROPE" />
-      <subtype value="MELANITE" />
-      <subtype value="INDIGO TOURMALINE" />
-      <subtype value="BLUE GARNET" />
-      <subtype value="TSAVORITE" />
-      <subtype value="GREEN TOURMALINE" />
-      <subtype value="DEMANTOID" />
-      <subtype value="GREEN ZIRCON" />
-      <subtype value="GREEN JADE" />
-      <subtype value="HELIODOR" />
-      <subtype value="PERIDOT" />
-      <subtype value="RED ZIRCON" />
-      <subtype value="RED TOURMALINE" />
-      <subtype value="RED PYROPE" />
-      <subtype value="ALMANDINE" />
-      <subtype value="RED GROSSULAR" />
-      <subtype value="PINK TOURMALINE" />
-      <subtype value="RED BERYL" />
-      <subtype value="FIRE OPAL" />
-      <subtype value="RHODOLITE" />
-      <subtype value="SPINEL_PURPLE" />
-      <subtype value="ALEXANDRITE" />
-      <subtype value="TANZANITE" />
-      <subtype value="MORGANITE" />
-      <subtype value="VIOLET SPESSARTINE" />
-      <subtype value="PINK GARNET" />
-      <subtype value="KUNZITE" />
-      <subtype value="CINNAMON GROSSULAR" />
-      <subtype value="HONEY YELLOW BERYL" />
-      <subtype value="JELLY OPAL" />
-      <subtype value="BROWN ZIRCON" />
-      <subtype value="YELLOW ZIRCON" />
-      <subtype value="GOLDEN BERYL" />
-      <subtype value="YELLOW SPESSARTINE" />
-      <subtype value="TOPAZ" />
-      <subtype value="TOPAZOLITE" />
-      <subtype value="YELLOW GROSSULAR" />
-      <subtype value="RUBICELLE" />
-      <subtype value="CLEAR GARNET" />
-      <subtype value="GOSHENITE" />
-      <subtype value="CAT'S EYE" />
-      <subtype value="CLEAR ZIRCON" />
-      <subtype value="AMETHYST" />
-      <subtype value="AQUAMARINE" />
-      <subtype value="SPINEL_RED" />
-      <subtype value="CHRYSOBERYL" />
-      <subtype value="OPAL_PFIRE" />
-      <subtype value="OPAL_REDFLASH" />
-      <subtype value="OPAL_BLACK" />
-      <subtype value="OPAL_WHITE" />
-      <subtype value="OPAL_CRYSTAL" />
-      <subtype value="OPAL_CLARO" />
-      <subtype value="OPAL_LEVIN" />
-      <subtype value="OPAL_HARLEQUIN" />
-      <subtype value="OPAL_PINFIRE" />
-      <subtype value="OPAL_BANDFIRE" />
-      <subtype value="DIAMOND_LY" />
-      <subtype value="DIAMOND_FY" />
-      <subtype value="EMERALD" />
-      <subtype value="RUBY" />
-      <subtype value="SAPPHIRE" />
-      <subtype value="DIAMOND_CLEAR" />
-      <subtype value="DIAMOND_RED" />
-      <subtype value="DIAMOND_GREEN" />
-      <subtype value="DIAMOND_BLUE" />
-      <subtype value="DIAMOND_YELLOW" />
-      <subtype value="DIAMOND_BLACK" />
-      <subtype value="SAPPHIRE_STAR" />
-      <subtype value="RUBY_STAR" />
-      <subtype value="RAW_ADAMANTINE" />
-    </material>
-  </wall>
-  <!-- soil -->
-  <wall sheetIndex="10" color = "material">
-    <!-- wall -->
-    <terrain token="SoilWall" />
-    <material value="Stone">
-      <subtype value="SAND_TAN" />
-      <subtype value="SAND_YELLOW" />
-      <subtype value="LOAMY_SAND" />
-      <subtype value="SAND_RED" />
-      <subtype value="SAND_BLACK" />
-      <subtype value="SAND_WHITE" />
-    </material>
-  </wall>
-  <!-- soil -->
-  <wall sheetIndex="14" color="material">
-    <!-- wall -->
-    <terrain token="SoilWall" />
-    <material value="Stone">
-      <subtype value="SILTY_CLAY" />
-      <subtype value="PELAGIC_CLAY" />
-      <subtype value="CLAY_LOAM" />
-      <subtype value="SANDY_CLAY" />
-      <subtype value="CLAY" />
-    </material>
-  </wall>
-  <!-- construct -->
-  <wall sheetIndex="67">
-    <material value="Ice" />
-    <!-- pillar -->
-    <terrain shape="WALL" special="CONSTRUCTION"/>
-  </wall>
+    <wall sheetIndex="1" file="ramps.png" color="material">
+        <!-- stone -->
+        <terrain token="StoneRamp" />
+        <!-- obs -->
+        <terrain token="LavaRamp" />
+        <!-- feat -->
+        <terrain token="FeatureRamp" />
+        <!-- vein -->
+        <terrain token="MineralRamp" />
+    </wall>
+    <!-- brick -->
+    <wall sheetIndex="2" file="ramps.png" color="material">
+        <!-- cons -->
+        <terrain token="ConstructedRamp" />
+    </wall>
+    <wall sheetIndex="10" file="ramps.png">
+        <!-- ice -->
+        <terrain token="FrozenRamp" />
+    </wall>
+    <wall sheetIndex="11" file="ramps.png" color="material">
+        <!-- ice -->
+        <terrain token="ConstructedRamp" />
+        <material value="Ice" />
+    </wall>
+    <wall sheetIndex="4" file="ramps.png">
+        <!-- cons -->
+        <terrain token="ConstructedRamp" />
+        <material value="GreenGlass" />
+    </wall>
+    <wall sheetIndex="3" file="ramps.png">
+        <!-- cons -->
+        <terrain token="ConstructedRamp" />
+        <material value="ClearGlass" />
+        <material value="CrystalGlass" />
+    </wall>
+    <wall sheetIndex="6" file="ramps.png" color="material">
+        <!-- cons -->
+        <terrain token="ConstructedRamp" />
+        <material value="Wood" />
+    </wall>
+    <!-- stairs: wood -->
+    <wall sheetIndex="162" color="material">
+        <!-- cons -->
+        <terrain token="ConstructedStairUD" />
+        <terrain token="ConstructedStairU" />
+        <material value="Wood" />
+    </wall>
+    <!-- stairs: "natural" ice -->
+    <wall sheetIndex="166">
+        <terrain token="FrozenStairUD" />
+        <terrain token="FrozenStairU" />
+    </wall>
+    <!-- stairs: constructed ice -->
+    <wall sheetIndex="166">
+        <terrain token="ConstructedStairUD" />
+        <terrain token="ConstructedStairU" />
+        <material value="Ice" />
+    </wall>
+    <!-- constructed: Wood -->
+    <wall sheetIndex="8" color="material">
+        <terrain shape="WALL" special="CONSTRUCTION" />
+        <material value="Wood" />
+    </wall>
+    <!-- constructed: GreenGlass -->
+    <wall sheetIndex="26">
+        <terrain shape="WALL" special="CONSTRUCTION" />
+        <material value="GreenGlass" />
+    </wall>
+    <!-- constructed: Clear&CrystalGlass -->
+    <wall sheetIndex="25">
+        <terrain shape="WALL" special="CONSTRUCTION" />
+        <material value="ClearGlass" />
+        <material value="CrystalGlass" />
+    </wall>
+    <!-- constructed: RUTILE -->
+    <wall sheetIndex="46">
+        <terrain shape="WALL" special="CONSTRUCTION" />
+        <material value="Stone">
+            <subtype value="RUTILE" />
+        </material>
+    </wall>
+    <!-- constructed: metalls -->
+    <wall sheetIndex="7" color="material">
+        <terrain shape="WALL" special="CONSTRUCTION" />
+        <material value="Metal">
+            <subtype value="IRON" />
+            <subtype value="GOLD" />
+            <subtype value="SILVER" />
+            <subtype value="COPPER" />
+            <subtype value="NICKEL" />
+            <subtype value="ZINC" />
+            <subtype value="BRONZE" />
+            <subtype value="BRASS" />
+            <subtype value="STEEL" />
+            <subtype value="PIG_IRON" />
+            <subtype value="PLATINUM" />
+            <subtype value="ELECTRUM" />
+            <subtype value="TIN" />
+            <subtype value="PEWTER_FINE" />
+            <subtype value="PEWTER_TRIFLE" />
+            <subtype value="PEWTER_LAY" />
+            <subtype value="LEAD" />
+            <subtype value="ALUMINUM" />
+            <subtype value="NICKEL_SILVER" />
+            <subtype value="BILLON" />
+            <subtype value="STERLING_SILVER" />
+            <subtype value="BLACK_BRONZE" />
+            <subtype value="ROSE_GOLD" />
+            <subtype value="BISMUTH" />
+            <subtype value="BISMUTH_BRONZE" />
+            <subtype value="ADAMANTINE" />
+        </material>
+    </wall>
+    <!-- damaged walls -->
+    <wall sheetIndex="29" color="material">
+        <!-- wall feat? -->
+        <terrain token="StoneWallWorn1" />
+        <terrain token="StoneWallWorn2" />
+        <terrain token="StoneWallWorn3" />
+        <!-- wall feat? -->
+        <terrain token="FeatureWallWorn1" />
+        <terrain token="FeatureWallWorn2" />
+        <terrain token="FeatureWallWorn3" />
+        <!-- vein wall -->
+        <terrain token="MineralWallWorn1" />
+        <terrain token="MineralWallWorn2" />
+        <terrain token="MineralWallWorn3" />
+    </wall>
+    <!-- gems -->
+    <wall sheetIndex="31" color="material">
+        <!-- wall feat? -->
+        <terrain token="StoneWall" />
+        <!-- wall feat? -->
+        <terrain token="FeatureWall" />
+        <!-- vein wall -->
+        <terrain token="MineralWall" />
+        <material value="Stone">
+            <subtype value="ONYX" />
+            <subtype value="MORION" />
+            <subtype value="SCHORL" />
+            <subtype value="LACE AGATE" />
+            <subtype value="BLUE JADE" />
+            <subtype value="LAPIS LAZULI" />
+            <subtype value="PRASE" />
+            <subtype value="PRASE OPAL" />
+            <subtype value="BLOODSTONE" />
+            <subtype value="MOSS AGATE" />
+            <subtype value="MOSS OPAL" />
+            <subtype value="VARISCITE" />
+            <subtype value="CHRYSOPRASE" />
+            <subtype value="CHRYSOCOLLA" />
+            <subtype value="SARD" />
+            <subtype value="CARNELIAN" />
+            <subtype value="BANDED AGATE" />
+            <subtype value="SARDONYX" />
+            <subtype value="CHERRY OPAL" />
+            <subtype value="PINK JADE" />
+            <subtype value="TUBE AGATE" />
+            <subtype value="FIRE AGATE" />
+            <subtype value="PLUME AGATE" />
+            <subtype value="BROWN JASPER" />
+            <subtype value="PICTURE JASPER" />
+            <subtype value="SMOKY QUARTZ" />
+            <subtype value="WAX OPAL" />
+            <subtype value="WOOD OPAL" />
+            <subtype value="AMBER OPAL" />
+            <subtype value="GOLD OPAL" />
+            <subtype value="CITRINE" />
+            <subtype value="YELLOW JASPER" />
+            <subtype value="TIGEREYE" />
+            <subtype value="TIGER IRON" />
+            <subtype value="SUNSTONE" />
+            <subtype value="RESIN OPAL" />
+            <subtype value="PYRITE" />
+            <subtype value="CLEAR TOURMALINE" />
+            <subtype value="GRAY CHALCEDONY" />
+            <subtype value="DENDRITIC AGATE" />
+            <subtype value="SHELL OPAL" />
+            <subtype value="BONE OPAL" />
+            <subtype value="WHITE CHALCEDONY" />
+            <subtype value="FORTIFICATION AGATE" />
+            <subtype value="MILK QUARTZ" />
+            <subtype value="MOONSTONE" />
+            <subtype value="WHITE JADE" />
+            <subtype value="JASPER OPAL" />
+            <subtype value="PINEAPPLE OPAL" />
+            <subtype value="ONYX OPAL" />
+            <subtype value="MILK OPAL" />
+            <subtype value="PIPE OPAL" />
+            <subtype value="AVENTURINE" />
+            <subtype value="TURQUOISE" />
+            <subtype value="QUARTZ_ROSE" />
+            <subtype value="CRYSTAL_ROCK" />
+            <subtype value="BLACK ZIRCON" />
+            <subtype value="BLACK PYROPE" />
+            <subtype value="MELANITE" />
+            <subtype value="INDIGO TOURMALINE" />
+            <subtype value="BLUE GARNET" />
+            <subtype value="TSAVORITE" />
+            <subtype value="GREEN TOURMALINE" />
+            <subtype value="DEMANTOID" />
+            <subtype value="GREEN ZIRCON" />
+            <subtype value="GREEN JADE" />
+            <subtype value="HELIODOR" />
+            <subtype value="PERIDOT" />
+            <subtype value="RED ZIRCON" />
+            <subtype value="RED TOURMALINE" />
+            <subtype value="RED PYROPE" />
+            <subtype value="ALMANDINE" />
+            <subtype value="RED GROSSULAR" />
+            <subtype value="PINK TOURMALINE" />
+            <subtype value="RED BERYL" />
+            <subtype value="FIRE OPAL" />
+            <subtype value="RHODOLITE" />
+            <subtype value="SPINEL_PURPLE" />
+            <subtype value="ALEXANDRITE" />
+            <subtype value="TANZANITE" />
+            <subtype value="MORGANITE" />
+            <subtype value="VIOLET SPESSARTINE" />
+            <subtype value="PINK GARNET" />
+            <subtype value="KUNZITE" />
+            <subtype value="CINNAMON GROSSULAR" />
+            <subtype value="HONEY YELLOW BERYL" />
+            <subtype value="JELLY OPAL" />
+            <subtype value="BROWN ZIRCON" />
+            <subtype value="YELLOW ZIRCON" />
+            <subtype value="GOLDEN BERYL" />
+            <subtype value="YELLOW SPESSARTINE" />
+            <subtype value="TOPAZ" />
+            <subtype value="TOPAZOLITE" />
+            <subtype value="YELLOW GROSSULAR" />
+            <subtype value="RUBICELLE" />
+            <subtype value="CLEAR GARNET" />
+            <subtype value="GOSHENITE" />
+            <subtype value="CAT'S EYE" />
+            <subtype value="CLEAR ZIRCON" />
+            <subtype value="AMETHYST" />
+            <subtype value="AQUAMARINE" />
+            <subtype value="SPINEL_RED" />
+            <subtype value="CHRYSOBERYL" />
+            <subtype value="OPAL_PFIRE" />
+            <subtype value="OPAL_REDFLASH" />
+            <subtype value="OPAL_BLACK" />
+            <subtype value="OPAL_WHITE" />
+            <subtype value="OPAL_CRYSTAL" />
+            <subtype value="OPAL_CLARO" />
+            <subtype value="OPAL_LEVIN" />
+            <subtype value="OPAL_HARLEQUIN" />
+            <subtype value="OPAL_PINFIRE" />
+            <subtype value="OPAL_BANDFIRE" />
+            <subtype value="DIAMOND_LY" />
+            <subtype value="DIAMOND_FY" />
+            <subtype value="EMERALD" />
+            <subtype value="RUBY" />
+            <subtype value="SAPPHIRE" />
+            <subtype value="DIAMOND_CLEAR" />
+            <subtype value="DIAMOND_RED" />
+            <subtype value="DIAMOND_GREEN" />
+            <subtype value="DIAMOND_BLUE" />
+            <subtype value="DIAMOND_YELLOW" />
+            <subtype value="DIAMOND_BLACK" />
+            <subtype value="SAPPHIRE_STAR" />
+            <subtype value="RUBY_STAR" />
+            <subtype value="RAW_ADAMANTINE" />
+        </material>
+    </wall>
+    <!-- soil -->
+    <wall sheetIndex="10" color="material">
+        <!-- wall -->
+        <terrain token="SoilWall" />
+        <material value="Stone">
+            <subtype value="SAND_TAN" />
+            <subtype value="SAND_YELLOW" />
+            <subtype value="LOAMY_SAND" />
+            <subtype value="SAND_RED" />
+            <subtype value="SAND_BLACK" />
+            <subtype value="SAND_WHITE" />
+        </material>
+    </wall>
+    <!-- soil -->
+    <wall sheetIndex="14" color="material">
+        <!-- wall -->
+        <terrain token="SoilWall" />
+        <material value="Stone">
+            <subtype value="SILTY_CLAY" />
+            <subtype value="PELAGIC_CLAY" />
+            <subtype value="CLAY_LOAM" />
+            <subtype value="SANDY_CLAY" />
+            <subtype value="CLAY" />
+        </material>
+    </wall>
+    <!-- construct -->
+    <wall sheetIndex="67">
+        <material value="Ice" />
+        <!-- pillar -->
+        <terrain shape="WALL" special="CONSTRUCTION" />
+    </wall>
 </walls>

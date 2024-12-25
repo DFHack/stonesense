@@ -1,141 +1,141 @@
 <?xml version="1.0"?>
 <building name="Windmill" game_type="Windmill" file="mechanics.png">
-  <include file="sBlueprint.xml" />
-  <else>
-    <if>
-      <PositionIndex value="0" />
-      <rotate>
-        <sprite index="30" frames="024" color = "building" />
-        <sprite index="28" frames="024" color = "building" />
-        <sprite index="29" frames="024" color = "building" />
-        <sprite index="26" frames="024" color = "building" />
-      </rotate>
-      <rotate>
-        <sprite index="90" frames="024" />
-        <sprite index="88" frames="024" />
-        <sprite index="89" frames="024" />
-        <sprite index="86" frames="024" />
-      </rotate>
-    </if>
+    <include file="sBlueprint.xml" />
     <else>
-      <PositionIndex value="2" />
-      <rotate>
-        <sprite index="28" frames="024" color = "building" />
-        <sprite index="29" frames="024" color = "building" />
-        <sprite index="26" frames="024" color = "building" />
-        <sprite index="30" frames="024" color = "building" />
-      </rotate>
-      <rotate>
-        <sprite index="88" frames="024" />
-        <sprite index="89" frames="024" />
-        <sprite index="86" frames="024" />
-        <sprite index="90" frames="024" />
-      </rotate>
+        <if>
+            <PositionIndex value="0" />
+            <rotate>
+                <sprite index="30" frames="024" color="building" />
+                <sprite index="28" frames="024" color="building" />
+                <sprite index="29" frames="024" color="building" />
+                <sprite index="26" frames="024" color="building" />
+            </rotate>
+            <rotate>
+                <sprite index="90" frames="024" />
+                <sprite index="88" frames="024" />
+                <sprite index="89" frames="024" />
+                <sprite index="86" frames="024" />
+            </rotate>
+        </if>
+        <else>
+            <PositionIndex value="2" />
+            <rotate>
+                <sprite index="28" frames="024" color="building" />
+                <sprite index="29" frames="024" color="building" />
+                <sprite index="26" frames="024" color="building" />
+                <sprite index="30" frames="024" color="building" />
+            </rotate>
+            <rotate>
+                <sprite index="88" frames="024" />
+                <sprite index="89" frames="024" />
+                <sprite index="86" frames="024" />
+                <sprite index="90" frames="024" />
+            </rotate>
+        </else>
+        <else>
+            <PositionIndex value="6" />
+            <rotate>
+                <sprite index="26" frames="024" color="building" />
+                <sprite index="30" frames="024" color="building" />
+                <sprite index="28" frames="024" color="building" />
+                <sprite index="29" frames="024" color="building" />
+            </rotate>
+            <rotate>
+                <sprite index="86" frames="024" />
+                <sprite index="90" frames="024" />
+                <sprite index="88" frames="024" />
+                <sprite index="89" frames="024" />
+            </rotate>
+        </else>
+        <else>
+            <PositionIndex value="8" />
+            <rotate>
+                <sprite index="29" frames="024" color="building" />
+                <sprite index="26" frames="024" color="building" />
+                <sprite index="30" frames="024" color="building" />
+                <sprite index="28" frames="024" color="building" />
+            </rotate>
+            <rotate>
+                <sprite index="89" frames="024" />
+                <sprite index="86" frames="024" />
+                <sprite index="90" frames="024" />
+                <sprite index="88" frames="024" />
+            </rotate>
+        </else>
+        <else>
+            <PositionIndex value="4" />
+            <sprite index="20" frames="024" color="building" />
+            <sprite index="27" frames="024" color="building" />
+            <sprite index="80" frames="024" />
+            <sprite index="87" frames="024" />
+        </else>
+        <if>
+            <PositionIndex value="1" />
+            <rotate>
+                <sprite index="24" frames="135" color="building" />
+                <sprite index="22" frames="135" color="building" />
+                <sprite index="23" frames="135" color="building" />
+                <sprite index="25" frames="135" color="building" />
+            </rotate>
+            <rotate>
+                <sprite index="84" frames="135" />
+                <sprite index="82" frames="135" />
+                <sprite index="83" frames="135" />
+                <sprite index="85" frames="135" />
+            </rotate>
+        </if>
+        <else>
+            <PositionIndex value="3" />
+            <rotate>
+                <sprite index="25" frames="135" color="building" />
+                <sprite index="24" frames="135" color="building" />
+                <sprite index="22" frames="135" color="building" />
+                <sprite index="23" frames="135" color="building" />
+            </rotate>
+            <rotate>
+                <sprite index="85" frames="135" />
+                <sprite index="84" frames="135" />
+                <sprite index="82" frames="135" />
+                <sprite index="83" frames="135" />
+            </rotate>
+        </else>
+        <else>
+            <PositionIndex value="5" />
+            <rotate>
+                <sprite index="22" frames="135" color="building" />
+                <sprite index="23" frames="135" color="building" />
+                <sprite index="25" frames="135" color="building" />
+                <sprite index="24" frames="135" color="building" />
+            </rotate>
+            <rotate>
+                <sprite index="82" frames="135" />
+                <sprite index="83" frames="135" />
+                <sprite index="85" frames="135" />
+                <sprite index="84" frames="135" />
+            </rotate>
+        </else>
+        <else>
+            <PositionIndex value="7" />
+            <rotate>
+                <sprite index="23" frames="135" color="building" />
+                <sprite index="25" frames="135" color="building" />
+                <sprite index="24" frames="135" color="building" />
+                <sprite index="22" frames="135" color="building" />
+            </rotate>
+            <rotate>
+                <sprite index="83" frames="135" />
+                <sprite index="85" frames="135" />
+                <sprite index="84" frames="135" />
+                <sprite index="82" frames="135" />
+            </rotate>
+        </else>
+        <else>
+            <PositionIndex value="4" />
+            <sprite index="20" frames="135" color="building" />
+            <sprite index="21" frames="135" color="building" />
+            <sprite index="80" frames="135" />
+            <sprite index="81" frames="135" />
+        </else>
     </else>
-    <else>
-      <PositionIndex value="6" />
-      <rotate>
-        <sprite index="26" frames="024" color = "building" />
-        <sprite index="30" frames="024" color = "building" />
-        <sprite index="28" frames="024" color = "building" />
-        <sprite index="29" frames="024" color = "building" />
-      </rotate>
-      <rotate>
-        <sprite index="86" frames="024" />
-        <sprite index="90" frames="024" />
-        <sprite index="88" frames="024" />
-        <sprite index="89" frames="024" />
-      </rotate>
-    </else>
-    <else>
-      <PositionIndex value="8" />
-      <rotate>
-        <sprite index="29" frames="024" color = "building" />
-        <sprite index="26" frames="024" color = "building" />
-        <sprite index="30" frames="024" color = "building" />
-        <sprite index="28" frames="024" color = "building" />
-      </rotate>
-      <rotate>
-        <sprite index="89" frames="024" />
-        <sprite index="86" frames="024" />
-        <sprite index="90" frames="024" />
-        <sprite index="88" frames="024" />
-      </rotate>
-    </else>
-    <else>
-      <PositionIndex value="4" />
-      <sprite index="20" frames="024" color = "building" />
-      <sprite index="27" frames="024" color = "building" />
-      <sprite index="80" frames="024" />
-      <sprite index="87" frames="024" />
-    </else>
-    <if>
-      <PositionIndex value="1" />
-      <rotate>
-        <sprite index="24" frames="135" color = "building" />
-        <sprite index="22" frames="135" color = "building" />
-        <sprite index="23" frames="135" color = "building" />
-        <sprite index="25" frames="135" color = "building" />
-      </rotate>
-      <rotate>
-        <sprite index="84" frames="135" />
-        <sprite index="82" frames="135" />
-        <sprite index="83" frames="135" />
-        <sprite index="85" frames="135" />
-      </rotate>
-    </if>
-    <else>
-      <PositionIndex value="3" />
-      <rotate>
-        <sprite index="25" frames="135" color = "building" />
-        <sprite index="24" frames="135" color = "building" />
-        <sprite index="22" frames="135" color = "building" />
-        <sprite index="23" frames="135" color = "building" />
-      </rotate>
-      <rotate>
-        <sprite index="85" frames="135" />
-        <sprite index="84" frames="135" />
-        <sprite index="82" frames="135" />
-        <sprite index="83" frames="135" />
-      </rotate>
-    </else>
-    <else>
-      <PositionIndex value="5" />
-      <rotate>
-        <sprite index="22" frames="135" color = "building" />
-        <sprite index="23" frames="135" color = "building" />
-        <sprite index="25" frames="135" color = "building" />
-        <sprite index="24" frames="135" color = "building" />
-      </rotate>
-      <rotate>
-        <sprite index="82" frames="135" />
-        <sprite index="83" frames="135" />
-        <sprite index="85" frames="135" />
-        <sprite index="84" frames="135" />
-      </rotate>
-    </else>
-    <else>
-      <PositionIndex value="7" />
-      <rotate>
-        <sprite index="23" frames="135" color = "building" />
-        <sprite index="25" frames="135" color = "building" />
-        <sprite index="24" frames="135" color = "building" />
-        <sprite index="22" frames="135" color = "building" />
-      </rotate>
-      <rotate>
-        <sprite index="83" frames="135" />
-        <sprite index="85" frames="135" />
-        <sprite index="84" frames="135" />
-        <sprite index="82" frames="135" />
-      </rotate>
-    </else>
-    <else>
-      <PositionIndex value="4" />
-      <sprite index="20" frames="135" color = "building" />
-      <sprite index="21" frames="135" color = "building" />
-      <sprite index="80" frames="135" />
-      <sprite index="81" frames="135" />
-    </else>
-  </else>
-  <empty />
+    <empty />
 </building>

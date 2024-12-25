@@ -1,52 +1,41 @@
 <?xml version="1.0"?>
 <!-- Basic Trunk -->
-
 <!-- Mystery types:
 
 None as of now.
 
 -->
-
 <growths file="base_foliage_grey.png">
-
-	<growth sheetIndex="19" outline="0" color="material" layer="top">
-		<part token="*:LEAVES:*" />
-		<subsprite file="tree_shadow.png" sheetIndex="0" offsety="16" />
-		<subsprite file="tree_shadow.png" sheetIndex="0" offsety="12" />
-		<subsprite file="tree_shadow.png" sheetIndex="0" offsety="8" />
-		<subsprite file="tree_shadow.png" sheetIndex="0" offsety="4" />
-
-		<!--leaves-->
-		<subsprite sheetIndex="26" file="base_foliage_grey.png" color="growth" variations="2"/>
-		<subsprite sheetIndex="28" file="base_foliage_grey.png" color="growth" border_floor_NOR="8" border_wall_NOR="8" border_ramp_NOR="8"/>
-		<subsprite sheetIndex="29" file="base_foliage_grey.png" color="growth" border_floor_NOR="2" border_wall_NOR="2" border_ramp_NOR="2"/>
-		<subsprite sheetIndex="30" file="base_foliage_grey.png" color="growth" border_floor_NOR="4" border_wall_NOR="4" border_ramp_NOR="4"/>
-		<subsprite sheetIndex="31" file="base_foliage_grey.png" color="growth" border_floor_NOR="6" border_wall_NOR="6" border_ramp_NOR="6"/>
-
-	</growth>
-
-	<growth sheetIndex="19" outline="0" color="material">
-		<part token="*:LEAVES:TWIGS" />
-
-		<subsprite file="tree_shadow.png" color="growth" sheetIndex="1" offsety="16" />
-		<subsprite file="tree_shadow.png" color="growth" sheetIndex="1" offsety="12" />
-		<subsprite file="tree_shadow.png" color="growth" sheetIndex="1" offsety="8" />
-		<subsprite file="tree_shadow.png" color="growth" sheetIndex="1" offsety="4" />
-
-		<!-- leaves -->
-		<subsprite sheetIndex="20" file="base_foliage_grey.png" color="growth" variations="2"/>
-		<subsprite sheetIndex="22" file="base_foliage_grey.png" color="growth" border_floor_NOR="8" border_wall_NOR="8" border_ramp_NOR="8"/>
-		<subsprite sheetIndex="23" file="base_foliage_grey.png" color="growth" border_floor_NOR="2" border_wall_NOR="2" border_ramp_NOR="2"/>
-		<subsprite sheetIndex="24" file="base_foliage_grey.png" color="growth" border_floor_NOR="4" border_wall_NOR="4" border_ramp_NOR="4"/>
-		<subsprite sheetIndex="25" file="base_foliage_grey.png" color="growth" border_floor_NOR="6" border_wall_NOR="6" border_ramp_NOR="6"/>
-	</growth>
-
-	<growth sheetIndex="70" file="base_foliage_grey.png" color="growth" variations="2" offsety="4" layer="bottom" >
-		<part token="*:FRUIT:*" />
-	</growth>
-
-	<growth sheetIndex="60" file="base_foliage_grey.png" color="growth" variations="4" layer="top" >
-		<part token="*:FLOWERS:*" />
-	</growth>
-
+    <growth sheetIndex="19" outline="0" color="material" layer="top">
+        <part token="*:LEAVES:*" />
+        <subsprite file="tree_shadow.png" sheetIndex="0" offsety="16" />
+        <subsprite file="tree_shadow.png" sheetIndex="0" offsety="12" />
+        <subsprite file="tree_shadow.png" sheetIndex="0" offsety="8" />
+        <subsprite file="tree_shadow.png" sheetIndex="0" offsety="4" />
+        <!--leaves-->
+        <subsprite sheetIndex="26" file="base_foliage_grey.png" color="growth" variations="2" />
+        <subsprite sheetIndex="28" file="base_foliage_grey.png" color="growth" border_floor_NOR="8" border_wall_NOR="8" border_ramp_NOR="8" />
+        <subsprite sheetIndex="29" file="base_foliage_grey.png" color="growth" border_floor_NOR="2" border_wall_NOR="2" border_ramp_NOR="2" />
+        <subsprite sheetIndex="30" file="base_foliage_grey.png" color="growth" border_floor_NOR="4" border_wall_NOR="4" border_ramp_NOR="4" />
+        <subsprite sheetIndex="31" file="base_foliage_grey.png" color="growth" border_floor_NOR="6" border_wall_NOR="6" border_ramp_NOR="6" />
+    </growth>
+    <growth sheetIndex="19" outline="0" color="material">
+        <part token="*:LEAVES:TWIGS" />
+        <subsprite file="tree_shadow.png" color="growth" sheetIndex="1" offsety="16" />
+        <subsprite file="tree_shadow.png" color="growth" sheetIndex="1" offsety="12" />
+        <subsprite file="tree_shadow.png" color="growth" sheetIndex="1" offsety="8" />
+        <subsprite file="tree_shadow.png" color="growth" sheetIndex="1" offsety="4" />
+        <!-- leaves -->
+        <subsprite sheetIndex="20" file="base_foliage_grey.png" color="growth" variations="2" />
+        <subsprite sheetIndex="22" file="base_foliage_grey.png" color="growth" border_floor_NOR="8" border_wall_NOR="8" border_ramp_NOR="8" />
+        <subsprite sheetIndex="23" file="base_foliage_grey.png" color="growth" border_floor_NOR="2" border_wall_NOR="2" border_ramp_NOR="2" />
+        <subsprite sheetIndex="24" file="base_foliage_grey.png" color="growth" border_floor_NOR="4" border_wall_NOR="4" border_ramp_NOR="4" />
+        <subsprite sheetIndex="25" file="base_foliage_grey.png" color="growth" border_floor_NOR="6" border_wall_NOR="6" border_ramp_NOR="6" />
+    </growth>
+    <growth sheetIndex="70" file="base_foliage_grey.png" color="growth" variations="2" offsety="4" layer="bottom">
+        <part token="*:FRUIT:*" />
+    </growth>
+    <growth sheetIndex="60" file="base_foliage_grey.png" color="growth" variations="4" layer="top">
+        <part token="*:FLOWERS:*" />
+    </growth>
 </growths>

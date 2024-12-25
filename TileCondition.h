@@ -218,4 +218,3 @@ public:
     unsigned int value;
     bool Matches(Tile* b);
 };
-
