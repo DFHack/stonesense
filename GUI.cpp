@@ -1,4 +1,9 @@
+#ifndef LINUX_BUILD
+#   define NOMINMAX
+#endif
+
 #include <assert.h>
+#include <algorithm>
 #include <vector>
 
 #include "common.h"
@@ -333,10 +338,11 @@ void draw_report_border(const ALLEGRO_FONT *font, float x, float y, int flags, c
 
 void draw_announcements(const ALLEGRO_FONT *font, float x, float y, int flags, std::vector<df::report *> &announcements)
 {
-    int maxAnnouncements = std::min(10, (int)announcements.size());
-    for (int i = announcements.size() - 1; i >= (announcements.size() - maxAnnouncements) && announcements[i]->duration > 0; i--)
+    const int numAnnouncements = (int)announcements.size();
+    const int maxAnnouncements = std::min(10, numAnnouncements);
+    for (int i = numAnnouncements - 1; i >= (numAnnouncements - maxAnnouncements) && announcements[i]->duration > 0; i--)
     {
-        int offset = ((announcements.size() - 1) - i) * al_get_font_line_height(font);
+        int offset = ((numAnnouncements - 1) - i) * al_get_font_line_height(font);
         draw_report_border(font, x, y - offset, flags, announcements[i]);
     }
 }
