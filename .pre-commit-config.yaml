@@ -27,4 +27,6 @@ repos:
   hooks:
     - id: forbid-tabs
     - id: remove-tabs
-# specific to dfhack-ci:
+# specific to stonesense:
+# exclude files that don't pass the xml check due to multiple top-level elements
+exclude: '^resources/(buildings/caravan_1|terrain/(DF_2014_Trees/(base_trees_trunk|base_trees_foliage|base_mushroom)|Test|block_walls))[.]xml$'
