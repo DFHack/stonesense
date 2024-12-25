@@ -333,7 +333,7 @@ void draw_report_border(const ALLEGRO_FONT *font, float x, float y, int flags, c
 
 void draw_announcements(const ALLEGRO_FONT *font, float x, float y, int flags, std::vector<df::report *> &announcements)
 {
-    int maxAnnouncements = 10;
+    int maxAnnouncements = std::min(10, (int)announcements.size());
     for (int i = announcements.size() - 1; i >= (announcements.size() - maxAnnouncements) && announcements[i]->duration > 0; i--)
     {
         int offset = ((announcements.size() - 1) - i) * al_get_font_line_height(font);
