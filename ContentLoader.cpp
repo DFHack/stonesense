@@ -23,6 +23,7 @@
 #include "df/itemdef_shieldst.h"
 #include "df/itemdef_shoesst.h"
 #include "df/itemdef_weaponst.h"
+#include "df/material.h"
 #include "df/tissue_style_raw.h"
 #include "df/world.h"
 #include "df/world_raws.h"

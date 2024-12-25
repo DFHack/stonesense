@@ -7,8 +7,8 @@ Stonesense
 ##########
 
 .. Note to editors:  this document is rendered as part of the DFHack docs,
-.. using Sphinx.  Some of it may not render properly on Github; that's OK.
-
+.. using Sphinx.  Some of it may not render properly when the .rst file is
+.. viewed directly on GitHub; that's OK.
 
 Stonesense is an isometric visualizer for Dwarf Fortress,
 implemented as `a DFHack plugin <plugin-stonesense>`.
@@ -27,14 +27,6 @@ Usage
 The DFHack command ``stonesense`` (or ``ssense``) opens Stonesense
 in a new window.  This viewer window has read-only access to the game,
 and can follow the game view, or be moved independently.
-
-``stonesense overlay`` replaces the map section of your DF window.
-Note that it's not (yet) suitable for use as your only interface.
-Use DF's ``[PRINT_MODE:2D]`` init option for stability.
-For best results, edit ``[segmentsize_z:2]`` in ``init.txt``, and if
-you are unable to see the edges of the map with the overlay active
-try decreasing the ``[segmentsize_XY]`` - normal values are 50 to 80
-depending on your screen resolution.
 
 .. figure:: ssense-roadtruss.jpg
    :align: center
@@ -57,7 +49,8 @@ Mouse controls are hard-coded and cannot be changed.
 Follow mode makes the Stonesense view follow the location of the DF
 window.  The offset can be adjusted by holding :kbd:`Ctrl` while using the
 keyboard window movement keys.  When you turn on cursor follow mode, the
-Stonesense debug cursor will follow the DF cursor when the latter exists.
+Stonesense debug cursor will follow the DF keyboard cursor when the latter
+exists.
 
 You can take screenshots with :kbd:`F5`, larger screenshots with
 :kbd:`Ctrl`:kbd:`F5`, and screenshot the whole map at full resolution with
@@ -80,6 +73,11 @@ If Stonesense gives an error saying that it can't load
 :file:`creatures/large_256/*.png`, your video card cannot handle the high
 detail sprites used. Either open :file:`creatures/init.txt` and remove the
 line containing that folder, or :dffd:`use these smaller sprites <6096>`.
+
+Mega screenshots (:kbd:`Ctrl`:kbd:`Shift`:kbd:`F5`) put the buffer into an
+invalid state after the screenshot is written to disk. After completing a mega
+screenshot, the Stonesense window becomes unresponsive and you have to close
+it and re-run `stonesense` to continue using it.
 
 Stonesense requires working graphics acceleration, and we recommend
 at least a dual core CPU to avoid slowing down your game of DF.

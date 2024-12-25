@@ -1,4 +1,4 @@
-﻿#include <assert.h>
+#include <assert.h>
 #include <vector>
 
 #include "common.h"
@@ -16,7 +16,7 @@
 
 #include "modules/Units.h"
 
-#include "df/ui.h"
+#include "df/plotinfost.h"
 #include "df/building_actual.h"
 #include "df/world.h"
 
@@ -36,14 +36,17 @@
 #include "df/itemdef_pantsst.h"
 #include "df/itemdef_foodst.h"
 #include "df/descriptor_pattern.h"
+#include "df/material.h"
 
 #include "df/creature_raw.h"
 #include "df/caste_raw.h"
 #include "df/tissue_style_raw.h"
 
+/*FIXME when adventure mode returns.
 #include "df/viewscreen_dungeonmodest.h"
 #include "df/viewscreen_dungeon_wrestlest.h"
-#include "df/ui_advmode.h"
+*/
+#include "df/adventurest.h"
 #include "df/report.h"
 
 #include "allegro5/allegro_color.h"
@@ -508,7 +511,7 @@ void drawDebugCursor(WorldSegment * segment)
 
 void drawAdvmodeMenuTalk(const ALLEGRO_FONT *font, int x, int y)
 {
-    //df::ui_advmode * menu = df::global::ui_advmode;
+    //df::adventure * menu = df::global::adventure;
     //if (!menu)
     //    return;
     //if (menu->talk_targets.size() == 0)
@@ -539,7 +542,7 @@ void drawAdvmodeMenuTalk(const ALLEGRO_FONT *font, int x, int y)
 
 void drawDebugInfo(WorldSegment * segment)
 {
-    using df::global::ui;
+    using df::global::plotinfo;
 
     //get tile info
     Tile* b = segment->getTile(
@@ -550,16 +553,18 @@ void drawDebugInfo(WorldSegment * segment)
     if(b) {
         draw_textf_border(font, uiColor(1), 2, (i++*al_get_font_line_height(font)), 0, "Tile 0x%x (%i,%i,%i)", b, b->x, b->y, b->z);
     }
+    /*FIXME when adventure mode returns.
     df::viewscreen * vs = Gui::getCurViewscreen();
     if (strict_virtual_cast<df::viewscreen_dungeonmodest>(vs))
     {
-        if (df::global::ui_advmode)
+        if (df::global::adventure)
         {
             draw_textf_border(font, uiColor(1), 2, (i++*al_get_font_line_height(font)), 0,
                 "Current menu: %s",
-                df::enum_traits<df::ui_advmode_menu>::key_table[df::global::ui_advmode->menu]);
+                df::enum_traits<df::ui_advmode_menu>::key_table[df::global::adventure->menu]);
         }
     }
+    */
     draw_textf_border(font, uiColor(1), 2, (i++*al_get_font_line_height(font)), 0,
         "Coord:(%i,%i,%i)", segment->segState.dfCursor.x, segment->segState.dfCursor.y, segment->segState.dfCursor.z);
 
@@ -586,201 +591,202 @@ void drawDebugInfo(WorldSegment * segment)
         ttype=-1;
     }
 
-    switch(ui->main.mode) {
-    case ui_sidebar_mode::BuildingItems:
-        if(b->building.info && b->building.type != BUILDINGTYPE_NA && b->building.type != BUILDINGTYPE_BLACKBOX && b->building.type != BUILDINGTYPE_TREE) {
-            auto Actual_building = virtual_cast<df::building_actual>(b->building.info->origin);
-            if(!Actual_building) {
-                break;
-            }
-            CoreSuspender csusp;
-            Actual_building->contained_items.size(); //Item array.
-            std::string BuildingName;
-            Actual_building->getName(&BuildingName);
-            draw_textf_border(font, uiColor(1), 2, (i++*al_get_font_line_height(font)), 0,
-                              "%s",
-                              BuildingName.c_str());
-            for(size_t index = 0; index < Actual_building->contained_items.size(); index++) {
-                MaterialInfo mat;
-                mat.decode(Actual_building->contained_items[index]->item->getMaterial(), Actual_building->contained_items[index]->item->getMaterialIndex());
-                char stacknum[8] = {0};
-                sprintf(stacknum, " [%d]", Actual_building->contained_items[index]->item->getStackSize());
-                draw_textf_border(font, uiColor(1), 2, (i++*al_get_font_line_height(font)), 0,
-                                  "%s - %s%s%s%s%s",
-                                  mat.getToken().c_str(),
-                                  ENUM_KEY_STR(item_type, Actual_building->contained_items[index]->item->getType()).c_str(),
-                                  (Actual_building->contained_items[index]->item->getSubtype()>=0)?"/":"",
-                                  (Actual_building->contained_items[index]->item->getSubtype()>=0)?get_item_subtype(Actual_building->contained_items[index]->item->getType(),Actual_building->contained_items[index]->item->getSubtype()):"",
-                                  Actual_building->contained_items[index]->item->getStackSize()>1?stacknum:"",
-                                  (Actual_building->contained_items[index]->use_mode == 2?" [B]":""));
-            }
-        }
-        break;
-    case ui_sidebar_mode::ViewUnits:
-        //creatures
-        if(!b->occ.bits.unit || !b->creature) {
-            break;
-        }
-        draw_textf_border(font, uiColor(1), 2, (i++*al_get_font_line_height(font)), 0,
-                          "Creature:%s(%i) Caste:%s(%i) Job:%s",
-                          contentLoader->Mats->race.at(b->creature->origin->race).id.c_str(), b->creature->origin->race,
-                          contentLoader->Mats->raceEx.at(b->creature->origin->race).castes.at(b->creature->origin->caste).id.c_str(), b->creature->origin->caste,
-                          contentLoader->professionStrings.at(b->creature->profession).c_str());
+    ////FIXME: Figure out a different way to tell what's selected, because we can't depend on the sidebar mode anymore.
+    //switch(plotinfo->main.mode) {
+    //case ui_sidebar_mode::BuildingItems:
+    //    if(b->building.info && b->building.type != BUILDINGTYPE_NA && b->building.type != BUILDINGTYPE_BLACKBOX && b->building.type != BUILDINGTYPE_TREE) {
+    //        auto Actual_building = virtual_cast<df::building_actual>(b->building.info->origin);
+    //        if(!Actual_building) {
+    //            break;
+    //        }
+    //        CoreSuspender csusp;
+    //        const size_t num_items = Actual_building->contained_items.size(); //Item array.
+    //        std::string BuildingName;
+    //        Actual_building->getName(&BuildingName);
+    //        draw_textf_border(font, uiColor(1), 2, (i++*al_get_font_line_height(font)), 0,
+    //                          "%s",
+    //                          BuildingName.c_str());
+    //        for(size_t index = 0; index < num_items; index++) {
+    //            MaterialInfo mat;
+    //            mat.decode(Actual_building->contained_items[index]->item->getMaterial(), Actual_building->contained_items[index]->item->getMaterialIndex());
+    //            char stacknum[8] = {0};
+    //            sprintf(stacknum, " [%d]", Actual_building->contained_items[index]->item->getStackSize());
+    //            draw_textf_border(font, uiColor(1), 2, (i++*al_get_font_line_height(font)), 0,
+    //                              "%s - %s%s%s%s%s",
+    //                              mat.getToken().c_str(),
+    //                              ENUM_KEY_STR(item_type, Actual_building->contained_items[index]->item->getType()).c_str(),
+    //                              (Actual_building->contained_items[index]->item->getSubtype()>=0)?"/":"",
+    //                              (Actual_building->contained_items[index]->item->getSubtype()>=0)?get_item_subtype(Actual_building->contained_items[index]->item->getType(),Actual_building->contained_items[index]->item->getSubtype()):"",
+    //                              Actual_building->contained_items[index]->item->getStackSize()>1?stacknum:"",
+    //                              (Actual_building->contained_items[index]->use_mode == 2?" [B]":""));
+    //        }
+    //    }
+    //    break;
+    //case ui_sidebar_mode::ViewUnits:
+    //    //creatures
+    //    if(!b->occ.bits.unit || !b->creature) {
+    //        break;
+    //    }
+    //    draw_textf_border(font, uiColor(1), 2, (i++*al_get_font_line_height(font)), 0,
+    //                      "Creature:%s(%i) Caste:%s(%i) Job:%s",
+    //                      contentLoader->Mats->race.at(b->creature->origin->race).id.c_str(), b->creature->origin->race,
+    //                      contentLoader->Mats->raceEx.at(b->creature->origin->race).castes.at(b->creature->origin->caste).id.c_str(), b->creature->origin->caste,
+    //                      contentLoader->professionStrings.at(b->creature->profession).c_str());
 
-        //Inventories!
-        if(b->creature && b->creature->inv) {
-            for(size_t item_type_idex = 0; item_type_idex < b->creature->inv->item.size(); item_type_idex++) {
-                if(b->creature->inv->item[item_type_idex].empty()) {
-                    continue;
-                }
-                draw_textf_border(font, uiColor(1), 2, (i++*al_get_font_line_height(font)), 0,
-                    "%s:", ENUM_KEY_STR(item_type, (item_type::item_type)item_type_idex).c_str());
-                for(size_t ind = 0; ind < b->creature->inv->item[item_type_idex].size(); ind++) {
-                    if(b->creature->inv->item[item_type_idex][ind].empty()) {
-                        continue;
-                    }
-                    draw_textf_border(font, uiColor(1), 2, (i++*al_get_font_line_height(font)), 0,
-                        "    %s",
-                        get_item_subtype((item_type::item_type)item_type_idex,ind));
-                    for(size_t layerindex = 0; layerindex < b->creature->inv->item[item_type_idex][ind].size(); layerindex++)
-                    {
-                        if(b->creature->inv->item[item_type_idex][ind][layerindex].matt.type < 0) {
-                            continue;
-                        }
-                        MaterialInfo mat;
-                        mat.decode(b->creature->inv->item[item_type_idex][ind][layerindex].matt.type,b->creature->inv->item[item_type_idex][ind][layerindex].matt.index);
-                        draw_textf_border(font, uiColor(1), 2, (i++*al_get_font_line_height(font)), 0,
-                            "        %s",
-                            mat.getToken().c_str());
-                    }
-                }
-            }
-        }
-        //just so it has it's own scope
-        {
-            char strCreature[150] = {0};
-            generateCreatureDebugString( b->creature, strCreature );
-            //memset(strCreature, -1, 50);
-            /*
-            // FIXME:: getJob is no more.
-            try{
-            draw_textf_border(font, uiColor(1), 2, (i++*al_get_font_line_height(font)), 0,
-            "flag1: %s Sex: %d  Mood: %d Job: %s", strCreature, b->creature->sex + 1, b->creature->mood, (b->creature->current_job.active?contentLoader->MemInfo->getJob(b->creature->current_job.jobType).c_str():""));
-            }
-            catch(exception &e)
-            {
-            WriteErr("DFhack exeption: %s\n", e.what());
-            }
-            */
+    //    //Inventories!
+    //    if(b->creature && b->creature->inv) {
+    //        for(size_t item_type_idex = 0; item_type_idex < b->creature->inv->item.size(); item_type_idex++) {
+    //            if(b->creature->inv->item[item_type_idex].empty()) {
+    //                continue;
+    //            }
+    //            draw_textf_border(font, uiColor(1), 2, (i++*al_get_font_line_height(font)), 0,
+    //                "%s:", ENUM_KEY_STR(item_type, (item_type::item_type)item_type_idex).c_str());
+    //            for(size_t ind = 0; ind < b->creature->inv->item[item_type_idex].size(); ind++) {
+    //                if(b->creature->inv->item[item_type_idex][ind].empty()) {
+    //                    continue;
+    //                }
+    //                draw_textf_border(font, uiColor(1), 2, (i++*al_get_font_line_height(font)), 0,
+    //                    "    %s",
+    //                    get_item_subtype((item_type::item_type)item_type_idex,ind));
+    //                for(size_t layerindex = 0; layerindex < b->creature->inv->item[item_type_idex][ind].size(); layerindex++)
+    //                {
+    //                    if(b->creature->inv->item[item_type_idex][ind][layerindex].matt.type < 0) {
+    //                        continue;
+    //                    }
+    //                    MaterialInfo mat;
+    //                    mat.decode(b->creature->inv->item[item_type_idex][ind][layerindex].matt.type,b->creature->inv->item[item_type_idex][ind][layerindex].matt.index);
+    //                    draw_textf_border(font, uiColor(1), 2, (i++*al_get_font_line_height(font)), 0,
+    //                        "        %s",
+    //                        mat.getToken().c_str());
+    //                }
+    //            }
+    //        }
+    //    }
+    //    //just so it has it's own scope
+    //    {
+    //        char strCreature[150] = {0};
+    //        generateCreatureDebugString( b->creature, strCreature );
+    //        //memset(strCreature, -1, 50);
+    //        /*
+    //        // FIXME:: getJob is no more.
+    //        try{
+    //        draw_textf_border(font, uiColor(1), 2, (i++*al_get_font_line_height(font)), 0,
+    //        "flag1: %s Sex: %d  Mood: %d Job: %s", strCreature, b->creature->sex + 1, b->creature->mood, (b->creature->current_job.active?contentLoader->MemInfo->getJob(b->creature->current_job.jobType).c_str():""));
+    //        }
+    //        catch(exception &e)
+    //        {
+    //        WriteErr("DFhack exeption: %s\n", e.what());
+    //        }
+    //        */
 
-            int yy = (i++*al_get_font_line_height(font));
-            int xx = 2;
-            for(unsigned int j = 0; j<b->creature->nbcolors ; j++) {
-                if(b->creature->color[j] < contentLoader->Mats->raceEx.at(b->creature->origin->race).castes.at(b->creature->origin->caste).ColorModifier[j].colorlist.size()) {
-                    draw_textf_border(font,
-                        uiColor(1), xx, yy, 0,
-                        " %s:", contentLoader->Mats->raceEx[b->creature->origin->race].castes[b->creature->origin->caste].ColorModifier[j].part.c_str());
-                    xx += get_textf_width(font, " %s:", contentLoader->Mats->raceEx[b->creature->origin->race].castes[b->creature->origin->caste].ColorModifier[j].part.c_str());
-                    uint32_t cr_color = contentLoader->Mats->raceEx[b->creature->origin->race].castes[b->creature->origin->caste].ColorModifier[j].colorlist[b->creature->color[j]];
-                    if(cr_color < df::global::world->raws.descriptors.patterns.size()) {
-                        for(size_t patternin = 0; patternin < df::global::world->raws.descriptors.patterns[cr_color]->colors.size(); patternin++){
-                            uint16_t actual_color = df::global::world->raws.descriptors.patterns[cr_color]->colors[patternin];
-                            al_draw_filled_rectangle(xx, yy, xx+al_get_font_line_height(font), yy+al_get_font_line_height(font),
-                                al_map_rgb_f(
-                                contentLoader->Mats->color[actual_color].red,
-                                contentLoader->Mats->color[actual_color].green,
-                                contentLoader->Mats->color[actual_color].blue));
-                            xx += al_get_font_line_height(font);
-                        }
-                    }
-                }
-            }
-            yy = (i++*al_get_font_line_height(font));
-            xx = 2;
-            draw_textf_border(font,
-                uiColor(1), xx, yy, 0,
-                "hair lengths:");
-            xx += get_textf_width(font, "hair lengths:");
-            for(int j = 0; j < hairtypes_end; j++){
-                draw_textf_border(font,
-                    uiColor(1), xx, yy, 0,
-                    "%d,", b->creature->hairlength[j]);
-                xx += get_textf_width(font, "%d,", b->creature->hairlength[j]);
-            }
-            yy = (i++*al_get_font_line_height(font));
-            xx = 2;
-            draw_textf_border(font,
-                uiColor(1), xx, yy, 0,
-                "hair styles:");
-            xx += get_textf_width(font, "hair styles:");
-            for(int j = 0; j < hairtypes_end; j++){
-                switch( b->creature->hairstyle[j]){
-                case NEATLY_COMBED:
-                    draw_textf_border(font,
-                        uiColor(1), xx, yy, 0,
-                        "NEATLY_COMBED-");
-                    xx += get_textf_width(font, "NEATLY_COMBED-");
-                    break;
-                case BRAIDED:
-                    draw_textf_border(font,
-                        uiColor(1), xx, yy, 0,
-                        "BRAIDED-");
-                    xx += get_textf_width(font, "BRAIDED-");
-                    break;
-                case DOUBLE_BRAID:
-                    draw_textf_border(font,
-                        uiColor(1), xx, yy, 0,
-                        "DOUBLE_BRAID-");
-                    xx += get_textf_width(font, "DOUBLE_BRAID-");
-                    break;
-                case PONY_TAILS:
-                    draw_textf_border(font,
-                        uiColor(1), xx, yy, 0,
-                        "PONY_TAILS-");
-                    xx += get_textf_width(font, "PONY_TAILS-");
-                    break;
-                case CLEAN_SHAVEN:
-                    draw_textf_border(font,
-                        uiColor(1), xx, yy, 0,
-                        "CLEAN_SHAVEN-");
-                    xx += get_textf_width(font, "CLEAN_SHAVEN-");
-                    break;
-                default:
-                    draw_textf_border(font,
-                        uiColor(1), xx, yy, 0,
-                        "UNKNOWN-");
-                    xx += get_textf_width(font, "UNKNOWN-");
-                }
-                switch(j){
-                case HAIR:
-                    draw_textf_border(font,
-                        uiColor(1), xx, yy, 0,
-                        "HAIR, ");
-                    xx += get_textf_width(font, "HAIR, ");
-                    break;
-                case BEARD:
-                    draw_textf_border(font,
-                        uiColor(1), xx, yy, 0,
-                        "BEARD, ");
-                    xx += get_textf_width(font, "BEARD, ");
-                    break;
-                case MOUSTACHE:
-                    draw_textf_border(font,
-                        uiColor(1), xx, yy, 0,
-                        "MOUSTACHE, ");
-                    xx += get_textf_width(font, "MOUSTACHE, ");
-                    break;
-                case SIDEBURNS:
-                    draw_textf_border(font,
-                        uiColor(1), xx, yy, 0,
-                        "SIDEBURNS, ");
-                    xx += get_textf_width(font, "SIDEBURNS, ");
-                    break;
-                }
-            }
-        }
-     break;
-    default:
+    //        int yy = (i++*al_get_font_line_height(font));
+    //        int xx = 2;
+    //        for(unsigned int j = 0; j<b->creature->nbcolors ; j++) {
+    //            if(b->creature->color[j] < contentLoader->Mats->raceEx.at(b->creature->origin->race).castes.at(b->creature->origin->caste).ColorModifier[j].colorlist.size()) {
+    //                draw_textf_border(font,
+    //                    uiColor(1), xx, yy, 0,
+    //                    " %s:", contentLoader->Mats->raceEx[b->creature->origin->race].castes[b->creature->origin->caste].ColorModifier[j].part.c_str());
+    //                xx += get_textf_width(font, " %s:", contentLoader->Mats->raceEx[b->creature->origin->race].castes[b->creature->origin->caste].ColorModifier[j].part.c_str());
+    //                uint32_t cr_color = contentLoader->Mats->raceEx[b->creature->origin->race].castes[b->creature->origin->caste].ColorModifier[j].colorlist[b->creature->color[j]];
+    //                if(cr_color < df::global::world->raws.descriptors.patterns.size()) {
+    //                    for(size_t patternin = 0; patternin < df::global::world->raws.descriptors.patterns[cr_color]->colors.size(); patternin++){
+    //                        uint16_t actual_color = df::global::world->raws.descriptors.patterns[cr_color]->colors[patternin];
+    //                        al_draw_filled_rectangle(xx, yy, xx+al_get_font_line_height(font), yy+al_get_font_line_height(font),
+    //                            al_map_rgb_f(
+    //                            contentLoader->Mats->color[actual_color].red,
+    //                            contentLoader->Mats->color[actual_color].green,
+    //                            contentLoader->Mats->color[actual_color].blue));
+    //                        xx += al_get_font_line_height(font);
+    //                    }
+    //                }
+    //            }
+    //        }
+    //        yy = (i++*al_get_font_line_height(font));
+    //        xx = 2;
+    //        draw_textf_border(font,
+    //            uiColor(1), xx, yy, 0,
+    //            "hair lengths:");
+    //        xx += get_textf_width(font, "hair lengths:");
+    //        for(int j = 0; j < hairtypes_end; j++){
+    //            draw_textf_border(font,
+    //                uiColor(1), xx, yy, 0,
+    //                "%d,", b->creature->hairlength[j]);
+    //            xx += get_textf_width(font, "%d,", b->creature->hairlength[j]);
+    //        }
+    //        yy = (i++*al_get_font_line_height(font));
+    //        xx = 2;
+    //        draw_textf_border(font,
+    //            uiColor(1), xx, yy, 0,
+    //            "hair styles:");
+    //        xx += get_textf_width(font, "hair styles:");
+    //        for(int j = 0; j < hairtypes_end; j++){
+    //            switch( b->creature->hairstyle[j]){
+    //            case NEATLY_COMBED:
+    //                draw_textf_border(font,
+    //                    uiColor(1), xx, yy, 0,
+    //                    "NEATLY_COMBED-");
+    //                xx += get_textf_width(font, "NEATLY_COMBED-");
+    //                break;
+    //            case BRAIDED:
+    //                draw_textf_border(font,
+    //                    uiColor(1), xx, yy, 0,
+    //                    "BRAIDED-");
+    //                xx += get_textf_width(font, "BRAIDED-");
+    //                break;
+    //            case DOUBLE_BRAID:
+    //                draw_textf_border(font,
+    //                    uiColor(1), xx, yy, 0,
+    //                    "DOUBLE_BRAID-");
+    //                xx += get_textf_width(font, "DOUBLE_BRAID-");
+    //                break;
+    //            case PONY_TAILS:
+    //                draw_textf_border(font,
+    //                    uiColor(1), xx, yy, 0,
+    //                    "PONY_TAILS-");
+    //                xx += get_textf_width(font, "PONY_TAILS-");
+    //                break;
+    //            case CLEAN_SHAVEN:
+    //                draw_textf_border(font,
+    //                    uiColor(1), xx, yy, 0,
+    //                    "CLEAN_SHAVEN-");
+    //                xx += get_textf_width(font, "CLEAN_SHAVEN-");
+    //                break;
+    //            default:
+    //                draw_textf_border(font,
+    //                    uiColor(1), xx, yy, 0,
+    //                    "UNKNOWN-");
+    //                xx += get_textf_width(font, "UNKNOWN-");
+    //            }
+    //            switch(j){
+    //            case HAIR:
+    //                draw_textf_border(font,
+    //                    uiColor(1), xx, yy, 0,
+    //                    "HAIR, ");
+    //                xx += get_textf_width(font, "HAIR, ");
+    //                break;
+    //            case BEARD:
+    //                draw_textf_border(font,
+    //                    uiColor(1), xx, yy, 0,
+    //                    "BEARD, ");
+    //                xx += get_textf_width(font, "BEARD, ");
+    //                break;
+    //            case MOUSTACHE:
+    //                draw_textf_border(font,
+    //                    uiColor(1), xx, yy, 0,
+    //                    "MOUSTACHE, ");
+    //                xx += get_textf_width(font, "MOUSTACHE, ");
+    //                break;
+    //            case SIDEBURNS:
+    //                draw_textf_border(font,
+    //                    uiColor(1), xx, yy, 0,
+    //                    "SIDEBURNS, ");
+    //                xx += get_textf_width(font, "SIDEBURNS, ");
+    //                break;
+    //            }
+    //        }
+    //    }
+    // break;
+    //default:
 
         draw_textf_border(font, uiColor(1), 2, (i++*al_get_font_line_height(font)), 0,
                           "Game Mode:%i, Control Mode:%i", contentLoader->gameMode.g_mode, contentLoader->gameMode.g_type);
@@ -795,9 +801,12 @@ void drawDebugInfo(WorldSegment * segment)
         if (tform != NULL && b->material.type != INVALID_INDEX && b->material.index != INVALID_INDEX) {
             MaterialInfo mat;
             mat.decode(b->material.type, b->material.index);
-            ALLEGRO_COLOR color = al_map_rgb_f(contentLoader->Mats->color[mat.material->state_color[0]].red, contentLoader->Mats->color[mat.material->state_color[0]].green, contentLoader->Mats->color[mat.material->state_color[0]].blue);
-            draw_textf_border(font, color, 2, (i++*al_get_font_line_height(font)), 0,
-                              "%s", mat.material->state_name[0].c_str());
+            if (mat.isValid())
+            {
+                ALLEGRO_COLOR color = al_map_rgb_f(contentLoader->Mats->color[mat.material->state_color[0]].red, contentLoader->Mats->color[mat.material->state_color[0]].green, contentLoader->Mats->color[mat.material->state_color[0]].blue);
+                draw_textf_border(font, color, 2, (i++ * al_get_font_line_height(font)), 0,
+                    "%s", mat.material->state_name[0].c_str());
+            }
         }    //if (tform != NULL)
         //{
         //    draw_textf_border(font, 2, (i++*al_get_font_line_height(font)), 0,
@@ -838,15 +847,16 @@ void drawDebugInfo(WorldSegment * segment)
         {
             draw_textf_border(font, uiColor(1), 2, (i++*al_get_font_line_height(font)), 0,
                 "tree name:%s type:%i", lookupTreeName(b->tree.index), b->tree.type);
+            uint16_t branches_dir = b->tree_tile.bits.branches_dir;
             draw_textf_border(font, uiColor(1), 2, (i++*al_get_font_line_height(font)), 0,
                 "tree tile:%s%s%s%s%s%s%s",
                 b->tree_tile.bits.trunk ? " trunk" : "",
-                b->tree_tile.bits.connection_east ? " >" : "",
-                b->tree_tile.bits.connection_south ? " v" : "",
-                b->tree_tile.bits.connection_west ? " <" : "",
-                b->tree_tile.bits.connection_north ? " ^" : "",
+                (branches_dir & 0x1) ? " >" : "",
+                (branches_dir & 0x2) ? " v" : "",
+                (branches_dir & 0x4) ? " <" : "",
+                (branches_dir & 0x8) ? " ^" : "",
                 b->tree_tile.bits.branches ? " branches" : "",
-                b->tree_tile.bits.twigs ? " twigs" : ""
+                b->tree_tile.bits.leaves ? " leaves" : ""
                 );
         }
         if(b->building.sprites.size() != 0)
@@ -997,8 +1007,8 @@ void drawDebugInfo(WorldSegment * segment)
             // TODO
             break;
         }
-        break;
-    }
+    //    break;
+    //}
 
     //basecon
     //textprintf(target, font, 2, ssState.ScreenH-20-(i--*10), 0xFFFFFF,
@@ -1410,7 +1420,7 @@ int loadImgFile(const char* filename)
         }
         al_destroy_bitmap(tempfile);
         al_set_target_bitmap(al_get_backbuffer(al_get_current_display()));
-        IMGFilenames.push_back(dts::make_unique<string>(filename));
+        IMGFilenames.push_back(std::make_unique<string>(filename));
         al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst);
         if(ssConfig.saveImageCache) {
             saveImage(IMGCache[currentCache]);
@@ -1430,7 +1440,7 @@ int loadImgFile(const char* filename)
             return -1;
         }
         IMGFilelist.push_back(temp);
-        IMGFilenames.push_back(dts::make_unique<string>(filename));
+        IMGFilenames.push_back(std::make_unique<string>(filename));
         LogVerbose("New image: %s\n",filename);
         return (int)IMGFilelist.size() - 1;
     }
@@ -1441,7 +1451,7 @@ void saveScreenshot()
     al_clear_to_color(ssConfig.backcol);
     paintboard();
     //get filename
-    char filename[25] = {0};
+    char filename[32] = {0};
     FILE* fp;
     int index = 1;
     //search for the first screenshot# that does not exist already
@@ -1500,7 +1510,8 @@ void saveMegashot(bool tall)
 {
     map_segment.lockRead();
 
-    draw_textf_border(font, uiColor(1), ssState.ScreenW/2, ssState.ScreenH/2, ALLEGRO_ALIGN_CENTRE, "saving large screenshot...");
+    // draw_textf_border(font, uiColor(1), ssState.ScreenW/2, ssState.ScreenH/2, ALLEGRO_ALIGN_CENTRE, "saving large screenshot...");
+    draw_textf_border(font, uiColor(1), ssState.ScreenW/2, ssState.ScreenH/2, ALLEGRO_ALIGN_CENTRE, "saving large screenshot... Stonesense will become unresponsive after this process completes. Please close and re-open Stonesense.");
     al_flip_display();
     char filename[32] = {0};
     FILE* fp;
@@ -1518,7 +1529,7 @@ void saveMegashot(bool tall)
         }
         index++;
     };
-    int timer = clock();
+    // int timer = clock();
     //back up all the relevant values
     GameConfiguration tempConfig = ssConfig;
     GameState tempState = ssState;
@@ -1659,13 +1670,14 @@ void saveMegashot(bool tall)
 
 
         al_save_bitmap(filename, bigFile);
-        al_set_target_bitmap(al_get_backbuffer(al_get_current_display()));
-        timer = clock() - timer;
-        PrintMessage("\ttime for screenshot %ims\n", timer);
+        // al_set_target_bitmap(al_get_backbuffer(al_get_current_display()));
+        // timer = clock() - timer;
+        // PrintMessage("\tcreating screenshot took %ims\n", timer);
+        PrintMessage("\tlarge screenshot complete\n");
     } else {
         LogError("failed to take large screenshot; try zooming out\n");
     }
-    al_destroy_bitmap(bigFile);
+    // al_destroy_bitmap(bigFile);
     //restore everything that we changed.
     ssConfig = tempConfig;
     ssState = tempState;

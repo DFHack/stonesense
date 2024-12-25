@@ -3,6 +3,7 @@
 #include "common.h"
 #include "SpriteColors.h"
 #include "df/enabler.h"
+#include "df/graphic.h"
 
 enum ShadeBy {
     ShadeNone,
@@ -128,7 +129,7 @@ public:
         }
         if (useDfColors)
         {
-            return al_map_rgb_f(df::global::enabler->ccolor[color][0], df::global::enabler->ccolor[color][1], df::global::enabler->ccolor[color][2]);
+            return al_map_rgb_f(df::global::gps->ccolor[color][0], df::global::gps->ccolor[color][1], df::global::gps->ccolor[color][2]);
         }
         return colors[ (color_name) color].al;
     }
@@ -176,15 +177,16 @@ struct GameConfiguration {
 
     bool follow_DFcursor;
 
-    uint8_t track_mode;
-    enum trackingmodes : uint8_t {
+    enum trackingmode : uint8_t {
         TRACKING_NONE,
         TRACKING_CENTER,
-        TRACKING_WINDOW,
         TRACKING_FOCUS,
 
         TRACKING_INVALID
     };
+    trackingmode track_mode;
+
+    bool invert_mouse_z;
 
     int bitmapHolds;
 
@@ -301,7 +303,7 @@ struct SS_Unit{
 
     int32_t squad_leader_id;
     uint32_t nbcolors;
-    uint32_t color[DFHack::Units::MAX_COLORS];
+    uint32_t color[15]; // Was using DFHack::Units::MAX_COLORS for no apparent reason; TODO: Use a better number?
 
     hairstyles hairstyle[hairtypes_end];
     uint32_t hairlength[hairtypes_end];

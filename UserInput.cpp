@@ -129,11 +129,21 @@ void doMouse()
     //mouse_callback = mouseProc;
     static int last_mouse_z;
     if(mouse.z < last_mouse_z) {
-        action_decrZ(keymod);
+        if(ssConfig.invert_mouse_z) {
+            action_incrZ(keymod);
+        }
+        else {
+            action_decrZ(keymod);
+        }
         last_mouse_z = mouse.z;
     }
     if(mouse.z > last_mouse_z) {
-        action_incrZ(keymod);
+        if(ssConfig.invert_mouse_z) {
+            action_decrZ(keymod);
+        }
+        else {
+            action_incrZ(keymod);
+        }
         last_mouse_z = mouse.z;
     }
     if( mouse.buttons & 2 ) {
@@ -260,11 +270,12 @@ void action_chopwall(uint32_t keymod)
 
 void action_cycletrackingmode(uint32_t keymod)
 {
-    if (keymod&ALLEGRO_KEYMOD_CTRL) {
+    if (keymod & ALLEGRO_KEYMOD_CTRL) {
         ssConfig.follow_DFcursor = !ssConfig.follow_DFcursor;
-    } else {
-        ssConfig.track_mode++;
-        if(ssConfig.track_mode >= GameConfiguration::TRACKING_INVALID) {
+    }
+    else {
+        ssConfig.track_mode = (GameConfiguration::trackingmode)(ssConfig.track_mode + 1);
+        if (ssConfig.track_mode >= GameConfiguration::TRACKING_INVALID) {
             ssConfig.track_mode = GameConfiguration::TRACKING_NONE;
         }
     }

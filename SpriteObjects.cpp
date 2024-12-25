@@ -23,6 +23,8 @@
 #include "df/itemdef_toyst.h"
 #include "df/itemdef_trapcompst.h"
 #include "df/itemdef_weaponst.h"
+#include "df/material.h"
+#include "df/unit.h"
 #include "df/world.h"
 #include "df/world_raws.h"
 
@@ -180,7 +182,7 @@ unsigned char get_water_direction( Tile *b )
     using namespace df::enums::tile_liquid_flow_dir;
     switch(b->flow_direction)
     {
-    case none:
+    case inactive:
         return 0;
     case northwest:
         return 1;

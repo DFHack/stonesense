@@ -316,7 +316,7 @@ void DrawCreatureText(int drawx, int drawy, SS_Unit* creature )
 
     //if(ssConfig.show_creature_happiness)
     if(ssConfig.show_creature_moods && df::creature_raw::find(creature->origin->race)->caste[creature->origin->caste]->flags.is_set(caste_raw_flags::CAN_SPEAK)) {
-        auto stress_level = creature->origin->status.current_soul ? creature->origin->status.current_soul->personality.stress_level : 0;
+        auto stress_level = creature->origin->status.current_soul ? creature->origin->status.current_soul->personality.stress : 0;
         if(stress_level <= 0) {
             statusIcons.push_back(0);
         } else if(stress_level <= 30000) {
@@ -518,8 +518,8 @@ void copyCreature(df::unit * source, SS_Unit & furball)
 
     // appearance
     furball.nbcolors = source->appearance.colors.size();
-    if(furball.nbcolors > DFHack::Units::MAX_COLORS)
-        furball.nbcolors = DFHack::Units::MAX_COLORS;
+    if(furball.nbcolors > 15) // Was using DFHack::Units::MAX_COLORS for no apparent reason; TODO: Use a better number?
+        furball.nbcolors = 15;
     // hair
     for(int i = 0; i < hairtypes_end; i++){
         furball.hairlength[i] = 1001;//default to long unkempt hair
@@ -584,7 +584,7 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
         }
 
         // make a copy of some creature data
-        auto tempcreature = dts::make_unique<SS_Unit>();
+        auto tempcreature = std::make_unique<SS_Unit>();
         copyCreature(unit_ptr,*tempcreature);
 
         // add shadow to nearest floor tile
@@ -657,7 +657,7 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
 
             //FIXME: this could be made nicer. Somehow
             if(!tempcreature->inv) {
-                tempcreature->inv = dts::make_unique<unit_inventory>();
+                tempcreature->inv = std::make_unique<unit_inventory>();
             }
             if(tempcreature->inv->item.size() <= size_t(type)) {
                 tempcreature->inv->item.resize(type+1);
@@ -720,12 +720,6 @@ CreatureConfiguration *GetCreatureConfig( SS_Unit* c )
 
         bool creatureMatchesSpecial = true;
         if (testConfig->special != eCSC_Any) {
-            if (testConfig->special == eCSC_Zombie && !c->origin->flags1.bits.zombie) {
-                creatureMatchesSpecial = false;
-            }
-            if (testConfig->special == eCSC_Skeleton && !c->origin->flags1.bits.skeleton) {
-                creatureMatchesSpecial = false;
-            }
             if (testConfig->special == eCSC_Ghost && !c->origin->flags3.bits.ghostly) {
                 creatureMatchesSpecial = false;
             }
@@ -734,9 +728,6 @@ CreatureConfiguration *GetCreatureConfig( SS_Unit* c )
                 if(!ENUM_ATTR(profession,military,profession)) {
                     creatureMatchesSpecial = false;
                 }
-            }
-            if (testConfig->special == eCSC_Normal && (c->origin->flags1.bits.zombie || c->origin->flags1.bits.skeleton)) {
-                creatureMatchesSpecial = false;
             }
         }
         if(!creatureMatchesSpecial) {
@@ -803,9 +794,6 @@ void generateCreatureDebugString( SS_Unit* c, char* strbuffer)
     if(c->origin->flags1.bits.forest) {
         strcat(strbuffer, "lostLeaving ");
     }
-    if(c->origin->flags1.bits.fortress_guard) {
-        strcat(strbuffer, "FortGuard ");
-    }
     if(c->origin->flags1.bits.had_mood) {
         strcat(strbuffer, "HadMood ");
     }
@@ -842,17 +830,8 @@ void generateCreatureDebugString( SS_Unit* c, char* strbuffer)
     if(c->origin->flags1.bits.ridden) {
         strcat(strbuffer, "ridden ");
     }
-    if(c->origin->flags1.bits.royal_guard) {
-        strcat(strbuffer, "RoyGuard ");
-    }
-    if(c->origin->flags1.bits.skeleton) {
-        strcat(strbuffer, "Skeleton ");
-    }
     if(c->origin->flags1.bits.tame) {
         strcat(strbuffer, "Tame ");
-    }
-    if(c->origin->flags1.bits.zombie) {
-        strcat(strbuffer, "Zombie ");
     }
 
     if(c->origin->flags2.bits.killed) {

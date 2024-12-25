@@ -11,7 +11,6 @@
 #define DFHACK_WANT_PLATETYPES
 
 #include <DFHack.h>
-#include "Core.h"
 #include <Console.h>
 #include <Export.h>
 #include <PluginManager.h>

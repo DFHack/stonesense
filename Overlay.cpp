@@ -3,45 +3,37 @@
 #include "Hooks.h"
 #include "GUI.h"
 
+#include "modules/DFSDL.h"
+
 #include "df/init.h"
 
 #include "df/viewscreen_dwarfmodest.h"
-#include "df/viewscreen_dungeonmodest.h"
-#include "df/ui_advmode.h"
+//#include "df/viewscreen_dungeonmodest.h"
+#include "df/adventurest.h"
 
 using namespace std;
 using namespace DFHack;
 using namespace df::enums;
 
-DFhackCExport void * SDL_GetVideoSurface(void);
-DFhackCExport vPtr SDL_CreateRGBSurface(uint32_t flags, int width, int height, int depth,
-                                        uint32_t Rmask, uint32_t Gmask, uint32_t Bmask, uint32_t Amask);
-DFhackCExport vPtr SDL_CreateRGBSurfaceFrom(vPtr pixels, int width, int height, int depth, int pitch,
-                                         uint32_t Rmask, uint32_t Gmask, uint32_t Bmask, uint32_t Amask);
-DFhackCExport void SDL_FreeSurface(vPtr surface);
-DFhackCExport int SDL_UpperBlit(DFHack::DFSDL_Surface* src, DFHack::DFSDL_Rect* srcrect,
-                                DFHack::DFSDL_Surface* dst, DFHack::DFSDL_Rect* dstrect);
-DFhackCExport uint8_t SDL_GetMouseState(int *x, int *y);
-
 void Overlay::ReadTileLocations()
 {
-    fontx = df::global::init->font.small_font_dispx;
-    fonty = df::global::init->font.small_font_dispy;
+    //fontx = df::global::init->font.small_font_dispx;
+    //fonty = df::global::init->font.small_font_dispy;
 
-    actualWindowSize(width, height);
+    //actualWindowSize(width, height);
 
-    DFHack::DFSDL_Surface * dfsurf = (DFHack::DFSDL_Surface *) SDL_GetVideoSurface();
-    offsetx = fontx+((dfsurf->w) % fontx)/2;
-    offsety = fontx+((dfsurf->h) % fonty)/2;
-    if (!df::global::gamemode || *df::global::gamemode == game_mode::ADVENTURE)
-    {
-        //Adventure mode doesn't have a single-tile border around it.
-        offsetx = offsetx - fontx;
-        offsety = offsety - fonty;
-    }
+    //DFHack::DFSDL_Surface * dfsurf = (DFHack::DFSDL_Surface *) SDL_GetVideoSurface();
+    //offsetx = fontx+((dfsurf->w) % fontx)/2;
+    //offsety = fontx+((dfsurf->h) % fonty)/2;
+    //if (!df::global::gamemode || *df::global::gamemode == game_mode::ADVENTURE)
+    //{
+    //    //Adventure mode doesn't have a single-tile border around it.
+    //    offsetx = offsetx - fontx;
+    //    offsety = offsety - fonty;
+    //}
 
-    ssState.ScreenW = fontx*width;
-    ssState.ScreenH = fonty*height;
+    //ssState.ScreenW = fontx*width;
+    //ssState.ScreenH = fonty*height;
 }
 
 void Overlay::CheckViewscreen()
@@ -52,17 +44,19 @@ void Overlay::CheckViewscreen()
     {
         good_viewscreen = true;
     }
+    /* FIXME when adventure is back.
     else if (id == &df::viewscreen_dungeonmodest::_identity)
     {
-        if (!df::global::ui_advmode)
+        if (!df::global::adventure)
             good_viewscreen = true;
-        else if (df::global::ui_advmode->menu == df::ui_advmode_menu::Default)
+        else if (df::global::adventure->menu == df::ui_advmode_menu::Default)
             good_viewscreen = true;
-        else if (df::global::ui_advmode->menu == df::ui_advmode_menu::ConversationAddress)
+        else if (df::global::adventure->menu == df::ui_advmode_menu::ConversationAddress)
             good_viewscreen = true;
         else
             good_viewscreen = false;
     }
+    */
     else
     {
         good_viewscreen = false;
@@ -79,6 +73,7 @@ bool Overlay::PaintingOverTileAt(int32_t x, int32_t y)
 
 void Overlay::set_to_null()
 {
+    /*
     screen = NULL;
     screentexpos = NULL;
     screentexpos_addcolor = NULL;
@@ -91,10 +86,12 @@ void Overlay::set_to_null()
     screentexpos_grayscale_old = NULL;
     screentexpos_cf_old = NULL;
     screentexpos_cbr_old = NULL;
+    */
 }
 
 void Overlay::copy_from_inner()
 {
+    /*
     screen = parent->screen;
     screentexpos = parent->screentexpos;
     screentexpos_addcolor = parent->screentexpos_addcolor;
@@ -107,10 +104,12 @@ void Overlay::copy_from_inner()
     screentexpos_grayscale_old = parent->screentexpos_grayscale_old;
     screentexpos_cf_old = parent->screentexpos_cf_old;
     screentexpos_cbr_old = parent->screentexpos_cbr_old;
+    */
 }
 
 void Overlay::copy_to_inner()
 {
+    /*
     parent->screen = screen;
     parent->screentexpos = screentexpos;
     parent->screentexpos_addcolor = screentexpos_addcolor;
@@ -123,6 +122,7 @@ void Overlay::copy_to_inner()
     parent->screentexpos_grayscale_old = screentexpos_grayscale_old;
     parent->screentexpos_cf_old = screentexpos_cf_old;
     parent->screentexpos_cbr_old = screentexpos_cbr_old;
+    */
 }
 
 Overlay::Overlay(renderer* parent) : parent(parent)
@@ -258,8 +258,8 @@ void Overlay::render()
             }
 
             //get the SDL surface information so we can do a blit
-            DFHack::DFSDL_Surface * dfsurf = (DFHack::DFSDL_Surface *) SDL_GetVideoSurface();
-            DFHack::DFSDL_Surface * sssurf = (DFHack::DFSDL_Surface *) SDL_CreateRGBSurfaceFrom( ((char*) front_data->data) + dataoffset,
+            DFHack::DFSDL_Surface * dfsurf = (DFHack::DFSDL_Surface *) DFHack::DFSDL::DFSDL_GetVideoSurface();
+            DFHack::DFSDL_Surface * sssurf = (DFHack::DFSDL_Surface *) DFHack::DFSDL::DFSDL_CreateRGBSurfaceFrom( ((char*) front_data->data) + dataoffset,
                 al_get_bitmap_width(front), al_get_bitmap_height(front), 8*front_data->pixel_size, neg*front_data->pitch, 0, 0, 0, 0);
 
             DFSDL_Rect src;
@@ -275,9 +275,9 @@ void Overlay::render()
             pos.h = 0;
 
             //do the blit
-            SDL_UpperBlit(sssurf, &src, dfsurf, &pos);
+            DFHack::DFSDL::DFSDL_UpperBlit(sssurf, &src, dfsurf, &pos);
 
-            SDL_FreeSurface(sssurf);
+            DFHack::DFSDL::DFSDL_FreeSurface(sssurf);
         }
         front_updated = false;
     } else {
@@ -341,6 +341,7 @@ void Overlay::grid_resize(int32_t w, int32_t h)
 
 bool Overlay::get_mouse_coords(int32_t* x, int32_t* y)
 {
+    /*FIXME: Find a new replacement for the overlay mode.
     //PrintMessage("in:(%i,%i)\n",*x,*y);
     bool ret = parent->get_mouse_coords(x,y);
     //PrintMessage("out:(%i,%i)\n",*x,*y);
@@ -394,6 +395,8 @@ bool Overlay::get_mouse_coords(int32_t* x, int32_t* y)
     }
 
     return ret;
+    */
+    return false;
 }
 
 bool Overlay::uses_opengl()

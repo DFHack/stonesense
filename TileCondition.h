@@ -215,6 +215,6 @@ public:
     FluidBelowCondition(const char* strValue);
     ~FluidBelowCondition() = default;
 
-    int value;
+    unsigned int value;
     bool Matches(Tile* b);
 };

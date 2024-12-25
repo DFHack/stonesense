@@ -113,8 +113,8 @@ private:
     static const GameState zeroState;
 public:
     SegmentWrap() {
-        drawsegment = dts::make_unique<WorldSegment>(zeroState);
-        readsegment = dts::make_unique<WorldSegment>(zeroState);
+        drawsegment = std::make_unique<WorldSegment>(zeroState);
+        readsegment = std::make_unique<WorldSegment>(zeroState);
         drawmutex = al_create_mutex();
         readmutex = al_create_mutex();
     }

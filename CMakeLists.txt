@@ -7,7 +7,7 @@ include_directories (${CMAKE_SOURCE_DIR})
 
 SET(PROJECT_SRCS
     TrackingModes.cpp
-    Overlay.cpp
+    #Overlay.cpp
     Tile.cpp
     TileCondition.cpp
     TileTree.cpp
@@ -68,7 +68,7 @@ SET(PROJECT_HDRS
     MapLoading.h
     MaterialMatcher.h
     OcclusionTest.h
-    Overlay.h
+    #Overlay.h
     SegmentProcessing.h
     SpriteColors.h
     SpriteMaps.h
@@ -134,10 +134,10 @@ IF(UNIX)
                 ${ALLEGRO_DOWNLOAD_DIR}/include
                 ${ALLEGRO_DOWNLOAD_DIR}/lib/Headers
             )
-            install(DIRECTORY ${ALLEGRO_DOWNLOAD_DIR}/lib/
-                    DESTINATION "hack/libs"
-                    PATTERN "CVS" EXCLUDE
-                    PATTERN ".svn" EXCLUDE)
+            if(BUILD_PLUGINS)
+                install(DIRECTORY ${ALLEGRO_DOWNLOAD_DIR}/lib/
+                        DESTINATION ${DFHACK_LIBRARY_DESTINATION})
+            endif()
         ELSE()
             SET(PROJECT_LIBS
                 allegro
@@ -167,6 +167,8 @@ IF(UNIX)
             endif()
             execute_process(COMMAND tar xf "${ALLEGRO_DOWNLOAD_DIR}/${ALLEGRO_DOWNLOAD_FILE}" --strip-components=1
                             WORKING_DIRECTORY ${ALLEGRO_DOWNLOAD_DIR})
+            execute_process(COMMAND patchelf --force-rpath --set-rpath hack liballegro_image.so.5.0.10
+                            WORKING_DIRECTORY ${ALLEGRO_DOWNLOAD_DIR}/lib)
             SET(PROJECT_LIBS
                 ${ALLEGRO_DOWNLOAD_DIR}/lib/liballegro.so.5.0
                 ${ALLEGRO_DOWNLOAD_DIR}/lib/liballegro_primitives.so.5.0
@@ -174,17 +176,16 @@ IF(UNIX)
                 ${ALLEGRO_DOWNLOAD_DIR}/lib/liballegro_image.so.5.0
                 ${ALLEGRO_DOWNLOAD_DIR}/lib/liballegro_ttf.so.5.0
                 ${ALLEGRO_DOWNLOAD_DIR}/lib/liballegro_color.so.5.0
-                SDL
                 ${PROJECT_LIBS}
             )
             include_directories (
                 ${include_directories}
                 ${ALLEGRO_DOWNLOAD_DIR}/include
             )
-            install(DIRECTORY ${ALLEGRO_DOWNLOAD_DIR}/lib/
-                    DESTINATION "hack/libs"
-                    PATTERN "CVS" EXCLUDE
-                    PATTERN ".svn" EXCLUDE)
+            if(BUILD_PLUGINS)
+                install(DIRECTORY ${ALLEGRO_DOWNLOAD_DIR}/lib/
+                        DESTINATION ${DFHACK_LIBRARY_DESTINATION})
+            endif()
         ELSE()
             SET(PROJECT_LIBS
                 allegro
@@ -193,7 +194,6 @@ IF(UNIX)
                 allegro_image
                 allegro_ttf
                 allegro_color
-                SDL
                 ${PROJECT_LIBS}
             )
         ENDIF()
@@ -280,10 +280,9 @@ ENDIF(MSVC)
 IF(APPLE)
     add_custom_command(TARGET stonesense POST_BUILD COMMAND ${stonesense_SOURCE_DIR}/fix-libs-stonesense.sh WORKING_DIRECTORY . COMMENT "Fixing Stonesense library dependencies...")
 ENDIF(APPLE)
-#install resources into DF/stonesense
-install(DIRECTORY resources/
-        DESTINATION "stonesense"
-        PATTERN "CVS" EXCLUDE
-        PATTERN ".svn" EXCLUDE)
-# install readme
-install(FILES README.md DESTINATION stonesense)
+
+if(INSTALL_DATA_FILES)
+    #install resources and readme into DF/stonesense
+    install(DIRECTORY resources/ DESTINATION stonesense)
+    install(FILES README.md DESTINATION stonesense)
+endif()

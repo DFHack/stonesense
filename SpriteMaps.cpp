@@ -12,25 +12,32 @@ using namespace df::enums;
 
 c_sprite *  GetTerrainSpriteMap(int in, t_matglossPair material, vector<std::unique_ptr<TerrainConfiguration>>& configTable, uint16_t form)
 {
-    int tempform;
-    if(form == item_type::BAR) {
-        tempform = FORM_BAR;
-    }
-    if(form == item_type::BLOCKS) {
-        tempform = FORM_BLOCK;
-    }
-    if(form == item_type::BOULDER) {
-        tempform = FORM_BOULDER;
-    }
-    if(form == item_type::WOOD) {
-        tempform = FORM_LOG;
-    }
     // in case we need to return nothing
-    static c_sprite * defaultSprite = new c_sprite;
+    static c_sprite* defaultSprite = new c_sprite;
     defaultSprite->reset();
     defaultSprite->set_sheetindex(UNCONFIGURED_INDEX);
     defaultSprite->set_fileindex(INVALID_INDEX);
     defaultSprite->set_needoutline(1);
+
+    int tempform;
+    switch (form)
+    {
+    case item_type::BAR:
+        tempform = FORM_BAR;
+        break;
+    case item_type::BLOCKS:
+        tempform = FORM_BLOCK;
+        break;
+    case item_type::BOULDER:
+        tempform = FORM_BOULDER;
+        break;
+    case item_type::WOOD:
+        tempform = FORM_LOG;
+        break;
+    default:
+        return defaultSprite;
+    }
+
     // first check the input is sane
     if( in < 0 || in >= (int)configTable.size() ) {
         return defaultSprite;

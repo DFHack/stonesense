@@ -3,6 +3,8 @@
 #include "Constructions.h"
 #include "WorldSegment.h"
 
+#include "df/construction.h"
+
 using namespace std;
 using namespace DFHack;
 using namespace df::enums;

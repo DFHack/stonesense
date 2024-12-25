@@ -65,7 +65,7 @@ void pushCreatureConfig( vector<std::unique_ptr<vector<CreatureConfiguration>>>&
         }
         auto& creatureList = knownCreatures[gameID];
         if (creatureList == nullptr) {
-            creatureList = dts::make_unique<vector<CreatureConfiguration>>();
+            creatureList = std::make_unique<vector<CreatureConfiguration>>();
         }
         creatureList->push_back(cre);
     }
@@ -137,12 +137,6 @@ bool addSingleCreatureConfig( TiXmlElement* elemCreature, vector<std::unique_ptr
         if (specstr) {
             if(strcmp( specstr, "Normal" ) == 0) {
                 crespec = eCSC_Normal;
-            }
-            if(strcmp( specstr, "Zombie" ) == 0) {
-                crespec = eCSC_Zombie;
-            }
-            if(strcmp( specstr, "Skeleton" ) == 0) {
-                crespec = eCSC_Skeleton;
             }
             if(strcmp( specstr, "Ghost" ) == 0) {
                 crespec = eCSC_Ghost;

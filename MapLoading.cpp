@@ -13,8 +13,11 @@
 #include "df/block_square_event_grassst.h"
 #include "df/block_square_event_material_spatterst.h"
 #include "df/block_square_event_mineralst.h"
+#include "df/construction.h"
+#include "df/engraving.h"
 #include "df/flow_info.h"
 #include "df/flow_info.h"
+#include "df/inorganic_raw.h"
 #include "df/item_constructed.h"
 #include "df/item_threadst.h"
 #include "df/itemimprovement.h"
@@ -22,6 +25,7 @@
 #include "df/map_block.h"
 #include "df/map_block_column.h"
 #include "df/plant.h"
+#include "df/plant_root_tile.h"
 #include "df/plant_tree_info.h"
 #include "df/plant_tree_tile.h"
 
@@ -658,7 +662,7 @@ void readBlockColumnToSegment(DFHack::Core& DF, WorldSegment& segment,
                 t = segment.ResetTile(pp->pos.x, pp->pos.y, pp->pos.z);
             if (!t)
                 continue;
-            t->tree.type = pp->flags.whole;
+            t->tree.type = pp->type;
             t->tree.index = pp->material;
             continue;
         }
@@ -701,7 +705,7 @@ void readBlockColumnToSegment(DFHack::Core& DF, WorldSegment& segment,
                         t = segment.ResetTile(pos.x, pos.y, pos.z);
                     if (!t)
                         continue;
-                    t->tree.type = pp->flags.whole;
+                    t->tree.type = pp->type;
                     t->tree.index = pp->material;
                     t->tree_tile = tile;
                     if (raw)
@@ -722,7 +726,7 @@ void readBlockColumnToSegment(DFHack::Core& DF, WorldSegment& segment,
                 // If the block is at or above the plant's base level, we use the body array
                 // otherwise we use the roots.
                 // TODO: verify that the tree bounds intersect the block.
-                df::plant_tree_tile tile = info->roots[zz][xx + (yy*info->dim_x)];
+                df::plant_root_tile tile = info->roots[zz][xx + (yy * info->dim_x)];
                 if (tile.whole && !(tile.bits.blocked))
                 {
                     df::coord pos = pp->pos;
@@ -736,7 +740,7 @@ void readBlockColumnToSegment(DFHack::Core& DF, WorldSegment& segment,
                         t = segment.ResetTile(pos.x, pos.y, pos.z);
                     if (!t)
                         continue;
-                    t->tree.type = pp->flags.whole;
+                    t->tree.type = pp->type;
                     t->tree.index = pp->material;
                 }
             }
@@ -798,12 +802,12 @@ void readMapSegment(WorldSegment* segment, GameState inState)
     uint32_t numconstructions = 0;
 
     if(!ssConfig.skipConstructions) {
-        numconstructions = Constructions::getCount();
+        numconstructions = df::global::world->event.constructions.size();
         if (numconstructions) {
             df::construction tempcon;
             index = 0;
             while(index < numconstructions) {
-                tempcon = *Constructions::getConstruction(index);
+                tempcon = *df::global::world->event.constructions[index];
                 if(segment->CoordinateInsideSegment(tempcon.pos.x, tempcon.pos.y, tempcon.pos.z)) {
                     allConstructions.push_back(tempcon);
                 }
@@ -894,12 +898,12 @@ void readMapSegment(WorldSegment* segment, GameState inState)
     //translate constructions
     changeConstructionMaterials(segment, &allConstructions);
 
-    uint32_t numengravings = Engravings::getCount();
+    uint32_t numengravings = df::global::world->event.engravings.size();
     df::engraving * engraved;
     index = 0;
     Tile * b = 0;
     while(index < numengravings) {
-        engraved = Engravings::getEngraving(index);
+        engraved = df::global::world->event.engravings[index];
         df::coord pos = engraved->pos;
         if(segment->CoordinateInsideSegment(pos.x, pos.y, pos.z)) {
             b = segment->getTile(pos.x, pos.y, pos.z);
@@ -952,8 +956,6 @@ void read_segment( void *arg)
             firstLoad = 0;
             if (ssConfig.track_mode == GameConfiguration::TRACKING_CENTER) {
                 followCurrentDFCenter();
-            } else if (ssConfig.track_mode == GameConfiguration::TRACKING_WINDOW) {
-                followCurrentDFWindow();
             } else if (ssConfig.track_mode == GameConfiguration::TRACKING_FOCUS) {
                 followCurrentDFFocus();
                 ssConfig.follow_DFcursor = true;
