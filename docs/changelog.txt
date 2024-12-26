@@ -1,0 +1,73 @@
+=== Scroll down for changes
+
+===[[[
+The text below is included in docs/dev/Documentation.rst - see that file for more details on the changelog setup.
+This is kept in this file as a quick syntax reference.
+
+===help
+
+changelog.txt uses a syntax similar to RST, with a few special sequences:
+
+- ``===`` indicates the start of a comment
+- ``#`` indicates the start of a release name (do not include "DFHack")
+- ``##`` indicates the start of a section name (this must be listed in ``gen_changelog.py``)
+- ``-`` indicates the start of a changelog entry. **Note:** an entry currently must be only one line.
+- ``:`` (colon followed by space) separates the name of a feature from a description of a change to that feature.
+    Changes made to the same feature are grouped if they end up in the same section.
+- ``:\`` (colon, backslash, space) avoids the above behavior
+- ``- @`` (the space is optional) indicates the start of an entry that should only be displayed in NEWS-dev.rst.
+    Use this sparingly, e.g. for immediate fixes to one development build in another development build that
+    are not of interest to users of stable builds only.
+- Three ``[`` characters indicate the start of a block (possibly a comment) that
+  spans multiple lines. Three ``]`` characters indicate the end of such a block.
+- ``!`` immediately before a phrase set up to be replaced (see gen_changelog.py) stops that occurrence from being replaced.
+
+Template for new versions:
+
+## New Tools
+
+## New Features
+
+## Fixes
+
+## Misc Improvements
+
+## Documentation
+
+## API
+
+## Lua
+
+## Removed
+
+===end
+]]]
+
+================================================================================
+======== IMPORTANT: rename this, and add a new "Future" section, BEFORE ========
+======== making a new DFHack release, even if the only changes made     ========
+======== were in submodules with their own changelogs!                  ========
+================================================================================
+
+# Future
+
+## New Tools
+
+## New Features
+
+## Fixes
+
+## Misc Improvements
+- `stonesense`: changed announcements to be right-aligned and limited it to only show the most recent 10 announcements.
+
+## Documentation
+- `stonesense`: added a changelog in the stonesense repo itself (stonesense/docs/changelog.txt).
+
+## API
+
+## Lua
+
+## Removed
+- `stonesense`: old changelog has been deprecated and renamed `historic-Changelog.txt` still in the same location as before.
+
+## Internals
