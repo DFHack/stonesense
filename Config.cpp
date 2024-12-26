@@ -801,7 +801,7 @@ void parseConfigLine( string line )
 bool loadConfigFile()
 {
     string line;
-    ALLEGRO_PATH * p =al_create_path("stonesense/init.txt");
+    ALLEGRO_PATH * p =al_create_path("dfhack-config/stonesense/stoneinit.txt");
     const char * path = al_path_cstr(p,ALLEGRO_NATIVE_PATH_SEP);
     ifstream myfile (path);
     if (myfile.is_open() == false) {

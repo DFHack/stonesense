@@ -3,7 +3,8 @@ PROJECT (stonesense)
 SET(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/CMake/Modules)
 
 include_directories (${CMAKE_SOURCE_DIR})
-
+install(DIRECTORY ${CMAKE_SOURCE_DIR}/plugins/stonesense/configs/
+        DESTINATION "${DFHACK_DATA_DESTINATION}/data/dfhack-config-defaults")
 
 SET(PROJECT_SRCS
     TrackingModes.cpp
