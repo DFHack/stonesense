@@ -147,6 +147,7 @@ struct GameConfiguration {
     bool show_osd;
     bool show_announcements;
     bool show_keybinds;
+    bool closeOnEsc;
     bool single_layer_view;
     bool shade_hidden_tiles;
     bool show_hidden_tiles;

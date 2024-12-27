@@ -371,7 +371,7 @@ static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALL
                 }
                 if(event.keyboard.display != display) {
                     break;
-                } else if (event.keyboard.keycode == ALLEGRO_KEY_ESCAPE) {
+                } else if (event.keyboard.keycode == ALLEGRO_KEY_ESCAPE && ssConfig.closeOnEsc) {
                     return;
                 } else {
                     doKeys(event.keyboard.keycode, event.keyboard.modifiers);
@@ -428,6 +428,7 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
     ssConfig.show_designations = true;
     ssConfig.show_keybinds = false;
     ssConfig.show_intro = true;
+    ssConfig.closeOnEsc = false;
     ssConfig.track_screen_center = true;
     ssConfig.animation_step = 300;
     ssConfig.track_mode = GameConfiguration::TRACKING_CENTER;
