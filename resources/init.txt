@@ -100,7 +100,7 @@ Options to control how names are displayed (if SHOW_CREATURE_NAMES is set)
 [NAMES_USE_SPECIES:YES]
 
 Enables or disables the entire on-screen-display overlay (Toggle with F2)
-[SHOW_OSD:YES]
+[SHOW_OSD:NO]
 
 Shows all creatures, for debugging. Living, dead, kidnapped, caged, EVERY single one.
 [ALLCREATURES:NO]
