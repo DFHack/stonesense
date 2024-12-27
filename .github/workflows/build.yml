@@ -24,3 +24,14 @@ jobs:
       cache-id: test
       stonesense: true
     secrets: inherit
+
+  docs:
+    uses: DFHack/dfhack/.github/workflows/build-linux.yml@develop
+    with:
+      stonesense_repo: ${{ github.repository }}
+      stonesense_ref: ${{ github.ref }}
+      artifact-name: docs
+      platform-files: false
+      common-files: false
+      docs: true
+    secrets: inherit
