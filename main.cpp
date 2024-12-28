@@ -422,7 +422,7 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
     ssState.Size.x = DEFAULT_SIZE;
     ssState.Size.y = DEFAULT_SIZE;
     ssState.Size.z = DEFAULT_SIZE_Z;
-    ssConfig.show_creature_names = true;
+    ssConfig.show_creature_names = false;
     ssConfig.show_osd = true;
     ssConfig.show_designations = true;
     ssConfig.show_keybinds = false;
