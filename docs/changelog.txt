@@ -49,5 +49,5 @@ Template for new versions:
 
 ## Misc Improvements
 - `stonesense`: changed announcements to be right-aligned and limited it to only show the most recent 10 announcements.
-- `stonesense`: config files are now in ``configs/stonesense``in the stonesense repo and are in ``dfhack-configs/stonesense`` when installed.
+- `stonesense`: `init.txt` config file is now read from ``dfhack-configs/stonesense/init.txt``
 - `stonesense`: creature names are now hidden by default and can be shown by pressing ``n`` with default keybinds.
