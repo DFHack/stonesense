@@ -35,12 +35,6 @@ Template for new versions:
 ===end
 ]]]
 
-================================================================================
-======== IMPORTANT: rename this, and add a new "Future" section, BEFORE ========
-======== making a new DFHack release, even if the only changes made     ========
-======== were in submodules with their own changelogs!                  ========
-================================================================================
-
 # Future
 
 ## New Features
