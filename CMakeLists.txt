@@ -2,7 +2,6 @@ PROJECT (stonesense)
 
 SET(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/CMake/Modules)
 
-include_directories (${CMAKE_SOURCE_DIR})
 install(DIRECTORY ${CMAKE_SOURCE_DIR}/plugins/stonesense/configs/
         DESTINATION "${DFHACK_DATA_DESTINATION}/data/dfhack-config-defaults/stonesense")
 
@@ -130,11 +129,7 @@ IF(UNIX)
                 ${ALLEGRO_DOWNLOAD_DIR}/lib/liballegro_ttf.dylib
                 ${PROJECT_LIBS}
             )
-            include_directories (
-                ${include_directories}
-                ${ALLEGRO_DOWNLOAD_DIR}/include
-                ${ALLEGRO_DOWNLOAD_DIR}/lib/Headers
-            )
+            SET(stonesense_INCLUDES ${ALLEGRO_DOWNLOAD_DIR}/include ${ALLEGRO_DOWNLOAD_DIR}/lib/Headers)
             if(BUILD_PLUGINS)
                 install(DIRECTORY ${ALLEGRO_DOWNLOAD_DIR}/lib/
                         DESTINATION ${DFHACK_LIBRARY_DESTINATION})
@@ -179,10 +174,7 @@ IF(UNIX)
                 ${ALLEGRO_DOWNLOAD_DIR}/lib/liballegro_color.so.5.0
                 ${PROJECT_LIBS}
             )
-            include_directories (
-                ${include_directories}
-                ${ALLEGRO_DOWNLOAD_DIR}/include
-            )
+            SET(stonesense_INCLUDES ${ALLEGRO_DOWNLOAD_DIR}/include)
             if(BUILD_PLUGINS)
                 install(DIRECTORY ${ALLEGRO_DOWNLOAD_DIR}/lib/
                         DESTINATION ${DFHACK_LIBRARY_DESTINATION})
@@ -254,11 +246,9 @@ ELSE(UNIX)
         gdiplus.lib
         shlwapi.lib
        )
-    include_directories (
-        ${include_directories}
+    SET(stonesense_INCLUDES
         ${stonesense_SOURCE_DIR}/win${DFHACK_BUILD_ARCH}/allegro/include
-        ${stonesense_SOURCE_DIR}/win${DFHACK_BUILD_ARCH}/allegro_deps/include
-    )
+        ${stonesense_SOURCE_DIR}/win${DFHACK_BUILD_ARCH}/allegro_deps/include)
     LINK_DIRECTORIES(
         ${LINK_DIRECTORIES}
         ${stonesense_SOURCE_DIR}/win${DFHACK_BUILD_ARCH}/allegro/lib
@@ -272,6 +262,7 @@ if(UNIX AND "${CMAKE_CXX_COMPILER_VERSION}" VERSION_GREATER 6.0)
 endif()
 
 DFHACK_PLUGIN(stonesense ${PROJECT_SRCS} LINK_LIBRARIES ${DFHACK_TINYXML} ${PROJECT_LIBS} COMPILE_FLAGS_MSVC "/FI\"Export.h\" /wd4312 /wd4996 /wd4251" COMPILE_FLAGS_GCC "-include Export.h ${STONESENSE_GCC_FLAGS}")
+target_include_directories(stonesense PRIVATE ${stonesense_INCLUDES})
 
 IF(MSVC)
     # Ignore unhelpful warnings about debug symbols being missing.
