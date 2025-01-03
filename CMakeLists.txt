@@ -262,7 +262,9 @@ if(UNIX AND "${CMAKE_CXX_COMPILER_VERSION}" VERSION_GREATER 6.0)
 endif()
 
 DFHACK_PLUGIN(stonesense ${PROJECT_SRCS} LINK_LIBRARIES ${DFHACK_TINYXML} ${PROJECT_LIBS} COMPILE_FLAGS_MSVC "/FI\"Export.h\" /wd4312 /wd4996 /wd4251" COMPILE_FLAGS_GCC "-include Export.h ${STONESENSE_GCC_FLAGS}")
-target_include_directories(stonesense PRIVATE ${stonesense_INCLUDES})
+if(BUILD_PLUGINS)
+    target_include_directories(stonesense PRIVATE ${stonesense_INCLUDES})
+endif()
 
 IF(MSVC)
     # Ignore unhelpful warnings about debug symbols being missing.
