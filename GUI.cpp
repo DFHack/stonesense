@@ -1182,7 +1182,9 @@ void paintboard()
 
         drawDebugCursor(segment);
 
-        draw_announcements(font, ssState.ScreenW, ssState.ScreenH - 20, ALLEGRO_ALIGN_RIGHT, df::global::world->status.announcements);
+        if (ssConfig.show_announcements) {
+            draw_announcements(font, ssState.ScreenW, ssState.ScreenH - 20, ALLEGRO_ALIGN_RIGHT, df::global::world->status.announcements);
+        }
         drawAdvmodeMenuTalk(font, 5, ssState.ScreenH - 5);
 
         if(ssConfig.debug_mode) {

@@ -80,17 +80,27 @@ void parseConfigLine( string line )
         string result = parseStrFromLine( "WINDOWED", line );
         ssConfig.Fullscreen = (result == "NO");
     }
-    if( line.find("[SEGMENTSIZE_XY") != string::npos) {
-        int value = parseIntFromLine( "SEGMENTSIZE_XY", line );
-        if(value < 1) {
+    if (line.find("[SEGMENTSIZE_X") != string::npos) {
+        int value = parseIntFromLine("SEGMENTSIZE_X", line);
+        if (value < 1) {
             value = DEFAULT_SIZE;
         }
-        if(value > 100) {
+        if (value > 100) {
             value = 100;
         }
         //plus 2 to allow edge readings
-        ssState.Size.x = value+2;
-        ssState.Size.y = value+2;
+        ssState.Size.x = value + 2;
+    }
+    if (line.find("[SEGMENTSIZE_Y") != string::npos) {
+        int value = parseIntFromLine("SEGMENTSIZE_Y", line);
+        if (value < 1) {
+            value = DEFAULT_SIZE;
+        }
+        if (value > 100) {
+            value = 100;
+        }
+        //plus 2 to allow edge readings
+        ssState.Size.y = value + 2;
     }
     if( line.find("[SEGMENTSIZE_Z") != string::npos) {
         int value = parseIntFromLine( "SEGMENTSIZE_Z", line );

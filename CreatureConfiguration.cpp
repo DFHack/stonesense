@@ -105,6 +105,10 @@ bool addSingleCreatureConfig( TiXmlElement* elemCreature, vector<std::unique_ptr
         const char* profStr = elemVariant->Attribute("prof");
         if (profStr == NULL || profStr[0] == 0) {
             profStr = elemVariant->Attribute("profession");
+            LogError("Needed to correct to:\n");
+            LogError(profStr);
+        } else {
+            LogError(profStr);
         }
         professionID = translateProfession(profStr);
 
