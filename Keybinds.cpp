@@ -220,7 +220,7 @@ action_name_mapper actionnamemap[] = {
     {"INCR_Y", action_incrY},
     {"DECR_X", action_decrX},
     {"INCR_X", action_incrX},
-    
+
     //add extra action here!
 
     {"INVALID", action_invalid}//this is the stop condition
