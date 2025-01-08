@@ -198,6 +198,7 @@ action_name_mapper actionnamemap[] = {
     {"TOGGLE_SHOW_HIDDEN_TILES", action_toggleshowhidden},
     {"TOGGLE_OSD", action_toggleosd},
     {"TOGGLE_KEYBINDS", action_togglekeybinds},
+    {"TOGGLE_ANNOUNCEMENTS", action_toggleannouncements},
     {"INCR_ZOOM", action_incrzoom},
     {"DECR_ZOOM", action_decrzoom},
     {"SCREENSHOT", action_screenshot},
@@ -219,6 +220,7 @@ action_name_mapper actionnamemap[] = {
     {"INCR_Y", action_incrY},
     {"DECR_X", action_decrX},
     {"INCR_X", action_incrX},
+    
     //add extra action here!
 
     {"INVALID", action_invalid}//this is the stop condition

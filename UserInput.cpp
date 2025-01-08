@@ -382,6 +382,10 @@ void action_togglekeybinds(uint32_t keymod){
     ssConfig.show_keybinds = !ssConfig.show_keybinds;
 }
 
+void action_toggleannouncements(uint32_t keymod) {
+    ssConfig.show_announcements = !ssConfig.show_announcements;
+}
+
 void action_incrzoom(uint32_t keymod)
 {
     ssConfig.zoom++;
