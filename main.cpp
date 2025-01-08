@@ -232,10 +232,13 @@ void drawcredits()
     }
 
     al_draw_text(font, color_yellow, centerx, 5*lineheight, ALLEGRO_ALIGN_CENTRE, "Welcome to Stonesense Felsite!");
-    al_draw_text(font, color_white, centerx, 6*lineheight, ALLEGRO_ALIGN_CENTRE, "Stonesense is an isometric viewer for Dwarf Fortress.");
+    al_draw_text(font, color_white, centerx, 6 * lineheight, ALLEGRO_ALIGN_CENTRE, "Stonesense is an isometric viewer for Dwarf Fortress.");
 
-    al_draw_text(font, color_white, centerx, 8*lineheight, ALLEGRO_ALIGN_CENTRE, "Programming: Jonas Ask, Kris Parker, Japa Illo, Tim Aitken, and peterix");
-    al_draw_text(font, color_white, centerx, 9*lineheight, ALLEGRO_ALIGN_CENTRE, "Lead graphics designer, Dale Holdampf");
+    al_draw_text(font, color_yellow, centerx, 8 * lineheight, ALLEGRO_ALIGN_CENTRE, "IF YOU RESIZE STONESENSE WITH A FORT LOADED, STONESENSE WILL CLOSE WHEN YOU QUIT THE FORT");
+
+
+    al_draw_text(font, color_white, centerx, 10*lineheight, ALLEGRO_ALIGN_CENTRE, "Programming: Jonas Ask, Kris Parker, Japa Illo, Tim Aitken, and peterix");
+    al_draw_text(font, color_white, centerx, 11*lineheight, ALLEGRO_ALIGN_CENTRE, "Lead graphics designer, Dale Holdampf");
 
     al_draw_text(font, color_white, centerx, bottomy-13*lineheight, ALLEGRO_ALIGN_CENTRE, "Contributors:");
     al_draw_text(font, color_white, centerx, bottomy-12*lineheight, ALLEGRO_ALIGN_CENTRE, "7c Nickel, BatCountry, Belal, Belannaer, DeKaFu, Dante, Deon, dyze,");
@@ -340,9 +343,13 @@ static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALL
         */
 
         if(in_time) {
+            if (ssConfig.needToClose && !Maps::IsValid()) {
+                return;
+            }
             switch (event.type) {
             case ALLEGRO_EVENT_DISPLAY_RESIZE:
-                if (ssConfig.overlay_mode) {
+                if (ssConfig.overlay_mode || Maps::IsValid()) {
+                    ssConfig.needToClose = true;
                     break;
                 }
                 if(!al_acknowledge_resize(event.display.source)) {
@@ -409,6 +416,7 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
     out.print("Stonesense launched\n");
 
     ssConfig.debug_mode = false;
+    ssConfig.needToClose = false;
     ssConfig.hide_outer_tiles = false;
     ssConfig.shade_hidden_tiles = true;
     ssConfig.load_ground_materials = true;
