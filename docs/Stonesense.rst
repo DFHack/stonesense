@@ -58,11 +58,11 @@ You can take screenshots with :kbd:`F5`, larger screenshots with
 Note that feedback is printed to the DFHack console, and you may need
 to zoom out before taking very large screenshots.
 
-See :download:`../resources/keybinds.txt` to learn or set keybindings,
+See :download:`../configs/keybinds.txt` to learn or set keybindings,
 including zooming, changing the dimensions of the rendered area, toggling
 various views, fog, and rotation.  Here's the important section:
 
-.. include:: ../resources/keybinds.txt
+.. include:: ../configs/keybinds.txt
    :literal:
    :end-before: VALID ACTIONS:
 
