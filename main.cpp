@@ -422,13 +422,18 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
     ssState.Size.x = DEFAULT_SIZE;
     ssState.Size.y = DEFAULT_SIZE;
     ssState.Size.z = DEFAULT_SIZE_Z;
-    ssConfig.show_creature_names = false;
     ssConfig.show_osd = true;
     ssConfig.show_announcements = true;
     ssConfig.show_designations = true;
     ssConfig.show_keybinds = false;
     ssConfig.show_intro = true;
     ssConfig.closeOnEsc = false;
+    
+    ssConfig.show_creature_names = false;
+    ssConfig.show_creature_moods = false;
+    ssConfig.show_creature_jobs = false;
+    ssConfig.show_creature_professions = 0;
+
     ssConfig.track_screen_center = true;
     ssConfig.animation_step = 300;
     ssConfig.track_mode = GameConfiguration::TRACKING_CENTER;
