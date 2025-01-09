@@ -141,7 +141,6 @@ public:
 
 struct GameConfiguration {
     bool overlay_mode;
-    bool needToClose;
     bool show_zones;
     bool show_stockpiles;
     bool show_designations;

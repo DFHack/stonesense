@@ -234,9 +234,6 @@ void drawcredits()
     al_draw_text(font, color_yellow, centerx, 5*lineheight, ALLEGRO_ALIGN_CENTRE, "Welcome to Stonesense Felsite!");
     al_draw_text(font, color_white, centerx, 6 * lineheight, ALLEGRO_ALIGN_CENTRE, "Stonesense is an isometric viewer for Dwarf Fortress.");
 
-    //al_draw_text(font, color_yellow, centerx, 8 * lineheight, ALLEGRO_ALIGN_CENTRE, "IF YOU RESIZE STONESENSE WITH A FORT LOADED, STONESENSE WILL CLOSE WHEN YOU QUIT THE FORT");
-
-
     al_draw_text(font, color_white, centerx, 10*lineheight, ALLEGRO_ALIGN_CENTRE, "Programming: Jonas Ask, Kris Parker, Japa Illo, Tim Aitken, and peterix");
     al_draw_text(font, color_white, centerx, 11*lineheight, ALLEGRO_ALIGN_CENTRE, "Lead graphics designer, Dale Holdampf");
 
@@ -244,7 +241,7 @@ void drawcredits()
     al_draw_text(font, color_white, centerx, bottomy-12*lineheight, ALLEGRO_ALIGN_CENTRE, "7c Nickel, BatCountry, Belal, Belannaer, DeKaFu, Dante, Deon, dyze,");
     al_draw_text(font, color_white, centerx, bottomy-11*lineheight, ALLEGRO_ALIGN_CENTRE, "Errol, fifth angel, frumpton, IDreamOfGiniCoeff, Impaler, ");
     al_draw_text(font, color_white, centerx, bottomy-10*lineheight, ALLEGRO_ALIGN_CENTRE, "Japa, jarathor, Jiri Petru, Jordix, Lord Nightmare, McMe, Mike Mayday, Nexii ");
-    al_draw_text(font, color_white, centerx, bottomy-9*lineheight, ALLEGRO_ALIGN_CENTRE, "Malthus, peterix, Seuss, soup, Talvara, winner, Xandrin.");
+    al_draw_text(font, color_white, centerx, bottomy-9*lineheight, ALLEGRO_ALIGN_CENTRE, "Malthus, peterix, Seuss, soup, SquidCoder, Talvara, winner, Xandrin.");
 
     al_draw_text(font, color_white, centerx, bottomy-7*lineheight, ALLEGRO_ALIGN_CENTRE, "With special thanks to peterix for making dfHack");
 
@@ -343,20 +340,11 @@ static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALL
         */
 
         if(in_time) {
-            if (ssConfig.needToClose && !Maps::IsValid()) {
-                return;
-            }
             switch (event.type) {
             case ALLEGRO_EVENT_DISPLAY_RESIZE:
                 if (ssConfig.overlay_mode) {
                     break;
                 }
-//#ifdef _WIN32
-//                if (Maps::IsValid()) {
-//                    ssConfig.needToClose = true;
-//                    break;
-//                }
-//#endif
                 if(!al_acknowledge_resize(event.display.source)) {
                     con.printerr("Failed to resize diplay");
                     return;
@@ -421,7 +409,6 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
     out.print("Stonesense launched\n");
 
     ssConfig.debug_mode = false;
-    ssConfig.needToClose = false;
     ssConfig.hide_outer_tiles = false;
     ssConfig.shade_hidden_tiles = true;
     ssConfig.load_ground_materials = true;

@@ -68,6 +68,10 @@ void parseConfigLine( string line )
         return;
     }
 
+    if( line.find("[CLOSEONESC") != string::npos) {
+        string result = parseStrFromLine("CLOSEONESC", line );
+        ssConfig.closeOnEsc = (result == "YES");
+    }
     if( line.find("[WIDTH") != string::npos) {
         int width = parseIntFromLine( "WIDTH", line );
         ssState.ScreenW = width;

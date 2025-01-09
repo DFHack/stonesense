@@ -2,6 +2,9 @@ Please note, these keywords are case sensitive for now.
 
 --Interface--
 
+Sets whether hitting Esc will close the window.
+[CLOSEONESC:NO]
+
 Sets the width and height of the application in pixels.
 [WIDTH:800]
 [HEIGHT:600]
