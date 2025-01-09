@@ -391,6 +391,11 @@ void action_toggleannouncements(uint32_t keymod) {
     ssConfig.show_announcements = !ssConfig.show_announcements;
 }
 
+void action_toggledebug(uint32_t keymod)
+{
+    ssConfig.debug_mode = !ssConfig.debug_mode;
+}
+
 void action_incrzoom(uint32_t keymod)
 {
     ssConfig.zoom++;
@@ -401,6 +406,16 @@ void action_decrzoom(uint32_t keymod)
 {
     ssConfig.zoom--;
     ssConfig.scale = pow(2.0f, ssConfig.zoom);
+}
+
+void action_incrscale(uint32_t keymod)
+{
+    ssConfig.scale++;
+}
+
+void action_decrscale(uint32_t keymod)
+{
+    ssConfig.scale--;
 }
 
 void action_screenshot(uint32_t keymod)

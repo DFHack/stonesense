@@ -1190,14 +1190,16 @@ void paintboard()
         drawAdvmodeMenuTalk(font, 5, ssState.ScreenH - 5);
 
         if(ssConfig.debug_mode) {
-            draw_textf_border(font, uiColor(1), 10, 3*al_get_font_line_height(font), 0, "Map Read Time: %.2fms", ssTimers.read_time);
-            draw_textf_border(font, uiColor(1), 10, 4*al_get_font_line_height(font), 0, "Map Beautification Time: %.2fms", ssTimers.beautify_time);
-            draw_textf_border(font, uiColor(1), 10, 5*al_get_font_line_height(font), 0, "Tile Sprite Assembly Time: %.2fms", ssTimers.assembly_time);
-            draw_textf_border(font, uiColor(1), 10, 6*al_get_font_line_height(font), 0, "DF Renderer Overlay Time: %.2fms", ssTimers.overlay_time);
-            draw_textf_border(font, uiColor(1), 10, 2*al_get_font_line_height(font), 0, "FPS: %.2f", 1000.0/ssTimers.frame_total);
-            draw_textf_border(font, uiColor(1), 10, 7*al_get_font_line_height(font), 0, "Draw: %.2fms", ssTimers.draw_time);
-            draw_textf_border(font, uiColor(1), 10, 8*al_get_font_line_height(font), 0, "D1: %i", DebugInt1);
-            draw_textf_border(font, uiColor(1), 10, 9*al_get_font_line_height(font), 0, "%i/%i/%i, %i:%i", contentLoader->currentDay+1, contentLoader->currentMonth+1, contentLoader->currentYear, contentLoader->currentHour, (contentLoader->currentTickRel*60)/50);
+            draw_textf_border(font, uiColor(1), 10, 2*al_get_font_line_height(font), 0, "Zoom: %.2f", ssConfig.zoom);
+            draw_textf_border(font, uiColor(1), 10, 3*al_get_font_line_height(font), 0, "Scale: %.8f", ssConfig.scale);
+            draw_textf_border(font, uiColor(1), 10, 4*al_get_font_line_height(font), 0, "FPS: %.2f", 1000.0/ssTimers.frame_total);
+            draw_textf_border(font, uiColor(1), 10, 5*al_get_font_line_height(font), 0, "Map Read Time: %.2fms", ssTimers.read_time);
+            draw_textf_border(font, uiColor(1), 10, 6*al_get_font_line_height(font), 0, "Map Beautification Time: %.2fms", ssTimers.beautify_time);
+            draw_textf_border(font, uiColor(1), 10, 7*al_get_font_line_height(font), 0, "Tile Sprite Assembly Time: %.2fms", ssTimers.assembly_time);
+            draw_textf_border(font, uiColor(1), 10, 8*al_get_font_line_height(font), 0, "DF Renderer Overlay Time: %.2fms", ssTimers.overlay_time);
+            draw_textf_border(font, uiColor(1), 10, 9*al_get_font_line_height(font), 0, "Draw: %.2fms", ssTimers.draw_time);
+            draw_textf_border(font, uiColor(1), 10, 10*al_get_font_line_height(font), 0, "D1: %i", DebugInt1);
+            draw_textf_border(font, uiColor(1), 10, 11*al_get_font_line_height(font), 0, "%i/%i/%i, %i:%i", contentLoader->currentDay+1, contentLoader->currentMonth+1, contentLoader->currentYear, contentLoader->currentHour, (contentLoader->currentTickRel*60)/50);
 
             drawDebugInfo(segment);
         }
