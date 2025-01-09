@@ -399,23 +399,32 @@ void action_toggledebug(uint32_t keymod)
 void action_incrzoom(uint32_t keymod)
 {
     ssConfig.zoom++;
-    ssConfig.scale = pow(2.0f, ssConfig.zoom);
+    if (ssConfig.scale <= 1) {
+        ssConfig.scale = pow(2.0f, ssConfig.zoom);
+    }
+    else {
+        ssConfig.scale++;
+    }
 }
 
 void action_decrzoom(uint32_t keymod)
 {
     ssConfig.zoom--;
+    if (ssConfig.scale <= 1) {
     ssConfig.scale = pow(2.0f, ssConfig.zoom);
-}
-
-void action_incrscale(uint32_t keymod)
-{
-    ssConfig.scale++;
-}
-
-void action_decrscale(uint32_t keymod)
-{
+    } else {;
     ssConfig.scale--;
+    }
+}
+
+void action_incruiscale(uint32_t keymod)
+{
+    //tbd
+}
+
+void action_decruiscale(uint32_t keymod)
+{
+    //tbd
 }
 
 void action_screenshot(uint32_t keymod)
