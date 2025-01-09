@@ -2,7 +2,7 @@ Please note, these keywords are case sensitive for now.
 
 --Interface--
 
-Sets whether hitting Esc will close the window.
+Sets whether hitting Esc will close the window. (YES or NO)
 [CLOSEONESC:NO]
 
 Sets the width and height of the application in pixels.
@@ -134,7 +134,8 @@ and possibly quickly fill up yout hard-drive.
 [LOG_IMAGECACHE:NO]
 
 Set the preferred renderer. Valid values are SOFTWARE, OPENGL, DIRECTX, and ANY. SOFTWARE has the highest
-compatibility, but is very slow.
+compatibility, but is very slow. 
+On Windows, you should leave this on OPENGL for stability reasons.
 [RENDERER:OPENGL]
 
 --Colors--

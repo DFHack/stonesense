@@ -38,8 +38,9 @@ Template for new versions:
 # Future
 
 ## New Features
-- `stonesense`: added keybinds for toggling announcements and fog (``a`` and ``~`` respectively).
+- `stonesense`: added keybinds for toggling announcements, fog, and debug mode(``a``, ``~``, and ``;`` respectively).
 - `stonesense`: moved the segmentsize keybinds to the numpad.
+- `stonesense`: added ``CLOSEONESC`` config, off by default.
 ## Fixes
 - `stonesense`: stonesense no longer crashes when resizing the window due to switching to using OpenGL for rendering.
 ## Misc Improvements
@@ -47,3 +48,5 @@ Template for new versions:
 - `stonesense`: ``init.txt`` config file is now read from ``dfhack-configs/stonesense/init.txt``
 - `stonesense`: ``keybinds.txt`` config file is now read from ``dfhack-configs/stonesense/keybinds.txt``
 - `stonesense`: creature names are now hidden by default (they can still be shown by pressing ``n`` (default keybinding) in stonesense).
+- `stonesense`: ``SEGMENTSIZE_XY`` has been split into ``SEGMENTSIZE_X`` and ``SEGMENTSIZE_Y``
+- `stonesense`: zoom now has smaller increment levels.
