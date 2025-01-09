@@ -1159,6 +1159,11 @@ void paintboard()
     ssTimers.frame_total = (donetime - ssTimers.prev_frame_time)*0.1 + ssTimers.frame_total*0.9;
     ssTimers.prev_frame_time = donetime;
 
+    if(ssConfig.show_announcements) {
+        al_hold_bitmap_drawing(true);
+        draw_announcements(font, ssState.ScreenW, ssState.ScreenH - 20, ALLEGRO_ALIGN_RIGHT, df::global::world->status.announcements);
+        al_hold_bitmap_drawing(false);
+    }
     if(ssConfig.show_keybinds){
         string *keyname, *actionname;
         keyname = actionname = NULL;
@@ -1182,9 +1187,6 @@ void paintboard()
 
         drawDebugCursor(segment);
 
-        if (ssConfig.show_announcements) {
-            draw_announcements(font, ssState.ScreenW, ssState.ScreenH - 20, ALLEGRO_ALIGN_RIGHT, df::global::world->status.announcements);
-        }
         drawAdvmodeMenuTalk(font, 5, ssState.ScreenH - 5);
 
         if(ssConfig.debug_mode) {
