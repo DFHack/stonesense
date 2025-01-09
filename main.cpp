@@ -345,6 +345,10 @@ static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALL
                 if (ssConfig.overlay_mode) {
                     break;
                 }
+                if (ssConfig.autosize_segment) {
+                    ssState.Size.x = (int)ceil(sqrt(2) * (ssState.ScreenW + ssState.ScreenH) / TILEWIDTH );
+                    ssState.Size.y = (int)ceil(sqrt(2) * (ssState.ScreenW + ssState.ScreenH) / TILEWIDTH);
+                }
                 if(!al_acknowledge_resize(event.display.source)) {
                     con.printerr("Failed to resize diplay");
                     return;
@@ -414,6 +418,7 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
     ssConfig.load_ground_materials = true;
     ssConfig.automatic_reload_time = 0;
     ssConfig.automatic_reload_step = 500;
+    ssConfig.autosize_segment = false;
     ssConfig.lift_segment_offscreen_x = 0;
     ssConfig.lift_segment_offscreen_y = 0;
     ssConfig.Fullscreen = FULLSCREEN;

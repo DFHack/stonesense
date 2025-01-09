@@ -114,6 +114,11 @@ void parseConfigLine( string line )
         ssState.Size.z = value;
     }
 
+    if (line.find("[AUTOSIZE_SEGMENT") != string::npos) {
+        string result = parseStrFromLine("AUTOSIZE_SEGMENT", line);
+        ssConfig.autosize_segment = (result == "YES");
+    }
+
     if( line.find("[ALLCREATURES") != string::npos) {
         string result = parseStrFromLine( "ALLCREATURES", line );
         ssConfig.show_all_creatures = (result == "YES");

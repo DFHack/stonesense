@@ -141,6 +141,7 @@ public:
 
 struct GameConfiguration {
     bool overlay_mode;
+    bool autosize_segment;
     bool show_zones;
     bool show_stockpiles;
     bool show_designations;
