@@ -186,6 +186,7 @@ action_name_mapper actionnamemap[] = {
     {"TOGGLE_STOCKS", action_togglestockpiles},
     {"TOGGLE_ZONES", action_togglezones},
     {"TOGGLE_OCCLUSION", action_toggleocclusion},
+    {"TOGGLE_FOG",action_togglefog},
     {"TOGGLE_CREATURE_MOODS", action_togglecreaturemood},
     {"TOGGLE_CREATURE_PROFS", action_togglecreatureprof},
     {"TOGGLE_CREATURE_JOBS", action_togglecreaturejob},

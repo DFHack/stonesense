@@ -7,6 +7,7 @@ void action_toggledesignations(uint32_t keymod);
 void action_togglestockpiles(uint32_t keymod);
 void action_togglezones(uint32_t keymod);
 void action_toggleocclusion(uint32_t keymod);
+void action_togglefog(uint32_t keymod);
 void action_togglecreaturemood(uint32_t keymod);
 void action_togglecreatureprof(uint32_t keymod);
 void action_togglecreaturejob(uint32_t keymod);

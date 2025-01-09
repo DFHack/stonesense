@@ -240,6 +240,11 @@ void action_toggleocclusion(uint32_t keymod)
     timeToReloadSegment = true;
 }
 
+void action_togglefog(uint32_t keymod)
+{
+    ssConfig.fogenable= !ssConfig.fogenable;
+}
+
 void action_togglecreaturemood(uint32_t keymod)
 {
     ssConfig.show_creature_moods = !ssConfig.show_creature_moods;

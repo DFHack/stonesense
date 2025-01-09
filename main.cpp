@@ -351,11 +351,12 @@ static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALL
                 if (ssConfig.overlay_mode) {
                     break; 
                 }
-                #ifdef _WIN32
-                    // Windows stuff
+#ifdef _WIN32
+                if (Maps::IsValid()) {
                     ssConfig.needToClose = true;
                     break;
-                #endif
+                }
+#endif
                 if(!al_acknowledge_resize(event.display.source)) {
                     con.printerr("Failed to resize diplay");
                     return;
