@@ -38,9 +38,10 @@ Template for new versions:
 # Future
 
 ## New Features
-
+- `stonesense`: added keybinds for toggling announcements and fog (``a`` and ``~`` respectively).
+- `stonesense`: moved the segmentsize keybinds to the numpad.
 ## Fixes
-
+- `stonesense`: stonesense no longer crashes when resizing the window due to switching to using OpenGL for rendering.
 ## Misc Improvements
 - `stonesense`: changed announcements to be right-aligned and limited it to only show the most recent 10 announcements.
 - `stonesense`: ``init.txt`` config file is now read from ``dfhack-configs/stonesense/init.txt``

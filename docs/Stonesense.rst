@@ -15,8 +15,8 @@ implemented as `a DFHack plugin <plugin-stonesense>`.
 
 Useful links:
 
-- :forums:`Official Stonesense thread <106497>` for feedback,
-  questions, requests or bug reports
+- Report issues on `Github <https://github.com/DFHack/stonesense/issues>`_
+- :forums:`Official Stonesense thread <106497>`
 - :forums:`Screenshots thread <48172>`
 - :wiki:`Main wiki page <Utility:Stonesense>`
 - :wiki:`How to add content <Utility:Stonesense/Adding_Content>`
