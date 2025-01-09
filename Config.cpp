@@ -173,9 +173,21 @@ void parseConfigLine( string line )
         string result = parseStrFromLine( "FOLLOW_DF_CURSOR", line );
         ssConfig.follow_DFcursor = (result == "YES");
     }
-    if( line.find("[SHOW_CREATURE_NAMES") != string::npos) {
-        string result = parseStrFromLine( "SHOW_CREATURE_NAMES", line );
+    if (line.find("[SHOW_CREATURE_NAMES") != string::npos) {
+        string result = parseStrFromLine("SHOW_CREATURE_NAMES", line);
         ssConfig.show_creature_names = (result == "YES");
+    }
+    if (line.find("[SHOW_CREATURE_MOODS") != string::npos) {
+        string result = parseStrFromLine("SHOW_CREATURE_MOODS", line);
+        ssConfig.show_creature_moods = (result == "YES");
+    }
+    if (line.find("[SHOW_CREATURE_JOBS") != string::npos) {
+        string result = parseStrFromLine("SHOW_CREATURE_JOBS", line);
+        ssConfig.show_creature_jobs = (result == "YES");
+    }
+    if (line.find("[SHOW_CREATURE_PROFESSIONS") != string::npos) {
+        int value = parseIntFromLine("SHOW_CREATURE_PROFESSIONS", line);
+        ssConfig.show_creature_professions = value;
     }
     if( line.find("[NAMES_USE_NICKNAME") != string::npos) {
         string result = parseStrFromLine( "NAMES_USE_NICKNAME", line );
