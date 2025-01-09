@@ -234,7 +234,7 @@ void drawcredits()
     al_draw_text(font, color_yellow, centerx, 5*lineheight, ALLEGRO_ALIGN_CENTRE, "Welcome to Stonesense Felsite!");
     al_draw_text(font, color_white, centerx, 6 * lineheight, ALLEGRO_ALIGN_CENTRE, "Stonesense is an isometric viewer for Dwarf Fortress.");
 
-    al_draw_text(font, color_yellow, centerx, 8 * lineheight, ALLEGRO_ALIGN_CENTRE, "IF YOU RESIZE STONESENSE WITH A FORT LOADED, STONESENSE WILL CLOSE WHEN YOU QUIT THE FORT");
+    //al_draw_text(font, color_yellow, centerx, 8 * lineheight, ALLEGRO_ALIGN_CENTRE, "IF YOU RESIZE STONESENSE WITH A FORT LOADED, STONESENSE WILL CLOSE WHEN YOU QUIT THE FORT");
 
 
     al_draw_text(font, color_white, centerx, 10*lineheight, ALLEGRO_ALIGN_CENTRE, "Programming: Jonas Ask, Kris Parker, Japa Illo, Tim Aitken, and peterix");
@@ -351,12 +351,12 @@ static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALL
                 if (ssConfig.overlay_mode) {
                     break; 
                 }
-#ifdef _WIN32
-                if (Maps::IsValid()) {
-                    ssConfig.needToClose = true;
-                    break;
-                }
-#endif
+//#ifdef _WIN32
+//                if (Maps::IsValid()) {
+//                    ssConfig.needToClose = true;
+//                    break;
+//                }
+//#endif
                 if(!al_acknowledge_resize(event.display.source)) {
                     con.printerr("Failed to resize diplay");
                     return;
