@@ -349,7 +349,7 @@ static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALL
             switch (event.type) {
             case ALLEGRO_EVENT_DISPLAY_RESIZE:
                 if (ssConfig.overlay_mode) {
-                    break; 
+                    break;
                 }
 //#ifdef _WIN32
 //                if (Maps::IsValid()) {
