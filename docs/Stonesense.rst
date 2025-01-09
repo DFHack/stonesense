@@ -35,7 +35,7 @@ and can follow the game view, or be moved independently.
    The above-ground part of the fortress *Roadtruss*.
 
 Configuration options are documented and can be pre-set in
-:download:`../resources/init.txt`.
+:download:`../configs/init.txt`.
 
 Controls
 --------
