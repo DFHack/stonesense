@@ -428,7 +428,7 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
     ssConfig.show_keybinds = false;
     ssConfig.show_intro = true;
     ssConfig.closeOnEsc = false;
-    
+
     ssConfig.show_creature_names = false;
     ssConfig.show_creature_moods = false;
     ssConfig.show_creature_jobs = false;
