@@ -11,7 +11,6 @@ SET(PROJECT_SRCS
     Tile.cpp
     TileCondition.cpp
     TileTree.cpp
-    BuildingConfiguration.cpp
     ColorConfiguration.cpp
     ConditionalSprite.cpp
     Config.cpp
