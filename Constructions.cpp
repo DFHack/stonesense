@@ -5,23 +5,18 @@
 
 #include "df/construction.h"
 
-using namespace std;
 using namespace DFHack;
 using namespace df::enums;
+
+using std::vector;
 
 void changeConstructionMaterials(WorldSegment* segment, vector<df::construction>* allConstructions)
 {
     //find construction
-    int32_t i;
-    Tile* b;
     df::construction* construct = 0;
-    i = (uint32_t) allConstructions->size();
-    if(i <= 0) {
-        return;
-    }
-    while(--i >= 0) {
-        construct = &(*allConstructions)[i];
-        b = segment->getTile(construct->pos.x, construct->pos.y, construct->pos.z);
+    for (auto& construct : *allConstructions)
+    {
+        Tile* b = segment->getTile(construct.pos.x, construct.pos.y, construct.pos.z);
         if( !b ) {
             continue;
         }
@@ -30,10 +25,10 @@ void changeConstructionMaterials(WorldSegment* segment, vector<df::construction>
         //don't assign invalid material indexes
         //if(construct->mat_idx != -1){
         //on second thought, invalid indices are needed.
-        b->material.type = construct->mat_type;
-        b->material.index = construct->mat_index;
+        b->material.type = construct.mat_type;
+        b->material.index = construct.mat_index;
         //}
-        b->consForm = construct->item_type;
+        b->consForm = construct.item_type;
     }
 }
 
