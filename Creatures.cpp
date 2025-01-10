@@ -424,14 +424,15 @@ void DrawCreatureText(int drawx, int drawy, Stonesense_Unit* creature )
             textcol = al_map_rgb(255,255,255);
         }
 
-        if (!creature->origin->name.nickname.empty() && ssConfig.config.names_use_nick) {
+        auto name = Units::getVisibleName(creature->origin);
+        if (!name->nickname.empty() && ssConfig.names_use_nick) {
             draw_textf_border(stonesenseState.font, textcol, drawx, drawy-((WALLHEIGHT*ssConfig.scale)+fontHeight + offsety), 0,
-                              "%s", DF2UTF(creature->origin->name.nickname).c_str());
+                              "%s", DF2UTF(name->nickname).c_str());
         }
-        else if (!creature->origin->name.first_name.empty())
+        else if (!name->first_name.empty())
         {
             char buffer[128];
-            strncpy(buffer,creature->origin->name.first_name.c_str(),127);
+            strncpy(buffer,name->first_name.c_str(), 127);
             buffer[127]=0;
             ALLEGRO_USTR* temp = bufferToUstr(buffer, 128);
             al_ustr_set_chr(temp, 0, charToUpper(al_ustr_get(temp, 0)));
