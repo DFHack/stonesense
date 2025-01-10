@@ -35,8 +35,8 @@ private:
     std::vector<std::unique_ptr<DFHack::Buildings::t_building>> buildings;
 
 public:
-    bool loaded;
-    bool processed;
+    bool loaded = false;
+    bool processed = false;
     //these are the coordinates and size of the loaded segment
     GameState segState;
     WorldSegment(GameState inState) {

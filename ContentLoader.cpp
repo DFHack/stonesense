@@ -498,7 +498,7 @@ const char* getDocument(TiXmlNode* element)
 {
     //walk up the tree to the root
     TiXmlNode* parent = element->Parent();
-    while (parent != null) {
+    while (parent != nullptr) {
         element = parent;
         parent = element->Parent();
     }

@@ -3,7 +3,7 @@
 #include "SpriteObjects.h"
 #include "df/pronoun_type.h"
 
-#define CREATURESTRLENGTH 50
+constexpr auto CREATURESTRLENGTH = 50;
 
 enum enumCreatureSpecialCases {
     eCSC_Any,
@@ -23,7 +23,7 @@ public:
     df::pronoun_type sex;
     int caste;
 
-    CreatureConfiguration() {}
+    CreatureConfiguration() = delete;
     CreatureConfiguration(int professionID, const char* professionStr, df::pronoun_type sex, int caste, enumCreatureSpecialCases special, c_sprite &sprite, int shadow);
     ~CreatureConfiguration(void);
 };

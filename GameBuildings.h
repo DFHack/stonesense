@@ -6,9 +6,9 @@
 /*
  * extension to building_type enum from DFHack
  */
-#define BUILDINGTYPE_NA df::building_type::NONE
-#define BUILDINGTYPE_TREE (df::building_type) (ENUM_LAST_ITEM(building_type)+1)
-#define BUILDINGTYPE_BLACKBOX (df::building_type) (ENUM_LAST_ITEM(building_type)+2)
+constexpr auto BUILDINGTYPE_NA = df::building_type::NONE;
+constexpr auto BUILDINGTYPE_TREE = (df::building_type)(ENUM_LAST_ITEM(building_type) + 1);
+constexpr auto BUILDINGTYPE_BLACKBOX = (df::building_type)(ENUM_LAST_ITEM(building_type) + 2);
 
 int getBuildingSprite(DFHack::Buildings::t_building &building, bool mirrored);
 void ReadBuildingsToSegment(DFHack::Core& DF, WorldSegment* segment);

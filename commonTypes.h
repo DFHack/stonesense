@@ -74,12 +74,12 @@ struct t_SpriteWithOffset {
     uint8_t snowMax;
 } ;
 
-typedef struct Crd2D {
+struct Crd2D {
     int32_t x,y;
-} Crd2D;
-typedef struct Crd3D {
+};
+struct Crd3D {
     int32_t x,y,z;
-} Crd3D;
+};
 
 class dfColors
 {
@@ -123,7 +123,7 @@ public:
     color & operator [] (color_name col) {
         return colors[col];
     }
-    ALLEGRO_COLOR getDfColor(int color, bool useDfColors) {
+    ALLEGRO_COLOR getDfColor(int color, bool useDfColors) const {
         if(color < 0 || color >= 16) {
             return al_map_rgb(255,255,255);
         }
@@ -133,7 +133,7 @@ public:
         }
         return colors[ (color_name) color].al;
     }
-    ALLEGRO_COLOR getDfColor(int color, int bright, bool useDfColors) {
+    ALLEGRO_COLOR getDfColor(int color, int bright, bool useDfColors) const {
         return getDfColor(color + (bright * 8), useDfColors);
     }
 };

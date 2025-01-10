@@ -1,7 +1,7 @@
 #pragma once
 #include "common.h"
 
-#define KEYMOD_NONE 0
+constexpr auto KEYMOD_NONE = 0;
 
 struct action_name_mapper {
     std::string name;

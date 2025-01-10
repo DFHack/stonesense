@@ -42,10 +42,8 @@
 
 #define RELEASE
 
-#define null 0
-
-#define INVALID_INDEX -1
-#define UNCONFIGURED_INDEX -2
+constexpr auto INVALID_INDEX = -1;
+constexpr auto UNCONFIGURED_INDEX = -2;
 
 #define ISOMETRIC
 //#define CAVALIER
@@ -57,68 +55,68 @@
 // FLOORHEIGHT: height of a one pixel stripe of the 'wall' of a floor plate
 
 #ifdef CAVALIER
-#define TILEWIDTH 46
-#define TILETOPHEIGHT 46
-#define WALLHEIGHT 24
-#define FLOORHEIGHT 6
+constexpr auto TILEWIDTH = 46;
+constexpr auto TILETOPHEIGHT = 46;
+constexpr auto WALLHEIGHT = 24;
+constexpr auto FLOORHEIGHT = 6;
 #endif
 
 #ifdef ISOMETRIC
-#define TILEWIDTH 32
-#define TILETOPHEIGHT 16
-#define WALLHEIGHT 16
-#define FLOORHEIGHT 4
+constexpr auto TILEWIDTH = 32;
+constexpr auto TILETOPHEIGHT = 16;
+constexpr auto WALLHEIGHT = 16;
+constexpr auto FLOORHEIGHT = 4;
 #endif
 
 #ifdef DOUBLESIZE
-#define TILEWIDTH 64
-#define TILETOPHEIGHT 32
-#define WALLHEIGHT 32
-#define FLOORHEIGHT 8
+constexpr auto TILEWIDTH = 64;
+constexpr auto TILETOPHEIGHT = 32;
+constexpr auto WALLHEIGHT = 32;
+constexpr auto FLOORHEIGHT = 8;
 #endif
 
-#define GFXMODE GFX_AUTODETECT_WINDOWED
-#define FULLSCREEN false
-#define RESOLUTION_WIDTH 800
-#define RESOLUTION_HEIGHT 600
+// constexpr auto GFXMODE = GFX_AUTODETECT_WINDOWED;
+constexpr auto FULLSCREEN = false;
+constexpr auto RESOLUTION_WIDTH = 800;
+constexpr auto RESOLUTION_HEIGHT = 600;
 // Height of a one pixel stripe of the wall of an entire tile,
 //        including wall and floor plate
-#define TILEHEIGHT (WALLHEIGHT + FLOORHEIGHT)
+constexpr auto TILEHEIGHT = (WALLHEIGHT + FLOORHEIGHT);
 // Width of area copied from an image file
 // may be different to plate dimensions to allow overlap later
-#define SPRITEWIDTH TILEWIDTH
+constexpr auto SPRITEWIDTH = TILEWIDTH;
 // Height of area copied from an image file
 // may be different to plate dimensions to allow overlap later
-#define SPRITEHEIGHT (TILETOPHEIGHT + WALLHEIGHT)
-#define WALL_CUTOFF_HEIGHT 15
+constexpr auto SPRITEHEIGHT = (TILETOPHEIGHT + WALLHEIGHT);
+constexpr auto WALL_CUTOFF_HEIGHT = 15;
 
-#define DEFAULT_SIZE 20
-#define DEFAULT_SIZE_Z  6
-#define MAPNAVIGATIONSTEP 1
-#define MAPNAVIGATIONSTEPBIG 10
+constexpr auto DEFAULT_SIZE = 20;
+constexpr auto DEFAULT_SIZE_Z = 6;
+constexpr auto MAPNAVIGATIONSTEP = 1;
+constexpr auto MAPNAVIGATIONSTEPBIG = 10;
 
-#define SHEET_OBJECTSWIDE 20
-#define LETTERS_OBJECTSWIDE 16
+constexpr auto SHEET_OBJECTSWIDE = 20;
+constexpr auto LETTERS_OBJECTSWIDE = 16;
 
 //do not alter, defined by DF
-#define BLOCKEDGESIZE 16
+constexpr auto BLOCKEDGESIZE = 16;
 
-#define COLOR_SEGMENTOUTLINE 0x112211
+constexpr auto COLOR_SEGMENTOUTLINE = 0x112211;
 
-#define BASE_SHADOW_PLATE 160
-#define DEFAULT_SHADOW 4
-#define MAX_SHADOW 7
+constexpr auto BASE_SHADOW_PLATE = 160;
+constexpr auto DEFAULT_SHADOW = 4;
+constexpr auto MAX_SHADOW = 7;
 
-#define RANDOM_CUBE 16
+constexpr auto RANDOM_CUBE = 16;
 
 // this shouldn't change with mods, so should
 // be know ahead of time (especially since we
 // use it for fake terrains already)
-#define MAX_BASE_TERRAIN 525
-#define FAKE_TERRAIN_COUNT 0
+constexpr auto MAX_BASE_TERRAIN = 525;
+constexpr auto FAKE_TERRAIN_COUNT = 0;
 // we only need as many as our translation system
 // in ContentLoader/lookupMaterialType deals with
-#define MAX_MATGLOSS 24
+constexpr auto MAX_MATGLOSS = 24;
 
 enum dirTypes {
     eSimpleInvalid = -1,
@@ -183,10 +181,10 @@ extern char currentAnimationFrame;
 extern uint32_t currentFrameLong;
 extern bool animationFrameShown;
 
-#define MAX_ANIMFRAME 6
+constexpr auto MAX_ANIMFRAME = 6;
 
 // binary 00111111
-#define ALL_FRAMES 63
+constexpr auto ALL_FRAMES = 0b111111;
 
 extern bool key[ALLEGRO_KEY_MAX];
 
@@ -208,8 +206,8 @@ bool loadConfigFile();
 class BuildingConfiguration;
 
 // BUG: this is dangerous!
-#define FILENAME_BUFFERSIZE 1024
-#define FILENAME_BUFFERSIZE_LOCAL 2048
+constexpr auto FILENAME_BUFFERSIZE = 1024;
+constexpr auto FILENAME_BUFFERSIZE_LOCAL = 2048;
 
 extern ALLEGRO_FONT *font;
 extern ALLEGRO_KEYBOARD_STATE keyboard;
@@ -257,10 +255,10 @@ enum MAT_BASICS {
 
 };
 
-#define NUM_FORMS 5
-#define FORM_BAR 1
-#define FORM_BLOCK 2
-#define FORM_BOULDER 3
-#define FORM_LOG 4
+constexpr auto NUM_FORMS = 5;
+constexpr auto FORM_BAR = 1;
+constexpr auto FORM_BLOCK = 2;
+constexpr auto FORM_BOULDER = 3;
+constexpr auto FORM_LOG = 4;
 
 extern int randomCube[RANDOM_CUBE][RANDOM_CUBE][RANDOM_CUBE];

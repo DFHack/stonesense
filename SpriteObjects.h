@@ -3,23 +3,23 @@
 #include "tinyxml.h"
 #include "common.h"
 
-#define TILEPLATE 0
-#define RAMPBOTTOMPLATE 1
-#define RAMPTOPPLATE 2
+constexpr auto TILEPLATE = 0;
+constexpr auto RAMPBOTTOMPLATE = 1;
+constexpr auto RAMPTOPPLATE = 2;
 
-#define HALFPLATECHOP 0
-#define HALFPLATEYES 1
-#define HALFPLATENO 2
-#define HALFPLATEBOTH 3
+constexpr auto HALFPLATECHOP = 0;
+constexpr auto HALFPLATEYES = 1;
+constexpr auto HALFPLATENO = 2;
+constexpr auto HALFPLATEBOTH = 3;
 
-#define OUTLINENONE 0
-#define OUTLINELEFT 1
-#define OUTLINERIGHT 2
-#define OUTLINEBOTTOM 3
+constexpr auto OUTLINENONE = 0;
+constexpr auto OUTLINELEFT = 1;
+constexpr auto OUTLINERIGHT = 2;
+constexpr auto OUTLINEBOTTOM = 3;
 
-#define LIGHTANY 0
-#define LIGHTYES 1
-#define LIGHTNO 2
+constexpr auto LIGHTANY = 0;
+constexpr auto LIGHTYES = 1;
+constexpr auto LIGHTNO = 2;
 
 enum grass_growth : uint8_t {
     GRASS_GROWTH_ANY,

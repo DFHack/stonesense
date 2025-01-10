@@ -21,7 +21,7 @@ private:
 public:
     Tile();
 
-    bool IsValid() { return valid; }
+    bool IsValid() const { return valid; }
     void Reset();
     void Attach(WorldSegment*, df::tiletype, int32_t, int32_t, int32_t);
 
