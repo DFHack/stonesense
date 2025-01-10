@@ -28,7 +28,6 @@
 #include "df/world.h"
 #include "df/world_raws.h"
 
-#include "ConnectionState.h"
 #include "EnumToString.h"
 
 using namespace std;

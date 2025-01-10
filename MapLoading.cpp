@@ -29,7 +29,6 @@
 #include "df/plant_tree_info.h"
 #include "df/plant_tree_tile.h"
 
-#include "ConnectionState.h"
 
 using namespace std;
 using namespace DFHack;
