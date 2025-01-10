@@ -8,5 +8,4 @@ struct action_name_mapper {
     void (*func)(uint32_t);
 };
 
-std::string parseStrFromLine( std::string keyword, std::string line );
-int parseIntFromLine( std::string keyword, std::string line );
+bool loadConfigFile();

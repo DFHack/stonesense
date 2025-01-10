@@ -3,6 +3,7 @@
 #include <list>
 
 #include "common.h"
+#include "Config.h"
 //#include "Overlay.h"
 #include "Tile.h"
 #include "GUI.h"

@@ -199,9 +199,6 @@ void abortAutoReload();
 bool loadKeymapFile();
 bool getKeyStrings(int32_t keycode, std::string*& keyname, std::string*& actionname);
 
-//Config.cpp
-bool loadConfigFile();
-
 //xmlBuildingReader.cpp
 class BuildingConfiguration;
 
