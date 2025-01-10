@@ -52,6 +52,8 @@ KEYBINDINGS:
 [TOGGLE_DEBUG:KEYS_SEMICOLON]
 [INCR_ZOOM:KEYS_FULLSTOP]
 [DECR_ZOOM:KEYS_COMMA]
+[INCR_UISCALE:KEYS_OPENBRACE]
+[DECR_UISCALE:KEYS_CLOSEBRACE]
 [SCREENSHOT:KEYF_5]
 [INCR_RELOAD_TIME:KEYPAD_PLUS]
 [DECR_RELOAD_TIME:KEYPAD_MINUS]
@@ -90,6 +92,8 @@ VALID ACTIONS:
     TOGGLE_KEYBINDS            | toggle display of keybind information
     INCR_ZOOM                  | increase the zoom
     DECR_ZOOM                  | decrease the zoom
+    INCR_UISCALE               | increase the font size
+    DECR_UISCALE               | decrease the font size
     SCREENSHOT                 | take a screenshot (alt: volumetric screenshot / ctrl: megashot / shift+ctrl: full-depth megashot)
     INCR_RELOAD_TIME           | increase the reload timer
     DECR_RELOAD_TIME           | decrease the reload timer

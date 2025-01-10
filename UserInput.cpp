@@ -419,12 +419,12 @@ void action_decrzoom(uint32_t keymod)
 
 void action_incruiscale(uint32_t keymod)
 {
-    //tbd
+    ssConfig.fontsize++;
 }
 
 void action_decruiscale(uint32_t keymod)
 {
-    //tbd
+    ssConfig.fontsize--;
 }
 
 void action_screenshot(uint32_t keymod)
