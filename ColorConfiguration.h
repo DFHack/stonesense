@@ -1,15 +1,16 @@
 #pragma once
 #include "common.h"
 #include "tinyxml.h"
-#include <map>
 
 class ColorMaterialConfiguration
 {
 public:
     ALLEGRO_COLOR color;
     bool colorSet;
-    ColorMaterialConfiguration();
-} ;
+    ColorMaterialConfiguration() :
+        color{ al_map_rgb(255,255,255) }, colorSet{ false }
+    { };
+};
 
 
 class ColorConfiguration
@@ -18,10 +19,11 @@ public:
     std::vector<ColorMaterialConfiguration> colorMaterials;
     ALLEGRO_COLOR color;
     bool colorSet;
-    ColorConfiguration();
-    ~ColorConfiguration();
-} ;
+    ColorConfiguration() :
+        color(al_map_rgb(255, 255, 255)), colorSet{ false }
+    { };
+
+    ~ColorConfiguration() = default;
+};
 
 bool addSingleColorConfig( TiXmlElement* elemRoot);
-
-void flushColorConfig(std::vector<ColorConfiguration>& config);
