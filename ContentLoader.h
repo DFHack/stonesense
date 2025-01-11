@@ -1,4 +1,6 @@
 #pragma once
+#include <filesystem>
+
 #include "tinyxml.h"
 #include "BuildingConfiguration.h"
 #include "CreatureConfiguration.h"
@@ -17,8 +19,8 @@ namespace df {
 class ContentLoader
 {
 private:
-    bool parseContentIndexFile( const char* filepath );
-    bool parseContentXMLFile( const char* filepath );
+    bool parseContentIndexFile(std::filesystem::path filepath );
+    bool parseContentXMLFile( std::filesystem::path filepath );
     bool parseBuildingContent( TiXmlElement* elemRoot );
     bool parseCreatureContent( TiXmlElement* elemRoot );
     bool parseTerrainContent ( TiXmlElement* elemRoot );
@@ -31,7 +33,7 @@ private:
     bool parseItemContent( TiXmlElement* elemRoot );
     void flushCreatureConfig();
 
-    bool translationComplete;
+    bool translationComplete = false;
 
     void gatherStyleIndices(df::world_raws * raws);
 public:
@@ -63,25 +65,28 @@ public:
 
     std::vector<std::string> professionStrings;
     std::map <uint32_t, std::string> custom_workshop_types;
-    DFHack::Materials * Mats;
+    DFHack::Materials* Mats = nullptr;
     std::vector<DFHack::t_matgloss> organic;
     std::vector<DFHack::t_matglossInorganic> inorganic;
 
-    uint32_t currentTick;
-    uint32_t currentYear;
-    uint8_t currentMonth;
-    uint8_t currentDay;
-    uint8_t currentHour;
-    uint8_t currentTickRel;
-    DFHack::t_gamemodes gameMode;
+    uint32_t currentTick = 0;
+    uint32_t currentYear = 0;
+    uint8_t currentMonth = 0;
+    uint8_t currentDay = 0;
+    uint8_t currentHour = 0;
+    uint8_t currentTickRel = 0;
+    DFHack::t_gamemodes gameMode{
+        df::enums::game_mode::NONE,
+        df::enums::game_type::NONE
+        };
 
-    int obsidian;
+    int obsidian = 0;
 };
 
 extern ContentLoader * contentLoader;
 
 extern const char* getDocument(TiXmlNode* element);
-bool getLocalFilename(char * buffer, const char* filename, const char* relativeto);
+std::filesystem::path getLocalFilename(const char* filename, std::filesystem::path relativeto);
 extern void contentError(const char* message, TiXmlNode* element);
 extern void contentWarning(const char* message, TiXmlNode* element);
 extern char getAnimFrames(const char* framestring);
