@@ -13,7 +13,6 @@ using std::vector;
 void changeConstructionMaterials(WorldSegment* segment, vector<df::construction>* allConstructions)
 {
     //find construction
-    df::construction* construct = 0;
     for (auto& construct : *allConstructions)
     {
         Tile* b = segment->getTile(construct.pos.x, construct.pos.y, construct.pos.z);
