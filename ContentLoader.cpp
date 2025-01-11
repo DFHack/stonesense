@@ -38,19 +38,6 @@ using namespace df::enums;
 using std::vector;
 using std::string;
 
-namespace {
-    void DumpStringVector(std::filesystem::path filename, vector<std::string> *input)
-    {
-        std::ofstream fp{ filename };
-
-        // Run through until perfect match found or hit end.
-        for (size_t i = 0; i < input->size(); i++) {
-
-            fp << int(i) << ":" << input->at(i) << std::endl;
-        }
-    }
-}
-
 ContentLoader * contentLoader;
 
 ContentLoader::ContentLoader(void) { }
