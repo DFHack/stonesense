@@ -63,7 +63,7 @@ public:
     DFHack::t_designation designation;
     DFHack::t_occupancy occ;
 
-    SS_Unit * creature;
+    Stonesense_Unit * creature;
     DFHack::t_matglossPair tree;
     df::plant_tree_tile tree_tile;
 

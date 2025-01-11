@@ -295,7 +295,7 @@ struct unit_inventory {
     std::vector<std::vector<std::vector<worn_item>>> item;
 };
 
-struct SS_Unit{
+struct Stonesense_Unit{
     df::unit * origin;
 
     uint16_t profession;
