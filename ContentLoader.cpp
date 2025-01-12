@@ -284,6 +284,8 @@ bool ContentLoader::parseContentIndexFile( std::filesystem::path filepath )
     while ( !myfile.eof() ) {
 
         getline (myfile,line);
+        if (line.empty())
+            continue;
 
         // some systems don't remove the \r char as a part of the line change:
         // also trim trailing space

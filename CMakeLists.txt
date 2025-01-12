@@ -80,7 +80,7 @@ SET(PROJECT_HDRS
     WorldSegment.h
 )
 
-SET_SOURCE_FILES_PROPERTIES( ${PROJECT_HDRS} PROPERTIES HEADER_FILE_ONLY TRUE)
+SET_SOURCE_FILES_PROPERTIES(${PROJECT_HDRS} PROPERTIES HEADER_FILE_ONLY TRUE)
 
 # mash them together (headers are marked as headers and nothing will try to compile them)
 LIST(APPEND PROJECT_SRCS ${PROJECT_HDRS})
@@ -91,6 +91,7 @@ IF(UNIX)
         OPTION(STONESENSE_INTERNAL_DYLIB "Link with prebuilt internal allegro libs and headers." ON)
         IF(STONESENSE_INTERNAL_DYLIB)
             set(ALLEGRO_DOWNLOAD_DIR ${stonesense_SOURCE_DIR}/allegro/osx${DFHACK_BUILD_ARCH})
+            MESSAGE(FATAL_ERROR "OSX build not supported for stonesense")
             if("${DFHACK_BUILD_ARCH}" STREQUAL "64")
                 set(ALLEGRO_DOWNLOAD_FILE "osx64-allegro-5.2.2.tar.bz2")
                 download_file("https://github.com/DFHack/dfhack-bin/releases/download/0.44.09/osx64-allegro-5.2.2.tar.bz2"
@@ -146,27 +147,22 @@ IF(UNIX)
         IF(STONESENSE_INTERNAL_SO)
             set(ALLEGRO_DOWNLOAD_DIR ${stonesense_SOURCE_DIR}/allegro/linux${DFHACK_BUILD_ARCH})
             if("${DFHACK_BUILD_ARCH}" STREQUAL "64")
-                set(ALLEGRO_DOWNLOAD_FILE "linux64-allegro5010.tar.gz")
-                download_file("https://github.com/DFHack/dfhack-bin/releases/download/0.44.09/linux64-allegro5010.tar.gz"
+                set(ALLEGRO_DOWNLOAD_FILE "linux64-allegro5210.tbz2")
+                download_file("https://github.com/DFHack/dfhack-bin/releases/download/50.15/linux64-allegro5210.tbz2"
                     "${ALLEGRO_DOWNLOAD_DIR}/${ALLEGRO_DOWNLOAD_FILE}"
-                    "343f44224ee61508b89b11adb35a4dd9")
+                    "3882e4db564f8dab99680f9db7bfad24")
             else()
-                set(ALLEGRO_DOWNLOAD_FILE "linux32-allegro509b.tar.bz2")
-                download_file("https://github.com/DFHack/dfhack-bin/releases/download/0.44.09/linux32-allegro509b.tar.bz2"
-                    "${ALLEGRO_DOWNLOAD_DIR}/${ALLEGRO_DOWNLOAD_FILE}"
-                    "74ead5d95a83a03a301cdc76fa0a3df8")
+                MESSAGE(FATAL_ERROR "32 bit build not supported for stonesense")
             endif()
             execute_process(COMMAND tar xf "${ALLEGRO_DOWNLOAD_DIR}/${ALLEGRO_DOWNLOAD_FILE}" --strip-components=1
                             WORKING_DIRECTORY ${ALLEGRO_DOWNLOAD_DIR})
-            execute_process(COMMAND patchelf --force-rpath --set-rpath hack liballegro_image.so.5.0.10
-                            WORKING_DIRECTORY ${ALLEGRO_DOWNLOAD_DIR}/lib)
             SET(PROJECT_LIBS
-                ${ALLEGRO_DOWNLOAD_DIR}/lib/liballegro.so.5.0
-                ${ALLEGRO_DOWNLOAD_DIR}/lib/liballegro_primitives.so.5.0
-                ${ALLEGRO_DOWNLOAD_DIR}/lib/liballegro_font.so.5.0
-                ${ALLEGRO_DOWNLOAD_DIR}/lib/liballegro_image.so.5.0
-                ${ALLEGRO_DOWNLOAD_DIR}/lib/liballegro_ttf.so.5.0
-                ${ALLEGRO_DOWNLOAD_DIR}/lib/liballegro_color.so.5.0
+                ${ALLEGRO_DOWNLOAD_DIR}/lib/liballegro.so.5.2
+                ${ALLEGRO_DOWNLOAD_DIR}/lib/liballegro_primitives.so.5.2
+                ${ALLEGRO_DOWNLOAD_DIR}/lib/liballegro_font.so.5.2
+                ${ALLEGRO_DOWNLOAD_DIR}/lib/liballegro_image.so.5.2
+                ${ALLEGRO_DOWNLOAD_DIR}/lib/liballegro_ttf.so.5.2
+                ${ALLEGRO_DOWNLOAD_DIR}/lib/liballegro_color.so.5.2
                 ${PROJECT_LIBS}
             )
             SET(stonesense_INCLUDES ${ALLEGRO_DOWNLOAD_DIR}/include)
@@ -190,27 +186,18 @@ IF(UNIX)
 ELSE(UNIX)
     SET(ALLEGRO_DOWNLOAD_DIR ${stonesense_SOURCE_DIR}/win${DFHACK_BUILD_ARCH})
     IF(DFHACK_BUILD_64)
-        download_file("https://github.com/DFHack/dfhack-bin/releases/download/0.44.09/win64-allegro-msvc2015-x64-5.1.12.zip"
-                      ${ALLEGRO_DOWNLOAD_DIR}/allegro-msvc2015-x64-5.1.12.zip
-                      "3abb0bd88251efde001a8b65fdf17683")
-        execute_process(COMMAND ${CMAKE_COMMAND} -E tar xzf ${ALLEGRO_DOWNLOAD_DIR}/allegro-msvc2015-x64-5.1.12.zip
+        download_file("https://github.com/DFHack/dfhack-bin/releases/download/50.15/allegro-msvc-x64-5.2.10.7z"
+                      ${ALLEGRO_DOWNLOAD_DIR}/allegro-msvc-x64-5.2.10.7z
+                      "c4de2457b7fd90bd9249a62b60d83c69")
+        execute_process(COMMAND ${CMAKE_COMMAND} -E tar xzf ${ALLEGRO_DOWNLOAD_DIR}/allegro-msvc-x64-5.2.10.7z
                         WORKING_DIRECTORY ${ALLEGRO_DOWNLOAD_DIR})
-        download_file("https://github.com/DFHack/dfhack-bin/releases/download/0.44.09/win64-allegro_deps-msvc2015-x64-1.2.0.zip"
-                      ${ALLEGRO_DOWNLOAD_DIR}/allegro_deps-msvc2015-x64-1.2.0.zip
-                      "eb8d0f4569b84c36bef3733b40b00c72")
-        execute_process(COMMAND ${CMAKE_COMMAND} -E tar xzf ${ALLEGRO_DOWNLOAD_DIR}/allegro_deps-msvc2015-x64-1.2.0.zip
+        download_file("https://github.com/DFHack/dfhack-bin/releases/download/50.15/allegro_deps-msvc-x64-1.15.0.7z"
+                      ${ALLEGRO_DOWNLOAD_DIR}/allegro_deps-msvc-x64-1.15.0.7z
+                      "6ae351c319bdbad7dc6792a07428e71f")
+        execute_process(COMMAND ${CMAKE_COMMAND} -E tar xzf ${ALLEGRO_DOWNLOAD_DIR}/allegro_deps-msvc-x64-1.15.0.7z
                         WORKING_DIRECTORY ${ALLEGRO_DOWNLOAD_DIR})
     ELSE()
-        download_file("https://github.com/DFHack/dfhack-bin/releases/download/0.44.09/win32-allegro-msvc2015-x86-5.1.12.zip"
-                      ${ALLEGRO_DOWNLOAD_DIR}/allegro-msvc2015-x86-5.1.12.zip
-                      "86e6aeea828743107dc1f3a3d562e53d")
-        execute_process(COMMAND ${CMAKE_COMMAND} -E tar xzf ${ALLEGRO_DOWNLOAD_DIR}/allegro-msvc2015-x86-5.1.12.zip
-                        WORKING_DIRECTORY ${ALLEGRO_DOWNLOAD_DIR})
-        download_file("https://github.com/DFHack/dfhack-bin/releases/download/0.44.09/win32-allegro_deps-msvc2015-x86-1.2.0.zip"
-                      ${ALLEGRO_DOWNLOAD_DIR}/allegro_deps-msvc2015-x86-1.2.0.zip
-                      "be096bfef256cb113e25dbb2eb7fd410")
-        execute_process(COMMAND ${CMAKE_COMMAND} -E tar xzf ${ALLEGRO_DOWNLOAD_DIR}/allegro_deps-msvc2015-x86-1.2.0.zip
-                        WORKING_DIRECTORY ${ALLEGRO_DOWNLOAD_DIR})
+        MESSAGE(FATAL_ERROR "32 bit build not supported for stonesense")
     ENDIF()
     ADD_DEFINITIONS("-DALLEGRO_STATICLINK")
     SET(PROJECT_LIBS
@@ -224,12 +211,12 @@ ELSE(UNIX)
         uuid.lib
         comdlg32.lib
         advapi32.lib
-        allegro-static.lib
-        allegro_primitives-static.lib
-        allegro_font-static.lib
-        allegro_image-static.lib
-        allegro_ttf-static.lib
-        allegro_color-static.lib
+        allegro.lib
+        allegro_primitives.lib
+        allegro_font.lib
+        allegro_image.lib
+        allegro_ttf.lib
+        allegro_color.lib
         freetype.lib
         libpng16.lib
         jpeg.lib
@@ -242,12 +229,12 @@ ELSE(UNIX)
         shlwapi.lib
        )
     SET(stonesense_INCLUDES
-        ${stonesense_SOURCE_DIR}/win${DFHACK_BUILD_ARCH}/allegro/include
-        ${stonesense_SOURCE_DIR}/win${DFHACK_BUILD_ARCH}/allegro_deps/include)
+        ${stonesense_SOURCE_DIR}/win${DFHACK_BUILD_ARCH}/Allegro/include
+        ${stonesense_SOURCE_DIR}/win${DFHACK_BUILD_ARCH}/Allegro_Deps/include)
     LINK_DIRECTORIES(
         ${LINK_DIRECTORIES}
-        ${stonesense_SOURCE_DIR}/win${DFHACK_BUILD_ARCH}/allegro/lib
-        ${stonesense_SOURCE_DIR}/win${DFHACK_BUILD_ARCH}/allegro_deps/lib
+        ${stonesense_SOURCE_DIR}/win${DFHACK_BUILD_ARCH}/Allegro/lib
+        ${stonesense_SOURCE_DIR}/win${DFHACK_BUILD_ARCH}/Allegro_Deps/lib
     )
 ENDIF(UNIX)
 
