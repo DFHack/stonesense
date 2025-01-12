@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <vector>
 #include <filesystem>
+#include <array>
 
 #include "common.h"
 #include "Tile.h"
@@ -1238,38 +1239,33 @@ bool load_from_path (ALLEGRO_PATH * p, const char * filename, ALLEGRO_BITMAP *& 
     return true;
 }
 
+namespace {
+    struct Img {
+        string name;
+        ALLEGRO_BITMAP*& bPtr;
+    };
+
+    const std::array img_list{
+        Img{ "objects.png", IMGObjectSheet },
+        Img{ "creatures.png", IMGCreatureSheet },
+        Img{ "ramps.png", IMGRampSheet },
+        Img{ "SSStatusIcons.png", IMGStatusSheet },
+        Img{ "SSProfIcons.png", IMGProfSheet },
+        Img{ "gibs.png", IMGBloodSheet },
+        Img{ "engravings_floor.png", IMGEngFloorSheet },
+        Img{ "engravings_left.png", IMGEngLeftSheet },
+        Img{ "engravings_right.png", IMGEngRightSheet },
+        Img{ "Sir_Henry_s_32x32.png", IMGLetterSheet }
+    };
+}
+
 void loadGraphicsFromDisk()
 {
     ALLEGRO_PATH * p = al_create_path_for_directory("stonesense");
-    if(!load_from_path(p, "objects.png", IMGObjectSheet)) {
-        return;
-    }
-    if(!load_from_path(p, "creatures.png", IMGCreatureSheet)) {
-        return;
-    }
-    if(!load_from_path(p, "ramps.png", IMGRampSheet)) {
-        return;
-    }
-    if(!load_from_path(p, "SSStatusIcons.png", IMGStatusSheet)) {
-        return;
-    }
-    if(!load_from_path(p, "SSProfIcons.png", IMGProfSheet)) {
-        return;
-    }
-    if(!load_from_path(p, "gibs.png", IMGBloodSheet)) {
-        return;
-    }
-    if(!load_from_path(p, "engravings_floor.png", IMGEngFloorSheet)) {
-        return;
-    }
-    if(!load_from_path(p, "engravings_left.png", IMGEngLeftSheet)) {
-        return;
-    }
-    if(!load_from_path(p, "engravings_right.png", IMGEngRightSheet)) {
-        return;
-    }
-    if(!load_from_path(p, "Sir_Henry_s_32x32.png", IMGLetterSheet)) {
-        return;
+    for (auto& img : img_list)
+    {
+        if (!load_from_path(p, img.name.c_str(), img.bPtr))
+            return;
     }
     al_destroy_path(p);
     createEffectSprites();
@@ -1280,39 +1276,15 @@ void flushImgFiles()
 {
     LogVerbose("flushing images...\n");
     destroyEffectSprites();
+
     //should be OK because we keep others from directly acccessing this stuff
-    if(IMGObjectSheet) {
-        al_destroy_bitmap(IMGObjectSheet);
-        IMGObjectSheet = 0;
-    }
-    if(IMGCreatureSheet) {
-        al_destroy_bitmap(IMGCreatureSheet);
-        IMGCreatureSheet = 0;
-    }
-    if(IMGRampSheet) {
-        al_destroy_bitmap(IMGRampSheet);
-        IMGRampSheet = 0;
-    }
-    if(IMGProfSheet) {
-        al_destroy_bitmap(IMGProfSheet);
-        IMGProfSheet = 0;
-    }
-    if(IMGEngFloorSheet) {
-        al_destroy_bitmap(IMGEngFloorSheet);
-        IMGEngFloorSheet = 0;
-    }
-    if(IMGEngLeftSheet) {
-        al_destroy_bitmap(IMGEngLeftSheet);
-        IMGEngLeftSheet = 0;
-    }
-    if(IMGEngRightSheet) {
-        al_destroy_bitmap(IMGEngRightSheet);
-        IMGEngRightSheet = 0;
-    }
-    if(IMGLetterSheet) {
-        al_destroy_bitmap(IMGLetterSheet);
-        IMGLetterSheet = 0;
-    }
+    for (auto& img : img_list)
+        if (img.bPtr != nullptr)
+        {
+            al_destroy_bitmap(img.bPtr);
+            img.bPtr = nullptr;
+        }
+
     uint32_t numFiles = (uint32_t)IMGFilelist.size();
     assert( numFiles == IMGFilenames.size());
     for(uint32_t i = 0; i < numFiles; i++) {
@@ -1325,7 +1297,6 @@ void flushImgFiles()
     IMGFilelist.clear();
     IMGFilenames.clear();
     IMGCache.clear();
-
 }
 
 ALLEGRO_BITMAP* getImgFile(int index)
