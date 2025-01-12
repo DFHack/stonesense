@@ -323,6 +323,8 @@ bool ContentLoader::parseContentIndexFile( const char* filepath )
         char configfilepath[FILENAME_BUFFERSIZE] = {0};
 
         getline (myfile,line);
+        if (line.empty())
+            continue;
 
         // some systems don't remove the \r char as a part of the line change:
         // also trim trailing space
