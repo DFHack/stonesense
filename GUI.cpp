@@ -1383,7 +1383,7 @@ int loadImgFile(std::filesystem::path filename)
         if(!tempfile) {
             return -1;
         }
-        LogVerbose("New image: %s\n",filename);
+        LogVerbose("New image: %s\n", filename.string().c_str());
         if(currentCache < 0) {
             // FIXME: this is some really weird logic.
             IMGCache.push_back(al_create_bitmap(ssConfig.imageCacheSize, ssConfig.imageCacheSize));
@@ -1450,7 +1450,7 @@ int loadImgFile(std::filesystem::path filename)
         }
         IMGFilelist.push_back(temp);
         IMGFilenames.push_back(std::make_unique<std::filesystem::path>(filename));
-        LogVerbose("New image: %s\n",filename);
+        LogVerbose("New image: %s\n", filename.string().c_str());
         return (int)IMGFilelist.size() - 1;
     }
 }

@@ -80,7 +80,7 @@ ALLEGRO_BITMAP* load_bitmap_withWarning(std::filesystem::path path)
     ALLEGRO_BITMAP* img = 0;
     img = al_load_bitmap(path.string().c_str());
     if(!img) {
-        LogError("Cannot load image: %s\n", path);
+        LogError("Cannot load image: %s\n", path.string().c_str());
         al_set_thread_should_stop(stonesense_event_thread);
         return 0;
     }

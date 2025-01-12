@@ -217,7 +217,7 @@ bool includeFile(SpriteNode* node, TiXmlElement* includeNode, SpriteTile* &oldSi
     TiXmlElement* elemParent;
     if(!loadOkay) {
         contentError("Include failed",includeNode);
-        LogError("File load failed: %s\n",configfilepath);
+        LogError("File load failed: %s\n", configfilepath.string().c_str());
         LogError("Line %d: %s\n",doc.ErrorRow(),doc.ErrorDesc());
         return false;
     }

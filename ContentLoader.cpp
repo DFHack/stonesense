@@ -279,7 +279,7 @@ bool ContentLoader::parseContentIndexFile( std::filesystem::path filepath )
         LogError( "Unable to load config index file at: %s!\n", filepath.string().c_str() );
         return false;
     }
-    LogVerbose("Reading index at %s...\n", filepath);
+    LogVerbose("Reading index at %s...\n", filepath.string().c_str());
 
     while ( !myfile.eof() ) {
 
