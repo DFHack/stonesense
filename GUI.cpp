@@ -55,6 +55,7 @@
 #include "df/report.h"
 
 #include "allegro5/allegro_color.h"
+#include "allegro5/opengl/GLext/gl_ext_defs.h"
 
 using namespace std;
 using namespace DFHack;

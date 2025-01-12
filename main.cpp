@@ -483,7 +483,7 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
         |(ssConfig.directX ? ALLEGRO_DIRECT3D_INTERNAL : 0));
 
     if(ssConfig.software) {
-        al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP|ALLEGRO_ALPHA_TEST|ALLEGRO_MIN_LINEAR|ALLEGRO_MIPMAP);
+        al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP|_ALLEGRO_ALPHA_TEST|ALLEGRO_MIN_LINEAR|ALLEGRO_MIPMAP);
     } else {
         al_set_new_bitmap_flags(ALLEGRO_MIN_LINEAR|ALLEGRO_MIPMAP);
     }

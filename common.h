@@ -166,10 +166,10 @@ class SegmentWrap;
 //main.cpp
 void correctTileForDisplayedOffset(int32_t& x, int32_t& y, int32_t& z);
 
-void LogError(const char* msg, ...);
-void PrintMessage(const char* msg, ...);
-void LogVerbose(const char* msg, ...);
-void SetTitle(const char *format, ...);
+void LogError(const char* msg, ...) Wformat(printf,1,2);
+void PrintMessage(const char* msg, ...) Wformat(printf,1,2);
+void LogVerbose(const char* msg, ...) Wformat(printf,1,2);
+void SetTitle(const char *format, ...) Wformat(printf,1,2);
 
 extern GameConfiguration ssConfig;
 extern GameState ssState;
