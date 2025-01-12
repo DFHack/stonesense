@@ -86,11 +86,11 @@ public:
 extern ContentLoader * contentLoader;
 
 extern const char* getDocument(TiXmlNode* element);
-std::filesystem::path getLocalFilename(const char* filename, std::filesystem::path relativeto);
-extern void contentError(const char* message, TiXmlNode* element);
-extern void contentWarning(const char* message, TiXmlNode* element);
+std::filesystem::path getLocalFilename(std::filesystem::path filename, std::filesystem::path relativeto);
+extern void contentError(const std::string& message, TiXmlNode* element);
+extern void contentWarning(const std::string& message, TiXmlNode* element);
 extern char getAnimFrames(const char* framestring);
-extern int loadConfigImgFile(const char* filename, TiXmlElement* referrer);
+extern int loadConfigImgFile(std::filesystem::path filename, TiXmlElement* referrer);
 MAT_BASICS lookupMaterialType(const char* strValue);
 int lookupMaterialIndex(int matType, const char* strValue);
 template <typename T>

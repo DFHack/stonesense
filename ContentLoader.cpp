@@ -242,26 +242,9 @@ bool ContentLoader::reload_configs()
     return overallResult;
 }
 
-// takes a filename and the file referring to it, and makes a combined filename in
-// HTML style: (ie "/something" is relative to the stonesense root, everything
-// else is relative to the referrer)
-// buffer must be FILENAME_BUFFERSIZE chars
-// returns true if it all works
-
-std::filesystem::path getLocalFilename(const char* filename, std::filesystem::path relativeto)
+std::filesystem::path getLocalFilename(std::filesystem::path filename, std::filesystem::path relativeto)
 {
-    // TODO verify that this does not leak
-    ALLEGRO_PATH* temppath;
-    if (filename[0] == '/' || filename[0] == '\\') {
-        temppath = al_create_path(filename);
-        al_make_path_canonical(temppath);
-    }
-    else {
-        temppath = al_create_path(relativeto.string().c_str());
-        al_join_paths(temppath, al_create_path(filename));
-        al_make_path_canonical(temppath);
-    }
-    return std::string{ al_path_cstr(temppath, ALLEGRO_NATIVE_PATH_SEP) };
+    return std::filesystem::relative(filename, relativeto);
 }
 
 bool ContentLoader::parseContentIndexFile( std::filesystem::path filepath )
@@ -468,13 +451,13 @@ const char* getDocument(TiXmlNode* element)
     return parent->Value();
 }
 
-void contentError(const char* message, TiXmlNode* element)
+void contentError(const string& message, TiXmlNode* element)
 {
-    LogError("%s: %s: %s (Line %d)\n",getDocument(element),message,element->Value(),element->Row());
+    LogError("%s: %s: %s (Line %d)\n",getDocument(element),message.c_str(), element->Value(), element->Row());
 }
-void contentWarning(const char* message, TiXmlNode* element)
+void contentWarning(const string& message, TiXmlNode* element)
 {
-    LogVerbose("%s: %s: %s (Line %d)\n",getDocument(element),message,element->Value(),element->Row());
+    LogVerbose("%s: %s: %s (Line %d)\n",getDocument(element),message.c_str(),element->Value(),element->Row());
 }
 // converts list of characters 0-5 into bits, ignoring garbage
 // eg  "035" or "0  3 5" or "0xx3x5" are all good
@@ -697,7 +680,7 @@ uint8_t lookupMaterialBright(int matType,int matIndex)
     return 0;
 }
 
-int loadConfigImgFile(const char* filename, TiXmlElement* referrer)
+int loadConfigImgFile(std::filesystem::path filename, TiXmlElement* referrer)
 {
     std::filesystem::path documentRef = getDocument(referrer);
     std::filesystem::path configfilepath = getLocalFilename(filename, documentRef);
