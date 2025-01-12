@@ -316,17 +316,17 @@ bool ContentLoader::parseContentIndexFile( std::filesystem::path filepath )
         const char* extension;
         extension = al_get_path_extension(temppath);
         if (strcmp(extension,".xml") == 0) {
-            LogVerbose("Reading xml %s...\n", configfilepath);
+            LogVerbose("Reading xml %s...\n", configfilepath.string().c_str());
             if (!parseContentXMLFile(configfilepath)) {
-                LogError("Failure in reading %s\n",configfilepath);
+                LogError("Failure in reading %s\n",configfilepath.string().c_str());
             }
         } else if (strcmp(extension,".txt") == 0) {
-            LogVerbose("Reading index %s...\n", configfilepath);
+            LogVerbose("Reading index %s...\n", configfilepath.string().c_str());
             if (!parseContentIndexFile(configfilepath)) {
-                LogError("Failure in reading %s\n",configfilepath);
+                LogError("Failure in reading %s\n",configfilepath.string().c_str());
             }
         } else {
-            LogError("Invalid filename: %s\n",configfilepath);
+            LogError("Invalid filename: %s\n",configfilepath.string().c_str());
         }
     }
     myfile.close();
