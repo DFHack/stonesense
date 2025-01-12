@@ -276,7 +276,7 @@ bool ContentLoader::parseContentIndexFile( std::filesystem::path filepath )
     string line;
     std::ifstream myfile( filepath );
     if (myfile.is_open() == false) {
-        LogError( "Unable to load config index file at: %s!\n", filepath );
+        LogError( "Unable to load config index file at: %s!\n", filepath.string().c_str() );
         return false;
     }
     LogVerbose("Reading index at %s...\n", filepath);
@@ -344,7 +344,7 @@ bool ContentLoader::parseContentXMLFile( std::filesystem::path filepath )
     al_flip_display();*/
     TiXmlDocument doc( filepath.string().c_str() );
     if(!doc.LoadFile()) {
-        LogError("File load failed: %s\n", filepath);
+        LogError("File load failed: %s\n", filepath.string().c_str());
         return false;
     }
     TiXmlHandle hDoc(&doc);
