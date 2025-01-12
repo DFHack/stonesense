@@ -3,7 +3,7 @@
 #include "SpriteObjects.h"
 #include "df/pronoun_type.h"
 
-#define CREATURESTRLENGTH 50
+constexpr auto CREATURESTRLENGTH = 50;
 
 enum enumCreatureSpecialCases {
     eCSC_Any,
@@ -15,7 +15,7 @@ enum enumCreatureSpecialCases {
 class CreatureConfiguration
 {
 public:
-    char professionstr[CREATURESTRLENGTH];
+    std::string professionstr;
     int professionID;
     c_sprite sprite;
     int shadow;
@@ -23,10 +23,17 @@ public:
     df::pronoun_type sex;
     int caste;
 
-    CreatureConfiguration() {}
-    CreatureConfiguration(int professionID, const char* professionStr, df::pronoun_type sex, int caste, enumCreatureSpecialCases special, c_sprite &sprite, int shadow);
-    ~CreatureConfiguration(void);
+    CreatureConfiguration() = delete;
+    CreatureConfiguration(int professionID, const char* professionStr, df::pronoun_type sex, int incaste, enumCreatureSpecialCases special, c_sprite& sprite, int shadow) :
+        professionstr{ professionStr ? std::string{professionStr} : std::string{} },
+        professionID(professionID),
+        sprite(sprite),
+        shadow(shadow),
+        special(special),
+        sex(sex),
+        caste(incaste)
+    { }
+    ~CreatureConfiguration() = default;
 };
-
 
 bool addCreaturesConfig(TiXmlElement* elemRoot, std::vector<std::unique_ptr<std::vector<CreatureConfiguration>>>& knownCreatures);

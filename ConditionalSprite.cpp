@@ -4,14 +4,12 @@
 #include "GameBuildings.h"
 #include "GUI.h"
 
-using namespace std;
 using namespace DFHack;
 using namespace df::enums;
 
 /* RootTile */
 
-RootTile::RootTile()
-    : SpriteNode()
+RootTile::RootTile() : SpriteNode()
 {
     //cout << "RootTile +" << endl;
 }
@@ -23,13 +21,9 @@ RootTile::~RootTile(void)
 
 bool RootTile::copyToTile(Tile* b)
 {
-    bool haveMatch = false;
-    uint32_t max = (uint32_t)children.size();
-
-    for(uint32_t i=0; i<max; i++) {
-        if (children[i]->copyToTile(b)) {
-            haveMatch = true;
-        }
+    bool haveMatch{ false };
+    for (auto& child : children) {
+        haveMatch |= child->copyToTile(b);
     }
     return haveMatch;
 }
@@ -41,8 +35,7 @@ void RootTile::addChild(std::unique_ptr<SpriteNode> child)
 
 /* SpriteTile */
 
-SpriteTile::SpriteTile()
-    : ConditionalNode(), SpriteNode()
+SpriteTile::SpriteTile() : ConditionalNode(), SpriteNode()
 {
     //cout << "SpriteTile +" << endl;
 }
@@ -54,21 +47,13 @@ SpriteTile::~SpriteTile(void)
 
 bool SpriteTile::copyToTile(Tile* b)
 {
-    bool condMatch = false;
-    if (conditions == nullptr) {
-        condMatch = true;
-    } else {
-        condMatch = conditions->Matches( b );
-    }
+    bool condMatch = conditions ? conditions->Matches(b) : true;
 
-    bool haveMatch=false;
+    bool haveMatch{ false };
+
     if (condMatch) {
-        uint32_t max = (uint32_t)children.size();
-        for(uint32_t i=0; i<max; i++) {
-            if (children[i]->copyToTile(b)) {
-                haveMatch = true;
-            }
-        }
+        for (auto& child : children)
+            haveMatch |= child->copyToTile(b);
     } else if (elsenode != nullptr) {
         haveMatch = elsenode->copyToTile(b);
     }
@@ -77,7 +62,7 @@ bool SpriteTile::copyToTile(Tile* b)
 
 bool SpriteTile::addCondition(std::unique_ptr<TileCondition> cond)
 {
-    if (conditions != nullptr) {
+    if (conditions) {
         LogError("Too many condition elements for SpriteTile\n");
         return false;
     }
@@ -98,8 +83,7 @@ void SpriteTile::addElse(std::unique_ptr<SpriteNode> child)
 
 /* RotationTile */
 
-RotationTile::RotationTile()
-    : ConditionalNode(), SpriteNode()
+RotationTile::RotationTile() : ConditionalNode(), SpriteNode()
 {
     //cout << "SpriteTile +" << endl;
 }
@@ -112,13 +96,11 @@ RotationTile::~RotationTile(void)
 bool RotationTile::copyToTile(Tile* b)
 {
     int index = ssState.Rotation;
-    int max = (int)children.size();
+    size_t max = children.size();
     if (max == 0) {
         return false;
     }
-    while (index >= max) {
-        index = index - max;
-    }
+    index = index % max;
     return children[index]->copyToTile(b);
 }
 

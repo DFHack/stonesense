@@ -15,24 +15,27 @@
 #include "df/world.h"
 #include "df/world_raws.h"
 
-using namespace std;
 using namespace DFHack;
 using namespace df::enums;
+
+using std::string;
 
 int parseConditionNode(ConditionalNode* node, TiXmlElement* elemCondition, bool silent);
 bool parseSpriteNode(SpriteNode* node, TiXmlElement* elemParent);
 bool includeFile(SpriteNode* node, TiXmlElement* includeNode, SpriteTile* &oldSibling);
 
-bool parseRecursiveNodes (ConditionalNode* pnode, TiXmlElement* pelem)
-{
-    TiXmlElement* elemCondition = pelem->FirstChildElement();
-    while( elemCondition ) {
-        if (!parseConditionNode( pnode, elemCondition, false )) {
-            return false;
+namespace {
+    bool parseRecursiveNodes(ConditionalNode * pnode, TiXmlElement * pelem)
+    {
+        TiXmlElement* elemCondition = pelem->FirstChildElement();
+        while (elemCondition) {
+            if (!parseConditionNode(pnode, elemCondition, false)) {
+                return false;
+            }
+            elemCondition = elemCondition->NextSiblingElement();
         }
-        elemCondition = elemCondition->NextSiblingElement();
+        return true;
     }
-    return true;
 }
 
 int parseConditionNode(ConditionalNode* node, TiXmlElement* elemCondition, bool silent)
@@ -132,75 +135,80 @@ int parseConditionNode(ConditionalNode* node, TiXmlElement* elemCondition, bool 
     return -1;
 }
 
-inline bool readNode(SpriteNode* node, TiXmlElement* elemNode, TiXmlElement* elemParent, SpriteTile* &oldSibling)
-{
-    const char* strType = elemNode->Value();
-    if (strcmp(strType, "if") == 0 || strcmp(strType, "else") == 0) {
-        if (!elemNode->Attribute("file") && elemParent->Attribute("file")) {
-            elemNode->SetAttribute("file", elemParent->Attribute("file"));
-        }
+namespace {
+    bool readNode(SpriteNode* node, TiXmlElement* elemNode, TiXmlElement* elemParent, SpriteTile*& oldSibling)
+    {
+        const char* strType = elemNode->Value();
+        if (strcmp(strType, "if") == 0 || strcmp(strType, "else") == 0) {
+            if (!elemNode->Attribute("file") && elemParent->Attribute("file")) {
+                elemNode->SetAttribute("file", elemParent->Attribute("file"));
+            }
 
-        auto tile = std::make_unique<SpriteTile>();
-        if (!parseSpriteNode(tile.get(),elemNode)) {
-            return false;
-        }
-
-        auto tilePtr = tile.get();
-        if (elemNode->Attribute("else") || strcmp(strType, "else") == 0) {
-            if (!oldSibling) {
-                contentError("Misplaced or invalid element in SpriteNode",elemNode);
+            auto tile = std::make_unique<SpriteTile>();
+            if (!parseSpriteNode(tile.get(), elemNode)) {
                 return false;
             }
-            oldSibling->addElse(std::move(tile));
-        } else {
-            node->addChild(std::move(tile));
-        }
-        oldSibling = tilePtr;
-    } else if (strcmp(strType, "rotate") == 0) {
-        if (!elemNode->Attribute("file") && elemParent->Attribute("file")) {
-            elemNode->SetAttribute("file",elemParent->Attribute("file"));
-        }
 
-        auto tile = std::make_unique<RotationTile>();
-        if (!parseSpriteNode(tile.get(),elemNode)) {
-            return false;
-        } else {
-            node->addChild(std::move(tile));
+            auto tilePtr = tile.get();
+            if (elemNode->Attribute("else") || strcmp(strType, "else") == 0) {
+                if (!oldSibling) {
+                    contentError("Misplaced or invalid element in SpriteNode", elemNode);
+                    return false;
+                }
+                oldSibling->addElse(std::move(tile));
+            }
+            else {
+                node->addChild(std::move(tile));
+            }
+            oldSibling = tilePtr;
         }
-        oldSibling = nullptr;
-    } else if ((strcmp(strType, "sprite") == 0) || (strcmp(strType, "empty") == 0)) {
-        int fileindex = 0;
-        const char* pfilename = elemParent->Attribute("file");
-        if (pfilename != NULL && pfilename[0] != 0) {
-            fileindex = loadConfigImgFile((char*)pfilename,elemNode);
-            if(fileindex == -1) {
+        else if (strcmp(strType, "rotate") == 0) {
+            if (!elemNode->Attribute("file") && elemParent->Attribute("file")) {
+                elemNode->SetAttribute("file", elemParent->Attribute("file"));
+            }
+
+            auto tile = std::make_unique<RotationTile>();
+            if (!parseSpriteNode(tile.get(), elemNode)) {
+                return false;
+            }
+            else {
+                node->addChild(std::move(tile));
+            }
+            oldSibling = nullptr;
+        }
+        else if ((strcmp(strType, "sprite") == 0) || (strcmp(strType, "empty") == 0)) {
+            int fileindex = 0;
+            const char* pfilename = elemParent->Attribute("file");
+            if (pfilename != NULL && pfilename[0] != 0) {
+                fileindex = loadConfigImgFile((char*)pfilename, elemNode);
+                if (fileindex == -1) {
+                    return false;
+                }
+            }
+            auto sprite = std::make_unique<SpriteElement>();
+            sprite->sprite.set_by_xml(elemNode, fileindex);
+            node->addChild(std::move(sprite));
+        }
+        else if (strcmp(strType, "include") == 0) {
+            if (!includeFile(node, elemNode, oldSibling)) {
                 return false;
             }
         }
-        auto sprite = std::make_unique<SpriteElement>();
-        sprite->sprite.set_by_xml(elemNode, fileindex);
-        node->addChild(std::move(sprite));
-    } else if (strcmp(strType, "include") == 0) {
-        if (!includeFile(node,elemNode,oldSibling)) {
+        else {
+            contentError("Misplaced or invalid element in SpriteNode", elemNode);
             return false;
         }
-    } else {
-        contentError("Misplaced or invalid element in SpriteNode",elemNode);
-        return false;
+        return true;
     }
-    return true;
 }
 
 bool includeFile(SpriteNode* node, TiXmlElement* includeNode, SpriteTile* &oldSibling)
 {
     // get path... ugly
-    char configfilepath[FILENAME_BUFFERSIZE] = {0};
-    const char* documentRef = getDocument(includeNode);
+    std::filesystem::path documentRef = getDocument(includeNode);
 
-    if (!getLocalFilename(configfilepath,includeNode->Attribute("file"),documentRef)) {
-        return false;
-    }
-    ALLEGRO_PATH * incpath = al_create_path(configfilepath);
+    std::filesystem::path configfilepath = getLocalFilename(includeNode->Attribute("file"), documentRef);
+    ALLEGRO_PATH * incpath = al_create_path(configfilepath.string().c_str());
     al_append_path_component(incpath, "include");
     TiXmlDocument doc( al_path_cstr(incpath, ALLEGRO_NATIVE_PATH_SEP) );
     al_destroy_path(incpath);
@@ -209,7 +217,7 @@ bool includeFile(SpriteNode* node, TiXmlElement* includeNode, SpriteTile* &oldSi
     TiXmlElement* elemParent;
     if(!loadOkay) {
         contentError("Include failed",includeNode);
-        LogError("File load failed: %s\n",configfilepath);
+        LogError("File load failed: %s\n", configfilepath.string().c_str());
         LogError("Line %d: %s\n",doc.ErrorRow(),doc.ErrorDesc());
         return false;
     }
@@ -272,7 +280,7 @@ bool parseSpriteNode(SpriteNode* node, TiXmlElement* elemParent)
 #include "df/construction_type.h"
 #include "df/furnace_type.h"
 
-bool addSingleBuildingConfig( TiXmlElement* elemRoot,  vector<std::unique_ptr<BuildingConfiguration>>* knownBuildings )
+bool addSingleBuildingConfig( TiXmlElement* elemRoot,  std::vector<std::unique_ptr<BuildingConfiguration>>*knownBuildings)
 {
     const char* strName = elemRoot->Attribute("name");
     const char* strGameID = elemRoot->Attribute("game_type");

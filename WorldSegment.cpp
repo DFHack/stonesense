@@ -290,7 +290,7 @@ void WorldSegment::DrawAllTiles()
                 DrawCreatureText(
                     todraw[i].dx,
                     todraw[i].dy,
-                    (SS_Unit*) todraw[i].drawobject );
+                    (Stonesense_Unit*) todraw[i].drawobject );
                 break;
             }
         }
@@ -440,7 +440,7 @@ void WorldSegment::ClearBuildings()
     buildings.clear();
 }
 
-void WorldSegment::PushUnit( std::unique_ptr<SS_Unit> unit)
+void WorldSegment::PushUnit( std::unique_ptr<Stonesense_Unit> unit)
 {
     units.push_back(std::move(unit));
 }

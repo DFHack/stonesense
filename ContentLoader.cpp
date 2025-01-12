@@ -1,4 +1,6 @@
 #include <fstream>
+#include <filesystem>
+
 #include "common.h"
 #include "ContentLoader.h"
 #include "ContentBuildingReader.h"
@@ -28,23 +30,13 @@
 #include "df/world.h"
 #include "df/world_raws.h"
 
-#include "ConnectionState.h"
 #include "EnumToString.h"
 
-using namespace std;
 using namespace DFHack;
 using namespace df::enums;
 
-void DumpStringVector(const char* filename, vector<std::string> * input)
-{
-    FILE* fp = fopen(filename, "w");
-
-    // Run through until perfect match found or hit end.
-    for(size_t i = 0; i < input->size(); i++){
-        fprintf(fp, "%i:%s\n", int(i), input->at(i).c_str());
-    }
-    fclose(fp);
-}
+using std::vector;
+using std::string;
 
 ContentLoader * contentLoader;
 
@@ -65,6 +57,7 @@ ContentLoader::~ContentLoader(void)
 
 bool ContentLoader::Load()
 {
+    using std::exception;
     /*draw_textf_border(font,
     ssState.ScreenW/2,
     ssState.ScreenH/2,
@@ -151,79 +144,46 @@ bool ContentLoader::Load()
         for(size_t i = 0; i < df::global::world->entities.all.size(); i++){
             df::historical_entity * currentity = df::global::world->entities.all[i];
             if(!currentity) continue;
+            auto addEntityPosition = [&](auto currentpos)
+                {
+                    auto foundIt = std::find_if(
+                        professionStrings.begin(),
+                        professionStrings.end(),
+                        [&](auto pStr) { return pStr == currentpos->code; });
+                    if (foundIt == professionStrings.end())
+                    {
+                        professionStrings.push_back(currentpos->code);
+                        foundIt = professionStrings.end() - 1;
+                    }
+                    auto found = foundIt - professionStrings.begin();
+
+                    size_t ent_id = currentity->id;
+                    size_t pos_id = currentpos->id;
+                    if (ent_id >= position_Indices.size())
+                        position_Indices.resize(ent_id + 1, NULL);
+                    if (!position_Indices[ent_id])
+                        position_Indices[ent_id] = new vector<int32_t>;
+                    if (pos_id >= position_Indices[ent_id]->size())
+                        position_Indices[ent_id]->resize(pos_id + 1, -1);
+                    position_Indices[ent_id]->at(pos_id) = found;
+                };
+
             for(size_t j = 0; j < currentity->positions.own.size(); j++) {
                 df::entity_position * currentpos = currentity->positions.own[j];
                 if(!currentpos) continue;
-                int found = -1;
-                for(size_t k = 0; k < professionStrings.size(); k++){
-                    if( professionStrings[k] == currentpos->code){
-                        found = k;
-                        break;
-                    }
-                }
-                if(found < 0){
-                    professionStrings.push_back(currentpos->code);
-                    found = professionStrings.size()-1;
-                }
-                int ent_id = currentity->id;
-                int pos_id = currentpos->id;
-                if(size_t(ent_id)  >= position_Indices.size())
-                    position_Indices.resize(ent_id+1, NULL);
-                if(!position_Indices[ent_id])
-                    position_Indices[ent_id] = new vector<int32_t>;
-                if(size_t(pos_id)  >= position_Indices[ent_id]->size())
-                    position_Indices[ent_id]->resize(pos_id+1, -1);
-                position_Indices[ent_id]->at(pos_id) = found;
+                addEntityPosition(currentpos);
                 //LogError("%d(%d):%s->%d(%d):%s = %d\n", i, currentity->id, currentity->entity_raw->code.c_str(), j,currentpos->id, currentpos->code.c_str(), found);
             }
             for(size_t j = 0; j < currentity->positions.site.size(); j++) {
                 df::entity_position * currentpos = currentity->positions.site[j];
-                if(!currentpos) continue;
-                int found = -1;
-                for(size_t k = 0; k < professionStrings.size(); k++){
-                    if( professionStrings[k] == currentpos->code){
-                        found = k;
-                        break;
-                    }
-                }
-                if(found < 0){
-                    professionStrings.push_back(currentpos->code);
-                    found = professionStrings.size()-1;
-                }
-                int ent_id = currentity->id;
-                int pos_id = currentpos->id;
-                if(size_t(ent_id)  >= position_Indices.size())
-                    position_Indices.resize(ent_id+1, NULL);
-                if(!position_Indices[ent_id])
-                    position_Indices[ent_id] = new vector<int32_t>;
-                if(size_t(pos_id)  >= position_Indices[ent_id]->size())
-                    position_Indices[ent_id]->resize(pos_id+1, -1);
-                position_Indices[ent_id]->at(pos_id) = found;
+                if (!currentpos) continue;
+                addEntityPosition(currentpos);
                 //LogError("%d(%d):%s->%d(%d):%s = %d\n", i, currentity->id, currentity->entity_raw->code.c_str(), j,currentpos->id, currentpos->code.c_str(), found);
             }
             for(size_t j = 0; j < currentity->positions.conquered_site.size(); j++) {
                 df::entity_position * currentpos = currentity->positions.conquered_site[j];
                 if(!currentpos) continue;
-                int found = -1;
-                for(size_t k = 0; k < professionStrings.size(); k++){
-                    if( professionStrings[k] == currentpos->code){
-                        found = k;
-                        break;
-                    }
-                }
-                if(found < 0){
-                    professionStrings.push_back(currentpos->code);
-                    found = professionStrings.size()-1;
-                }
-                int ent_id = currentity->id;
-                int pos_id = currentpos->id;
-                if(size_t(ent_id)  >= position_Indices.size())
-                    position_Indices.resize(ent_id+1, NULL);
-                if(!position_Indices[ent_id])
-                    position_Indices[ent_id] = new vector<int32_t>;
-                if(size_t(pos_id)  >= position_Indices[ent_id]->size())
-                    position_Indices[ent_id]->resize(pos_id+1, -1);
-                position_Indices[ent_id]->at(pos_id) = found;
+                addEntityPosition(currentpos);
                 //LogError("%d(%d):%s->%d(%d):%s = %d\n", i, currentity->id, currentity->entity_raw->code.c_str(), j,currentpos->id, currentpos->code.c_str(), found);
             }
         }
@@ -287,22 +247,24 @@ bool ContentLoader::reload_configs()
 // else is relative to the referrer)
 // buffer must be FILENAME_BUFFERSIZE chars
 // returns true if it all works
-bool getLocalFilename(char * buffer, const char* filename, const char* relativeto)
+
+std::filesystem::path getLocalFilename(const char* filename, std::filesystem::path relativeto)
 {
-    ALLEGRO_PATH * temppath;
+    // TODO verify that this does not leak
+    ALLEGRO_PATH* temppath;
     if (filename[0] == '/' || filename[0] == '\\') {
         temppath = al_create_path(filename);
         al_make_path_canonical(temppath);
-    } else {
-        temppath = al_create_path(relativeto);
+    }
+    else {
+        temppath = al_create_path(relativeto.string().c_str());
         al_join_paths(temppath, al_create_path(filename));
         al_make_path_canonical(temppath);
     }
-    buffer = strcpy(buffer, al_path_cstr(temppath, ALLEGRO_NATIVE_PATH_SEP));
-    return true;
+    return std::string{ al_path_cstr(temppath, ALLEGRO_NATIVE_PATH_SEP) };
 }
 
-bool ContentLoader::parseContentIndexFile( const char* filepath )
+bool ContentLoader::parseContentIndexFile( std::filesystem::path filepath )
 {
     /*
     al_clear_to_color(al_map_rgb(0,0,0));
@@ -312,15 +274,14 @@ bool ContentLoader::parseContentIndexFile( const char* filepath )
     al_flip_display();
     */
     string line;
-    ifstream myfile( filepath );
+    std::ifstream myfile( filepath );
     if (myfile.is_open() == false) {
-        LogError( "Unable to load config index file at: %s!\n", filepath );
+        LogError( "Unable to load config index file at: %s!\n", filepath.string().c_str() );
         return false;
     }
-    LogVerbose("Reading index at %s...\n", filepath);
+    LogVerbose("Reading index at %s...\n", filepath.string().c_str());
 
     while ( !myfile.eof() ) {
-        char configfilepath[FILENAME_BUFFERSIZE] = {0};
 
         getline (myfile,line);
         if (line.empty())
@@ -328,7 +289,7 @@ bool ContentLoader::parseContentIndexFile( const char* filepath )
 
         // some systems don't remove the \r char as a part of the line change:
         // also trim trailing space
-        int resize = (int)line.size()-1;
+        size_t resize = line.size()-1;
         for (; resize>0; resize--) {
             char test = line[resize];
             if (test == '\r') {
@@ -352,27 +313,22 @@ bool ContentLoader::parseContentIndexFile( const char* filepath )
             continue;
         }
 
-        if (!getLocalFilename(configfilepath,line.c_str(),filepath)) {
-            LogError("File name parsing failed on %s\n",line.c_str());
-            continue;
-        }
-        //WriteErr("but it's all fucked here: %s\n",configfilepath);
-        ALLEGRO_PATH * temppath = al_create_path(configfilepath);
+        std::filesystem::path configfilepath = getLocalFilename(line.c_str(), filepath);
+        ALLEGRO_PATH * temppath = al_create_path(configfilepath.string().c_str());
         const char* extension;
         extension = al_get_path_extension(temppath);
-        //WriteErr("extension: %s\n",extension);
         if (strcmp(extension,".xml") == 0) {
-            LogVerbose("Reading xml %s...\n", configfilepath);
+            LogVerbose("Reading xml %s...\n", configfilepath.string().c_str());
             if (!parseContentXMLFile(configfilepath)) {
-                LogError("Failure in reading %s\n",configfilepath);
+                LogError("Failure in reading %s\n",configfilepath.string().c_str());
             }
         } else if (strcmp(extension,".txt") == 0) {
-            LogVerbose("Reading index %s...\n", configfilepath);
+            LogVerbose("Reading index %s...\n", configfilepath.string().c_str());
             if (!parseContentIndexFile(configfilepath)) {
-                LogError("Failure in reading %s\n",configfilepath);
+                LogError("Failure in reading %s\n",configfilepath.string().c_str());
             }
         } else {
-            LogError("Invalid filename: %s\n",configfilepath);
+            LogError("Invalid filename: %s\n",configfilepath.string().c_str());
         }
     }
     myfile.close();
@@ -380,7 +336,7 @@ bool ContentLoader::parseContentIndexFile( const char* filepath )
     return true;
 }
 
-bool ContentLoader::parseContentXMLFile( const char* filepath )
+bool ContentLoader::parseContentXMLFile( std::filesystem::path filepath )
 {
     /*
     al_clear_to_color(al_map_rgb(0,0,0));
@@ -388,9 +344,9 @@ bool ContentLoader::parseContentXMLFile( const char* filepath )
     ssState.ScreenH/2,
     ALLEGRO_ALIGN_CENTRE, "Loading %s...", filepath);
     al_flip_display();*/
-    TiXmlDocument doc( filepath );
+    TiXmlDocument doc( filepath.string().c_str() );
     if(!doc.LoadFile()) {
-        LogError("File load failed: %s\n", filepath);
+        LogError("File load failed: %s\n", filepath.string().c_str());
         return false;
     }
     TiXmlHandle hDoc(&doc);
@@ -500,7 +456,7 @@ const char* getDocument(TiXmlNode* element)
 {
     //walk up the tree to the root
     TiXmlNode* parent = element->Parent();
-    while (parent != null) {
+    while (parent != nullptr) {
         element = parent;
         parent = element->Parent();
     }
@@ -725,103 +681,27 @@ const char * lookupFormName(int formType)
 
 uint8_t lookupMaterialFore(int matType,int matIndex)
 {
-    if (matIndex < 0) {
-        return 0;
-    }
-    vector<t_matgloss>* typeVector;
-    //// for appropriate elements, look up subtype
-    //if (matType == Mat_Wood)
-    //{
-    //    typeVector=&(contentLoader.woodNameStrings);
-    //}
-    //else if (matType == 0)
-    //{
-    //    typeVector=&(contentLoader.stoneNameStrings);
-    //}
-    //else if (matType == Mat_Metal)
-    //{
-    //    typeVector=&(contentLoader.metalNameStrings);
-    //}
-    //else
-    //{
-    //maybe allow some more in later
+    // TODO: use DFHack::MaterialInfo to get more appropriate info
     return 0;
-    //}
-    if (size_t(matIndex) >= typeVector->size()) {
-        return 0;
-    }
-    return (*typeVector)[matIndex].fore;
 }
 
 uint8_t lookupMaterialBack(int matType,int matIndex)
 {
-    if (matIndex < 0) {
-        return 0;
-    }
-    vector<t_matgloss>* typeVector;
-    //// for appropriate elements, look up subtype
-    //if (matType == Mat_Wood)
-    //{
-    //    typeVector=&(contentLoader.woodNameStrings);
-    //}
-    //else if (matType == 0)
-    //{
-    //    typeVector=&(contentLoader.stoneNameStrings);
-    //}
-    //else if (matType == Mat_Metal)
-    //{
-    //    typeVector=&(contentLoader.metalNameStrings);
-    //}
-    //else
-    //{
-    //maybe allow some more in later
+    // TODO: use DFHack::MaterialInfo to get more appropriate info
     return 0;
-    //}
-    if (size_t(matIndex) >= typeVector->size()) {
-        return 0;
-    }
-    return (*typeVector)[matIndex].back;
 }
 
 uint8_t lookupMaterialBright(int matType,int matIndex)
 {
-    if (matIndex < 0) {
-        return 0;
-    }
-    vector<t_matgloss>* typeVector;
-    //// for appropriate elements, look up subtype
-    //if (matType == Mat_Wood)
-    //{
-    //    typeVector=&(contentLoader.woodNameStrings);
-    //}
-    //else if (matType == 0)
-    //{
-    //    typeVector=&(contentLoader.stoneNameStrings);
-    //}
-    //else if (matType == Mat_Metal)
-    //{
-    //    typeVector=&(contentLoader.metalNameStrings);
-    //}
-    //else
-    //{
-    //maybe allow some more in later
+    // TODO: use DFHack::MaterialInfo to get more appropriate info
     return 0;
-    //}
-    if (size_t(matIndex) >= typeVector->size()) {
-        return 0;
-    }
-    return (*typeVector)[matIndex].bright;
 }
 
 int loadConfigImgFile(const char* filename, TiXmlElement* referrer)
 {
-    const char* documentRef = getDocument(referrer);
-    char configfilepath[FILENAME_BUFFERSIZE] = {0};
-    if (!getLocalFilename(configfilepath,filename,documentRef)) {
-        contentError("Failed to parse sprites filename",referrer);
-        return -1;
-    }
-    return loadImgFile(configfilepath);
+    std::filesystem::path documentRef = getDocument(referrer);
+    std::filesystem::path configfilepath = getLocalFilename(filename, documentRef);
+    return loadImgFile(configfilepath.string().c_str());
 }
 
 void ContentLoader::flushCreatureConfig()
@@ -876,9 +756,10 @@ void ContentLoader::gatherStyleIndices(df::world_raws * raws)
                     if(!creatureStyle->at(casteIndex))
                         creatureStyle->at(casteIndex) = new vector<int32_t>;
                     vector<int32_t>* casteStyle = creatureStyle->at(casteIndex);
-                    if(size_t(type) >= casteStyle->size())
-                        casteStyle->resize(type+1, 0);
-                    casteStyle->at(type) = sty->id;
+                    size_t typeIdx{ size_t(type) };
+                    if(typeIdx >= casteStyle->size())
+                        casteStyle->resize(typeIdx+1, 0);
+                    casteStyle->at(typeIdx) = sty->id;
                     LogVerbose("%s:%s : %d:%s\n", raws->creatures.all[creatureIndex]->creature_id.c_str(),raws->creatures.all[creatureIndex]->caste[casteIndex]->caste_id.c_str(), sty->id, sty->token.c_str());
                 }
             }
@@ -910,9 +791,8 @@ ALLEGRO_COLOR lookupMaterialColor(int matType, int matIndex, int dyeType, int dy
         contentLoader->Mats->color[dye.material->powder_dye].red,
         contentLoader->Mats->color[dye.material->powder_dye].green,
         contentLoader->Mats->color[dye.material->powder_dye].blue);
-    t_matglossPair matPair;
-    matPair.index = matIndex;
-    matPair.type = matType;
+    // FIXME integer truncation: matType should not be an int
+    t_matglossPair matPair{ int16_t(matType), matIndex };
     if (ALLEGRO_COLOR * matResult = contentLoader->materialColorConfigs.get(matPair))
     {
         return *matResult * dyeColor;

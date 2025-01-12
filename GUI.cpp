@@ -5,6 +5,7 @@
 #include <assert.h>
 #include <algorithm>
 #include <vector>
+#include <filesystem>
 
 #include "common.h"
 #include "Tile.h"
@@ -86,7 +87,7 @@ ALLEGRO_BITMAP* buffer = 0;
 ALLEGRO_BITMAP* bigFile = 0;
 vector<ALLEGRO_BITMAP*> IMGCache;
 vector<ALLEGRO_BITMAP*> IMGFilelist;
-vector<std::unique_ptr<string>> IMGFilenames;
+vector<std::unique_ptr<std::filesystem::path>> IMGFilenames;
 GLhandleARB tinter;
 GLhandleARB tinter_shader;
 
@@ -1086,7 +1087,7 @@ void DrawSpriteIndexOverlay(int imageIndex)
     }
     draw_textf_border(font, uiColor(1), ssState.ScreenW-10, ssState.ScreenH -al_get_font_line_height(font), ALLEGRO_ALIGN_RIGHT,
                       "%s (%d) (Press SPACE to return)",
-                      (imageIndex==-1?"objects.png":IMGFilenames[imageIndex]->c_str()), imageIndex);
+        (imageIndex == -1 ? "objects.png" : (IMGFilenames[imageIndex]->string().c_str())), imageIndex);
     al_flip_display();
 }
 
@@ -1341,7 +1342,7 @@ inline int returnGreater(int a, int b)
     }
 }
 
-int loadImgFile(const char* filename)
+int loadImgFile(std::filesystem::path filename)
 {
     if(ssConfig.cache_images) {
         static bool foundSize = false;
@@ -1363,7 +1364,7 @@ int loadImgFile(const char* filename)
         al_get_separate_blender(&op, &src, &dst, &alpha_op, &alpha_src, &alpha_dst);
         uint32_t numFiles = (uint32_t)IMGFilelist.size();
         for(uint32_t i = 0; i < numFiles; i++) {
-            if (strcmp(filename, IMGFilenames[i]->c_str()) == 0) {
+            if (filename == *IMGFilenames[i]) {
                 return i;
             }
         }
@@ -1382,7 +1383,7 @@ int loadImgFile(const char* filename)
         if(!tempfile) {
             return -1;
         }
-        LogVerbose("New image: %s\n",filename);
+        LogVerbose("New image: %s\n", filename.string().c_str());
         if(currentCache < 0) {
             // FIXME: this is some really weird logic.
             IMGCache.push_back(al_create_bitmap(ssConfig.imageCacheSize, ssConfig.imageCacheSize));
@@ -1428,7 +1429,7 @@ int loadImgFile(const char* filename)
         }
         al_destroy_bitmap(tempfile);
         al_set_target_bitmap(al_get_backbuffer(al_get_current_display()));
-        IMGFilenames.push_back(std::make_unique<string>(filename));
+        IMGFilenames.push_back(std::make_unique<std::filesystem::path>(filename));
         al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst);
         if(ssConfig.saveImageCache) {
             saveImage(IMGCache[currentCache]);
@@ -1439,7 +1440,7 @@ int loadImgFile(const char* filename)
     } else {
         uint32_t numFiles = (uint32_t)IMGFilelist.size();
         for(uint32_t i = 0; i < numFiles; i++) {
-            if (strcmp(filename, IMGFilenames[i]->c_str()) == 0) {
+            if (filename == *IMGFilenames[i]) {
                 return i;
             }
         }
@@ -1448,8 +1449,8 @@ int loadImgFile(const char* filename)
             return -1;
         }
         IMGFilelist.push_back(temp);
-        IMGFilenames.push_back(std::make_unique<string>(filename));
-        LogVerbose("New image: %s\n",filename);
+        IMGFilenames.push_back(std::make_unique<std::filesystem::path>(filename));
+        LogVerbose("New image: %s\n", filename.string().c_str());
         return (int)IMGFilelist.size() - 1;
     }
 }

@@ -3,6 +3,7 @@
 #include <list>
 
 #include "common.h"
+#include "Config.h"
 //#include "Overlay.h"
 #include "Tile.h"
 #include "GUI.h"
@@ -74,12 +75,12 @@ ALLEGRO_THREAD *stonesense_event_thread;
 SegmentWrap map_segment;
 bool redraw = true;
 
-ALLEGRO_BITMAP* load_bitmap_withWarning(const char* path)
+ALLEGRO_BITMAP* load_bitmap_withWarning(std::filesystem::path path)
 {
     ALLEGRO_BITMAP* img = 0;
-    img = al_load_bitmap(path);
+    img = al_load_bitmap(path.string().c_str());
     if(!img) {
-        LogError("Cannot load image: %s\n", path);
+        LogError("Cannot load image: %s\n", path.string().c_str());
         al_set_thread_should_stop(stonesense_event_thread);
         return 0;
     }

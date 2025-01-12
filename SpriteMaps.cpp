@@ -140,7 +140,7 @@ c_tile_tree * GetTreeVegetation(df::tiletype_shape shape, df::tiletype_special s
         }
         break;
     default:
-        return null;
+        return nullptr;
     }
 
     c_tile_tree * configuredTree = getVegetationTree(*graphicSet,index,live,grown);

@@ -11,7 +11,6 @@ SET(PROJECT_SRCS
     Tile.cpp
     TileCondition.cpp
     TileTree.cpp
-    BuildingConfiguration.cpp
     ColorConfiguration.cpp
     ConditionalSprite.cpp
     Config.cpp
@@ -39,8 +38,6 @@ SET(PROJECT_SRCS
     Keybinds.cpp
     EnumToString.cpp
     MaterialMatcher.cpp
-    TiletypeMatcher.cpp
-    ConnectionState.cpp
     main.cpp
 )
 
@@ -52,7 +49,6 @@ SET(PROJECT_HDRS
     commonTypes.h
     ConditionalSprite.h
     Config.h
-    ConnectionState.h
     Constructions.h
     ContentBuildingReader.h
     ContentLoader.h
@@ -77,7 +73,6 @@ SET(PROJECT_HDRS
     TileCondition.h
     TileDirection.h
     TileTree.h
-    TiletypeMatcher.h
     TrackingModes.h
     TreeGrowthConfiguration.h
     UserInput.h

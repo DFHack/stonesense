@@ -31,12 +31,12 @@ private:
     Tile* tiles;
     std::vector<draw_event> todraw;
 
-    std::vector<std::unique_ptr<SS_Unit>> units;
+    std::vector<std::unique_ptr<Stonesense_Unit>> units;
     std::vector<std::unique_ptr<DFHack::Buildings::t_building>> buildings;
 
 public:
-    bool loaded;
-    bool processed;
+    bool loaded = false;
+    bool processed = false;
     //these are the coordinates and size of the loaded segment
     GameState segState;
     WorldSegment(GameState inState) {
@@ -102,7 +102,7 @@ public:
     bool CoordinateInteriorSegment(int32_t x, int32_t y, int32_t z, uint32_t shellthick);
     void PushBuilding( std::unique_ptr<DFHack::Buildings::t_building> tempbuilding);
     void ClearBuildings();
-    void PushUnit( std::unique_ptr<SS_Unit> unit);
+    void PushUnit( std::unique_ptr<Stonesense_Unit> unit);
     void ClearUnits();
 };
 
