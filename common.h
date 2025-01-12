@@ -10,10 +10,12 @@
 #define SKIP_DFHACK_STDINT
 #define DFHACK_WANT_PLATETYPES
 
-#include <DFHack.h>
-#include <Console.h>
-#include <Export.h>
 #include <PluginManager.h>
+
+#include <modules/Buildings.h>
+#include <modules/Gui.h>
+#include <modules/Units.h>
+#include <modules/World.h>
 
 #define ALLEGRO_NO_MAGIC_MAIN //This is a DLL file. we got no main function.
 #define ALLEGRO_HAVE_STDINT_H
@@ -25,10 +27,6 @@
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_opengl.h>
 #include <allegro5/utf8.h>
-
-#ifdef _LINUX
-#include <GL/glext.h>
-#endif
 
 // allegro leaks X headers, undef some of it here:
 #undef TileShape
