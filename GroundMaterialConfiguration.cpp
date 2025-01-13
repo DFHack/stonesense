@@ -54,6 +54,15 @@ void DumpInorganicMaterialNamesToDisk()
     fclose(fp);
 }
 
+namespace {
+    template<typename T>
+    T StringToTiletypeEnum(const std::string input)
+    {
+        T t{};
+        return (find_enum_item(&t, input)) ? t : T::NONE;
+    }
+}
+
 void parseWallFloorSpriteElement(TiXmlElement* elemWallFloorSprite, vector<std::unique_ptr<TerrainConfiguration>>& configTable, int basefile, bool floor)
 {
     const char* spriteSheetIndexStr = elemWallFloorSprite->Attribute("sheetIndex");
@@ -126,10 +135,10 @@ void parseWallFloorSpriteElement(TiXmlElement* elemWallFloorSprite, vector<std::
             contentError(buf, elemTerrain);
         }
         const char* gameTokenstr = elemTerrain->Attribute("token");
-        df::tiletype_shape elemShape = StringToTiletypeShape(elemTerrain->Attribute("shape"));
-        df::tiletype_special elemSpecial = StringToTiletypeSpecial(elemTerrain->Attribute("special"));
-        df::tiletype_variant elemVariant = StringToTiletypeVariant(elemTerrain->Attribute("variant"));
-        df::tiletype_material elemMaterial = StringToTiletypeMaterial(elemTerrain->Attribute("material"));
+        df::tiletype_shape elemShape{ StringToTiletypeEnum<df::tiletype_shape>(elemTerrain->Attribute("shape")) };
+        df::tiletype_special elemSpecial{ StringToTiletypeEnum<df::tiletype_special>(elemTerrain->Attribute("special")) };
+        df::tiletype_variant elemVariant{ StringToTiletypeEnum<df::tiletype_variant>(elemTerrain->Attribute("variant")) };
+        df::tiletype_material elemMaterial{ StringToTiletypeEnum<df::tiletype_material>(elemTerrain->Attribute("material")) };
 
         FOR_ENUM_ITEMS(tiletype, i)
         {

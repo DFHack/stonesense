@@ -36,7 +36,6 @@ SET(PROJECT_SRCS
     WorldSegment.cpp
     VegetationConfiguration.cpp
     Keybinds.cpp
-    EnumToString.cpp
     MaterialMatcher.cpp
     main.cpp
 )
@@ -55,7 +54,6 @@ SET(PROJECT_HDRS
     CreatureConfiguration.h
     Creatures.h
     DumpInfo.h
-    EnumToString.h
     FluidConfiguration.h
     GameBuildings.h
     GroundMaterialConfiguration.h
