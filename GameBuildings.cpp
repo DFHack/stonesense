@@ -74,11 +74,11 @@ void ReadBuildings(DFHack::Core& DF, std::vector<Buildings::t_building>* buildin
     for (size_t i = 0; i < world->buildings.other[types].size(); i++) {
         df::building *bld = world->buildings.other[types][i];
         Buildings::t_building tempbuilding{
-            .x1 = bld->x1,
-            .y1 = bld->y1,
-            .x2 = bld->x2,
-            .y2 = bld->y2,
-            .z = bld->z,
+            .x1 = uint32_t(bld->x1),
+            .y1 = uint32_t(bld->y1),
+            .x2 = uint32_t(bld->x2),
+            .y2 = uint32_t(bld->y2),
+            .z = uint32_t(bld->z),
             .material {.type = bld->mat_type, .index = bld->mat_index },
             .type = bld->getType(),
             .subtype = bld->getSubtype(),
@@ -99,9 +99,9 @@ void MergeBuildingsToSegment(std::vector<Buildings::t_building>* buildings, Worl
         segment->PushBuilding(std::move(building_ptr));
 
         //int bheight = tempbuilding.y2 - tempbuilding.y1;
-        for (int32_t yy = copiedbuilding->y1; yy <= copiedbuilding->y2; yy++) {
-            for (int32_t xx = copiedbuilding->x1; xx <= copiedbuilding->x2; xx++) {
-                int32_t z2 = copiedbuilding->z;
+        for (uint32_t yy = copiedbuilding->y1; yy <= copiedbuilding->y2; yy++) {
+            for (uint32_t xx = copiedbuilding->x1; xx <= copiedbuilding->x2; xx++) {
+                uint32_t z2 = copiedbuilding->z;
                 //if it's a well, add the bucket status.
                 if (copiedbuilding->type == df::enums::building_type::Well) {
                     auto well_building = virtual_cast<df::building_wellst>(copiedbuilding->origin);
