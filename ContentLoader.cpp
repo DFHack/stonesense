@@ -30,8 +30,6 @@
 #include "df/world.h"
 #include "df/world_raws.h"
 
-#include "EnumToString.h"
-
 using namespace DFHack;
 using namespace df::enums;
 
