@@ -47,23 +47,17 @@ c_sprite *  GetTerrainSpriteMap(int in, t_matglossPair material, vector<std::uni
     if (terrain == nullptr) {
         return defaultSprite;
     }
-    // check material sanity
-    if (material.type<0 || material.type >= (int16_t)terrain->terrainMaterials.size()) {
-        if(terrain->defaultSprite[tempform].first.get_sheetindex() == UNCONFIGURED_INDEX) {
-            return &(terrain->defaultSprite[0].first);
-        } else {
-            return &(terrain->defaultSprite[tempform].first);
-        }
-    }
     // find mat config
-    TerrainMaterialConfiguration* terrainMat = terrain->terrainMaterials[material.type].get();
-    if (terrainMat == nullptr) {
-        if (terrain->defaultSprite[tempform].first.get_sheetindex() == UNCONFIGURED_INDEX) {
-            return &(terrain->defaultSprite[0].first);
+
+    auto& terrainMat = terrain->getTerrainMaterials(material.type);
+    if (!terrainMat) {
+        if(terrain->getDefaultSprite(tempform).get_sheetindex() == UNCONFIGURED_INDEX) {
+            return &(terrain->getDefaultSprite(0));
         } else {
-            return &(terrain->defaultSprite[tempform].first);
+            return &(terrain->getDefaultSprite(tempform));
         }
     }
+
     if(material.index == -1) {
         if (terrainMat->getSprite(tempform).get_sheetindex() == UNCONFIGURED_INDEX) {
             return &(terrainMat->getSprite(0));

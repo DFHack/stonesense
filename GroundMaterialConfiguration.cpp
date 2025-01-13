@@ -52,27 +52,40 @@ void DumpInorganicMaterialNamesToDisk()
     fclose(fp);
 }
 
-void TerrainMaterialConfiguration::updateSprite(auto j, auto sprite, auto x)
+void TerrainMaterialConfiguration::updateSprite(int j, c_sprite& sprite, int x)
 {
-    if (this->defaultSprite[j].second == INVALID_INDEX
-        || this->defaultSprite[j].second > x)
+    if (defaultSprite[j].second == INVALID_INDEX || defaultSprite[j].second > x)
     {
-        this->defaultSprite[j].first = sprite;
-        this->defaultSprite[j].second = x;
+        defaultSprite[j].first = sprite;
+        defaultSprite[j].second = x;
     }
 }
 
 void TerrainMaterialConfiguration::updateOverridingMaterials(auto j, auto subtypeId, auto sprite, auto x) {
-    if (this->overridingMaterials[j].count(subtypeId))
+    if (overridingMaterials[j].count(subtypeId))
     {
-        if (this->overridingMaterials[j][subtypeId].second > x)
-            this->overridingMaterials[j][subtypeId].first = sprite;
+        if (overridingMaterials[j][subtypeId].second > x)
+            overridingMaterials[j][subtypeId].first = sprite;
     }
     else
     {
-        this->overridingMaterials[j][subtypeId].first = sprite;
+        overridingMaterials[j][subtypeId].first = sprite;
     }
-    this->overridingMaterials[j][subtypeId].second = x;
+    overridingMaterials[j][subtypeId].second = x;
+}
+
+void TerrainConfiguration::updateSprite(auto j, auto sprite, auto x)
+{
+    if (defaultSprite[j].second == INVALID_INDEX || defaultSprite[j].second > x) {
+        defaultSprite[j].first = sprite;
+        defaultSprite[j].second = x;
+    }
+}
+
+void TerrainConfiguration::expand(auto elemIndex)
+{
+    if (!terrainMaterials.contains(elemIndex))
+        terrainMaterials.emplace(elemIndex, std::make_unique<TerrainMaterialConfiguration>());
 }
 
 namespace
@@ -268,10 +281,7 @@ namespace
                 // only update if not by previous configs
                 for (int j = 0; j < NUM_FORMS; j++) {
                     if (formToggle[j])
-                        if (tConfig->defaultSprite[j].second == INVALID_INDEX || tConfig->defaultSprite[j].second > lookupKeys[i].second) {
-                            tConfig->defaultSprite[j].first = sprite;
-                            tConfig->defaultSprite[j].second = lookupKeys[i].second;
-                        }
+                        tConfig->updateSprite(j, sprite, lookupKeys[i].second);
                 }
             }
         }
@@ -292,19 +302,12 @@ namespace
                     // if that was null we have *really* screwed up earlier
                     // create a new TerrainMaterialConfiguration if required
                     // make sure we have room for it first
-                    while (tConfig->terrainMaterials.size() <= (uint32_t)elemIndex) {
-                        // dont make a full size vector in advance- most of the time
-                        // we will only need the first few
-                        tConfig->terrainMaterials.push_back(nullptr);
-                    }
-                    if (tConfig->terrainMaterials[elemIndex] == nullptr) {
-                        tConfig->terrainMaterials[elemIndex] = std::make_unique<TerrainMaterialConfiguration>();
-                    }
+                    tConfig->expand(elemIndex);
                     // only update if not set by earlier configs,
                     //FIXME: figure out how to manage priorities here.
                     for (int j = 0; j < NUM_FORMS; j++) {
                         if (formToggle[j])
-                            tConfig->terrainMaterials[elemIndex]->updateSprite(j, sprite, lookupKeys[i].second);
+                            tConfig->getTerrainMaterials(elemIndex)->updateSprite(j, sprite, lookupKeys[i].second);
                      }
                 }
             }
@@ -322,18 +325,11 @@ namespace
                     //if that was null we have *really* screwed up earlier
                     //create a new TerrainMaterialConfiguration if required
                     //make sure we have room for it first
-                    while (tConfig->terrainMaterials.size() <= (uint32_t)elemIndex) {
-                        //dont make a full size vector in advance- we wont need it except
-                        //for those who insist on Soap Fortresses
-                        tConfig->terrainMaterials.push_back(nullptr);
-                    }
-                    if (tConfig->terrainMaterials[elemIndex] == nullptr) {
-                        tConfig->terrainMaterials[elemIndex] = std::make_unique<TerrainMaterialConfiguration>();
-                    }
+                    tConfig->expand(elemIndex);
                     // add to map (if not already present)
                     for (int j = 0; j < NUM_FORMS; j++) {
                         if (formToggle[j]) {
-                            tConfig->terrainMaterials[elemIndex]->updateOverridingMaterials(j, subtypeId, sprite, lookupKeys[i].second);
+                            tConfig->getTerrainMaterials(elemIndex)->updateOverridingMaterials(j, subtypeId, sprite, lookupKeys[i].second);
                         }
                     }
                 }
