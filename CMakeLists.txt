@@ -172,7 +172,7 @@ ELSE(UNIX)
     IF(DFHACK_BUILD_64)
         download_file("https://github.com/DFHack/dfhack-bin/releases/download/50.15/allegro-msvc-x64-5.2.10.7z"
                       ${ALLEGRO_DOWNLOAD_DIR}/allegro-msvc-x64-5.2.10.7z
-                      "d49fad0f364f1a68eafce53b59ec3cb3")
+                      "ff9eb09893ce7ff560de618817db043a")
         execute_process(COMMAND ${CMAKE_COMMAND} -E tar xzf ${ALLEGRO_DOWNLOAD_DIR}/allegro-msvc-x64-5.2.10.7z
                         WORKING_DIRECTORY ${ALLEGRO_DOWNLOAD_DIR})
         download_file("https://github.com/DFHack/dfhack-bin/releases/download/50.15/allegro_deps-msvc-x64-1.15.0.7z"
@@ -185,6 +185,10 @@ ELSE(UNIX)
     ENDIF()
     foreach(ALLEGRO_LIB ${ALLEGRO_LIBS})
         list(APPEND PROJECT_LIBS ${ALLEGRO_LIB}.lib)
+        if(BUILD_PLUGINS)
+            install(FILES ${stonesense_SOURCE_DIR}/win${DFHACK_BUILD_ARCH}/Allegro/bin/${ALLEGRO_LIB}-5.2.dll
+                DESTINATION .)
+        endif()
     endforeach()
     SET(PROJECT_LIBS
         kernel32.lib
@@ -217,11 +221,6 @@ ELSE(UNIX)
         ${stonesense_SOURCE_DIR}/win${DFHACK_BUILD_ARCH}/Allegro/lib
         ${stonesense_SOURCE_DIR}/win${DFHACK_BUILD_ARCH}/Allegro_Deps/lib
     )
-    if(BUILD_PLUGINS)
-        install(DIRECTORY ${stonesense_SOURCE_DIR}/win${DFHACK_BUILD_ARCH}/Allegro/bin/
-                DESTINATION .
-                PATTERN "*debug*" EXCLUDE)
-    endif()
 ENDIF(UNIX)
 
 set(STONESENSE_GCC_FLAGS "")
