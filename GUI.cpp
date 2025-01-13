@@ -134,7 +134,7 @@ public:
     {
         if (index == -1)
             return IMGObjectSheet;
-        else if (index >= list.size())
+        else if (index >= int(list.size()))
             return nullptr;
         else
             return list[index].bmPtr;
