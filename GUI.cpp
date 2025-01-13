@@ -130,7 +130,7 @@ private:
     };
     std::vector<Img> list;
 public:
-    ALLEGRO_BITMAP* lookup(size_t index) const
+    ALLEGRO_BITMAP* lookup(int index) const
     {
         if (index == -1)
             return IMGObjectSheet;
