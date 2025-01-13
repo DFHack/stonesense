@@ -52,6 +52,5 @@ extern ALLEGRO_BITMAP* IMGEngLeftSheet;
 extern ALLEGRO_BITMAP* IMGEngRightSheet;
 extern ALLEGRO_BITMAP* IMGLetterSheet;
 
-void swapSegments(void);
-
 ALLEGRO_COLOR morph_color(ALLEGRO_COLOR source, ALLEGRO_COLOR reference, ALLEGRO_COLOR target);
+

@@ -210,9 +210,8 @@ bool ContentLoader::Load()
     contentLoader->obsidian = lookupMaterialIndex(INORGANIC, "OBSIDIAN");
 
     loadGraphicsFromDisk(); //these get destroyed when flushImgFiles is called.
-    ALLEGRO_PATH * p = al_create_path("stonesense/index.txt");
-    bool overallResult = parseContentIndexFile( al_path_cstr(p, ALLEGRO_NATIVE_PATH_SEP) );
-    al_destroy_path(p);
+    std::filesystem::path p{ "stonesense" };
+    bool overallResult = parseContentIndexFile( p / "index.txt");
     translationComplete = false;
 
     return overallResult;
@@ -244,7 +243,7 @@ bool ContentLoader::reload_configs()
 
 std::filesystem::path getLocalFilename(std::filesystem::path filename, std::filesystem::path relativeto)
 {
-    return std::filesystem::relative(filename, relativeto);
+    return relativeto.remove_filename() / filename;
 }
 
 bool ContentLoader::parseContentIndexFile( std::filesystem::path filepath )
@@ -296,16 +295,14 @@ bool ContentLoader::parseContentIndexFile( std::filesystem::path filepath )
             continue;
         }
 
-        std::filesystem::path configfilepath = getLocalFilename(line.c_str(), filepath);
-        ALLEGRO_PATH * temppath = al_create_path(configfilepath.string().c_str());
-        const char* extension;
-        extension = al_get_path_extension(temppath);
-        if (strcmp(extension,".xml") == 0) {
+        std::filesystem::path configfilepath = filepath.remove_filename() / std::filesystem::path{ line }.make_preferred();
+        auto extension = configfilepath.extension();
+        if (extension == ".xml") {
             LogVerbose("Reading xml %s...\n", configfilepath.string().c_str());
             if (!parseContentXMLFile(configfilepath)) {
                 LogError("Failure in reading %s\n",configfilepath.string().c_str());
             }
-        } else if (strcmp(extension,".txt") == 0) {
+        } else if (extension == ".txt") {
             LogVerbose("Reading index %s...\n", configfilepath.string().c_str());
             if (!parseContentIndexFile(configfilepath)) {
                 LogError("Failure in reading %s\n",configfilepath.string().c_str());
@@ -684,7 +681,7 @@ int loadConfigImgFile(std::filesystem::path filename, TiXmlElement* referrer)
 {
     std::filesystem::path documentRef = getDocument(referrer);
     std::filesystem::path configfilepath = getLocalFilename(filename, documentRef);
-    return loadImgFile(configfilepath.string().c_str());
+    return loadImgFile(configfilepath);
 }
 
 void ContentLoader::flushCreatureConfig()
