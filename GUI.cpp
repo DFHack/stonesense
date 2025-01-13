@@ -59,7 +59,6 @@
 #include "allegro5/allegro_color.h"
 #include "allegro5/opengl/GLext/gl_ext_defs.h"
 
-using namespace std;
 using namespace DFHack;
 using namespace df::enums;
 
@@ -86,132 +85,235 @@ ALLEGRO_BITMAP* IMGLetterSheet;
 
 ALLEGRO_BITMAP* buffer = 0;
 ALLEGRO_BITMAP* bigFile = 0;
-vector<ALLEGRO_BITMAP*> IMGCache;
-vector<ALLEGRO_BITMAP*> IMGFilelist;
-vector<std::unique_ptr<std::filesystem::path>> IMGFilenames;
 GLhandleARB tinter;
 GLhandleARB tinter_shader;
 
-const char * get_item_subtype(item_type::item_type type, int subtype)
+class ImageCache
 {
-    if (subtype < 0) {
-        return "?";
+private:
+    std::vector<ALLEGRO_BITMAP*> cache;
+public:
+    void flush()
+    {
+        for (auto& c : cache)
+            al_destroy_bitmap(c);
+        cache.clear();
     }
-    switch(type) {
-    case item_type::WEAPON:
-        return df::global::world->raws.itemdefs.weapons[subtype]->id.c_str();
-    case item_type::TRAPCOMP:
-        return df::global::world->raws.itemdefs.trapcomps[subtype]->id.c_str();
-    case item_type::TOY:
-        return df::global::world->raws.itemdefs.toys[subtype]->id.c_str();
-    case item_type::TOOL:
-        return df::global::world->raws.itemdefs.tools[subtype]->id.c_str();
-    case item_type::INSTRUMENT:
-        return df::global::world->raws.itemdefs.instruments[subtype]->id.c_str();
-    case item_type::ARMOR:
-        return df::global::world->raws.itemdefs.armor[subtype]->id.c_str();
-    case item_type::AMMO:
-        return df::global::world->raws.itemdefs.ammo[subtype]->id.c_str();
-    case item_type::SIEGEAMMO:
-        return df::global::world->raws.itemdefs.siege_ammo[subtype]->id.c_str();
-    case item_type::GLOVES:
-        return df::global::world->raws.itemdefs.gloves[subtype]->id.c_str();
-    case item_type::SHOES:
-        return df::global::world->raws.itemdefs.shoes[subtype]->id.c_str();
-    case item_type::SHIELD:
-        return df::global::world->raws.itemdefs.shields[subtype]->id.c_str();
-    case item_type::HELM:
-        return df::global::world->raws.itemdefs.helms[subtype]->id.c_str();
-    case item_type::PANTS:
-        return df::global::world->raws.itemdefs.pants[subtype]->id.c_str();
-    case item_type::FOOD:
-        return df::global::world->raws.itemdefs.food[subtype]->id.c_str();
-    default:
-        return "?";
+    int size() const { return cache.size(); }
+    int add(ALLEGRO_BITMAP* bmp) {
+        cache.push_back(bmp);
+        return cache.size() - 1;
     }
-}
+    ALLEGRO_BITMAP* get(int idx) const {
+        return cache[idx];
+    }
+    int extend() {
+        cache.push_back(al_create_bitmap(ssConfig.imageCacheSize, ssConfig.imageCacheSize));
+        return cache.size() - 1;
+    }
 
-void draw_diamond(float x, float y, ALLEGRO_COLOR color)
+    ~ImageCache() {
+        flush();
+    };
+
+} IMGCache;
+
+class ImageFileList
 {
-    al_draw_filled_triangle(x, y, x+4, y+4, x-4, y+4, color);
-    al_draw_filled_triangle(x+4, y+4, x, y+8, x-4, y+4, color);
-}
+private:
+    struct Img
+    {
+        std::filesystem::path filename;
+        ALLEGRO_BITMAP* bmPtr;
+        Img(std::filesystem::path filename, ALLEGRO_BITMAP* bmp) : filename{ filename }, bmPtr{ bmp } {};
+        ~Img() {}
+    };
+    std::vector<Img> list;
+public:
+    ALLEGRO_BITMAP* lookup(size_t index) const
+    {
+        if (index == -1)
+            return IMGObjectSheet;
+        else if (index >= list.size())
+            return nullptr;
+        else
+            return list[index].bmPtr;
+    }
+    int size() const { return int(list.size()); }
+    const std::filesystem::path& getFilename(size_t index) const
+    {
+        return list[index].filename;
+    }
+    ALLEGRO_BITMAP* getBitmap(size_t index) const
+    {
+        return list[index].bmPtr;
+    }
+    void flush()
+    {
+        for (auto& i : list)
+        {
+            if (i.bmPtr) al_destroy_bitmap(i.bmPtr);
+        }
+        list.clear();
+    }
+    bool contains(std::filesystem::path pathname)
+    {
+        auto it = std::find_if(list.begin(), list.end(), [&](auto& e) -> bool { return e.filename == pathname; });
+        return it != list.end();
+    }
+    int lookup(std::filesystem::path pathname)
+    {
+        auto it = std::find_if(list.begin(), list.end(), [&](auto& e) -> bool { return e.filename == pathname; });
+        return it != list.end() ? it - list.begin() : -1;
+    }
+    void add(std::filesystem::path filename, ALLEGRO_BITMAP* cache, int xOffset, int yOffset, ALLEGRO_BITMAP* bmp2)
+    {
+        ALLEGRO_BITMAP* bmp = al_create_sub_bitmap(cache, xOffset, yOffset, al_get_bitmap_width(bmp2), al_get_bitmap_height(bmp2));
+        list.emplace_back(filename, bmp);
+    }
+    void add(std::filesystem::path filename, ALLEGRO_BITMAP* bmp)
+    {
+        list.emplace_back(filename, bmp);
+    }
 
-void draw_borders(float x, float y, uint8_t borders)
+    ~ImageFileList()
+    {
+        flush();
+    }
+
+} IMGFileList;
+
+namespace
 {
-    if(borders & 1) {
-        draw_diamond(x, y, uiColor(1));
-    } else {
-        draw_diamond(x, y, uiColor(0));
+    const char* get_item_subtype(item_type::item_type type, int subtype)
+    {
+        if (subtype < 0) {
+            return "?";
+        }
+        switch (type) {
+        case item_type::WEAPON:
+            return df::global::world->raws.itemdefs.weapons[subtype]->id.c_str();
+        case item_type::TRAPCOMP:
+            return df::global::world->raws.itemdefs.trapcomps[subtype]->id.c_str();
+        case item_type::TOY:
+            return df::global::world->raws.itemdefs.toys[subtype]->id.c_str();
+        case item_type::TOOL:
+            return df::global::world->raws.itemdefs.tools[subtype]->id.c_str();
+        case item_type::INSTRUMENT:
+            return df::global::world->raws.itemdefs.instruments[subtype]->id.c_str();
+        case item_type::ARMOR:
+            return df::global::world->raws.itemdefs.armor[subtype]->id.c_str();
+        case item_type::AMMO:
+            return df::global::world->raws.itemdefs.ammo[subtype]->id.c_str();
+        case item_type::SIEGEAMMO:
+            return df::global::world->raws.itemdefs.siege_ammo[subtype]->id.c_str();
+        case item_type::GLOVES:
+            return df::global::world->raws.itemdefs.gloves[subtype]->id.c_str();
+        case item_type::SHOES:
+            return df::global::world->raws.itemdefs.shoes[subtype]->id.c_str();
+        case item_type::SHIELD:
+            return df::global::world->raws.itemdefs.shields[subtype]->id.c_str();
+        case item_type::HELM:
+            return df::global::world->raws.itemdefs.helms[subtype]->id.c_str();
+        case item_type::PANTS:
+            return df::global::world->raws.itemdefs.pants[subtype]->id.c_str();
+        case item_type::FOOD:
+            return df::global::world->raws.itemdefs.food[subtype]->id.c_str();
+        default:
+            return "?";
+        }
     }
 
-    if(borders & 2) {
-        draw_diamond(x+4, y+4, uiColor(1));
-    } else {
-        draw_diamond(x+4, y+4, uiColor(0));
+    void draw_diamond(float x, float y, ALLEGRO_COLOR color)
+    {
+        al_draw_filled_triangle(x, y, x + 4, y + 4, x - 4, y + 4, color);
+        al_draw_filled_triangle(x + 4, y + 4, x, y + 8, x - 4, y + 4, color);
     }
 
-    if(borders & 4) {
-        draw_diamond(x+8, y+8, uiColor(1));
-    } else {
-        draw_diamond(x+8, y+8, uiColor(0));
+    void draw_borders(float x, float y, uint8_t borders)
+    {
+        if (borders & 1) {
+            draw_diamond(x, y, uiColor(1));
+        }
+        else {
+            draw_diamond(x, y, uiColor(0));
+        }
+
+        if (borders & 2) {
+            draw_diamond(x + 4, y + 4, uiColor(1));
+        }
+        else {
+            draw_diamond(x + 4, y + 4, uiColor(0));
+        }
+
+        if (borders & 4) {
+            draw_diamond(x + 8, y + 8, uiColor(1));
+        }
+        else {
+            draw_diamond(x + 8, y + 8, uiColor(0));
+        }
+
+        if (borders & 8) {
+            draw_diamond(x + 4, y + 12, uiColor(1));
+        }
+        else {
+            draw_diamond(x + 4, y + 12, uiColor(0));
+        }
+
+        if (borders & 16) {
+            draw_diamond(x, y + 16, uiColor(1));
+        }
+        else {
+            draw_diamond(x, y + 16, uiColor(0));
+        }
+
+        if (borders & 32) {
+            draw_diamond(x - 4, y + 12, uiColor(1));
+        }
+        else {
+            draw_diamond(x - 4, y + 12, uiColor(0));
+        }
+
+        if (borders & 64) {
+            draw_diamond(x - 8, y + 8, uiColor(1));
+        }
+        else {
+            draw_diamond(x - 8, y + 8, uiColor(0));
+        }
+
+        if (borders & 128) {
+            draw_diamond(x - 4, y + 4, uiColor(1));
+        }
+        else {
+            draw_diamond(x - 4, y + 4, uiColor(0));
+        }
+
     }
 
-    if(borders & 8) {
-        draw_diamond(x+4, y+12, uiColor(1));
-    } else {
-        draw_diamond(x+4, y+12, uiColor(0));
+    void ScreenToPoint(int inx, int iny, int& x1, int& y1, int& z1, int segSizeX, int segSizeY, int segSizeZ, int ScreenW, int ScreenH)
+    {
+        float x = inx;
+        float y = iny;
+        x -= ScreenW / 2.0;
+        y -= ScreenH / 2.0;
+
+        y = y / ssConfig.scale;
+        y += TILETOPHEIGHT * 5.0 / 4.0;
+        y += ssConfig.lift_segment_offscreen_y;
+        z1 = segSizeZ - 2;
+        y += z1 * TILEHEIGHT;
+        y = 2 * y / TILETOPHEIGHT;
+        y += (segSizeX / 2) + (segSizeY / 2);
+
+        x = x / ssConfig.scale;
+        x -= ssConfig.lift_segment_offscreen_x;
+        x = 2 * x / TILEWIDTH;
+        x += (segSizeX / 2) - (segSizeY / 2);
+
+        x1 = (x + y) / 2;
+        y1 = (y - x) / 2;
+
     }
-
-    if(borders & 16) {
-        draw_diamond(x, y+16, uiColor(1));
-    } else {
-        draw_diamond(x, y+16, uiColor(0));
-    }
-
-    if(borders & 32) {
-        draw_diamond(x-4, y+12, uiColor(1));
-    } else {
-        draw_diamond(x-4, y+12, uiColor(0));
-    }
-
-    if(borders & 64) {
-        draw_diamond(x-8, y+8, uiColor(1));
-    } else {
-        draw_diamond(x-8, y+8, uiColor(0));
-    }
-
-    if(borders & 128) {
-        draw_diamond(x-4, y+4, uiColor(1));
-    } else {
-        draw_diamond(x-4, y+4, uiColor(0));
-    }
-
-}
-
-void ScreenToPoint(int inx,int iny,int &x1, int &y1, int &z1, int segSizeX, int segSizeY, int segSizeZ, int ScreenW, int ScreenH)
-{
-    float x=inx;
-    float y=iny;
-    x-=ScreenW / 2.0;
-    y-=ScreenH / 2.0;
-
-    y = y/ssConfig.scale;
-    y += TILETOPHEIGHT*5.0/4.0;
-    y += ssConfig.lift_segment_offscreen_y;
-    z1 = segSizeZ-2;
-    y += z1*TILEHEIGHT;
-    y = 2 * y / TILETOPHEIGHT;
-    y += (segSizeX/2) + (segSizeY/2);
-
-    x = x/ssConfig.scale;
-    x -= ssConfig.lift_segment_offscreen_x;
-    x = 2 * x / TILEWIDTH;
-    x += (segSizeX/2) - (segSizeY/2);
-
-    x1 = (x + y)/2;
-    y1 = (y - x)/2;
-
 }
 
 void ScreenToPoint(int x,int y,int &x1, int &y1, int &z1)
@@ -223,28 +325,31 @@ void ScreenToPoint(int x,int y,int &x1, int &y1, int &z1)
     }
 }
 
-void pointToScreen(int *inx, int *iny, int inz, int segSizeX, int segSizeY, int ScreenW, int ScreenH){
-    int z = inz + 1 - ssState.Size.z;
+namespace
+{
+    void pointToScreen(int* inx, int* iny, int inz, int segSizeX, int segSizeY, int ScreenW, int ScreenH) {
+        int z = inz + 1 - ssState.Size.z;
 
-    int x = *inx-*iny;
-    x-=(segSizeX/2) - (segSizeY/2);
-    x = x * TILEWIDTH / 2;
-    x += ssConfig.lift_segment_offscreen_x;
-    x *= ssConfig.scale;
+        int x = *inx - *iny;
+        x -= (segSizeX / 2) - (segSizeY / 2);
+        x = x * TILEWIDTH / 2;
+        x += ssConfig.lift_segment_offscreen_x;
+        x *= ssConfig.scale;
 
-    int y = *inx+*iny;
-    y-=(segSizeX/2) + (segSizeY/2);
-    y = y*TILETOPHEIGHT / 2;
-    y -= z*TILEHEIGHT;
-    y -= TILETOPHEIGHT*5/4;
-    y -= ssConfig.lift_segment_offscreen_y;
-    y *= ssConfig.scale;
+        int y = *inx + *iny;
+        y -= (segSizeX / 2) + (segSizeY / 2);
+        y = y * TILETOPHEIGHT / 2;
+        y -= z * TILEHEIGHT;
+        y -= TILETOPHEIGHT * 5 / 4;
+        y -= ssConfig.lift_segment_offscreen_y;
+        y *= ssConfig.scale;
 
-    x+=ScreenW / 2;
-    y+=ScreenH / 2;
+        x += ScreenW / 2;
+        y += ScreenH / 2;
 
-    *inx=x;
-    *iny=y;
+        *inx = x;
+        *iny = y;
+    }
 }
 
 void pointToScreen(int *inx, int *iny, int inz)
@@ -333,20 +438,23 @@ void draw_ustr_border(const ALLEGRO_FONT *font, ALLEGRO_COLOR color, float x, fl
     al_draw_ustr(font, color, x, y, flags, ustr);
 }
 
-void draw_report_border(const ALLEGRO_FONT *font, float x, float y, int flags, const df::report * report)
+namespace
 {
-    ALLEGRO_COLOR color = ssConfig.colors.getDfColor(report->color, ssConfig.useDfColors);
-    draw_text_border(font, color, x, y, flags, DF2UTF(report->text).c_str());
-}
-
-void draw_announcements(const ALLEGRO_FONT *font, float x, float y, int flags, std::vector<df::report *> &announcements)
-{
-    const int numAnnouncements = (int)announcements.size();
-    const int maxAnnouncements = std::min(10, numAnnouncements);
-    for (int i = numAnnouncements - 1; i >= (numAnnouncements - maxAnnouncements) && announcements[i]->duration > 0; i--)
+    void draw_report_border(const ALLEGRO_FONT* font, float x, float y, int flags, const df::report* report)
     {
-        int offset = ((numAnnouncements - 1) - i) * al_get_font_line_height(font);
-        draw_report_border(font, x, y - offset, flags, announcements[i]);
+        ALLEGRO_COLOR color = ssConfig.colors.getDfColor(report->color, ssConfig.useDfColors);
+        draw_text_border(font, color, x, y, flags, DF2UTF(report->text).c_str());
+    }
+
+    void draw_announcements(const ALLEGRO_FONT* font, float x, float y, int flags, std::vector<df::report*>& announcements)
+    {
+        const int numAnnouncements = (int)announcements.size();
+        const int maxAnnouncements = std::min(10, numAnnouncements);
+        for (int i = numAnnouncements - 1; i >= (numAnnouncements - maxAnnouncements) && announcements[i]->duration > 0; i--)
+        {
+            int offset = ((numAnnouncements - 1) - i) * al_get_font_line_height(font);
+            draw_report_border(font, x, y - offset, flags, announcements[i]);
+        }
     }
 }
 
@@ -469,85 +577,89 @@ void DrawCurrentLevelOutline(bool backPart)
     }
 }
 
-void drawSelectionCursor(WorldSegment * segment)
+namespace
 {
-    Crd3D selection = segment->segState.dfSelection;
-    if( (selection.x != -30000 && ssConfig.follow_DFcursor)
-        || (ssConfig.track_mode == GameConfiguration::TRACKING_FOCUS) ){
+    void drawSelectionCursor(WorldSegment * segment)
+    {
+        Crd3D selection = segment->segState.dfSelection;
+        if ((selection.x != -30000 && ssConfig.follow_DFcursor)
+            || (ssConfig.track_mode == GameConfiguration::TRACKING_FOCUS)) {
             segment->CorrectTileForSegmentOffset(selection.x, selection.y, selection.z);
             segment->CorrectTileForSegmentRotation(selection.x, selection.y, selection.z);
-    } else {
-        return;
+        }
+        else {
+            return;
+        }
+        Crd2D point = LocalTileToScreen(selection.x, selection.y, selection.z);
+        int sheetx = SPRITEOBJECT_CURSOR % SHEET_OBJECTSWIDE;
+        int sheety = SPRITEOBJECT_CURSOR / SHEET_OBJECTSWIDE;
+        al_draw_tinted_scaled_bitmap(
+            IMGObjectSheet,
+            uiColor(3),
+            sheetx * SPRITEWIDTH,
+            sheety * SPRITEHEIGHT,
+            SPRITEWIDTH,
+            SPRITEHEIGHT,
+            point.x - ((SPRITEWIDTH / 2) * ssConfig.scale),
+            point.y - (WALLHEIGHT)*ssConfig.scale,
+            SPRITEWIDTH * ssConfig.scale,
+            SPRITEHEIGHT * ssConfig.scale,
+            0);
     }
-    Crd2D point = LocalTileToScreen(selection.x, selection.y, selection.z);
-    int sheetx = SPRITEOBJECT_CURSOR % SHEET_OBJECTSWIDE;
-    int sheety = SPRITEOBJECT_CURSOR / SHEET_OBJECTSWIDE;
-    al_draw_tinted_scaled_bitmap(
-        IMGObjectSheet,
-        uiColor(3),
-        sheetx * SPRITEWIDTH,
-        sheety * SPRITEHEIGHT,
-        SPRITEWIDTH,
-        SPRITEHEIGHT,
-        point.x-((SPRITEWIDTH/2)*ssConfig.scale),
-        point.y - (WALLHEIGHT)*ssConfig.scale,
-        SPRITEWIDTH*ssConfig.scale,
-        SPRITEHEIGHT*ssConfig.scale,
-        0);
-}
 
-void drawDebugCursor(WorldSegment * segment)
-{
-    Crd3D cursor = segment->segState.dfCursor;
-    segment->CorrectTileForSegmentOffset(cursor.x, cursor.y, cursor.z);
-    segment->CorrectTileForSegmentRotation(cursor.x, cursor.y, cursor.z);
+    void drawDebugCursor(WorldSegment * segment)
+    {
+        Crd3D cursor = segment->segState.dfCursor;
+        segment->CorrectTileForSegmentOffset(cursor.x, cursor.y, cursor.z);
+        segment->CorrectTileForSegmentRotation(cursor.x, cursor.y, cursor.z);
 
-    Crd2D point = LocalTileToScreen(cursor.x, cursor.y, cursor.z);
-    int sheetx = SPRITEOBJECT_CURSOR % SHEET_OBJECTSWIDE;
-    int sheety = SPRITEOBJECT_CURSOR / SHEET_OBJECTSWIDE;
-    al_draw_tinted_scaled_bitmap(
-        IMGObjectSheet,
-        uiColor(2),
-        sheetx * SPRITEWIDTH,
-        sheety * SPRITEHEIGHT,
-        SPRITEWIDTH,
-        SPRITEHEIGHT,
-        point.x-((SPRITEWIDTH/2)*ssConfig.scale),
-        point.y - (WALLHEIGHT)*ssConfig.scale,
-        SPRITEWIDTH*ssConfig.scale,
-        SPRITEHEIGHT*ssConfig.scale,
-        0);
-}
+        Crd2D point = LocalTileToScreen(cursor.x, cursor.y, cursor.z);
+        int sheetx = SPRITEOBJECT_CURSOR % SHEET_OBJECTSWIDE;
+        int sheety = SPRITEOBJECT_CURSOR / SHEET_OBJECTSWIDE;
+        al_draw_tinted_scaled_bitmap(
+            IMGObjectSheet,
+            uiColor(2),
+            sheetx * SPRITEWIDTH,
+            sheety * SPRITEHEIGHT,
+            SPRITEWIDTH,
+            SPRITEHEIGHT,
+            point.x - ((SPRITEWIDTH / 2) * ssConfig.scale),
+            point.y - (WALLHEIGHT)*ssConfig.scale,
+            SPRITEWIDTH * ssConfig.scale,
+            SPRITEHEIGHT * ssConfig.scale,
+            0);
+    }
 
-void drawAdvmodeMenuTalk(const ALLEGRO_FONT *font, int x, int y)
-{
-    //df::adventure * menu = df::global::adventure;
-    //if (!menu)
-    //    return;
-    //if (menu->talk_targets.size() == 0)
-    //    return;
-    //int line = menu->talk_targets.size() + 3;
-    //draw_textf_border(font, ssConfig.colors.getDfColor(dfColors::white, ssConfig.useDfColors), x, (y - (line*al_get_font_line_height(font))), 0,
-    //    "Who will you talk to?");
-    //line -= 2;
-    //for (int i = 0; i < menu->talk_targets.size(); i++)
-    //{
-    //    ALLEGRO_COLOR color = ssConfig.colors.getDfColor(dfColors::lgray, ssConfig.useDfColors);
-    //    if (i == menu->talk_target_selection)
-    //        color = ssConfig.colors.getDfColor(dfColors::white, ssConfig.useDfColors);
-    //    df::unit * crete = Units::GetCreature(Units::FindIndexById(menu->talk_targets[i]->unit_id));
-    //    if (crete)
-    //    {
-    //        ALLEGRO_USTR * string = al_ustr_newf("%s, ", Units::getProfessionName(crete).c_str());
-    //        int8_t gender = df::global::world->raws.creatures.all[crete->race]->caste[crete->caste]->gender;
-    //        if (gender == 0)
-    //            al_ustr_append_chr(string, 0x2640);
-    //        else if (gender == 1)
-    //            al_ustr_append_chr(string, 0x2642);
-    //        draw_ustr_border(font, color, x + 5, (y - ((line - i)*al_get_font_line_height(font))), 0,
-    //            string);
-    //    }
-    //}
+    void drawAdvmodeMenuTalk(const ALLEGRO_FONT * font, int x, int y)
+    {
+        //df::adventure * menu = df::global::adventure;
+        //if (!menu)
+        //    return;
+        //if (menu->talk_targets.size() == 0)
+        //    return;
+        //int line = menu->talk_targets.size() + 3;
+        //draw_textf_border(font, ssConfig.colors.getDfColor(dfColors::white, ssConfig.useDfColors), x, (y - (line*al_get_font_line_height(font))), 0,
+        //    "Who will you talk to?");
+        //line -= 2;
+        //for (int i = 0; i < menu->talk_targets.size(); i++)
+        //{
+        //    ALLEGRO_COLOR color = ssConfig.colors.getDfColor(dfColors::lgray, ssConfig.useDfColors);
+        //    if (i == menu->talk_target_selection)
+        //        color = ssConfig.colors.getDfColor(dfColors::white, ssConfig.useDfColors);
+        //    df::unit * crete = Units::GetCreature(Units::FindIndexById(menu->talk_targets[i]->unit_id));
+        //    if (crete)
+        //    {
+        //        ALLEGRO_USTR * string = al_ustr_newf("%s, ", Units::getProfessionName(crete).c_str());
+        //        int8_t gender = df::global::world->raws.creatures.all[crete->race]->caste[crete->caste]->gender;
+        //        if (gender == 0)
+        //            al_ustr_append_chr(string, 0x2640);
+        //        else if (gender == 1)
+        //            al_ustr_append_chr(string, 0x2642);
+        //        draw_ustr_border(font, color, x + 5, (y - ((line - i)*al_get_font_line_height(font))), 0,
+        //            string);
+        //    }
+        //}
+    }
 }
 
 void drawDebugInfo(WorldSegment * segment)
@@ -1062,15 +1174,8 @@ ALLEGRO_BITMAP * CreateSpriteFromSheet( int spriteNum, ALLEGRO_BITMAP* spriteShe
 
 void DrawSpriteIndexOverlay(int imageIndex)
 {
-    ALLEGRO_BITMAP* currentImage;
-    if (imageIndex == -1) {
-        currentImage=IMGObjectSheet;
-    } else {
-        if( imageIndex >= (int)IMGFilelist.size()) {
-            return;
-        }
-        currentImage=IMGFilelist[imageIndex];
-    }
+    auto currentImage = IMGFileList.lookup(imageIndex);
+
     al_clear_to_color(al_map_rgb(255, 0, 255));
     al_draw_bitmap(currentImage,0,0,0);
     for(int i =0; i<= 20*SPRITEWIDTH; i+=SPRITEWIDTH) {
@@ -1088,7 +1193,7 @@ void DrawSpriteIndexOverlay(int imageIndex)
     }
     draw_textf_border(font, uiColor(1), ssState.ScreenW-10, ssState.ScreenH -al_get_font_line_height(font), ALLEGRO_ALIGN_RIGHT,
                       "%s (%d) (Press SPACE to return)",
-        (imageIndex == -1 ? "objects.png" : (IMGFilenames[imageIndex]->string().c_str())), imageIndex);
+        (imageIndex == -1 ? "objects.png" : IMGFileList.getFilename(imageIndex).string().c_str()), imageIndex);
     al_flip_display();
 }
 
@@ -1097,7 +1202,7 @@ void DoSpriteIndexOverlay()
 {
     DrawSpriteIndexOverlay(-1);
     int index = 0;
-    int max = (int)IMGFilenames.size();
+    int max = IMGFileList.size();
     while(true) {
         while(!al_key_down(&keyboard,ALLEGRO_KEY_SPACE) && !al_key_down(&keyboard,ALLEGRO_KEY_F10)) {
             al_get_keyboard_state(&keyboard);
@@ -1163,7 +1268,7 @@ void paintboard()
     ssTimers.prev_frame_time = donetime;
 
     if(ssConfig.show_keybinds){
-        string *keyname, *actionname;
+        std::string *keyname, *actionname;
         keyname = actionname = NULL;
         int line = 1;
         al_hold_bitmap_drawing(true);
@@ -1227,21 +1332,23 @@ void paintboard()
 }
 
 
-bool load_from_path (ALLEGRO_PATH * p, const char * filename, ALLEGRO_BITMAP *& imgd)
+bool load_from_path (const std::filesystem::path p, const std::string& filename, ALLEGRO_BITMAP *& imgd)
 {
     int index;
-    al_set_path_filename(p,filename);
-    index = loadImgFile(al_path_cstr(p,ALLEGRO_NATIVE_PATH_SEP));
+    index = loadImgFile(p / filename);
     if(index == -1) {
         return false;
     }
-    imgd = al_create_sub_bitmap(IMGFilelist[index], 0, 0, al_get_bitmap_width(IMGFilelist[index]), al_get_bitmap_height(IMGFilelist[index]));
+    auto bmp = IMGFileList.getBitmap(index);
+    imgd = al_create_sub_bitmap(bmp, 0, 0,
+        al_get_bitmap_width(bmp),
+        al_get_bitmap_height(bmp));
     return true;
 }
 
 namespace {
     struct Img {
-        string name;
+        std::string name;
         ALLEGRO_BITMAP*& bPtr;
     };
 
@@ -1261,13 +1368,12 @@ namespace {
 
 void loadGraphicsFromDisk()
 {
-    ALLEGRO_PATH * p = al_create_path_for_directory("stonesense");
+    std::filesystem::path path{ "stonesense" };
     for (auto& img : img_list)
     {
-        if (!load_from_path(p, img.name.c_str(), img.bPtr))
+        if (!load_from_path(path, img.name, img.bPtr))
             return;
     }
-    al_destroy_path(p);
     createEffectSprites();
 }
 
@@ -1285,43 +1391,32 @@ void flushImgFiles()
             img.bPtr = nullptr;
         }
 
-    uint32_t numFiles = (uint32_t)IMGFilelist.size();
-    assert( numFiles == IMGFilenames.size());
-    for(uint32_t i = 0; i < numFiles; i++) {
-        al_destroy_bitmap(IMGFilelist[i]);
-    }
-    uint32_t caches = (uint32_t)IMGCache.size();
-    for(uint32_t i = 0; i < caches; i++) {
-        al_destroy_bitmap(IMGCache[i]);
-    }
-    IMGFilelist.clear();
-    IMGFilenames.clear();
-    IMGCache.clear();
+    IMGFileList.flush();
+    IMGCache.flush();
+
 }
 
 ALLEGRO_BITMAP* getImgFile(int index)
 {
-    return IMGFilelist[index];
-}
-
-inline int returnGreater(int a, int b)
-{
-    if(a>b) {
-        return a;
-    } else {
-        return b;
-    }
+    return IMGFileList.getBitmap(index);
 }
 
 int loadImgFile(std::filesystem::path filename)
 {
-    if(ssConfig.cache_images) {
+    if (IMGFileList.contains(filename))
+    {
+        return IMGFileList.lookup(filename);
+    }
+
+    ALLEGRO_BITMAP* tempfile = load_bitmap_withWarning(filename);
+
+    if (ssConfig.cache_images) {
         static bool foundSize = false;
-        if(!foundSize) {
+        if (!foundSize) {
             ALLEGRO_BITMAP* test = 0;
-            while(true) {
-                test = al_create_bitmap(ssConfig.imageCacheSize,ssConfig.imageCacheSize);
-                if(test) {
+            while (true) {
+                test = al_create_bitmap(ssConfig.imageCacheSize, ssConfig.imageCacheSize);
+                if (test) {
                     LogError("%i works.\n", ssConfig.imageCacheSize);
                     break;
                 }
@@ -1331,98 +1426,63 @@ int loadImgFile(std::filesystem::path filename)
             foundSize = true;
             al_destroy_bitmap(test);
         }
+
         int op, src, dst, alpha_op, alpha_src, alpha_dst;
         al_get_separate_blender(&op, &src, &dst, &alpha_op, &alpha_src, &alpha_dst);
-        uint32_t numFiles = (uint32_t)IMGFilelist.size();
-        for(uint32_t i = 0; i < numFiles; i++) {
-            if (filename == *IMGFilenames[i]) {
-                return i;
-            }
-        }
-        /*
-        al_clear_to_color(uiColor(0));
-        draw_textf_border(font, ssState.ScreenW/2,
-        ssState.ScreenH/2,
-        ALLEGRO_ALIGN_CENTRE, "Loading %s...", filename);
-        al_flip_display();
-        */
+
         static int xOffset = 0;
         static int yOffset = 0;
         int currentCache = IMGCache.size() -1;
         static int columnWidth = 0;
-        ALLEGRO_BITMAP* tempfile = load_bitmap_withWarning(filename);
         if(!tempfile) {
             return -1;
         }
         LogVerbose("New image: %s\n", filename.string().c_str());
-        if(currentCache < 0) {
-            // FIXME: this is some really weird logic.
-            IMGCache.push_back(al_create_bitmap(ssConfig.imageCacheSize, ssConfig.imageCacheSize));
-            if(!IMGCache[0]) {
-                // FIXME: so, what happens when al_create_bitmap fails? rainbows and unicorns?
-                LogVerbose("Cannot create bitmap sized %ix%i, please chose a smaller size",ssConfig.imageCacheSize,ssConfig.imageCacheSize);
-            }
-            currentCache = IMGCache.size() -1;
+        if (currentCache < 0) {
+            currentCache = IMGCache.extend();
             LogVerbose("Creating image cache #%d\n",currentCache);
         }
         if((yOffset + al_get_bitmap_height(tempfile)) <= ssConfig.imageCacheSize) {
-            al_set_blender(ALLEGRO_ADD, ALLEGRO_ONE, ALLEGRO_ZERO);
-            al_set_target_bitmap(IMGCache[currentCache]);
-            al_draw_bitmap(tempfile, xOffset, yOffset, 0);
-            IMGFilelist.push_back(al_create_sub_bitmap(IMGCache[currentCache], xOffset, yOffset, al_get_bitmap_width(tempfile), al_get_bitmap_height(tempfile)));
-            yOffset += al_get_bitmap_height(tempfile);
-            columnWidth = returnGreater(columnWidth, al_get_bitmap_width(tempfile));
+            // nothing
         } else if ((xOffset + al_get_bitmap_width(tempfile) + columnWidth) <= ssConfig.imageCacheSize) {
             yOffset = 0;
             xOffset += columnWidth;
             columnWidth = 0;
-            al_set_blender(ALLEGRO_ADD, ALLEGRO_ONE, ALLEGRO_ZERO);
-            al_set_target_bitmap(IMGCache[currentCache]);
-            al_draw_bitmap(tempfile, xOffset, yOffset, 0);
-            IMGFilelist.push_back(al_create_sub_bitmap(IMGCache[currentCache], xOffset, yOffset, al_get_bitmap_width(tempfile), al_get_bitmap_height(tempfile)));
-            yOffset += al_get_bitmap_height(tempfile);
-            columnWidth = returnGreater(columnWidth, al_get_bitmap_width(tempfile));
         } else {
             yOffset = 0;
             xOffset = 0;
-            IMGCache.push_back(al_create_bitmap(ssConfig.imageCacheSize, ssConfig.imageCacheSize));
-            currentCache = IMGCache.size() -1;
+            currentCache = IMGCache.extend();
             LogVerbose("Creating image cache #%d\n",currentCache);
-            al_set_blender(ALLEGRO_ADD, ALLEGRO_ONE, ALLEGRO_ZERO);
-            al_set_target_bitmap(IMGCache[currentCache]);
-            al_draw_bitmap(tempfile, xOffset, yOffset, 0);
-            IMGFilelist.push_back(al_create_sub_bitmap(IMGCache[currentCache], xOffset, yOffset, al_get_bitmap_width(tempfile), al_get_bitmap_height(tempfile)));
-            yOffset += al_get_bitmap_height(tempfile);
-            columnWidth = returnGreater(columnWidth, al_get_bitmap_width(tempfile));
         }
+
+        al_set_blender(ALLEGRO_ADD, ALLEGRO_ONE, ALLEGRO_ZERO);
+        al_set_target_bitmap(IMGCache.get(currentCache));
+        al_draw_bitmap(tempfile, xOffset, yOffset, 0);
+        IMGFileList.add(filename, IMGCache.get(currentCache), xOffset, yOffset, tempfile);
+        yOffset += al_get_bitmap_height(tempfile);
+        columnWidth = std::max(columnWidth, al_get_bitmap_width(tempfile));
+
         if(ssConfig.saveImageCache) {
             saveImage(tempfile);
         }
         al_destroy_bitmap(tempfile);
         al_set_target_bitmap(al_get_backbuffer(al_get_current_display()));
-        IMGFilenames.push_back(std::make_unique<std::filesystem::path>(filename));
         al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst);
         if(ssConfig.saveImageCache) {
-            saveImage(IMGCache[currentCache]);
+            saveImage(IMGCache.get(currentCache));
         }
         al_clear_to_color(al_map_rgb(0,0,0));
         al_flip_display();
-        return (int)IMGFilelist.size() - 1;
-    } else {
-        uint32_t numFiles = (uint32_t)IMGFilelist.size();
-        for(uint32_t i = 0; i < numFiles; i++) {
-            if (filename == *IMGFilenames[i]) {
-                return i;
-            }
-        }
-        ALLEGRO_BITMAP * temp = load_bitmap_withWarning(filename);
-        if(!temp) {
+        return (int)IMGFileList.size() - 1;
+    }
+    else
+    {
+        if(!tempfile) {
             return -1;
         }
-        IMGFilelist.push_back(temp);
-        IMGFilenames.push_back(std::make_unique<std::filesystem::path>(filename));
+        IMGFileList.add(filename, tempfile);
         LogVerbose("New image: %s\n", filename.string().c_str());
-        return (int)IMGFilelist.size() - 1;
+        return (int)IMGFileList.size() - 1;
     }
 }
 
