@@ -185,111 +185,6 @@ public:
 
 namespace
 {
-    const char* get_item_subtype(item_type::item_type type, int subtype)
-    {
-        if (subtype < 0) {
-            return "?";
-        }
-        switch (type) {
-        case item_type::WEAPON:
-            return df::global::world->raws.itemdefs.weapons[subtype]->id.c_str();
-        case item_type::TRAPCOMP:
-            return df::global::world->raws.itemdefs.trapcomps[subtype]->id.c_str();
-        case item_type::TOY:
-            return df::global::world->raws.itemdefs.toys[subtype]->id.c_str();
-        case item_type::TOOL:
-            return df::global::world->raws.itemdefs.tools[subtype]->id.c_str();
-        case item_type::INSTRUMENT:
-            return df::global::world->raws.itemdefs.instruments[subtype]->id.c_str();
-        case item_type::ARMOR:
-            return df::global::world->raws.itemdefs.armor[subtype]->id.c_str();
-        case item_type::AMMO:
-            return df::global::world->raws.itemdefs.ammo[subtype]->id.c_str();
-        case item_type::SIEGEAMMO:
-            return df::global::world->raws.itemdefs.siege_ammo[subtype]->id.c_str();
-        case item_type::GLOVES:
-            return df::global::world->raws.itemdefs.gloves[subtype]->id.c_str();
-        case item_type::SHOES:
-            return df::global::world->raws.itemdefs.shoes[subtype]->id.c_str();
-        case item_type::SHIELD:
-            return df::global::world->raws.itemdefs.shields[subtype]->id.c_str();
-        case item_type::HELM:
-            return df::global::world->raws.itemdefs.helms[subtype]->id.c_str();
-        case item_type::PANTS:
-            return df::global::world->raws.itemdefs.pants[subtype]->id.c_str();
-        case item_type::FOOD:
-            return df::global::world->raws.itemdefs.food[subtype]->id.c_str();
-        default:
-            return "?";
-        }
-    }
-
-    void draw_diamond(float x, float y, ALLEGRO_COLOR color)
-    {
-        al_draw_filled_triangle(x, y, x + 4, y + 4, x - 4, y + 4, color);
-        al_draw_filled_triangle(x + 4, y + 4, x, y + 8, x - 4, y + 4, color);
-    }
-
-    void draw_borders(float x, float y, uint8_t borders)
-    {
-        if (borders & 1) {
-            draw_diamond(x, y, uiColor(1));
-        }
-        else {
-            draw_diamond(x, y, uiColor(0));
-        }
-
-        if (borders & 2) {
-            draw_diamond(x + 4, y + 4, uiColor(1));
-        }
-        else {
-            draw_diamond(x + 4, y + 4, uiColor(0));
-        }
-
-        if (borders & 4) {
-            draw_diamond(x + 8, y + 8, uiColor(1));
-        }
-        else {
-            draw_diamond(x + 8, y + 8, uiColor(0));
-        }
-
-        if (borders & 8) {
-            draw_diamond(x + 4, y + 12, uiColor(1));
-        }
-        else {
-            draw_diamond(x + 4, y + 12, uiColor(0));
-        }
-
-        if (borders & 16) {
-            draw_diamond(x, y + 16, uiColor(1));
-        }
-        else {
-            draw_diamond(x, y + 16, uiColor(0));
-        }
-
-        if (borders & 32) {
-            draw_diamond(x - 4, y + 12, uiColor(1));
-        }
-        else {
-            draw_diamond(x - 4, y + 12, uiColor(0));
-        }
-
-        if (borders & 64) {
-            draw_diamond(x - 8, y + 8, uiColor(1));
-        }
-        else {
-            draw_diamond(x - 8, y + 8, uiColor(0));
-        }
-
-        if (borders & 128) {
-            draw_diamond(x - 4, y + 4, uiColor(1));
-        }
-        else {
-            draw_diamond(x - 4, y + 4, uiColor(0));
-        }
-
-    }
-
     void ScreenToPoint(int inx, int iny, int& x1, int& y1, int& z1, int segSizeX, int segSizeY, int segSizeZ, int ScreenW, int ScreenH)
     {
         float x = inx;
@@ -1050,13 +945,7 @@ void drawDebugInfo(WorldSegment * segment)
                               mat.getToken().c_str(),
                               subtype?itemdef.getToken().c_str():"");
         }
-        //borders
-        /*
-            int dray = (i++*al_get_font_line_height(font));
-        draw_textf_border(font, uiColor(1), 16, dray, 0,
-            "Open: %d, floor: %d, Wall: %d, Ramp: %d Light: %d", b->openborders, b->floorborders, b->wallborders, b->rampborders, b->lightborders);
-        draw_borders(8, dray, b->lightborders);
-        */
+
         const char* matName = lookupMaterialTypeName(b->tileeffect.matt.type);
         const char* subMatName = lookupMaterialName(b->tileeffect.matt.type,b->tileeffect.matt.index);
         switch(b->tileeffect.type){
