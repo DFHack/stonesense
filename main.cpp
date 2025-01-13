@@ -1,4 +1,5 @@
 #include <assert.h>
+#include <cmath>
 #include <vector>
 #include <list>
 
@@ -345,6 +346,11 @@ static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALL
             case ALLEGRO_EVENT_DISPLAY_RESIZE:
                 if (ssConfig.overlay_mode) {
                     break;
+
+                }
+                if (ssConfig.autosize_segment) {
+                    ssState.Size.x = (int)std::ceil(std::sqrt(2) * (ssState.ScreenW + ssState.ScreenH) / TILEWIDTH);
+                    ssState.Size.y = (int)std::ceil(std::sqrt(2) * (ssState.ScreenW + ssState.ScreenH) / TILEWIDTH);
                 }
                 if(!al_acknowledge_resize(event.display.source)) {
                     con.printerr("Failed to resize diplay");
@@ -414,6 +420,7 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
     ssConfig.shade_hidden_tiles = true;
     ssConfig.load_ground_materials = true;
     ssConfig.automatic_reload_time = 0;
+    ssConfig.autosize_segment = false;
     ssConfig.automatic_reload_step = 500;
     ssConfig.lift_segment_offscreen_x = 0;
     ssConfig.lift_segment_offscreen_y = 0;
