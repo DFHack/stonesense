@@ -21,17 +21,6 @@ using namespace DFHack;
 using namespace df::enums;
 using df::global::world;
 
-namespace
-{
-    bool tileHasBridge(Tile* b)
-    {
-        if (!b) {
-            return 0;
-        }
-        return b->building.type == df::enums::building_type::Bridge;
-    }
-}
-
 dirTypes findWallCloseTo(WorldSegment* segment, Tile* b)
 {
     uint32_t x,y,z;
@@ -109,7 +98,7 @@ void MergeBuildingsToSegment(std::vector<Buildings::t_building>* buildings, Worl
                         z2 = well_building->bucket_z;
                 }
 
-                for (int32_t zz = copiedbuilding->z; zz >= z2; zz--) {
+                for (uint32_t zz = copiedbuilding->z; zz >= z2; zz--) {
                     if (copiedbuilding->type == df::enums::building_type::Civzone ||
                         copiedbuilding->type == df::enums::building_type::Stockpile ||
                         copiedbuilding->type == df::enums::building_type::FarmPlot) {
