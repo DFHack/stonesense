@@ -234,9 +234,8 @@ bool ContentLoader::reload_configs()
     flushImgFiles();
 
     loadGraphicsFromDisk(); //these get destroyed when flushImgFiles is called.
-    ALLEGRO_PATH * p = al_create_path("stonesense/index.txt");
-    bool overallResult = parseContentIndexFile( al_path_cstr(p, ALLEGRO_NATIVE_PATH_SEP) );
-    al_destroy_path(p);
+    std::filesystem::path p = std::filesystem::path{} / "stonesense" / "index.txt";
+    bool overallResult = parseContentIndexFile( p );
 
     return overallResult;
 }
