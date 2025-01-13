@@ -12,7 +12,6 @@ class TerrainMaterialConfiguration
 {
 private:
     std::vector<std::pair<c_sprite, int>> defaultSprite;
-    int gameID;
     std::vector<std::map<int, std::pair<c_sprite, int>> > overridingMaterials;
 public:
     TerrainMaterialConfiguration();
