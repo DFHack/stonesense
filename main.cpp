@@ -163,7 +163,7 @@ void SetTitle(const char *format, ...)
 bool loadfont(DFHack::color_ostream & output)
 {
     std::filesystem::path p{ "stonesense" };
-    p /= "font";
+    p /= ssConfig.font;
     font = al_load_font(p.string().c_str(), ssConfig.fontsize, 0);
     if (!font) {
         output.printerr("Cannot load font: %s\n", p.string().c_str());

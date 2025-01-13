@@ -807,7 +807,7 @@ namespace {
 bool loadConfigFile()
 {
     string line;
-    auto path = std::filesystem::path{} / "dfhack-config " / "stonesense " / "init.txt";
+    auto path = std::filesystem::path{} / "dfhack-config" / "stonesense" / "init.txt";
     std::ifstream myfile(path);
     if (myfile.is_open() == false) {
         LogError( "cannot find init file\n" );
