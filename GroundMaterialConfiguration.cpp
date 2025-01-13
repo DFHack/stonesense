@@ -52,6 +52,29 @@ void DumpInorganicMaterialNamesToDisk()
     fclose(fp);
 }
 
+void TerrainMaterialConfiguration::updateSprite(auto j, auto sprite, auto x)
+{
+    if (this->defaultSprite[j].second == INVALID_INDEX
+        || this->defaultSprite[j].second > x)
+    {
+        this->defaultSprite[j].first = sprite;
+        this->defaultSprite[j].second = x;
+    }
+}
+
+void TerrainMaterialConfiguration::updateOverridingMaterials(auto j, auto subtypeId, auto sprite, auto x) {
+    if (this->overridingMaterials[j].count(subtypeId))
+    {
+        if (this->overridingMaterials[j][subtypeId].second > x)
+            this->overridingMaterials[j][subtypeId].first = sprite;
+    }
+    else
+    {
+        this->overridingMaterials[j][subtypeId].first = sprite;
+    }
+    this->overridingMaterials[j][subtypeId].second = x;
+}
+
 namespace
 {
     template<typename T>
@@ -281,13 +304,8 @@ namespace
                     //FIXME: figure out how to manage priorities here.
                     for (int j = 0; j < NUM_FORMS; j++) {
                         if (formToggle[j])
-                            if (tConfig->terrainMaterials[elemIndex]->defaultSprite[j].second == INVALID_INDEX
-                                || tConfig->terrainMaterials[elemIndex]->defaultSprite[j].second > lookupKeys[i].second)
-                            {
-                                tConfig->terrainMaterials[elemIndex]->defaultSprite[j].first = sprite;
-                                tConfig->terrainMaterials[elemIndex]->defaultSprite[j].second = lookupKeys[i].second;
-                            }
-                    }
+                            tConfig->terrainMaterials[elemIndex]->updateSprite(j, sprite, lookupKeys[i].second);
+                     }
                 }
             }
             for (; elemSubtype; elemSubtype = elemSubtype->NextSiblingElement("subtype")) {
@@ -315,17 +333,7 @@ namespace
                     // add to map (if not already present)
                     for (int j = 0; j < NUM_FORMS; j++) {
                         if (formToggle[j]) {
-                            if (tConfig->terrainMaterials[elemIndex]->overridingMaterials[j].count(subtypeId))
-                            {
-                                if (tConfig->terrainMaterials[elemIndex]->overridingMaterials[j][subtypeId].second > lookupKeys[i].second)
-                                    tConfig->terrainMaterials[elemIndex]->overridingMaterials[j][subtypeId].first = sprite;
-                                tConfig->terrainMaterials[elemIndex]->overridingMaterials[j][subtypeId].second = lookupKeys[i].second;
-                            }
-                            else
-                            {
-                                tConfig->terrainMaterials[elemIndex]->overridingMaterials[j][subtypeId].first = sprite;
-                                tConfig->terrainMaterials[elemIndex]->overridingMaterials[j][subtypeId].second = lookupKeys[i].second;
-                            }
+                            tConfig->terrainMaterials[elemIndex]->updateOverridingMaterials(j, subtypeId, sprite, lookupKeys[i].second);
                         }
                     }
                 }

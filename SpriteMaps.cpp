@@ -65,29 +65,15 @@ c_sprite *  GetTerrainSpriteMap(int in, t_matglossPair material, vector<std::uni
         }
     }
     if(material.index == -1) {
-        if (terrainMat->defaultSprite[tempform].first.get_sheetindex() == UNCONFIGURED_INDEX) {
-            return &(terrainMat->defaultSprite[0].first);
+        if (terrainMat->getSprite(tempform).get_sheetindex() == UNCONFIGURED_INDEX) {
+            return &(terrainMat->getSprite(0));
         } else {
-            return &(terrainMat->defaultSprite[tempform].first);
+            return &(terrainMat->getSprite(tempform));
         }
     }
     // return subtype, type default or terrain default as available
     // do map lookup
-    map<int,pair<c_sprite, int>>::iterator it = terrainMat->overridingMaterials[tempform].find(material.index);
-    if (it != terrainMat->overridingMaterials[tempform].end()) {
-        return &(it->second.first);
-    }
-    if (terrainMat->defaultSprite[tempform].first.get_sheetindex() != UNCONFIGURED_INDEX) {
-        return &(terrainMat->defaultSprite[tempform].first);
-    }
-    it = terrainMat->overridingMaterials[0].find(material.index);
-    if (it != terrainMat->overridingMaterials[0].end()) {
-        return &(it->second.first);
-    }
-    if (terrainMat->defaultSprite[0].first.get_sheetindex() != UNCONFIGURED_INDEX) {
-        return &(terrainMat->defaultSprite[0].first);
-    }
-    return &(terrain->defaultSprite[0].first);
+    return &terrainMat->getOverridingMaterial(tempform, material, terrain);
 }
 
 c_sprite * GetFloorSpriteMap(int in, t_matglossPair material, uint16_t form)
