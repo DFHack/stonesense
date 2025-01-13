@@ -17,17 +17,19 @@
 #include "df/itemimprovement_threadst.h"
 #include "df/world.h"
 
-using namespace std;
 using namespace DFHack;
 using namespace df::enums;
 using df::global::world;
 
-bool tileHasBridge(Tile* b)
+namespace
 {
-    if(!b) {
-        return 0;
+    bool tileHasBridge(Tile* b)
+    {
+        if (!b) {
+            return 0;
+        }
+        return b->building.type == df::enums::building_type::Bridge;
     }
-    return b->building.type == df::enums::building_type::Bridge;
 }
 
 dirTypes findWallCloseTo(WorldSegment* segment, Tile* b)
@@ -57,38 +59,37 @@ dirTypes findWallCloseTo(WorldSegment* segment, Tile* b)
     return eSimpleSingle;
 }
 
-void ReadBuildings(DFHack::Core& DF, vector<Buildings::t_building>* buildingHolder)
+void ReadBuildings(DFHack::Core& DF, std::vector<Buildings::t_building>* buildingHolder)
 {
     if(ssConfig.skipBuildings) {
         return;
     }
+
     if(!buildingHolder) {
         return;
     }
 
-    vector<string> dummy;
-    Buildings::t_building tempbuilding;
     df::buildings_other_id types = df::buildings_other_id::IN_PLAY;
 
     for (size_t i = 0; i < world->buildings.other[types].size(); i++) {
         df::building *bld = world->buildings.other[types][i];
-        tempbuilding.x1 = bld->x1;
-        tempbuilding.x2 = bld->x2;
-        tempbuilding.y1 = bld->y1;
-        tempbuilding.y2 = bld->y2;
-        tempbuilding.z = bld->z;
-        tempbuilding.material.index = bld->mat_index;
-        tempbuilding.material.type = bld->mat_type;
-        tempbuilding.type = bld->getType();
-        tempbuilding.subtype = bld->getSubtype();
-        tempbuilding.custom_type = bld->getCustomType();
-        tempbuilding.origin = bld;
+        Buildings::t_building tempbuilding{
+            .x1 = bld->x1,
+            .y1 = bld->y1,
+            .x2 = bld->x2,
+            .y2 = bld->y2,
+            .z = bld->z,
+            .material {.type = bld->mat_type, .index = bld->mat_index },
+            .type = bld->getType(),
+            .subtype = bld->getSubtype(),
+            .custom_type = bld->getCustomType(),
+            .origin = bld
+        };
         buildingHolder->push_back(tempbuilding);
     }
 }
 
-
-void MergeBuildingsToSegment(vector<Buildings::t_building>* buildings, WorldSegment* segment)
+void MergeBuildingsToSegment(std::vector<Buildings::t_building>* buildings, WorldSegment* segment)
 {
     uint32_t numBuildings = (uint32_t)buildings->size();
     for (uint32_t i = 0; i < numBuildings; i++) {
@@ -98,9 +99,9 @@ void MergeBuildingsToSegment(vector<Buildings::t_building>* buildings, WorldSegm
         segment->PushBuilding(std::move(building_ptr));
 
         //int bheight = tempbuilding.y2 - tempbuilding.y1;
-        for (uint32_t yy = copiedbuilding->y1; yy <= copiedbuilding->y2; yy++) {
-            for (uint32_t xx = copiedbuilding->x1; xx <= copiedbuilding->x2; xx++) {
-                uint32_t z2 = copiedbuilding->z;
+        for (int32_t yy = copiedbuilding->y1; yy <= copiedbuilding->y2; yy++) {
+            for (int32_t xx = copiedbuilding->x1; xx <= copiedbuilding->x2; xx++) {
+                int32_t z2 = copiedbuilding->z;
                 //if it's a well, add the bucket status.
                 if (copiedbuilding->type == df::enums::building_type::Well) {
                     auto well_building = virtual_cast<df::building_wellst>(copiedbuilding->origin);
@@ -108,7 +109,7 @@ void MergeBuildingsToSegment(vector<Buildings::t_building>* buildings, WorldSegm
                         z2 = well_building->bucket_z;
                 }
 
-                for (uint32_t zz = copiedbuilding->z; zz >= z2; zz--) {
+                for (int32_t zz = copiedbuilding->z; zz >= z2; zz--) {
                     if (copiedbuilding->type == df::enums::building_type::Civzone ||
                         copiedbuilding->type == df::enums::building_type::Stockpile ||
                         copiedbuilding->type == df::enums::building_type::FarmPlot) {
@@ -262,30 +263,3 @@ void loadBuildingSprites ( Tile* b)
     }
 }
 
-///*TODO: this function takes a massive amount of work, looping all buildings for every tile*/
-//bool TileHasSuspendedBuilding(vector<Buildings::t_building>* buildingList, Tile* b)
-//{
-//    uint32_t num = (uint32_t)buildingList->size();
-//    for(uint32_t i=0; i < num; i++) {
-//        Buildings::t_building* building = &(*buildingList)[i];
-//
-//        //boundry check
-//        if(b->z != building->z) {
-//            continue;
-//        }
-//        if(b->x < building->x1  ||   b->x > building->x2) {
-//            continue;
-//        }
-//        if(b->y < building->y1  ||   b->y > building->y2) {
-//            continue;
-//        }
-//
-//        if(building->type == df::enums::building_type::Bridge) {
-//            return true;
-//        }
-//        if(building->type == df::enums::building_type::Civzone) {
-//            return true;
-//        }
-//    }
-//    return false;
-//}
