@@ -262,4 +262,3 @@ void loadBuildingSprites ( Tile* b)
         b->building.sprites.push_back( unknownBuildingSprite );
     }
 }
-
