@@ -1,5 +1,7 @@
 #pragma once
 
+#include <filesystem>
+
 #include "common.h"
 #include "SpriteColors.h"
 #include "df/enabler.h"
@@ -168,7 +170,7 @@ struct GameConfiguration {
     int automatic_reload_step;
     int animation_step;
     int fontsize;
-    ALLEGRO_PATH * font;
+    std::filesystem::path font;
     bool Fullscreen;
     bool show_intro;
     ALLEGRO_COLOR fogcol;

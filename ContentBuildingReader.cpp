@@ -208,17 +208,15 @@ bool includeFile(SpriteNode* node, TiXmlElement* includeNode, SpriteTile* &oldSi
     std::filesystem::path documentRef = getDocument(includeNode);
 
     std::filesystem::path configfilepath = getLocalFilename(includeNode->Attribute("file"), documentRef);
-    ALLEGRO_PATH * incpath = al_create_path(configfilepath.string().c_str());
-    al_append_path_component(incpath, "include");
-    TiXmlDocument doc( al_path_cstr(incpath, ALLEGRO_NATIVE_PATH_SEP) );
-    al_destroy_path(incpath);
+    std::filesystem::path incpath = configfilepath.remove_filename() / "include" / configfilepath.filename();
+    TiXmlDocument doc( incpath.string().c_str() );
     bool loadOkay = doc.LoadFile();
     TiXmlHandle hDoc(&doc);
     TiXmlElement* elemParent;
     if(!loadOkay) {
         contentError("Include failed",includeNode);
-        LogError("File load failed: %s\n", configfilepath.string().c_str());
-        LogError("Line %d: %s\n",doc.ErrorRow(),doc.ErrorDesc());
+        LogError("File load failed: %s\n", incpath.string().c_str());
+        LogError("Line %d: %s\n",doc.ErrorRow(),doc.ErrorDesc() ? doc.ErrorDesc() : "(null)");
         return false;
     }
     elemParent = hDoc.FirstChildElement("include").Element();

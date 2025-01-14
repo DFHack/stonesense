@@ -30,8 +30,6 @@
 #include "df/world.h"
 #include "df/world_raws.h"
 
-#include "EnumToString.h"
-
 using namespace DFHack;
 using namespace df::enums;
 
@@ -210,9 +208,8 @@ bool ContentLoader::Load()
     contentLoader->obsidian = lookupMaterialIndex(INORGANIC, "OBSIDIAN");
 
     loadGraphicsFromDisk(); //these get destroyed when flushImgFiles is called.
-    ALLEGRO_PATH * p = al_create_path("stonesense/index.txt");
-    bool overallResult = parseContentIndexFile( al_path_cstr(p, ALLEGRO_NATIVE_PATH_SEP) );
-    al_destroy_path(p);
+    std::filesystem::path p{ "stonesense" };
+    bool overallResult = parseContentIndexFile( p / "index.txt");
     translationComplete = false;
 
     return overallResult;
@@ -235,33 +232,15 @@ bool ContentLoader::reload_configs()
     flushImgFiles();
 
     loadGraphicsFromDisk(); //these get destroyed when flushImgFiles is called.
-    ALLEGRO_PATH * p = al_create_path("stonesense/index.txt");
-    bool overallResult = parseContentIndexFile( al_path_cstr(p, ALLEGRO_NATIVE_PATH_SEP) );
-    al_destroy_path(p);
+    std::filesystem::path p = std::filesystem::path{} / "stonesense" / "index.txt";
+    bool overallResult = parseContentIndexFile( p );
 
     return overallResult;
 }
 
-// takes a filename and the file referring to it, and makes a combined filename in
-// HTML style: (ie "/something" is relative to the stonesense root, everything
-// else is relative to the referrer)
-// buffer must be FILENAME_BUFFERSIZE chars
-// returns true if it all works
-
-std::filesystem::path getLocalFilename(const char* filename, std::filesystem::path relativeto)
+std::filesystem::path getLocalFilename(std::filesystem::path filename, std::filesystem::path relativeto)
 {
-    // TODO verify that this does not leak
-    ALLEGRO_PATH* temppath;
-    if (filename[0] == '/' || filename[0] == '\\') {
-        temppath = al_create_path(filename);
-        al_make_path_canonical(temppath);
-    }
-    else {
-        temppath = al_create_path(relativeto.string().c_str());
-        al_join_paths(temppath, al_create_path(filename));
-        al_make_path_canonical(temppath);
-    }
-    return std::string{ al_path_cstr(temppath, ALLEGRO_NATIVE_PATH_SEP) };
+    return relativeto.remove_filename() / filename;
 }
 
 bool ContentLoader::parseContentIndexFile( std::filesystem::path filepath )
@@ -313,16 +292,14 @@ bool ContentLoader::parseContentIndexFile( std::filesystem::path filepath )
             continue;
         }
 
-        std::filesystem::path configfilepath = getLocalFilename(line.c_str(), filepath);
-        ALLEGRO_PATH * temppath = al_create_path(configfilepath.string().c_str());
-        const char* extension;
-        extension = al_get_path_extension(temppath);
-        if (strcmp(extension,".xml") == 0) {
+        std::filesystem::path configfilepath = filepath.remove_filename() / std::filesystem::path{ line }.make_preferred();
+        auto extension = configfilepath.extension();
+        if (extension == ".xml") {
             LogVerbose("Reading xml %s...\n", configfilepath.string().c_str());
             if (!parseContentXMLFile(configfilepath)) {
                 LogError("Failure in reading %s\n",configfilepath.string().c_str());
             }
-        } else if (strcmp(extension,".txt") == 0) {
+        } else if (extension == ".txt") {
             LogVerbose("Reading index %s...\n", configfilepath.string().c_str());
             if (!parseContentIndexFile(configfilepath)) {
                 LogError("Failure in reading %s\n",configfilepath.string().c_str());
@@ -468,13 +445,19 @@ const char* getDocument(TiXmlNode* element)
     return parent->Value();
 }
 
-void contentError(const char* message, TiXmlNode* element)
+void contentError(const string& message, TiXmlNode* element)
 {
-    LogError("%s: %s: %s (Line %d)\n",getDocument(element),message,element->Value(),element->Row());
+    auto safeStr = [](const char* s)->const char* {return s ? s : "(unknown)"; };
+
+    LogError("%s: %s: %s (Line %d)\n",
+        safeStr(getDocument(element)),
+        message.c_str(),
+        element ? safeStr(element->Value()) : "(no element)",
+        element ? element->Row() : -1);
 }
-void contentWarning(const char* message, TiXmlNode* element)
+void contentWarning(const string& message, TiXmlNode* element)
 {
-    LogVerbose("%s: %s: %s (Line %d)\n",getDocument(element),message,element->Value(),element->Row());
+    LogVerbose("%s: %s: %s (Line %d)\n",getDocument(element),message.c_str(),element->Value(),element->Row());
 }
 // converts list of characters 0-5 into bits, ignoring garbage
 // eg  "035" or "0  3 5" or "0xx3x5" are all good
@@ -697,11 +680,11 @@ uint8_t lookupMaterialBright(int matType,int matIndex)
     return 0;
 }
 
-int loadConfigImgFile(const char* filename, TiXmlElement* referrer)
+int loadConfigImgFile(std::filesystem::path filename, TiXmlElement* referrer)
 {
     std::filesystem::path documentRef = getDocument(referrer);
     std::filesystem::path configfilepath = getLocalFilename(filename, documentRef);
-    return loadImgFile(configfilepath.string().c_str());
+    return loadImgFile(configfilepath);
 }
 
 void ContentLoader::flushCreatureConfig()
