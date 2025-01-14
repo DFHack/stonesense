@@ -208,15 +208,15 @@ bool includeFile(SpriteNode* node, TiXmlElement* includeNode, SpriteTile* &oldSi
     std::filesystem::path documentRef = getDocument(includeNode);
 
     std::filesystem::path configfilepath = getLocalFilename(includeNode->Attribute("file"), documentRef);
-    std::filesystem::path incpath = configfilepath / "include";
+    std::filesystem::path incpath = configfilepath.remove_filename() / "include" / configfilepath.filename();
     TiXmlDocument doc( incpath.string().c_str() );
     bool loadOkay = doc.LoadFile();
     TiXmlHandle hDoc(&doc);
     TiXmlElement* elemParent;
     if(!loadOkay) {
         contentError("Include failed",includeNode);
-        LogError("File load failed: %s\n", configfilepath.string().c_str());
-        LogError("Line %d: %s\n",doc.ErrorRow(),doc.ErrorDesc());
+        LogError("File load failed: %s\n", incpath.string().c_str());
+        LogError("Line %d: %s\n",doc.ErrorRow(),doc.ErrorDesc() ? doc.ErrorDesc() : "(null)");
         return false;
     }
     elemParent = hDoc.FirstChildElement("include").Element();

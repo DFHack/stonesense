@@ -447,7 +447,13 @@ const char* getDocument(TiXmlNode* element)
 
 void contentError(const string& message, TiXmlNode* element)
 {
-    LogError("%s: %s: %s (Line %d)\n",getDocument(element),message.c_str(), element->Value(), element->Row());
+    auto safeStr = [](const char* s)->const char* {return s ? s : "(unknown)"; };
+
+    LogError("%s: %s: %s (Line %d)\n",
+        safeStr(getDocument(element)),
+        message.c_str(),
+        element ? safeStr(element->Value()) : "(no element)",
+        element ? element->Row() : -1);
 }
 void contentWarning(const string& message, TiXmlNode* element)
 {
