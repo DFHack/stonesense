@@ -32,7 +32,7 @@ private:
     std::vector<draw_event> todraw;
 
     std::vector<std::unique_ptr<Stonesense_Unit>> units;
-    std::vector<std::unique_ptr<DFHack::Buildings::t_building>> buildings;
+    std::vector<std::unique_ptr<Stonesense_Building>> buildings;
 
 public:
     bool loaded = false;
@@ -100,7 +100,7 @@ public:
     bool CoordinateInsideSegment(int32_t x, int32_t y, int32_t z);
     bool RangeInsideSegment(int32_t min_x, int32_t min_y, int32_t min_z, int32_t max_x, int32_t max_y, int32_t max_z);
     bool CoordinateInteriorSegment(int32_t x, int32_t y, int32_t z, uint32_t shellthick);
-    void PushBuilding( std::unique_ptr<DFHack::Buildings::t_building> tempbuilding);
+    void PushBuilding( std::unique_ptr<Stonesense_Building> tempbuilding);
     void ClearBuildings();
     void PushUnit( std::unique_ptr<Stonesense_Unit> unit);
     void ClearUnits();

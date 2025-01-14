@@ -788,7 +788,7 @@ void readMapSegment(WorldSegment* segment, GameState inState)
     segment->Reset(inState,false);
 
     //read world wide buildings
-    vector<Buildings::t_building> allBuildings;
+    vector<Stonesense_Building> allBuildings;
     if(!ssConfig.skipBuildings) {
         ReadBuildings(DF, &allBuildings);
     }
