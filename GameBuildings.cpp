@@ -48,7 +48,7 @@ dirTypes findWallCloseTo(WorldSegment* segment, Tile* b)
     return eSimpleSingle;
 }
 
-void ReadBuildings(DFHack::Core& DF, std::vector<Buildings::t_building>* buildingHolder)
+void ReadBuildings(DFHack::Core& DF, std::vector<Stonesense_Building>* buildingHolder)
 {
     if(ssConfig.skipBuildings) {
         return;
@@ -62,7 +62,7 @@ void ReadBuildings(DFHack::Core& DF, std::vector<Buildings::t_building>* buildin
 
     for (size_t i = 0; i < world->buildings.other[types].size(); i++) {
         df::building *bld = world->buildings.other[types][i];
-        Buildings::t_building tempbuilding{
+        Stonesense_Building tempbuilding{
             .x1 = uint32_t(bld->x1),
             .y1 = uint32_t(bld->y1),
             .x2 = uint32_t(bld->x2),
@@ -78,11 +78,11 @@ void ReadBuildings(DFHack::Core& DF, std::vector<Buildings::t_building>* buildin
     }
 }
 
-void MergeBuildingsToSegment(std::vector<Buildings::t_building>* buildings, WorldSegment* segment)
+void MergeBuildingsToSegment(std::vector<Stonesense_Building>* buildings, WorldSegment* segment)
 {
     uint32_t numBuildings = (uint32_t)buildings->size();
     for (uint32_t i = 0; i < numBuildings; i++) {
-        auto building_ptr = std::make_unique<Buildings::t_building>();
+        auto building_ptr = std::make_unique<Stonesense_Building>();
         auto copiedbuilding = building_ptr.get();
         *copiedbuilding = buildings->at(i);
         segment->PushBuilding(std::move(building_ptr));

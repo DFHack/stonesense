@@ -206,7 +206,7 @@ NeighbourSameBuildingCondition::NeighbourSameBuildingCondition(const char* strDi
 
 bool NeighbourSameBuildingCondition::Matches(Tile* b)
 {
-    Buildings::t_building* tilesBuildingIndex = b->building.info;
+    Stonesense_Building* tilesBuildingIndex = b->building.info;
 
     bool n = hasBuildingOfIndex( b->ownerSegment->getTileRelativeTo( b->x, b->y, b->z, eUp    ), tilesBuildingIndex );
     bool s = hasBuildingOfIndex( b->ownerSegment->getTileRelativeTo( b->x, b->y, b->z, eDown  ), tilesBuildingIndex );
@@ -242,7 +242,7 @@ NeighbourIdenticalCondition::NeighbourIdenticalCondition(const char* strDir)
 
 bool NeighbourIdenticalCondition::Matches(Tile* b)
 {
-    Buildings::t_building* tilesBuildingIndex = b->building.info;
+    Stonesense_Building* tilesBuildingIndex = b->building.info;
     df::tile_building_occ tilesBuildingOcc = b->occ.bits.building;
 
     bool n = hasBuildingIdentity( b->ownerSegment->getTileRelativeTo( b->x, b->y, b->z, eUp ), tilesBuildingIndex, tilesBuildingOcc );
