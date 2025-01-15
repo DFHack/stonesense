@@ -61,7 +61,7 @@ public:
 
     class StyleIndices {
         using Key = std::tuple<int32_t, int32_t, int32_t>;
-        struct KeyHash
+        struct Hash
         {
             std::size_t operator()(const Key& k) const noexcept
             {
@@ -69,7 +69,7 @@ public:
             }
         };
 
-        std::unordered_map<Key, int32_t, KeyHash> style_indices;
+        std::unordered_map<Key, int32_t, Hash> style_indices;
 
     public:
         void clear()
