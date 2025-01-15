@@ -1,5 +1,7 @@
 #pragma once
 
+#include <filesystem>
+
 #include "common.h"
 #include "SpriteColors.h"
 #include "df/enabler.h"
@@ -170,7 +172,7 @@ struct GameConfiguration {
     int automatic_reload_step;
     int animation_step;
     int fontsize;
-    ALLEGRO_PATH * font;
+    std::filesystem::path font;
     bool Fullscreen;
     bool show_intro;
     ALLEGRO_COLOR fogcol;
@@ -312,4 +314,28 @@ struct Stonesense_Unit{
 
     bool isLegend;
     std::unique_ptr<unit_inventory> inv;
+};
+
+struct Stonesense_Building
+{
+    uint32_t x1;
+    uint32_t y1;
+    uint32_t x2;
+    uint32_t y2;
+    uint32_t z;
+    DFHack::t_matglossPair material;
+    df::building_type type;
+    union
+    {
+        int16_t subtype;
+        df::civzone_type civzone_type;
+        df::furnace_type furnace_type;
+        df::workshop_type workshop_type;
+        df::construction_type construction_type;
+        df::shop_type shop_type;
+        df::siegeengine_type siegeengine_type;
+        df::trap_type trap_type;
+    };
+    int32_t custom_type;
+    df::building* origin;
 };

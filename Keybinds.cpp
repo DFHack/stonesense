@@ -276,12 +276,10 @@ void parseKeymapLine( string line )
 
 bool loadKeymapFile(){
     string line;
-    ALLEGRO_PATH * p =al_create_path("stonesense/keybinds.txt");
-    const char * path = al_path_cstr(p,ALLEGRO_NATIVE_PATH_SEP);
+    std::filesystem::path path = std::filesystem::path{} / "stonesense" / "keybinds.txt";
     ifstream myfile (path);
     if (myfile.is_open() == false) {
         LogError( "cannot find keybinds file\n" );
-        al_destroy_path(p);
         return false;
     }
 
@@ -297,7 +295,6 @@ bool loadKeymapFile(){
     }
     //close file, etc.
     myfile.close();
-    al_destroy_path(p);
     return true;
 }
 

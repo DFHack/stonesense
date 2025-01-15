@@ -430,7 +430,7 @@ void WorldSegment::AssembleSprite(draw_event d)
     todraw.push_back(d);
 }
 
-void WorldSegment::PushBuilding( std::unique_ptr<Buildings::t_building> building)
+void WorldSegment::PushBuilding( std::unique_ptr<Stonesense_Building> building)
 {
     buildings.push_back(std::move(building));
 }

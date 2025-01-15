@@ -86,41 +86,31 @@ public:
 extern ContentLoader * contentLoader;
 
 extern const char* getDocument(TiXmlNode* element);
-std::filesystem::path getLocalFilename(const char* filename, std::filesystem::path relativeto);
-extern void contentError(const char* message, TiXmlNode* element);
-extern void contentWarning(const char* message, TiXmlNode* element);
+std::filesystem::path getLocalFilename(std::filesystem::path filename, std::filesystem::path relativeto);
+extern void contentError(const std::string& message, TiXmlNode* element);
+extern void contentWarning(const std::string& message, TiXmlNode* element);
 extern char getAnimFrames(const char* framestring);
-extern int loadConfigImgFile(const char* filename, TiXmlElement* referrer);
+extern int loadConfigImgFile(std::filesystem::path filename, TiXmlElement* referrer);
 MAT_BASICS lookupMaterialType(const char* strValue);
 int lookupMaterialIndex(int matType, const char* strValue);
-template <typename T>
-int lookupIndexedType(const char* indexName, std::vector<T>& typeVector)
+
+template <typename T, typename Index = decltype(T::id)>
+int lookupIndexedType(const Index& indexName, const std::vector<T>& typeVector)
 {
-    if (indexName == NULL || indexName[0] == 0) {
-        return INVALID_INDEX;
-    }
-    uint32_t vsize = (uint32_t)typeVector.size();
-    for(uint32_t i=0; i < vsize; i++) {
-        if (typeVector[i].id == indexName) {
-            return i;
-        }
-    }
-    return INVALID_INDEX;
+    auto get_id = [](auto tv) {
+        if constexpr (std::is_pointer_v<T>) return tv->id;
+        else return tv.id;
+        };
+    auto it = std::find_if(typeVector.begin(), typeVector.end(),
+        [&](auto tv) -> bool { return get_id(tv) == indexName; });
+    return it != typeVector.end() ? it - typeVector.begin() : INVALID_INDEX;
 }
-template <typename T>
-int lookupIndexedPonterType(const char* indexName, std::vector<T*>& typeVector)
+template <typename T, typename Index = decltype(T::id)>
+int lookupIndexedPointerType(const Index& indexName, const std::vector<T*>& typeVector)
 {
-    if (indexName == NULL || indexName[0] == 0) {
-        return INVALID_INDEX;
-    }
-    uint32_t vsize = (uint32_t)typeVector.size();
-    for(uint32_t i=0; i < vsize; i++) {
-        if (typeVector[i]->id == indexName) {
-            return i;
-        }
-    }
-    return INVALID_INDEX;
+    return lookupIndexedType<T*, Index>(indexName, typeVector);
 }
+
 const char *lookupMaterialTypeName(int matType);
 const char *lookupMaterialName(int matType,int matIndex);
 const char *lookupBuildingSubtype(int main_type, int i);

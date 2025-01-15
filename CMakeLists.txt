@@ -36,7 +36,6 @@ SET(PROJECT_SRCS
     WorldSegment.cpp
     VegetationConfiguration.cpp
     Keybinds.cpp
-    EnumToString.cpp
     MaterialMatcher.cpp
     main.cpp
 )
@@ -55,7 +54,6 @@ SET(PROJECT_HDRS
     CreatureConfiguration.h
     Creatures.h
     DumpInfo.h
-    EnumToString.h
     FluidConfiguration.h
     GameBuildings.h
     GroundMaterialConfiguration.h
@@ -148,7 +146,7 @@ IF(UNIX)
                 set(ALLEGRO_DOWNLOAD_FILE "linux64-allegro5210.tbz2")
                 download_file("https://github.com/DFHack/dfhack-bin/releases/download/50.15/linux64-allegro5210.tbz2"
                     "${ALLEGRO_DOWNLOAD_DIR}/${ALLEGRO_DOWNLOAD_FILE}"
-                    "17d5f7dd89eb624b005b7b9202b94aff")
+                    "14c4237fbe6f2abf26edc0ba4d6c4424")
             else()
                 MESSAGE(FATAL_ERROR "32 bit build not supported for stonesense")
             endif()
