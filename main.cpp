@@ -404,6 +404,7 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
     color_ostream_proxy out(Core::getInstance().getConsole());
     out.print("Stonesense launched\n");
 
+    ssConfig.closeOnEsc = true;
     ssConfig.debug_mode = false;
     ssConfig.hide_outer_tiles = false;
     ssConfig.shade_hidden_tiles = true;
