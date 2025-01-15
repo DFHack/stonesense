@@ -2,8 +2,9 @@ Please note, these keywords are case sensitive for now.
 
 --Interface--
 
-Sets whether hitting Esc will close the window. (YES or NO)
-[CLOSEONESC:NO]
+Sets whether hitting Esc will close the window, in addition to being able
+to use the close window button. (YES or NO)
+[CLOSEONESC:YES]
 
 Sets the width and height of the application in pixels.
 [WIDTH:800]
