@@ -60,54 +60,44 @@ public:
     FluidConfiguration water[8];
 
     class StyleIndices {
-        //race.caste.hairtype.styletype
-        std::vector<std::vector<std::vector<int32_t>*>*> style_indices;
+        using Key = std::tuple<int32_t, int32_t, int32_t>;
+        struct KeyHash
+        {
+            std::size_t operator()(const Key& k) const noexcept
+            {
+                return size_t(std::get<0>(k)) ^ (size_t(std::get<1>(k)) << 15) ^ (size_t(std::get<2>(k)) << 30);
+            }
+        };
+
+        std::unordered_map<Key, int32_t, KeyHash> style_indices;
+
     public:
         void clear()
         {
-            for (size_t i = 0; i < style_indices.size(); i++) {
-                if (style_indices[i]) {
-                    for (size_t j = 0; j < style_indices[i]->size(); j++) {
-                        if (style_indices[i]->at(j)) {
-                            style_indices[i]->at(j)->clear();
-                            delete style_indices[i]->at(j);// EXPLICIT DELETE
-                        }
-                    }
-                    style_indices[i]->clear();
-                    delete style_indices[i];// EXPLICIT DELETE
-                }
-            }
             style_indices.clear();
         }
-        void add(int creatureIndex, int casteIndex, int type, int id)
+        void add(int32_t creatureIndex, int32_t casteIndex, int32_t type, int32_t id)
         {
-            if (creatureIndex >= style_indices.size())
-                style_indices.resize(creatureIndex + 1, NULL);
-            if (!style_indices.at(creatureIndex))
-                style_indices.at(creatureIndex) = new std::vector<std::vector<int32_t>*>; // EXPLICIT NEW
-            std::vector<std::vector<int32_t>*>* creatureStyle = style_indices.at(creatureIndex);
-            if (casteIndex >= creatureStyle->size())
-                creatureStyle->resize(casteIndex + 1, NULL);
-            if (!creatureStyle->at(casteIndex))
-                creatureStyle->at(casteIndex) = new std::vector<int32_t>;  // EXPLICIT NEW
-            std::vector<int32_t>* casteStyle = creatureStyle->at(casteIndex);
-            size_t typeIdx{ size_t(type) };
-            if (typeIdx >= casteStyle->size())
-                casteStyle->resize(typeIdx + 1, 0);
-            casteStyle->at(typeIdx) = id;
-        }
-        int lookup(int race, int caste, int style_type)
-        {
-            if (size_t(race) < style_indices.size() && style_indices.at(race)) {
-                if (size_t(caste) < style_indices.at(race)->size() && style_indices.at(race)->at(caste)) {
-                    for (size_t j = 0; j < style_indices.at(race)->at(caste)->size(); j++) {
-                        if (style_type == style_indices.at(race)->at(caste)->at(j)) {
-                            return j;
-                        }
-                    }
+            Key k{ creatureIndex, casteIndex, type };
+            auto it = style_indices.find(k);
+            if (it != style_indices.end())
+            {
+                if (it->second != id)
+                {
+                    LogVerbose("style_indices overwrite: %d, %d, %d: %d -> %d\n", creatureIndex, casteIndex, type, it->second, id);
                 }
+                it->second = id;
             }
-            return -1;
+            else
+            {
+                style_indices.emplace(k, id);
+            }
+        }
+        int32_t lookup(int32_t race, int32_t caste, int32_t style_type)
+        {
+            Key k{ race, caste, style_type };
+            auto it = style_indices.find(k);
+            return it != style_indices.end() ? it->second : -1;
         }
     };
     StyleIndices style_indices;
