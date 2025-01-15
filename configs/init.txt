@@ -101,9 +101,6 @@ Shows creatures info floating above their sprites.
 [SHOW_CREATURE_MOODS:NO]
 [SHOW_CREATURE_JOBS:NO]
 
-Show creatures professions. (0-3, 0 is off)
-[SHOW_CREATURE_PROFESSIONS:0]
-
 Options to control how names are displayed (if SHOW_CREATURE_NAMES is set)
 [NAMES_USE_NICKNAME:YES]
 [NAMES_USE_SPECIES:YES]
