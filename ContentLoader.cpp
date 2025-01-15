@@ -36,7 +36,7 @@ using namespace df::enums;
 using std::vector;
 using std::string;
 
-ContentLoader * contentLoader;
+std::unique_ptr<ContentLoader> contentLoader;
 
 ContentLoader::ContentLoader(void) { }
 ContentLoader::~ContentLoader(void)
