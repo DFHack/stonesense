@@ -1,3 +1,4 @@
+#include <cmath>
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -91,7 +92,7 @@ namespace {
                 value = autoSegForXY;
             } else {
                 value = parseIntFromLine("SEGMENTSIZE_XY", line);
-                value = min((value < MIN_SIZE) ? DEFAULT_SEGSIZE_XY : value, MAX_SIZE);
+                value = min((value < MIN_SEGSIZE) ? DEFAULT_SEGSIZE_XY : value, MAX_SEGSIZE);
             }
             //plus 2 to allow edge readings
             value += 2;
@@ -106,7 +107,7 @@ namespace {
             }
             else {
                 value = parseIntFromLine("SEGMENTSIZE_X", line);
-                value = min((value < MIN_SIZE) ? DEFAULT_SEGSIZE_XY : value, MAX_SIZE);
+                value = min((value < MIN_SEGSIZE) ? DEFAULT_SEGSIZE_XY : value, MAX_SEGSIZE);
             }
             //plus 2 to allow edge readings
             value += 2;
@@ -120,7 +121,7 @@ namespace {
             }
             else {
                 value = parseIntFromLine("SEGMENTSIZE_Y", line);
-                value = min((value < MIN_SIZE) ? DEFAULT_SEGSIZE_XY : value, MAX_SIZE);
+                value = min((value < MIN_SEGSIZE) ? DEFAULT_SEGSIZE_XY : value, MAX_SEGSIZE);
             }
             //plus 2 to allow edge readings
             value += 2;
