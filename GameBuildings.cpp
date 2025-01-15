@@ -17,18 +17,9 @@
 #include "df/itemimprovement_threadst.h"
 #include "df/world.h"
 
-using namespace std;
 using namespace DFHack;
 using namespace df::enums;
 using df::global::world;
-
-bool tileHasBridge(Tile* b)
-{
-    if(!b) {
-        return 0;
-    }
-    return b->building.type == df::enums::building_type::Bridge;
-}
 
 dirTypes findWallCloseTo(WorldSegment* segment, Tile* b)
 {
@@ -57,42 +48,41 @@ dirTypes findWallCloseTo(WorldSegment* segment, Tile* b)
     return eSimpleSingle;
 }
 
-void ReadBuildings(DFHack::Core& DF, vector<Buildings::t_building>* buildingHolder)
+void ReadBuildings(DFHack::Core& DF, std::vector<Stonesense_Building>* buildingHolder)
 {
     if(ssConfig.skipBuildings) {
         return;
     }
+
     if(!buildingHolder) {
         return;
     }
 
-    vector<string> dummy;
-    Buildings::t_building tempbuilding;
     df::buildings_other_id types = df::buildings_other_id::IN_PLAY;
 
     for (size_t i = 0; i < world->buildings.other[types].size(); i++) {
         df::building *bld = world->buildings.other[types][i];
-        tempbuilding.x1 = bld->x1;
-        tempbuilding.x2 = bld->x2;
-        tempbuilding.y1 = bld->y1;
-        tempbuilding.y2 = bld->y2;
-        tempbuilding.z = bld->z;
-        tempbuilding.material.index = bld->mat_index;
-        tempbuilding.material.type = bld->mat_type;
-        tempbuilding.type = bld->getType();
-        tempbuilding.subtype = bld->getSubtype();
-        tempbuilding.custom_type = bld->getCustomType();
-        tempbuilding.origin = bld;
+        Stonesense_Building tempbuilding{
+            .x1 = uint32_t(bld->x1),
+            .y1 = uint32_t(bld->y1),
+            .x2 = uint32_t(bld->x2),
+            .y2 = uint32_t(bld->y2),
+            .z = uint32_t(bld->z),
+            .material {.type = bld->mat_type, .index = bld->mat_index },
+            .type = bld->getType(),
+            .subtype = bld->getSubtype(),
+            .custom_type = bld->getCustomType(),
+            .origin = bld
+        };
         buildingHolder->push_back(tempbuilding);
     }
 }
 
-
-void MergeBuildingsToSegment(vector<Buildings::t_building>* buildings, WorldSegment* segment)
+void MergeBuildingsToSegment(std::vector<Stonesense_Building>* buildings, WorldSegment* segment)
 {
     uint32_t numBuildings = (uint32_t)buildings->size();
     for (uint32_t i = 0; i < numBuildings; i++) {
-        auto building_ptr = std::make_unique<Buildings::t_building>();
+        auto building_ptr = std::make_unique<Stonesense_Building>();
         auto copiedbuilding = building_ptr.get();
         *copiedbuilding = buildings->at(i);
         segment->PushBuilding(std::move(building_ptr));
@@ -261,31 +251,3 @@ void loadBuildingSprites ( Tile* b)
         b->building.sprites.push_back( unknownBuildingSprite );
     }
 }
-
-///*TODO: this function takes a massive amount of work, looping all buildings for every tile*/
-//bool TileHasSuspendedBuilding(vector<Buildings::t_building>* buildingList, Tile* b)
-//{
-//    uint32_t num = (uint32_t)buildingList->size();
-//    for(uint32_t i=0; i < num; i++) {
-//        Buildings::t_building* building = &(*buildingList)[i];
-//
-//        //boundry check
-//        if(b->z != building->z) {
-//            continue;
-//        }
-//        if(b->x < building->x1  ||   b->x > building->x2) {
-//            continue;
-//        }
-//        if(b->y < building->y1  ||   b->y > building->y2) {
-//            continue;
-//        }
-//
-//        if(building->type == df::enums::building_type::Bridge) {
-//            return true;
-//        }
-//        if(building->type == df::enums::building_type::Civzone) {
-//            return true;
-//        }
-//    }
-//    return false;
-//}

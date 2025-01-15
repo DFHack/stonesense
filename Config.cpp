@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <filesystem>
 #include "common.h"
 #include "commonTypes.h"
 #include "Config.h"
@@ -314,7 +315,7 @@ namespace {
         }
         if (line.find("[FONT") != string::npos) {
             string result = parseStrFromLine("FONT", line);
-            ssConfig.font = al_create_path(result.c_str());
+            ssConfig.font = std::filesystem::path{ result }.make_preferred();
         }
         if (line.find("[USE_DF_COLORS") != string::npos) {
             string result = parseStrFromLine("USE_DF_COLORS", line);
@@ -821,12 +822,10 @@ namespace {
 bool loadConfigFile()
 {
     string line;
-    ALLEGRO_PATH * p =al_create_path("dfhack-config/stonesense/init.txt");
-    const char * path = al_path_cstr(p,ALLEGRO_NATIVE_PATH_SEP);
+    auto path = std::filesystem::path{} / "dfhack-config" / "stonesense" / "init.txt";
     std::ifstream myfile(path);
     if (myfile.is_open() == false) {
         LogError( "cannot find init file\n" );
-        al_destroy_path(p);
         return false;
     }
 
@@ -838,6 +837,5 @@ bool loadConfigFile()
     ssConfig.colors.update();
     //close file, etc.
     myfile.close();
-    al_destroy_path(p);
     return true;
 }
