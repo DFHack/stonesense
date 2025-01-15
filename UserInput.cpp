@@ -385,24 +385,13 @@ void action_togglekeybinds(uint32_t keymod){
 void action_incrzoom(uint32_t keymod)
 {
     ssConfig.zoom++;
-    if (ssConfig.scale <= 1) {
-        ssConfig.scale = pow(1.1f, ssConfig.zoom);
-    }
-    else {
-        ssConfig.scale++;
-    }
+    ssConfig.scale = pow(1.1f, ssConfig.zoom);
 }
 
 void action_decrzoom(uint32_t keymod)
 {
     ssConfig.zoom--;
-    if (ssConfig.scale <= 1) {
-        ssConfig.scale = pow(1.1f, ssConfig.zoom);
-    }
-    else {
-        ;
-        ssConfig.scale--;
-    }
+    ssConfig.scale = pow(1.1f, ssConfig.zoom);
 }
 
 void action_screenshot(uint32_t keymod)
