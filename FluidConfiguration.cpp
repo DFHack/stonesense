@@ -1,7 +1,6 @@
 #include "FluidConfiguration.h"
 #include "ContentLoader.h"
 
-using namespace std;
 using namespace DFHack;
 using namespace df::enums;
 
@@ -70,14 +69,14 @@ bool addSingleFluidConfig( TiXmlElement* elemRoot)
     int basefile = 0;
     const char* filename = elemRoot->Attribute("file");
     if (filename != NULL && filename[0] != 0) {
-        basefile = loadConfigImgFile((char*)filename,elemRoot);
+        basefile = loadConfigImgFile(filename,elemRoot);
         if(basefile == -1) {
             return false;
         }
     }
 
-    string elementType = elemRoot->Value();
-    if(elementType.compare( "fluids" ) == 0) {
+    std::string elementType = elemRoot->Value();
+    if(elementType == "fluids") {
         //parse floors
         TiXmlElement* elemFluid = elemRoot->FirstChildElement("fluid");
         while( elemFluid ) {
