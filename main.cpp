@@ -347,23 +347,14 @@ static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALL
                     ssState.Size.x = (int)std::ceil(std::sqrt(2) * (ssState.ScreenW + ssState.ScreenH) / TILEWIDTH);
                     ssState.Size.y = (int)std::ceil(std::sqrt(2) * (ssState.ScreenW + ssState.ScreenH) / TILEWIDTH);
                 }
-                if(!al_acknowledge_resize(event.display.source)) {
+                timeToReloadSegment = true;
+                redraw = true;
+                ssState.ScreenH = event.display.height;
+                ssState.ScreenW = event.display.width;
+                if (!al_acknowledge_resize(event.display.source)) {
                     con.printerr("Failed to resize diplay");
                     return;
                 }
-                timeToReloadSegment = true;
-                redraw = true;
-#if 1
-                {
-                    //XXX the opengl drivers currently don't resize the backbuffer
-                    ALLEGRO_BITMAP *bb = al_get_backbuffer(al_get_current_display());
-                    int w = al_get_bitmap_width(bb);
-                    int h = al_get_bitmap_height(bb);
-                    ssState.ScreenH = h;
-                    ssState.ScreenW = w;
-                    PrintMessage("backbuffer w, h: %d, %d\n", w, h);
-                }
-#endif
                 break;
                 /* ALLEGRO_EVENT_KEY_DOWN - a keyboard key was pressed.
                 */
