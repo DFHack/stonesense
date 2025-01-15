@@ -13,11 +13,11 @@ using namespace df::enums;
 c_sprite *  GetTerrainSpriteMap(int in, t_matglossPair material, vector<std::unique_ptr<TerrainConfiguration>>& configTable, uint16_t form)
 {
     // in case we need to return nothing
-    static c_sprite* defaultSprite = new c_sprite;  // EXPLICIT NEW
-    defaultSprite->reset();
-    defaultSprite->set_sheetindex(UNCONFIGURED_INDEX);
-    defaultSprite->set_fileindex(INVALID_INDEX);
-    defaultSprite->set_needoutline(1);
+    static c_sprite defaultSprite{};
+    defaultSprite.reset();
+    defaultSprite.set_sheetindex(UNCONFIGURED_INDEX);
+    defaultSprite.set_fileindex(INVALID_INDEX);
+    defaultSprite.set_needoutline(1);
 
     int tempform;
     switch (form)
@@ -35,17 +35,17 @@ c_sprite *  GetTerrainSpriteMap(int in, t_matglossPair material, vector<std::uni
         tempform = FORM_LOG;
         break;
     default:
-        return defaultSprite;
+        return &defaultSprite;
     }
 
     // first check the input is sane
     if( in < 0 || in >= (int)configTable.size() ) {
-        return defaultSprite;
+        return &defaultSprite;
     }
     // find a matching terrainConfig
     TerrainConfiguration* terrain = configTable[in].get();
     if (terrain == nullptr) {
-        return defaultSprite;
+        return &defaultSprite;
     }
     // find mat config
 
