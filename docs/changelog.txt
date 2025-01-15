@@ -40,6 +40,7 @@ Template for new versions:
 ## New Features
 
 ## Fixes
+- `stonesense`: fixed crash when maximizing or resizing the window
 
 ## Misc Improvements
 - `stonesense`: changed announcements to be right-aligned and limited to only show the most recent 10 announcements
