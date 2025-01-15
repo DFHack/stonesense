@@ -246,6 +246,9 @@ void drawcredits()
     //al_draw_text(font, color_white, centerx, bottomy-4*lineheight, ALLEGRO_ALIGN_CENTRE, "Press F9 to continue");
     // Make the backbuffer visible
 }
+int autosizer() {
+    return (int)std::ceil(std::sqrt(2) * (ssState.ScreenW + ssState.ScreenH) / TILEWIDTH);
+}
 
 /* main_loop:
 *  The main loop of the program.  Here we wait for events to come in from
@@ -343,9 +346,11 @@ static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALL
                     break;
 
                 }
-                if (ssConfig.autosize_segment) {
-                    ssState.Size.x = (int)std::ceil(std::sqrt(2) * (ssState.ScreenW + ssState.ScreenH) / TILEWIDTH);
-                    ssState.Size.y = (int)std::ceil(std::sqrt(2) * (ssState.ScreenW + ssState.ScreenH) / TILEWIDTH);
+                if (ssConfig.autosize_segmentX) {
+                    ssState.Size.x = autosizer();
+                }
+                if (ssConfig.autosize_segmentY){
+                    ssState.Size.y = autosizer();
                 }
                 timeToReloadSegment = true;
                 redraw = true;
@@ -406,7 +411,8 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
     ssConfig.shade_hidden_tiles = true;
     ssConfig.load_ground_materials = true;
     ssConfig.automatic_reload_time = 0;
-    ssConfig.autosize_segment = false;
+    ssConfig.autosize_segmentX = false;
+    ssConfig.autosize_segmentY = false;
     ssConfig.automatic_reload_step = 500;
     ssConfig.lift_segment_offscreen_x = 0;
     ssConfig.lift_segment_offscreen_y = 0;

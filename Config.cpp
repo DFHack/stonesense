@@ -51,6 +51,21 @@ namespace {
         return retVal;
     }
 
+    //how can i link this to the function in main.cpp?
+    int autoSegForXY = (int)std::ceil(std::sqrt(2) * (ssState.ScreenW + ssState.ScreenH) / TILEWIDTH);
+    int getSegmentSizeConfig(string setting, string line, bool autosize) {
+        int value = DEFAULT_SEGSIZE_XY;
+        if (autosize) {
+            value = autoSegForXY;
+        } else {
+            value = parseIntFromLine(setting, line);
+            value = ((value < MIN_SEGSIZE) ? DEFAULT_SEGSIZE_XY : value);
+        }
+        //plus 2 to allow edge readings
+        value += 2;
+        return value;
+    }
+
 
     void parseConfigLine(string line)
     {
@@ -84,51 +99,18 @@ namespace {
             string result = parseStrFromLine("WINDOWED", line);
             ssConfig.Fullscreen = (result == "NO");
         }
-        int autoSegForXY = (int)std::ceil(std::sqrt(2) * (ssState.ScreenW + ssState.ScreenH) / TILEWIDTH);
         if (line.find("[SEGMENTSIZE_XY") != string::npos) {
             bool autosize = (parseStrFromLine("SEGMENTSIZE_XY", line) == "AUTO");
-            int value = DEFAULT_SEGSIZE_XY;
-            if (autosize) {
-                value = autoSegForXY;
-            } else {
-                value = parseIntFromLine("SEGMENTSIZE_XY", line);
-                value = ((value < MIN_SEGSIZE) ? DEFAULT_SEGSIZE_XY : value);
-                value = ((value > MAX_SEGSIZE) ? MAX_SEGSIZE : value);
-            }
-            //plus 2 to allow edge readings
-            value += 2;
-            ssState.Size.x = value;
-            ssState.Size.y = value;
+            ssState.Size.x = getSegmentSizeConfig("SEGMENTSIZE_XY", line, autosize);
+            ssState.Size.y = getSegmentSizeConfig("SEGMENTSIZE_XY", line, autosize);
         }
         if (line.find("[SEGMENTSIZE_X") != string::npos) {
             bool autosize = (parseStrFromLine("SEGMENTSIZE_X", line) == "AUTO");
-            int value = DEFAULT_SEGSIZE_XY;
-            if (autosize) {
-                value = autoSegForXY;
-            }
-            else {
-                value = parseIntFromLine("SEGMENTSIZE_X", line);
-                value = ((value < MIN_SEGSIZE) ? DEFAULT_SEGSIZE_XY : value);
-                value = ((value > MAX_SEGSIZE) ? MAX_SEGSIZE : value);
-            }
-            //plus 2 to allow edge readings
-            value += 2;
-            ssState.Size.x = value;
+            ssState.Size.x = getSegmentSizeConfig("SEGMENTSIZE_X", line, autosize);
         }
         if (line.find("[SEGMENTSIZE_Y") != string::npos) {
             bool autosize = (parseStrFromLine("SEGMENTSIZE_Y", line) == "AUTO");
-            int value = DEFAULT_SEGSIZE_XY;
-            if (autosize) {
-                value = autoSegForXY;
-            }
-            else {
-                value = parseIntFromLine("SEGMENTSIZE_Y", line);
-                value = ((value < MIN_SEGSIZE) ? DEFAULT_SEGSIZE_XY : value);
-                value = ((value > MAX_SEGSIZE) ? MAX_SEGSIZE : value);
-            }
-            //plus 2 to allow edge readings
-            value += 2;
-            ssState.Size.y = value;
+            ssState.Size.y = getSegmentSizeConfig("SEGMENTSIZE_Y", line, autosize);
         }
         if (line.find("[SEGMENTSIZE_Z") != string::npos) {
             int value = parseIntFromLine("SEGMENTSIZE_Z", line);

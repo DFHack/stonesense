@@ -89,7 +89,6 @@ constexpr auto SPRITEHEIGHT = (TILETOPHEIGHT + WALLHEIGHT);
 constexpr auto WALL_CUTOFF_HEIGHT = 15;
 
 constexpr auto MIN_SEGSIZE = 1;
-constexpr auto MAX_SEGSIZE = 100;;
 constexpr auto DEFAULT_SEGSIZE_XY = 20;
 constexpr auto DEFAULT_SEGSIZE_Z = 6;
 constexpr auto MAPNAVIGATIONSTEP = 1;
