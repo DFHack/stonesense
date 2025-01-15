@@ -547,7 +547,7 @@ namespace {
 
         std::vector<Units::NoblePosition> np;
         if (Units::getNoblePositions(&np, source)) {
-            furball.profession = contentLoader->position_Indices[np[0].entity->id]->at(np[0].position->id);
+            furball.profession = contentLoader->position_Indices.lookup(np[0].entity->id, np[0].position->id);
         }
 
 

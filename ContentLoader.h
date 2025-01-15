@@ -1,5 +1,8 @@
 #pragma once
+#define NOMINMAX
 #include <filesystem>
+#include <algorithm>
+#include <optional>
 
 #include "tinyxml.h"
 #include "BuildingConfiguration.h"
@@ -60,48 +63,75 @@ public:
     FluidConfiguration water[8];
 
     class StyleIndices {
-        using Key = std::tuple<int32_t, int32_t, int32_t>;
+        struct Key
+        {
+            int32_t race;
+            int32_t caste;
+            int32_t style_type;
+            bool operator==(const Key&) const = default;
+        };
+
         struct Hash
         {
             std::size_t operator()(const Key& k) const noexcept
             {
-                return size_t(std::get<0>(k)) ^ (size_t(std::get<1>(k)) << 15) ^ (size_t(std::get<2>(k)) << 30);
+                return size_t(k.race) ^ (size_t(k.caste) << 15) ^ (size_t(k.style_type) << 30);
             }
         };
 
-        std::unordered_map<Key, int32_t, Hash> style_indices;
+        SparseArray<Key, int32_t, Hash> map;
 
     public:
-        void clear()
-        {
-            style_indices.clear();
+        void clear() {
+            map.clear();
         }
-        void add(int32_t creatureIndex, int32_t casteIndex, int32_t type, int32_t id)
+        void add(int32_t race, int32_t caste, int32_t type, int32_t id)
         {
-            Key k{ creatureIndex, casteIndex, type };
-            auto it = style_indices.find(k);
-            if (it != style_indices.end())
-            {
-                if (it->second != id)
-                {
-                    LogVerbose("style_indices overwrite: %d, %d, %d: %d -> %d\n", creatureIndex, casteIndex, type, it->second, id);
-                }
-                it->second = id;
-            }
-            else
-            {
-                style_indices.emplace(k, id);
-            }
+            map.add({ race,caste,type }, id);
         }
         int32_t lookup(int32_t race, int32_t caste, int32_t style_type)
         {
-            Key k{ race, caste, style_type };
-            auto it = style_indices.find(k);
-            return it != style_indices.end() ? it->second : -1;
+            auto res = map.lookup({ race,caste,style_type });
+            return res ? *res : -1;
         }
     };
+
+    class PositionIndices
+    {
+        struct Key
+        {
+            int32_t entity_id;
+            int32_t pos_id;
+            bool operator==(const Key&) const = default;
+        };
+
+        struct Hash
+        {
+            std::size_t operator()(const Key& k) const noexcept
+            {
+                return size_t(k.entity_id) ^ (size_t(k.pos_id) << 31);
+            }
+        };
+
+        SparseArray<Key, int32_t, Hash> map;
+
+    public:
+        void clear() {
+            map.clear();
+        }
+        void add(int32_t entity_id, int32_t pos_id, int32_t id)
+        {
+            map.add({ entity_id, pos_id }, id);
+        }
+        int32_t lookup(int32_t entity_id, int32_t pos_id)
+        {
+            auto res = map.lookup({ entity_id, pos_id });
+            return res ? *res : -1;
+        }
+    };
+
     StyleIndices style_indices;
-    std::vector<std::vector<int32_t>*> position_Indices;
+    PositionIndices position_Indices;
 
     std::vector<std::string> professionStrings;
     std::map <uint32_t, std::string> custom_workshop_types;

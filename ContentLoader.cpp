@@ -157,13 +157,7 @@ bool ContentLoader::Load()
 
                     size_t ent_id = currentity->id;
                     size_t pos_id = currentpos->id;
-                    if (ent_id >= position_Indices.size())
-                        position_Indices.resize(ent_id + 1, NULL);
-                    if (!position_Indices[ent_id])
-                        position_Indices[ent_id] = new vector<int32_t>; // EXPLICIT NEW
-                    if (pos_id >= position_Indices[ent_id]->size())
-                        position_Indices[ent_id]->resize(pos_id + 1, -1);
-                    position_Indices[ent_id]->at(pos_id) = found;
+                    position_Indices.add(ent_id, pos_id, found);
                 };
 
             for(size_t j = 0; j < currentity->positions.own.size(); j++) {

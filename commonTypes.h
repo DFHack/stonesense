@@ -1,6 +1,7 @@
 #pragma once
 
 #include <filesystem>
+#include <unordered_map>
 
 #include "common.h"
 #include "SpriteColors.h"
@@ -339,3 +340,33 @@ struct Stonesense_Building
     int32_t custom_type;
     df::building* origin;
 };
+
+template <typename Key, typename Val, typename Hash = std::hash<Key>>
+class SparseArray {
+
+    std::unordered_map< Key, Val, Hash> map;
+
+public:
+    void clear()
+    {
+        map.clear();
+    }
+    void add(Key&& k, Val& v)
+    {
+        auto it = map.find(k);
+        if (it != map.end())
+        {
+            it->second = v;
+        }
+        else
+        {
+            map.emplace(k, v);
+        }
+    }
+    std::optional<Val> lookup(Key&& k)
+    {
+        auto it = map.find(k);
+        return it != map.end() ? std::optional{ it->second } : std::nullopt;
+    }
+};
+
