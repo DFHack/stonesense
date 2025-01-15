@@ -59,8 +59,58 @@ public:
     FluidConfiguration lava[8];
     FluidConfiguration water[8];
 
-    //race.caste.hairtype.styletype
-    std::vector<std::vector<std::vector<int32_t>*>*> style_indices;
+    class StyleIndices {
+        //race.caste.hairtype.styletype
+        std::vector<std::vector<std::vector<int32_t>*>*> style_indices;
+    public:
+        void clear()
+        {
+            for (size_t i = 0; i < style_indices.size(); i++) {
+                if (style_indices[i]) {
+                    for (size_t j = 0; j < style_indices[i]->size(); j++) {
+                        if (style_indices[i]->at(j)) {
+                            style_indices[i]->at(j)->clear();
+                            delete style_indices[i]->at(j);// EXPLICIT DELETE
+                        }
+                    }
+                    style_indices[i]->clear();
+                    delete style_indices[i];// EXPLICIT DELETE
+                }
+            }
+            style_indices.clear();
+        }
+        void add(int creatureIndex, int casteIndex, int type, int id)
+        {
+            if (creatureIndex >= style_indices.size())
+                style_indices.resize(creatureIndex + 1, NULL);
+            if (!style_indices.at(creatureIndex))
+                style_indices.at(creatureIndex) = new std::vector<std::vector<int32_t>*>; // EXPLICIT NEW
+            std::vector<std::vector<int32_t>*>* creatureStyle = style_indices.at(creatureIndex);
+            if (casteIndex >= creatureStyle->size())
+                creatureStyle->resize(casteIndex + 1, NULL);
+            if (!creatureStyle->at(casteIndex))
+                creatureStyle->at(casteIndex) = new std::vector<int32_t>;  // EXPLICIT NEW
+            std::vector<int32_t>* casteStyle = creatureStyle->at(casteIndex);
+            size_t typeIdx{ size_t(type) };
+            if (typeIdx >= casteStyle->size())
+                casteStyle->resize(typeIdx + 1, 0);
+            casteStyle->at(typeIdx) = id;
+        }
+        int lookup(int race, int caste, int style_type)
+        {
+            if (size_t(race) < style_indices.size() && style_indices.at(race)) {
+                if (size_t(caste) < style_indices.at(race)->size() && style_indices.at(race)->at(caste)) {
+                    for (size_t j = 0; j < style_indices.at(race)->at(caste)->size(); j++) {
+                        if (style_type == style_indices.at(race)->at(caste)->at(j)) {
+                            return j;
+                        }
+                    }
+                }
+            }
+            return -1;
+        }
+    };
+    StyleIndices style_indices;
     std::vector<std::vector<int32_t>*> position_Indices;
 
     std::vector<std::string> professionStrings;

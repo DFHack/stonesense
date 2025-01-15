@@ -435,7 +435,7 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
     ssConfig.threading_enable = 1;
     ssConfig.fog_of_war = 1;
     ssConfig.occlusion = 1;
-    contentLoader = new ContentLoader();
+    contentLoader = new ContentLoader();  // EXPLICIT NEW
     ssConfig.zoom = 0;
     ssConfig.scale = 1.0f;
     ssConfig.useDfColors = false;
@@ -579,7 +579,7 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
     map_segment.unlock();
     al_destroy_bitmap(IMGIcon);
     IMGIcon = 0;
-    delete contentLoader;
+    delete contentLoader; // EXPLICIT DELETE
     contentLoader = 0;
     out.print("Stonesense shutdown.\n");
     stonesense_started = 0;

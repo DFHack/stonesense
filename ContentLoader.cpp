@@ -160,7 +160,7 @@ bool ContentLoader::Load()
                     if (ent_id >= position_Indices.size())
                         position_Indices.resize(ent_id + 1, NULL);
                     if (!position_Indices[ent_id])
-                        position_Indices[ent_id] = new vector<int32_t>;
+                        position_Indices[ent_id] = new vector<int32_t>; // EXPLICIT NEW
                     if (pos_id >= position_Indices[ent_id]->size())
                         position_Indices[ent_id]->resize(pos_id + 1, -1);
                     position_Indices[ent_id]->at(pos_id) = found;
@@ -689,20 +689,7 @@ int loadConfigImgFile(std::filesystem::path filename, TiXmlElement* referrer)
 
 void ContentLoader::flushCreatureConfig()
 {
-    // make big enough to hold all creatures
     creatureConfigs.clear();
-    for ( size_t i = 0; i < style_indices.size();i++){
-        if(style_indices[i]){
-            for ( size_t j = 0; j < style_indices[i]->size();j++){
-                if(style_indices[i]->at(j)){
-                    style_indices[i]->at(j)->clear();
-                    delete style_indices[i]->at(j);
-                }
-            }
-            style_indices[i]->clear();
-            delete style_indices[i];
-        }
-    }
     style_indices.clear();
 }
 
@@ -729,21 +716,11 @@ void ContentLoader::gatherStyleIndices(df::world_raws * raws)
                 else LogError("Unknown hair type: %s", raws->creatures.all[creatureIndex]->caste[casteIndex]->tissue_styles[styleIndex]->token.c_str());
                 if(type != hairtypes_invalid)
                 {
-                    if(creatureIndex >= style_indices.size())
-                        style_indices.resize(creatureIndex+1, NULL);
-                    if(!style_indices.at(creatureIndex))
-                        style_indices.at(creatureIndex) = new vector<vector<int32_t>*>;
-                    vector<vector<int32_t>*>* creatureStyle = style_indices.at(creatureIndex);
-                    if(casteIndex >= creatureStyle->size())
-                        creatureStyle->resize(casteIndex+1, NULL);
-                    if(!creatureStyle->at(casteIndex))
-                        creatureStyle->at(casteIndex) = new vector<int32_t>;
-                    vector<int32_t>* casteStyle = creatureStyle->at(casteIndex);
-                    size_t typeIdx{ size_t(type) };
-                    if(typeIdx >= casteStyle->size())
-                        casteStyle->resize(typeIdx+1, 0);
-                    casteStyle->at(typeIdx) = sty->id;
-                    LogVerbose("%s:%s : %d:%s\n", raws->creatures.all[creatureIndex]->creature_id.c_str(),raws->creatures.all[creatureIndex]->caste[casteIndex]->caste_id.c_str(), sty->id, sty->token.c_str());
+                    style_indices.add(creatureIndex, casteIndex, type, sty->id);
+                    LogVerbose("%s:%s : %d:%s\n",
+                        raws->creatures.all[creatureIndex]->creature_id.c_str(),
+                        raws->creatures.all[creatureIndex]->caste[casteIndex]->caste_id.c_str(),
+                        sty->id, sty->token.c_str());
                 }
             }
         }

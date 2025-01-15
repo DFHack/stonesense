@@ -532,16 +532,12 @@ namespace {
             furball.hairlength[i] = 1001;//default to long unkempt hair
             furball.hairstyle[i] = CLEAN_SHAVEN;
         }
-        if (size_t(source->race) < contentLoader->style_indices.size() && contentLoader->style_indices.at(source->race)) {
-            if (size_t(source->caste) < contentLoader->style_indices.at(source->race)->size() && contentLoader->style_indices.at(source->race)->at(source->caste)) {
-                for (size_t i = 0; i < source->appearance.tissue_style_type.size(); i++) {
-                    for (size_t j = 0; j < contentLoader->style_indices.at(source->race)->at(source->caste)->size(); j++) {
-                        if (source->appearance.tissue_style_type[i] == contentLoader->style_indices.at(source->race)->at(source->caste)->at(j)) {
-                            furball.hairlength[j] = source->appearance.tissue_length[i];
-                            furball.hairstyle[j] = (hairstyles)source->appearance.tissue_style[i];
-                        }
-                    }
-                }
+        for (size_t i = 0; i < source->appearance.tissue_style_type.size(); i++) {
+            int j = contentLoader->style_indices.lookup(source->race, source->caste, source->appearance.tissue_style_type[i]);
+            if (j != -1)
+            {
+                furball.hairlength[j] = source->appearance.tissue_length[i];
+                furball.hairstyle[j] = (hairstyles)source->appearance.tissue_style[i];
             }
         }
 

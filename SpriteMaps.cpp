@@ -13,7 +13,7 @@ using namespace df::enums;
 c_sprite *  GetTerrainSpriteMap(int in, t_matglossPair material, vector<std::unique_ptr<TerrainConfiguration>>& configTable, uint16_t form)
 {
     // in case we need to return nothing
-    static c_sprite* defaultSprite = new c_sprite;
+    static c_sprite* defaultSprite = new c_sprite;  // EXPLICIT NEW
     defaultSprite->reset();
     defaultSprite->set_sheetindex(UNCONFIGURED_INDEX);
     defaultSprite->set_fileindex(INVALID_INDEX);

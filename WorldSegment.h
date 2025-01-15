@@ -49,11 +49,11 @@ public:
         segState.Position.z = segState.Position.z - segState.Size.z + 1;
 
         uint32_t newNumTiles = inState.Size.x * inState.Size.y * inState.Size.z;
-        tiles = new Tile[newNumTiles]();
+        tiles = new Tile[newNumTiles]();  // EXPLICIT NEW
     }
 
     ~WorldSegment() {
-        delete[] tiles;
+        delete[] tiles;   // EXPLICIT DELETE
         tiles = NULL;
         ClearBuildings();
         ClearUnits();
@@ -68,8 +68,8 @@ public:
         uint32_t newNumTiles = inState.Size.x * inState.Size.y * inState.Size.z;
         //if this is a hard reset, or if the size doesn't match what is needed, get a new segment
         if(hard || newNumTiles != getNumTiles()) {
-            delete[] tiles;
-            tiles = new Tile[newNumTiles]();
+            delete[] tiles; // EXPLICIT DELETE
+            tiles = new Tile[newNumTiles]();  // EXPLICIT NEW
         }
         else {
             // Otherwise, reset all existing tiles to their initial state
