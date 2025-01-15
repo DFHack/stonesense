@@ -92,7 +92,8 @@ namespace {
                 value = autoSegForXY;
             } else {
                 value = parseIntFromLine("SEGMENTSIZE_XY", line);
-                value = min((value < MIN_SEGSIZE) ? DEFAULT_SEGSIZE_XY : value, MAX_SEGSIZE);
+                value = ((value < MIN_SEGSIZE) ? DEFAULT_SEGSIZE_XY : value);
+                value = ((value > MAX_SEGSIZE) ? MAX_SEGSIZE : value);
             }
             //plus 2 to allow edge readings
             value += 2;
@@ -107,7 +108,8 @@ namespace {
             }
             else {
                 value = parseIntFromLine("SEGMENTSIZE_X", line);
-                value = min((value < MIN_SEGSIZE) ? DEFAULT_SEGSIZE_XY : value, MAX_SEGSIZE);
+                value = ((value < MIN_SEGSIZE) ? DEFAULT_SEGSIZE_XY : value);
+                value = ((value > MAX_SEGSIZE) ? MAX_SEGSIZE : value);
             }
             //plus 2 to allow edge readings
             value += 2;
@@ -121,7 +123,8 @@ namespace {
             }
             else {
                 value = parseIntFromLine("SEGMENTSIZE_Y", line);
-                value = min((value < MIN_SEGSIZE) ? DEFAULT_SEGSIZE_XY : value, MAX_SEGSIZE);
+                value = ((value < MIN_SEGSIZE) ? DEFAULT_SEGSIZE_XY : value);
+                value = ((value > MAX_SEGSIZE) ? MAX_SEGSIZE : value);
             }
             //plus 2 to allow edge readings
             value += 2;
