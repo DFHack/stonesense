@@ -33,7 +33,7 @@ struct draw_event{
 class WorldSegment
 {
 private:
-    Tile* tiles;
+    std::vector<Tile> tiles;
     std::vector<draw_event> todraw;
 
     std::vector<std::unique_ptr<Stonesense_Unit>> units;
@@ -49,12 +49,12 @@ public:
         segState.Position.z = segState.Position.z - segState.Size.z + 1;
 
         uint32_t newNumTiles = inState.Size.x * inState.Size.y * inState.Size.z;
-        tiles = new Tile[newNumTiles]();  // EXPLICIT NEW
+        tiles.clear();
+        tiles.insert(tiles.end(), newNumTiles, {});
     }
 
     ~WorldSegment() {
-        delete[] tiles;   // EXPLICIT DELETE
-        tiles = NULL;
+        tiles.clear();
         ClearBuildings();
         ClearUnits();
     }
@@ -68,14 +68,13 @@ public:
         uint32_t newNumTiles = inState.Size.x * inState.Size.y * inState.Size.z;
         //if this is a hard reset, or if the size doesn't match what is needed, get a new segment
         if(hard || newNumTiles != getNumTiles()) {
-            delete[] tiles; // EXPLICIT DELETE
-            tiles = new Tile[newNumTiles]();  // EXPLICIT NEW
+            tiles.clear();
+            tiles.insert(tiles.end(), newNumTiles, {});
         }
         else {
             // Otherwise, reset all existing tiles to their initial state
-            for(uint32_t i = 0; i < getNumTiles(); i++) {
-                tiles[i].Reset();
-            }
+            for (auto& t : tiles)
+                t.Reset();
         }
 
         segState = inState;
