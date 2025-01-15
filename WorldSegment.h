@@ -1,18 +1,23 @@
 #pragma once
 
+#include <variant>
 
 #include "common.h"
 
 #include "Tile.h"
 
+
 enum draw_event_type{
+    Fog,
     TintedScaledBitmap,
     CreatureText
 };
 
+struct Stonesense_Unit;
+
 struct draw_event{
     draw_event_type type;
-    void * drawobject;
+    std::variant<std::monostate,ALLEGRO_BITMAP*,Stonesense_Unit*> drawobject;
     ALLEGRO_COLOR tint;
     float sx;
     float sy;
