@@ -422,9 +422,9 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
     ssConfig.Fullscreen = FULLSCREEN;
     ssState.ScreenH = RESOLUTION_HEIGHT;
     ssState.ScreenW = RESOLUTION_WIDTH;
-    ssState.Size.x = DEFAULT_SIZE;
-    ssState.Size.y = DEFAULT_SIZE;
-    ssState.Size.z = DEFAULT_SIZE_Z;
+    ssState.Size.x = DEFAULT_SEGSIZE_XY;
+    ssState.Size.y = DEFAULT_SEGSIZE_XY;
+    ssState.Size.z = DEFAULT_SEGSIZE_Z;
     ssConfig.show_creature_names = false;
     ssConfig.show_osd = true;
     ssConfig.show_designations = true;

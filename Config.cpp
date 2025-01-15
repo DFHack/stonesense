@@ -83,41 +83,56 @@ namespace {
             string result = parseStrFromLine("WINDOWED", line);
             ssConfig.Fullscreen = (result == "NO");
         }
-        if (line.find("[SEGMENTSIZE_X") != string::npos) {
-            int value = parseIntFromLine("SEGMENTSIZE_X", line);
-            if (value < 1) {
-                value = DEFAULT_SIZE;
-            }
-            if (value > 100) {
-                value = 100;
+        int autoSegForXY = (int)std::ceil(std::sqrt(2) * (ssState.ScreenW + ssState.ScreenH) / TILEWIDTH);
+        if (line.find("[SEGMENTSIZE_XY") != string::npos) {
+            bool autosize = (parseStrFromLine("SEGMENTSIZE_XY", line) == "AUTO");
+            int value = DEFAULT_SEGSIZE_XY;
+            if (autosize) {
+                value = autoSegForXY;
+            } else {
+                value = parseIntFromLine("SEGMENTSIZE_XY", line);
+                value = min((value < MIN_SIZE) ? DEFAULT_SEGSIZE_XY : value, MAX_SIZE);
             }
             //plus 2 to allow edge readings
-            ssState.Size.x = value + 2;
+            value += 2;
+            ssState.Size.x = value;
+            ssState.Size.y = value;
+        }
+        if (line.find("[SEGMENTSIZE_X") != string::npos) {
+            bool autosize = (parseStrFromLine("SEGMENTSIZE_X", line) == "AUTO");
+            int value = DEFAULT_SEGSIZE_XY;
+            if (autosize) {
+                value = autoSegForXY;
+            }
+            else {
+                value = parseIntFromLine("SEGMENTSIZE_X", line);
+                value = min((value < MIN_SIZE) ? DEFAULT_SEGSIZE_XY : value, MAX_SIZE);
+            }
+            //plus 2 to allow edge readings
+            value += 2;
+            ssState.Size.x = value;
         }
         if (line.find("[SEGMENTSIZE_Y") != string::npos) {
-            int value = parseIntFromLine("SEGMENTSIZE_Y", line);
-            if (value < 1) {
-                value = DEFAULT_SIZE;
+            bool autosize = (parseStrFromLine("SEGMENTSIZE_Y", line) == "AUTO");
+            int value = DEFAULT_SEGSIZE_XY;
+            if (autosize) {
+                value = autoSegForXY;
             }
-            if (value > 100) {
-                value = 100;
+            else {
+                value = parseIntFromLine("SEGMENTSIZE_Y", line);
+                value = min((value < MIN_SIZE) ? DEFAULT_SEGSIZE_XY : value, MAX_SIZE);
             }
             //plus 2 to allow edge readings
-            ssState.Size.y = value + 2;
+            value += 2;
+            ssState.Size.y = value;
         }
         if (line.find("[SEGMENTSIZE_Z") != string::npos) {
             int value = parseIntFromLine("SEGMENTSIZE_Z", line);
             if (value < 1) {
-                value = DEFAULT_SIZE_Z;
+                value = DEFAULT_SEGSIZE_Z;
             }
             ssState.Size.z = value;
         }
-
-        if (line.find("[AUTOSIZE_SEGMENT") != string::npos) {
-            string result = parseStrFromLine("AUTOSIZE_SEGMENT", line);
-            ssConfig.autosize_segment = (result == "YES");
-        }
-
         if (line.find("[ALLCREATURES") != string::npos) {
             string result = parseStrFromLine("ALLCREATURES", line);
             ssConfig.show_all_creatures = (result == "YES");
