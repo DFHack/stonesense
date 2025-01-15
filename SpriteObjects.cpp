@@ -317,11 +317,11 @@ uint8_t getUnBorders(const char* framestring)
     return aframes;
 }
 
-c_sprite::c_sprite(void)
+c_sprite::c_sprite()
 {
     reset();
 }
-void c_sprite::reset(void)
+void c_sprite::reset()
 {
     fileindex = -1;
     sheetindex = 0;
