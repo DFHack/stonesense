@@ -315,7 +315,6 @@ void WorldSegment::DrawAllTiles()
     }
 
     al_hold_bitmap_drawing(false);
-    al_hold_bitmap_drawing(true);
 }
 
 /**
