@@ -47,3 +47,4 @@ Template for new versions:
 - `stonesense`: ``init.txt`` config file is now read from ``dfhack-configs/stonesense/init.txt``
 - `stonesense`: creature names are now hidden by default (they can still be shown by pressing ``n`` (default keybinding) while stonesense window is active)
 - `stonesense`: use smaller increments for zooming in and out
+- `stonesense`: OSD is now hidden by default
