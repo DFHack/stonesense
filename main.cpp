@@ -247,6 +247,10 @@ void drawcredits()
     // Make the backbuffer visible
 }
 
+int autosizer() {
+    return (int)std::ceil(std::sqrt(2) * (ssState.ScreenW + ssState.ScreenH) / TILEWIDTH);
+}
+
 /* main_loop:
 *  The main loop of the program.  Here we wait for events to come in from
 *  any one of the event sources and react to each one accordingly.  While

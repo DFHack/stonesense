@@ -1,7 +1,6 @@
 #pragma once
 
 #include <assert.h>
-#include <cmath>
 #include <vector>
 #include <map>
 #include <memory>
@@ -260,6 +259,4 @@ constexpr auto FORM_LOG = 4;
 
 extern int randomCube[RANDOM_CUBE][RANDOM_CUBE][RANDOM_CUBE];
 
-int autosizer() {
-    return (int)std::ceil(std::sqrt(2) * (ssState.ScreenW + ssState.ScreenH) / TILEWIDTH);
-}
+int autosizer();
