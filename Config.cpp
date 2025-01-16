@@ -51,12 +51,11 @@ namespace {
         return retVal;
     }
 
-    int autoSegForXY = getAutoSegmentSize();
     int getSegmentSizeConfig(string setting, string line) {
         bool autosize = (parseStrFromLine(setting, line) == "AUTO");
         int value = DEFAULT_SEGSIZE_XY;
         if (autosize) {
-            value = autoSegForXY;
+            value = getAutoSegmentSize(); //function defined in main.cpp
         } else {
             value = parseIntFromLine(setting, line);
             value = ((value < MIN_SEGSIZE) ? DEFAULT_SEGSIZE_XY : value);
