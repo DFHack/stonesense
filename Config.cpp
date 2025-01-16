@@ -51,8 +51,9 @@ namespace {
         return retVal;
     }
 
-    int autoSegForXY = autosizer();
-    int getSegmentSizeConfig(string setting, string line, bool autosize) {
+    int autoSegForXY = getAutoSegmentSize();
+    int getSegmentSizeConfig(string setting, string line) {
+        bool autosize = (parseStrFromLine(setting, line) == "AUTO");
         int value = DEFAULT_SEGSIZE_XY;
         if (autosize) {
             value = autoSegForXY;
@@ -99,17 +100,15 @@ namespace {
             ssConfig.Fullscreen = (result == "NO");
         }
         if (line.find("[SEGMENTSIZE_XY") != string::npos) {
-            bool autosize = (parseStrFromLine("SEGMENTSIZE_XY", line) == "AUTO");
-            ssState.Size.x = getSegmentSizeConfig("SEGMENTSIZE_XY", line, autosize);
-            ssState.Size.y = getSegmentSizeConfig("SEGMENTSIZE_XY", line, autosize);
+            ssState.Size.x = getSegmentSizeConfig("SEGMENTSIZE_XY", line);
+            ssState.Size.y = ssState.Size.x;
         }
         if (line.find("[SEGMENTSIZE_X") != string::npos) {
-            bool autosize = (parseStrFromLine("SEGMENTSIZE_X", line) == "AUTO");
-            ssState.Size.x = getSegmentSizeConfig("SEGMENTSIZE_X", line, autosize);
+            ssState.Size.x = getSegmentSizeConfig("SEGMENTSIZE_X", line);
         }
         if (line.find("[SEGMENTSIZE_Y") != string::npos) {
-            bool autosize = (parseStrFromLine("SEGMENTSIZE_Y", line) == "AUTO");
-            ssState.Size.y = getSegmentSizeConfig("SEGMENTSIZE_Y", line, autosize);
+
+            ssState.Size.y = getSegmentSizeConfig("SEGMENTSIZE_Y", line);
         }
         if (line.find("[SEGMENTSIZE_Z") != string::npos) {
             int value = parseIntFromLine("SEGMENTSIZE_Z", line);

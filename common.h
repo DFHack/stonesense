@@ -259,4 +259,4 @@ constexpr auto FORM_LOG = 4;
 
 extern int randomCube[RANDOM_CUBE][RANDOM_CUBE][RANDOM_CUBE];
 
-int autosizer();
+int getAutoSegmentSize();

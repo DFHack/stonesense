@@ -247,7 +247,7 @@ void drawcredits()
     // Make the backbuffer visible
 }
 
-int autosizer() {
+int getAutoSegmentSize() {
     return (int)std::ceil(std::sqrt(2) * (ssState.ScreenW + ssState.ScreenH) / TILEWIDTH);
 }
 
@@ -348,10 +348,10 @@ static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALL
 
                 }
                 if (ssConfig.autosize_segmentX) {
-                    ssState.Size.x = autosizer();
+                    ssState.Size.x = getAutoSegmentSize();
                 }
                 if (ssConfig.autosize_segmentY){
-                    ssState.Size.y = autosizer();
+                    ssState.Size.y = getAutoSegmentSize();
                 }
                 timeToReloadSegment = true;
                 redraw = true;
