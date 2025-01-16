@@ -1,6 +1,7 @@
 #pragma once
 
 #include <assert.h>
+#include <cmath>
 #include <vector>
 #include <map>
 #include <memory>
