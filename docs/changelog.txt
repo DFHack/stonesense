@@ -38,7 +38,8 @@ Template for new versions:
 # Future
 
 ## New Features
-
+- `stonesense`: added ``AUTO`` as an option for the now-split ``SEGMENTSIZE_X`` and ``SEGMENTSIZE_Y``
+- `stonesense`: added new keys for resizing the segmentsize
 ## Fixes
 - `stonesense`: fixed crash when maximizing or resizing the window
 
