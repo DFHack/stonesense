@@ -273,7 +273,7 @@ void parseKeymapLine( string line )
 
 bool loadKeymapFile(){
     string line;
-    ALLEGRO_PATH * p =al_create_path("stonesense/keybinds.txt");
+    ALLEGRO_PATH * p =al_create_path("dfhack-config/stonesense/keybinds.txt");
     const char * path = al_path_cstr(p,ALLEGRO_NATIVE_PATH_SEP);
     ifstream myfile (path);
     if (myfile.is_open() == false) {
