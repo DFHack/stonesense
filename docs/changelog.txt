@@ -40,9 +40,12 @@ Template for new versions:
 ## New Features
 
 ## Fixes
+- `stonesense`: fixed crash when maximizing or resizing the window
 
 ## Misc Improvements
 - `stonesense`: changed announcements to be right-aligned and limited to only show the most recent 10 announcements
 - `stonesense`: ``init.txt`` config file is now read from ``dfhack-configs/stonesense/init.txt``
 - `stonesense`: ``keybinds.txt`` config file is now read from ``dfhack-configs/stonesense/keybinds.txt``
 - `stonesense`: creature names are now hidden by default (they can still be shown by pressing ``n`` (default keybinding) while stonesense window is active)
+- `stonesense`: use smaller increments for zooming in and out
+- `stonesense`: OSD is now hidden by default; hit F2 (default keybinding) to show it again

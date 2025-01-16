@@ -33,7 +33,7 @@ void changeConstructionMaterials(WorldSegment* segment, vector<df::construction>
  * Reads an unbuilt construction's tle type to the given block and converts the
  * material to "CONSTRUCTION".
  */
-bool readConstructionsToTile( Tile* b, const Buildings::t_building* building )
+bool readConstructionsToTile( Tile* b, const Stonesense_Building* building )
 {
     if(building->type == df::building_type::Construction) {
         df::tiletype constructedTiletype = df::tiletype::Void;
