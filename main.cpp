@@ -237,7 +237,7 @@ void drawcredits()
     al_draw_text(font, color_white, centerx, bottomy-12*lineheight, ALLEGRO_ALIGN_CENTRE, "7c Nickel, BatCountry, Belal, Belannaer, DeKaFu, Dante, Deon, dyze,");
     al_draw_text(font, color_white, centerx, bottomy-11*lineheight, ALLEGRO_ALIGN_CENTRE, "Errol, fifth angel, frumpton, IDreamOfGiniCoeff, Impaler, ");
     al_draw_text(font, color_white, centerx, bottomy-10*lineheight, ALLEGRO_ALIGN_CENTRE, "Japa, jarathor, Jiri Petru, Jordix, Lord Nightmare, McMe, Mike Mayday, Nexii ");
-    al_draw_text(font, color_white, centerx, bottomy-9*lineheight, ALLEGRO_ALIGN_CENTRE, "Malthus, peterix, Seuss, soup, Talvara, winner, Xandrin.");
+    al_draw_text(font, color_white, centerx, bottomy-9*lineheight, ALLEGRO_ALIGN_CENTRE, "Malthus, peterix, Seuss, soup, SquidCoder, Talvara, winner, Xandrin.");
 
     al_draw_text(font, color_white, centerx, bottomy-7*lineheight, ALLEGRO_ALIGN_CENTRE, "With special thanks to peterix for making dfHack");
 
