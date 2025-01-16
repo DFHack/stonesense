@@ -51,8 +51,7 @@ namespace {
         return retVal;
     }
 
-    //how can i link this to the function in main.cpp?
-    int autoSegForXY = (int)std::ceil(std::sqrt(2) * (ssState.ScreenW + ssState.ScreenH) / TILEWIDTH);
+    int autoSegForXY = autosizer();
     int getSegmentSizeConfig(string setting, string line, bool autosize) {
         int value = DEFAULT_SEGSIZE_XY;
         if (autosize) {
