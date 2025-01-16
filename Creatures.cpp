@@ -28,255 +28,261 @@
 #include "df/historical_entity.h"
 #include "df/entity_position.h"
 
-using namespace std;
 using namespace DFHack;
 using namespace df::enums;
+
+using std::string;
+using std::vector;
 
 //vector<t_matgloss> v_creatureNames;
 //vector<CreatureConfiguration> creatureTypes;
 
-int32_t charToUpper(int32_t c)
-{
-    if(c >= 0x61 && c <= 0x7A) {
-        return c-0x20;
-    } else if(c >= 0xE0 && c <= 0xF6) {
-        return c-0x20;
-    } else if(c >= 0xF8 && c <= 0xFE) {
-        return c-0x20;
-    } else {
-        return c;
-    }
-}
-
-ALLEGRO_USTR* bufferToUstr(const char* buffer, int length)
-{
-    ALLEGRO_USTR* temp = al_ustr_new("");
-    for (int i = 0; i < length; i++) {
-        switch ((unsigned char)buffer[i])
-        {
-        case 0:
-            i = length;
-            break;
-        case 1:
-            al_ustr_append_chr(temp, 0x263A);
-            break;
-        case 2:
-            al_ustr_append_chr(temp, 0x263B);
-            break;
-        case 3:
-            al_ustr_append_chr(temp, 0x2665);
-            break;
-        case 4:
-            al_ustr_append_chr(temp, 0x2666);
-            break;
-        case 5:
-            al_ustr_append_chr(temp, 0x2663);
-            break;
-        case 6:
-            al_ustr_append_chr(temp, 0x2660);
-            break;
-        case 7:
-            al_ustr_append_chr(temp, 0x2022);
-            break;
-        case 8:
-            al_ustr_append_chr(temp, 0x25D8);
-            break;
-        case 9:
-            al_ustr_append_chr(temp, 0x25CB);
-            break;
-        case 10:
-            al_ustr_append_chr(temp, 0x25D9);
-            break;
-        case 11:
-            al_ustr_append_chr(temp, 0x2642);
-            break;
-        case 12:
-            al_ustr_append_chr(temp, 0x2640);
-            break;
-        case 13:
-            al_ustr_append_chr(temp, 0x266A);
-            break;
-        case 14:
-            al_ustr_append_chr(temp, 0x266B);
-            break;
-        case 15:
-            al_ustr_append_chr(temp, 0x263C);
-            break;
-        case 16:
-            al_ustr_append_chr(temp, 0x25BA);
-            break;
-        case 17:
-            al_ustr_append_chr(temp, 0x25C4);
-            break;
-        case 18:
-            al_ustr_append_chr(temp, 0x2195);
-            break;
-        case 19:
-            al_ustr_append_chr(temp, 0x203C);
-            break;
-        case 20:
-            al_ustr_append_chr(temp, 0xB6);
-            break;
-        case 21:
-            al_ustr_append_chr(temp, 0xA7);
-            break;
-        case 22:
-            al_ustr_append_chr(temp, 0x25AC);
-            break;
-        case 23:
-            al_ustr_append_chr(temp, 0x21A8);
-            break;
-        case 24:
-            al_ustr_append_chr(temp, 0x2191);
-            break;
-        case 25:
-            al_ustr_append_chr(temp, 0x2193);
-            break;
-        case 26:
-            al_ustr_append_chr(temp, 0x2192);
-            break;
-        case 27:
-            al_ustr_append_chr(temp, 0x2190);
-            break;
-        case 28:
-            al_ustr_append_chr(temp, 0x221F);
-            break;
-        case 29:
-            al_ustr_append_chr(temp, 0x2194);
-            break;
-        case 30:
-            al_ustr_append_chr(temp, 0x25B2);
-            break;
-        case 31:
-            al_ustr_append_chr(temp, 0x25BC);
-            break;
-        case 128:
-            al_ustr_append_chr(temp, 0xC7);
-            break;
-        case 129:
-            al_ustr_append_chr(temp, 0xFC);
-            break;
-        case 130:
-            al_ustr_append_chr(temp, 0xE9);
-            break;
-        case 131:
-            al_ustr_append_chr(temp, 0xE2);
-            break;
-        case 132:
-            al_ustr_append_chr(temp, 0xE4);
-            break;
-        case 133:
-            al_ustr_append_chr(temp, 0xE0);
-            break;
-        case 134:
-            al_ustr_append_chr(temp, 0xE5);
-            break;
-        case 135:
-            al_ustr_append_chr(temp, 0xE7);
-            break;
-        case 136:
-            al_ustr_append_chr(temp, 0xEA);
-            break;
-        case 137:
-            al_ustr_append_chr(temp, 0xEB);
-            break;
-        case 138:
-            al_ustr_append_chr(temp, 0xE8);
-            break;
-        case 139:
-            al_ustr_append_chr(temp, 0xEF);
-            break;
-        case 140:
-            al_ustr_append_chr(temp, 0xEE);
-            break;
-        case 141:
-            al_ustr_append_chr(temp, 0xC4);
-            break;
-        case 142:
-            al_ustr_append_chr(temp, 0xC5);
-            break;
-        case 143:
-            al_ustr_append_chr(temp, 0xC9);
-            break;
-        case 144:
-            al_ustr_append_chr(temp, 0xFC);
-            break;
-        case 145:
-            al_ustr_append_chr(temp, 0xE9);
-            break;
-        case 146:
-            al_ustr_append_chr(temp, 0xC6);
-            break;
-        case 147:
-            al_ustr_append_chr(temp, 0xF4);
-            break;
-        case 148:
-            al_ustr_append_chr(temp, 0xF6);
-            break;
-        case 149:
-            al_ustr_append_chr(temp, 0xF2);
-            break;
-        case 150:
-            al_ustr_append_chr(temp, 0xFB);
-            break;
-        case 151:
-            al_ustr_append_chr(temp, 0xF9);
-            break;
-        case 152:
-            al_ustr_append_chr(temp, 0xFF);
-            break;
-        case 153:
-            al_ustr_append_chr(temp, 0xD6);
-            break;
-        case 154:
-            al_ustr_append_chr(temp, 0xDC);
-            break;
-        case 160:
-            al_ustr_append_chr(temp, 0xE1);
-            break;
-        case 161:
-            al_ustr_append_chr(temp, 0xED);
-            break;
-        case 162:
-            al_ustr_append_chr(temp, 0xF3);
-            break;
-        case 163:
-            al_ustr_append_chr(temp, 0xFA);
-            break;
-        case 164:
-            al_ustr_append_chr(temp, 0xF1);
-            break;
-        case 165:
-            al_ustr_append_chr(temp, 0xD1);
-            break;
-        default:
-            al_ustr_append_chr(temp, buffer[i]);
-            break;
+namespace {
+    int32_t charToUpper(int32_t c)
+    {
+        if (c >= 0x61 && c <= 0x7A) {
+            return c - 0x20;
+        }
+        else if (c >= 0xE0 && c <= 0xF6) {
+            return c - 0x20;
+        }
+        else if (c >= 0xF8 && c <= 0xFE) {
+            return c - 0x20;
+        }
+        else {
+            return c;
         }
     }
-    return temp;
-}
 
-bool IsCreatureVisible( df::unit* c )
-{
-    if( ssConfig.show_all_creatures ) {
+    ALLEGRO_USTR* bufferToUstr(const char* buffer, int length)
+    {
+        ALLEGRO_USTR* temp = al_ustr_new("");
+        for (int i = 0; i < length; i++) {
+            switch ((unsigned char)buffer[i])
+            {
+            case 0:
+                i = length;
+                break;
+            case 1:
+                al_ustr_append_chr(temp, 0x263A);
+                break;
+            case 2:
+                al_ustr_append_chr(temp, 0x263B);
+                break;
+            case 3:
+                al_ustr_append_chr(temp, 0x2665);
+                break;
+            case 4:
+                al_ustr_append_chr(temp, 0x2666);
+                break;
+            case 5:
+                al_ustr_append_chr(temp, 0x2663);
+                break;
+            case 6:
+                al_ustr_append_chr(temp, 0x2660);
+                break;
+            case 7:
+                al_ustr_append_chr(temp, 0x2022);
+                break;
+            case 8:
+                al_ustr_append_chr(temp, 0x25D8);
+                break;
+            case 9:
+                al_ustr_append_chr(temp, 0x25CB);
+                break;
+            case 10:
+                al_ustr_append_chr(temp, 0x25D9);
+                break;
+            case 11:
+                al_ustr_append_chr(temp, 0x2642);
+                break;
+            case 12:
+                al_ustr_append_chr(temp, 0x2640);
+                break;
+            case 13:
+                al_ustr_append_chr(temp, 0x266A);
+                break;
+            case 14:
+                al_ustr_append_chr(temp, 0x266B);
+                break;
+            case 15:
+                al_ustr_append_chr(temp, 0x263C);
+                break;
+            case 16:
+                al_ustr_append_chr(temp, 0x25BA);
+                break;
+            case 17:
+                al_ustr_append_chr(temp, 0x25C4);
+                break;
+            case 18:
+                al_ustr_append_chr(temp, 0x2195);
+                break;
+            case 19:
+                al_ustr_append_chr(temp, 0x203C);
+                break;
+            case 20:
+                al_ustr_append_chr(temp, 0xB6);
+                break;
+            case 21:
+                al_ustr_append_chr(temp, 0xA7);
+                break;
+            case 22:
+                al_ustr_append_chr(temp, 0x25AC);
+                break;
+            case 23:
+                al_ustr_append_chr(temp, 0x21A8);
+                break;
+            case 24:
+                al_ustr_append_chr(temp, 0x2191);
+                break;
+            case 25:
+                al_ustr_append_chr(temp, 0x2193);
+                break;
+            case 26:
+                al_ustr_append_chr(temp, 0x2192);
+                break;
+            case 27:
+                al_ustr_append_chr(temp, 0x2190);
+                break;
+            case 28:
+                al_ustr_append_chr(temp, 0x221F);
+                break;
+            case 29:
+                al_ustr_append_chr(temp, 0x2194);
+                break;
+            case 30:
+                al_ustr_append_chr(temp, 0x25B2);
+                break;
+            case 31:
+                al_ustr_append_chr(temp, 0x25BC);
+                break;
+            case 128:
+                al_ustr_append_chr(temp, 0xC7);
+                break;
+            case 129:
+                al_ustr_append_chr(temp, 0xFC);
+                break;
+            case 130:
+                al_ustr_append_chr(temp, 0xE9);
+                break;
+            case 131:
+                al_ustr_append_chr(temp, 0xE2);
+                break;
+            case 132:
+                al_ustr_append_chr(temp, 0xE4);
+                break;
+            case 133:
+                al_ustr_append_chr(temp, 0xE0);
+                break;
+            case 134:
+                al_ustr_append_chr(temp, 0xE5);
+                break;
+            case 135:
+                al_ustr_append_chr(temp, 0xE7);
+                break;
+            case 136:
+                al_ustr_append_chr(temp, 0xEA);
+                break;
+            case 137:
+                al_ustr_append_chr(temp, 0xEB);
+                break;
+            case 138:
+                al_ustr_append_chr(temp, 0xE8);
+                break;
+            case 139:
+                al_ustr_append_chr(temp, 0xEF);
+                break;
+            case 140:
+                al_ustr_append_chr(temp, 0xEE);
+                break;
+            case 141:
+                al_ustr_append_chr(temp, 0xC4);
+                break;
+            case 142:
+                al_ustr_append_chr(temp, 0xC5);
+                break;
+            case 143:
+                al_ustr_append_chr(temp, 0xC9);
+                break;
+            case 144:
+                al_ustr_append_chr(temp, 0xFC);
+                break;
+            case 145:
+                al_ustr_append_chr(temp, 0xE9);
+                break;
+            case 146:
+                al_ustr_append_chr(temp, 0xC6);
+                break;
+            case 147:
+                al_ustr_append_chr(temp, 0xF4);
+                break;
+            case 148:
+                al_ustr_append_chr(temp, 0xF6);
+                break;
+            case 149:
+                al_ustr_append_chr(temp, 0xF2);
+                break;
+            case 150:
+                al_ustr_append_chr(temp, 0xFB);
+                break;
+            case 151:
+                al_ustr_append_chr(temp, 0xF9);
+                break;
+            case 152:
+                al_ustr_append_chr(temp, 0xFF);
+                break;
+            case 153:
+                al_ustr_append_chr(temp, 0xD6);
+                break;
+            case 154:
+                al_ustr_append_chr(temp, 0xDC);
+                break;
+            case 160:
+                al_ustr_append_chr(temp, 0xE1);
+                break;
+            case 161:
+                al_ustr_append_chr(temp, 0xED);
+                break;
+            case 162:
+                al_ustr_append_chr(temp, 0xF3);
+                break;
+            case 163:
+                al_ustr_append_chr(temp, 0xFA);
+                break;
+            case 164:
+                al_ustr_append_chr(temp, 0xF1);
+                break;
+            case 165:
+                al_ustr_append_chr(temp, 0xD1);
+                break;
+            default:
+                al_ustr_append_chr(temp, buffer[i]);
+                break;
+            }
+        }
+        return temp;
+    }
+
+    bool IsCreatureVisible(df::unit * c)
+    {
+        if (ssConfig.show_all_creatures) {
+            return true;
+        }
+
+        if (c->flags1.bits.inactive) {
+            return false;
+        }
+        if (c->flags1.bits.caged) {
+            return false;
+        }
+        if (c->flags1.bits.hidden_in_ambush) {
+            return false;
+        }
         return true;
     }
-
-    if( c->flags1.bits.inactive ) {
-        return false;
-    }
-    if( c->flags1.bits.caged ) {
-        return false;
-    }
-    if( c->flags1.bits.hidden_in_ambush ) {
-        return false;
-    }
-    return true;
 }
 
-
-void AssembleCreature(int drawx, int drawy, SS_Unit* creature, Tile * b)
+void AssembleCreature(int drawx, int drawy, Stonesense_Unit* creature, Tile * b)
 {
     c_sprite * sprite = GetCreatureSpriteMap( creature );
     if(sprite) {
@@ -305,12 +311,12 @@ void AssembleCreature(int drawx, int drawy, SS_Unit* creature, Tile * b)
     }
 }
 
-void AssembleCreatureText(int drawx, int drawy, SS_Unit* creature, WorldSegment * seg){
+void AssembleCreatureText(int drawx, int drawy, Stonesense_Unit* creature, WorldSegment * seg){
     draw_event d = {CreatureText, creature, al_map_rgb(255,255,255), 0, 0, 0, 0, (float)drawx, (float)drawy, 0, 0, 0};
     seg->AssembleSprite(d);
 }
 
-void DrawCreatureText(int drawx, int drawy, SS_Unit* creature )
+void DrawCreatureText(int drawx, int drawy, Stonesense_Unit* creature )
 {
     vector<int> statusIcons;
 
@@ -469,86 +475,88 @@ void DrawCreatureText(int drawx, int drawy, SS_Unit* creature )
 
 using df::global::world;
 
-/**
- * Tries to figure out if the unit is a legend.
- */
-bool hasLegendarySkill(df::unit * source){
+namespace {
+    /**
+     * Tries to figure out if the unit is a legend.
+     */
+    bool hasLegendarySkill(df::unit * source) {
 
-    if(!source) {
-        return false;
-    }
-    if(source->status.souls.size() <= 0) {
-        return false;
-    }
-    df::unit_soul* soul = source->status.souls[0];
-    if(!soul) {
-        return false;
-    }
-    if(soul->skills.size() <= 0) {
-        return false;
-    }
-    for(size_t i=0; i<soul->skills.size(); i++) {
-        if(soul->skills[i] && soul->skills[i]->rating >= df::skill_rating::Legendary) {
-            return true;
+        if (!source) {
+            return false;
         }
+        if (source->status.souls.size() <= 0) {
+            return false;
+        }
+        df::unit_soul* soul = source->status.souls[0];
+        if (!soul) {
+            return false;
+        }
+        if (soul->skills.size() <= 0) {
+            return false;
+        }
+        for (size_t i = 0; i < soul->skills.size(); i++) {
+            if (soul->skills[i] && soul->skills[i]->rating >= df::skill_rating::Legendary) {
+                return true;
+            }
+        }
+        //I feel dirty
+        return false;
     }
-    //I feel dirty
-    return false;
-}
 
-/**
- * Makes a copy of a DF creature for stonesense to use.
- *
- * If somebody feels like maintaining the DFHack version,
- * then we won't need to have our own written here >:(
- */
-void copyCreature(df::unit * source, SS_Unit & furball)
-{
-    // read pointer from vector at position
-    furball.origin = source;
+    /**
+     * Makes a copy of a DF creature for stonesense to use.
+     *
+     * If somebody feels like maintaining the DFHack version,
+     * then we won't need to have our own written here >:(
+     */
+    void copyCreature(df::unit * source, Stonesense_Unit & furball)
+    {
+        // read pointer from vector at position
+        furball.origin = source;
 
-    //read creature from memory
+        //read creature from memory
 
-    // custom profession
-    furball.custom_profession = source->custom_profession;
-    // profession
-    furball.profession = source->profession;
-    //figure out legendary status
-    furball.isLegend = hasLegendarySkill(source);
+        // custom profession
+        furball.custom_profession = source->custom_profession;
+        // profession
+        furball.profession = source->profession;
+        //figure out legendary status
+        furball.isLegend = hasLegendarySkill(source);
 
-    // appearance
-    furball.nbcolors = source->appearance.colors.size();
-    if(furball.nbcolors > 15) // Was using DFHack::Units::MAX_COLORS for no apparent reason; TODO: Use a better number?
-        furball.nbcolors = 15;
-    // hair
-    for(int i = 0; i < hairtypes_end; i++){
-        furball.hairlength[i] = 1001;//default to long unkempt hair
-        furball.hairstyle[i] = CLEAN_SHAVEN;
-    }
-    if(size_t(source->race) < contentLoader->style_indices.size() && contentLoader->style_indices.at(source->race)){
-        if(size_t(source->caste) < contentLoader->style_indices.at(source->race)->size() && contentLoader->style_indices.at(source->race)->at(source->caste)){
-            for(size_t i = 0; i < source->appearance.tissue_style_type.size(); i++){
-                for(size_t j = 0; j < contentLoader->style_indices.at(source->race)->at(source->caste)->size();j++){
-                    if(source->appearance.tissue_style_type[i] == contentLoader->style_indices.at(source->race)->at(source->caste)->at(j)){
-                        furball.hairlength[j] = source->appearance.tissue_length[i];
-                        furball.hairstyle[j] = (hairstyles)source->appearance.tissue_style[i];
+        // appearance
+        furball.nbcolors = source->appearance.colors.size();
+        if (furball.nbcolors > 15) // Was using DFHack::Units::MAX_COLORS for no apparent reason; TODO: Use a better number?
+            furball.nbcolors = 15;
+        // hair
+        for (int i = 0; i < hairtypes_end; i++) {
+            furball.hairlength[i] = 1001;//default to long unkempt hair
+            furball.hairstyle[i] = CLEAN_SHAVEN;
+        }
+        if (size_t(source->race) < contentLoader->style_indices.size() && contentLoader->style_indices.at(source->race)) {
+            if (size_t(source->caste) < contentLoader->style_indices.at(source->race)->size() && contentLoader->style_indices.at(source->race)->at(source->caste)) {
+                for (size_t i = 0; i < source->appearance.tissue_style_type.size(); i++) {
+                    for (size_t j = 0; j < contentLoader->style_indices.at(source->race)->at(source->caste)->size(); j++) {
+                        if (source->appearance.tissue_style_type[i] == contentLoader->style_indices.at(source->race)->at(source->caste)->at(j)) {
+                            furball.hairlength[j] = source->appearance.tissue_length[i];
+                            furball.hairstyle[j] = (hairstyles)source->appearance.tissue_style[i];
+                        }
                     }
                 }
             }
         }
+
+        for (uint32_t i = 0; i < furball.nbcolors; i++) {
+            furball.color[i] = source->appearance.colors[i];
+        }
+
+        std::vector<Units::NoblePosition> np;
+        if (Units::getNoblePositions(&np, source)) {
+            furball.profession = contentLoader->position_Indices[np[0].entity->id]->at(np[0].position->id);
+        }
+
+
+        furball.inv = NULL;
     }
-
-    for(uint32_t i = 0; i < furball.nbcolors; i++) {
-        furball.color[i] = source->appearance.colors[i];
-    }
-
-    std::vector<Units::NoblePosition> np;
-    if(Units::getNoblePositions(&np, source)){
-        furball.profession = contentLoader->position_Indices[np[0].entity->id]->at(np[0].position->id);
-    }
-
-
-    furball.inv = NULL;
 }
 
 void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
@@ -584,7 +592,7 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
         }
 
         // make a copy of some creature data
-        auto tempcreature = std::make_unique<SS_Unit>();
+        auto tempcreature = std::make_unique<Stonesense_Unit>();
         copyCreature(unit_ptr,*tempcreature);
 
         // add shadow to nearest floor tile
@@ -660,10 +668,10 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
                 tempcreature->inv = std::make_unique<unit_inventory>();
             }
             if(tempcreature->inv->item.size() <= size_t(type)) {
-                tempcreature->inv->item.resize(type+1);
+                tempcreature->inv->item.resize(size_t(type)+1);
             }
             if(tempcreature->inv->item[type].size() <= size_t(subtype)) {
-                tempcreature->inv->item[type].resize(subtype+1);
+                tempcreature->inv->item[type].resize(size_t(subtype)+1);
             }
             tempcreature->inv->item[type][subtype].push_back(equipment);
         }
@@ -675,84 +683,86 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
 }
 
 
-CreatureConfiguration *GetCreatureConfig( SS_Unit* c )
-{
-    //find list for creature type
-    uint32_t num = (uint32_t)contentLoader->creatureConfigs.size();
-    if (uint32_t(c->origin->race) >= num) {
-        return nullptr;
-    }
-    std::unique_ptr<vector<CreatureConfiguration>>& creatureData = contentLoader->creatureConfigs[c->origin->race];
-    if (creatureData == nullptr) {
-        return nullptr;
-    }
-    int rando = randomCube[c->origin->pos.x%RANDOM_CUBE][c->origin->pos.y%RANDOM_CUBE][c->origin->pos.z%RANDOM_CUBE];
-    int offsetAnimFrame = (currentAnimationFrame + rando) % MAX_ANIMFRAME;
+namespace {
+    CreatureConfiguration* GetCreatureConfig(Stonesense_Unit* c)
+    {
+        //find list for creature type
+        uint32_t num = (uint32_t)contentLoader->creatureConfigs.size();
+        if (uint32_t(c->origin->race) >= num) {
+            return nullptr;
+        }
+        std::unique_ptr<vector<CreatureConfiguration>>& creatureData = contentLoader->creatureConfigs[c->origin->race];
+        if (creatureData == nullptr) {
+            return nullptr;
+        }
+        int rando = randomCube[c->origin->pos.x % RANDOM_CUBE][c->origin->pos.y % RANDOM_CUBE][c->origin->pos.z % RANDOM_CUBE];
+        int offsetAnimFrame = (currentAnimationFrame + rando) % MAX_ANIMFRAME;
 
-    num = (uint32_t)creatureData->size();
-    for(uint32_t i=0; i < num; i++) {
-        CreatureConfiguration *testConfig = &((*creatureData)[i]);
+        num = (uint32_t)creatureData->size();
+        for (uint32_t i = 0; i < num; i++) {
+            CreatureConfiguration* testConfig = &((*creatureData)[i]);
 
-        bool creatureMatchesJob = true;
-        if( testConfig->professionID != INVALID_INDEX ) {
-            creatureMatchesJob = testConfig->professionID == c->profession;
-        }
-        if(!creatureMatchesJob) {
-            continue;
-        }
-
-        bool creatureMatchesSex = true;
-        if( testConfig->sex != pronoun_type::it ) {
-            creatureMatchesSex =
-                (c->origin->sex == testConfig->sex);
-        }
-        if(!creatureMatchesSex) {
-            continue;
-        }
-
-        bool creatureMatchesCaste = true;
-        if( testConfig->caste != INVALID_INDEX ) {
-            creatureMatchesCaste = testConfig->caste == c->origin->caste;
-        }
-        if(!creatureMatchesCaste) {
-            continue;
-        }
-
-        bool creatureMatchesSpecial = true;
-        if (testConfig->special != eCSC_Any) {
-            if (testConfig->special == eCSC_Ghost && !c->origin->flags3.bits.ghostly) {
-                creatureMatchesSpecial = false;
+            bool creatureMatchesJob = true;
+            if (testConfig->professionID != INVALID_INDEX) {
+                creatureMatchesJob = testConfig->professionID == c->profession;
             }
-            if (testConfig->special == eCSC_Military) {
-                df::profession profession = (df::profession) c->profession;
-                if(!ENUM_ATTR(profession,military,profession)) {
+            if (!creatureMatchesJob) {
+                continue;
+            }
+
+            bool creatureMatchesSex = true;
+            if (testConfig->sex != pronoun_type::it) {
+                creatureMatchesSex =
+                    (c->origin->sex == testConfig->sex);
+            }
+            if (!creatureMatchesSex) {
+                continue;
+            }
+
+            bool creatureMatchesCaste = true;
+            if (testConfig->caste != INVALID_INDEX) {
+                creatureMatchesCaste = testConfig->caste == c->origin->caste;
+            }
+            if (!creatureMatchesCaste) {
+                continue;
+            }
+
+            bool creatureMatchesSpecial = true;
+            if (testConfig->special != eCSC_Any) {
+                if (testConfig->special == eCSC_Ghost && !c->origin->flags3.bits.ghostly) {
                     creatureMatchesSpecial = false;
                 }
+                if (testConfig->special == eCSC_Military) {
+                    df::profession profession = (df::profession)c->profession;
+                    if (!ENUM_ATTR(profession, military, profession)) {
+                        creatureMatchesSpecial = false;
+                    }
+                }
             }
-        }
-        if(!creatureMatchesSpecial) {
-            continue;
-        }
+            if (!creatureMatchesSpecial) {
+                continue;
+            }
 
-        if (!(testConfig->sprite.get_animframes() & (1 << offsetAnimFrame))) {
-            continue;
-        }
+            if (!(testConfig->sprite.get_animframes() & (1 << offsetAnimFrame))) {
+                continue;
+            }
 
-        // dont try to match strings until other tests pass
-        if( testConfig->professionstr[0]) {
-            //cant be NULL, so check has length
-            creatureMatchesJob = (c->custom_profession == testConfig->professionstr);
-        }
-        if(!creatureMatchesJob) {
-            continue;
-        }
+            // dont try to match strings until other tests pass
+            if (testConfig->professionstr[0]) {
+                //cant be NULL, so check has length
+                creatureMatchesJob = (c->custom_profession == testConfig->professionstr);
+            }
+            if (!creatureMatchesJob) {
+                continue;
+            }
 
-        return testConfig;
+            return testConfig;
+        }
+        return NULL;
     }
-    return NULL;
 }
 
-c_sprite* GetCreatureSpriteMap( SS_Unit* c )
+c_sprite* GetCreatureSpriteMap( Stonesense_Unit* c )
 {
     CreatureConfiguration *testConfig = GetCreatureConfig( c );
     if (testConfig == NULL) {
@@ -762,7 +772,7 @@ c_sprite* GetCreatureSpriteMap( SS_Unit* c )
     return &(testConfig->sprite);
 }
 
-uint8_t GetCreatureShadowMap( SS_Unit* c )
+uint8_t GetCreatureShadowMap( Stonesense_Unit* c )
 {
     CreatureConfiguration *testConfig = GetCreatureConfig( c );
     if (testConfig == NULL) {
@@ -771,7 +781,7 @@ uint8_t GetCreatureShadowMap( SS_Unit* c )
     return testConfig->shadow;
 }
 
-void generateCreatureDebugString( SS_Unit* c, char* strbuffer)
+void generateCreatureDebugString( Stonesense_Unit* c, char* strbuffer)
 {
     if(c->origin->flags1.bits.active_invader) {
         strcat(strbuffer, "activeInvader ");

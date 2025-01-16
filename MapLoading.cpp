@@ -29,7 +29,6 @@
 #include "df/plant_tree_info.h"
 #include "df/plant_tree_tile.h"
 
-#include "ConnectionState.h"
 
 using namespace std;
 using namespace DFHack;
@@ -789,7 +788,7 @@ void readMapSegment(WorldSegment* segment, GameState inState)
     segment->Reset(inState,false);
 
     //read world wide buildings
-    vector<Buildings::t_building> allBuildings;
+    vector<Stonesense_Building> allBuildings;
     if(!ssConfig.skipBuildings) {
         ReadBuildings(DF, &allBuildings);
     }

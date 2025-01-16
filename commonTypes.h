@@ -1,5 +1,7 @@
 #pragma once
 
+#include <filesystem>
+
 #include "common.h"
 #include "SpriteColors.h"
 #include "df/enabler.h"
@@ -74,12 +76,12 @@ struct t_SpriteWithOffset {
     uint8_t snowMax;
 } ;
 
-typedef struct Crd2D {
+struct Crd2D {
     int32_t x,y;
-} Crd2D;
-typedef struct Crd3D {
+};
+struct Crd3D {
     int32_t x,y,z;
-} Crd3D;
+};
 
 class dfColors
 {
@@ -123,7 +125,7 @@ public:
     color & operator [] (color_name col) {
         return colors[col];
     }
-    ALLEGRO_COLOR getDfColor(int color, bool useDfColors) {
+    ALLEGRO_COLOR getDfColor(int color, bool useDfColors) const {
         if(color < 0 || color >= 16) {
             return al_map_rgb(255,255,255);
         }
@@ -133,7 +135,7 @@ public:
         }
         return colors[ (color_name) color].al;
     }
-    ALLEGRO_COLOR getDfColor(int color, int bright, bool useDfColors) {
+    ALLEGRO_COLOR getDfColor(int color, int bright, bool useDfColors) const {
         return getDfColor(color + (bright * 8), useDfColors);
     }
 };
@@ -168,7 +170,7 @@ struct GameConfiguration {
     int automatic_reload_step;
     int animation_step;
     int fontsize;
-    ALLEGRO_PATH * font;
+    std::filesystem::path font;
     bool Fullscreen;
     bool show_intro;
     ALLEGRO_COLOR fogcol;
@@ -295,7 +297,7 @@ struct unit_inventory {
     std::vector<std::vector<std::vector<worn_item>>> item;
 };
 
-struct SS_Unit{
+struct Stonesense_Unit{
     df::unit * origin;
 
     uint16_t profession;
@@ -310,4 +312,28 @@ struct SS_Unit{
 
     bool isLegend;
     std::unique_ptr<unit_inventory> inv;
+};
+
+struct Stonesense_Building
+{
+    uint32_t x1;
+    uint32_t y1;
+    uint32_t x2;
+    uint32_t y2;
+    uint32_t z;
+    DFHack::t_matglossPair material;
+    df::building_type type;
+    union
+    {
+        int16_t subtype;
+        df::civzone_type civzone_type;
+        df::furnace_type furnace_type;
+        df::workshop_type workshop_type;
+        df::construction_type construction_type;
+        df::shop_type shop_type;
+        df::siegeengine_type siegeengine_type;
+        df::trap_type trap_type;
+    };
+    int32_t custom_type;
+    df::building* origin;
 };

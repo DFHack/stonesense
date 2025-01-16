@@ -4,6 +4,8 @@
 #include "WorldSegment.h"
 #include "GUI.h"
 
+#include <filesystem>
+
 using namespace std;
 using namespace DFHack;
 using namespace df::enums;
@@ -122,7 +124,7 @@ void init_masks()
     //load up some mask files
     int flags = al_get_new_bitmap_flags();
     al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP);
-    ALLEGRO_BITMAP * wall = load_bitmap_withWarning("stonesense/mask_wall.png");
+    ALLEGRO_BITMAP* wall = load_bitmap_withWarning("stonesense/mask_wall.png");
     ALLEGRO_BITMAP * floor = load_bitmap_withWarning("stonesense/mask_floor.png");
     al_set_new_bitmap_flags(flags);
 

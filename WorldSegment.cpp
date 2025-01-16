@@ -272,9 +272,23 @@ void WorldSegment::DrawAllTiles()
                 al_hold_bitmap_drawing(true);
             }
             switch(todraw[i].type) {
+            case Fog:
+                al_draw_tinted_scaled_bitmap(
+                    fog,
+                    todraw[i].tint,
+                    todraw[i].sx,
+                    todraw[i].sy,
+                    todraw[i].sw,
+                    todraw[i].sh,
+                    todraw[i].dx,
+                    todraw[i].dy,
+                    todraw[i].dw,
+                    todraw[i].dh,
+                    todraw[i].flags);
+                break;
             case TintedScaledBitmap:
                 al_draw_tinted_scaled_bitmap(
-                    (ALLEGRO_BITMAP*) todraw[i].drawobject,
+                    std::get<ALLEGRO_BITMAP*>(todraw[i].drawobject),
                     todraw[i].tint,
                     todraw[i].sx,
                     todraw[i].sy,
@@ -290,7 +304,7 @@ void WorldSegment::DrawAllTiles()
                 DrawCreatureText(
                     todraw[i].dx,
                     todraw[i].dy,
-                    (SS_Unit*) todraw[i].drawobject );
+                    std::get<Stonesense_Unit*>(todraw[i].drawobject));
                 break;
             }
         }
@@ -301,7 +315,6 @@ void WorldSegment::DrawAllTiles()
     }
 
     al_hold_bitmap_drawing(false);
-    al_hold_bitmap_drawing(true);
 }
 
 /**
@@ -325,8 +338,8 @@ void WorldSegment::AssembleAllTiles()
         //add the fog to the queue
         if(ssConfig.fogenable && fog) {
             draw_event d = {
-                TintedScaledBitmap,
-                fog,
+                Fog,
+                std::monostate{},
                 al_map_rgb(255,255,255),
                 0,
                 0,
@@ -430,7 +443,7 @@ void WorldSegment::AssembleSprite(draw_event d)
     todraw.push_back(d);
 }
 
-void WorldSegment::PushBuilding( std::unique_ptr<Buildings::t_building> building)
+void WorldSegment::PushBuilding( std::unique_ptr<Stonesense_Building> building)
 {
     buildings.push_back(std::move(building));
 }
@@ -440,7 +453,7 @@ void WorldSegment::ClearBuildings()
     buildings.clear();
 }
 
-void WorldSegment::PushUnit( std::unique_ptr<SS_Unit> unit)
+void WorldSegment::PushUnit( std::unique_ptr<Stonesense_Unit> unit)
 {
     units.push_back(std::move(unit));
 }

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <cstdint>
+
 //Mainly walls and rivers
 //Byte values are used because walls can have either 1 or 2 in any given direction.
 const int TileDirectionCount = 4;
@@ -81,29 +83,4 @@ union TileDirection
         return 0L + north + south + east + west;
     }
 
-    //Gives a string that represents the direction.
-    //This is a static string, overwritten with every call!
-    //Support values > 2 even though they should never happen.
-    //Copy string if it will be used.
-    inline char * getStr() const
-    {
-        static char str[16];
-
-        str[8] = 0;
-#define DIRECTION(x,i,c) \
-    str[i] = str[i + 1] = '-'; \
-        if (x){ \
-        str[i] = c; \
-        if (1 == x); \
-        else if (2 == x) str[i + 1] = c; \
-        else str[i + 1] = '0' + x; \
-        }
-
-            DIRECTION(north, 0, 'N')
-            DIRECTION(south, 2, 'S')
-            DIRECTION(west, 4, 'W')
-            DIRECTION(east, 6, 'E')
-#undef DIRECTION
-            return str;
-    }
 };

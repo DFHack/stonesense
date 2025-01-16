@@ -765,46 +765,46 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
         df::world_raws::T_itemdefs &defs = df::global::world->raws.itemdefs;
         switch(itemtype) {
         case item_type::WEAPON:
-            itemsubtype = lookupIndexedPonterType(equipsindexstr, defs.weapons);
+            itemsubtype = lookupIndexedPointerType(equipsindexstr, defs.weapons);
             break;
         case item_type::TRAPCOMP:
-            itemsubtype = lookupIndexedPonterType(equipsindexstr, defs.trapcomps);
+            itemsubtype = lookupIndexedPointerType(equipsindexstr, defs.trapcomps);
             break;
         case item_type::TOY:
-            itemsubtype = lookupIndexedPonterType(equipsindexstr, defs.toys);
+            itemsubtype = lookupIndexedPointerType(equipsindexstr, defs.toys);
             break;
         case item_type::TOOL:
-            itemsubtype = lookupIndexedPonterType(equipsindexstr, defs.tools);
+            itemsubtype = lookupIndexedPointerType(equipsindexstr, defs.tools);
             break;
         case item_type::INSTRUMENT:
-            itemsubtype = lookupIndexedPonterType(equipsindexstr, defs.instruments);
+            itemsubtype = lookupIndexedPointerType(equipsindexstr, defs.instruments);
             break;
         case item_type::ARMOR:
-            itemsubtype = lookupIndexedPonterType(equipsindexstr, defs.armor);
+            itemsubtype = lookupIndexedPointerType(equipsindexstr, defs.armor);
             break;
         case item_type::AMMO:
-            itemsubtype = lookupIndexedPonterType(equipsindexstr, defs.ammo);
+            itemsubtype = lookupIndexedPointerType(equipsindexstr, defs.ammo);
             break;
         case item_type::SIEGEAMMO:
-            itemsubtype = lookupIndexedPonterType(equipsindexstr, defs.siege_ammo);
+            itemsubtype = lookupIndexedPointerType(equipsindexstr, defs.siege_ammo);
             break;
         case item_type::GLOVES:
-            itemsubtype = lookupIndexedPonterType(equipsindexstr, defs.gloves);
+            itemsubtype = lookupIndexedPointerType(equipsindexstr, defs.gloves);
             break;
         case item_type::SHOES:
-            itemsubtype = lookupIndexedPonterType(equipsindexstr, defs.shoes);
+            itemsubtype = lookupIndexedPointerType(equipsindexstr, defs.shoes);
             break;
         case item_type::SHIELD:
-            itemsubtype = lookupIndexedPonterType(equipsindexstr, defs.shields);
+            itemsubtype = lookupIndexedPointerType(equipsindexstr, defs.shields);
             break;
         case item_type::HELM:
-            itemsubtype = lookupIndexedPonterType(equipsindexstr, defs.helms);
+            itemsubtype = lookupIndexedPointerType(equipsindexstr, defs.helms);
             break;
         case item_type::PANTS:
-            itemsubtype = lookupIndexedPonterType(equipsindexstr, defs.pants);
+            itemsubtype = lookupIndexedPointerType(equipsindexstr, defs.pants);
             break;
         case item_type::FOOD:
-            itemsubtype = lookupIndexedPonterType(equipsindexstr, defs.food);
+            itemsubtype = lookupIndexedPointerType(equipsindexstr, defs.food);
             break;
         default:
             itemsubtype = 0;

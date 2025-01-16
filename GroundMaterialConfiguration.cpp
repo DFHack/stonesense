@@ -5,18 +5,16 @@
 #include "tinyxml.h"
 #include "GUI.h"
 #include "ContentLoader.h"
-#include "EnumToString.h"
 #include "MiscUtils.h"
 
-using namespace std;
 using namespace DFHack;
 using namespace df::enums;
 
-#define PRIORITY_SHAPE 8
-#define PRIORITY_SPECIAL 4
-#define PRIORITY_VARIANT 2
-#define PRIORITY_MATERIAL 1
-#define PRIORITY_TOTAL (PRIORITY_SHAPE+PRIORITY_SPECIAL+PRIORITY_VARIANT+PRIORITY_MATERIAL+1)
+constexpr auto PRIORITY_SHAPE = 8;
+constexpr auto PRIORITY_SPECIAL = 4;
+constexpr auto PRIORITY_VARIANT = 2;
+constexpr auto PRIORITY_MATERIAL = 1;
+constexpr auto PRIORITY_TOTAL = (PRIORITY_SHAPE + PRIORITY_SPECIAL + PRIORITY_VARIANT + PRIORITY_MATERIAL + 1);
 
 TerrainMaterialConfiguration::TerrainMaterialConfiguration()
 {
@@ -54,270 +52,284 @@ void DumpInorganicMaterialNamesToDisk()
     fclose(fp);
 }
 
-void parseWallFloorSpriteElement(TiXmlElement* elemWallFloorSprite, vector<std::unique_ptr<TerrainConfiguration>>& configTable, int basefile, bool floor)
+void TerrainMaterialConfiguration::updateSprite(int j, c_sprite& sprite, int x)
 {
-    const char* spriteSheetIndexStr = elemWallFloorSprite->Attribute("sheetIndex");
-    const char* spriteSpriteStr = elemWallFloorSprite->Attribute("sprite");
-    const char* spriteIndexStr = elemWallFloorSprite->Attribute("index");
-    if ((spriteSheetIndexStr == NULL || spriteSheetIndexStr[0] == 0) && (spriteSpriteStr == NULL || spriteSpriteStr[0] == 0) && (spriteIndexStr == NULL || spriteIndexStr[0] == 0)) {
-        contentError("Invalid or missing sprite attribute", elemWallFloorSprite);
-        return; //nothing to work with
+    if (defaultSprite[j].second == INVALID_INDEX || defaultSprite[j].second > x)
+    {
+        defaultSprite[j].first = sprite;
+        defaultSprite[j].second = x;
     }
-    // make a base sprite
-    c_sprite sprite;
-    if (floor) {
-        sprite.set_size(SPRITEWIDTH, (TILETOPHEIGHT + FLOORHEIGHT));
-        sprite.set_offset(0, (WALLHEIGHT));
+}
+
+void TerrainMaterialConfiguration::updateOverridingMaterials(auto j, auto subtypeId, auto sprite, auto x) {
+    if (overridingMaterials[j].count(subtypeId))
+    {
+        if (overridingMaterials[j][subtypeId].second > x)
+            overridingMaterials[j][subtypeId].first = sprite;
     }
-    sprite.set_needoutline(1);
-    sprite.set_by_xml(elemWallFloorSprite, basefile);
+    else
+    {
+        overridingMaterials[j][subtypeId].first = sprite;
+    }
+    overridingMaterials[j][subtypeId].second = x;
+}
 
-    vector<pair<int, int>> lookupKeys;
+void TerrainConfiguration::updateSprite(auto j, auto sprite, auto x)
+{
+    if (defaultSprite[j].second == INVALID_INDEX || defaultSprite[j].second > x) {
+        defaultSprite[j].first = sprite;
+        defaultSprite[j].second = x;
+    }
+}
 
-    // look through terrain elements
-    for (TiXmlElement* elemTerrain = elemWallFloorSprite->FirstChildElement("terrain");
-        elemTerrain;
-        elemTerrain = elemTerrain->NextSiblingElement("terrain")) {
-        //get a terrain type
-        //
-        // NOTE(myk002): targetElem was changed from df::tiletype to an int because the underlying type of df::tiltype changed
-        // from signed to unsigned as we canonicalized DFHack xml structures against DF headers. This caused issues in this
-        // code because:
-        // - negative values (like INVALID_INDEX) are given special meaning
-        // - the code here (and elsewhere in stonesense) depends on signed comparisons
-        // - the value of int matchedness (below) is assigned to a tiletype field (though I can't determine why this is desired)
-        //
-        // a proper fix would take a fair bit of rearchitecting throughout stonesense
-        int targetElem = INVALID_INDEX;
-        const char* gameIDstr = elemTerrain->Attribute("value");
-        if (!(gameIDstr == NULL || gameIDstr[0] == 0))
-        {
-            targetElem = atoi(gameIDstr);
+void TerrainConfiguration::expand(auto elemIndex)
+{
+    if (!terrainMaterials.contains(elemIndex))
+        terrainMaterials.emplace(elemIndex, std::make_unique<TerrainMaterialConfiguration>());
+}
+
+namespace
+{
+    template<typename T>
+    T StringToTiletypeEnum(const char* input)
+    {
+        T t{};
+        return (input != nullptr && find_enum_item(&t, input)) ? t : T::NONE;
+    }
+
+    void parseWallFloorSpriteElement(TiXmlElement* elemWallFloorSprite, std::vector<std::unique_ptr<TerrainConfiguration>>& configTable, int basefile, bool floor)
+    {
+        const char* spriteSheetIndexStr = elemWallFloorSprite->Attribute("sheetIndex");
+        const char* spriteSpriteStr = elemWallFloorSprite->Attribute("sprite");
+        const char* spriteIndexStr = elemWallFloorSprite->Attribute("index");
+        if ((spriteSheetIndexStr == NULL || spriteSheetIndexStr[0] == 0) && (spriteSpriteStr == NULL || spriteSpriteStr[0] == 0) && (spriteIndexStr == NULL || spriteIndexStr[0] == 0)) {
+            contentError("Invalid or missing sprite attribute", elemWallFloorSprite);
+            return; //nothing to work with
         }
-        if (targetElem >= 0)
-        {
-            char buf[500];
-            if (is_valid_enum_item((df::tiletype)targetElem))
+        // make a base sprite
+        c_sprite sprite;
+        if (floor) {
+            sprite.set_size(SPRITEWIDTH, (TILETOPHEIGHT + FLOORHEIGHT));
+            sprite.set_offset(0, (WALLHEIGHT));
+        }
+        sprite.set_needoutline(1);
+        sprite.set_by_xml(elemWallFloorSprite, basefile);
+
+        std::vector<std::pair<int, int>> lookupKeys;
+
+        // look through terrain elements
+        for (TiXmlElement* elemTerrain = elemWallFloorSprite->FirstChildElement("terrain");
+            elemTerrain;
+            elemTerrain = elemTerrain->NextSiblingElement("terrain")) {
+            //get a terrain type
+            //
+            // NOTE(myk002): targetElem was changed from df::tiletype to an int because the underlying type of df::tiltype changed
+            // from signed to unsigned as we canonicalized DFHack xml structures against DF headers. This caused issues in this
+            // code because:
+            // - negative values (like INVALID_INDEX) are given special meaning
+            // - the code here (and elsewhere in stonesense) depends on signed comparisons
+            // - the value of int matchedness (below) is assigned to a tiletype field (though I can't determine why this is desired)
+            //
+            // a proper fix would take a fair bit of rearchitecting throughout stonesense
+            int targetElem = INVALID_INDEX;
+            const char* gameIDstr = elemTerrain->Attribute("value");
+            if (!(gameIDstr == NULL || gameIDstr[0] == 0))
             {
-                df::tiletype tt = (df::tiletype)targetElem;
-                auto shape = ENUM_ATTR(tiletype, shape, tt);
-                auto special = ENUM_ATTR(tiletype, special, tt);
-                auto variant = ENUM_ATTR(tiletype, variant, tt);
-                auto material = ENUM_ATTR(tiletype, material, tt);
-                sprintf(buf, "Use of deprecated terrain value \"%d\", use one of the following instead:\n <terrain token = \"%s\" />\n <terrain%s%s%s%s%s%s%s%s%s%s%s%s />\n in element",
-                targetElem,
-                enum_item_key_str(tt),
-                shape == tiletype_shape::NONE ? "" : " shape = \"",
-                shape == tiletype_shape::NONE ? "" : enum_item_key_str(shape),
-                shape == tiletype_shape::NONE ? "" : "\"",
-                special == tiletype_special::NONE ? "" : " special = \"",
-                special == tiletype_special::NONE ? "" : enum_item_key_str(special),
-                special == tiletype_special::NONE ? "" : "\"",
-                variant == tiletype_variant::NONE ? "" : " variant = \"",
-                variant == tiletype_variant::NONE ? "" : enum_item_key_str(variant),
-                variant == tiletype_variant::NONE ? "" : "\"",
-                material == tiletype_material::NONE ? "" : " material = \"",
-                material == tiletype_material::NONE ? "" : enum_item_key_str(material),
-                material == tiletype_material::NONE ? "" : "\""
-                );
+                targetElem = atoi(gameIDstr);
             }
-            else
-                sprintf(buf, "Terrain value \"%d\" is invalid", targetElem);
-            contentError(buf, elemTerrain);
-        }
-        const char* gameTokenstr = elemTerrain->Attribute("token");
-        df::tiletype_shape elemShape = StringToTiletypeShape(elemTerrain->Attribute("shape"));
-        df::tiletype_special elemSpecial = StringToTiletypeSpecial(elemTerrain->Attribute("special"));
-        df::tiletype_variant elemVariant = StringToTiletypeVariant(elemTerrain->Attribute("variant"));
-        df::tiletype_material elemMaterial = StringToTiletypeMaterial(elemTerrain->Attribute("material"));
-
-        FOR_ENUM_ITEMS(tiletype, i)
-        {
-            bool valid = true;
-            int matchness = INVALID_INDEX;
             if (targetElem >= 0)
             {
-                if (i == targetElem)
-                    matchness = 0;
+                char buf[500];
+                if (is_valid_enum_item((df::tiletype)targetElem))
+                {
+                    df::tiletype tt = (df::tiletype)targetElem;
+                    auto shape = ENUM_ATTR(tiletype, shape, tt);
+                    auto special = ENUM_ATTR(tiletype, special, tt);
+                    auto variant = ENUM_ATTR(tiletype, variant, tt);
+                    auto material = ENUM_ATTR(tiletype, material, tt);
+                    sprintf(buf, "Use of deprecated terrain value \"%d\", use one of the following instead:\n <terrain token = \"%s\" />\n <terrain%s%s%s%s%s%s%s%s%s%s%s%s />\n in element",
+                        targetElem,
+                        enum_item_key_str(tt),
+                        shape == tiletype_shape::NONE ? "" : " shape = \"",
+                        shape == tiletype_shape::NONE ? "" : enum_item_key_str(shape),
+                        shape == tiletype_shape::NONE ? "" : "\"",
+                        special == tiletype_special::NONE ? "" : " special = \"",
+                        special == tiletype_special::NONE ? "" : enum_item_key_str(special),
+                        special == tiletype_special::NONE ? "" : "\"",
+                        variant == tiletype_variant::NONE ? "" : " variant = \"",
+                        variant == tiletype_variant::NONE ? "" : enum_item_key_str(variant),
+                        variant == tiletype_variant::NONE ? "" : "\"",
+                        material == tiletype_material::NONE ? "" : " material = \"",
+                        material == tiletype_material::NONE ? "" : enum_item_key_str(material),
+                        material == tiletype_material::NONE ? "" : "\""
+                    );
+                }
                 else
-                    valid = false;
+                    sprintf(buf, "Terrain value \"%d\" is invalid", targetElem);
+                contentError(buf, elemTerrain);
             }
-            if (!(gameTokenstr == NULL || gameTokenstr[0] == 0))
+            const char* gameTokenstr = elemTerrain->Attribute("token");
+            df::tiletype_shape elemShape{ StringToTiletypeEnum<df::tiletype_shape>(elemTerrain->Attribute("shape")) };
+            df::tiletype_special elemSpecial{ StringToTiletypeEnum<df::tiletype_special>(elemTerrain->Attribute("special")) };
+            df::tiletype_variant elemVariant{ StringToTiletypeEnum<df::tiletype_variant>(elemTerrain->Attribute("variant")) };
+            df::tiletype_material elemMaterial{ StringToTiletypeEnum<df::tiletype_material>(elemTerrain->Attribute("material")) };
+
+            FOR_ENUM_ITEMS(tiletype, i)
             {
-                if (enum_item_key(i) == gameTokenstr)
-                    matchness = 0;
-                else
-                    valid = false;
-            }
-            if (matchness != 0) //this means there's no exact match made.
-            {
-                int partialMatch = 0;
-                if (elemShape != tiletype_shape::NONE)
+                bool valid = true;
+                int matchness = INVALID_INDEX;
+                if (targetElem >= 0)
                 {
-                    if (ENUM_ATTR(tiletype, shape, i) == elemShape)
-                        partialMatch += PRIORITY_SHAPE;
+                    if (i == targetElem)
+                        matchness = 0;
                     else
                         valid = false;
                 }
-                if (elemSpecial != tiletype_special::NONE)
+                if (!(gameTokenstr == NULL || gameTokenstr[0] == 0))
                 {
-                    if (ENUM_ATTR(tiletype, special, i) == elemSpecial)
-                        partialMatch += PRIORITY_SPECIAL;
+                    if (enum_item_key(i) == gameTokenstr)
+                        matchness = 0;
                     else
                         valid = false;
                 }
-                if (elemVariant != tiletype_variant::NONE)
+                if (matchness != 0) //this means there's no exact match made.
                 {
-                    if (ENUM_ATTR(tiletype, variant, i) == elemVariant)
-                        partialMatch += PRIORITY_VARIANT;
-                    else
-                        valid = false;
-                }
-                if (elemMaterial != tiletype_material::NONE)
-                {
-                    if (ENUM_ATTR(tiletype, material, i) == elemMaterial)
-                        partialMatch += PRIORITY_MATERIAL;
-                    else
-                        valid = false;
-                }
-                if (partialMatch > 0 && valid)
-                    matchness = PRIORITY_TOTAL - partialMatch;
-            }
-            if (matchness >= 0 && valid)
-            {
-                //add it to the lookup vector
-                lookupKeys.push_back(make_pair(i, matchness));
-                //increase size if needed
-                while (configTable.size() <= (uint32_t)i) {
-                    configTable.push_back(nullptr);
-                }
-
-                if (configTable[i] == nullptr) {
-                    configTable[i] = std::make_unique<TerrainConfiguration>();
-                }
-            }
-        }
-    }
-
-    // check we have some terrain types set
-    int elems = (int)lookupKeys.size();
-    if (elems == 0) {
-        return;    //nothing to link to
-    }
-
-    vector<bool> formToggle;
-    formToggle.resize(NUM_FORMS);
-    // parse weather plate is for a block, log, etc
-    TiXmlElement* elemForm = elemWallFloorSprite->FirstChildElement("form");
-    if (elemForm == NULL) {
-        formToggle[0] = true;
-    }
-    for (; elemForm; elemForm = elemForm->NextSiblingElement("form")) {
-        const char * strForm = elemForm->Attribute("value");
-
-        if (strcmp(strForm, "bar") == 0) {
-            formToggle[FORM_BAR] = true;
-        }
-        if (strcmp(strForm, "block") == 0) {
-            formToggle[FORM_BLOCK] = true;
-        }
-        if (strcmp(strForm, "boulder") == 0) {
-            formToggle[FORM_BOULDER] = true;
-        }
-        if (strcmp(strForm, "log") == 0) {
-            formToggle[FORM_LOG] = true;
-        }
-    }
-    // parse material elements
-    TiXmlElement* elemMaterial = elemWallFloorSprite->FirstChildElement("material");
-    if (elemMaterial == NULL) {
-        // if none, set default terrain sprites for each terrain type
-        for (int i = 0; i < elems; i++) {
-            TerrainConfiguration *tConfig = configTable[lookupKeys[i].first].get();
-            // if that was null we have *really* screwed up earlier
-            // only update if not by previous configs
-            for (int j = 0; j < NUM_FORMS; j++) {
-                if (formToggle[j])
-                if (tConfig->defaultSprite[j].second == INVALID_INDEX || tConfig->defaultSprite[j].second > lookupKeys[i].second) {
-                    tConfig->defaultSprite[j].first = sprite;
-                    tConfig->defaultSprite[j].second = lookupKeys[i].second;
-                }
-            }
-        }
-    }
-    for (; elemMaterial; elemMaterial = elemMaterial->NextSiblingElement("material")) {
-        // get material type
-        int elemIndex = lookupMaterialType(elemMaterial->Attribute("value"));
-        if (elemIndex == INVALID_INDEX) {
-            contentError("Invalid or missing value attribute", elemMaterial);
-            continue;
-        }
-
-        // parse subtype elements
-        TiXmlElement* elemSubtype = elemMaterial->FirstChildElement("subtype");
-        if (elemSubtype == NULL) {
-            // if none, set material default for each terrain type
-            for (int i = 0; i < elems; i++) {
-                TerrainConfiguration *tConfig = configTable[lookupKeys[i].first].get();
-                // if that was null we have *really* screwed up earlier
-                // create a new TerrainMaterialConfiguration if required
-                // make sure we have room for it first
-                while (tConfig->terrainMaterials.size() <= (uint32_t)elemIndex) {
-                    // dont make a full size vector in advance- most of the time
-                    // we will only need the first few
-                    tConfig->terrainMaterials.push_back(nullptr);
-                }
-                if (tConfig->terrainMaterials[elemIndex] == nullptr) {
-                    tConfig->terrainMaterials[elemIndex] = std::make_unique<TerrainMaterialConfiguration>();
-                }
-                // only update if not set by earlier configs,
-                //FIXME: figure out how to manage priorities here.
-                for (int j = 0; j < NUM_FORMS; j++) {
-                    if (formToggle[j])
-                    if (tConfig->terrainMaterials[elemIndex]->defaultSprite[j].second == INVALID_INDEX
-                        || tConfig->terrainMaterials[elemIndex]->defaultSprite[j].second > lookupKeys[i].second)
+                    int partialMatch = 0;
+                    if (elemShape != tiletype_shape::NONE)
                     {
-                        tConfig->terrainMaterials[elemIndex]->defaultSprite[j].first = sprite;
-                        tConfig->terrainMaterials[elemIndex]->defaultSprite[j].second = lookupKeys[i].second;
+                        if (ENUM_ATTR(tiletype, shape, i) == elemShape)
+                            partialMatch += PRIORITY_SHAPE;
+                        else
+                            valid = false;
+                    }
+                    if (elemSpecial != tiletype_special::NONE)
+                    {
+                        if (ENUM_ATTR(tiletype, special, i) == elemSpecial)
+                            partialMatch += PRIORITY_SPECIAL;
+                        else
+                            valid = false;
+                    }
+                    if (elemVariant != tiletype_variant::NONE)
+                    {
+                        if (ENUM_ATTR(tiletype, variant, i) == elemVariant)
+                            partialMatch += PRIORITY_VARIANT;
+                        else
+                            valid = false;
+                    }
+                    if (elemMaterial != tiletype_material::NONE)
+                    {
+                        if (ENUM_ATTR(tiletype, material, i) == elemMaterial)
+                            partialMatch += PRIORITY_MATERIAL;
+                        else
+                            valid = false;
+                    }
+                    if (partialMatch > 0 && valid)
+                        matchness = PRIORITY_TOTAL - partialMatch;
+                }
+                if (matchness >= 0 && valid)
+                {
+                    //add it to the lookup vector
+                    lookupKeys.push_back(std::make_pair(i, matchness));
+                    //increase size if needed
+                    while (configTable.size() <= (uint32_t)i) {
+                        configTable.push_back(nullptr);
+                    }
+
+                    if (configTable[i] == nullptr) {
+                        configTable[i] = std::make_unique<TerrainConfiguration>();
                     }
                 }
             }
         }
-        for (; elemSubtype; elemSubtype = elemSubtype->NextSiblingElement("subtype")) {
-            // get subtype
-            int subtypeId = lookupMaterialIndex(elemIndex, elemSubtype->Attribute("value"));
-            if (subtypeId == INVALID_INDEX) {
-                contentError("Invalid or missing value attribute", elemSubtype);
+
+        // check we have some terrain types set
+        int elems = (int)lookupKeys.size();
+        if (elems == 0) {
+            return;    //nothing to link to
+        }
+
+        std::vector<bool> formToggle;
+        formToggle.resize(NUM_FORMS);
+        // parse weather plate is for a block, log, etc
+        TiXmlElement* elemForm = elemWallFloorSprite->FirstChildElement("form");
+        if (elemForm == NULL) {
+            formToggle[0] = true;
+        }
+        for (; elemForm; elemForm = elemForm->NextSiblingElement("form")) {
+            const char* strForm = elemForm->Attribute("value");
+
+            if (strcmp(strForm, "bar") == 0) {
+                formToggle[FORM_BAR] = true;
+            }
+            if (strcmp(strForm, "block") == 0) {
+                formToggle[FORM_BLOCK] = true;
+            }
+            if (strcmp(strForm, "boulder") == 0) {
+                formToggle[FORM_BOULDER] = true;
+            }
+            if (strcmp(strForm, "log") == 0) {
+                formToggle[FORM_LOG] = true;
+            }
+        }
+        // parse material elements
+        TiXmlElement* elemMaterial = elemWallFloorSprite->FirstChildElement("material");
+        if (elemMaterial == NULL) {
+            // if none, set default terrain sprites for each terrain type
+            for (int i = 0; i < elems; i++) {
+                TerrainConfiguration* tConfig = configTable[lookupKeys[i].first].get();
+                // if that was null we have *really* screwed up earlier
+                // only update if not by previous configs
+                for (int j = 0; j < NUM_FORMS; j++) {
+                    if (formToggle[j])
+                        tConfig->updateSprite(j, sprite, lookupKeys[i].second);
+                }
+            }
+        }
+        for (; elemMaterial; elemMaterial = elemMaterial->NextSiblingElement("material")) {
+            // get material type
+            int elemIndex = lookupMaterialType(elemMaterial->Attribute("value"));
+            if (elemIndex == INVALID_INDEX) {
+                contentError("Invalid or missing value attribute", elemMaterial);
                 continue;
             }
 
-            // set subtype sprite for each terrain type
-            for (int i = 0; i < elems; i++) {
-                TerrainConfiguration *tConfig = configTable[lookupKeys[i].first].get();
-                //if that was null we have *really* screwed up earlier
-                //create a new TerrainMaterialConfiguration if required
-                //make sure we have room for it first
-                while (tConfig->terrainMaterials.size() <= (uint32_t)elemIndex) {
-                    //dont make a full size vector in advance- we wont need it except
-                    //for those who insist on Soap Fortresses
-                    tConfig->terrainMaterials.push_back(nullptr);
+            // parse subtype elements
+            TiXmlElement* elemSubtype = elemMaterial->FirstChildElement("subtype");
+            if (elemSubtype == NULL) {
+                // if none, set material default for each terrain type
+                for (int i = 0; i < elems; i++) {
+                    TerrainConfiguration* tConfig = configTable[lookupKeys[i].first].get();
+                    // if that was null we have *really* screwed up earlier
+                    // create a new TerrainMaterialConfiguration if required
+                    // make sure we have room for it first
+                    tConfig->expand(elemIndex);
+                    // only update if not set by earlier configs,
+                    //FIXME: figure out how to manage priorities here.
+                    for (int j = 0; j < NUM_FORMS; j++) {
+                        if (formToggle[j])
+                            tConfig->getTerrainMaterials(elemIndex)->updateSprite(j, sprite, lookupKeys[i].second);
+                     }
                 }
-                if (tConfig->terrainMaterials[elemIndex] == nullptr) {
-                    tConfig->terrainMaterials[elemIndex] = std::make_unique<TerrainMaterialConfiguration>();
+            }
+            for (; elemSubtype; elemSubtype = elemSubtype->NextSiblingElement("subtype")) {
+                // get subtype
+                int subtypeId = lookupMaterialIndex(elemIndex, elemSubtype->Attribute("value"));
+                if (subtypeId == INVALID_INDEX) {
+                    contentError("Invalid or missing value attribute", elemSubtype);
+                    continue;
                 }
-                // add to map (if not already present)
-                for (int j = 0; j < NUM_FORMS; j++) {
-                    if (formToggle[j]) {
-                        if (tConfig->terrainMaterials[elemIndex]->overridingMaterials[j].count(subtypeId))
-                        {
-                            if (tConfig->terrainMaterials[elemIndex]->overridingMaterials[j][subtypeId].second > lookupKeys[i].second)
-                                tConfig->terrainMaterials[elemIndex]->overridingMaterials[j][subtypeId].first = sprite;
-                            tConfig->terrainMaterials[elemIndex]->overridingMaterials[j][subtypeId].second = lookupKeys[i].second;
-                        }
-                        else
-                        {
-                            tConfig->terrainMaterials[elemIndex]->overridingMaterials[j][subtypeId].first = sprite;
-                            tConfig->terrainMaterials[elemIndex]->overridingMaterials[j][subtypeId].second = lookupKeys[i].second;
+
+                // set subtype sprite for each terrain type
+                for (int i = 0; i < elems; i++) {
+                    TerrainConfiguration* tConfig = configTable[lookupKeys[i].first].get();
+                    //if that was null we have *really* screwed up earlier
+                    //create a new TerrainMaterialConfiguration if required
+                    //make sure we have room for it first
+                    tConfig->expand(elemIndex);
+                    // add to map (if not already present)
+                    for (int j = 0; j < NUM_FORMS; j++) {
+                        if (formToggle[j]) {
+                            tConfig->getTerrainMaterials(elemIndex)->updateOverridingMaterials(j, subtypeId, sprite, lookupKeys[i].second);
                         }
                     }
                 }
@@ -337,7 +349,7 @@ bool addSingleTerrainConfig(TiXmlElement* elemRoot)
         }
     }
 
-    string elementType = elemRoot->Value();
+    std::string elementType = elemRoot->Value();
     if (elementType.compare("floors") == 0) {
         //parse floors
         TiXmlElement* elemFloor = elemRoot->FirstChildElement("floor");
@@ -357,7 +369,7 @@ bool addSingleTerrainConfig(TiXmlElement* elemRoot)
     return true;
 }
 
-void flushTerrainConfig(vector<std::unique_ptr<TerrainConfiguration>>& config)
+void flushTerrainConfig(std::vector<std::unique_ptr<TerrainConfiguration>>& config)
 {
     uint32_t currentsize = (uint32_t)config.size();
     config.clear();

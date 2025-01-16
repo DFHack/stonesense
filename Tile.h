@@ -21,7 +21,7 @@ private:
 public:
     Tile();
 
-    bool IsValid() { return valid; }
+    bool IsValid() const { return valid; }
     void Reset();
     void Attach(WorldSegment*, df::tiletype, int32_t, int32_t, int32_t);
 
@@ -63,7 +63,7 @@ public:
     DFHack::t_designation designation;
     DFHack::t_occupancy occ;
 
-    SS_Unit * creature;
+    Stonesense_Unit * creature;
     DFHack::t_matglossPair tree;
     df::plant_tree_tile tree_tile;
 
@@ -93,7 +93,7 @@ public:
     SS_Item Item;
 
     struct SS_Building {
-        DFHack::Buildings::t_building* info;
+        Stonesense_Building* info;
         df::building_type type;
         std::vector<c_sprite> sprites;
         Tile* parent;
@@ -131,8 +131,8 @@ void initRandomCube();
 //find a better place for these
 bool hasWall(Tile* b);
 bool hasBuildingOfID(Tile* b, int ID);
-bool hasBuildingIdentity(Tile* b, DFHack::Buildings::t_building* index, df::tile_building_occ buildingOcc);
-bool hasBuildingOfIndex(Tile* b, DFHack::Buildings::t_building* index);
+bool hasBuildingIdentity(Tile* b, Stonesense_Building* index, df::tile_building_occ buildingOcc);
+bool hasBuildingOfIndex(Tile* b, Stonesense_Building* index);
 bool wallShouldNotHaveBorders( int in );
 bool containsDesignations( df::tile_designation, df::tile_occupancy );
 

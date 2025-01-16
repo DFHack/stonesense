@@ -1,4 +1,6 @@
 #pragma once
+#include <filesystem>
+
 #include "tinyxml.h"
 #include "BuildingConfiguration.h"
 #include "CreatureConfiguration.h"
@@ -17,8 +19,8 @@ namespace df {
 class ContentLoader
 {
 private:
-    bool parseContentIndexFile( const char* filepath );
-    bool parseContentXMLFile( const char* filepath );
+    bool parseContentIndexFile(std::filesystem::path filepath );
+    bool parseContentXMLFile( std::filesystem::path filepath );
     bool parseBuildingContent( TiXmlElement* elemRoot );
     bool parseCreatureContent( TiXmlElement* elemRoot );
     bool parseTerrainContent ( TiXmlElement* elemRoot );
@@ -31,7 +33,7 @@ private:
     bool parseItemContent( TiXmlElement* elemRoot );
     void flushCreatureConfig();
 
-    bool translationComplete;
+    bool translationComplete = false;
 
     void gatherStyleIndices(df::world_raws * raws);
 public:
@@ -63,59 +65,52 @@ public:
 
     std::vector<std::string> professionStrings;
     std::map <uint32_t, std::string> custom_workshop_types;
-    DFHack::Materials * Mats;
+    DFHack::Materials* Mats = nullptr;
     std::vector<DFHack::t_matgloss> organic;
     std::vector<DFHack::t_matglossInorganic> inorganic;
 
-    uint32_t currentTick;
-    uint32_t currentYear;
-    uint8_t currentMonth;
-    uint8_t currentDay;
-    uint8_t currentHour;
-    uint8_t currentTickRel;
-    DFHack::t_gamemodes gameMode;
+    uint32_t currentTick = 0;
+    uint32_t currentYear = 0;
+    uint8_t currentMonth = 0;
+    uint8_t currentDay = 0;
+    uint8_t currentHour = 0;
+    uint8_t currentTickRel = 0;
+    DFHack::t_gamemodes gameMode{
+        df::enums::game_mode::NONE,
+        df::enums::game_type::NONE
+        };
 
-    int obsidian;
+    int obsidian = 0;
 };
 
 extern ContentLoader * contentLoader;
 
 extern const char* getDocument(TiXmlNode* element);
-bool getLocalFilename(char * buffer, const char* filename, const char* relativeto);
-extern void contentError(const char* message, TiXmlNode* element);
-extern void contentWarning(const char* message, TiXmlNode* element);
+std::filesystem::path getLocalFilename(std::filesystem::path filename, std::filesystem::path relativeto);
+extern void contentError(const std::string& message, TiXmlNode* element);
+extern void contentWarning(const std::string& message, TiXmlNode* element);
 extern char getAnimFrames(const char* framestring);
-extern int loadConfigImgFile(const char* filename, TiXmlElement* referrer);
+extern int loadConfigImgFile(std::filesystem::path filename, TiXmlElement* referrer);
 MAT_BASICS lookupMaterialType(const char* strValue);
 int lookupMaterialIndex(int matType, const char* strValue);
-template <typename T>
-int lookupIndexedType(const char* indexName, std::vector<T>& typeVector)
+
+template <typename T, typename Index = decltype(T::id)>
+int lookupIndexedType(const Index& indexName, const std::vector<T>& typeVector)
 {
-    if (indexName == NULL || indexName[0] == 0) {
-        return INVALID_INDEX;
-    }
-    uint32_t vsize = (uint32_t)typeVector.size();
-    for(uint32_t i=0; i < vsize; i++) {
-        if (typeVector[i].id == indexName) {
-            return i;
-        }
-    }
-    return INVALID_INDEX;
+    auto get_id = [](auto tv) {
+        if constexpr (std::is_pointer_v<T>) return tv->id;
+        else return tv.id;
+        };
+    auto it = std::find_if(typeVector.begin(), typeVector.end(),
+        [&](auto tv) -> bool { return get_id(tv) == indexName; });
+    return it != typeVector.end() ? it - typeVector.begin() : INVALID_INDEX;
 }
-template <typename T>
-int lookupIndexedPonterType(const char* indexName, std::vector<T*>& typeVector)
+template <typename T, typename Index = decltype(T::id)>
+int lookupIndexedPointerType(const Index& indexName, const std::vector<T*>& typeVector)
 {
-    if (indexName == NULL || indexName[0] == 0) {
-        return INVALID_INDEX;
-    }
-    uint32_t vsize = (uint32_t)typeVector.size();
-    for(uint32_t i=0; i < vsize; i++) {
-        if (typeVector[i]->id == indexName) {
-            return i;
-        }
-    }
-    return INVALID_INDEX;
+    return lookupIndexedType<T*, Index>(indexName, typeVector);
 }
+
 const char *lookupMaterialTypeName(int matType);
 const char *lookupMaterialName(int matType,int matIndex);
 const char *lookupBuildingSubtype(int main_type, int i);

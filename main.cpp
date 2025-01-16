@@ -3,6 +3,7 @@
 #include <list>
 
 #include "common.h"
+#include "Config.h"
 //#include "Overlay.h"
 #include "Tile.h"
 #include "GUI.h"
@@ -74,12 +75,12 @@ ALLEGRO_THREAD *stonesense_event_thread;
 SegmentWrap map_segment;
 bool redraw = true;
 
-ALLEGRO_BITMAP* load_bitmap_withWarning(const char* path)
+ALLEGRO_BITMAP* load_bitmap_withWarning(std::filesystem::path path)
 {
     ALLEGRO_BITMAP* img = 0;
-    img = al_load_bitmap(path);
+    img = al_load_bitmap(path.string().c_str());
     if(!img) {
-        LogError("Cannot load image: %s\n", path);
+        LogError("Cannot load image: %s\n", path.string().c_str());
         al_set_thread_should_stop(stonesense_event_thread);
         return 0;
     }
@@ -161,18 +162,13 @@ void SetTitle(const char *format, ...)
 
 bool loadfont(DFHack::color_ostream & output)
 {
-    ALLEGRO_PATH * p = al_create_path_for_directory("stonesense");
-    if(!al_join_paths(p, ssConfig.font)) {
-        al_destroy_path(p);
-        return false;
-    }
-    font = al_load_font(al_path_cstr(p, ALLEGRO_NATIVE_PATH_SEP), ssConfig.fontsize, 0);
+    std::filesystem::path p{ "stonesense" };
+    p /= ssConfig.font;
+    font = al_load_font(p.string().c_str(), ssConfig.fontsize, 0);
     if (!font) {
-        output.printerr("Cannot load font: %s\n", al_path_cstr(p, ALLEGRO_NATIVE_PATH_SEP));
-        al_destroy_path(p);
+        output.printerr("Cannot load font: %s\n", p.string().c_str());
         return false;
     }
-    al_destroy_path(p);
     return true;
 }
 
@@ -345,23 +341,14 @@ static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALL
                 if (ssConfig.overlay_mode) {
                     break;
                 }
-                if(!al_acknowledge_resize(event.display.source)) {
+                timeToReloadSegment = true;
+                redraw = true;
+                ssState.ScreenH = event.display.height;
+                ssState.ScreenW = event.display.width;
+                if (!al_acknowledge_resize(event.display.source)) {
                     con.printerr("Failed to resize diplay");
                     return;
                 }
-                timeToReloadSegment = true;
-                redraw = true;
-#if 1
-                {
-                    //XXX the opengl drivers currently don't resize the backbuffer
-                    ALLEGRO_BITMAP *bb = al_get_backbuffer(al_get_current_display());
-                    int w = al_get_bitmap_width(bb);
-                    int h = al_get_bitmap_height(bb);
-                    ssState.ScreenH = h;
-                    ssState.ScreenW = w;
-                    PrintMessage("backbuffer w, h: %d, %d\n", w, h);
-                }
-#endif
                 break;
                 /* ALLEGRO_EVENT_KEY_DOWN - a keyboard key was pressed.
                 */
@@ -422,7 +409,7 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
     ssState.Size.x = DEFAULT_SIZE;
     ssState.Size.y = DEFAULT_SIZE;
     ssState.Size.z = DEFAULT_SIZE_Z;
-    ssConfig.show_creature_names = true;
+    ssConfig.show_creature_names = false;
     ssConfig.show_osd = true;
     ssConfig.show_designations = true;
     ssConfig.show_keybinds = false;
@@ -437,7 +424,7 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
     ssConfig.bitmapHolds = 4096;
     ssConfig.imageCacheSize = 4096;
     ssConfig.fontsize = 10;
-    ssConfig.font = al_create_path("data/art/font.ttf");
+    ssConfig.font = std::filesystem::path{ } / "data" / "art" / "font.ttf";
     ssConfig.creditScreen = true;
     ssConfig.bloodcutoff = 100;
     ssConfig.poolcutoff = 100;
@@ -483,7 +470,7 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
         |(ssConfig.directX ? ALLEGRO_DIRECT3D_INTERNAL : 0));
 
     if(ssConfig.software) {
-        al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP|ALLEGRO_ALPHA_TEST|ALLEGRO_MIN_LINEAR|ALLEGRO_MIPMAP);
+        al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP|_ALLEGRO_ALPHA_TEST|ALLEGRO_MIN_LINEAR|ALLEGRO_MIPMAP);
     } else {
         al_set_new_bitmap_flags(ALLEGRO_MIN_LINEAR|ALLEGRO_MIPMAP);
     }
@@ -514,9 +501,8 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
     }
     */
 
-    ALLEGRO_PATH * p = al_create_path("stonesense/stonesense.png");
-    IMGIcon = load_bitmap_withWarning(al_path_cstr(p, ALLEGRO_NATIVE_PATH_SEP));
-    al_destroy_path(p);
+    std::filesystem::path p = std::filesystem::path{} / "stonesense" / "stonesense.png";
+    IMGIcon = load_bitmap_withWarning(p);
     if(!IMGIcon) {
         al_destroy_display(display);
         display = 0;
@@ -535,9 +521,8 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
     }
 
     {
-        ALLEGRO_PATH * p = al_create_path("stonesense/splash.png");
-        SplashImage = load_bitmap_withWarning(al_path_cstr(p, ALLEGRO_NATIVE_PATH_SEP));
-        al_destroy_path(p);
+        std::filesystem::path p = std::filesystem::path{} / "stonesense" / "splash.png";
+        SplashImage = load_bitmap_withWarning(p);
     }
 
     loadGraphicsFromDisk();
