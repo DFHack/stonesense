@@ -38,6 +38,10 @@ Template for new versions:
 # Future
 
 ## New Features
+- `stonesense`: added config for closeOnEsc to disable closing stonesense with the escape key
+- `stonesense`: added configs to show creature moods and jobs by default
+- `stonesense`: added config to show announcements, on by default, toggle with ``a`` (default keybinding) while stonsense window is active
+- `stonesense`: ``~`` is now the key to toggle debug mode while stonesense window is active and ``;`` is the default key for toggling fog
 
 ## Fixes
 
