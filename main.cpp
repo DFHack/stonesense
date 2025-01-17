@@ -134,27 +134,12 @@ void LogVerbose(const char* msg, ...)
 
 void SetTitle(const char *format, ...)
 {
-    ALLEGRO_USTR *buf;
-    va_list ap;
-    const char *s;
+    va_list arglist;
+    va_start(arglist, format);
+    std::string buf = stl_vsprintf(format, arglist);
+    va_end(arglist);
 
-    /* Fast path for common case. */
-    if (0 == strcmp(format, "%s")) {
-        va_start(ap, format);
-        s = va_arg(ap, const char *);
-        al_set_window_title(display, s);
-        va_end(ap);
-        return;
-    }
-
-    va_start(ap, format);
-    buf = al_ustr_new("");
-    al_ustr_vappendf(buf, format, ap);
-    va_end(ap);
-
-    al_set_window_title(display, al_cstr(buf));
-
-    al_ustr_free(buf);
+    al_set_window_title(display, buf.c_str());
 }
 
 bool loadfont(DFHack::color_ostream & output)
