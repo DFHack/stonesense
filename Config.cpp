@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <filesystem>
 #include "common.h"
 #include "commonTypes.h"
 #include "Config.h"
@@ -68,6 +69,11 @@ namespace {
         c = line[line.length() - 1];
         if (c != ']') {
             return;
+        }
+
+        if (line.find("[CLOSEONESC") != string::npos) {
+            string result = parseStrFromLine("CLOSEONESC", line);
+            ssConfig.closeOnEsc = (result == "YES");
         }
 
         if (line.find("[WIDTH") != string::npos) {
@@ -166,6 +172,18 @@ namespace {
         if (line.find("[SHOW_CREATURE_NAMES") != string::npos) {
             string result = parseStrFromLine("SHOW_CREATURE_NAMES", line);
             ssConfig.show_creature_names = (result == "YES");
+        }
+        if (line.find("[SHOW_CREATURE_MOODS") != string::npos) {
+            string result = parseStrFromLine("SHOW_CREATURE_MOODS", line);
+            ssConfig.show_creature_moods = (result == "YES");
+        }
+        if (line.find("[SHOW_CREATURE_JOBS") != string::npos) {
+            string result = parseStrFromLine("SHOW_CREATURE_JOBS", line);
+            ssConfig.show_creature_jobs = (result == "YES");
+        }
+        if (line.find("[SHOW_CREATURE_PROFESSIONS") != string::npos) {
+            int value = parseIntFromLine("SHOW_CREATURE_PROFESSIONS", line);
+            ssConfig.show_creature_professions = value;
         }
         if (line.find("[NAMES_USE_NICKNAME") != string::npos) {
             string result = parseStrFromLine("NAMES_USE_NICKNAME", line);
@@ -299,7 +317,7 @@ namespace {
         }
         if (line.find("[FONT") != string::npos) {
             string result = parseStrFromLine("FONT", line);
-            ssConfig.font = al_create_path(result.c_str());
+            ssConfig.font = std::filesystem::path{ result }.make_preferred();
         }
         if (line.find("[USE_DF_COLORS") != string::npos) {
             string result = parseStrFromLine("USE_DF_COLORS", line);
@@ -806,12 +824,10 @@ namespace {
 bool loadConfigFile()
 {
     string line;
-    ALLEGRO_PATH * p =al_create_path("dfhack-config/stonesense/init.txt");
-    const char * path = al_path_cstr(p,ALLEGRO_NATIVE_PATH_SEP);
+    auto path = std::filesystem::path{} / "dfhack-config" / "stonesense" / "init.txt";
     std::ifstream myfile(path);
     if (myfile.is_open() == false) {
         LogError( "cannot find init file\n" );
-        al_destroy_path(p);
         return false;
     }
 
@@ -823,6 +839,5 @@ bool loadConfigFile()
     ssConfig.colors.update();
     //close file, etc.
     myfile.close();
-    al_destroy_path(p);
     return true;
 }

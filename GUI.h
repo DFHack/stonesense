@@ -19,7 +19,6 @@ ALLEGRO_BITMAP* getImgFile(int index);
 void flushImgFiles();
 //returns index into getImgFile. Will only create new bitmaps when needed
 int loadImgFile(std::filesystem::path filename);
-//int loadImgFile(ALLEGRO_PATH* filepath);
 ALLEGRO_BITMAP * CreateSpriteFromSheet( int spriteNum, ALLEGRO_BITMAP* spriteSheet);
 ALLEGRO_BITMAP* load_bitmap_withWarning(std::filesystem::path path);
 void DrawSpriteIndexOverlay(int i);
@@ -51,7 +50,5 @@ extern ALLEGRO_BITMAP* IMGEngFloorSheet;
 extern ALLEGRO_BITMAP* IMGEngLeftSheet;
 extern ALLEGRO_BITMAP* IMGEngRightSheet;
 extern ALLEGRO_BITMAP* IMGLetterSheet;
-
-void swapSegments(void);
 
 ALLEGRO_COLOR morph_color(ALLEGRO_COLOR source, ALLEGRO_COLOR reference, ALLEGRO_COLOR target);

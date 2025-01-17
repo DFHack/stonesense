@@ -692,7 +692,7 @@ bool hasBuildingOfID(Tile* b, int ID)
     return b->building.type == ID;
 }
 
-bool hasBuildingIdentity(Tile* b, Buildings::t_building* index, df::tile_building_occ buildingOcc)
+bool hasBuildingIdentity(Tile* b, Stonesense_Building* index, df::tile_building_occ buildingOcc)
 {
     if(!b) {
         return false;
@@ -703,7 +703,7 @@ bool hasBuildingIdentity(Tile* b, Buildings::t_building* index, df::tile_buildin
     return b->occ.bits.building == buildingOcc;
 }
 
-bool hasBuildingOfIndex(Tile* b, Buildings::t_building* index)
+bool hasBuildingOfIndex(Tile* b, Stonesense_Building* index)
 {
     if(!b) {
         return false;

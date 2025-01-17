@@ -240,6 +240,11 @@ void action_toggleocclusion(uint32_t keymod)
     timeToReloadSegment = true;
 }
 
+void action_togglefog(uint32_t keymod)
+{
+    ssConfig.fogenable = !ssConfig.fogenable;
+}
+
 void action_togglecreaturemood(uint32_t keymod)
 {
     ssConfig.show_creature_moods = !ssConfig.show_creature_moods;
@@ -382,16 +387,25 @@ void action_togglekeybinds(uint32_t keymod){
     ssConfig.show_keybinds = !ssConfig.show_keybinds;
 }
 
+void action_toggleannouncements(uint32_t keymod) {
+    ssConfig.show_announcements = !ssConfig.show_announcements;
+}
+
+void action_toggledebug(uint32_t keymod)
+{
+    ssConfig.debug_mode = !ssConfig.debug_mode;
+}
+
 void action_incrzoom(uint32_t keymod)
 {
     ssConfig.zoom++;
-    ssConfig.scale = pow(2.0f, ssConfig.zoom);
+    ssConfig.scale = pow(1.1f, ssConfig.zoom);
 }
 
 void action_decrzoom(uint32_t keymod)
 {
     ssConfig.zoom--;
-    ssConfig.scale = pow(2.0f, ssConfig.zoom);
+    ssConfig.scale = pow(1.1f, ssConfig.zoom);
 }
 
 void action_screenshot(uint32_t keymod)

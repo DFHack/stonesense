@@ -186,6 +186,7 @@ action_name_mapper actionnamemap[] = {
     {"TOGGLE_STOCKS", action_togglestockpiles},
     {"TOGGLE_ZONES", action_togglezones},
     {"TOGGLE_OCCLUSION", action_toggleocclusion},
+    {"TOGGLE_FOG",action_togglefog},
     {"TOGGLE_CREATURE_MOODS", action_togglecreaturemood},
     {"TOGGLE_CREATURE_PROFS", action_togglecreatureprof},
     {"TOGGLE_CREATURE_JOBS", action_togglecreaturejob},
@@ -198,6 +199,8 @@ action_name_mapper actionnamemap[] = {
     {"TOGGLE_SHOW_HIDDEN_TILES", action_toggleshowhidden},
     {"TOGGLE_OSD", action_toggleosd},
     {"TOGGLE_KEYBINDS", action_togglekeybinds},
+    {"TOGGLE_ANNOUNCEMENTS", action_toggleannouncements},
+    {"TOGGLE_DEBUG", action_toggledebug},
     {"INCR_ZOOM", action_incrzoom},
     {"DECR_ZOOM", action_decrzoom},
     {"SCREENSHOT", action_screenshot},
@@ -273,12 +276,10 @@ void parseKeymapLine( string line )
 
 bool loadKeymapFile(){
     string line;
-    ALLEGRO_PATH * p =al_create_path("stonesense/keybinds.txt");
-    const char * path = al_path_cstr(p,ALLEGRO_NATIVE_PATH_SEP);
+    std::filesystem::path path = std::filesystem::path{} / "stonesense" / "keybinds.txt";
     ifstream myfile (path);
     if (myfile.is_open() == false) {
         LogError( "cannot find keybinds file\n" );
-        al_destroy_path(p);
         return false;
     }
 
@@ -294,7 +295,6 @@ bool loadKeymapFile(){
     }
     //close file, etc.
     myfile.close();
-    al_destroy_path(p);
     return true;
 }
 
