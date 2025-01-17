@@ -2,12 +2,12 @@
 <building name="Cabinet" game_type="Cabinet">
     <if>
         <MaterialType value="Wood" />
-        <sprite index="88" color="building" />
+        <sprite index="86" color="building" />
     </if>
     <else>
         <!-- GreenGlass -->
         <MaterialType value="GreenGlass" />
-        <sprite index="67" />
+        <sprite index="66" />
     </else>
     <else>
         <!-- ClearGlass or CrystalGlass -->
@@ -15,7 +15,7 @@
             <MaterialType value="ClearGlass" />
             <MaterialType value="CrystalGlass" />
         </or>
-        <sprite index="68" />
+        <sprite index="67" />
     </else>
     <else>
         <sprite index="87" color="building" />
