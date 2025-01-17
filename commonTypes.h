@@ -369,4 +369,3 @@ public:
         return it != map.end() ? std::optional{ it->second } : std::nullopt;
     }
 };
-
