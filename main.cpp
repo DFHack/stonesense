@@ -345,7 +345,6 @@ static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALL
             case ALLEGRO_EVENT_DISPLAY_RESIZE:
                 if (ssConfig.overlay_mode) {
                     break;
-
                 }
                 if (ssConfig.autosize_segmentX) {
                     ssState.Size.x = getAutoSegmentSize();

@@ -258,5 +258,3 @@ constexpr auto FORM_BOULDER = 3;
 constexpr auto FORM_LOG = 4;
 
 extern int randomCube[RANDOM_CUBE][RANDOM_CUBE][RANDOM_CUBE];
-
-int getAutoSegmentSize();

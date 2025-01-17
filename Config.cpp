@@ -55,7 +55,7 @@ namespace {
         bool autosize = (parseStrFromLine(setting, line) == "AUTO");
         int value = DEFAULT_SEGSIZE_XY;
         if (autosize) {
-            value = getAutoSegmentSize(); //function defined in main.cpp
+            value = 1; // will get overwritten when the window comes up
         } else {
             value = parseIntFromLine(setting, line);
             value = ((value < MIN_SEGSIZE) ? DEFAULT_SEGSIZE_XY : value);
@@ -106,7 +106,6 @@ namespace {
             ssState.Size.x = getSegmentSizeConfig("SEGMENTSIZE_X", line);
         }
         if (line.find("[SEGMENTSIZE_Y") != string::npos) {
-
             ssState.Size.y = getSegmentSizeConfig("SEGMENTSIZE_Y", line);
         }
         if (line.find("[SEGMENTSIZE_Z") != string::npos) {
