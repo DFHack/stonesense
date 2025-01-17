@@ -18,6 +18,8 @@
 #include "ContentLoader.h"
 #include "OcclusionTest.h"
 
+#include "Debug.h"
+
 using namespace DFHack;
 using namespace df::enums;
 
@@ -29,6 +31,10 @@ static constexpr auto SIZE_LOG = 50;
 DFHACK_PLUGIN("stonesense");
 DFHACK_PLUGIN_IS_ENABLED(enabled);
 REQUIRE_GLOBAL(init);
+
+namespace DFHack {
+    DBG_DECLARE(stonesense, main, DebugCategory::LINFO);
+}
 
 bool stonesense_started = 0;
 
@@ -87,51 +93,43 @@ ALLEGRO_BITMAP* load_bitmap_withWarning(std::filesystem::path path)
     return img;
 }
 
-
 void LogError(const char* msg, ...)
 {
     va_list arglist;
     va_start(arglist, msg);
-    char buf[512] = {0};
-    vsprintf(buf, msg, arglist);
-    Core::printerr("%s", buf);
-    FILE* fp = fopen( "Stonesense.log", "a");
-    if(fp) {
-        vfprintf( fp, msg, arglist );
-    }
-//    Core::printerr(msg, arglist);
+    std::string buf = stl_vsprintf(msg, arglist);
     va_end(arglist);
-    fclose(fp);
-}
 
+    WARN(main) << buf;
+
+    std::ofstream fp{ std::filesystem::path { "Stonesense.log" }, std::ios::app };
+    fp << buf;
+}
 
 void PrintMessage(const char* msg, ...)
 {
     va_list arglist;
     va_start(arglist, msg);
-    char buf[512] = {0};
-    vsprintf(buf, msg, arglist);
-    Core::print("%s", buf);
+    std::string buf = stl_vsprintf(msg, arglist);
     va_end(arglist);
+
+    INFO(main) << buf;
 }
 
 void LogVerbose(const char* msg, ...)
 {
-    if (!ssConfig.verbose_logging) {
-        return;
-    }
     va_list arglist;
     va_start(arglist, msg);
-    char buf[512] = {0};
-    vsprintf(buf, msg, arglist);
-    Core::printerr("%s", buf);
-    FILE* fp = fopen( "Stonesense.log", "a");
-    if(fp) {
-        vfprintf( fp, msg, arglist );
-    }
-//    Core::printerr(msg, arglist);
+    std::string buf = stl_vsprintf(msg, arglist);
     va_end(arglist);
-    fclose(fp);
+
+    TRACE(main) << buf;
+
+    if (!ssConfig.verbose_logging)
+        return;
+
+    std::ofstream fp{ std::filesystem::path { "Stonesense.log" }, std::ios::app };
+    fp << buf;
 }
 
 void SetTitle(const char *format, ...)
