@@ -38,12 +38,12 @@ Template for new versions:
 # Future
 
 ## New Features
-- `stonesense`: added hotkey to toggle fog ``~`` (default keybinding)
-- `stonesense`: added hotkey to toggle debug mode: ``~`` (default keybinding)
+- `stonesense`: added hotkey to toggle fog ``;`` (default keybinding)
 - `stonesense`: added hotkey to toggle announcements: ``a`` (default keybinding)
-- `stonesense`: added config to show announcements, on by default
-- `stonesense`: added config for whether Esc is recognized for closing the stonesense window
-- `stonesense`: added config for whether creature moods and jobs are displayed
+- `stonesense`: added hotkey to toggle debug mode: ``~`` (default keybinding)
+- `stonesense`: added init file config to show announcements (on by default)
+- `stonesense`: added init file config for whether Esc is recognized for closing the stonesense window (on by default to match previous behavior)
+- `stonesense`: added init file config for whether creature moods and jobs are displayed (off by default)
 
 ## Fixes
 - `stonesense`: fixed crash when maximizing or resizing the window
