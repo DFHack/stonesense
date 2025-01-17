@@ -38,6 +38,16 @@ Template for new versions:
 # Future
 
 ## New Features
+
+## Fixes
+
+## Misc Improvements
+
+## Removed
+
+# 50.15-r2
+
+## New Features
 - `stonesense`: added hotkey to toggle fog ``;`` (default keybinding)
 - `stonesense`: added hotkey to toggle announcements: ``a`` (default keybinding)
 - `stonesense`: added hotkey to toggle debug mode: ``~`` (default keybinding)
