@@ -358,7 +358,8 @@ static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALL
                 }
                 if(event.keyboard.display != display) {
                     break;
-                } else if (event.keyboard.keycode == ALLEGRO_KEY_ESCAPE) {
+                }
+                else if (event.keyboard.keycode == ALLEGRO_KEY_ESCAPE && ssConfig.closeOnEsc) {
                     return;
                 } else {
                     doKeys(event.keyboard.keycode, event.keyboard.modifiers);
@@ -395,6 +396,8 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
     color_ostream_proxy out(Core::getInstance().getConsole());
     out.print("Stonesense launched\n");
 
+    ssConfig.closeOnEsc = true;
+    ssConfig.show_announcements = true;
     ssConfig.debug_mode = false;
     ssConfig.hide_outer_tiles = false;
     ssConfig.shade_hidden_tiles = true;
