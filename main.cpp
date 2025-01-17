@@ -18,13 +18,12 @@
 #include "ContentLoader.h"
 #include "OcclusionTest.h"
 
-using namespace std;
 using namespace DFHack;
 using namespace df::enums;
 
-#define WIDTH        640
-#define HEIGHT       480
-#define SIZE_LOG     50
+static constexpr auto WIDTH = 640;
+static constexpr auto HEIGHT = 480;
+static constexpr auto SIZE_LOG = 50;
 
 //set the plugin name/dfhack version
 DFHACK_PLUGIN("stonesense");
@@ -47,7 +46,7 @@ char currentAnimationFrame;
 uint32_t currentFrameLong;
 bool animationFrameShown;
 
-vector<t_matgloss> v_stonetypes;
+std::vector<t_matgloss> v_stonetypes;
 
 ALLEGRO_FONT * font;
 
