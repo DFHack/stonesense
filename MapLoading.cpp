@@ -645,6 +645,54 @@ void readBlockToSegment(DFHack::Core& DF, WorldSegment& segment,
     }
 }
 
+namespace
+{
+    void parse_tree(WorldSegment& segment, auto pp, auto info, auto parts, auto depth, bool downward, auto raw)
+    {
+        for (int zz = 0; zz < depth; zz++)
+        {
+            // Parse through a single horizontal slice of the tree.
+            for (int xx = 0; xx < info->dim_x; xx++)
+            {
+                for (int yy = 0; yy < info->dim_y; yy++)
+                {
+                    // Any non-zero value here other than blocked means there's some sort of branch here.
+                    // If the block is at or above the plant's base level, we use the body array
+                    // otherwise we use the roots.
+                    // TODO: verify that the tree bounds intersect the block.
+                    auto part = parts[zz][xx + (yy * info->dim_x)];
+                    if (part.whole && !(part.bits.blocked))
+                    {
+                        df::coord pos = pp->pos;
+                        pos.x = pos.x - (info->dim_x / 2) + xx;
+                        pos.y = pos.y - (info->dim_y / 2) + yy;
+                        pos.z = pos.z + downward ? zz : (-1 - zz);
+                        if (!segment.CoordinateInsideSegment(pos.x, pos.y, pos.z))
+                            continue;
+                        Tile* t = segment.getTile(pos.x, pos.y, pos.z);
+                        if (!t)
+                            t = segment.ResetTile(pos.x, pos.y, pos.z);
+                        if (!t)
+                            continue;
+                        t->tree.type = pp->type;
+                        t->tree.index = pp->material;
+                        // only update tree_tile if part is a plant_tree_tile
+                        if constexpr (std::assignable_from<decltype(t->tree_tile), decltype(part)>)
+                        {
+                            t->tree_tile = part;
+                            if (raw)
+                            {
+                                t->material.type = raw->material_defs.type[df::plant_material_def::basic_mat];
+                                t->material.index = raw->material_defs.idx[df::plant_material_def::basic_mat];
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
 void readBlockColumnToSegment(DFHack::Core& DF, WorldSegment& segment,
     int BlockX, int BlockY)
 {
@@ -697,73 +745,9 @@ void readBlockColumnToSegment(DFHack::Core& DF, WorldSegment& segment,
 
         auto raw = df::plant_raw::find(pp->material);
 
-
-        for (int zz = 0; zz < info->body_height; zz++)
-        {
-            // Parse through a single horizontal slice of the tree.
-            for (int xx = 0; xx < info->dim_x; xx++)
-            for (int yy = 0; yy < info->dim_y; yy++)
-            {
-                // Any non-zero value here other than blocked means there's some sort of branch here.
-                // If the block is at or above the plant's base level, we use the body array
-                // otherwise we use the roots.
-                // TODO: verify that the tree bounds intersect the block.
-                df::plant_tree_tile tile = info->body[zz][xx + (yy*info->dim_x)];
-                if (tile.whole && !(tile.bits.blocked))
-                {
-                    df::coord pos = pp->pos;
-                    pos.x = pos.x - (info->dim_x / 2) + xx;
-                    pos.y = pos.y - (info->dim_y / 2) + yy;
-                    pos.z = pos.z + zz;
-                    if (!segment.CoordinateInsideSegment(pos.x, pos.y, pos.z))
-                        continue;
-                    Tile * t = segment.getTile(pos.x, pos.y, pos.z);
-                    if (!t)
-                        t = segment.ResetTile(pos.x, pos.y, pos.z);
-                    if (!t)
-                        continue;
-                    t->tree.type = pp->type;
-                    t->tree.index = pp->material;
-                    t->tree_tile = tile;
-                    if (raw)
-                    {
-                        t->material.type = raw->material_defs.type[df::plant_material_def::basic_mat];
-                        t->material.index = raw->material_defs.idx[df::plant_material_def::basic_mat];
-                    }
-                }
-            }
-        }
-        for (int zz = 0; zz < info->roots_depth; zz++)
-        {
-            // Parse through a single horizontal slice of the tree.
-            for (int xx = 0; xx < info->dim_x; xx++)
-            for (int yy = 0; yy < info->dim_y; yy++)
-            {
-                // Any non-zero value here other than blocked means there's some sort of branch here.
-                // If the block is at or above the plant's base level, we use the body array
-                // otherwise we use the roots.
-                // TODO: verify that the tree bounds intersect the block.
-                df::plant_root_tile tile = info->roots[zz][xx + (yy * info->dim_x)];
-                if (tile.whole && !(tile.bits.blocked))
-                {
-                    df::coord pos = pp->pos;
-                    pos.x = pos.x - (info->dim_x / 2) + xx;
-                    pos.y = pos.y - (info->dim_y / 2) + yy;
-                    pos.z = pos.z - 1 - zz;
-                    if (!segment.CoordinateInsideSegment(pos.x, pos.y, pos.z))
-                        continue;
-                    Tile * t = segment.getTile(pos.x, pos.y, pos.z);
-                    if (!t)
-                        t = segment.ResetTile(pos.x, pos.y, pos.z);
-                    if (!t)
-                        continue;
-                    t->tree.type = pp->type;
-                    t->tree.index = pp->material;
-                }
-            }
-        }
+        parse_tree(segment, pp, info, info->body, info->body_height, false, raw);
+        parse_tree(segment, pp, info, info->roots, info->roots_depth, true, raw);
     }
-
 }
 
 
