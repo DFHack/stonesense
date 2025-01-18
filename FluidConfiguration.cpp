@@ -1,14 +1,10 @@
 #include "FluidConfiguration.h"
 #include "ContentLoader.h"
 
-using namespace DFHack;
-using namespace df::enums;
-
 FluidConfiguration::FluidConfiguration()
 {
     fluidset = 0;
     sprite.reset();
-
 }
 
 void parseFluidElement( TiXmlElement* elemFluid, int basefile)

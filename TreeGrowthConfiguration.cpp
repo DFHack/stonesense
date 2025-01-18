@@ -1,9 +1,5 @@
 #include "TreeGrowthConfiguration.h"
 
-using namespace std;
-using namespace DFHack;
-using namespace df::enums;
-
 void parseGrowthElement(TiXmlElement* elemGrowthSprite, MaterialMatcher<c_sprite> & growthTopConfigs, MaterialMatcher<c_sprite> & growthBottomConfigs, int basefile)
 {
     const char* spriteSheetIndexStr = elemGrowthSprite->Attribute("sheetIndex");
@@ -57,7 +53,7 @@ bool addSingleGrowthConfig(TiXmlElement* elemRoot)
         }
     }
 
-    string elementType = elemRoot->Value();
+    std::string elementType = elemRoot->Value();
     if (elementType.compare("growths") == 0) {
         //parse colors
         TiXmlElement* elemGrowth = elemRoot->FirstChildElement("growth");

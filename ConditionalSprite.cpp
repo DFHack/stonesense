@@ -5,9 +5,6 @@
 #include "GUI.h"
 #include "GameState.h"
 
-using namespace DFHack;
-using namespace df::enums;
-
 /* RootTile */
 
 RootTile::RootTile() : SpriteNode()

@@ -1,9 +1,5 @@
 #include "MaterialMatcher.h"
 
-using namespace std;
-using namespace DFHack;
-using namespace df::enums;
-
 // The main function that checks if two given strings match. The first
 // string may contain wildcard characters
 bool match(const char *first, const char * second)

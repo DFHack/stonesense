@@ -2,9 +2,6 @@
 #include "ContentLoader.h"
 #include <vector>
 
-using namespace DFHack;
-using namespace df::enums;
-
 using std::string;
 using std::vector;
 

@@ -15,10 +15,6 @@ ALLEGRO_MOUSE_STATE mouse;
 ALLEGRO_KEYBOARD_STATE board;
 extern ALLEGRO_TIMER * reloadtimer;
 
-using namespace std;
-using namespace DFHack;
-using namespace df::enums;
-
 /**
  * Returns a keymod bitflag consistent with allegro keycodes for the CTRL, ALT, and SHIFT keys
  * from a given keyboard state.

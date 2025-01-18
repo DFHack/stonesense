@@ -31,9 +31,6 @@
 #include "df/world.h"
 #include "df/world_raws.h"
 
-using namespace DFHack;
-using namespace df::enums;
-
 using std::vector;
 using std::string;
 
@@ -85,7 +82,7 @@ bool ContentLoader::Load()
     //classIdStrings = *tempClasses;
 
     try {
-        Mats = Core::getInstance().getMaterials();
+        Mats = DFHack::Core::getInstance().getMaterials();
     } catch(exception &e) {
         LogError("DFhack exeption: %s\n", e.what());
     }
@@ -130,7 +127,7 @@ bool ContentLoader::Load()
         }
     }
     draw_loading_message("Reading Custom Workshop Types");
-    Buildings::ReadCustomWorkshopTypes(custom_workshop_types);
+    DFHack::Buildings::ReadCustomWorkshopTypes(custom_workshop_types);
     draw_loading_message("Reading Professions");
 
     if(professionStrings.empty()) {
@@ -505,6 +502,8 @@ const char *lookupBuildingSubtype(int main_type, int i)
 {
     // process types
     switch (main_type) {
+        using df::building_type;
+        using DFHack::enum_item_key_str;
     case building_type::Furnace:
         return enum_item_key_str((df::furnace_type)i);
     case building_type::Construction:
@@ -590,6 +589,8 @@ MAT_BASICS lookupMaterialType(const char* strValue)
     return INVALID;
 }
 
+using DFHack::t_matgloss;
+
 const char *lookupMaterialName(int matType,int matIndex)
 {
     if (matIndex < 0) {
@@ -644,6 +645,7 @@ const char *lookupTreeName(int matIndex)
 const char * lookupFormName(int formType)
 {
     switch (formType) {
+        using df::item_type;
     case item_type::BAR:
         return "bar";
     case item_type::BLOCKS:
@@ -740,14 +742,14 @@ ALLEGRO_COLOR lookupMaterialColor(int matType, int matIndex, ALLEGRO_COLOR defau
 ALLEGRO_COLOR lookupMaterialColor(int matType, int matIndex, int dyeType, int dyeIndex, ALLEGRO_COLOR defaultColor)
 {
     ALLEGRO_COLOR dyeColor = al_map_rgb(255,255,255);
-    MaterialInfo dye;
+    DFHack::MaterialInfo dye;
     if (dyeType >= 0 && dyeIndex >= 0 && dye.decode(dyeType, dyeIndex))
         dyeColor = al_map_rgb_f(
         contentLoader->Mats->color[dye.material->powder_dye].red,
         contentLoader->Mats->color[dye.material->powder_dye].green,
         contentLoader->Mats->color[dye.material->powder_dye].blue);
     // FIXME integer truncation: matType should not be an int
-    t_matglossPair matPair{ int16_t(matType), matIndex };
+    DFHack::t_matglossPair matPair{ int16_t(matType), matIndex };
     if (ALLEGRO_COLOR * matResult = contentLoader->materialColorConfigs.get(matPair))
     {
         return *matResult * dyeColor;
@@ -770,7 +772,7 @@ ALLEGRO_COLOR lookupMaterialColor(int matType, int matIndex, int dyeType, int dy
         return contentLoader->colorConfigs.at(matType).colorMaterials.at(matIndex).color * dyeColor;
     }
 DFColor:
-    MaterialInfo mat;
+    DFHack::MaterialInfo mat;
     if(mat.decode(matType, matIndex)) {
             return al_map_rgb_f(
                        contentLoader->Mats->color[mat.material->state_color[0]].red,

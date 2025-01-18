@@ -23,6 +23,7 @@
 #include "GameConfiguration.h"
 
 #include "modules/Units.h"
+#include "DataDefs.h"
 
 #include "df/plotinfost.h"
 #include "df/building_actual.h"
@@ -59,9 +60,6 @@
 
 #include "allegro5/allegro_color.h"
 #include "allegro5/opengl/GLext/gl_ext_defs.h"
-
-using namespace DFHack;
-using namespace df::enums;
 
 extern ALLEGRO_FONT *font;
 
@@ -578,8 +576,10 @@ namespace
         }
         int ttype;
         const char* tform = NULL;
+        using df::tiletype_shape_basic;
+
         draw_textf_border(font, uiColor(1), 2, (i++ * al_get_font_line_height(font)), 0,
-            "Tile: %s", enum_item_key_str(b->tileType));
+            "Tile: %s", DFHack::enum_item_key_str(b->tileType));
         if (b->tileShapeBasic() == tiletype_shape_basic::Floor) {
             ttype = b->tileType;
             tform = "floor";
@@ -588,7 +588,8 @@ namespace
             ttype = b->tileType;
             tform = "wall";
         }
-        else if (b->tileShapeBasic() == tiletype_shape_basic::Ramp || b->tileType == tiletype::RampTop) {
+        else if (b->tileShapeBasic() == tiletype_shape_basic::Ramp ||
+            b->tileType == df::tiletype::RampTop) {
             ttype = b->tileType;
             tform = "ramp";
         }
@@ -611,7 +612,7 @@ namespace
                 matName ? matName : "Unknown", subMatName ? "/" : "", subMatName ? subMatName : "", b->material.type, b->material.index);
         }
         if (tform != NULL && b->material.type != INVALID_INDEX && b->material.index != INVALID_INDEX) {
-            MaterialInfo mat;
+            DFHack::MaterialInfo mat;
             mat.decode(b->material.type, b->material.index);
             if (mat.isValid())
             {
@@ -670,7 +671,7 @@ namespace
             const char* subTypeName = lookupBuildingSubtype(b->building.type, b->building.info->subtype);
             draw_textf_border(font, uiColor(1), 2, (i++ * al_get_font_line_height(font)), 0,
                 "Building: game_type = %s(%i) game_subtype = %s(%i) Material: %s%s%s (%d,%d) Occupancy:%i, Special: %i ",
-                ENUM_KEY_STR(building_type, (building_type::building_type)b->building.type).c_str(),
+                ENUM_KEY_STR(building_type, (df::building_type)b->building.type).c_str(),
                 b->building.type,
                 subTypeName,
                 b->building.info->subtype,
@@ -708,10 +709,10 @@ namespace
                 "Snow: %d, Mud: %d, Blood: %d", b->snowlevel, b->mudlevel, b->bloodlevel);
         }
         if (b->Item.item.type >= 0) {
-            MaterialInfo mat;
+            DFHack::MaterialInfo mat;
             mat.decode(b->Item.matt.type, b->Item.matt.index);
-            ItemTypeInfo itemdef;
-            bool subtype = itemdef.decode((item_type::item_type)b->Item.item.type, b->Item.item.index);
+            DFHack::ItemTypeInfo itemdef;
+            bool subtype = itemdef.decode((df::item_type)b->Item.item.type, b->Item.item.index);
             draw_textf_border(font, uiColor(1), 2, (i++ * al_get_font_line_height(font)), 0,
                 "Item: %s - %s",
                 mat.getToken().c_str(),
@@ -842,7 +843,7 @@ void DoSpriteIndexOverlay()
 
 void paintboard()
 {
-    CoreSuspender suspend;
+    DFHack::CoreSuspender suspend;
 
     //do the starting timer stuff
     clock_t starttime = clock();

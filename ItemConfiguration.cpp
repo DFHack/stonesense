@@ -5,10 +5,6 @@
 #include "ContentLoader.h"
 #include "MiscUtils.h"
 
-using namespace std;
-using namespace DFHack;
-using namespace df::enums;
-
 ItemConfiguration::ItemConfiguration()
 {
     configured=0;
@@ -43,9 +39,10 @@ bool parseItemElement( TiXmlElement* elemRoot, int basefile)
         contentError("<item> node must game_type attribute",elemRoot);
         return false;
     }
-    item_type::item_type main_type = (item_type::item_type) INVALID_INDEX;
+    using df::item_type;
+    item_type main_type = (item_type)INVALID_INDEX;
     int subtype = INVALID_INDEX;
-    string game_type_s;
+    std::string game_type_s;
     FOR_ENUM_ITEMS(item_type,i) {
         game_type_s = strGameID;
         if (game_type_s == ENUM_KEY_STR(item_type,i)) {
@@ -53,20 +50,20 @@ bool parseItemElement( TiXmlElement* elemRoot, int basefile)
             break;
         }
     }
-    if(main_type == (item_type::item_type) INVALID_INDEX) {
+    if(main_type == (item_type)INVALID_INDEX) {
         contentWarning("<item> unknown game_type value",elemRoot);
         return false;
     }
 
     if(strGameSub && strGameSub[0] != 0) {
         // get subtype string, if available
-        string sub;
+        std::string sub;
         sub += strGameID;
         sub += ":";
         sub += strGameSub;
 
         //process subtypes
-        ItemTypeInfo itemdef;
+        DFHack::ItemTypeInfo itemdef;
         if(!itemdef.find(sub)) {
             contentError("<item> unknown game_subtype value",elemRoot);
             return false;
@@ -102,7 +99,7 @@ bool parseItemElement( TiXmlElement* elemRoot, int basefile)
 }
 
 
-void flushItemConfig(vector<std::unique_ptr<ItemConfiguration>> &config)
+void flushItemConfig(std::vector<std::unique_ptr<ItemConfiguration>> &config)
 {
     if (config.size() != (ENUM_LAST_ITEM(item_type) + 1))
         config.resize(ENUM_LAST_ITEM(item_type) + 1);

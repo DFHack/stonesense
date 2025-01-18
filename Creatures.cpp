@@ -30,9 +30,6 @@
 #include "df/historical_entity.h"
 #include "df/entity_position.h"
 
-using namespace DFHack;
-using namespace df::enums;
-
 using std::string;
 using std::vector;
 
@@ -323,6 +320,7 @@ void DrawCreatureText(int drawx, int drawy, Stonesense_Unit* creature )
     vector<int> statusIcons;
 
     //if(ssConfig.show_creature_happiness)
+    using df::caste_raw_flags;
     if(ssConfig.show_creature_moods && df::creature_raw::find(creature->origin->race)->caste[creature->origin->caste]->flags.is_set(caste_raw_flags::CAN_SPEAK)) {
         auto stress_level = creature->origin->status.current_soul ? creature->origin->status.current_soul->personality.stress : 0;
         if(stress_level <= 0) {
@@ -341,6 +339,7 @@ void DrawCreatureText(int drawx, int drawy, Stonesense_Unit* creature )
             statusIcons.push_back(6);
         }
 
+        using df::mood_type;
         if(creature->origin->mood == mood_type::Fey) {
             statusIcons.push_back(19);
         } else if(creature->origin->mood == mood_type::Secretive) {
@@ -357,6 +356,7 @@ void DrawCreatureText(int drawx, int drawy, Stonesense_Unit* creature )
             statusIcons.push_back(18);
         }
 
+        using df::job_type;
         if(creature->origin->job.current_job && creature->origin->job.current_job->job_type == job_type::Sleep) {
             statusIcons.push_back(16);
         } else if(creature->origin->job.current_job && creature->origin->job.current_job->job_type == job_type::Rest) {
@@ -367,7 +367,7 @@ void DrawCreatureText(int drawx, int drawy, Stonesense_Unit* creature )
     unsigned int offsety = 0;
 
     if(ssConfig.show_creature_jobs && creature->origin->job.current_job) {
-        std::string jname = DF2UTF(Job::getName(creature->origin->job.current_job));
+        std::string jname = DF2UTF(DFHack::Job::getName(creature->origin->job.current_job));
 
         //CAN'T DO THIS UNTIL DFHack t_job IMPORTS MATERIAL TYPE???
         //df::job_skill jskill = ENUM_ATTR(job_type,skill,jtype);
@@ -547,8 +547,8 @@ namespace {
             furball.color[i] = source->appearance.colors[i];
         }
 
-        std::vector<Units::NoblePosition> np;
-        if (Units::getNoblePositions(&np, source)) {
+        std::vector<DFHack::Units::NoblePosition> np;
+        if (DFHack::Units::getNoblePositions(&np, source)) {
             furball.profession = contentLoader->position_Indices.lookup(np[0].entity->id, np[0].position->id);
         }
 
@@ -576,6 +576,7 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
                 continue;
         }
 
+        using df::tiletype;
         Tile* b = segment->getTile(unit_ptr->pos.x, unit_ptr->pos.y, unit_ptr->pos.z );
         if(!b) {
             b = segment->ResetTile(unit_ptr->pos.x, unit_ptr->pos.y, unit_ptr->pos.z, tiletype::OpenSpace);
@@ -599,6 +600,7 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
             if (!floor_tile) {
                 continue;
             }
+            using df::tiletype_shape_basic;
             if (floor_tile->tileShapeBasic()==tiletype_shape_basic::Floor ||
                 floor_tile->tileShapeBasic()==tiletype_shape_basic::Wall  ||
                 floor_tile->tileShapeBasic()==tiletype_shape_basic::Ramp) {
@@ -634,7 +636,7 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
             int subtype = item->getSubtype();
             if(subtype < 0) subtype = 0;
 
-            item_type::item_type type = item->getType();
+            auto type = item->getType();
 
             worn_item equipment;
 
@@ -645,6 +647,7 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
                 auto Constructed_Item = virtual_cast<df::item_constructed>(item);
                 if(Constructed_Item) {
                     for(size_t idex = 0; idex < Constructed_Item->improvements.size(); idex++) {
+                        using df::improvement_type;
                         if(!Constructed_Item->improvements[idex]) {
                             continue;
                         }
@@ -709,6 +712,7 @@ namespace {
             }
 
             bool creatureMatchesSex = true;
+            using df::pronoun_type;
             if (testConfig->sex != pronoun_type::it) {
                 creatureMatchesSex =
                     (c->origin->sex == testConfig->sex);

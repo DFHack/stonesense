@@ -146,8 +146,8 @@ public:
     uint8_t currentHour = 0;
     uint8_t currentTickRel = 0;
     DFHack::t_gamemodes gameMode{
-        df::enums::game_mode::NONE,
-        df::enums::game_type::NONE
+        df::game_mode::NONE,
+        df::game_type::NONE
         };
 
     int obsidian = 0;

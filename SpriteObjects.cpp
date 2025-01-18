@@ -31,10 +31,6 @@
 
 #define ALL_BORDERS 255
 
-using namespace std;
-using namespace DFHack;
-using namespace df::enums;
-
 uint8_t dir_to_16(DFHack::TileDirection in)
 {
     if(in.north){
@@ -401,8 +397,8 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite, int32_t inFile, int creature
     const char* bodyPartStr = elemSprite->Attribute("bodypart");
     //copy new, if found
     if (bodyPartStr != NULL && bodyPartStr[0] != 0) {
-        t_creaturecaste & caste = contentLoader->Mats->raceEx[creatureID].castes[(casteID==INVALID_INDEX) ? 0 : casteID];
-        std::vector<t_colormodifier> & colormods = caste.ColorModifier;
+        DFHack::t_creaturecaste & caste = contentLoader->Mats->raceEx[creatureID].castes[(casteID==INVALID_INDEX) ? 0 : casteID];
+        std::vector<DFHack::t_colormodifier> & colormods = caste.ColorModifier;
         for(size_t j = 0; j<colormods.size() ; j++) {
             if(colormods[j].part == bodyPartStr) {
                 caste_bodypart_index = j;
@@ -706,7 +702,7 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
         namedcolor=al_map_rgb(255, 255, 255);
     } else {
         int colorindex = lookupIndexedType(namedColorStr, contentLoader->Mats->color);
-        t_descriptor_color col = contentLoader->Mats->color[colorindex];
+        DFHack::t_descriptor_color col = contentLoader->Mats->color[colorindex];
         namedcolor = al_map_rgb_f( col.red, col.green, col.blue);
     }
 
@@ -752,7 +748,7 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
         itemtype = INVALID_INDEX;
     } else {
         df::item_type index;
-        if (find_enum_item(&index, equiptypestr)) {
+        if (DFHack::find_enum_item(&index, equiptypestr)) {
             itemtype = (int)index;
         }
     }
@@ -765,6 +761,7 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
     } else {
         df::world_raws::T_itemdefs &defs = df::global::world->raws.itemdefs;
         switch(itemtype) {
+            using df::item_type;
         case item_type::WEAPON:
             itemsubtype = lookupIndexedPointerType(equipsindexstr, defs.weapons);
             break;
@@ -922,10 +919,10 @@ void c_sprite::assemble_world_offset(int x, int y, int z, int plateoffset, Tile 
             spriteoffset = ((randomanimation?rando:0) + currentAnimationFrame) % offsetcode;
             break;
         case SIXTEEN:
-            spriteoffset = dir_to_16(correct_dir_rotation(tileDirection(b->tileType), (offsetcode + ssState.Rotation) %4));
+            spriteoffset = dir_to_16(correct_dir_rotation(DFHack::tileDirection(b->tileType), (offsetcode + ssState.Rotation) %4));
             break;
         case FOUR:
-            spriteoffset = dir_to_4(correct_dir_rotation(tileDirection(b->tileType), (offsetcode + ssState.Rotation) %4));
+            spriteoffset = dir_to_4(correct_dir_rotation(DFHack::tileDirection(b->tileType), (offsetcode + ssState.Rotation) %4));
             break;
         default:
             spriteoffset = 0;
@@ -982,14 +979,15 @@ void c_sprite::assemble_world_offset(int x, int y, int z, int plateoffset, Tile 
         if(!((grasstype == -1) || (size_t(grasstype) == b->grassmat))) {
             goto draw_subsprite;
         }
+
         if(!((grassgrowth == GRASS_GROWTH_ANY) ||
                 ((grassgrowth == GRASS_GROWTH_NORMAL) &&
-                 ((b->tileMaterial() == tiletype_material::GRASS_DARK) ||
-                  (b->tileMaterial() == tiletype_material::GRASS_LIGHT))) ||
+                 ((b->tileMaterial() == df::tiletype_material::GRASS_DARK) ||
+                  (b->tileMaterial() == df::tiletype_material::GRASS_LIGHT))) ||
                 ((grassgrowth == GRASS_GROWTH_DRY) &&
-                 (b->tileMaterial() == tiletype_material::GRASS_DRY)) ||
+                 (b->tileMaterial() == df::tiletype_material::GRASS_DRY)) ||
                 ((grassgrowth == GRASS_GROWTH_DEAD) &&
-                 (b->tileMaterial() == tiletype_material::GRASS_DEAD)))) {
+                 (b->tileMaterial() == df::tiletype_material::GRASS_DEAD)))) {
             goto draw_subsprite;
         }
 
@@ -1286,10 +1284,10 @@ ALLEGRO_COLOR c_sprite::get_color(void* tile)
         if(b->occ.bits.unit && b->creature) {
             dayofLife = b->creature->origin->birth_year*12*28 + b->creature->origin->birth_time/1200;
             if((!ssConfig.skipCreatureTypes) && (!ssConfig.skipCreatureTypesEx) && (!ssConfig.skipDescriptorColors)) {
-                t_creaturecaste & caste = contentLoader->Mats->raceEx[b->creature->origin->race].castes[b->creature->origin->caste];
-                std::vector<t_colormodifier> & colormods =caste.ColorModifier;
+                DFHack::t_creaturecaste & caste = contentLoader->Mats->raceEx[b->creature->origin->race].castes[b->creature->origin->caste];
+                std::vector<DFHack::t_colormodifier> & colormods =caste.ColorModifier;
                 if(caste_bodypart_index != INVALID_INDEX && size_t(caste_bodypart_index) < colormods.size()){
-                    t_colormodifier & colormod = colormods[caste_bodypart_index];
+                    DFHack::t_colormodifier & colormod = colormods[caste_bodypart_index];
                     if(colormod.colorlist.size() > b->creature->color[caste_bodypart_index]) {
                         uint32_t cr_color = colormod.colorlist.at(b->creature->color[caste_bodypart_index]);
                         if(cr_color < df::global::world->raws.descriptors.patterns.size()) {
@@ -1346,7 +1344,7 @@ ALLEGRO_COLOR c_sprite::get_color(void* tile)
         break;
     case ShadeJob:
         if(b->occ.bits.unit && b->creature) {
-            return ssConfig.colors.getDfColor(Units::getProfessionColor(b->creature->origin), ssConfig.useDfColors);
+            return ssConfig.colors.getDfColor(DFHack::Units::getProfessionColor(b->creature->origin), ssConfig.useDfColors);
         } else {
             return al_map_rgb(255,255,255);
         }

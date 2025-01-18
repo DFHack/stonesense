@@ -14,10 +14,6 @@
 #include "df/plant_growth_print.h"
 #include "df/world.h"
 
-using namespace std;
-using namespace DFHack;
-using namespace df::enums;
-
 ALLEGRO_BITMAP *sprite_miasma = 0;
 ALLEGRO_BITMAP *sprite_water = 0;
 ALLEGRO_BITMAP *sprite_water2 = 0;
@@ -228,6 +224,7 @@ void Tile::GetDrawLocation(int32_t& drawx, int32_t& drawy)
 
 void Tile::DrawGrowth(c_sprite * spriteobject, bool top=true)
 {
+    using df::tiletype_material, df::tiletype_shape;
     //Draw Growths that appear over branches
     if (tileMaterial() == tiletype_material::ROOT
         || tileMaterial() == tiletype_material::TREE
@@ -350,11 +347,10 @@ void Tile::AssembleTile( void )
 
     DrawGrowth(spriteobject, false);
 
-
     //Draw Ramp Tops
-    if(tileType == tiletype::RampTop){
+    if(tileType == df::tiletype::RampTop) {
         Tile * b = this->ownerSegment->getTile(this->x, this->y, this->z - 1);
-        if ( b && b->building.type != BUILDINGTYPE_BLACKBOX && b->tileShapeBasic() == tiletype_shape_basic::Ramp ) {
+        if ( b && b->building.type != BUILDINGTYPE_BLACKBOX && b->tileShapeBasic() == df::tiletype_shape_basic::Ramp ) {
             spriteobject = GetTileSpriteMap(b->tileType, b->material, b->consForm);
             if (spriteobject->get_sheetindex() == UNCONFIGURED_INDEX) {
                 spriteobject->set_sheetindex(0);
@@ -373,6 +369,8 @@ void Tile::AssembleTile( void )
             return;
         }
     }
+
+    using df::tiletype_shape, df::tiletype_shape_basic;
 
     //Draw Floor
     if( tileShapeBasic()==tiletype_shape_basic::Floor ||
@@ -476,8 +474,8 @@ void Tile::AssembleTile( void )
 
     //Building
     bool skipBuilding =
-        (building.type == building_type::Civzone && !ssConfig.show_zones) ||
-        (building.type == building_type::Stockpile && !ssConfig.show_stockpiles);
+        (building.type == df::building_type::Civzone && !ssConfig.show_zones) ||
+        (building.type == df::building_type::Stockpile && !ssConfig.show_stockpiles);
 
     if(building.type != BUILDINGTYPE_NA && !skipBuilding) {
         for(uint32_t i=0; i < building.sprites.size(); i++) {
@@ -683,7 +681,7 @@ bool hasWall(Tile* b)
     if(!b) {
         return false;
     }
-    return b->tileShapeBasic()==tiletype_shape_basic::Wall;
+    return b->tileShapeBasic()==df::tiletype_shape_basic::Wall;
 }
 
 bool hasBuildingOfID(Tile* b, int ID)
@@ -729,7 +727,7 @@ bool wallShouldNotHaveBorders( int in )
 
 bool containsDesignations( df::tile_designation des, df::tile_occupancy occ )
 {
-    if (!df::global::gamemode || *df::global::gamemode == game_mode::ADVENTURE)
+    if (!df::global::gamemode || *df::global::gamemode == df::game_mode::ADVENTURE)
         return false;
     if(des.bits.dig != df::tile_dig_designation::No) {
         return true;

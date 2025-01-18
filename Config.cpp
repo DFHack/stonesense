@@ -10,9 +10,6 @@
 
 using std::string;
 
-using namespace DFHack;
-using namespace df::enums;
-
 namespace {
     string parseStrFromLine(string keyword, string line)
     {

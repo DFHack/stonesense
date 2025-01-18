@@ -5,10 +5,6 @@
 #include "Creatures.h"
 #include "GameConfiguration.h"
 
-using namespace std;
-using namespace DFHack;
-using namespace df::enums;
-
 const GameState SegmentWrap::zeroState =
 {
     {0,0,0},0,{0,0,0},{0,0,0},{0,0,0},0,0

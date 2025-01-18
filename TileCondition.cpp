@@ -4,10 +4,6 @@
 #include "ContentLoader.h"
 #include <iostream>
 
-using namespace std;
-using namespace DFHack;
-using namespace df::enums;
-
 int getDirectionFromString(const char* strDir)
 {
     if (strDir == NULL) {
@@ -47,7 +43,7 @@ int getDirectionFromString(const char* strDir)
 int getBuildingFromString(const char* strType)
 {
     df::building_type item = df::building_type::NONE;
-    if (find_enum_item(&item, strType)) {
+    if (DFHack::find_enum_item(&item, strType)) {
         return (int)item;
     }
     return INVALID_INDEX;
@@ -404,7 +400,7 @@ bool NotConditionalNode::addCondition(std::unique_ptr<TileCondition> cond)
 
 bool HaveFloorCondition::Matches(Tile* b)
 {
-    return (b->tileShapeBasic()==tiletype_shape_basic::Floor);
+    return (b->tileShapeBasic()==df::tiletype_shape_basic::Floor);
 }
 
 FluidBelowCondition::FluidBelowCondition(const char* strValue)

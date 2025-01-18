@@ -4,18 +4,13 @@
 #include "GameConfiguration.h"
 #include "GameState.h"
 
-using namespace std;
-using namespace DFHack;
-using namespace df::enums;
-
-
 void followCurrentDFCenter()
 {
     int32_t newviewx;
     int32_t newviewy;
     int32_t newviewz;
-    auto view_dims = Gui::getDwarfmodeViewDims();
-    Gui::getViewCoords(newviewx,newviewy,newviewz);
+    auto view_dims = DFHack::Gui::getDwarfmodeViewDims();
+    DFHack::Gui::getViewCoords(newviewx,newviewy,newviewz);
     int32_t viewsizex = view_dims.map_x2 - view_dims.map_x1 + 1;
     int32_t viewsizey = view_dims.map_y2 - view_dims.map_y1 + 1;
     ssState.Position.x = newviewx + (viewsizex/2) - (ssState.Size.x / 2) + ssConfig.viewXoffset;

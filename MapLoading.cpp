@@ -32,13 +32,10 @@
 
 #include "allegro5/color.h"
 
-
-using namespace std;
-using namespace DFHack;
-using namespace df::enums;
-
 bool connected = 0;
 bool threadrunnng = 0;
+
+using std::vector;
 
 //==============================Map Read ==============================//
 /*
@@ -70,7 +67,7 @@ void readSpatterToTile(Tile * b, uint32_t lx, uint32_t ly,
             ALLEGRO_COLOR tempBlood = al_map_rgb(255,255,255);
 
             //try to get the blood/snow tint
-            MaterialInfo mat;
+            DFHack::MaterialInfo mat;
             switch(splatter[i]->mat_type){
             case MUD:
                 break;
@@ -137,13 +134,16 @@ bool readDesignationsToTile( Tile * b,
                              df::tile_designation des,
                              df::tile_occupancy occ)
 {
+    using df::game_mode;
+    using df::tile_dig_designation;
+
     if (!df::global::gamemode || *df::global::gamemode == game_mode::ADVENTURE)
         return false; //Adventure mode doesn't use Dwarf mode designations.
     df::tiletype_shape shape = df::tiletype_shape::WALL;
     df::tiletype_material mat = df::tiletype_material::STONE;
     df::tiletype_variant var = df::tiletype_variant::NONE;
     df::tiletype_special spc = df::tiletype_special::NONE;
-    TileDirection dir;
+    DFHack::TileDirection dir;
 
     if(des.bits.dig != tile_dig_designation::No)
     {
@@ -242,9 +242,10 @@ bool readDesignationsToTile( Tile * b,
  * stonesense tile.
  */
 //TODO get cavein-sand to work somehow?
-void readMaterialToTile( Tile * b, uint32_t lx, uint32_t ly,
-    df::map_block * trueBlock,
-    const t_feature & local, const t_feature & global,
+void readMaterialToTile(Tile* b, uint32_t lx, uint32_t ly,
+    df::map_block* trueBlock,
+    const DFHack::t_feature& local,
+    const DFHack::t_feature& global,
     const vector <df::block_square_event_mineralst * > & veins,
     vector< vector <int16_t> >* allLayers)
 {
@@ -264,6 +265,10 @@ void readMaterialToTile( Tile * b, uint32_t lx, uint32_t ly,
 
     bool soilTile = false;//is this tile a match for soil materials?
     bool soilMat = false;//is the material a soil?
+    using df::tiletype_material;
+    using df::material_flags;
+    using df::inorganic_flags;
+
     soilTile = b->tileMaterial() == tiletype_material::SOIL
         || (b->mudlevel == 0
         && (b->tileMaterial() == tiletype_material::PLANT
@@ -383,6 +388,8 @@ SS_Item ConvertItem(df::item * found_item, WorldSegment& segment){
     Tempitem.dyematt.type = -1;
     Tempitem.dyematt.index = -1;
     if(1) { //found_item->isDyed())
+        using df::improvement_type;
+        using df::item_type;
         auto Constructed_Item = virtual_cast<df::item_constructed>(found_item);
         if(Constructed_Item) {
             for(size_t idex = 0; idex < Constructed_Item->improvements.size(); idex++) {
@@ -433,7 +440,7 @@ void readBlockToSegment(DFHack::Core& DF, WorldSegment& segment,
     }
     //boundry check
     int blockDimX, blockDimY, blockDimZ;
-    Maps::getSize((unsigned int &)blockDimX, (unsigned int &)blockDimY, (unsigned int &)blockDimZ);
+    DFHack::Maps::getSize((unsigned int &)blockDimX, (unsigned int &)blockDimY, (unsigned int &)blockDimZ);
     if( BlockX < 0 || BlockX >= blockDimX ||
         BlockY < 0 || BlockY >= blockDimY ||
         BlockZ < 0 || BlockZ >= blockDimZ ) {
@@ -448,20 +455,20 @@ void readBlockToSegment(DFHack::Core& DF, WorldSegment& segment,
 
     //read block data
     df::map_block *trueBlock;
-    trueBlock = Maps::getBlock(BlockX, BlockY, BlockZ);
+    trueBlock = DFHack::Maps::getBlock(BlockX, BlockY, BlockZ);
     if(!trueBlock) {
         return;
     }
     //read the map features
-    t_feature local, global;
-    Maps::ReadFeatures(BlockX,BlockY,BlockZ,&local,&global);
+    DFHack::t_feature local, global;
+    DFHack::Maps::ReadFeatures(BlockX,BlockY,BlockZ,&local,&global);
     //read local vein data
     vector <df::block_square_event_mineralst * > veins;
     vector <df::block_square_event_frozen_liquidst * > ices;
     vector <df::block_square_event_material_spatterst * > splatter;
     vector <df::block_square_event_grassst * > grass;
     vector <df::block_square_event_world_constructionst * > worldconstructions;
-    Maps::SortBlockEvents(
+    DFHack::Maps::SortBlockEvents(
         trueBlock,
         &veins,
         &ices,
@@ -481,9 +488,11 @@ void readBlockToSegment(DFHack::Core& DF, WorldSegment& segment,
 
             //open terrain needs to be included to make blackboxes if
             // we are shading but not showing hidden tiles
-            if(isOpenTerrain(trueBlock->tiletype[lx][ly])
+            using df::tiletype;
+            using df::tiletype_shape;
+            if(DFHack::isOpenTerrain(trueBlock->tiletype[lx][ly])
                 && trueBlock->tiletype[lx][ly] != tiletype::RampTop
-                && tileShape(trueBlock->tiletype[lx][ly]) != tiletype_shape::TWIG) {
+                && DFHack::tileShape(trueBlock->tiletype[lx][ly]) != tiletype_shape::TWIG) {
                     if(!ssConfig.show_hidden_tiles
                         && ssConfig.shade_hidden_tiles
                         && trueBlock->designation[lx][ly].bits.hidden) {
@@ -588,6 +597,7 @@ void readBlockToSegment(DFHack::Core& DF, WorldSegment& segment,
     //}
 
     //add items
+    using df::tiletype;
     for(auto iter = trueBlock->items.begin(); iter != trueBlock->items.end(); iter++) {
         int32_t item_index = *iter;
         df::item * found_item = df::item::find(item_index);
@@ -638,7 +648,7 @@ void readBlockColumnToSegment(DFHack::Core& DF, WorldSegment& segment,
     }
     //boundry check
     int blockDimX, blockDimY, blockDimZ;
-    Maps::getSize((unsigned int &)blockDimX, (unsigned int &)blockDimY, (unsigned int &)blockDimZ);
+    DFHack::Maps::getSize((unsigned int &)blockDimX, (unsigned int &)blockDimY, (unsigned int &)blockDimZ);
     if (BlockX < 0 || BlockX >= blockDimX ||
         BlockY < 0 || BlockY >= blockDimY) {
         return;
@@ -646,7 +656,7 @@ void readBlockColumnToSegment(DFHack::Core& DF, WorldSegment& segment,
 
     //read block data
     df::map_block_column *trueColumn;
-    trueColumn = Maps::getBlockColumn(BlockX, BlockY);
+    trueColumn = DFHack::Maps::getBlockColumn(BlockX, BlockY);
     if (!trueColumn) {
         return;
     }
@@ -712,8 +722,8 @@ void readBlockColumnToSegment(DFHack::Core& DF, WorldSegment& segment,
                     t->tree_tile = tile;
                     if (raw)
                     {
-                        t->material.type = raw->material_defs.type[plant_material_def::basic_mat];
-                        t->material.index = raw->material_defs.idx[plant_material_def::basic_mat];
+                        t->material.type = raw->material_defs.type[df::plant_material_def::basic_mat];
+                        t->material.index = raw->material_defs.idx[df::plant_material_def::basic_mat];
                     }
                 }
             }
@@ -755,31 +765,31 @@ void readBlockColumnToSegment(DFHack::Core& DF, WorldSegment& segment,
 void readMapSegment(WorldSegment* segment, GameState inState)
 {
     uint32_t index;
-    DFHack::Core & DF = Core::getInstance();
+    DFHack::Core & DF = DFHack::Core::getInstance();
     clock_t starttime = clock();
 
     //read date
     if(!ssConfig.skipWorld) {
-        contentLoader->currentYear = World::ReadCurrentYear();
-        contentLoader->currentTick = World::ReadCurrentTick();
+        contentLoader->currentYear = DFHack::World::ReadCurrentYear();
+        contentLoader->currentTick = DFHack::World::ReadCurrentTick();
         contentLoader->currentMonth = (contentLoader->currentTick+9)/33600;
         contentLoader->currentDay = ((contentLoader->currentTick+9)%33600)/1200;
         contentLoader->currentHour = ((contentLoader->currentTick+9)-(((contentLoader->currentMonth*28)+contentLoader->currentDay)*1200))/50;
         contentLoader->currentTickRel = (contentLoader->currentTick+9)-(((((contentLoader->currentMonth*28)+contentLoader->currentDay)*24)+contentLoader->currentHour)*50);
-        World::ReadGameMode(contentLoader->gameMode);
+        DFHack::World::ReadGameMode(contentLoader->gameMode);
     }
 
-    if(ssConfig.skipMaps || !Maps::IsValid()) {
+    if(ssConfig.skipMaps || !DFHack::Maps::IsValid()) {
         segment->Reset(inState,true);
         return;
     }
 
     //Read Number of blocks
     uint32_t blockDimX, blockDimY, blockDimZ;
-    Maps::getSize(blockDimX, blockDimY, blockDimZ);
+    DFHack::Maps::getSize(blockDimX, blockDimY, blockDimZ);
     //Read position of blocks
     uint32_t regionX, regionY, regionZ;
-    Maps::getSize(regionX, regionY, regionZ);
+    DFHack::Maps::getSize(regionX, regionY, regionZ);
     //Store these
     blockDimX *= BLOCKEDGESIZE;
     blockDimY *= BLOCKEDGESIZE;
@@ -833,14 +843,14 @@ void readMapSegment(WorldSegment* segment, GameState inState)
     // get region geology
     vector< vector <int16_t> > layers;
     vector<df::coord2d> geoidx;
-    if (!Maps::ReadGeology(&layers, &geoidx)) {
+    if (!DFHack::Maps::ReadGeology(&layers, &geoidx)) {
         LogError("Can't get region geology.\n");
     }
 
     while (firstTileToReadX < inState.Position.x + inState.Size.x) {
         int blockx = firstTileToReadX / BLOCKEDGESIZE;
         int32_t lastTileInBlockX = (blockx + 1) * BLOCKEDGESIZE - 1;
-        int32_t lastTileToReadX = min<int32_t>(lastTileInBlockX, inState.Position.x + inState.Size.x - 1);
+        int32_t lastTileToReadX = std::min<int32_t>(lastTileInBlockX, inState.Position.x + inState.Size.x - 1);
 
         int32_t firstTileToReadY = inState.Position.y;
         if (firstTileToReadY < 0) {
@@ -850,7 +860,7 @@ void readMapSegment(WorldSegment* segment, GameState inState)
         while (firstTileToReadY < inState.Position.y + inState.Size.y) {
             int blocky = firstTileToReadY / BLOCKEDGESIZE;
             int32_t lastTileInBlockY = (blocky + 1) * BLOCKEDGESIZE - 1;
-            int32_t lastTileToReadY = min<uint32_t>(lastTileInBlockY, inState.Position.y + inState.Size.y - 1);
+            int32_t lastTileToReadY = std::min<uint32_t>(lastTileInBlockY, inState.Position.y + inState.Size.y - 1);
 
             for (int lz = inState.Position.z - inState.Size.z; lz <= inState.Position.z; lz++) {
                 //load the tiles from this block to the map segment
@@ -871,7 +881,7 @@ void readMapSegment(WorldSegment* segment, GameState inState)
     while (firstTileToReadX < inState.Position.x + inState.Size.x) {
         int blockx = (firstTileToReadX / (BLOCKEDGESIZE * 3)) * 3;
         int32_t lastTileInBlockX = ((blockx / 3) + 1) * (BLOCKEDGESIZE * 3) - 1;
-        int32_t lastTileToReadX = min<int32_t>(lastTileInBlockX, inState.Position.x + inState.Size.x - 1);
+        int32_t lastTileToReadX = std::min<int32_t>(lastTileInBlockX, inState.Position.x + inState.Size.x - 1);
 
         int32_t firstTileToReadY = inState.Position.y;
         if (firstTileToReadY < 0) {
@@ -881,7 +891,7 @@ void readMapSegment(WorldSegment* segment, GameState inState)
         while (firstTileToReadY < inState.Position.y + inState.Size.y) {
             int blocky = (firstTileToReadY / (BLOCKEDGESIZE * 3)) * 3;
             int32_t lastTileInBlockY = ((blocky / 3) + 1) * (BLOCKEDGESIZE * 3) - 1;
-            int32_t lastTileToReadY = min<uint32_t>(lastTileInBlockY, inState.Position.y + inState.Size.y - 1);
+            int32_t lastTileToReadY = std::min<uint32_t>(lastTileInBlockY, inState.Position.y + inState.Size.y - 1);
 
             //read the plants
             if (blockx % 3 == 0 && blocky % 3 == 0)
@@ -937,18 +947,18 @@ void readMapSegment(WorldSegment* segment, GameState inState)
 
 void read_segment( void *arg)
 {
-    if(!Maps::IsValid()) {
+    if(!DFHack::Maps::IsValid()) {
         return;
     }
     static bool firstLoad = 1;
     ssConfig.threadstarted = 1;
     WorldSegment* segment = NULL;
     {
-        CoreSuspender suspend;
+        DFHack::CoreSuspender suspend;
 
         //read cursor
         if (ssConfig.follow_DFcursor) {
-            Gui::getCursorCoords(ssState.dfCursor.x, ssState.dfCursor.y, ssState.dfCursor.z);
+            DFHack::Gui::getCursorCoords(ssState.dfCursor.x, ssState.dfCursor.y, ssState.dfCursor.z);
             ssState.dfSelection.x = df::global::selection_rect->start_x;
             ssState.dfSelection.y = df::global::selection_rect->start_y;
             ssState.dfSelection.z = df::global::selection_rect->start_z;

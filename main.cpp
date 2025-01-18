@@ -24,9 +24,6 @@
 
 #include "Debug.h"
 
-using namespace DFHack;
-using namespace df::enums;
-
 static constexpr auto WIDTH = 640;
 static constexpr auto HEIGHT = 480;
 static constexpr auto SIZE_LOG = 50;
@@ -56,7 +53,7 @@ char currentAnimationFrame;
 uint32_t currentFrameLong;
 bool animationFrameShown;
 
-std::vector<t_matgloss> v_stonetypes;
+std::vector<DFHack::t_matgloss> v_stonetypes;
 
 ALLEGRO_FONT * font;
 
@@ -277,7 +274,7 @@ static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALL
                     DrawSpriteIndexOverlay(ssConfig.currentSpriteOverlay);
                     al_flip_display();
                 }
-                else if (!Maps::IsValid()) {
+                else if (!DFHack::Maps::IsValid()) {
                     drawcredits();
                     al_flip_display();
                 }
@@ -374,7 +371,7 @@ static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALL
 //replacement for main()
 static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
 {
-    color_ostream_proxy out(Core::getInstance().getConsole());
+    auto& out{ DFHack::Core::getInstance().getConsole() };
     out.print("Stonesense launched\n");
 
     ssConfig = GameConfiguration{};
@@ -528,6 +525,8 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
     stonesense_started = 0;
     return NULL;
 }
+
+using namespace DFHack;
 
 //All this fun DFhack stuff I gotta do now.
 DFhackCExport command_result stonesense_command(color_ostream &out, std::vector<std::string> & params);

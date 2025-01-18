@@ -18,8 +18,6 @@
 #include "df/itemimprovement_threadst.h"
 #include "df/world.h"
 
-using namespace DFHack;
-using namespace df::enums;
 using df::global::world;
 
 dirTypes findWallCloseTo(WorldSegment* segment, Tile* b)
@@ -106,12 +104,12 @@ void MergeBuildingsToSegment(std::vector<Stonesense_Building>* buildings, WorldS
                         df::coord2d t;
                         t.x = xx;
                         t.y = yy;
-                        if (!Buildings::containsTile(copiedbuilding->origin, t))
+                        if (!DFHack::Buildings::containsTile(copiedbuilding->origin, t))
                             continue;
                     }
                     Tile* b = segment->getTile(xx, yy, zz);
                     if (!b) {
-                        b = segment->ResetTile(xx, yy, zz, tiletype::OpenSpace);
+                        b = segment->ResetTile(xx, yy, zz, df::tiletype::OpenSpace);
                         if (!b) {
                             continue;
                         }
@@ -193,6 +191,7 @@ void MergeBuildingsToSegment(std::vector<Stonesense_Building>* buildings, WorldS
                             if (item->isDyed()) {
                                 auto Constructed_Item = virtual_cast<df::item_constructed>(item);
                                 if (Constructed_Item) {
+                                    using df::improvement_type;
                                     for (size_t idex = 0; idex < Constructed_Item->improvements.size(); idex++) {
                                         if (!Constructed_Item->improvements[idex]) {
                                             continue;

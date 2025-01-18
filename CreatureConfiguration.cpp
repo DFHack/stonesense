@@ -8,9 +8,6 @@
 
 #include "tinyxml.h"
 
-using namespace DFHack;
-using namespace df::enums;
-
 using std::string;
 using std::vector;
 
@@ -55,6 +52,7 @@ namespace {
 
     bool addSingleCreatureConfig(TiXmlElement * elemCreature, vector<std::unique_ptr<vector<CreatureConfiguration>>>&knownCreatures, int basefile)
     {
+        using df::pronoun_type;
         if (ssConfig.skipCreatureTypes) {
             return false;
         }

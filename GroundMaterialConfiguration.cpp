@@ -7,9 +7,6 @@
 #include "ContentLoader.h"
 #include "MiscUtils.h"
 
-using namespace DFHack;
-using namespace df::enums;
-
 constexpr auto PRIORITY_SHAPE = 8;
 constexpr auto PRIORITY_SPECIAL = 4;
 constexpr auto PRIORITY_VARIANT = 2;
@@ -94,7 +91,7 @@ namespace
     T StringToTiletypeEnum(const char* input)
     {
         T t{};
-        return (input != nullptr && find_enum_item(&t, input)) ? t : T::NONE;
+        return (input != nullptr && DFHack::find_enum_item(&t, input)) ? t : T::NONE;
     }
 
     void parseWallFloorSpriteElement(TiXmlElement* elemWallFloorSprite, std::vector<std::unique_ptr<TerrainConfiguration>>& configTable, int basefile, bool floor)
@@ -140,16 +137,18 @@ namespace
             if (targetElem >= 0)
             {
                 char buf[500];
-                if (is_valid_enum_item((df::tiletype)targetElem))
+                if (DFHack::is_valid_enum_item((df::tiletype)targetElem))
                 {
                     df::tiletype tt = (df::tiletype)targetElem;
                     auto shape = ENUM_ATTR(tiletype, shape, tt);
                     auto special = ENUM_ATTR(tiletype, special, tt);
                     auto variant = ENUM_ATTR(tiletype, variant, tt);
                     auto material = ENUM_ATTR(tiletype, material, tt);
+                    using df::tiletype_shape, df::tiletype_special, df::tiletype_variant, df::tiletype_material;
+                    using DFHack::enum_item_key_str;
                     sprintf(buf, "Use of deprecated terrain value \"%d\", use one of the following instead:\n <terrain token = \"%s\" />\n <terrain%s%s%s%s%s%s%s%s%s%s%s%s />\n in element",
                         targetElem,
-                        enum_item_key_str(tt),
+                        DFHack::enum_item_key_str(tt),
                         shape == tiletype_shape::NONE ? "" : " shape = \"",
                         shape == tiletype_shape::NONE ? "" : enum_item_key_str(shape),
                         shape == tiletype_shape::NONE ? "" : "\"",
@@ -187,13 +186,14 @@ namespace
                 }
                 if (!(gameTokenstr == NULL || gameTokenstr[0] == 0))
                 {
-                    if (enum_item_key(i) == gameTokenstr)
+                    if (DFHack::enum_item_key(i) == gameTokenstr)
                         matchness = 0;
                     else
                         valid = false;
                 }
                 if (matchness != 0) //this means there's no exact match made.
                 {
+                    using df::tiletype_shape, df::tiletype_special, df::tiletype_variant, df::tiletype_material;
                     int partialMatch = 0;
                     if (elemShape != tiletype_shape::NONE)
                     {
