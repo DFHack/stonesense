@@ -416,7 +416,7 @@ bool addSingleBuildingConfig( TiXmlElement* elemRoot,  std::vector<std::unique_p
     }
     else if (strGameCustom && strGameCustom[0])
     {
-        auto bld = df::global::world->raws.buildings.all;
+        auto& bld = df::global::world->raws.buildings.all;
         auto it = std::find_if(bld.begin(), bld.end(), [&](auto b) { return b->code == strGameCustom; });
         if (it != bld.end())
             custom = it - bld.begin();
