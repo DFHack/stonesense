@@ -483,26 +483,11 @@ namespace {
      */
     bool hasLegendarySkill(df::unit * source) {
 
-        if (!source) {
-            return false;
-        }
-        if (source->status.souls.size() <= 0) {
-            return false;
-        }
-        df::unit_soul* soul = source->status.souls[0];
-        if (!soul) {
-            return false;
-        }
-        if (soul->skills.size() <= 0) {
-            return false;
-        }
-        for (size_t i = 0; i < soul->skills.size(); i++) {
-            if (soul->skills[i] && soul->skills[i]->rating >= df::skill_rating::Legendary) {
-                return true;
-            }
-        }
-        //I feel dirty
-        return false;
+        return source &&
+            source->status.current_soul &&
+            std::any_of(source->status.current_soul->skills.begin(),
+                source->status.current_soul->skills.end(),
+                [](auto*& sk) { return sk->rating >= df::skill_rating::Legendary; });
     }
 
     /**
