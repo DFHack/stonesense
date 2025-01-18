@@ -9,6 +9,7 @@
 #include "MapLoading.h"
 #include "MiscUtils.h"
 #include "GameConfiguration.h"
+#include "StonesenseState.h"
 
 #include "df/buildings_other_id.h"
 #include "df/building_wellst.h"
@@ -49,6 +50,8 @@ dirTypes findWallCloseTo(WorldSegment* segment, Tile* b)
 
 void ReadBuildings(DFHack::Core& DF, std::vector<Stonesense_Building>* buildingHolder)
 {
+    auto& ssConfig = stonesenseState.ssConfig;
+
     if(ssConfig.skipBuildings) {
         return;
     }
@@ -154,7 +157,7 @@ void MergeBuildingsToSegment(std::vector<Stonesense_Building>* buildings, WorldS
                         break;
                     case df::enums::building_type::Construction:
                         // change tile type to display the construction
-                        if (ssConfig.show_designations) {
+                        if (stonesenseState.ssConfig.show_designations) {
                             readConstructionsToTile(b, copiedbuilding);
                             continue;
                         }
@@ -226,8 +229,9 @@ void loadBuildingSprites ( Tile* b)
         LogError("Null Tile skipped in loadBuildingSprites\n");
         return;
     }
+    auto& contentLoader = stonesenseState.contentLoader;
     BuildingConfiguration* generic = NULL, *specific = NULL, *custom = NULL;
-    for(auto iter = contentLoader->buildingConfigs.begin(); iter < contentLoader->buildingConfigs.end(); iter++) {
+    for(auto iter = stonesenseState.contentLoader->buildingConfigs.begin(); iter < contentLoader->buildingConfigs.end(); iter++) {
         BuildingConfiguration & conf = **iter;
         if(b->building.type == conf.game_type) {
             generic = &conf;

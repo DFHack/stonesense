@@ -69,6 +69,7 @@ SET(PROJECT_HDRS
     SpriteColors.h
     SpriteMaps.h
     SpriteObjects.h
+    StonesenseState.h
     Tile.h
     TileCondition.h
     TileDirection.h

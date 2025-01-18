@@ -4,6 +4,7 @@
 #include "WorldSegment.h"
 #include "GUI.h"
 #include "GameConfiguration.h"
+#include "StonesenseState.h"
 
 #include <filesystem>
 
@@ -22,14 +23,14 @@ std::bitset<2*S_SPRITE_HEIGHT> wall_mask_right;
 std::bitset<2*S_SPRITE_HEIGHT> floor_mask_left;
 std::bitset<2*S_SPRITE_HEIGHT> floor_mask_right;
 
-inline bool hasOpaqueSides(Tile * b){
+bool hasOpaqueSides(Tile * b){
     return IDhasOpaqueSides(b->tileType)
-        || ( b->designation.bits.hidden && (ssConfig.shade_hidden_tiles && !ssConfig.show_hidden_tiles) );
+        || ( b->designation.bits.hidden && (stonesenseState.ssConfig.shade_hidden_tiles && !stonesenseState.ssConfig.show_hidden_tiles) );
 }
 
-inline bool hasOpaqueFloor(Tile * b){
+bool hasOpaqueFloor(Tile * b){
     return IDhasOpaqueFloor(b->tileType)
-        || ( b->designation.bits.hidden && (ssConfig.shade_hidden_tiles && !ssConfig.show_hidden_tiles) );
+        || ( b->designation.bits.hidden && (stonesenseState.ssConfig.shade_hidden_tiles && !stonesenseState.ssConfig.show_hidden_tiles) );
 }
 
 bool is_tile_solid(Tile * b)

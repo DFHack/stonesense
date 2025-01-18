@@ -8,6 +8,7 @@
 #include "ColorConfiguration.h"
 #include "TreeGrowthConfiguration.h"
 #include "GameConfiguration.h"
+#include "StonesenseState.h"
 
 #include "tinyxml.h"
 #include "GUI.h"
@@ -33,8 +34,6 @@
 
 using std::vector;
 using std::string;
-
-std::unique_ptr<ContentLoader> contentLoader;
 
 ContentLoader::ContentLoader(void) { }
 ContentLoader::~ContentLoader(void)
@@ -86,6 +85,7 @@ bool ContentLoader::Load()
     } catch(exception &e) {
         LogError("DFhack exeption: %s\n", e.what());
     }
+    auto& ssConfig = stonesenseState.ssConfig;
     draw_loading_message("Reading Creature Names");
     if (!ssConfig.skipCreatureTypes) {
         try {
@@ -197,7 +197,7 @@ bool ContentLoader::Load()
     */
 
     //Find what is obsidian
-    contentLoader->obsidian = lookupMaterialIndex(INORGANIC, "OBSIDIAN");
+    stonesenseState.contentLoader->obsidian = lookupMaterialIndex(INORGANIC, "OBSIDIAN");
 
     loadGraphicsFromDisk(); //these get destroyed when flushImgFiles is called.
     std::filesystem::path p{ "stonesense" };
@@ -474,6 +474,9 @@ char getAnimFrames(const char* framestring)
 
 int lookupMaterialIndex(int matType, const char* strValue)
 {
+    auto& contentLoader = stonesenseState.contentLoader;
+    auto& ssConfig = stonesenseState.ssConfig;
+
     // for appropriate elements, look up subtype
     if (matType == INORGANIC && !ssConfig.skipInorganicMats) {
         return lookupIndexedType(strValue,contentLoader->inorganic);
@@ -593,6 +596,9 @@ using DFHack::t_matgloss;
 
 const char *lookupMaterialName(int matType,int matIndex)
 {
+    auto& contentLoader = stonesenseState.contentLoader;
+    auto& ssConfig = stonesenseState.ssConfig;
+
     if (matIndex < 0) {
         return NULL;
     }
@@ -627,6 +633,9 @@ const char *lookupMaterialName(int matType,int matIndex)
 
 const char *lookupTreeName(int matIndex)
 {
+    auto& contentLoader = stonesenseState.contentLoader;
+    auto& ssConfig = stonesenseState.ssConfig;
+
     if(ssConfig.skipOrganicMats) {
         return NULL;
     }
@@ -741,6 +750,7 @@ ALLEGRO_COLOR lookupMaterialColor(int matType, int matIndex, ALLEGRO_COLOR defau
 
 ALLEGRO_COLOR lookupMaterialColor(int matType, int matIndex, int dyeType, int dyeIndex, ALLEGRO_COLOR defaultColor)
 {
+    auto& contentLoader = stonesenseState.contentLoader;
     ALLEGRO_COLOR dyeColor = al_map_rgb(255,255,255);
     DFHack::MaterialInfo dye;
     if (dyeType >= 0 && dyeIndex >= 0 && dye.decode(dyeType, dyeIndex))

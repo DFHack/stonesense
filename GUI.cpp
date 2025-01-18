@@ -21,6 +21,7 @@
 #include "Tile.h"
 #include "UserInput.h"
 #include "GameConfiguration.h"
+#include "StonesenseState.h"
 
 #include "modules/Units.h"
 #include "DataDefs.h"
@@ -61,27 +62,6 @@
 #include "allegro5/allegro_color.h"
 #include "allegro5/opengl/GLext/gl_ext_defs.h"
 
-extern ALLEGRO_FONT *font;
-
-int MiniMapTopLeftX = 0;
-int MiniMapTopLeftY = 0;
-int MiniMapBottomRightX = 0;
-int MiniMapBottomRightY = 0;
-int MiniMapSegmentWidth =0;
-int MiniMapSegmentHeight =0;
-double oneTileInPixels = 0;
-
-ALLEGRO_BITMAP* IMGObjectSheet;
-ALLEGRO_BITMAP* IMGCreatureSheet;
-ALLEGRO_BITMAP* IMGRampSheet;
-ALLEGRO_BITMAP* IMGStatusSheet;
-ALLEGRO_BITMAP* IMGProfSheet;
-ALLEGRO_BITMAP* IMGBloodSheet;
-ALLEGRO_BITMAP* IMGEngFloorSheet;
-ALLEGRO_BITMAP* IMGEngLeftSheet;
-ALLEGRO_BITMAP* IMGEngRightSheet;
-ALLEGRO_BITMAP* IMGLetterSheet;
-
 ALLEGRO_BITMAP* buffer = 0;
 ALLEGRO_BITMAP* bigFile = 0;
 GLhandleARB tinter;
@@ -107,6 +87,7 @@ public:
         return cache[idx];
     }
     int extend() {
+        auto& ssConfig = stonesenseState.ssConfig;
         cache.push_back(al_create_bitmap(ssConfig.imageCacheSize, ssConfig.imageCacheSize));
         return cache.size() - 1;
     }
@@ -132,7 +113,7 @@ public:
     ALLEGRO_BITMAP* lookup(int index) const
     {
         if (index == -1)
-            return IMGObjectSheet;
+            return stonesenseState.IMGObjectSheet;
         else if (index >= int(list.size()))
             return nullptr;
         else
@@ -186,6 +167,8 @@ namespace
 {
     void ScreenToPoint(int inx, int iny, int& x1, int& y1, int& z1, int segSizeX, int segSizeY, int segSizeZ, int ScreenW, int ScreenH)
     {
+        auto& ssConfig = stonesenseState.ssConfig;
+
         float x = inx;
         float y = iny;
         x -= ScreenW / 2.0;
@@ -212,7 +195,8 @@ namespace
 
 void ScreenToPoint(int x,int y,int &x1, int &y1, int &z1)
 {
-    if(ssConfig.track_screen_center){
+    auto& ssState = stonesenseState.ssState;
+    if(stonesenseState.ssConfig.track_screen_center){
         ScreenToPoint(x, y, x1, y1, z1, ssState.Size.x, ssState.Size.y, ssState.Size.z, ssState.ScreenW, ssState.ScreenH);
     } else {
         ScreenToPoint(x, y, x1, y1, z1, 0, 0, ssState.Size.z, 0, 0);
@@ -222,6 +206,9 @@ void ScreenToPoint(int x,int y,int &x1, int &y1, int &z1)
 namespace
 {
     void pointToScreen(int* inx, int* iny, int inz, int segSizeX, int segSizeY, int ScreenW, int ScreenH) {
+        auto& ssConfig = stonesenseState.ssConfig;
+        auto& ssState = stonesenseState.ssState;
+
         int z = inz + 1 - ssState.Size.z;
 
         int x = *inx - *iny;
@@ -248,7 +235,9 @@ namespace
 
 void pointToScreen(int *inx, int *iny, int inz)
 {
-    if(ssConfig.track_screen_center){
+    auto& ssState = stonesenseState.ssState;
+
+    if(stonesenseState.ssConfig.track_screen_center){
         pointToScreen(inx, iny, inz, ssState.Size.x, ssState.Size.y, ssState.ScreenW, ssState.ScreenH);
     } else {
         pointToScreen(inx, iny, inz, 0, 0, 0, 0);
@@ -336,6 +325,8 @@ namespace
 {
     void draw_report_border(const ALLEGRO_FONT* font, float x, float y, int flags, const df::report* report)
     {
+        auto& ssConfig = stonesenseState.ssConfig;
+
         ALLEGRO_COLOR color = ssConfig.colors.getDfColor(report->color, ssConfig.useDfColors);
         draw_text_border(font, color, x, y, flags, DF2UTF(report->text).c_str());
     }
@@ -370,7 +361,7 @@ void draw_loading_message(const char *format, ...)
     if (0 == strcmp(format, "%s")) {
         va_start(arglist, format);
         s = va_arg(arglist, const char *);
-        draw_text_border(font, color, x, y, flags, s);
+        draw_text_border(stonesenseState.font, color, x, y, flags, s);
         va_end(arglist);
     }
     else
@@ -379,7 +370,7 @@ void draw_loading_message(const char *format, ...)
         buf = al_ustr_new("");
         al_ustr_vappendf(buf, format, arglist);
         va_end(arglist);
-        draw_ustr_border(font, color, x, y, flags, buf);
+        draw_ustr_border(stonesenseState.font, color, x, y, flags, buf);
         al_ustr_free(buf);
     }
     al_flip_display();
@@ -387,6 +378,8 @@ void draw_loading_message(const char *format, ...)
 
 void correctTileForDisplayedOffset(int32_t& x, int32_t& y, int32_t& z)
 {
+    auto& ssState = stonesenseState.ssState;
+
     x -= ssState.Position.x;
     y -= ssState.Position.y; //Position.y;
     z -= ssState.Position.z - 1; // + viewedSegment->sizez - 2; // loading one above the top of the displayed segment for tile rules
@@ -430,6 +423,9 @@ Crd2D LocalTileToScreen(int32_t x, int32_t y, int32_t z)
 
 void DrawCurrentLevelOutline(bool backPart)
 {
+    auto& ssConfig = stonesenseState.ssConfig;
+    auto& ssState = stonesenseState.ssState;
+
     int x = ssState.Position.x+1;
     int y = ssState.Position.y+1;
     int z = ssState.Position.z + ssState.Size.z - 1;
@@ -475,6 +471,8 @@ namespace
 {
     void drawSelectionCursor(WorldSegment* segment)
     {
+        auto& ssConfig = stonesenseState.ssConfig;
+
         Crd3D selection = segment->segState.dfSelection;
         if ((selection.x != -30000 && ssConfig.follow_DFcursor)
             || (ssConfig.track_mode == GameConfiguration::TRACKING_FOCUS)) {
@@ -488,7 +486,7 @@ namespace
         int sheetx = SPRITEOBJECT_CURSOR % SHEET_OBJECTSWIDE;
         int sheety = SPRITEOBJECT_CURSOR / SHEET_OBJECTSWIDE;
         al_draw_tinted_scaled_bitmap(
-            IMGObjectSheet,
+            stonesenseState.IMGObjectSheet,
             uiColor(3),
             sheetx * SPRITEWIDTH,
             sheety * SPRITEHEIGHT,
@@ -503,6 +501,8 @@ namespace
 
     void drawDebugCursor(WorldSegment* segment)
     {
+        auto& ssConfig = stonesenseState.ssConfig;
+
         Crd3D cursor = segment->segState.dfCursor;
         segment->CorrectTileForSegmentOffset(cursor.x, cursor.y, cursor.z);
         segment->CorrectTileForSegmentRotation(cursor.x, cursor.y, cursor.z);
@@ -511,7 +511,7 @@ namespace
         int sheetx = SPRITEOBJECT_CURSOR % SHEET_OBJECTSWIDE;
         int sheety = SPRITEOBJECT_CURSOR / SHEET_OBJECTSWIDE;
         al_draw_tinted_scaled_bitmap(
-            IMGObjectSheet,
+            stonesenseState.IMGObjectSheet,
             uiColor(2),
             sheetx * SPRITEWIDTH,
             sheety * SPRITEHEIGHT,
@@ -557,6 +557,9 @@ namespace
     void drawDebugInfo(WorldSegment* segment)
     {
         using df::global::plotinfo;
+        auto font = stonesenseState.font;
+        auto fontHeight = al_get_font_line_height(font);
+        auto& contentLoader = stonesenseState.contentLoader;
 
         //get tile info
         Tile* b = segment->getTile(
@@ -565,10 +568,10 @@ namespace
             segment->segState.dfCursor.z);
         int i = 10;
         if (b) {
-            draw_textf_border(font, uiColor(1), 2, (i++ * al_get_font_line_height(font)), 0, "Tile 0x%x (%i,%i,%i)", b, b->x, b->y, b->z);
+            draw_textf_border(font, uiColor(1), 2, (i++ * fontHeight), 0, "Tile 0x%x (%i,%i,%i)", b, b->x, b->y, b->z);
         }
 
-        draw_textf_border(font, uiColor(1), 2, (i++ * al_get_font_line_height(font)), 0,
+        draw_textf_border(font, uiColor(1), 2, (i++ * fontHeight), 0,
             "Coord:(%i,%i,%i)", segment->segState.dfCursor.x, segment->segState.dfCursor.y, segment->segState.dfCursor.z);
 
         if (!b) {
@@ -578,7 +581,7 @@ namespace
         const char* tform = NULL;
         using df::tiletype_shape_basic;
 
-        draw_textf_border(font, uiColor(1), 2, (i++ * al_get_font_line_height(font)), 0,
+        draw_textf_border(font, uiColor(1), 2, (i++ * fontHeight), 0,
             "Tile: %s", DFHack::enum_item_key_str(b->tileType));
         if (b->tileShapeBasic() == tiletype_shape_basic::Floor) {
             ttype = b->tileType;
@@ -601,13 +604,13 @@ namespace
             ttype = -1;
         }
 
-        draw_textf_border(font, uiColor(1), 2, (i++ * al_get_font_line_height(font)), 0,
+        draw_textf_border(font, uiColor(1), 2, (i++ * fontHeight), 0,
             "Game Mode:%i, Control Mode:%i", contentLoader->gameMode.g_mode, contentLoader->gameMode.g_type);
         if (tform != NULL && b->material.type != INVALID_INDEX) {
             const char* formName = lookupFormName(b->consForm);
             const char* matName = lookupMaterialTypeName(b->material.type);
             const char* subMatName = lookupMaterialName(b->material.type, b->material.index);
-            draw_textf_border(font, uiColor(1), 2, (i++ * al_get_font_line_height(font)), 0,
+            draw_textf_border(font, uiColor(1), 2, (i++ * fontHeight), 0,
                 "%s %s:%i Material:%s%s%s (%d,%d)", formName, tform, ttype,
                 matName ? matName : "Unknown", subMatName ? "/" : "", subMatName ? subMatName : "", b->material.type, b->material.index);
         }
@@ -617,40 +620,40 @@ namespace
             if (mat.isValid())
             {
                 ALLEGRO_COLOR color = al_map_rgb_f(contentLoader->Mats->color[mat.material->state_color[0]].red, contentLoader->Mats->color[mat.material->state_color[0]].green, contentLoader->Mats->color[mat.material->state_color[0]].blue);
-                draw_textf_border(font, color, 2, (i++ * al_get_font_line_height(font)), 0,
+                draw_textf_border(font, color, 2, (i++ * fontHeight), 0,
                     "%s", mat.material->state_name[0].c_str());
             }
         }
         if (tform != NULL) {
             const char* matName = lookupMaterialTypeName(b->layerMaterial.type);
             const char* subMatName = lookupMaterialName(b->layerMaterial.type, b->layerMaterial.index);
-            draw_textf_border(font, uiColor(1), 2, (i++ * al_get_font_line_height(font)), 0,
+            draw_textf_border(font, uiColor(1), 2, (i++ * fontHeight), 0,
                 "Layer Material:%s%s%s",
                 matName ? matName : "Unknown", subMatName ? "/" : "", subMatName ? subMatName : "");
         }
         if ((tform != NULL) && b->hasVein == 1) {
             const char* matName = lookupMaterialTypeName(b->veinMaterial.type);
             const char* subMatName = lookupMaterialName(b->veinMaterial.type, b->veinMaterial.index);
-            draw_textf_border(font, uiColor(1), 2, (i++ * al_get_font_line_height(font)), 0,
+            draw_textf_border(font, uiColor(1), 2, (i++ * fontHeight), 0,
                 "Vein Material:%s%s%s",
                 matName ? matName : "Unknown", subMatName ? "/" : "", subMatName ? subMatName : "");
         }
         if (tform != NULL) { //(b->grasslevel > 0)
             const char* subMatName = lookupMaterialName(WOOD, b->grassmat);
-            draw_textf_border(font, uiColor(1), 2, (i++ * al_get_font_line_height(font)), 0,
+            draw_textf_border(font, uiColor(1), 2, (i++ * fontHeight), 0,
                 "Grass length:%d, Material: %s",
                 b->grasslevel, subMatName ? subMatName : "");
         }
 
         if (b->designation.bits.flow_size > 0 || b->tree.index != 0)
-            draw_textf_border(font, uiColor(1), 2, (i++ * al_get_font_line_height(font)), 0,
+            draw_textf_border(font, uiColor(1), 2, (i++ * fontHeight), 0,
                 "tree:%i water:%i,%i", b->tree.index, b->designation.bits.liquid_type, b->designation.bits.flow_size);
         if (b->tree.index != 0)
         {
-            draw_textf_border(font, uiColor(1), 2, (i++ * al_get_font_line_height(font)), 0,
+            draw_textf_border(font, uiColor(1), 2, (i++ * fontHeight), 0,
                 "tree name:%s type:%i", lookupTreeName(b->tree.index), b->tree.type);
             uint16_t branches_dir = b->tree_tile.bits.branches_dir;
-            draw_textf_border(font, uiColor(1), 2, (i++ * al_get_font_line_height(font)), 0,
+            draw_textf_border(font, uiColor(1), 2, (i++ * fontHeight), 0,
                 "tree tile:%s%s%s%s%s%s%s",
                 b->tree_tile.bits.trunk ? " trunk" : "",
                 (branches_dir & 0x1) ? " >" : "",
@@ -662,14 +665,14 @@ namespace
             );
         }
         if (b->building.sprites.size() != 0)
-            draw_textf_border(font, uiColor(1), 2, (i++ * al_get_font_line_height(font)), 0,
+            draw_textf_border(font, uiColor(1), 2, (i++ * fontHeight), 0,
                 "%i extra sprites.", b->building.sprites.size());
 
         if (b->building.info && b->building.type != BUILDINGTYPE_NA && b->building.type != BUILDINGTYPE_BLACKBOX && b->building.type != BUILDINGTYPE_TREE) {
             const char* matName = lookupMaterialTypeName(b->building.info->material.type);
             const char* subMatName = lookupMaterialName(b->building.info->material.type, b->building.info->material.index);
             const char* subTypeName = lookupBuildingSubtype(b->building.type, b->building.info->subtype);
-            draw_textf_border(font, uiColor(1), 2, (i++ * al_get_font_line_height(font)), 0,
+            draw_textf_border(font, uiColor(1), 2, (i++ * fontHeight), 0,
                 "Building: game_type = %s(%i) game_subtype = %s(%i) Material: %s%s%s (%d,%d) Occupancy:%i, Special: %i ",
                 ENUM_KEY_STR(building_type, (df::building_type)b->building.type).c_str(),
                 b->building.type,
@@ -682,7 +685,7 @@ namespace
             for (size_t index = 0; index < b->building.constructed_mats.size(); index++) {
                 const char* partMatName = lookupMaterialTypeName(b->building.constructed_mats[index].matt.type);
                 const char* partSubMatName = lookupMaterialName(b->building.constructed_mats[index].matt.type, b->building.constructed_mats[index].matt.index);
-                draw_textf_border(font, uiColor(1), 2, (i++ * al_get_font_line_height(font)), 0,
+                draw_textf_border(font, uiColor(1), 2, (i++ * fontHeight), 0,
                     "Material[%i]: %s%s%s (%d,%d)",
                     index,
                     partMatName ? partMatName : "Unknown", partSubMatName ? "/" : "", partSubMatName ? partSubMatName : "",
@@ -691,21 +694,21 @@ namespace
         }
 
         if (b->designation.bits.traffic) {
-            draw_textf_border(font, uiColor(1), 2, (i++ * al_get_font_line_height(font)), 0,
+            draw_textf_border(font, uiColor(1), 2, (i++ * fontHeight), 0,
                 "Traffic: %d", b->designation.bits.traffic);
         }
         if (b->designation.bits.pile) {
-            draw_textf_border(font, uiColor(1), 2, (i++ * al_get_font_line_height(font)), 0,
+            draw_textf_border(font, uiColor(1), 2, (i++ * fontHeight), 0,
                 "Stockpile?");
         }
         if (b->designation.bits.water_table) {
-            draw_textf_border(font, uiColor(1), 2, (i++ * al_get_font_line_height(font)), 0, "Water table");
+            draw_textf_border(font, uiColor(1), 2, (i++ * fontHeight), 0, "Water table");
         }
         if (b->designation.bits.rained) {
-            draw_textf_border(font, uiColor(1), 2, (i++ * al_get_font_line_height(font)), 0, "Rained");
+            draw_textf_border(font, uiColor(1), 2, (i++ * fontHeight), 0, "Rained");
         }
         if (b->snowlevel || b->mudlevel || b->bloodlevel) {
-            draw_textf_border(font, uiColor(1), 2, (i++ * al_get_font_line_height(font)), 0,
+            draw_textf_border(font, uiColor(1), 2, (i++ * fontHeight), 0,
                 "Snow: %d, Mud: %d, Blood: %d", b->snowlevel, b->mudlevel, b->bloodlevel);
         }
         if (b->Item.item.type >= 0) {
@@ -713,7 +716,7 @@ namespace
             mat.decode(b->Item.matt.type, b->Item.matt.index);
             DFHack::ItemTypeInfo itemdef;
             bool subtype = itemdef.decode((df::item_type)b->Item.item.type, b->Item.item.index);
-            draw_textf_border(font, uiColor(1), 2, (i++ * al_get_font_line_height(font)), 0,
+            draw_textf_border(font, uiColor(1), 2, (i++ * fontHeight), 0,
                 "Item: %s - %s",
                 mat.getToken().c_str(),
                 subtype ? itemdef.getToken().c_str() : "");
@@ -742,7 +745,7 @@ namespace
         }
 
         if (!text.empty()) {
-            draw_textf_border(font, uiColor(1), 2, (i++ * al_get_font_line_height(font)), 0,
+            draw_textf_border(font, uiColor(1), 2, (i++ * fontHeight), 0,
                 "%s: %d, Material:%s%s%s", text.c_str(),
                 b->tileeffect.density, matName ? matName : "Unknown", subMatName ? "/" : "", subMatName ? subMatName : "");
         }
@@ -751,30 +754,32 @@ namespace
 
 void DrawMinimap(WorldSegment * segment)
 {
+    auto& ssState = stonesenseState.ssState;
+
     int size = 100;
     //double oneTileInPixels;
     int posx = ssState.ScreenW-size-10;
     int posy = 10;
 
     if(!segment || segment->segState.RegionDim.x == 0 || segment->segState.RegionDim.y == 0) {
-        draw_textf_border(font, uiColor(1), posx, posy, 0, "No map loaded");
+        draw_textf_border(stonesenseState.font, uiColor(1), posx, posy, 0, "No map loaded");
         return;
     }
 
-    oneTileInPixels = (double) size / segment->segState.RegionDim.x;
+    stonesenseState.oneTileInPixels = (double) size / segment->segState.RegionDim.x;
     //map outine
-    int mapheight = (int)(segment->segState.RegionDim.y * oneTileInPixels);
+    int mapheight = (int)(segment->segState.RegionDim.y * stonesenseState.oneTileInPixels);
     al_draw_rectangle(posx, posy, posx+size, posy+mapheight, uiColor(0),0);
     //current segment outline
     int x = (size * (segment->segState.Position.x+1)) / segment->segState.RegionDim.x;
     int y = (mapheight * (segment->segState.Position.y+1)) / segment->segState.RegionDim.y;
-    MiniMapSegmentWidth = (segment->segState.Size.x-2) * oneTileInPixels;
-    MiniMapSegmentHeight = (segment->segState.Size.y-2) * oneTileInPixels;
-    al_draw_rectangle(posx+x, posy+y, posx+x+MiniMapSegmentWidth, posy+y+MiniMapSegmentHeight,uiColor(0),0);
-    MiniMapTopLeftX = posx;
-    MiniMapTopLeftY = posy;
-    MiniMapBottomRightX = posx+size;
-    MiniMapBottomRightY = posy+mapheight;
+    stonesenseState.MiniMapSegmentWidth = (segment->segState.Size.x-2) * stonesenseState.oneTileInPixels;
+    stonesenseState.MiniMapSegmentHeight = (segment->segState.Size.y-2) * stonesenseState.oneTileInPixels;
+    al_draw_rectangle(posx+x, posy+y, posx+x+ stonesenseState.MiniMapSegmentWidth, posy+y+ stonesenseState.MiniMapSegmentHeight,uiColor(0),0);
+    stonesenseState.MiniMapTopLeftX = posx;
+    stonesenseState.MiniMapTopLeftY = posy;
+    stonesenseState.MiniMapBottomRightX = posx+size;
+    stonesenseState.MiniMapBottomRightY = posy+mapheight;
 }
 
 ALLEGRO_BITMAP * CreateSpriteFromSheet( int spriteNum, ALLEGRO_BITMAP* spriteSheet)
@@ -787,6 +792,9 @@ ALLEGRO_BITMAP * CreateSpriteFromSheet( int spriteNum, ALLEGRO_BITMAP* spriteShe
 void DrawSpriteIndexOverlay(int imageIndex)
 {
     auto currentImage = IMGFileList.lookup(imageIndex);
+    auto font = stonesenseState.font;
+    auto fontHeight = al_get_font_line_height(font);
+    auto& ssState = stonesenseState.ssState;
 
     al_clear_to_color(al_map_rgb(255, 0, 255));
     al_draw_bitmap(currentImage,0,0,0);
@@ -800,15 +808,14 @@ void DrawSpriteIndexOverlay(int imageIndex)
     for(int y = 0; y<20; y++) {
         for(int x = 0; x<20; x+=5) {
             int index = y * 20 + x;
-            draw_textf_border(font, uiColor(1),  x*SPRITEWIDTH+5, y* SPRITEHEIGHT+(al_get_font_line_height(font)/2), 0, "%i", index);
+            draw_textf_border(font, uiColor(1),  x*SPRITEWIDTH+5, y* SPRITEHEIGHT+(fontHeight/2), 0, "%i", index);
         }
     }
-    draw_textf_border(font, uiColor(1), ssState.ScreenW-10, ssState.ScreenH -al_get_font_line_height(font), ALLEGRO_ALIGN_RIGHT,
+    draw_textf_border(font, uiColor(1), ssState.ScreenW-10, ssState.ScreenH -fontHeight, ALLEGRO_ALIGN_RIGHT,
                       "%s (%d) (Press SPACE to return)",
         (imageIndex == -1 ? "objects.png" : IMGFileList.getFilename(imageIndex).string().c_str()), imageIndex);
     al_flip_display();
 }
-
 
 void DoSpriteIndexOverlay()
 {
@@ -816,12 +823,12 @@ void DoSpriteIndexOverlay()
     int index = 0;
     int max = IMGFileList.size();
     while(true) {
-        while(!al_key_down(&keyboard,ALLEGRO_KEY_SPACE) && !al_key_down(&keyboard,ALLEGRO_KEY_F10)) {
-            al_get_keyboard_state(&keyboard);
+        while(!al_key_down(&stonesenseState.keyboard,ALLEGRO_KEY_SPACE) && !al_key_down(&stonesenseState.keyboard,ALLEGRO_KEY_F10)) {
+            al_get_keyboard_state(&stonesenseState.keyboard);
             al_rest(ALLEGRO_MSECS_TO_SECS(50));
         }
-        al_get_keyboard_state(&keyboard);
-        if (al_key_down(&keyboard,ALLEGRO_KEY_SPACE)) {
+        al_get_keyboard_state(&stonesenseState.keyboard);
+        if (al_key_down(&stonesenseState.keyboard,ALLEGRO_KEY_SPACE)) {
             break;
         }
         DrawSpriteIndexOverlay(index);
@@ -830,20 +837,25 @@ void DoSpriteIndexOverlay()
             index = -1;
         }
         //debounce f10
-        al_get_keyboard_state(&keyboard);
-        while(al_key_down(&keyboard,ALLEGRO_KEY_F10)) {
-            al_get_keyboard_state(&keyboard);
+        al_get_keyboard_state(&stonesenseState.keyboard);
+        while(al_key_down(&stonesenseState.keyboard,ALLEGRO_KEY_F10)) {
+            al_get_keyboard_state(&stonesenseState.keyboard);
             al_rest(ALLEGRO_MSECS_TO_SECS(50));
         }
     }
     //redraw screen again
-    al_clear_to_color(ssConfig.backcol);
+    al_clear_to_color(stonesenseState.ssConfig.backcol);
     paintboard();
 }
 
 void paintboard()
 {
     DFHack::CoreSuspender suspend;
+
+    auto font = stonesenseState.font;
+    auto fontHeight = al_get_font_line_height(font);
+    auto& ssConfig = stonesenseState.ssConfig;
+    auto& ssState = stonesenseState.ssState;
 
     //do the starting timer stuff
     clock_t starttime = clock();
@@ -859,11 +871,11 @@ void paintboard()
     al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst);
 
     // lock segment for painting and retrieve it.
-    map_segment.lockDraw();
-    WorldSegment * segment = map_segment.getDraw();
+    stonesenseState.map_segment.lockDraw();
+    WorldSegment * segment = stonesenseState.map_segment.getDraw();
     if( segment == NULL ) {
         draw_textf_border(font, uiColor(1), ssState.ScreenW/2, ssState.ScreenH/2, ALLEGRO_ALIGN_CENTRE, "Could not find DF process");
-        map_segment.unlockDraw();
+        stonesenseState.map_segment.unlockDraw();
         return;
     }
 
@@ -875,10 +887,9 @@ void paintboard()
 
     //do the closing timer stuff
     clock_t donetime = clock();
-    stoneSenseTimers.draw_time.update(donetime - starttime);
-    stoneSenseTimers.frame_total.update(donetime - stoneSenseTimers.prev_frame_time);
-    stoneSenseTimers.prev_frame_time = donetime;
-    auto flh = al_get_font_line_height(font);
+    stonesenseState.stoneSenseTimers.draw_time.update(donetime - starttime);
+    stonesenseState.stoneSenseTimers.frame_total.update(donetime - stonesenseState.stoneSenseTimers.prev_frame_time);
+    stonesenseState.stoneSenseTimers.prev_frame_time = donetime;
 
     if (ssConfig.show_announcements) {
         al_hold_bitmap_drawing(true);
@@ -893,7 +904,7 @@ void paintboard()
 
         for(int32_t i=1; true; i++){
             if(getKeyStrings(i, keyname, actionname)){
-                draw_textf_border(font, uiColor(1), 10, line*flh, 0, "%s: %s%s", keyname->c_str(), actionname->c_str(), isRepeatable(i) ? " (repeats)" : "");
+                draw_textf_border(font, uiColor(1), 10, line*fontHeight, 0, "%s: %s%s", keyname->c_str(), actionname->c_str(), isRepeatable(i) ? " (repeats)" : "");
                 line++;
             }
             if(keyname == NULL) {
@@ -903,7 +914,7 @@ void paintboard()
         al_hold_bitmap_drawing(false);
     } else if (ssConfig.show_osd) {
         al_hold_bitmap_drawing(true);
-        draw_textf_border(font, uiColor(1), 10,flh, 0, "%i,%i,%i, r%i, z%i", ssState.Position.x,ssState.Position.y,ssState.Position.z, ssState.Rotation, ssConfig.zoom);
+        draw_textf_border(font, uiColor(1), 10,fontHeight, 0, "%i,%i,%i, r%i, z%i", ssState.Position.x,ssState.Position.y,ssState.Position.z, ssState.Rotation, ssConfig.zoom);
 
         drawSelectionCursor(segment);
 
@@ -912,41 +923,41 @@ void paintboard()
         drawAdvmodeMenuTalk(font, 5, ssState.ScreenH - 5);
 
         if(ssConfig.debug_mode) {
-            draw_textf_border(font, uiColor(1), 10, 3*flh, 0, "Map Read Time: %.2fms", float(stoneSenseTimers.read_time));
-            draw_textf_border(font, uiColor(1), 10, 4*flh, 0, "Map Beautification Time: %.2fms", float(stoneSenseTimers.beautify_time));
-            draw_textf_border(font, uiColor(1), 10, 5*flh, 0, "Tile Sprite Assembly Time: %.2fms", float(stoneSenseTimers.assembly_time));
-            draw_textf_border(font, uiColor(1), 10, 6*flh, 0, "DF Renderer Overlay Time: %.2fms", float(stoneSenseTimers.overlay_time));
-            draw_textf_border(font, uiColor(1), 10, 2*flh, 0, "FPS: %.2f", float(1000.0/stoneSenseTimers.frame_total));
-            draw_textf_border(font, uiColor(1), 10, 7*flh, 0, "Draw: %.2fms", float(stoneSenseTimers.draw_time));
-            draw_textf_border(font, uiColor(1), 10, 8*flh, 0, "D1: %i", DebugInt1);
-            draw_textf_border(font, uiColor(1), 10, 9*flh, 0, "%i/%i/%i, %i:%i", contentLoader->currentDay+1, contentLoader->currentMonth+1, contentLoader->currentYear, contentLoader->currentHour, (contentLoader->currentTickRel*60)/50);
+            auto& contentLoader = stonesenseState.contentLoader;
+            draw_textf_border(font, uiColor(1), 10, 3*fontHeight, 0, "Map Read Time: %.2fms", float(stonesenseState.stoneSenseTimers.read_time));
+            draw_textf_border(font, uiColor(1), 10, 4*fontHeight, 0, "Map Beautification Time: %.2fms", float(stonesenseState.stoneSenseTimers.beautify_time));
+            draw_textf_border(font, uiColor(1), 10, 5*fontHeight, 0, "Tile Sprite Assembly Time: %.2fms", float(stonesenseState.stoneSenseTimers.assembly_time));
+            draw_textf_border(font, uiColor(1), 10, 6*fontHeight, 0, "DF Renderer Overlay Time: %.2fms", float(stonesenseState.stoneSenseTimers.overlay_time));
+            draw_textf_border(font, uiColor(1), 10, 2*fontHeight, 0, "FPS: %.2f", float(1000.0/stonesenseState.stoneSenseTimers.frame_total));
+            draw_textf_border(font, uiColor(1), 10, 7*fontHeight, 0, "Draw: %.2fms", float(stonesenseState.stoneSenseTimers.draw_time));
+            draw_textf_border(font, uiColor(1), 10, 9*fontHeight, 0, "%i/%i/%i, %i:%i", contentLoader->currentDay+1, contentLoader->currentMonth+1, contentLoader->currentYear, contentLoader->currentHour, (contentLoader->currentTickRel*60)/50);
 
             drawDebugInfo(segment);
         }
         ssConfig.platecount = 0;
         int top = 0;
         if(ssConfig.track_mode != GameConfiguration::TRACKING_NONE) {
-            top += flh;
+            top += fontHeight;
             draw_textf_border(font, uiColor(1), ssState.ScreenW/2,top, ALLEGRO_ALIGN_CENTRE, "Locked on DF screen + (%d,%d,%d)",ssConfig.viewXoffset,ssConfig.viewYoffset,ssConfig.viewZoffset);
         }
         if(ssConfig.follow_DFcursor && ssConfig.debug_mode) {
-            top += flh;
+            top += fontHeight;
             if(segment->segState.dfCursor.x != -30000) {
                 draw_textf_border(font, uiColor(1), ssState.ScreenW/2,top, ALLEGRO_ALIGN_CENTRE, "Following DF Cursor at: %d,%d,%d", segment->segState.dfCursor.x,segment->segState.dfCursor.y,segment->segState.dfCursor.z);
             }
         }
         if(ssConfig.single_layer_view) {
-            top += flh;
+            top += fontHeight;
             draw_textf_border(font, uiColor(1), ssState.ScreenW/2,top, ALLEGRO_ALIGN_CENTRE, "Single layer view");
         }
         if(ssConfig.automatic_reload_time) {
-            top += flh;
+            top += fontHeight;
             draw_textf_border(font, uiColor(1), ssState.ScreenW/2,top, ALLEGRO_ALIGN_CENTRE, "Reloading every %0.1fs", (float)ssConfig.automatic_reload_time/1000);
         }
         al_hold_bitmap_drawing(false);
         DrawMinimap(segment);
     }
-    map_segment.unlockDraw();
+    stonesenseState.map_segment.unlockDraw();
 }
 
 
@@ -971,16 +982,16 @@ namespace {
     };
 
     const std::array img_list{
-        Img{ "objects.png", IMGObjectSheet },
-        Img{ "creatures.png", IMGCreatureSheet },
-        Img{ "ramps.png", IMGRampSheet },
-        Img{ "SSStatusIcons.png", IMGStatusSheet },
-        Img{ "SSProfIcons.png", IMGProfSheet },
-        Img{ "gibs.png", IMGBloodSheet },
-        Img{ "engravings_floor.png", IMGEngFloorSheet },
-        Img{ "engravings_left.png", IMGEngLeftSheet },
-        Img{ "engravings_right.png", IMGEngRightSheet },
-        Img{ "Sir_Henry_s_32x32.png", IMGLetterSheet }
+        Img{ "objects.png", stonesenseState.IMGObjectSheet },
+        Img{ "creatures.png", stonesenseState.IMGCreatureSheet },
+        Img{ "ramps.png", stonesenseState.IMGRampSheet },
+        Img{ "SSStatusIcons.png", stonesenseState.IMGStatusSheet },
+        Img{ "SSProfIcons.png", stonesenseState.IMGProfSheet },
+        Img{ "gibs.png", stonesenseState.IMGBloodSheet },
+        Img{ "engravings_floor.png", stonesenseState.IMGEngFloorSheet },
+        Img{ "engravings_left.png", stonesenseState.IMGEngLeftSheet },
+        Img{ "engravings_right.png", stonesenseState.IMGEngRightSheet },
+        Img{ "Sir_Henry_s_32x32.png", stonesenseState.IMGLetterSheet }
     };
 }
 
@@ -1021,6 +1032,8 @@ ALLEGRO_BITMAP* getImgFile(int index)
 
 int loadImgFile(std::filesystem::path filename)
 {
+    auto& ssConfig = stonesenseState.ssConfig;
+
     if (IMGFileList.contains(filename))
     {
         return IMGFileList.lookup(filename);
@@ -1106,7 +1119,7 @@ int loadImgFile(std::filesystem::path filename)
 
 void saveScreenshot()
 {
-    al_clear_to_color(ssConfig.backcol);
+    al_clear_to_color(stonesenseState.ssConfig.backcol);
     paintboard();
     //get filename
     char filename[32] = {0};
@@ -1128,9 +1141,12 @@ void saveScreenshot()
     };
     //move image to 16 bits
     //al_set_new_bitmap_format(ALLEGRO_PIXEL_FORMAT_ANY_NO_ALPHA);
+    auto& ssState = stonesenseState.ssState;
+
     ALLEGRO_BITMAP* temp = al_create_bitmap(ssState.ScreenW, ssState.ScreenH);
     al_set_target_bitmap(temp);
     PrintMessage("saving screenshot to %s\n", filename);
+    auto& ssConfig = stonesenseState.ssConfig;
     if(!ssConfig.transparentScreenshots) {
         al_clear_to_color(ssConfig.backcol);
     }
@@ -1166,10 +1182,11 @@ void saveImage(ALLEGRO_BITMAP* image)
 
 void saveMegashot(bool tall)
 {
-    map_segment.lockRead();
+    stonesenseState.map_segment.lockRead();
 
+    auto& ssState = stonesenseState.ssState;
     // draw_textf_border(font, uiColor(1), ssState.ScreenW/2, ssState.ScreenH/2, ALLEGRO_ALIGN_CENTRE, "saving large screenshot...");
-    draw_textf_border(font, uiColor(1), ssState.ScreenW/2, ssState.ScreenH/2, ALLEGRO_ALIGN_CENTRE, "saving large screenshot... Stonesense will become unresponsive after this process completes. Please close and re-open Stonesense.");
+    draw_textf_border(stonesenseState.font, uiColor(1), ssState.ScreenW/2, ssState.ScreenH/2, ALLEGRO_ALIGN_CENTRE, "saving large screenshot... Stonesense will become unresponsive after this process completes. Please close and re-open Stonesense.");
     al_flip_display();
     char filename[32] = {0};
     FILE* fp;
@@ -1189,6 +1206,7 @@ void saveMegashot(bool tall)
     };
     // int timer = clock();
     //back up all the relevant values
+    auto& ssConfig = stonesenseState.ssConfig;
     GameConfiguration tempConfig = ssConfig;
     GameState tempState = ssState;
     int tempflags = al_get_new_bitmap_flags();
@@ -1309,10 +1327,10 @@ void saveMegashot(bool tall)
                 for(int j=0; j<numx; j++) {
                     //read and draw each individual segment
                     read_segment(NULL);
-                    map_segment.lockDraw();
-                    WorldSegment * segment = map_segment.getDraw();
+                    stonesenseState.map_segment.lockDraw();
+                    WorldSegment * segment = stonesenseState.map_segment.getDraw();
                     segment->DrawAllTiles();
-                    map_segment.unlockDraw();
+                    stonesenseState.map_segment.unlockDraw();
 
                     ssState.Position.x += incrx;
                     ssConfig.lift_segment_offscreen_x += (TILEWIDTH/2)*movexx;
@@ -1341,7 +1359,7 @@ void saveMegashot(bool tall)
     ssState = tempState;
     al_set_new_bitmap_flags(tempflags);
 
-    map_segment.unlockRead();
+    stonesenseState.map_segment.unlockRead();
 }
 
 ALLEGRO_COLOR morph_color(ALLEGRO_COLOR source, ALLEGRO_COLOR reference, ALLEGRO_COLOR target)

@@ -3,9 +3,13 @@
 #include "MapLoading.h"
 #include "GameConfiguration.h"
 #include "GameState.h"
+#include "StonesenseState.h"
 
 void followCurrentDFCenter()
 {
+    auto& ssConfig = stonesenseState.ssConfig;
+    auto& ssState = stonesenseState.ssState;
+
     int32_t newviewx;
     int32_t newviewy;
     int32_t newviewz;
@@ -21,6 +25,9 @@ void followCurrentDFCenter()
 //eventually, this should be a sort of "smart-follow" which switches modes intelligently
 void followCurrentDFFocus()
 {
+    auto& ssConfig = stonesenseState.ssConfig;
+    auto& ssState = stonesenseState.ssState;
+
     if(ssState.dfCursor.x != -30000) {
         ssState.Position.x = ssState.dfCursor.x - (ssState.Size.x / 2) + ssConfig.viewXoffset;
         ssState.Position.y = ssState.dfCursor.y - (ssState.Size.y / 2) + ssConfig.viewYoffset;

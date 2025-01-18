@@ -10,13 +10,13 @@
 #include "Creatures.h"
 #include "ContentLoader.h"
 #include "GameConfiguration.h"
+#include "StonesenseState.h"
 
 #include "df/block_square_event_grassst.h"
 #include "df/block_square_event_material_spatterst.h"
 #include "df/block_square_event_mineralst.h"
 #include "df/construction.h"
 #include "df/engraving.h"
-#include "df/flow_info.h"
 #include "df/flow_info.h"
 #include "df/inorganic_raw.h"
 #include "df/item_constructed.h"
@@ -50,6 +50,8 @@ using std::vector;
 void readSpatterToTile(Tile * b, uint32_t lx, uint32_t ly,
     const vector <df::block_square_event_material_spatterst * > & splatter)
 {
+    auto& ssConfig = stonesenseState.ssConfig;
+
     b->mudlevel = 0;
     b->snowlevel = 0;
     b->bloodlevel = 0;
@@ -373,7 +375,7 @@ void readMaterialToTile(Tile* b, uint32_t lx, uint32_t ly,
 
     if(b->tileMaterial() == tiletype_material::LAVA_STONE) {
         b->material.type = INORGANIC;
-        b->material.index = contentLoader->obsidian;
+        b->material.index = stonesenseState.contentLoader->obsidian;
     }
 }
 
@@ -435,7 +437,7 @@ void readBlockToSegment(DFHack::Core& DF, WorldSegment& segment,
     uint32_t BoundryEX, uint32_t BoundryEY,
     vector< vector <int16_t> >* allLayers)
 {
-    if(ssConfig.skipMaps) {
+    if(stonesenseState.ssConfig.skipMaps) {
         return;
     }
     //boundry check
@@ -476,6 +478,9 @@ void readBlockToSegment(DFHack::Core& DF, WorldSegment& segment,
         &grass,
         &worldconstructions);
     //parse block
+
+    auto& ssConfig = stonesenseState.ssConfig;
+
     for(uint32_t ly = BoundrySY; ly <= BoundryEY; ly++) {
         for(uint32_t lx = BoundrySX; lx <= BoundryEX; lx++) {
             uint32_t gx = lx + (BlockX * BLOCKEDGESIZE);
@@ -643,7 +648,7 @@ void readBlockToSegment(DFHack::Core& DF, WorldSegment& segment,
 void readBlockColumnToSegment(DFHack::Core& DF, WorldSegment& segment,
     int BlockX, int BlockY)
 {
-    if (ssConfig.skipMaps) {
+    if (stonesenseState.ssConfig.skipMaps) {
         return;
     }
     //boundry check
@@ -768,8 +773,10 @@ void readMapSegment(WorldSegment* segment, GameState inState)
     DFHack::Core & DF = DFHack::Core::getInstance();
     clock_t starttime = clock();
 
+    auto& ssState = stonesenseState.ssState;
     //read date
-    if(!ssConfig.skipWorld) {
+    if(!stonesenseState.ssConfig.skipWorld) {
+        auto& contentLoader = stonesenseState.contentLoader;
         contentLoader->currentYear = DFHack::World::ReadCurrentYear();
         contentLoader->currentTick = DFHack::World::ReadCurrentTick();
         contentLoader->currentMonth = (contentLoader->currentTick+9)/33600;
@@ -779,7 +786,7 @@ void readMapSegment(WorldSegment* segment, GameState inState)
         DFHack::World::ReadGameMode(contentLoader->gameMode);
     }
 
-    if(ssConfig.skipMaps || !DFHack::Maps::IsValid()) {
+    if(stonesenseState.ssConfig.skipMaps || !DFHack::Maps::IsValid()) {
         segment->Reset(inState,true);
         return;
     }
@@ -802,7 +809,7 @@ void readMapSegment(WorldSegment* segment, GameState inState)
 
     //read world wide buildings
     vector<Stonesense_Building> allBuildings;
-    if(!ssConfig.skipBuildings) {
+    if(!stonesenseState.ssConfig.skipBuildings) {
         ReadBuildings(DF, &allBuildings);
     }
 
@@ -813,7 +820,7 @@ void readMapSegment(WorldSegment* segment, GameState inState)
     vector<df::construction> allConstructions;
     uint32_t numconstructions = 0;
 
-    if(!ssConfig.skipConstructions) {
+    if(!stonesenseState.ssConfig.skipConstructions) {
         numconstructions = df::global::world->event.constructions.size();
         if (numconstructions) {
             df::construction tempcon;
@@ -903,7 +910,7 @@ void readMapSegment(WorldSegment* segment, GameState inState)
     }
 
     //merge buildings with segment
-    if(!ssConfig.skipBuildings) {
+    if(!stonesenseState.ssConfig.skipBuildings) {
         MergeBuildingsToSegment(&allBuildings, segment);
     }
 
@@ -930,13 +937,13 @@ void readMapSegment(WorldSegment* segment, GameState inState)
     }
 
     //Read Creatures
-    if(!ssConfig.skipCreatures) {
+    if(!stonesenseState.ssConfig.skipCreatures) {
         ReadCreaturesToSegment( DF, segment );
     }
 
     segment->loaded = 1;
     segment->processed = 0;
-    stoneSenseTimers.read_time.update(clock() - starttime);
+    stonesenseState.stoneSenseTimers.read_time.update(clock() - starttime);
 }
 
 //==============================Map Read Main===========================//
@@ -951,31 +958,32 @@ void read_segment( void *arg)
         return;
     }
     static bool firstLoad = 1;
-    ssConfig.threadstarted = 1;
+    stonesenseState.ssConfig.threadstarted = 1;
     WorldSegment* segment = NULL;
     {
         DFHack::CoreSuspender suspend;
 
+        auto& ssState = stonesenseState.ssState;
         //read cursor
-        if (ssConfig.follow_DFcursor) {
+        if (stonesenseState.ssConfig.follow_DFcursor) {
             DFHack::Gui::getCursorCoords(ssState.dfCursor.x, ssState.dfCursor.y, ssState.dfCursor.z);
             ssState.dfSelection.x = df::global::selection_rect->start_x;
             ssState.dfSelection.y = df::global::selection_rect->start_y;
             ssState.dfSelection.z = df::global::selection_rect->start_z;
         }
 
-        if (firstLoad || ssConfig.track_mode != GameConfiguration::TRACKING_NONE) {
+        if (firstLoad || stonesenseState.ssConfig.track_mode != GameConfiguration::TRACKING_NONE) {
             firstLoad = 0;
-            if (ssConfig.track_mode == GameConfiguration::TRACKING_CENTER) {
+            if (stonesenseState.ssConfig.track_mode == GameConfiguration::TRACKING_CENTER) {
                 followCurrentDFCenter();
-            } else if (ssConfig.track_mode == GameConfiguration::TRACKING_FOCUS) {
+            } else if (stonesenseState.ssConfig.track_mode == GameConfiguration::TRACKING_FOCUS) {
                 followCurrentDFFocus();
-                ssConfig.follow_DFcursor = true;
+                stonesenseState.ssConfig.follow_DFcursor = true;
             }
         }
-        segment = map_segment.getRead();
+        segment = stonesenseState.map_segment.getRead();
         readMapSegment(segment, ssState);
-        ssConfig.threadstarted = 0;
+        stonesenseState.ssConfig.threadstarted = 0;
     }
 
     if(segment) {
@@ -988,40 +996,40 @@ void read_segment( void *arg)
         segment->AssembleAllTiles();
 
         //only need to lock the drawing segment because the reading segment is already locked
-        map_segment.lockDraw();
-        map_segment.swap();
-        map_segment.unlockDraw();
+        stonesenseState.map_segment.lockDraw();
+        stonesenseState.map_segment.swap();
+        stonesenseState.map_segment.unlockDraw();
     }
 }
 
 static void * threadedSegment(ALLEGRO_THREAD *read_thread, void *arg)
 {
     while(!al_get_thread_should_stop(read_thread)) {
-        map_segment.lockRead();
+        stonesenseState.map_segment.lockRead();
         read_segment(arg);
-        map_segment.unlockRead();
-        al_rest(ssConfig.automatic_reload_time/1000.0);
+        stonesenseState.map_segment.unlockRead();
+        al_rest(stonesenseState.ssConfig.automatic_reload_time/1000.0);
     }
     return 0;
 }
 
 void reloadPosition()
 {
-    if (timeToReloadConfig) {
-        contentLoader->Load();
-        timeToReloadConfig = false;
+    if (stonesenseState.timeToReloadConfig) {
+        stonesenseState.contentLoader->Load();
+        stonesenseState.timeToReloadConfig = false;
     }
 
     //load segment
-    if(ssConfig.threading_enable) {
-        if(!ssConfig.threadmade) {
-            ssConfig.readThread = al_create_thread(threadedSegment, NULL);
-            ssConfig.threadmade = 1;
+    if(stonesenseState.ssConfig.threading_enable) {
+        if(!stonesenseState.ssConfig.threadmade) {
+            stonesenseState.ssConfig.readThread = al_create_thread(threadedSegment, NULL);
+            stonesenseState.ssConfig.threadmade = 1;
         }
     }
 
-    if(ssConfig.threading_enable) {
-        al_start_thread(ssConfig.readThread);
+    if(stonesenseState.ssConfig.threading_enable) {
+        al_start_thread(stonesenseState.ssConfig.readThread);
     } else {
         read_segment(NULL);
     }

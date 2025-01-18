@@ -7,6 +7,7 @@
 #include "Config.h"
 #include "GameConfiguration.h"
 #include "GameState.h"
+#include "StonesenseState.h"
 
 using std::string;
 
@@ -69,6 +70,9 @@ namespace {
         if (c != ']') {
             return;
         }
+
+        auto& ssConfig = stonesenseState.ssConfig;
+        auto& ssState = stonesenseState.ssState;
 
         if (line.find("[CLOSEONESC") != string::npos) {
             string result = parseStrFromLine("CLOSEONESC", line);
@@ -835,7 +839,7 @@ bool loadConfigFile()
         parseConfigLine( line );
     }
     // update allegro colors loaded from file
-    ssConfig.colors.update();
+    stonesenseState.ssConfig.colors.update();
     //close file, etc.
     myfile.close();
     return true;

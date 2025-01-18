@@ -2,6 +2,8 @@
 #include "GameBuildings.h"
 #include "WorldSegment.h"
 #include "ContentLoader.h"
+#include "StonesenseState.h"
+
 #include <iostream>
 
 int getDirectionFromString(const char* strDir)
@@ -168,7 +170,7 @@ AnimationFrameCondition::AnimationFrameCondition(const char* strValue)
 
 bool AnimationFrameCondition::Matches(Tile* b)
 {
-    return this->value == currentAnimationFrame;
+    return this->value == stonesenseState.currentAnimationFrame;
 }
 
 

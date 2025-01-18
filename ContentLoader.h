@@ -153,8 +153,6 @@ public:
     int obsidian = 0;
 };
 
-extern std::unique_ptr<ContentLoader> contentLoader;
-
 extern const char* getDocument(TiXmlNode* element);
 std::filesystem::path getLocalFilename(std::filesystem::path filename, std::filesystem::path relativeto);
 extern void contentError(const std::string& message, TiXmlNode* element);

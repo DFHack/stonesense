@@ -21,6 +21,7 @@
 #include "OcclusionTest.h"
 #include "GameConfiguration.h"
 #include "GameState.h"
+#include "StonesenseState.h"
 
 #include "Debug.h"
 
@@ -37,34 +38,20 @@ namespace DFHack {
     DBG_DECLARE(stonesense, main, DebugCategory::LINFO);
 }
 
-bool stonesense_started = 0;
+StonesenseState stonesenseState;
 
-uint32_t DebugInt1;
+bool stonesense_started = 0;
 
 int keyoffset=0;
 
-GameConfiguration ssConfig;
 GameState ssState;
-FrameTimers stoneSenseTimers;
-
-bool timeToReloadSegment;
-bool timeToReloadConfig;
-char currentAnimationFrame;
-uint32_t currentFrameLong;
-bool animationFrameShown;
 
 std::vector<DFHack::t_matgloss> v_stonetypes;
-
-ALLEGRO_FONT * font;
 
 /*FIXME: Find a new replacement for the overlay mode.
 std::unique_ptr<Overlay> overlay;
 */
 ALLEGRO_DISPLAY * display;
-ALLEGRO_KEYBOARD_STATE keyboard;
-
-ALLEGRO_TIMER * reloadtimer;
-ALLEGRO_TIMER * animationtimer;
 
 ALLEGRO_EVENT event;
 
@@ -73,12 +60,10 @@ ALLEGRO_BITMAP* SplashImage = NULL;
 
 int mouse_x, mouse_y, mouse_z;
 unsigned int mouse_b;
-bool key[ALLEGRO_KEY_MAX];
 
 /// main thread of stonesense - handles events
 ALLEGRO_THREAD *stonesense_event_thread;
 // the segment wrapper handles concurrency control
-SegmentWrap map_segment;
 bool redraw = true;
 
 ALLEGRO_BITMAP* load_bitmap_withWarning(std::filesystem::path path)
@@ -126,7 +111,7 @@ void LogVerbose(const char* msg, ...)
 
     TRACE(main) << buf;
 
-    if (!ssConfig.verbose_logging)
+    if (!stonesenseState.ssConfig.verbose_logging)
         return;
 
     std::ofstream fp{ std::filesystem::path { "Stonesense.log" }, std::ios::app };
@@ -146,9 +131,9 @@ void SetTitle(const char *format, ...)
 bool loadfont(DFHack::color_ostream & output)
 {
     std::filesystem::path p{ "stonesense" };
-    p /= ssConfig.font;
-    font = al_load_font(p.string().c_str(), ssConfig.fontsize, 0);
-    if (!font) {
+    p /= stonesenseState.ssConfig.font;
+    stonesenseState.font = al_load_font(p.string().c_str(), stonesenseState.ssConfig.fontsize, 0);
+    if (!stonesenseState.font) {
         output.printerr("Cannot load font: %s\n", p.string().c_str());
         return false;
     }
@@ -172,15 +157,15 @@ void benchmark()
 
 void animUpdateProc()
 {
-    if (animationFrameShown) {
+    if (stonesenseState.animationFrameShown) {
         // check before setting, or threadsafety will be borked
-        if (currentAnimationFrame >= (MAX_ANIMFRAME-1)) { // ie ends up [0 .. MAX_ANIMFRAME)
-            currentAnimationFrame = 0;
+        if (stonesenseState.currentAnimationFrame >= (MAX_ANIMFRAME-1)) { // ie ends up [0 .. MAX_ANIMFRAME)
+            stonesenseState.currentAnimationFrame = 0;
         } else {
-            currentAnimationFrame++;
+            stonesenseState.currentAnimationFrame++;
         }
-        currentFrameLong++;
-        animationFrameShown = false;
+        stonesenseState.currentFrameLong++;
+        stonesenseState.animationFrameShown = false;
     }
 }
 
@@ -194,7 +179,7 @@ void drawcredits()
     auto centerx = al_get_bitmap_width(backbuffer) / 2;
     auto bottomy = al_get_bitmap_height(backbuffer);
     auto centery = bottomy / 2;
-    auto lineheight = al_get_font_line_height(font);
+    auto lineheight = al_get_font_line_height(stonesenseState.font);
 
     al_clear_to_color(color_black);
 
@@ -205,6 +190,7 @@ void drawcredits()
         al_draw_bitmap_region(SplashImage, 0, 0, splash_width, splash_height, centerx - splash_width / 2, centery - splash_height / 2, 0);
     }
 
+    auto font = stonesenseState.font;
     al_draw_text(font, color_yellow, centerx, 5*lineheight, ALLEGRO_ALIGN_CENTRE, "Welcome to Stonesense Felsite!");
     al_draw_text(font, color_white, centerx, 6*lineheight, ALLEGRO_ALIGN_CENTRE, "Stonesense is an isometric viewer for Dwarf Fortress.");
 
@@ -233,6 +219,8 @@ void drawcredits()
 */
 static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALLEGRO_THREAD * main_thread, DFHack::color_ostream & con)
 {
+    auto& ssConfig = stonesenseState.ssConfig;
+
     ALLEGRO_EVENT event;
     while (!al_get_thread_should_stop(main_thread)) {
         if (redraw && al_event_queue_is_empty(queue)) {
@@ -278,19 +266,19 @@ static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALL
                     drawcredits();
                     al_flip_display();
                 }
-                else if (timeToReloadSegment) {
+                else if (stonesenseState.timeToReloadSegment) {
                     reloadPosition();
                     al_clear_to_color(ssConfig.backcol);
                     paintboard();
                     al_flip_display();
-                    timeToReloadSegment = false;
-                    animationFrameShown = true;
+                    stonesenseState.timeToReloadSegment = false;
+                    stonesenseState.animationFrameShown = true;
                 }
-                else if (animationFrameShown == false) {
+                else if (stonesenseState.animationFrameShown == false) {
                     al_clear_to_color(ssConfig.backcol);
                     paintboard();
                     al_flip_display();
-                    animationFrameShown = true;
+                    stonesenseState.animationFrameShown = true;
                 }
             }
 
@@ -319,7 +307,7 @@ static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALL
                 if (ssConfig.overlay_mode) {
                     break;
                 }
-                timeToReloadSegment = true;
+                stonesenseState.timeToReloadSegment = true;
                 redraw = true;
                 ssState.ScreenH = event.display.height;
                 ssState.ScreenW = event.display.width;
@@ -351,10 +339,10 @@ static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALL
                 return;
 
             case ALLEGRO_EVENT_TIMER:
-                if(event.timer.source == reloadtimer) {
-                    timeToReloadSegment = true;
+                if(event.timer.source == stonesenseState.reloadtimer) {
+                    stonesenseState.timeToReloadSegment = true;
                     redraw = true;
-                } else if (event.timer.source == animationtimer) {
+                } else if (event.timer.source == stonesenseState.animationtimer) {
                     animUpdateProc();
                     redraw = true;
                 }
@@ -374,14 +362,14 @@ static void* stonesense_thread(ALLEGRO_THREAD* main_thread, void* parms)
     auto& out{ DFHack::Core::getInstance().getConsole() };
     out.print("Stonesense launched\n");
 
-    ssConfig = GameConfiguration{};
+    stonesenseState.ssConfig = GameConfiguration{};
     ssState.ScreenH = DEFAULT_RESOLUTION_HEIGHT;
     ssState.ScreenW = DEFAULT_RESOLUTION_WIDTH;
     ssState.Size = { DEFAULT_SIZE, DEFAULT_SIZE, DEFAULT_SIZE_Z };
-    timeToReloadConfig = true;
-    contentLoader = std::make_unique<ContentLoader>();
+    stonesenseState.timeToReloadConfig = true;
+    stonesenseState.contentLoader = std::make_unique<ContentLoader>();
 
-    stoneSenseTimers = FrameTimers{};
+    stonesenseState.stoneSenseTimers = FrameTimers{};
 
     initRandomCube();
     if (!loadConfigFile() || !loadKeymapFile()) {
@@ -402,6 +390,7 @@ static void* stonesense_thread(ALLEGRO_THREAD* main_thread, void* parms)
 
     out.print("Using allegro version %d.%d.%d r%d\n", major, minor, revision, release);
 
+    auto& ssConfig = stonesenseState.ssConfig;
     al_set_new_display_flags(
         (ssConfig.Fullscreen && !ssConfig.overlay_mode ? ALLEGRO_FULLSCREEN : ALLEGRO_WINDOWED)
         |(ssConfig.overlay_mode ? 0 : ALLEGRO_RESIZABLE)
@@ -467,22 +456,22 @@ static void* stonesense_thread(ALLEGRO_THREAD* main_thread, void* parms)
 
     loadGraphicsFromDisk();
     al_clear_to_color(al_map_rgb(0,0,0));
-    al_draw_textf(font, al_map_rgb(255,255,255), ssState.ScreenW/2, ssState.ScreenH/2, ALLEGRO_ALIGN_CENTRE, "Starting up...");
+    al_draw_textf(stonesenseState.font, al_map_rgb(255,255,255), ssState.ScreenW/2, ssState.ScreenH/2, ALLEGRO_ALIGN_CENTRE, "Starting up...");
     al_flip_display();
 
-    reloadtimer = al_create_timer(ALLEGRO_MSECS_TO_SECS(ssConfig.automatic_reload_time));
-    animationtimer = al_create_timer(ALLEGRO_MSECS_TO_SECS(ssConfig.animation_step));
+    stonesenseState.reloadtimer = al_create_timer(ALLEGRO_MSECS_TO_SECS(ssConfig.automatic_reload_time));
+    stonesenseState.animationtimer = al_create_timer(ALLEGRO_MSECS_TO_SECS(ssConfig.animation_step));
 
     if(ssConfig.animation_step) {
-        al_start_timer(animationtimer);
+        al_start_timer(stonesenseState.animationtimer);
     }
 
 
     al_register_event_source(queue, al_get_keyboard_event_source());
     al_register_event_source(queue, al_get_display_event_source(display));
     al_register_event_source(queue, al_get_mouse_event_source());
-    al_register_event_source(queue, al_get_timer_event_source(reloadtimer));
-    al_register_event_source(queue, al_get_timer_event_source(animationtimer));
+    al_register_event_source(queue, al_get_timer_event_source(stonesenseState.reloadtimer));
+    al_register_event_source(queue, al_get_timer_event_source(stonesenseState.animationtimer));
 
     ssConfig.readCond = al_create_cond();
 
@@ -492,7 +481,7 @@ static void* stonesense_thread(ALLEGRO_THREAD* main_thread, void* parms)
     // init map segment wrapper and its lock, start the reload thread.
     initAutoReload();
 
-    timeToReloadSegment = false;
+    stonesenseState.timeToReloadSegment = false;
     // enter event loop here:
     main_loop(display, queue, main_thread, out);
 
@@ -511,10 +500,10 @@ static void* stonesense_thread(ALLEGRO_THREAD* main_thread, void* parms)
     flushImgFiles();
 
     // remove the uranium fuel from the reactor... or map segment from the clutches of other threads.
-    map_segment.shutdown();
+    stonesenseState.map_segment.shutdown();
     al_destroy_bitmap(IMGIcon);
     IMGIcon = 0;
-    contentLoader.reset();
+    stonesenseState.contentLoader.reset();
     out.print("Stonesense shutdown.\n");
     stonesense_started = 0;
     return NULL;
@@ -574,7 +563,7 @@ DFhackCExport command_result stonesense_command(color_ostream &out, std::vector<
         out.print("Stonesense already running.\n");
         return CR_OK;
     }
-    ssConfig.overlay_mode = false;
+    stonesenseState.ssConfig.overlay_mode = false;
     if(params.size() > 0 ) {
         if(params[0] == "overlay"){
             //ssConfig.overlay_mode = true;

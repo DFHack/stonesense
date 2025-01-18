@@ -2,6 +2,7 @@
 #include "GameBuildings.h"
 #include "GUI.h"
 #include "GameConfiguration.h"
+#include "StonesenseState.h"
 
 c_tile_tree_twig::c_tile_tree_twig()
 {
@@ -14,6 +15,8 @@ c_tile_tree_twig::~c_tile_tree_twig()
 
 void insert_sprite(WorldSegment *w, int x, int y, int z, Tile * parent, c_sprite sprite)
 {
+    auto& ssConfig = stonesenseState.ssConfig;
+
     Tile * b_orig = w->getTile(x, y, z);
     if(!b_orig) {
         b_orig = w->ResetTile(x, y, z, df::tiletype::OpenSpace);
@@ -37,7 +40,7 @@ void c_tile_tree_twig::insert_sprites(WorldSegment *w, int x, int y, int z, Tile
             insert_sprite(w,x,y,z,parent, own_sprite);
         }
     }
-    switch(ssState.Rotation) {
+    switch(stonesenseState.ssState.Rotation) {
     case 0:
         for(unsigned int i = 0; i < eastward_growth.size(); i++) {
             if(w->CoordinateInsideSegment(x + i + 1,y,z)) {
@@ -164,7 +167,7 @@ void c_tile_tree_branch::insert_sprites(WorldSegment *w, int x, int y, int z, Ti
 {
     using df::tiletype_shape_basic;
     own_twig.insert_sprites(w, x, y, z, parent);
-    switch(ssState.Rotation) {
+    switch(stonesenseState.ssState.Rotation) {
     case 0:
         for(size_t i = 0; i < southward_growth.size(); i++) {
             Tile * b = w->getTile(x, y + i + 1, z);

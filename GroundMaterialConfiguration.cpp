@@ -6,6 +6,7 @@
 #include "GUI.h"
 #include "ContentLoader.h"
 #include "MiscUtils.h"
+#include "StonesenseState.h"
 
 constexpr auto PRIORITY_SHAPE = 8;
 constexpr auto PRIORITY_SPECIAL = 4;
@@ -39,14 +40,11 @@ TerrainConfiguration::TerrainConfiguration()
 
 void DumpInorganicMaterialNamesToDisk()
 {
-    FILE* fp = fopen("dump.txt", "w");
-    if (!fp) {
-        return;
-    }
+    std::ofstream fp{ std::filesystem::path { "dump.txt"} };
+    auto& contentLoader = stonesenseState.contentLoader;
     for (uint32_t j = 0; j < contentLoader->inorganic.size(); j++) {
-        fprintf(fp, "%i:%s\n", j, contentLoader->inorganic[j].id.c_str());
+        fp << j << ':' << contentLoader->inorganic[j].id << '\n';
     }
-    fclose(fp);
 }
 
 void TerrainMaterialConfiguration::updateSprite(int j, c_sprite& sprite, int x)
@@ -350,6 +348,7 @@ bool addSingleTerrainConfig(TiXmlElement* elemRoot)
     }
 
     std::string elementType = elemRoot->Value();
+    auto& contentLoader = stonesenseState.contentLoader;
     if (elementType.compare("floors") == 0) {
         //parse floors
         TiXmlElement* elemFloor = elemRoot->FirstChildElement("floor");

@@ -24,4 +24,3 @@ struct GameState{
     int ScreenH;
 };
 
-extern GameState ssState;

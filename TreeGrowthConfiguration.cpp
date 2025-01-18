@@ -1,4 +1,5 @@
 #include "TreeGrowthConfiguration.h"
+#include "StonesenseState.h"
 
 void parseGrowthElement(TiXmlElement* elemGrowthSprite, MaterialMatcher<c_sprite> & growthTopConfigs, MaterialMatcher<c_sprite> & growthBottomConfigs, int basefile)
 {
@@ -58,7 +59,8 @@ bool addSingleGrowthConfig(TiXmlElement* elemRoot)
         //parse colors
         TiXmlElement* elemGrowth = elemRoot->FirstChildElement("growth");
         while (elemGrowth) {
-            parseGrowthElement(elemGrowth, contentLoader->growthTopConfigs, contentLoader->growthBottomConfigs, basefile);
+            auto& contentLoader = stonesenseState.contentLoader;
+            parseGrowthElement(elemGrowth, stonesenseState.contentLoader->growthTopConfigs, contentLoader->growthBottomConfigs, basefile);
             elemGrowth = elemGrowth->NextSiblingElement("growth");
         }
     }

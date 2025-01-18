@@ -4,6 +4,7 @@
 #include "GameBuildings.h"
 #include "GUI.h"
 #include "GameState.h"
+#include "StonesenseState.h"
 
 /* RootTile */
 
@@ -93,7 +94,7 @@ RotationTile::~RotationTile(void)
 
 bool RotationTile::copyToTile(Tile* b)
 {
-    int index = ssState.Rotation;
+    int index = stonesenseState.ssState.Rotation;
     size_t max = children.size();
     if (max == 0) {
         return false;

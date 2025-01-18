@@ -161,5 +161,3 @@ private:
     std::unique_ptr<WorldSegment> drawsegment;
     std::unique_ptr<WorldSegment> readsegment;
 };
-
-extern SegmentWrap map_segment;

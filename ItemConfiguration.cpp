@@ -4,6 +4,7 @@
 #include "GUI.h"
 #include "ContentLoader.h"
 #include "MiscUtils.h"
+#include "StonesenseState.h"
 
 ItemConfiguration::ItemConfiguration()
 {
@@ -76,6 +77,7 @@ bool parseItemElement( TiXmlElement* elemRoot, int basefile)
     c_sprite sprite;
 
     sprite.set_by_xml(elemRoot, basefile);
+    auto& contentLoader = stonesenseState.contentLoader;
 
     if(contentLoader->itemConfigs[main_type] == nullptr) {
         contentLoader->itemConfigs[main_type] = std::make_unique<ItemConfiguration>();

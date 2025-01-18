@@ -125,7 +125,6 @@ public:
     bool Matches(Tile* b);
 };
 
-
 class NeighbourOfTypeCondition : public TileCondition
 {
 public:

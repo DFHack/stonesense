@@ -7,6 +7,7 @@
 #include "WorldSegment.h"
 #include "ContentLoader.h"
 #include "GameConfiguration.h"
+#include "StonesenseState.h"
 
 ALLEGRO_COLOR operator*(const ALLEGRO_COLOR &color1, const ALLEGRO_COLOR &color2)
 {
@@ -183,17 +184,18 @@ ALLEGRO_COLOR premultiply(ALLEGRO_COLOR input)
 
 ALLEGRO_COLOR shadeAdventureMode(ALLEGRO_COLOR color, bool foggy, bool outside)
 {
+    auto& contentLoader = stonesenseState.contentLoader;
     if(contentLoader->gameMode.g_mode != GAMEMODE_ADVENTURE) {
         return color;
     }
 
-    if(foggy && ssConfig.fog_of_war) {
+    if(foggy && stonesenseState.ssConfig.fog_of_war) {
         color.r *= 0.25f;
         color.g *= 0.25f;
         color.b *= 0.25f;
     }
 
-    if(ssConfig.dayNightCycle) {
+    if(stonesenseState.ssConfig.dayNightCycle) {
         if(outside) {
             color = color*getDayShade(contentLoader->currentHour, contentLoader->currentTickRel);
         } else {
@@ -244,7 +246,7 @@ ALLEGRO_COLOR getDayShade(int hour, int tick)
 
 ALLEGRO_COLOR blink(ALLEGRO_COLOR c1, ALLEGRO_COLOR c2)
 {
-    if((currentAnimationFrame>>2)&0x01) {
+    if((stonesenseState.currentAnimationFrame>>2)&0x01) {
         return c2;
     }
     return c1;
@@ -252,7 +254,8 @@ ALLEGRO_COLOR blink(ALLEGRO_COLOR c1, ALLEGRO_COLOR c2)
 
 ALLEGRO_COLOR blinkTechnicolor()
 {
-    switch(currentAnimationFrame & 0x07){
+    auto& ssConfig = stonesenseState.ssConfig;
+    switch(stonesenseState.currentAnimationFrame & 0x07){
     case 0x00:
         //yellow;
         return ssConfig.colors.getDfColor(dfColors::yellow, ssConfig.useDfColors);
@@ -283,6 +286,7 @@ ALLEGRO_COLOR blinkTechnicolor()
 // Meant to unify the different UI coloring techniques used.
 ALLEGRO_COLOR uiColor(int32_t index)
 {
+    auto& ssConfig = stonesenseState.ssConfig;
     switch(index)
     {
     case 0:

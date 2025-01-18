@@ -5,6 +5,7 @@
 #include "GUI.h"
 #include "TileTree.h"
 #include "TileTypes.h"
+#include "StonesenseState.h"
 
 c_sprite *  GetTerrainSpriteMap(int in, DFHack::t_matglossPair material, std::vector<std::unique_ptr<TerrainConfiguration>>& configTable, uint16_t form)
 {
@@ -69,12 +70,12 @@ c_sprite *  GetTerrainSpriteMap(int in, DFHack::t_matglossPair material, std::ve
 
 c_sprite * GetFloorSpriteMap(int in, DFHack::t_matglossPair material, uint16_t form)
 {
-    return GetTerrainSpriteMap(in, material, contentLoader->terrainFloorConfigs, form);
+    return GetTerrainSpriteMap(in, material, stonesenseState.contentLoader->terrainFloorConfigs, form);
 }
 
 c_sprite * GetTileSpriteMap(int in, DFHack::t_matglossPair material, uint16_t form)
 {
-    return GetTerrainSpriteMap(in, material, contentLoader->terrainWallConfigs, form);
+    return GetTerrainSpriteMap(in, material, stonesenseState.contentLoader->terrainWallConfigs, form);
 }
 
 c_tile_tree * GetTreeVegetation(df::tiletype_shape shape, df::tiletype_special special, int index)
@@ -83,6 +84,7 @@ c_tile_tree * GetTreeVegetation(df::tiletype_shape shape, df::tiletype_special s
     std::vector<std::unique_ptr<VegetationConfiguration>>* graphicSet;
     bool live=true;
     bool grown=true;
+    auto& contentLoader = stonesenseState.contentLoader;
     switch(shape) {
         using df::tiletype_shape;
     case tiletype_shape::TRUNK_BRANCH:

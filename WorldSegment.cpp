@@ -4,6 +4,7 @@
 #include "ContentLoader.h"
 #include "Creatures.h"
 #include "GameConfiguration.h"
+#include "StonesenseState.h"
 
 const GameState SegmentWrap::zeroState =
 {
@@ -240,6 +241,9 @@ void WorldSegment::DrawAllTiles()
         return;
     }
 
+    auto& ssConfig = stonesenseState.ssConfig;
+    auto& ssState = stonesenseState.ssState;
+
     if(ssConfig.fogenable) {
         ALLEGRO_BITMAP* temp = al_get_target_bitmap();
         if(!fog) {
@@ -327,13 +331,15 @@ void WorldSegment::AssembleAllTiles()
 
     clock_t starttime = clock();
 
+    auto& ssState = stonesenseState.ssState;
+
     // x,y,z print prices
     int32_t vsxmax = segState.Size.x-1;
     int32_t vsymax = segState.Size.y-1;
     int32_t vszmax = segState.Size.z-1; // grabbing one tile +z more than we should for tile rules
     for(int32_t vsz=0; vsz < vszmax; vsz++) {
         //add the fog to the queue
-        if(ssConfig.fogenable && fog) {
+        if(stonesenseState.ssConfig.fogenable && fog) {
             draw_event d = {
                 Fog,
                 std::monostate{},
@@ -360,7 +366,7 @@ void WorldSegment::AssembleAllTiles()
         }
     }
 
-    stoneSenseTimers.assembly_time.update(clock() - starttime);
+    stonesenseState.stoneSenseTimers.assembly_time.update(clock() - starttime);
 }
 
 

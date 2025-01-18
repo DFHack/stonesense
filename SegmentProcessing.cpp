@@ -5,6 +5,7 @@
 #include "GameBuildings.h"
 #include "SpriteMaps.h"
 #include "GameConfiguration.h"
+#include "StonesenseState.h"
 
 //big look up table
 uint8_t rampblut[] =
@@ -151,6 +152,8 @@ bool checkFloorBorderRequirement(WorldSegment* segment, int x, int y, int z, dir
 
 bool isTileOnVisibleEdgeOfSegment(WorldSegment* segment, Tile* b)
 {
+    auto& ssState = stonesenseState.ssState;
+
     if(int(b->z) == segment->segState.Position.z + segment->segState.Size.z - 2) {
         return true;
     }
@@ -293,6 +296,7 @@ inline void enclosedTile(WorldSegment * segment, Tile* b)
 */
 inline void unhideWaterFromAbove(WorldSegment * segment, Tile * b)
 {
+    auto& contentLoader = stonesenseState.contentLoader;
     if( b->designation.bits.flow_size
         && !isTileOnTopOfSegment(segment, b)
         && (b->designation.bits.hidden || b->fog_of_war) ) {
@@ -621,7 +625,7 @@ void addSegmentExtras(WorldSegment * segment)
             continue;
         }
 
-        if(!ssConfig.show_hidden_tiles && b->designation.bits.hidden) {
+        if(!stonesenseState.ssConfig.show_hidden_tiles && b->designation.bits.hidden) {
             continue;
         }
 
@@ -633,7 +637,7 @@ void addSegmentExtras(WorldSegment * segment)
             (b->tileMaterial() == tiletype_material::GRASS_DEAD) ||
             (b->tileMaterial() == tiletype_material::GRASS_DRY))) {
                 c_tile_tree * vegetationsprite = 0;
-                vegetationsprite = getVegetationTree(contentLoader->grassConfigs,b->grassmat,true,true);
+                vegetationsprite = getVegetationTree(stonesenseState.contentLoader->grassConfigs,b->grassmat,true,true);
                 if(vegetationsprite) {
                     vegetationsprite->insert_sprites(segment, b->x, b->y, b->z, b);
                 }
@@ -681,6 +685,7 @@ void optimizeSegment(WorldSegment * segment)
         if(!b) {
             continue;
         }
+        auto& ssConfig = stonesenseState.ssConfig;
 
         //try to mask away tiles that are flagged hidden
         if(!ssConfig.show_hidden_tiles ) {
@@ -734,5 +739,5 @@ void beautifySegment(WorldSegment * segment)
     addSegmentExtras(segment);
 
     segment->processed = 1;
-    stoneSenseTimers.beautify_time.update(clock() - starttime);
+    stonesenseState.stoneSenseTimers.beautify_time.update(clock() - starttime);
 }
