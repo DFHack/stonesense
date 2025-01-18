@@ -416,11 +416,10 @@ bool addSingleBuildingConfig( TiXmlElement* elemRoot,  std::vector<std::unique_p
     }
     else if (strGameCustom && strGameCustom[0])
     {
-        for (size_t i = 0; i < df::global::world->raws.buildings.all.size(); i++)
-        {
-            if (strcmp(strGameCustom, df::global::world->raws.buildings.all[i]->code.c_str()) == 0)
-                custom = i;
-        }
+        auto bld = df::global::world->raws.buildings.all;
+        auto it = std::find_if(bld.begin(), bld.end(), [&](auto b) { return b->code == strGameCustom; });
+        if (it != bld.end())
+            custom = it - bld.begin();
         if (custom == -1)
         {
             contentWarning("<building> game_custom attribute is invalid", elemRoot);
