@@ -45,7 +45,7 @@ int keyoffset=0;
 
 GameConfiguration ssConfig;
 GameState ssState;
-FrameTimers ssTimers;
+FrameTimers stoneSenseTimers;
 
 bool timeToReloadSegment;
 bool timeToReloadConfig;
@@ -381,7 +381,7 @@ static void* stonesense_thread(ALLEGRO_THREAD* main_thread, void* parms)
     timeToReloadConfig = true;
     contentLoader = std::make_unique<ContentLoader>();
 
-    ssTimers = FrameTimers{};
+    stoneSenseTimers = FrameTimers{};
 
     initRandomCube();
     if (!loadConfigFile() || !loadKeymapFile()) {

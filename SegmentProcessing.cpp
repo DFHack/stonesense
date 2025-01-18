@@ -734,5 +734,5 @@ void beautifySegment(WorldSegment * segment)
     addSegmentExtras(segment);
 
     segment->processed = 1;
-    ssTimers.beautify_time.update(clock() - starttime);
+    stoneSenseTimers.beautify_time.update(clock() - starttime);
 }

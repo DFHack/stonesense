@@ -360,7 +360,7 @@ void WorldSegment::AssembleAllTiles()
         }
     }
 
-    ssTimers.assembly_time.update(clock() - starttime);
+    stoneSenseTimers.assembly_time.update(clock() - starttime);
 }
 
 

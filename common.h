@@ -166,7 +166,7 @@ void PrintMessage(const char* msg, ...) Wformat(printf,1,2);
 void LogVerbose(const char* msg, ...) Wformat(printf,1,2);
 void SetTitle(const char *format, ...) Wformat(printf,1,2);
 
-extern FrameTimers ssTimers;
+extern FrameTimers stoneSenseTimers;
 
 extern uint32_t DebugInt1;
 

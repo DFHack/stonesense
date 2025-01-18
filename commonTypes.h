@@ -2,6 +2,7 @@
 
 #include <filesystem>
 #include <unordered_map>
+#include <concepts>
 
 #include "common.h"
 #include "SpriteColors.h"

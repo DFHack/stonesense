@@ -936,7 +936,7 @@ void readMapSegment(WorldSegment* segment, GameState inState)
 
     segment->loaded = 1;
     segment->processed = 0;
-    ssTimers.read_time.update(clock() - starttime);
+    stoneSenseTimers.read_time.update(clock() - starttime);
 }
 
 //==============================Map Read Main===========================//
