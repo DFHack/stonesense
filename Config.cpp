@@ -5,6 +5,8 @@
 #include "common.h"
 #include "commonTypes.h"
 #include "Config.h"
+#include "GameConfiguration.h"
+#include "GameState.h"
 
 using std::string;
 

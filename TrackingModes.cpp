@@ -1,6 +1,8 @@
 #include "common.h"
 #include "TrackingModes.h"
 #include "MapLoading.h"
+#include "GameConfiguration.h"
+#include "GameState.h"
 
 using namespace std;
 using namespace DFHack;

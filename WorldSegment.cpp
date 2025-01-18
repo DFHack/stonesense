@@ -3,6 +3,7 @@
 #include "GUI.h"
 #include "ContentLoader.h"
 #include "Creatures.h"
+#include "GameConfiguration.h"
 
 using namespace std;
 using namespace DFHack;

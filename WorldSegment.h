@@ -5,7 +5,7 @@
 #include "common.h"
 
 #include "Tile.h"
-
+#include "GameState.h"
 
 enum draw_event_type{
     Fog,
@@ -96,7 +96,7 @@ public:
     void CorrectTileForSegmentOffset(int32_t& x, int32_t& y, int32_t& z);
     void CorrectTileForSegmentRotation(int32_t& x, int32_t& y, int32_t& z);
     //void addTile(Tile* b);
-    void AssembleBlockTiles(int32_t firstX, int32_t firstY, int32_t lastX, int32_t lastY, int32_t incrx, int32_t incry, int32_t z);
+    // void AssembleBlockTiles(int32_t firstX, int32_t firstY, int32_t lastX, int32_t lastY, int32_t incrx, int32_t incry, int32_t z);
     void AssembleAllTiles();
     void AssembleSprite(draw_event d);
     void DrawAllTiles();
@@ -127,16 +127,12 @@ public:
         al_destroy_mutex(readmutex);
     }
     void shutdown(){
-        drawsegment->Reset(zeroState);
-        readsegment->Reset(zeroState);
-    }
-    void lock() {
         al_lock_mutex(drawmutex);
         al_lock_mutex(readmutex);
-    }
-    void unlock() {
-        al_unlock_mutex(drawmutex);
+        drawsegment->Reset(zeroState);
+        readsegment->Reset(zeroState);
         al_unlock_mutex(readmutex);
+        al_unlock_mutex(drawmutex);
     }
     void lockDraw() {
         al_lock_mutex(drawmutex);

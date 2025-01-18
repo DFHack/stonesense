@@ -4,6 +4,7 @@
 #include "ContentLoader.h"
 #include "GameBuildings.h"
 #include "SpriteMaps.h"
+#include "GameConfiguration.h"
 
 using namespace std;
 using namespace DFHack;

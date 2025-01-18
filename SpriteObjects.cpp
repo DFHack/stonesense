@@ -7,6 +7,7 @@
 #include "WorldSegment.h"
 #include "SpriteColors.h"
 #include "SpriteMaps.h"
+#include "GameConfiguration.h"
 
 #include "df/descriptor_pattern.h"
 #include "df/itemdef_ammost.h"

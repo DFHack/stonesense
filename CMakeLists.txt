@@ -56,6 +56,8 @@ SET(PROJECT_HDRS
     DumpInfo.h
     FluidConfiguration.h
     GameBuildings.h
+    GameConfiguration.h
+    GameState.h
     GroundMaterialConfiguration.h
     GUI.h
     ItemConfiguration.h

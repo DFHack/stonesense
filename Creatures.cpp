@@ -7,6 +7,8 @@
 #include "MiscUtils.h"
 #include "Tile.h"
 #include "SpriteColors.h"
+#include "GameConfiguration.h"
+
 #include "DataDefs.h"
 #include "df/world.h"
 #include "df/unit.h"

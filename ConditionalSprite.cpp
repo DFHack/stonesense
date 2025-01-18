@@ -3,6 +3,7 @@
 #include "Tile.h"
 #include "GameBuildings.h"
 #include "GUI.h"
+#include "GameState.h"
 
 using namespace DFHack;
 using namespace df::enums;

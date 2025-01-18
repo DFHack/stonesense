@@ -8,6 +8,7 @@
 #include "GUI.h"
 #include "MapLoading.h"
 #include "MiscUtils.h"
+#include "GameConfiguration.h"
 
 #include "df/buildings_other_id.h"
 #include "df/building_wellst.h"

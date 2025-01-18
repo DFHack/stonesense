@@ -7,6 +7,7 @@
 #include "MapLoading.h"
 #include "ColorConfiguration.h"
 #include "TreeGrowthConfiguration.h"
+#include "GameConfiguration.h"
 
 #include "tinyxml.h"
 #include "GUI.h"

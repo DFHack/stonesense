@@ -5,6 +5,8 @@
 #include "GameBuildings.h"
 #include "Creatures.h"
 #include "UserInput.h"
+#include "GameConfiguration.h"
+
 #include <math.h>
 
 extern int mouse_x, mouse_y, mouse_z;

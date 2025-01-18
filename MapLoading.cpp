@@ -9,6 +9,7 @@
 #include "GameBuildings.h"
 #include "Creatures.h"
 #include "ContentLoader.h"
+#include "GameConfiguration.h"
 
 #include "df/block_square_event_grassst.h"
 #include "df/block_square_event_material_spatterst.h"
@@ -28,6 +29,8 @@
 #include "df/plant_root_tile.h"
 #include "df/plant_tree_info.h"
 #include "df/plant_tree_tile.h"
+
+#include "allegro5/color.h"
 
 
 using namespace std;

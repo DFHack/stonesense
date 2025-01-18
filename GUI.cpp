@@ -20,6 +20,7 @@
 #include "ContentLoader.h"
 #include "Tile.h"
 #include "UserInput.h"
+#include "GameConfiguration.h"
 
 #include "modules/Units.h"
 

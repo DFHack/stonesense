@@ -4,6 +4,7 @@
 #include "MapLoading.h"
 #include "GUI.h"
 #include "ContentLoader.h"
+#include "GameConfiguration.h"
 
 #include "tinyxml.h"
 

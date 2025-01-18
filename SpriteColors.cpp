@@ -6,6 +6,7 @@
 #include "Creatures.h"
 #include "WorldSegment.h"
 #include "ContentLoader.h"
+#include "GameConfiguration.h"
 
 using namespace std;
 using namespace DFHack;

@@ -74,9 +74,9 @@ constexpr auto FLOORHEIGHT = 8;
 #endif
 
 // constexpr auto GFXMODE = GFX_AUTODETECT_WINDOWED;
-constexpr auto FULLSCREEN = false;
-constexpr auto RESOLUTION_WIDTH = 800;
-constexpr auto RESOLUTION_HEIGHT = 600;
+constexpr auto DEFAULT_FULLSCREEN_MODE = false;
+constexpr auto DEFAULT_RESOLUTION_WIDTH = 800;
+constexpr auto DEFAULT_RESOLUTION_HEIGHT = 600;
 // Height of a one pixel stripe of the wall of an entire tile,
 //        including wall and floor plate
 constexpr auto TILEHEIGHT = (WALLHEIGHT + FLOORHEIGHT);
@@ -167,8 +167,6 @@ void PrintMessage(const char* msg, ...) Wformat(printf,1,2);
 void LogVerbose(const char* msg, ...) Wformat(printf,1,2);
 void SetTitle(const char *format, ...) Wformat(printf,1,2);
 
-extern GameConfiguration ssConfig;
-extern GameState ssState;
 extern FrameTimers ssTimers;
 
 extern uint32_t DebugInt1;

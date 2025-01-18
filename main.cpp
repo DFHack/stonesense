@@ -3,6 +3,8 @@
 #include <list>
 
 #include "common.h"
+#include "commonTypes.h"
+
 #include "Config.h"
 //#include "Overlay.h"
 #include "Tile.h"
@@ -17,6 +19,8 @@
 #include "GroundMaterialConfiguration.h"
 #include "ContentLoader.h"
 #include "OcclusionTest.h"
+#include "GameConfiguration.h"
+#include "GameState.h"
 
 #include "Debug.h"
 
@@ -165,13 +169,8 @@ void benchmark()
     while(i--) {
         reloadPosition();
     }
-
-    FILE* fp = fopen("benchmark.txt", "w" );
-    if(!fp) {
-        return;
-    }
-    fprintf( fp, "%lims", clock() - startTime);
-    fclose(fp);
+    std::ofstream fp{ std::filesystem::path { "benchmark.txt" } };
+    fp << clock() - startTime << "ms";
 }
 
 void animUpdateProc()
@@ -378,49 +377,13 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
     color_ostream_proxy out(Core::getInstance().getConsole());
     out.print("Stonesense launched\n");
 
-    ssConfig.closeOnEsc = true;
-    ssConfig.show_announcements = true;
-    ssConfig.debug_mode = false;
-    ssConfig.hide_outer_tiles = false;
-    ssConfig.shade_hidden_tiles = true;
-    ssConfig.load_ground_materials = true;
-    ssConfig.automatic_reload_time = 0;
-    ssConfig.automatic_reload_step = 500;
-    ssConfig.lift_segment_offscreen_x = 0;
-    ssConfig.lift_segment_offscreen_y = 0;
-    ssConfig.Fullscreen = FULLSCREEN;
-    ssState.ScreenH = RESOLUTION_HEIGHT;
-    ssState.ScreenW = RESOLUTION_WIDTH;
-    ssState.Size.x = DEFAULT_SIZE;
-    ssState.Size.y = DEFAULT_SIZE;
-    ssState.Size.z = DEFAULT_SIZE_Z;
-    ssConfig.show_creature_names = false;
-    ssConfig.show_osd = false;
-    ssConfig.show_designations = true;
-    ssConfig.show_keybinds = false;
-    ssConfig.show_intro = true;
-    ssConfig.track_screen_center = true;
-    ssConfig.animation_step = 300;
-    ssConfig.track_mode = GameConfiguration::TRACKING_CENTER;
+    ssConfig = GameConfiguration{};
+    ssState.ScreenH = DEFAULT_RESOLUTION_HEIGHT;
+    ssState.ScreenW = DEFAULT_RESOLUTION_WIDTH;
+    ssState.Size = { DEFAULT_SIZE, DEFAULT_SIZE, DEFAULT_SIZE_Z };
     timeToReloadConfig = true;
-    ssConfig.fogcol = al_map_rgba(255, 255, 255, 255);
-    ssConfig.backcol = al_map_rgb(95, 95, 160);
-    ssConfig.fogenable = true;
-    ssConfig.bitmapHolds = 4096;
-    ssConfig.imageCacheSize = 4096;
-    ssConfig.fontsize = 10;
-    ssConfig.font = std::filesystem::path{ } / "data" / "art" / "font.ttf";
-    ssConfig.creditScreen = true;
-    ssConfig.bloodcutoff = 100;
-    ssConfig.poolcutoff = 100;
-    ssConfig.threadmade = 0;
-    ssConfig.threading_enable = 1;
-    ssConfig.fog_of_war = 1;
-    ssConfig.occlusion = 1;
     contentLoader = std::make_unique<ContentLoader>();
-    ssConfig.zoom = 0;
-    ssConfig.scale = 1.0f;
-    ssConfig.useDfColors = false;
+
     ssTimers.assembly_time = 1.0f;
     ssTimers.beautify_time = 1.0f;
     ssTimers.overlay_time = 1.0f;
@@ -428,6 +391,7 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
     ssTimers.read_time = 1.0f;
     ssTimers.prev_frame_time = clock();
     ssTimers.frame_total = 1.0f;
+
     initRandomCube();
     if (!loadConfigFile() || !loadKeymapFile()) {
         stonesense_started = 0;
@@ -556,9 +520,7 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
     flushImgFiles();
 
     // remove the uranium fuel from the reactor... or map segment from the clutches of other threads.
-    map_segment.lock();
     map_segment.shutdown();
-    map_segment.unlock();
     al_destroy_bitmap(IMGIcon);
     IMGIcon = 0;
     contentLoader.reset();

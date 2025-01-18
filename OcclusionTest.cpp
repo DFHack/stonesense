@@ -3,6 +3,7 @@
 #include "Tile.h"
 #include "WorldSegment.h"
 #include "GUI.h"
+#include "GameConfiguration.h"
 
 #include <filesystem>
 

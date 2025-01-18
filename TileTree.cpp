@@ -1,6 +1,7 @@
 #include "TileTree.h"
 #include "GameBuildings.h"
 #include "GUI.h"
+#include "GameConfiguration.h"
 
 using namespace std;
 using namespace DFHack;
