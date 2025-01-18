@@ -12,9 +12,6 @@
 
 void reloadPosition();
 
-void DisconnectFromDF();
-bool IsConnectedToDF();
-
 void read_segment( void *arg);
 
 extern const DFHack::VersionInfo *dfMemoryInfo;
