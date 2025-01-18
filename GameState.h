@@ -23,4 +23,3 @@ struct GameState{
     int ScreenW;
     int ScreenH;
 };
-
