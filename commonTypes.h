@@ -142,16 +142,24 @@ public:
     }
 };
 
+// this is required because gcc 10 can't handle a dependently typed non-type template argu,ent
+#if defined(__GNUC__) && __GNUC__ < 11
+template <std::floating_point T>
+#else
 template <std::floating_point T, T alpha = T{ 0.9 } >
+#endif
 class RollingAverage
 {
 private:
+#if defined(__GNUC__) && __GNUC__ < 11
+    static constexpr T alpha = T{ 0.9 };
+#endif
     T store;
     bool empty{ true };
 public:
     const T get() const { return store; }
     void update(const T val) { store = empty ? val : store * alpha + val * (T{ 1.0 } - alpha); empty = false; }
-    operator T() const{ return store; }
+    operator T() const { return store; }
 };
 
 struct FrameTimers{
