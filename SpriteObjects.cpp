@@ -388,7 +388,7 @@ c_sprite::~c_sprite(void)
 {
 }
 
-void c_sprite::set_by_xml(TiXmlElement *elemSprite, int32_t inFile, int creatureID, int casteID)
+void c_sprite::set_by_xml(TiXmlElement *elemSprite, int32_t inFile, int32_t creatureID, int32_t casteID)
 {
     fileindex = inFile;
     set_by_xml(elemSprite);
