@@ -141,15 +141,27 @@ public:
     }
 };
 
-struct FrameTimers{
-    float read_time;
-    float beautify_time;
-    float assembly_time;
-    float draw_time;
-    float overlay_time;
+template <std::floating_point T, T alpha = T{ 0.9 } >
+class RollingAverage
+{
+private:
+    T store;
+    bool empty{ true };
+public:
+    const T get() const { return store; }
+    void update(const T val) { store = empty ? val : store * alpha + val * (T{ 1.0 } - alpha); empty = false; }
+    operator T() const{ return store; }
+};
 
-    clock_t prev_frame_time;
-    float frame_total;
+struct FrameTimers{
+    RollingAverage<float> read_time;
+    RollingAverage<float> beautify_time;
+    RollingAverage<float> assembly_time;
+    RollingAverage<float> draw_time;
+    RollingAverage<float> overlay_time;
+    RollingAverage<float> frame_total;
+
+    clock_t prev_frame_time{ clock() };
 };
 
 struct SS_Item {

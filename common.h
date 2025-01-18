@@ -160,7 +160,6 @@ class SegmentWrap;
 
 
 //main.cpp
-void correctTileForDisplayedOffset(int32_t& x, int32_t& y, int32_t& z);
 
 void LogError(const char* msg, ...) Wformat(printf,1,2);
 void PrintMessage(const char* msg, ...) Wformat(printf,1,2);

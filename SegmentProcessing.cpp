@@ -734,5 +734,5 @@ void beautifySegment(WorldSegment * segment)
     addSegmentExtras(segment);
 
     segment->processed = 1;
-    ssTimers.beautify_time = (clock() - starttime)*0.1 + ssTimers.beautify_time*0.9;
+    ssTimers.beautify_time.update(clock() - starttime);
 }

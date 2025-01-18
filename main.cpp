@@ -369,7 +369,7 @@ static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALL
 }
 
 //replacement for main()
-static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
+static void* stonesense_thread(ALLEGRO_THREAD* main_thread, void* parms)
 {
     auto& out{ DFHack::Core::getInstance().getConsole() };
     out.print("Stonesense launched\n");
@@ -381,13 +381,7 @@ static void * stonesense_thread(ALLEGRO_THREAD * main_thread, void * parms)
     timeToReloadConfig = true;
     contentLoader = std::make_unique<ContentLoader>();
 
-    ssTimers.assembly_time = 1.0f;
-    ssTimers.beautify_time = 1.0f;
-    ssTimers.overlay_time = 1.0f;
-    ssTimers.draw_time = 1.0f;
-    ssTimers.read_time = 1.0f;
-    ssTimers.prev_frame_time = clock();
-    ssTimers.frame_total = 1.0f;
+    ssTimers = FrameTimers{};
 
     initRandomCube();
     if (!loadConfigFile() || !loadKeymapFile()) {

@@ -360,7 +360,7 @@ void WorldSegment::AssembleAllTiles()
         }
     }
 
-    ssTimers.assembly_time = (clock() - starttime)*0.1 + ssTimers.assembly_time*0.9;
+    ssTimers.assembly_time.update(clock() - starttime);
 }
 
 

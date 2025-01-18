@@ -875,9 +875,10 @@ void paintboard()
 
     //do the closing timer stuff
     clock_t donetime = clock();
-    ssTimers.draw_time = (donetime - starttime)*0.1 + ssTimers.draw_time*0.9;
-    ssTimers.frame_total = (donetime - ssTimers.prev_frame_time)*0.1 + ssTimers.frame_total*0.9;
+    ssTimers.draw_time.update(donetime - starttime);
+    ssTimers.frame_total.update(donetime - ssTimers.prev_frame_time);
     ssTimers.prev_frame_time = donetime;
+    auto flh = al_get_font_line_height(font);
 
     if (ssConfig.show_announcements) {
         al_hold_bitmap_drawing(true);
@@ -889,9 +890,10 @@ void paintboard()
         keyname = actionname = NULL;
         int line = 1;
         al_hold_bitmap_drawing(true);
+
         for(int32_t i=1; true; i++){
             if(getKeyStrings(i, keyname, actionname)){
-                draw_textf_border(font, uiColor(1), 10, line*al_get_font_line_height(font), 0, "%s: %s%s", keyname->c_str(), actionname->c_str(), isRepeatable(i) ? " (repeats)" : "");
+                draw_textf_border(font, uiColor(1), 10, line*flh, 0, "%s: %s%s", keyname->c_str(), actionname->c_str(), isRepeatable(i) ? " (repeats)" : "");
                 line++;
             }
             if(keyname == NULL) {
@@ -901,7 +903,7 @@ void paintboard()
         al_hold_bitmap_drawing(false);
     } else if (ssConfig.show_osd) {
         al_hold_bitmap_drawing(true);
-        draw_textf_border(font, uiColor(1), 10,al_get_font_line_height(font), 0, "%i,%i,%i, r%i, z%i", ssState.Position.x,ssState.Position.y,ssState.Position.z, ssState.Rotation, ssConfig.zoom);
+        draw_textf_border(font, uiColor(1), 10,flh, 0, "%i,%i,%i, r%i, z%i", ssState.Position.x,ssState.Position.y,ssState.Position.z, ssState.Rotation, ssConfig.zoom);
 
         drawSelectionCursor(segment);
 
@@ -910,35 +912,35 @@ void paintboard()
         drawAdvmodeMenuTalk(font, 5, ssState.ScreenH - 5);
 
         if(ssConfig.debug_mode) {
-            draw_textf_border(font, uiColor(1), 10, 3*al_get_font_line_height(font), 0, "Map Read Time: %.2fms", ssTimers.read_time);
-            draw_textf_border(font, uiColor(1), 10, 4*al_get_font_line_height(font), 0, "Map Beautification Time: %.2fms", ssTimers.beautify_time);
-            draw_textf_border(font, uiColor(1), 10, 5*al_get_font_line_height(font), 0, "Tile Sprite Assembly Time: %.2fms", ssTimers.assembly_time);
-            draw_textf_border(font, uiColor(1), 10, 6*al_get_font_line_height(font), 0, "DF Renderer Overlay Time: %.2fms", ssTimers.overlay_time);
-            draw_textf_border(font, uiColor(1), 10, 2*al_get_font_line_height(font), 0, "FPS: %.2f", 1000.0/ssTimers.frame_total);
-            draw_textf_border(font, uiColor(1), 10, 7*al_get_font_line_height(font), 0, "Draw: %.2fms", ssTimers.draw_time);
-            draw_textf_border(font, uiColor(1), 10, 8*al_get_font_line_height(font), 0, "D1: %i", DebugInt1);
-            draw_textf_border(font, uiColor(1), 10, 9*al_get_font_line_height(font), 0, "%i/%i/%i, %i:%i", contentLoader->currentDay+1, contentLoader->currentMonth+1, contentLoader->currentYear, contentLoader->currentHour, (contentLoader->currentTickRel*60)/50);
+            draw_textf_border(font, uiColor(1), 10, 3*flh, 0, "Map Read Time: %.2fms", float(ssTimers.read_time));
+            draw_textf_border(font, uiColor(1), 10, 4*flh, 0, "Map Beautification Time: %.2fms", float(ssTimers.beautify_time));
+            draw_textf_border(font, uiColor(1), 10, 5*flh, 0, "Tile Sprite Assembly Time: %.2fms", float(ssTimers.assembly_time));
+            draw_textf_border(font, uiColor(1), 10, 6*flh, 0, "DF Renderer Overlay Time: %.2fms", float(ssTimers.overlay_time));
+            draw_textf_border(font, uiColor(1), 10, 2*flh, 0, "FPS: %.2f", float(1000.0/ssTimers.frame_total));
+            draw_textf_border(font, uiColor(1), 10, 7*flh, 0, "Draw: %.2fms", float(ssTimers.draw_time));
+            draw_textf_border(font, uiColor(1), 10, 8*flh, 0, "D1: %i", DebugInt1);
+            draw_textf_border(font, uiColor(1), 10, 9*flh, 0, "%i/%i/%i, %i:%i", contentLoader->currentDay+1, contentLoader->currentMonth+1, contentLoader->currentYear, contentLoader->currentHour, (contentLoader->currentTickRel*60)/50);
 
             drawDebugInfo(segment);
         }
         ssConfig.platecount = 0;
         int top = 0;
         if(ssConfig.track_mode != GameConfiguration::TRACKING_NONE) {
-            top += al_get_font_line_height(font);
+            top += flh;
             draw_textf_border(font, uiColor(1), ssState.ScreenW/2,top, ALLEGRO_ALIGN_CENTRE, "Locked on DF screen + (%d,%d,%d)",ssConfig.viewXoffset,ssConfig.viewYoffset,ssConfig.viewZoffset);
         }
         if(ssConfig.follow_DFcursor && ssConfig.debug_mode) {
-            top += al_get_font_line_height(font);
+            top += flh;
             if(segment->segState.dfCursor.x != -30000) {
                 draw_textf_border(font, uiColor(1), ssState.ScreenW/2,top, ALLEGRO_ALIGN_CENTRE, "Following DF Cursor at: %d,%d,%d", segment->segState.dfCursor.x,segment->segState.dfCursor.y,segment->segState.dfCursor.z);
             }
         }
         if(ssConfig.single_layer_view) {
-            top += al_get_font_line_height(font);
+            top += flh;
             draw_textf_border(font, uiColor(1), ssState.ScreenW/2,top, ALLEGRO_ALIGN_CENTRE, "Single layer view");
         }
         if(ssConfig.automatic_reload_time) {
-            top += al_get_font_line_height(font);
+            top += flh;
             draw_textf_border(font, uiColor(1), ssState.ScreenW/2,top, ALLEGRO_ALIGN_CENTRE, "Reloading every %0.1fs", (float)ssConfig.automatic_reload_time/1000);
         }
         al_hold_bitmap_drawing(false);
