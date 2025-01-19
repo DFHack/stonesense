@@ -1144,44 +1144,28 @@ void c_sprite::assemble_world_offset(int x, int y, int z, int plateoffset, Tile 
                 }
             }
             if(needoutline) {
-                //drawy -= (WALLHEIGHT);
+                auto assembleOutline = [&](int idx) {
+                    int sheetx = idx % SHEET_OBJECTSWIDE;
+                    int sheety = idx / SHEET_OBJECTSWIDE;
+                    b->AssembleSprite(
+                        stonesenseState.IMGObjectSheet,
+                        al_map_rgb(255, 255, 255),
+                        sheetx * SPRITEWIDTH,
+                        sheety * SPRITEHEIGHT,
+                        SPRITEWIDTH,
+                        SPRITEHEIGHT,
+                        drawx + (offset_x)*ssConfig.scale,
+                        drawy + (offset_y)*ssConfig.scale - (WALLHEIGHT)*ssConfig.scale,
+                        SPRITEWIDTH * ssConfig.scale,
+                        SPRITEHEIGHT * ssConfig.scale,
+                        0);
+                    };
                 //Northern border
-                if(b->depthBorderNorth) {
-                    int sheetx = 281 % SHEET_OBJECTSWIDE;
-                    int sheety = 281 / SHEET_OBJECTSWIDE;
-                    b->AssembleSprite(
-                        stonesenseState.IMGObjectSheet,
-                        al_map_rgb(255,255,255),
-                        sheetx * SPRITEWIDTH,
-                        sheety * SPRITEHEIGHT,
-                        SPRITEWIDTH,
-                        SPRITEHEIGHT,
-                        drawx + (offset_x)*ssConfig.scale,
-                        drawy + (offset_y)*ssConfig.scale - (WALLHEIGHT)*ssConfig.scale,
-                        SPRITEWIDTH*ssConfig.scale,
-                        SPRITEHEIGHT*ssConfig.scale,
-                        0);
-                }
-
+                if (b->depthBorderNorth)
+                    assembleOutline(281);
                 //Western border
-                if(b->depthBorderWest) {
-                    int sheetx = 280 % SHEET_OBJECTSWIDE;
-                    int sheety = 280 / SHEET_OBJECTSWIDE;
-                    b->AssembleSprite(
-                        stonesenseState.IMGObjectSheet,
-                        al_map_rgb(255,255,255),
-                        sheetx * SPRITEWIDTH,
-                        sheety * SPRITEHEIGHT,
-                        SPRITEWIDTH,
-                        SPRITEHEIGHT,
-                        drawx + (offset_x)*ssConfig.scale,
-                        drawy + (offset_y)*ssConfig.scale - (WALLHEIGHT)*ssConfig.scale,
-                        SPRITEWIDTH*ssConfig.scale,
-                        SPRITEHEIGHT*ssConfig.scale,
-                        0);
-                }
-
-                //drawy += (WALLHEIGHT);
+                if (b->depthBorderWest)
+                    assembleOutline(280);
             }
         }
     }
