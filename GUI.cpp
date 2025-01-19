@@ -1129,41 +1129,40 @@ int loadImgFile(std::filesystem::path filename)
     }
 }
 
+namespace
+{
+    std::filesystem::path getAvailableFilename(std::string prefix, std::string suffix = ".png")
+    {
+        //get filename
+        int index = 1;
+        //search for the first screenshot# that does not exist already
+        while (true) {
+            std::stringstream buf{};
+            buf << prefix << index << suffix;
+            std::filesystem::path filename{ buf.str() };
+            if (!std::filesystem::exists(filename))
+                return filename;
+            index++;
+        }
+    }
+}
+
 void saveScreenshot()
 {
     al_clear_to_color(stonesenseState.ssConfig.backcol);
     paintboard();
-    //get filename
-    char filename[32] = {0};
-    FILE* fp;
-    int index = 1;
-    //search for the first screenshot# that does not exist already
-    while(true) {
-        snprintf(filename, sizeof(filename), "screenshot%i.png", index);
-
-        fp = fopen(filename, "r");
-        if( fp != 0) {
-            fclose(fp);
-        } else
-            //file does not exist, so exit loop
-        {
-            break;
-        }
-        index++;
-    };
-    //move image to 16 bits
-    //al_set_new_bitmap_format(ALLEGRO_PIXEL_FORMAT_ANY_NO_ALPHA);
+    std::filesystem::path filename = getAvailableFilename("screenshot");
     auto& ssState = stonesenseState.ssState;
 
     ALLEGRO_BITMAP* temp = al_create_bitmap(ssState.ScreenW, ssState.ScreenH);
     al_set_target_bitmap(temp);
-    PrintMessage("saving screenshot to %s\n", filename);
+    PrintMessage("saving screenshot to %s\n", filename.string().c_str());
     auto& ssConfig = stonesenseState.ssConfig;
     if(!ssConfig.transparentScreenshots) {
         al_clear_to_color(ssConfig.backcol);
     }
     paintboard();
-    al_save_bitmap(filename, temp);
+    al_save_bitmap(filename.string().c_str(), temp);
     al_set_target_bitmap(al_get_backbuffer(al_get_current_display()));
     al_destroy_bitmap(temp);
     //al_set_new_bitmap_format(ALLEGRO_PIXEL_FORMAT_ANY);
@@ -1171,25 +1170,8 @@ void saveScreenshot()
 
 void saveImage(ALLEGRO_BITMAP* image)
 {
-    //get filename
-    char filename[25] = {0};
-    FILE* fp;
-    int index = 1;
-    //search for the first screenshot# that does not exist already
-    while(true) {
-        sprintf(filename, "Image%i.png", index);
-
-        fp = fopen(filename, "r");
-        if( fp != 0) {
-            fclose(fp);
-        } else
-            //file does not exist, so exit loop
-        {
-            break;
-        }
-        index++;
-    };
-    al_save_bitmap(filename, image);
+    std::filesystem::path filename = getAvailableFilename("Image");
+    al_save_bitmap(filename.string().c_str(), image);
 }
 
 void saveMegashot(bool tall)
@@ -1200,22 +1182,7 @@ void saveMegashot(bool tall)
     // draw_textf_border(font, uiColor(1), ssState.ScreenW/2, ssState.ScreenH/2, ALLEGRO_ALIGN_CENTRE, "saving large screenshot...");
     draw_textf_border(stonesenseState.font, uiColor(1), ssState.ScreenW/2, ssState.ScreenH/2, ALLEGRO_ALIGN_CENTRE, "saving large screenshot... Stonesense will become unresponsive after this process completes. Please close and re-open Stonesense.");
     al_flip_display();
-    char filename[32] = {0};
-    FILE* fp;
-    int index = 1;
-    //search for the first screenshot# that does not exist already
-    while(true) {
-        snprintf(filename, sizeof(filename), "screenshot%i.png", index);
-        fp = fopen(filename, "r");
-        if( fp != 0) {
-            fclose(fp);
-        } else
-            //file does not exist, so exit loop
-        {
-            break;
-        }
-        index++;
-    };
+    std::filesystem::path filename = getAvailableFilename("screenshot");
     // int timer = clock();
     //back up all the relevant values
     auto& ssConfig = stonesenseState.ssConfig;
@@ -1241,7 +1208,7 @@ void saveMegashot(bool tall)
 
     //draw and save the image
     if(bigFile) {
-        PrintMessage("saving large screenshot to %s\n", filename);
+        PrintMessage("saving large screenshot to %s\n", filename.string().c_str());
         al_set_target_bitmap(bigFile);
         if(!ssConfig.transparentScreenshots) {
             al_clear_to_color(ssConfig.backcol);
@@ -1357,7 +1324,7 @@ void saveMegashot(bool tall)
         }
 
 
-        al_save_bitmap(filename, bigFile);
+        al_save_bitmap(filename.string().c_str(), bigFile);
         // al_set_target_bitmap(al_get_backbuffer(al_get_current_display()));
         // timer = clock() - timer;
         // PrintMessage("\tcreating screenshot took %ims\n", timer);
