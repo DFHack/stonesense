@@ -42,7 +42,7 @@ Template for new versions:
 ## Fixes
 
 ## Misc Improvements
-- `stonesense`: ``keybinds.txt`` config file is now read from ``dfhack-configs/stonesense/keybinds.txt``
+- `stonesense`: ``keybinds.txt`` config file is now read from ``dfhack-config/stonesense/keybinds.txt``
 
 ## Removed
 
