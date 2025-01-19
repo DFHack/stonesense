@@ -38,7 +38,6 @@ Template for new versions:
 # Future
 
 ## New Features
-- `stonesense`: ``a``, ``;``, and ``~`` are now the default hotkeys for toggling announcements, fog, and debug mode, respectively.
 
 ## Fixes
 
