@@ -41,10 +41,28 @@ Template for new versions:
 - `stonesense`: added ``AUTO`` as an option for the now-split ``SEGMENTSIZE_X`` and ``SEGMENTSIZE_Y``
 - `stonesense`: added new hotkeys for resizing the segmentsize
 ## Fixes
+
+## Misc Improvements
+
+## Removed
+
+# 50.15-r2
+
+## New Features
+- `stonesense`: added hotkey to toggle fog ``;`` (default keybinding)
+- `stonesense`: added hotkey to toggle announcements: ``a`` (default keybinding)
+- `stonesense`: added hotkey to toggle debug mode: ``~`` (default keybinding)
+- `stonesense`: added init file config to show announcements (on by default)
+- `stonesense`: added init file config for whether Esc is recognized for closing the stonesense window (on by default to match previous behavior)
+- `stonesense`: added init file config for whether creature moods and jobs are displayed (off by default)
+
+## Fixes
 - `stonesense`: fixed crash when maximizing or resizing the window
+- `stonesense`: fixed crash when turning the onscreen display (OSD) layer off
 
 ## Misc Improvements
 - `stonesense`: changed announcements to be right-aligned and limited to only show the most recent 10 announcements
 - `stonesense`: ``init.txt`` config file is now read from ``dfhack-configs/stonesense/init.txt``
 - `stonesense`: creature names are now hidden by default (they can still be shown by pressing ``n`` (default keybinding) while stonesense window is active)
 - `stonesense`: use smaller increments for zooming in and out
+- `stonesense`: OSD is now hidden by default; hit F2 (default keybinding) to show it again

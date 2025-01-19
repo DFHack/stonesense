@@ -2,6 +2,10 @@ Please note, these keywords are case sensitive for now.
 
 --Interface--
 
+Sets whether hitting Esc will close the window, in addition to being able
+to use the close window button. (YES or NO)
+[CLOSEONESC:YES]
+
 Sets the width and height of the application in pixels.
 [WIDTH:800]
 [HEIGHT:600]
@@ -94,15 +98,17 @@ Sets Stonesense in debug mode. Adds additional information to displays.
 Sets the debug cursor to follow the cursor from DF when it is there.
 [FOLLOW_DF_CURSOR:YES]
 
-Shows creatures names floating above their sprites. (Toggle with 'n')
-[SHOW_CREATURE_NAMES:YES]
+Shows creatures info floating above their sprites.
+[SHOW_CREATURE_NAMES:NO]
+[SHOW_CREATURE_MOODS:NO]
+[SHOW_CREATURE_JOBS:NO]
 
 Options to control how names are displayed (if SHOW_CREATURE_NAMES is set)
 [NAMES_USE_NICKNAME:YES]
 [NAMES_USE_SPECIES:YES]
 
 Enables or disables the entire on-screen-display overlay (Toggle with F2)
-[SHOW_OSD:YES]
+[SHOW_OSD:NO]
 
 Shows all creatures, for debugging. Living, dead, kidnapped, caged, EVERY single one.
 [ALLCREATURES:NO]
