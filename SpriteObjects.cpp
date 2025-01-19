@@ -1076,10 +1076,9 @@ void c_sprite::assemble_world_offset(int x, int y, int z, int plateoffset, Tile 
         }
         ALLEGRO_COLOR shade_color = shadeAdventureMode(get_color(b), b->fog_of_war, b->designation.bits.outside);
         if(chop && ( halftile == HALFPLATECHOP)) {
-            auto sheet = (fileindex >= 0) ? getImgFile(fileindex) : defaultsheet;
             if(shade_color.a > 0.001f)
                 b->AssembleSprite(
-                    sheet,
+                    (fileindex >= 0) ? getImgFile(fileindex) : defaultsheet,
                     premultiply(shade_color),
                     sheetx * spritescale,
                     (sheety+WALL_CUTOFF_HEIGHT) * spritescale,
