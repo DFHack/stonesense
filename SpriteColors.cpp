@@ -11,22 +11,42 @@
 
 ALLEGRO_COLOR operator*(const ALLEGRO_COLOR &color1, const ALLEGRO_COLOR &color2)
 {
-    ALLEGRO_COLOR temp;
-    temp.r=color1.r*color2.r;
-    temp.g=color1.g*color2.g;
-    temp.b=color1.b*color2.b;
-    temp.a=color1.a*color2.a;
-    return temp;
+    return ALLEGRO_COLOR {
+        .r = color1.r * color2.r,
+        .g = color1.g * color2.g,
+        .b = color1.b * color2.b,
+        .a = color1.a * color2.a,
+    };
 }
 
 ALLEGRO_COLOR operator+(const ALLEGRO_COLOR &color1, const ALLEGRO_COLOR &color2)
 {
-    ALLEGRO_COLOR temp;
-    temp.r=color1.r+(color2.r*(1-color1.r));
-    temp.g=color1.g+(color2.g*(1-color1.g));
-    temp.b=color1.b+(color2.b*(1-color1.b));
-    temp.a=color1.a+(color2.a*(1-color1.a));
-    return temp;
+    return ALLEGRO_COLOR {
+        .r = color1.r + (color2.r * (1 - color1.r)),
+        .g = color1.g + (color2.g * (1 - color1.g)),
+        .b = color1.b + (color2.b * (1 - color1.b)),
+        .a = color1.a + (color2.a * (1 - color1.a)),
+    };
+}
+
+ALLEGRO_COLOR operator*(const ALLEGRO_COLOR& color1, const float m)
+{
+    return ALLEGRO_COLOR {
+        .r = color1.r * m,
+        .g = color1.g * m,
+        .b = color1.b * m,
+        .a = color1.a * m,
+    };
+}
+
+ALLEGRO_COLOR operator*=(ALLEGRO_COLOR& color1, const float m)
+{
+    color1 = ALLEGRO_COLOR {
+        .r = color1.r * m,
+        .g = color1.g * m,
+        .b = color1.b * m,
+        .a = color1.a * m,
+    };
 }
 
 /*

@@ -641,20 +641,16 @@ void Tile::AssembleTile( void )
             AssembleParticleCloud(tileeffect.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_smoke, tint);
             break;
         case df::flow_type::Dragonfire:
-            tint.a*=tileeffect.density/100.0f;
-            tint.g*=tileeffect.density/100.0f;
-            tint.b*=tileeffect.density/100.0f;
+            tint *= tileeffect.density / 100.f;
             size = 3 - ((tileeffect.density-1)/25);
             AssembleSpriteFromSheet((((stonesenseState.currentFrameLong+rando)%8)*20+size), sprite_dragonfire, tint, drawx, drawy, this, 2.0f);
             //ALLEGRO_COLOR tint = lookupMaterialColor(Eff_Dragonfire.matt.type, Eff_Dragonfire.matt.index);
             //draw_particle_cloud(Eff_Dragonfire.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_dragonfire, tint);
             break;
         case df::flow_type::Fire:
-            tint.a*=tileeffect.density/100.0f;
-            tint.g*=tileeffect.density/100.0f;
-            tint.b*=tileeffect.density/100.0f;
+            tint *= tileeffect.density / 100.0f;
             size = 3 - ((tileeffect.density-1)/25);
-            AssembleSpriteFromSheet((((stonesenseState.currentFrameLong+rando)%8)*20+size), sprite_dragonfire, tint, drawx, drawy, this, 2.0f);
+            AssembleSpriteFromSheet((((stonesenseState.currentFrameLong+rando)%8)*20+size), sprite_fire, tint, drawx, drawy, this, 2.0f);
             //ALLEGRO_COLOR tint = lookupMaterialColor(Eff_Fire.matt.type, Eff_Fire.matt.index);
             //draw_particle_cloud(Eff_Fire.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_fire, tint);
             break;
