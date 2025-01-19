@@ -1083,35 +1083,20 @@ void c_sprite::assemble_world_offset(int x, int y, int z, int plateoffset, Tile 
         }
         ALLEGRO_COLOR shade_color = shadeAdventureMode(get_color(b), b->fog_of_war, b->designation.bits.outside);
         if(chop && ( halftile == HALFPLATECHOP)) {
-            if(fileindex < 0) {
-                if(shade_color.a > 0.001f)
-                    b->AssembleSprite(
-                        defaultsheet, premultiply(shade_color),
-                        sheetx * spritescale,
-                        (sheety+WALL_CUTOFF_HEIGHT) * spritescale,
-                        spritewidth * spritescale,
-                        (spriteheight-WALL_CUTOFF_HEIGHT) * spritescale,
-                        drawx + (offset_x + offset_user_x)*ssConfig.scale,
-                        drawy + (offset_user_y + (offset_y - WALLHEIGHT)+WALL_CUTOFF_HEIGHT)*ssConfig.scale,
-                        spritewidth*ssConfig.scale,
-                        (spriteheight-WALL_CUTOFF_HEIGHT)*ssConfig.scale,
-                        0);
-            } else {
-
-                if(shade_color.a > 0.001f)
-                    b->AssembleSprite(
-                        getImgFile(fileindex),
-                        premultiply(shade_color),
-                        sheetx * spritescale,
-                        (sheety+WALL_CUTOFF_HEIGHT) * spritescale,
-                        spritewidth * spritescale,
-                        (spriteheight-WALL_CUTOFF_HEIGHT) * spritescale,
-                        drawx + (offset_x + offset_user_x)*ssConfig.scale,
-                        drawy + (offset_user_y + (offset_y - WALLHEIGHT)+WALL_CUTOFF_HEIGHT)*ssConfig.scale,
-                        spritewidth*ssConfig.scale,
-                        (spriteheight-WALL_CUTOFF_HEIGHT)*ssConfig.scale,
-                        0);
-            }
+            auto sheet = (fileindex >= 0) ? getImgFile(fileindex) : defaultsheet;
+            if(shade_color.a > 0.001f)
+                b->AssembleSprite(
+                    sheet,
+                    premultiply(shade_color),
+                    sheetx * spritescale,
+                    (sheety+WALL_CUTOFF_HEIGHT) * spritescale,
+                    spritewidth * spritescale,
+                    (spriteheight-WALL_CUTOFF_HEIGHT) * spritescale,
+                    drawx + (offset_x + offset_user_x)*ssConfig.scale,
+                    drawy + (offset_user_y + (offset_y - WALLHEIGHT)+WALL_CUTOFF_HEIGHT)*ssConfig.scale,
+                    spritewidth*ssConfig.scale,
+                    (spriteheight-WALL_CUTOFF_HEIGHT)*ssConfig.scale,
+                    0);
 
             if(shade_color.a > 0.001f) {
                 b->AssembleSprite(
