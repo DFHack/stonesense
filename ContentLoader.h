@@ -159,6 +159,7 @@ extern void contentError(const std::string& message, TiXmlNode* element);
 extern void contentWarning(const std::string& message, TiXmlNode* element);
 extern char getAnimFrames(const char* framestring);
 extern int loadConfigImgFile(std::filesystem::path filename, TiXmlElement* referrer);
+extern int loadImgFromXML(TiXmlElement* elemRoot);
 MAT_BASICS lookupMaterialType(const char* strValue);
 int lookupMaterialIndex(int matType, const char* strValue);
 

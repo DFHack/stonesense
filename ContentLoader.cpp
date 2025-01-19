@@ -693,6 +693,13 @@ int loadConfigImgFile(std::filesystem::path filename, TiXmlElement* referrer)
     return loadImgFile(configfilepath);
 }
 
+int loadImgFromXML(TiXmlElement* elemRoot)
+{
+    int basefile = INVALID_INDEX;
+    const char* filename = elemRoot->Attribute("file");
+    return (filename != NULL && filename[0] != 0) ? loadConfigImgFile(filename, elemRoot) : INVALID_INDEX;
+}
+
 void ContentLoader::flushCreatureConfig()
 {
     creatureConfigs.clear();

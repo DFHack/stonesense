@@ -338,14 +338,9 @@ namespace
 
 bool addSingleTerrainConfig(TiXmlElement* elemRoot)
 {
-    int basefile = INVALID_INDEX;
-    const char* filename = elemRoot->Attribute("file");
-    if (filename != NULL && filename[0] != 0) {
-        basefile = loadConfigImgFile((char*)filename, elemRoot);
-        if (basefile == -1) {
-            return false;
-        }
-    }
+    int basefile = loadImgFromXML(elemRoot);
+    if (basefile == INVALID_INDEX)
+        return false;
 
     std::string elementType = elemRoot->Value();
     auto& contentLoader = stonesenseState.contentLoader;
