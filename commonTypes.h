@@ -1,6 +1,8 @@
 #pragma once
 
 #include <filesystem>
+#include <unordered_map>
+#include <concepts>
 
 #include "common.h"
 #include "SpriteColors.h"
@@ -140,147 +142,35 @@ public:
     }
 };
 
-
-struct GameConfiguration {
-    bool overlay_mode;
-    bool autosize_segmentX;
-    bool autosize_segmentY;
-    bool show_zones;
-    bool show_stockpiles;
-    bool show_designations;
-    bool show_osd;
-    bool show_announcements;
-    bool show_keybinds;
-    bool closeOnEsc;
-    bool single_layer_view;
-    bool shade_hidden_tiles;
-    bool show_hidden_tiles;
-    bool show_creature_names;
-    bool names_use_nick;
-    bool names_use_species;
-    bool show_all_creatures;
-    bool load_ground_materials;
-    bool hide_outer_tiles;
-    bool debug_mode;
-    int lift_segment_offscreen_x;
-    int lift_segment_offscreen_y;
-    uint8_t truncate_walls;
-    bool verbose_logging;
-    int viewXoffset;
-    int viewYoffset;
-    int viewZoffset;
-    bool track_screen_center;
-    int automatic_reload_time;
-    int automatic_reload_step;
-    int animation_step;
-    int fontsize;
-    std::filesystem::path font;
-    bool Fullscreen;
-    bool show_intro;
-    ALLEGRO_COLOR fogcol;
-    ALLEGRO_COLOR backcol;
-    bool fogenable;
-
-    bool follow_DFcursor;
-
-    enum trackingmode : uint8_t {
-        TRACKING_NONE,
-        TRACKING_CENTER,
-        TRACKING_FOCUS,
-
-        TRACKING_INVALID
-    };
-    trackingmode track_mode;
-
-    bool invert_mouse_z;
-
-    int bitmapHolds;
-
-    bool saveImageCache;
-    bool cache_images;
-    int imageCacheSize;
-    bool useDfColors;
-    dfColors colors;
-    bool opengl;
-    bool directX;
-    bool software;
-
-    uint32_t menustate;
-    //DFHack::t_viewscreen viewscreen;
-
-    bool spriteIndexOverlay;
-    bool creditScreen;
-    int currentSpriteOverlay;
-
-    bool dayNightCycle;
-
-    bool show_creature_moods;
-    bool show_creature_jobs;
-    uint8_t show_creature_professions;
-
-    bool transparentScreenshots;
-
-    bool fog_of_war;
-
-    bool occlusion;
-    bool tile_count;
-
-    uint8_t bloodcutoff;
-    uint8_t poolcutoff;
-    //follows are anti-crash things
-    bool skipWorld;
-    bool skipCreatures;
-    bool skipCreatureTypes;
-    bool skipCreatureTypesEx;
-    bool skipDescriptorColors;
-    bool skipBuildings;
-    bool skipVegetation;
-    bool skipConstructions;
-    bool skipMaps;
-    bool skipInorganicMats;
-    bool skipOrganicMats;
-
-    //following are threading stuff
-    ALLEGRO_COND * readCond;
-    ALLEGRO_THREAD * readThread;
-    bool threadmade;
-    bool threadstarted;
-
-    bool threading_enable;
-    int platecount;
-
-    int zoom;
-    float scale;
-};
-
-struct GameState{
-    //properties of the currently viewed portion of the segment
-    Crd3D Position;
-    int Rotation;
-
-    //the size of the next segment to load, and the map region
-    Crd3D Size;
-    Crd3D RegionDim;
-
-    //position of the cursor
-    Crd3D dfCursor;
-    //position of the selection cursor
-    Crd3D dfSelection;
-
-    //the width and height of the stonesense window
-    int ScreenW;
-    int ScreenH;
+// this is required because gcc 10 can't handle a dependently typed non-type template argu,ent
+#if defined(__GNUC__) && __GNUC__ < 11
+template <std::floating_point T>
+#else
+template <std::floating_point T, T alpha = T{ 0.9 } >
+#endif
+class RollingAverage
+{
+private:
+#if defined(__GNUC__) && __GNUC__ < 11
+    static constexpr T alpha = T{ 0.9 };
+#endif
+    T store;
+    bool empty{ true };
+public:
+    const T get() const { return store; }
+    void update(const T val) { store = empty ? val : store * alpha + val * (T{ 1.0 } - alpha); empty = false; }
+    operator T() const { return store; }
 };
 
 struct FrameTimers{
-    float read_time;
-    float beautify_time;
-    float assembly_time;
-    float draw_time;
-    float overlay_time;
+    RollingAverage<float> read_time;
+    RollingAverage<float> beautify_time;
+    RollingAverage<float> assembly_time;
+    RollingAverage<float> draw_time;
+    RollingAverage<float> overlay_time;
+    RollingAverage<float> frame_total;
 
-    clock_t prev_frame_time;
-    float frame_total;
+    clock_t prev_frame_time{ clock() };
 };
 
 struct SS_Item {
@@ -340,4 +230,33 @@ struct Stonesense_Building
     };
     int32_t custom_type;
     df::building* origin;
+};
+
+template <typename Key, typename Val, typename Hash = std::hash<Key>>
+class SparseArray {
+
+    std::unordered_map< Key, Val, Hash> map;
+
+public:
+    void clear()
+    {
+        map.clear();
+    }
+    void add(Key&& k, Val& v)
+    {
+        auto it = map.find(k);
+        if (it != map.end())
+        {
+            it->second = v;
+        }
+        else
+        {
+            map.emplace(k, v);
+        }
+    }
+    std::optional<Val> lookup(Key&& k)
+    {
+        auto it = map.find(k);
+        return it != map.end() ? std::optional{ it->second } : std::nullopt;
+    }
 };

@@ -74,9 +74,9 @@ constexpr auto FLOORHEIGHT = 8;
 #endif
 
 // constexpr auto GFXMODE = GFX_AUTODETECT_WINDOWED;
-constexpr auto FULLSCREEN = false;
-constexpr auto RESOLUTION_WIDTH = 800;
-constexpr auto RESOLUTION_HEIGHT = 600;
+constexpr auto DEFAULT_FULLSCREEN_MODE = false;
+constexpr auto DEFAULT_RESOLUTION_WIDTH = 800;
+constexpr auto DEFAULT_RESOLUTION_HEIGHT = 600;
 // Height of a one pixel stripe of the wall of an entire tile,
 //        including wall and floor plate
 constexpr auto TILEHEIGHT = (WALLHEIGHT + FLOORHEIGHT);
@@ -105,8 +105,6 @@ constexpr auto COLOR_SEGMENTOUTLINE = 0x112211;
 constexpr auto BASE_SHADOW_PLATE = 160;
 constexpr auto DEFAULT_SHADOW = 4;
 constexpr auto MAX_SHADOW = 7;
-
-constexpr auto RANDOM_CUBE = 16;
 
 // this shouldn't change with mods, so should
 // be know ahead of time (especially since we
@@ -161,31 +159,16 @@ class SegmentWrap;
 
 
 //main.cpp
-void correctTileForDisplayedOffset(int32_t& x, int32_t& y, int32_t& z);
 
 void LogError(const char* msg, ...) Wformat(printf,1,2);
 void PrintMessage(const char* msg, ...) Wformat(printf,1,2);
 void LogVerbose(const char* msg, ...) Wformat(printf,1,2);
 void SetTitle(const char *format, ...) Wformat(printf,1,2);
 
-extern GameConfiguration ssConfig;
-extern GameState ssState;
-extern FrameTimers ssTimers;
-
-extern uint32_t DebugInt1;
-
-extern bool timeToReloadSegment;
-extern bool timeToReloadConfig;
-extern char currentAnimationFrame;
-extern uint32_t currentFrameLong;
-extern bool animationFrameShown;
-
 constexpr auto MAX_ANIMFRAME = 6;
 
 // binary 00111111
 constexpr auto ALL_FRAMES = 0b111111;
-
-extern bool key[ALLEGRO_KEY_MAX];
 
 //from UserInput.cpp
 void doMouse();
@@ -204,12 +187,6 @@ class BuildingConfiguration;
 // BUG: this is dangerous!
 constexpr auto FILENAME_BUFFERSIZE = 1024;
 constexpr auto FILENAME_BUFFERSIZE_LOCAL = 2048;
-
-extern ALLEGRO_FONT *font;
-extern ALLEGRO_KEYBOARD_STATE keyboard;
-extern ALLEGRO_TIMER *reloadtimer;
-extern ALLEGRO_TIMER * animationtimer;
-extern ALLEGRO_MOUSE_STATE mouse;
 
 enum MAT_BASICS {
     INVALID = -1,
@@ -256,5 +233,3 @@ constexpr auto FORM_BAR = 1;
 constexpr auto FORM_BLOCK = 2;
 constexpr auto FORM_BOULDER = 3;
 constexpr auto FORM_LOG = 4;
-
-extern int randomCube[RANDOM_CUBE][RANDOM_CUBE][RANDOM_CUBE];

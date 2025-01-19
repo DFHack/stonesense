@@ -6,11 +6,11 @@
 #include "common.h"
 #include "commonTypes.h"
 #include "Config.h"
+#include "GameConfiguration.h"
+#include "GameState.h"
+#include "StonesenseState.h"
 
 using std::string;
-
-using namespace DFHack;
-using namespace df::enums;
 
 namespace {
     string parseStrFromLine(string keyword, string line)
@@ -34,28 +34,39 @@ namespace {
 
     int parseIntFromLine(string keyword, string line)
     {
-        int retVal = 0;
-        string trimString = "";
-        trimString += "[";
-        trimString += keyword;
-        trimString += ":";
-        int length = (int)trimString.length();
-
-
-        if (line.compare(0, length, trimString) == 0) {
-            line.replace(0, length, "");
-            line.replace(line.length() - 1, 1, "");
-            retVal = atoi(line.c_str());
-        }
-
-        return retVal;
+        auto tmp = parseStrFromLine(keyword, line);
+        return tmp.empty() ? 0 : atoi(tmp.c_str());
     }
+}
+
+std::optional<std::string> trim_line(std::string line)
+{
+    if (line.empty())
+        return std::nullopt;
+
+    if (!line.starts_with("["))
+        return std::nullopt;
+
+    if (line.ends_with("\r"))
+        line.resize(line.size() - 1);
+
+    if (!line.ends_with("]"))
+        return std::nullopt;
+
+    return std::optional{ line };
+}
 
     int getSegmentSizeConfig(string setting, string line) {
         bool autosize = (parseStrFromLine(setting, line) == "AUTO");
         int value = DEFAULT_SEGSIZE_XY;
         if (autosize) {
             value = 1; // will get overwritten when the window comes up
+            if (setting.ends_with("XY") || setting.ends_with("X")) {
+                stonesenseState.ssConfig.autosize_segmentX = true;
+            }
+            if (setting.ends_with("Y")) {
+                stonesenseState.ssConfig.autosize_segmentY = true;
+            }
         } else {
             value = parseIntFromLine(setting, line);
             value = ((value < MIN_SEGSIZE) ? DEFAULT_SEGSIZE_XY : value);
@@ -65,26 +76,15 @@ namespace {
         return value;
     }
 
-
+namespace {
     void parseConfigLine(string line)
     {
-        if (line.empty()) {
-            return;
-        }
-        char c = line[0];
-        if (c != '[') {
-            return;
-        }
+        auto l = trim_line(line);
+        if (!l) return;
+        line = *l;
 
-        //some systems don't remove the \r char as a part of the line change:
-        if (line.size() > 0 && line[line.size() - 1] == '\r') {
-            line.resize(line.size() - 1);
-        }
-
-        c = line[line.length() - 1];
-        if (c != ']') {
-            return;
-        }
+        auto& ssConfig = stonesenseState.ssConfig;
+        auto& ssState = stonesenseState.ssState;
 
         if (line.find("[CLOSEONESC") != string::npos) {
             string result = parseStrFromLine("CLOSEONESC", line);
@@ -848,7 +848,7 @@ bool loadConfigFile()
         parseConfigLine( line );
     }
     // update allegro colors loaded from file
-    ssConfig.colors.update();
+    stonesenseState.ssConfig.colors.update();
     //close file, etc.
     myfile.close();
     return true;

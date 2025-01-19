@@ -3,9 +3,6 @@
 #include "Constructions.h"
 #include "WorldSegment.h"
 
-using namespace DFHack;
-using namespace df::enums;
-
 using std::vector;
 
 void changeConstructionMaterials(WorldSegment* segment, vector<df::construction>* allConstructions)
@@ -17,7 +14,7 @@ void changeConstructionMaterials(WorldSegment* segment, vector<df::construction>
         if( !b ) {
             continue;
         }
-        if (b->tileMaterial() != tiletype_material::CONSTRUCTION)
+        if (b->tileMaterial() != df::tiletype_material::CONSTRUCTION)
             continue;
         //don't assign invalid material indexes
         //if(construct->mat_idx != -1){
@@ -40,6 +37,7 @@ bool readConstructionsToTile( Tile* b, const Stonesense_Building* building )
 
         switch(building->construction_type)
         {
+            using df::construction_type;
         case construction_type::Fortification:
             constructedTiletype = df::tiletype::ConstructedFortification;
             break;
