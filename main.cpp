@@ -210,7 +210,7 @@ void drawcredits()
 }
 
 int getAutoSegmentSize() {
-    return (int)std::ceil(std::sqrt(2) * (ssState.ScreenW + ssState.ScreenH) / TILEWIDTH);
+    return (int)std::ceil(std::sqrt(2) * (stonesenseState.ssState.ScreenW + stonesenseState.ssState.ScreenH) / TILEWIDTH);
 }
 
 /* main_loop:
@@ -311,10 +311,10 @@ static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALL
                     break;
                 }
                 if (ssConfig.autosize_segmentX) {
-                    ssState.Size.x = getAutoSegmentSize();
+                    stonesenseState.ssState.Size.x = getAutoSegmentSize();
                 }
                 if (ssConfig.autosize_segmentY){
-                    ssState.Size.y = getAutoSegmentSize();
+                    stonesenseState.ssState.Size.y = getAutoSegmentSize();
                 }
                 stonesenseState.timeToReloadSegment = true;
                 redraw = true;
