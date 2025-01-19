@@ -47,6 +47,7 @@ ALLEGRO_COLOR operator*=(ALLEGRO_COLOR& color1, const float m)
         .b = color1.b * m,
         .a = color1.a * m,
     };
+    return color1;
 }
 
 /*

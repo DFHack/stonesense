@@ -650,7 +650,7 @@ void Tile::AssembleTile( void )
         case df::flow_type::Fire:
             tint *= tileeffect.density / 100.0f;
             size = 3 - ((tileeffect.density-1)/25);
-            AssembleSpriteFromSheet((((stonesenseState.currentFrameLong+rando)%8)*20+size), sprite_fire, tint, drawx, drawy, this, 2.0f);
+            AssembleSpriteFromSheet((((stonesenseState.currentFrameLong+rando)%8)*20+size), sprite_dragonfire, tint, drawx, drawy, this, 2.0f);
             //ALLEGRO_COLOR tint = lookupMaterialColor(Eff_Fire.matt.type, Eff_Fire.matt.index);
             //draw_particle_cloud(Eff_Fire.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_fire, tint);
             break;
