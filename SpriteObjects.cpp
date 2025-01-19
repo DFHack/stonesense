@@ -278,41 +278,34 @@ int getBloodOffset ( Tile *b )
     }
     return offset;
 }
+namespace {
+    uint8_t getXXBorders(const char* framestring, int whenNull)
+    {
+        if (framestring == NULL) {
+            return whenNull;
+        }
+        char aframes = 0;
+        for (int i = 0; i < 8; i++) {
+            if (framestring[i] == 0) {
+                return aframes;
+            }
+            char temp = framestring[i] - '1';
+            if (temp < 0 || temp > 8) {
+                continue;
+            }
+            aframes = aframes | (1 << temp);
+        }
+        return aframes;
+    }
+}
+
 uint8_t getBorders(const char* framestring)
 {
-    if (framestring == NULL) {
-        return ALL_BORDERS;
-    }
-    char aframes=0;
-    for (int i=0; i<8; i++) {
-        if (framestring[i]==0) {
-            return aframes;
-        }
-        char temp = framestring[i]-'1';
-        if (temp < 0 || temp > 8) {
-            continue;
-        }
-        aframes = aframes | (1 << temp);
-    }
-    return aframes;
+    return getXXBorders(framestring, ALL_BORDERS);
 }
 uint8_t getUnBorders(const char* framestring)
 {
-    if (framestring == NULL) {
-        return 0;
-    }
-    char aframes=0;
-    for (int i=0; i<8; i++) {
-        if (framestring[i]==0) {
-            return aframes;
-        }
-        char temp = framestring[i]-'1';
-        if (temp < 0 || temp > 8) {
-            continue;
-        }
-        aframes = aframes | (1 << temp);
-    }
-    return aframes;
+    return getXXBorders(framestring, 0);
 }
 
 c_sprite::c_sprite()
