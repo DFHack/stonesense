@@ -42,6 +42,9 @@ Template for new versions:
 ## Fixes
 
 ## Misc Improvements
+- `stonesense`: added some missing artwork for bookcases, displays, and offering places
+- `stonesense`: reorganized the position of some existing art to be more intuitive
+- `stonesense`: added index numbers empty sprite slots to aid in making the xml files for the sprites
 
 ## Removed
 
