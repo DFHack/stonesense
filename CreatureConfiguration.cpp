@@ -4,11 +4,10 @@
 #include "MapLoading.h"
 #include "GUI.h"
 #include "ContentLoader.h"
+#include "GameConfiguration.h"
+#include "StonesenseState.h"
 
 #include "tinyxml.h"
-
-using namespace DFHack;
-using namespace df::enums;
 
 using std::string;
 using std::vector;
@@ -19,6 +18,7 @@ namespace {
         if (currentProf == NULL || currentProf[0] == 0) {
             return INVALID_INDEX;
         }
+        auto& contentLoader = stonesenseState.contentLoader;
 
         auto it = std::find(
             contentLoader->professionStrings.begin(),
@@ -33,10 +33,13 @@ namespace {
 
     void pushCreatureConfig(vector<std::unique_ptr<vector<CreatureConfiguration>>>&knownCreatures, unsigned int gameID, CreatureConfiguration & cre)
     {
+        auto& ssConfig = stonesenseState.ssConfig;
+
         if (!ssConfig.skipCreatureTypes) {
             if (knownCreatures.size() <= size_t(gameID)) {
                 //resize using hint from creature name list
                 size_t newsize = size_t(gameID) + 1;
+                auto& contentLoader = stonesenseState.contentLoader;
                 if (newsize <= contentLoader->Mats->race.size()) {
                     newsize = contentLoader->Mats->race.size() + 1;
                 }
@@ -54,9 +57,13 @@ namespace {
 
     bool addSingleCreatureConfig(TiXmlElement * elemCreature, vector<std::unique_ptr<vector<CreatureConfiguration>>>&knownCreatures, int basefile)
     {
+        using df::pronoun_type;
+        auto& ssConfig = stonesenseState.ssConfig;
+
         if (ssConfig.skipCreatureTypes) {
             return false;
         }
+        auto& contentLoader = stonesenseState.contentLoader;
         int gameID = lookupIndexedType(elemCreature->Attribute("gameID"), contentLoader->Mats->race);
         if (gameID == INVALID_INDEX) {
             return false;

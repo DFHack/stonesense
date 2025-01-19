@@ -7,6 +7,8 @@
 #include "MapLoading.h"
 #include "ColorConfiguration.h"
 #include "TreeGrowthConfiguration.h"
+#include "GameConfiguration.h"
+#include "StonesenseState.h"
 
 #include "tinyxml.h"
 #include "GUI.h"
@@ -30,13 +32,8 @@
 #include "df/world.h"
 #include "df/world_raws.h"
 
-using namespace DFHack;
-using namespace df::enums;
-
 using std::vector;
 using std::string;
-
-ContentLoader * contentLoader;
 
 ContentLoader::ContentLoader(void) { }
 ContentLoader::~ContentLoader(void)
@@ -84,10 +81,11 @@ bool ContentLoader::Load()
     //classIdStrings = *tempClasses;
 
     try {
-        Mats = Core::getInstance().getMaterials();
+        Mats = DFHack::Core::getInstance().getMaterials();
     } catch(exception &e) {
         LogError("DFhack exeption: %s\n", e.what());
     }
+    auto& ssConfig = stonesenseState.ssConfig;
     draw_loading_message("Reading Creature Names");
     if (!ssConfig.skipCreatureTypes) {
         try {
@@ -129,7 +127,7 @@ bool ContentLoader::Load()
         }
     }
     draw_loading_message("Reading Custom Workshop Types");
-    Buildings::ReadCustomWorkshopTypes(custom_workshop_types);
+    DFHack::Buildings::ReadCustomWorkshopTypes(custom_workshop_types);
     draw_loading_message("Reading Professions");
 
     if(professionStrings.empty()) {
@@ -157,13 +155,7 @@ bool ContentLoader::Load()
 
                     size_t ent_id = currentity->id;
                     size_t pos_id = currentpos->id;
-                    if (ent_id >= position_Indices.size())
-                        position_Indices.resize(ent_id + 1, NULL);
-                    if (!position_Indices[ent_id])
-                        position_Indices[ent_id] = new vector<int32_t>;
-                    if (pos_id >= position_Indices[ent_id]->size())
-                        position_Indices[ent_id]->resize(pos_id + 1, -1);
-                    position_Indices[ent_id]->at(pos_id) = found;
+                    position_Indices.add(ent_id, pos_id, found);
                 };
 
             for(size_t j = 0; j < currentity->positions.own.size(); j++) {
@@ -205,7 +197,7 @@ bool ContentLoader::Load()
     */
 
     //Find what is obsidian
-    contentLoader->obsidian = lookupMaterialIndex(INORGANIC, "OBSIDIAN");
+    stonesenseState.contentLoader->obsidian = lookupMaterialIndex(INORGANIC, "OBSIDIAN");
 
     loadGraphicsFromDisk(); //these get destroyed when flushImgFiles is called.
     std::filesystem::path p{ "stonesense" };
@@ -482,6 +474,9 @@ char getAnimFrames(const char* framestring)
 
 int lookupMaterialIndex(int matType, const char* strValue)
 {
+    auto& contentLoader = stonesenseState.contentLoader;
+    auto& ssConfig = stonesenseState.ssConfig;
+
     // for appropriate elements, look up subtype
     if (matType == INORGANIC && !ssConfig.skipInorganicMats) {
         return lookupIndexedType(strValue,contentLoader->inorganic);
@@ -510,6 +505,8 @@ const char *lookupBuildingSubtype(int main_type, int i)
 {
     // process types
     switch (main_type) {
+        using df::building_type;
+        using DFHack::enum_item_key_str;
     case building_type::Furnace:
         return enum_item_key_str((df::furnace_type)i);
     case building_type::Construction:
@@ -595,8 +592,13 @@ MAT_BASICS lookupMaterialType(const char* strValue)
     return INVALID;
 }
 
+using DFHack::t_matgloss;
+
 const char *lookupMaterialName(int matType,int matIndex)
 {
+    auto& contentLoader = stonesenseState.contentLoader;
+    auto& ssConfig = stonesenseState.ssConfig;
+
     if (matIndex < 0) {
         return NULL;
     }
@@ -631,6 +633,9 @@ const char *lookupMaterialName(int matType,int matIndex)
 
 const char *lookupTreeName(int matIndex)
 {
+    auto& contentLoader = stonesenseState.contentLoader;
+    auto& ssConfig = stonesenseState.ssConfig;
+
     if(ssConfig.skipOrganicMats) {
         return NULL;
     }
@@ -649,6 +654,7 @@ const char *lookupTreeName(int matIndex)
 const char * lookupFormName(int formType)
 {
     switch (formType) {
+        using df::item_type;
     case item_type::BAR:
         return "bar";
     case item_type::BLOCKS:
@@ -687,22 +693,15 @@ int loadConfigImgFile(std::filesystem::path filename, TiXmlElement* referrer)
     return loadImgFile(configfilepath);
 }
 
+int loadImgFromXML(TiXmlElement* elemRoot)
+{
+    const char* filename = elemRoot->Attribute("file");
+    return (filename != NULL && filename[0] != 0) ? loadConfigImgFile(filename, elemRoot) : INVALID_INDEX;
+}
+
 void ContentLoader::flushCreatureConfig()
 {
-    // make big enough to hold all creatures
     creatureConfigs.clear();
-    for ( size_t i = 0; i < style_indices.size();i++){
-        if(style_indices[i]){
-            for ( size_t j = 0; j < style_indices[i]->size();j++){
-                if(style_indices[i]->at(j)){
-                    style_indices[i]->at(j)->clear();
-                    delete style_indices[i]->at(j);
-                }
-            }
-            style_indices[i]->clear();
-            delete style_indices[i];
-        }
-    }
     style_indices.clear();
 }
 
@@ -729,21 +728,11 @@ void ContentLoader::gatherStyleIndices(df::world_raws * raws)
                 else LogError("Unknown hair type: %s", raws->creatures.all[creatureIndex]->caste[casteIndex]->tissue_styles[styleIndex]->token.c_str());
                 if(type != hairtypes_invalid)
                 {
-                    if(creatureIndex >= style_indices.size())
-                        style_indices.resize(creatureIndex+1, NULL);
-                    if(!style_indices.at(creatureIndex))
-                        style_indices.at(creatureIndex) = new vector<vector<int32_t>*>;
-                    vector<vector<int32_t>*>* creatureStyle = style_indices.at(creatureIndex);
-                    if(casteIndex >= creatureStyle->size())
-                        creatureStyle->resize(casteIndex+1, NULL);
-                    if(!creatureStyle->at(casteIndex))
-                        creatureStyle->at(casteIndex) = new vector<int32_t>;
-                    vector<int32_t>* casteStyle = creatureStyle->at(casteIndex);
-                    size_t typeIdx{ size_t(type) };
-                    if(typeIdx >= casteStyle->size())
-                        casteStyle->resize(typeIdx+1, 0);
-                    casteStyle->at(typeIdx) = sty->id;
-                    LogVerbose("%s:%s : %d:%s\n", raws->creatures.all[creatureIndex]->creature_id.c_str(),raws->creatures.all[creatureIndex]->caste[casteIndex]->caste_id.c_str(), sty->id, sty->token.c_str());
+                    style_indices.add(creatureIndex, casteIndex, type, sty->id);
+                    LogVerbose("%s:%s : %d:%s\n",
+                        raws->creatures.all[creatureIndex]->creature_id.c_str(),
+                        raws->creatures.all[creatureIndex]->caste[casteIndex]->caste_id.c_str(),
+                        sty->id, sty->token.c_str());
                 }
             }
         }
@@ -767,15 +756,16 @@ ALLEGRO_COLOR lookupMaterialColor(int matType, int matIndex, ALLEGRO_COLOR defau
 
 ALLEGRO_COLOR lookupMaterialColor(int matType, int matIndex, int dyeType, int dyeIndex, ALLEGRO_COLOR defaultColor)
 {
+    auto& contentLoader = stonesenseState.contentLoader;
     ALLEGRO_COLOR dyeColor = al_map_rgb(255,255,255);
-    MaterialInfo dye;
+    DFHack::MaterialInfo dye;
     if (dyeType >= 0 && dyeIndex >= 0 && dye.decode(dyeType, dyeIndex))
         dyeColor = al_map_rgb_f(
         contentLoader->Mats->color[dye.material->powder_dye].red,
         contentLoader->Mats->color[dye.material->powder_dye].green,
         contentLoader->Mats->color[dye.material->powder_dye].blue);
     // FIXME integer truncation: matType should not be an int
-    t_matglossPair matPair{ int16_t(matType), matIndex };
+    DFHack::t_matglossPair matPair{ int16_t(matType), matIndex };
     if (ALLEGRO_COLOR * matResult = contentLoader->materialColorConfigs.get(matPair))
     {
         return *matResult * dyeColor;
@@ -798,7 +788,7 @@ ALLEGRO_COLOR lookupMaterialColor(int matType, int matIndex, int dyeType, int dy
         return contentLoader->colorConfigs.at(matType).colorMaterials.at(matIndex).color * dyeColor;
     }
 DFColor:
-    MaterialInfo mat;
+    DFHack::MaterialInfo mat;
     if(mat.decode(matType, matIndex)) {
             return al_map_rgb_f(
                        contentLoader->Mats->color[mat.material->state_color[0]].red,

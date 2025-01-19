@@ -56,6 +56,8 @@ SET(PROJECT_HDRS
     DumpInfo.h
     FluidConfiguration.h
     GameBuildings.h
+    GameConfiguration.h
+    GameState.h
     GroundMaterialConfiguration.h
     GUI.h
     ItemConfiguration.h
@@ -67,6 +69,7 @@ SET(PROJECT_HDRS
     SpriteColors.h
     SpriteMaps.h
     SpriteObjects.h
+    StonesenseState.h
     Tile.h
     TileCondition.h
     TileDirection.h

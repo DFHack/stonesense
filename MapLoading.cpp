@@ -9,13 +9,14 @@
 #include "GameBuildings.h"
 #include "Creatures.h"
 #include "ContentLoader.h"
+#include "GameConfiguration.h"
+#include "StonesenseState.h"
 
 #include "df/block_square_event_grassst.h"
 #include "df/block_square_event_material_spatterst.h"
 #include "df/block_square_event_mineralst.h"
 #include "df/construction.h"
 #include "df/engraving.h"
-#include "df/flow_info.h"
 #include "df/flow_info.h"
 #include "df/inorganic_raw.h"
 #include "df/item_constructed.h"
@@ -29,13 +30,12 @@
 #include "df/plant_tree_info.h"
 #include "df/plant_tree_tile.h"
 
-
-using namespace std;
-using namespace DFHack;
-using namespace df::enums;
+#include "allegro5/color.h"
 
 bool connected = 0;
 bool threadrunnng = 0;
+
+using std::vector;
 
 //==============================Map Read ==============================//
 /*
@@ -50,6 +50,8 @@ bool threadrunnng = 0;
 void readSpatterToTile(Tile * b, uint32_t lx, uint32_t ly,
     const vector <df::block_square_event_material_spatterst * > & splatter)
 {
+    auto& ssConfig = stonesenseState.ssConfig;
+
     b->mudlevel = 0;
     b->snowlevel = 0;
     b->bloodlevel = 0;
@@ -67,7 +69,7 @@ void readSpatterToTile(Tile * b, uint32_t lx, uint32_t ly,
             ALLEGRO_COLOR tempBlood = al_map_rgb(255,255,255);
 
             //try to get the blood/snow tint
-            MaterialInfo mat;
+            DFHack::MaterialInfo mat;
             switch(splatter[i]->mat_type){
             case MUD:
                 break;
@@ -134,13 +136,16 @@ bool readDesignationsToTile( Tile * b,
                              df::tile_designation des,
                              df::tile_occupancy occ)
 {
+    using df::game_mode;
+    using df::tile_dig_designation;
+
     if (!df::global::gamemode || *df::global::gamemode == game_mode::ADVENTURE)
         return false; //Adventure mode doesn't use Dwarf mode designations.
     df::tiletype_shape shape = df::tiletype_shape::WALL;
     df::tiletype_material mat = df::tiletype_material::STONE;
     df::tiletype_variant var = df::tiletype_variant::NONE;
     df::tiletype_special spc = df::tiletype_special::NONE;
-    TileDirection dir;
+    DFHack::TileDirection dir;
 
     if(des.bits.dig != tile_dig_designation::No)
     {
@@ -239,9 +244,10 @@ bool readDesignationsToTile( Tile * b,
  * stonesense tile.
  */
 //TODO get cavein-sand to work somehow?
-void readMaterialToTile( Tile * b, uint32_t lx, uint32_t ly,
-    df::map_block * trueBlock,
-    const t_feature & local, const t_feature & global,
+void readMaterialToTile(Tile* b, uint32_t lx, uint32_t ly,
+    df::map_block* trueBlock,
+    const DFHack::t_feature& local,
+    const DFHack::t_feature& global,
     const vector <df::block_square_event_mineralst * > & veins,
     vector< vector <int16_t> >* allLayers)
 {
@@ -261,6 +267,10 @@ void readMaterialToTile( Tile * b, uint32_t lx, uint32_t ly,
 
     bool soilTile = false;//is this tile a match for soil materials?
     bool soilMat = false;//is the material a soil?
+    using df::tiletype_material;
+    using df::material_flags;
+    using df::inorganic_flags;
+
     soilTile = b->tileMaterial() == tiletype_material::SOIL
         || (b->mudlevel == 0
         && (b->tileMaterial() == tiletype_material::PLANT
@@ -365,50 +375,47 @@ void readMaterialToTile( Tile * b, uint32_t lx, uint32_t ly,
 
     if(b->tileMaterial() == tiletype_material::LAVA_STONE) {
         b->material.type = INORGANIC;
-        b->material.index = contentLoader->obsidian;
+        b->material.index = stonesenseState.contentLoader->obsidian;
     }
 }
 
+std::optional<DFHack::t_matglossPair> getDyeMaterialFromItem(df::item* item)
+{
+    auto Constructed_Item = virtual_cast<df::item_constructed>(item);
+    if (Constructed_Item) {
+        using df::improvement_type;
+        auto& imp = Constructed_Item->improvements;
+        auto it = std::find_if(imp.begin(), imp.end(),
+            [&](auto i) { return i && i->getType() == improvement_type::THREAD && virtual_cast<df::itemimprovement_threadst>(i) != nullptr; });
+        if (it != imp.end())
+        {
+            auto impthr = virtual_cast<df::itemimprovement_threadst>(*it);
+            return std::optional<DFHack::t_matglossPair>({ .type = impthr->mat_type, .index = impthr->mat_index });
+        }
+    }
+    return std::nullopt;
+}
+
 SS_Item ConvertItem(df::item * found_item, WorldSegment& segment){
-    SS_Item Tempitem;
-    Tempitem.item.type = found_item->getType(); //itemtype
-    Tempitem.item.index = found_item->getSubtype(); //item subtype
+    SS_Item Tempitem{};
+    Tempitem.item = { .type = found_item->getType(), .index = found_item->getSubtype() };
+    Tempitem.matt = { .type = found_item->getActualMaterial(), .index = found_item->getActualMaterialIndex() };
+    Tempitem.dyematt = { .type = -1, .index = -1 };
 
-    Tempitem.matt.type = found_item->getActualMaterial();
-    Tempitem.matt.index = found_item->getActualMaterialIndex();
-
-    Tempitem.dyematt.type = -1;
-    Tempitem.dyematt.index = -1;
-    if(1) { //found_item->isDyed())
-        auto Constructed_Item = virtual_cast<df::item_constructed>(found_item);
-        if(Constructed_Item) {
-            for(size_t idex = 0; idex < Constructed_Item->improvements.size(); idex++) {
-                if(!Constructed_Item->improvements[idex]) {
-                    continue;
-                }
-                if(Constructed_Item->improvements[idex]->getType() != improvement_type::THREAD) {
-                    continue;
-                }
-                auto Improvement_Thread = virtual_cast<df::itemimprovement_threadst>(Constructed_Item->improvements[idex]);
-                if(!Improvement_Thread) {
-                    continue;
-                }
-                if (Improvement_Thread->dye.mat_type < 0) {
-                    break;
-                }
-                Tempitem.dyematt.type = Improvement_Thread->dye.mat_type;
-                Tempitem.dyematt.index = Improvement_Thread->dye.mat_index;
-            }
-        } else if (found_item->getType() == item_type::THREAD) {
+    if (1) { //found_item->isDyed())
+        using df::item_type;
+        auto dyemat = getDyeMaterialFromItem(found_item);
+        if (dyemat)
+        {
+            Tempitem.dyematt = *dyemat;
+        }
+        else if (found_item->getType() == item_type::THREAD)
+        {
             auto Thread_Item = virtual_cast<df::item_threadst>(found_item);
-            if(!Thread_Item) {
-                return Tempitem;
+            if (Thread_Item && Thread_Item->dye_mat_type >= 0)
+            {
+                Tempitem.dyematt = { .type = Thread_Item->dye_mat_type, .index = Thread_Item->dye_mat_index };
             }
-            if (Thread_Item->dye_mat_type < 0) {
-                return Tempitem;
-            }
-            Tempitem.dyematt.type = Thread_Item->dye_mat_type;
-            Tempitem.dyematt.index = Thread_Item->dye_mat_index;
         }
     }
     return Tempitem;
@@ -425,12 +432,12 @@ void readBlockToSegment(DFHack::Core& DF, WorldSegment& segment,
     uint32_t BoundryEX, uint32_t BoundryEY,
     vector< vector <int16_t> >* allLayers)
 {
-    if(ssConfig.skipMaps) {
+    if(stonesenseState.ssConfig.skipMaps) {
         return;
     }
     //boundry check
     int blockDimX, blockDimY, blockDimZ;
-    Maps::getSize((unsigned int &)blockDimX, (unsigned int &)blockDimY, (unsigned int &)blockDimZ);
+    DFHack::Maps::getSize((unsigned int &)blockDimX, (unsigned int &)blockDimY, (unsigned int &)blockDimZ);
     if( BlockX < 0 || BlockX >= blockDimX ||
         BlockY < 0 || BlockY >= blockDimY ||
         BlockZ < 0 || BlockZ >= blockDimZ ) {
@@ -445,20 +452,20 @@ void readBlockToSegment(DFHack::Core& DF, WorldSegment& segment,
 
     //read block data
     df::map_block *trueBlock;
-    trueBlock = Maps::getBlock(BlockX, BlockY, BlockZ);
+    trueBlock = DFHack::Maps::getBlock(BlockX, BlockY, BlockZ);
     if(!trueBlock) {
         return;
     }
     //read the map features
-    t_feature local, global;
-    Maps::ReadFeatures(BlockX,BlockY,BlockZ,&local,&global);
+    DFHack::t_feature local, global;
+    DFHack::Maps::ReadFeatures(BlockX,BlockY,BlockZ,&local,&global);
     //read local vein data
     vector <df::block_square_event_mineralst * > veins;
     vector <df::block_square_event_frozen_liquidst * > ices;
     vector <df::block_square_event_material_spatterst * > splatter;
     vector <df::block_square_event_grassst * > grass;
     vector <df::block_square_event_world_constructionst * > worldconstructions;
-    Maps::SortBlockEvents(
+    DFHack::Maps::SortBlockEvents(
         trueBlock,
         &veins,
         &ices,
@@ -466,6 +473,9 @@ void readBlockToSegment(DFHack::Core& DF, WorldSegment& segment,
         &grass,
         &worldconstructions);
     //parse block
+
+    auto& ssConfig = stonesenseState.ssConfig;
+
     for(uint32_t ly = BoundrySY; ly <= BoundryEY; ly++) {
         for(uint32_t lx = BoundrySX; lx <= BoundryEX; lx++) {
             uint32_t gx = lx + (BlockX * BLOCKEDGESIZE);
@@ -478,9 +488,11 @@ void readBlockToSegment(DFHack::Core& DF, WorldSegment& segment,
 
             //open terrain needs to be included to make blackboxes if
             // we are shading but not showing hidden tiles
-            if(isOpenTerrain(trueBlock->tiletype[lx][ly])
+            using df::tiletype;
+            using df::tiletype_shape;
+            if(DFHack::isOpenTerrain(trueBlock->tiletype[lx][ly])
                 && trueBlock->tiletype[lx][ly] != tiletype::RampTop
-                && tileShape(trueBlock->tiletype[lx][ly]) != tiletype_shape::TWIG) {
+                && DFHack::tileShape(trueBlock->tiletype[lx][ly]) != tiletype_shape::TWIG) {
                     if(!ssConfig.show_hidden_tiles
                         && ssConfig.shade_hidden_tiles
                         && trueBlock->designation[lx][ly].bits.hidden) {
@@ -585,6 +597,7 @@ void readBlockToSegment(DFHack::Core& DF, WorldSegment& segment,
     //}
 
     //add items
+    using df::tiletype;
     for(auto iter = trueBlock->items.begin(); iter != trueBlock->items.end(); iter++) {
         int32_t item_index = *iter;
         df::item * found_item = df::item::find(item_index);
@@ -627,15 +640,63 @@ void readBlockToSegment(DFHack::Core& DF, WorldSegment& segment,
     }
 }
 
+namespace
+{
+    void parse_tree(WorldSegment& segment, auto pp, auto info, auto parts, auto depth, bool downward, auto raw)
+    {
+        for (int zz = 0; zz < depth; zz++)
+        {
+            // Parse through a single horizontal slice of the tree.
+            for (int xx = 0; xx < info->dim_x; xx++)
+            {
+                for (int yy = 0; yy < info->dim_y; yy++)
+                {
+                    // Any non-zero value here other than blocked means there's some sort of branch here.
+                    // If the block is at or above the plant's base level, we use the body array
+                    // otherwise we use the roots.
+                    // TODO: verify that the tree bounds intersect the block.
+                    auto part = parts[zz][xx + (yy * info->dim_x)];
+                    if (part.whole && !(part.bits.blocked))
+                    {
+                        df::coord pos = pp->pos;
+                        pos.x = pos.x - (info->dim_x / 2) + xx;
+                        pos.y = pos.y - (info->dim_y / 2) + yy;
+                        pos.z = pos.z + downward ? zz : (-1 - zz);
+                        if (!segment.CoordinateInsideSegment(pos.x, pos.y, pos.z))
+                            continue;
+                        Tile* t = segment.getTile(pos.x, pos.y, pos.z);
+                        if (!t)
+                            t = segment.ResetTile(pos.x, pos.y, pos.z);
+                        if (!t)
+                            continue;
+                        t->tree.type = pp->type;
+                        t->tree.index = pp->material;
+                        // only update tree_tile if part is a plant_tree_tile
+                        if constexpr (std::assignable_from<decltype(t->tree_tile), decltype(part)>)
+                        {
+                            t->tree_tile = part;
+                            if (raw)
+                            {
+                                t->material.type = raw->material_defs.type[df::plant_material_def::basic_mat];
+                                t->material.index = raw->material_defs.idx[df::plant_material_def::basic_mat];
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
 void readBlockColumnToSegment(DFHack::Core& DF, WorldSegment& segment,
     int BlockX, int BlockY)
 {
-    if (ssConfig.skipMaps) {
+    if (stonesenseState.ssConfig.skipMaps) {
         return;
     }
     //boundry check
     int blockDimX, blockDimY, blockDimZ;
-    Maps::getSize((unsigned int &)blockDimX, (unsigned int &)blockDimY, (unsigned int &)blockDimZ);
+    DFHack::Maps::getSize((unsigned int &)blockDimX, (unsigned int &)blockDimY, (unsigned int &)blockDimZ);
     if (BlockX < 0 || BlockX >= blockDimX ||
         BlockY < 0 || BlockY >= blockDimY) {
         return;
@@ -643,7 +704,7 @@ void readBlockColumnToSegment(DFHack::Core& DF, WorldSegment& segment,
 
     //read block data
     df::map_block_column *trueColumn;
-    trueColumn = Maps::getBlockColumn(BlockX, BlockY);
+    trueColumn = DFHack::Maps::getBlockColumn(BlockX, BlockY);
     if (!trueColumn) {
         return;
     }
@@ -679,104 +740,42 @@ void readBlockColumnToSegment(DFHack::Core& DF, WorldSegment& segment,
 
         auto raw = df::plant_raw::find(pp->material);
 
-
-        for (int zz = 0; zz < info->body_height; zz++)
-        {
-            // Parse through a single horizontal slice of the tree.
-            for (int xx = 0; xx < info->dim_x; xx++)
-            for (int yy = 0; yy < info->dim_y; yy++)
-            {
-                // Any non-zero value here other than blocked means there's some sort of branch here.
-                // If the block is at or above the plant's base level, we use the body array
-                // otherwise we use the roots.
-                // TODO: verify that the tree bounds intersect the block.
-                df::plant_tree_tile tile = info->body[zz][xx + (yy*info->dim_x)];
-                if (tile.whole && !(tile.bits.blocked))
-                {
-                    df::coord pos = pp->pos;
-                    pos.x = pos.x - (info->dim_x / 2) + xx;
-                    pos.y = pos.y - (info->dim_y / 2) + yy;
-                    pos.z = pos.z + zz;
-                    if (!segment.CoordinateInsideSegment(pos.x, pos.y, pos.z))
-                        continue;
-                    Tile * t = segment.getTile(pos.x, pos.y, pos.z);
-                    if (!t)
-                        t = segment.ResetTile(pos.x, pos.y, pos.z);
-                    if (!t)
-                        continue;
-                    t->tree.type = pp->type;
-                    t->tree.index = pp->material;
-                    t->tree_tile = tile;
-                    if (raw)
-                    {
-                        t->material.type = raw->material_defs.type[plant_material_def::basic_mat];
-                        t->material.index = raw->material_defs.idx[plant_material_def::basic_mat];
-                    }
-                }
-            }
-        }
-        for (int zz = 0; zz < info->roots_depth; zz++)
-        {
-            // Parse through a single horizontal slice of the tree.
-            for (int xx = 0; xx < info->dim_x; xx++)
-            for (int yy = 0; yy < info->dim_y; yy++)
-            {
-                // Any non-zero value here other than blocked means there's some sort of branch here.
-                // If the block is at or above the plant's base level, we use the body array
-                // otherwise we use the roots.
-                // TODO: verify that the tree bounds intersect the block.
-                df::plant_root_tile tile = info->roots[zz][xx + (yy * info->dim_x)];
-                if (tile.whole && !(tile.bits.blocked))
-                {
-                    df::coord pos = pp->pos;
-                    pos.x = pos.x - (info->dim_x / 2) + xx;
-                    pos.y = pos.y - (info->dim_y / 2) + yy;
-                    pos.z = pos.z - 1 - zz;
-                    if (!segment.CoordinateInsideSegment(pos.x, pos.y, pos.z))
-                        continue;
-                    Tile * t = segment.getTile(pos.x, pos.y, pos.z);
-                    if (!t)
-                        t = segment.ResetTile(pos.x, pos.y, pos.z);
-                    if (!t)
-                        continue;
-                    t->tree.type = pp->type;
-                    t->tree.index = pp->material;
-                }
-            }
-        }
+        parse_tree(segment, pp, info, info->body, info->body_height, false, raw);
+        parse_tree(segment, pp, info, info->roots, info->roots_depth, true, raw);
     }
-
 }
 
 
 void readMapSegment(WorldSegment* segment, GameState inState)
 {
     uint32_t index;
-    DFHack::Core & DF = Core::getInstance();
+    DFHack::Core & DF = DFHack::Core::getInstance();
     clock_t starttime = clock();
 
+    auto& ssState = stonesenseState.ssState;
     //read date
-    if(!ssConfig.skipWorld) {
-        contentLoader->currentYear = World::ReadCurrentYear();
-        contentLoader->currentTick = World::ReadCurrentTick();
+    if(!stonesenseState.ssConfig.skipWorld) {
+        auto& contentLoader = stonesenseState.contentLoader;
+        contentLoader->currentYear = DFHack::World::ReadCurrentYear();
+        contentLoader->currentTick = DFHack::World::ReadCurrentTick();
         contentLoader->currentMonth = (contentLoader->currentTick+9)/33600;
         contentLoader->currentDay = ((contentLoader->currentTick+9)%33600)/1200;
         contentLoader->currentHour = ((contentLoader->currentTick+9)-(((contentLoader->currentMonth*28)+contentLoader->currentDay)*1200))/50;
         contentLoader->currentTickRel = (contentLoader->currentTick+9)-(((((contentLoader->currentMonth*28)+contentLoader->currentDay)*24)+contentLoader->currentHour)*50);
-        World::ReadGameMode(contentLoader->gameMode);
+        DFHack::World::ReadGameMode(contentLoader->gameMode);
     }
 
-    if(ssConfig.skipMaps || !Maps::IsValid()) {
+    if(stonesenseState.ssConfig.skipMaps || !DFHack::Maps::IsValid()) {
         segment->Reset(inState,true);
         return;
     }
 
     //Read Number of blocks
     uint32_t blockDimX, blockDimY, blockDimZ;
-    Maps::getSize(blockDimX, blockDimY, blockDimZ);
+    DFHack::Maps::getSize(blockDimX, blockDimY, blockDimZ);
     //Read position of blocks
     uint32_t regionX, regionY, regionZ;
-    Maps::getSize(regionX, regionY, regionZ);
+    DFHack::Maps::getSize(regionX, regionY, regionZ);
     //Store these
     blockDimX *= BLOCKEDGESIZE;
     blockDimY *= BLOCKEDGESIZE;
@@ -789,7 +788,7 @@ void readMapSegment(WorldSegment* segment, GameState inState)
 
     //read world wide buildings
     vector<Stonesense_Building> allBuildings;
-    if(!ssConfig.skipBuildings) {
+    if(!stonesenseState.ssConfig.skipBuildings) {
         ReadBuildings(DF, &allBuildings);
     }
 
@@ -800,7 +799,7 @@ void readMapSegment(WorldSegment* segment, GameState inState)
     vector<df::construction> allConstructions;
     uint32_t numconstructions = 0;
 
-    if(!ssConfig.skipConstructions) {
+    if(!stonesenseState.ssConfig.skipConstructions) {
         numconstructions = df::global::world->event.constructions.size();
         if (numconstructions) {
             df::construction tempcon;
@@ -830,14 +829,14 @@ void readMapSegment(WorldSegment* segment, GameState inState)
     // get region geology
     vector< vector <int16_t> > layers;
     vector<df::coord2d> geoidx;
-    if (!Maps::ReadGeology(&layers, &geoidx)) {
+    if (!DFHack::Maps::ReadGeology(&layers, &geoidx)) {
         LogError("Can't get region geology.\n");
     }
 
     while (firstTileToReadX < inState.Position.x + inState.Size.x) {
         int blockx = firstTileToReadX / BLOCKEDGESIZE;
         int32_t lastTileInBlockX = (blockx + 1) * BLOCKEDGESIZE - 1;
-        int32_t lastTileToReadX = min<int32_t>(lastTileInBlockX, inState.Position.x + inState.Size.x - 1);
+        int32_t lastTileToReadX = std::min<int32_t>(lastTileInBlockX, inState.Position.x + inState.Size.x - 1);
 
         int32_t firstTileToReadY = inState.Position.y;
         if (firstTileToReadY < 0) {
@@ -847,7 +846,7 @@ void readMapSegment(WorldSegment* segment, GameState inState)
         while (firstTileToReadY < inState.Position.y + inState.Size.y) {
             int blocky = firstTileToReadY / BLOCKEDGESIZE;
             int32_t lastTileInBlockY = (blocky + 1) * BLOCKEDGESIZE - 1;
-            int32_t lastTileToReadY = min<uint32_t>(lastTileInBlockY, inState.Position.y + inState.Size.y - 1);
+            int32_t lastTileToReadY = std::min<uint32_t>(lastTileInBlockY, inState.Position.y + inState.Size.y - 1);
 
             for (int lz = inState.Position.z - inState.Size.z; lz <= inState.Position.z; lz++) {
                 //load the tiles from this block to the map segment
@@ -868,7 +867,7 @@ void readMapSegment(WorldSegment* segment, GameState inState)
     while (firstTileToReadX < inState.Position.x + inState.Size.x) {
         int blockx = (firstTileToReadX / (BLOCKEDGESIZE * 3)) * 3;
         int32_t lastTileInBlockX = ((blockx / 3) + 1) * (BLOCKEDGESIZE * 3) - 1;
-        int32_t lastTileToReadX = min<int32_t>(lastTileInBlockX, inState.Position.x + inState.Size.x - 1);
+        int32_t lastTileToReadX = std::min<int32_t>(lastTileInBlockX, inState.Position.x + inState.Size.x - 1);
 
         int32_t firstTileToReadY = inState.Position.y;
         if (firstTileToReadY < 0) {
@@ -878,7 +877,7 @@ void readMapSegment(WorldSegment* segment, GameState inState)
         while (firstTileToReadY < inState.Position.y + inState.Size.y) {
             int blocky = (firstTileToReadY / (BLOCKEDGESIZE * 3)) * 3;
             int32_t lastTileInBlockY = ((blocky / 3) + 1) * (BLOCKEDGESIZE * 3) - 1;
-            int32_t lastTileToReadY = min<uint32_t>(lastTileInBlockY, inState.Position.y + inState.Size.y - 1);
+            int32_t lastTileToReadY = std::min<uint32_t>(lastTileInBlockY, inState.Position.y + inState.Size.y - 1);
 
             //read the plants
             if (blockx % 3 == 0 && blocky % 3 == 0)
@@ -890,7 +889,7 @@ void readMapSegment(WorldSegment* segment, GameState inState)
     }
 
     //merge buildings with segment
-    if(!ssConfig.skipBuildings) {
+    if(!stonesenseState.ssConfig.skipBuildings) {
         MergeBuildingsToSegment(&allBuildings, segment);
     }
 
@@ -917,13 +916,13 @@ void readMapSegment(WorldSegment* segment, GameState inState)
     }
 
     //Read Creatures
-    if(!ssConfig.skipCreatures) {
+    if(!stonesenseState.ssConfig.skipCreatures) {
         ReadCreaturesToSegment( DF, segment );
     }
 
     segment->loaded = 1;
     segment->processed = 0;
-    ssTimers.read_time = (clock() - starttime)*0.1 + ssTimers.read_time*0.9;
+    stonesenseState.stoneSenseTimers.read_time.update(clock() - starttime);
 }
 
 //==============================Map Read Main===========================//
@@ -934,35 +933,36 @@ void readMapSegment(WorldSegment* segment, GameState inState)
 
 void read_segment( void *arg)
 {
-    if(!Maps::IsValid()) {
+    if(!DFHack::Maps::IsValid()) {
         return;
     }
     static bool firstLoad = 1;
-    ssConfig.threadstarted = 1;
+    stonesenseState.ssConfig.threadstarted = 1;
     WorldSegment* segment = NULL;
     {
-        CoreSuspender suspend;
+        DFHack::CoreSuspender suspend;
 
+        auto& ssState = stonesenseState.ssState;
         //read cursor
-        if (ssConfig.follow_DFcursor) {
-            Gui::getCursorCoords(ssState.dfCursor.x, ssState.dfCursor.y, ssState.dfCursor.z);
+        if (stonesenseState.ssConfig.follow_DFcursor) {
+            DFHack::Gui::getCursorCoords(ssState.dfCursor.x, ssState.dfCursor.y, ssState.dfCursor.z);
             ssState.dfSelection.x = df::global::selection_rect->start_x;
             ssState.dfSelection.y = df::global::selection_rect->start_y;
             ssState.dfSelection.z = df::global::selection_rect->start_z;
         }
 
-        if (firstLoad || ssConfig.track_mode != GameConfiguration::TRACKING_NONE) {
+        if (firstLoad || stonesenseState.ssConfig.track_mode != GameConfiguration::TRACKING_NONE) {
             firstLoad = 0;
-            if (ssConfig.track_mode == GameConfiguration::TRACKING_CENTER) {
+            if (stonesenseState.ssConfig.track_mode == GameConfiguration::TRACKING_CENTER) {
                 followCurrentDFCenter();
-            } else if (ssConfig.track_mode == GameConfiguration::TRACKING_FOCUS) {
+            } else if (stonesenseState.ssConfig.track_mode == GameConfiguration::TRACKING_FOCUS) {
                 followCurrentDFFocus();
-                ssConfig.follow_DFcursor = true;
+                stonesenseState.ssConfig.follow_DFcursor = true;
             }
         }
-        segment = map_segment.getRead();
+        segment = stonesenseState.map_segment.getRead();
         readMapSegment(segment, ssState);
-        ssConfig.threadstarted = 0;
+        stonesenseState.ssConfig.threadstarted = 0;
     }
 
     if(segment) {
@@ -975,40 +975,40 @@ void read_segment( void *arg)
         segment->AssembleAllTiles();
 
         //only need to lock the drawing segment because the reading segment is already locked
-        map_segment.lockDraw();
-        map_segment.swap();
-        map_segment.unlockDraw();
+        stonesenseState.map_segment.lockDraw();
+        stonesenseState.map_segment.swap();
+        stonesenseState.map_segment.unlockDraw();
     }
 }
 
 static void * threadedSegment(ALLEGRO_THREAD *read_thread, void *arg)
 {
     while(!al_get_thread_should_stop(read_thread)) {
-        map_segment.lockRead();
+        stonesenseState.map_segment.lockRead();
         read_segment(arg);
-        map_segment.unlockRead();
-        al_rest(ssConfig.automatic_reload_time/1000.0);
+        stonesenseState.map_segment.unlockRead();
+        al_rest(stonesenseState.ssConfig.automatic_reload_time/1000.0);
     }
     return 0;
 }
 
 void reloadPosition()
 {
-    if (timeToReloadConfig) {
-        contentLoader->Load();
-        timeToReloadConfig = false;
+    if (stonesenseState.timeToReloadConfig) {
+        stonesenseState.contentLoader->Load();
+        stonesenseState.timeToReloadConfig = false;
     }
 
     //load segment
-    if(ssConfig.threading_enable) {
-        if(!ssConfig.threadmade) {
-            ssConfig.readThread = al_create_thread(threadedSegment, NULL);
-            ssConfig.threadmade = 1;
+    if(stonesenseState.ssConfig.threading_enable) {
+        if(!stonesenseState.ssConfig.threadmade) {
+            stonesenseState.ssConfig.readThread = al_create_thread(threadedSegment, NULL);
+            stonesenseState.ssConfig.threadmade = 1;
         }
     }
 
-    if(ssConfig.threading_enable) {
-        al_start_thread(ssConfig.readThread);
+    if(stonesenseState.ssConfig.threading_enable) {
+        al_start_thread(stonesenseState.ssConfig.readThread);
     } else {
         read_segment(NULL);
     }

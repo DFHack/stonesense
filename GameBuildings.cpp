@@ -8,6 +8,8 @@
 #include "GUI.h"
 #include "MapLoading.h"
 #include "MiscUtils.h"
+#include "GameConfiguration.h"
+#include "StonesenseState.h"
 
 #include "df/buildings_other_id.h"
 #include "df/building_wellst.h"
@@ -17,8 +19,6 @@
 #include "df/itemimprovement_threadst.h"
 #include "df/world.h"
 
-using namespace DFHack;
-using namespace df::enums;
 using df::global::world;
 
 dirTypes findWallCloseTo(WorldSegment* segment, Tile* b)
@@ -50,6 +50,8 @@ dirTypes findWallCloseTo(WorldSegment* segment, Tile* b)
 
 void ReadBuildings(DFHack::Core& DF, std::vector<Stonesense_Building>* buildingHolder)
 {
+    auto& ssConfig = stonesenseState.ssConfig;
+
     if(ssConfig.skipBuildings) {
         return;
     }
@@ -105,12 +107,12 @@ void MergeBuildingsToSegment(std::vector<Stonesense_Building>* buildings, WorldS
                         df::coord2d t;
                         t.x = xx;
                         t.y = yy;
-                        if (!Buildings::containsTile(copiedbuilding->origin, t))
+                        if (!DFHack::Buildings::containsTile(copiedbuilding->origin, t))
                             continue;
                     }
                     Tile* b = segment->getTile(xx, yy, zz);
                     if (!b) {
-                        b = segment->ResetTile(xx, yy, zz, tiletype::OpenSpace);
+                        b = segment->ResetTile(xx, yy, zz, df::tiletype::OpenSpace);
                         if (!b) {
                             continue;
                         }
@@ -155,7 +157,7 @@ void MergeBuildingsToSegment(std::vector<Stonesense_Building>* buildings, WorldS
                         break;
                     case df::enums::building_type::Construction:
                         // change tile type to display the construction
-                        if (ssConfig.show_designations) {
+                        if (stonesenseState.ssConfig.show_designations) {
                             readConstructionsToTile(b, copiedbuilding);
                             continue;
                         }
@@ -190,22 +192,10 @@ void MergeBuildingsToSegment(std::vector<Stonesense_Building>* buildings, WorldS
                             item_matt.matt.index = item->getActualMaterialIndex();
 
                             if (item->isDyed()) {
-                                auto Constructed_Item = virtual_cast<df::item_constructed>(item);
-                                if (Constructed_Item) {
-                                    for (size_t idex = 0; idex < Constructed_Item->improvements.size(); idex++) {
-                                        if (!Constructed_Item->improvements[idex]) {
-                                            continue;
-                                        }
-                                        if (Constructed_Item->improvements[idex]->getType() != improvement_type::THREAD) {
-                                            continue;
-                                        }
-                                        auto Improvement_Thread = virtual_cast<df::itemimprovement_threadst>(Constructed_Item->improvements[idex]);
-                                        if (!Improvement_Thread) {
-                                            continue;
-                                        }
-                                        item_matt.dyematt.type = Improvement_Thread->dye.mat_type;
-                                        item_matt.dyematt.index = Improvement_Thread->dye.mat_index;
-                                    }
+                                auto mat = getDyeMaterialFromItem(item);
+                                if (mat)
+                                {
+                                    item_matt.dyematt = *mat;
                                 }
                             }
 
@@ -226,8 +216,9 @@ void loadBuildingSprites ( Tile* b)
         LogError("Null Tile skipped in loadBuildingSprites\n");
         return;
     }
+    auto& contentLoader = stonesenseState.contentLoader;
     BuildingConfiguration* generic = NULL, *specific = NULL, *custom = NULL;
-    for(auto iter = contentLoader->buildingConfigs.begin(); iter < contentLoader->buildingConfigs.end(); iter++) {
+    for(auto iter = stonesenseState.contentLoader->buildingConfigs.begin(); iter < contentLoader->buildingConfigs.end(); iter++) {
         BuildingConfiguration & conf = **iter;
         if(b->building.type == conf.game_type) {
             generic = &conf;

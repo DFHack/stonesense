@@ -1,5 +1,8 @@
 #pragma once
+#define NOMINMAX
 #include <filesystem>
+#include <algorithm>
+#include <optional>
 
 #include "tinyxml.h"
 #include "BuildingConfiguration.h"
@@ -59,9 +62,76 @@ public:
     FluidConfiguration lava[8];
     FluidConfiguration water[8];
 
-    //race.caste.hairtype.styletype
-    std::vector<std::vector<std::vector<int32_t>*>*> style_indices;
-    std::vector<std::vector<int32_t>*> position_Indices;
+    class StyleIndices {
+        struct Key
+        {
+            int32_t race;
+            int32_t caste;
+            int32_t style_type;
+            bool operator==(const Key&) const = default;
+        };
+
+        struct Hash
+        {
+            std::size_t operator()(const Key& k) const noexcept
+            {
+                return size_t(k.race) ^ (size_t(k.caste) << 15) ^ (size_t(k.style_type) << 30);
+            }
+        };
+
+        SparseArray<Key, int32_t, Hash> map;
+
+    public:
+        void clear() {
+            map.clear();
+        }
+        void add(int32_t race, int32_t caste, int32_t type, int32_t id)
+        {
+            map.add({ race,caste,type }, id);
+        }
+        int32_t lookup(int32_t race, int32_t caste, int32_t style_type)
+        {
+            auto res = map.lookup({ race,caste,style_type });
+            return res ? *res : -1;
+        }
+    };
+
+    class PositionIndices
+    {
+        struct Key
+        {
+            int32_t entity_id;
+            int32_t pos_id;
+            bool operator==(const Key&) const = default;
+        };
+
+        struct Hash
+        {
+            std::size_t operator()(const Key& k) const noexcept
+            {
+                return size_t(k.entity_id) ^ (size_t(k.pos_id) << 31);
+            }
+        };
+
+        SparseArray<Key, int32_t, Hash> map;
+
+    public:
+        void clear() {
+            map.clear();
+        }
+        void add(int32_t entity_id, int32_t pos_id, int32_t id)
+        {
+            map.add({ entity_id, pos_id }, id);
+        }
+        int32_t lookup(int32_t entity_id, int32_t pos_id)
+        {
+            auto res = map.lookup({ entity_id, pos_id });
+            return res ? *res : -1;
+        }
+    };
+
+    StyleIndices style_indices;
+    PositionIndices position_Indices;
 
     std::vector<std::string> professionStrings;
     std::map <uint32_t, std::string> custom_workshop_types;
@@ -76,14 +146,12 @@ public:
     uint8_t currentHour = 0;
     uint8_t currentTickRel = 0;
     DFHack::t_gamemodes gameMode{
-        df::enums::game_mode::NONE,
-        df::enums::game_type::NONE
+        df::game_mode::NONE,
+        df::game_type::NONE
         };
 
     int obsidian = 0;
 };
-
-extern ContentLoader * contentLoader;
 
 extern const char* getDocument(TiXmlNode* element);
 std::filesystem::path getLocalFilename(std::filesystem::path filename, std::filesystem::path relativeto);
@@ -91,6 +159,7 @@ extern void contentError(const std::string& message, TiXmlNode* element);
 extern void contentWarning(const std::string& message, TiXmlNode* element);
 extern char getAnimFrames(const char* framestring);
 extern int loadConfigImgFile(std::filesystem::path filename, TiXmlElement* referrer);
+extern int loadImgFromXML(TiXmlElement* elemRoot);
 MAT_BASICS lookupMaterialType(const char* strValue);
 int lookupMaterialIndex(int matType, const char* strValue);
 

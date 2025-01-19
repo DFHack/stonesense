@@ -8,11 +8,6 @@
 
 #include "tinyxml.h"
 
-using namespace std;
-using namespace DFHack;
-using namespace df::enums;
-
-
 VegetationConfiguration::VegetationConfiguration(int gameID, c_tile_tree &tree, bool live, bool grown) :
     gameID(gameID),
     live(live),
@@ -25,7 +20,7 @@ VegetationConfiguration::~VegetationConfiguration(void)
 {
 }
 
-bool addSingleVegetationConfig( TiXmlElement* elemRoot,  vector<std::unique_ptr<VegetationConfiguration>>* vegetationConfigs, vector<t_matgloss>& plantNames )
+bool addSingleVegetationConfig( TiXmlElement* elemRoot, std::vector<std::unique_ptr<VegetationConfiguration>>*vegetationConfigs, std::vector<DFHack::t_matgloss>& plantNames)
 {
     int basefile = -1;
 
@@ -63,7 +58,7 @@ bool addSingleVegetationConfig( TiXmlElement* elemRoot,  vector<std::unique_ptr<
     return true;
 }
 
-c_tile_tree * getVegetationTree(vector<std::unique_ptr<VegetationConfiguration>>& vegetationConfigs,int index,bool live,bool grown)
+c_tile_tree * getVegetationTree(std::vector<std::unique_ptr<VegetationConfiguration>>&vegetationConfigs, int index, bool live, bool grown)
 {
     for (const auto& current : vegetationConfigs) {
         if (current->gameID != INVALID_INDEX && current->gameID != index) {

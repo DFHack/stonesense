@@ -6,9 +6,7 @@
 #include "GUI.h"
 #include "ContentLoader.h"
 #include "MiscUtils.h"
-
-using namespace DFHack;
-using namespace df::enums;
+#include "StonesenseState.h"
 
 constexpr auto PRIORITY_SHAPE = 8;
 constexpr auto PRIORITY_SPECIAL = 4;
@@ -42,14 +40,11 @@ TerrainConfiguration::TerrainConfiguration()
 
 void DumpInorganicMaterialNamesToDisk()
 {
-    FILE* fp = fopen("dump.txt", "w");
-    if (!fp) {
-        return;
-    }
+    std::ofstream fp{ std::filesystem::path { "dump.txt"} };
+    auto& contentLoader = stonesenseState.contentLoader;
     for (uint32_t j = 0; j < contentLoader->inorganic.size(); j++) {
-        fprintf(fp, "%i:%s\n", j, contentLoader->inorganic[j].id.c_str());
+        fp << j << ':' << contentLoader->inorganic[j].id << '\n';
     }
-    fclose(fp);
 }
 
 void TerrainMaterialConfiguration::updateSprite(int j, c_sprite& sprite, int x)
@@ -94,7 +89,7 @@ namespace
     T StringToTiletypeEnum(const char* input)
     {
         T t{};
-        return (input != nullptr && find_enum_item(&t, input)) ? t : T::NONE;
+        return (input != nullptr && DFHack::find_enum_item(&t, input)) ? t : T::NONE;
     }
 
     void parseWallFloorSpriteElement(TiXmlElement* elemWallFloorSprite, std::vector<std::unique_ptr<TerrainConfiguration>>& configTable, int basefile, bool floor)
@@ -140,16 +135,18 @@ namespace
             if (targetElem >= 0)
             {
                 char buf[500];
-                if (is_valid_enum_item((df::tiletype)targetElem))
+                if (DFHack::is_valid_enum_item((df::tiletype)targetElem))
                 {
                     df::tiletype tt = (df::tiletype)targetElem;
                     auto shape = ENUM_ATTR(tiletype, shape, tt);
                     auto special = ENUM_ATTR(tiletype, special, tt);
                     auto variant = ENUM_ATTR(tiletype, variant, tt);
                     auto material = ENUM_ATTR(tiletype, material, tt);
+                    using df::tiletype_shape, df::tiletype_special, df::tiletype_variant, df::tiletype_material;
+                    using DFHack::enum_item_key_str;
                     sprintf(buf, "Use of deprecated terrain value \"%d\", use one of the following instead:\n <terrain token = \"%s\" />\n <terrain%s%s%s%s%s%s%s%s%s%s%s%s />\n in element",
                         targetElem,
-                        enum_item_key_str(tt),
+                        DFHack::enum_item_key_str(tt),
                         shape == tiletype_shape::NONE ? "" : " shape = \"",
                         shape == tiletype_shape::NONE ? "" : enum_item_key_str(shape),
                         shape == tiletype_shape::NONE ? "" : "\"",
@@ -187,13 +184,14 @@ namespace
                 }
                 if (!(gameTokenstr == NULL || gameTokenstr[0] == 0))
                 {
-                    if (enum_item_key(i) == gameTokenstr)
+                    if (DFHack::enum_item_key(i) == gameTokenstr)
                         matchness = 0;
                     else
                         valid = false;
                 }
                 if (matchness != 0) //this means there's no exact match made.
                 {
+                    using df::tiletype_shape, df::tiletype_special, df::tiletype_variant, df::tiletype_material;
                     int partialMatch = 0;
                     if (elemShape != tiletype_shape::NONE)
                     {
@@ -340,16 +338,12 @@ namespace
 
 bool addSingleTerrainConfig(TiXmlElement* elemRoot)
 {
-    int basefile = INVALID_INDEX;
-    const char* filename = elemRoot->Attribute("file");
-    if (filename != NULL && filename[0] != 0) {
-        basefile = loadConfigImgFile((char*)filename, elemRoot);
-        if (basefile == -1) {
-            return false;
-        }
-    }
+    int basefile = loadImgFromXML(elemRoot);
+    if (basefile == INVALID_INDEX)
+        return false;
 
     std::string elementType = elemRoot->Value();
+    auto& contentLoader = stonesenseState.contentLoader;
     if (elementType.compare("floors") == 0) {
         //parse floors
         TiXmlElement* elemFloor = elemRoot->FirstChildElement("floor");

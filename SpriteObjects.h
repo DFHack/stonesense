@@ -127,8 +127,8 @@ private:
     ALLEGRO_COLOR growthColor;
 public:
     void set_growthColor(ALLEGRO_COLOR color);
-    c_sprite(void);
-    ~c_sprite(void);
+    c_sprite();
+    ~c_sprite();
     //void draw_screen(int x, int y);
     inline void assemble_world(int x, int y, int z, Tile * b, bool chop=false)
     {
