@@ -271,19 +271,6 @@ int get_textf_width(const ALLEGRO_FONT *font, const char *format, ...)
     return width;
 }
 
-void draw_text_border(const ALLEGRO_FONT *font, ALLEGRO_COLOR color, float x, float y, int flags, const char *ustr)
-{
-    int xx, yy, ww, hh;
-    al_get_text_dimensions(font, ustr, &xx, &yy, &ww, &hh);
-    if(flags & ALLEGRO_ALIGN_CENTRE) {
-        xx -= ww/2;
-    } else if(flags & ALLEGRO_ALIGN_RIGHT) {
-        xx -= ww;
-    }
-    al_draw_filled_rectangle(x+xx, y+yy, x+xx+ww, y+yy+hh, al_map_rgba_f(0.0,0.0,0.0,0.75));
-    al_draw_text(font, color, x, y, flags, ustr);
-}
-
 void draw_textf_border(const ALLEGRO_FONT *font, ALLEGRO_COLOR color, float x, float y, int flags, const char *format, ...)
 {
     ALLEGRO_USTR *buf;
@@ -308,17 +295,42 @@ void draw_textf_border(const ALLEGRO_FONT *font, ALLEGRO_COLOR color, float x, f
     al_ustr_free(buf);
 }
 
+namespace
+{
+    template<typename T>
+    constexpr auto get_dimensions = nullptr;
+    template<> constexpr auto get_dimensions<const char*> = &al_get_text_dimensions;
+    template<> constexpr auto get_dimensions<const ALLEGRO_USTR*> = &al_get_ustr_dimensions;
+
+    template<typename T>
+    constexpr auto draw_text = nullptr;
+    template<> constexpr auto draw_text<const char*> = &al_draw_text;
+    template<> constexpr auto draw_text<const ALLEGRO_USTR*> = &al_draw_ustr;
+
+    void draw_border(const ALLEGRO_FONT* font, ALLEGRO_COLOR color, float x, float y, int flags, auto ustr)
+    {
+        using T = decltype(ustr);
+        int xx, yy, ww, hh;
+        get_dimensions<T>(font, ustr, &xx, &yy, &ww, &hh);
+        if (flags & ALLEGRO_ALIGN_CENTRE) {
+            xx -= ww / 2;
+        }
+        else if (flags & ALLEGRO_ALIGN_RIGHT) {
+            xx -= ww;
+        }
+        al_draw_filled_rectangle(x + xx, y + yy, x + xx + ww, y + yy + hh, al_map_rgba_f(0.0, 0.0, 0.0, 0.75));
+        draw_text<T>(font, color, x, y, flags, ustr);
+    }
+}
+
+void draw_text_border(const ALLEGRO_FONT* font, ALLEGRO_COLOR color, float x, float y, int flags, const char * ustr)
+{
+    draw_border(font, color, x, y, flags, ustr);
+}
+
 void draw_ustr_border(const ALLEGRO_FONT *font, ALLEGRO_COLOR color, float x, float y, int flags, const ALLEGRO_USTR *ustr)
 {
-    int xx, yy, ww, hh;
-    al_get_ustr_dimensions(font, ustr, &xx, &yy, &ww, &hh);
-    if(flags & ALLEGRO_ALIGN_CENTRE) {
-        xx -= ww/2;
-    } else if(flags & ALLEGRO_ALIGN_RIGHT) {
-        xx -= ww;
-    }
-    al_draw_filled_rectangle(x+xx, y+yy, x+xx+ww, y+yy+hh, al_map_rgba_f(0.0,0.0,0.0,0.75));
-    al_draw_ustr(font, color, x, y, flags, ustr);
+    draw_border(font, color, x, y, flags, ustr);
 }
 
 namespace
