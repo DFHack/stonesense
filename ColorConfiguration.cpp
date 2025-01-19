@@ -1,9 +1,8 @@
-#include "ColorConfiguration.h"
-#include "ContentLoader.h"
 #include <vector>
 
-using namespace DFHack;
-using namespace df::enums;
+#include "ColorConfiguration.h"
+#include "ContentLoader.h"
+#include "StonesenseState.h"
 
 using std::string;
 using std::vector;
@@ -109,6 +108,7 @@ bool addSingleColorConfig( TiXmlElement* elemRoot)
     if(elementType.compare( "colors" ) == 0) {
         //parse colors
         TiXmlElement* elemColor = elemRoot->FirstChildElement("color");
+        auto& contentLoader = stonesenseState.contentLoader;
         while( elemColor ) {
             parseColorElement( elemColor, contentLoader->colorConfigs, contentLoader->materialColorConfigs);
             elemColor = elemColor->NextSiblingElement("color");

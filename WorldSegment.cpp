@@ -3,10 +3,8 @@
 #include "GUI.h"
 #include "ContentLoader.h"
 #include "Creatures.h"
-
-using namespace std;
-using namespace DFHack;
-using namespace df::enums;
+#include "GameConfiguration.h"
+#include "StonesenseState.h"
 
 const GameState SegmentWrap::zeroState =
 {
@@ -243,6 +241,9 @@ void WorldSegment::DrawAllTiles()
         return;
     }
 
+    auto& ssConfig = stonesenseState.ssConfig;
+    auto& ssState = stonesenseState.ssState;
+
     if(ssConfig.fogenable) {
         ALLEGRO_BITMAP* temp = al_get_target_bitmap();
         if(!fog) {
@@ -267,14 +268,9 @@ void WorldSegment::DrawAllTiles()
     if(todraw.size()>0) {
         al_hold_bitmap_drawing(true);
         for(size_t i=0; i<todraw.size(); i++) {
-            if(i%ssConfig.bitmapHolds==0) {
-                al_hold_bitmap_drawing(false);
-                al_hold_bitmap_drawing(true);
-            }
-            switch(todraw[i].type) {
-            case Fog:
+            auto DrawBitmap = [&](ALLEGRO_BITMAP* b) {
                 al_draw_tinted_scaled_bitmap(
-                    fog,
+                    b,
                     todraw[i].tint,
                     todraw[i].sx,
                     todraw[i].sy,
@@ -285,20 +281,17 @@ void WorldSegment::DrawAllTiles()
                     todraw[i].dw,
                     todraw[i].dh,
                     todraw[i].flags);
+                };
+            if(i%ssConfig.bitmapHolds==0) {
+                al_hold_bitmap_drawing(false);
+                al_hold_bitmap_drawing(true);
+            }
+            switch(todraw[i].type) {
+            case Fog:
+                DrawBitmap(fog);
                 break;
             case TintedScaledBitmap:
-                al_draw_tinted_scaled_bitmap(
-                    std::get<ALLEGRO_BITMAP*>(todraw[i].drawobject),
-                    todraw[i].tint,
-                    todraw[i].sx,
-                    todraw[i].sy,
-                    todraw[i].sw,
-                    todraw[i].sh,
-                    todraw[i].dx,
-                    todraw[i].dy,
-                    todraw[i].dw,
-                    todraw[i].dh,
-                    todraw[i].flags );
+                DrawBitmap(std::get<ALLEGRO_BITMAP*>(todraw[i].drawobject));
                 break;
             case CreatureText:
                 DrawCreatureText(
@@ -330,13 +323,15 @@ void WorldSegment::AssembleAllTiles()
 
     clock_t starttime = clock();
 
+    auto& ssState = stonesenseState.ssState;
+
     // x,y,z print prices
     int32_t vsxmax = segState.Size.x-1;
     int32_t vsymax = segState.Size.y-1;
     int32_t vszmax = segState.Size.z-1; // grabbing one tile +z more than we should for tile rules
     for(int32_t vsz=0; vsz < vszmax; vsz++) {
         //add the fog to the queue
-        if(ssConfig.fogenable && fog) {
+        if(stonesenseState.ssConfig.fogenable && fog) {
             draw_event d = {
                 Fog,
                 std::monostate{},
@@ -363,7 +358,7 @@ void WorldSegment::AssembleAllTiles()
         }
     }
 
-    ssTimers.assembly_time = (clock() - starttime)*0.1 + ssTimers.assembly_time*0.9;
+    stonesenseState.stoneSenseTimers.assembly_time.update(clock() - starttime);
 }
 
 

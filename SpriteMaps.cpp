@@ -5,23 +5,21 @@
 #include "GUI.h"
 #include "TileTree.h"
 #include "TileTypes.h"
+#include "StonesenseState.h"
 
-using namespace std;
-using namespace DFHack;
-using namespace df::enums;
-
-c_sprite *  GetTerrainSpriteMap(int in, t_matglossPair material, vector<std::unique_ptr<TerrainConfiguration>>& configTable, uint16_t form)
+c_sprite *  GetTerrainSpriteMap(int in, DFHack::t_matglossPair material, std::vector<std::unique_ptr<TerrainConfiguration>>& configTable, uint16_t form)
 {
     // in case we need to return nothing
-    static c_sprite* defaultSprite = new c_sprite;
-    defaultSprite->reset();
-    defaultSprite->set_sheetindex(UNCONFIGURED_INDEX);
-    defaultSprite->set_fileindex(INVALID_INDEX);
-    defaultSprite->set_needoutline(1);
+    static c_sprite defaultSprite{};
+    defaultSprite.reset();
+    defaultSprite.set_sheetindex(UNCONFIGURED_INDEX);
+    defaultSprite.set_fileindex(INVALID_INDEX);
+    defaultSprite.set_needoutline(1);
 
     int tempform;
     switch (form)
     {
+        using df::item_type;
     case item_type::BAR:
         tempform = FORM_BAR;
         break;
@@ -35,17 +33,17 @@ c_sprite *  GetTerrainSpriteMap(int in, t_matglossPair material, vector<std::uni
         tempform = FORM_LOG;
         break;
     default:
-        return defaultSprite;
+        return &defaultSprite;
     }
 
     // first check the input is sane
     if( in < 0 || in >= (int)configTable.size() ) {
-        return defaultSprite;
+        return &defaultSprite;
     }
     // find a matching terrainConfig
     TerrainConfiguration* terrain = configTable[in].get();
     if (terrain == nullptr) {
-        return defaultSprite;
+        return &defaultSprite;
     }
     // find mat config
 
@@ -70,25 +68,27 @@ c_sprite *  GetTerrainSpriteMap(int in, t_matglossPair material, vector<std::uni
     return &terrainMat->getOverridingMaterial(tempform, material, terrain);
 }
 
-c_sprite * GetFloorSpriteMap(int in, t_matglossPair material, uint16_t form)
+c_sprite * GetFloorSpriteMap(int in, DFHack::t_matglossPair material, uint16_t form)
 {
-    return GetTerrainSpriteMap(in, material, contentLoader->terrainFloorConfigs, form);
+    return GetTerrainSpriteMap(in, material, stonesenseState.contentLoader->terrainFloorConfigs, form);
 }
 
-c_sprite * GetTileSpriteMap(int in, t_matglossPair material, uint16_t form)
+c_sprite * GetTileSpriteMap(int in, DFHack::t_matglossPair material, uint16_t form)
 {
-    return GetTerrainSpriteMap(in, material, contentLoader->terrainWallConfigs, form);
+    return GetTerrainSpriteMap(in, material, stonesenseState.contentLoader->terrainWallConfigs, form);
 }
 
 c_tile_tree * GetTreeVegetation(df::tiletype_shape shape, df::tiletype_special special, int index)
 {
     int base_sprite = SPRITEOBJECT_BLUEPRINT;
-    vector<std::unique_ptr<VegetationConfiguration>>* graphicSet;
+    std::vector<std::unique_ptr<VegetationConfiguration>>* graphicSet;
     bool live=true;
     bool grown=true;
+    auto& contentLoader = stonesenseState.contentLoader;
     switch(shape) {
+        using df::tiletype_shape;
     case tiletype_shape::TRUNK_BRANCH:
-        if (special == tiletype_special::DEAD) {
+        if (special == df::tiletype_special::DEAD) {
             base_sprite = SPRITEOBJECT_TREE_DEAD;
             graphicSet = &(contentLoader->treeConfigs);
             live = false;
@@ -98,7 +98,7 @@ c_tile_tree * GetTreeVegetation(df::tiletype_shape shape, df::tiletype_special s
         }
         break;
     case tiletype_shape::SAPLING:
-        if (special == tiletype_special::DEAD) {
+        if (special == df::tiletype_special::DEAD) {
             base_sprite = SPRITEOBJECT_SAPLING_DEAD;
             live = false;
             grown = false;
@@ -110,7 +110,7 @@ c_tile_tree * GetTreeVegetation(df::tiletype_shape shape, df::tiletype_special s
         }
         break;
     case tiletype_shape::SHRUB:
-        if (special == tiletype_special::DEAD) {
+        if (special == df::tiletype_special::DEAD) {
             base_sprite = SPRITEOBJECT_SHRUB_DEAD;
             live = false;
             graphicSet = &(contentLoader->shrubConfigs);

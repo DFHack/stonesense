@@ -1,8 +1,5 @@
 #include "TreeGrowthConfiguration.h"
-
-using namespace std;
-using namespace DFHack;
-using namespace df::enums;
+#include "StonesenseState.h"
 
 void parseGrowthElement(TiXmlElement* elemGrowthSprite, MaterialMatcher<c_sprite> & growthTopConfigs, MaterialMatcher<c_sprite> & growthBottomConfigs, int basefile)
 {
@@ -48,21 +45,17 @@ void parseGrowthElement(TiXmlElement* elemGrowthSprite, MaterialMatcher<c_sprite
 
 bool addSingleGrowthConfig(TiXmlElement* elemRoot)
 {
-    int basefile = INVALID_INDEX;
-    const char* filename = elemRoot->Attribute("file");
-    if (filename != NULL && filename[0] != 0) {
-        basefile = loadConfigImgFile((char*)filename, elemRoot);
-        if (basefile == -1) {
-            return false;
-        }
-    }
+    int basefile = loadImgFromXML(elemRoot);
+    if (basefile == INVALID_INDEX)
+        return false;
 
-    string elementType = elemRoot->Value();
+    std::string elementType = elemRoot->Value();
     if (elementType.compare("growths") == 0) {
         //parse colors
         TiXmlElement* elemGrowth = elemRoot->FirstChildElement("growth");
         while (elemGrowth) {
-            parseGrowthElement(elemGrowth, contentLoader->growthTopConfigs, contentLoader->growthBottomConfigs, basefile);
+            auto& contentLoader = stonesenseState.contentLoader;
+            parseGrowthElement(elemGrowth, stonesenseState.contentLoader->growthTopConfigs, contentLoader->growthBottomConfigs, basefile);
             elemGrowth = elemGrowth->NextSiblingElement("growth");
         }
     }

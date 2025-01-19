@@ -2,11 +2,9 @@
 #include "GameBuildings.h"
 #include "WorldSegment.h"
 #include "ContentLoader.h"
-#include <iostream>
+#include "StonesenseState.h"
 
-using namespace std;
-using namespace DFHack;
-using namespace df::enums;
+#include <iostream>
 
 int getDirectionFromString(const char* strDir)
 {
@@ -47,7 +45,7 @@ int getDirectionFromString(const char* strDir)
 int getBuildingFromString(const char* strType)
 {
     df::building_type item = df::building_type::NONE;
-    if (find_enum_item(&item, strType)) {
+    if (DFHack::find_enum_item(&item, strType)) {
         return (int)item;
     }
     return INVALID_INDEX;
@@ -59,34 +57,39 @@ NeighbourWallCondition::NeighbourWallCondition(const char* strDir)
     this->value = getDirectionFromString(strDir);
 }
 
-bool NeighbourWallCondition::Matches(Tile* b)
-{
+namespace {
+    bool neighbor_match(Tile* b, auto value, auto pred)
+    {
+        bool n = pred(b->ownerSegment->getTileRelativeTo(b->x, b->y, b->z, eUp));
+        bool s = pred(b->ownerSegment->getTileRelativeTo(b->x, b->y, b->z, eDown));
+        bool w = pred(b->ownerSegment->getTileRelativeTo(b->x, b->y, b->z, eLeft));
+        bool e = pred(b->ownerSegment->getTileRelativeTo(b->x, b->y, b->z, eRight));
 
-    bool n = hasWall( b->ownerSegment->getTileRelativeTo( b->x, b->y, b->z, eUp ) );
-    bool s = hasWall( b->ownerSegment->getTileRelativeTo( b->x, b->y, b->z, eDown ) );
-    bool w = hasWall( b->ownerSegment->getTileRelativeTo( b->x, b->y, b->z, eLeft ) );
-    bool e = hasWall( b->ownerSegment->getTileRelativeTo( b->x, b->y, b->z, eRight ) );
+        if (value == eSimpleN && n) {
+            return true;
+        }
+        if (value == eSimpleS && s) {
+            return true;
+        }
+        if (value == eSimpleW && w) {
+            return true;
+        }
+        if (value == eSimpleE && e) {
+            return true;
+        }
 
-    if( value == eSimpleN && n) {
-        return true;
-    }
-    if( value == eSimpleS && s) {
-        return true;
-    }
-    if( value == eSimpleW && w) {
-        return true;
-    }
-    if( value == eSimpleE && e) {
-        return true;
-    }
+        if (value == eSimpleSingle && !n && !s && !w && !e) {
+            return true;
+        }
 
-    if( value == eSimpleSingle && !n && !s && !w && !e) {
-        return true;
+        return false;
     }
-
-    return false;
 }
 
+bool NeighbourWallCondition::Matches(Tile* b)
+{
+    return neighbor_match(b, value, hasWall);
+}
 
 PositionIndexCondition::PositionIndexCondition(const char* strValue)
     : TileCondition()
@@ -107,7 +110,6 @@ bool PositionIndexCondition::Matches(Tile* b)
 
     return pos == this->value;
 }
-
 
 MaterialTypeCondition::MaterialTypeCondition(const char* strValue, const char* strSubtype, const char* strPattern_index)
     : TileCondition()
@@ -163,7 +165,6 @@ bool MaterialTypeCondition::Matches(Tile* b)
     }
 }
 
-
 AnimationFrameCondition::AnimationFrameCondition(const char* strValue)
     : TileCondition()
 {
@@ -172,7 +173,7 @@ AnimationFrameCondition::AnimationFrameCondition(const char* strValue)
 
 bool AnimationFrameCondition::Matches(Tile* b)
 {
-    return this->value == currentAnimationFrame;
+    return this->value == stonesenseState.currentAnimationFrame;
 }
 
 
@@ -207,30 +208,8 @@ NeighbourSameBuildingCondition::NeighbourSameBuildingCondition(const char* strDi
 bool NeighbourSameBuildingCondition::Matches(Tile* b)
 {
     Stonesense_Building* tilesBuildingIndex = b->building.info;
-
-    bool n = hasBuildingOfIndex( b->ownerSegment->getTileRelativeTo( b->x, b->y, b->z, eUp    ), tilesBuildingIndex );
-    bool s = hasBuildingOfIndex( b->ownerSegment->getTileRelativeTo( b->x, b->y, b->z, eDown  ), tilesBuildingIndex );
-    bool w = hasBuildingOfIndex( b->ownerSegment->getTileRelativeTo( b->x, b->y, b->z, eLeft  ), tilesBuildingIndex );
-    bool e = hasBuildingOfIndex( b->ownerSegment->getTileRelativeTo( b->x, b->y, b->z, eRight ), tilesBuildingIndex );
-
-    if( value == eSimpleN && n) {
-        return true;
-    }
-    if( value == eSimpleS && s) {
-        return true;
-    }
-    if( value == eSimpleW && w) {
-        return true;
-    }
-    if( value == eSimpleE && e) {
-        return true;
-    }
-
-    if( value == eSimpleSingle && !n && !s && !w && !e) {
-        return true;
-    }
-
-    return false;
+    auto fn = [&](Tile* b) { return hasBuildingOfIndex(b, tilesBuildingIndex); };
+    return neighbor_match(b, value, fn);
 }
 
 
@@ -244,30 +223,8 @@ bool NeighbourIdenticalCondition::Matches(Tile* b)
 {
     Stonesense_Building* tilesBuildingIndex = b->building.info;
     df::tile_building_occ tilesBuildingOcc = b->occ.bits.building;
-
-    bool n = hasBuildingIdentity( b->ownerSegment->getTileRelativeTo( b->x, b->y, b->z, eUp ), tilesBuildingIndex, tilesBuildingOcc );
-    bool s = hasBuildingIdentity( b->ownerSegment->getTileRelativeTo( b->x, b->y, b->z, eDown ), tilesBuildingIndex, tilesBuildingOcc );
-    bool w = hasBuildingIdentity( b->ownerSegment->getTileRelativeTo( b->x, b->y, b->z, eLeft ), tilesBuildingIndex, tilesBuildingOcc );
-    bool e = hasBuildingIdentity( b->ownerSegment->getTileRelativeTo( b->x, b->y, b->z, eRight ), tilesBuildingIndex, tilesBuildingOcc );
-
-    if( value == eSimpleN && n) {
-        return true;
-    }
-    if( value == eSimpleS && s) {
-        return true;
-    }
-    if( value == eSimpleW && w) {
-        return true;
-    }
-    if( value == eSimpleE && e) {
-        return true;
-    }
-
-    if( value == eSimpleSingle && !n && !s && !w && !e) {
-        return true;
-    }
-
-    return false;
+    auto fn = [&](Tile* b) { return hasBuildingIdentity(b, tilesBuildingIndex, tilesBuildingOcc); };
+    return neighbor_match(b, value, fn);
 }
 
 
@@ -280,29 +237,8 @@ NeighbourOfTypeCondition::NeighbourOfTypeCondition(const char* strDir, const cha
 
 bool NeighbourOfTypeCondition::Matches(Tile* b)
 {
-    bool n = hasBuildingOfID( b->ownerSegment->getTileRelativeTo( b->x, b->y, b->z, eUp ), value );
-    bool s = hasBuildingOfID( b->ownerSegment->getTileRelativeTo( b->x, b->y, b->z, eDown ), value );
-    bool w = hasBuildingOfID( b->ownerSegment->getTileRelativeTo( b->x, b->y, b->z, eLeft ), value);
-    bool e = hasBuildingOfID( b->ownerSegment->getTileRelativeTo( b->x, b->y, b->z, eRight ), value );
-
-    if( direction == eSimpleN && n) {
-        return true;
-    }
-    if( direction == eSimpleS && s) {
-        return true;
-    }
-    if( direction == eSimpleW && w) {
-        return true;
-    }
-    if( direction == eSimpleE && e) {
-        return true;
-    }
-
-    if( direction == eSimpleSingle && !n && !s && !w && !e) {
-        return true;
-    }
-
-    return false;
+    auto fn = [&](Tile* b) { return hasBuildingOfID(b, value); };
+    return neighbor_match(b, direction, fn);
 }
 
 NeighbourSameTypeCondition::NeighbourSameTypeCondition(const char* strDir)
@@ -314,30 +250,8 @@ NeighbourSameTypeCondition::NeighbourSameTypeCondition(const char* strDir)
 bool NeighbourSameTypeCondition::Matches(Tile* b)
 {
     int value = b->building.type;
-
-    bool n = hasBuildingOfID( b->ownerSegment->getTileRelativeTo( b->x, b->y, b->z, eUp ), value );
-    bool s = hasBuildingOfID( b->ownerSegment->getTileRelativeTo( b->x, b->y, b->z, eDown ), value );
-    bool w = hasBuildingOfID( b->ownerSegment->getTileRelativeTo( b->x, b->y, b->z, eLeft ), value);
-    bool e = hasBuildingOfID( b->ownerSegment->getTileRelativeTo( b->x, b->y, b->z, eRight ), value );
-
-    if( direction == eSimpleN && n) {
-        return true;
-    }
-    if( direction == eSimpleS && s) {
-        return true;
-    }
-    if( direction == eSimpleW && w) {
-        return true;
-    }
-    if( direction == eSimpleE && e) {
-        return true;
-    }
-
-    if( direction == eSimpleSingle && !n && !s && !w && !e) {
-        return true;
-    }
-
-    return false;
+    auto fn = [&](Tile* b) { return hasBuildingOfID(b, value); };
+    return neighbor_match(b, direction, fn);
 }
 
 
@@ -404,7 +318,7 @@ bool NotConditionalNode::addCondition(std::unique_ptr<TileCondition> cond)
 
 bool HaveFloorCondition::Matches(Tile* b)
 {
-    return (b->tileShapeBasic()==tiletype_shape_basic::Floor);
+    return (b->tileShapeBasic()==df::tiletype_shape_basic::Floor);
 }
 
 FluidBelowCondition::FluidBelowCondition(const char* strValue)

@@ -7,6 +7,9 @@
 #include "MiscUtils.h"
 #include "Tile.h"
 #include "SpriteColors.h"
+#include "GameConfiguration.h"
+#include "StonesenseState.h"
+
 #include "DataDefs.h"
 #include "df/world.h"
 #include "df/unit.h"
@@ -27,9 +30,6 @@
 #include "modules/Units.h"
 #include "df/historical_entity.h"
 #include "df/entity_position.h"
-
-using namespace DFHack;
-using namespace df::enums;
 
 using std::string;
 using std::vector;
@@ -265,6 +265,8 @@ namespace {
 
     bool IsCreatureVisible(df::unit * c)
     {
+        auto& ssConfig = stonesenseState.ssConfig;
+
         if (ssConfig.show_all_creatures) {
             return true;
         }
@@ -293,11 +295,12 @@ void AssembleCreature(int drawx, int drawy, Stonesense_Unit* creature, Tile * b)
         if(raw->caste[creature->origin->caste]->caste_tile != 1) {
             spritenum = raw->caste[creature->origin->caste]->caste_tile;
         }
+        auto& ssConfig = stonesenseState.ssConfig;
         ALLEGRO_COLOR tilecolor = ssConfig.colors.getDfColor(DFHack::Units::getCasteProfessionColor(creature->origin->race,creature->origin->caste,(df::profession)creature->profession), ssConfig.useDfColors);
         int sheetx = spritenum % LETTERS_OBJECTSWIDE;
         int sheety = spritenum / LETTERS_OBJECTSWIDE;
         b->AssembleSprite(
-            IMGLetterSheet,
+            stonesenseState.IMGLetterSheet,
             premultiply(b ? shadeAdventureMode(tilecolor, b->fog_of_war, b->designation.bits.outside) : tilecolor),
             sheetx * SPRITEWIDTH,
             sheety * SPRITEHEIGHT,
@@ -318,9 +321,12 @@ void AssembleCreatureText(int drawx, int drawy, Stonesense_Unit* creature, World
 
 void DrawCreatureText(int drawx, int drawy, Stonesense_Unit* creature )
 {
+    auto fontHeight = al_get_font_line_height(stonesenseState.font);
     vector<int> statusIcons;
 
     //if(ssConfig.show_creature_happiness)
+    using df::caste_raw_flags;
+    auto& ssConfig = stonesenseState.ssConfig;
     if(ssConfig.show_creature_moods && df::creature_raw::find(creature->origin->race)->caste[creature->origin->caste]->flags.is_set(caste_raw_flags::CAN_SPEAK)) {
         auto stress_level = creature->origin->status.current_soul ? creature->origin->status.current_soul->personality.stress : 0;
         if(stress_level <= 0) {
@@ -339,6 +345,7 @@ void DrawCreatureText(int drawx, int drawy, Stonesense_Unit* creature )
             statusIcons.push_back(6);
         }
 
+        using df::mood_type;
         if(creature->origin->mood == mood_type::Fey) {
             statusIcons.push_back(19);
         } else if(creature->origin->mood == mood_type::Secretive) {
@@ -355,6 +362,7 @@ void DrawCreatureText(int drawx, int drawy, Stonesense_Unit* creature )
             statusIcons.push_back(18);
         }
 
+        using df::job_type;
         if(creature->origin->job.current_job && creature->origin->job.current_job->job_type == job_type::Sleep) {
             statusIcons.push_back(16);
         } else if(creature->origin->job.current_job && creature->origin->job.current_job->job_type == job_type::Rest) {
@@ -365,7 +373,7 @@ void DrawCreatureText(int drawx, int drawy, Stonesense_Unit* creature )
     unsigned int offsety = 0;
 
     if(ssConfig.show_creature_jobs && creature->origin->job.current_job) {
-        std::string jname = DF2UTF(Job::getName(creature->origin->job.current_job));
+        std::string jname = DF2UTF(DFHack::Job::getName(creature->origin->job.current_job));
 
         //CAN'T DO THIS UNTIL DFHack t_job IMPORTS MATERIAL TYPE???
         //df::job_skill jskill = ENUM_ATTR(job_type,skill,jtype);
@@ -380,22 +388,22 @@ void DrawCreatureText(int drawx, int drawy, Stonesense_Unit* creature )
         //        creature->race,creature->caste,ENUM_ATTR(
         //        job_skill,profession,jskill
         //        )));
-        //    draw_textf_border(font, textcol, drawx, drawy-((WALLHEIGHT*ssConfig.scale)+al_get_font_line_height(font) + offsety), 0,
+        //    draw_textf_border(font, textcol, drawx, drawy-((WALLHEIGHT*ssConfig.scale)+fontHeight + offsety), 0,
         //        "%s (%s)", jname, jprofname );
         //} else {
         //    textcol = al_map_rgb(255,255,255);
-        //    draw_textf_border(font, textcol, drawx, drawy-((WALLHEIGHT*ssConfig.scale)+al_get_font_line_height(font) + offsety), 0,
+        //    draw_textf_border(font, textcol, drawx, drawy-((WALLHEIGHT*ssConfig.scale)+fontHeight + offsety), 0,
         //        "%s", jname );
         //}
 
         //go all kinds of crazy if it is a strange mood
         ALLEGRO_COLOR textcol = ENUM_ATTR(job_type,type, creature->origin->job.current_job->job_type) == df::job_type_class::StrangeMood
             ? blinkTechnicolor() : al_map_rgb(255,255,255);
-        draw_textf_border(font, textcol, drawx, drawy-((WALLHEIGHT*ssConfig.scale)+al_get_font_line_height(font) + offsety), 0,
+        draw_textf_border(stonesenseState.font, textcol, drawx, drawy-((WALLHEIGHT*ssConfig.scale)+fontHeight + offsety), 0,
             "%s", jname.c_str() );
     }
 
-    offsety += (ssConfig.show_creature_jobs&&creature->origin->job.current_job) ? al_get_font_line_height(font) : 0;
+    offsety += (ssConfig.show_creature_jobs&&creature->origin->job.current_job) ? fontHeight : 0;
 
     if( ssConfig.show_creature_names ) {
         ALLEGRO_COLOR textcol;
@@ -417,7 +425,7 @@ void DrawCreatureText(int drawx, int drawy, Stonesense_Unit* creature )
         }
 
         if (!creature->origin->name.nickname.empty() && ssConfig.names_use_nick) {
-            draw_textf_border(font, textcol, drawx, drawy-((WALLHEIGHT*ssConfig.scale)+al_get_font_line_height(font) + offsety), 0,
+            draw_textf_border(stonesenseState.font, textcol, drawx, drawy-((WALLHEIGHT*ssConfig.scale)+fontHeight + offsety), 0,
                               "%s", DF2UTF(creature->origin->name.nickname).c_str());
         }
         else if (!creature->origin->name.first_name.empty())
@@ -427,7 +435,7 @@ void DrawCreatureText(int drawx, int drawy, Stonesense_Unit* creature )
             buffer[127]=0;
             ALLEGRO_USTR* temp = bufferToUstr(buffer, 128);
             al_ustr_set_chr(temp, 0, charToUpper(al_ustr_get(temp, 0)));
-            draw_ustr_border(font, textcol, drawx, drawy-((WALLHEIGHT*ssConfig.scale)+al_get_font_line_height(font) + offsety), 0,
+            draw_ustr_border(stonesenseState.font, textcol, drawx, drawy-((WALLHEIGHT*ssConfig.scale)+fontHeight + offsety), 0,
                 temp );
             al_ustr_free(temp);
         }
@@ -447,20 +455,20 @@ void DrawCreatureText(int drawx, int drawy, Stonesense_Unit* creature )
                     lastChar = al_ustr_get(temp, i);
 
                 }
-                draw_ustr_border(font, textcol, drawx, drawy-((WALLHEIGHT*ssConfig.scale)+al_get_font_line_height(font) + offsety), 0,
+                draw_ustr_border(stonesenseState.font, textcol, drawx, drawy-((WALLHEIGHT*ssConfig.scale)+fontHeight + offsety), 0,
                 temp);
                 al_ustr_free(temp);
             }
         }
     }
 
-    offsety += ssConfig.show_creature_names ? al_get_font_line_height(font) : 0;
+    offsety += ssConfig.show_creature_names ? fontHeight : 0;
 
     if(statusIcons.size()) {
         for(size_t i = 0; i < statusIcons.size(); i++) {
             unsigned int sheetx = 16 * (statusIcons[i] % 7);
             unsigned int sheety = 16 * (statusIcons[i] / 7);
-            al_draw_bitmap_region(IMGStatusSheet, sheetx, sheety, 16, 16, drawx - (statusIcons.size()*8) + (16*i) + (SPRITEWIDTH*ssConfig.scale/2), drawy - (16 + WALLHEIGHT*ssConfig.scale + offsety), 0);
+            al_draw_bitmap_region(stonesenseState.IMGStatusSheet, sheetx, sheety, 16, 16, drawx - (statusIcons.size()*8) + (16*i) + (SPRITEWIDTH*ssConfig.scale/2), drawy - (16 + WALLHEIGHT*ssConfig.scale + offsety), 0);
         }
     }
 
@@ -469,7 +477,7 @@ void DrawCreatureText(int drawx, int drawy, Stonesense_Unit* creature )
     if(ssConfig.show_creature_professions == 1) {
         unsigned int sheetx = 16 * (creature->profession % 7);
         unsigned int sheety = 16 * (creature->profession / 7);
-        al_draw_bitmap_region(IMGProfSheet, sheetx, sheety, 16, 16, drawx -8 + (SPRITEWIDTH*ssConfig.scale/2), drawy - (16 + WALLHEIGHT*ssConfig.scale + offsety), 0);
+        al_draw_bitmap_region(stonesenseState.IMGProfSheet, sheetx, sheety, 16, 16, drawx -8 + (SPRITEWIDTH*ssConfig.scale/2), drawy - (16 + WALLHEIGHT*ssConfig.scale + offsety), 0);
     }
 }
 
@@ -481,26 +489,11 @@ namespace {
      */
     bool hasLegendarySkill(df::unit * source) {
 
-        if (!source) {
-            return false;
-        }
-        if (source->status.souls.size() <= 0) {
-            return false;
-        }
-        df::unit_soul* soul = source->status.souls[0];
-        if (!soul) {
-            return false;
-        }
-        if (soul->skills.size() <= 0) {
-            return false;
-        }
-        for (size_t i = 0; i < soul->skills.size(); i++) {
-            if (soul->skills[i] && soul->skills[i]->rating >= df::skill_rating::Legendary) {
-                return true;
-            }
-        }
-        //I feel dirty
-        return false;
+        return source &&
+            source->status.current_soul &&
+            std::any_of(source->status.current_soul->skills.begin(),
+                source->status.current_soul->skills.end(),
+                [](auto*& sk) { return sk->rating >= df::skill_rating::Legendary; });
     }
 
     /**
@@ -511,6 +504,7 @@ namespace {
      */
     void copyCreature(df::unit * source, Stonesense_Unit & furball)
     {
+        auto& contentLoader = stonesenseState.contentLoader;
         // read pointer from vector at position
         furball.origin = source;
 
@@ -532,16 +526,12 @@ namespace {
             furball.hairlength[i] = 1001;//default to long unkempt hair
             furball.hairstyle[i] = CLEAN_SHAVEN;
         }
-        if (size_t(source->race) < contentLoader->style_indices.size() && contentLoader->style_indices.at(source->race)) {
-            if (size_t(source->caste) < contentLoader->style_indices.at(source->race)->size() && contentLoader->style_indices.at(source->race)->at(source->caste)) {
-                for (size_t i = 0; i < source->appearance.tissue_style_type.size(); i++) {
-                    for (size_t j = 0; j < contentLoader->style_indices.at(source->race)->at(source->caste)->size(); j++) {
-                        if (source->appearance.tissue_style_type[i] == contentLoader->style_indices.at(source->race)->at(source->caste)->at(j)) {
-                            furball.hairlength[j] = source->appearance.tissue_length[i];
-                            furball.hairstyle[j] = (hairstyles)source->appearance.tissue_style[i];
-                        }
-                    }
-                }
+        for (size_t i = 0; i < source->appearance.tissue_style_type.size(); i++) {
+            int j = contentLoader->style_indices.lookup(source->race, source->caste, source->appearance.tissue_style_type[i]);
+            if (j != -1)
+            {
+                furball.hairlength[j] = source->appearance.tissue_length[i];
+                furball.hairstyle[j] = (hairstyles)source->appearance.tissue_style[i];
             }
         }
 
@@ -549,9 +539,9 @@ namespace {
             furball.color[i] = source->appearance.colors[i];
         }
 
-        std::vector<Units::NoblePosition> np;
-        if (Units::getNoblePositions(&np, source)) {
-            furball.profession = contentLoader->position_Indices[np[0].entity->id]->at(np[0].position->id);
+        std::vector<DFHack::Units::NoblePosition> np;
+        if (DFHack::Units::getNoblePositions(&np, source)) {
+            furball.profession = contentLoader->position_Indices.lookup(np[0].entity->id, np[0].position->id);
         }
 
 
@@ -561,6 +551,8 @@ namespace {
 
 void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
 {
+    auto& ssConfig = stonesenseState.ssConfig;
+
     if(ssConfig.skipCreatures) {
         return;
     }
@@ -578,6 +570,7 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
                 continue;
         }
 
+        using df::tiletype;
         Tile* b = segment->getTile(unit_ptr->pos.x, unit_ptr->pos.y, unit_ptr->pos.z );
         if(!b) {
             b = segment->ResetTile(unit_ptr->pos.x, unit_ptr->pos.y, unit_ptr->pos.z, tiletype::OpenSpace);
@@ -601,6 +594,7 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
             if (!floor_tile) {
                 continue;
             }
+            using df::tiletype_shape_basic;
             if (floor_tile->tileShapeBasic()==tiletype_shape_basic::Floor ||
                 floor_tile->tileShapeBasic()==tiletype_shape_basic::Wall  ||
                 floor_tile->tileShapeBasic()==tiletype_shape_basic::Ramp) {
@@ -636,7 +630,7 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
             int subtype = item->getSubtype();
             if(subtype < 0) subtype = 0;
 
-            item_type::item_type type = item->getType();
+            auto type = item->getType();
 
             worn_item equipment;
 
@@ -647,6 +641,7 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
                 auto Constructed_Item = virtual_cast<df::item_constructed>(item);
                 if(Constructed_Item) {
                     for(size_t idex = 0; idex < Constructed_Item->improvements.size(); idex++) {
+                        using df::improvement_type;
                         if(!Constructed_Item->improvements[idex]) {
                             continue;
                         }
@@ -686,6 +681,7 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
 namespace {
     CreatureConfiguration* GetCreatureConfig(Stonesense_Unit* c)
     {
+        auto& contentLoader = stonesenseState.contentLoader;
         //find list for creature type
         uint32_t num = (uint32_t)contentLoader->creatureConfigs.size();
         if (uint32_t(c->origin->race) >= num) {
@@ -695,8 +691,8 @@ namespace {
         if (creatureData == nullptr) {
             return nullptr;
         }
-        int rando = randomCube[c->origin->pos.x % RANDOM_CUBE][c->origin->pos.y % RANDOM_CUBE][c->origin->pos.z % RANDOM_CUBE];
-        int offsetAnimFrame = (currentAnimationFrame + rando) % MAX_ANIMFRAME;
+        int rando = stonesenseState.randomCube[c->origin->pos.x % RANDOM_CUBE][c->origin->pos.y % RANDOM_CUBE][c->origin->pos.z % RANDOM_CUBE];
+        int offsetAnimFrame = (stonesenseState.currentAnimationFrame + rando) % MAX_ANIMFRAME;
 
         num = (uint32_t)creatureData->size();
         for (uint32_t i = 0; i < num; i++) {
@@ -711,6 +707,7 @@ namespace {
             }
 
             bool creatureMatchesSex = true;
+            using df::pronoun_type;
             if (testConfig->sex != pronoun_type::it) {
                 creatureMatchesSex =
                     (c->origin->sex == testConfig->sex);
@@ -768,7 +765,7 @@ c_sprite* GetCreatureSpriteMap( Stonesense_Unit* c )
     if (testConfig == NULL) {
         return NULL;
     }
-    testConfig->sprite.set_defaultsheet(IMGCreatureSheet);
+    testConfig->sprite.set_defaultsheet(stonesenseState.IMGCreatureSheet);
     return &(testConfig->sprite);
 }
 

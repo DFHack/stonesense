@@ -5,7 +5,7 @@
 #include "common.h"
 
 #include "Tile.h"
-
+#include "GameState.h"
 
 enum draw_event_type{
     Fog,
@@ -33,7 +33,7 @@ struct draw_event{
 class WorldSegment
 {
 private:
-    Tile* tiles;
+    std::vector<Tile> tiles;
     std::vector<draw_event> todraw;
 
     std::vector<std::unique_ptr<Stonesense_Unit>> units;
@@ -49,12 +49,12 @@ public:
         segState.Position.z = segState.Position.z - segState.Size.z + 1;
 
         uint32_t newNumTiles = inState.Size.x * inState.Size.y * inState.Size.z;
-        tiles = new Tile[newNumTiles]();
+        tiles.clear();
+        tiles.insert(tiles.end(), newNumTiles, {});
     }
 
     ~WorldSegment() {
-        delete[] tiles;
-        tiles = NULL;
+        tiles.clear();
         ClearBuildings();
         ClearUnits();
     }
@@ -68,14 +68,13 @@ public:
         uint32_t newNumTiles = inState.Size.x * inState.Size.y * inState.Size.z;
         //if this is a hard reset, or if the size doesn't match what is needed, get a new segment
         if(hard || newNumTiles != getNumTiles()) {
-            delete[] tiles;
-            tiles = new Tile[newNumTiles]();
+            tiles.clear();
+            tiles.insert(tiles.end(), newNumTiles, {});
         }
         else {
             // Otherwise, reset all existing tiles to their initial state
-            for(uint32_t i = 0; i < getNumTiles(); i++) {
-                tiles[i].Reset();
-            }
+            for (auto& t : tiles)
+                t.Reset();
         }
 
         segState = inState;
@@ -97,7 +96,7 @@ public:
     void CorrectTileForSegmentOffset(int32_t& x, int32_t& y, int32_t& z);
     void CorrectTileForSegmentRotation(int32_t& x, int32_t& y, int32_t& z);
     //void addTile(Tile* b);
-    void AssembleBlockTiles(int32_t firstX, int32_t firstY, int32_t lastX, int32_t lastY, int32_t incrx, int32_t incry, int32_t z);
+    // void AssembleBlockTiles(int32_t firstX, int32_t firstY, int32_t lastX, int32_t lastY, int32_t incrx, int32_t incry, int32_t z);
     void AssembleAllTiles();
     void AssembleSprite(draw_event d);
     void DrawAllTiles();
@@ -128,16 +127,12 @@ public:
         al_destroy_mutex(readmutex);
     }
     void shutdown(){
-        drawsegment->Reset(zeroState);
-        readsegment->Reset(zeroState);
-    }
-    void lock() {
         al_lock_mutex(drawmutex);
         al_lock_mutex(readmutex);
-    }
-    void unlock() {
-        al_unlock_mutex(drawmutex);
+        drawsegment->Reset(zeroState);
+        readsegment->Reset(zeroState);
         al_unlock_mutex(readmutex);
+        al_unlock_mutex(drawmutex);
     }
     void lockDraw() {
         al_lock_mutex(drawmutex);
@@ -166,5 +161,3 @@ private:
     std::unique_ptr<WorldSegment> drawsegment;
     std::unique_ptr<WorldSegment> readsegment;
 };
-
-extern SegmentWrap map_segment;
