@@ -45,8 +45,6 @@ bool stonesense_started = 0;
 
 int keyoffset=0;
 
-GameState ssState;
-
 std::vector<DFHack::t_matgloss> v_stonetypes;
 
 /*FIXME: Find a new replacement for the overlay mode.
@@ -143,10 +141,10 @@ bool loadfont(DFHack::color_ostream & output)
 
 void benchmark()
 {
-    ssState.Position.x = ssState.Position.y = 0;
-    ssState.Position.x = 110;
-    ssState.Position.y = 110;
-    ssState.Position.z = 18;
+    stonesenseState.ssState.Position.x = stonesenseState.ssState.Position.y = 0;
+    stonesenseState.ssState.Position.x = 110;
+    stonesenseState.ssState.Position.y = 110;
+    stonesenseState.ssState.Position.z = 18;
     uint32_t startTime = clock();
     int i = 20;
     while(i--) {
@@ -320,8 +318,8 @@ static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALL
                 }
                 stonesenseState.timeToReloadSegment = true;
                 redraw = true;
-                ssState.ScreenH = event.display.height;
-                ssState.ScreenW = event.display.width;
+                stonesenseState.ssState.ScreenH = event.display.height;
+                stonesenseState.ssState.ScreenW = event.display.width;
                 if (!al_acknowledge_resize(event.display.source)) {
                     con.printerr("Failed to resize diplay");
                     return;
@@ -374,9 +372,9 @@ static void* stonesense_thread(ALLEGRO_THREAD* main_thread, void* parms)
     out.print("Stonesense launched\n");
 
     stonesenseState.ssConfig = GameConfiguration{};
-    ssState.ScreenH = DEFAULT_RESOLUTION_HEIGHT;
-    ssState.ScreenW = DEFAULT_RESOLUTION_WIDTH;
-    ssState.Size = { DEFAULT_SEGSIZE_XY, DEFAULT_SEGSIZE_XY, DEFAULT_SEGSIZE_Z };
+    stonesenseState.ssState.ScreenH = DEFAULT_RESOLUTION_HEIGHT;
+    stonesenseState.ssState.ScreenW = DEFAULT_RESOLUTION_WIDTH;
+    stonesenseState.ssState.Size = { DEFAULT_SEGSIZE_XY, DEFAULT_SEGSIZE_XY, DEFAULT_SEGSIZE_Z };
     stonesenseState.timeToReloadConfig = true;
     stonesenseState.contentLoader = std::make_unique<ContentLoader>();
 
@@ -415,7 +413,7 @@ static void* stonesense_thread(ALLEGRO_THREAD* main_thread, void* parms)
         al_set_new_bitmap_flags(ALLEGRO_MIN_LINEAR|ALLEGRO_MIPMAP);
     }
 
-    display = al_create_display(ssState.ScreenW, ssState.ScreenH);
+    display = al_create_display(stonesenseState.ssState.ScreenW, stonesenseState.ssState.ScreenH);
     if (!display) {
         out.printerr("al_create_display failed\n");
         stonesense_started = 0;
@@ -467,7 +465,7 @@ static void* stonesense_thread(ALLEGRO_THREAD* main_thread, void* parms)
 
     loadGraphicsFromDisk();
     al_clear_to_color(al_map_rgb(0,0,0));
-    al_draw_textf(stonesenseState.font, al_map_rgb(255,255,255), ssState.ScreenW/2, ssState.ScreenH/2, ALLEGRO_ALIGN_CENTRE, "Starting up...");
+    al_draw_textf(stonesenseState.font, al_map_rgb(255,255,255), stonesenseState.ssState.ScreenW/2, stonesenseState.ssState.ScreenH/2, ALLEGRO_ALIGN_CENTRE, "Starting up...");
     al_flip_display();
 
     stonesenseState.reloadtimer = al_create_timer(ALLEGRO_MSECS_TO_SECS(ssConfig.automatic_reload_time));
