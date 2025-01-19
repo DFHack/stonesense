@@ -228,26 +228,12 @@ bool actionrepeatmap[ALLEGRO_KEY_UNKNOWN];
 
 void parseKeymapLine( std::string line )
 {
-    if(line.empty()) {
-        return;
-    }
-    char c = line[0];
-    if( c != '[') {
-        return;
-    }
-
-    //some systems don't remove the \r char as a part of the line change:
-    if(line.size() > 0 &&  line[line.size() -1 ] == '\r' ) {
-        line.resize(line.size() -1);
-    }
-
-    c = line[ line.length() -1 ];
-    if( c != ']' ) {
-        return;
-    }
+    auto ll = trim_line(line);
+    if (!ll) return;
+    line = *ll;
 
     //second-last character should tell us if this is a repeating action
-    c = line[ line.length() -2 ];
+    auto c = line[ line.length() -2 ];
 
     for(int i=0; actionnamemap[i].func != action_invalid; i++) {
         if(line.find(actionnamemap[i].name)!=std::string::npos) {

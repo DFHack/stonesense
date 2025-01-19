@@ -49,27 +49,31 @@ namespace {
 
         return retVal;
     }
+}
 
+std::optional<std::string> trim_line(std::string line)
+{
+    if (line.empty())
+        return std::nullopt;
 
+    if (!line.starts_with("["))
+        return std::nullopt;
+
+    if (line.ends_with("\r"))
+        line.resize(line.size() - 1);
+
+    if (!line.ends_with("]"))
+        return std::nullopt;
+
+    return std::optional{ line };
+}
+
+namespace {
     void parseConfigLine(string line)
     {
-        if (line.empty()) {
-            return;
-        }
-        char c = line[0];
-        if (c != '[') {
-            return;
-        }
-
-        //some systems don't remove the \r char as a part of the line change:
-        if (line.size() > 0 && line[line.size() - 1] == '\r') {
-            line.resize(line.size() - 1);
-        }
-
-        c = line[line.length() - 1];
-        if (c != ']') {
-            return;
-        }
+        auto l = trim_line(line);
+        if (!l) return;
+        line = *l;
 
         auto& ssConfig = stonesenseState.ssConfig;
         auto& ssState = stonesenseState.ssState;
