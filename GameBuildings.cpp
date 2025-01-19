@@ -192,23 +192,10 @@ void MergeBuildingsToSegment(std::vector<Stonesense_Building>* buildings, WorldS
                             item_matt.matt.index = item->getActualMaterialIndex();
 
                             if (item->isDyed()) {
-                                auto Constructed_Item = virtual_cast<df::item_constructed>(item);
-                                if (Constructed_Item) {
-                                    using df::improvement_type;
-                                    for (size_t idex = 0; idex < Constructed_Item->improvements.size(); idex++) {
-                                        if (!Constructed_Item->improvements[idex]) {
-                                            continue;
-                                        }
-                                        if (Constructed_Item->improvements[idex]->getType() != improvement_type::THREAD) {
-                                            continue;
-                                        }
-                                        auto Improvement_Thread = virtual_cast<df::itemimprovement_threadst>(Constructed_Item->improvements[idex]);
-                                        if (!Improvement_Thread) {
-                                            continue;
-                                        }
-                                        item_matt.dyematt.type = Improvement_Thread->dye.mat_type;
-                                        item_matt.dyematt.index = Improvement_Thread->dye.mat_index;
-                                    }
+                                auto mat = getDyeMaterialFromItem(item);
+                                if (mat)
+                                {
+                                    item_matt.dyematt = *mat;
                                 }
                             }
 

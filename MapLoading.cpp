@@ -379,48 +379,43 @@ void readMaterialToTile(Tile* b, uint32_t lx, uint32_t ly,
     }
 }
 
-SS_Item ConvertItem(df::item * found_item, WorldSegment& segment){
-    SS_Item Tempitem;
-    Tempitem.item.type = found_item->getType(); //itemtype
-    Tempitem.item.index = found_item->getSubtype(); //item subtype
-
-    Tempitem.matt.type = found_item->getActualMaterial();
-    Tempitem.matt.index = found_item->getActualMaterialIndex();
-
-    Tempitem.dyematt.type = -1;
-    Tempitem.dyematt.index = -1;
-    if(1) { //found_item->isDyed())
+std::optional<DFHack::t_matglossPair> getDyeMaterialFromItem(df::item* item)
+{
+    auto Constructed_Item = virtual_cast<df::item_constructed>(item);
+    if (Constructed_Item) {
         using df::improvement_type;
+        auto& imp = Constructed_Item->improvements;
+        auto it = std::find_if(imp.begin(), imp.end(),
+            [&](auto i) { return i && i->getType() == improvement_type::THREAD && virtual_cast<df::itemimprovement_threadst>(i) != nullptr; });
+        if (it != imp.end())
+        {
+            auto impthr = virtual_cast<df::itemimprovement_threadst>(*it);
+            return std::optional<DFHack::t_matglossPair>({ .type = impthr->mat_type, .index = impthr->mat_index });
+        }
+    }
+    return std::nullopt;
+}
+
+SS_Item ConvertItem(df::item * found_item, WorldSegment& segment){
+    SS_Item Tempitem{};
+    Tempitem.item = { .type = found_item->getType(), .index = found_item->getSubtype() };
+    Tempitem.matt = { .type = found_item->getActualMaterial(), .index = found_item->getActualMaterialIndex() };
+    Tempitem.dyematt = { .type = -1, .index = -1 };
+
+    if (1) { //found_item->isDyed())
         using df::item_type;
-        auto Constructed_Item = virtual_cast<df::item_constructed>(found_item);
-        if(Constructed_Item) {
-            for(size_t idex = 0; idex < Constructed_Item->improvements.size(); idex++) {
-                if(!Constructed_Item->improvements[idex]) {
-                    continue;
-                }
-                if(Constructed_Item->improvements[idex]->getType() != improvement_type::THREAD) {
-                    continue;
-                }
-                auto Improvement_Thread = virtual_cast<df::itemimprovement_threadst>(Constructed_Item->improvements[idex]);
-                if(!Improvement_Thread) {
-                    continue;
-                }
-                if (Improvement_Thread->dye.mat_type < 0) {
-                    break;
-                }
-                Tempitem.dyematt.type = Improvement_Thread->dye.mat_type;
-                Tempitem.dyematt.index = Improvement_Thread->dye.mat_index;
-            }
-        } else if (found_item->getType() == item_type::THREAD) {
+        auto dyemat = getDyeMaterialFromItem(found_item);
+        if (dyemat)
+        {
+            Tempitem.dyematt = *dyemat;
+        }
+        else if (found_item->getType() == item_type::THREAD)
+        {
             auto Thread_Item = virtual_cast<df::item_threadst>(found_item);
-            if(!Thread_Item) {
-                return Tempitem;
+            if (Thread_Item && Thread_Item->dye_mat_type >= 0)
+            {
+                Tempitem.dyematt = { .type = Thread_Item->dye_mat_type, .index = Thread_Item->dye_mat_index };
             }
-            if (Thread_Item->dye_mat_type < 0) {
-                return Tempitem;
-            }
-            Tempitem.dyematt.type = Thread_Item->dye_mat_type;
-            Tempitem.dyematt.index = Thread_Item->dye_mat_index;
         }
     }
     return Tempitem;
