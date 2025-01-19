@@ -33,21 +33,8 @@ namespace {
 
     int parseIntFromLine(string keyword, string line)
     {
-        int retVal = 0;
-        string trimString = "";
-        trimString += "[";
-        trimString += keyword;
-        trimString += ":";
-        int length = (int)trimString.length();
-
-
-        if (line.compare(0, length, trimString) == 0) {
-            line.replace(0, length, "");
-            line.replace(line.length() - 1, 1, "");
-            retVal = atoi(line.c_str());
-        }
-
-        return retVal;
+        auto tmp = parseStrFromLine(keyword, line);
+        return tmp.empty() ? 0 : atoi(tmp.c_str());
     }
 }
 
