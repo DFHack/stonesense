@@ -7,14 +7,13 @@
 #include "ContentLoader.h"
 #include "SpriteColors.h"
 #include "TileTypes.h"
+#include "GameConfiguration.h"
+#include "StonesenseState.h"
+
 #include "df/building_type.h"
 #include "df/plant_growth.h"
 #include "df/plant_growth_print.h"
 #include "df/world.h"
-
-using namespace std;
-using namespace DFHack;
-using namespace df::enums;
 
 ALLEGRO_BITMAP *sprite_miasma = 0;
 ALLEGRO_BITMAP *sprite_water = 0;
@@ -42,14 +41,12 @@ enum growth_locations
     LOCATION_SHRUB
 };
 
-int randomCube[RANDOM_CUBE][RANDOM_CUBE][RANDOM_CUBE];
-
 void initRandomCube()
 {
     for(int i = 0; i < RANDOM_CUBE; i++)
         for(int j = 0; j < RANDOM_CUBE; j++)
             for(int k = 0; k < RANDOM_CUBE; k++) {
-                randomCube[i][j][k] = rand();
+                stonesenseState.randomCube[i][j][k] = rand();
             }
 }
 
@@ -179,6 +176,8 @@ inline ALLEGRO_BITMAP* imageSheet(t_subSprite sprite, ALLEGRO_BITMAP* defaultBmp
 
 void Tile::AssembleParticleCloud(int count, float centerX, float centerY, float rangeX, float rangeY, ALLEGRO_BITMAP *sprite, ALLEGRO_COLOR tint)
 {
+    auto& ssConfig = stonesenseState.ssConfig;
+
     for(int i = 0; i < count; i++) {
         int width = al_get_bitmap_width(sprite);
         int height = al_get_bitmap_height(sprite);
@@ -190,6 +189,8 @@ void Tile::AssembleParticleCloud(int count, float centerX, float centerY, float 
 
 void Tile::AssembleSpriteFromSheet( int spriteNum, ALLEGRO_BITMAP* spriteSheet, ALLEGRO_COLOR color, float x, float y, Tile * b, float in_scale)
 {
+    auto& ssConfig = stonesenseState.ssConfig;
+
     int sheetx = spriteNum % SHEET_OBJECTSWIDE;
     int sheety = spriteNum / SHEET_OBJECTSWIDE;
     AssembleSprite(
@@ -221,11 +222,12 @@ void Tile::GetDrawLocation(int32_t& drawx, int32_t& drawy)
     ownerSegment->CorrectTileForSegmentOffset( drawx, drawy, drawz);
     ownerSegment->CorrectTileForSegmentRotation( drawx, drawy, drawz);
     pointToScreen((int*)&drawx, (int*)&drawy, drawz);
-    drawx -= (TILEWIDTH>>1)*ssConfig.scale;
+    drawx -= (TILEWIDTH>>1)*stonesenseState.ssConfig.scale;
 }
 
 void Tile::DrawGrowth(c_sprite * spriteobject, bool top=true)
 {
+    using df::tiletype_material, df::tiletype_shape;
     //Draw Growths that appear over branches
     if (tileMaterial() == tiletype_material::ROOT
         || tileMaterial() == tiletype_material::TREE
@@ -264,9 +266,12 @@ void Tile::DrawGrowth(c_sprite * spriteobject, bool top=true)
             if (loca == LOCATION_NONE)
                 continue;
 
-            DFHack::t_matglossPair fakeMat;
-            fakeMat.index = tree.index;
-            fakeMat.type = i * 10 + loca;
+            DFHack::t_matglossPair fakeMat{
+                .type = int16_t(i * 10 + loca),
+                .index = tree.index
+            };
+            auto& contentLoader = stonesenseState.contentLoader;
+
             if (top)
                 spriteobject = contentLoader->growthTopConfigs.get(fakeMat);
             else
@@ -274,9 +279,11 @@ void Tile::DrawGrowth(c_sprite * spriteobject, bool top=true)
 
             if (spriteobject)
             {
-                DFHack::t_matglossPair growthMat;
-                growthMat.index = growth->mat_index;
-                growthMat.type = growth->mat_type;
+                DFHack::t_matglossPair growthMat
+                {
+                    .type = growth->mat_type,
+                    .index = growth->mat_index
+                };
                 ALLEGRO_COLOR growCol = lookupMaterialColor(growthMat);
                 if (growth->prints.size() > 1)
                 {
@@ -290,6 +297,7 @@ void Tile::DrawGrowth(c_sprite * spriteobject, bool top=true)
                             continue;
                         currentPrint = growth->prints[k];
                     }
+                    auto& ssConfig = stonesenseState.ssConfig;
                     growCol = morph_color(growCol,
                         ssConfig.colors.getDfColor(basePrint->color[0], basePrint->color[2], ssConfig.useDfColors),
                         ssConfig.colors.getDfColor(currentPrint->color[0], currentPrint->color[2], ssConfig.useDfColors));
@@ -320,6 +328,9 @@ void Tile::AssembleTile( void )
     int32_t drawy = 0;
     GetDrawLocation(drawx, drawy);
 
+    auto& ssConfig = stonesenseState.ssConfig;
+    auto& ssState = stonesenseState.ssState;
+
     //TODO the following check should get incorporated into segment beautification
     if(((drawx + TILEWIDTH*ssConfig.scale) < 0) || (drawx > ssState.ScreenW) || ((drawy + (TILETOPHEIGHT + FLOORHEIGHT)*ssConfig.scale) < 0) || (drawy - WALLHEIGHT*ssConfig.scale > ssState.ScreenH)) {
         visible = false;
@@ -339,25 +350,24 @@ void Tile::AssembleTile( void )
     }
 
     if(building.type == BUILDINGTYPE_BLACKBOX) {
-        AssembleSpriteFromSheet( SPRITEOBJECT_BLACK, IMGObjectSheet, al_map_rgb(255,255,255), drawx, drawy+FLOORHEIGHT*ssConfig.scale);
-        AssembleSpriteFromSheet( SPRITEOBJECT_BLACK, IMGObjectSheet, al_map_rgb(255,255,255), drawx, drawy);
+        AssembleSpriteFromSheet( SPRITEOBJECT_BLACK, stonesenseState.IMGObjectSheet, al_map_rgb(255,255,255), drawx, drawy+FLOORHEIGHT*ssConfig.scale);
+        AssembleSpriteFromSheet( SPRITEOBJECT_BLACK, stonesenseState.IMGObjectSheet, al_map_rgb(255,255,255), drawx, drawy);
         return;
     }
 
-    int rando = randomCube[x%RANDOM_CUBE][y%RANDOM_CUBE][z%RANDOM_CUBE];
+    int rando = stonesenseState.randomCube[x%RANDOM_CUBE][y%RANDOM_CUBE][z%RANDOM_CUBE];
 
     DrawGrowth(spriteobject, false);
 
-
     //Draw Ramp Tops
-    if(tileType == tiletype::RampTop){
+    if(tileType == df::tiletype::RampTop) {
         Tile * b = this->ownerSegment->getTile(this->x, this->y, this->z - 1);
-        if ( b && b->building.type != BUILDINGTYPE_BLACKBOX && b->tileShapeBasic() == tiletype_shape_basic::Ramp ) {
+        if ( b && b->building.type != BUILDINGTYPE_BLACKBOX && b->tileShapeBasic() == df::tiletype_shape_basic::Ramp ) {
             spriteobject = GetTileSpriteMap(b->tileType, b->material, b->consForm);
             if (spriteobject->get_sheetindex() == UNCONFIGURED_INDEX) {
                 spriteobject->set_sheetindex(0);
                 spriteobject->set_fileindex(INVALID_INDEX);
-                spriteobject->set_defaultsheet(IMGRampSheet);
+                spriteobject->set_defaultsheet(stonesenseState.IMGRampSheet);
             }
             if (spriteobject->get_sheetindex() != INVALID_INDEX) {
                 spriteobject->set_size(SPRITEWIDTH, TILETOPHEIGHT);
@@ -371,6 +381,8 @@ void Tile::AssembleTile( void )
             return;
         }
     }
+
+    using df::tiletype_shape, df::tiletype_shape_basic;
 
     //Draw Floor
     if( tileShapeBasic()==tiletype_shape_basic::Floor ||
@@ -403,7 +415,7 @@ void Tile::AssembleTile( void )
 
     //Floor Engravings
     if((tileShapeBasic()==tiletype_shape_basic::Floor) && engraving_character && engraving_flags.bits.floor) {
-        AssembleSpriteFromSheet( engraving_character, IMGEngFloorSheet, al_map_rgba_f(1.0,1.0,1.0,((engraving_quality + 5.0f) / 10.0f)), drawx, drawy, this );
+        AssembleSpriteFromSheet( engraving_character, stonesenseState.IMGEngFloorSheet, al_map_rgba_f(1.0,1.0,1.0,((engraving_quality + 5.0f) / 10.0f)), drawx, drawy, this );
     }
 
     //Draw Ramp
@@ -412,7 +424,7 @@ void Tile::AssembleTile( void )
         if (spriteobject->get_sheetindex() == UNCONFIGURED_INDEX) {
             spriteobject->set_sheetindex(0);
             spriteobject->set_fileindex(INVALID_INDEX);
-            spriteobject->set_defaultsheet(IMGRampSheet);
+            spriteobject->set_defaultsheet(stonesenseState.IMGRampSheet);
         }
         if (spriteobject->get_sheetindex() != INVALID_INDEX) {
             spriteobject->set_size(SPRITEWIDTH, SPRITEHEIGHT);
@@ -433,13 +445,13 @@ void Tile::AssembleTile( void )
         && defaultSnow
         && snowlevel>bloodlevel) {
         if(snowlevel > 75) {
-            AssembleSpriteFromSheet( 20, IMGObjectSheet, bloodcolor, drawx, drawy, this);
+            AssembleSpriteFromSheet( 20, stonesenseState.IMGObjectSheet, bloodcolor, drawx, drawy, this);
         } else if(snowlevel > 50) {
-            AssembleSpriteFromSheet( 21, IMGObjectSheet, bloodcolor, drawx, drawy, this );
+            AssembleSpriteFromSheet( 21, stonesenseState.IMGObjectSheet, bloodcolor, drawx, drawy, this );
         } else if(snowlevel > 25) {
-            AssembleSpriteFromSheet( 22, IMGObjectSheet, bloodcolor, drawx, drawy, this );
+            AssembleSpriteFromSheet( 22, stonesenseState.IMGObjectSheet, bloodcolor, drawx, drawy, this );
         } else if(snowlevel > 0) {
-            AssembleSpriteFromSheet( 23, IMGObjectSheet, bloodcolor, drawx, drawy, this );
+            AssembleSpriteFromSheet( 23, stonesenseState.IMGObjectSheet, bloodcolor, drawx, drawy, this );
         }
     }
 
@@ -454,6 +466,7 @@ void Tile::AssembleTile( void )
     //items
     if(Item.item.type >= 0) {
         if(
+            auto& contentLoader = stonesenseState.contentLoader;
             contentLoader->itemConfigs[Item.item.type] &&
             (size_t(Item.item.index) < contentLoader->itemConfigs[Item.item.type]->subItems.size()) &&
             contentLoader->itemConfigs[Item.item.type]->subItems[Item.item.index]) {
@@ -463,19 +476,19 @@ void Tile::AssembleTile( void )
             contentLoader->itemConfigs[Item.item.type]->configured) {
             contentLoader->itemConfigs[Item.item.type]->default_sprite.assemble_world(x, y, z, this);
         } else {
-            AssembleSpriteFromSheet( 350, IMGObjectSheet, lookupMaterialColor(Item.matt, Item.dyematt), drawx, (tileShapeBasic()==tiletype_shape_basic::Ramp)?(drawy - ((WALLHEIGHT/2)*ssConfig.scale)):drawy , this);
+            AssembleSpriteFromSheet( 350, stonesenseState.IMGObjectSheet, lookupMaterialColor(Item.matt, Item.dyematt), drawx, (tileShapeBasic()==tiletype_shape_basic::Ramp)?(drawy - ((WALLHEIGHT/2)*ssConfig.scale)):drawy , this);
         }
     }
 
     //shadow
     if (shadow > 0) {
-        AssembleSpriteFromSheet( BASE_SHADOW_PLATE + shadow - 1, IMGObjectSheet, al_map_rgb(255,255,255), drawx, (tileShapeBasic()==tiletype_shape_basic::Ramp)?(drawy - ((WALLHEIGHT/2)*ssConfig.scale)):drawy , this);
+        AssembleSpriteFromSheet( BASE_SHADOW_PLATE + shadow - 1, stonesenseState.IMGObjectSheet, al_map_rgb(255,255,255), drawx, (tileShapeBasic()==tiletype_shape_basic::Ramp)?(drawy - ((WALLHEIGHT/2)*ssConfig.scale)):drawy , this);
     }
 
     //Building
     bool skipBuilding =
-        (building.type == building_type::Civzone && !ssConfig.show_zones) ||
-        (building.type == building_type::Stockpile && !ssConfig.show_stockpiles);
+        (building.type == df::building_type::Civzone && !ssConfig.show_zones) ||
+        (building.type == df::building_type::Stockpile && !ssConfig.show_stockpiles);
 
     if(building.type != BUILDINGTYPE_NA && !skipBuilding) {
         for(uint32_t i=0; i < building.sprites.size(); i++) {
@@ -525,7 +538,7 @@ void Tile::AssembleTile( void )
                 spriteobject->set_sheetindex(SPRITEOBJECT_WALL_NA);
                 spriteobject->set_fileindex(INVALID_INDEX);
                 spriteobject->set_plate_layout(TILEPLATE);
-                spriteobject->set_defaultsheet(IMGObjectSheet);
+                spriteobject->set_defaultsheet(stonesenseState.IMGObjectSheet);
             } else {
                 //unconfigured non-walls are not valid
                 spriteobject->set_sheetindex(INVALID_INDEX);
@@ -542,40 +555,41 @@ void Tile::AssembleTile( void )
     if((tileShapeBasic()==tiletype_shape_basic::Wall) && engraving_character) {
         if(ownerSegment->segState.Rotation == 0) {
             if(engraving_flags.bits.east) {
-                AssembleSpriteFromSheet( engraving_character, IMGEngRightSheet, al_map_rgba_f(1.0,1.0,1.0,((engraving_quality + 5.0f) / 10.0f)), drawx, drawy, this );
+                AssembleSpriteFromSheet( engraving_character, stonesenseState.IMGEngRightSheet, al_map_rgba_f(1.0,1.0,1.0,((engraving_quality + 5.0f) / 10.0f)), drawx, drawy, this );
             }
             if(engraving_flags.bits.south) {
-                AssembleSpriteFromSheet( engraving_character, IMGEngLeftSheet, al_map_rgba_f(1.0,1.0,1.0,((engraving_quality + 5.0f) / 10.0f)), drawx, drawy, this );
+                AssembleSpriteFromSheet( engraving_character, stonesenseState.IMGEngLeftSheet, al_map_rgba_f(1.0,1.0,1.0,((engraving_quality + 5.0f) / 10.0f)), drawx, drawy, this );
             }
         }
         if(ownerSegment->segState.Rotation == 1) {
             if(engraving_flags.bits.north) {
-                AssembleSpriteFromSheet( engraving_character, IMGEngRightSheet, al_map_rgba_f(1.0,1.0,1.0,((engraving_quality + 5.0f) / 10.0f)), drawx, drawy, this );
+                AssembleSpriteFromSheet( engraving_character, stonesenseState.IMGEngRightSheet, al_map_rgba_f(1.0,1.0,1.0,((engraving_quality + 5.0f) / 10.0f)), drawx, drawy, this );
             }
             if(engraving_flags.bits.east) {
-                AssembleSpriteFromSheet( engraving_character, IMGEngLeftSheet, al_map_rgba_f(1.0,1.0,1.0,((engraving_quality + 5.0f) / 10.0f)), drawx, drawy, this );
+                AssembleSpriteFromSheet( engraving_character, stonesenseState.IMGEngLeftSheet, al_map_rgba_f(1.0,1.0,1.0,((engraving_quality + 5.0f) / 10.0f)), drawx, drawy, this );
             }
         }
         if(ownerSegment->segState.Rotation == 2) {
             if(engraving_flags.bits.west) {
-                AssembleSpriteFromSheet( engraving_character, IMGEngRightSheet, al_map_rgba_f(1.0,1.0,1.0,((engraving_quality + 5.0f) / 10.0f)), drawx, drawy, this );
+                AssembleSpriteFromSheet( engraving_character, stonesenseState.IMGEngRightSheet, al_map_rgba_f(1.0,1.0,1.0,((engraving_quality + 5.0f) / 10.0f)), drawx, drawy, this );
             }
             if(engraving_flags.bits.north) {
-                AssembleSpriteFromSheet( engraving_character, IMGEngLeftSheet, al_map_rgba_f(1.0,1.0,1.0,((engraving_quality + 5.0f) / 10.0f)), drawx, drawy, this );
+                AssembleSpriteFromSheet( engraving_character, stonesenseState.IMGEngLeftSheet, al_map_rgba_f(1.0,1.0,1.0,((engraving_quality + 5.0f) / 10.0f)), drawx, drawy, this );
             }
         }
         if(ownerSegment->segState.Rotation == 3) {
             if(engraving_flags.bits.south) {
-                AssembleSpriteFromSheet( engraving_character, IMGEngRightSheet, al_map_rgba_f(1.0,1.0,1.0,((engraving_quality + 5.0f) / 10.0f)), drawx, drawy, this );
+                AssembleSpriteFromSheet( engraving_character, stonesenseState.IMGEngRightSheet, al_map_rgba_f(1.0,1.0,1.0,((engraving_quality + 5.0f) / 10.0f)), drawx, drawy, this );
             }
             if(engraving_flags.bits.west) {
-                AssembleSpriteFromSheet( engraving_character, IMGEngLeftSheet, al_map_rgba_f(1.0,1.0,1.0,((engraving_quality + 5.0f) / 10.0f)), drawx, drawy, this );
+                AssembleSpriteFromSheet( engraving_character, stonesenseState.IMGEngLeftSheet, al_map_rgba_f(1.0,1.0,1.0,((engraving_quality + 5.0f) / 10.0f)), drawx, drawy, this );
             }
         }
     }
 
     DrawGrowth(spriteobject, true);
     if(designation.bits.flow_size > 0) {
+        auto& contentLoader = stonesenseState.contentLoader;
         //if(waterlevel == 7) waterlevel--;
         uint32_t waterlevel = designation.bits.flow_size + (deepwater ? 1 : 0);
         if(designation.bits.liquid_type == 0) {
@@ -596,11 +610,11 @@ void Tile::AssembleTile( void )
         && defaultSnow
         && snowlevel>bloodlevel) {
         if(snowlevel > 75) {
-            AssembleSpriteFromSheet( 24, IMGObjectSheet, bloodcolor, drawx, drawy, this );
+            AssembleSpriteFromSheet( 24, stonesenseState.IMGObjectSheet, bloodcolor, drawx, drawy, this );
         } else if(snowlevel > 50) {
-            AssembleSpriteFromSheet( 25, IMGObjectSheet, bloodcolor, drawx, drawy, this );
+            AssembleSpriteFromSheet( 25, stonesenseState.IMGObjectSheet, bloodcolor, drawx, drawy, this );
         } else if(snowlevel > 25) {
-            AssembleSpriteFromSheet( 26, IMGObjectSheet, bloodcolor, drawx, drawy, this );
+            AssembleSpriteFromSheet( 26, stonesenseState.IMGObjectSheet, bloodcolor, drawx, drawy, this );
         }
     }
 
@@ -627,20 +641,16 @@ void Tile::AssembleTile( void )
             AssembleParticleCloud(tileeffect.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_smoke, tint);
             break;
         case df::flow_type::Dragonfire:
-            tint.a*=tileeffect.density/100.0f;
-            tint.g*=tileeffect.density/100.0f;
-            tint.b*=tileeffect.density/100.0f;
+            tint *= tileeffect.density / 100.f;
             size = 3 - ((tileeffect.density-1)/25);
-            AssembleSpriteFromSheet((((currentFrameLong+rando)%8)*20+size), sprite_dragonfire, tint, drawx, drawy, this, 2.0f);
+            AssembleSpriteFromSheet((((stonesenseState.currentFrameLong+rando)%8)*20+size), sprite_dragonfire, tint, drawx, drawy, this, 2.0f);
             //ALLEGRO_COLOR tint = lookupMaterialColor(Eff_Dragonfire.matt.type, Eff_Dragonfire.matt.index);
             //draw_particle_cloud(Eff_Dragonfire.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_dragonfire, tint);
             break;
         case df::flow_type::Fire:
-            tint.a*=tileeffect.density/100.0f;
-            tint.g*=tileeffect.density/100.0f;
-            tint.b*=tileeffect.density/100.0f;
+            tint *= tileeffect.density / 100.0f;
             size = 3 - ((tileeffect.density-1)/25);
-            AssembleSpriteFromSheet((((currentFrameLong+rando)%8)*20+size), sprite_dragonfire, tint, drawx, drawy, this, 2.0f);
+            AssembleSpriteFromSheet((((stonesenseState.currentFrameLong+rando)%8)*20+size), sprite_dragonfire, tint, drawx, drawy, this, 2.0f);
             //ALLEGRO_COLOR tint = lookupMaterialColor(Eff_Fire.matt.type, Eff_Fire.matt.index);
             //draw_particle_cloud(Eff_Fire.density, drawx, drawy - (SPRITEHEIGHT/2), SPRITEWIDTH, SPRITEHEIGHT, sprite_fire, tint);
             break;
@@ -681,7 +691,7 @@ bool hasWall(Tile* b)
     if(!b) {
         return false;
     }
-    return b->tileShapeBasic()==tiletype_shape_basic::Wall;
+    return b->tileShapeBasic()==df::tiletype_shape_basic::Wall;
 }
 
 bool hasBuildingOfID(Tile* b, int ID)
@@ -727,7 +737,7 @@ bool wallShouldNotHaveBorders( int in )
 
 bool containsDesignations( df::tile_designation des, df::tile_occupancy occ )
 {
-    if (!df::global::gamemode || *df::global::gamemode == game_mode::ADVENTURE)
+    if (!df::global::gamemode || *df::global::gamemode == df::game_mode::ADVENTURE)
         return false;
     if(des.bits.dig != df::tile_dig_designation::No) {
         return true;
@@ -744,18 +754,18 @@ bool containsDesignations( df::tile_designation des, df::tile_occupancy occ )
 
 void createEffectSprites()
 {
-    sprite_miasma        = CreateSpriteFromSheet( 180, IMGObjectSheet);
-    sprite_water        = CreateSpriteFromSheet( 181, IMGObjectSheet);
-    sprite_water2        = CreateSpriteFromSheet( 182, IMGObjectSheet);
-    sprite_blood        = CreateSpriteFromSheet( 183, IMGObjectSheet);
-    sprite_dust            = CreateSpriteFromSheet( 182, IMGObjectSheet);
-    sprite_magma        = CreateSpriteFromSheet( 185, IMGObjectSheet);
-    sprite_smoke        = CreateSpriteFromSheet( 186, IMGObjectSheet);
+    sprite_miasma        = CreateSpriteFromSheet( 180, stonesenseState.IMGObjectSheet);
+    sprite_water        = CreateSpriteFromSheet( 181, stonesenseState.IMGObjectSheet);
+    sprite_water2        = CreateSpriteFromSheet( 182, stonesenseState.IMGObjectSheet);
+    sprite_blood        = CreateSpriteFromSheet( 183, stonesenseState.IMGObjectSheet);
+    sprite_dust            = CreateSpriteFromSheet( 182, stonesenseState.IMGObjectSheet);
+    sprite_magma        = CreateSpriteFromSheet( 185, stonesenseState.IMGObjectSheet);
+    sprite_smoke        = CreateSpriteFromSheet( 186, stonesenseState.IMGObjectSheet);
     sprite_dragonfire    = load_bitmap_withWarning("stonesense/Effect_flames.png");
-    sprite_fire            = CreateSpriteFromSheet( 188, IMGObjectSheet);
+    sprite_fire            = CreateSpriteFromSheet( 188, stonesenseState.IMGObjectSheet);
     sprite_webing        = load_bitmap_withWarning("stonesense/Effect_web.png");
-    sprite_boiling        = CreateSpriteFromSheet( 190, IMGObjectSheet);
-    sprite_oceanwave    = CreateSpriteFromSheet( 191, IMGObjectSheet);
+    sprite_boiling        = CreateSpriteFromSheet( 190, stonesenseState.IMGObjectSheet);
+    sprite_oceanwave    = CreateSpriteFromSheet( 191, stonesenseState.IMGObjectSheet);
 }
 
 void destroyEffectSprites()
@@ -776,13 +786,14 @@ void destroyEffectSprites()
 
 void Tile::AssembleFloorBlood ( int32_t drawx, int32_t drawy )
 {
+    auto& ssConfig = stonesenseState.ssConfig;
     t_SpriteWithOffset sprite;
 
     if( designation.bits.flow_size < 1 && (bloodlevel)) {
         sprite.fileIndex = INVALID_INDEX;
 
         // Spatter (should be blood, not blood2) swapped for testing
-        if( bloodlevel <= ssConfig.poolcutoff ) {
+        if( bloodlevel <= stonesenseState.ssConfig.poolcutoff ) {
             sprite.sheetIndex = 7;
         }
 
@@ -828,7 +839,7 @@ void Tile::AssembleFloorBlood ( int32_t drawx, int32_t drawy )
             sheetOffsetY = 0;
 
         AssembleSprite(
-            IMGBloodSheet,
+            stonesenseState.IMGBloodSheet,
             premultiply(bloodcolor),
             sheetOffsetX,
             sheetOffsetY,
@@ -840,7 +851,7 @@ void Tile::AssembleFloorBlood ( int32_t drawx, int32_t drawy )
             (TILETOPHEIGHT+FLOORHEIGHT)*ssConfig.scale,
             0);
         AssembleSprite(
-            IMGBloodSheet,
+            stonesenseState.IMGBloodSheet,
             al_map_rgb(255,255,255),
             sheetOffsetX,
             sheetOffsetY+TILETOPHEIGHT+FLOORHEIGHT,

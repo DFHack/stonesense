@@ -27,10 +27,6 @@ be intended for use by people not interested in development.
 #include "df/world.h"
 #include "df/world_raws.h"
 
-using namespace std;
-using namespace DFHack;
-using namespace df::enums;
-
 //FIXME: filled with black magic
 void dumpSegment()
 {
@@ -201,14 +197,14 @@ void DumpTileTypes(const char* filename)
     const char * name;
     // Run through until perfect match found or hit end.
     FOR_ENUM_ITEMS(tiletype, tt) {
-        name = tileName(tt);
+        name = DFHack::tileName(tt);
         fprintf(fp, "%i:%s\n", j, name);
         j++;
     }
     fclose(fp);
 }
 
-void GenerateTerrainXml(const char* filename, string & type, df::tiletype_shape_basic shape)
+void GenerateTerrainXml(const char* filename, std::string & type, df::tiletype_shape_basic shape)
 {
     FILE* fp = fopen(filename, "w");
 
@@ -216,8 +212,8 @@ void GenerateTerrainXml(const char* filename, string & type, df::tiletype_shape_
     const char * name;
     fprintf(fp, "<!--%s-->\n", type.c_str());
     FOR_ENUM_ITEMS(tiletype, tt) {
-        if(tileShapeBasic(tileShape(tt)) == shape) {
-            name = tileName(tt);
+        if(DFHack::tileShapeBasic(DFHack::tileShape(tt)) == shape) {
+            name = DFHack::tileName(tt);
             fprintf(fp, "\t<!--%s--> \n\t<terrain value=%i/> \n", name, j);
         }
         j++;
@@ -225,8 +221,9 @@ void GenerateTerrainXml(const char* filename, string & type, df::tiletype_shape_
     fclose(fp);
 }
 
-df::tiletype_shape_basic GetBasicShape(string & shapeName)
+df::tiletype_shape_basic GetBasicShape(std::string & shapeName)
 {
+    using df::tiletype_shape_basic;
     if(shapeName == "None") {
         return tiletype_shape_basic::None;
     }
@@ -248,9 +245,9 @@ df::tiletype_shape_basic GetBasicShape(string & shapeName)
     return tiletype_shape_basic::None;
 }
 
-void DumpInfo(color_ostream & out, std::vector<std::string> & params)
+void DumpInfo(DFHack::color_ostream & out, std::vector<std::string> & params)
 {
-    string & p1 = params[0];
+    std::string & p1 = params[0];
     if(p1 == "dumpitems") {
         out.print("dumping equippable item names to 'itemdump.txt'...\n");
         DumpItemNamesToDisk("itemdump.txt");

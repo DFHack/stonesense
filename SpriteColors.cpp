@@ -6,29 +6,48 @@
 #include "Creatures.h"
 #include "WorldSegment.h"
 #include "ContentLoader.h"
-
-using namespace std;
-using namespace DFHack;
-using namespace df::enums;
+#include "GameConfiguration.h"
+#include "StonesenseState.h"
 
 ALLEGRO_COLOR operator*(const ALLEGRO_COLOR &color1, const ALLEGRO_COLOR &color2)
 {
-    ALLEGRO_COLOR temp;
-    temp.r=color1.r*color2.r;
-    temp.g=color1.g*color2.g;
-    temp.b=color1.b*color2.b;
-    temp.a=color1.a*color2.a;
-    return temp;
+    return ALLEGRO_COLOR {
+        .r = color1.r * color2.r,
+        .g = color1.g * color2.g,
+        .b = color1.b * color2.b,
+        .a = color1.a * color2.a,
+    };
 }
 
 ALLEGRO_COLOR operator+(const ALLEGRO_COLOR &color1, const ALLEGRO_COLOR &color2)
 {
-    ALLEGRO_COLOR temp;
-    temp.r=color1.r+(color2.r*(1-color1.r));
-    temp.g=color1.g+(color2.g*(1-color1.g));
-    temp.b=color1.b+(color2.b*(1-color1.b));
-    temp.a=color1.a+(color2.a*(1-color1.a));
-    return temp;
+    return ALLEGRO_COLOR {
+        .r = color1.r + (color2.r * (1 - color1.r)),
+        .g = color1.g + (color2.g * (1 - color1.g)),
+        .b = color1.b + (color2.b * (1 - color1.b)),
+        .a = color1.a + (color2.a * (1 - color1.a)),
+    };
+}
+
+ALLEGRO_COLOR operator*(const ALLEGRO_COLOR& color1, const float m)
+{
+    return ALLEGRO_COLOR {
+        .r = color1.r * m,
+        .g = color1.g * m,
+        .b = color1.b * m,
+        .a = color1.a * m,
+    };
+}
+
+ALLEGRO_COLOR operator*=(ALLEGRO_COLOR& color1, const float m)
+{
+    color1 = ALLEGRO_COLOR {
+        .r = color1.r * m,
+        .g = color1.g * m,
+        .b = color1.b * m,
+        .a = color1.a * m,
+    };
+    return color1;
 }
 
 /*
@@ -186,17 +205,18 @@ ALLEGRO_COLOR premultiply(ALLEGRO_COLOR input)
 
 ALLEGRO_COLOR shadeAdventureMode(ALLEGRO_COLOR color, bool foggy, bool outside)
 {
+    auto& contentLoader = stonesenseState.contentLoader;
     if(contentLoader->gameMode.g_mode != GAMEMODE_ADVENTURE) {
         return color;
     }
 
-    if(foggy && ssConfig.fog_of_war) {
+    if(foggy && stonesenseState.ssConfig.fog_of_war) {
         color.r *= 0.25f;
         color.g *= 0.25f;
         color.b *= 0.25f;
     }
 
-    if(ssConfig.dayNightCycle) {
+    if(stonesenseState.ssConfig.dayNightCycle) {
         if(outside) {
             color = color*getDayShade(contentLoader->currentHour, contentLoader->currentTickRel);
         } else {
@@ -247,7 +267,7 @@ ALLEGRO_COLOR getDayShade(int hour, int tick)
 
 ALLEGRO_COLOR blink(ALLEGRO_COLOR c1, ALLEGRO_COLOR c2)
 {
-    if((currentAnimationFrame>>2)&0x01) {
+    if((stonesenseState.currentAnimationFrame>>2)&0x01) {
         return c2;
     }
     return c1;
@@ -255,7 +275,8 @@ ALLEGRO_COLOR blink(ALLEGRO_COLOR c1, ALLEGRO_COLOR c2)
 
 ALLEGRO_COLOR blinkTechnicolor()
 {
-    switch(currentAnimationFrame & 0x07){
+    auto& ssConfig = stonesenseState.ssConfig;
+    switch(stonesenseState.currentAnimationFrame & 0x07){
     case 0x00:
         //yellow;
         return ssConfig.colors.getDfColor(dfColors::yellow, ssConfig.useDfColors);
@@ -286,6 +307,7 @@ ALLEGRO_COLOR blinkTechnicolor()
 // Meant to unify the different UI coloring techniques used.
 ALLEGRO_COLOR uiColor(int32_t index)
 {
+    auto& ssConfig = stonesenseState.ssConfig;
     switch(index)
     {
     case 0:

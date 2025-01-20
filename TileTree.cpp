@@ -1,10 +1,8 @@
 #include "TileTree.h"
 #include "GameBuildings.h"
 #include "GUI.h"
-
-using namespace std;
-using namespace DFHack;
-using namespace df::enums;
+#include "GameConfiguration.h"
+#include "StonesenseState.h"
 
 c_tile_tree_twig::c_tile_tree_twig()
 {
@@ -17,17 +15,19 @@ c_tile_tree_twig::~c_tile_tree_twig()
 
 void insert_sprite(WorldSegment *w, int x, int y, int z, Tile * parent, c_sprite sprite)
 {
+    auto& ssConfig = stonesenseState.ssConfig;
+
     Tile * b_orig = w->getTile(x, y, z);
     if(!b_orig) {
-        b_orig = w->ResetTile(x, y, z, tiletype::OpenSpace);
+        b_orig = w->ResetTile(x, y, z, df::tiletype::OpenSpace);
         if(!b_orig) {
             return;
         }
     }
     b_orig->building.sprites.push_back(sprite);
     if(b_orig->building.type == BUILDINGTYPE_NA
-        || ((!ssConfig.show_stockpiles) && b_orig->building.type == building_type::Stockpile)
-        || ((!ssConfig.show_zones) && b_orig->building.type == building_type::Civzone)) {
+        || ((!ssConfig.show_stockpiles) && b_orig->building.type == df::building_type::Stockpile)
+        || ((!ssConfig.show_zones) && b_orig->building.type == df::building_type::Civzone)) {
         b_orig->building.type = BUILDINGTYPE_TREE;
     }
     b_orig->building.parent = parent;
@@ -40,7 +40,7 @@ void c_tile_tree_twig::insert_sprites(WorldSegment *w, int x, int y, int z, Tile
             insert_sprite(w,x,y,z,parent, own_sprite);
         }
     }
-    switch(ssState.Rotation) {
+    switch(stonesenseState.ssState.Rotation) {
     case 0:
         for(unsigned int i = 0; i < eastward_growth.size(); i++) {
             if(w->CoordinateInsideSegment(x + i + 1,y,z)) {
@@ -165,8 +165,9 @@ void c_tile_tree_branch::add_sprite(int x, int y, c_sprite sprite)
 
 void c_tile_tree_branch::insert_sprites(WorldSegment *w, int x, int y, int z, Tile * parent)
 {
+    using df::tiletype_shape_basic;
     own_twig.insert_sprites(w, x, y, z, parent);
-    switch(ssState.Rotation) {
+    switch(stonesenseState.ssState.Rotation) {
     case 0:
         for(size_t i = 0; i < southward_growth.size(); i++) {
             Tile * b = w->getTile(x, y + i + 1, z);
@@ -266,6 +267,7 @@ void c_tile_tree::add_sprite(int x, int y, int z, c_sprite sprite)
 
 void c_tile_tree::insert_sprites(WorldSegment *w, int x, int y, int z, Tile * parent)
 {
+    using df::tiletype_shape_basic;
     own_branch.insert_sprites(w, x, y, z, parent);
     for(size_t i = 0; i < upward_growth.size(); i++) {
         Tile * b = w->getTile(x, y, z + i + 1);

@@ -4,10 +4,8 @@
 #include "ContentLoader.h"
 #include "GameBuildings.h"
 #include "SpriteMaps.h"
-
-using namespace std;
-using namespace DFHack;
-using namespace df::enums;
+#include "GameConfiguration.h"
+#include "StonesenseState.h"
 
 //big look up table
 uint8_t rampblut[] =
@@ -37,7 +35,7 @@ inline bool isTileHighRampEnd(uint32_t x, uint32_t y, uint32_t z, WorldSegment* 
     if(!tile) {
         return false;
     }
-    if(tile->tileShapeBasic()!=tiletype_shape_basic::Wall) {
+    if(tile->tileShapeBasic()!=df::enums::tiletype_shape_basic::Wall) {
         return false;
     }
     return IDisWall( tile->tileType );
@@ -57,6 +55,7 @@ inline int tileWaterDepth(uint32_t x, uint32_t y, uint32_t z, WorldSegment* segm
 
 inline bool isTileHighRampTop(uint32_t x, uint32_t y, uint32_t z, WorldSegment* segment, dirRelative dir)
 {
+    using df::tiletype_shape_basic;
     Tile* tile = segment->getTileRelativeTo( x, y, z, dir);
     if(!tile) {
         return false;
@@ -136,6 +135,7 @@ uint8_t CalculateRampType(uint32_t x, uint32_t y, uint32_t z, WorldSegment* segm
 
 bool checkFloorBorderRequirement(WorldSegment* segment, int x, int y, int z, dirRelative offset)
 {
+    using df::tiletype_shape_basic;
     Tile* bHigh = segment->getTileRelativeTo(x, y, z, offset);
     if (bHigh &&
         (bHigh->tileShapeBasic()==tiletype_shape_basic::Floor
@@ -152,6 +152,8 @@ bool checkFloorBorderRequirement(WorldSegment* segment, int x, int y, int z, dir
 
 bool isTileOnVisibleEdgeOfSegment(WorldSegment* segment, Tile* b)
 {
+    auto& ssState = stonesenseState.ssState;
+
     if(int(b->z) == segment->segState.Position.z + segment->segState.Size.z - 2) {
         return true;
     }
@@ -294,6 +296,7 @@ inline void enclosedTile(WorldSegment * segment, Tile* b)
 */
 inline void unhideWaterFromAbove(WorldSegment * segment, Tile * b)
 {
+    auto& contentLoader = stonesenseState.contentLoader;
     if( b->designation.bits.flow_size
         && !isTileOnTopOfSegment(segment, b)
         && (b->designation.bits.hidden || b->fog_of_war) ) {
@@ -304,14 +307,14 @@ inline void unhideWaterFromAbove(WorldSegment * segment, Tile * b)
                         b->designation.bits.hidden = false;
                         b->fog_of_war = false;
                         if(b->building.type == BUILDINGTYPE_BLACKBOX) {
-                            b->building.type = (building_type::building_type) BUILDINGTYPE_NA;
+                            b->building.type = (df::building_type) BUILDINGTYPE_NA;
                         }
                     }
                 } else {
                     if(!temp || !temp->designation.bits.hidden) {
                         b->designation.bits.hidden = false;
                         if(b->building.type == BUILDINGTYPE_BLACKBOX) {
-                            b->building.type = (building_type::building_type) BUILDINGTYPE_NA;
+                            b->building.type = (df::building_type) BUILDINGTYPE_NA;
                         }
                     }
                 }
@@ -348,6 +351,7 @@ void arrangeTileBorders(WorldSegment * segment, Tile* b)
         b->obscuringCreature = 1;
     }
 
+    using df::tiletype_shape_basic;
     if(dir1)
         if(dir1->building.type != BUILDINGTYPE_NA
             && dir1->building.type != BUILDINGTYPE_BLACKBOX
@@ -449,6 +453,7 @@ void arrangeTileBorders(WorldSegment * segment, Tile* b)
 
                 b->upstairborders = 0;
                 b->downstairborders = 0;
+                using df::tiletype_shape;
                 if(dir1) if(dir1->tileShape() == tiletype_shape::STAIR_UP) {
                     b->upstairborders |= 1;
                 }
@@ -620,18 +625,19 @@ void addSegmentExtras(WorldSegment * segment)
             continue;
         }
 
-        if(!ssConfig.show_hidden_tiles && b->designation.bits.hidden) {
+        if(!stonesenseState.ssConfig.show_hidden_tiles && b->designation.bits.hidden) {
             continue;
         }
 
         //Grass
+        using df::tiletype_material;
         if(b->grasslevel > 0 && (
             (b->tileMaterial() == tiletype_material::GRASS_LIGHT) ||
             (b->tileMaterial() == tiletype_material::GRASS_DARK) ||
             (b->tileMaterial() == tiletype_material::GRASS_DEAD) ||
             (b->tileMaterial() == tiletype_material::GRASS_DRY))) {
                 c_tile_tree * vegetationsprite = 0;
-                vegetationsprite = getVegetationTree(contentLoader->grassConfigs,b->grassmat,true,true);
+                vegetationsprite = getVegetationTree(stonesenseState.contentLoader->grassConfigs,b->grassmat,true,true);
                 if(vegetationsprite) {
                     vegetationsprite->insert_sprites(segment, b->x, b->y, b->z, b);
                 }
@@ -658,7 +664,7 @@ void addSegmentExtras(WorldSegment * segment)
         }
 
         //setup ramps
-        if(b->tileShapeBasic()==tiletype_shape_basic::Ramp) {
+        if(b->tileShapeBasic()==df::tiletype_shape_basic::Ramp) {
             b->rampindex = CalculateRampType(b->x, b->y, b->z, segment);
         }
 
@@ -679,6 +685,7 @@ void optimizeSegment(WorldSegment * segment)
         if(!b) {
             continue;
         }
+        auto& ssConfig = stonesenseState.ssConfig;
 
         //try to mask away tiles that are flagged hidden
         if(!ssConfig.show_hidden_tiles ) {
@@ -699,7 +706,7 @@ void optimizeSegment(WorldSegment * segment)
         }
 
         if( !isTileOnVisibleEdgeOfSegment(segment, b)
-            && (b->tileType!=tiletype::OpenSpace
+            && (b->tileType!=df::tiletype::OpenSpace
             || b->designation.bits.flow_size
             || (b->occ.bits.unit && b->creature)
             || b->building.type != BUILDINGTYPE_NA
@@ -732,5 +739,5 @@ void beautifySegment(WorldSegment * segment)
     addSegmentExtras(segment);
 
     segment->processed = 1;
-    ssTimers.beautify_time = (clock() - starttime)*0.1 + ssTimers.beautify_time*0.9;
+    stonesenseState.stoneSenseTimers.beautify_time.update(clock() - starttime);
 }

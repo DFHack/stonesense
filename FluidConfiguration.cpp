@@ -1,14 +1,11 @@
 #include "FluidConfiguration.h"
 #include "ContentLoader.h"
-
-using namespace DFHack;
-using namespace df::enums;
+#include "StonesenseState.h"
 
 FluidConfiguration::FluidConfiguration()
 {
     fluidset = 0;
     sprite.reset();
-
 }
 
 void parseFluidElement( TiXmlElement* elemFluid, int basefile)
@@ -51,6 +48,7 @@ void parseFluidElement( TiXmlElement* elemFluid, int basefile)
 
     tempSprite.set_by_xml(elemFluid, basefile);
 
+    auto& contentLoader = stonesenseState.contentLoader;
     if(type) {
         if(contentLoader->lava[level-1].fluidset == 0) {
             contentLoader->lava[level-1].sprite = tempSprite;
