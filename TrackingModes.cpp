@@ -1,5 +1,3 @@
-#include <cmath>
-
 #include "common.h"
 #include "TrackingModes.h"
 #include "MapLoading.h"
