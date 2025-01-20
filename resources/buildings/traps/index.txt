@@ -1,0 +1,5 @@
+CageTrap.xml
+PressurePlate.xml
+Spikes.xml
+StonefallTrap.xml
+WeaponTrap.xml

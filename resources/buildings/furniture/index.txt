@@ -1,0 +1,10 @@
+Bed.xml
+Bookcase.xml
+Cabinet.xml
+Chair.xml
+Chest.xml
+Coffin.xml
+DisplayFurniture.xml
+OfferingPlace.xml
+Statue.xml
+Table.xml

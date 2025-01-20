@@ -1,0 +1,3 @@
+ArmorStand.xml
+Target.xml
+WeaponRack.xml
