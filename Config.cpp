@@ -63,7 +63,6 @@ namespace {
         line = *l;
 
         auto& ssConfig = stonesenseState.ssConfig;
-        auto& ssState = stonesenseState.ssState;
 
         if (line.find("[CLOSEONESC") != string::npos) {
             string result = parseStrFromLine("CLOSEONESC", line);
