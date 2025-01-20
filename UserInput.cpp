@@ -457,14 +457,14 @@ void action_incrzoom(uint32_t keymod)
 {
     auto& ssConfig = stonesenseState.ssConfig;
     ssConfig.zoom++;
-    ssConfig.scale = pow(1.1f, ssConfig.zoom);
+    ssConfig.scale = pow(SCALEZOOMFACTOR, ssConfig.zoom);
 }
 
 void action_decrzoom(uint32_t keymod)
 {
     auto& ssConfig = stonesenseState.ssConfig;
     ssConfig.zoom--;
-    ssConfig.scale = pow(1.1f, ssConfig.zoom);
+    ssConfig.scale = pow(SCALEZOOMFACTOR, ssConfig.zoom);
 }
 
 void action_screenshot(uint32_t keymod)
