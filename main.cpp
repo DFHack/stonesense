@@ -361,8 +361,8 @@ static void* stonesense_thread(ALLEGRO_THREAD* main_thread, void* parms)
     out.print("Stonesense launched\n");
 
     stonesenseState.ssConfig = GameConfiguration{};
-    stonesenseState.ssState.ScreenH = DEFAULT_RESOLUTION_HEIGHT;
-    stonesenseState.ssState.ScreenW = DEFAULT_RESOLUTION_WIDTH;
+    stonesenseState.ssState.ScreenH = stonesenseState.ssConfig.defaultScreenHeight;
+    stonesenseState.ssState.ScreenW = stonesenseState.ssConfig.defaultScreenWidth;
     stonesenseState.ssState.Size = { DEFAULT_SIZE, DEFAULT_SIZE, DEFAULT_SIZE_Z };
     stonesenseState.timeToReloadConfig = true;
     stonesenseState.contentLoader = std::make_unique<ContentLoader>();

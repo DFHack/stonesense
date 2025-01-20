@@ -72,11 +72,11 @@ namespace {
 
         if (line.find("[WIDTH") != string::npos) {
             int width = parseIntFromLine("WIDTH", line);
-            ssState.ScreenW = width;
+            ssConfig.defaultScreenWidth = width;
         }
         if (line.find("[HEIGHT") != string::npos) {
             int height = parseIntFromLine("HEIGHT", line);
-            ssState.ScreenH = height;
+            ssConfig.defaultScreenHeight = height;
         }
         if (line.find("[WINDOWED") != string::npos) {
             string result = parseStrFromLine("WINDOWED", line);
@@ -91,17 +91,16 @@ namespace {
                 value = 100;
             }
             //plus 2 to allow edge readings
-            ssState.Size.x = value + 2;
-            ssState.Size.y = value + 2;
+            ssConfig.defaultSegmentSize.x = value;
+            ssConfig.defaultSegmentSize.y = value;
         }
         if (line.find("[SEGMENTSIZE_Z") != string::npos) {
             int value = parseIntFromLine("SEGMENTSIZE_Z", line);
             if (value < 1) {
                 value = DEFAULT_SIZE_Z;
             }
-            ssState.Size.z = value;
+            ssConfig.defaultSegmentSize.z = value;
         }
-
         if (line.find("[ALLCREATURES") != string::npos) {
             string result = parseStrFromLine("ALLCREATURES", line);
             ssConfig.show_all_creatures = (result == "YES");
@@ -130,7 +129,7 @@ namespace {
         }
         if (line.find("[LIFTSEGMENT") != string::npos) {
             int value = parseIntFromLine("LIFTSEGMENT", line);
-            ssConfig.lift_segment_offscreen_y = value;
+            ssConfig.lift_segment = value;
         }
         if (line.find("[ANIMATION_RATE") != string::npos) {
             int value = parseIntFromLine("ANIMATION_RATE", line);
@@ -829,6 +828,16 @@ bool loadConfigFile()
         getline (myfile,line);
         parseConfigLine( line );
     }
+
+    // apply configuration settings to initial app state
+    stonesenseState.ssState.ScreenH = stonesenseState.ssConfig.defaultScreenHeight;
+    stonesenseState.ssState.ScreenW = stonesenseState.ssConfig.defaultScreenWidth;
+    stonesenseState.ssState.Size.x = stonesenseState.ssConfig.defaultSegmentSize.x + 2;
+    stonesenseState.ssState.Size.y = stonesenseState.ssConfig.defaultSegmentSize.y + 2;
+    stonesenseState.ssState.Size.z = stonesenseState.ssConfig.defaultSegmentSize.z;
+    stonesenseState.lift_segment_offscreen_x = 0;
+    stonesenseState.lift_segment_offscreen_y = stonesenseState.ssConfig.lift_segment;
+
     // update allegro colors loaded from file
     stonesenseState.ssConfig.colors.update();
     //close file, etc.

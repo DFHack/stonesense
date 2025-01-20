@@ -176,14 +176,14 @@ namespace
 
         y = y / ssConfig.scale;
         y += TILETOPHEIGHT * 5.0 / 4.0;
-        y += ssConfig.lift_segment_offscreen_y;
+        y += stonesenseState.lift_segment_offscreen_y;
         z1 = segSizeZ - 2;
         y += z1 * TILEHEIGHT;
         y = 2 * y / TILETOPHEIGHT;
         y += (segSizeX / 2) + (segSizeY / 2);
 
         x = x / ssConfig.scale;
-        x -= ssConfig.lift_segment_offscreen_x;
+        x -= stonesenseState.lift_segment_offscreen_x;
         x = 2 * x / TILEWIDTH;
         x += (segSizeX / 2) - (segSizeY / 2);
 
@@ -214,7 +214,7 @@ namespace
         int x = *inx - *iny;
         x -= (segSizeX / 2) - (segSizeY / 2);
         x = x * TILEWIDTH / 2;
-        x += ssConfig.lift_segment_offscreen_x;
+        x += stonesenseState.lift_segment_offscreen_x;
         x *= ssConfig.scale;
 
         int y = *inx + *iny;
@@ -222,7 +222,7 @@ namespace
         y = y * TILETOPHEIGHT / 2;
         y -= z * TILEHEIGHT;
         y -= TILETOPHEIGHT * 5 / 4;
-        y -= ssConfig.lift_segment_offscreen_y;
+        y -= stonesenseState.lift_segment_offscreen_y;
         y *= ssConfig.scale;
 
         x += ScreenW / 2;
@@ -1226,8 +1226,8 @@ void saveMegashot(bool tall)
         {
             startliftx = (TILEWIDTH/2)*ssState.RegionDim.x;
         }
-        ssConfig.lift_segment_offscreen_y = startlifty;
-        ssConfig.lift_segment_offscreen_x = startliftx;
+        stonesenseState.lift_segment_offscreen_y = startlifty;
+        stonesenseState.lift_segment_offscreen_x = startliftx;
 
         //here we deal with the rotations
         int startx, incrx, numx;
@@ -1301,8 +1301,8 @@ void saveMegashot(bool tall)
         for(int k=0; k<numz; k++) {
             startlifty = startstartlifty - TILEHEIGHT*(numz-k-1)*(ssState.Size.z - 1);
             for(int i=0; i<numy; i++) {
-                ssConfig.lift_segment_offscreen_x = startliftx - (TILEWIDTH/2)*i*movexy;
-                ssConfig.lift_segment_offscreen_y = startlifty - (TILETOPHEIGHT/2)*i*moveyy;
+                stonesenseState.lift_segment_offscreen_x = startliftx - (TILEWIDTH/2)*i*movexy;
+                stonesenseState.lift_segment_offscreen_y = startlifty - (TILETOPHEIGHT/2)*i*moveyy;
                 for(int j=0; j<numx; j++) {
                     //read and draw each individual segment
                     read_segment(NULL);
@@ -1312,8 +1312,8 @@ void saveMegashot(bool tall)
                     stonesenseState.map_segment.unlockDraw();
 
                     ssState.Position.x += incrx;
-                    ssConfig.lift_segment_offscreen_x += (TILEWIDTH/2)*movexx;
-                    ssConfig.lift_segment_offscreen_y -= (TILETOPHEIGHT/2)*moveyx;
+                    stonesenseState.lift_segment_offscreen_x += (TILEWIDTH/2)*movexx;
+                    stonesenseState.lift_segment_offscreen_y -= (TILETOPHEIGHT/2)*moveyx;
                 }
                 ssState.Position.x = startx;
                 ssState.Position.y += incry;
