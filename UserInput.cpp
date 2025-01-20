@@ -98,7 +98,7 @@ void moveViewRelativeToRotation( int stepx, int stepy )
     auto& ssState = stonesenseState.ssState;
 
     if (ssConfig.track_mode != GameConfiguration::TRACKING_NONE) {
-        changeRelativeToRotation(ssConfig.viewXoffset, ssConfig.viewYoffset, stepx, stepy );
+        changeRelativeToRotation(ssConfig.viewOffset.x, ssConfig.viewOffset.y, stepx, stepy );
     }
     //if we're following the DF screen, we DO NOT bound the view, since we have a simple way to get back
     else {
@@ -322,9 +322,9 @@ void action_resetscreen(uint32_t keymod)
     auto& ssState = stonesenseState.ssState;
 
     if (ssConfig.track_mode != GameConfiguration::TRACKING_NONE) {
-        ssConfig.viewXoffset = 0;
-        ssConfig.viewYoffset = 0;
-        ssConfig.viewZoffset = 0;
+        ssConfig.viewOffset.x = 0;
+        ssConfig.viewOffset.y = 0;
+        ssConfig.viewOffset.z = 0;
     } else {
         ssState.Position.x = (ssState.RegionDim.x -ssState.Size.x)/2;
         ssState.Position.y = (ssState.RegionDim.y -ssState.Size.y)/2;
@@ -583,7 +583,7 @@ void action_decrZ(uint32_t keymod)
         ssConfig.track_mode = GameConfiguration::TRACKING_NONE;
     }
     if (ssConfig.track_mode != GameConfiguration::TRACKING_NONE) {
-        ssConfig.viewZoffset -= stepsize;
+        ssConfig.viewOffset.z -= stepsize;
     } else {
         ssState.Position.z -= stepsize;
     }
@@ -607,7 +607,7 @@ void action_incrZ(uint32_t keymod)
         ssConfig.track_mode = GameConfiguration::TRACKING_NONE;
     }
     if (ssConfig.track_mode != GameConfiguration::TRACKING_NONE) {
-        ssConfig.viewZoffset += stepsize;
+        ssConfig.viewOffset.z += stepsize;
     } else {
         ssState.Position.z += stepsize;
     }

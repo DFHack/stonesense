@@ -263,7 +263,7 @@ namespace {
             if (value < -30) {
                 value = -30;
             }
-            ssConfig.viewXoffset = value;
+            ssConfig.viewOffset.x = value;
         }
         if (line.find("[FOLLOW_OFFSET_Y") != string::npos) {
             int value = parseIntFromLine("FOLLOW_OFFSET_Y", line);
@@ -273,7 +273,7 @@ namespace {
             if (value < -30) {
                 value = -30;
             }
-            ssConfig.viewYoffset = value;
+            ssConfig.viewOffset.y = value;
         }
         if (line.find("[FOLLOW_OFFSET_Z") != string::npos) {
             int value = parseIntFromLine("FOLLOW_OFFSET_Z", line);
@@ -283,7 +283,7 @@ namespace {
             if (value < -30) {
                 value = -30;
             }
-            ssConfig.viewZoffset = value;
+            ssConfig.viewOffset.z = value;
         }
         if (line.find("[BITMAP_HOLDS") != string::npos) {
             int value = parseIntFromLine("BITMAP_HOLDS", line);
@@ -819,21 +819,19 @@ bool loadConfigFile()
     auto path = std::filesystem::path{} / "dfhack-config" / "stonesense" / "init.txt";
     std::ifstream myfile(path);
     if (myfile.is_open() == false) {
-        LogError( "cannot find init file\n" );
+        LogError("cannot find init file\n");
         return false;
     }
 
-    while ( !myfile.eof() ) {
-        getline (myfile,line);
-        parseConfigLine( line );
+    while (!myfile.eof()) {
+        getline(myfile, line);
+        parseConfigLine(line);
     }
 
     // apply configuration settings to initial app state
     stonesenseState.ssState.ScreenH = stonesenseState.ssConfig.defaultScreenHeight;
     stonesenseState.ssState.ScreenW = stonesenseState.ssConfig.defaultScreenWidth;
-    stonesenseState.ssState.Size.x = stonesenseState.ssConfig.defaultSegmentSize.x + 2;
-    stonesenseState.ssState.Size.y = stonesenseState.ssConfig.defaultSegmentSize.y + 2;
-    stonesenseState.ssState.Size.z = stonesenseState.ssConfig.defaultSegmentSize.z;
+    stonesenseState.ssState.Size = stonesenseState.ssConfig.defaultSegmentSize + Crd3D{2, 2, 0};
     stonesenseState.lift_segment_offscreen_x = 0;
     stonesenseState.lift_segment_offscreen_y = stonesenseState.ssConfig.lift_segment;
 

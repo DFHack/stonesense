@@ -73,10 +73,6 @@ constexpr auto WALLHEIGHT = 32;
 constexpr auto FLOORHEIGHT = 8;
 #endif
 
-// constexpr auto GFXMODE = GFX_AUTODETECT_WINDOWED;
-constexpr auto DEFAULT_FULLSCREEN_MODE = false;
-constexpr auto DEFAULT_RESOLUTION_WIDTH = 800;
-constexpr auto DEFAULT_RESOLUTION_HEIGHT = 600;
 // Height of a one pixel stripe of the wall of an entire tile,
 //        including wall and floor plate
 constexpr auto TILEHEIGHT = (WALLHEIGHT + FLOORHEIGHT);
@@ -88,8 +84,6 @@ constexpr auto SPRITEWIDTH = TILEWIDTH;
 constexpr auto SPRITEHEIGHT = (TILETOPHEIGHT + WALLHEIGHT);
 constexpr auto WALL_CUTOFF_HEIGHT = 15;
 
-constexpr auto DEFAULT_SIZE = 20;
-constexpr auto DEFAULT_SIZE_Z = 6;
 constexpr auto MAPNAVIGATIONSTEP = 1;
 constexpr auto MAPNAVIGATIONSTEPBIG = 10;
 

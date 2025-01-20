@@ -83,7 +83,12 @@ struct Crd2D {
 };
 struct Crd3D {
     int32_t x,y,z;
+    constexpr Crd3D operator+(const Crd3D rhs)
+    {
+        return Crd3D{ x + rhs.x, y + rhs.y, z + rhs.z };
+    }
 };
+
 
 class dfColors
 {

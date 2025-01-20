@@ -950,7 +950,7 @@ void paintboard()
         int top = 0;
         if(ssConfig.track_mode != GameConfiguration::TRACKING_NONE) {
             top += fontHeight;
-            draw_textf_border(font, uiColor(1), ssState.ScreenW/2,top, ALLEGRO_ALIGN_CENTRE, "Locked on DF screen + (%d,%d,%d)",ssConfig.viewXoffset,ssConfig.viewYoffset,ssConfig.viewZoffset);
+            draw_textf_border(font, uiColor(1), ssState.ScreenW/2,top, ALLEGRO_ALIGN_CENTRE, "Locked on DF screen + (%d,%d,%d)",ssConfig.viewOffset.x,ssConfig.viewOffset.y,ssConfig.viewOffset.z);
         }
         if(ssConfig.follow_DFcursor && ssConfig.debug_mode) {
             top += fontHeight;

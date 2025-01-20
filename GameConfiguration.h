@@ -7,6 +7,13 @@
 
 #include "allegro5/color.h"
 
+// constexpr auto GFXMODE = GFX_AUTODETECT_WINDOWED;
+constexpr auto DEFAULT_FULLSCREEN_MODE = false;
+constexpr auto DEFAULT_RESOLUTION_WIDTH = 800;
+constexpr auto DEFAULT_RESOLUTION_HEIGHT = 600;
+constexpr auto DEFAULT_SIZE = /*20*/ 70;
+constexpr auto DEFAULT_SIZE_Z = /*6*/ 4;
+
 struct GameConfiguration {
     enum trackingmode : uint8_t {
         TRACKING_NONE,
@@ -25,45 +32,42 @@ struct GameConfiguration {
         .y = DEFAULT_SIZE,
         .z = DEFAULT_SIZE_Z
     };
-    bool show_all_creatures;
-    int automatic_reload_time = 0;
-    int automatic_reload_step = 500;
+    bool show_all_creatures = false;
+    int automatic_reload_time = 50;
+    int automatic_reload_step = 50;
     bool debug_mode = false;
-    bool transparentScreenshots;
+    bool transparentScreenshots = false;
     int lift_segment = 0;
-    int animation_step = 300;
-    bool verbose_logging;
-    trackingmode track_mode = TRACKING_CENTER;
-    bool invert_mouse_z;
-    bool follow_DFcursor;
+    int animation_step = 196;
+    bool verbose_logging = false;
+    trackingmode track_mode = TRACKING_FOCUS;
+    bool invert_mouse_z = false;
+    bool follow_DFcursor = true;
     bool show_creature_names = false;
-    bool show_creature_moods;
-    bool show_creature_jobs;
+    bool show_creature_moods = false;
+    bool show_creature_jobs = false;
     uint8_t show_creature_professions;
-    bool names_use_nick;
-    bool names_use_species;
+    bool names_use_nick = true;
+    bool names_use_species = true;
     bool show_osd = false;
-    bool cache_images;
-    bool show_stockpiles;
-    bool show_zones;
-    bool show_intro = true;
-    ALLEGRO_COLOR fogcol = al_map_rgba(255, 255, 255, 255);
+    bool cache_images = false;
+    bool show_stockpiles = true;
+    bool show_zones = true;
+    bool show_intro = false;
+    ALLEGRO_COLOR fogcol = al_map_rgba(128, 158, 177, 30);
     bool fogenable = true;
-    ALLEGRO_COLOR backcol = al_map_rgb(95, 95, 160);
-    int viewXoffset;
-    int viewYoffset;
-    int viewZoffset;
+    ALLEGRO_COLOR backcol = al_map_rgb(128, 158, 177);
+    Crd3D viewOffset{ 0,0,0 };
     int bitmapHolds = 4096;
-    bool saveImageCache;
+    bool saveImageCache = false;
     int fontsize = 10;
-    std::filesystem::path font =
-        std::filesystem::path{ } / "data" / "art" / "font.ttf";
+    std::filesystem::path font = std::filesystem::path{ "DejaVuSans.ttf" };
     bool useDfColors = false;
     dfColors colors;
-    bool opengl;
-    bool directX;
-    bool software;
-    bool dayNightCycle;
+    bool opengl = false;
+    bool directX = false;
+    bool software = false;
+    bool dayNightCycle = false;
     int imageCacheSize = 4096;
     bool fog_of_war = true;
 
