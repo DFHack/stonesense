@@ -257,9 +257,9 @@ void parseKeymapLine( std::string line )
 }
 
 bool loadKeymapFile(){
-    string line;
+    std::string line;
     std::filesystem::path path = std::filesystem::path{} / "dfhack-config" / "stonesense" / "keybinds.txt";
-    ifstream myfile (path);
+    std::ifstream myfile (path);
 
     if (myfile.is_open() == false) {
         LogError( "cannot find keybinds file\n" );
