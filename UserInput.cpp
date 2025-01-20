@@ -1,3 +1,5 @@
+#include <cmath>
+
 #include "common.h"
 #include "GUI.h"
 #include "BuildingConfiguration.h"
@@ -457,14 +459,14 @@ void action_incrzoom(uint32_t keymod)
 {
     auto& ssConfig = stonesenseState.ssConfig;
     ssConfig.zoom++;
-    ssConfig.scale = pow(SCALEZOOMFACTOR, ssConfig.zoom);
+    ssConfig.scale = std::pow(SCALEZOOMFACTOR, ssConfig.zoom);
 }
 
 void action_decrzoom(uint32_t keymod)
 {
     auto& ssConfig = stonesenseState.ssConfig;
     ssConfig.zoom--;
-    ssConfig.scale = pow(SCALEZOOMFACTOR, ssConfig.zoom);
+    ssConfig.scale = std::pow(SCALEZOOMFACTOR, ssConfig.zoom);
 }
 
 void action_screenshot(uint32_t keymod)
