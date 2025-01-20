@@ -21,7 +21,7 @@ void followCurrentDFCenter()
     ssState.Position.y = newviewy + (viewsizey/2) - (ssState.Size.y / 2) + ssConfig.viewYoffset;
     ssState.Position.z = newviewz + ssConfig.viewZoffset + 1;
     ssConfig.zoom = (df::global::gps->viewport_zoom_factor - 64) / 16;
-    ssConfig.scale = pow(1.1f, ssConfig.zoom);
+    ssConfig.scale = std::pow(1.1f, ssConfig.zoom);
 }
 
 //eventually, this should be a sort of "smart-follow" which switches modes intelligently
