@@ -1,3 +1,5 @@
+#include <cmath>
+
 #include "common.h"
 #include "MapLoading.h"
 #include "GUI.h"
