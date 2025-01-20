@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+<building name="Altar" game_type="OfferingPlace" >
+  <if>
+    <MaterialType value="Wood" />
+    <sprite index="90" color="building" />
+  </if>
+  <else><!-- GreenGlass -->
+  <MaterialType value="GreenGlass" />
+  <sprite index="70" />
+  </else>
+  <else><!-- ClearGlass or CrystalGlass -->
+  <or>
+    <MaterialType value="ClearGlass" />
+    <MaterialType value="CrystalGlass" />
+  </or>
+  <sprite index="71" />
+  </else>
+  <else>
+    <sprite index="91" color="building" />
+  </else>
+</building>

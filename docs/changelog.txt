@@ -43,6 +43,10 @@ Template for new versions:
 ## Fixes
 
 ## Misc Improvements
+- `stonesense`: ``keybinds.txt`` config file is now read from ``dfhack-config/stonesense/keybinds.txt``
+- `stonesense`: added some missing artwork for bookcases, displays, and offering places
+- `stonesense`: reorganized the position of some existing art to be more intuitive
+- `stonesense`: added index numbers empty sprite slots to aid in making the xml files for the sprites
 
 ## Removed
 
@@ -62,7 +66,7 @@ Template for new versions:
 
 ## Misc Improvements
 - `stonesense`: changed announcements to be right-aligned and limited to only show the most recent 10 announcements
-- `stonesense`: ``init.txt`` config file is now read from ``dfhack-configs/stonesense/init.txt``
+- `stonesense`: ``init.txt`` config file is now read from ``dfhack-config/stonesense/init.txt``
 - `stonesense`: creature names are now hidden by default (they can still be shown by pressing ``n`` (default keybinding) while stonesense window is active)
 - `stonesense`: use smaller increments for zooming in and out
 - `stonesense`: OSD is now hidden by default; hit F2 (default keybinding) to show it again
