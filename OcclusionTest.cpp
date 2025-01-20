@@ -3,36 +3,34 @@
 #include "Tile.h"
 #include "WorldSegment.h"
 #include "GUI.h"
+#include "GameConfiguration.h"
+#include "StonesenseState.h"
 
 #include <filesystem>
 
-using namespace std;
-using namespace DFHack;
-using namespace df::enums;
+constexpr auto SCALE_FACTOR = 4;
 
-#define SCALE_FACTOR 4
+constexpr auto S_PLATE_HEIGHT = 4;
+constexpr auto S_FLOOR_HEIGHT = 1;
+constexpr auto S_WALL_HEIGHT = 4;
+constexpr auto S_TILE_HEIGHT = (S_FLOOR_HEIGHT + S_WALL_HEIGHT);
+constexpr auto S_SPRITE_HEIGHT = (S_TILE_HEIGHT + S_PLATE_HEIGHT);
 
-#define S_PLATE_HEIGHT 4
-#define S_FLOOR_HEIGHT 1
-#define S_WALL_HEIGHT 4
-#define S_TILE_HEIGHT (S_FLOOR_HEIGHT+S_WALL_HEIGHT)
-#define S_SPRITE_HEIGHT (S_TILE_HEIGHT+S_PLATE_HEIGHT)
+std::bitset<2*S_SPRITE_HEIGHT> base_mask_left;
+std::bitset<2*S_SPRITE_HEIGHT> base_mask_right;
+std::bitset<2*S_SPRITE_HEIGHT> wall_mask_left;
+std::bitset<2*S_SPRITE_HEIGHT> wall_mask_right;
+std::bitset<2*S_SPRITE_HEIGHT> floor_mask_left;
+std::bitset<2*S_SPRITE_HEIGHT> floor_mask_right;
 
-bitset<2*S_SPRITE_HEIGHT> base_mask_left;
-bitset<2*S_SPRITE_HEIGHT> base_mask_right;
-bitset<2*S_SPRITE_HEIGHT> wall_mask_left;
-bitset<2*S_SPRITE_HEIGHT> wall_mask_right;
-bitset<2*S_SPRITE_HEIGHT> floor_mask_left;
-bitset<2*S_SPRITE_HEIGHT> floor_mask_right;
-
-inline bool hasOpaqueSides(Tile * b){
+bool hasOpaqueSides(Tile * b){
     return IDhasOpaqueSides(b->tileType)
-        || ( b->designation.bits.hidden && (ssConfig.shade_hidden_tiles && !ssConfig.show_hidden_tiles) );
+        || ( b->designation.bits.hidden && (stonesenseState.ssConfig.shade_hidden_tiles && !stonesenseState.ssConfig.show_hidden_tiles) );
 }
 
-inline bool hasOpaqueFloor(Tile * b){
+bool hasOpaqueFloor(Tile * b){
     return IDhasOpaqueFloor(b->tileType)
-        || ( b->designation.bits.hidden && (ssConfig.shade_hidden_tiles && !ssConfig.show_hidden_tiles) );
+        || ( b->designation.bits.hidden && (stonesenseState.ssConfig.shade_hidden_tiles && !stonesenseState.ssConfig.show_hidden_tiles) );
 }
 
 bool is_tile_solid(Tile * b)

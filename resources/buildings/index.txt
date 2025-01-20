@@ -12,6 +12,9 @@ Cabinet.xml
 Chair.xml
 Chest.xml
 Bed.xml
+Bookcase.xml
+DisplayFurniture.xml
+OfferingPlace.xml
 WeaponRack.xml
 ArmorStand.xml
 Quern.xml

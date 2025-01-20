@@ -2,7 +2,7 @@
 <building name="Chest" game_type="Box">
     <if>
         <MaterialType value="GreenGlass" />
-        <sprite index="69" />
+        <sprite index="34" />
     </if>
     <else>
         <!-- ClearGlass or CrystalGlass -->
@@ -10,7 +10,7 @@
             <MaterialType value="ClearGlass" />
             <MaterialType value="CrystalGlass" />
         </or>
-        <sprite index="70" />
+        <sprite index="35" />
     </else>
     <else>
         <or>
@@ -22,9 +22,9 @@
     </else>
     <else>
         <MaterialType value="Wood" />
-        <sprite index="89" color="building" />
+        <sprite index="54" color="building" />
     </else>
     <else>
-        <sprite index="90" color="building" />
+        <sprite index="55" color="building" />
     </else>
 </building>

@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+<building name="Pedestal" game_type="DisplayFurniture" >
+  <if>
+    <MaterialType value="Wood" />
+    <sprite index="92" color="building" />
+  </if>
+  <else><!-- GreenGlass -->
+  <MaterialType value="GreenGlass" />
+  <sprite index="72" />
+  </else>
+  <else><!-- ClearGlass or CrystalGlass -->
+  <or>
+    <MaterialType value="ClearGlass" />
+    <MaterialType value="CrystalGlass" />
+  </or>
+  <sprite index="73" />
+  </else>
+  <else>
+    <sprite index="93" color="building" />
+  </else>
+</building>

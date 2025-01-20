@@ -2,12 +2,8 @@
 #include "Config.h"
 #include "UserInput.h"
 
-using namespace std;
-using namespace DFHack;
-using namespace df::enums;
-
 //should match allegrow/keycodes.h
-string keynames[] = {
+std::string keynames[] = {
     "INVALID",
 
     "KEY_A",
@@ -129,7 +125,7 @@ string keynames[] = {
     //KEY_UNKNOWN
 };
 
-int getKeyCode(string& keyName){
+int getKeyCode(std::string& keyName){
     for(int i=0; i<ALLEGRO_KEY_UNKNOWN; i++) {
         if(keynames[i] == keyName) {
             return i;
@@ -230,33 +226,19 @@ action_name_mapper actionnamemap[] = {
 void (*actionkeymap[ALLEGRO_KEY_UNKNOWN])(uint32_t);
 bool actionrepeatmap[ALLEGRO_KEY_UNKNOWN];
 
-void parseKeymapLine( string line )
+void parseKeymapLine( std::string line )
 {
-    if(line.empty()) {
-        return;
-    }
-    char c = line[0];
-    if( c != '[') {
-        return;
-    }
-
-    //some systems don't remove the \r char as a part of the line change:
-    if(line.size() > 0 &&  line[line.size() -1 ] == '\r' ) {
-        line.resize(line.size() -1);
-    }
-
-    c = line[ line.length() -1 ];
-    if( c != ']' ) {
-        return;
-    }
+    auto ll = trim_line(line);
+    if (!ll) return;
+    line = *ll;
 
     //second-last character should tell us if this is a repeating action
-    c = line[ line.length() -2 ];
+    auto c = line[ line.length() -2 ];
 
     for(int i=0; actionnamemap[i].func != action_invalid; i++) {
-        if(line.find(actionnamemap[i].name)!=string::npos) {
+        if(line.find(actionnamemap[i].name)!=std::string::npos) {
             for(int j=0; j<ALLEGRO_KEY_UNKNOWN; j++){
-                if(line.find(keynames[j])!=string::npos) {
+                if(line.find(keynames[j])!=std::string::npos) {
                     actionkeymap[j] = actionnamemap[i].func;
                     if( c == '*' ) {
                         actionrepeatmap[j] = true;
@@ -278,6 +260,7 @@ bool loadKeymapFile(){
     string line;
     std::filesystem::path path = std::filesystem::path{} / "dfhack-config" / "stonesense" / "keybinds.txt";
     ifstream myfile (path);
+
     if (myfile.is_open() == false) {
         LogError( "cannot find keybinds file\n" );
         return false;
@@ -312,7 +295,7 @@ bool doKey(int32_t keycode, uint32_t keymodcode)
     return false;
 }
 
-bool getKeyStrings(int32_t keycode, string*& keyname, string*& actionname){
+bool getKeyStrings(int32_t keycode, std::string*& keyname, std::string*& actionname){
     keyname = actionname = NULL;
     if(keycode>0 && keycode<ALLEGRO_KEY_UNKNOWN) {
         keyname = &keynames[keycode];

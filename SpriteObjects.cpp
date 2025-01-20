@@ -7,6 +7,8 @@
 #include "WorldSegment.h"
 #include "SpriteColors.h"
 #include "SpriteMaps.h"
+#include "GameConfiguration.h"
+#include "StonesenseState.h"
 
 #include "df/descriptor_pattern.h"
 #include "df/itemdef_ammost.h"
@@ -28,11 +30,7 @@
 #include "df/world.h"
 #include "df/world_raws.h"
 
-#define ALL_BORDERS 255
-
-using namespace std;
-using namespace DFHack;
-using namespace df::enums;
+constexpr auto ALL_BORDERS = 255;
 
 uint8_t dir_to_16(DFHack::TileDirection in)
 {
@@ -232,17 +230,17 @@ int getBloodOffset ( Tile *b )
     int offset = 0;
     int x = b->x, y = b->y, z = b->z;
 
-
     if( b->designation.bits.flow_size < 1 && (b->bloodlevel)) {
 
         // Spatter (should be blood, not blood2) swapped for testing
-        if( b->bloodlevel < ssConfig.poolcutoff ) {
+        if( b->bloodlevel < stonesenseState.ssConfig.poolcutoff ) {
             offset = 7;
         }
 
         // Smear (should be blood2, not blood) swapped for testing
         else {
             // if there's no tile in the respective direction it's false. if there's no blood in that direction it's false too. should also check to see if there's a ramp below, but since blood doesn't flow, that'd look wrong anyway.
+            auto& ssConfig = stonesenseState.ssConfig;
             bool _N = ( b->ownerSegment->getTileRelativeTo( x, y, z, eUp ) != NULL ? (b->ownerSegment->getTileRelativeTo( x, y, z, eUp )->bloodlevel > ssConfig.poolcutoff) : false ),
                  _S = ( b->ownerSegment->getTileRelativeTo( x, y, z, eDown ) != NULL ? (b->ownerSegment->getTileRelativeTo( x, y, z, eDown )->bloodlevel > ssConfig.poolcutoff) : false ),
                  _E = ( b->ownerSegment->getTileRelativeTo( x, y, z, eRight ) != NULL ? (b->ownerSegment->getTileRelativeTo( x, y, z, eRight )->bloodlevel > ssConfig.poolcutoff) : false ),
@@ -280,48 +278,41 @@ int getBloodOffset ( Tile *b )
     }
     return offset;
 }
+namespace {
+    uint8_t getXXBorders(const char* framestring, int whenNull)
+    {
+        if (framestring == NULL) {
+            return whenNull;
+        }
+        char aframes = 0;
+        for (int i = 0; i < 8; i++) {
+            if (framestring[i] == 0) {
+                return aframes;
+            }
+            char temp = framestring[i] - '1';
+            if (temp < 0 || temp > 8) {
+                continue;
+            }
+            aframes = aframes | (1 << temp);
+        }
+        return aframes;
+    }
+}
+
 uint8_t getBorders(const char* framestring)
 {
-    if (framestring == NULL) {
-        return ALL_BORDERS;
-    }
-    char aframes=0;
-    for (int i=0; i<8; i++) {
-        if (framestring[i]==0) {
-            return aframes;
-        }
-        char temp = framestring[i]-'1';
-        if (temp < 0 || temp > 8) {
-            continue;
-        }
-        aframes = aframes | (1 << temp);
-    }
-    return aframes;
+    return getXXBorders(framestring, ALL_BORDERS);
 }
 uint8_t getUnBorders(const char* framestring)
 {
-    if (framestring == NULL) {
-        return 0;
-    }
-    char aframes=0;
-    for (int i=0; i<8; i++) {
-        if (framestring[i]==0) {
-            return aframes;
-        }
-        char temp = framestring[i]-'1';
-        if (temp < 0 || temp > 8) {
-            continue;
-        }
-        aframes = aframes | (1 << temp);
-    }
-    return aframes;
+    return getXXBorders(framestring, 0);
 }
 
-c_sprite::c_sprite(void)
+c_sprite::c_sprite()
 {
     reset();
 }
-void c_sprite::reset(void)
+void c_sprite::reset()
 {
     fileindex = -1;
     sheetindex = 0;
@@ -346,7 +337,7 @@ void c_sprite::reset(void)
     grasstype = -1;
     grassgrowth = GRASS_GROWTH_ANY;
     needoutline=0;
-    defaultsheet=IMGObjectSheet;
+    defaultsheet= stonesenseState.IMGObjectSheet;
     platelayout=TILEPLATE;
     shadeBy=ShadeNone;
     isoutline = OUTLINENONE;
@@ -391,8 +382,9 @@ c_sprite::~c_sprite(void)
 {
 }
 
-void c_sprite::set_by_xml(TiXmlElement *elemSprite, int32_t inFile, int creatureID, int casteID)
+void c_sprite::set_by_xml(TiXmlElement *elemSprite, int32_t inFile, int32_t creatureID, int32_t casteID)
 {
+    auto& contentLoader = stonesenseState.contentLoader;
     fileindex = inFile;
     set_by_xml(elemSprite);
 
@@ -400,8 +392,8 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite, int32_t inFile, int creature
     const char* bodyPartStr = elemSprite->Attribute("bodypart");
     //copy new, if found
     if (bodyPartStr != NULL && bodyPartStr[0] != 0) {
-        t_creaturecaste & caste = contentLoader->Mats->raceEx[creatureID].castes[(casteID==INVALID_INDEX) ? 0 : casteID];
-        std::vector<t_colormodifier> & colormods = caste.ColorModifier;
+        DFHack::t_creaturecaste & caste = contentLoader->Mats->raceEx[creatureID].castes[(casteID==INVALID_INDEX) ? 0 : casteID];
+        std::vector<DFHack::t_colormodifier> & colormods = caste.ColorModifier;
         for(size_t j = 0; j<colormods.size() ; j++) {
             if(colormods[j].part == bodyPartStr) {
                 caste_bodypart_index = j;
@@ -704,8 +696,9 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
     if (namedColorStr == NULL || namedColorStr[0] == 0) {
         namedcolor=al_map_rgb(255, 255, 255);
     } else {
+        auto& contentLoader = stonesenseState.contentLoader;
         int colorindex = lookupIndexedType(namedColorStr, contentLoader->Mats->color);
-        t_descriptor_color col = contentLoader->Mats->color[colorindex];
+        DFHack::t_descriptor_color col = contentLoader->Mats->color[colorindex];
         namedcolor = al_map_rgb_f( col.red, col.green, col.blue);
     }
 
@@ -742,7 +735,7 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
     if (idstr == NULL || idstr[0] == 0) {
         grasstype = INVALID_INDEX;
     } else {
-        grasstype = lookupIndexedType(idstr,contentLoader->organic);
+        grasstype = lookupIndexedType(idstr, stonesenseState.contentLoader->organic);
     }
 
     //find the item type
@@ -751,7 +744,7 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
         itemtype = INVALID_INDEX;
     } else {
         df::item_type index;
-        if (find_enum_item(&index, equiptypestr)) {
+        if (DFHack::find_enum_item(&index, equiptypestr)) {
             itemtype = (int)index;
         }
     }
@@ -764,6 +757,7 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
     } else {
         df::world_raws::T_itemdefs &defs = df::global::world->raws.itemdefs;
         switch(itemtype) {
+            using df::item_type;
         case item_type::WEAPON:
             itemsubtype = lookupIndexedPointerType(equipsindexstr, defs.weapons);
             break;
@@ -883,7 +877,7 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
 //    int sheety = sheetindex / SHEET_OBJECTSWIDE;
 //    if(fileindex == -1) {
 //
-//        al_draw_bitmap_region(IMGObjectSheet, sheetx * spritewidth * spritescale, sheety * spriteheight * spritescale, spritewidth * spritescale, spriteheight * spritescale, x + offset_x, y + offset_y, 0);
+//        al_draw_bitmap_region(stonesenseState.IMGObjectSheet, sheetx * spritewidth * spritescale, sheety * spriteheight * spritescale, spritewidth * spritescale, spriteheight * spritescale, x + offset_x, y + offset_y, 0);
 //    } else {
 //
 //        al_draw_bitmap_region(getImgFile(fileindex), sheetx * spritewidth * spritescale, sheety * spriteheight * spritescale, spritewidth * spritescale, spriteheight * spritescale, x + offset_x, y + (offset_y - WALLHEIGHT * spritescale), 0);
@@ -897,14 +891,16 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
 
 void c_sprite::assemble_world_offset(int x, int y, int z, int plateoffset, Tile * b, bool chop)
 {
+    auto& ssState = stonesenseState.ssState;
+
     if(defaultsheet == 0) {
-        defaultsheet = IMGObjectSheet;
+        defaultsheet = stonesenseState.IMGObjectSheet;
     }
     //sprites can be offset by a random amount, both animationwise, and just variationwise.
     //the base offset is set here.
-    int rando = randomCube[(b->x)%RANDOM_CUBE][(b->y)%RANDOM_CUBE][(b->z)%RANDOM_CUBE];
+    int rando = stonesenseState.randomCube[(b->x)%RANDOM_CUBE][(b->y)%RANDOM_CUBE][(b->z)%RANDOM_CUBE];
     //and the random offset of the animation frame is set here, provided the sprite iis set to use random animation frames.
-    int offsetAnimFrame = ((randomanimation?rando:0) + currentAnimationFrame) % MAX_ANIMFRAME;
+    int offsetAnimFrame = ((randomanimation?rando:0) + stonesenseState.currentAnimationFrame) % MAX_ANIMFRAME;
     //the following stuff is only bothered with if the animation frames say it should be drawn. this can be over-ridden
     // by setting animate to 0
 
@@ -918,13 +914,13 @@ void c_sprite::assemble_world_offset(int x, int y, int z, int plateoffset, Tile 
             spriteoffset = rando%offsetcode;
             break;
         case ANIMATION:
-            spriteoffset = ((randomanimation?rando:0) + currentAnimationFrame) % offsetcode;
+            spriteoffset = ((randomanimation?rando:0) + stonesenseState.currentAnimationFrame) % offsetcode;
             break;
         case SIXTEEN:
-            spriteoffset = dir_to_16(correct_dir_rotation(tileDirection(b->tileType), (offsetcode + ssState.Rotation) %4));
+            spriteoffset = dir_to_16(correct_dir_rotation(DFHack::tileDirection(b->tileType), (offsetcode + ssState.Rotation) %4));
             break;
         case FOUR:
-            spriteoffset = dir_to_4(correct_dir_rotation(tileDirection(b->tileType), (offsetcode + ssState.Rotation) %4));
+            spriteoffset = dir_to_4(correct_dir_rotation(DFHack::tileDirection(b->tileType), (offsetcode + ssState.Rotation) %4));
             break;
         default:
             spriteoffset = 0;
@@ -981,14 +977,15 @@ void c_sprite::assemble_world_offset(int x, int y, int z, int plateoffset, Tile 
         if(!((grasstype == -1) || (size_t(grasstype) == b->grassmat))) {
             goto draw_subsprite;
         }
+
         if(!((grassgrowth == GRASS_GROWTH_ANY) ||
                 ((grassgrowth == GRASS_GROWTH_NORMAL) &&
-                 ((b->tileMaterial() == tiletype_material::GRASS_DARK) ||
-                  (b->tileMaterial() == tiletype_material::GRASS_LIGHT))) ||
+                 ((b->tileMaterial() == df::tiletype_material::GRASS_DARK) ||
+                  (b->tileMaterial() == df::tiletype_material::GRASS_LIGHT))) ||
                 ((grassgrowth == GRASS_GROWTH_DRY) &&
-                 (b->tileMaterial() == tiletype_material::GRASS_DRY)) ||
+                 (b->tileMaterial() == df::tiletype_material::GRASS_DRY)) ||
                 ((grassgrowth == GRASS_GROWTH_DEAD) &&
-                 (b->tileMaterial() == tiletype_material::GRASS_DEAD)))) {
+                 (b->tileMaterial() == df::tiletype_material::GRASS_DEAD)))) {
             goto draw_subsprite;
         }
 
@@ -1048,6 +1045,7 @@ void c_sprite::assemble_world_offset(int x, int y, int z, int plateoffset, Tile 
             }
         }
 
+        auto& ssConfig = stonesenseState.ssConfig;
 
         int32_t drawx = x;
         int32_t drawy = y;
@@ -1078,39 +1076,23 @@ void c_sprite::assemble_world_offset(int x, int y, int z, int plateoffset, Tile 
         }
         ALLEGRO_COLOR shade_color = shadeAdventureMode(get_color(b), b->fog_of_war, b->designation.bits.outside);
         if(chop && ( halftile == HALFPLATECHOP)) {
-            if(fileindex < 0) {
-                if(shade_color.a > 0.001f)
-                    b->AssembleSprite(
-                        defaultsheet, premultiply(shade_color),
-                        sheetx * spritescale,
-                        (sheety+WALL_CUTOFF_HEIGHT) * spritescale,
-                        spritewidth * spritescale,
-                        (spriteheight-WALL_CUTOFF_HEIGHT) * spritescale,
-                        drawx + (offset_x + offset_user_x)*ssConfig.scale,
-                        drawy + (offset_user_y + (offset_y - WALLHEIGHT)+WALL_CUTOFF_HEIGHT)*ssConfig.scale,
-                        spritewidth*ssConfig.scale,
-                        (spriteheight-WALL_CUTOFF_HEIGHT)*ssConfig.scale,
-                        0);
-            } else {
-
-                if(shade_color.a > 0.001f)
-                    b->AssembleSprite(
-                        getImgFile(fileindex),
-                        premultiply(shade_color),
-                        sheetx * spritescale,
-                        (sheety+WALL_CUTOFF_HEIGHT) * spritescale,
-                        spritewidth * spritescale,
-                        (spriteheight-WALL_CUTOFF_HEIGHT) * spritescale,
-                        drawx + (offset_x + offset_user_x)*ssConfig.scale,
-                        drawy + (offset_user_y + (offset_y - WALLHEIGHT)+WALL_CUTOFF_HEIGHT)*ssConfig.scale,
-                        spritewidth*ssConfig.scale,
-                        (spriteheight-WALL_CUTOFF_HEIGHT)*ssConfig.scale,
-                        0);
-            }
+            if(shade_color.a > 0.001f)
+                b->AssembleSprite(
+                    (fileindex >= 0) ? getImgFile(fileindex) : defaultsheet,
+                    premultiply(shade_color),
+                    sheetx * spritescale,
+                    (sheety+WALL_CUTOFF_HEIGHT) * spritescale,
+                    spritewidth * spritescale,
+                    (spriteheight-WALL_CUTOFF_HEIGHT) * spritescale,
+                    drawx + (offset_x + offset_user_x)*ssConfig.scale,
+                    drawy + (offset_user_y + (offset_y - WALLHEIGHT)+WALL_CUTOFF_HEIGHT)*ssConfig.scale,
+                    spritewidth*ssConfig.scale,
+                    (spriteheight-WALL_CUTOFF_HEIGHT)*ssConfig.scale,
+                    0);
 
             if(shade_color.a > 0.001f) {
                 b->AssembleSprite(
-                    IMGObjectSheet,
+                    stonesenseState.IMGObjectSheet,
                     al_map_rgb(255,255,255),
                     TILEWIDTH * SPRITEFLOOR_CUTOFF,
                     0,
@@ -1154,44 +1136,28 @@ void c_sprite::assemble_world_offset(int x, int y, int z, int plateoffset, Tile 
                 }
             }
             if(needoutline) {
-                //drawy -= (WALLHEIGHT);
+                auto assembleOutline = [&](int idx) {
+                    int sheetx = idx % SHEET_OBJECTSWIDE;
+                    int sheety = idx / SHEET_OBJECTSWIDE;
+                    b->AssembleSprite(
+                        stonesenseState.IMGObjectSheet,
+                        al_map_rgb(255, 255, 255),
+                        sheetx * SPRITEWIDTH,
+                        sheety * SPRITEHEIGHT,
+                        SPRITEWIDTH,
+                        SPRITEHEIGHT,
+                        drawx + (offset_x)*ssConfig.scale,
+                        drawy + (offset_y)*ssConfig.scale - (WALLHEIGHT)*ssConfig.scale,
+                        SPRITEWIDTH * ssConfig.scale,
+                        SPRITEHEIGHT * ssConfig.scale,
+                        0);
+                    };
                 //Northern border
-                if(b->depthBorderNorth) {
-                    int sheetx = 281 % SHEET_OBJECTSWIDE;
-                    int sheety = 281 / SHEET_OBJECTSWIDE;
-                    b->AssembleSprite(
-                        IMGObjectSheet,
-                        al_map_rgb(255,255,255),
-                        sheetx * SPRITEWIDTH,
-                        sheety * SPRITEHEIGHT,
-                        SPRITEWIDTH,
-                        SPRITEHEIGHT,
-                        drawx + (offset_x)*ssConfig.scale,
-                        drawy + (offset_y)*ssConfig.scale - (WALLHEIGHT)*ssConfig.scale,
-                        SPRITEWIDTH*ssConfig.scale,
-                        SPRITEHEIGHT*ssConfig.scale,
-                        0);
-                }
-
+                if (b->depthBorderNorth)
+                    assembleOutline(281);
                 //Western border
-                if(b->depthBorderWest) {
-                    int sheetx = 280 % SHEET_OBJECTSWIDE;
-                    int sheety = 280 / SHEET_OBJECTSWIDE;
-                    b->AssembleSprite(
-                        IMGObjectSheet,
-                        al_map_rgb(255,255,255),
-                        sheetx * SPRITEWIDTH,
-                        sheety * SPRITEHEIGHT,
-                        SPRITEWIDTH,
-                        SPRITEHEIGHT,
-                        drawx + (offset_x)*ssConfig.scale,
-                        drawy + (offset_y)*ssConfig.scale - (WALLHEIGHT)*ssConfig.scale,
-                        SPRITEWIDTH*ssConfig.scale,
-                        SPRITEHEIGHT*ssConfig.scale,
-                        0);
-                }
-
-                //drawy += (WALLHEIGHT);
+                if (b->depthBorderWest)
+                    assembleOutline(280);
             }
         }
     }
@@ -1237,6 +1203,9 @@ void c_sprite::set_plate_layout(uint8_t layout)
 
 ALLEGRO_COLOR c_sprite::get_color(void* tile)
 {
+    auto& contentLoader = stonesenseState.contentLoader;
+    auto& ssConfig = stonesenseState.ssConfig;
+
     Tile * b = (Tile *) tile;
     uint32_t dayofLife = 0;
     switch(shadeBy) {
@@ -1285,10 +1254,10 @@ ALLEGRO_COLOR c_sprite::get_color(void* tile)
         if(b->occ.bits.unit && b->creature) {
             dayofLife = b->creature->origin->birth_year*12*28 + b->creature->origin->birth_time/1200;
             if((!ssConfig.skipCreatureTypes) && (!ssConfig.skipCreatureTypesEx) && (!ssConfig.skipDescriptorColors)) {
-                t_creaturecaste & caste = contentLoader->Mats->raceEx[b->creature->origin->race].castes[b->creature->origin->caste];
-                std::vector<t_colormodifier> & colormods =caste.ColorModifier;
+                DFHack::t_creaturecaste & caste = contentLoader->Mats->raceEx[b->creature->origin->race].castes[b->creature->origin->caste];
+                std::vector<DFHack::t_colormodifier> & colormods =caste.ColorModifier;
                 if(caste_bodypart_index != INVALID_INDEX && size_t(caste_bodypart_index) < colormods.size()){
-                    t_colormodifier & colormod = colormods[caste_bodypart_index];
+                    DFHack::t_colormodifier & colormod = colormods[caste_bodypart_index];
                     if(colormod.colorlist.size() > b->creature->color[caste_bodypart_index]) {
                         uint32_t cr_color = colormod.colorlist.at(b->creature->color[caste_bodypart_index]);
                         if(cr_color < df::global::world->raws.descriptors.patterns.size()) {
@@ -1345,7 +1314,7 @@ ALLEGRO_COLOR c_sprite::get_color(void* tile)
         break;
     case ShadeJob:
         if(b->occ.bits.unit && b->creature) {
-            return ssConfig.colors.getDfColor(Units::getProfessionColor(b->creature->origin), ssConfig.useDfColors);
+            return ssConfig.colors.getDfColor(DFHack::Units::getProfessionColor(b->creature->origin), ssConfig.useDfColors);
         } else {
             return al_map_rgb(255,255,255);
         }

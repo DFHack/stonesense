@@ -15,9 +15,6 @@
 #include "df/world.h"
 #include "df/world_raws.h"
 
-using namespace DFHack;
-using namespace df::enums;
-
 using std::string;
 
 int parseConditionNode(ConditionalNode* node, TiXmlElement* elemCondition, bool silent);
@@ -280,6 +277,7 @@ bool parseSpriteNode(SpriteNode* node, TiXmlElement* elemParent)
 
 bool addSingleBuildingConfig( TiXmlElement* elemRoot,  std::vector<std::unique_ptr<BuildingConfiguration>>*knownBuildings)
 {
+    using df::building_type;
     const char* strName = elemRoot->Attribute("name");
     const char* strGameID = elemRoot->Attribute("game_type");
     const char* strGameSub = elemRoot->Attribute("game_subtype");
@@ -289,7 +287,7 @@ bool addSingleBuildingConfig( TiXmlElement* elemRoot,  std::vector<std::unique_p
         contentError("<building> node must have name and game_type attributes",elemRoot);
         return false;
     }
-    building_type::building_type main_type = BUILDINGTYPE_NA;
+    df::building_type main_type = BUILDINGTYPE_NA;
     int subtype = INVALID_INDEX;
     string game_type_s;
     FOR_ENUM_ITEMS(building_type,i) {
@@ -329,7 +327,7 @@ bool addSingleBuildingConfig( TiXmlElement* elemRoot,  std::vector<std::unique_p
             contentError("<building> unknown game_subtype value",elemRoot);
             return false;
         }
-        if(subtype == furnace_type::Custom) {
+        if(subtype == df::furnace_type::Custom) {
             needs_custom = true;
         }
         break;
@@ -400,7 +398,7 @@ bool addSingleBuildingConfig( TiXmlElement* elemRoot,  std::vector<std::unique_p
             contentError("<building> unknown game_subtype value",elemRoot);
             return false;
         }
-        if(subtype == workshop_type::Custom) {
+        if(subtype == df::workshop_type::Custom) {
             needs_custom = true;
         }
         break;
@@ -418,11 +416,10 @@ bool addSingleBuildingConfig( TiXmlElement* elemRoot,  std::vector<std::unique_p
     }
     else if (strGameCustom && strGameCustom[0])
     {
-        for (size_t i = 0; i < df::global::world->raws.buildings.all.size(); i++)
-        {
-            if (strcmp(strGameCustom, df::global::world->raws.buildings.all[i]->code.c_str()) == 0)
-                custom = i;
-        }
+        auto& bld = df::global::world->raws.buildings.all;
+        auto it = std::find_if(bld.begin(), bld.end(), [&](auto b) { return b->code == strGameCustom; });
+        if (it != bld.end())
+            custom = it - bld.begin();
         if (custom == -1)
         {
             contentWarning("<building> game_custom attribute is invalid", elemRoot);

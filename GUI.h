@@ -5,7 +5,6 @@
 
 void ScreenToPoint(int x,int y,int &x1, int &y1, int &z1);
 void pointToScreen(int *inx, int *iny, int inz);
-void correctTileForDisplayedOffset(int32_t&, int32_t&, int32_t&);
 void correctForRotation(int32_t& x, int32_t& y, unsigned char rot, int32_t szx, int32_t szy);
 Crd2D WorldTileToScreen(int32_t x, int32_t y, int32_t z);
 Crd2D LocalTileToScreen(int32_t x, int32_t y, int32_t z);
@@ -30,25 +29,5 @@ void dumpSegment();
 void saveImage(ALLEGRO_BITMAP* image);
 
 void draw_loading_message(const char *format, ...);
-
-extern int MiniMapTopLeftX;
-extern int MiniMapTopLeftY;
-extern int MiniMapBottomRightX;
-extern int MiniMapBottomRightY;
-extern int MiniMapSegmentWidth;
-extern int MiniMapSegmentHeight;
-extern double oneTileInPixels;
-
-extern ALLEGRO_BITMAP* IMGObjectSheet;
-extern ALLEGRO_BITMAP* IMGCreatureSheet;
-extern ALLEGRO_BITMAP* IMGRampSheet;
-extern ALLEGRO_BITMAP* IMGStatusSheet;
-extern ALLEGRO_BITMAP* IMGProfSheet;
-extern ALLEGRO_BITMAP* IMGJobSheet;
-extern ALLEGRO_BITMAP* IMGBloodSheet;
-extern ALLEGRO_BITMAP* IMGEngFloorSheet;
-extern ALLEGRO_BITMAP* IMGEngLeftSheet;
-extern ALLEGRO_BITMAP* IMGEngRightSheet;
-extern ALLEGRO_BITMAP* IMGLetterSheet;
 
 ALLEGRO_COLOR morph_color(ALLEGRO_COLOR source, ALLEGRO_COLOR reference, ALLEGRO_COLOR target);
