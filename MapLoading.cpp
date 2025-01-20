@@ -9,7 +9,7 @@
 #include "GameBuildings.h"
 #include "Creatures.h"
 #include "ContentLoader.h"
-#include "GameConfiguration.h"
+#include "Config.h"
 #include "StonesenseState.h"
 
 #include "df/block_square_event_grassst.h"
@@ -944,20 +944,20 @@ void read_segment( void *arg)
 
         auto& ssState = stonesenseState.ssState;
         //read cursor
-        if (stonesenseState.ssConfig.follow_DFcursor) {
+        if (stonesenseState.ssConfig.config.follow_DFcursor) {
             DFHack::Gui::getCursorCoords(ssState.dfCursor.x, ssState.dfCursor.y, ssState.dfCursor.z);
             ssState.dfSelection.x = df::global::selection_rect->start_x;
             ssState.dfSelection.y = df::global::selection_rect->start_y;
             ssState.dfSelection.z = df::global::selection_rect->start_z;
         }
 
-        if (firstLoad || stonesenseState.ssConfig.track_mode != GameConfiguration::TRACKING_NONE) {
+        if (firstLoad || stonesenseState.ssConfig.config.track_mode != Config::TRACKING_NONE) {
             firstLoad = 0;
-            if (stonesenseState.ssConfig.track_mode == GameConfiguration::TRACKING_CENTER) {
+            if (stonesenseState.ssConfig.config.track_mode == Config::TRACKING_CENTER) {
                 followCurrentDFCenter();
-            } else if (stonesenseState.ssConfig.track_mode == GameConfiguration::TRACKING_FOCUS) {
+            } else if (stonesenseState.ssConfig.config.track_mode == Config::TRACKING_FOCUS) {
                 followCurrentDFFocus();
-                stonesenseState.ssConfig.follow_DFcursor = true;
+                stonesenseState.ssConfig.config.follow_DFcursor = true;
             }
         }
         segment = stonesenseState.map_segment.getRead();
@@ -987,7 +987,7 @@ static void * threadedSegment(ALLEGRO_THREAD *read_thread, void *arg)
         stonesenseState.map_segment.lockRead();
         read_segment(arg);
         stonesenseState.map_segment.unlockRead();
-        al_rest(stonesenseState.ssConfig.automatic_reload_time/1000.0);
+        al_rest(stonesenseState.ssConfig.config.automatic_reload_time/1000.0);
     }
     return 0;
 }

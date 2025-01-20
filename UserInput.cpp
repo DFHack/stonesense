@@ -47,22 +47,22 @@ void initAutoReload()
 {
     auto& ssConfig = stonesenseState.ssConfig;
 
-    if( ssConfig.automatic_reload_time > 0 ) {
+    if( ssConfig.config.automatic_reload_time > 0 ) {
         if(!stonesenseState.reloadtimer) {
-            stonesenseState.reloadtimer = al_create_timer(ALLEGRO_MSECS_TO_SECS(ssConfig.automatic_reload_time));
+            stonesenseState.reloadtimer = al_create_timer(ALLEGRO_MSECS_TO_SECS(ssConfig.config.automatic_reload_time));
         } else {
-            al_set_timer_speed(stonesenseState.reloadtimer, ALLEGRO_MSECS_TO_SECS(ssConfig.automatic_reload_time));
+            al_set_timer_speed(stonesenseState.reloadtimer, ALLEGRO_MSECS_TO_SECS(ssConfig.config.automatic_reload_time));
         }
         al_start_timer(stonesenseState.reloadtimer);
     }
-    //install_int( automaticReloadProc, ssConfig.automatic_reload_time );
+    //install_int( automaticReloadProc, ssConfig.config.automatic_reload_time );
 }
 
 void abortAutoReload()
 {
     auto& ssConfig = stonesenseState.ssConfig;
 
-    ssConfig.automatic_reload_time = 0;
+    ssConfig.config.automatic_reload_time = 0;
     al_stop_timer(stonesenseState.reloadtimer);
     al_destroy_timer(stonesenseState.reloadtimer);
     //remove_int( automaticReloadProc );
@@ -97,8 +97,8 @@ void moveViewRelativeToRotation( int stepx, int stepy )
     auto& ssConfig = stonesenseState.ssConfig;
     auto& ssState = stonesenseState.ssState;
 
-    if (ssConfig.track_mode != GameConfiguration::TRACKING_NONE) {
-        changeRelativeToRotation(ssConfig.viewOffset.x, ssConfig.viewOffset.y, stepx, stepy );
+    if (ssConfig.config.track_mode != Config::TRACKING_NONE) {
+        changeRelativeToRotation(ssConfig.config.viewOffset.x, ssConfig.config.viewOffset.y, stepx, stepy );
     }
     //if we're following the DF screen, we DO NOT bound the view, since we have a simple way to get back
     else {
@@ -134,7 +134,7 @@ void doMouse()
     static int last_mouse_z;
     auto& mouse = stonesenseState.mouse;
     if(mouse.z < last_mouse_z) {
-        if(ssConfig.invert_mouse_z) {
+        if(ssConfig.config.invert_mouse_z) {
             action_incrZ(keymod);
         }
         else {
@@ -143,7 +143,7 @@ void doMouse()
         last_mouse_z = mouse.z;
     }
     if(mouse.z > last_mouse_z) {
-        if(ssConfig.invert_mouse_z) {
+        if(ssConfig.config.invert_mouse_z) {
             action_decrZ(keymod);
         }
         else {
@@ -152,7 +152,7 @@ void doMouse()
         last_mouse_z = mouse.z;
     }
     if( mouse.buttons & 2 ) {
-        ssConfig.track_mode = GameConfiguration::TRACKING_NONE;
+        ssConfig.config.track_mode = Config::TRACKING_NONE;
         int x, y;
         x = mouse.x;
         y = mouse.y;
@@ -169,7 +169,7 @@ void doMouse()
         //rest(50);
     }
     if( mouse.buttons & 1 ) {
-        ssConfig.follow_DFcursor = false;
+        ssConfig.config.follow_DFcursor = false;
         int x, y;
         x = mouse.x;//pos >> 16;
         y = mouse.y; //pos & 0x0000ffff;
@@ -229,7 +229,7 @@ void action_togglestockpiles(uint32_t keymod)
 {
     auto& ssConfig = stonesenseState.ssConfig;
 
-    ssConfig.show_stockpiles = !ssConfig.show_stockpiles;
+    ssConfig.config.show_stockpiles = !ssConfig.config.show_stockpiles;
     stonesenseState.timeToReloadSegment = true;
 }
 
@@ -245,7 +245,7 @@ void action_togglezones(uint32_t keymod)
 {
     auto& ssConfig = stonesenseState.ssConfig;
 
-    ssConfig.show_zones = !ssConfig.show_zones;
+    ssConfig.config.show_zones = !ssConfig.config.show_zones;
     stonesenseState.timeToReloadSegment = true;
 }
 
@@ -261,14 +261,14 @@ void action_togglefog(uint32_t keymod)
 {
     auto& ssConfig = stonesenseState.ssConfig;
 
-    ssConfig.fogenable = !ssConfig.fogenable;
+    ssConfig.config.fogenable = !ssConfig.config.fogenable;
 }
 
 void action_togglecreaturemood(uint32_t keymod)
 {
     auto& ssConfig = stonesenseState.ssConfig;
 
-    ssConfig.show_creature_moods = !ssConfig.show_creature_moods;
+    ssConfig.config.show_creature_moods = !ssConfig.config.show_creature_moods;
     stonesenseState.timeToReloadSegment = true;
 }
 
@@ -276,8 +276,8 @@ void action_togglecreatureprof(uint32_t keymod)
 {
     auto& ssConfig = stonesenseState.ssConfig;
 
-    ssConfig.show_creature_professions++;
-    ssConfig.show_creature_professions = ssConfig.show_creature_professions % 4;
+    ssConfig.config.show_creature_professions++;
+    ssConfig.config.show_creature_professions = ssConfig.config.show_creature_professions % 4;
     stonesenseState.timeToReloadSegment = true;
 }
 
@@ -285,7 +285,7 @@ void action_togglecreaturejob(uint32_t keymod)
 {
     auto& ssConfig = stonesenseState.ssConfig;
 
-    ssConfig.show_creature_jobs = !ssConfig.show_creature_jobs;
+    ssConfig.config.show_creature_jobs = !ssConfig.config.show_creature_jobs;
     stonesenseState.timeToReloadSegment = true;
 }
 
@@ -305,12 +305,12 @@ void action_cycletrackingmode(uint32_t keymod)
     auto& ssConfig = stonesenseState.ssConfig;
 
     if (keymod & ALLEGRO_KEYMOD_CTRL) {
-        ssConfig.follow_DFcursor = !ssConfig.follow_DFcursor;
+        ssConfig.config.follow_DFcursor = !ssConfig.config.follow_DFcursor;
     }
     else {
-        ssConfig.track_mode = (GameConfiguration::trackingmode)(ssConfig.track_mode + 1);
-        if (ssConfig.track_mode >= GameConfiguration::TRACKING_INVALID) {
-            ssConfig.track_mode = GameConfiguration::TRACKING_NONE;
+        ssConfig.config.track_mode = (Config::trackingmode)(ssConfig.config.track_mode + 1);
+        if (ssConfig.config.track_mode >= Config::TRACKING_INVALID) {
+            ssConfig.config.track_mode = Config::TRACKING_NONE;
         }
     }
     stonesenseState.timeToReloadSegment = true;
@@ -321,10 +321,10 @@ void action_resetscreen(uint32_t keymod)
     auto& ssConfig = stonesenseState.ssConfig;
     auto& ssState = stonesenseState.ssState;
 
-    if (ssConfig.track_mode != GameConfiguration::TRACKING_NONE) {
-        ssConfig.viewOffset.x = 0;
-        ssConfig.viewOffset.y = 0;
-        ssConfig.viewOffset.z = 0;
+    if (ssConfig.config.track_mode != Config::TRACKING_NONE) {
+        ssConfig.config.viewOffset.x = 0;
+        ssConfig.config.viewOffset.y = 0;
+        ssConfig.config.viewOffset.z = 0;
     } else {
         ssState.Position.x = (ssState.RegionDim.x -ssState.Size.x)/2;
         ssState.Position.y = (ssState.RegionDim.y -ssState.Size.y)/2;
@@ -425,7 +425,7 @@ void action_togglecreaturenames(uint32_t keymod)
 {
     auto& ssConfig = stonesenseState.ssConfig;
 
-    ssConfig.show_creature_names = !ssConfig.show_creature_names;
+    ssConfig.config.show_creature_names = !ssConfig.config.show_creature_names;
     stonesenseState.timeToReloadSegment = true;
 }
 
@@ -433,7 +433,7 @@ void action_toggleosd(uint32_t keymod)
 {
     auto& ssConfig = stonesenseState.ssConfig;
 
-    ssConfig.show_osd = !ssConfig.show_osd;
+    ssConfig.config.show_osd = !ssConfig.config.show_osd;
     stonesenseState.timeToReloadSegment = true;
 }
 
@@ -450,7 +450,7 @@ void action_toggleannouncements(uint32_t keymod) {
 void action_toggledebug(uint32_t keymod)
 {
     auto& ssConfig = stonesenseState.ssConfig;
-    ssConfig.debug_mode = !ssConfig.debug_mode;
+    ssConfig.config.debug_mode = !ssConfig.config.debug_mode;
 }
 
 void action_incrzoom(uint32_t keymod)
@@ -485,7 +485,7 @@ void action_screenshot(uint32_t keymod)
 void action_incrreloadtime(uint32_t keymod)
 {
     auto& ssConfig = stonesenseState.ssConfig;
-    ssConfig.automatic_reload_time += ssConfig.automatic_reload_step;
+    ssConfig.config.automatic_reload_time += ssConfig.config.automatic_reload_step;
     paintboard();
     initAutoReload();
 }
@@ -493,13 +493,13 @@ void action_incrreloadtime(uint32_t keymod)
 void action_decrreloadtime(uint32_t keymod)
 {
     auto& ssConfig = stonesenseState.ssConfig;
-    if(ssConfig.automatic_reload_time) {
-        if(ssConfig.automatic_reload_time > 0) {
-            ssConfig.automatic_reload_time -= ssConfig.automatic_reload_step;
+    if(ssConfig.config.automatic_reload_time) {
+        if(ssConfig.config.automatic_reload_time > 0) {
+            ssConfig.config.automatic_reload_time -= ssConfig.config.automatic_reload_step;
         }
-        if( ssConfig.automatic_reload_time <= 0 ) {
+        if( ssConfig.config.automatic_reload_time <= 0 ) {
             al_stop_timer(stonesenseState.reloadtimer);
-            ssConfig.automatic_reload_time = 0;
+            ssConfig.config.automatic_reload_time = 0;
         } else {
             initAutoReload();
         }
@@ -521,7 +521,7 @@ void action_decrY(uint32_t keymod)
     }
     char stepsize = ((keymod&ALLEGRO_KEYMOD_SHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
     if (!(keymod&ALLEGRO_KEYMOD_ALT)) {
-        stonesenseState.ssConfig.track_mode = GameConfiguration::TRACKING_NONE;
+        stonesenseState.ssConfig.config.track_mode = Config::TRACKING_NONE;
     }
     moveViewRelativeToRotation( 0, -stepsize );
     stonesenseState.timeToReloadSegment = true;
@@ -535,7 +535,7 @@ void action_incrY(uint32_t keymod)
     }
     char stepsize = ((keymod&ALLEGRO_KEYMOD_SHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
     if (!(keymod&ALLEGRO_KEYMOD_ALT)) {
-        stonesenseState.ssConfig.track_mode = GameConfiguration::TRACKING_NONE;
+        stonesenseState.ssConfig.config.track_mode = Config::TRACKING_NONE;
     }
     moveViewRelativeToRotation( 0, stepsize );
     stonesenseState.timeToReloadSegment = true;
@@ -549,7 +549,7 @@ void action_decrX(uint32_t keymod)
     }
     char stepsize = ((keymod&ALLEGRO_KEYMOD_SHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
     if (!(keymod&ALLEGRO_KEYMOD_ALT)) {
-        stonesenseState.ssConfig.track_mode = GameConfiguration::TRACKING_NONE;
+        stonesenseState.ssConfig.config.track_mode = Config::TRACKING_NONE;
     }
     moveViewRelativeToRotation( -stepsize, 0 );
     stonesenseState.timeToReloadSegment = true;
@@ -563,7 +563,7 @@ void action_incrX(uint32_t keymod)
     }
     char stepsize = ((keymod&ALLEGRO_KEYMOD_SHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
     if (!(keymod&ALLEGRO_KEYMOD_ALT)) {
-        stonesenseState.ssConfig.track_mode = GameConfiguration::TRACKING_NONE;
+        stonesenseState.ssConfig.config.track_mode = Config::TRACKING_NONE;
     }
     moveViewRelativeToRotation( stepsize, 0 );
     stonesenseState.timeToReloadSegment = true;
@@ -580,10 +580,10 @@ void action_decrZ(uint32_t keymod)
     }
     char stepsize = ((keymod&ALLEGRO_KEYMOD_SHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
     if (!(keymod&ALLEGRO_KEYMOD_ALT)) {
-        ssConfig.track_mode = GameConfiguration::TRACKING_NONE;
+        ssConfig.config.track_mode = Config::TRACKING_NONE;
     }
-    if (ssConfig.track_mode != GameConfiguration::TRACKING_NONE) {
-        ssConfig.viewOffset.z -= stepsize;
+    if (ssConfig.config.track_mode != Config::TRACKING_NONE) {
+        ssConfig.config.viewOffset.z -= stepsize;
     } else {
         ssState.Position.z -= stepsize;
     }
@@ -604,10 +604,10 @@ void action_incrZ(uint32_t keymod)
     }
     char stepsize = ((keymod&ALLEGRO_KEYMOD_SHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
     if (!(keymod&ALLEGRO_KEYMOD_ALT)) {
-        ssConfig.track_mode = GameConfiguration::TRACKING_NONE;
+        ssConfig.config.track_mode = Config::TRACKING_NONE;
     }
-    if (ssConfig.track_mode != GameConfiguration::TRACKING_NONE) {
-        ssConfig.viewOffset.z += stepsize;
+    if (ssConfig.config.track_mode != Config::TRACKING_NONE) {
+        ssConfig.config.viewOffset.z += stepsize;
     } else {
         ssState.Position.z += stepsize;
     }
@@ -634,24 +634,24 @@ void doKeys(int32_t key, uint32_t keymod)
     return;
 
     //WAITING TO BE MOVED OVER
-    //if(ssConfig.debug_mode) {
+    //if(ssConfig.config.debug_mode) {
     //    if(Key == ALLEGRO_KEY_PAD_8) {
-    //        ssConfig.follow_DFcursor = false;
+    //        ssConfig.config.follow_DFcursor = false;
     //        debugCursor.y--;
     //        paintboard();
     //    }
     //    if(Key == ALLEGRO_KEY_PAD_2) {
-    //        ssConfig.follow_DFcursor = false;
+    //        ssConfig.config.follow_DFcursor = false;
     //        debugCursor.y++;
     //        paintboard();
     //    }
     //    if(Key == ALLEGRO_KEY_PAD_4) {
-    //        ssConfig.follow_DFcursor = false;
+    //        ssConfig.config.follow_DFcursor = false;
     //        debugCursor.x--;
     //        paintboard();
     //    }
     //    if(Key == ALLEGRO_KEY_PAD_6) {
-    //        ssConfig.follow_DFcursor = false;
+    //        ssConfig.config.follow_DFcursor = false;
     //        debugCursor.x++;
     //        paintboard();
     //    }

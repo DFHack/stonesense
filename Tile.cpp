@@ -299,8 +299,8 @@ void Tile::DrawGrowth(c_sprite * spriteobject, bool top=true)
                     }
                     auto& ssConfig = stonesenseState.ssConfig;
                     growCol = morph_color(growCol,
-                        ssConfig.colors.getDfColor(basePrint->color[0], basePrint->color[2], ssConfig.useDfColors),
-                        ssConfig.colors.getDfColor(currentPrint->color[0], currentPrint->color[2], ssConfig.useDfColors));
+                        ssConfig.config.colors.getDfColor(basePrint->color[0], basePrint->color[2], ssConfig.config.useDfColors),
+                        ssConfig.config.colors.getDfColor(currentPrint->color[0], currentPrint->color[2], ssConfig.config.useDfColors));
                 }
                 spriteobject->set_growthColor(growCol);
                 spriteobject->assemble_world(x, y, z, this);
@@ -487,8 +487,8 @@ void Tile::AssembleTile( void )
 
     //Building
     bool skipBuilding =
-        (building.type == df::building_type::Civzone && !ssConfig.show_zones) ||
-        (building.type == df::building_type::Stockpile && !ssConfig.show_stockpiles);
+        (building.type == df::building_type::Civzone && !ssConfig.config.show_zones) ||
+        (building.type == df::building_type::Stockpile && !ssConfig.config.show_stockpiles);
 
     if(building.type != BUILDINGTYPE_NA && !skipBuilding) {
         for(uint32_t i=0; i < building.sprites.size(); i++) {

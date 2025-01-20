@@ -109,7 +109,7 @@ void LogVerbose(const char* msg, ...)
 
     TRACE(main) << buf;
 
-    if (!stonesenseState.ssConfig.verbose_logging)
+    if (!stonesenseState.ssConfig.config.verbose_logging)
         return;
 
     std::ofstream fp{ std::filesystem::path { "Stonesense.log" }, std::ios::app };
@@ -129,8 +129,8 @@ void SetTitle(const char *format, ...)
 bool loadfont(DFHack::color_ostream & output)
 {
     std::filesystem::path p{ "stonesense" };
-    p /= stonesenseState.ssConfig.font;
-    stonesenseState.font = al_load_font(p.string().c_str(), stonesenseState.ssConfig.fontsize, 0);
+    p /= stonesenseState.ssConfig.config.font;
+    stonesenseState.font = al_load_font(p.string().c_str(), stonesenseState.ssConfig.config.fontsize, 0);
     if (!stonesenseState.font) {
         output.printerr("Cannot load font: %s\n", p.string().c_str());
         return false;
@@ -241,14 +241,14 @@ static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALL
                 }
                 else if (timeToReloadSegment) {
                     reloadPosition();
-                    al_clear_to_color(ssConfig.backcol);
+                    al_clear_to_color(ssConfig.config.backcol);
                     paintboard();
                     ovrlay->Flip();
                     timeToReloadSegment = false;
                     animationFrameShown = true;
                 }
                 else if (animationFrameShown == false) {
-                    al_clear_to_color(ssConfig.backcol);
+                    al_clear_to_color(ssConfig.config.backcol);
                     paintboard();
                     ovrlay->Flip();
                     animationFrameShown = true;
@@ -266,14 +266,14 @@ static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALL
                 }
                 else if (stonesenseState.timeToReloadSegment) {
                     reloadPosition();
-                    al_clear_to_color(ssConfig.backcol);
+                    al_clear_to_color(ssConfig.config.backcol);
                     paintboard();
                     al_flip_display();
                     stonesenseState.timeToReloadSegment = false;
                     stonesenseState.animationFrameShown = true;
                 }
                 else if (stonesenseState.animationFrameShown == false) {
-                    al_clear_to_color(ssConfig.backcol);
+                    al_clear_to_color(ssConfig.config.backcol);
                     paintboard();
                     al_flip_display();
                     stonesenseState.animationFrameShown = true;
@@ -323,7 +323,7 @@ static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALL
                 if(event.keyboard.display != display) {
                     break;
                 }
-                else if (event.keyboard.keycode == ALLEGRO_KEY_ESCAPE && ssConfig.closeOnEsc) {
+                else if (event.keyboard.keycode == ALLEGRO_KEY_ESCAPE && ssConfig.config.closeOnEsc) {
                     return;
                 } else {
                     doKeys(event.keyboard.keycode, event.keyboard.modifiers);
@@ -361,8 +361,8 @@ static void* stonesense_thread(ALLEGRO_THREAD* main_thread, void* parms)
     out.print("Stonesense launched\n");
 
     stonesenseState.ssConfig = GameConfiguration{};
-    stonesenseState.ssState.ScreenH = stonesenseState.ssConfig.defaultScreenHeight;
-    stonesenseState.ssState.ScreenW = stonesenseState.ssConfig.defaultScreenWidth;
+    stonesenseState.ssState.ScreenH = stonesenseState.ssConfig.config.defaultScreenHeight;
+    stonesenseState.ssState.ScreenW = stonesenseState.ssConfig.config.defaultScreenWidth;
     stonesenseState.ssState.Size = { DEFAULT_SIZE, DEFAULT_SIZE, DEFAULT_SIZE_Z };
     stonesenseState.timeToReloadConfig = true;
     stonesenseState.contentLoader = std::make_unique<ContentLoader>();
@@ -390,13 +390,13 @@ static void* stonesense_thread(ALLEGRO_THREAD* main_thread, void* parms)
 
     auto& ssConfig = stonesenseState.ssConfig;
     al_set_new_display_flags(
-        (ssConfig.Fullscreen && !ssConfig.overlay_mode ? ALLEGRO_FULLSCREEN : ALLEGRO_WINDOWED)
+        (ssConfig.config.Fullscreen && !ssConfig.overlay_mode ? ALLEGRO_FULLSCREEN : ALLEGRO_WINDOWED)
         |(ssConfig.overlay_mode ? 0 : ALLEGRO_RESIZABLE)
         |(ssConfig.overlay_mode ? ALLEGRO_MINIMIZED : 0)
-        |(ssConfig.opengl ? ALLEGRO_OPENGL : 0)
-        |(ssConfig.directX ? ALLEGRO_DIRECT3D_INTERNAL : 0));
+        |(ssConfig.config.opengl ? ALLEGRO_OPENGL : 0)
+        |(ssConfig.config.directX ? ALLEGRO_DIRECT3D_INTERNAL : 0));
 
-    if(ssConfig.software) {
+    if(ssConfig.config.software) {
         al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP|_ALLEGRO_ALPHA_TEST|ALLEGRO_MIN_LINEAR|ALLEGRO_MIPMAP);
     } else {
         al_set_new_bitmap_flags(ALLEGRO_MIN_LINEAR|ALLEGRO_MIPMAP);
@@ -457,10 +457,10 @@ static void* stonesense_thread(ALLEGRO_THREAD* main_thread, void* parms)
     al_draw_textf(stonesenseState.font, al_map_rgb(255,255,255), stonesenseState.ssState.ScreenW/2, stonesenseState.ssState.ScreenH/2, ALLEGRO_ALIGN_CENTRE, "Starting up...");
     al_flip_display();
 
-    stonesenseState.reloadtimer = al_create_timer(ALLEGRO_MSECS_TO_SECS(ssConfig.automatic_reload_time));
-    stonesenseState.animationtimer = al_create_timer(ALLEGRO_MSECS_TO_SECS(ssConfig.animation_step));
+    stonesenseState.reloadtimer = al_create_timer(ALLEGRO_MSECS_TO_SECS(ssConfig.config.automatic_reload_time));
+    stonesenseState.animationtimer = al_create_timer(ALLEGRO_MSECS_TO_SECS(ssConfig.config.animation_step));
 
-    if(ssConfig.animation_step) {
+    if(ssConfig.config.animation_step) {
         al_start_timer(stonesenseState.animationtimer);
     }
 
