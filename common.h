@@ -232,3 +232,5 @@ constexpr auto FORM_BAR = 1;
 constexpr auto FORM_BLOCK = 2;
 constexpr auto FORM_BOULDER = 3;
 constexpr auto FORM_LOG = 4;
+
+constexpr auto SCALEZOOMFACTOR = 1.1f;
