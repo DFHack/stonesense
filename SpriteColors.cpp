@@ -210,13 +210,13 @@ ALLEGRO_COLOR shadeAdventureMode(ALLEGRO_COLOR color, bool foggy, bool outside)
         return color;
     }
 
-    if(foggy && stonesenseState.ssConfig.fog_of_war) {
+    if(foggy && stonesenseState.ssConfig.config.fog_of_war) {
         color.r *= 0.25f;
         color.g *= 0.25f;
         color.b *= 0.25f;
     }
 
-    if(stonesenseState.ssConfig.dayNightCycle) {
+    if(stonesenseState.ssConfig.config.dayNightCycle) {
         if(outside) {
             color = color*getDayShade(contentLoader->currentHour, contentLoader->currentTickRel);
         } else {
@@ -279,28 +279,28 @@ ALLEGRO_COLOR blinkTechnicolor()
     switch(stonesenseState.currentAnimationFrame & 0x07){
     case 0x00:
         //yellow;
-        return ssConfig.colors.getDfColor(dfColors::yellow, ssConfig.useDfColors);
+        return ssConfig.config.colors.getDfColor(dfColors::yellow, ssConfig.config.useDfColors);
     case 0x01:
         //blue
-        return ssConfig.colors.getDfColor(dfColors::blue, ssConfig.useDfColors);
+        return ssConfig.config.colors.getDfColor(dfColors::blue, ssConfig.config.useDfColors);
     case 0x02:
         //red
-        return ssConfig.colors.getDfColor(dfColors::red, ssConfig.useDfColors);
+        return ssConfig.config.colors.getDfColor(dfColors::red, ssConfig.config.useDfColors);
     case 0x03:
         //magenta
-        return ssConfig.colors.getDfColor(dfColors::magenta, ssConfig.useDfColors);
+        return ssConfig.config.colors.getDfColor(dfColors::magenta, ssConfig.config.useDfColors);
     case 0x04:
         //lred
-        return ssConfig.colors.getDfColor(dfColors::lred, ssConfig.useDfColors);
+        return ssConfig.config.colors.getDfColor(dfColors::lred, ssConfig.config.useDfColors);
     case 0x05:
         //green
-        return ssConfig.colors.getDfColor(dfColors::green, ssConfig.useDfColors);
+        return ssConfig.config.colors.getDfColor(dfColors::green, ssConfig.config.useDfColors);
     case 0x06:
         //brown
-        return ssConfig.colors.getDfColor(dfColors::brown, ssConfig.useDfColors);
+        return ssConfig.config.colors.getDfColor(dfColors::brown, ssConfig.config.useDfColors);
     default:
         //lime
-        return ssConfig.colors.getDfColor(dfColors::lgreen, ssConfig.useDfColors);
+        return ssConfig.config.colors.getDfColor(dfColors::lgreen, ssConfig.config.useDfColors);
     }
 }
 
@@ -312,18 +312,18 @@ ALLEGRO_COLOR uiColor(int32_t index)
     {
     case 0:
         //black;
-        return ssConfig.colors.getDfColor(dfColors::black, ssConfig.useDfColors);
+        return ssConfig.config.colors.getDfColor(dfColors::black, ssConfig.config.useDfColors);
     case 1:
         //white
-        return ssConfig.colors.getDfColor(dfColors::white, ssConfig.useDfColors);
+        return ssConfig.config.colors.getDfColor(dfColors::white, ssConfig.config.useDfColors);
     case 2:
         //yellow;
-        return ssConfig.colors.getDfColor(dfColors::yellow, ssConfig.useDfColors);
+        return ssConfig.config.colors.getDfColor(dfColors::yellow, ssConfig.config.useDfColors);
     case 3:
         //lime
-        return ssConfig.colors.getDfColor(dfColors::lgreen, ssConfig.useDfColors);
+        return ssConfig.config.colors.getDfColor(dfColors::lgreen, ssConfig.config.useDfColors);
     default:
         //white
-        return ssConfig.colors.getDfColor(dfColors::white, ssConfig.useDfColors);
+        return ssConfig.config.colors.getDfColor(dfColors::white, ssConfig.config.useDfColors);
     }
 }

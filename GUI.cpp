@@ -18,7 +18,6 @@
 #include "GameBuildings.h"
 #include "Creatures.h"
 #include "ContentLoader.h"
-#include "Tile.h"
 #include "UserInput.h"
 #include "GameConfiguration.h"
 #include "StonesenseState.h"
@@ -88,7 +87,7 @@ public:
     }
     int extend() {
         auto& ssConfig = stonesenseState.ssConfig;
-        cache.push_back(al_create_bitmap(ssConfig.imageCacheSize, ssConfig.imageCacheSize));
+        cache.push_back(al_create_bitmap(ssConfig.config.imageCacheSize, ssConfig.config.imageCacheSize));
         return cache.size() - 1;
     }
 
@@ -176,14 +175,14 @@ namespace
 
         y = y / ssConfig.scale;
         y += TILETOPHEIGHT * 5.0 / 4.0;
-        y += ssConfig.lift_segment_offscreen_y;
+        y += stonesenseState.lift_segment_offscreen_y;
         z1 = segSizeZ - 2;
         y += z1 * TILEHEIGHT;
         y = 2 * y / TILETOPHEIGHT;
         y += (segSizeX / 2) + (segSizeY / 2);
 
         x = x / ssConfig.scale;
-        x -= ssConfig.lift_segment_offscreen_x;
+        x -= stonesenseState.lift_segment_offscreen_x;
         x = 2 * x / TILEWIDTH;
         x += (segSizeX / 2) - (segSizeY / 2);
 
@@ -214,7 +213,7 @@ namespace
         int x = *inx - *iny;
         x -= (segSizeX / 2) - (segSizeY / 2);
         x = x * TILEWIDTH / 2;
-        x += ssConfig.lift_segment_offscreen_x;
+        x += stonesenseState.lift_segment_offscreen_x;
         x *= ssConfig.scale;
 
         int y = *inx + *iny;
@@ -222,7 +221,7 @@ namespace
         y = y * TILETOPHEIGHT / 2;
         y -= z * TILEHEIGHT;
         y -= TILETOPHEIGHT * 5 / 4;
-        y -= ssConfig.lift_segment_offscreen_y;
+        y -= stonesenseState.lift_segment_offscreen_y;
         y *= ssConfig.scale;
 
         x += ScreenW / 2;
@@ -339,7 +338,7 @@ namespace
     {
         auto& ssConfig = stonesenseState.ssConfig;
 
-        ALLEGRO_COLOR color = ssConfig.colors.getDfColor(report->color, ssConfig.useDfColors);
+        ALLEGRO_COLOR color = ssConfig.config.colors.getDfColor(report->color, ssConfig.config.useDfColors);
         draw_text_border(font, color, x, y, flags, DF2UTF(report->text).c_str());
     }
 
@@ -486,8 +485,8 @@ namespace
         auto& ssConfig = stonesenseState.ssConfig;
 
         Crd3D selection = segment->segState.dfSelection;
-        if ((selection.x != -30000 && ssConfig.follow_DFcursor)
-            || (ssConfig.track_mode == GameConfiguration::TRACKING_FOCUS)) {
+        if ((selection.x != -30000 && ssConfig.config.follow_DFcursor)
+            || (ssConfig.config.track_mode == Config::TRACKING_FOCUS)) {
             segment->CorrectTileForSegmentOffset(selection.x, selection.y, selection.z);
             segment->CorrectTileForSegmentRotation(selection.x, selection.y, selection.z);
         }
@@ -544,14 +543,14 @@ namespace
         //if (menu->talk_targets.size() == 0)
         //    return;
         //int line = menu->talk_targets.size() + 3;
-        //draw_textf_border(font, ssConfig.colors.getDfColor(dfColors::white, ssConfig.useDfColors), x, (y - (line*al_get_font_line_height(font))), 0,
+        //draw_textf_border(font, ssConfig.config.colors.getDfColor(dfColors::white, ssConfig.config.useDfColors), x, (y - (line*al_get_font_line_height(font))), 0,
         //    "Who will you talk to?");
         //line -= 2;
         //for (int i = 0; i < menu->talk_targets.size(); i++)
         //{
-        //    ALLEGRO_COLOR color = ssConfig.colors.getDfColor(dfColors::lgray, ssConfig.useDfColors);
+        //    ALLEGRO_COLOR color = ssConfig.config.colors.getDfColor(dfColors::lgray, ssConfig.config.useDfColors);
         //    if (i == menu->talk_target_selection)
-        //        color = ssConfig.colors.getDfColor(dfColors::white, ssConfig.useDfColors);
+        //        color = ssConfig.config.colors.getDfColor(dfColors::white, ssConfig.config.useDfColors);
         //    df::unit * crete = Units::GetCreature(Units::FindIndexById(menu->talk_targets[i]->unit_id));
         //    if (crete)
         //    {
@@ -856,7 +855,7 @@ void DoSpriteIndexOverlay()
         }
     }
     //redraw screen again
-    al_clear_to_color(stonesenseState.ssConfig.backcol);
+    al_clear_to_color(stonesenseState.ssConfig.config.backcol);
     paintboard();
 }
 
@@ -875,10 +874,10 @@ void paintboard()
     int op, src, dst, alpha_op, alpha_src, alpha_dst;
     al_get_separate_blender(&op, &src, &dst, &alpha_op, &alpha_src, &alpha_dst);
     al_set_separate_blender(ALLEGRO_ADD, ALLEGRO_ONE, ALLEGRO_ZERO,ALLEGRO_ADD, ALLEGRO_ONE, ALLEGRO_ZERO);
-    if(ssConfig.transparentScreenshots) {
+    if(ssConfig.config.transparentScreenshots) {
         al_clear_to_color(al_map_rgba(0,0,0,0));
     } else {
-        al_clear_to_color(ssConfig.backcol);
+        al_clear_to_color(ssConfig.config.backcol);
     }
     al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst);
 
@@ -893,7 +892,7 @@ void paintboard()
 
     segment->DrawAllTiles();
 
-    if (ssConfig.show_osd) {
+    if (ssConfig.config.show_osd) {
         DrawCurrentLevelOutline(false);
     }
 
@@ -924,7 +923,7 @@ void paintboard()
             }
         }
         al_hold_bitmap_drawing(false);
-    } else if (ssConfig.show_osd) {
+    } else if (ssConfig.config.show_osd) {
         al_hold_bitmap_drawing(true);
         draw_textf_border(font, uiColor(1), 10,fontHeight, 0, "%i,%i,%i, r%i, z%i", ssState.Position.x,ssState.Position.y,ssState.Position.z, ssState.Rotation, ssConfig.zoom);
 
@@ -934,7 +933,7 @@ void paintboard()
 
         drawAdvmodeMenuTalk(font, 5, ssState.ScreenH - 5);
 
-        if(ssConfig.debug_mode) {
+        if(ssConfig.config.debug_mode) {
             auto& contentLoader = stonesenseState.contentLoader;
             draw_textf_border(font, uiColor(1), 10, 3*fontHeight, 0, "Map Read Time: %.2fms", float(stonesenseState.stoneSenseTimers.read_time));
             draw_textf_border(font, uiColor(1), 10, 4*fontHeight, 0, "Map Beautification Time: %.2fms", float(stonesenseState.stoneSenseTimers.beautify_time));
@@ -948,11 +947,11 @@ void paintboard()
         }
         ssConfig.platecount = 0;
         int top = 0;
-        if(ssConfig.track_mode != GameConfiguration::TRACKING_NONE) {
+        if(ssConfig.config.track_mode != Config::TRACKING_NONE) {
             top += fontHeight;
-            draw_textf_border(font, uiColor(1), ssState.ScreenW/2,top, ALLEGRO_ALIGN_CENTRE, "Locked on DF screen + (%d,%d,%d)",ssConfig.viewXoffset,ssConfig.viewYoffset,ssConfig.viewZoffset);
+            draw_textf_border(font, uiColor(1), ssState.ScreenW/2,top, ALLEGRO_ALIGN_CENTRE, "Locked on DF screen + (%d,%d,%d)",ssConfig.config.viewOffset.x,ssConfig.config.viewOffset.y,ssConfig.config.viewOffset.z);
         }
-        if(ssConfig.follow_DFcursor && ssConfig.debug_mode) {
+        if(ssConfig.config.follow_DFcursor && ssConfig.config.debug_mode) {
             top += fontHeight;
             if(segment->segState.dfCursor.x != -30000) {
                 draw_textf_border(font, uiColor(1), ssState.ScreenW/2,top, ALLEGRO_ALIGN_CENTRE, "Following DF Cursor at: %d,%d,%d", segment->segState.dfCursor.x,segment->segState.dfCursor.y,segment->segState.dfCursor.z);
@@ -962,9 +961,9 @@ void paintboard()
             top += fontHeight;
             draw_textf_border(font, uiColor(1), ssState.ScreenW/2,top, ALLEGRO_ALIGN_CENTRE, "Single layer view");
         }
-        if(ssConfig.automatic_reload_time) {
+        if(ssConfig.config.automatic_reload_time) {
             top += fontHeight;
-            draw_textf_border(font, uiColor(1), ssState.ScreenW/2,top, ALLEGRO_ALIGN_CENTRE, "Reloading every %0.1fs", (float)ssConfig.automatic_reload_time/1000);
+            draw_textf_border(font, uiColor(1), ssState.ScreenW/2,top, ALLEGRO_ALIGN_CENTRE, "Reloading every %0.1fs", (float)ssConfig.config.automatic_reload_time/1000);
         }
         al_hold_bitmap_drawing(false);
         DrawMinimap(segment);
@@ -1053,18 +1052,18 @@ int loadImgFile(std::filesystem::path filename)
 
     ALLEGRO_BITMAP* tempfile = load_bitmap_withWarning(filename);
 
-    if (ssConfig.cache_images) {
+    if (ssConfig.config.cache_images) {
         static bool foundSize = false;
         if (!foundSize) {
             ALLEGRO_BITMAP* test = 0;
             while (true) {
-                test = al_create_bitmap(ssConfig.imageCacheSize, ssConfig.imageCacheSize);
+                test = al_create_bitmap(ssConfig.config.imageCacheSize, ssConfig.config.imageCacheSize);
                 if (test) {
-                    LogError("%i works.\n", ssConfig.imageCacheSize);
+                    LogError("%i works.\n", ssConfig.config.imageCacheSize);
                     break;
                 }
-                LogError("%i is too large. chopping it.\n", ssConfig.imageCacheSize);
-                ssConfig.imageCacheSize = ssConfig.imageCacheSize / 2;
+                LogError("%i is too large. chopping it.\n", ssConfig.config.imageCacheSize);
+                ssConfig.config.imageCacheSize = ssConfig.config.imageCacheSize / 2;
             }
             foundSize = true;
             al_destroy_bitmap(test);
@@ -1085,9 +1084,9 @@ int loadImgFile(std::filesystem::path filename)
             currentCache = IMGCache.extend();
             LogVerbose("Creating image cache #%d\n",currentCache);
         }
-        if((yOffset + al_get_bitmap_height(tempfile)) <= ssConfig.imageCacheSize) {
+        if((yOffset + al_get_bitmap_height(tempfile)) <= ssConfig.config.imageCacheSize) {
             // nothing
-        } else if ((xOffset + al_get_bitmap_width(tempfile) + columnWidth) <= ssConfig.imageCacheSize) {
+        } else if ((xOffset + al_get_bitmap_width(tempfile) + columnWidth) <= ssConfig.config.imageCacheSize) {
             yOffset = 0;
             xOffset += columnWidth;
             columnWidth = 0;
@@ -1105,13 +1104,13 @@ int loadImgFile(std::filesystem::path filename)
         yOffset += al_get_bitmap_height(tempfile);
         columnWidth = std::max(columnWidth, al_get_bitmap_width(tempfile));
 
-        if(ssConfig.saveImageCache) {
+        if(ssConfig.config.saveImageCache) {
             saveImage(tempfile);
         }
         al_destroy_bitmap(tempfile);
         al_set_target_bitmap(al_get_backbuffer(al_get_current_display()));
         al_set_separate_blender(op, src, dst, alpha_op, alpha_src, alpha_dst);
-        if(ssConfig.saveImageCache) {
+        if(ssConfig.config.saveImageCache) {
             saveImage(IMGCache.get(currentCache));
         }
         al_clear_to_color(al_map_rgb(0,0,0));
@@ -1149,7 +1148,7 @@ namespace
 
 void saveScreenshot()
 {
-    al_clear_to_color(stonesenseState.ssConfig.backcol);
+    al_clear_to_color(stonesenseState.ssConfig.config.backcol);
     paintboard();
     std::filesystem::path filename = getAvailableFilename("screenshot");
     auto& ssState = stonesenseState.ssState;
@@ -1158,8 +1157,8 @@ void saveScreenshot()
     al_set_target_bitmap(temp);
     PrintMessage("saving screenshot to %s\n", filename.string().c_str());
     auto& ssConfig = stonesenseState.ssConfig;
-    if(!ssConfig.transparentScreenshots) {
-        al_clear_to_color(ssConfig.backcol);
+    if(!ssConfig.config.transparentScreenshots) {
+        al_clear_to_color(ssConfig.config.backcol);
     }
     paintboard();
     al_save_bitmap(filename.string().c_str(), temp);
@@ -1191,9 +1190,9 @@ void saveMegashot(bool tall)
     int tempflags = al_get_new_bitmap_flags();
 
     //now make them real big.
-    ssConfig.show_osd = false;
-    ssConfig.track_mode = GameConfiguration::TRACKING_NONE;
-    ssConfig.fogenable = false;
+    ssConfig.config.show_osd = false;
+    ssConfig.config.track_mode = Config::TRACKING_NONE;
+    ssConfig.config.fogenable = false;
     ssConfig.track_screen_center = false;
 
     //make the image
@@ -1210,8 +1209,8 @@ void saveMegashot(bool tall)
     if(bigFile) {
         PrintMessage("saving large screenshot to %s\n", filename.string().c_str());
         al_set_target_bitmap(bigFile);
-        if(!ssConfig.transparentScreenshots) {
-            al_clear_to_color(ssConfig.backcol);
+        if(!ssConfig.config.transparentScreenshots) {
+            al_clear_to_color(ssConfig.config.backcol);
         }
 
         //zero out the segment lift
@@ -1226,8 +1225,8 @@ void saveMegashot(bool tall)
         {
             startliftx = (TILEWIDTH/2)*ssState.RegionDim.x;
         }
-        ssConfig.lift_segment_offscreen_y = startlifty;
-        ssConfig.lift_segment_offscreen_x = startliftx;
+        stonesenseState.lift_segment_offscreen_y = startlifty;
+        stonesenseState.lift_segment_offscreen_x = startliftx;
 
         //here we deal with the rotations
         int startx, incrx, numx;
@@ -1301,8 +1300,8 @@ void saveMegashot(bool tall)
         for(int k=0; k<numz; k++) {
             startlifty = startstartlifty - TILEHEIGHT*(numz-k-1)*(ssState.Size.z - 1);
             for(int i=0; i<numy; i++) {
-                ssConfig.lift_segment_offscreen_x = startliftx - (TILEWIDTH/2)*i*movexy;
-                ssConfig.lift_segment_offscreen_y = startlifty - (TILETOPHEIGHT/2)*i*moveyy;
+                stonesenseState.lift_segment_offscreen_x = startliftx - (TILEWIDTH/2)*i*movexy;
+                stonesenseState.lift_segment_offscreen_y = startlifty - (TILETOPHEIGHT/2)*i*moveyy;
                 for(int j=0; j<numx; j++) {
                     //read and draw each individual segment
                     read_segment(NULL);
@@ -1312,8 +1311,8 @@ void saveMegashot(bool tall)
                     stonesenseState.map_segment.unlockDraw();
 
                     ssState.Position.x += incrx;
-                    ssConfig.lift_segment_offscreen_x += (TILEWIDTH/2)*movexx;
-                    ssConfig.lift_segment_offscreen_y -= (TILETOPHEIGHT/2)*moveyx;
+                    stonesenseState.lift_segment_offscreen_x += (TILEWIDTH/2)*movexx;
+                    stonesenseState.lift_segment_offscreen_y -= (TILETOPHEIGHT/2)*moveyx;
                 }
                 ssState.Position.x = startx;
                 ssState.Position.y += incry;

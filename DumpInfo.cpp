@@ -39,11 +39,11 @@ void dumpSegment()
     int tempViewx = Position.x;
     int tempViewy = Position.y;
     bool tempFollow = ssConfig.follow_DFscreen;
-    int tempLift = ssConfig.lift_segment_offscreen_y;
+    int tempLift = ssConfig.config.lift_segment_offscreen_y;
     int currentFlags = al_get_new_bitmap_flags();
     //now make them real big.
     ssConfig.follow_DFscreen = false;
-    ssConfig.lift_segment_offscreen_y = 0;
+    ssConfig.config.lift_segment_offscreen_y = 0;
     parms.x = 0;
     parms.y = 0;
     parms.z = ssState.RegionDim.z - 1;
@@ -100,7 +100,7 @@ void dumpSegment()
     Position.x = tempViewx;
     Position.y = tempViewy;
     ssConfig.follow_DFscreen = tempFollow;
-    ssConfig.lift_segment_offscreen_y = tempLift;
+    ssConfig.config.lift_segment_offscreen_y = tempLift;
 
     al_unlock_mutex(ssConfig.readMutex);
     */

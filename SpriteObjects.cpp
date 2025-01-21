@@ -1239,17 +1239,17 @@ ALLEGRO_COLOR c_sprite::get_color(void* tile)
     case ShadeVein:
         return lookupMaterialColor(b->veinMaterial);
     case ShadeMatFore:
-        return ssConfig.colors.getDfColor(lookupMaterialFore(b->material.type, b->material.index), lookupMaterialBright(b->material.type, b->material.index), ssConfig.useDfColors);
+        return ssConfig.config.colors.getDfColor(lookupMaterialFore(b->material.type, b->material.index), lookupMaterialBright(b->material.type, b->material.index), ssConfig.config.useDfColors);
     case ShadeMatBack:
-        return ssConfig.colors.getDfColor(lookupMaterialBack(b->material.type, b->material.index), ssConfig.useDfColors);
+        return ssConfig.config.colors.getDfColor(lookupMaterialBack(b->material.type, b->material.index), ssConfig.config.useDfColors);
     case ShadeLayerFore:
-        return ssConfig.colors.getDfColor(lookupMaterialFore(b->layerMaterial.type, b->layerMaterial.index), lookupMaterialBright(b->layerMaterial.type, b->layerMaterial.index), ssConfig.useDfColors);
+        return ssConfig.config.colors.getDfColor(lookupMaterialFore(b->layerMaterial.type, b->layerMaterial.index), lookupMaterialBright(b->layerMaterial.type, b->layerMaterial.index), ssConfig.config.useDfColors);
     case ShadeLayerBack:
-        return ssConfig.colors.getDfColor(lookupMaterialBack(b->layerMaterial.type, b->layerMaterial.index), ssConfig.useDfColors);
+        return ssConfig.config.colors.getDfColor(lookupMaterialBack(b->layerMaterial.type, b->layerMaterial.index), ssConfig.config.useDfColors);
     case ShadeVeinFore:
-        return ssConfig.colors.getDfColor(lookupMaterialFore(b->veinMaterial.type, b->veinMaterial.index), lookupMaterialBright(b->veinMaterial.type, b->veinMaterial.index), ssConfig.useDfColors);
+        return ssConfig.config.colors.getDfColor(lookupMaterialFore(b->veinMaterial.type, b->veinMaterial.index), lookupMaterialBright(b->veinMaterial.type, b->veinMaterial.index), ssConfig.config.useDfColors);
     case ShadeVeinBack:
-        return ssConfig.colors.getDfColor(lookupMaterialBack(b->veinMaterial.type, b->veinMaterial.index), ssConfig.useDfColors);
+        return ssConfig.config.colors.getDfColor(lookupMaterialBack(b->veinMaterial.type, b->veinMaterial.index), ssConfig.config.useDfColors);
     case ShadeBodyPart:
         if(b->occ.bits.unit && b->creature) {
             dayofLife = b->creature->origin->birth_year*12*28 + b->creature->origin->birth_time/1200;
@@ -1290,7 +1290,7 @@ ALLEGRO_COLOR c_sprite::get_color(void* tile)
     case ShadeBlood:
         return b->bloodcolor;
     case ShadeEquip:
-        if(ssConfig.show_creature_professions != 3) {
+        if(ssConfig.config.show_creature_professions != 3) {
             if(itemsubtype >=0) {
                 //FIXME: need a way to get a material for generic types.
                 //errors here give pink.
@@ -1314,7 +1314,7 @@ ALLEGRO_COLOR c_sprite::get_color(void* tile)
         break;
     case ShadeJob:
         if(b->occ.bits.unit && b->creature) {
-            return ssConfig.colors.getDfColor(DFHack::Units::getProfessionColor(b->creature->origin), ssConfig.useDfColors);
+            return ssConfig.config.colors.getDfColor(DFHack::Units::getProfessionColor(b->creature->origin), ssConfig.config.useDfColors);
         } else {
             return al_map_rgb(255,255,255);
         }

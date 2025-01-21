@@ -83,7 +83,12 @@ struct Crd2D {
 };
 struct Crd3D {
     int32_t x,y,z;
+    constexpr Crd3D operator+(const Crd3D rhs)
+    {
+        return Crd3D{ x + rhs.x, y + rhs.y, z + rhs.z };
+    }
 };
+
 
 class dfColors
 {
@@ -100,7 +105,24 @@ public:
         void update() {
             al = al_map_rgb(red,green,blue);
         }
-    } colors[16];
+    } colors[16]{
+        { 0,0,0 }, // black
+        { 13,103,196 }, // blue
+        { 68,158,53 }, // green
+        { 86,163,205 }, // cyan
+        { 151,26,26 }, // red
+        { 255,110,187 }, // magenta
+        { 120,94,47 }, // brown
+        { 185,192,162 }, // light gray
+        { 88,83,86 }, // dark gray
+        { 145,202,255 }, // light blue
+        { 131,212,82 }, // light green
+        { 176,223,215 }, // light cyan
+        { 255,34,34 }, // light red
+        { 255,167,246 }, // light magenta
+        { 255,218,90 }, // yellow
+        { 255,255,255 } // white
+    };
     enum color_name {
         black,
         blue,
