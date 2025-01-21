@@ -9,17 +9,15 @@ constexpr auto KEYMOD_NONE = 0;
 constexpr bool DEFAULT_FULLSCREEN_MODE = false;
 constexpr int DEFAULT_RESOLUTION_WIDTH = 800;
 constexpr int DEFAULT_RESOLUTION_HEIGHT = 600;
-constexpr int DEFAULT_SIZE = /*20*/ 70;
-constexpr int DEFAULT_SIZE_Z = /*6*/ 4;
+constexpr int DEFAULT_SIZE = 70;
+constexpr int DEFAULT_SIZE_Z = 4;
 
 class Config {
-    // constexpr auto GFXMODE = GFX_AUTODETECT_WINDOWED;
 public:
     enum trackingmode : uint8_t {
         TRACKING_NONE,
         TRACKING_CENTER,
         TRACKING_FOCUS,
-
         TRACKING_INVALID
     };
 

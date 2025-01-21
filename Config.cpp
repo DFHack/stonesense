@@ -5,7 +5,6 @@
 #include "common.h"
 #include "commonTypes.h"
 #include "Config.h"
-#include "Config.h"
 #include "GameState.h"
 #include "StonesenseState.h"
 
