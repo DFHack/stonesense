@@ -267,7 +267,7 @@ namespace {
     {
         auto& ssConfig = stonesenseState.ssConfig;
 
-        if (ssConfig.show_all_creatures) {
+        if (ssConfig.config.show_all_creatures) {
             return true;
         }
 
@@ -296,7 +296,7 @@ void AssembleCreature(int drawx, int drawy, Stonesense_Unit* creature, Tile * b)
             spritenum = raw->caste[creature->origin->caste]->caste_tile;
         }
         auto& ssConfig = stonesenseState.ssConfig;
-        ALLEGRO_COLOR tilecolor = ssConfig.colors.getDfColor(DFHack::Units::getCasteProfessionColor(creature->origin->race,creature->origin->caste,(df::profession)creature->profession), ssConfig.useDfColors);
+        ALLEGRO_COLOR tilecolor = ssConfig.config.colors.getDfColor(DFHack::Units::getCasteProfessionColor(creature->origin->race,creature->origin->caste,(df::profession)creature->profession), ssConfig.config.useDfColors);
         int sheetx = spritenum % LETTERS_OBJECTSWIDE;
         int sheety = spritenum / LETTERS_OBJECTSWIDE;
         b->AssembleSprite(
@@ -327,7 +327,7 @@ void DrawCreatureText(int drawx, int drawy, Stonesense_Unit* creature )
     //if(ssConfig.show_creature_happiness)
     using df::caste_raw_flags;
     auto& ssConfig = stonesenseState.ssConfig;
-    if(ssConfig.show_creature_moods && df::creature_raw::find(creature->origin->race)->caste[creature->origin->caste]->flags.is_set(caste_raw_flags::CAN_SPEAK)) {
+    if(ssConfig.config.show_creature_moods && df::creature_raw::find(creature->origin->race)->caste[creature->origin->caste]->flags.is_set(caste_raw_flags::CAN_SPEAK)) {
         auto stress_level = creature->origin->status.current_soul ? creature->origin->status.current_soul->personality.stress : 0;
         if(stress_level <= 0) {
             statusIcons.push_back(0);
@@ -372,7 +372,7 @@ void DrawCreatureText(int drawx, int drawy, Stonesense_Unit* creature )
 
     unsigned int offsety = 0;
 
-    if(ssConfig.show_creature_jobs && creature->origin->job.current_job) {
+    if(ssConfig.config.show_creature_jobs && creature->origin->job.current_job) {
         std::string jname = DF2UTF(DFHack::Job::getName(creature->origin->job.current_job));
 
         //CAN'T DO THIS UNTIL DFHack t_job IMPORTS MATERIAL TYPE???
@@ -383,7 +383,7 @@ void DrawCreatureText(int drawx, int drawy, Stonesense_Unit* creature )
         //ALLEGRO_COLOR textcol;
         //if(jskill != job_skill::NONE) {
         //    const char* jprofname = ENUM_ATTR(job_skill,caption,jskill);
-        //    textcol = ssConfig.colors.getDfColor(
+        //    textcol = ssConfig.config.colors.getDfColor(
         //        DFHack::Units::getCasteProfessionColor(
         //        creature->race,creature->caste,ENUM_ATTR(
         //        job_skill,profession,jskill
@@ -403,12 +403,12 @@ void DrawCreatureText(int drawx, int drawy, Stonesense_Unit* creature )
             "%s", jname.c_str() );
     }
 
-    offsety += (ssConfig.show_creature_jobs&&creature->origin->job.current_job) ? fontHeight : 0;
+    offsety += (ssConfig.config.show_creature_jobs&&creature->origin->job.current_job) ? fontHeight : 0;
 
-    if( ssConfig.show_creature_names ) {
+    if( ssConfig.config.show_creature_names ) {
         ALLEGRO_COLOR textcol;
-        if(ssConfig.show_creature_professions == 2) {
-            textcol = ssConfig.colors.getDfColor(DFHack::Units::getProfessionColor(creature->origin), ssConfig.useDfColors);
+        if(ssConfig.config.show_creature_professions == 2) {
+            textcol = ssConfig.config.colors.getDfColor(DFHack::Units::getProfessionColor(creature->origin), ssConfig.config.useDfColors);
             //stupid hack to get legendary status of creatures
             if(creature->isLegend) {
                 ALLEGRO_COLOR altcol;
@@ -424,7 +424,7 @@ void DrawCreatureText(int drawx, int drawy, Stonesense_Unit* creature )
             textcol = al_map_rgb(255,255,255);
         }
 
-        if (!creature->origin->name.nickname.empty() && ssConfig.names_use_nick) {
+        if (!creature->origin->name.nickname.empty() && ssConfig.config.names_use_nick) {
             draw_textf_border(stonesenseState.font, textcol, drawx, drawy-((WALLHEIGHT*ssConfig.scale)+fontHeight + offsety), 0,
                               "%s", DF2UTF(creature->origin->name.nickname).c_str());
         }
@@ -439,7 +439,7 @@ void DrawCreatureText(int drawx, int drawy, Stonesense_Unit* creature )
                 temp );
             al_ustr_free(temp);
         }
-        else if (ssConfig.names_use_species)
+        else if (ssConfig.config.names_use_species)
         {
             if(!ssConfig.skipCreatureTypes)
             {
@@ -462,7 +462,7 @@ void DrawCreatureText(int drawx, int drawy, Stonesense_Unit* creature )
         }
     }
 
-    offsety += ssConfig.show_creature_names ? fontHeight : 0;
+    offsety += ssConfig.config.show_creature_names ? fontHeight : 0;
 
     if(statusIcons.size()) {
         for(size_t i = 0; i < statusIcons.size(); i++) {
@@ -472,9 +472,9 @@ void DrawCreatureText(int drawx, int drawy, Stonesense_Unit* creature )
         }
     }
 
-    offsety += ssConfig.show_creature_moods ? 16 : 0;
+    offsety += ssConfig.config.show_creature_moods ? 16 : 0;
 
-    if(ssConfig.show_creature_professions == 1) {
+    if(ssConfig.config.show_creature_professions == 1) {
         unsigned int sheetx = 16 * (creature->profession % 7);
         unsigned int sheety = 16 * (creature->profession / 7);
         al_draw_bitmap_region(stonesenseState.IMGProfSheet, sheetx, sheety, 16, 16, drawx -8 + (SPRITEWIDTH*ssConfig.scale/2), drawy - (16 + WALLHEIGHT*ssConfig.scale + offsety), 0);
@@ -566,7 +566,7 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
         unit_ptr = world->units.active[index];
 
         if(!segment->CoordinateInsideSegment(unit_ptr->pos.x,unit_ptr->pos.y,unit_ptr->pos.z)
-            || (!IsCreatureVisible(unit_ptr) && !ssConfig.show_all_creatures)){
+            || (!IsCreatureVisible(unit_ptr) && !ssConfig.config.show_all_creatures)){
                 continue;
         }
 

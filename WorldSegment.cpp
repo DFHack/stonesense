@@ -244,24 +244,24 @@ void WorldSegment::DrawAllTiles()
     auto& ssConfig = stonesenseState.ssConfig;
     auto& ssState = stonesenseState.ssState;
 
-    if(ssConfig.fogenable) {
+    if(ssConfig.config.fogenable) {
         ALLEGRO_BITMAP* temp = al_get_target_bitmap();
         if(!fog) {
             fog = al_create_bitmap(ssState.ScreenW, ssState.ScreenH);
             al_set_target_bitmap(fog);
-            al_clear_to_color(premultiply(ssConfig.fogcol));
+            al_clear_to_color(premultiply(ssConfig.config.fogcol));
             al_set_target_bitmap(temp);
         }
         if(!((al_get_bitmap_width(fog) == ssState.ScreenW) && (al_get_bitmap_height(fog) == ssState.ScreenH))) {
             al_destroy_bitmap(fog);
             fog = al_create_bitmap(ssState.ScreenW, ssState.ScreenH);
             al_set_target_bitmap(fog);
-            al_clear_to_color(premultiply(ssConfig.fogcol));
+            al_clear_to_color(premultiply(ssConfig.config.fogcol));
             al_set_target_bitmap(temp);
         }
     }
 
-    if (ssConfig.show_osd) {
+    if (ssConfig.config.show_osd) {
         DrawCurrentLevelOutline(true);
     }
 
@@ -282,7 +282,7 @@ void WorldSegment::DrawAllTiles()
                     todraw[i].dh,
                     todraw[i].flags);
                 };
-            if(i%ssConfig.bitmapHolds==0) {
+            if(i%ssConfig.config.bitmapHolds==0) {
                 al_hold_bitmap_drawing(false);
                 al_hold_bitmap_drawing(true);
             }
@@ -303,7 +303,7 @@ void WorldSegment::DrawAllTiles()
         }
     }
 
-    if (ssConfig.show_osd) {
+    if (ssConfig.config.show_osd) {
         DrawCurrentLevelOutline(false);
     }
 
@@ -331,7 +331,7 @@ void WorldSegment::AssembleAllTiles()
     int32_t vszmax = segState.Size.z-1; // grabbing one tile +z more than we should for tile rules
     for(int32_t vsz=0; vsz < vszmax; vsz++) {
         //add the fog to the queue
-        if(stonesenseState.ssConfig.fogenable && fog) {
+        if(stonesenseState.ssConfig.config.fogenable && fog) {
             draw_event d = {
                 Fog,
                 std::monostate{},

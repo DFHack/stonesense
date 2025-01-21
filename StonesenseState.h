@@ -69,6 +69,9 @@ public:
     unsigned int mouse_b;
 
     SegmentWrap map_segment;
+
+    int lift_segment_offscreen_x;
+    int lift_segment_offscreen_y;
 };
 
 extern StonesenseState stonesenseState;
