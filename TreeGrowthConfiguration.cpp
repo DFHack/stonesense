@@ -46,7 +46,7 @@ void parseGrowthElement(TiXmlElement* elemGrowthSprite, MaterialMatcher<c_sprite
 bool addSingleGrowthConfig(TiXmlElement* elemRoot)
 {
     int basefile = loadImgFromXML(elemRoot);
-    if (basefile == INVALID_INDEX)
+    if (elemRoot->Attribute("file") != NULL && basefile == INVALID_INDEX)
         return false;
 
     std::string elementType = elemRoot->Value();
