@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<building name="Chair" game_type="Chair">
+<building name="Chair" game_type="Chair" file = "furniture.png">
     <if>
         <MaterialType value="Wood" />
         <sprite index="84" color="building" />

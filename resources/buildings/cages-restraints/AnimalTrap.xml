@@ -1,4 +1,4 @@
 <?xml version="1.0"?>
-<building name="Animal trap" game_type="AnimalTrap">
+<building name="Animal trap" game_type="AnimalTrap" file = "cages-restraints.png" >
     <sprite index="354" color="building" />
 </building>

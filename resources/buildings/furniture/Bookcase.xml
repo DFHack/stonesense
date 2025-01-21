@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<building name="Bookcase" game_type="Bookcase">
+<building name="Bookcase" game_type="Bookcase" file = "furniture.png">
     <if>
         <MaterialType value="Wood" />
         <sprite index="88" color="building" />

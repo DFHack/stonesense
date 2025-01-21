@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<building name="Altar" game_type="OfferingPlace" >
+<building name="Altar" game_type="OfferingPlace" file = "furniture.png">
   <if>
     <MaterialType value="Wood" />
     <sprite index="90" color="building" />

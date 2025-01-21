@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<building name="Floor Hatch" game_type="Hatch" file="DoorsAndFloodgates.png">
+<building name="Floor Hatch" game_type="Hatch" file="DoorsAndHatches.png">
     <if>
         <!-- wooden -->
         <MaterialType value="Wood" />

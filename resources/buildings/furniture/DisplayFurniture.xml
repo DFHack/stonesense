@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<building name="Pedestal" game_type="DisplayFurniture" >
+<building name="Pedestal" game_type="DisplayFurniture" file = "furniture.png">
   <if>
     <MaterialType value="Wood" />
     <sprite index="92" color="building" />
