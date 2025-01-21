@@ -1,3 +1,5 @@
+#include <cmath>
+
 #include "common.h"
 #include "MapLoading.h"
 #include "GUI.h"
@@ -959,6 +961,8 @@ void read_segment( void *arg)
                 followCurrentDFFocus();
                 stonesenseState.ssConfig.follow_DFcursor = true;
             }
+            stonesenseState.ssConfig.zoom = (df::global::gps->viewport_zoom_factor - 64) / 16;
+            stonesenseState.ssConfig.scale = std::pow(SCALEZOOMFACTOR, stonesenseState.ssConfig.zoom);
         }
         segment = stonesenseState.map_segment.getRead();
         readMapSegment(segment, ssState);
