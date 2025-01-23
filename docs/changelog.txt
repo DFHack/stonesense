@@ -38,6 +38,8 @@ Template for new versions:
 # Future
 
 ## New Features
+ - `stonesense`: added option `EXTEND_TILES` to slightly expand sprite to avoid gaps (on by default)
+ - `stonesense`: added option `PIXELPERFECT_ZOOM` to change the zoom scale to avoid gaps (off by default)
 
 ## Fixes
 
