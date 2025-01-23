@@ -904,7 +904,7 @@ void paintboard()
 
     if (ssConfig.show_announcements) {
         al_hold_bitmap_drawing(true);
-        draw_announcements(font, ssState.ScreenW, ssState.ScreenH - 20, ALLEGRO_ALIGN_RIGHT, df::global::world->status.announcements);
+        draw_announcements(font, ssState.ScreenW, ssState.ScreenH - 10 - al_get_font_line_height(font), ALLEGRO_ALIGN_RIGHT, df::global::world->status.announcements);
         al_hold_bitmap_drawing(false);
     }
     if(ssConfig.show_keybinds){
