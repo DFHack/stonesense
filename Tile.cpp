@@ -791,6 +791,7 @@ bool isNeighborBloody(Tile* b, dirRelative dir) {
         return true;
     return false;
 }
+
 int Tile::GetBloodSpriteOffset() {
     if( this->designation.bits.flow_size < 1 && (this->bloodlevel)) {
         if( this->bloodlevel < stonesenseState.ssConfig.poolcutoff ) {
@@ -807,7 +808,6 @@ int Tile::GetBloodSpriteOffset() {
     }
     return 0;
 }
-
 
 void Tile::AssembleFloorBlood ( int32_t drawx, int32_t drawy )
 {
