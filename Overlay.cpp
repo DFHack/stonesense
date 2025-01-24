@@ -1,3 +1,5 @@
+#include "GameState.h"
+#include "StonesenseState.h"
 #include "Overlay.h"
 #include "TrackingModes.h"
 #include "Hooks.h"
@@ -180,14 +182,14 @@ void Overlay::Flip()
     {
         al_unlock_bitmap(front);
 
-        if(al_get_bitmap_width(front) != ssState.ScreenW
-            || al_get_bitmap_height(front) != ssState.ScreenH){
+        if(al_get_bitmap_width(front) != stonesenseState.ssState.ScreenW
+            || al_get_bitmap_height(front) != stonesenseState.ssState.ScreenH){
                 al_destroy_bitmap(front);
                 int32_t flags = al_get_new_bitmap_flags();
                 if(al_get_current_display() != NULL){
                     al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP | ALLEGRO_ALPHA_TEST);
                 }
-                front = al_create_bitmap(ssState.ScreenW, ssState.ScreenH);
+                front = al_create_bitmap(stonesenseState.ssState.ScreenW, stonesenseState.ssState.ScreenH);
                 al_set_new_bitmap_flags(flags);
         }
 
@@ -201,14 +203,14 @@ void Overlay::Flip()
     front_updated = true;
     al_unlock_mutex(front_mutex);
 
-    if(al_get_bitmap_width(back) != ssState.ScreenW
-        || al_get_bitmap_height(back) != ssState.ScreenH){
+    if(al_get_bitmap_width(back) != stonesenseState.ssState.ScreenW
+        || al_get_bitmap_height(back) != stonesenseState.ssState.ScreenH){
             al_destroy_bitmap(back);
             int32_t flags = al_get_new_bitmap_flags();
             if(al_get_current_display() != NULL){
                 al_set_new_bitmap_flags(al_get_bitmap_flags(al_get_backbuffer(al_get_current_display())));
             }
-            back = al_create_bitmap(ssState.ScreenW, ssState.ScreenH);
+            back = al_create_bitmap(stonesenseState.ssState.ScreenW, stonesenseState.ssState.ScreenH);
             al_set_new_bitmap_flags(flags);
     }
 
@@ -216,7 +218,7 @@ void Overlay::Flip()
 
     //do the ending timer stuff
     clock_t donetime = clock();
-    ssTimers.overlay_time = (donetime - starttime)*0.1 + ssTimers.overlay_time*0.9;
+    stonesenseState.stoneSenseTimers.overlay_time.update(donetime - starttime);
 }
 
 bool Overlay::GoodViewscreen()
@@ -258,26 +260,26 @@ void Overlay::render()
             }
 
             //get the SDL surface information so we can do a blit
-            DFHack::DFSDL_Surface * dfsurf = (DFHack::DFSDL_Surface *) DFHack::DFSDL::DFSDL_GetVideoSurface();
-            DFHack::DFSDL_Surface * sssurf = (DFHack::DFSDL_Surface *) DFHack::DFSDL::DFSDL_CreateRGBSurfaceFrom( ((char*) front_data->data) + dataoffset,
+            DFHack::DFTileSurface * dfsurf = (DFHack::DFTileSurface*) DFHack::DFSDL::DFSDL_GetVideoSurface();
+            DFHack::DFTileSurface * sssurf = (DFHack::DFTileSurface*) DFHack::DFSDL::DFSDL_CreateRGBSurfaceFrom( ((char*) front_data->data) + dataoffset,
                 al_get_bitmap_width(front), al_get_bitmap_height(front), 8*front_data->pixel_size, neg*front_data->pitch, 0, 0, 0, 0);
 
-            DFSDL_Rect src;
+            SDL_Rect src;
             src.x = 0;
             src.y = 0;
-            src.w = ssState.ScreenW;
-            src.h = ssState.ScreenH;
+            src.w = stonesenseState.ssState.ScreenW;
+            src.h = stonesenseState.ssState.ScreenH;
 
-            DFSDL_Rect pos;
+            SDL_Rect pos;
             pos.x = offsetx;
             pos.y = offsety;
             pos.w = 0;
             pos.h = 0;
 
             //do the blit
-            DFHack::DFSDL::DFSDL_UpperBlit(sssurf, &src, dfsurf, &pos);
+            DFHack::DFSDL::DFSDL_UpperBlit(sssurf->surface, &src, dfsurf->surface, &pos);
 
-            DFHack::DFSDL::DFSDL_FreeSurface(sssurf);
+            DFHack::DFSDL::DFSDL_FreeSurface(sssurf->surface);
         }
         front_updated = false;
     } else {
