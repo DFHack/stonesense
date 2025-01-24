@@ -426,7 +426,7 @@ static void* stonesense_thread(ALLEGRO_THREAD* main_thread, void* parms)
         auto overlay = std::make_unique<Overlay>(df::global::enabler->renderer);
         df::global::enabler->renderer = overlay.get();
     }
-    
+
 
     std::filesystem::path p = std::filesystem::path{} / "stonesense" / "stonesense.png";
     IMGIcon = load_bitmap_withWarning(p);
