@@ -265,7 +265,7 @@ void Overlay::render()
             */
             DFHack::DFTileSurface * sssurf = (DFHack::DFTileSurface*) DFHack::DFSDL::DFSDL_CreateRGBSurfaceFrom( ((char*) front_data->data) + dataoffset,
                 al_get_bitmap_width(front), al_get_bitmap_height(front), 8*front_data->pixel_size, neg*front_data->pitch, 0, 0, 0, 0);
-            
+
             /*FIXME SDL_Rect is an incomplete type
             SDL_Rect src;
             src.x = 0;
