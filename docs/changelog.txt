@@ -40,6 +40,7 @@ Template for new versions:
 ## New Features
 
 ## Fixes
+- `stonesense`: fixed announcement text rendering off-screen with larger font sizes
 
 ## Misc Improvements
 
