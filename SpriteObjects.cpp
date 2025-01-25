@@ -225,59 +225,6 @@ unsigned char get_relative_water_direction( Tile *b, uint8_t rotation)
     return dir;
 }
 
-int getBloodOffset ( Tile *b )
-{
-    int offset = 0;
-    int x = b->x, y = b->y, z = b->z;
-
-    if( b->designation.bits.flow_size < 1 && (b->bloodlevel)) {
-
-        // Spatter (should be blood, not blood2) swapped for testing
-        if( b->bloodlevel < stonesenseState.ssConfig.poolcutoff ) {
-            offset = 7;
-        }
-
-        // Smear (should be blood2, not blood) swapped for testing
-        else {
-            // if there's no tile in the respective direction it's false. if there's no blood in that direction it's false too. should also check to see if there's a ramp below, but since blood doesn't flow, that'd look wrong anyway.
-            auto& ssConfig = stonesenseState.ssConfig;
-            bool _N = ( b->ownerSegment->getTileRelativeTo( x, y, z, eUp ) != NULL ? (b->ownerSegment->getTileRelativeTo( x, y, z, eUp )->bloodlevel > ssConfig.poolcutoff) : false ),
-                 _S = ( b->ownerSegment->getTileRelativeTo( x, y, z, eDown ) != NULL ? (b->ownerSegment->getTileRelativeTo( x, y, z, eDown )->bloodlevel > ssConfig.poolcutoff) : false ),
-                 _E = ( b->ownerSegment->getTileRelativeTo( x, y, z, eRight ) != NULL ? (b->ownerSegment->getTileRelativeTo( x, y, z, eRight )->bloodlevel > ssConfig.poolcutoff) : false ),
-                 _W = ( b->ownerSegment->getTileRelativeTo( x, y, z, eLeft ) != NULL ? (b->ownerSegment->getTileRelativeTo( x, y, z, eLeft )->bloodlevel > ssConfig.poolcutoff) : false );
-
-            // do rules-based puddling
-            if( _N || _S || _E || _W ) {
-                if( _E ) {
-                    if( _N && _S ) {
-                        offset = 5;
-                    } else if( _S ) {
-                        offset = 3;
-                    } else if( _W ) {
-                        offset = 1;
-                    } else {
-                        offset = 6;
-                    }
-                } else if( _W ) {
-                    if( _S && _N) {
-                        offset = 5;
-                    } else if( _S ) {
-                        offset = 2;
-                    } else {
-                        offset = 0;
-                    }
-                } else if ( _N ) {
-                    offset = 4;
-                } else {
-                    offset = 2;
-                }
-            } else {
-                offset = 8;
-            }
-        }
-    }
-    return offset;
-}
 namespace {
     uint8_t getXXBorders(const char* framestring, int whenNull)
     {
@@ -931,7 +878,7 @@ void c_sprite::assemble_world_offset(int x, int y, int z, int plateoffset, Tile 
         }
         //if the xml says that this is a blood sprite, and offset is set here for proper pooling. this over-rides the random offset.
         if(bloodsprite) {
-            spriteoffset = getBloodOffset(b);
+            spriteoffset = b->GetBloodSpriteOffset();
         }
         if(!((water_direction < 0) || (water_direction == get_relative_water_direction(b, ssState.Rotation)))) {
             goto draw_subsprite;

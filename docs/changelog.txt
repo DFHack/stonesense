@@ -54,6 +54,7 @@ Template for new versions:
 - `stonesense`: reorganized the position of some existing art to be more intuitive
 - `stonesense`: added index numbers empty sprite slots to aid in making the xml files for the sprites
 - `stonesense`: zoom levels in stonesense now mirror the main game when in follow mode
+- `stonesense`: added new connective tiles for pools of blood and vomit
 
 # 50.15-r2
 
