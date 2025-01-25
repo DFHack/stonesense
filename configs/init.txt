@@ -139,6 +139,15 @@ Set the preferred renderer. Valid values are SOFTWARE, OPENGL, DIRECTX, and ANY.
 compatibility, but is very slow.
 [RENDERER:ANY]
 
+If this is set to YES, Stonesense will extrude all visible sprites by 1 pixel in each direction
+to suppress visible gaps. This setting is uneeded when PIXELPERFECT_ZOOM is enabled.
+[EXTRUDE_TILES:YES]
+
+If this is set to YES, Stonesense will zoom on whole pixel scale instead of subpixel.
+This will prevent visible gaps between tiles, but makes zoom levels far less granular,
+and may provide unusual zoom when following the DwarfFortress camera.
+[PIXELPERFECT_ZOOM:NO]
+
 --Colors--
 
 Stonesense can use the colors from DF for various purposes.

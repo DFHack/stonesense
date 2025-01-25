@@ -1,3 +1,4 @@
+#include <cmath>
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -5,6 +6,7 @@
 #include "common.h"
 #include "commonTypes.h"
 #include "Config.h"
+#include "GameConfiguration.h"
 #include "GameState.h"
 #include "StonesenseState.h"
 
@@ -798,6 +800,14 @@ namespace {
             config.software = (result == "SOFTWARE");
             config.directX = (result == "DIRECTX");
         }
+        if (line.find("[EXTRUDE_TILES") != string::npos) {
+            string result = parseStrFromLine("EXTRUDE_TILES", line);
+            config.extrude_tiles = (result == "YES");
+        }
+        if (line.find("[PIXELPERFECT_ZOOM") != string::npos) {
+            string result = parseStrFromLine("PIXELPERFECT_ZOOM", line);
+            config.pixelperfect_zoom = (result == "YES");
+        }
         if (line.find("[NIGHT") != string::npos) {
             string result = parseStrFromLine("NIGHT", line);
             config.dayNightCycle = (result == "YES");
@@ -841,4 +851,16 @@ bool loadConfigFile()
 
 
     return true;
+}
+
+// Set the proper scale based on the current zoom level
+void GameConfiguration::recalculateScale() {
+    if (this->config.pixelperfect_zoom) {
+        if (zoom > 0)
+            scale = zoom;
+        else
+            scale = std::pow(0.5, -zoom + 1);
+    } else {
+        scale = std::pow(SCALEZOOMFACTOR, zoom);
+    }
 }

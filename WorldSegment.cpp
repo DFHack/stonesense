@@ -267,31 +267,34 @@ void WorldSegment::DrawAllTiles()
 
     if(todraw.size()>0) {
         al_hold_bitmap_drawing(true);
+
+        int extrude = ssConfig.config.extrude_tiles;
+        auto DrawBitmap = [&](ALLEGRO_BITMAP* b, draw_event& todraw) {
+            al_draw_tinted_scaled_bitmap(
+                b,
+                todraw.tint,
+                todraw.sx,
+                todraw.sy,
+                todraw.sw,
+                todraw.sh,
+                todraw.dx - extrude,
+                todraw.dy - extrude,
+                todraw.dw + (extrude*2),
+                todraw.dh + (extrude*2),
+                todraw.flags);
+            };
+
         for(size_t i=0; i<todraw.size(); i++) {
-            auto DrawBitmap = [&](ALLEGRO_BITMAP* b) {
-                al_draw_tinted_scaled_bitmap(
-                    b,
-                    todraw[i].tint,
-                    todraw[i].sx,
-                    todraw[i].sy,
-                    todraw[i].sw,
-                    todraw[i].sh,
-                    todraw[i].dx,
-                    todraw[i].dy,
-                    todraw[i].dw,
-                    todraw[i].dh,
-                    todraw[i].flags);
-                };
             if(i%ssConfig.config.bitmapHolds==0) {
                 al_hold_bitmap_drawing(false);
                 al_hold_bitmap_drawing(true);
             }
             switch(todraw[i].type) {
             case Fog:
-                DrawBitmap(fog);
+                DrawBitmap(fog, todraw[i]);
                 break;
             case TintedScaledBitmap:
-                DrawBitmap(std::get<ALLEGRO_BITMAP*>(todraw[i].drawobject));
+                DrawBitmap(std::get<ALLEGRO_BITMAP*>(todraw[i].drawobject), todraw[i]);
                 break;
             case CreatureText:
                 DrawCreatureText(

@@ -1195,6 +1195,13 @@ void saveMegashot(bool tall)
     ssConfig.config.fogenable = false;
     ssConfig.track_screen_center = false;
 
+    // Disable due to minor visual artifacts
+    ssConfig.config.extrude_tiles = false;
+    // Ensure the scale is exactly 1
+    ssConfig.config.pixelperfect_zoom = true;
+    ssConfig.zoom = 1;
+    ssConfig.recalculateScale();
+
     //make the image
     ssState.ScreenW = ((ssState.RegionDim.x + ssState.RegionDim.y) * TILEWIDTH / 2)*ssConfig.scale;
     if(tall) {
