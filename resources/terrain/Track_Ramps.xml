@@ -2,329 +2,39 @@
 <walls file="ramps.png">
     <!-- stone -->
     <wall sheetIndex="1" file="ramps.png" color="material">
-        <!--stone ramp track N-->
-        <terrain value="609" />
-        <!--stone ramp track S-->
-        <terrain value="610" />
-        <!--stone ramp track E-->
-        <terrain value="611" />
-        <!--stone ramp track W-->
-        <terrain value="612" />
-        <!--stone ramp track NS-->
-        <terrain value="613" />
-        <!--stone ramp track NE-->
-        <terrain value="614" />
-        <!--stone ramp track NW-->
-        <terrain value="615" />
-        <!--stone ramp track SE-->
-        <terrain value="616" />
-        <!--stone ramp track SW-->
-        <terrain value="617" />
-        <!--stone ramp track EW-->
-        <terrain value="618" />
-        <!--stone ramp track NSE-->
-        <terrain value="619" />
-        <!--stone ramp track NSW-->
-        <terrain value="620" />
-        <!--stone ramp track NEW-->
-        <terrain value="621" />
-        <!--stone ramp track SEW-->
-        <terrain value="622" />
-        <!--stone ramp track NSEW-->
-        <terrain value="623" />
-        <!--obsidian ramp track N-->
-        <terrain value="624" />
-        <!--obsidian ramp track S-->
-        <terrain value="625" />
-        <!--obsidian ramp track E-->
-        <terrain value="626" />
-        <!--obsidian ramp track W-->
-        <terrain value="627" />
-        <!--obsidian ramp track NS-->
-        <terrain value="628" />
-        <!--obsidian ramp track NE-->
-        <terrain value="629" />
-        <!--obsidian ramp track NW-->
-        <terrain value="630" />
-        <!--obsidian ramp track SE-->
-        <terrain value="631" />
-        <!--obsidian ramp track SW-->
-        <terrain value="632" />
-        <!--obsidian ramp track EW-->
-        <terrain value="633" />
-        <!--obsidian ramp track NSE-->
-        <terrain value="634" />
-        <!--obsidian ramp track NSW-->
-        <terrain value="635" />
-        <!--obsidian ramp track NEW-->
-        <terrain value="636" />
-        <!--obsidian ramp track SEW-->
-        <terrain value="637" />
-        <!--obsidian ramp track NSEW-->
-        <terrain value="638" />
-        <!--featstone ramp track N-->
-        <terrain value="639" />
-        <!--featstone ramp track S-->
-        <terrain value="640" />
-        <!--featstone ramp track E-->
-        <terrain value="641" />
-        <!--featstone ramp track W-->
-        <terrain value="642" />
-        <!--featstone ramp track NS-->
-        <terrain value="643" />
-        <!--featstone ramp track NE-->
-        <terrain value="644" />
-        <!--featstone ramp track NW-->
-        <terrain value="645" />
-        <!--featstone ramp track SE-->
-        <terrain value="646" />
-        <!--featstone ramp track SW-->
-        <terrain value="647" />
-        <!--featstone ramp track EW-->
-        <terrain value="648" />
-        <!--featstone ramp track NSE-->
-        <terrain value="649" />
-        <!--featstone ramp track NSW-->
-        <terrain value="650" />
-        <!--featstone ramp track NEW-->
-        <terrain value="651" />
-        <!--featstone ramp track SEW-->
-        <terrain value="652" />
-        <!--featstone ramp track NSEW-->
-        <terrain value="653" />
-        <!--vein ramp track N-->
-        <terrain value="654" />
-        <!--vein ramp track S-->
-        <terrain value="655" />
-        <!--vein ramp track E-->
-        <terrain value="656" />
-        <!--vein ramp track W-->
-        <terrain value="657" />
-        <!--vein ramp track NS-->
-        <terrain value="658" />
-        <!--vein ramp track NE-->
-        <terrain value="659" />
-        <!--vein ramp track NW-->
-        <terrain value="660" />
-        <!--vein ramp track SE-->
-        <terrain value="661" />
-        <!--vein ramp track SW-->
-        <terrain value="662" />
-        <!--vein ramp track EW-->
-        <terrain value="663" />
-        <!--vein ramp track NSE-->
-        <terrain value="664" />
-        <!--vein ramp track NSW-->
-        <terrain value="665" />
-        <!--vein ramp track NEW-->
-        <terrain value="666" />
-        <!--vein ramp track SEW-->
-        <terrain value="667" />
-        <!--vein ramp track NSEW-->
-        <terrain value="668" />
+        <terrain shape = "RAMP" special = "TRACK" material = "STONE" />
+        <terrain shape = "RAMP" special = "TRACK" material = "LAVA_STONE" />
+        <terrain shape = "RAMP" special = "TRACK" material = "FEATURE" />
+        <terrain shape = "RAMP" special = "TRACK" material = "MINERAL" />
         <subsprite sheetIndex="0" variationtype="sixteen" file="Track_Ramps.png" color="material" />
     </wall>
     <!-- brick -->
     <wall sheetIndex="2" file="ramps.png" color="material">
-        <!--constructed ramp track N-->
-        <terrain value="684" />
-        <!--constructed ramp track S-->
-        <terrain value="685" />
-        <!--constructed ramp track E-->
-        <terrain value="686" />
-        <!--constructed ramp track W-->
-        <terrain value="687" />
-        <!--constructed ramp track NS-->
-        <terrain value="688" />
-        <!--constructed ramp track NE-->
-        <terrain value="689" />
-        <!--constructed ramp track NW-->
-        <terrain value="690" />
-        <!--constructed ramp track SE-->
-        <terrain value="691" />
-        <!--constructed ramp track SW-->
-        <terrain value="692" />
-        <!--constructed ramp track EW-->
-        <terrain value="693" />
-        <!--constructed ramp track NSE-->
-        <terrain value="694" />
-        <!--constructed ramp track NSW-->
-        <terrain value="695" />
-        <!--constructed ramp track NEW-->
-        <terrain value="696" />
-        <!--constructed ramp track SEW-->
-        <terrain value="697" />
-        <!--constructed ramp track NSEW-->
-        <terrain value="698" />
+        <terrain shape = "RAMP" special = "TRACK" material = "CONSTRUCTION" />
         <subsprite sheetIndex="0" variationtype="sixteen" file="Track_Ramps.png" color="material" />
     </wall>
     <wall sheetIndex="10" file="ramps.png">
-        <!--ice ramp track N-->
-        <terrain value="669" />
-        <!--ice ramp track S-->
-        <terrain value="670" />
-        <!--ice ramp track E-->
-        <terrain value="671" />
-        <!--ice ramp track W-->
-        <terrain value="672" />
-        <!--ice ramp track NS-->
-        <terrain value="673" />
-        <!--ice ramp track NE-->
-        <terrain value="674" />
-        <!--ice ramp track NW-->
-        <terrain value="675" />
-        <!--ice ramp track SE-->
-        <terrain value="676" />
-        <!--ice ramp track SW-->
-        <terrain value="677" />
-        <!--ice ramp track EW-->
-        <terrain value="678" />
-        <!--ice ramp track NSE-->
-        <terrain value="679" />
-        <!--ice ramp track NSW-->
-        <terrain value="680" />
-        <!--ice ramp track NEW-->
-        <terrain value="681" />
-        <!--ice ramp track SEW-->
-        <terrain value="682" />
-        <!--ice ramp track NSEW-->
-        <terrain value="683" />
+        <terrain shape = "RAMP" special = "TRACK" material = "FROZEN_LIQUID" />
         <subsprite sheetIndex="0" variationtype="sixteen" file="Track_Ramps.png" color="material" />
     </wall>
     <wall sheetIndex="11" file="ramps.png" color="material">
-        <!--constructed ramp track N-->
-        <terrain value="684" />
-        <!--constructed ramp track S-->
-        <terrain value="685" />
-        <!--constructed ramp track E-->
-        <terrain value="686" />
-        <!--constructed ramp track W-->
-        <terrain value="687" />
-        <!--constructed ramp track NS-->
-        <terrain value="688" />
-        <!--constructed ramp track NE-->
-        <terrain value="689" />
-        <!--constructed ramp track NW-->
-        <terrain value="690" />
-        <!--constructed ramp track SE-->
-        <terrain value="691" />
-        <!--constructed ramp track SW-->
-        <terrain value="692" />
-        <!--constructed ramp track EW-->
-        <terrain value="693" />
-        <!--constructed ramp track NSE-->
-        <terrain value="694" />
-        <!--constructed ramp track NSW-->
-        <terrain value="695" />
-        <!--constructed ramp track NEW-->
-        <terrain value="696" />
-        <!--constructed ramp track SEW-->
-        <terrain value="697" />
-        <!--constructed ramp track NSEW-->
-        <terrain value="698" />
+        <terrain shape = "RAMP" special = "TRACK" material = "CONSTRUCTION" />
         <subsprite sheetIndex="0" variationtype="sixteen" file="Track_Ramps.png" color="material" />
         <material value="Ice" />
     </wall>
     <wall sheetIndex="4" file="ramps.png">
-        <!--constructed ramp track N-->
-        <terrain value="684" />
-        <!--constructed ramp track S-->
-        <terrain value="685" />
-        <!--constructed ramp track E-->
-        <terrain value="686" />
-        <!--constructed ramp track W-->
-        <terrain value="687" />
-        <!--constructed ramp track NS-->
-        <terrain value="688" />
-        <!--constructed ramp track NE-->
-        <terrain value="689" />
-        <!--constructed ramp track NW-->
-        <terrain value="690" />
-        <!--constructed ramp track SE-->
-        <terrain value="691" />
-        <!--constructed ramp track SW-->
-        <terrain value="692" />
-        <!--constructed ramp track EW-->
-        <terrain value="693" />
-        <!--constructed ramp track NSE-->
-        <terrain value="694" />
-        <!--constructed ramp track NSW-->
-        <terrain value="695" />
-        <!--constructed ramp track NEW-->
-        <terrain value="696" />
-        <!--constructed ramp track SEW-->
-        <terrain value="697" />
-        <!--constructed ramp track NSEW-->
-        <terrain value="698" />
+        <terrain shape = "RAMP" special = "TRACK" material = "CONSTRUCTION" />
         <subsprite sheetIndex="0" variationtype="sixteen" file="Track_Ramps.png" color="material" />
         <material value="GreenGlass" />
     </wall>
     <wall sheetIndex="3" file="ramps.png">
-        <!--constructed ramp track N-->
-        <terrain value="684" />
-        <!--constructed ramp track S-->
-        <terrain value="685" />
-        <!--constructed ramp track E-->
-        <terrain value="686" />
-        <!--constructed ramp track W-->
-        <terrain value="687" />
-        <!--constructed ramp track NS-->
-        <terrain value="688" />
-        <!--constructed ramp track NE-->
-        <terrain value="689" />
-        <!--constructed ramp track NW-->
-        <terrain value="690" />
-        <!--constructed ramp track SE-->
-        <terrain value="691" />
-        <!--constructed ramp track SW-->
-        <terrain value="692" />
-        <!--constructed ramp track EW-->
-        <terrain value="693" />
-        <!--constructed ramp track NSE-->
-        <terrain value="694" />
-        <!--constructed ramp track NSW-->
-        <terrain value="695" />
-        <!--constructed ramp track NEW-->
-        <terrain value="696" />
-        <!--constructed ramp track SEW-->
-        <terrain value="697" />
-        <!--constructed ramp track NSEW-->
-        <terrain value="698" />
+        <terrain shape = "RAMP" special = "TRACK" material = "CONSTRUCTION" />
         <subsprite sheetIndex="0" variationtype="sixteen" file="Track_Ramps.png" color="material" />
         <material value="ClearGlass" />
         <material value="CrystalGlass" />
     </wall>
     <wall sheetIndex="6" file="ramps.png" color="material">
-        <!--constructed ramp track N-->
-        <terrain value="684" />
-        <!--constructed ramp track S-->
-        <terrain value="685" />
-        <!--constructed ramp track E-->
-        <terrain value="686" />
-        <!--constructed ramp track W-->
-        <terrain value="687" />
-        <!--constructed ramp track NS-->
-        <terrain value="688" />
-        <!--constructed ramp track NE-->
-        <terrain value="689" />
-        <!--constructed ramp track NW-->
-        <terrain value="690" />
-        <!--constructed ramp track SE-->
-        <terrain value="691" />
-        <!--constructed ramp track SW-->
-        <terrain value="692" />
-        <!--constructed ramp track EW-->
-        <terrain value="693" />
-        <!--constructed ramp track NSE-->
-        <terrain value="694" />
-        <!--constructed ramp track NSW-->
-        <terrain value="695" />
-        <!--constructed ramp track NEW-->
-        <terrain value="696" />
-        <!--constructed ramp track SEW-->
-        <terrain value="697" />
-        <!--constructed ramp track NSEW-->
-        <terrain value="698" />
+        <terrain shape = "RAMP" special = "TRACK" material = "CONSTRUCTION" />
         <subsprite sheetIndex="0" variationtype="sixteen" file="Track_Ramps.png" color="material" />
         <material value="Wood" />
     </wall>
