@@ -38,8 +38,12 @@ Template for new versions:
 # Future
 
 ## New Features
+- `stonesense`: added option ``EXTEND_TILES`` to slightly expand sprite to avoid gaps (on by default)
+- `stonesense`: added option ``PIXELPERFECT_ZOOM`` to change the zoom scale to avoid gaps (off by default)
 
 ## Fixes
+- `stonesense`: fixed announcement text rendering off-screen with larger font sizes
+- `stonesense`: screen dimensions are now properly set when overriden by a window manager
 
 ## Misc Improvements
 
@@ -53,6 +57,7 @@ Template for new versions:
 - `stonesense`: reorganized the position of some existing art to be more intuitive
 - `stonesense`: added index numbers empty sprite slots to aid in making the xml files for the sprites
 - `stonesense`: zoom levels in stonesense now mirror the main game when in follow mode
+- `stonesense`: added new connective tiles for pools of blood and vomit
 
 # 50.15-r2
 
