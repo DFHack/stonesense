@@ -297,9 +297,9 @@ void draw_textf_border(const ALLEGRO_FONT *font, ALLEGRO_COLOR color, float x, f
 namespace
 {
     template<typename T>
-    constexpr auto get_dimensions = nullptr;
-    template<> constexpr auto get_dimensions<const char*> = &al_get_text_dimensions;
-    template<> constexpr auto get_dimensions<const ALLEGRO_USTR*> = &al_get_ustr_dimensions;
+    constexpr auto get_width = nullptr;
+    template<> constexpr auto get_width<const char*> = &al_get_text_width;
+    template<> constexpr auto get_width<const ALLEGRO_USTR*> = &al_get_ustr_width;
 
     template<typename T>
     constexpr auto draw_text = nullptr;
@@ -309,15 +309,19 @@ namespace
     void draw_border(const ALLEGRO_FONT* font, ALLEGRO_COLOR color, float x, float y, int flags, auto ustr)
     {
         using T = decltype(ustr);
-        int xx, yy, ww, hh;
-        get_dimensions<T>(font, ustr, &xx, &yy, &ww, &hh);
+        int xx = 0;
+        int ww = get_width<T>(font, ustr);
+        // Prefer the overall font height for consistency,
+        // even though it may vary depending on ascending/decending characters.
+        int hh = al_get_font_line_height(font);
+
         if (flags & ALLEGRO_ALIGN_CENTRE) {
             xx -= ww / 2;
         }
         else if (flags & ALLEGRO_ALIGN_RIGHT) {
             xx -= ww;
         }
-        al_draw_filled_rectangle(x + xx, y + yy, x + xx + ww, y + yy + hh, al_map_rgba_f(0.0, 0.0, 0.0, 0.75));
+        al_draw_filled_rectangle(x + xx, y, x + xx + ww, y + hh, al_map_rgba_f(0.0, 0.0, 0.0, 0.75));
         draw_text<T>(font, color, x, y, flags, ustr);
     }
 }
@@ -904,7 +908,7 @@ void paintboard()
 
     if (ssConfig.show_announcements) {
         al_hold_bitmap_drawing(true);
-        draw_announcements(font, ssState.ScreenW, ssState.ScreenH - 20, ALLEGRO_ALIGN_RIGHT, df::global::world->status.announcements);
+        draw_announcements(font, ssState.ScreenW, ssState.ScreenH - 10 - al_get_font_line_height(font), ALLEGRO_ALIGN_RIGHT, df::global::world->status.announcements);
         al_hold_bitmap_drawing(false);
     }
     if(ssConfig.show_keybinds){
@@ -1194,6 +1198,13 @@ void saveMegashot(bool tall)
     ssConfig.config.track_mode = Config::TRACKING_NONE;
     ssConfig.config.fogenable = false;
     ssConfig.track_screen_center = false;
+
+    // Disable due to minor visual artifacts
+    ssConfig.config.extrude_tiles = false;
+    // Ensure the scale is exactly 1
+    ssConfig.config.pixelperfect_zoom = true;
+    ssConfig.zoom = 1;
+    ssConfig.recalculateScale();
 
     //make the image
     ssState.ScreenW = ((ssState.RegionDim.x + ssState.RegionDim.y) * TILEWIDTH / 2)*ssConfig.scale;

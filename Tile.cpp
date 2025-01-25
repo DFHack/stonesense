@@ -784,6 +784,31 @@ void destroyEffectSprites()
     al_destroy_bitmap(sprite_oceanwave);
 }
 
+bool isNeighborBloody(Tile* b, dirRelative dir) {
+    // Checks if the neighbor tile exists, and has blood pooled.
+    Tile* neighbor = b->ownerSegment->getTileRelativeTo( b->x, b->y, b->z, dir );
+    if (neighbor != nullptr && neighbor->bloodlevel >= stonesenseState.ssConfig.poolcutoff)
+        return true;
+    return false;
+}
+
+int Tile::GetBloodSpriteOffset() {
+    if( this->designation.bits.flow_size < 1 && (this->bloodlevel)) {
+        if( this->bloodlevel < stonesenseState.ssConfig.poolcutoff ) {
+            return 16;
+        }
+        else {
+            int _N = isNeighborBloody(this, eUp),
+                _S = isNeighborBloody(this, eDown),
+                _E = isNeighborBloody(this, eRight),
+                _W = isNeighborBloody(this, eLeft);
+            // Spritesheet is aranged as to make this the proper offset
+            return (_N << 3) | (_E << 2) | (_S << 1) | _W;
+        }
+    }
+    return 0;
+}
+
 void Tile::AssembleFloorBlood ( int32_t drawx, int32_t drawy )
 {
     auto& ssConfig = stonesenseState.ssConfig;
@@ -792,48 +817,7 @@ void Tile::AssembleFloorBlood ( int32_t drawx, int32_t drawy )
     if( designation.bits.flow_size < 1 && (bloodlevel)) {
         sprite.fileIndex = INVALID_INDEX;
 
-        // Spatter (should be blood, not blood2) swapped for testing
-        if( bloodlevel <= stonesenseState.ssConfig.poolcutoff ) {
-            sprite.sheetIndex = 7;
-        }
-
-        // Smear (should be blood2, not blood) swapped for testing
-        else {
-            // if there's no tile in the respective direction it's false. if there's no blood in that direction it's false too. should also check to see if there's a ramp below, but since blood doesn't flow, that'd look wrong anyway.
-            bool _N = ( ownerSegment->getTileRelativeTo( x, y, z, eUp ) != NULL ? (ownerSegment->getTileRelativeTo( x, y, z, eUp )->bloodlevel > ssConfig.poolcutoff) : false ),
-                 _S = ( ownerSegment->getTileRelativeTo( x, y, z, eDown ) != NULL ? (ownerSegment->getTileRelativeTo( x, y, z, eDown )->bloodlevel > ssConfig.poolcutoff) : false ),
-                 _E = ( ownerSegment->getTileRelativeTo( x, y, z, eRight ) != NULL ? (ownerSegment->getTileRelativeTo( x, y, z, eRight )->bloodlevel > ssConfig.poolcutoff) : false ),
-                 _W = ( ownerSegment->getTileRelativeTo( x, y, z, eLeft ) != NULL ? (ownerSegment->getTileRelativeTo( x, y, z, eLeft )->bloodlevel > ssConfig.poolcutoff) : false );
-
-            // do rules-based puddling
-            if( _N || _S || _E || _W ) {
-                if( _E ) {
-                    if( _N && _S ) {
-                        sprite.sheetIndex = 5;
-                    } else if( _S ) {
-                        sprite.sheetIndex = 3;
-                    } else if( _W ) {
-                        sprite.sheetIndex = 1;
-                    } else {
-                        sprite.sheetIndex = 6;
-                    }
-                } else if( _W ) {
-                    if( _S && _N) {
-                        sprite.sheetIndex = 5;
-                    } else if( _S ) {
-                        sprite.sheetIndex = 2;
-                    } else {
-                        sprite.sheetIndex = 0;
-                    }
-                } else if ( _N ) {
-                    sprite.sheetIndex = 4;
-                } else {
-                    sprite.sheetIndex = 2;
-                }
-            } else {
-                sprite.sheetIndex = 8;
-            }
-        }
+        sprite.sheetIndex = this->GetBloodSpriteOffset();
 
         int sheetOffsetX = TILEWIDTH * (sprite.sheetIndex % SHEET_OBJECTSWIDE),
             sheetOffsetY = 0;

@@ -962,7 +962,7 @@ void read_segment( void *arg)
                 stonesenseState.ssConfig.config.follow_DFcursor = true;
             }
             stonesenseState.ssConfig.zoom = (df::global::gps->viewport_zoom_factor - 64) / 16;
-            stonesenseState.ssConfig.scale = std::pow(SCALEZOOMFACTOR, stonesenseState.ssConfig.zoom);
+            stonesenseState.ssConfig.recalculateScale();
         }
         segment = stonesenseState.map_segment.getRead();
         readMapSegment(segment, ssState);
