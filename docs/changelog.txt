@@ -41,6 +41,7 @@ Template for new versions:
 
 ## Fixes
 - `stonesense`: fixed announcement text rendering off-screen with larger font sizes
+- `stonesense`: screen dimensions are now properly set when overriden by a window manager
 
 ## Misc Improvements
 
