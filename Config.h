@@ -68,6 +68,8 @@ public:
     bool dayNightCycle = false;
     int imageCacheSize = 4096;
     bool fog_of_war = true;
+    bool extrude_tiles = true;
+    bool pixelperfect_zoom = false;
 };
 
 struct action_name_mapper {

@@ -67,4 +67,6 @@ struct GameConfiguration {
 
     int zoom = 0;
     float scale = 1.0f;
+
+    void recalculateScale();
 };

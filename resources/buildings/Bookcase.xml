@@ -3,11 +3,13 @@
     <if>
         <MaterialType value="Wood" />
         <sprite index="88" color="building" />
+        <sprite index="48" />
     </if>
     <else>
         <!-- GreenGlass -->
         <MaterialType value="Glass_Green" />
         <sprite index="68" />
+        <sprite index="48" />
     </else>
     <else>
         <!-- ClearGlass or CrystalGlass -->
@@ -16,8 +18,10 @@
         <MaterialType value="Glass_Crystal" />
     </or>
     <sprite index="69" />
+    <sprite index="48" />
     </else>
     <else>
         <sprite index="89" color="building" />
+        <sprite index="48" />
     </else>
 </building>

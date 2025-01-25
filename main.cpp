@@ -420,6 +420,13 @@ static void* stonesense_thread(ALLEGRO_THREAD* main_thread, void* parms)
         stonesense_started = 0;
         return NULL;
     }
+
+    // Overwrite our screen size with the actual size.
+    // Window managers may overwrite our specified size without emiting
+    // a resize event for us.
+    stonesenseState.ssState.ScreenW = al_get_display_width(display);
+    stonesenseState.ssState.ScreenH = al_get_display_height(display);
+
     if(!al_is_keyboard_installed()) {
         if (!al_install_keyboard()) {
             out.printerr("Stonesense: al_install_keyboard failed\n");
