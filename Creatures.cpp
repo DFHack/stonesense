@@ -424,8 +424,8 @@ void DrawCreatureText(int drawx, int drawy, Stonesense_Unit* creature )
             textcol = al_map_rgb(255,255,255);
         }
 
-        auto name = Units::getVisibleName(creature->origin);
-        if (!name->nickname.empty() && ssConfig.names_use_nick) {
+        auto name = DFHack::Units::getVisibleName(creature->origin);
+        if (!name->nickname.empty() && ssConfig.config.names_use_nick) {
             draw_textf_border(stonesenseState.font, textcol, drawx, drawy-((WALLHEIGHT*ssConfig.scale)+fontHeight + offsety), 0,
                               "%s", DF2UTF(name->nickname).c_str());
         }
