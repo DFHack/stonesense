@@ -2,39 +2,39 @@
 <walls file="ramps.png">
     <!-- stone -->
     <wall sheetIndex="1" file="ramps.png" color="material">
-        <terrain shape = "RAMP" special = "TRACK" material = "STONE" />
-        <terrain shape = "RAMP" special = "TRACK" material = "LAVA_STONE" />
-        <terrain shape = "RAMP" special = "TRACK" material = "FEATURE" />
-        <terrain shape = "RAMP" special = "TRACK" material = "MINERAL" />
+        <terrain shape="RAMP" special="TRACK" material="STONE" />
+        <terrain shape="RAMP" special="TRACK" material="LAVA_STONE" />
+        <terrain shape="RAMP" special="TRACK" material="FEATURE" />
+        <terrain shape="RAMP" special="TRACK" material="MINERAL" />
         <subsprite sheetIndex="0" variationtype="sixteen" file="Track_Ramps.png" color="material" />
     </wall>
     <!-- brick -->
     <wall sheetIndex="2" file="ramps.png" color="material">
-        <terrain shape = "RAMP" special = "TRACK" material = "CONSTRUCTION" />
+        <terrain shape="RAMP" special="TRACK" material="CONSTRUCTION" />
         <subsprite sheetIndex="0" variationtype="sixteen" file="Track_Ramps.png" color="material" />
     </wall>
     <wall sheetIndex="10" file="ramps.png">
-        <terrain shape = "RAMP" special = "TRACK" material = "FROZEN_LIQUID" />
+        <terrain shape="RAMP" special="TRACK" material="FROZEN_LIQUID" />
         <subsprite sheetIndex="0" variationtype="sixteen" file="Track_Ramps.png" color="material" />
     </wall>
     <wall sheetIndex="11" file="ramps.png" color="material">
-        <terrain shape = "RAMP" special = "TRACK" material = "CONSTRUCTION" />
+        <terrain shape="RAMP" special="TRACK" material="CONSTRUCTION" />
         <subsprite sheetIndex="0" variationtype="sixteen" file="Track_Ramps.png" color="material" />
         <material value="Ice" />
     </wall>
     <wall sheetIndex="4" file="ramps.png">
-        <terrain shape = "RAMP" special = "TRACK" material = "CONSTRUCTION" />
+        <terrain shape="RAMP" special="TRACK" material="CONSTRUCTION" />
         <subsprite sheetIndex="0" variationtype="sixteen" file="Track_Ramps.png" color="material" />
         <material value="GreenGlass" />
     </wall>
     <wall sheetIndex="3" file="ramps.png">
-        <terrain shape = "RAMP" special = "TRACK" material = "CONSTRUCTION" />
+        <terrain shape="RAMP" special="TRACK" material="CONSTRUCTION" />
         <subsprite sheetIndex="0" variationtype="sixteen" file="Track_Ramps.png" color="material" />
         <material value="ClearGlass" />
         <material value="CrystalGlass" />
     </wall>
     <wall sheetIndex="6" file="ramps.png" color="material">
-        <terrain shape = "RAMP" special = "TRACK" material = "CONSTRUCTION" />
+        <terrain shape="RAMP" special="TRACK" material="CONSTRUCTION" />
         <subsprite sheetIndex="0" variationtype="sixteen" file="Track_Ramps.png" color="material" />
         <material value="Wood" />
     </wall>
