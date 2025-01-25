@@ -46,7 +46,7 @@ Template for new versions:
 - `stonesense`: fixed announcement text rendering off-screen with larger font sizes
 - `stonesense`: screen dimensions are now properly set when overriden by a window manager
 - `stonesense`: fixed glass cabinets and bookcases being misaligned by 1 pixel
-- `stonesense`: stonesense window now closes after taking a megashot instead of being left unresponsive. 
+- `stonesense`: stonesense window now closes after taking a megashot instead of being left unresponsive
 
 ## Misc Improvements
 - `stonesense`: improved the way altars look
