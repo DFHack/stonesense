@@ -1183,7 +1183,7 @@ void saveMegashot(bool tall)
 
     auto& ssState = stonesenseState.ssState;
     // draw_textf_border(font, uiColor(1), ssState.ScreenW/2, ssState.ScreenH/2, ALLEGRO_ALIGN_CENTRE, "saving large screenshot...");
-    draw_textf_border(stonesenseState.font, uiColor(1), ssState.ScreenW/2, ssState.ScreenH/2, ALLEGRO_ALIGN_CENTRE, "saving large screenshot... Stonesense will become unresponsive after this process completes. Please close and re-open Stonesense.");
+    draw_textf_border(stonesenseState.font, uiColor(1), ssState.ScreenW/2, ssState.ScreenH/2, ALLEGRO_ALIGN_CENTRE, "saving large screenshot... Stonesense will close after this process completes.");
     al_flip_display();
     std::filesystem::path filename = getAvailableFilename("screenshot");
     // int timer = clock();

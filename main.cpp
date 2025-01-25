@@ -221,6 +221,8 @@ static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALL
 
     ALLEGRO_EVENT event;
     while (!al_get_thread_should_stop(main_thread)) {
+        if (stonesenseState.timeToCloseWindow) { return;}
+
         if (redraw && al_event_queue_is_empty(queue)) {
 
             al_rest(0);
