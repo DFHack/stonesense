@@ -491,6 +491,12 @@ static void* stonesense_thread(ALLEGRO_THREAD* main_thread, void* parms)
     // init map segment wrapper and its lock, start the reload thread.
     initAutoReload();
 
+    if (ssConfig.autosize_segmentX) {
+        stonesenseState.ssState.Size.x = getAutoSegmentSize();
+    }
+    if (ssConfig.autosize_segmentY) {
+        stonesenseState.ssState.Size.y = getAutoSegmentSize();
+    }
     stonesenseState.timeToReloadSegment = false;
     // enter event loop here:
     main_loop(display, queue, main_thread, out);
