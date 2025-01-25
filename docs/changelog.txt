@@ -50,6 +50,7 @@ Template for new versions:
 - `stonesense`: improved the way altars look
 
 ## Removed
+- `stonesense`: removed the "follow DF cursor" tracking mode
 
 # 51.02-r1
 
