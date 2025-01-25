@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<building name="Bed" game_type="Bed" file = "furniture.png">
+    <sprite index="81" color="building" />
+    <sprite index="101" />
+</building>

@@ -1,0 +1,7 @@
+GlassFurnace.xml
+Kiln.xml
+MagmaGlassFurnace.xml
+MagmaKiln.xml
+MagmaSmelter.xml
+Smelter.xml
+WoodFurnace.xml

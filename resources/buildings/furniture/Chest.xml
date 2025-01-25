@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<building name="Chest" game_type="Box" file = "furniture.png">
+    <if>
+        <MaterialType value="GreenGlass" />
+        <sprite index="34" />
+    </if>
+    <else>
+        <!-- ClearGlass or CrystalGlass -->
+        <or>
+            <MaterialType value="ClearGlass" />
+            <MaterialType value="CrystalGlass" />
+        </or>
+        <sprite index="35" />
+    </else>
+    <else>
+        <or>
+            <MaterialType value="Leather" />
+            <MaterialType value="Silk" />
+            <MaterialType value="PlantCloth" />
+        </or>
+        <sprite index="91" />
+    </else>
+    <else>
+        <MaterialType value="Wood" />
+        <sprite index="54" color="building" />
+    </else>
+    <else>
+        <sprite index="55" color="building" />
+    </else>
+</building>

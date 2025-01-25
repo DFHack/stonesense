@@ -1,0 +1,17 @@
+clothing-leather/index.txt
+farming/index.txt
+furnaces/index.txt
+
+
+Ashery.xml
+Bowyers.xml
+Carpenter.xml
+Craftsdwarfs.xml
+Forge.xml
+Jewelers.xml
+MagmaForge.xml
+Masons.xml
+Mechanics.xml
+Press.xml
+SiegeWorkshop.xml
+Soapmakers.xml

@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<building name="Farmers Workshop" game_type="Workshop" game_subtype="Farmers" file="../../workshop.png">
+    <!-- benches wall -->
+    <if>
+        <!-- replace this with position index if required -->
+        <BuildingOccupancy value="3" />
+        <!-- benches -->
+        <include file="../../wsBenches.xml" />
+    </if>
+    <else>
+        <include file="../../wsUpperBorder.xml" />
+    </else>
+    <!-- end benches wall -->
+    <!-- contents -->
+    <if>
+        <PositionIndex value="8" />
+        <sprite index="171" offsety="-2" />
+    </if>
+    <else>
+        <PositionIndex value="7" />
+        <sprite file="" index="91" offsetx="2" offsety="-2" />
+    </else>
+    <if>
+        <BuildingOccupancy value="3" />
+        <if>
+            <PositionIndex value="1" />
+            <sprite index="140" color="building" />
+            <sprite index="155" />
+        </if>
+        <else>
+            <PositionIndex value="6" />
+            <sprite index="172" />
+        </else>
+    </if>
+    <include file="../../ws3x3Blueprint.xml" />
+    <include file="../../wsLowerBorder.xml" />
+</building>

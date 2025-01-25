@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<building name="Bookcase" game_type="Bookcase" file = "furniture.png">
+    <if>
+        <MaterialType value="Wood" />
+        <sprite index="88" color="building" />
+    </if>
+    <else>
+        <!-- GreenGlass -->
+        <MaterialType value="Glass_Green" />
+        <sprite index="68" />
+    </else>
+    <else>
+        <!-- ClearGlass or CrystalGlass -->
+    <or>
+        <MaterialType value="Glass_Clear" />
+        <MaterialType value="Glass_Crystal" />
+    </or>
+    <sprite index="69" />
+    </else>
+    <else>
+        <sprite index="89" color="building" />
+    </else>
+</building>

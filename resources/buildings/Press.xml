@@ -1,7 +1,0 @@
-<?xml version="1.0"?>
-<building name="Soapmakers Worshop" game_type="Workshop" game_subtype="Custom" game_custom="SCREW_PRESS" file="workshop.png">
-    <include file="sBlueprint.xml" />
-    <else>
-        <sprite index="302" color="building" />
-    </else>
-</building>

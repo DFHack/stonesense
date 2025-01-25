@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<building name="Statue" game_type="Statue" file = "furniture.png">
+    <sprite index="61" color="building" />
+</building>

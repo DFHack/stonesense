@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<building name="Restraint" game_type="Chain" file = "cages-restraints.png" >
+    <sprite index="107" />
+</building>
