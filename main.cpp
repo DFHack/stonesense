@@ -495,7 +495,7 @@ static void* stonesense_thread(ALLEGRO_THREAD* main_thread, void* parms)
     display = 0;
     /*FIXME: Find a new replacement for the overlay mode.*/
     overlay.reset();
-    
+
 
     if(ssConfig.threadmade) {
         al_broadcast_cond(ssConfig.readCond);
