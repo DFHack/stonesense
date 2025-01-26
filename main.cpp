@@ -46,9 +46,9 @@ int keyoffset=0;
 
 std::vector<DFHack::t_matgloss> v_stonetypes;
 
-/*FIXME: Find a new replacement for the overlay mode.
+/*FIXME: Find a new replacement for the overlay mode.*/
 std::unique_ptr<Overlay> overlay;
-*/
+
 ALLEGRO_DISPLAY * display;
 
 ALLEGRO_EVENT event;
@@ -225,36 +225,36 @@ static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALL
 
             al_rest(0);
 
-            /*FIXME: Find a new replacement for the overlay mode.
+            /*FIXME: Find a new replacement for the overlay mode.*/
             if (stonesenseState.ssConfig.overlay_mode)
             {
-                bool goodoverlay = ovrlay->GoodViewscreen();
+                bool goodoverlay = overlay->GoodViewscreen();
                 if (!goodoverlay) {
                     //do nothing; this isn't a view we can overlay
                 }if (ssConfig.spriteIndexOverlay) {
                     DrawSpriteIndexOverlay(ssConfig.currentSpriteOverlay);
-                    ovrlay->Flip();
+                    overlay->Flip();
                 }
-                else if (!Maps::IsValid()) {
+                else if (!DFHack::Maps::IsValid()) {
                     drawcredits();
-                    ovrlay->Flip();
+                    overlay->Flip();
                 }
-                else if (timeToReloadSegment) {
+                else if (stonesenseState.timeToReloadSegment) {
                     reloadPosition();
                     al_clear_to_color(ssConfig.config.backcol);
                     paintboard();
-                    ovrlay->Flip();
-                    timeToReloadSegment = false;
-                    animationFrameShown = true;
+                    overlay->Flip();
+                    stonesenseState.timeToReloadSegment = false;
+                    stonesenseState.animationFrameShown = true;
                 }
-                else if (animationFrameShown == false) {
+                else if (stonesenseState.animationFrameShown == false) {
                     al_clear_to_color(ssConfig.config.backcol);
                     paintboard();
-                    ovrlay->Flip();
-                    animationFrameShown = true;
+                    overlay->Flip();
+                    stonesenseState.animationFrameShown = true;
                 }
             }
-            else */
+            else
             {
                 if (ssConfig.spriteIndexOverlay) {
                     DrawSpriteIndexOverlay(ssConfig.currentSpriteOverlay);
@@ -430,7 +430,7 @@ static void* stonesense_thread(ALLEGRO_THREAD* main_thread, void* parms)
 
     //FIXME: Find a new replacement for the overlay mode.
         if(stonesenseState.ssConfig.overlay_mode){
-        auto overlay = std::make_unique<Overlay>(df::global::enabler->renderer);
+        overlay = std::make_unique<Overlay>(df::global::enabler->renderer);
         df::global::enabler->renderer = overlay.get();
     }
 
@@ -493,9 +493,9 @@ static void* stonesense_thread(ALLEGRO_THREAD* main_thread, void* parms)
     // window is destroyed.
     al_destroy_display(display);
     display = 0;
-    /*FIXME: Find a new replacement for the overlay mode.
+    /*FIXME: Find a new replacement for the overlay mode.*/
     overlay.reset();
-    */
+    
 
     if(ssConfig.threadmade) {
         al_broadcast_cond(ssConfig.readCond);
