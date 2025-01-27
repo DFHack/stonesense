@@ -49,6 +49,7 @@ Template for new versions:
 
 ## Misc Improvements
 - `stonesense`: improved the way altars look
+- `stonesense`: fog no longer unnecessarily renders to a separate bitmap
 
 ## Removed
 
