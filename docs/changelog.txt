@@ -47,6 +47,8 @@ Template for new versions:
 - `stonesense`: screen dimensions are now properly set when overriden by a window manager
 - `stonesense`: fixed glass cabinets and bookcases being misaligned by 1 pixel
 - `stonesense`: vampires no longer show their true name when they shouldn't.
+- `stonesense`: fixed debug performance timers to show milliseconds as intended
+
 
 ## Misc Improvements
 - `stonesense`: improved the way altars look
