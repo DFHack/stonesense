@@ -863,6 +863,10 @@ void DoSpriteIndexOverlay()
     paintboard();
 }
 
+float clockToMs(float clockTicks) {
+    return clockTicks / (CLOCKS_PER_SEC/1000);
+}
+
 void paintboard()
 {
     DFHack::CoreSuspender suspend;
@@ -939,12 +943,12 @@ void paintboard()
 
         if(ssConfig.config.debug_mode) {
             auto& contentLoader = stonesenseState.contentLoader;
-            draw_textf_border(font, uiColor(1), 10, 3*fontHeight, 0, "Map Read Time: %.2fms", float(stonesenseState.stoneSenseTimers.read_time));
-            draw_textf_border(font, uiColor(1), 10, 4*fontHeight, 0, "Map Beautification Time: %.2fms", float(stonesenseState.stoneSenseTimers.beautify_time));
-            draw_textf_border(font, uiColor(1), 10, 5*fontHeight, 0, "Tile Sprite Assembly Time: %.2fms", float(stonesenseState.stoneSenseTimers.assembly_time));
-            draw_textf_border(font, uiColor(1), 10, 6*fontHeight, 0, "DF Renderer Overlay Time: %.2fms", float(stonesenseState.stoneSenseTimers.overlay_time));
-            draw_textf_border(font, uiColor(1), 10, 2*fontHeight, 0, "FPS: %.2f", float(1000.0/stonesenseState.stoneSenseTimers.frame_total));
-            draw_textf_border(font, uiColor(1), 10, 7*fontHeight, 0, "Draw: %.2fms", float(stonesenseState.stoneSenseTimers.draw_time));
+            draw_textf_border(font, uiColor(1), 10, 3*fontHeight, 0, "Map Read Time: %.2fms", clockToMs(stonesenseState.stoneSenseTimers.read_time));
+            draw_textf_border(font, uiColor(1), 10, 4*fontHeight, 0, "Map Beautification Time: %.2fms", clockToMs(stonesenseState.stoneSenseTimers.beautify_time));
+            draw_textf_border(font, uiColor(1), 10, 5*fontHeight, 0, "Tile Sprite Assembly Time: %.2fms", clockToMs(stonesenseState.stoneSenseTimers.assembly_time));
+            draw_textf_border(font, uiColor(1), 10, 6*fontHeight, 0, "DF Renderer Overlay Time: %.2fms", clockToMs(stonesenseState.stoneSenseTimers.overlay_time));
+            draw_textf_border(font, uiColor(1), 10, 2*fontHeight, 0, "FPS: %.2f", 1000.0/clockToMs(stonesenseState.stoneSenseTimers.frame_total));
+            draw_textf_border(font, uiColor(1), 10, 7*fontHeight, 0, "Draw: %.2fms", clockToMs(stonesenseState.stoneSenseTimers.draw_time));
             draw_textf_border(font, uiColor(1), 10, 9*fontHeight, 0, "%i/%i/%i, %i:%i", contentLoader->currentDay+1, contentLoader->currentMonth+1, contentLoader->currentYear, contentLoader->currentHour, (contentLoader->currentTickRel*60)/50);
 
             drawDebugInfo(segment);
