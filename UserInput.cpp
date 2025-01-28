@@ -1,6 +1,7 @@
 #include <cmath>
 
 #include "common.h"
+#include "df/viewscreen.h"
 #include "GUI.h"
 #include "BuildingConfiguration.h"
 #include "ContentLoader.h"
@@ -70,6 +71,12 @@ void abortAutoReload()
     //remove_int( automaticReloadProc );
 }
 
+void sendDFKey(df::interface_key key) {
+    DFHack::CoreSuspender suspend;
+    df::viewscreen* screen = DFHack::Gui::getDFViewscreen();
+    screen->feed_key(key);
+}
+
 void changeRelativeToRotation( int &inputx, int &inputy, int stepx, int stepy )
 {
     auto& ssState = stonesenseState.ssState;
@@ -99,7 +106,7 @@ void moveViewRelativeToRotation( int stepx, int stepy )
     auto& ssConfig = stonesenseState.ssConfig;
     auto& ssState = stonesenseState.ssState;
 
-    if (ssConfig.config.track_mode != Config::TRACKING_NONE) {
+    if (isViewTracking()) {
         changeRelativeToRotation(ssConfig.config.viewOffset.x, ssConfig.config.viewOffset.y, stepx, stepy );
     }
     //if we're following the DF screen, we DO NOT bound the view, since we have a simple way to get back
@@ -323,7 +330,7 @@ void action_resetscreen(uint32_t keymod)
     auto& ssConfig = stonesenseState.ssConfig;
     auto& ssState = stonesenseState.ssState;
 
-    if (ssConfig.config.track_mode != Config::TRACKING_NONE) {
+    if (isViewTracking()) {
         ssConfig.config.viewOffset.x = 0;
         ssConfig.config.viewOffset.y = 0;
         ssConfig.config.viewOffset.z = 0;
@@ -458,15 +465,26 @@ void action_toggledebug(uint32_t keymod)
 void action_incrzoom(uint32_t keymod)
 {
     auto& ssConfig = stonesenseState.ssConfig;
+    if (stonesenseState.ssConfig.overlay_mode) {
+        sendDFKey(df::interface_key::ZOOM_IN);
+    }
+    else {
+    auto& ssConfig = stonesenseState.ssConfig;
     ssConfig.zoom++;
     ssConfig.recalculateScale();
+    }
 }
 
 void action_decrzoom(uint32_t keymod)
 {
     auto& ssConfig = stonesenseState.ssConfig;
-    ssConfig.zoom--;
-    ssConfig.recalculateScale();
+    if (stonesenseState.ssConfig.overlay_mode) {
+        sendDFKey(df::interface_key::ZOOM_OUT);
+    }
+    else {
+        ssConfig.zoom--;
+        ssConfig.recalculateScale();
+    }
 }
 
 void action_screenshot(uint32_t keymod)
@@ -513,6 +531,7 @@ void action_credits(uint32_t keymod)
 {
     auto& ssConfig = stonesenseState.ssConfig;
     ssConfig.creditScreen = false;
+    sendDFKey(df::interface_key::CURSOR_DOWN);
 }
 
 void action_decrY(uint32_t keymod)
@@ -521,11 +540,30 @@ void action_decrY(uint32_t keymod)
         action_decrsegmentY(keymod);
         return;
     }
-    char stepsize = ((keymod&ALLEGRO_KEYMOD_SHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
-    if (!(keymod&ALLEGRO_KEYMOD_ALT)) {
-        stonesenseState.ssConfig.config.track_mode = Config::TRACKING_NONE;
+    if (stonesenseState.ssConfig.overlay_mode) {
+        switch (stonesenseState.ssState.Rotation) {
+        case 0:
+            sendDFKey(df::interface_key::CURSOR_UP);
+            return;
+        case 1:
+            sendDFKey(df::interface_key::CURSOR_LEFT);
+            return;
+        case 2:
+            sendDFKey(df::interface_key::CURSOR_DOWN);
+            return;
+        case 3:
+            sendDFKey(df::interface_key::CURSOR_RIGHT);
+            return;
+        };
+
     }
-    moveViewRelativeToRotation( 0, -stepsize );
+    else {
+        char stepsize = ((keymod & ALLEGRO_KEYMOD_SHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
+        if (!(keymod & ALLEGRO_KEYMOD_ALT)) {
+            stonesenseState.ssConfig.config.track_mode = Config::TRACKING_NONE;
+        }
+        moveViewRelativeToRotation(0, -stepsize);
+    }
     stonesenseState.timeToReloadSegment = true;
 }
 
@@ -535,11 +573,28 @@ void action_incrY(uint32_t keymod)
         action_incrsegmentY(keymod);
         return;
     }
-    char stepsize = ((keymod&ALLEGRO_KEYMOD_SHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
-    if (!(keymod&ALLEGRO_KEYMOD_ALT)) {
-        stonesenseState.ssConfig.config.track_mode = Config::TRACKING_NONE;
+    if (stonesenseState.ssConfig.overlay_mode) {
+        switch (stonesenseState.ssState.Rotation) {
+        case 0:
+            sendDFKey(df::interface_key::CURSOR_DOWN);
+            return;
+        case 1:
+            sendDFKey(df::interface_key::CURSOR_RIGHT);
+            return;
+        case 2:
+            sendDFKey(df::interface_key::CURSOR_UP);
+            return;
+        case 3:
+            sendDFKey(df::interface_key::CURSOR_LEFT);
+            return;
+        };
+    }else{
+        char stepsize = ((keymod&ALLEGRO_KEYMOD_SHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
+        if (!(keymod&ALLEGRO_KEYMOD_ALT)) {
+            stonesenseState.ssConfig.config.track_mode = Config::TRACKING_NONE;
+        }
+        moveViewRelativeToRotation( 0, stepsize );
     }
-    moveViewRelativeToRotation( 0, stepsize );
     stonesenseState.timeToReloadSegment = true;
 }
 
@@ -549,11 +604,29 @@ void action_decrX(uint32_t keymod)
         action_decrsegmentX(keymod);
         return;
     }
-    char stepsize = ((keymod&ALLEGRO_KEYMOD_SHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
-    if (!(keymod&ALLEGRO_KEYMOD_ALT)) {
-        stonesenseState.ssConfig.config.track_mode = Config::TRACKING_NONE;
+    if (stonesenseState.ssConfig.overlay_mode) {
+        switch (stonesenseState.ssState.Rotation) {
+        case 0:
+            sendDFKey(df::interface_key::CURSOR_LEFT);
+            return;
+        case 1:
+            sendDFKey(df::interface_key::CURSOR_DOWN);
+            return;
+        case 2:
+            sendDFKey(df::interface_key::CURSOR_RIGHT);
+            return;
+        case 3:
+            sendDFKey(df::interface_key::CURSOR_UP);
+            return;
+        };
     }
-    moveViewRelativeToRotation( -stepsize, 0 );
+    else {
+        char stepsize = ((keymod&ALLEGRO_KEYMOD_SHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
+        if (!(keymod&ALLEGRO_KEYMOD_ALT)) {
+            stonesenseState.ssConfig.config.track_mode = Config::TRACKING_NONE;
+        }
+        moveViewRelativeToRotation( -stepsize, 0 );
+    }
     stonesenseState.timeToReloadSegment = true;
 }
 
@@ -564,10 +637,28 @@ void action_incrX(uint32_t keymod)
         return;
     }
     char stepsize = ((keymod&ALLEGRO_KEYMOD_SHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
-    if (!(keymod&ALLEGRO_KEYMOD_ALT)) {
-        stonesenseState.ssConfig.config.track_mode = Config::TRACKING_NONE;
+    if (stonesenseState.ssConfig.overlay_mode) {
+        switch (stonesenseState.ssState.Rotation) {
+            case 0:
+                sendDFKey(df::interface_key::CURSOR_RIGHT);
+                return;
+            case 1:
+                sendDFKey(df::interface_key::CURSOR_UP);
+                return;
+            case 2:
+                sendDFKey(df::interface_key::CURSOR_LEFT);
+                return;
+            case 3:
+                sendDFKey(df::interface_key::CURSOR_DOWN);
+                return;
+        };
     }
-    moveViewRelativeToRotation( stepsize, 0 );
+    else {
+        if (!(keymod&ALLEGRO_KEYMOD_ALT)) {
+            stonesenseState.ssConfig.config.track_mode = Config::TRACKING_NONE;
+        }
+        moveViewRelativeToRotation( stepsize, 0 );
+    }
     stonesenseState.timeToReloadSegment = true;
 }
 
@@ -580,17 +671,22 @@ void action_decrZ(uint32_t keymod)
         action_decrsegmentZ(keymod);
         return;
     }
-    char stepsize = ((keymod&ALLEGRO_KEYMOD_SHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
-    if (!(keymod&ALLEGRO_KEYMOD_ALT)) {
-        ssConfig.config.track_mode = Config::TRACKING_NONE;
-    }
-    if (ssConfig.config.track_mode != Config::TRACKING_NONE) {
-        ssConfig.config.viewOffset.z -= stepsize;
+    if (stonesenseState.ssConfig.overlay_mode) {
+        sendDFKey(df::interface_key::CURSOR_DOWN_Z);
     } else {
-        ssState.Position.z -= stepsize;
-    }
-    if(ssState.Position.z<1) {
-        ssState.Position.z = 1;
+        char stepsize = ((keymod & ALLEGRO_KEYMOD_SHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
+        if (!(keymod & ALLEGRO_KEYMOD_ALT)) {
+            ssConfig.config.track_mode = Config::TRACKING_NONE;
+        }
+        if (isViewTracking()) {
+            ssConfig.config.viewOffset.z -= stepsize;
+        }
+        else {
+            ssState.Position.z -= stepsize;
+        }
+        if (ssState.Position.z < 1) {
+            ssState.Position.z = 1;
+        }
     }
     stonesenseState.timeToReloadSegment = true;
 }
@@ -604,16 +700,34 @@ void action_incrZ(uint32_t keymod)
         action_incrsegmentZ(keymod);
         return;
     }
-    char stepsize = ((keymod&ALLEGRO_KEYMOD_SHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
-    if (!(keymod&ALLEGRO_KEYMOD_ALT)) {
-        ssConfig.config.track_mode = Config::TRACKING_NONE;
+    if (stonesenseState.ssConfig.overlay_mode) {
+        sendDFKey(df::interface_key::CURSOR_UP_Z);
     }
-    if (ssConfig.config.track_mode != Config::TRACKING_NONE) {
-        ssConfig.config.viewOffset.z += stepsize;
-    } else {
-        ssState.Position.z += stepsize;
+    else {
+        char stepsize = ((keymod & ALLEGRO_KEYMOD_SHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
+        if (!(keymod & ALLEGRO_KEYMOD_ALT)) {
+            ssConfig.config.track_mode = Config::TRACKING_NONE;
+        }
+        if (isViewTracking()) {
+            ssConfig.config.viewOffset.z += stepsize;
+        }
+        else {
+            ssState.Position.z += stepsize;
+        }
     }
     stonesenseState.timeToReloadSegment = true;
+}
+
+bool buildMenu = false;
+void action_openBuild(uint32_t keymod)
+{
+    if (buildMenu) {
+        sendDFKey(df::interface_key::LEAVESCREEN);
+        buildMenu = false;
+    }else{
+        sendDFKey(df::interface_key::D_BUILDING);
+        buildMenu = true;
+    }
 }
 
 void doRepeatActions()

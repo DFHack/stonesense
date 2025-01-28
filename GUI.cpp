@@ -955,7 +955,7 @@ void paintboard()
         }
         ssConfig.platecount = 0;
         int top = 0;
-        if(ssConfig.config.track_mode != Config::TRACKING_NONE) {
+        if(isViewTracking()) {
             top += fontHeight;
             draw_textf_border(font, uiColor(1), ssState.ScreenW/2,top, ALLEGRO_ALIGN_CENTRE, "Locked on DF screen + (%d,%d,%d)",ssConfig.config.viewOffset.x,ssConfig.config.viewOffset.y,ssConfig.config.viewOffset.z);
         }

@@ -220,6 +220,8 @@ action_name_mapper actionnamemap[] = {
     {"INCR_X", action_incrX},
     //add extra action here!
 
+    {"OPENBUILD", action_openBuild},
+
     {"INVALID", action_invalid}//this is the stop condition
 };
 

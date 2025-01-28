@@ -1,5 +1,7 @@
 //declarations of actions taken for user keystrokes
 
+void action_openBuild(uint32_t keymod);
+
 void action_incrrotation(uint32_t keymod);
 void action_reloadsegment(uint32_t keymod);
 void action_paintboard(uint32_t keymod);
