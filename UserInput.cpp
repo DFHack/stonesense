@@ -477,7 +477,7 @@ void action_screenshot(uint32_t keymod)
         } else {
             saveMegashot(false);
         }
-        stonesenseState.timeToCloseWindow = true;
+        //stonesenseState.timeToCloseWindow = true;
     } else if (keymod&ALLEGRO_KEYMOD_ALT) {
         dumpSegment();
     } else {

@@ -1186,15 +1186,16 @@ void saveMegashot(bool tall)
     stonesenseState.map_segment.lockRead();
 
     auto& ssState = stonesenseState.ssState;
-    // draw_textf_border(font, uiColor(1), ssState.ScreenW/2, ssState.ScreenH/2, ALLEGRO_ALIGN_CENTRE, "saving large screenshot...");
-    draw_textf_border(stonesenseState.font, uiColor(1), ssState.ScreenW/2, ssState.ScreenH/2, ALLEGRO_ALIGN_CENTRE, "saving large screenshot... Stonesense will close after this process completes.");
+    draw_textf_border(stonesenseState.font, uiColor(1), ssState.ScreenW/2, ssState.ScreenH/2, ALLEGRO_ALIGN_CENTRE, "saving large screenshot...");
     al_flip_display();
     std::filesystem::path filename = getAvailableFilename("screenshot");
-    // int timer = clock();
+    int timer = clock();
     //back up all the relevant values
     auto& ssConfig = stonesenseState.ssConfig;
     GameConfiguration tempConfig = ssConfig;
     GameState tempState = ssState;
+    uint32_t templiftX = stonesenseState.lift_segment_offscreen_x;
+    uint32_t templiftY = stonesenseState.lift_segment_offscreen_y;
     int tempflags = al_get_new_bitmap_flags();
 
     //now make them real big.
@@ -1339,19 +1340,22 @@ void saveMegashot(bool tall)
 
 
         al_save_bitmap(filename.string().c_str(), bigFile);
-        // al_set_target_bitmap(al_get_backbuffer(al_get_current_display()));
-        // timer = clock() - timer;
-        // PrintMessage("\tcreating screenshot took %ims\n", timer);
+        al_set_target_bitmap(al_get_backbuffer(al_get_current_display()));
+        timer = clock() - timer;
+        PrintMessage("\tcreating screenshot took %ims\n", timer);
         PrintMessage("\tlarge screenshot complete\n");
     } else {
         LogError("failed to take large screenshot; try zooming out\n");
     }
-    // al_destroy_bitmap(bigFile);
+    al_destroy_bitmap(bigFile);
     //restore everything that we changed.
+    stonesenseState.lift_segment_offscreen_x = templiftX;
+    stonesenseState.lift_segment_offscreen_y = templiftY;
     ssConfig = tempConfig;
     ssState = tempState;
     al_set_new_bitmap_flags(tempflags);
 
+    al_flip_display();
     stonesenseState.map_segment.unlockRead();
 }
 
