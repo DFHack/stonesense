@@ -11,8 +11,6 @@ const GameState SegmentWrap::zeroState =
     {0,0,0},0,{0,0,0},{0,0,0},{0,0,0},0,0
 };
 
-ALLEGRO_BITMAP * fog = 0;
-
 void WorldSegment::CorrectTileForSegmentOffset(int32_t& xin, int32_t& yin, int32_t& zin)
 {
     xin -= segState.Position.x;
@@ -242,24 +240,6 @@ void WorldSegment::DrawAllTiles()
     }
 
     auto& ssConfig = stonesenseState.ssConfig;
-    auto& ssState = stonesenseState.ssState;
-
-    if(ssConfig.config.fogenable) {
-        ALLEGRO_BITMAP* temp = al_get_target_bitmap();
-        if(!fog) {
-            fog = al_create_bitmap(ssState.ScreenW, ssState.ScreenH);
-            al_set_target_bitmap(fog);
-            al_clear_to_color(premultiply(ssConfig.config.fogcol));
-            al_set_target_bitmap(temp);
-        }
-        if(!((al_get_bitmap_width(fog) == ssState.ScreenW) && (al_get_bitmap_height(fog) == ssState.ScreenH))) {
-            al_destroy_bitmap(fog);
-            fog = al_create_bitmap(ssState.ScreenW, ssState.ScreenH);
-            al_set_target_bitmap(fog);
-            al_clear_to_color(premultiply(ssConfig.config.fogcol));
-            al_set_target_bitmap(temp);
-        }
-    }
 
     if (ssConfig.config.show_osd) {
         DrawCurrentLevelOutline(true);
@@ -291,7 +271,13 @@ void WorldSegment::DrawAllTiles()
             }
             switch(todraw[i].type) {
             case Fog:
-                DrawBitmap(fog, todraw[i]);
+                al_draw_filled_rectangle(
+                        todraw[i].dx,
+                        todraw[i].dy,
+                        todraw[i].dx + todraw[i].dw,
+                        todraw[i].dy + todraw[i].dh,
+                        premultiply(ssConfig.config.fogcol)
+                    );
                 break;
             case TintedScaledBitmap:
                 DrawBitmap(std::get<ALLEGRO_BITMAP*>(todraw[i].drawobject), todraw[i]);
@@ -334,7 +320,7 @@ void WorldSegment::AssembleAllTiles()
     int32_t vszmax = segState.Size.z-1; // grabbing one tile +z more than we should for tile rules
     for(int32_t vsz=0; vsz < vszmax; vsz++) {
         //add the fog to the queue
-        if(stonesenseState.ssConfig.config.fogenable && fog) {
+        if(stonesenseState.ssConfig.config.fogenable) {
             draw_event d = {
                 Fog,
                 std::monostate{},

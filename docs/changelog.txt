@@ -46,9 +46,14 @@ Template for new versions:
 - `stonesense`: fixed announcement text rendering off-screen with larger font sizes
 - `stonesense`: screen dimensions are now properly set when overriden by a window manager
 - `stonesense`: fixed glass cabinets and bookcases being misaligned by 1 pixel
+- `stonesense`: vampires no longer show their true name when they shouldn't.
+- `stonesense`: fixed debug performance timers to show milliseconds as intended
+- `stonesense`: ``CACHE_IMAGES`` now disables mipmapping, stopping sprites from going transparent
+
 
 ## Misc Improvements
 - `stonesense`: improved the way altars look
+- `stonesense`: fog no longer unnecessarily renders to a separate bitmap
 
 ## Removed
 - `stonesense`: removed the "follow DF cursor" tracking mode
