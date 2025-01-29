@@ -71,6 +71,15 @@ void abortAutoReload()
     //remove_int( automaticReloadProc );
 }
 
+auto lastMoveTime = clock();
+bool okToMoveView() {
+    if ((clock() - lastMoveTime >= 50)) {
+        lastMoveTime = clock();
+        return true;
+    }
+    return false;
+}
+
 void sendDFKey(df::interface_key key) {
     DFHack::CoreSuspender suspend;
     df::viewscreen* screen = DFHack::Gui::getDFViewscreen();
@@ -469,9 +478,8 @@ void action_incrzoom(uint32_t keymod)
         sendDFKey(df::interface_key::ZOOM_IN);
     }
     else {
-    auto& ssConfig = stonesenseState.ssConfig;
-    ssConfig.zoom++;
-    ssConfig.recalculateScale();
+        ssConfig.zoom++;
+        ssConfig.recalculateScale();
     }
 }
 
@@ -541,6 +549,7 @@ void action_decrY(uint32_t keymod)
         return;
     }
     if (stonesenseState.ssConfig.overlay_mode) {
+        if (!okToMoveView()) { return; }
         switch (stonesenseState.ssState.Rotation) {
         case 0:
             sendDFKey(df::interface_key::CURSOR_UP);
@@ -555,9 +564,7 @@ void action_decrY(uint32_t keymod)
             sendDFKey(df::interface_key::CURSOR_RIGHT);
             return;
         };
-
-    }
-    else {
+    } else {
         char stepsize = ((keymod & ALLEGRO_KEYMOD_SHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
         if (!(keymod & ALLEGRO_KEYMOD_ALT)) {
             stonesenseState.ssConfig.config.track_mode = Config::TRACKING_NONE;
@@ -574,6 +581,7 @@ void action_incrY(uint32_t keymod)
         return;
     }
     if (stonesenseState.ssConfig.overlay_mode) {
+        if (!okToMoveView()) { return; }
         switch (stonesenseState.ssState.Rotation) {
         case 0:
             sendDFKey(df::interface_key::CURSOR_DOWN);
@@ -605,6 +613,7 @@ void action_decrX(uint32_t keymod)
         return;
     }
     if (stonesenseState.ssConfig.overlay_mode) {
+        if (!okToMoveView()) { return; }
         switch (stonesenseState.ssState.Rotation) {
         case 0:
             sendDFKey(df::interface_key::CURSOR_LEFT);
@@ -638,6 +647,7 @@ void action_incrX(uint32_t keymod)
     }
     char stepsize = ((keymod&ALLEGRO_KEYMOD_SHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
     if (stonesenseState.ssConfig.overlay_mode) {
+        if (!okToMoveView()) { return; }
         switch (stonesenseState.ssState.Rotation) {
             case 0:
                 sendDFKey(df::interface_key::CURSOR_RIGHT);

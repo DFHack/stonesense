@@ -554,23 +554,6 @@ DFhackCExport command_result plugin_shutdown ( color_ostream &out )
 //and the actual stonesense command. Maybe.
 DFhackCExport command_result stonesense_command(color_ostream &out, std::vector<std::string> & params)
 {
-/*
-    if (!init->display.flag.is_set(init_display_flags::RENDER_2D) &&
-        !params.empty() && params[0] == "overlay")
-    {
-        out.printerr("'stonesense overlay' is not supported in this print mode.\n"
-            "Try changing PRINT_MODE to 2D or a similar choice in init.txt.\n");
-        return CR_FAILURE;
-    }
-#ifdef _DARWIN
-    if (!init->display.flag.is_set(init_display_flags::RENDER_2D))
-    {
-        out.printerr("The current print mode is not suported\n"
-            "Change PRINT_MODE in init.txt to 2D or a similar choice\n");
-        return CR_FAILURE;
-    }
-#endif
-*/
     if(stonesense_started) {
         out.print("Stonesense already running.\n");
         return CR_OK;
