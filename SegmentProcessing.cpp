@@ -126,43 +126,16 @@ bool checkFloorBorderRequirement(WorldSegment* segment, int x, int y, int z, dir
 
 bool isTileOnVisibleEdgeOfSegment(WorldSegment* segment, Tile* b)
 {
-    auto& ssState = stonesenseState.ssState;
+    int32_t x = b->x;
+    int32_t y = b->y;
+    int32_t z = b->z;
+    segment->ConvertToSegmentLocal(x, y, z);
 
-    if(int(b->z) == segment->segState.Position.z + segment->segState.Size.z - 2) {
+    if (int(b->z) == segment->segState.Position.z + segment->segState.Size.z - 2) {
         return true;
     }
-
-    if (ssState.Rotation == 0 &&
-        (
-        int(b->x) == segment->segState.Position.x + segment->segState.Size.x - 2
-        || int(b->y) == segment->segState.Position.y + segment->segState.Size.y - 2
-        || int(b->x) == segment->segState.RegionDim.x - 1
-        || int(b->y) == segment->segState.RegionDim.y - 1
-        )) {
-            return true;
-    } else if (ssState.Rotation == 1 &&
-        (
-        int(b->x) == segment->segState.Position.x + segment->segState.Size.y - 2
-        || int(b->y) == segment->segState.Position.y + 1
-        || int(b->x) == segment->segState.RegionDim.x - 1
-        || int(b->y) == 0
-        )) {
-            return true;
-    } else if (ssState.Rotation == 2 &&
-        (
-        int(b->x) == segment->segState.Position.x + 1
-        || int(b->y) == segment->segState.Position.y + 1
-        || int(b->x) == 0
-        || int(b->y) == 0
-        )) {
-            return true;
-    } else if (ssState.Rotation == 3 &&
-        (
-        int(b->x) == segment->segState.Position.x + 1
-        || int(b->y) == segment->segState.Position.y + segment->segState.Size.x - 2
-        || int(b->x) == 0
-        || int(b->y) == segment->segState.RegionDim.y - 1
-        )) {
+    if (x == segment->segState.Size.x - 2 ||
+        y == segment->segState.Size.y - 2) {
             return true;
     }
 
