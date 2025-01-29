@@ -123,7 +123,8 @@ performance gains.
 [BITMAP_HOLDS:4096]
 
 Stonesense will try to merge all loaded sprites into a single texture, for performance reasons.
-if your videocard has low memory, you may want to disable this.
+if your videocard has low memory, you may want to disable this. Enabling this feature
+will disable mipmapping to prevent sprites from going transparent when zooming out.
 [CACHE_IMAGES:NO]
 
 This sets the preferred size of the internal image cache. If your videocard does not support it,

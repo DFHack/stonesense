@@ -406,7 +406,12 @@ static void* stonesense_thread(ALLEGRO_THREAD* main_thread, void* parms)
     if(ssConfig.config.software) {
         al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP|_ALLEGRO_ALPHA_TEST|ALLEGRO_MIN_LINEAR|ALLEGRO_MIPMAP);
     } else {
-        al_set_new_bitmap_flags(ALLEGRO_MIN_LINEAR|ALLEGRO_MIPMAP);
+        // FIXME: When we have ability to set a maximum mipmap lod,
+        // do so when cache_images is enabled to prevent sprites going transparent.
+        // Until then, disable mipmapping when using an image cache.
+        al_set_new_bitmap_flags(
+                ALLEGRO_MIN_LINEAR
+                |(ssConfig.config.cache_images ? 0 : ALLEGRO_MIPMAP));
     }
 
     display = al_create_display(stonesenseState.ssState.ScreenW, stonesenseState.ssState.ScreenH);
