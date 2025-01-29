@@ -158,7 +158,7 @@ void PrintMessage(const char* msg, ...) Wformat(printf,1,2);
 void LogVerbose(const char* msg, ...) Wformat(printf,1,2);
 void SetTitle(const char *format, ...) Wformat(printf,1,2);
 
-float clockToMS(float clockTicks);
+float clockToMs(float clockTicks);
 
 constexpr auto MAX_ANIMFRAME = 6;
 
