@@ -13,6 +13,7 @@
 #include "df/building_type.h"
 #include "df/plant_growth.h"
 #include "df/plant_growth_print.h"
+#include "df/tiletype.h"
 #include "df/world.h"
 
 ALLEGRO_BITMAP *sprite_miasma = 0;
@@ -721,18 +722,18 @@ bool hasBuildingOfIndex(Tile* b, Stonesense_Building* index)
     return b->building.info == index;
 }
 
-bool wallShouldNotHaveBorders( int in )
+bool wallShouldNotHaveBorders( df::tiletype in )
 {
     switch( in ) {
-    case 65: //stone fortification
-    case 436: //minstone fortification
-    case 326: //lavastone fortification
-    case 327: //featstone fortification
-    case 494: //constructed fortification
+    case df::tiletype::StoneFortification:
+    case df::tiletype::MineralFortification:
+    case df::tiletype::LavaFortification:
+    case df::tiletype::FeatureFortification:
+    case df::tiletype::ConstructedFortification:
         return true;
-        break;
+    default:
+        return false;
     };
-    return false;
 }
 
 bool containsDesignations( df::tile_designation des, df::tile_occupancy occ )
