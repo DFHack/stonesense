@@ -73,30 +73,23 @@ inline bool isTileHighRampTop(uint32_t x, uint32_t y, uint32_t z, WorldSegment* 
 
 uint8_t CalculateRampType(uint32_t x, uint32_t y, uint32_t z, WorldSegment* segment)
 {
+    const std::array<dirRelative, 8> dirs = {
+        eUp,
+        eUpRight,
+        eRight,
+        eDownRight,
+        eDown,
+        eDownLeft,
+        eLeft,
+        eUpLeft
+    };
+
     int32_t ramplookup = 0;
-    if (isTileHighRampEnd(x, y, z, segment, eUp) && isTileHighRampTop(x, y, z+1, segment, eUp)) {
-        ramplookup ^= 1;
-    }
-    if (isTileHighRampEnd(x, y, z, segment, eUpRight) && isTileHighRampTop(x, y, z+1, segment, eUpRight)) {
-        ramplookup ^= 2;
-    }
-    if (isTileHighRampEnd(x, y, z, segment, eRight) && isTileHighRampTop(x, y, z+1, segment, eRight)) {
-        ramplookup ^= 4;
-    }
-    if (isTileHighRampEnd(x, y, z, segment, eDownRight) && isTileHighRampTop(x, y, z+1, segment, eDownRight)) {
-        ramplookup ^= 8;
-    }
-    if (isTileHighRampEnd(x, y, z, segment, eDown) && isTileHighRampTop(x, y, z+1, segment, eDown)) {
-        ramplookup ^= 16;
-    }
-    if (isTileHighRampEnd(x, y, z, segment, eDownLeft) && isTileHighRampTop(x, y, z+1, segment, eDownLeft)) {
-        ramplookup ^= 32;
-    }
-    if (isTileHighRampEnd(x, y, z, segment, eLeft) && isTileHighRampTop(x, y, z+1, segment, eLeft)) {
-        ramplookup ^= 64;
-    }
-    if (isTileHighRampEnd(x, y, z, segment, eUpLeft) && isTileHighRampTop(x, y, z+1, segment, eUpLeft)) {
-        ramplookup ^= 128;
+    for (unsigned int i = 0; i < dirs.size(); i++) {
+        if (isTileHighRampEnd(x, y, z, segment, dirs[i]) &&
+            isTileHighRampTop(x, y, z + 1, segment, dirs[i])) {
+            ramplookup ^= 1 << i;
+        }
     }
 
     // creation should ensure in range
@@ -104,29 +97,10 @@ uint8_t CalculateRampType(uint32_t x, uint32_t y, uint32_t z, WorldSegment* segm
         return rampblut[ramplookup];
     }
 
-    if (isTileHighRampEnd(x, y, z, segment, eUp)) {
-        ramplookup ^= 1;
+    for (unsigned int i = 0; i < dirs.size(); i++) {
+        if (isTileHighRampEnd(x, y, z, segment, dirs[i])) {
+            ramplookup ^= 1 << i;
     }
-    if (isTileHighRampEnd(x, y, z, segment, eUpRight)) {
-        ramplookup ^= 2;
-    }
-    if (isTileHighRampEnd(x, y, z, segment, eRight)) {
-        ramplookup ^= 4;
-    }
-    if (isTileHighRampEnd(x, y, z, segment, eDownRight)) {
-        ramplookup ^= 8;
-    }
-    if (isTileHighRampEnd(x, y, z, segment, eDown)) {
-        ramplookup ^= 16;
-    }
-    if (isTileHighRampEnd(x, y, z, segment, eDownLeft)) {
-        ramplookup ^= 32;
-    }
-    if (isTileHighRampEnd(x, y, z, segment, eLeft)) {
-        ramplookup ^= 64;
-    }
-    if (isTileHighRampEnd(x, y, z, segment, eUpLeft)) {
-        ramplookup ^= 128;
     }
 
     // creation should ensure in range
@@ -197,28 +171,14 @@ bool isTileOnVisibleEdgeOfSegment(WorldSegment* segment, Tile* b)
 
 bool areNeighborsVisible(WorldSegment* segment, Tile* b)
 {
-    Tile* temp;
+    const std::array<dirRelative, 5> dirs = {eUp, eDown, eLeft, eRight, eAbove};
 
-    temp = segment->getTile(b->x, b->y, b->z+1);
+    Tile *temp;
+    for (const dirRelative &dir : dirs) {
+        temp = segment->getTileRelativeTo(b->x, b->y, b->z, dir);
     if(!temp || !(temp->designation.bits.hidden)) {
         return true;
     }
-
-    temp = segment->getTile(b->x+1, b->y, b->z);
-    if(!temp || !(temp->designation.bits.hidden)) {
-        return true;
-    }
-    temp = segment->getTile(b->x-1, b->y, b->z);
-    if(!temp || !(temp->designation.bits.hidden)) {
-        return true;
-    }
-    temp = segment->getTile(b->x, b->y+1, b->z);
-    if(!temp || !(temp->designation.bits.hidden)) {
-        return true;
-    }
-    temp = segment->getTile(b->x, b->y-1, b->z);
-    if(!temp || !(temp->designation.bits.hidden)) {
-        return true;
     }
     return false;
 }
@@ -238,21 +198,12 @@ bool enclosed(WorldSegment* segment, Tile* b)
         return false;
     }
 
-    temp = segment->getTile(b->x+1, b->y, b->z);
-    if(!temp || !IDisWall(temp->tileType)) {
+    const std::array<dirRelative, 5> dirs = {eUp, eDown, eLeft, eRight};
+    for (const dirRelative &dir : dirs) {
+        temp = segment->getTileRelativeTo(b->x, b->y, b->z, dir);
+        if (!temp || !IDisWall(temp->tileType)) {
         return false;
     }
-    temp = segment->getTile(b->x-1, b->y, b->z);
-    if(!temp || !IDisWall(temp->tileType)) {
-        return false;
-    }
-    temp = segment->getTile(b->x, b->y+1, b->z);
-    if(!temp || !IDisWall(temp->tileType)) {
-        return false;
-    }
-    temp = segment->getTile(b->x, b->y-1, b->z);
-    if(!temp || !IDisWall(temp->tileType)) {
-        return false;
     }
 
     return true;
@@ -329,52 +280,32 @@ void arrangeTileBorders(WorldSegment * segment, Tile* b)
 {
 
     //add edges to tiles and floors
-    Tile * dir1 = segment->getTileRelativeTo(b->x, b->y, b->z, eUpLeft);
-    Tile * dir2 = segment->getTileRelativeTo(b->x, b->y, b->z, eUp);
-    Tile * dir3 = segment->getTileRelativeTo(b->x, b->y, b->z, eUpRight);
-    Tile * dir4 = segment->getTileRelativeTo(b->x, b->y, b->z, eRight);
-    Tile * dir5 = segment->getTileRelativeTo(b->x, b->y, b->z, eDownRight);
-    Tile * dir6 = segment->getTileRelativeTo(b->x, b->y, b->z, eDown);
-    Tile * dir7 = segment->getTileRelativeTo(b->x, b->y, b->z, eDownLeft);
-    Tile * dir8 = segment->getTileRelativeTo(b->x, b->y, b->z, eLeft);
+    std::array<dirRelative, 8> directions = { eUpLeft, eUp, eUpRight, eRight, eDownRight, eDown, eDownLeft, eLeft };
+    std::array<Tile*, 8> dirs = {};
 
-    b->obscuringBuilding=0;
-    b->obscuringCreature=0;
+    for (unsigned int i = 0; i < directions.size(); i++) {
+        dirs[i] = segment->getTileRelativeTo(b->x, b->y, b->z, directions[i]);
+    }
 
-    if(dir1) if(dir1->occ.bits.unit) {
-        b->obscuringCreature = 1;
-    }
-    if(dir2) if(dir2->occ.bits.unit) {
-        b->obscuringCreature = 1;
-    }
-    if(dir8) if(dir8->occ.bits.unit) {
-        b->obscuringCreature = 1;
+    b->obscuringBuilding = false;
+    b->obscuringCreature = false;
+
+    if ((dirs[0] && dirs[0]->occ.bits.unit) || (dirs[1] && dirs[1]->occ.bits.unit) ||
+        (dirs[7] && dirs[7]->occ.bits.unit)) {
+        b->obscuringCreature = true;
     }
 
     using df::tiletype_shape_basic;
-    if(dir1)
-        if(dir1->building.type != BUILDINGTYPE_NA
-            && dir1->building.type != BUILDINGTYPE_BLACKBOX
-            && dir1->building.type != df::enums::building_type::Civzone
-            && dir1->building.type != df::enums::building_type::Stockpile
-            ) {
-                b->obscuringBuilding = 1;
-        }
-        if(dir2)
-            if(dir2->building.type != BUILDINGTYPE_NA
-                && dir2->building.type != BUILDINGTYPE_BLACKBOX
-                && dir2->building.type != df::enums::building_type::Civzone
-                && dir2->building.type != df::enums::building_type::Stockpile
-                ) {
-                    b->obscuringBuilding = 1;
-            }
-            if(dir8)
-                if(dir8->building.type != BUILDINGTYPE_NA
-                    && dir8->building.type != BUILDINGTYPE_BLACKBOX
-                    && dir8->building.type != df::enums::building_type::Civzone
-                    && dir8->building.type != df::enums::building_type::Stockpile
-                    ) {
-                        b->obscuringBuilding = 1;
+
+    auto isObscurableBuilding = [&](Tile *tile) {
+        return tile && tile->building.type != BUILDINGTYPE_NA &&
+               tile->building.type != BUILDINGTYPE_BLACKBOX &&
+               tile->building.type != df::enums::building_type::Civzone &&
+               tile->building.type != df::enums::building_type::Stockpile;
+    };
+    if (isObscurableBuilding(dirs[0]) || isObscurableBuilding(dirs[1]) ||
+        isObscurableBuilding(dirs[7])) {
+        b->obscuringBuilding = true;
                 }
 
                 if( b->tileShapeBasic()==tiletype_shape_basic::Floor ) {
@@ -382,12 +313,12 @@ void arrangeTileBorders(WorldSegment * segment, Tile* b)
                     b->depthBorderNorth = checkFloorBorderRequirement(segment, b->x, b->y, b->z, eUp);
 
                     Tile* belowTile = segment->getTileRelativeTo(b->x, b->y, b->z, eBelow);
-                    if(!belowTile || (belowTile->tileShapeBasic()!=tiletype_shape_basic::Wall && belowTile->tileShapeBasic()!=tiletype_shape_basic::Wall)) {
+        if(!belowTile || (belowTile->tileShapeBasic()!=tiletype_shape_basic::Wall && belowTile->tileShapeBasic()!=tiletype_shape_basic::Ramp)) {
                         b->depthBorderDown = true;
                     }
-                } else if( b->tileShapeBasic()==tiletype_shape_basic::Wall && wallShouldNotHaveBorders( b->tileType ) == false ) {
-                    Tile* leftTile = segment->getTileRelativeTo(b->x, b->y, b->z, eLeft);
-                    Tile* upTile = segment->getTileRelativeTo(b->x, b->y, b->z, eUp);
+    } else if( b->tileShapeBasic()==tiletype_shape_basic::Wall && !wallShouldNotHaveBorders( b->tileType )) {
+        Tile* leftTile = dirs[7];
+        Tile* upTile = dirs[1];
                     if(!leftTile || (leftTile->tileShapeBasic()!=tiletype_shape_basic::Wall && leftTile->tileShapeBasic()!=tiletype_shape_basic::Ramp)) {
                         b->depthBorderWest = true;
                     }
@@ -399,214 +330,55 @@ void arrangeTileBorders(WorldSegment * segment, Tile* b)
                         b->depthBorderDown = true;
                     }
                 }
+
                 b->wallborders = 0;
-                if(dir1) if(dir1->tileShapeBasic()==tiletype_shape_basic::Wall) {
-                    b->wallborders |= 1;
-                }
-                if(dir2) if(dir2->tileShapeBasic()==tiletype_shape_basic::Wall) {
-                    b->wallborders |= 2;
-                }
-                if(dir3) if(dir3->tileShapeBasic()==tiletype_shape_basic::Wall) {
-                    b->wallborders |= 4;
-                }
-                if(dir4) if(dir4->tileShapeBasic()==tiletype_shape_basic::Wall) {
-                    b->wallborders |= 8;
-                }
-                if(dir5) if(dir5->tileShapeBasic()==tiletype_shape_basic::Wall) {
-                    b->wallborders |= 16;
-                }
-                if(dir6) if(dir6->tileShapeBasic()==tiletype_shape_basic::Wall) {
-                    b->wallborders |= 32;
-                }
-                if(dir7) if(dir7->tileShapeBasic()==tiletype_shape_basic::Wall) {
-                    b->wallborders |= 64;
-                }
-                if(dir8) if(dir8->tileShapeBasic()==tiletype_shape_basic::Wall) {
-                    b->wallborders |= 128;
-                }
-
                 b->rampborders = 0;
-                if(dir1) if(dir1->tileShapeBasic()==tiletype_shape_basic::Ramp) {
-                    b->wallborders |= 1;
-                }
-                if(dir2) if(dir2->tileShapeBasic()==tiletype_shape_basic::Ramp) {
-                    b->wallborders |= 2;
-                }
-                if(dir3) if(dir3->tileShapeBasic()==tiletype_shape_basic::Ramp) {
-                    b->wallborders |= 4;
-                }
-                if(dir4) if(dir4->tileShapeBasic()==tiletype_shape_basic::Ramp) {
-                    b->wallborders |= 8;
-                }
-                if(dir5) if(dir5->tileShapeBasic()==tiletype_shape_basic::Ramp) {
-                    b->wallborders |= 16;
-                }
-                if(dir6) if(dir6->tileShapeBasic()==tiletype_shape_basic::Ramp) {
-                    b->wallborders |= 32;
-                }
-                if(dir7) if(dir7->tileShapeBasic()==tiletype_shape_basic::Ramp) {
-                    b->wallborders |= 64;
-                }
-                if(dir8) if(dir8->tileShapeBasic()==tiletype_shape_basic::Ramp) {
-                    b->wallborders |= 128;
-                }
-
                 b->upstairborders = 0;
                 b->downstairborders = 0;
-                using df::tiletype_shape;
-                if(dir1) if(dir1->tileShape() == tiletype_shape::STAIR_UP) {
-                    b->upstairborders |= 1;
-                }
-                if(dir2) if(dir2->tileShape() == tiletype_shape::STAIR_UP) {
-                    b->upstairborders |= 2;
-                }
-                if(dir3) if(dir3->tileShape() == tiletype_shape::STAIR_UP) {
-                    b->upstairborders |= 4;
-                }
-                if(dir4) if(dir4->tileShape() == tiletype_shape::STAIR_UP) {
-                    b->upstairborders |= 8;
-                }
-                if(dir5) if(dir5->tileShape() == tiletype_shape::STAIR_UP) {
-                    b->upstairborders |= 16;
-                }
-                if(dir6) if(dir6->tileShape() == tiletype_shape::STAIR_UP) {
-                    b->upstairborders |= 32;
-                }
-                if(dir7) if(dir7->tileShape() == tiletype_shape::STAIR_UP) {
-                    b->upstairborders |= 64;
-                }
-                if(dir8) if(dir8->tileShape() == tiletype_shape::STAIR_UP) {
-                    b->upstairborders |= 128;
+    b->floorborders = 0;
+    b->lightborders = 0;
+
+    // Determine which borders should be present
+    for (unsigned int i = 0; i < dirs.size(); i++) {
+        if (dirs[i] == nullptr) {
+            continue;
                 }
 
-                if(dir1) if(dir1->tileShape() == tiletype_shape::STAIR_UPDOWN) {
-                    b->upstairborders |= 1;
-                }
-                if(dir2) if(dir2->tileShape() == tiletype_shape::STAIR_UPDOWN) {
-                    b->upstairborders |= 2;
-                }
-                if(dir3) if(dir3->tileShape() == tiletype_shape::STAIR_UPDOWN) {
-                    b->upstairborders |= 4;
-                }
-                if(dir4) if(dir4->tileShape() == tiletype_shape::STAIR_UPDOWN) {
-                    b->upstairborders |= 8;
-                }
-                if(dir5) if(dir5->tileShape() == tiletype_shape::STAIR_UPDOWN) {
-                    b->upstairborders |= 16;
-                }
-                if(dir6) if(dir6->tileShape() == tiletype_shape::STAIR_UPDOWN) {
-                    b->upstairborders |= 32;
-                }
-                if(dir7) if(dir7->tileShape() == tiletype_shape::STAIR_UPDOWN) {
-                    b->upstairborders |= 64;
-                }
-                if(dir8) if(dir8->tileShape() == tiletype_shape::STAIR_UPDOWN) {
-                    b->upstairborders |= 128;
+        switch (dirs[i]->tileShapeBasic()) {
+        case tiletype_shape_basic::Wall:
+            b->wallborders |= 1 << i;
+            break;
+        case tiletype_shape_basic::Ramp:
+            b->rampborders |= 1 << i;
+            break;
+        case tiletype_shape_basic::Floor:
+            b->floorborders |= 1 << i;
+            break;
+        default:
+            break;
                 }
 
-                if(dir1) if(dir1->tileShape() == tiletype_shape::STAIR_UPDOWN) {
-                    b->downstairborders |= 1;
-                }
-                if(dir2) if(dir2->tileShape() == tiletype_shape::STAIR_UPDOWN) {
-                    b->downstairborders |= 2;
-                }
-                if(dir3) if(dir3->tileShape() == tiletype_shape::STAIR_UPDOWN) {
-                    b->downstairborders |= 4;
-                }
-                if(dir4) if(dir4->tileShape() == tiletype_shape::STAIR_UPDOWN) {
-                    b->downstairborders |= 8;
-                }
-                if(dir5) if(dir5->tileShape() == tiletype_shape::STAIR_UPDOWN) {
-                    b->downstairborders |= 16;
-                }
-                if(dir6) if(dir6->tileShape() == tiletype_shape::STAIR_UPDOWN) {
-                    b->downstairborders |= 32;
-                }
-                if(dir7) if(dir7->tileShape() == tiletype_shape::STAIR_UPDOWN) {
-                    b->downstairborders |= 64;
-                }
-                if(dir8) if(dir8->tileShape() == tiletype_shape::STAIR_UPDOWN) {
-                    b->downstairborders |= 128;
+        using df::tiletype_shape;
+        switch (dirs[i]->tileShape()) {
+        case tiletype_shape::STAIR_UP:
+            b->upstairborders |= 1 << i;
+            break;
+        case tiletype_shape::STAIR_DOWN:
+            b->downstairborders |= 1 << i;
+            break;
+        case tiletype_shape::STAIR_UPDOWN:
+            b->upstairborders |= 1 << i;
+            b->downstairborders |= 1 << i;
+            break;
+        default:
+            break;
                 }
 
-                if(dir1) if(dir1->tileShape() == tiletype_shape::STAIR_DOWN) {
-                    b->downstairborders |= 1;
+        if (!dirs[i]->designation.bits.outside) {
+            b->lightborders |= 1 << i;
                 }
-                if(dir2) if(dir2->tileShape() == tiletype_shape::STAIR_DOWN) {
-                    b->downstairborders |= 2;
-                }
-                if(dir3) if(dir3->tileShape() == tiletype_shape::STAIR_DOWN) {
-                    b->downstairborders |= 4;
-                }
-                if(dir4) if(dir4->tileShape() == tiletype_shape::STAIR_DOWN) {
-                    b->downstairborders |= 8;
-                }
-                if(dir5) if(dir5->tileShape() == tiletype_shape::STAIR_DOWN) {
-                    b->downstairborders |= 16;
-                }
-                if(dir6) if(dir6->tileShape() == tiletype_shape::STAIR_DOWN) {
-                    b->downstairborders |= 32;
-                }
-                if(dir7) if(dir7->tileShape() == tiletype_shape::STAIR_DOWN) {
-                    b->downstairborders |= 64;
-                }
-                if(dir8) if(dir8->tileShape() == tiletype_shape::STAIR_DOWN) {
-                    b->downstairborders |= 128;
-                }
-
-                b->floorborders = 0;
-                if(dir1) if(dir1->tileShapeBasic()==tiletype_shape_basic::Floor) {
-                    b->floorborders |= 1;
-                }
-                if(dir2) if(dir2->tileShapeBasic()==tiletype_shape_basic::Floor) {
-                    b->floorborders |= 2;
-                }
-                if(dir3) if(dir3->tileShapeBasic()==tiletype_shape_basic::Floor) {
-                    b->floorborders |= 4;
-                }
-                if(dir4) if(dir4->tileShapeBasic()==tiletype_shape_basic::Floor) {
-                    b->floorborders |= 8;
-                }
-                if(dir5) if(dir5->tileShapeBasic()==tiletype_shape_basic::Floor) {
-                    b->floorborders |= 16;
-                }
-                if(dir6) if(dir6->tileShapeBasic()==tiletype_shape_basic::Floor) {
-                    b->floorborders |= 32;
-                }
-                if(dir7) if(dir7->tileShapeBasic()==tiletype_shape_basic::Floor) {
-                    b->floorborders |= 64;
-                }
-                if(dir8) if(dir8->tileShapeBasic()==tiletype_shape_basic::Floor) {
-                    b->floorborders |= 128;
-                }
-
-                b->lightborders = 0;
-                if(dir1) if(!dir1->designation.bits.outside) {
-                    b->lightborders |= 1;
-                }
-                if(dir2) if(!dir2->designation.bits.outside) {
-                    b->lightborders |= 2;
-                }
-                if(dir3) if(!dir3->designation.bits.outside) {
-                    b->lightborders |= 4;
-                }
-                if(dir4) if(!dir4->designation.bits.outside) {
-                    b->lightborders |= 8;
-                }
-                if(dir5) if(!dir5->designation.bits.outside) {
-                    b->lightborders |= 16;
-                }
-                if(dir6) if(!dir6->designation.bits.outside) {
-                    b->lightborders |= 32;
-                }
-                if(dir7) if(!dir7->designation.bits.outside) {
-                    b->lightborders |= 64;
-                }
-                if(dir8) if(!dir8->designation.bits.outside) {
-                    b->lightborders |= 128;
                 }
                 b->lightborders = ~b->lightborders;
-
                 b->openborders = ~(b->floorborders|b->rampborders|b->wallborders|b->downstairborders|b->upstairborders);
 }
 
