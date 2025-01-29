@@ -117,10 +117,7 @@ bool checkFloorBorderRequirement(WorldSegment* segment, int x, int y, int z, dir
             return false;
     }
     Tile* bLow = segment->getTileRelativeTo(x, y, z-1, offset);
-    if (!bLow || bLow->tileShapeBasic()!=tiletype_shape_basic::Ramp) {
-        return true;
-    }
-    return false;
+    return !bLow || bLow->tileShapeBasic()!=tiletype_shape_basic::Ramp;
 }
 
 bool isTileOnVisibleEdgeOfSegment(WorldSegment* segment, Tile* b)
@@ -220,27 +217,53 @@ inline void enclosedTile(WorldSegment * segment, Tile* b)
 inline void unhideWaterFromAbove(WorldSegment * segment, Tile * b)
 {
     auto& contentLoader = stonesenseState.contentLoader;
-    if( b->designation.bits.flow_size
-        && !isTileOnTopOfSegment(segment, b)
-        && (b->designation.bits.hidden || b->fog_of_war) ) {
-            Tile * temp = segment->getTile(b->x, b->y, b->z+1);
-        if( !temp || (!IDhasOpaqueFloor(temp->tileType) && temp->designation.bits.flow_size == 0) ) {
-                if(contentLoader->gameMode.g_mode == GAMEMODE_ADVENTURE) {
-                    if(!temp || !temp->fog_of_war) {
+
+    if ( b->designation.bits.flow_size == 0
+        || isTileOnTopOfSegment(segment, b)
+        || !(b->designation.bits.hidden || b->fog_of_war) ) {
+        return;
+    }
+
+    Tile * above = segment->getTile(b->x, b->y, b->z+1);
+    if (above && (IDhasOpaqueFloor(above->tileType) || above->designation.bits.flow_size != 0)) {
+        return;
+    }
+
+    bool isAdventure = contentLoader->gameMode.g_mode == GAMEMODE_ADVENTURE;
+    if(!above || !above->designation.bits.hidden || !(isAdventure && above->fog_of_war)) {
                         b->designation.bits.hidden = false;
+        if(isAdventure) {
                         b->fog_of_war = false;
-                        if(b->building.type == BUILDINGTYPE_BLACKBOX) {
-                            b->building.type = (df::building_type) BUILDINGTYPE_NA;
-                        }
-                    }
-                } else {
-                    if(!temp || !temp->designation.bits.hidden) {
-                        b->designation.bits.hidden = false;
-                        if(b->building.type == BUILDINGTYPE_BLACKBOX) {
+        }
+        if (b->building.type == BUILDINGTYPE_BLACKBOX) {
                             b->building.type = (df::building_type) BUILDINGTYPE_NA;
                         }
                     }
                 }
+
+void determineDepthBorders(WorldSegment * segment, Tile* b)
+{
+    using df::tiletype_shape_basic;
+    if( b->tileShapeBasic()==tiletype_shape_basic::Floor ) {
+        b->depthBorderWest = checkFloorBorderRequirement(segment, b->x, b->y, b->z, eLeft);
+        b->depthBorderNorth = checkFloorBorderRequirement(segment, b->x, b->y, b->z, eUp);
+
+        Tile* belowTile = segment->getTileRelativeTo(b->x, b->y, b->z, eBelow);
+        if(!belowTile || (belowTile->tileShapeBasic()!=tiletype_shape_basic::Wall && belowTile->tileShapeBasic()!=tiletype_shape_basic::Ramp)) {
+            b->depthBorderDown = true;
+        }
+    } else if( b->tileShapeBasic()==tiletype_shape_basic::Wall && !wallShouldNotHaveBorders( b->tileType )) {
+        Tile* leftTile = segment->getTileRelativeTo(b->x, b->y, b->z, eLeft);
+        Tile* upTile = segment->getTileRelativeTo(b->x, b->y, b->z, eUp);
+        if(!leftTile || (leftTile->tileShapeBasic()!=tiletype_shape_basic::Wall && leftTile->tileShapeBasic()!=tiletype_shape_basic::Ramp)) {
+            b->depthBorderWest = true;
+        }
+        if(!upTile || (upTile->tileShapeBasic()!=tiletype_shape_basic::Wall && upTile->tileShapeBasic()!=tiletype_shape_basic::Ramp)) {
+            b->depthBorderNorth = true;
+        }
+        Tile* belowTile = segment->getTileRelativeTo(b->x, b->y, b->z, eBelow);
+        if(!belowTile || (belowTile->tileShapeBasic()!=tiletype_shape_basic::Wall && belowTile->tileShapeBasic()!=tiletype_shape_basic::Ramp)) {
+            b->depthBorderDown = true;
             }
     }
 }
@@ -280,28 +303,7 @@ void arrangeTileBorders(WorldSegment * segment, Tile* b)
         b->obscuringBuilding = true;
                 }
 
-                if( b->tileShapeBasic()==tiletype_shape_basic::Floor ) {
-                    b->depthBorderWest = checkFloorBorderRequirement(segment, b->x, b->y, b->z, eLeft);
-                    b->depthBorderNorth = checkFloorBorderRequirement(segment, b->x, b->y, b->z, eUp);
-
-                    Tile* belowTile = segment->getTileRelativeTo(b->x, b->y, b->z, eBelow);
-        if(!belowTile || (belowTile->tileShapeBasic()!=tiletype_shape_basic::Wall && belowTile->tileShapeBasic()!=tiletype_shape_basic::Ramp)) {
-                        b->depthBorderDown = true;
-                    }
-    } else if( b->tileShapeBasic()==tiletype_shape_basic::Wall && !wallShouldNotHaveBorders( b->tileType )) {
-        Tile* leftTile = dirs[7];
-        Tile* upTile = dirs[1];
-                    if(!leftTile || (leftTile->tileShapeBasic()!=tiletype_shape_basic::Wall && leftTile->tileShapeBasic()!=tiletype_shape_basic::Ramp)) {
-                        b->depthBorderWest = true;
-                    }
-                    if(!upTile || (upTile->tileShapeBasic()!=tiletype_shape_basic::Wall && upTile->tileShapeBasic()!=tiletype_shape_basic::Ramp)) {
-                        b->depthBorderNorth = true;
-                    }
-                    Tile* belowTile = segment->getTileRelativeTo(b->x, b->y, b->z, eBelow);
-                    if(!belowTile || (belowTile->tileShapeBasic()!=tiletype_shape_basic::Wall && belowTile->tileShapeBasic()!=tiletype_shape_basic::Ramp)) {
-                        b->depthBorderDown = true;
-                    }
-                }
+    determineDepthBorders(segment, b);
 
                 b->wallborders = 0;
                 b->rampborders = 0;
