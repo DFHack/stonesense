@@ -765,6 +765,149 @@ namespace
                 b->tileeffect.density, matName ? matName : "Unknown", subMatName ? "/" : "", subMatName ? subMatName : "");
         }
     }
+
+    void drawGeneralInfo(WorldSegment* segment)
+    {
+        using df::global::plotinfo;
+        auto font = stonesenseState.font;
+        auto fontHeight = al_get_font_line_height(font);
+        auto& contentLoader = stonesenseState.contentLoader;
+
+        //get tile info
+        Tile* b = segment->getTile(
+            segment->segState.dfCursor.x,
+            segment->segState.dfCursor.y,
+            segment->segState.dfCursor.z);
+        int i = 10;
+        draw_textf_border(font, uiColor(1), 2, (i++ * fontHeight), 0,
+            "Coord:(%i,%i,%i)", segment->segState.dfCursor.x, segment->segState.dfCursor.y, segment->segState.dfCursor.z);
+
+        if (!b) {
+            return;
+        }
+        int ttype;
+        const char* tform = NULL;
+        using df::tiletype_shape_basic;
+
+        if (b->tileShapeBasic() == tiletype_shape_basic::Floor) {
+            ttype = b->tileType;
+            tform = "floor";
+        }
+        else if (b->tileShapeBasic() == tiletype_shape_basic::Wall) {
+            ttype = b->tileType;
+            tform = "wall";
+        }
+        else if (b->tileShapeBasic() == tiletype_shape_basic::Ramp ||
+            b->tileType == df::tiletype::RampTop) {
+            ttype = b->tileType;
+            tform = "ramp";
+        }
+        else if (b->tileShapeBasic() == tiletype_shape_basic::Stair) {
+            ttype = b->tileType;
+            tform = "stair";
+        }
+        else {
+            ttype = -1;
+        }
+        if (tform != NULL && b->material.type != INVALID_INDEX) {
+            const char* formName = lookupFormName(b->consForm);
+            const char* matName = lookupMaterialTypeName(b->material.type);
+            const char* subMatName = lookupMaterialName(b->material.type, b->material.index);
+            draw_textf_border(font, uiColor(1), 2, (i++ * fontHeight), 0,
+                "%s%s%s %s %s",
+                matName ? matName : "Unknown",
+                subMatName ? "/" : "",
+                subMatName ? subMatName : "",
+                formName,
+                tform
+            );
+        }
+
+        if (b->building.info && b->building.type != BUILDINGTYPE_NA && b->building.type != BUILDINGTYPE_BLACKBOX && b->building.type != BUILDINGTYPE_TREE) {
+            const char* matName = lookupMaterialTypeName(b->building.info->material.type);
+            const char* subMatName = lookupMaterialName(b->building.info->material.type, b->building.info->material.index);
+            const char* subTypeName = lookupBuildingSubtype(b->building.type, b->building.info->subtype);
+            draw_textf_border(font, uiColor(1), 2, (i++ * fontHeight), 0,
+                "Building:  %s %s",
+                subTypeName != "NA" ? subTypeName : "",
+                ENUM_KEY_STR(building_type, (df::building_type)b->building.type).c_str());
+            for (size_t index = 0; index < b->building.constructed_mats.size(); index++) {
+                const char* partMatName = lookupMaterialTypeName(b->building.constructed_mats[index].matt.type);
+                const char* partSubMatName = lookupMaterialName(b->building.constructed_mats[index].matt.type, b->building.constructed_mats[index].matt.index);
+                draw_textf_border(font, uiColor(1), 2, (i++ * fontHeight), 0,
+                    "Material[%i]: %s%s%s",
+                    index,
+                    partMatName ? partMatName : "Unknown", partSubMatName ? "/" : "", partSubMatName ? partSubMatName : "");
+            }
+        }
+        else {
+
+            if (tform != NULL && b->material.type != INVALID_INDEX && b->material.index != INVALID_INDEX) {
+                DFHack::MaterialInfo mat;
+                mat.decode(b->material.type, b->material.index);
+                if (mat.isValid())
+                {
+                    ALLEGRO_COLOR color = al_map_rgb_f(contentLoader->Mats->color[mat.material->state_color[0]].red, contentLoader->Mats->color[mat.material->state_color[0]].green, contentLoader->Mats->color[mat.material->state_color[0]].blue);
+                    draw_textf_border(font, uiColor(1), 2, (i++ * fontHeight), 0,
+                        "Tile: %s %s", mat.material->state_name[0].c_str(), DFHack::enum_item_key_str(b->tileType));
+                }
+            }
+
+        }
+
+        if (b->designation.bits.traffic) {
+            draw_textf_border(font, uiColor(1), 2, (i++ * fontHeight), 0,
+                "Traffic: %d", b->designation.bits.traffic);
+        }
+        if (b->designation.bits.pile) {
+            draw_textf_border(font, uiColor(1), 2, (i++ * fontHeight), 0,
+                "Stockpile?");
+        }
+        if (b->designation.bits.water_table) {
+            draw_textf_border(font, uiColor(1), 2, (i++ * fontHeight), 0, "Water table");
+        }
+        if (b->designation.bits.rained) {
+            draw_textf_border(font, uiColor(1), 2, (i++ * fontHeight), 0, "Rained");
+        }
+        if (b->Item.item.type >= 0) {
+            DFHack::MaterialInfo mat;
+            mat.decode(b->Item.matt.type, b->Item.matt.index);
+            DFHack::ItemTypeInfo itemdef;
+            bool subtype = itemdef.decode((df::item_type)b->Item.item.type, b->Item.item.index);
+            draw_textf_border(font, uiColor(1), 2, (i++ * fontHeight), 0,
+                "Item: %s - %s",
+                mat.getToken().c_str(),
+                subtype ? itemdef.getToken().c_str() : "");
+        }
+
+        const char* matName = lookupMaterialTypeName(b->tileeffect.matt.type);
+        const char* subMatName = lookupMaterialName(b->tileeffect.matt.type, b->tileeffect.matt.index);
+        std::string text{};
+        switch (b->tileeffect.type) {
+        case df::flow_type::Miasma: text = "Miasma"; break;
+        case df::flow_type::Steam:  text = "Steam";  break;
+        case df::flow_type::Mist:   text = "Mist";   break;
+        case df::flow_type::MaterialDust: text = "MaterialDust"; break;
+        case df::flow_type::MagmaMist: text = "MagmaMist"; break;
+        case df::flow_type::Smoke: text = "Smoke"; break;
+        case df::flow_type::Dragonfire: text = "Dragonfire"; break;
+        case df::flow_type::Fire: text = "Fire"; break;
+        case df::flow_type::Web: text = "Web"; break;
+        case df::flow_type::MaterialGas: text = "MaterialGas"; break;
+        case df::flow_type::MaterialVapor: text = "MaterialVapor"; break;
+        case df::flow_type::OceanWave: text = "OceanWave"; break;
+        case df::flow_type::SeaFoam: text = "SeaFoam"; break;
+        case df::flow_type::ItemCloud:
+            // TODO
+            break;
+        }
+
+        if (!text.empty()) {
+            draw_textf_border(font, uiColor(1), 2, (i++ * fontHeight), 0,
+                "%s: %d, Material:%s%s%s", text.c_str(),
+                b->tileeffect.density, matName ? matName : "Unknown", subMatName ? "/" : "", subMatName ? subMatName : "");
+        }
+    }
 }
 
 void DrawMinimap(WorldSegment * segment)
@@ -913,6 +1056,14 @@ void paintboard()
     if (ssConfig.show_announcements) {
         al_hold_bitmap_drawing(true);
         draw_announcements(font, ssState.ScreenW, ssState.ScreenH - 10 - al_get_font_line_height(font), ALLEGRO_ALIGN_RIGHT, df::global::world->status.announcements);
+        al_hold_bitmap_drawing(false);
+    }
+    if (ssConfig.overlay_mode) {
+        al_hold_bitmap_drawing(true);
+        ALLEGRO_COLOR red = ssConfig.config.colors.getDfColor(dfColors::lred, ssConfig.config.useDfColors);
+        draw_textf_border(font, *df::global::pause_state ? red : uiColor(3), 0, 0, ALLEGRO_ALIGN_LEFT, (*df::global::pause_state ? "Paused" : "Running"));
+        drawDebugCursor(segment);
+        drawGeneralInfo(segment);
         al_hold_bitmap_drawing(false);
     }
     if(ssConfig.show_keybinds){

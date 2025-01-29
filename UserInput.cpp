@@ -170,23 +170,27 @@ void doMouse()
         last_mouse_z = mouse.z;
     }
     if( mouse.buttons & 2 ) {
-        ssConfig.config.track_mode = Config::TRACKING_NONE;
-        int x, y;
-        x = mouse.x;
-        y = mouse.y;
-        int tilex,tiley,tilez;
-        ScreenToPoint(x,y,tilex,tiley,tilez);
-        int diffx = tilex - ssState.Size.x/2;
-        int diffy = tiley - ssState.Size.y/2;
-        /*we use changeRelativeToRotation directly, and not through moveViewRelativeToRotation
-        because we don't want to move the offset with the mouse. It just feels weird. */
-        // changing to +1,+1 which moves the clicked point to one of the 4 surrounding the center of rotation
-        changeRelativeToRotation(ssState.Position.x, ssState.Position.y, diffx+1, diffy+1 );
-        //moveViewRelativeToRotation(diffx+1, diffy+1);
-        stonesenseState.timeToReloadSegment = true;
-        //rest(50);
+        if (ssConfig.overlay_mode) {
+            sendDFKey(df::interface_key::LEAVESCREEN);
+        }else{
+            ssConfig.config.track_mode = Config::TRACKING_NONE;
+            int x, y;
+            x = mouse.x;
+            y = mouse.y;
+            int tilex,tiley,tilez;
+            ScreenToPoint(x,y,tilex,tiley,tilez);
+            int diffx = tilex - ssState.Size.x/2;
+            int diffy = tiley - ssState.Size.y/2;
+            /*we use changeRelativeToRotation directly, and not through moveViewRelativeToRotation
+            because we don't want to move the offset with the mouse. It just feels weird. */
+            // changing to +1,+1 which moves the clicked point to one of the 4 surrounding the center of rotation
+            changeRelativeToRotation(ssState.Position.x, ssState.Position.y, diffx+1, diffy+1 );
+            //moveViewRelativeToRotation(diffx+1, diffy+1);
+            stonesenseState.timeToReloadSegment = true;
+            //rest(50);
+        }
     }
-    if( mouse.buttons & 1 ) {
+    if( mouse.buttons & 1 || ssConfig.overlay_mode) {
         ssConfig.config.follow_DFcursor = false;
         int x, y;
         x = mouse.x;//pos >> 16;
@@ -194,7 +198,8 @@ void doMouse()
         if(x >= stonesenseState.MiniMapTopLeftX &&
             x <= stonesenseState.MiniMapBottomRightX &&
             y >= stonesenseState.MiniMapTopLeftY &&
-            y <= stonesenseState.MiniMapBottomRightY) { // in minimap
+            y <= stonesenseState.MiniMapBottomRightY &&
+            mouse.buttons & 1) { // clicking in minimap (we recheck the button for immersive mode
             ssState.Position.x = (x- stonesenseState.MiniMapTopLeftX- stonesenseState.MiniMapSegmentWidth/2)/ stonesenseState.oneTileInPixels;
             ssState.Position.y = (y- stonesenseState.MiniMapTopLeftY- stonesenseState.MiniMapSegmentHeight/2)/ stonesenseState.oneTileInPixels;
         } else {
@@ -728,16 +733,9 @@ void action_incrZ(uint32_t keymod)
     stonesenseState.timeToReloadSegment = true;
 }
 
-bool buildMenu = false;
 void action_openBuild(uint32_t keymod)
 {
-    if (buildMenu) {
-        sendDFKey(df::interface_key::LEAVESCREEN);
-        buildMenu = false;
-    }else{
-        sendDFKey(df::interface_key::D_BUILDING);
-        buildMenu = true;
-    }
+    sendDFKey(df::interface_key::D_BUILDING);
 }
 
 void doRepeatActions()
