@@ -48,10 +48,12 @@ Template for new versions:
 - `stonesense`: fixed glass cabinets and bookcases being misaligned by 1 pixel
 - `stonesense`: vampires no longer show their true name when they shouldn't.
 - `stonesense`: fixed debug performance timers to show milliseconds as intended
+- `stonesense`: ``CACHE_IMAGES`` now disables mipmapping, stopping sprites from going transparent
 
 
 ## Misc Improvements
 - `stonesense`: improved the way altars look
+- `stonesense`: fog no longer unnecessarily renders to a separate bitmap
 
 ## Removed
 
