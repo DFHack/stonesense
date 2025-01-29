@@ -62,7 +62,7 @@ inline bool isTileHighRampTop(uint32_t x, uint32_t y, uint32_t z, WorldSegment* 
     if(tile->tileShapeBasic()!=tiletype_shape_basic::Floor
         && tile->tileShapeBasic()!=tiletype_shape_basic::Ramp
         && tile->tileShapeBasic()!=tiletype_shape_basic::Stair) {
-            return false;
+        return false;
     }
     if(tile->tileShapeBasic()!=tiletype_shape_basic::Wall) {
         return true;
@@ -99,7 +99,7 @@ uint8_t CalculateRampType(uint32_t x, uint32_t y, uint32_t z, WorldSegment* segm
     for (unsigned int i = 0; i < dirs.size(); i++) {
         if (isTileHighRampEnd(x, y, z, segment, dirs[i])) {
             ramplookup ^= 1 << i;
-    }
+        }
     }
 
     // creation should ensure in range
@@ -112,9 +112,9 @@ bool checkFloorBorderRequirement(WorldSegment* segment, int x, int y, int z, dir
     Tile* bHigh = segment->getTileRelativeTo(x, y, z, offset);
     if (bHigh &&
         (bHigh->tileShapeBasic()==tiletype_shape_basic::Floor
-        || bHigh->tileShapeBasic()==tiletype_shape_basic::Ramp
-        || bHigh->tileShapeBasic()==tiletype_shape_basic::Wall)) {
-            return false;
+         || bHigh->tileShapeBasic()==tiletype_shape_basic::Ramp
+         || bHigh->tileShapeBasic()==tiletype_shape_basic::Wall)) {
+        return false;
     }
     Tile* bLow = segment->getTileRelativeTo(x, y, z-1, offset);
     return !bLow || bLow->tileShapeBasic()!=tiletype_shape_basic::Ramp;
@@ -132,7 +132,7 @@ bool isTileOnVisibleEdgeOfSegment(WorldSegment* segment, Tile* b)
     }
     if (x == segment->segState.Size.x - 2 ||
         y == segment->segState.Size.y - 2) {
-            return true;
+        return true;
     }
 
     return false;
@@ -145,9 +145,9 @@ bool areNeighborsVisible(WorldSegment* segment, Tile* b)
     Tile *temp;
     for (const dirRelative &dir : dirs) {
         temp = segment->getTileRelativeTo(b->x, b->y, b->z, dir);
-    if(!temp || !(temp->designation.bits.hidden)) {
-        return true;
-    }
+        if(!temp || !(temp->designation.bits.hidden)) {
+            return true;
+        }
     }
     return false;
 }
@@ -171,8 +171,8 @@ bool enclosed(WorldSegment* segment, Tile* b)
     for (const dirRelative &dir : dirs) {
         temp = segment->getTileRelativeTo(b->x, b->y, b->z, dir);
         if (!temp || !IDisWall(temp->tileType)) {
-        return false;
-    }
+            return false;
+        }
     }
 
     return true;
@@ -189,7 +189,7 @@ inline void maskTile(WorldSegment * segment, Tile* b)
     if( b->designation.bits.hidden ) {
         if( isTileOnVisibleEdgeOfSegment(segment, b)
             || areNeighborsVisible(segment, b) ) {
-                b->building.type = BUILDINGTYPE_BLACKBOX;
+            b->building.type = BUILDINGTYPE_BLACKBOX;
         } else {
             b->visible = false;
         }
@@ -206,7 +206,7 @@ inline void enclosedTile(WorldSegment * segment, Tile* b)
     //make tiles that are impossible to see invisible
     if( b->designation.bits.hidden
         && (enclosed(segment, b)) ) {
-            b->visible = false;
+        b->visible = false;
     }
 }
 
@@ -231,15 +231,15 @@ inline void unhideWaterFromAbove(WorldSegment * segment, Tile * b)
 
     bool isAdventure = contentLoader->gameMode.g_mode == GAMEMODE_ADVENTURE;
     if(!above || !above->designation.bits.hidden || !(isAdventure && above->fog_of_war)) {
-                        b->designation.bits.hidden = false;
+        b->designation.bits.hidden = false;
         if(isAdventure) {
-                        b->fog_of_war = false;
+            b->fog_of_war = false;
         }
         if (b->building.type == BUILDINGTYPE_BLACKBOX) {
-                            b->building.type = (df::building_type) BUILDINGTYPE_NA;
-                        }
-                    }
-                }
+            b->building.type = (df::building_type) BUILDINGTYPE_NA;
+        }
+    }
+}
 
 void determineDepthBorders(WorldSegment * segment, Tile* b)
 {
@@ -264,7 +264,7 @@ void determineDepthBorders(WorldSegment * segment, Tile* b)
         Tile* belowTile = segment->getTileRelativeTo(b->x, b->y, b->z, eBelow);
         if(!belowTile || (belowTile->tileShapeBasic()!=tiletype_shape_basic::Wall && belowTile->tileShapeBasic()!=tiletype_shape_basic::Ramp)) {
             b->depthBorderDown = true;
-            }
+        }
     }
 }
 
@@ -273,7 +273,6 @@ void determineDepthBorders(WorldSegment * segment, Tile* b)
  */
 void arrangeTileBorders(WorldSegment * segment, Tile* b)
 {
-
     //add edges to tiles and floors
     std::array<dirRelative, 8> directions = { eUpLeft, eUp, eUpRight, eRight, eDownRight, eDown, eDownLeft, eLeft };
     std::array<Tile*, 8> dirs = {};
@@ -291,7 +290,6 @@ void arrangeTileBorders(WorldSegment * segment, Tile* b)
     }
 
     using df::tiletype_shape_basic;
-
     auto isObscurableBuilding = [&](Tile *tile) {
         return tile && tile->building.type != BUILDINGTYPE_NA &&
                tile->building.type != BUILDINGTYPE_BLACKBOX &&
@@ -301,22 +299,22 @@ void arrangeTileBorders(WorldSegment * segment, Tile* b)
     if (isObscurableBuilding(dirs[0]) || isObscurableBuilding(dirs[1]) ||
         isObscurableBuilding(dirs[7])) {
         b->obscuringBuilding = true;
-                }
+    }
 
     determineDepthBorders(segment, b);
 
-                b->wallborders = 0;
-                b->rampborders = 0;
-                b->upstairborders = 0;
-                b->downstairborders = 0;
+    b->wallborders = 0;
+    b->rampborders = 0;
+    b->upstairborders = 0;
+    b->downstairborders = 0;
     b->floorborders = 0;
     b->lightborders = 0;
 
     // Determine which borders should be present
     for (unsigned int i = 0; i < dirs.size(); i++) {
-        if (dirs[i] == nullptr) {
+        if (!dirs[i]) {
             continue;
-                }
+        }
 
         switch (dirs[i]->tileShapeBasic()) {
         case tiletype_shape_basic::Wall:
@@ -330,7 +328,7 @@ void arrangeTileBorders(WorldSegment * segment, Tile* b)
             break;
         default:
             break;
-                }
+        }
 
         using df::tiletype_shape;
         switch (dirs[i]->tileShape()) {
@@ -346,14 +344,14 @@ void arrangeTileBorders(WorldSegment * segment, Tile* b)
             break;
         default:
             break;
-                }
+        }
 
         if (!dirs[i]->designation.bits.outside) {
             b->lightborders |= 1 << i;
-                }
-                }
-                b->lightborders = ~b->lightborders;
-                b->openborders = ~(b->floorborders|b->rampborders|b->wallborders|b->downstairborders|b->upstairborders);
+        }
+    }
+    b->lightborders = ~b->lightborders;
+    b->openborders = ~(b->floorborders|b->rampborders|b->wallborders|b->downstairborders|b->upstairborders);
 }
 
 /**
@@ -378,15 +376,15 @@ void addSegmentExtras(WorldSegment * segment)
         //Grass
         using df::tiletype_material;
         if(b->grasslevel > 0 && (
-            (b->tileMaterial() == tiletype_material::GRASS_LIGHT) ||
-            (b->tileMaterial() == tiletype_material::GRASS_DARK) ||
-            (b->tileMaterial() == tiletype_material::GRASS_DEAD) ||
-            (b->tileMaterial() == tiletype_material::GRASS_DRY))) {
+             (b->tileMaterial() == tiletype_material::GRASS_LIGHT) ||
+             (b->tileMaterial() == tiletype_material::GRASS_DARK) ||
+             (b->tileMaterial() == tiletype_material::GRASS_DEAD) ||
+             (b->tileMaterial() == tiletype_material::GRASS_DRY))) {
                 c_tile_tree * vegetationsprite = nullptr;
                 vegetationsprite = getVegetationTree(stonesenseState.contentLoader->grassConfigs,b->grassmat,true,true);
-                if(vegetationsprite) {
-                    vegetationsprite->insert_sprites(segment, b->x, b->y, b->z, b);
-                }
+            if(vegetationsprite) {
+                vegetationsprite->insert_sprites(segment, b->x, b->y, b->z, b);
+            }
         }
 
         //populate trees
@@ -439,7 +437,7 @@ void optimizeSegment(WorldSegment * segment)
             unhideWaterFromAbove(segment, b);
             if( ssConfig.show_designations
                 && containsDesignations(b->designation, b->occ) ) {
-                    b->visible = true;
+                b->visible = true;
             } else if( ssConfig.shade_hidden_tiles ) {
                 maskTile(segment, b);
             } else if( b->designation.bits.hidden ) {
