@@ -44,11 +44,10 @@ inline bool isTileHighRampEnd(uint32_t x, uint32_t y, uint32_t z, WorldSegment* 
 inline int tileWaterDepth(uint32_t x, uint32_t y, uint32_t z, WorldSegment* segment, dirRelative dir)
 {
     Tile* tile = segment->getTileRelativeTo( x, y, z, dir);
-    if(!tile) {
-        return false;
-    }
-    if(tile->designation.bits.flow_size == 0 || tile->designation.bits.liquid_type == 1) {
-        return false;
+
+    if(!tile ||
+        tile->designation.bits.liquid_type != df::tile_liquid::Water) {
+        return 0;
     }
     return tile->designation.bits.flow_size;
 }
@@ -118,7 +117,7 @@ bool checkFloorBorderRequirement(WorldSegment* segment, int x, int y, int z, dir
             return false;
     }
     Tile* bLow = segment->getTileRelativeTo(x, y, z-1, offset);
-    if (bLow == NULL || bLow->tileShapeBasic()!=tiletype_shape_basic::Ramp) {
+    if (!bLow || bLow->tileShapeBasic()!=tiletype_shape_basic::Ramp) {
         return true;
     }
     return false;
@@ -225,7 +224,7 @@ inline void unhideWaterFromAbove(WorldSegment * segment, Tile * b)
         && !isTileOnTopOfSegment(segment, b)
         && (b->designation.bits.hidden || b->fog_of_war) ) {
             Tile * temp = segment->getTile(b->x, b->y, b->z+1);
-            if( !temp || (!IDhasOpaqueFloor(temp->tileType) && !temp->designation.bits.flow_size) ) {
+        if( !temp || (!IDhasOpaqueFloor(temp->tileType) && temp->designation.bits.flow_size == 0) ) {
                 if(contentLoader->gameMode.g_mode == GAMEMODE_ADVENTURE) {
                     if(!temp || !temp->fog_of_war) {
                         b->designation.bits.hidden = false;
@@ -381,7 +380,7 @@ void addSegmentExtras(WorldSegment * segment)
             (b->tileMaterial() == tiletype_material::GRASS_DARK) ||
             (b->tileMaterial() == tiletype_material::GRASS_DEAD) ||
             (b->tileMaterial() == tiletype_material::GRASS_DRY))) {
-                c_tile_tree * vegetationsprite = 0;
+                c_tile_tree * vegetationsprite = nullptr;
                 vegetationsprite = getVegetationTree(stonesenseState.contentLoader->grassConfigs,b->grassmat,true,true);
                 if(vegetationsprite) {
                     vegetationsprite->insert_sprites(segment, b->x, b->y, b->z, b);
@@ -389,7 +388,7 @@ void addSegmentExtras(WorldSegment * segment)
         }
 
         //populate trees
-        if(b->tree.index) {
+        if(b->tree.index != 0) {
             c_tile_tree * Tree = GetTreeVegetation(b->tileShape(), b->tileSpecial(), b->tree.index );
             if (Tree)
                 Tree->insert_sprites(segment, b->x, b->y, b->z, b);
@@ -401,9 +400,9 @@ void addSegmentExtras(WorldSegment * segment)
         }
 
         //setup deep water
-        if( b->designation.bits.flow_size == 7 && b->designation.bits.liquid_type == 0) {
+        if( b->designation.bits.flow_size == 7 && b->designation.bits.liquid_type == df::tile_liquid::Water) {
             int topdepth = tileWaterDepth(b->x, b->y, b->z, segment, eAbove);
-            if(topdepth) {
+            if(topdepth != 0) {
                 b->deepwater = true;
             }
         }
@@ -452,7 +451,7 @@ void optimizeSegment(WorldSegment * segment)
 
         if( !isTileOnVisibleEdgeOfSegment(segment, b)
             && (b->tileType!=df::tiletype::OpenSpace
-            || b->designation.bits.flow_size
+            || b->designation.bits.flow_size != 0
             || (b->occ.bits.unit && b->creature)
             || b->building.type != BUILDINGTYPE_NA
             || b->tileeffect.type != (df::flow_type) INVALID_INDEX)) {
@@ -483,6 +482,6 @@ void beautifySegment(WorldSegment * segment)
     optimizeSegment(segment);
     addSegmentExtras(segment);
 
-    segment->processed = 1;
+    segment->processed = true;
     stonesenseState.stoneSenseTimers.beautify_time.update(clock() - starttime);
 }
