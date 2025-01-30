@@ -74,7 +74,6 @@ struct GameConfiguration {
         load_ground_materials = true;
         show_designations = true;
         show_keybinds = false;
-        config.show_intro = true;
         track_screen_center = true;
         creditScreen = true;
         bloodcutoff = 100;
