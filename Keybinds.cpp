@@ -220,7 +220,19 @@ action_name_mapper actionnamemap[] = {
     {"INCR_X", action_incrX},
     //add extra action here!
 
-    {"OPENBUILD", action_openBuild},
+    {"TOGGLEPAUSE", action_togglePause},
+    {"OPENDIG", action_openDig},
+    {"DESIGNSTAIRS", action_designStairs},
+    {"DESIGNRAMP", action_designRamp},
+    {"DESIGNCHANNEL", action_designChannel},
+    {"REMOVEDESIGN", action_removeDesign},
+
+    {"OPENSMOOTH", action_openSmooth},
+    {"DESIGNENGRAVE", action_designEngrave},
+    {"DESIGNTRACK", action_designTrack},
+    {"DESIGNFORTIFY", action_designFortify},
+
+    {"DESIGNERASE", action_designErase},
 
     {"INVALID", action_invalid}//this is the stop condition
 };

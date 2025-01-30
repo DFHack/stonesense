@@ -742,9 +742,50 @@ void action_incrZ(uint32_t keymod)
     stonesenseState.timeToReloadSegment = true;
 }
 
-void action_openBuild(uint32_t keymod)
+void action_openDig(uint32_t keymod){
+    sendDFKey(df::interface_key::D_DESIGNATE_DIG);
+    sendDFKey(df::interface_key::DESIGNATE_DIG);
+}
+void action_designStairs(uint32_t keymod){
+    sendDFKey(df::interface_key::DESIGNATE_STAIR_UPDOWN);
+}
+void action_designRamp(uint32_t keymod){
+    sendDFKey(df::interface_key::DESIGNATE_RAMP);
+}
+void action_designChannel(uint32_t keymod){
+    sendDFKey(df::interface_key::DESIGNATE_CHANNEL);
+}
+void action_removeDesign(uint32_t keymod){
+    sendDFKey(df::interface_key::DESIGNATE_DIG_REMOVE_STAIRS_RAMPS);
+}
+
+void action_openSmooth(uint32_t keymod)
 {
-    sendDFKey(df::interface_key::D_BUILDING);
+    sendDFKey(df::interface_key::D_DESIGNATE_SMOOTH);
+    sendDFKey(df::interface_key::DESIGNATE_SMOOTH);
+}
+void action_designEngrave(uint32_t keymod)
+{
+    sendDFKey(df::interface_key::DESIGNATE_ENGRAVE);
+}
+void action_designTrack(uint32_t keymod)
+{
+    sendDFKey(df::interface_key::DESIGNATE_TRACK);
+}
+void action_designFortify(uint32_t keymod)
+{
+    sendDFKey(df::interface_key::DESIGNATE_FORTIFY);
+}
+
+void action_designErase(uint32_t keymod)
+{
+    sendDFKey(df::interface_key::D_DESIGNATE_ERASE);
+}
+
+
+void action_togglePause(uint32_t keymod)
+{
+    sendDFKey(df::interface_key::D_PAUSE);
 }
 
 void doRepeatActions()
