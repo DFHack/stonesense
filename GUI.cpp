@@ -775,7 +775,6 @@ namespace
         using df::global::plotinfo;
         auto font = stonesenseState.font;
         auto fontHeight = al_get_font_line_height(font);
-        auto& contentLoader = stonesenseState.contentLoader;
 
         //get tile info
         Tile* b = segment->getTile(
@@ -887,12 +886,10 @@ namespace
         }
 
         if (b->building.info && b->building.type != BUILDINGTYPE_NA && b->building.type != BUILDINGTYPE_BLACKBOX && b->building.type != BUILDINGTYPE_TREE) {
-            const char* matName = lookupMaterialTypeName(b->building.info->material.type);
-            const char* subMatName = lookupMaterialName(b->building.info->material.type, b->building.info->material.index);
             const char* subTypeName = lookupBuildingSubtype(b->building.type, b->building.info->subtype);
             draw_textf_border(font, uiColor(1), 2, (i++ * fontHeight), 0,
                 "Building:  %s %s",
-                subTypeName != "NA" ? subTypeName : "",
+                std::string(subTypeName) != "NA" ? subTypeName : "",
                 ENUM_KEY_STR(building_type, (df::building_type)b->building.type).c_str());
             for (size_t index = 0; index < b->building.constructed_mats.size(); index++) {
                 const char* partMatName = lookupMaterialTypeName(b->building.constructed_mats[index].matt.type);
@@ -910,7 +907,6 @@ namespace
                 mat.decode(b->material.type, b->material.index);
                 if (mat.isValid())
                 {
-                    ALLEGRO_COLOR color = al_map_rgb_f(contentLoader->Mats->color[mat.material->state_color[0]].red, contentLoader->Mats->color[mat.material->state_color[0]].green, contentLoader->Mats->color[mat.material->state_color[0]].blue);
                     draw_textf_border(font, uiColor(1), 2, (i++ * fontHeight), 0,
                         "Tile: %s %s", mat.material->state_name[0].c_str(), DFHack::enum_item_key_str(b->tileType));
                 }
