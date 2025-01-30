@@ -38,6 +38,8 @@ Template for new versions:
 # Future
 
 ## New Features
+- `stonesense`: added ``AUTO`` as an option for the now-split ``SEGMENTSIZE_X`` and ``SEGMENTSIZE_Y``
+- `stonesense`: added new hotkeys for resizing the segmentsize
 - `stonesense`: added option ``EXTEND_TILES`` to slightly expand sprite to avoid gaps (on by default)
 - `stonesense`: added option ``PIXELPERFECT_ZOOM`` to change the zoom scale to avoid gaps (off by default)
 - `stonesense`: added back minecart track graphics.
