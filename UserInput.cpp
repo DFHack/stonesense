@@ -137,7 +137,7 @@ void moveViewRelativeToRotation( int stepx, int stepy )
     }
 }
 
-
+bool mouseDown = false;
 void doMouse()
 {
     auto& ssConfig = stonesenseState.ssConfig;
@@ -227,6 +227,15 @@ void doMouse()
             ssState.dfCursor.z = tilez;
         }
         stonesenseState.timeToReloadSegment = true;
+        if (ssConfig.overlay_mode && mouse.buttons & 1) {
+            if (!mouseDown) {
+                sendDFKey(df::interface_key::SELECT);
+                mouseDown = true;
+            }
+        }
+        else {
+            mouseDown = false;
+        }
     }
 }
 

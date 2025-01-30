@@ -519,6 +519,10 @@ namespace
         auto& ssConfig = stonesenseState.ssConfig;
 
         Crd3D cursor = segment->segState.dfCursor;
+        DFHack::Gui::setCursorCoords(
+            cursor.x,
+            cursor.y,
+            cursor.z);
         segment->CorrectTileForSegmentOffset(cursor.x, cursor.y, cursor.z);
         segment->CorrectTileForSegmentRotation(cursor.x, cursor.y, cursor.z);
 
