@@ -66,39 +66,23 @@ struct GameConfiguration {
 
     void reset()
     {
-        config.closeOnEsc = true;
+        config = {};
+
         show_announcements = true;
-        config.debug_mode = false;
         hide_outer_tiles = false;
         shade_hidden_tiles = true;
         load_ground_materials = true;
-        config.automatic_reload_time = 0;
-        config.automatic_reload_step = 500;
-        config.Fullscreen = DEFAULT_FULLSCREEN_MODE;
-        config.show_creature_names = false;
-        config.show_osd = false;
         show_designations = true;
         show_keybinds = false;
         config.show_intro = true;
         track_screen_center = true;
-        config.animation_step = 300;
-        config.track_mode = Config::TRACKING_CENTER;
-        config.fogcol = al_map_rgba(255, 255, 255, 255);
-        config.backcol = al_map_rgb(95, 95, 160);
-        config.fogenable = true;
-        config.bitmapHolds = 4096;
-        config.imageCacheSize = 4096;
-        config.fontsize = 10;
-        config.font = std::filesystem::path{ } / "data" / "art" / "font.ttf";
         creditScreen = true;
         bloodcutoff = 100;
         poolcutoff = 100;
         threadmade = 0;
         threading_enable = 1;
-        config.fog_of_war = 1;
         occlusion = 1;
         zoom = 0;
         scale = 1.0f;
-        config.useDfColors = false;
     }
 };
