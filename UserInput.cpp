@@ -742,46 +742,192 @@ void action_incrZ(uint32_t keymod)
     stonesenseState.timeToReloadSegment = true;
 }
 
-void action_openDig(uint32_t keymod){
-    sendDFKey(df::interface_key::D_DESIGNATE_DIG);
-    sendDFKey(df::interface_key::DESIGNATE_DIG);
+void action_option1(uint32_t keymod) {
+    switch (stonesenseState.ssState.mode) {
+    case 0: //Default
+        sendDFKey(df::interface_key::D_DESIGNATE_DIG);
+        stonesenseState.ssState.mode = GameState::modeTypes::DIG;
+        stonesenseState.ssState.submode = "Dig";
+        break;
+    case 1: //Dig
+        sendDFKey(df::interface_key::DESIGNATE_DIG);
+        stonesenseState.ssState.submode = "Dig";
+        break;
+    case 2: //Chop
+        break;
+    case 3: //Gather
+        break;
+    case 4: //Smooth
+        sendDFKey(df::interface_key::DESIGNATE_SMOOTH);
+        stonesenseState.ssState.submode = "Smooth";
+        break;
+    case 5: //Erase
+        break;
+    case 6: //Building
+        break;
+    case 7: //Traffic
+        break;
+    };
 }
-void action_designStairs(uint32_t keymod){
-    sendDFKey(df::interface_key::DESIGNATE_STAIR_UPDOWN);
+void action_option2(uint32_t keymod) {
+    switch (stonesenseState.ssState.mode) {
+    case 0: //Default
+        sendDFKey(df::interface_key::D_DESIGNATE_CHOP);
+        stonesenseState.ssState.mode = GameState::modeTypes::CHOP;
+        break;
+    case 1: //Dig
+        sendDFKey(df::interface_key::DESIGNATE_STAIR_UPDOWN);
+        stonesenseState.ssState.submode = "Stairs";
+        break;
+    case 2: //Chop
+        break;
+    case 3: //Gather
+        break;
+    case 4: //Smooth
+        sendDFKey(df::interface_key::DESIGNATE_ENGRAVE);
+        stonesenseState.ssState.submode = "Engrave";
+        break;
+    case 5: //Erase
+        break;
+    case 6: //Building
+        break;
+    case 7: //Traffic
+        break;
+    };
 }
-void action_designRamp(uint32_t keymod){
-    sendDFKey(df::interface_key::DESIGNATE_RAMP);
+void action_option3(uint32_t keymod) {
+    switch (stonesenseState.ssState.mode) {
+    case 0: //Default
+        sendDFKey(df::interface_key::D_DESIGNATE_GATHER);
+        stonesenseState.ssState.mode = GameState::modeTypes::GATHER;
+        break;
+    case 1: //Dig
+        sendDFKey(df::interface_key::DESIGNATE_RAMP);
+        stonesenseState.ssState.submode = "Ramp";
+        break;
+    case 2: //Chop
+        break;
+    case 3: //Gather
+        break;
+    case 4: //Smooth
+        sendDFKey(df::interface_key::DESIGNATE_TRACK);
+        stonesenseState.ssState.submode = "Carve Track";
+        break;
+    case 5: //Erase
+        break;
+    case 6: //Building
+        break;
+    case 7: //Traffic
+        break;
+    };
 }
-void action_designChannel(uint32_t keymod){
-    sendDFKey(df::interface_key::DESIGNATE_CHANNEL);
+void action_option4(uint32_t keymod) {
+    switch (stonesenseState.ssState.mode) {
+    case 0: //Default
+        sendDFKey(df::interface_key::D_DESIGNATE_SMOOTH);
+        stonesenseState.ssState.mode = GameState::modeTypes::SMOOTH;
+        break;
+    case 1: //Dig
+        sendDFKey(df::interface_key::DESIGNATE_CHANNEL);
+        stonesenseState.ssState.submode = "Channel";
+        break;
+    case 2: //Chop
+        break;
+    case 3: //Gather
+        break;
+    case 4: //Smooth
+        sendDFKey(df::interface_key::DESIGNATE_FORTIFY);
+        stonesenseState.ssState.submode = "Fortification";
+        break;
+    case 5: //Erase
+        break;
+    case 6: //Building
+        break;
+    case 7: //Traffic
+        break;
+    };
 }
-void action_removeDesign(uint32_t keymod){
-    sendDFKey(df::interface_key::DESIGNATE_DIG_REMOVE_STAIRS_RAMPS);
+void action_option5(uint32_t keymod) {
+    switch (stonesenseState.ssState.mode) {
+    case 0: //Default
+        sendDFKey(df::interface_key::D_DESIGNATE_ERASE);
+        stonesenseState.ssState.mode = GameState::modeTypes::ERASE;
+        break;
+    case 1: //Dig
+        sendDFKey(df::interface_key::DESIGNATE_DIG_REMOVE_STAIRS_RAMPS);
+        stonesenseState.ssState.submode = "Remove";
+        break;
+    case 2: //Chop
+        break;
+    case 3: //Gather
+        break;
+    case 4: //Smooth
+        break;
+    case 5: //Erase
+        break;
+    case 6: //Building
+        break;
+    case 7: //Traffic
+        break;
+    };
 }
-
-void action_openSmooth(uint32_t keymod)
-{
-    sendDFKey(df::interface_key::D_DESIGNATE_SMOOTH);
-    sendDFKey(df::interface_key::DESIGNATE_SMOOTH);
+void action_option6(uint32_t keymod) {
+    switch (stonesenseState.ssState.mode) {
+    case 0: //Default
+        break;
+    case 1: //Dig
+    case 2: //Chop
+    case 3: //Gather
+    case 4: //Smooth
+    case 5: //Erase
+        sendDFKey(df::interface_key::DESIGNATE_RECTANGLE);
+        stonesenseState.ssState.rectangleSelect = true;
+        break;
+    case 6: //Building
+        break;
+    case 7: //Traffic
+        break;
+    };
 }
-void action_designEngrave(uint32_t keymod)
-{
-    sendDFKey(df::interface_key::DESIGNATE_ENGRAVE);
+void action_option7(uint32_t keymod) {
+    switch (stonesenseState.ssState.mode) {
+    case 0: //Default
+        break;
+    case 1: //Dig
+    case 2: //Chop
+    case 3: //Gather
+    case 4: //Smooth
+    case 5: //Erase
+        sendDFKey(df::interface_key::DESIGNATE_FREE_DRAW);
+        stonesenseState.ssState.rectangleSelect = false;
+        break;
+    case 6: //Building
+        break;
+    case 7: //Traffic
+        break;
+    };
 }
-void action_designTrack(uint32_t keymod)
-{
-    sendDFKey(df::interface_key::DESIGNATE_TRACK);
+void action_option8(uint32_t keymod) {
+    switch (stonesenseState.ssState.mode) {
+    case 0: //Default
+        break;
+    case 1: //Dig
+    case 2: //Chop
+    case 3: //Gather
+    case 4: //Smooth
+        sendDFKey(df::interface_key::DESIGNATE_TOGGLE_ADVANCED_OPTIONS);
+        sendDFKey(df::interface_key::DESIGNATE_TOGGLE_MARKER);
+        sendDFKey(df::interface_key::DESIGNATE_TOGGLE_ADVANCED_OPTIONS);
+        stonesenseState.ssState.blueprinting = !stonesenseState.ssState.blueprinting;
+        break;
+    case 5: //Erase
+        break;
+    case 6: //Building
+        break;
+    case 7: //Traffic
+        break;
+    };
 }
-void action_designFortify(uint32_t keymod)
-{
-    sendDFKey(df::interface_key::DESIGNATE_FORTIFY);
-}
-
-void action_designErase(uint32_t keymod)
-{
-    sendDFKey(df::interface_key::D_DESIGNATE_ERASE);
-}
-
 
 void action_togglePause(uint32_t keymod)
 {

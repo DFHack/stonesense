@@ -782,37 +782,96 @@ namespace
             segment->segState.dfCursor.x,
             segment->segState.dfCursor.y,
             segment->segState.dfCursor.z);
-        int i = 10;
+
+        int i = 1;
+
         draw_textf_border(font, uiColor(1), 2, (i++ * fontHeight), 0,
             "Coord:(%i,%i,%i)", segment->segState.dfCursor.x, segment->segState.dfCursor.y, segment->segState.dfCursor.z);
 
         if (!b) {
             return;
         }
-        int ttype;
         const char* tform = NULL;
         using df::tiletype_shape_basic;
 
         if (b->tileShapeBasic() == tiletype_shape_basic::Floor) {
-            ttype = b->tileType;
             tform = "floor";
         }
         else if (b->tileShapeBasic() == tiletype_shape_basic::Wall) {
-            ttype = b->tileType;
             tform = "wall";
         }
         else if (b->tileShapeBasic() == tiletype_shape_basic::Ramp ||
             b->tileType == df::tiletype::RampTop) {
-            ttype = b->tileType;
             tform = "ramp";
         }
         else if (b->tileShapeBasic() == tiletype_shape_basic::Stair) {
-            ttype = b->tileType;
             tform = "stair";
         }
-        else {
-            ttype = -1;
+
+        auto modeStr = "";
+        std::vector<std::string> options = {""};
+        switch (stonesenseState.ssState.mode) {
+        case 0: //Default
+            modeStr = "DEFAULT";
+            options = { "Dig", "Chop", "Gather", "Smooth", "Erase"};
+            break;
+        case 1: //Dig
+            modeStr = "DIGGING";
+            options = {"Dig", "Stairs", "Ramp", "Channel", "Remove"};
+            break;
+        case 2: //Chop
+            modeStr = "CHOP";
+            options = { "Chop", "-", "-", "-", "-" };
+            break;
+        case 3: //Gather
+            modeStr = "GATHER";
+            options = { "Gather", "-", "-", "-", "-"};
+            break;
+        case 4: //Smooth
+            modeStr = "SMOOTH";
+            options = { "Smooth", "Engrave", "Carve Track", "Fortification", "-"};
+            break;
+        case 5: //Erase
+            modeStr = "ERASER";
+            options = { "Erase", "-", "-", "-", "-"};
+            break;
+            break;
+        case 6: //Building
+            modeStr = "BUILDING";
+            options = { "Build", "-", "-", "-", "-" };
+            break;
+            break;
+        case 7: //Traffic
+            modeStr = "TRAFFIC";
+            options = { "High", "Medium", "Low", "Restricted", "-"};
+            break;
+        };
+
+        // Draw mode string
+        draw_textf_border(font, uiColor(1), 2, (i++ * fontHeight), 0, modeStr);
+        i++;
+
+        // Draw each option in the list
+        int idx = 1;
+        for (const auto& option : options) {
+            if (!option.empty()) {
+                std::string displayText = "Option" + std::to_string(idx) + ": " + option;
+                draw_textf_border(font, stonesenseState.ssState.submode == option ? uiColor(2) : uiColor(1),
+                    2, (i++ * fontHeight), 0, displayText.c_str());
+            }
+            idx++;
         }
+        if (stonesenseState.ssState.mode == 1 || //Dig
+            stonesenseState.ssState.mode == 2 || //Chop
+            stonesenseState.ssState.mode == 3 || //Gather
+            stonesenseState.ssState.mode == 4 || //Smooth
+            stonesenseState.ssState.mode == 5 || //Erase
+            stonesenseState.ssState.mode == 7) { //Traffic
+                draw_textf_border(font, stonesenseState.ssState.rectangleSelect ? uiColor(2) : uiColor(1), 2, (i++ * fontHeight), 0, "Rectangle");
+                draw_textf_border(font, !stonesenseState.ssState.rectangleSelect ? uiColor(2) : uiColor(1), 2, (i++ * fontHeight), 0, "FreeDraw");
+                draw_textf_border(font, stonesenseState.ssState.blueprinting ? uiColor(2) : uiColor(1), 2, (i++ * fontHeight), 0, "Blueprint Mode");
+        }
+
         if (tform != NULL && b->material.type != INVALID_INDEX) {
             const char* formName = lookupFormName(b->consForm);
             const char* matName = lookupMaterialTypeName(b->material.type);

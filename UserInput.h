@@ -1,17 +1,13 @@
 //declarations of actions taken for user keystrokes
 
-void action_openDig(uint32_t keymod);
-void action_designStairs(uint32_t keymod);
-void action_designRamp(uint32_t keymod);
-void action_designChannel(uint32_t keymod);
-void action_removeDesign(uint32_t keymod);
-
-void action_openSmooth(uint32_t keymod);
-void action_designEngrave(uint32_t keymod);
-void action_designTrack(uint32_t keymod);
-void action_designFortify(uint32_t keymod);
-
-void action_designErase(uint32_t keymod);
+void action_option1(uint32_t keymod);
+void action_option2(uint32_t keymod);
+void action_option3(uint32_t keymod);
+void action_option4(uint32_t keymod);
+void action_option5(uint32_t keymod);
+void action_option6(uint32_t keymod);
+void action_option7(uint32_t keymod);
+void action_option8(uint32_t keymod);
 
 void action_togglePause(uint32_t keymod);
 

@@ -221,18 +221,15 @@ action_name_mapper actionnamemap[] = {
     //add extra action here!
 
     {"TOGGLEPAUSE", action_togglePause},
-    {"OPENDIG", action_openDig},
-    {"DESIGNSTAIRS", action_designStairs},
-    {"DESIGNRAMP", action_designRamp},
-    {"DESIGNCHANNEL", action_designChannel},
-    {"REMOVEDESIGN", action_removeDesign},
 
-    {"OPENSMOOTH", action_openSmooth},
-    {"DESIGNENGRAVE", action_designEngrave},
-    {"DESIGNTRACK", action_designTrack},
-    {"DESIGNFORTIFY", action_designFortify},
-
-    {"DESIGNERASE", action_designErase},
+    {"OPTION1",action_option1},
+    {"OPTION2",action_option2},
+    {"OPTION3",action_option3},
+    {"OPTION4",action_option4},
+    {"OPTION5",action_option5},
+    {"OPTION6",action_option6},
+    {"OPTION7",action_option7},
+    {"OPTION8",action_option8},
 
     {"INVALID", action_invalid}//this is the stop condition
 };
