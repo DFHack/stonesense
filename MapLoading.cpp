@@ -953,7 +953,7 @@ void read_segment( void *arg)
             ssState.dfSelection.z = df::global::selection_rect->start_z;
         }
 
-        if (firstLoad || stonesenseState.ssConfig.config.track_mode != Config::TRACKING_NONE) {
+        if (firstLoad || isViewTracking()) {
             firstLoad = 0;
             if (stonesenseState.ssConfig.config.track_mode == Config::TRACKING_CENTER) {
                 followCurrentDFCenter();

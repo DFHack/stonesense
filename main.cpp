@@ -46,9 +46,9 @@ int keyoffset=0;
 
 std::vector<DFHack::t_matgloss> v_stonetypes;
 
-/*FIXME: Find a new replacement for the overlay mode.
-std::unique_ptr<Overlay> overlay;
-*/
+/*FIXME: Find a new replacement for the overlay mode.*/
+//std::unique_ptr<Overlay> overlay;
+
 ALLEGRO_DISPLAY * display;
 
 ALLEGRO_EVENT event;
@@ -221,40 +221,45 @@ static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALL
 
     ALLEGRO_EVENT event;
     while (!al_get_thread_should_stop(main_thread)) {
+        if (DFHack::Gui::getCurFocus().front().starts_with("dwarfmode/Default")) {
+            stonesenseState.ssState.mode = GameState::modeTypes::DEFAULT;
+            stonesenseState.ssState.submode = "None";
+            stonesenseState.ssState.clickedOnceYet = false;
+        }
         if (redraw && al_event_queue_is_empty(queue)) {
 
             al_rest(0);
 
-            /*FIXME: Find a new replacement for the overlay mode.
-            if (ssConfig.overlay_mode)
-            {
-                bool goodoverlay = ovrlay->GoodViewscreen();
-                if (!goodoverlay) {
-                    //do nothing; this isn't a view we can overlay
-                }if (ssConfig.spriteIndexOverlay) {
-                    DrawSpriteIndexOverlay(ssConfig.currentSpriteOverlay);
-                    ovrlay->Flip();
-                }
-                else if (!Maps::IsValid()) {
-                    drawcredits();
-                    ovrlay->Flip();
-                }
-                else if (timeToReloadSegment) {
-                    reloadPosition();
-                    al_clear_to_color(ssConfig.config.backcol);
-                    paintboard();
-                    ovrlay->Flip();
-                    timeToReloadSegment = false;
-                    animationFrameShown = true;
-                }
-                else if (animationFrameShown == false) {
-                    al_clear_to_color(ssConfig.config.backcol);
-                    paintboard();
-                    ovrlay->Flip();
-                    animationFrameShown = true;
-                }
-            }
-            else */
+            /*FIXME: Find a new replacement for the overlay mode.*/
+            //if (stonesenseState.ssConfig.overlay_mode)
+            //{
+            //    bool goodoverlay = overlay->GoodViewscreen();
+            //    if (!goodoverlay) {
+            //        //do nothing; this isn't a view we can overlay
+            //    }if (ssConfig.spriteIndexOverlay) {
+            //        DrawSpriteIndexOverlay(ssConfig.currentSpriteOverlay);
+            //        overlay->Flip();
+            //    }
+            //    else if (!DFHack::Maps::IsValid()) {
+            //        drawcredits();
+            //        overlay->Flip();
+            //    }
+            //    else if (stonesenseState.timeToReloadSegment) {
+            //        reloadPosition();
+            //        al_clear_to_color(ssConfig.config.backcol);
+            //        paintboard();
+            //        overlay->Flip();
+            //        stonesenseState.timeToReloadSegment = false;
+            //        stonesenseState.animationFrameShown = true;
+            //    }
+            //    else if (stonesenseState.animationFrameShown == false) {
+            //        al_clear_to_color(ssConfig.config.backcol);
+            //        paintboard();
+            //        overlay->Flip();
+            //        stonesenseState.animationFrameShown = true;
+            //    }
+            //}
+            //else
             {
                 if (ssConfig.spriteIndexOverlay) {
                     DrawSpriteIndexOverlay(ssConfig.currentSpriteOverlay);
@@ -280,7 +285,7 @@ static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALL
                 }
             }
 
-            if (!ssConfig.overlay_mode) {
+            if (!stonesenseState.ssConfig.overlay_mode||true) {
                 doMouse();
                 doRepeatActions();
             }
@@ -302,9 +307,9 @@ static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALL
         if(in_time) {
             switch (event.type) {
             case ALLEGRO_EVENT_DISPLAY_RESIZE:
-                if (ssConfig.overlay_mode) {
-                    break;
-                }
+                //if (stonesenseState.ssConfig.overlay_mode) {
+                //    break;
+                //}
                 stonesenseState.timeToReloadSegment = true;
                 redraw = true;
                 stonesenseState.ssState.ScreenH = event.display.height;
@@ -317,9 +322,9 @@ static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALL
                 /* ALLEGRO_EVENT_KEY_DOWN - a keyboard key was pressed.
                 */
             case ALLEGRO_EVENT_KEY_CHAR:
-                if (ssConfig.overlay_mode) {
-                    break;
-                }
+                //if (stonesenseState.ssConfig.overlay_mode) {
+                //    break;
+                //}
                 if(event.keyboard.display != display) {
                     break;
                 }
@@ -393,12 +398,19 @@ static void* stonesense_thread(ALLEGRO_THREAD* main_thread, void* parms)
     out.print("Using allegro version %d.%d.%d r%d\n", major, minor, revision, release);
 
     auto& ssConfig = stonesenseState.ssConfig;
-    al_set_new_display_flags(
-        (ssConfig.config.Fullscreen && !ssConfig.overlay_mode ? ALLEGRO_FULLSCREEN : ALLEGRO_WINDOWED)
-        |(ssConfig.overlay_mode ? 0 : ALLEGRO_RESIZABLE)
-        |(ssConfig.overlay_mode ? ALLEGRO_MINIMIZED : 0)
+    /*al_set_new_display_flags(
+        (ssConfig.config.Fullscreen && !stonesenseState.ssConfig.overlay_mode ? ALLEGRO_FULLSCREEN : ALLEGRO_WINDOWED)
+        |(stonesenseState.ssConfig.overlay_mode ? 0 : ALLEGRO_RESIZABLE)
+        |(stonesenseState.ssConfig.overlay_mode ? ALLEGRO_MINIMIZED : 0)
         |(ssConfig.config.opengl ? ALLEGRO_OPENGL : 0)
-        |(ssConfig.config.directX ? ALLEGRO_DIRECT3D_INTERNAL : 0));
+        |(ssConfig.config.directX ? ALLEGRO_DIRECT3D_INTERNAL : 0));*/
+
+    al_set_new_display_flags(
+        (ssConfig.config.Fullscreen ? ALLEGRO_FULLSCREEN : ALLEGRO_WINDOWED)
+        | (ALLEGRO_RESIZABLE)
+        | (ALLEGRO_MINIMIZED)
+        | (ssConfig.config.opengl ? ALLEGRO_OPENGL : 0)
+        | (ssConfig.config.directX ? ALLEGRO_DIRECT3D_INTERNAL : 0));
 
     if(ssConfig.config.software) {
         al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP|_ALLEGRO_ALPHA_TEST|ALLEGRO_MIN_LINEAR|ALLEGRO_MIPMAP);
@@ -437,12 +449,12 @@ static void* stonesense_thread(ALLEGRO_THREAD* main_thread, void* parms)
     SetTitle("Stonesense");
     drawcredits();
 
-    /*FIXME: Find a new replacement for the overlay mode.
-        if(ssConfig.overlay_mode){
-        overlay = std::make_unique<Overlay>(df::global::enabler->renderer);
-        df::global::enabler->renderer = overlay.get();
-    }
-    */
+    ////FIXME: Find a new replacement for the overlay mode.
+    //    if(stonesenseState.ssConfig.overlay_mode){
+    //    overlay = std::make_unique<Overlay>(df::global::enabler->renderer);
+    //    df::global::enabler->renderer = overlay.get();
+    //}
+
 
     std::filesystem::path p = std::filesystem::path{} / "stonesense" / "stonesense.png";
     IMGIcon = load_bitmap_withWarning(p);
@@ -502,9 +514,9 @@ static void* stonesense_thread(ALLEGRO_THREAD* main_thread, void* parms)
     // window is destroyed.
     al_destroy_display(display);
     display = 0;
-    /*FIXME: Find a new replacement for the overlay mode.
-    overlay.reset();
-    */
+    /*FIXME: Find a new replacement for the overlay mode.*/
+    //overlay.reset();
+
 
     if(ssConfig.threadmade) {
         al_broadcast_cond(ssConfig.readCond);
@@ -556,31 +568,24 @@ DFhackCExport command_result plugin_shutdown ( color_ostream &out )
 //and the actual stonesense command. Maybe.
 DFhackCExport command_result stonesense_command(color_ostream &out, std::vector<std::string> & params)
 {
-/*
-    if (!init->display.flag.is_set(init_display_flags::RENDER_2D) &&
-        !params.empty() && params[0] == "overlay")
-    {
-        out.printerr("'stonesense overlay' is not supported in this print mode.\n"
-            "Try changing PRINT_MODE to 2D or a similar choice in init.txt.\n");
-        return CR_FAILURE;
-    }
-#ifdef _DARWIN
-    if (!init->display.flag.is_set(init_display_flags::RENDER_2D))
-    {
-        out.printerr("The current print mode is not suported\n"
-            "Change PRINT_MODE in init.txt to 2D or a similar choice\n");
-        return CR_FAILURE;
-    }
-#endif
-*/
     if(stonesense_started) {
         out.print("Stonesense already running.\n");
         return CR_OK;
     }
-    stonesenseState.ssConfig.overlay_mode = false;
+
+    auto& ssConfig = stonesenseState.ssConfig;
+    ssConfig.overlay_mode = false;
     if(params.size() > 0 ) {
         if(params[0] == "overlay"){
-            //ssConfig.overlay_mode = true;
+            auto focusStr = DFHack::Gui::getCurFocus().front();
+            if (!(focusStr.starts_with("title") ||
+                focusStr.starts_with("loadgame"))) {
+                out.print(
+                    "You need to start this mode from the titlescreen and enable keyboard cursor (in settings) to ensure a proper state."
+                );
+                return CR_OK;
+            }
+            ssConfig.overlay_mode = true;
         } else {
             DumpInfo(out, params);
             return CR_OK;

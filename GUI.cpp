@@ -464,7 +464,6 @@ void DrawCurrentLevelOutline(bool backPart)
     p4.y += FLOORHEIGHT*ssConfig.scale;
     if(backPart) {
         al_draw_line(p1.x, p1.y, p1.x, p1.y-TILEHEIGHT*ssConfig.scale, uiColor(0), 0);
-        al_draw_line(p1.x, p1.y, p1.x, p1.y-TILEHEIGHT*ssConfig.scale, uiColor(0), 0);
         al_draw_line(p1.x, p1.y, p2.x, p2.y, uiColor(0), 0);
         al_draw_line(p1.x, p1.y-TILEHEIGHT*ssConfig.scale, p2.x, p2.y-TILEHEIGHT*ssConfig.scale, uiColor(0), 0);
         al_draw_line(p2.x, p2.y, p2.x, p2.y-TILEHEIGHT*ssConfig.scale, uiColor(0), 0);
@@ -484,25 +483,18 @@ void DrawCurrentLevelOutline(bool backPart)
 
 namespace
 {
-    void drawSelectionCursor(WorldSegment* segment)
+    void drawCursorAt(WorldSegment* segment, Crd3D location, ALLEGRO_COLOR color)
     {
         auto& ssConfig = stonesenseState.ssConfig;
 
-        Crd3D selection = segment->segState.dfSelection;
-        if ((selection.x != -30000 && ssConfig.config.follow_DFcursor)
-            || (ssConfig.config.track_mode == Config::TRACKING_FOCUS)) {
-            segment->CorrectTileForSegmentOffset(selection.x, selection.y, selection.z);
-            segment->CorrectTileForSegmentRotation(selection.x, selection.y, selection.z);
-        }
-        else {
-            return;
-        }
-        Crd2D point = LocalTileToScreen(selection.x, selection.y, selection.z);
+        segment->CorrectTileForSegmentOffset(location.x, location.y, location.z);
+        segment->CorrectTileForSegmentRotation(location.x, location.y, location.z);
+        Crd2D point = LocalTileToScreen(location.x, location.y, location.z);
         int sheetx = SPRITEOBJECT_CURSOR % SHEET_OBJECTSWIDE;
         int sheety = SPRITEOBJECT_CURSOR / SHEET_OBJECTSWIDE;
         al_draw_tinted_scaled_bitmap(
             stonesenseState.IMGObjectSheet,
-            uiColor(3),
+            color,
             sheetx * SPRITEWIDTH,
             sheety * SPRITEHEIGHT,
             SPRITEWIDTH,
@@ -514,29 +506,26 @@ namespace
             0);
     }
 
+    void drawSelectionCursors(WorldSegment* segment)
+    {
+        Crd3D selection;
+        (stonesenseState.ssConfig.overlay_mode) ? selection = segment->segState.dfCursor : selection = segment->segState.dfSelection;
+        DFHack::Gui::setCursorCoords(
+            selection.x,
+            selection.y,
+            selection.z);
+        drawCursorAt(segment, segment->segState.dfSelection2, uiColor(4));
+        drawCursorAt(segment, selection, uiColor(3)); // We draw the main one second so it appears on top
+    }
+
     void drawDebugCursor(WorldSegment* segment)
     {
-        auto& ssConfig = stonesenseState.ssConfig;
-
         Crd3D cursor = segment->segState.dfCursor;
-        segment->CorrectTileForSegmentOffset(cursor.x, cursor.y, cursor.z);
-        segment->CorrectTileForSegmentRotation(cursor.x, cursor.y, cursor.z);
-
-        Crd2D point = LocalTileToScreen(cursor.x, cursor.y, cursor.z);
-        int sheetx = SPRITEOBJECT_CURSOR % SHEET_OBJECTSWIDE;
-        int sheety = SPRITEOBJECT_CURSOR / SHEET_OBJECTSWIDE;
-        al_draw_tinted_scaled_bitmap(
-            stonesenseState.IMGObjectSheet,
-            uiColor(2),
-            sheetx * SPRITEWIDTH,
-            sheety * SPRITEHEIGHT,
-            SPRITEWIDTH,
-            SPRITEHEIGHT,
-            point.x - ((SPRITEWIDTH / 2) * ssConfig.scale),
-            point.y - (WALLHEIGHT)*ssConfig.scale,
-            SPRITEWIDTH * ssConfig.scale,
-            SPRITEHEIGHT * ssConfig.scale,
-            0);
+        DFHack::Gui::setCursorCoords(
+            cursor.x,
+            cursor.y,
+            cursor.z);
+        drawCursorAt(segment, cursor, uiColor(2));
     }
 
     void drawAdvmodeMenuTalk(const ALLEGRO_FONT* font, int x, int y)
@@ -765,6 +754,224 @@ namespace
                 b->tileeffect.density, matName ? matName : "Unknown", subMatName ? "/" : "", subMatName ? subMatName : "");
         }
     }
+
+    void drawGeneralInfo(WorldSegment* segment)
+    {
+        using df::global::plotinfo;
+        auto font = stonesenseState.font;
+        auto fontHeight = al_get_font_line_height(font);
+
+        //get tile info
+        Tile* b = segment->getTile(
+            segment->segState.dfCursor.x,
+            segment->segState.dfCursor.y,
+            segment->segState.dfCursor.z);
+
+        int i = 1;
+
+        draw_textf_border(font, uiColor(1), 2, (i++ * fontHeight), 0,
+            "Coord:(%i,%i,%i)", segment->segState.dfCursor.x, segment->segState.dfCursor.y, segment->segState.dfCursor.z);
+
+        if (!b) {
+            return;
+        }
+        const char* tform = NULL;
+        using df::tiletype_shape_basic;
+
+        if (b->tileShapeBasic() == tiletype_shape_basic::Floor) {
+            tform = "floor";
+        }
+        else if (b->tileShapeBasic() == tiletype_shape_basic::Wall) {
+            tform = "wall";
+        }
+        else if (b->tileShapeBasic() == tiletype_shape_basic::Ramp ||
+            b->tileType == df::tiletype::RampTop) {
+            tform = "ramp";
+        }
+        else if (b->tileShapeBasic() == tiletype_shape_basic::Stair) {
+            tform = "stair";
+        }
+
+        auto modeStr = "";
+        std::vector<std::string> options = {""};
+        auto keymods = getKeyMods(&stonesenseState.keyboard);
+        if (keymods & ALLEGRO_KEYMOD_SHIFT) {
+            options = {
+                "Toggle Names",
+                "Cycle Professions",
+                "Toggle Moods",
+                "Toggle Zones",
+                "Toggle Stockpiles",
+                "Toggle Designations",
+                "Toggle Announcements",
+            };
+        } else {
+            switch (stonesenseState.ssState.mode) {
+            case 0: //Default
+                modeStr = "DEFAULT";
+                options = { "Dig", "Chop", "Gather", "Smooth", "Erase" };
+                break;
+            case 1: //Dig
+                modeStr = "DIGGING";
+                options = { "Dig", "Stairs", "Ramp", "Channel", "Remove" };
+                break;
+            case 2: //Chop
+                modeStr = "CHOP";
+                options = { "Chop", "-", "-", "-", "-" };
+                break;
+            case 3: //Gather
+                modeStr = "GATHER";
+                options = { "Gather", "-", "-", "-", "-" };
+                break;
+            case 4: //Smooth
+                modeStr = "SMOOTH";
+                options = { "Smooth", "Engrave", "Carve Track", "Fortification", "-" };
+                break;
+            case 5: //Erase
+                modeStr = "ERASER";
+                options = { "Erase", "-", "-", "-", "-" };
+                break;
+                break;
+            case 6: //Building
+                modeStr = "BUILDING";
+                options = { "Build", "-", "-", "-", "-" };
+                break;
+                break;
+            case 7: //Traffic
+                modeStr = "TRAFFIC";
+                options = { "High", "Medium", "Low", "Restricted", "-" };
+                break;
+            };
+        }
+
+        // Draw mode string
+        draw_textf_border(font, uiColor(1), 2, (i++ * fontHeight), 0, modeStr);
+        draw_textf_border(font, (keymods & ALLEGRO_KEYMOD_SHIFT) ? uiColor(2) : uiColor(1), 2, (i * fontHeight), 0, "Shift ");
+        draw_textf_border(font, (keymods & ALLEGRO_KEYMOD_CTRL) ? uiColor(2) : uiColor(1), 2 + al_get_text_width(font, "Shift "), (i * fontHeight), 0, "Ctrl ");
+        draw_textf_border(font, (keymods & ALLEGRO_KEYMOD_ALT) ? uiColor(2) : uiColor(1), 2 + al_get_text_width(font, "Shift Ctrl "), (i * fontHeight), 0, "Alt");
+
+        i++;
+
+        // Draw each option in the list
+        int idx = 1;
+        for (const auto& option : options) {
+            if (!option.empty()) {
+                std::string displayText = "Option" + std::to_string(idx) + ": " + option;
+                draw_textf_border(font, stonesenseState.ssState.submode == option ? uiColor(2) : uiColor(1),
+                    2, (i++ * fontHeight), 0, displayText.c_str());
+            }
+            idx++;
+        }
+        if (stonesenseState.ssState.mode == 1 || //Dig
+            stonesenseState.ssState.mode == 2 || //Chop
+            stonesenseState.ssState.mode == 3 || //Gather
+            stonesenseState.ssState.mode == 4 || //Smooth
+            stonesenseState.ssState.mode == 5 || //Erase
+            stonesenseState.ssState.mode == 7) { //Traffic
+                draw_textf_border(font, stonesenseState.ssState.rectangleSelect ? uiColor(2) : uiColor(1), 2, (i++ * fontHeight), 0, "Option6: Rectangle");
+                draw_textf_border(font, !stonesenseState.ssState.rectangleSelect ? uiColor(2) : uiColor(1), 2, (i++ * fontHeight), 0, "Option7: FreeDraw");
+                draw_textf_border(font, stonesenseState.ssState.blueprinting ? uiColor(2) : uiColor(1), 2, (i++ * fontHeight), 0, "Option8: Blueprint Mode");
+                if (stonesenseState.ssState.mode == 1) { //Dig
+                    draw_textf_border(font, stonesenseState.ssState.veinMining ? uiColor(2) : uiColor(1), 2, (i++ * fontHeight), 0, "Option9: Vein Mode");
+                }
+        }
+
+        if (tform != NULL && b->material.type != INVALID_INDEX) {
+            const char* formName = lookupFormName(b->consForm);
+            const char* matName = lookupMaterialTypeName(b->material.type);
+            const char* subMatName = lookupMaterialName(b->material.type, b->material.index);
+            draw_textf_border(font, uiColor(1), 2, (i++ * fontHeight), 0,
+                "%s%s%s %s %s",
+                matName ? matName : "Unknown",
+                subMatName ? "/" : "",
+                subMatName ? subMatName : "",
+                formName,
+                tform
+            );
+        }
+
+        if (b->building.info && b->building.type != BUILDINGTYPE_NA && b->building.type != BUILDINGTYPE_BLACKBOX && b->building.type != BUILDINGTYPE_TREE) {
+            const char* subTypeName = lookupBuildingSubtype(b->building.type, b->building.info->subtype);
+            draw_textf_border(font, uiColor(1), 2, (i++ * fontHeight), 0,
+                "Building:  %s %s",
+                std::string(subTypeName) != "NA" ? subTypeName : "",
+                ENUM_KEY_STR(building_type, (df::building_type)b->building.type).c_str());
+            for (size_t index = 0; index < b->building.constructed_mats.size(); index++) {
+                const char* partMatName = lookupMaterialTypeName(b->building.constructed_mats[index].matt.type);
+                const char* partSubMatName = lookupMaterialName(b->building.constructed_mats[index].matt.type, b->building.constructed_mats[index].matt.index);
+                draw_textf_border(font, uiColor(1), 2, (i++ * fontHeight), 0,
+                    "Material[%i]: %s%s%s",
+                    index,
+                    partMatName ? partMatName : "Unknown", partSubMatName ? "/" : "", partSubMatName ? partSubMatName : "");
+            }
+        }
+        else {
+
+            if (tform != NULL && b->material.type != INVALID_INDEX && b->material.index != INVALID_INDEX) {
+                DFHack::MaterialInfo mat;
+                mat.decode(b->material.type, b->material.index);
+                if (mat.isValid())
+                {
+                    draw_textf_border(font, uiColor(1), 2, (i++ * fontHeight), 0,
+                        "Tile: %s %s", mat.material->state_name[0].c_str(), DFHack::enum_item_key_str(b->tileType));
+                }
+            }
+
+        }
+
+        if (b->designation.bits.traffic) {
+            draw_textf_border(font, uiColor(1), 2, (i++ * fontHeight), 0,
+                "Traffic: %d", b->designation.bits.traffic);
+        }
+        if (b->designation.bits.pile) {
+            draw_textf_border(font, uiColor(1), 2, (i++ * fontHeight), 0,
+                "Stockpile?");
+        }
+        if (b->designation.bits.water_table) {
+            draw_textf_border(font, uiColor(1), 2, (i++ * fontHeight), 0, "Water table");
+        }
+        if (b->designation.bits.rained) {
+            draw_textf_border(font, uiColor(1), 2, (i++ * fontHeight), 0, "Rained");
+        }
+        if (b->Item.item.type >= 0) {
+            DFHack::MaterialInfo mat;
+            mat.decode(b->Item.matt.type, b->Item.matt.index);
+            DFHack::ItemTypeInfo itemdef;
+            bool subtype = itemdef.decode((df::item_type)b->Item.item.type, b->Item.item.index);
+            draw_textf_border(font, uiColor(1), 2, (i++ * fontHeight), 0,
+                "Item: %s - %s",
+                mat.getToken().c_str(),
+                subtype ? itemdef.getToken().c_str() : "");
+        }
+
+        const char* matName = lookupMaterialTypeName(b->tileeffect.matt.type);
+        const char* subMatName = lookupMaterialName(b->tileeffect.matt.type, b->tileeffect.matt.index);
+        std::string text{};
+        switch (b->tileeffect.type) {
+        case df::flow_type::Miasma: text = "Miasma"; break;
+        case df::flow_type::Steam:  text = "Steam";  break;
+        case df::flow_type::Mist:   text = "Mist";   break;
+        case df::flow_type::MaterialDust: text = "MaterialDust"; break;
+        case df::flow_type::MagmaMist: text = "MagmaMist"; break;
+        case df::flow_type::Smoke: text = "Smoke"; break;
+        case df::flow_type::Dragonfire: text = "Dragonfire"; break;
+        case df::flow_type::Fire: text = "Fire"; break;
+        case df::flow_type::Web: text = "Web"; break;
+        case df::flow_type::MaterialGas: text = "MaterialGas"; break;
+        case df::flow_type::MaterialVapor: text = "MaterialVapor"; break;
+        case df::flow_type::OceanWave: text = "OceanWave"; break;
+        case df::flow_type::SeaFoam: text = "SeaFoam"; break;
+        case df::flow_type::ItemCloud:
+            // TODO
+            break;
+        }
+
+        if (!text.empty()) {
+            draw_textf_border(font, uiColor(1), 2, (i++ * fontHeight), 0,
+                "%s: %d, Material:%s%s%s", text.c_str(),
+                b->tileeffect.density, matName ? matName : "Unknown", subMatName ? "/" : "", subMatName ? subMatName : "");
+        }
+    }
 }
 
 void DrawMinimap(WorldSegment * segment)
@@ -915,6 +1122,13 @@ void paintboard()
         draw_announcements(font, ssState.ScreenW, ssState.ScreenH - 10 - al_get_font_line_height(font), ALLEGRO_ALIGN_RIGHT, df::global::world->status.announcements);
         al_hold_bitmap_drawing(false);
     }
+    if (ssConfig.overlay_mode) {
+        al_hold_bitmap_drawing(true);
+        draw_textf_border(font, *df::global::pause_state ? uiColor(5) : uiColor(3), 0, 0, ALLEGRO_ALIGN_LEFT, (*df::global::pause_state ? "Paused" : "Running"));
+        drawSelectionCursors(segment);
+        drawGeneralInfo(segment);
+        al_hold_bitmap_drawing(false);
+    }
     if(ssConfig.show_keybinds){
         std::string *keyname, *actionname;
         keyname = actionname = NULL;
@@ -923,7 +1137,7 @@ void paintboard()
 
         for(int32_t i=1; true; i++){
             if(getKeyStrings(i, keyname, actionname)){
-                draw_textf_border(font, uiColor(1), 10, line*fontHeight, 0, "%s: %s%s", keyname->c_str(), actionname->c_str(), isRepeatable(i) ? " (repeats)" : "");
+                draw_textf_border(font, uiColor(1), stonesenseState.ssState.ScreenW-10, line*fontHeight, ALLEGRO_ALIGN_RIGHT, "%s: %s%s", keyname->c_str(), actionname->c_str(), isRepeatable(i) ? " (repeats)" : "");
                 line++;
             }
             if(keyname == NULL) {
@@ -935,7 +1149,7 @@ void paintboard()
         al_hold_bitmap_drawing(true);
         draw_textf_border(font, uiColor(1), 10,fontHeight, 0, "%i,%i,%i, r%i, z%i", ssState.Position.x,ssState.Position.y,ssState.Position.z, ssState.Rotation, ssConfig.zoom);
 
-        drawSelectionCursor(segment);
+        drawSelectionCursors(segment);
 
         drawDebugCursor(segment);
 
@@ -955,7 +1169,7 @@ void paintboard()
         }
         ssConfig.platecount = 0;
         int top = 0;
-        if(ssConfig.config.track_mode != Config::TRACKING_NONE) {
+        if(isViewTracking()) {
             top += fontHeight;
             draw_textf_border(font, uiColor(1), ssState.ScreenW/2,top, ALLEGRO_ALIGN_CENTRE, "Locked on DF screen + (%d,%d,%d)",ssConfig.config.viewOffset.x,ssConfig.config.viewOffset.y,ssConfig.config.viewOffset.z);
         }

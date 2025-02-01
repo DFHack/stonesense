@@ -1,5 +1,18 @@
 //declarations of actions taken for user keystrokes
 
+void action_option1(uint32_t keymod);
+void action_option2(uint32_t keymod);
+void action_option3(uint32_t keymod);
+void action_option4(uint32_t keymod);
+void action_option5(uint32_t keymod);
+void action_option6(uint32_t keymod);
+void action_option7(uint32_t keymod);
+void action_option8(uint32_t keymod);
+void action_option9(uint32_t keymod);
+
+void action_togglePause(uint32_t keymod);
+
+
 void action_incrrotation(uint32_t keymod);
 void action_reloadsegment(uint32_t keymod);
 void action_paintboard(uint32_t keymod);

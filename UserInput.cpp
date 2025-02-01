@@ -1,6 +1,7 @@
 #include <cmath>
 
 #include "common.h"
+#include "df/viewscreen.h"
 #include "GUI.h"
 #include "BuildingConfiguration.h"
 #include "ContentLoader.h"
@@ -70,6 +71,22 @@ void abortAutoReload()
     //remove_int( automaticReloadProc );
 }
 
+auto lastMoveTime = clock();
+bool okToMoveView() {
+    if ((clockToMs(clock() - lastMoveTime) >= MOVEMENTWAITTIME)) {
+        lastMoveTime = clock();
+        return true;
+    }
+    return false;
+}
+
+//Safely sends a key to DF
+void sendDFKey(df::interface_key key) {
+    DFHack::CoreSuspender suspend;
+    df::viewscreen* screen = DFHack::Gui::getDFViewscreen();
+    screen->feed_key(key);
+}
+
 void changeRelativeToRotation( int &inputx, int &inputy, int stepx, int stepy )
 {
     auto& ssState = stonesenseState.ssState;
@@ -99,7 +116,7 @@ void moveViewRelativeToRotation( int stepx, int stepy )
     auto& ssConfig = stonesenseState.ssConfig;
     auto& ssState = stonesenseState.ssState;
 
-    if (ssConfig.config.track_mode != Config::TRACKING_NONE) {
+    if (isViewTracking()) {
         changeRelativeToRotation(ssConfig.config.viewOffset.x, ssConfig.config.viewOffset.y, stepx, stepy );
     }
     //if we're following the DF screen, we DO NOT bound the view, since we have a simple way to get back
@@ -121,7 +138,7 @@ void moveViewRelativeToRotation( int stepx, int stepy )
     }
 }
 
-
+bool mouseDown = false;
 void doMouse()
 {
     auto& ssConfig = stonesenseState.ssConfig;
@@ -154,23 +171,28 @@ void doMouse()
         last_mouse_z = mouse.z;
     }
     if( mouse.buttons & 2 ) {
-        ssConfig.config.track_mode = Config::TRACKING_NONE;
-        int x, y;
-        x = mouse.x;
-        y = mouse.y;
-        int tilex,tiley,tilez;
-        ScreenToPoint(x,y,tilex,tiley,tilez);
-        int diffx = tilex - ssState.Size.x/2;
-        int diffy = tiley - ssState.Size.y/2;
-        /*we use changeRelativeToRotation directly, and not through moveViewRelativeToRotation
-        because we don't want to move the offset with the mouse. It just feels weird. */
-        // changing to +1,+1 which moves the clicked point to one of the 4 surrounding the center of rotation
-        changeRelativeToRotation(ssState.Position.x, ssState.Position.y, diffx+1, diffy+1 );
-        //moveViewRelativeToRotation(diffx+1, diffy+1);
-        stonesenseState.timeToReloadSegment = true;
-        //rest(50);
+        if (ssConfig.overlay_mode) {
+            sendDFKey(df::interface_key::LEAVESCREEN);
+            stonesenseState.ssState.clickedOnceYet = false;
+        }else{
+            ssConfig.config.track_mode = Config::TRACKING_NONE;
+            int x, y;
+            x = mouse.x;
+            y = mouse.y;
+            int tilex,tiley,tilez;
+            ScreenToPoint(x,y,tilex,tiley,tilez);
+            int diffx = tilex - ssState.Size.x/2;
+            int diffy = tiley - ssState.Size.y/2;
+            /*we use changeRelativeToRotation directly, and not through moveViewRelativeToRotation
+            because we don't want to move the offset with the mouse. It just feels weird. */
+            // changing to +1,+1 which moves the clicked point to one of the 4 surrounding the center of rotation
+            changeRelativeToRotation(ssState.Position.x, ssState.Position.y, diffx+1, diffy+1 );
+            //moveViewRelativeToRotation(diffx+1, diffy+1);
+            stonesenseState.timeToReloadSegment = true;
+            //rest(50);
+        }
     }
-    if( mouse.buttons & 1 ) {
+    if( mouse.buttons & 1 || ssConfig.overlay_mode) {
         ssConfig.config.follow_DFcursor = false;
         int x, y;
         x = mouse.x;//pos >> 16;
@@ -178,7 +200,8 @@ void doMouse()
         if(x >= stonesenseState.MiniMapTopLeftX &&
             x <= stonesenseState.MiniMapBottomRightX &&
             y >= stonesenseState.MiniMapTopLeftY &&
-            y <= stonesenseState.MiniMapBottomRightY) { // in minimap
+            y <= stonesenseState.MiniMapBottomRightY &&
+            mouse.buttons & 1) { // clicking in minimap (we recheck the button for immersive mode
             ssState.Position.x = (x- stonesenseState.MiniMapTopLeftX- stonesenseState.MiniMapSegmentWidth/2)/ stonesenseState.oneTileInPixels;
             ssState.Position.y = (y- stonesenseState.MiniMapTopLeftY- stonesenseState.MiniMapSegmentHeight/2)/ stonesenseState.oneTileInPixels;
         } else {
@@ -204,8 +227,23 @@ void doMouse()
             ssState.dfCursor.x = tilex;
             ssState.dfCursor.y = tiley;
             ssState.dfCursor.z = tilez;
+            if (!ssState.clickedOnceYet) {
+                ssState.dfSelection2.x = tilex;
+                ssState.dfSelection2.y = tiley;
+                ssState.dfSelection2.z = tilez;
+            }
         }
         stonesenseState.timeToReloadSegment = true;
+        if (ssConfig.overlay_mode && mouse.buttons & 1) {
+            if (!mouseDown) {
+                sendDFKey(df::interface_key::SELECT);
+                mouseDown = stonesenseState.ssState.rectangleSelect;
+                stonesenseState.ssState.clickedOnceYet = !stonesenseState.ssState.clickedOnceYet;
+            }
+        }
+        else {
+            mouseDown = false;
+        }
     }
 }
 
@@ -323,7 +361,7 @@ void action_resetscreen(uint32_t keymod)
     auto& ssConfig = stonesenseState.ssConfig;
     auto& ssState = stonesenseState.ssState;
 
-    if (ssConfig.config.track_mode != Config::TRACKING_NONE) {
+    if (isViewTracking()) {
         ssConfig.config.viewOffset.x = 0;
         ssConfig.config.viewOffset.y = 0;
         ssConfig.config.viewOffset.z = 0;
@@ -458,15 +496,25 @@ void action_toggledebug(uint32_t keymod)
 void action_incrzoom(uint32_t keymod)
 {
     auto& ssConfig = stonesenseState.ssConfig;
-    ssConfig.zoom++;
-    ssConfig.recalculateScale();
+    if (stonesenseState.ssConfig.overlay_mode) {
+        sendDFKey(df::interface_key::ZOOM_IN);
+    }
+    else {
+        ssConfig.zoom++;
+        ssConfig.recalculateScale();
+    }
 }
 
 void action_decrzoom(uint32_t keymod)
 {
     auto& ssConfig = stonesenseState.ssConfig;
-    ssConfig.zoom--;
-    ssConfig.recalculateScale();
+    if (stonesenseState.ssConfig.overlay_mode) {
+        sendDFKey(df::interface_key::ZOOM_OUT);
+    }
+    else {
+        ssConfig.zoom--;
+        ssConfig.recalculateScale();
+    }
 }
 
 void action_screenshot(uint32_t keymod)
@@ -513,6 +561,7 @@ void action_credits(uint32_t keymod)
 {
     auto& ssConfig = stonesenseState.ssConfig;
     ssConfig.creditScreen = false;
+    sendDFKey(df::interface_key::CURSOR_DOWN);
 }
 
 void action_decrY(uint32_t keymod)
@@ -521,11 +570,29 @@ void action_decrY(uint32_t keymod)
         action_decrsegmentY(keymod);
         return;
     }
-    char stepsize = ((keymod&ALLEGRO_KEYMOD_SHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
-    if (!(keymod&ALLEGRO_KEYMOD_ALT)) {
-        stonesenseState.ssConfig.config.track_mode = Config::TRACKING_NONE;
+    if (stonesenseState.ssConfig.overlay_mode) {
+        if (!okToMoveView()) { return; }
+        switch (stonesenseState.ssState.Rotation) {
+        case 0:
+            sendDFKey(df::interface_key::CURSOR_UP);
+            return;
+        case 1:
+            sendDFKey(df::interface_key::CURSOR_LEFT);
+            return;
+        case 2:
+            sendDFKey(df::interface_key::CURSOR_DOWN);
+            return;
+        case 3:
+            sendDFKey(df::interface_key::CURSOR_RIGHT);
+            return;
+        };
+    } else {
+        char stepsize = ((keymod & ALLEGRO_KEYMOD_SHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
+        if (!(keymod & ALLEGRO_KEYMOD_ALT)) {
+            stonesenseState.ssConfig.config.track_mode = Config::TRACKING_NONE;
+        }
+        moveViewRelativeToRotation(0, -stepsize);
     }
-    moveViewRelativeToRotation( 0, -stepsize );
     stonesenseState.timeToReloadSegment = true;
 }
 
@@ -535,11 +602,29 @@ void action_incrY(uint32_t keymod)
         action_incrsegmentY(keymod);
         return;
     }
-    char stepsize = ((keymod&ALLEGRO_KEYMOD_SHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
-    if (!(keymod&ALLEGRO_KEYMOD_ALT)) {
-        stonesenseState.ssConfig.config.track_mode = Config::TRACKING_NONE;
+    if (stonesenseState.ssConfig.overlay_mode) {
+        if (!okToMoveView()) { return; }
+        switch (stonesenseState.ssState.Rotation) {
+        case 0:
+            sendDFKey(df::interface_key::CURSOR_DOWN);
+            return;
+        case 1:
+            sendDFKey(df::interface_key::CURSOR_RIGHT);
+            return;
+        case 2:
+            sendDFKey(df::interface_key::CURSOR_UP);
+            return;
+        case 3:
+            sendDFKey(df::interface_key::CURSOR_LEFT);
+            return;
+        };
+    }else{
+        char stepsize = ((keymod&ALLEGRO_KEYMOD_SHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
+        if (!(keymod&ALLEGRO_KEYMOD_ALT)) {
+            stonesenseState.ssConfig.config.track_mode = Config::TRACKING_NONE;
+        }
+        moveViewRelativeToRotation( 0, stepsize );
     }
-    moveViewRelativeToRotation( 0, stepsize );
     stonesenseState.timeToReloadSegment = true;
 }
 
@@ -549,11 +634,30 @@ void action_decrX(uint32_t keymod)
         action_decrsegmentX(keymod);
         return;
     }
-    char stepsize = ((keymod&ALLEGRO_KEYMOD_SHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
-    if (!(keymod&ALLEGRO_KEYMOD_ALT)) {
-        stonesenseState.ssConfig.config.track_mode = Config::TRACKING_NONE;
+    if (stonesenseState.ssConfig.overlay_mode) {
+        if (!okToMoveView()) { return; }
+        switch (stonesenseState.ssState.Rotation) {
+        case 0:
+            sendDFKey(df::interface_key::CURSOR_LEFT);
+            return;
+        case 1:
+            sendDFKey(df::interface_key::CURSOR_DOWN);
+            return;
+        case 2:
+            sendDFKey(df::interface_key::CURSOR_RIGHT);
+            return;
+        case 3:
+            sendDFKey(df::interface_key::CURSOR_UP);
+            return;
+        };
     }
-    moveViewRelativeToRotation( -stepsize, 0 );
+    else {
+        char stepsize = ((keymod&ALLEGRO_KEYMOD_SHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
+        if (!(keymod&ALLEGRO_KEYMOD_ALT)) {
+            stonesenseState.ssConfig.config.track_mode = Config::TRACKING_NONE;
+        }
+        moveViewRelativeToRotation( -stepsize, 0 );
+    }
     stonesenseState.timeToReloadSegment = true;
 }
 
@@ -564,10 +668,29 @@ void action_incrX(uint32_t keymod)
         return;
     }
     char stepsize = ((keymod&ALLEGRO_KEYMOD_SHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
-    if (!(keymod&ALLEGRO_KEYMOD_ALT)) {
-        stonesenseState.ssConfig.config.track_mode = Config::TRACKING_NONE;
+    if (stonesenseState.ssConfig.overlay_mode) {
+        if (!okToMoveView()) { return; }
+        switch (stonesenseState.ssState.Rotation) {
+            case 0:
+                sendDFKey(df::interface_key::CURSOR_RIGHT);
+                return;
+            case 1:
+                sendDFKey(df::interface_key::CURSOR_UP);
+                return;
+            case 2:
+                sendDFKey(df::interface_key::CURSOR_LEFT);
+                return;
+            case 3:
+                sendDFKey(df::interface_key::CURSOR_DOWN);
+                return;
+        };
     }
-    moveViewRelativeToRotation( stepsize, 0 );
+    else {
+        if (!(keymod&ALLEGRO_KEYMOD_ALT)) {
+            stonesenseState.ssConfig.config.track_mode = Config::TRACKING_NONE;
+        }
+        moveViewRelativeToRotation( stepsize, 0 );
+    }
     stonesenseState.timeToReloadSegment = true;
 }
 
@@ -580,17 +703,22 @@ void action_decrZ(uint32_t keymod)
         action_decrsegmentZ(keymod);
         return;
     }
-    char stepsize = ((keymod&ALLEGRO_KEYMOD_SHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
-    if (!(keymod&ALLEGRO_KEYMOD_ALT)) {
-        ssConfig.config.track_mode = Config::TRACKING_NONE;
-    }
-    if (ssConfig.config.track_mode != Config::TRACKING_NONE) {
-        ssConfig.config.viewOffset.z -= stepsize;
+    if (stonesenseState.ssConfig.overlay_mode) {
+        sendDFKey(df::interface_key::CURSOR_DOWN_Z);
     } else {
-        ssState.Position.z -= stepsize;
-    }
-    if(ssState.Position.z<1) {
-        ssState.Position.z = 1;
+        char stepsize = ((keymod & ALLEGRO_KEYMOD_SHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
+        if (!(keymod & ALLEGRO_KEYMOD_ALT)) {
+            ssConfig.config.track_mode = Config::TRACKING_NONE;
+        }
+        if (isViewTracking()) {
+            ssConfig.config.viewOffset.z -= stepsize;
+        }
+        else {
+            ssState.Position.z -= stepsize;
+        }
+        if (ssState.Position.z < 1) {
+            ssState.Position.z = 1;
+        }
     }
     stonesenseState.timeToReloadSegment = true;
 }
@@ -604,16 +732,241 @@ void action_incrZ(uint32_t keymod)
         action_incrsegmentZ(keymod);
         return;
     }
-    char stepsize = ((keymod&ALLEGRO_KEYMOD_SHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
-    if (!(keymod&ALLEGRO_KEYMOD_ALT)) {
-        ssConfig.config.track_mode = Config::TRACKING_NONE;
+    if (stonesenseState.ssConfig.overlay_mode) {
+        sendDFKey(df::interface_key::CURSOR_UP_Z);
     }
-    if (ssConfig.config.track_mode != Config::TRACKING_NONE) {
-        ssConfig.config.viewOffset.z += stepsize;
-    } else {
-        ssState.Position.z += stepsize;
+    else {
+        char stepsize = ((keymod & ALLEGRO_KEYMOD_SHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
+        if (!(keymod & ALLEGRO_KEYMOD_ALT)) {
+            ssConfig.config.track_mode = Config::TRACKING_NONE;
+        }
+        if (isViewTracking()) {
+            ssConfig.config.viewOffset.z += stepsize;
+        }
+        else {
+            ssState.Position.z += stepsize;
+        }
     }
     stonesenseState.timeToReloadSegment = true;
+}
+
+void action_option1(uint32_t keymod) {
+    if (keymod & ALLEGRO_KEYMOD_SHIFT) {
+        action_togglecreaturenames(keymod);
+        return;
+    }
+    switch (stonesenseState.ssState.mode) {
+    case 0: //Default
+        sendDFKey(df::interface_key::D_DESIGNATE_DIG);
+        stonesenseState.ssState.mode = GameState::modeTypes::DIG;
+        stonesenseState.ssState.submode = "Dig";
+        break;
+    case 1: //Dig
+        sendDFKey(df::interface_key::DESIGNATE_DIG);
+        stonesenseState.ssState.submode = "Dig";
+        break;
+    case 2: //Chop
+    case 3: //Gather
+        break;
+    case 4: //Smooth
+        sendDFKey(df::interface_key::DESIGNATE_SMOOTH);
+        stonesenseState.ssState.submode = "Smooth";
+        break;
+    case 5: //Erase
+    case 6: //Building
+    case 7: //Traffic
+        break;
+    };
+}
+void action_option2(uint32_t keymod) {
+    if (keymod & ALLEGRO_KEYMOD_SHIFT) {
+        action_togglecreatureprof(keymod);
+        return;
+    }
+    switch (stonesenseState.ssState.mode) {
+    case 0: //Default
+        sendDFKey(df::interface_key::D_DESIGNATE_CHOP);
+        stonesenseState.ssState.mode = GameState::modeTypes::CHOP;
+        break;
+    case 1: //Dig
+        sendDFKey(df::interface_key::DESIGNATE_STAIR_UPDOWN);
+        stonesenseState.ssState.submode = "Stairs";
+        break;
+    case 2: //Chop
+    case 3: //Gather
+        break;
+    case 4: //Smooth
+        sendDFKey(df::interface_key::DESIGNATE_ENGRAVE);
+        stonesenseState.ssState.submode = "Engrave";
+        break;
+    case 5: //Erase
+    case 6: //Building
+    case 7: //Traffic
+        break;
+    };
+}
+void action_option3(uint32_t keymod) {
+    if (keymod & ALLEGRO_KEYMOD_SHIFT) {
+        action_togglecreaturemood(keymod);
+        return;
+    }
+    switch (stonesenseState.ssState.mode) {
+    case 0: //Default
+        sendDFKey(df::interface_key::D_DESIGNATE_GATHER);
+        stonesenseState.ssState.mode = GameState::modeTypes::GATHER;
+        break;
+    case 1: //Dig
+        sendDFKey(df::interface_key::DESIGNATE_RAMP);
+        stonesenseState.ssState.submode = "Ramp";
+        break;
+    case 2: //Chop
+    case 3: //Gather
+        break;
+    case 4: //Smooth
+        sendDFKey(df::interface_key::DESIGNATE_TRACK);
+        stonesenseState.ssState.submode = "Carve Track";
+        break;
+    case 5: //Erase
+    case 6: //Building
+    case 7: //Traffic
+        break;
+    };
+}
+void action_option4(uint32_t keymod) {
+    if (keymod & ALLEGRO_KEYMOD_SHIFT) {
+        action_togglezones(keymod);
+        return;
+    }
+    switch (stonesenseState.ssState.mode) {
+    case 0: //Default
+        sendDFKey(df::interface_key::D_DESIGNATE_SMOOTH);
+        stonesenseState.ssState.mode = GameState::modeTypes::SMOOTH;
+        break;
+    case 1: //Dig
+        sendDFKey(df::interface_key::DESIGNATE_CHANNEL);
+        stonesenseState.ssState.submode = "Channel";
+        break;
+    case 2: //Chop
+    case 3: //Gather
+        break;
+    case 4: //Smooth
+        sendDFKey(df::interface_key::DESIGNATE_FORTIFY);
+        stonesenseState.ssState.submode = "Fortification";
+        break;
+    case 5: //Erase
+    case 6: //Building
+    case 7: //Traffic
+        break;
+    };
+}
+void action_option5(uint32_t keymod) {
+    if (keymod & ALLEGRO_KEYMOD_SHIFT) {
+        action_togglestockpiles(keymod);
+        return;
+    }
+    switch (stonesenseState.ssState.mode) {
+    case 0: //Default
+        sendDFKey(df::interface_key::D_DESIGNATE_ERASE);
+        stonesenseState.ssState.mode = GameState::modeTypes::ERASE;
+        break;
+    case 1: //Dig
+        sendDFKey(df::interface_key::DESIGNATE_DIG_REMOVE_STAIRS_RAMPS);
+        stonesenseState.ssState.submode = "Remove";
+        break;
+    case 2: //Chop
+    case 3: //Gather
+    case 4: //Smooth
+    case 5: //Erase
+    case 6: //Building
+    case 7: //Traffic
+        break;
+    };
+}
+void action_option6(uint32_t keymod) {
+    if (keymod & ALLEGRO_KEYMOD_SHIFT) {
+        action_toggledesignations(keymod);
+        return;
+    }
+    switch (stonesenseState.ssState.mode) {
+    case 0: //Default
+        break;
+    case 1: //Dig
+    case 2: //Chop
+    case 3: //Gather
+    case 4: //Smooth
+    case 5: //Erase
+        sendDFKey(df::interface_key::DESIGNATE_RECTANGLE);
+        stonesenseState.ssState.rectangleSelect = true;
+        break;
+    case 6: //Building
+    case 7: //Traffic
+        break;
+    };
+}
+void action_option7(uint32_t keymod) {
+    if (keymod & ALLEGRO_KEYMOD_SHIFT) {
+        action_toggleannouncements(keymod);
+        return;
+    }
+    switch (stonesenseState.ssState.mode) {
+    case 0: //Default
+        break;
+    case 1: //Dig
+    case 2: //Chop
+    case 3: //Gather
+    case 4: //Smooth
+    case 5: //Erase
+        sendDFKey(df::interface_key::DESIGNATE_FREE_DRAW);
+        stonesenseState.ssState.rectangleSelect = false;
+        break;
+    case 6: //Building
+    case 7: //Traffic
+        break;
+    };
+}
+void action_option8(uint32_t keymod) {
+    switch (stonesenseState.ssState.mode) {
+    case 0: //Default
+        break;
+    case 1: //Dig
+    case 2: //Chop
+    case 3: //Gather
+    case 4: //Smooth
+        sendDFKey(df::interface_key::DESIGNATE_TOGGLE_ADVANCED_OPTIONS);
+        sendDFKey(df::interface_key::DESIGNATE_TOGGLE_MARKER);
+        sendDFKey(df::interface_key::DESIGNATE_TOGGLE_ADVANCED_OPTIONS);
+        stonesenseState.ssState.blueprinting = !stonesenseState.ssState.blueprinting;
+    case 5: //Erase
+    case 6: //Building
+    case 7: //Traffic
+        break;
+    };
+}
+void action_option9(uint32_t keymod) {
+    switch (stonesenseState.ssState.mode) {
+    case 0: //Default
+        break;
+    case 1: //Dig
+        sendDFKey(df::interface_key::DESIGNATE_TOGGLE_ADVANCED_OPTIONS);
+        (stonesenseState.ssState.veinMining) ?
+            sendDFKey(df::interface_key::DESIGNATE_MINE_MODE_ALL):
+            sendDFKey(df::interface_key::DESIGNATE_MINE_MODE_AUTO);
+        sendDFKey(df::interface_key::DESIGNATE_TOGGLE_ADVANCED_OPTIONS);
+        stonesenseState.ssState.veinMining = !stonesenseState.ssState.veinMining;
+        break;
+    case 2: //Chop
+    case 3: //Gather
+    case 4: //Smooth
+    case 5: //Erase
+    case 6: //Building
+    case 7: //Traffic
+        break;
+    };
+}
+
+void action_togglePause(uint32_t keymod)
+{
+    sendDFKey(df::interface_key::D_PAUSE);
 }
 
 void doRepeatActions()

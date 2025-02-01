@@ -163,7 +163,11 @@ constexpr auto MAX_ANIMFRAME = 6;
 // binary 00111111
 constexpr auto ALL_FRAMES = 0b111111;
 
+//from Gui.cpp
+float clockToMs(float clockTicks);
+
 //from UserInput.cpp
+int32_t getKeyMods(ALLEGRO_KEYBOARD_STATE * keyboardState);
 void doMouse();
 void doKeys(int32_t key, uint32_t keymod);
 void doRepeatActions();
@@ -228,3 +232,4 @@ constexpr auto FORM_BOULDER = 3;
 constexpr auto FORM_LOG = 4;
 
 constexpr auto SCALEZOOMFACTOR = 1.1f;
+constexpr auto MOVEMENTWAITTIME = 100; //100ms seems to feel good
