@@ -508,8 +508,6 @@ namespace
 
     void drawSelectionCursors(WorldSegment* segment)
     {
-        auto& ssConfig = stonesenseState.ssConfig;
-
         Crd3D selection;
         (stonesenseState.ssConfig.overlay_mode) ? selection = segment->segState.dfCursor : selection = segment->segState.dfSelection;
         DFHack::Gui::setCursorCoords(
@@ -522,8 +520,6 @@ namespace
 
     void drawDebugCursor(WorldSegment* segment)
     {
-        auto& ssConfig = stonesenseState.ssConfig;
-
         Crd3D cursor = segment->segState.dfCursor;
         DFHack::Gui::setCursorCoords(
             cursor.x,
