@@ -73,7 +73,7 @@ void abortAutoReload()
 
 auto lastMoveTime = clock();
 bool okToMoveView() {
-    if ((clockToMs(clock() - lastMoveTime) >= 50)) {
+    if ((clockToMs(clock() - lastMoveTime) >= MOVEMENTWAITTIME)) {
         lastMoveTime = clock();
         return true;
     }
@@ -173,6 +173,7 @@ void doMouse()
     if( mouse.buttons & 2 ) {
         if (ssConfig.overlay_mode) {
             sendDFKey(df::interface_key::LEAVESCREEN);
+            stonesenseState.ssState.clickedOnceYet = false;
         }else{
             ssConfig.config.track_mode = Config::TRACKING_NONE;
             int x, y;
@@ -226,12 +227,18 @@ void doMouse()
             ssState.dfCursor.x = tilex;
             ssState.dfCursor.y = tiley;
             ssState.dfCursor.z = tilez;
+            if (!ssState.clickedOnceYet) {
+                ssState.dfSelection2.x = tilex;
+                ssState.dfSelection2.y = tiley;
+                ssState.dfSelection2.z = tilez;
+            }
         }
         stonesenseState.timeToReloadSegment = true;
         if (ssConfig.overlay_mode && mouse.buttons & 1) {
             if (!mouseDown) {
                 sendDFKey(df::interface_key::SELECT);
                 mouseDown = stonesenseState.ssState.rectangleSelect;
+                stonesenseState.ssState.clickedOnceYet = !stonesenseState.ssState.clickedOnceYet;
             }
         }
         else {

@@ -17,8 +17,9 @@ struct GameState{
 
     //position of the cursor
     Crd3D dfCursor;
-    //position of the selection cursor
+    //position of the selection cursors
     Crd3D dfSelection;
+    Crd3D dfSelection2;
 
     //the width and height of the stonesense window
     int ScreenW;
@@ -26,6 +27,7 @@ struct GameState{
 
     bool blueprinting = false;
     bool rectangleSelect = true;
+    bool clickedOnceYet = false;
 
     enum modeTypes {
         DEFAULT,

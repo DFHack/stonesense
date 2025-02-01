@@ -483,24 +483,18 @@ void DrawCurrentLevelOutline(bool backPart)
 
 namespace
 {
-    void drawSelectionCursor(WorldSegment* segment)
+    void drawCursorAt(WorldSegment* segment, Crd3D location, ALLEGRO_COLOR color)
     {
         auto& ssConfig = stonesenseState.ssConfig;
 
-        Crd3D selection;
-        (stonesenseState.ssConfig.overlay_mode) ? selection = segment->segState.dfCursor : selection = segment->segState.dfSelection;
-        DFHack::Gui::setCursorCoords(
-            selection.x,
-            selection.y,
-            selection.z);
-        segment->CorrectTileForSegmentOffset(selection.x, selection.y, selection.z);
-        segment->CorrectTileForSegmentRotation(selection.x, selection.y, selection.z);
-        Crd2D point = LocalTileToScreen(selection.x, selection.y, selection.z);
+        segment->CorrectTileForSegmentOffset(location.x, location.y, location.z);
+        segment->CorrectTileForSegmentRotation(location.x, location.y, location.z);
+        Crd2D point = LocalTileToScreen(location.x, location.y, location.z);
         int sheetx = SPRITEOBJECT_CURSOR % SHEET_OBJECTSWIDE;
         int sheety = SPRITEOBJECT_CURSOR / SHEET_OBJECTSWIDE;
         al_draw_tinted_scaled_bitmap(
             stonesenseState.IMGObjectSheet,
-            uiColor(3),
+            color,
             sheetx * SPRITEWIDTH,
             sheety * SPRITEHEIGHT,
             SPRITEWIDTH,
@@ -512,6 +506,20 @@ namespace
             0);
     }
 
+    void drawSelectionCursors(WorldSegment* segment)
+    {
+        auto& ssConfig = stonesenseState.ssConfig;
+
+        Crd3D selection;
+        (stonesenseState.ssConfig.overlay_mode) ? selection = segment->segState.dfCursor : selection = segment->segState.dfSelection;
+        DFHack::Gui::setCursorCoords(
+            selection.x,
+            selection.y,
+            selection.z);
+        drawCursorAt(segment, segment->segState.dfSelection2, ssConfig.config.colors.getDfColor(dfColors::lblue, ssConfig.config.useDfColors));
+        drawCursorAt(segment, selection, uiColor(3)); // We draw the main one second so it appears on top
+    }
+
     void drawDebugCursor(WorldSegment* segment)
     {
         auto& ssConfig = stonesenseState.ssConfig;
@@ -521,24 +529,7 @@ namespace
             cursor.x,
             cursor.y,
             cursor.z);
-        segment->CorrectTileForSegmentOffset(cursor.x, cursor.y, cursor.z);
-        segment->CorrectTileForSegmentRotation(cursor.x, cursor.y, cursor.z);
-
-        Crd2D point = LocalTileToScreen(cursor.x, cursor.y, cursor.z);
-        int sheetx = SPRITEOBJECT_CURSOR % SHEET_OBJECTSWIDE;
-        int sheety = SPRITEOBJECT_CURSOR / SHEET_OBJECTSWIDE;
-        al_draw_tinted_scaled_bitmap(
-            stonesenseState.IMGObjectSheet,
-            uiColor(2),
-            sheetx * SPRITEWIDTH,
-            sheety * SPRITEHEIGHT,
-            SPRITEWIDTH,
-            SPRITEHEIGHT,
-            point.x - ((SPRITEWIDTH / 2) * ssConfig.scale),
-            point.y - (WALLHEIGHT)*ssConfig.scale,
-            SPRITEWIDTH * ssConfig.scale,
-            SPRITEHEIGHT * ssConfig.scale,
-            0);
+        drawCursorAt(segment, cursor, uiColor(2));
     }
 
     void drawAdvmodeMenuTalk(const ALLEGRO_FONT* font, int x, int y)
@@ -1135,7 +1126,7 @@ void paintboard()
         al_hold_bitmap_drawing(true);
         ALLEGRO_COLOR red = ssConfig.config.colors.getDfColor(dfColors::lred, ssConfig.config.useDfColors);
         draw_textf_border(font, *df::global::pause_state ? red : uiColor(3), 0, 0, ALLEGRO_ALIGN_LEFT, (*df::global::pause_state ? "Paused" : "Running"));
-        drawSelectionCursor(segment);
+        drawSelectionCursors(segment);
         drawGeneralInfo(segment);
         al_hold_bitmap_drawing(false);
     }
@@ -1159,7 +1150,7 @@ void paintboard()
         al_hold_bitmap_drawing(true);
         draw_textf_border(font, uiColor(1), 10,fontHeight, 0, "%i,%i,%i, r%i, z%i", ssState.Position.x,ssState.Position.y,ssState.Position.z, ssState.Rotation, ssConfig.zoom);
 
-        drawSelectionCursor(segment);
+        drawSelectionCursors(segment);
 
         drawDebugCursor(segment);
 

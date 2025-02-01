@@ -232,3 +232,4 @@ constexpr auto FORM_BOULDER = 3;
 constexpr auto FORM_LOG = 4;
 
 constexpr auto SCALEZOOMFACTOR = 1.1f;
+constexpr auto MOVEMENTWAITTIME = 100; //100ms seems to feel good
