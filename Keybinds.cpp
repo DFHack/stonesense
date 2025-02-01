@@ -1,5 +1,7 @@
+#include "vector"
 #include "common.h"
 #include "Config.h"
+#include "StonesenseState.h"
 #include "UserInput.h"
 
 //should match allegrow/keycodes.h
@@ -173,7 +175,112 @@ void action_invalid(uint32_t keymod){
     PrintMessage("invalid action\n");
 }
 
-action_name_mapper actionnamemap[] = {
+std::vector<action_name_mapper> actionnamemap;
+
+void (*actionkeymap[ALLEGRO_KEY_UNKNOWN])(uint32_t);
+void (*actionkeymap_default[ALLEGRO_KEY_UNKNOWN])(uint32_t);
+bool actionrepeatmap[ALLEGRO_KEY_UNKNOWN];
+
+void parseKeymapLine( std::string line )
+{
+    auto ll = trim_line(line);
+    if (!ll) return;
+    line = *ll;
+
+    //second-last character should tell us if this is a repeating action
+    auto c = line[ line.length() -2 ];
+
+    for(int i=0; actionnamemap[i].func != action_invalid; i++) {
+        if(line.find(actionnamemap[i].name)!=std::string::npos) {
+            for(int j=0; j<ALLEGRO_KEY_UNKNOWN; j++){
+                if(line.find(keynames[j])!=std::string::npos) {
+                    actionkeymap[j] = actionnamemap[i].func;
+                    if( c == '*' ) {
+                        actionrepeatmap[j] = true;
+#ifdef DEBUG
+                    PrintMessage("successfully mapped: op:%i key:%i repeatable\n",i,j);
+                    } else {
+                    PrintMessage("successfully mapped: op:%i key:%i\n",i,j);
+#endif
+                    }
+                    break;
+                }
+            }
+            break;
+        }
+    }
+}
+
+bool loadKeymapFile(){
+    std::string line;
+    std::filesystem::path path = std::filesystem::path{} / "dfhack-config" / "stonesense" / "keybinds.txt";
+    std::ifstream myfile (path);
+
+    if (myfile.is_open() == false) {
+        LogError( "cannot find keybinds file\n" );
+        return false;
+    }
+
+
+    //initialize the default keymap to all noops
+    for (int i = 0; i < ALLEGRO_KEY_UNKNOWN; i++) {
+        actionkeymap_default[i] = action_noop;
+    }
+    if (stonesenseState.ssConfig.overlay_mode) {
+
+        actionkeymap_default[ALLEGRO_KEY_1] = action_option1;
+        actionkeymap_default[ALLEGRO_KEY_2] = action_option2;
+        actionkeymap_default[ALLEGRO_KEY_3] = action_option3;
+        actionkeymap_default[ALLEGRO_KEY_4] = action_option4;
+        actionkeymap_default[ALLEGRO_KEY_5] = action_option5;
+        actionkeymap_default[ALLEGRO_KEY_6] = action_option6;
+        actionkeymap_default[ALLEGRO_KEY_7] = action_option7;
+        actionkeymap_default[ALLEGRO_KEY_8] = action_option8;
+        actionkeymap_default[ALLEGRO_KEY_9] = action_option9;
+
+        actionkeymap_default[ALLEGRO_KEY_SPACE] = action_togglePause;
+
+        actionnamemap = {
+        {"NOOP", action_noop},
+        {"ROTATE", action_incrrotation},
+        {"TOGGLE_OCCLUSION", action_toggleocclusion},
+        {"CHOP_WALLS", action_chopwall},
+        {"RESET_VIEW_OFFSET", action_resetscreen},
+        {"TOGGLE_SHADE_HIDDEN_TILES", action_toggleshadehidden},
+        {"TOGGLE_SHOW_HIDDEN_TILES", action_toggleshowhidden},
+        {"TOGGLE_OSD", action_toggleosd},
+        {"TOGGLE_KEYBINDS", action_togglekeybinds},
+        {"TOGGLE_DEBUG", action_toggledebug},
+        {"INCR_ZOOM", action_incrzoom},
+        {"DECR_ZOOM", action_decrzoom},
+        {"SCREENSHOT", action_screenshot},
+        {"INCR_RELOAD_TIME", action_incrreloadtime},
+        {"DECR_RELOAD_TIME", action_decrreloadtime},
+
+        {"DECR_Z", action_decrZ},
+        {"INCR_Z", action_incrZ},
+
+        {"DECR_Y", action_decrY},
+        {"INCR_Y", action_incrY},
+        {"DECR_X", action_decrX},
+        {"INCR_X", action_incrX},
+
+        {"TOGGLEPAUSE", action_togglePause},
+
+        {"OPTION1",action_option1},
+        {"OPTION2",action_option2},
+        {"OPTION3",action_option3},
+        {"OPTION4",action_option4},
+        {"OPTION5",action_option5},
+        {"OPTION6",action_option6},
+        {"OPTION7",action_option7},
+        {"OPTION8",action_option8},
+        {"OPTION9",action_option9},
+        {"INVALID", action_invalid}//this is the stop condition
+        };
+    }
+    else {
+        actionnamemap = {
     {"NOOP", action_noop},
     {"ROTATE", action_incrrotation},
     {"RELOAD_SEGMENT", action_reloadsegment},
@@ -234,54 +341,17 @@ action_name_mapper actionnamemap[] = {
 
 
     {"INVALID", action_invalid}//this is the stop condition
-};
-
-void (*actionkeymap[ALLEGRO_KEY_UNKNOWN])(uint32_t);
-bool actionrepeatmap[ALLEGRO_KEY_UNKNOWN];
-
-void parseKeymapLine( std::string line )
-{
-    auto ll = trim_line(line);
-    if (!ll) return;
-    line = *ll;
-
-    //second-last character should tell us if this is a repeating action
-    auto c = line[ line.length() -2 ];
-
-    for(int i=0; actionnamemap[i].func != action_invalid; i++) {
-        if(line.find(actionnamemap[i].name)!=std::string::npos) {
-            for(int j=0; j<ALLEGRO_KEY_UNKNOWN; j++){
-                if(line.find(keynames[j])!=std::string::npos) {
-                    actionkeymap[j] = actionnamemap[i].func;
-                    if( c == '*' ) {
-                        actionrepeatmap[j] = true;
-#ifdef DEBUG
-                    PrintMessage("successfully mapped: op:%i key:%i repeatable\n",i,j);
-                    } else {
-                    PrintMessage("successfully mapped: op:%i key:%i\n",i,j);
-#endif
-                    }
-                    break;
-                }
-            }
-            break;
-        }
-    }
-}
-
-bool loadKeymapFile(){
-    std::string line;
-    std::filesystem::path path = std::filesystem::path{} / "dfhack-config" / "stonesense" / "keybinds.txt";
-    std::ifstream myfile (path);
-
-    if (myfile.is_open() == false) {
-        LogError( "cannot find keybinds file\n" );
-        return false;
+        };
     }
 
-    //initialize the keymap to all noops
+    //initialize the keymap to all noops or defaults
     for(int i=0; i<ALLEGRO_KEY_UNKNOWN; i++) {
-        actionkeymap[i] = action_noop;
+        if (actionkeymap_default[i] == action_noop) {
+            actionkeymap[i] = action_noop;
+        }
+        else {
+            actionkeymap[i] = actionkeymap_default[i];
+        }
         actionrepeatmap[i] = false;
     }
 
