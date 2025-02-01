@@ -73,13 +73,14 @@ void abortAutoReload()
 
 auto lastMoveTime = clock();
 bool okToMoveView() {
-    if ((clock() - lastMoveTime >= 50)) {
+    if ((clockToMs(clock() - lastMoveTime) >= 50)) {
         lastMoveTime = clock();
         return true;
     }
     return false;
 }
 
+//Safely sends a key to DF
 void sendDFKey(df::interface_key key) {
     DFHack::CoreSuspender suspend;
     df::viewscreen* screen = DFHack::Gui::getDFViewscreen();
@@ -230,7 +231,7 @@ void doMouse()
         if (ssConfig.overlay_mode && mouse.buttons & 1) {
             if (!mouseDown) {
                 sendDFKey(df::interface_key::SELECT);
-                mouseDown = true;
+                mouseDown = stonesenseState.ssState.rectangleSelect;
             }
         }
         else {
@@ -743,6 +744,10 @@ void action_incrZ(uint32_t keymod)
 }
 
 void action_option1(uint32_t keymod) {
+    if (keymod & ALLEGRO_KEYMOD_SHIFT) {
+        action_togglecreaturenames(keymod);
+        return;
+    }
     switch (stonesenseState.ssState.mode) {
     case 0: //Default
         sendDFKey(df::interface_key::D_DESIGNATE_DIG);
@@ -770,6 +775,10 @@ void action_option1(uint32_t keymod) {
     };
 }
 void action_option2(uint32_t keymod) {
+    if (keymod & ALLEGRO_KEYMOD_SHIFT) {
+        action_togglecreatureprof(keymod);
+        return;
+    }
     switch (stonesenseState.ssState.mode) {
     case 0: //Default
         sendDFKey(df::interface_key::D_DESIGNATE_CHOP);
@@ -796,6 +805,10 @@ void action_option2(uint32_t keymod) {
     };
 }
 void action_option3(uint32_t keymod) {
+    if (keymod & ALLEGRO_KEYMOD_SHIFT) {
+        action_togglecreaturemood(keymod);
+        return;
+    }
     switch (stonesenseState.ssState.mode) {
     case 0: //Default
         sendDFKey(df::interface_key::D_DESIGNATE_GATHER);
@@ -822,6 +835,10 @@ void action_option3(uint32_t keymod) {
     };
 }
 void action_option4(uint32_t keymod) {
+    if (keymod & ALLEGRO_KEYMOD_SHIFT) {
+        action_togglezones(keymod);
+        return;
+    }
     switch (stonesenseState.ssState.mode) {
     case 0: //Default
         sendDFKey(df::interface_key::D_DESIGNATE_SMOOTH);
@@ -848,6 +865,10 @@ void action_option4(uint32_t keymod) {
     };
 }
 void action_option5(uint32_t keymod) {
+    if (keymod & ALLEGRO_KEYMOD_SHIFT) {
+        action_togglestockpiles(keymod);
+        return;
+    }
     switch (stonesenseState.ssState.mode) {
     case 0: //Default
         sendDFKey(df::interface_key::D_DESIGNATE_ERASE);

@@ -223,6 +223,7 @@ static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALL
     while (!al_get_thread_should_stop(main_thread)) {
         if (DFHack::Gui::getCurFocus().front().starts_with("dwarfmode/Default")) {
             stonesenseState.ssState.mode = GameState::modeTypes::DEFAULT;
+            stonesenseState.ssState.submode = "None";
         }
         if (redraw && al_event_queue_is_empty(queue)) {
 

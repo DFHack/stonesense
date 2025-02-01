@@ -464,7 +464,6 @@ void DrawCurrentLevelOutline(bool backPart)
     p4.y += FLOORHEIGHT*ssConfig.scale;
     if(backPart) {
         al_draw_line(p1.x, p1.y, p1.x, p1.y-TILEHEIGHT*ssConfig.scale, uiColor(0), 0);
-        al_draw_line(p1.x, p1.y, p1.x, p1.y-TILEHEIGHT*ssConfig.scale, uiColor(0), 0);
         al_draw_line(p1.x, p1.y, p2.x, p2.y, uiColor(0), 0);
         al_draw_line(p1.x, p1.y-TILEHEIGHT*ssConfig.scale, p2.x, p2.y-TILEHEIGHT*ssConfig.scale, uiColor(0), 0);
         al_draw_line(p2.x, p2.y, p2.x, p2.y-TILEHEIGHT*ssConfig.scale, uiColor(0), 0);
@@ -488,15 +487,14 @@ namespace
     {
         auto& ssConfig = stonesenseState.ssConfig;
 
-        Crd3D selection = segment->segState.dfSelection;
-        if ((selection.x != -30000 && ssConfig.config.follow_DFcursor)
-            || (ssConfig.config.track_mode == Config::TRACKING_FOCUS)) {
-            segment->CorrectTileForSegmentOffset(selection.x, selection.y, selection.z);
-            segment->CorrectTileForSegmentRotation(selection.x, selection.y, selection.z);
-        }
-        else {
-            return;
-        }
+        Crd3D selection;
+        (stonesenseState.ssConfig.overlay_mode) ? selection = segment->segState.dfCursor : selection = segment->segState.dfSelection;
+        DFHack::Gui::setCursorCoords(
+            selection.x,
+            selection.y,
+            selection.z);
+        segment->CorrectTileForSegmentOffset(selection.x, selection.y, selection.z);
+        segment->CorrectTileForSegmentRotation(selection.x, selection.y, selection.z);
         Crd2D point = LocalTileToScreen(selection.x, selection.y, selection.z);
         int sheetx = SPRITEOBJECT_CURSOR % SHEET_OBJECTSWIDE;
         int sheety = SPRITEOBJECT_CURSOR / SHEET_OBJECTSWIDE;
@@ -809,45 +807,61 @@ namespace
 
         auto modeStr = "";
         std::vector<std::string> options = {""};
-        switch (stonesenseState.ssState.mode) {
-        case 0: //Default
-            modeStr = "DEFAULT";
-            options = { "Dig", "Chop", "Gather", "Smooth", "Erase"};
-            break;
-        case 1: //Dig
-            modeStr = "DIGGING";
-            options = {"Dig", "Stairs", "Ramp", "Channel", "Remove"};
-            break;
-        case 2: //Chop
-            modeStr = "CHOP";
-            options = { "Chop", "-", "-", "-", "-" };
-            break;
-        case 3: //Gather
-            modeStr = "GATHER";
-            options = { "Gather", "-", "-", "-", "-"};
-            break;
-        case 4: //Smooth
-            modeStr = "SMOOTH";
-            options = { "Smooth", "Engrave", "Carve Track", "Fortification", "-"};
-            break;
-        case 5: //Erase
-            modeStr = "ERASER";
-            options = { "Erase", "-", "-", "-", "-"};
-            break;
-            break;
-        case 6: //Building
-            modeStr = "BUILDING";
-            options = { "Build", "-", "-", "-", "-" };
-            break;
-            break;
-        case 7: //Traffic
-            modeStr = "TRAFFIC";
-            options = { "High", "Medium", "Low", "Restricted", "-"};
-            break;
-        };
+        auto keymods = getKeyMods(&stonesenseState.keyboard);
+        if (keymods & ALLEGRO_KEYMOD_SHIFT) {
+            options = {
+                "Toggle Names",
+                "Cycle Professions",
+                "Toggle Moods",
+                "Toggle Zones",
+                "Toggle Stockpiles",
+                "Toggle Designations",
+            };
+        } else {
+            switch (stonesenseState.ssState.mode) {
+            case 0: //Default
+                modeStr = "DEFAULT";
+                options = { "Dig", "Chop", "Gather", "Smooth", "Erase" };
+                break;
+            case 1: //Dig
+                modeStr = "DIGGING";
+                options = { "Dig", "Stairs", "Ramp", "Channel", "Remove" };
+                break;
+            case 2: //Chop
+                modeStr = "CHOP";
+                options = { "Chop", "-", "-", "-", "-" };
+                break;
+            case 3: //Gather
+                modeStr = "GATHER";
+                options = { "Gather", "-", "-", "-", "-" };
+                break;
+            case 4: //Smooth
+                modeStr = "SMOOTH";
+                options = { "Smooth", "Engrave", "Carve Track", "Fortification", "-" };
+                break;
+            case 5: //Erase
+                modeStr = "ERASER";
+                options = { "Erase", "-", "-", "-", "-" };
+                break;
+                break;
+            case 6: //Building
+                modeStr = "BUILDING";
+                options = { "Build", "-", "-", "-", "-" };
+                break;
+                break;
+            case 7: //Traffic
+                modeStr = "TRAFFIC";
+                options = { "High", "Medium", "Low", "Restricted", "-" };
+                break;
+            };
+        }
 
         // Draw mode string
         draw_textf_border(font, uiColor(1), 2, (i++ * fontHeight), 0, modeStr);
+        draw_textf_border(font, (keymods & ALLEGRO_KEYMOD_SHIFT) ? uiColor(2) : uiColor(1), 2, (i * fontHeight), 0, "Shift ");
+        draw_textf_border(font, (keymods & ALLEGRO_KEYMOD_CTRL) ? uiColor(2) : uiColor(1), 2 + al_get_text_width(font, "Shift "), (i * fontHeight), 0, "Ctrl ");
+        draw_textf_border(font, (keymods & ALLEGRO_KEYMOD_ALT) ? uiColor(2) : uiColor(1), 2 + al_get_text_width(font, "Shift Ctrl "), (i * fontHeight), 0, "Alt");
+
         i++;
 
         // Draw each option in the list
@@ -866,9 +880,9 @@ namespace
             stonesenseState.ssState.mode == 4 || //Smooth
             stonesenseState.ssState.mode == 5 || //Erase
             stonesenseState.ssState.mode == 7) { //Traffic
-                draw_textf_border(font, stonesenseState.ssState.rectangleSelect ? uiColor(2) : uiColor(1), 2, (i++ * fontHeight), 0, "Rectangle");
-                draw_textf_border(font, !stonesenseState.ssState.rectangleSelect ? uiColor(2) : uiColor(1), 2, (i++ * fontHeight), 0, "FreeDraw");
-                draw_textf_border(font, stonesenseState.ssState.blueprinting ? uiColor(2) : uiColor(1), 2, (i++ * fontHeight), 0, "Blueprint Mode");
+                draw_textf_border(font, stonesenseState.ssState.rectangleSelect ? uiColor(2) : uiColor(1), 2, (i++ * fontHeight), 0, "Option6: Rectangle");
+                draw_textf_border(font, !stonesenseState.ssState.rectangleSelect ? uiColor(2) : uiColor(1), 2, (i++ * fontHeight), 0, "Option7: FreeDraw");
+                draw_textf_border(font, stonesenseState.ssState.blueprinting ? uiColor(2) : uiColor(1), 2, (i++ * fontHeight), 0, "Option8: Blueprint Mode");
         }
 
         if (tform != NULL && b->material.type != INVALID_INDEX) {
@@ -1121,7 +1135,7 @@ void paintboard()
         al_hold_bitmap_drawing(true);
         ALLEGRO_COLOR red = ssConfig.config.colors.getDfColor(dfColors::lred, ssConfig.config.useDfColors);
         draw_textf_border(font, *df::global::pause_state ? red : uiColor(3), 0, 0, ALLEGRO_ALIGN_LEFT, (*df::global::pause_state ? "Paused" : "Running"));
-        drawDebugCursor(segment);
+        drawSelectionCursor(segment);
         drawGeneralInfo(segment);
         al_hold_bitmap_drawing(false);
     }
