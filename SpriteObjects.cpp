@@ -1003,15 +1003,15 @@ void c_sprite::assemble_world_offset(int x, int y, int z, int plateoffset, Tile 
         pointToScreen((int*)&drawx, (int*)&drawy, drawz);
         drawx -= (TILEWIDTH>>1)*ssConfig.scale;
 
-        if(((drawx + spritewidth*ssConfig.scale) < 0) || (drawx > ssState.ScreenW) || ((drawy + spriteheight*ssConfig.scale) < 0) || (drawy > ssState.ScreenH)) {
+        if((drawx + (spritewidth+offset_x)*ssConfig.scale < 0)
+            || (drawx + offset_x*ssConfig.scale > ssState.ScreenW)
+            || (drawy + (spriteheight + offset_y)*ssConfig.scale < 0)
+            || (drawy + (offset_y - WALLHEIGHT)*ssConfig.scale > ssState.ScreenH)) {
             return;
         }
 
         int sheetx, sheety;
-        if(platelayout == TILEPLATE) {
-            sheetx = ((sheetindex+plateoffset+spriteoffset) % SHEET_OBJECTSWIDE) * spritewidth;
-            sheety = ((sheetindex+plateoffset+spriteoffset) / SHEET_OBJECTSWIDE) * spriteheight;
-        } else if(platelayout == RAMPBOTTOMPLATE) {
+        if(platelayout == RAMPBOTTOMPLATE) {
             sheetx = SPRITEWIDTH * b->rampindex;
             sheety = ((TILETOPHEIGHT + FLOORHEIGHT + SPRITEHEIGHT) * (sheetindex+plateoffset+spriteoffset))+(TILETOPHEIGHT + FLOORHEIGHT);
         } else if(platelayout == RAMPTOPPLATE) {
@@ -1021,11 +1021,12 @@ void c_sprite::assemble_world_offset(int x, int y, int z, int plateoffset, Tile 
             sheetx = ((sheetindex+plateoffset+spriteoffset) % SHEET_OBJECTSWIDE) * spritewidth;
             sheety = ((sheetindex+plateoffset+spriteoffset) / SHEET_OBJECTSWIDE) * spriteheight;
         }
+
         ALLEGRO_COLOR shade_color = shadeAdventureMode(get_color(b), b->fog_of_war, b->designation.bits.outside);
         if (b->occ.bits.dig_marked && containsDesignations(b->designation, b->occ)) { shade_color = al_map_rgba(0, 127, 255, 127); }
         if (b->occ.bits.dig_auto && containsDesignations(b->designation, b->occ)) { shade_color = al_map_rgba(0, 255, 127, 127); }
         if(chop && ( halftile == HALFPLATECHOP)) {
-            if(shade_color.a > 0.001f)
+            if(shade_color.a > 0.001f) {
                 b->AssembleSprite(
                     (fileindex >= 0) ? getImgFile(fileindex) : defaultsheet,
                     premultiply(shade_color),
@@ -1039,7 +1040,6 @@ void c_sprite::assemble_world_offset(int x, int y, int z, int plateoffset, Tile 
                     (spriteheight-WALL_CUTOFF_HEIGHT)*ssConfig.scale,
                     0);
 
-            if(shade_color.a > 0.001f) {
                 b->AssembleSprite(
                     stonesenseState.IMGObjectSheet,
                     al_map_rgb(255,255,255),
@@ -1054,34 +1054,19 @@ void c_sprite::assemble_world_offset(int x, int y, int z, int plateoffset, Tile 
             }
         } else if ((chop && (halftile == HALFPLATEYES)) || (!chop && (halftile == HALFPLATENO)) || (!chop && (halftile == HALFPLATECHOP)) || (halftile == HALFPLATEBOTH)) {
             if((isoutline == OUTLINENONE) || ((isoutline == OUTLINERIGHT) && (b->depthBorderNorth)) || ((isoutline == OUTLINELEFT) && (b->depthBorderWest)) || ((isoutline == OUTLINEBOTTOM) && (b->depthBorderDown))) {
-                if(fileindex < 0) {
-                    if(shade_color.a > 0.001f)
-                        b->AssembleSprite(
-                            defaultsheet, premultiply(shade_color),
-                            sheetx * spritescale,
-                            sheety * spritescale,
-                            spritewidth * spritescale,
-                            spriteheight * spritescale,
-                            drawx + (offset_x + offset_user_x)*ssConfig.scale,
-                            drawy + (offset_user_y + (offset_y - WALLHEIGHT))*ssConfig.scale,
-                            spritewidth*ssConfig.scale,
-                            spriteheight*ssConfig.scale,
-                            0);
-                } else {
-
-                    if(shade_color.a > 0.001f)
-                        b->AssembleSprite(
-                            getImgFile(fileindex),
-                            premultiply(shade_color),
-                            sheetx * spritescale,
-                            sheety * spritescale,
-                            spritewidth * spritescale,
-                            spriteheight * spritescale,
-                            drawx + (offset_x + offset_user_x)*ssConfig.scale,
-                            drawy + (offset_user_y + (offset_y - WALLHEIGHT))*ssConfig.scale,
-                            spritewidth*ssConfig.scale,
-                            spriteheight*ssConfig.scale,
-                            0);
+                if(shade_color.a > 0.001f) {
+                    b->AssembleSprite(
+                        fileindex < 0 ? defaultsheet : getImgFile(fileindex),
+                        premultiply(shade_color),
+                        sheetx * spritescale,
+                        sheety * spritescale,
+                        spritewidth * spritescale,
+                        spriteheight * spritescale,
+                        drawx + (offset_x + offset_user_x)*ssConfig.scale,
+                        drawy + (offset_user_y + (offset_y - WALLHEIGHT))*ssConfig.scale,
+                        spritewidth*ssConfig.scale,
+                        spriteheight*ssConfig.scale,
+                        0);
                 }
             }
             if(needoutline) {

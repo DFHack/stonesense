@@ -18,8 +18,8 @@ struct GameConfiguration {
     bool show_announcements = false;
     bool show_keybinds = false;
     bool single_layer_view;
-    bool shade_hidden_tiles = false;
-    bool show_hidden_tiles;
+    bool shade_hidden_tiles = true;
+    bool show_hidden_tiles = false;
     bool load_ground_materials = false;
     bool hide_outer_tiles = false;
     uint8_t truncate_walls;
@@ -63,4 +63,25 @@ struct GameConfiguration {
     float scale = 1.0f;
 
     void recalculateScale();
+
+    void reset()
+    {
+        config = {};
+
+        show_announcements = true;
+        hide_outer_tiles = false;
+        shade_hidden_tiles = true;
+        load_ground_materials = true;
+        show_designations = true;
+        show_keybinds = false;
+        track_screen_center = true;
+        creditScreen = true;
+        bloodcutoff = 100;
+        poolcutoff = 100;
+        threadmade = 0;
+        threading_enable = 1;
+        occlusion = 1;
+        zoom = 0;
+        scale = 1.0f;
+    }
 };

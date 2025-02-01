@@ -364,7 +364,11 @@ static void* stonesense_thread(ALLEGRO_THREAD* main_thread, void* parms)
     auto& out{ DFHack::Core::getInstance().getConsole() };
     out.print("Stonesense launched\n");
 
-    stonesenseState.ssConfig = GameConfiguration{};
+    stonesenseState.ssConfig.reset();
+
+    stonesenseState.lift_segment_offscreen_x = 0;
+    stonesenseState.lift_segment_offscreen_y = 0;
+
     stonesenseState.ssState.ScreenH = stonesenseState.ssConfig.config.defaultScreenHeight;
     stonesenseState.ssState.ScreenW = stonesenseState.ssConfig.config.defaultScreenWidth;
     stonesenseState.ssState.Size = { DEFAULT_SIZE, DEFAULT_SIZE, DEFAULT_SIZE_Z };
