@@ -41,6 +41,7 @@ Template for new versions:
 - `stonesense`: added option ``EXTEND_TILES`` to slightly expand sprite to avoid gaps (on by default)
 - `stonesense`: added option ``PIXELPERFECT_ZOOM`` to change the zoom scale to avoid gaps (off by default)
 - `stonesense`: added back minecart track graphics
+- `stonesense`: designations in Stonesense now are tinted based on type, similar to DF
 
 ## Fixes
 - `stonesense`: fixed announcement text rendering off-screen with larger font sizes
