@@ -948,7 +948,7 @@ void action_option9(uint32_t keymod) {
         break;
     case 1: //Dig
         sendDFKey(df::interface_key::DESIGNATE_TOGGLE_ADVANCED_OPTIONS);
-        (stonesenseState.ssState.veinMining) ? 
+        (stonesenseState.ssState.veinMining) ?
             sendDFKey(df::interface_key::DESIGNATE_MINE_MODE_ALL):
             sendDFKey(df::interface_key::DESIGNATE_MINE_MODE_AUTO);
         sendDFKey(df::interface_key::DESIGNATE_TOGGLE_ADVANCED_OPTIONS);
