@@ -145,9 +145,6 @@ namespace {
             if (result == "NONE") {
                 config.track_mode = Config::TRACKING_NONE;
             }
-            else /*if (result == "CENTER") */{ //kept as a comment for future fixes or reimplementation.
-                config.track_mode = Config::TRACKING_CENTER;
-            }
         }
         if (line.find("[INVERT_MOUSE_Z") != string::npos) {
             string result = parseStrFromLine("INVERT_MOUSE_Z", line);
