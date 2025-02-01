@@ -484,25 +484,20 @@ void DrawCurrentLevelOutline(bool backPart)
 
 namespace
 {
-    void drawSelectionCursor(WorldSegment* segment)
+    void drawCursorAt(WorldSegment* segment, Crd3D cursor, ALLEGRO_COLOR color, bool needsCorrection)
     {
         auto& ssConfig = stonesenseState.ssConfig;
+        if (needsCorrection) {
+            segment->CorrectTileForSegmentOffset(cursor.x, cursor.y, cursor.z);
+            segment->CorrectTileForSegmentRotation(cursor.x, cursor.y, cursor.z);
+        }
 
-        Crd3D selection = segment->segState.dfSelection;
-        if ((selection.x != -30000 && ssConfig.config.follow_DFcursor)
-            || (ssConfig.config.track_mode == Config::TRACKING_FOCUS)) {
-            segment->CorrectTileForSegmentOffset(selection.x, selection.y, selection.z);
-            segment->CorrectTileForSegmentRotation(selection.x, selection.y, selection.z);
-        }
-        else {
-            return;
-        }
-        Crd2D point = LocalTileToScreen(selection.x, selection.y, selection.z);
+        Crd2D point = LocalTileToScreen(cursor.x, cursor.y, cursor.z);
         int sheetx = SPRITEOBJECT_CURSOR % SHEET_OBJECTSWIDE;
         int sheety = SPRITEOBJECT_CURSOR / SHEET_OBJECTSWIDE;
         al_draw_tinted_scaled_bitmap(
             stonesenseState.IMGObjectSheet,
-            uiColor(3),
+            color,
             sheetx * SPRITEWIDTH,
             sheety * SPRITEHEIGHT,
             SPRITEWIDTH,
@@ -514,29 +509,25 @@ namespace
             0);
     }
 
-    void drawDebugCursor(WorldSegment* segment)
+    void drawSelectionCursor(WorldSegment* segment)
     {
         auto& ssConfig = stonesenseState.ssConfig;
+        Crd3D selection = segment->segState.dfSelection;
+        if ((selection.x != -30000 && ssConfig.config.follow_DFcursor)
+            || (ssConfig.config.track_mode == Config::TRACKING_FOCUS)) {
+            segment->CorrectTileForSegmentOffset(selection.x, selection.y, selection.z);
+            segment->CorrectTileForSegmentRotation(selection.x, selection.y, selection.z);
+        }
+        else {
+            return;
+        }
+        drawCursorAt(segment, selection, uiColor(3), false);
+    }
 
+    void drawDebugCursor(WorldSegment* segment)
+    {
         Crd3D cursor = segment->segState.dfCursor;
-        segment->CorrectTileForSegmentOffset(cursor.x, cursor.y, cursor.z);
-        segment->CorrectTileForSegmentRotation(cursor.x, cursor.y, cursor.z);
-
-        Crd2D point = LocalTileToScreen(cursor.x, cursor.y, cursor.z);
-        int sheetx = SPRITEOBJECT_CURSOR % SHEET_OBJECTSWIDE;
-        int sheety = SPRITEOBJECT_CURSOR / SHEET_OBJECTSWIDE;
-        al_draw_tinted_scaled_bitmap(
-            stonesenseState.IMGObjectSheet,
-            uiColor(2),
-            sheetx * SPRITEWIDTH,
-            sheety * SPRITEHEIGHT,
-            SPRITEWIDTH,
-            SPRITEHEIGHT,
-            point.x - ((SPRITEWIDTH / 2) * ssConfig.scale),
-            point.y - (WALLHEIGHT)*ssConfig.scale,
-            SPRITEWIDTH * ssConfig.scale,
-            SPRITEHEIGHT * ssConfig.scale,
-            0);
+        drawCursorAt(segment, cursor, uiColor(2), true);
     }
 
     void drawAdvmodeMenuTalk(const ALLEGRO_FONT* font, int x, int y)
