@@ -27,7 +27,6 @@ public:
     FrameTimers stoneSenseTimers;
     bool timeToReloadSegment;
     bool timeToReloadConfig;
-    bool timeToCloseWindow;
     char currentAnimationFrame;
     uint32_t currentFrameLong;
     bool animationFrameShown;
