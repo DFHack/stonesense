@@ -439,18 +439,11 @@ void optimizeSegment(WorldSegment * segment)
             unhideWaterFromAbove(segment, b);
             if( ssConfig.show_designations
                 && containsDesignations(b->designation, b->occ) ) {
-                if (containsBlueprints(b->designation, b->occ)) {
-                    b->blueprint = true;
-                }
-                else {
-                    b->blueprint = false;
-                }
                 b->visible = true;
             } else if( ssConfig.shade_hidden_tiles ) {
                 maskTile(segment, b);
             } else if( b->designation.bits.hidden ) {
                 b->visible = false;
-                b->blueprint = false;
             }
         }
 

@@ -753,17 +753,6 @@ bool containsDesignations( df::tile_designation des, df::tile_occupancy occ )
     return false;
 }
 
-
-bool containsBlueprints(df::tile_designation des, df::tile_occupancy occ)
-{
-    if (!df::global::gamemode || *df::global::gamemode == df::game_mode::ADVENTURE)
-        return false;
-    if (des.bits.dig != df::tile_dig_designation::No &&
-        occ.bits.dig_marked) {
-        return true;
-    }
-    return false;
-}
 void createEffectSprites()
 {
     sprite_miasma        = CreateSpriteFromSheet( 180, stonesenseState.IMGObjectSheet);

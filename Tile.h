@@ -26,7 +26,6 @@ public:
     void Attach(WorldSegment*, df::tiletype, int32_t, int32_t, int32_t);
 
     bool visible;
-    bool blueprint;
 
     WorldSegment* ownerSegment;
 
@@ -137,7 +136,6 @@ bool hasBuildingIdentity(Tile* b, Stonesense_Building* index, df::tile_building_
 bool hasBuildingOfIndex(Tile* b, Stonesense_Building* index);
 bool wallShouldNotHaveBorders( df::tiletype in );
 bool containsDesignations( df::tile_designation, df::tile_occupancy );
-bool containsBlueprints( df::tile_designation, df::tile_occupancy );
 
 inline bool IDisWall(int in)
 {

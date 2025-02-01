@@ -1022,7 +1022,8 @@ void c_sprite::assemble_world_offset(int x, int y, int z, int plateoffset, Tile 
             sheety = ((sheetindex+plateoffset+spriteoffset) / SHEET_OBJECTSWIDE) * spriteheight;
         }
         ALLEGRO_COLOR shade_color = shadeAdventureMode(get_color(b), b->fog_of_war, b->designation.bits.outside);
-        if (b->blueprint && containsDesignations(b->designation, b->occ)) { shade_color = al_map_rgba(0, 127, 255, 127); }
+        if (b->occ.bits.dig_marked && containsDesignations(b->designation, b->occ)) { shade_color = al_map_rgba(0, 127, 255, 127); }
+        if (b->occ.bits.dig_auto && containsDesignations(b->designation, b->occ)) { shade_color = al_map_rgba(0, 255, 127, 127); }
         if(chop && ( halftile == HALFPLATECHOP)) {
             if(shade_color.a > 0.001f)
                 b->AssembleSprite(
