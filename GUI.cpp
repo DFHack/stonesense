@@ -516,7 +516,7 @@ namespace
             selection.x,
             selection.y,
             selection.z);
-        drawCursorAt(segment, segment->segState.dfSelection2, ssConfig.config.colors.getDfColor(dfColors::lblue, ssConfig.config.useDfColors));
+        drawCursorAt(segment, segment->segState.dfSelection2, uiColor(4));
         drawCursorAt(segment, selection, uiColor(3)); // We draw the main one second so it appears on top
     }
 
@@ -807,6 +807,7 @@ namespace
                 "Toggle Zones",
                 "Toggle Stockpiles",
                 "Toggle Designations",
+                "Toggle Announcements",
             };
         } else {
             switch (stonesenseState.ssState.mode) {
@@ -874,6 +875,9 @@ namespace
                 draw_textf_border(font, stonesenseState.ssState.rectangleSelect ? uiColor(2) : uiColor(1), 2, (i++ * fontHeight), 0, "Option6: Rectangle");
                 draw_textf_border(font, !stonesenseState.ssState.rectangleSelect ? uiColor(2) : uiColor(1), 2, (i++ * fontHeight), 0, "Option7: FreeDraw");
                 draw_textf_border(font, stonesenseState.ssState.blueprinting ? uiColor(2) : uiColor(1), 2, (i++ * fontHeight), 0, "Option8: Blueprint Mode");
+                if (stonesenseState.ssState.mode == 1) { //Dig
+                    draw_textf_border(font, stonesenseState.ssState.veinMining ? uiColor(2) : uiColor(1), 2, (i++ * fontHeight), 0, "Option9: Vein Mode");
+                }
         }
 
         if (tform != NULL && b->material.type != INVALID_INDEX) {
@@ -1124,8 +1128,7 @@ void paintboard()
     }
     if (ssConfig.overlay_mode) {
         al_hold_bitmap_drawing(true);
-        ALLEGRO_COLOR red = ssConfig.config.colors.getDfColor(dfColors::lred, ssConfig.config.useDfColors);
-        draw_textf_border(font, *df::global::pause_state ? red : uiColor(3), 0, 0, ALLEGRO_ALIGN_LEFT, (*df::global::pause_state ? "Paused" : "Running"));
+        draw_textf_border(font, *df::global::pause_state ? uiColor(5) : uiColor(3), 0, 0, ALLEGRO_ALIGN_LEFT, (*df::global::pause_state ? "Paused" : "Running"));
         drawSelectionCursors(segment);
         drawGeneralInfo(segment);
         al_hold_bitmap_drawing(false);

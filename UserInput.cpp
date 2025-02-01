@@ -766,7 +766,6 @@ void action_option1(uint32_t keymod) {
         stonesenseState.ssState.submode = "Dig";
         break;
     case 2: //Chop
-        break;
     case 3: //Gather
         break;
     case 4: //Smooth
@@ -774,9 +773,7 @@ void action_option1(uint32_t keymod) {
         stonesenseState.ssState.submode = "Smooth";
         break;
     case 5: //Erase
-        break;
     case 6: //Building
-        break;
     case 7: //Traffic
         break;
     };
@@ -796,7 +793,6 @@ void action_option2(uint32_t keymod) {
         stonesenseState.ssState.submode = "Stairs";
         break;
     case 2: //Chop
-        break;
     case 3: //Gather
         break;
     case 4: //Smooth
@@ -804,9 +800,7 @@ void action_option2(uint32_t keymod) {
         stonesenseState.ssState.submode = "Engrave";
         break;
     case 5: //Erase
-        break;
     case 6: //Building
-        break;
     case 7: //Traffic
         break;
     };
@@ -826,7 +820,6 @@ void action_option3(uint32_t keymod) {
         stonesenseState.ssState.submode = "Ramp";
         break;
     case 2: //Chop
-        break;
     case 3: //Gather
         break;
     case 4: //Smooth
@@ -834,9 +827,7 @@ void action_option3(uint32_t keymod) {
         stonesenseState.ssState.submode = "Carve Track";
         break;
     case 5: //Erase
-        break;
     case 6: //Building
-        break;
     case 7: //Traffic
         break;
     };
@@ -856,7 +847,6 @@ void action_option4(uint32_t keymod) {
         stonesenseState.ssState.submode = "Channel";
         break;
     case 2: //Chop
-        break;
     case 3: //Gather
         break;
     case 4: //Smooth
@@ -864,9 +854,7 @@ void action_option4(uint32_t keymod) {
         stonesenseState.ssState.submode = "Fortification";
         break;
     case 5: //Erase
-        break;
     case 6: //Building
-        break;
     case 7: //Traffic
         break;
     };
@@ -886,20 +874,19 @@ void action_option5(uint32_t keymod) {
         stonesenseState.ssState.submode = "Remove";
         break;
     case 2: //Chop
-        break;
     case 3: //Gather
-        break;
     case 4: //Smooth
-        break;
     case 5: //Erase
-        break;
     case 6: //Building
-        break;
     case 7: //Traffic
         break;
     };
 }
 void action_option6(uint32_t keymod) {
+    if (keymod & ALLEGRO_KEYMOD_SHIFT) {
+        action_toggledesignations(keymod);
+        return;
+    }
     switch (stonesenseState.ssState.mode) {
     case 0: //Default
         break;
@@ -912,12 +899,15 @@ void action_option6(uint32_t keymod) {
         stonesenseState.ssState.rectangleSelect = true;
         break;
     case 6: //Building
-        break;
     case 7: //Traffic
         break;
     };
 }
 void action_option7(uint32_t keymod) {
+    if (keymod & ALLEGRO_KEYMOD_SHIFT) {
+        action_toggleannouncements(keymod);
+        return;
+    }
     switch (stonesenseState.ssState.mode) {
     case 0: //Default
         break;
@@ -930,7 +920,6 @@ void action_option7(uint32_t keymod) {
         stonesenseState.ssState.rectangleSelect = false;
         break;
     case 6: //Building
-        break;
     case 7: //Traffic
         break;
     };
@@ -947,11 +936,29 @@ void action_option8(uint32_t keymod) {
         sendDFKey(df::interface_key::DESIGNATE_TOGGLE_MARKER);
         sendDFKey(df::interface_key::DESIGNATE_TOGGLE_ADVANCED_OPTIONS);
         stonesenseState.ssState.blueprinting = !stonesenseState.ssState.blueprinting;
-        break;
     case 5: //Erase
-        break;
     case 6: //Building
+    case 7: //Traffic
         break;
+    };
+}
+void action_option9(uint32_t keymod) {
+    switch (stonesenseState.ssState.mode) {
+    case 0: //Default
+        break;
+    case 1: //Dig
+        sendDFKey(df::interface_key::DESIGNATE_TOGGLE_ADVANCED_OPTIONS);
+        (stonesenseState.ssState.veinMining) ? 
+            sendDFKey(df::interface_key::DESIGNATE_MINE_MODE_ALL):
+            sendDFKey(df::interface_key::DESIGNATE_MINE_MODE_AUTO);
+        sendDFKey(df::interface_key::DESIGNATE_TOGGLE_ADVANCED_OPTIONS);
+        stonesenseState.ssState.veinMining = !stonesenseState.ssState.veinMining;
+        break;
+    case 2: //Chop
+    case 3: //Gather
+    case 4: //Smooth
+    case 5: //Erase
+    case 6: //Building
     case 7: //Traffic
         break;
     };

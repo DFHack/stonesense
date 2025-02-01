@@ -27,6 +27,7 @@ struct GameState{
 
     bool blueprinting = false;
     bool rectangleSelect = true;
+    bool veinMining = false;
     bool clickedOnceYet = false;
 
     enum modeTypes {

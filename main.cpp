@@ -572,10 +572,19 @@ DFhackCExport command_result stonesense_command(color_ostream &out, std::vector<
         out.print("Stonesense already running.\n");
         return CR_OK;
     }
+
     auto& ssConfig = stonesenseState.ssConfig;
     ssConfig.overlay_mode = false;
     if(params.size() > 0 ) {
         if(params[0] == "overlay"){
+            auto focusStr = DFHack::Gui::getCurFocus().front();
+            if (!(focusStr.starts_with("title") ||
+                focusStr.starts_with("loadgame"))) {
+                out.print(
+                    "You need to start this mode from the titlescreen and enable keyboard cursor (in settings) to ensure a proper state."
+                );
+                return CR_OK;
+            }
             ssConfig.overlay_mode = true;
         } else {
             DumpInfo(out, params);

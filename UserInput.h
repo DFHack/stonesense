@@ -8,6 +8,7 @@ void action_option5(uint32_t keymod);
 void action_option6(uint32_t keymod);
 void action_option7(uint32_t keymod);
 void action_option8(uint32_t keymod);
+void action_option9(uint32_t keymod);
 
 void action_togglePause(uint32_t keymod);
 

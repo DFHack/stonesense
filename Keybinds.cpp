@@ -230,6 +230,8 @@ action_name_mapper actionnamemap[] = {
     {"OPTION6",action_option6},
     {"OPTION7",action_option7},
     {"OPTION8",action_option8},
+    {"OPTION9",action_option9},
+
 
     {"INVALID", action_invalid}//this is the stop condition
 };
