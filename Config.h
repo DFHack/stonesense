@@ -38,7 +38,7 @@ public:
     int lift_segment = 0;
     int animation_step = 196;
     bool verbose_logging = false;
-    trackingmode track_mode = TRACKING_FOCUS;
+    trackingmode track_mode = TRACKING_CENTER;
     bool invert_mouse_z = false;
     bool follow_DFcursor = true;
     bool show_creature_names = false;

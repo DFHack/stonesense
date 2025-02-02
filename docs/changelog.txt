@@ -59,6 +59,7 @@ Template for new versions:
 - `stonesense`: added new connective tiles for pools of blood and vomit
 
 ## Removed
+- `stonesense`: removed the "follow DF cursor" tracking mode
 
 # 51.02-r1
 
