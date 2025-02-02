@@ -322,6 +322,12 @@ ALLEGRO_COLOR uiColor(int32_t index)
     case 3:
         //lime
         return ssConfig.config.colors.getDfColor(dfColors::lgreen, ssConfig.config.useDfColors);
+    case 4:
+        //light blue
+        return ssConfig.config.colors.getDfColor(dfColors::lblue, ssConfig.config.useDfColors);
+    case 5:
+        //light red
+        return ssConfig.config.colors.getDfColor(dfColors::lred, ssConfig.config.useDfColors);
     default:
         //white
         return ssConfig.config.colors.getDfColor(dfColors::white, ssConfig.config.useDfColors);
