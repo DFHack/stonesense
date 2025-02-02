@@ -246,8 +246,8 @@ static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALL
                 }
             }
 
-                doMouse();
-                doRepeatActions();
+            doMouse();
+            doRepeatActions();
             redraw = false;
         }
         /* Take the next event out of the event queue, and store it in `event'. */
