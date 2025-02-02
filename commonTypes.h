@@ -189,7 +189,6 @@ struct FrameTimers{
     RollingAverage<float> beautify_time;
     RollingAverage<float> assembly_time;
     RollingAverage<float> draw_time;
-    RollingAverage<float> overlay_time;
     RollingAverage<float> frame_total;
 
     clock_t prev_frame_time{ clock() };
