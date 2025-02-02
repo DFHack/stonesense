@@ -484,13 +484,11 @@ void DrawCurrentLevelOutline(bool backPart)
 
 namespace
 {
-    void drawCursorAt(WorldSegment* segment, Crd3D cursor, ALLEGRO_COLOR color, bool needsCorrection)
+    void drawCursorAt(WorldSegment* segment, Crd3D cursor, ALLEGRO_COLOR color)
     {
         auto& ssConfig = stonesenseState.ssConfig;
-        if (needsCorrection) {
-            segment->CorrectTileForSegmentOffset(cursor.x, cursor.y, cursor.z);
-            segment->CorrectTileForSegmentRotation(cursor.x, cursor.y, cursor.z);
-        }
+        segment->CorrectTileForSegmentOffset(cursor.x, cursor.y, cursor.z);
+        segment->CorrectTileForSegmentRotation(cursor.x, cursor.y, cursor.z);
 
         Crd2D point = LocalTileToScreen(cursor.x, cursor.y, cursor.z);
         int sheetx = SPRITEOBJECT_CURSOR % SHEET_OBJECTSWIDE;
@@ -515,19 +513,17 @@ namespace
         Crd3D selection = segment->segState.dfSelection;
         if ((selection.x != -30000 && ssConfig.config.follow_DFcursor)
             || (ssConfig.config.track_mode == Config::TRACKING_FOCUS)) {
-            segment->CorrectTileForSegmentOffset(selection.x, selection.y, selection.z);
-            segment->CorrectTileForSegmentRotation(selection.x, selection.y, selection.z);
+            drawCursorAt(segment, selection, uiColor(3));
         }
         else {
             return;
         }
-        drawCursorAt(segment, selection, uiColor(3), false);
     }
 
     void drawDebugCursor(WorldSegment* segment)
     {
         Crd3D cursor = segment->segState.dfCursor;
-        drawCursorAt(segment, cursor, uiColor(2), true);
+        drawCursorAt(segment, cursor, uiColor(2));
     }
 
     void drawAdvmodeMenuTalk(const ALLEGRO_FONT* font, int x, int y)
