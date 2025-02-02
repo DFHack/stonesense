@@ -40,16 +40,18 @@ Template for new versions:
 ## New Features
 - `stonesense`: added option ``EXTRUDE_TILES`` to slightly expand sprite to avoid gaps (on by default)
 - `stonesense`: added option ``PIXELPERFECT_ZOOM`` to change the zoom scale to avoid gaps (off by default)
-- `stonesense`: added back minecart track graphics.
+- `stonesense`: added back minecart track graphics
 
 ## Fixes
 - `stonesense`: fixed announcement text rendering off-screen with larger font sizes
 - `stonesense`: screen dimensions are now properly set when overriden by a window manager
 - `stonesense`: fixed glass cabinets and bookcases being misaligned by 1 pixel
-- `stonesense`: vampires no longer show their true name when they shouldn't.
+- `stonesense`: fixed unrevealed walls being hidden by default
+- `stonesense`: vampires no longer show their true name when they shouldn't
 - `stonesense`: fixed debug performance timers to show milliseconds as intended
 - `stonesense`: ``CACHE_IMAGES`` now disables mipmapping, stopping sprites from going transparent
 - `stonesense`: fixed issue where depth borders wouldn't be rendered for some walls
+- `stonesense`: fixed issue where tiles near the bottom edge would be culled
 
 ## Misc Improvements
 - `stonesense`: improved the way altars look
