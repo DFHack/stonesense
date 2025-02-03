@@ -484,7 +484,7 @@ void DrawCurrentLevelOutline(bool backPart)
 
 namespace
 {
-    void drawCursorAt(WorldSegment* segment, Crd3D cursor, ALLEGRO_COLOR color)
+    void drawCursorAt(WorldSegment* segment, Crd3D& cursor, const ALLEGRO_COLOR& color)
     {
         auto& ssConfig = stonesenseState.ssConfig;
         segment->CorrectTileForSegmentOffset(cursor.x, cursor.y, cursor.z);
@@ -510,7 +510,7 @@ namespace
     void drawSelectionCursor(WorldSegment* segment)
     {
         auto& ssConfig = stonesenseState.ssConfig;
-        Crd3D selection = segment->segState.dfSelection;
+        Crd3D& selection = segment->segState.dfSelection;
         if ((selection.x != -30000 && ssConfig.config.follow_DFcursor)
             || (ssConfig.config.track_mode == Config::TRACKING_FOCUS)) {
             drawCursorAt(segment, selection, uiColor(3));
@@ -522,7 +522,7 @@ namespace
 
     void drawDebugCursor(WorldSegment* segment)
     {
-        Crd3D cursor = segment->segState.dfCursor;
+        Crd3D& cursor = segment->segState.dfCursor;
         drawCursorAt(segment, cursor, uiColor(2));
     }
 
