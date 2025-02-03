@@ -38,6 +38,16 @@ Template for new versions:
 # Future
 
 ## New Features
+
+## Fixes
+
+## Misc Improvements
+
+## Removed
+
+# 51.04-r1.1
+
+## New Features
 - `stonesense`: added option ``EXTRUDE_TILES`` to slightly expand sprite to avoid gaps (on by default)
 - `stonesense`: added option ``PIXELPERFECT_ZOOM`` to change the zoom scale to avoid gaps (off by default)
 - `stonesense`: added back minecart track graphics
@@ -57,8 +67,6 @@ Template for new versions:
 - `stonesense`: improved the way altars look
 - `stonesense`: fog no longer unnecessarily renders to a separate bitmap
 - `stonesense`: added new connective tiles for pools of blood and vomit
-
-## Removed
 
 # 51.02-r1
 
