@@ -486,13 +486,44 @@ namespace
 {
     void drawCursorAt(WorldSegment* segment, Crd3D& cursor, const ALLEGRO_COLOR& color)
     {
+        std::array<dirRelative, 8> directions = { eUpLeft, eUp, eUpRight, eRight, eDownRight, eDown, eDownLeft, eLeft };
+        std::array<Tile*, 8> dirs = {};
+
+        for (unsigned int i = 0; i < directions.size(); i++) {
+            dirs[i] = segment->getTileRelativeTo(cursor.x, cursor.y, cursor.z, directions[i]);
+        }
+
+        auto isObscuring = [&](Tile* tile) {
+            auto& buildType = tile->building.type;
+            return tile &&
+                buildType != BUILDINGTYPE_NA &&
+                buildType != df::enums::building_type::Civzone &&
+                buildType != df::enums::building_type::Stockpile;
+            };
+
+        // Check the tiles in front of the cursor
+        bool occludeCursor = false;
+        for (int i : {3, 4, 5}) {
+            if (occludeCursor) break;
+            if (!dirs[i]) {
+                continue;
+            }
+            int shape = dirs[i]->tileShapeBasic();
+            if (isObscuring(dirs[i]) ||
+                shape == df::tiletype_shape_basic::Ramp ||
+                shape == df::tiletype_shape_basic::Wall) {
+                occludeCursor = true;
+            }
+        }
+
         auto& ssConfig = stonesenseState.ssConfig;
         segment->CorrectTileForSegmentOffset(cursor.x, cursor.y, cursor.z);
         segment->CorrectTileForSegmentRotation(cursor.x, cursor.y, cursor.z);
 
         Crd2D point = LocalTileToScreen(cursor.x, cursor.y, cursor.z);
-        int sheetx = SPRITEOBJECT_CURSOR % SHEET_OBJECTSWIDE;
-        int sheety = SPRITEOBJECT_CURSOR / SHEET_OBJECTSWIDE;
+        int spriteIDX = (occludeCursor ? SPRITEOBJECT_CURSOROCCLUDE : SPRITEOBJECT_CURSOR);
+        int sheetx = spriteIDX % SHEET_OBJECTSWIDE;
+        int sheety = spriteIDX / SHEET_OBJECTSWIDE;
         al_draw_tinted_scaled_bitmap(
             stonesenseState.IMGObjectSheet,
             color,
