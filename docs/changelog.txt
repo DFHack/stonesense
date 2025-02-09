@@ -40,6 +40,7 @@ Template for new versions:
 ## New Features
 
 ## Fixes
+- `stonesense`: megashots no longer leave stonesense unresponsive
 
 ## Misc Improvements
 
@@ -56,7 +57,6 @@ Template for new versions:
 - `stonesense`: fixed announcement text rendering off-screen with larger font sizes
 - `stonesense`: screen dimensions are now properly set when overriden by a window manager
 - `stonesense`: fixed glass cabinets and bookcases being misaligned by 1 pixel
-- `stonesense`: megashots no longer leave stonesense unresponsive
 - `stonesense`: fixed unrevealed walls being hidden by default
 - `stonesense`: vampires no longer show their true name when they shouldn't
 - `stonesense`: fixed debug performance timers to show milliseconds as intended
