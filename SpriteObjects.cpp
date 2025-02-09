@@ -28,7 +28,6 @@
 #include "df/material.h"
 #include "df/unit.h"
 #include "df/world.h"
-#include "df/world_raws.h"
 
 constexpr auto ALL_BORDERS = 255;
 
@@ -702,7 +701,7 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
     } else if(!strcmp(equipsindexstr, "NONE")) {
         itemsubtype = INVALID_INDEX;
     } else {
-        df::world_raws::T_itemdefs &defs = df::global::world->raws.itemdefs;
+        auto &defs = df::global::world->raws.itemdefs;
         switch(itemtype) {
             using df::item_type;
         case item_type::WEAPON:

@@ -667,14 +667,14 @@ namespace
         {
             draw_textf_border(font, uiColor(1), 2, (i++ * fontHeight), 0,
                 "tree name:%s type:%i", lookupTreeName(b->tree.index), b->tree.type);
-            uint16_t branches_dir = b->tree_tile.bits.branches_dir;
+            auto & tree_tile = b->tree_tile;
             draw_textf_border(font, uiColor(1), 2, (i++ * fontHeight), 0,
                 "tree tile:%s%s%s%s%s%s%s",
                 b->tree_tile.bits.trunk ? " trunk" : "",
-                (branches_dir & 0x1) ? " >" : "",
-                (branches_dir & 0x2) ? " v" : "",
-                (branches_dir & 0x4) ? " <" : "",
-                (branches_dir & 0x8) ? " ^" : "",
+                tree_tile.bits.branch_w ? " >" : "",
+                tree_tile.bits.branch_n ? " v" : "",
+                tree_tile.bits.branch_e ? " <" : "",
+                tree_tile.bits.branch_s ? " ^" : "",
                 b->tree_tile.bits.branches ? " branches" : "",
                 b->tree_tile.bits.leaves ? " leaves" : ""
             );

@@ -25,7 +25,6 @@ be intended for use by people not interested in development.
 #include "df/itemdef_glovesst.h"
 #include "df/itemdef_pantsst.h"
 #include "df/world.h"
-#include "df/world_raws.h"
 
 //FIXME: filled with black magic
 void dumpSegment()
@@ -153,7 +152,7 @@ void dumpSegment()
 
 void DumpItemNamesToDisk(const char* filename)
 {
-    df::world_raws::T_itemdefs &defs = df::global::world->raws.itemdefs;
+    auto &defs = df::global::world->raws.itemdefs;
     FILE* fp = fopen(filename, "w");
     if(!fp) {
         return;

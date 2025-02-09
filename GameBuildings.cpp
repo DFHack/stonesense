@@ -13,6 +13,7 @@
 
 #include "df/buildings_other_id.h"
 #include "df/building_wellst.h"
+#include "df/buildingitemst.h"
 #include "df/item_constructed.h"
 #include "df/item_slabst.h"
 #include "df/itemimprovement.h"
