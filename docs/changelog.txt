@@ -42,6 +42,7 @@ Template for new versions:
 ## Fixes
 
 ## Misc Improvements
+- `stonesense`: different types of dig designations (normal, blueprint, autodig) now are distinctly tinted, similar to the vanilla DF interface
 
 ## Removed
 
