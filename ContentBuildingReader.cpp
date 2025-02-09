@@ -13,7 +13,6 @@
 
 #include "df/building_def.h"
 #include "df/world.h"
-#include "df/world_raws.h"
 
 using std::string;
 
