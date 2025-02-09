@@ -813,6 +813,10 @@ namespace {
     }
 }
 
+bool isViewTracking() {
+    auto& ssConfig = stonesenseState.ssConfig;
+    return ssConfig.config.track_mode != Config::TRACKING_NONE;
+}
 
 bool loadConfigFile()
 {

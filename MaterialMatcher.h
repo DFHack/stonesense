@@ -90,7 +90,7 @@ void MaterialMatcher<T>::set_material(T input, std::string token)
     // Only scan inorganics if the token looks like it's actually pointing at one
     if ((tokens[0] == "INORGANIC") || contains_wildcard(tokens[0]))
     {
-        for (size_t i = 0; i < world->raws.inorganics.size(); i++)
+        for (size_t i = 0; i < world->raws.inorganics.all.size(); i++)
         {
             mat.decode(0, i);
             check_match(input, token, mat.getToken(), 0, i);

@@ -77,5 +77,6 @@ struct action_name_mapper {
     void (*func)(uint32_t);
 };
 
+bool isViewTracking();
 bool loadConfigFile();
 std::optional<std::string> trim_line(std::string line);

@@ -134,7 +134,7 @@ bool hasWall(Tile* b);
 bool hasBuildingOfID(Tile* b, int ID);
 bool hasBuildingIdentity(Tile* b, Stonesense_Building* index, df::tile_building_occ buildingOcc);
 bool hasBuildingOfIndex(Tile* b, Stonesense_Building* index);
-bool wallShouldNotHaveBorders( int in );
+bool wallShouldNotHaveBorders( df::tiletype in );
 bool containsDesignations( df::tile_designation, df::tile_occupancy );
 
 inline bool IDisWall(int in)
