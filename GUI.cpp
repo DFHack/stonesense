@@ -511,8 +511,7 @@ namespace
     {
         auto& ssConfig = stonesenseState.ssConfig;
         Crd3D& selection = segment->segState.dfSelection;
-        if ((selection.x != -30000 && ssConfig.config.follow_DFcursor)
-            || (ssConfig.config.track_mode == Config::TRACKING_FOCUS)) {
+        if ((selection.x != -30000 && ssConfig.config.follow_DFcursor)) {
             drawCursorAt(segment, selection, uiColor(3));
         }
         else {
