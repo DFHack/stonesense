@@ -69,6 +69,7 @@ Template for new versions:
 - `stonesense`: improved the way altars look
 - `stonesense`: fog no longer unnecessarily renders to a separate bitmap
 - `stonesense`: added new connective tiles for pools of blood and vomit
+- `stonesense`: made the cursor change sprites when it is partially covered by tiles relative to the camera view
 
 # 51.02-r1
 
