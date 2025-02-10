@@ -43,10 +43,10 @@ Template for new versions:
 - `stonesense`: megashots no longer leave stonesense unresponsive
 
 ## Misc Improvements
-- `stonesense`: different types of dig designations (normal, blueprint, autodig) now are distinctly tinted, similar to the vanilla DF interface
+- `stonesense`: different types of dig designations (normal, blueprint, autodig) now have distinctly colors, matching the vanilla DF interface
 
 ## Removed
-- `stonesense`: removed the "follow DF cursor" tracking mode
+- `stonesense`: removed the "follow DF cursor" tracking mode since the keyboard cursor is no longer commonly used for moving the map around
 
 # 51.04-r1.1
 
