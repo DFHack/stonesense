@@ -46,6 +46,7 @@ Template for new versions:
 - `stonesense`: different types of dig designations (normal, blueprint, autodig) now are distinctly tinted, similar to the vanilla DF interface
 
 ## Removed
+- `stonesense`: removed the "follow DF cursor" tracking mode
 
 # 51.04-r1.1
 
