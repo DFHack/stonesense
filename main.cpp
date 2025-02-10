@@ -353,8 +353,7 @@ static void* stonesense_thread(ALLEGRO_THREAD* main_thread, void* parms)
     auto& ssConfig = stonesenseState.ssConfig;
     al_set_new_display_flags(
         (ssConfig.config.Fullscreen ? ALLEGRO_FULLSCREEN : ALLEGRO_WINDOWED)
-        |(ALLEGRO_RESIZABLE)
-        |(0)
+        | ALLEGRO_RESIZABLE
         |(ssConfig.config.opengl ? ALLEGRO_OPENGL : 0)
         |(ssConfig.config.directX ? ALLEGRO_DIRECT3D_INTERNAL : 0));
 
