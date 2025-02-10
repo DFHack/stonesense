@@ -508,22 +508,9 @@ DFhackCExport command_result stonesense_command(color_ostream &out, std::vector<
         out.print("Stonesense already running.\n");
         return CR_OK;
     }
-    stonesenseState.ssConfig.immersive_mode = false;
     if(params.size() > 0 ) {
-        if(params[0] == "immersive"){
-            auto focusStr = DFHack::Gui::getCurFocus().front();
-            if (!(focusStr.starts_with("title") ||
-                focusStr.starts_with("loadgame"))) {
-                out.print(
-                    "You need to start this mode from the titlescreen and enable keyboard cursor (in settings) to ensure a proper state."
-                );
-                return CR_OK;
-            }
-            stonesenseState.ssConfig.immersive_mode = true;
-        } else {
-            DumpInfo(out, params);
-            return CR_OK;
-        }
+        DumpInfo(out, params);
+        return CR_OK;
     }
 
     if(!al_is_system_installed()) {
