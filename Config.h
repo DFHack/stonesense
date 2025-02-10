@@ -17,8 +17,6 @@ public:
     enum trackingmode : uint8_t {
         TRACKING_NONE,
         TRACKING_CENTER,
-        TRACKING_FOCUS,
-        TRACKING_INVALID
     };
 
     bool closeOnEsc = true;
