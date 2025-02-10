@@ -489,8 +489,7 @@ namespace
         auto& ssConfig = stonesenseState.ssConfig;
 
         Crd3D selection = segment->segState.dfSelection;
-        if ((selection.x != -30000 && ssConfig.config.follow_DFcursor)
-            || (ssConfig.config.track_mode == Config::TRACKING_FOCUS)) {
+        if ((selection.x != -30000 && ssConfig.config.follow_DFcursor)) {
             segment->CorrectTileForSegmentOffset(selection.x, selection.y, selection.z);
             segment->CorrectTileForSegmentRotation(selection.x, selection.y, selection.z);
         }

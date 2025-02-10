@@ -311,7 +311,7 @@ void action_cycletrackingmode(uint32_t keymod)
     }
     else {
         ssConfig.config.track_mode = (Config::trackingmode)(ssConfig.config.track_mode + 1);
-        if (ssConfig.config.track_mode >= Config::TRACKING_INVALID) {
+        if (ssConfig.config.track_mode > Config::TRACKING_CENTER) {
             ssConfig.config.track_mode = Config::TRACKING_NONE;
         }
     }
