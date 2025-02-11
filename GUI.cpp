@@ -511,7 +511,7 @@ namespace
     {
         auto& ssConfig = stonesenseState.ssConfig;
         Crd3D& selection = segment->segState.dfSelection;
-        if ((selection.x != -30000 && ssConfig.config.follow_DFcursor)) {
+        if ((selection.x >=0 && ssConfig.config.follow_DFcursor)) {
             drawCursorAt(segment, selection, uiColor(3));
         }
         else {
@@ -947,7 +947,7 @@ void paintboard()
         }
         if(ssConfig.config.follow_DFcursor && ssConfig.config.debug_mode) {
             top += fontHeight;
-            if(segment->segState.dfCursor.x != -30000) {
+            if(segment->segState.dfCursor.x >=0) {
                 draw_textf_border(font, uiColor(1), ssState.ScreenW/2,top, ALLEGRO_ALIGN_CENTRE, "Following DF Cursor at: %d,%d,%d", segment->segState.dfCursor.x,segment->segState.dfCursor.y,segment->segState.dfCursor.z);
             }
         }
