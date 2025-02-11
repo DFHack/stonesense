@@ -49,7 +49,7 @@ using std::vector;
  * Reads the spatter types and colors from the DF vector 'splatter' at local
  *  position 'lx','ly' into the stonesense Tile 'b'.
  */
-void readSpatterToTile(Tile * b, uint32_t lx, uint32_t ly,
+void readSpatterToTile(Tile * b, uint16_t lx, uint16_t ly,
     const vector <df::block_square_event_material_spatterst * > & splatter)
 {
     auto& ssConfig = stonesenseState.ssConfig;
@@ -246,7 +246,7 @@ bool readDesignationsToTile( Tile * b,
  * stonesense tile.
  */
 //TODO get cavein-sand to work somehow?
-void readMaterialToTile(Tile* b, uint32_t lx, uint32_t ly,
+void readMaterialToTile(Tile* b, uint16_t lx, uint16_t ly,
     df::map_block* trueBlock,
     const DFHack::t_feature& local,
     const DFHack::t_feature& global,
@@ -257,9 +257,9 @@ void readMaterialToTile(Tile* b, uint32_t lx, uint32_t ly,
     int rockIndex = -1;
 
     //first lookup the default geolayer for the location
-    uint32_t tileBiomeIndex = trueBlock->designation[lx][ly].bits.biome;
+    uint16_t tileBiomeIndex = trueBlock->designation[lx][ly].bits.biome;
     uint8_t tileRegionIndex = trueBlock->region_offset[tileBiomeIndex];
-    uint32_t tileGeolayerIndex = trueBlock->designation[lx][ly].bits.geolayer_index;
+    uint16_t tileGeolayerIndex = trueBlock->designation[lx][ly].bits.geolayer_index;
     if(tileRegionIndex < (*allLayers).size()) {
         if(tileGeolayerIndex < (*allLayers).at(tileRegionIndex).size()) {
             rockIndex = (*allLayers).at(tileRegionIndex).at(tileGeolayerIndex);
@@ -330,7 +330,7 @@ void readMaterialToTile(Tile* b, uint32_t lx, uint32_t ly,
     //check veins (defaults to layer material)
     b->veinMaterial.type = INORGANIC;
     b->veinMaterial.index = rockIndex;
-    for(uint32_t i=0; i<(uint32_t)veins.size(); i++) {
+    for(uint16_t i=0; i<(uint16_t)veins.size(); i++) {
         uint16_t row = veins[i]->tile_bitmask[ly];
         bool set = (row & (1 << lx)) != 0;
         if(set) {
@@ -430,8 +430,8 @@ SS_Item ConvertItem(df::item * found_item, WorldSegment& segment){
 */
 void readBlockToSegment(DFHack::Core& DF, WorldSegment& segment,
     int BlockX, int BlockY, int BlockZ,
-    uint32_t BoundrySX, uint32_t BoundrySY,
-    uint32_t BoundryEX, uint32_t BoundryEY,
+    uint16_t BoundrySX, uint16_t BoundrySY,
+    uint16_t BoundryEX, uint16_t BoundryEY,
     vector< vector <int16_t> >* allLayers)
 {
     if(stonesenseState.ssConfig.skipMaps) {
@@ -478,10 +478,10 @@ void readBlockToSegment(DFHack::Core& DF, WorldSegment& segment,
 
     auto& ssConfig = stonesenseState.ssConfig;
 
-    for(uint32_t ly = BoundrySY; ly <= BoundryEY; ly++) {
-        for(uint32_t lx = BoundrySX; lx <= BoundryEX; lx++) {
-            uint32_t gx = lx + (BlockX * BLOCKEDGESIZE);
-            uint32_t gy = ly + (BlockY * BLOCKEDGESIZE);
+    for(uint16_t ly = BoundrySY; ly <= BoundryEY; ly++) {
+        for(uint16_t lx = BoundrySX; lx <= BoundryEX; lx++) {
+            uint16_t gx = lx + (BlockX * BLOCKEDGESIZE);
+            uint16_t gy = ly + (BlockY * BLOCKEDGESIZE);
             if( !segment.CoordinateInsideSegment( gx, gy, BlockZ) ) {
                 continue;
             }
@@ -601,7 +601,7 @@ void readBlockToSegment(DFHack::Core& DF, WorldSegment& segment,
     //add items
     using df::tiletype;
     for(auto iter = trueBlock->items.begin(); iter != trueBlock->items.end(); iter++) {
-        int32_t item_index = *iter;
+        int16_t item_index = *iter;
         df::item * found_item = df::item::find(item_index);
         if(!found_item) {
             continue;
@@ -750,7 +750,7 @@ void readBlockColumnToSegment(DFHack::Core& DF, WorldSegment& segment,
 
 void readMapSegment(WorldSegment* segment, GameState inState)
 {
-    uint32_t index;
+    uint16_t index;
     DFHack::Core & DF = DFHack::Core::getInstance();
     clock_t starttime = clock();
 
@@ -799,7 +799,7 @@ void readMapSegment(WorldSegment* segment, GameState inState)
 
     // read constructions
     vector<df::construction> allConstructions;
-    uint32_t numconstructions = 0;
+    uint16_t numconstructions = 0;
 
     if(!stonesenseState.ssConfig.skipConstructions) {
         numconstructions = df::global::world->event.constructions.size();
@@ -823,7 +823,7 @@ void readMapSegment(WorldSegment* segment, GameState inState)
     }
 
     //figure out what blocks to read
-    int32_t firstTileToReadX = inState.Position.x;
+    int16_t firstTileToReadX = inState.Position.x;
     if (firstTileToReadX < 0) {
         firstTileToReadX = 0;
     }
@@ -837,18 +837,18 @@ void readMapSegment(WorldSegment* segment, GameState inState)
 
     while (firstTileToReadX < inState.Position.x + inState.Size.x) {
         int blockx = firstTileToReadX / BLOCKEDGESIZE;
-        int32_t lastTileInBlockX = (blockx + 1) * BLOCKEDGESIZE - 1;
-        int32_t lastTileToReadX = std::min<int32_t>(lastTileInBlockX, inState.Position.x + inState.Size.x - 1);
+        int16_t lastTileInBlockX = (blockx + 1) * BLOCKEDGESIZE - 1;
+        int16_t lastTileToReadX = std::min<int16_t>(lastTileInBlockX, inState.Position.x + inState.Size.x - 1);
 
-        int32_t firstTileToReadY = inState.Position.y;
+        int16_t firstTileToReadY = inState.Position.y;
         if (firstTileToReadY < 0) {
             firstTileToReadY = 0;
         }
 
         while (firstTileToReadY < inState.Position.y + inState.Size.y) {
             int blocky = firstTileToReadY / BLOCKEDGESIZE;
-            int32_t lastTileInBlockY = (blocky + 1) * BLOCKEDGESIZE - 1;
-            int32_t lastTileToReadY = std::min<uint32_t>(lastTileInBlockY, inState.Position.y + inState.Size.y - 1);
+            int16_t lastTileInBlockY = (blocky + 1) * BLOCKEDGESIZE - 1;
+            int16_t lastTileToReadY = std::min<uint16_t>(lastTileInBlockY, inState.Position.y + inState.Size.y - 1);
 
             for (int lz = inState.Position.z - inState.Size.z; lz <= inState.Position.z; lz++) {
                 //load the tiles from this block to the map segment
@@ -868,18 +868,18 @@ void readMapSegment(WorldSegment* segment, GameState inState)
     }
     while (firstTileToReadX < inState.Position.x + inState.Size.x) {
         int blockx = (firstTileToReadX / (BLOCKEDGESIZE * 3)) * 3;
-        int32_t lastTileInBlockX = ((blockx / 3) + 1) * (BLOCKEDGESIZE * 3) - 1;
-        int32_t lastTileToReadX = std::min<int32_t>(lastTileInBlockX, inState.Position.x + inState.Size.x - 1);
+        int16_t lastTileInBlockX = ((blockx / 3) + 1) * (BLOCKEDGESIZE * 3) - 1;
+        int16_t lastTileToReadX = std::min<int16_t>(lastTileInBlockX, inState.Position.x + inState.Size.x - 1);
 
-        int32_t firstTileToReadY = inState.Position.y;
+        int16_t firstTileToReadY = inState.Position.y;
         if (firstTileToReadY < 0) {
             firstTileToReadY = 0;
         }
 
         while (firstTileToReadY < inState.Position.y + inState.Size.y) {
             int blocky = (firstTileToReadY / (BLOCKEDGESIZE * 3)) * 3;
-            int32_t lastTileInBlockY = ((blocky / 3) + 1) * (BLOCKEDGESIZE * 3) - 1;
-            int32_t lastTileToReadY = std::min<uint32_t>(lastTileInBlockY, inState.Position.y + inState.Size.y - 1);
+            int16_t lastTileInBlockY = ((blocky / 3) + 1) * (BLOCKEDGESIZE * 3) - 1;
+            int16_t lastTileToReadY = std::min<uint16_t>(lastTileInBlockY, inState.Position.y + inState.Size.y - 1);
 
             //read the plants
             if (blockx % 3 == 0 && blocky % 3 == 0)
@@ -898,7 +898,7 @@ void readMapSegment(WorldSegment* segment, GameState inState)
     //translate constructions
     changeConstructionMaterials(segment, &allConstructions);
 
-    uint32_t numengravings = df::global::world->event.engravings.size();
+    uint16_t numengravings = df::global::world->event.engravings.size();
     df::engraving * engraved;
     index = 0;
     Tile * b = 0;
@@ -947,7 +947,7 @@ void read_segment( void *arg)
         auto& ssState = stonesenseState.ssState;
         //read cursor
         if (stonesenseState.ssConfig.config.follow_DFcursor) {
-            DFHack::Gui::getCursorCoords(ssState.dfCursor.x, ssState.dfCursor.y, ssState.dfCursor.z);
+            DFHack::Gui::getCursorCoords(ssState.dfCursor);
             ssState.dfSelection.x = df::global::selection_rect->start_x;
             ssState.dfSelection.y = df::global::selection_rect->start_y;
             ssState.dfSelection.z = df::global::selection_rect->start_z;

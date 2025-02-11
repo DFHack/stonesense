@@ -25,7 +25,7 @@ struct GameConfiguration {
     uint8_t truncate_walls;
     bool track_screen_center = true;
 
-    uint32_t menustate;
+    uint16_t menustate;
     //DFHack::t_viewscreen viewscreen;
 
     bool spriteIndexOverlay;

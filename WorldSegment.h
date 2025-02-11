@@ -85,25 +85,25 @@ public:
         return segState.Size.x * segState.Size.y * segState.Size.z;
     }
 
-    Tile* ResetTile(int32_t x, int32_t y, int32_t z, df::tiletype type=DFHack::tiletype::OpenSpace);
-    Tile* getTile(int32_t x, int32_t y, int32_t z);
-    Tile* getTileLocal(int32_t x, int32_t y, int32_t z);
-    Tile* getTileRelativeTo(int32_t x, int32_t y, int32_t z,  dirRelative direction);
-    Tile* getTileRelativeTo(int32_t x, int32_t y, int32_t z,  dirRelative direction, int distance);
+    Tile* ResetTile(auto x, auto y, auto z, df::tiletype type=DFHack::tiletype::OpenSpace);
+    Tile* getTile(auto x, auto y, auto z);
+    Tile* getTileLocal(auto x, auto y, auto z);
+    Tile* getTileRelativeTo(auto x, auto y, auto z,  dirRelative direction);
+    Tile* getTileRelativeTo(auto x, auto y, auto z,  dirRelative direction, int distance);
     Tile* getTile(uint32_t index);
-    bool ConvertToSegmentLocal(int32_t & x, int32_t & y, int32_t & z);
-    uint32_t ConvertLocalToIndex(int32_t x, int32_t y, int32_t z);
-    void CorrectTileForSegmentOffset(int32_t& x, int32_t& y, int32_t& z);
-    void CorrectTileForSegmentRotation(int32_t& x, int32_t& y, int32_t& z);
+    bool ConvertToSegmentLocal(auto & x, auto & y, auto & z);
+    uint32_t ConvertLocalToIndex(auto x, auto y, auto z);
+    void CorrectTileForSegmentOffset(auto& x, auto& y, auto& z);
+    void CorrectTileForSegmentRotation(auto& x, auto& y, auto& z);
     //void addTile(Tile* b);
     // void AssembleBlockTiles(int32_t firstX, int32_t firstY, int32_t lastX, int32_t lastY, int32_t incrx, int32_t incry, int32_t z);
     void AssembleAllTiles();
     void AssembleSprite(draw_event d);
     void DrawAllTiles();
     //void drawPixels();
-    bool CoordinateInsideSegment(int32_t x, int32_t y, int32_t z);
-    bool RangeInsideSegment(int32_t min_x, int32_t min_y, int32_t min_z, int32_t max_x, int32_t max_y, int32_t max_z);
-    bool CoordinateInteriorSegment(int32_t x, int32_t y, int32_t z, uint32_t shellthick);
+    bool CoordinateInsideSegment(auto x, auto y, auto z);
+    bool RangeInsideSegment(auto min_x, auto min_y, auto min_z, auto max_x, auto max_y, auto max_z);
+    bool CoordinateInteriorSegment(auto x, auto y, auto z, uint32_t shellthick);
     void PushBuilding( std::unique_ptr<Stonesense_Building> tempbuilding);
     void ClearBuildings();
     void PushUnit( std::unique_ptr<Stonesense_Unit> unit);

@@ -34,7 +34,7 @@ void dumpSegment()
     al_lock_mutex(ssConfig.readMutex);
 
     //back up all the relevant values
-    Crd3D tempSize = ssState.Size;
+    df::coord tempSize = ssState.Size;
     int tempViewx = Position.x;
     int tempViewy = Position.y;
     bool tempFollow = ssConfig.follow_DFscreen;

@@ -843,7 +843,7 @@ bool loadConfigFile()
     // apply configuration settings to app state
     stonesenseState.ssState.ScreenH = newConfig.defaultScreenHeight;
     stonesenseState.ssState.ScreenW = newConfig.defaultScreenWidth;
-    stonesenseState.ssState.Size = newConfig.defaultSegmentSize + Crd3D{ 2, 2, 0 };
+    stonesenseState.ssState.Size = newConfig.defaultSegmentSize + df::coord{ 2, 2, 0 };
     stonesenseState.lift_segment_offscreen_x = 0;
     stonesenseState.lift_segment_offscreen_y = newConfig.lift_segment;
 

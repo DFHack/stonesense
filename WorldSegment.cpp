@@ -8,20 +8,20 @@
 
 const GameState SegmentWrap::zeroState =
 {
-    {0,0,0},0,{0,0,0},{0,0,0},{0,0,0},0,0
+    df::coord::coord(),0,df::coord::coord(),df::coord::coord(),df::coord::coord(),df::coord::coord(),0
 };
 
-void WorldSegment::CorrectTileForSegmentOffset(int32_t& xin, int32_t& yin, int32_t& zin)
+void WorldSegment::CorrectTileForSegmentOffset(auto& xin, auto& yin, auto& zin)
 {
     xin -= segState.Position.x;
     yin -= segState.Position.y; //Position.y;
     zin -= segState.Position.z - 1; //need to remove the offset
 }
 
-void WorldSegment::CorrectTileForSegmentRotation(int32_t& x, int32_t& y, int32_t& z)
+void WorldSegment::CorrectTileForSegmentRotation(auto& x, auto& y, auto& z)
 {
-    int32_t oldx = x;
-    int32_t oldy = y;
+    auto oldx = x;
+    auto oldy = y;
 
     if(segState.Rotation == 1) {
         x = segState.Size.x - oldy -1;
@@ -38,11 +38,11 @@ void WorldSegment::CorrectTileForSegmentRotation(int32_t& x, int32_t& y, int32_t
 }
 
 //Converts a set of world coordinates into local coordinates, taking into account view rotation.
-bool WorldSegment::ConvertToSegmentLocal(int32_t & x, int32_t & y, int32_t & z)
+bool WorldSegment::ConvertToSegmentLocal(auto & x, auto & y, auto & z)
 {
-    int32_t lx = x;
-    int32_t ly = y;
-    int32_t lz = z;
+    auto lx = x;
+    auto ly = y;
+    auto lz = z;
 
     lx -= segState.Position.x;
     ly -= segState.Position.y;
@@ -68,17 +68,17 @@ bool WorldSegment::ConvertToSegmentLocal(int32_t & x, int32_t & y, int32_t & z)
     return true;
 }
 
-uint32_t WorldSegment::ConvertLocalToIndex(int32_t x, int32_t y, int32_t z)
+uint32_t WorldSegment::ConvertLocalToIndex(auto x, auto y, auto z)
 {
     return (uint32_t) (x + (y + (z*segState.Size.y))*segState.Size.x );
 }
 
 //Returns a blank tile at the specified world coordinates.
-Tile* WorldSegment::ResetTile(int32_t x, int32_t y, int32_t z, df::tiletype type)
+Tile* WorldSegment::ResetTile(auto x, auto y, auto z, df::tiletype type)
 {
-    int32_t lx = x;
-    int32_t ly = y;
-    int32_t lz = z;
+    auto lx = x;
+    auto ly = y;
+    auto lz = z;
 
     if(!ConvertToSegmentLocal(lx, ly, lz)){
         return NULL;
@@ -93,11 +93,11 @@ Tile* WorldSegment::ResetTile(int32_t x, int32_t y, int32_t z, df::tiletype type
 }
 
 //Returns an existing tile at the specified world coordinates.
-Tile* WorldSegment::getTile(int32_t x, int32_t y, int32_t z)
+Tile* WorldSegment::getTile(auto x, auto y, auto z)
 {
-    int32_t lx = x;
-    int32_t ly = y;
-    int32_t lz = z;
+    auto lx = x;
+    auto ly = y;
+    auto lz = z;
 
     if(!ConvertToSegmentLocal(lx, ly, lz)){
         return NULL;
@@ -108,11 +108,11 @@ Tile* WorldSegment::getTile(int32_t x, int32_t y, int32_t z)
     return getTile(index);
 }
 
-Tile* WorldSegment::getTileRelativeTo(int32_t x, int32_t y, int32_t z,  dirRelative direction)
+Tile* WorldSegment::getTileRelativeTo(auto x, auto y, auto z,  dirRelative direction)
 {
-    int32_t lx = x;
-    int32_t ly = y;
-    int32_t lz = z;
+    auto lx = x;
+    auto ly = y;
+    auto lz = z;
 
     if(!ConvertToSegmentLocal(lx, ly, lz)){
         return NULL;
@@ -158,11 +158,11 @@ Tile* WorldSegment::getTileRelativeTo(int32_t x, int32_t y, int32_t z,  dirRelat
     return getTileLocal(lx, ly, lz);
 }
 
-Tile* WorldSegment::getTileRelativeTo(int32_t x, int32_t y, int32_t z,  dirRelative direction, int distance)
+Tile* WorldSegment::getTileRelativeTo(auto x, auto y, auto z,  dirRelative direction, int distance)
 {
-    int32_t lx = x;
-    int32_t ly = y;
-    int32_t lz = z;
+    auto lx = x;
+    auto ly = y;
+    auto lz = z;
 
     if(!ConvertToSegmentLocal(lx, ly, lz)){
         return NULL;
@@ -208,7 +208,7 @@ Tile* WorldSegment::getTileRelativeTo(int32_t x, int32_t y, int32_t z,  dirRelat
     return getTileLocal(lx, ly, lz);
 }
 
-Tile* WorldSegment::getTileLocal(int32_t x, int32_t y, int32_t z)
+Tile* WorldSegment::getTileLocal(auto x, auto y, auto z)
 {
     if(x < 0 || x >= segState.Size.x) {
         return 0;
@@ -315,10 +315,10 @@ void WorldSegment::AssembleAllTiles()
     auto& ssState = stonesenseState.ssState;
 
     // x,y,z print prices
-    int32_t vsxmax = segState.Size.x-1;
-    int32_t vsymax = segState.Size.y-1;
-    int32_t vszmax = segState.Size.z-1; // grabbing one tile +z more than we should for tile rules
-    for(int32_t vsz=0; vsz < vszmax; vsz++) {
+    auto vsxmax = segState.Size.x-1;
+    auto vsymax = segState.Size.y-1;
+    auto vszmax = segState.Size.z-1; // grabbing one tile +z more than we should for tile rules
+    for(auto vsz=0; vsz < vszmax; vsz++) {
         //add the fog to the queue
         if(stonesenseState.ssConfig.config.fogenable) {
             draw_event d = {
@@ -337,8 +337,8 @@ void WorldSegment::AssembleAllTiles()
             AssembleSprite(d);
         }
         //add the tiles to the queue
-        for(int32_t vsx=1; vsx < vsxmax; vsx++) {
-            for(int32_t vsy=1; vsy < vsymax; vsy++) {
+        for(auto vsx=1; vsx < vsxmax; vsx++) {
+            for(auto vsy=1; vsy < vsymax; vsy++) {
                 Tile *b = getTileLocal(vsx,vsy,vsz);
                 if (b) {
                     b->AssembleTile();
@@ -351,11 +351,11 @@ void WorldSegment::AssembleAllTiles()
 }
 
 
-bool WorldSegment::CoordinateInsideSegment(int32_t x, int32_t y, int32_t z)
+bool WorldSegment::CoordinateInsideSegment(auto x, auto y, auto z)
 {
-    int32_t lx = x;
-    int32_t ly = y;
-    int32_t lz = z;
+    auto lx = x;
+    auto ly = y;
+    auto lz = z;
 
     if(!ConvertToSegmentLocal(lx, ly, lz)){
         return NULL;
@@ -374,14 +374,14 @@ bool WorldSegment::CoordinateInsideSegment(int32_t x, int32_t y, int32_t z)
     return true;
 }
 
-bool WorldSegment::RangeInsideSegment(int32_t min_x, int32_t min_y, int32_t min_z, int32_t max_x, int32_t max_y, int32_t max_z)
+bool WorldSegment::RangeInsideSegment(auto min_x, auto min_y, auto min_z, auto max_x, auto max_y, auto max_z)
 {
-    int32_t lnx = min_x;
-    int32_t lny = min_y;
-    int32_t lnz = min_z;
-    int32_t lxx = max_x;
-    int32_t lxy = max_y;
-    int32_t lxz = max_z;
+    auto lnx = min_x;
+    auto lny = min_y;
+    auto lnz = min_z;
+    auto lxx = max_x;
+    auto lxy = max_y;
+    auto lxz = max_z;
 
     ConvertToSegmentLocal(lnx, lny, lnz);
     ConvertToSegmentLocal(lxx, lxy, lxz);
@@ -400,23 +400,23 @@ bool WorldSegment::RangeInsideSegment(int32_t min_x, int32_t min_y, int32_t min_
     return true;
 }
 
-bool WorldSegment::CoordinateInteriorSegment(int32_t x, int32_t y, int32_t z, uint32_t shellthick)
+bool WorldSegment::CoordinateInteriorSegment(auto x, auto y, auto z, uint32_t shellthick)
 {
-    int32_t lx = x;
-    int32_t ly = y;
-    int32_t lz = z;
+    auto lx = x;
+    auto ly = y;
+    auto lz = z;
 
     if(!ConvertToSegmentLocal(lx, ly, lz)){
         return NULL;
     }
 
-    if(lx < 0  + int32_t(shellthick) || lx >= int32_t(segState.Size.x - shellthick)) {
+    if(lx < 0  + int16_t(shellthick) || lx >= int16_t(segState.Size.x - shellthick)) {
         return 0;
     }
-    if(ly < 0  + int32_t(shellthick) || ly >= int32_t(segState.Size.y - shellthick)) {
+    if(ly < 0  + int16_t(shellthick) || ly >= int16_t(segState.Size.y - shellthick)) {
         return 0;
     }
-    if(lz < 0 /*bottom is "interior"*/ || lz >= int32_t(segState.Size.z - shellthick)) {
+    if(lz < 0 /*bottom is "interior"*/ || lz >= int16_t(segState.Size.z - shellthick)) {
         return 0;
     }
     return true;

@@ -70,7 +70,7 @@ void abortAutoReload()
     //remove_int( automaticReloadProc );
 }
 
-void changeRelativeToRotation( int &inputx, int &inputy, int stepx, int stepy )
+void changeRelativeToRotation( int16_t &inputx, int16_t &inputy, int stepx, int stepy )
 {
     auto& ssState = stonesenseState.ssState;
 
@@ -165,7 +165,7 @@ void doMouse()
         /*we use changeRelativeToRotation directly, and not through moveViewRelativeToRotation
         because we don't want to move the offset with the mouse. It just feels weird. */
         // changing to +1,+1 which moves the clicked point to one of the 4 surrounding the center of rotation
-        changeRelativeToRotation(ssState.Position.x, ssState.Position.y, diffx+1, diffy+1 );
+        changeRelativeToRotation(ssState.Position.x,ssState.Position.y, diffx+1, diffy+1 );
         //moveViewRelativeToRotation(diffx+1, diffy+1);
         stonesenseState.timeToReloadSegment = true;
         //rest(50);

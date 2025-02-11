@@ -78,18 +78,6 @@ struct t_SpriteWithOffset {
     uint8_t snowMax;
 } ;
 
-struct Crd2D {
-    int32_t x,y;
-};
-struct Crd3D {
-    int32_t x,y,z;
-    constexpr Crd3D operator+(const Crd3D rhs)
-    {
-        return Crd3D{ x + rhs.x, y + rhs.y, z + rhs.z };
-    }
-};
-
-
 class dfColors
 {
 public:

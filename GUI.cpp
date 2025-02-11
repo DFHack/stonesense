@@ -391,7 +391,7 @@ void draw_loading_message(const char *format, ...)
     al_flip_display();
 }
 
-void correctTileForDisplayedOffset(int32_t& x, int32_t& y, int32_t& z)
+void correctTileForDisplayedOffset(auto& x, auto& y, auto& z)
 {
     auto& ssState = stonesenseState.ssState;
 
@@ -403,9 +403,9 @@ void correctTileForDisplayedOffset(int32_t& x, int32_t& y, int32_t& z)
 /**
  * Corrects the coordinate (x,y) for rotation in a region of size (szx, szy).
  */
-void correctForRotation(int32_t& x, int32_t& y, unsigned char rot, int32_t szx, int32_t szy){
-    int32_t oldx = x;
-    int32_t oldy = y;
+void correctForRotation(auto& x, auto& y, unsigned char rot, auto szx, auto szy){
+    auto oldx = x;
+    auto oldy = y;
 
     if(rot == 1) {
         x = szy - oldy -1;
@@ -421,16 +421,16 @@ void correctForRotation(int32_t& x, int32_t& y, unsigned char rot, int32_t szx, 
     }
 }
 
-Crd2D WorldTileToScreen(int32_t x, int32_t y, int32_t z)
+df::coord2d WorldTileToScreen(auto x, auto y, auto z)
 {
     correctTileForDisplayedOffset( x, y, z);
     return LocalTileToScreen(x, y, z-1);
 }
 
-Crd2D LocalTileToScreen(int32_t x, int32_t y, int32_t z)
+df::coord2d LocalTileToScreen(auto x, auto y, auto z)
 {
     pointToScreen((int*)&x, (int*)&y, z);
-    Crd2D result;
+    df::coord2d result;
     result.x = x;
     result.y = y;
     return result;
@@ -454,10 +454,10 @@ void DrawCurrentLevelOutline(bool backPart)
         sizey -= 2;
     }
 
-    Crd2D p1 = WorldTileToScreen(x, y, z);
-    Crd2D p2 = WorldTileToScreen(x, y + sizey , z);
-    Crd2D p3 = WorldTileToScreen(x + sizex , y, z);
-    Crd2D p4 = WorldTileToScreen(x + sizex , y + sizey , z);
+    df::coord2d p1 = WorldTileToScreen(x, y, z);
+    df::coord2d p2 = WorldTileToScreen(x, y + sizey , z);
+    df::coord2d p3 = WorldTileToScreen(x + sizex , y, z);
+    df::coord2d p4 = WorldTileToScreen(x + sizex , y + sizey , z);
     p1.y += FLOORHEIGHT*ssConfig.scale;
     p2.y += FLOORHEIGHT*ssConfig.scale;
     p3.y += FLOORHEIGHT*ssConfig.scale;
@@ -484,13 +484,13 @@ void DrawCurrentLevelOutline(bool backPart)
 
 namespace
 {
-    void drawCursorAt(WorldSegment* segment, Crd3D& cursor, const ALLEGRO_COLOR& color)
+    void drawCursorAt(WorldSegment* segment, df::coord& cursor, const ALLEGRO_COLOR& color)
     {
         auto& ssConfig = stonesenseState.ssConfig;
         segment->CorrectTileForSegmentOffset(cursor.x, cursor.y, cursor.z);
         segment->CorrectTileForSegmentRotation(cursor.x, cursor.y, cursor.z);
 
-        Crd2D point = LocalTileToScreen(cursor.x, cursor.y, cursor.z);
+        df::coord2d point = LocalTileToScreen(cursor.x, cursor.y, cursor.z);
         int sheetx = SPRITEOBJECT_CURSOR % SHEET_OBJECTSWIDE;
         int sheety = SPRITEOBJECT_CURSOR / SHEET_OBJECTSWIDE;
         al_draw_tinted_scaled_bitmap(
@@ -510,7 +510,7 @@ namespace
     void drawSelectionCursor(WorldSegment* segment)
     {
         auto& ssConfig = stonesenseState.ssConfig;
-        Crd3D& selection = segment->segState.dfSelection;
+        df::coord& selection = segment->segState.dfSelection;
         if ((selection.x != -30000 && ssConfig.config.follow_DFcursor)) {
             drawCursorAt(segment, selection, uiColor(3));
         }
@@ -521,7 +521,7 @@ namespace
 
     void drawDebugCursor(WorldSegment* segment)
     {
-        Crd3D& cursor = segment->segState.dfCursor;
+        df::coord& cursor = segment->segState.dfCursor;
         drawCursorAt(segment, cursor, uiColor(2));
     }
 
@@ -907,7 +907,7 @@ void paintboard()
         int line = 1;
         al_hold_bitmap_drawing(true);
 
-        for(int32_t i=1; true; i++){
+        for(int16_t i=1; true; i++){
             if(getKeyStrings(i, keyname, actionname)){
                 draw_textf_border(font, uiColor(1), 10, line*fontHeight, 0, "%s: %s%s", keyname->c_str(), actionname->c_str(), isRepeatable(i) ? " (repeats)" : "");
                 line++;
@@ -1180,8 +1180,8 @@ void saveMegashot(bool tall)
     auto& ssConfig = stonesenseState.ssConfig;
     GameConfiguration tempConfig = ssConfig;
     GameState tempState = ssState;
-    uint32_t templiftX = stonesenseState.lift_segment_offscreen_x;
-    uint32_t templiftY = stonesenseState.lift_segment_offscreen_y;
+    uint16_t templiftX = stonesenseState.lift_segment_offscreen_x;
+    uint16_t templiftY = stonesenseState.lift_segment_offscreen_y;
     int tempflags = al_get_new_bitmap_flags();
 
     //now make them real big.
@@ -1282,7 +1282,7 @@ void saveMegashot(bool tall)
         ssState.Position.z = tall ? 0 : ssState.Position.z;
 
         //set up the pixel-shifts
-        int32_t movexx, moveyx, movexy, moveyy;
+        int16_t movexx, moveyx, movexy, moveyy;
         if(ssState.Rotation == 1 || ssState.Rotation == 3) {
             movexx = -sizey;
             moveyx = sizey;
@@ -1298,7 +1298,7 @@ void saveMegashot(bool tall)
         }
 
         //now actually loop through and draw the subsegments
-        int32_t startstartlifty = startlifty;
+        int16_t startstartlifty = startlifty;
         for(int k=0; k<numz; k++) {
             startlifty = startstartlifty - TILEHEIGHT*(numz-k-1)*(ssState.Size.z - 1);
             for(int i=0; i<numy; i++) {

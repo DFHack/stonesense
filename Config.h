@@ -23,11 +23,7 @@ public:
     int defaultScreenWidth{ DEFAULT_RESOLUTION_WIDTH };
     int defaultScreenHeight{ DEFAULT_RESOLUTION_HEIGHT };
     bool Fullscreen{ DEFAULT_FULLSCREEN_MODE };
-    Crd3D defaultSegmentSize{
-        .x = DEFAULT_SIZE,
-        .y = DEFAULT_SIZE,
-        .z = DEFAULT_SIZE_Z
-    };
+    df::coord defaultSegmentSize{ DEFAULT_SIZE, DEFAULT_SIZE, DEFAULT_SIZE_Z };
     bool show_all_creatures = false;
     int automatic_reload_time = 50;
     int automatic_reload_step = 50;
@@ -53,7 +49,7 @@ public:
     ALLEGRO_COLOR fogcol = al_map_rgba(128, 158, 177, 30);
     bool fogenable = true;
     ALLEGRO_COLOR backcol = al_map_rgb(128, 158, 177);
-    Crd3D viewOffset{ 0,0,0 };
+    df::coord viewOffset{ 0,0,0 };
     int bitmapHolds = 4096;
     bool saveImageCache = false;
     int fontsize = 10;

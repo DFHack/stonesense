@@ -7,17 +7,17 @@
 
 struct GameState{
     //properties of the currently viewed portion of the segment
-    Crd3D Position;
+    df::coord Position;
     int Rotation;
 
     //the size of the next segment to load, and the map region
-    Crd3D Size;
-    Crd3D RegionDim;
+    df::coord Size;
+    df::coord RegionDim;
 
     //position of the cursor
-    Crd3D dfCursor;
+    df::coord dfCursor;
     //position of the selection cursor
-    Crd3D dfSelection;
+    df::coord dfSelection;
 
     //the width and height of the stonesense window
     int ScreenW;
