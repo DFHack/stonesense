@@ -947,9 +947,7 @@ void read_segment( void *arg)
         auto& ssState = stonesenseState.ssState;
         //read cursor
         if (stonesenseState.ssConfig.config.follow_DFcursor) {
-            df::coord t;
-            DFHack::Gui::getCursorCoords(t);
-            ssState.dfCursor = t;
+            ssState.dfCursor = DFHack::Gui::getCursorPos();
             ssState.dfSelection = OptCrd3D { df::global::selection_rect->start_x, df::global::selection_rect->start_y, df::global::selection_rect->start_z };
         }
 
