@@ -996,9 +996,11 @@ void c_sprite::assemble_world_offset(int x, int y, int z, int plateoffset, Tile 
         int32_t drawx = x;
         int32_t drawy = y;
         int32_t drawz = z; //- ownerSegment->sizez + 1;
+        df::coord drawcoord(drawx, drawx, drawz);
 
-        b->ownerSegment->CorrectTileForSegmentOffset( drawx, drawy, drawz );
-        b->ownerSegment->CorrectTileForSegmentRotation( drawx, drawy, drawz );
+
+        b->ownerSegment->CorrectTileForSegmentOffset(drawcoord);
+        b->ownerSegment->CorrectTileForSegmentRotation(drawcoord);
         pointToScreen((int*)&drawx, (int*)&drawy, drawz);
         drawx -= (TILEWIDTH>>1)*ssConfig.scale;
 

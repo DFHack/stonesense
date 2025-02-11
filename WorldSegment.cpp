@@ -11,29 +11,29 @@ const GameState SegmentWrap::zeroState =
     df::coord(),0,df::coord(),df::coord(),df::coord(),df::coord(),0
 };
 
-void WorldSegment::CorrectTileForSegmentOffset(auto& xin, auto& yin, auto& zin)
+void WorldSegment::CorrectTileForSegmentOffset(df::coord& coord)
 {
-    xin -= segState.Position.x;
-    yin -= segState.Position.y; //Position.y;
-    zin -= segState.Position.z - 1; //need to remove the offset
+    coord.x -= segState.Position.x;
+    coord.y -= segState.Position.y; //Position.y;
+    coord.z -= segState.Position.z - 1; //need to remove the offset
 }
 
-void WorldSegment::CorrectTileForSegmentRotation(auto& x, auto& y, auto& z)
+void WorldSegment::CorrectTileForSegmentRotation(df::coord& coord)
 {
-    auto oldx = x;
-    auto oldy = y;
+    auto oldx = coord.x;
+    auto oldy = coord.y;
 
     if(segState.Rotation == 1) {
-        x = segState.Size.x - oldy -1;
-        y = oldx;
+        coord.x = segState.Size.x - oldy - 1;
+        coord.y = oldx;
     }
-    if(segState.Rotation == 2) {
-        x = segState.Size.x - oldx -1;
-        y = segState.Size.y - oldy -1;
+    if (segState.Rotation == 2) {
+        coord.x = segState.Size.x - oldx - 1;
+        coord.y = segState.Size.y - oldy - 1;
     }
-    if(segState.Rotation == 3) {
-        x = oldy;
-        y = segState.Size.y - oldx -1;
+    if (segState.Rotation == 3) {
+        coord.x = oldy;
+        coord.y = segState.Size.y - oldx -1;
     }
 }
 

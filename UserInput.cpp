@@ -158,10 +158,10 @@ void doMouse()
         int x, y;
         x = mouse.x;
         y = mouse.y;
-        int tilex,tiley,tilez;
-        ScreenToPoint(x,y,tilex,tiley,tilez);
-        int diffx = tilex - ssState.Size.x/2;
-        int diffy = tiley - ssState.Size.y/2;
+        df::coord tileCoord{};
+        ScreenToPoint(x,y,tileCoord);
+        int diffx = tileCoord.x - ssState.Size.x/2;
+        int diffy = tileCoord.y - ssState.Size.y/2;
         /*we use changeRelativeToRotation directly, and not through moveViewRelativeToRotation
         because we don't want to move the offset with the mouse. It just feels weird. */
         // changing to +1,+1 which moves the clicked point to one of the 4 surrounding the center of rotation
@@ -181,29 +181,30 @@ void doMouse()
             y <= stonesenseState.MiniMapBottomRightY) { // in minimap
             ssState.Position.x = (x- stonesenseState.MiniMapTopLeftX- stonesenseState.MiniMapSegmentWidth/2)/ stonesenseState.oneTileInPixels;
             ssState.Position.y = (y- stonesenseState.MiniMapTopLeftY- stonesenseState.MiniMapSegmentHeight/2)/ stonesenseState.oneTileInPixels;
-        } else {
-            int tilex,tiley,tilez;
+        }
+        else {
+            df::coord tileCoord{};
 
             //get the point in the segment
-            ScreenToPoint(x,y,tilex,tiley,tilez);
+            ScreenToPoint(x, y, tileCoord);
 
             //then remove the segment rotation
-            correctForRotation(
-                tilex, tiley,
+
+            correctForRotation(tileCoord.x,tileCoord.y,
                 (4 - ssState.Rotation) % 4,
                 ssState.Size.x, ssState.Size.y);
 
             //Convert to zero as top layer convention
-            tilez = tilez - (ssState.Size.z-2);
+            tileCoord.z = tileCoord.z - (ssState.Size.z-2);
 
             //add on the segment offset
-            tilex = tilex + ssState.Position.x;
-            tiley = tiley + ssState.Position.y;
-            tilez = tilez + ssState.Position.z - 1;
+            tileCoord.x = tileCoord.x + ssState.Position.x;
+            tileCoord.y = tileCoord.y + ssState.Position.y;
+            tileCoord.z = tileCoord.z + ssState.Position.z - 1;
 
-            ssState.dfCursor.x = tilex;
-            ssState.dfCursor.y = tiley;
-            ssState.dfCursor.z = tilez;
+            ssState.dfCursor.x = tileCoord.x;
+            ssState.dfCursor.y = tileCoord.y;
+            ssState.dfCursor.z = tileCoord.z;
         }
         stonesenseState.timeToReloadSegment = true;
     }

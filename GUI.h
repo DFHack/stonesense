@@ -3,11 +3,11 @@
 #include "common.h"
 #include <filesystem>
 
-void ScreenToPoint(int x,int y,int &x1, int &y1, int &z1);
+void ScreenToPoint(int x,int y, df::coord& coord);
 void pointToScreen(int *inx, int *iny, int inz);
-void correctForRotation(auto& x, auto& y, unsigned char rot, auto szx, auto szy);
-df::coord2d WorldTileToScreen(auto x, auto y, auto z);
-df::coord2d LocalTileToScreen(auto x, auto y, auto z);
+void correctForRotation(int16_t x, int16_t y, unsigned char rot, int16_t szx, int16_t szy);
+df::coord2d WorldTileToScreen(df::coord in);
+df::coord2d LocalTileToScreen(int16_t x, int16_t y, int16_t z);
 void DrawCurrentLevelOutline(bool backPart);
 void DrawMinimap(WorldSegment *);
 void paintboard();

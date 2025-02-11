@@ -93,8 +93,8 @@ public:
     Tile* getTile(uint32_t index);
     bool ConvertToSegmentLocal(auto & x, auto & y, auto & z);
     uint32_t ConvertLocalToIndex(auto x, auto y, auto z);
-    void CorrectTileForSegmentOffset(auto& x, auto& y, auto& z);
-    void CorrectTileForSegmentRotation(auto& x, auto& y, auto& z);
+    void CorrectTileForSegmentOffset(df::coord& coord);
+    void CorrectTileForSegmentRotation(df::coord& coord);
     //void addTile(Tile* b);
     // void AssembleBlockTiles(int32_t firstX, int32_t firstY, int32_t lastX, int32_t lastY, int32_t incrx, int32_t incry, int32_t z);
     void AssembleAllTiles();

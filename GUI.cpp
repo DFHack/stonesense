@@ -164,7 +164,7 @@ public:
 
 namespace
 {
-    void ScreenToPoint(int inx, int iny, int& x1, int& y1, int& z1, int segSizeX, int segSizeY, int segSizeZ, int ScreenW, int ScreenH)
+    void ScreenToPoint(int inx, int iny, df::coord& coord, int segSizeX, int segSizeY, int segSizeZ, int ScreenW, int ScreenH)
     {
         auto& ssConfig = stonesenseState.ssConfig;
 
@@ -176,8 +176,8 @@ namespace
         y = y / ssConfig.scale;
         y += TILETOPHEIGHT * 5.0 / 4.0;
         y += stonesenseState.lift_segment_offscreen_y;
-        z1 = segSizeZ - 2;
-        y += z1 * TILEHEIGHT;
+        coord.z = segSizeZ - 2;
+        y += coord.z * TILEHEIGHT;
         y = 2 * y / TILETOPHEIGHT;
         y += (segSizeX / 2) + (segSizeY / 2);
 
@@ -186,19 +186,19 @@ namespace
         x = 2 * x / TILEWIDTH;
         x += (segSizeX / 2) - (segSizeY / 2);
 
-        x1 = (x + y) / 2;
-        y1 = (y - x) / 2;
+        coord.x = (x + y) / 2;
+        coord.y = (y - x) / 2;
 
     }
 }
 
-void ScreenToPoint(int x,int y,int &x1, int &y1, int &z1)
+void ScreenToPoint(int x,int y,df::coord& coord)
 {
     auto& ssState = stonesenseState.ssState;
     if(stonesenseState.ssConfig.track_screen_center){
-        ScreenToPoint(x, y, x1, y1, z1, ssState.Size.x, ssState.Size.y, ssState.Size.z, ssState.ScreenW, ssState.ScreenH);
+        ScreenToPoint(x, y, coord, ssState.Size.x, ssState.Size.y, ssState.Size.z, ssState.ScreenW, ssState.ScreenH);
     } else {
-        ScreenToPoint(x, y, x1, y1, z1, 0, 0, ssState.Size.z, 0, 0);
+        ScreenToPoint(x, y, coord, 0, 0, ssState.Size.z, 0, 0);
     }
 }
 
@@ -391,19 +391,23 @@ void draw_loading_message(const char *format, ...)
     al_flip_display();
 }
 
-void correctTileForDisplayedOffset(auto& x, auto& y, auto& z)
+void correctTileForDisplayedOffset(df::coord& coord)
 {
     auto& ssState = stonesenseState.ssState;
 
-    x -= ssState.Position.x;
-    y -= ssState.Position.y; //Position.y;
-    z -= ssState.Position.z - 1; // + viewedSegment->sizez - 2; // loading one above the top of the displayed segment for tile rules
+    coord.x -= ssState.Position.x;
+    coord.y -= ssState.Position.y; //Position.y;
+    coord.z -= ssState.Position.z - 1; // + viewedSegment->sizez - 2; // loading one above the top of the displayed segment for tile rules
 }
 
 /**
  * Corrects the coordinate (x,y) for rotation in a region of size (szx, szy).
  */
+<<<<<<< Updated upstream
 void correctForRotation(auto& x, auto& y, unsigned char rot, auto szx, auto szy){
+=======
+void correctForRotation(int16_t& x, int16_t& y, unsigned char rot, int16_t szx, int16_t szy){
+>>>>>>> Stashed changes
     auto oldx = x;
     auto oldy = y;
 
@@ -421,13 +425,13 @@ void correctForRotation(auto& x, auto& y, unsigned char rot, auto szx, auto szy)
     }
 }
 
-df::coord2d WorldTileToScreen(auto x, auto y, auto z)
+df::coord2d WorldTileToScreen(df::coord in)
 {
-    correctTileForDisplayedOffset( x, y, z);
-    return LocalTileToScreen(x, y, z-1);
+    correctTileForDisplayedOffset(in);
+    return LocalTileToScreen(in.x, in.y, in.z-1);
 }
 
-df::coord2d LocalTileToScreen(auto x, auto y, auto z)
+df::coord2d LocalTileToScreen(int16_t x, int16_t y, int16_t z)
 {
     pointToScreen((int*)&x, (int*)&y, z);
     df::coord2d result;
@@ -454,10 +458,10 @@ void DrawCurrentLevelOutline(bool backPart)
         sizey -= 2;
     }
 
-    df::coord2d p1 = WorldTileToScreen(x, y, z);
-    df::coord2d p2 = WorldTileToScreen(x, y + sizey , z);
-    df::coord2d p3 = WorldTileToScreen(x + sizex , y, z);
-    df::coord2d p4 = WorldTileToScreen(x + sizex , y + sizey , z);
+    df::coord2d p1 = WorldTileToScreen(df::coord(x, y, z));
+    df::coord2d p2 = WorldTileToScreen(df::coord(x, y + sizey, z));
+    df::coord2d p3 = WorldTileToScreen(df::coord(x + sizex, y, z));
+    df::coord2d p4 = WorldTileToScreen(df::coord(x + sizex, y + sizey, z));
     p1.y += FLOORHEIGHT*ssConfig.scale;
     p2.y += FLOORHEIGHT*ssConfig.scale;
     p3.y += FLOORHEIGHT*ssConfig.scale;
@@ -487,8 +491,8 @@ namespace
     void drawCursorAt(WorldSegment* segment, df::coord& cursor, const ALLEGRO_COLOR& color)
     {
         auto& ssConfig = stonesenseState.ssConfig;
-        segment->CorrectTileForSegmentOffset(cursor.x, cursor.y, cursor.z);
-        segment->CorrectTileForSegmentRotation(cursor.x, cursor.y, cursor.z);
+        segment->CorrectTileForSegmentOffset(cursor);
+        segment->CorrectTileForSegmentRotation(cursor);
 
         df::coord2d point = LocalTileToScreen(cursor.x, cursor.y, cursor.z);
         int sheetx = SPRITEOBJECT_CURSOR % SHEET_OBJECTSWIDE;
