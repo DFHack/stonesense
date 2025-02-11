@@ -997,17 +997,19 @@ void c_sprite::assemble_world_offset(int x, int y, int z, int plateoffset, Tile 
         int16_t drawy = y;
         int16_t drawz = z; //- ownerSegment->sizez + 1;
         df::coord drawcoord(drawx, drawy, drawz);
-
-
         b->ownerSegment->CorrectTileForSegmentOffset(drawcoord);
         b->ownerSegment->CorrectTileForSegmentRotation(drawcoord.x,drawcoord.y);
-        pointToScreen((int*)&drawcoord.x, (int*)&drawcoord.y, drawcoord.z);
-        drawcoord.x -= (TILEWIDTH>>1)*ssConfig.scale;
 
-        if((drawcoord.x + (spritewidth+offset_x)*ssConfig.scale < 0)
-            || (drawcoord.x + offset_x*ssConfig.scale > ssState.ScreenW)
-            || (drawcoord.y + (spriteheight + offset_y)*ssConfig.scale < 0)
-            || (drawcoord.y + (offset_y - WALLHEIGHT)*ssConfig.scale > ssState.ScreenH)) {
+        int drawintx = drawcoord.x;
+        int drawinty = drawcoord.y;
+        int drawintz = drawcoord.z;
+        pointToScreen(&drawintx, &drawinty, drawintz);
+        drawintx -= (TILEWIDTH >> 1) * stonesenseState.ssConfig.scale;
+
+        if((drawintx + (spritewidth+offset_x)*ssConfig.scale < 0)
+            || (drawintx + offset_x*ssConfig.scale > ssState.ScreenW)
+            || (drawinty + (spriteheight + offset_y)*ssConfig.scale < 0)
+            || (drawinty + (offset_y - WALLHEIGHT)*ssConfig.scale > ssState.ScreenH)) {
             return;
         }
 
@@ -1042,8 +1044,8 @@ void c_sprite::assemble_world_offset(int x, int y, int z, int plateoffset, Tile 
                     (sheety+WALL_CUTOFF_HEIGHT) * spritescale,
                     spritewidth * spritescale,
                     (spriteheight-WALL_CUTOFF_HEIGHT) * spritescale,
-                    drawcoord.x + (offset_x + offset_user_x)*ssConfig.scale,
-                    drawcoord.y + (offset_user_y + (offset_y - WALLHEIGHT)+WALL_CUTOFF_HEIGHT)*ssConfig.scale,
+                    drawintx + (offset_x + offset_user_x)*ssConfig.scale,
+                    drawinty + (offset_user_y + (offset_y - WALLHEIGHT)+WALL_CUTOFF_HEIGHT)*ssConfig.scale,
                     spritewidth*ssConfig.scale,
                     (spriteheight-WALL_CUTOFF_HEIGHT)*ssConfig.scale,
                     0);
@@ -1055,8 +1057,8 @@ void c_sprite::assemble_world_offset(int x, int y, int z, int plateoffset, Tile 
                     0,
                     SPRITEWIDTH,
                     SPRITEWIDTH,
-                    drawcoord.x+offset_x,
-                    (drawcoord.y+offset_y-(((SPRITEHEIGHT-WALL_CUTOFF_HEIGHT)/2)*ssConfig.scale)),
+                    drawintx+offset_x,
+                    (drawinty+offset_y-(((SPRITEHEIGHT-WALL_CUTOFF_HEIGHT)/2)*ssConfig.scale)),
                     SPRITEWIDTH*ssConfig.scale, SPRITEWIDTH*ssConfig.scale,
                     0);
             }
@@ -1070,8 +1072,8 @@ void c_sprite::assemble_world_offset(int x, int y, int z, int plateoffset, Tile 
                         sheety * spritescale,
                         spritewidth * spritescale,
                         spriteheight * spritescale,
-                        drawcoord.x + (offset_x + offset_user_x)*ssConfig.scale,
-                        drawcoord.y + (offset_user_y + (offset_y - WALLHEIGHT))*ssConfig.scale,
+                        drawintx + (offset_x + offset_user_x)*ssConfig.scale,
+                        drawinty + (offset_user_y + (offset_y - WALLHEIGHT))*ssConfig.scale,
                         spritewidth*ssConfig.scale,
                         spriteheight*ssConfig.scale,
                         0);
@@ -1088,8 +1090,8 @@ void c_sprite::assemble_world_offset(int x, int y, int z, int plateoffset, Tile 
                         sheety * SPRITEHEIGHT,
                         SPRITEWIDTH,
                         SPRITEHEIGHT,
-                        drawcoord.x + (offset_x)*ssConfig.scale,
-                        drawcoord.y + (offset_y)*ssConfig.scale - (WALLHEIGHT)*ssConfig.scale,
+                        drawintx + (offset_x)*ssConfig.scale,
+                        drawinty + (offset_y)*ssConfig.scale - (WALLHEIGHT)*ssConfig.scale,
                         SPRITEWIDTH * ssConfig.scale,
                         SPRITEHEIGHT * ssConfig.scale,
                         0);
