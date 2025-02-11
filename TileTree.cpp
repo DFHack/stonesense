@@ -35,7 +35,7 @@ void insert_sprite(WorldSegment *w, int x, int y, int z, Tile * parent, c_sprite
 
 void c_tile_tree_twig::insert_sprites(WorldSegment *w, int x, int y, int z, Tile * parent)
 {
-    if(w->CoordinateInsideSegment(x,y,z)) {
+    if (w->CoordinateInsideSegment(df::coord(x, y, z))) {
         if(own_sprite.get_sheetindex() >= 0) {
             insert_sprite(w,x,y,z,parent, own_sprite);
         }
@@ -43,14 +43,14 @@ void c_tile_tree_twig::insert_sprites(WorldSegment *w, int x, int y, int z, Tile
     switch(stonesenseState.ssState.Rotation) {
     case 0:
         for(unsigned int i = 0; i < eastward_growth.size(); i++) {
-            if(w->CoordinateInsideSegment(x + i + 1,y,z)) {
+            if (w->CoordinateInsideSegment(df::coord(x + i + 1, y, z))) {
                 if(eastward_growth[i].get_sheetindex() >= 0) {
                     insert_sprite( w, x + i + 1, y, z, parent, eastward_growth[i] );
                 }
             }
         }
         for(unsigned int i = 0; i < westward_growth.size(); i++) {
-            if(w->CoordinateInsideSegment(x - i - 1,y,z)) {
+            if (w->CoordinateInsideSegment(df::coord(x - i - 1, y, z))) {
                 if(westward_growth[i].get_sheetindex() >= 0) {
                     insert_sprite( w, x - i - 1, y, z, parent, westward_growth[i] );
                 }
@@ -59,14 +59,14 @@ void c_tile_tree_twig::insert_sprites(WorldSegment *w, int x, int y, int z, Tile
         break;
     case 1:
         for(unsigned int i = 0; i < westward_growth.size(); i++) {
-            if(w->CoordinateInsideSegment(x, y + i + 1, z)) {
+            if (w->CoordinateInsideSegment(df::coord(x, y + i + 1, z))) {
                 if(westward_growth[i].get_sheetindex() >= 0) {
                     insert_sprite( w, x, y + i + 1, z, parent, westward_growth[i] );
                 }
             }
         }
         for(unsigned int i = 0; i < eastward_growth.size(); i++) {
-            if(w->CoordinateInsideSegment(x, y - i - 1, z)) {
+            if (w->CoordinateInsideSegment(df::coord(x, y - i - 1, z))) {
                 if(eastward_growth[i].get_sheetindex() >= 0) {
                     insert_sprite( w, x, y - i - 1, z, parent, eastward_growth[i] );
                 }
@@ -75,14 +75,14 @@ void c_tile_tree_twig::insert_sprites(WorldSegment *w, int x, int y, int z, Tile
         break;
     case 2:
         for(unsigned int i = 0; i < eastward_growth.size(); i++) {
-            if(w->CoordinateInsideSegment(x - i - 1,y,z)) {
+            if (w->CoordinateInsideSegment(df::coord(x - i - 1, y, z))) {
                 if(eastward_growth[i].get_sheetindex() >= 0) {
                     insert_sprite( w, x - i - 1, y, z, parent, eastward_growth[i] );
                 }
             }
         }
         for(unsigned int i = 0; i < westward_growth.size(); i++) {
-            if(w->CoordinateInsideSegment(x + i + 1,y,z)) {
+            if (w->CoordinateInsideSegment(df::coord(x + i + 1, y, z))) {
                 if(westward_growth[i].get_sheetindex() >= 0) {
                     insert_sprite( w, x + i + 1, y, z, parent, westward_growth[i] );
                 }
@@ -91,14 +91,14 @@ void c_tile_tree_twig::insert_sprites(WorldSegment *w, int x, int y, int z, Tile
         break;
     case 3:
         for(unsigned int i = 0; i < westward_growth.size(); i++) {
-            if(w->CoordinateInsideSegment(x, y - i - 1, z)) {
+            if (w->CoordinateInsideSegment(df::coord(x, y - i - 1, z))) {
                 if(westward_growth[i].get_sheetindex() >= 0) {
                     insert_sprite( w, x, y - i - 1, z, parent, westward_growth[i] );
                 }
             }
         }
         for(unsigned int i = 0; i < eastward_growth.size(); i++) {
-            if(w->CoordinateInsideSegment(x, y + i + 1, z)) {
+            if (w->CoordinateInsideSegment(df::coord(x, y + i + 1, z))) {
                 if(eastward_growth[i].get_sheetindex() >= 0) {
                     insert_sprite( w, x, y + i + 1, z, parent, eastward_growth[i] );
                 }

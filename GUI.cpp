@@ -403,11 +403,7 @@ void correctTileForDisplayedOffset(df::coord& coord)
 /**
  * Corrects the coordinate (x,y) for rotation in a region of size (szx, szy).
  */
-<<<<<<< Updated upstream
-void correctForRotation(auto& x, auto& y, unsigned char rot, auto szx, auto szy){
-=======
 void correctForRotation(int16_t& x, int16_t& y, unsigned char rot, int16_t szx, int16_t szy){
->>>>>>> Stashed changes
     auto oldx = x;
     auto oldy = y;
 
@@ -492,7 +488,7 @@ namespace
     {
         auto& ssConfig = stonesenseState.ssConfig;
         segment->CorrectTileForSegmentOffset(cursor);
-        segment->CorrectTileForSegmentRotation(cursor);
+        segment->CorrectTileForSegmentRotation(cursor.x,cursor.y);
 
         df::coord2d point = LocalTileToScreen(cursor.x, cursor.y, cursor.z);
         int sheetx = SPRITEOBJECT_CURSOR % SHEET_OBJECTSWIDE;

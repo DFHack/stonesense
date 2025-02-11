@@ -223,7 +223,7 @@ void Tile::GetDrawLocation(int32_t& drawx, int32_t& drawy)
 
 
     ownerSegment->CorrectTileForSegmentOffset(drawcoord);
-    ownerSegment->CorrectTileForSegmentRotation(drawcoord);
+    ownerSegment->CorrectTileForSegmentRotation(drawcoord.x, drawcoord.y);
     pointToScreen((int*)&drawx, (int*)&drawy, drawz);
     drawx -= (TILEWIDTH>>1)*stonesenseState.ssConfig.scale;
 }

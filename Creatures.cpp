@@ -566,7 +566,7 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
     for(uint32_t index=0; index<world->units.active.size(); index++) {
         unit_ptr = world->units.active[index];
 
-        if(!segment->CoordinateInsideSegment(unit_ptr->pos.x,unit_ptr->pos.y,unit_ptr->pos.z)
+        if (!segment->CoordinateInsideSegment(df::coord(unit_ptr->pos.x, unit_ptr->pos.y, unit_ptr->pos.z))
             || (!IsCreatureVisible(unit_ptr) && !ssConfig.config.show_all_creatures)){
                 continue;
         }

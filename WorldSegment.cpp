@@ -18,22 +18,22 @@ void WorldSegment::CorrectTileForSegmentOffset(df::coord& coord)
     coord.z -= segState.Position.z - 1; //need to remove the offset
 }
 
-void WorldSegment::CorrectTileForSegmentRotation(df::coord& coord)
+void WorldSegment::CorrectTileForSegmentRotation(int16_t& x, int16_t& y)
 {
-    auto oldx = coord.x;
-    auto oldy = coord.y;
+    auto oldx = x;
+    auto oldy = y;
 
     if(segState.Rotation == 1) {
-        coord.x = segState.Size.x - oldy - 1;
-        coord.y = oldx;
+        x = segState.Size.x - oldy - 1;
+        y = oldx;
     }
     if (segState.Rotation == 2) {
-        coord.x = segState.Size.x - oldx - 1;
-        coord.y = segState.Size.y - oldy - 1;
+        x = segState.Size.x - oldx - 1;
+        y = segState.Size.y - oldy - 1;
     }
     if (segState.Rotation == 3) {
-        coord.x = oldy;
-        coord.y = segState.Size.y - oldx -1;
+        x = oldy;
+        y = segState.Size.y - oldx -1;
     }
 }
 
@@ -48,7 +48,7 @@ bool WorldSegment::ConvertToSegmentLocal(auto & x, auto & y, auto & z)
     ly -= segState.Position.y;
     lz -= segState.Position.z;
 
-    CorrectTileForSegmentRotation(lx, ly, lz);
+    CorrectTileForSegmentRotation(lx, ly);
 
     //even if we return false, we still might want to use the new coords, maybe.
     x = lx;
@@ -351,11 +351,11 @@ void WorldSegment::AssembleAllTiles()
 }
 
 
-bool WorldSegment::CoordinateInsideSegment(auto x, auto y, auto z)
+bool WorldSegment::CoordinateInsideSegment(df::coord coord)
 {
-    auto lx = x;
-    auto ly = y;
-    auto lz = z;
+    auto lx = coord.x;
+    auto ly = coord.y;
+    auto lz = coord.z;
 
     if(!ConvertToSegmentLocal(lx, ly, lz)){
         return NULL;
@@ -374,7 +374,7 @@ bool WorldSegment::CoordinateInsideSegment(auto x, auto y, auto z)
     return true;
 }
 
-bool WorldSegment::RangeInsideSegment(auto min_x, auto min_y, auto min_z, auto max_x, auto max_y, auto max_z)
+bool WorldSegment::RangeInsideSegment(int16_t min_x, int16_t min_y, int16_t min_z, int16_t max_x, int16_t max_y, int16_t max_z)
 {
     auto lnx = min_x;
     auto lny = min_y;
@@ -400,7 +400,7 @@ bool WorldSegment::RangeInsideSegment(auto min_x, auto min_y, auto min_z, auto m
     return true;
 }
 
-bool WorldSegment::CoordinateInteriorSegment(auto x, auto y, auto z, uint32_t shellthick)
+bool WorldSegment::CoordinateInteriorSegment(int16_t x, int16_t y, int16_t z, uint32_t shellthick)
 {
     auto lx = x;
     auto ly = y;

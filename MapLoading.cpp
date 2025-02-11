@@ -482,7 +482,7 @@ void readBlockToSegment(DFHack::Core& DF, WorldSegment& segment,
         for(uint16_t lx = BoundrySX; lx <= BoundryEX; lx++) {
             uint16_t gx = lx + (BlockX * BLOCKEDGESIZE);
             uint16_t gy = ly + (BlockY * BLOCKEDGESIZE);
-            if( !segment.CoordinateInsideSegment( gx, gy, BlockZ) ) {
+            if (!segment.CoordinateInsideSegment(df::coord(gx, gy, BlockZ))) {
                 continue;
             }
 
@@ -624,7 +624,7 @@ void readBlockToSegment(DFHack::Core& DF, WorldSegment& segment,
             continue;
         }
         Tile* b = segment.getTile( eff->pos.x, eff->pos.y, eff->pos.z);
-        if(segment.CoordinateInsideSegment(eff->pos.x, eff->pos.y, eff->pos.z)) {
+        if (segment.CoordinateInsideSegment(df::coord(eff->pos.x, eff->pos.y, eff->pos.z))) {
             if(!b) {
                 b = segment.ResetTile(eff->pos.x, eff->pos.y, eff->pos.z, tiletype::OpenSpace);
                 if(!b) {
@@ -664,7 +664,7 @@ namespace
                         pos.x = pos.x - (info->dim_x / 2) + xx;
                         pos.y = pos.y - (info->dim_y / 2) + yy;
                         pos.z = pos.z + downward ? zz : (-1 - zz);
-                        if (!segment.CoordinateInsideSegment(pos.x, pos.y, pos.z))
+                        if (!segment.CoordinateInsideSegment(df::coord(pos.x, pos.y, pos.z)))
                             continue;
                         Tile* t = segment.getTile(pos.x, pos.y, pos.z);
                         if (!t)
@@ -717,7 +717,7 @@ void readBlockColumnToSegment(DFHack::Core& DF, WorldSegment& segment,
         // A plant without tree_info is single tile
         if (!pp->tree_info)
         {
-            if (!segment.CoordinateInsideSegment(pp->pos.x, pp->pos.y, pp->pos.z))
+            if (!segment.CoordinateInsideSegment(df::coord(pp->pos.x, pp->pos.y, pp->pos.z)))
                 continue;
             Tile * t = segment.getTile(pp->pos.x, pp->pos.y, pp->pos.z);
             if (!t)
@@ -808,7 +808,7 @@ void readMapSegment(WorldSegment* segment, GameState inState)
             index = 0;
             while(index < numconstructions) {
                 tempcon = *df::global::world->event.constructions[index];
-                if(segment->CoordinateInsideSegment(tempcon.pos.x, tempcon.pos.y, tempcon.pos.z)) {
+                if (segment->CoordinateInsideSegment(df::coord(tempcon.pos.x, tempcon.pos.y, tempcon.pos.z))) {
                     allConstructions.push_back(tempcon);
                 }
                 index++;
@@ -905,7 +905,7 @@ void readMapSegment(WorldSegment* segment, GameState inState)
     while(index < numengravings) {
         engraved = df::global::world->event.engravings[index];
         df::coord pos = engraved->pos;
-        if(segment->CoordinateInsideSegment(pos.x, pos.y, pos.z)) {
+        if (segment->CoordinateInsideSegment(df::coord(pos.x, pos.y, pos.z))) {
             b = segment->getTile(pos.x, pos.y, pos.z);
             if(!b) {
                 continue;
