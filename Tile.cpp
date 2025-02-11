@@ -219,7 +219,7 @@ void Tile::GetDrawLocation(int32_t& drawx, int32_t& drawy)
     drawx = x;
     drawy = y;
     int32_t drawz = z;
-    df::coord drawcoord(drawx, drawx, drawz);
+    df::coord drawcoord(drawx, drawy, drawz);
 
 
     ownerSegment->CorrectTileForSegmentOffset(drawcoord);

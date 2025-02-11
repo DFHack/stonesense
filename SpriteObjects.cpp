@@ -996,7 +996,7 @@ void c_sprite::assemble_world_offset(int x, int y, int z, int plateoffset, Tile 
         int16_t drawx = x;
         int16_t drawy = y;
         int16_t drawz = z; //- ownerSegment->sizez + 1;
-        df::coord drawcoord(drawx, drawx, drawz);
+        df::coord drawcoord(drawx, drawy, drawz);
 
 
         b->ownerSegment->CorrectTileForSegmentOffset(drawcoord);

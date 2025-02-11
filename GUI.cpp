@@ -510,7 +510,7 @@ namespace
     void drawSelectionCursor(WorldSegment* segment)
     {
         auto& ssConfig = stonesenseState.ssConfig;
-        df::coord& selection = segment->segState.dfSelection;
+        df::coord selection = segment->segState.dfSelection;
         if ((selection.x != -30000 && ssConfig.config.follow_DFcursor)) {
             drawCursorAt(segment, selection, uiColor(3));
         }
@@ -521,7 +521,7 @@ namespace
 
     void drawDebugCursor(WorldSegment* segment)
     {
-        df::coord& cursor = segment->segState.dfCursor;
+        df::coord cursor = segment->segState.dfCursor;
         drawCursorAt(segment, cursor, uiColor(2));
     }
 
