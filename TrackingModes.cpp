@@ -28,7 +28,7 @@ void followCurrentDFFocus()
     auto& ssConfig = stonesenseState.ssConfig;
     auto& ssState = stonesenseState.ssState;
 
-    if(ssState.dfCursor.x != -30000) {
+    if(ssState.dfCursor.x >=0) {
         ssState.Position.x = ssState.dfCursor.x - (ssState.Size.x / 2) + ssConfig.config.viewOffset.x;
         ssState.Position.y = ssState.dfCursor.y - (ssState.Size.y / 2) + ssConfig.config.viewOffset.y;
         ssState.Position.z = ssState.dfCursor.z + ssConfig.config.viewOffset.z + 1;
