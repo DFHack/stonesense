@@ -85,14 +85,14 @@ public:
         return segState.Size.x * segState.Size.y * segState.Size.z;
     }
 
-    Tile* ResetTile(auto x, auto y, auto z, df::tiletype type=DFHack::tiletype::OpenSpace);
-    Tile* getTile(auto x, auto y, auto z);
-    Tile* getTileLocal(auto x, auto y, auto z);
-    Tile* getTileRelativeTo(auto x, auto y, auto z,  dirRelative direction);
-    Tile* getTileRelativeTo(auto x, auto y, auto z,  dirRelative direction, int distance);
+    Tile* ResetTile(int16_t x, int16_t y, int16_t z, df::tiletype type=DFHack::tiletype::OpenSpace);
+    Tile* getTile(int16_t x, int16_t y, int16_t z);
+    Tile* getTileLocal(int16_t x, int16_t y, int16_t z);
+    Tile* getTileRelativeTo(int16_t x, int16_t y, int16_t z,  dirRelative direction);
+    Tile* getTileRelativeTo(int16_t x, int16_t y, int16_t z,  dirRelative direction, int distance);
     Tile* getTile(uint32_t index);
-    bool ConvertToSegmentLocal(auto & x, auto & y, auto & z);
-    uint32_t ConvertLocalToIndex(auto x, auto y, auto z);
+    bool ConvertToSegmentLocal(int16_t& x, int16_t& y, int16_t& z);
+    uint32_t ConvertLocalToIndex(int32_t x, int32_t y, int32_t z);
     void CorrectTileForSegmentOffset(df::coord& coord);
     void CorrectTileForSegmentRotation(int16_t& x, int16_t& y);
     //void addTile(Tile* b);

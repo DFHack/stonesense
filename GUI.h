@@ -5,7 +5,7 @@
 
 void ScreenToPoint(int x,int y, df::coord& coord);
 void pointToScreen(int *inx, int *iny, int inz);
-void correctForRotation(int16_t x, int16_t y, unsigned char rot, int16_t szx, int16_t szy);
+void correctForRotation(int16_t& x, int16_t& y, unsigned char rot, int16_t szx, int16_t szy);
 df::coord2d WorldTileToScreen(df::coord in);
 df::coord2d LocalTileToScreen(int16_t x, int16_t y, int16_t z);
 void DrawCurrentLevelOutline(bool backPart);

@@ -38,7 +38,7 @@ void WorldSegment::CorrectTileForSegmentRotation(int16_t& x, int16_t& y)
 }
 
 //Converts a set of world coordinates into local coordinates, taking into account view rotation.
-bool WorldSegment::ConvertToSegmentLocal(auto & x, auto & y, auto & z)
+bool WorldSegment::ConvertToSegmentLocal(int16_t& x, int16_t& y, int16_t& z)
 {
     auto lx = x;
     auto ly = y;
@@ -68,13 +68,13 @@ bool WorldSegment::ConvertToSegmentLocal(auto & x, auto & y, auto & z)
     return true;
 }
 
-uint32_t WorldSegment::ConvertLocalToIndex(auto x, auto y, auto z)
+uint32_t WorldSegment::ConvertLocalToIndex(int32_t x, int32_t y, int32_t z)
 {
     return (uint32_t) (x + (y + (z*segState.Size.y))*segState.Size.x );
 }
 
 //Returns a blank tile at the specified world coordinates.
-Tile* WorldSegment::ResetTile(auto x, auto y, auto z, df::tiletype type)
+Tile* WorldSegment::ResetTile(int16_t x, int16_t y, int16_t z, df::tiletype type)
 {
     auto lx = x;
     auto ly = y;
@@ -93,7 +93,7 @@ Tile* WorldSegment::ResetTile(auto x, auto y, auto z, df::tiletype type)
 }
 
 //Returns an existing tile at the specified world coordinates.
-Tile* WorldSegment::getTile(auto x, auto y, auto z)
+Tile* WorldSegment::getTile(int16_t x, int16_t y, int16_t z)
 {
     auto lx = x;
     auto ly = y;
@@ -108,7 +108,7 @@ Tile* WorldSegment::getTile(auto x, auto y, auto z)
     return getTile(index);
 }
 
-Tile* WorldSegment::getTileRelativeTo(auto x, auto y, auto z,  dirRelative direction)
+Tile* WorldSegment::getTileRelativeTo(int16_t x, int16_t y, int16_t z,  dirRelative direction)
 {
     auto lx = x;
     auto ly = y;
@@ -158,7 +158,7 @@ Tile* WorldSegment::getTileRelativeTo(auto x, auto y, auto z,  dirRelative direc
     return getTileLocal(lx, ly, lz);
 }
 
-Tile* WorldSegment::getTileRelativeTo(auto x, auto y, auto z,  dirRelative direction, int distance)
+Tile* WorldSegment::getTileRelativeTo(int16_t x, int16_t y, int16_t z,  dirRelative direction, int distance)
 {
     auto lx = x;
     auto ly = y;
@@ -208,7 +208,7 @@ Tile* WorldSegment::getTileRelativeTo(auto x, auto y, auto z,  dirRelative direc
     return getTileLocal(lx, ly, lz);
 }
 
-Tile* WorldSegment::getTileLocal(auto x, auto y, auto z)
+Tile* WorldSegment::getTileLocal(int16_t x, int16_t y, int16_t z)
 {
     if(x < 0 || x >= segState.Size.x) {
         return 0;

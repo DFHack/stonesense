@@ -124,9 +124,9 @@ bool checkFloorBorderRequirement(WorldSegment* segment, int x, int y, int z, dir
 
 bool isTileOnVisibleEdgeOfSegment(WorldSegment* segment, Tile* b)
 {
-    int32_t x = b->x;
-    int32_t y = b->y;
-    int32_t z = b->z;
+    auto x = int16_t(b->x);
+    auto y = int16_t(b->y);
+    auto z = int16_t(b->z);
     segment->ConvertToSegmentLocal(x, y, z);
 
     if (int(b->z) == segment->segState.Position.z + segment->segState.Size.z - 2) {
