@@ -950,7 +950,7 @@ void read_segment( void *arg)
             df::coord t;
             DFHack::Gui::getCursorCoords(t);
             ssState.dfCursor = t;
-            ssState.dfSelection = { df::global::selection_rect->start_x, df::global::selection_rect->start_y, df::global::selection_rect->start_z };
+            ssState.dfSelection = OptCrd3D { df::global::selection_rect->start_x, df::global::selection_rect->start_y, df::global::selection_rect->start_z };
         }
 
         if (firstLoad || stonesenseState.ssConfig.config.track_mode != Config::TRACKING_NONE) {
