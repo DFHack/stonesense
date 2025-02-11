@@ -15,9 +15,9 @@ struct GameState{
     Crd3D RegionDim;
 
     //position of the cursor
-    Crd3D dfCursor;
+    OptCrd3D dfCursor;
     //position of the selection cursor
-    Crd3D dfSelection;
+    OptCrd3D dfSelection;
 
     //the width and height of the stonesense window
     int ScreenW;

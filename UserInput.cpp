@@ -201,9 +201,9 @@ void doMouse()
             tiley = tiley + ssState.Position.y;
             tilez = tilez + ssState.Position.z - 1;
 
-            ssState.dfCursor.x = tilex;
-            ssState.dfCursor.y = tiley;
-            ssState.dfCursor.z = tilez;
+            ssState.dfCursor->x = tilex;
+            ssState.dfCursor->y = tiley;
+            ssState.dfCursor->z = tilez;
         }
         stonesenseState.timeToReloadSegment = true;
     }

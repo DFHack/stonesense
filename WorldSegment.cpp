@@ -8,7 +8,7 @@
 
 const GameState SegmentWrap::zeroState =
 {
-    {0,0,0},0,{0,0,0},{0,0,0},{0,0,0},0,0
+    {0,0,0},0,{0,0,0},{0,0,0},{},{},0
 };
 
 void WorldSegment::CorrectTileForSegmentOffset(int32_t& xin, int32_t& yin, int32_t& zin)

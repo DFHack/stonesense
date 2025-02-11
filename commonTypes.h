@@ -81,6 +81,7 @@ struct t_SpriteWithOffset {
 struct Crd2D {
     int32_t x,y;
 };
+
 struct Crd3D {
     int32_t x,y,z;
     constexpr Crd3D operator+(const Crd3D rhs)
@@ -89,6 +90,30 @@ struct Crd3D {
     }
 };
 
+struct OptCrd3D : public std::optional<Crd3D>
+{
+    operator df::coord() const {
+        return has_value() ? df::coord{ uint16_t(value().x), uint16_t(value().y), uint16_t(value().z) } : df::coord{};
+    }
+    OptCrd3D() {};
+    OptCrd3D(const df::coord& c) {
+        *this = c;
+    }
+    OptCrd3D(const int x, const int y, const int z)
+    {
+        if (x > 0 && y > 0 && z > 0)
+            emplace(x, y, z);
+        else
+            reset();
+    }
+    OptCrd3D& operator= (const df::coord& c) {
+        if (c.isValid())
+            emplace(c.x, c.y, c.z);
+        else
+            reset();
+        return *this;
+    }
+};
 
 class dfColors
 {
