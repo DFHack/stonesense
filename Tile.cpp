@@ -224,8 +224,10 @@ void Tile::GetDrawLocation(int32_t& drawx, int32_t& drawy)
 
     ownerSegment->CorrectTileForSegmentOffset(drawcoord);
     ownerSegment->CorrectTileForSegmentRotation(drawcoord.x, drawcoord.y);
-    pointToScreen((int*)&drawx, (int*)&drawy, drawz);
-    drawx -= (TILEWIDTH>>1)*stonesenseState.ssConfig.scale;
+    pointToScreen((int*)&drawcoord.x, (int*)&drawcoord.y, drawcoord.z);
+    drawcoord.x -= (TILEWIDTH>>1)*stonesenseState.ssConfig.scale;
+    drawx = drawcoord.x;
+    drawy = drawcoord.y;
 }
 
 void Tile::DrawGrowth(c_sprite * spriteobject, bool top=true)

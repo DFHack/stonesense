@@ -8,7 +8,7 @@
 
 const GameState SegmentWrap::zeroState =
 {
-    df::coord(),0,df::coord(),df::coord(),df::coord(),df::coord(),0
+    df::coord{0,0,0},0,df::coord{0,0,0},df::coord{0,0,0},df::coord{0,0,0},df::coord{0,0,0},0
 };
 
 void WorldSegment::CorrectTileForSegmentOffset(df::coord& coord)
