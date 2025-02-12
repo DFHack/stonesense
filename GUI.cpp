@@ -511,19 +511,86 @@ namespace
     {
         auto& ssConfig = stonesenseState.ssConfig;
         Crd3D& selection = segment->segState.dfSelection;
-        if ((selection.x != -30000 && ssConfig.config.follow_DFcursor)) {
-            drawCursorAt(segment, selection, uiColor(3));
+        if (selection.x >= 0) {
+            drawCursorAt(segment, selection, uiColor(4));
         }
         else {
             return;
         }
     }
 
-    void drawDebugCursor(WorldSegment* segment)
+    void drawMainCursor(WorldSegment* segment)
     {
         Crd3D& cursor = segment->segState.dfCursor;
-        drawCursorAt(segment, cursor, uiColor(2));
+        drawCursorAt(segment, cursor, uiColor(3));
     }
+
+    void drawRulerTooltip(WorldSegment* segment) {
+        auto& font = stonesenseState.font;
+        auto fontHeight = al_get_font_line_height(font);
+
+        Crd3D p1 = segment->segState.dfCursor;
+        Crd3D p2 = segment->segState.dfSelection;
+        Crd3D ruler = {
+            std::abs(p1.x - p2.x) + 1,
+            std::abs(p1.y - p2.y) + 1,
+            std::abs(p1.z - p2.z) + 1
+        };
+        if (p2.x >= 0) {
+            df::coord mouseCoord = DFHack::Gui::getMousePos();
+            Crd3D mousePos = { mouseCoord.x, mouseCoord.y, mouseCoord.z };
+            segment->CorrectTileForSegmentOffset(mousePos.x, mousePos.y, mousePos.z);
+            segment->CorrectTileForSegmentRotation(mousePos.x, mousePos.y, mousePos.z);
+            Crd2D mousePoint = LocalTileToScreen(mousePos.x, mousePos.y, mousePos.z);
+            draw_text_border(
+                font, uiColor(1),
+                mousePoint.x + al_get_text_width(font, "-----"),
+                mousePoint.y + fontHeight, ALLEGRO_ALIGN_LEFT,
+                (
+                    std::to_string(ruler.x) + "x" +
+                    std::to_string(ruler.y) + "x" +
+                    std::to_string(ruler.z)).c_str());
+        }
+    }
+
+    void drawVolume(WorldSegment* segment) {
+        Crd3D p1 = segment->segState.dfCursor;
+        Crd3D p2 = segment->segState.dfSelection;
+        if (p1.x >= 0 && p2.x >= 0) {
+            int minX = std::min(p1.x, p2.x), maxX = std::max(p1.x, p2.x);
+            int minY = std::min(p1.y, p2.y), maxY = std::max(p1.y, p2.y);
+            int minZ = std::min(p1.z, p2.z), maxZ = std::max(p1.z, p2.z);
+
+            ALLEGRO_COLOR fadeColor = al_map_rgba(0, 0, 0, 0);  // Fully transparent black
+
+            for (int x = minX; x <= maxX; ++x) {
+                for (int y = minY; y <= maxY; ++y) {
+                    for (int z = minZ; z <= maxZ; ++z) {
+                        int edgeCount = 0;
+                        if (x == minX || x == maxX) edgeCount++;
+                        if (y == minY || y == maxY) edgeCount++;
+                        if (z == minZ || z == maxZ) edgeCount++;
+
+                        if (edgeCount >= 2) { // Only draw points on edges
+                            // Compute fade effect based on distance from the highest Z point
+                            int maxFadeDistance = std::max(10, (maxZ - minZ));
+
+                            auto fadePercent = ((std::max(p1.z, p2.z) - z) * 100) / maxFadeDistance; // Closer = lower fade
+
+                            // Blend between base color and fade color
+                            auto baseColor = uiColor(2);
+                            ALLEGRO_COLOR finalColor = partialBlend(baseColor, fadeColor, fadePercent);
+
+                            Crd3D point = { x, y, z };
+                            drawCursorAt(segment, point, finalColor);
+                        }
+                    }
+                }
+            }
+            drawRulerTooltip(segment);
+        }
+    }
+
 
     void drawAdvmodeMenuTalk(const ALLEGRO_FONT* font, int x, int y)
     {
@@ -896,6 +963,11 @@ void paintboard()
     stonesenseState.stoneSenseTimers.frame_total.update(donetime - stonesenseState.stoneSenseTimers.prev_frame_time);
     stonesenseState.stoneSenseTimers.prev_frame_time = donetime;
 
+
+    drawVolume(segment);
+    drawSelectionCursor(segment);
+    drawMainCursor(segment);
+
     if (ssConfig.show_announcements) {
         al_hold_bitmap_drawing(true);
         draw_announcements(font, ssState.ScreenW, ssState.ScreenH - 10 - al_get_font_line_height(font), ALLEGRO_ALIGN_RIGHT, df::global::world->status.announcements);
@@ -920,10 +992,6 @@ void paintboard()
     } else if (ssConfig.config.show_osd) {
         al_hold_bitmap_drawing(true);
         draw_textf_border(font, uiColor(1), 10,fontHeight, 0, "%i,%i,%i, r%i, z%i", ssState.Position.x,ssState.Position.y,ssState.Position.z, ssState.Rotation, ssConfig.zoom);
-
-        drawSelectionCursor(segment);
-
-        drawDebugCursor(segment);
 
         drawAdvmodeMenuTalk(font, 5, ssState.ScreenH - 5);
 

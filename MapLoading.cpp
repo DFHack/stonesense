@@ -946,12 +946,12 @@ void read_segment( void *arg)
 
         auto& ssState = stonesenseState.ssState;
         //read cursor
-        if (stonesenseState.ssConfig.config.follow_DFcursor) {
-            DFHack::Gui::getCursorCoords(ssState.dfCursor.x, ssState.dfCursor.y, ssState.dfCursor.z);
-            ssState.dfSelection.x = df::global::selection_rect->start_x;
-            ssState.dfSelection.y = df::global::selection_rect->start_y;
-            ssState.dfSelection.z = df::global::selection_rect->start_z;
-        }
+        df::coord mouseTemp = DFHack::Gui::getMousePos();
+        ssState.dfCursor = { mouseTemp.x, mouseTemp.y, mouseTemp.z };
+        DFHack::Gui::getDesignationCoords(
+            ssState.dfSelection.x,
+            ssState.dfSelection.y,
+            ssState.dfSelection.z);
 
         if (firstLoad || stonesenseState.ssConfig.config.track_mode != Config::TRACKING_NONE) {
             firstLoad = 0;
