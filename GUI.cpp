@@ -484,7 +484,7 @@ void DrawCurrentLevelOutline(bool backPart)
 
 namespace
 {
-    void drawCursorAt(WorldSegment* segment, Crd3D& cursor, const ALLEGRO_COLOR& color)
+    void drawCursorAt(WorldSegment* segment, Crd3D cursor, const ALLEGRO_COLOR& color)
     {
         auto& ssConfig = stonesenseState.ssConfig;
         segment->CorrectTileForSegmentOffset(cursor.x, cursor.y, cursor.z);
