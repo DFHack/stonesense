@@ -509,7 +509,6 @@ namespace
 
     void drawSelectionCursor(WorldSegment* segment)
     {
-        auto& ssConfig = stonesenseState.ssConfig;
         Crd3D& selection = segment->segState.dfSelection;
         if (selection.x >= 0) {
             drawCursorAt(segment, selection, uiColor(4));
