@@ -1,4 +1,5 @@
 #include <assert.h>
+#include <cmath>
 #include <vector>
 #include <list>
 
@@ -208,6 +209,10 @@ void drawcredits()
     // Make the backbuffer visible
 }
 
+int getAutoSegmentSize() {
+    return (int)std::ceil(std::sqrt(2) * (stonesenseState.ssState.ScreenW + stonesenseState.ssState.ScreenH) / TILEWIDTH);
+}
+
 /* main_loop:
 *  The main loop of the program.  Here we wait for events to come in from
 *  any one of the event sources and react to each one accordingly.  While
@@ -306,6 +311,12 @@ static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALL
                 if (ssConfig.overlay_mode) {
                     break;
                 }
+                if (ssConfig.autosize_segmentX) {
+                    stonesenseState.ssState.Size.x = getAutoSegmentSize();
+                }
+                if (ssConfig.autosize_segmentY){
+                    stonesenseState.ssState.Size.y = getAutoSegmentSize();
+                }
                 stonesenseState.timeToReloadSegment = true;
                 redraw = true;
                 stonesenseState.ssState.ScreenH = event.display.height;
@@ -368,7 +379,7 @@ static void* stonesense_thread(ALLEGRO_THREAD* main_thread, void* parms)
 
     stonesenseState.ssState.ScreenH = stonesenseState.ssConfig.config.defaultScreenHeight;
     stonesenseState.ssState.ScreenW = stonesenseState.ssConfig.config.defaultScreenWidth;
-    stonesenseState.ssState.Size = { DEFAULT_SIZE, DEFAULT_SIZE, DEFAULT_SIZE_Z };
+    stonesenseState.ssState.Size = { DEFAULT_SEGSIZE_XY, DEFAULT_SEGSIZE_XY, DEFAULT_SEGSIZE_Z };
     stonesenseState.timeToReloadConfig = true;
     stonesenseState.contentLoader = std::make_unique<ContentLoader>();
 
@@ -496,6 +507,12 @@ static void* stonesense_thread(ALLEGRO_THREAD* main_thread, void* parms)
     // init map segment wrapper and its lock, start the reload thread.
     initAutoReload();
 
+    if (ssConfig.autosize_segmentX) {
+        stonesenseState.ssState.Size.x = getAutoSegmentSize();
+    }
+    if (ssConfig.autosize_segmentY) {
+        stonesenseState.ssState.Size.y = getAutoSegmentSize();
+    }
     stonesenseState.timeToReloadSegment = false;
     // enter event loop here:
     main_loop(display, queue, main_thread, out);

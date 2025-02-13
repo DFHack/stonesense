@@ -38,6 +38,8 @@ Template for new versions:
 # Future
 
 ## New Features
+- `stonesense`: added ``AUTO`` as an option for the now-split ``SEGMENTSIZE_X`` and ``SEGMENTSIZE_Y``
+- `stonesense`: added new hotkeys for resizing the segmentsize
 
 ## Fixes
 - `stonesense`: megashots no longer leave stonesense unresponsive
