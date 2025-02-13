@@ -226,6 +226,7 @@ static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALL
 
     ALLEGRO_EVENT event;
     while (!al_get_thread_should_stop(main_thread)) {
+
         if (redraw && al_event_queue_is_empty(queue)) {
 
             al_rest(0);
@@ -371,7 +372,10 @@ static void* stonesense_thread(ALLEGRO_THREAD* main_thread, void* parms)
     auto& out{ DFHack::Core::getInstance().getConsole() };
     out.print("Stonesense launched\n");
 
-    stonesenseState.ssConfig = GameConfiguration{};
+    stonesenseState.ssConfig.reset();
+
+    stonesenseState.lift_segment_offscreen_x = 0;
+    stonesenseState.lift_segment_offscreen_y = 0;
 
     stonesenseState.ssState.ScreenH = stonesenseState.ssConfig.config.defaultScreenHeight;
     stonesenseState.ssState.ScreenW = stonesenseState.ssConfig.config.defaultScreenWidth;
@@ -411,7 +415,12 @@ static void* stonesense_thread(ALLEGRO_THREAD* main_thread, void* parms)
     if(ssConfig.config.software) {
         al_set_new_bitmap_flags(ALLEGRO_MEMORY_BITMAP|_ALLEGRO_ALPHA_TEST|ALLEGRO_MIN_LINEAR|ALLEGRO_MIPMAP);
     } else {
-        al_set_new_bitmap_flags(ALLEGRO_MIN_LINEAR|ALLEGRO_MIPMAP);
+        // FIXME: When we have ability to set a maximum mipmap lod,
+        // do so when cache_images is enabled to prevent sprites going transparent.
+        // Until then, disable mipmapping when using an image cache.
+        al_set_new_bitmap_flags(
+                ALLEGRO_MIN_LINEAR
+                |(ssConfig.config.cache_images ? 0 : ALLEGRO_MIPMAP));
     }
 
     display = al_create_display(stonesenseState.ssState.ScreenW, stonesenseState.ssState.ScreenH);

@@ -15,10 +15,6 @@
 #include "ItemConfiguration.h"
 #include "common.h"
 
-namespace df {
-    struct world_raws;
-}
-
 class ContentLoader
 {
 private:
@@ -38,7 +34,7 @@ private:
 
     bool translationComplete = false;
 
-    void gatherStyleIndices(df::world_raws * raws);
+    void gatherStyleIndices(df::world::T_raws * raws);
 public:
     ContentLoader(void);
     ~ContentLoader(void);

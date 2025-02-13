@@ -484,25 +484,18 @@ void DrawCurrentLevelOutline(bool backPart)
 
 namespace
 {
-    void drawSelectionCursor(WorldSegment* segment)
+    void drawCursorAt(WorldSegment* segment, Crd3D& cursor, const ALLEGRO_COLOR& color)
     {
         auto& ssConfig = stonesenseState.ssConfig;
+        segment->CorrectTileForSegmentOffset(cursor.x, cursor.y, cursor.z);
+        segment->CorrectTileForSegmentRotation(cursor.x, cursor.y, cursor.z);
 
-        Crd3D selection = segment->segState.dfSelection;
-        if ((selection.x != -30000 && ssConfig.config.follow_DFcursor)
-            || (ssConfig.config.track_mode == Config::TRACKING_FOCUS)) {
-            segment->CorrectTileForSegmentOffset(selection.x, selection.y, selection.z);
-            segment->CorrectTileForSegmentRotation(selection.x, selection.y, selection.z);
-        }
-        else {
-            return;
-        }
-        Crd2D point = LocalTileToScreen(selection.x, selection.y, selection.z);
+        Crd2D point = LocalTileToScreen(cursor.x, cursor.y, cursor.z);
         int sheetx = SPRITEOBJECT_CURSOR % SHEET_OBJECTSWIDE;
         int sheety = SPRITEOBJECT_CURSOR / SHEET_OBJECTSWIDE;
         al_draw_tinted_scaled_bitmap(
             stonesenseState.IMGObjectSheet,
-            uiColor(3),
+            color,
             sheetx * SPRITEWIDTH,
             sheety * SPRITEHEIGHT,
             SPRITEWIDTH,
@@ -514,29 +507,22 @@ namespace
             0);
     }
 
-    void drawDebugCursor(WorldSegment* segment)
+    void drawSelectionCursor(WorldSegment* segment)
     {
         auto& ssConfig = stonesenseState.ssConfig;
+        Crd3D& selection = segment->segState.dfSelection;
+        if ((selection.x != -30000 && ssConfig.config.follow_DFcursor)) {
+            drawCursorAt(segment, selection, uiColor(3));
+        }
+        else {
+            return;
+        }
+    }
 
-        Crd3D cursor = segment->segState.dfCursor;
-        segment->CorrectTileForSegmentOffset(cursor.x, cursor.y, cursor.z);
-        segment->CorrectTileForSegmentRotation(cursor.x, cursor.y, cursor.z);
-
-        Crd2D point = LocalTileToScreen(cursor.x, cursor.y, cursor.z);
-        int sheetx = SPRITEOBJECT_CURSOR % SHEET_OBJECTSWIDE;
-        int sheety = SPRITEOBJECT_CURSOR / SHEET_OBJECTSWIDE;
-        al_draw_tinted_scaled_bitmap(
-            stonesenseState.IMGObjectSheet,
-            uiColor(2),
-            sheetx * SPRITEWIDTH,
-            sheety * SPRITEHEIGHT,
-            SPRITEWIDTH,
-            SPRITEHEIGHT,
-            point.x - ((SPRITEWIDTH / 2) * ssConfig.scale),
-            point.y - (WALLHEIGHT)*ssConfig.scale,
-            SPRITEWIDTH * ssConfig.scale,
-            SPRITEHEIGHT * ssConfig.scale,
-            0);
+    void drawDebugCursor(WorldSegment* segment)
+    {
+        Crd3D& cursor = segment->segState.dfCursor;
+        drawCursorAt(segment, cursor, uiColor(2));
     }
 
     void drawAdvmodeMenuTalk(const ALLEGRO_FONT* font, int x, int y)
@@ -667,14 +653,14 @@ namespace
         {
             draw_textf_border(font, uiColor(1), 2, (i++ * fontHeight), 0,
                 "tree name:%s type:%i", lookupTreeName(b->tree.index), b->tree.type);
-            uint16_t branches_dir = b->tree_tile.bits.branches_dir;
+            auto & tree_tile = b->tree_tile;
             draw_textf_border(font, uiColor(1), 2, (i++ * fontHeight), 0,
                 "tree tile:%s%s%s%s%s%s%s",
                 b->tree_tile.bits.trunk ? " trunk" : "",
-                (branches_dir & 0x1) ? " >" : "",
-                (branches_dir & 0x2) ? " v" : "",
-                (branches_dir & 0x4) ? " <" : "",
-                (branches_dir & 0x8) ? " ^" : "",
+                tree_tile.bits.branch_w ? " >" : "",
+                tree_tile.bits.branch_n ? " v" : "",
+                tree_tile.bits.branch_e ? " <" : "",
+                tree_tile.bits.branch_s ? " ^" : "",
                 b->tree_tile.bits.branches ? " branches" : "",
                 b->tree_tile.bits.leaves ? " leaves" : ""
             );
@@ -863,6 +849,10 @@ void DoSpriteIndexOverlay()
     paintboard();
 }
 
+float clockToMs(float clockTicks) {
+    return clockTicks / (CLOCKS_PER_SEC/1000);
+}
+
 void paintboard()
 {
     DFHack::CoreSuspender suspend;
@@ -939,12 +929,12 @@ void paintboard()
 
         if(ssConfig.config.debug_mode) {
             auto& contentLoader = stonesenseState.contentLoader;
-            draw_textf_border(font, uiColor(1), 10, 3*fontHeight, 0, "Map Read Time: %.2fms", float(stonesenseState.stoneSenseTimers.read_time));
-            draw_textf_border(font, uiColor(1), 10, 4*fontHeight, 0, "Map Beautification Time: %.2fms", float(stonesenseState.stoneSenseTimers.beautify_time));
-            draw_textf_border(font, uiColor(1), 10, 5*fontHeight, 0, "Tile Sprite Assembly Time: %.2fms", float(stonesenseState.stoneSenseTimers.assembly_time));
-            draw_textf_border(font, uiColor(1), 10, 6*fontHeight, 0, "DF Renderer Overlay Time: %.2fms", float(stonesenseState.stoneSenseTimers.overlay_time));
-            draw_textf_border(font, uiColor(1), 10, 2*fontHeight, 0, "FPS: %.2f", float(1000.0/stonesenseState.stoneSenseTimers.frame_total));
-            draw_textf_border(font, uiColor(1), 10, 7*fontHeight, 0, "Draw: %.2fms", float(stonesenseState.stoneSenseTimers.draw_time));
+            draw_textf_border(font, uiColor(1), 10, 3*fontHeight, 0, "Map Read Time: %.2fms", clockToMs(stonesenseState.stoneSenseTimers.read_time));
+            draw_textf_border(font, uiColor(1), 10, 4*fontHeight, 0, "Map Beautification Time: %.2fms", clockToMs(stonesenseState.stoneSenseTimers.beautify_time));
+            draw_textf_border(font, uiColor(1), 10, 5*fontHeight, 0, "Tile Sprite Assembly Time: %.2fms", clockToMs(stonesenseState.stoneSenseTimers.assembly_time));
+            draw_textf_border(font, uiColor(1), 10, 6*fontHeight, 0, "DF Renderer Overlay Time: %.2fms", clockToMs(stonesenseState.stoneSenseTimers.overlay_time));
+            draw_textf_border(font, uiColor(1), 10, 2*fontHeight, 0, "FPS: %.2f", 1000.0/clockToMs(stonesenseState.stoneSenseTimers.frame_total));
+            draw_textf_border(font, uiColor(1), 10, 7*fontHeight, 0, "Draw: %.2fms", clockToMs(stonesenseState.stoneSenseTimers.draw_time));
             draw_textf_border(font, uiColor(1), 10, 9*fontHeight, 0, "%i/%i/%i, %i:%i", contentLoader->currentDay+1, contentLoader->currentMonth+1, contentLoader->currentYear, contentLoader->currentHour, (contentLoader->currentTickRel*60)/50);
 
             drawDebugInfo(segment);
@@ -1182,15 +1172,16 @@ void saveMegashot(bool tall)
     stonesenseState.map_segment.lockRead();
 
     auto& ssState = stonesenseState.ssState;
-    // draw_textf_border(font, uiColor(1), ssState.ScreenW/2, ssState.ScreenH/2, ALLEGRO_ALIGN_CENTRE, "saving large screenshot...");
-    draw_textf_border(stonesenseState.font, uiColor(1), ssState.ScreenW/2, ssState.ScreenH/2, ALLEGRO_ALIGN_CENTRE, "saving large screenshot... Stonesense will become unresponsive after this process completes. Please close and re-open Stonesense.");
+    draw_textf_border(stonesenseState.font, uiColor(1), ssState.ScreenW/2, ssState.ScreenH/2, ALLEGRO_ALIGN_CENTRE, "saving large screenshot...");
     al_flip_display();
     std::filesystem::path filename = getAvailableFilename("screenshot");
-    // int timer = clock();
+    int timer = clock();
     //back up all the relevant values
     auto& ssConfig = stonesenseState.ssConfig;
     GameConfiguration tempConfig = ssConfig;
     GameState tempState = ssState;
+    uint32_t templiftX = stonesenseState.lift_segment_offscreen_x;
+    uint32_t templiftY = stonesenseState.lift_segment_offscreen_y;
     int tempflags = al_get_new_bitmap_flags();
 
     //now make them real big.
@@ -1335,19 +1326,22 @@ void saveMegashot(bool tall)
 
 
         al_save_bitmap(filename.string().c_str(), bigFile);
-        // al_set_target_bitmap(al_get_backbuffer(al_get_current_display()));
-        // timer = clock() - timer;
-        // PrintMessage("\tcreating screenshot took %ims\n", timer);
+        al_set_target_bitmap(al_get_backbuffer(al_get_current_display()));
+        timer = clock() - timer;
+        PrintMessage("\tcreating screenshot took %.2fms\n", clockToMs(timer));
         PrintMessage("\tlarge screenshot complete\n");
     } else {
         LogError("failed to take large screenshot; try zooming out\n");
     }
-    // al_destroy_bitmap(bigFile);
+    al_destroy_bitmap(bigFile);
     //restore everything that we changed.
+    stonesenseState.lift_segment_offscreen_x = templiftX;
+    stonesenseState.lift_segment_offscreen_y = templiftY;
     ssConfig = tempConfig;
     ssState = tempState;
     al_set_new_bitmap_flags(tempflags);
 
+    al_flip_display();
     stonesenseState.map_segment.unlockRead();
 }
 

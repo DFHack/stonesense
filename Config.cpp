@@ -161,14 +161,8 @@ namespace {
         }
         if (line.find("[TRACK_MODE") != string::npos) {
             string result = parseStrFromLine("TRACK_MODE", line);
-            if (result == "CENTER") {
-                config.track_mode = Config::TRACKING_CENTER;
-            }
-            else if (result == "NONE") {
+            if (result == "NONE") {
                 config.track_mode = Config::TRACKING_NONE;
-            }
-            else if (result == "FOCUS") {
-                config.track_mode = Config::TRACKING_FOCUS;
             }
         }
         if (line.find("[INVERT_MOUSE_Z") != string::npos) {
@@ -838,6 +832,10 @@ namespace {
     }
 }
 
+bool isViewTracking() {
+    auto& ssConfig = stonesenseState.ssConfig;
+    return ssConfig.config.track_mode != Config::TRACKING_NONE;
+}
 
 bool loadConfigFile()
 {
