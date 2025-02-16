@@ -525,9 +525,9 @@ namespace
     void drawSelectionCursor(WorldSegment* segment)
     {
         auto& ssConfig = stonesenseState.ssConfig;
-        Crd3D& selection = segment->segState.dfSelection;
-        if ((selection.x != -30000 && ssConfig.config.follow_DFcursor)) {
-            drawCursorAt(segment, selection, uiColor(3));
+        auto selection = segment->segState.dfSelection;
+        if (selection && ssConfig.config.follow_DFcursor) {
+            drawCursorAt(segment, *selection, uiColor(3));
         }
         else {
             return;
@@ -536,8 +536,9 @@ namespace
 
     void drawDebugCursor(WorldSegment* segment)
     {
-        Crd3D& cursor = segment->segState.dfCursor;
-        drawCursorAt(segment, cursor, uiColor(2));
+        auto& cursor = segment->segState.dfCursor;
+        if (cursor)
+            drawCursorAt(segment, *cursor, uiColor(2));
     }
 
     void drawAdvmodeMenuTalk(const ALLEGRO_FONT* font, int x, int y)
@@ -577,18 +578,25 @@ namespace
         auto fontHeight = al_get_font_line_height(font);
         auto& contentLoader = stonesenseState.contentLoader;
 
+        if (!segment->segState.dfCursor)
+        {
+            draw_textf_border(font, uiColor(1), 2, (10 * fontHeight), 0,
+                "Coord: invalid");
+            return;
+        }
+
         //get tile info
         Tile* b = segment->getTile(
-            segment->segState.dfCursor.x,
-            segment->segState.dfCursor.y,
-            segment->segState.dfCursor.z);
+            segment->segState.dfCursor->x,
+            segment->segState.dfCursor->y,
+            segment->segState.dfCursor->z);
         int i = 10;
         if (b) {
             draw_textf_border(font, uiColor(1), 2, (i++ * fontHeight), 0, "Tile 0x%x (%i,%i,%i)", b, b->x, b->y, b->z);
         }
 
         draw_textf_border(font, uiColor(1), 2, (i++ * fontHeight), 0,
-            "Coord:(%i,%i,%i)", segment->segState.dfCursor.x, segment->segState.dfCursor.y, segment->segState.dfCursor.z);
+            "Coord:(%i,%i,%i)", segment->segState.dfCursor->x, segment->segState.dfCursor->y, segment->segState.dfCursor->z);
 
         if (!b) {
             return;
@@ -962,8 +970,8 @@ void paintboard()
         }
         if(ssConfig.config.follow_DFcursor && ssConfig.config.debug_mode) {
             top += fontHeight;
-            if(segment->segState.dfCursor.x != -30000) {
-                draw_textf_border(font, uiColor(1), ssState.ScreenW/2,top, ALLEGRO_ALIGN_CENTRE, "Following DF Cursor at: %d,%d,%d", segment->segState.dfCursor.x,segment->segState.dfCursor.y,segment->segState.dfCursor.z);
+            if(segment->segState.dfCursor) {
+                draw_textf_border(font, uiColor(1), ssState.ScreenW/2,top, ALLEGRO_ALIGN_CENTRE, "Following DF Cursor at: %d,%d,%d", segment->segState.dfCursor->x,segment->segState.dfCursor->y,segment->segState.dfCursor->z);
             }
         }
         if(ssConfig.single_layer_view) {
