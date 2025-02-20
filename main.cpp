@@ -169,9 +169,9 @@ void animUpdateProc()
 
 void drawcredits()
 {
-    auto color_black = al_map_rgb(0, 0, 0);
-    auto color_yellow = al_map_rgb(255, 255, 0);
-    auto color_white = al_map_rgb(255, 255, 255);
+    auto color_black = uiColor(dfColors::black);
+    auto color_yellow = uiColor(dfColors::yellow);
+    auto color_white = uiColor(dfColors::white);
 
     auto backbuffer = al_get_backbuffer(al_get_current_display());
     auto centerx = al_get_bitmap_width(backbuffer) / 2;
@@ -199,7 +199,7 @@ void drawcredits()
     al_draw_text(font, color_white, centerx, bottomy-12*lineheight, ALLEGRO_ALIGN_CENTRE, "7c Nickel, BatCountry, Belal, Belannaer, DeKaFu, Dante, Deon, dyze,");
     al_draw_text(font, color_white, centerx, bottomy-11*lineheight, ALLEGRO_ALIGN_CENTRE, "Errol, fifth angel, frumpton, IDreamOfGiniCoeff, Impaler, ");
     al_draw_text(font, color_white, centerx, bottomy-10*lineheight, ALLEGRO_ALIGN_CENTRE, "Japa, jarathor, Jiri Petru, Jordix, Lord Nightmare, McMe, Mike Mayday, Nexii ");
-    al_draw_text(font, color_white, centerx, bottomy-9*lineheight, ALLEGRO_ALIGN_CENTRE, "Malthus, peterix, Seuss, soup, SquidCoder, Talvara, winner, Xandrin.");
+    al_draw_text(font, uiColor(dfColors::lcyan), centerx, bottomy - 9 * lineheight, ALLEGRO_ALIGN_CENTRE, "Malthus, peterix, Seuss, soup, SquidCoder, Talvara, winner, Xandrin.");
 
     al_draw_text(font, color_white, centerx, bottomy-7*lineheight, ALLEGRO_ALIGN_CENTRE, "With special thanks to peterix for making DFHack");
 
