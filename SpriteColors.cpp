@@ -308,5 +308,5 @@ ALLEGRO_COLOR blinkTechnicolor()
 ALLEGRO_COLOR uiColor(int32_t index, bool bright)
 {
     auto& ssConfig = stonesenseState.ssConfig;
-    return ssConfig.config.colors.getDfColor(index, (bright && 1), ssConfig.config.useDfColors);
+    return ssConfig.config.colors.getDfColor(index, (bright ? 1:0), ssConfig.config.useDfColors);
 }
