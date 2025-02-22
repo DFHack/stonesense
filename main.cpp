@@ -170,9 +170,9 @@ void animUpdateProc()
 
 void drawcredits()
 {
-    auto color_black = al_map_rgb(0, 0, 0);
-    auto color_yellow = al_map_rgb(255, 255, 0);
-    auto color_white = al_map_rgb(255, 255, 255);
+    auto color_black = uiColor(dfColors::black);
+    auto color_yellow = uiColor(dfColors::yellow);
+    auto color_white = uiColor(dfColors::white);
 
     auto backbuffer = al_get_backbuffer(al_get_current_display());
     auto centerx = al_get_bitmap_width(backbuffer) / 2;
