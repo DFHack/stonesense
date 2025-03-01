@@ -516,10 +516,12 @@ const char *lookupBuildingSubtype(int main_type, int i)
         return enum_item_key_str((df::shop_type)i);
     case building_type::Workshop:
         return enum_item_key_str((df::workshop_type)i);
+    case building_type::Trap:
+        return enum_item_key_str((df::trap_type)i);
     default:
-        return "NA";
+        return "UnhandledType";
     }
-    return "NA";
+    return "Error";
 }
 
 const char *lookupMaterialTypeName(int matType)
