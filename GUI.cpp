@@ -4,6 +4,7 @@
 
 #include <assert.h>
 #include <algorithm>
+#include <cmath>
 #include <vector>
 #include <filesystem>
 #include <array>
@@ -22,6 +23,7 @@
 #include "GameConfiguration.h"
 #include "StonesenseState.h"
 
+#include "modules/Screen.h"
 #include "modules/Units.h"
 #include "DataDefs.h"
 
@@ -906,6 +908,18 @@ void paintboard()
         stonesenseState.map_segment.unlockDraw();
         return;
     }
+
+    if (df::global::plotinfo->follow_unit != -1) {
+        if (DFHack::Screen::inGraphicsMode()) {
+            auto zoom = stonesenseState.ssConfig.zoom;
+            auto xOff = int(-0.134 * std::pow(zoom, 2) + 2.911 * zoom - 21.214);
+            stonesenseState.ssConfig.config.viewOffset = { xOff,0,0 };
+        }
+        else {
+            stonesenseState.ssConfig.config.viewOffset = { -46,0,0 };
+        }
+    }
+
 
     segment->DrawAllTiles();
 
