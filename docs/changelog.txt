@@ -38,6 +38,7 @@ Template for new versions:
 # Future
 
 ## New Features
+- `stonesense`: stonesense now offsets the view when you are following a unit in DF, to better center the camera on the unit in stonesense
 
 ## Fixes
 - `stonesense`: megashots no longer leave stonesense unresponsive
