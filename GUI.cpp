@@ -533,8 +533,7 @@ namespace
         }
     }
 
-    void drawMainCursor(WorldSegment* segment)
-    {
+    void drawMainCursor(WorldSegment* segment) {
         auto& cursor = segment->segState.dfCursor;
         if (cursor)
             drawCursorAt(segment, *cursor, uiColor(dfColors::yellow));
@@ -544,37 +543,37 @@ namespace
         auto& font = stonesenseState.font;
         auto fontHeight = al_get_font_line_height(font);
 
-        auto p1 = segment->segState.dfCursor;
-        auto p2 = segment->segState.dfSelection;
-        auto ruler = {
-            std::abs(p1.x - p2.x) + 1,
-            std::abs(p1.y - p2.y) + 1,
-            std::abs(p1.z - p2.z) + 1
+        OptCrd3D p1 = segment->segState.dfCursor;
+        OptCrd3D p2 = segment->segState.dfSelection;
+        OptCrd3D ruler = {
+            std::abs(p1->x - p2->x) + 1,
+            std::abs(p1->y - p2->y) + 1,
+            std::abs(p1->z - p2->z) + 1
         };
-        if (p2.x >= 0) {
+        if (p2) {
             df::coord mouseCoord = DFHack::Gui::getMousePos();
-            auto mousePos = { mouseCoord.x, mouseCoord.y, mouseCoord.z };
+            Crd3D mousePos = { mouseCoord.x, mouseCoord.y, mouseCoord.z };
             segment->CorrectTileForSegmentOffset(mousePos.x, mousePos.y, mousePos.z);
             segment->CorrectTileForSegmentRotation(mousePos.x, mousePos.y, mousePos.z);
-            auto mousePoint = LocalTileToScreen(mousePos.x, mousePos.y, mousePos.z);
+            Crd2D mousePoint = LocalTileToScreen(mousePos.x, mousePos.y, mousePos.z);
             draw_text_border(
                 font, uiColor(1),
                 mousePoint.x + al_get_text_width(font, "-----"),
                 mousePoint.y + fontHeight, ALLEGRO_ALIGN_LEFT,
                 (
-                    std::to_string(ruler.x) + "x" +
-                    std::to_string(ruler.y) + "x" +
-                    std::to_string(ruler.z)).c_str());
+                    std::to_string(ruler->x) + "x" +
+                    std::to_string(ruler->y) + "x" +
+                    std::to_string(ruler->z)).c_str());
         }
     }
 
     void drawVolume(WorldSegment* segment) {
-        auto p1 = segment->segState.dfCursor;
-        auto p2 = segment->segState.dfSelection;
-        if (p1.x >= 0 && p2.x >= 0) {
-            int minX = std::min(p1.x, p2.x), maxX = std::max(p1.x, p2.x);
-            int minY = std::min(p1.y, p2.y), maxY = std::max(p1.y, p2.y);
-            int minZ = std::min(p1.z, p2.z), maxZ = std::max(p1.z, p2.z);
+        OptCrd3D p1 = segment->segState.dfCursor;
+        OptCrd3D p2 = segment->segState.dfSelection;
+        if (p1 && p2) {
+            int minX = std::min(p1->x, p2->x), maxX = std::max(p1->x, p2->x);
+            int minY = std::min(p1->y, p2->y), maxY = std::max(p1->y, p2->y);
+            int minZ = std::min(p1->z, p2->z), maxZ = std::max(p1->z, p2->z);
 
             ALLEGRO_COLOR fadeColor = al_map_rgba(0, 0, 0, 0);  // Fully transparent black
 
@@ -590,7 +589,7 @@ namespace
                             // Compute fade effect based on distance from the highest Z point
                             int maxFadeDistance = std::max(10, (maxZ - minZ));
 
-                            auto fadePercent = ((std::max(p1.z, p2.z) - z) * 100) / maxFadeDistance; // Closer = lower fade
+                            auto fadePercent = ((std::max(p1->z, p2->z) - z) * 100) / maxFadeDistance; // Closer = lower fade
 
                             // Blend between base color and fade color
                             auto baseColor = uiColor(dfColors::yellow);
