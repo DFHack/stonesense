@@ -544,19 +544,19 @@ namespace
         auto& font = stonesenseState.font;
         auto fontHeight = al_get_font_line_height(font);
 
-        Crd3D p1 = segment->segState.dfCursor;
-        Crd3D p2 = segment->segState.dfSelection;
-        Crd3D ruler = {
+        auto p1 = segment->segState.dfCursor;
+        auto p2 = segment->segState.dfSelection;
+        auto ruler = {
             std::abs(p1.x - p2.x) + 1,
             std::abs(p1.y - p2.y) + 1,
             std::abs(p1.z - p2.z) + 1
         };
         if (p2.x >= 0) {
             df::coord mouseCoord = DFHack::Gui::getMousePos();
-            Crd3D mousePos = { mouseCoord.x, mouseCoord.y, mouseCoord.z };
+            auto mousePos = { mouseCoord.x, mouseCoord.y, mouseCoord.z };
             segment->CorrectTileForSegmentOffset(mousePos.x, mousePos.y, mousePos.z);
             segment->CorrectTileForSegmentRotation(mousePos.x, mousePos.y, mousePos.z);
-            Crd2D mousePoint = LocalTileToScreen(mousePos.x, mousePos.y, mousePos.z);
+            auto mousePoint = LocalTileToScreen(mousePos.x, mousePos.y, mousePos.z);
             draw_text_border(
                 font, uiColor(1),
                 mousePoint.x + al_get_text_width(font, "-----"),
@@ -569,8 +569,8 @@ namespace
     }
 
     void drawVolume(WorldSegment* segment) {
-        Crd3D p1 = segment->segState.dfCursor;
-        Crd3D p2 = segment->segState.dfSelection;
+        auto p1 = segment->segState.dfCursor;
+        auto p2 = segment->segState.dfSelection;
         if (p1.x >= 0 && p2.x >= 0) {
             int minX = std::min(p1.x, p2.x), maxX = std::max(p1.x, p2.x);
             int minY = std::min(p1.y, p2.y), maxY = std::max(p1.y, p2.y);
