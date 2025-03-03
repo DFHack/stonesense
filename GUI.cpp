@@ -509,9 +509,9 @@ namespace
 
     void drawSelectionCursor(WorldSegment* segment)
     {
-        Crd3D& selection = segment->segState.dfSelection;
-        if (selection.x >= 0) {
-            drawCursorAt(segment, selection, uiColor(4));
+        auto selection = segment->segState.dfSelection;
+        if (selection) {
+            drawCursorAt(segment, *selection, uiColor(dfColors::lgreen));
         }
         else {
             return;
@@ -577,7 +577,7 @@ namespace
                             auto fadePercent = ((std::max(p1.z, p2.z) - z) * 100) / maxFadeDistance; // Closer = lower fade
 
                             // Blend between base color and fade color
-                            auto baseColor = uiColor(2);
+                            auto baseColor = uiColor(dfColors::yellow);
                             ALLEGRO_COLOR finalColor = partialBlend(baseColor, fadeColor, fadePercent);
 
                             Crd3D point = { x, y, z };
