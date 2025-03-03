@@ -536,7 +536,7 @@ namespace
     void drawMainCursor(WorldSegment* segment) {
         auto& cursor = segment->segState.dfCursor;
         if (cursor)
-            drawCursorAt(segment, *cursor, uiColor(dfColors::yellow));
+            drawCursorAt(segment, *cursor, uiColor(dfColors::lblue));
     }
 
     void drawRulerTooltip(WorldSegment* segment) {
@@ -557,8 +557,8 @@ namespace
             segment->CorrectTileForSegmentRotation(mousePos.x, mousePos.y, mousePos.z);
             Crd2D mousePoint = LocalTileToScreen(mousePos.x, mousePos.y, mousePos.z);
             draw_text_border(
-                font, uiColor(1),
-                mousePoint.x + al_get_text_width(font, "-----"),
+                font, uiColor(dfColors::white),
+                mousePoint.x + al_get_text_width(font, "------"),
                 mousePoint.y + fontHeight, ALLEGRO_ALIGN_LEFT,
                 (
                     std::to_string(ruler->x) + "x" +
