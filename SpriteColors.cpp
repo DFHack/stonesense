@@ -305,31 +305,8 @@ ALLEGRO_COLOR blinkTechnicolor()
 }
 
 // Meant to unify the different UI coloring techniques used.
-ALLEGRO_COLOR uiColor(int32_t index)
+ALLEGRO_COLOR uiColor(int32_t index, bool bright)
 {
     auto& ssConfig = stonesenseState.ssConfig;
-    switch(index)
-    {
-    case 0:
-        //black;
-        return ssConfig.config.colors.getDfColor(dfColors::black, ssConfig.config.useDfColors);
-    case 1:
-        //white
-        return ssConfig.config.colors.getDfColor(dfColors::white, ssConfig.config.useDfColors);
-    case 2:
-        //yellow;
-        return ssConfig.config.colors.getDfColor(dfColors::yellow, ssConfig.config.useDfColors);
-    case 3:
-        //lime
-        return ssConfig.config.colors.getDfColor(dfColors::lgreen, ssConfig.config.useDfColors);
-    case 4:
-        //light blue
-        return ssConfig.config.colors.getDfColor(dfColors::lblue, ssConfig.config.useDfColors);
-    case 5:
-        //light red
-        return ssConfig.config.colors.getDfColor(dfColors::lred, ssConfig.config.useDfColors);
-    default:
-        //white
-        return ssConfig.config.colors.getDfColor(dfColors::white, ssConfig.config.useDfColors);
-    }
+    return ssConfig.config.colors.getDfColor(index, (bright ? 1:0), ssConfig.config.useDfColors);
 }
