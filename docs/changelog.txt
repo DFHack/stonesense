@@ -41,6 +41,8 @@ Template for new versions:
 
 ## Fixes
 - `stonesense`: megashots no longer leave stonesense unresponsive
+- `stonesense`: items now properly render on top of stockpile indicators
+- `stonesense`: minecarts and wheelbarrows are now shown on the correct layer
 
 ## Misc Improvements
 - `stonesense`: different types of dig-mode designations (normal, autodig, and the blueprint variants of both) now have distinct colors that more closely match the vanilla DF interface
