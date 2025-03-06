@@ -464,22 +464,6 @@ void Tile::AssembleTile( void )
     //        vegetationsprite->assemble_world(x, y, z);
     //}
 
-    //items
-    if(Item.item.type >= 0) {
-        if(
-            auto& contentLoader = stonesenseState.contentLoader;
-            contentLoader->itemConfigs[Item.item.type] &&
-            (size_t(Item.item.index) < contentLoader->itemConfigs[Item.item.type]->subItems.size()) &&
-            contentLoader->itemConfigs[Item.item.type]->subItems[Item.item.index]) {
-            contentLoader->itemConfigs[Item.item.type]->subItems[Item.item.index]->sprite.assemble_world(x, y, z, this);
-        } else if (
-            contentLoader->itemConfigs[Item.item.type] &&
-            contentLoader->itemConfigs[Item.item.type]->configured) {
-            contentLoader->itemConfigs[Item.item.type]->default_sprite.assemble_world(x, y, z, this);
-        } else {
-            AssembleSpriteFromSheet( 350, stonesenseState.IMGObjectSheet, lookupMaterialColor(Item.matt, Item.dyematt), drawx, (tileShapeBasic()==tiletype_shape_basic::Ramp)?(drawy - ((WALLHEIGHT/2)*ssConfig.scale)):drawy , this);
-        }
-    }
 
     //shadow
     if (shadow > 0) {
@@ -499,6 +483,23 @@ void Tile::AssembleTile( void )
             } else {
                 spriteobject->assemble_world(x, y, z, this);
             }
+        }
+    }
+
+    //items
+    if(Item.item.type >= 0) {
+        if(
+            auto& contentLoader = stonesenseState.contentLoader;
+            contentLoader->itemConfigs[Item.item.type] &&
+            (size_t(Item.item.index) < contentLoader->itemConfigs[Item.item.type]->subItems.size()) &&
+            contentLoader->itemConfigs[Item.item.type]->subItems[Item.item.index]) {
+            contentLoader->itemConfigs[Item.item.type]->subItems[Item.item.index]->sprite.assemble_world(x, y, z, this);
+        } else if (
+            contentLoader->itemConfigs[Item.item.type] &&
+            contentLoader->itemConfigs[Item.item.type]->configured) {
+            contentLoader->itemConfigs[Item.item.type]->default_sprite.assemble_world(x, y, z, this);
+        } else {
+            AssembleSpriteFromSheet( 350, stonesenseState.IMGObjectSheet, lookupMaterialColor(Item.matt, Item.dyematt), drawx, (tileShapeBasic()==tiletype_shape_basic::Ramp)?(drawy - ((WALLHEIGHT/2)*ssConfig.scale)):drawy , this);
         }
     }
 
