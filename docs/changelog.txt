@@ -38,6 +38,8 @@ Template for new versions:
 # Future
 
 ## New Features
+- `stonesense`: added ``AUTO`` as an option for the now-split ``SEGMENTSIZE_X`` and ``SEGMENTSIZE_Y``
+- `stonesense`: added new hotkeys for resizing the segmentsize
 - `stonesense`: stonesense now offsets the view when you are following a unit in DF, to better center the camera on the unit in stonesense
 
 ## Fixes

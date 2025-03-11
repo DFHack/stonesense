@@ -56,6 +56,26 @@ std::optional<std::string> trim_line(std::string line)
     return std::optional{ line };
 }
 
+    int getSegmentSizeConfig(string setting, string line) {
+        bool autosize = (parseStrFromLine(setting, line) == "AUTO");
+        int value = DEFAULT_SEGSIZE_XY;
+        if (autosize) {
+            value = 1; // will get overwritten when the window comes up
+            if (setting.ends_with("XY") || setting.ends_with("X")) {
+                stonesenseState.ssConfig.autosize_segmentX = true;
+            }
+            if (setting.ends_with("Y")) {
+                stonesenseState.ssConfig.autosize_segmentY = true;
+            }
+        } else {
+            value = parseIntFromLine(setting, line);
+            value = ((value < MIN_SEGSIZE) ? DEFAULT_SEGSIZE_XY : value);
+        }
+        //plus 2 to allow edge readings
+        value += 2;
+        return value;
+    }
+
 namespace {
     void parseConfigLine(Config& config, string line)
     {
@@ -81,21 +101,20 @@ namespace {
             config.Fullscreen = (result == "NO");
         }
         if (line.find("[SEGMENTSIZE_XY") != string::npos) {
-            int value = parseIntFromLine("SEGMENTSIZE_XY", line);
-            if (value < 1) {
-                value = DEFAULT_SIZE;
-            }
-            if (value > 100) {
-                value = 100;
-            }
-            //plus 2 to allow edge readings
-            config.defaultSegmentSize.x = value;
-            config.defaultSegmentSize.y = value;
+            config.defaultSegmentSize.x = getSegmentSizeConfig("SEGMENTSIZE_XY", line);
+            config.defaultSegmentSize.y = config.defaultSegmentSize.x;
+        }
+        if (line.find("[SEGMENTSIZE_X") != string::npos) {
+            config.defaultSegmentSize.x = getSegmentSizeConfig("SEGMENTSIZE_X", line);
+        }
+        if (line.find("[SEGMENTSIZE_Y") != string::npos) {
+            config.defaultSegmentSize.y = getSegmentSizeConfig("SEGMENTSIZE_Y", line);
+
         }
         if (line.find("[SEGMENTSIZE_Z") != string::npos) {
             int value = parseIntFromLine("SEGMENTSIZE_Z", line);
             if (value < 1) {
-                value = DEFAULT_SIZE_Z;
+                value = DEFAULT_SEGSIZE_Z;
             }
             config.defaultSegmentSize.z = value;
         }

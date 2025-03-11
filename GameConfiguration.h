@@ -22,6 +22,12 @@ struct GameConfiguration {
     bool show_hidden_tiles = false;
     bool load_ground_materials = false;
     bool hide_outer_tiles = false;
+    bool debug_mode = false;
+    bool autosize_segmentX = false;
+    bool autosize_segmentY = false;
+    int lift_segment_offscreen_x = 0;
+    int lift_segment_offscreen_y = 0;
+
     uint8_t truncate_walls;
     bool track_screen_center = true;
 
