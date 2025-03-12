@@ -38,6 +38,16 @@ Template for new versions:
 # Future
 
 ## New Features
+
+## Fixes
+
+## Misc Improvements
+
+## Removed
+
+# 51.07-r1
+
+## New Features
 - `stonesense`: stonesense now offsets the view when you are following a unit in DF, to better center the camera on the unit in stonesense
 
 ## Fixes
