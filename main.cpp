@@ -19,6 +19,9 @@
 #include "GroundMaterialConfiguration.h"
 #include "ContentLoader.h"
 #include "OcclusionTest.h"
+
+#include "UserInput.h"
+
 #include "GameConfiguration.h"
 #include "GameState.h"
 #include "StonesenseState.h"
@@ -208,6 +211,10 @@ void drawcredits()
     // Make the backbuffer visible
 }
 
+void addElems() {
+    addButton(0, 0, 20, 20, dfColors::blue, dfColors::green, action_togglekeybinds, { "DEFAULT", "INFO_PANEL/ANNOUNCEMENTS" });
+}
+
 /* main_loop:
 *  The main loop of the program.  Here we wait for events to come in from
 *  any one of the event sources and react to each one accordingly.  While
@@ -220,6 +227,8 @@ static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALL
     auto& ssConfig = stonesenseState.ssConfig;
 
     ALLEGRO_EVENT event;
+
+    addElems();
     while (!al_get_thread_should_stop(main_thread)) {
 
         if (redraw && al_event_queue_is_empty(queue)) {

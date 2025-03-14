@@ -2,6 +2,15 @@
 
 #include "common.h"
 #include <filesystem>
+#include <functional>
+
+// GUI Element stuffs
+void handleMouseClick(int mouseX, int mouseY);
+void handleMouseMove(int mouseX, int mouseY);
+void handleMouseWheel(int mouseX, int mouseY, int deltaY);
+typedef void (*OnClickCallback)(uint32_t);
+void addButton(int x, int y, int w, int h, int32_t borderColor, int32_t bgColor, OnClickCallback onClickCallback, std::unordered_set<std::string> visibleStates);
+
 
 void ScreenToPoint(int x,int y,int &x1, int &y1, int &z1);
 void pointToScreen(int *inx, int *iny, int inz);

@@ -8,6 +8,7 @@
 #include <vector>
 #include <filesystem>
 #include <array>
+#include <unordered_set>
 
 #include "common.h"
 #include "Tile.h"
@@ -22,6 +23,8 @@
 #include "UserInput.h"
 #include "GameConfiguration.h"
 #include "StonesenseState.h"
+
+#include "UserInput.h"
 
 #include "modules/Screen.h"
 #include "modules/Units.h"
@@ -163,6 +166,135 @@ public:
     }
 
 } IMGFileList;
+
+// Base GUI Element Class
+class GUIElement {
+public:
+    int x, y, w, h;  // Position and size of the element
+    bool hovered;    // Tracks if the mouse is over the element
+    std::unordered_set<std::string> visibleStates;
+
+    GUIElement(int x, int y, int w, int h, std::unordered_set<std::string> visibleStates)
+        : x(x), y(y), w(w), h(h), hovered(false), visibleStates(std::move(visibleStates)) {
+    }
+
+    virtual void onClick() {}
+
+    virtual void onHover() {}
+
+    virtual void onHoverExit() {}
+
+    virtual void onScroll(int deltaY) {}
+
+    virtual void draw() {}
+
+    void update() {
+        al_draw_text(stonesenseState.font, uiColor(dfColors::white), 0, 40, 0, stonesenseState.UIState.c_str());
+        if (visibleStates.find(stonesenseState.UIState) != visibleStates.end()) {
+            draw();
+        }
+    }
+
+    bool isMouseOver(int mouseX, int mouseY) {
+        return mouseX >= x && mouseX <= x + w &&
+            mouseY >= y && mouseY <= y + h;
+    }
+
+    void updateHoverState(int mouseX, int mouseY) {
+        bool mouseOver = isMouseOver(mouseX, mouseY);
+        if (mouseOver && !hovered) {
+            onHover();
+        }
+        else if (!mouseOver && hovered) {
+            onHoverExit();
+        }
+        hovered = mouseOver;
+    }
+
+};
+
+// Function pointer type
+typedef void (*OnClickCallback)(uint32_t);
+
+class Button : public GUIElement {
+public:
+    int32_t borderColor;
+    int32_t bgColor;
+    OnClickCallback onClickCallback;  // Function pointer for the callback
+
+    Button(int x, int y, int w, int h, int32_t borderColor, int32_t bgColor, OnClickCallback clickFn, std::unordered_set<std::string> visibleStates)
+        : GUIElement(x, y, w, h, visibleStates), borderColor(borderColor), bgColor(bgColor), onClickCallback(clickFn) {
+    }
+
+    void onClick() override {
+        if (visibleStates.find(stonesenseState.UIState) != visibleStates.end()) {
+            if (onClickCallback) {
+                onClickCallback(getKeyMods(&stonesenseState.keyboard));  // Pass a uint32_t argument when the button is clicked
+            }
+        }
+    }
+
+    void draw() override {
+        al_draw_filled_rectangle(x, y, x + w, y + h, uiColor(bgColor, hovered));
+        al_draw_rectangle(x, y, x + w, y + h, uiColor(borderColor, hovered), 2);
+    }
+};
+
+
+// Global list of GUI elements
+std::vector<GUIElement*> elements;
+
+void updateAll() {
+    for (auto* elem : elements) {
+        elem->update();
+    }
+}
+
+// Handle mouse click events
+void handleMouseClick(int mouseX, int mouseY) {
+    for (auto* elem : elements) {
+        if (elem->isMouseOver(mouseX, mouseY)) {
+            elem->onClick();
+            break;
+        }
+    }
+}
+
+// Handle mouse release events
+void handleMouseRelease() {
+    for (auto* elem : elements) {
+
+    }
+}
+
+// Handle mouse drag events
+void handleMouseDrag(int mouseX, int mouseY) {
+    for (auto* elem : elements) {
+
+    }
+}
+
+// Handle mouse movement for hover state
+void handleMouseMove(int mouseX, int mouseY) {
+    for (auto* elem : elements) {
+        elem->updateHoverState(mouseX, mouseY);
+    }
+}
+
+// Handle mouse wheel scrolling
+void handleMouseWheel(int mouseX, int mouseY, int deltaY) {
+    for (auto* elem : elements) {
+        if (elem->isMouseOver(mouseX, mouseY)) {
+
+        }
+    }
+}
+
+void addButton(int x, int y, int w, int h, int32_t borderColor, int32_t bgColor, OnClickCallback onClickCallback, std::unordered_set<std::string> visibleStates) {
+    elements.push_back(new Button(x, y, w, h, borderColor, bgColor, onClickCallback, visibleStates));
+}
+
+
 
 namespace
 {
@@ -933,12 +1065,15 @@ void paintboard()
     stonesenseState.stoneSenseTimers.frame_total.update(donetime - stonesenseState.stoneSenseTimers.prev_frame_time);
     stonesenseState.stoneSenseTimers.prev_frame_time = donetime;
 
+    stonesenseState.UIState = "DEFAULT";
     if (ssConfig.show_announcements) {
+        stonesenseState.UIState = "INFO_PANEL/ANNOUNCEMENTS";
         al_hold_bitmap_drawing(true);
         draw_announcements(font, ssState.ScreenW, ssState.ScreenH - 10 - al_get_font_line_height(font), ALLEGRO_ALIGN_RIGHT, df::global::world->status.announcements);
         al_hold_bitmap_drawing(false);
     }
     if(ssConfig.show_keybinds){
+        stonesenseState.UIState = "INFO_PANEL/KEYBINDS";
         std::string *keyname, *actionname;
         keyname = actionname = NULL;
         int line = 1;
@@ -955,7 +1090,9 @@ void paintboard()
         }
         al_hold_bitmap_drawing(false);
     } else if (ssConfig.config.show_osd) {
+        stonesenseState.UIState = "OSD";
         al_hold_bitmap_drawing(true);
+
         draw_textf_border(font, uiColor(dfColors::white), 10,fontHeight, 0, "%i,%i,%i, r%i, z%i", ssState.Position.x,ssState.Position.y,ssState.Position.z, ssState.Rotation, ssConfig.zoom);
 
         drawSelectionCursor(segment);
@@ -965,6 +1102,7 @@ void paintboard()
         drawAdvmodeMenuTalk(font, 5, ssState.ScreenH - 5);
 
         if(ssConfig.config.debug_mode) {
+            stonesenseState.UIState = "DEBUG";
             auto& contentLoader = stonesenseState.contentLoader;
             draw_textf_border(font, uiColor(dfColors::white), 10, 3*fontHeight, 0, "Map Read Time: %.2fms", clockToMs(stonesenseState.stoneSenseTimers.read_time));
             draw_textf_border(font, uiColor(dfColors::white), 10, 4*fontHeight, 0, "Map Beautification Time: %.2fms", clockToMs(stonesenseState.stoneSenseTimers.beautify_time));
@@ -996,9 +1134,15 @@ void paintboard()
             top += fontHeight;
             draw_textf_border(font, uiColor(dfColors::white), ssState.ScreenW/2,top, ALLEGRO_ALIGN_CENTRE, "Reloading every %0.1fs", (float)ssConfig.config.automatic_reload_time/1000);
         }
+
         al_hold_bitmap_drawing(false);
         DrawMinimap(segment);
     }
+
+    al_hold_bitmap_drawing(true);
+    updateAll();
+    al_hold_bitmap_drawing(false);
+
     stonesenseState.map_segment.unlockDraw();
 }
 

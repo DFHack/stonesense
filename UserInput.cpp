@@ -135,23 +135,28 @@ void doMouse()
     //mouse_callback = mouseProc;
     static int last_mouse_z;
     auto& mouse = stonesenseState.mouse;
-    if(mouse.z < last_mouse_z) {
-        if(ssConfig.config.invert_mouse_z) {
-            action_incrZ(keymod);
+    handleMouseMove(mouse.x, mouse.y);
+    if (mouse.z != last_mouse_z) {
+        auto deltaY = last_mouse_z - mouse.z;
+        if(mouse.z < last_mouse_z) {
+            if(ssConfig.config.invert_mouse_z) {
+                action_incrZ(keymod);
+            }
+            else {
+                action_decrZ(keymod);
+            }
+            last_mouse_z = mouse.z;
         }
-        else {
-            action_decrZ(keymod);
+        if(mouse.z > last_mouse_z) {
+            if(ssConfig.config.invert_mouse_z) {
+                action_decrZ(keymod);
+            }
+            else {
+                action_incrZ(keymod);
+            }
+            last_mouse_z = mouse.z;
         }
-        last_mouse_z = mouse.z;
-    }
-    if(mouse.z > last_mouse_z) {
-        if(ssConfig.config.invert_mouse_z) {
-            action_decrZ(keymod);
-        }
-        else {
-            action_incrZ(keymod);
-        }
-        last_mouse_z = mouse.z;
+        handleMouseWheel(mouse.x, mouse.y, deltaY);
     }
     if( mouse.buttons & 2 ) {
         ssConfig.config.track_mode = Config::TRACKING_NONE;
@@ -175,6 +180,7 @@ void doMouse()
         int x, y;
         x = mouse.x;//pos >> 16;
         y = mouse.y; //pos & 0x0000ffff;
+        handleMouseClick(x, y);
         if(x >= stonesenseState.MiniMapTopLeftX &&
             x <= stonesenseState.MiniMapBottomRightX &&
             y >= stonesenseState.MiniMapTopLeftY &&

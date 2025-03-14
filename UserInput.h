@@ -44,3 +44,4 @@ void action_incrZ(uint32_t keymod);
 
 extern bool isRepeatable(int32_t keycode);
 extern bool doKey(int32_t keycode, uint32_t keymodcode);
+extern int32_t getKeyMods(ALLEGRO_KEYBOARD_STATE* keyboardstate);
