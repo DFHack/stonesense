@@ -6,6 +6,8 @@
 #include <algorithm>
 #include <cmath>
 #include <vector>
+#include <string>
+#include <sstream>
 #include <filesystem>
 #include <array>
 #include <unordered_set>
@@ -485,24 +487,84 @@ void draw_color_ustr_border(const ALLEGRO_FONT* font, ALLEGRO_COLOR text_color, 
     draw_color_border(font, text_color, border_color, x, y, flags, ustr);
 }
 
+std::string fitTextToWidth(const std::string& input, ALLEGRO_FONT* font, int width) {
+    std::string allCurrentChars;  // The part of the string that fits so far
+
+    for (char nextChar : input) {
+        std::string testString = allCurrentChars + nextChar + ".";  // Test adding the next char plus a dot
+
+        if (al_get_text_width(font, testString.c_str()) > width) {
+            return allCurrentChars + ".";  // If too wide, return what we have with a dot
+        }
+
+        allCurrentChars += nextChar;  // Append the character if it fits
+    }
+
+    return allCurrentChars;  // If we reached the end, return the full string
+}
+
+
+std::vector<std::string> splitLinesToWidth(const std::string& input,const ALLEGRO_FONT* font, int width) {
+    std::vector<std::string> splits;  // To store each part of the split string
+    std::string allCurrentChars;  // The part of the string that fits so far
+
+    // Split input into words
+    std::istringstream stream(input);
+    std::string word;
+
+    while (stream >> word) {
+        // Test if adding this word to the current string would exceed the width
+        std::string testString = allCurrentChars + (allCurrentChars.empty() ? "" : " ") + word;
+
+        if (al_get_text_width(font, testString.c_str()) > width) {
+            // If it's too wide, stop and push the current string into the vector
+            if (!allCurrentChars.empty()) {
+                splits.push_back(allCurrentChars);
+            }
+            allCurrentChars = word;  // Start a new line with the current word
+        }
+        else {
+            // If it fits, append the word
+            if (!allCurrentChars.empty()) {
+                allCurrentChars += " ";
+            }
+            allCurrentChars += word;
+        }
+    }
+
+    // Add any remaining text to the vector
+    if (!allCurrentChars.empty()) {
+        splits.push_back(allCurrentChars);
+    }
+
+    return splits;
+}
+
+
 namespace
 {
-    void draw_report_border(const ALLEGRO_FONT* font, float x, float y, int flags, const df::report* report)
+    void draw_announcements(const ALLEGRO_FONT* font, float x, float y, int flags, std::vector<df::report*>& announcements)
     {
         auto& ssConfig = stonesenseState.ssConfig;
 
-        ALLEGRO_COLOR color = ssConfig.config.colors.getDfColor(report->color, ssConfig.config.useDfColors);
-        draw_text_border(font, color, x, y, flags, DF2UTF(report->text).c_str());
-    }
-
-    void draw_announcements(const ALLEGRO_FONT* font, float x, float y, int flags, std::vector<df::report*>& announcements)
-    {
         const int numAnnouncements = (int)announcements.size();
         const int maxAnnouncements = std::min(10, numAnnouncements);
-        for (int i = numAnnouncements - 1; i >= (numAnnouncements - maxAnnouncements) && announcements[i]->duration > 0; i--)
+        int line = 0;
+        int offset = 0;
+
+        int fontHeight = al_get_font_line_height(font);
+        int tabHeight = fontHeight + 10;  // Padding for visuals
+
+        for (int i = numAnnouncements - 1; /*i >= (numAnnouncements - maxAnnouncements) && */announcements[i]->duration > 0; i--)
         {
-            int offset = ((numAnnouncements - 1) - i) * al_get_font_line_height(font);
-            draw_report_border(font, x, y - offset, flags, announcements[i]);
+            ALLEGRO_COLOR color = ssConfig.config.colors.getDfColor(announcements[i]->color, ssConfig.config.useDfColors);
+            auto reportStr = DF2UTF(announcements[i]->text).c_str();
+            auto splits = splitLinesToWidth(reportStr, font, stonesenseState.ssState.InfoW - 20);
+            for (auto split : splits) {
+                offset = (line * fontHeight);
+                draw_text_border(font, color, x, y + offset, flags, split.c_str());
+                line++;
+            }
         }
     }
 }
@@ -947,6 +1009,51 @@ ALLEGRO_BITMAP * CreateSpriteFromSheet( int spriteNum, ALLEGRO_BITMAP* spriteShe
     return al_create_sub_bitmap(spriteSheet, sheetx * SPRITEWIDTH, sheety * SPRITEHEIGHT, SPRITEWIDTH, SPRITEHEIGHT);
 }
 
+void drawTab(ALLEGRO_FONT* font, const std::string& label, int tabIndex) {
+    int numTabs = 2;
+    int tabWidth = stonesenseState.ssState.InfoW / numTabs;
+    int fontHeight = al_get_font_line_height(font);
+    int tabHeight = fontHeight + 10;  // Padding for visuals
+    int panelX = stonesenseState.ssState.ScreenW - stonesenseState.ssState.InfoW;  // Left edge of info panel
+    int tabX = panelX + (tabIndex * tabWidth);  // Position inside the panel
+    int tabY = stonesenseState.ssState.ScreenH - tabHeight;  // Flush with bottom
+
+    // Determine colors based on selection
+    bool isSelected = (stonesenseState.ssState.selectedTab == tabIndex);
+    ALLEGRO_COLOR bgColor = uiColor(dfColors::black, isSelected);  // White if selected, black otherwise
+    ALLEGRO_COLOR textColor = uiColor(dfColors::lgray, isSelected); // Black text if selected, white otherwise
+
+    // Truncate label to fit inside tab
+    std::string truncatedLabel = fitTextToWidth(label, font, tabWidth - 20);
+
+    // Draw filled rounded rectangle (tab background)
+    al_draw_filled_rounded_rectangle(tabX, tabY, tabX + tabWidth, tabY + tabHeight, 10, 10, bgColor);
+
+    // Draw tab border - always yellow
+    al_draw_rounded_rectangle(tabX, tabY, tabX + tabWidth, tabY + tabHeight, 10, 10, uiColor(dfColors::yellow), 2);
+
+    // Draw text centered inside tab
+    al_draw_text(font, textColor, tabX + tabWidth / 2, tabY + (tabHeight - fontHeight) / 2, ALLEGRO_ALIGN_CENTER, truncatedLabel.c_str());
+}
+
+
+void drawInfoPanel() {
+    auto font = stonesenseState.font;
+    auto fontHeight = al_get_font_line_height(font);
+    int tabWidth = (stonesenseState.ssState.ScreenW - stonesenseState.ssState.InfoW) / 2;
+    int halftabHeight = (fontHeight + 10)/2;
+    int bottomY = stonesenseState.ssState.ScreenH - 2;
+
+    //draw panel
+    al_draw_filled_rectangle(stonesenseState.ssState.ScreenW, 0, stonesenseState.ssState.ScreenW - stonesenseState.ssState.InfoW, stonesenseState.ssState.ScreenH - halftabHeight, uiColor(dfColors::black));
+    al_draw_rectangle(stonesenseState.ssState.ScreenW, 2, stonesenseState.ssState.ScreenW - stonesenseState.ssState.InfoW, stonesenseState.ssState.ScreenH - halftabHeight, uiColor(dfColors::yellow), 2);
+
+    //draw tabs
+    drawTab(font, "Announcements",0);
+    drawTab(font, "Keybinds", 1);
+}
+
+
 void DrawSpriteIndexOverlay(int imageIndex)
 {
     auto currentImage = IMGFileList.lookup(imageIndex);
@@ -1066,10 +1173,13 @@ void paintboard()
     stonesenseState.stoneSenseTimers.prev_frame_time = donetime;
 
     stonesenseState.UIState = "DEFAULT";
+    if (ssConfig.config.show_info_panel) {
+        drawInfoPanel();
+    }
     if (ssConfig.show_announcements) {
         stonesenseState.UIState = "INFO_PANEL/ANNOUNCEMENTS";
         al_hold_bitmap_drawing(true);
-        draw_announcements(font, ssState.ScreenW, ssState.ScreenH - 10 - al_get_font_line_height(font), ALLEGRO_ALIGN_RIGHT, df::global::world->status.announcements);
+        draw_announcements(font, ssState.ScreenW - 10, 10/*ssState.ScreenH - 10 - al_get_font_line_height(font)*/, ALLEGRO_ALIGN_RIGHT, df::global::world->status.announcements);
         al_hold_bitmap_drawing(false);
     }
     if(ssConfig.show_keybinds){
@@ -1081,8 +1191,22 @@ void paintboard()
 
         for(int32_t i=1; true; i++){
             if(getKeyStrings(i, keyname, actionname)){
-                draw_textf_border(font, uiColor(dfColors::white), 10, line*fontHeight, 0, "%s: %s%s", keyname->c_str(), actionname->c_str(), isRepeatable(i) ? " (repeats)" : "");
-                line++;
+                std::ostringstream oss;
+                oss << *keyname << ": " << *actionname;
+                if (isRepeatable(i)) {
+                    oss << " (repeats)";
+                }
+                std::string keyStr = oss.str();
+
+                int maxWidth = std::max(0, stonesenseState.ssState.InfoW - 20);
+                std::vector<std::string> splitLines = splitLinesToWidth(keyStr, font, maxWidth);
+
+                for (const auto& lineText : splitLines) {
+                    draw_textf_border(font, uiColor(dfColors::white), ssState.ScreenW - 10, line * fontHeight, ALLEGRO_ALIGN_RIGHT, lineText.c_str());
+                    line++;
+                }
+
+
             }
             if(keyname == NULL) {
                 break;
@@ -1136,7 +1260,9 @@ void paintboard()
         }
 
         al_hold_bitmap_drawing(false);
-        DrawMinimap(segment);
+        if (!ssConfig.config.show_info_panel) {
+            DrawMinimap(segment);
+        }
     }
 
     al_hold_bitmap_drawing(true);
