@@ -22,4 +22,15 @@ struct GameState{
     //the width and height of the stonesense window
     int ScreenW;
     int ScreenH;
+
+    //info panel
+    int InfoW;
+    int InfoH;
+    int selectedTab = 0;
+
+    enum tabs {
+        announcements,
+        keybinds,
+    };
+
 };

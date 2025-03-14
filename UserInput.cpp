@@ -175,13 +175,18 @@ void doMouse()
         int x, y;
         x = mouse.x;//pos >> 16;
         y = mouse.y; //pos & 0x0000ffff;
-        if(x >= stonesenseState.MiniMapTopLeftX &&
+        if (x >= stonesenseState.MiniMapTopLeftX &&
             x <= stonesenseState.MiniMapBottomRightX &&
             y >= stonesenseState.MiniMapTopLeftY &&
             y <= stonesenseState.MiniMapBottomRightY) { // in minimap
             ssState.Position.x = (x- stonesenseState.MiniMapTopLeftX- stonesenseState.MiniMapSegmentWidth/2)/ stonesenseState.oneTileInPixels;
             ssState.Position.y = (y- stonesenseState.MiniMapTopLeftY- stonesenseState.MiniMapSegmentHeight/2)/ stonesenseState.oneTileInPixels;
-        } else {
+        }/*else if (x >= stonesenseState.KeybindsTabTopLeftX &&
+            x <= stonesenseState.KeybindsTabBottomRightX &&
+            y >= stonesenseState.KeybindsTabTopLeftY &&
+            y <= stonesenseState.KeybindsTabBottomRightY) {
+
+        }*/ else {
             int tilex,tiley,tilez;
 
             //get the point in the segment
@@ -442,11 +447,17 @@ void action_toggleosd(uint32_t keymod)
 void action_togglekeybinds(uint32_t keymod){
     auto& ssConfig = stonesenseState.ssConfig;
     ssConfig.show_keybinds = !ssConfig.show_keybinds;
+    ssConfig.config.show_info_panel = ssConfig.show_keybinds;
+    ssConfig.show_announcements = false;
+    stonesenseState.ssState.selectedTab = GameState::tabs::keybinds;
 }
 
 void action_toggleannouncements(uint32_t keymod) {
     auto& ssConfig = stonesenseState.ssConfig;
     ssConfig.show_announcements = !ssConfig.show_announcements;
+    ssConfig.config.show_info_panel = ssConfig.show_announcements;
+    ssConfig.show_keybinds = false;
+    stonesenseState.ssState.selectedTab = GameState::tabs::announcements;
 }
 
 void action_toggledebug(uint32_t keymod)

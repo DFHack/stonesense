@@ -43,6 +43,16 @@ public:
     GameConfiguration ssConfig;
     GameState ssState;
 
+    int KeybindsTabTopLeftX;
+    int KeybindsTabTopLeftY;
+    int KeybindsTabBottomRightX;
+    int KeybindsTabBottomRightY;
+
+    int AnnouncementsTabTopLeftX;
+    int AnnouncementsTabTopLeftY;
+    int AnnouncementsTabBottomRightX;
+    int AnnouncementsTabBottomRightY;
+
     int MiniMapTopLeftX;
     int MiniMapTopLeftY;
     int MiniMapBottomRightX;
