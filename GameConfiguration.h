@@ -66,7 +66,6 @@ struct GameConfiguration {
     {
         config = {};
 
-        show_info_panel = false;
         hide_outer_tiles = false;
         shade_hidden_tiles = true;
         load_ground_materials = true;
