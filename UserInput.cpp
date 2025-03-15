@@ -191,12 +191,7 @@ void doMouse()
             y <= stonesenseState.MiniMapBottomRightY) { // in minimap
             ssState.Position.x = (x- stonesenseState.MiniMapTopLeftX- stonesenseState.MiniMapSegmentWidth/2)/ stonesenseState.oneTileInPixels;
             ssState.Position.y = (y- stonesenseState.MiniMapTopLeftY- stonesenseState.MiniMapSegmentHeight/2)/ stonesenseState.oneTileInPixels;
-        }/*else if (x >= stonesenseState.KeybindsTabTopLeftX &&
-            x <= stonesenseState.KeybindsTabBottomRightX &&
-            y >= stonesenseState.KeybindsTabTopLeftY &&
-            y <= stonesenseState.KeybindsTabBottomRightY) {
-
-        }*/ else {
+        } else {
             int tilex,tiley,tilez;
 
             //get the point in the segment
