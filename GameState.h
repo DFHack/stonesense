@@ -26,7 +26,7 @@ struct GameState{
     //info panel
     int InfoW;
     int InfoH;
-    int selectedTab = 0;
+    int selectedTab = -1;
 
     enum tabs {
         announcements,
