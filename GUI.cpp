@@ -1125,7 +1125,7 @@ void drawInfoPanel() {
 
     //draw panel
     al_draw_filled_rectangle(stonesenseState.ssState.ScreenW, 0, stonesenseState.ssState.ScreenW - stonesenseState.ssState.InfoW, stonesenseState.ssState.ScreenH - halftabHeight, uiColor(dfColors::black));
-    al_draw_rectangle(stonesenseState.ssState.ScreenW, 2, stonesenseState.ssState.ScreenW - stonesenseState.ssState.InfoW, stonesenseState.ssState.ScreenH - halftabHeight, uiColor(dfColors::yellow), 2);
+    al_draw_rectangle(stonesenseState.ssState.ScreenW, 0, stonesenseState.ssState.ScreenW - stonesenseState.ssState.InfoW, stonesenseState.ssState.ScreenH - halftabHeight, uiColor(dfColors::yellow), 2);
 
     //draw tabs
     drawTab(font, "Announcements", GameState::tabs::announcements, action_toggleannouncements);
