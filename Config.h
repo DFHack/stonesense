@@ -46,7 +46,7 @@ public:
     bool names_use_nick = true;
     bool names_use_species = true;
     bool show_osd = false;
-    bool show_info_panel = true;
+    bool show_info_panel = false;
     bool cache_images = false;
     bool show_stockpiles = true;
     bool show_zones = true;
