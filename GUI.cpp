@@ -422,6 +422,8 @@ public:
         : x(x), y(y), w(w), h(h), hovered(false), visibleStates(std::move(visibleStates)) {
     }
 
+    virtual ~GUIElement() {}
+
     virtual void onClick() {}
 
     virtual void onRelease() {}
@@ -514,7 +516,6 @@ public:
 
         // Draw label text centered
         if (font) {
-            int textWidth = al_get_text_width(font, label.c_str());
             int textHeight = al_get_font_line_height(font);
             al_draw_text(font, uiColor(dfColors::white), x + (w / 2), y + (h - textHeight) / 2,
                 ALLEGRO_ALIGN_CENTER, label.c_str());
@@ -580,13 +581,6 @@ void handleMouseRelease() {
     stonesenseState.mouseHeld = false;
 }
 
-// Handle mouse drag events
-void handleMouseDrag(int mouseX, int mouseY) {
-    for (auto* elem : elements) {
-
-    }
-}
-
 // Handle mouse movement for hover state
 void handleMouseMove(int mouseX, int mouseY) {
     for (auto* elem : elements) {
@@ -647,12 +641,12 @@ namespace
         auto& ssConfig = stonesenseState.ssConfig;
 
         const int numAnnouncements = (int)announcements.size();
-        const int maxAnnouncements = std::min(10, numAnnouncements);
+        //const int maxAnnouncements = std::min(10, numAnnouncements);
         int line = 0;
         int offset = 0;
 
         int fontHeight = al_get_font_line_height(font);
-        int tabHeight = fontHeight + 10;  // Padding for visuals
+        //int tabHeight = fontHeight + 10;  // Padding for visuals
 
         for (int i = numAnnouncements - 1; /*i >= (numAnnouncements - maxAnnouncements) && */announcements[i]->duration > 0; i--)
         {
@@ -1127,9 +1121,7 @@ void drawTab(ALLEGRO_FONT* font, const std::string& label, int tabIndex, OnClick
 void drawInfoPanel() {
     auto font = stonesenseState.font;
     auto fontHeight = al_get_font_line_height(font);
-    int tabWidth = (stonesenseState.ssState.ScreenW - stonesenseState.ssState.InfoW) / 2;
     int halftabHeight = (fontHeight + 10)/2;
-    int bottomY = stonesenseState.ssState.ScreenH - 2;
 
     //draw panel
     al_draw_filled_rectangle(stonesenseState.ssState.ScreenW, 0, stonesenseState.ssState.ScreenW - stonesenseState.ssState.InfoW, stonesenseState.ssState.ScreenH - halftabHeight, uiColor(dfColors::black));
