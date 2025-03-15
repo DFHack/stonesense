@@ -135,23 +135,28 @@ void doMouse()
     //mouse_callback = mouseProc;
     static int last_mouse_z;
     auto& mouse = stonesenseState.mouse;
-    if(mouse.z < last_mouse_z) {
-        if(ssConfig.config.invert_mouse_z) {
-            action_incrZ(keymod);
+    handleMouseMove(mouse.x, mouse.y);
+    if (mouse.z != last_mouse_z) {
+        auto deltaY = last_mouse_z - mouse.z;
+        if(mouse.z < last_mouse_z) {
+            if(ssConfig.config.invert_mouse_z) {
+                action_incrZ(keymod);
+            }
+            else {
+                action_decrZ(keymod);
+            }
+            last_mouse_z = mouse.z;
         }
-        else {
-            action_decrZ(keymod);
+        if(mouse.z > last_mouse_z) {
+            if(ssConfig.config.invert_mouse_z) {
+                action_decrZ(keymod);
+            }
+            else {
+                action_incrZ(keymod);
+            }
+            last_mouse_z = mouse.z;
         }
-        last_mouse_z = mouse.z;
-    }
-    if(mouse.z > last_mouse_z) {
-        if(ssConfig.config.invert_mouse_z) {
-            action_decrZ(keymod);
-        }
-        else {
-            action_incrZ(keymod);
-        }
-        last_mouse_z = mouse.z;
+        handleMouseWheel(mouse.x, mouse.y, deltaY);
     }
     if( mouse.buttons & 2 ) {
         ssConfig.config.track_mode = Config::TRACKING_NONE;
@@ -170,12 +175,17 @@ void doMouse()
         stonesenseState.timeToReloadSegment = true;
         //rest(50);
     }
+    if (stonesenseState.mouseHeld && !(mouse.buttons & 1)) { handleMouseRelease(); }
     if( mouse.buttons & 1 ) {
         ssConfig.config.follow_DFcursor = false;
         int x, y;
         x = mouse.x;//pos >> 16;
         y = mouse.y; //pos & 0x0000ffff;
-        if(x >= stonesenseState.MiniMapTopLeftX &&
+        if (!stonesenseState.mouseHeld) {
+            stonesenseState.mouseHeld = true;
+            handleMouseClick(x, y);
+        }
+        if( x >= stonesenseState.MiniMapTopLeftX &&
             x <= stonesenseState.MiniMapBottomRightX &&
             y >= stonesenseState.MiniMapTopLeftY &&
             y <= stonesenseState.MiniMapBottomRightY) { // in minimap
@@ -440,13 +450,17 @@ void action_toggleosd(uint32_t keymod)
 }
 
 void action_togglekeybinds(uint32_t keymod){
-    auto& ssConfig = stonesenseState.ssConfig;
-    ssConfig.show_keybinds = !ssConfig.show_keybinds;
+    stonesenseState.ssState.selectedTab = GameState::tabs::keybinds;
 }
 
 void action_toggleannouncements(uint32_t keymod) {
+    stonesenseState.ssState.selectedTab = GameState::tabs::announcements;
+}
+
+void action_toggleinfopanel(uint32_t keymod) {
     auto& ssConfig = stonesenseState.ssConfig;
-    ssConfig.show_announcements = !ssConfig.show_announcements;
+    ssConfig.config.show_info_panel = !ssConfig.config.show_info_panel;
+    stonesenseState.ssState.selectedTab = ssConfig.config.show_info_panel ? GameState::tabs::announcements : -1;
 }
 
 void action_toggledebug(uint32_t keymod)
