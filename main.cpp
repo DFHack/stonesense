@@ -216,7 +216,7 @@ void drawcredits()
 }
 
 void addElems() {
-    addButton(0, 0, 20, 20, dfColors::blue, dfColors::green, action_togglekeybinds, { "DEFAULT", "INFO_PANEL/ANNOUNCEMENTS" });
+    //addButton(0, 0, 20, 20, dfColors::blue, dfColors::green, action_togglekeybinds, { "DEFAULT", "INFO_PANEL/ANNOUNCEMENTS" });
 }
 
 /* main_loop:
@@ -316,6 +316,8 @@ static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALL
         if(in_time) {
             switch (event.type) {
             case ALLEGRO_EVENT_DISPLAY_RESIZE:
+                clearElements();
+                addElems();
                 if (ssConfig.overlay_mode) {
                     break;
                 }

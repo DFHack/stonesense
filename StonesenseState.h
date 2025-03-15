@@ -79,6 +79,7 @@ public:
     int mouse_y;
     int mouse_z;
     unsigned int mouse_b;
+    bool mouseHeld;
 
     SegmentWrap map_segment;
 

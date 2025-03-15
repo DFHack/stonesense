@@ -169,135 +169,6 @@ public:
 
 } IMGFileList;
 
-// Base GUI Element Class
-class GUIElement {
-public:
-    int x, y, w, h;  // Position and size of the element
-    bool hovered;    // Tracks if the mouse is over the element
-    std::unordered_set<std::string> visibleStates;
-
-    GUIElement(int x, int y, int w, int h, std::unordered_set<std::string> visibleStates)
-        : x(x), y(y), w(w), h(h), hovered(false), visibleStates(std::move(visibleStates)) {
-    }
-
-    virtual void onClick() {}
-
-    virtual void onHover() {}
-
-    virtual void onHoverExit() {}
-
-    virtual void onScroll(int deltaY) {}
-
-    virtual void draw() {}
-
-    void update() {
-        al_draw_text(stonesenseState.font, uiColor(dfColors::white), 0, 40, 0, stonesenseState.UIState.c_str());
-        if (visibleStates.find(stonesenseState.UIState) != visibleStates.end()) {
-            draw();
-        }
-    }
-
-    bool isMouseOver(int mouseX, int mouseY) {
-        return mouseX >= x && mouseX <= x + w &&
-            mouseY >= y && mouseY <= y + h;
-    }
-
-    void updateHoverState(int mouseX, int mouseY) {
-        bool mouseOver = isMouseOver(mouseX, mouseY);
-        if (mouseOver && !hovered) {
-            onHover();
-        }
-        else if (!mouseOver && hovered) {
-            onHoverExit();
-        }
-        hovered = mouseOver;
-    }
-
-};
-
-// Function pointer type
-typedef void (*OnClickCallback)(uint32_t);
-
-class Button : public GUIElement {
-public:
-    int32_t borderColor;
-    int32_t bgColor;
-    OnClickCallback onClickCallback;  // Function pointer for the callback
-
-    Button(int x, int y, int w, int h, int32_t borderColor, int32_t bgColor, OnClickCallback clickFn, std::unordered_set<std::string> visibleStates)
-        : GUIElement(x, y, w, h, visibleStates), borderColor(borderColor), bgColor(bgColor), onClickCallback(clickFn) {
-    }
-
-    void onClick() override {
-        if (visibleStates.find(stonesenseState.UIState) != visibleStates.end()) {
-            if (onClickCallback) {
-                onClickCallback(getKeyMods(&stonesenseState.keyboard));  // Pass a uint32_t argument when the button is clicked
-            }
-        }
-    }
-
-    void draw() override {
-        al_draw_filled_rectangle(x, y, x + w, y + h, uiColor(bgColor, hovered));
-        al_draw_rectangle(x, y, x + w, y + h, uiColor(borderColor, hovered), 2);
-    }
-};
-
-
-// Global list of GUI elements
-std::vector<GUIElement*> elements;
-
-void updateAll() {
-    for (auto* elem : elements) {
-        elem->update();
-    }
-}
-
-// Handle mouse click events
-void handleMouseClick(int mouseX, int mouseY) {
-    for (auto* elem : elements) {
-        if (elem->isMouseOver(mouseX, mouseY)) {
-            elem->onClick();
-            break;
-        }
-    }
-}
-
-// Handle mouse release events
-void handleMouseRelease() {
-    for (auto* elem : elements) {
-
-    }
-}
-
-// Handle mouse drag events
-void handleMouseDrag(int mouseX, int mouseY) {
-    for (auto* elem : elements) {
-
-    }
-}
-
-// Handle mouse movement for hover state
-void handleMouseMove(int mouseX, int mouseY) {
-    for (auto* elem : elements) {
-        elem->updateHoverState(mouseX, mouseY);
-    }
-}
-
-// Handle mouse wheel scrolling
-void handleMouseWheel(int mouseX, int mouseY, int deltaY) {
-    for (auto* elem : elements) {
-        if (elem->isMouseOver(mouseX, mouseY)) {
-
-        }
-    }
-}
-
-void addButton(int x, int y, int w, int h, int32_t borderColor, int32_t bgColor, OnClickCallback onClickCallback, std::unordered_set<std::string> visibleStates) {
-    elements.push_back(new Button(x, y, w, h, borderColor, bgColor, onClickCallback, visibleStates));
-}
-
-
-
 namespace
 {
     void ScreenToPoint(int inx, int iny, int& x1, int& y1, int& z1, int segSizeX, int segSizeY, int segSizeZ, int ScreenW, int ScreenH)
@@ -540,6 +411,234 @@ std::vector<std::string> splitLinesToWidth(const std::string& input,const ALLEGR
     return splits;
 }
 
+// Base GUI Element Class
+class GUIElement {
+public:
+    int x, y, w, h;  // Position and size of the element
+    bool hovered;    // Tracks if the mouse is over the element
+    std::unordered_set<std::string> visibleStates;
+
+    GUIElement(int x, int y, int w, int h, std::unordered_set<std::string> visibleStates)
+        : x(x), y(y), w(w), h(h), hovered(false), visibleStates(std::move(visibleStates)) {
+    }
+
+    virtual void onClick() {}
+
+    virtual void onRelease() {}
+
+    virtual void onHover() {}
+
+    virtual void onHoverExit() { onRelease(); }
+
+    virtual void onScroll(int deltaY) {}
+
+    virtual void draw() {}
+
+    void update() {
+        al_draw_text(stonesenseState.font, uiColor(dfColors::white), 0, 40, 0, stonesenseState.UIState.c_str());
+        if (visibleStates.find(stonesenseState.UIState) != visibleStates.end()) {
+            draw();
+        }
+    }
+
+    bool isMouseOver(int mouseX, int mouseY) {
+        return mouseX >= x && mouseX <= x + w &&
+            mouseY >= y && mouseY <= y + h;
+    }
+
+    void updateHoverState(int mouseX, int mouseY) {
+        bool mouseOver = isMouseOver(mouseX, mouseY);
+
+        if (mouseOver && !hovered) {
+            onHover();
+        }
+        else if (!mouseOver && hovered) {
+            onHoverExit();
+        }
+        hovered = mouseOver;
+    }
+
+};
+
+// Function pointer type
+typedef void (*OnClickCallback)(uint32_t);
+
+class Button : public GUIElement {
+public:
+    int32_t borderColor;
+    int32_t bgColor;
+    OnClickCallback onClickCallback;  // Function pointer for the callback
+    bool held = false;
+
+    Button(int x, int y, int w, int h, int32_t borderColor, int32_t bgColor, OnClickCallback clickFn, std::unordered_set<std::string> visibleStates)
+        : GUIElement(x, y, w, h, visibleStates), borderColor(borderColor), bgColor(bgColor), onClickCallback(clickFn) {
+    }
+
+    void onClick() override {
+        if (!held) {
+            held = true;
+            if (visibleStates.find(stonesenseState.UIState) != visibleStates.end()) {
+                if (onClickCallback) {
+                    onClickCallback(getKeyMods(&stonesenseState.keyboard));  // Pass a uint32_t argument when the button is clicked
+                }
+            }
+        }
+    }
+
+    void onRelease() override {
+        held = false;
+    }
+
+    void draw() override {
+        al_draw_filled_rectangle(x, y, x + w, y + h, uiColor(bgColor, hovered));
+        al_draw_rectangle(x, y, x + w, y + h, uiColor(borderColor, hovered), 2);
+    }
+};
+
+#include <string>
+
+class LabeledButton : public Button {
+public:
+    std::string label;
+    ALLEGRO_FONT* font;
+
+    LabeledButton(int x, int y, int w, int h, int32_t borderColor, int32_t bgColor,
+        const std::string& label, ALLEGRO_FONT* font,
+        OnClickCallback clickFn, std::unordered_set<std::string> visibleStates)
+        : Button(x, y, w, h, borderColor, bgColor, clickFn, visibleStates),
+        label(label), font(font) {
+    }
+
+    void draw() override {
+        Button::draw(); // Draw base button
+
+        // Draw label text centered
+        if (font) {
+            int textWidth = al_get_text_width(font, label.c_str());
+            int textHeight = al_get_font_line_height(font);
+            al_draw_text(font, uiColor(dfColors::white), x + (w / 2), y + (h - textHeight) / 2,
+                ALLEGRO_ALIGN_CENTER, label.c_str());
+        }
+    }
+};
+
+
+
+class Tab : public Button {
+public:
+    int tabIndex;
+    std::string label;
+    ALLEGRO_FONT* font;
+
+    Tab(int x, int y, int w, int h, int32_t borderColor, int32_t bgColor, int tabIndex, const std::string& label, ALLEGRO_FONT* font, OnClickCallback onClickCallback, std::unordered_set<std::string> visibleStates)
+        : Button(x, y, w, h, borderColor, bgColor, onClickCallback, visibleStates), tabIndex(tabIndex), label(label), font(font) {
+    }
+
+    void draw() override {
+        bool isSelected = (stonesenseState.ssState.selectedTab == tabIndex);
+        ALLEGRO_COLOR bg = uiColor(bgColor, isSelected);
+        ALLEGRO_COLOR textColor = uiColor(dfColors::lgray, isSelected);
+
+        al_draw_filled_rounded_rectangle(x, y, x + w, y + h, 10, 10, bg);
+        al_draw_rounded_rectangle(x, y, x + w, y + h, 10, 10, uiColor(borderColor), 2);
+
+        std::string truncatedLabel = fitTextToWidth(label, font, w - 20);
+        al_draw_text(font, textColor, x + w / 2, y + (h - al_get_font_line_height(font)) / 2, ALLEGRO_ALIGN_CENTER, truncatedLabel.c_str());
+    }
+
+    void onClick() override {
+        stonesenseState.ssState.selectedTab = tabIndex;  // Update selected tab
+        Button::onClick();  // Call the base class onClick() to execute any extra behavior
+    }
+};
+
+
+// Global list of GUI elements
+std::vector<GUIElement*> elements;
+
+void updateAll() {
+    for (auto* elem : elements) {
+        elem->update();
+    }
+}
+
+// Handle mouse click events
+void handleMouseClick(int mouseX, int mouseY) {
+    for (auto* elem : elements) {
+        if (elem->isMouseOver(mouseX, mouseY)) {
+            elem->onClick();
+            break;
+        }
+    }
+}
+
+// Handle mouse release events
+void handleMouseRelease() {
+    for (auto* elem : elements) {
+        elem->onRelease();
+    }
+    stonesenseState.mouseHeld = false;
+}
+
+// Handle mouse drag events
+void handleMouseDrag(int mouseX, int mouseY) {
+    for (auto* elem : elements) {
+
+    }
+}
+
+// Handle mouse movement for hover state
+void handleMouseMove(int mouseX, int mouseY) {
+    for (auto* elem : elements) {
+        elem->updateHoverState(mouseX, mouseY);
+    }
+}
+
+// Handle mouse wheel scrolling
+void handleMouseWheel(int mouseX, int mouseY, int deltaY) {
+    for (auto* elem : elements) {
+        if (elem->isMouseOver(mouseX, mouseY)) {
+            elem->onScroll(deltaY);
+        }
+    }
+}
+
+bool elementExists(int x, int y, int w, int h) {
+    for (GUIElement* elem : elements) {
+        if (elem->x == x && elem->y == y && elem->w == w && elem->h == h) {
+            return true;  // Found an element with the same position and size
+        }
+    }
+    return false;
+}
+
+void addButton(int x, int y, int w, int h, int32_t borderColor, int32_t bgColor, OnClickCallback onClickCallback, std::unordered_set<std::string> visibleStates) {
+    if (!elementExists(x, y, w, h)) {
+        elements.push_back(new Button(x, y, w, h, borderColor, bgColor, onClickCallback, visibleStates));
+    }
+}
+
+void addLabeledButton(int x, int y, int w, int h, int32_t borderColor, int32_t bgColor,
+    const std::string& label, ALLEGRO_FONT* font,
+    OnClickCallback onClickCallback, std::unordered_set<std::string> visibleStates) {
+    if (!elementExists(x, y, w, h)) {
+        elements.push_back(new LabeledButton(x, y, w, h, borderColor, bgColor, label, font, onClickCallback, visibleStates));
+    }
+}
+
+
+void addTab(int x, int y, int w, int h, int32_t borderColor, int32_t bgColor, int tabIndex, const std::string& label, ALLEGRO_FONT* font, OnClickCallback onClickCallback, std::unordered_set<std::string> visibleStates) {
+    if (!elementExists(x, y, w, h)) {
+        elements.push_back(new Tab(x, y, w, h, borderColor, bgColor, tabIndex, label, font, onClickCallback, visibleStates));
+    }
+}
+
+void clearElements() {
+    for (auto* element : elements) {
+        delete element;  // Free allocated memory
+    }
+    elements.clear();  // Remove all pointers from the vector
+}
 
 namespace
 {
@@ -1009,7 +1108,7 @@ ALLEGRO_BITMAP * CreateSpriteFromSheet( int spriteNum, ALLEGRO_BITMAP* spriteShe
     return al_create_sub_bitmap(spriteSheet, sheetx * SPRITEWIDTH, sheety * SPRITEHEIGHT, SPRITEWIDTH, SPRITEHEIGHT);
 }
 
-void drawTab(ALLEGRO_FONT* font, const std::string& label, int tabIndex) {
+void drawTab(ALLEGRO_FONT* font, const std::string& label, int tabIndex, OnClickCallback onClickCallback) {
     int numTabs = 2;
     int tabWidth = stonesenseState.ssState.InfoW / numTabs;
     int fontHeight = al_get_font_line_height(font);
@@ -1018,22 +1117,10 @@ void drawTab(ALLEGRO_FONT* font, const std::string& label, int tabIndex) {
     int tabX = panelX + (tabIndex * tabWidth);  // Position inside the panel
     int tabY = stonesenseState.ssState.ScreenH - tabHeight;  // Flush with bottom
 
-    // Determine colors based on selection
-    bool isSelected = (stonesenseState.ssState.selectedTab == tabIndex);
-    ALLEGRO_COLOR bgColor = uiColor(dfColors::black, isSelected);  // White if selected, black otherwise
-    ALLEGRO_COLOR textColor = uiColor(dfColors::lgray, isSelected); // Black text if selected, white otherwise
-
     // Truncate label to fit inside tab
     std::string truncatedLabel = fitTextToWidth(label, font, tabWidth - 20);
 
-    // Draw filled rounded rectangle (tab background)
-    al_draw_filled_rounded_rectangle(tabX, tabY, tabX + tabWidth, tabY + tabHeight, 10, 10, bgColor);
-
-    // Draw tab border - always yellow
-    al_draw_rounded_rectangle(tabX, tabY, tabX + tabWidth, tabY + tabHeight, 10, 10, uiColor(dfColors::yellow), 2);
-
-    // Draw text centered inside tab
-    al_draw_text(font, textColor, tabX + tabWidth / 2, tabY + (tabHeight - fontHeight) / 2, ALLEGRO_ALIGN_CENTER, truncatedLabel.c_str());
+    addTab(tabX, tabY, tabWidth, tabHeight, dfColors::yellow, dfColors::black, tabIndex, truncatedLabel, font, onClickCallback, { "INFO_PANEL", "INFO_PANEL/ANNOUNCEMENTS","INFO_PANEL/KEYBINDS" });
 }
 
 
@@ -1049,8 +1136,8 @@ void drawInfoPanel() {
     al_draw_rectangle(stonesenseState.ssState.ScreenW, 2, stonesenseState.ssState.ScreenW - stonesenseState.ssState.InfoW, stonesenseState.ssState.ScreenH - halftabHeight, uiColor(dfColors::yellow), 2);
 
     //draw tabs
-    drawTab(font, "Announcements",0);
-    drawTab(font, "Keybinds", 1);
+    drawTab(font, "Announcements", GameState::tabs::announcements, action_toggleannouncements);
+    drawTab(font, "Keybinds", GameState::tabs::keybinds, action_togglekeybinds);
 }
 
 
@@ -1173,16 +1260,22 @@ void paintboard()
     stonesenseState.stoneSenseTimers.prev_frame_time = donetime;
 
     stonesenseState.UIState = "DEFAULT";
+
+    auto buttonW = 30;
+    auto buttonH = buttonW;
+    addLabeledButton(stonesenseState.ssState.ScreenW - buttonW, 0, buttonW, buttonH, dfColors::yellow, dfColors::blue, "i", stonesenseState.font, action_toggleinfopanel, { "DEFAULT" });
+    addLabeledButton(stonesenseState.ssState.ScreenW - buttonW - stonesenseState.ssState.InfoW, 0, buttonW, buttonH, dfColors::yellow, dfColors::red, "x", stonesenseState.font, action_toggleinfopanel, { "INFO_PANEL","INFO_PANEL/ANNOUNCEMENTS","INFO_PANEL/KEYBINDS" });
     if (ssConfig.config.show_info_panel) {
+        stonesenseState.UIState = "INFO_PANEL";
         drawInfoPanel();
     }
-    if (ssConfig.show_announcements) {
+    if (stonesenseState.ssState.selectedTab == GameState::tabs::announcements) {
         stonesenseState.UIState = "INFO_PANEL/ANNOUNCEMENTS";
         al_hold_bitmap_drawing(true);
         draw_announcements(font, ssState.ScreenW - 10, 10/*ssState.ScreenH - 10 - al_get_font_line_height(font)*/, ALLEGRO_ALIGN_RIGHT, df::global::world->status.announcements);
         al_hold_bitmap_drawing(false);
     }
-    if(ssConfig.show_keybinds){
+    if(stonesenseState.ssState.selectedTab == GameState::tabs::keybinds){
         stonesenseState.UIState = "INFO_PANEL/KEYBINDS";
         std::string *keyname, *actionname;
         keyname = actionname = NULL;

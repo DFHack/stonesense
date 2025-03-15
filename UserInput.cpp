@@ -175,12 +175,16 @@ void doMouse()
         stonesenseState.timeToReloadSegment = true;
         //rest(50);
     }
+    if (stonesenseState.mouseHeld && !(mouse.buttons & 1)) { handleMouseRelease(); }
     if( mouse.buttons & 1 ) {
         ssConfig.config.follow_DFcursor = false;
         int x, y;
         x = mouse.x;//pos >> 16;
         y = mouse.y; //pos & 0x0000ffff;
-        handleMouseClick(x, y);
+        if (!stonesenseState.mouseHeld) {
+            stonesenseState.mouseHeld = true;
+            handleMouseClick(x, y);
+        }
         if( x >= stonesenseState.MiniMapTopLeftX &&
             x <= stonesenseState.MiniMapBottomRightX &&
             y >= stonesenseState.MiniMapTopLeftY &&
@@ -451,19 +455,17 @@ void action_toggleosd(uint32_t keymod)
 }
 
 void action_togglekeybinds(uint32_t keymod){
-    auto& ssConfig = stonesenseState.ssConfig;
-    ssConfig.show_keybinds = !ssConfig.show_keybinds;
-    ssConfig.config.show_info_panel = ssConfig.show_keybinds;
-    ssConfig.show_announcements = false;
     stonesenseState.ssState.selectedTab = GameState::tabs::keybinds;
 }
 
 void action_toggleannouncements(uint32_t keymod) {
-    auto& ssConfig = stonesenseState.ssConfig;
-    ssConfig.show_announcements = !ssConfig.show_announcements;
-    ssConfig.config.show_info_panel = ssConfig.show_announcements;
-    ssConfig.show_keybinds = false;
     stonesenseState.ssState.selectedTab = GameState::tabs::announcements;
+}
+
+void action_toggleinfopanel(uint32_t keymod) {
+    auto& ssConfig = stonesenseState.ssConfig;
+    ssConfig.config.show_info_panel = !ssConfig.config.show_info_panel;
+    stonesenseState.ssState.selectedTab = ssConfig.config.show_info_panel ? GameState::tabs::announcements : -1;
 }
 
 void action_toggledebug(uint32_t keymod)
