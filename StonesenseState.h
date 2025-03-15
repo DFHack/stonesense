@@ -37,6 +37,8 @@ public:
     ALLEGRO_MOUSE_STATE mouse;
     int randomCube[RANDOM_CUBE][RANDOM_CUBE][RANDOM_CUBE];
 
+    std::string UIState;
+
     std::unique_ptr<MapState> currentMap;
     std::unique_ptr<ContentLoader> contentLoader;
 
@@ -67,6 +69,7 @@ public:
     int mouse_y;
     int mouse_z;
     unsigned int mouse_b;
+    bool mouseHeld;
 
     SegmentWrap map_segment;
 
