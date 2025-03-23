@@ -207,7 +207,7 @@ ALLEGRO_COLOR shadeAdventureMode(ALLEGRO_COLOR color, bool foggy, bool outside)
 {
     auto& contentLoader = stonesenseState.contentLoader;
 
-    if(foggy && stonesenseState.ssConfig.config.fog_of_war) {
+    if(foggy && contentLoader->gameMode.g_mode == GAMEMODE_ADVENTURE) {
         color.r *= 0.25f;
         color.g *= 0.25f;
         color.b *= 0.25f;
