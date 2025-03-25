@@ -31,6 +31,7 @@ struct GameState{
     enum tabs {
         announcements,
         keybinds,
+        settings
     };
 
 };

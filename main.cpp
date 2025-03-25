@@ -215,10 +215,6 @@ void drawcredits()
     // Make the backbuffer visible
 }
 
-void addElems() {
-    //addButton(0, 0, 20, 20, dfColors::blue, dfColors::green, action_togglekeybinds, { "DEFAULT", "INFO_PANEL/ANNOUNCEMENTS" });
-}
-
 /* main_loop:
 *  The main loop of the program.  Here we wait for events to come in from
 *  any one of the event sources and react to each one accordingly.  While
@@ -232,7 +228,6 @@ static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALL
 
     ALLEGRO_EVENT event;
 
-    addElems();
     while (!al_get_thread_should_stop(main_thread)) {
 
         if (redraw && al_event_queue_is_empty(queue)) {
@@ -317,7 +312,6 @@ static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALL
             switch (event.type) {
             case ALLEGRO_EVENT_DISPLAY_RESIZE:
                 clearElements();
-                addElems();
                 if (ssConfig.overlay_mode) {
                     break;
                 }

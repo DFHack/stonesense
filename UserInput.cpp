@@ -457,6 +457,10 @@ void action_toggleannouncements(uint32_t keymod) {
     stonesenseState.ssState.selectedTab = GameState::tabs::announcements;
 }
 
+void action_togglesettings(uint32_t keymod) {
+    stonesenseState.ssState.selectedTab = GameState::tabs::settings;
+}
+
 void action_toggleinfopanel(uint32_t keymod) {
     auto& ssConfig = stonesenseState.ssConfig;
     ssConfig.config.show_info_panel = !ssConfig.config.show_info_panel;

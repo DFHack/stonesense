@@ -28,6 +28,7 @@ void action_toggleosd(uint32_t keymod);
 void action_toggledebug(uint32_t keymod);
 void action_togglekeybinds(uint32_t keymod);
 void action_toggleannouncements(uint32_t keymod);
+void action_togglesettings(uint32_t keymod);
 void action_toggleinfopanel(uint32_t keymod);
 void action_incrzoom(uint32_t keymod);
 void action_decrzoom(uint32_t keymod);
