@@ -445,7 +445,7 @@ public:
     virtual void draw() {}
 
     void update() {
-        al_draw_text(stonesenseState.font, uiColor(dfColors::white), 0, 40, 0, stonesenseState.UIState.c_str());
+        //al_draw_text(stonesenseState.font, uiColor(dfColors::white), 0, 40, 0, stonesenseState.UIState.c_str());
         if (visibleStates.find(stonesenseState.UIState) != visibleStates.end()) {
             draw();
         }
@@ -1424,11 +1424,8 @@ void drawTab(ALLEGRO_FONT* font, const std::string& label, int tabIndex, OnClick
 
 
 void drawInfoPanel(std::unordered_set<std::string> infoStates) {
-    auto font = stonesenseState.font;
-    auto fontHeight = al_get_font_line_height(font);
-    int halftabHeight = (fontHeight + 10)/2;
     auto panelWidth = int(stonesenseState.ssState.InfoW / 8);
-    auto panelHeight = int((stonesenseState.ssState.ScreenH - fontHeight) / 12);
+    auto panelHeight = int((stonesenseState.ssState.ScreenH-TILE_HEIGHT) / 12);
     const char* label = "   Info Panel  ";
 
     //draw panel
@@ -1479,7 +1476,6 @@ void addKeybindLine(int& rowNum, const char* keyname, const char* actionname, bo
 }
 
 void drawKeybinds() {
-    auto& ssState = stonesenseState.ssState;
     std::string* keyname, * actionname;
     int line = 1;
 
