@@ -505,7 +505,7 @@ public:
 
 
     static void draw_tile(int tile_index, int x, int y, std::vector<ALLEGRO_BITMAP*> tileset, int flip_flag = 0) {
-        if (tile_index >= 0 && tile_index < tileset.size() && tileset[tile_index]) {
+        if (tile_index >= 0 && static_cast<size_t>(tile_index) < tileset.size() && tileset[tile_index]) {
             al_draw_bitmap(tileset[tile_index], x, y, flip_flag);
         }
     }
@@ -517,7 +517,7 @@ public:
         al_draw_filled_rectangle(x, y, x + TILE_WIDTH, y + TILE_HEIGHT, bg);
 
         // Draw the tile with foreground tint
-        if (tile_index >= 0 && tile_index < tileset.size() && tileset[tile_index]) {
+        if (tile_index >= 0 && static_cast<size_t>(tile_index) < tileset.size() && tileset[tile_index]) {
             al_draw_tinted_bitmap(tileset[tile_index], fg, x, y, 0);
         }
     }
