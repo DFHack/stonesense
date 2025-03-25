@@ -361,13 +361,13 @@ void draw_color_ustr_border(const ALLEGRO_FONT* font, ALLEGRO_COLOR text_color, 
     draw_color_border(font, text_color, border_color, x, y, flags, ustr);
 }
 
-std::string fitTextToWidth(const std::string& input, ALLEGRO_FONT* font, int width) {
+std::string fitTextToWidth(const std::string& input, int width) {
     std::string allCurrentChars;  // The part of the string that fits so far
 
     for (char nextChar : input) {
         std::string testString = allCurrentChars + nextChar + ".";  // Test adding the next char plus a dot
 
-        if (al_get_text_width(font, testString.c_str()) > width) {
+        if ((strlen(testString.c_str()) * TILE_WIDTH) > width) {
             return allCurrentChars + ".";  // If too wide, return what we have with a dot
         }
 
@@ -813,7 +813,7 @@ public:
         bool isSelected = (stonesenseState.ssState.selectedTab == tabIndex);
         ALLEGRO_COLOR textColor = isSelected ? uiColor(dfColors::black) : uiColor(dfColors::white);
 
-        std::string temp = fitTextToWidth(label, stonesenseState.font, w - 20);
+        std::string temp = fitTextToWidth(label, w - 20);
         draw_tab(x, y, w, isSelected, upside_down, textColor, temp.c_str());
     }
 
@@ -907,7 +907,7 @@ void addControlButton(int x, int y, int w, int h, bool thick, bool& enabledVar, 
     }
 }
 
-void addTab(int x, int y, int w, int h, int tabIndex, const char* label, ALLEGRO_FONT* font, OnClickCallback onClickCallback, std::unordered_set<std::string> visibleStates, bool upside_down) {
+void addTab(int x, int y, int w, int h, int tabIndex, const char* label, OnClickCallback onClickCallback, std::unordered_set<std::string> visibleStates, bool upside_down) {
     if (!elementExists(x, y, w, h)) {
         elements.push_back(new Tab(x, y, w, h, tabIndex, label, onClickCallback, visibleStates, upside_down));
     }
@@ -950,6 +950,7 @@ namespace
         auto& ssConfig = stonesenseState.ssConfig;
 
         const int numAnnouncements = (int)announcements.size();
+        int maxLines = (int((stonesenseState.ssState.ScreenH - (TILE_HEIGHT * 2)) / 12) / TILE_HEIGHT) - 2;
         const int maxAnnouncements = std::min(10, numAnnouncements);
         int line = 1;
 
@@ -1406,7 +1407,7 @@ ALLEGRO_BITMAP * CreateSpriteFromSheet( int spriteNum, ALLEGRO_BITMAP* spriteShe
     return al_create_sub_bitmap(spriteSheet, sheetx * SPRITEWIDTH, sheety * SPRITEHEIGHT, SPRITEWIDTH, SPRITEHEIGHT);
 }
 
-void drawTab(ALLEGRO_FONT* font, const std::string& label, int tabIndex, OnClickCallback onClickCallback, std::unordered_set<std::string> visibleStates) {
+void drawTab(const std::string& label, int tabIndex, OnClickCallback onClickCallback, std::unordered_set<std::string> visibleStates) {
     int numTabs = 3;
     int tabWidth = (stonesenseState.ssState.InfoW - 16) / numTabs;
     int tabHeight = 24;
@@ -1415,26 +1416,26 @@ void drawTab(ALLEGRO_FONT* font, const std::string& label, int tabIndex, OnClick
     int tabY = stonesenseState.ssState.ScreenH - tabHeight-4;  // Flush with bottom
 
     // Truncate label to fit inside tab
-    auto temp = fitTextToWidth(label, font, tabWidth - 20);
+    auto temp = fitTextToWidth(label, tabWidth - 20);
     const char* truncatedLabel = temp.c_str();
 
 
-    addTab(tabX, tabY, tabWidth, tabHeight, tabIndex, truncatedLabel, font, onClickCallback, visibleStates, true);
+    addTab(tabX, tabY, tabWidth, tabHeight, tabIndex, truncatedLabel, onClickCallback, visibleStates, true);
 }
 
 
 void drawInfoPanel(std::unordered_set<std::string> infoStates) {
     auto panelWidth = int(stonesenseState.ssState.InfoW / 8);
-    auto panelHeight = int((stonesenseState.ssState.ScreenH-TILE_HEIGHT) / 12);
+    auto panelHeight = int((stonesenseState.ssState.ScreenH-(TILE_HEIGHT*2)) / 12);
     const char* label = "   Info Panel  ";
 
     //draw panel
     addPanel(stonesenseState.ssState.ScreenW - stonesenseState.ssState.InfoW, 0, panelWidth, panelHeight, infoStates, label);
 
     //draw tabs
-    drawTab(font, "Announcements", GameState::tabs::announcements, action_toggleannouncements, infoStates);
-    drawTab(font, "Keybinds", GameState::tabs::keybinds, action_togglekeybinds, infoStates);
-    drawTab(font, "Settings", GameState::tabs::settings, action_togglesettings, infoStates);
+    drawTab( "Announcements", GameState::tabs::announcements, action_toggleannouncements, infoStates);
+    drawTab( "Keybinds", GameState::tabs::keybinds, action_togglekeybinds, infoStates);
+    drawTab( "Settings", GameState::tabs::settings, action_togglesettings, infoStates);
 
 }
 
