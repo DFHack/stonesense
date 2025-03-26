@@ -958,7 +958,7 @@ namespace
         int line = 1;
 
         for (int i = numAnnouncements - 1; i >= (numAnnouncements - maxAnnouncements) && announcements[i]->duration > 0; i--) {
-            ALLEGRO_COLOR color = ssConfig.config.colors.getDfColor(announcements[i]->color, ssConfig.config.useDfColors);
+            ALLEGRO_COLOR color = ssConfig.config.colors.getDfColor(announcements[i]->color, true, ssConfig.config.useDfColors);
             std::string reportStr = announcements[i]->text;
             std::vector<std::string> splits = splitLinesToWidth(reportStr, stonesenseState.ssState.InfoW - 20);
 
