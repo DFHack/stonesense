@@ -37,7 +37,19 @@ public:
     ALLEGRO_MOUSE_STATE mouse;
     int randomCube[RANDOM_CUBE][RANDOM_CUBE][RANDOM_CUBE];
 
-    std::string UIState;
+    enum class UIState {
+        DEFAULT,
+        OSD,
+        DEBUG,
+        INFO_PANEL,
+        INFO_PANEL_ANNOUNCEMENTS,
+        INFO_PANEL_KEYBINDS,
+        INFO_PANEL_SETTING,
+        COUNT
+    };
+
+    UIState currentUIState;
+
 
     std::unique_ptr<MapState> currentMap;
     std::unique_ptr<ContentLoader> contentLoader;
