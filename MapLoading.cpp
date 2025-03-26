@@ -956,7 +956,9 @@ void read_segment( void *arg)
             if (stonesenseState.ssConfig.config.track_mode == Config::TRACKING_CENTER) {
                 followCurrentDFCenter();
             }
-            stonesenseState.ssConfig.zoom = (df::global::gps->viewport_zoom_factor - 64) / 16;
+            if (stonesenseState.ssConfig.config.track_zoom) {
+                stonesenseState.ssConfig.zoom = (df::global::gps->viewport_zoom_factor - 64) / 16;
+            }
             stonesenseState.ssConfig.recalculateScale();
         }
         segment = stonesenseState.map_segment.getRead();

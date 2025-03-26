@@ -1460,12 +1460,16 @@ void drawSettings() {
     addSettingLine(rowNum, ssConfig.config.names_use_species, "Use species name");
     addSettingLine(rowNum, ssConfig.config.show_creature_jobs, "Show creature jobs");
     addSettingLine(rowNum, ssConfig.config.show_creature_moods, "Show creature moods");
+    rowNum++;
     addSettingLine(rowNum, ssConfig.config.fogenable, "Draw depth fog");
     addSettingLine(rowNum, ssConfig.config.show_stockpiles, "Show stockpiles");
     addSettingLine(rowNum, ssConfig.config.show_zones, "Show zones");
     addSettingLine(rowNum, ssConfig.show_designations, "Show designations");
     addSettingLine(rowNum, ssConfig.show_hidden_tiles, "Show unrevealed tiles (cheat)");
     addSettingLine(rowNum, ssConfig.shade_hidden_tiles, "Show blackboxes");
+    rowNum++;
+    addSettingLine(rowNum, ssConfig.config.force_track, "Follow DF view");
+    addSettingLine(rowNum, ssConfig.config.track_zoom, "Track zoom with view");
 }
 
 void addKeybindLine(int& rowNum, const char* keyname, const char* actionname, bool repeats) {

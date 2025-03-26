@@ -525,6 +525,7 @@ void action_decrY(uint32_t keymod)
         return;
     }
     char stepsize = ((keymod&ALLEGRO_KEYMOD_SHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
+    if (stonesenseState.ssConfig.config.force_track) { return; }
     if (!(keymod&ALLEGRO_KEYMOD_ALT)) {
         stonesenseState.ssConfig.config.track_mode = Config::TRACKING_NONE;
     }
@@ -539,6 +540,7 @@ void action_incrY(uint32_t keymod)
         return;
     }
     char stepsize = ((keymod&ALLEGRO_KEYMOD_SHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
+    if (stonesenseState.ssConfig.config.force_track) { return; }
     if (!(keymod&ALLEGRO_KEYMOD_ALT)) {
         stonesenseState.ssConfig.config.track_mode = Config::TRACKING_NONE;
     }
@@ -553,6 +555,7 @@ void action_decrX(uint32_t keymod)
         return;
     }
     char stepsize = ((keymod&ALLEGRO_KEYMOD_SHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
+    if (stonesenseState.ssConfig.config.force_track) { return; }
     if (!(keymod&ALLEGRO_KEYMOD_ALT)) {
         stonesenseState.ssConfig.config.track_mode = Config::TRACKING_NONE;
     }
@@ -567,6 +570,7 @@ void action_incrX(uint32_t keymod)
         return;
     }
     char stepsize = ((keymod&ALLEGRO_KEYMOD_SHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
+    if (stonesenseState.ssConfig.config.force_track) { return; }
     if (!(keymod&ALLEGRO_KEYMOD_ALT)) {
         stonesenseState.ssConfig.config.track_mode = Config::TRACKING_NONE;
     }
@@ -584,6 +588,7 @@ void action_decrZ(uint32_t keymod)
         return;
     }
     char stepsize = ((keymod&ALLEGRO_KEYMOD_SHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
+    if (stonesenseState.ssConfig.config.force_track) { return; }
     if (!(keymod&ALLEGRO_KEYMOD_ALT)) {
         ssConfig.config.track_mode = Config::TRACKING_NONE;
     }
@@ -608,6 +613,7 @@ void action_incrZ(uint32_t keymod)
         return;
     }
     char stepsize = ((keymod&ALLEGRO_KEYMOD_SHIFT) ? MAPNAVIGATIONSTEPBIG : MAPNAVIGATIONSTEP);
+    if (stonesenseState.ssConfig.config.force_track) { return; }
     if (!(keymod&ALLEGRO_KEYMOD_ALT)) {
         ssConfig.config.track_mode = Config::TRACKING_NONE;
     }
