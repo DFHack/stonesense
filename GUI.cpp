@@ -949,9 +949,10 @@ namespace
     void draw_announcements(std::vector<df::report*>& announcements) {
         auto& ssConfig = stonesenseState.ssConfig;
 
+        int panelHeight = int((stonesenseState.ssState.ScreenH - (TILE_HEIGHT * 2)) / TILE_HEIGHT);
+        int maxLines = panelHeight - 3;
         const int numAnnouncements = (int)announcements.size();
-        int maxLines = (int((stonesenseState.ssState.ScreenH - (TILE_HEIGHT * 2)) / 12) / TILE_HEIGHT) - 2;
-        const int maxAnnouncements = std::min(10, numAnnouncements);
+        const int maxAnnouncements = std::min(100, numAnnouncements);
         int line = 1;
 
         for (int i = numAnnouncements - 1; i >= (numAnnouncements - maxAnnouncements) && announcements[i]->duration > 0; i--) {
@@ -961,7 +962,9 @@ namespace
 
             for (const std::string& split : splits) {
                 drawAnnouncemntLine(line, split, color);
+                if (line > maxLines) { break; }
             }
+            if (line > maxLines) { break; }
         }
     }
 
@@ -1425,8 +1428,8 @@ void drawTab(const std::string& label, int tabIndex, OnClickCallback onClickCall
 
 
 void drawInfoPanel(std::unordered_set<std::string> infoStates) {
-    auto panelWidth = int(stonesenseState.ssState.InfoW / 8);
-    auto panelHeight = int((stonesenseState.ssState.ScreenH-(TILE_HEIGHT*2)) / 12);
+    auto panelWidth = int(stonesenseState.ssState.InfoW / TILE_WIDTH);
+    auto panelHeight = int((stonesenseState.ssState.ScreenH-(TILE_HEIGHT*2)) / TILE_HEIGHT);
     const char* label = "   Info Panel  ";
 
     //draw panel
