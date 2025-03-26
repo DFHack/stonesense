@@ -137,9 +137,7 @@ void doMouse()
     auto& mouse = stonesenseState.mouse;
     handleMouseMove(mouse.x, mouse.y);
     if (mouse.z != last_mouse_z) {
-        auto deltaY = last_mouse_z - mouse.z;
-        bool didScroll = handleMouseWheel(mouse.x, mouse.y, deltaY);
-        if (!didScroll) {
+        if (!handleMouseWheel(mouse.x, mouse.y, (last_mouse_z - mouse.z))) {
             if(mouse.z < last_mouse_z) {
                 if(ssConfig.config.invert_mouse_z) {
                     action_incrZ(keymod);

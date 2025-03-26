@@ -410,28 +410,21 @@ class GUIElement {
 protected:
     static std::vector<ALLEGRO_BITMAP*> tiles;
     static std::vector<ALLEGRO_BITMAP*> letterTiles;
+public:
     int x, y, w, h;  // Position and size of the element
     bool hovered;    // Tracks if the mouse is over the element
-public:
     std::unordered_set<std::string> visibleStates;
 
     GUIElement(int x, int y, int w, int h, std::unordered_set<std::string> visibleStates)
-        : x(x), y(y), w(w), h(h), hovered(false), visibleStates(std::move(visibleStates)) {
-        if (tiles.empty()) {
-            tiles = loadTileset("hack/data/art/border-window.png", al_map_rgb(255, 0, 255));
-        }
-        if (letterTiles.empty()) {
-            letterTiles = loadTileset("stonesense/GUI/text.png", al_map_rgb(255, 0, 255));
-        }
-    }
+        : x(x), y(y), w(w), h(h), hovered(false), visibleStates(std::move(visibleStates)) {}
 
-    virtual ~GUIElement() = 0;
+    virtual ~GUIElement() {}
 
-    virtual void onHover() = 0;
+    virtual void onHover() {}
 
-    virtual void onHoverExit() = 0;
+    virtual void onHoverExit() {}
 
-    virtual void onScroll(int deltaY) = 0;
+    virtual void onScroll(int deltaY) {}
 
     virtual void draw() = 0;
 
@@ -466,7 +459,7 @@ public:
         h = newH;
     }
 
-    std::vector<ALLEGRO_BITMAP*> loadTileset(std::string tilesetPath, ALLEGRO_COLOR alphaMask) {
+    static std::vector<ALLEGRO_BITMAP*> loadTileset(std::string tilesetPath, ALLEGRO_COLOR alphaMask) {
         std::vector<ALLEGRO_BITMAP*> allTiles;  // Store extracted tiles
 
         auto tileset = al_load_bitmap(tilesetPath.c_str());
@@ -544,8 +537,8 @@ public:
 
 };
 
-std::vector<ALLEGRO_BITMAP*> GUIElement::tiles;
-std::vector<ALLEGRO_BITMAP*> GUIElement::letterTiles;
+std::vector<ALLEGRO_BITMAP*> GUIElement::tiles{ loadTileset("hack/data/art/border-window.png", al_map_rgb(255, 0, 255)) };
+std::vector<ALLEGRO_BITMAP*> GUIElement::letterTiles{ loadTileset("stonesense/GUI/text.png", al_map_rgb(255, 0, 255)) };
 
 class textElement : public GUIElement {
 public:
@@ -646,6 +639,8 @@ public:
     virtual void onRelease() {
         held = false;
     }
+
+    void draw() override {}
 };
 
 class LabeledButton : public clickElement {
