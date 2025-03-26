@@ -7,7 +7,7 @@
 // GUI Element stuffs
 void handleMouseClick(int mouseX, int mouseY);
 void handleMouseMove(int mouseX, int mouseY);
-void handleMouseWheel(int mouseX, int mouseY, int deltaY);
+bool handleMouseWheel(int mouseX, int mouseY, int deltaY);
 void handleMouseRelease();
 typedef void (*OnClickCallback)(uint32_t);
 void clearElements();

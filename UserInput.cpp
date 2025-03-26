@@ -138,42 +138,27 @@ void doMouse()
     handleMouseMove(mouse.x, mouse.y);
     if (mouse.z != last_mouse_z) {
         auto deltaY = last_mouse_z - mouse.z;
-        if(mouse.z < last_mouse_z) {
-            if(ssConfig.config.invert_mouse_z) {
-                action_incrZ(keymod);
+        bool didScroll = handleMouseWheel(mouse.x, mouse.y, deltaY);
+        if (!didScroll) {
+            if(mouse.z < last_mouse_z) {
+                if(ssConfig.config.invert_mouse_z) {
+                    action_incrZ(keymod);
+                }
+                else {
+                    action_decrZ(keymod);
+                }
+                last_mouse_z = mouse.z;
             }
-            else {
-                action_decrZ(keymod);
+            if(mouse.z > last_mouse_z) {
+                if(ssConfig.config.invert_mouse_z) {
+                    action_decrZ(keymod);
+                }
+                else {
+                    action_incrZ(keymod);
+                }
+                last_mouse_z = mouse.z;
             }
-            last_mouse_z = mouse.z;
         }
-        if(mouse.z > last_mouse_z) {
-            if(ssConfig.config.invert_mouse_z) {
-                action_decrZ(keymod);
-            }
-            else {
-                action_incrZ(keymod);
-            }
-            last_mouse_z = mouse.z;
-        }
-        handleMouseWheel(mouse.x, mouse.y, deltaY);
-    }
-    if( mouse.buttons & 2 ) {
-        ssConfig.config.track_mode = Config::TRACKING_NONE;
-        int x, y;
-        x = mouse.x;
-        y = mouse.y;
-        int tilex,tiley,tilez;
-        ScreenToPoint(x,y,tilex,tiley,tilez);
-        int diffx = tilex - ssState.Size.x/2;
-        int diffy = tiley - ssState.Size.y/2;
-        /*we use changeRelativeToRotation directly, and not through moveViewRelativeToRotation
-        because we don't want to move the offset with the mouse. It just feels weird. */
-        // changing to +1,+1 which moves the clicked point to one of the 4 surrounding the center of rotation
-        changeRelativeToRotation(ssState.Position.x, ssState.Position.y, diffx+1, diffy+1 );
-        //moveViewRelativeToRotation(diffx+1, diffy+1);
-        stonesenseState.timeToReloadSegment = true;
-        //rest(50);
     }
     if (stonesenseState.mouseHeld && !(mouse.buttons & 1)) { handleMouseRelease(); }
     if( mouse.buttons & 1 ) {

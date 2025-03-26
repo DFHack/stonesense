@@ -864,12 +864,14 @@ void handleMouseMove(int mouseX, int mouseY) {
 }
 
 // Handle mouse wheel scrolling
-void handleMouseWheel(int mouseX, int mouseY, int deltaY) {
+bool handleMouseWheel(int mouseX, int mouseY, int deltaY) {
     for (auto* elem : elements) {
         if (elem->isMouseOver(mouseX, mouseY)) {
             elem->onScroll(deltaY);
+            return true;
         }
     }
+    return false;
 }
 
 bool elementExists(int x, int y, int w, int h) {
