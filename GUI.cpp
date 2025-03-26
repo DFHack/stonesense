@@ -367,7 +367,7 @@ std::string fitTextToWidth(const std::string& input, int width) {
     for (char nextChar : input) {
         std::string testString = allCurrentChars + nextChar + ".";  // Test adding the next char plus a dot
 
-        if (static_cast<size_t>(strlen(testString.c_str()) * TILE_WIDTH) > width) {
+        if ((strlen(testString.c_str()) * TILE_WIDTH) > static_cast<size_t>(width)) {
             return allCurrentChars + ".";  // If too wide, return what we have with a dot
         }
 
@@ -390,7 +390,7 @@ std::vector<std::string> splitLinesToWidth(const std::string& input, int width) 
         // Test if adding this word to the current string would exceed the width
         std::string testString = allCurrentChars + (allCurrentChars.empty() ? "" : " ") + word;
 
-        if (static_cast<size_t>(strlen(testString.c_str())*TILE_WIDTH) > width) {
+        if ((strlen(testString.c_str()) * TILE_WIDTH) > static_cast<size_t>(width)) {
             // If it's too wide, stop and push the current string into the vector
             if (!allCurrentChars.empty()) {
                 splits.push_back(allCurrentChars);
