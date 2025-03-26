@@ -1628,8 +1628,7 @@ void paintboard()
         else {
             stonesenseState.ssConfig.config.viewOffset = { -46,0,0 };
         }
-    }
-
+    } else { stonesenseState.ssConfig.config.viewOffset = { 0,0,0 }; }
 
     segment->DrawAllTiles();
 
