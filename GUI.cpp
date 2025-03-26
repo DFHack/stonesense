@@ -361,22 +361,13 @@ void draw_color_ustr_border(const ALLEGRO_FONT* font, ALLEGRO_COLOR text_color, 
     draw_color_border(font, text_color, border_color, x, y, flags, ustr);
 }
 
-std::string fitTextToWidth(const std::string& input, int width) {
-    std::string allCurrentChars;  // The part of the string that fits so far
-
-    for (char nextChar : input) {
-        std::string testString = allCurrentChars + nextChar + ".";  // Test adding the next char plus a dot
-
-        if ((strlen(testString.c_str()) * TILE_WIDTH) > static_cast<size_t>(width)) {
-            return allCurrentChars + ".";  // If too wide, return what we have with a dot
-        }
-
-        allCurrentChars += nextChar;  // Append the character if it fits
+std::string fitTextToWidth(const std::string input, int width) {
+    int max_chars = width / TILE_WIDTH;
+    if (input.length() > max_chars) {
+        return input.substr(0, max_chars - 1) + ".";
     }
-
-    return allCurrentChars;  // If we reached the end, return the full string
+    return input;
 }
-
 
 std::vector<std::string> splitLinesToWidth(const std::string& input, int width) {
     std::vector<std::string> splits;  // To store each part of the split string
@@ -433,6 +424,8 @@ public:
             letterTiles = loadTileset("stonesense/GUI/text.png", al_map_rgb(255, 0, 255));
         }
     }
+
+    virtual ~GUIElement() = 0;
 
     virtual void onHover() = 0;
 

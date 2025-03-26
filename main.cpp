@@ -171,7 +171,7 @@ void animUpdateProc()
 }
 
 int getInfoWidth() {
-    return int(stonesenseState.ssState.ScreenH / 2.25);
+    return stonesenseState.ssState.ScreenH * 4 / 9;
 }
 
 void drawcredits()

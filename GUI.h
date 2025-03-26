@@ -2,14 +2,13 @@
 
 #include "common.h"
 #include <filesystem>
-#include <functional>
 
 // GUI Element stuffs
 void handleMouseClick(int mouseX, int mouseY);
 void handleMouseMove(int mouseX, int mouseY);
 bool handleMouseWheel(int mouseX, int mouseY, int deltaY);
 void handleMouseRelease();
-typedef void (*OnClickCallback)(uint32_t);
+using OnClickCallback = auto (*)(uint32_t) -> void;
 void clearElements();
 
 void ScreenToPoint(int x,int y,int &x1, int &y1, int &z1);
