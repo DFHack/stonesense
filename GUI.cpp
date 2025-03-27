@@ -363,7 +363,7 @@ void draw_color_ustr_border(const ALLEGRO_FONT* font, ALLEGRO_COLOR text_color, 
 
 std::string fitTextToWidth(const std::string input, int width) {
     int max_chars = width / TILE_WIDTH;
-    if (input.length() > max_chars) {
+    if (input.length() > static_cast<std::string::size_type>(max_chars)) {
         return input.substr(0, max_chars - 1) + ".";
     }
     return input;
