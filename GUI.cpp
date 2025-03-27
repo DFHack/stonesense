@@ -1715,6 +1715,9 @@ void paintboard()
 
     segment->DrawAllTiles();
 
+    if(ssConfig.config.force_track){
+        ssConfig.config.track_mode = Config::TRACKING_CENTER;
+    }
     if (ssConfig.config.show_osd) {
         DrawCurrentLevelOutline(false);
     }
