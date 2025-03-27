@@ -414,9 +414,13 @@ using UIStateSet = std::bitset<MAX_UI_STATES>;
 class Tileset {
 protected:
     std::vector<ALLEGRO_BITMAP*> tileset;
-    ALLEGRO_BITMAP* tilesheet;
+    ALLEGRO_BITMAP* tilesheet = nullptr;
 
 public:
+
+    Tileset() : tilesheet(nullptr) {}
+
+
     Tileset(std::filesystem::path filepath, ALLEGRO_COLOR alphaMask) {
         tilesheet = load_bitmap_withWarning(filepath.string().c_str(),alphaMask);
         if (!tilesheet) {
@@ -492,9 +496,9 @@ public:
 
 // Base GUI Element Class
 class GUIElement {
-protected:
-    static Tileset tiles;
-    static Tileset letterTiles;
+public:
+    static std::optional<Tileset> tiles;
+    static std::optional<Tileset> letterTiles;
 public:
 
     int x, y, w, h;  // Position and size of the element
@@ -502,7 +506,15 @@ public:
     UIStateSet visibleStates;
 
     GUIElement(int x, int y, int w, int h, UIStateSet visibleStates)
-        : x(x), y(y), w(w), h(h), hovered(false), visibleStates(visibleStates) {}
+        : x(x), y(y), w(w), h(h), hovered(false), visibleStates(visibleStates) {
+        if (al_is_system_installed()) {
+            initSheets();
+        }
+    }
+    void initSheets() {
+        tiles.emplace(std::filesystem::path{"hack/data/art/border-window.png"}, al_map_rgb(255, 0, 255));
+        letterTiles.emplace(std::filesystem::path{"stonesense/GUI/text.png"}, al_map_rgb(255, 0, 255));
+    }
 
     virtual ~GUIElement() {}
 
@@ -549,8 +561,8 @@ public:
     }
 };
 
-Tileset GUIElement::tiles{ "hack/data/art/border-window.png", al_map_rgb(255, 0, 255) };
-Tileset GUIElement::letterTiles{ "stonesense/GUI/text.png", al_map_rgb(255, 0, 255) };
+std::optional<Tileset> GUIElement::tiles = std::nullopt;
+std::optional<Tileset> GUIElement::letterTiles = std::nullopt;
 
 class textElement : public GUIElement {
 public:
@@ -596,7 +608,7 @@ public:
         // Draw each character using CP437 tiles
         for (int i = 0; i < label_length; i++) {
             int tile_index = get_cp437_tile_index(text[i]); // Get CP437 tile index
-            letterTiles.draw_tinted_tile(tile_index, start_x + i * TILE_WIDTH, y, fg, bg);
+            letterTiles->draw_tinted_tile(tile_index, start_x + i * TILE_WIDTH, y, fg, bg);
         }
     }
 };
@@ -614,27 +626,27 @@ public:
         if (height < 3) height = 3;
 
         // Draw corners
-        tiles.draw_tile(0, x, y);                                 // Top-left
-        tiles.draw_tile(2, x + (width - 1) * TILE_WIDTH, y);       // Top-right
-        tiles.draw_tile(14, x, y + (height - 1) * TILE_HEIGHT);    // Bottom-left
-        tiles.draw_tile(16, x + (width - 1) * TILE_WIDTH, y + (height - 1) * TILE_HEIGHT); // Bottom-right
+        tiles->draw_tile(0, x, y);                                 // Top-left
+        tiles->draw_tile(2, x + (width - 1) * TILE_WIDTH, y);       // Top-right
+        tiles->draw_tile(14, x, y + (height - 1) * TILE_HEIGHT);    // Bottom-left
+        tiles->draw_tile(16, x + (width - 1) * TILE_WIDTH, y + (height - 1) * TILE_HEIGHT); // Bottom-right
 
         // Draw top & bottom edges
         for (int col = 1; col < width - 1; ++col) {
-            tiles.draw_tile(1, x + col * TILE_WIDTH, y);                           // Top
-            tiles.draw_tile(15, x + col * TILE_WIDTH, y + (height - 1) * TILE_HEIGHT); // Bottom
+            tiles->draw_tile(1, x + col * TILE_WIDTH, y);                           // Top
+            tiles->draw_tile(15, x + col * TILE_WIDTH, y + (height - 1) * TILE_HEIGHT); // Bottom
         }
 
         // Draw left & right edges
         for (int row = 1; row < height - 1; ++row) {
-            tiles.draw_tile(7, x, y + row * TILE_HEIGHT);                           // Left
-            tiles.draw_tile(9, x + (width - 1) * TILE_WIDTH, y + row * TILE_HEIGHT); // Right
+            tiles->draw_tile(7, x, y + row * TILE_HEIGHT);                           // Left
+            tiles->draw_tile(9, x + (width - 1) * TILE_WIDTH, y + row * TILE_HEIGHT); // Right
         }
 
         // Fill center area
         for (int row = 1; row < height - 1; ++row) {
             for (int col = 1; col < width - 1; ++col) {
-                tiles.draw_tile(8, x + col * TILE_WIDTH, y + row * TILE_HEIGHT); // Center
+                tiles->draw_tile(8, x + col * TILE_WIDTH, y + row * TILE_HEIGHT); // Center
             }
         }
 
@@ -645,7 +657,7 @@ public:
 
             for (int i = 0; i < label_length; i++) {
                 int tile_index = textElement::get_cp437_tile_index(label[i]);
-                letterTiles.draw_tinted_tile(tile_index, start_x + i * TILE_WIDTH, y, fg, bg);
+                letterTiles->draw_tinted_tile(tile_index, start_x + i * TILE_WIDTH, y, fg, bg);
             }
         }
     }
@@ -738,7 +750,7 @@ public:
         // Draw the centered title using CP437 letter tiles
         if (!text.empty()) {
             int tile_index = textElement::get_cp437_tile_index(text[0]);
-            letterTiles.draw_tinted_tile(tile_index, x + TILE_WIDTH, y + TILE_HEIGHT, uiColor(dfColors::white), al_map_rgba(0, 0, 0, 0));
+            letterTiles->draw_tinted_tile(tile_index, x + TILE_WIDTH, y + TILE_HEIGHT, uiColor(dfColors::white), al_map_rgba(0, 0, 0, 0));
         }
 
     }
@@ -830,7 +842,7 @@ public:
 
             for (int i = 0; i < label_length; i++) {
                 int tile_index = textElement::get_cp437_tile_index(text[i]);
-                letterTiles.draw_tinted_tile(tile_index, start_x + i * TILE_WIDTH, y + 7, fg, al_map_rgba(0, 0, 0, 0));
+                letterTiles->draw_tinted_tile(tile_index, start_x + i * TILE_WIDTH, y + 7, fg, al_map_rgba(0, 0, 0, 0));
             }
         }
 
