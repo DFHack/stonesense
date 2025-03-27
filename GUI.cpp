@@ -417,7 +417,7 @@ protected:
     ALLEGRO_BITMAP* tilesheet;
 
 public:
-    Tileset(std::filesystem::path & filepath, ALLEGRO_COLOR alphaMask) {
+    Tileset(std::filesystem::path filepath, ALLEGRO_COLOR alphaMask) {
         tilesheet = load_bitmap_withWarning(filepath.string().c_str(),alphaMask);
         if (tilesheet=0) {
             LogError("Failed to load tileset!\n");
@@ -548,6 +548,10 @@ public:
         h = newH;
     }
 };
+
+Tileset GUIElement::tiles{ "hack/data/art/border-window.png", al_map_rgb(255, 0, 255) };
+Tileset GUIElement::letterTiles{ "stonesense/GUI/text.png", al_map_rgb(255, 0, 255) };
+
 class textElement : public GUIElement {
 public:
     enum TextAlign {
@@ -717,7 +721,7 @@ public:
     Tileset simpleButtons;
 
     simpleButton(int x, int y, int w, int h, std::string icon, int colorFlag, OnClickCallback onClickCallback, UIStateSet visibleStates)
-        : clickElement(x, y, w, h, onClickCallback, visibleStates), icon(icon), colorFlag(colorFlag), simpleButtons("stonesense/GUI/simple-buttons.png", al_map_rgb(255, 0, 255)) {
+        : clickElement(x, y, w, h, onClickCallback, visibleStates), icon(icon), colorFlag(colorFlag), simpleButtons(std::filesystem::path{"stonesense/GUI/simple-buttons.png" }, al_map_rgb(255, 0, 255)) {
     };
 
     void draw_simple_button(float x, float y, std::string text) {
@@ -753,7 +757,8 @@ public:
     Tileset controlButtons;
 
     controlButton(int x, int y, int w, int h, bool thick, bool& enabledVar, UIStateSet visibleStates)
-        : clickElement(x, y, w, h, nullptr, visibleStates), thick(thick), enabledVar(enabledVar), controlButtons("stonesense/GUI/control-buttons.png", al_map_rgb(28, 28, 28)) {}
+        : clickElement(x, y, w, h, nullptr, visibleStates), thick(thick), enabledVar(enabledVar), controlButtons(std::filesystem::path{ "stonesense/GUI/control-buttons.png" }, al_map_rgb(28, 28, 28)) {
+    }
 
     void draw_control_button(float x, float y) {
         int enabledOffset = 3;
@@ -786,7 +791,8 @@ public:
     Tileset tabSet;
 
     Tab(int x, int y, int w, int h, int tabIndex, std::string label, OnClickCallback onClickCallback, UIStateSet visibleStates, bool upside_down)
-        : clickElement(x, y, w, h, onClickCallback, visibleStates), tabIndex(tabIndex), label(label), upside_down(upside_down), tabSet("stonesense/GUI/tabs.png", al_map_rgb(28,28,28)){}
+        : clickElement(x, y, w, h, onClickCallback, visibleStates), tabIndex(tabIndex), label(label), upside_down(upside_down), tabSet(std::filesystem::path{ "stonesense/GUI/tabs.png" }, al_map_rgb(28, 28, 28)) {
+    }
 
     void draw_tab(float x, float y, int width, bool is_enabled, bool is_upside_down, ALLEGRO_COLOR fg, std::string text) {
         // Flip flag (use ALLEGRO_FLIP_VERTICAL for upside-down tabs)
