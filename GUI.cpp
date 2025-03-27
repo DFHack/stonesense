@@ -406,6 +406,7 @@ std::vector<std::string> splitLinesToWidth(const std::string& input, int width) 
 }
 
 #include <bitset>
+#include <filesystem>
 
 constexpr size_t MAX_UI_STATES = static_cast<size_t>(StonesenseState::UIState::COUNT);
 using UIStateSet = std::bitset<MAX_UI_STATES>;
@@ -416,9 +417,9 @@ protected:
     ALLEGRO_BITMAP* tilesheet;
 
 public:
-    Tileset(const std::string& filepath, ALLEGRO_COLOR alphaMask) {
-        tilesheet = al_load_bitmap(filepath.c_str());
-        if (!tilesheet) {
+    Tileset(std::filesystem::path & filepath, ALLEGRO_COLOR alphaMask) {
+        tilesheet = load_bitmap_withWarning(filepath.string().c_str(),alphaMask);
+        if (tilesheet=0) {
             LogError("Failed to load tileset!\n");
             throw std::runtime_error("Failed to load tileset: File not found or invalid format.");
         }
@@ -434,7 +435,6 @@ public:
                 if (!tile) {
                     throw std::runtime_error("Failed to split tilesheet");
                 }
-                al_convert_mask_to_alpha(tile, alphaMask);
                 tileset.push_back(tile);
             }
         }
@@ -548,10 +548,6 @@ public:
         h = newH;
     }
 };
-
-Tileset GUIElement::tiles{ "hack/data/art/border-window.png", al_map_rgb(255, 0, 255) };
-Tileset GUIElement::letterTiles{ "stonesense/GUI/text.png", al_map_rgb(255, 0, 255) };
-
 class textElement : public GUIElement {
 public:
     enum TextAlign {

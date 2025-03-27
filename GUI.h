@@ -29,7 +29,7 @@ void flushImgFiles();
 //returns index into getImgFile. Will only create new bitmaps when needed
 int loadImgFile(std::filesystem::path filename);
 ALLEGRO_BITMAP * CreateSpriteFromSheet( int spriteNum, ALLEGRO_BITMAP* spriteSheet);
-ALLEGRO_BITMAP* load_bitmap_withWarning(std::filesystem::path path);
+ALLEGRO_BITMAP* load_bitmap_withWarning(std::filesystem::path path, ALLEGRO_COLOR alphaMask = al_map_rgb(255, 0, 255));
 void DrawSpriteIndexOverlay(int i);
 void DoSpriteIndexOverlay();
 void loadGraphicsFromDisk();

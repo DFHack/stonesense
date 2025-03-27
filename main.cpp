@@ -67,7 +67,7 @@ ALLEGRO_THREAD *stonesense_event_thread;
 // the segment wrapper handles concurrency control
 bool redraw = true;
 
-ALLEGRO_BITMAP* load_bitmap_withWarning(std::filesystem::path path)
+ALLEGRO_BITMAP* load_bitmap_withWarning(std::filesystem::path path, ALLEGRO_COLOR alphaMask)
 {
     ALLEGRO_BITMAP* img = 0;
     img = al_load_bitmap(path.string().c_str());
@@ -76,7 +76,7 @@ ALLEGRO_BITMAP* load_bitmap_withWarning(std::filesystem::path path)
         al_set_thread_should_stop(stonesense_event_thread);
         return 0;
     }
-    al_convert_mask_to_alpha(img, al_map_rgb(255, 0, 255));
+    al_convert_mask_to_alpha(img, alphaMask);
     return img;
 }
 
