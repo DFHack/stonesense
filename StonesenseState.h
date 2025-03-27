@@ -37,7 +37,7 @@ public:
     ALLEGRO_MOUSE_STATE mouse;
     int randomCube[RANDOM_CUBE][RANDOM_CUBE][RANDOM_CUBE];
 
-    enum class UIState {
+    enum UIState {
         DEFAULT,
         OSD,
         DEBUG,

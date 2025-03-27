@@ -408,10 +408,18 @@ std::vector<std::string> splitLinesToWidth(const std::string& input, int width) 
 #include <bitset>
 #include <filesystem>
 
-constexpr size_t MAX_UI_STATES = static_cast<size_t>(StonesenseState::UIState::COUNT);
+constexpr size_t MAX_UI_STATES = (StonesenseState::UIState::COUNT);
 using UIStateSet = std::bitset<MAX_UI_STATES>;
 
 class Tileset {
+private:
+    // Clean up existing bitmaps
+    void cleanUp() {
+        for (auto& bitmap : tileset) {
+            al_destroy_bitmap(bitmap);
+        }
+        al_destroy_bitmap(tilesheet);
+    }
 protected:
     std::vector<ALLEGRO_BITMAP*> tileset;
     ALLEGRO_BITMAP* tilesheet = nullptr;
@@ -445,10 +453,7 @@ public:
     }
 
     ~Tileset() {
-        for (auto& bitmap : tileset) {
-            al_destroy_bitmap(bitmap);
-        }
-        al_destroy_bitmap(tilesheet);
+        cleanUp();
     }
 
     Tileset(const Tileset&) = delete;
@@ -461,11 +466,7 @@ public:
 
     Tileset& operator=(Tileset&& other) noexcept {
         if (this != &other) {
-            // Clean up existing bitmaps
-            for (auto& bitmap : tileset) {
-                al_destroy_bitmap(bitmap);
-            }
-            al_destroy_bitmap(tilesheet);
+            cleanUp();
 
             tileset = std::move(other.tileset);
             tilesheet = other.tilesheet;
@@ -527,7 +528,7 @@ public:
     virtual void draw() = 0;
 
     bool isVisible(StonesenseState::UIState currentState) const {
-        return visibleStates.test(static_cast<size_t>(currentState));
+        return visibleStates.test((currentState));
     }
     void update() {
         //al_draw_text(stonesenseState.font, uiColor(dfColors::white), 0, 40, 0, stonesenseState.UIState.c_str());
@@ -929,7 +930,7 @@ void addButton(int x, int y, int w, int h, int32_t borderColor, int32_t bgColor,
 
 void addButton(int x, int y, int w, int h, int32_t borderColor, int32_t bgColor, OnClickCallback onClickCallback, StonesenseState::UIState visibleState) {
     UIStateSet temp;
-    temp.set(static_cast<size_t>(visibleState));
+    temp.set((visibleState));
     addButton(x, y, w, h, borderColor, bgColor, onClickCallback, temp);
 }
 
@@ -945,7 +946,7 @@ void addLabeledButton(int x, int y, int w, int h, int32_t borderColor, int32_t b
     std::string label, ALLEGRO_FONT* font,
     OnClickCallback onClickCallback, StonesenseState::UIState visibleState) {
     UIStateSet temp;
-    temp.set(static_cast<size_t>(visibleState));
+    temp.set((visibleState));
     addLabeledButton(x, y, w, h, borderColor, bgColor, label, font, onClickCallback, temp);
 }
 
@@ -957,7 +958,7 @@ void addSimpleButton(int x, int y, int w, int h, std::string icon, int colorFlag
 
 void addSimpleButton(int x, int y, int w, int h, std::string icon, int colorFlag, OnClickCallback onClickCallback, StonesenseState::UIState visibleState) {
     UIStateSet temp;
-    temp.set(static_cast<size_t>(visibleState));
+    temp.set((visibleState));
     addSimpleButton(x, y, w, h, icon, colorFlag, onClickCallback, temp);
 }
 
@@ -969,7 +970,7 @@ void addControlButton(int x, int y, int w, int h, bool thick, bool& enabledVar, 
 
 void addControlButton(int x, int y, int w, int h, bool thick, bool& enabledVar, StonesenseState::UIState visibleState) {
     UIStateSet temp;
-    temp.set(static_cast<size_t>(visibleState));
+    temp.set((visibleState));
     addControlButton(x, y, w, h, thick, enabledVar, temp);
 }
 
@@ -981,7 +982,7 @@ void addTab(int x, int y, int w, int h, int tabIndex, std::string label, OnClick
 
 void addTab(int x, int y, int w, int h, int tabIndex, std::string label, OnClickCallback onClickCallback, StonesenseState::UIState visibleState, bool upside_down) {
     UIStateSet temp;
-    temp.set(static_cast<size_t>(visibleState));
+    temp.set((visibleState));
     addTab(x, y, w, h, tabIndex, label, onClickCallback, temp, upside_down);
 }
 
@@ -993,7 +994,7 @@ void addPanel(int x, int y, int w, int h, UIStateSet visibleStates, std::string 
 
 void addPanel(int x, int y, int w, int h, StonesenseState::UIState visibleState, std::string label) {
     UIStateSet temp;
-    temp.set(static_cast<size_t>(visibleState));
+    temp.set((visibleState));
     addPanel(x, y, w, h, temp, label);
 }
 
@@ -1005,7 +1006,7 @@ void addText(int x, int y, int w, int h, UIStateSet visibleStates, std::string t
 
 void addText(int x, int y, int w, int h, StonesenseState::UIState visibleState, std::string text, ALLEGRO_COLOR fg, ALLEGRO_COLOR bg, textElement::TextAlign align) {
     UIStateSet temp;
-    temp.set(static_cast<size_t>(visibleState));
+    temp.set((visibleState));
     addText(x, y, w, h, temp, text, fg, bg, align);
 }
 
@@ -1738,10 +1739,10 @@ void paintboard()
     };
 
     UIStateSet infoStates;
-    infoStates.set(static_cast<size_t>(StonesenseState::UIState::INFO_PANEL));
-    infoStates.set(static_cast<size_t>(StonesenseState::UIState::INFO_PANEL_ANNOUNCEMENTS));
-    infoStates.set(static_cast<size_t>(StonesenseState::UIState::INFO_PANEL_KEYBINDS));
-    infoStates.set(static_cast<size_t>(StonesenseState::UIState::INFO_PANEL_SETTING));
+    infoStates.set((StonesenseState::UIState::INFO_PANEL));
+    infoStates.set((StonesenseState::UIState::INFO_PANEL_ANNOUNCEMENTS));
+    infoStates.set((StonesenseState::UIState::INFO_PANEL_KEYBINDS));
+    infoStates.set((StonesenseState::UIState::INFO_PANEL_SETTING));
     addSimpleButton(stonesenseState.ssState.ScreenW - (3 * TILE_WIDTH), 0, 3 * TILE_WIDTH, 3 * TILE_HEIGHT, "i", buttonColors::blue, action_toggleinfopanel, StonesenseState::UIState::DEFAULT);
     addSimpleButton(stonesenseState.ssState.ScreenW - (3 * TILE_WIDTH) - stonesenseState.ssState.InfoW, 0, 3 * TILE_WIDTH, 3 * TILE_HEIGHT, "x", buttonColors::red, action_toggleinfopanel, infoStates);
     drawInfoPanel(infoStates);
