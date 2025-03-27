@@ -419,7 +419,7 @@ protected:
 public:
     Tileset(std::filesystem::path filepath, ALLEGRO_COLOR alphaMask) {
         tilesheet = load_bitmap_withWarning(filepath.string().c_str(),alphaMask);
-        if (tilesheet==0) {
+        if (!tilesheet) {
             LogError("Failed to load tileset!\n");
             throw std::runtime_error("Failed to load tileset: File not found or invalid format.");
         }
