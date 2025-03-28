@@ -1499,10 +1499,10 @@ ALLEGRO_BITMAP * CreateSpriteFromSheet( int spriteNum, ALLEGRO_BITMAP* spriteShe
 void drawTab(const std::string& label, int tabIndex, OnClickCallback onClickCallback, UIStateSet visibleStates) {
     int numTabs = 3;
     int tabWidth = (stonesenseState.ssState.InfoW - 16) / numTabs;
-    int tabHeight = 24;
+    int tabHeight = (TILE_HEIGHT*2);
     int panelX = stonesenseState.ssState.ScreenW - stonesenseState.ssState.InfoW;  // Left edge of info panel
     int tabX = panelX + (tabIndex * tabWidth);  // Position inside the panel
-    int tabY = stonesenseState.ssState.ScreenH - tabHeight-4;  // Flush with bottom
+    int tabY = stonesenseState.ssState.ScreenH - tabHeight;  // Flush with bottom
 
     // Truncate label to fit inside tab
     auto temp = fitTextToWidth(label, tabWidth - 20);
@@ -1515,7 +1515,7 @@ void drawTab(const std::string& label, int tabIndex, OnClickCallback onClickCall
 
 void drawInfoPanel(UIStateSet infoStates) {
     auto panelWidth = int(stonesenseState.ssState.InfoW / TILE_WIDTH);
-    auto panelHeight = int((stonesenseState.ssState.ScreenH-(TILE_HEIGHT*2)) / TILE_HEIGHT);
+    auto panelHeight = int((stonesenseState.ssState.ScreenH-TILE_HEIGHT) / TILE_HEIGHT);
     std::string label = "   Info Panel  ";
 
     //draw panel
