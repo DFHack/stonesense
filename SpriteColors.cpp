@@ -206,24 +206,19 @@ ALLEGRO_COLOR premultiply(ALLEGRO_COLOR input)
 ALLEGRO_COLOR shadeAdventureMode(ALLEGRO_COLOR color, bool foggy, bool outside)
 {
     auto& contentLoader = stonesenseState.contentLoader;
-    if(contentLoader->gameMode.g_mode != GAMEMODE_ADVENTURE) {
-        return color;
-    }
 
-    if(foggy && stonesenseState.ssConfig.config.fog_of_war) {
+    if(foggy && contentLoader->gameMode.g_mode == GAMEMODE_ADVENTURE) {
         color.r *= 0.25f;
         color.g *= 0.25f;
         color.b *= 0.25f;
     }
 
-    if(stonesenseState.ssConfig.config.dayNightCycle) {
-        if(outside) {
-            color = color*getDayShade(contentLoader->currentHour, contentLoader->currentTickRel);
-        } else {
-            color.r *= 0.5f;
-            color.g *= 0.5f;
-            color.b *= 0.5f;
-        }
+    if (outside) {
+        color = color * getDayShade(contentLoader->currentHour, contentLoader->currentTickRel);
+    } else {
+        color.r *= 0.75f;
+        color.g *= 0.75f;
+        color.b *= 0.75f;
     }
 
     return color;
