@@ -38,6 +38,7 @@ Template for new versions:
 # Future
 
 ## New Features
+- `stonesense`: stonesense now has visible day/night cycle lighting in fortress mode
 
 ## Fixes
 
