@@ -17,8 +17,6 @@ public:
     enum trackingmode : uint8_t {
         TRACKING_NONE,
         TRACKING_CENTER,
-        TRACKING_FOCUS,
-        TRACKING_INVALID
     };
 
     bool closeOnEsc = true;
@@ -38,7 +36,7 @@ public:
     int lift_segment = 0;
     int animation_step = 196;
     bool verbose_logging = false;
-    trackingmode track_mode = TRACKING_FOCUS;
+    trackingmode track_mode = TRACKING_CENTER;
     bool invert_mouse_z = false;
     bool follow_DFcursor = true;
     bool show_creature_names = false;
@@ -77,5 +75,6 @@ struct action_name_mapper {
     void (*func)(uint32_t);
 };
 
+bool isViewTracking();
 bool loadConfigFile();
 std::optional<std::string> trim_line(std::string line);

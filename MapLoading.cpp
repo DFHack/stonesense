@@ -947,19 +947,14 @@ void read_segment( void *arg)
         auto& ssState = stonesenseState.ssState;
         //read cursor
         if (stonesenseState.ssConfig.config.follow_DFcursor) {
-            DFHack::Gui::getCursorCoords(ssState.dfCursor.x, ssState.dfCursor.y, ssState.dfCursor.z);
-            ssState.dfSelection.x = df::global::selection_rect->start_x;
-            ssState.dfSelection.y = df::global::selection_rect->start_y;
-            ssState.dfSelection.z = df::global::selection_rect->start_z;
+            ssState.dfCursor = DFHack::Gui::getCursorPos();
+            ssState.dfSelection = OptCrd3D { df::global::selection_rect->start_x, df::global::selection_rect->start_y, df::global::selection_rect->start_z };
         }
 
         if (firstLoad || stonesenseState.ssConfig.config.track_mode != Config::TRACKING_NONE) {
             firstLoad = 0;
             if (stonesenseState.ssConfig.config.track_mode == Config::TRACKING_CENTER) {
                 followCurrentDFCenter();
-            } else if (stonesenseState.ssConfig.config.track_mode == Config::TRACKING_FOCUS) {
-                followCurrentDFFocus();
-                stonesenseState.ssConfig.config.follow_DFcursor = true;
             }
             stonesenseState.ssConfig.zoom = (df::global::gps->viewport_zoom_factor - 64) / 16;
             stonesenseState.ssConfig.recalculateScale();

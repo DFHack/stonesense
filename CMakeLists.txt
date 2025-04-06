@@ -224,20 +224,10 @@ ELSE(UNIX)
     )
 ENDIF(UNIX)
 
-set(STONESENSE_GCC_FLAGS "")
-if(UNIX AND "${CMAKE_CXX_COMPILER_VERSION}" VERSION_GREATER 6.0)
-    set(STONESENSE_GCC_FLAGS "${STONESENSE_GCC_FLAGS} -Wno-misleading-indentation")
-endif()
-
-DFHACK_PLUGIN(stonesense ${PROJECT_SRCS} LINK_LIBRARIES ${DFHACK_TINYXML} ${PROJECT_LIBS} COMPILE_FLAGS_MSVC "/FI\"Export.h\" /wd4312 /wd4996 /wd4251" COMPILE_FLAGS_GCC "-include Export.h ${STONESENSE_GCC_FLAGS}")
+DFHACK_PLUGIN(stonesense ${PROJECT_SRCS} LINK_LIBRARIES ${DFHACK_TINYXML} ${PROJECT_LIBS})
 if(BUILD_PLUGINS)
     target_include_directories(stonesense PRIVATE ${stonesense_INCLUDES})
 endif()
-
-IF(MSVC)
-    # Ignore unhelpful warnings about debug symbols being missing.
-    SET_TARGET_PROPERTIES(stonesense PROPERTIES LINK_FLAGS "/ignore:4098 /ignore:4099")
-ENDIF(MSVC)
 
 IF(APPLE)
     add_custom_command(TARGET stonesense POST_BUILD COMMAND ${stonesense_SOURCE_DIR}/fix-libs-stonesense.sh WORKING_DIRECTORY . COMMENT "Fixing Stonesense library dependencies...")

@@ -621,9 +621,9 @@ void ReadCreaturesToSegment( DFHack::Core& DF, WorldSegment* segment)
             }
 
             // skip if not weapon or worn item
-            if(itemslot->mode != df::unit_inventory_item::T_mode::Weapon &&
-                itemslot->mode != df::unit_inventory_item::T_mode::Worn &&
-                itemslot->mode != df::unit_inventory_item::T_mode::Piercing) {
+            if(itemslot->mode != df::inv_item_role_type::Weapon &&
+                itemslot->mode != df::inv_item_role_type::Worn &&
+                itemslot->mode != df::inv_item_role_type::Piercing) {
                     continue;
             }
 

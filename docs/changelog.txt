@@ -45,6 +45,22 @@ Template for new versions:
 
 ## Removed
 
+# 51.07-r1
+
+## New Features
+- `stonesense`: stonesense now offsets the view when you are following a unit in DF, to better center the camera on the unit in stonesense
+
+## Fixes
+- `stonesense`: megashots no longer leave stonesense unresponsive
+- `stonesense`: items now properly render on top of stockpile indicators
+- `stonesense`: minecarts and wheelbarrows are now shown on the correct layer
+
+## Misc Improvements
+- `stonesense`: different types of dig-mode designations (normal, autodig, and the blueprint variants of both) now have distinct colors that more closely match the vanilla DF interface
+
+## Removed
+- `stonesense`: removed the "follow DF cursor" tracking mode since the keyboard cursor is no longer commonly used for moving the map around
+
 # 51.04-r1.1
 
 ## New Features

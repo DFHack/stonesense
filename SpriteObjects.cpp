@@ -28,7 +28,6 @@
 #include "df/material.h"
 #include "df/unit.h"
 #include "df/world.h"
-#include "df/world_raws.h"
 
 constexpr auto ALL_BORDERS = 255;
 
@@ -702,7 +701,7 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
     } else if(!strcmp(equipsindexstr, "NONE")) {
         itemsubtype = INVALID_INDEX;
     } else {
-        df::world_raws::T_itemdefs &defs = df::global::world->raws.itemdefs;
+        auto &defs = df::global::world->raws.itemdefs;
         switch(itemtype) {
             using df::item_type;
         case item_type::WEAPON:
@@ -1023,6 +1022,15 @@ void c_sprite::assemble_world_offset(int x, int y, int z, int plateoffset, Tile 
         }
 
         ALLEGRO_COLOR shade_color = shadeAdventureMode(get_color(b), b->fog_of_war, b->designation.bits.outside);
+        if (ssConfig.show_designations && containsDesignations(b->designation, b->occ)) {
+            if (b->occ.bits.dig_auto) { shade_color = al_map_rgba(0, 255, 127, 127); }
+            if (b->occ.bits.dig_marked) {
+                shade_color = al_map_rgba(0, 127, 255, 127);
+                if (b->occ.bits.dig_auto) {
+                    shade_color = partialBlend(shade_color, al_map_rgba(0, 255, 127, 127), 25);
+                }
+            }
+        }
         if(chop && ( halftile == HALFPLATECHOP)) {
             if(shade_color.a > 0.001f) {
                 b->AssembleSprite(
