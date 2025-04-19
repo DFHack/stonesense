@@ -6,8 +6,11 @@
 #include <algorithm>
 #include <cmath>
 #include <vector>
+#include <string>
+#include <sstream>
 #include <filesystem>
 #include <array>
+#include <unordered_set>
 
 #include "common.h"
 #include "Tile.h"
@@ -22,6 +25,8 @@
 #include "UserInput.h"
 #include "GameConfiguration.h"
 #include "StonesenseState.h"
+
+#include "UserInput.h"
 
 #include "modules/Screen.h"
 #include "modules/Units.h"
@@ -67,6 +72,9 @@ ALLEGRO_BITMAP* buffer = 0;
 ALLEGRO_BITMAP* bigFile = 0;
 GLhandleARB tinter;
 GLhandleARB tinter_shader;
+
+constexpr int TILE_WIDTH = 8;
+constexpr int TILE_HEIGHT = 12;
 
 class ImageCache
 {
@@ -353,26 +361,699 @@ void draw_color_ustr_border(const ALLEGRO_FONT* font, ALLEGRO_COLOR text_color, 
     draw_color_border(font, text_color, border_color, x, y, flags, ustr);
 }
 
-namespace
-{
-    void draw_report_border(const ALLEGRO_FONT* font, float x, float y, int flags, const df::report* report)
-    {
-        auto& ssConfig = stonesenseState.ssConfig;
-
-        ALLEGRO_COLOR color = ssConfig.config.colors.getDfColor(report->color, ssConfig.config.useDfColors);
-        draw_text_border(font, color, x, y, flags, DF2UTF(report->text).c_str());
+std::string fitTextToWidth(const std::string input, int width) {
+    int max_chars = width / TILE_WIDTH;
+    if (input.length() > static_cast<std::string::size_type>(max_chars)) {
+        return input.substr(0, max_chars - 1) + ".";
     }
+    return input;
+}
 
-    void draw_announcements(const ALLEGRO_FONT* font, float x, float y, int flags, std::vector<df::report*>& announcements)
-    {
-        const int numAnnouncements = (int)announcements.size();
-        const int maxAnnouncements = std::min(10, numAnnouncements);
-        for (int i = numAnnouncements - 1; i >= (numAnnouncements - maxAnnouncements) && announcements[i]->duration > 0; i--)
-        {
-            int offset = ((numAnnouncements - 1) - i) * al_get_font_line_height(font);
-            draw_report_border(font, x, y - offset, flags, announcements[i]);
+std::vector<std::string> splitLinesToWidth(const std::string& input, int width) {
+    std::vector<std::string> splits;  // To store each part of the split string
+    std::string allCurrentChars;  // The part of the string that fits so far
+
+    // Split input into words
+    std::istringstream stream(input);
+    std::string word;
+
+    while (stream >> word) {
+        // Test if adding this word to the current string would exceed the width
+        std::string testString = allCurrentChars + (allCurrentChars.empty() ? "" : " ") + word;
+
+        if ((strlen(testString.c_str()) * TILE_WIDTH) > static_cast<size_t>(width)) {
+            // If it's too wide, stop and push the current string into the vector
+            if (!allCurrentChars.empty()) {
+                splits.push_back(allCurrentChars);
+            }
+            allCurrentChars = word;  // Start a new line with the current word
+        }
+        else {
+            // If it fits, append the word
+            if (!allCurrentChars.empty()) {
+                allCurrentChars += " ";
+            }
+            allCurrentChars += word;
         }
     }
+
+    // Add any remaining text to the vector
+    if (!allCurrentChars.empty()) {
+        splits.push_back(allCurrentChars);
+    }
+
+    return splits;
+}
+
+#include <bitset>
+#include <filesystem>
+
+constexpr size_t MAX_UI_STATES = (StonesenseState::UIState::COUNT);
+using UIStateSet = std::bitset<MAX_UI_STATES>;
+
+class Tileset {
+private:
+    // Clean up existing bitmaps
+    void cleanUp() {
+        for (auto& bitmap : tileset) {
+            al_destroy_bitmap(bitmap);
+        }
+        al_destroy_bitmap(tilesheet);
+    }
+protected:
+    std::vector<ALLEGRO_BITMAP*> tileset;
+    ALLEGRO_BITMAP* tilesheet = nullptr;
+
+public:
+
+    Tileset() : tilesheet(nullptr) {}
+
+
+    Tileset(std::filesystem::path filepath, ALLEGRO_COLOR alphaMask) {
+        tilesheet = load_bitmap_withWarning(filepath.string().c_str(),alphaMask);
+        if (!tilesheet) {
+            LogError("Failed to load tileset!\n");
+            throw std::runtime_error("Failed to load tileset: File not found or invalid format.");
+        }
+
+        int tileset_width = al_get_bitmap_width(tilesheet);
+        int tileset_height = al_get_bitmap_height(tilesheet);
+        int tiles_per_row = tileset_width / TILE_WIDTH;
+        int tiles_per_col = tileset_height / TILE_HEIGHT;
+
+        for (int y = 0; y < tiles_per_col; ++y) {
+            for (int x = 0; x < tiles_per_row; ++x) {
+                ALLEGRO_BITMAP* tile = al_create_sub_bitmap(tilesheet, x * TILE_WIDTH, y * TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT);
+                if (!tile) {
+                    throw std::runtime_error("Failed to split tilesheet");
+                }
+                tileset.push_back(tile);
+            }
+        }
+    }
+
+    ~Tileset() {
+        cleanUp();
+    }
+
+    Tileset(const Tileset&) = delete;
+    Tileset& operator=(const Tileset&) = delete;
+
+    Tileset(Tileset&& other) noexcept
+        : tileset(std::move(other.tileset)), tilesheet(other.tilesheet) {
+        other.tilesheet = nullptr;
+    }
+
+    Tileset& operator=(Tileset&& other) noexcept {
+        if (this != &other) {
+            cleanUp();
+
+            tileset = std::move(other.tileset);
+            tilesheet = other.tilesheet;
+            other.tilesheet = nullptr;
+        }
+        return *this;
+    }
+
+public:
+    void draw_tile(int tile_index, int x, int y, int flip_flag = 0) {
+        if (tile_index >= 0 && static_cast<size_t>(tile_index) < tileset.size() && tileset[tile_index]) {
+            al_draw_bitmap(tileset[tile_index], x, y, flip_flag);
+        }
+    }
+
+    void draw_tinted_tile(int tile_index, int x, int y, ALLEGRO_COLOR fg, ALLEGRO_COLOR bg) {
+
+        // Draw solid background first
+        al_draw_filled_rectangle(x, y, x + TILE_WIDTH, y + TILE_HEIGHT, bg);
+
+        // Draw the tile with foreground tint
+        if (tile_index >= 0 && static_cast<size_t>(tile_index) < tileset.size() && tileset[tile_index]) {
+            al_draw_tinted_bitmap(tileset[tile_index], fg, x, y, 0);
+        }
+    }
+};
+
+
+// Base GUI Element Class
+class GUIElement {
+public:
+    static std::optional<Tileset> tiles;
+    static std::optional<Tileset> letterTiles;
+public:
+
+    int x, y, w, h;  // Position and size of the element
+    bool hovered;    // Tracks if the mouse is over the element
+    UIStateSet visibleStates;
+
+    GUIElement(int x, int y, int w, int h, UIStateSet visibleStates)
+        : x(x), y(y), w(w), h(h), hovered(false), visibleStates(visibleStates) {
+        if (al_is_system_installed()) {
+            initSheets();
+        }
+    }
+    void initSheets() {
+        tiles.emplace(std::filesystem::path{"hack/data/art/border-window.png"}, al_map_rgb(255, 0, 255));
+        letterTiles.emplace(std::filesystem::path{"stonesense/GUI/text.png"}, al_map_rgb(255, 0, 255));
+    }
+
+    virtual ~GUIElement() {}
+
+    virtual void onHover() {}
+
+    virtual void onHoverExit() {}
+
+    virtual void onScroll(int deltaY) {}
+
+    virtual void draw() = 0;
+
+    bool isVisible(StonesenseState::UIState currentState) const {
+        return visibleStates.test((currentState));
+    }
+    void update() {
+        //al_draw_text(stonesenseState.font, uiColor(dfColors::white), 0, 40, 0, stonesenseState.UIState.c_str());
+        if (isVisible(stonesenseState.currentUIState)) {
+            draw();
+        }
+    }
+
+    bool isMouseOver(int mouseX, int mouseY) {
+        return mouseX >= x && mouseX <= x + w &&
+            mouseY >= y && mouseY <= y + h;
+    }
+
+    void updateHoverState(int mouseX, int mouseY) {
+        bool mouseOver = isMouseOver(mouseX, mouseY);
+
+        if (mouseOver && !hovered) {
+            onHover();
+        }
+        else if (!mouseOver && hovered) {
+            onHoverExit();
+        }
+        hovered = mouseOver;
+    }
+
+    void setPosSize(int newX, int newY, int newW, int newH) {
+        x = newX;
+        y = newY;
+        w = newW;
+        h = newH;
+    }
+};
+
+std::optional<Tileset> GUIElement::tiles = std::nullopt;
+std::optional<Tileset> GUIElement::letterTiles = std::nullopt;
+
+class textElement : public GUIElement {
+public:
+    enum TextAlign {
+        ALIGN_LEFT,
+        ALIGN_CENTER,
+        ALIGN_RIGHT
+    };
+    std::string text;  // Store the actual text, not just a pointer
+    ALLEGRO_COLOR fg;
+    ALLEGRO_COLOR bg;
+    TextAlign align;
+
+    textElement(int x, int y, int w, int h, UIStateSet visibleStates, std::string text, ALLEGRO_COLOR fg, ALLEGRO_COLOR bg, TextAlign align = ALIGN_LEFT)
+        : GUIElement(x, y, w, h, visibleStates), text(text), fg(fg), bg(bg), align(align) {
+    }
+
+    void setText(std::string newText) { text = newText; }  // Copy new text safely
+
+    void draw() override {
+        draw_text_with_tiles(x, y, fg, bg, text.c_str(), align);
+    }
+
+    static int get_cp437_tile_index(char c) {
+        return (unsigned char)c; // CP437 codes directly map to tile indices
+    }
+
+    static void draw_text_with_tiles(int x, int y, ALLEGRO_COLOR fg, ALLEGRO_COLOR bg,
+        std::string text, TextAlign align = ALIGN_LEFT) {
+        if (text.empty()) return;
+
+        int label_length = text.length();
+        int start_x = x;
+
+        // Handle text alignment
+        if (align == ALIGN_CENTER) {
+            start_x -= (label_length * TILE_WIDTH) / 2;  // Center by shifting left half the width
+        }
+        else if (align == ALIGN_RIGHT) {
+            start_x -= label_length * TILE_WIDTH;  // Shift left by full text width
+        }
+
+        // Draw each character using CP437 tiles
+        for (int i = 0; i < label_length; i++) {
+            int tile_index = get_cp437_tile_index(text[i]); // Get CP437 tile index
+            letterTiles->draw_tinted_tile(tile_index, start_x + i * TILE_WIDTH, y, fg, bg);
+        }
+    }
+};
+
+
+class WindowPanel : public GUIElement {
+public:
+    std::string label;
+
+    WindowPanel(int x, int y, int w, int h, UIStateSet visibleStates, std::string label) :GUIElement(x, y, w, h, visibleStates), label(label) {}
+
+
+    void draw_window(float x, float y, int width, int height, std::string label, ALLEGRO_COLOR fg, ALLEGRO_COLOR bg) {
+        if (width < 3) width = 3;
+        if (height < 3) height = 3;
+
+        // Draw corners
+        tiles->draw_tile(0, x, y);                                 // Top-left
+        tiles->draw_tile(2, x + (width - 1) * TILE_WIDTH, y);       // Top-right
+        tiles->draw_tile(14, x, y + (height - 1) * TILE_HEIGHT);    // Bottom-left
+        tiles->draw_tile(16, x + (width - 1) * TILE_WIDTH, y + (height - 1) * TILE_HEIGHT); // Bottom-right
+
+        // Draw top & bottom edges
+        for (int col = 1; col < width - 1; ++col) {
+            tiles->draw_tile(1, x + col * TILE_WIDTH, y);                           // Top
+            tiles->draw_tile(15, x + col * TILE_WIDTH, y + (height - 1) * TILE_HEIGHT); // Bottom
+        }
+
+        // Draw left & right edges
+        for (int row = 1; row < height - 1; ++row) {
+            tiles->draw_tile(7, x, y + row * TILE_HEIGHT);                           // Left
+            tiles->draw_tile(9, x + (width - 1) * TILE_WIDTH, y + row * TILE_HEIGHT); // Right
+        }
+
+        // Fill center area
+        for (int row = 1; row < height - 1; ++row) {
+            for (int col = 1; col < width - 1; ++col) {
+                tiles->draw_tile(8, x + col * TILE_WIDTH, y + row * TILE_HEIGHT); // Center
+            }
+        }
+
+        // Draw the centered title using CP437 letter tiles
+        if (!label.empty()) {
+            int label_length = label.length();
+            int start_x = x + (width * TILE_WIDTH - label_length * TILE_WIDTH) / 2; // Center horizontally
+
+            for (int i = 0; i < label_length; i++) {
+                int tile_index = textElement::get_cp437_tile_index(label[i]);
+                letterTiles->draw_tinted_tile(tile_index, start_x + i * TILE_WIDTH, y, fg, bg);
+            }
+        }
+    }
+
+    void draw() override {
+        draw_window(x, y, w, h, label, uiColor(dfColors::black), uiColor(dfColors::lgray));
+    }
+
+};
+
+// Function pointer type
+typedef void (*OnClickCallback)(uint32_t);
+
+class clickElement : public GUIElement {
+public:
+    OnClickCallback clickFn;  // Function pointer for the callback
+    bool held = false;
+
+    clickElement(int x, int y, int w, int h, OnClickCallback clickFn, UIStateSet visibleStates)
+        : GUIElement(x, y, w, h, visibleStates), clickFn(clickFn) {
+    }
+
+    virtual void onClick() {
+        if (!held) {
+            held = true;
+            if (GUIElement::isVisible(stonesenseState.currentUIState)) {
+                if (clickFn) {
+                    clickFn(getKeyMods(&stonesenseState.keyboard));  // Pass a uint32_t argument when the button is clicked
+                }
+            }
+        }
+    }
+
+    virtual void onRelease() {
+        held = false;
+    }
+
+    void draw() override {}
+};
+
+class LabeledButton : public clickElement {
+public:
+    std::string label;
+    ALLEGRO_FONT* font;
+    int32_t borderColor;
+    int32_t bgColor;
+
+    LabeledButton(int x, int y, int w, int h, int32_t borderColor, int32_t bgColor,
+        std::string label, ALLEGRO_FONT* font,
+        OnClickCallback clickFn, UIStateSet visibleStates)
+        : clickElement(x, y, w, h, clickFn, visibleStates),
+        label(label), font(font), borderColor(borderColor), bgColor(bgColor) {
+    }
+
+    void draw() override {
+        ALLEGRO_COLOR bg = uiColor(bgColor, hovered);
+        ALLEGRO_COLOR textColor = uiColor(dfColors::lgray, hovered);
+        al_draw_filled_rectangle(x, y, x + w, y + h, bg);
+
+        // Draw label text centered
+        if (font) {
+            int textHeight = al_get_font_line_height(font);
+            al_draw_text(font, textColor, x + (w / 2), y + (h - textHeight) / 2,
+                ALLEGRO_ALIGN_CENTER, label.c_str());
+        }
+    }
+};
+
+class simpleButton : public clickElement {
+public:
+    std::string icon;
+    int colorFlag;
+    Tileset simpleButtons;
+
+    simpleButton(int x, int y, int w, int h, std::string icon, int colorFlag, OnClickCallback onClickCallback, UIStateSet visibleStates)
+        : clickElement(x, y, w, h, onClickCallback, visibleStates), icon(icon), colorFlag(colorFlag), simpleButtons(std::filesystem::path{"stonesense/GUI/simple-buttons.png" }, al_map_rgb(255, 0, 255)) {
+    };
+
+    void draw_simple_button(float x, float y, std::string text) {
+        int colorOffset = 3;
+        int rowOffset = 12;
+
+        // Draw corners
+        for (int i = 0; i < 3; i++) {
+            simpleButtons.draw_tile(0 + (colorFlag * colorOffset) + (i * rowOffset), x, y + TILE_HEIGHT * i); // Left
+            simpleButtons.draw_tile(1 + (colorFlag * colorOffset) + (i * rowOffset), x + TILE_WIDTH, y + TILE_HEIGHT * i); // Middle
+            simpleButtons.draw_tile(2 + (colorFlag * colorOffset) + (i * rowOffset), x + TILE_WIDTH * 2, y + TILE_HEIGHT * i);    // Right
+        }
+
+        // Draw the centered title using CP437 letter tiles
+        if (!text.empty()) {
+            int tile_index = textElement::get_cp437_tile_index(text[0]);
+            letterTiles->draw_tinted_tile(tile_index, x + TILE_WIDTH, y + TILE_HEIGHT, uiColor(dfColors::white), al_map_rgba(0, 0, 0, 0));
+        }
+
+    }
+
+    void draw() override {
+        draw_simple_button(x, y, icon.c_str());
+    }
+
+};
+
+
+class controlButton : public clickElement {
+public:
+    bool thick;
+    bool& enabledVar;
+    Tileset controlButtons;
+
+    controlButton(int x, int y, int w, int h, bool thick, bool& enabledVar, UIStateSet visibleStates)
+        : clickElement(x, y, w, h, nullptr, visibleStates), thick(thick), enabledVar(enabledVar), controlButtons(std::filesystem::path{ "stonesense/GUI/control-buttons.png" }, al_map_rgb(28, 28, 28)) {
+    }
+
+    void draw_control_button(float x, float y) {
+        int enabledOffset = 3;
+        int rowOffset = 15;
+
+
+        controlButtons.draw_tile(0 + (enabledVar * enabledOffset) + (thick * rowOffset), x, y); // Left
+        controlButtons.draw_tile(1 + (enabledVar * enabledOffset) + (thick * rowOffset), x + TILE_WIDTH, y); // Middle
+        controlButtons.draw_tile(2 + (enabledVar * enabledOffset) + (thick * rowOffset), x + TILE_WIDTH * 2, y);    // Right
+
+    }
+
+    void draw() override {
+        draw_control_button(x, y);
+    }
+
+    void onClick() override {
+        enabledVar = !enabledVar;  // Update selected tab
+        clickElement::onClick();  // Call the base class onClick() to execute any extra behavior
+    }
+
+};
+
+
+class Tab : public clickElement {
+public:
+    int tabIndex;
+    std::string label;
+    bool upside_down;
+    Tileset tabSet;
+
+    Tab(int x, int y, int w, int h, int tabIndex, std::string label, OnClickCallback onClickCallback, UIStateSet visibleStates, bool upside_down)
+        : clickElement(x, y, w, h, onClickCallback, visibleStates), tabIndex(tabIndex), label(label), upside_down(upside_down), tabSet(std::filesystem::path{ "stonesense/GUI/tabs.png" }, al_map_rgb(28, 28, 28)) {
+    }
+
+    void draw_tab(float x, float y, int width, bool is_enabled, bool is_upside_down, ALLEGRO_COLOR fg, std::string text) {
+        // Flip flag (use ALLEGRO_FLIP_VERTICAL for upside-down tabs)
+        int flip_flag = is_upside_down ? ALLEGRO_FLIP_VERTICAL : 0;
+
+
+        // Draw corners
+        int tileShift = is_upside_down ? 10 : 0;
+        int enabledShift = is_enabled ? 5 : 0;
+        tabSet.draw_tile(tileShift + 0 + enabledShift, x + TILE_WIDTH, y, flip_flag); // Top-left
+        tabSet.draw_tile(tileShift + 1 + enabledShift, x + TILE_WIDTH + TILE_WIDTH, y, flip_flag);
+
+        tabSet.draw_tile(tileShift + 3 + enabledShift, x + ((width / TILE_WIDTH - 1) * TILE_WIDTH), y, flip_flag); // Top-right
+        tabSet.draw_tile(tileShift + 4 + enabledShift, x + ((width / TILE_WIDTH - 1) * TILE_WIDTH) + TILE_WIDTH, y, flip_flag);
+
+        tabSet.draw_tile(-tileShift + 10 + enabledShift, x + TILE_WIDTH, y + TILE_HEIGHT, flip_flag);    // Bottom-left
+        tabSet.draw_tile(-tileShift + 11 + enabledShift, x + TILE_WIDTH + TILE_WIDTH, y + TILE_HEIGHT, flip_flag);
+
+        tabSet.draw_tile(-tileShift + 13 + enabledShift, x + ((width / TILE_WIDTH - 1) * TILE_WIDTH), y + TILE_HEIGHT, flip_flag);
+        tabSet.draw_tile(-tileShift + 14 + enabledShift, x + ((width/TILE_WIDTH - 1) * TILE_WIDTH) + TILE_WIDTH, y + TILE_HEIGHT, flip_flag); // Bottom-right
+
+        //// Draw top & bottom edges
+        for (int col = 3; col < (width / TILE_WIDTH) - 1; ++col) {
+            tabSet.draw_tile(tileShift + 2 + enabledShift, x + col * TILE_WIDTH, y, flip_flag); // Top
+            tabSet.draw_tile(-tileShift + 12 + enabledShift, x + col * TILE_WIDTH, y + TILE_HEIGHT, flip_flag); // Bottom
+        }
+
+        // Draw the centered title using CP437 letter tiles
+        if (!text.empty()) {
+            int label_length = text.length();
+            //int usable_width = (width / TILE_WIDTH) - 4; // Account for non-writable tiles
+            //int start_tile = (usable_width - label_length) / 2 + 2; // Centering formula
+            //int start_x = x + start_tile * TILE_WIDTH; // Convert to pixels
+            int start_x = x + TILE_WIDTH * 3;
+
+            for (int i = 0; i < label_length; i++) {
+                int tile_index = textElement::get_cp437_tile_index(text[i]);
+                letterTiles->draw_tinted_tile(tile_index, start_x + i * TILE_WIDTH, y + 7, fg, al_map_rgba(0, 0, 0, 0));
+            }
+        }
+
+    }
+
+    void draw() override {
+        bool isSelected = (stonesenseState.ssState.selectedTab == tabIndex);
+        ALLEGRO_COLOR textColor = isSelected ? uiColor(dfColors::black) : uiColor(dfColors::white);
+
+        std::string temp = fitTextToWidth(label, w - 20);
+        draw_tab(x, y, w, isSelected, upside_down, textColor, temp.c_str());
+    }
+
+    void onClick() override {
+        stonesenseState.ssState.selectedTab = tabIndex;  // Update selected tab
+        clickElement::onClick();
+    }
+};
+
+
+// Global list of GUI elements
+std::vector<std::unique_ptr<GUIElement>> elements;
+
+void updateAll() {
+    for (auto& elem : elements) {  // Use reference to unique_ptr
+        elem->update();
+    }
+}
+
+// Handle mouse click events
+void handleMouseClick(int mouseX, int mouseY) {
+    for (auto& elem : elements) {
+        if (auto* clickElem = dynamic_cast<clickElement*>(elem.get())) { // Use .get() to access raw pointer
+            if (clickElem->isMouseOver(mouseX, mouseY)) {
+                clickElem->onClick();
+                break;
+            }
+        }
+    }
+}
+
+// Handle mouse release events
+void handleMouseRelease() {
+    for (auto& elem : elements) {
+        if (auto* clickElem = dynamic_cast<clickElement*>(elem.get())) {
+            clickElem->onRelease();
+        }
+    }
+    stonesenseState.mouseHeld = false;
+}
+
+// Handle mouse movement for hover state
+void handleMouseMove(int mouseX, int mouseY) {
+    for (auto& elem : elements) {
+        elem->updateHoverState(mouseX, mouseY);
+    }
+}
+
+// Handle mouse wheel scrolling
+bool handleMouseWheel(int mouseX, int mouseY, int deltaY) {
+    for (auto& elem : elements) {
+        if (elem->isMouseOver(mouseX, mouseY)) {
+            elem->onScroll(deltaY);
+            return true;
+        }
+    }
+    return false;
+}
+
+bool elementExists(int x, int y, int w, int h) {
+    for (auto& elem : elements) {
+        if (elem->x == x && elem->y == y && elem->w == w && elem->h == h) {
+            return true;  // Found an element with the same position and size
+        }
+    }
+    return false;
+}
+
+void addButton(int x, int y, int w, int h, int32_t borderColor, int32_t bgColor, OnClickCallback onClickCallback, UIStateSet visibleStates) {
+    if (!elementExists(x, y, w, h)) {
+        elements.push_back(std::make_unique<clickElement>(x, y, w, h, onClickCallback, visibleStates));
+    }
+}
+
+void addButton(int x, int y, int w, int h, int32_t borderColor, int32_t bgColor, OnClickCallback onClickCallback, StonesenseState::UIState visibleState) {
+    UIStateSet temp;
+    temp.set((visibleState));
+    addButton(x, y, w, h, borderColor, bgColor, onClickCallback, temp);
+}
+
+void addLabeledButton(int x, int y, int w, int h, int32_t borderColor, int32_t bgColor,
+    std::string label, ALLEGRO_FONT* font,
+    OnClickCallback onClickCallback, UIStateSet visibleStates) {
+    if (!elementExists(x, y, w, h)) {
+        elements.push_back(std::make_unique<LabeledButton>(x, y, w, h, borderColor, bgColor, label, font, onClickCallback, visibleStates));
+    }
+}
+
+void addLabeledButton(int x, int y, int w, int h, int32_t borderColor, int32_t bgColor,
+    std::string label, ALLEGRO_FONT* font,
+    OnClickCallback onClickCallback, StonesenseState::UIState visibleState) {
+    UIStateSet temp;
+    temp.set((visibleState));
+    addLabeledButton(x, y, w, h, borderColor, bgColor, label, font, onClickCallback, temp);
+}
+
+void addSimpleButton(int x, int y, int w, int h, std::string icon, int colorFlag, OnClickCallback onClickCallback, UIStateSet visibleStates) {
+    if (!elementExists(x, y, w, h)) {
+        elements.push_back(std::make_unique<simpleButton>(x, y, w, h, icon, colorFlag, onClickCallback, visibleStates));
+    }
+}
+
+void addSimpleButton(int x, int y, int w, int h, std::string icon, int colorFlag, OnClickCallback onClickCallback, StonesenseState::UIState visibleState) {
+    UIStateSet temp;
+    temp.set((visibleState));
+    addSimpleButton(x, y, w, h, icon, colorFlag, onClickCallback, temp);
+}
+
+void addControlButton(int x, int y, int w, int h, bool thick, bool& enabledVar, UIStateSet visibleStates) {
+    if (!elementExists(x, y, w, h)) {
+        elements.push_back(std::make_unique<controlButton>(x, y, w, h, thick, enabledVar, visibleStates));
+    }
+}
+
+void addControlButton(int x, int y, int w, int h, bool thick, bool& enabledVar, StonesenseState::UIState visibleState) {
+    UIStateSet temp;
+    temp.set((visibleState));
+    addControlButton(x, y, w, h, thick, enabledVar, temp);
+}
+
+void addTab(int x, int y, int w, int h, int tabIndex, std::string label, OnClickCallback onClickCallback, UIStateSet visibleStates, bool upside_down) {
+    if (!elementExists(x, y, w, h)) {
+        elements.push_back(std::make_unique<Tab>(x, y, w, h, tabIndex, label, onClickCallback, visibleStates, upside_down));
+    }
+}
+
+void addTab(int x, int y, int w, int h, int tabIndex, std::string label, OnClickCallback onClickCallback, StonesenseState::UIState visibleState, bool upside_down) {
+    UIStateSet temp;
+    temp.set((visibleState));
+    addTab(x, y, w, h, tabIndex, label, onClickCallback, temp, upside_down);
+}
+
+void addPanel(int x, int y, int w, int h, UIStateSet visibleStates, std::string label) {
+    if (!elementExists(x, y, w, h)) {
+        elements.push_back(std::make_unique<WindowPanel>(x, y, w, h, visibleStates, label));
+    }
+}
+
+void addPanel(int x, int y, int w, int h, StonesenseState::UIState visibleState, std::string label) {
+    UIStateSet temp;
+    temp.set((visibleState));
+    addPanel(x, y, w, h, temp, label);
+}
+
+void addText(int x, int y, int w, int h, UIStateSet visibleStates, std::string text, ALLEGRO_COLOR fg, ALLEGRO_COLOR bg, textElement::TextAlign align) {
+    if (!elementExists(x, y, w, h)) {
+        elements.push_back(std::make_unique<textElement>(x, y, w, h, visibleStates, text, fg, bg, align));
+    }
+}
+
+void addText(int x, int y, int w, int h, StonesenseState::UIState visibleState, std::string text, ALLEGRO_COLOR fg, ALLEGRO_COLOR bg, textElement::TextAlign align) {
+    UIStateSet temp;
+    temp.set((visibleState));
+    addText(x, y, w, h, temp, text, fg, bg, align);
+}
+
+
+
+
+void clearElements() {
+    elements.clear();  // Automatically deletes all elements
+}
+
+
+namespace
+{
+    void drawAnnouncemntLine(int& rowNum, const std::string& text, ALLEGRO_COLOR reportColor) {
+
+        int startX = stonesenseState.ssState.ScreenW - stonesenseState.ssState.InfoW + TILE_WIDTH;
+        const char* report = text.c_str();
+
+
+        textElement::draw_text_with_tiles(startX, TILE_HEIGHT + (rowNum * TILE_HEIGHT), reportColor,
+            al_map_rgba(0, 0, 0, 0), report, textElement::TextAlign::ALIGN_LEFT);
+
+        rowNum++;
+    }
+
+    void draw_announcements(std::vector<df::report*>& announcements) {
+        auto& ssConfig = stonesenseState.ssConfig;
+
+        int panelHeight = int((stonesenseState.ssState.ScreenH - (TILE_HEIGHT * 2)) / TILE_HEIGHT);
+        int maxLines = panelHeight - 3;
+        const int numAnnouncements = (int)announcements.size();
+        const int maxAnnouncements = std::min(100, numAnnouncements);
+        int line = 1;
+
+        for (int i = numAnnouncements - 1; i >= (numAnnouncements - maxAnnouncements) && announcements[i]->duration > 0; i--) {
+            ALLEGRO_COLOR color = ssConfig.config.colors.getDfColor(announcements[i]->color, true, ssConfig.config.useDfColors);
+            std::string reportStr = announcements[i]->text;
+            std::vector<std::string> splits = splitLinesToWidth(reportStr, stonesenseState.ssState.InfoW - 20);
+
+            for (const std::string& split : splits) {
+                drawAnnouncemntLine(line, split, color);
+                if (line > maxLines) { break; }
+            }
+            if (line > maxLines) { break; }
+        }
+    }
+
 }
 
 void draw_loading_message(const char *format, ...)
@@ -815,6 +1496,94 @@ ALLEGRO_BITMAP * CreateSpriteFromSheet( int spriteNum, ALLEGRO_BITMAP* spriteShe
     return al_create_sub_bitmap(spriteSheet, sheetx * SPRITEWIDTH, sheety * SPRITEHEIGHT, SPRITEWIDTH, SPRITEHEIGHT);
 }
 
+void drawTab(const std::string& label, int tabIndex, OnClickCallback onClickCallback, UIStateSet visibleStates) {
+    int numTabs = 3;
+    int tabWidth = (stonesenseState.ssState.InfoW - 16) / numTabs;
+    int tabHeight = (TILE_HEIGHT*2);
+    int panelX = stonesenseState.ssState.ScreenW - stonesenseState.ssState.InfoW;  // Left edge of info panel
+    int tabX = panelX + (tabIndex * tabWidth);  // Position inside the panel
+    int tabY = stonesenseState.ssState.ScreenH - tabHeight;  // Flush with bottom
+
+    // Truncate label to fit inside tab
+    auto temp = fitTextToWidth(label, tabWidth - 20);
+    const char* truncatedLabel = temp.c_str();
+
+
+    addTab(tabX, tabY, tabWidth, tabHeight, tabIndex, truncatedLabel, onClickCallback, visibleStates, true);
+}
+
+
+void drawInfoPanel(UIStateSet infoStates) {
+    auto panelWidth = int(stonesenseState.ssState.InfoW / TILE_WIDTH);
+    auto panelHeight = int((stonesenseState.ssState.ScreenH-TILE_HEIGHT) / TILE_HEIGHT);
+    std::string label = "   Info Panel  ";
+
+    //draw panel
+    addPanel(stonesenseState.ssState.ScreenW - stonesenseState.ssState.InfoW, 0, panelWidth, panelHeight, infoStates, label);
+
+    //draw tabs
+    drawTab( "Announcements", GameState::tabs::announcements, action_toggleannouncements, infoStates);
+    drawTab( "Keybinds", GameState::tabs::keybinds, action_togglekeybinds, infoStates);
+    drawTab( "Settings", GameState::tabs::settings, action_togglesettings, infoStates);
+
+}
+
+void addSettingLine(int& rowNum, bool& settingVar, std::string text) {
+    int startX = stonesenseState.ssState.ScreenW - stonesenseState.ssState.InfoW + TILE_WIDTH;
+    addControlButton(startX, TILE_HEIGHT+(rowNum*TILE_HEIGHT), 3 * TILE_WIDTH, TILE_HEIGHT, false, settingVar, StonesenseState::UIState::INFO_PANEL_SETTING);
+    addText(startX + TILE_WIDTH * 4, TILE_HEIGHT + (rowNum * TILE_HEIGHT), TILE_WIDTH * text.length(), TILE_HEIGHT, StonesenseState::UIState::INFO_PANEL_SETTING, text, uiColor(dfColors::cyan), al_map_rgba(0, 0, 0, 0), textElement::TextAlign::ALIGN_LEFT);
+
+    rowNum++;
+}
+void drawSettings() {
+    auto& ssConfig = stonesenseState.ssConfig;
+
+    int rowNum = 1;
+    addSettingLine(rowNum, ssConfig.config.show_creature_names, "Show creature names");
+    addSettingLine(rowNum, ssConfig.config.names_use_nick, "Use nickname");
+    addSettingLine(rowNum, ssConfig.config.names_use_species, "Use species name");
+    addSettingLine(rowNum, ssConfig.config.show_creature_jobs, "Show creature jobs");
+    addSettingLine(rowNum, ssConfig.config.show_creature_moods, "Show creature moods");
+    rowNum++;
+    addSettingLine(rowNum, ssConfig.config.fogenable, "Draw depth fog");
+    addSettingLine(rowNum, ssConfig.config.show_stockpiles, "Show stockpiles");
+    addSettingLine(rowNum, ssConfig.config.show_zones, "Show zones");
+    addSettingLine(rowNum, ssConfig.show_designations, "Show designations");
+    addSettingLine(rowNum, ssConfig.show_hidden_tiles, "Show unrevealed tiles (cheat)");
+    addSettingLine(rowNum, ssConfig.shade_hidden_tiles, "Show blackboxes");
+    rowNum++;
+    addSettingLine(rowNum, ssConfig.config.force_track, "Follow DF view");
+    addSettingLine(rowNum, ssConfig.config.track_zoom, "Track zoom with view");
+}
+
+void addKeybindLine(int& rowNum, std::string keyname, std::string actionname, bool repeats) {
+    int startX = stonesenseState.ssState.ScreenW - stonesenseState.ssState.InfoW + TILE_WIDTH;
+
+    int keyW = TILE_WIDTH * keyname.length();
+    int actionW= TILE_WIDTH * actionname.length();
+
+    addText(startX, TILE_HEIGHT + (rowNum * TILE_HEIGHT), keyW, TILE_HEIGHT, StonesenseState::UIState::INFO_PANEL_KEYBINDS, keyname, uiColor(dfColors::lgreen), al_map_rgba(0, 0, 0, 0), textElement::TextAlign::ALIGN_LEFT);
+    addText(startX+keyW, TILE_HEIGHT + (rowNum * TILE_HEIGHT), TILE_WIDTH*2, TILE_HEIGHT, StonesenseState::UIState::INFO_PANEL_KEYBINDS, ": ", uiColor(dfColors::white), al_map_rgba(0, 0, 0, 0), textElement::TextAlign::ALIGN_LEFT);
+    addText(startX+keyW+(2*TILE_WIDTH), TILE_HEIGHT + (rowNum * TILE_HEIGHT), actionW, TILE_HEIGHT, StonesenseState::UIState::INFO_PANEL_KEYBINDS, actionname, uiColor(dfColors::white), al_map_rgba(0, 0, 0, 0), textElement::TextAlign::ALIGN_LEFT);
+
+    rowNum++;
+}
+
+void drawKeybinds() {
+    std::string* keyname, * actionname;
+    int line = 1;
+
+    for (int32_t i = 1; true; i++) {
+        if (getKeyStrings(i, keyname, actionname)) {
+            addKeybindLine(line,keyname->c_str(),actionname->c_str(),isRepeatable(i));
+        }
+        if (keyname == NULL) {
+            break;
+        }
+    }
+}
+
+
 void DrawSpriteIndexOverlay(int imageIndex)
 {
     auto currentImage = IMGFileList.lookup(imageIndex);
@@ -878,6 +1647,31 @@ float clockToMs(float clockTicks) {
     return clockTicks / (CLOCKS_PER_SEC/1000);
 }
 
+void updateUIState() {
+    auto& ssConfig = stonesenseState.ssConfig;
+    auto& ssState = stonesenseState.ssState;
+
+    stonesenseState.currentUIState = StonesenseState::UIState::DEFAULT;
+    if (ssConfig.config.show_info_panel) {
+        stonesenseState.currentUIState = StonesenseState::UIState::INFO_PANEL;
+    }
+    if (ssState.selectedTab == GameState::tabs::announcements) {
+        stonesenseState.currentUIState = StonesenseState::UIState::INFO_PANEL_ANNOUNCEMENTS;//annoucements
+    }
+    if (ssState.selectedTab == GameState::tabs::keybinds) {
+        stonesenseState.currentUIState = StonesenseState::UIState::INFO_PANEL_KEYBINDS;//keybinds
+    }
+    if (ssState.selectedTab == GameState::tabs::settings) {
+        stonesenseState.currentUIState = StonesenseState::UIState::INFO_PANEL_SETTING;//settings
+    }
+    if (ssConfig.config.show_osd) {
+        stonesenseState.currentUIState = StonesenseState::UIState::OSD;
+        if (ssConfig.config.debug_mode) {
+            stonesenseState.currentUIState = StonesenseState::UIState::DEBUG;
+        }
+    }
+}
+
 void paintboard()
 {
     DFHack::CoreSuspender suspend;
@@ -922,6 +1716,9 @@ void paintboard()
 
     segment->DrawAllTiles();
 
+    if(ssConfig.config.force_track){
+        ssConfig.config.track_mode = Config::TRACKING_CENTER;
+    }
     if (ssConfig.config.show_osd) {
         DrawCurrentLevelOutline(false);
     }
@@ -932,29 +1729,28 @@ void paintboard()
     stonesenseState.stoneSenseTimers.frame_total.update(donetime - stonesenseState.stoneSenseTimers.prev_frame_time);
     stonesenseState.stoneSenseTimers.prev_frame_time = donetime;
 
-    if (ssConfig.show_announcements) {
-        al_hold_bitmap_drawing(true);
-        draw_announcements(font, ssState.ScreenW, ssState.ScreenH - 10 - al_get_font_line_height(font), ALLEGRO_ALIGN_RIGHT, df::global::world->status.announcements);
-        al_hold_bitmap_drawing(false);
-    }
-    if(ssConfig.show_keybinds){
-        std::string *keyname, *actionname;
-        keyname = actionname = NULL;
-        int line = 1;
+    updateUIState();
+
+    enum buttonColors {
+        grey,
+        red,
+        green,
+        blue
+    };
+
+    UIStateSet infoStates;
+    infoStates.set((StonesenseState::UIState::INFO_PANEL));
+    infoStates.set((StonesenseState::UIState::INFO_PANEL_ANNOUNCEMENTS));
+    infoStates.set((StonesenseState::UIState::INFO_PANEL_KEYBINDS));
+    infoStates.set((StonesenseState::UIState::INFO_PANEL_SETTING));
+    addSimpleButton(stonesenseState.ssState.ScreenW - (3 * TILE_WIDTH), 0, 3 * TILE_WIDTH, 3 * TILE_HEIGHT, "i", buttonColors::blue, action_toggleinfopanel, StonesenseState::UIState::DEFAULT);
+    addSimpleButton(stonesenseState.ssState.ScreenW - (3 * TILE_WIDTH) - stonesenseState.ssState.InfoW, 0, 3 * TILE_WIDTH, 3 * TILE_HEIGHT, "x", buttonColors::red, action_toggleinfopanel, infoStates);
+    drawInfoPanel(infoStates);
+    drawSettings();
+    drawKeybinds();
+    if (ssConfig.config.show_osd) {
         al_hold_bitmap_drawing(true);
 
-        for(int32_t i=1; true; i++){
-            if(getKeyStrings(i, keyname, actionname)){
-                draw_textf_border(font, uiColor(dfColors::white), 10, line*fontHeight, 0, "%s: %s%s", keyname->c_str(), actionname->c_str(), isRepeatable(i) ? " (repeats)" : "");
-                line++;
-            }
-            if(keyname == NULL) {
-                break;
-            }
-        }
-        al_hold_bitmap_drawing(false);
-    } else if (ssConfig.config.show_osd) {
-        al_hold_bitmap_drawing(true);
         draw_textf_border(font, uiColor(dfColors::white), 10,fontHeight, 0, "%i,%i,%i, r%i, z%i", ssState.Position.x,ssState.Position.y,ssState.Position.z, ssState.Rotation, ssConfig.zoom);
 
         drawSelectionCursor(segment);
@@ -995,9 +1791,19 @@ void paintboard()
             top += fontHeight;
             draw_textf_border(font, uiColor(dfColors::white), ssState.ScreenW/2,top, ALLEGRO_ALIGN_CENTRE, "Reloading every %0.1fs", (float)ssConfig.config.automatic_reload_time/1000);
         }
+
         al_hold_bitmap_drawing(false);
-        DrawMinimap(segment);
+        if (!ssConfig.config.show_info_panel) {
+            DrawMinimap(segment);
+        }
     }
+
+    al_hold_bitmap_drawing(true);
+    updateAll();
+    if (ssState.selectedTab == GameState::tabs::announcements) {
+        draw_announcements(df::global::world->status.announcements);
+    }
+    al_hold_bitmap_drawing(false);
     stonesenseState.map_segment.unlockDraw();
 }
 

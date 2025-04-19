@@ -15,8 +15,6 @@ struct GameConfiguration {
     // items not configurable via the config file
     bool overlay_mode;
     bool show_designations = true;
-    bool show_announcements = false;
-    bool show_keybinds = false;
     bool single_layer_view;
     bool shade_hidden_tiles = true;
     bool show_hidden_tiles = false;
@@ -68,12 +66,10 @@ struct GameConfiguration {
     {
         config = {};
 
-        show_announcements = true;
         hide_outer_tiles = false;
         shade_hidden_tiles = true;
         load_ground_materials = true;
         show_designations = true;
-        show_keybinds = false;
         track_screen_center = true;
         creditScreen = true;
         bloodcutoff = 100;
