@@ -518,6 +518,8 @@ const char *lookupBuildingSubtype(int main_type, int i)
         return enum_item_key_str((df::workshop_type)i);
     case building_type::Trap:
         return enum_item_key_str((df::trap_type)i);
+    case building_type::Civzone:
+        return enum_item_key_str((df::civzone_type)i);
     default:
         return "UnhandledType";
     }
