@@ -37,6 +37,8 @@ public:
     int animation_step = 196;
     bool verbose_logging = false;
     trackingmode track_mode = TRACKING_CENTER;
+    bool force_track = true;
+    bool track_zoom = true;
     bool invert_mouse_z = false;
     bool follow_DFcursor = true;
     bool show_creature_names = false;
@@ -46,6 +48,7 @@ public:
     bool names_use_nick = true;
     bool names_use_species = true;
     bool show_osd = false;
+    bool show_info_panel = false;
     bool cache_images = false;
     bool show_stockpiles = true;
     bool show_zones = true;

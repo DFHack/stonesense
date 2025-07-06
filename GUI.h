@@ -3,6 +3,14 @@
 #include "common.h"
 #include <filesystem>
 
+// GUI Element stuffs
+void handleMouseClick(int mouseX, int mouseY);
+void handleMouseMove(int mouseX, int mouseY);
+bool handleMouseWheel(int mouseX, int mouseY, int deltaY);
+void handleMouseRelease();
+using OnClickCallback = auto (*)(uint32_t) -> void;
+void clearElements();
+
 void ScreenToPoint(int x,int y,int &x1, int &y1, int &z1);
 void pointToScreen(int *inx, int *iny, int inz);
 void correctForRotation(int32_t& x, int32_t& y, unsigned char rot, int32_t szx, int32_t szy);
@@ -21,7 +29,7 @@ void flushImgFiles();
 //returns index into getImgFile. Will only create new bitmaps when needed
 int loadImgFile(std::filesystem::path filename);
 ALLEGRO_BITMAP * CreateSpriteFromSheet( int spriteNum, ALLEGRO_BITMAP* spriteSheet);
-ALLEGRO_BITMAP* load_bitmap_withWarning(std::filesystem::path path);
+ALLEGRO_BITMAP* load_bitmap_withWarning(std::filesystem::path path, ALLEGRO_COLOR alphaMask = al_map_rgb(255, 0, 255));
 void DrawSpriteIndexOverlay(int i);
 void DoSpriteIndexOverlay();
 void loadGraphicsFromDisk();

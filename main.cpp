@@ -19,6 +19,9 @@
 #include "GroundMaterialConfiguration.h"
 #include "ContentLoader.h"
 #include "OcclusionTest.h"
+
+#include "UserInput.h"
+
 #include "GameConfiguration.h"
 #include "GameState.h"
 #include "StonesenseState.h"
@@ -64,7 +67,7 @@ ALLEGRO_THREAD *stonesense_event_thread;
 // the segment wrapper handles concurrency control
 bool redraw = true;
 
-ALLEGRO_BITMAP* load_bitmap_withWarning(std::filesystem::path path)
+ALLEGRO_BITMAP* load_bitmap_withWarning(std::filesystem::path path, ALLEGRO_COLOR alphaMask)
 {
     ALLEGRO_BITMAP* img = 0;
     img = al_load_bitmap(path.string().c_str());
@@ -73,7 +76,7 @@ ALLEGRO_BITMAP* load_bitmap_withWarning(std::filesystem::path path)
         al_set_thread_should_stop(stonesense_event_thread);
         return 0;
     }
-    al_convert_mask_to_alpha(img, al_map_rgb(255, 0, 255));
+    al_convert_mask_to_alpha(img, alphaMask);
     return img;
 }
 
@@ -167,6 +170,10 @@ void animUpdateProc()
     }
 }
 
+int getInfoWidth() {
+    return stonesenseState.ssState.ScreenH * 4 / 9;
+}
+
 void drawcredits()
 {
     auto color_black = uiColor(dfColors::black);
@@ -220,6 +227,7 @@ static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALL
     auto& ssConfig = stonesenseState.ssConfig;
 
     ALLEGRO_EVENT event;
+
     while (!al_get_thread_should_stop(main_thread)) {
 
         if (redraw && al_event_queue_is_empty(queue)) {
@@ -303,6 +311,7 @@ static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALL
         if(in_time) {
             switch (event.type) {
             case ALLEGRO_EVENT_DISPLAY_RESIZE:
+                clearElements();
                 if (ssConfig.overlay_mode) {
                     break;
                 }
@@ -310,6 +319,7 @@ static void main_loop(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE *queue, ALL
                 redraw = true;
                 stonesenseState.ssState.ScreenH = event.display.height;
                 stonesenseState.ssState.ScreenW = event.display.width;
+                stonesenseState.ssState.InfoW = getInfoWidth();
                 if (!al_acknowledge_resize(event.display.source)) {
                     con.printerr("Failed to resize diplay");
                     return;
@@ -368,6 +378,7 @@ static void* stonesense_thread(ALLEGRO_THREAD* main_thread, void* parms)
 
     stonesenseState.ssState.ScreenH = stonesenseState.ssConfig.config.defaultScreenHeight;
     stonesenseState.ssState.ScreenW = stonesenseState.ssConfig.config.defaultScreenWidth;
+    stonesenseState.ssState.InfoW = getInfoWidth();
     stonesenseState.ssState.Size = { DEFAULT_SIZE, DEFAULT_SIZE, DEFAULT_SIZE_Z };
     stonesenseState.timeToReloadConfig = true;
     stonesenseState.contentLoader = std::make_unique<ContentLoader>();
@@ -424,6 +435,7 @@ static void* stonesense_thread(ALLEGRO_THREAD* main_thread, void* parms)
     // a resize event for us.
     stonesenseState.ssState.ScreenW = al_get_display_width(display);
     stonesenseState.ssState.ScreenH = al_get_display_height(display);
+    stonesenseState.ssState.InfoW = getInfoWidth();
 
     if(!al_is_keyboard_installed()) {
         if (!al_install_keyboard()) {
