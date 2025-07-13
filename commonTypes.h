@@ -187,6 +187,9 @@ public:
     ALLEGRO_COLOR getDfColor(int color, int bright, bool useDfColors) const {
         return getDfColor(color + (bright * 8), useDfColors);
     }
+    ALLEGRO_COLOR getDfColor(int color, bool bright, bool useDfColors) const {
+        return getDfColor(color + ((bright?1:0) * 8), useDfColors);
+    }
 };
 
 // this is required because gcc 10 can't handle a dependently typed non-type template argu,ent
