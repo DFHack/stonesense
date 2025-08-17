@@ -40,6 +40,7 @@ Template for new versions:
 ## New Features
 
 ## Fixes
+- `stonesense`: fixed the announcements not using the bright bool (now matches vanilla DF colors)
 
 ## Misc Improvements
 
