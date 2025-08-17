@@ -359,7 +359,7 @@ namespace
     {
         auto& ssConfig = stonesenseState.ssConfig;
 
-        ALLEGRO_COLOR color = ssConfig.config.colors.getDfColor(report->color, ssConfig.config.useDfColors);
+        ALLEGRO_COLOR color = ssConfig.config.colors.getDfColor(report->color, true, ssConfig.config.useDfColors);
         draw_text_border(font, color, x, y, flags, DF2UTF(report->text).c_str());
     }
 

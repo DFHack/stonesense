@@ -41,6 +41,7 @@ Template for new versions:
 - `stonesense`: stonesense now has visible day/night cycle lighting in fortress mode
 
 ## Fixes
+- `stonesense`: fixed the announcements not using the bright bool (now matches vanilla DF colors)
 
 ## Misc Improvements
 
