@@ -38,6 +38,16 @@ Template for new versions:
 # Future
 
 ## New Features
+
+## Fixes
+
+## Misc Improvements
+
+## Removed
+
+# 52.03-r2
+
+## New Features
 - `stonesense`: stonesense now has visible day/night cycle lighting in fortress mode
 
 ## Fixes
