@@ -575,7 +575,6 @@ namespace
     }
     void drawDebugInfo(WorldSegment* segment)
     {
-        using df::global::plotinfo;
         auto font = stonesenseState.font;
         auto fontHeight = al_get_font_line_height(font);
         auto& contentLoader = stonesenseState.contentLoader;
