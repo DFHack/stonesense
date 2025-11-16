@@ -42,6 +42,7 @@ bool readConstructionsToTile( Tile* b, const Stonesense_Building* building )
             constructedTiletype = df::tiletype::ConstructedFortification;
             break;
         case construction_type::Wall:
+        case construction_type::ReinforcedWall:
             constructedTiletype = df::tiletype::ConstructedPillar;
             break;
         case construction_type::Floor:

@@ -42,6 +42,7 @@ Template for new versions:
 ## Fixes
 
 ## Misc Improvements
+- `stonesense`: queued constructions of reinforced walls are now visible
 
 ## Removed
 
