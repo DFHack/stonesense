@@ -13,7 +13,6 @@ struct GameConfiguration {
     Config config;
 
     // items not configurable via the config file
-    bool overlay_mode;
     bool show_designations = true;
     bool show_announcements = false;
     bool show_keybinds = false;
