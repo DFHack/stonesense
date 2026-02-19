@@ -767,6 +767,9 @@ namespace
         case df::flow_type::ItemCloud:
             // TODO
             break;
+        default:
+            assert("Unhandled flow type" && false); // FIXME temporary - replace with NONE case after structures are updated
+            break;
         }
 
         if (!text.empty()) {
