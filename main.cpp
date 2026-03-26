@@ -128,7 +128,7 @@ void SetTitle(const char *format, ...)
 
 bool loadfont(DFHack::color_ostream & output)
 {
-    std::filesystem::path p{ "stonesense" };
+    std::filesystem::path p{ DFHack::Core::getInstance().getHackPath() / "stonesense" };
     p /= stonesenseState.ssConfig.config.font;
     stonesenseState.font = al_load_font(p.string().c_str(), stonesenseState.ssConfig.config.fontsize, 0);
     if (!stonesenseState.font) {
@@ -445,7 +445,7 @@ static void* stonesense_thread(ALLEGRO_THREAD* main_thread, void* parms)
     }
     */
 
-    std::filesystem::path p = std::filesystem::path{} / "stonesense" / "stonesense.png";
+    std::filesystem::path p = DFHack::Core::getInstance().getHackPath() / "stonesense" / "stonesense.png";
     IMGIcon = load_bitmap_withWarning(p);
     if(!IMGIcon) {
         al_destroy_display(display);
@@ -465,7 +465,7 @@ static void* stonesense_thread(ALLEGRO_THREAD* main_thread, void* parms)
     }
 
     {
-        std::filesystem::path p = std::filesystem::path{} / "stonesense" / "splash.png";
+        std::filesystem::path p = DFHack::Core::getInstance().getHackPath() / "stonesense" / "splash.png";
         SplashImage = load_bitmap_withWarning(p);
     }
 

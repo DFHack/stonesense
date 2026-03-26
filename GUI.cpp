@@ -1040,7 +1040,7 @@ namespace {
 
 void loadGraphicsFromDisk()
 {
-    std::filesystem::path path{ "stonesense" };
+    std::filesystem::path path{ DFHack::Core::getInstance().getHackPath() / "stonesense"};
     for (auto& img : img_list)
     {
         if (!load_from_path(path, img.name, img.bPtr))

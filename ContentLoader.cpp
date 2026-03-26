@@ -223,7 +223,7 @@ bool ContentLoader::reload_configs()
     flushImgFiles();
 
     loadGraphicsFromDisk(); //these get destroyed when flushImgFiles is called.
-    std::filesystem::path p = std::filesystem::path{} / "stonesense" / "index.txt";
+    std::filesystem::path p = DFHack::Core::getInstance().getHackPath() / "stonesense" / "index.txt";
     bool overallResult = parseContentIndexFile( p );
 
     return overallResult;

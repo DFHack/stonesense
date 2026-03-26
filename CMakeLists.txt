@@ -237,6 +237,6 @@ ENDIF(APPLE)
 
 if(INSTALL_DATA_FILES)
     #install resources and readme into DF/stonesense
-    install(DIRECTORY resources/ DESTINATION stonesense)
-    install(FILES README.md DESTINATION stonesense)
+    install(DIRECTORY resources/ DESTINATION ${DFHACK_DATA_DESTINATION}/stonesense)
+    install(FILES README.md DESTINATION ${DFHACK_DATA_DESTINATION}/stonesense)
 endif()

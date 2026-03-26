@@ -765,9 +765,9 @@ void createEffectSprites()
     sprite_dust            = CreateSpriteFromSheet( 182, stonesenseState.IMGObjectSheet);
     sprite_magma        = CreateSpriteFromSheet( 185, stonesenseState.IMGObjectSheet);
     sprite_smoke        = CreateSpriteFromSheet( 186, stonesenseState.IMGObjectSheet);
-    sprite_dragonfire    = load_bitmap_withWarning("stonesense/Effect_flames.png");
+    sprite_dragonfire    = load_bitmap_withWarning(DFHack::Core::getInstance().getHackPath() / "stonesense" / "Effect_flames.png");
     sprite_fire            = CreateSpriteFromSheet( 188, stonesenseState.IMGObjectSheet);
-    sprite_webing        = load_bitmap_withWarning("stonesense/Effect_web.png");
+    sprite_webing        = load_bitmap_withWarning(DFHack::Core::getInstance().getHackPath() / "stonesense" / "Effect_web.png");
     sprite_boiling        = CreateSpriteFromSheet( 190, stonesenseState.IMGObjectSheet);
     sprite_oceanwave    = CreateSpriteFromSheet( 191, stonesenseState.IMGObjectSheet);
 }
