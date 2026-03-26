@@ -391,7 +391,7 @@ static void* stonesense_thread(ALLEGRO_THREAD* main_thread, void* parms)
     int revision = (version >> 8) & 255;
     int release = version & 255;
 
-    out.print("Using allegro version %d.%d.%d r%d\n", major, minor, revision, release);
+    out.print("Using allegro version {}.{}.{} r{}\n", major, minor, revision, release);
 
     auto& ssConfig = stonesenseState.ssConfig;
     al_set_new_display_flags(
