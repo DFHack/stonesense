@@ -190,7 +190,7 @@ ELSE(UNIX)
         list(APPEND PROJECT_LIBS ${ALLEGRO_LIB}.lib)
         if(BUILD_PLUGINS)
             install(FILES ${stonesense_SOURCE_DIR}/win${DFHACK_BUILD_ARCH}/Allegro/bin/${ALLEGRO_LIB}-5.2.dll
-                DESTINATION .)
+                DESTINATION ${DFHACK_LIBRARY_DESTINATION})
         endif()
     endforeach()
     SET(PROJECT_LIBS
