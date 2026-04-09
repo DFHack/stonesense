@@ -199,7 +199,7 @@ bool ContentLoader::Load()
     stonesenseState.contentLoader->obsidian = lookupMaterialIndex(INORGANIC, "OBSIDIAN");
 
     loadGraphicsFromDisk(); //these get destroyed when flushImgFiles is called.
-    std::filesystem::path p{ "stonesense" };
+    std::filesystem::path p{ DFHack::Core::getInstance().getHackPath() / "stonesense" };
     bool overallResult = parseContentIndexFile( p / "index.txt");
     translationComplete = false;
 
