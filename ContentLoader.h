@@ -131,7 +131,6 @@ public:
 
     std::vector<std::string> professionStrings;
     std::map <uint32_t, std::string> custom_workshop_types;
-    DFHack::Materials* Mats = nullptr;
     std::vector<DFHack::t_matgloss> organic;
     std::vector<DFHack::t_matglossInorganic> inorganic;
 
@@ -159,21 +158,21 @@ extern int loadImgFromXML(TiXmlElement* elemRoot);
 MAT_BASICS lookupMaterialType(const char* strValue);
 int lookupMaterialIndex(int matType, const char* strValue);
 
-template <typename T, typename Index = decltype(T::id)>
-int lookupIndexedType(const Index& indexName, const std::vector<T>& typeVector)
+template <typename T, typename U = T>
+int lookupIndexedType(std::string_view indexName, const std::vector<T>& typeVector, std::string U::* fld = &T::id)
 {
-    auto get_id = [](auto tv) {
-        if constexpr (std::is_pointer_v<T>) return tv->id;
-        else return tv.id;
+    auto get_id = [fld](auto tv) {
+        if constexpr (std::is_pointer_v<T>) return tv->*fld;
+        else return tv.*fld;
         };
     auto it = std::find_if(typeVector.begin(), typeVector.end(),
         [&](auto tv) -> bool { return get_id(tv) == indexName; });
     return it != typeVector.end() ? it - typeVector.begin() : INVALID_INDEX;
 }
-template <typename T, typename Index = decltype(T::id)>
-int lookupIndexedPointerType(const Index& indexName, const std::vector<T*>& typeVector)
+template <typename T>
+int lookupIndexedPointerType(std::string_view indexName, const std::vector<T*>& typeVector, std::string T::* fld = &T::id)
 {
-    return lookupIndexedType<T*, Index>(indexName, typeVector);
+    return lookupIndexedType<T*, T>(indexName, typeVector, fld);
 }
 
 const char *lookupMaterialTypeName(int matType);

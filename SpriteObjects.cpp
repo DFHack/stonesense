@@ -10,6 +10,8 @@
 #include "GameConfiguration.h"
 #include "StonesenseState.h"
 
+#include "df/color_modifier_raw.h"
+#include "df/descriptor_color.h"
 #include "df/descriptor_pattern.h"
 #include "df/itemdef_ammost.h"
 #include "df/itemdef_armorst.h"
@@ -338,16 +340,16 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite, int32_t inFile, int32_t crea
     const char* bodyPartStr = elemSprite->Attribute("bodypart");
     //copy new, if found
     if (bodyPartStr != NULL && bodyPartStr[0] != 0) {
-        DFHack::t_creaturecaste & caste = contentLoader->Mats->raceEx[creatureID].castes[(casteID==INVALID_INDEX) ? 0 : casteID];
-        std::vector<DFHack::t_colormodifier> & colormods = caste.ColorModifier;
+        auto& caste = df::global::world->raws.creatures.all[creatureID]->caste[(casteID == INVALID_INDEX) ? 0 : casteID];
+        auto& colormods = caste->color_modifiers;
         for(size_t j = 0; j<colormods.size() ; j++) {
-            if(colormods[j].part == bodyPartStr) {
+            if(colormods[j]->part == bodyPartStr) {
                 caste_bodypart_index = j;
                 return;
             }
         }
         LogError("Failed loading bodypart '%s' of creature '%s' with caste '%s' from xml.",
-            bodyPartStr, contentLoader->Mats->raceEx[creatureID].id.c_str(), caste.id.c_str());
+            bodyPartStr, df::global::world->raws.creatures.all[creatureID]->creature_id.c_str(), caste->caste_id.c_str());
     }
 
     subsprites.clear();
@@ -643,9 +645,9 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
         namedcolor=al_map_rgb(255, 255, 255);
     } else {
         auto& contentLoader = stonesenseState.contentLoader;
-        int colorindex = lookupIndexedType(namedColorStr, contentLoader->Mats->color);
-        DFHack::t_descriptor_color col = contentLoader->Mats->color[colorindex];
-        namedcolor = al_map_rgb_f( col.red, col.green, col.blue);
+        int colorindex = lookupIndexedType(namedColorStr, df::global::world->raws.descriptors.colors, &df::descriptor_color::id);
+        auto& col = df::global::world->raws.descriptors.colors[colorindex];
+        namedcolor = al_map_rgb_f( col->red, col->green, col->blue);
     }
 
     //Should the sprite be shown only when there is snow?
@@ -1147,7 +1149,7 @@ ALLEGRO_COLOR c_sprite::get_color(void* tile)
     auto& ssConfig = stonesenseState.ssConfig;
 
     Tile * b = (Tile *) tile;
-    uint32_t dayofLife = 0;
+    int32_t dayofLife = 0;
     switch(shadeBy) {
     case ShadeNone:
         return al_map_rgb(255, 255, 255);
@@ -1194,28 +1196,28 @@ ALLEGRO_COLOR c_sprite::get_color(void* tile)
         if(b->occ.bits.unit && b->creature) {
             dayofLife = b->creature->origin->birth_year*12*28 + b->creature->origin->birth_time/1200;
             if((!ssConfig.skipCreatureTypes) && (!ssConfig.skipCreatureTypesEx) && (!ssConfig.skipDescriptorColors)) {
-                DFHack::t_creaturecaste & caste = contentLoader->Mats->raceEx[b->creature->origin->race].castes[b->creature->origin->caste];
-                std::vector<DFHack::t_colormodifier> & colormods =caste.ColorModifier;
+                auto& caste = df::global::world->raws.creatures.all[b->creature->origin->race]->caste[b->creature->origin->caste];
+                auto& colormods = caste->color_modifiers;
                 if(caste_bodypart_index != INVALID_INDEX && size_t(caste_bodypart_index) < colormods.size()){
-                    DFHack::t_colormodifier & colormod = colormods[caste_bodypart_index];
-                    if(colormod.colorlist.size() > b->creature->color[caste_bodypart_index]) {
-                        uint32_t cr_color = colormod.colorlist.at(b->creature->color[caste_bodypart_index]);
+                    auto& colormod = colormods[caste_bodypart_index];
+                    if(colormod->pattern_index.size() > b->creature->color[caste_bodypart_index]) {
+                        uint32_t cr_color = colormod->pattern_index.at(b->creature->color[caste_bodypart_index]);
                         if(cr_color < df::global::world->raws.descriptors.patterns.size()) {
                             uint16_t actual_color = df::global::world->raws.descriptors.patterns[cr_color]->colors[pattern_index%df::global::world->raws.descriptors.patterns[cr_color]->colors.size()];
-                            if(actual_color < contentLoader->Mats->color.size()){
-                                if(colormod.startdate > 0) {
-                                    if((colormod.startdate <= dayofLife) &&
-                                        (colormod.enddate > dayofLife)) {
+                            if(actual_color < df::global::world->raws.descriptors.colors.size()){
+                                if(colormod->start_date > 0) {
+                                    if((colormod->start_date <= dayofLife) &&
+                                        (colormod->end_date > dayofLife)) {
                                             return al_map_rgb_f(
-                                                contentLoader->Mats->color[actual_color].red,
-                                                contentLoader->Mats->color[actual_color].green,
-                                                contentLoader->Mats->color[actual_color].blue);;
+                                                df::global::world->raws.descriptors.colors[actual_color]->red,
+                                                df::global::world->raws.descriptors.colors[actual_color]->green,
+                                                df::global::world->raws.descriptors.colors[actual_color]->blue);;
                                     }
                                 } else
                                     return al_map_rgb_f(
-                                    contentLoader->Mats->color[actual_color].red,
-                                    contentLoader->Mats->color[actual_color].green,
-                                    contentLoader->Mats->color[actual_color].blue);
+                                    df::global::world->raws.descriptors.colors[actual_color]->red,
+                                    df::global::world->raws.descriptors.colors[actual_color]->green,
+                                    df::global::world->raws.descriptors.colors[actual_color]->blue);
                             }
                         }
                     }
