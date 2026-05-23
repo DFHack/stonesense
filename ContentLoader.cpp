@@ -72,8 +72,6 @@ bool ContentLoader::Load()
     shrubConfigs.clear();
     flushImgFiles();
 
-    auto& ssConfig = stonesenseState.ssConfig;
-
     draw_loading_message("Reading Custom Workshop Types");
     DFHack::Buildings::ReadCustomWorkshopTypes(custom_workshop_types);
     draw_loading_message("Reading Professions");

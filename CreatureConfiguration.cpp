@@ -39,7 +39,6 @@ namespace {
             if (knownCreatures.size() <= size_t(gameID)) {
                 //resize using hint from creature name list
                 size_t newsize = size_t(gameID) + 1;
-                auto& contentLoader = stonesenseState.contentLoader;
                 if (newsize <= df::global::world->raws.creatures.all.size()) {
                     newsize = df::global::world->raws.creatures.all.size() + 1;
                 }
@@ -63,7 +62,6 @@ namespace {
         if (ssConfig.skipCreatureTypes) {
             return false;
         }
-        auto& contentLoader = stonesenseState.contentLoader;
         int gameID = lookupIndexedType(elemCreature->Attribute("gameID"), df::global::world->raws.creatures.all, &df::creature_raw::creature_id);
         if (gameID == INVALID_INDEX) {
             return false;
