@@ -332,7 +332,6 @@ c_sprite::~c_sprite(void)
 
 void c_sprite::set_by_xml(TiXmlElement *elemSprite, int32_t inFile, int32_t creatureID, int32_t casteID)
 {
-    auto& contentLoader = stonesenseState.contentLoader;
     fileindex = inFile;
     set_by_xml(elemSprite);
 
@@ -644,7 +643,6 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
     if (namedColorStr == NULL || namedColorStr[0] == 0) {
         namedcolor=al_map_rgb(255, 255, 255);
     } else {
-        auto& contentLoader = stonesenseState.contentLoader;
         int colorindex = lookupIndexedType(namedColorStr, df::global::world->raws.descriptors.colors, &df::descriptor_color::id);
         auto& col = df::global::world->raws.descriptors.colors[colorindex];
         namedcolor = al_map_rgb_f( col->red, col->green, col->blue);
@@ -1145,9 +1143,7 @@ void c_sprite::set_plate_layout(uint8_t layout)
 
 ALLEGRO_COLOR c_sprite::get_color(void* tile)
 {
-    auto& contentLoader = stonesenseState.contentLoader;
     auto& ssConfig = stonesenseState.ssConfig;
-
     Tile * b = (Tile *) tile;
     int32_t dayofLife = 0;
     switch(shadeBy) {
