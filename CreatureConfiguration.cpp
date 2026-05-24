@@ -39,9 +39,8 @@ namespace {
             if (knownCreatures.size() <= size_t(gameID)) {
                 //resize using hint from creature name list
                 size_t newsize = size_t(gameID) + 1;
-                auto& contentLoader = stonesenseState.contentLoader;
-                if (newsize <= contentLoader->Mats->race.size()) {
-                    newsize = contentLoader->Mats->race.size() + 1;
+                if (newsize <= df::global::world->raws.creatures.all.size()) {
+                    newsize = df::global::world->raws.creatures.all.size() + 1;
                 }
                 while (knownCreatures.size() < newsize) {
                     knownCreatures.push_back(nullptr);
@@ -63,8 +62,7 @@ namespace {
         if (ssConfig.skipCreatureTypes) {
             return false;
         }
-        auto& contentLoader = stonesenseState.contentLoader;
-        int gameID = lookupIndexedType(elemCreature->Attribute("gameID"), contentLoader->Mats->race);
+        int gameID = lookupIndexedType(elemCreature->Attribute("gameID"), df::global::world->raws.creatures.all, &df::creature_raw::creature_id);
         if (gameID == INVALID_INDEX) {
             return false;
         }
@@ -118,7 +116,7 @@ namespace {
             int caste = -1;
             const char* caststr = elemVariant->Attribute("caste");
             if (caststr != NULL && caststr[0] != 0) {
-                caste = lookupIndexedType(caststr, contentLoader->Mats->raceEx[gameID].castes);
+                caste = lookupIndexedType(caststr, df::global::world->raws.creatures.all[gameID]->caste, &df::caste_raw::caste_id);
             }
             const char* specstr = elemVariant->Attribute("special");
             enumCreatureSpecialCases crespec = eCSC_Any;

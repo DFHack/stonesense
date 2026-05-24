@@ -15,6 +15,7 @@
 
 #include "df/caste_raw.h"
 #include "df/creature_raw.h"
+#include "df/descriptor_color.h"
 #include "df/entity_position.h"
 #include "df/entity_position_raw.h"
 #include "df/entity_raw.h"
@@ -71,60 +72,6 @@ bool ContentLoader::Load()
     shrubConfigs.clear();
     flushImgFiles();
 
-    // This is an extra suspend/resume, but it only happens when reloading the config
-    // ie not enough to worry about
-    //DF.Suspend();
-    ////read data from DF
-    //const vector<string> *tempClasses = DF.getMemoryInfo()->getClassIDMapping();
-    //// make a copy for our use
-    //classIdStrings = *tempClasses;
-
-    try {
-        Mats = DFHack::Core::getInstance().getMaterials();
-    } catch(exception &e) {
-        LogError("DFhack exeption: %s\n", e.what());
-    }
-    auto& ssConfig = stonesenseState.ssConfig;
-    draw_loading_message("Reading Creature Names");
-    if (!ssConfig.skipCreatureTypes) {
-        try {
-            Mats->ReadCreatureTypes();
-        } catch(exception &e) {
-            LogError("DFhack exeption: %s\n", e.what());
-            ssConfig.skipCreatureTypes = true;
-        }
-    }
-    if(!ssConfig.skipCreatureTypesEx) {
-        try {
-            Mats->ReadCreatureTypesEx();
-        } catch(exception &e) {
-            LogError("DFhack exeption: %s\n", e.what());
-            ssConfig.skipCreatureTypesEx = true;
-        }
-    }
-    draw_loading_message("Reading Color Descriptors");
-    if (!ssConfig.skipDescriptorColors) {
-        try {
-            Mats->ReadDescriptorColors();
-        } catch(exception &e) {
-            LogError("DFhack exeption: %s\n", e.what());
-            ssConfig.skipDescriptorColors = true;
-        }
-    }
-    draw_loading_message("Reading Inorganic Materials");
-    if (!ssConfig.skipInorganicMats) {
-        if(!Mats->CopyInorganicMaterials(this->inorganic)) {
-            LogError("Missing inorganic materials!\n");
-            ssConfig.skipInorganicMats = true;
-        }
-    }
-    draw_loading_message("Reading Organic Materials");
-    if (!ssConfig.skipOrganicMats) {
-        if(!Mats->CopyOrganicMaterials(this->organic)) {
-            LogError("Missing organic materials!\n");
-            ssConfig.skipOrganicMats = true;
-        }
-    }
     draw_loading_message("Reading Custom Workshop Types");
     DFHack::Buildings::ReadCustomWorkshopTypes(custom_workshop_types);
     draw_loading_message("Reading Professions");
@@ -478,15 +425,15 @@ int lookupMaterialIndex(int matType, const char* strValue)
 
     // for appropriate elements, look up subtype
     if (matType == INORGANIC && !ssConfig.skipInorganicMats) {
-        return lookupIndexedType(strValue,contentLoader->inorganic);
+        return lookupIndexedType(strValue, contentLoader->inorganic);
     } else if (matType == WOOD && !ssConfig.skipOrganicMats) {
-        return lookupIndexedType(strValue,contentLoader->organic);
+        return lookupIndexedType(strValue, contentLoader->organic);
     } else if (matType == PLANT && !ssConfig.skipOrganicMats) {
-        return lookupIndexedType(strValue,contentLoader->organic);
+        return lookupIndexedType(strValue, contentLoader->organic);
     } else if (matType == PLANTCLOTH && !ssConfig.skipOrganicMats) {
-        return lookupIndexedType(strValue,contentLoader->organic);
+        return lookupIndexedType(strValue, contentLoader->organic);
     } else if (matType == LEATHER && !ssConfig.skipCreatureTypes) {
-        return lookupIndexedType(strValue,contentLoader->Mats->race);
+        return lookupIndexedType(strValue, df::global::world->raws.creatures.all, &df::creature_raw::creature_id);
     } else {
         //maybe allow some more in later
         return INVALID_INDEX;
@@ -620,7 +567,7 @@ const char *lookupMaterialName(int matType,int matIndex)
         typeVector=&(contentLoader->organic);
     } else if (matType == LEATHER) {
         if(!ssConfig.skipCreatureTypes) {
-            typeVector=&(contentLoader->Mats->race);
+            return (df::global::world->raws.creatures.all)[matIndex]->creature_id.c_str();
         } else {
             return NULL;
         }
@@ -763,10 +710,13 @@ ALLEGRO_COLOR lookupMaterialColor(int matType, int matIndex, int dyeType, int dy
     ALLEGRO_COLOR dyeColor = al_map_rgb(255,255,255);
     DFHack::MaterialInfo dye;
     if (dyeType >= 0 && dyeIndex >= 0 && dye.decode(dyeType, dyeIndex))
-        dyeColor = al_map_rgb_f(
-        contentLoader->Mats->color[dye.material->powder_dye].red,
-        contentLoader->Mats->color[dye.material->powder_dye].green,
-        contentLoader->Mats->color[dye.material->powder_dye].blue);
+    {
+        if (dye.material->powder_dye != -1)
+        {
+            auto cd = df::global::world->raws.descriptors.colors[dye.material->powder_dye];
+            dyeColor = al_map_rgb_f(cd->red, cd->green, cd->blue);
+        }
+    }
     // FIXME integer truncation: matType should not be an int
     DFHack::t_matglossPair matPair{ int16_t(matType), matIndex };
     if (ALLEGRO_COLOR * matResult = contentLoader->materialColorConfigs.get(matPair))
@@ -793,10 +743,8 @@ ALLEGRO_COLOR lookupMaterialColor(int matType, int matIndex, int dyeType, int dy
 DFColor:
     DFHack::MaterialInfo mat;
     if(mat.decode(matType, matIndex)) {
-            return al_map_rgb_f(
-                       contentLoader->Mats->color[mat.material->state_color[0]].red,
-                       contentLoader->Mats->color[mat.material->state_color[0]].green,
-                       contentLoader->Mats->color[mat.material->state_color[0]].blue) * dyeColor;
+        auto cd = df::global::world->raws.descriptors.colors[mat.material->state_color[0]];
+        return al_map_rgb_f(cd->red, cd->green, cd->blue) * dyeColor;
     }
     return defaultColor * dyeColor;
 }

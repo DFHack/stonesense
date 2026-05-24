@@ -30,6 +30,7 @@
 #include "df/plotinfost.h"
 #include "df/building_actual.h"
 #include "df/world.h"
+#include "df/descriptor_color.h"
 
 #include "df/itemdef.h"
 #include "df/itemdef_weaponst.h"
@@ -644,7 +645,8 @@ namespace
             mat.decode(b->material.type, b->material.index);
             if (mat.isValid())
             {
-                ALLEGRO_COLOR color = al_map_rgb_f(contentLoader->Mats->color[mat.material->state_color[0]].red, contentLoader->Mats->color[mat.material->state_color[0]].green, contentLoader->Mats->color[mat.material->state_color[0]].blue);
+                auto cd = df::global::world->raws.descriptors.colors[mat.material->state_color[0]];
+                ALLEGRO_COLOR color = al_map_rgb_f(cd->red, cd->green, cd->blue);
                 draw_textf_border(font, color, 2, (i++ * fontHeight), 0,
                     "%s", mat.material->state_name[0].c_str());
             }
