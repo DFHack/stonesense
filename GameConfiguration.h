@@ -44,11 +44,7 @@ struct GameConfiguration {
     bool skipCreatureTypesEx;
     bool skipDescriptorColors;
     bool skipBuildings;
-    bool skipVegetation;
-    bool skipConstructions;
     bool skipMaps;
-    bool skipInorganicMats;
-    bool skipOrganicMats;
 
     //following are threading stuff
     ALLEGRO_COND* readCond;

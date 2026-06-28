@@ -131,8 +131,6 @@ public:
 
     std::vector<std::string> professionStrings;
     std::map <uint32_t, std::string> custom_workshop_types;
-    std::vector<DFHack::t_matgloss> organic;
-    std::vector<DFHack::t_matglossInorganic> inorganic;
 
     uint32_t currentTick = 0;
     uint32_t currentYear = 0;
