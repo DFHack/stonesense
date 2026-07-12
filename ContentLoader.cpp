@@ -743,8 +743,11 @@ ALLEGRO_COLOR lookupMaterialColor(int matType, int matIndex, int dyeType, int dy
 DFColor:
     DFHack::MaterialInfo mat;
     if(mat.decode(matType, matIndex)) {
-        auto cd = df::global::world->raws.descriptors.colors[mat.material->state_color[0]];
-        return al_map_rgb_f(cd->red, cd->green, cd->blue) * dyeColor;
+        int16_t colorIdx = mat.material->state_color[0];
+        if (colorIdx >= 0 && size_t(colorIdx) < df::global::world->raws.descriptors.colors.size()) {
+            auto cd = df::global::world->raws.descriptors.colors[colorIdx];
+            return al_map_rgb_f(cd->red, cd->green, cd->blue) * dyeColor;
+        }
     }
     return defaultColor * dyeColor;
 }
