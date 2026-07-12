@@ -40,6 +40,7 @@ Template for new versions:
 ## New Features
 
 ## Fixes
+- `stonesense`: fixed a crash when rendering materials with an out-of-range color index
 
 ## Misc Improvements
 
