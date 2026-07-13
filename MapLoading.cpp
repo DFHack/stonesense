@@ -648,7 +648,7 @@ void readBlockToSegment(DFHack::Core& DF, WorldSegment& segment,
 
 namespace
 {
-    void parse_tree(WorldSegment& segment, auto pp, auto info, auto parts, auto depth, bool downward, auto raw)
+    void parse_tree(WorldSegment& segment, df::plant *pp, df::plant_tree_info *info, auto parts, int32_t depth, bool downward, df::plant_raw *raw)
     {
         for (int zz = 0; zz < depth; zz++)
         {
@@ -667,7 +667,7 @@ namespace
                         df::coord pos = pp->pos;
                         pos.x = pos.x - (info->dim_x / 2) + xx;
                         pos.y = pos.y - (info->dim_y / 2) + yy;
-                        pos.z = pos.z + downward ? zz : (-1 - zz);
+                        pos.z = pos.z + (downward ? (-1 - zz) : zz);
                         if (!segment.CoordinateInsideSegment(pos.x, pos.y, pos.z))
                             continue;
                         Tile* t = segment.getTile(pos.x, pos.y, pos.z);
@@ -678,7 +678,7 @@ namespace
                         t->tree.type = pp->type;
                         t->tree.index = pp->material;
                         // only update tree_tile if part is a plant_tree_tile
-                        if constexpr (std::assignable_from<decltype(t->tree_tile), decltype(part)>)
+                        if constexpr (std::assignable_from<decltype(t->tree_tile)&, decltype(part)>)
                         {
                             t->tree_tile = part;
                             if (raw)

@@ -42,6 +42,7 @@ Template for new versions:
 ## Fixes
 - `stonesense`: fixed a crash when rendering materials with an out-of-range color index
 - `stonesense`: fixed incorrect stone/soil layer types appearing in fortresses that cross region bounds
+- `stonesense`: fixed tree materials not being applied correctly
 
 ## Misc Improvements
 
