@@ -18,8 +18,10 @@
 #include "df/block_square_event_material_spatterst.h"
 #include "df/block_square_event_mineralst.h"
 #include "df/construction.h"
+#include "df/coord2d.h"
 #include "df/engraving.h"
 #include "df/flow_info.h"
+#include "df/global_objects.h"
 #include "df/inorganic_raw.h"
 #include "df/item_constructed.h"
 #include "df/item_threadst.h"
@@ -31,6 +33,10 @@
 #include "df/plant_root_tile.h"
 #include "df/plant_tree_info.h"
 #include "df/plant_tree_tile.h"
+#include "df/region_map_entry.h"
+#include "df/world_data.h"
+#include "df/world_geo_biome.h"
+#include "df/world_geo_layer.h"
 
 #include "allegro5/color.h"
 
@@ -250,22 +256,21 @@ void readMaterialToTile(Tile* b, uint32_t lx, uint32_t ly,
     df::map_block* trueBlock,
     const DFHack::t_feature& local,
     const DFHack::t_feature& global,
-    const vector <df::block_square_event_mineralst * > & veins,
-    vector< vector <int16_t> >* allLayers)
+    const vector <df::block_square_event_mineralst * > & veins)
 {
     //determine rock/soil type
     int rockIndex = -1;
 
     //first lookup the default geolayer for the location
-    uint32_t tileBiomeIndex = trueBlock->designation[lx][ly].bits.biome;
-    uint8_t tileRegionIndex = trueBlock->region_offset[tileBiomeIndex];
-    uint32_t tileGeolayerIndex = trueBlock->designation[lx][ly].bits.geolayer_index;
-    if(tileRegionIndex < (*allLayers).size()) {
-        if(tileGeolayerIndex < (*allLayers).at(tileRegionIndex).size()) {
-            rockIndex = (*allLayers).at(tileRegionIndex).at(tileGeolayerIndex);
-        }
-    }
+    auto regionPos = DFHack::Maps::getBlockTileBiomeRgn(trueBlock, df::coord2d(lx, ly));
+    auto regionBiome = DFHack::Maps::getRegionBiome(regionPos);
+    auto geoBiome = df::global::world->world_data->geo_biomes[regionBiome->geo_index];
 
+    uint32_t tileGeolayerIndex = trueBlock->designation[lx][ly].bits.geolayer_index;
+
+    if (tileGeolayerIndex < geoBiome->layers.size()) {
+        rockIndex = geoBiome->layers[tileGeolayerIndex]->mat_index;
+    }
 
     bool soilTile = false;//is this tile a match for soil materials?
     bool soilMat = false;//is the material a soil?
@@ -288,8 +293,8 @@ void readMaterialToTile(Tile* b, uint32_t lx, uint32_t ly,
             //if the tile is a stone tile but we got a soil material, we need to "dig down" to find it
             while(!soilTile && soilMat) {
                 tileGeolayerIndex++;
-                if(tileGeolayerIndex < (*allLayers).at(tileRegionIndex).size()) {
-                    rockIndex = (*allLayers).at(tileRegionIndex).at(tileGeolayerIndex);
+                if(tileGeolayerIndex < geoBiome->layers.size()) {
+                    rockIndex = geoBiome->layers.at(tileGeolayerIndex)->mat_index;
                     rawMat = df::inorganic_raw::find(rockIndex);
                     if(rawMat) {
                         soilMat = rawMat->flags.is_set(inorganic_flags::SOIL_ANY);
@@ -309,7 +314,7 @@ void readMaterialToTile(Tile* b, uint32_t lx, uint32_t ly,
                     break;
                 }
                 tileGeolayerIndex--;
-                rockIndex = (*allLayers).at(tileRegionIndex).at(tileGeolayerIndex);
+                rockIndex = geoBiome->layers.at(tileGeolayerIndex)->mat_index;
                 rawMat = df::inorganic_raw::find(rockIndex);
                 if(rawMat) {
                     soilMat = rawMat->flags.is_set(inorganic_flags::SOIL_ANY);
@@ -431,8 +436,7 @@ SS_Item ConvertItem(df::item * found_item, WorldSegment& segment){
 void readBlockToSegment(DFHack::Core& DF, WorldSegment& segment,
     int BlockX, int BlockY, int BlockZ,
     uint32_t BoundrySX, uint32_t BoundrySY,
-    uint32_t BoundryEX, uint32_t BoundryEY,
-    vector< vector <int16_t> >* allLayers)
+    uint32_t BoundryEX, uint32_t BoundryEY)
 {
     if(stonesenseState.ssConfig.skipMaps) {
         return;
@@ -575,7 +579,7 @@ void readBlockToSegment(DFHack::Core& DF, WorldSegment& segment,
             readSpatterToTile(b, lx, ly, splatter);
 
             //read the tile material
-            readMaterialToTile(b, lx, ly, trueBlock, local, global, veins, allLayers);
+            readMaterialToTile(b, lx, ly, trueBlock, local, global, veins);
         }
     }
 
@@ -828,13 +832,6 @@ void readMapSegment(WorldSegment* segment, GameState inState)
         firstTileToReadX = 0;
     }
 
-    // get region geology
-    vector< vector <int16_t> > layers;
-    vector<df::coord2d> geoidx;
-    if (!DFHack::Maps::ReadGeology(&layers, &geoidx)) {
-        LogError("Can't get region geology.\n");
-    }
-
     while (firstTileToReadX < inState.Position.x + inState.Size.x) {
         int blockx = firstTileToReadX / BLOCKEDGESIZE;
         int32_t lastTileInBlockX = (blockx + 1) * BLOCKEDGESIZE - 1;
@@ -854,7 +851,7 @@ void readMapSegment(WorldSegment* segment, GameState inState)
                 //load the tiles from this block to the map segment
                 readBlockToSegment(DF, *segment, blockx, blocky, lz,
                     firstTileToReadX, firstTileToReadY,
-                    lastTileToReadX, lastTileToReadY, &layers);
+                    lastTileToReadX, lastTileToReadY);
 
             }
             firstTileToReadY = lastTileToReadY + 1;
