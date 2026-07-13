@@ -44,6 +44,7 @@ struct GameConfiguration {
     bool skipCreatureTypesEx;
     bool skipDescriptorColors;
     bool skipBuildings;
+    bool skipConstructions;
     bool skipMaps;
 
     //following are threading stuff
