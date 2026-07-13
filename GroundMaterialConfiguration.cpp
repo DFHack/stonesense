@@ -38,15 +38,6 @@ TerrainConfiguration::TerrainConfiguration()
     //dont really care about the rest of the sprite right now.
 }
 
-void DumpInorganicMaterialNamesToDisk()
-{
-    std::ofstream fp{ std::filesystem::path { "dump.txt"} };
-    auto& contentLoader = stonesenseState.contentLoader;
-    for (uint32_t j = 0; j < contentLoader->inorganic.size(); j++) {
-        fp << j << ':' << contentLoader->inorganic[j].id << '\n';
-    }
-}
-
 void TerrainMaterialConfiguration::updateSprite(int j, c_sprite& sprite, int x)
 {
     if (defaultSprite[j].second == INVALID_INDEX || defaultSprite[j].second > x)

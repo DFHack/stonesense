@@ -13,6 +13,7 @@
 #include "df/color_modifier_raw.h"
 #include "df/descriptor_color.h"
 #include "df/descriptor_pattern.h"
+#include "df/global_objects.h"
 #include "df/itemdef_ammost.h"
 #include "df/itemdef_armorst.h"
 #include "df/itemdef_foodst.h"
@@ -28,6 +29,7 @@
 #include "df/itemdef_trapcompst.h"
 #include "df/itemdef_weaponst.h"
 #include "df/material.h"
+#include "df/plant_raw.h"
 #include "df/unit.h"
 #include "df/world.h"
 
@@ -681,7 +683,7 @@ void c_sprite::set_by_xml(TiXmlElement *elemSprite)
     if (idstr == NULL || idstr[0] == 0) {
         grasstype = INVALID_INDEX;
     } else {
-        grasstype = lookupIndexedType(idstr, stonesenseState.contentLoader->organic);
+        grasstype = lookupIndexedType(idstr, df::global::world->raws.plants.all, &df::plant_raw::id);
     }
 
     //find the item type

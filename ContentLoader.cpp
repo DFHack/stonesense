@@ -20,6 +20,7 @@
 #include "df/entity_position_raw.h"
 #include "df/entity_raw.h"
 #include "df/historical_entity.h"
+#include "df/inorganic_raw.h"
 #include "df/itemdef.h"
 #include "df/itemdef_armorst.h"
 #include "df/itemdef_glovesst.h"
@@ -29,6 +30,7 @@
 #include "df/itemdef_shoesst.h"
 #include "df/itemdef_weaponst.h"
 #include "df/material.h"
+#include "df/plant_raw.h"
 #include "df/tissue_style_raw.h"
 #include "df/world.h"
 
@@ -328,17 +330,17 @@ bool ContentLoader::parseCreatureContent(TiXmlElement* elemRoot )
 
 bool ContentLoader::parseShrubContent(TiXmlElement* elemRoot )
 {
-    return addSingleVegetationConfig( elemRoot, &shrubConfigs, organic );
+    return addSingleVegetationConfig( elemRoot, &shrubConfigs );
 }
 
 bool ContentLoader::parseTreeContent(TiXmlElement* elemRoot )
 {
-    return addSingleVegetationConfig( elemRoot, &treeConfigs, organic );
+    return addSingleVegetationConfig( elemRoot, &treeConfigs );
 }
 
 bool ContentLoader::parseGrassContent(TiXmlElement* elemRoot )
 {
-    return addSingleVegetationConfig( elemRoot, &grassConfigs, organic );
+    return addSingleVegetationConfig( elemRoot, &grassConfigs );
 }
 
 bool ContentLoader::parseTerrainContent(TiXmlElement* elemRoot )
@@ -420,19 +422,12 @@ char getAnimFrames(const char* framestring)
 
 int lookupMaterialIndex(int matType, const char* strValue)
 {
-    auto& contentLoader = stonesenseState.contentLoader;
-    auto& ssConfig = stonesenseState.ssConfig;
-
     // for appropriate elements, look up subtype
-    if (matType == INORGANIC && !ssConfig.skipInorganicMats) {
-        return lookupIndexedType(strValue, contentLoader->inorganic);
-    } else if (matType == WOOD && !ssConfig.skipOrganicMats) {
-        return lookupIndexedType(strValue, contentLoader->organic);
-    } else if (matType == PLANT && !ssConfig.skipOrganicMats) {
-        return lookupIndexedType(strValue, contentLoader->organic);
-    } else if (matType == PLANTCLOTH && !ssConfig.skipOrganicMats) {
-        return lookupIndexedType(strValue, contentLoader->organic);
-    } else if (matType == LEATHER && !ssConfig.skipCreatureTypes) {
+    if (matType == INORGANIC) {
+        return lookupIndexedType(strValue, df::global::world->raws.inorganics.all, &df::inorganic_raw::id);
+    } else if (matType == WOOD || matType == PLANT || matType == PLANTCLOTH) {
+        return lookupIndexedType(strValue, df::global::world->raws.plants.all, &df::plant_raw::id);
+    } else if (matType == LEATHER) {
         return lookupIndexedType(strValue, df::global::world->raws.creatures.all, &df::creature_raw::creature_id);
     } else {
         //maybe allow some more in later
@@ -546,59 +541,27 @@ using DFHack::t_matgloss;
 
 const char *lookupMaterialName(int matType,int matIndex)
 {
-    auto& contentLoader = stonesenseState.contentLoader;
-    auto& ssConfig = stonesenseState.ssConfig;
-
     if (matIndex < 0) {
         return NULL;
     }
-    vector<t_matgloss>* typeVector;
-    // for appropriate elements, look up subtype
-    if ((matType == INORGANIC) && (!ssConfig.skipInorganicMats)) {
-        if(size_t(matIndex) < contentLoader->inorganic.size()) {
-            return contentLoader->inorganic[matIndex].id.c_str();
-        } else {
-            return NULL;
-        }
-    }
-    else if (((matType == WOOD) || (matType == PLANT)) && (!ssConfig.skipOrganicMats)) {
-        typeVector=&(contentLoader->organic);
-    } else if ((matType == PLANTCLOTH) && (!ssConfig.skipOrganicMats)) {
-        typeVector=&(contentLoader->organic);
+
+    if (matType == INORGANIC) {
+        return (df::global::world->raws.inorganics.all)[matIndex]->id.c_str();
+    } else if (matType == WOOD || matType == PLANT || matType == PLANTCLOTH) {
+        return (df::global::world->raws.plants.all)[matIndex]->name.c_str();
     } else if (matType == LEATHER) {
-        if(!ssConfig.skipCreatureTypes) {
-            return (df::global::world->raws.creatures.all)[matIndex]->creature_id.c_str();
-        } else {
-            return NULL;
-        }
+        return (df::global::world->raws.creatures.all)[matIndex]->creature_id.c_str();
     } else {
-        //maybe allow some more in later
         return NULL;
     }
-    if (size_t(matIndex) >= typeVector->size()) {
-        return NULL;
-    }
-    return (*typeVector)[matIndex].id.c_str();
 }
 
 const char *lookupTreeName(int matIndex)
 {
-    auto& contentLoader = stonesenseState.contentLoader;
-    auto& ssConfig = stonesenseState.ssConfig;
-
-    if(ssConfig.skipOrganicMats) {
-        return NULL;
-    }
     if (matIndex < 0) {
         return NULL;
     }
-    vector<t_matgloss>* typeVector;
-    // for appropriate elements, look up subtype
-    typeVector=&(contentLoader->organic);
-    if (size_t(matIndex) >= typeVector->size()) {
-        return NULL;
-    }
-    return (*typeVector)[matIndex].id.c_str();
+    return (df::global::world->raws.plants.all)[matIndex]->name.c_str();;
 }
 
 const char * lookupFormName(int formType)

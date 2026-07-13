@@ -6,6 +6,7 @@
 #include "ContentLoader.h"
 #include "SpriteObjects.h"
 
+#include "df/global_objects.h"
 #include "tinyxml.h"
 
 VegetationConfiguration::VegetationConfiguration(int gameID, c_tile_tree &tree, bool live, bool grown) :
@@ -20,7 +21,7 @@ VegetationConfiguration::~VegetationConfiguration(void)
 {
 }
 
-bool addSingleVegetationConfig( TiXmlElement* elemRoot, std::vector<std::unique_ptr<VegetationConfiguration>>*vegetationConfigs, std::vector<DFHack::t_matgloss>& plantNames)
+bool addSingleVegetationConfig( TiXmlElement* elemRoot, std::vector<std::unique_ptr<VegetationConfiguration>>*vegetationConfigs)
 {
     int basefile = -1;
 
@@ -38,7 +39,7 @@ bool addSingleVegetationConfig( TiXmlElement* elemRoot, std::vector<std::unique_
         const char* idstr = elemTree->Attribute("gameID");
         int gameID = INVALID_INDEX;
         if (idstr && idstr[0]) {
-            gameID = lookupIndexedType(idstr,plantNames);
+            gameID = lookupIndexedType(idstr, df::global::world->raws.plants.all, &df::plant_raw::id);
             if (gameID == INVALID_INDEX) {
                 contentWarning("No matching plant type",elemTree);
                 continue;
