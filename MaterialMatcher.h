@@ -118,8 +118,8 @@ void MaterialMatcher<T>::set_material(T input, std::string token)
                 continue;
             for (size_t j = 0; j < creature->material.size(); j++)
             {
-                mat.decode(j + MaterialInfo::CREATURE_BASE, i);
-                check_match(input, token, mat.getToken(), j + MaterialInfo::CREATURE_BASE, i);
+                mat.decode(j + df::builtin_mats::CREATURE_1, i);
+                check_match(input, token, mat.getToken(), j + df::builtin_mats::CREATURE_1, i);
             }
         }
     }
@@ -134,8 +134,8 @@ void MaterialMatcher<T>::set_material(T input, std::string token)
                 continue;
             for (size_t j = 0; j < plant->material.size(); j++)
             {
-                mat.decode(j + MaterialInfo::PLANT_BASE, i);
-                check_match(input, token, mat.getToken(), j + MaterialInfo::PLANT_BASE, i);
+                mat.decode(j + df::builtin_mats::PLANT_1, i);
+                check_match(input, token, mat.getToken(), j + df::builtin_mats::PLANT_1, i);
             }
         }
     }
