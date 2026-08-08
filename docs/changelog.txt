@@ -38,6 +38,7 @@ Template for new versions:
 # Future
 
 ## New Features
+- `stonesense`: Stonesense now shows a selection rectangle much like DF does and also a cursor following DF's mouse position
 
 ## Fixes
 
