@@ -6,6 +6,8 @@
 
 #include "common.h"
 #include "SpriteColors.h"
+
+#include "df/coord.h"
 #include "df/enabler.h"
 #include "df/graphic.h"
 
