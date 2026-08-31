@@ -90,10 +90,15 @@ struct Crd3D {
     }
 };
 
+namespace
+{
+    using coord_t = decltype(df::coord::x);
+}
+
 struct OptCrd3D : public std::optional<Crd3D>
 {
     operator df::coord() const {
-        return has_value() ? df::coord{ uint16_t(value().x), uint16_t(value().y), uint16_t(value().z) } : df::coord{};
+        return has_value() ? df::coord{ coord_t(value().x), coord_t(value().y), coord_t(value().z) } : df::coord{};
     }
     OptCrd3D() {};
     OptCrd3D(const df::coord& c) {
