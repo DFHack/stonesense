@@ -32,7 +32,7 @@
         <variant special="Zombie" sheetIndex="64" frames="4" />
         <variant special="Zombie" sheetIndex="65" frames="5" />
     </creature>
-    <creature gameID="TOAD_GIANT" file="beefmo_subterranean.png">
+    <creature gameID="GIANT_TOAD" file="beefmo_subterranean.png">
         <variant prof="CHILD" sheetIndex="80" frames="0" />
         <variant prof="CHILD" sheetIndex="81" frames="1" />
         <variant prof="CHILD" sheetIndex="82" frames="2" />

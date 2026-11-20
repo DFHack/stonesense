@@ -36,7 +36,7 @@
         <variant file="kafine/animals.png" zoom="-1" sheetIndex="82" special="Normal" />
         <variant file="kafine/animals.png" zoom="-1" sheetIndex="81" profession="CHILD" special="Normal" />
     </creature>
-    <creature gameID="CAVE_LOBSTER">
+    <creature gameID="LOBSTER_CAVE">
         <variant file="kafine/animals.png" zoom="-1" sheetIndex="5" special="Normal" />
         <variant file="kafine/animals.png" zoom="-1" sheetIndex="25" profession="CHILD" special="Normal" />
     </creature>

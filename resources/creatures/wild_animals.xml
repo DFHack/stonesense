@@ -8,15 +8,15 @@
     <creature gameID="JAGUAR" sheetIndex="3"></creature>
     <creature gameID="LEOPARD" sheetIndex="4"></creature>
     <creature gameID="CHEETAH" sheetIndex="5"></creature>
-    <creature gameID="LION_GIANT" sheetIndex="1">
+    <creature gameID="GIANT_LION" sheetIndex="1">
         <variant sex="F" sheetIndex="21" />
     </creature>
-    <creature gameID="TIGER_GIANT" sheetIndex="2"></creature>
-    <creature gameID="JAGUAR_GIANT" sheetIndex="3"></creature>
-    <creature gameID="LEOPARD_GIANT" sheetIndex="4"></creature>
-    <creature gameID="CHEETAH_GIANT" sheetIndex="5"></creature>
+    <creature gameID="GIANT_TIGER" sheetIndex="2"></creature>
+    <creature gameID="GIANT_JAGUAR" sheetIndex="3"></creature>
+    <creature gameID="GIANT_LEOPARD" sheetIndex="4"></creature>
+    <creature gameID="GIANT_CHEETAH" sheetIndex="5"></creature>
     <creature gameID="COUGAR" sheetIndex="6"></creature>
-    <creature gameID="TIGERMAN" sheetIndex="7">
+    <creature gameID="TIGER_MAN" sheetIndex="7">
         <variant prof="CHILD" sheetIndex="26" />
         <variant sex="F" sheetIndex="27" />
     </creature>
