@@ -142,7 +142,7 @@
         <variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="12" special="Normal" />
         <variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="13" profession="CHILD" special="Normal" />
     </creature>
-    <creature gameID="KIWI_MAN">
+    <creature gameID="KIWI MAN">
         <variant file="nwkohaku/birds.png" zoom="-1" sheetIndex="19" special="Normal" />
     </creature>
     <creature gameID="BIRD_CROW">

@@ -28,7 +28,7 @@
         <variant file="phoebus/humanoids.png" zoom="-1" sheetIndex="80" special="Normal" />
         <variant file="phoebus/humanoids.png" zoom="-1" sheetIndex="81" profession="CHILD" special="Normal" />
     </creature>
-    <creature gameID="LEECHMAN">
+    <creature gameID="LEECH_MAN">
         <variant file="phoebus/humanoids.png" zoom="-1" sheetIndex="100" special="Normal" />
         <variant file="phoebus/humanoids.png" zoom="-1" sheetIndex="101" profession="CHILD" special="Normal" />
     </creature>
@@ -48,13 +48,13 @@
     <creature gameID="SERPENT_MAN">
         <variant file="phoebus/humanoids.png" zoom="-1" sheetIndex="160" special="Normal" />
     </creature>
-    <creature gameID="SLUGMAN">
+    <creature gameID="SLUG_MAN">
         <variant file="phoebus/humanoids.png" zoom="-1" sheetIndex="180" special="Normal" />
     </creature>
-    <creature gameID="SNAILMAN">
+    <creature gameID="SNAIL_MAN">
         <variant file="phoebus/humanoids.png" zoom="-1" sheetIndex="200" special="Normal" />
     </creature>
-    <creature gameID="TIGERMAN">
+    <creature gameID="TIGER_MAN">
         <variant file="phoebus/humanoids.png" zoom="-1" sheetIndex="220" special="Normal" />
         <variant file="phoebus/humanoids.png" zoom="-1" sheetIndex="221" profession="CHILD" special="Normal" />
     </creature>

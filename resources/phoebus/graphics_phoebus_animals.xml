@@ -299,7 +299,7 @@
         <variant file="phoebus/animals.png" zoom="-1" sheetIndex="240" special="Normal" />
         <variant file="phoebus/animals.png" zoom="-1" sheetIndex="241" profession="CHILD" special="Normal" />
     </creature>
-    <creature gameID="LION_GIANT">
+    <creature gameID="GIANT_LION">
         <variant file="phoebus/animals.png" zoom="-1" sheetIndex="244" special="Normal" />
         <variant file="phoebus/animals.png" zoom="-1" sheetIndex="245" profession="CHILD" special="Normal" />
     </creature>
@@ -307,7 +307,7 @@
         <variant file="phoebus/animals.png" zoom="-1" sheetIndex="260" special="Normal" />
         <variant file="phoebus/animals.png" zoom="-1" sheetIndex="261" profession="CHILD" special="Normal" />
     </creature>
-    <creature gameID="TIGER_GIANT">
+    <creature gameID="GIANT_TIGER">
         <variant file="phoebus/animals.png" zoom="-1" sheetIndex="264" special="Normal" />
         <variant file="phoebus/animals.png" zoom="-1" sheetIndex="265" profession="CHILD" special="Normal" />
     </creature>
@@ -315,7 +315,7 @@
         <variant file="phoebus/animals.png" zoom="-1" sheetIndex="280" special="Normal" />
         <variant file="phoebus/animals.png" zoom="-1" sheetIndex="281" profession="CHILD" special="Normal" />
     </creature>
-    <creature gameID="CHEETAH_GIANT">
+    <creature gameID="GIANT_CHEETAH">
         <variant file="phoebus/animals.png" zoom="-1" sheetIndex="284" special="Normal" />
         <variant file="phoebus/animals.png" zoom="-1" sheetIndex="285" profession="CHILD" special="Normal" />
     </creature>
@@ -323,7 +323,7 @@
         <variant file="phoebus/animals.png" zoom="-1" sheetIndex="300" special="Normal" />
         <variant file="phoebus/animals.png" zoom="-1" sheetIndex="301" profession="CHILD" special="Normal" />
     </creature>
-    <creature gameID="LEOPARD_GIANT">
+    <creature gameID="GIANT_LEOPARD">
         <variant file="phoebus/animals.png" zoom="-1" sheetIndex="304" special="Normal" />
         <variant file="phoebus/animals.png" zoom="-1" sheetIndex="305" profession="CHILD" special="Normal" />
     </creature>
@@ -331,7 +331,7 @@
         <variant file="phoebus/animals.png" zoom="-1" sheetIndex="320" special="Normal" />
         <variant file="phoebus/animals.png" zoom="-1" sheetIndex="321" profession="CHILD" special="Normal" />
     </creature>
-    <creature gameID="JAGUAR_GIANT">
+    <creature gameID="GIANT_JAGUAR">
         <variant file="phoebus/animals.png" zoom="-1" sheetIndex="324" special="Normal" />
         <variant file="phoebus/animals.png" zoom="-1" sheetIndex="325" profession="CHILD" special="Normal" />
     </creature>
@@ -402,7 +402,7 @@
     <creature gameID="FISH_LAMPREY_SEA">
         <variant file="phoebus/animals.png" zoom="-1" sheetIndex="445" special="Normal" />
     </creature>
-    <creature gameID="TOAD_GIANT">
+    <creature gameID="GIANT_TOAD">
         <variant file="phoebus/animals.png" zoom="-1" sheetIndex="464" special="Normal" />
         <variant file="phoebus/animals.png" zoom="-1" sheetIndex="465" profession="CHILD" special="Normal" />
     </creature>
