@@ -101,7 +101,7 @@ void MergeBuildingsToSegment(std::vector<Stonesense_Building>* buildings, WorldS
                         z2 = well_building->bucket_z;
                 }
 
-                for (uint32_t zz = copiedbuilding->z; zz >= z2; zz--) {
+                for (uint32_t zz = copiedbuilding->z + 1; zz-- > z2;) { // Avoid underflowing
                     if (copiedbuilding->type == df::enums::building_type::Civzone ||
                         copiedbuilding->type == df::enums::building_type::Stockpile ||
                         copiedbuilding->type == df::enums::building_type::FarmPlot) {
